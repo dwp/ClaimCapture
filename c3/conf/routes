@@ -244,7 +244,6 @@ POST        /consent-and-declaration/submit                                     
 GET         /consent-and-declaration/error                                          controllers.s11_consent_and_declaration.G6Error.present
 
 GET         /consent-and-declaration/submitting                                     controllers.s11_consent_and_declaration.G7Submitting.present
-POST        /consent-and-declaration/submitting                                     controllers.s11_consent_and_declaration.G7Submitting.submit
 
 GET         /consent-and-declaration/completed                                      controllers.s11_consent_and_declaration.ConsentAndDeclaration.completed
 POST        /consent-and-declaration/completed                                      controllers.s11_consent_and_declaration.ConsentAndDeclaration.completedSubmit
@@ -269,4 +268,3 @@ GET         /circumstances/consent-and-declaration/declaration                  
 POST        /circumstances/consent-and-declaration/declaration                      controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
 GET         /circumstances/consent-and-declaration/submitting                       controllers.circs.s3_consent_and_declaration.G2Submitting.present
-POST        /circumstances/consent-and-declaration/submitting                       controllers.circs.s3_consent_and_declaration.G2Submitting.submit
