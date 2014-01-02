@@ -12,30 +12,28 @@ import models.domain._
 import jmx.inspectors.{FastSubmissionNotifier, SubmissionNotifier}
 import models.domain.Claim
 import scala.Some
+import scala.concurrent.{ExecutionContext, Future}
+import ExecutionContext.Implicits.global
 
 @Singleton
 class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedChangeOfCircs with SubmissionNotifier with FastSubmissionNotifier {
 
-  def submit = claiming { implicit circs => implicit request =>
+  def submit = submitting { implicit circs => implicit request =>
     if (isBot(circs)) {
-      NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
+      Future(NotFound(views.html.errors.onHandlerNotFound(request))) // Send bot to 404 page.
     }
     else {
       try {
-        Async {
           fireNotification(circs) { submitter.submit(circs, request) }
-        }
       }
       catch {
         case e: UnavailableTransactionIdException =>
           Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
-          Redirect(errorPage)
-
+          Future(Redirect(errorPage))
         case e: java.lang.Exception =>
           Logger.error(s"InternalServerError ! ${e.getMessage}")
           Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
-          Redirect(errorPage)
-
+          Future(Redirect(errorPage))
       }
     }
   }

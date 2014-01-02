@@ -13,13 +13,13 @@ import play.api.mvc.Results._
 import play.api.http.HeaderNames._
 import models.domain._
 import controllers.routes
-import models.domain.Claim
 import scala.Some
 import scala.util.Try
 import net.sf.ehcache.CacheManager
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import models.domain.Claim
 import scala.Some
+import ExecutionContext.Implicits.global
 
 object CachedClaim {
   val missingRefererConfig = "Referer not set in config"
@@ -105,6 +105,37 @@ trait CachedClaim {
               Redirect(timeoutPage)
             }
         })
+    }
+  }
+
+  def submitting(f: (Claim) => Request[AnyContent] => Future[SimpleResult]) = Action.async {
+    request => {
+      val (referer, host) = refererAndHost(request)
+      implicit val r = request
+
+      def doSubmit = {
+        fromCache(request) match {
+          case Some(claim) =>
+            val (key, _) = keyAndExpiration(request)
+            f(copyInstance(claim))(request).map(res => res.withSession(claim.key -> key))
+          case None =>
+            Logger.info(s"$cacheKey timeout")
+            Future(Redirect(timeoutPage))
+        }
+      }
+
+      if (sameHostCheck) {
+        doSubmit
+      } else {
+        if (redirect) {
+          Logger.warn(s"HTTP Referer : $referer")
+          Logger.warn(s"Conf Referer : $expectedReferer")
+          Logger.warn(s"HTTP Host : $host")
+          Future(Redirect(expectedReferer))
+        } else {
+          doSubmit
+        }
+      }.map(res => res)
     }
   }
 
