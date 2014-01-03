@@ -3,8 +3,9 @@
 # ~~~~
 
 # Home page
-GET     /                                                                           controllers.Application.index
-GET     /claim-notes                                                                controllers.ClaimNotes.notes
+GET         /                                                                       controllers.Application.index
+GET         /claim-notes                                                            controllers.ClaimNotes.notes
+GET         /health                                                                 controllers.HealthController.health
 
 # Cache Timeout
 GET         /timeout                                                                controllers.ClaimEnding.timeout
