@@ -35,7 +35,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
   }
 
   def isBot(claim: Claim): Boolean = {
-    if (getProperty("checkForBot",default=false)) {
+    if (getProperty("checkForBot",default=true)) {
       checkTimeToCompleteAllSections(claim, System.currentTimeMillis()) || honeyPot(claim)
     } else {
       false
@@ -105,23 +105,30 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
     }
 
     def checkPensionSchemes: Boolean = {
-      claim.questionGroup[PensionSchemes] match {
-        case Some(q) =>
-          if (q.payPersonalPensionScheme == "no") {
-            q.howOftenPersonal match {
-              case Some(f) => true // Bot given field howOftenPersonal was not visible.
+      var result = false
+      claim.questionGroup[Jobs].map {
+        jobs =>
+          for (job <- jobs) {
+            result = false
+            job.questionGroup[PensionSchemes] match {
+              case Some(q) =>
+                if (q.payPersonalPensionScheme == "no") {
+                  q.howOftenPersonal match {
+                    case Some(f) => return true; // Bot given field howOftenPersonal was not visible.
+                    case _ => false
+                  }
+                }
+                else {
+                  q.howOftenPersonal match {
+                    case Some(f) => if(f.frequency != Other && f.other.isDefined) return true  // Bot given field howOftenPersonal.other was not visible.
+                    case _ => false
+                  }
+                }
               case _ => false
             }
           }
-          else {
-            q.howOftenPersonal match {
-              case Some(f) => f.frequency != Other && f.other.isDefined // Bot given field howOftenPersonal.other was not visible.
-              case _ => false
-            }
-          }
-
-        case _ => false
       }
+      result
     }
 
     def checkChildcareExpenses: Boolean = {
