@@ -10,6 +10,6 @@ object G5Submit extends Controller with CachedClaim with Navigable {
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    Redirect("/consent-and-declaration/submitting")
+    Redirect(routes.G7Submitting.present())
   }
 }

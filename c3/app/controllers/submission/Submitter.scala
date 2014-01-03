@@ -1,7 +1,7 @@
 package controllers.submission
 
 import scala.concurrent.Future
-import play.api.mvc.{SimpleResult, AnyContent, Request, PlainResult}
+import play.api.mvc.{SimpleResult, AnyContent, Request}
 import models.domain.Claim
 
 trait Submitter {

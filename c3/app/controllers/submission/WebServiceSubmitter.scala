@@ -5,7 +5,6 @@ import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc._
 import play.api.{http, Logger}
 import com.google.inject.Inject
-import play.api.Play.current
 import services.TransactionIdService
 import services.submission.FormSubmission
 import ExecutionContext.Implicits.global
