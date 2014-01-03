@@ -71,6 +71,15 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
     false
   }
 
+  private def executePersonYouCareForExpenses (job:Job) : Boolean = {
+    job.questionGroup[PersonYouCareForExpenses] match {
+      case Some(q) =>
+        if(q.howOftenPayCare.frequency != Other && q.howOftenPayCare.other.isDefined) return true // Bot given field howOftenPayCare.other was not visible.
+      case _ => false
+    }
+    false
+  }
+
   def checkTimeToCompleteAllSections(claim: Claim with Claimable, currentTime: Long) = {
     val sectionExpectedTimes = Map[String, Long](
       "s1" -> getProperty("speed.s1",5000L),
@@ -152,12 +161,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
     }
 
     def checkPersonYouCareForExpenses: Boolean = {
-      claim.questionGroup[PersonYouCareForExpenses] match {
-        case Some(q) =>
-          q.howOftenPayCare.frequency != Other && q.howOftenPayCare.other.isDefined // Bot given field howOftenPayCare.other was not visible.
-
-        case _ => false
-      }
+      checkEmploymentCriteria(executePersonYouCareForExpenses)
     }
 
     def checkChildcareExpensesWhileAtWork: Boolean = {

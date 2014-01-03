@@ -158,17 +158,33 @@ class ClaimSubmissionControllerSpec extends Specification with Mockito with Cach
     }
 
     "returns false given PersonYouCareForExpenses honeyPot not filled (frequency not other)" in {
-      val claim = Claim().update(PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = None)))
+      val jobs = new Jobs().update(createJob("12345", PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = None))))
+      val claim = Claim().update(jobs)
+
       controller.honeyPot(claim) should beFalse
     }
 
     "returns false given PersonYouCareForExpenses honeyPot not filled (frequency other and text entered)" in {
-      val claim = Claim().update(PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other, other = Some("other text"))))
+      val jobs = new Jobs().update(createJob("12345", PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other, other = Some("other text")))))
+      val claim = Claim().update(jobs)
+
       controller.honeyPot(claim) should beFalse
     }
 
     "returns true given PersonYouCareForExpenses honeyPot filled (frequency not other and text entered)" in {
-      val claim = Claim().update(PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text"))))
+      val jobs = new Jobs().update(createJob("12345", PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text")))))
+      val claim = Claim().update(jobs)
+
+      controller.honeyPot(claim) should beTrue
+    }
+
+    "returns true given PersonYouCareForExpenses honeyPot filled (frequency not other and text entered) for more than one job" in {
+      val personYouCareForExpenses = PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other, other = Some("other text")))
+      val personYouCareForExpensesWithHoneyPot = PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text")))
+
+      val jobs = new Jobs().update(createJob("12345", personYouCareForExpenses)).update(createJob("123456", personYouCareForExpenses)).update(createJob("1234567", personYouCareForExpensesWithHoneyPot)).update(createJob("12345678", personYouCareForExpenses)).update(createJob("123456789", personYouCareForExpensesWithHoneyPot))
+      val claim = Claim().update(jobs)
+
       controller.honeyPot(claim) should beTrue
     }
 
