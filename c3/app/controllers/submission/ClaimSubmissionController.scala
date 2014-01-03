@@ -42,6 +42,35 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
     }
   }
 
+  private def executePensionScheme (job:Job) : Boolean = {
+    job.questionGroup[PensionSchemes] match {
+      case Some(q) =>
+        if (q.payPersonalPensionScheme == "no") {
+          q.howOftenPersonal match {
+            case Some(f) => return true; // Bot given field howOftenPersonal was not visible.
+            case _ => false
+          }
+        }
+        else {
+          q.howOftenPersonal match {
+            case Some(f) => if(f.frequency != Other && f.other.isDefined) return true  // Bot given field howOftenPersonal.other was not visible.
+            case _ => false
+          }
+        }
+      case _ => false
+    }
+    false
+  }
+
+  private def executeChildCareExpenses (job:Job) : Boolean = {
+    job.questionGroup[ChildcareExpenses] match {
+      case Some(q) =>
+        if(q.howOftenPayChildCare.frequency != Other && q.howOftenPayChildCare.other.isDefined) return true // Bot given field howOftenPayChildCare.other was not visible.
+      case _ => false
+    }
+    false
+  }
+
   def checkTimeToCompleteAllSections(claim: Claim with Claimable, currentTime: Long) = {
     val sectionExpectedTimes = Map[String, Long](
       "s1" -> getProperty("speed.s1",5000L),
@@ -104,40 +133,22 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
       }
     }
 
-    def checkPensionSchemes: Boolean = {
-      var result = false
+    def checkPensionSchemes:Boolean = {
+      checkEmploymentCriteria(executePensionScheme)
+    }
+
+    def checkEmploymentCriteria (executeFunction : (Job) => Boolean) : Boolean = {
       claim.questionGroup[Jobs].map {
         jobs =>
           for (job <- jobs) {
-            result = false
-            job.questionGroup[PensionSchemes] match {
-              case Some(q) =>
-                if (q.payPersonalPensionScheme == "no") {
-                  q.howOftenPersonal match {
-                    case Some(f) => return true; // Bot given field howOftenPersonal was not visible.
-                    case _ => false
-                  }
-                }
-                else {
-                  q.howOftenPersonal match {
-                    case Some(f) => if(f.frequency != Other && f.other.isDefined) return true  // Bot given field howOftenPersonal.other was not visible.
-                    case _ => false
-                  }
-                }
-              case _ => false
-            }
+            if (executeFunction(job)) return true
           }
       }
-      result
+      false
     }
 
     def checkChildcareExpenses: Boolean = {
-      claim.questionGroup[ChildcareExpenses] match {
-        case Some(q) =>
-          q.howOftenPayChildCare.frequency != Other && q.howOftenPayChildCare.other.isDefined // Bot given field howOftenPayChildCare.other was not visible.
-
-        case _ => false
-      }
+      checkEmploymentCriteria(executeChildCareExpenses)
     }
 
     def checkPersonYouCareForExpenses: Boolean = {
