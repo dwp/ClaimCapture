@@ -5,7 +5,6 @@ import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc._
 import play.api.{http, Logger}
 import com.google.inject.Inject
-import play.api.Play.current
 import services.TransactionIdService
 import services.submission.FormSubmission
 import ExecutionContext.Implicits.global
@@ -16,7 +15,7 @@ import play.api.mvc.SimpleResult
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission: FormSubmission) extends Submitter {
 
-  override def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
+  override def submit(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = {
     val txnID = idService.generateId
     Logger.info(s"Retrieved Id : $txnID")
 
@@ -35,7 +34,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     }
   }
 
-  private def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): PlainResult = {
+  private def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): SimpleResult = {
     response.status match {
       case http.Status.OK =>
         val responseStr = response.body
@@ -72,7 +71,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     }
   }
 
-  def respondWithSuccess(claim: Claim, txnId: String, request: Request[AnyContent]): SimpleResult[Results.EmptyContent] = {
+  def respondWithSuccess(claim: Claim, txnId: String, request: Request[AnyContent]): SimpleResult = {
     Logger.info(s"Successful submission : ${claim.key} : $txnId")
     claim.key match {
       case CachedClaim.key =>
@@ -82,7 +81,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     }
   }
 
-  private def errorAndCleanup(claim: Claim, txnId: String, code: String, request: Request[AnyContent]): PlainResult = {
+  private def errorAndCleanup(claim: Claim, txnId: String, code: String, request: Request[AnyContent]): SimpleResult = {
     Logger.error(s"errorAndCleanup : ${claim.key} : $txnId : $code")
     updateStatus(claim, txnId, code)
     claim.key match {

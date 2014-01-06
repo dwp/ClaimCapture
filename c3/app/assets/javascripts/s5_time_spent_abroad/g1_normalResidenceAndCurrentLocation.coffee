@@ -5,3 +5,4 @@ window.initEvents = (answerY, answerN) ->
 
     $("#" + answerY).on "click", ->
       $("#liveInUK").slideUp()
+      $("#liveInUK_whereDoYouLive").val("")
