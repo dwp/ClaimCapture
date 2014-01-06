@@ -19,7 +19,7 @@ object AboutYou extends Controller with CachedClaim with Navigable {
     val nrOfCompletedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou).distinct.size
 
     /* TODO Sort out hardcoding */
-    if (nrOfCompletedQuestionGroups == 5) Redirect("/your-partner/personal-details")
+    if (nrOfCompletedQuestionGroups == 6) Redirect("/your-partner/personal-details")
     else Redirect(routes.G1YourDetails.present())
   }
 }

@@ -13,6 +13,9 @@ About You,Your contact details,Address,AboutYouAddress,6 Preston Road&Preston&La
 About You,Your contact details,Postcode,AboutYouPostcode,pr1 2th
 About You,Your contact details,Phone number,AboutYouPhoneNumber,01772 888901
 About You,Your contact details,Mobile number,AboutYouMobileNumber,0771 5419899
+About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,British
+About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Yes
+About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,
 About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,20/06/2013
 About You,More about you,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,m
 About You,More about you,Have you had a partner/spouse at any time since your claim date: <ddmmyyyy>?,AboutYouHaveYouHadaPartnerSpouseatAnyTime,No

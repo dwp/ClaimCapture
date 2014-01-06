@@ -14,6 +14,9 @@ About You,Your contact details,Postcode,AboutYouPostcode,Claimant>Address>PostCo
 About You,Your contact details,Daytime phone number,AboutYouPhoneNumber,Claimant>DaytimePhoneNumber
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouTextPhone,DWPCAClaim>EvidenceList
 About You,Your contact details,Mobile number,AboutYouMobileNumber,DWPCAClaim>EvidenceList
+About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,Residency>Nationality
+About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,DWPCAClaim>EvidenceList
+About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,Residency>OtherNationality>CountryArrivedFrom
 About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,Claimant>DateOfClaim
 About You,More about you,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Claimant>MaritalStatus
 About You,More about you,Have you had a partner/spouse at any time since your claim date: <ddmmyyyy>?,AboutYouHaveYouHadaPartnerSpouseatAnyTime,DWPCAClaim>HavePartner
