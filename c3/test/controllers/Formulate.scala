@@ -22,8 +22,8 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.fill("#nationality") `with` "English"
-    browser.click("#alwaysLivedUK_yes")
+    //browser.fill("#nationality") `with` "English"
+    //browser.click("#alwaysLivedUK_yes")
     browser.submit("button[type='submit']")
   }
 
@@ -40,8 +40,8 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.fill("#nationality") `with` "English"
-    browser.click("#alwaysLivedUK_no")
+    //browser.fill("#nationality") `with` "English"
+    //browser.click("#alwaysLivedUK_no")
     browser.submit("button[type='submit']")
   }
 

@@ -20,7 +20,9 @@ object ClaimScenarioFactory {
     claim.AboutYouFirstName = "John"
     claim.AboutYouSurname = "Appleseed"
     claim.AboutYouDateOfBirth = "03/04/1950"
-    claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
+    //claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
+    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
+    claim.AboutYouNationalityAndResidencyNationality = "British"
     claim.AboutYouNINO = "AB123456C"
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
     claim.AboutYouPostcode = "FY1 2RW"
@@ -29,10 +31,13 @@ object ClaimScenarioFactory {
 
   def yourDetailsEnablingTimeOutsideUK() = {
     val claim = yourDetailsWithNotTimeOutside()
-    claim.AboutYouHaveYouAlwaysLivedInTheUK = "No"
-    claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
-    claim.AboutYouWhenDidYouArriveInYheUK = "01/11/2003"
-    claim.AboutYouDoYouPlantoGoBacktoThatCountry = "No"
+
+    //claim.AboutYouHaveYouAlwaysLivedInTheUK = "No"
+    //claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
+    //claim.AboutYouWhenDidYouArriveInYheUK = "01/11/2003"
+    //claim.AboutYouDoYouPlantoGoBacktoThatCountry = "No"
+
+
     claim
   }
 
