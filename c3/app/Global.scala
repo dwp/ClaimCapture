@@ -3,6 +3,7 @@ import java.io.File
 import java.net.InetAddress
 import com.typesafe.config.ConfigFactory
 import java.util.UUID
+import monitoring.ApplicationMonitor
 import org.slf4j.MDC
 import play.api._
 import play.api.Configuration
@@ -12,6 +13,8 @@ import play.api.Play.current
 import com.google.inject.Guice
 import jmx.JMXActors
 import modules.{ProdModule, DevModule}
+import scala.concurrent.{ExecutionContext, Future}
+import ExecutionContext.Implicits.global
 
 /**
  * Application configuration is in a hierarchy of files:
@@ -60,23 +63,26 @@ object Global extends GlobalSettings {
   }
 
   // 404 - page not found error http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
-  override def onHandlerNotFound(request: RequestHeader): Result = NotFound(views.html.errors.onHandlerNotFound(request))
+  override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] = Future(NotFound(views.html.errors.onHandlerNotFound(request)))
 
   override def getControllerInstance[A](controllerClass: Class[A]): A = injector.getInstance(controllerClass)
 
   override def onError(request: RequestHeader, ex: Throwable) = {
     Logger.error(ex.getMessage)
     val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
-    Ok(views.html.common.error(startUrl))
+    Future(Ok(views.html.common.error(startUrl)))
   }
 
   def actorSystems = {
     JMXActors
+    ApplicationMonitor.begin
   }
 }
 
 class JMXFilter extends Filter {
-  def apply(f: (RequestHeader) => Result)(rh: RequestHeader): Result = f(rh)
+  def apply(f: (RequestHeader) => Future[SimpleResult])(rh: RequestHeader): Future[SimpleResult] = f(rh)
+
+//  def apply(f: (RequestHeader) => Result)(rh: RequestHeader): Result = f(rh)
 
   override def apply(f: EssentialAction): EssentialAction = {
     if (play.Configuration.root().getBoolean("jmxEnabled", false)) super.apply(f)

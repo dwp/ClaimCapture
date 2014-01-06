@@ -9,8 +9,13 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.OK
 import play.api.test.Helpers.status
 import play.api.test.WithApplication
+import akka.util.Timeout
+import java.util.concurrent.TimeUnit
+
 
 class ThankYouSpec extends Specification with Mockito with Tags {
+  implicit val timeout = Timeout(10, TimeUnit.SECONDS)
+
   "Thank You - Controller" should {
     "present 'Thank You' page for claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("claim" -> claimKey)

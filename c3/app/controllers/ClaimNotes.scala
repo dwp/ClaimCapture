@@ -12,7 +12,7 @@ object ClaimNotes extends Controller{
     implicit request =>
 
     val t = views.html.claimNotes.main()
-    val string = t.buffer.toString()
+    val string = t.body
 
     val html = Processor.process(string)
 

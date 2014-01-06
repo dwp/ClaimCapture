@@ -9,9 +9,9 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
  *         Date: 10/07/2013
  */
 final class G6ApprovePage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G6ApprovePage.url, G6ApprovePage.title, previousPage) {
-  def isApproved =  browser.find(".prompt.entitlement").size != 0 && browser.find(".prompt.entitlement-error]").size == 0
+  def isApproved =  browser.find(".prompt.entitlement").size != 0 && browser.find(".prompt.entitlement-error").size == 0
 
-  def isNotApproved =  browser.find(".prompt.entitlement-error]").size != 0
+  def isNotApproved =  browser.find(".prompt.entitlement-error").size != 0
 }
 
 /**
