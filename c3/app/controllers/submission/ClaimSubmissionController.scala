@@ -35,11 +35,8 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
   }
 
   def isBot(claim: Claim): Boolean = {
-    if (getProperty("checkForBot",default=true)) {
-      checkTimeToCompleteAllSections(claim, System.currentTimeMillis()) || honeyPot(claim)
-    } else {
-      false
-    }
+    getProperty("checkForBotSpeed",default=false) && checkTimeToCompleteAllSections(claim, System.currentTimeMillis()) ||
+      getProperty("checkForBotHoneyPot",default=false) && honeyPot(claim)
   }
 
   private def executePensionScheme (job:Job) : Boolean = {
@@ -81,6 +78,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
   }
 
   def checkTimeToCompleteAllSections(claim: Claim with Claimable, currentTime: Long) = {
+    Logger.error("ClaimSubmissionController:checkTimeToCompleteAllSections")
     val sectionExpectedTimes = Map[String, Long](
       "s1" -> getProperty("speed.s1",5000L),
       "s2" -> getProperty("speed.s2",5000L),
@@ -115,6 +113,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
   }
 
   def honeyPot(claim: Claim): Boolean = {
+    Logger.error("ClaimSubmissionController:honeyPot")
     def checkTimeOutsideUK: Boolean = {
       claim.questionGroup[TimeOutsideUK] match {
         case Some(q) =>
