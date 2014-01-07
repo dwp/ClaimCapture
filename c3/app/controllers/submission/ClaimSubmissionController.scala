@@ -35,11 +35,14 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
   }
 
   def isBot(claim: Claim): Boolean = {
-    getProperty("checkForBotSpeed",default=false) && checkTimeToCompleteAllSections(claim, System.currentTimeMillis()) ||
-      getProperty("checkForBotHoneyPot",default=false) && honeyPot(claim)
+    val checkForBotSpeed = getProperty("checkForBotSpeed",default=false)
+    val checkForBotHoneyPot = getProperty("checkForBotHoneyPot",default=false)
+
+    checkForBotSpeed && checkTimeToCompleteAllSections(claim, System.currentTimeMillis()) ||
+      checkForBotHoneyPot && honeyPot(claim)
   }
 
-  private def executePensionScheme (job:Job) : Boolean = {
+  private def verifyPensionScheme (job:Job) : Boolean = {
     job.questionGroup[PensionSchemes] match {
       case Some(q) =>
         if (q.payPersonalPensionScheme == "no") {
@@ -59,7 +62,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
     false
   }
 
-  private def executeChildCareExpenses (job:Job) : Boolean = {
+  private def verifyChildCareExpenses (job:Job) : Boolean = {
     job.questionGroup[ChildcareExpenses] match {
       case Some(q) =>
         if(q.howOftenPayChildCare.frequency != Other && q.howOftenPayChildCare.other.isDefined) return true // Bot given field howOftenPayChildCare.other was not visible.
@@ -68,7 +71,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
     false
   }
 
-  private def executePersonYouCareForExpenses (job:Job) : Boolean = {
+  private def verifyPersonYouCareForExpenses (job:Job) : Boolean = {
     job.questionGroup[PersonYouCareForExpenses] match {
       case Some(q) =>
         if(q.howOftenPayCare.frequency != Other && q.howOftenPayCare.other.isDefined) return true // Bot given field howOftenPayCare.other was not visible.
@@ -142,7 +145,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
     }
 
     def checkPensionSchemes:Boolean = {
-      checkEmploymentCriteria(executePensionScheme)
+      checkEmploymentCriteria(verifyPensionScheme)
     }
 
     def checkEmploymentCriteria (executeFunction : (Job) => Boolean) : Boolean = {
@@ -156,11 +159,11 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
     }
 
     def checkChildcareExpenses: Boolean = {
-      checkEmploymentCriteria(executeChildCareExpenses)
+      checkEmploymentCriteria(verifyChildCareExpenses)
     }
 
     def checkPersonYouCareForExpenses: Boolean = {
-      checkEmploymentCriteria(executePersonYouCareForExpenses)
+      checkEmploymentCriteria(verifyPersonYouCareForExpenses)
     }
 
     def checkChildcareExpensesWhileAtWork: Boolean = {

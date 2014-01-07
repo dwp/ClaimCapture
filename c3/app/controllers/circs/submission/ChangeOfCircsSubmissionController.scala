@@ -39,8 +39,11 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
   }
 
   def isBot(claim: Claim): Boolean = {
-    getProperty("checkForBotSpeed",default=false) && checkTimeToCompleteAllSections(claim, System.currentTimeMillis()) ||
-      getProperty("checkForBotHoneyPot",default=false) && honeyPot(claim)
+    val checkForBotSpeed = getProperty("checkForBotSpeed",default=false)
+    val checkForBotHoneyPot = getProperty("checkForBotHoneyPot",default=false)
+
+    checkForBotSpeed && checkTimeToCompleteAllSections(claim, System.currentTimeMillis()) ||
+      checkForBotHoneyPot && honeyPot(claim)
   }
 
   def checkTimeToCompleteAllSections(circs: Claim, currentTime: Long = System.currentTimeMillis()) = {
