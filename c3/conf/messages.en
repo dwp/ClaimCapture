@@ -45,8 +45,8 @@ s1.g4 = Do you live in England, Scotland or Wales?
 
 s2.g1 = Your details
 s2.g2 = Your contact details
-s2.g3 = Your nationality and residency
-s2.g4 = Your claim date: {0}
+s2.g3 = Your claim date: {0}
+s2.g4 = Your nationality and residency
 s2.g5 = More about you
 s2.g6 = Employment
 

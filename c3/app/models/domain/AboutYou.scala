@@ -32,16 +32,16 @@ object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
 }
 
+case class ClaimDate(dateOfClaim: DayMonthYear = DayMonthYear()) extends QuestionGroup(ClaimDate)
+
+object ClaimDate extends QuestionGroup.Identifier {
+  val id = s"${AboutYou.id}.g3"
+}
+
 case class NationalityAndResidency(nationality: String = "",
                                    resideInUK: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(NationalityAndResidency)
 
 object NationalityAndResidency extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g3"
-}
-
-case class ClaimDate(dateOfClaim: DayMonthYear = DayMonthYear()) extends QuestionGroup(ClaimDate)
-
-object ClaimDate extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
 }
 
