@@ -1083,7 +1083,7 @@ main {
 					   
 					   label {
 						   display: block;
-						   background: #eee;
+						   background: #e8e8e8;
 						   padding: 12px 14px 10px 34px;
 						   font-size: 1.7rem;
 						   cursor: pointer;
@@ -1953,9 +1953,22 @@ main {
 .question-group {
 	margin-top: 0;
 	legend {
-		font-size: 1.9rem!important;
-		font-weight: 400!important;
-		color: #000!important;
+		font-size: 1.9rem!important; /* temp */
+		font-weight: 400!important; /* temp */
+		color: #000!important; /* temp */
+		.ie & {
+			font-size: 19px;
+		}
+		em {
+			   display: inline;
+			   font-size: 1.8rem;
+			   margin-right: .4rem;
+			   font-style: normal;
+			   .ie & {
+				   font-size: 18px;
+				   margin-right: 4px;
+			   }
+		   }
 	}
 	ul {
 		li {
@@ -1987,8 +2000,8 @@ main {
 @-moz-document url-prefix() {
 	.radio {
 		input[type="radio"] {
-				top: 15px!important;
-				left: 12px!important;
+				top: 15px!important; /* temp */
+				left: 12px!important; /* temp */
 			}
 		}
 }
