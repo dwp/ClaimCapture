@@ -9,13 +9,13 @@
 @import utils.helpers.CarersCrypto
 @import views.html.s2_about_you.main
 
-@main(Messages("s2.g3") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.NationalityAndResidency)) {
+@main(Messages("s2.g4") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.NationalityAndResidency)) {
     @errorsSummary(nationalityAndResidencyForm)
 
 
     @form(action = controllers.s2_about_you.routes.G4NationalityAndResidency.submit) {
         <fieldset class="form-elements">
-            <legend>@Messages("s2.g3")</legend>
+            <legend>@Messages("s2.g4")</legend>
 
             <ul>
                 @carersInputText(nationalityAndResidencyForm("nationality"),

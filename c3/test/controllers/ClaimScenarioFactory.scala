@@ -88,6 +88,9 @@ object ClaimScenarioFactory {
     claim.AboutYouMobileNumber = "07111 111 111"
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
+    // Nationality and Residency
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "yes"
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "no"
