@@ -38,7 +38,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
 
     "failed to fill the form" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("More about you - About you - the carer")
+      titleMustEqual("Your nationality and residency - About you - the carer")
 
       browser.goTo("/about-you/employment")
       titleMustEqual("Employment - About you - the carer")

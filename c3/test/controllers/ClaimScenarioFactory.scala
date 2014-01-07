@@ -1,8 +1,9 @@
 package controllers
 
-import utils.pageobjects.TestData
+import utils.pageobjects.{ClaimPage, Page, TestData}
 
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
+import play.api.test.TestBrowser
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -64,6 +65,9 @@ object ClaimScenarioFactory {
     claim.AboutYouPostcode = "SE1 6EH"
     claim.AboutYouPhoneNumber = "01253 111 111"
     claim.AboutYouMobileNumber = "07111 111 111"
+    // Nationality
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // More about you

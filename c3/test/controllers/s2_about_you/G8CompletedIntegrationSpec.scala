@@ -14,8 +14,8 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
     """navigate to "Your Partner" when next section is "Your Partner"""" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
-      Formulate.nationalityAndResidency(browser)
       Formulate.claimDate(browser)
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       Formulate.employment(browser)
       titleMustEqual("Completion - About you - the carer")
@@ -28,8 +28,8 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
     """navigate to "Care You Provide" when next section is "Care You Provide"""" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
-      Formulate.nationalityAndResidency(browser)
       Formulate.claimDate(browser)
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       Formulate.employment(browser)
       titleMustEqual("Completion - About you - the carer")

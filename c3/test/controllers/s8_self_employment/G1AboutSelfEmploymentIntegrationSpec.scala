@@ -72,5 +72,5 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
 
       nextPage must not(beAnInstanceOf[G1AboutSelfEmploymentPage])
     }
-  } section("unit", models.domain.SelfEmployment.id)
+  } section("integration", models.domain.SelfEmployment.id)
 }
