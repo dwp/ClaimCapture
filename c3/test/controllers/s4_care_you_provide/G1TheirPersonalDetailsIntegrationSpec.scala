@@ -50,7 +50,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
-      Formulate.timeOutsideUKNotLivingInUK(browser)
+      Formulate.nationalityAndResidency(browser)
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
       Formulate.employment(browser)

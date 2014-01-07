@@ -23,7 +23,7 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
       page goToThePage()
 
       page runClaimWith (claim, G5MoreAboutYouPage.title)
-      page numberSectionsCompleted() mustEqual 3
+      page numberSectionsCompleted() mustEqual 4
     }
 
     "contain questions with claim dates" in new WithBrowser {
