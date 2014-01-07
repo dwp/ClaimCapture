@@ -15,31 +15,10 @@ import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
 
 @Singleton
-class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim with SubmissionNotifier with FastSubmissionNotifier  {
+class ClaimSubmissionController @Inject()(submitter: Submitter) extends SubmissionController(submitter) with CachedClaim{
+
   def submit = submitting { implicit claim => implicit request =>
-    if (isBot(claim)) {
-      Future(NotFound(views.html.errors.onHandlerNotFound(request))) // Send bot to 404 page.
-    } else {
-      try {
-          fireNotification(claim) { submitter.submit(claim, request) }
-      } catch {
-        case e: UnavailableTransactionIdException =>
-          Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
-          Future(Redirect(errorPage))
-        case e: java.lang.Exception =>
-          Logger.error(s"InternalServerError ! ${e.getMessage}")
-          Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
-          Future(Redirect(errorPage))
-      }
-    }
-  }
-
-  def isBot(claim: Claim): Boolean = {
-    val checkForBotSpeed = getProperty("checkForBotSpeed",default=false)
-    val checkForBotHoneyPot = getProperty("checkForBotHoneyPot",default=false)
-
-    checkForBotSpeed && checkTimeToCompleteAllSections(claim, System.currentTimeMillis()) ||
-      checkForBotHoneyPot && honeyPot(claim)
+    processSubmit(claim, request, errorPage)
   }
 
   private def verifyPensionScheme (job:Job) : Boolean = {
@@ -95,24 +74,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
       "s10" -> getProperty("speed.s10",5000L),
       "s11" -> getProperty("speed.s11",5000L)
     )
-
-    val expectedMinTimeToCompleteAllSections: Long = claim.sections.map(s => {
-      sectionExpectedTimes.get(s.identifier.id) match {
-        case Some(n) => n
-        case _ => 0
-      }
-    }).reduce(_ + _) // Aggregate all of the sectionExpectedTimes for completed sections only.
-
-    val actualTimeToCompleteAllSections: Long = currentTime - claim.created
-
-    val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
-
-    if (result) {
-      fireFastNotification(claim)
-      Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
-    }
-
-    result
+    evaluateTimeToCompleteAllSections(claim, currentTime, sectionExpectedTimes)
   }
 
   def honeyPot(claim: Claim): Boolean = {

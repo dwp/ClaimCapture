@@ -1,74 +1,27 @@
 package controllers.circs.submission
 
 import app.ConfigProperties._
-import play.api.mvc._
-import play.api.Logger
 import com.google.inject._
-import models.view.CachedChangeOfCircs
-import services.UnavailableTransactionIdException
-import controllers.submission.Submitter
-import play.Configuration
+import controllers.submission.{SubmissionController, Submitter}
 import models.domain._
-import jmx.inspectors.{FastSubmissionNotifier, SubmissionNotifier}
 import models.domain.Claim
 import scala.Some
-import scala.concurrent.{ExecutionContext, Future}
-import ExecutionContext.Implicits.global
+import models.view.CachedChangeOfCircs
 
 @Singleton
-class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedChangeOfCircs with SubmissionNotifier with FastSubmissionNotifier {
+class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends SubmissionController(submitter) with CachedChangeOfCircs{
 
-  def submit = submitting { implicit circs => implicit request =>
-    if (isBot(circs)) {
-      Future(NotFound(views.html.errors.onHandlerNotFound(request))) // Send bot to 404 page.
-    }
-    else {
-      try {
-          fireNotification(circs) { submitter.submit(circs, request) }
-      }
-      catch {
-        case e: UnavailableTransactionIdException =>
-          Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
-          Future(Redirect(errorPage))
-        case e: java.lang.Exception =>
-          Logger.error(s"InternalServerError ! ${e.getMessage}")
-          Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
-          Future(Redirect(errorPage))
-      }
-    }
+  def submit = submitting { implicit claim => implicit request =>
+    processSubmit(claim, request, errorPage)
   }
 
-  def isBot(claim: Claim): Boolean = {
-    val checkForBotSpeed = getProperty("checkForBotSpeed",default=false)
-    val checkForBotHoneyPot = getProperty("checkForBotHoneyPot",default=false)
-
-    checkForBotSpeed && checkTimeToCompleteAllSections(claim, System.currentTimeMillis()) ||
-      checkForBotHoneyPot && honeyPot(claim)
-  }
-
-  def checkTimeToCompleteAllSections(circs: Claim, currentTime: Long = System.currentTimeMillis()) = {
+  def checkTimeToCompleteAllSections(circs: Claim with Claimable, currentTime: Long = System.currentTimeMillis()) = {
     val sectionExpectedTimes = Map[String, Long](
       "c1" -> getProperty("speed.c1",5000L),
       "c2" -> getProperty("speed.c2",5000L),
       "c3" -> getProperty("speed.c3",5000L)
     )
-
-    val expectedMinTimeToCompleteAllSections: Long = circs.sections.map(s => {
-      sectionExpectedTimes.get(s.identifier.id) match {
-        case Some(n) => n
-        case _ => 0
-      }
-    }).reduce(_ + _) // Aggregate all of the sectionExpectedTimes for completed sections only.
-
-    val actualTimeToCompleteAllSections: Long = currentTime - circs.created
-    val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
-
-    if (result) {
-      fireFastNotification(circs)
-      Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
-    }
-
-    result
+    evaluateTimeToCompleteAllSections(circs, currentTime, sectionExpectedTimes)
   }
 
   def honeyPot(circs: Claim): Boolean = {

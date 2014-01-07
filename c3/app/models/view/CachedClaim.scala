@@ -39,7 +39,7 @@ trait CachedClaim {
 
   val timeoutPage = routes.ClaimEnding.timeout()
 
-  val errorPage = routes.CircsEnding.error()
+  val errorPage = routes.ClaimEnding.error()
 
 
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
