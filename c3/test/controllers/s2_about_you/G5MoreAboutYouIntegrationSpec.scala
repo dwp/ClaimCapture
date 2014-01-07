@@ -32,7 +32,7 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
       val h3 = browser.find("div[class=completed] ul li h3")
       h3.getText.contains(dateString) mustEqual true
 
-      val questionLabels = browser.find("fieldset[class=form-elements] ul > li > p")
+      val questionLabels = browser.find("fieldset[class=question-group] legend")
       questionLabels.get(0).getText must contain(dateString)
     }
 
