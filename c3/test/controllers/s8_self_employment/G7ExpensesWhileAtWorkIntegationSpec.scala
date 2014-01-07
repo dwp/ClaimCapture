@@ -92,7 +92,9 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith claimDate
-      val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
+      val nationality = pageClaimDate.submitPage(throwException = true)
+      nationality fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      val pageMoreAboutYou = nationality.submitPage(throwException = true)
       pageMoreAboutYou fillPageWith claimDate
       pageMoreAboutYou.submitPage(throwException = true)
 
@@ -123,7 +125,9 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
+      val nationality = pageClaimDate.submitPage(throwException = true)
+      nationality fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      val pageMoreAboutYou = nationality.submitPage(throwException = true)
       pageMoreAboutYou fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       pageMoreAboutYou.submitPage(throwException = true)
 

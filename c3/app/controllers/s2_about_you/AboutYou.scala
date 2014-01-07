@@ -15,11 +15,6 @@ object AboutYou extends Controller with CachedClaim with Navigable {
       case Some(y: YourDetails) => false /*TODO: Fix this*/
       case _ => true
     }
-
-    val nrOfCompletedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou).distinct.size
-
-    /* TODO Sort out hardcoding */
-    Redirect("/your-partner/personal-details")
-
+    Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
   }
 }

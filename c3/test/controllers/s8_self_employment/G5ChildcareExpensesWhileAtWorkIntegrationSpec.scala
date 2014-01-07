@@ -54,7 +54,9 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith claimDate
-      val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
+      val nationality = pageClaimDate.submitPage()
+      nationality fillPageWith claimDate
+      val pageMoreAboutYou = nationality.submitPage(throwException = true)
       pageMoreAboutYou fillPageWith claimDate
       pageMoreAboutYou.submitPage(throwException = true)
 
@@ -83,7 +85,9 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith claimDate
-      val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
+      val nationality = pageClaimDate.submitPage()
+      nationality fillPageWith claimDate
+      val pageMoreAboutYou = nationality.submitPage(throwException = true)
       pageMoreAboutYou fillPageWith claimDate
       pageMoreAboutYou.submitPage(throwException = true)
 

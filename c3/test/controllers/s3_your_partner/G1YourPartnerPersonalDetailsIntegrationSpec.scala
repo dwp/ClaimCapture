@@ -10,7 +10,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     "be presented if carer has partner" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
-
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -22,6 +22,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
 
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -33,6 +34,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
 
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -47,6 +49,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
 
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -58,6 +61,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
 
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -75,6 +79,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
 
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 

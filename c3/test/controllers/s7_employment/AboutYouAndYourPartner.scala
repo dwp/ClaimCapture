@@ -14,7 +14,10 @@ trait AboutYouAndYourPartner {
     pageClaimDate goToThePage()
     pageClaimDate fillPageWith claimDate
 
-    val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
+    val nationality = pageClaimDate.submitPage(throwException = true)
+    nationality fillPageWith claimDate
+
+    val pageMoreAboutYou = nationality.submitPage(throwException = true)
     pageMoreAboutYou fillPageWith claimDate
     pageMoreAboutYou.submitPage(throwException = true)
 

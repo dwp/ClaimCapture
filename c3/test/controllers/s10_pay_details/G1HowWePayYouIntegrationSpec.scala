@@ -15,6 +15,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
 
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 

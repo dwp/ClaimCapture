@@ -149,17 +149,6 @@ class AboutYouSpec extends Specification with Tags {
       status(result) mustEqual OK
     }
 
-    """present first "about you" page upon completing with missing forms""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-
-      val claim = Claim().update(mockQuestionGroup[YourDetails](YourDetails))
-
-      Cache.set(claimKey, claim)
-
-      val result = s2_about_you.AboutYou.completedSubmit(request)
-      redirectLocation(result) must beSome("/about-you/your-details")
-    }
-
     "continue to partner/spouse upon section completion when all forms are done" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 

@@ -13,6 +13,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
 
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       browser.goTo("/pay-details/bank-building-society-details")
       titleMustEqual("Additional information - Consent and Declaration")
