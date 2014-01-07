@@ -2,8 +2,9 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, Formulate}
+import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import play.api.i18n.Messages
+import utils.pageobjects.s2_about_you.{G4ClaimDatePage, G3NationalityAndResidencyPage, G3NationalityAndResidencyPageContext}
 
 class G3NationalityAndResidencyIntegrationSpec extends Specification with Tags {
   sequential
@@ -13,15 +14,46 @@ class G3NationalityAndResidencyIntegrationSpec extends Specification with Tags {
   val errorDiv = "div[class=validation-summary] ol li"
 
   "Nationality and Residency" should {
-    "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo(urlUnderTest)
-      titleMustEqual(Messages("s2.g3") + " - " + Messages("s2.longName"))
+    "be presented" in new WithBrowser with G3NationalityAndResidencyPageContext {
+      page goToThePage()
     }
 
-    "contain errors on invalid submission" in new WithBrowser {
-      browser.goTo(urlUnderTest)
-      browser.submit(submitButton)
-      browser.find(errorDiv).size mustEqual 2
+    "contain errors on invalid submission" in new WithBrowser with G3NationalityAndResidencyPageContext {
+      page goToThePage()
+      val nextPage = page submitPage()
+
+      nextPage must beAnInstanceOf[G3NationalityAndResidencyPage]
+    }
+
+    "navigate to next page on valid resident submission" in new WithBrowser with G3NationalityAndResidencyPageContext {
+      val claim = ClaimScenarioFactory.yourNationalityAndResidencyResident
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+
+      nextPage must beAnInstanceOf[G4ClaimDatePage]
+    }
+
+    "navigate to next page on valid non resident submission" in new WithBrowser with G3NationalityAndResidencyPageContext {
+      val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+
+      nextPage must beAnInstanceOf[G4ClaimDatePage]
+    }
+
+    "contain errors on invalid non resident submission" in new WithBrowser with G3NationalityAndResidencyPageContext {
+      val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
+      claim.AboutYouNationalityAndResidencyNormalResidency = ""
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+
+      nextPage must beAnInstanceOf[G3NationalityAndResidencyPage]
     }
 
   } section("integration", models.domain.AboutYou.id)

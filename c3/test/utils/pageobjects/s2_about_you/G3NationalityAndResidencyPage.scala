@@ -11,7 +11,7 @@ final class G3NationalityAndResidencyPage(browser: TestBrowser, previousPage: Op
 }
 
 object G3NationalityAndResidencyPage {
-  val title = (Messages("s2.g3") + " - " + Messages("s2.longName")).toLowerCase()
+  val title = ("Your nationality and residency - About you - the carer").toLowerCase()
 
   val url = "/about-you/nationality-and-residency"
 

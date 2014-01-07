@@ -29,6 +29,21 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def yourNationalityAndResidencyResident() = {
+    val claim = new TestData
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
+    claim
+  }
+
+  def yourNationalityAndResidencyNonResident() = {
+    val claim = new TestData
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "No"
+    claim.AboutYouNationalityAndResidencyNormalResidency = "France"
+    claim
+  }
+
   def yourDetailsEnablingTimeOutsideUK() = {
     val claim = yourDetailsWithNotTimeOutside()
 
