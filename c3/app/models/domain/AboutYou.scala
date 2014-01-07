@@ -1,6 +1,7 @@
 package models.domain
 
 import models.{LivingInUK, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
+import models.yesNo.YesNoWithText
 
 object AboutYou extends Section.Identifier {
   val id = "s2"
@@ -12,9 +13,7 @@ case class YourDetails(title: String = "",
                        surname: String = "",
                        otherSurnames: Option[String] = None,
                        nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(None,None,None,None,None),
-                       nationality: String = "",
-                       dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
-                       alwaysLivedUK: String = "") extends QuestionGroup(YourDetails) {
+                       dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)) extends QuestionGroup(YourDetails) {
 
   def otherNames = firstName + middleName.map(" " + _).getOrElse("")
 }
@@ -33,15 +32,16 @@ object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
 }
 
-case class TimeOutsideUK(livingInUK: LivingInUK = LivingInUK()) extends QuestionGroup(TimeOutsideUK)
-
-object TimeOutsideUK extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g3"
-}
-
 case class ClaimDate(dateOfClaim: DayMonthYear = DayMonthYear()) extends QuestionGroup(ClaimDate)
 
 object ClaimDate extends QuestionGroup.Identifier {
+  val id = s"${AboutYou.id}.g3"
+}
+
+case class NationalityAndResidency(nationality: String = "",
+                                   resideInUK: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(NationalityAndResidency)
+
+object NationalityAndResidency extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
 }
 

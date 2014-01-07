@@ -8,6 +8,8 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
+// TODO: This has to be removed
+@deprecated
 final class G3TimeOutsideUKPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G3TimeOutsideUKPage.url, G3TimeOutsideUKPage.title, previousPage) {
   declareYesNo("#livingInUK_answer", "AboutYouAreYouCurrentlyLivingintheUk")
   declareDate("#livingInUK_arrivalDate", "AboutYouWhenDidYouArriveInYheUK")
@@ -20,6 +22,8 @@ final class G3TimeOutsideUKPage(browser: TestBrowser, previousPage: Option[Page]
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
+// TODO: This has to be removed
+@deprecated
 object G3TimeOutsideUKPage {
   val title = "About your time outside the UK - About you - the carer".toLowerCase
 
@@ -29,6 +33,8 @@ object G3TimeOutsideUKPage {
 }
 
 /** The context for Specs tests */
+// TODO: This has to be removed
+@deprecated
 trait G3TimeOutsideUKPageContext extends PageContext {
   this: WithBrowser[_] =>
 

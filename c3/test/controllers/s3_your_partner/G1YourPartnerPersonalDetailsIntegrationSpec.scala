@@ -9,8 +9,8 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
   "Your Partner Personal Details" should {
     "be presented if carer has partner" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("More about you - About you - the carer")
-
+      titleMustEqual("Your nationality and residency - About you - the carer")
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -20,8 +20,9 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
 
     "navigate to next section if carer has no partner" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("More about you - About you - the carer")
+      titleMustEqual("Your nationality and residency - About you - the carer")
 
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -31,8 +32,9 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("More about you - About you - the carer")
+      titleMustEqual("Your nationality and residency - About you - the carer")
 
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -45,8 +47,9 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("More about you - About you - the carer")
+      titleMustEqual("Your nationality and residency - About you - the carer")
 
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -56,8 +59,9 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
 
     "navigate back to About you - the carer - Completed" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("More about you - About you - the carer")
+      titleMustEqual("Your nationality and residency - About you - the carer")
 
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -73,8 +77,9 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("More about you - About you - the carer")
+      titleMustEqual("Your nationality and residency - About you - the carer")
 
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 

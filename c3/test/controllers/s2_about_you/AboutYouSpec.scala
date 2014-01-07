@@ -149,17 +149,6 @@ class AboutYouSpec extends Specification with Tags {
       status(result) mustEqual OK
     }
 
-    """present first "about you" page upon completing with missing forms""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-
-      val claim = Claim().update(mockQuestionGroup[YourDetails](YourDetails))
-
-      Cache.set(claimKey, claim)
-
-      val result = s2_about_you.AboutYou.completedSubmit(request)
-      redirectLocation(result) must beSome("/about-you/your-details")
-    }
-
     "continue to partner/spouse upon section completion when all forms are done" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
@@ -169,6 +158,7 @@ class AboutYouSpec extends Specification with Tags {
       val claim = Claim()
         .update(mockQuestionGroup[YourDetails](YourDetails))
         .update(mockQuestionGroup[ContactDetails](ContactDetails))
+        .update(mockQuestionGroup[NationalityAndResidency](NationalityAndResidency))
         .update(mockQuestionGroup[ClaimDate](ClaimDate))
         .update(moreAboutYou)
         .update(mockQuestionGroup[Employment](Employment))
@@ -183,7 +173,7 @@ class AboutYouSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val yourDetails = mockQuestionGroup[YourDetails](YourDetails)
-      yourDetails.alwaysLivedUK returns "no"
+      //yourDetails.alwaysLivedUK returns "no"
 
       val moreAboutYou = mockQuestionGroup[MoreAboutYou](MoreAboutYou)
       moreAboutYou.hadPartnerSinceClaimDate returns "yes"
@@ -191,7 +181,7 @@ class AboutYouSpec extends Specification with Tags {
       val claim = Claim()
         .update(yourDetails)
         .update(mockQuestionGroup[ContactDetails](ContactDetails))
-        .update(mockQuestionGroup[TimeOutsideUK](TimeOutsideUK))
+        .update(mockQuestionGroup[NationalityAndResidency](NationalityAndResidency))
         .update(mockQuestionGroup[ClaimDate](ClaimDate))
         .update(moreAboutYou)
         .update(mockQuestionGroup[Employment](Employment))

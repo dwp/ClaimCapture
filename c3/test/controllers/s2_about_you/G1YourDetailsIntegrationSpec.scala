@@ -22,7 +22,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
 
     "present errors if mandatory fields are not populated" in new WithBrowser with G1YourDetailsPageContext {
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 9
+      page.submitPage().listErrors.size mustEqual 6
     }
 
     "Accept submit if all mandatory fields are populated" in new WithBrowser with G1YourDetailsPageContext {
@@ -36,6 +36,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
     }
     
     "contain error if invalid nationality containing numbers" in new WithBrowser with G1YourDetailsPageContext {
+      pending
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.AboutYouNationality = "a12345"
       page goToThePage()
@@ -47,6 +48,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
     }
     
     "contain error if invalid nationality containing special characters" in new WithBrowser with G1YourDetailsPageContext {
+      pending
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.AboutYouNationality = "a!@£$%^&*(){}"
       page goToThePage()

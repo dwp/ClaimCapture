@@ -21,29 +21,9 @@ class NavigationIntegrationSpec extends Specification with Tags {
     """navigate to
         "your details" then
         "contact details" then
-        "time outside UK" then back to
-        "contact details" and back to
-        "your details".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with DataFiller {
-      goTo("/about-you/your-details").title shouldEqual "Your details - About you - the carer"
-      fill in `/about-you/your-details` click "#alwaysLivedUK_no"
-
-      next.title shouldEqual "Your contact details - About you - the carer"
-      fill in `/about-you/contact-details`
-
-      next.title shouldEqual "About your time outside the UK - About you - the carer"
-      back.title shouldEqual "Your contact details - About you - the carer"
-      back.title shouldEqual "Your details - About you - the carer"
-    }
-
-    """navigate to
-        "your details" then
-        "contact details" then
         "claim date" (i.e. skipping "time outside UK") then back to
-        "contact details" and back to
-        "your details" then "time outside UK" going to
-        "contact details" then
-        "time outside UK" and finally back to
-        "contact details".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with DataFiller {
+        "contact details" and finally back to
+        "your details".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with DataFiller {
       goTo("/about-you/your-details").title shouldEqual "Your details - About you - the carer"
       fill in `/about-you/your-details`
 
@@ -53,13 +33,6 @@ class NavigationIntegrationSpec extends Specification with Tags {
       next.title shouldEqual "Your claim date - About you - the carer"
       back.title shouldEqual "Your contact details - About you - the carer"
       back.title shouldEqual "Your details - About you - the carer"
-
-      click("#alwaysLivedUK_no")
-
-      next.title shouldEqual "Your contact details - About you - the carer"
-
-      next.title shouldEqual "About your time outside the UK - About you - the carer"
-      back.title shouldEqual "Your contact details - About you - the carer"
     }
   } section "integration"
 }
@@ -79,9 +52,7 @@ trait DataFiller {
     click("#dateOfBirth_day option[value='3']")
     click("#dateOfBirth_month option[value='4']")
     fill("#dateOfBirth_year") `with` "1950"
-    fill("#nationality") `with` "British"
     click("#maritalStatus option[value='s']")
-    click("#alwaysLivedUK_yes")
   }
 
   def `/about-you/contact-details`: Fluent = {

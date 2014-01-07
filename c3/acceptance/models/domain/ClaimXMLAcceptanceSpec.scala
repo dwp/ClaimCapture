@@ -70,7 +70,7 @@ class ClaimXMLAcceptanceSpec extends Specification {
       </Caree>
       <ClaimADI>no</ClaimADI>
       <Residency>
-        <Nationality>British</Nationality>
+        <!--Nationality>British</Nationality-->
         <EUEEASwissNational>Not asked</EUEEASwissNational>
         <CountryNormallyLive>Not asked</CountryNormallyLive>
         <CountryNormallyLiveOther>Not asked</CountryNormallyLiveOther>

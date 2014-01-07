@@ -48,9 +48,9 @@ class G1YourDetailsFormSpec extends Specification with Tags {
             f.surname must equalTo(surname)
             f.otherSurnames must equalTo(Some(otherNames))
             f.nationalInsuranceNumber must equalTo(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5)))
-            f.nationality must equalTo(nationality)
+//            f.nationality must equalTo(nationality)
             f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
-            f.alwaysLivedUK must equalTo(alwaysLivedUK)
+//            f.alwaysLivedUK must equalTo(alwaysLivedUK)
           })
     }
 
@@ -72,12 +72,12 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "alwaysLivedUK" -> alwaysLivedUK)).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(5)
+            formWithErrors.errors.length must equalTo(4)
             formWithErrors.errors(0).message must equalTo("error.maxLength")
             formWithErrors.errors(1).message must equalTo("error.maxLength")
             formWithErrors.errors(2).message must equalTo("error.maxLength")
             formWithErrors.errors(3).message must equalTo("error.maxLength")
-            formWithErrors.errors(4).message must equalTo("error.nationality")
+//            formWithErrors.errors(4).message must equalTo("error.nationality")
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -100,12 +100,12 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "alwaysLivedUK" -> alwaysLivedUK)).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(5)
+            formWithErrors.errors.length must equalTo(4)
             formWithErrors.errors(0).message must equalTo("error.restricted.characters")
             formWithErrors.errors(1).message must equalTo("error.restricted.characters")
             formWithErrors.errors(2).message must equalTo("error.restricted.characters")
             formWithErrors.errors(3).message must equalTo("error.restricted.characters")
-            formWithErrors.errors(4).message must equalTo("error.nationality")
+//            formWithErrors.errors(4).message must equalTo("error.nationality")
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -114,14 +114,14 @@ class G1YourDetailsFormSpec extends Specification with Tags {
       G1YourDetails.form.bind(
         Map("middleName" -> "middle optional")).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(8)
+            formWithErrors.errors.length must equalTo(6)
             formWithErrors.errors(0).message must equalTo("error.required")
             formWithErrors.errors(1).message must equalTo("error.required")
             formWithErrors.errors(2).message must equalTo("error.required")
             formWithErrors.errors(3).message must equalTo("error.required")
             formWithErrors.errors(4).message must equalTo("error.nationalInsuranceNumber")
             formWithErrors.errors(5).message must equalTo("error.required")
-            formWithErrors.errors(6).message must equalTo("error.required")
+//            formWithErrors.errors(6).message must equalTo("error.required")
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -151,6 +151,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
     }
 
     "accept nationality with space character, uppercase and lowercase" in {
+      pending
       G1YourDetails.form.bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -169,11 +170,13 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "alwaysLivedUK" -> alwaysLivedUK)).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
-            f.nationality must equalTo("United States")
+//            f.nationality must equalTo("United States")
+            true mustEqual(true)
           })
     }
 
     "reject invalid nationality with numbers" in {
+      pending
       G1YourDetails.form.bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -198,6 +201,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
     }
 
     "reject invalid nationality with special characters" in {
+      pending
       G1YourDetails.form.bind(
         Map("title" -> title,
           "firstName" -> firstName,

@@ -77,15 +77,6 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
   }
 
   def honeyPot(claim: Claim): Boolean = {
-    def checkTimeOutsideUK: Boolean = {
-      claim.questionGroup[TimeOutsideUK] match {
-        case Some(q) =>
-          q.livingInUK.answer == "no" && (q.livingInUK.date.isDefined || q.livingInUK.text.isDefined || q.livingInUK.goBack.isDefined) // Bot given fields were not visible.
-
-        case _ => false
-      }
-    }
-
     def checkMoreAboutTheCare: Boolean = {
       claim.questionGroup[MoreAboutTheCare] match {
         case Some(q) =>
@@ -171,7 +162,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
       }
     }
 
-    checkTimeOutsideUK ||
+//    checkTimeOutsideUK ||
     checkMoreAboutTheCare ||
     checkNormalResidenceAndCurrentLocation ||
     checkPensionSchemes ||

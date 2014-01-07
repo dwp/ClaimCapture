@@ -15,7 +15,7 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
 
     "be presented when there is a claim date" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("More about you - About you - the carer")
+      titleMustEqual("Your nationality and residency - About you - the carer")
     }
 
     "contain the completed forms" in new WithBrowser with G1YourDetailsPageContext {
@@ -29,6 +29,7 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
     "contain questions with claim dates" in new WithBrowser {
       val dateString = "03/04/1950"
       Formulate.claimDate(browser)
+      Formulate.nationalityAndResidency(browser)
       val h3 = browser.find("div[class=completed] ul li h3")
       h3.getText.contains(dateString) mustEqual true
 
@@ -38,6 +39,7 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
+      Formulate.nationalityAndResidency(browser)
       browser.goTo("/about-you/more-about-you")
       titleMustEqual("More about you - About you - the carer")
       browser.submit("button[type='submit']")

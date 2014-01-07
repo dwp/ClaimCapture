@@ -1,8 +1,9 @@
 package controllers
 
-import utils.pageobjects.TestData
+import utils.pageobjects.{ClaimPage, Page, TestData}
 
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
+import play.api.test.TestBrowser
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -19,25 +20,44 @@ object ClaimScenarioFactory {
     claim.AboutYouTitle = "mr"
     claim.AboutYouFirstName = "John"
     claim.AboutYouSurname = "Appleseed"
-    claim.AboutYouNationality = "English"
     claim.AboutYouDateOfBirth = "03/04/1950"
-    claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
+    //claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
     claim.AboutYouNINO = "AB123456C"
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
     claim.AboutYouPostcode = "FY1 2RW"
     claim
   }
 
-  def yourDetailsEnablingTimeOutsideUK() = {
-    val claim = yourDetailsWithNotTimeOutside()
-    claim.AboutYouHaveYouAlwaysLivedInTheUK = "No"
-    claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
-    claim.AboutYouWhenDidYouArriveInYheUK = "01/11/2003"
-    claim.AboutYouDoYouPlantoGoBacktoThatCountry = "No"
+  def yourNationalityAndResidencyResident() = {
+    val claim = new TestData
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
     claim
   }
 
-  def s2AboutYouWithTimeOutside() = {
+  def yourNationalityAndResidencyNonResident() = {
+    val claim = new TestData
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "No"
+    claim.AboutYouNationalityAndResidencyNormalResidency = "France"
+    claim
+  }
+
+  def yourDetailsEnablingTimeOutsideUK() = {
+    val claim = yourDetailsWithNotTimeOutside()
+
+    //claim.AboutYouHaveYouAlwaysLivedInTheUK = "No"
+    //claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
+    //claim.AboutYouWhenDidYouArriveInYheUK = "01/11/2003"
+    //claim.AboutYouDoYouPlantoGoBacktoThatCountry = "No"
+
+
+    claim
+  }
+
+  def   s2AboutYouWithTimeOutside() = {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
     // Your contact details
@@ -45,8 +65,14 @@ object ClaimScenarioFactory {
     claim.AboutYouPostcode = "SE1 6EH"
     claim.AboutYouPhoneNumber = "01253 111 111"
     claim.AboutYouMobileNumber = "07111 111 111"
+    // Nationality
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
+    // Nationality and Residency
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "yes"
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "Yes"
@@ -69,6 +95,9 @@ object ClaimScenarioFactory {
     claim.AboutYouMobileNumber = "07111 111 111"
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
+    // Nationality and Residency
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "yes"
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "no"

@@ -17,7 +17,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
     """navigate to Abroad""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("More about you - About you - the carer")
+      titleMustEqual("Your nationality and residency - About you - the carer")
 
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")

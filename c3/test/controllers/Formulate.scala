@@ -22,8 +22,8 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.fill("#nationality") `with` "English"
-    browser.click("#alwaysLivedUK_yes")
+    //browser.fill("#nationality") `with` "English"
+    //browser.click("#alwaysLivedUK_yes")
     browser.submit("button[type='submit']")
   }
 
@@ -40,8 +40,8 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.fill("#nationality") `with` "English"
-    browser.click("#alwaysLivedUK_no")
+    //browser.fill("#nationality") `with` "English"
+    //browser.click("#alwaysLivedUK_no")
     browser.submit("button[type='submit']")
   }
 
@@ -52,24 +52,33 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
-  def timeOutsideUK(browser: TestBrowser) = {
-    browser.goTo("/about-you/time-outside-uk")
-    browser.click("#livingInUK_answer_yes")
-
-    browser.click("#livingInUK_arrivalDate_day option[value='1']")
-    browser.click("#livingInUK_arrivalDate_month option[value='1']")
-    browser.fill("#livingInUK_arrivalDate_year") `with` "2001"
-
-    browser.click("#livingInUK_goBack_answer_no")
-
-    browser.submit("button[value='next']")
+  def nationalityAndResidency(browser: TestBrowser) = {
+    browser.goTo("/about-you/nationality-and-residency")
+    browser.fill("#nationality") `with` "British"
+    browser.click("#resideInUK_answer_yes")
+    browser.submit("button[type='submit']")
   }
 
-  def timeOutsideUKNotLivingInUK(browser: TestBrowser) = {
-    browser.goTo("/about-you/time-outside-uk")
-    browser.click("#livingInUK_answer_no")
-    browser.submit("button[value='next']")
-  }
+// TODO: Remove
+//  def timeOutsideUK(browser: TestBrowser) = {
+//    browser.goTo("/about-you/time-outside-uk")
+//    browser.click("#livingInUK_answer_yes")
+//
+//    browser.click("#livingInUK_arrivalDate_day option[value='1']")
+//    browser.click("#livingInUK_arrivalDate_month option[value='1']")
+//    browser.fill("#livingInUK_arrivalDate_year") `with` "2001"
+//
+//    browser.click("#livingInUK_goBack_answer_no")
+//
+//    browser.submit("button[value='next']")
+//  }
+
+  // TODO: Remove
+//  def timeOutsideUKNotLivingInUK(browser: TestBrowser) = {
+//    browser.goTo("/about-you/time-outside-uk")
+//    browser.click("#livingInUK_answer_no")
+//    browser.submit("button[value='next']")
+//  }
 
   def claimDate(browser: TestBrowser) = {
     browser.goTo("/about-you/claim-date")

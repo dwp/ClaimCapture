@@ -65,15 +65,16 @@ object EvidenceList {
 
   def aboutYou(claim: Claim) = {
     val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
+    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency())
     val yourContactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
-    val timeOutsideUK = claim.questionGroup[TimeOutsideUK].getOrElse(TimeOutsideUK())
+//    val timeOutsideUK = claim.questionGroup[TimeOutsideUK].getOrElse(TimeOutsideUK())
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
     var textLines = NodeSeq.Empty ++ textSeparatorLine("About You")
-    textLines ++= textLine("Have you always lived in the UK? = ", yourDetails.alwaysLivedUK) ++
-      textLine("Mobile number = ", yourContactDetails.mobileNumber) ++
-      textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer)
-    if (timeOutsideUK.livingInUK.answer.toLowerCase == yes)
-      textLines ++= textLine("When did you arrive in the UK? = ", timeOutsideUK.livingInUK.date.get.`dd/MM/yyyy`)
+    textLines ++= textLine(Messages("resideInUK.label") + " = ", nationalityAndResidency.resideInUK.answer)
+    textLines ++= textLine("Mobile number = ", yourContactDetails.mobileNumber)
+//      textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer)
+//    if (timeOutsideUK.livingInUK.answer.toLowerCase == yes)
+//      textLines ++= textLine("When did you arrive in the UK? = ", timeOutsideUK.livingInUK.date.get.`dd/MM/yyyy`)
     textLines ++= textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
       textLine("If you have speech or hearing difficulties, would you like us to contact you by textphone? = ", yourContactDetails.contactYouByTextphone)
 

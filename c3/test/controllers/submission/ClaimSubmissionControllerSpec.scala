@@ -72,31 +72,6 @@ class ClaimSubmissionControllerSpec extends Specification with Mockito with Cach
       controller.honeyPot(Claim()) should beFalse
     }
 
-    "returns false given TimeOutsideUK answered yes and honeyPot filled" in {
-      val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "yes", date = Some(DayMonthYear()), text = Some("some text"), goBack = Some(YesNoWithDate(answer = "yes", date = Some(DayMonthYear()))))))
-      controller.honeyPot(claim) should beFalse
-    }
-
-    "returns false given TimeOutsideUK answered no and honeyPot not filled" in {
-      val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "no", date = None, text = None, goBack = None)))
-      controller.honeyPot(claim) should beFalse
-    }
-
-    "returns true given TimeOutsideUK answered no and honeyPot date filled" in {
-      val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "no", date = Some(DayMonthYear()))))
-      controller.honeyPot(claim) should beTrue
-    }
-
-    "returns true given TimeOutsideUK answered no and honeyPot text filled" in {
-      val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "no", text = Some("some text"))))
-      controller.honeyPot(claim) should beTrue
-    }
-
-    "returns true given TimeOutsideUK answered no and honeyPot goBack filled" in {
-      val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "no", goBack = Some(YesNoWithDate(answer = "yes", date = Some(DayMonthYear()))))))
-      controller.honeyPot(claim) should beTrue
-    }
-
     "returns false given MoreAboutTheCare answered yes and honeyPot filled" in {
       val claim = Claim().update(MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "yes", date = Some(DayMonthYear()))))
       controller.honeyPot(claim) should beFalse
