@@ -31,7 +31,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
 
       val nextPage = page submitPage()
       
-      nextPage must beAnInstanceOf[G4ClaimDatePage]
+      nextPage must beAnInstanceOf[G3NationalityAndResidencyPage]
     }
 
     "be able to navigate back to a completed form" in new WithBrowser  with G1YourDetailsPageContext {
