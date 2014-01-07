@@ -10,7 +10,7 @@ import models.domain.NationalityAndResidency
 import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithText
 
-object G3NationalityAndResidency extends Controller with CachedClaim with Navigable {
+object G4NationalityAndResidency extends Controller with CachedClaim with Navigable {
   val resideInUKMapping =
     "resideInUK" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -26,13 +26,13 @@ object G3NationalityAndResidency extends Controller with CachedClaim with Naviga
 
   def present = claiming { implicit claim => implicit request =>
     track(NationalityAndResidency) { implicit claim =>
-      Ok(views.html.s2_about_you.g3_nationalityAndResidency(form.fill(NationalityAndResidency)))
+      Ok(views.html.s2_about_you.g4_nationalityAndResidency(form.fill(NationalityAndResidency)))
     }
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g3_nationalityAndResidency(formWithErrors)),
-      nationalityAndResidency => claim.update(nationalityAndResidency) -> Redirect(routes.G4ClaimDate.present()))
+      formWithErrors => BadRequest(views.html.s2_about_you.g4_nationalityAndResidency(formWithErrors)),
+      nationalityAndResidency => claim.update(nationalityAndResidency) -> Redirect(routes.G5MoreAboutYou.present()))
   }
 }

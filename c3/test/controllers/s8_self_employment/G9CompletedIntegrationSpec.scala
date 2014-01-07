@@ -6,7 +6,7 @@ import utils.pageobjects.s8_self_employment._
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s2_about_you._
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s2_about_you.G4ClaimDatePage
+import utils.pageobjects.s2_about_you.G3ClaimDatePage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 
 class G9CompletedIntegrationSpec extends Specification with Tags {
@@ -16,7 +16,7 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
       page goToThePage ()
     }
 
-    "not present 'Completed' if section not visible" in new WithBrowser with G4ClaimDatePageContext {
+    "not present 'Completed' if section not visible" in new WithBrowser with G3ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
       page goToThePage()
       page runClaimWith (claim, G8AboutYouCompletedPage.title, waitForPage = true, waitDuration = 500)
@@ -35,7 +35,7 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to previous page" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext  {
-      val pageClaimDate = new G4ClaimDatePage(browser)
+      val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)

@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment._
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s2_about_you.{G4ClaimDatePage, G8AboutYouCompletedPage, G4ClaimDatePageContext}
+import utils.pageobjects.s2_about_you.{G3ClaimDatePage, G8AboutYouCompletedPage, G3ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 
@@ -21,7 +21,7 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
       page goToThePage()
     }
 
-    "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
+    "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
       page goToThePage()
       page runClaimWith(claim, G8AboutYouCompletedPage.title)
@@ -48,7 +48,7 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
 
     "contain errors on invalid submission missing mandatory field" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val pageClaimDate = new G4ClaimDatePage(browser)
+      val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith claimDate
       val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
@@ -89,7 +89,7 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
 
 
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val pageClaimDate = new G4ClaimDatePage(browser)
+      val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith claimDate
       val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
@@ -120,7 +120,7 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
-      val pageClaimDate = new G4ClaimDatePage(browser)
+      val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
