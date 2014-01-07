@@ -60,7 +60,6 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
   }
 
   def checkTimeToCompleteAllSections(claim: Claim with Claimable, currentTime: Long) = {
-    Logger.error("ClaimSubmissionController:checkTimeToCompleteAllSections")
     val sectionExpectedTimes = Map[String, Long](
       "s1" -> getProperty("speed.s1",5000L),
       "s2" -> getProperty("speed.s2",5000L),
@@ -78,7 +77,6 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
   }
 
   def honeyPot(claim: Claim): Boolean = {
-    Logger.error("ClaimSubmissionController:honeyPot")
     def checkTimeOutsideUK: Boolean = {
       claim.questionGroup[TimeOutsideUK] match {
         case Some(q) =>
