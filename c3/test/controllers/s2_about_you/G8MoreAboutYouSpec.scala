@@ -8,7 +8,7 @@ import models.domain.Claim
 import org.specs2.mutable.{Tags, Specification}
 import models.view.CachedClaim
 
-class G5MoreAboutYouSpec extends Specification with Tags {
+class G8MoreAboutYouSpec extends Specification with Tags {
   "More About You - Controller" should {
     val maritalStatus = "m"
 
@@ -19,7 +19,7 @@ class G5MoreAboutYouSpec extends Specification with Tags {
         "beenInEducationSinceClaimDate" -> "yes",
         "receiveStatePension" -> "yes")
 
-      val result = controllers.s2_about_you.G5MoreAboutYou.submit(request)
+      val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
 
       val section: Section = claim.section(domain.YourPartner)
@@ -33,7 +33,7 @@ class G5MoreAboutYouSpec extends Specification with Tags {
         "beenInEducationSinceClaimDate" -> "yes",
         "receiveStatePension" -> "yes")
 
-      val result = controllers.s2_about_you.G5MoreAboutYou.submit(request)
+      val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
 
       val section: Section = claim.section(domain.YourPartner)
@@ -47,7 +47,7 @@ class G5MoreAboutYouSpec extends Specification with Tags {
         "beenInEducationSinceClaimDate" -> "yes",
         "receiveStatePension" -> "yes")
 
-      val result = controllers.s2_about_you.G5MoreAboutYou.submit(request)
+      val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
 
       val section: Section = claim.section(domain.Education)
@@ -61,7 +61,7 @@ class G5MoreAboutYouSpec extends Specification with Tags {
         "beenInEducationSinceClaimDate" -> "no",
         "receiveStatePension" -> "yes")
 
-      val result = controllers.s2_about_you.G5MoreAboutYou.submit(request)
+      val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
 
       val section: Section = claim.section(domain.Education)

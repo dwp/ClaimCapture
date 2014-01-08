@@ -33,6 +33,6 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g4_nationalityAndResidency(formWithErrors)),
-      nationalityAndResidency => claim.update(nationalityAndResidency) -> Redirect(routes.G5MoreAboutYou.present()))
+      nationalityAndResidency => claim.update(nationalityAndResidency) -> Redirect(routes.G8MoreAboutYou.present()))
   }
 }

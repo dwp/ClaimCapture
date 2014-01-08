@@ -60,11 +60,11 @@ POST        /about-you/claim-date                                               
 GET         /about-you/nationality-and-residency                                    controllers.s2_about_you.G4NationalityAndResidency.present
 POST        /about-you/nationality-and-residency                                    controllers.s2_about_you.G4NationalityAndResidency.submit
 
-GET         /about-you/more-about-you                                               controllers.s2_about_you.G5MoreAboutYou.present
-POST        /about-you/more-about-you                                               controllers.s2_about_you.G5MoreAboutYou.submit
+GET         /about-you/more-about-you                                               controllers.s2_about_you.G8MoreAboutYou.present
+POST        /about-you/more-about-you                                               controllers.s2_about_you.G8MoreAboutYou.submit
 
-GET         /about-you/employment                                                   controllers.s2_about_you.G6Employment.present
-POST        /about-you/employment                                                   controllers.s2_about_you.G6Employment.submit
+GET         /about-you/employment                                                   controllers.s2_about_you.G9Employment.present
+POST        /about-you/employment                                                   controllers.s2_about_you.G9Employment.submit
 
 GET         /about-you/completed                                                    controllers.s2_about_you.AboutYou.completed
 POST        /about-you/completed                                                    controllers.s2_about_you.AboutYou.completedSubmit

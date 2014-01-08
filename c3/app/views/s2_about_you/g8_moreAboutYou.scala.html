@@ -9,13 +9,13 @@
 @import views.html.helper.dropdowns._
 
 
-@main(Messages("s2.g5") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.MoreAboutYou)) {
+@main(Messages("s2.g8") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.MoreAboutYou)) {
     @errorsSummary(moreAboutYouForm)
 
 
-    @form(action = controllers.s2_about_you.routes.G5MoreAboutYou.submit) {
+    @form(action = controllers.s2_about_you.routes.G8MoreAboutYou.submit) {
         <fieldset class="form-elements">
-            <legend>@Messages("s2.g5")</legend>
+            <legend>@Messages("s2.g8")</legend>
 
             <ul>
                 @maritalStatusSelect(moreAboutYouForm("maritalStatus"))

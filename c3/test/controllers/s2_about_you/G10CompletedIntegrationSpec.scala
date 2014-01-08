@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
 
-class G8CompletedIntegrationSpec extends Specification with Tags {
+class G10CompletedIntegrationSpec extends Specification with Tags {
   "About You" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/about-you/completed")

@@ -51,11 +51,11 @@ case class MoreAboutYou(maritalStatus: String = "",
                         receiveStatePension: String = "") extends QuestionGroup(MoreAboutYou)
 
 object MoreAboutYou extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g5"
+  val id = s"${AboutYou.id}.g8"
 }
 
 case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)
 
 object Employment extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g6"
+  val id = s"${AboutYou.id}.g9"
 }

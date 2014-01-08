@@ -10,7 +10,7 @@ import controllers.Mappings.validYesNo
 import controllers.Mappings._
 import models.domain._
 
-object G5MoreAboutYou extends Controller with CachedClaim with Navigable {
+object G8MoreAboutYou extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "maritalStatus" -> nonEmptyText(maxLength = 1),
     "hadPartnerSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
@@ -20,7 +20,7 @@ object G5MoreAboutYou extends Controller with CachedClaim with Navigable {
 
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(NationalityAndResidency) match {
-      case Some(n) => track(MoreAboutYou) { implicit claim => Ok(views.html.s2_about_you.g5_moreAboutYou(form.fill(MoreAboutYou))) }
+      case Some(n) => track(MoreAboutYou) { implicit claim => Ok(views.html.s2_about_you.g8_moreAboutYou(form.fill(MoreAboutYou))) }
       case _ => Redirect("/")
     }
   }
@@ -29,14 +29,14 @@ object G5MoreAboutYou extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("hadPartnerSinceClaimDate", "error.required", FormError("hadPartnerSinceClaimDate", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
-        BadRequest(views.html.s2_about_you.g5_moreAboutYou(formWithErrorsUpdate))}
+        BadRequest(views.html.s2_about_you.g8_moreAboutYou(formWithErrorsUpdate))}
       ,
       moreAboutYou => {
         val updatedClaim = claim.showHideSection(moreAboutYou.hadPartnerSinceClaimDate == yes, YourPartner)
                                 .showHideSection(moreAboutYou.beenInEducationSinceClaimDate == yes, Education)
                                 .showHideSection(moreAboutYou.receiveStatePension == no, PayDetails)
 
-        updatedClaim.update(moreAboutYou) -> Redirect(routes.G6Employment.present())
+        updatedClaim.update(moreAboutYou) -> Redirect(routes.G9Employment.present())
       })
   }
 }
