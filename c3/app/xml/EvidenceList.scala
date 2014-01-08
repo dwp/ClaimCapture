@@ -211,7 +211,6 @@ object EvidenceList {
     val aboutOtherMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
     val statutorySickPay = claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay())
     val otherStatutoryPay = claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay())
-    val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
 
     val aboutOtherMoney_howOftenOther = aboutOtherMoney.howOften match {
       case Some(s) => s.other.getOrElse("")
@@ -238,11 +237,7 @@ object EvidenceList {
       textLine("Statutory Sick Pay: How often other? = ", ssp_howOftenOther) ++
       textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
       textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(otherStatutoryPay.howOften)) ++
-      textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther) ++
-      textLine("Are you, your wife, husband, civil partner or parent you are dependent on, " +
-        "receiving  any pensions or benefits from another EEA State or Switzerland? = ", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland) ++
-      textLine("Are you, your wife, husband, civil partner or parent you are dependent on " +
-        "working in or paying insurance to another EEA State or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
+      textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther)
   }
 
   private def textSeparatorLine(title: String) = {

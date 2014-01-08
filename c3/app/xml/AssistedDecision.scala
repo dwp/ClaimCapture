@@ -20,8 +20,6 @@ object AssistedDecision {
     //    if (assisted.length == 0 ) {
     //      assisted ++= employmentGrossPay(claim)
     var assisted = getAFIP(claim)
-    assisted ++= noEEABenefits(claim)
-    assisted ++= noEEAWork(claim)
     assisted ++= inGBNow(claim)
     //    }
     //    assisted ++= dateOfClaim(claim)
@@ -90,18 +88,6 @@ object AssistedDecision {
   private def getAFIP(claim: Claim): NodeSeq = {
     val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
     if (moreAboutThePerson.armedForcesPayment.toLowerCase == "yes") textLine("Person receives Armed Forces Independence Payment. Transfer to Armed Forces Independent Payments team.")
-    else NodeSeq.Empty
-  }
-
-  private def noEEABenefits(claim: Claim): NodeSeq = {
-    val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.benefitsFromOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
-    else NodeSeq.Empty
-  }
-
-  private def noEEAWork(claim: Claim): NodeSeq = {
-    val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.workingForOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
