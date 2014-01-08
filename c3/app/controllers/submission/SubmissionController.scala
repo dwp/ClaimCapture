@@ -46,7 +46,8 @@ abstract class SubmissionController (submitter: Submitter) extends Controller wi
 
     val expectedMinTimeToCompleteAllSections: Long = claim.sections.map(s => {
       sectionExpectedTimes.get(s.identifier.id) match {
-        case Some(n) => n
+        case Some(n) =>
+          if (s.questionGroups.size > 0) n else 0
         case _ => 0
       }
     }).reduce(_ + _) // Aggregate all of the sectionExpectedTimes for completed sections only.
