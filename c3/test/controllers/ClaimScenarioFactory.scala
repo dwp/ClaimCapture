@@ -57,6 +57,17 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def otherEuropeanEconomicArea() = {
+    val claim = new TestData
+
+    // G7 EEA state or Switzerland
+    claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "yes"
+    claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "yes"
+    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "yes"
+
+    claim
+  }
+
   def   s2AboutYouWithTimeOutside() = {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
@@ -385,9 +396,6 @@ object ClaimScenarioFactory {
     claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
     claim.OtherMoneySMPEmployerName = "Employers Name"
     claim.OtherMOneySMPHowOften = "weekly"
-    // G7 EEA state or Switzerland
-    claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "yes"
-    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "yes"
 
     claim
   }

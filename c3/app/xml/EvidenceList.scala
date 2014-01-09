@@ -69,12 +69,17 @@ object EvidenceList {
     val yourContactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
 //    val timeOutsideUK = claim.questionGroup[TimeOutsideUK].getOrElse(TimeOutsideUK())
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
+    val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
+
     var textLines = NodeSeq.Empty ++ textSeparatorLine("About You")
     textLines ++= textLine(Messages("resideInUK.label") + " = ", nationalityAndResidency.resideInUK.answer)
     textLines ++= textLine("Mobile number = ", yourContactDetails.mobileNumber)
 //      textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer)
 //    if (timeOutsideUK.livingInUK.answer.toLowerCase == yes)
 //      textLines ++= textLine("When did you arrive in the UK? = ", timeOutsideUK.livingInUK.date.get.`dd/MM/yyyy`)
+    textLines ++= textLine("Do you, or any member of your family, receive any benefits or pensions from from a European Economic Area (EEA) state or Switzerland? = ", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland)
+    textLines ++= textLine("Have you, or a member of your family, made a claim for any benefits or pensions from a European Economic Area (EEA) state or Switzerland? = ", otherEEAState.claimedForBenefitsFromOtherEEAStateOrSwitzerland)
+    textLines ++= textLine("Are you, or a member of your family, working in or paying insurance to, another European Economic Area (EEA) state or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
     textLines ++= textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
       textLine("If you have speech or hearing difficulties, would you like us to contact you by textphone? = ", yourContactDetails.contactYouByTextphone)
 
@@ -211,7 +216,6 @@ object EvidenceList {
     val aboutOtherMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
     val statutorySickPay = claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay())
     val otherStatutoryPay = claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay())
-    val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
 
     val aboutOtherMoney_howOftenOther = aboutOtherMoney.howOften match {
       case Some(s) => s.other.getOrElse("")
@@ -238,11 +242,7 @@ object EvidenceList {
       textLine("Statutory Sick Pay: How often other? = ", ssp_howOftenOther) ++
       textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
       textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(otherStatutoryPay.howOften)) ++
-      textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther) ++
-      textLine("Are you, your wife, husband, civil partner or parent you are dependent on, " +
-        "receiving  any pensions or benefits from another EEA State or Switzerland? = ", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland) ++
-      textLine("Are you, your wife, husband, civil partner or parent you are dependent on " +
-        "working in or paying insurance to another EEA State or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
+      textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther)
   }
 
   private def textSeparatorLine(title: String) = {

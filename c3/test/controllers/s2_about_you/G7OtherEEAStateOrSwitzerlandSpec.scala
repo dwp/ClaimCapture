@@ -1,4 +1,4 @@
-package controllers.s9_other_money
+package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
@@ -26,7 +26,7 @@ class G7OtherEEAStateOrSwitzerlandSpec extends Specification with Tags {
 
     """be added to cached claim upon answering "no" to "benefits from other EEA state or Switzerland".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("benefitsFromOtherEEAStateOrSwitzerland" -> "no", "workingForOtherEEAStateOrSwitzerland" -> "no")
+        .withFormUrlEncodedBody("benefitsFromOtherEEAStateOrSwitzerland" -> "no", "claimedForBenefitsFromOtherEEAStateOrSwitzerland" -> "no", "workingForOtherEEAStateOrSwitzerland" -> "no")
 
       val result = G7OtherEEAStateOrSwitzerland.submit(request)
 
@@ -35,6 +35,7 @@ class G7OtherEEAStateOrSwitzerlandSpec extends Specification with Tags {
       claim.questionGroup(OtherEEAStateOrSwitzerland) must beLike {
         case Some(o: OtherEEAStateOrSwitzerland) => {
           o.benefitsFromOtherEEAStateOrSwitzerland shouldEqual "no"
+          o.claimedForBenefitsFromOtherEEAStateOrSwitzerland shouldEqual "no"
           o.workingForOtherEEAStateOrSwitzerland shouldEqual "no"
         }
       }

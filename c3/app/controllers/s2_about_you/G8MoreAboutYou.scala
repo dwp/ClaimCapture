@@ -19,7 +19,7 @@ object G8MoreAboutYou extends Controller with CachedClaim with Navigable {
   )(MoreAboutYou.apply)(MoreAboutYou.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    claim.questionGroup(NationalityAndResidency) match {
+    claim.questionGroup(OtherEEAStateOrSwitzerland) match {
       case Some(n) => track(MoreAboutYou) { implicit claim => Ok(views.html.s2_about_you.g8_moreAboutYou(form.fill(MoreAboutYou))) }
       case _ => Redirect("/")
     }

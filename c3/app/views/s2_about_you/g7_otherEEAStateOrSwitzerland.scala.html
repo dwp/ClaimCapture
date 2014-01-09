@@ -6,16 +6,16 @@
 @import utils.helpers.CarersCrypto
 @import models.domain.OtherEEAStateOrSwitzerland
 
-@main(Messages("s9.g7") + " - " + Messages("s9.longName"), Some(otherEEAStateOrSwitzerlandForm), claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)) {
+@main(Messages("s2.g7") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)) {
 
-
-
-    @form(action = controllers.s9_other_money.routes.G7OtherEEAStateOrSwitzerland.submit) {
+    @form(action = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.submit) {
         <fieldset class="form-elements">
-            <legend>@Messages("s9.g7")</legend>
+            <legend>@Messages("s2.g7")</legend>
 
             <ul>
                 @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland"))
+
+                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("claimedForBenefitsFromOtherEEAStateOrSwitzerland"))
 
                 @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForOtherEEAStateOrSwitzerland"))
             </ul>

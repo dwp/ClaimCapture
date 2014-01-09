@@ -59,6 +59,13 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
+  def otherEEAStateOrSwitzerland(browser: TestBrowser) = {
+    browser.click("#benefitsFromOtherEEAStateOrSwitzerland_answer_no")
+    browser.click("#claimedForBenefitsFromOtherEEAStateOrSwitzerland_answer_no")
+    browser.click("#workingForOtherEEAStateOrSwitzerland_no")
+    browser.submit("button[value='next']")
+  }
+
 // TODO: Remove
 //  def timeOutsideUK(browser: TestBrowser) = {
 //    browser.goTo("/about-you/time-outside-uk")
@@ -320,13 +327,7 @@ object Formulate {
     browser.click("#anyTrips_no")
     browser.submit("button[value='next']")
   }
-  
-  def otherEEAStateOrSwitzerland(browser: TestBrowser) = {
-    browser.click("#benefitsFromOtherEEAStateOrSwitzerland_answer_no")
-    browser.click("#workingForOtherEEAStateOrSwitzerland_no")
-    browser.submit("button[value='next']")
-  }
-  
+
   // Education
   def yourCourseDetails(browser: TestBrowser) = {
     val courseType = "University"

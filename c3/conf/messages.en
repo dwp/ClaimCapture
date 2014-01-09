@@ -47,6 +47,7 @@ s2.g1 = Your details
 s2.g2 = Your contact details
 s2.g3 = Your claim date: {0}
 s2.g4 = Your nationality and residency
+s2.g7 = Other EEA State or Switzerland
 s2.g8 = More about you
 s2.g9 = Employment
 
@@ -98,7 +99,6 @@ s9.g3 = Person who gets this money
 s9.g4 = Person''s contact details
 s9.g5 = Statutory Sick Pay
 s9.g6 = Other Statutory Pay
-s9.g7 = Other EEA State or Switzerland
 
 s10.g1 = How would you like to get paid?
 s10.g2 = Bank/Building society details
@@ -189,6 +189,11 @@ resideInUK=Which country do you normally live in?
 
 # CLAIM DATE
 dateOfClaim = When do you want your Carer''s Allowance claim to start?
+
+# OTHER EEA STATE OR SWITZERLAND
+benefitsFromOtherEEAStateOrSwitzerland = Do you, or any member of your family, receive any benefits or pensions from from a European Economic Area (EEA) state or Switzerland?
+claimedForBenefitsFromOtherEEAStateOrSwitzerland = Have you, or a member of your family, made a claim for any benefits or pensions from a European Economic Area (EEA) state or Switzerland?
+workingForOtherEEAStateOrSwitzerland = Are you, or a member of your family, working in or paying insurance to, another European Economic Area (EEA) state or Switzerland?
 
 # MORE ABOUT YOU
 hadPartnerSinceClaimDate.label = Have you had a partner/spouse living with you since your claim date: {0}?
@@ -417,11 +422,6 @@ otherPay = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity P
 howOften_frequency = How often
 whoPaysYou = Who pays you
 howMuch = How much
-
-# OTHER EEA STATE OR SWITZERLAND
-benefitsFromOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?
-workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, working in or paying insurance to another EEA State or Switzerland?
-
 
 ## PAY DETAILS
 # HOW WE PAY YOU

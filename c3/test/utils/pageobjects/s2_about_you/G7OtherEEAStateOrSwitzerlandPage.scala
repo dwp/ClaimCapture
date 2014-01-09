@@ -1,22 +1,21 @@
-package utils.pageobjects.s9_other_money
+package utils.pageobjects.s2_about_you
 
 import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
- * PageObject pattern associated to S8 other money EEA pension and insurance.
- * @author Jorge Migueis
- *         Date: 02/08/2013
+ * PageObject pattern associated to S7 about you EEA pension and insurance.
  */
-class G7OtherEEAStateOrSwitzerlandPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G7OtherEEAStateOrSwitzerlandPage.url, G7OtherEEAStateOrSwitzerlandPage.title, previousPage) {
+final class G7OtherEEAStateOrSwitzerlandPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G7OtherEEAStateOrSwitzerlandPage.url, G7OtherEEAStateOrSwitzerlandPage.title, previousPage) {
   declareYesNo("#benefitsFromOtherEEAStateOrSwitzerland","OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA")
+  declareYesNo("#claimedForBenefitsFromOtherEEAStateOrSwitzerland","OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA")
   declareYesNo("#workingForOtherEEAStateOrSwitzerland", "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA")
 }
 
 object G7OtherEEAStateOrSwitzerlandPage {
-  val title = "Other EEA State or Switzerland - About Other Money".toLowerCase
+  val title = "Other EEA State or Switzerland - About you - the carer".toLowerCase
 
-  val url = "/other-money/other-eea-state-or-switzerland"
+  val url = "/about-you/other-eea-state-or-switzerland"
 
   def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G7OtherEEAStateOrSwitzerlandPage(browser, previousPage)
 

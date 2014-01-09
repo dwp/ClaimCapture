@@ -36,8 +36,9 @@ object ClaimPageFactory extends PageFactory {
       // S2
       case G1YourDetailsPage.title => G1YourDetailsPage (browser, previousPage)
       case G2ContactDetailsPage.title => G2ContactDetailsPage (browser, previousPage)
-      case G4NationalityAndResidencyPage.title => G4NationalityAndResidencyPage (browser, previousPage)
       case G3ClaimDatePage.title => G3ClaimDatePage (browser, previousPage)
+      case G4NationalityAndResidencyPage.title => G4NationalityAndResidencyPage (browser, previousPage)
+      case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (browser,previousPage)
       case G8MoreAboutYouPage.title => G8MoreAboutYouPage (browser, previousPage)
       case G9EmploymentPage.title => G9EmploymentPage (browser, previousPage)
       case G10AboutYouCompletedPage.title => G10AboutYouCompletedPage (browser, previousPage)
@@ -79,7 +80,6 @@ object ClaimPageFactory extends PageFactory {
       case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage (browser, previousPage)
       case G5StatutorySickPayPage.title => G5StatutorySickPayPage (browser, previousPage)
       case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage (browser, previousPage)
-      case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (browser,previousPage)
       case G8OtherMoneyCompletedPage.title => G8OtherMoneyCompletedPage (browser, previousPage)
       // S9
       case G1HowWePayYouPage.title => G1HowWePayYouPage (browser, previousPage)

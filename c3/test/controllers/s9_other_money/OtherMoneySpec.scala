@@ -5,6 +5,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s9_other_money._
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
+import utils.pageobjects.s2_about_you.{G7OtherEEAStateOrSwitzerlandPageContext, G7OtherEEAStateOrSwitzerlandPage}
 
 class OtherMoneySpec extends Specification with Tags {
 

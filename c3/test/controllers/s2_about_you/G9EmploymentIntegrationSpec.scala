@@ -25,6 +25,7 @@ class G9EmploymentIntegrationSpec extends Specification with Tags {
       Formulate.yourContactDetails(browser)
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
 
       titleMustEqual("Employment - About you - the carer")
