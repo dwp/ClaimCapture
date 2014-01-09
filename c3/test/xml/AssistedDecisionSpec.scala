@@ -16,8 +16,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if care less than 35 hours" in {
       val moreAboutTheCare = MoreAboutTheCare("no")
-      val residency = NormalResidenceAndCurrentLocation(inGBNow = "yes")
-      val claim = Claim().update(moreAboutTheCare).update(residency)
+      val claim = Claim().update(moreAboutTheCare)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Do not spend 35 hours or more each week caring. Potential disallowance, but need to check advisory additional notes.")
     }.pendingUntilFixed("Postponed by busines")
@@ -223,24 +222,6 @@ class AssistedDecisionSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutTheCare).update(details)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must not contain "Date of Claim too far in the future. Potential disallowance."
-    }
-
-    "Create an assisted decision section if person not in Great Britain Now" in {
-      val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NormalResidenceAndCurrentLocation(inGBNow = "no")
-      val claim = Claim().update(moreAboutTheCare).update(residency)
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must contain("Keep In View")
-      (xml \\ "TextLine").text must contain("Person does not reside in GB now. Transfer to Exportability team.")
-    }
-
-    "Not create an assisted decision section if person is in Great Britain Now" in {
-      val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NormalResidenceAndCurrentLocation(inGBNow = "yes")
-      val claim = Claim().update(moreAboutTheCare).update(residency)
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must not contain "Keep In View"
-      (xml \\ "TextLine").text must not contain "Person does not reside in GB now. Transfer to Exportability team or potential disallowance."
     }
 
     "Create an assisted decision section if EEA pension" in {

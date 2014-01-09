@@ -132,6 +132,13 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
+  def notInEmployment(browser: TestBrowser) = {
+    browser.goTo("/about-you/employment")
+    browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
+    browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
+    browser.submit("button[type='submit']")
+  }
+
   // Your partner
   def yourPartnerPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/your-partner/personal-details")

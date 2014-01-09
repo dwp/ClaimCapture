@@ -23,7 +23,6 @@ object AssistedDecision {
     assisted ++= noEEABenefits(claim)
     assisted ++= noEEABenefitsClaimedFor(claim)
     assisted ++= noEEAWork(claim)
-    assisted ++= inGBNow(claim)
     //    }
     //    assisted ++= dateOfClaim(claim)
     //    assisted ++= rightAge(claim)
@@ -117,12 +116,6 @@ object AssistedDecision {
   private def noEEAWork(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
     if (otherEEAStateOrSwitzerland.workingForOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team.")
-    else NodeSeq.Empty
-  }
-
-  private def inGBNow(claim: Claim): NodeSeq = {
-    val isInGBNow = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
-    if (isInGBNow.inGBNow.toLowerCase != "yes") textLine("Person does not reside in GB now. Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 

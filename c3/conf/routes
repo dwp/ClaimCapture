@@ -106,28 +106,6 @@ POST          /care-you-provide/break                                           
 GET           /care-you-provide/completed                                             controllers.s4_care_you_provide.CareYouProvide.completed
 POST          /care-you-provide/completed                                             controllers.s4_care_you_provide.CareYouProvide.submit
 
-# Time spent abroad
-###############
-GET           /time-spent-abroad/normal-residence-and-current-location                controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.present
-POST          /time-spent-abroad/normal-residence-and-current-location                controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.submit
-
-GET           /time-spent-abroad/abroad-for-more-than-4-weeks                         controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.present
-POST          /time-spent-abroad/abroad-for-more-than-4-weeks                         controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.submit
-
-GET           /time-spent-abroad/abroad-for-more-than-52-weeks                        controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.present
-POST          /time-spent-abroad/abroad-for-more-than-52-weeks                        controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.submit
-
-GET           /time-spent-abroad/trip/4-weeks                                         controllers.s5_time_spent_abroad.G4Trip.fourWeeks
-POST          /time-spent-abroad/trip/4-weeks                                         controllers.s5_time_spent_abroad.G4Trip.fourWeeksSubmit
-GET           /time-spent-abroad/trip/52-weeks                                        controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeks
-POST          /time-spent-abroad/trip/52-weeks                                        controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeksSubmit
-
-GET           /time-spent-abroad/trip/:id                                             controllers.s5_time_spent_abroad.G4Trip.trip(id: String)
-DELETE        /time-spent-abroad/trip/:id                                             controllers.s5_time_spent_abroad.G4Trip.delete(id: String)
-
-GET           /time-spent-abroad/completed                                            controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
-POST          /time-spent-abroad/completed                                            controllers.s5_time_spent_abroad.TimeSpentAbroad.completedSubmit
-
 # Education
 ###############
 GET           /education/your-course-details                                          controllers.s6_education.G1YourCourseDetails.present

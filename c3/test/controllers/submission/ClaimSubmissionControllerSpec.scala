@@ -87,21 +87,6 @@ class ClaimSubmissionControllerSpec extends Specification with Mockito with Cach
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns false given NormalResidenceAndCurrentLocation answered no and honeyPot filled" in {
-      val claim = Claim().update(NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer = "no", text = Some("some text"))))
-      controller.honeyPot(claim) should beFalse
-    }
-
-    "returns false given NormalResidenceAndCurrentLocation answered yes and honeyPot not filled" in {
-      val claim = Claim().update(NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer = "yes", text = None)))
-      controller.honeyPot(claim) should beFalse
-    }
-
-    "returns true given NormalResidenceAndCurrentLocation answered yes and honeyPot filled" in {
-      val claim = Claim().update(NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer = "yes", text = Some("some text"))))
-      controller.honeyPot(claim) should beTrue
-    }
-
     "returns false given NormalResidenceAndCurrentLocation honeyPot not filled (frequency not other)" in {
       val claim = Claim().update(ChildcareExpenses(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = None)))
       controller.honeyPot(claim) should beFalse

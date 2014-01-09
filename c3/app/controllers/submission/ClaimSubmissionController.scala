@@ -82,15 +82,6 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
       }
     }
 
-    def checkNormalResidenceAndCurrentLocation: Boolean = {
-      claim.questionGroup[NormalResidenceAndCurrentLocation] match {
-        case Some(q) =>
-          q.whereDoYouLive.answer == "yes" && q.whereDoYouLive.text.isDefined // Bot given field whereDoYouLive.text was not visible.
-
-        case _ => false
-      }
-    }
-
     def checkPensionSchemes: Boolean = {
       checkEmploymentCriteria(verifyPensionScheme)
     }
@@ -160,7 +151,6 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
 
 //    val timeOutsideUK = checkTimeOutsideUK
     val moreAboutTheCare = checkMoreAboutTheCare
-    val normalResidenceAndCurrentLocation = checkNormalResidenceAndCurrentLocation
     val pensionSchemes = checkPensionSchemes
     val childcareExpenses = checkChildcareExpenses
     val personYouCareForExpenses = checkPersonYouCareForExpenses
@@ -172,7 +162,6 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
 
 //    if (timeOutsideUK) Logger.warn("Honeypot triggered : timeOutsideUK")
     if (moreAboutTheCare) Logger.warn("Honeypot triggered : moreAboutTheCare")
-    if (normalResidenceAndCurrentLocation) Logger.warn("Honeypot triggered : normalResidenceAndCurrentLocation")
     if (pensionSchemes) Logger.warn("Honeypot triggered : pensionSchemes")
     if (childcareExpenses) Logger.warn("Honeypot triggered : childcareExpenses")
     if (personYouCareForExpenses) Logger.warn("Honeypot triggered : personYouCareForExpenses")
@@ -184,7 +173,6 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
 
 //    timeOutsideUK ||
       moreAboutTheCare ||
-      normalResidenceAndCurrentLocation ||
       pensionSchemes ||
       childcareExpenses ||
       personYouCareForExpenses ||

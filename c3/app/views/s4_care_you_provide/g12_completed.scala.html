@@ -1,7 +1,15 @@
 @()(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
-@import models.domain.{CareYouProvide, TimeSpentAbroad}
+@import models.domain.{Education, Employed, OtherMoney, SelfEmployment, CareYouProvide}
+
+@nextSection = @{
+if (Education.visible) Education.name
+else if (Employed.visible) Employed.name
+else if (SelfEmployment.visible) SelfEmployment.name
+else OtherMoney.name
+}
+
 
 @main("Completion - " + Messages("s4.longName"), None, claim.completedQuestionGroups(CareYouProvide)) {
     @form(action = controllers.s4_care_you_provide.routes.CareYouProvide.submit) {
