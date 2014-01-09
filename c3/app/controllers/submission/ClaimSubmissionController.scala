@@ -1,27 +1,23 @@
 package controllers.submission
 
-import play.api.mvc._
 import play.api.Logger
 import com.google.inject._
 import models.view.CachedClaim
-import services.UnavailableTransactionIdException
 import models.domain._
 import app.PensionPaymentFrequency._
-import jmx.inspectors.{FastSubmissionNotifier, SubmissionNotifier}
 import app.ConfigProperties._
 import models.domain.Claim
 import scala.Some
-import scala.concurrent.{ExecutionContext, Future}
-import ExecutionContext.Implicits.global
 
 @Singleton
-class ClaimSubmissionController @Inject()(submitter: Submitter) extends SubmissionController(submitter) with CachedClaim{
+class ClaimSubmissionController @Inject()(submitter: Submitter) extends SubmissionController(submitter) with CachedClaim {
 
-  def submit = submitting { implicit claim => implicit request =>
-    processSubmit(claim, request, errorPage)
+  def submit = submitting {
+    implicit claim => implicit request =>
+      processSubmit(claim, request, errorPage)
   }
 
-  private def verifyPensionScheme (job:Job) : Boolean = {
+  private def verifyPensionScheme(job: Job): Boolean = {
     job.questionGroup[PensionSchemes] match {
       case Some(q) =>
         if (q.payPersonalPensionScheme == "no") {
@@ -32,7 +28,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
         }
         else {
           q.howOftenPersonal match {
-            case Some(f) => if(f.frequency != Other && f.other.isDefined) return true  // Bot given field howOftenPersonal.other was not visible.
+            case Some(f) => if (f.frequency != Other && f.other.isDefined) return true // Bot given field howOftenPersonal.other was not visible.
             case _ => false
           }
         }
@@ -41,19 +37,19 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
     false
   }
 
-  private def verifyChildCareExpenses (job:Job) : Boolean = {
+  private def verifyChildCareExpenses(job: Job): Boolean = {
     job.questionGroup[ChildcareExpenses] match {
       case Some(q) =>
-        if(q.howOftenPayChildCare.frequency != Other && q.howOftenPayChildCare.other.isDefined) return true // Bot given field howOftenPayChildCare.other was not visible.
+        if (q.howOftenPayChildCare.frequency != Other && q.howOftenPayChildCare.other.isDefined) return true // Bot given field howOftenPayChildCare.other was not visible.
       case _ => false
     }
     false
   }
 
-  private def verifyPersonYouCareForExpenses (job:Job) : Boolean = {
+  private def verifyPersonYouCareForExpenses(job: Job): Boolean = {
     job.questionGroup[PersonYouCareForExpenses] match {
       case Some(q) =>
-        if(q.howOftenPayCare.frequency != Other && q.howOftenPayCare.other.isDefined) return true // Bot given field howOftenPayCare.other was not visible.
+        if (q.howOftenPayCare.frequency != Other && q.howOftenPayCare.other.isDefined) return true // Bot given field howOftenPayCare.other was not visible.
       case _ => false
     }
     false
@@ -61,17 +57,17 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
 
   def checkTimeToCompleteAllSections(claim: Claim with Claimable, currentTime: Long) = {
     val sectionExpectedTimes = Map[String, Long](
-      "s1" -> getProperty("speed.s1",5000L),
-      "s2" -> getProperty("speed.s2",5000L),
-      "s3" -> getProperty("speed.s3",5000L),
-      "s4" -> getProperty("speed.s4",5000L),
-      "s5" -> getProperty("speed.s5",5000L),
-      "s6" -> getProperty("speed.s6",5000L),
-      "s7" -> getProperty("speed.s7",5000L),
-      "s8" -> getProperty("speed.s8",5000L),
-      "s9" ->  getProperty("speed.s9",5000L),
-      "s10" -> getProperty("speed.s10",5000L),
-      "s11" -> getProperty("speed.s11",5000L)
+      "s1" -> getProperty("speed.s1", 5000L),
+      "s2" -> getProperty("speed.s2", 5000L),
+      "s3" -> getProperty("speed.s3", 5000L),
+      "s4" -> getProperty("speed.s4", 5000L),
+      "s5" -> getProperty("speed.s5", 5000L),
+      "s6" -> getProperty("speed.s6", 5000L),
+      "s7" -> getProperty("speed.s7", 5000L),
+      "s8" -> getProperty("speed.s8", 5000L),
+      "s9" -> getProperty("speed.s9", 5000L),
+      "s10" -> getProperty("speed.s10", 5000L),
+      "s11" -> getProperty("speed.s11", 5000L)
     )
     evaluateTimeToCompleteAllSections(claim, currentTime, sectionExpectedTimes)
   }
@@ -104,11 +100,11 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
       }
     }
 
-    def checkPensionSchemes:Boolean = {
+    def checkPensionSchemes: Boolean = {
       checkEmploymentCriteria(verifyPensionScheme)
     }
 
-    def checkEmploymentCriteria (executeFunction : (Job) => Boolean) : Boolean = {
+    def checkEmploymentCriteria(executeFunction: (Job) => Boolean): Boolean = {
       claim.questionGroup[Jobs].map {
         jobs =>
           for (job <- jobs) {
@@ -171,16 +167,41 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
       }
     }
 
-    checkTimeOutsideUK ||
-    checkMoreAboutTheCare ||
-    checkNormalResidenceAndCurrentLocation ||
-    checkPensionSchemes ||
-    checkChildcareExpenses ||
-    checkPersonYouCareForExpenses ||
-    checkChildcareExpensesWhileAtWork ||
-    checkExpensesWhileAtWork ||
-    checkAboutOtherMoney ||
-    checkStatutorySickPay ||
-    checkOtherStatutoryPay
+    val timeOutsideUK = checkTimeOutsideUK
+    val moreAboutTheCare = checkMoreAboutTheCare
+    val normalResidenceAndCurrentLocation = checkNormalResidenceAndCurrentLocation
+    val pensionSchemes = checkPensionSchemes
+    val childcareExpenses = checkChildcareExpenses
+    val personYouCareForExpenses = checkPersonYouCareForExpenses
+    val childcareExpensesWhileAtWork = checkChildcareExpensesWhileAtWork
+    val expensesWhileAtWork = checkExpensesWhileAtWork
+    val aboutOtherMoney = checkAboutOtherMoney
+    val statutorySickPay = checkStatutorySickPay
+    val otherStatutoryPay = checkOtherStatutoryPay
+
+    if (timeOutsideUK) Logger.warn("Honeypot triggered : timeOutsideUK")
+    if (moreAboutTheCare) Logger.warn("Honeypot triggered : moreAboutTheCare")
+    if (normalResidenceAndCurrentLocation) Logger.warn("Honeypot triggered : normalResidenceAndCurrentLocation")
+    if (pensionSchemes) Logger.warn("Honeypot triggered : pensionSchemes")
+    if (childcareExpenses) Logger.warn("Honeypot triggered : childcareExpenses")
+    if (personYouCareForExpenses) Logger.warn("Honeypot triggered : personYouCareForExpenses")
+    if (childcareExpensesWhileAtWork) Logger.warn("Honeypot triggered : childcareExpensesWhileAtWork")
+    if (expensesWhileAtWork) Logger.warn("Honeypot triggered : expensesWhileAtWork")
+    if (aboutOtherMoney) Logger.warn("Honeypot triggered : aboutOtherMoney")
+    if (statutorySickPay) Logger.warn("Honeypot triggered : statutorySickPay")
+    if (otherStatutoryPay) Logger.warn("Honeypot triggered : otherStatutoryPay")
+
+    timeOutsideUK ||
+      moreAboutTheCare ||
+      normalResidenceAndCurrentLocation ||
+      pensionSchemes ||
+      childcareExpenses ||
+      personYouCareForExpenses ||
+      childcareExpensesWhileAtWork ||
+      expensesWhileAtWork ||
+      aboutOtherMoney ||
+      statutorySickPay ||
+      otherStatutoryPay
+
   }
 }

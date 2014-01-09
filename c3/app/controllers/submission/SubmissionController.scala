@@ -10,36 +10,49 @@ import ExecutionContext.Implicits.global
 import play.api.mvc.{Call, AnyContent, Request, Controller}
 
 
-abstract class SubmissionController (submitter: Submitter) extends Controller with SubmissionNotifier with FastSubmissionNotifier{
+abstract class SubmissionController(submitter: Submitter) extends Controller with SubmissionNotifier with FastSubmissionNotifier {
 
-  def checkTimeToCompleteAllSections(claimOrCircs: Claim with Claimable, currentTime: Long):Boolean
+  def checkTimeToCompleteAllSections(claimOrCircs: Claim with Claimable, currentTime: Long): Boolean
 
   def honeyPot(claim: Claim): Boolean
 
-  def processSubmit(claimOrCircs:Claim, request:Request[AnyContent], errorPage:Call) = {
-    if (isBot(claimOrCircs)) {
-      Future(NotFound(views.html.errors.onHandlerNotFound(request))) // Send bot to 404 page.
-    } else {
-      try {
-        fireNotification(claimOrCircs) { submitter.submit(claimOrCircs, request) }
-      } catch {
-        case e: UnavailableTransactionIdException =>
-          Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
-          Future(Redirect(errorPage))
-        case e: java.lang.Exception =>
-          Logger.error(s"InternalServerError ! ${e.getMessage}")
-          Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
-          Future(Redirect(errorPage))
+  def processSubmit(claimOrCircs: Claim, request: Request[AnyContent], errorPage: Call) = {
+
+    if (isHoneyPotBot(claimOrCircs)) {
+      // Only log honeypot for now.
+      // May send to an error page in the future
+      Logger.warn(s"Honeypot ! Headers : ${request.headers}")
+    }
+
+    if (isSpeedBot(claimOrCircs)) {
+      // Only log speed check for now.
+      // May send to an error page in the future
+      Logger.warn(s"Speed check ! Headers : ${request.headers}")
+    }
+
+    try {
+      fireNotification(claimOrCircs) {
+        submitter.submit(claimOrCircs, request)
       }
+    } catch {
+      case e: UnavailableTransactionIdException =>
+        Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
+        Future(Redirect(errorPage))
+      case e: java.lang.Exception =>
+        Logger.error(s"InternalServerError ! ${e.getMessage}")
+        Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
+        Future(Redirect(errorPage))
     }
   }
 
-  def isBot(claimOrCircs: Claim): Boolean = {
-    val checkForBotSpeed = getProperty("checkForBotSpeed",default=false)
-    val checkForBotHoneyPot = getProperty("checkForBotHoneyPot",default=false)
+  def isSpeedBot(claimOrCircs: Claim): Boolean = {
+    val checkForBotSpeed = getProperty("checkForBotSpeed", default = false)
+    checkForBotSpeed && checkTimeToCompleteAllSections(claimOrCircs, System.currentTimeMillis())
+  }
 
-    checkForBotSpeed && checkTimeToCompleteAllSections(claimOrCircs, System.currentTimeMillis()) ||
-      checkForBotHoneyPot && honeyPot(claimOrCircs)
+  def isHoneyPotBot(claimOrCircs: Claim): Boolean = {
+    val checkForBotHoneyPot = getProperty("checkForBotHoneyPot", default = false)
+    checkForBotHoneyPot && honeyPot(claimOrCircs)
   }
 
   def evaluateTimeToCompleteAllSections(claim: Claim with Claimable, currentTime: Long = System.currentTimeMillis(), sectionExpectedTimes: Map[String, Long]) = {
