@@ -76,14 +76,15 @@ object ClaimScenarioFactory {
     claim.AboutYouPostcode = "SE1 6EH"
     claim.AboutYouPhoneNumber = "01253 111 111"
     claim.AboutYouMobileNumber = "07111 111 111"
-    // Nationality
-    claim.AboutYouNationalityAndResidencyNationality = "British"
-    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"
     claim.AboutYouNationalityAndResidencyResideInUK = "yes"
+    // Other EEA State or Switzerland
+    claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
+    claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "no"
+    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "Yes"
@@ -109,6 +110,10 @@ object ClaimScenarioFactory {
     // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"
     claim.AboutYouNationalityAndResidencyResideInUK = "yes"
+    // Other EEA State or Switzerland
+    claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
+    claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "no"
+    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "no"

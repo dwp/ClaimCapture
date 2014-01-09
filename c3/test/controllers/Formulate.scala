@@ -60,10 +60,11 @@ object Formulate {
   }
 
   def otherEEAStateOrSwitzerland(browser: TestBrowser) = {
-    browser.click("#benefitsFromOtherEEAStateOrSwitzerland_answer_no")
-    browser.click("#claimedForBenefitsFromOtherEEAStateOrSwitzerland_answer_no")
+    browser.goTo("/about-you/other-eea-state-or-switzerland")
+    browser.click("#benefitsFromOtherEEAStateOrSwitzerland_no")
+    browser.click("#claimedForBenefitsFromOtherEEAStateOrSwitzerland_no")
     browser.click("#workingForOtherEEAStateOrSwitzerland_no")
-    browser.submit("button[value='next']")
+    browser.submit("button[type='submit']")
   }
 
 // TODO: Remove
