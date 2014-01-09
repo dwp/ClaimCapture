@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: 'FontAwesome';
   src: url('fonts/fontawesome-webfont.eot?v=3.2.1');
@@ -85,7 +84,7 @@ main {
 		   padding-right: 0;
 	   }
 	   li {
-		   margin-left: 10px;
+		   margin-left: 14px;
 		   display: inline;
 		   font-size: 14px;
 		   color: #000;
@@ -94,6 +93,34 @@ main {
 			   border: 0;
 			   margin: 0;
 			   padding: 0;
+			   a {
+				   display: inline-block;
+				   position: relative;
+				   height: 18px;
+				   width: 18px;
+				   text-align: center;
+				   padding: 0;
+				   color: #000;
+				   font-size: 11px;
+				   background: #f5f5f5;
+				   text-decoration: none;
+				   font-weight: bold;
+				   line-height: 1.8em;
+				   font-family: 'georgia';
+				   font-style: italic;
+				   top: -1px;
+				   margin-right: 5px;
+				   border-radius: 100px;
+				   box-shadow: 0 0 0 1px rgba(0,0,0,.6);
+				   &:hover {
+					   background: #333;
+					   color: #fff;
+				   }
+				   span {
+					   text-indent: -9999px;
+					   display: inline-block;
+				   }
+			   }
 		   }
 		   @media screen and (max-width: 480px) {
 			   &.feedback {
@@ -105,7 +132,7 @@ main {
 			   display: inline-block;
 			   padding-top: 5px;
 			   &:hover {
-				   color: #315843;
+				   color: #666;
 			   }
 		   }
 	   }
@@ -131,6 +158,9 @@ main {
 			   background: url('images/nav-line.png') 0 56px repeat-x;
 			   margin-bottom: -12px;
 			   zoom: 1;
+		   }
+		   .ie7 & {
+			   background-position: 0 44px;
 		   }
 		   .ie8 & {
 			   background: none;
@@ -1053,7 +1083,7 @@ main {
 					   
 					   label {
 						   display: block;
-						   background: #eee;
+						   background: #e8e8e8;
 						   padding: 12px 14px 10px 34px;
 						   font-size: 1.7rem;
 						   cursor: pointer;
@@ -1920,6 +1950,33 @@ main {
 
 
 
+.question-group {
+	margin-top: 0;
+	legend {
+		font-size: 1.9rem!important; /* temp */
+		font-weight: 400!important; /* temp */
+		color: #000!important; /* temp */
+		.ie & {
+			font-size: 19px;
+		}
+		em {
+			   display: inline;
+			   font-size: 1.8rem;
+			   margin-right: .4rem;
+			   font-style: normal;
+			   .ie & {
+				   font-size: 18px;
+				   margin-right: 4px;
+			   }
+		   }
+	}
+	ul {
+		li {
+			padding-top: 0;
+		}
+	}
+}
+
 
 
 
@@ -1943,8 +2000,8 @@ main {
 @-moz-document url-prefix() {
 	.radio {
 		input[type="radio"] {
-				top: 15px!important;
-				left: 12px!important;
+				top: 15px!important; /* temp */
+				left: 12px!important; /* temp */
 			}
 		}
 }

@@ -54,7 +54,14 @@
     $(function() {
         window.initEvents("@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_yes")", 
           "@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_no")",
-          "@CarersCrypto.encryptAES("howOften_frequency")", 
+          "@CarersCrypto.encryptAES("howMuch")",
+          "@CarersCrypto.encryptAES("howOften_frequency")",
+          "@CarersCrypto.encryptAES("howOften_frequency_other")",
+          "@CarersCrypto.encryptAES("employersName")",
+          "@CarersCrypto.encryptAES("employersAddress_lineOne")",
+          "@CarersCrypto.encryptAES("employersAddress_lineTwo")",
+          "@CarersCrypto.encryptAES("employersAddress_lineThree")",
+          "@CarersCrypto.encryptAES("employersPostcode")",
           "howOften_wrap");
         window.areaCounter({selector:"@CarersCrypto.encryptAES("howOften_frequency_other")",maxChars:60});
     });

@@ -12,7 +12,7 @@ class HealthControllerSpec extends PlaySpecification with Results {
       val controller = new TestController()
       val result: Future[SimpleResult] = controller.health().apply(FakeRequest())
       val bodyText: String = contentAsString(result)
-      bodyText must contain("Carer's allowance is working")
+      bodyText must contain("Carer's allowance is functioning")
     }
   } section "unit"
 }
