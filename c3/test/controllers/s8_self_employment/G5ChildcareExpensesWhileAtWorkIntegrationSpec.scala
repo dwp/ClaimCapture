@@ -56,7 +56,9 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       pageClaimDate fillPageWith claimDate
       val nationality = pageClaimDate.submitPage()
       nationality fillPageWith claimDate
-      val pageMoreAboutYou = nationality.submitPage(throwException = true)
+      val otherEAAStateOrSwitzerland = nationality.submitPage(throwException = true)
+      otherEAAStateOrSwitzerland fillPageWith claimDate
+      val pageMoreAboutYou = otherEAAStateOrSwitzerland.submitPage(throwException = true)
       pageMoreAboutYou fillPageWith claimDate
       pageMoreAboutYou.submitPage(throwException = true)
 
@@ -87,7 +89,9 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       pageClaimDate fillPageWith claimDate
       val nationality = pageClaimDate.submitPage()
       nationality fillPageWith claimDate
-      val pageMoreAboutYou = nationality.submitPage(throwException = true)
+      val otherEAAStateOrSwitzerland = nationality.submitPage(throwException = true)
+      otherEAAStateOrSwitzerland fillPageWith claimDate
+      val pageMoreAboutYou = otherEAAStateOrSwitzerland.submitPage(throwException = true)
       pageMoreAboutYou fillPageWith claimDate
       pageMoreAboutYou.submitPage(throwException = true)
 
