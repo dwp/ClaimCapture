@@ -5,6 +5,7 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import models.domain.OtherEEAStateOrSwitzerland
+@import views.html.helper._
 
 @main(Messages("s2.g7") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)) {
 
@@ -13,6 +14,8 @@
             <legend>@Messages("s2.g7")</legend>
 
             <ul>
+                <!-- @sliderHelp(Messages("eeaCountryHelp.label"),Html(Messages("eeaCountryHelp"))) -->
+
                 @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland"))
 
                 @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("claimedForBenefitsFromOtherEEAStateOrSwitzerland"))
