@@ -8,7 +8,7 @@ trait HealthController {
   this: Controller =>
 
   def health = Action {
-    val now = DateTimeFormat.forPattern("HH:mm:ss dd-MM-yy").print(DateTime.now())
+    val now = DateTimeFormat.forPattern("dd-MM-yy HH:mm:ss").print(DateTime.now())
     Ok(views.html.common.health(now))
   }
 }
