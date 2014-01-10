@@ -1,6 +1,6 @@
 package models.domain
 
-import models.{LivingInUK, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
+import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
 import models.yesNo.YesNoWithText
 
 object AboutYou extends Section.Identifier {
@@ -54,7 +54,7 @@ object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier  {
 case class Trips(fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips) {
   def update(trip: FiftyTwoWeeksTrip): Trips = {
     val updated = fiftyTwoWeeksTrips map { t => if (t.id == trip.id) trip else t }
-    Trips(fiftyTwoWeeksTrips :+ trip)
+    if (updated.contains(trip)) Trips(updated) else Trips(fiftyTwoWeeksTrips :+ trip)
   }
 
   def +(trip: FiftyTwoWeeksTrip): Trips = update(trip)

@@ -61,11 +61,14 @@ POST          /about-you/claim-date                                             
 GET           /about-you/nationality-and-residency                                    controllers.s2_about_you.G4NationalityAndResidency.present
 POST          /about-you/nationality-and-residency                                    controllers.s2_about_you.G4NationalityAndResidency.submit
 
-GET           /time-spent-abroad/abroad-for-more-than-52-weeks                        controllers.s2_about_you.G5AbroadForMoreThan52Weeks.present
-POST          /time-spent-abroad/abroad-for-more-than-52-weeks                        controllers.s2_about_you.G5AbroadForMoreThan52Weeks.submit
+GET           /about-you/abroad-for-more-than-52-weeks                                controllers.s2_about_you.G5AbroadForMoreThan52Weeks.present
+POST          /about-you/abroad-for-more-than-52-weeks                                controllers.s2_about_you.G5AbroadForMoreThan52Weeks.submit
 
-GET           /time-spent-abroad/trip/52-weeks                                        controllers.s2_about_you.G6Trip.fiftyTwoWeeks
-POST          /time-spent-abroad/trip/52-weeks                                        controllers.s2_about_you.G6Trip.fiftyTwoWeeksSubmit
+GET           /about-you/trip/52-weeks                                                controllers.s2_about_you.G6Trip.fiftyTwoWeeks
+POST          /about-you/trip/52-weeks                                                controllers.s2_about_you.G6Trip.fiftyTwoWeeksSubmit
+
+GET           /about-you/trip/:id                                                     controllers.s2_about_you.G6Trip.trip(id: String)
+DELETE        /about-you/trip/:id                                                     controllers.s2_about_you.G6Trip.delete(id: String)
 
 GET           /about-you/other-eea-state-or-switzerland                               controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.present
 POST          /about-you/other-eea-state-or-switzerland                               controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.submit

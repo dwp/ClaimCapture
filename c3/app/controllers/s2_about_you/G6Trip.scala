@@ -4,15 +4,13 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{FiftyTwoWeeksTrip, Trip, Trips}
+import models.domain.{FiftyTwoWeeksTrip, Trips}
 import utils.helpers.CarersForm._
 import play.api.i18n.Messages
 import models.DayMonthYear
 import AboutYou.trips
 import controllers.Mappings._
 import controllers.CarersForms._
-import models.domain.Trip
-import scala.Some
 import models.domain.Trip
 import scala.Some
 
