@@ -1,0 +1,33 @@
+@(tripForm: Form[models.domain.Trip], legend :String, actionCall: Call, backCall: Call)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import views.html.s2_about_you.main
+
+@main(Messages("s2.g6") + " - " + Messages("s2.longName"), Nil, Some(tripForm)) {
+    @form(action = actionCall) {
+        <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
+
+        <fieldset class="form-elements">
+            <legend>@Messages(legend)</legend>
+
+            <ul class="group">
+                @inputDayMonthYear(tripForm("start"), '_label -> Messages("start.trip"))
+
+                @inputDayMonthYear(tripForm("end"), '_label -> Messages("end.trip"))
+
+                @carersInputText(tripForm("where"))
+
+                @carersInputText(tripForm("why"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href='@backCall' class="button secondary" aria-label="Back button">Back</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+        </nav>
+    }
+}

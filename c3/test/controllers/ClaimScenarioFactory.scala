@@ -45,6 +45,24 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def timeSpentAbroad() = {
+    val claim = new TestData
+//    // Normal Residence And Current Location
+//    claim.TimeSpentAbroadDoYouNormallyLiveintheUk = "No"
+//    claim.TimeSpentAbroadWhereDoYouNormallyLive = "Spain"
+//    claim.TimeSpentAbroadAreYouinGBNow = "Yes"
+//    // Details of time abroad with the person you care for
+//    claim.TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_1 = "Yes"
+    // Abroad For More Than 52 Weeks
+    claim.TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "Yes"
+    // Trip
+    claim.TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_1 = "10/04/2013"
+    claim.TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_1 = "20/04/2013"
+    claim.TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_1 = "Everywhere"
+    claim.TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_1 = "Visit Family"
+    claim
+  }
+
   def yourDetailsEnablingTimeOutsideUK() = {
     val claim = yourDetailsWithNotTimeOutside()
 

@@ -55,20 +55,26 @@ POST          /about-you/your-details                                           
 GET           /about-you/contact-details                                              controllers.s2_about_you.G2ContactDetails.present
 POST          /about-you/contact-details                                              controllers.s2_about_you.G2ContactDetails.submit
 
-GET         /about-you/claim-date                                                   controllers.s2_about_you.G3ClaimDate.present
-POST        /about-you/claim-date                                                   controllers.s2_about_you.G3ClaimDate.submit
+GET           /about-you/claim-date                                                   controllers.s2_about_you.G3ClaimDate.present
+POST          /about-you/claim-date                                                   controllers.s2_about_you.G3ClaimDate.submit
 
-GET         /about-you/nationality-and-residency                                    controllers.s2_about_you.G4NationalityAndResidency.present
-POST        /about-you/nationality-and-residency                                    controllers.s2_about_you.G4NationalityAndResidency.submit
+GET           /about-you/nationality-and-residency                                    controllers.s2_about_you.G4NationalityAndResidency.present
+POST          /about-you/nationality-and-residency                                    controllers.s2_about_you.G4NationalityAndResidency.submit
 
-GET         /about-you/more-about-you                                               controllers.s2_about_you.G8MoreAboutYou.present
-POST        /about-you/more-about-you                                               controllers.s2_about_you.G8MoreAboutYou.submit
+GET           /time-spent-abroad/abroad-for-more-than-52-weeks                        controllers.s2_about_you.G5AbroadForMoreThan52Weeks.present
+POST          /time-spent-abroad/abroad-for-more-than-52-weeks                        controllers.s2_about_you.G5AbroadForMoreThan52Weeks.submit
 
-GET         /about-you/other-eea-state-or-switzerland                               controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.present
-POST        /about-you/other-eea-state-or-switzerland                               controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.submit
+GET           /time-spent-abroad/trip/52-weeks                                        controllers.s2_about_you.G6Trip.fiftyTwoWeeks
+POST          /time-spent-abroad/trip/52-weeks                                        controllers.s2_about_you.G6Trip.fiftyTwoWeeksSubmit
 
-GET         /about-you/employment                                                   controllers.s2_about_you.G9Employment.present
-POST        /about-you/employment                                                   controllers.s2_about_you.G9Employment.submit
+GET           /about-you/other-eea-state-or-switzerland                               controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.present
+POST          /about-you/other-eea-state-or-switzerland                               controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.submit
+
+GET           /about-you/more-about-you                                               controllers.s2_about_you.G8MoreAboutYou.present
+POST          /about-you/more-about-you                                               controllers.s2_about_you.G8MoreAboutYou.submit
+
+GET           /about-you/employment                                                   controllers.s2_about_you.G9Employment.present
+POST          /about-you/employment                                                   controllers.s2_about_you.G9Employment.submit
 
 GET           /about-you/completed                                                    controllers.s2_about_you.AboutYou.completed
 POST          /about-you/completed                                                    controllers.s2_about_you.AboutYou.completedSubmit
