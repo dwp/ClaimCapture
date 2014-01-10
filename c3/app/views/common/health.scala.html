@@ -1,4 +1,4 @@
-@()
+@(now:String)
 @common.govMain("Alive") {
 
     <div class="carers-allowance">
@@ -8,7 +8,8 @@
         @common.helpLine()
 
         <section class="finish-statement">
-            <h1>Carer's allowance is working</h1>
+            <h1>Carer's allowance is functioning</h1>
+            <p>@now</p>
         </section>
     </div>
 } {
