@@ -99,6 +99,8 @@ object ClaimScenarioFactory {
     // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"
     claim.AboutYouNationalityAndResidencyResideInUK = "yes"
+    // Abroad For More Than 52 Weeks
+    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
     // Other EEA State or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
     claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "no"
@@ -128,6 +130,8 @@ object ClaimScenarioFactory {
     // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"
     claim.AboutYouNationalityAndResidencyResideInUK = "yes"
+    // Abroad For More Than 52 Weeks
+    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
     // Other EEA State or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
     claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "no"

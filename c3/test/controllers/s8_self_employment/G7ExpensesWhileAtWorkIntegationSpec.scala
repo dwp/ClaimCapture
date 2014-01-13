@@ -94,7 +94,9 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
       pageClaimDate fillPageWith claimDate
       val nationality = pageClaimDate.submitPage(throwException = true)
       nationality fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val otherEEAStateOrSwitzerland = nationality.submitPage(throwException = true)
+      val abroadForMoreThan52Weeks = nationality.submitPage(throwException = true)
+      abroadForMoreThan52Weeks fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      val otherEEAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
       otherEEAStateOrSwitzerland fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val pageMoreAboutYou = otherEEAStateOrSwitzerland.submitPage(throwException = true)
       pageMoreAboutYou fillPageWith claimDate
@@ -129,7 +131,9 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
       pageClaimDate fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val nationality = pageClaimDate.submitPage(throwException = true)
       nationality fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val otherEEAStateOrSwitzerland = nationality.submitPage(throwException = true)
+      val abroadForMoreThan52Weeks = nationality.submitPage(throwException = true)
+      abroadForMoreThan52Weeks fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      val otherEEAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
       otherEEAStateOrSwitzerland fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val pageMoreAboutYou = otherEEAStateOrSwitzerland.submitPage(throwException = true)
       pageMoreAboutYou fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
