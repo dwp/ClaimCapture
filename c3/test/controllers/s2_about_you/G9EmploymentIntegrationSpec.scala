@@ -20,16 +20,17 @@ class G9EmploymentIntegrationSpec extends Specification with Tags {
       titleMustEqual("Does the person you care for get one of these benefits? - Can you get Carer's Allowance?")
     }
 
-    "contain 6 completed forms" in new WithBrowser with BrowserMatchers {
+    "contain 7 completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
+      Formulate.abroadForMoreThan52Weeks(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
 
       titleMustEqual("Employment - About you - the carer")
-      findMustEqualSize("div[class=completed] ul li", 6)
+      findMustEqualSize("div[class=completed] ul li", 7)
     }
 
     "fill all fields" in new WithBrowser with G1YourDetailsPageContext {
