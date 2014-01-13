@@ -23,13 +23,14 @@ class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
       page goToThePage()
 
       page runClaimWith (claim, G8MoreAboutYouPage.title)
-      page numberSectionsCompleted() mustEqual 5
+      page numberSectionsCompleted() mustEqual 6
     }
 
     "contain questions with claim dates" in new WithBrowser {
       val dateString = "03/04/1950"
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
+      Formulate.abroadForMoreThan52Weeks(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       val h3 = browser.find("div[class=completed] ul li h3")
       h3.getText.contains(dateString) mustEqual true
@@ -41,6 +42,7 @@ class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
+      Formulate.abroadForMoreThan52Weeks(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       browser.goTo("/about-you/more-about-you")
       titleMustEqual("More about you - About you - the carer")
@@ -50,11 +52,8 @@ class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G1YourDetailsPageContext {
-      println("1b")
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      println("2b")
       page goToThePage()
-      println("3b")
       page runClaimWith (claim, G9EmploymentPage.title)
     }
   } section("integration", models.domain.AboutYou.id)
