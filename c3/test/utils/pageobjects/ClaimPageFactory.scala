@@ -6,7 +6,6 @@ import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s4_care_you_provide._
-import utils.pageobjects.s5_time_spent_abroad._
 import utils.pageobjects.s6_education._
 import utils.pageobjects.s7_employment._
 import utils.pageobjects.s8_self_employment._
@@ -39,6 +38,7 @@ object ClaimPageFactory extends PageFactory {
       case G3ClaimDatePage.title => G3ClaimDatePage (browser, previousPage)
       case G4NationalityAndResidencyPage.title => G4NationalityAndResidencyPage (browser, previousPage)
       case G5AbroadForMoreThan52WeeksPage.title => G5AbroadForMoreThan52WeeksPage (browser, previousPage, iteration)
+      case G6TripPage.title => G6TripPage (browser, previousPage, iteration)
       case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (browser,previousPage)
       case G8MoreAboutYouPage.title => G8MoreAboutYouPage (browser, previousPage)
       case G9EmploymentPage.title => G9EmploymentPage (browser, previousPage)
@@ -54,12 +54,7 @@ object ClaimPageFactory extends PageFactory {
       case G10BreaksInCarePage.title => G10BreaksInCarePage (browser, previousPage, iteration)
       case G11BreakPage.title => G11BreakPage (browser, previousPage, iteration)
       case G12CareYouProvideCompletedPage.title => G12CareYouProvideCompletedPage (browser, previousPage)
-      // S5
-      case G1NormalResidenceAndCurrentLocationPage.title => G1NormalResidenceAndCurrentLocationPage (browser, previousPage)
-      case G2AbroadForMoreThan4WeeksPage.title => G2AbroadForMoreThan4WeeksPage (browser, previousPage,iteration)
-      case G3AbroadForMoreThan52WeeksPage.title => G3AbroadForMoreThan52WeeksPage (browser, previousPage,iteration)
-      case G4TripPage.title => G4TripPage (browser, previousPage, iteration)
-      case G5TimeAbroadCompletedPage.title => G5TimeAbroadCompletedPage (browser, previousPage)
+
       //S6
       case G1YourCourseDetailsPage.title => G1YourCourseDetailsPage (browser,previousPage)
       case G2AddressOfSchoolCollegeOrUniversityPage.title => G2AddressOfSchoolCollegeOrUniversityPage (browser,previousPage)
