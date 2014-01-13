@@ -17,11 +17,11 @@ About You,Your contact details,Mobile number,AboutYouMobileNumber,DWPCAClaim>Evi
 About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,Residency>Nationality
 About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,DWPCAClaim>EvidenceList
 About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,Residency>OtherNationality>CountryArrivedFrom
-About You,When you went abroad for more than 52 weeks,"Have you been out of Great Britain for more than 52 weeks, since [[Claim Date _ 156weeks]] (this is 156 weeks before your claim date)?",AboutYouDateYouLeftGBTripForMoreThan52Weeks,
-About You,Details of trips abroad for more than 52 weeks,Date you left Great Britain,AboutYouDateYouLeftGBTripForMoreThan52Weeks,PeriodAbroadDuringCare>Period>DateFrom
-About You,Details of trips abroad for more than 52 weeks,Date you returned to Great Britain,AboutYouDateYouReturnedToGBTripForMoreThan52Weeks,PeriodAbroadDuringCare>Period>DateTo
+About You,When you went abroad for more than 52 weeks,"Have you been out of Great Britain for more than 52 weeks, since [[Claim Date _ 156weeks]] (this is 156 weeks before your claim date)?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,
+About You,Details of trips abroad for more than 52 weeks,Date you left Great Britain,AboutYouDateYouLeftGBTripForMoreThan52Weeks,DWPCAClaim>EvidenceList
+About You,Details of trips abroad for more than 52 weeks,Date you returned to Great Britain,AboutYouDateYouReturnedToGBTripForMoreThan52Weeks,DWPCAClaim>EvidenceList
 About You,Details of trips abroad for more than 52 weeks,Where did you go?,AboutYouWhereDidYouGoForMoreThan52Weeks,DWPCAClaim>EvidenceList
-About You,Details of trips abroad for more than 52 weeks,Why did you go?,AboutYouWhyDidYouGoForMoreThan52Weeks,PeriodAbroadDuringCare>Reason
+About You,Details of trips abroad for more than 52 weeks,Why did you go?,AboutYouWhyDidYouGoForMoreThan52Weeks,DWPCAClaim>EvidenceList
 About You,Details of trips abroad for more than 52 weeks,"Have you had any more trips out of Great Britain for more than 52 weeks, since [[Claim date _ 3 years]] (this is 3 years before your claim date)?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,DWPCAClaim>EvidenceList
 About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,Claimant>DateOfClaim
 About You,More about you,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Claimant>MaritalStatus
@@ -66,21 +66,6 @@ About the care you provide,About the breaks in care,Where were you during the br
 About the care you provide,About the breaks in care,Where was the person you care for during the break?,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak,DWPCAClaim>EvidenceList
 About the care you provide,About the breaks in care,Where was the person you care for during the break? Other detail,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther,DWPCAClaim>EvidenceList
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment,CareBreak>MedicalCare
-Time Spent Abroad,Your normal residence & current location,"Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? ",TimeSpentAbroadDoYouNormallyLiveintheUk,DWPCAClaim>EvidenceList
-Time Spent Abroad,Your normal residence & current location,Where do you normally live? ,TimeSpentAbroadWhereDoYouNormallyLive,Residency>CountryNormallyLive
-Time Spent Abroad,Your normal residence & current location,Are you in Great Britain now?,TimeSpentAbroadAreYouinGBNow,Residency>InGreatBritainNow
-Time Spent Abroad,When you went Details of time abroad with the person you care for,"Have you been out of Great Britain with the person you care for for more than 4 weeks at a time, since [[Claim Date _ 3 years]] (this is 3 years from today)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor,DWPCAClaim>EvidenceList
-Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB,PeriodAbroadLastYear>Period>DateFrom
-Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGB,PeriodAbroadLastYear>Period>DateTo
-Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Where did you go?,TimeSpentAbroadWhereDidYouGoWithPersonCareFor,PeriodAbroadLastYear>Country
-Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor,PeriodAbroadLastYear>Reason
-Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),"Have you had any more trips out of Great Britain for more than 52 weeks, since [[Claim date _ 3 years]] (this is 3 years before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime,DWPCAClaim>EvidenceList
-Time Spent Abroad,When you went abroad for more than 52 weeks,"Have you been out of Great Britain for more than 52 weeks, since [[Claim Date _ 156weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks,
-Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks,PeriodAbroadDuringCare>Period>DateFrom
-Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks,PeriodAbroadDuringCare>Period>DateTo
-Time Spent Abroad,Details of trips abroad for more than 52 weeks,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks,DWPCAClaim>EvidenceList
-Time Spent Abroad,Details of trips abroad for more than 52 weeks,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks,PeriodAbroadDuringCare>Reason
-Time Spent Abroad,Details of trips abroad for more than 52 weeks,"Have you had any more trips out of Great Britain for more than 52 weeks, since [[Claim date _ 3 years]] (this is 3 years before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime,DWPCAClaim>EvidenceList
 Education,Your course details,Type of course,EducationTypeOfCourse,FullTimeEducation>CourseDetails>Type
 Education,Your course details,Course title,EducationCourseTitle,FullTimeEducation>CourseDetails>Title
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,FullTimeEducation>CourseDetails>DateStarted
