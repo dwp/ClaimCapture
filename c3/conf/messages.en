@@ -113,7 +113,6 @@ s11.g5 = Documents you need to send us
 
 date.helper = eg: 27 June 2013
 please.specify =  Please specify...
-error.required = This is required
 error.unknown = Invalid
 error.date = This is required
 
@@ -303,9 +302,9 @@ anyTrips = Have you been out of Great Britain
 4Weeks.summaryTable.label = Time Abroad you have added
 
 # 52 WEEKS
-52Weeks.label = Have you been out of Great Britain for more than 52 weeks, since {0} (this is 3 years before your claim date)?
+52Weeks.label = Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date {0}?
 52Weeks.helper = This could be one trip of 52 weeks, or a number of trips adding up to 52 weeks.
-52Weeks.more.label = Have you had any more trips out of Great Britain for more than 52 weeks, since {0} (this is 3 years before your claim date)?
+52Weeks.more.label = Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date {0}?
 52Weeks.summaryTable.label = Time Abroad you have added
 
 where = Which country did you go to?
@@ -426,7 +425,6 @@ otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Pater
 otherPay = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
 howOften_frequency = How often
 whoPaysYou = Who pays you
-howMuch = How much
 
 ## PAY DETAILS
 # HOW WE PAY YOU

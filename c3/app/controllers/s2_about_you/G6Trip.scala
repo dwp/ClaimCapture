@@ -18,8 +18,8 @@ object G6Trip extends Controller with CachedClaim {
   val form = Form(mapping(
     "tripID" -> nonEmptyText,
     "where" -> carersNonEmptyText(maxLength = 35),
-    "start" -> optional(dayMonthYear verifying validDate),
-    "end" -> optional(dayMonthYear verifying validDate),
+    "start" -> optional(dayMonthYear.verifying(validDateOnly)),
+    "end" -> optional(dayMonthYear.verifying(validDateOnly)),
     "why" -> optional(carersText)
   )(Trip.apply)(Trip.unapply))
 
