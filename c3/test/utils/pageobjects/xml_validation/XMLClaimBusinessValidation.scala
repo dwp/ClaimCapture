@@ -60,7 +60,7 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
             value.contains(StatutoryPaymentFrequency.mapToHumanReadableString(claimValue.value, None).toLowerCase)
           else if (nodeName.startsWith(EvidenceListNode)) {
             // Awful code. Need to do something about it! (JMI)
-            if (claimValue.attribute.contains("TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
+            if (claimValue.attribute.contains("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
               if (iteration == 0 ) value.matches(".*haveyoubeenoutofgreatbritainformorethan[^=]*=" + claimValue.value +".*") else true
             }
             else if (claimValue.attribute.contains("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor")) {
