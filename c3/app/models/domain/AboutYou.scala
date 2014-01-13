@@ -68,20 +68,20 @@ object Trips extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g6"
 }
 
-case class Trip(id: String, start: DayMonthYear, end: DayMonthYear, where: String, why: String) extends FiftyTwoWeeksTrip {
+case class Trip(id: String, where: String, start: Option[DayMonthYear] = None, end: Option[DayMonthYear] = None, why: Option[String] = None) extends FiftyTwoWeeksTrip {
   def as[T >: Trip]: T = asInstanceOf[T]
 }
 
 sealed trait TripPeriod {
   val id: String
 
-  val start: DayMonthYear
-
-  val end: DayMonthYear
-
   val where: String
 
-  val why: String
+  val start: Option[DayMonthYear]
+
+  val end: Option[DayMonthYear]
+
+  val why: Option[String]
 }
 
 trait FiftyTwoWeeksTrip extends TripPeriod {

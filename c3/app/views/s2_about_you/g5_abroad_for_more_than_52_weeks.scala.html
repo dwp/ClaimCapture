@@ -1,4 +1,5 @@
 @(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks], trips: models.domain.Trips)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@import scala.xml.NodeSeq
 
 @import scala.language.postfixOps
 @import views.html.helper._
@@ -28,13 +29,19 @@
             @for(trip <- trips.fiftyTwoWeeksTrips) {
                 <tr id="@trip.id" class="@trip.id">
                     <td>
-                        @{trip.start.`dd/MM/yyyy`}
-                    <span>to</span>
-                        @{trip.end.`dd/MM/yyyy`}
+                        @{trip.start match {
+                            case Some(dayMonthYear) => dayMonthYear.`dd/MM/yyyy`
+                            case _ =>
+                        }}
+                        @{if (trip.end.nonEmpty) <span>to</span>}
+                        @{trip.end match {
+                            case Some(dayMonthYear) => dayMonthYear.`dd/MM/yyyy`
+                            case _ =>
+                        }}
                     </td>
 
                     <td class="desc">@trip.where</td>
-                    <td class="desc">@trip.why</td>
+                    <td class="desc">@trip.why.getOrElse("")</td>
                     <td><input type="button" class="button row secondary" value="Change" aria-label="Change button"></td>
                     <td><input type="button" class="button row warning" value="Delete" aria-label="Delete button"></td>
                 </tr>

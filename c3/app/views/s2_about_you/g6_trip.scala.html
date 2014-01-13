@@ -15,11 +15,11 @@
             <legend>@Messages(legend)</legend>
 
             <ul class="group">
+                @carersInputText(tripForm("where"), 'maxLength -> 35)
+
                 @inputDayMonthYear(tripForm("start"), '_label -> Messages("start.trip"))
 
                 @inputDayMonthYear(tripForm("end"), '_label -> Messages("end.trip"))
-
-                @carersInputText(tripForm("where"))
 
                 @carersInputText(tripForm("why"))
             </ul>

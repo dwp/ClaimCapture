@@ -308,10 +308,10 @@ anyTrips = Have you been out of Great Britain
 52Weeks.more.label = Have you had any more trips out of Great Britain for more than 52 weeks, since {0} (this is 3 years before your claim date)?
 52Weeks.summaryTable.label = Time Abroad you have added
 
-start.trip = Date you left Great Britain
-end.trip = Date you returned to Great Britain
-where = Where did you go?
-why = Why did you go?
+where = Which country did you go to?
+start.trip = Date you left?
+end.trip = Date you returned?
+why = Reason for being there?
 
 
 ## EDUCATION

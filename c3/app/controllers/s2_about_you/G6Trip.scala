@@ -17,10 +17,10 @@ import scala.Some
 object G6Trip extends Controller with CachedClaim {
   val form = Form(mapping(
     "tripID" -> nonEmptyText,
-    "start" -> (dayMonthYear verifying validDate),
-    "end" -> (dayMonthYear verifying validDate),
     "where" -> carersNonEmptyText(maxLength = 35),
-    "why" -> carersNonEmptyText
+    "start" -> optional(dayMonthYear verifying validDate),
+    "end" -> optional(dayMonthYear verifying validDate),
+    "why" -> optional(carersText)
   )(Trip.apply)(Trip.unapply))
 
   val fiftyTwoWeeksLabel = "s2.g5"
