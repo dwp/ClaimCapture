@@ -58,7 +58,11 @@
 
             <ul class="group">
             @defining(if(trips.fiftyTwoWeeksTrips == Nil || trips.fiftyTwoWeeksTrips.isEmpty) {"52Weeks.label"} else {"52Weeks.more.label"}) { label =>
-                @yesNoRadioGroup(AbroadForMoreThan52WeeksForm("anyTrips"), '_label -> Messages(label, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 156 weeks).`dd/MM/yyyy`)))
+                @yesNoRadioGroup(AbroadForMoreThan52WeeksForm(
+                    "anyTrips"),
+                    '_label -> Messages(label, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 156 weeks).`dd/MM/yyyy`)),
+                    'helperBelow -> Messages("52Weeks.helper")
+                )
             }
             </ul>
 
