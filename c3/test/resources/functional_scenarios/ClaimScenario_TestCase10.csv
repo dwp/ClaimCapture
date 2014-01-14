@@ -22,6 +22,7 @@ About You,Details of trips abroad for more than 52 weeks,Date you left,AboutYouD
 About You,Details of trips abroad for more than 52 weeks,Date you returned,AboutYouDateYouReturnedToGBTripForMoreThan52Weeks_1,
 About You,Details of trips abroad for more than 52 weeks,Which country did you go to?,AboutYouWhereDidYouGoForMoreThan52Weeks_1,
 About You,Details of trips abroad for more than 52 weeks,Reason for being there?,AboutYouWhyDidYouGoForMoreThan52Weeks_1,
+About You,Details of trips abroad for more than 52 weeks,Was the person you care for with you?,AboutYouPersonWithYou_1,
 About You,Money you get from other European Economic Area (EEA) countries or Switzerland,"Do you, or any member of your family, receive any benefits or pensions from from a European Economic Area (EEA) state or Switzerland?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,No
 About You,Money you get from other European Economic Area (EEA) countries or Switzerland,"Have you, or a member of your family, made a claim for any benefits or pensions from a European Economic Area (EEA) state or Switzerland?",OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA,No
 About You,Money you get from other European Economic Area (EEA) countries or Switzerland,"Are you, or a member of your family, working in or paying insurance to, another European Economic Area (EEA) state or Switzerland?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,No

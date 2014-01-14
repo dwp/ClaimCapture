@@ -1,4 +1,4 @@
-@(tripForm: Form[models.domain.Trip], legend :String, actionCall: Call, backCall: Call)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@(tripForm: Form[models.domain.Trip], legend :String, actionCall: Call, backCall: Call)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -23,6 +23,8 @@
                 @inputDayMonthYear(tripForm("end"), '_label -> Messages("end.trip"))
 
                 @reasonForBeingThereSelect(tripForm("why"))
+
+                @yesNoRadioGroup(tripForm("personWithYou"))
             </ul>
         </fieldset>
 

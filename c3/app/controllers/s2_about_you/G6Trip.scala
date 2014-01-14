@@ -20,7 +20,8 @@ object G6Trip extends Controller with CachedClaim {
     "where" -> carersNonEmptyText(maxLength = 35),
     "start" -> optional(dayMonthYear.verifying(validDateOnly)),
     "end" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "why" -> optional(carersText)
+    "why" -> optional(carersText),
+    "personWithYou" -> nonEmptyText.verifying(validYesNo)
   )(Trip.apply)(Trip.unapply))
 
   val fiftyTwoWeeksLabel = "s2.g5"

@@ -308,6 +308,7 @@ where = Which country did you go to?
 start.trip = Date you left?
 end.trip = Date you returned?
 why = Reason for being there?
+personWithYou = Was the person you care for with you?
 
 
 ## EDUCATION
