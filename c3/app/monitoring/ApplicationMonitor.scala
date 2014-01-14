@@ -10,15 +10,16 @@ import play.api.Play.current
 
 object ApplicationMonitor {
 
-  val start = Play.configuration.getMilliseconds("monitor.scheduleStart").map(_.milliseconds).getOrElse(30 seconds)
-  val every = Play.configuration.getMilliseconds("monitor.scheduleEvery").map(_.milliseconds).getOrElse(15 minutes)
-
+  val start: Long = Play.configuration.getLong("monitor.scheduleStart").getOrElse(10)
+  val every: Long = Play.configuration.getLong("monitor.scheduleEvery").getOrElse(10)
+  val startDuration = Duration(start, MINUTES)
+  val endDuration = Duration(start, MINUTES)
   val actorSystem = ActorSystem("monitoring-actor-system")
 
   val publisher = actorSystem.actorOf(Props(classOf[Publisher], Logger), name = "publisher")
 
   def begin = {
-    actorSystem.scheduler.schedule(start, every) {
+    actorSystem.scheduler.schedule(startDuration, endDuration) {
       publisher ! CacheCount
       publisher ! HeapStats
     }

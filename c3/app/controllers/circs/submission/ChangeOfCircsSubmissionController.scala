@@ -7,6 +7,7 @@ import models.domain._
 import models.domain.Claim
 import scala.Some
 import models.view.CachedChangeOfCircs
+import play.api.Logger
 
 @Singleton
 class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends SubmissionController(submitter) with CachedChangeOfCircs{
@@ -41,6 +42,10 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
       }
     }
 
-    checkDeclaration
+    val declaration = checkDeclaration
+
+    if (declaration) Logger.warn("Honeypot triggered coc : declaration")
+
+    declaration
   }
 }
