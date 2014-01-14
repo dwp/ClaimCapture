@@ -4,7 +4,6 @@ import app.StatutoryPaymentFrequency
 import models.domain._
 import scala.xml.NodeSeq
 import org.joda.time.DateTime
-import models.domain.Claim
 import scala.Some
 
 /**
@@ -23,6 +22,7 @@ object AssistedDecision {
     assisted ++= noEEABenefits(claim)
     assisted ++= noEEABenefitsClaimedFor(claim)
     assisted ++= noEEAWork(claim)
+    assisted ++= normallyResideInUK(claim)
     //    }
     //    assisted ++= dateOfClaim(claim)
     //    assisted ++= rightAge(claim)
@@ -98,6 +98,12 @@ object AssistedDecision {
     val monthsFuture = DateTime.now().plusMonths(3).plusDays(1)
     val claimDate = new DateTime(claimDateAnswer.dateOfClaim.year.get, claimDateAnswer.dateOfClaim.month.get, claimDateAnswer.dateOfClaim.day.get, 0, 0)
     if (claimDate.isAfter(monthsFuture)) textLine("Date of Claim too far in the future. Potential disallowance.")
+    else NodeSeq.Empty
+  }
+
+  private def normallyResideInUK(claim: Claim): NodeSeq = {
+    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency())
+    if (nationalityAndResidency.resideInUK.answer.toLowerCase != "yes") textLine("Person does not normally live in England, Scotland or Wales. Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 

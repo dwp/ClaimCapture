@@ -8,6 +8,7 @@ import org.joda.time.DateTime
 import models.PaymentFrequency
 import models.domain.Claim
 import scala.Some
+import models.yesNo.{YesNoWithText, YesNo}
 
 
 class AssistedDecisionSpec extends Specification with Tags {
@@ -270,6 +271,20 @@ class AssistedDecisionSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team."
+    }
+
+    "Create an assisted decision section if person does not normally live in England, Scotland or Wales" in {
+      val residency = NationalityAndResidency(resideInUK = YesNoWithText("no"))
+      val claim = Claim().update(residency)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must contain("Person does not normally live in England, Scotland or Wales. Transfer to Exportability team.")
+    }
+
+    "Not create an assisted decision section if person normally lives in England, Scotland or Wales" in {
+      val residency = NationalityAndResidency(resideInUK = YesNoWithText("yes"))
+      val claim = Claim().update(residency)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must not contain "Person does not normally live in England, Scotland or Wales. Transfer to Exportability team."
     }
 
   } section "unit"
