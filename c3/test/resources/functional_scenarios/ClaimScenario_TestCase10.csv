@@ -18,10 +18,10 @@ About You,Your nationality and residency,"Do you normally live in England, Scotl
 About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,France
 About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,23/07/2013
 About You,When you went abroad for more than 52 weeks,"Have you been out of Great Britain for more than 52 weeks, since [[Claim Date _ 156weeks]] (this is 156 weeks before your claim date)?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,No
-About You,Details of trips abroad for more than 52 weeks,Date you left Great Britain,AboutYouDateYouLeftGBTripForMoreThan52Weeks_1,
-About You,Details of trips abroad for more than 52 weeks,Date you returned to Great Britain,AboutYouDateYouReturnedToGBTripForMoreThan52Weeks_1,
-About You,Details of trips abroad for more than 52 weeks,Where did you go?,AboutYouWhereDidYouGoForMoreThan52Weeks_1,
-About You,Details of trips abroad for more than 52 weeks,Why did you go?,AboutYouWhyDidYouGoForMoreThan52Weeks_1,
+About You,Details of trips abroad for more than 52 weeks,Date you left,AboutYouDateYouLeftGBTripForMoreThan52Weeks_1,
+About You,Details of trips abroad for more than 52 weeks,Date you returned,AboutYouDateYouReturnedToGBTripForMoreThan52Weeks_1,
+About You,Details of trips abroad for more than 52 weeks,Which country did you go to?,AboutYouWhereDidYouGoForMoreThan52Weeks_1,
+About You,Details of trips abroad for more than 52 weeks,Reason for being there?,AboutYouWhyDidYouGoForMoreThan52Weeks_1,
 About You,Other EEA State or Switzerland,"Do you, or any member of your family, receive any benefits or pensions from from a European Economic Area (EEA) state or Switzerland?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,No
 About You,Other EEA State or Switzerland,"Have you, or a member of your family, made a claim for any benefits or pensions from a European Economic Area (EEA) state or Switzerland?",OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA,No
 About You,Other EEA State or Switzerland,"Are you, or a member of your family, working in or paying insurance to, another European Economic Area (EEA) state or Switzerland?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,No

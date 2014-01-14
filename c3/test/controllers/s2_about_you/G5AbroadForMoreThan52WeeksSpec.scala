@@ -15,21 +15,21 @@ class G5AbroadForMoreThan52WeeksSpec extends Specification with Tags {
       status(result) mustEqual OK
     }
 
-    """enforce answer to "Details of time abroad for more than 52 weeks".""" in new WithApplication with Claiming {
+    """enforce answer to "Time outside of England, Scotland or Wales".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val result = G5AbroadForMoreThan52Weeks.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
-    """accept "yes" to "Details of time abroad for more than 52 weeks".""" in new WithApplication with Claiming {
+    """accept "yes" to "Time outside of England, Scotland or Wales".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("anyTrips" -> "yes")
 
       val result = G5AbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result) must beSome("/about-you/trip/52-weeks")
     }
 
-    """accept "no" to "Details of time abroad for more than 52 weeks".""" in new WithApplication with Claiming {
+    """accept "no" to "Time outside of England, Scotland or Wales".""" in new WithApplication with Claiming {
       pending
       /*val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("anyTrips" -> "no")
 

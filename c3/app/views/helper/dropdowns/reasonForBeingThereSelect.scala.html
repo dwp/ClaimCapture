@@ -1,0 +1,17 @@
+@(field: Field)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+
+@{
+    carersSelect(field,
+        options = options(
+            "" -> "Please select",
+            "Home" -> "Home",
+            "Holiday" -> "Holiday",
+            "Work" -> "Work",
+            "Other" -> "Other"),
+        '_label -> Messages("why")
+    )
+}

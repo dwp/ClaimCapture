@@ -12,7 +12,7 @@ class G5AbroadForMoreThan52WeeksPage (browser: TestBrowser, previousPage: Option
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G5AbroadForMoreThan52WeeksPage {
-  val title = "Details of time abroad for more than 52 weeks - About you - the carer".toLowerCase
+  val title = "Time outside of England, Scotland or Wales - About you - the carer".toLowerCase
 
   val url  = "/about-you/abroad-for-more-than-52-weeks"
 

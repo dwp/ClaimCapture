@@ -6,6 +6,7 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import views.html.s2_about_you.main
+@import views.html.helper.dropdowns._
 
 @main(Messages("s2.g6") + " - " + Messages("s2.longName"), Nil, Some(tripForm)) {
     @form(action = actionCall) {
@@ -21,7 +22,7 @@
 
                 @inputDayMonthYear(tripForm("end"), '_label -> Messages("end.trip"))
 
-                @carersInputText(tripForm("why"))
+                @reasonForBeingThereSelect(tripForm("why"))
             </ul>
         </fieldset>
 

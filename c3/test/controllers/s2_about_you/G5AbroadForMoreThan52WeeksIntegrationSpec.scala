@@ -8,12 +8,12 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
   "Abroad for more that 52 weeks" should {
     "present" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       goTo("/about-you/abroad-for-more-than-52-weeks")
-      titleMustEqual("Details of time abroad for more than 52 weeks - About you - the carer")
+      titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
     }
 
     "provide for trip entry" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       goTo("/about-you/abroad-for-more-than-52-weeks")
-      titleMustEqual("Details of time abroad for more than 52 weeks - About you - the carer")
+      titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
 
       click("#anyTrips_yes")
       next
@@ -22,7 +22,7 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
 
     """present "completed" when no more 52 week trips are required""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       goTo("/about-you/abroad-for-more-than-52-weeks")
-      titleMustEqual("Details of time abroad for more than 52 weeks - About you - the carer")
+      titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
 
       click("#anyTrips_no")
       next
@@ -36,7 +36,7 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       fill("#nationality") `with` "British"
       click("#resideInUK_answer_yes")
       next
-      titleMustEqual("Details of time abroad for more than 52 weeks - About you - the carer")
+      titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
 
       back
       titleMustEqual("Your nationality and residency - About you - the carer")
@@ -44,14 +44,14 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
 
     """remember "no more 52 weeks trips" upon stating "52 weeks trips" and returning""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       goTo("/about-you/abroad-for-more-than-52-weeks")
-      titleMustEqual("Details of time abroad for more than 52 weeks - About you - the carer")
+      titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
 
       click("#anyTrips_no")
       next
       titleMustEqual("Other EEA State or Switzerland - About you - the carer")
 
       back
-      titleMustEqual("Details of time abroad for more than 52 weeks - About you - the carer")
+      titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
       findFirst("#anyTrips_yes").isSelected should beFalse
       findFirst("#anyTrips_no").isSelected should beTrue
     }
