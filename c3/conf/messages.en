@@ -49,7 +49,7 @@ s2.g3 = Your claim date: {0}
 s2.g4 = Your nationality and residency
 s2.g5 = Time outside of England, Scotland or Wales
 s2.g6 = Trips
-s2.g7 = Other EEA State or Switzerland
+s2.g7 = Money you get from other European Economic Area (EEA) countries or Switzerland
 s2.g8 = More about you
 s2.g9 = Employment
 
@@ -67,7 +67,6 @@ s4.g6 = About the breaks in care
 
 s5.g1 = Your normal residence and current location
 s5.g2 = Details of time abroad with the person you care for
-s5.g5 = Other EEA State or Switzerland
 
 s6.g1 = Your course details
 s6.g2 = School, college or university''s contact details

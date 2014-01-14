@@ -26,7 +26,7 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
 
       click("#anyTrips_no")
       next
-      titleMustEqual("Other EEA State or Switzerland - About you - the carer")
+      titleMustEqual("Money you get from other European Economic Area (EEA) countries or Switzerland - About you - the carer")
     }
 
     """go back to "Nationality and Residency".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
@@ -48,7 +48,7 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
 
       click("#anyTrips_no")
       next
-      titleMustEqual("Other EEA State or Switzerland - About you - the carer")
+      titleMustEqual("Money you get from other European Economic Area (EEA) countries or Switzerland - About you - the carer")
 
       back
       titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
