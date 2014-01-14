@@ -61,10 +61,7 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
           else if (nodeName.startsWith(EvidenceListNode)) {
             // Awful code. Need to do something about it! (JMI)
             if (claimValue.attribute.contains("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
-              if (iteration == 0 ) value.matches(".*haveyoubeenoutofgreatbritainformorethan[^=]*=" + claimValue.value +".*") else true
-            }
-            else if (claimValue.attribute.contains("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor")) {
-              if (iteration == 0) value.matches(".*haveyoubeenoutofgreatbritainwith[^=]*=" + claimValue.value +".*") else true
+              if (iteration == 0 ) value.matches(".*haveyoubeenoutofengland,scotlandorwales[^=]*=" + claimValue.value +".*") else true
             }
             else if (claimValue.attribute == "SelfEmployedChildcareExpensesHowOften" || claimValue.attribute == "SelfEmployedCareExpensesHowOften")
               value.contains(claimValue.question + "=" + PensionPaymentFrequency.mapToHumanReadableString(claimValue.value).toLowerCase)

@@ -17,12 +17,12 @@ About You,Your contact details,Mobile number,AboutYouMobileNumber,DWPCAClaim>Evi
 About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,Residency>Nationality
 About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,DWPCAClaim>EvidenceList
 About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,Residency>OtherNationality>CountryArrivedFrom
-About You,When you went abroad for more than 52 weeks,"Have you been out of Great Britain for more than 52 weeks, since [[Claim Date _ 156weeks]] (this is 156 weeks before your claim date)?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,
+About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,
 About You,Details of trips abroad for more than 52 weeks,Date you left,AboutYouDateYouLeftGBTripForMoreThan52Weeks,DWPCAClaim>EvidenceList
 About You,Details of trips abroad for more than 52 weeks,Date you returned,AboutYouDateYouReturnedToGBTripForMoreThan52Weeks,DWPCAClaim>EvidenceList
 About You,Details of trips abroad for more than 52 weeks,Which country did you go to?,AboutYouWhereDidYouGoForMoreThan52Weeks,DWPCAClaim>EvidenceList
 About You,Details of trips abroad for more than 52 weeks,Reason for being there?,AboutYouWhyDidYouGoForMoreThan52Weeks,DWPCAClaim>EvidenceList
-About You,Details of trips abroad for more than 52 weeks,"Have you had any more trips out of Great Britain for more than 52 weeks, since [[Claim date _ 3 years]] (this is 3 years before your claim date)?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,DWPCAClaim>EvidenceList
+About You,Details of trips abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,DWPCAClaim>EvidenceList
 About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,Claimant>DateOfClaim
 About You,More about you,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Claimant>MaritalStatus
 About You,More about you,Have you had a partner/spouse at any time since your claim date: <ddmmyyyy>?,AboutYouHaveYouHadaPartnerSpouseatAnyTime,DWPCAClaim>HavePartner

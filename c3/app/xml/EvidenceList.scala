@@ -8,7 +8,6 @@ import app.XMLValues._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import play.api.i18n.Messages
-import models.DayMonthYear
 
 object EvidenceList {
 
@@ -120,13 +119,13 @@ object EvidenceList {
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
     var textLines = NodeSeq.Empty
 
-    textLines ++= textLine("Have you been out of Great Britain for more than 52 weeks," +
-      s" since ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`} (this is 3 years before your claim date)? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
+    textLines ++= textLine("Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date " +
+      s" ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`}? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
 
     for ((fiftyTwoWeekTrip,index) <- trips.fiftyTwoWeeksTrips.zipWithIndex) {
       if (index > 0){
-        textLines ++= textLine("Have you had any more trips out of Great Britain for more than 52 weeks," +
-          s" since ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`} (this is 3 years before your claim date)? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
+        textLines ++= textLine("Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date" +
+          s" ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`}? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
       }
       textLines ++= textLine("Which country did you go to? = ", fiftyTwoWeekTrip.where)
       fiftyTwoWeekTrip.start match {
