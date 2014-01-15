@@ -10,12 +10,12 @@ import utils.pageobjects.{ClaimPage, Page, PageContext}
  */
 class G6TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G6TripPage.url, G6TripPage.title, previousPage, iteration) {
 
-  declareDate("#start", "AboutYouDateYouLeftGBTripForMoreThan52Weeks_" + iteration)
-  declareDate("#end", "AboutYouDateYouReturnedToGBTripForMoreThan52Weeks_" + iteration)
-  declareInput("#where", "AboutYouWhereDidYouGoForMoreThan52Weeks_" + iteration)
-  declareSelect("#why_reason", "AboutYouWhyDidYouGoForMoreThan52Weeks_" + iteration)
-  declareInput("#why_reason_other", "AboutYouWhyDidYouGoOtherForMoreThan52Weeks_" + iteration)
-  declareYesNo("#personWithYou", "AboutYouPersonWithYou_" + iteration)
+  declareDate("#start", "DateYouLeftGB_" + iteration)
+  declareDate("#end", "DateYouReturnedToGB_" + iteration)
+  declareInput("#where", "WhereDidYouGo_" + iteration)
+  declareSelect("#why_reason", "WhyDidYou_" + iteration)
+  declareInput("#why_reason_other", "WhyDidYouOther_" + iteration)
+  declareYesNo("#personWithYou", "PersonWithYou_" + iteration)
 
   protected override def getNewIterationNumber = iteration + 1
 }
