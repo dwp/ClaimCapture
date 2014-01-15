@@ -1,7 +1,7 @@
 package models.domain
 
-import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
-import models.yesNo.{YesNo, YesNoWithText}
+import models.{ReasonForBeingThere, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
+import models.yesNo.YesNoWithText
 
 object AboutYou extends Section.Identifier {
   val id = "s2"
@@ -68,7 +68,7 @@ object Trips extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g6"
 }
 
-case class Trip(id: String, where: String, start: Option[DayMonthYear] = None, end: Option[DayMonthYear] = None, why: Option[String] = None, personWithYou: String) extends FiftyTwoWeeksTrip {
+case class Trip(id: String, where: String, start: Option[DayMonthYear] = None, end: Option[DayMonthYear] = None, why: Option[ReasonForBeingThere], personWithYou: String) extends FiftyTwoWeeksTrip {
   def as[T >: Trip]: T = asInstanceOf[T]
 }
 
@@ -81,7 +81,7 @@ sealed trait TripPeriod {
 
   val end: Option[DayMonthYear]
 
-  val why: Option[String]
+  val why: Option[ReasonForBeingThere]
 
   val personWithYou: String
 }

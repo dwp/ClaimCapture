@@ -13,7 +13,8 @@ class G6TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iterat
   declareDate("#start", "AboutYouDateYouLeftGBTripForMoreThan52Weeks_" + iteration)
   declareDate("#end", "AboutYouDateYouReturnedToGBTripForMoreThan52Weeks_" + iteration)
   declareInput("#where", "AboutYouWhereDidYouGoForMoreThan52Weeks_" + iteration)
-  declareSelect("#why", "AboutYouWhyDidYouGoForMoreThan52Weeks_" + iteration)
+  declareSelect("#why_reason", "AboutYouWhyDidYouGoForMoreThan52Weeks_" + iteration)
+  declareInput("#why_reason_other", "AboutYouWhyDidYouGoOtherForMoreThan52Weeks_" + iteration)
   declareYesNo("#personWithYou", "AboutYouPersonWithYou_" + iteration)
 
   protected override def getNewIterationNumber = iteration + 1

@@ -9,6 +9,8 @@
 @import views.html.s2_about_you.main
 
 @main(Messages("s2.g5") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.AbroadForMoreThan52Weeks), Some(AbroadForMoreThan52WeeksForm)) {
+@errorsSummary(AbroadForMoreThan52WeeksForm)
+
     <fieldset id="trips" class="form-elements results-detail">
         <legend>@Messages("52Weeks.summaryTable.label")</legend>
 
@@ -41,7 +43,16 @@
                     </td>
 
                     <td class="desc">@trip.where</td>
-                    <td class="desc">@trip.why.getOrElse("")</td>
+                    <td class="desc">
+                        @{trip.why match {
+                            case Some(reasonForBeingThere) => reasonForBeingThere.reason match {
+                                    case Some (reason) =>
+                                        if (reasonForBeingThere.other.isDefined)"Other: " +reasonForBeingThere.other.get else reason
+                                    case _ =>
+                                }
+                            case _ =>
+                        }}
+                    </td>
                     <td><input type="button" class="button row secondary" value="Change" aria-label="Change button"></td>
                     <td><input type="button" class="button row warning" value="Delete" aria-label="Delete button"></td>
                 </tr>

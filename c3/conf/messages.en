@@ -291,7 +291,7 @@ liveInUK.whereDoYouLive = Where do you normally live?
 liveInUK_whereDoYouLive = Where do you normally live?
 inGBNow = Are you in Great Britain now?
 
-anyTrips = Have you been out of Great Britain
+anyTrips = Have you been out of England, Scotland or Wales
 
 # 4 WEEKS
 4Weeks.label = Have you been out of Great Britain with the person you care for for more than 4 weeks at a time, since {0} (this is 3 years from today)?

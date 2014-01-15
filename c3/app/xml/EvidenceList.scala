@@ -140,7 +140,13 @@ object EvidenceList {
       }
 
       fiftyTwoWeekTrip.why match {
-        case Some(reason) => textLines ++= textLine("Reason for being there? = ", reason)
+        case Some(reasonForBeingThere) => reasonForBeingThere.reason match {
+          case Some (reason) =>
+            var reasonText = "Reason for being there? = " + reason
+            if (reasonForBeingThere.other.isDefined) reasonText = "Reason for being there? Other =  " +reasonForBeingThere.other.get
+            textLines ++= textLine(reasonText)
+          case _ => NodeSeq.Empty
+        }
         case _ => NodeSeq.Empty
       }
 
