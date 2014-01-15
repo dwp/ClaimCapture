@@ -128,10 +128,12 @@ object EvidenceList {
           s" ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`}? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
       }
       textLines ++= textLine("Which country did you go to? = ", fiftyTwoWeekTrip.where)
+
       fiftyTwoWeekTrip.start match {
         case Some(dayMonthYear) => textLines ++= textLine("Date you left = ", dayMonthYear.`yyyy-MM-dd`)
         case _ => NodeSeq.Empty
       }
+
       fiftyTwoWeekTrip.end match {
         case Some(dayMonthYear) => textLines ++= textLine("Date you returned = ", dayMonthYear.`yyyy-MM-dd`)
         case _ => NodeSeq.Empty
@@ -141,6 +143,8 @@ object EvidenceList {
         case Some(reason) => textLines ++= textLine("Reason for being there? = ", reason)
         case _ => NodeSeq.Empty
       }
+
+      textLines ++= textLine("Was the person you care for with you? = ", fiftyTwoWeekTrip.personWithYou)
     }
     textLines
   }
