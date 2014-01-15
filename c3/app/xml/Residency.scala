@@ -12,15 +12,13 @@ object Residency {
     <Residency>
       <Nationality>{nationalityAndResidency.nationality}</Nationality>
       <EUEEASwissNational>{NotAsked}</EUEEASwissNational>
-      {/** TODO : These fields have to be addressed when we move this section to the new location : Start **/}
-      <CountryNormallyLive>{NotAsked/**TODO**/}</CountryNormallyLive>
-      <CountryNormallyLiveOther>{NotAsked/**TODO**/}</CountryNormallyLiveOther>
+      <CountryNormallyLive>{NotAsked}</CountryNormallyLive>
+      <CountryNormallyLiveOther>{NotAsked}</CountryNormallyLiveOther>
       <InGreatBritainNow>{NotAsked}</InGreatBritainNow>
-      <InGreatBritain26Weeks>{NotAsked/**TODO**/}</InGreatBritain26Weeks>
-      <BritishOverseasPassport>{NotAsked/**TODO**/}</BritishOverseasPassport>
+      <InGreatBritain26Weeks>{NotAsked}</InGreatBritain26Weeks>
+      <BritishOverseasPassport>{NotAsked}</BritishOverseasPassport>
       {otherNationality(claim)}
-      <OutOfGreatBritain>{NotAsked/**TODO**/}</OutOfGreatBritain>
-      {/** TODO : These fields have to be addressed when we move this section to the new location : End **/}
+      <OutOfGreatBritain>{NotAsked}</OutOfGreatBritain>
     </Residency>
   }
 
@@ -32,8 +30,8 @@ object Residency {
         <EUEEASwissNationalChildren/>
         <DateArrivedInGreatBritain>{NotAsked}</DateArrivedInGreatBritain>
         <CountryArrivedFrom>{nationalityAndResidency.resideInUK.text.orNull}</CountryArrivedFrom>
-        <IntendToReturn>{/** TODO: Make sure this is OK in the future **/}{NotAsked}</IntendToReturn>
-        <DateReturn>{/** TODO: Make sure this is OK in the future **/}{NotAsked}</DateReturn>
+        <IntendToReturn>{NotAsked}</IntendToReturn>
+        <DateReturn>{NotAsked}</DateReturn>
         <VisaReferenceNumber>{NotAsked}</VisaReferenceNumber>
       </OtherNationality>
 
