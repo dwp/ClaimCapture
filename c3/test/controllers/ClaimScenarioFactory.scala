@@ -1,9 +1,8 @@
 package controllers
 
-import utils.pageobjects.{ClaimPage, Page, TestData}
+import utils.pageobjects.TestData
 
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
-import play.api.test.TestBrowser
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -45,15 +44,22 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def abroadForMoreThan52WeeksConfirmation() = {
+  def abroadForMoreThan52WeeksConfirmationYes() = {
     val claim = new TestData
     claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "Yes"
 
     claim
   }
 
+  def abroadForMoreThan52WeeksConfirmationNo() = {
+    val claim = new TestData
+    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "No"
+
+    claim
+  }
+
   def abroadForMoreThan52WeeksTrip1() = {
-    val claim = abroadForMoreThan52WeeksConfirmation()
+    val claim = abroadForMoreThan52WeeksConfirmationYes()
 
     // Trip
     claim.DateYouLeftGB_1 = "10/04/2013"

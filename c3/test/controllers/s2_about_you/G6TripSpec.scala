@@ -12,14 +12,14 @@ class G6TripSpec extends Specification with Tags {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
-      val result = G6Trip.fiftyTwoWeeks(request)
+      val result = G6Trip.present(request)
       status(result) mustEqual OK
     }
 
     "be rejected for missing mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
-      val result = G6Trip.fiftyTwoWeeksSubmit(request)
+      val result = G6Trip.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -37,7 +37,7 @@ class G6TripSpec extends Specification with Tags {
           "why_reason" -> "Holiday",
           "personWithYou" -> "yes")
 
-      G6Trip.fiftyTwoWeeksSubmit(request1)
+      G6Trip.submit(request1)
 
       val request2 = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
@@ -52,7 +52,7 @@ class G6TripSpec extends Specification with Tags {
           "why_reason" -> "Holiday",
           "personWithYou" -> "yes")
 
-      G6Trip.fiftyTwoWeeksSubmit(request2)
+      G6Trip.submit(request2)
 
       Cache.getAs[Claim](claimKey).get.questionGroup(Trips) must beLike {
         case Some(t: Trips) => t.fiftyTwoWeeksTrips.size shouldEqual 2
@@ -75,7 +75,7 @@ class G6TripSpec extends Specification with Tags {
           "why_reason" -> "Holiday",
           "personWithYou" -> "yes")
 
-      G6Trip.fiftyTwoWeeksSubmit(requestNew)
+      G6Trip.submit(requestNew)
 
       val yearUpdate = 2005
 
@@ -92,7 +92,7 @@ class G6TripSpec extends Specification with Tags {
           "why_reason" -> "Holiday",
           "personWithYou" -> "yes")
 
-      G6Trip.fiftyTwoWeeksSubmit(requestUpdate)
+      G6Trip.submit(requestUpdate)
 
       Cache.getAs[Claim](claimKey).get.questionGroup(Trips) must beLike {
         case Some(t: Trips) => t.fiftyTwoWeeksTrips.head.start.get.year must beSome(yearUpdate)
@@ -114,7 +114,7 @@ class G6TripSpec extends Specification with Tags {
             "why_reason" -> "Holiday",
             "personWithYou" -> "yes")
 
-        G6Trip.fiftyTwoWeeksSubmit(request)
+        G6Trip.submit(request)
       }
 
       Cache.getAs[Claim](claimKey).get.questionGroup(Trips) must beLike {
@@ -134,7 +134,7 @@ class G6TripSpec extends Specification with Tags {
           "why_reason" -> "Holiday",
           "personWithYou" -> "yes")
 
-      val result = G6Trip.fiftyTwoWeeksSubmit(request)
+      val result = G6Trip.submit(request)
       redirectLocation(result) must beSome("/about-you/abroad-for-more-than-52-weeks")
 
       Cache.getAs[Claim](claimKey).get.questionGroup(Trips) must beLike {
