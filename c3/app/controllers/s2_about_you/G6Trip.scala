@@ -20,7 +20,7 @@ object G6Trip extends Controller with CachedClaim {
     "where" -> carersNonEmptyText(maxLength = 35),
     "start" -> optional(dayMonthYear.verifying(validDateOnly)),
     "end" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "why" -> optional(carersText),
+    "why" -> optional(reasonForBeingThere.verifying(requiredReasonForBeingThereOther)),
     "personWithYou" -> nonEmptyText.verifying(validYesNo)
   )(Trip.apply)(Trip.unapply))
 
@@ -32,7 +32,9 @@ object G6Trip extends Controller with CachedClaim {
 
   def fiftyTwoWeeksSubmit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g6_trip(formWithErrors, fiftyTwoWeeksLabel, routes.G6Trip.fiftyTwoWeeksSubmit(), routes.G5AbroadForMoreThan52Weeks.present())),
+      formWithErrors => {
+        BadRequest(views.html.s2_about_you.g6_trip(formWithErrors, fiftyTwoWeeksLabel, routes.G6Trip.fiftyTwoWeeksSubmit(), routes.G5AbroadForMoreThan52Weeks.present()))
+      },
       trip => {
         val updatedTrips = if (trips.fiftyTwoWeeksTrips.size >= 5) trips else trips.update(trip.as[FiftyTwoWeeksTrip])
         claim.update(updatedTrips) -> Redirect(routes.G5AbroadForMoreThan52Weeks.present())

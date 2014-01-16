@@ -1,17 +1,15 @@
-@(field: Field)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: play.api.i18n.Lang)
 
-@import helper._
+@import scala.util.Try
+@import helper.dates._
 @import utils.helpers.CarersTemplate._
-@import views.html.helper.base._
+@import app.StatutoryPaymentFrequency._
 
-@{
-    carersSelect(field,
-        options = options(
-            "" -> "Please select",
-            "Home" -> "Home",
-            "Holiday" -> "Holiday",
-            "Work" -> "Work",
-            "Other" -> "Other"),
-        '_label -> Messages("why")
-    )
+@helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
+
+@views.html.helper.selectWithOtherPlaceholder(field,"reason", Seq("" -> "Please select",
+"Home" -> "Home",
+"Holiday" -> "Holiday",
+"Work" -> "Work",
+"other" -> "Other"), args:_*)
 }
