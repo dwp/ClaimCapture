@@ -61,9 +61,9 @@ object Formulate {
 
   def otherEEAStateOrSwitzerland(browser: TestBrowser) = {
     browser.goTo("/about-you/other-eea-state-or-switzerland")
-    browser.click("#benefitsFromOtherEEAStateOrSwitzerland_no")
-    browser.click("#claimedForBenefitsFromOtherEEAStateOrSwitzerland_no")
-    browser.click("#workingForOtherEEAStateOrSwitzerland_no")
+    browser.click("#benefitsFromEEA_no")
+    browser.click("#claimedForBenefitsFromEEA_no")
+    browser.click("#workingForEEA_no")
     browser.submit("button[type='submit']")
   }
 

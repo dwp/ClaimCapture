@@ -7,9 +7,9 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
  * PageObject pattern associated to S7 about you EEA pension and insurance.
  */
 final class G7OtherEEAStateOrSwitzerlandPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G7OtherEEAStateOrSwitzerlandPage.url, G7OtherEEAStateOrSwitzerlandPage.title, previousPage) {
-  declareYesNo("#benefitsFromOtherEEAStateOrSwitzerland","OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA")
-  declareYesNo("#claimedForBenefitsFromOtherEEAStateOrSwitzerland","OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA")
-  declareYesNo("#workingForOtherEEAStateOrSwitzerland", "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA")
+  declareYesNo("#benefitsFromEEA","OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA")
+  declareYesNo("#claimedForBenefitsFromEEA","OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA")
+  declareYesNo("#workingForEEA", "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA")
 }
 
 object G7OtherEEAStateOrSwitzerlandPage {

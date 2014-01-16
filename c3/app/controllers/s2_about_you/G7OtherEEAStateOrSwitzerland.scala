@@ -12,9 +12,9 @@ import models.view.Navigable
 
 object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "benefitsFromOtherEEAStateOrSwitzerland" -> nonEmptyText.verifying(validYesNo),
-    "claimedForBenefitsFromOtherEEAStateOrSwitzerland" -> nonEmptyText.verifying(validYesNo),
-    "workingForOtherEEAStateOrSwitzerland" -> nonEmptyText.verifying(validYesNo)
+    "benefitsFromEEA" -> nonEmptyText.verifying(validYesNo),
+    "claimedForBenefitsFromEEA" -> nonEmptyText.verifying(validYesNo),
+    "workingForEEA" -> nonEmptyText.verifying(validYesNo)
   )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply))
 
   def present = claiming { implicit claim => implicit request =>
@@ -24,6 +24,6 @@ object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim with Nav
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g7_otherEEAStateOrSwitzerland(formWithErrors)),
-      benefitsFromOtherEEAStateOrSwitzerland => claim.update(benefitsFromOtherEEAStateOrSwitzerland) -> Redirect(routes.G8MoreAboutYou.present()))
+      benefitsFromEEA => claim.update(benefitsFromEEA) -> Redirect(routes.G8MoreAboutYou.present()))
   }
 }

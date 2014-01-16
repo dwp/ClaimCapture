@@ -109,19 +109,19 @@ object AssistedDecision {
 
   private def noEEABenefits(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.benefitsFromOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
+    if (otherEEAStateOrSwitzerland.benefitsFromEEA.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
   private def noEEABenefitsClaimedFor(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.claimedForBenefitsFromOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
+    if (otherEEAStateOrSwitzerland.claimedForBenefitsFromEEA.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
   private def noEEAWork(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.workingForOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team.")
+    if (otherEEAStateOrSwitzerland.workingForEEA.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
