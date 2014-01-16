@@ -8,6 +8,7 @@ import org.joda.time.DateTime
 import models.PaymentFrequency
 import models.domain.Claim
 import scala.Some
+import models.yesNo.YesNoWithText
 
 
 class AssistedDecisionSpec extends Specification with Tags {
@@ -16,8 +17,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if care less than 35 hours" in {
       val moreAboutTheCare = MoreAboutTheCare("no")
-      val residency = NormalResidenceAndCurrentLocation(inGBNow = "yes")
-      val claim = Claim().update(moreAboutTheCare).update(residency)
+      val claim = Claim().update(moreAboutTheCare)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Do not spend 35 hours or more each week caring. Potential disallowance, but need to check advisory additional notes.")
     }.pendingUntilFixed("Postponed by busines")
@@ -207,38 +207,6 @@ class AssistedDecisionSpec extends Specification with Tags {
       (xml \\ "TextLine").text must not contain "Person receives Armed Forces Independence Payment. Transfer to Armed Forces Independent Payments team."
     }
 
-    "Create an assisted decision section if EEA pension" in {
-      val moreAboutTheCare = MoreAboutTheCare("yes")
-      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromOtherEEAStateOrSwitzerland = "yes")
-      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must contain("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
-    }
-
-    "Not create an assisted decision section if no EEA pension" in {
-      val moreAboutTheCare = MoreAboutTheCare("yes")
-      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromOtherEEAStateOrSwitzerland = "no")
-      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team."
-    }
-
-    "Create an assisted decision section if EEA insurance or working" in {
-      val moreAboutTheCare = MoreAboutTheCare("yes")
-      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForOtherEEAStateOrSwitzerland = "yes")
-      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must contain("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team.")
-    }
-
-    "Not create an assisted decision section if no EEA insurance or working" in {
-      val moreAboutTheCare = MoreAboutTheCare("yes")
-      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForOtherEEAStateOrSwitzerland = "no")
-      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team."
-    }
-
     "Create an assisted decision section if date of claim > 3 months and 1 day" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val now = DateTime.now()
@@ -257,22 +225,66 @@ class AssistedDecisionSpec extends Specification with Tags {
       (xml \\ "TextLine").text must not contain "Date of Claim too far in the future. Potential disallowance."
     }
 
-    "Create an assisted decision section if person not in Great Britain Now" in {
+    "Create an assisted decision section if EEA pension" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NormalResidenceAndCurrentLocation(inGBNow = "no")
-      val claim = Claim().update(moreAboutTheCare).update(residency)
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromEEA = "yes")
+      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must contain("Keep In View")
-      (xml \\ "TextLine").text must contain("Person does not reside in GB now. Transfer to Exportability team.")
+      (xml \\ "TextLine").text must contain("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
     }
 
-    "Not create an assisted decision section if person is in Great Britain Now" in {
+    "Not create an assisted decision section if no EEA pension" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NormalResidenceAndCurrentLocation(inGBNow = "yes")
-      val claim = Claim().update(moreAboutTheCare).update(residency)
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromEEA = "no")
+      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must not contain "Keep In View"
-      (xml \\ "TextLine").text must not contain "Person does not reside in GB now. Transfer to Exportability team or potential disallowance."
+      (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team."
+    }
+
+    "Create an assisted decision section if EEA benefits claimed for" in {
+      val moreAboutTheCare = MoreAboutTheCare("yes")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(claimedForBenefitsFromEEA = "yes")
+      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must contain("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
+    }
+
+    "Not create an assisted decision section if no EEA benefits claimed for" in {
+      val moreAboutTheCare = MoreAboutTheCare("yes")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(claimedForBenefitsFromEEA = "no")
+      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team."
+    }
+
+    "Create an assisted decision section if EEA insurance or working" in {
+      val moreAboutTheCare = MoreAboutTheCare("yes")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForEEA = "yes")
+      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must contain("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team.")
+    }
+
+    "Not create an assisted decision section if no EEA insurance or working" in {
+      val moreAboutTheCare = MoreAboutTheCare("yes")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForEEA = "no")
+      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team."
+    }
+
+    "Create an assisted decision section if person does not normally live in England, Scotland or Wales" in {
+      val residency = NationalityAndResidency(resideInUK = YesNoWithText("no"))
+      val claim = Claim().update(residency)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must contain("Person does not normally live in England, Scotland or Wales. Transfer to Exportability team.")
+    }
+
+    "Not create an assisted decision section if person normally lives in England, Scotland or Wales" in {
+      val residency = NationalityAndResidency(resideInUK = YesNoWithText("yes"))
+      val claim = Claim().update(residency)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must not contain "Person does not normally live in England, Scotland or Wales. Transfer to Exportability team."
     }
 
   } section "unit"

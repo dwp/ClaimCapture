@@ -27,6 +27,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     """navigate back to "Completion - About your partner/spouse" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
       Formulate.yourPartnerPersonalDetails(browser)
       browser.goTo("/care-you-provide/their-personal-details")
@@ -37,6 +38,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     """navigate back to "Completion - About you - the carer" when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       Formulate.employment(browser)
       browser.goTo("/care-you-provide/their-personal-details")
@@ -52,8 +54,9 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
-      Formulate.nationalityAndResidency(browser)
       Formulate.claimDate(browser)
+      Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
       Formulate.employment(browser)
       Formulate.yourPartnerPersonalDetails(browser)

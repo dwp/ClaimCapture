@@ -1,9 +1,8 @@
 package controllers
 
-import utils.pageobjects.{ClaimPage, Page, TestData}
+import utils.pageobjects.TestData
 
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
-import play.api.test.TestBrowser
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -45,6 +44,44 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def abroadForMoreThan52WeeksConfirmationYes() = {
+    val claim = new TestData
+    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "Yes"
+
+    claim
+  }
+
+  def abroadForMoreThan52WeeksConfirmationNo() = {
+    val claim = new TestData
+    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "No"
+
+    claim
+  }
+
+  def abroadForMoreThan52WeeksTrip1() = {
+    val claim = abroadForMoreThan52WeeksConfirmationYes()
+
+    // Trip
+    claim.DateYouLeftGB_1 = "10/04/2013"
+    claim.DateYouReturnedToGB_1 = "20/04/2013"
+    claim.WhereDidYouGo_1 = "France"
+    claim.WhyDidYou_1 = "Holiday"
+    claim.PersonWithYou_1 = "yes"
+    claim
+  }
+
+  def abroadForMoreThan52WeeksTrip2() = {
+    val claim = new TestData
+    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_2 = "Yes"
+    // Trip
+    claim.DateYouLeftGB_2 = "10/05/2013"
+    claim.DateYouReturnedToGB_2 = "20/05/2013"
+    claim.WhereDidYouGo_2 = "Spain"
+    claim.WhyDidYou_2 = "Holiday"
+    claim.PersonWithYou_2 = "no"
+    claim
+  }
+
   def yourDetailsEnablingTimeOutsideUK() = {
     val claim = yourDetailsWithNotTimeOutside()
 
@@ -57,6 +94,17 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def otherEuropeanEconomicArea() = {
+    val claim = new TestData
+
+    // G7 EEA state or Switzerland
+    claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "yes"
+    claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "yes"
+    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "yes"
+
+    claim
+  }
+
   def   s2AboutYouWithTimeOutside() = {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
@@ -65,14 +113,17 @@ object ClaimScenarioFactory {
     claim.AboutYouPostcode = "SE1 6EH"
     claim.AboutYouPhoneNumber = "01253 111 111"
     claim.AboutYouMobileNumber = "07111 111 111"
-    // Nationality
-    claim.AboutYouNationalityAndResidencyNationality = "British"
-    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"
     claim.AboutYouNationalityAndResidencyResideInUK = "yes"
+    // Abroad For More Than 52 Weeks
+    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
+    // Other EEA State or Switzerland
+    claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
+    claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "no"
+    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "Yes"
@@ -98,6 +149,12 @@ object ClaimScenarioFactory {
     // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"
     claim.AboutYouNationalityAndResidencyResideInUK = "yes"
+    // Abroad For More Than 52 Weeks
+    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
+    // Other EEA State or Switzerland
+    claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
+    claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "no"
+    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "no"
@@ -385,9 +442,6 @@ object ClaimScenarioFactory {
     claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
     claim.OtherMoneySMPEmployerName = "Employers Name"
     claim.OtherMOneySMPHowOften = "weekly"
-    // G7 EEA state or Switzerland
-    claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "yes"
-    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "yes"
 
     claim
   }

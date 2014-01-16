@@ -14,6 +14,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
     "not be presented if section not visible" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
       browser.goTo("/education/your-course-details")
 

@@ -46,6 +46,6 @@ object G6OtherStatutoryPay extends Controller with CachedClaim with Navigable {
           .replaceError("employersAddress.lineThree", FormError("employersAddress", "error.restricted.characters"))
         BadRequest(views.html.s9_other_money.g6_otherStatutoryPay(formWithErrorsUpdate))
       },
-      f => claim.update(f) -> Redirect(routes.G7OtherEEAStateOrSwitzerland.present()))
+      f => claim.update(f) -> Redirect(routes.OtherMoney.completed()))
   }
 }

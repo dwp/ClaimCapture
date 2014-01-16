@@ -19,7 +19,7 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
     "not present 'Completed' if section not visible" in new WithBrowser with G3ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
       page goToThePage()
-      page runClaimWith (claim, G8AboutYouCompletedPage.title, waitForPage = true, waitDuration = 500)
+      page runClaimWith (claim, G10AboutYouCompletedPage.title, waitForPage = true, waitDuration = 500)
 
       val nextPage = page goToPage( throwException = false, page = new G9CompletedPage(browser))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
@@ -40,7 +40,11 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
       pageClaimDate fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val nationality = pageClaimDate.submitPage(throwException = true)
       nationality fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val pageMoreAboutYou = nationality.submitPage(throwException = true)
+      val abroadForMoreThan52Weeks = nationality.submitPage(throwException = true)
+      abroadForMoreThan52Weeks fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      val otherEEAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
+      otherEEAStateOrSwitzerland fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      val pageMoreAboutYou = otherEEAStateOrSwitzerland.submitPage(throwException = true)
       pageMoreAboutYou fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       pageMoreAboutYou.submitPage(throwException = true)
 

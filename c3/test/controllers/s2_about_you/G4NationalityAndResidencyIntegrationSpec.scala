@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import play.api.i18n.Messages
-import utils.pageobjects.s2_about_you.{G5MoreAboutYouPage, G4NationalityAndResidencyPage, G4NationalityAndResidencyPageContext}
+import utils.pageobjects.s2_about_you.{G5AbroadForMoreThan52WeeksPage, G4NationalityAndResidencyPage, G4NationalityAndResidencyPageContext}
 
 class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
   sequential
@@ -32,7 +32,7 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
 
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G5MoreAboutYouPage]
+      nextPage must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
     }
 
     "navigate to next page on valid non resident submission" in new WithBrowser with G4NationalityAndResidencyPageContext {
@@ -42,7 +42,7 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
 
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G5MoreAboutYouPage]
+      nextPage must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
     }
 
     "contain errors on invalid non resident submission" in new WithBrowser with G4NationalityAndResidencyPageContext {

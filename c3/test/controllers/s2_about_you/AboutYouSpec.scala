@@ -160,6 +160,7 @@ class AboutYouSpec extends Specification with Tags {
         .update(mockQuestionGroup[ContactDetails](ContactDetails))
         .update(mockQuestionGroup[NationalityAndResidency](NationalityAndResidency))
         .update(mockQuestionGroup[ClaimDate](ClaimDate))
+        .update(mockQuestionGroup[OtherEEAStateOrSwitzerland](OtherEEAStateOrSwitzerland))
         .update(moreAboutYou)
         .update(mockQuestionGroup[Employment](Employment))
 
@@ -183,6 +184,7 @@ class AboutYouSpec extends Specification with Tags {
         .update(mockQuestionGroup[ContactDetails](ContactDetails))
         .update(mockQuestionGroup[NationalityAndResidency](NationalityAndResidency))
         .update(mockQuestionGroup[ClaimDate](ClaimDate))
+        .update(mockQuestionGroup[OtherEEAStateOrSwitzerland](OtherEEAStateOrSwitzerland))
         .update(moreAboutYou)
         .update(mockQuestionGroup[Employment](Employment))
 

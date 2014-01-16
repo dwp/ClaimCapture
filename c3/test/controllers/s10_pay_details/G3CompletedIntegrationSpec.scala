@@ -17,6 +17,7 @@ class G3CompletedIntegrationSpec extends Specification with Tags {
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
       browser.goTo("/pay-details/completed")
       titleMustEqual("Additional information - Consent and Declaration")

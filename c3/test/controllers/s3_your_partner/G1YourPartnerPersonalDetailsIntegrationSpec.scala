@@ -11,6 +11,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
       Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -23,6 +24,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Your nationality and residency - About you - the carer")
 
       Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -35,6 +37,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Your nationality and residency - About you - the carer")
 
       Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -50,6 +53,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Your nationality and residency - About you - the carer")
 
       Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -62,6 +66,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Your nationality and residency - About you - the carer")
 
       Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
@@ -80,6 +85,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Your nationality and residency - About you - the carer")
 
       Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 

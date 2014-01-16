@@ -73,28 +73,10 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
   }
 
   def honeyPot(claim: Claim): Boolean = {
-    def checkTimeOutsideUK: Boolean = {
-      claim.questionGroup[TimeOutsideUK] match {
-        case Some(q) =>
-          q.livingInUK.answer == "no" && (q.livingInUK.date.isDefined || q.livingInUK.text.isDefined || q.livingInUK.goBack.isDefined) // Bot given fields were not visible.
-
-        case _ => false
-      }
-    }
-
     def checkMoreAboutTheCare: Boolean = {
       claim.questionGroup[MoreAboutTheCare] match {
         case Some(q) =>
           q.spent35HoursCaringBeforeClaim.answer == "no" && q.spent35HoursCaringBeforeClaim.date.isDefined // Bot given field spent35HoursCaringBeforeClaim.date was not visible.
-
-        case _ => false
-      }
-    }
-
-    def checkNormalResidenceAndCurrentLocation: Boolean = {
-      claim.questionGroup[NormalResidenceAndCurrentLocation] match {
-        case Some(q) =>
-          q.whereDoYouLive.answer == "yes" && q.whereDoYouLive.text.isDefined // Bot given field whereDoYouLive.text was not visible.
 
         case _ => false
       }
@@ -167,9 +149,8 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
       }
     }
 
-    val timeOutsideUK = checkTimeOutsideUK
+//    val timeOutsideUK = checkTimeOutsideUK
     val moreAboutTheCare = checkMoreAboutTheCare
-    val normalResidenceAndCurrentLocation = checkNormalResidenceAndCurrentLocation
     val pensionSchemes = checkPensionSchemes
     val childcareExpenses = checkChildcareExpenses
     val personYouCareForExpenses = checkPersonYouCareForExpenses
@@ -179,9 +160,8 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
     val statutorySickPay = checkStatutorySickPay
     val otherStatutoryPay = checkOtherStatutoryPay
 
-    if (timeOutsideUK) Logger.warn("Honeypot triggered : timeOutsideUK")
+//    if (timeOutsideUK) Logger.warn("Honeypot triggered : timeOutsideUK")
     if (moreAboutTheCare) Logger.warn("Honeypot triggered : moreAboutTheCare")
-    if (normalResidenceAndCurrentLocation) Logger.warn("Honeypot triggered : normalResidenceAndCurrentLocation")
     if (pensionSchemes) Logger.warn("Honeypot triggered : pensionSchemes")
     if (childcareExpenses) Logger.warn("Honeypot triggered : childcareExpenses")
     if (personYouCareForExpenses) Logger.warn("Honeypot triggered : personYouCareForExpenses")
@@ -191,9 +171,8 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
     if (statutorySickPay) Logger.warn("Honeypot triggered : statutorySickPay")
     if (otherStatutoryPay) Logger.warn("Honeypot triggered : otherStatutoryPay")
 
-    timeOutsideUK ||
+//    timeOutsideUK ||
       moreAboutTheCare ||
-      normalResidenceAndCurrentLocation ||
       pensionSchemes ||
       childcareExpenses ||
       personYouCareForExpenses ||

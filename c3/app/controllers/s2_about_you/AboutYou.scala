@@ -6,8 +6,13 @@ import models.domain._
 import controllers.Mappings._
 
 object AboutYou extends Controller with CachedClaim with Navigable {
+  def trips(implicit claim: Claim) = claim.questionGroup(Trips) match {
+    case Some(ts: Trips) => ts
+    case _ => Trips()
+  }
+
   def completed = claiming { implicit claim => implicit request =>
-    track(models.domain.AboutYou) { implicit claim => Ok(views.html.s2_about_you.g8_completed()) }
+    track(models.domain.AboutYou) { implicit claim => Ok(views.html.s2_about_you.g10_completed()) }
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>

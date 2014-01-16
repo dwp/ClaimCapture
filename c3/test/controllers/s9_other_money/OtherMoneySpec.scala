@@ -5,6 +5,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s9_other_money._
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
+import utils.pageobjects.s2_about_you.{G7OtherEEAStateOrSwitzerlandPageContext, G7OtherEEAStateOrSwitzerlandPage}
 
 class OtherMoneySpec extends Specification with Tags {
 
@@ -18,7 +19,7 @@ class OtherMoneySpec extends Specification with Tags {
       page goToPage(new G8OtherMoneyCompletedPage(browser))
      }
 
-    "contain the completed forms" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
+    "contain the completed forms" in new WithBrowser with G6OtherStatutoryPayPageContext {
       val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage ()
       page fillPageWith claim
@@ -29,7 +30,7 @@ class OtherMoneySpec extends Specification with Tags {
       completedPage.listCompletedForms.size shouldEqual 1
     }
 
-    "navigate back to 'Other Statutory Pay'" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
+    "navigate back to 'Other Statutory Pay'" in new WithBrowser with G6OtherStatutoryPayPageContext {
       val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage ()
       page fillPageWith claim
@@ -38,10 +39,10 @@ class OtherMoneySpec extends Specification with Tags {
 
       val g7Again = g8 goBack ()
 
-      g7Again must beAnInstanceOf[G7OtherEEAStateOrSwitzerlandPage]
+      g7Again must beAnInstanceOf[G6OtherStatutoryPayPage]
     }
 
-    "next button text contains the next section name" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
+    "next button text contains the next section name" in new WithBrowser with G6OtherStatutoryPayPageContext {
       val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage ()
       page fillPageWith claim
@@ -50,7 +51,7 @@ class OtherMoneySpec extends Specification with Tags {
       browser.find("button[type='submit']").getText shouldEqual "Continue"
     }
 
-    "navigate to the Pay Details on clicking continue" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
+    "navigate to the Pay Details on clicking continue" in new WithBrowser with G6OtherStatutoryPayPageContext {
       val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage ()
       page fillPageWith claim

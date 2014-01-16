@@ -105,6 +105,13 @@ package object app {
     val YouPersonBehalf = 'allNames
   }
 
+  object ReasonForBeingThere {
+    val Home = "Home"
+    val Holiday = "Holiday"
+    val Work = "Work"
+    val Other = "Other"
+  }
+
   val mb = 131072
   def convertToMB(bytes:Long) = {
     bytes / mb

@@ -59,26 +59,13 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
-// TODO: Remove
-//  def timeOutsideUK(browser: TestBrowser) = {
-//    browser.goTo("/about-you/time-outside-uk")
-//    browser.click("#livingInUK_answer_yes")
-//
-//    browser.click("#livingInUK_arrivalDate_day option[value='1']")
-//    browser.click("#livingInUK_arrivalDate_month option[value='1']")
-//    browser.fill("#livingInUK_arrivalDate_year") `with` "2001"
-//
-//    browser.click("#livingInUK_goBack_answer_no")
-//
-//    browser.submit("button[value='next']")
-//  }
-
-  // TODO: Remove
-//  def timeOutsideUKNotLivingInUK(browser: TestBrowser) = {
-//    browser.goTo("/about-you/time-outside-uk")
-//    browser.click("#livingInUK_answer_no")
-//    browser.submit("button[value='next']")
-//  }
+  def otherEEAStateOrSwitzerland(browser: TestBrowser) = {
+    browser.goTo("/about-you/other-eea-state-or-switzerland")
+    browser.click("#benefitsFromEEA_no")
+    browser.click("#claimedForBenefitsFromEEA_no")
+    browser.click("#workingForEEA_no")
+    browser.submit("button[type='submit']")
+  }
 
   def claimDate(browser: TestBrowser) = {
     browser.goTo("/about-you/claim-date")
@@ -121,6 +108,13 @@ object Formulate {
     browser.goTo("/about-you/employment")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
+    browser.submit("button[type='submit']")
+  }
+
+  def notInEmployment(browser: TestBrowser) = {
+    browser.goTo("/about-you/employment")
+    browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
+    browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
     browser.submit("button[type='submit']")
   }
 
@@ -320,13 +314,7 @@ object Formulate {
     browser.click("#anyTrips_no")
     browser.submit("button[value='next']")
   }
-  
-  def otherEEAStateOrSwitzerland(browser: TestBrowser) = {
-    browser.click("#benefitsFromOtherEEAStateOrSwitzerland_answer_no")
-    browser.click("#workingForOtherEEAStateOrSwitzerland_no")
-    browser.submit("button[value='next']")
-  }
-  
+
   // Education
   def yourCourseDetails(browser: TestBrowser) = {
     val courseType = "University"

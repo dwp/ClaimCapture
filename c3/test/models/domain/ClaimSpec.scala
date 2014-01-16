@@ -70,17 +70,6 @@ class ClaimSpec extends Specification {
       updatedSection.visible must beFalse
     }
 
-    "give previous question group within same section" in new Claiming {
-      val claim = Claim().update(mockQuestionGroup[AbroadForMoreThan4Weeks](AbroadForMoreThan4Weeks))
-        .update(mockQuestionGroup[NormalResidenceAndCurrentLocation](NormalResidenceAndCurrentLocation))
-
-      val qgiCurrent: QuestionGroup.Identifier = AbroadForMoreThan4Weeks
-
-      claim.previousQuestionGroup(qgiCurrent) must beLike {
-        case Some(qg: NormalResidenceAndCurrentLocation) => Section.sectionIdentifier(qg) shouldEqual Section.sectionIdentifier(qgiCurrent)
-      }
-    }
-
     "returns first section when you ask for previous section in the first section" in {
       claim.previousSection(CarersAllowance).identifier mustEqual CarersAllowance
     }

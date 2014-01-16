@@ -26,7 +26,7 @@ $(function() {
 
         if ($(this).text() === 'Close')
         {
-            $(this).text('Show example');
+            $(this).text('What is an EEA State?');
         }
         else
         {

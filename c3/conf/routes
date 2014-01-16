@@ -55,17 +55,29 @@ POST          /about-you/your-details                                           
 GET           /about-you/contact-details                                              controllers.s2_about_you.G2ContactDetails.present
 POST          /about-you/contact-details                                              controllers.s2_about_you.G2ContactDetails.submit
 
-GET           /about-you/time-outside-uk                                              controllers.s2_about_you.G3TimeOutsideUK.present
-POST          /about-you/time-outside-uk                                              controllers.s2_about_you.G3TimeOutsideUK.submit
+GET           /about-you/claim-date                                                   controllers.s2_about_you.G3ClaimDate.present
+POST          /about-you/claim-date                                                   controllers.s2_about_you.G3ClaimDate.submit
 
-GET           /about-you/claim-date                                                   controllers.s2_about_you.G4ClaimDate.present
-POST          /about-you/claim-date                                                   controllers.s2_about_you.G4ClaimDate.submit
+GET           /about-you/nationality-and-residency                                    controllers.s2_about_you.G4NationalityAndResidency.present
+POST          /about-you/nationality-and-residency                                    controllers.s2_about_you.G4NationalityAndResidency.submit
 
-GET           /about-you/more-about-you                                               controllers.s2_about_you.G5MoreAboutYou.present
-POST          /about-you/more-about-you                                               controllers.s2_about_you.G5MoreAboutYou.submit
+GET           /about-you/abroad-for-more-than-52-weeks                                controllers.s2_about_you.G5AbroadForMoreThan52Weeks.present
+POST          /about-you/abroad-for-more-than-52-weeks                                controllers.s2_about_you.G5AbroadForMoreThan52Weeks.submit
 
-GET           /about-you/employment                                                   controllers.s2_about_you.G6Employment.present
-POST          /about-you/employment                                                   controllers.s2_about_you.G6Employment.submit
+GET           /about-you/trip/52-weeks                                                controllers.s2_about_you.G6Trip.present
+POST          /about-you/trip/52-weeks                                                controllers.s2_about_you.G6Trip.submit
+
+GET           /about-you/trip/:id                                                     controllers.s2_about_you.G6Trip.trip(id: String)
+DELETE        /about-you/trip/:id                                                     controllers.s2_about_you.G6Trip.delete(id: String)
+
+GET           /about-you/other-eea-state-or-switzerland                               controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.present
+POST          /about-you/other-eea-state-or-switzerland                               controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.submit
+
+GET           /about-you/more-about-you                                               controllers.s2_about_you.G8MoreAboutYou.present
+POST          /about-you/more-about-you                                               controllers.s2_about_you.G8MoreAboutYou.submit
+
+GET           /about-you/employment                                                   controllers.s2_about_you.G9Employment.present
+POST          /about-you/employment                                                   controllers.s2_about_you.G9Employment.submit
 
 GET           /about-you/completed                                                    controllers.s2_about_you.AboutYou.completed
 POST          /about-you/completed                                                    controllers.s2_about_you.AboutYou.completedSubmit
@@ -102,28 +114,6 @@ POST          /care-you-provide/break                                           
 
 GET           /care-you-provide/completed                                             controllers.s4_care_you_provide.CareYouProvide.completed
 POST          /care-you-provide/completed                                             controllers.s4_care_you_provide.CareYouProvide.submit
-
-# Time spent abroad
-###############
-GET           /time-spent-abroad/normal-residence-and-current-location                controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.present
-POST          /time-spent-abroad/normal-residence-and-current-location                controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.submit
-
-GET           /time-spent-abroad/abroad-for-more-than-4-weeks                         controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.present
-POST          /time-spent-abroad/abroad-for-more-than-4-weeks                         controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.submit
-
-GET           /time-spent-abroad/abroad-for-more-than-52-weeks                        controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.present
-POST          /time-spent-abroad/abroad-for-more-than-52-weeks                        controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.submit
-
-GET           /time-spent-abroad/trip/4-weeks                                         controllers.s5_time_spent_abroad.G4Trip.fourWeeks
-POST          /time-spent-abroad/trip/4-weeks                                         controllers.s5_time_spent_abroad.G4Trip.fourWeeksSubmit
-GET           /time-spent-abroad/trip/52-weeks                                        controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeks
-POST          /time-spent-abroad/trip/52-weeks                                        controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeksSubmit
-
-GET           /time-spent-abroad/trip/:id                                             controllers.s5_time_spent_abroad.G4Trip.trip(id: String)
-DELETE        /time-spent-abroad/trip/:id                                             controllers.s5_time_spent_abroad.G4Trip.delete(id: String)
-
-GET           /time-spent-abroad/completed                                            controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
-POST          /time-spent-abroad/completed                                            controllers.s5_time_spent_abroad.TimeSpentAbroad.completedSubmit
 
 # Education
 ###############
@@ -209,11 +199,8 @@ POST          /other-money/statutory-sick-pay                                   
 GET           /other-money/other-statutory-pay                                        controllers.s9_other_money.G6OtherStatutoryPay.present
 POST          /other-money/other-statutory-pay                                        controllers.s9_other_money.G6OtherStatutoryPay.submit
 
-GET           /other-money/other-eea-state-or-switzerland                             controllers.s9_other_money.G7OtherEEAStateOrSwitzerland.present
-POST          /other-money/other-eea-state-or-switzerland                             controllers.s9_other_money.G7OtherEEAStateOrSwitzerland.submit
-
-GET           /other-money/completed                                                  controllers.s9_other_money.OtherMoney.completed
-POST          /other-money/completed                                                  controllers.s9_other_money.OtherMoney.completedSubmit
+GET         /other-money/completed                                                  controllers.s9_other_money.OtherMoney.completed
+POST        /other-money/completed                                                  controllers.s9_other_money.OtherMoney.completedSubmit
 
 # Pay details
 ###############

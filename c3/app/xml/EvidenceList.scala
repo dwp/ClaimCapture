@@ -2,19 +2,18 @@ package xml
 
 import models.domain._
 import XMLHelper.formatValue
-import scala.xml.{NodeSeq, NodeBuffer, Elem}
+import scala.xml.NodeSeq
 import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 import app.XMLValues._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
-import models.DayMonthYear
 import play.api.i18n.Messages
 
 object EvidenceList {
 
   def xml(claim: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{evidence(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}{AssistedDecision.xml(claim)}
+      {xmlGenerated()}{evidence(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}{AssistedDecision.xml(claim)}
     </EvidenceList>
   }
 
@@ -64,17 +63,18 @@ object EvidenceList {
   }
 
   def aboutYou(claim: Claim) = {
-    val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency())
     val yourContactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
-//    val timeOutsideUK = claim.questionGroup[TimeOutsideUK].getOrElse(TimeOutsideUK())
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
+    val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
+
     var textLines = NodeSeq.Empty ++ textSeparatorLine("About You")
     textLines ++= textLine(Messages("resideInUK.label") + " = ", nationalityAndResidency.resideInUK.answer)
+    textLines ++= fiftyTwoWeeksTrips(claim)
     textLines ++= textLine("Mobile number = ", yourContactDetails.mobileNumber)
-//      textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer)
-//    if (timeOutsideUK.livingInUK.answer.toLowerCase == yes)
-//      textLines ++= textLine("When did you arrive in the UK? = ", timeOutsideUK.livingInUK.date.get.`dd/MM/yyyy`)
+    textLines ++= textLine("Do you, or any member of your family, receive any benefits or pensions from from a European Economic Area (EEA) state or Switzerland? = ", otherEEAState.benefitsFromEEA)
+    textLines ++= textLine("Have you, or a member of your family, made a claim for any benefits or pensions from a European Economic Area (EEA) state or Switzerland? = ", otherEEAState.claimedForBenefitsFromEEA)
+    textLines ++= textLine("Are you, or a member of your family, working in or paying insurance to, another European Economic Area (EEA) state or Switzerland? = ", otherEEAState.workingForEEA)
     textLines ++= textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
       textLine("If you have speech or hearing difficulties, would you like us to contact you by textphone? = ", yourContactDetails.contactYouByTextphone)
 
@@ -112,25 +112,48 @@ object EvidenceList {
     }
   }
 
-  def timeSpentAbroad(claim: Claim) = {
+  def fiftyTwoWeeksTrips(claim: Claim):NodeSeq = {
     import scala.language.postfixOps
 
-    val normalResidenceAndCurrentLocation = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
     val trips = claim.questionGroup[Trips].getOrElse(Trips())
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+    var textLines = NodeSeq.Empty
 
-    textSeparatorLine("Time abroad") ++
-      textLine("Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? = ", normalResidenceAndCurrentLocation.whereDoYouLive.answer) ++
-      textLine("Have you been out of Great Britain with the person you care for for more than 4 weeks at a time," +
-        s"since ${(DayMonthYear.today - 3 years).`dd/MM/yyyy`} (this is 3 years from today)? = ", if (trips.fourWeeksTrips.size > 0) Yes else No) ++
-      textLine("Have you been out of Great Britain for more than 52 weeks," +
-        s" since ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`} (this is 3 years before your claim date)? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
+    textLines ++= textLine("Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date " +
+      s" ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`}? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
 
-  }
+    for ((fiftyTwoWeekTrip,index) <- trips.fiftyTwoWeeksTrips.zipWithIndex) {
+      if (index > 0){
+        textLines ++= textLine("Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date" +
+          s" ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`}? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
+      }
+      textLines ++= textLine("Which country did you go to? = ", fiftyTwoWeekTrip.where)
 
-  def fiftyTwoWeeksTrips(claim: Claim) = {
-    val trips = claim.questionGroup[Trips].getOrElse(Trips())
-    for {fiftyTwoWeekTrip <- trips.fiftyTwoWeeksTrips} yield textLine("Where did you go? = ", fiftyTwoWeekTrip.where)
+      fiftyTwoWeekTrip.start match {
+        case Some(dayMonthYear) => textLines ++= textLine("Date you left = ", dayMonthYear.`yyyy-MM-dd`)
+        case _ => NodeSeq.Empty
+      }
+
+      fiftyTwoWeekTrip.end match {
+        case Some(dayMonthYear) => textLines ++= textLine("Date you returned = ", dayMonthYear.`yyyy-MM-dd`)
+        case _ => NodeSeq.Empty
+      }
+
+      fiftyTwoWeekTrip.why match {
+        case Some(reasonForBeingThere) => reasonForBeingThere.reason match {
+          case Some (reason) =>
+            textLines ++= textLine("Reason for being there? = ", reason)
+            if (reasonForBeingThere.other.isDefined){
+              textLines ++= textLine("Reason for being there? Other = ", reasonForBeingThere.other.get)
+            }
+          case _ => NodeSeq.Empty
+        }
+        case _ => NodeSeq.Empty
+      }
+
+      textLines ++= textLine("Was the person you care for with you? = ", fiftyTwoWeekTrip.personWithYou)
+    }
+    textLines
   }
 
   def selfEmployment(claim: Claim) = {
@@ -211,7 +234,6 @@ object EvidenceList {
     val aboutOtherMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
     val statutorySickPay = claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay())
     val otherStatutoryPay = claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay())
-    val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
 
     val aboutOtherMoney_howOftenOther = aboutOtherMoney.howOften match {
       case Some(s) => s.other.getOrElse("")
@@ -238,11 +260,7 @@ object EvidenceList {
       textLine("Statutory Sick Pay: How often other? = ", ssp_howOftenOther) ++
       textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
       textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(otherStatutoryPay.howOften)) ++
-      textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther) ++
-      textLine("Are you, your wife, husband, civil partner or parent you are dependent on, " +
-        "receiving  any pensions or benefits from another EEA State or Switzerland? = ", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland) ++
-      textLine("Are you, your wife, husband, civil partner or parent you are dependent on " +
-        "working in or paying insurance to another EEA State or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
+      textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther)
   }
 
   private def textSeparatorLine(title: String) = {

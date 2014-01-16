@@ -6,7 +6,6 @@ import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s4_care_you_provide._
-import utils.pageobjects.s5_time_spent_abroad._
 import utils.pageobjects.s6_education._
 import utils.pageobjects.s7_employment._
 import utils.pageobjects.s8_self_employment._
@@ -36,11 +35,14 @@ object ClaimPageFactory extends PageFactory {
       // S2
       case G1YourDetailsPage.title => G1YourDetailsPage (browser, previousPage)
       case G2ContactDetailsPage.title => G2ContactDetailsPage (browser, previousPage)
-      case G4NationalityAndResidencyPage.title => G4NationalityAndResidencyPage (browser, previousPage)
       case G3ClaimDatePage.title => G3ClaimDatePage (browser, previousPage)
-      case G5MoreAboutYouPage.title => G5MoreAboutYouPage (browser, previousPage)
-      case G6EmploymentPage.title => G6EmploymentPage (browser, previousPage)
-      case G8AboutYouCompletedPage.title => G8AboutYouCompletedPage (browser, previousPage)
+      case G4NationalityAndResidencyPage.title => G4NationalityAndResidencyPage (browser, previousPage)
+      case G5AbroadForMoreThan52WeeksPage.title => G5AbroadForMoreThan52WeeksPage (browser, previousPage, iteration)
+      case G6TripPage.title => G6TripPage (browser, previousPage, iteration)
+      case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (browser,previousPage)
+      case G8MoreAboutYouPage.title => G8MoreAboutYouPage (browser, previousPage)
+      case G9EmploymentPage.title => G9EmploymentPage (browser, previousPage)
+      case G10AboutYouCompletedPage.title => G10AboutYouCompletedPage (browser, previousPage)
       // S3
       case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage (browser,previousPage)
       case G5YourPartnerCompletedPage.title => G5YourPartnerCompletedPage (browser, previousPage)
@@ -52,12 +54,7 @@ object ClaimPageFactory extends PageFactory {
       case G10BreaksInCarePage.title => G10BreaksInCarePage (browser, previousPage, iteration)
       case G11BreakPage.title => G11BreakPage (browser, previousPage, iteration)
       case G12CareYouProvideCompletedPage.title => G12CareYouProvideCompletedPage (browser, previousPage)
-      // S5
-      case G1NormalResidenceAndCurrentLocationPage.title => G1NormalResidenceAndCurrentLocationPage (browser, previousPage)
-      case G2AbroadForMoreThan4WeeksPage.title => G2AbroadForMoreThan4WeeksPage (browser, previousPage,iteration)
-      case G3AbroadForMoreThan52WeeksPage.title => G3AbroadForMoreThan52WeeksPage (browser, previousPage,iteration)
-      case G4TripPage.title => G4TripPage (browser, previousPage, iteration)
-      case G5TimeAbroadCompletedPage.title => G5TimeAbroadCompletedPage (browser, previousPage)
+
       //S6
       case G1YourCourseDetailsPage.title => G1YourCourseDetailsPage (browser,previousPage)
       case G2AddressOfSchoolCollegeOrUniversityPage.title => G2AddressOfSchoolCollegeOrUniversityPage (browser,previousPage)
@@ -79,7 +76,6 @@ object ClaimPageFactory extends PageFactory {
       case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage (browser, previousPage)
       case G5StatutorySickPayPage.title => G5StatutorySickPayPage (browser, previousPage)
       case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage (browser, previousPage)
-      case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (browser,previousPage)
       case G8OtherMoneyCompletedPage.title => G8OtherMoneyCompletedPage (browser, previousPage)
       // S9
       case G1HowWePayYouPage.title => G1HowWePayYouPage (browser, previousPage)
