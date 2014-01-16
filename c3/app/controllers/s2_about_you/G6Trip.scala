@@ -26,14 +26,14 @@ object G6Trip extends Controller with CachedClaim {
 
   val fiftyTwoWeeksLabel = "s2.g5"
 
-  def fiftyTwoWeeks = claiming { implicit claim => implicit request =>
-    Ok(views.html.s2_about_you.g6_trip(form, fiftyTwoWeeksLabel, routes.G6Trip.fiftyTwoWeeksSubmit(), routes.G5AbroadForMoreThan52Weeks.present()))
+  def present = claiming { implicit claim => implicit request =>
+    Ok(views.html.s2_about_you.g6_trip(form, fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
   }
 
-  def fiftyTwoWeeksSubmit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        BadRequest(views.html.s2_about_you.g6_trip(formWithErrors, fiftyTwoWeeksLabel, routes.G6Trip.fiftyTwoWeeksSubmit(), routes.G5AbroadForMoreThan52Weeks.present()))
+        BadRequest(views.html.s2_about_you.g6_trip(formWithErrors, fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
       },
       trip => {
         val updatedTrips = if (trips.fiftyTwoWeeksTrips.size >= 5) trips else trips.update(trip.as[FiftyTwoWeeksTrip])
@@ -44,7 +44,7 @@ object G6Trip extends Controller with CachedClaim {
   def trip(id: String) = claiming { implicit claim => implicit request =>
     claim.questionGroup(Trips) match {
       case Some(ts: Trips) => ts.fiftyTwoWeeksTrips.find(_.id == id) match {
-        case Some(t: Trip) => Ok(views.html.s2_about_you.g6_trip(form.fill(t), fiftyTwoWeeksLabel, routes.G6Trip.fiftyTwoWeeksSubmit(), routes.G5AbroadForMoreThan52Weeks.present()))
+        case Some(t: Trip) => Ok(views.html.s2_about_you.g6_trip(form.fill(t), fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
         case _ => Redirect(routes.G1YourDetails.present())
       }
 
