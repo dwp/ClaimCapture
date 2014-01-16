@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment.{G4SelfEmploymentPensionsAndExpensesPage, G4SelfEmploymentPensionsAndExpensesPageContext}
 import utils.pageobjects.TestData
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s2_about_you.{G8AboutYouCompletedPage, G4ClaimDatePageContext}
+import utils.pageobjects.s2_about_you.{G10AboutYouCompletedPage, G3ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 
 
@@ -16,10 +16,10 @@ class G4SelfEmploymentPensionsAndExpensesIntegrationSpec extends Specification w
       page goToThePage()
     }
 
-    "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
+    "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
       page goToThePage()
-      page runClaimWith(claim, G8AboutYouCompletedPage.title, waitForPage = true)
+      page runClaimWith(claim, G10AboutYouCompletedPage.title, waitForPage = true)
 
       val nextPage = page goToPage(throwException = false, page = new G4SelfEmploymentPensionsAndExpensesPage(browser))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]

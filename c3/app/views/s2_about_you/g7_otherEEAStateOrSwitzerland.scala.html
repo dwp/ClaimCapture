@@ -1,0 +1,32 @@
+@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
+@import models.domain.OtherEEAStateOrSwitzerland
+@import views.html.helper._
+
+@main(Messages("s2.g7") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)) {
+
+    @form(action = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.submit) {
+        <fieldset class="form-elements">
+            <legend>@Messages("s2.g7")</legend>
+
+            <ul>
+                @sliderHelp(Messages("eeaCountryHelp.label"),Html(Messages("eeaCountryHelp")))
+
+                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromEEA"))
+
+                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("claimedForBenefitsFromEEA"))
+
+                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForEEA"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+        </nav>
+    }
+}

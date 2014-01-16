@@ -19,9 +19,7 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "otherNames" -> optional(carersText(maxLength = Name.maxLength)),
     "nationalInsuranceNumber" -> nino.verifying(filledInNino,validNino),
-    "nationality" -> nonEmptyText.verifying(validNationality),
-    "dateOfBirth" -> dayMonthYear.verifying(validDate),
-    "alwaysLivedUK" -> nonEmptyText.verifying(validYesNo)
+    "dateOfBirth" -> dayMonthYear.verifying(validDate)
   )(YourDetails.apply)(YourDetails.unapply))
 
   def present = claiming { implicit claim => implicit request => implicit lang =>

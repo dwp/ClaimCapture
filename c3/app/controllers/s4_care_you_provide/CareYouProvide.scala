@@ -14,7 +14,7 @@ object CareYouProvide extends Controller with CachedClaim with Navigable {
 
   def submit = claiming { implicit claim => implicit request => implicit lang =>
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1TheirPersonalDetails.present())
-    else Redirect("/time-spent-abroad/normal-residence-and-current-location")
+    else Redirect("/education/your-course-details")
   }
 
   private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {

@@ -27,6 +27,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission with all text fields enabled and filled in" in new WithBrowser with BrowserMatchers {
+      Formulate.nationalityAndResidency(browser)
       Formulate.moreAboutYou(browser)
       Formulate.aboutOtherMoney(browser)
       titleMustEqual("Statutory Sick Pay - About Other Money")
@@ -36,8 +37,6 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       browser.goTo("/other-money/about-other-money")
       browser.click("#yourBenefits_answer_no")
       browser.click("#anyPaymentsSinceClaimDate_answer_no")
-      browser.fill("#whoPaysYou") `with` "The Man"
-      browser.fill("#howMuch") `with` "12"
       browser.submit("button[type='submit']")
       titleMustEqual("Statutory Sick Pay - About Other Money")
     }

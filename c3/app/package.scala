@@ -105,6 +105,21 @@ package object app {
     val YouPersonBehalf = 'allNames
   }
 
+  object ReasonForBeingThere {
+    val Home = "Home"
+    val Holiday = "Holiday"
+    val Work = "Work"
+    val Other = "Other"
+  }
+
+  val mb = 131072
+  def convertToMB(bytes:Long) = {
+    bytes / mb
+  }
+
+  def convertToBytes(megaBytes:Long) = {
+    megaBytes * mb
+  }
 
   object ConfigProperties  {
     def getProperty(property:String,default:Int) = Try(Play.current.configuration.getInt(property).getOrElse(default)) match { case Success(s) => s case _ => default}

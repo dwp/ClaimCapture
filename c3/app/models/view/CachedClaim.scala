@@ -5,7 +5,7 @@ import java.util.UUID._
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
 import play.api.Play.current
-import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.mvc._
 import play.api.data.Form
 import play.api.cache.Cache
 import play.api.{Logger, Play}
@@ -13,11 +13,14 @@ import play.api.mvc.Results._
 import play.api.http.HeaderNames._
 import models.domain._
 import controllers.routes
-import models.domain.Claim
 import scala.Some
 import scala.util.Try
 import net.sf.ehcache.CacheManager
 import play.api.i18n.Lang
+import scala.concurrent.{ExecutionContext, Future}
+import models.domain.Claim
+import scala.Some
+import ExecutionContext.Implicits.global
 
 object CachedClaim {
   val missingRefererConfig = "Referer not set in config"
@@ -37,7 +40,7 @@ trait CachedClaim {
 
   val timeoutPage = routes.ClaimEnding.timeout()
 
-  val errorPage = routes.CircsEnding.error()
+  val errorPage = routes.ClaimEnding.error()
 
   val defaultLang = "en"
 
@@ -111,16 +114,45 @@ trait CachedClaim {
     }
   }
 
+  def submitting(f: (Claim) => Request[AnyContent] => Future[SimpleResult]) = Action.async {
+    request => {
+      val (referer, host) = refererAndHost(request)
+      implicit val r = request
+
+      def doSubmit = {
+        fromCache(request) match {
+          case Some(claim) =>
+            val (key, _) = keyAndExpiration(request)
+            f(copyInstance(claim))(request).map(res => res.withSession(claim.key -> key))
+          case None =>
+            Logger.info(s"$cacheKey timeout")
+            Future(Redirect(timeoutPage))
+        }
+      }
+
+      if (sameHostCheck) {
+        doSubmit
+      } else {
+        if (redirect) {
+          Logger.warn(s"HTTP Referer : $referer")
+          Logger.warn(s"Conf Referer : $expectedReferer")
+          Logger.warn(s"HTTP Host : $host")
+          Future(Redirect(expectedReferer))
+        } else {
+          doSubmit
+        }
+      }.map(res => res)
+    }
+  }
+
   def ending(f: => Result): Action[AnyContent] = Action {
     request => {
       implicit val r = request
-      val sessionCount = Try(CacheManager.getInstance().getCache("play").getKeys.size()).getOrElse(0)
-      Logger.info(s"sessionCount : $sessionCount")
       originCheck(sameHostCheck, f).withNewSession
     }
   }
 
-  def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = Action { request =>
+  def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = Action.async { request =>
     claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
   }
 

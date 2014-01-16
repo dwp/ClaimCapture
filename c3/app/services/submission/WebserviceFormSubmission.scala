@@ -12,7 +12,6 @@ import services.util.CharacterStripper
 class WebserviceFormSubmission extends FormSubmission {
 
   def submitClaim(claimSubmission: Elem): Future[ws.Response] = {
-    // Logger.info(s"Claim submitting transactionId : ${claimSubmission \\ "DWPCAClaim" \ "@id" toString()}") : Better to change this to debug : If debug turned off in production
     val submissionServerEndpoint: String =
       Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submit/claim"
     Logger.debug(s"Submission Server : $submissionServerEndpoint")

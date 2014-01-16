@@ -12,9 +12,4 @@ object G2Submitting extends Controller with CachedChangeOfCircs with Navigable {
       implicit circs => Ok(views.html.circs.s3_consent_and_declaration.g2_submitting())
     }
   }
-
-  def submit = claiming { implicit circs => implicit request => implicit lang =>
-    Redirect("/circs-submit")
-  }
-
 }

@@ -57,10 +57,13 @@ s1.g4 = Do you live in England, Scotland or Wales?
 
 s2.g1 = Your details
 s2.g2 = Your contact details
-s2.g3 = About your time outside the UK
-s2.g4 = Your claim date: {0}
-s2.g5 = More about you
-s2.g6 = Employment
+s2.g3 = Your claim date: {0}
+s2.g4 = Your nationality and residency
+s2.g5 = Time outside of England, Scotland or Wales
+s2.g6 = Trips
+s2.g7 = Money you get from other European Economic Area (EEA) countries or Switzerland
+s2.g8 = More about you
+s2.g9 = Employment
 
 s3.g1 = Partner/Spouse details
 s3.g2 = Contact details
@@ -76,9 +79,6 @@ s4.g6 = About the breaks in care
 
 s5.g1 = Your normal residence and current location
 s5.g2 = Details of time abroad with the person you care for
-s5.g3 = Details of time abroad for more than 52 weeks
-s5.g4 = Trips
-s5.g5 = Other EEA State or Switzerland
 
 s6.g1 = Your course details
 s6.g2 = School, college or university''s contact details
@@ -110,7 +110,6 @@ s9.g3 = Person who gets this money
 s9.g4 = Person''s contact details
 s9.g5 = Statutory Sick Pay
 s9.g6 = Other Statutory Pay
-s9.g7 = Other EEA State or Switzerland
 
 s10.g1 = How would you like to get paid?
 s10.g2 = Bank/Building society details
@@ -123,7 +122,6 @@ s11.g5 = Documents you need to send us
 
 date.helper = eg: 27 June 2013
 please.specify =  Please specify...
-error.required = This is required
 error.unknown = Invalid
 error.date = This is required
 
@@ -159,10 +157,7 @@ dateOfBirth.day = Date of birth (Day)
 dateOfBirth.month = Date of birth (Month)
 dateOfBirth.year = Date of birth (Year)
 dateOfBirth.helper = eg: 27 June 2013
-nationality = Nationality
-nationality.helper = For example, British. If you have a current passport, please give your nationality as shown on your passport.
 maritalStatus = Marital status?
-alwaysLivedUK = Have you always lived in the United Kingdom?
 firstName.error = Please fill your first name
 
 # CONTACT DETAILS
@@ -194,8 +189,23 @@ livingInUK.goBack.date = When do you plan to go back?
 livingInUK_goBack_answer = Do you plan to go back to that country?
 livingInUK.goBack.answer = Do you plan to go back to that country?
 
+# Nationality and Residence
+nationality = What is your nationality? (e.g. British)
+nationality.helper = If you have a current passport, please give your nationality as shown on your passport
+resideInUK.label=Do you normally live in England, Scotland or Wales?
+resideInUK.answer=Do you normally live in England, Scotland or Wales?
+resideInUK.text.label=Which country do you normally live in?
+resideInUK=Which country do you normally live in?
+
 # CLAIM DATE
 dateOfClaim = When do you want your Carer''s Allowance claim to start?
+
+# OTHER EEA STATE OR SWITZERLAND
+eeaCountryHelp.label = What is an EEA State?
+eeaCountryHelp = <p>Austria, Belgium, Bulgaria, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, and the United Kingdom (UK)</p>
+benefitsFromEEA = Do you, or any member of your family, receive any benefits or pensions from a European Economic Area (EEA) state or Switzerland?
+claimedForBenefitsFromEEA = Have you, or a member of your family, made a claim for any benefits or pensions from a European Economic Area (EEA) state or Switzerland?
+workingForEEA = Are you, or a member of your family, working in or paying insurance to, another European Economic Area (EEA) state or Switzerland?
 
 # MORE ABOUT YOU
 hadPartnerSinceClaimDate.label = Have you had a partner/spouse living with you since your claim date: {0}?
@@ -293,7 +303,7 @@ liveInUK.whereDoYouLive = Where do you normally live?
 liveInUK_whereDoYouLive = Where do you normally live?
 inGBNow = Are you in Great Britain now?
 
-anyTrips = Have you been out of Great Britain
+anyTrips = Have you been out of England, Scotland or Wales
 
 # 4 WEEKS
 4Weeks.label = Have you been out of Great Britain with the person you care for for more than 4 weeks at a time, since {0} (this is 3 years from today)?
@@ -301,14 +311,16 @@ anyTrips = Have you been out of Great Britain
 4Weeks.summaryTable.label = Time Abroad you have added
 
 # 52 WEEKS
-52Weeks.label = Have you been out of Great Britain for more than 52 weeks, since {0} (this is 3 years before your claim date)?
-52Weeks.more.label = Have you had any more trips out of Great Britain for more than 52 weeks, since {0} (this is 3 years before your claim date)?
+52Weeks.label = Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date {0}?
+52Weeks.helper = This could be one trip of 52 weeks, or a number of trips adding up to 52 weeks.
+52Weeks.more.label = Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date {0}?
 52Weeks.summaryTable.label = Time Abroad you have added
 
-start.trip = Date you left Great Britain
-end.trip = Date you returned to Great Britain
-where = Where did you go?
-why = Why did you go?
+where = Which country did you go to?
+start.trip = Date you left?
+end.trip = Date you returned?
+why = Reason for being there?
+personWithYou = Was the person you care for with you?
 
 
 ## EDUCATION
@@ -423,12 +435,6 @@ otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Pater
 otherPay = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
 howOften_frequency = How often
 whoPaysYou = Who pays you
-howMuch = How much
-
-# OTHER EEA STATE OR SWITZERLAND
-benefitsFromOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?
-workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, working in or paying insurance to another EEA State or Switzerland?
-
 
 ## PAY DETAILS
 # HOW WE PAY YOU
