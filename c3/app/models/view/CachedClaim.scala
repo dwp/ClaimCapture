@@ -114,7 +114,7 @@ trait CachedClaim {
     }
   }
 
-  def submitting(f: (Claim) => Request[AnyContent] => Future[SimpleResult]) = Action.async {
+  def submitting(f: (Claim) => Request[AnyContent] => Lang => Future[SimpleResult]) = Action.async {
     request => {
       val (referer, host) = refererAndHost(request)
       implicit val r = request
@@ -123,7 +123,8 @@ trait CachedClaim {
         fromCache(request) match {
           case Some(claim) =>
             val (key, _) = keyAndExpiration(request)
-            f(copyInstance(claim))(request).map(res => res.withSession(claim.key -> key))
+            val lang = claim.lang.getOrElse(bestLang)
+            f(copyInstance(claim))(request)(lang).map(res => res.withSession(claim.key -> key))
           case None =>
             Logger.info(s"$cacheKey timeout")
             Future(Redirect(timeoutPage))

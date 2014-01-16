@@ -1,4 +1,4 @@
-@(now:String)
+@(now:String)(implicit lang: Lang)
 @common.govMain("Alive") {
 
     <div class="carers-allowance">
@@ -12,6 +12,4 @@
             <p>@now</p>
         </section>
     </div>
-} {
-    <!-- Empty -->
-}
+}(Html("<!-- Empty -->"),lang)

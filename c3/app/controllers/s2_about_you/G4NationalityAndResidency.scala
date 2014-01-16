@@ -24,13 +24,13 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
   )(NationalityAndResidency.apply)(NationalityAndResidency.unapply)
   )
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request => lang =>
     track(NationalityAndResidency) { implicit claim =>
       Ok(views.html.s2_about_you.g4_nationalityAndResidency(form.fill(NationalityAndResidency)))
     }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g4_nationalityAndResidency(formWithErrors)),
       nationalityAndResidency => claim.update(nationalityAndResidency) -> Redirect(routes.G5AbroadForMoreThan52Weeks.present()))
