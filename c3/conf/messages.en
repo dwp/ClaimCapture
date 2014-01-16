@@ -178,8 +178,8 @@ livingInUK_goBack_answer = Do you plan to go back to that country?
 livingInUK.goBack.answer = Do you plan to go back to that country?
 
 # Nationality and Residence
-nationality = What is your nationality (e.g. British)
-nationality.helper = If you have a current passport, please give your nationality as shown on your passport.
+nationality = What is your nationality? (e.g. British)
+nationality.helper = If you have a current passport, please give your nationality as shown on your passport
 resideInUK.label=Do you normally live in England, Scotland or Wales?
 resideInUK.answer=Do you normally live in England, Scotland or Wales?
 resideInUK.text.label=Which country do you normally live in?
