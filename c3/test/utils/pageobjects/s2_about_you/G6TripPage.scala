@@ -37,5 +37,4 @@ trait G6TripPageContext extends PageContext {
   this: WithBrowser[_] =>
 
   val page = G6TripPage(browser = browser, iteration = 1)
-  val page2 = G6TripPage(browser = browser, iteration = 2)
 }
