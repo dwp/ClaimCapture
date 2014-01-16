@@ -54,7 +54,8 @@ class G6TripIntegrationSpec extends Specification with Tags {
       nextPage2.iteration must beEqualTo(3)
     }
 
-//    "show zero trips after creating one and then deleting" in new WithBrowser with G6TripPageContext {
+    "show zero trips after creating one and then deleting" in new WithBrowser with G6TripPageContext {
+      pending
 //      page goToThePage()
 //      page fillPageWith ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
 //
@@ -88,7 +89,7 @@ class G6TripIntegrationSpec extends Specification with Tags {
 //
 //      println("************" + nextPage.browser.find("tbody tr"))
 //      nextPage.browser.find("tbody tr").size must beEqualTo(0)
-//    }
+    }
 
 
     //
