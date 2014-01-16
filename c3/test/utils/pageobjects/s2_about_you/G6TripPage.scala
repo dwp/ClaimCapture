@@ -10,11 +10,11 @@ import utils.pageobjects.{ClaimPage, Page, PageContext}
  */
 class G6TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G6TripPage.url, G6TripPage.title, previousPage, iteration) {
 
-  declareDate("#start", "AboutYouDateYouLeftGBTripForMoreThan52Weeks_" + iteration)
-  declareDate("#end", "AboutYouDateYouReturnedToGBTripForMoreThan52Weeks_" + iteration)
-  declareInput("#where", "AboutYouWhereDidYouGoForMoreThan52Weeks_" + iteration)
-  declareSelect("#why", "AboutYouWhyDidYouGoForMoreThan52Weeks_" + iteration)
-  declareYesNo("#personWithYou", "AboutYouPersonWithYou_" + iteration)
+  declareDate("#start", "DateYouLeftGB_" + iteration)
+  declareDate("#end", "DateYouReturnedToGB_" + iteration)
+  declareInput("#where", "WhereDidYouGo_" + iteration)
+  declareSelect("#why", "WhyDidYou_" + iteration)
+  declareYesNo("#personWithYou", "PersonWithYou_" + iteration)
 
   protected override def getNewIterationNumber = iteration + 1
 }
@@ -36,4 +36,5 @@ trait G6TripPageContext extends PageContext {
   this: WithBrowser[_] =>
 
   val page = G6TripPage(browser = browser, iteration = 1)
+  val page2 = G6TripPage(browser = browser, iteration = 2)
 }

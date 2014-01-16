@@ -54,9 +54,12 @@ object G6Trip extends Controller with CachedClaim {
     import play.api.libs.json.Json
     import language.postfixOps
 
+    println("************** inside delete")
+
     claim.questionGroup(Trips) match {
       case Some(ts: Trips) => {
         val updatedTrips = ts.delete(id)
+        println("*************** deleted the trip with id " + id)
 
         if (updatedTrips.fiftyTwoWeeksTrips.isEmpty) claim.update(updatedTrips) -> Ok(Json.obj("anyTrips" -> Messages("52Weeks.label", (DayMonthYear.today - 3 years).`dd/MM/yyyy`)))
         else claim.update(updatedTrips) -> Ok(Json.obj("anyTrips" -> Messages("52Weeks.more.label", (DayMonthYear.today - 3 years).`dd/MM/yyyy`)))
