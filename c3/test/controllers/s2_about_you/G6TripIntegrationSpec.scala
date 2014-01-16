@@ -3,13 +3,8 @@ package controllers.s2_about_you
 import language.reflectiveCalls
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.WithBrowser
-import controllers.{ClaimScenarioFactory, WithBrowserHelper, BrowserMatchers}
-import implicits.Iteration._
+import controllers.{ClaimScenarioFactory, WithBrowserHelper}
 import utils.pageobjects.s2_about_you.{G6TripPage, G6TripPageContext, G5AbroadForMoreThan52WeeksPage, G5AbroadForMoreThan52WeeksPageContext}
-import utils.pageobjects.TestData
-import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
-import org.openqa.selenium.{JavascriptExecutor, By}
-import java.util.concurrent.TimeUnit
 import play.api.i18n.Messages
 
 class G6TripIntegrationSpec extends Specification with Tags {
@@ -111,7 +106,7 @@ class G6TripIntegrationSpec extends Specification with Tags {
     }
 
     "go to 'abroad for more than 52 weeks' page then 'trips' page and then click back" in new WithBrowser with G5AbroadForMoreThan52WeeksPageContext {
-      val claim = ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmation()
+      val claim = ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationYes()
       page goToThePage()
       page fillPageWith claim
 
