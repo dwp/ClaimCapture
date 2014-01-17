@@ -68,7 +68,7 @@ class ClaimXMLAcceptanceSpec extends Specification {
         <ClaimedPreviously>Not asked</ClaimedPreviously>
       </Caree>
       <Residency>
-        <Nationality>British</Nationality>
+        <!--Nationality>British</Nationality-->
         <EUEEASwissNational>Not asked</EUEEASwissNational>
         <CountryNormallyLive>Not asked</CountryNormallyLive>
         <CountryNormallyLiveOther>Not asked</CountryNormallyLiveOther>

@@ -1,11 +1,9 @@
 package controllers
 
 import scala.util.Try
-import scala.util.{Failure, Success}
 import play.api.data.Mapping
 import play.api.data.Forms._
 import play.api.data.validation._
-import play.api.data.validation.ValidationError
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import models._
@@ -76,6 +74,10 @@ object Mappings {
     "sort2" -> carersText(maxLength = two),
     "sort3" -> carersText(maxLength = two))(SortCode.apply)(SortCode.unapply)
 
+  val reasonForBeingThere: Mapping[ReasonForBeingThere] = mapping(
+    "reason" -> optional(carersText(maxLength = 35)),
+    "reason.other" -> optional(carersText(maxLength = sixty)))(ReasonForBeingThere.apply)(ReasonForBeingThere.unapply)
+
   def required[T](mapping: Mapping[T]): Mapping[T] = {
     def required: Constraint[T] = Constraint[T]("constraint.required") { t => Valid }
 
@@ -131,6 +133,15 @@ object Mappings {
       else if (location == app.Whereabouts.Other && other.isEmpty) Invalid(ValidationError("error.required"))
       else Valid
 
+  }
+
+  def requiredReasonForBeingThereOther: Constraint[ReasonForBeingThere] = Constraint[ReasonForBeingThere]("constraint.required") {
+    case ReasonForBeingThere(why, other) =>
+      why match {
+        case Some(reason) =>
+          if (reason == app.ReasonForBeingThere.Other.toLowerCase() && !other.isDefined) Invalid(ValidationError("error.required")) else Valid
+        case _ => Valid
+      }
   }
 
   def requiredFrequency: Constraint[PaymentFrequency] = Constraint[PaymentFrequency]("constraint.required") {

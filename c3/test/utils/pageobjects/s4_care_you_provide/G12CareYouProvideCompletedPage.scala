@@ -4,7 +4,7 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
- * * Page object for s5_time_spent_abroad g11_completed.
+ * * Page object for s5_time_spent_abroad g10_completed.
  * @author Saqib Kayani
  *         Date: 31/07/2013
  */

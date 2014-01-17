@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: 'FontAwesome';
   src: url('fonts/fontawesome-webfont.eot?v=3.2.1');
@@ -85,7 +84,7 @@ main {
 		   padding-right: 0;
 	   }
 	   li {
-		   margin-left: 10px;
+		   margin-left: 14px;
 		   display: inline;
 		   font-size: 14px;
 		   color: #000;
@@ -94,6 +93,34 @@ main {
 			   border: 0;
 			   margin: 0;
 			   padding: 0;
+			   a {
+				   display: inline-block;
+				   position: relative;
+				   height: 18px;
+				   width: 18px;
+				   text-align: center;
+				   padding: 0;
+				   color: #000;
+				   font-size: 11px;
+				   background: #f5f5f5;
+				   text-decoration: none;
+				   font-weight: bold;
+				   line-height: 1.8em;
+				   font-family: 'georgia';
+				   font-style: italic;
+				   top: -1px;
+				   margin-right: 5px;
+				   border-radius: 100px;
+				   box-shadow: 0 0 0 1px rgba(0,0,0,.6);
+				   &:hover {
+					   background: #333;
+					   color: #fff;
+				   }
+				   span {
+					   text-indent: -9999px;
+					   display: inline-block;
+				   }
+			   }
 		   }
 		   @media screen and (max-width: 480px) {
 			   &.feedback {
@@ -105,7 +132,7 @@ main {
 			   display: inline-block;
 			   padding-top: 5px;
 			   &:hover {
-				   color: #315843;
+				   color: #666;
 			   }
 		   }
 	   }
@@ -132,6 +159,9 @@ main {
 			   margin-bottom: -12px;
 			   zoom: 1;
 		   }
+		   .ie7 & {
+			   background-position: 0 44px;
+		   }
 		   .ie8 & {
 			   background: none;
 		   }
@@ -150,7 +180,7 @@ main {
 		   }
 		   li {
 			   float: left;
-			   width: 10%;
+			   width: 11%;
 			   position: relative;
 			   text-align: center;
 			   padding: 35px 0 0 0;
@@ -182,7 +212,7 @@ main {
 			   span {
 				   font-size: 1.3rem;
 				   @media screen and (max-width: 770px) {
-					   font-size: 10px;
+					   font-size: 12px;
 				   }
 				   .ie & {
 					   font-size: 13px;
@@ -871,30 +901,66 @@ main {
 			   }
 			   .helper-more {
 				   cursor: pointer;
-				   display: block;
 				   font-size: 1.6rem;
 				   margin: .6em 0 0 0;
 				   font-weight: 500;
 				   overflow: hidden;
 				   line-height: 1em;
-				   padding: .35em .7em;
-				   border-left: 3px solid #006435;
-				   width: 120px;
-				   .ie & {
-					   font-size: 16px;
-				   }
+				   padding: .7em .7em .65em .7em;
+				   border-left: 5px solid #333;
+				   color: #000;
 			   }
 
 				.helper-info {
 					display: none;
-					padding: .7em;
-					background: #d5ecea;
-					border-left: 3px solid #006435;
-					p {
+					padding: 1.3em 1em 1em .8em;
+					background: #f9f9f9;
+					border-left: 5px solid #333;
+					h3 {
 						font-size: 1.6rem;
 						.ie & {
-						   font-size: 16px;
-					   }
+							font-size: 16px;
+						}
+					}
+					p {
+						font-size: 1.6rem;
+						margin-top: 1em;
+						color: #515151;
+						line-height: 1.4em;
+						.ie & {
+							font-size: 16px;
+						}
+						&:first-child {
+							margin: 0;
+						}
+						em, i {
+							font-size: 1.6rem;
+							margin: 0;
+							font-style: italic;
+							.ie & {
+								font-size: 16px;
+							}
+						}
+					}
+					a {
+						color: #2e3191;
+						text-decoration: underline;
+						font-size: 1.6rem;
+						&:hover {
+							color: #2e8aca;
+						}
+					}
+					ul {
+						li {
+							margin: 0;
+							padding: .65em 0;
+							font-size: 1.6rem;
+							border-top: 1px dotted #e8e8e8;
+							color: #626262;
+							&:first-child {
+								border: 0;
+							}
+						}
 					}
 				}
 			  
@@ -1053,7 +1119,7 @@ main {
 					   
 					   label {
 						   display: block;
-						   background: #eee;
+						   background: #e8e8e8;
 						   padding: 12px 14px 10px 34px;
 						   font-size: 1.7rem;
 						   cursor: pointer;
@@ -1920,6 +1986,91 @@ main {
 
 
 
+.question-group {
+	margin-top: 0;
+	legend {
+		font-size: 1.9rem!important; /* temp */
+		font-weight: 400!important; /* temp */
+		color: #000!important; /* temp */
+		.ie & {
+			font-size: 19px;
+		}
+		em {
+			   display: inline;
+			   font-size: 1.8rem;
+			   margin-right: .4rem;
+			   font-style: normal;
+			   .ie & {
+				   font-size: 18px;
+				   margin-right: 4px;
+			   }
+		   }
+	}
+	ul {
+		li {
+			padding-top: 0;
+		}
+	}
+}
+
+
+
+.assistive-info {
+	padding: 2em;
+	background: #333;
+	a {
+		color: #fff!important;
+		&:hover {
+			color: #ccc!important;
+		}
+	}
+	h1 {
+		color: #fff;
+		display: block;
+		line-height: 1.4em;
+	}
+	p {
+		color: #ccc;
+	}
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 2em 0 3em 0;
+		caption {
+			text-align: left;
+			font-size: 20px;
+			font-weight: 600;
+			padding-bottom: 1em;
+			color: #fff;
+		}
+		th {
+			text-align: left;
+			padding: .5em .6em;
+			color: #eee;
+			&.key {
+			}
+		}
+		td {
+			border: 1px solid #666;
+			background: #fff;
+			padding: .8em .6em;
+			-webkit-transition: all .5s ease-out;
+			-moz-transition: all .5s ease;
+			-o-transition: all .5s ease;	
+			&:nth-child(even) {
+				background: #f3f3f3;
+			}
+			&:hover {
+				background: #ddd;
+			}
+			span {
+				text-indent: -9999px;
+				display: inline-block;
+				font-size: 0;
+			}
+		}
+	}
+}
 
 
 
@@ -1943,8 +2094,8 @@ main {
 @-moz-document url-prefix() {
 	.radio {
 		input[type="radio"] {
-				top: 15px!important;
-				left: 12px!important;
+				top: 15px!important; /* temp */
+				left: 12px!important; /* temp */
 			}
 		}
 }

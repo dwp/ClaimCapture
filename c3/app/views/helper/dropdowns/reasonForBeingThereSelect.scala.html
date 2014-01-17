@@ -1,0 +1,15 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: play.api.i18n.Lang)
+
+@import scala.util.Try
+@import helper.dates._
+@import utils.helpers.CarersTemplate._
+@import app.StatutoryPaymentFrequency._
+
+@helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
+
+@views.html.helper.selectWithOtherPlaceholder(field,"reason", Seq("" -> "Please select",
+"Home" -> "Home",
+"Holiday" -> "Holiday",
+"Work" -> "Work",
+"other" -> "Other"), args:_*)
+}

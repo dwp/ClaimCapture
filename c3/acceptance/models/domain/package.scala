@@ -41,7 +41,7 @@ package object domain {
     AboutOtherMoney(yourBenefits = YesNo(answer = no), anyPaymentsSinceClaimDate = YesNo(answer = no)) +
     StatutorySickPay(haveYouHadAnyStatutorySickPay = no) +
     OtherStatutoryPay(otherPay = no) +
-    OtherEEAStateOrSwitzerland(benefitsFromOtherEEAStateOrSwitzerland = no, workingForOtherEEAStateOrSwitzerland = no) +
+    OtherEEAStateOrSwitzerland(benefitsFromEEA = no, workingForEEA = no) +
     AdditionalInfo(welshCommunication = no) +
     Consent(informationFromEmployer = OptYesNoWithText(answer = Some(yes)), informationFromPerson = YesNoWithText(answer = yes)) +
     Disclaimer(read = yes) +

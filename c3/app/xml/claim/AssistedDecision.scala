@@ -1,10 +1,9 @@
-package xml.claim
+package xml
 
 import app.StatutoryPaymentFrequency
 import models.domain._
 import scala.xml.NodeSeq
 import org.joda.time.DateTime
-import models.domain.Claim
 import scala.Some
 import xml.XMLComponent
 
@@ -22,8 +21,9 @@ object AssistedDecision extends XMLComponent {
     //      assisted ++= employmentGrossPay(claim)
     var assisted = getAFIP(claim)
     assisted ++= noEEABenefits(claim)
+    assisted ++= noEEABenefitsClaimedFor(claim)
     assisted ++= noEEAWork(claim)
-    assisted ++= inGBNow(claim)
+    assisted ++= normallyResideInUK(claim)
     //    }
     //    assisted ++= dateOfClaim(claim)
     //    assisted ++= rightAge(claim)
@@ -94,32 +94,55 @@ object AssistedDecision extends XMLComponent {
     else NodeSeq.Empty
   }
 
+  private def dateOfClaim(claim: Claim): NodeSeq = {
+    val claimDateAnswer = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+    val monthsFuture = DateTime.now().plusMonths(3).plusDays(1)
+    val claimDate = new DateTime(claimDateAnswer.dateOfClaim.year.get, claimDateAnswer.dateOfClaim.month.get, claimDateAnswer.dateOfClaim.day.get, 0, 0)
+    if (claimDate.isAfter(monthsFuture)) textLine("Date of Claim too far in the future. Potential disallowance.")
+    else NodeSeq.Empty
+  }
+
+  private def normallyResideInUK(claim: Claim): NodeSeq = {
+    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency())
+    if (nationalityAndResidency.resideInUK.answer.toLowerCase != "yes") textLine("Person does not normally live in England, Scotland or Wales. Transfer to Exportability team.")
+    else NodeSeq.Empty
+  }
+
   private def noEEABenefits(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.benefitsFromOtherEEAStateOrSwitzerland.toLowerCase == "yes") decisionElement("Claimant or partner dependent on EEA pensions or benefits.","Transfer to Exportability team.")
+    if (otherEEAStateOrSwitzerland.benefitsFromEEA.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
+    else NodeSeq.Empty
+  }
+
+  private def noEEABenefitsClaimedFor(claim: Claim): NodeSeq = {
+    val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
+    if (otherEEAStateOrSwitzerland.claimedForBenefitsFromEEA.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
   private def noEEAWork(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.workingForOtherEEAStateOrSwitzerland.toLowerCase == "yes") decisionElement("Claimant or partner dependent on EEA insurance or work.","Transfer to Exportability team.")
-    else NodeSeq.Empty
-  }
-
-  private def dateOfClaim(claim: Claim): NodeSeq = {
-    val claimDateAnswer = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-    val monthsFuture = DateTime.now().plusMonths(3).plusDays(1)
-    val claimDate = new DateTime(claimDateAnswer.dateOfClaim.year.get, claimDateAnswer.dateOfClaim.month.get, claimDateAnswer.dateOfClaim.day.get, 0, 0)
-    if (claimDate.isAfter(monthsFuture)) decisionElement("Date of Claim too far in the future.","Potential disallowance.")
-    else NodeSeq.Empty
-  }
-
-  private def inGBNow(claim: Claim): NodeSeq = {
-    val isInGBNow = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
-    if (isInGBNow.inGBNow.toLowerCase != "yes") decisionElement("Person does not reside in GB now.","Transfer to Exportability team.")
+    if (otherEEAStateOrSwitzerland.workingForEEA.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
   private def decisionElement(reason: String, decision:String) = <AssistedDecision><Reason>{reason}</Reason><RecommendedDecision>{decision}</RecommendedDecision></AssistedDecision>
 
+  // =========== Formatting Functions ===================
+
+  private def textSeparatorLine(title: String): NodeSeq = {
+    val lineWidth = 54
+    val padding = "=" * ((lineWidth - title.length) / 2)
+
+    <TextLine>
+      {s"$padding$title$padding"}
+    </TextLine>
+
+  }
+
+  private def textLine(text: String) = <TextLine>
+    {text}
+  </TextLine>
+
 }
+

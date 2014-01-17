@@ -37,7 +37,7 @@ trait EmployedSinceClaimDate extends BrowserMatchers {
 
   def beginClaim() = {
     Formulate.claimDate(browser)
-    titleMustEqual("More about you - About you - the carer")
+    titleMustEqual("Your nationality and residency - About you - the carer")
 
     Formulate.employment(browser)
     titleMustEqual("Completion - About you - the carer")

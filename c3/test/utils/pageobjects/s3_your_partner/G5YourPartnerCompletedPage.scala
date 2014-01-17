@@ -4,7 +4,7 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
- * PageObject for page s2_about_you g8_completed.
+ * PageObject for page s2_about_you g10_completed.
  * @author Saqib Kayani
  *         Date: 24/07/2013
  */

@@ -3,6 +3,7 @@ import java.io.File
 import java.net.InetAddress
 import com.typesafe.config.ConfigFactory
 import java.util.UUID
+import monitoring.ApplicationMonitor
 import org.slf4j.MDC
 import play.api._
 import play.api.Configuration
@@ -74,6 +75,7 @@ object Global extends GlobalSettings {
 
   def actorSystems = {
     JMXActors
+    ApplicationMonitor.begin
   }
 }
 

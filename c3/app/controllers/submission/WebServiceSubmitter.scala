@@ -2,45 +2,35 @@ package controllers.submission
 
 import play.api.mvc.Results.Redirect
 import scala.concurrent.{ExecutionContext, Future}
-import play.api.mvc.{AnyContent, Request, SimpleResult}
+import play.api.mvc._
 import play.api.{http, Logger}
 import com.google.inject.Inject
-import play.api.libs.ws.Response
 import services.TransactionIdService
 import services.submission.FormSubmission
-import models.domain.Claim
 import ExecutionContext.Implicits.global
-import xml.{XMLBuilder, ValidXMLBuilder}
 import models.view.{CachedChangeOfCircs, CachedClaim}
+import play.api.libs.ws.Response
+import models.domain.Claim
+
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission: FormSubmission) extends Submitter {
-
-  val claimThankYouPageUrl = controllers.routes.ClaimEnding.thankyou()
-  val cofcThankYouPageUrl = controllers.routes.CircsEnding.thankyou()
-  val claimErrorPageUrl = controllers.routes.ClaimEnding.error()
-  val cofcErrorPageUrl = controllers.routes.CircsEnding.error()
-
-  lazy val xmlBuilder: XMLBuilder = ValidXMLBuilder()
 
   override def submit(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = {
     val txnID = idService.generateId
     Logger.info(s"Retrieved Id : $txnID")
-    registerId(claim, txnID, SUBMITTED)
 
-    claimSubmission.submitClaim(xmlBuilder.xml(claim, txnID)).map(
+    claimSubmission.submitClaim(xml(claim, txnID)).map(
       response => {
+        registerId(claim, txnID, SUBMITTED)
         processResponse(claim, txnID, response, request)
       }
     ).recover {
-      case e: java.net.ConnectException => {
+      case e: java.net.ConnectException =>
         Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-        updateStatus(claim, txnID, COMMUNICATION_ERROR)
-        Redirect("/consent-and-declaration/error")
-      }
-      case e: java.lang.Exception => {
-        Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}", e)
-        errorAndRedirect(claim, txnID, UNKNOWN_ERROR)
-      }
+        errorAndCleanup(claim, txnID, COMMUNICATION_ERROR, request)
+      case e: java.lang.Exception =>
+        Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
+        errorAndCleanup(claim, txnID, UNKNOWN_ERROR, request)
     }
   }
 
@@ -92,6 +82,14 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
       case CachedClaim.key => Redirect(claimErrorPageUrl)
       case CachedChangeOfCircs.key => Redirect(cofcErrorPageUrl)
     }
+  }
+
+
+  private[submission] def pollXml(correlationID: String, pollEndpoint: String) = {
+    <poll>
+      <correlationID>{correlationID}</correlationID>
+      <pollEndpoint>{pollEndpoint}</pollEndpoint>
+    </poll>
   }
 
   private def updateStatus(claim: Claim, id: String, statusCode: String) = {
