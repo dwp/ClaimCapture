@@ -4,14 +4,13 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{FiftyTwoWeeksTrip, Trips}
+import models.domain.{AbroadForMoreThan52Weeks, FiftyTwoWeeksTrip, Trips, Trip}
 import utils.helpers.CarersForm._
 import play.api.i18n.Messages
 import models.DayMonthYear
 import AboutYou.trips
 import controllers.Mappings._
 import controllers.CarersForms._
-import models.domain.Trip
 import scala.Some
 
 object G6Trip extends Controller with CachedClaim {
@@ -37,7 +36,8 @@ object G6Trip extends Controller with CachedClaim {
       },
       trip => {
         val updatedTrips = if (trips.fiftyTwoWeeksTrips.size >= 5) trips else trips.update(trip.as[FiftyTwoWeeksTrip])
-        claim.update(updatedTrips) -> Redirect(routes.G5AbroadForMoreThan52Weeks.present())
+        val updatedClaim = claim.update(updatedTrips)
+        updatedClaim.delete(AbroadForMoreThan52Weeks) -> Redirect(routes.G5AbroadForMoreThan52Weeks.present())
       })
   }
 
