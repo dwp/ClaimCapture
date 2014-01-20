@@ -4,6 +4,10 @@ import app.XMLValues._
 import models.domain._
 import scala.xml.NodeSeq
 
+/**
+ *
+ * Please delete this class after merging into xml.claim.Residency
+
 object Residency {
 
   def xml(claim: Claim) = {
@@ -37,4 +41,4 @@ object Residency {
 
     } else NodeSeq.Empty
   }
-}
+} **/

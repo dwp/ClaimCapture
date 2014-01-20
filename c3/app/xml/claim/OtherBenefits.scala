@@ -47,8 +47,8 @@ object OtherBenefits extends XMLComponent {
           case _ => throw new RuntimeException("AnyPaymentsSinceClaimDate is either Yes Or No")
         }}
       <EEA>
-        {question(<EEAReceivePensionsBenefits/>,"benefitsFromOtherEEAStateOrSwitzerland", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland)}
-        {question(<EEAWorkingInsurance/>,"workingForOtherEEAStateOrSwitzerland", otherEEAState.workingForOtherEEAStateOrSwitzerland)}
+        {question(<EEAReceivePensionsBenefits/>,"benefitsFromOtherEEAStateOrSwitzerland", otherEEAState.benefitsFromEEA)}
+        {question(<EEAWorkingInsurance/>,"workingForOtherEEAStateOrSwitzerland", otherEEAState.workingForEEA)}
       </EEA>
     </OtherBenefits>
   }

@@ -11,15 +11,23 @@ import ExecutionContext.Implicits.global
 import models.view.{CachedChangeOfCircs, CachedClaim}
 import play.api.libs.ws.Response
 import models.domain.Claim
+import xml.{XMLBuilder, ValidXMLBuilder}
 
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission: FormSubmission) extends Submitter {
+
+  val claimThankYouPageUrl = controllers.routes.ClaimEnding.thankyou()
+  val cofcThankYouPageUrl = controllers.routes.CircsEnding.thankyou()
+  val claimErrorPageUrl = controllers.routes.ClaimEnding.error()
+  val cofcErrorPageUrl = controllers.routes.CircsEnding.error()
+
+  lazy val xmlBuilder: XMLBuilder = ValidXMLBuilder()
 
   override def submit(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = {
     val txnID = idService.generateId
     Logger.info(s"Retrieved Id : $txnID")
 
-    claimSubmission.submitClaim(xml(claim, txnID)).map(
+    claimSubmission.submitClaim(xmlBuilder.xml(claim, txnID)).map(
       response => {
         registerId(claim, txnID, SUBMITTED)
         processResponse(claim, txnID, response, request)
@@ -72,6 +80,17 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         Redirect(controllers.routes.ClaimEnding.thankyou())
       case CachedChangeOfCircs.key =>
         Redirect(controllers.routes.CircsEnding.thankyou())
+    }
+  }
+
+  private def errorAndCleanup(claim: Claim, txnId: String, code: String, request: Request[AnyContent]): SimpleResult = {
+    Logger.error(s"errorAndCleanup : ${claim.key} : $txnId : $code")
+    updateStatus(claim, txnId, code)
+    claim.key match {
+      case CachedClaim.key =>
+        Redirect(controllers.routes.ClaimEnding.error())
+      case CachedChangeOfCircs.key =>
+        Redirect(controllers.routes.CircsEnding.error())
     }
   }
 

@@ -237,7 +237,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if EEA pension" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromOtherEEAStateOrSwitzerland = "yes")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromEEA = "yes")
       val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Claimant or partner dependent on EEA pensions or benefits.")
@@ -246,7 +246,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if no EEA pension" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromOtherEEAStateOrSwitzerland = "no")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromEEA = "no")
       val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0
@@ -263,7 +263,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if no EEA benefits claimed for" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForOtherEEAStateOrSwitzerland = "no")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForEEA = "no")
       val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0

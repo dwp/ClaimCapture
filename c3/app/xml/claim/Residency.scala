@@ -21,6 +21,7 @@ object Residency extends XMLComponent{
           case _ => NodeSeq.Empty
         }
       }
+      {/** TODO : Need top resolve this based on the new changes from development branch
       {claim.questionGroup[NormalResidenceAndCurrentLocation] match {
       case Some(normalResidence) =>
         question(<CountryNormallyLive/>, "liveInUK.whereDoYouLive", normalResidence.whereDoYouLive.text)
@@ -29,7 +30,7 @@ object Residency extends XMLComponent{
     }}
       {if (yourDetailsOption.isDefined) <Nationality>{yourDetailsOption.get.nationality}</Nationality>}
       {question(<TimeOutsideGBLast3Years/>, "anyTrips", trips.fourWeeksTrips.size > 0)}
-      {periodAbroadLastYear(tripsOption)}
+      {periodAbroadLastYear(tripsOption)}**/}
     </Residency>
   }
 
@@ -47,6 +48,6 @@ object Residency extends XMLComponent{
       </PeriodAbroad>
     }
 
-    {for {fourWeeksTrip <- trips.fourWeeksTrips} yield xml(fourWeeksTrip)}
+    //{for {fourWeeksTrip <- trips.fourWeeksTrips} yield xml(fourWeeksTrip)}
   }
 }

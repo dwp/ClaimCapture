@@ -9,6 +9,11 @@ import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import play.api.i18n.Messages
 
+/**
+ *
+ * Please delete this class after merging into xml.claim.EvidenceList
+
+
 object EvidenceList {
 
   def xml(claim: Claim) = {
@@ -294,4 +299,4 @@ object EvidenceList {
     case Some(s) => textLine(label, value.get)
     case None => NodeSeq.Empty
   }
-}
+}   **/
