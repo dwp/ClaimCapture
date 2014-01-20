@@ -130,12 +130,12 @@ object EvidenceList {
       textLines ++= textLine("Which country did you go to? = ", fiftyTwoWeekTrip.where)
 
       fiftyTwoWeekTrip.start match {
-        case Some(dayMonthYear) => textLines ++= textLine("Date you left = ", dayMonthYear.`yyyy-MM-dd`)
+        case Some(dayMonthYear) => textLines ++= textLine("Date you left = ", dayMonthYear.`dd/MM/yyyy`)
         case _ => NodeSeq.Empty
       }
 
       fiftyTwoWeekTrip.end match {
-        case Some(dayMonthYear) => textLines ++= textLine("Date you returned = ", dayMonthYear.`yyyy-MM-dd`)
+        case Some(dayMonthYear) => textLines ++= textLine("Date you returned = ", dayMonthYear.`dd/MM/yyyy`)
         case _ => NodeSeq.Empty
       }
 
