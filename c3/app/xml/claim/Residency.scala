@@ -14,6 +14,7 @@ object Residency extends XMLComponent{
     val yourDetailsOption = claim.questionGroup[YourDetails]
     val tripsOption = claim.questionGroup[Trips]
     val trips = claim.questionGroup[Trips].getOrElse(Trips())
+    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency())
 
     <Residency>
       { livesInGB match {
@@ -21,16 +22,14 @@ object Residency extends XMLComponent{
           case _ => NodeSeq.Empty
         }
       }
-      {/** TODO : Need top resolve this based on the new changes from development branch
-      {claim.questionGroup[NormalResidenceAndCurrentLocation] match {
+      {claim.questionGroup[NationalityAndResidency] match {
       case Some(normalResidence) =>
-        question(<CountryNormallyLive/>, "liveInUK.whereDoYouLive", normalResidence.whereDoYouLive.text)
+        question(<CountryNormallyLive/>, "liveInUK.whereDoYouLive", normalResidence.resideInUK.text)
 
       case _ => NodeSeq.Empty
     }}
-      {if (yourDetailsOption.isDefined) <Nationality>{yourDetailsOption.get.nationality}</Nationality>}
-      {question(<TimeOutsideGBLast3Years/>, "anyTrips", trips.fourWeeksTrips.size > 0)}
-      {periodAbroadLastYear(tripsOption)}**/}
+      {if (yourDetailsOption.isDefined) <Nationality>{nationalityAndResidency.nationality}</Nationality>}
+      {periodAbroadLastYear(tripsOption)}
     </Residency>
   }
 
@@ -47,7 +46,5 @@ object Residency extends XMLComponent{
         {question(<Country/>, "where", trip.where)}
       </PeriodAbroad>
     }
-
-    //{for {fourWeeksTrip <- trips.fourWeeksTrips} yield xml(fourWeeksTrip)}
   }
 }
