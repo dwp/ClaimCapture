@@ -13,7 +13,7 @@ final class G7OtherEEAStateOrSwitzerlandPage (browser: TestBrowser, previousPage
 }
 
 object G7OtherEEAStateOrSwitzerlandPage {
-  val title = "Money you get from other European Economic Area (EEA) countries or Switzerland - About you - the carer".toLowerCase
+  val title = "Money you get from other European Economic Area (EEA) state or Switzerland - About you - the carer".toLowerCase
 
   val url = "/about-you/other-eea-state-or-switzerland"
 
