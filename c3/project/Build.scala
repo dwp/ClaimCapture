@@ -13,13 +13,13 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here,
     jdbc,
     cache,
-    "org.specs2" % "specs2_2.10" % "2.3.6" % "test" withSources() withJavadoc(),
+    "org.specs2" %% "specs2" % "2.3.6" % "test" withSources() withJavadoc(),
     "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-testkit" % "2.2.3" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-agent" % "2.2.3" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-actor" % "2.2.3" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.2.3" % "test" withSources() withJavadoc(),
-    "com.dwp.carers" %% "carerscommon" % "0.9.1" ,
+    "com.dwp.carers" %% "carerscommon" % "0.9" ,
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "me.moocar" % "logback-gelf" % "0.9.6p2",
     "com.google.inject" % "guice" % "3.0",
@@ -33,7 +33,10 @@ object ApplicationBuild extends Build {
 
   var sV: Seq[Def.Setting[_]] = Seq(scalaVersion := "2.10.3")
 
-  var sR: Seq[Def.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
+  var sR: Seq[Def.Setting[_]] = Seq(
+    resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
+    resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
+    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases")
 
   var sTest: Seq[Def.Setting[_]] = Seq()
 
