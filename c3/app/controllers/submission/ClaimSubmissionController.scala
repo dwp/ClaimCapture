@@ -149,7 +149,6 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
       }
     }
 
-//    val timeOutsideUK = checkTimeOutsideUK
     val moreAboutTheCare = checkMoreAboutTheCare
     val pensionSchemes = checkPensionSchemes
     val childcareExpenses = checkChildcareExpenses
@@ -160,7 +159,6 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
     val statutorySickPay = checkStatutorySickPay
     val otherStatutoryPay = checkOtherStatutoryPay
 
-//    if (timeOutsideUK) Logger.warn("Honeypot triggered : timeOutsideUK")
     if (moreAboutTheCare) Logger.warn("Honeypot triggered : moreAboutTheCare")
     if (pensionSchemes) Logger.warn("Honeypot triggered : pensionSchemes")
     if (childcareExpenses) Logger.warn("Honeypot triggered : childcareExpenses")
@@ -171,16 +169,14 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Submissi
     if (statutorySickPay) Logger.warn("Honeypot triggered : statutorySickPay")
     if (otherStatutoryPay) Logger.warn("Honeypot triggered : otherStatutoryPay")
 
-//    timeOutsideUK ||
-      moreAboutTheCare ||
-      pensionSchemes ||
-      childcareExpenses ||
-      personYouCareForExpenses ||
-      childcareExpensesWhileAtWork ||
-      expensesWhileAtWork ||
-      aboutOtherMoney ||
-      statutorySickPay ||
-      otherStatutoryPay
-
+    moreAboutTheCare ||
+    pensionSchemes ||
+    childcareExpenses ||
+    personYouCareForExpenses ||
+    childcareExpensesWhileAtWork ||
+    expensesWhileAtWork ||
+    aboutOtherMoney ||
+    statutorySickPay ||
+    otherStatutoryPay
   }
 }
