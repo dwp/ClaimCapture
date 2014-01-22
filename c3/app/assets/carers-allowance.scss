@@ -93,7 +93,7 @@ main {
 			   border: 0;
 			   margin: 0;
 			   padding: 0;
-			   a {
+			   a.info {
 				   display: inline-block;
 				   position: relative;
 				   height: 18px;
@@ -445,7 +445,7 @@ main {
    	   		}
 			article {
 				margin: 2em 0;
-				background-image: url('images/response-trio.png');
+				background-image: url('images/response-trio-xl.png');
 				background-position: 0 0;
 				background-repeat: no-repeat;
 				padding: 0 0 0 8em;
@@ -466,15 +466,15 @@ main {
 					margin-top: .25em;
 				}
 				&.earnings {
-					background-position: 0 -350px;
+					background-position: 0 -756px;
 					@media screen and (max-width: 500px) {
-						background-position: center -350px;
+						background-position: center -756px;
 					}
 				}
 				&.education {
-					background-position: 0 -700px;
+					background-position: 0 -1500px;
 					@media screen and (max-width: 500px) {
-						background-position: center -700px;
+						background-position: center -1500px;
 					}
 				}
 			}
@@ -884,7 +884,7 @@ main {
 			   
 			   .helper {
 				   font-size: 1.6rem;
-				   margin-top: .4em;
+				   margin-top: .5em;
 				   font-weight: 300;
 				   .ie & {
 					   font-size: 16px;
@@ -1704,6 +1704,20 @@ main {
 	   &.breaks-error-prompt {
 		   margin: 0;
 	   }
+	   &.table-helper {
+		   margin: 1em 1.15em 0 0;
+		   border: 1px dotted #bfc1c3;
+		   background: #f8f8f8;
+		   @media screen and (max-width: 640px) {
+			   margin-right: 0;
+		   }
+		   p {
+			   font-size: 1.6rem;
+			   .ie & {
+				   font-size: 16px;
+			   }
+		   }
+	   }
 	   &.eligibility-prompt {
 		   margin-left: 0;
 		   p {
@@ -1992,6 +2006,7 @@ main {
 		font-size: 1.9rem!important; /* temp */
 		font-weight: 400!important; /* temp */
 		color: #000!important; /* temp */
+		padding-bottom: .34em!important; /* temp */
 		.ie & {
 			font-size: 19px;
 		}
@@ -2011,6 +2026,8 @@ main {
 			padding-top: 0;
 		}
 	}
+
+
 }
 
 
@@ -2019,9 +2036,9 @@ main {
 	padding: 2em;
 	background: #333;
 	a {
-		color: #fff!important;
+		color: #fff!important; /* temp */
 		&:hover {
-			color: #ccc!important;
+			color: #ccc!important; /* temp */
 		}
 	}
 	h1 {
