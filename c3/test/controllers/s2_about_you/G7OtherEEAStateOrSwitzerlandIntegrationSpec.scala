@@ -12,7 +12,7 @@ class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tag
   val submitButton = "button[type='submit']"
   val errorDiv = "div[class=validation-summary] ol li"
 
-  "Money you get from other European Economic Area (EEA) state or Switzerland" should {
+  "Other European Economic Area (EEA) states or Switzerland" should {
     "be presented" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
       page goToThePage()
     }

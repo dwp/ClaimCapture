@@ -20,12 +20,12 @@
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
-                    <ul aria-label="Completed questions">
+                    <ul>
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
                                 <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
                                 <p>@completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation</p>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true">Change this answer</a>
+                                <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="Change this answer - this is an optional link">Change this answer</a>
                             </li>
                         }
                     </ul>
