@@ -5,46 +5,48 @@ import scala.xml.NodeSeq
 import xml.XMLHelper._
 import xml.XMLComponent
 import models.domain.Claim
-import scala.Some
+import controllers.Mappings
 
 object Residency extends XMLComponent{
 
   def xml(claim: Claim) = {
-    val livesInGB = claim.questionGroup[LivesInGB]
-    val yourDetailsOption = claim.questionGroup[YourDetails]
+
     val tripsOption = claim.questionGroup[Trips]
-    val trips = claim.questionGroup[Trips].getOrElse(Trips())
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency())
 
     <Residency>
-      { livesInGB match {
-          case Some(n) => question(<NormallyLiveInGB/>, "liveInUK.answer", n.answerYesNo)
-          case _ => NodeSeq.Empty
-        }
-      }
-      {claim.questionGroup[NationalityAndResidency] match {
-      case Some(normalResidence) =>
-        question(<CountryNormallyLive/>, "liveInUK.whereDoYouLive", normalResidence.resideInUK.text)
+      {question(<NormallyLiveInGB/>, "resideInUK.answer", nationalityAndResidency.resideInUK.answer)}
 
-      case _ => NodeSeq.Empty
-    }}
-      {if (yourDetailsOption.isDefined) <Nationality>{nationalityAndResidency.nationality}</Nationality>}
-      {periodAbroadLastYear(tripsOption)}
+      {nationalityAndResidency.resideInUK.answer match {
+        case Mappings.no => question(<CountryNormallyLive/>, "resideInUK.text.label", nationalityAndResidency.resideInUK.text)
+        case _ => NodeSeq.Empty
+      }}
+
+      <Nationality>{nationalityAndResidency.nationality}</Nationality>
+
+      {periodAbroadLastYear(tripsOption, claim)}
+
     </Residency>
   }
 
-  def periodAbroadLastYear(tripsOption: Option[Trips]) = {
+  def periodAbroadLastYear(tripsOption: Option[Trips], claim: Claim) = {
     val trips = tripsOption.getOrElse(Trips())
 
-    def xml(trip: TripPeriod) = {
+    def xml(trip: TripPeriod, index:Int) = {
       <PeriodAbroad>
+        {index > 0 match {
+          case true =>  question(<TimeOutsideGBLast3Years/>, "52Weeks.more.label", trips.fiftyTwoWeeksTrips.size > 0, claim.dateOfClaim.get.`dd/MM/yyyy`)
+          case false => question(<TimeOutsideGBLast3Years/>, "52Weeks.label", trips.fiftyTwoWeeksTrips.size > 0, claim.dateOfClaim.get.`dd/MM/yyyy`)
+        }}
         <Period>
           {question(<DateFrom/>, "start.trip", trip.start)}
           {question(<DateTo/>, "end.trip", trip.end)}
-        </Period>
-        {question(<Reason/>, "why", trip.why)}
+         </Period>
+        {questionOther(<Reason/>, "why", trip.why.get.reason, trip.why.get.other)}
         {question(<Country/>, "where", trip.where)}
+        {question(<CareePresent/>, "personWithYou", trip.personWithYou)}
       </PeriodAbroad>
     }
+    {for ((fiftyTwoWeeksTrip, index) <- trips.fiftyTwoWeeksTrips.zipWithIndex) yield xml(fiftyTwoWeeksTrip, index)}
   }
 }
