@@ -49,7 +49,7 @@ s2.g3 = Your claim date: {0}
 s2.g4 = Your nationality and residency
 s2.g5 = Time outside of England, Scotland or Wales
 s2.g6 = Trips
-s2.g7 = Money you get from other European Economic Area (EEA) state or Switzerland
+s2.g7 = Other European Economic Area (EEA) states or Switzerland
 s2.g8 = More about you
 s2.g9 = Employment
 
@@ -189,8 +189,8 @@ resideInUK=Which country do you normally live in?
 dateOfClaim = When do you want your Carer''s Allowance claim to start?
 
 # OTHER EEA STATE OR SWITZERLAND
-eeaCountryHelp.label = What is an EEA State?
-eeaCountryHelp = <p>Austria, Belgium, Bulgaria, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, and the United Kingdom (UK)</p>
+eeaCountryHelp.label = What is an EEA State? - Help
+eeaCountryHelp = <p>Austria, Belgium, Bulgaria, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden</p>
 benefitsFromEEA = Do you, or any member of your family, receive any benefits or pensions from a European Economic Area (EEA) state or Switzerland?
 claimedForBenefitsFromEEA = Have you, or a member of your family, made a claim for any benefits or pensions from a European Economic Area (EEA) state or Switzerland?
 workingForEEA = Are you, or a member of your family, working in or paying insurance to, another European Economic Area (EEA) state or Switzerland?
