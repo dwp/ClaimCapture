@@ -1,0 +1,13 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)
+
+@import views.html.helper.base.carersInputText
+@import utils.helpers.EmptyTemplate._
+@import views.html.helper.base.{carersLabel,carersLabelText}
+
+@showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
+
+@if(showLabel) {
+  <legend>
+    @carersLabelText(field,args:_*)
+  </legend>
+}
