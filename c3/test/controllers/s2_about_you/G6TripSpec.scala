@@ -138,7 +138,7 @@ class G6TripSpec extends Specification with Tags {
       redirectLocation(result) must beSome("/about-you/abroad-for-more-than-52-weeks")
 
       Cache.getAs[Claim](claimKey).get.questionGroup(Trips) must beLike {
-        case Some(ts: Trips) => ts.fiftyTwoWeeksTrips.size shouldEqual 5
+        case Some(ts: Trips) => ts.fiftyTwoWeeksTrips.size shouldEqual 6
       }
     }
 
