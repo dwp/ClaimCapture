@@ -16,7 +16,7 @@ About You,Your contact details,"If you have speech or hearing difficulties, woul
 About You,Your contact details,Mobile number,AboutYouMobileNumber,DWPCAClaim>EvidenceList
 About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,Residency>Nationality
 About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,DWPCAClaim>EvidenceList
-About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,Residency>OtherNationality>CountryArrivedFrom
+About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,DWPCAClaim>EvidenceList
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,
 About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB,DWPCAClaim>EvidenceList
 About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB,DWPCAClaim>EvidenceList

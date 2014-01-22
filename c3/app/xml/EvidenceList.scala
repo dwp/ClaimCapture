@@ -8,6 +8,7 @@ import app.XMLValues._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import play.api.i18n.Messages
+import controllers.Mappings
 
 object EvidenceList {
 
@@ -69,7 +70,9 @@ object EvidenceList {
     val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
 
     var textLines = NodeSeq.Empty ++ textSeparatorLine("About You")
+    textLines ++= textLine(Messages("nationality") + " = ", nationalityAndResidency.nationality)
     textLines ++= textLine(Messages("resideInUK.label") + " = ", nationalityAndResidency.resideInUK.answer)
+    if (nationalityAndResidency.resideInUK.answer == Mappings.no){textLines ++= textLine(Messages("resideInUK") + " = ", nationalityAndResidency.resideInUK.text.get)}
     textLines ++= fiftyTwoWeeksTrips(claim)
     textLines ++= textLine("Mobile number = ", yourContactDetails.mobileNumber)
     textLines ++= textLine("Do you, or any member of your family, receive any benefits or pensions from a European Economic Area (EEA) state or Switzerland? = ", otherEEAState.benefitsFromEEA)

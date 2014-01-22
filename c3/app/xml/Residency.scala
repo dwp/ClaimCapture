@@ -29,7 +29,7 @@ object Residency {
       <OtherNationality>
         <EUEEASwissNationalChildren/>
         <DateArrivedInGreatBritain>{NotAsked}</DateArrivedInGreatBritain>
-        <CountryArrivedFrom>{nationalityAndResidency.resideInUK.text.orNull}</CountryArrivedFrom>
+        <CountryArrivedFrom>{NotAsked}</CountryArrivedFrom>
         <IntendToReturn>{NotAsked}</IntendToReturn>
         <DateReturn>{NotAsked}</DateReturn>
         <VisaReferenceNumber>{NotAsked}</VisaReferenceNumber>
