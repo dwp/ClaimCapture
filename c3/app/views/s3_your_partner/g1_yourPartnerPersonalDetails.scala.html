@@ -31,7 +31,7 @@
 
                 @inputDayMonthYear(currentForm("dateOfBirth"), 'helperBelow-> Messages("dateOfBirth.helper"))
                 
-                @carersInputText(currentForm("nationality"), 'maxLength -> 35,'helperBelow -> Messages("nationality.helper"))
+                @carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35,'helperBelow -> Messages("partner.nationality.helper"))
 
                 @yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 

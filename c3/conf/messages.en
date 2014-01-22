@@ -179,7 +179,7 @@ livingInUK.goBack.answer = Do you plan to go back to that country?
 
 # Nationality and Residence
 nationality = What is your nationality? (e.g. British)
-nationality.helper = If you have a current passport, please give your nationality as shown on your passport
+nationality.helper = If you have a current passport, please give your nationality as shown on your passport.
 resideInUK.label=Do you normally live in England, Scotland or Wales?
 resideInUK.answer=Do you normally live in England, Scotland or Wales?
 resideInUK.text.label=Which country do you normally live in?
@@ -224,6 +224,8 @@ separated.date = When did you separate?
 separated_date = When did you separate?
 
 # Person you care for
+partner.nationality=Nationality? (e.g. British)
+partner.nationality.helper=If you have a current passport, please give your nationality as shown on your passport.
 isPartnerPersonYouCareFor = Is your partner/spouse the person you are claiming Carer''s Allowance for?
 
 
@@ -293,16 +295,11 @@ inGBNow = Are you in Great Britain now?
 
 anyTrips = Have you been out of England, Scotland or Wales
 
-# 4 WEEKS
-4Weeks.label = Have you been out of Great Britain with the person you care for for more than 4 weeks at a time, since {0} (this is 3 years from today)?
-4Weeks.more.label = Have you had any more trips out of Great Britain with the person you care for for more than 4 weeks at a time, since {0} (this is 3 years from today)?
-4Weeks.summaryTable.label = Time Abroad you have added
-
 # 52 WEEKS
 52Weeks.label = Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date {0}?
 52Weeks.helper = This could be one trip of 52 weeks, or a number of trips adding up to 52 weeks.
 52Weeks.more.label = Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date {0}?
-52Weeks.summaryTable.label = Time Abroad you have added
+52Weeks.summaryTable.label = Time out of England, Scotland or Wales you have added
 
 where = Which country did you go to?
 start.trip = Date you left?
@@ -445,8 +442,8 @@ gettingInformationFromAnyEmployer_informationFromEmployer = Do you agree to us g
 gettingInformationFromAnyEmployer.informationFromEmployer = Do you agree to us getting information from any current or previous employer you have told us about on this form?
 gettingInformationFromAnyEmployer_why = Please tell us why
 gettingInformationFromAnyEmployer.why = Please tell us why
-tellUsWhyEmployer.informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
-tellUsWhyEmployer_informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
+tellUsWhyEmployer.informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this claim?
+tellUsWhyEmployer_informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this claim?
 tellUsWhyEmployer.whyPerson = Please tell us why
 tellUsWhyEmployer_whyPerson = Please tell us why
 why_placeholder = Please specify...

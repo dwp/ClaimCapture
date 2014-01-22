@@ -35,7 +35,7 @@ object G6Trip extends Controller with CachedClaim {
         BadRequest(views.html.s2_about_you.g6_trip(formWithErrors, fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
       },
       trip => {
-        val updatedTrips = if (trips.fiftyTwoWeeksTrips.size >= 5) trips else trips.update(trip.as[FiftyTwoWeeksTrip])
+        val updatedTrips = if (trips.fiftyTwoWeeksTrips.size >= 6) trips else trips.update(trip.as[FiftyTwoWeeksTrip])
         val updatedClaim = claim.update(updatedTrips)
         updatedClaim.delete(AbroadForMoreThan52Weeks) -> Redirect(routes.G5AbroadForMoreThan52Weeks.present())
       })
