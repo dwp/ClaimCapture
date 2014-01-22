@@ -445,7 +445,7 @@ main {
    	   		}
 			article {
 				margin: 2em 0;
-				background-image: url('images/response-trio.png');
+				background-image: url('images/response-trio-xl.png');
 				background-position: 0 0;
 				background-repeat: no-repeat;
 				padding: 0 0 0 8em;
@@ -466,15 +466,15 @@ main {
 					margin-top: .25em;
 				}
 				&.earnings {
-					background-position: 0 -350px;
+					background-position: 0 -756px;
 					@media screen and (max-width: 500px) {
-						background-position: center -350px;
+						background-position: center -756px;
 					}
 				}
 				&.education {
-					background-position: 0 -700px;
+					background-position: 0 -1500px;
 					@media screen and (max-width: 500px) {
-						background-position: center -700px;
+						background-position: center -1500px;
 					}
 				}
 			}
