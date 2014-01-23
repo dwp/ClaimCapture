@@ -78,6 +78,8 @@ Education,"School, college or universitys contact details",Address,EducationAddr
 Education,"School, college or universitys contact details",Post code,EducationPostcode,FullTimeEducation>LocationDetails>Address>PostCode
 Education,"School, college or universitys contact details",Phone number,EducationPhoneNumber,FullTimeEducation>LocationDetails>PhoneNumber
 Education,"School, college or universitys contact details",Fax Number, EducationFaxNumber ,FullTimeEducation>LocationDetails>FaxNumber
+Employment,Employment,Have you been employed at any time since <ddmmyyyy> (this is six months before your claim date:< ddmmyyyy>)?,AboutYouHaveYouBeenEmployedAtAnyTime,DWPCAClaim>Employed
+Employment,Employment,Have you been self-employed at any time since <ddmmyyyy> (this is one week before your claim date:<ddmmyyyy>)?,AboutYouHaveYouBeenSelfEmployedAtAnyTime,DWPCAClaim>SelfEmployed
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName,Employment>JobDetails>Employer>Name
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob,Employment>JobDetails>Employer>DateJobStarted
