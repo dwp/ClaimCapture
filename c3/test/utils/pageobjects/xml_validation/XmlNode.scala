@@ -40,7 +40,8 @@ class XmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml, pat
   private def isUniqueValueInRepetitions(claimValue:TestDatumValue):Boolean = {
     //We will test if this value is collected in repeated values like breaks, employment, time abroad, but it's saved in a non-repetition xml node
     //If the iteration is 1, these values are going to be tested, but they don't need to be testes further this point.
-    claimValue.attribute.startsWith("AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare") || claimValue.attribute.startsWith("AboutYouHaveYouBeenEmployedAtAnyTime")
+    claimValue.attribute.startsWith("AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare") ||
+      claimValue.attribute.startsWith("AboutYouHaveYouBeenEmployedAtAnyTime") || claimValue.attribute.startsWith("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime")
   }
 
   @tailrec
