@@ -70,7 +70,7 @@ object EvidenceList {
     val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
 
     var textLines = NodeSeq.Empty ++ textSeparatorLine("About You")
-    textLines ++= textLine(Messages("nationality") + " = ", nationalityAndResidency.nationality)
+    textLines ++= textLine(Messages("nationality.pdf") + " = ", nationalityAndResidency.nationality)
     textLines ++= textLine(Messages("resideInUK.label") + " = ", nationalityAndResidency.resideInUK.answer)
     if (nationalityAndResidency.resideInUK.answer == Mappings.no){textLines ++= textLine(Messages("resideInUK") + " = ", nationalityAndResidency.resideInUK.text.get)}
     textLines ++= fiftyTwoWeeksTrips(claim)

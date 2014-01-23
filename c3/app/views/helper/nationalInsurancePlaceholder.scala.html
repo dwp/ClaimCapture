@@ -4,10 +4,13 @@
 @import views.html.helper.base.carersInputTel
 @import utils.helpers.CarersCrypto
 @import utils.helpers.EmptyTemplate._
-@import views.html.helper.checkConstraintRequired
+@import views.html.helper.NInumberConstraintRequired
 
-@checkConstraintRequired(field)
-<ul class="inline ni-number label-strip" id="@field.id">
+<fieldset class="question-group">
+
+@NInumberConstraintRequired(field)
+
+<ul class="inline ni-number label-strip">
     <li>
         @carersInputText(field("ni1"), 'placeholder -> "VO", 'maxlength -> 2)
     </li>
@@ -28,3 +31,5 @@
         @carersInputText(field("ni5"), 'placeholder -> "D", 'maxlength -> 1, 'class -> "single")
     </li>
 </ul>
+
+</fieldset>
