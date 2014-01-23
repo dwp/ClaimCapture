@@ -125,6 +125,9 @@ POST          /education/completed                                              
 
 # Employment
 ###############
+GET           /employment/employment                                                  controllers.s7_employment.G0Employment.present
+POST          /employment/employment                                                  controllers.s7_employment.G0Employment.submit
+
 GET           /employment/been-employed                                               controllers.s7_employment.G1BeenEmployed.present
 POST          /employment/been-employed                                               controllers.s7_employment.G1BeenEmployed.submit
 

@@ -32,7 +32,7 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
   }
 
   def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
-    claim -> Redirect("/employment/been-employed")
+    claim -> Redirect("/employment/employment")
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(

@@ -9,6 +9,6 @@ object Education extends Controller with CachedClaim with Navigable {
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
-    Redirect("/employment/been-employed")
+    Redirect("/employment/employment")
   }
 }

@@ -51,7 +51,6 @@ s2.g5 = Time outside of England, Scotland or Wales
 s2.g6 = Trips
 s2.g7 = Other European Economic Area (EEA) states or Switzerland
 s2.g8 = More about you
-s2.g9 = Employment
 
 s3.g1 = Partner/Spouse details
 s3.g2 = Contact details
@@ -71,6 +70,7 @@ s5.g2 = Details of time abroad with the person you care for
 s6.g1 = Your course details
 s6.g2 = School, college or university''s contact details
 
+s7.g0 = Employment
 s7.g1 = Have you been employed?
 s7.g2 = Your job
 s7.g3 = Employer''s contact details
@@ -203,12 +203,6 @@ beenInEducationSinceClaimDate.label = Have you been on a course of education sin
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
 receiveStatePension = Do you get State Pension?
 
-# EMPLOYMENT
-beenEmployedSince6MonthsBeforeClaim.label = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
-beenEmployedSince6MonthsBeforeClaim = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
-beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
-beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time since one week before your claim date?
-
 
 ## YOUR PARTNER
 
@@ -322,6 +316,13 @@ faxNumber = Fax number
 
 
 ## EMPLOYED
+
+# EMPLOYMENT
+beenEmployedSince6MonthsBeforeClaim.label = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
+beenEmployedSince6MonthsBeforeClaim = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
+beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
+beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time since one week before your claim date?
+
 beenEmployed = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
 aboutYou_beenEmployedSince6MonthsBeforeClaim.label = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
 aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self employed at any time since {0} (this is one week before your claim date: {1})?
