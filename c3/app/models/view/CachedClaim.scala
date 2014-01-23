@@ -128,7 +128,7 @@ trait CachedClaim {
           Logger.warn(s"HTTP Referer : $referer")
           Logger.warn(s"Conf Referer : $expectedReferer")
           Logger.warn(s"HTTP Host : $host")
-          Future(Redirect(expectedReferer))
+          Future(Ok(views.html.common.redirect(expectedReferer)))
         } else {
           doSubmit()
         }
