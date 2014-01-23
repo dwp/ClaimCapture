@@ -76,9 +76,6 @@ POST          /about-you/other-eea-state-or-switzerland                         
 GET           /about-you/more-about-you                                               controllers.s2_about_you.G8MoreAboutYou.present
 POST          /about-you/more-about-you                                               controllers.s2_about_you.G8MoreAboutYou.submit
 
-GET           /about-you/employment                                                   controllers.s2_about_you.G9Employment.present
-POST          /about-you/employment                                                   controllers.s2_about_you.G9Employment.submit
-
 GET           /about-you/completed                                                    controllers.s2_about_you.AboutYou.completed
 POST          /about-you/completed                                                    controllers.s2_about_you.AboutYou.completedSubmit
 

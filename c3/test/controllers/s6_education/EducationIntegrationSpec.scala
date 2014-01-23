@@ -35,6 +35,7 @@ class EducationIntegrationSpec extends Specification with Tags {
     }
 
     "show the text 'Continue to employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
+      pending
       Formulate.claimDate(browser)
       Formulate.employment(browser)
       Formulate.yourCourseDetails(browser)

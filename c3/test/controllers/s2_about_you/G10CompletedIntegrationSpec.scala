@@ -18,7 +18,6 @@ class G10CompletedIntegrationSpec extends Specification with Tags {
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      Formulate.employment(browser)
       titleMustEqual("Completion - About you - the carer")
       
       browser.find("#submit").getText mustEqual "Continue to partner/spouse"
@@ -33,7 +32,6 @@ class G10CompletedIntegrationSpec extends Specification with Tags {
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
-      Formulate.employment(browser)
       titleMustEqual("Completion - About you - the carer")
 
       browser.find("#submit").getText mustEqual "Continue to Care you provide"
