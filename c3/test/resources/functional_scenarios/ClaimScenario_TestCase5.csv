@@ -186,18 +186,12 @@ About the care you provide,About the breaks in care,Where was the person you car
 About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_10,Other place 10b
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_10,No
 About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_11,No
-Education,Your course details,Type of course,EducationTypeOfCourse,A-Levels
-Education,Your course details,Course title,EducationCourseTitle,Geograpghy and History
-Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,09/09/2013
-Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,09/07/2014
-Education,Your course details,"If you are no longer on the course, when did you finish?",EducationWhenDidYouFinish,
-Education,Your course details,Your student reference number,EducationYourStudentReferenceNumber,
-Education,"School, college or universitys contact details","Name of school, college or university",EducationNameofSchool,Preston College
-Education,"School, college or universitys contact details",Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,Mr Steve Tudor
-Education,"School, college or universitys contact details",Address,EducationAddress,90 Preston Road&Preston&Lancashire
-Education,"School, college or universitys contact details",Post code,EducationPostcode,PR45 6YH
-Education,"School, college or universitys contact details",Phone number,EducationPhoneNumber,01772 891891
-Education,"School, college or universitys contact details",Fax Number,EducationFaxNumber,
+Education,Your course details,Course title,EducationCourseTitle,Bussines Studies
+Education,Your course details,"Name of school, college or university",EducationNameofSchool,Oxford College
+Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,Edward Mansfield
+Education,Your course details,Course contact number,EducationPhoneNumber,01776 829920
+Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,01/01/2013
+Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,01/01/2014
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName_1,
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,

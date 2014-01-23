@@ -283,6 +283,9 @@ wherePerson = Where was the person you care for during the break?
 wherePerson.location = Where was the person you care for during the break?
 medicalDuringBreak = Did you or the person you care for get any medical treatment or professional care during this time?
 
+# ABOUT YOUR EDUCATION
+courseContactNumber = Course contact number
+courseContactNumber.helper = Please include if you know the number for your department
 
 ## TIME SPENT ABROAD
 
@@ -313,7 +316,7 @@ personWithYou = Was the person you care for with you?
 courseType = Type of course
 courseTitle = Course title
 startDate = When did you start the course?
-expectedEndDate = When do you expect the course to end?
+expectedEndDate = When did the course end or when will you finish?
 finishedDate = If you are no longer on the course, when did you finish?
 studentReferenceNumber = Your student reference number
 nameOfSchoolCollegeOrUniversity = Name of school, college or university

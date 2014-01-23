@@ -9,12 +9,12 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
  *         Date: 06/08/2013
  */
 class G1YourCourseDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1YourCourseDetailsPage.url, G1YourCourseDetailsPage.title, previousPage) {
-  declareInput("#courseType","EducationTypeOfCourse")
   declareInput("#courseTitle","EducationCourseTitle")
+  declareInput("#nameOfSchoolCollegeOrUniversity","EducationNameofSchool")
+  declareInput("#nameOfMainTeacherOrTutor","EducationNameOfMainTeacherOrTutor")
+  declareInput("#courseContactNumber","EducationPhoneNumber")
   declareDate("#startDate","EducationWhenDidYouStartTheCourse")
   declareDate("#expectedEndDate","EducationWhenDoYouExpectTheCourseToEnd")
-  declareDate("#finishedDate","EducationWhenDidYouFinish")
-  declareInput("#studentReferenceNumber","EducationYourStudentReferenceNumber")
 }
 
 /**

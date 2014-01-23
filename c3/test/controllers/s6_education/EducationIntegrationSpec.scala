@@ -8,26 +8,23 @@ class EducationIntegrationSpec extends Specification with Tags {
   "Education" should {
     """present "completion".""" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
-      Formulate.addressOfSchoolCollegeOrUniversity(browser)
 
       titleMustEqual("Completion - About your education")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
-      Formulate.addressOfSchoolCollegeOrUniversity(browser)
       titleMustEqual("Completion - About your education")
 
-      browser.find("div[class=completed] ul li").size() mustEqual 2
+      browser.find("div[class=completed] ul li").size() mustEqual 1
     }
     
-    "back goes to 'Address Of School College Or University'" in new WithBrowser with BrowserMatchers {
+    "back goes to 'Your course details - About your education'" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
-      Formulate.addressOfSchoolCollegeOrUniversity(browser)
       titleMustEqual("Completion - About your education")
 
       browser.click("#backButton")
-      titleMustEqual("School, college or university's contact details - About your education")
+      titleMustEqual("Your course details - About your education")
     }
 
     "show the text 'Continue to Other Money' on the submit button when next section is 'Other Money'" in new WithBrowser with BrowserMatchers {
@@ -38,7 +35,6 @@ class EducationIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
       Formulate.employment(browser)
       Formulate.yourCourseDetails(browser)
-      Formulate.addressOfSchoolCollegeOrUniversity(browser)
       titleMustEqual("Completion - About your education")
 
       browser.find("button[type='submit']").getText mustEqual "Continue to employment"
