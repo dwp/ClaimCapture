@@ -7,14 +7,6 @@ import controllers.{BrowserMatchers, Formulate}
 class CareYouProvideIntegrationSpec extends Specification with Tags {
 
   "Care you provide" should {
-    """be presented""" in new WithBrowser with BrowserMatchers {
-      Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
-
-      browser.goTo("/care-you-provide/completed")
-      titleMustEqual("Completion - About the care you provide")
-    }
-
     """navigate to Education""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
@@ -31,10 +23,11 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
       titleMustEqual("More about the care you provide - About the care you provide")
 
-      browser.goTo("/care-you-provide/completed")
-      titleMustEqual("Completion - About the care you provide")
+      browser.goTo("/care-you-provide/breaks-in-care")
+      titleMustEqual("Breaks in care - About the care you provide")
+      browser.click("#answer_no")
 
-      browser.find("button[type='submit']").getText shouldEqual "Continue"
+      browser.find("button[type='submit']").getText shouldEqual "Next"
 
       browser.submit("button[type='submit']")
       titleMustEqual("Your course details - About your education")
@@ -65,10 +58,11 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
       titleMustEqual("More about the care you provide - About the care you provide")
 
-      browser.goTo("/care-you-provide/completed")
-      titleMustEqual("Completion - About the care you provide")
+      browser.goTo("/care-you-provide/breaks-in-care")
+      titleMustEqual("Breaks in care - About the care you provide")
+      browser.click("#answer_no")
 
-      browser.find("button[type='submit']").getText shouldEqual "Continue"
+      browser.find("button[type='submit']").getText shouldEqual "Next"
 
       browser.submit("button[type='submit']")
       titleMustEqual("Your job - About self-employment")
@@ -102,10 +96,11 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
       titleMustEqual("More about the care you provide - About the care you provide")
 
-      browser.goTo("/care-you-provide/completed")
-      titleMustEqual("Completion - About the care you provide")
+      browser.goTo("/care-you-provide/breaks-in-care")
+      titleMustEqual("Breaks in care - About the care you provide")
+      browser.click("#answer_no")
 
-      browser.find("button[type='submit']").getText shouldEqual "Continue"
+      browser.find("button[type='submit']").getText shouldEqual "Next"
 
       browser.submit("button[type='submit']")
       titleMustEqual("Details about other money - About Other Money")

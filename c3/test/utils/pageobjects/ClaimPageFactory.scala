@@ -53,7 +53,6 @@ object ClaimPageFactory extends PageFactory {
       case G7MoreAboutTheCarePage.title => G7MoreAboutTheCarePage (browser, previousPage)
       case G10BreaksInCarePage.title => G10BreaksInCarePage (browser, previousPage, iteration)
       case G11BreakPage.title => G11BreakPage (browser, previousPage, iteration)
-      case G12CareYouProvideCompletedPage.title => G12CareYouProvideCompletedPage (browser, previousPage)
 
       //S6
       case G1YourCourseDetailsPage.title => G1YourCourseDetailsPage (browser,previousPage)
