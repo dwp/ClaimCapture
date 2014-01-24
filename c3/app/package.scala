@@ -73,7 +73,7 @@ package object app {
     val Other = "Other"
   }
 
-  val mb = 131072
+  val mb = 1024L * 1000L
   def convertToMB(bytes:Long) = {
     bytes / mb
   }

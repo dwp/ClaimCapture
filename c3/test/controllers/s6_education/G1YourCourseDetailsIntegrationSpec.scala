@@ -25,21 +25,14 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       browser.goTo("/education/your-course-details")
       browser.fill("#startDate_year") `with` "INVALID"
       browser.submit("button[type='submit']")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 1
+      browser.find("div[class=validation-summary] ol li").size mustEqual 5
     }
 
     "navigate to next page on valid submission with all fields filled in" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/your-course-details")
       Formulate.yourCourseDetails(browser)
 
-      titleMustEqual("School, college or university's contact details - About your education")
-    }
-
-    "navigate to next page on valid submission with only mandatory fields filled in" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/education/your-course-details")
-      browser.submit("button[type='submit']")
-
-      titleMustEqual("School, college or university's contact details - About your education")
+      titleMustEqual("Completion - About your education")
     }
 
     "navigate back" in new WithBrowser with BrowserMatchers {
