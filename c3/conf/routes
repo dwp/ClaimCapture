@@ -120,9 +120,6 @@ POST          /care-you-provide/completed                                       
 GET           /education/your-course-details                                          controllers.s6_education.G1YourCourseDetails.present
 POST          /education/your-course-details                                          controllers.s6_education.G1YourCourseDetails.submit
 
-GET           /education/completed                                                    controllers.s6_education.Education.completed
-POST          /education/completed                                                    controllers.s6_education.Education.completedSubmit
-
 # Employment
 ###############
 GET           /employment/been-employed                                               controllers.s7_employment.G1BeenEmployed.present

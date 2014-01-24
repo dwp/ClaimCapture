@@ -58,7 +58,6 @@ object ClaimPageFactory extends PageFactory {
 
       //S6
       case G1YourCourseDetailsPage.title => G1YourCourseDetailsPage (browser,previousPage)
-      case G3EducationCompletedPage.title => G3EducationCompletedPage (browser,previousPage)
       // S7
       case G1BeenEmployedPage.title => G1BeenEmployedPage (browser,previousPage,iteration)
       case G2JobDetailsPage.title => G2JobDetailsPage (browser,previousPage,iteration)

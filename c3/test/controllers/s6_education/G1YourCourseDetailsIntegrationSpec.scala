@@ -28,12 +28,18 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       browser.find("div[class=validation-summary] ol li").size mustEqual 5
     }
 
+    "show the text 'Continue to Other Money' on the submit button when next section is 'Other Money'" in new WithBrowser with BrowserMatchers {
+      pending("Skipped till show/hide employment logic is implemented")
+    }
+
     "navigate to next page on valid submission with all fields filled in" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/education/your-course-details")
+      browser.goTo("/employment/been-employed")
+      Formulate.claimDate(browser)
+      Formulate.employment(browser)
       Formulate.yourCourseDetails(browser)
 
-      titleMustEqual("Completion - About your education")
-    }
+      titleMustEqual("Your job - Employment History")
+     }
 
     "navigate back" in new WithBrowser with BrowserMatchers {
       browser.goTo("/care-you-provide/breaks-in-care")
