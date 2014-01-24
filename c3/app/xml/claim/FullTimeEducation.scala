@@ -27,28 +27,24 @@ object FullTimeEducation extends XMLComponent {
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <CourseDetails>
-      {statement(<Type/>,courseDetails.courseType)}
+      {/*TODO: Remove courseType from the new schema.*/}
       {statement(<Title/>,courseDetails.title)}
       {question(<DateStarted/>, "startDate", courseDetails.startDate)}
-      {question(<DateStopped/>, "finishedDate", courseDetails.finishedDate)}
+      {/*TODO: Remove finished date from the new schema.*/}
       {question(<ExpectedEndDate/>, "expectedEndDate", courseDetails.expectedEndDate)}
     </CourseDetails>
   }
 
   def locationDetailsXml(claim:Claim) = {
-    val schoolData = claim.questionGroup[AddressOfSchoolCollegeOrUniversity].getOrElse(AddressOfSchoolCollegeOrUniversity())
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <LocationDetails>
-      {statement(<Name/>,schoolData.nameOfSchoolCollegeOrUniversity)}
-      {schoolData.address match {
-        case Some(n) => postalAddressStructure(schoolData.address, schoolData.postcode)
-        case None => NodeSeq.Empty
-      }}
-      {statement(<PhoneNumber/>,schoolData.phoneNumber)}
-      {statement(<FaxNumber/>,schoolData.faxNumber)}
-      {statement(<StudentReferenceNumber/>,courseDetails.studentReferenceNumber)}
-      {statement(<Tutor/>,schoolData.nameOfMainTeacherOrTutor)}
+      {statement(<Name/>,courseDetails.nameOfSchoolCollegeOrUniversity)}
+      {/*TODO: Remove address from the new schema*/}
+      {statement(<PhoneNumber/>,courseDetails.courseContactNumber)}
+      {/*TODO: Remove fax from the new schema*/}
+      {/*TODO: Remove student reference number from the new schema*/}
+      {statement(<Tutor/>,courseDetails.nameOfMainTeacherOrTutor)}
     </LocationDetails>
   }
 }

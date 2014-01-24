@@ -319,6 +319,9 @@ object Formulate {
   // Education
   def yourCourseDetails(browser: TestBrowser) = {
     val courseTitle = "Law"
+    val nameOfSchoolCollegeOrUniversity = "University"
+    val nameOfMainTeacherOrTutor = "Mr Whiskers"
+    val courseContactNumber = "12345"
 
     browser.goTo("/education/your-course-details")
     browser.fill("#courseTitle") `with` courseTitle
