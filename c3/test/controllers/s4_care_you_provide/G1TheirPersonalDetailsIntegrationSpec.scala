@@ -3,6 +3,7 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
+import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 
 class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Their Personal Details" should {
@@ -24,15 +25,15 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       titleMustEqual("Contact details of the person you care for - About the care you provide")
     }
 
-    """navigate back to "Completion - About your partner/spouse" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
+    """navigate back to "Partner/Spouse details - About your partner/spouse" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
       Formulate.yourPartnerPersonalDetails(browser)
       browser.goTo("/care-you-provide/their-personal-details")
-      browser.click("#backButton")
-      titleMustEqual("Completion - About your partner/spouse")
+      Formulate.clickBackButton(browser)
+      titleMustEqual(G1YourPartnerPersonalDetailsPage.title)
     }
         
     """navigate back to "Completion - About you - the carer" when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {

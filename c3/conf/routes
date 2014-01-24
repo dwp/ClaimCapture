@@ -87,9 +87,6 @@ POST          /about-you/completed                                              
 GET           /your-partner/personal-details                                          controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
 POST          /your-partner/personal-details                                          controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
 
-GET           /your-partner/completed                                                 controllers.s3_your_partner.YourPartner.completed
-POST          /your-partner/completed                                                 controllers.s3_your_partner.YourPartner.completedSubmit
-
 # Care you provide
 ###############
 GET           /care-you-provide/their-personal-details                                controllers.s4_care_you_provide.G1TheirPersonalDetails.present

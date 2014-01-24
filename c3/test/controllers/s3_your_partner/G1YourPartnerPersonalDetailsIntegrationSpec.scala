@@ -3,6 +3,7 @@ package controllers.s3_your_partner
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
+import utils.pageobjects.s4_care_you_provide.G1TheirPersonalDetailsPage
 
 class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags {
 
@@ -58,7 +59,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About you - the carer")
 
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Completion - About your partner/spouse")
+      titleMustEqual(G1TheirPersonalDetailsPage.title)
     }
 
     "navigate back to About you - the carer - Completed" in new WithBrowser with BrowserMatchers {
@@ -80,7 +81,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Completion - About you - the carer")
     }
 
-    "contain the completed forms" in new WithBrowser with BrowserMatchers {
+    "navigate back to About your partner/spouse - Partner/Spouse details" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
 
@@ -90,8 +91,9 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About you - the carer")
 
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Completion - About your partner/spouse")
-      findMustEqualSize("div[class=completed] ul li", 1)
+      titleMustEqual("Details of the person you care for - About the care you provide")
+      Formulate.clickBackButton(browser)
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
     }
   } section("integration", models.domain.YourPartner.id)
 }
