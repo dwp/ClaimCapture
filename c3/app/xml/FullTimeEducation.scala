@@ -35,7 +35,7 @@ object FullTimeEducation {
   }
 
   def locationDetailsXml(claim:Claim) = {
-    val schoolData = claim.questionGroup[AddressOfSchoolCollegeOrUniversity].getOrElse(AddressOfSchoolCollegeOrUniversity())
+    val schoolData = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <LocationDetails>

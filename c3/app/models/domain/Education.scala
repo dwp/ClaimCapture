@@ -17,14 +17,3 @@ case class YourCourseDetails(title: String  = "",
 object YourCourseDetails extends QuestionGroup.Identifier {
   val id = s"${Education.id}.g1"
 }
-
-case class AddressOfSchoolCollegeOrUniversity(nameOfSchoolCollegeOrUniversity: Option[String] = None,
-                                              nameOfMainTeacherOrTutor: Option[String] = None,
-                                              address: Option[MultiLineAddress] = None,
-                                              postcode: Option[String] = None,
-                                              phoneNumber: Option[String] = None,
-                                              faxNumber: Option[String] = None) extends QuestionGroup(AddressOfSchoolCollegeOrUniversity)
-
-object AddressOfSchoolCollegeOrUniversity extends QuestionGroup.Identifier {
-  val id = s"${Education.id}.g2"
-}
