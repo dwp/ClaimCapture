@@ -24,21 +24,27 @@ object ClaimPageFactory extends PageFactory {
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
     if (null == title ) XmlPage (browser, previousPage)
-    else title.toLowerCase match {
-      // S1
-      case G1BenefitsPage.title => G1BenefitsPage (browser, previousPage)
-      case G2HoursPage.title => G2HoursPage (browser, previousPage)
-      case G3Over16Page.title => G3Over16Page (browser, previousPage)
-      case G4LivesInGBPage.title => G4LivesInGBPage (browser, previousPage)
-      case G5CarersResponsePage.title => G5CarersResponsePage (browser, previousPage)
-      case G6ApprovePage.title => G6ApprovePage (browser, previousPage)
-      // S2
-      case G1YourDetailsPage.title => G1YourDetailsPage (browser, previousPage)
-      case G2ContactDetailsPage.title => G2ContactDetailsPage (browser, previousPage)
-      case G3ClaimDatePage.title => G3ClaimDatePage (browser, previousPage)
-      case G4NationalityAndResidencyPage.title => G4NationalityAndResidencyPage (browser, previousPage)
-      case G5AbroadForMoreThan52WeeksPage.title => G5AbroadForMoreThan52WeeksPage (browser, previousPage, iteration)
-      case G6TripPage.title => G6TripPage (browser, previousPage, iteration)
+    else {
+      val m:PartialFunction[String,Page] = {
+        // S1
+        case G1BenefitsPage.title => G1BenefitsPage (browser, previousPage)
+        case G2HoursPage.title => G2HoursPage (browser, previousPage)
+        case G3Over16Page.title => G3Over16Page (browser, previousPage)
+        case G4LivesInGBPage.title => G4LivesInGBPage (browser, previousPage)
+        case G5CarersResponsePage.title => G5CarersResponsePage (browser, previousPage)
+        case G6ApprovePage.title => G6ApprovePage (browser, previousPage)
+        // S2
+        case G1YourDetailsPage.title => G1YourDetailsPage (browser, previousPage)
+        case G2ContactDetailsPage.title => G2ContactDetailsPage (browser, previousPage)
+        case G3ClaimDatePage.title => G3ClaimDatePage (browser, previousPage)
+        case G4NationalityAndResidencyPage.title => G4NationalityAndResidencyPage (browser, previousPage)
+      }
+      m.orElse[String,Page]{
+        IterableNode("Abroad")(iteration =>{
+          case G5AbroadForMoreThan52WeeksPage.title => G5AbroadForMoreThan52WeeksPage (browser, previousPage, iteration)
+          case G6TripPage.title => G6TripPage (browser, previousPage, iteration)
+        })
+      }.orElse[String,Page]{
       case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (browser,previousPage)
       case G8MoreAboutYouPage.title => G8MoreAboutYouPage (browser, previousPage)
       case G9EmploymentPage.title => G9EmploymentPage (browser, previousPage)
@@ -51,48 +57,79 @@ object ClaimPageFactory extends PageFactory {
       case G2TheirContactDetailsPage.title => G2TheirContactDetailsPage (browser, previousPage)
       case G3RelationshipAndOtherClaimsPage.title => G3RelationshipAndOtherClaimsPage (browser, previousPage)
       case G7MoreAboutTheCarePage.title => G7MoreAboutTheCarePage (browser, previousPage)
-      case G10BreaksInCarePage.title => G10BreaksInCarePage (browser, previousPage, iteration)
-      case G11BreakPage.title => G11BreakPage (browser, previousPage, iteration)
-
-      //S6
-      case G1YourCourseDetailsPage.title => G1YourCourseDetailsPage (browser,previousPage)
-      // S7
-      case G1BeenEmployedPage.title => G1BeenEmployedPage (browser,previousPage,iteration)
-      case G2JobDetailsPage.title => G2JobDetailsPage (browser,previousPage,iteration)
-      case G3EmployerContactDetailsPage.title => G3EmployerContactDetailsPage (browser,previousPage,iteration)
-      case G4LastWagePage.title => G4LastWagePage (browser,previousPage,iteration)
-      case G5AdditionalWageDetailsPage.title => G5AdditionalWageDetailsPage (browser,previousPage,iteration)
-      case G7PensionSchemesPage.title => G7PensionSchemesPage (browser,previousPage,iteration)
-      case G8AboutExpensesPage.title => G8AboutExpensesPage (browser,previousPage,iteration)
-      case G9NecessaryExpensesPage.title => G9NecessaryExpensesPage (browser,previousPage,iteration)
-      case G10ChildcareExpensesPage.title => G10ChildcareExpensesPage (browser,previousPage,iteration)
-      case G12PersonYouCareForExpensesPage.title => G12PersonYouCareForExpensesPage (browser,previousPage,iteration)
-      case G14JobCompletionPage.title => G14JobCompletionPage (browser,previousPage,iteration)
-      case G15CompletedPage.title => G15CompletedPage (browser,previousPage)
-      // S8
-      case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage (browser, previousPage)
-      case G5StatutorySickPayPage.title => G5StatutorySickPayPage (browser, previousPage)
-      case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage (browser, previousPage)
-      case G8OtherMoneyCompletedPage.title => G8OtherMoneyCompletedPage (browser, previousPage)
-      // S9
-      case G1HowWePayYouPage.title => G1HowWePayYouPage (browser, previousPage)
-      case G2BankBuildingSocietyDetailsPage.title => G2BankBuildingSocietyDetailsPage (browser, previousPage)
-      case G3PayDetailsCompletedPage.title => G3PayDetailsCompletedPage (browser,previousPage)
-      // S9
-      case G1AboutSelfEmploymentPage.title => G1AboutSelfEmploymentPage (browser, previousPage)
-      case G2SelfEmploymentYourAccountsPage.title => G2SelfEmploymentYourAccountsPage (browser, previousPage)
-      case G4SelfEmploymentPensionsAndExpensesPage.title => G4SelfEmploymentPensionsAndExpensesPage (browser, previousPage)
-      case G5ChildcareExpensesWhileAtWorkPage.title => G5ChildcareExpensesWhileAtWorkPage (browser, previousPage)
-      case G7ExpensesWhileAtWorkPage.title => G7ExpensesWhileAtWorkPage (browser, previousPage)
-      case s8_self_employment.G9CompletedPage.title => s8_self_employment.G9CompletedPage (browser, previousPage)
-      // S10
-      case G1AdditionalInfoPage.title => G1AdditionalInfoPage (browser,previousPage)
-      case G2ConsentPage.title => G2ConsentPage (browser,previousPage)
-      case G3DisclaimerPage.title => G3DisclaimerPage (browser,previousPage)
-      case G4DeclarationPage.title => G4DeclarationPage (browser,previousPage)
-      case G5SubmitPage.title => G5SubmitPage (browser,previousPage)
-      // Catch pages not covered by framework
-      case _ => new UnknownPage(browser, title, previousPage)
+      }.orElse[String,Page]{
+        IterableNode("Breaks")(iteration =>{
+          case G10BreaksInCarePage.title => G10BreaksInCarePage (browser, previousPage, iteration)
+          case G11BreakPage.title => G11BreakPage (browser, previousPage, iteration)
+        })
+      }.orElse[String,Page]{
+        //S6
+        case G1YourCourseDetailsPage.title => G1YourCourseDetailsPage (browser,previousPage)
+      }.orElse[String,Page]{
+        IterableNode("Employment")(iteration =>{
+          // S7
+          case G1BeenEmployedPage.title => G1BeenEmployedPage (browser,previousPage,iteration)
+          case G2JobDetailsPage.title => G2JobDetailsPage (browser,previousPage,iteration)
+          case G3EmployerContactDetailsPage.title => G3EmployerContactDetailsPage (browser,previousPage,iteration)
+          case G4LastWagePage.title => G4LastWagePage (browser,previousPage,iteration)
+          case G5AdditionalWageDetailsPage.title => G5AdditionalWageDetailsPage (browser,previousPage,iteration)
+          case G7PensionSchemesPage.title => G7PensionSchemesPage (browser,previousPage,iteration)
+          case G8AboutExpensesPage.title => G8AboutExpensesPage (browser,previousPage,iteration)
+          case G9NecessaryExpensesPage.title => G9NecessaryExpensesPage (browser,previousPage,iteration)
+          case G10ChildcareExpensesPage.title => G10ChildcareExpensesPage (browser,previousPage,iteration)
+          case G12PersonYouCareForExpensesPage.title => G12PersonYouCareForExpensesPage (browser,previousPage,iteration)
+          case G14JobCompletionPage.title => G14JobCompletionPage (browser,previousPage,iteration)
+        })
+      }.orElse[String,Page]{
+        case G15CompletedPage.title => G15CompletedPage (browser,previousPage)
+        // S8
+        case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage (browser, previousPage)
+        case G5StatutorySickPayPage.title => G5StatutorySickPayPage (browser, previousPage)
+        case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage (browser, previousPage)
+        case G8OtherMoneyCompletedPage.title => G8OtherMoneyCompletedPage (browser, previousPage)
+        // S9
+        case G1HowWePayYouPage.title => G1HowWePayYouPage (browser, previousPage)
+        case G2BankBuildingSocietyDetailsPage.title => G2BankBuildingSocietyDetailsPage (browser, previousPage)
+        case G3PayDetailsCompletedPage.title => G3PayDetailsCompletedPage (browser,previousPage)
+        // S9
+        case G1AboutSelfEmploymentPage.title => G1AboutSelfEmploymentPage (browser, previousPage)
+        case G2SelfEmploymentYourAccountsPage.title => G2SelfEmploymentYourAccountsPage (browser, previousPage)
+        case G4SelfEmploymentPensionsAndExpensesPage.title => G4SelfEmploymentPensionsAndExpensesPage (browser, previousPage)
+        case G5ChildcareExpensesWhileAtWorkPage.title => G5ChildcareExpensesWhileAtWorkPage (browser, previousPage)
+        case G7ExpensesWhileAtWorkPage.title => G7ExpensesWhileAtWorkPage (browser, previousPage)
+        case s8_self_employment.G9CompletedPage.title => s8_self_employment.G9CompletedPage (browser, previousPage)
+        // S10
+        case G1AdditionalInfoPage.title => G1AdditionalInfoPage (browser,previousPage)
+        case G2ConsentPage.title => G2ConsentPage (browser,previousPage)
+        case G3DisclaimerPage.title => G3DisclaimerPage (browser,previousPage)
+        case G4DeclarationPage.title => G4DeclarationPage (browser,previousPage)
+        case G5SubmitPage.title => G5SubmitPage (browser,previousPage)
+        // Catch pages not covered by framework
+        case _ => new UnknownPage(browser, title, previousPage)
+      }(title.toLowerCase)
     }
+  }
+}
+
+object IterationManager{
+  var iterationBlocks = Map[String,Int]()
+
+  def apply(section:String) = {
+    iterationBlocks(section)
+  }
+
+  def init() = {
+    iterationBlocks = Map("Abroad" -> 1,"Breaks" -> 1,"Employment" -> 1)
+  }
+
+  def increase(section:String) = {
+    iterationBlocks = iterationBlocks.filterNot(_._1 == section) ++ Map(section -> (iterationBlocks(section)+1))
+    apply(section)
+  }
+}
+
+object IterableNode {
+  def apply[A,B](section:String)(func:Int => PartialFunction[A,B]):PartialFunction[A,B] = {
+    func(IterationManager(section))
   }
 }
