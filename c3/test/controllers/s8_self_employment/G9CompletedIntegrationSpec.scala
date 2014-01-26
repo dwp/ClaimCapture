@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment._
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s2_about_you._
-import controllers.ClaimScenarioFactory
+import controllers.{Formulate, ClaimScenarioFactory}
 import utils.pageobjects.s2_about_you.G3ClaimDatePage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 
@@ -17,9 +17,16 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
     }
 
     "not present 'Completed' if section not visible" in new WithBrowser with G3ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
-      page goToThePage()
-      page runClaimWith (claim, G10AboutYouCompletedPage.title, waitForPage = true, waitDuration = 500)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.claimDate(browser)
+      Formulate.nationalityAndResidency(browser)
+      Formulate.abroadForMoreThan52Weeks(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
+      Formulate.moreAboutYou(browser)
+      Formulate.notInEmployment(browser)
+
+      page goToPage( throwException = false, page = new G9EmploymentPage(browser))
 
       val nextPage = page goToPage( throwException = false, page = new G9CompletedPage(browser))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]

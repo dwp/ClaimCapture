@@ -8,7 +8,7 @@ import models.domain.{AbroadForMoreThan52Weeks, FiftyTwoWeeksTrip, Trips, Trip}
 import utils.helpers.CarersForm._
 import play.api.i18n.Messages
 import models.DayMonthYear
-import AboutYou.trips
+import G9Employment.trips
 import controllers.Mappings._
 import controllers.CarersForms._
 import scala.Some

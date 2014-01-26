@@ -40,7 +40,6 @@ trait EmployedSinceClaimDate extends BrowserMatchers {
     titleMustEqual("Your nationality and residency - About you - the carer")
 
     Formulate.employment(browser)
-    titleMustEqual("Completion - About you - the carer")
   }
 }
 
@@ -54,7 +53,5 @@ trait NotEmployedSinceClaimDate extends BrowserMatchers {
     browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
     browser.submit("button[type='submit']")
-
-    titleMustEqual("Completion - About you - the carer")
   }
 }

@@ -4,8 +4,8 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment.{G2SelfEmploymentYourAccountsPage, G2SelfEmploymentYourAccountsPageContext}
 import utils.pageobjects.TestData
-import controllers.ClaimScenarioFactory
-import utils.pageobjects.s2_about_you.{G10AboutYouCompletedPage, G3ClaimDatePageContext}
+import controllers.{Formulate, ClaimScenarioFactory}
+import utils.pageobjects.s2_about_you.{G9EmploymentPage, G3ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 
 class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags {
@@ -16,10 +16,16 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
     }
 
     "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
-      page goToThePage()
-      page runClaimWith (claim, G10AboutYouCompletedPage.title)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.claimDate(browser)
+      Formulate.nationalityAndResidency(browser)
+      Formulate.abroadForMoreThan52Weeks(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
+      Formulate.moreAboutYou(browser)
+      Formulate.notInEmployment(browser)
 
+      page goToPage( throwException = false, page = new G9EmploymentPage(browser))
       val nextPage = page goToPage( throwException = false, page = new G2SelfEmploymentYourAccountsPage(browser))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }

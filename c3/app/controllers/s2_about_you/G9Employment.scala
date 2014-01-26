@@ -11,6 +11,11 @@ import models.domain._
 import scala.language.postfixOps
 
 object G9Employment extends Controller with CachedClaim with Navigable {
+  def trips(implicit claim: Claim) = claim.questionGroup(Trips) match {
+    case Some(ts: Trips) => ts
+    case _ => Trips()
+  }
+
   val form = Form(mapping(
     "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText.verifying(validYesNo),
     "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText.verifying(validYesNo)
@@ -35,7 +40,7 @@ object G9Employment extends Controller with CachedClaim with Navigable {
         val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, Employed)
                                 .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, SelfEmployment)
 
-        updatedClaim.update(employment) -> Redirect(routes.AboutYou.completed())
+        updatedClaim.update(employment) -> Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
       })
   }
 }
