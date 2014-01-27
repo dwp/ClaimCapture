@@ -45,7 +45,6 @@ object ClaimPageFactory extends PageFactory {
       case G10AboutYouCompletedPage.title => G10AboutYouCompletedPage (browser, previousPage)
       // S3
       case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage (browser,previousPage)
-      case G5YourPartnerCompletedPage.title => G5YourPartnerCompletedPage (browser, previousPage)
       // S4
       case G1TheirPersonalDetailsPage.title => G1TheirPersonalDetailsPage (browser, previousPage)
       case G2TheirContactDetailsPage.title => G2TheirContactDetailsPage (browser, previousPage)
@@ -74,7 +73,6 @@ object ClaimPageFactory extends PageFactory {
       case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage (browser, previousPage)
       case G5StatutorySickPayPage.title => G5StatutorySickPayPage (browser, previousPage)
       case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage (browser, previousPage)
-      case G8OtherMoneyCompletedPage.title => G8OtherMoneyCompletedPage (browser, previousPage)
       // S9
       case G1HowWePayYouPage.title => G1HowWePayYouPage (browser, previousPage)
       case G2BankBuildingSocietyDetailsPage.title => G2BankBuildingSocietyDetailsPage (browser, previousPage)

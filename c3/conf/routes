@@ -190,9 +190,6 @@ POST          /other-money/statutory-sick-pay                                   
 GET           /other-money/other-statutory-pay                                        controllers.s9_other_money.G6OtherStatutoryPay.present
 POST          /other-money/other-statutory-pay                                        controllers.s9_other_money.G6OtherStatutoryPay.submit
 
-GET         /other-money/completed                                                  controllers.s9_other_money.OtherMoney.completed
-POST        /other-money/completed                                                  controllers.s9_other_money.OtherMoney.completedSubmit
-
 # Pay details
 ###############
 GET           /pay-details/how-we-pay-you                                             controllers.s10_pay_details.G1HowWePayYou.present
