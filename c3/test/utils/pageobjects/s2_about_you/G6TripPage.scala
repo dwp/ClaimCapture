@@ -19,7 +19,7 @@ class G6TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iterat
 
   protected override def getNewIterationNumber = {
     import IterationManager._
-    increase(Abroad)
+    increment(Abroad)
   }
 }
 

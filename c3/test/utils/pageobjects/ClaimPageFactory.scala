@@ -48,16 +48,16 @@ object ClaimPageFactory extends PageFactory {
           case G6TripPage.title => G6TripPage (browser, previousPage, iteration)
         })
       }.orElse[String,Page]{
-      case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (browser,previousPage)
-      case G8MoreAboutYouPage.title => G8MoreAboutYouPage (browser, previousPage)
-      case G9EmploymentPage.title => G9EmploymentPage (browser, previousPage)
-      // S3
-      case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage (browser,previousPage)
-      // S4
-      case G1TheirPersonalDetailsPage.title => G1TheirPersonalDetailsPage (browser, previousPage)
-      case G2TheirContactDetailsPage.title => G2TheirContactDetailsPage (browser, previousPage)
-      case G3RelationshipAndOtherClaimsPage.title => G3RelationshipAndOtherClaimsPage (browser, previousPage)
-      case G7MoreAboutTheCarePage.title => G7MoreAboutTheCarePage (browser, previousPage)
+        case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (browser,previousPage)
+        case G8MoreAboutYouPage.title => G8MoreAboutYouPage (browser, previousPage)
+        case G9EmploymentPage.title => G9EmploymentPage (browser, previousPage)
+        // S3
+        case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage (browser,previousPage)
+        // S4
+        case G1TheirPersonalDetailsPage.title => G1TheirPersonalDetailsPage (browser, previousPage)
+        case G2TheirContactDetailsPage.title => G2TheirContactDetailsPage (browser, previousPage)
+        case G3RelationshipAndOtherClaimsPage.title => G3RelationshipAndOtherClaimsPage (browser, previousPage)
+        case G7MoreAboutTheCarePage.title => G7MoreAboutTheCarePage (browser, previousPage)
       }.orElse[String,Page]{
         IterableNode(Breaks)(iteration =>{
           case G10BreaksInCarePage.title => G10BreaksInCarePage (browser, previousPage, iteration)
@@ -129,7 +129,7 @@ object IterationManager{
     iterationBlocks = Map("Abroad" -> 1,"Breaks" -> 1,"Employment" -> 1)
   }
 
-  def increase(section:String):Int = {
+  def increment(section:String):Int = {
     if (iterationBlocks.exists(_._1 == section)){
       iterationBlocks = iterationBlocks.filterNot(_._1 == section) ++ Map(section -> (iterationBlocks(section)+1))
       apply(section)

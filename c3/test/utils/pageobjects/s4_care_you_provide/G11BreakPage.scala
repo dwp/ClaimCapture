@@ -20,7 +20,7 @@ final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None
    */
   protected override def getNewIterationNumber = {
     import IterationManager._
-    increase(Breaks)
+    increment(Breaks)
   }
 }
 
