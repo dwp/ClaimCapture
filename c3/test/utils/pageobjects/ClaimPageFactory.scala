@@ -42,7 +42,6 @@ object ClaimPageFactory extends PageFactory {
       case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (browser,previousPage)
       case G8MoreAboutYouPage.title => G8MoreAboutYouPage (browser, previousPage)
       case G9EmploymentPage.title => G9EmploymentPage (browser, previousPage)
-      case G10AboutYouCompletedPage.title => G10AboutYouCompletedPage (browser, previousPage)
       // S3
       case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage (browser,previousPage)
       // S4
@@ -53,7 +52,6 @@ object ClaimPageFactory extends PageFactory {
       case G10BreaksInCarePage.title => G10BreaksInCarePage (browser, previousPage, iteration)
       case G11BreakPage.title => G11BreakPage (browser, previousPage, iteration)
       case G12CareYouProvideCompletedPage.title => G12CareYouProvideCompletedPage (browser, previousPage)
-
       //S6
       case G1YourCourseDetailsPage.title => G1YourCourseDetailsPage (browser,previousPage)
       // S7

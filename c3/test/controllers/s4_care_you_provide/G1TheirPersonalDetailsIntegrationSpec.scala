@@ -36,7 +36,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       titleMustEqual(G1YourPartnerPersonalDetailsPage.title)
     }
         
-    """navigate back to "Completion - About you - the carer" when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
+    """navigate back to "Employment - About you - the carer" when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
@@ -44,7 +44,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       Formulate.employment(browser)
       browser.goTo("/care-you-provide/their-personal-details")
       browser.click("#backButton")
-      titleMustEqual("Completion - About you - the carer")
+      titleMustEqual("Employment - About you - the carer")
     }
     
     "contain the completed forms" in new WithBrowser {

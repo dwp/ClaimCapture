@@ -88,7 +88,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Employment - About you - the carer")
 
       Formulate.notInEmployment(browser)
-      titleMustEqual("Completion - About you - the carer")
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")

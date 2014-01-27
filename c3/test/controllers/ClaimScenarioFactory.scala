@@ -137,6 +137,12 @@ object ClaimScenarioFactory {
 
   def s2AnsweringNoToQuestions() = {
     val claim = new TestData
+    //Your details
+    claim.AboutYouTitle="Mrs"
+    claim.AboutYouFirstName="Jane"
+    claim.AboutYouSurname="Doe"
+    claim.AboutYouNationalInsuranceNumber="AB123456D"
+    claim.AboutYouDateOfBirth = "12/07/1970"
 
     // Your contact details
     claim.AboutYouAddress = "An address"
@@ -144,6 +150,7 @@ object ClaimScenarioFactory {
     claim.AboutYouPhoneNumber = "01253 111 111"
     claim.AboutYouContactYouByTextphone = "No"
     claim.AboutYouMobileNumber = "07111 111 111"
+
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // Nationality and Residency
