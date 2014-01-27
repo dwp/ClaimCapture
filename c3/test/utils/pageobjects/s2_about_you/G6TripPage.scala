@@ -17,7 +17,10 @@ class G6TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iterat
   declareInput("#why_reason_other", "WhyDidYouOther_" + iteration)
   declareYesNo("#personWithYou", "PersonWithYou_" + iteration)
 
-  protected override def getNewIterationNumber = IterationManager.increase("Abroad")
+  protected override def getNewIterationNumber = {
+    import IterationManager._
+    increase(Abroad)
+  }
 }
 
 /**

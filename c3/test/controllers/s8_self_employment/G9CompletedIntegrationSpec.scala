@@ -8,6 +8,7 @@ import utils.pageobjects.s2_about_you._
 import controllers.{Formulate, ClaimScenarioFactory}
 import utils.pageobjects.s2_about_you.G3ClaimDatePage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
+import utils.pageobjects.IterationManager
 
 class G9CompletedIntegrationSpec extends Specification with Tags {
 
@@ -26,6 +27,7 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to previous page" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext  {
+      IterationManager.init()
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside

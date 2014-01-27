@@ -19,7 +19,8 @@ final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None
    * @return Incremented iteration number.
    */
   protected override def getNewIterationNumber = {
-    IterationManager.increase("Breaks")
+    import IterationManager._
+    increase(Breaks)
   }
 }
 

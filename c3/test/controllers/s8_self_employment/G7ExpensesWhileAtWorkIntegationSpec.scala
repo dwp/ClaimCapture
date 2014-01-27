@@ -7,6 +7,7 @@ import controllers.{Formulate, ClaimScenarioFactory}
 import utils.pageobjects.s2_about_you.{G3ClaimDatePage, G9EmploymentPage, G3ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
+import utils.pageobjects.IterationManager
 
 class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
 
@@ -95,6 +96,7 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       */
 
 
+      IterationManager.init()
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
@@ -133,6 +135,7 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
+      IterationManager.init()
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
