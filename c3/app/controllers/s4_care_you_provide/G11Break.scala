@@ -5,11 +5,11 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
-import CareYouProvide.breaksInCare
 import models.domain.BreaksInCare
 import models.view.CachedClaim
 import play.api.data.FormError
 import models.domain.Break
+import G10BreaksInCare.breaksInCare
 
 object G11Break extends Controller with CachedClaim {
   val form = Form(mapping(

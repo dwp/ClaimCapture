@@ -106,9 +106,6 @@ GET           /care-you-provide/breaks/:id                                      
 GET           /care-you-provide/break                                                 controllers.s4_care_you_provide.G11Break.present
 POST          /care-you-provide/break                                                 controllers.s4_care_you_provide.G11Break.submit
 
-GET           /care-you-provide/completed                                             controllers.s4_care_you_provide.CareYouProvide.completed
-POST          /care-you-provide/completed                                             controllers.s4_care_you_provide.CareYouProvide.submit
-
 # Education
 ###############
 GET           /education/your-course-details                                          controllers.s6_education.G1YourCourseDetails.present
