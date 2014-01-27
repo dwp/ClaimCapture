@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.{Request, AnyContent, Controller}
 import controllers.Mappings._
-import models.domain.{Claim, YourPartnerPersonalDetails}
+import models.domain.YourPartnerPersonalDetails
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm.formBinding
 import YourPartner._
@@ -37,7 +37,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
-      f => claim.update(f) -> Redirect(routes.YourPartner.completed())
+      f => claim.update(f) -> Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
     )
   }
 }

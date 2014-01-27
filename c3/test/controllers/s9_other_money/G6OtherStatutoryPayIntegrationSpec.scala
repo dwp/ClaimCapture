@@ -7,6 +7,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.TestData
 import utils.pageobjects.s9_other_money._
 import play.api.test.WithBrowser
+import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
 
 class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
 
@@ -52,7 +53,7 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
     "navigate back to previous page" in new WithBrowser with G5StatutorySickPayPageContext {
       val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage ()
-      page fillPageWith (claim)
+      page fillPageWith claim
       val nextPage = page.submitPage()
       nextPage must beAnInstanceOf[G6OtherStatutoryPayPage]
 
@@ -82,6 +83,19 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage ()
 
       nextPage must not(beAnInstanceOf[G6OtherStatutoryPayPage])
+    }
+
+    "navigate to the Pay Details on clicking next" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      val claim = ClaimScenarioFactory.s9otherMoney
+      page goToThePage()
+      page fillPageWith claim
+      page submitPage()
+
+      val OtherStatutoryPage = page goToPage new G6OtherStatutoryPayPage(browser)
+      OtherStatutoryPage fillPageWith claim
+      val howWePayPage = OtherStatutoryPage submitPage()
+
+      howWePayPage must beAnInstanceOf[G1HowWePayYouPage]
     }
   } section ("integration", models.domain.OtherMoney.id)
 }

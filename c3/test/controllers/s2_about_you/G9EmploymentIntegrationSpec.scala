@@ -3,7 +3,9 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate}
-import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, G10AboutYouCompletedPage}
+import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, G9EmploymentPage}
+import utils.pageobjects.IterationManager
+
 
 class G9EmploymentIntegrationSpec extends Specification with Tags {
   sequential
@@ -34,9 +36,10 @@ class G9EmploymentIntegrationSpec extends Specification with Tags {
     }
 
     "fill all fields" in new WithBrowser with G1YourDetailsPageContext {
+      IterationManager.init()
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
-      page runClaimWith(claim, G10AboutYouCompletedPage.title)
+      page runClaimWith(claim, G9EmploymentPage.title)
     }
 
     "failed to fill the form" in new WithBrowser with BrowserMatchers {
@@ -59,7 +62,8 @@ class G9EmploymentIntegrationSpec extends Specification with Tags {
 
       browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
       browser.submit("button[type='submit']")
-      titleMustEqual("Completion - About you - the carer")
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
     }
+
   } section("integration", models.domain.AboutYou.id)
 }

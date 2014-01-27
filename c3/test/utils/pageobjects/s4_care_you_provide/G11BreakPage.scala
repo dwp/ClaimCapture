@@ -1,7 +1,7 @@
 package utils.pageobjects.s4_care_you_provide
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import utils.pageobjects.{IterationManager, ClaimPage, Page, PageContext}
 
 final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G11BreakPage.url, G11BreakPage.title, previousPage, iteration) {
   declareDate("#start", "AboutTheCareYouProvideBreakStartDate_" + iteration)
@@ -18,7 +18,10 @@ final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None
    * Called by submitPage of Page. A new G10 will be built with an incremented iteration number.
    * @return Incremented iteration number.
    */
-  protected override def getNewIterationNumber = iteration + 1
+  protected override def getNewIterationNumber = {
+    import IterationManager._
+    increase(Breaks)
+  }
 }
 
 /**

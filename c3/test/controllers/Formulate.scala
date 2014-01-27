@@ -369,4 +369,9 @@ object Formulate {
     browser.goTo("/other-money/person-contact-details")
     browser.submit("button[type='submit']")
   }
+
+  def clickBackButton (browser:TestBrowser) = {
+    browser.click("#backButton")
+  }
+
 }

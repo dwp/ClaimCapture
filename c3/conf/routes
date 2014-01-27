@@ -79,16 +79,10 @@ POST          /about-you/more-about-you                                         
 GET           /about-you/employment                                                   controllers.s2_about_you.G9Employment.present
 POST          /about-you/employment                                                   controllers.s2_about_you.G9Employment.submit
 
-GET           /about-you/completed                                                    controllers.s2_about_you.AboutYou.completed
-POST          /about-you/completed                                                    controllers.s2_about_you.AboutYou.completedSubmit
-
 # Your partner
 ###############
 GET           /your-partner/personal-details                                          controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
 POST          /your-partner/personal-details                                          controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
-
-GET           /your-partner/completed                                                 controllers.s3_your_partner.YourPartner.completed
-POST          /your-partner/completed                                                 controllers.s3_your_partner.YourPartner.completedSubmit
 
 # Care you provide
 ###############
@@ -111,9 +105,6 @@ DELETE        /care-you-provide/breaks-in-care/:id                              
 GET           /care-you-provide/breaks/:id                                            controllers.s4_care_you_provide.G11Break.break(id: String)
 GET           /care-you-provide/break                                                 controllers.s4_care_you_provide.G11Break.present
 POST          /care-you-provide/break                                                 controllers.s4_care_you_provide.G11Break.submit
-
-GET           /care-you-provide/completed                                             controllers.s4_care_you_provide.CareYouProvide.completed
-POST          /care-you-provide/completed                                             controllers.s4_care_you_provide.CareYouProvide.submit
 
 # Education
 ###############
@@ -192,9 +183,6 @@ POST          /other-money/statutory-sick-pay                                   
 
 GET           /other-money/other-statutory-pay                                        controllers.s9_other_money.G6OtherStatutoryPay.present
 POST          /other-money/other-statutory-pay                                        controllers.s9_other_money.G6OtherStatutoryPay.submit
-
-GET         /other-money/completed                                                  controllers.s9_other_money.OtherMoney.completed
-POST        /other-money/completed                                                  controllers.s9_other_money.OtherMoney.completedSubmit
 
 # Pay details
 ###############
