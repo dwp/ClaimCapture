@@ -16,22 +16,6 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
       page goToThePage ()
     }
 
-    "not present 'Completed' if section not visible" in new WithBrowser with G3ClaimDatePageContext {
-      Formulate.yourDetails(browser)
-      Formulate.yourContactDetails(browser)
-      Formulate.claimDate(browser)
-      Formulate.nationalityAndResidency(browser)
-      Formulate.abroadForMoreThan52Weeks(browser)
-      Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYou(browser)
-      Formulate.notInEmployment(browser)
-
-      page goToPage( throwException = false, page = new G9EmploymentPage(browser))
-
-      val nextPage = page goToPage( throwException = false, page = new G9CompletedPage(browser))
-      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
-    }
-
     "contain the completed forms" in new WithBrowser with G1AboutSelfEmploymentPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()

@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import models.domain.AbroadForMoreThan52Weeks
-import G9Employment.trips
+import AboutYou.trips
 import models.view.Navigable
 import utils.helpers.CarersForm._
 import models.view.CachedClaim

@@ -15,21 +15,6 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
       page goToThePage ()
     }
 
-    "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
-      Formulate.yourDetails(browser)
-      Formulate.yourContactDetails(browser)
-      Formulate.claimDate(browser)
-      Formulate.nationalityAndResidency(browser)
-      Formulate.abroadForMoreThan52Weeks(browser)
-      Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYou(browser)
-      Formulate.notInEmployment(browser)
-
-      page goToPage( throwException = false, page = new G9EmploymentPage(browser))
-      val nextPage = page goToPage( throwException = false, page = new G1AboutSelfEmploymentPage(browser))
-      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
-    }
-
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with G1AboutSelfEmploymentPageContext {
         val claim = new TestData
