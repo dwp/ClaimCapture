@@ -3,7 +3,7 @@ package controllers.s8_self_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment.{G1AboutSelfEmploymentPage, G1AboutSelfEmploymentPageContext}
-import utils.pageobjects.TestData
+import utils.pageobjects.{IterationManager, TestData}
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you.{G10AboutYouCompletedPage, G3ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
@@ -16,6 +16,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
     }
 
     "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
+      IterationManager.init()
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
       page goToThePage()
       page runClaimWith (claim, G10AboutYouCompletedPage.title)

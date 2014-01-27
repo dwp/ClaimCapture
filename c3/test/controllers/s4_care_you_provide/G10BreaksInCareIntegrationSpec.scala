@@ -16,7 +16,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       goTo("/care-you-provide/breaks-in-care")
       browser.click("#answer_no")
       next
-      titleMustEqual("Completion - About the care you provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
     }
 
     "go back to contact details" in new WithBrowser {
@@ -83,7 +83,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       browser.click("#answer_no")
       next
-      titleMustEqual("Completion - About the care you provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
 
       back
       titleMustEqual(G10BreaksInCarePage.title)

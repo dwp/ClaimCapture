@@ -6,7 +6,7 @@ import utils.pageobjects.s8_self_employment._
 import utils.pageobjects.s2_about_you.{G3ClaimDatePage, G10AboutYouCompletedPage, G3ClaimDatePageContext}
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
-import utils.pageobjects.TestData
+import utils.pageobjects.{IterationManager, TestData}
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 
 class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
@@ -24,6 +24,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
     }
 
     "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
+      IterationManager.init()
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
       page goToThePage()
       page runClaimWith (claim, G10AboutYouCompletedPage.title, waitForPage = true)
@@ -50,6 +51,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
     }
 
     "accept submit if all mandatory fields are populated" in new WithBrowser with G5ChildcareExpensesWhileAtWorkPageContext {
+      IterationManager.init()
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
@@ -85,6 +87,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G5ChildcareExpensesWhileAtWorkPageContext {
+      IterationManager.init()
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()

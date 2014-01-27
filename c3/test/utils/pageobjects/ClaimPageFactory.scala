@@ -114,17 +114,25 @@ object ClaimPageFactory extends PageFactory {
 object IterationManager{
   var iterationBlocks = Map[String,Int]()
 
-  def apply(section:String) = {
-    iterationBlocks(section)
+  def apply(section:String):Int = {
+    if (iterationBlocks.exists(_._1 == section)){
+      iterationBlocks(section)
+    }else{
+      0
+    }
   }
 
   def init() = {
     iterationBlocks = Map("Abroad" -> 1,"Breaks" -> 1,"Employment" -> 1)
   }
 
-  def increase(section:String) = {
-    iterationBlocks = iterationBlocks.filterNot(_._1 == section) ++ Map(section -> (iterationBlocks(section)+1))
-    apply(section)
+  def increase(section:String):Int = {
+    if (iterationBlocks.exists(_._1 == section)){
+      iterationBlocks = iterationBlocks.filterNot(_._1 == section) ++ Map(section -> (iterationBlocks(section)+1))
+      apply(section)
+    }else{
+      0
+    }
   }
 }
 

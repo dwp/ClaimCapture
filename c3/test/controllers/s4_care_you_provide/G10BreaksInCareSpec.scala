@@ -34,14 +34,14 @@ class G10BreaksInCareSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("answer" -> "no")
 
       val result = G10BreaksInCare.submit(request)
-      redirectLocation(result) should beSome("/care-you-provide/completed")
+      redirectLocation(result) should beSome("/care-you-provide/their-personal-details")
     }
 
     "complete upon indicating that there are no more breaks having provided zero break details" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("answer" -> "no")
 
       val result = G10BreaksInCare.submit(request)
-      redirectLocation(result) should beSome("/care-you-provide/completed")
+      redirectLocation(result) should beSome("/care-you-provide/their-personal-details")
 
       val claim = Cache.getAs[Claim](claimKey).get
 
@@ -65,7 +65,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
       val request2 = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("answer" -> "no")
 
       val result2 = G10BreaksInCare.submit(request2)
-      redirectLocation(result2) should beSome("/care-you-provide/completed")
+      redirectLocation(result2) should beSome("/education/your-course-details")
 
       val claim = Cache.getAs[Claim](claimKey).get
 
