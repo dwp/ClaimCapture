@@ -79,9 +79,6 @@ POST          /about-you/more-about-you                                         
 GET           /about-you/employment                                                   controllers.s2_about_you.G9Employment.present
 POST          /about-you/employment                                                   controllers.s2_about_you.G9Employment.submit
 
-GET           /about-you/completed                                                    controllers.s2_about_you.AboutYou.completed
-POST          /about-you/completed                                                    controllers.s2_about_you.AboutYou.completedSubmit
-
 # Your partner
 ###############
 GET           /your-partner/personal-details                                          controllers.s3_your_partner.G1YourPartnerPersonalDetails.present

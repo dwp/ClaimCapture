@@ -62,7 +62,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual(G1TheirPersonalDetailsPage.title)
     }
 
-    "navigate back to About you - the carer - Completed" in new WithBrowser with BrowserMatchers {
+    "navigate back to Employment - About you - the carer" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
 
@@ -72,13 +72,13 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About you - the carer")
 
       Formulate.employment(browser)
-      titleMustEqual("Completion - About you - the carer")
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       browser.click("#backButton")
-      titleMustEqual("Completion - About you - the carer")
+      titleMustEqual("Employment - About you - the carer")
     }
 
     "navigate back to About your partner/spouse - Partner/Spouse details" in new WithBrowser with BrowserMatchers {

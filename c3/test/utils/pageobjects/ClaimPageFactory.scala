@@ -48,7 +48,6 @@ object ClaimPageFactory extends PageFactory {
       case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (browser,previousPage)
       case G8MoreAboutYouPage.title => G8MoreAboutYouPage (browser, previousPage)
       case G9EmploymentPage.title => G9EmploymentPage (browser, previousPage)
-      case G10AboutYouCompletedPage.title => G10AboutYouCompletedPage (browser, previousPage)
       // S3
       case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage (browser,previousPage)
       case G5YourPartnerCompletedPage.title => G5YourPartnerCompletedPage (browser, previousPage)
