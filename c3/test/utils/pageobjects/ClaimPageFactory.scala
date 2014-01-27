@@ -13,6 +13,7 @@ import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s10_pay_details._
 import utils.pageobjects.S11_consent_and_declaration._
 
+
 /**
  * Factory used by Page to create from an html page the right page object.
  * If there is no Page Object mapping to the title then it creates an instance of UnknownPage.
@@ -21,6 +22,8 @@ import utils.pageobjects.S11_consent_and_declaration._
  */
 object ClaimPageFactory extends PageFactory {
   def buildPageFromTitle(browser: TestBrowser, title: String, previousPage: Option[Page], iteration: Int) = {
+    import IterationManager._
+
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
     if (null == title ) XmlPage (browser, previousPage)
@@ -40,7 +43,7 @@ object ClaimPageFactory extends PageFactory {
         case G4NationalityAndResidencyPage.title => G4NationalityAndResidencyPage (browser, previousPage)
       }
       m.orElse[String,Page]{
-        IterableNode("Abroad")(iteration =>{
+        IterableNode(Abroad)(iteration =>{
           case G5AbroadForMoreThan52WeeksPage.title => G5AbroadForMoreThan52WeeksPage (browser, previousPage, iteration)
           case G6TripPage.title => G6TripPage (browser, previousPage, iteration)
         })
@@ -56,7 +59,7 @@ object ClaimPageFactory extends PageFactory {
       case G3RelationshipAndOtherClaimsPage.title => G3RelationshipAndOtherClaimsPage (browser, previousPage)
       case G7MoreAboutTheCarePage.title => G7MoreAboutTheCarePage (browser, previousPage)
       }.orElse[String,Page]{
-        IterableNode("Breaks")(iteration =>{
+        IterableNode(Breaks)(iteration =>{
           case G10BreaksInCarePage.title => G10BreaksInCarePage (browser, previousPage, iteration)
           case G11BreakPage.title => G11BreakPage (browser, previousPage, iteration)
         })
@@ -64,7 +67,7 @@ object ClaimPageFactory extends PageFactory {
         //S6
         case G1YourCourseDetailsPage.title => G1YourCourseDetailsPage (browser,previousPage)
       }.orElse[String,Page]{
-        IterableNode("Employment")(iteration =>{
+        IterableNode(Employment)(iteration =>{
           // S7
           case G1BeenEmployedPage.title => G1BeenEmployedPage (browser,previousPage,iteration)
           case G2JobDetailsPage.title => G2JobDetailsPage (browser,previousPage,iteration)
@@ -109,6 +112,9 @@ object ClaimPageFactory extends PageFactory {
 }
 
 object IterationManager{
+  val Abroad = "Abroad"
+  val Breaks = "Breaks"
+  val Employment = "Employment"
   var iterationBlocks = Map[String,Int]()
 
   def apply(section:String):Int = {
