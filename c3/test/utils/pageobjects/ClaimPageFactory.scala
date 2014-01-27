@@ -84,7 +84,6 @@ object ClaimPageFactory extends PageFactory {
         case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage (browser, previousPage)
         case G5StatutorySickPayPage.title => G5StatutorySickPayPage (browser, previousPage)
         case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage (browser, previousPage)
-        case G8OtherMoneyCompletedPage.title => G8OtherMoneyCompletedPage (browser, previousPage)
         // S9
         case G1HowWePayYouPage.title => G1HowWePayYouPage (browser, previousPage)
         case G2BankBuildingSocietyDetailsPage.title => G2BankBuildingSocietyDetailsPage (browser, previousPage)
