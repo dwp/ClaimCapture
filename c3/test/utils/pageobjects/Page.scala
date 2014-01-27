@@ -165,6 +165,7 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
       if (errorsInPage(throwException)) this
       else {
         val title = getPageTitle(fluent, waitForPage, waitDuration)
+        println("Page:title "+title)
         createPageWithTitle(title, if (!resetIteration) getNewIterationNumber else 1)
       }
     }
