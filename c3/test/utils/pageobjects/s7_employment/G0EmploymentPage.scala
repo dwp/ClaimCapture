@@ -13,11 +13,11 @@ final class G0EmploymentPage (browser: TestBrowser, previousPage: Option[Page] =
  * It is used by PageFactory object defined in Page.scala
  */
 object G0EmploymentPage {
-  val title = "Employment - Employment History".toLowerCase
+  val title = "Employment Employment History".toLowerCase
 
-    val url  = "/employment/employment"
+  val url  = "/employment/employment"
 
-    def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G0EmploymentPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G0EmploymentPage(browser,previousPage)
 }
 
 /** The context for Specs tests */

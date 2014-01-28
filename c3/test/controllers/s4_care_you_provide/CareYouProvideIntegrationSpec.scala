@@ -51,43 +51,6 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("More about you - About you - the carer")
 
       Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
-      titleMustEqual("Employment - About you - the carer")
-
-      Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
-
-      Formulate.theirContactDetails(browser)
-      titleMustEqual("Relationship and other claims - About the care you provide")
-
-      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("More about the care you provide - About the care you provide")
-
-      Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
-      titleMustEqual("More about the care you provide - About the care you provide")
-
-      browser.goTo("/care-you-provide/completed")
-      titleMustEqual("Completion - About the care you provide")
-
-      browser.find("button[type='submit']").getText shouldEqual "Continue"
-
-      browser.submit("button[type='submit']")
-      titleMustEqual("Your job - About self-employment")
-    }
-
-    """navigate to Other Money""" in new WithBrowser with BrowserMatchers {
-      Formulate.claimDate(browser)
-      titleMustEqual("Your nationality and residency - About you - the carer")
-
-      Formulate.nationalityAndResidency(browser)
-      titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
-
-      Formulate.otherEEAStateOrSwitzerland(browser)
-      titleMustEqual("More about you - About you - the carer")
-
-      Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
-      titleMustEqual("Employment - About you - the carer")
-
-      Formulate.notInEmployment(browser)
       titleMustEqual("Completion - About you - the carer")
 
       Formulate.theirPersonalDetails(browser)
@@ -107,7 +70,43 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
       browser.find("button[type='submit']").getText shouldEqual "Continue"
 
-      browser.submit("button[type='submit']")
+      Formulate.selfEmployment(browser)
+
+      titleMustEqual("Your job - About self-employment")
+    }
+
+    """navigate to Other Money""" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      titleMustEqual("Your nationality and residency - About you - the carer")
+
+      Formulate.nationalityAndResidency(browser)
+      titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
+
+      Formulate.otherEEAStateOrSwitzerland(browser)
+      titleMustEqual("More about you - About you - the carer")
+
+      Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
+      titleMustEqual("Completion - About you - the carer")
+
+      Formulate.theirPersonalDetails(browser)
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
+
+      Formulate.theirContactDetails(browser)
+      titleMustEqual("Relationship and other claims - About the care you provide")
+
+      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
+      titleMustEqual("More about the care you provide - About the care you provide")
+
+      Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
+      titleMustEqual("More about the care you provide - About the care you provide")
+
+      browser.goTo("/care-you-provide/completed")
+      titleMustEqual("Completion - About the care you provide")
+
+      browser.find("button[type='submit']").getText shouldEqual "Continue"
+
+      Formulate.notInEmployment(browser)
+
       titleMustEqual("Details about other money - About Other Money")
     }
 

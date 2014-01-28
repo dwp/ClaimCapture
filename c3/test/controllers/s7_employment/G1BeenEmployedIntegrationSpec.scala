@@ -7,11 +7,11 @@ import controllers.{WithBrowserHelper, BrowserMatchers}
 class G1BeenEmployedIntegrationSpec extends Specification with Tags {
   "Been Employed" should {
     "present, having indicated that the carer has been employed" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
-    beginClaim()
+      beginClaim()
 
       goTo("/employment/been-employed")
       back
-      titleMustEqual("Your employment history - Employment History")
+      titleMustEqual("Employment Employment History")
     }
 
     """be bypassed and go onto "other money" having indicated that "employment" is not required.""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with NotEmployedSinceClaimDate {
@@ -25,7 +25,6 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
-      back
       click("#beenEmployed_yes")
       next
       titleMustEqual("Your job - Employment History")
@@ -35,7 +34,6 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
-      back
       next
       titleMustEqual("Your employment history - Employment History")
       findMustEqualSize("div[class=validation-summary] ol li", 1)
@@ -45,19 +43,19 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
-      back
+      titleMustEqual("Your employment history - Employment History")
+
       click("#beenEmployed_no")
       next
       titleMustEqual("Completion - Employment History")
     }
 
-    """go back to "education".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
+    """go back to "education".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EducatedSinceClaimDate {
       beginClaim()
 
       goTo("/education/completed")
 
-      goTo("/employment/been-employed")
-      back
+      goTo("/employment/employment")
       back
       titleMustEqual("Completion - About your education")
     }
@@ -66,7 +64,6 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
-      back
       titleMustEqual("Your employment history - Employment History")
 
       click("#beenEmployed_no")

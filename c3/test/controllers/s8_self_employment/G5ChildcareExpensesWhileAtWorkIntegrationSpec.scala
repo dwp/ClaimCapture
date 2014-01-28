@@ -8,6 +8,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.TestData
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
+import utils.pageobjects.s7_employment.G0EmploymentPage
 
 class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
 
@@ -24,11 +25,13 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
     }
 
     "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
+      val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareAndNotEmployed()
       page goToThePage()
-      page runClaimWith (claim, G10AboutYouCompletedPage.title, waitForPage = true)
 
-      val nextPage = page goToPage( throwException = false, page = new G5ChildcareExpensesWhileAtWorkPage(browser))
+      val employmentHistoryPage = page runClaimWith(claim, G0EmploymentPage.title, waitForPage = true)
+      employmentHistoryPage fillPageWith(claim)
+
+      val nextPage = employmentHistoryPage submitPage()
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
 

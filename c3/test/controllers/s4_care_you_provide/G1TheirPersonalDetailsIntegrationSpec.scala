@@ -40,7 +40,6 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
-      Formulate.employment(browser)
       browser.goTo("/care-you-provide/their-personal-details")
       browser.click("#backButton")
       titleMustEqual("Completion - About you - the carer")

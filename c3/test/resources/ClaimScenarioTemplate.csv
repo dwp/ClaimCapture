@@ -190,7 +190,7 @@ Education,"School, college or universitys contact details",Post code,EducationPo
 Education,"School, college or universitys contact details",Phone number,EducationPhoneNumber,
 Education,"School, college or universitys contact details",Fax Number,EducationFaxNumber ,
 Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,AboutYouHaveYouBeenEmployedAtAnyTime_1,
-Employemnt,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,AboutYouHaveYouBeenSelfEmployedAtAnyTime,
+Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,AboutYouHaveYouBeenSelfEmployedAtAnyTime,
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName,
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob,

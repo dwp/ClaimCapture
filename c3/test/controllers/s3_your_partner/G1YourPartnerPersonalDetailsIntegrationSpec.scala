@@ -13,7 +13,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About you - the carer")
+      titleMustEqual("Completion - About you - the carer")
 
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse details - About your partner/spouse")
@@ -26,7 +26,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
-      titleMustEqual("Employment - About you - the carer")
+      titleMustEqual("Completion - About you - the carer")
 
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Details of the person you care for - About the care you provide")
@@ -39,7 +39,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About you - the carer")
+      titleMustEqual("Completion - About you - the carer")
 
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse details - About your partner/spouse")
@@ -55,7 +55,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About you - the carer")
+      titleMustEqual("Completion - About you - the carer")
 
       Formulate.yourPartnerPersonalDetails(browser)
       titleMustEqual("Completion - About your partner/spouse")
@@ -68,9 +68,6 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About you - the carer")
-
-      Formulate.employment(browser)
       titleMustEqual("Completion - About you - the carer")
 
       browser.goTo("/your-partner/personal-details")
@@ -87,7 +84,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About you - the carer")
+      titleMustEqual("Completion - About you - the carer")
 
       Formulate.yourPartnerPersonalDetails(browser)
       titleMustEqual("Completion - About your partner/spouse")

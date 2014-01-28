@@ -41,7 +41,6 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
-      back
       click("#beenEmployed_yes")
       next
       back

@@ -175,7 +175,7 @@ Education,"School, college or universitys contact details",Post code,EducationPo
 Education,"School, college or universitys contact details",Phone number,EducationPhoneNumber,01776 829920
 Education,"School, college or universitys contact details",Fax Number,EducationFaxNumber ,01776 829921
 Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,AboutYouHaveYouBeenEmployedAtAnyTime_1,No
-Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,AboutYouHaveYouBeenEmployedAtAnyTime_1,No
+Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,AboutYouHaveYouBeenSelfEmployedAtAnyTime,No
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName_1,
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,

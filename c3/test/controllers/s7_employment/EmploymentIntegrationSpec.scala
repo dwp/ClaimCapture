@@ -40,7 +40,36 @@ trait EmployedSinceClaimDate extends BrowserMatchers {
     titleMustEqual("Your nationality and residency - About you - the carer")
 
     Formulate.employment(browser)
-    titleMustEqual("Completion - About you - the carer")
+  }
+}
+
+trait EducatedSinceClaimDate extends BrowserMatchers {
+  this: WithBrowser[_] =>
+
+  def beginClaim() = {
+    Formulate.claimDate(browser)
+    titleMustEqual("Your nationality and residency - About you - the carer")
+
+    Formulate.otherEEAStateOrSwitzerland(browser)
+
+    Formulate.moreAboutYou(browser)
+
+    Formulate.yourCourseDetails(browser)
+  }
+}
+
+trait EducatedAndEmployedSinceClaimDate extends BrowserMatchers {
+  this: WithBrowser[_] =>
+
+  def beginClaim() = {
+    Formulate.claimDate(browser)
+    titleMustEqual("Your nationality and residency - About you - the carer")
+
+    Formulate.otherEEAStateOrSwitzerland(browser)
+
+    Formulate.moreAboutYou(browser)
+
+    Formulate.employment(browser)
   }
 }
 
@@ -49,12 +78,8 @@ trait NotEmployedSinceClaimDate extends BrowserMatchers {
 
   def beginClaim() = {
     Formulate.claimDate(browser)
+    titleMustEqual("Your nationality and residency - About you - the carer")
 
-    browser.goTo("/about-you/employment")
-    browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
-    browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
-    browser.submit("button[type='submit']")
-
-    titleMustEqual("Completion - About you - the carer")
+    Formulate.notInEmployment(browser)
   }
 }

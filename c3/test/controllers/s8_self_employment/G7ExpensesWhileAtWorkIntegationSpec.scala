@@ -21,15 +21,6 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
       page goToThePage()
     }
 
-    "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
-      page goToThePage()
-      page runClaimWith(claim, G10AboutYouCompletedPage.title)
-
-      val nextPage = page goToPage(throwException = false, page = new G7ExpensesWhileAtWorkPage(browser))
-      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
-    }
-
     "contain the completed forms" in new WithBrowser with G1AboutSelfEmploymentPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
 
