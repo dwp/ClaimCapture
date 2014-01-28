@@ -5,6 +5,7 @@ import org.specs2.mutable.{Tags, Specification}
 import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate}
 import utils.pageobjects.s2_about_you.{G9EmploymentPage, G8MoreAboutYouPage, G1YourDetailsPageContext, G8MoreAboutYouPageContext}
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
+import utils.pageobjects.IterationManager
 
 class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
   "More About You" should {
@@ -19,6 +20,7 @@ class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
     }
 
     "contain the completed forms" in new WithBrowser with G1YourDetailsPageContext {
+      IterationManager.init()
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       page goToThePage()
 
@@ -52,6 +54,7 @@ class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G1YourDetailsPageContext {
+      IterationManager.init()
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       page goToThePage()
       page runClaimWith (claim, G9EmploymentPage.title)
