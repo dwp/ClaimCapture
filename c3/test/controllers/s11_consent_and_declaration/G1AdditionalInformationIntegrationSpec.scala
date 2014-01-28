@@ -37,13 +37,15 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
       page goToThePage()
     }
     
-    "navigate back to Pay Details - Completed" in new WithBrowser with G3PayDetailsCompletedPageContext {
+    "navigate back to Bank/Building society details - How we pay you" in new WithBrowser with G2BankBuildingSocietyDetailsPageContext {
+      val claim = ClaimScenarioFactory.s6BankBuildingSocietyDetails()
       page goToThePage()
-      val s11g1 = page submitPage()
+      page fillPageWith claim
+      val consentDeclarationPage = page submitPage()
       
-      val s10g3Again = s11g1.goBack()
-      
-      s10g3Again must beAnInstanceOf[G3PayDetailsCompletedPage]
+      val bankBuildingSocietyPage = consentDeclarationPage.goBack()
+
+      bankBuildingSocietyPage must beAnInstanceOf[G2BankBuildingSocietyDetailsPage]
     }
     
     "present errors if mandatory fields are not populated" in new WithBrowser with G1AdditionalInfoPageContext {

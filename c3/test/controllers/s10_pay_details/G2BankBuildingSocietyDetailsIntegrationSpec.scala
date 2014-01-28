@@ -2,7 +2,11 @@ package controllers.s10_pay_details
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, Formulate}
+import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
+import utils.pageobjects.s10_pay_details.{G2BankBuildingSocietyDetailsPage, G1HowWePayYouPageContext}
+import utils.pageobjects.s2_about_you._
+import utils.pageobjects.S11_consent_and_declaration.G1AdditionalInfoPage
+import app.AccountStatus
 
 class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tags {
   "Bank building society details" should {
@@ -11,26 +15,12 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Bank/Building society details - How we pay you")
     }
 
-    "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
-      Formulate.claimDate(browser)
-      Formulate.nationalityAndResidency(browser)
-      Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYou(browser)
-      browser.goTo("/pay-details/bank-building-society-details")
-      titleMustEqual("Additional information - Consent and Declaration")
-    }
-
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo("/pay-details/bank-building-society-details")
       titleMustEqual("Bank/Building society details - How we pay you")
       browser.submit("button[type='submit']")
 
       findMustEqualSize("div[class=validation-summary] ol li", 6)
-    }
-
-    "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
-      Formulate.bankBuildingSocietyDetails(browser)
-      titleMustEqual("Completion - How we pay you")
     }
 
     "navigate back to How We Pay You - Pay Details" in new WithBrowser with BrowserMatchers {
@@ -42,10 +32,51 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("How would you like to get paid? - How we pay you")
     }
 
-    "contain the completed forms" in new WithBrowser with BrowserMatchers {
-      Formulate.howWePayYou(browser)
-      Formulate.bankBuildingSocietyDetails(browser)
-      findMustEqualSize("div[class=completed] ul li", 2)
+    "navigate to 'Consent And Declaration'" in new WithBrowser with G1HowWePayYouPageContext {
+      val claim = ClaimScenarioFactory.s6PayDetails()
+      claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.BankBuildingAccount.name
+      page goToThePage ()
+      page fillPageWith claim
+
+      val bankBuildingSocietyDetailsPage = page submitPage()
+      val bankDetailsClaim = ClaimScenarioFactory.s6BankBuildingSocietyDetails()
+      bankBuildingSocietyDetailsPage fillPageWith bankDetailsClaim
+      val nextPage = bankBuildingSocietyDetailsPage submitPage()
+
+      nextPage must beAnInstanceOf[G1AdditionalInfoPage]
     }
+
+    "be hidden when having state pension" in new WithBrowser with G2ContactDetailsPageContext {
+      val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
+      page goToThePage()
+
+      page fillPageWith claim
+      page submitPage ()
+
+      val claimDatePage = page goToPage new G3ClaimDatePage(browser)
+      claimDatePage fillPageWith claim
+      claimDatePage submitPage()
+
+      val nationalityAndResidencyPage = claimDatePage goToPage new G4NationalityAndResidencyPage(browser)
+      nationalityAndResidencyPage fillPageWith claim
+      nationalityAndResidencyPage submitPage()
+
+      val timeOutSideUKPage = nationalityAndResidencyPage goToPage new G5AbroadForMoreThan52WeeksPage(browser, iteration = 1)
+      timeOutSideUKPage fillPageWith claim
+      timeOutSideUKPage submitPage()
+
+      val eeaPage = timeOutSideUKPage goToPage new G7OtherEEAStateOrSwitzerlandPage(browser)
+      eeaPage fillPageWith claim
+      eeaPage submitPage()
+
+      val moreAboutYouPage =  eeaPage goToPage new G8MoreAboutYouPage(browser)
+      moreAboutYouPage fillPageWith claim
+      moreAboutYouPage submitPage()
+
+      val nextPage = moreAboutYouPage goToPage (new G2BankBuildingSocietyDetailsPage(browser), throwException = false)
+
+      nextPage must beAnInstanceOf[G1AdditionalInfoPage]
+    }
+
   } section("integration", models.domain.PayDetails.id)
 }
