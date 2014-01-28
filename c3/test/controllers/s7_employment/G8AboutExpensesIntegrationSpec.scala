@@ -22,17 +22,6 @@ class G8AboutExpensesIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "go to job completion directly" in new WithBrowser with G8AboutExpensesPageContext {
-      val claim = new TestData
-      claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1= "no"
-      claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1= "no"
-      claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1= "no"
-
-      page goToThePage()
-      page fillPageWith claim
-      page submitPage() must beAnInstanceOf[G14JobCompletionPage]
-    }
-
     "go to childcare" in new WithBrowser with G8AboutExpensesPageContext {
       val claim = new TestData
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1= "no"

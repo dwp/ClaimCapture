@@ -9,18 +9,6 @@ import models.domain.{Claim, EmployerContactDetails, Job, Jobs, JobDetails, Clai
 
 class EmploymentSpec extends Specification with Tags {
   "Employment" should {
-    "present completion" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-      val result = Employment.completed(request)
-      status(result) mustEqual OK
-    }
-
-    """progress to "next section".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-      val result = Employment.submit(request)
-      status(result) mustEqual SEE_OTHER
-    }
-
     "get first completed question group for a job" in new WithApplication with Claiming {
       val jobID = "dummyJobID"
 

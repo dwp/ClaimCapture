@@ -164,7 +164,7 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
 
       val nextPage = g7.submitPage(throwException = true)
 
-      nextPage must beAnInstanceOf[G9CompletedPage]
+      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
   } section("integration", models.domain.SelfEmployment.id)
 }

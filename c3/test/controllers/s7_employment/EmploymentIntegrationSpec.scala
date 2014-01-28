@@ -5,31 +5,6 @@ import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, Formulate, BrowserMatchers}
 
 class EmploymentIntegrationSpec extends Specification with Tags {
-  "Employment - Integration" should {
-    "present completion" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-      goTo("/employment/completed")
-      titleMustEqual("Completion - Employment History")
-    }
-
-    """progress to next section i.e. "self employed".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-      goTo("/employment/completed")
-      titleMustEqual("Completion - Employment History")
-
-      next
-      titleMustEqual("Your job - About self-employment")
-    }
-
-    """go back to start of employment i.e. "employment history".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
-      skipped("ISSUE - This can't be done anymore")
-      beginClaim()
-
-      goTo("/employment/completed")
-      titleMustEqual("Completion - Employment History")
-
-      back
-      titleMustEqual("Your employment history - Employment History")
-    }
-  } section("integration", models.domain.Employed.id)
 }
 
 trait EmployedSinceClaimDate extends BrowserMatchers {

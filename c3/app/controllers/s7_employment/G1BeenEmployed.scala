@@ -42,7 +42,7 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
       case `yes` if jobs.size < 5 => Redirect(routes.G2JobDetails.present(JobID(form)))
       case `yes` => Redirect(routes.G1BeenEmployed.present())
-      case _ => Redirect(routes.Employment.completed())
+      case _ => Redirect("/self-employment/about-self-employment")
     }
 
     form.bindEncrypted.fold(

@@ -21,6 +21,13 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       titleMustEqual("Details about other money - About Other Money")
     }
 
+    """progress to next section i.e. "self employed".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
+      goTo("/employment/been-employed")
+
+      next
+      titleMustEqual("Your job - About self-employment")
+    }
+
     "start employment entry" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim()
 
@@ -39,16 +46,6 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       next
       titleMustEqual("Your employment history - Employment History")
       findMustEqualSize("div[class=validation-summary] ol li", 1)
-    }
-
-    """continue to "completion" when there are no more "jobs" to submit.""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
-      beginClaim()
-
-      goTo("/employment/been-employed")
-      back
-      click("#beenEmployed_no")
-      next
-      titleMustEqual("Completion - Employment History")
     }
 
     """go back to "education".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
@@ -71,7 +68,6 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
 
       click("#beenEmployed_no")
       next
-      titleMustEqual("Completion - Employment History")
 
       back
       titleMustEqual("Your employment history - Employment History")
