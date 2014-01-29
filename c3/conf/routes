@@ -113,8 +113,8 @@ POST          /education/your-course-details                                    
 GET           /employment/employment                                                  controllers.s7_employment.G0Employment.present
 POST          /employment/employment                                                  controllers.s7_employment.G0Employment.submit
 
-GET           /employment/been-employed                                               controllers.s7_employment.G1BeenEmployed.present
-POST          /employment/been-employed                                               controllers.s7_employment.G1BeenEmployed.submit
+GET           /employment/been-employed                                               controllers.s7_employment.G2BeenEmployed.present
+POST          /employment/been-employed                                               controllers.s7_employment.G2BeenEmployed.submit
 
 DELETE        /employment/job/:jobID                                                  controllers.s7_employment.Employment.delete(jobID: String)
 

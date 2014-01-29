@@ -35,7 +35,7 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
       case Some(js: Jobs) if js.job(jobID).isDefined =>
         track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g3_jobDetails(form.fillWithJobID(JobDetails, jobID))) }
       case _ =>
-        Redirect(routes.G1BeenEmployed.present())
+        Redirect(routes.G2BeenEmployed.present())
     }
   }
 
