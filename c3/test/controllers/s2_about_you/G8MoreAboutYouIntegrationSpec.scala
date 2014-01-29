@@ -6,6 +6,7 @@ import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate}
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
 import utils.pageobjects.PageObjects
+import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 
 class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
   "More About You" should {

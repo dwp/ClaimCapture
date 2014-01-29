@@ -18,7 +18,6 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
     }
 
     "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
-      IterationManager.init
       val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed()
       page goToThePage()
 

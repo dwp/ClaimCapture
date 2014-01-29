@@ -34,7 +34,7 @@ object G1Employment extends Controller with CachedClaim with Navigable {
         employment => {
           val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, Employed)
                                   .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, SelfEmployment)
-
+println("**************** updated claim " + updatedClaim.toString)
           updatedClaim.update(employment) -> Redirect(routes.G2BeenEmployed.present())
         }
       )

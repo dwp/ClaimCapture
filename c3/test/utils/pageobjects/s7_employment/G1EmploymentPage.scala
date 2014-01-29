@@ -3,7 +3,7 @@ package utils.pageobjects.s7_employment
 import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageObjectsContext, ClaimPage, Page, PageContext}
 
-final class G1EmploymentPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G1EmploymentPage.url.replace(":jobID", iteration.toString), G1EmploymentPage.title, iteration) {
+final class G1EmploymentPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1EmploymentPage.url, G1EmploymentPage.title) {
   declareYesNo("#beenEmployedSince6MonthsBeforeClaim", "EmploymentHaveYouBeenEmployedAtAnyTime")
   declareYesNo("#beenSelfEmployedSince1WeekBeforeClaim", "EmploymentHaveYouBeenSelfEmployedAtAnyTime")
 }
@@ -17,12 +17,12 @@ object G1EmploymentPage {
 
   val url  = "/employment/employment"
 
-  def apply(ctx:PageObjectsContext, iteration: Int = 1) = new G1EmploymentPage(ctx, iteration)
+  def apply(ctx:PageObjectsContext) = new G1EmploymentPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G1EmploymentPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1EmploymentPage (PageObjectsContext(browser), iteration = 1)
+  val page = G1EmploymentPage (PageObjectsContext(browser))
 }

@@ -8,6 +8,7 @@ import utils.pageobjects.s2_about_you.{G8MoreAboutYouPage, G3ClaimDatePage, G3Cl
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects.{PageObjects, PageObjectsContext, IterationManager}
+import utils.pageobjects.s7_employment.G1EmploymentPage
 
 class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
 
@@ -33,10 +34,10 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
 
-      page goToPage( throwException = false, page = new G8MoreAboutYouPage(PageObjectsContext(browser)))
+      page goToPage( throwException = false, page = new G1EmploymentPage(PageObjectsContext(browser)))
 
       val nextPage = page goToPage(throwException = false, page = new G7ExpensesWhileAtWorkPage(PageObjectsContext(browser)))
-      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
+      nextPage must beAnInstanceOf[G9CompletedPage]
     }
 
     "contain the completed forms" in new WithBrowser with PageObjects{

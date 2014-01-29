@@ -24,7 +24,7 @@ class G9NecessaryExpensesIntegrationSpec extends Specification with Tags {
       val p = page submitPage()
       p fillPageWith claim
 
-      p submitPage() should beLike { case p: G9NecessaryExpensesPage => p numberSectionsCompleted() shouldEqual 1 }
+      p submitPage() should beLike { case p: G10ChildcareExpensesPage => p numberSectionsCompleted() shouldEqual 2 }
     }
 
     "be able to navigate back to a completed form" in new WithBrowser with PageObjects{
