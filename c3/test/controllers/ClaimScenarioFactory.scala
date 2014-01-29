@@ -452,7 +452,6 @@ object ClaimScenarioFactory {
     claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1 = "Other"
     claim.EmploymentAddressCareProvider_1 = "1 London Road&Preston&Lancashire"
     claim.EmploymentPostcodeCareProvider_1 = "PR4 5TH"
-    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "Yes"
     claim
   }
 

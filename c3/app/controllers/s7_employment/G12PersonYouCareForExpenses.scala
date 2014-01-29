@@ -30,7 +30,7 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
         track(PersonYouCareForExpenses) { implicit claim => Ok(views.html.s7_employment.g12_personYouCareForExpenses(form.fillWithJobID(PersonYouCareForExpenses, jobID))) }
       case _ =>
         claim.update(jobs.delete(jobID, PersonYouCareForExpenses))
-        claim.update(BeenEmployed(beenEmployed="")).update(jobs.completeJob(jobID))-> Redirect(routes.G1BeenEmployed.present())
+        claim.update(BeenEmployed(beenEmployed="")).update(jobs.completeJob(jobID))-> Redirect(routes.G2BeenEmployed.present())
     }
   }
 
@@ -49,6 +49,6 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
 
           BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrorsUpdate))
       },
-      childcareProvider => claim.update(jobs.update(childcareProvider)) -> Redirect(routes.G1BeenEmployed.present()))
+      childcareProvider => claim.update(jobs.update(childcareProvider)) -> Redirect(routes.G2BeenEmployed.present()))
   }
 }

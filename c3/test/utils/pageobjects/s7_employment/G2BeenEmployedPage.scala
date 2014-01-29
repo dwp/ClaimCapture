@@ -5,6 +5,12 @@ import utils.pageobjects._
 
 final class G2BeenEmployedPage(ctx:PageObjectsContext, iteration:Int) extends ClaimPage(ctx, G2BeenEmployedPage.url, G2BeenEmployedPage.title, iteration) {
   declareYesNo("#beenEmployed", "AboutYouHaveYouBeenEmployedAtAnyTime_"+iteration)
+
+  override def getNewIterationNumber: Int = {
+    import IterationManager._
+    println("INCREASING EMPLOYMENT ITERATION")
+    ctx.iterationManager.increment(Employment)
+  }
 }
 
 object G2BeenEmployedPage {

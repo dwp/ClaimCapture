@@ -27,7 +27,7 @@ class IterationManager{
   }
 
   def init() = {
-    iterationBlocks = Map("Abroad" -> 1,"Breaks" -> 1,"Employment" -> 1)
+    iterationBlocks = Map("Abroad" -> 1,"Breaks" -> 1,"Employment" -> 0)
     this
   }
 

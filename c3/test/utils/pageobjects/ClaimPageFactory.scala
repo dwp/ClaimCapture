@@ -22,7 +22,7 @@ import utils.pageobjects.IterationManager._
  */
 object ClaimPageFactory extends PageFactory {
   def buildPageFromTitle(title: String,ctx:PageObjectsContext) = {
-println("********* CPF" + title)
+
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
     if (null == title ) XmlPage (ctx)

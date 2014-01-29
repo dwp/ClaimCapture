@@ -6,10 +6,6 @@ import controllers.{WithBrowserHelper, Formulate, BrowserMatchers}
 
 class G1EmploymentIntegrationSpec extends Specification with Tags {
   "Employment - Integration" should {
-    "present completion" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-      goTo("/employment/completed")
-      titleMustEqual("Completion - Employment History")
-    }
 
     """progress to next section i.e. "self employed".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       goTo("/employment/completed")
