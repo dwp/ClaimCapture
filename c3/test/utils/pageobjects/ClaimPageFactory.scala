@@ -68,7 +68,7 @@ object ClaimPageFactory extends PageFactory {
       }.orElse[String,Page]{
         IterableNode(Employment)(iteration =>{
           // S7
-          case G0EmploymentPage.title => G0EmploymentPage (browser, previousPage)
+          case G1EmploymentPage.title => G1EmploymentPage (browser, previousPage)
           case G2BeenEmployedPage.title => G2BeenEmployedPage (browser,previousPage,iteration)
           case G3JobDetailsPage.title => G3JobDetailsPage (browser,previousPage,iteration)
           case G4EmployerContactDetailsPage.title => G4EmployerContactDetailsPage (browser,previousPage,iteration)

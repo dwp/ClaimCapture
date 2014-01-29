@@ -10,7 +10,7 @@ import controllers.Mappings._
 import models.domain.{Employment => Emp, Employed, SelfEmployment, ClaimDate}
 import scala.language.postfixOps
 
-object G0Employment extends Controller with CachedClaim with Navigable {
+object G1Employment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
       "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText.verifying(validYesNo),
       "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText.verifying(validYesNo)
@@ -18,7 +18,7 @@ object G0Employment extends Controller with CachedClaim with Navigable {
 
     def present = claiming { implicit claim => implicit request =>
       claim.questionGroup(ClaimDate) match {
-        case Some(n) => track(Employment) { implicit claim => Ok(views.html.s7_employment.g0_employment(form.fill(Emp))) }
+        case Some(n) => track(Employment) { implicit claim => Ok(views.html.s7_employment.g1_employment(form.fill(Emp))) }
         case _ => Redirect("/")
       }
     }
@@ -29,7 +29,7 @@ object G0Employment extends Controller with CachedClaim with Navigable {
       val formWithErrorsUpdate = formWithErrors
         .replaceError("beenEmployedSince6MonthsBeforeClaim", "error.required", FormError("beenEmployedSince6MonthsBeforeClaim", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
           (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
-          BadRequest(views.html.s7_employment.g0_employment(formWithErrorsUpdate))}
+          BadRequest(views.html.s7_employment.g1_employment(formWithErrorsUpdate))}
         ,
         employment => {
           val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, Employed)

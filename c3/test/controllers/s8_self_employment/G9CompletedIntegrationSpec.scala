@@ -8,7 +8,7 @@ import utils.pageobjects.s2_about_you._
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you.G3ClaimDatePage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
-import utils.pageobjects.s7_employment.G0EmploymentPage
+import utils.pageobjects.s7_employment.G1EmploymentPage
 import utils.pageobjects.IterationManager
 
 class G9CompletedIntegrationSpec extends Specification with Tags {
@@ -23,7 +23,7 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
       val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed()
       page goToThePage()
 
-      val employmentHistoryPage = page runClaimWith(claim, G0EmploymentPage.title, waitForPage = true)
+      val employmentHistoryPage = page runClaimWith(claim, G1EmploymentPage.title, waitForPage = true)
       employmentHistoryPage fillPageWith(claim)
 
       val nextPage = employmentHistoryPage submitPage()

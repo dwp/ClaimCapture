@@ -7,12 +7,12 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
-@main(Messages("s7.g0") + "  " + Messages("s7.longName"), Some(employmentForm)) {
+@main(Messages("s7.g1") + "  " + Messages("s7.longName"), Some(employmentForm)) {
     @errorsSummary(employmentForm)
 
-    @form(action = controllers.s7_employment.routes.G0Employment.submit) {
+    @form(action = controllers.s7_employment.routes.G1Employment.submit) {
         <fieldset class="formelements">
-            <legend>@Messages("s7.g0")</legend>
+            <legend>@Messages("s7.g1")</legend>
         
             <div class="prompt helperprompt">
                 <p class="intro">

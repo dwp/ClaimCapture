@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, Formulate, BrowserMatchers}
 
-class EmploymentIntegrationSpec extends Specification with Tags {
+class G1EmploymentIntegrationSpec extends Specification with Tags {
   "Employment - Integration" should {
     "present completion" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       goTo("/employment/completed")
