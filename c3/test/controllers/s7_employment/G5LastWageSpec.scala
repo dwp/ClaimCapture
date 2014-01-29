@@ -8,11 +8,11 @@ import play.api.cache.Cache
 import models.domain.Claim
 import models.view.CachedClaim
 
-class G4LastWageSpec extends Specification with Tags {
+class G5LastWageSpec extends Specification with Tags {
   "Last wage" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-      val result = G4LastWage.present("Dummy job ID")(request)
+      val result = G5LastWage.present("Dummy job ID")(request)
       status(result) mustEqual OK
     }
 
@@ -21,7 +21,7 @@ class G4LastWageSpec extends Specification with Tags {
         .withFormUrlEncodedBody("jobID" -> "1",
                                  "grossPay" ->"3")
 
-      val result = G4LastWage.submit(request)
+      val result = G5LastWage.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -35,7 +35,7 @@ class G4LastWageSpec extends Specification with Tags {
         "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "no"))
 
-      val result = G4LastWage.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result = G5LastWage.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("jobID" -> "1",
         "grossPay" ->"3"))
 

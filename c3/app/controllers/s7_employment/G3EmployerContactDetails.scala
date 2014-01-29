@@ -25,6 +25,6 @@ object G3EmployerContactDetails extends Controller with CachedClaim with Navigab
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g3_employerContactDetails(formWithErrors)),
-      employerContactDetails => claim.update(jobs.update(employerContactDetails)) -> Redirect(routes.G4LastWage.present(jobID)))
+      employerContactDetails => claim.update(jobs.update(employerContactDetails)) -> Redirect(routes.G5LastWage.present(jobID)))
   }
 }

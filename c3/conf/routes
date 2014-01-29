@@ -126,8 +126,8 @@ POST          /employment/job-details                                           
 GET           /employment/employers-contact-details/:jobID                            controllers.s7_employment.G3EmployerContactDetails.present(jobID: String)
 POST          /employment/employers-contact-details                                   controllers.s7_employment.G3EmployerContactDetails.submit
 
-GET           /employment/last-wage/:jobID                                            controllers.s7_employment.G4LastWage.present(jobID: String)
-POST          /employment/last-wage                                                   controllers.s7_employment.G4LastWage.submit
+GET           /employment/last-wage/:jobID                                            controllers.s7_employment.G5LastWage.present(jobID: String)
+POST          /employment/last-wage                                                   controllers.s7_employment.G5LastWage.submit
 
 GET           /employment/additional-wage-details/:jobID                              controllers.s7_employment.G6AdditionalWageDetails.present(jobID: String)
 POST          /employment/additional-wage-details                                     controllers.s7_employment.G6AdditionalWageDetails.submit
