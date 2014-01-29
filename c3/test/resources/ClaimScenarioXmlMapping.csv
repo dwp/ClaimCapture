@@ -73,7 +73,7 @@ Education,Your course details,Course contact number,EducationPhoneNumber,FullTim
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,FullTimeEducation>CourseDetails>DateStarted
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,FullTimeEducation>CourseDetails>ExpectedEndDate
 Employment,Employment,Have you been employed at any time since <ddmmyyyy> (this is six months before your claim date:< ddmmyyyy>)?,AboutYouHaveYouBeenEmployedAtAnyTime,DWPCAClaim>Employed
-Employment,Employment,Have you been self-employed at any time since <ddmmyyyy> (this is one week before your claim date:<ddmmyyyy>)?,AboutYouHaveYouBeenSelfEmployedAtAnyTime,DWPCAClaim>SelfEmployed
+Employment,Employment,Have you been self-employed at any time since <ddmmyyyy> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,DWPCAClaim>SelfEmployed
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName,Employment>JobDetails>Employer>Name
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob,Employment>JobDetails>Employer>DateJobStarted

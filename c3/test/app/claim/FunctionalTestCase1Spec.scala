@@ -20,8 +20,6 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
       IterationManager.init()
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
-      println("*********************" + claim.AboutYouHaveYouBeenEmployedAtAnyTime_1)
-      println("*********************" + claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime)
       val lastPage = page runClaimWith(claim, XmlPage.title)
 
       lastPage match {

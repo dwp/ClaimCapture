@@ -190,8 +190,8 @@ Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainT
 Education,Your course details,Course contact number,EducationPhoneNumber,01776 829920
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,01/01/2013
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,01/01/2014
-Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,AboutYouHaveYouBeenEmployedAtAnyTime_1,no
-Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,AboutYouHaveYouBeenSelfEmployedAtAnyTime,no
+Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime,no
+Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,no
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName_1,
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,
