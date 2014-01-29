@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.TestData
+import utils.pageobjects.{PageObjectsContext, TestData}
 import utils.pageobjects.s9_other_money._
 import play.api.test.WithBrowser
 
@@ -58,7 +58,7 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
       page goToThePage ()
       page fillPageWith claim
       val moneyPaidPage = page submitPage ()
-      val personContactPage = moneyPaidPage.goToPage(new G5StatutorySickPayPage(browser))
+      val personContactPage = moneyPaidPage.goToPage(new G5StatutorySickPayPage(PageObjectsContext(browser)))
       personContactPage.listCompletedForms.size mustEqual 1
     }
 

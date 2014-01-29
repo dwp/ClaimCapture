@@ -36,7 +36,7 @@ class G9EmploymentIntegrationSpec extends Specification with Tags {
     }
 
     "fill all fields" in new WithBrowser with G1YourDetailsPageContext {
-      IterationManager.init()
+
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
       page runClaimWith(claim, G9EmploymentPage.title)

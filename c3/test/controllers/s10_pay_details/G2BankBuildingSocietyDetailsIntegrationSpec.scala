@@ -7,6 +7,7 @@ import utils.pageobjects.s10_pay_details.{G2BankBuildingSocietyDetailsPage, G1Ho
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.S11_consent_and_declaration.G1AdditionalInfoPage
 import app.AccountStatus
+import utils.pageobjects.PageObjectsContext
 
 class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tags {
   "Bank building society details" should {
@@ -53,27 +54,27 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       page fillPageWith claim
       page submitPage ()
 
-      val claimDatePage = page goToPage new G3ClaimDatePage(browser)
+      val claimDatePage = page goToPage new G3ClaimDatePage(PageObjectsContext(browser))
       claimDatePage fillPageWith claim
       claimDatePage submitPage()
 
-      val nationalityAndResidencyPage = claimDatePage goToPage new G4NationalityAndResidencyPage(browser)
+      val nationalityAndResidencyPage = claimDatePage goToPage new G4NationalityAndResidencyPage(PageObjectsContext(browser))
       nationalityAndResidencyPage fillPageWith claim
       nationalityAndResidencyPage submitPage()
 
-      val timeOutSideUKPage = nationalityAndResidencyPage goToPage new G5AbroadForMoreThan52WeeksPage(browser, iteration = 1)
+      val timeOutSideUKPage = nationalityAndResidencyPage goToPage new G5AbroadForMoreThan52WeeksPage(PageObjectsContext(browser), iteration = 1)
       timeOutSideUKPage fillPageWith claim
       timeOutSideUKPage submitPage()
 
-      val eeaPage = timeOutSideUKPage goToPage new G7OtherEEAStateOrSwitzerlandPage(browser)
+      val eeaPage = timeOutSideUKPage goToPage new G7OtherEEAStateOrSwitzerlandPage(PageObjectsContext(browser))
       eeaPage fillPageWith claim
       eeaPage submitPage()
 
-      val moreAboutYouPage =  eeaPage goToPage new G8MoreAboutYouPage(browser)
+      val moreAboutYouPage =  eeaPage goToPage new G8MoreAboutYouPage(PageObjectsContext(browser))
       moreAboutYouPage fillPageWith claim
       moreAboutYouPage submitPage()
 
-      val nextPage = moreAboutYouPage goToPage (new G2BankBuildingSocietyDetailsPage(browser), throwException = false)
+      val nextPage = moreAboutYouPage goToPage (new G2BankBuildingSocietyDetailsPage(PageObjectsContext(browser)), throwException = false)
 
       nextPage must beAnInstanceOf[G1AdditionalInfoPage]
     }

@@ -1,9 +1,9 @@
 package utils.pageobjects.s7_employment
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G1BeenEmployedPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends ClaimPage(browser, G1BeenEmployedPage.url, G1BeenEmployedPage.title, previousPage, iteration) {
+final class G1BeenEmployedPage(ctx:PageObjectsContext, iteration:Int) extends ClaimPage(ctx, G1BeenEmployedPage.url, G1BeenEmployedPage.title, iteration) {
   declareYesNo("#beenEmployed", "AboutYouHaveYouBeenEmployedAtAnyTime_"+iteration)
 }
 
@@ -12,11 +12,11 @@ object G1BeenEmployedPage {
 
   val url  = "/employment/been-employed"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G1BeenEmployedPage(browser,previousPage,iteration)
+  def apply(ctx:PageObjectsContext, iteration:Int) = new G1BeenEmployedPage(ctx,iteration)
 }
 
 trait G1BeenEmployedPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1BeenEmployedPage (browser,iteration=1)
+  val page = G1BeenEmployedPage (PageObjectsContext(browser),iteration=1)
 }

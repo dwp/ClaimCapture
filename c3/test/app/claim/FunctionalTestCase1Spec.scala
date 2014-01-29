@@ -1,10 +1,12 @@
 package app.claim
 
 import play.api.test.WithBrowser
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.{IterationManager, XmlPage, TestData, Page}
+import utils.pageobjects.s1_carers_allowance.{G1BenefitsPage, G1BenefitsPageContext}
+import utils.pageobjects._
 import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
+import org.specs2.specification.Scope
+import controllers.s1_carers_allowance.G1Benefits
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.
@@ -15,9 +17,9 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
   isolated
 
   "The application Claim" should {
-    "Successfully run absolute Claim Test Case 1" in new WithBrowser with G1BenefitsPageContext {
+    "Successfully run absolute Claim Test Case 1" in new WithBrowser with PageObjects {
 
-      IterationManager.init()
+      val page = G1BenefitsPage(context)
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, XmlPage.title)
@@ -33,3 +35,12 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
 
   } section "functional"
 }
+
+
+trait PageObjects extends Scope {
+  this: WithBrowser[_] =>
+
+  val context = PageObjectsContext(browser)
+
+}
+

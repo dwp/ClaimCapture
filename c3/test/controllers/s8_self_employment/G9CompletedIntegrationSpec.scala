@@ -8,7 +8,7 @@ import utils.pageobjects.s2_about_you._
 import controllers.{Formulate, ClaimScenarioFactory}
 import utils.pageobjects.s2_about_you.G3ClaimDatePage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
-import utils.pageobjects.IterationManager
+import utils.pageobjects.{PageObjectsContext, IterationManager}
 
 class G9CompletedIntegrationSpec extends Specification with Tags {
 
@@ -22,13 +22,13 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
       val g2 = page submitPage()
-      val g9 = g2 goToPage(new G9CompletedPage(browser))
+      val g9 = g2 goToPage(new G9CompletedPage(PageObjectsContext(browser)))
       g9.listCompletedForms.size mustEqual 1
     }
 
     "navigate back to previous page" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext  {
-      IterationManager.init()
-      val pageClaimDate = new G3ClaimDatePage(browser)
+
+      val pageClaimDate = new G3ClaimDatePage(PageObjectsContext(browser))
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val nationality = pageClaimDate.submitPage(throwException = true)
@@ -41,12 +41,12 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
       pageMoreAboutYou fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       pageMoreAboutYou.submitPage(throwException = true)
 
-      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(browser)
+      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(PageObjectsContext(browser))
       pageAboutYourPartner goToThePage()
       pageAboutYourPartner fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
       pageAboutYourPartner.submitPage(throwException = true)
 
-      val g4 = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      val g4 = new G4SelfEmploymentPensionsAndExpensesPage(PageObjectsContext(browser))
       g4 goToThePage()
       g4 fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
       val g5 = g4.submitPage(throwException = true)

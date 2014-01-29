@@ -1,9 +1,9 @@
 package utils.pageobjects.s9_other_money
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G5StatutorySickPayPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G5StatutorySickPayPage.url, G5StatutorySickPayPage.title, previousPage) {
+final class G5StatutorySickPayPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G5StatutorySickPayPage.url, G5StatutorySickPayPage.title) {
   declareYesNo("#haveYouHadAnyStatutorySickPay", "OtherMoneyHaveYouSSPSinceClaim")
   declareInput("#howMuch", "OtherMoneySSPHowMuch")
   declareSelect("#howOften_frequency", "OtherMoneySSPHowOften")
@@ -18,11 +18,11 @@ object G5StatutorySickPayPage {
 
   val url = "/other-money/statutory-sick-pay"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G5StatutorySickPayPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G5StatutorySickPayPage(ctx)
 }
 
 trait G5StatutorySickPayPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G5StatutorySickPayPage (browser)
+  val page = G5StatutorySickPayPage (PageObjectsContext(browser))
 }

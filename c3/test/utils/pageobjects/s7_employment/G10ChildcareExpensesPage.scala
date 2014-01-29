@@ -1,9 +1,9 @@
 package utils.pageobjects.s7_employment
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G10ChildcareExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G10ChildcareExpensesPage.url.replace(":jobID", iteration.toString), G10ChildcareExpensesPage.title, previousPage, iteration) {
+final class G10ChildcareExpensesPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G10ChildcareExpensesPage.url.replace(":jobID", iteration.toString), G10ChildcareExpensesPage.title, iteration) {
   declareInput("#howMuchCostChildcare", "EmploymentChildcareExpensesHowMuchYouPayfor_" + iteration)
   declareSelect("#howOftenPayChildCare_frequency","EmploymentChildcareExpensesHowOften_" + iteration)
   declareInput("#howOftenPayChildCare_frequency_other","EmploymentChildcareExpensesHowOftenOther_" + iteration)
@@ -18,11 +18,11 @@ object G10ChildcareExpensesPage {
 
   val url  = "/employment/childcare-expenses/:jobID"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G10ChildcareExpensesPage(browser,previousPage,iteration)
+  def apply(ctx:PageObjectsContext, iteration: Int) = new G10ChildcareExpensesPage(ctx,iteration)
 }
 
 trait G10ChildcareExpensesPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G10ChildcareExpensesPage (browser,iteration = 1)
+  val page = G10ChildcareExpensesPage (PageObjectsContext(browser),iteration = 1)
 }

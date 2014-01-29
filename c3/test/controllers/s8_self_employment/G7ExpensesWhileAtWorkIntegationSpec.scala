@@ -7,14 +7,14 @@ import controllers.{Formulate, ClaimScenarioFactory}
 import utils.pageobjects.s2_about_you.{G3ClaimDatePage, G9EmploymentPage, G3ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
-import utils.pageobjects.IterationManager
+import utils.pageobjects.{PageObjectsContext, IterationManager}
 
 class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
 
   "Expenses related to the Person you care for while at work" should {
     "be presented" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
-      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(PageObjectsContext(browser))
       pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
       pagePensionAndExpenses.submitPage(throwException = true)
@@ -32,9 +32,9 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYou(browser)
       Formulate.notInEmployment(browser)
 
-      page goToPage( throwException = false, page = new G9EmploymentPage(browser))
+      page goToPage( throwException = false, page = new G9EmploymentPage(PageObjectsContext(browser)))
 
-      val nextPage = page goToPage(throwException = false, page = new G7ExpensesWhileAtWorkPage(browser))
+      val nextPage = page goToPage(throwException = false, page = new G7ExpensesWhileAtWorkPage(PageObjectsContext(browser)))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
 
@@ -42,7 +42,7 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       val claim = ClaimScenarioFactory.s9SelfEmployment
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
-      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(PageObjectsContext(browser))
       pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
       pagePensionAndExpenses.submitPage(throwException = true)
@@ -50,13 +50,13 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
       val g2 = page.submitPage(throwException = true)
-      val g7 = g2 goToPage (new G7ExpensesWhileAtWorkPage(browser))
+      val g7 = g2 goToPage (new G7ExpensesWhileAtWorkPage(PageObjectsContext(browser)))
       g7.listCompletedForms.size mustEqual 2
     }
 
     "contain errors on invalid submission missing mandatory field" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val pageClaimDate = new G3ClaimDatePage(browser)
+      val pageClaimDate = new G3ClaimDatePage(PageObjectsContext(browser))
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith claimDate
       val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
@@ -64,13 +64,13 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       pageMoreAboutYou.submitPage(throwException = true)
 
       val claimAboutYourPartner = ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
-      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(browser)
+      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(PageObjectsContext(browser))
       pageAboutYourPartner goToThePage()
       pageAboutYourPartner fillPageWith claimAboutYourPartner
       pageAboutYourPartner.submitPage(throwException = true)
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
-      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(PageObjectsContext(browser))
       pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
       pagePensionAndExpenses.submitPage(throwException = true)
@@ -96,9 +96,9 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       */
 
 
-      IterationManager.init()
+
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val pageClaimDate = new G3ClaimDatePage(browser)
+      val pageClaimDate = new G3ClaimDatePage(PageObjectsContext(browser))
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith claimDate
       val nationality = pageClaimDate.submitPage(throwException = true)
@@ -112,13 +112,13 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       pageMoreAboutYou.submitPage(throwException = true)
 
       val claimAboutYourPartner = ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
-      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(browser)
+      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(PageObjectsContext(browser))
       pageAboutYourPartner goToThePage()
       pageAboutYourPartner fillPageWith claimAboutYourPartner
       pageAboutYourPartner.submitPage(throwException = true)
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
-      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(PageObjectsContext(browser))
       pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
       pagePensionAndExpenses.submitPage(throwException = true)
@@ -135,8 +135,8 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
-      IterationManager.init()
-      val pageClaimDate = new G3ClaimDatePage(browser)
+
+      val pageClaimDate = new G3ClaimDatePage(PageObjectsContext(browser))
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val nationality = pageClaimDate.submitPage(throwException = true)
@@ -149,12 +149,12 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       pageMoreAboutYou fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       pageMoreAboutYou.submitPage(throwException = true)
 
-      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(browser)
+      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(PageObjectsContext(browser))
       pageAboutYourPartner goToThePage()
       pageAboutYourPartner fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
       pageAboutYourPartner.submitPage(throwException = true)
 
-      val g4 = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      val g4 = new G4SelfEmploymentPensionsAndExpensesPage(PageObjectsContext(browser))
       g4 goToThePage()
       g4 fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
       val g5 = g4.submitPage(throwException = true)

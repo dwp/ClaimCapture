@@ -18,7 +18,7 @@ class FunctionalTestCase4Spec extends FunctionalTestCommon {
 
     "Successfully run absolute Test Case 4 " in new WithBrowser with G1BenefitsPageContext {
 
-      IterationManager.init()
+
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase4.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, XmlPage.title)

@@ -1,12 +1,12 @@
 package utils.pageobjects.s7_employment
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{IterationManager, ClaimPage, Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G14JobCompletionPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G14JobCompletionPage.url.replace(":jobID", iteration.toString), G14JobCompletionPage.title, previousPage, iteration) {
+final class G14JobCompletionPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G14JobCompletionPage.url.replace(":jobID", iteration.toString), G14JobCompletionPage.title, iteration) {
   override def getNewIterationNumber: Int = {
     import IterationManager._
-    increment(Employment)
+    ctx.iterationManager.increment(Employment)
   }
 }
 
@@ -15,11 +15,11 @@ object G14JobCompletionPage {
 
   val url  = "/employment/job-completion/:jobID"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G14JobCompletionPage(browser,previousPage,iteration)
+  def apply(ctx:PageObjectsContext, iteration: Int) = new G14JobCompletionPage(ctx,iteration)
 }
 
 trait G14JobCompletionPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G14JobCompletionPage (browser,iteration = 1)
+  val page = G14JobCompletionPage (PageObjectsContext(browser),iteration = 1)
 }

@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.TestData
+import utils.pageobjects.{PageObjectsContext, TestData}
 import utils.pageobjects.s9_other_money._
 import play.api.test.WithBrowser
 import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
@@ -91,7 +91,7 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
       page submitPage()
 
-      val OtherStatutoryPage = page goToPage new G6OtherStatutoryPayPage(browser)
+      val OtherStatutoryPage = page goToPage new G6OtherStatutoryPayPage(PageObjectsContext(browser))
       OtherStatutoryPage fillPageWith claim
       val howWePayPage = OtherStatutoryPage submitPage()
 

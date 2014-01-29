@@ -37,7 +37,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
 
       approvePage match {
         case p: G6ApprovePage => {
-          p.previousPage must beSome(livingGBPage)
+          p.ctx.previousPage must beSome(livingGBPage)
           p.isApproved must beTrue
         }
         case _ => ko(notRightPage)
@@ -55,7 +55,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
 
       approvePage match {
         case p: G6ApprovePage => {
-          p.previousPage.get must beAnInstanceOf[G4LivesInGBPage]
+          p.ctx.previousPage.get must beAnInstanceOf[G4LivesInGBPage]
           p.isNotApproved must beTrue
         }
         case _ => ko(notRightPage)

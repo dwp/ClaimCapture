@@ -52,8 +52,8 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       val backPage = nextPage goBack()
       backPage must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
 
-      backPage.browser.findFirst("#anyTrips_yes").isSelected should beFalse
-      backPage.browser.findFirst("#anyTrips_no").isSelected should beTrue
+      backPage.ctx.browser.findFirst("#anyTrips_yes").isSelected should beFalse
+      backPage.ctx.browser.findFirst("#anyTrips_no").isSelected should beTrue
     }
 
   } section("integration", models.domain.AboutYou.id)
