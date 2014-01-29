@@ -3,8 +3,8 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate}
-import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, G9EmploymentPage}
-import utils.pageobjects.IterationManager
+import utils.pageobjects.s2_about_you.{G1YourDetailsPage, G1YourDetailsPageContext, G9EmploymentPage}
+import utils.pageobjects.{PageObjects, IterationManager}
 
 
 class G9EmploymentIntegrationSpec extends Specification with Tags {
@@ -35,8 +35,9 @@ class G9EmploymentIntegrationSpec extends Specification with Tags {
       findMustEqualSize("div[class=completed] ul li", 7)
     }
 
-    "fill all fields" in new WithBrowser with G1YourDetailsPageContext {
-      IterationManager.init()
+    "fill all fields" in new WithBrowser with PageObjects{
+			val page =  G1YourDetailsPage(context)
+
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
       page runClaimWith(claim, G9EmploymentPage.title)

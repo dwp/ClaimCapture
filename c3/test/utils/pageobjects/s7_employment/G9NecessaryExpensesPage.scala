@@ -1,9 +1,9 @@
 package utils.pageobjects.s7_employment
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G9NecessaryExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G9NecessaryExpensesPage.url.replace(":jobID", iteration.toString), G9NecessaryExpensesPage.title, previousPage, iteration) {
+final class G9NecessaryExpensesPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G9NecessaryExpensesPage.url.replace(":jobID", iteration.toString), G9NecessaryExpensesPage.title, iteration) {
   declareInput("#jobTitle", "EmploymentJobTitle_" + iteration)
   declareInput("#whatAreThose", "EmploymentWhatAreNecessaryJobExpenses_" + iteration)
 }
@@ -13,11 +13,11 @@ object G9NecessaryExpensesPage {
 
   val url  = "/employment/necessary-expenses/:jobID"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G9NecessaryExpensesPage(browser, previousPage, iteration)
+  def apply(ctx:PageObjectsContext, iteration: Int= 1) = new G9NecessaryExpensesPage(ctx, iteration)
 }
 
 trait G9NecessaryExpensesPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G9NecessaryExpensesPage (browser, iteration = 1)
+  val page = G9NecessaryExpensesPage (PageObjectsContext(browser), iteration = 1)
 }

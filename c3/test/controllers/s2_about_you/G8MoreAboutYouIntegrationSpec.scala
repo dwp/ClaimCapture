@@ -3,13 +3,14 @@ package controllers.s2_about_you
 import play.api.test.WithBrowser
 import org.specs2.mutable.{Tags, Specification}
 import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate}
-import utils.pageobjects.s2_about_you.{G9EmploymentPage, G8MoreAboutYouPage, G1YourDetailsPageContext, G8MoreAboutYouPageContext}
+import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
-import utils.pageobjects.IterationManager
+import utils.pageobjects.PageObjects
 
 class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
   "More About You" should {
-    "present Benefits when there is no claim date" in new WithBrowser with G8MoreAboutYouPageContext {
+    "present Benefits when there is no claim date" in new WithBrowser with PageObjects{
+			val page =  G8MoreAboutYouPage(context)
       val landingPage = page goToThePage(throwException = false)
       landingPage must beAnInstanceOf[G1BenefitsPage]
     }
@@ -19,8 +20,8 @@ class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
       titleMustEqual("Your nationality and residency - About you - the carer")
     }
 
-    "contain the completed forms" in new WithBrowser with G1YourDetailsPageContext {
-      IterationManager.init()
+    "contain the completed forms" in new WithBrowser with PageObjects{
+			val page =  G1YourDetailsPage(context)
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       page goToThePage()
 
@@ -53,8 +54,8 @@ class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
       browser.find("p[class=error]").size mustEqual 3
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with G1YourDetailsPageContext {
-      IterationManager.init()
+    "navigate to next page on valid submission" in new WithBrowser with PageObjects{
+			val page =  G1YourDetailsPage(context)
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       page goToThePage()
       page runClaimWith (claim, G9EmploymentPage.title)

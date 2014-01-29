@@ -1,9 +1,9 @@
 package utils.pageobjects.s7_employment
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G4LastWagePage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends ClaimPage(browser, G4LastWagePage.url.replace(":jobID",iteration.toString), G4LastWagePage.title, previousPage,iteration) {
+final class G4LastWagePage(ctx:PageObjectsContext, iteration:Int) extends ClaimPage(ctx, G4LastWagePage.url.replace(":jobID",iteration.toString), G4LastWagePage.title,iteration) {
   declareDate("#lastPaidDate", "EmploymentWhenWereYouLastPaid_" + iteration)
   declareInput("#grossPay", "EmploymentWhatWasTheGrossPayForTheLastPayPeriod_" + iteration)
   declareInput("#payInclusions", "EmploymentWhatWasIncludedInYourLastPay_" + iteration)
@@ -15,11 +15,11 @@ object G4LastWagePage {
 
   val url  = "/employment/last-wage/:jobID"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G4LastWagePage(browser,previousPage,iteration)
+  def apply(ctx:PageObjectsContext, iteration:Int=1) = new G4LastWagePage(ctx,iteration)
 }
 
 trait G4LastWagePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G4LastWagePage (browser,iteration = 1)
+  val page = G4LastWagePage (PageObjectsContext(browser),iteration = 1)
 }

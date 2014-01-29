@@ -1,14 +1,14 @@
 package utils.pageobjects.s10_pay_details
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
 /**
  * To change this template use Preferences | File and Code Templates.
  * @author Jorge Migueis
  *         Date: 18/07/2013
  */
-class G1HowWePayYouPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1HowWePayYouPage.url, G1HowWePayYouPage.title, previousPage) {
+class G1HowWePayYouPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1HowWePayYouPage.url, G1HowWePayYouPage.title) {
   declareRadioList("#likeToPay", "HowWePayYouHowWouldYouLikeToGetPaid")
   declareSelect("#paymentFrequency", "HowWePayYouHowOftenDoYouWantToGetPaid")
 }
@@ -23,12 +23,12 @@ object G1HowWePayYouPage {
 
   val url  = "/pay-details/how-we-pay-you"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1HowWePayYouPage(browser,previousPage)
+  def apply(ctx:PageObjectsContext) = new G1HowWePayYouPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G1HowWePayYouPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1HowWePayYouPage (browser)
+  val page = G1HowWePayYouPage (PageObjectsContext(browser))
 }

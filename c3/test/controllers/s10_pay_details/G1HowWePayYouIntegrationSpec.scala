@@ -6,6 +6,7 @@ import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s10_pay_details.{G1HowWePayYouPageContext, G1HowWePayYouPage}
 import utils.pageobjects.S11_consent_and_declaration.G1AdditionalInfoPage
+import utils.pageobjects.{PageObjects, PageObjectsContext}
 
 class G1HowWePayYouIntegrationSpec extends Specification with Tags {
   "How we pay you" should {
@@ -46,22 +47,24 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
      * This test case has been modified to be in line with the new Page Object pattern.
      * Please modify the other test cases when you address them
      */
-    "navigate back to Other Statutory Pay - About Other Money" in new WithBrowser with G1AboutOtherMoneyPageContext {
+    "navigate back to Other Statutory Pay - About Other Money" in new WithBrowser with PageObjects{
+			val page =  G1AboutOtherMoneyPage(context)
       val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage()
       page fillPageWith claim
       page submitPage()
 
-      val OtherStatutoryPage = page goToPage new G6OtherStatutoryPayPage(browser)
+      val OtherStatutoryPage = page goToPage new G6OtherStatutoryPayPage(PageObjectsContext(browser))
       OtherStatutoryPage fillPageWith claim
       OtherStatutoryPage submitPage()
 
-      val howWePayPage = OtherStatutoryPage goToPage new G1HowWePayYouPage(browser)
+      val howWePayPage = OtherStatutoryPage goToPage new G1HowWePayYouPage(PageObjectsContext(browser))
       val previousPage = howWePayPage goBack()
       previousPage must beAnInstanceOf[G6OtherStatutoryPayPage]
     }
 
-    "navigate to 'Consent And Declaration'" in new WithBrowser with G1HowWePayYouPageContext {
+    "navigate to 'Consent And Declaration'" in new WithBrowser with PageObjects{
+			val page =  G1HowWePayYouPage(context)
       val claim = ClaimScenarioFactory.s6PayDetails()
       page goToThePage()
       page fillPageWith claim

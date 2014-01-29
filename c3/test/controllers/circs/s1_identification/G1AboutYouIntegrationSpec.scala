@@ -2,9 +2,10 @@ package controllers.circs.s1_identification
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.circumstances.s1_about_you.G1AboutYouPageContext
+import utils.pageobjects.circumstances.s1_about_you.G1AboutYouPage
 import controllers.CircumstancesScenarioFactory
-import utils.pageobjects.TestData
+import utils.pageobjects.{PageObjects, TestData}
+import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
 
 
 class G1AboutYouIntegrationSpec extends Specification with Tags {
@@ -17,17 +18,20 @@ class G1AboutYouIntegrationSpec extends Specification with Tags {
     val nino = "ab123456c"
     val dateOfBirth = "05/12/1990"
 
-    "be presented" in new WithBrowser with G1AboutYouPageContext {
+    "be presented" in new WithBrowser with PageObjects {
+      val page = G1AboutYouPage(context)
       page goToThePage()
     }
 
-    "present errors if mandatory fields are not populated" in new WithBrowser with G1AboutYouPageContext {
+    "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects {
+      val page = G1AboutYouPage(context)
       page goToThePage()
-
+      println(page.submitPage().listErrors)
       page.submitPage().listErrors.size mustEqual 6
     }
 
-    "Accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutYouPageContext {
+    "Accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
+      val page = G1AboutYouPage(context)
       val claim = CircumstancesScenarioFactory.aboutDetails
       page goToThePage()
       page fillPageWith claim
@@ -36,7 +40,8 @@ class G1AboutYouIntegrationSpec extends Specification with Tags {
     }
 
     "contain errors on invalid submission" in {
-      "missing title field" in new WithBrowser with G1AboutYouPageContext {
+      "missing title field" in new WithBrowser with PageObjects {
+        val page = G1AboutYouPage(context)
         val claim = new TestData
         claim.CircumstancesAboutYouFirstName = firstName
         claim.CircumstancesAboutYouMiddleName = middelName
@@ -52,7 +57,8 @@ class G1AboutYouIntegrationSpec extends Specification with Tags {
         errors(0) must contain("Title - This is required")
       }
 
-      "missing firstName field" in new WithBrowser with G1AboutYouPageContext {
+      "missing firstName field" in new WithBrowser with PageObjects {
+        val page = G1AboutYouPage(context)
         val claim = new TestData
         claim.CircumstancesAboutYouTitle = title
         claim.CircumstancesAboutYouMiddleName = middelName
@@ -68,7 +74,8 @@ class G1AboutYouIntegrationSpec extends Specification with Tags {
         errors(0) must contain("First name - This is required")
       }
 
-      "missing lastName field" in new WithBrowser with G1AboutYouPageContext {
+      "missing lastName field" in new WithBrowser with PageObjects {
+        val page = G1AboutYouPage(context)
         val claim = new TestData
         claim.CircumstancesAboutYouTitle = title
         claim.CircumstancesAboutYouFirstName = firstName
@@ -84,7 +91,8 @@ class G1AboutYouIntegrationSpec extends Specification with Tags {
         errors(0) must contain("Last name - This is required")
       }
 
-      "missing nino field" in new WithBrowser with G1AboutYouPageContext {
+      "missing nino field" in new WithBrowser with PageObjects {
+        val page = G1AboutYouPage(context)
         val claim = new TestData
         claim.CircumstancesAboutYouTitle = title
         claim.CircumstancesAboutYouFirstName = firstName
@@ -100,7 +108,8 @@ class G1AboutYouIntegrationSpec extends Specification with Tags {
         errors(0) must contain("National Insurance number - This is required")
       }
 
-      "invalid nino containing numbers" in new WithBrowser with G1AboutYouPageContext {
+      "invalid nino containing numbers" in new WithBrowser with PageObjects {
+        val page = G1AboutYouPage(context)
         val claim = new TestData
         claim.CircumstancesAboutYouTitle = title
         claim.CircumstancesAboutYouFirstName = firstName
@@ -117,7 +126,8 @@ class G1AboutYouIntegrationSpec extends Specification with Tags {
         errors(0) must contain("National Insurance number - A National insurance number must be in the format VO 12 34 56 D")
       }
 
-      "missing dateOfBirth field" in new WithBrowser with G1AboutYouPageContext {
+      "missing dateOfBirth field" in new WithBrowser with PageObjects {
+        val page = G1AboutYouPage(context)
         val claim = new TestData
         claim.CircumstancesAboutYouTitle = title
         claim.CircumstancesAboutYouFirstName = firstName

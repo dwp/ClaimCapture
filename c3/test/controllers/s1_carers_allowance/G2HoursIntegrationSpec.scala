@@ -2,20 +2,19 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.TestData
-import utils.pageobjects.s1_carers_allowance.G2HoursPageContext
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.s1_carers_allowance.G2HoursPage
-import utils.pageobjects.s1_carers_allowance.G3Over16Page
+import utils.pageobjects.{PageObjects, TestData}
+import utils.pageobjects.s1_carers_allowance._
 
 class G2HoursIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {
-    "be presented" in new WithBrowser with G2HoursPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G2HoursPage(context)
       page goToThePage ()
     }
 
     "contain errors on invalid submission" in {
-      "missing mandatory field" in new WithBrowser with G2HoursPageContext {
+      "missing mandatory field" in new WithBrowser with PageObjects{
+			val page =  G2HoursPage(context)
         val claim = new TestData
         claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = ""
         page goToThePage()
@@ -25,7 +24,8 @@ class G2HoursIntegrationSpec extends Specification with Tags {
       }
     }
     
-    "accept submit if all mandatory fields are populated" in new WithBrowser with G2HoursPageContext {
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+			val page =  G2HoursPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
       page goToThePage()
@@ -33,7 +33,8 @@ class G2HoursIntegrationSpec extends Specification with Tags {
       page submitPage()
     }
     
-    "navigate to next page on valid submission" in new WithBrowser with G2HoursPageContext {
+    "navigate to next page on valid submission" in new WithBrowser with PageObjects{
+			val page =  G2HoursPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
       page goToThePage()
@@ -44,7 +45,8 @@ class G2HoursIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G3Over16Page]
     }
     
-    "contain the completed forms" in new WithBrowser with G1BenefitsPageContext {
+    "contain the completed forms" in new WithBrowser with PageObjects{
+			val page =  G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
       page goToThePage()
