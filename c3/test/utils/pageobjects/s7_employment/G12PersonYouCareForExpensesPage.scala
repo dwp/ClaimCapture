@@ -17,7 +17,7 @@ object G12PersonYouCareForExpensesPage {
 
   val url  = "/employment/person-you-care-for-expenses/:jobID"
 
-  def apply(ctx:PageObjectsContext, iteration: Int) = new G12PersonYouCareForExpensesPage(ctx,iteration)
+  def apply(ctx:PageObjectsContext, iteration: Int= 1) = new G12PersonYouCareForExpensesPage(ctx,iteration)
 }
 
 trait G12PersonYouCareForExpensesPageContext extends PageContext {

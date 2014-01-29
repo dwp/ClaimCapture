@@ -16,7 +16,7 @@ object G5AbroadForMoreThan52WeeksPage {
 
   val url  = "/about-you/abroad-for-more-than-52-weeks"
 
-  def apply(ctx:PageObjectsContext, iteration:Int) = new G5AbroadForMoreThan52WeeksPage(ctx,iteration)
+  def apply(ctx:PageObjectsContext, iteration:Int=1) = new G5AbroadForMoreThan52WeeksPage(ctx,iteration)
 }
 
 /** The context for Specs tests */

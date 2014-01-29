@@ -16,7 +16,7 @@ object G10BreaksInCarePage {
 
   val url  = "/care-you-provide/breaks-in-care"
 
-  def apply(ctx:PageObjectsContext, iteration:Int) = new G10BreaksInCarePage(ctx,iteration)
+  def apply(ctx:PageObjectsContext, iteration:Int=1) = new G10BreaksInCarePage(ctx,iteration)
 }
 
 /** The context for Specs tests */

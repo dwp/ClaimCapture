@@ -32,7 +32,7 @@ object G6TripPage {
 
   val url = "/about-you/trip/52-weeks"
 
-  def apply(ctx:PageObjectsContext, iteration: Int) = new G6TripPage(ctx, iteration)
+  def apply(ctx:PageObjectsContext, iteration: Int=1) = new G6TripPage(ctx, iteration)
 }
 
 /** The context for Specs tests */

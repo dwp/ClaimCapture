@@ -12,7 +12,7 @@ object G1BeenEmployedPage {
 
   val url  = "/employment/been-employed"
 
-  def apply(ctx:PageObjectsContext, iteration:Int) = new G1BeenEmployedPage(ctx,iteration)
+  def apply(ctx:PageObjectsContext, iteration:Int=1) = new G1BeenEmployedPage(ctx,iteration)
 }
 
 trait G1BeenEmployedPageContext extends PageContext {

@@ -18,7 +18,7 @@ object G2JobDetailsPage {
 
   val url  = "/employment/job-details/:jobID"
 
-  def apply(ctx:PageObjectsContext, iteration:Int) = new G2JobDetailsPage(ctx, iteration)
+  def apply(ctx:PageObjectsContext, iteration:Int=1) = new G2JobDetailsPage(ctx, iteration)
 }
 
 trait G2JobDetailsPageContext extends PageContext {

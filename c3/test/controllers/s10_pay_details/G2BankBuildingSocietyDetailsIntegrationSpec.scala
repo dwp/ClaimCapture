@@ -3,11 +3,11 @@ package controllers.s10_pay_details
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
-import utils.pageobjects.s10_pay_details.{G2BankBuildingSocietyDetailsPage, G1HowWePayYouPageContext}
+import utils.pageobjects.s10_pay_details.{G1HowWePayYouPage, G2BankBuildingSocietyDetailsPage, G1HowWePayYouPageContext}
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.S11_consent_and_declaration.G1AdditionalInfoPage
 import app.AccountStatus
-import utils.pageobjects.PageObjectsContext
+import utils.pageobjects.{PageObjects, PageObjectsContext}
 
 class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tags {
   "Bank building society details" should {
@@ -33,7 +33,8 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("How would you like to get paid? - How we pay you")
     }
 
-    "navigate to 'Consent And Declaration'" in new WithBrowser with G1HowWePayYouPageContext {
+    "navigate to 'Consent And Declaration'" in new WithBrowser with PageObjects{
+			val page =  G1HowWePayYouPage(context)
       val claim = ClaimScenarioFactory.s6PayDetails()
       claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.BankBuildingAccount.name
       page goToThePage ()
@@ -47,7 +48,8 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       nextPage must beAnInstanceOf[G1AdditionalInfoPage]
     }
 
-    "be hidden when having state pension" in new WithBrowser with G2ContactDetailsPageContext {
+    "be hidden when having state pension" in new WithBrowser with PageObjects{
+			val page =  G2ContactDetailsPage(context)
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
 

@@ -15,7 +15,7 @@ object G5AdditionalWageDetailsPage {
 
   val url  = "/employment/additional-wage-details/:jobID"
 
-  def apply(ctx:PageObjectsContext, iteration: Int) = new G5AdditionalWageDetailsPage(ctx, iteration)
+  def apply(ctx:PageObjectsContext, iteration: Int = 1) = new G5AdditionalWageDetailsPage(ctx, iteration)
 }
 
 trait G5AdditionalWageDetailsPageContext extends PageContext {

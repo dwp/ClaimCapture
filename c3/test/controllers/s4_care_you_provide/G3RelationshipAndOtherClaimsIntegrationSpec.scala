@@ -3,7 +3,7 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{ Tags, Specification }
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import utils.pageobjects.TestData
+import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s4_care_you_provide.{G3RelationshipAndOtherClaimsPageContext, G3RelationshipAndOtherClaimsPage}
 
 class G3RelationshipAndOtherClaimsIntegrationSpec extends Specification with Tags {
@@ -41,7 +41,8 @@ class G3RelationshipAndOtherClaimsIntegrationSpec extends Specification with Tag
       titleMustEqual("More about the care you provide - About the care you provide")
     }
 
-    "do NOT default relationship dropdown if person you care for is NOT your partner" in new WithBrowser with G3RelationshipAndOtherClaimsPageContext {
+    "do NOT default relationship dropdown if person you care for is NOT your partner" in new WithBrowser with PageObjects{
+			val page =  G3RelationshipAndOtherClaimsPage(context)
       page goToThePage ()
       page must beAnInstanceOf[G3RelationshipAndOtherClaimsPage]
 

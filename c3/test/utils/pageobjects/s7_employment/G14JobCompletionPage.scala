@@ -15,7 +15,7 @@ object G14JobCompletionPage {
 
   val url  = "/employment/job-completion/:jobID"
 
-  def apply(ctx:PageObjectsContext, iteration: Int) = new G14JobCompletionPage(ctx,iteration)
+  def apply(ctx:PageObjectsContext, iteration: Int= 1) = new G14JobCompletionPage(ctx,iteration)
 }
 
 trait G14JobCompletionPageContext extends PageContext {

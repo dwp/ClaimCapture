@@ -15,7 +15,7 @@ object G4LastWagePage {
 
   val url  = "/employment/last-wage/:jobID"
 
-  def apply(ctx:PageObjectsContext, iteration:Int) = new G4LastWagePage(ctx,iteration)
+  def apply(ctx:PageObjectsContext, iteration:Int=1) = new G4LastWagePage(ctx,iteration)
 }
 
 trait G4LastWagePageContext extends PageContext {

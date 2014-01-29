@@ -6,33 +6,38 @@ import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, WithBrowserHelper}
 import utils.pageobjects.s2_about_you.{G6TripPage, G6TripPageContext, G5AbroadForMoreThan52WeeksPage, G5AbroadForMoreThan52WeeksPageContext}
 import play.api.i18n.Messages
-import utils.pageobjects.{PageObjectsContext, IterationManager}
+import utils.pageobjects.{PageObjects, PageObjectsContext, IterationManager}
 
 class G6TripIntegrationSpec extends Specification with Tags {
   "52 weeks trip" should {
-    "be presented" in new WithBrowser with WithBrowserHelper with G6TripPageContext {
+    "be presented" in new WithBrowser with WithBrowserHelper with PageObjects{
+			val page = G6TripPage(context)
       page goToThePage()
     }
 
-    "contain errors on invalid submission" in new WithBrowser with G6TripPageContext {
+    "contain errors on invalid submission" in new WithBrowser with PageObjects{
+			val page =  G6TripPage(context)
       page goToThePage()
       val nextPage = page submitPage()
 
       nextPage must beAnInstanceOf[G6TripPage]
     }
 
-    "be submitted with all mandatory data" in new WithBrowser with G6TripPageContext {
+    "be submitted with all mandatory data" in new WithBrowser with PageObjects {
+        val page = G6TripPage(context)
 
-      val claim = ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
-      page goToThePage()
-      page fillPageWith claim
+        val claim = ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
+        page goToThePage()
+        page fillPageWith claim
 
-      val nextPage = page submitPage()
+        val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
+        nextPage must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
+
     }
     
-    "show 2 trips in trips table" in new WithBrowser with G6TripPageContext {
+    "show 2 trips in trips table" in new WithBrowser with PageObjects{
+			val page =  G6TripPage(context)
 
       page goToThePage()
       page fillPageWith ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
@@ -49,10 +54,11 @@ class G6TripIntegrationSpec extends Specification with Tags {
       val nextPage2 = page2 submitPage()
 
       nextPage2 must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
-      nextPage2.iteration must beEqualTo(3)
+      nextPage2.iteration must beEqualTo(2)
     }
 
-    "show zero trips after creating one and then deleting" in new WithBrowser with G6TripPageContext {
+    "show zero trips after creating one and then deleting" in new WithBrowser with PageObjects{
+			val page =  G6TripPage(context)
       pending
 //      page goToThePage()
 //      page fillPageWith ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
@@ -92,7 +98,8 @@ class G6TripIntegrationSpec extends Specification with Tags {
 
 
 
-    "add trip and edit it" in new WithBrowser with G6TripPageContext {
+    "add trip and edit it" in new WithBrowser with PageObjects{
+			val page =  G6TripPage(context)
 
       val claim = ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
       page goToThePage()
@@ -107,7 +114,8 @@ class G6TripIntegrationSpec extends Specification with Tags {
       nextPage.ctx.browser.pageSource() must contain(Messages("where"))
     }
 
-    "go to 'abroad for more than 52 weeks' page then 'trips' page and then click back" in new WithBrowser with G5AbroadForMoreThan52WeeksPageContext {
+    "go to 'abroad for more than 52 weeks' page then 'trips' page and then click back" in new WithBrowser with PageObjects{
+			val page =  G5AbroadForMoreThan52WeeksPage(context)
       val claim = ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationYes()
       page goToThePage()
       page fillPageWith claim

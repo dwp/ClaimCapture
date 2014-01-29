@@ -14,7 +14,7 @@ object G3EmployerContactDetailsPage {
 
   val url  = "/employment/employers-contact-details/:jobID"
 
-  def apply(ctx:PageObjectsContext, iteration:Int) = new G3EmployerContactDetailsPage(ctx,iteration)
+  def apply(ctx:PageObjectsContext, iteration:Int=1) = new G3EmployerContactDetailsPage(ctx,iteration)
 }
 
 trait G3EmployerContactDetailsPageContext extends PageContext {

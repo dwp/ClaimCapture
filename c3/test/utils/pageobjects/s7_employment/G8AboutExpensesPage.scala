@@ -14,7 +14,7 @@ object G8AboutExpensesPage {
 
   val url  = "/employment/about-expenses/:jobID"
 
-  def apply(ctx:PageObjectsContext, iteration: Int) = new G8AboutExpensesPage(ctx,iteration)
+  def apply(ctx:PageObjectsContext, iteration: Int= 1) = new G8AboutExpensesPage(ctx,iteration)
 }
 
 trait G8AboutExpensesPageContext extends PageContext {

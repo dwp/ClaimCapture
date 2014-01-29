@@ -13,7 +13,7 @@ object G9NecessaryExpensesPage {
 
   val url  = "/employment/necessary-expenses/:jobID"
 
-  def apply(ctx:PageObjectsContext, iteration: Int) = new G9NecessaryExpensesPage(ctx, iteration)
+  def apply(ctx:PageObjectsContext, iteration: Int= 1) = new G9NecessaryExpensesPage(ctx, iteration)
 }
 
 trait G9NecessaryExpensesPageContext extends PageContext {

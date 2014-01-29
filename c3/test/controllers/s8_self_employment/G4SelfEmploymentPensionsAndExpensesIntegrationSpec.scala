@@ -3,7 +3,7 @@ package controllers.s8_self_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment.{G4SelfEmploymentPensionsAndExpensesPage, G4SelfEmploymentPensionsAndExpensesPageContext}
-import utils.pageobjects.TestData
+import utils.pageobjects.{PageObjects, TestData}
 import controllers.{Formulate, ClaimScenarioFactory}
 import utils.pageobjects.s2_about_you.{G9EmploymentPage, G3ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
@@ -12,12 +12,14 @@ import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 class G4SelfEmploymentPensionsAndExpensesIntegrationSpec extends Specification with Tags {
 
   "About Self Employment" should {
-    "be presented" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G4SelfEmploymentPensionsAndExpensesPage(context)
       page goToThePage()
     }
 
     "contain errors on invalid submission" in {
-      "missing mandatory field" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext {
+      "missing mandatory field" in new WithBrowser with PageObjects{
+			val page =  G4SelfEmploymentPensionsAndExpensesPage(context)
         val claim = new TestData
         page goToThePage()
         val pageWithErrors = page.submitPage()
@@ -25,14 +27,16 @@ class G4SelfEmploymentPensionsAndExpensesIntegrationSpec extends Specification w
       }
     }
 
-    "accept submit if all mandatory fields are populated" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext {
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+			val page =  G4SelfEmploymentPensionsAndExpensesPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       page goToThePage()
       page fillPageWith claim
       page submitPage()
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext {
+    "navigate to next page on valid submission" in new WithBrowser with PageObjects{
+			val page =  G4SelfEmploymentPensionsAndExpensesPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       page goToThePage()
       page fillPageWith claim

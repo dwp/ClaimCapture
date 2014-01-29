@@ -2,16 +2,14 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.TestData
+import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s2_about_you.G1YourDetailsPage
-import utils.pageobjects.s1_carers_allowance.G6ApprovePageContext
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.s1_carers_allowance.G6ApprovePage
-import utils.pageobjects.s1_carers_allowance.G4LivesInGBPage
+import utils.pageobjects.s1_carers_allowance._
 
 class G5ApproveIntegrationSpec extends Specification with Tags {
   "Approve" should {
-    "be presented" in new WithBrowser with G6ApprovePageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G6ApprovePage(context)
       page goToThePage()
     }
   } section("integration",models.domain.CarersAllowance.id)
@@ -19,7 +17,8 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
   "Carer's Allowance" should {
     val notRightPage: String = "Next Page is not of the right type."
 
-    "be approved" in new WithBrowser with G1BenefitsPageContext {
+    "be approved" in new WithBrowser with PageObjects{
+			val page =  G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
@@ -44,7 +43,8 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "be declined" in new WithBrowser with G1BenefitsPageContext {
+    "be declined" in new WithBrowser with PageObjects{
+			val page =  G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
@@ -62,7 +62,8 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "navigate to next section" in new WithBrowser with G1BenefitsPageContext {
+    "navigate to next section" in new WithBrowser with PageObjects{
+			val page =  G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
@@ -72,7 +73,8 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       page runClaimWith (claim, G1YourDetailsPage.title)
     }
 
-    "contain the completed forms" in new WithBrowser with G1BenefitsPageContext {
+    "contain the completed forms" in new WithBrowser with PageObjects{
+			val page =  G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"

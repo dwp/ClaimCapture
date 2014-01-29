@@ -19,7 +19,7 @@ object G7PensionSchemesPage {
 
   val url  = "/employment/pension-schemes/:jobID"
 
-  def apply(ctx:PageObjectsContext, iteration: Int) = new G7PensionSchemesPage(ctx,iteration)
+  def apply(ctx:PageObjectsContext, iteration: Int= 1) = new G7PensionSchemesPage(ctx,iteration)
 }
 
 trait G7PensionSchemesPageContext extends PageContext {

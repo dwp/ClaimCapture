@@ -33,7 +33,7 @@ object G11BreakPage {
 
   val url  = "/care-you-provide/break"
 
-  def apply(ctx:PageObjectsContext, iteration:Int) = new G11BreakPage(ctx,iteration)
+  def apply(ctx:PageObjectsContext, iteration:Int=1) = new G11BreakPage(ctx,iteration)
 }
 
 /** The context for Specs tests */

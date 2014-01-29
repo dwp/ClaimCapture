@@ -6,7 +6,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s8_self_employment.G9CompletedPageContext
 import utils.pageobjects.s8_self_employment.G9CompletedPage
-import utils.pageobjects.TestData
+import utils.pageobjects.{PageObjects, TestData}
 
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
@@ -41,16 +41,19 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       titleMustEqual("Statutory Sick Pay - About Other Money")
     }
 
-    "be presented" in new WithBrowser with G1AboutOtherMoneyPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G1AboutOtherMoneyPage(context)
       page goToThePage ()
     }
 
-    "present errors if mandatory fields are not populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
+    "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{
+			val page =  G1AboutOtherMoneyPage(context)
       page goToThePage ()
       page.submitPage().listErrors.size mustEqual 2
     }
 
-    "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+			val page =  G1AboutOtherMoneyPage(context)
       val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage ()
       page fillPageWith claim
@@ -60,7 +63,8 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G5StatutorySickPayPage]
     }
 
-    "navigate to next page on valid submission with other field selected" in new WithBrowser with G1AboutOtherMoneyPageContext {
+    "navigate to next page on valid submission with other field selected" in new WithBrowser with PageObjects {
+      val page = G1AboutOtherMoneyPage(context)
       val claim = ClaimScenarioFactory.s9otherMoney
       claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
       claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
@@ -77,7 +81,8 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
     }
 
     "contain errors on invalid submission" in {
-      "mandatory fields empty" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      "mandatory fields empty" in new WithBrowser with PageObjects{
+			val page =  G1AboutOtherMoneyPage(context)
         val claim = new TestData
         page goToThePage ()
         page fillPageWith claim
@@ -85,7 +90,8 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
         pageWithErrors.listErrors.size mustEqual 2
       }
 
-      "howOften frequency of other with no other text entered" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      "howOften frequency of other with no other text entered" in new WithBrowser with PageObjects {
+        val page = G1AboutOtherMoneyPage(context)
         val claim = new TestData
         claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
         claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
@@ -102,7 +108,8 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       }
     }
     
-    "navigate back to previous section" in new WithBrowser with G9CompletedPageContext {
+    "navigate back to previous section" in new WithBrowser with PageObjects{
+			val page =  G9CompletedPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
       page must beAnInstanceOf[G9CompletedPage]

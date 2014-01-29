@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.{PageObjectsContext, TestData}
+import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
 import utils.pageobjects.s9_other_money._
 import play.api.test.WithBrowser
 import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
@@ -12,12 +12,14 @@ import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
 class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
 
   "Other Statutory Pay - About Other Money" should {
-    "be presented" in new WithBrowser with G6OtherStatutoryPayPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G6OtherStatutoryPayPage(context)
       page goToThePage ()
     }
 
     "contain errors on invalid submission" in {
-      "had sick pay but missing mandatory field" in new WithBrowser with G6OtherStatutoryPayPageContext {
+      "had sick pay but missing mandatory field" in new WithBrowser with PageObjects{
+			val page =  G6OtherStatutoryPayPage(context)
         val claim = new TestData
         claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
         page goToThePage ()
@@ -26,7 +28,8 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
         pageWithErrors.listErrors.size mustEqual 1
       }
 
-      "howOften frequency of other with no other text entered" in new WithBrowser with G6OtherStatutoryPayPageContext {
+      "howOften frequency of other with no other text entered" in new WithBrowser with PageObjects {
+        val page = G6OtherStatutoryPayPage(context)
         val claim = new TestData
         claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
         claim.OtherMoneySMPEmployerName = "Employers Name"
@@ -42,7 +45,8 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "contain the completed forms" in new WithBrowser with G5StatutorySickPayPageContext {
+    "contain the completed forms" in new WithBrowser with PageObjects{
+			val page =  G5StatutorySickPayPage(context)
       val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage ()
       page fillPageWith claim
@@ -50,7 +54,8 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
       otherStatutoryPayPage.listCompletedForms.size mustEqual 1
     }
 
-    "navigate back to previous page" in new WithBrowser with G5StatutorySickPayPageContext {
+    "navigate back to previous page" in new WithBrowser with PageObjects{
+			val page =  G5StatutorySickPayPage(context)
       val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage ()
       page fillPageWith claim
@@ -60,7 +65,8 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
       nextPage.goBack() must beAnInstanceOf[G5StatutorySickPayPage]
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with G6OtherStatutoryPayPageContext {
+    "navigate to next page on valid submission" in new WithBrowser with PageObjects{
+			val page =  G6OtherStatutoryPayPage(context)
       val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage ()
       page fillPageWith claim
@@ -70,7 +76,8 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
       nextPage must not(beAnInstanceOf[G6OtherStatutoryPayPage])
     }
 
-    "navigate to next page on valid submission with other field selected" in new WithBrowser with G6OtherStatutoryPayPageContext {
+    "navigate to next page on valid submission with other field selected" in new WithBrowser with PageObjects {
+      val page = G6OtherStatutoryPayPage(context)
       val claim = new TestData
       claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
       claim.OtherMoneySMPEmployerName = "Employers Name"
@@ -85,7 +92,8 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
       nextPage must not(beAnInstanceOf[G6OtherStatutoryPayPage])
     }
 
-    "navigate to the Pay Details on clicking next" in new WithBrowser with G1AboutOtherMoneyPageContext {
+    "navigate to the Pay Details on clicking next" in new WithBrowser with PageObjects{
+			val page =  G1AboutOtherMoneyPage(context)
       val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage()
       page fillPageWith claim

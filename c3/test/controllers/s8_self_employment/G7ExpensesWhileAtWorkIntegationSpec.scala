@@ -7,12 +7,13 @@ import controllers.{Formulate, ClaimScenarioFactory}
 import utils.pageobjects.s2_about_you.{G3ClaimDatePage, G9EmploymentPage, G3ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
-import utils.pageobjects.{PageObjectsContext, IterationManager}
+import utils.pageobjects.{PageObjects, PageObjectsContext, IterationManager}
 
 class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
 
   "Expenses related to the Person you care for while at work" should {
-    "be presented" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G7ExpensesWhileAtWorkPage(context)
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(PageObjectsContext(browser))
       pagePensionAndExpenses goToThePage()
@@ -22,7 +23,8 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       page goToThePage()
     }
 
-    "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
+    "not be presented if section not visible" in new WithBrowser with PageObjects{
+			val page =  G3ClaimDatePage(context)
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
       Formulate.claimDate(browser)
@@ -38,7 +40,8 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
 
-    "contain the completed forms" in new WithBrowser with G1AboutSelfEmploymentPageContext {
+    "contain the completed forms" in new WithBrowser with PageObjects{
+			val page =  G1AboutSelfEmploymentPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmployment
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
@@ -54,7 +57,8 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       g7.listCompletedForms.size mustEqual 2
     }
 
-    "contain errors on invalid submission missing mandatory field" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
+    "contain errors on invalid submission missing mandatory field" in new WithBrowser with PageObjects{
+			val page =  G7ExpensesWhileAtWorkPage(context)
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val pageClaimDate = new G3ClaimDatePage(PageObjectsContext(browser))
       pageClaimDate goToThePage()
@@ -85,7 +89,8 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       pageWithErrors.listErrors(0).contains("nameOfPerson")
     }
 
-    "navigate back to previous page" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext {
+    "navigate back to previous page" in new WithBrowser with PageObjects{
+			val page =  G4SelfEmploymentPensionsAndExpensesPage(context)
       /*      val claim = ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
 
             page goToThePage()
@@ -134,7 +139,8 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       g7.goBack() must beAnInstanceOf[G5ChildcareExpensesWhileAtWorkPage]
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
+    "navigate to next page on valid submission" in new WithBrowser with PageObjects{
+			val page =  G7ExpensesWhileAtWorkPage(context)
 
       val pageClaimDate = new G3ClaimDatePage(PageObjectsContext(browser))
       pageClaimDate goToThePage()
