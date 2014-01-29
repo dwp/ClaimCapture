@@ -11,15 +11,15 @@
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 
-@main(Messages("s7.g5") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.AdditionalWageDetails, JobID(currentForm))) {
+@main(Messages("s7.g6") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.AdditionalWageDetails, JobID(currentForm))) {
 
 
 
-    @form(action = controllers.s7_employment.routes.G5AdditionalWageDetails.submit()) {
+    @form(action = controllers.s7_employment.routes.G6AdditionalWageDetails.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
-            <legend>@Messages("s7.g5")</legend>
+            <legend>@Messages("s7.g6")</legend>
 
             <ul>
                 @paymentFrequencySelect(currentForm("oftenGetPaid"),

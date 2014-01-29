@@ -8,11 +8,11 @@ import play.api.cache.Cache
 import models.domain.Claim
 import models.view.CachedClaim
 
-class G5AdditionalWageDetailsSpec extends Specification with Tags {
+class G6AdditionalWageDetailsSpec extends Specification with Tags {
   "Additional wage details" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFlash("jobID" -> "")
-      val result = G5AdditionalWageDetails.present("Dummy job ID")(request)
+      val result = G6AdditionalWageDetails.present("Dummy job ID")(request)
       status(result) mustEqual OK
     }
 
@@ -20,7 +20,7 @@ class G5AdditionalWageDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("jobID" -> "1", "employerOwesYouMoney" -> "no", "oftenGetPaid.frequency" -> "Weekly")
 
-      val result = G5AdditionalWageDetails.submit(request)
+      val result = G6AdditionalWageDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -36,7 +36,7 @@ class G5AdditionalWageDetailsSpec extends Specification with Tags {
         "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "no"))
 
-      val result = G5AdditionalWageDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result = G6AdditionalWageDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
                     .withFormUrlEncodedBody("jobID" -> "1", "employerOwesYouMoney" -> "no", "oftenGetPaid.frequency" -> "Weekly"))
 
       status(result) mustEqual SEE_OTHER

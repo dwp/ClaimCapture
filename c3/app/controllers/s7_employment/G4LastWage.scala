@@ -27,6 +27,6 @@ object G4LastWage extends Controller with CachedClaim with Navigable {
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g4_lastWage(formWithErrors)),
-      lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G5AdditionalWageDetails.present(jobID)))
+      lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G6AdditionalWageDetails.present(jobID)))
   }
 }

@@ -13,7 +13,7 @@ import controllers.CarersForms._
 import utils.helpers.PastPresentLabelHelper._
 
 
-object G5AdditionalWageDetails extends Controller with CachedClaim with Navigable {
+object G6AdditionalWageDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "oftenGetPaid" -> (mandatoryPaymentFrequency verifying validPaymentFrequencyOnly),
@@ -22,7 +22,7 @@ object G5AdditionalWageDetails extends Controller with CachedClaim with Navigabl
   )(AdditionalWageDetails.apply)(AdditionalWageDetails.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
-    track(AdditionalWageDetails) { implicit claim => Ok(views.html.s7_employment.g5_additionalWageDetails(form.fillWithJobID(AdditionalWageDetails, jobID))) }
+    track(AdditionalWageDetails) { implicit claim => Ok(views.html.s7_employment.g6_additionalWageDetails(form.fillWithJobID(AdditionalWageDetails, jobID))) }
   }
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
@@ -32,7 +32,7 @@ object G5AdditionalWageDetails extends Controller with CachedClaim with Navigabl
           .replaceError("oftenGetPaid.frequency.other","error.maxLength",FormError("oftenGetPaid","error.maxLength"))
           .replaceError("oftenGetPaid.frequency","error.required",FormError("oftenGetPaid","error.required"))
           .replaceError("whenGetPaid","error.restricted.characters", FormError("whenGetPaid","error.restricted.characters", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, jobID))))
-        BadRequest(views.html.s7_employment.g5_additionalWageDetails(newForm))
+        BadRequest(views.html.s7_employment.g6_additionalWageDetails(newForm))
       },
       wageDetails => claim.update(jobs.update(wageDetails)) -> Redirect(routes.G7PensionSchemes.present(jobID)))
   }

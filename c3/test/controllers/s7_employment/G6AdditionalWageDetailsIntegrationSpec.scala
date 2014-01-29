@@ -5,13 +5,13 @@ import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
 
-class G5AdditionalWageDetailsIntegrationSpec extends Specification with Tags {
+class G6AdditionalWageDetailsIntegrationSpec extends Specification with Tags {
   "Additional wage details" should {
-    "be presented" in new WithBrowser with G5AdditionalWageDetailsPageContext {
+    "be presented" in new WithBrowser with G6AdditionalWageDetailsPageContext {
       page goToThePage()
     }
 
-    "contain 1 completed form" in new WithBrowser with G5AdditionalWageDetailsPageContext {
+    "contain 1 completed form" in new WithBrowser with G6AdditionalWageDetailsPageContext {
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim
