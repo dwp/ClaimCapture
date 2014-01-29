@@ -36,11 +36,3 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
   } section "functional"
 }
 
-
-trait PageObjects extends Scope {
-  this: WithBrowser[_] =>
-
-  val context = PageObjectsContext(browser)
-
-}
-
