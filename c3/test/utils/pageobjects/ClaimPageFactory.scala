@@ -121,7 +121,7 @@ object IterationManager{
     if (iterationBlocks.exists(_._1 == section)){
       iterationBlocks(section)
     }else{
-      0
+      1
     }
   }
 
@@ -134,7 +134,7 @@ object IterationManager{
       iterationBlocks = iterationBlocks.filterNot(_._1 == section) ++ Map(section -> (iterationBlocks(section)+1))
       apply(section)
     }else{
-      0
+      1
     }
   }
 }

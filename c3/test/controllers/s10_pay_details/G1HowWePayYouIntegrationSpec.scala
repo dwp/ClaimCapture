@@ -4,7 +4,8 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s9_other_money._
-import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
+import utils.pageobjects.s10_pay_details.{G1HowWePayYouPageContext, G1HowWePayYouPage}
+import utils.pageobjects.S11_consent_and_declaration.G1AdditionalInfoPage
 
 class G1HowWePayYouIntegrationSpec extends Specification with Tags {
   "How we pay you" should {
@@ -59,9 +60,14 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       previousPage must beAnInstanceOf[G6OtherStatutoryPayPage]
     }
 
-    "contain the completed forms" in new WithBrowser with BrowserMatchers {
-      Formulate.howWePayYou(browser)
-      findMustEqualSize("div[class=completed] ul li", 1)
+    "navigate to 'Consent And Declaration'" in new WithBrowser with G1HowWePayYouPageContext {
+      val claim = ClaimScenarioFactory.s6PayDetails()
+      page goToThePage()
+      page fillPageWith claim
+      val nextPage = page submitPage()
+
+      nextPage must beAnInstanceOf[G1AdditionalInfoPage]
     }
+
   } section("integration", models.domain.PayDetails.id)
 }

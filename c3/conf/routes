@@ -192,9 +192,6 @@ POST          /pay-details/how-we-pay-you                                       
 GET           /pay-details/bank-building-society-details                              controllers.s10_pay_details.G2BankBuildingSocietyDetails.present
 POST          /pay-details/bank-building-society-details                              controllers.s10_pay_details.G2BankBuildingSocietyDetails.submit
 
-GET           /pay-details/completed                                                  controllers.s10_pay_details.PayDetails.completed
-POST          /pay-details/completed                                                  controllers.s10_pay_details.PayDetails.completedSubmit
-
 # Consent and declaration
 ###############
 GET           /consent-and-declaration/additional-info                                controllers.s11_consent_and_declaration.G1AdditionalInfo.present

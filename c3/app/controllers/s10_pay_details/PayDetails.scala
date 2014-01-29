@@ -5,15 +5,8 @@ import models.view.{Navigable, CachedClaim}
 import models.domain.Claim
 
 object PayDetails extends Controller with CachedClaim with Navigable {
-  def completed = claiming { implicit claim => implicit request =>
-    presentConditionally {
-      track(models.domain.PayDetails) { implicit claim => Ok(views.html.s10_pay_details.g3_completed()) }
-    }
-  }
 
-  def completedSubmit = claiming { implicit claim => implicit request =>
-    redirect
-  }
+  val redirectPath = Redirect(controllers.s11_consent_and_declaration.routes.G1AdditionalInfo.present)
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     if (models.domain.PayDetails.visible) c
@@ -21,5 +14,5 @@ object PayDetails extends Controller with CachedClaim with Navigable {
   }
 
   def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
-    claim -> Redirect("/consent-and-declaration/additional-info")
+    claim -> redirectPath
 }
