@@ -3,7 +3,7 @@ package utils.pageobjects.s7_employment
 import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G2JobDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G2JobDetailsPage.url.replace(":jobID", iteration.toString), G2JobDetailsPage.title, previousPage, iteration) {
+final class G3JobDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G3JobDetailsPage.url.replace(":jobID", iteration.toString), G3JobDetailsPage.title, previousPage, iteration) {
   declareInput("#employerName", "EmploymentEmployerName_" + iteration)
   declareDate("#jobStartDate", "EmploymentWhenDidYouStartYourJob_" + iteration)
   declareYesNo("#finishedThisJob", "EmploymentHaveYouFinishedThisJob_" + iteration)
@@ -13,16 +13,16 @@ final class G2JobDetailsPage(browser: TestBrowser, previousPage: Option[Page] = 
   declareInput("#payrollEmployeeNumber", "EmploymentPayrollOrEmployeeNumber_" + iteration)
 }
 
-object G2JobDetailsPage {
+object G3JobDetailsPage {
   val title = "Your job - Employment History".toLowerCase
 
   val url  = "/employment/job-details/:jobID"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G2JobDetailsPage(browser, previousPage, iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G3JobDetailsPage(browser, previousPage, iteration)
 }
 
-trait G2JobDetailsPageContext extends PageContext {
+trait G3JobDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2JobDetailsPage (browser, iteration = 1)
+  val page = G3JobDetailsPage (browser, iteration = 1)
 }

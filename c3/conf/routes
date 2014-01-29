@@ -118,10 +118,10 @@ POST          /employment/been-employed                                         
 
 DELETE        /employment/job/:jobID                                                  controllers.s7_employment.Employment.delete(jobID: String)
 
-GET           /employment/job/:jobID                                                  controllers.s7_employment.G2JobDetails.job(jobID: String)
+GET           /employment/job/:jobID                                                  controllers.s7_employment.G3JobDetails.job(jobID: String)
 
-GET           /employment/job-details/:jobID                                          controllers.s7_employment.G2JobDetails.present(jobID: String)
-POST          /employment/job-details                                                 controllers.s7_employment.G2JobDetails.submit
+GET           /employment/job-details/:jobID                                          controllers.s7_employment.G3JobDetails.present(jobID: String)
+POST          /employment/job-details                                                 controllers.s7_employment.G3JobDetails.submit
 
 GET           /employment/employers-contact-details/:jobID                            controllers.s7_employment.G4EmployerContactDetails.present(jobID: String)
 POST          /employment/employers-contact-details                                   controllers.s7_employment.G4EmployerContactDetails.submit

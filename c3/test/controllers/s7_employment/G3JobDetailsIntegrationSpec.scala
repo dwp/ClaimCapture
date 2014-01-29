@@ -5,7 +5,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers}
 
-class G2JobDetailsIntegrationSpec extends Specification with Tags {
+class G3JobDetailsIntegrationSpec extends Specification with Tags {
   "Your job" should {
     "present" in new WithBrowser with WithBrowserHelper {
       goTo("/employment/job-details/dummyJobID").title shouldEqual "Your job - Employment History"

@@ -27,7 +27,7 @@ class G6AdditionalWageDetailsSpec extends Specification with Tags {
     """be added to a (current) job""" in new WithApplication with Claiming {
 
 
-      G2JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      G3JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",

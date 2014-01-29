@@ -10,13 +10,13 @@
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 
-@main(Messages("s7.g2") + " - " + Messages("s7.longName"), Some(currentForm)) {
+@main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm)) {
 
-    @form(action = controllers.s7_employment.routes.G2JobDetails.submit()) {
+    @form(action = controllers.s7_employment.routes.G3JobDetails.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
-            <legend>@Messages("s7.g2")</legend>
+            <legend>@Messages("s7.g3")</legend>
 
             <ul>
                 @carersInputText(currentForm("employerName"), 'maxLength -> Mappings.sixty)

@@ -32,7 +32,7 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
       case Some(b: BeenEmployed) => track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form.fill(b))) }
       case _ =>
         val (updatedClaim, _) = track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form)) }
-        updatedClaim.update(BeenEmployed("")) -> Redirect(routes.G2JobDetails.present(JobID(form)))
+        updatedClaim.update(BeenEmployed("")) -> Redirect(routes.G3JobDetails.present(JobID(form)))
     }
   }
 
@@ -40,7 +40,7 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
     import controllers.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
-      case `yes` if jobs.size < 5 => Redirect(routes.G2JobDetails.present(JobID(form)))
+      case `yes` if jobs.size < 5 => Redirect(routes.G3JobDetails.present(JobID(form)))
       case `yes` => Redirect(routes.G1BeenEmployed.present())
       case _ => Redirect(routes.Employment.completed())
     }
