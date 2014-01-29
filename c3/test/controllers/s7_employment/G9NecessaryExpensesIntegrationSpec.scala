@@ -14,14 +14,14 @@ class G9NecessaryExpensesIntegrationSpec extends Specification with Tags {
       page submitPage()
     }
 
-    "contain 2 completed form" in new WithBrowser with G8AboutExpensesPageContext {
+    "contain 1 completed form" in new WithBrowser with G8AboutExpensesPageContext {
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim
       val p = page submitPage()
       p fillPageWith claim
 
-      p submitPage() should beLike { case p: G10ChildcareExpensesPage => p numberSectionsCompleted() shouldEqual 2 }
+      p submitPage() should beLike { case p: G9NecessaryExpensesPage => p numberSectionsCompleted() shouldEqual 1 }
     }
 
     "be able to navigate back to a completed form" in new WithBrowser with G8AboutExpensesPageContext {

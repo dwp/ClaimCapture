@@ -4,10 +4,12 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
+import utils.pageobjects.IterationManager
 
 class G10ChildcareExpensesIntegrationSpec extends Specification with Tags with AboutYouAndYourPartner {
   "Childcare expenses while you are at work - Integration" should {
     "be presented" in new WithBrowser with G8AboutExpensesPageContext {
+      IterationManager.init
       val claim = ClaimScenarioFactory s7Employment()
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "no"
       page goToThePage()

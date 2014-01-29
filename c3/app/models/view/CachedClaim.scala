@@ -13,9 +13,6 @@ import play.api.mvc.Results._
 import play.api.http.HeaderNames._
 import models.domain._
 import controllers.routes
-import scala.Some
-import scala.util.Try
-import net.sf.ehcache.CacheManager
 import scala.concurrent.{ExecutionContext, Future}
 import models.domain.Claim
 import scala.Some
@@ -113,7 +110,7 @@ trait CachedClaim {
       val (referer, host) = refererAndHost(request)
       implicit val r = request
 
-      def doSubmit = {
+      def doSubmit() = {
         fromCache(request) match {
           case Some(claim) =>
             val (key, _) = keyAndExpiration(request)
@@ -125,15 +122,15 @@ trait CachedClaim {
       }
 
       if (sameHostCheck) {
-        doSubmit
+        doSubmit()
       } else {
         if (redirect) {
           Logger.warn(s"HTTP Referer : $referer")
           Logger.warn(s"Conf Referer : $expectedReferer")
           Logger.warn(s"HTTP Host : $host")
-          Future(Redirect(expectedReferer))
+          Future(Ok(views.html.common.redirect(expectedReferer)))
         } else {
-          doSubmit
+          doSubmit()
         }
       }.map(res => res)
     }
@@ -183,7 +180,7 @@ trait CachedClaim {
         Logger.warn(s"HTTP Referer : $referer")
         Logger.warn(s"Conf Referer : $expectedReferer")
         Logger.warn(s"HTTP Host : $host")
-        Redirect(expectedReferer)
+        Ok(views.html.common.redirect(expectedReferer))
       } else {
         withHeaders(action)
       }

@@ -6,6 +6,7 @@ import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, WithBrowserHelper}
 import utils.pageobjects.s2_about_you.{G6TripPage, G6TripPageContext, G5AbroadForMoreThan52WeeksPage, G5AbroadForMoreThan52WeeksPageContext}
 import play.api.i18n.Messages
+import utils.pageobjects.IterationManager
 
 class G6TripIntegrationSpec extends Specification with Tags {
   "52 weeks trip" should {
@@ -21,6 +22,7 @@ class G6TripIntegrationSpec extends Specification with Tags {
     }
 
     "be submitted with all mandatory data" in new WithBrowser with G6TripPageContext {
+      IterationManager.init()
       val claim = ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
       page goToThePage()
       page fillPageWith claim
@@ -31,6 +33,7 @@ class G6TripIntegrationSpec extends Specification with Tags {
     }
     
     "show 2 trips in trips table" in new WithBrowser with G6TripPageContext {
+      IterationManager.init()
       page goToThePage()
       page fillPageWith ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
 
@@ -87,12 +90,10 @@ class G6TripIntegrationSpec extends Specification with Tags {
     }
 
 
-    //
-//    "show zero trips after creating one and then deleting" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-//      pending
-//    }
+
 
     "add trip and edit it" in new WithBrowser with G6TripPageContext {
+      IterationManager.init()
       val claim = ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
       page goToThePage()
       page fillPageWith claim

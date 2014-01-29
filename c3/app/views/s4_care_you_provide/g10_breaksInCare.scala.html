@@ -2,7 +2,7 @@
 
 @import views.html.helper._
 @import models.DayMonthYear._
-@import models.domain.{BreaksInCare, Claim, ClaimDate, MoreAboutTheCare}
+@import models.domain.{BreaksInCare, Claim, ClaimDate, MoreAboutTheCare, Education, Employed, OtherMoney, SelfEmployment}
 @import utils.helpers.CarersCrypto
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
@@ -16,6 +16,13 @@
     claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
         if (spent35HoursCaringBeforeClaim) (dmy - 6 months).`dd/MM/yyyy`
         else dmy.`dd/MM/yyyy`)
+}
+
+@nextSection = @{
+if (Education.visible) Education.name
+else if (Employed.visible) Employed.name
+else if (SelfEmployment.visible) SelfEmployment.name
+else OtherMoney.name
 }
 
 @main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(yesNoForm), claim.completedQuestionGroups(BreaksInCare)) {
@@ -99,7 +106,7 @@
 
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
         </nav>
     }
 }

@@ -9,6 +9,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you.G3ClaimDatePage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects.s7_employment.G0EmploymentPage
+import utils.pageobjects.IterationManager
 
 class G9CompletedIntegrationSpec extends Specification with Tags {
 
@@ -18,7 +19,8 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
     }
 
     "not present 'Completed' if section not visible" in new WithBrowser with G3ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareAndNotEmployed()
+      IterationManager.init
+      val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed()
       page goToThePage()
 
       val employmentHistoryPage = page runClaimWith(claim, G0EmploymentPage.title, waitForPage = true)
@@ -38,6 +40,7 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to previous page" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext  {
+      IterationManager.init()
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside

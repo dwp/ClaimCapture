@@ -3,10 +3,10 @@ package controllers.s8_self_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment._
-import utils.pageobjects.s2_about_you.{G3ClaimDatePage, G10AboutYouCompletedPage, G3ClaimDatePageContext}
-import controllers.ClaimScenarioFactory
+import utils.pageobjects.s2_about_you.{G3ClaimDatePage, G3ClaimDatePageContext}
+import controllers.{Formulate, ClaimScenarioFactory}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
-import utils.pageobjects.TestData
+import utils.pageobjects.{IterationManager, TestData}
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects.s7_employment.G0EmploymentPage
 
@@ -25,7 +25,8 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
     }
 
     "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareAndNotEmployed()
+      IterationManager.init
+      val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed()
       page goToThePage()
 
       val employmentHistoryPage = page runClaimWith(claim, G0EmploymentPage.title, waitForPage = true)
@@ -53,6 +54,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
     }
 
     "accept submit if all mandatory fields are populated" in new WithBrowser with G5ChildcareExpensesWhileAtWorkPageContext {
+      IterationManager.init()
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
@@ -88,6 +90,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G5ChildcareExpensesWhileAtWorkPageContext {
+      IterationManager.init()
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()

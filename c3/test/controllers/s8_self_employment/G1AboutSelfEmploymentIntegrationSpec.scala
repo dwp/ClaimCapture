@@ -3,12 +3,11 @@ package controllers.s8_self_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment.{G1AboutSelfEmploymentPage, G1AboutSelfEmploymentPageContext}
-import utils.pageobjects.TestData
-import controllers.ClaimScenarioFactory
-import utils.pageobjects.s7_employment.G0EmploymentPage
-import utils.pageobjects.s2_about_you.{G3ClaimDatePageContext, G10AboutYouCompletedPage}
+import utils.pageobjects.{IterationManager,TestData}
+import controllers.{Formulate, ClaimScenarioFactory}
+import utils.pageobjects.s2_about_you.G3ClaimDatePageContext
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
-import utils.pageobjects.s7_employment.{G0EmploymentPage, G0EmploymentPageContext}
+import utils.pageobjects.s7_employment.G0EmploymentPage
 
 class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
 
@@ -18,7 +17,8 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
     }
 
     "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareAndNotEmployed()
+      IterationManager.init
+      val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed()
       page goToThePage()
 
       val employmentHistoryPage = page runClaimWith(claim, G0EmploymentPage.title, waitForPage = true)

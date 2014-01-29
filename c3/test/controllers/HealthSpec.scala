@@ -4,7 +4,7 @@ import play.api.mvc.{SimpleResult, Controller, Results}
 import play.api.test.{WithApplication, FakeRequest, PlaySpecification}
 import scala.concurrent.Future
 
-class HealthControllerSpec extends PlaySpecification with Results {
+class HealthSpec extends PlaySpecification with Results {
   class TestController() extends Controller with HealthController
 
   "Health Page#health" should {

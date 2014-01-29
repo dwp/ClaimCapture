@@ -36,7 +36,7 @@ object G8MoreAboutYou extends Controller with CachedClaim with Navigable {
                                 .showHideSection(moreAboutYou.beenInEducationSinceClaimDate == yes, Education)
                                 .showHideSection(moreAboutYou.receiveStatePension == no, PayDetails)
 
-        updatedClaim.update(moreAboutYou) -> Redirect(routes.AboutYou.completed())
+        updatedClaim.update(moreAboutYou) -> Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
       })
   }
 }

@@ -3,6 +3,7 @@ package controllers.s3_your_partner
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
+import utils.pageobjects.s4_care_you_provide.G1TheirPersonalDetailsPage
 
 class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags {
 
@@ -13,7 +14,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Completion - About you - the carer")
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse details - About your partner/spouse")
@@ -26,7 +27,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
-      titleMustEqual("Completion - About you - the carer")
+      titleMustEqual("Details of the person you care for - About the care you provide")
 
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Details of the person you care for - About the care you provide")
@@ -39,7 +40,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Completion - About you - the carer")
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse details - About your partner/spouse")
@@ -55,40 +56,42 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Completion - About you - the carer")
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Completion - About your partner/spouse")
+      titleMustEqual(G1TheirPersonalDetailsPage.title)
     }
 
-    "navigate back to About you - the carer - Completed" in new WithBrowser with BrowserMatchers {
+    "navigate back to Employment - About you - the carer" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
 
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Completion - About you - the carer")
+
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       browser.click("#backButton")
-      titleMustEqual("Completion - About you - the carer")
+      titleMustEqual("More about you - About you - the carer")
     }
 
-    "contain the completed forms" in new WithBrowser with BrowserMatchers {
+    "navigate back to About your partner/spouse - Partner/Spouse details" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
 
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Completion - About you - the carer")
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Completion - About your partner/spouse")
-      findMustEqualSize("div[class=completed] ul li", 1)
+      titleMustEqual("Details of the person you care for - About the care you provide")
+      Formulate.clickBackButton(browser)
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
     }
   } section("integration", models.domain.YourPartner.id)
 }

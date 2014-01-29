@@ -3,12 +3,13 @@ package controllers.s8_self_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment._
-import controllers.ClaimScenarioFactory
-import utils.pageobjects.s2_about_you.{G3ClaimDatePage, G10AboutYouCompletedPage, G3ClaimDatePageContext}
+import controllers.{Formulate, ClaimScenarioFactory}
+import utils.pageobjects.s2_about_you.{G3ClaimDatePage, G3ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
+import utils.pageobjects.IterationManager
 
-class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
+class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
 
   "Expenses related to the Person you care for while at work" should {
     "be presented" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
@@ -79,6 +80,7 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
       */
 
 
+      IterationManager.init()
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
@@ -117,6 +119,7 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
+      IterationManager.init()
       val pageClaimDate = new G3ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside

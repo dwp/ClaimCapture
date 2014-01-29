@@ -138,6 +138,12 @@ object ClaimScenarioFactory {
 
   def s2AnsweringNoToQuestions() = {
     val claim = new TestData
+    //Your details
+    claim.AboutYouTitle="Mrs"
+    claim.AboutYouFirstName="Jane"
+    claim.AboutYouSurname="Doe"
+    claim.AboutYouNationalInsuranceNumber="AB123456D"
+    claim.AboutYouDateOfBirth = "12/07/1970"
 
     // Your contact details
     claim.AboutYouAddress = "An address"
@@ -145,6 +151,7 @@ object ClaimScenarioFactory {
     claim.AboutYouPhoneNumber = "01253 111 111"
     claim.AboutYouContactYouByTextphone = "No"
     claim.AboutYouMobileNumber = "07111 111 111"
+
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // Nationality and Residency
@@ -261,8 +268,11 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s4CareYouProvideWithNoBreaksInCareAndNotEmployed() = {
+  def s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed() = {
     val claim = s4CareYouProvideWithNoBreaksInCare()
+
+    // Education
+    claim.AboutYouHaveYouBeenOnACourseOfEducation = "No"
 
     // Employment
     claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime = "No"
@@ -385,7 +395,7 @@ object ClaimScenarioFactory {
   }
 
   def s7Employment() = {
-    val claim = new TestData
+    val claim = s2AboutYouWithTimeOutside
     claim.EmploymentEmployerName_1 = "Tesco's"
     claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
     claim.EmploymentHaveYouFinishedThisJob_1 = "yes"

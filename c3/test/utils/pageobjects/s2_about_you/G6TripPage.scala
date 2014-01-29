@@ -1,7 +1,7 @@
 package utils.pageobjects.s2_about_you
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage, Page, PageContext}
+import utils.pageobjects.{IterationManager, ClaimPage, Page, PageContext}
 
 /**
  * * Page object for s2_about_you_time_spent_abroad g6_trip.
@@ -17,7 +17,10 @@ class G6TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iterat
   declareInput("#why_reason_other", "WhyDidYouOther_" + iteration)
   declareYesNo("#personWithYou", "PersonWithYou_" + iteration)
 
-  protected override def getNewIterationNumber = iteration + 1
+  protected override def getNewIterationNumber = {
+    import IterationManager._
+    increment(Abroad)
+  }
 }
 
 /**

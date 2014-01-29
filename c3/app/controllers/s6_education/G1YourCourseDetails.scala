@@ -12,12 +12,12 @@ import controllers.CarersForms._
 
 object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "courseType" -> optional(carersText(maxLength = 50)),
-    "courseTitle" -> optional(carersText(maxLength = 50)),
-    "startDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "expectedEndDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "finishedDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "studentReferenceNumber" -> optional(carersText(maxLength = sixty))
+    "courseTitle" -> carersNonEmptyText(maxLength = 50),
+    "nameOfSchoolCollegeOrUniversity" -> carersNonEmptyText(maxLength = sixty),
+    "nameOfMainTeacherOrTutor" -> carersNonEmptyText(maxLength = sixty),
+    "courseContactNumber" -> optional(text verifying validPhoneNumber),
+    "startDate" -> dayMonthYear.verifying(validDate),
+    "expectedEndDate" -> dayMonthYear.verifying(validDate)
   )(YourCourseDetails.apply)(YourCourseDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
@@ -37,6 +37,6 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrors)),
-      yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(routes.G2AddressOfSchoolCollegeOrUniversity.present()))
+      yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(controllers.s7_employment.routes.G1BeenEmployed.present()))
   }
 }

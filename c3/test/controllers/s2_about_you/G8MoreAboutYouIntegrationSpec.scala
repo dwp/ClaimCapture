@@ -3,7 +3,8 @@ package controllers.s2_about_you
 import play.api.test.WithBrowser
 import org.specs2.mutable.{Tags, Specification}
 import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate}
-import utils.pageobjects.s2_about_you.{G10AboutYouCompletedPage, G8MoreAboutYouPage, G1YourDetailsPageContext, G8MoreAboutYouPageContext}
+import utils.pageobjects.s2_about_you.{G8MoreAboutYouPage, G1YourDetailsPageContext, G8MoreAboutYouPageContext}
+import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
 
 class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
@@ -54,7 +55,7 @@ class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
     "navigate to next page on valid submission" in new WithBrowser with G1YourDetailsPageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       page goToThePage()
-      page runClaimWith (claim, G10AboutYouCompletedPage.title)
+      page runClaimWith (claim, G1YourPartnerPersonalDetailsPage.title)
     }
   } section("integration", models.domain.AboutYou.id)
 }

@@ -66,18 +66,12 @@ About the care you provide,About the breaks in care,Where were you during the br
 About the care you provide,About the breaks in care,Where was the person you care for during the break?,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak,DWPCAClaim>EvidenceList
 About the care you provide,About the breaks in care,Where was the person you care for during the break? Other detail,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther,DWPCAClaim>EvidenceList
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment,CareBreak>MedicalCare
-Education,Your course details,Type of course,EducationTypeOfCourse,FullTimeEducation>CourseDetails>Type
 Education,Your course details,Course title,EducationCourseTitle,FullTimeEducation>CourseDetails>Title
+Education,Your course details,"Name of school, college or university",EducationNameofSchool,FullTimeEducation>LocationDetails>Name
+Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,FullTimeEducation>LocationDetails>Tutor
+Education,Your course details,Course contact number,EducationPhoneNumber,FullTimeEducation>LocationDetails>PhoneNumber
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,FullTimeEducation>CourseDetails>DateStarted
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,FullTimeEducation>CourseDetails>ExpectedEndDate
-Education,Your course details,"If you are no longer on the course, when did you finish?",EducationWhenDidYouFinish,FullTimeEducation>CourseDetails>DateStopped
-Education,Your course details,Your student reference number,EducationYourStudentReferenceNumber,FullTimeEducation>LocationDetails>StudentReferenceNumber
-Education,"School, college or universitys contact details","Name of school, college or university",EducationNameofSchool,FullTimeEducation>LocationDetails>Name
-Education,"School, college or universitys contact details",Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,FullTimeEducation>LocationDetails>Tutor
-Education,"School, college or universitys contact details",Address,EducationAddress,FullTimeEducation>LocationDetails>Address>Line
-Education,"School, college or universitys contact details",Post code,EducationPostcode,FullTimeEducation>LocationDetails>Address>PostCode
-Education,"School, college or universitys contact details",Phone number,EducationPhoneNumber,FullTimeEducation>LocationDetails>PhoneNumber
-Education,"School, college or universitys contact details",Fax Number, EducationFaxNumber ,FullTimeEducation>LocationDetails>FaxNumber
 Employment,Employment,Have you been employed at any time since <ddmmyyyy> (this is six months before your claim date:< ddmmyyyy>)?,AboutYouHaveYouBeenEmployedAtAnyTime,DWPCAClaim>Employed
 Employment,Employment,Have you been self-employed at any time since <ddmmyyyy> (this is one week before your claim date:<ddmmyyyy>)?,AboutYouHaveYouBeenSelfEmployedAtAnyTime,DWPCAClaim>SelfEmployed
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
