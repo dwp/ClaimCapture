@@ -37,7 +37,7 @@
 
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmitOptional()>Next</button>
         </nav>
     }
 }
@@ -50,7 +50,7 @@
 
     <script type="text/javascript">
     $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("doYouPayToPensionScheme_yes")","@CarersCrypto.encryptAES("doYouPayToPensionScheme_no")");
+        conditionRequired = window.initEvents("@CarersCrypto.encryptAES("doYouPayToPensionScheme_yes")","@CarersCrypto.encryptAES("doYouPayToPensionScheme_no")",'@CarersCrypto.encryptAES("doYouPayToLookAfterYourChildren")','@CarersCrypto.encryptAES("didYouPayToLookAfterThePersonYouCaredFor")');
         window.areaCounter({selector:"@CarersCrypto.encryptAES("howOften_frequency_other")",maxChars:60});
     });
 </script>

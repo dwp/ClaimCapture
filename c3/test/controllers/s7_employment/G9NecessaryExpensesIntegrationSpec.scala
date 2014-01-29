@@ -4,6 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
+import utils.pageobjects.IterationManager
 
 class G9NecessaryExpensesIntegrationSpec extends Specification with Tags {
   "Necessary Expenses" should {
@@ -15,6 +16,7 @@ class G9NecessaryExpensesIntegrationSpec extends Specification with Tags {
     }
 
     "contain 2 completed form" in new WithBrowser with G8AboutExpensesPageContext {
+      IterationManager.init()
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim

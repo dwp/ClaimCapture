@@ -5,7 +5,7 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
-@import models.domain.{MoreAboutYou,YourPartnerPersonalDetails}
+@import models.domain.{MoreAboutYou,YourPartnerPersonalDetails,SelfEmploymentPensionsAndExpenses}
 @import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
 @import views.html.s8_self_employment.main
 @import views.html.helper.dropdowns.pensionPaymentFrequencySelect
@@ -43,7 +43,12 @@
 
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
+            @if(claim.questionGroup[SelfEmploymentPensionsAndExpenses].get.didYouPayToLookAfterThePersonYouCaredFor == "yes") {
+              <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            }
+            @if(claim.questionGroup[SelfEmploymentPensionsAndExpenses].get.didYouPayToLookAfterThePersonYouCaredFor == "no") {
+             <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
+            }
         </nav>
     }
 }
