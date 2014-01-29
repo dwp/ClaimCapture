@@ -3,7 +3,7 @@ package controllers.s7_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s7_employment.{G3EmployerContactDetailsPage, G3EmployerContactDetailsPageContext, G6AdditionalWageDetailsPage, G5LastWagePageContext}
+import utils.pageobjects.s7_employment.{G4EmployerContactDetailsPage, G4EmployerContactDetailsPageContext, G6AdditionalWageDetailsPage, G5LastWagePageContext}
 
 class G5LastWageIntegrationSpec extends Specification with Tags {
   "Last wage" should {
@@ -21,13 +21,13 @@ class G5LastWageIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "be able to navigate back to a completed form" in new WithBrowser  with G3EmployerContactDetailsPageContext {
+    "be able to navigate back to a completed form" in new WithBrowser  with G4EmployerContactDetailsPageContext {
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim
       val submitted = page submitPage()
       val backPage = submitted goBack ()
-      backPage must beAnInstanceOf[G3EmployerContactDetailsPage]
+      backPage must beAnInstanceOf[G4EmployerContactDetailsPage]
     }
   } section("integration",models.domain.Employed.id)
 }

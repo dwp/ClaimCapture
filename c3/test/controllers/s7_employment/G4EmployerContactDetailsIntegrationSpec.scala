@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers}
 
-class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
+class G4EmployerContactDetailsIntegrationSpec extends Specification with Tags {
   "Employer's contact details" should {
     "present" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/employers-contact-details/dummyJobID")

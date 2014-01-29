@@ -8,11 +8,11 @@ import play.api.cache.Cache
 import models.domain.Claim
 import models.view.CachedClaim
 
-class G3EmployerContactDetailsSpec extends Specification with Tags {
+class G4EmployerContactDetailsSpec extends Specification with Tags {
   "Employer's contact details" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-      val result = G3EmployerContactDetails.present("Dummy job ID")(request)
+      val result = G4EmployerContactDetails.present("Dummy job ID")(request)
       status(result) mustEqual OK
     }
 
@@ -20,7 +20,7 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("jobID" -> "1","address.lineOne"->"someStreet")
 
-      val result = G3EmployerContactDetails.submit(request)
+      val result = G4EmployerContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -34,7 +34,7 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "no"))
 
-      val result = G3EmployerContactDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result = G4EmployerContactDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("jobID" -> "1","address.lineOne"->"someStreet"))
 
       status(result) mustEqual SEE_OTHER

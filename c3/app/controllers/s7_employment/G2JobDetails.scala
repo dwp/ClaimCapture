@@ -53,6 +53,6 @@ object G2JobDetails extends Controller with CachedClaim with Navigable {
         val form = formWithErrors.replaceError("", "lastWorkDate", FormError("lastWorkDate", "error.required"))
         .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(pastPresent)))
         BadRequest(views.html.s7_employment.g2_jobDetails(form))
-      },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G3EmployerContactDetails.present(jobID)))
+      },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G4EmployerContactDetails.present(jobID)))
   }
 }
