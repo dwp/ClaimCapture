@@ -4,10 +4,11 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment._
 import controllers.{Formulate, ClaimScenarioFactory}
-import utils.pageobjects.s2_about_you.{G3ClaimDatePage, G9EmploymentPage, G3ClaimDatePageContext}
+import utils.pageobjects.s2_about_you.{G8MoreAboutYouPage, G3ClaimDatePage, G3ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects.{PageObjects, PageObjectsContext, IterationManager}
+import utils.pageobjects.s7_employment.G1EmploymentPage
 
 class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
 
@@ -32,12 +33,11 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       Formulate.abroadForMoreThan52Weeks(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      Formulate.notInEmployment(browser)
 
-      page goToPage( throwException = false, page = new G9EmploymentPage(PageObjectsContext(browser)))
+      page goToPage( throwException = false, page = new G1EmploymentPage(PageObjectsContext(browser)))
 
       val nextPage = page goToPage(throwException = false, page = new G7ExpensesWhileAtWorkPage(PageObjectsContext(browser)))
-      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
+      nextPage must beAnInstanceOf[G9CompletedPage]
     }
 
     "contain the completed forms" in new WithBrowser with PageObjects{

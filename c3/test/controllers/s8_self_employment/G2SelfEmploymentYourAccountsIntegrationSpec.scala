@@ -5,8 +5,9 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment.{G2SelfEmploymentYourAccountsPage, G2SelfEmploymentYourAccountsPageContext}
 import utils.pageobjects.{PageObjects, TestData}
 import controllers.{Formulate, ClaimScenarioFactory}
-import utils.pageobjects.s2_about_you.{G9EmploymentPage, G3ClaimDatePageContext}
+import utils.pageobjects.s2_about_you.G3ClaimDatePageContext
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
+import utils.pageobjects.s7_employment.G1EmploymentPage
 
 class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags {
 
@@ -14,6 +15,17 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
     "be presented" in new WithBrowser with PageObjects{
 			val page =  G2SelfEmploymentYourAccountsPage(context)
       page goToThePage()
+    }
+
+    "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
+      val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed()
+      page goToThePage()
+
+      val employmentHistoryPage = page runClaimWith(claim, G1EmploymentPage.title, waitForPage = true)
+      employmentHistoryPage fillPageWith(claim)
+
+      val nextPage = employmentHistoryPage submitPage()
+      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
 
     "contain errors on invalid submission" in {

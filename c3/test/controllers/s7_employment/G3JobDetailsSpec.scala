@@ -7,17 +7,17 @@ import play.api.cache.Cache
 import models.domain.{Job, Jobs, JobDetails, Claim, Claiming}
 import models.view.CachedClaim
 
-class G2JobDetailsSpec extends Specification with Tags {
+class G3JobDetailsSpec extends Specification with Tags {
   "Your job" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-      val result = G2JobDetails.present("dummyJobID")(request)
+      val result = G3JobDetails.present("dummyJobID")(request)
       status(result) mustEqual OK
     }
 
     "miss all mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-      val result = G2JobDetails.submit(request)
+      val result = G3JobDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -30,7 +30,7 @@ class G2JobDetailsSpec extends Specification with Tags {
         "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "no")
 
-      val result = G2JobDetails.submit(request)
+      val result = G3JobDetails.submit(request)
       status(result) mustEqual SEE_OTHER
 
       val claim = Cache.getAs[Claim](claimKey).get
@@ -60,7 +60,7 @@ class G2JobDetailsSpec extends Specification with Tags {
         "hoursPerWeek" -> "75",
         "payrollEmployeeNumber" -> "445566")
 
-      val result = G2JobDetails.submit(request)
+      val result = G3JobDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -78,7 +78,7 @@ class G2JobDetailsSpec extends Specification with Tags {
         "hoursPerWeek" -> "75",
         "payrollEmployeeNumber" -> "445566")
 
-      val result = G2JobDetails.submit(request)
+      val result = G3JobDetails.submit(request)
       status(result) mustEqual SEE_OTHER
 
       Cache.getAs[Claim](claimKey).get.questionGroup(Jobs) must beLike {

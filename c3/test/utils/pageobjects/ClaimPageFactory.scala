@@ -22,7 +22,7 @@ import utils.pageobjects.IterationManager._
  */
 object ClaimPageFactory extends PageFactory {
   def buildPageFromTitle(title: String,ctx:PageObjectsContext) = {
-
+println("********* CPF" + title)
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
     if (null == title ) XmlPage (ctx)
@@ -49,7 +49,6 @@ object ClaimPageFactory extends PageFactory {
       }.orElse[String,Page]{
         case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (ctx)
         case G8MoreAboutYouPage.title => G8MoreAboutYouPage (ctx)
-        case G9EmploymentPage.title => G9EmploymentPage (ctx)
         // S3
         case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage (ctx)
         // S4
@@ -65,14 +64,16 @@ object ClaimPageFactory extends PageFactory {
       }.orElse[String,Page]{
         //S6
         case G1YourCourseDetailsPage.title => G1YourCourseDetailsPage (ctx)
+        // S7 - guard question(s)
+        case G1EmploymentPage.title => G1EmploymentPage (ctx)
       }.orElse[String,Page]{
         IterableNode(Employment,ctx)(iteration =>{
           // S7
-          case G1BeenEmployedPage.title => G1BeenEmployedPage (ctx,iteration)
-          case G2JobDetailsPage.title => G2JobDetailsPage (ctx,iteration)
-          case G3EmployerContactDetailsPage.title => G3EmployerContactDetailsPage (ctx,iteration)
-          case G4LastWagePage.title => G4LastWagePage (ctx,iteration)
-          case G5AdditionalWageDetailsPage.title => G5AdditionalWageDetailsPage (ctx,iteration)
+          case G2BeenEmployedPage.title => G2BeenEmployedPage (ctx,iteration)
+          case G3JobDetailsPage.title => G3JobDetailsPage (ctx,iteration)
+          case G4EmployerContactDetailsPage.title => G4EmployerContactDetailsPage (ctx,iteration)
+          case G5LastWagePage.title => G5LastWagePage (ctx,iteration)
+          case G6AdditionalWageDetailsPage.title => G6AdditionalWageDetailsPage (ctx,iteration)
           case G7PensionSchemesPage.title => G7PensionSchemesPage (ctx,iteration)
           case G8AboutExpensesPage.title => G8AboutExpensesPage (ctx,iteration)
           case G9NecessaryExpensesPage.title => G9NecessaryExpensesPage (ctx,iteration)

@@ -5,7 +5,7 @@ import play.api.mvc.{AnyContent, Controller}
 import play.api.data.Form
 import play.api.data.Forms._
 import models.view.CachedClaim
-import models.domain.{OtherStatutoryPay, StatutorySickPay, Employment, Consent}
+import models.domain.{OtherStatutoryPay, StatutorySickPay, Employment => Emp, Consent}
 import utils.helpers.CarersForm._
 import models.yesNo.{OptYesNoWithText, YesNoWithText}
 import models.view.Navigable
@@ -20,7 +20,7 @@ object G2Consent extends Controller with CachedClaim with Navigable {
 
   def validateEmpRequired(input: OptYesNoWithText)(implicit request: Request[AnyContent]): Boolean = {
     fromCache(request) match {
-      case Some(claim) if claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
+      case Some(claim) if claim.questionGroup[Emp].getOrElse(Emp()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
                           claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay()).haveYouHadAnyStatutorySickPay == `yes` ||
                           claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay()).otherPay == `yes`=>
         input.answer.isDefined

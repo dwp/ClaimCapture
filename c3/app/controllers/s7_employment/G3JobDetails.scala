@@ -16,7 +16,7 @@ import play.api.data.FormError
 import scala.Some
 import play.api.Logger
 
-object G2JobDetails extends Controller with CachedClaim with Navigable {
+object G3JobDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "employerName"-> carersNonEmptyText(maxLength = 60),
@@ -33,14 +33,14 @@ object G2JobDetails extends Controller with CachedClaim with Navigable {
   def job(jobID: String) = claiming { implicit claim => implicit request =>
     claim.questionGroup(Jobs) match {
       case Some(js: Jobs) if js.job(jobID).isDefined =>
-        track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID))) }
+        track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g3_jobDetails(form.fillWithJobID(JobDetails, jobID))) }
       case _ =>
-        Redirect(routes.G1BeenEmployed.present())
+        Redirect(routes.G2BeenEmployed.present())
     }
   }
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
-    track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID))) }
+    track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g3_jobDetails(form.fillWithJobID(JobDetails, jobID))) }
   }
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
@@ -52,7 +52,7 @@ object G2JobDetails extends Controller with CachedClaim with Navigable {
         }
         val form = formWithErrors.replaceError("", "lastWorkDate", FormError("lastWorkDate", "error.required"))
         .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(pastPresent)))
-        BadRequest(views.html.s7_employment.g2_jobDetails(form))
-      },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G3EmployerContactDetails.present(jobID)))
+        BadRequest(views.html.s7_employment.g3_jobDetails(form))
+      },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G4EmployerContactDetails.present(jobID)))
   }
 }

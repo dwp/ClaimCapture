@@ -10,15 +10,15 @@
 @import controllers.s7_employment.Employment._
 @import controllers.s7_employment.JobID
 
-@main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.EmployerContactDetails, JobID(currentForm))) {
+@main(Messages("s7.g4") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.EmployerContactDetails, JobID(currentForm))) {
 
-	@form(action = controllers.s7_employment.routes.G3EmployerContactDetails.submit()) {
+	@form(action = controllers.s7_employment.routes.G4EmployerContactDetails.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
 
 
         <fieldset class="form-elements">
-            <legend>@Messages("s7.g3")</legend>
+            <legend>@Messages("s7.g4")</legend>
 
             <ul>
                 @inputAddress(currentForm("address"))

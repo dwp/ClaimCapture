@@ -9,7 +9,7 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s7_employment.Employment.jobs
 
-object G1BeenEmployed extends Controller with CachedClaim with Navigable {
+object G2BeenEmployed extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "beenEmployed" -> (nonEmptyText verifying validYesNo)
   )(BeenEmployed.apply)(BeenEmployed.unapply))
@@ -29,10 +29,10 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
 
   def beenEmployed(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     claim.questionGroup[BeenEmployed] match {
-      case Some(b: BeenEmployed) => track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form.fill(b))) }
+      case Some(b: BeenEmployed) => track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g2_beenEmployed(form.fill(b))) }
       case _ =>
-        val (updatedClaim, _) = track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form)) }
-        updatedClaim.update(BeenEmployed("")) -> Redirect(routes.G2JobDetails.present(JobID(form)))
+        val (updatedClaim, _) = track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g2_beenEmployed(form)) }
+        updatedClaim.update(BeenEmployed("")) -> Redirect(routes.G3JobDetails.present(JobID(form)))
     }
   }
 
@@ -40,13 +40,13 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
     import controllers.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
-      case `yes` if jobs.size < 5 => Redirect(routes.G2JobDetails.present(JobID(form)))
-      case `yes` => Redirect(routes.G1BeenEmployed.present())
+      case `yes` if jobs.size < 5 => Redirect(routes.G3JobDetails.present(JobID(form)))
+      case `yes` => Redirect(routes.G2BeenEmployed.present())
       case _ => Redirect("/self-employment/about-self-employment")
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g1_beenEmployed(formWithErrors)),
+      formWithErrors => BadRequest(views.html.s7_employment.g2_beenEmployed(formWithErrors)),
       beenEmployed => clearUnfinishedJobs.update(beenEmployed) -> next(beenEmployed))
   }
 

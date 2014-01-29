@@ -8,36 +8,34 @@ import play.api.cache.Cache
 import models.domain.Claim
 import models.view.CachedClaim
 
-class G4LastWageSpec extends Specification with Tags {
-  "Last wage" should {
+class G4EmployerContactDetailsSpec extends Specification with Tags {
+  "Employer's contact details" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-      val result = G4LastWage.present("Dummy job ID")(request)
+      val result = G4EmployerContactDetails.present("Dummy job ID")(request)
       status(result) mustEqual OK
     }
 
-    """require "job ID" and "grossPay".""" in new WithApplication with Claiming {
+    """require "job ID" and address.""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1",
-                                 "grossPay" ->"3")
+        .withFormUrlEncodedBody("jobID" -> "1","address.lineOne"->"someStreet")
 
-      val result = G4LastWage.submit(request)
+      val result = G4EmployerContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     """be added to a (current) job""" in new WithApplication with Claiming {
-      G2JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      G3JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> "1",
-        "employerName" -> "Toys r not us",
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",
+        "employerName" -> "Toys r not us",
         "finishedThisJob" -> "no"))
 
-      val result = G4LastWage.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1",
-        "grossPay" ->"3"))
+      val result = G4EmployerContactDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+        .withFormUrlEncodedBody("jobID" -> "1","address.lineOne"->"someStreet"))
 
       status(result) mustEqual SEE_OTHER
 

@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers}
 
-class G1BeenEmployedIntegrationSpec extends Specification with Tags {
+class G2BeenEmployedIntegrationSpec extends Specification with Tags {
   "Been Employed" should {
     "present, having indicated that the carer has been employed" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
     beginClaim()
@@ -53,7 +53,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
 
       goTo("/education/your-course-details")
 
-      goTo("/employment/been-employed")
+      goTo("/employment/employment")
       back
       back
       titleMustEqual("Your course details - About your education")

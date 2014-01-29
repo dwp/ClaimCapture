@@ -10,7 +10,7 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
 
-object G3EmployerContactDetails extends Controller with CachedClaim with Navigable {
+object G4EmployerContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "address" -> address.verifying(requiredAddress),
@@ -19,12 +19,12 @@ object G3EmployerContactDetails extends Controller with CachedClaim with Navigab
   )(EmployerContactDetails.apply)(EmployerContactDetails.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
-    track(EmployerContactDetails) { implicit claim => Ok(views.html.s7_employment.g3_employerContactDetails(form.fillWithJobID(EmployerContactDetails, jobID))) }
+    track(EmployerContactDetails) { implicit claim => Ok(views.html.s7_employment.g4_employerContactDetails(form.fillWithJobID(EmployerContactDetails, jobID))) }
   }
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g3_employerContactDetails(formWithErrors)),
-      employerContactDetails => claim.update(jobs.update(employerContactDetails)) -> Redirect(routes.G4LastWage.present(jobID)))
+      formWithErrors => BadRequest(views.html.s7_employment.g4_employerContactDetails(formWithErrors)),
+      employerContactDetails => claim.update(jobs.update(employerContactDetails)) -> Redirect(routes.G5LastWage.present(jobID)))
   }
 }
