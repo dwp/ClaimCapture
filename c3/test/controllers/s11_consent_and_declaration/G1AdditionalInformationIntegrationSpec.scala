@@ -7,6 +7,7 @@ import controllers.BrowserMatchers
 import utils.pageobjects.S11_consent_and_declaration._
 import utils.pageobjects.s10_pay_details._
 import controllers.ClaimScenarioFactory
+import utils.pageobjects.PageObjects
 
 class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
   "Additional information" should {
@@ -33,11 +34,13 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
       findMustEqualSize("div[class=completed] ul li", 1)
     }
     
-    "be presented" in new WithBrowser with G1AdditionalInfoPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G1AdditionalInfoPage(context)
       page goToThePage()
     }
     
-    "navigate back to Bank/Building society details - How we pay you" in new WithBrowser with G2BankBuildingSocietyDetailsPageContext {
+    "navigate back to Bank/Building society details - How we pay you" in new WithBrowser with PageObjects{
+			val page =  G2BankBuildingSocietyDetailsPage(context)
       val claim = ClaimScenarioFactory.s6BankBuildingSocietyDetails()
       page goToThePage()
       page fillPageWith claim
@@ -48,12 +51,14 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
       bankBuildingSocietyPage must beAnInstanceOf[G2BankBuildingSocietyDetailsPage]
     }
     
-    "present errors if mandatory fields are not populated" in new WithBrowser with G1AdditionalInfoPageContext {
+    "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{
+			val page =  G1AdditionalInfoPage(context)
       page goToThePage()
       page.submitPage().listErrors.size mustEqual 1
     }
     
-    "accept submit if all mandatory fields are populated" in new WithBrowser with G1AdditionalInfoPageContext {
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+			val page =  G1AdditionalInfoPage(context)
       val claim = ClaimScenarioFactory.s11ConsentAndDeclaration
       page goToThePage()
       page fillPageWith claim

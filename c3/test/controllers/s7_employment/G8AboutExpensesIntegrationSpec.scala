@@ -4,15 +4,17 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
-import utils.pageobjects.TestData
+import utils.pageobjects.{PageObjects, TestData}
 
 class G8AboutExpensesIntegrationSpec extends Specification with Tags {
   "About expenses" should {
-    "be presented" in new WithBrowser with G8AboutExpensesPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G8AboutExpensesPage(context)
       page goToThePage()
     }
 
-    "contain 1 completed form" in new WithBrowser with G8AboutExpensesPageContext {
+    "contain 1 completed form" in new WithBrowser with PageObjects{
+			val page =  G8AboutExpensesPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim
@@ -22,7 +24,8 @@ class G8AboutExpensesIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "go to job completion directly" in new WithBrowser with G8AboutExpensesPageContext {
+    "go to job completion directly" in new WithBrowser with PageObjects{
+			val page =  G8AboutExpensesPage(context)
       val claim = new TestData
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1= "no"
       claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1= "no"
@@ -33,7 +36,8 @@ class G8AboutExpensesIntegrationSpec extends Specification with Tags {
       page submitPage() must beAnInstanceOf[G14JobCompletionPage]
     }
 
-    "go to childcare" in new WithBrowser with G8AboutExpensesPageContext {
+    "go to childcare" in new WithBrowser with PageObjects{
+			val page =  G8AboutExpensesPage(context)
       val claim = new TestData
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1= "no"
       claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1= "yes"
@@ -44,7 +48,8 @@ class G8AboutExpensesIntegrationSpec extends Specification with Tags {
       page submitPage() must beAnInstanceOf[G10ChildcareExpensesPage]
     }
 
-    "go to care" in new WithBrowser with G8AboutExpensesPageContext {
+    "go to care" in new WithBrowser with PageObjects{
+			val page =  G8AboutExpensesPage(context)
       val claim = new TestData
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1= "no"
       claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1= "no"
@@ -55,7 +60,8 @@ class G8AboutExpensesIntegrationSpec extends Specification with Tags {
       page submitPage() must beAnInstanceOf[G12PersonYouCareForExpensesPage]
     }
 
-    "be able to navigate back to a completed form" in new WithBrowser  with G7PensionSchemesPageContext {
+    "be able to navigate back to a completed form" in new WithBrowser  with PageObjects{
+			val page =  G7PensionSchemesPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim

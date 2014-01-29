@@ -1,22 +1,22 @@
 package utils.pageobjects.circumstances.s1_about_you
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{CircumstancesPage, PageContext, Page}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G4CompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends CircumstancesPage(browser, G4CompletedPage.url, G4CompletedPage.title, previousPage)
+final class G4CompletedPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G4CompletedPage.url, G4CompletedPage.title)
 
 object G4CompletedPage {
   val title = "Completion - About you - the carer".toLowerCase
 
   val url  = "circumstances/identification/completed"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G4CompletedPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G4CompletedPage(ctx)
 }
 
 trait G4CompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G4CompletedPage(browser)
+  val page = G4CompletedPage(PageObjectsContext(browser))
 }
 
 

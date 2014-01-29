@@ -2,20 +2,19 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.TestData
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.s1_carers_allowance.G4LivesInGBPageContext
-import utils.pageobjects.s1_carers_allowance.G6ApprovePage
-import utils.pageobjects.s1_carers_allowance.G4LivesInGBPage
+import utils.pageobjects.{PageObjects, TestData}
+import utils.pageobjects.s1_carers_allowance._
 
 class G4LivesInGBIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {
-    "be presented" in new WithBrowser with G4LivesInGBPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G4LivesInGBPage(context)
       page goToThePage ()
     }
 
     "contain errors on invalid submission" in {
-      "missing mandatory field" in new WithBrowser with G4LivesInGBPageContext {
+      "missing mandatory field" in new WithBrowser with PageObjects{
+			val page =  G4LivesInGBPage(context)
         val claim = new TestData
         page goToThePage()
         page fillPageWith claim
@@ -24,7 +23,8 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
       }
     }
     
-    "accept submit if all mandatory fields are populated" in new WithBrowser with G4LivesInGBPageContext {
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+			val page =  G4LivesInGBPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
       page goToThePage()
@@ -32,7 +32,8 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
       page submitPage()
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with G4LivesInGBPageContext {
+    "navigate to next page on valid submission" in new WithBrowser with PageObjects{
+			val page =  G4LivesInGBPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
       page goToThePage()
@@ -43,7 +44,8 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G6ApprovePage]
     }
 
-    "contain the completed forms" in new WithBrowser with G1BenefitsPageContext {
+    "contain the completed forms" in new WithBrowser with PageObjects{
+			val page =  G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"

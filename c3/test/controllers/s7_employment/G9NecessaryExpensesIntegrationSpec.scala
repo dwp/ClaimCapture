@@ -4,17 +4,20 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
+import utils.pageobjects.PageObjects
 
 class G9NecessaryExpensesIntegrationSpec extends Specification with Tags {
   "Necessary Expenses" should {
-    "be presented" in new WithBrowser with G8AboutExpensesPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G8AboutExpensesPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim
       page submitPage()
     }
 
-    "contain 1 completed form" in new WithBrowser with G8AboutExpensesPageContext {
+    "contain 2 completed form" in new WithBrowser with PageObjects{
+			val page =  G8AboutExpensesPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim
@@ -24,7 +27,8 @@ class G9NecessaryExpensesIntegrationSpec extends Specification with Tags {
       p submitPage() should beLike { case p: G9NecessaryExpensesPage => p numberSectionsCompleted() shouldEqual 1 }
     }
 
-    "be able to navigate back to a completed form" in new WithBrowser with G8AboutExpensesPageContext {
+    "be able to navigate back to a completed form" in new WithBrowser with PageObjects{
+			val page =  G8AboutExpensesPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim

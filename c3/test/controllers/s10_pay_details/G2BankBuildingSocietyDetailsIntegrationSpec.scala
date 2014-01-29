@@ -3,10 +3,11 @@ package controllers.s10_pay_details
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
-import utils.pageobjects.s10_pay_details.{G2BankBuildingSocietyDetailsPage, G1HowWePayYouPageContext}
+import utils.pageobjects.s10_pay_details.{G1HowWePayYouPage, G2BankBuildingSocietyDetailsPage, G1HowWePayYouPageContext}
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.S11_consent_and_declaration.G1AdditionalInfoPage
 import app.AccountStatus
+import utils.pageobjects.{PageObjects, PageObjectsContext}
 
 class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tags {
   "Bank building society details" should {
@@ -32,7 +33,8 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("How would you like to get paid? - How we pay you")
     }
 
-    "navigate to 'Consent And Declaration'" in new WithBrowser with G1HowWePayYouPageContext {
+    "navigate to 'Consent And Declaration'" in new WithBrowser with PageObjects{
+			val page =  G1HowWePayYouPage(context)
       val claim = ClaimScenarioFactory.s6PayDetails()
       claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.BankBuildingAccount.name
       page goToThePage ()
@@ -46,34 +48,35 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       nextPage must beAnInstanceOf[G1AdditionalInfoPage]
     }
 
-    "be hidden when having state pension" in new WithBrowser with G2ContactDetailsPageContext {
+    "be hidden when having state pension" in new WithBrowser with PageObjects{
+			val page =  G2ContactDetailsPage(context)
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
 
       page fillPageWith claim
       page submitPage ()
 
-      val claimDatePage = page goToPage new G3ClaimDatePage(browser)
+      val claimDatePage = page goToPage new G3ClaimDatePage(PageObjectsContext(browser))
       claimDatePage fillPageWith claim
       claimDatePage submitPage()
 
-      val nationalityAndResidencyPage = claimDatePage goToPage new G4NationalityAndResidencyPage(browser)
+      val nationalityAndResidencyPage = claimDatePage goToPage new G4NationalityAndResidencyPage(PageObjectsContext(browser))
       nationalityAndResidencyPage fillPageWith claim
       nationalityAndResidencyPage submitPage()
 
-      val timeOutSideUKPage = nationalityAndResidencyPage goToPage new G5AbroadForMoreThan52WeeksPage(browser, iteration = 1)
+      val timeOutSideUKPage = nationalityAndResidencyPage goToPage new G5AbroadForMoreThan52WeeksPage(PageObjectsContext(browser), iteration = 1)
       timeOutSideUKPage fillPageWith claim
       timeOutSideUKPage submitPage()
 
-      val eeaPage = timeOutSideUKPage goToPage new G7OtherEEAStateOrSwitzerlandPage(browser)
+      val eeaPage = timeOutSideUKPage goToPage new G7OtherEEAStateOrSwitzerlandPage(PageObjectsContext(browser))
       eeaPage fillPageWith claim
       eeaPage submitPage()
 
-      val moreAboutYouPage =  eeaPage goToPage new G8MoreAboutYouPage(browser)
+      val moreAboutYouPage =  eeaPage goToPage new G8MoreAboutYouPage(PageObjectsContext(browser))
       moreAboutYouPage fillPageWith claim
       moreAboutYouPage submitPage()
 
-      val nextPage = moreAboutYouPage goToPage (new G2BankBuildingSocietyDetailsPage(browser), throwException = false)
+      val nextPage = moreAboutYouPage goToPage (new G2BankBuildingSocietyDetailsPage(PageObjectsContext(browser)), throwException = false)
 
       nextPage must beAnInstanceOf[G1AdditionalInfoPage]
     }

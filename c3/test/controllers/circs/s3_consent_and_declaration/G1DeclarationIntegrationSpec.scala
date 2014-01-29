@@ -5,7 +5,7 @@ import utils.pageobjects.circumstances.s2_additional_info._
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable.{Tags, Specification}
 import utils.pageobjects.circumstances.s3_consent_and_declaration.{G1DeclarationPageContext, G1DeclarationPage}
-import utils.pageobjects.TestData
+import utils.pageobjects.{PageObjects, TestData}
 
 class G1DeclarationIntegrationSpec extends Specification with Tags {
 
@@ -14,11 +14,13 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
     val obtainInfoWhy = "Cause I want"
     val confirm = "yes"
 
-    "be presented" in new WithBrowser with G1DeclarationPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G1DeclarationPage(context)
       page goToThePage()
     }
 
-    "navigate to previous page" in new WithBrowser with G1OtherChangeInfoPageContext {
+    "navigate to previous page" in new WithBrowser with PageObjects{
+			val page =  G1OtherChangeInfoPage(context)
       page goToThePage()
 
       val claim = CircumstancesScenarioFactory.declaration
@@ -31,7 +33,8 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       prevPage must beAnInstanceOf[G1OtherChangeInfoPage]
     }
 
-    "navigate to next page" in new WithBrowser with G1DeclarationPageContext {
+    "navigate to next page" in new WithBrowser with PageObjects{
+			val page =  G1DeclarationPage(context)
       pending("of finishing the circs submission result page")
       val claim = CircumstancesScenarioFactory.otherChangeInfo
       page goToThePage()
@@ -41,7 +44,8 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G1DeclarationPage]
     }
     "contain errors on invalid submission" in {
-      "missing obtainInfoAgreement field" in new WithBrowser with G1DeclarationPageContext {
+      "missing obtainInfoAgreement field" in new WithBrowser with PageObjects{
+			val page =  G1DeclarationPage(context)
         val claim = new TestData
         //claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationWhy = obtainInfoWhy
@@ -55,7 +59,8 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         errors(0) must contain("Do you agree to us obtaining information from any other persons or organisations you may have told us about? - This is required")
       }
 
-      "given obtainInfoAgreement is set to 'no' missing obtainInfoWhy field" in new WithBrowser with G1DeclarationPageContext {
+      "given obtainInfoAgreement is set to 'no' missing obtainInfoWhy field" in new WithBrowser with PageObjects{
+			val page =  G1DeclarationPage(context)
         val claim = new TestData
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationConfirmation = confirm
@@ -68,7 +73,8 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         errors(0) must contain("Please tell us why not - This is required")
       }
 
-      "missing confirm field" in new WithBrowser with G1DeclarationPageContext {
+      "missing confirm field" in new WithBrowser with PageObjects{
+			val page =  G1DeclarationPage(context)
         val claim = new TestData
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationWhy = obtainInfoWhy

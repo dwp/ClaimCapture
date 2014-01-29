@@ -1,9 +1,9 @@
 package utils.pageobjects.circumstances.s2_additional_info
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{CircumstancesPage, PageContext, Page}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G1OtherChangeInfoPage(browser: TestBrowser, previousPage: Option[Page] = None) extends CircumstancesPage(browser, G1OtherChangeInfoPage.url, G1OtherChangeInfoPage.title, previousPage) {
+final class G1OtherChangeInfoPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G1OtherChangeInfoPage.url, G1OtherChangeInfoPage.title) {
   declareInput("#changeInCircs","CircumstancesOtherChangeInfoChange")
 }
 
@@ -12,12 +12,12 @@ object G1OtherChangeInfoPage {
 
   val url  = "/circumstances/additional-info/other-change"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1OtherChangeInfoPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G1OtherChangeInfoPage(ctx)
 }
 
 trait G1OtherChangeInfoPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1OtherChangeInfoPage(browser)
+  val page = G1OtherChangeInfoPage(PageObjectsContext(browser))
 }
 

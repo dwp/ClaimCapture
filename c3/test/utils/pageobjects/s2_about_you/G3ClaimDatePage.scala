@@ -1,14 +1,14 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
 /**
  * PageObject for page s2_about_you g3_claimDate.
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
-final class G3ClaimDatePage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G3ClaimDatePage.url, G3ClaimDatePage.title, previousPage) {
+final class G3ClaimDatePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G3ClaimDatePage.url, G3ClaimDatePage.title) {
   declareDate("#dateOfClaim", "AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart")
 }
 
@@ -21,12 +21,12 @@ object G3ClaimDatePage {
 
   val url  = "/about-you/claim-date"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G3ClaimDatePage(browser,previousPage)
+  def apply(ctx:PageObjectsContext) = new G3ClaimDatePage(ctx)
 }
 
 /** The context for Specs tests */
 trait G3ClaimDatePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G3ClaimDatePage (browser)
+  val page = G3ClaimDatePage (PageObjectsContext(browser))
 }

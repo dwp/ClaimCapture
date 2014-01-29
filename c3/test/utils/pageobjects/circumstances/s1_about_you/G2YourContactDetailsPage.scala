@@ -1,10 +1,10 @@
 package utils.pageobjects.circumstances.s1_about_you
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{CircumstancesPage, PageContext, Page}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
 
-final class G2YourContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends CircumstancesPage(browser, G2YourContactDetailsPage.url, G2YourContactDetailsPage.title, previousPage) {
+final class G2YourContactDetailsPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G2YourContactDetailsPage.url, G2YourContactDetailsPage.title) {
   declareAddress("#address", "CircumstancesYourContactDetailsAddress")
   declareInput("#postcode","CircumstancesYourContactDetailsPostcode")
   declareInput("#phoneNumber","CircumstancesYourContactDetailsPhoneNumber")
@@ -20,12 +20,12 @@ object G2YourContactDetailsPage {
 
   val url  = "/circumstances/identification/your-contact-details"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G2YourContactDetailsPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G2YourContactDetailsPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G2YourContactDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2YourContactDetailsPage(browser)
+  val page = G2YourContactDetailsPage(PageObjectsContext(browser))
 }

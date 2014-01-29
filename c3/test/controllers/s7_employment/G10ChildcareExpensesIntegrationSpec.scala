@@ -4,12 +4,12 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
-import utils.pageobjects.IterationManager
+import utils.pageobjects.PageObjects
 
 class G10ChildcareExpensesIntegrationSpec extends Specification with Tags with AboutYouAndYourPartner {
   "Childcare expenses while you are at work - Integration" should {
-    "be presented" in new WithBrowser with G8AboutExpensesPageContext {
-      IterationManager.init
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G8AboutExpensesPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "no"
       page goToThePage()
@@ -17,7 +17,8 @@ class G10ChildcareExpensesIntegrationSpec extends Specification with Tags with A
       page submitPage()
     }
 
-    "contain 2 completed forms" in new WithBrowser with G8AboutExpensesPageContext {
+    "contain 2 completed forms" in new WithBrowser with PageObjects{
+			val page =  G8AboutExpensesPage(context)
       aboutYouAndPartner(browser)
 
       val claim = ClaimScenarioFactory s7Employment()
@@ -34,7 +35,8 @@ class G10ChildcareExpensesIntegrationSpec extends Specification with Tags with A
       }
     }
 
-    "be able to navigate back to a completed form" in new WithBrowser with G8AboutExpensesPageContext {
+    "be able to navigate back to a completed form" in new WithBrowser with PageObjects{
+			val page =  G8AboutExpensesPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "no"
       page goToThePage()
