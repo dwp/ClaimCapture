@@ -33,11 +33,12 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       Formulate.abroadForMoreThan52Weeks(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
+      Formulate.notInEmployment(browser)
 
       page goToPage( throwException = false, page = new G1EmploymentPage(PageObjectsContext(browser)))
 
       val nextPage = page goToPage(throwException = false, page = new G7ExpensesWhileAtWorkPage(PageObjectsContext(browser)))
-      nextPage must beAnInstanceOf[G9CompletedPage]
+      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
 
     "contain the completed forms" in new WithBrowser with PageObjects{

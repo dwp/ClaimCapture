@@ -4,8 +4,6 @@ import org.specs2.mutable.{ Tags, Specification }
 import controllers.{ BrowserMatchers, Formulate, ClaimScenarioFactory }
 import play.api.test.WithBrowser
 import utils.pageobjects.s9_other_money._
-import utils.pageobjects.s8_self_employment.{G7ExpensesWhileAtWorkPage, G9CompletedPageContext, G9CompletedPage}
-import utils.pageobjects.TestData
 import utils.pageobjects.s8_self_employment.G9CompletedPageContext
 import utils.pageobjects.s8_self_employment.G9CompletedPage
 import utils.pageobjects.{PageObjects, TestData}
@@ -110,7 +108,8 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       }
     }
     
-    "navigate back to previous section" in new WithBrowser with G9CompletedPageContext {
+    "navigate back to previous section" in new WithBrowser with PageObjects{
+			val page =  G9CompletedPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
       page must beAnInstanceOf[G9CompletedPage]
