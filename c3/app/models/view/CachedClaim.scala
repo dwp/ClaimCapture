@@ -13,9 +13,6 @@ import play.api.mvc.Results._
 import play.api.http.HeaderNames._
 import models.domain._
 import controllers.routes
-import scala.Some
-import scala.util.Try
-import net.sf.ehcache.CacheManager
 import scala.concurrent.{ExecutionContext, Future}
 import models.domain.Claim
 import scala.Some
@@ -35,7 +32,7 @@ trait CachedClaim {
 
   val redirect = getProperty("enforceRedirect", default = false)
 
-  val expectedReferer = getProperty("claim.referer", default = CachedClaim.missingRefererConfig)
+  val startPage: String = getProperty("claim.start.page", "/allowance/benefits")
 
   val timeoutPage = routes.ClaimEnding.timeout()
 
@@ -58,14 +55,14 @@ trait CachedClaim {
   def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created)(claim.navigation) with FullClaim
 
   def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
-    r.session.get(cacheKey).getOrElse(randomUUID.toString) ->  getProperty("cache.expiry", 3600)
+    r.session.get(cacheKey).getOrElse(randomUUID.toString) -> getProperty("cache.expiry", 3600)
   }
 
   def refererAndHost(r: Request[AnyContent]): (String, String) = {
     r.headers.get("Referer").getOrElse("No Referer in header") -> r.headers.get("Host").getOrElse("No Host in header")
   }
 
-  def fromCache(request:Request[AnyContent]): Option[Claim] = {
+  def fromCache(request: Request[AnyContent]): Option[Claim] = {
     val (key, _) = keyAndExpiration(request)
 
     Cache.getAs[Claim](key)
@@ -76,13 +73,13 @@ trait CachedClaim {
       implicit val r = request
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
-        originCheck(refererCheck, action(newInstance, request)(f))
+        withHeaders(action(newInstance, request)(f))
       }
       else {
         Logger.info(s"Changing $cacheKey")
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
         val claim = Cache.getAs[Claim](key).getOrElse(throw new RuntimeException("I expected a claim in the cache!"))
-        originCheck(sameHostCheck, action(claim, request)(f))
+        originCheck(action(claim, request)(f))
       }
     }
   }
@@ -90,7 +87,7 @@ trait CachedClaim {
   def claiming(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
       implicit val r = request
-      originCheck(sameHostCheck,
+      originCheck(
         fromCache(request) match {
           case Some(claim) => action(copyInstance(claim), request)(f)
 
@@ -113,7 +110,7 @@ trait CachedClaim {
       val (referer, host) = refererAndHost(request)
       implicit val r = request
 
-      def doSubmit = {
+      def doSubmit() = {
         fromCache(request) match {
           case Some(claim) =>
             val (key, _) = keyAndExpiration(request)
@@ -125,15 +122,15 @@ trait CachedClaim {
       }
 
       if (sameHostCheck) {
-        doSubmit
+        doSubmit()
       } else {
         if (redirect) {
           Logger.warn(s"HTTP Referer : $referer")
-          Logger.warn(s"Conf Referer : $expectedReferer")
+          Logger.warn(s"Conf Referer : $startPage")
           Logger.warn(s"HTTP Host : $host")
-          Future(Redirect(expectedReferer))
+          Future(MovedPermanently(startPage))
         } else {
-          doSubmit
+          doSubmit()
         }
       }.map(res => res)
     }
@@ -142,12 +139,13 @@ trait CachedClaim {
   def ending(f: => Result): Action[AnyContent] = Action {
     request => {
       implicit val r = request
-      originCheck(sameHostCheck, f).withNewSession
+      originCheck(f).withNewSession
     }
   }
 
-  def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action.async { request =>
-    claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
+  def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action.async {
+    request =>
+      claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
   }
 
   private def action(claim: Claim, request: Request[AnyContent])(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]): Result = {
@@ -168,29 +166,24 @@ trait CachedClaim {
     referer.contains(host)
   }
 
-  private def refererCheck()(implicit request: Request[AnyContent]) = {
-    val (referer, _) = refererAndHost(request)
-    referer.startsWith(expectedReferer)
-  }
-
-  private def originCheck(doCheck: => Boolean, action: => Result)(implicit request: Request[AnyContent])  = {
+  private def originCheck(action: => Result)(implicit request: Request[AnyContent]) = {
     val (referer, host) = refererAndHost(request)
 
-    if (doCheck) {
+    if (sameHostCheck) {
       withHeaders(action)
     } else {
       if (redirect) {
         Logger.warn(s"HTTP Referer : $referer")
-        Logger.warn(s"Conf Referer : $expectedReferer")
+        Logger.warn(s"Conf Referer : $startPage")
         Logger.warn(s"HTTP Host : $host")
-        Redirect(expectedReferer)
+        MovedPermanently(startPage)
       } else {
         withHeaders(action)
       }
     }
   }
 
-  private def withHeaders(result:Result) : Result = {
+  private def withHeaders(result: Result): Result = {
     result
       .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
       .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
