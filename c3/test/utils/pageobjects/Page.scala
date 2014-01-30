@@ -13,7 +13,6 @@ import scala.util.Try
  */
 abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: String, pageTitle: String, iteration: Int = 1) extends Object with FormFields with WebSearchActions with WebFillActions {
 
-  println(pageTitle + " " + iteration)
   // Cache of the page source
   protected var pageSource = ""
 

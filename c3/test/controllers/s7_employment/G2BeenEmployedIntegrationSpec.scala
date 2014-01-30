@@ -11,7 +11,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
 
       goTo("/employment/been-employed")
       back
-      titleMustEqual("Your employment history - Employment History")
+      titleMustEqual("Employment Employment History")
     }
 
     """be bypassed and go onto "other money" having indicated that "employment" is not required.""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with NotEmployedSinceClaimDate {
@@ -32,7 +32,6 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
-      back
       click("#beenEmployed_yes")
       next
       titleMustEqual("Your job - Employment History")
@@ -42,19 +41,17 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
-      back
       next
       titleMustEqual("Your employment history - Employment History")
       findMustEqualSize("div[class=validation-summary] ol li", 1)
     }
 
-    """go back to "education".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
+    """go back to "education".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EducatedSinceClaimDate {
       beginClaim()
 
       goTo("/education/your-course-details")
 
       goTo("/employment/employment")
-      back
       back
       titleMustEqual("Your course details - About your education")
     }
@@ -63,7 +60,6 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
-      back
       titleMustEqual("Your employment history - Employment History")
 
       click("#beenEmployed_no")

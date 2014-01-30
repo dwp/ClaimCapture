@@ -31,7 +31,7 @@ class G10ChildcareExpensesIntegrationSpec extends Specification with Tags with A
       val s7G10CompletedPage = s7g10.submitPage()
 
       s7G10CompletedPage should beLike {
-        case p: G12PersonYouCareForExpensesPage => p numberSectionsCompleted() must equalTo(2)
+        case p: G12PersonYouCareForExpensesPage => p numberSectionsCompleted() must equalTo(1)
       }
     }
 

@@ -21,7 +21,6 @@ class G1EmploymentSpec extends Specification with Tags {
 
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
       val completedQuestionGroups = Employment.completedQuestionGroups(EmployerContactDetails, jobID)(claim)
-      println(completedQuestionGroups)
     }
 
     "issue an 'error' when deleting a non-existing job" in new WithApplication with Claiming {
