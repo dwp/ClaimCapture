@@ -40,10 +40,11 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage ()
       nextPage must beAnInstanceOf[G1DeclarationPage]
     }
+
     "contain errors on invalid submission" in {
       "missing obtainInfoAgreement field" in new WithBrowser with G1DeclarationPageContext {
         val claim = new TestData
-        //claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
+
         claim.CircumstancesDeclarationWhy = obtainInfoWhy
         claim.CircumstancesDeclarationConfirmation = confirm
 
@@ -72,7 +73,6 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         val claim = new TestData
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationWhy = obtainInfoWhy
-        //claim.CircumstancesDeclarationConfirmation = confirm
 
         page goToThePage()
         page fillPageWith claim
