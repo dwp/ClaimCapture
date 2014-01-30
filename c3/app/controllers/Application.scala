@@ -6,9 +6,17 @@ import models.view.CachedClaim
 
 object Application extends Controller with CachedClaim {
 
+  @deprecated("Feature toggle for new referer mechanism. See US544", "R1.0.13")
+  val gdsPageOk: Boolean = getProperty("gov.uk.start.page.ok", default = true)
+
+  val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
   val govUk: String = getProperty("gov.uk.start.page", "https://www.gov.uk/apply-carers-allowance")
 
   def index = Action {
-    MovedPermanently(govUk)
+    if (gdsPageOk) {
+      MovedPermanently(govUk)
+    } else {
+      Redirect(startUrl)
+    }
   }
 }
