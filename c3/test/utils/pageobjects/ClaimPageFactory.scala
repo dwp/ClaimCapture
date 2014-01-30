@@ -82,7 +82,6 @@ object ClaimPageFactory extends PageFactory {
           case G14JobCompletionPage.title => G14JobCompletionPage (ctx,iteration)
         })
       }.orElse[String,Page]{
-        case G15CompletedPage.title => G15CompletedPage (ctx)
         // S8
         case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage (ctx)
         case G5StatutorySickPayPage.title => G5StatutorySickPayPage (ctx)
@@ -97,7 +96,6 @@ object ClaimPageFactory extends PageFactory {
         case G4SelfEmploymentPensionsAndExpensesPage.title => G4SelfEmploymentPensionsAndExpensesPage (ctx)
         case G5ChildcareExpensesWhileAtWorkPage.title => G5ChildcareExpensesWhileAtWorkPage (ctx)
         case G7ExpensesWhileAtWorkPage.title => G7ExpensesWhileAtWorkPage (ctx)
-        case s8_self_employment.G9CompletedPage.title => s8_self_employment.G9CompletedPage (ctx)
         // S10
         case G1AdditionalInfoPage.title => G1AdditionalInfoPage (ctx)
         case G2ConsentPage.title => G2ConsentPage (ctx)
