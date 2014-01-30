@@ -38,7 +38,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       Formulate.employment(browser)
       Formulate.yourCourseDetails(browser)
 
-      titleMustEqual("Your employment history - Employment History")
+      titleMustEqual("Employment Employment History")
      }
 
     "navigate back" in new WithBrowser with BrowserMatchers {
