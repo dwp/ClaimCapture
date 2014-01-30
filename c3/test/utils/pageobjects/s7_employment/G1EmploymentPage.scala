@@ -4,7 +4,7 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageObjectsContext, ClaimPage, Page, PageContext}
 
 final class G1EmploymentPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1EmploymentPage.url, G1EmploymentPage.title) {
-  declareYesNo("#beenEmployedSince6MonthsBeforeClaim", "EmploymentHaveYouBeenEmployedAtAnyTime")
+  declareYesNo("#beenEmployedSince6MonthsBeforeClaim", "EmploymentHaveYouBeenEmployedAtAnyTime_0")
   declareYesNo("#beenSelfEmployedSince1WeekBeforeClaim", "EmploymentHaveYouBeenSelfEmployedAtAnyTime")
 }
 

@@ -132,7 +132,7 @@ object ClaimScenarioFactory {
     claim.AboutYouDoYouGetStatePension = "Yes"
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
-    claim.EmploymentHaveYouBeenEmployedAtAnyTime = "Yes"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     claim
   }
 
@@ -276,7 +276,7 @@ object ClaimScenarioFactory {
 
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
-    claim.EmploymentHaveYouBeenEmployedAtAnyTime = "No"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
 
     claim.updateDynamic("Employed.visible")("false")
     claim.updateDynamic("SelfEmployed.visible")("false")
