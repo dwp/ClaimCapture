@@ -79,7 +79,6 @@ object ClaimPageFactory extends PageFactory {
           case G9NecessaryExpensesPage.title => G9NecessaryExpensesPage (ctx,iteration)
           case G10ChildcareExpensesPage.title => G10ChildcareExpensesPage (ctx,iteration)
           case G12PersonYouCareForExpensesPage.title => G12PersonYouCareForExpensesPage (ctx,iteration)
-          case G14JobCompletionPage.title => G14JobCompletionPage (ctx,iteration)
         })
       }.orElse[String,Page]{
         // S8

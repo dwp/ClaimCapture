@@ -147,8 +147,6 @@ POST          /employment/childcare-expenses                                    
 GET           /employment/person-you-care-for-expenses/:jobID                         controllers.s7_employment.G12PersonYouCareForExpenses.present(jobID: String)
 POST          /employment/person-you-care-for-expenses                                controllers.s7_employment.G12PersonYouCareForExpenses.submit
 
-POST          /employment/job-completion                                              controllers.s7_employment.G14JobCompletion.submit
-
 # Self-employment
 ###############
 GET           /self-employment/about-self-employment                                  controllers.s8_self_employment.G1AboutSelfEmployment.present
