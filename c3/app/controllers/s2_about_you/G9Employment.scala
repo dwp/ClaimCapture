@@ -19,7 +19,7 @@ object G9Employment extends Controller with CachedClaim with Navigable {
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(ClaimDate) match {
       case Some(n) => track(Employment) { implicit claim => Ok(views.html.s2_about_you.g9_employment(form.fill(Employment))) }
-      case _ => Redirect("/")
+      case _ => Redirect(startPage)
     }
   }
 
