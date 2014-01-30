@@ -32,7 +32,6 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
   }
 
   def present = claiming { implicit claim => implicit request =>
-    println("**************** claim " + claim.toString)
     presentConditionally(aboutSelfEmployment)
   }
 
