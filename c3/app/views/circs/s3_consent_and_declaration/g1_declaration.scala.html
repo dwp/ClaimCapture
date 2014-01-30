@@ -20,16 +20,16 @@
 
             <article class="dec">
                 <h3>@Messages("declaration.title")</h3>
+
                 <ul>
-                    <li>I declare that the information I have given on this form is correct and complete as far as I know and believe.</li>
-                    <li>I understand that if I knowingly give information that is incorrect or incomplete, I may be liable to prosecution or other action.</li>
-                    <li>I understand that I must promptly tell the office that pays my Carer's Allowance of anything that may affect my entitlement to, or the amount of, that benefit.</li>
+                    @for(i <- 1 to 4) {
+                        <li>@Html(Messages(s"circs.declaration.$i"))</li>
+                    }
                 </ul>
             </article>
 
-            <div class="group declare">
-            @declareCheckPlaceholder(declarationForm("confirm"))
-            </div>
+            <div class="group declare">@declareCheckPlaceholder(declarationForm("circsSomeOneElse"))</div>
+            <div class="group declare">@declareCheckPlaceholder(declarationForm("confirm"))</div>
 
             <ul>
                 @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))

@@ -13,7 +13,8 @@ object G1Declaration extends Controller with CachedChangeOfCircs with Navigable 
   val form = Form(mapping(
     "obtainInfoAgreement" -> nonEmptyText,
     "obtainInfoWhy" -> optional(carersNonEmptyText(maxLength = 2000)),
-    "confirm" -> nonEmptyText
+    "confirm" -> nonEmptyText,
+    "circsSomeOneElse" -> optional(carersText)
   )(CircumstancesDeclaration.apply)(CircumstancesDeclaration.unapply)
     .verifying("obtainInfoWhy", CircumstancesDeclaration.validateWhy _))
 
