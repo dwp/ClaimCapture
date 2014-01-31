@@ -1,7 +1,7 @@
 package xml
 
 import models.domain._
-import XMLHelper.formatValue
+import XMLHelper._
 import scala.xml.NodeSeq
 import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 import app.XMLValues._
@@ -264,35 +264,7 @@ object EvidenceList {
       textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther)
   }
 
-  private def textSeparatorLine(title: String) = {
-    val lineWidth = 54
-    val padding = "=" * ((lineWidth - title.length) / 2)
-
-    <TextLine>
-      {s"$padding$title$padding"}
-    </TextLine>
-  }
-
-
   private def sectionEmpty(nodeSeq: NodeSeq) = {
     if (nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty
-  }
-
-  private def textLine(): NodeSeq = <TextLine/>
-
-  private def textLine(text: String): NodeSeq = <TextLine>
-    {text}
-  </TextLine>
-
-  private def textLine(label: String, value: String): NodeSeq = value match {
-    case "" => NodeSeq.Empty
-    case _ => <TextLine>
-      {s"$label" + formatValue(value)}
-    </TextLine>
-  }
-
-  private def textLine(label: String, value: Option[String]): NodeSeq = value match {
-    case Some(s) => textLine(label, value.get)
-    case None => NodeSeq.Empty
   }
 }

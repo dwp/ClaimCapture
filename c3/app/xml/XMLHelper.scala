@@ -124,4 +124,33 @@ object XMLHelper {
        case _ => value
      }
     else ""
+
+
+  def textSeparatorLine(title: String) = {
+    val lineWidth = 54
+    val padding = "=" * ((lineWidth - title.length) / 2)
+
+    <TextLine>
+      {s"$padding$title$padding"}
+    </TextLine>
+  }
+
+
+  def textLine(): NodeSeq = <TextLine/>
+
+  def textLine(text: String): NodeSeq = <TextLine>
+    {text}
+  </TextLine>
+
+  def textLine(label: String, value: String): NodeSeq = value match {
+    case "" => NodeSeq.Empty
+    case _ => <TextLine>
+      {s"$label" + formatValue(value)}
+    </TextLine>
+  }
+
+  def textLine(label: String, value: Option[String]): NodeSeq = value match {
+    case Some(s) => textLine(label, value.get)
+    case None => NodeSeq.Empty
+  }
 }

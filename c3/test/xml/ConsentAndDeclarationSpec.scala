@@ -14,8 +14,8 @@ class ConsentAndDeclarationSpec extends Specification with Tags {
       val claim = Claim().update(CircumstancesDeclaration(obtainInfoAgreement = infoAgreement,obtainInfoWhy = Some("Because I don't want"), confirm = confirmation))
       val xml = ConsentAndDeclaration.xml(claim)
 
-      (xml \\ "Declaration" \\ "TextLine").theSeq(6).text must(contain(infoAgreement))
-      (xml \\ "Declaration" \\ "TextLine").text must contain(confirmation)
+      (xml \\ "Declaration" \\ "TextLine").theSeq(6).text.toLowerCase must(contain(infoAgreement))
+      (xml \\ "Declaration" \\ "TextLine").text.toLowerCase must contain(confirmation)
     }
 
   } section "unit"

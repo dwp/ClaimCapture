@@ -7,6 +7,7 @@ final class G1DeclarationPage (ctx:PageObjectsContext) extends CircumstancesPage
   declareYesNo("#obtainInfoAgreement","CircumstancesDeclarationInfoAgreement")
   declareInput("#obtainInfoWhy","CircumstancesDeclarationWhyNot")
   declareCheck("#confirm","CircumstancesDeclarationConfirmation")
+  declareCheck("#circsSomeOneElse","CircumstancesSomeOneElseConfirmation")
 }
 
 object G1DeclarationPage {
