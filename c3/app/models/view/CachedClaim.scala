@@ -126,7 +126,7 @@ trait CachedClaim {
       } else {
         if (redirect) {
           Logger.warn(s"HTTP Referer : $referer")
-          Logger.warn(s"Conf Referer : $expectedReferer")
+          Logger.warn(s"Conf Referer : $startPage")
           Logger.warn(s"HTTP Host : $host")
           Future(MovedPermanently(startPage))
         } else {
