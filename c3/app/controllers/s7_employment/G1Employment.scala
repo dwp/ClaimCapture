@@ -25,13 +25,12 @@ object G1Employment extends Controller with CachedClaim with Navigable {
 
     def submit = claiming { implicit claim => implicit request =>
       form.bindEncrypted.fold(
-          formWithErrors => {
-      val formWithErrorsUpdate = formWithErrors
-        .replaceError("beenEmployedSince6MonthsBeforeClaim", "error.required", FormError("beenEmployedSince6MonthsBeforeClaim", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-          (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
+        formWithErrors => {
+          val formWithErrorsUpdate = formWithErrors
+            .replaceError("beenEmployedSince6MonthsBeforeClaim", "error.required", FormError("beenEmployedSince6MonthsBeforeClaim", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+              (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
           BadRequest(views.html.s7_employment.g1_employment(formWithErrorsUpdate))}
-        ,
-        employment => {
+        ,employment => {
           val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, Employed)
                                   .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, SelfEmployment)
           updatedClaim.update(employment) -> Redirect(routes.G2BeenEmployed.present())

@@ -5,7 +5,7 @@ import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
-import models.domain.{BeenEmployed, AboutExpenses, PersonYouCareForExpenses}
+import models.domain.{Jobs, BeenEmployed, AboutExpenses, PersonYouCareForExpenses}
 import utils.helpers.CarersForm._
 import Employment._
 import controllers.Mappings._
@@ -29,8 +29,8 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
       case Some(a: AboutExpenses) if a.payAnyoneToLookAfterPerson == `yes`=>
         track(PersonYouCareForExpenses) { implicit claim => Ok(views.html.s7_employment.g12_personYouCareForExpenses(form.fillWithJobID(PersonYouCareForExpenses, jobID))) }
       case _ =>
-        claim.update(jobs.delete(jobID, PersonYouCareForExpenses))
-        claim.update(BeenEmployed(beenEmployed="")).update(jobs.completeJob(jobID))-> Redirect(routes.G2BeenEmployed.present())
+        val updatedClaim = claim.update(jobs.delete(jobID, PersonYouCareForExpenses))
+        updatedClaim.update(BeenEmployed(beenEmployed="")).update(jobs.completeJob(jobID))-> Redirect(routes.G2BeenEmployed.present())
     }
   }
 
@@ -49,6 +49,6 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
 
           BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrorsUpdate))
       },
-      childcareProvider => claim.update(jobs.update(childcareProvider)) -> Redirect(routes.G2BeenEmployed.present()))
+      personYouCareExpenses => claim.update(jobs.update(personYouCareExpenses).completeJob(jobID)) -> Redirect(routes.G2BeenEmployed.present()))
   }
 }
