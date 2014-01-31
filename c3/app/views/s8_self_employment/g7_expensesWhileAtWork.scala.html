@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.ExpensesWhileAtWork])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.ExpensesWhileAtWork])(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import utils.helpers.CarersCrypto
 @import utils.helpers.CarersTemplate._
@@ -40,7 +40,7 @@
 
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
         </nav>
     }
 }

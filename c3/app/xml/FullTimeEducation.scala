@@ -4,6 +4,7 @@ import models.domain._
 import XMLHelper._
 import app.XMLValues._
 import scala.xml.NodeSeq
+import app.XMLValues._
 
 object FullTimeEducation {
 
@@ -24,26 +25,31 @@ object FullTimeEducation {
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <CourseDetails>
-      <Type>{courseDetails.courseType.orNull}</Type>
-      <Title>{courseDetails.title.orNull}</Title>
+      <Type>{NotAsked}</Type>
+      <Title>{courseDetails.title}</Title>
       <HoursSpent></HoursSpent>
-      <DateStarted>{stringify(courseDetails.startDate)}</DateStarted>
-      <DateStopped>{stringify(courseDetails.finishedDate)}</DateStopped>
-      <ExpectedEndDate>{stringify(courseDetails.expectedEndDate)}</ExpectedEndDate>
+      <DateStarted>{courseDetails.startDate.`yyyy-MM-dd`}</DateStarted>
+      <DateStopped></DateStopped>
+      <ExpectedEndDate>{courseDetails.expectedEndDate.`yyyy-MM-dd`}</ExpectedEndDate>
     </CourseDetails>
   }
 
   def locationDetailsXml(claim:Claim) = {
-    val schoolData = claim.questionGroup[AddressOfSchoolCollegeOrUniversity].getOrElse(AddressOfSchoolCollegeOrUniversity())
+    val schoolData = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <LocationDetails>
-      <Name>{schoolData.nameOfSchoolCollegeOrUniversity.orNull}</Name>
-      <Address>{postalAddressStructure(schoolData.address, schoolData.postcode)}</Address>
-      <PhoneNumber>{schoolData.phoneNumber.orNull}</PhoneNumber>
-      <FaxNumber>{schoolData.faxNumber.orNull}</FaxNumber>
-      <StudentReferenceNumber>{courseDetails.studentReferenceNumber.orNull}</StudentReferenceNumber>
-      <Tutor>{schoolData.nameOfMainTeacherOrTutor.orNull}</Tutor>
+      <Name>{courseDetails.nameOfSchoolCollegeOrUniversity}</Name>
+      <Address>
+        <gds:Line>{NotAsked}</gds:Line>
+        <gds:Line>{NotAsked}</gds:Line>
+        <gds:Line>{NotAsked}</gds:Line>
+        <gds:PostCode></gds:PostCode>
+      </Address>
+      <PhoneNumber>{courseDetails.courseContactNumber.orNull}</PhoneNumber>
+      <FaxNumber>{NotAsked}</FaxNumber>
+      <StudentReferenceNumber>{NotAsked}</StudentReferenceNumber>
+      <Tutor>{courseDetails.nameOfMainTeacherOrTutor}</Tutor>
     </LocationDetails>
   }
 }

@@ -2,7 +2,7 @@ package models.domain
 
 import scala.language.reflectiveCalls
 import org.specs2.mutable.Specification
-import controllers.s7_employment.G3EmployerContactDetails
+import controllers.s7_employment.G4EmployerContactDetails
 import controllers.s7_employment.Employment.jobFormFiller
 import models.MultiLineAddress
 
@@ -111,7 +111,7 @@ class EmploymentSpec extends Specification {
 
       val claim = Claim().update(updatedJobs)
 
-      val form = G3EmployerContactDetails.form.fillWithJobID(EmployerContactDetails, "1")(claim)
+      val form = G4EmployerContactDetails.form.fillWithJobID(EmployerContactDetails, "1")(claim)
       form.value.isDefined should beTrue
       val address = new MultiLineAddress()
       form.value.get must beLike { case EmployerContactDetails(jid,address, None, Some(v)) => jid shouldEqual "1" and(v shouldEqual "111") }

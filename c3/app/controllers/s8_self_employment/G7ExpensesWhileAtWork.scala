@@ -48,7 +48,7 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
 
     payToLookPersonYouCareFor match {
       case true => track(ExpensesWhileAtWork) { implicit claim => Ok(views.html.s8_self_employment.g7_expensesWhileAtWork(form.fill(ExpensesWhileAtWork)))}
-      case false => claim.delete(ExpensesWhileAtWork) ->  Redirect(routes.SelfEmployment.completed())
+      case false => claim.delete(ExpensesWhileAtWork) ->  Redirect(routes.SelfEmployment.completedSubmit())
     }
   }
 
@@ -64,7 +64,7 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
           .replaceError("howOftenPayExpenses","error.paymentFrequency",FormError("howOftenPayExpenses","error.paymentFrequency",Seq("",didYouDoYouIfSelfEmployed.toLowerCase)))
         BadRequest(views.html.s8_self_employment.g7_expensesWhileAtWork(formWithErrorsUpdate))
       },
-      f => claim.update(f) ->  Redirect(routes.SelfEmployment.completed())
+      f => claim.update(f) ->  Redirect(routes.SelfEmployment.completedSubmit())
     )
   }
 }

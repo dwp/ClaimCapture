@@ -1,9 +1,9 @@
 package utils.pageobjects.s1_carers_allowance
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects.{PageObjectsContext, ClaimPage, PageContext}
 
-final class G1BenefitsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1BenefitsPage.url, G1BenefitsPage.title, previousPage) {
+final class G1BenefitsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1BenefitsPage.url, G1BenefitsPage.title) {
   declareYesNo("#answer", "CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits")
 }
 
@@ -12,11 +12,11 @@ object G1BenefitsPage {
 
   val url = "/allowance/benefits"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1BenefitsPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G1BenefitsPage(ctx)
 }
 
 trait G1BenefitsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1BenefitsPage (browser)
+  val page = G1BenefitsPage (PageObjectsContext(browser))
 }

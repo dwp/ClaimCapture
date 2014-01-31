@@ -4,14 +4,17 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
+import utils.pageobjects.PageObjects
 
 class G7PensionSchemesIntegrationSpec extends Specification with Tags {
   "Pension schemes - Integrations" should {
-    "be presented" in new WithBrowser with G7PensionSchemesPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G7PensionSchemesPage(context)
       page goToThePage()
     }
 
-    "contain 1 completed form" in new WithBrowser with G7PensionSchemesPageContext {
+    "contain 1 completed form" in new WithBrowser with PageObjects{
+			val page =  G7PensionSchemesPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim
@@ -21,9 +24,10 @@ class G7PensionSchemesIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "be able to navigate back to a completed form" in new WithBrowser with G5AdditionalWageDetailsPageContext {
+    "be able to navigate back to a completed form" in new WithBrowser with PageObjects{
+			val page =  G6AdditionalWageDetailsPage(context)
       val claim = ClaimScenarioFactory s7Employment()
-      val url = routes.G5AdditionalWageDetails.present(page.iteration.toString).url
+      val url = routes.G6AdditionalWageDetails.present(page.iteration.toString).url
       browser.goTo(url)
       browser.click("#anyOtherMoney_no")
       browser.click("#employerOwesYouMoney_yes")
@@ -32,7 +36,7 @@ class G7PensionSchemesIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
       val submitted = page submitPage()
       val backPage = submitted goBack ()
-      backPage must beAnInstanceOf[G5AdditionalWageDetailsPage]
+      backPage must beAnInstanceOf[G6AdditionalWageDetailsPage]
     }
   } section("integration", models.domain.Employed.id)
 }

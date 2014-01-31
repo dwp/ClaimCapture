@@ -6,6 +6,12 @@
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
+@import models.domain.{ConsentAndDeclaration, OtherMoney, PayDetails}
+
+@nextSection = @{
+if (PayDetails.visible) PayDetails.name
+else ConsentAndDeclaration.name
+}
 
 @main(Messages("s9.g6") + " - " + Messages("s9.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.OtherStatutoryPay)) {
 
@@ -41,7 +47,7 @@
 
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
         </nav>
     }
 }
