@@ -5,9 +5,10 @@ import models.DayMonthYear
 
 
 case class CircumstancesSelfEmployment(stillCaring: YesNoWithDate = YesNoWithDate("", None),
-                                       startOfSelfEmployment: DayMonthYear = DayMonthYear(),
+                                       whenThisSelfEmploymentStarted: DayMonthYear = DayMonthYear(),
                                        typeOfBusiness: String = "",
-                                       totalOverWeeklyIncomeThreshold: String = "")
+                                       totalOverWeeklyIncomeThreshold: String = "",
+                                       moreAboutChanges: Option[String] = None)
   extends QuestionGroup(CircumstancesSelfEmployment)
 
 object CircumstancesSelfEmployment extends QuestionGroup.Identifier {

@@ -34,6 +34,9 @@ object DWPCoCircs {
       {  // <Declaration> and <EvidenceList>
         ConsentAndDeclaration.xml(circs)
       }
+      {
+        CircsEvidenceList.xml(circs)
+      }
     </DWPCAChangeOfCircumstances>
   }
 

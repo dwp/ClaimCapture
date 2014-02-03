@@ -16,13 +16,14 @@ object G1SelfEmployment extends Controller with CachedChangeOfCircs with Navigab
       "answer" -> nonEmptyText.verifying(validYesNo),
       "date" -> optional(dayMonthYear.verifying(validDate))
     )(YesNoWithDate.apply)(YesNoWithDate.unapply)
-      .verifying("required", YesNoWithDate.validate _)
+      .verifying("required", YesNoWithDate.validateNo _)
 
   val form = Form(mapping(
     stillCaringMapping,
-    "startOfSelfEmployment" -> dayMonthYear.verifying(validDate),
-    "typeOfBusiness" -> carersNonEmptyText(maxLength = 60),
-    "totalOverWeeklyIncomeThreshold" -> nonEmptyText.verifying(validYesNo)
+    "whenThisSelfEmploymentStarted" -> dayMonthYear.verifying(validDate),
+    "typeOfBusiness" -> carersNonEmptyText(maxLength = 35),
+    "totalOverWeeklyIncomeThreshold" -> nonEmptyText.verifying(validYesNo),
+    "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesSelfEmployment.apply)(CircumstancesSelfEmployment.unapply))
 
   def present = claiming { implicit circs => implicit request =>

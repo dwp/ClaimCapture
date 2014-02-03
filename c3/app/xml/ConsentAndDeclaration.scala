@@ -33,6 +33,5 @@ object ConsentAndDeclaration {
         textLines
       }
     </Declaration>
-    <EvidenceList/>
   }
 }

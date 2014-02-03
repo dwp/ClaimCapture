@@ -546,8 +546,12 @@ moreAboutChanges.helper = If you did not tell us about these changes when they h
 changeInCircs = Use this online form for reporting change of circumstances. Remember to include the date of the change and all relevant facts.
 
 stillCaring_answer=Are you still caring 35 hours or more each week?
+stillCaring.answer=Are you still caring 35 hours or more each week?
+stillCaring=What date did you stop caring 35 hours a week?
 whenStoppedCaring=What date did you stop caring 35 hours a week?
-whenThisSelfEmploymentStarted=When did you start this self- employed work?
+stillCaring.date=What date did you stop caring 35 hours a week?
+stillCaring_date=What date did you stop caring 35 hours a week?
+whenThisSelfEmploymentStarted=When did you start this self-employed work?
 typeOfBusiness=What type of business is your self-employed work?
 totalOverWeeklyIncomeThreshold=Will the total income into your business be more than £100 a week?
 
