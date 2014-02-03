@@ -554,8 +554,8 @@ main {
    	   }
 	   ul {
 		   li {
-			   background: #d5e8f3 url('images/progress-tick.png') 1.2em 1.3em no-repeat;
-			   border-bottom: 1px solid #b6d6d2;
+			   background: #e6eff5 url('images/tick.png') 1.1em 1.3em no-repeat;
+			   border-bottom: 1px solid #cdd7dc;
 			   padding: 1em 11em 1em 2.9em;
 			   position: relative;
 			   @media screen and (max-width: 760px) {padding-right: 1em;}
@@ -569,8 +569,8 @@ main {
 			   }
 			   p {
 			   	   font-size: 1.6rem;
-				   font-weight: 700;
-				   color: #315843;
+				   font-weight: 800;
+				   color: #000;
 				   line-height: 1em;
 				   margin-top: .4em;
 				   .ie & {
@@ -596,7 +596,7 @@ main {
 					   display: inline-block;
 				   }
 				   &:hover {
-					   color: #315843;
+					   color: #444;
 				   }
 				   @media screen and (max-width: 760px) {position: relative; right: auto; top: auto; margin-top: 1em; display: inline-block;}
 			   }
@@ -816,6 +816,11 @@ main {
 					   left: -9999px;
 				   }
 			   }
+			   
+			   &.c-help {
+				   padding-top: 0;
+				  margin-top: 0;
+			   }
 			  
 			   
 			   &.validation {
@@ -943,7 +948,7 @@ main {
 				   font-weight: 500;
 				   overflow: hidden;
 				   line-height: 1em;
-				   padding: .7em .7em .65em .7em;
+				   padding: .5em .7em .45em .7em;
 				   border-left: 5px solid #333;
 				   color: #000;
 			   }
@@ -1404,8 +1409,8 @@ main {
 	   
 	   /* info panel */
 	   .info {
-	       background: #bde4f6;
-		   border: 1px solid #015399;
+	       background: #fff;
+		   border: 1px solid #a2a2a2;
 		   padding: 1em 1.25em;
 		   margin-top: 1.2em;
 		   p {
