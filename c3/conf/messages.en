@@ -526,9 +526,13 @@ c1.g3 = Details of the person you care for
 
 c2.g1 = Other Change Information
 
+c2c.g1 = Report a change in your circumstances
+
 c3.g1 = Declaration
 
 changeInCircs = Use this online form for reporting change of circumstances. Remember to include the date of the change and all relevant facts.
+
+
 
 #ABOUT YOU - About you
 lastName = Last name
