@@ -1,7 +1,8 @@
 package utils.pageobjects.tests
 
 import org.specs2.mutable.Specification
-import utils.pageobjects.{UnknownPage, PageObjectException, TestData}
+import utils.pageobjects._
+import scala.Some
 
 
 /**
@@ -46,8 +47,8 @@ class PageSpec extends Specification {
     }
 
     "be able to provide full path of pages used to reach the current page." in new MockPageContext {
-      val page2 = new MockPage(browser,"Page 2", Some(page))
-      val page3 = new MockPage(browser,"Page 3", Some(page2))
+      val page2 = new MockPage(PageObjectsContext(browser,IterationManager(),Some(page)),"Page 2")
+      val page3 = new MockPage(PageObjectsContext(browser,IterationManager(),Some(page2)),"Page 3")
       page3.fullPagePath mustEqual "Page 3 < Page 2 < Mock Page"
     }
 

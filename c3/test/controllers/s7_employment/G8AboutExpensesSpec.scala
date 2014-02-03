@@ -35,7 +35,7 @@ class G8AboutExpensesSpec extends Specification with Tags {
     }
 
     "be added to a (current) job" in new WithApplication with Claiming {
-      G2JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      G3JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",

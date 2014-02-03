@@ -76,19 +76,10 @@ POST          /about-you/other-eea-state-or-switzerland                         
 GET           /about-you/more-about-you                                               controllers.s2_about_you.G8MoreAboutYou.present
 POST          /about-you/more-about-you                                               controllers.s2_about_you.G8MoreAboutYou.submit
 
-GET           /about-you/employment                                                   controllers.s2_about_you.G9Employment.present
-POST          /about-you/employment                                                   controllers.s2_about_you.G9Employment.submit
-
-GET           /about-you/completed                                                    controllers.s2_about_you.AboutYou.completed
-POST          /about-you/completed                                                    controllers.s2_about_you.AboutYou.completedSubmit
-
 # Your partner
 ###############
 GET           /your-partner/personal-details                                          controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
 POST          /your-partner/personal-details                                          controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
-
-GET           /your-partner/completed                                                 controllers.s3_your_partner.YourPartner.completed
-POST          /your-partner/completed                                                 controllers.s3_your_partner.YourPartner.completedSubmit
 
 # Care you provide
 ###############
@@ -112,40 +103,34 @@ GET           /care-you-provide/breaks/:id                                      
 GET           /care-you-provide/break                                                 controllers.s4_care_you_provide.G11Break.present
 POST          /care-you-provide/break                                                 controllers.s4_care_you_provide.G11Break.submit
 
-GET           /care-you-provide/completed                                             controllers.s4_care_you_provide.CareYouProvide.completed
-POST          /care-you-provide/completed                                             controllers.s4_care_you_provide.CareYouProvide.submit
-
 # Education
 ###############
 GET           /education/your-course-details                                          controllers.s6_education.G1YourCourseDetails.present
 POST          /education/your-course-details                                          controllers.s6_education.G1YourCourseDetails.submit
 
-GET           /education/address-of-school-college-or-university                      controllers.s6_education.G2AddressOfSchoolCollegeOrUniversity.present
-POST          /education/address-of-school-college-or-university                      controllers.s6_education.G2AddressOfSchoolCollegeOrUniversity.submit
-
-GET           /education/completed                                                    controllers.s6_education.Education.completed
-POST          /education/completed                                                    controllers.s6_education.Education.completedSubmit
-
 # Employment
 ###############
-GET           /employment/been-employed                                               controllers.s7_employment.G1BeenEmployed.present
-POST          /employment/been-employed                                               controllers.s7_employment.G1BeenEmployed.submit
+GET           /employment/employment                                                  controllers.s7_employment.G1Employment.present
+POST          /employment/employment                                                  controllers.s7_employment.G1Employment.submit
+
+GET           /employment/been-employed                                               controllers.s7_employment.G2BeenEmployed.present
+POST          /employment/been-employed                                               controllers.s7_employment.G2BeenEmployed.submit
 
 DELETE        /employment/job/:jobID                                                  controllers.s7_employment.Employment.delete(jobID: String)
 
-GET           /employment/job/:jobID                                                  controllers.s7_employment.G2JobDetails.job(jobID: String)
+GET           /employment/job/:jobID                                                  controllers.s7_employment.G3JobDetails.job(jobID: String)
 
-GET           /employment/job-details/:jobID                                          controllers.s7_employment.G2JobDetails.present(jobID: String)
-POST          /employment/job-details                                                 controllers.s7_employment.G2JobDetails.submit
+GET           /employment/job-details/:jobID                                          controllers.s7_employment.G3JobDetails.present(jobID: String)
+POST          /employment/job-details                                                 controllers.s7_employment.G3JobDetails.submit
 
-GET           /employment/employers-contact-details/:jobID                            controllers.s7_employment.G3EmployerContactDetails.present(jobID: String)
-POST          /employment/employers-contact-details                                   controllers.s7_employment.G3EmployerContactDetails.submit
+GET           /employment/employers-contact-details/:jobID                            controllers.s7_employment.G4EmployerContactDetails.present(jobID: String)
+POST          /employment/employers-contact-details                                   controllers.s7_employment.G4EmployerContactDetails.submit
 
-GET           /employment/last-wage/:jobID                                            controllers.s7_employment.G4LastWage.present(jobID: String)
-POST          /employment/last-wage                                                   controllers.s7_employment.G4LastWage.submit
+GET           /employment/last-wage/:jobID                                            controllers.s7_employment.G5LastWage.present(jobID: String)
+POST          /employment/last-wage                                                   controllers.s7_employment.G5LastWage.submit
 
-GET           /employment/additional-wage-details/:jobID                              controllers.s7_employment.G5AdditionalWageDetails.present(jobID: String)
-POST          /employment/additional-wage-details                                     controllers.s7_employment.G5AdditionalWageDetails.submit
+GET           /employment/additional-wage-details/:jobID                              controllers.s7_employment.G6AdditionalWageDetails.present(jobID: String)
+POST          /employment/additional-wage-details                                     controllers.s7_employment.G6AdditionalWageDetails.submit
 
 GET           /employment/pension-schemes/:jobID                                      controllers.s7_employment.G7PensionSchemes.present(jobID: String)
 POST          /employment/pension-schemes                                             controllers.s7_employment.G7PensionSchemes.submit
@@ -161,12 +146,6 @@ POST          /employment/childcare-expenses                                    
 
 GET           /employment/person-you-care-for-expenses/:jobID                         controllers.s7_employment.G12PersonYouCareForExpenses.present(jobID: String)
 POST          /employment/person-you-care-for-expenses                                controllers.s7_employment.G12PersonYouCareForExpenses.submit
-
-GET           /employment/job-completion/:jobID                                       controllers.s7_employment.G14JobCompletion.present(jobID: String)
-POST          /employment/job-completion                                              controllers.s7_employment.G14JobCompletion.submit
-
-GET           /employment/completed                                                   controllers.s7_employment.Employment.completed
-POST          /employment/completed                                                   controllers.s7_employment.Employment.submit
 
 # Self-employment
 ###############
@@ -199,9 +178,6 @@ POST          /other-money/statutory-sick-pay                                   
 GET           /other-money/other-statutory-pay                                        controllers.s9_other_money.G6OtherStatutoryPay.present
 POST          /other-money/other-statutory-pay                                        controllers.s9_other_money.G6OtherStatutoryPay.submit
 
-GET         /other-money/completed                                                  controllers.s9_other_money.OtherMoney.completed
-POST        /other-money/completed                                                  controllers.s9_other_money.OtherMoney.completedSubmit
-
 # Pay details
 ###############
 GET           /pay-details/how-we-pay-you                                             controllers.s10_pay_details.G1HowWePayYou.present
@@ -209,9 +185,6 @@ POST          /pay-details/how-we-pay-you                                       
 
 GET           /pay-details/bank-building-society-details                              controllers.s10_pay_details.G2BankBuildingSocietyDetails.present
 POST          /pay-details/bank-building-society-details                              controllers.s10_pay_details.G2BankBuildingSocietyDetails.submit
-
-GET           /pay-details/completed                                                  controllers.s10_pay_details.PayDetails.completed
-POST          /pay-details/completed                                                  controllers.s10_pay_details.PayDetails.completedSubmit
 
 # Consent and declaration
 ###############

@@ -28,6 +28,7 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
     presentConditionally(bankBuildingSocietyDetails)
   }
 
+
   def bankBuildingSocietyDetails(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val iAmVisible = claim.questionGroup(HowWePayYou) match {
       case Some(y: HowWePayYou) => y.likeToBePaid == AccountStatus.BankBuildingAccount.name
@@ -35,12 +36,12 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
     }
 
     if (iAmVisible) track(BankBuildingSocietyDetails) { implicit claim => Ok(views.html.s10_pay_details.g2_bankBuildingSocietyDetails(form.fill(BankBuildingSocietyDetails))) }
-    else claim.delete(BankBuildingSocietyDetails) -> Redirect(routes.PayDetails.completed())
+    else claim.delete(BankBuildingSocietyDetails) -> redirectPath
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s10_pay_details.g2_bankBuildingSocietyDetails(formWithErrors)),
-      howWePayYou => claim.update(howWePayYou) -> Redirect(routes.PayDetails.completed()))
+      howWePayYou => claim.update(howWePayYou) -> redirectPath)
   }
 }

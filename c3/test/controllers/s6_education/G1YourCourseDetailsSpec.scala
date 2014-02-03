@@ -12,11 +12,23 @@ import models.view.CachedClaim
 
 class G1YourCourseDetailsSpec extends Specification with Tags {
 
-  val formInput = Seq("courseType" -> "University", "courseTitle" -> "Law",
-    "startDate.day" -> "16", "startDate.month" -> "4", "startDate.year" -> "1992",
-    "expectedEndDate.day" -> "30", "expectedEndDate.month" -> "9", "expectedEndDate.year" -> "1997",
-    "finishedDate.day" -> "1", "finishedDate.month" -> "1", "finishedDate.year" -> "2000",
-    "studentReferenceNumber" -> "ST-2828281")
+  val nameOfSchoolCollegeOrUniversity = "MIT"
+  val nameOfMainTeacherOrTutor = "Albert Einstein"
+  val courseContactNumber = "02076541058"
+  val title = "Law"
+
+  val formInput = Seq(
+    "courseTitle" -> title,
+    "nameOfSchoolCollegeOrUniversity" -> nameOfSchoolCollegeOrUniversity,
+    "nameOfMainTeacherOrTutor" -> nameOfMainTeacherOrTutor,
+    "courseContactNumber" -> courseContactNumber,
+    "startDate.day" -> "16",
+    "startDate.month" -> "4",
+    "startDate.year" -> "1992",
+    "expectedEndDate.day" -> "30",
+    "expectedEndDate.month" -> "9",
+    "expectedEndDate.year" -> "1997"
+    )
 
   "Your course details - Controller" should {
     "present 'Your course details'" in new WithApplication with Claiming {
@@ -36,11 +48,12 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
 
       section.questionGroup(YourCourseDetails) must beLike {
         case Some(f: YourCourseDetails) => {
-          f.courseType must equalTo(Some("University"))
-          f.startDate must equalTo(Some(DayMonthYear(Some(16), Some(4), Some(1992), None, None)))
-          f.expectedEndDate must equalTo(Some(DayMonthYear(Some(30), Some(9), Some(1997), None, None)))
-          f.finishedDate must equalTo(Some(DayMonthYear(Some(1), Some(1), Some(2000), None, None)))
-          f.studentReferenceNumber must equalTo(Some("ST-2828281"))
+          f.title mustEqual(title)
+          f.nameOfSchoolCollegeOrUniversity mustEqual(nameOfSchoolCollegeOrUniversity)
+          f.nameOfMainTeacherOrTutor mustEqual (nameOfMainTeacherOrTutor)
+          f.courseContactNumber mustEqual Some(courseContactNumber)
+          f.startDate must equalTo(DayMonthYear(Some(16), Some(4), Some(1992), None, None))
+          f.expectedEndDate must equalTo(DayMonthYear(Some(30), Some(9), Some(1997), None, None))
         }
       }
     }

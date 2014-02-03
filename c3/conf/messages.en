@@ -51,7 +51,6 @@ s2.g5 = Time outside of England, Scotland or Wales
 s2.g6 = Trips
 s2.g7 = Other European Economic Area (EEA) states or Switzerland
 s2.g8 = More about you
-s2.g9 = Employment
 
 s3.g1 = Partner/Spouse details
 s3.g2 = Contact details
@@ -71,11 +70,12 @@ s5.g2 = Details of time abroad with the person you care for
 s6.g1 = Your course details
 s6.g2 = School, college or university''s contact details
 
-s7.g1 = Have you been employed?
-s7.g2 = Your job
-s7.g3 = Employer''s contact details
-s7.g4 = Your last wage
-s7.g5 = Additional details on your last wage
+s7.g1 = Employment
+s7.g2 = Have you been employed?
+s7.g3 = Your job
+s7.g4 = Employer''s contact details
+s7.g5 = Your last wage
+s7.g6 = Additional details on your last wage
 s7.g7 = Pension schemes
 s7.g8 = About expenses to do with your employment
 s7.g9 = Necessary expenses to do your job
@@ -188,6 +188,8 @@ resideInUK=Which country do you normally live in?
 
 # CLAIM DATE
 dateOfClaim = When do you want your Carer''s Allowance claim to start?
+dateOfClaimHelp.label = Help
+dateOfClaimHelp = Entitlement to Carers''s Allowance can normally be backdated for up to 3 months but in some circumstances can be longer. For further information , see the <a href="/claim-notes" target="_blank">claim notes.</a>
 
 # OTHER EEA STATE OR SWITZERLAND
 eeaCountryHelp.label = What is an EEA State? - Help
@@ -203,12 +205,6 @@ hadPartnerSinceClaimDate.helper = If you have separated from your partner/spouse
 beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
 receiveStatePension = Do you get State Pension?
-
-# EMPLOYMENT
-beenEmployedSince6MonthsBeforeClaim.label = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
-beenEmployedSince6MonthsBeforeClaim = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
-beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
-beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time since one week before your claim date?
 
 
 ## YOUR PARTNER
@@ -284,6 +280,9 @@ wherePerson = Where was the person you care for during the break?
 wherePerson.location = Where was the person you care for during the break?
 medicalDuringBreak = Did you or the person you care for get any medical treatment or professional care during this time?
 
+# ABOUT YOUR EDUCATION
+courseContactNumber = Course contact number
+courseContactNumber.helper = Please include if you know the number for your department
 
 ## TIME SPENT ABROAD
 
@@ -314,7 +313,7 @@ personWithYou = Was the person you care for with you?
 courseType = Type of course
 courseTitle = Course title
 startDate = When did you start the course?
-expectedEndDate = When do you expect the course to end?
+expectedEndDate = When did the course end or when will you finish?
 finishedDate = If you are no longer on the course, when did you finish?
 studentReferenceNumber = Your student reference number
 nameOfSchoolCollegeOrUniversity = Name of school, college or university
@@ -323,6 +322,13 @@ faxNumber = Fax number
 
 
 ## EMPLOYED
+
+# EMPLOYMENT
+beenEmployedSince6MonthsBeforeClaim.label = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
+beenEmployedSince6MonthsBeforeClaim = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
+beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
+beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time since one week before your claim date?
+
 beenEmployed = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
 aboutYou_beenEmployedSince6MonthsBeforeClaim.label = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
 aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self employed at any time since {0} (this is one week before your claim date: {1})?
