@@ -8,15 +8,15 @@ import models.domain.{CircumstancesSelfEmployment, CircumstancesOtherInfo}
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import controllers.Mappings._
-import models.yesNo.YesNoWithText
+import models.yesNo.{YesNoWithDate, YesNoWithText}
 
 object G1SelfEmployment extends Controller with CachedChangeOfCircs with Navigable {
   val stillCaringMapping =
     "stillCaring" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "text" -> optional(carersNonEmptyText(maxLength = 35))
-    )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("required", YesNoWithText.validateOnNo _)
+      "date" -> optional(dayMonthYear.verifying(validDate))
+    )(YesNoWithDate.apply)(YesNoWithDate.unapply)
+      .verifying("required", YesNoWithDate.validate _)
 
   val form = Form(mapping(
     stillCaringMapping,

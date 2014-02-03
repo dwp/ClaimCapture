@@ -226,6 +226,9 @@ POST          /circumstances/identification/completed                           
 GET           /circumstances/additional-info/other-change                             controllers.circs.s2_additional_info.G1OtherChangeInfo.present
 POST          /circumstances/additional-info/other-change                             controllers.circs.s2_additional_info.G1OtherChangeInfo.submit
 
+GET           /circumstances/self-employment/change                                   controllers.circs.s2c_self_employment.G1SelfEmployment.present
+POST          /circumstances/self-employment/change                                   controllers.circs.s2c_self_employment.G1SelfEmployment.submit
+
 GET           /circumstances/consent-and-declaration/declaration                      controllers.circs.s3_consent_and_declaration.G1Declaration.present
 POST          /circumstances/consent-and-declaration/declaration                      controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 

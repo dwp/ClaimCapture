@@ -13,13 +13,3 @@ case class CircumstancesOtherInfo(change: String = "") extends QuestionGroup(Cir
 object CircumstancesOtherInfo extends QuestionGroup.Identifier {
   val id = s"${CircumstancesAdditionalInfo.id}.g2"
 }
-
-case class CircumstancesSelfEmployment(stillCaring: YesNoWithText = YesNoWithText("", None),
-                                       startOfSelfEmployment: DayMonthYear = DayMonthYear(),
-                                       typeOfBusiness: String = "",
-                                       totalOverWeeklyIncomeThreshold: String = "")
-  extends QuestionGroup(CircumstancesSelfEmployment)
-
-object CircumstancesSelfEmployment extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesAdditionalInfo.id}.g2"
-}

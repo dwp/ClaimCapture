@@ -23,6 +23,7 @@ s11.longName = Consent and Declaration
 c1.longName = About you - the carer
 c2.name = change in circumstances
 c2.longName = Change in circumstances
+c2c.longName = Report a change in your circumstances
 c3.name = consent and declaration
 c3.longName = Consent and declaration
 
@@ -532,13 +533,18 @@ c1.g3 = Details of the person you care for
 
 c2.g1 = Other Change Information
 
-c2c.g1 = Report a change in your circumstances
+c2c = Report a change in your circumstances
+c2c.g1 = About Your Self-Employment
 
 c3.g1 = Declaration
 
 changeInCircs = Use this online form for reporting change of circumstances. Remember to include the date of the change and all relevant facts.
 
-
+stillCaring_answer=Are you still caring 35 hours or more each week?
+whenStoppedCaring=What date did you stop caring 35 hours a week?
+whenThisSelfEmploymentStarted=When did you start this self- employed work?
+typeOfBusiness=What type of business is your self-employed work?
+totalOverWeeklyIncomeThreshold=Will the total income into your business be more than £100 a week?
 
 #ABOUT YOU - About you
 lastName = Last name

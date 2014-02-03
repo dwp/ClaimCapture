@@ -1,4 +1,4 @@
-@(otherInfoForm: Form[models.domain.CircumstancesSelfEmployment])(implicit claim: models.domain.Claim)
+@(selfEmployment: Form[models.domain.CircumstancesSelfEmployment])(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,15 +8,32 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import controllers.Mappings._
+@import utils.helpers.CarersCrypto
 
-@main(Messages("s2c.g1") + " - " + Messages("c2.name")) {
-    @errorsSummary(otherInfoForm)
+@main(Messages("c2c") + " - " + Messages("c2.name")) {
+    @errorsSummary(selfEmployment)
 
-    @form(action = controllers.circs.s2c_additional_info.routes.G1SelfEmployment.submit) {
+    @form(action = controllers.circs.s2c_self_employment.routes.G1SelfEmployment.submit) {
         <fieldset class="form-elements">
+            <legend>@Messages("c2c.g1")</legend>
 
             <ul class="coc-layout">
-                @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000)
+                @yesNoRadioGroup(selfEmployment("stillCaring.answer"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        inputDayMonthYear(selfEmployment("whenStoppedCaring"))
+                    ),
+                    'id -> "stillCaringWrap",
+                    'display -> { if (selfEmployment("stillCaring.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+                )
+
+                @inputDayMonthYear(selfEmployment("whenThisSelfEmploymentStarted"))
+
+                @carersInputText(selfEmployment("typeOfBusiness"),
+                    'maxLength -> 35)
+
+                @yesNoRadioGroup(selfEmployment("totalOverWeeklyIncomeThreshold"))
             </ul>
         </fieldset>
 
@@ -26,3 +43,13 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2c_self_employment/g1_selfEmployment.js")'></script>
+
+<script type="text/javascript">
+$(function(){
+window.initEvents("@CarersCrypto.encryptAES("stillCaring_answer_yes")",
+"@CarersCrypto.encryptAES("stillCaring_answer_no")",
+"@CarersCrypto.encryptAES("stillCaring_date")");
+});
+</script>
