@@ -656,7 +656,7 @@ main {
    
    /* form elements */
    .form-elements {
-   	   margin: 2em 18% 0 0;
+   	   margin: 2em 18% 1em 0;
    	    @media screen and (max-width: 780px) {margin-right: 0;}
    	    @media screen and (max-width: 500px) {padding-left: 0;}
    	    
@@ -758,6 +758,7 @@ main {
    	   
    	   .question-group {
 			margin-top: 0;
+			margin-bottom: 0;
 			legend {
 				font-size: 1.9rem;
 				font-weight: 400;
