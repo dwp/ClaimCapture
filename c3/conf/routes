@@ -233,3 +233,6 @@ GET           /circumstances/consent-and-declaration/declaration                
 POST          /circumstances/consent-and-declaration/declaration                      controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
 GET           /circumstances/consent-and-declaration/submitting                       controllers.circs.s3_consent_and_declaration.G2Submitting.present
+
+GET           /circumstances/report-change/stopped-caring                                            controllers.circs.s_permanently_stopped_caring.G1PermanentlyStoppedCaring.present
+POST          /circumstances/report-change/stopped-caring                                            controllers.circs.s_permanently_stopped_caring.G1PermanentlyStoppedCaring.submit

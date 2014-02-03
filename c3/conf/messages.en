@@ -538,6 +538,11 @@ c2c.g1 = About Your Self-Employment
 
 c3.g1 = Declaration
 
+stoppedCaringDate = What date did you permanently stop caring?
+stoppedCaringDate.helper = This is when you stopped caring for the person you looked after for at least 35 hours a week.
+moreAboutChanges = Tell us more about your changes
+moreAboutChanges.helper = If you did not tell us about these changes when they happened we need you to tell us why.
+
 changeInCircs = Use this online form for reporting change of circumstances. Remember to include the date of the change and all relevant facts.
 
 stillCaring_answer=Are you still caring 35 hours or more each week?
