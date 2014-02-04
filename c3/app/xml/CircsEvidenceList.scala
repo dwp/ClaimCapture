@@ -29,6 +29,7 @@ object CircsEvidenceList {
 
         circsSelfEmployment.stillCaring.answer match {
           case "no" => buffer ++= textLine(Messages("whenStoppedCaring") + " = " + circsSelfEmployment.stillCaring.date.get.`dd/MM/yyyy`)
+          case _ =>
         }
 
         buffer ++= textLine(Messages("whenThisSelfEmploymentStarted") + " = " + circsSelfEmployment.whenThisSelfEmploymentStarted.`dd/MM/yyyy`)
