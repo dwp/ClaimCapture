@@ -8,6 +8,7 @@ class G1SelfEmploymentFormSpec extends Specification with Tags {
   "Report a change in your circumstances - Self employment Form" should {
     val yes = "yes"
     val no = "no"
+    val dontknow = "dontknow"
     val stillCaringDateDay = 10
     val stillCaringDateMonth = 11
     val stillCaringDateYear = 2012
@@ -26,7 +27,7 @@ class G1SelfEmploymentFormSpec extends Specification with Tags {
           "whenThisSelfEmploymentStarted.month" -> whenThisSelfEmploymentStartedDateMonth.toString,
           "whenThisSelfEmploymentStarted.year" -> whenThisSelfEmploymentStartedDateYear.toString,
           "typeOfBusiness" -> typeOfBusiness,
-          "totalOverWeeklyIncomeThreshold" -> yes,
+          "totalOverWeeklyIncomeThreshold" -> dontknow,
           "moreAboutChanges" -> moreAboutChanges
         )
       ).fold(
@@ -35,7 +36,7 @@ class G1SelfEmploymentFormSpec extends Specification with Tags {
           f.stillCaring.answer must equalTo(yes)
           f.whenThisSelfEmploymentStarted must equalTo(DayMonthYear(Some(whenThisSelfEmploymentStartedDateDay), Some(whenThisSelfEmploymentStartedDateMonth), Some(whenThisSelfEmploymentStartedDateYear), None, None))
           f.typeOfBusiness must equalTo(typeOfBusiness)
-          f.totalOverWeeklyIncomeThreshold must equalTo(yes)
+          f.totalOverWeeklyIncomeThreshold must equalTo(dontknow)
           f.moreAboutChanges must equalTo(Some(moreAboutChanges))
         }
       )

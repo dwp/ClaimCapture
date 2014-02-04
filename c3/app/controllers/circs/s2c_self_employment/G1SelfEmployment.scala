@@ -22,7 +22,7 @@ object G1SelfEmployment extends Controller with CachedChangeOfCircs with Navigab
     stillCaringMapping,
     "whenThisSelfEmploymentStarted" -> dayMonthYear.verifying(validDate),
     "typeOfBusiness" -> carersNonEmptyText(maxLength = 35),
-    "totalOverWeeklyIncomeThreshold" -> nonEmptyText.verifying(validYesNo),
+    "totalOverWeeklyIncomeThreshold" -> nonEmptyText.verifying(validYesNoDontKnow),
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesSelfEmployment.apply)(CircumstancesSelfEmployment.unapply))
 
