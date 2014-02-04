@@ -3,7 +3,7 @@ package models.domain
 import models.DayMonthYear
 
 case object CircumstancesPermanentlyStoppedCaring extends Section.Identifier {
-  val id = "c1"
+  val id = "c2c"
 }
 
 case class CircumstancesStoppedCaring(

@@ -10,11 +10,12 @@
 @import views.html.helper.dates._
 @import controllers.Mappings._
 
-@main(Messages("Permanently stopped caring",Some(stoppedCaringForm))) {
+@main(Messages("c2c") + " - " + Messages("c2.name")) {
+    @errorsSummary(stoppedCaringForm)
 
     @form(action = controllers.circs.s_permanently_stopped_caring.routes.G1PermanentlyStoppedCaring.submit) {
         <fieldset class="form-elements">
-
+            <legend>@Messages("c2c.g2")</legend>
             <ul class="coc-layout">
                 @inputDayMonthYear(stoppedCaringForm("stoppedCaringDate"),  'helperBelow-> Messages("stoppedCaringDate.helper"))
                 @carersInputTextArea(stoppedCaringForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> "300 characters left", 'maxLength -> 300)
