@@ -75,7 +75,7 @@ main {
    /* Claim info */
    .claim-info {
 	   margin: 0;
-	   padding: 10px 1em 10px 0;
+	   padding: 16px 1em 10px 0;
 	   list-style: none;
 	   text-align: right;
 	   border-top: 10px solid #f47738;
@@ -1698,13 +1698,16 @@ main {
 	   
 	   &.entitlement {
 		   background: #fff; border: 1px solid #a2a2a2;
+		   margin-top: 1.5em;
 		   p {
 			   font-weight: 600;
 		   }
 	   }
 	   
 	   &.entitlement-error {
-		   background: #fef7f7; border: 3px solid #df3034;
+	   	   margin-top: 1.5em;
+		   background: #fef7f7;
+		   border: 3px solid #df3034;
 	   }
 	  
 	   &.breaks-prompt {
