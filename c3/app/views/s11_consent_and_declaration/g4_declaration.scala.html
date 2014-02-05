@@ -1,8 +1,9 @@
-@(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim,lang: play.api.i18n.Lang)
 
 @import helper._
 @import utils.helpers.DeclareCheckTemplate._
 @import views.html.helper._
+@import utils.helpers.CarersCrypto
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
@@ -25,6 +26,14 @@
 
              @carersDeclareCheck(currentForm("someoneElse"))
 
+             <ul>
+                 @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputText(currentForm("nameOrOrganisation"))(utils.helpers.CarersTemplate.fieldConstructor,lang)),
+                    'id -> "nameOrOrgWrapper",
+                    'display -> currentForm("someoneElse").value.map(p => p match{ case "true" => "yes" case _ => p}).getOrElse("no")
+                 )
+
+             </ul>
              @carersDeclareCheck(currentForm("confirm"),'secondary->true)
         </fieldset>
 
@@ -34,3 +43,11 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@controllers.routes.Assets.at("javascripts/s11_consent_and_declaration/g4_declaration.js")'></script>
+<script type="text/javascript">
+$(function() {
+window.initEvents("@CarersCrypto.encryptAES("someoneElse")",
+                     "@CarersCrypto.encryptAES("nameOrOrganisation")");
+});
+</script>

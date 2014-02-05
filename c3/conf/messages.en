@@ -477,6 +477,7 @@ declaration.4 = If I give false or incomplete information or fail to report chan
 confirm = Please tick this box to confirm that you understand and make the declarations above.
 declaration.title = The declarations below sets out your legal responsibilities in respect of your claim.
 someoneElse = Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
+nameOrOrganisation = Your name and/or organisation
 
 #ADDITIONAL INFO
 anythingElse = Please tell us anything else you think we should know about your claim

@@ -25,10 +25,17 @@ object Disclaimer extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g3"
 }
 
-case class Declaration(read: String = "", someoneElse: Option[String] = None) extends QuestionGroup(Declaration)
+case class Declaration(read: String = "", nameOrOrganisation:String = "", someoneElse: Option[String] = None) extends QuestionGroup(Declaration)
 
 object Declaration extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g4"
+
+  def validateNameOrOrganisation(declaration: Declaration) = {
+    declaration.someoneElse match {
+      case Some(s) => !declaration.nameOrOrganisation.isEmpty
+      case _ => true
+    }
+  }
 }
 
 object Submit extends QuestionGroup.Identifier {

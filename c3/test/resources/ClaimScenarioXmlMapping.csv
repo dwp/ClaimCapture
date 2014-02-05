@@ -134,6 +134,7 @@ Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyEmpl
 Consent & Declaration,Consent,Do you agree to us getting information from any other person or organisation you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyOther,DWPCAClaim>Declaration
 Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyOther,DWPCAClaim>Declaration
 Consent & Declaration,Declaration,Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits. =,ConsentDeclarationDisclaimerTextAndTickBox,DWPCAClaim>Declaration
+Consent & Declaration,Declaration,,ConsentDeclarationNameOrOrganisation,
 Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,SelfEmployment>SelfEmployedNow
 Self Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,SelfEmployment>RecentJobDetails>DateStarted|SelfEmployment>CurrentJobDetails>DateStarted
 Self Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,SelfEmployment>RecentJobDetails>DateEnded
