@@ -12,9 +12,9 @@
 @main(Messages("c2.g1") + " - " + Messages("c2.name")) {
     @errorsSummary(otherInfoForm)
 
-    @form(action = controllers.circs.s2_additional_info.routes.G1OtherChangeInfo.submit) {
+    @form(action = controllers.circs.s2_report_changes.routes.G4OtherChangeInfo.submit) {
         <fieldset class="form-elements">
-
+            <legend>@Messages("c2.g4")</legend>
             <ul class="coc-layout">
                 @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000)
             </ul>

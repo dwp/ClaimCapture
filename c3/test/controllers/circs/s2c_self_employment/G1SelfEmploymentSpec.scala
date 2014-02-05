@@ -5,6 +5,8 @@ import play.api.test.{FakeRequest, WithApplication}
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
+import controllers.circs.s2_report_changes.G1SelfEmployment
+import controllers.circs.s2_report_changes
 
 class G1SelfEmploymentSpec extends Specification with Tags {
   val yes = "yes"
@@ -47,7 +49,7 @@ class G1SelfEmploymentSpec extends Specification with Tags {
     "present 'CoC Self Employment' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
-      val result = controllers.circs.s2c_self_employment.G1SelfEmployment.present(request)
+      val result = G1SelfEmployment.present(request)
       status(result) mustEqual OK
     }
 
@@ -55,7 +57,7 @@ class G1SelfEmploymentSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validStillCaringFormInput: _*)
 
-      val result = controllers.circs.s2c_self_employment.G1SelfEmployment.submit(request)
+      val result = s2_report_changes.G1SelfEmployment.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -63,7 +65,7 @@ class G1SelfEmploymentSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validNotCaringFormInput: _*)
 
-      val result = controllers.circs.s2c_self_employment.G1SelfEmployment.submit(request)
+      val result = s2_report_changes.G1SelfEmployment.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   } section("unit", models.domain.CircumstancesSelfEmployment.id)

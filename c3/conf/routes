@@ -223,16 +223,19 @@ POST          /circumstances/identification/details-of-the-person-you-care-for  
 GET           /circumstances/identification/completed                                 controllers.circs.s1_identification.Identification.completed
 POST          /circumstances/identification/completed                                 controllers.circs.s1_identification.Identification.submit
 
-GET           /circumstances/additional-info/other-change                             controllers.circs.s2_additional_info.G1OtherChangeInfo.present
-POST          /circumstances/additional-info/other-change                             controllers.circs.s2_additional_info.G1OtherChangeInfo.submit
+GET           /circumstances/report-changes/selection                                 controllers.circs.s2_report_changes.G1ReportChanges.present
+POST          /circumstances/report-changes/selection                                 controllers.circs.s2_report_changes.G1ReportChanges.submit
 
-GET           /circumstances/self-employment/change                                   controllers.circs.s2c_self_employment.G1SelfEmployment.present
-POST          /circumstances/self-employment/change                                   controllers.circs.s2c_self_employment.G1SelfEmployment.submit
+GET           /circumstances/report-changes/change                                    controllers.circs.s2_report_changes.G2SelfEmployment.present
+POST          /circumstances/report-changes/change                                    controllers.circs.s2_report_changes.G2SelfEmployment.submit
+
+GET           /circumstances/report-changes/stopped-caring                            controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.present
+POST          /circumstances/report-changes/stopped-caring                            controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.submit
+
+GET           /circumstances/report-changes/other-change                              controllers.circs.s2_report_changes.G4OtherChangeInfo.present
+POST          /circumstances/report-changes/other-change                              controllers.circs.s2_report_changes.G4OtherChangeInfo.submit
 
 GET           /circumstances/consent-and-declaration/declaration                      controllers.circs.s3_consent_and_declaration.G1Declaration.present
 POST          /circumstances/consent-and-declaration/declaration                      controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
 GET           /circumstances/consent-and-declaration/submitting                       controllers.circs.s3_consent_and_declaration.G2Submitting.present
-
-GET           /circumstances/report-change/stopped-caring                                            controllers.circs.s_permanently_stopped_caring.G1PermanentlyStoppedCaring.present
-POST          /circumstances/report-change/stopped-caring                                            controllers.circs.s_permanently_stopped_caring.G1PermanentlyStoppedCaring.submit

@@ -3,6 +3,7 @@ package controllers.circs.s2c_self_employment
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 import models.yesNo.YesNoWithDate
+import controllers.circs.s2_report_changes.G1SelfEmployment
 
 class G1SelfEmploymentFormSpec extends Specification with Tags {
   "Report a change in your circumstances - Self employment Form" should {

@@ -10,12 +10,12 @@
 @import controllers.Mappings._
 @import utils.helpers.CarersCrypto
 
-@main(Messages("c2c") + " - " + Messages("c2.name")) {
+@main(Messages("c2") + " - " + Messages("c2.name")) {
     @errorsSummary(selfEmployment)
 
-    @form(action = controllers.circs.s2c_self_employment.routes.G1SelfEmployment.submit) {
+    @form(action = controllers.circs.s2_report_changes.routes.G2SelfEmployment.submit) {
         <fieldset class="form-elements">
-            <legend>@Messages("c2c.g1")</legend>
+            <legend>@Messages("c2.g2")</legend>
 
             <ul class="coc-layout">
                 @yesNoRadioGroup(selfEmployment("stillCaring.answer"))
@@ -46,7 +46,7 @@
     }
 }
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2c_self_employment/g1_selfEmployment.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g2_selfEmployment.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 <script type="text/javascript">

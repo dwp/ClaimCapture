@@ -2,6 +2,7 @@ package controllers.circs.s_permanently_stopped_caring
 
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
+import controllers.circs.s2_report_changes.G1PermanentlyStoppedCaring
 
 
 class G1PermanentlyStoppedCaringFormSpec extends Specification with Tags {

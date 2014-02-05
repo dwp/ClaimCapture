@@ -531,20 +531,23 @@ c1.g1 = Your details
 c1.g2 = Your contact details
 c1.g3 = Details of the person you care for
 
-c2.g1 = Other Change Information
-
-c2c = Report a change in your circumstances
-c2c.g1 = About Your Self-Employment
-c2c.g2 = Permanently stopped caring
+c2 = Report a change in your circumstances
+c2.g1 = Details of your change in circumstances
+c2.g2 = About Your Self-Employment
+c2.g3 = Permanently stopped caring
+c2.g4 = Other changes
 
 c3.g1 = Declaration
 
+reportChanges=What type of change do you want to report?
+reportChanges.helper=Tell us about your change
+
 stoppedCaringDate = What date did you permanently stop caring?
 stoppedCaringDate.helper = This is when you stopped caring for the person you looked after for at least 35 hours a week.
-moreAboutChanges = Tell us more about your changes
-moreAboutChanges.helper = If you did not tell us about any changes when they happened we need you to tell us why.
+moreAboutChanges = Tell us more about your change(s)
+moreAboutChanges.helper = If you did not tell us about any change(s) when they happened we need you to tell us why.
 
-changeInCircs = Use this online form for reporting change of circumstances. Remember to include the date of the change and all relevant facts.
+changeInCircs = Use this online form for reporting change of circumstances. Remember to include the date of the change(s) and all relevant facts.
 
 stillCaring_answer=Are you still caring 35 hours or more each week?
 stillCaring.answer=Are you still caring 35 hours or more each week?

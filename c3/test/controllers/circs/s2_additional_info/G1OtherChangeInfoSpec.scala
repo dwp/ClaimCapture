@@ -6,6 +6,8 @@ import models.view.CachedChangeOfCircs
 import play.api.cache.Cache
 import play.api.test.Helpers._
 import org.specs2.mutable.{Tags, Specification}
+import controllers.circs.s2_report_changes.G3OtherChangeInfo
+import controllers.circs.s2_report_changes
 
 
 class G1OtherChangeInfoSpec extends Specification with Tags{
@@ -19,7 +21,7 @@ class G1OtherChangeInfoSpec extends Specification with Tags{
     "present 'Other Change Information' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
-      val result = controllers.circs.s2_additional_info.G1OtherChangeInfo.present(request)
+      val result = G3OtherChangeInfo.present(request)
       status(result) mustEqual OK
     }
 
@@ -28,7 +30,7 @@ class G1OtherChangeInfoSpec extends Specification with Tags{
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(otherChangeInfoInput: _*)
 
-      val result = controllers.circs.s2_additional_info.G1OtherChangeInfo.submit(request)
+      val result = s2_report_changes.G3OtherChangeInfo.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       claim.questionGroup[CircumstancesOtherInfo] must beLike {
         case Some(f: CircumstancesOtherInfo) => {
@@ -41,7 +43,7 @@ class G1OtherChangeInfoSpec extends Specification with Tags{
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(otherChangeInfoInput: _*)
 
-      val result = controllers.circs.s2_additional_info.G1OtherChangeInfo.submit(request)
+      val result = s2_report_changes.G3OtherChangeInfo.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
