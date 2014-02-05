@@ -27,7 +27,7 @@ class G4DeclarationSpec extends Specification with Tags {
                                  .withFormUrlEncodedBody("confirm" -> "checked","someoneElse" -> "checked")
 
       val result = G4Declaration.submit(request)
-      redirectLocation(result) must beSome("/consent-and-declaration/submit")
+      status(result) mustEqual BAD_REQUEST
     }
 
     """accept answers without someoneElse""" in new WithApplication with Claiming {
@@ -35,7 +35,7 @@ class G4DeclarationSpec extends Specification with Tags {
                                  .withFormUrlEncodedBody("confirm" -> "checked")
 
       val result = G4Declaration.submit(request)
-      redirectLocation(result) must beSome("/consent-and-declaration/submit")
+      status(result) mustEqual BAD_REQUEST
     }
 
     """accept answers""" in new WithApplication with Claiming {
