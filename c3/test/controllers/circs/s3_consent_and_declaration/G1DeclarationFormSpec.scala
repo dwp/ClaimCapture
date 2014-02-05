@@ -8,11 +8,12 @@ class G1DeclarationFormSpec extends Specification with Tags {
   val why = "Cause i want"
   val confirm = "yes"
   val someOneElse = "yes"
+  val nameOrOrganisation = "Testing"
 
   "Change of circumstances - Declaration Form" should {
     "map data into case class" in {
       G1Declaration.form.bind(
-        Map("obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse)
+        Map("obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation)
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
@@ -20,6 +21,7 @@ class G1DeclarationFormSpec extends Specification with Tags {
           f.obtainInfoWhy.get must equalTo(why)
           f.confirm must equalTo(confirm)
           f.circsSomeOneElse must equalTo(Some(someOneElse))
+          f.nameOrOrganisation must equalTo(Some(nameOrOrganisation))
         }
       )
     }

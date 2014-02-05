@@ -13,8 +13,9 @@ class G1DeclarationSpec extends Specification with Tags {
   val why = "Cause i want"
   val confirm = "yes"
   val someOneElse = "yes"
+  val nameOrOrganisation = "Tesco"
 
-  val declarationInput = Seq("obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse)
+  val declarationInput = Seq("obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation)
   val declartionInputWithoutSomeOne = Seq("obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> "")
 
   "Circumstances - OtherChangeInfo - Controller" should {
@@ -39,6 +40,7 @@ class G1DeclarationSpec extends Specification with Tags {
           f.obtainInfoWhy.get must equalTo(why)
           f.confirm must equalTo(confirm)
           f.circsSomeOneElse must equalTo(Some(someOneElse))
+          f.nameOrOrganisation must equalTo(Some(nameOrOrganisation))
         }
       }
     }
@@ -56,6 +58,7 @@ class G1DeclarationSpec extends Specification with Tags {
           f.obtainInfoWhy.get must equalTo(why)
           f.confirm must equalTo(confirm)
           f.circsSomeOneElse must equalTo(None)
+          f.nameOrOrganisation must equalTo(None)
         }
       }
     }

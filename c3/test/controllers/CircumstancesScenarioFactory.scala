@@ -47,6 +47,7 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesDeclarationWhy = "Cause I want"
     claim.CircumstancesDeclarationConfirmation = "yes"
     claim.CircumstancesSomeOneElseConfirmation = "yes"
+    claim.NameOrOrganisation = "Mr Smith"
     claim
   }
 
