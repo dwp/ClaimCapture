@@ -1,14 +1,9 @@
 @(declarationForm: Form[models.domain.CircumstancesDeclaration])(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
-@import helper._
 @import utils.helpers.CarersTemplate._
-@import views.html.common._
-@import views.html.helper._
-@import views.html.helper.dropdowns._
-@import views.html.helper.base._
-@import views.html.helper.dates._
-@import controllers.Mappings._
-@import models.domain._
+    @import views.html.helper._
+    @import views.html.helper.base._
+    @import models.domain._
 @import utils.helpers.CarersCrypto
 
 @main(Messages("c3.g1") + " - " + Messages("c3.name")) {
@@ -28,10 +23,16 @@
                 </ul>
             </article>
 
-            <div class="group declare">@declareCheckPlaceholder(declarationForm("circsSomeOneElse"))</div>
-            <div class="group declare">@declareCheckPlaceholder(declarationForm("confirm"))</div>
-
             <ul>
+                <div class="group declare">@declareCheckPlaceholder(declarationForm("circsSomeOneElse"))</div>
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> Mappings.sixty)),
+                    'id -> "nameOrOrganisation",
+                    'display -> declarationForm("circsSomeOneElse").value.getOrElse("no"))
+
+                <div class="group declare">@declareCheckPlaceholder(declarationForm("confirm"))</div>
+
                 @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
                 @otherDetailPlaceHolder(
                     inputDef = Seq(

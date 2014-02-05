@@ -2,7 +2,7 @@ package controllers.circs.s3_consent_and_declaration
 
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import models.domain.{CircumstancesDeclaration, CircumstancesOtherInfo}
@@ -14,7 +14,8 @@ object G1Declaration extends Controller with CachedChangeOfCircs with Navigable 
     "obtainInfoAgreement" -> nonEmptyText,
     "obtainInfoWhy" -> optional(carersNonEmptyText(maxLength = 2000)),
     "confirm" -> nonEmptyText,
-    "circsSomeOneElse" -> optional(carersText)
+    "circsSomeOneElse" -> optional(carersText),
+    "nameOrOrganisation" -> optional(carersText(maxLength = 60))
   )(CircumstancesDeclaration.apply)(CircumstancesDeclaration.unapply)
     .verifying("obtainInfoWhy", CircumstancesDeclaration.validateWhy _))
 
