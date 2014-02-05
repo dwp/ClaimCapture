@@ -10,7 +10,7 @@ import utils.pageobjects._
  */
 class G4DeclarationPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G4DeclarationPage.url, G4DeclarationPage.title) {
   declareCheck("#someoneElse","ConsentDeclarationSomeoneElseTickBox")
-  declareCheck("#nameOrOrganisation","ConsentDeclarationNameOrOrganisation")
+  declareInput("#nameOrOrganisation","ConsentDeclarationNameOrOrganisation")
   declareCheck("#confirm","ConsentDeclarationDeclarationTickBox")
 }
 
