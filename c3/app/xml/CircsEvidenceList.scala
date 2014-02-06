@@ -10,12 +10,8 @@ import org.joda.time.DateTime
 object CircsEvidenceList {
   def xml(circs: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{selfEmployed(circs)}
+      {selfEmployed(circs)}
     </EvidenceList>
-  }
-
-  def xmlGenerated() = {
-    textLine("XML Generated at: " + DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss").print(DateTime.now()))
   }
 
   def selfEmployed(circs: Claim): NodeSeq = {
@@ -25,6 +21,8 @@ object CircsEvidenceList {
 
     circsSelfEmploymentOption match {
       case Some(circsSelfEmployment) => {
+        buffer ++= textLine("XML Generated at: " + DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss").print(DateTime.now()))
+
         buffer ++= textLine(Messages("stillCaring.answer") + " = " + circsSelfEmployment.stillCaring.answer)
 
         circsSelfEmployment.stillCaring.answer match {

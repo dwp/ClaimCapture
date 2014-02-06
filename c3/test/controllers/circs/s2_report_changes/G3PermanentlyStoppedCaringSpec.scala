@@ -1,4 +1,4 @@
-package controllers.circs.s2_additional_info
+package controllers.circs.s2_report_changes
 
 import play.api.test.{FakeRequest, WithApplication}
 import models.domain._
@@ -9,9 +9,10 @@ import org.specs2.mutable.{Tags, Specification}
 import models.domain.Claim
 import scala.Some
 import models.DayMonthYear
+import controllers.circs.s2_report_changes
 
 
-class G1PermanentlyStoppedCaringSpec extends Specification with Tags{
+class G3PermanentlyStoppedCaringSpec extends Specification with Tags{
 
   val moreAboutChanges = "more about the change"
   val stoppedCaringDateDay = 23
@@ -29,7 +30,7 @@ class G1PermanentlyStoppedCaringSpec extends Specification with Tags{
     "present 'Permanently Stopped Caring' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
-      val result = controllers.circs.s_permanently_stopped_caring.G1PermanentlyStoppedCaring.present(request)
+      val result = G3PermanentlyStoppedCaring.present(request)
       status(result) mustEqual OK
     }
 
@@ -37,10 +38,10 @@ class G1PermanentlyStoppedCaringSpec extends Specification with Tags{
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(stoppedCaringInput: _*)
 
-      val result = controllers.circs.s_permanently_stopped_caring.G1PermanentlyStoppedCaring.submit(request)
+      val result = s2_report_changes.G3PermanentlyStoppedCaring.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
-  } section("unit", models.domain.CircumstancesPermanentlyStoppedCaring.id)
+  } section("unit", models.domain.CircumstancesStoppedCaring.id)
 
 }

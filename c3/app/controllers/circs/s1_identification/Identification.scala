@@ -14,6 +14,6 @@ object Identification extends Controller with CachedChangeOfCircs with Navigable
   }
 
   def submit = claiming { implicit circs => implicit request =>
-    Redirect(controllers.circs.s2_additional_info.routes.G1OtherChangeInfo.present())
+    Redirect(controllers.circs.s2_report_changes.routes.G1ReportChanges.present())
   }
 }

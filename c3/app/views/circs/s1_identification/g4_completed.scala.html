@@ -1,7 +1,7 @@
 @()(implicit claim: models.domain.Claim)
 
 @import helper._
-@import models.domain.{CircumstancesIdentification, CircumstancesAdditionalInfo}
+@import models.domain.CircumstancesIdentification
 
 @main("Completion - " + Messages("c1.longName"), None, claim.completedQuestionGroups(CircumstancesIdentification)) {
     @form(action = controllers.circs.s1_identification.routes.Identification.submit) {
