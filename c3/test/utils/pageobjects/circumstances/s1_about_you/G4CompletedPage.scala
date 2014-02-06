@@ -8,7 +8,7 @@ final class G4CompletedPage(ctx:PageObjectsContext) extends CircumstancesPage(ct
 object G4CompletedPage {
   val title = "Completion - About you - the carer".toLowerCase
 
-  val url  = "circumstances/identification/completed"
+  val url  = "/circumstances/identification/completed"
 
   def apply(ctx:PageObjectsContext) = new G4CompletedPage(ctx)
 }

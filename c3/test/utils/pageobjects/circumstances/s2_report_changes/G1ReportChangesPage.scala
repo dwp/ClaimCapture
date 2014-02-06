@@ -12,7 +12,7 @@ final class G1ReportChangesPage(ctx:PageObjectsContext) extends CircumstancesPag
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1ReportChangesPage {
-  val title = "Report a change in your circumstances - Change in circumstances".toLowerCase
+  val title = "Details of your change in circumstances - Change in circumstances".toLowerCase
 
   val url  = "/circumstances/report-changes/selection"
 
