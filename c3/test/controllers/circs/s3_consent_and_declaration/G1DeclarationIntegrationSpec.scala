@@ -13,6 +13,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
     val obtainInfoAgreement = "no"
     val obtainInfoWhy = "Cause I want"
     val confirm = "yes"
+    val someOneElse = "Yes"
 
     "be presented" in new WithBrowser with PageObjects{
 			val page =  G1DeclarationPage(context)
@@ -72,6 +73,22 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
         errors(0) must contain("Please tell us why not - This is required")
+      }
+
+      "given circsSomeOneElse checked and missing name or organisation field" in new WithBrowser with PageObjects{
+        val page =  G1DeclarationPage(context)
+        val claim = new TestData
+        claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
+        claim.CircumstancesDeclarationWhyNot = obtainInfoWhy
+        claim.CircumstancesDeclarationConfirmation = confirm
+        claim.CircumstancesSomeOneElseConfirmation = someOneElse
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Your name and/or organisation - This is required")
       }
 
       "missing confirm field" in new WithBrowser with PageObjects{

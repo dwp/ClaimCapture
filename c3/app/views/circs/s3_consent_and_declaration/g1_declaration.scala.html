@@ -1,9 +1,9 @@
 @(declarationForm: Form[models.domain.CircumstancesDeclaration])(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import utils.helpers.CarersTemplate._
-    @import views.html.helper._
-    @import views.html.helper.base._
-    @import models.domain._
+@import views.html.helper._
+@import views.html.helper.base._
+@import models.domain._
 @import utils.helpers.CarersCrypto
 
 @main(Messages("c3.g1") + " - " + Messages("c3.name")) {
@@ -17,22 +17,26 @@
                 <h3>@Messages("declaration.title")</h3>
 
                 <ul>
-                    @for(i <- 1 to 4) {
-                        <li>@Html(Messages(s"circs.declaration.$i"))</li>
-                    }
+                @for(i <- 1 to 4) {
+                    <li>@Html(Messages(s"circs.declaration.$i"))</li>
+                }
                 </ul>
             </article>
 
+
+            <div class="group declare">@declareCheckPlaceholder(declarationForm("circsSomeOneElse"))</div>
             <ul>
-                <div class="group declare">@declareCheckPlaceholder(declarationForm("circsSomeOneElse"))</div>
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> Mappings.sixty)),
-                    'id -> "nameOrOrganisation",
-                    'display -> declarationForm("circsSomeOneElse").value.getOrElse("no"))
+            @otherDetailPlaceHolder(
+                inputDef = Seq(
+                    carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> Mappings.sixty)),
+                'id -> "nameOrOrganisationWrapper",
+                'display -> declarationForm("circsSomeOneElse").value.map(p => p match { case "true" => "yes" case _ => p}).getOrElse("no")
+            )
+            </ul>
 
-                <div class="group declare">@declareCheckPlaceholder(declarationForm("confirm"))</div>
+            <div class="group declare">@declareCheckPlaceholder(declarationForm("confirm"))</div>
 
+            <ul>
                 @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
@@ -53,9 +57,11 @@
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s3_consent_and_declaration/g1_declaration.js")'></script>
 
 <script type="text/javascript">
-    $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
-                          "@CarersCrypto.encryptAES("obtainInfoAgreement_no")",
-                          "@CarersCrypto.encryptAES("obtainInfoWhy")");
-    })
+$(function() {
+window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
+                   "@CarersCrypto.encryptAES("obtainInfoAgreement_no")",
+                   "@CarersCrypto.encryptAES("obtainInfoWhy")",
+                   "@CarersCrypto.encryptAES("circsSomeOneElse")",
+                   "@CarersCrypto.encryptAES("nameOrOrganisation")");
+})
 </script>
