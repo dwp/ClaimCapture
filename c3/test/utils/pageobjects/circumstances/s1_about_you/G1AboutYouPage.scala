@@ -1,9 +1,9 @@
 package utils.pageobjects.circumstances.s1_about_you
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{CircumstancesPage, PageContext, Page}
+import play.api.test.WithBrowser
+import utils.pageobjects.{PageObjectsContext, CircumstancesPage, PageContext, Page}
 
-final class G1AboutYouPage(browser: TestBrowser, previousPage: Option[Page] = None) extends CircumstancesPage(browser, G1AboutYouPage.url, G1AboutYouPage.title, previousPage) {
+final class G1AboutYouPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G1AboutYouPage.url, G1AboutYouPage.title) {
   declareSelect("#title", "CircumstancesAboutYouTitle")
   declareInput("#firstName","CircumstancesAboutYouFirstName")
   declareInput("#middleName","CircumstancesAboutYouMiddleName")
@@ -21,12 +21,12 @@ object G1AboutYouPage {
 
   val url  = "/circumstances/identification/about-you"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1AboutYouPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G1AboutYouPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G1AboutYouPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1AboutYouPage(browser)
+  val page = G1AboutYouPage(PageObjectsContext(browser))
 }

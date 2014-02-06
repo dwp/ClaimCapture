@@ -3,6 +3,7 @@ package controllers
 import utils.pageobjects.TestData
 
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
+import models.domain.{SelfEmployment, Employed}
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -105,7 +106,7 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def   s2AboutYouWithTimeOutside() = {
+  def s2AboutYouWithTimeOutside() = {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
     // Your contact details
@@ -130,8 +131,8 @@ object ClaimScenarioFactory {
     claim.AboutYouHaveYouBeenOnACourseOfEducation = "Yes"
     claim.AboutYouDoYouGetStatePension = "Yes"
     // Employment
-    claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime = "Yes"
-    claim.AboutYouHaveYouBeenEmployedAtAnyTime_1 = "Yes"
+    claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     claim
   }
 
@@ -167,9 +168,7 @@ object ClaimScenarioFactory {
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "no"
     claim.AboutYouHaveYouBeenOnACourseOfEducation = "no"
     claim.AboutYouDoYouGetStatePension = "no"
-    // Employment
-    claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime = "no"
-    claim.AboutYouHaveYouBeenEmployedAtAnyTime_1 = "no"
+
     claim
   }
 
@@ -260,6 +259,31 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvidePostcodePersonPaysYou = "GN1 2DA"
     claim
   }
+
+  def s4CareYouProvideWithNoBreaksInCare() = {
+    val claim = s4CareYouProvide()
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+
+    claim
+  }
+
+  def s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed() = {
+    val claim = s4CareYouProvideWithNoBreaksInCare()
+
+    // Education
+    claim.AboutYouHaveYouBeenOnACourseOfEducation = "No"
+
+    // Employment
+    claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+
+    claim.updateDynamic("Employed.visible")("false")
+    claim.updateDynamic("SelfEmployed.visible")("false")
+
+    claim
+  }
+
 
   def s5TimeSpentAbroad() = {
     val claim = s4CareYouProvide()
@@ -371,7 +395,7 @@ object ClaimScenarioFactory {
   }
 
   def s7Employment() = {
-    val claim = new TestData
+    val claim = s2AboutYouWithTimeOutside
     claim.EmploymentEmployerName_1 = "Tesco's"
     claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
     claim.EmploymentHaveYouFinishedThisJob_1 = "yes"
@@ -428,7 +452,6 @@ object ClaimScenarioFactory {
     claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1 = "Other"
     claim.EmploymentAddressCareProvider_1 = "1 London Road&Preston&Lancashire"
     claim.EmploymentPostcodeCareProvider_1 = "PR4 5TH"
-
     claim
   }
 

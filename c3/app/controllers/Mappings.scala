@@ -37,6 +37,8 @@ object Mappings {
 
   val no = "no"
 
+  val dontknow = "dontknow"
+
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
     "day" -> optional(number(max = 100)),
     "month" -> optional(number(max = 100)),
@@ -276,7 +278,16 @@ object Mappings {
       case _ => Invalid(ValidationError("yesNo.invalid"))
     }
   }
-  
+
+  def validYesNoDontKnow: Constraint[String] = Constraint[String]("constraint.yesNoDontKnow") { answer =>
+    answer match {
+      case `yes` => Valid
+      case `no` => Valid
+      case `dontknow` => Valid
+      case _ => Invalid(ValidationError("yesNo.invalid"))
+    }
+  }
+
   def paymentFrequencyValidation(pf: PaymentFrequency): ValidationResult = Try(new PaymentFrequency(pf.frequency, pf.other)) match {
     case Success(p: PaymentFrequency) if p.frequency == app.PensionPaymentFrequency.Other && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
     case Success(p: PaymentFrequency) => Valid

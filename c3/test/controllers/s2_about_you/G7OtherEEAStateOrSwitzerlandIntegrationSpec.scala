@@ -4,6 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you.{G8MoreAboutYouPage, G7OtherEEAStateOrSwitzerlandPage, G7OtherEEAStateOrSwitzerlandPageContext}
+import utils.pageobjects.PageObjects
 
 class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags {
   sequential
@@ -13,18 +14,21 @@ class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tag
   val errorDiv = "div[class=validation-summary] ol li"
 
   "Other European Economic Area (EEA) states or Switzerland" should {
-    "be presented" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G7OtherEEAStateOrSwitzerlandPage(context)
       page goToThePage()
     }
 
-    "contain errors on invalid submission" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
+    "contain errors on invalid submission" in new WithBrowser with PageObjects{
+			val page =  G7OtherEEAStateOrSwitzerlandPage(context)
       page goToThePage()
       val nextPage = page submitPage()
 
       nextPage must beAnInstanceOf[G7OtherEEAStateOrSwitzerlandPage]
     }
 
-    "navigate to next page on valid resident submission" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
+    "navigate to next page on valid resident submission" in new WithBrowser with PageObjects{
+			val page =  G7OtherEEAStateOrSwitzerlandPage(context)
       val claim = ClaimScenarioFactory.otherEuropeanEconomicArea
       page goToThePage()
       page fillPageWith claim
@@ -34,7 +38,8 @@ class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tag
       nextPage must beAnInstanceOf[G8MoreAboutYouPage]
     }
 
-    "navigate to next page on valid non resident submission" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
+    "navigate to next page on valid non resident submission" in new WithBrowser with PageObjects{
+			val page =  G7OtherEEAStateOrSwitzerlandPage(context)
       val claim = ClaimScenarioFactory.otherEuropeanEconomicArea
       page goToThePage()
       page fillPageWith claim

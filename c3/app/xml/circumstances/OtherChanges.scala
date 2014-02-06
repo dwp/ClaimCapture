@@ -1,14 +1,23 @@
 package xml.circumstances
 
-import models.domain.{Claim, CircumstancesOtherInfo}
+import models.domain.{CircumstancesSelfEmployment, Claim, CircumstancesOtherInfo}
 import scala.xml.NodeSeq
 import xml.XMLComponent
 import xml.XMLHelper._
 
 object OtherChanges extends XMLComponent {
   def xml(circs: Claim): NodeSeq = {
-    val additionalInfo = circs.questionGroup[CircumstancesOtherInfo].getOrElse(CircumstancesOtherInfo())
+    question(<OtherChanges/>,"c2.g1",additionalInfo(circs))
+  }
 
-    question(<OtherChanges/>,"c2.g1",additionalInfo.change)
+  def additionalInfo(circs: Claim) = {
+    val additionalInfoOption = circs.questionGroup[CircumstancesOtherInfo]
+    lazy val selfEmploymentAdditionalInfoOption = circs.questionGroup[CircumstancesSelfEmployment]
+
+    if (additionalInfoOption.isDefined) {
+      additionalInfoOption.get.change
+    } else if (selfEmploymentAdditionalInfoOption.isDefined) {
+      selfEmploymentAdditionalInfoOption.get.moreAboutChanges.getOrElse("")
+    }
   }
 }

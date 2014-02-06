@@ -5,7 +5,7 @@ import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
-import models.domain.{AboutExpenses, NecessaryExpenses}
+import models.domain.{ChildcareExpenses, AboutExpenses, NecessaryExpenses}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
@@ -25,7 +25,8 @@ object G9NecessaryExpenses extends Controller with CachedClaim with Navigable {
       case Some(a: AboutExpenses) if a.payForAnythingNecessary == `yes`=>
         track(NecessaryExpenses) { implicit claim => Ok(views.html.s7_employment.g9_necessaryExpenses(form.fillWithJobID(NecessaryExpenses, jobID))) }
       case _ =>
-        claim.update(jobs.delete(jobID, NecessaryExpenses)) -> Redirect(routes.G10ChildcareExpenses.present(jobID))
+        val updatedClaim = claim.update(jobs.delete(jobID, NecessaryExpenses))
+        updatedClaim.update(jobs.delete(jobID, NecessaryExpenses)) -> Redirect(routes.G10ChildcareExpenses.present(jobID))
     }
   }
 

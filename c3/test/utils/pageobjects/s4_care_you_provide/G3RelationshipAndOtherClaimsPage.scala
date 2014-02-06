@@ -1,14 +1,14 @@
 package utils.pageobjects.s4_care_you_provide
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
 /**
  * Page object for s4_care_you_provide g3_more_about_the_person.
  * @author Saqib Kayani
  *         Date: 25/07/2013
  */
-final class G3RelationshipAndOtherClaimsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G3RelationshipAndOtherClaimsPage.url, G3RelationshipAndOtherClaimsPage.title, previousPage)  {
+final class G3RelationshipAndOtherClaimsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G3RelationshipAndOtherClaimsPage.url, G3RelationshipAndOtherClaimsPage.title)  {
   declareSelect("#relationship","AboutTheCareYouProvideWhatTheirRelationshipToYou")
   declareYesNo("#armedForcesPayment", "AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment")
 }
@@ -22,12 +22,12 @@ object G3RelationshipAndOtherClaimsPage {
 
   val url  = "/care-you-provide/relationship-and-other-claims"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G3RelationshipAndOtherClaimsPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G3RelationshipAndOtherClaimsPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G3RelationshipAndOtherClaimsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G3RelationshipAndOtherClaimsPage (browser)
+  val page = G3RelationshipAndOtherClaimsPage (PageObjectsContext(browser))
 }

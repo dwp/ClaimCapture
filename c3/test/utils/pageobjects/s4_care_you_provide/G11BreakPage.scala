@@ -1,9 +1,9 @@
 package utils.pageobjects.s4_care_you_provide
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{IterationManager, ClaimPage, Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G11BreakPage.url, G11BreakPage.title, previousPage, iteration) {
+final class G11BreakPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G11BreakPage.url, G11BreakPage.title, iteration) {
   declareDate("#start", "AboutTheCareYouProvideBreakStartDate_" + iteration)
   declareDate("#end", "AboutTheCareYouProvideBreakEndDate_" + iteration)
   declareTime("#start", "AboutTheCareYouProvideBreakStartTime_" + iteration)
@@ -20,7 +20,7 @@ final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None
    */
   protected override def getNewIterationNumber = {
     import IterationManager._
-    increase(Breaks)
+    ctx.iterationManager.increment(Breaks)
   }
 }
 
@@ -33,12 +33,12 @@ object G11BreakPage {
 
   val url  = "/care-you-provide/break"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G11BreakPage(browser,previousPage,iteration)
+  def apply(ctx:PageObjectsContext, iteration:Int=1) = new G11BreakPage(ctx,iteration)
 }
 
 /** The context for Specs tests */
 trait G11BreakPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G11BreakPage (browser = browser, iteration = 1)
+  val page = G11BreakPage (PageObjectsContext(browser), iteration = 1)
 }

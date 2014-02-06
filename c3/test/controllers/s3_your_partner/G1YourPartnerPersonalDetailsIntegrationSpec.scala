@@ -14,7 +14,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About you - the carer")
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse details - About your partner/spouse")
@@ -27,7 +27,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
-      titleMustEqual("Employment - About you - the carer")
+      titleMustEqual("Details of the person you care for - About the care you provide")
 
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Details of the person you care for - About the care you provide")
@@ -40,7 +40,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About you - the carer")
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse details - About your partner/spouse")
@@ -56,7 +56,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About you - the carer")
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       Formulate.yourPartnerPersonalDetails(browser)
       titleMustEqual(G1TheirPersonalDetailsPage.title)
@@ -69,16 +69,14 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About you - the carer")
 
-      Formulate.employment(browser)
       titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       browser.click("#backButton")
-      titleMustEqual("Employment - About you - the carer")
+      titleMustEqual("More about you - About you - the carer")
     }
 
     "navigate back to About your partner/spouse - Partner/Spouse details" in new WithBrowser with BrowserMatchers {
@@ -88,7 +86,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About you - the carer")
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
 
       Formulate.yourPartnerPersonalDetails(browser)
       titleMustEqual("Details of the person you care for - About the care you provide")

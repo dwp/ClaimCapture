@@ -29,14 +29,6 @@ object Employment extends Controller with CachedClaim  with Navigable{
     case _ => Jobs()
   }
 
-  def completed = claiming { implicit claim => implicit request =>
-    track(Employed) { implicit claim => Ok(views.html.s7_employment.g15_completed()) }
-  }
-
-  def submit = claiming { implicit claim => implicit request =>
-    Redirect("/self-employment/about-self-employment")
-  }
-
   def delete(jobID: String) = claiming { implicit claim => implicit request =>
     import play.api.libs.json.Json
 
