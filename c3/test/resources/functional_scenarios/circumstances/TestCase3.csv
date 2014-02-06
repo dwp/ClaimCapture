@@ -14,8 +14,8 @@ About you - the carer,Details of the person you care for,Last Name,Circumstances
 About you - the carer,Details of the person you care for,National Insurance number,CircumstancesDetailsOfThePersonYouCareForNationalInsuranceNumber,ja486278a
 About you - the carer,Details of the person you care for,Date of Birth,CircumstancesDetailsOfThePersonYouCareForDateOfBirth,03/04/1950
 Report a change in your circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,stoppedCaring
-Details of your change in circumstances - Change in circumstances,Permanently stopped caring,Tell us more about your change(s),CircumstancesPermanentlyStoppedCaringStoppedCaringDate,31/12/2013
-Details of your change in circumstances - Change in circumstances,Permanently stopped caring,What date did you permanently stop caring?,CircumstancesPermanentlyStoppedCaringMoreAboutChanges,
+Permanently stopped caring - Change in circumstances,Permanently stopped caring,Tell us more about your change(s),CircumstancesPermanentlyStoppedCaringStoppedCaringDate,31/12/2013
+Permanently stopped caring - Change in circumstances,Permanently stopped caring,What date did you permanently stop caring?,CircumstancesPermanentlyStoppedCaringMoreAboutChanges,
 Consent and declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,Yes
 Consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,Mr Smith
 Consent and declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,CircumstancesDeclarationConfirmation,Yes

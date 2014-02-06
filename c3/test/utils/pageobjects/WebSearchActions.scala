@@ -92,6 +92,19 @@ trait WebSearchActions {
     else None
   }
 
+  def readYesNoDontknow(location: String, sep: String = "_"): Option[String] = {
+    def isCheckSelected(value: String): Boolean = {
+      val valCssSelector = location + sep + value
+      this checkElement valCssSelector
+      ctx.browser.find(valCssSelector, 0).isSelected
+    }
+
+    if (isCheckSelected("yes")) Some("yes")
+    else if (isCheckSelected("no")) Some("no")
+    else if (isCheckSelected("dontknow")) Some("dontknow")
+    else None
+  }
+
   //====================================================================================================================
   // Other search operations
   //====================================================================================================================

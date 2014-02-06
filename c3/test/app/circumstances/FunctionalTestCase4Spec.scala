@@ -7,14 +7,14 @@ import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XML
 import app.FunctionalTestCommon
 import utils.pageobjects.circumstances.s1_about_you.G1AboutYouPage
 
-class FunctionalTestCase3Spec extends FunctionalTestCommon {
+class FunctionalTestCase4Spec extends FunctionalTestCommon {
   isolated
 
   "The application Circumstances" should {
-    "Successfully run absolute Circumstances Test Case 3" in new WithBrowser with PageObjects {
+    "Successfully run absolute Circumstances Test Case 4" in new WithBrowser with PageObjects {
 
       val page = G1AboutYouPage(context)
-      val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase3.csv")
+      val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase4.csv")
       page goToThePage()
 
       val lastPage = page runClaimWith(circs, XmlPage.title)

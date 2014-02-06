@@ -7,11 +7,6 @@ import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XML
 import app.FunctionalTestCommon
 import utils.pageobjects.circumstances.s1_about_you.G1AboutYouPage
 
-/**
- * End-to-End functional tests using input files created by Steve Moody.
- * @author Jorge Migueis
- *         Date: 02/08/2013
- */
 class FunctionalTestCase2Spec extends FunctionalTestCommon {
   isolated
 
