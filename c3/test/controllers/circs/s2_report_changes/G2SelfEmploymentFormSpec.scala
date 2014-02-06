@@ -1,11 +1,10 @@
-package controllers.circs.s2c_self_employment
+package controllers.circs.s2_report_changes
 
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 import models.yesNo.YesNoWithDate
-import controllers.circs.s2_report_changes.G1SelfEmployment
 
-class G1SelfEmploymentFormSpec extends Specification with Tags {
+class G2SelfEmploymentFormSpec extends Specification with Tags {
   "Report a change in your circumstances - Self employment Form" should {
     val yes = "yes"
     val no = "no"
@@ -21,7 +20,7 @@ class G1SelfEmploymentFormSpec extends Specification with Tags {
     val invalidYear = 99999
 
     "map data into case class" in {
-      G1SelfEmployment.form.bind(
+      G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> yes,
           "whenThisSelfEmploymentStarted.day" -> whenThisSelfEmploymentStartedDateDay.toString,
@@ -44,7 +43,7 @@ class G1SelfEmploymentFormSpec extends Specification with Tags {
     }
 
     "mandatory fields must be populated when caring is not set" in {
-      G1SelfEmployment.form.bind(
+      G2SelfEmployment.form.bind(
         Map("moreAboutChanges" -> moreAboutChanges)
       ).fold(
           formWithErrors => {
@@ -58,7 +57,7 @@ class G1SelfEmploymentFormSpec extends Specification with Tags {
     }
 
     "mandatory fields must be populated when still caring is set to 'no'" in {
-      G1SelfEmployment.form.bind(
+      G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> no,
           "moreAboutChanges" -> moreAboutChanges
@@ -75,7 +74,7 @@ class G1SelfEmploymentFormSpec extends Specification with Tags {
     }
 
     "mandatory fields must be populated when still caring is set to 'yes'" in {
-      G1SelfEmployment.form.bind(
+      G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> yes,
           "moreAboutChanges" -> moreAboutChanges
@@ -91,7 +90,7 @@ class G1SelfEmploymentFormSpec extends Specification with Tags {
     }
 
     "reject special characters in text field" in {
-      G1SelfEmployment.form.bind(
+      G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> yes,
           "stillCaring.date.day" -> stillCaringDateDay.toString,
@@ -114,7 +113,7 @@ class G1SelfEmploymentFormSpec extends Specification with Tags {
     }
 
     "reject invalid still caring date" in {
-      G1SelfEmployment.form.bind(
+      G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> no,
           "stillCaring.date.day" -> stillCaringDateDay.toString,
@@ -137,7 +136,7 @@ class G1SelfEmploymentFormSpec extends Specification with Tags {
     }
 
     "reject invalid when this Self Employment started  date" in {
-      G1SelfEmployment.form.bind(
+      G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> yes,
           "whenThisSelfEmploymentStarted.day" -> whenThisSelfEmploymentStartedDateDay.toString,

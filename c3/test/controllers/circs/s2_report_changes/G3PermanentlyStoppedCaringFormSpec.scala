@@ -1,11 +1,10 @@
-package controllers.circs.s_permanently_stopped_caring
+package controllers.circs.s2_report_changes
 
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
-import controllers.circs.s2_report_changes.G1PermanentlyStoppedCaring
 
 
-class G1PermanentlyStoppedCaringFormSpec extends Specification with Tags {
+class G3PermanentlyStoppedCaringFormSpec extends Specification with Tags {
 
   val moreAboutChanges = "This is more about the change"
   val stoppedCaringDateDay = 23
@@ -14,7 +13,7 @@ class G1PermanentlyStoppedCaringFormSpec extends Specification with Tags {
 
   "Report a change in your circumstances - Permanently stopped caring Form" should {
     "map data into case class" in {
-      G1PermanentlyStoppedCaring.form.bind(
+      G3PermanentlyStoppedCaring.form.bind(
         Map("stoppedCaringDate.day" -> stoppedCaringDateDay.toString,
           "stoppedCaringDate.month" -> stoppedCaringDateMonth.toString,
           "stoppedCaringDate.year" -> stoppedCaringDateYear.toString,
@@ -29,7 +28,7 @@ class G1PermanentlyStoppedCaringFormSpec extends Specification with Tags {
     }
 
     "have 1 mandatory field" in {
-      G1PermanentlyStoppedCaring.form.bind(
+      G3PermanentlyStoppedCaring.form.bind(
         Map("moreAboutChanges" -> moreAboutChanges)
       ).fold(
         formWithErrors => {
@@ -40,7 +39,7 @@ class G1PermanentlyStoppedCaringFormSpec extends Specification with Tags {
     }
 
     "reject special characters in text field" in {
-      G1PermanentlyStoppedCaring.form.bind(
+      G3PermanentlyStoppedCaring.form.bind(
         Map("moreAboutChanges" -> "<>",
           "stoppedCaringDate.day" -> stoppedCaringDateDay.toString,
           "stoppedCaringDate.month" -> stoppedCaringDateMonth.toString,
@@ -54,7 +53,7 @@ class G1PermanentlyStoppedCaringFormSpec extends Specification with Tags {
     }
 
     "reject invalid date" in {
-      G1PermanentlyStoppedCaring.form.bind(
+      G3PermanentlyStoppedCaring.form.bind(
         Map("moreAboutChanges" -> moreAboutChanges,
           "stoppedCaringDate.day" -> stoppedCaringDateDay.toString,
           "stoppedCaringDate.month" -> stoppedCaringDateMonth.toString,
@@ -65,5 +64,5 @@ class G1PermanentlyStoppedCaringFormSpec extends Specification with Tags {
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
-  } section("unit", models.domain.CircumstancesAdditionalInfo.id)
+  } section("unit", models.domain.CircumstancesStoppedCaring.id)
 }

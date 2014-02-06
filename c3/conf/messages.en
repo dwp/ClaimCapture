@@ -541,6 +541,9 @@ c3.g1 = Declaration
 
 reportChanges=What type of change do you want to report?
 reportChanges.helper=Tell us about your change
+reportChanges.stoppedCaring=I have permanently stopped caring
+reportChanges.selfEmployed=I have started self-employment
+reportChanges.anyOtherChanges=Any other changes
 
 stoppedCaringDate = What date did you permanently stop caring?
 stoppedCaringDate.helper = This is when you stopped caring for the person you looked after for at least 35 hours a week.
