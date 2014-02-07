@@ -468,6 +468,9 @@ disclaimer.7 = We may contact [[first name, middle name, surname]] or their repr
 
 read = Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits.
 
+#FURTHER INFORMATION
+furtherinfo.title=Further Information
+
 #DECLARATION
 declaration.1 = I declare that I understand the <a href="/claim-notes" target="_blank">Carer''s Allowance Claim Notes</a> and that the information provided on this claim form is correct and complete.
 declaration.1.pdf = I declare that I understand the Carer''s Allowance Claim Notes and that the information provided on this claim form is correct and complete.
@@ -539,6 +542,7 @@ c2.g3 = Permanently stopped caring
 c2.g4 = Other changes
 
 c3.g1 = Declaration
+c3.g2 = Further Information
 
 reportChanges=What type of change do you want to report?
 reportChanges.helper=Tell us about your change
@@ -565,6 +569,10 @@ totalOverWeeklyIncomeThreshold=Will the total income into your business be more 
 
 #ABOUT YOU - About you
 lastName = Last name
+
+#FURTHER INFORMATION
+furtherInfoContact=Contact phone or mobile number
+furtherInfoContact.helper=Alternatively, tell us if you rather be contacted by post.
 
 #DECLARATION
 obtainInfoAgreement = Do you agree to us obtaining information from any other persons or organisations you may have told us about?
