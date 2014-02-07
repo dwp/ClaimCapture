@@ -43,7 +43,7 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
     // for qs groups under this section, if it is not reportedChange - delete
     val optSections = Stack(CircumstancesSelfEmployment,CircumstancesOtherInfo,CircumstancesStoppedCaring)
 
-    val selectedQG:(QuestionGroup,Call) =
+    val selectedQG:(QuestionGroup.Identifier,Call) =
       if (f.reportChanges      == r.SelfEmployment.name) CircumstancesSelfEmployment -> routes.G2SelfEmployment.present()
       else if (f.reportChanges == r.StoppedCaring.name)  CircumstancesStoppedCaring  -> routes.G3PermanentlyStoppedCaring.present()
       else                                               CircumstancesOtherInfo      -> routes.G4OtherChangeInfo.present()
