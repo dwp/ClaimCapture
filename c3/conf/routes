@@ -226,8 +226,8 @@ POST          /circumstances/identification/completed                           
 GET           /circumstances/report-changes/selection                                 controllers.circs.s2_report_changes.G1ReportChanges.present
 POST          /circumstances/report-changes/selection                                 controllers.circs.s2_report_changes.G1ReportChanges.submit
 
-GET           /circumstances/report-changes/change                                    controllers.circs.s2_report_changes.G2SelfEmployment.present
-POST          /circumstances/report-changes/change                                    controllers.circs.s2_report_changes.G2SelfEmployment.submit
+GET           /circumstances/report-changes/self-employment                           controllers.circs.s2_report_changes.G2SelfEmployment.present
+POST          /circumstances/report-changes/self-employment                           controllers.circs.s2_report_changes.G2SelfEmployment.submit
 
 GET           /circumstances/report-changes/stopped-caring                            controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.present
 POST          /circumstances/report-changes/stopped-caring                            controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.submit
