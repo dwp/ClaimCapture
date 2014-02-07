@@ -20,6 +20,7 @@ object  Declaration extends XMLComponent {
       </DeclarationStatement>
       {question(<DeclarationQuestion/>,"someoneElse", declaration.someoneElse)}
       {question(<DeclarationQuestion/>,"confirm", declaration.read)}
+      {question(<DeclarationQuestion/>,"nameOrOrganisation", declaration.nameOrOrganisation)}
     </Declaration>
   }
 }

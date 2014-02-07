@@ -3,6 +3,7 @@ package xml.circumstances
 import models.domain.Claim
 import scala.xml.Elem
 import play.api.Logger
+import xml.CircsEvidenceList
 
 object DWPCoCircs {
   def xml(circs: Claim):Elem = {
@@ -16,6 +17,7 @@ object DWPCoCircs {
       {OtherChanges.xml(circs)}
       {Declaration.xml(circs)}
       {Consents.xml(circs)}
+      {CircsEvidenceList.xml(circs)}
     </DWPCAChangeOfCircumstances>
   }
 
