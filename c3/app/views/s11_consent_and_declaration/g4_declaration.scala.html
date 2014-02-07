@@ -1,13 +1,8 @@
 @(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim,lang: play.api.i18n.Lang)
 
-@import helper._
-@import utils.helpers.DeclareCheckTemplate._
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
-@import controllers.s11_consent_and_declaration._
 
 @main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Declaration)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G4Declaration.submit) {
@@ -24,7 +19,7 @@
                 </ul>
             </article>
 
-             @carersDeclareCheck(currentForm("someoneElse"))
+             @declareCheckPlaceholder(currentForm("someoneElse"))
 
              <ul>
                  @otherDetailPlaceHolder(
@@ -34,7 +29,7 @@
                  )
 
              </ul>
-             @carersDeclareCheck(currentForm("confirm"),'secondary->true)
+             <ul>@declareCheckPlaceholder(currentForm("confirm"),'secondary->true)</ul>
         </fieldset>
 
         <nav class="form-steps">
