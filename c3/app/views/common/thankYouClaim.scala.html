@@ -10,8 +10,13 @@
         @common.helpLine()
 
         <section class="finish-statement">
-            <h1>@Messages("thankyou")</h1>
-            <p>@Messages("claim.received")</p>
+           
+            <div class="app-complete">
+	            <h1><span>@Messages("thankyou")</span></h1>
+	            <p>@Messages("claim.received")</p>
+	            <p class="nino-title">Your reference number is</p>
+	            <h2>NN 00 00 00 Z</h2>
+            </div>
 
             <article class="finish-next prompt helper-prompt">
             <h3>@Messages("next")</h3>

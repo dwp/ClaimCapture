@@ -586,9 +586,10 @@ number.invalid = The value must be a whole number
 error.sortcode.length = A sort code must be 6 digits long
 
 # Thank you page start
-thankyou =Thank you
-claim.received = Your claim has been successfully received
-circs.received = Your change has been successfully received
+thankyou = Application complete
+circs.thankyou = Change complete
+claim.received = Your claim was sent successfully and is being processed
+circs.received = Your change has been successfully received and is being processed
 next = What happens next?
 claim.next.1 = The Carer''s Allowance unit will now check the information you have provided and decide whether you qualify for Carer''s Allowance.
 claim.next.2 = This can take 4 to 6 weeks.
