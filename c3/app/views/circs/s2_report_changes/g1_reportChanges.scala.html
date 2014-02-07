@@ -1,4 +1,4 @@
-@(otherInfoForm: Form[models.domain.CircumstancesOtherInfo])(implicit claim: models.domain.Claim)
+@(reportChangesForm: Form[models.domain.ReportChanges])(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,15 +8,18 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import controllers.Mappings._
+@import utils.helpers.CarersCrypto
+@import app.ReportChange._
 
 @main(Messages("c2.g1") + " - " + Messages("c2.name")) {
-    @errorsSummary(otherInfoForm)
+    @errorsSummary(reportChangesForm)
 
-    @form(action = controllers.circs.s2_additional_info.routes.G1OtherChangeInfo.submit) {
+    @form(action = controllers.circs.s2_report_changes.routes.G1ReportChanges.submit) {
         <fieldset class="form-elements">
+            <legend>@Messages("c2.g1")</legend>
 
             <ul class="coc-layout">
-                @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000)
+                @listRadioGroup(reportChangesForm("reportChanges"), 'items -> Seq(StoppedCaring.name -> Messages("reportChanges.stoppedCaring"), SelfEmployment.name -> Messages("reportChanges.selfEmployed"), AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")), 'helperAbove -> Messages("reportChanges.helper"))
             </ul>
         </fieldset>
 

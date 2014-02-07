@@ -20,7 +20,9 @@ object ConsentAndDeclaration {
           textLines ++= textLine((Messages(s"circs.declaration.$i")))
         }
         declaration.circsSomeOneElse match {
-          case Some(n) => textLines ++= textLine(Messages("circsSomeOneElse"), {booleanStringToYesNo(n)})
+          case Some(n) =>
+            textLines ++= textLine(Messages("circsSomeOneElse"), {booleanStringToYesNo(n)})
+            textLines ++= textLine(Messages("nameOrOrganisation")+". =", declaration.nameOrOrganisation)
           case _ =>
         }
         textLines ++= textLine(Messages("confirm"), {booleanStringToYesNo(declaration.confirm)})
@@ -33,6 +35,5 @@ object ConsentAndDeclaration {
         textLines
       }
     </Declaration>
-    <EvidenceList/>
   }
 }

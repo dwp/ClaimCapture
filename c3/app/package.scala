@@ -127,4 +127,10 @@ package object app {
     def getProperty(property:String,default:Boolean) = Try(Play.current.configuration.getBoolean(property).getOrElse(default)) match { case Success(s) => s case _ => default}
     def getProperty(property:String,default:Long) = Try(Play.current.configuration.getLong(property).getOrElse(default)) match { case Success(s) => s case _ => default}
   }
+
+  object ReportChange {
+    val StoppedCaring = 'stoppedCaring
+    val SelfEmployment = 'selfEmployment
+    val AdditionalInfo = 'additionalInfo
+  }
 }

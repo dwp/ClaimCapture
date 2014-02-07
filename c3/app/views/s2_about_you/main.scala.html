@@ -24,10 +24,10 @@
                             <li>
                                 @if(completedQuestionGroup.identifier == ClaimDate) {
                                     <h3>@Messages(completedQuestionGroup.identifier.id, claim.dateOfClaim.get.`dd/MM/yyyy`)</h3>
-                                    <a href="@claim.navigation(completedQuestionGroup.identifier)">Change this answer</a>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="Change this answer - this is an optional link relating to a previous section">Change this answer</a>
                                 } else {
                                     <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                    <a href="@claim.navigation(completedQuestionGroup.identifier)">Change these answers</a>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="Change these answers - this is an optional link relating to a previous section">Change these answers</a>
                                 }
                             </li>
                         }

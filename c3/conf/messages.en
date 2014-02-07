@@ -23,6 +23,7 @@ s11.longName = Consent and Declaration
 c1.longName = About you - the carer
 c2.name = change in circumstances
 c2.longName = Change in circumstances
+c2c.longName = Report a change in your circumstances
 c3.name = consent and declaration
 c3.longName = Consent and declaration
 
@@ -188,8 +189,8 @@ resideInUK=Which country do you normally live in?
 
 # CLAIM DATE
 dateOfClaim = When do you want your Carer''s Allowance claim to start?
-dateOfClaimHelp.label = Help
-dateOfClaimHelp = Entitlement to Carers''s Allowance can normally be backdated for up to 3 months but in some circumstances can be longer. For further information , see the <a href="/claim-notes" target="_blank">claim notes.</a>
+dateOfClaimHelp.label = Your claim date - Help
+dateOfClaimHelp = Entitlement to Carers''s Allowance can normally be backdated for up to 3 months but in some circumstances can be longer. For further information, see the <a href="/claim-notes" target="_blank">claim notes</a>.
 
 # OTHER EEA STATE OR SWITZERLAND
 eeaCountryHelp.label = What is an EEA State? - Help
@@ -476,6 +477,7 @@ declaration.4 = If I give false or incomplete information or fail to report chan
 confirm = Please tick this box to confirm that you understand and make the declarations above.
 declaration.title = The declarations below sets out your legal responsibilities in respect of your claim.
 someoneElse = Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
+nameOrOrganisation = Your name and/or organisation
 
 #ADDITIONAL INFO
 anythingElse = Please tell us anything else you think we should know about your claim
@@ -530,11 +532,36 @@ c1.g1 = Your details
 c1.g2 = Your contact details
 c1.g3 = Details of the person you care for
 
-c2.g1 = Other Change Information
+c2 = Report a change in your circumstances
+c2.g1 = Details of your change in circumstances
+c2.g2 = About Your Self-Employment
+c2.g3 = Permanently stopped caring
+c2.g4 = Other changes
 
 c3.g1 = Declaration
 
-changeInCircs = Use this online form for reporting change of circumstances. Remember to include the date of the change and all relevant facts.
+reportChanges=What type of change do you want to report?
+reportChanges.helper=Tell us about your change
+reportChanges.stoppedCaring=I have permanently stopped caring
+reportChanges.selfEmployed=I have started self-employment
+reportChanges.anyOtherChanges=Any other changes
+
+stoppedCaringDate = What date did you permanently stop caring?
+stoppedCaringDate.helper = This is when you stopped caring for the person you looked after for at least 35 hours a week.
+moreAboutChanges = Tell us more about your change(s)
+moreAboutChanges.helper = If you did not tell us about any change(s) when they happened we need you to tell us why.
+
+changeInCircs = Use this online form for reporting change of circumstances. Remember to include the date of the change(s) and all relevant facts.
+
+stillCaring_answer=Are you still caring 35 hours or more each week?
+stillCaring.answer=Are you still caring 35 hours or more each week?
+stillCaring=What date did you stop caring 35 hours a week?
+whenStoppedCaring=What date did you stop caring 35 hours a week?
+stillCaring.date=What date did you stop caring 35 hours a week?
+stillCaring_date=What date did you stop caring 35 hours a week?
+whenThisSelfEmploymentStarted=When did you start this self-employed work?
+typeOfBusiness=What type of business is your self-employed work?
+totalOverWeeklyIncomeThreshold=Will the total income into your business be more than £100 a week?
 
 #ABOUT YOU - About you
 lastName = Last name

@@ -12,7 +12,7 @@
 
     <section>
 
-        <h1>@Messages("c2.longName")</h1>
+        <h1>@Messages("c2c.longName")</h1>
 
         @if(completedQuestionGroups.size > 0) {
             <div class="completed">
@@ -20,7 +20,7 @@
                     @for((completedQuestionGroup, call) <- completedQuestionGroups) {
                     <li>
                         <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                        <a href="@call">Change these answers</a>
+                        <a href="@call" aria-label="Change these answers - this is an optional link relating to a previous section">Change these answers</a>
                     </li>
                     }
                 </ul>

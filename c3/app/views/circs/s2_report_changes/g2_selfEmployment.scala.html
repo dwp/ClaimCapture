@@ -1,0 +1,62 @@
+@(selfEmployment: Form[models.domain.CircumstancesSelfEmployment])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.common._
+@import views.html.helper._
+@import views.html.helper.dropdowns._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import controllers.Mappings._
+@import utils.helpers.CarersCrypto
+
+@main(Messages("c2.g2") + " - " + Messages("c2.name")) {
+    @errorsSummary(selfEmployment)
+
+    @form(action = controllers.circs.s2_report_changes.routes.G2SelfEmployment.submit) {
+        <fieldset class="form-elements">
+            <legend>@Messages("c2.g2")</legend>
+
+            <ul class="coc-layout">
+                @yesNoRadioGroup(selfEmployment("stillCaring.answer"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        inputDayMonthYear(selfEmployment("stillCaring.date"))
+                    ),
+                    'id -> "stillCaringWrap",
+                    'display -> { if (selfEmployment("stillCaring.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+                )
+
+                @inputDayMonthYear(selfEmployment("whenThisSelfEmploymentStarted"))
+
+                @carersInputText(selfEmployment("typeOfBusiness"),
+                    'maxLength -> 35)
+
+                @yesNoRadioDontKnowGroup(selfEmployment("totalOverWeeklyIncomeThreshold"))
+
+                @carersInputTextArea(selfEmployment("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> "300 characters left", 'maxLength -> 300)
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g2_selfEmployment.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+<script type="text/javascript">
+$(function(){
+window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+})
+
+$(function(){
+window.initEvents("@CarersCrypto.encryptAES("stillCaring_answer_yes")",
+"@CarersCrypto.encryptAES("stillCaring_answer_no")",
+"@CarersCrypto.encryptAES("stillCaring.date")");
+});
+</script>

@@ -4,6 +4,8 @@ import language.reflectiveCalls
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers}
+import utils.pageobjects.s7_employment.G2BeenEmployedPage
+import utils.pageobjects.TestData
 
 class G3JobDetailsIntegrationSpec extends Specification with Tags {
   "Your job" should {
@@ -37,14 +39,10 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
       jobDetails("dummyJobID")
     }
 
-    """go back to "been employed?".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
+    """go back to "employment history".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim()
-
-      goTo("/employment/been-employed")
-      click("#beenEmployed_yes")
-      next
       back
-      titleMustEqual("Your employment history - Employment History")
+      titleMustEqual("Employment Employment History")
     }
 
     "kick off a job, but not complete it and it should not be shown in the employment overview list " in new WithBrowser with WithBrowserHelper with EmployedSinceClaimDate with EmploymentFiller {

@@ -1,4 +1,4 @@
-package controllers.circs.s2_additional_info
+package controllers.circs.s2_report_changes
 
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
@@ -8,7 +8,7 @@ import models.domain.CircumstancesOtherInfo
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
 
-object G1OtherChangeInfo extends Controller with CachedChangeOfCircs with Navigable {
+object G4OtherChangeInfo extends Controller with CachedChangeOfCircs with Navigable {
 
   val change = "changeInCircs"
 
@@ -18,13 +18,13 @@ object G1OtherChangeInfo extends Controller with CachedChangeOfCircs with Naviga
 
   def present = claiming { implicit circs => implicit request =>
     track(CircumstancesOtherInfo) {
-      implicit circs => Ok(views.html.circs.s2_additional_info.g1_otherChangeInfo(form.fill(CircumstancesOtherInfo)))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g4_otherChangeInfo(form.fill(CircumstancesOtherInfo)))
     }
   }
 
   def submit = claiming { implicit circs => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.circs.s2_additional_info.g1_otherChangeInfo(formWithErrors)),
+      formWithErrors => BadRequest(views.html.circs.s2_report_changes.g4_otherChangeInfo(formWithErrors)),
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )
   }

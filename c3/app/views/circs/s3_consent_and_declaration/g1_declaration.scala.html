@@ -1,13 +1,8 @@
 @(declarationForm: Form[models.domain.CircumstancesDeclaration])(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
-@import helper._
 @import utils.helpers.CarersTemplate._
-@import views.html.common._
 @import views.html.helper._
-@import views.html.helper.dropdowns._
 @import views.html.helper.base._
-@import views.html.helper.dates._
-@import controllers.Mappings._
 @import models.domain._
 @import utils.helpers.CarersCrypto
 
@@ -22,14 +17,24 @@
                 <h3>@Messages("declaration.title")</h3>
 
                 <ul>
-                    @for(i <- 1 to 4) {
-                        <li>@Html(Messages(s"circs.declaration.$i"))</li>
-                    }
+                @for(i <- 1 to 4) {
+                    <li>@Html(Messages(s"circs.declaration.$i"))</li>
+                }
                 </ul>
             </article>
 
-            <div class="group declare">@declareCheckPlaceholder(declarationForm("circsSomeOneElse"))</div>
-            <div class="group declare">@declareCheckPlaceholder(declarationForm("confirm"))</div>
+
+            @declareCheckPlaceholder(declarationForm("circsSomeOneElse"))
+            <ul>
+            @otherDetailPlaceHolder(
+                inputDef = Seq(
+                    carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> Mappings.sixty)),
+                'id -> "nameOrOrganisationWrapper",
+                'display -> declarationForm("circsSomeOneElse").value.map(p => p match { case "true" => "yes" case _ => p}).getOrElse("no")
+            )
+            </ul>
+
+            @declareCheckPlaceholder(declarationForm("confirm"))
 
             <ul>
                 @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
@@ -52,9 +57,11 @@
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s3_consent_and_declaration/g1_declaration.js")'></script>
 
 <script type="text/javascript">
-    $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
-                          "@CarersCrypto.encryptAES("obtainInfoAgreement_no")",
-                          "@CarersCrypto.encryptAES("obtainInfoWhy")");
-    })
+$(function() {
+window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
+                   "@CarersCrypto.encryptAES("obtainInfoAgreement_no")",
+                   "@CarersCrypto.encryptAES("obtainInfoWhy")",
+                   "@CarersCrypto.encryptAES("circsSomeOneElse")",
+                   "@CarersCrypto.encryptAES("nameOrOrganisation")");
+})
 </script>

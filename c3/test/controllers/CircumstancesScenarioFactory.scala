@@ -1,7 +1,8 @@
 package controllers
 
 import utils.pageobjects.TestData
-
+import app.ReportChange._
+import play.api.i18n.Messages
 
 object CircumstancesScenarioFactory {
 
@@ -35,8 +36,26 @@ object CircumstancesScenarioFactory {
     claim
   }
 
-  def otherChangeInfo = {
+  def reportChangesSelfEmployment = {
     val claim = detailsOfThePersonYouCareFor
+    claim.CircumstancesReportChanges = SelfEmployment.name
+    claim
+  }
+
+  def reportChangesStoppedCaring = {
+    val claim = detailsOfThePersonYouCareFor
+    claim.CircumstancesReportChanges = StoppedCaring.name
+    claim
+  }
+
+  def reportChangesOtherChangeInfo = {
+    val claim = detailsOfThePersonYouCareFor
+    claim.CircumstancesReportChanges = AdditionalInfo.name
+    claim
+  }
+
+  def otherChangeInfo = {
+    val claim = reportChangesOtherChangeInfo
     claim.CircumstancesOtherChangeInfoChange = "I put in the wrong date of birth"
     claim
   }
@@ -47,6 +66,7 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesDeclarationWhy = "Cause I want"
     claim.CircumstancesDeclarationConfirmation = "yes"
     claim.CircumstancesSomeOneElseConfirmation = "yes"
+    claim.NameOrOrganisation = "Mr Smith"
     claim
   }
 
