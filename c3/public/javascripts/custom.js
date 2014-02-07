@@ -85,6 +85,10 @@ function trackEvent(category, action, label, value, noninteraction){
     _gaq.push(['_trackEvent',category,action].concat(opt(label)).concat(opt(value)).concat(opt(noninteraction)));
 }
 
+function trackVirtualPageView(category){
+    _gaq.push(['_trackPageview',category]);
+}
+
 function opt(v){
     if (typeof v == 'undefined') return [];
     else return[v];
