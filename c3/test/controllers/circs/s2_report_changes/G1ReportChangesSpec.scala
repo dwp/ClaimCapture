@@ -14,11 +14,11 @@ class G1ReportChangesSpec extends Specification with Tags {
   )
 
   val validSelfEmploymentReportChangesFormInput = Seq(
-    "reportChanges" -> AdditionalInfo.name
+    "reportChanges" -> SelfEmployment.name
   )
 
   val validStoppedCaringReportChangesFormInput = Seq(
-    "reportChanges" -> AdditionalInfo.name
+    "reportChanges" -> StoppedCaring.name
   )
 
   "Report a change in your circumstances - Change in circumstances - Controller" should {
@@ -34,7 +34,7 @@ class G1ReportChangesSpec extends Specification with Tags {
         .withFormUrlEncodedBody(validAdditionalDetailsReportChangesFormInput: _*)
 
       val result = s2_report_changes.G1ReportChanges.submit(request)
-      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) must beSome("/circumstances/report-changes/other-change")
     }
 
     "redirect to the next page after a valid self employment submission" in new WithApplication with MockForm {
@@ -42,7 +42,7 @@ class G1ReportChangesSpec extends Specification with Tags {
         .withFormUrlEncodedBody(validSelfEmploymentReportChangesFormInput: _*)
 
       val result = s2_report_changes.G1ReportChanges.submit(request)
-      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) must beSome("/circumstances/report-changes/self-employment")
     }
 
     "redirect to the next page after a valid stopped caring submission" in new WithApplication with MockForm {
@@ -50,7 +50,7 @@ class G1ReportChangesSpec extends Specification with Tags {
         .withFormUrlEncodedBody(validStoppedCaringReportChangesFormInput: _*)
 
       val result = s2_report_changes.G1ReportChanges.submit(request)
-      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) must beSome("/circumstances/report-changes/stopped-caring")
     }
    } section("unit", models.domain.CircumstancesReportChanges.id)
  }
