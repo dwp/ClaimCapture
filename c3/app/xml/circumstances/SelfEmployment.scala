@@ -19,7 +19,7 @@ object SelfEmployment {
           {
             circsSelfEmployment.stillCaring.answer match {
               case "no" => {question(<StoppedCaring/>, "whenStoppedCaring",circsSelfEmployment.stillCaring.date.get.`dd/MM/yyyy`)}
-              case _ =>
+              case _ => NodeSeq.Empty
             }
           }
           {question(<Started/>, "whenThisSelfEmploymentStarted",circsSelfEmployment.whenThisSelfEmploymentStarted.`dd/MM/yyyy`)}
@@ -27,7 +27,7 @@ object SelfEmployment {
           {question(<TotalOverWeekly/>, "totalOverWeeklyIncomeThreshold",circsSelfEmployment.totalOverWeeklyIncomeThreshold)}
         </SelfEmployment>
         }
-      case _ =>
+      case _ => NodeSeq.Empty
     }
   }
 
