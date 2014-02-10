@@ -397,11 +397,11 @@ main {
 			   	   }
 		   	   }
 		   	   li {
-			   	   font-size: 1.6rem;
+			   	   font-size: 1.7rem;
 			   	   .ie & {
-				   	   font-size: 16px;
+				   	   font-size: 17px;
 			   	   }
-			   	   margin-top: .6em;
+			   	   margin-top: .7em!important;
 		   	   }
 		   	   p {
 		   	   	   font-size: 1.7rem;
@@ -411,6 +411,36 @@ main {
 			   	   margin-top: .5em;
 		   	   }
 		   	   
+	   	   }
+	   	   
+	   	   .app-complete {
+	   	   	   h1 {
+		   	   	   color: #fff;
+		   	   	   margin-right: 0;
+		   	   	   margin-bottom: 0;
+		   	   	   padding-right: 0;
+		   	   	   span {
+			   	   	   display: inline-block;
+			   	   	   background: url('images/white-tick.png') 0 6px no-repeat;
+			   	   	   padding-left: 44px;
+		   	   	   }
+	   	   	   }
+	   	   	   h2 {
+		   	   	   color: #fff;
+	   	   	   }
+	   	   	   p {
+		   	   	   color: #fff;
+		   	   	   &.nino-title {
+			   	   	   margin-top: 1em;
+		   	   	   }
+	   	   	   }
+	   	   	   text-align: center;
+		   	   background: #28a197;
+		   	   padding: 2em 1em;
+		   	   margin-right: 1em;
+		   	   @media screen and (max-width: 640px) {
+				   	   margin-right: 0;
+			   	   }
 	   	   }
    	   }
    	   

@@ -8,15 +8,15 @@ import play.api.test.Helpers._
 import org.specs2.mutable.{Tags, Specification}
 
 class G1DeclarationSpec extends Specification with Tags {
-
+  val byPost = "By Post"
   val infoAgreement = "yes"
   val why = "Cause i want"
   val confirm = "yes"
   val someOneElse = "checked"
   val nameOrOrganisation = "Tesco"
 
-  val declarationInput = Seq("obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation)
-  val declartionInputWithoutSomeOne = Seq("obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> "")
+  val declarationInput = Seq("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation)
+  val declartionInputWithoutSomeOne = Seq("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> "")
 
   "Circumstances - OtherChangeInfo - Controller" should {
 

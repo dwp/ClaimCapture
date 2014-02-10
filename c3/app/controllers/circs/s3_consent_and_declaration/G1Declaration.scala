@@ -8,9 +8,12 @@ import utils.helpers.CarersForm._
 import models.domain.{Declaration, CircumstancesDeclaration, CircumstancesOtherInfo}
 import controllers.CarersForms._
 import play.api.data.FormError
+import play.api.data.FormError
+import controllers.Mappings._
 
 object G1Declaration extends Controller with CachedChangeOfCircs with Navigable {
   val form = Form(mapping(
+    "furtherInfoContact" -> carersNonEmptyText(maxLength = 35),
     "obtainInfoAgreement" -> nonEmptyText,
     "obtainInfoWhy" -> optional(carersNonEmptyText(maxLength = 2000)),
     "confirm" -> nonEmptyText,

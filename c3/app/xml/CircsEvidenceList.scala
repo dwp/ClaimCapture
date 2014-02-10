@@ -1,6 +1,6 @@
 package xml
 
-import models.domain.{CircumstancesSelfEmployment, Claim}
+import models.domain.{CircumstancesDeclaration, CircumstancesSelfEmployment, Claim}
 import scala.xml.NodeSeq
 import XMLHelper._
 import play.api.i18n.Messages
@@ -10,8 +10,12 @@ import org.joda.time.DateTime
 object CircsEvidenceList {
   def xml(circs: Claim) = {
     <EvidenceList>
-      {selfEmployed(circs)}
+      {xmlGenerated()}{selfEmployed(circs)}{furtherInfo(circs)}
     </EvidenceList>
+  }
+
+  def xmlGenerated() = {
+    textLine("XML Generated at: " + DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss").print(DateTime.now()))
   }
 
   def selfEmployed(circs: Claim): NodeSeq = {
@@ -21,7 +25,7 @@ object CircsEvidenceList {
 
     circsSelfEmploymentOption match {
       case Some(circsSelfEmployment) => {
-        buffer ++= textLine("XML Generated at: " + DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss").print(DateTime.now()))
+        buffer ++= textLine(Messages("c2.g2"))
 
         buffer ++= textLine(Messages("stillCaring.answer") + " = " + circsSelfEmployment.stillCaring.answer)
 
@@ -37,6 +41,18 @@ object CircsEvidenceList {
       }
       case _ =>
     }
+
+    buffer
+  }
+
+  def furtherInfo(circs: Claim): NodeSeq = {
+    val declaration = circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration())
+
+    var buffer = NodeSeq.Empty
+
+    buffer ++= textLine(Messages("furtherinfo.title"))
+
+    buffer ++= textLine(Messages("furtherInfoContact") + " = " + declaration.furtherInfoContact)
 
     buffer
   }

@@ -11,6 +11,7 @@ import utils.pageobjects.circumstances.s2_report_changes.G4OtherChangeInfoPage
 class G1DeclarationIntegrationSpec extends Specification with Tags {
 
   "Declaration" should {
+    val byPost = "By Post"
     val obtainInfoAgreement = "no"
     val obtainInfoWhy = "Cause I want"
     val confirm = "yes"
@@ -47,10 +48,27 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
     }
 
     "contain errors on invalid submission" in {
-      "missing obtainInfoAgreement field" in new WithBrowser with PageObjects{
-			val page =  G1DeclarationPage(context)
+      "missing furtherInfoContact field" in new WithBrowser with PageObjects{
+        val page =  G1DeclarationPage(context)
         val claim = new TestData
 
+        claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
+        claim.CircumstancesDeclarationWhy = obtainInfoWhy
+        claim.CircumstancesDeclarationConfirmation = confirm
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Contact phone or mobile number - This is required")
+      }
+
+      "missing obtainInfoAgreement field" in new WithBrowser with PageObjects{
+        val page =  G1DeclarationPage(context)
+        val claim = new TestData
+
+        claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationWhy = obtainInfoWhy
         claim.CircumstancesDeclarationConfirmation = confirm
 
@@ -65,6 +83,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       "given obtainInfoAgreement is set to 'no' missing obtainInfoWhy field" in new WithBrowser with PageObjects{
 			val page =  G1DeclarationPage(context)
         val claim = new TestData
+        claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationConfirmation = confirm
 
@@ -79,6 +98,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       "given circsSomeOneElse checked and missing name or organisation field" in new WithBrowser with PageObjects{
         val page =  G1DeclarationPage(context)
         val claim = new TestData
+        claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationWhyNot = obtainInfoWhy
         claim.CircumstancesDeclarationConfirmation = confirm
@@ -95,6 +115,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       "missing confirm field" in new WithBrowser with PageObjects{
 			val page =  G1DeclarationPage(context)
         val claim = new TestData
+        claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationWhy = obtainInfoWhy
 
