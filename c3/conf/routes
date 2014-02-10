@@ -214,9 +214,6 @@ POST          /consent-and-declaration/completed                                
 GET           /circumstances/identification/about-you                                 controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present
 POST          /circumstances/identification/about-you                                 controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit
 
-GET           /circumstances/identification/completed                                 controllers.circs.s1_identification.Identification.completed
-POST          /circumstances/identification/completed                                 controllers.circs.s1_identification.Identification.submit
-
 GET           /circumstances/report-changes/selection                                 controllers.circs.s2_report_changes.G1ReportChanges.present
 POST          /circumstances/report-changes/selection                                 controllers.circs.s2_report_changes.G1ReportChanges.submit
 

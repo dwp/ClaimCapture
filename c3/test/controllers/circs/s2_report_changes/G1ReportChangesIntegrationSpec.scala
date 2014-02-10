@@ -4,10 +4,9 @@ import play.api.test.WithBrowser
 import utils.pageobjects.circumstances.s2_report_changes._
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable.{Tags, Specification}
-import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s2_report_changes.G4OtherChangeInfoPage
-import utils.pageobjects.circumstances.s1_about_you.{G1ReportAChangeInYourCircumstancesPage, G4CompletedPage}
+import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
 
 class G1ReportChangesIntegrationSpec extends Specification with Tags {
 
@@ -32,7 +31,7 @@ class G1ReportChangesIntegrationSpec extends Specification with Tags {
 
        val prevPage = reportChangesPage.goBack()
 
-       prevPage must beAnInstanceOf[G4CompletedPage]
+       prevPage must beAnInstanceOf[G1ReportAChangeInYourCircumstancesPage]
      }
 
      "navigate to next page when addition info selected" in new WithBrowser with PageObjects{
