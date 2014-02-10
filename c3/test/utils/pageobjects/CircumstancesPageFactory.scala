@@ -15,7 +15,6 @@ object CircumstancesPageFactory extends PageFactory {
     if (null == title ) XmlPage (ctx)
     else title.toLowerCase match {
       case G1ReportAChangeInYourCircumstancesPage.title => G1ReportAChangeInYourCircumstancesPage (ctx)
-      case G4CompletedPage.title => G4CompletedPage (ctx)
       case G1ReportChangesPage.title => G1ReportChangesPage (ctx)
       case G2SelfEmploymentPage.title => G2SelfEmploymentPage (ctx)
       case G3PermanentlyStoppedCaringPage.title => G3PermanentlyStoppedCaringPage (ctx)
