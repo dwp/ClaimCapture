@@ -171,7 +171,7 @@ Education,Your course details,When did you start the course?,EducationWhenDidYou
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,
 Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,yes
 Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,yes
-Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
+Employment,Been Employed,Been Employed,EmploymentBeenEmployed_0,Yes
 Employment,Your Job,Employers Name,EmploymentEmployerName_1,Kwik Fit Tryes
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,01/05/2013
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,Yes
@@ -215,7 +215,8 @@ Employment,Expenses related to the person you care for while at work,Name of the
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_1,Sister
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1,GrandDaughter
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,AboutYouHaveYouBeenEmployedAtAnyTime_2,no
-Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
+Employment,Been Employed,Been Employed,EmploymentBeenEmployed_1,No
+Employment,Been Employed,Been Employed,EmploymentBeenEmployed_1,No
 Employment,Your Job,Employers Name,EmploymentEmployerName_2,
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_2,
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,

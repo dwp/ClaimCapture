@@ -118,7 +118,7 @@ Employment,Expenses related to the person you care for while at work,Name of the
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_1,
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1,
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouBeenEmployedAtAnyTime_1,No
-Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
+Employment,Been Employed,Been Employed,EmploymentBeenEmployed_1,No
 Employment,Your Job,Employers Name,EmploymentEmployerName_2,
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_2,
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,

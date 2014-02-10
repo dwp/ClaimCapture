@@ -75,7 +75,7 @@ Education,Your course details,When did you start the course?,EducationWhenDidYou
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,FullTimeEducation>CourseDetails>ExpectedEndDate>Answer
 Employment,Employment,Have you been employed at any time since <ddmmyyyy> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,DWPCAClaim>Employed>Answer
 Employment,Employment,Have you been self-employed at any time since <ddmmyyyy> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,DWPCAClaim>SelfEmployed>Answer
-Employment,Been Employed,Been Employed,EmploymentBeenEmployed,DWPCAClaim>Employed>Answer
+Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName,Employment>JobDetails>Employer>Name
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob,Employment>JobDetails>Employer>DateJobStarted>Answer
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork,Employment>JobDetails>Employer>DateJobEnded>Answer
@@ -188,4 +188,4 @@ Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclaratio
 Consent & Declaration,Disclaimer,Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits.,ConsentDeclarationDisclaimerTextAndTickBox,DWPCAClaim>Disclaimer
 Consent & Declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",ConsentDeclarationSomeoneElseTickBox,DWPCAClaim>Declaration
 Consent & Declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,ConsentDeclarationDeclarationTickBox,DWPCAClaim>Declaration
-Consent & Declaration,Declaration,Your name and/or organisation. =,ConsentDeclarationNameOrOrganisation,DWPCAClaim>Declaration
+Consent & Declaration,Declaration,Your name and/or organisation. =,ConsentDeclarationNameOrOrganisation,DWPCAClaim>Declaration>DeclarationNameOrg>Answer

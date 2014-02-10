@@ -36,7 +36,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
     "navigate to 'Consent And Declaration'" in new WithBrowser with PageObjects{
 			val page =  G1HowWePayYouPage(context)
       val claim = ClaimScenarioFactory.s6PayDetails()
-      claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.BankBuildingAccount.name
+      claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.BankBuildingAccount
       page goToThePage ()
       page fillPageWith claim
 
