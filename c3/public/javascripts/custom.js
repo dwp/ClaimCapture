@@ -20,21 +20,13 @@ function datepicker(dateFieldId) {
 
 $(function() {
     // view more / view less
-    var labelText;
     $('.helper-more').click(function(){
-        if (null == labelText) labelText = $('.helper-more').text();
+        var labelText = $(this).text() === 'Close'? $(this).attr('data-initial') : 'Close';
 
         $(this).toggleClass("helper-less")
         $(this).next(".helper-info").slideToggle("medium");
 
-        if ($(this).text() === 'Close')
-        {
-            $(this).text(labelText);
-        }
-        else
-        {
-            $(this).text('Close');
-        }
+        $(this).text(labelText);
     });
 
     // Nino auto jump
@@ -83,6 +75,10 @@ function areCookiesEnabled(){
 
 function trackEvent(category, action, label, value, noninteraction){
     _gaq.push(['_trackEvent',category,action].concat(opt(label)).concat(opt(value)).concat(opt(noninteraction)));
+}
+
+function trackVirtualPageView(category){
+    _gaq.push(['_trackPageview',category]);
 }
 
 function opt(v){
