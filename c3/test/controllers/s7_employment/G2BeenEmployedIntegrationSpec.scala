@@ -72,6 +72,15 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       historyPage = nextPage goBack()
       historyPage.readYesNo("#beenEmployed") mustEqual Some("no")
     }
+
+    """have table data after filling a job""" in new WithBrowser with EmployedHistoryPage {
+      val employmentData = ClaimScenarioFactory.s7EmploymentMinimal()
+      var historyPage = goToHistoryPage
+      historyPage must beAnInstanceOf[G2BeenEmployedPage]
+      historyPage.readTableCell(0, 0) mustEqual Some("Tesco's")
+      historyPage.readTableCell(0, 1) mustEqual Some("01/01/2013")
+    }
+
   } section("integration", models.domain.Employed.id)
 }
 

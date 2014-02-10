@@ -6,9 +6,6 @@ import scala.reflect.ClassTag
 import controllers.Mappings._
 import models.PaymentFrequency
 import scala.Some
-import models.MultiLineAddress
-import models.PaymentFrequency
-import scala.Some
 import models.PensionPaymentFrequency
 import models.MultiLineAddress
 
@@ -78,6 +75,8 @@ case class Job(jobID: String="", questionGroups: List[QuestionGroup with Job.Ide
 
   def title = necessaryExpenses(_.jobTitle)
 
+  def jobStartDate = jobDetailsDate(_.jobStartDate)
+
   def update(questionGroup: QuestionGroup with Job.Identifier): Job = {
     val updated = questionGroups map { qg => if (qg.identifier == questionGroup.identifier) questionGroup else qg }
     if (updated.contains(questionGroup)) copy(questionGroups = updated) else copy(questionGroups = questionGroups :+ questionGroup)
@@ -91,6 +90,11 @@ case class Job(jobID: String="", questionGroups: List[QuestionGroup with Job.Ide
   private def necessaryExpenses(f: NecessaryExpenses => String) = questionGroups.find(_.isInstanceOf[NecessaryExpenses]) match {
     case Some(n: NecessaryExpenses) => f(n)
     case _ => ""
+  }
+
+  private def jobDetailsDate(f:JobDetails => DayMonthYear) = questionGroups.find(_.isInstanceOf[JobDetails]) match {
+    case Some(j: JobDetails) => f(j)
+    case _ => DayMonthYear(None,None,None)
   }
 
   def questionGroup[Q <: QuestionGroup](implicit classTag: ClassTag[Q]): Option[Q] = {
