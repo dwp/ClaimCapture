@@ -26,7 +26,7 @@ object DWPCoCircs {
         <AnyOtherChanges>{anyOtherChanges(circs)}</AnyOtherChanges>
       </InitialQuestions>
       { // <Claim>
-        Identification.xml(circs)
+        CircsIdentification.xml(circs)
       }
       {
         // StoppedCaring

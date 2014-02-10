@@ -17,39 +17,20 @@ object CircumstancesScenarioFactory {
     claim
   }
 
-  def yourContactDetails = {
-    val claim = aboutDetails
-    claim.CircumstancesYourContactDetailsAddress = "101 Clifton Street&Blackpool"
-    claim.CircumstancesYourContactDetailsPostcode = "PE1 4AQ"
-    claim.CircumstancesYourContactDetailsPhoneNumber = "01772700806"
-    claim.CircumstancesYourContactDetailsMobileNumber = "34343434"
-    claim
-  }
-
-  def detailsOfThePersonYouCareFor = {
-    val claim = yourContactDetails
-    claim.CircumstancesDetailsOfThePersonYouCareForFirstName = "John"
-    claim.CircumstancesDetailsOfThePersonYouCareForMiddleName = "Roger"
-    claim.CircumstancesDetailsOfThePersonYouCareForLastName = "Smith"
-    claim.CircumstancesDetailsOfThePersonYouCareForNationalInsuranceNumber = "AB123456C"
-    claim.CircumstancesDetailsOfThePersonYouCareForDateOfBirth = "03/04/1950"
-    claim
-  }
-
   def reportChangesSelfEmployment = {
-    val claim = detailsOfThePersonYouCareFor
+    val claim = aboutDetails
     claim.CircumstancesReportChanges = SelfEmployment.name
     claim
   }
 
   def reportChangesStoppedCaring = {
-    val claim = detailsOfThePersonYouCareFor
+    val claim = aboutDetails
     claim.CircumstancesReportChanges = StoppedCaring.name
     claim
   }
 
   def reportChangesOtherChangeInfo = {
-    val claim = detailsOfThePersonYouCareFor
+    val claim = aboutDetails
     claim.CircumstancesReportChanges = AdditionalInfo.name
     claim
   }

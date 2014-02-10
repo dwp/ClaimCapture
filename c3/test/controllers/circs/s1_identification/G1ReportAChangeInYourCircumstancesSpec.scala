@@ -2,19 +2,19 @@ package controllers.circs.s1_identification
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
+import models.domain._
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.DayMonthYear
-import models.domain._
-import models.NationalInsuranceNumber
+import models.{NationalInsuranceNumber, DayMonthYear}
 import scala.Some
 
 
-class G3DetailsOfThePersonYouCareForSpec extends Specification with Tags{
+class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
 
-  "Circumstances - DetailsOfThePersonYouCareFor - Controller" should {
+  "Circumstances - About You - Controller" should {
 
+    val title = "Mr"
     val firstName = "John"
     val middleName = ""
     val lastName = "Smith"
@@ -28,7 +28,7 @@ class G3DetailsOfThePersonYouCareForSpec extends Specification with Tags{
     val dateOfBirthMonth = 12
     val dateOfBirthYear = 1990
 
-    val aboutYouInput = Seq(
+    val aboutYouInput = Seq("title" -> title,
       "firstName" -> firstName,
       "middleName" -> middleName,
       "lastName" -> lastName,
@@ -45,7 +45,7 @@ class G3DetailsOfThePersonYouCareForSpec extends Specification with Tags{
     "present 'Circumstances About You' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
-      val result = controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.present(request)
+      val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present(request)
       status(result) mustEqual OK
     }
 
@@ -53,13 +53,14 @@ class G3DetailsOfThePersonYouCareForSpec extends Specification with Tags{
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
-      val result = controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.submit(request)
+      val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.domain.CircumstancesIdentification)
-      section.questionGroup(DetailsOfThePersonYouCareFor) must beLike {
-        case Some(f: DetailsOfThePersonYouCareFor) => {
-          f.firstName must equalTo(firstName)
+      section.questionGroup(CircumstancesReportChange) must beLike {
+        case Some(f: CircumstancesReportChange) => {
+          f.title must equalTo(title)
           f.middleName must equalTo(None)
+          f.lastName must equalTo(lastName)
           f.lastName must equalTo(lastName)
           f.nationalInsuranceNumber must equalTo(NationalInsuranceNumber(Some(ni1),Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5.toString)))
           f.dateOfBirth must equalTo(DayMonthYear(dateOfBirthDay, dateOfBirthMonth, dateOfBirthYear))
@@ -71,7 +72,7 @@ class G3DetailsOfThePersonYouCareForSpec extends Specification with Tags{
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody("firstName" -> "")
 
-      val result = controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.submit(request)
+      val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -79,7 +80,7 @@ class G3DetailsOfThePersonYouCareForSpec extends Specification with Tags{
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
-      val result = controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.submit(request)
+      val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   } section("unit", models.domain.CircumstancesIdentification.id)

@@ -211,14 +211,8 @@ GET           /consent-and-declaration/completed                                
 POST          /consent-and-declaration/completed                                      controllers.s11_consent_and_declaration.ConsentAndDeclaration.completedSubmit
 
 # Circumstances
-GET           /circumstances/identification/about-you                                 controllers.circs.s1_identification.G1AboutYou.present
-POST          /circumstances/identification/about-you                                 controllers.circs.s1_identification.G1AboutYou.submit
-
-GET           /circumstances/identification/your-contact-details                      controllers.circs.s1_identification.G2YourContactDetails.present
-POST          /circumstances/identification/your-contact-details                      controllers.circs.s1_identification.G2YourContactDetails.submit
-
-GET           /circumstances/identification/details-of-the-person-you-care-for        controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.present
-POST          /circumstances/identification/details-of-the-person-you-care-for        controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.submit
+GET           /circumstances/identification/about-you                                 controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present
+POST          /circumstances/identification/about-you                                 controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit
 
 GET           /circumstances/identification/completed                                 controllers.circs.s1_identification.Identification.completed
 POST          /circumstances/identification/completed                                 controllers.circs.s1_identification.Identification.submit

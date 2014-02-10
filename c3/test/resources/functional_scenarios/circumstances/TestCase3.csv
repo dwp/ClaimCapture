@@ -1,18 +1,9 @@
-About you - the carer,Circumstances,Title,CircumstancesAboutYouTitle,Mr
-About you - the carer,Circumstances,First Name,CircumstancesAboutYouFirstName,John
-About you - the carer,Circumstances,Middle Name,CircumstancesAboutYouMiddleName,Roger
-About you - the carer,Circumstances,Last Name,CircumstancesAboutYouLastName,Smith
-About you - the carer,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,ja486278a
-About you - the carer,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,03/04/1950
-About you - the carer,Your contact details,Address,CircumstancesYourContactDetailsAddress,101 Clifton Street&Blackpool
-About you - the carer,Your contact details,Postcode,CircumstancesYourContactDetailsPostcode,PE1 4AQ
-About you - the carer,Your contact details,Daytime phone number,CircumstancesYourContactDetailsPhoneNumber,123456
-About you - the carer,Your contact details,Mobile number,CircumstancesYourContactDetailsMobileNumber,34343434
-About you - the carer,Details of the person you care for,First Name,CircumstancesDetailsOfThePersonYouCareForFirstName,John
-About you - the carer,Details of the person you care for,Middle Name,CircumstancesDetailsOfThePersonYouCareForMiddleName,Roger
-About you - the carer,Details of the person you care for,Last Name,CircumstancesDetailsOfThePersonYouCareForLastName,Smith
-About you - the carer,Details of the person you care for,National Insurance number,CircumstancesDetailsOfThePersonYouCareForNationalInsuranceNumber,ja486278a
-About you - the carer,Details of the person you care for,Date of Birth,CircumstancesDetailsOfThePersonYouCareForDateOfBirth,03/04/1950
+Report a change in your circumstances - Change in circumstances,Circumstances,Title,CircumstancesAboutYouTitle,Mr
+Report a change in your circumstances - Change in circumstances,Circumstances,First Name,CircumstancesAboutYouFirstName,John
+Report a change in your circumstances - Change in circumstances,Circumstances,Middle Name,CircumstancesAboutYouMiddleName,Roger
+Report a change in your circumstances - Change in circumstances,Circumstances,Last Name,CircumstancesAboutYouLastName,Smith
+Report a change in your circumstances - Change in circumstances,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,ja486278a
+Report a change in your circumstances - Change in circumstances,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,03/04/1950
 Report a change in your circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,stoppedCaring
 Permanently stopped caring - Change in circumstances,Permanently stopped caring,Tell us more about your change(s),CircumstancesPermanentlyStoppedCaringStoppedCaringDate,31/12/2013
 Permanently stopped caring - Change in circumstances,Permanently stopped caring,What date did you permanently stop caring?,CircumstancesPermanentlyStoppedCaringMoreAboutChanges,

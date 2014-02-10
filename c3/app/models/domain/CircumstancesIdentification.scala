@@ -8,44 +8,17 @@ case object CircumstancesIdentification extends Section.Identifier {
   //override val expectedMinTimeToCompleteInMillis: Long = 10000
 }
 
-case class CircumstancesAboutYou(title: String = "",
+case class CircumstancesReportChange(title: String = "",
                     firstName: String = "",
                     middleName: Option[String] = None,
                     lastName: String = "",
                     nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
                     dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)
-                     ) extends QuestionGroup(CircumstancesAboutYou){
+                     ) extends QuestionGroup(CircumstancesReportChange){
   def otherNames = firstName + middleName.map(" " + _).getOrElse("")
 }
 
-object CircumstancesAboutYou extends QuestionGroup.Identifier {
+object CircumstancesReportChange extends QuestionGroup.Identifier {
   val id = s"${CircumstancesIdentification.id}.g1"
 }
 
-case class CircumstancesYourContactDetails(address: MultiLineAddress =new  MultiLineAddress(),
-                                           postcode: Option[String] = None,
-                                           phoneNumber: String = "",
-                                           mobileNumber: Option[String] = None
-                                  ) extends QuestionGroup(CircumstancesYourContactDetails){
-}
-
-object CircumstancesYourContactDetails extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesIdentification.id}.g2"
-}
-
-
-
-
-case class DetailsOfThePersonYouCareFor(firstName: String = "",
-                                 middleName: Option[String] = None,
-                                 lastName: String = "",
-                                 nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
-                                 dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)
-                                  ) extends QuestionGroup(DetailsOfThePersonYouCareFor){
-
-  def otherNames = firstName + middleName.map(" " + _).getOrElse("")
-}
-
-object DetailsOfThePersonYouCareFor extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesIdentification.id}.g3"
-}

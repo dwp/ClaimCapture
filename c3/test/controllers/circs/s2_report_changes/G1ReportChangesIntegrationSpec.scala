@@ -7,7 +7,7 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s2_report_changes.G4OtherChangeInfoPage
-import utils.pageobjects.circumstances.s1_about_you.{G3DetailsOfThePersonYouCareForPage, G4CompletedPage}
+import utils.pageobjects.circumstances.s1_about_you.{G1ReportAChangeInYourCircumstancesPage, G4CompletedPage}
 
 class G1ReportChangesIntegrationSpec extends Specification with Tags {
 
@@ -19,10 +19,10 @@ class G1ReportChangesIntegrationSpec extends Specification with Tags {
      }
 
      "navigate to previous page" in new WithBrowser with PageObjects{
-       val page =  G3DetailsOfThePersonYouCareForPage(context)
+       val page =  G1ReportAChangeInYourCircumstancesPage(context)
        page goToThePage()
 
-       val claim = CircumstancesScenarioFactory.detailsOfThePersonYouCareFor
+       val claim = CircumstancesScenarioFactory.aboutDetails
        page fillPageWith(claim)
        val completedPage = page submitPage()
 

@@ -531,9 +531,8 @@ howOftenPayChildCare = How often {1} pay childcare expenses?
 howOftenPayExpenses = How often {1} pay expenses related to the person you care for?
 
 #CIRCUMSTANCES
-c1.g1 = Your details
-c1.g2 = Your contact details
-c1.g3 = Details of the person you care for
+c1 = Report a change in your circumstances
+c1.g1 = So we can identify who you are, confirm the following details. You can then tell us about your change.
 
 c2 = Report a change in your circumstances
 c2.g1 = Details of your change in circumstances

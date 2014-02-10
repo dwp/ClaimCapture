@@ -3,12 +3,13 @@ package controllers.circs.s1_identification
 import org.specs2.mutable.{Tags, Specification}
 
 
-class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
+class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags {
 
   "Change of circumstances - About You Form" should {
 
+    val title = "Mr"
     val firstName = "John"
-    val middelName = ""
+    val middelName = "Joe"
     val lastName = "Smith"
     val ni1 = "AB"
     val ni2 = 12
@@ -21,8 +22,8 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
     val dateOfBirthYear = 1990
 
     "map data into case class" in {
-      G3DetailsOfThePersonYouCareFor.form.bind(
-        Map(
+      G1ReportAChangeInYourCircumstances.form.bind(
+        Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middelName,
           "lastName" -> lastName,
@@ -44,8 +45,8 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
     }
 
     "reject too many characters in text fields" in {
-      G3DetailsOfThePersonYouCareFor.form.bind(
-        Map(
+      G1ReportAChangeInYourCircumstances.form.bind(
+        Map("title" -> title,
           "firstName" -> "HARACTERS,CHARACTE",
           "middleName" -> "HARACTERS,CHARACTE",
           "lastName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
@@ -67,8 +68,8 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
     }
 
     "reject special characters in text fields" in {
-      G3DetailsOfThePersonYouCareFor.form.bind(
-        Map(
+      G1ReportAChangeInYourCircumstances.form.bind(
+        Map("title" -> title,
           "firstName" -> "John >",
           "middleName" -> "Fred£",
           "lastName" -> "Smithé",
@@ -90,22 +91,23 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
     }
 
     "have 6 mandatory fields" in {
-      G3DetailsOfThePersonYouCareFor.form.bind(
+      G1ReportAChangeInYourCircumstances.form.bind(
         Map("middleName" -> "middle optional")).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(5)
+          formWithErrors.errors.length must equalTo(6)
           formWithErrors.errors(0).message must equalTo("error.required")
           formWithErrors.errors(1).message must equalTo("error.required")
           formWithErrors.errors(2).message must equalTo("error.required")
-          formWithErrors.errors(3).message must equalTo("error.nationalInsuranceNumber")
-          formWithErrors.errors(4).message must equalTo("error.required")
+          formWithErrors.errors(3).message must equalTo("error.required")
+          formWithErrors.errors(4).message must equalTo("error.nationalInsuranceNumber")
+          formWithErrors.errors(5).message must equalTo("error.required")
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject invalid national insurance number" in {
-      G3DetailsOfThePersonYouCareFor.form.bind(
-        Map(
+      G1ReportAChangeInYourCircumstances.form.bind(
+        Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middelName,
           "lastName" -> lastName,
@@ -126,8 +128,8 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
     }
 
     "reject invalid date" in {
-      G3DetailsOfThePersonYouCareFor.form.bind(
-        Map(
+      G1ReportAChangeInYourCircumstances.form.bind(
+        Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middelName,
           "lastName" -> lastName,
@@ -146,5 +148,5 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-  } section ("unit", models.domain.DetailsOfThePersonYouCareFor.id)
+  } section ("unit", models.domain.CircumstancesIdentification.id)
 }

@@ -7,7 +7,7 @@ object Identification extends Controller with CachedChangeOfCircs with Navigable
   def completed = claiming { implicit circs => implicit request =>
     val completedQuestionGroups = circs.completedQuestionGroups(models.domain.CircumstancesIdentification)
 
-    if (completedQuestionGroups.isEmpty) Redirect(routes.G1AboutYou.present())
+    if (completedQuestionGroups.isEmpty) Redirect(routes.G1ReportAChangeInYourCircumstances.present())
     else track(models.domain.CircumstancesIdentification) {
       implicit circs => Ok(views.html.circs.s1_identification.g4_completed())
     }

@@ -9,10 +9,10 @@ import utils.pageobjects.PageObjects
 class G4CompletedIntegrationSpec extends Specification with Tags {
 
   "contain the completed forms" in new WithBrowser with PageObjects{
-	  val page =  G3DetailsOfThePersonYouCareForPage(context)
+	  val page =  G1ReportAChangeInYourCircumstancesPage(context)
     page goToThePage()
 
-    val claim = CircumstancesScenarioFactory.detailsOfThePersonYouCareFor
+    val claim = CircumstancesScenarioFactory.aboutDetails
     page fillPageWith(claim)
     val completedPage = page submitPage()
 
