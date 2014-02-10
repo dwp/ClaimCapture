@@ -21,7 +21,7 @@
 
              @declareCheckPlaceholder(currentForm("someoneElse"))
 
-             <ul>
+             <ul class="extra-group">
                  @otherDetailPlaceHolder(
                     inputDef = Seq(carersInputText(currentForm("nameOrOrganisation"))(utils.helpers.CarersTemplate.fieldConstructor,lang)),
                     'id -> "nameOrOrgWrapper",
@@ -29,7 +29,9 @@
                  )
 
              </ul>
-             <ul>@declareCheckPlaceholder(currentForm("confirm"),'secondary->true)</ul>
+             
+             @declareCheckPlaceholder(currentForm("confirm"),'secondary->true)
+             
         </fieldset>
 
         <nav class="form-steps">
