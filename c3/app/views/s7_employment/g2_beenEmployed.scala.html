@@ -65,7 +65,7 @@
 
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit(isOptional=true)>Next</button>
         </nav>
     }
 }
@@ -73,6 +73,7 @@
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s7_employment/jobs.js")'></script>
 <script type="text/javascript">
     $(function(){
+        conditionRequired = window.initEvents("@CarersCrypto.encryptAES("beenEmployed")");
         @ga.stagePrompt()
     })
 </script>

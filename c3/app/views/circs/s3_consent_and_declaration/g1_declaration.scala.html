@@ -11,6 +11,16 @@
 
     @form(action = controllers.circs.s3_consent_and_declaration.routes.G1Declaration.submit) {
         <fieldset class="form-elements">
+            <legend>@Messages("c3.g2")</legend>
+
+            <ul>
+                @carersInputText(
+                    declarationForm("furtherInfoContact"),
+                  'maxLength -> 35,
+                  'helperBelow -> Messages("furtherInfoContact.helper")
+                )
+            </ul>
+
             <legend>@Messages("c3.g1")</legend>
 
             <article class="dec">
