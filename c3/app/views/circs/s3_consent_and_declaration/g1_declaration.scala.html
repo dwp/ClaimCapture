@@ -25,7 +25,7 @@
 
 
             @declareCheckPlaceholder(declarationForm("circsSomeOneElse"))
-            <ul>
+            <ul class="extra-group">
             @otherDetailPlaceHolder(
                 inputDef = Seq(
                     carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> Mappings.sixty)),
@@ -36,7 +36,7 @@
 
             @declareCheckPlaceholder(declarationForm("confirm"))
 
-            <ul>
+            <ul class="circs-group">
                 @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
