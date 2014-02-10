@@ -78,3 +78,7 @@ disable = ->
     $("tr input[type='button']").attr("disabled", "true").addClass("disabled")
     $("input[type='radio']").attr("disabled", "true").addClass("disabled")
     $(".form-steps").children().attr("disabled", "true").addClass("disabled")
+
+window.initEvents = (beenEmployed) ->
+  return ->
+    $("input[name=" + beenEmployed+"]:checked").val() == "no"

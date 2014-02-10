@@ -6,4 +6,6 @@ window.initEvents = (answerY, answerN, doYouPayToLookAfterYourChildren, didYouPa
   $("#" + answerN).on "click", ->
     $("#selfEmployedPensionWrap").slideUp()
 
-  return -> $("input[name=" + doYouPayToLookAfterYourChildren+"]:checked").val() == "yes" || $("input[name=" + didYouPayToLookAfterThePersonYouCaredFor+"]:checked").val() == "yes"
+  return ->
+    $("input[name=" + doYouPayToLookAfterYourChildren+"]:checked").val() == "no" &&
+    $("input[name=" + didYouPayToLookAfterThePersonYouCaredFor+"]:checked").val() == "no"

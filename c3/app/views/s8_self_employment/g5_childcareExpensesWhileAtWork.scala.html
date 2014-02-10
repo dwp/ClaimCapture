@@ -10,6 +10,7 @@
 @import views.html.s8_self_employment.main
 @import views.html.helper.dropdowns.pensionPaymentFrequencySelect
 
+@doWeTrack = @{claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses()).didYouPayToLookAfterThePersonYouCaredFor == "no"}
 
 @main(Messages("s8.g5") + " - " + Messages("s8.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.ChildcareExpensesWhileAtWork)) {
 
@@ -43,12 +44,8 @@
 
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            @if(claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses()).didYouPayToLookAfterThePersonYouCaredFor == "yes") {
-              <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-            }
-            @if(claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses()).didYouPayToLookAfterThePersonYouCaredFor == "no") {
-             <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
-            }
+
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @{if(doWeTrack) views.html.ga.trackSubmit()}>Next</button>
         </nav>
     }
 }
