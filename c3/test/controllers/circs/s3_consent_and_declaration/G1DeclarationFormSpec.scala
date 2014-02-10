@@ -54,7 +54,7 @@ class G1DeclarationFormSpec extends Specification with Tags {
       ).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
-            formWithErrors.errors(0).key must equalTo("error.required")
+            formWithErrors.errors(0).key must equalTo("furtherInfoContact")
             formWithErrors.errors(0).message must equalTo("error.required")
           },
           f => "This mapping should not happen." must equalTo("Valid"))

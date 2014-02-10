@@ -48,10 +48,27 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
     }
 
     "contain errors on invalid submission" in {
-      "missing obtainInfoAgreement field" in new WithBrowser with PageObjects{
-			val page =  G1DeclarationPage(context)
+      "missing furtherInfoContact field" in new WithBrowser with PageObjects{
+        val page =  G1DeclarationPage(context)
         val claim = new TestData
 
+        claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
+        claim.CircumstancesDeclarationWhy = obtainInfoWhy
+        claim.CircumstancesDeclarationConfirmation = confirm
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Contact phone or mobile number - This is required")
+      }
+
+      "missing obtainInfoAgreement field" in new WithBrowser with PageObjects{
+        val page =  G1DeclarationPage(context)
+        val claim = new TestData
+
+        claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationWhy = obtainInfoWhy
         claim.CircumstancesDeclarationConfirmation = confirm
 
