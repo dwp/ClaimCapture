@@ -1,5 +1,9 @@
-@()
+@(implicit claim: models.domain.Claim)
+
 @import play.api.i18n._
+@import models.domain._
+
+@nino = @{claim.questionGroup[YourDetails].getOrElse(YourDetails()).nationalInsuranceNumber.stringify}
 
 @common.govMain(Messages("thankyou")) {
 
@@ -15,7 +19,7 @@
 	            <h1><span>@Messages("thankyou")</span></h1>
 	            <p>@Messages("claim.received")</p>
 	            <p class="nino-title">Your reference number is</p>
-	            <h2>NN 00 00 00 Z</h2>
+	            <h2>@nino</h2>
             </div>
 
             <article class="finish-next prompt helper-prompt">
