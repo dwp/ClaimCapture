@@ -105,6 +105,12 @@ trait WebSearchActions {
     else None
   }
 
+  def readLabel (label: String): String = {
+    val labelLocation = "label[for='"+label+"']"
+    this checkElement labelLocation
+    ctx.browser.find(labelLocation).getText
+  }
+
   //====================================================================================================================
   // Other search operations
   //====================================================================================================================
