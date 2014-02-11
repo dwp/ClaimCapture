@@ -21,7 +21,7 @@ object G1ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
 
   val form = Form(mapping(
     fullName -> carersNonEmptyText(maxLength = 35),
-    nationalInsuranceNumber -> nino.verifying(filledInNino, validNino),
+    nationalInsuranceNumber -> nino.verifying(filledInNino).verifying(validNino),
     dateOfBirth -> dayMonthYear.verifying(validDate),
     theirFullName -> carersNonEmptyText(maxLength = 35),
     theirRelationshipToYou -> carersNonEmptyText(maxLength = 35)
