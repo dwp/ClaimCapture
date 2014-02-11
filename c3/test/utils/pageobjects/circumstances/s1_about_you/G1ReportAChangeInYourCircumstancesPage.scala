@@ -7,6 +7,8 @@ final class G1ReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) exten
   declareInput("#fullName","CircumstancesAboutYouFullName")
   declareNino("#nationalInsuranceNumber","CircumstancesAboutYouNationalInsuranceNumber")
   declareDate("#dateOfBirth", "CircumstancesAboutYouDateOfBirth")
+  declareInput("#theirFullName","CircumstancesAboutYouTheirFullName")
+  declareInput("#theirRelationshipToYou","CircumstancesAboutYouTheirRelationshipToYou")
 }
 
 /**

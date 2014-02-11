@@ -1,6 +1,6 @@
 package xml
 
-import models.domain.{CircumstancesDeclaration, CircumstancesSelfEmployment, Claim}
+import models.domain.{CircumstancesReportChange, CircumstancesDeclaration, CircumstancesSelfEmployment, Claim}
 import scala.xml.NodeSeq
 import XMLHelper._
 import play.api.i18n.Messages
@@ -10,7 +10,7 @@ import org.joda.time.DateTime
 object CircsEvidenceList {
   def xml(circs: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{selfEmployed(circs)}{furtherInfo(circs)}
+      {xmlGenerated()}{selfEmployed(circs)}{furtherInfo(circs)}{theirInfo(circs)}
     </EvidenceList>
   }
 
@@ -53,6 +53,18 @@ object CircsEvidenceList {
     buffer ++= textLine(Messages("furtherinfo.title"))
 
     buffer ++= textLine(Messages("furtherInfoContact") + " = " + declaration.furtherInfoContact)
+
+    buffer
+  }
+
+  def theirInfo(circs: Claim): NodeSeq = {
+    val reportChange = circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange())
+
+    var buffer = NodeSeq.Empty
+
+    buffer ++= textLine(Messages("c1.personYouAreCaringFor"))
+
+    buffer ++= textLine(Messages("theirRelationshipToYou") + " = " + reportChange.theirRelationshipToYou)
 
     buffer
   }

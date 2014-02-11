@@ -20,10 +20,11 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
     val ni3 = 34
     val ni4 = 56
     val ni5 = "C"
-
     val dateOfBirthDay = 5
     val dateOfBirthMonth = 12
     val dateOfBirthYear = 1990
+    val theirFullName = "Mr Jane Smith"
+    val theirRelationshipToYou = "Wife"
 
     val aboutYouInput = Seq(
       "fullName" -> fullName,
@@ -34,7 +35,9 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
       "nationalInsuranceNumber.ni5" -> ni5.toString,
       "dateOfBirth.day" -> dateOfBirthDay.toString,
       "dateOfBirth.month" -> dateOfBirthMonth.toString,
-      "dateOfBirth.year" -> dateOfBirthYear.toString
+      "dateOfBirth.year" -> dateOfBirthYear.toString,
+      "theirFullName" -> theirFullName,
+      "theirRelationshipToYou" -> theirRelationshipToYou
     )
 
     "present 'Circumstances About You' " in new WithApplication with MockForm {

@@ -11,6 +11,8 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesAboutYouFullName = "Mr John Roger Smith"
     claim.CircumstancesAboutYouNationalInsuranceNumber = "AB123456C"
     claim.CircumstancesAboutYouDateOfBirth = "03/04/1950"
+    claim.CircumstancesAboutYouTheirFullName = "Mrs Jane Smith"
+    claim.CircumstancesAboutYouTheirRelationshipToYou = "Wife"
     claim
   }
 

@@ -14,6 +14,8 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
     val fullName = "Mr John Joe Smith"
     val nino = "ab123456c"
     val dateOfBirth = "05/12/1990"
+    val theirFullName = "Mrs Jane Smith"
+    val theirRelationshipToYou = "Wife"
 
     "be presented" in new WithBrowser with PageObjects {
       val page = G1ReportAChangeInYourCircumstancesPage(context)
@@ -23,8 +25,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects {
       val page = G1ReportAChangeInYourCircumstancesPage(context)
       page goToThePage()
-      println(page.submitPage().listErrors)
-      page.submitPage().listErrors.size mustEqual 4
+      page.submitPage().listErrors.size mustEqual 6
     }
 
     "Accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
@@ -42,6 +43,8 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         val claim = new TestData
         claim.CircumstancesAboutYouNationalInsuranceNumber = nino
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
+        claim.CircumstancesAboutYouTheirFullName = theirFullName
+        claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
 
         page goToThePage()
         page fillPageWith claim
@@ -56,6 +59,8 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         val claim = new TestData
         claim.CircumstancesAboutYouFullName = fullName
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
+        claim.CircumstancesAboutYouTheirFullName = theirFullName
+        claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
 
         page goToThePage()
         page fillPageWith claim
@@ -71,6 +76,8 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouFullName = fullName
         claim.CircumstancesAboutYouNationalInsuranceNumber = "11abcdef1"
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
+        claim.CircumstancesAboutYouTheirFullName = theirFullName
+        claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
 
         page goToThePage()
         page fillPageWith claim
@@ -85,6 +92,8 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         val claim = new TestData
         claim.CircumstancesAboutYouFullName = fullName
         claim.CircumstancesAboutYouNationalInsuranceNumber = nino
+        claim.CircumstancesAboutYouTheirFullName = theirFullName
+        claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
 
         page goToThePage()
         page fillPageWith claim
@@ -92,6 +101,38 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
         errors(0) must contain("Date of birth - This is required")
+      }
+
+      "missing theirFullName field" in new WithBrowser with PageObjects {
+        val page = G1ReportAChangeInYourCircumstancesPage(context)
+        val claim = new TestData
+        claim.CircumstancesAboutYouFullName = fullName
+        claim.CircumstancesAboutYouNationalInsuranceNumber = nino
+        claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
+        claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Their full name - This is required")
+      }
+
+      "missing fullName field" in new WithBrowser with PageObjects {
+        val page = G1ReportAChangeInYourCircumstancesPage(context)
+        val claim = new TestData
+        claim.CircumstancesAboutYouFullName = fullName
+        claim.CircumstancesAboutYouNationalInsuranceNumber = nino
+        claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
+        claim.CircumstancesAboutYouTheirFullName = theirFullName
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Their relationship to you - This is required")
       }
     }
   } section("integration", models.domain.CircumstancesIdentification.id)

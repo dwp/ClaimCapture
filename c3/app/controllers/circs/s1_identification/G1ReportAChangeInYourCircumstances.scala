@@ -16,11 +16,15 @@ object G1ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
   val fullName = "fullName"
   val nationalInsuranceNumber = "nationalInsuranceNumber"
   val dateOfBirth = "dateOfBirth"
+  val theirFullName = "theirFullName"
+  val theirRelationshipToYou = "theirRelationshipToYou"
 
   val form = Form(mapping(
     fullName -> carersNonEmptyText(maxLength = 35),
     nationalInsuranceNumber -> nino.verifying(filledInNino, validNino),
-    dateOfBirth -> dayMonthYear.verifying(validDate)
+    dateOfBirth -> dayMonthYear.verifying(validDate),
+    theirFullName -> carersNonEmptyText(maxLength = 35),
+    theirRelationshipToYou -> carersNonEmptyText(maxLength = 35)
   )(CircumstancesReportChange.apply)(CircumstancesReportChange.unapply))
 
   def present = newClaim { implicit circs => implicit request =>

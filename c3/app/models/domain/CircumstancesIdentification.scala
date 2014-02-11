@@ -11,7 +11,9 @@ case object CircumstancesIdentification extends Section.Identifier {
 case class CircumstancesReportChange(
                     fullName: String = "",
                     nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
-                    dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)
+                    dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                    theirFullName: String = "",
+                    theirRelationshipToYou: String = ""
                      ) extends QuestionGroup(CircumstancesReportChange){
 }
 
