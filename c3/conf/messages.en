@@ -555,7 +555,7 @@ c3.g2 = Further Information
 
 theirFullName=Their full name
 theirRelationshipToYou=Their relationship to you
-theirRelationshipToYou.helper=e.g Father, Mother, Son, Daughter
+theirRelationshipToYou.helper=eg: Father, Mother, Son, Daughter
 
 reportChanges=What type of change do you want to report?
 reportChanges.helper=Tell us about your change
