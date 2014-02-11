@@ -13,18 +13,12 @@ import play.api.Logger
 
 object G1ReportAChangeInYourCircumstances extends Controller with CachedChangeOfCircs with Navigable {
 
-  val title = "title"
-  val firstName = "firstName"
-  val middleName = "middleName"
-  val lastName = "lastName"
+  val fullName = "fullName"
   val nationalInsuranceNumber = "nationalInsuranceNumber"
   val dateOfBirth = "dateOfBirth"
 
   val form = Form(mapping(
-    title -> nonEmptyText(maxLength = 4),
-    firstName -> carersNonEmptyText(maxLength = 17),
-    middleName -> optional(carersText(maxLength = 17)),
-    lastName -> carersNonEmptyText(maxLength = Name.maxLength),
+    fullName -> carersNonEmptyText(maxLength = 35),
     nationalInsuranceNumber -> nino.verifying(filledInNino, validNino),
     dateOfBirth -> dayMonthYear.verifying(validDate)
   )(CircumstancesReportChange.apply)(CircumstancesReportChange.unapply))

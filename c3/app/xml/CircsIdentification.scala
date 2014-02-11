@@ -20,11 +20,11 @@ object CircsIdentification {
     val yourDetails = circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange())
 
     <ClaimantDetails>
-      <Surname>{yourDetails.lastName}</Surname>
-      <OtherNames>{yourDetails.otherNames}</OtherNames>
+      <Surname>{NotAsked}</Surname>
+      <OtherNames>{yourDetails.fullName}</OtherNames>
       <DateOfBirth>{yourDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
       <NationalInsuranceNumber>{stringify(Some(yourDetails.nationalInsuranceNumber))}</NationalInsuranceNumber>
-      <Title>{yourDetails.title}</Title>
+      <Title>{NotAsked}</Title>
       <Address>{postalAddressStructure(None, None)}</Address>
       <ConfirmAddress>{NotAsked}</ConfirmAddress>
       <HomePhone>{NotAsked}</HomePhone>

@@ -532,7 +532,10 @@ howOftenPayExpenses = How often {1} pay expenses related to the person you care 
 
 #CIRCUMSTANCES
 c1 = Report a change in your circumstances
-c1.g1 = So we can identify who you are, confirm the following details. You can then tell us about your change.
+c1.g1 = Report a change in your circumstances
+c1.helper = So we can identify who you are, confirm the following details. You can then tell us about your change.
+c1.yourDetails=Your Details
+c1.theirFullName=Their Full Name
 
 c2 = Report a change in your circumstances
 c2.g1 = Details of your change in circumstances

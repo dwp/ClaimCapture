@@ -1,7 +1,4 @@
-About you - the carer,Circumstances,Title,CircumstancesAboutYouTitle,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Title
-About you - the carer,Circumstances,First Name,CircumstancesAboutYouFirstName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>OtherNames
-About you - the carer,Circumstances,Middle Name,CircumstancesAboutYouMiddleName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>OtherNames
-About you - the carer,Circumstances,Last Name,CircumstancesAboutYouLastName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Surname
+About you - the carer,Circumstances,First Name,CircumstancesAboutYouFulltName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>OtherNames
 About you - the carer,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>NationalInsuranceNumber
 About you - the carer,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>DateOfBirth
 About you - the carer,Your contact details,Address,CircumstancesYourContactDetailsAddress,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Address>Line

@@ -4,10 +4,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.{PageObjectsContext, CircumstancesPage, PageContext, Page}
 
 final class G1ReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G1ReportAChangeInYourCircumstancesPage.url, G1ReportAChangeInYourCircumstancesPage.title) {
-  declareSelect("#title", "CircumstancesAboutYouTitle")
-  declareInput("#firstName","CircumstancesAboutYouFirstName")
-  declareInput("#middleName","CircumstancesAboutYouMiddleName")
-  declareInput("#lastName","CircumstancesAboutYouLastName")
+  declareInput("#fullName","CircumstancesAboutYouFullName")
   declareNino("#nationalInsuranceNumber","CircumstancesAboutYouNationalInsuranceNumber")
   declareDate("#dateOfBirth", "CircumstancesAboutYouDateOfBirth")
 }

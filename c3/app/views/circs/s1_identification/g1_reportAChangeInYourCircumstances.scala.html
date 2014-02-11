@@ -1,4 +1,4 @@
-@(aboutYouForm: Form[models.domain.CircumstancesReportChange])(implicit claim: models.domain.Claim)
+@(reportAChangeForm: Form[models.domain.CircumstancesReportChange])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -9,26 +9,23 @@
 @import views.html.helper.dates._
 @import controllers.Mappings._
 
-@main(Messages("c1") + " - " + Messages("c2.longName"), Some(aboutYouForm), claim.completedQuestionGroups(models.domain.CircumstancesReportChange)) {
+@main(Messages("c1") + " - " + Messages("c2.longName"), Some(reportAChangeForm), claim.completedQuestionGroups(models.domain.CircumstancesReportChange)) {
 
     @form(action = controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.submit) {
         <fieldset class="form-elements">
-            <legend>@Messages("c1.g1")</legend>
+            <p class="security-message">@Messages("c1.helper")</p>
+
+            <legend>@Messages("c1.yourDetails")</legend>
 
             <ul>
-                @titleSelect(aboutYouForm("title"))
+                @carersInputText(reportAChangeForm("fullName"), 'maxLength -> 35)
 
-                @carersInputText(aboutYouForm("firstName"), 'maxLength -> 17)
+                @nationalInsuranceNumber(reportAChangeForm("nationalInsuranceNumber"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper"))
 
-                @carersInputText(aboutYouForm("middleName"), 'maxLength -> 17)
-
-                @carersInputText(aboutYouForm("lastName"), 'maxLength -> Name.maxLength)
-
-                @nationalInsuranceNumber(aboutYouForm("nationalInsuranceNumber"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper"))
-
-                @inputDayMonthYear(aboutYouForm("dateOfBirth"), 'helperBelow -> Messages("dateOfBirth.helper"))
-
+                @inputDayMonthYear(reportAChangeForm("dateOfBirth"), 'helperBelow -> Messages("dateOfBirth.helper"))
             </ul>
+
+            <legend>@Messages("c1.theirFullName")</legend>
         </fieldset>
 
         <nav class="form-steps">
