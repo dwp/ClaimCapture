@@ -6,7 +6,7 @@ Report a change in your circumstances - Change in circumstances,Circumstances,Th
 Report a change in your circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,additionalInfo
 Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,other text
 Consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,By Post
-Consent and declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,Yes
+Consent and declaration,Declaration,"Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,Yes
 Consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,Mr Smith
 Consent and declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,CircumstancesDeclarationConfirmation,Yes
 Consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have told us about?,CircumstancesDeclarationInfoAgreement,No
