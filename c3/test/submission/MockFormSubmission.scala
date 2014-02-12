@@ -21,22 +21,6 @@ class MockFormSubmission extends FormSubmission {
     Future(resp)
   }
 
-  def retryClaim(claimRetry: Elem): Future[Response] = {
-    println("retryClaim")
-    val resp = new Response(null) {
-      override def status: Int = http.Status.OK
-      override lazy val body: String =
-        <response>
-          <result>response</result>
-          <correlationID>correlationID</correlationID>
-          <pollEndpoint>pollEndpoint</pollEndpoint>
-          <errorCode></errorCode>
-        </response>
-          .buildString(stripComments = false)
-    }
-    Future(resp)
-  }
-
   def getBodyString(txnId: String): String = {
     txnId match {
       case "TEST223" =>
@@ -58,6 +42,14 @@ class MockFormSubmission extends FormSubmission {
       case "TEST225" =>
         <response>
           <result>acknowledgement</result>
+          <correlationID>correlationID</correlationID>
+          <pollEndpoint>pollEndpoint</pollEndpoint>
+          <errorCode></errorCode>
+        </response>
+          .buildString(stripComments = false)
+      case "TEST226" =>
+        <response>
+          <result></result>
           <correlationID>correlationID</correlationID>
           <pollEndpoint>pollEndpoint</pollEndpoint>
           <errorCode></errorCode>
