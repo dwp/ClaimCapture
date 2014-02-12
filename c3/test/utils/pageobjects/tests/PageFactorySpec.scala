@@ -3,7 +3,7 @@ package utils.pageobjects.tests
 import org.specs2.mutable.Specification
 import utils.pageobjects.{PageObjectsContext, CircumstancesPageFactory, UnknownPage, ClaimPageFactory}
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
-import utils.pageobjects.circumstances.s1_about_you.G1AboutYouPage
+import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
 import com.sun.corba.se.impl.oa.poa.POACurrent
 
 /**
@@ -25,8 +25,8 @@ class PageFactorySpec extends Specification {
     }
 
     "Return an AboutYouPage if provided AboutYouPage page title" in new MockPageContext {
-      val newPage = CircumstancesPageFactory buildPageFromTitle(G1AboutYouPage.title,PageObjectsContext(browser))
-      newPage must beAnInstanceOf[G1AboutYouPage]
+      val newPage = CircumstancesPageFactory buildPageFromTitle(G1ReportAChangeInYourCircumstancesPage.title,PageObjectsContext(browser))
+      newPage must beAnInstanceOf[G1ReportAChangeInYourCircumstancesPage]
     }
   }
 

@@ -25,6 +25,7 @@ trait FormFields {
   val SORTCODE = 'SortCode
   val TIME = 'Time
   val YESNO = 'YesNo
+  val YESNODONTKNOW = 'YesNoDontknow
 
   def declareAddress(elementCssSelector: String, claimAttribute: String) = declareField(ADDRESS, elementCssSelector, claimAttribute)
 
@@ -55,6 +56,8 @@ trait FormFields {
   def declareTime(elementCssSelector: String, claimAttribute: String) = declareField(TIME, elementCssSelector, claimAttribute)
 
   def declareYesNo(elementCssSelector: String, claimAttribute: String) = declareField(YESNO, elementCssSelector, claimAttribute)
+
+  def declareYesNoDontKnow(elementCssSelector: String, claimAttribute: String) = declareField(YESNODONTKNOW, elementCssSelector, claimAttribute)
 
   private def declareField( fieldType:Symbol , elementCssSelector: String, claimAttribute: String) = fields += Tuple3(elementCssSelector, fieldType , claimAttribute )
 }

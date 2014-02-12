@@ -1,0 +1,37 @@
+@(reportChangesForm: Form[models.domain.ReportChanges])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.common._
+@import views.html.helper._
+@import views.html.helper.dropdowns._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import controllers.Mappings._
+@import utils.helpers.CarersCrypto
+@import app.ReportChange._
+
+@main(Messages("c2.g1") + " - " + Messages("c2.name")) {
+    @errorsSummary(reportChangesForm)
+
+    @form(action = controllers.circs.s2_report_changes.routes.G1ReportChanges.submit) {
+        <fieldset class="form-elements">
+            <legend>@Messages("c2.g1")</legend>
+
+            <ul class="coc-layout">
+                @listRadioGroup(reportChangesForm("reportChanges"),
+                    'items -> Seq(
+                        StoppedCaring.name -> Messages("reportChanges.stoppedCaring"),
+                        SelfEmployment.name -> Messages("reportChanges.selfEmployed"),
+                        PaymentChange.name -> Messages("reportChanges.paymentChange"),
+                        AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")),
+                    'helperAbove -> Messages("reportChanges.helper"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@claim.navigation.previous?changing=true" class="button secondary" aria-label="Back button">Back</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+        </nav>
+    }
+}

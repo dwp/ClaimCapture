@@ -17,8 +17,8 @@ GET           /error                                                            
 GET           /circs-error                                                            controllers.CircsEnding.error
 
 # Claim submission
-GET           /submit        @controllers.submission.ClaimSubmissionController.submit
-GET           /circs-submit        @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
+GET           /submit                                                                 @controllers.submission.ClaimSubmissionController.submit
+GET           /circs-submit                                                           @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
 
 # Thank you
 GET           /thankyou/apply-carers                                                  controllers.ClaimEnding.thankyou
@@ -211,28 +211,25 @@ GET           /consent-and-declaration/completed                                
 POST          /consent-and-declaration/completed                                      controllers.s11_consent_and_declaration.ConsentAndDeclaration.completedSubmit
 
 # Circumstances
-GET           /circumstances/identification/about-you                                 controllers.circs.s1_identification.G1AboutYou.present
-POST          /circumstances/identification/about-you                                 controllers.circs.s1_identification.G1AboutYou.submit
+GET           /circumstances/identification/about-you                                 controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present
+POST          /circumstances/identification/about-you                                 controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit
 
-GET           /circumstances/identification/your-contact-details                      controllers.circs.s1_identification.G2YourContactDetails.present
-POST          /circumstances/identification/your-contact-details                      controllers.circs.s1_identification.G2YourContactDetails.submit
+GET           /circumstances/report-changes/selection                                 controllers.circs.s2_report_changes.G1ReportChanges.present
+POST          /circumstances/report-changes/selection                                 controllers.circs.s2_report_changes.G1ReportChanges.submit
 
-GET           /circumstances/identification/details-of-the-person-you-care-for        controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.present
-POST          /circumstances/identification/details-of-the-person-you-care-for        controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.submit
+GET           /circumstances/report-changes/self-employment                           controllers.circs.s2_report_changes.G2SelfEmployment.present
+POST          /circumstances/report-changes/self-employment                           controllers.circs.s2_report_changes.G2SelfEmployment.submit
 
-GET           /circumstances/identification/completed                                 controllers.circs.s1_identification.Identification.completed
-POST          /circumstances/identification/completed                                 controllers.circs.s1_identification.Identification.submit
+GET           /circumstances/report-changes/stopped-caring                            controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.present
+POST          /circumstances/report-changes/stopped-caring                            controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.submit
 
-GET           /circumstances/additional-info/other-change                             controllers.circs.s2_additional_info.G1OtherChangeInfo.present
-POST          /circumstances/additional-info/other-change                             controllers.circs.s2_additional_info.G1OtherChangeInfo.submit
+GET           /circumstances/report-changes/payment-change                            controllers.circs.s2_report_changes.G5PaymentChange.present
+POST          /circumstances/report-changes/payment-change                            controllers.circs.s2_report_changes.G5PaymentChange.submit
 
-GET           /circumstances/self-employment/change                                   controllers.circs.s2c_self_employment.G1SelfEmployment.present
-POST          /circumstances/self-employment/change                                   controllers.circs.s2c_self_employment.G1SelfEmployment.submit
+GET           /circumstances/report-changes/other-change                              controllers.circs.s2_report_changes.G4OtherChangeInfo.present
+POST          /circumstances/report-changes/other-change                              controllers.circs.s2_report_changes.G4OtherChangeInfo.submit
 
 GET           /circumstances/consent-and-declaration/declaration                      controllers.circs.s3_consent_and_declaration.G1Declaration.present
 POST          /circumstances/consent-and-declaration/declaration                      controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
 GET           /circumstances/consent-and-declaration/submitting                       controllers.circs.s3_consent_and_declaration.G2Submitting.present
-
-GET           /circumstances/report-change/stopped-caring                                            controllers.circs.s_permanently_stopped_caring.G1PermanentlyStoppedCaring.present
-POST          /circumstances/report-change/stopped-caring                                            controllers.circs.s_permanently_stopped_caring.G1PermanentlyStoppedCaring.submit

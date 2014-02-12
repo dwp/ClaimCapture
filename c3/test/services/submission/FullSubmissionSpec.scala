@@ -2,7 +2,7 @@ package services.submission
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeApplication, WithBrowser}
-import utils.pageobjects.{IterationManager, TestData}
+import utils.pageobjects.TestData
 import play.api.{Mode, Configuration, GlobalSettings}
 import java.io.File
 import com.typesafe.config.ConfigFactory
@@ -11,13 +11,14 @@ import com.tzavellas.sse.guice.ScalaModule
 import services.TransactionIdService
 import com.google.inject._
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.S11_consent_and_declaration.G5SubmitPage
 import submission._
+import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPageContext
 
 class FullSubmissionSpec extends Specification with Tags {
   sequential
 
-  val thankYouPageTitle = "Thank you"
+  val claimThankYouPageTitle = "Application complete"
+  val changeThankYouPageTitle = "Change complete"
 
   val cAndDError = "An unrecoverable error has occurred"
 
@@ -40,19 +41,24 @@ class FullSubmissionSpec extends Specification with Tags {
   }
 
   "The application" should {
-    "Successfully run submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
 
-
+    "Successfully run claim submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST223"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, thankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, claimThankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
+    }
+
+    "Successfully run circs submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1ReportAChangeInYourCircumstancesPageContext {
+      val idService = injector.getInstance(classOf[TransactionIdService])
+      idService.id = "TEST223"
+      val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase1.csv")
+      page goToThePage(waitForPage = true, waitDuration = 500)
+      val lastPage = page runClaimWith(circs, changeThankYouPageTitle, waitForPage = true, waitDuration = 500, trace = true)
     }
 
     "Recoverable Error submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-
-
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST224"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
@@ -61,13 +67,11 @@ class FullSubmissionSpec extends Specification with Tags {
     }
 
     "Recoverable acknowledgement submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-
-
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST225"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, thankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, claimThankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
     }
 
   } section "functional"

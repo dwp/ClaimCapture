@@ -189,7 +189,7 @@ resideInUK=Which country do you normally live in?
 
 # CLAIM DATE
 dateOfClaim = When do you want your Carer''s Allowance claim to start?
-dateOfClaimHelp.label = Help?
+dateOfClaimHelp.label = Your claim date - Help
 dateOfClaimHelp = Entitlement to Carers''s Allowance can normally be backdated for up to 3 months but in some circumstances can be longer. For further information, see the <a href="/claim-notes" target="_blank">claim notes</a>.
 
 # OTHER EEA STATE OR SWITZERLAND
@@ -344,6 +344,13 @@ p45LeavingDate = What is the leaving date on your P45, if you have one?
 hoursPerWeek = How many hours a week {0} normally work?
 hoursPerWeek.help = e.g. 16 hours should be entered 16
 payrollEmployeeNumber = Payroll or Employee number
+employerNameTable = Employer''s Name
+startDateTable = Start Date
+changeTable = Change
+deleteTable = Delete
+tableTitle = Employment you have added
+deleteEmploymentMessage = Are you sure you want to delete this employment?
+deleteOneEmploymentMessage = You are about to delete the one employer record you have entered. You may be contacted about this, are you sure you want to delete this employment?
 
 # EMPLOYER CONTACT DETAILS
 phonenumber = Phone number
@@ -468,6 +475,9 @@ disclaimer.7 = We may contact [[first name, middle name, surname]] or their repr
 
 read = Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits.
 
+#FURTHER INFORMATION
+furtherinfo.title=Further Information
+
 #DECLARATION
 declaration.1 = I declare that I understand the <a href="/claim-notes" target="_blank">Carer''s Allowance Claim Notes</a> and that the information provided on this claim form is correct and complete.
 declaration.1.pdf = I declare that I understand the Carer''s Allowance Claim Notes and that the information provided on this claim form is correct and complete.
@@ -477,6 +487,7 @@ declaration.4 = If I give false or incomplete information or fail to report chan
 confirm = Please tick this box to confirm that you understand and make the declarations above.
 declaration.title = The declarations below sets out your legal responsibilities in respect of your claim.
 someoneElse = Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
+nameOrOrganisation = Your name and/or organisation
 
 #ADDITIONAL INFO
 anythingElse = Please tell us anything else you think we should know about your claim
@@ -527,23 +538,39 @@ howOftenPayChildCare = How often {1} pay childcare expenses?
 howOftenPayExpenses = How often {1} pay expenses related to the person you care for?
 
 #CIRCUMSTANCES
-c1.g1 = Your details
-c1.g2 = Your contact details
-c1.g3 = Details of the person you care for
+c1 = Report a change in your circumstances
+c1.g1 = Report a change in your circumstances
+c1.helper = So we can identify who you are, confirm the following details. You can then tell us about your change.
+c1.yourDetails=Your Details
+c1.personYouAreCaringFor=Person you are caring for
 
-c2.g1 = Other Change Information
-
-c2c = Report a change in your circumstances
-c2c.g1 = About Your Self-Employment
+c2 = Report a change in your circumstances
+c2.g1 = Details of your change in circumstances
+c2.g2 = About Your Self-Employment
+c2.g3 = Permanently stopped caring
+c2.g4 = Other changes
+c2.g5 = Existing payment details
 
 c3.g1 = Declaration
+c3.g2 = Further Information
+
+theirFullName=Their full name
+theirRelationshipToYou=Their relationship to you
+theirRelationshipToYou.helper=eg: Father, Mother, Son, Daughter
+
+reportChanges=What type of change do you want to report?
+reportChanges.helper=Tell us about your change
+reportChanges.stoppedCaring=I have permanently stopped caring
+reportChanges.selfEmployed=I have started self-employment
+reportChanges.paymentChange=I want to update payment/bank details
+reportChanges.anyOtherChanges=Any other changes
 
 stoppedCaringDate = What date did you permanently stop caring?
 stoppedCaringDate.helper = This is when you stopped caring for the person you looked after for at least 35 hours a week.
-moreAboutChanges = Tell us more about your changes
-moreAboutChanges.helper = If you did not tell us about any changes when they happened we need you to tell us why.
+moreAboutChanges = Tell us more about your change(s)
+moreAboutChanges.helper = If you did not tell us about any change(s) when they happened we need you to tell us why.
 
-changeInCircs = Use this online form for reporting change of circumstances. Remember to include the date of the change and all relevant facts.
+changeInCircs = Use this online form for reporting change of circumstances. Remember to include the date of the change(s) and all relevant facts.
 
 stillCaring_answer=Are you still caring 35 hours or more each week?
 stillCaring.answer=Are you still caring 35 hours or more each week?
@@ -555,8 +582,20 @@ whenThisSelfEmploymentStarted=When did you start this self-employed work?
 typeOfBusiness=What type of business is your self-employed work?
 totalOverWeeklyIncomeThreshold=Will the total income into your business be more than £100 a week?
 
+c2.g5.helper=For security, we also need you to confirm your current payment details
+currentlyPaidIntoBank.answer=Are you currently paid into a bank or building society?
+currentlyPaidIntoBank.label=Are you currently paid into a bank or building society?
+currentlyPaidIntoBank.text1.label=Name of current bank or building society
+currentlyPaidIntoBank.text2.label=Confirm your method of payment
+c2.g5.newPaymentDetails=New payment details
+
+
 #ABOUT YOU - About you
 lastName = Last name
+
+#FURTHER INFORMATION
+furtherInfoContact=Contact phone or mobile number
+furtherInfoContact.helper=Alternatively, tell us if you rather be contacted by post.
 
 #DECLARATION
 obtainInfoAgreement = Do you agree to us obtaining information from any other persons or organisations you may have told us about?
@@ -578,9 +617,10 @@ number.invalid = The value must be a whole number
 error.sortcode.length = A sort code must be 6 digits long
 
 # Thank you page start
-thankyou =Thank you
-claim.received = Your claim has been successfully received
-circs.received = Your change has been successfully received
+thankyou = Application complete
+circs.thankyou = Change complete
+claim.received = Your claim was sent successfully and is being processed
+circs.received = Your change has been successfully received and is being processed
 next = What happens next?
 claim.next.1 = The Carer''s Allowance unit will now check the information you have provided and decide whether you qualify for Carer''s Allowance.
 claim.next.2 = This can take 4 to 6 weeks.

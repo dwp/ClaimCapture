@@ -81,6 +81,7 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
             case SORTCODE => fillSortCode(cssElem, theClaim.selectDynamic(claimAttribute))
             case TIME => fillTime(cssElem, theClaim.selectDynamic(claimAttribute))
             case YESNO => fillYesNo(cssElem, theClaim.selectDynamic(claimAttribute))
+            case YESNODONTKNOW => fillYesNoDontknow(cssElem, theClaim.selectDynamic(claimAttribute))
             case _ => throw new PageObjectException("Framework error in Page.fillPageWith. Unhandled fieldType: " + fieldType.name)
           }
       }
@@ -116,6 +117,7 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
             case SORTCODE => assignToClaimAttribute(readSortCode(cssElem))
             case TIME => assignToClaimAttribute(readTime(cssElem))
             case YESNO => assignToClaimAttribute(readYesNo(cssElem))
+            case YESNODONTKNOW => assignToClaimAttribute(readYesNoDontknow(cssElem))
             case _ => throw new PageObjectException("Framework error in Page.populateClaim. Unhandled fieldType: " + fieldType.name)
           }
       }

@@ -22,9 +22,25 @@ class G4DeclarationSpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
-    """accept answers""" in new WithApplication with Claiming {
+    """failed filling nameOrOrganisation""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
                                  .withFormUrlEncodedBody("confirm" -> "checked","someoneElse" -> "checked")
+
+      val result = G4Declaration.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    """accept answers without someoneElse""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+                                 .withFormUrlEncodedBody("confirm" -> "checked")
+
+      val result = G4Declaration.submit(request)
+      status(result) mustEqual SEE_OTHER
+    }
+
+    """accept answers""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+                                 .withFormUrlEncodedBody("confirm" -> "checked","nameOrOrganisation"->"SomeOrg","someoneElse" -> "checked")
 
       val result = G4Declaration.submit(request)
       redirectLocation(result) must beSome("/consent-and-declaration/submit")

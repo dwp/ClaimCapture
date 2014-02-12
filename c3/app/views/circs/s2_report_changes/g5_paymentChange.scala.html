@@ -1,0 +1,86 @@
+@(currentForm: Form[models.domain.CircumstancesPaymentChange])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import common._
+@import views.html.helper.dates._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import views.html.circs.s2_report_changes.main
+@import app.PaymentFrequency._
+@import app.WhoseNameAccount._
+
+@main(Messages("c2.g5") + " - " + Messages("c2.name")) {
+    @errorsSummary(currentForm)
+
+
+    @form(action = controllers.circs.s2_report_changes.routes.G5PaymentChange.submit) {
+        <fieldset class="form-elements">
+            <legend>@Messages("c2.g5")</legend>
+
+            <ul>
+                @yesNoRadioGroup(currentForm("currentlyPaidIntoBank.answer"),
+                    '_label -> Messages("currentlyPaidIntoBank.label"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(currentForm("currentlyPaidIntoBank.text1"),
+                            '_label -> Messages("currentlyPaidIntoBank.text1.label"),
+                            'maxLength -> 35)
+                    ),
+                    'id -> "currentlyPaidIntoBankWrap1",
+                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "no") "yes" else "no" }
+                )
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(currentForm("currentlyPaidIntoBank.text2"),
+                            '_label -> Messages("currentlyPaidIntoBank.text2.label"),
+                            'maxLength -> 35)
+                    ),
+                    'id -> "currentlyPaidIntoBankWrap2",
+                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "yes") "yes" else "no" }
+                )
+            </ul>
+
+            <legend>@Messages("c2.g5.newPaymentDetails")</legend>
+
+            <ul>
+                @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
+
+                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> "Please Select", YourName.name -> "Your name", Yourpartner.name -> "Your partner's name", Both.name  -> "Both you and your partner", PersonActingBehalf.name -> "Person acting on your behalf", YouPersonBehalf.name -> "You and the person acting on behalf"))
+
+                @carersInputText(currentForm("bankFullName"))
+
+                @sortCode(currentForm("sortCode"))
+
+                @carersInputText(currentForm("accountNumber"), 'maxLength -> "10")
+
+                @carersInputText(currentForm("rollOrReferenceNumber"), 'maxLength -> "18")
+
+                @carersSelect(currentForm("paymentFrequency"), Seq("" -> "Please Select", EveryWeek.name -> "Every week", FourWeekly.name -> "Every four weeks"))
+
+                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> "300 characters left", 'maxLength -> 300)
+            </ul>
+
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g5_paymentChange.js")'></script>
+
+<script type="text/javascript">
+$(function(){
+window.initEvents("@CarersCrypto.encryptAES("currentlyPaidIntoBank_answer_yes")",
+"@CarersCrypto.encryptAES("currentlyPaidIntoBank_answer_no")",
+"@CarersCrypto.encryptAES("currentlyPaidIntoBank_text1")",
+"@CarersCrypto.encryptAES("currentlyPaidIntoBank_text2")");
+});
+</script>

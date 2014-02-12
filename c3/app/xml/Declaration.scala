@@ -55,6 +55,15 @@ object  Declaration {
       <TextLine></TextLine>
       <TextLine>Please tick this box to confirm that you understand and make the declarations above. = {booleanStringToYesNo(declaration.read)}</TextLine>
       <TextLine>Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf. = {booleanStringToYesNo(stringify(declaration.someoneElse))}</TextLine>
+      {
+        declaration.someoneElse match {
+          case Some(se) => declaration.nameOrOrganisation match {
+            case Some(n) => <TextLine>Your name and/or organisation. = {n}</TextLine>
+            case _ =>
+          }
+          case _ =>
+        }
+      }
 
       <TextLine>Do you live in Wales and would like to receive future communications in Welsh? {titleCase(additionalInfo.welshCommunication)}</TextLine>
     </Declaration>

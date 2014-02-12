@@ -13,7 +13,7 @@ object ApplicationMonitor {
   val start: Long = Play.configuration.getLong("monitor.scheduleStart").getOrElse(10)
   val every: Long = Play.configuration.getLong("monitor.scheduleEvery").getOrElse(10)
   val startDuration = Duration(start, MINUTES)
-  val endDuration = Duration(start, MINUTES)
+  val endDuration = Duration(every, MINUTES)
   val actorSystem = ActorSystem("monitoring-actor-system")
 
   val publisher = actorSystem.actorOf(Props(classOf[Publisher], Logger), name = "publisher")

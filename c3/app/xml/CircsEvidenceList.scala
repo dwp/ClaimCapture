@@ -1,16 +1,18 @@
 package xml
 
-import models.domain.{CircumstancesSelfEmployment, Claim}
+import models.domain.{CircumstancesReportChange, CircumstancesDeclaration, CircumstancesSelfEmployment, Claim}
 import scala.xml.NodeSeq
-import XMLHelper._
+import xml.XMLHelper._
 import play.api.i18n.Messages
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
+import models.domain.Claim
+import scala.Some
 
 object CircsEvidenceList {
   def xml(circs: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{selfEmployed(circs)}
+      {xmlGenerated()}{selfEmployed(circs)}{furtherInfo(circs)}{theirInfo(circs)}
     </EvidenceList>
   }
 
@@ -25,20 +27,42 @@ object CircsEvidenceList {
 
     circsSelfEmploymentOption match {
       case Some(circsSelfEmployment) => {
+        buffer ++=  textSeparatorLine(Messages("c2.g2"))
+
         buffer ++= textLine(Messages("stillCaring.answer") + " = " + circsSelfEmployment.stillCaring.answer)
 
         circsSelfEmployment.stillCaring.answer match {
-          case "no" => buffer ++= textLine(Messages("whenStoppedCaring") + " = " + circsSelfEmployment.stillCaring.date.get.`dd/MM/yyyy`)
+          case "no" => buffer ++= textLine(Messages("whenStoppedCaring") + " = " + circsSelfEmployment.stillCaring.date.get.`yyyy-MM-dd`)
           case _ =>
         }
 
-        buffer ++= textLine(Messages("whenThisSelfEmploymentStarted") + " = " + circsSelfEmployment.whenThisSelfEmploymentStarted.`dd/MM/yyyy`)
+        buffer ++= textLine(Messages("whenThisSelfEmploymentStarted") + " = " + circsSelfEmployment.whenThisSelfEmploymentStarted.`yyyy-MM-dd`)
 
         buffer ++= textLine(Messages("typeOfBusiness") + " = " + circsSelfEmployment.typeOfBusiness)
         buffer ++= textLine(Messages("totalOverWeeklyIncomeThreshold") + " = " + circsSelfEmployment.totalOverWeeklyIncomeThreshold)
       }
       case _ =>
     }
+
+    buffer
+  }
+
+  def furtherInfo(circs: Claim): NodeSeq = {
+    val declaration = circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration())
+
+    var buffer = NodeSeq.Empty ++ textSeparatorLine(Messages("furtherinfo.title"))
+
+    buffer ++= textLine(Messages("furtherInfoContact") + " = " + declaration.furtherInfoContact)
+
+    buffer
+  }
+
+  def theirInfo(circs: Claim): NodeSeq = {
+    val reportChange = circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange())
+
+    var buffer = NodeSeq.Empty ++ textSeparatorLine(Messages("c1.personYouAreCaringFor"))
+
+    buffer ++= textLine(Messages("theirRelationshipToYou") + " = " + reportChange.theirRelationshipToYou)
 
     buffer
   }

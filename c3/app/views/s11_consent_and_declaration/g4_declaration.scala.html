@@ -1,12 +1,8 @@
-@(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim,lang: play.api.i18n.Lang,request: Request[AnyContent])
 
-@import helper._
-@import utils.helpers.DeclareCheckTemplate._
 @import views.html.helper._
+@import utils.helpers.CarersCrypto
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
-@import controllers.s11_consent_and_declaration._
 
 @main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Declaration)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G4Declaration.submit) {
@@ -23,9 +19,19 @@
                 </ul>
             </article>
 
-             @carersDeclareCheck(currentForm("someoneElse"))
+             @declareCheckPlaceholder(currentForm("someoneElse"))
 
-             @carersDeclareCheck(currentForm("confirm"),'secondary->true)
+             <ul class="extra-group">
+                 @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputText(currentForm("nameOrOrganisation"))(utils.helpers.CarersTemplate.fieldConstructor,lang)),
+                    'id -> "nameOrOrgWrapper",
+                    'display -> currentForm("someoneElse").value.map(p => p match{ case "true" => "yes" case _ => p}).getOrElse("no")
+                 )
+
+             </ul>
+             
+             @declareCheckPlaceholder(currentForm("confirm"),'secondary->true)
+             
         </fieldset>
 
         <nav class="form-steps">
@@ -34,3 +40,11 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@controllers.routes.Assets.at("javascripts/s11_consent_and_declaration/g4_declaration.js")'></script>
+<script type="text/javascript">
+$(function() {
+window.initEvents("@CarersCrypto.encryptAES("someoneElse")",
+                     "@CarersCrypto.encryptAES("nameOrOrganisation")");
+});
+</script>

@@ -295,6 +295,7 @@ object Formulate {
     browser.goTo("/consent-and-declaration/declaration")
     browser.click("#confirm")
     browser.click("#someoneElse")
+    browser.fill("#nameOrOrganisation") `with` "SomeOrg"
     browser.submit("button[type='submit']")
   }
 
