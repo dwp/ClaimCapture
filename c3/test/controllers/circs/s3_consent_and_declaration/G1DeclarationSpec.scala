@@ -40,7 +40,7 @@ class G1DeclarationSpec extends Specification with Tags {
           f.obtainInfoWhy.get must equalTo(why)
           f.confirm must equalTo(confirm)
           f.circsSomeOneElse must equalTo(Some(someOneElse))
-          f.nameOrOrganisation must equalTo(nameOrOrganisation)
+          f.nameOrOrganisation must equalTo(Some(nameOrOrganisation))
         }
       }
     }

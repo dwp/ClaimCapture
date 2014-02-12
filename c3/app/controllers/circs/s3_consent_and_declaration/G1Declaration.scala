@@ -5,11 +5,9 @@ import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
-import models.domain.{Declaration, CircumstancesDeclaration, CircumstancesOtherInfo}
+import models.domain.{CircumstancesDeclaration, CircumstancesOtherInfo}
 import controllers.CarersForms._
 import play.api.data.FormError
-import play.api.data.FormError
-import controllers.Mappings._
 
 object G1Declaration extends Controller with CachedChangeOfCircs with Navigable {
   val form = Form(mapping(
@@ -18,7 +16,7 @@ object G1Declaration extends Controller with CachedChangeOfCircs with Navigable 
     "obtainInfoWhy" -> optional(carersNonEmptyText(maxLength = 2000)),
     "confirm" -> nonEmptyText,
     "circsSomeOneElse" -> optional(carersText),
-    "nameOrOrganisation" -> text(maxLength = 60)
+    "nameOrOrganisation" -> optional(carersNonEmptyText(maxLength = 60))
   )(CircumstancesDeclaration.apply)(CircumstancesDeclaration.unapply)
     .verifying("obtainInfoWhy", CircumstancesDeclaration.validateWhy _)
     .verifying("nameOrOrganisation", CircumstancesDeclaration.validateNameOrOrganisation _)

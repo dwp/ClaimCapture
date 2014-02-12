@@ -22,7 +22,10 @@ object ConsentAndDeclaration {
         declaration.circsSomeOneElse match {
           case Some(n) =>
             textLines ++= textLine(Messages("circsSomeOneElse"), {booleanStringToYesNo(n)})
-            textLines ++= textLine(Messages("nameOrOrganisation")+". =", declaration.nameOrOrganisation)
+            declaration.nameOrOrganisation match {
+              case Some(nOrO) => textLines ++= textLine(Messages("nameOrOrganisation")+". =", nOrO)
+              case _ =>
+            }
           case _ =>
         }
         textLines ++= textLine(Messages("confirm"), {booleanStringToYesNo(declaration.confirm)})

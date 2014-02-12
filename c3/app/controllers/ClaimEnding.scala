@@ -13,8 +13,8 @@ object ClaimEnding extends Controller with CachedClaim {
     Ok(views.html.common.error(startPage))
   }
 
-  def thankyou = ending {
-    Ok(views.html.common.thankYouClaim())
+  def thankyou = claiming { implicit claim => implicit request  =>
+    Ok(views.html.common.thankYouClaim(claim))
   }
 
 }
