@@ -4,14 +4,17 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you._
+import utils.pageobjects.PageObjects
 
 class G2ContactDetailsIntegrationSpec extends Specification with Tags {
   "Contact Details" should {
-    "be presented" in new WithBrowser with G2ContactDetailsPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G2ContactDetailsPage(context)
       page goToThePage()
     }
 
-    "contain 1 completed form" in new WithBrowser with G1YourDetailsPageContext {
+    "contain 1 completed form" in new WithBrowser with PageObjects{
+			val page =  G1YourDetailsPage(context)
       val claim = ClaimScenarioFactory yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
@@ -24,17 +27,19 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
       }
     }
     
-    "navigate to next page on valid submission" in new WithBrowser with G2ContactDetailsPageContext {
+    "navigate to next page on valid submission" in new WithBrowser with PageObjects{
+			val page =  G2ContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
 
       val nextPage = page submitPage()
       
-      nextPage must beAnInstanceOf[G3TimeOutsideUKPage]
+      nextPage must beAnInstanceOf[G3ClaimDatePage]
     }
 
-    "be able to navigate back to a completed form" in new WithBrowser  with G1YourDetailsPageContext {
+    "be able to navigate back to a completed form" in new WithBrowser  with PageObjects{
+			val page =  G1YourDetailsPage(context)
       val claim = ClaimScenarioFactory yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim

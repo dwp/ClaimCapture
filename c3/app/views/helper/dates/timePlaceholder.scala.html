@@ -1,10 +1,12 @@
-@(field: play.api.data.Field)
+@(field: play.api.data.Field,args: (Symbol, Any)*)
 
 @import helper._
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper.base._
 @import scala.language.postfixOps
 
+
+<p>@args.find(_._1=='timeLabel).getOrElse(Messages(field.name+".time"))@if(!field("hour").constraints.find(_._1 == "constraint.required")) {<em>(optional)</em>}</p>
 <ul class="inline year">
     <li>
         @carersSelect(field("hour"), options = Seq("" -> "Hour") ++ ((0 to 23) map(v => (v toString) -> (if (v < 10) "0" + v else (v toString)))))

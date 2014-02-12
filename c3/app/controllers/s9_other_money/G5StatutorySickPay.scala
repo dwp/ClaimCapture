@@ -48,6 +48,11 @@ object G5StatutorySickPay extends Controller with CachedClaim with Navigable {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("", "employersName.required", FormError("employersName", "error.required"))
           .replaceError("", "employersHowMuch.required", FormError("howMuch", "error.required"))
+          .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
+          .replaceError("haveYouHadAnyStatutorySickPay","error.required", FormError("haveYouHadAnyStatutorySickPay", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
+          .replaceError("employersAddress.lineOne", FormError("employersAddress", "error.restricted.characters"))
+          .replaceError("employersAddress.lineTwo",  FormError("employersAddress", "error.restricted.characters"))
+          .replaceError("employersAddress.lineThree", FormError("employersAddress", "error.restricted.characters"))
         BadRequest(views.html.s9_other_money.g5_statutorySickPay(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G6OtherStatutoryPay.present()))

@@ -13,6 +13,8 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
 
     "not be presented if section not visible" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
+      Formulate.nationalityAndResidency(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
       browser.goTo("/education/your-course-details")
 
@@ -23,22 +25,21 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       browser.goTo("/education/your-course-details")
       browser.fill("#startDate_year") `with` "INVALID"
       browser.submit("button[type='submit']")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 1
+      browser.find("div[class=validation-summary] ol li").size mustEqual 5
+    }
+
+    "show the text 'Continue to Other Money' on the submit button when next section is 'Other Money'" in new WithBrowser with BrowserMatchers {
+      pending("Skipped till show/hide employment logic is implemented")
     }
 
     "navigate to next page on valid submission with all fields filled in" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/education/your-course-details")
+      browser.goTo("/employment/been-employed")
+      Formulate.claimDate(browser)
+      Formulate.employment(browser)
       Formulate.yourCourseDetails(browser)
 
-      titleMustEqual("School, college or university's contact details - About your education")
-    }
-
-    "navigate to next page on valid submission with only mandatory fields filled in" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/education/your-course-details")
-      browser.submit("button[type='submit']")
-
-      titleMustEqual("School, college or university's contact details - About your education")
-    }
+      titleMustEqual("Employment Employment History")
+     }
 
     "navigate back" in new WithBrowser with BrowserMatchers {
       browser.goTo("/care-you-provide/breaks-in-care")

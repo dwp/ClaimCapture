@@ -28,11 +28,11 @@
 
                 @carersCurrency(currentForm("howMuchCostCare"), '_label -> Messages("howMuchCostCare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'maxlength -> Mappings.sixty)
 
-                @pensionPaymentFrequencySelect(currentForm("howOftenPayCare"), '_label -> Messages ("howOftenPayCare", didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayCare",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                @pensionPaymentFrequencySelect(currentForm("howOftenPayCare"), '_label -> Messages ("howOftenPayCare", "",didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayCare",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
 
-                @relationshipSelect(currentForm("relationToYou"))
+                @relationshipSelectWithNone(currentForm("relationToYou"))
 
-                @relationshipSelect(currentForm("relationToPersonYouCare"))
+                @relationshipSelectWithNone(currentForm("relationToPersonYouCare"))
             </ul>
         </fieldset>
 

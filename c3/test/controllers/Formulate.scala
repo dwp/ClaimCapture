@@ -22,9 +22,8 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.fill("#nationality") `with` "English"
-    browser.click("#maritalStatus option[value='s']")
-    browser.click("#alwaysLivedUK_yes")
+    //browser.fill("#nationality") `with` "English"
+    //browser.click("#alwaysLivedUK_yes")
     browser.submit("button[type='submit']")
   }
 
@@ -41,9 +40,8 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.fill("#nationality") `with` "English"
-    browser.click("#maritalStatus option[value='s']")
-    browser.click("#alwaysLivedUK_no")
+    //browser.fill("#nationality") `with` "English"
+    //browser.click("#alwaysLivedUK_no")
     browser.submit("button[type='submit']")
   }
 
@@ -54,23 +52,19 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
-  def timeOutsideUK(browser: TestBrowser) = {
-    browser.goTo("/about-you/time-outside-uk")
-    browser.click("#livingInUK_answer_yes")
-
-    browser.click("#livingInUK_arrivalDate_day option[value='1']")
-    browser.click("#livingInUK_arrivalDate_month option[value='1']")
-    browser.fill("#livingInUK_arrivalDate_year") `with` "2001"
-
-    browser.click("#livingInUK_goBack_answer_no")
-
-    browser.submit("button[value='next']")
+  def nationalityAndResidency(browser: TestBrowser) = {
+    browser.goTo("/about-you/nationality-and-residency")
+    browser.fill("#nationality") `with` "British"
+    browser.click("#resideInUK_answer_yes")
+    browser.submit("button[type='submit']")
   }
 
-  def timeOutsideUKNotLivingInUK(browser: TestBrowser) = {
-    browser.goTo("/about-you/time-outside-uk")
-    browser.click("#livingInUK_answer_no")
-    browser.submit("button[value='next']")
+  def otherEEAStateOrSwitzerland(browser: TestBrowser) = {
+    browser.goTo("/about-you/other-eea-state-or-switzerland")
+    browser.click("#benefitsFromEEA_no")
+    browser.click("#claimedForBenefitsFromEEA_no")
+    browser.click("#workingForEEA_no")
+    browser.submit("button[type='submit']")
   }
 
   def claimDate(browser: TestBrowser) = {
@@ -83,6 +77,7 @@ object Formulate {
 
   def moreAboutYou(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
+    browser.click("#maritalStatus option[value='s']")
     browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_yes")
     browser.click("#receiveStatePension_yes")
@@ -91,6 +86,7 @@ object Formulate {
 
   def moreAboutYouNotHadPartnerSinceClaimDate(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
+    browser.click("#maritalStatus option[value='s']")
     browser.click("#hadPartnerSinceClaimDate_no")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_yes")
@@ -100,6 +96,7 @@ object Formulate {
   
   def moreAboutYouNotBeenInEducationSinceClaimDate(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
+    browser.click("#maritalStatus option[value='s']")
     browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_no")
@@ -108,9 +105,23 @@ object Formulate {
   }
 
   def employment(browser: TestBrowser) = {
-    browser.goTo("/about-you/employment")
+    browser.goTo("/employment/employment")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
+    browser.submit("button[type='submit']")
+  }
+
+  def selfEmployment(browser: TestBrowser) = {
+    browser.goTo("/employment/employment")
+    browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
+    browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
+    browser.submit("button[type='submit']")
+  }
+
+  def notInEmployment(browser: TestBrowser) = {
+    browser.goTo("/employment/employment")
+    browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
+    browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
     browser.submit("button[type='submit']")
   }
 
@@ -130,19 +141,14 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.click("#separated_fromPartner_no]")
-    browser.submit("button[type='submit']")
-  }
-
-  def personYouCareFor(browser: TestBrowser) = {
-    browser.goTo("/your-partner/person-you-care-for")
-    browser.click("#isPartnerPersonYouCareFor_yes]")
+    browser.click("#separated_fromPartner_no")
+    browser.click("#isPartnerPersonYouCareFor_yes")
     browser.submit("button[type='submit']")
   }
   
   def personYouCareForNotPartner(browser: TestBrowser) = {
     browser.goTo("/your-partner/person-you-care-for")
-    browser.click("#isPartnerPersonYouCareFor_no]")
+    browser.click("#isPartnerPersonYouCareFor_no")
     browser.submit("button[type='submit']")
   }
   
@@ -160,7 +166,7 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.click("#liveAtSameAddressCareYouProvide_yes]")
+    browser.click("#liveAtSameAddressCareYouProvide_yes")
     browser.submit("button[type='submit']")
   }
 
@@ -172,7 +178,7 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.click("#liveAtSameAddressCareYouProvide_no]")
+    browser.click("#liveAtSameAddressCareYouProvide_no")
     browser.submit("button[type='submit']")
   }
 
@@ -315,52 +321,27 @@ object Formulate {
     browser.click("#anyTrips_no")
     browser.submit("button[value='next']")
   }
-  
-  def otherEEAStateOrSwitzerland(browser: TestBrowser) = {
-    browser.click("#benefitsFromOtherEEAStateOrSwitzerland_answer_no")
-    browser.click("#workingForOtherEEAStateOrSwitzerland_no")
-    browser.submit("button[value='next']")
-  }
-  
+
   // Education
   def yourCourseDetails(browser: TestBrowser) = {
-    val courseType = "University"
     val courseTitle = "Law"
     val startDateDay = "16"
-    val studentReferenceNumber = "ST-2828281"
+    val nameOfSchoolCollegeOrUniversity = "MIT"
+    val nameOfMainTeacherOrTutor = "Albert Einstein"
+    val courseContactNumber = "02076541058"
 
     browser.goTo("/education/your-course-details")
-    browser.fill("#courseType") `with` courseType
     browser.fill("#courseTitle") `with` courseTitle
+    browser.fill("#nameOfSchoolCollegeOrUniversity") `with` nameOfSchoolCollegeOrUniversity
+    browser.fill("#nameOfMainTeacherOrTutor") `with` nameOfMainTeacherOrTutor
+    browser.fill("#courseContactNumber") `with` courseContactNumber
     browser.click("#startDate_day option[value='16']")
     browser.click("#startDate_month option[value='4']")
     browser.fill("#startDate_year") `with` "1992"
     browser.click("#expectedEndDate_day option[value='30']")
     browser.click("#expectedEndDate_month option[value='9']")
     browser.fill("#expectedEndDate_year") `with` "1997"
-    browser.click("#finishedDate_day option[value='1']")
-    browser.click("#finishedDate_month option[value='1']")
-    browser.fill("#finishedDate_year") `with` "2000"
-    browser.fill("#courseTitle") `with` courseTitle
     
-    browser.submit("button[type='submit']")
-  }
-  
-  def addressOfSchoolCollegeOrUniversity(browser: TestBrowser) = {
-    val nameOfSchoolCollegeOrUniversity = "MIT"
-    val nameOfMainTeacherOrTutor = "Albert Einstein"
-    val addressLineOne = "123 Street"
-    val postcode: String = "SE1 6EH"
-    val phoneNumber = "02076541058"
-    val faxNumber = "07076541058"
-    
-    browser.goTo("/education/address-of-school-college-or-university")
-    browser.fill("#nameOfSchoolCollegeOrUniversity") `with` nameOfSchoolCollegeOrUniversity
-    browser.fill("#nameOfMainTeacherOrTutor") `with` nameOfMainTeacherOrTutor
-    browser.fill("#address_lineOne") `with` addressLineOne
-    browser.fill("#postcode") `with` postcode
-    browser.fill("#phoneNumber") `with` phoneNumber
-    browser.fill("#faxNumber") `with` faxNumber
     browser.submit("button[type='submit']")
   }
   
@@ -395,4 +376,9 @@ object Formulate {
     browser.goTo("/other-money/person-contact-details")
     browser.submit("button[type='submit']")
   }
+
+  def clickBackButton (browser:TestBrowser) = {
+    browser.click("#backButton")
+  }
+
 }

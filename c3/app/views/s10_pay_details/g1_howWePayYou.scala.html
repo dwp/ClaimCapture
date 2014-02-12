@@ -9,6 +9,7 @@
 @import models.domain.HowWePayYou
 @import app.AccountStatus._
 @import app.PaymentFrequency._
+@import utils.helpers.CarersCrypto
 
 @main(Messages("s10.g1") + " - " + Messages("s10.longName"), Some(currentForm)) {
 
@@ -26,12 +27,15 @@
 
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmitOptional()>Next</button>
         </nav>
     }
 }
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s10_pay_details/g1_howWePayYou.js")'></script>
+
 <script type="text/javascript">
     $(function(){
-        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
+        @ga.stagePrompt()
+        conditionRequired = window.initEvents('@helpers.CarersCrypto.encryptAES("likeToPay")')
     })
 </script>

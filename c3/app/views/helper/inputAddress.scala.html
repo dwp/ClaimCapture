@@ -1,6 +1,11 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)
 
+@import helper._
+@import utils.helpers.CarersCrypto
+@import utils.helpers._
+@import views.html.helper.base._
 @import utils.helpers.CarersTemplate._
 
-
-@addressPlaceholder(field)
+@input(field,args: _*){(id, name, value, htmlArgs) =>
+    @addressPlaceholder(field)
+}

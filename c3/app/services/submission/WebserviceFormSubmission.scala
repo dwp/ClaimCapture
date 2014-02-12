@@ -1,5 +1,6 @@
 package services.submission
 
+import app.ConfigProperties._
 import play.api.libs.ws.WS
 import play.api.libs.ws
 import scala.concurrent.Future
@@ -11,7 +12,6 @@ import services.util.CharacterStripper
 class WebserviceFormSubmission extends FormSubmission {
 
   def submitClaim(claimSubmission: Elem): Future[ws.Response] = {
-    // Logger.info(s"Claim submitting transactionId : ${claimSubmission \\ "DWPCAClaim" \ "@id" toString()}") : Better to change this to debug : If debug turned off in production
     val submissionServerEndpoint: String =
       Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submit/claim"
     Logger.debug(s"Submission Server : $submissionServerEndpoint")
@@ -22,8 +22,7 @@ class WebserviceFormSubmission extends FormSubmission {
   }
 
   def retryClaim(claimRetry: Elem): Future[ws.Response] = {
-    val retryServerEndpoint: String =
-      Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "retry/claim"
+    val retryServerEndpoint: String =getProperty("submissionServerUrl", "SubmissionServerEndpointNotSet") + "retry/claim"
     Logger.debug(s"Submission Server retry : $retryServerEndpoint")
     val result = WS.url(retryServerEndpoint)
       .withHeaders(("Content-Type", "text/xml"))

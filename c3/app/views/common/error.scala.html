@@ -1,3 +1,4 @@
+@(url:String)
 @common.govMain("An unrecoverable error has occurred") {
 	
     <div class="carers-allowance">
@@ -12,7 +13,7 @@
 
 
                 <nav class="form-steps">
-                    <button type="submit" name="action" value="next" class="button secondary" onClick="location.href='https://www.gov.uk/apply-carers-allowance'" aria-label="Restart claim button">Restart</button>
+                    <button type="submit" name="action" value="next" class="button secondary" onClick="location.href='@url'" aria-label="Restart claim button">Restart</button>
                 </nav>
             </section>
         </div>

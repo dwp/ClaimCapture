@@ -5,7 +5,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
-@import models.domain.{MoreAboutYou,PersonYouCareFor}
+@import models.domain.{MoreAboutYou,YourPartnerPersonalDetails}
 @import views.html.helper.dropdowns.pensionPaymentFrequencySelect
 
 @main(Messages("s8.g7") + " - " + Messages("s8.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.ExpensesWhileAtWork)) {
@@ -22,25 +22,25 @@
 
                 @carersCurrency(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'placeholder -> Messages("poundSign"), 'maxlength -> Mappings.sixty)
 
-                @pensionPaymentFrequencySelect(currentForm("howOftenPayExpenses"), '_label -> Messages ("howOftenPayExpenses", didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayExpenses",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                @pensionPaymentFrequencySelect(currentForm("howOftenPayExpenses"), '_label -> Messages ("howOftenPayExpenses", "",didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayExpenses",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
 
-                @relationshipSelect(currentForm("whatRelationIsToYou"))
+                @relationshipSelectWithNone(currentForm("whatRelationIsToYou"))
 
                 @otherDetailPlaceHolder(
                 inputDef = Seq(
-                relationshipSelect(currentForm("relationToPartner"))),
-                'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
-                case (Some(m: MoreAboutYou),Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
+                relationshipSelectWithNone(currentForm("relationToPartner"))),
+                'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
+                case (Some(m: MoreAboutYou),Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
                 case _ => "no"
                 }))
 
-                @relationshipSelect(currentForm("whatRelationIsTothePersonYouCareFor"))
+                @relationshipSelectWithNone(currentForm("whatRelationIsTothePersonYouCareFor"))
             </ul>
         </fieldset>
 
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
         </nav>
     }
 }

@@ -9,6 +9,7 @@ import controllers.Mappings._
 import models.domain.CircumstancesAboutYou
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
+import play.api.Logger
 
 object G1AboutYou extends Controller with CachedChangeOfCircs with Navigable {
 
@@ -21,14 +22,15 @@ object G1AboutYou extends Controller with CachedChangeOfCircs with Navigable {
 
   val form = Form(mapping(
     title -> nonEmptyText(maxLength = 4),
-    firstName -> carersNonEmptyText(maxLength = Name.maxLength),
-    middleName -> optional(carersText(maxLength = Name.maxLength)),
+    firstName -> carersNonEmptyText(maxLength = 17),
+    middleName -> optional(carersText(maxLength = 17)),
     lastName -> carersNonEmptyText(maxLength = Name.maxLength),
     nationalInsuranceNumber -> nino.verifying(filledInNino, validNino),
     dateOfBirth -> dayMonthYear.verifying(validDate)
   )(CircumstancesAboutYou.apply)(CircumstancesAboutYou.unapply))
 
   def present = newClaim { implicit circs => implicit request =>
+    Logger.info(s"Starting new $cacheKey")
     track(CircumstancesAboutYou) { implicit circs => Ok(views.html.circs.s1_identification.g1_aboutYou(form.fill(CircumstancesAboutYou))) }
   }
 

@@ -1,15 +1,11 @@
-window.initEvents = (answerY, answerN, howOften_frequency, howOften_frequency_wrap) ->
+window.initEvents = (answerY, answerN, whoPaysYou, howMuch, howOften_frequency, howOften_frequency_other) ->
   $("#" + answerY).on "click", ->
     $("#otherPayWrap").slideDown()
     $("#otherPayWrap").css('display', "block")
 
   $("#" + answerN).on "click", ->
-    $("#otherPayWrap").slideUp()
-    
-  $("#" + howOften_frequency).on "change", ->
-    selected = $("#" + howOften_frequency + " option").filter(':selected').text()
-    if selected is "Other"
-      $("#" + howOften_frequency_wrap).slideDown()
-      $("#" + howOften_frequency_wrap).css('display', "block")
-    else 
-      $("#" + howOften_frequency_wrap).slideUp()
+    $("#otherPayWrap").slideUp( ->
+      $("#"+whoPaysYou).val("")
+      $("#"+howMuch).val("")
+      $("#"+howOften_frequency).val("")
+      $("#"+howOften_frequency_other).val(""))

@@ -9,22 +9,21 @@ import models.domain._
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
+import play.api.Logger
 
 object G1YourDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "title" -> nonEmptyText(maxLength = 4),
-    "firstName" -> carersNonEmptyText(maxLength = Name.maxLength),
-    "middleName" -> optional(carersText(maxLength = Name.maxLength)),
+    "firstName" -> carersNonEmptyText(maxLength = 17),
+    "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "otherNames" -> optional(carersText(maxLength = Name.maxLength)),
     "nationalInsuranceNumber" -> nino.verifying(filledInNino,validNino),
-    "nationality" -> nonEmptyText.verifying(validNationality),
-    "dateOfBirth" -> dayMonthYear.verifying(validDate),
-    "alwaysLivedUK" -> nonEmptyText.verifying(validYesNo),
-    "maritalStatus" -> nonEmptyText(maxLength = 1)
+    "dateOfBirth" -> dayMonthYear.verifying(validDate)
   )(YourDetails.apply)(YourDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
+    Logger.info(s"Start your details")
     track(YourDetails) { implicit claim => Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails))) }
   }
 

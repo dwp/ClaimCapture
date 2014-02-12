@@ -29,10 +29,8 @@
 }
 
 @renderEmployment = {
-    @if(Employed.visible || SelfEmployment.visible) {
-        @defining(addClassEmployment){ clazz =>
-            <li @clazz ><span>@Messages(Employed.id + ".progressbar.name")</span></li>
-        }
+    @defining(addClassEmployment){ clazz =>
+        <li @clazz ><span>@Messages(Employed.id + ".progressbar.name")</span></li>
     }
 }
 
@@ -48,7 +46,6 @@
         @renderListItem(AboutYou)
         @renderListItem(YourPartner)
         @renderListItem(CareYouProvide)
-        @renderListItem(TimeSpentAbroad)
         @renderListItem(Education)
         @renderEmployment
         @renderListItem(OtherMoney)

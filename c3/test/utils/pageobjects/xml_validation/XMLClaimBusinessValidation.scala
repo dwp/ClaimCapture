@@ -60,11 +60,8 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
             value.contains(StatutoryPaymentFrequency.mapToHumanReadableString(claimValue.value, None).toLowerCase)
           else if (nodeName.startsWith(EvidenceListNode)) {
             // Awful code. Need to do something about it! (JMI)
-            if (claimValue.attribute.contains("TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
-              if (iteration == 0 ) value.matches(".*haveyoubeenoutofgreatbritainformorethan[^=]*=" + claimValue.value +".*") else true
-            }
-            else if (claimValue.attribute.contains("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor")) {
-              if (iteration == 0) value.matches(".*haveyoubeenoutofgreatbritainwith[^=]*=" + claimValue.value +".*") else true
+            if (claimValue.attribute.contains("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
+              if (iteration == 0 ) value.matches(".*haveyoubeenoutofengland,scotlandorwales[^=]*=" + claimValue.value +".*") else true
             }
             else if (claimValue.attribute == "SelfEmployedChildcareExpensesHowOften" || claimValue.attribute == "SelfEmployedCareExpensesHowOften")
               value.contains(claimValue.question + "=" + PensionPaymentFrequency.mapToHumanReadableString(claimValue.value).toLowerCase)
@@ -99,7 +96,9 @@ object ClaimValue {
   private def prepareClaimValue(claimValue: String, attribute: String) = {
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
 
-    if (cleanValue.contains("/") && !attribute.startsWith("EmploymentLeavingDateP45") && !attribute.startsWith("AboutYouWhenDidYouArriveInYheUK")) {
+    if (cleanValue.contains("/") && !attribute.startsWith("EmploymentLeavingDateP45")
+      && !attribute.startsWith("AboutYouWhenDidYouArriveInYheUK")
+      && !attribute.startsWith("DateYouReturnedToGB") && !attribute.startsWith("DateYouLeftGB")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
       date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))
     } else cleanValue

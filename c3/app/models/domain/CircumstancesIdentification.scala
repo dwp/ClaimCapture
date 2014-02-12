@@ -24,7 +24,7 @@ object CircumstancesAboutYou extends QuestionGroup.Identifier {
 
 case class CircumstancesYourContactDetails(address: MultiLineAddress =new  MultiLineAddress(),
                                            postcode: Option[String] = None,
-                                           phoneNumber: Option[String] = None,
+                                           phoneNumber: String = "",
                                            mobileNumber: Option[String] = None
                                   ) extends QuestionGroup(CircumstancesYourContactDetails){
 }

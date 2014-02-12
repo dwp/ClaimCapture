@@ -2,7 +2,7 @@
 
 @import models.domain.TheirPersonalDetails
 @import helper._
-@import utils.helpers.EmptyTemplate._
+@import utils.helpers.DeclareCheckTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
@@ -26,9 +26,7 @@
                 }
             </div>
 
-            <div class="group declare">
-                @carersDeclareCheck(currentForm("read"))
-            </div>
+            @carersDeclareCheck(currentForm("read"))
         </fieldset>
 
         <nav class="form-steps">

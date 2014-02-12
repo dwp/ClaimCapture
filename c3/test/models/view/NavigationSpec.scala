@@ -1,7 +1,7 @@
 package models.view
 
 import org.specs2.mutable.Specification
-import models.domain.{TimeOutsideUK, ContactDetails, YourDetails}
+import models.domain.{ContactDetails, YourDetails}
 
 class NavigationSpec extends Specification {
   "Navigation" should {
@@ -50,9 +50,9 @@ class NavigationSpec extends Specification {
       val route2 = "/about-you/contact-details"
       val navigation = Navigation().track(YourDetails)(route1).track(ContactDetails)(route2)
       navigation.routes.size shouldEqual 2
+      val expectedRoute = Route(route2)
 
-      navigation(ContactDetails) should beSome(Route(route2))
-      navigation(TimeOutsideUK) should beNone
+      navigation(ContactDetails) must beSome(expectedRoute)
     }
   }
 }

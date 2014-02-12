@@ -1,15 +1,15 @@
 package controllers.s4_care_you_provide
 
 import play.api.mvc.Controller
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.i18n.Messages
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
-import models.domain.BreaksInCare
+import models.domain.{QuestionGroup, Claim, MoreAboutTheCare, BreaksInCare}
 import models.view.{Navigable, CachedClaim}
 import models.yesNo.YesNo
-import CareYouProvide.breaksInCare
+import scala.language.postfixOps
 
 object G10BreaksInCare extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -26,18 +26,37 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
     track(BreaksInCare) { implicit claim => Ok(views.html.s4_care_you_provide.g10_breaksInCare(filledForm, breaksInCare)) }
   }
 
+  def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+
   def submit = claiming { implicit claim => implicit request =>
     import controllers.Mappings.yes
 
     def next(hasBreaks: YesNo) = hasBreaks.answer match {
       case `yes` if breaksInCare.breaks.size < 10 => Redirect(routes.G11Break.present())
       case `yes` => Redirect(routes.G10BreaksInCare.present())
-      case _ => Redirect(routes.CareYouProvide.completed())
+      case _ => redirect(claim)
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrors, breaksInCare)),
+      formWithErrors => {
+        val sixMonth = claim.questionGroup(MoreAboutTheCare) match {
+          case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim.answer.toLowerCase == "yes"
+          case _ => false
+        }
+        val formWithErrorsUpdate = formWithErrors.replaceError("answer", FormError("answer.label", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+          if (sixMonth) (dmy - 6 months).`dd/MM/yyyy` else dmy.`dd/MM/yyyy`))))
+        BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrorsUpdate, breaksInCare))
+      },
       hasBreaks => claim.update(breaksInCare) -> next(hasBreaks))
+  }
+
+  private def redirect(implicit claim: Claim) = {
+    if (completedQuestionGroups.isEmpty) Redirect(routes.G1TheirPersonalDetails.present())
+    else Redirect("/education/your-course-details")
+  }
+
+  private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
+    claim.completedQuestionGroups(models.domain.CareYouProvide)
   }
 
   def delete(id: String) = claiming { implicit claim => implicit request =>

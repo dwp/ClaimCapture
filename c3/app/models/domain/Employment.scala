@@ -16,6 +16,12 @@ object Employed extends Section.Identifier {
   val id = "s7"
 }
 
+case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)
+
+object Employment extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g0"
+}
+
 case class BeenEmployed(beenEmployed: String) extends QuestionGroup(BeenEmployed)
 
 object BeenEmployed extends QuestionGroup.Identifier {
@@ -124,6 +130,11 @@ case class JobDetails(jobID: String = "",
 
 object JobDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g2"
+
+  def validateLastWorkDate(input: JobDetails):Boolean = input.finishedThisJob match {
+    case `yes` => input.lastWorkDate.isDefined
+    case `no` => true
+  }
 }
 
 case class EmployerContactDetails(jobID: String = "",
@@ -146,7 +157,7 @@ object LastWage extends QuestionGroup.Identifier {
 }
 
 case class AdditionalWageDetails(jobID:String = "",
-                                 oftenGetPaid: Option[PaymentFrequency] = None,
+                                 oftenGetPaid: PaymentFrequency = PaymentFrequency(),
                                  whenGetPaid: Option[String] = None,
                                  employerOwesYouMoney: String = "") extends QuestionGroup(AdditionalWageDetails) with Job.Identifier
 
@@ -154,7 +165,7 @@ object AdditionalWageDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g5"
 
   def validateOftenGetPaid(input: AdditionalWageDetails): Boolean = input.oftenGetPaid match {
-    case Some(pf) if pf.frequency == "other" => pf.other.isDefined
+    case payment if payment.frequency == "other" => payment.other.isDefined
     case _ => true
   }
 }

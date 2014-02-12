@@ -25,6 +25,7 @@
 	               paymentFrequencySelect(currentForm("howOften"), 
 	                 'id -> "howOften",
 	                 'visibleOn -> "yes",
+                     '_label -> Messages("howOften"),
                      'textAreaHelper -> "60 characters left", 'maxLength -> 60,
 	                 'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
 	                ),
@@ -47,13 +48,20 @@
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s9_other_money/g5_statutorySickPay.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
-
+<script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
 
 <script type="text/javascript">
     $(function() {
         window.initEvents("@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_yes")", 
           "@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_no")",
-          "@CarersCrypto.encryptAES("howOften_frequency")", 
+          "@CarersCrypto.encryptAES("howMuch")",
+          "@CarersCrypto.encryptAES("howOften_frequency")",
+          "@CarersCrypto.encryptAES("howOften_frequency_other")",
+          "@CarersCrypto.encryptAES("employersName")",
+          "@CarersCrypto.encryptAES("employersAddress_lineOne")",
+          "@CarersCrypto.encryptAES("employersAddress_lineTwo")",
+          "@CarersCrypto.encryptAES("employersAddress_lineThree")",
+          "@CarersCrypto.encryptAES("employersPostcode")",
           "howOften_wrap");
         window.areaCounter({selector:"@CarersCrypto.encryptAES("howOften_frequency_other")",maxChars:60});
     });

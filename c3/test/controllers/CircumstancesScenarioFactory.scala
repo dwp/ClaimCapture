@@ -20,7 +20,7 @@ object CircumstancesScenarioFactory {
     val claim = aboutDetails
     claim.CircumstancesYourContactDetailsAddress = "101 Clifton Street&Blackpool"
     claim.CircumstancesYourContactDetailsPostcode = "PE1 4AQ"
-    claim.CircumstancesYourContactDetailsPhoneNumber = "123456"
+    claim.CircumstancesYourContactDetailsPhoneNumber = "01772700806"
     claim.CircumstancesYourContactDetailsMobileNumber = "34343434"
     claim
   }
@@ -46,6 +46,7 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesDeclarationInfoAgreement = "yes"
     claim.CircumstancesDeclarationWhy = "Cause I want"
     claim.CircumstancesDeclarationConfirmation = "yes"
+    claim.CircumstancesSomeOneElseConfirmation = "yes"
     claim
   }
 

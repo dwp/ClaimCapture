@@ -1,9 +1,9 @@
 package utils.pageobjects.s8_self_employment
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G7ExpensesWhileAtWorkPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G7ExpensesWhileAtWorkPage.url, G7ExpensesWhileAtWorkPage.title, previousPage) {
+final class G7ExpensesWhileAtWorkPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G7ExpensesWhileAtWorkPage.url, G7ExpensesWhileAtWorkPage.title) {
   declareInput("#nameOfPerson", "SelfEmployedCareExpensesNameOfPerson")
   declareInput("#howMuchYouPay", "SelfEmployedCareExpensesHowMuchYouPay")
   declareSelect("#howOftenPayExpenses_frequency","SelfEmployedCareExpensesHowOften")
@@ -17,11 +17,11 @@ object G7ExpensesWhileAtWorkPage {
   val title = "Expenses related to the person you care for while at work - About self-employment".toLowerCase
   val url = "/self-employment/expenses-while-at-work"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G7ExpensesWhileAtWorkPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G7ExpensesWhileAtWorkPage(ctx)
 }
 
 trait G7ExpensesWhileAtWorkPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G7ExpensesWhileAtWorkPage (browser)
+  val page = G7ExpensesWhileAtWorkPage (PageObjectsContext(browser))
 }

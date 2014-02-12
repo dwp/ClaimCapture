@@ -2,9 +2,9 @@ package controllers.circs.s1_identification
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.circumstances.s1_about_you.G3DetailsOfThePersonYouCareForPageContext
+import utils.pageobjects.circumstances.s1_about_you.{G3DetailsOfThePersonYouCareForPage, G3DetailsOfThePersonYouCareForPageContext}
 import controllers.CircumstancesScenarioFactory
-import utils.pageobjects.TestData
+import utils.pageobjects.{PageObjects, TestData}
 
 
 class G3DetailsOfThePersonYouCareForIntegrationSpec extends Specification with Tags {
@@ -16,17 +16,20 @@ class G3DetailsOfThePersonYouCareForIntegrationSpec extends Specification with T
     val nino = "ab123456c"
     val dateOfBirth = "05/12/1990"
 
-    "be presented" in new WithBrowser with G3DetailsOfThePersonYouCareForPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G3DetailsOfThePersonYouCareForPage(context)
       page goToThePage()
     }
 
-    "present errors if mandatory fields are not populated" in new WithBrowser with G3DetailsOfThePersonYouCareForPageContext {
+    "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{
+			val page =  G3DetailsOfThePersonYouCareForPage(context)
       page goToThePage()
 
       page.submitPage().listErrors.size mustEqual 5
     }
 
-    "Accept submit if all mandatory fields are populated" in new WithBrowser with G3DetailsOfThePersonYouCareForPageContext {
+    "Accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+			val page =  G3DetailsOfThePersonYouCareForPage(context)
       val claim = CircumstancesScenarioFactory.detailsOfThePersonYouCareFor
       page goToThePage()
       page fillPageWith claim
@@ -35,7 +38,8 @@ class G3DetailsOfThePersonYouCareForIntegrationSpec extends Specification with T
     }
 
     "contain errors on invalid submission" in {
-      "missing firstName field" in new WithBrowser with G3DetailsOfThePersonYouCareForPageContext {
+      "missing firstName field" in new WithBrowser with PageObjects{
+			val page =  G3DetailsOfThePersonYouCareForPage(context)
         val claim = new TestData
         claim.CircumstancesDetailsOfThePersonYouCareForMiddleName = middelName
         claim.CircumstancesDetailsOfThePersonYouCareForLastName = lastName
@@ -50,7 +54,8 @@ class G3DetailsOfThePersonYouCareForIntegrationSpec extends Specification with T
         errors(0) must contain("First name - This is required")
       }
 
-      "missing lastName field" in new WithBrowser with G3DetailsOfThePersonYouCareForPageContext {
+      "missing lastName field" in new WithBrowser with PageObjects{
+			val page =  G3DetailsOfThePersonYouCareForPage(context)
         val claim = new TestData
         claim.CircumstancesDetailsOfThePersonYouCareForFirstName = firstName
         claim.CircumstancesDetailsOfThePersonYouCareForMiddleName = middelName
@@ -65,7 +70,8 @@ class G3DetailsOfThePersonYouCareForIntegrationSpec extends Specification with T
         errors(0) must contain("Last name - This is required")
       }
 
-      "missing nino field" in new WithBrowser with G3DetailsOfThePersonYouCareForPageContext {
+      "missing nino field" in new WithBrowser with PageObjects{
+			val page =  G3DetailsOfThePersonYouCareForPage(context)
         val claim = new TestData
         claim.CircumstancesDetailsOfThePersonYouCareForFirstName = firstName
         claim.CircumstancesDetailsOfThePersonYouCareForMiddleName = middelName
@@ -80,7 +86,8 @@ class G3DetailsOfThePersonYouCareForIntegrationSpec extends Specification with T
         errors(0) must contain("National Insurance number - This is required")
       }
 
-      "invalid nino containing numbers" in new WithBrowser with G3DetailsOfThePersonYouCareForPageContext {
+      "invalid nino containing numbers" in new WithBrowser with PageObjects{
+			val page =  G3DetailsOfThePersonYouCareForPage(context)
         val claim = new TestData
         claim.CircumstancesDetailsOfThePersonYouCareForFirstName = firstName
         claim.CircumstancesDetailsOfThePersonYouCareForMiddleName = middelName
@@ -96,7 +103,8 @@ class G3DetailsOfThePersonYouCareForIntegrationSpec extends Specification with T
         errors(0) must contain("National Insurance number - A National insurance number must be in the format VO 12 34 56 D")
       }
 
-      "missing dateOfBirth field" in new WithBrowser with G3DetailsOfThePersonYouCareForPageContext {
+      "missing dateOfBirth field" in new WithBrowser with PageObjects{
+			val page =  G3DetailsOfThePersonYouCareForPage(context)
         val claim = new TestData
         claim.CircumstancesDetailsOfThePersonYouCareForFirstName = firstName
         claim.CircumstancesDetailsOfThePersonYouCareForMiddleName = middelName

@@ -14,8 +14,8 @@ import scala.Some
 object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "title" -> nonEmptyText(maxLength = 4),
-    "firstName" -> carersNonEmptyText(maxLength = Name.maxLength),
-    "middleName" -> optional(carersText(maxLength = Name.maxLength)),
+    "firstName" -> carersNonEmptyText(maxLength = 17),
+    "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
@@ -24,7 +24,7 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
 
   def present = claiming { implicit claim => implicit request =>
     val isPartnerPersonYouCareFor = YourPartner.visible &&
-                                    claim.questionGroup[PersonYouCareFor].exists(_.isPartnerPersonYouCareFor == "yes")
+                                    claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor == "yes")
 
     val currentForm = if (isPartnerPersonYouCareFor) {
       claim.questionGroup(YourPartnerPersonalDetails) match {

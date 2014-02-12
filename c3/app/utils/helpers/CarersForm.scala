@@ -42,7 +42,10 @@ object CarersForm {
       val updatedFormErrors = form.errors.flatMap { fe =>
         if (fe.key == key) {
           if (form.error(newError.key).isDefined) None
-          else Some(newError)
+          else {
+            if (newError.args.isEmpty ) Some(FormError(newError.key,newError.message,fe.args))
+            else Some(newError)
+          }
         } else {
           Some(fe)
         }
@@ -55,9 +58,10 @@ object CarersForm {
 
     def replaceError(key: String, message: String, newError: FormError): Form[T] = {
       def matchingError(e: FormError) = e.key == key && e.message == message
-
-      if (form.errors.exists(matchingError)) {
-        form.copy(errors = form.errors.filterNot(e => e.key == key && e.message == message)).withError(newError)
+      val oldError = form.errors.find(matchingError)
+      if (oldError.isDefined) {
+        val error = if (newError.args.isEmpty) FormError(newError.key,newError.message,oldError.get.args) else newError
+        form.copy(errors = form.errors.filterNot(e => e.key == key && e.message == message)).withError(error)
       }
       else form
     }

@@ -30,7 +30,7 @@
                         carersCurrency(currentForm("howMuchPension"), 'placeholder -> Messages("poundSign"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPension", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
                         pensionPaymentFrequencySelect(currentForm("howOftenPension"), '_label -> Messages("howOftenPension"), 'id -> "howOftenPension",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
                     ),
-                    'id -> "payOccupationalPensionScheme",
+                    'id -> "payOccupationalPensionSchemeWrapper",
                     'display -> currentForm("payOccupationalPensionScheme").value.getOrElse("no"))
 
 
@@ -42,7 +42,7 @@
                         carersCurrency(currentForm("howMuchPersonal"), 'placeholder -> Messages("poundSign"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPersonal", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
                         pensionPaymentFrequencySelect(currentForm("howOftenPersonal"), '_label -> Messages("howOftenPersonal"), 'id -> "howOftenPersonal",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
                     ),
-                    'id -> "payPersonalPensionScheme",
+                    'id -> "payPersonalPensionSchemeWrapper",
                     'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))
             </ul>
         </fieldset>
@@ -67,36 +67,44 @@ $(function(){
 <script type="text/javascript">
     $(function() {
         @if(currentForm("payOccupationalPensionScheme").value.getOrElse("") != "yes") {
-            $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_yes")").closest("ul").parent().next().hide();
+            $("#payOccupationalPensionSchemeWrapper").hide();
         }
 
         $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_yes")").change(function() {
             if ($(this).val() === "yes") {
-                return $(this).closest("ul").parent().next().slideDown();
+                return $("#payOccupationalPensionSchemeWrapper").slideDown();
             }
         });
 
         return $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_no")").change(function() {
             if ($(this).val() === "no") {
-                return $(this).closest("ul").parent().next().slideUp();
+                return $("#payOccupationalPensionSchemeWrapper").slideUp(400,function(){
+                    $("#@CarersCrypto.encryptAES("howOftenPension_frequency_other")").val("");
+                    $("#@CarersCrypto.encryptAES("howOftenPension_frequency")").val("");
+                    $("#@CarersCrypto.encryptAES("howMuchPension")").val("");
+                });
             }
         });
     });
 
     $(function() {
         @if(currentForm("payPersonalPensionScheme").value.getOrElse("") != "yes") {
-            $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_yes")").closest("ul").parent().next().hide();
+            $("#payPersonalPensionSchemeWrapper").hide();
         }
 
         $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_yes")").change(function() {
             if ($(this).val() === "yes") {
-                return $(this).closest("ul").parent().next().slideDown();
+                return $("#payPersonalPensionSchemeWrapper").slideDown();
             }
         });
 
         return $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_no")").change(function() {
             if ($(this).val() === "no") {
-                return $(this).closest("ul").parent().next().slideUp();
+                return $("#payPersonalPensionSchemeWrapper").slideUp(400,function(){
+                    $("#@CarersCrypto.encryptAES("howOftenPersonal_frequency_other")").val("");
+                    $("#@CarersCrypto.encryptAES("howOftenPersonal_frequency")").val("");
+                    $("#@CarersCrypto.encryptAES("howMuchPersonal")").val("");
+                });
             }
         });
     });

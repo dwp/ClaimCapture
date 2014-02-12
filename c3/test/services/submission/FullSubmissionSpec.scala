@@ -2,7 +2,7 @@ package services.submission
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeApplication, WithBrowser}
-import utils.pageobjects.TestData
+import utils.pageobjects.{IterationManager, TestData}
 import play.api.{Mode, Configuration, GlobalSettings}
 import java.io.File
 import com.typesafe.config.ConfigFactory
@@ -17,7 +17,7 @@ import submission._
 class FullSubmissionSpec extends Specification with Tags {
   sequential
 
-  val thankYouPageTitle = "Thank you,"
+  val thankYouPageTitle = "Thank you"
 
   val cAndDError = "An unrecoverable error has occurred"
 
@@ -42,6 +42,7 @@ class FullSubmissionSpec extends Specification with Tags {
   "The application" should {
     "Successfully run submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
 
+
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST223"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
@@ -51,6 +52,7 @@ class FullSubmissionSpec extends Specification with Tags {
 
     "Recoverable Error submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
 
+
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST224"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
@@ -59,6 +61,7 @@ class FullSubmissionSpec extends Specification with Tags {
     }
 
     "Recoverable acknowledgement submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+
 
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST225"

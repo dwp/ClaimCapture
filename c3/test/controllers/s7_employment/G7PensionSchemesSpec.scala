@@ -40,14 +40,14 @@ class G7PensionSchemesSpec extends Specification with Tags {
     }
 
     "be added to a (current) job" in new WithApplication with Claiming {
-      G2JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      G3JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",
-        "finishedThisJob" -> "yes"))
+        "finishedThisJob" -> "no"))
 
       val result = G7PensionSchemes.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID, "payOccupationalPensionScheme" -> "no", "payPersonalPensionScheme" -> "no"))

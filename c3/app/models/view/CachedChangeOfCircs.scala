@@ -1,17 +1,23 @@
 package models.view
 
+import app.ConfigProperties._
 import models.domain.ChangeOfCircs
-import models.domain.Claim
 import controllers.routes
+import models.domain.Claim
 
 object CachedChangeOfCircs {
   val key = "change-of-circs"
 }
 
 trait CachedChangeOfCircs extends CachedClaim {
+
   override val cacheKey = CachedChangeOfCircs.key
 
-  override val timeout = routes.Application.circsTimeout()
+  override val startPage: String = getProperty("cofc.start.page", "/circumstances/identification/about-you")
+
+  override val timeoutPage = routes.CircsEnding.timeout()
+
+  override val errorPage = routes.CircsEnding.error()
 
   override def newInstance: Claim = new Claim(cacheKey) with ChangeOfCircs
 

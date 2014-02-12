@@ -20,28 +20,25 @@ function datepicker(dateFieldId) {
 
 $(function() {
     // view more / view less
+    var labelText;
     $('.helper-more').click(function(){
+        if (null == labelText) labelText = $('.helper-more').text();
+
         $(this).toggleClass("helper-less")
         $(this).next(".helper-info").slideToggle("medium");
 
         if ($(this).text() === 'Close')
         {
-            $(this).text('Show example');
+            $(this).text(labelText);
         }
         else
         {
             $(this).text('Close');
         }
     });
-    
-    
-    
-    
-    
+
     // Nino auto jump
 	$('.ni-number input, .sort-code input').autotab_magic();
-    
-    
 
     // smooth scroll
     $('a[href^="#"]').bind('click.smoothscroll', function (e) {
@@ -70,17 +67,10 @@ $(document).ready(function() {
         $('#content').toggle(false);
     }
 
-    /*  if ($(".completed li:last").length > 0 && $(".completed li:last").offset() != null){
-     $("html, body").animate({
-     scrollTop: $(".completed li:last").offset().top+$(".completed li:last").height()
-     },1500);
-     } */
-
 });
 
 
-function areCookiesEnabled()
-{
+function areCookiesEnabled(){
     var cookieEnabled = (navigator.cookieEnabled) ? true : false;
 
     if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled)
@@ -89,4 +79,13 @@ function areCookiesEnabled()
         cookieEnabled = (document.cookie.indexOf("testcookie") != -1) ? true : false;
     }
     return (cookieEnabled);
+}
+
+function trackEvent(category, action, label, value, noninteraction){
+    _gaq.push(['_trackEvent',category,action].concat(opt(label)).concat(opt(value)).concat(opt(noninteraction)));
+}
+
+function opt(v){
+    if (typeof v == 'undefined') return [];
+    else return[v];
 }

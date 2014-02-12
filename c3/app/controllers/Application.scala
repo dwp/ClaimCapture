@@ -1,26 +1,23 @@
 package controllers
 
+import app.ConfigProperties._
 import play.api.mvc._
-import play.api.cache.Cache
-import play.api.Play.current
+import models.view.CachedClaim
 
-object Application extends Controller {
+object Application extends Controller with CachedClaim {
+
+  // Feature toggle for new referer mechanism. See US544
+  val gdsPageOk: Boolean = getProperty("gov.uk.start.ok", default = true)
+  val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
+
+  val govUk: String = getProperty("gov.uk.start.page", "https://www.gov.uk/apply-carers-allowance")
+
   def index = Action {
-    Redirect("/allowance/benefits")
-  }
-
-  def timeout = Action {
-    Ok(views.html.common.session_timeout())
-  }
-
-  def circsTimeout = Action {
-    Ok(views.html.common.session_timeout("/circumstances/identification/about-you"))
-  }
-
-  def error(key:String) = Action { request =>
-    // Clear the cache to ensure no duplicate submission
-    val cacheKey = request.session.get(key).orNull
-    Cache.set(cacheKey, None)
-    Ok(views.html.common.error())
+    if (gdsPageOk) {
+      MovedPermanently(govUk)
+    } else {
+      // Temporary
+      Redirect(startUrl)
+    }
   }
 }

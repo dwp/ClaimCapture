@@ -26,6 +26,8 @@ class G3DisclaimerIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to Consent" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.employment(browser)
       Formulate.consent(browser)
       browser.click(".form-steps a")
       titleMustEqual("Consent - Consent and Declaration")

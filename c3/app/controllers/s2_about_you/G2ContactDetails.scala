@@ -12,7 +12,7 @@ import models.domain._
 
 object G2ContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "address" -> address,
+    "address" -> address.verifying(requiredAddress),
     "postcode" -> optional(text verifying validPostcode),
     "phoneNumber" -> optional(text verifying validPhoneNumber),
     "contactYouByTextphone" -> optional(text(maxLength = 3).verifying(validYesNo)),
@@ -26,6 +26,6 @@ object G2ContactDetails extends Controller with CachedClaim with Navigable {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g2_contactDetails(formWithErrors)),
-      contactDetails => claim.update(contactDetails) -> Redirect(routes.G3TimeOutsideUK.present()))
+      contactDetails => claim.update(contactDetails) -> Redirect(routes.G3ClaimDate.present()))
   }
 }

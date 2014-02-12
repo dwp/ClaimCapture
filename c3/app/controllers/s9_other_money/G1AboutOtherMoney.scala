@@ -5,9 +5,9 @@ import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.FormError
-import play.api.i18n.Messages
+import controllers.CarersForms._
 import models.view.CachedClaim
-import models.domain.{StatutorySickPay, Claim, AboutOtherMoney, MoreAboutYou}
+import models.domain.{Claim, AboutOtherMoney, MoreAboutYou}
 import controllers.Mappings._
 import models.yesNo.YesNo
 import utils.helpers.CarersForm._
@@ -27,7 +27,7 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     yourBenefitsMapping,
     anyPaymentsSinceClaimDateMapping,
-    "whoPaysYou" -> optional(nonEmptyText(maxLength = Name.maxLength)),
+    "whoPaysYou" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),
     "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
     "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly)
   )(AboutOtherMoney.apply)(AboutOtherMoney.unapply)
@@ -61,14 +61,17 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val yourBenefitsAnswerErrorMessage = Messages("yourBenefits.answer.label",
-                                                      if (hadPartnerSinceClaimDate) "or your Partner/Spouse" else "",
-                                                      claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))
+        val claimDate: String = claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)
+        val yourBenefitsAnswerErrorParams = Seq(if (hadPartnerSinceClaimDate) "or your Partner/Spouse" else "", claimDate)
+        val anyPaymentsErrorParams = Seq(claimDate)
 
         val formWithErrorsUpdate = formWithErrors
           .replaceError("", "howMuch.required", FormError("howMuch", "error.required"))
           .replaceError("", "whoPaysYou.required", FormError("whoPaysYou", "error.required"))
-          .replaceError("yourBenefits.answer", FormError(yourBenefitsAnswerErrorMessage, "error.required"))
+          .replaceError("yourBenefits.answer","error.required", FormError("yourBenefits.answer","error.required",yourBenefitsAnswerErrorParams))
+          .replaceError("anyPaymentsSinceClaimDate.answer","error.required", FormError("anyPaymentsSinceClaimDate.answer","error.required",anyPaymentsErrorParams))
+          .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
+
 
         BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate))
       },

@@ -27,7 +27,7 @@ object Identification {
       <Title>{yourDetails.title}</Title>
       <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
       <ConfirmAddress>{yes}</ConfirmAddress>
-      <HomePhone>{contactDetails.phoneNumber.orNull}</HomePhone>
+      <HomePhone>{contactDetails.phoneNumber}</HomePhone>
       <DaytimePhone>
         <Number>{contactDetails.mobileNumber.orNull}</Number>
         <Qualifier>{if (contactDetails.mobileNumber.isDefined){"mobile"}else{""}}</Qualifier>

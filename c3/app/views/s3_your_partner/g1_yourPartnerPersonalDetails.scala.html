@@ -19,9 +19,9 @@
             <ul>
                 @titleSelect(currentForm("title"))
 
-                @carersInputText(currentForm("firstName"), 'maxLength -> 35)
+                @carersInputText(currentForm("firstName"),'helperBelow -> Messages("their.name.helper"), 'maxLength -> 17)
 
-                @carersInputText(currentForm("middleName"), 'maxLength -> 35)
+                @carersInputText(currentForm("middleName"), 'maxLength -> 17)
 
                 @carersInputText(currentForm("surname"), 'maxLength -> 35)
                 
@@ -31,20 +31,22 @@
 
                 @inputDayMonthYear(currentForm("dateOfBirth"), 'helperBelow-> Messages("dateOfBirth.helper"))
                 
-                @carersInputText(currentForm("nationality"), 'maxLength -> 35,'helperBelow -> Messages("nationality.helper"))
+                @carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35,'helperBelow -> Messages("partner.nationality.helper"))
 
                 @yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+
+                @yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"))
             </ul>
         </fieldset>
 
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
         </nav>
     }
 }
 <script type="text/javascript">
     $(function(){
-        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
+        @ga.stagePrompt()
     })
 </script>

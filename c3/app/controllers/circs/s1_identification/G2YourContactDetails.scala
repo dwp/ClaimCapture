@@ -10,9 +10,9 @@ import utils.helpers.CarersForm._
 
 object G2YourContactDetails extends Controller with CachedChangeOfCircs with Navigable {
   val form = Form(mapping(
-    "address" -> address,
+    "address" -> address.verifying(requiredAddress),
     "postcode" -> optional(text verifying validPostcode),
-    "phoneNumber" -> optional(text verifying validPhoneNumber),
+    "phoneNumber" -> nonEmptyText.verifying(validPhoneNumber),
     "mobileNumber" -> optional(text verifying validPhoneNumber)
   )(CircumstancesYourContactDetails.apply)(CircumstancesYourContactDetails.unapply))
 

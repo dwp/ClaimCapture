@@ -1,16 +1,15 @@
-window.initEvents = (haveYouHadAnyStatutorySickPayY, haveYouHadAnyStatutorySickPayN, howOften_frequency, howOften_frequency_wrap) ->
+window.initEvents = (haveYouHadAnyStatutorySickPayY, haveYouHadAnyStatutorySickPayN, howMuch, howOften_frequency, howOften_frequency_other, employersName, employersAddress_lineOne, employersAddress_lineTwo, employersAddress_lineThree, employersPostcode) ->
   $("#" + haveYouHadAnyStatutorySickPayY).on "click", ->
     $("#sickPayWrap").slideDown 500
     $("#sickPayWrap").css('display', "block")
     
   $("#" + haveYouHadAnyStatutorySickPayN).on "click", ->
-    $("#sickPayWrap").slideUp 500
-      
-  $("#" + howOften_frequency).on "change", ->
-    selected = $("#" + howOften_frequency + " option").filter(':selected').text()
-    if selected is "Other"
-      #document.write("selected is: " + selected)
-      $("#" + howOften_frequency_wrap).slideDown()
-      $("#" + howOften_frequency_wrap).css('display', "block")
-    else 
-      $("#" + howOften_frequency_wrap).slideUp()
+    $("#sickPayWrap").slideUp ->
+      $("#"+howMuch).val("")
+      $("#"+howOften_frequency).val("")
+      $("#"+howOften_frequency_other).val("")
+      $("#"+employersName).val("")
+      $("#"+employersAddress_lineOne).val("")
+      $("#"+employersAddress_lineTwo).val("")
+      $("#"+employersAddress_lineThree).val("")
+      $("#"+employersPostcode).val("")

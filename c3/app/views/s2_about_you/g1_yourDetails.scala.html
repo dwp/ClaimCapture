@@ -20,9 +20,9 @@
             <ul>
                 @titleSelect(yourDetailsForm("title"))
 
-                @carersInputText(yourDetailsForm("firstName"), 'maxLength -> 35)
+                @carersInputText(yourDetailsForm("firstName"),'helperBelow -> Messages("your.name.helper"), 'maxLength -> 17)
 
-                @carersInputText(yourDetailsForm("middleName"), 'maxLength -> 35)
+                @carersInputText(yourDetailsForm("middleName"), 'maxLength -> 17)
 
                 @carersInputText(yourDetailsForm("surname"), 'maxLength -> 35)
 
@@ -32,11 +32,6 @@
 
                 @inputDayMonthYear(yourDetailsForm("dateOfBirth"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-                @carersInputText(yourDetailsForm("nationality"), 'helperBelow -> Messages("nationality.helper"), 'maxLength -> 35)
-                
-                @yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"))
-
-                @maritalStatusSelect(yourDetailsForm("maritalStatus"))
             </ul>
         </fieldset>
 
@@ -48,6 +43,6 @@
 }
 <script type="text/javascript">
     $(function(){
-        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
+        @ga.stagePrompt()
     })
 </script>
