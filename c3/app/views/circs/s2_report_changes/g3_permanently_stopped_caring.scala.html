@@ -1,14 +1,10 @@
-@(stoppedCaringForm: Form[models.domain.CircumstancesStoppedCaring])(implicit claim: models.domain.Claim)
+@(stoppedCaringForm: Form[models.domain.CircumstancesStoppedCaring])(implicit claim: models.domain.Claim,request:play.api.mvc.Request[AnyContent])
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import utils.helpers.CarersCrypto
-@import views.html.common._
 @import views.html.helper._
-@import views.html.helper.dropdowns._
 @import views.html.helper.base._
 @import views.html.helper.dates._
-@import controllers.Mappings._
 
 @main(Messages("c2.g3") + " - " + Messages("c2.name")) {
     @errorsSummary(stoppedCaringForm)

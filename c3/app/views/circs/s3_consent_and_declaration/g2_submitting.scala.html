@@ -1,8 +1,8 @@
-@()
+@()(implicit request:play.api.mvc.Request[AnyContent])
 
 @import views.html.helper._
 
-@common.govMain("Submitting") {
+@common.govMain("Submitting"){
     @form(action = controllers.circs.submission.routes.ChangeOfCircsSubmissionController.submit) {
     <div id="wrapper" class="carers-allowance">
         <div class="carers-container">
@@ -24,9 +24,7 @@
         </div>
     </div>
     }
-}{
-    @views.html.common.submittingFooter()
-}
+}(views.html.common.submittingFooter(), request)
 
 <script type="text/javascript">
     var n = 0

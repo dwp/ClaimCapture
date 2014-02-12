@@ -1,11 +1,11 @@
-@(url:String)
+@(url:String)(implicit request: Request[AnyContent])
 @common.govMain("Session has timed out") {
 	
     <div class="carers-allowance">
 
         @common.protoType()
         
-        @common.helpLine()
+        @common.helpLine(request)
 
 
         <section class="error-statement">
@@ -17,4 +17,4 @@
                 </nav>
             </section>
         </div>
-}
+}(Html.empty,request)

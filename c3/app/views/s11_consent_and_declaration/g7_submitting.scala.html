@@ -1,4 +1,4 @@
-@()
+@()(implicit request: Request[AnyContent])
 
 
 
@@ -27,9 +27,7 @@
         </div>
     </div>
     }
-}{
-    @views.html.common.submittingFooter()
-}
+}(views.html.common.submittingFooter(), request)
 
 <script type="text/javascript">
     var n = 0
