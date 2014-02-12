@@ -19,7 +19,13 @@
             <legend>@Messages("c2.g1")</legend>
 
             <ul class="coc-layout">
-                @listRadioGroup(reportChangesForm("reportChanges"), 'items -> Seq(StoppedCaring.name -> Messages("reportChanges.stoppedCaring"), SelfEmployment.name -> Messages("reportChanges.selfEmployed"), AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")), 'helperAbove -> Messages("reportChanges.helper"))
+                @listRadioGroup(reportChangesForm("reportChanges"),
+                    'items -> Seq(
+                        StoppedCaring.name -> Messages("reportChanges.stoppedCaring"),
+                        SelfEmployment.name -> Messages("reportChanges.selfEmployed"),
+                        PaymentChange.name -> Messages("reportChanges.paymentChange"),
+                        AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")),
+                    'helperAbove -> Messages("reportChanges.helper"))
             </ul>
         </fieldset>
 

@@ -1,6 +1,6 @@
 package xml
 
-import models.domain.{CircumstancesSelfEmployment, CircumstancesOtherInfo, CircumstancesStoppedCaring, ReportChanges, Claim}
+import models.domain.{CircumstancesSelfEmployment, CircumstancesOtherInfo, CircumstancesStoppedCaring, ReportChanges, Claim, CircumstancesPaymentChange}
 import scala.xml.{NodeSeq, Elem}
 import play.api.Logger
 import app.XMLValues._
@@ -65,6 +65,7 @@ object DWPCoCircs {
     val additionalInfoOption = circs.questionGroup[CircumstancesOtherInfo]
     lazy val selfEmploymentAdditionalInfoOption = circs.questionGroup[CircumstancesSelfEmployment]
     lazy val stoppedCaringOption = circs.questionGroup[CircumstancesStoppedCaring]
+    lazy val paymentChangeOption = circs.questionGroup[CircumstancesPaymentChange]
 
     if (additionalInfoOption.isDefined) {
       yes
@@ -76,6 +77,12 @@ object DWPCoCircs {
       }
     } else if (stoppedCaringOption.isDefined) {
       if (stoppedCaringOption.get.moreAboutChanges.isEmpty) {
+        no
+      } else {
+        yes
+      }
+    } else if (paymentChangeOption.isDefined) {
+      if (paymentChangeOption.get.moreAboutChanges.isEmpty) {
         no
       } else {
         yes

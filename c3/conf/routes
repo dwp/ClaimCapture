@@ -223,6 +223,9 @@ POST          /circumstances/report-changes/self-employment                     
 GET           /circumstances/report-changes/stopped-caring                            controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.present
 POST          /circumstances/report-changes/stopped-caring                            controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.submit
 
+GET           /circumstances/report-changes/payment-change                            controllers.circs.s2_report_changes.G5PaymentChange.present
+POST          /circumstances/report-changes/payment-change                            controllers.circs.s2_report_changes.G5PaymentChange.submit
+
 GET           /circumstances/report-changes/other-change                              controllers.circs.s2_report_changes.G4OtherChangeInfo.present
 POST          /circumstances/report-changes/other-change                              controllers.circs.s2_report_changes.G4OtherChangeInfo.submit
 

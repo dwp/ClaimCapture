@@ -1,8 +1,8 @@
 package models.domain
 
 import app.XMLValues._
-import models.yesNo.{YesNoWithDate, YesNoWithText}
-import models.DayMonthYear
+import models.yesNo.{YesNoWith2Text, YesNoWithDate, YesNoWithText}
+import models.{SortCode, DayMonthYear}
 
 case object CircumstancesReportChanges extends Section.Identifier {
   val id = "c2"
@@ -37,3 +37,20 @@ case class CircumstancesOtherInfo(change: String = "") extends QuestionGroup(Cir
 object CircumstancesOtherInfo extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g4"
 }
+
+case class CircumstancesPaymentChange(
+  currentlyPaidIntoBank: YesNoWith2Text = YesNoWith2Text("", None, None),
+  accountHolderName: String = "",
+  whoseNameIsTheAccountIn: String = "",
+  bankFullName: String = "",
+  sortCode: SortCode = SortCode("","",""),
+  accountNumber: String = "",
+  rollOrReferenceNumber: String = "",
+  paymentFrequency: String,
+  moreAboutChanges: Option[String] = None
+) extends QuestionGroup(CircumstancesPaymentChange)
+
+object CircumstancesPaymentChange extends QuestionGroup.Identifier {
+  val id = s"${CircumstancesReportChanges.id}.g5"
+}
+
