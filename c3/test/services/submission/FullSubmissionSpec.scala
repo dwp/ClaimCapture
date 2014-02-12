@@ -48,6 +48,8 @@ class FullSubmissionSpec extends Specification with Tags {
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, claimThankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
+
+      page.readHeading("nino") mustEqual claim.selectDynamic("AboutYouNINO")
     }
 
     "Successfully run circs submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1ReportAChangeInYourCircumstancesPageContext {
