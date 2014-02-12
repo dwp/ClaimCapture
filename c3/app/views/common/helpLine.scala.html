@@ -1,4 +1,4 @@
-@(request:Request[AnyContent] = null)
+@(implicit request:Request[AnyContent] = null)
 
     @section() = @{
         request match{
@@ -13,8 +13,8 @@
         ""
     }
 <ul class="claim-info" aria-label="The following links will open in a new browser window">
-	<li><a href="https://www.gov.uk/call-charges" target="_blank" aria-label="Helpline 0845 601 8040, Information about call charges, optional" class="info">i</a> Helpline : 0845 601 8040</li>
-	<li><a href="/claim-notes@section()" target="_blank" aria-label="Carer's Allowance Claim Notes, optional">Claim Notes</a></li>
-	<li class="feedback"><a href="mailto:cau.e-service-feedback@@dwp.gsi.gov.uk?subject=Carers" aria-label="Your Feedback, optional">Your Feedback</a></li>
+	<li><a href="https://www.gov.uk/call-charges" target="_blank" aria-label="Helpline 0845 601 8040, Information about call charges, optional" class="info" @views.html.ga.trackClickEvent(linkName = "i")>i</a> Helpline : 0845 601 8040</li>
+	<li><a href="/claim-notes@section()" target="_blank" aria-label="Carer's Allowance Claim Notes, optional" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>Claim Notes</a></li>
+	<li class="feedback"><a href="mailto:cau.e-service-feedback@@dwp.gsi.gov.uk?subject=Carers" aria-label="Your Feedback, optional" @views.html.ga.trackClickEvent(linkName = "Your Feedback")>Your Feedback</a></li>
 </ul>
 
