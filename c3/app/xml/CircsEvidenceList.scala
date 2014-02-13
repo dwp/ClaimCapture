@@ -1,18 +1,17 @@
 package xml
 
-import models.domain.{CircumstancesReportChange, CircumstancesDeclaration, CircumstancesSelfEmployment, Claim}
+import models.domain.{CircumstancesReportChange, CircumstancesDeclaration, CircumstancesSelfEmployment, CircumstancesPaymentChange, Claim}
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 import play.api.i18n.Messages
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
-import models.domain.Claim
 import scala.Some
 
 object CircsEvidenceList {
   def xml(circs: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{selfEmployed(circs)}{furtherInfo(circs)}{theirInfo(circs)}
+      {xmlGenerated()}{selfEmployed(circs)}{furtherInfo(circs)}{theirInfo(circs)}{paymentChange(circs)}
     </EvidenceList>
   }
 
@@ -63,6 +62,42 @@ object CircsEvidenceList {
     var buffer = NodeSeq.Empty ++ textSeparatorLine(Messages("c1.personYouAreCaringFor"))
 
     buffer ++= textLine(Messages("theirRelationshipToYou") + " = " + reportChange.theirRelationshipToYou)
+
+    buffer
+  }
+
+  def paymentChange(circs: Claim): NodeSeq = {
+    val paymentChangeOption = circs.questionGroup[CircumstancesPaymentChange]
+
+    var buffer = NodeSeq.Empty
+
+    paymentChangeOption match {
+      case Some(paymentChange) => {
+        buffer ++= textSeparatorLine(Messages("c2.g5"))
+
+        buffer ++= textLine(Messages("currentlyPaidIntoBank.label") + " = " + paymentChange.currentlyPaidIntoBank.answer)
+        if (paymentChange.currentlyPaidIntoBank.answer.toLowerCase() == "yes") {
+          buffer ++= textLine(Messages("currentlyPaidIntoBank.text1.label") + " = " + paymentChange.currentlyPaidIntoBank.text1.get)
+        } else {
+          buffer ++= textLine(Messages("currentlyPaidIntoBank.text2.label") + " = " + paymentChange.currentlyPaidIntoBank.text2.get)
+        }
+
+        buffer ++= textLine(Messages("accountHolderName") + " = " + paymentChange.accountHolderName)
+
+        buffer ++= textLine(Messages("whoseNameIsTheAccountIn") + " = " + paymentChange.whoseNameIsTheAccountIn)
+
+        buffer ++= textLine(Messages("bankFullName") + " = " + paymentChange.bankFullName)
+
+        buffer ++= textLine(Messages("sortCode") + " = " + stringify(Some(paymentChange.sortCode)))
+
+        buffer ++= textLine(Messages("accountNumber") + " = " + paymentChange.accountNumber)
+
+        buffer ++= textLine(Messages("rollOrReferenceNumber") + " = " + paymentChange.rollOrReferenceNumber)
+
+        buffer ++= textLine(Messages("paymentFrequency") + " = " + paymentChange.paymentFrequency)
+      }
+      case _ =>
+    }
 
     buffer
   }

@@ -46,7 +46,7 @@ case class CircumstancesPaymentChange(
   sortCode: SortCode = SortCode("","",""),
   accountNumber: String = "",
   rollOrReferenceNumber: String = "",
-  paymentFrequency: String,
+  paymentFrequency: String = "",
   moreAboutChanges: Option[String] = None
 ) extends QuestionGroup(CircumstancesPaymentChange)
 

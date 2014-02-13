@@ -3,8 +3,12 @@ package controllers
 import utils.pageobjects.TestData
 import app.ReportChange._
 import play.api.i18n.Messages
+import models.SortCode
+import app.{WhoseNameAccount, PaymentFrequency}
 
 object CircumstancesScenarioFactory {
+  val yes = "yes"
+  val no = "no"
 
   def aboutDetails = {
     val claim = new TestData
@@ -34,9 +38,45 @@ object CircumstancesScenarioFactory {
     claim
   }
 
+  def paymentChangesChangeInfo = {
+    val claim = aboutDetails
+    claim.CircumstancesReportChanges = PaymentChange.name
+    claim
+  }
+
   def otherChangeInfo = {
     val claim = reportChangesOtherChangeInfo
     claim.CircumstancesOtherChangeInfoChange = "I put in the wrong date of birth"
+    claim
+  }
+
+  def reportChangesPaymentChangeScenario1 = {
+    val claim = paymentChangesChangeInfo
+
+    claim.CircumstancesPaymentChangeCurrentlyPaidIntoBank = yes
+    claim.CircumstancesPaymentChangeNameOfCurrentBank = "Nat West"
+    claim.CircumstancesPaymentChangeAccountHolderName = "Mr John Doe"
+    claim.CircumstancesPaymentChangeWhoseNameIsTheAccountIn = WhoseNameAccount.YourName.name
+    claim.CircumstancesPaymentChangeBankFullName = "HSBC"
+    claim.CircumstancesPaymentChangeSortCode = "112233"
+    claim.CircumstancesPaymentChangeAccountNumber = "12345678"
+    claim.CircumstancesPaymentChangePaymentFrequency = PaymentFrequency.EveryWeek.name
+
+    claim
+  }
+
+  def reportChangesPaymentChangeScenario2 = {
+    val claim = paymentChangesChangeInfo
+
+    claim.CircumstancesPaymentChangeCurrentlyPaidIntoBank = no
+    claim.CircumstancesPaymentCurrentPaymentMethod = "Cheque"
+    claim.CircumstancesPaymentChangeAccountHolderName = "Mr John Doe"
+    claim.CircumstancesPaymentChangeWhoseNameIsTheAccountIn = WhoseNameAccount.YourName.name
+    claim.CircumstancesPaymentChangeBankFullName = "HSBC"
+    claim.CircumstancesPaymentChangeSortCode = "112233"
+    claim.CircumstancesPaymentChangeAccountNumber = "12345678"
+    claim.CircumstancesPaymentChangePaymentFrequency = PaymentFrequency.EveryWeek.name
+
     claim
   }
 
