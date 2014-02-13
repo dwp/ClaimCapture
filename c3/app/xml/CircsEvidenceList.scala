@@ -67,30 +67,37 @@ object CircsEvidenceList {
   }
 
   def paymentChange(circs: Claim): NodeSeq = {
-    val paymentChange = circs.questionGroup[CircumstancesPaymentChange].getOrElse(CircumstancesPaymentChange())
+    val paymentChangeOption = circs.questionGroup[CircumstancesPaymentChange]
 
-    var buffer = NodeSeq.Empty ++ textSeparatorLine(Messages("c2.g5"))
+    var buffer = NodeSeq.Empty
 
-    buffer ++= textLine(Messages("currentlyPaidIntoBank.label") + " = " + paymentChange.currentlyPaidIntoBank.answer)
-    if (paymentChange.currentlyPaidIntoBank.answer.toLowerCase() == "yes") {
-      buffer ++= textLine(Messages("currentlyPaidIntoBank.text1.label") + " = " + paymentChange.currentlyPaidIntoBank.text1.get)
-    } else {
-      buffer ++= textLine(Messages("currentlyPaidIntoBank.text2.label") + " = " + paymentChange.currentlyPaidIntoBank.text2.get)
+    paymentChangeOption match {
+      case Some(paymentChange) => {
+        buffer ++= textSeparatorLine(Messages("c2.g5"))
+
+        buffer ++= textLine(Messages("currentlyPaidIntoBank.label") + " = " + paymentChange.currentlyPaidIntoBank.answer)
+        if (paymentChange.currentlyPaidIntoBank.answer.toLowerCase() == "yes") {
+          buffer ++= textLine(Messages("currentlyPaidIntoBank.text1.label") + " = " + paymentChange.currentlyPaidIntoBank.text1.get)
+        } else {
+          buffer ++= textLine(Messages("currentlyPaidIntoBank.text2.label") + " = " + paymentChange.currentlyPaidIntoBank.text2.get)
+        }
+
+        buffer ++= textLine(Messages("accountHolderName") + " = " + paymentChange.accountHolderName)
+
+        buffer ++= textLine(Messages("whoseNameIsTheAccountIn") + " = " + paymentChange.whoseNameIsTheAccountIn)
+
+        buffer ++= textLine(Messages("bankFullName") + " = " + paymentChange.bankFullName)
+
+        buffer ++= textLine(Messages("sortCode") + " = " + stringify(Some(paymentChange.sortCode)))
+
+        buffer ++= textLine(Messages("accountNumber") + " = " + paymentChange.accountNumber)
+
+        buffer ++= textLine(Messages("rollOrReferenceNumber") + " = " + paymentChange.rollOrReferenceNumber)
+
+        buffer ++= textLine(Messages("paymentFrequency") + " = " + paymentChange.paymentFrequency)
+      }
+      case _ =>
     }
-
-    buffer ++= textLine(Messages("accountHolderName") + " = " + paymentChange.accountHolderName)
-
-    buffer ++= textLine(Messages("whoseNameIsTheAccountIn") + " = " + paymentChange.whoseNameIsTheAccountIn)
-
-    buffer ++= textLine(Messages("bankFullName") + " = " + paymentChange.bankFullName)
-
-    buffer ++= textLine(Messages("sortCode") + " = " + stringify(Some(paymentChange.sortCode)))
-
-    buffer ++= textLine(Messages("accountNumber") + " = " + paymentChange.accountNumber)
-
-    buffer ++= textLine(Messages("rollOrReferenceNumber") + " = " + paymentChange.rollOrReferenceNumber)
-
-    buffer ++= textLine(Messages("paymentFrequency") + " = " + paymentChange.paymentFrequency)
 
     buffer
   }
