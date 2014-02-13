@@ -11,7 +11,7 @@ import utils.pageobjects.xml_validation.XMLBusinessValidation
 class XmlPage (ctx: PageObjectsContext, url: String = XmlPage.url, title: String = XmlPage.title) extends Page(null,ctx, url, title) {
 
    pageSource = ctx.browser.pageSource()
-  println(pageSource)
+
   def validateXmlWith(claim: TestData, validator: XMLBusinessValidation) = {
 
     Tuple2(

@@ -25,6 +25,10 @@ class XMLCircumstancesBusinessValidation extends XMLBusinessValidation  {
   def validateXMLClaim(claim: TestData, xml: Elem, throwException: Boolean): List[String] = {
     super.validateXMLClaim(claim, xml, throwException, mappingFilename, createXMLValidationNode)
   }
+
+  override def objValue(attribute: String, value: String, question: String) = {
+    CircValue(attribute,value,question)
+  }
 }
 
 /**
@@ -51,7 +55,6 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
         def valuesMatching: Boolean = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value) 
           else if (nodeName.startsWith(EvidenceListNode)) {
-            if (value.)
             value.contains(claimValue.question + "=" + claimValue.value)
           }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
@@ -82,7 +85,7 @@ object CircValue {
   private def prepareCircValue(claimValue: String, attribute:String) = {
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
 
-    if (cleanValue.contains("/")) {
+    if (cleanValue.contains("/") && !attribute.startsWith("CircumstancesSelfEmploymentWhenThisStarted") && !attribute.startsWith("CircumstancesSelfEmploymentFinishedStillCaringDate")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
       date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))
     } else cleanValue
