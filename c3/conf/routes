@@ -220,6 +220,9 @@ POST          /circumstances/report-changes/selection                           
 GET           /circumstances/report-changes/self-employment                           controllers.circs.s2_report_changes.G2SelfEmployment.present
 POST          /circumstances/report-changes/self-employment                           controllers.circs.s2_report_changes.G2SelfEmployment.submit
 
+GET           /circumstances/report-changes/address-change                            controllers.circs.s2_report_changes.G6AddressChange.present
+POST          /circumstances/report-changes/address-change                            controllers.circs.s2_report_changes.G6AddressChange.submit
+
 GET           /circumstances/report-changes/stopped-caring                            controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.present
 POST          /circumstances/report-changes/stopped-caring                            controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.submit
 

@@ -1,0 +1,88 @@
+@(addressForm: Form[models.domain.CircumstancesAddressChange])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import common._
+@import views.html.helper.dates._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import views.html.circs.s2_report_changes.main
+
+
+@main(Messages("c2.g6") + " - " + Messages("c2.name")) {
+    @errorsSummary(addressForm)
+
+    @form(action = controllers.circs.s2_report_changes.routes.G6AddressChange.submit) {
+        <fieldset class="form-elements">
+            <legend>@Messages("c2.g6")</legend>
+
+            <ul>
+
+                @yesNoRadioGroup(addressForm("stillCaring"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring.dateStoppedCaring"))
+                    ),
+                    'id -> "stillCaringDate",
+                    'display -> addressForm("stillCaring.answer").value.getOrElse("no")
+                )
+
+                @inputAddress(addressForm("newAddress"))
+
+                @carersInputText(addressForm("newPostcode"), 'class -> "postcode")
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(yesNoRadioGroup(addressForm("stillCaring.caredForChangedAddress"))
+                    ),
+                    'id -> "stillCaringAddress",
+                    'display -> addressForm("stillCaring.answer").value.getOrElse("yes")
+                    )
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        yesNoRadioGroup(addressForm("caredForChangedAddress.sameAddress"))
+                    ),
+                    'id -> "changedAddressSame",
+                    'display -> addressForm("stillCaring.caredForChangedAddress.answer").value.getOrElse("yes")
+                )
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        inputAddress(addressForm("theirNewAddress")),
+                        carersInputText(addressForm("theirNewPostcode"), 'class -> "postcode")
+                    ),
+                    'id -> "sameAddressData",
+                    'display -> addressForm("caredForChangedAddress.sameAddress.answer").value.getOrElse("no")
+                )
+
+            </ul>
+
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g6_addressChange.js")'></script>
+
+<script type="text/javascript">
+$(function(){
+window.initEvents("@CarersCrypto.encryptAES("stillCaring_yes")",
+"@CarersCrypto.encryptAES("stillCaring_no")",
+"@CarersCrypto.encryptAES("stillCaring.dateStoppedCaring")",
+"@CarersCrypto.encryptAES("stillCaring.caredForChangedAddress")",
+"@CarersCrypto.encryptAES("stillCaring_caredForChangedAddress_yes")",
+"@CarersCrypto.encryptAES("stillCaring_caredForChangedAddress_no")",
+"@CarersCrypto.encryptAES("caredForChangedAddress.sameAddress")",
+"@CarersCrypto.encryptAES("caredForChangedAddress_sameAddress_yes")",
+"@CarersCrypto.encryptAES("caredForChangedAddress_sameAddress_no")",
+"@CarersCrypto.encryptAES("sameAddress.theirNewAddress")",
+"@CarersCrypto.encryptAES("sameAddress.theirNewPostcode")"
+);
+});
+</script>
