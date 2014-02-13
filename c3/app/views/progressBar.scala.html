@@ -1,6 +1,7 @@
 @(sectionID: models.domain.Section.Identifier)(implicit claim: models.domain.Claim)
 
 @import models.domain._
+@import play.api.i18n.{MMessages => Messages}
 
 @addClass(currentSectionID: Section.Identifier) = {
     @if(currentSectionID == sectionID) {

@@ -7,7 +7,7 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.dropdowns._
-
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s2.g8") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.MoreAboutYou)) {
     @errorsSummary(moreAboutYouForm)

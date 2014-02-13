@@ -5,7 +5,7 @@ import org.specs2.mutable.{Specification, Tags}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, WithBrowserHelper}
 import utils.pageobjects.s2_about_you.{G6TripPage, G6TripPageContext, G5AbroadForMoreThan52WeeksPage, G5AbroadForMoreThan52WeeksPageContext}
-import play.api.i18n.Messages
+import play.api.i18n.{MMessages => Messages}
 import utils.pageobjects.{PageObjects, PageObjectsContext, IterationManager}
 
 class G6TripIntegrationSpec extends Specification with Tags {

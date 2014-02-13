@@ -7,6 +7,7 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
+@import play.api.i18n.{MMessages => Messages}
 @main(Messages("s7.g1") + "  " + Messages("s7.longName"), Some(employmentForm)) {
     @errorsSummary(employmentForm)
 

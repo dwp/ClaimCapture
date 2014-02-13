@@ -10,6 +10,7 @@
 @import controllers.Mappings._
 @import utils.helpers.CarersCrypto
 @import app.ReportChange._
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("c2.g1") + " - " + Messages("c2.name")) {
     @errorsSummary(reportChangesForm)

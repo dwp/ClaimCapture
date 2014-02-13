@@ -26,7 +26,8 @@ object ApplicationBuild extends Build {
     "com.tzavellas" % "sse-guice" % "0.7.1",
     "com.github.rjeschke" % "txtmark" % "0.10",
     "org.jacoco" % "org.jacoco.core" % "0.6.4.201312101107",
-    "org.jacoco" % "org.jacoco.report" % "0.6.4.201312101107"
+    "org.jacoco" % "org.jacoco.report" % "0.6.4.201312101107",
+    "com.dwp" %% "play2-multimessages" % "2.2.1"
   )
 
   var sO: Seq[Def.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))

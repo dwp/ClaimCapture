@@ -10,6 +10,7 @@
 @import controllers.s7_employment.Employment._
 @import controllers.s7_employment.JobID
 
+@import play.api.i18n.{MMessages => Messages}
 @main(Messages("s7.g4") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.EmployerContactDetails, JobID(currentForm))) {
 
 	@form(action = controllers.s7_employment.routes.G4EmployerContactDetails.submit()) {

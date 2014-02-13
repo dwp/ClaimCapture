@@ -12,6 +12,7 @@
 @import utils.helpers.PastPresentLabelHelper._
 @import views.html.s7_employment.main
 @import app.PensionPaymentFrequency._
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s7.g12") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PersonYouCareForExpenses, JobID(currentForm))) {
 
