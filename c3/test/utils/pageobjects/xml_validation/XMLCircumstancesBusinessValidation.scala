@@ -51,6 +51,7 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
         def valuesMatching: Boolean = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value) 
           else if (nodeName.startsWith(EvidenceListNode)) {
+            if (value.)
             value.contains(claimValue.question + "=" + claimValue.value)
           }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
