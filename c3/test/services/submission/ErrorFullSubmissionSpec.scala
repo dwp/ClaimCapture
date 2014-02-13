@@ -12,6 +12,7 @@ import services.TransactionIdService
 import com.google.inject._
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import submission._
+import utils.pageobjects.S11_consent_and_declaration.G5SubmitPage
 
 class ErrorFullSubmissionSpec extends Specification with Tags {
   sequential
@@ -40,12 +41,14 @@ class ErrorFullSubmissionSpec extends Specification with Tags {
   }
 
   "The application" should {
-    "Handle a connect exception" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+
+    "Handle a connect exception and redirect to the submit page" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "CONNECT_EXCEPTION"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, utils.pageobjects.S11_consent_and_declaration.G5SubmitPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      lastPage runClaimWith(claim, utils.pageobjects.S11_consent_and_declaration.G5SubmitPage.title, waitForPage = true, waitDuration = 500, trace = false)
     }
 
     "Handle a Bad request" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {

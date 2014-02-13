@@ -29,8 +29,10 @@ class ErrorMockFormSubmission extends FormSubmission {
             override def status: Int = http.Status.INTERNAL_SERVER_ERROR
           }
         case "CONNECT_EXCEPTION" =>
+          Logger.info("throw ConnectException")
           throw new ConnectException("Duff")
         case "TRANSACTION_ID_EXCEPTION" =>
+          Logger.info("throw UnavailableTransactionIdException")
           throw new UnavailableTransactionIdException("Cannot generate an unique transaction ID.", new Exception)
       }
     Future(resp)
