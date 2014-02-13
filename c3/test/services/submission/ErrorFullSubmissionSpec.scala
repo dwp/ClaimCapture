@@ -12,9 +12,8 @@ import services.TransactionIdService
 import com.google.inject._
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import submission._
-import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPageContext
 
-class FullSubmissionSpec extends Specification with Tags {
+class ErrorFullSubmissionSpec extends Specification with Tags {
   sequential
 
   val claimThankYouPageTitle = "Application complete"
@@ -25,7 +24,7 @@ class FullSubmissionSpec extends Specification with Tags {
   private lazy val injector = Guice.createInjector(new ScalaModule {
     def configure() {
       bind[Submitter].to[WebServiceSubmitter]
-      bind[FormSubmission].to[MockFormSubmission].in[Singleton]
+      bind[FormSubmission].to[ErrorMockFormSubmission].in[Singleton]
       bind[TransactionIdService].to[MockTransactionIdService].in[Singleton]
     }
   })
@@ -41,52 +40,49 @@ class FullSubmissionSpec extends Specification with Tags {
   }
 
   "The application" should {
-
-    "Successfully run claim submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+    "Handle a connect exception" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
       val idService = injector.getInstance(classOf[TransactionIdService])
-      idService.id = "GOOD_SUBMIT"
-      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, claimThankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
-      // Check that the national insurance number gets displayed on the Thank You page of the claim submission
-      page.readHeading("nino") mustEqual claim.selectDynamic("AboutYouNINO")
-    }
-
-    "Successfully run circs submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1ReportAChangeInYourCircumstancesPageContext {
-      val idService = injector.getInstance(classOf[TransactionIdService])
-      idService.id = "GOOD_SUBMIT"
-      val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase1.csv")
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(circs, changeThankYouPageTitle, waitForPage = true, waitDuration = 500, trace = true)
-    }
-
-    "Unrecoverable Error claim submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-      val idService = injector.getInstance(classOf[TransactionIdService])
-      idService.id = "ERROR_SUBMIT"
+      idService.id = "CONNECT_EXCEPTION"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
     }
 
-    "Unrecoverable Error circs submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1ReportAChangeInYourCircumstancesPageContext {
+    "Handle a Bad request" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
       val idService = injector.getInstance(classOf[TransactionIdService])
-      idService.id = "ERROR_SUBMIT"
-      val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase1.csv")
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(circs, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
-    }
-
-    "Recoverable acknowledgement submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-      val idService = injector.getInstance(classOf[TransactionIdService])
-      idService.id = "RECOVER_SUBMIT"
+      idService.id = "BAD_REQUEST"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, claimThankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
     }
 
-    "Handle a unknown response " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+    "Handle a request timeout" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
       val idService = injector.getInstance(classOf[TransactionIdService])
-      idService.id = "UNKNOWN_SUBMIT"
+      idService.id = "TIMEOUT_REQUEST"
+      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+      page goToThePage(waitForPage = true, waitDuration = 500)
+      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+    }
+
+    "Handle a internal server error" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+      val idService = injector.getInstance(classOf[TransactionIdService])
+      idService.id = "INTERNAL_ERROR"
+      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+      page goToThePage(waitForPage = true, waitDuration = 500)
+      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+    }
+
+    "Handle a transaction id missing exception" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+      val idService = injector.getInstance(classOf[TransactionIdService])
+      idService.id = "TRANSACTION_ID_EXCEPTION"
+      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+      page goToThePage(waitForPage = true, waitDuration = 500)
+      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+    }
+
+    "Handle a exception" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+      val idService = injector.getInstance(classOf[TransactionIdService])
+      idService.id = "EXCEPTION"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)

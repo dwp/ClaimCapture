@@ -24,14 +24,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         registerId(claim, txnID, SUBMITTED)
         processResponse(claim, txnID, response, request)
       }
-    ).recover {
-      case e: java.net.ConnectException =>
-        Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-        errorAndCleanup(claim, txnID, COMMUNICATION_ERROR, request)
-      case e: java.lang.Exception =>
-        Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
-        errorAndCleanup(claim, txnID, UNKNOWN_ERROR, request)
-    }
+    )
   }
 
   private def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): SimpleResult = {
@@ -65,9 +58,6 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
       case http.Status.INTERNAL_SERVER_ERROR =>
         Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
         errorAndCleanup(claim, txnId, INTERNAL_SERVER_ERROR, request)
-      case _ =>
-        Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
-        errorAndCleanup(claim, txnId, UNKNOWN_ERROR, request)
     }
   }
 
@@ -91,7 +81,6 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         Redirect(controllers.routes.CircsEnding.error())
     }
   }
-
 
   private[submission] def pollXml(correlationID: String, pollEndpoint: String) = {
     <poll>

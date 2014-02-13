@@ -8,6 +8,7 @@ import models.domain.{Claimable, Claim}
 import jmx.inspectors.{FastSubmissionNotifier, SubmissionNotifier}
 import ExecutionContext.Implicits.global
 import play.api.mvc.{Call, AnyContent, Request, Controller}
+import java.net.ConnectException
 
 
 abstract class SubmissionController(submitter: Submitter) extends Controller with SubmissionNotifier with FastSubmissionNotifier {
@@ -35,6 +36,9 @@ abstract class SubmissionController(submitter: Submitter) extends Controller wit
         submitter.submit(claimOrCircs, request)
       }
     } catch {
+      case e: ConnectException =>
+        Logger.error(s"ConnectException ! ${e.getMessage}")
+        Future(Redirect(errorPage))
       case e: UnavailableTransactionIdException =>
         Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
         Future(Redirect(errorPage))

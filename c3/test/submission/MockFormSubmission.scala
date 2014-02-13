@@ -23,7 +23,7 @@ class MockFormSubmission extends FormSubmission {
 
   def getBodyString(txnId: String): String = {
     txnId match {
-      case "TEST223" =>
+      case "GOOD_SUBMIT" =>
         <response>
           <result>response</result>
           <correlationID>correlationID</correlationID>
@@ -31,7 +31,7 @@ class MockFormSubmission extends FormSubmission {
           <errorCode></errorCode>
         </response>
           .buildString(stripComments = false)
-      case "TEST224" =>
+      case "ERROR_SUBMIT" =>
         <response>
           <result>error</result>
           <correlationID>correlationID</correlationID>
@@ -39,7 +39,7 @@ class MockFormSubmission extends FormSubmission {
           <errorCode>3001</errorCode>
         </response>
           .buildString(stripComments = false)
-      case "TEST225" =>
+      case "RECOVER_SUBMIT" =>
         <response>
           <result>acknowledgement</result>
           <correlationID>correlationID</correlationID>
@@ -47,7 +47,7 @@ class MockFormSubmission extends FormSubmission {
           <errorCode></errorCode>
         </response>
           .buildString(stripComments = false)
-      case "TEST226" =>
+      case "UNKNOWN_SUBMIT" =>
         <response>
           <result></result>
           <correlationID>correlationID</correlationID>
