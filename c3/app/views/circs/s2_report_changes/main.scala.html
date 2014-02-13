@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim,request:play.api.mvc.Request[AnyContent])
 
 @import helper._
 
@@ -8,7 +8,7 @@
 
     @common.protoType()
 
-    @common.helpLine()
+    @common.helpLine(request)
 
     <section>
 

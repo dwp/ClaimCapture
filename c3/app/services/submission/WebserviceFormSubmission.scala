@@ -20,13 +20,4 @@ class WebserviceFormSubmission extends FormSubmission {
       .post(CharacterStripper.stripNonPdf(claimSubmission.buildString(stripComments = true)))
     result
   }
-
-  def retryClaim(claimRetry: Elem): Future[ws.Response] = {
-    val retryServerEndpoint: String =getProperty("submissionServerUrl", "SubmissionServerEndpointNotSet") + "retry/claim"
-    Logger.debug(s"Submission Server retry : $retryServerEndpoint")
-    val result = WS.url(retryServerEndpoint)
-      .withHeaders(("Content-Type", "text/xml"))
-      .post(claimRetry.buildString(stripComments = true))
-    result
-  }
 }

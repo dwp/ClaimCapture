@@ -5,8 +5,8 @@ import play.api.mvc.{Controller, Action}
 trait RedirectController {
   this: Controller =>
 
-  def redirect(url:String) = Action {
-    Ok(views.html.common.redirect(url))
+  def redirect(url:String) = Action { request =>
+    Ok(views.html.common.redirect(url)(request))
   }
 }
 

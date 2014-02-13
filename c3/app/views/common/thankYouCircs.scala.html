@@ -1,4 +1,4 @@
-@()
+@()(implicit request:Request[AnyContent])
 @import play.api.i18n._
 
 @common.govMain(Messages("circs.thankyou")) {
@@ -7,7 +7,7 @@
 
         @common.protoType()
 
-        @common.helpLine()
+        @common.helpLine(request)
 
         <section class="finish-statement">
         

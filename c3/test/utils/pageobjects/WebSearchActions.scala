@@ -111,6 +111,12 @@ trait WebSearchActions {
     ctx.browser.find(labelLocation).getText
   }
 
+  def readHeading (id: String): String = {
+    val headingLocation = "h2[id='"+id+"']"
+    this checkElement headingLocation
+    ctx.browser.find(headingLocation).getText
+  }
+
   //====================================================================================================================
   // Other search operations
   //====================================================================================================================

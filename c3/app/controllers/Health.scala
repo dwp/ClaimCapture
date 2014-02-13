@@ -7,9 +7,9 @@ import org.joda.time.format.DateTimeFormat
 trait HealthController {
   this: Controller =>
 
-  def health = Action {
+  def health = Action { request =>
     val now = DateTimeFormat.forPattern("dd-MM-yy HH:mm:ss").print(DateTime.now())
-    Ok(views.html.common.health(now))
+    Ok(views.html.common.health(now)(request))
   }
 }
 

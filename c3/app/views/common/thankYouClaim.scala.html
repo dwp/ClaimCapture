@@ -1,4 +1,4 @@
-@(implicit claim: models.domain.Claim)
+@()(implicit claim: models.domain.Claim,request:Request[AnyContent])
 
 @import play.api.i18n._
 @import models.domain._
@@ -11,7 +11,7 @@
 
         @common.protoType()
 
-        @common.helpLine()
+        @common.helpLine(request)
 
         <section class="finish-statement">
            
@@ -19,7 +19,7 @@
 	            <h1><span>@Messages("thankyou")</span></h1>
 	            <p>@Messages("claim.received")</p>
 	            <p class="nino-title">Your reference number is</p>
-	            <h2>@nino</h2>
+	            <h2 id="nino">@nino</h2>
             </div>
 
             <article class="finish-next prompt helper-prompt">

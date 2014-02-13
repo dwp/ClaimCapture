@@ -63,14 +63,14 @@ object Global extends GlobalSettings {
   }
 
   // 404 - page not found error http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
-  override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] = Future(NotFound(views.html.errors.onHandlerNotFound(request)))
+  override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] = Future(NotFound(views.html.errors.onHandlerNotFound(Request(request,AnyContentAsEmpty))))
 
   override def getControllerInstance[A](controllerClass: Class[A]): A = injector.getInstance(controllerClass)
 
   override def onError(request: RequestHeader, ex: Throwable) = {
     Logger.error(ex.getMessage)
     val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
-    Future(Ok(views.html.common.error(startUrl)))
+    Future(Ok(views.html.common.error(startUrl)(Request(request, AnyContentAsEmpty))))
   }
 
   def actorSystems = {
