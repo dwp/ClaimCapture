@@ -3,7 +3,6 @@ package controllers.circs.s2_report_changes
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 
-
 class G3PermanentlyStoppedCaringFormSpec extends Specification with Tags {
 
   val moreAboutChanges = "This is more about the change"

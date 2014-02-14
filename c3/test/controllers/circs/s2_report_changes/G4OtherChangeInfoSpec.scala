@@ -8,7 +8,6 @@ import play.api.test.Helpers._
 import org.specs2.mutable.{Tags, Specification}
 import controllers.circs.s2_report_changes
 
-
 class G4OtherChangeInfoSpec extends Specification with Tags{
 
   val otherInfo = "other info"

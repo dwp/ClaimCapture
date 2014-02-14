@@ -2,12 +2,6 @@ package controllers.circs.s2_report_changes
 
 import org.specs2.mutable.{Tags, Specification}
 import models.SortCode
-import play.api.data.Forms._
-import models.SortCode
-import controllers.Mappings._
-import models.SortCode
-import controllers.CarersForms._
-import models.SortCode
 
 class G5PaymentChangeFormSpec extends Specification with Tags {
    "Report a change in your circumstances - Payment Change" should {

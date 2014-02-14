@@ -3,14 +3,9 @@ package controllers.circs.s2_report_changes
 import play.api.test.{FakeRequest, WithApplication}
 import models.domain._
 import models.view.CachedChangeOfCircs
-import play.api.cache.Cache
 import play.api.test.Helpers._
 import org.specs2.mutable.{Tags, Specification}
-import models.domain.Claim
-import scala.Some
-import models.DayMonthYear
 import controllers.circs.s2_report_changes
-
 
 class G3PermanentlyStoppedCaringSpec extends Specification with Tags{
 

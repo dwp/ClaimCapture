@@ -13,7 +13,7 @@ import controllers.CarersForms._
 
 object G6AddressChange extends Controller with CachedChangeOfCircs with Navigable  {
   val stillCaringMapping =
-    "stillCaring35" -> mapping(
+    "stillCaring" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
       "date" -> optional(dayMonthYear.verifying(validDate)),
       "caredForChangedAddress" -> optional(text verifying validYesNo)

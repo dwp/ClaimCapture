@@ -20,13 +20,13 @@
 
             <ul>
 
-                @yesNoRadioGroup(addressForm("stillCaring35"))
+                @yesNoRadioGroup(addressForm("stillCaring")("answer"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring35.date"))
+                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring")("date"))
                     ),
                     'id -> "stillCaringDate",
-                    'display -> addressForm("stillCaring35.answer").value.getOrElse("no")
+                    'display -> addressForm("stillCaring")("answer").value.getOrElse("no")
                 )
 
                 @inputAddress(addressForm("newAddress"))
@@ -34,27 +34,27 @@
                 @carersInputText(addressForm("newPostcode"), 'class -> "postcode")
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(yesNoRadioGroup(addressForm("stillCaring35.caredForChangedAddress"))
+                    inputDef = Seq(yesNoRadioGroup(addressForm("caredForChangedAddress")("answer"))
                     ),
                     'id -> "stillCaringAddress",
-                    'display -> addressForm("stillCaring35.answer").value.getOrElse("yes")
+                    'display -> addressForm("stillCaring")("answer").value.getOrElse("yes")
                     )
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        yesNoRadioGroup(addressForm("caredForChangedAddress.sameAddress"))
+                        yesNoRadioGroup(addressForm("sameAddress")("answer"))
                     ),
                     'id -> "changedAddressSame",
-                    'display -> addressForm("stillCaring35.caredForChangedAddress.answer").value.getOrElse("yes")
+                    'display -> addressForm("caredForChangedAddress")("answer").value.getOrElse("yes")
                 )
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        inputAddress(addressForm("sameAddress.theirNewAddress")),
-                        carersInputText(addressForm("sameAddress.theirNewPostcode"), 'class -> "postcode")
+                        inputAddress(addressForm("sameAddress")("theirNewAddress")),
+                        carersInputText(addressForm("sameAddress")("theirNewPostcode"), 'class -> "postcode")
                     ),
                     'id -> "sameAddressData",
-                    'display -> addressForm("caredForChangedAddress.sameAddress.answer").value.getOrElse("no")
+                    'display -> addressForm("caredForChangedAddress")("sameAddress.answer").value.getOrElse("no")
                 )
                 @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> "300 characters left", 'maxLength -> 300)
             </ul>
@@ -77,17 +77,17 @@ window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxC
 })
 
 $(function(){
-window.initEvents("@CarersCrypto.encryptAES("stillCaring35_yes")",
-"@CarersCrypto.encryptAES("stillCaring35_no")",
-"@CarersCrypto.encryptAES("stillCaring35.date")",
-"@CarersCrypto.encryptAES("stillCaring35.caredForChangedAddress")",
-"@CarersCrypto.encryptAES("stillCaring35_caredForChangedAddress_yes")",
-"@CarersCrypto.encryptAES("stillCaring35_caredForChangedAddress_no")",
-"@CarersCrypto.encryptAES("caredForChangedAddress.sameAddress")",
-"@CarersCrypto.encryptAES("caredForChangedAddress_sameAddress_yes")",
-"@CarersCrypto.encryptAES("caredForChangedAddress_sameAddress_no")",
-"@CarersCrypto.encryptAES("sameAddress.theirNewAddress")",
-"@CarersCrypto.encryptAES("sameAddress.theirNewPostcode")"
+window.initEvents("@CarersCrypto.encryptAES("stillCaring_answer_yes")",
+"@CarersCrypto.encryptAES("stillCaring_answer_no")",
+"@CarersCrypto.encryptAES("stillCaring_date")",
+"@CarersCrypto.encryptAES("stillCaring_caredForChangedAddress")",
+"@CarersCrypto.encryptAES("caredForChangedAddress_answer_yes")",
+"@CarersCrypto.encryptAES("caredForChangedAddress_answer_no")",
+"@CarersCrypto.encryptAES("sameAddress.answer")",
+"@CarersCrypto.encryptAES("sameAddress_answer_yes")",
+"@CarersCrypto.encryptAES("sameAddress_answer_no")",
+"@CarersCrypto.encryptAES("sameAddress_theirNewAddress")",
+"@CarersCrypto.encryptAES("sameAddress_theirNewPostcode")"
 );
 });
 </script>
