@@ -9,7 +9,7 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.circs.s2_report_changes.main
-
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("c2.g6") + " - " + Messages("c2.name")) {
     @errorsSummary(addressForm)
@@ -20,13 +20,13 @@
 
             <ul>
 
-                @yesNoRadioGroup(addressForm("stillCaring"))
+                @yesNoRadioGroup(addressForm("stillCaring35"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring.dateStoppedCaring"))
+                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring35.date"))
                     ),
                     'id -> "stillCaringDate",
-                    'display -> addressForm("stillCaring.answer").value.getOrElse("no")
+                    'display -> addressForm("stillCaring35.answer").value.getOrElse("no")
                 )
 
                 @inputAddress(addressForm("newAddress"))
@@ -34,10 +34,10 @@
                 @carersInputText(addressForm("newPostcode"), 'class -> "postcode")
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(yesNoRadioGroup(addressForm("stillCaring.caredForChangedAddress"))
+                    inputDef = Seq(yesNoRadioGroup(addressForm("stillCaring35.caredForChangedAddress"))
                     ),
                     'id -> "stillCaringAddress",
-                    'display -> addressForm("stillCaring.answer").value.getOrElse("yes")
+                    'display -> addressForm("stillCaring35.answer").value.getOrElse("yes")
                     )
 
                 @otherDetailPlaceHolder(
@@ -45,18 +45,18 @@
                         yesNoRadioGroup(addressForm("caredForChangedAddress.sameAddress"))
                     ),
                     'id -> "changedAddressSame",
-                    'display -> addressForm("stillCaring.caredForChangedAddress.answer").value.getOrElse("yes")
+                    'display -> addressForm("stillCaring35.caredForChangedAddress.answer").value.getOrElse("yes")
                 )
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        inputAddress(addressForm("theirNewAddress")),
-                        carersInputText(addressForm("theirNewPostcode"), 'class -> "postcode")
+                        inputAddress(addressForm("sameAddress.theirNewAddress")),
+                        carersInputText(addressForm("sameAddress.theirNewPostcode"), 'class -> "postcode")
                     ),
                     'id -> "sameAddressData",
                     'display -> addressForm("caredForChangedAddress.sameAddress.answer").value.getOrElse("no")
                 )
-
+                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> "300 characters left", 'maxLength -> 300)
             </ul>
 
         </fieldset>
@@ -69,15 +69,20 @@
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g6_addressChange.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 <script type="text/javascript">
 $(function(){
-window.initEvents("@CarersCrypto.encryptAES("stillCaring_yes")",
-"@CarersCrypto.encryptAES("stillCaring_no")",
-"@CarersCrypto.encryptAES("stillCaring.dateStoppedCaring")",
-"@CarersCrypto.encryptAES("stillCaring.caredForChangedAddress")",
-"@CarersCrypto.encryptAES("stillCaring_caredForChangedAddress_yes")",
-"@CarersCrypto.encryptAES("stillCaring_caredForChangedAddress_no")",
+window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+})
+
+$(function(){
+window.initEvents("@CarersCrypto.encryptAES("stillCaring35_yes")",
+"@CarersCrypto.encryptAES("stillCaring35_no")",
+"@CarersCrypto.encryptAES("stillCaring35.date")",
+"@CarersCrypto.encryptAES("stillCaring35.caredForChangedAddress")",
+"@CarersCrypto.encryptAES("stillCaring35_caredForChangedAddress_yes")",
+"@CarersCrypto.encryptAES("stillCaring35_caredForChangedAddress_no")",
 "@CarersCrypto.encryptAES("caredForChangedAddress.sameAddress")",
 "@CarersCrypto.encryptAES("caredForChangedAddress_sameAddress_yes")",
 "@CarersCrypto.encryptAES("caredForChangedAddress_sameAddress_no")",

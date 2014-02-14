@@ -4,6 +4,9 @@ window.initEvents = (stillCaringY, stillCaringN, dateStoppedCaring,
   $("#" + stillCaringN).on "click", ->
     $("#stillCaringAddress").slideUp 500, ->
       $("#" + caredForChangedAddress).val("")
+    $("#sameAddressData").slideUp 500
+    $("#changedAddressSame").slideUp 500
+
     $("#stillCaringDate").slideDown 500
     $("#stillCaringDate").css('display', "block")
 

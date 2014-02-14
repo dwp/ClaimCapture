@@ -9,10 +9,11 @@ import models.view.{CachedChangeOfCircs, Navigable}
 import utils.helpers.CarersForm._
 import models.domain._
 import models.yesNo.{YesNoWithAddress, YesNoWithDateAndQs, YesNoWithText}
+import controllers.CarersForms._
 
 object G6AddressChange extends Controller with CachedChangeOfCircs with Navigable  {
   val stillCaringMapping =
-    "stillCaring" -> mapping(
+    "stillCaring35" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
       "date" -> optional(dayMonthYear.verifying(validDate)),
       "caredForChangedAddress" -> optional(text verifying validYesNo)
@@ -39,7 +40,8 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
     "newAddress" -> address.verifying(requiredAddress),
     "newPostcode" -> optional(text verifying validPostcode),
     changedAddressMapping,
-    sameAddressMapping
+    sameAddressMapping,
+    "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesAddressChange.apply)(CircumstancesAddressChange.unapply))
 
   def present = claiming { implicit circs => implicit request =>
