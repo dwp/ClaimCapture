@@ -1,13 +1,14 @@
 package services.submission
 
-import app.ConfigProperties._
-import play.api.libs.ws.WS
+import play.api.libs.ws.{Response, WS}
 import play.api.libs.ws
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import play.Configuration
 import scala.xml.Elem
-import play.api.Logger
+import play.api.{http, Logger}
 import services.util.CharacterStripper
+import java.net.ConnectException
+import ExecutionContext.Implicits.global
 
 class WebserviceFormSubmission extends FormSubmission {
 
@@ -17,7 +18,15 @@ class WebserviceFormSubmission extends FormSubmission {
     Logger.debug(s"Submission Server : $submissionServerEndpoint")
     val result = WS.url(submissionServerEndpoint)
       .withHeaders(("Content-Type", "text/xml"))
-      .post(CharacterStripper.stripNonPdf(claimSubmission.buildString(stripComments = true)))
+      .post(CharacterStripper.stripNonPdf(claimSubmission.buildString(stripComments = true))) recover {
+
+      case e: ConnectException =>
+        Logger.error(s"ConnectException ! ${e.getMessage}")
+        // Spoof service unavailable
+        new Response(null) {
+          override def status: Int = http.Status.SERVICE_UNAVAILABLE
+        }
+    }
     result
   }
 }

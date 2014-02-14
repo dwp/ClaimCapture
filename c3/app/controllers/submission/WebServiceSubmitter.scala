@@ -49,6 +49,14 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
             Logger.error(s"Received error : $result, TxnId : $txnId, Headers : ${request.headers}")
             errorAndCleanup(claim, txnId, UNKNOWN_ERROR, request)
         }
+      case http.Status.SERVICE_UNAVAILABLE =>
+        Logger.error(s"SERVICE_UNAVAILABLE : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
+        claim.key match {
+          case CachedClaim.key =>
+            Redirect(controllers.s11_consent_and_declaration.routes.G6Error.present())
+          case CachedChangeOfCircs.key =>
+            Redirect(controllers.circs.s3_consent_and_declaration.routes.G3Error.present())
+        }
       case http.Status.BAD_REQUEST =>
         Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
         errorAndCleanup(claim, txnId, BAD_REQUEST_ERROR, request)
