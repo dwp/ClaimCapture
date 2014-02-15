@@ -4,8 +4,9 @@
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
 @import models.domain._
-
+@import play.api.i18n.{MMessages => Messages}
 @nextSection = @{ if (SelfEmployment.visible) SelfEmployment.name else OtherMoney.name }
+
 
 @main("Your employment history - " + Messages("s7.longName"), Some(currentForm)) {
     <fieldset id="jobs" class="form-elements results-detail" data-journey="carers-allowance:page:employment">

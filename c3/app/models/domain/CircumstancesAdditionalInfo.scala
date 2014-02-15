@@ -1,8 +1,18 @@
 package models.domain
 
 import app.XMLValues._
-import models.yesNo.{YesNoWith2Text, YesNoWithDate, YesNoWithText}
-import models.{SortCode, DayMonthYear}
+import models.yesNo._
+import models.{MultiLineAddress, SortCode, DayMonthYear}
+import play.api.data.Forms._
+import models.SortCode
+import models.SortCode
+import models.MultiLineAddress
+import controllers.Mappings._
+import models.SortCode
+import models.MultiLineAddress
+import models._
+import controllers.Mappings.yes
+import controllers.Mappings.no
 
 case object CircumstancesReportChanges extends Section.Identifier {
   val id = "c2"
@@ -54,3 +64,13 @@ object CircumstancesPaymentChange extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g5"
 }
 
+case class CircumstancesAddressChange(stillCaringMapping: YesNoWithDateAndQs = YesNoWithDateAndQs("", None, None),
+                                      newAddress: MultiLineAddress = new MultiLineAddress(),
+                                      newPostcode: Option[String] = None,
+                                      caredForChangedAddress: YesNoWithText = YesNoWithText("", None),
+                                      sameAddress: YesNoWithAddress = YesNoWithAddress("", None),
+                                      moreAboutChanges: Option[String] = None) extends QuestionGroup(ContactDetails)
+
+object CircumstancesAddressChange extends QuestionGroup.Identifier {
+  val id = s"${CircumstancesReportChanges.id}.g6"
+}

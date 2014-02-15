@@ -131,6 +131,7 @@ package object app {
 
   object ReportChange {
     val StoppedCaring = 'stoppedCaring
+    val AddressChange = 'addressChange
     val SelfEmployment = 'selfEmployment
     val PaymentChange = 'paymentChange
     val AdditionalInfo = 'additionalInfo

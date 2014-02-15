@@ -28,6 +28,10 @@ class XMLClaimBusinessValidation extends XMLBusinessValidation {
   def validateXMLClaim(claim: TestData, xml: Elem, throwException: Boolean): List[String] = {
     super.validateXMLClaim(claim, xml, throwException, mappingFilename, createXMLValidationNode)
   }
+
+  override def objValue(attribute: String, value: String, question: String) = {
+    ClaimValue(attribute,value,question)
+  }
 }
 
 /**

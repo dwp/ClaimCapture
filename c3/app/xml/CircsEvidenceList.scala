@@ -3,7 +3,7 @@ package xml
 import models.domain.{CircumstancesReportChange, CircumstancesDeclaration, CircumstancesSelfEmployment, CircumstancesPaymentChange, Claim}
 import scala.xml.NodeSeq
 import xml.XMLHelper._
-import play.api.i18n.Messages
+import play.api.i18n.{MMessages => Messages}
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import scala.Some
@@ -31,12 +31,10 @@ object CircsEvidenceList {
         buffer ++= textLine(Messages("stillCaring.answer") + " = " + circsSelfEmployment.stillCaring.answer)
 
         circsSelfEmployment.stillCaring.answer match {
-          case "no" => buffer ++= textLine(Messages("whenStoppedCaring") + " = " + circsSelfEmployment.stillCaring.date.get.`yyyy-MM-dd`)
+          case "no" => buffer ++= textLine(Messages("whenStoppedCaring") + " = " + circsSelfEmployment.stillCaring.date.get.`dd/MM/yyyy`)
           case _ =>
         }
-
-        buffer ++= textLine(Messages("whenThisSelfEmploymentStarted") + " = " + circsSelfEmployment.whenThisSelfEmploymentStarted.`yyyy-MM-dd`)
-
+        buffer ++= textLine(Messages("whenThisSelfEmploymentStarted") + " = " + circsSelfEmployment.whenThisSelfEmploymentStarted.`dd/MM/yyyy`)
         buffer ++= textLine(Messages("typeOfBusiness") + " = " + circsSelfEmployment.typeOfBusiness)
         buffer ++= textLine(Messages("totalOverWeeklyIncomeThreshold") + " = " + circsSelfEmployment.totalOverWeeklyIncomeThreshold)
       }

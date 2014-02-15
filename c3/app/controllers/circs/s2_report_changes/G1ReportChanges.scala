@@ -45,6 +45,7 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
 
     val selectedQG:(QuestionGroup.Identifier,Call) =
       if (f.reportChanges      == r.SelfEmployment.name) CircumstancesSelfEmployment -> routes.G2SelfEmployment.present()
+      else if (f.reportChanges == r.AddressChange.name)  CircumstancesAddressChange  -> routes.G6AddressChange.present()
       else if (f.reportChanges == r.StoppedCaring.name)  CircumstancesStoppedCaring  -> routes.G3PermanentlyStoppedCaring.present()
       else if (f.reportChanges == r.PaymentChange.name)  CircumstancesPaymentChange  -> routes.G5PaymentChange.present()
       else                                               CircumstancesOtherInfo      -> routes.G4OtherChangeInfo.present()

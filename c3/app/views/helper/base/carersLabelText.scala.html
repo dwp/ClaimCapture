@@ -9,6 +9,10 @@
     !field.constraints.find(_._1 == "constraint.required"))
 }
 
+firstOption @{!field.constraints.find(_._1 == "constraint.required")}
+
+secondOption @{!args.find(t => t._1 == 'ignoreOptional).getOrElse('ignoreOptional->false).asInstanceOf[(Symbol,Boolean)]._2}
+
 @if(displayOptional){
     <em>(optional)</em>
 }

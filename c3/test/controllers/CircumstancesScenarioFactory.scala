@@ -2,7 +2,7 @@ package controllers
 
 import utils.pageobjects.TestData
 import app.ReportChange._
-import play.api.i18n.Messages
+import play.api.i18n.{MMessages => Messages}
 import models.SortCode
 import app.{WhoseNameAccount, PaymentFrequency}
 

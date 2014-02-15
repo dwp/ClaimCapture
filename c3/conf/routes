@@ -17,8 +17,8 @@ GET           /error                                                    controll
 GET           /circs-error                                              controllers.CircsEnding.error
 
 # Claim submission
-GET           /submit                                                   @controllers.submission.ClaimSubmissionController.submit
-GET           /circs-submit                                             @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
+POST           /submit                                                  @controllers.submission.ClaimSubmissionController.submit
+POST           /circs-submit                                            @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
 
 # Thank you
 GET           /thankyou/apply-carers                                    controllers.ClaimEnding.thankyou
@@ -219,6 +219,9 @@ POST          /circumstances/report-changes/selection                   controll
 
 GET           /circumstances/report-changes/self-employment             controllers.circs.s2_report_changes.G2SelfEmployment.present
 POST          /circumstances/report-changes/self-employment             controllers.circs.s2_report_changes.G2SelfEmployment.submit
+
+GET           /circumstances/report-changes/address-change              controllers.circs.s2_report_changes.G6AddressChange.present
+POST          /circumstances/report-changes/address-change              controllers.circs.s2_report_changes.G6AddressChange.submit
 
 GET           /circumstances/report-changes/stopped-caring              controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.present
 POST          /circumstances/report-changes/stopped-caring              controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.submit
