@@ -1,49 +1,17 @@
-package controllers.submission
+package monitoring
 
 import app.ConfigProperties._
-import scala.concurrent.{ExecutionContext, Future}
-import services.UnavailableTransactionIdException
+import models.domain.Claimable
+import models.domain.Claim
+import scala.Some
 import play.api.Logger
-import models.domain.{Claimable, Claim}
-import jmx.inspectors.{FastSubmissionNotifier, SubmissionNotifier}
-import ExecutionContext.Implicits.global
-import play.api.mvc.{Call, AnyContent, Request, Controller}
+import jmx.inspectors.FastSubmissionNotifier
 
-
-abstract class SubmissionController(submitter: Submitter) extends Controller with SubmissionNotifier with FastSubmissionNotifier {
+trait BotChecking extends FastSubmissionNotifier {
 
   def checkTimeToCompleteAllSections(claimOrCircs: Claim with Claimable, currentTime: Long): Boolean
 
   def honeyPot(claim: Claim): Boolean
-
-  def processSubmit(claimOrCircs: Claim, request: Request[AnyContent], errorPage: Call) = {
-
-    if (isHoneyPotBot(claimOrCircs)) {
-      // Only log honeypot for now.
-      // May send to an error page in the future
-      Logger.warn(s"Honeypot ! Headers : ${request.headers}")
-    }
-
-    if (isSpeedBot(claimOrCircs)) {
-      // Only log speed check for now.
-      // May send to an error page in the future
-      Logger.warn(s"Speed check ! Headers : ${request.headers}")
-    }
-
-    try {
-      fireNotification(claimOrCircs) {
-        submitter.submit(claimOrCircs, request)
-      }
-    } catch {
-      case e: UnavailableTransactionIdException =>
-        Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
-        Future(Redirect(errorPage))
-      case e: java.lang.Exception =>
-        Logger.error(s"InternalServerError ! ${e.getMessage}")
-        Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
-        Future(Redirect(errorPage))
-    }
-  }
 
   def isSpeedBot(claimOrCircs: Claim): Boolean = {
     val checkForBotSpeed = getProperty("checkForBotSpeed", default = false)
@@ -75,5 +43,6 @@ abstract class SubmissionController(submitter: Submitter) extends Controller wit
     }
     result
   }
+
 
 }
