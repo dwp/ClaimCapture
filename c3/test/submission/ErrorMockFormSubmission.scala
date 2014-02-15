@@ -7,7 +7,6 @@ import ExecutionContext.Implicits.global
 import play.api.{Logger, http}
 import services.submission.FormSubmission
 import services.UnavailableTransactionIdException
-import java.net.ConnectException
 
 class ErrorMockFormSubmission extends FormSubmission {
 
@@ -29,8 +28,9 @@ class ErrorMockFormSubmission extends FormSubmission {
             override def status: Int = http.Status.INTERNAL_SERVER_ERROR
           }
         case "CONNECT_EXCEPTION" =>
-          Logger.info("throw ConnectException")
-          throw new ConnectException("Duff")
+          new Response(null) {
+            override def status: Int = http.Status.SERVICE_UNAVAILABLE
+          }
         case "TRANSACTION_ID_EXCEPTION" =>
           Logger.info("throw UnavailableTransactionIdException")
           throw new UnavailableTransactionIdException("Cannot generate an unique transaction ID.", new Exception)

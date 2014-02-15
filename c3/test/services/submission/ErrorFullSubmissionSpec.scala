@@ -12,7 +12,7 @@ import services.TransactionIdService
 import com.google.inject._
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import submission._
-import utils.pageobjects.S11_consent_and_declaration.G5SubmitPage
+import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPageContext
 
 class ErrorFullSubmissionSpec extends Specification with Tags {
   sequential
@@ -21,6 +21,9 @@ class ErrorFullSubmissionSpec extends Specification with Tags {
   val changeThankYouPageTitle = "Change complete"
 
   val cAndDError = "An unrecoverable error has occurred"
+
+  val retryClaim = "Try claim again"
+  val retryChange = "Try change again"
 
   private lazy val injector = Guice.createInjector(new ScalaModule {
     def configure() {
@@ -42,13 +45,20 @@ class ErrorFullSubmissionSpec extends Specification with Tags {
 
   "The application" should {
 
-    "Handle a connect exception and redirect to the submit page" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+    "Handle a connect exception and redirect to the retry page for a claim" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "CONNECT_EXCEPTION"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, utils.pageobjects.S11_consent_and_declaration.G5SubmitPage.title, waitForPage = true, waitDuration = 500, trace = false)
-      lastPage runClaimWith(claim, utils.pageobjects.S11_consent_and_declaration.G5SubmitPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, retryClaim, waitForPage = true, waitDuration = 500, trace = false)
+    }
+
+    "Handle a connect exception and redirect to the retry page for a change" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1ReportAChangeInYourCircumstancesPageContext {
+      val idService = injector.getInstance(classOf[TransactionIdService])
+      idService.id = "CONNECT_EXCEPTION"
+      val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase1.csv")
+      page goToThePage(waitForPage = true, waitDuration = 500)
+      val lastPage = page runClaimWith(circs, retryChange, waitForPage = true, waitDuration = 500, trace = false)
     }
 
     "Handle a Bad request" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
