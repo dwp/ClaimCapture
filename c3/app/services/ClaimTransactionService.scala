@@ -1,6 +1,7 @@
 package services
 
 import play.api.db.DB
+import play.api.Play.current
 
 trait ClaimTransactionService {
   val claimTransaction : ClaimTransaction

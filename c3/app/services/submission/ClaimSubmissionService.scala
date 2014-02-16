@@ -1,13 +1,14 @@
 package services.submission
 
 import scala.xml.Elem
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import play.api.libs.ws
 import play.Configuration
 import play.api.{http, Logger}
 import play.api.libs.ws.{Response, WS}
 import services.util.CharacterStripper
 import java.net.ConnectException
+import ExecutionContext.Implicits.global
 
 trait ClaimSubmissionService {
 
