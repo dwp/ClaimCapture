@@ -4,6 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithApplication
 
 class WebServiceSubmitterSpec extends Specification with Tags {
+
     "Web service submitter" should {
         "return valid xml formatting can screw up the values" in new WithApplication {
           val submitter = new WebServiceSubmitter(null,null)
@@ -11,5 +12,6 @@ class WebServiceSubmitterSpec extends Specification with Tags {
           val result = (xml \\ "pollEndpoint").text
           result must equalTo("url")
         }
-    }
+    } section ("submission")
+
 }
