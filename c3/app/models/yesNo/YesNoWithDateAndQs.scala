@@ -7,21 +7,13 @@ case class YesNoWithDateAndQs(answer: String = "", date: Option[DayMonthYear] = 
 
 object YesNoWithDateAndQs {
 
-  def validate(input: YesNoWithDateAndQs): Boolean = input.answer match {
-    case `yes` => {
-      input.date.isDefined
-      input.answer1.isDefined
-    }
-    case _ => true
+  def validateAddressOnYes (input: YesNoWithDateAndQs) : Boolean = input.answer match {
+    case `yes` => input.answer1.isDefined
+    case `no` => true
   }
 
-  def validateNo(input: YesNoWithDateAndQs): Boolean = input.answer match {
-    case `no` => {
-      input.date.isDefined
-      input.answer1.isDefined
-    }
-    case _ => true
+  def validateDateOnNo (input: YesNoWithDateAndQs) : Boolean = input.answer match {
+    case `yes` => true
+    case `no` => input.date.isDefined
   }
-
-  def validateAnswerNotEmpty(input: YesNoWithDateAndQs): Boolean = !input.answer.isEmpty
 }
