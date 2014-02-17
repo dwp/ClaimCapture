@@ -10,10 +10,10 @@ import com.dwp.carers.s2.xml.validation.XmlValidator
 import play.api.Logger
 import models.domain.Claim
 
-class XmlSubmitter extends Submitter {
+object XmlSubmitter {
   val transactionID = "TEST432"
 
-  override def submit(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = {
+  def submission(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = {
     val (xml, validator) = xmlAndValidator(claim, transactionID)
 
     if (getProperty("validateXml",default=true)) {

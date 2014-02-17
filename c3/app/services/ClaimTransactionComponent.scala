@@ -3,7 +3,7 @@ package services
 import play.api.db.DB
 import play.api.Play.current
 
-trait ClaimTransactionService {
+trait ClaimTransactionComponent {
   val claimTransaction : ClaimTransaction
 
   class ClaimTransaction {
@@ -56,3 +56,11 @@ trait ClaimTransactionService {
     var id: String = _
   }
 }
+
+/**
+ * Exception thrown by UniqueTransactionId if it could not generate an id. The cause is described by the nested exception.
+ * @param message  the detail message
+ * @param nestedException  the cause
+ */
+class UnavailableTransactionIdException(message: String, nestedException: Exception)
+  extends RuntimeException(message, nestedException) {}
