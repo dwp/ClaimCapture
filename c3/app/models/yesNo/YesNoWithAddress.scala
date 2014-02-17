@@ -21,5 +21,5 @@ object YesNoWithAddress {
       input.postCode.isDefined
   }
 
-  def validateAnswerNotEmpty(input: YesNoWithDate): Boolean = !input.answer.isEmpty
+  def validateAnswerNotEmpty(input: YesNoWithAddress): Boolean = !input.answer.isEmpty
 }
