@@ -23,7 +23,7 @@
             <ul>
                 @inputDayMonthYear(currentForm("lastPaidDate"))
 
-                @carersCurrency(currentForm("grossPay"), 'placeholder -> Messages("poundSign"), 'maxlength -> Mappings.sixty)
+                @carersCurrency(currentForm("grossPay"), 'maxlength -> Mappings.sixty)
 
                 @carersInputTextArea(currentForm("payInclusions"), 'placeholder -> Messages("please.specify"), 'helper -> "60 characters left", 'maxLength -> 60,'helperBelow -> Messages("payInclusions.helper"))
 
