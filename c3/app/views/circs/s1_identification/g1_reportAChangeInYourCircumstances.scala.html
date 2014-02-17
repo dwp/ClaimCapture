@@ -26,7 +26,11 @@
                 @inputDayMonthYear(reportAChangeForm("dateOfBirth"), 'helperBelow -> Messages("dateOfBirth.helper"))
             </ul>
 
-            <legend>@Messages("c1.personYouAreCaringFor")</legend>
+          
+        </fieldset>
+        
+        <fieldset class="form-elements">
+        <legend>@Messages("c1.personYouAreCaringFor")</legend>
             <ul>
                 @carersInputText(reportAChangeForm("theirFullName"), 'maxLength -> 35)
 

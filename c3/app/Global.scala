@@ -79,6 +79,21 @@ object Global extends GlobalSettings {
   }
 }
 
+// Add WithFilters(LoggingFilter) to enable good debug
+object LoggingFilter extends Filter {
+  def apply(nextFilter: (RequestHeader) => Future[SimpleResult])
+           (requestHeader: RequestHeader): Future[SimpleResult] = {
+    val startTime = System.currentTimeMillis
+    nextFilter(requestHeader).map { result =>
+      val endTime = System.currentTimeMillis
+      val requestTime = endTime - startTime
+      Logger.info(s"${requestHeader.method} ${requestHeader.uri} " +
+        s"took ${requestTime}ms and returned ${result.header.status}")
+      result.withHeaders("Request-Time" -> requestTime.toString)
+    }
+  }
+}
+
 class JMXFilter extends Filter {
   def apply(f: (RequestHeader) => Future[SimpleResult])(rh: RequestHeader): Future[SimpleResult] = f(rh)
 

@@ -1,51 +1,46 @@
 package controllers.circs.submission
 
-import app.ConfigProperties._
 import com.google.inject._
-import controllers.submission.{SubmissionController, Submitter}
-import models.domain._
-import models.domain.Claim
-import scala.Some
+import controllers.submission.Submitter
 import models.view.CachedChangeOfCircs
 import play.api.Logger
+import play.api.mvc.Controller
+import services.UnavailableTransactionIdException
+import scala.concurrent.{ExecutionContext, Future}
+import jmx.inspectors.SubmissionNotifier
+import monitoring.ChangeBotChecking
+import ExecutionContext.Implicits.global
 
 @Singleton
-class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends SubmissionController(submitter) with CachedChangeOfCircs{
+class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with SubmissionNotifier with ChangeBotChecking with CachedChangeOfCircs {
 
-  def submit = submitting { implicit claim => implicit request =>
-    processSubmit(claim, request, errorPage)
-  }
+  def submit = submitting {
+    implicit claim => implicit request =>
 
-  def checkTimeToCompleteAllSections(circs: Claim with Claimable, currentTime: Long = System.currentTimeMillis()) = {
-    val sectionExpectedTimes = Map[String, Long](
-      "c1" -> getProperty("speed.c1",5000L),
-      "c2" -> getProperty("speed.c2",5000L),
-      "c3" -> getProperty("speed.c3",5000L)
-    )
-    evaluateTimeToCompleteAllSections(circs, currentTime, sectionExpectedTimes)
-  }
-
-  def honeyPot(circs: Claim): Boolean = {
-    def checkDeclaration: Boolean = {
-      circs.questionGroup(CircumstancesDeclaration) match {
-        case Some(q) =>
-          val h = q.asInstanceOf[CircumstancesDeclaration]
-          if (h.obtainInfoAgreement == "yes") {
-            h.obtainInfoWhy match {
-              case Some(f) => true // Bot given field howOftenPersonal was not visible.
-              case _ => false
-            }
-          }
-          else false
-
-        case _ => false
+      if (isHoneyPotBot(claim)) {
+        // Only log honeypot for now.
+        // May send to an error page in the future
+        Logger.warn(s"Honeypot ! Headers : ${request.headers}")
       }
-    }
 
-    val declaration = checkDeclaration
+      if (isSpeedBot(claim)) {
+        // Only log speed check for now.
+        // May send to an error page in the future
+        Logger.warn(s"Speed check ! Headers : ${request.headers}")
+      }
 
-    if (declaration) Logger.warn("Honeypot triggered coc : declaration")
-
-    declaration
+      try {
+        fireNotification(claim) {
+          submitter.submit(claim, request)
+        }
+      } catch {
+        case e: UnavailableTransactionIdException =>
+          Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
+          Future(Redirect(errorPage))
+        case e: java.lang.Exception =>
+          Logger.error(s"InternalServerError ! ${e.getMessage}")
+          Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
+          Future(Redirect(errorPage))
+      }
   }
 }
