@@ -40,8 +40,8 @@ main {
     padding: 0.7em 1em 0 1em; }
     @media screen and (max-width: 640px) {
       .carers-allowance .prototype {
-        padding-bottom: .7em;
-        margin-top: .9em; } }
+        margin-top: .9em;
+        padding-bottom: 0.7em; } }
     .carers-allowance .prototype p {
       margin: 0;
       padding: 0;
@@ -64,31 +64,63 @@ main {
           color: #000; }
   .carers-allowance .claim-info {
     margin: 0;
-    padding: 10px 1.2em 10px 0;
+    padding: 16px 1em 10px 0;
     list-style: none;
-    text-align: right; }
+    text-align: right;
+    border-top: 10px solid #f47738; }
+    @media screen and (max-width: 640px) {
+      .carers-allowance .claim-info {
+        border: 0;
+        padding-right: 0; } }
     .carers-allowance .claim-info li {
-      margin-left: 15px;
-      display: inline; }
+      margin-left: 14px;
+      display: inline;
+      font-size: 14px;
+      color: #000;
+      font-weight: 500; }
       .carers-allowance .claim-info li:first-child {
         border: 0;
         margin: 0;
         padding: 0; }
+        .carers-allowance .claim-info li:first-child a.info {
+          display: inline-block;
+          position: relative;
+          height: 18px;
+          width: 18px;
+          text-align: center;
+          padding: 0;
+          color: #000;
+          font-size: 11px;
+          background: #f5f5f5;
+          text-decoration: none;
+          font-weight: bold;
+          line-height: 1.8em;
+          font-family: 'georgia';
+          font-style: italic;
+          top: -1px;
+          margin-right: 5px;
+          border-radius: 100px;
+          box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6); }
+          .carers-allowance .claim-info li:first-child a.info:hover {
+            background: #333;
+            color: #fff; }
+          .carers-allowance .claim-info li:first-child a.info span {
+            text-indent: -9999px;
+            display: inline-block; }
+      @media screen and (max-width: 480px) {
+        .carers-allowance .claim-info li.feedback {
+          display: none; } }
       .carers-allowance .claim-info li a {
-        font-size: 14px;
         color: #000;
-        font-weight: 500;
         display: inline-block;
         padding-top: 5px; }
         .carers-allowance .claim-info li a:hover {
-          color: #315843; }
+          color: #666; }
   .carers-allowance .progress-steps {
-    border-top: 10px solid #f47738;
-    padding-bottom: .5em;
-    clear: both; }
-    @media screen and (max-width: 760px) {
+    padding-bottom: .5em; }
+    @media print {
       .carers-allowance .progress-steps {
-        border-top: 0; } }
+        display: none; } }
     .carers-allowance .progress-steps ol {
       list-style: none;
       margin: 0;
@@ -102,6 +134,8 @@ main {
         background: url("images/nav-line.png") 0 56px repeat-x;
         margin-bottom: -12px;
         zoom: 1; }
+      .ie7 .carers-allowance .progress-steps ol {
+        background-position: 0 44px; }
       .ie8 .carers-allowance .progress-steps ol {
         background: none; }
       @media screen and (max-width: 760px) {
@@ -118,7 +152,7 @@ main {
             display: none; } }
       .carers-allowance .progress-steps ol li {
         float: left;
-        width: 10%;
+        width: 11%;
         position: relative;
         text-align: center;
         padding: 35px 0 0 0;
@@ -147,7 +181,7 @@ main {
           font-size: 1.3rem; }
           @media screen and (max-width: 770px) {
             .carers-allowance .progress-steps ol li span {
-              font-size: 10px; } }
+              font-size: 12px; } }
           .ie .carers-allowance .progress-steps ol li span {
             font-size: 13px; }
           .carers-allowance .progress-steps ol li span:before {
@@ -260,11 +294,9 @@ main {
         border: 0; } }
     .carers-allowance section.error-statement {
       margin: 0;
-      padding: 5em 0 5em 1em;
-      border-top: 10px solid #f47738; }
+      padding: 5em 0 5em 1em; }
       @media screen and (max-width: 640px) {
         .carers-allowance section.error-statement {
-          border-top: 0;
           padding-left: 0;
           padding-right: 0; } }
       .carers-allowance section.error-statement p {
@@ -279,6 +311,47 @@ main {
             font-size: 30px; } }
         .ie .carers-allowance section.error-statement h1 {
           font-size: 50px; }
+    .carers-allowance section.finish-statement article {
+      margin-top: 1.5em; }
+      .carers-allowance section.finish-statement article.finish-next {
+        margin-top: 1.4em;
+        margin-right: 1em; }
+        @media screen and (max-width: 640px) {
+          .carers-allowance section.finish-statement article.finish-next {
+            margin-right: 0; } }
+      .carers-allowance section.finish-statement article li {
+        font-size: 1.7rem;
+        margin-top: 0.7em !important; }
+        .ie .carers-allowance section.finish-statement article li {
+          font-size: 17px; }
+      .carers-allowance section.finish-statement article p {
+        font-size: 1.7rem;
+        margin-top: .5em; }
+        .ie .carers-allowance section.finish-statement article p {
+          font-size: 17px; }
+    .carers-allowance section.finish-statement .app-complete {
+      text-align: center;
+      background: #28a197;
+      padding: 2em 1em;
+      margin-right: 1em; }
+      .carers-allowance section.finish-statement .app-complete h1 {
+        color: #fff;
+        margin-right: 0;
+        margin-bottom: 0;
+        padding-right: 0; }
+        .carers-allowance section.finish-statement .app-complete h1 span {
+          display: inline-block;
+          background: url("images/white-tick.png") 0 6px no-repeat;
+          padding-left: 44px; }
+      .carers-allowance section.finish-statement .app-complete h2 {
+        color: #fff; }
+      .carers-allowance section.finish-statement .app-complete p {
+        color: #fff; }
+        .carers-allowance section.finish-statement .app-complete p.nino-title {
+          margin-top: 1em; }
+      @media screen and (max-width: 640px) {
+        .carers-allowance section.finish-statement .app-complete {
+          margin-right: 0; } }
     .carers-allowance section h1 {
       font-size: 3.6rem;
       font-weight: 700;
@@ -296,37 +369,37 @@ main {
           font-size: 3rem; }
           .ie .carers-allowance section h1 {
             font-size: 30px; } }
-    .carers-allowance section.response p.intro {
-      padding-right: 20%; }
-      @media screen and (max-width: 700px) {
-        .carers-allowance section.response p.intro {
-          padding-right: 0; } }
+    .carers-allowance section.response h1 {
+      margin-right: 0; }
     .carers-allowance section.response article {
-      float: left;
-      width: 30%;
-      margin: 2em 0 2em 5%; }
-      @media screen and (max-width: 640px) {
+      margin: 2em 0;
+      background-image: url("images/response-trio-xl.png");
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      padding: 0 0 0 8em;
+      min-height: 100px; }
+      @media screen and (max-width: 500px) {
         .carers-allowance section.response article {
-          width: 100%;
-          float: none;
-          margin-left: 0; } }
+          padding: 7em 0 0 0;
+          background-position: center 0; } }
       .carers-allowance section.response article h2 {
         font-size: 2.4rem;
         line-height: 1.3em;
-        background-image: url("images/response-bg.png");
-        background-position: center 0;
-        background-repeat: no-repeat;
-        padding-top: 180px; }
+        padding-top: .3em; }
         .ie .carers-allowance section.response article h2 {
           font-size: 24px; }
       .carers-allowance section.response article p {
-        margin-top: .75em; }
-      .carers-allowance section.response article.partner {
-        margin-left: 0; }
-      .carers-allowance section.response article.earnings h2 {
-        background-position: center -279px; }
-      .carers-allowance section.response article.education h2 {
-        background-position: center -567px; }
+        margin-top: .25em; }
+      .carers-allowance section.response article.earnings {
+        background-position: 0 -756px; }
+        @media screen and (max-width: 500px) {
+          .carers-allowance section.response article.earnings {
+            background-position: center -756px; } }
+      .carers-allowance section.response article.education {
+        background-position: 0 -1500px; }
+        @media screen and (max-width: 500px) {
+          .carers-allowance section.response article.education {
+            background-position: center -1500px; } }
     .ie7 .carers-allowance section.response {
       zoom: 1; }
     .carers-allowance section p {
@@ -379,8 +452,8 @@ main {
         .carers-allowance .completed .start-again a:hover {
           background: #004b27; }
     .carers-allowance .completed ul li {
-      background: #d5e8f3 url("images/progress-tick.png") 1.2em 1.3em no-repeat;
-      border-bottom: 1px solid #b6d6d2;
+      background: #e6eff5 url("images/tick.png") 1.1em 1.3em no-repeat;
+      border-bottom: 1px solid #cdd7dc;
       padding: 1em 11em 1em 2.9em;
       position: relative; }
       @media screen and (max-width: 760px) {
@@ -394,8 +467,8 @@ main {
           font-size: 16px; }
       .carers-allowance .completed ul li p {
         font-size: 1.6rem;
-        font-weight: 700;
-        color: #315843;
+        font-weight: 800;
+        color: #000;
         line-height: 1em;
         margin-top: .4em; }
         .ie .carers-allowance .completed ul li p {
@@ -417,7 +490,7 @@ main {
           margin-top: 10px;
           display: inline-block; }
         .carers-allowance .completed ul li a:hover {
-          color: #315843; }
+          color: #444; }
         @media screen and (max-width: 760px) {
           .carers-allowance .completed ul li a {
             position: relative;
@@ -462,7 +535,8 @@ main {
         .carers-allowance .validation-summary ol a:hover {
           text-decoration: underline; }
   .carers-allowance .form-elements {
-    margin: 2em 18% 0 0;
+    margin: 2em 18% 1em 0;
+    /* Nested fieldset */
     /* form list start */
     /* info panel */
     /* declaration */
@@ -547,6 +621,26 @@ main {
         font-size: 19px; }
       .carers-allowance .form-elements h2:first-child, .carers-allowance .form-elements p.title:first-child {
         padding-top: 0; }
+    .carers-allowance .form-elements .question-group {
+      margin-top: 0;
+      margin-bottom: 0; }
+      .carers-allowance .form-elements .question-group legend {
+        font-size: 1.9rem;
+        font-weight: 400;
+        color: #000;
+        padding-bottom: .34em; }
+        .ie .carers-allowance .form-elements .question-group legend {
+          font-size: 19px; }
+        .carers-allowance .form-elements .question-group legend em {
+          display: inline;
+          font-size: 1.8rem;
+          margin-right: .4rem;
+          font-style: normal; }
+          .ie .carers-allowance .form-elements .question-group legend em {
+            font-size: 18px;
+            margin-right: 4px; }
+      .carers-allowance .form-elements .question-group ul li {
+        padding-top: 0; }
     .carers-allowance .form-elements ul {
       margin-top: 0;
       zoom: 1;
@@ -558,6 +652,12 @@ main {
       /* sort code */
       /* list display - inline with labels stripped */
       /* list display - national insurance number */ }
+      .carers-allowance .form-elements ul.extra-group {
+        border-left: 3px solid #a2a2a2;
+        padding-left: .8em;
+        margin-top: 1em; }
+      .carers-allowance .form-elements ul.circs-group {
+        margin-top: 1em; }
       .carers-allowance .form-elements ul li {
         display: block;
         margin-top: .4rem;
@@ -575,6 +675,9 @@ main {
           .carers-allowance .form-elements ul li.other-detail .strip {
             position: absolute;
             left: -9999px; }
+        .carers-allowance .form-elements ul li.c-help {
+          padding-top: 0;
+          margin-top: 0; }
         .carers-allowance .form-elements ul li.validation {
           background: #fef7f7;
           padding: .7em;
@@ -616,10 +719,10 @@ main {
               width: 12.8rem; }
               .ie .carers-allowance .form-elements ul li.short-field input[type="text"], .ie .carers-allowance .form-elements ul li.short-field input[type="tel"] {
                 width: 128px; } }
-        .carers-allowance .form-elements ul li.date-picker input[type="tel"], .carers-allowance .form-elements ul li.date-picker input[type="date"] {
+        .carers-allowance .form-elements ul li.date-picker input[type="tel"] {
           cursor: pointer;
           position: relative; }
-          .carers-allowance .form-elements ul li.date-picker input[type="tel"]:before, .carers-allowance .form-elements ul li.date-picker input[type="date"]:before {
+          .carers-allowance .form-elements ul li.date-picker input[type="tel"]:before {
             content: "\f073";
             font-size: 16px;
             position: absolute;
@@ -630,7 +733,7 @@ main {
             font-style: normal;
             text-decoration: inherit;
             -webkit-font-smoothing: antialiased; }
-          .ie7 .carers-allowance .form-elements ul li.date-picker input[type="tel"], .ie7 .carers-allowance .form-elements ul li.date-picker input[type="date"] {
+          .ie7 .carers-allowance .form-elements ul li.date-picker input[type="tel"] {
             background: url("../images/date.png") 97% center no-repeat; }
         .carers-allowance .form-elements ul li.currency {
           position: relative; }
@@ -649,7 +752,7 @@ main {
           bottom: 19px; }
         .carers-allowance .form-elements ul li .helper {
           font-size: 1.6rem;
-          margin-top: .4em;
+          margin-top: .5em;
           font-weight: 300; }
           .ie .carers-allowance .form-elements ul li .helper {
             font-size: 16px; }
@@ -661,26 +764,52 @@ main {
             display: block; }
         .carers-allowance .form-elements ul li .helper-more {
           cursor: pointer;
-          display: block;
           font-size: 1.6rem;
           margin: .6em 0 0 0;
           font-weight: 500;
           overflow: hidden;
           line-height: 1em;
-          padding: .35em .7em;
-          border-left: 3px solid #006435;
-          width: 120px; }
-          .ie .carers-allowance .form-elements ul li .helper-more {
-            font-size: 16px; }
+          padding: .5em .7em .45em .7em;
+          border-left: 5px solid #333;
+          color: #000; }
         .carers-allowance .form-elements ul li .helper-info {
           display: none;
-          padding: .7em;
-          background: #d5ecea;
-          border-left: 3px solid #006435; }
-          .carers-allowance .form-elements ul li .helper-info p {
+          padding: 1.3em 1em 1em .8em;
+          background: #f9f9f9;
+          border-left: 5px solid #333; }
+          .carers-allowance .form-elements ul li .helper-info h3 {
             font-size: 1.6rem; }
+            .ie .carers-allowance .form-elements ul li .helper-info h3 {
+              font-size: 16px; }
+          .carers-allowance .form-elements ul li .helper-info p {
+            font-size: 1.6rem;
+            margin-top: 1em;
+            color: #515151;
+            line-height: 1.4em; }
             .ie .carers-allowance .form-elements ul li .helper-info p {
               font-size: 16px; }
+            .carers-allowance .form-elements ul li .helper-info p:first-child {
+              margin: 0; }
+            .carers-allowance .form-elements ul li .helper-info p em, .carers-allowance .form-elements ul li .helper-info p i {
+              font-size: 1.6rem;
+              margin: 0;
+              font-style: italic; }
+              .ie .carers-allowance .form-elements ul li .helper-info p em, .ie .carers-allowance .form-elements ul li .helper-info p i {
+                font-size: 16px; }
+          .carers-allowance .form-elements ul li .helper-info a {
+            color: #2e3191;
+            text-decoration: underline;
+            font-size: 1.6rem; }
+            .carers-allowance .form-elements ul li .helper-info a:hover {
+              color: #2e8aca; }
+          .carers-allowance .form-elements ul li .helper-info ul li {
+            margin: 0;
+            padding: .65em 0;
+            font-size: 1.6rem;
+            border-top: 1px dotted #e8e8e8;
+            color: #626262; }
+            .carers-allowance .form-elements ul li .helper-info ul li:first-child {
+              border: 0; }
         .carers-allowance .form-elements ul li label, .carers-allowance .form-elements ul li p {
           display: block;
           font-size: 1.9rem;
@@ -700,7 +829,7 @@ main {
             .ie .carers-allowance .form-elements ul li label em, .ie .carers-allowance .form-elements ul li p em {
               font-size: 18px;
               margin-right: 4px; }
-        .carers-allowance .form-elements ul li input[type="text"], .carers-allowance .form-elements ul li input[type="number"], .carers-allowance .form-elements ul li input[type="tel"], .carers-allowance .form-elements ul li input[type="date"], .carers-allowance .form-elements ul li textarea {
+        .carers-allowance .form-elements ul li input[type="text"], .carers-allowance .form-elements ul li input[type="number"], .carers-allowance .form-elements ul li input[type="tel"], .carers-allowance .form-elements ul li textarea {
           background: #f9f9f9;
           border: 1px solid #a2a2a2;
           font-size: 1.9rem;
@@ -710,21 +839,21 @@ main {
           padding: 0.25em 0 0.1em 0.4em;
           width: 28.3rem; }
           @media screen and (max-width: 500px) {
-            .carers-allowance .form-elements ul li input[type="text"], .carers-allowance .form-elements ul li input[type="number"], .carers-allowance .form-elements ul li input[type="tel"], .carers-allowance .form-elements ul li input[type="date"], .carers-allowance .form-elements ul li textarea {
+            .carers-allowance .form-elements ul li input[type="text"], .carers-allowance .form-elements ul li input[type="number"], .carers-allowance .form-elements ul li input[type="tel"], .carers-allowance .form-elements ul li textarea {
               width: 96%; } }
-          .ie .carers-allowance .form-elements ul li input[type="text"], .ie .carers-allowance .form-elements ul li input[type="number"], .ie .carers-allowance .form-elements ul li input[type="tel"], .ie .carers-allowance .form-elements ul li input[type="date"], .ie .carers-allowance .form-elements ul li textarea {
+          .ie .carers-allowance .form-elements ul li input[type="text"], .ie .carers-allowance .form-elements ul li input[type="number"], .ie .carers-allowance .form-elements ul li input[type="tel"], .ie .carers-allowance .form-elements ul li textarea {
             font-size: 19px;
             width: 283px; }
-          .carers-allowance .form-elements ul li input[type="text"].postcode, .carers-allowance .form-elements ul li input[type="number"].postcode, .carers-allowance .form-elements ul li input[type="tel"].postcode, .carers-allowance .form-elements ul li input[type="date"].postcode, .carers-allowance .form-elements ul li textarea.postcode {
+          .carers-allowance .form-elements ul li input[type="text"].postcode, .carers-allowance .form-elements ul li input[type="number"].postcode, .carers-allowance .form-elements ul li input[type="tel"].postcode, .carers-allowance .form-elements ul li textarea.postcode {
             text-transform: uppercase; }
-          .ie7 .carers-allowance .form-elements ul li input[type="text"], .ie8 .carers-allowance .form-elements ul li input[type="text"], .ie7 .carers-allowance .form-elements ul li input[type="number"], .ie8 .carers-allowance .form-elements ul li input[type="number"], .ie7 .carers-allowance .form-elements ul li input[type="tel"], .ie8 .carers-allowance .form-elements ul li input[type="tel"], .ie7 .carers-allowance .form-elements ul li input[type="date"], .ie8 .carers-allowance .form-elements ul li input[type="date"], .ie7 .carers-allowance .form-elements ul li textarea, .ie8 .carers-allowance .form-elements ul li textarea {
+          .ie7 .carers-allowance .form-elements ul li input[type="text"], .ie8 .carers-allowance .form-elements ul li input[type="text"], .ie7 .carers-allowance .form-elements ul li input[type="number"], .ie8 .carers-allowance .form-elements ul li input[type="number"], .ie7 .carers-allowance .form-elements ul li input[type="tel"], .ie8 .carers-allowance .form-elements ul li input[type="tel"], .ie7 .carers-allowance .form-elements ul li textarea, .ie8 .carers-allowance .form-elements ul li textarea {
             padding: 0.2em 0 0.4em 0.4em; }
-          .carers-allowance .form-elements ul li input[type="text"].datepicker, .carers-allowance .form-elements ul li input[type="number"].datepicker, .carers-allowance .form-elements ul li input[type="tel"].datepicker, .carers-allowance .form-elements ul li input[type="date"].datepicker, .carers-allowance .form-elements ul li textarea.datepicker {
+          .carers-allowance .form-elements ul li input[type="text"].datepicker, .carers-allowance .form-elements ul li input[type="number"].datepicker, .carers-allowance .form-elements ul li input[type="tel"].datepicker, .carers-allowance .form-elements ul li textarea.datepicker {
             cursor: pointer;
             background: #f9f9f9 url("images/calendar-icon.png") 97% 50% no-repeat;
             position: relative;
             z-index: 20; }
-            .ie7 .carers-allowance .form-elements ul li input[type="text"].datepicker, .ie7 .carers-allowance .form-elements ul li input[type="number"].datepicker, .ie7 .carers-allowance .form-elements ul li input[type="tel"].datepicker, .ie7 .carers-allowance .form-elements ul li input[type="date"].datepicker, .ie7 .carers-allowance .form-elements ul li textarea.datepicker {
+            .ie7 .carers-allowance .form-elements ul li input[type="text"].datepicker, .ie7 .carers-allowance .form-elements ul li input[type="number"].datepicker, .ie7 .carers-allowance .form-elements ul li input[type="tel"].datepicker, .ie7 .carers-allowance .form-elements ul li textarea.datepicker {
               cursor: auto;
               background: #f9f9f9; }
         .carers-allowance .form-elements ul li input[type="radio"] {
@@ -802,7 +931,7 @@ main {
               display: inline; }
           .carers-allowance .form-elements ul.radio li label {
             display: block;
-            background: #eee;
+            background: #e8e8e8;
             padding: 12px 14px 10px 34px;
             font-size: 1.7rem;
             cursor: pointer;
@@ -826,6 +955,16 @@ main {
             -o-transition: all 200ms ease-in;
             transition: all 200ms ease-in;
             border: 1px solid #a2a2a2; }
+        .carers-allowance .form-elements ul.radio.radio-stack li {
+          float: none;
+          margin: 4px 0 0 0; }
+          .carers-allowance .form-elements ul.radio.radio-stack li:first-child {
+            margin-top: 0; }
+          .carers-allowance .form-elements ul.radio.radio-stack li label {
+            display: inline-block; }
+            @media screen and (max-width: 480px) {
+              .carers-allowance .form-elements ul.radio.radio-stack li label {
+                display: block; } }
       .carers-allowance .form-elements ul.address-stack label {
         position: absolute;
         left: -9999px; }
@@ -954,8 +1093,8 @@ main {
             .ie .carers-allowance .form-elements ul.ni-number input[type="text"], .ie .carers-allowance .form-elements ul.ni-number input[type="tel"] {
               width: 42px; } }
     .carers-allowance .form-elements .info {
-      background: #bde4f6;
-      border: 1px solid #015399;
+      background: #fff;
+      border: 1px solid #a2a2a2;
       padding: 1em 1.25em;
       margin-top: 1.2em; }
       .carers-allowance .form-elements .info p {
@@ -989,20 +1128,22 @@ main {
         margin-right: .25em; }
     .carers-allowance .form-elements .declare {
       margin-top: 2em;
+      clear: both;
       position: relative; }
+      @media print {
+        .carers-allowance .form-elements .declare {
+          display: none; } }
       .carers-allowance .form-elements .declare label {
         display: block;
-        padding: 1em 1em 1em 2.3em;
-        background: #eee;
+        padding: 1.5em 1em 1.5em 2.3em;
+        background: #fff;
         font-size: 1.7rem;
         line-height: 1.25em;
         cursor: pointer;
-        border: 1px solid #a2a2a2; }
-        .ie .carers-allowance .form-elements .declare label {
-          font-size: 17px; }
+        border: 1px solid #ddd; }
       .carers-allowance .form-elements .declare input {
         position: absolute;
-        top: 17px;
+        top: 24px;
         left: 1.1em; }
         .carers-allowance .form-elements .declare input[type=checkbox]:checked + label {
           background: #fff;
@@ -1010,18 +1151,34 @@ main {
           -moz-transition: all 200ms ease-in;
           -ms-transition: all 200ms ease-in;
           -o-transition: all 200ms ease-in;
-          transition: all 200ms ease-in; }
-        .ie .carers-allowance .form-elements .declare input {
-          left: .8em; }
+          transition: all 200ms ease-in;
+          border: 1px solid #a2a2a2; }
       .carers-allowance .form-elements .declare.secondary {
         margin-top: 1em; }
+      .carers-allowance .form-elements .declare.validation-check {
+        border-left: 3px solid #df3034;
+        background: #fef7f7; }
+        .carers-allowance .form-elements .declare.validation-check label {
+          border: 0;
+          background: #fef7f7;
+          padding-top: 0; }
+        .carers-allowance .form-elements .declare.validation-check input {
+          top: 45px; }
+          .carers-allowance .form-elements .declare.validation-check input[type=checkbox]:checked + label {
+            background: #fef7f7; }
+        .carers-allowance .form-elements .declare.validation-check .error {
+          font-size: 1.6rem;
+          color: #df3034;
+          padding: 1em 0 .5em .8em; }
+          .ie .carers-allowance .form-elements .declare.validation-check .error {
+            font-size: 16px; }
     .carers-allowance .form-elements .dec ul {
-      margin: 0 0 0 1.3em;
+      margin: 2em 2.5em 0 2.65em;
       list-style: disc; }
       .carers-allowance .form-elements .dec ul li {
         line-height: 1.4em;
         padding: 0;
-        margin: 1em 0 0 0;
+        margin: 1.4em 0 0 0;
         font-size: 1.7rem;
         display: list-item; }
         .carers-allowance .form-elements .dec ul li:first-child {
@@ -1151,8 +1308,12 @@ main {
               font-size: 38px; } }
     .carers-allowance .prompt.entitlement {
       background: #fff;
-      border: 1px solid #a2a2a2; }
+      border: 1px solid #a2a2a2;
+      margin-top: 1.5em; }
+      .carers-allowance .prompt.entitlement p {
+        font-weight: 600; }
     .carers-allowance .prompt.entitlement-error {
+      margin-top: 1.5em;
       background: #fef7f7;
       border: 3px solid #df3034; }
     .carers-allowance .prompt.breaks-prompt {
@@ -1193,6 +1354,17 @@ main {
               font-size: 38px; } }
     .carers-allowance .prompt.breaks-error-prompt {
       margin: 0; }
+    .carers-allowance .prompt.table-helper {
+      margin: 1em 1.15em 0 0;
+      border: 1px dotted #bfc1c3;
+      background: #f8f8f8; }
+      @media screen and (max-width: 640px) {
+        .carers-allowance .prompt.table-helper {
+          margin-right: 0; } }
+      .carers-allowance .prompt.table-helper p {
+        font-size: 1.6rem; }
+        .ie .carers-allowance .prompt.table-helper p {
+          font-size: 16px; }
     .carers-allowance .prompt.eligibility-prompt {
       margin-left: 0; }
       .carers-allowance .prompt.eligibility-prompt p {
@@ -1252,6 +1424,10 @@ main {
         width: auto;
         display: block;
         padding: .4em 1em; }
+    .carers-allowance .form-steps li {
+      margin-top: 1.6em; }
+      .carers-allowance .form-steps li:first-child {
+        margin-top: 0; }
   .carers-allowance .button {
     font-size: 1.9rem;
     line-height: 1em;
@@ -1385,6 +1561,98 @@ main {
 .content-panel {
   margin-top: 2em; }
 
+.coc-layout li label {
+  padding-right: 12em; }
+  @media screen and (max-width: 760px) {
+    .coc-layout li label {
+      padding-right: 0; } }
+
+.assistive-info {
+  padding: 2em;
+  background: #333; }
+  .assistive-info a {
+    color: white !important;
+    /* temp */ }
+    .assistive-info a:hover {
+      color: #cccccc !important;
+      /* temp */ }
+  .assistive-info h1 {
+    color: #fff;
+    display: block;
+    line-height: 1.4em; }
+  .assistive-info p {
+    color: #ccc; }
+  .assistive-info table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2em 0 3em 0; }
+    .assistive-info table caption {
+      text-align: left;
+      font-size: 20px;
+      font-weight: 600;
+      padding-bottom: 1em;
+      color: #fff; }
+    .assistive-info table th {
+      text-align: left;
+      padding: .5em .6em;
+      color: #eee; }
+    .assistive-info table td {
+      border: 1px solid #666;
+      background: #fff;
+      padding: .8em .6em;
+      -webkit-transition: all .5s ease-out;
+      -moz-transition: all .5s ease;
+      -o-transition: all .5s ease; }
+      .assistive-info table td:nth-child(even) {
+        background: #f3f3f3; }
+      .assistive-info table td:hover {
+        background: #ddd; }
+      .assistive-info table td span {
+        text-indent: -9999px;
+        display: inline-block;
+        font-size: 0; }
+
+.review {
+  padding-bottom: 3em; }
+  .review .intro {
+    margin-top: 1.6em;
+    padding-right: 18em; }
+    @media screen and (max-width: 800px) {
+      .review .intro {
+        padding-right: 0; } }
+  .review h2 {
+    margin-top: 1.8em; }
+  .review dl {
+    border-bottom: 1px solid #ccc; }
+    .review dl dt, .review dl dd {
+      display: inline-block;
+      width: 25%;
+      margin: 0;
+      padding: 8px 0 6px 0;
+      border-top: 1px solid #ccc;
+      font-size: 18px;
+      vertical-align: top;
+      line-height: 1.2em; }
+      @media screen and (max-width: 640px) {
+        .review dl dt, .review dl dd {
+          float: none;
+          display: block;
+          width: 100%;
+          font-weight: 800;
+          padding: 8px 0 0 0; } }
+    .review dl dd {
+      width: 72%;
+      padding-left: 3%;
+      margin-left: -4px; }
+      @media screen and (max-width: 640px) {
+        .review dl dd {
+          width: 100%;
+          font-weight: 300;
+          border-top: none;
+          padding: 0 0 6px 0;
+          padding-left: 0;
+          margin-left: 0; } }
+
 /* ==========================================================================
    clearfix
    ========================================================================== */
@@ -1402,7 +1670,9 @@ main {
 @-moz-document url-prefix() {
   .radio input[type="radio"] {
     top: 15px !important;
-    left: 12px !important; } }
+    /* temp */
+    left: 12px !important;
+    /* temp */ } }
 
 /* Header - Global Overrides - inc !important overrides */
 html {
