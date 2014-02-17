@@ -1,4 +1,4 @@
-package services.submission
+package submission
 
 import play.api.libs.ws
 import scala.concurrent.Future

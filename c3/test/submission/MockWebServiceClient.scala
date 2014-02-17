@@ -5,9 +5,8 @@ import scala.concurrent.{ExecutionContext, Future}
 import play.api.libs.ws.Response
 import ExecutionContext.Implicits.global
 import play.api.{Logger, http}
-import services.submission.FormSubmission
 
-class MockFormSubmission extends FormSubmission {
+class MockWebServiceClient extends FormSubmission {
 
   def submitClaim(claimSubmission: Elem): Future[Response] = {
     val txnId = claimSubmission \ "@id" toString()
