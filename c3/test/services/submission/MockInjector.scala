@@ -10,6 +10,7 @@ import java.io.File
 import com.typesafe.config.ConfigFactory
 import scala.language.existentials
 import submission.FormSubmission
+import models.domain.Claim
 
 trait MockInjector {
   // used to create different test conditions
@@ -35,7 +36,7 @@ trait MockInjector {
     Map(
       controller[ClaimSubmissionController](new ClaimSubmissionController {
         override val webServiceClient = new WebServiceClient {
-          override def submitClaim(claimSubmission: Elem): Future[Response] = mockSubmission.submitClaim(claimSubmission)
+          override def submitClaim(claim: Claim, txnId:String): Future[Response] = mockSubmission.submitClaim(claim, txnId)
         }
         override val claimTransaction = new ClaimTransaction {
           override def generateId: String = txnId
@@ -51,7 +52,7 @@ trait MockInjector {
       }),
       controller[ChangeOfCircsSubmissionController](new ChangeOfCircsSubmissionController {
         override val webServiceClient = new WebServiceClient {
-          override def submitClaim(claimSubmission: Elem): Future[Response] = mockSubmission.submitClaim(claimSubmission)
+          override def submitClaim(claim: Claim, txnId:String): Future[Response] = mockSubmission.submitClaim(claim, txnId)
         }
         override val claimTransaction = new ClaimTransaction {
           override def generateId: String = txnId

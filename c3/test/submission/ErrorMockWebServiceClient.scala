@@ -1,16 +1,15 @@
 package submission
 
-import scala.xml.Elem
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.libs.ws.Response
 import ExecutionContext.Implicits.global
 import play.api.{Logger, http}
 import services.UnavailableTransactionIdException
+import models.domain.Claim
 
 class ErrorMockWebServiceClient extends FormSubmission {
 
-  def submitClaim(claimSubmission: Elem): Future[Response] = {
-    val txnId = claimSubmission \ "@id" toString()
+  def submitClaim(claim: Claim, txnId:String): Future[Response] = {
     Logger.info(s"Claim submitting mock transactionId : $txnId")
     val resp =
       txnId match {
