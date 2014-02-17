@@ -2,7 +2,7 @@ package controllers.circs.s2_report_changes
 
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import models.domain.{CircumstancesSelfEmployment, CircumstancesOtherInfo}
 import utils.helpers.CarersForm._
@@ -16,7 +16,7 @@ object G2SelfEmployment extends Controller with CachedChangeOfCircs with Navigab
       "answer" -> nonEmptyText.verifying(validYesNo),
       "date" -> optional(dayMonthYear.verifying(validDate))
     )(YesNoWithDate.apply)(YesNoWithDate.unapply)
-      .verifying("required", YesNoWithDate.validateNo _)
+      .verifying("dateRequired", YesNoWithDate.validateNo _)
 
   val form = Form(mapping(
     stillCaringMapping,
@@ -34,7 +34,10 @@ object G2SelfEmployment extends Controller with CachedChangeOfCircs with Navigab
 
   def submit = claiming { implicit circs => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.circs.s2_report_changes.g2_selfEmployment(formWithErrors)),
+      formWithErrors => {
+        val updatedFormWithErrors = formWithErrors.replaceError("stillCaring","dateRequired", FormError("stillCaring.date", "error.required"))
+        BadRequest(views.html.circs.s2_report_changes.g2_selfEmployment(updatedFormWithErrors))
+      },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )
   }

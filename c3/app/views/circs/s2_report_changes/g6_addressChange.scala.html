@@ -42,7 +42,7 @@
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        yesNoRadioGroup(addressForm("sameAddress")("answer"))
+                        yesNoRadioGroup(addressForm("sameAddress.answer"))
                     ),
                     'id -> "changedAddressSame",
                     'display -> {if (addressForm("caredForChangedAddress.answer").value.getOrElse("yes") == "yes") "yes" else "no" }
