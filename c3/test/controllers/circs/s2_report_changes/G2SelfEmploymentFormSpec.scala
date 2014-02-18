@@ -63,7 +63,7 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
         )
       ).fold(
           formWithErrors => {
-            formWithErrors.errors(0).message must equalTo("required")
+            formWithErrors.errors(0).message must equalTo("dateRequired")
             formWithErrors.errors(1).message must equalTo("error.required")
             formWithErrors.errors(2).message must equalTo("error.required")
             formWithErrors.errors(3).message must equalTo("error.required")
