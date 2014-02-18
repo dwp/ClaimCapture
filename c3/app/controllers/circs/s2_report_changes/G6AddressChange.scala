@@ -8,7 +8,7 @@ import controllers.Mappings._
 import models.view.{CachedChangeOfCircs, Navigable}
 import utils.helpers.CarersForm._
 import models.domain._
-import models.yesNo.{YesNoWithText, YesNoWithAddress, YesNoWithDateAndQs}
+import models.yesNo.{YesNoWithAddress, YesNoWithDateAndQs, OptYesNoWithText}
 import controllers.CarersForms._
 
 object G6AddressChange extends Controller with CachedChangeOfCircs with Navigable  {
@@ -22,17 +22,17 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
 
   val changedAddressMapping =
     "caredForChangedAddress" -> mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo),
+      "answer" -> optional(carersText()),
       "sameAddress" -> optional(text verifying validYesNo)
-    )(YesNoWithText.apply)(YesNoWithText.unapply)
+    )(OptYesNoWithText.apply)(OptYesNoWithText.unapply)
 
   val sameAddressMapping =
     "sameAddress" -> mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo),
+      "answer" -> optional(carersText()),
       "theirNewAddress" -> optional(address.verifying(requiredAddress)),
       "theirNewPostcode" -> optional(text verifying validPostcode)
     )(YesNoWithAddress.apply)(YesNoWithAddress.unapply)
-      .verifying("theirNewAddressRequired", YesNoWithAddress.validateOnNo _)
+     // .verifying("theirNewAddressRequired", YesNoWithAddress.validateOnNo _)
 
   val form = Form(mapping(
     stillCaringMapping,
@@ -41,7 +41,32 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
     changedAddressMapping,
     sameAddressMapping,
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
-  )(CircumstancesAddressChange.apply)(CircumstancesAddressChange.unapply))
+  )(CircumstancesAddressChange.apply)(CircumstancesAddressChange.unapply)
+    .verifying("sameAddress.answer", validateSameAddress _)
+    .verifying("sameAddress.theirNewAddress", validateTheirNewAddress _)
+  )
+
+  def validateSameAddress(form: CircumstancesAddressChange) = {
+    form.caredForChangedAddress.answer match {
+      case Some(`yes`) => form.sameAddress.answer.isDefined
+      case _ => true
+    }
+  }
+
+  def validateTheirNewAddress(form: CircumstancesAddressChange) = {
+//    if((form.stillCaring.answer == Some("yes")) &&
+//    (form.sameAddress.answer == Some("no")))
+//      form.sameAddress.address.isDefined
+//    else true
+
+    form.stillCaring.answer match {
+      case `yes` => {
+        if(form.sameAddress.answer == Some("no")) form.sameAddress.address.isDefined
+        else true
+      }
+      case _ => true
+    }
+  }
 
   def present = claiming { implicit circs => implicit request =>
     track(CircumstancesAddressChange) {
@@ -54,8 +79,9 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
           .replaceError("stillCaring","dateRequired", FormError("stillCaring.date", "error.required"))
-          .replaceError("caredForChangedAddress","sameAddressRequired", FormError("caredForChangedAddress.sameAddress", "error.required"))
-          .replaceError("sameAddress","theirNewAddressRequired", FormError("sameAddress.theirNewAddress", "error.required"))
+          .replaceError("","sameAddress.answer", FormError("sameAddress.answer", "error.required"))
+          .replaceError("","sameAddress.theirNewAddress", FormError("sameAddress.theirNewAddress", "error.required"))
+          //.replaceError("sameAddress","theirNewAddressRequired", FormError("sameAddress.theirNewAddress", "error.required"))
         BadRequest(views.html.circs.s2_report_changes.g6_addressChange(updatedFormWithErrors))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())

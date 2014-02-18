@@ -34,18 +34,18 @@
                 @carersInputText(addressForm("newPostcode"), 'class -> "postcode")
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(yesNoRadioGroup(addressForm("caredForChangedAddress.answer"))
+                    inputDef = Seq(yesNoRadioGroup(addressForm("caredForChangedAddress.answer"), 'ignoreOptional -> true)
                     ),
                     'id -> "stillCaringAddress",
-                    'display -> {if (addressForm("stillCaring.answer").value.getOrElse("yes") == "yes") "yes" else "no" }
+                    'display -> {if (addressForm("stillCaring.answer").value.getOrElse("no") == "yes") "yes" else "no" }
                     )
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        yesNoRadioGroup(addressForm("sameAddress.answer"))
+                        yesNoRadioGroup(addressForm("sameAddress.answer"), 'ignoreOptional -> true)
                     ),
                     'id -> "changedAddressSame",
-                    'display -> {if (addressForm("caredForChangedAddress.answer").value.getOrElse("yes") == "yes") "yes" else "no" }
+                    'display -> {if (addressForm("caredForChangedAddress.answer").value.getOrElse("no") == "yes") "yes" else "no" }
                 )
 
                 @otherDetailPlaceHolder(
