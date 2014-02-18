@@ -21,7 +21,7 @@
         <fieldset class="form-elements">
             <legend>@Messages("c2.g5")</legend>
 
-            <ul>
+            <ul class="coc-layout">
                 @yesNoRadioGroup(currentForm("currentlyPaidIntoBank.answer"),
                     '_label -> Messages("currentlyPaidIntoBank.label"))
 
@@ -48,7 +48,7 @@
 
             <legend>@Messages("c2.g5.newPaymentDetails")</legend>
 
-            <ul>
+            <ul class="coc-layout">
                 @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
 
                 @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> "Please Select", YourName.name -> "Your name", Yourpartner.name -> "Your partner's name", Both.name  -> "Both you and your partner", PersonActingBehalf.name -> "Person acting on your behalf", YouPersonBehalf.name -> "You and the person acting on behalf"))
@@ -76,8 +76,13 @@
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g5_paymentChange.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 <script type="text/javascript">
+$(function(){
+window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+})
+
 $(function(){
 window.initEvents("@CarersCrypto.encryptAES("currentlyPaidIntoBank_answer_yes")",
 "@CarersCrypto.encryptAES("currentlyPaidIntoBank_answer_no")",
