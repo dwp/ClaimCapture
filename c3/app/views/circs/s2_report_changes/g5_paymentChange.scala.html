@@ -32,7 +32,7 @@
                             'maxLength -> 35)
                     ),
                     'id -> "currentlyPaidIntoBankWrap1",
-                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "no") "yes" else "no" }
+                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "yes") "yes" else "no" }
                 )
 
                 @otherDetailPlaceHolder(
@@ -42,10 +42,11 @@
                             'maxLength -> 35)
                     ),
                     'id -> "currentlyPaidIntoBankWrap2",
-                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "yes") "yes" else "no" }
+                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "no") "yes" else "no" }
                 )
             </ul>
-
+        </fieldset>
+        <fieldset class="form-elements">
             <legend>@Messages("c2.g5.newPaymentDetails")</legend>
 
             <ul class="coc-layout">
