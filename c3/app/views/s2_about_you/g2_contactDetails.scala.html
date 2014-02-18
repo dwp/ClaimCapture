@@ -5,7 +5,7 @@
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.base._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.{Messages => Messages}
 
 @main(Messages("s2.g2") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ContactDetails)) {
     @errorsSummary(contactDetailsForm)

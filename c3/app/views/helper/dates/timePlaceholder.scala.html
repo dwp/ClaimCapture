@@ -4,7 +4,7 @@
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper.base._
 @import scala.language.postfixOps
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.{Messages => Messages}
 
 <p>@args.find(_._1=='timeLabel).getOrElse(Messages(field.name+".time"))@if(!field("hour").constraints.find(_._1 == "constraint.required")) {<em>(optional)</em>}</p>
 <ul class="inline year">

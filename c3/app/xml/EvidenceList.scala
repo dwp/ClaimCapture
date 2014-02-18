@@ -7,7 +7,7 @@ import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 import app.XMLValues._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
-import play.api.i18n.{MMessages => Messages}
+import play.api.i18n.{Messages => Messages}
 import controllers.Mappings
 
 object EvidenceList {

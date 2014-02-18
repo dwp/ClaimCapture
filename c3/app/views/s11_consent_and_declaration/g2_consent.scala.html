@@ -10,7 +10,7 @@
 @import views.html.helper.dates._
 @import models.domain._
 @import controllers.Mappings._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.{Messages => Messages}
 
 @main(Messages("s11.g2") + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Consent)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G2Consent.submit) {

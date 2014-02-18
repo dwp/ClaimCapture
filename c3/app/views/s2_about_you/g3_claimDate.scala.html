@@ -5,7 +5,7 @@
 @import views.html.common._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.dates._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.{Messages => Messages}
 
 @main("Your claim date" + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
     @errorsSummary(claimDateForm)

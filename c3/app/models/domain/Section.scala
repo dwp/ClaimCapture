@@ -1,6 +1,6 @@
 package models.domain
 
-import play.api.i18n.{MMessages => Messages}
+import play.api.i18n.{Messages => Messages}
 
 case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil, visible: Boolean = true) {
   def name = Messages(identifier.id + ".name")

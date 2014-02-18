@@ -1,5 +1,5 @@
 @(elements: helper.FieldElements)
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.{Messages => Messages}
 
 @if(elements.hasErrors) {
     <p class="error">@elements.errors.mkString(", ")</p>

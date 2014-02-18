@@ -6,7 +6,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import models.domain.{AbroadForMoreThan52Weeks, FiftyTwoWeeksTrip, Trips, Trip}
 import utils.helpers.CarersForm._
-import play.api.i18n.{MMessages => Messages}
+import play.api.i18n.{Messages => Messages}
 import models.DayMonthYear
 import AboutYou.trips
 import controllers.Mappings._
