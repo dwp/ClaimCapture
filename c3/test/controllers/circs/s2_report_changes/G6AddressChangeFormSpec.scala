@@ -38,11 +38,11 @@ class G6AddressChangeFormSpec extends Specification with Tags {
       ).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           form => {
-            form.stillCaringMapping.answer must equalTo(yes)
+            form.stillCaring.answer must equalTo(yes)
             form.newAddress must equalTo(MultiLineAddress(Some(addressLineOne), Some(addressLineTwo), Some(addressLineThree)))
             form.newPostcode must equalTo(Some(newPostcode))
-            form.caredForChangedAddress.answer must equalTo(yes)
-            form.sameAddress.answer must equalTo(yes)
+            form.caredForChangedAddress.answer must equalTo(Some(yes))
+            form.sameAddress.answer must equalTo(Some(yes))
             form.moreAboutChanges must equalTo(Some(moreAboutChanges))
           }
         )
@@ -55,8 +55,6 @@ class G6AddressChangeFormSpec extends Specification with Tags {
           formWithErrors => {
             formWithErrors.errors(0).message must equalTo("error.required")
             formWithErrors.errors(1).message must equalTo("error.required")
-            formWithErrors.errors(2).message must equalTo("error.required")
-            formWithErrors.errors(3).message must equalTo("error.required")
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )

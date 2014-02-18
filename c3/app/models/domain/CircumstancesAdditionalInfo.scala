@@ -64,11 +64,11 @@ object CircumstancesPaymentChange extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g5"
 }
 
-case class CircumstancesAddressChange(stillCaringMapping: YesNoWithDateAndQs = YesNoWithDateAndQs("", None, None),
+case class CircumstancesAddressChange(stillCaring: YesNoWithDateAndQs = YesNoWithDateAndQs("", None, None),
                                       newAddress: MultiLineAddress = new MultiLineAddress(),
                                       newPostcode: Option[String] = None,
-                                      caredForChangedAddress: YesNoWithText = YesNoWithText("", None),
-                                      sameAddress: YesNoWithAddress = YesNoWithAddress("", None),
+                                      caredForChangedAddress: OptYesNoWithText = OptYesNoWithText(None, None),
+                                      sameAddress: YesNoWithAddress = YesNoWithAddress(None, None),
                                       moreAboutChanges: Option[String] = None) extends QuestionGroup(ContactDetails)
 
 object CircumstancesAddressChange extends QuestionGroup.Identifier {
