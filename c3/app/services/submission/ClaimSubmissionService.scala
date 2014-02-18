@@ -20,7 +20,7 @@ trait ClaimSubmissionService {
     val txnID = claimTransaction.generateId
     Logger.info(s"Retrieved Id : $txnID")
 
-    webServiceClient.submitClaim(xml(claim, txnID)).map(
+    webServiceClient.submitClaim(claim, txnID).map(
       response => {
         registerId(claim, txnID, SUBMITTED)
         processResponse(claim, txnID, response, request)
