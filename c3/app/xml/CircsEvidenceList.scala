@@ -80,6 +80,8 @@ object CircsEvidenceList {
           buffer ++= textLine(Messages("currentlyPaidIntoBank.text2.label") + " = " + paymentChange.currentlyPaidIntoBank.text2.get)
         }
 
+        buffer ++= textSeparatorLine(Messages("c2.g5.newPaymentDetails"))
+
         buffer ++= textLine(Messages("accountHolderName") + " = " + paymentChange.accountHolderName)
 
         buffer ++= textLine(Messages("whoseNameIsTheAccountIn") + " = " + paymentChange.whoseNameIsTheAccountIn)
