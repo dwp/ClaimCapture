@@ -1,14 +1,14 @@
 package controllers.circs.s2_report_changes
 
 import language.reflectiveCalls
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
 import models.view.{CachedChangeOfCircs, Navigable}
 import utils.helpers.CarersForm._
 import models.domain._
-import models.yesNo.{YesNoWithAddress, YesNoWithDateAndQs, YesNoWithText}
+import models.yesNo.{YesNoWithText, YesNoWithAddress, YesNoWithDateAndQs}
 import controllers.CarersForms._
 
 object G6AddressChange extends Controller with CachedChangeOfCircs with Navigable  {
@@ -18,14 +18,13 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
       "date" -> optional(dayMonthYear.verifying(validDate)),
       "caredForChangedAddress" -> optional(text verifying validYesNo)
     )(YesNoWithDateAndQs.apply)(YesNoWithDateAndQs.unapply)
-      .verifying("required", YesNoWithDateAndQs.validateNo _)
+      .verifying("dateRequired", YesNoWithDateAndQs.validateDateOnNo _)
 
   val changedAddressMapping =
     "caredForChangedAddress" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
       "sameAddress" -> optional(text verifying validYesNo)
     )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("required", YesNoWithText.validateOnNo _)
 
   val sameAddressMapping =
     "sameAddress" -> mapping(
@@ -33,7 +32,7 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
       "theirNewAddress" -> optional(address.verifying(requiredAddress)),
       "theirNewPostcode" -> optional(text verifying validPostcode)
     )(YesNoWithAddress.apply)(YesNoWithAddress.unapply)
-      .verifying("required", YesNoWithAddress.validateOnNo _)
+      .verifying("theirNewAddressRequired", YesNoWithAddress.validateOnNo _)
 
   val form = Form(mapping(
     stillCaringMapping,
@@ -52,7 +51,13 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
 
   def submit = claiming { implicit circs => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.circs.s2_report_changes.g6_addressChange(formWithErrors)),
+      formWithErrors => {
+        val updatedFormWithErrors = formWithErrors
+          .replaceError("stillCaring","dateRequired", FormError("stillCaring.date", "error.required"))
+          .replaceError("caredForChangedAddress","sameAddressRequired", FormError("caredForChangedAddress.sameAddress", "error.required"))
+          .replaceError("sameAddress","theirNewAddressRequired", FormError("sameAddress.theirNewAddress", "error.required"))
+        BadRequest(views.html.circs.s2_report_changes.g6_addressChange(updatedFormWithErrors))
+      },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )
   }

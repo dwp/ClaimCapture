@@ -7,19 +7,11 @@ case class YesNoWithAddress(answer: String = "", address: Option[MultiLineAddres
 
 object YesNoWithAddress {
 
-  def validateOnYes(input: YesNoWithAddress): Boolean = input.answer match {
-    case `yes` =>
-      input.address.isDefined
-      input.postCode.isDefined
-    case `no` => true
-  }
-
   def validateOnNo(input: YesNoWithAddress): Boolean = input.answer match {
     case `yes` => true
     case `no` =>
       input.address.isDefined
-      input.postCode.isDefined
   }
 
-  def validateAnswerNotEmpty(input: YesNoWithDate): Boolean = !input.answer.isEmpty
+  def validateAnswerNotEmpty(input: YesNoWithAddress): Boolean = !input.answer.isEmpty
 }

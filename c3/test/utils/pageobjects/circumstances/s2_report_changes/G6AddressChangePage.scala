@@ -7,12 +7,15 @@ import play.api.test.WithBrowser
  * Created by neddakaltcheva on 2/14/14.
  */
 final class G6AddressChangePage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G6AddressChangePage.url, G6AddressChangePage.title) {
-  declareYesNo("#stillCaring", "CircumstancesSelfEmploymentStillCaring")
-  declareDate("#stillCaring_date", "CircumstancesSelfEmploymentFinishedStillCaringDate")
-  declareDate("#whenThisSelfEmploymentStarted", "CircumstancesSelfEmploymentWhenThisStarted")
-  declareInput("#typeOfBusiness", "CircumstancesSelfEmploymentTypeOfBusiness")
-  declareYesNoDontKnow("#totalOverWeeklyIncomeThreshold", "CircumstancesSelfEmploymentTotalOverWeeklyIncomeThreshold")
-  declareInput("#moreAboutChanges", "CircumstancesSelfEmploymentCaringMoreAboutChanges")
+  declareYesNo("#stillCaring_answer", "CircumstancesAddressChangeStillCaring")
+  declareDate("#stillCaring_date", "CircumstancesAddressChangeFinishedStillCaringDate")
+  declareAddress("#newAddress", "CircumstancesAddressChangeNewAddress")
+  declareInput("#newPostcode", "CircumstancesAddressChangeNewPostcode")
+  declareYesNo("#caredForChangedAddress_answer", "CircumstancesAddressChangeCaredForChangedAddress")
+  declareYesNo("#sameAddress_answer", "CircumstancesAddressChangeSameAddress")
+  declareInput("#sameAddress_theirNewAddress", "CircumstancesAddressChangeSameAddressTheirNewAddress")
+  declareInput("#sameAddress_theirNewPostcode", "CircumstancesAddressSameAddressTheirNewPostcode")
+  declareInput("#moreAboutChanges", "CircumstancesAddressChangeMoreAboutChanges")
 }
 
 /**
