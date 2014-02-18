@@ -55,7 +55,6 @@ class G6AddressChangeFormSpec extends Specification with Tags {
           formWithErrors => {
             formWithErrors.errors(0).message must equalTo("error.required")
             formWithErrors.errors(1).message must equalTo("error.required")
-            //formWithErrors.errors(2).message must equalTo("error.required")
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
