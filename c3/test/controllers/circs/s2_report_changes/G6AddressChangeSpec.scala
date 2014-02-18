@@ -41,8 +41,8 @@ class G6AddressChangeSpec extends Specification with Tags {
     "newAddress.lineOne" -> addressLineOne,
     "newAddress.lineTwo" -> addressLineTwo,
     "newAddress.lineThree" -> addressLineThree,
-    "newPostcode" -> newPostcode,
-    "moreAboutChanges" -> moreAboutChanges
+    "caredForChangedAddress.answer" -> no,
+    "sameAddress.answer" -> yes
   )
 
   "Circumstances - Address Change - Controller" should {
