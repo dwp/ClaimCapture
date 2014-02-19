@@ -2,7 +2,7 @@
 
 @import play.api.i18n._
 @import models.domain._
-@import play.api.i18n.{Messages => Messages}
+@import play.api.i18n.{MMessages => Messages}
 
 @nino = @{claim.questionGroup[YourDetails].getOrElse(YourDetails()).nationalInsuranceNumber.stringify}
 

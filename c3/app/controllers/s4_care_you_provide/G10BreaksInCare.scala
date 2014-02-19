@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import play.api.mvc.Controller
 import play.api.data.{FormError, Form}
-import play.api.i18n.{Messages => Messages}
+import play.api.i18n.{MMessages => Messages}
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.Mappings._

@@ -60,7 +60,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Contact phone or mobile number - This is required")
+        errors(0) must contain("Contact phone or mobile number - This field is required")
       }
 
       "missing obtainInfoAgreement field" in new WithBrowser with PageObjects{
@@ -76,7 +76,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Do you agree to us obtaining information from any other persons or organisations you may have told us about? - This is required")
+        errors(0) must contain("Do you agree to us obtaining information from any other persons or organisations you may have told us about? - This field is required")
       }
 
       "given obtainInfoAgreement is set to 'no' missing obtainInfoWhy field" in new WithBrowser with PageObjects{
@@ -91,7 +91,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Please tell us why not - This is required")
+        errors(0) must contain("Please tell us why not - This field is required")
       }
 
       "given circsSomeOneElse checked and missing name or organisation field" in new WithBrowser with PageObjects{
@@ -108,7 +108,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Your name and/or organisation - This is required")
+        errors(0) must contain("Your name and/or organisation - This field is required")
       }
 
       "missing confirm field" in new WithBrowser with PageObjects{
@@ -123,7 +123,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Please tick this box to confirm that you understand and make the declarations above. - This is required")
+        errors(0) must contain("Please tick this box to confirm that you understand and make the declarations above. - This field is required")
       }
 
       "not have name or organisation field with optional text" in new WithBrowser with PageObjects{

@@ -51,7 +51,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Full name - This is required")
+        errors(0) must contain("Full name - This field is required")
       }
 
       "missing nino field" in new WithBrowser with PageObjects {
@@ -67,7 +67,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 2
-        errors(0) must contain("National Insurance number - This is required")
+        errors(0) must contain("National Insurance number - This field is required")
       }
 
       "invalid nino containing numbers" in new WithBrowser with PageObjects {
@@ -100,7 +100,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Date of birth - This is required")
+        errors(0) must contain("Date of birth - This field is required")
       }
 
       "missing theirFullName field" in new WithBrowser with PageObjects {
@@ -116,7 +116,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Their full name - This is required")
+        errors(0) must contain("Their full name - This field is required")
       }
 
       "missing fullName field" in new WithBrowser with PageObjects {
@@ -132,7 +132,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Their relationship to you - This is required")
+        errors(0) must contain("Their relationship to you - This field is required")
       }
     }
   } section("integration", models.domain.CircumstancesIdentification.id)
