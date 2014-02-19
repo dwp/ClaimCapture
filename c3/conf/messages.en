@@ -1,3 +1,76 @@
+theirFullName=Their full name
+theirRelationshipToYou=Their relationship to you
+theirRelationshipToYou.helper=eg: Father, Mother, Son, Daughter
+
+reportChanges=What type of change do you want to report?
+reportChanges.helper=Tell us about your change
+reportChanges.stoppedCaring=I have permanently stopped caring
+reportChanges.addressChange=I want to change address
+
+reportChanges.selfEmployed=I have started self-employment
+reportChanges.paymentChange=I want to update payment/bank details
+reportChanges.anyOtherChanges=Any other changes
+
+stoppedCaringDate = What date did you permanently stop caring?
+stoppedCaringDate.helper = This is when you stopped caring for the person you looked after for at least 35 hours a week.
+moreAboutChanges = Tell us more about your changes
+moreAboutChanges.helper = If you did not tell us about any of your change(s) as soon as they happened, we need you to tell us why.
+
+changeInCircs = Tell us about your changes including all dates.
+
+stillCaring_answer=Are you still caring 35 hours or more each week?
+stillCaring.answer=Are you still caring 35 hours or more each week?
+stillCaring=What date did you stop caring 35 hours a week?
+whenStoppedCaring=What date did you stop caring 35 hours a week?
+stillCaring.date=What date did you stop caring 35 hours a week?
+stillCaring_date=What date did you stop caring 35 hours a week?
+whenThisSelfEmploymentStarted=When did you start this self-employed work?
+typeOfBusiness=What type of business is your self-employed work?
+totalOverWeeklyIncomeThreshold=Will the total income into your business be more than 100 a week?
+
+c2.g5.helper=For security, we also need you to confirm your current payment details
+currentlyPaidIntoBank.answer=Are you currently paid into a bank or building society?
+currentlyPaidIntoBank.label=Are you currently paid into a bank or building society?
+currentlyPaidIntoBank.text1.label=Name of current bank or building society
+currentlyPaidIntoBank.text2.label=Confirm your method of payment
+c2.g5.newPaymentDetails=New payment details
+
+
+caredForChangedAddress_answer=Has the person you care for changed address?
+caredForChangedAddress.answer=Has the person you care for changed address?
+caredForChangedAddress_sameAddress_answer=Is this the same address as you?
+sameAddress_answer=Is this the same address as you?
+sameAddress.answer=Is this the same address as you?
+sameAddress_theirNewAddress=Person You Care For Address
+sameAddress.theirNewAddress=Person You Care For Address
+sameAddress_theirNewPostcode=Person You Care For Postcode
+newAddress=Your new address
+newPostcode=Your new postcode
+
+#ABOUT YOU - About you
+lastName = Last name
+
+#FURTHER INFORMATION
+furtherInfoContact=Contact phone or mobile number
+furtherInfoContact.helper=Alternatively, tell us here if you''d rather be contacted by post.
+
+obtainInfoAgreement = Do you agree to us obtaining information from any other persons or organisations you may have told us about?
+obtainInfoWhy = Please tell us why not
+circs.declaration.1 = I declare that I understand the <a href="/claim-notes" target="_blank">Carer''s Allowance Claim Notes</a> and that the information provided on this change of circumstances form is correct and complete.
+circs.declaration.1.pdf = I declare that I understand the Carer''s Allowance Claim Notes and that the information provided on this change of circumstances form is correct and complete.
+circs.declaration.2 = I understand that I must report any further changes in my circumstances or those of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
+circs.declaration.3 = I will phone 0845 6084321 or write to Carer''s Allowance Unit, Palatine House, Lancaster Road, Preston, PR1 1HB or use the online service to report a change in my circumstances or that of the person that I am caring for.
+circs.declaration.4 = If I give false or incomplete information or fail to report any future changes in my circumstances or those of the person that I am caring for promptly, I understand that my Carer''s Allowance may be stopped or reduced and any overpayment of Carer''s Allowance may be recovered.In addition I may be prosecuted or face a financial penalty.
+circsSomeOneElse = Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
+
+error.required = This is required
+error.forbidden.characters = A name must not contain special characters
+error.restricted.characters = The text must not contain special characters
+error.address.characters = Address must not contain special characters
+number.invalid = The value must be a whole number
+error.sortcode.length = A sort code must be 6 digits long
+error.invalid = Invalid value
+
 s1.name = eligibility
 s1.longName = Can you get Carer''s Allowance?
 s2.name = about you
@@ -109,10 +182,26 @@ s11.g3 = Disclaimer
 s11.g4 = Declaration
 s11.g5 = Documents you need to send us
 
-date.helper = eg: 27 June 2013
-please.specify =  Please specify...
-error.unknown = Invalid
-error.date = This is required
+
+###### CIRCS #######
+
+
+c1 = Report a change in your circumstances
+c1.g1 = Report a change in your circumstances
+c1.helper = So we can identify who you are, confirm the following details. You can then tell us about your change.
+c1.yourDetails=Your Details
+c1.personYouAreCaringFor=Person you are caring for
+
+c2 = Report a change in your circumstances
+c2.g1 = Details of your change in circumstances
+c2.g2 = About Your Self-Employment
+c2.g3 = Permanently stopped caring
+c2.g4 = Other changes
+c2.g5 = Existing payment details
+c2.g6 = Change of address
+
+c3.g1 = Declaration
+c3.g2 = Further Information
 
 ## CARERS ALLOWANCE
 ################
@@ -120,6 +209,7 @@ benefits.answer = Does the person you care for get one of these benefits?
 hours.answer = Do you spend 35 hours or more each week caring for the person you care for?
 over16.answer = Are you aged 16 or over?
 livesInGB.answer = Do you live in England, Scotland or Wales?
+
 
 ## ABOUT YOU
 
@@ -208,6 +298,27 @@ beenInEducationSinceClaimDate = Have you been on a course of education since you
 receiveStatePension = Do you get State Pension?
 
 
+# NORMAL RESIDENCE AND CURRENT LOCATION
+liveInUK.answer = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
+liveInUK_answer = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
+liveInUK.whereDoYouLive = Where do you normally live?
+liveInUK_whereDoYouLive = Where do you normally live?
+inGBNow = Are you in Great Britain now?
+
+anyTrips = Have you been out of England, Scotland or Wales
+
+# 52 WEEKS
+52Weeks.label = Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date?
+52Weeks.helper = This could be one trip of 52 weeks, or a number of trips adding up to 52 weeks.
+52Weeks.more.label = Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date?
+52Weeks.summaryTable.label = Time out of England, Scotland or Wales you have added
+
+where = Which country did you go to?
+start.trip = Date you left?
+end.trip = Date you returned?
+why = Reason for being there?
+personWithYou = Was the person you care for with you?
+
 ## YOUR PARTNER
 
 their.name.helper = Enter name as shown on their birth certificate or passport.
@@ -252,7 +363,7 @@ someoneElse_fullName = Full name
 organisation = Organisation
 amount = How much do you get paid a week?
 startDatePayment = When did the payments start?
-poundSign = £
+poundSign = �
 decimal.invalid = The amount must be in the format 12 or 12.5 or 12.55
 
 # MORE ABOUT THE CARE
@@ -281,32 +392,10 @@ wherePerson = Where was the person you care for during the break?
 wherePerson.location = Where was the person you care for during the break?
 medicalDuringBreak = Did you or the person you care for get any medical treatment or professional care during this time?
 
+
 # ABOUT YOUR EDUCATION
 courseContactNumber = Course contact number
 courseContactNumber.helper = Please include if you know the number for your department
-
-## TIME SPENT ABROAD
-
-# NORMAL RESIDENCE AND CURRENT LOCATION
-liveInUK.answer = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
-liveInUK_answer = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
-liveInUK.whereDoYouLive = Where do you normally live?
-liveInUK_whereDoYouLive = Where do you normally live?
-inGBNow = Are you in Great Britain now?
-
-anyTrips = Have you been out of England, Scotland or Wales
-
-# 52 WEEKS
-52Weeks.label = Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date?
-52Weeks.helper = This could be one trip of 52 weeks, or a number of trips adding up to 52 weeks.
-52Weeks.more.label = Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date?
-52Weeks.summaryTable.label = Time out of England, Scotland or Wales you have added
-
-where = Which country did you go to?
-start.trip = Date you left?
-end.trip = Date you returned?
-why = Reason for being there?
-personWithYou = Was the person you care for with you?
 
 
 ## EDUCATION
@@ -322,8 +411,6 @@ nameOfMainTeacherOrTutor = Name of main teacher or tutor
 faxNumber = Fax number
 
 
-## EMPLOYED
-
 # EMPLOYMENT
 beenEmployedSince6MonthsBeforeClaim.label = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
 beenEmployedSince6MonthsBeforeClaim = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
@@ -338,6 +425,7 @@ aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self employ
 # JOB DETAIL
 employerName = Employer''s name
 jobStartDate = When did you start your job?
+jobStartDate.helper = eg: 27 June 2013
 finishedThisJob = Have you finished this job?
 lastWorkDate = What date did you last work?
 p45LeavingDate = What is the leaving date on your P45, if you have one?
@@ -404,6 +492,50 @@ howOftenPayCare = How often {1} pay them?
 whoDoYouPay = Name of the person/organisation you {0} pay
 
 
+#SELF EMPLOYED
+error.areYouSelfEmployedNow = Please tell us if you are self employed
+areYouSelfEmployedNow =  Are you self-employed now?
+whenDidYouStartThisJob = When did you start this self employed work?
+whenDidTheJobFinish = When did you finish this job?
+haveYouCeasedTrading = Have you ceased trading?
+natureOfYourBusiness = Nature of business?
+howMuchYouPay = How much {0} pay them?
+nameOfPerson = Name of the person/organisation you pay
+whatRelationIsToYou = What relation, if any, is the person/organisation to you?
+whatRelationIsTothePersonYouCareFor = What relation, if any, is this person/organisation to the person you care for?
+
+#SELF EMPLOYED - Your Details
+error.areAccountsPreparedOnCashFlowBasis = Please tell us if accounts prepared on cash flow basis?
+error.tellUsWhyAndWhenTheChangeHappened = Please tell us when the change happened
+error.canWeContactYourAccountant = Please tell us if we can contact your accountant
+whatWasOrIsYourTradingYearFrom =  What {0} your trading year? From
+whatWasOrIsYourTradingYearTo =  What {0} your trading year? To
+areAccountsPreparedOnCashFlowBasis =  Are these accounts prepared on a cash flow basis?
+areIncomeOutgoingsProfitSimilarToTrading =  Are the income, outgoings and profit in these accounts similar to your current level of trading?
+tellUsWhyAndWhenTheChangeHappened =  Please tell us why and when the change happened
+doYouHaveAnAccountant =  Do you have an accountant?
+canWeContactYourAccountant =  Can we contact your accountant?
+canWeContactYourAccountant.helper = You could be charged by your accountant for any information they provide to the DWP.
+
+#SELF EMPLOYED - Pensions and Expenses
+
+doYouPayToPensionScheme_answer = {0} pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?
+doYouPayToPensionScheme.answer = {0} pay towards a personal or stakeholder pension scheme or a retirement annuity scheme
+doYouPayToPensionScheme_howMuchDidYouPay = How much {0} pay?
+doYouPayToPensionScheme.howMuchDidYouPay = How much {0} pay?
+howMuchDidYouPay = How much {0} pay?
+doYouPayToPensionScheme_howOften = How often {0} pay into a Pension?
+doYouPayToPensionScheme.howOften = How often {0} pay into a Pension?
+doYouPayToLookAfterYourChildren = While at work, {0} pay anyone to care for your children?
+didYouPayToLookAfterThePersonYouCaredFor = While at work, {0} pay anyone to care for the person you care for?
+
+#SELF EMPLOYED - Childcare expenses
+howOftenPayChildCare = How often {1} pay childcare expenses?
+
+#SELF EMPLOYED - Expenses While At Work
+howOftenPayExpenses = How often {1} pay expenses related to the person you care for?
+
+
 ## OTHER MONEY
 # ABOUT OTHER MONEY
 yourBenefits.answer = Have you {0} claimed or received any other benefits since your claim date: {1}?
@@ -435,6 +567,7 @@ otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Pater
 otherPay = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
 howOften_frequency = How often
 whoPaysYou = Who pays you
+
 
 ## PAY DETAILS
 # HOW WE PAY YOU
@@ -491,132 +624,10 @@ nameOrOrganisation = Your name and/or organisation
 
 #ADDITIONAL INFO
 anythingElse = Please tell us anything else you think we should know about your claim
+anythingElse.please.specify=Please specify...
 anythingElse.placeholder = Optional...
 welshCommunication = Do you live in Wales and would like to receive future communications in Welsh?
 
-#SELF EMPLOYED
-error.areYouSelfEmployedNow = Please tell us if you are self employed
-areYouSelfEmployedNow =  Are you self-employed now?
-whenDidYouStartThisJob = When did you start this self employed work?
-whenDidTheJobFinish = When did you finish this job?
-haveYouCeasedTrading = Have you ceased trading?
-natureOfYourBusiness = Nature of business?
-howMuchYouPay = How much {0} pay them?
-nameOfPerson = Name of the person/organisation you pay
-whatRelationIsToYou = What relation, if any, is the person/organisation to you?
-whatRelationIsTothePersonYouCareFor = What relation, if any, is this person/organisation to the person you care for?
-
-#SELF EMPLOYED - Your Details
-error.areAccountsPreparedOnCashFlowBasis = Please tell us if accounts prepared on cash flow basis?
-error.tellUsWhyAndWhenTheChangeHappened = Please tell us when the change happened
-error.canWeContactYourAccountant = Please tell us if we can contact your accountant
-whatWasOrIsYourTradingYearFrom =  What {0} your trading year? From
-whatWasOrIsYourTradingYearTo =  What {0} your trading year? To
-areAccountsPreparedOnCashFlowBasis =  Are these accounts prepared on a cash flow basis?
-areIncomeOutgoingsProfitSimilarToTrading =  Are the income, outgoings and profit in these accounts similar to your current level of trading?
-tellUsWhyAndWhenTheChangeHappened =  Please tell us why and when the change happened
-doYouHaveAnAccountant =  Do you have an accountant?
-canWeContactYourAccountant =  Can we contact your accountant?
-canWeContactYourAccountant.helper = You could be charged by your accountant for any information they provide to the DWP.
-
-#SELF EMPLOYED - Pensions and Expenses
-
-doYouPayToPensionScheme_answer = {0} pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?
-doYouPayToPensionScheme.answer = {0} pay towards a personal or stakeholder pension scheme or a retirement annuity scheme
-doYouPayToPensionScheme_howMuchDidYouPay = How much {0} pay?
-doYouPayToPensionScheme.howMuchDidYouPay = How much {0} pay?
-howMuchDidYouPay = How much {0} pay?
-doYouPayToPensionScheme_howOften = How often {0} pay into a Pension?
-doYouPayToPensionScheme.howOften = How often {0} pay into a Pension?
-doYouPayToLookAfterYourChildren = While at work, {0} pay anyone to care for your children?
-didYouPayToLookAfterThePersonYouCaredFor = While at work, {0} pay anyone to care for the person you care for?
-
-#SELF EMPLOYED - Childcare expenses
-howOftenPayChildCare = How often {1} pay childcare expenses?
-
-#SELF EMPLOYED - Expenses While At Work
-howOftenPayExpenses = How often {1} pay expenses related to the person you care for?
-
-#CIRCUMSTANCES
-c1 = Report a change in your circumstances
-c1.g1 = Report a change in your circumstances
-c1.helper = So we can identify who you are, confirm the following details. You can then tell us about your change.
-c1.yourDetails=Your Details
-c1.personYouAreCaringFor=Person you are caring for
-
-c2 = Report a change in your circumstances
-c2.g1 = Details of your change in circumstances
-c2.g2 = About Your Self-Employment
-c2.g3 = Permanently stopped caring
-c2.g4 = Other changes
-c2.g5 = Existing payment details
-
-c3.g1 = Declaration
-c3.g2 = Further Information
-
-theirFullName=Their full name
-theirRelationshipToYou=Their relationship to you
-theirRelationshipToYou.helper=eg: Father, Mother, Son, Daughter
-
-reportChanges=What type of change do you want to report?
-reportChanges.helper=Tell us about your change
-reportChanges.stoppedCaring=I have permanently stopped caring
-reportChanges.selfEmployed=I have started self-employment
-reportChanges.paymentChange=I want to update payment/bank details
-reportChanges.anyOtherChanges=Any other changes
-
-stoppedCaringDate = What date did you permanently stop caring?
-stoppedCaringDate.helper = This is when you stopped caring for the person you looked after for at least 35 hours a week.
-moreAboutChanges = Tell us more about your change(s)
-moreAboutChanges.helper = If you did not tell us about any change(s) when they happened we need you to tell us why.
-
-changeInCircs = Use this online form for reporting change of circumstances. Remember to include the date of the change(s) and all relevant facts.
-
-stillCaring_answer=Are you still caring 35 hours or more each week?
-stillCaring.answer=Are you still caring 35 hours or more each week?
-stillCaring=What date did you stop caring 35 hours a week?
-whenStoppedCaring=What date did you stop caring 35 hours a week?
-stillCaring.date=What date did you stop caring 35 hours a week?
-stillCaring_date=What date did you stop caring 35 hours a week?
-whenThisSelfEmploymentStarted=When did you start this self-employed work?
-typeOfBusiness=What type of business is your self-employed work?
-totalOverWeeklyIncomeThreshold=Will the total income into your business be more than £100 a week?
-
-c2.g5.helper=For security, we also need you to confirm your current payment details
-currentlyPaidIntoBank.answer=Are you currently paid into a bank or building society?
-currentlyPaidIntoBank.label=Are you currently paid into a bank or building society?
-currentlyPaidIntoBank.text1.label=Name of current bank or building society
-currentlyPaidIntoBank.text2.label=Confirm your method of payment
-c2.g5.newPaymentDetails=New payment details
-
-
-#ABOUT YOU - About you
-lastName = Last name
-
-#FURTHER INFORMATION
-furtherInfoContact=Contact phone or mobile number
-furtherInfoContact.helper=Alternatively, tell us if you do not have a contact number.
-
-#DECLARATION
-obtainInfoAgreement = Do you agree to us obtaining information from any other persons or organisations you may have told us about?
-obtainInfoWhy = Please tell us why not
-circs.declaration.1 = I declare that I understand the <a href="/claim-notes" target="_blank">Carer''s Allowance Claim Notes</a> and that the information provided on this change of circumstances form is correct and complete.
-circs.declaration.1.pdf = I declare that I understand the Carer''s Allowance Claim Notes and that the information provided on this change of circumstances form is correct and complete.
-circs.declaration.2 = I understand that I must report any further changes in my circumstances or those of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
-circs.declaration.3 = I will phone 0845 6084321 or write to Carer''s Allowance Unit, Palatine House, Lancaster Road, Preston, PR1 1HB or use the online service to report a change in my circumstances or that of the person that I am caring for.
-circs.declaration.4 = If I give false or incomplete information or fail to report any future changes in my circumstances or those of the person that I am caring for promptly, I understand that my Carer''s Allowance may be stopped or reduced and any overpayment of Carer''s Allowance may be recovered.In addition I may be prosecuted or face a financial penalty.
-circsSomeOneElse = Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
-
-
-#ERROR MESSAGES
-error.required = This is required
-error.forbidden.characters = A name must not contain special characters
-error.restricted.characters = The text must not contain special characters
-error.address.characters = Address must not contain special characters
-number.invalid = The value must be a whole number
-error.sortcode.length = A sort code must be 6 digits long
-
-# Thank you page start
 thankyou = Application complete
 circs.thankyou = Change complete
 claim.received = Your claim was sent successfully and is being processed
@@ -632,4 +643,4 @@ change.link = You should contact us as soon as possible. You may contact the <a 
 feedback.head = Feedback
 claim.feedback.link = If you would like to complete our survey, <a href="https://www.gov.uk/done/apply-carers-allowance">please follow this link</a>
 circs.feedback.link = If you would like to complete our survey, <a href="https://www.gov.uk/done/report-change-carers-allowance">please follow this link</a>
-# Thank you page end
+
