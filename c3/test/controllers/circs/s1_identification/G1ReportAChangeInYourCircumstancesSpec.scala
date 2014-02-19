@@ -81,7 +81,7 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
     "when present called Lang should not be set on Claim" in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey).withHeaders(REFERER -> "http://localhost:9000/circumstances/identification/about-you")
 
-      val result = controllers.circs.s1_identification.G1AboutYou.present(request)
+      val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present(request)
       val claim = Cache.getAs[Claim](claimKey).get
       claim.lang mustEqual None
     }

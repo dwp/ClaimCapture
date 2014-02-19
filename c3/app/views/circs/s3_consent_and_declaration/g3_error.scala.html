@@ -1,4 +1,4 @@
-@()(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@()(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @common.govMain("Try change again") {
     <div id="wrapper" class="carers-allowance">
@@ -20,4 +20,4 @@
 
         </div>
     </div>
-}(views.html.common.submittingFooter(), request)
+}(views.html.common.submittingFooter(),lang,  request)

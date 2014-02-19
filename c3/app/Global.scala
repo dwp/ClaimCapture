@@ -10,8 +10,10 @@ import play.api.Configuration
 import play.api.mvc._
 import play.api.mvc.Results._
 import jmx.JMXActors
+import play.api.mvc.SimpleResult
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
+import play.api.mvc.Controller
 
 /**
  * Application configuration is in a hierarchy of files:
@@ -28,7 +30,7 @@ import ExecutionContext.Implicits.global
  * play -Dconfig.file=conf/application.test.conf run
  */
 
-object Global extends GlobalSettings with Injector {
+object Global extends GlobalSettings with Injector with Controller {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", Option(System.getProperty("http.port")).getOrElse("Value not set"))
@@ -64,13 +66,14 @@ object Global extends GlobalSettings with Injector {
   override def onError(request: RequestHeader, ex: Throwable) = {
     Logger.error(ex.getMessage)
     val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
-    Future(Ok(views.html.common.error(startUrl)(Request(request, AnyContentAsEmpty))))
+    Future(Ok(views.html.common.error(startUrl)(lang(request), Request(request, AnyContentAsEmpty))))
   }
 
   def actorSystems = {
     JMXActors
     ApplicationMonitor.begin
   }
+
 }
 
 // Add WithFilters(LoggingFilter) to enable good debug

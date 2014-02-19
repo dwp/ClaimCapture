@@ -5,11 +5,11 @@
     <div class="carers-allowance">
 
         @common.protoType()
-        @common.helpLine(request)
+        @common.helpLine(lang, request)
 
         <section class="error-statement">
             <h1>This page cannot be found</h1>
             <p>Please check that you have entered the correct web address, or explore <a href="http://www.gov.uk" target="_blank">GOV.UK</a> to find the information you need.</p>
         </section>
     </div>
-}(views.html.common.submittingFooter(), request)(lang)
+}(views.html.common.submittingFooter(), lang, request)

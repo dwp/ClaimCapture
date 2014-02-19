@@ -15,7 +15,7 @@ class SubmissionController extends Controller with SubmissionNotifier {
   this : ClaimSubmissionService with BotChecking with CachedClaim =>
 
   def submit = submitting {
-    implicit claim => implicit request =>
+    implicit claim => implicit request => implicit lang =>
 
       if (isHoneyPotBot(claim)) {
         // Only log honeypot for now.

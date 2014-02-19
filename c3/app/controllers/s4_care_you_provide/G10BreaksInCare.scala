@@ -10,6 +10,7 @@ import models.domain.{QuestionGroup, Claim, MoreAboutTheCare, BreaksInCare}
 import models.view.{Navigable, CachedClaim}
 import models.yesNo.YesNo
 import scala.language.postfixOps
+import play.api.i18n.Lang
 
 object G10BreaksInCare extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -34,7 +35,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
     def next(hasBreaks: YesNo) = hasBreaks.answer match {
       case `yes` if breaksInCare.breaks.size < 10 => Redirect(routes.G11Break.present())
       case `yes` => Redirect(routes.G10BreaksInCare.present())
-      case _ => redirect(claim)
+      case _ => redirect(claim, lang)
     }
 
     form.bindEncrypted.fold(

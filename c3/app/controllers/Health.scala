@@ -9,7 +9,7 @@ trait HealthController {
 
   def health = Action { request =>
     val now = DateTimeFormat.forPattern("dd-MM-yy HH:mm:ss").print(DateTime.now())
-    Ok(views.html.common.health(now)(request))
+    Ok(views.html.common.health(now)(lang(request), request))
   }
 }
 
