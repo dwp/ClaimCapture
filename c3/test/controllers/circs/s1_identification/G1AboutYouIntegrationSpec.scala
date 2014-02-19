@@ -5,7 +5,6 @@ import play.api.test.WithBrowser
 import utils.pageobjects.circumstances.s1_about_you.G1AboutYouPage
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.{PageObjects, TestData}
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
 
 
 class G1AboutYouIntegrationSpec extends Specification with Tags {
@@ -26,7 +25,6 @@ class G1AboutYouIntegrationSpec extends Specification with Tags {
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects {
       val page = G1AboutYouPage(context)
       page goToThePage()
-      println(page.submitPage().listErrors)
       page.submitPage().listErrors.size mustEqual 6
     }
 

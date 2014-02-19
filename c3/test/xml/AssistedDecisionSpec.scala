@@ -29,9 +29,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(resideInUK = YesNoWithText("yes", None))
       val claim = Claim().update(moreAboutTheCare).update(residency)
-      println("AssistedDecison:Claim "+claim)
       val xml = AssistedDecision.xml(claim)
-      println("AssistedDecison:xml "+xml)
       (xml \\ "AssistedDecisions").length mustEqual 0
     }
 

@@ -12,7 +12,6 @@ class DeclarationSpec  extends Specification with Tags {
     "Generate a valid declaration section" in {
       val circs = Claim().update(declaration)
       val xml = Declaration.xml(circs)
-//      println(xml.toString())
       (xml \\ "DeclarationStatement" \ "Content").length mustEqual 3
       (xml \\ "DeclarationQuestion" \ "Answer").text mustEqual declaration.confirm
       (xml \\ "DeclarationQuestion" \ "QuestionLabel").text mustEqual "confirm"

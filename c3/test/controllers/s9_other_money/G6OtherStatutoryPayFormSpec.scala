@@ -93,7 +93,6 @@ class G6OtherStatutoryPayFormSpec extends Specification with Tags {
             "employersAddress.lineThree" -> employersAddressLineThree,
             "employersPostcode" -> employersPostcode)).fold(
             formWithErrors => {
-              println(formWithErrors.errors)
               formWithErrors.errors.length must equalTo(1)
               formWithErrors.errors(0).message must equalTo("error.paymentFrequency")
             },

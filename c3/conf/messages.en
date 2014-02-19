@@ -394,7 +394,7 @@ employment_howOftenPayChildCare = How often {0} pay childcare expenses?
 # Person you care for EXPENSES
 howMuchCostCare = How much {0} pay them?
 howOftenPayCare = How often {1} pay them?
-whoDoYouPay = Name of the person/organisation you {0} pay
+whoDoYouPay = Name of the person/organisation {0} pay
 
 
 ## OTHER MONEY
@@ -484,6 +484,24 @@ anythingElse = Please tell us anything else you think we should know about your 
 anythingElse.placeholder = Optional...
 welshCommunication = Do you live in Wales and would like to receive future communications in Welsh?
 
+#Evidence List
+evidence.statement1 = Send us the following documents below including your Name and National Insurance (NI) number.
+evidence.statement2 = Send the above documents to:
+evidence.statement3 = CA Freepost
+evidence.statement4 = Palatine House
+evidence.statement5 = Preston
+evidence.statement6 = PR1 1HN
+evidence.statement7 = The Carer's Allowance unit will contact you if they need any further information.
+
+evidence.employed.statement1 = Your Employment documents.
+evidence.employed.statement2 = Last payslip you got before your claim date:{0}
+evidence.employed.statement3 = Any payslips you have had since then.
+evidence.employed.statement4 = Any pension statements you may have.
+
+evidence.selfemployed.statement1 = Your Self-employed documents.
+evidence.selfemployed.statement2 = Most recent finalised accounts you have for your business.
+evidence.selfemployed.statement3 = Any pension statements you may have.
+
 #SELF EMPLOYED
 error.areYouSelfEmployedNow = Please tell us if you are self employed
 areYouSelfEmployedNow =  Are you self-employed now?
@@ -522,10 +540,10 @@ doYouPayToLookAfterYourChildren = While at work, {0} pay anyone to care for your
 didYouPayToLookAfterThePersonYouCaredFor = While at work, {0} pay anyone to care for the person you care for?
 
 #SELF EMPLOYED - Childcare expenses
-howOftenPayChildCare = How often {1} pay childcare expenses?
+howOftenPayChildCare = How often {0} pay childcare expenses?
 
 #SELF EMPLOYED - Expenses While At Work
-howOftenPayExpenses = How often {1} pay expenses related to the person you care for?
+howOftenPayExpenses = How often {0} pay expenses related to the person you care for?
 
 #CIRCUMSTANCES
 c1.g1 = Your details

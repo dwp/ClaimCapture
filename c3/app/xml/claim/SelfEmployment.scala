@@ -86,7 +86,7 @@ object SelfEmployment extends XMLComponent{
 
     if (hasCareExpenses) {
       <CareExpenses>
-        {question(<CarerName/>, "whoDoYouPay", expensesWhileAtWork.nameOfPerson, didYouDoYouIfSelfEmployed(claim))}
+        {question(<CarerName/>, "whoDoYouPay", expensesWhileAtWork.nameOfPerson, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
         <Expense>
           {questionCurrency(<Payment/>, "howMuchCostCare", Some(expensesWhileAtWork.howMuchYouPay), didYouDoYouIfSelfEmployed(claim))}
           {questionOther(<Frequency/>, "howOftenPayExpenses", expensesWhileAtWork.howOftenPayExpenses.frequency, expensesWhileAtWork.howOftenPayExpenses.other, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
