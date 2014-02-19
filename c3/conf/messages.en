@@ -595,7 +595,7 @@ lastName = Last name
 
 #FURTHER INFORMATION
 furtherInfoContact=Contact phone or mobile number
-furtherInfoContact.helper=Alternatively, tell us if you''d rather be contacted by post.
+furtherInfoContact.helper=Alternatively, tell us if you do not have a contact number.
 
 #DECLARATION
 obtainInfoAgreement = Do you agree to us obtaining information from any other persons or organisations you may have told us about?
