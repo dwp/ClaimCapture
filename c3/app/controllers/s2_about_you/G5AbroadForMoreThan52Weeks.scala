@@ -16,14 +16,21 @@ object G5AbroadForMoreThan52Weeks extends Controller with CachedClaim with Navig
   )(AbroadForMoreThan52Weeks.apply)(AbroadForMoreThan52Weeks.unapply))
 
   def present = claiming { implicit claim => implicit request => implicit lang =>
-    val `52WeeksForm` = claim.questionGroup[AbroadForMoreThan52Weeks].map(form.fill).getOrElse(form)
-    track(AbroadForMoreThan52Weeks) { implicit claim => Ok(views.html.s2_about_you.g5_abroad_for_more_than_52_weeks(`52WeeksForm`, trips)) }
+    val filledForm = request.headers.get("referer") match {
+      case Some(referer) if referer endsWith routes.G6Trip.present().url => form
+      case _ if claim.questionGroup[AbroadForMoreThan52Weeks].isDefined => form.fill(AbroadForMoreThan52Weeks("no"))
+      case _ => form
+    }
+
+    track(AbroadForMoreThan52Weeks) { implicit claim => Ok(views.html.s2_about_you.g5_abroad_for_more_than_52_weeks(filledForm, trips)) }
   }
 
   def submit = claiming { implicit claim => implicit request => implicit lang =>
     def next(abroadForMoreThan52Weeks: AbroadForMoreThan52Weeks) = abroadForMoreThan52Weeks.anyTrips match {
       case `yes` if trips.fiftyTwoWeeksTrips.size < 5 => Redirect(routes.G6Trip.present())
-      case `yes` => Redirect(routes.G5AbroadForMoreThan52Weeks.present())
+      case `yes` => {
+        Redirect(routes.G5AbroadForMoreThan52Weeks.present())
+      }
       case _ => Redirect(routes.G7OtherEEAStateOrSwitzerland.present())
     }
 

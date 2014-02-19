@@ -1,11 +1,14 @@
 @(field:Field, args: (Symbol, Any)*)
 
-@import helper._
-@import utils.helpers.CarersCrypto
 @import utils.helpers._
-@import views.html.helper.base.labelOrId
 
-<label for="@CarersCrypto.encryptAES(field.id)">
-    @{Space.*}
-    @carersLabelText(field,args:_*)
-</label>
+    @ignoreLabel = @{
+   !args.find(t => t._1 == 'ignoreLabel).getOrElse('ignoreLabel->false).asInstanceOf[(Symbol,Boolean)]._2
+}
+
+@if(ignoreLabel){
+    <label for="@CarersCrypto.encryptAES(field.id)">
+        @{Space.*}
+        @carersLabelText(field,args:_*)
+    </label>
+}

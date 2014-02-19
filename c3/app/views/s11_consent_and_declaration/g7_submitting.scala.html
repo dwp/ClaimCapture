@@ -1,9 +1,7 @@
-@()(implicit lang: Lang)
-
-
+@()(implicit lang, Lang: request: Request[AnyContent])
 
 @import views.html.helper._
-
+@import play.api.i18n.{Messages => Messages}
 
 @common.govMain("Submitting") {
     @form(action = controllers.submission.routes.ClaimSubmissionController.submit) {
@@ -27,7 +25,7 @@
         </div>
     </div>
     }
-}(views.html.common.submittingFooter(), lang)
+}(views.html.common.submittingFooter(), lang, request)
 
 <script type="text/javascript">
     var n = 0

@@ -6,6 +6,7 @@
 @import utils.helpers.CarersTemplate._
 @import utils.helpers.CarersCrypto
 @import models.domain.MoreAboutTheCare
+@import play.api.i18n.{Messages => Messages}
 
 @main(Messages("s4.g4") + " - " + Messages("s4.longName"), Some(currentForm), claim.completedQuestionGroups(MoreAboutTheCare)) {
 

@@ -75,7 +75,7 @@ main {
    /* Claim info */
    .claim-info {
 	   margin: 0;
-	   padding: 10px 1em 10px 0;
+	   padding: 16px 1em 10px 0;
 	   list-style: none;
 	   text-align: right;
 	   border-top: 10px solid #f47738;
@@ -93,7 +93,7 @@ main {
 			   border: 0;
 			   margin: 0;
 			   padding: 0;
-			   a {
+			   a.info {
 				   display: inline-block;
 				   position: relative;
 				   height: 18px;
@@ -397,11 +397,11 @@ main {
 			   	   }
 		   	   }
 		   	   li {
-			   	   font-size: 1.6rem;
+			   	   font-size: 1.7rem;
 			   	   .ie & {
-				   	   font-size: 16px;
+				   	   font-size: 17px;
 			   	   }
-			   	   margin-top: .6em;
+			   	   margin-top: .7em!important;
 		   	   }
 		   	   p {
 		   	   	   font-size: 1.7rem;
@@ -411,6 +411,36 @@ main {
 			   	   margin-top: .5em;
 		   	   }
 		   	   
+	   	   }
+	   	   
+	   	   .app-complete {
+	   	   	   h1 {
+		   	   	   color: #fff;
+		   	   	   margin-right: 0;
+		   	   	   margin-bottom: 0;
+		   	   	   padding-right: 0;
+		   	   	   span {
+			   	   	   display: inline-block;
+			   	   	   background: url('images/white-tick.png') 0 6px no-repeat;
+			   	   	   padding-left: 44px;
+		   	   	   }
+	   	   	   }
+	   	   	   h2 {
+		   	   	   color: #fff;
+	   	   	   }
+	   	   	   p {
+		   	   	   color: #fff;
+		   	   	   &.nino-title {
+			   	   	   margin-top: 1em;
+		   	   	   }
+	   	   	   }
+	   	   	   text-align: center;
+		   	   background: #28a197;
+		   	   padding: 2em 1em;
+		   	   margin-right: 1em;
+		   	   @media screen and (max-width: 640px) {
+				   	   margin-right: 0;
+			   	   }
 	   	   }
    	   }
    	   
@@ -445,7 +475,7 @@ main {
    	   		}
 			article {
 				margin: 2em 0;
-				background-image: url('images/response-trio.png');
+				background-image: url('images/response-trio-xl.png');
 				background-position: 0 0;
 				background-repeat: no-repeat;
 				padding: 0 0 0 8em;
@@ -466,15 +496,15 @@ main {
 					margin-top: .25em;
 				}
 				&.earnings {
-					background-position: 0 -350px;
+					background-position: 0 -756px;
 					@media screen and (max-width: 500px) {
-						background-position: center -350px;
+						background-position: center -756px;
 					}
 				}
 				&.education {
-					background-position: 0 -700px;
+					background-position: 0 -1500px;
 					@media screen and (max-width: 500px) {
-						background-position: center -700px;
+						background-position: center -1500px;
 					}
 				}
 			}
@@ -554,8 +584,8 @@ main {
    	   }
 	   ul {
 		   li {
-			   background: #d5e8f3 url('images/progress-tick.png') 1.2em 1.3em no-repeat;
-			   border-bottom: 1px solid #b6d6d2;
+			   background: #e6eff5 url('images/tick.png') 1.1em 1.3em no-repeat;
+			   border-bottom: 1px solid #cdd7dc;
 			   padding: 1em 11em 1em 2.9em;
 			   position: relative;
 			   @media screen and (max-width: 760px) {padding-right: 1em;}
@@ -569,8 +599,8 @@ main {
 			   }
 			   p {
 			   	   font-size: 1.6rem;
-				   font-weight: 700;
-				   color: #315843;
+				   font-weight: 800;
+				   color: #000;
 				   line-height: 1em;
 				   margin-top: .4em;
 				   .ie & {
@@ -596,7 +626,7 @@ main {
 					   display: inline-block;
 				   }
 				   &:hover {
-					   color: #315843;
+					   color: #444;
 				   }
 				   @media screen and (max-width: 760px) {position: relative; right: auto; top: auto; margin-top: 1em; display: inline-block;}
 			   }
@@ -656,9 +686,11 @@ main {
    
    /* form elements */
    .form-elements {
-   	   margin: 2em 18% 0 0;
+   	   margin: 2em 18% 1em 0;
    	    @media screen and (max-width: 780px) {margin-right: 0;}
    	    @media screen and (max-width: 500px) {padding-left: 0;}
+   	    
+   	    
    	    &.form-eligibility {
 	   	    padding-left: 1.9em;
 	   	    @media screen and (max-width: 640px) {padding-left: 2.6em;}
@@ -752,10 +784,57 @@ main {
    	   
    	   
    	   
+   	   /* Nested fieldset */
+   	   
+   	   .question-group {
+			margin-top: 0;
+			margin-bottom: 0;
+			legend {
+				font-size: 1.9rem;
+				font-weight: 400;
+				color: #000;
+				padding-bottom: .34em;
+				.ie & {
+					font-size: 19px;
+				}
+				em {
+					   display: inline;
+					   font-size: 1.8rem;
+					   margin-right: .4rem;
+					   font-style: normal;
+					   .ie & {
+						   font-size: 18px;
+						   margin-right: 4px;
+					   }
+				   }
+			}
+			ul {
+				li {
+					padding-top: 0;
+				}
+			}
+   	   
+ 	
+	}
+   	   
+   	   
+   	   
    	   /* form list start */
 	   ul {
 		   margin-top: 0;
 		   zoom: 1;
+		   
+		   &.extra-group {
+			   border-left: 3px solid #a2a2a2;
+			   padding-left: .8em;
+			   margin-top: 1em;
+		   }
+		   
+		   &.circs-group {
+			   margin-top: 1em;
+		   }
+		   
+		   
 		   li {
 			   display: block;
 			   margin-top: .4rem;
@@ -778,6 +857,11 @@ main {
 					   position: absolute;
 					   left: -9999px;
 				   }
+			   }
+			   
+			   &.c-help {
+				   padding-top: 0;
+				  margin-top: 0;
 			   }
 			  
 			   
@@ -884,7 +968,7 @@ main {
 			   
 			   .helper {
 				   font-size: 1.6rem;
-				   margin-top: .4em;
+				   margin-top: .5em;
 				   font-weight: 300;
 				   .ie & {
 					   font-size: 16px;
@@ -906,7 +990,7 @@ main {
 				   font-weight: 500;
 				   overflow: hidden;
 				   line-height: 1em;
-				   padding: .7em .7em .65em .7em;
+				   padding: .5em .7em .45em .7em;
 				   border-left: 5px solid #333;
 				   color: #000;
 			   }
@@ -1151,6 +1235,21 @@ main {
 						   border: 1px solid #a2a2a2;
 					   }
 				   }
+				   &.radio-stack {
+					   li {
+						   float: none;
+						   margin: 4px 0 0 0;
+						   &:first-child {
+							   margin-top: 0;
+						   }
+						   label {
+							   display: inline-block;
+							   @media screen and (max-width: 480px) {
+								   display: block;
+							   }
+						   }
+					   }
+				   }
 			 }
 
 			 
@@ -1367,8 +1466,8 @@ main {
 	   
 	   /* info panel */
 	   .info {
-	       background: #bde4f6;
-		   border: 1px solid #015399;
+	       background: #fff;
+		   border: 1px solid #a2a2a2;
 		   padding: 1em 1.25em;
 		   margin-top: 1.2em;
 		   p {
@@ -1419,23 +1518,23 @@ main {
 	   }
 	   .declare {
 		   margin-top: 2em;
+		   clear: both;
 		   position: relative;
+		   @media print {
+			   display: none;
+		   }
 		   label {
 			   display: block;
-			   padding: 1em 1em 1em 2.3em;
-			   background: #eee;
+			   padding: 1.5em 1em 1.5em 2.3em;
+			   background: #fff;
 			   font-size: 1.7rem;
 			   line-height: 1.25em;
 			   cursor: pointer;
-			   border: 1px solid #a2a2a2;
-			   .ie & {
-				   font-size: 17px;
-			   }
+			   border: 1px solid #ddd;
 		   }
-
 		   input {
 			   position: absolute;
-			   top: 17px;
+			   top: 24px;
 			   left: 1.1em;
 			   &[type=checkbox]:checked + label {
 				   background: #fff;
@@ -1444,12 +1543,8 @@ main {
 				   -ms-transition: all 200ms ease-in;
 				   -o-transition: all 200ms ease-in;
 				   transition: all 200ms ease-in;
+				   border: 1px solid #a2a2a2;
 			   }
-			   .ie & {
-				   left: .8em;
-			   }
-
-			   
 		   }
 		   &.secondary {
 			   margin-top: 1em;
@@ -1481,12 +1576,12 @@ main {
 	   
 	   .dec {
 	   	   ul {
-		   	   margin: 0 0 0 1.3em;
+		   	   margin: 2em 2.5em 0 2.65em;
 		   	   list-style: disc;
 			   li {
 				   line-height: 1.4em;
 				   padding: 0;
-				   margin: 1em 0 0 0;
+				   margin: 1.4em 0 0 0;
 				   font-size: 1.7rem;
 				   display: list-item;
 				   &:first-child {
@@ -1656,13 +1751,16 @@ main {
 	   
 	   &.entitlement {
 		   background: #fff; border: 1px solid #a2a2a2;
+		   margin-top: 1.5em;
 		   p {
 			   font-weight: 600;
 		   }
 	   }
 	   
 	   &.entitlement-error {
-		   background: #fef7f7; border: 3px solid #df3034;
+	   	   margin-top: 1.5em;
+		   background: #fef7f7;
+		   border: 3px solid #df3034;
 	   }
 	  
 	   &.breaks-prompt {
@@ -1703,6 +1801,20 @@ main {
 	   }
 	   &.breaks-error-prompt {
 		   margin: 0;
+	   }
+	   &.table-helper {
+		   margin: 1em 1.15em 0 0;
+		   border: 1px dotted #bfc1c3;
+		   background: #f8f8f8;
+		   @media screen and (max-width: 640px) {
+			   margin-right: 0;
+		   }
+		   p {
+			   font-size: 1.6rem;
+			   .ie & {
+				   font-size: 16px;
+			   }
+		   }
 	   }
 	   &.eligibility-prompt {
 		   margin-left: 0;
@@ -1986,32 +2098,7 @@ main {
 
 
 
-.question-group {
-	margin-top: 0;
-	legend {
-		font-size: 1.9rem!important; /* temp */
-		font-weight: 400!important; /* temp */
-		color: #000!important; /* temp */
-		.ie & {
-			font-size: 19px;
-		}
-		em {
-			   display: inline;
-			   font-size: 1.8rem;
-			   margin-right: .4rem;
-			   font-style: normal;
-			   .ie & {
-				   font-size: 18px;
-				   margin-right: 4px;
-			   }
-		   }
-	}
-	ul {
-		li {
-			padding-top: 0;
-		}
-	}
-}
+
 
 
 
@@ -2019,9 +2106,9 @@ main {
 	padding: 2em;
 	background: #333;
 	a {
-		color: #fff!important;
+		color: #fff!important; /* temp */
 		&:hover {
-			color: #ccc!important;
+			color: #ccc!important; /* temp */
 		}
 	}
 	h1 {

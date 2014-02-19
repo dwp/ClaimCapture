@@ -7,6 +7,7 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 
+@import play.api.i18n.{Messages => Messages}
 @main(Messages("s9.g1") + " - " + Messages("s9.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.AboutOtherMoney)) {
 
 
@@ -28,7 +29,7 @@
 	            @otherDetailPlaceHolder(
                      inputDef = Seq(
                         carersInputText(currentForm("whoPaysYou"), 'maxLength -> Mappings.Name.maxLength, '_label -> Messages("whoPaysYou.label")),
-                        carersCurrency(currentForm("howMuch"), 'type -> "tel", 'maxlength -> Mappings.sixty, 'placeholder -> Messages("poundSign"), '_label -> Messages("howMuch.label")),
+                        carersCurrency(currentForm("howMuch"), 'type -> "tel", 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
                         paymentFrequencySelect(currentForm("howOften"),
                            'id -> "howOften",
                            'visibleOn -> "yes",

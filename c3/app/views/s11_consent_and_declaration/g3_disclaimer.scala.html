@@ -1,13 +1,8 @@
-@(currentForm: Form[models.domain.Disclaimer])(implicit claim: models.domain.Claim, lang: Lang)
+@(currentForm: Form[models.domain.Disclaimer])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import models.domain.TheirPersonalDetails
-@import helper._
-@import utils.helpers.DeclareCheckTemplate._
 @import views.html.helper._
-@import views.html.helper.base._
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
-@import controllers.s11_consent_and_declaration._
+@import play.api.i18n.{Messages => Messages}
 
 @main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Disclaimer)) {
 
@@ -26,7 +21,7 @@
                 }
             </div>
 
-            @carersDeclareCheck(currentForm("read"))
+            @declareCheckPlaceholder(currentForm("read"))
         </fieldset>
 
         <nav class="form-steps">

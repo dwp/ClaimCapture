@@ -7,9 +7,7 @@ import models.view.Navigable
 
 object SelfEmployment extends Controller with CachedClaim with Navigable {
   def completed = claiming {implicit claim => implicit request => implicit lang =>
-    presentConditionally {
-      track(models.domain.SelfEmployment) { implicit claim => Ok(views.html.s8_self_employment.g9_completed()) }
-    }
+    redirect
   }
 
   def completedSubmit = claiming { implicit claim => implicit request => implicit lang =>

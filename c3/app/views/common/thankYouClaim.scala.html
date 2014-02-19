@@ -1,5 +1,10 @@
-@()(implicit lang: Lang)
+@()(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+
 @import play.api.i18n._
+@import models.domain._
+@import play.api.i18n.{Messages => Messages}
+
+@nino = @{claim.questionGroup[YourDetails].getOrElse(YourDetails()).nationalInsuranceNumber.stringify}
 
 @common.govMain(Messages("thankyou")) {
 
@@ -7,11 +12,16 @@
 
         @common.protoType()
 
-        @common.helpLine()
+        @common.helpLine(request)
 
         <section class="finish-statement">
-            <h1>@Messages("thankyou")</h1>
-            <p>@Messages("claim.received")</p>
+           
+            <div class="app-complete">
+	            <h1><span>@Messages("thankyou")</span></h1>
+	            <p>@Messages("claim.received")</p>
+	            <p class="nino-title">Your reference number is</p>
+	            <h2 id="nino">@nino</h2>
+            </div>
 
             <article class="finish-next prompt helper-prompt">
             <h3>@Messages("next")</h3>
@@ -30,7 +40,7 @@
             <h3>@Messages("feedback.head")</h3>
             <p>@Html(Messages("claim.feedback.link"))</p>
             </article>
-        </section>terminal
+        </section>
         
     </div>
 }

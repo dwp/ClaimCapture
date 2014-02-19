@@ -78,3 +78,8 @@ disable = ->
     $("tr input[type='button']").attr("disabled", "true").addClass("disabled")
     $("input[type='radio']").attr("disabled", "true").addClass("disabled")
     $(".form-steps").children().attr("disabled", "true").addClass("disabled")
+
+window.initEvents = (beenEmployed) ->
+  # we are returning a function here to assign it to 'conditionRequired' and which will be executed in trackSubmit.scala.html.
+  return ->
+    $("input[name=" + beenEmployed+"]:checked").val() == "no"

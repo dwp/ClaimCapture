@@ -1,11 +1,11 @@
-@(url:String)(implicit lang: Lang)
+@(url:String)(implicit lang: Lang, request: Request[AnyContent])
 @common.govMain("An unrecoverable error has occurred") {
 	
     <div class="carers-allowance">
 
         @common.protoType()
 
-        @common.helpLine()
+        @common.helpLine(request)
 
         <section class="error-statement">
 
@@ -17,4 +17,4 @@
                 </nav>
             </section>
         </div>
-}(Html("<!-- Empty -->"),lang)
+}(Html.empty,lang, request)

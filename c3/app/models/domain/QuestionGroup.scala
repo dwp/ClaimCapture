@@ -1,6 +1,6 @@
 package models.domain
 
-import play.api.i18n.Messages
+import play.api.i18n.{Messages => Messages}
 
 abstract class QuestionGroup(val identifier: QuestionGroup.Identifier) {
   val definition: String = Messages(identifier.id)

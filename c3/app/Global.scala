@@ -9,10 +9,7 @@ import play.api._
 import play.api.Configuration
 import play.api.mvc._
 import play.api.mvc.Results._
-import play.api.Play.current
-import com.google.inject.Guice
 import jmx.JMXActors
-import modules.{ProdModule, DevModule}
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
 
@@ -31,10 +28,7 @@ import ExecutionContext.Implicits.global
  * play -Dconfig.file=conf/application.test.conf run
  */
 
-object Global extends GlobalSettings {
-  lazy val injector = Guice.createInjector(module)
-
-  def module = if (Play.isProd) ProdModule else DevModule
+object Global extends GlobalSettings with Injector {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", Option(System.getProperty("http.port")).getOrElse("Value not set"))
@@ -63,19 +57,34 @@ object Global extends GlobalSettings {
   }
 
   // 404 - page not found error http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
-  override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] = Future(NotFound(views.html.errors.onHandlerNotFound(request)))
+  override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] = Future(NotFound(views.html.errors.onHandlerNotFound(Request(request,AnyContentAsEmpty))))
 
-  override def getControllerInstance[A](controllerClass: Class[A]): A = injector.getInstance(controllerClass)
+  override def getControllerInstance[A](controllerClass: Class[A]): A = resolve(controllerClass)
 
   override def onError(request: RequestHeader, ex: Throwable) = {
     Logger.error(ex.getMessage)
     val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
-    Future(Ok(views.html.common.error(startUrl)))
+    Future(Ok(views.html.common.error(startUrl)(Request(request, AnyContentAsEmpty))))
   }
 
   def actorSystems = {
     JMXActors
     ApplicationMonitor.begin
+  }
+}
+
+// Add WithFilters(LoggingFilter) to enable good debug
+object LoggingFilter extends Filter {
+  def apply(nextFilter: (RequestHeader) => Future[SimpleResult])
+           (requestHeader: RequestHeader): Future[SimpleResult] = {
+    val startTime = System.currentTimeMillis
+    nextFilter(requestHeader).map { result =>
+      val endTime = System.currentTimeMillis
+      val requestTime = endTime - startTime
+      Logger.info(s"${requestHeader.method} ${requestHeader.uri} " +
+        s"took ${requestTime}ms and returned ${result.header.status}")
+      result.withHeaders("Request-Time" -> requestTime.toString)
+    }
   }
 }
 

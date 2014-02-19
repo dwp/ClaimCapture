@@ -3,6 +3,8 @@ package controllers.s11_consent_and_declaration
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
+import utils.pageobjects.{TestData, PageObjects}
+import utils.pageobjects.S11_consent_and_declaration.G4DeclarationPage
 
 class G4DeclarationIntegrationSpec extends Specification with Tags {
   "Declaration" should {
@@ -39,5 +41,17 @@ class G4DeclarationIntegrationSpec extends Specification with Tags {
 
       findMustEqualSize("div[class=completed] ul li", 1)
     }
+
+    "not have name or organisation field with optional text" in new WithBrowser with PageObjects{
+      val page =  G4DeclarationPage(context)
+      val claim = new TestData
+      claim.ConsentDeclarationSomeoneElseTickBox = "Yes"
+
+      page goToThePage()
+      page fillPageWith claim
+
+      page.readLabel("nameOrOrganisation") mustEqual("Your name and/or organisation")
+    }
+
   } section("integration", models.domain.ConsentAndDeclaration.id)
 }

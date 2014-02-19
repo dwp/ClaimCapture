@@ -28,6 +28,10 @@ class XMLClaimBusinessValidation extends XMLBusinessValidation {
   def validateXMLClaim(claim: TestData, xml: Elem, throwException: Boolean): List[String] = {
     super.validateXMLClaim(claim, xml, throwException, mappingFilename, createXMLValidationNode)
   }
+
+  override def objValue(attribute: String, value: String, question: String) = {
+    ClaimValue(attribute,value,question)
+  }
 }
 
 /**
@@ -96,7 +100,9 @@ object ClaimValue {
   private def prepareClaimValue(claimValue: String, attribute: String) = {
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
 
-    if (cleanValue.contains("/") && !attribute.startsWith("EmploymentLeavingDateP45") && !attribute.startsWith("AboutYouWhenDidYouArriveInYheUK")) {
+    if (cleanValue.contains("/") && !attribute.startsWith("EmploymentLeavingDateP45")
+      && !attribute.startsWith("AboutYouWhenDidYouArriveInYheUK")
+      && !attribute.startsWith("DateYouReturnedToGB") && !attribute.startsWith("DateYouLeftGB")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
       date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))
     } else cleanValue

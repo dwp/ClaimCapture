@@ -1,15 +1,15 @@
-@(title: String, currentForm: Option[Form[_]], completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang)
+@(title: String, currentForm: Option[Form[_]], completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import models.domain._
 @import helper._
-
+@import play.api.i18n.{Messages => Messages}
 @common.govMain(title) {
  
     <div class="carers-allowance">
 
         @common.protoType()
         
-        @common.helpLine()
+        @common.helpLine(request)
 
         @progressBar(YourPartner)
 
@@ -23,7 +23,7 @@
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
                                 <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)">Change these answers</a>
+                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="Change these answers - this is an optional link relating to a previous section">Change these answers</a>
                             </li>
                         }
                     </ul>

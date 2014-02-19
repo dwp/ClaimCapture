@@ -19,21 +19,23 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-agent" % "2.2.3" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-actor" % "2.2.3" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.2.3" % "test" withSources() withJavadoc(),
-    "com.dwp.carers" %% "carerscommon" % "0.81" ,
+    "com.dwp.carers" %% "carerscommon" % "0.9.6",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "me.moocar" % "logback-gelf" % "0.9.6p2",
-    "com.google.inject" % "guice" % "3.0",
-    "com.tzavellas" % "sse-guice" % "0.7.1",
     "com.github.rjeschke" % "txtmark" % "0.10",
     "org.jacoco" % "org.jacoco.core" % "0.6.4.201312101107",
-    "org.jacoco" % "org.jacoco.report" % "0.6.4.201312101107"
+    "org.jacoco" % "org.jacoco.report" % "0.6.4.201312101107",
+    "com.dwp" %% "play2-multimessages" % "2.2.1"
   )
 
   var sO: Seq[Def.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))
 
   var sV: Seq[Def.Setting[_]] = Seq(scalaVersion := "2.10.3")
 
-  var sR: Seq[Def.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
+  var sR: Seq[Def.Setting[_]] = Seq(
+    resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
+    resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
+    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases")
 
   var sTest: Seq[Def.Setting[_]] = Seq()
 
@@ -46,7 +48,7 @@ object ApplicationBuild extends Build {
     sTest = Seq(testOptions in Test += Tests.Argument("exclude", System.getProperty("exclude")))
   }
 
-  var jO: Seq[Def.Setting[_]] = Seq(javaOptions in Test += System.getProperty("waitSeconds"))
+  var jO: Seq[Def.Setting[_]] = Seq(javaOptions in Test += System.getProperty("waitSeconds"),testOptions in Test += Tests.Argument("sequential", "true"))
 
   var gS: Seq[Def.Setting[_]] = Seq(concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 4), Tags.limit(Tags.Network, 10), Tags.limit(Tags.Test, 4)))
 

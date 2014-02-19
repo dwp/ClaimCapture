@@ -1,6 +1,7 @@
 @(sectionID: models.domain.Section.Identifier)(implicit claim: models.domain.Claim, lang: Lang)
 
 @import models.domain._
+@import play.api.i18n.{Messages => Messages}
 
 @addClass(currentSectionID: Section.Identifier) = {
     @if(currentSectionID == sectionID) {
@@ -29,10 +30,8 @@
 }
 
 @renderEmployment = {
-    @if(Employed.visible || SelfEmployment.visible) {
-        @defining(addClassEmployment){ clazz =>
-            <li @clazz ><span>@Messages(Employed.id + ".progressbar.name")</span></li>
-        }
+    @defining(addClassEmployment){ clazz =>
+        <li @clazz ><span>@Messages(Employed.id + ".progressbar.name")</span></li>
     }
 }
 

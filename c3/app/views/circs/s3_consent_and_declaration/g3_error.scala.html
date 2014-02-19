@@ -1,0 +1,23 @@
+@()(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@common.govMain("Try change again") {
+    <div id="wrapper" class="carers-allowance">
+        <div class="carers-container">
+            <section class="error-statement">
+
+                <header>
+                    <h1>Sorry, your change has not been submitted</h1>
+                </header>
+
+                <p>There has been a slight technical problem with submitting your claim.
+                    We recommend you try again in a few minutes.</p>
+
+                <nav class="form-steps">
+                    <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back to claim button">Try again.</a>
+                </nav>
+
+           </section>
+
+        </div>
+    </div>
+}(views.html.common.submittingFooter(), request)

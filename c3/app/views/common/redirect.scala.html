@@ -1,0 +1,14 @@
+@(url:String)(implicit request: Request[AnyContent])
+@common.govMain("Redirect") {
+
+    <div class="carers-allowance">
+
+        @common.protoType()
+
+        @common.helpLine(request)
+
+        <section class="finish-statement">
+            <h1>Please begin your claim or change of circumstance <a href='@url'>here</a></h1>
+        </section>
+    </div>
+}(Html.empty,request)

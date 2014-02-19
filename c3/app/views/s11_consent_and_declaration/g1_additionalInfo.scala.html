@@ -7,6 +7,7 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
+@import play.api.i18n.{Messages => Messages}
 
 @main(Messages("s11.g1") + " - " + Messages("s11.longName"), Some(currentForm)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G1AdditionalInfo.submit) {
@@ -14,7 +15,7 @@
             <legend>@Messages("s11.g1")</legend>
 
             <ul>
-                @carersInputTextArea(currentForm("anythingElse"),'placeholder->Messages("please.specify"),'helper->"2000 characters left", 'maxLength -> 2000)
+                @carersInputTextArea(currentForm("anythingElse"),'placeholder->Messages("anythingElse.please.specify"),'helper->"2000 characters left", 'maxLength -> 2000)
 
                 @yesNoRadioGroup(currentForm("welshCommunication"))
             </ul>

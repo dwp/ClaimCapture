@@ -1,6 +1,5 @@
 package utils.pageobjects
 
-import play.api.test.TestBrowser
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import scala.collection.convert.Wrappers.JListWrapper
@@ -13,11 +12,11 @@ import utils.helpers.StringPadding._
  *         Date: 15/07/2013
  */
 trait WebFillActions {
-  this: { val browser: TestBrowser } =>
+  this: { val ctx: PageObjectsContext } =>
 
   private def click(elementCssSelector: String) = {
-    if (browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
-    browser.click(elementCssSelector)
+    if (ctx.browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
+    ctx.browser.click(elementCssSelector)
   }
 
   def fillAddress(elementCssSelector: String, value: String) = if (null != value) {
@@ -43,8 +42,8 @@ trait WebFillActions {
 
   def fillInput(elementCssSelector: String, value: String) = if (null != value) {
     try {
-      if (browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
-      browser.fill(elementCssSelector).`with`(value)
+      if (ctx.browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
+      ctx.browser.fill(elementCssSelector).`with`(value)
     }catch {
       case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
     }
@@ -52,7 +51,7 @@ trait WebFillActions {
 
   def fillJSInput(elementCssSelector: String, value: String) = if (null != value) {
     try {
-      browser.executeScript("$(\""+elementCssSelector+"\").val(\""+value+"\")")
+      ctx.browser.executeScript("$(\""+elementCssSelector+"\").val(\""+value+"\")")
     }catch {
       case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
     }
@@ -80,7 +79,7 @@ trait WebFillActions {
 
   def fillSelect(elementCssSelector: String, value: String):Unit = if (null != value) {
     try {
-      val webElement = browser.find(elementCssSelector)
+      val webElement = ctx.browser.find(elementCssSelector)
       if (webElement.isEmpty) handleUnknownElement(elementCssSelector)
       val allOptions = new JListWrapper(webElement.first().getElement.findElements(By.tagName("option"))) // Java list
       var found = false
@@ -91,7 +90,7 @@ trait WebFillActions {
       if (!found) throw new PageObjectException("Option " + value + " is invalid for combobox " + elementCssSelector)
     }
     catch {
-      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value + " in html:\n" + browser.pageSource(), exception = e)
+      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value + " in html:\n" + ctx.browser.pageSource(), exception = e)
     }
   }
 
@@ -123,8 +122,15 @@ trait WebFillActions {
     case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
   }
 
+  def fillYesNoDontknow(elementCssSelector: String, value: String, sep: String = "_") = if (null != value && value.nonEmpty) try {
+    click(elementCssSelector + sep + value.toLowerCase)
+  }
+  catch {
+    case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
+  }
+
   private def handleUnknownElement(elementCssSelector: String) = {
-    throw new PageObjectException("Unknown element with CSS selector " + elementCssSelector + " in html:\n" + browser.pageSource())
+    throw new PageObjectException("Unknown element with CSS selector " + elementCssSelector + " in html:\n" + ctx.browser.pageSource())
   }
 
 }

@@ -1,17 +1,15 @@
-@(request: RequestHeader)(implicit lang: Lang)
+@(request: Request[AnyContent])(implicit lang: Lang)
 
-@import helper._
-@import models.domain._
 
 @common.govMain("GOV.UK - The best place to find government services and information") {
     <div class="carers-allowance">
 
         @common.protoType()
-        @common.helpLine()
+        @common.helpLine(request)
 
         <section class="error-statement">
             <h1>This page cannot be found</h1>
             <p>Please check that you have entered the correct web address, or explore <a href="http://www.gov.uk" target="_blank">GOV.UK</a> to find the information you need.</p>
         </section>
     </div>
-}(onHandlerFooter(), lang)
+}(views.html.common.submittingFooter(), request)(lang)

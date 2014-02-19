@@ -6,9 +6,11 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import scala.language.postfixOps
-@import views.html.helper.checkConstraintRequired
+@import views.html.helper.dateConstraintRequired
 
-@checkConstraintRequired(field, args:_*) <!-- datePlaceholder -->
+<fieldset class="question-group">
+
+@dateConstraintRequired(field, args:_*) <!-- datePlaceholder -->
 
 <ul class="inline year" id="@CarersCrypto.encryptAES(id)">
     <li>
@@ -23,3 +25,5 @@
         @carersInputTel(field("year"), 'placeholder -> "YYYY", 'maxlength -> 4)
     </li>
 </ul>
+
+</fieldset>

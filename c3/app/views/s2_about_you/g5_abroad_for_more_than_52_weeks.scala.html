@@ -7,8 +7,9 @@
 @import models.DayMonthYear
 @import utils.helpers.CarersCrypto
 @import views.html.s2_about_you.main
+@import play.api.i18n.{Messages => Messages}
 
-@main(Messages("s2.g5") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.AbroadForMoreThan52Weeks), Some(AbroadForMoreThan52WeeksForm)) {
+@main(Messages("s2.g5") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.AbroadForMoreThan52Weeks)) {
 @errorsSummary(AbroadForMoreThan52WeeksForm)
 
     <fieldset id="trips" class="form-elements results-detail">
@@ -60,6 +61,10 @@
             </tbody>
         </table>
 
+        <div class="prompt table-helper">
+        	<p>We may need to contact you for more information about your trips.</p>
+        </div>
+        
         <div class="prompt breaks-prompt">
             <p>Are you sure you want to delete this trip?</p>
             <input id="selected-row-do-not-delete" type="button" class="button row secondary" value="No" aria-label="No Delete">
@@ -78,14 +83,14 @@
             @defining(if(trips.fiftyTwoWeeksTrips == Nil || trips.fiftyTwoWeeksTrips.isEmpty) {"52Weeks.label"} else {"52Weeks.more.label"}) { label =>
                 @yesNoRadioGroup(AbroadForMoreThan52WeeksForm(
                     "anyTrips"),
-                    '_label -> Messages(label, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 156 weeks).`dd/MM/yyyy`)),
+                    '_label -> Messages(label),
                     'helperBelow -> Messages("52Weeks.helper")
                 )
             }
             </ul>
 
             <div id="warningMessageWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
-                <p>We will contact you about more trips.</p>
+                <p>Tell us about any other time outside England, Scotland or Wales in the additional information section near the end of the claim.</p>
                 <span>!</span>
             </div>
 

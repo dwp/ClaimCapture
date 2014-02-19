@@ -1,7 +1,6 @@
 package utils.pageobjects.tests
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimPage, PageContext, TestData, Page}
+import utils.pageobjects._
 import org.specs2.mock.Mockito
 import org.fluentlenium.core.domain.{FluentWebElement, FluentList}
 import java.util
@@ -12,7 +11,7 @@ import java.util.concurrent.TimeUnit
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
-class MockPage (browser: TestBrowser, title: String, previousPage: Option[Page] = None) extends ClaimPage(browser, "/mock", title,previousPage){
+class MockPage (ctx:PageObjectsContext, title: String) extends ClaimPage(ctx, "/mock", title){
   /**
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
@@ -25,7 +24,7 @@ class MockPage (browser: TestBrowser, title: String, previousPage: Option[Page] 
  */
 object MockPage {
   val title = "Mock Page"
-  def buildPage(browser: TestBrowser) = new MockPage(browser, title)
+  def buildPage(ctx:PageObjectsContext) = new MockPage(ctx, title)
 }
 
 /** The context for Specs tests */
@@ -42,7 +41,7 @@ class MockPageContext extends PageContext with Mockito {
     mockedBrowser
   }
 
-  val page = MockPage buildPage browser
+  val page = MockPage buildPage PageObjectsContext(browser)
 }
 
 /** The context for Specs tests */
@@ -56,5 +55,5 @@ trait MockPageWrongTitleContext extends PageContext with Mockito {
     mockedBrowser
   }
 
-  val page = MockPage buildPage browser
+  val page = MockPage buildPage PageObjectsContext(browser)
 }

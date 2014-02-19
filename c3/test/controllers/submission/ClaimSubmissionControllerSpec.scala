@@ -12,16 +12,28 @@ import java.util.concurrent.TimeUnit
 import models.MultiLineAddress
 import models.domain.Claim
 import models.yesNo.YesNo
-import models.view.CachedClaim
+import models.view.{CachedChangeOfCircs, CachedClaim}
 import play.api.mvc.{SimpleResult, AnyContent, Request}
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import jmx.inspectors.{ClaimStatistics, GetClaimStatistics}
+import services.submission.{WebServiceClientComponent, ClaimSubmissionService}
+import services.ClaimTransactionComponent
+import monitoring.{ClaimBotChecking, ChangeBotChecking}
 
 class ClaimSubmissionControllerSpec extends Specification with Mockito with CachedClaim {
-  val controller = new ClaimSubmissionController(new Submitter {
-    def submit(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = Future(mock[SimpleResult])
-  })
+
+  val controller = new SubmissionController
+    with ClaimSubmissionService
+    with ClaimTransactionComponent
+    with WebServiceClientComponent
+    with ClaimBotChecking
+    with CachedClaim {
+
+    val webServiceClient = mock[WebServiceClient]
+    val claimTransaction = mock[ClaimTransaction]
+  }
+
 
   var claim = copyInstance(new Claim()
     .update(Benefits("no"))
@@ -31,8 +43,8 @@ class ClaimSubmissionControllerSpec extends Specification with Mockito with Cach
 
 
   private def createJob(jobId: String, questionGroup: QuestionGroup with Job.Identifier): Job = {
-    var jobDetails = JobDetails(jobId)
-    var job = Job(jobId).update(jobDetails).update(questionGroup)
+    val jobDetails = JobDetails(jobId)
+    val job = Job(jobId).update(jobDetails).update(questionGroup)
     job
   }
 

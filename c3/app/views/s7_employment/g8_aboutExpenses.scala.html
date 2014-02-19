@@ -11,6 +11,7 @@
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 
+@import play.api.i18n.{Messages => Messages}
 @main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.AboutExpenses, JobID(currentForm))) {
 
 

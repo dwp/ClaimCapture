@@ -12,6 +12,7 @@
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 @import app.PensionPaymentFrequency._
+@import play.api.i18n.{Messages => Messages}
 
 @main(Messages("s7.g10") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.ChildcareExpenses, JobID(currentForm))) {
 
@@ -26,7 +27,7 @@
             <ul>
                 @carersInputText(currentForm("whoLooksAfterChildren"))
 
-                @carersCurrency(currentForm("howMuchCostChildcare"), 'placeholder -> Messages("poundSign"), '_label -> Messages("howMuchCostChildcare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'maxlength -> Mappings.sixty)
+                @carersCurrency(currentForm("howMuchCostChildcare"), '_label -> Messages("howMuchCostChildcare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'maxlength -> Mappings.sixty)
 
                 @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> Messages ("employment_howOftenPayChildCare", "",didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayChildCare",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
 

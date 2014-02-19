@@ -21,7 +21,7 @@ object G8MoreAboutYou extends Controller with CachedClaim with Navigable {
   def present = claiming { implicit claim => implicit request => implicit lang =>
     claim.questionGroup(OtherEEAStateOrSwitzerland) match {
       case Some(n) => track(MoreAboutYou) { implicit claim => Ok(views.html.s2_about_you.g8_moreAboutYou(form.fill(MoreAboutYou))) }
-      case _ => Redirect("/")
+      case _ => Redirect(startPage)
     }
   }
 
@@ -36,7 +36,7 @@ object G8MoreAboutYou extends Controller with CachedClaim with Navigable {
                                 .showHideSection(moreAboutYou.beenInEducationSinceClaimDate == yes, Education)
                                 .showHideSection(moreAboutYou.receiveStatePension == no, PayDetails)
 
-        updatedClaim.update(moreAboutYou) -> Redirect(routes.G9Employment.present())
+        updatedClaim.update(moreAboutYou) -> Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
       })
   }
 }

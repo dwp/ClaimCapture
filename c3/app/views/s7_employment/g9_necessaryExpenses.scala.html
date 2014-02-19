@@ -11,11 +11,13 @@
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 @import models.domain._
+@import play.api.i18n.{Messages => Messages}
 
 @jobTitleLabel() = @{
     Messages("jobTitle." + jobs.questionGroup(JobID(currentForm), JobDetails)
                                .collect { case jd: JobDetails if (jd.finishedThisJob == "yes") => "was" }.getOrElse("is"))
 }
+
 
 @main(Messages("s7.g9") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.NecessaryExpenses, JobID(currentForm))) {
 

@@ -38,7 +38,8 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
       case Some(a: AboutExpenses) if a.payAnyoneToLookAfterChildren == `yes`=>
         track(ChildcareExpenses) { implicit claim => Ok(views.html.s7_employment.g10_childcareExpenses(form.fillWithJobID(ChildcareExpenses, jobID))) }
       case _ =>
-        claim.update(jobs.delete(jobID, ChildcareExpenses)) -> Redirect(routes.G12PersonYouCareForExpenses.present(jobID))
+        val updatedClaim = claim.update(jobs.delete(jobID, ChildcareExpenses))
+        updatedClaim.update(jobs.delete(jobID, ChildcareExpenses)) -> Redirect(routes.G12PersonYouCareForExpenses.present(jobID))
     }
   }
 

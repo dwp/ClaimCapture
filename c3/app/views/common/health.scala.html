@@ -1,15 +1,15 @@
-@(now:String)(implicit lang: Lang)
+@(now:String)(implicit lang: Lang, request: Request[AnyContent])
 @common.govMain("Alive") {
 
     <div class="carers-allowance">
 
         @common.protoType()
 
-        @common.helpLine()
+        @common.helpLine(request)
 
         <section class="finish-statement">
             <h1>Carer's allowance is functioning</h1>
             <p>@now</p>
         </section>
     </div>
-}(Html("<!-- Empty -->"),lang)
+}(Html.empty, lang, request)

@@ -6,7 +6,7 @@
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
-
+@import play.api.i18n.{Messages => Messages}
 @main(Messages("s3.g1") + " - " + Messages("s3.longName"), Some(currentForm)) {
 
 
@@ -31,7 +31,7 @@
 
                 @inputDayMonthYear(currentForm("dateOfBirth"), 'helperBelow-> Messages("dateOfBirth.helper"))
                 
-                @carersInputText(currentForm("nationality"), 'maxLength -> 35,'helperBelow -> Messages("nationality.helper"))
+                @carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35,'helperBelow -> Messages("partner.nationality.helper"))
 
                 @yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
@@ -41,7 +41,7 @@
 
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
         </nav>
     }
 }

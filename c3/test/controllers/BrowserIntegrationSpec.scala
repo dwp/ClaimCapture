@@ -3,12 +3,13 @@ package controllers
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 import play.api.test.WithBrowser
-import utils.pageobjects.TestData
+import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s1_carers_allowance._
 
 class BrowserIntegrationSpec extends Specification with Tags {
   "Browser" should {
-    "not cache pages" in new WithBrowser with G1BenefitsPageContext {
+    "not cache pages" in new WithBrowser with PageObjects {
+      val page = G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"

@@ -21,17 +21,12 @@ function datepicker(dateFieldId) {
 $(function() {
     // view more / view less
     $('.helper-more').click(function(){
+        var labelText = $(this).text() === 'Close'? $(this).attr('data-initial') : 'Close';
+
         $(this).toggleClass("helper-less")
         $(this).next(".helper-info").slideToggle("medium");
 
-        if ($(this).text() === 'Close')
-        {
-            $(this).text('What is an EEA State?');
-        }
-        else
-        {
-            $(this).text('Close');
-        }
+        $(this).text(labelText);
     });
 
     // Nino auto jump
@@ -80,6 +75,10 @@ function areCookiesEnabled(){
 
 function trackEvent(category, action, label, value, noninteraction){
     _gaq.push(['_trackEvent',category,action].concat(opt(label)).concat(opt(value)).concat(opt(noninteraction)));
+}
+
+function trackVirtualPageView(category){
+    _gaq.push(['_trackPageview',category]);
 }
 
 function opt(v){

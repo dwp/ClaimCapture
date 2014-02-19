@@ -1,13 +1,14 @@
 package xml
 
 import models.domain._
-import XMLHelper.formatValue
+import XMLHelper._
 import scala.xml.NodeSeq
 import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 import app.XMLValues._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
-import play.api.i18n.Messages
+import play.api.i18n.{Messages => Messages}
+import controllers.Mappings
 
 object EvidenceList {
 
@@ -69,10 +70,12 @@ object EvidenceList {
     val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
 
     var textLines = NodeSeq.Empty ++ textSeparatorLine("About You")
+    textLines ++= textLine(Messages("nationality.pdf") + " = ", nationalityAndResidency.nationality)
     textLines ++= textLine(Messages("resideInUK.label") + " = ", nationalityAndResidency.resideInUK.answer)
+    if (nationalityAndResidency.resideInUK.answer == Mappings.no){textLines ++= textLine(Messages("resideInUK") + " = ", nationalityAndResidency.resideInUK.text.get)}
     textLines ++= fiftyTwoWeeksTrips(claim)
     textLines ++= textLine("Mobile number = ", yourContactDetails.mobileNumber)
-    textLines ++= textLine("Do you, or any member of your family, receive any benefits or pensions from from a European Economic Area (EEA) state or Switzerland? = ", otherEEAState.benefitsFromEEA)
+    textLines ++= textLine("Do you, or any member of your family, receive any benefits or pensions from a European Economic Area (EEA) state or Switzerland? = ", otherEEAState.benefitsFromEEA)
     textLines ++= textLine("Have you, or a member of your family, made a claim for any benefits or pensions from a European Economic Area (EEA) state or Switzerland? = ", otherEEAState.claimedForBenefitsFromEEA)
     textLines ++= textLine("Are you, or a member of your family, working in or paying insurance to, another European Economic Area (EEA) state or Switzerland? = ", otherEEAState.workingForEEA)
     textLines ++= textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
@@ -119,23 +122,21 @@ object EvidenceList {
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
     var textLines = NodeSeq.Empty
 
-    textLines ++= textLine("Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date " +
-      s" ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`}? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
+    textLines ++= textLine("Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
 
     for ((fiftyTwoWeekTrip,index) <- trips.fiftyTwoWeeksTrips.zipWithIndex) {
       if (index > 0){
-        textLines ++= textLine("Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date" +
-          s" ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`}? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
+        textLines ++= textLine("Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
       }
       textLines ++= textLine("Which country did you go to? = ", fiftyTwoWeekTrip.where)
 
       fiftyTwoWeekTrip.start match {
-        case Some(dayMonthYear) => textLines ++= textLine("Date you left = ", dayMonthYear.`yyyy-MM-dd`)
+        case Some(dayMonthYear) => textLines ++= textLine("Date you left = ", dayMonthYear.`dd/MM/yyyy`)
         case _ => NodeSeq.Empty
       }
 
       fiftyTwoWeekTrip.end match {
-        case Some(dayMonthYear) => textLines ++= textLine("Date you returned = ", dayMonthYear.`yyyy-MM-dd`)
+        case Some(dayMonthYear) => textLines ++= textLine("Date you returned = ", dayMonthYear.`dd/MM/yyyy`)
         case _ => NodeSeq.Empty
       }
 
@@ -263,35 +264,7 @@ object EvidenceList {
       textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther)
   }
 
-  private def textSeparatorLine(title: String) = {
-    val lineWidth = 54
-    val padding = "=" * ((lineWidth - title.length) / 2)
-
-    <TextLine>
-      {s"$padding$title$padding"}
-    </TextLine>
-  }
-
-
   private def sectionEmpty(nodeSeq: NodeSeq) = {
     if (nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty
-  }
-
-  private def textLine(): NodeSeq = <TextLine/>
-
-  private def textLine(text: String): NodeSeq = <TextLine>
-    {text}
-  </TextLine>
-
-  private def textLine(label: String, value: String): NodeSeq = value match {
-    case "" => NodeSeq.Empty
-    case _ => <TextLine>
-      {s"$label" + formatValue(value)}
-    </TextLine>
-  }
-
-  private def textLine(label: String, value: Option[String]): NodeSeq = value match {
-    case Some(s) => textLine(label, value.get)
-    case None => NodeSeq.Empty
   }
 }

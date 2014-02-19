@@ -1,20 +1,20 @@
 package utils.pageobjects.s6_education
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
 /**
  * TODO write description
  * @author Jorge Migueis
  *         Date: 06/08/2013
  */
-class G1YourCourseDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1YourCourseDetailsPage.url, G1YourCourseDetailsPage.title, previousPage) {
-  declareInput("#courseType","EducationTypeOfCourse")
+class G1YourCourseDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1YourCourseDetailsPage.url, G1YourCourseDetailsPage.title) {
   declareInput("#courseTitle","EducationCourseTitle")
+  declareInput("#nameOfSchoolCollegeOrUniversity","EducationNameofSchool")
+  declareInput("#nameOfMainTeacherOrTutor","EducationNameOfMainTeacherOrTutor")
+  declareInput("#courseContactNumber","EducationPhoneNumber")
   declareDate("#startDate","EducationWhenDidYouStartTheCourse")
   declareDate("#expectedEndDate","EducationWhenDoYouExpectTheCourseToEnd")
-  declareDate("#finishedDate","EducationWhenDidYouFinish")
-  declareInput("#studentReferenceNumber","EducationYourStudentReferenceNumber")
 }
 
 /**
@@ -26,12 +26,12 @@ object G1YourCourseDetailsPage {
 
   val url  = "/education/your-course-details"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1YourCourseDetailsPage(browser,previousPage)
+  def apply(ctx:PageObjectsContext) = new G1YourCourseDetailsPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G1YourCourseDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1YourCourseDetailsPage (browser)
+  val page = G1YourCourseDetailsPage (PageObjectsContext(browser))
 }
