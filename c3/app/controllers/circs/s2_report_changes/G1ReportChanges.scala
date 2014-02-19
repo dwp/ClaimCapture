@@ -41,17 +41,21 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
     import controllers.circs.s2_report_changes.{routes => routes}
 
     // for qs groups under this section, if it is not reportedChange - delete
-    val optSections = Stack(CircumstancesSelfEmployment,CircumstancesOtherInfo,CircumstancesStoppedCaring,CircumstancesPaymentChange)
+    val optSections = Stack(CircumstancesSelfEmployment,CircumstancesOtherInfo,CircumstancesStoppedCaring,CircumstancesPaymentChange, CircumstancesAddressChange)
 
-    val selectedQG:(QuestionGroup.Identifier,Call) =
-      if (f.reportChanges      == r.SelfEmployment.name) CircumstancesSelfEmployment -> routes.G2SelfEmployment.present()
-      else if (f.reportChanges == r.AddressChange.name)  CircumstancesAddressChange  -> routes.G6AddressChange.present()
-      else if (f.reportChanges == r.StoppedCaring.name)  CircumstancesStoppedCaring  -> routes.G3PermanentlyStoppedCaring.present()
-      else if (f.reportChanges == r.PaymentChange.name)  CircumstancesPaymentChange  -> routes.G5PaymentChange.present()
-      else                                               CircumstancesOtherInfo      -> routes.G4OtherChangeInfo.present()
+    val selectedQG:(QuestionGroup.Identifier,Call) = {
+      f.reportChanges match {
+        case r.SelfEmployment.name => CircumstancesSelfEmployment -> routes.G2SelfEmployment.present()
+        case r.AddressChange.name => CircumstancesAddressChange  -> routes.G6AddressChange.present()
+        case r.StoppedCaring.name =>  CircumstancesStoppedCaring  -> routes.G3PermanentlyStoppedCaring.present()
+        case r.PaymentChange.name => CircumstancesPaymentChange  -> routes.G5PaymentChange.present()
+        case _ => CircumstancesOtherInfo      -> routes.G4OtherChangeInfo.present()
+      }
+    }
 
     val updatedCircs = popDeleteQG(circs,optSections.filter(_.id != selectedQG._1.id))
 
     updatedCircs.update(f) -> Redirect(selectedQG._2)
   }
+
 }

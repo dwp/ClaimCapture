@@ -5,18 +5,21 @@ window.initEvents = (stillCaringY, stillCaringN, dateStoppedCaring,
     $("#stillCaringDate").slideDown 500
     $("#stillCaringDate").css('display', "block")
 
-    $("#stillCaringAddress").slideUp 500, ->
-      $("#" + caredForChangedAddress).val("")
-#    $("#"+caredForChangedAddressN).attr("checked", "")
-    $("#sameAddressData").slideUp 500
+    $("#stillCaringAddress").slideUp 500
     $("#changedAddressSame").slideUp 500
+    $("#sameAddressData").slideUp 500
 
+    $("#"+sameAddressY).attr("checked", false)
+    $("#"+sameAddressN).attr("checked", false)
+    $("#"+caredForChangedAddressN).attr("checked", false)
+    $("#"+caredForChangedAddressY).attr("checked", false)
 
   $("#" + stillCaringY).on "click", ->
     $("#stillCaringDate").slideUp 500, ->
       $("#" + dateStoppedCaring).val("")
 
     $("#"+caredForChangedAddressN).attr("checked", false)
+    $("#"+caredForChangedAddressY).attr("checked", false)
     $("#stillCaringAddress").slideDown 500
     $("#stillCaringAddress").css('display', "block")
 
@@ -24,12 +27,10 @@ window.initEvents = (stillCaringY, stillCaringN, dateStoppedCaring,
   $("#" + caredForChangedAddressY).on "click", ->
     $("#changedAddressSame").slideDown 500
     $("#changedAddressSame").css('display', "block")
-
-    #$("#sameAddressData").slideDown 500
-    #$("#sameAddressData").css('display', "block")
+    $("#"+sameAddressY).attr("checked", false)
+    $("#"+sameAddressN).attr("checked", false)
 
   $("#" + caredForChangedAddressN).on "click", ->
-    #$("#"+sameAddressY).attr("checked", "")
     $("#changedAddressSame").slideUp 500
 
     $("#sameAddressData").slideUp 500, ->

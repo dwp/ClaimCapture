@@ -84,7 +84,7 @@ object CircsEvidenceList {
 
         buffer ++= textLine(Messages("accountHolderName") + " = " + paymentChange.accountHolderName)
 
-        buffer ++= textLine(Messages("whoseNameIsTheAccountIn") + " = " + paymentChange.whoseNameIsTheAccountIn)
+        buffer ++= textLine(Messages("whoseNameIsTheAccountIn") + " = " + paymentChange.whoseNameIsTheAccountIn.toString())
 
         buffer ++= textLine(Messages("bankFullName") + " = " + paymentChange.bankFullName)
 
@@ -131,7 +131,6 @@ object CircsEvidenceList {
         if("None"!=addressChange.newAddress.lineTwo) buffer ++= textLine(addressChange.newAddress.lineTwo.get)
         if("None"!=addressChange.newAddress.lineThree) buffer ++= textLine(addressChange.newAddress.lineThree.get)
 
-        println(buffer.toString())
         // new postcode if it exists
         addressChange.newPostcode match {
           case Some(addressChange.newPostcode) => {
@@ -169,9 +168,9 @@ object CircsEvidenceList {
         }
       }
 
-        case _ =>
+      case _ =>
     }
-    println(buffer.toString())
+
     buffer
   }
 }

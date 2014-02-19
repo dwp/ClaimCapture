@@ -41,9 +41,9 @@ caredForChangedAddress.answer=Has the person you care for changed address?
 caredForChangedAddress_sameAddress_answer=Is this the same address as you?
 sameAddress_answer=Is this the same address as you?
 sameAddress.answer=Is this the same address as you?
-sameAddress_theirNewAddress=Person You Care For Address
-sameAddress.theirNewAddress=Person You Care For Address
-sameAddress_theirNewPostcode=Person You Care For Postcode
+sameAddress_theirNewAddress=Their address
+sameAddress.theirNewAddress=Their address
+sameAddress_theirNewPostcode=Their postcode
 newAddress=Your new address
 newPostcode=Your new postcode
 
@@ -52,7 +52,7 @@ lastName = Last name
 
 #FURTHER INFORMATION
 furtherInfoContact=Contact phone or mobile number
-furtherInfoContact.helper=Alternatively, tell us here if you''d rather be contacted by post.
+furtherInfoContact.helper=Alternatively, tell us here if you do not have a contact number.
 
 obtainInfoAgreement = Do you agree to us obtaining information from any other persons or organisations you may have told us about?
 obtainInfoWhy = Please tell us why not
@@ -363,7 +363,7 @@ someoneElse_fullName = Full name
 organisation = Organisation
 amount = How much do you get paid a week?
 startDatePayment = When did the payments start?
-poundSign = £
+poundSign = ï¿½
 decimal.invalid = The amount must be in the format 12 or 12.5 or 12.55
 
 # MORE ABOUT THE CARE

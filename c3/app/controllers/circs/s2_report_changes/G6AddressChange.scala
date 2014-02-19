@@ -32,7 +32,6 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
       "theirNewAddress" -> optional(address.verifying(requiredAddress)),
       "theirNewPostcode" -> optional(text verifying validPostcode)
     )(YesNoWithAddress.apply)(YesNoWithAddress.unapply)
-     // .verifying("theirNewAddressRequired", YesNoWithAddress.validateOnNo _)
 
   val form = Form(mapping(
     stillCaringMapping,
@@ -42,9 +41,17 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
     sameAddressMapping,
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesAddressChange.apply)(CircumstancesAddressChange.unapply)
+    .verifying("caredForChangedAddress.answer", validateCaredForChangedAddress _)
     .verifying("sameAddress.answer", validateSameAddress _)
     .verifying("sameAddress.theirNewAddress", validateTheirNewAddress _)
   )
+
+  def validateCaredForChangedAddress(form: CircumstancesAddressChange) = {
+    form.stillCaring.answer match {
+      case `yes` => form.caredForChangedAddress.answer.isDefined
+      case _ => true
+    }
+  }
 
   def validateSameAddress(form: CircumstancesAddressChange) = {
     form.caredForChangedAddress.answer match {
@@ -54,16 +61,10 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
   }
 
   def validateTheirNewAddress(form: CircumstancesAddressChange) = {
-//    if((form.stillCaring.answer == Some("yes")) &&
-//    (form.sameAddress.answer == Some("no")))
-//      form.sameAddress.address.isDefined
-//    else true
-
     form.stillCaring.answer match {
-      case `yes` => {
+      case `yes` =>
         if(form.sameAddress.answer == Some("no")) form.sameAddress.address.isDefined
         else true
-      }
       case _ => true
     }
   }
@@ -81,7 +82,7 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
           .replaceError("stillCaring","dateRequired", FormError("stillCaring.date", "error.required"))
           .replaceError("","sameAddress.answer", FormError("sameAddress.answer", "error.required"))
           .replaceError("","sameAddress.theirNewAddress", FormError("sameAddress.theirNewAddress", "error.required"))
-          //.replaceError("sameAddress","theirNewAddressRequired", FormError("sameAddress.theirNewAddress", "error.required"))
+          .replaceError("","caredForChangedAddress.answer", FormError("caredForChangedAddress.answer", "error.required"))
         BadRequest(views.html.circs.s2_report_changes.g6_addressChange(updatedFormWithErrors))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
