@@ -1,4 +1,7 @@
 @(url:String)(implicit lang: Lang, request: Request[AnyContent])
+
+@import play.api.i18n.{MMessages => Messages}
+
 @common.govMain("Session has timed out") {
 	
     <div class="carers-allowance">
@@ -10,10 +13,10 @@
 
         <section class="error-statement">
 
-                <h1>Your session has timed out</h1>
+                <h1>@Messages("session.timeout")</h1>
 
                 <nav class="form-steps">
-                    <button type="submit" name="action" value="next" class="button secondary" onClick="location.href='@url'" aria-label="Restart claim button">Restart claim</button>
+                    <button type="submit" name="action" value="next" class="button secondary" onClick="location.href='@url'" aria-label="@Messages("restart.claim.help")">@Messages("restart.claim")</button>
                 </nav>
             </section>
         </div>
