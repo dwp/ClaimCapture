@@ -14,6 +14,7 @@ import play.api.mvc.SimpleResult
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
 import play.api.mvc.Controller
+import utils.helpers.CarersLanguageHelper
 
 /**
  * Application configuration is in a hierarchy of files:
@@ -30,7 +31,7 @@ import play.api.mvc.Controller
  * play -Dconfig.file=conf/application.test.conf run
  */
 
-object Global extends GlobalSettings with Injector with Controller {
+object Global extends GlobalSettings with Injector with CarersLanguageHelper {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", Option(System.getProperty("http.port")).getOrElse("Value not set"))
