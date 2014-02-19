@@ -2,6 +2,7 @@
 
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
+@import play.api.i18n.{MMessages => Messages}
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
     @yesNoPlaceholder(field, Seq("yes" -> Messages("label.yes"), "no" -> Messages("label.no")), args.filter(_._1 != 'label):_*)

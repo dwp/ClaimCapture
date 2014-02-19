@@ -1,6 +1,6 @@
 @()(implicit lang: Lang)
 @if(play.Configuration.root().getBoolean("prototype.disclaimer", true)) {
 <div class="prototype">
-  <p>@Html(Messages("protoType.message"))</p>
+  <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
 </div>
 }
