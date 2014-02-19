@@ -1,7 +1,7 @@
 @()(implicit request:play.api.mvc.Request[AnyContent])
 
 @import views.html.helper._
-@import play.api.i18n.{Messages => Messages}
+@import play.api.i18n.{MMessages => Messages}
 
 @common.govMain("Submitting"){
     @form(action = controllers.circs.submission.routes.ChangeOfCircsSubmissionController.submit) {

@@ -5,7 +5,7 @@ import scala.xml.NodeSeq
 import xml.XMLHelper._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
-import play.api.i18n.{Messages => Messages}
+import play.api.i18n.{MMessages => Messages}
 import controllers.Mappings
 
 object ConsentAndDeclaration {

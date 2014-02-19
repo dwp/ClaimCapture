@@ -1,7 +1,7 @@
 package models.domain
 
 import models._
-import play.api.i18n.{Messages => Messages}
+import play.api.i18n.{MMessages => Messages}
 import scala.reflect.ClassTag
 import controllers.Mappings._
 import models.PaymentFrequency

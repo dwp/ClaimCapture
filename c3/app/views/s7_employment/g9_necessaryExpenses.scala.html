@@ -11,7 +11,7 @@
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 @import models.domain._
-@import play.api.i18n.{Messages => Messages}
+@import play.api.i18n.{MMessages => Messages}
 
 @jobTitleLabel() = @{
     Messages("jobTitle." + jobs.questionGroup(JobID(currentForm), JobDetails)

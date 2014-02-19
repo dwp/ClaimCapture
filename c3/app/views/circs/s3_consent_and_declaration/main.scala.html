@@ -1,7 +1,7 @@
 @(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
-@import play.api.i18n.{Messages => Messages}
+@import play.api.i18n.{MMessages => Messages}
 
 @common.govMain(title) {
 

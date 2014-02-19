@@ -1,8 +1,9 @@
 @(elements: helper.FieldElements)
-@import play.api.i18n.{Messages => Messages}
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.CarersHelpers._
 
 @if(elements.hasErrors) {
-    <p class="error">@elements.errors.mkString(", ")</p>
+    <p class="error">@elements.carersErrors.mkString(", ")</p>
 }
 
 @if(elements.args.contains('prompt)) {

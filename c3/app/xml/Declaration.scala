@@ -2,7 +2,7 @@ package xml
 
 import models.domain._
 import xml.XMLHelper._
-import play.api.i18n.{Messages => Messages}
+import play.api.i18n.{MMessages => Messages}
 import scala.Some
 
 object  Declaration {
