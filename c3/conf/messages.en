@@ -1,6 +1,8 @@
 theirFullName=Their full name
 theirRelationshipToYou=Their relationship to you
-theirRelationshipToYou.helper=eg: Father, Mother, Son, DaughterreportChanges=What type of change do you want to report?
+theirRelationshipToYou.helper=eg: Father, Mother, Son, Daughter
+
+reportChanges=What type of change do you want to report?
 reportChanges.helper=Tell us about your change
 reportChanges.stoppedCaring=I have permanently stopped caring
 reportChanges.addressChange=I want to change address
@@ -24,7 +26,7 @@ stillCaring.date=What date did you stop caring 35 hours a week?
 stillCaring_date=What date did you stop caring 35 hours a week?
 whenThisSelfEmploymentStarted=When did you start this self-employed work?
 typeOfBusiness=What type of business is your self-employed work?
-totalOverWeeklyIncomeThreshold=Will the total income into your business be more than Â£100 a week?
+totalOverWeeklyIncomeThreshold=Will the total income into your business be more than £100 a week?
 
 c2.g5.helper=For security, we also need you to confirm your current payment details
 currentlyPaidIntoBank.answer=Are you currently paid into a bank or building society?
@@ -61,10 +63,6 @@ circs.declaration.3 = I will phone 0845 6084321 or write to Carer''s Allowance U
 circs.declaration.4 = If I give false or incomplete information or fail to report any future changes in my circumstances or those of the person that I am caring for promptly, I understand that my Carer''s Allowance may be stopped or reduced and any overpayment of Carer''s Allowance may be recovered.In addition I may be prosecuted or face a financial penalty.
 circsSomeOneElse = Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
 
-
-
-
-
 error.required = This is required
 error.forbidden.characters = A name must not contain special characters
 error.restricted.characters = The text must not contain special characters
@@ -72,6 +70,7 @@ error.address.characters = Address must not contain special characters
 number.invalid = The value must be a whole number
 error.sortcode.length = A sort code must be 6 digits long
 error.invalid = Invalid value
+
 s1.name = eligibility
 s1.longName = Can you get Carer''s Allowance?
 s2.name = about you
@@ -202,12 +201,16 @@ c2.g5 = Existing payment details
 c2.g6 = Change of address
 
 c3.g1 = Declaration
-c3.g2 = Further Information## CARERS ALLOWANCE
+c3.g2 = Further Information
+
+## CARERS ALLOWANCE
 ################
 benefits.answer = Does the person you care for get one of these benefits?
 hours.answer = Do you spend 35 hours or more each week caring for the person you care for?
 over16.answer = Are you aged 16 or over?
 livesInGB.answer = Do you live in England, Scotland or Wales?
+
+
 ## ABOUT YOU
 
 # YOUR DETAILS
@@ -314,7 +317,9 @@ where = Which country did you go to?
 start.trip = Date you left?
 end.trip = Date you returned?
 why = Reason for being there?
-personWithYou = Was the person you care for with you?## YOUR PARTNER
+personWithYou = Was the person you care for with you?
+
+## YOUR PARTNER
 
 their.name.helper = Enter name as shown on their birth certificate or passport.
 
@@ -331,6 +336,7 @@ separated_date = When did you separate?
 partner.nationality=Nationality? (e.g. British)
 partner.nationality.helper=If you have a current passport, please give your nationality as shown on your passport.
 isPartnerPersonYouCareFor = Is your partner/spouse the person you are claiming Carer''s Allowance for?
+
 
 ## CARE YOU PROVIDE
 
@@ -385,6 +391,8 @@ breaks.whereYou.label = Where were you during the break?
 wherePerson = Where was the person you care for during the break?
 wherePerson.location = Where was the person you care for during the break?
 medicalDuringBreak = Did you or the person you care for get any medical treatment or professional care during this time?
+
+
 # ABOUT YOUR EDUCATION
 courseContactNumber = Course contact number
 courseContactNumber.helper = Please include if you know the number for your department
@@ -401,6 +409,7 @@ studentReferenceNumber = Your student reference number
 nameOfSchoolCollegeOrUniversity = Name of school, college or university
 nameOfMainTeacherOrTutor = Name of main teacher or tutor
 faxNumber = Fax number
+
 
 # EMPLOYMENT
 beenEmployedSince6MonthsBeforeClaim.label = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
@@ -481,6 +490,8 @@ employment_howOftenPayChildCare = How often {0} pay childcare expenses?
 howMuchCostCare = How much {0} pay them?
 howOftenPayCare = How often {1} pay them?
 whoDoYouPay = Name of the person/organisation you {0} pay
+
+
 #SELF EMPLOYED
 error.areYouSelfEmployedNow = Please tell us if you are self employed
 areYouSelfEmployedNow =  Are you self-employed now?
@@ -523,6 +534,8 @@ howOftenPayChildCare = How often {1} pay childcare expenses?
 
 #SELF EMPLOYED - Expenses While At Work
 howOftenPayExpenses = How often {1} pay expenses related to the person you care for?
+
+
 ## OTHER MONEY
 # ABOUT OTHER MONEY
 yourBenefits.answer = Have you {0} claimed or received any other benefits since your claim date: {1}?
@@ -554,6 +567,8 @@ otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Pater
 otherPay = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
 howOften_frequency = How often
 whoPaysYou = Who pays you
+
+
 ## PAY DETAILS
 # HOW WE PAY YOU
 likeToPay =  How would you like to get paid?
@@ -567,6 +582,8 @@ bankFullName = Full name of bank or building society
 sortCode = Sort code
 accountNumber = Account number
 rollOrReferenceNumber = Building society roll or reference number
+
+
 ## CONSENT AND DECLARATION
 # CONSENT
 gettingInformationFromAnyEmployer_informationFromEmployer = Do you agree to us getting information from any current or previous employer you have told us about on this form?
@@ -626,3 +643,4 @@ change.link = You should contact us as soon as possible. You may contact the <a 
 feedback.head = Feedback
 claim.feedback.link = If you would like to complete our survey, <a href="https://www.gov.uk/done/apply-carers-allowance">please follow this link</a>
 circs.feedback.link = If you would like to complete our survey, <a href="https://www.gov.uk/done/report-change-carers-allowance">please follow this link</a>
+
