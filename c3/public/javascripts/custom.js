@@ -21,7 +21,7 @@ function datepicker(dateFieldId) {
 $(function() {
     // view more / view less
     $('.helper-more').click(function(){
-        var labelText = $(this).text() === 'Close'? $(this).attr('data-initial') : 'Close';
+        var labelText = $(this).text() === $(this).attr('data-close')? $(this).attr('data-initial') : $(this).attr('data-close');
 
         $(this).toggleClass("helper-less")
         $(this).next(".helper-info").slideToggle("medium");
