@@ -1,4 +1,4 @@
-@(nationalityAndResidencyForm: Form[models.domain.NationalityAndResidency])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(nationalityAndResidencyForm: Form[models.domain.NationalityAndResidency])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,7 +7,6 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
-@import views.html.s2_about_you.main
 @import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s2.g4") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.NationalityAndResidency)) {
@@ -40,8 +39,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")">@Messages("form.next")</button>
         </nav>
     }
 }
