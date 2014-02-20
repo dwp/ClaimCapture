@@ -31,7 +31,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
     case _ => true
   }
 
-  def present = claiming { implicit claim => implicit request => implicit lang =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     presentConditionally(aboutSelfEmployment)
   }
 
@@ -41,7 +41,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
     }
   }
 
-  def submit = claiming { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("", "whenDidTheJobFinish.error.required", FormError("whenDidTheJobFinish", "error.required"))
