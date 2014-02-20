@@ -4,6 +4,7 @@
 @import utils.helpers.CarersCrypto
 @import utils.helpers._
 @import views.html.helper.base._
+@import play.api.i18n.{MMessages => Messages}
 
 @input(field, args ++
               Seq('autocomplete -> "off") ++
@@ -11,5 +12,5 @@
 
     @carersLabel(field,args:_*)
     
-    <input type="tel" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" pattern="[0-9 \-]{1,20}" title="Must be numbers only" value="@value" @toHtmlArgs(htmlArgs)>
+    <input type="tel" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" pattern="[0-9 \-]{1,20}" title="@Messages("mustBeNumbersOnly")" value="@value" @toHtmlArgs(htmlArgs)>
 }

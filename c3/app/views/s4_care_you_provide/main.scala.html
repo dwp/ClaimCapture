@@ -25,7 +25,7 @@
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
                                 <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="Change these answers - this is an optional link relating to a previous question section">Change these answers</a>
+                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Messages("change.these.help2")">@Messages("change.these")</a>
                             </li>
                         }
                     </ul>
