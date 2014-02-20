@@ -2,8 +2,9 @@
 
 @import helper._
 @import models.domain._
+@import play.api.i18n.{MMessages => Messages}
 
-@common.govMain("Carers response - Carer's Allowance") {
+@common.govMain(Messages("s1.g5.title")) {
 
 
         <div class="carers-allowance">
@@ -18,30 +19,30 @@
             <section class="response clearfix">
                 @form(action = controllers.s1_carers_allowance.routes.G5CarersResponse.submit) {
 
-                    <h1>What you need to know before you claim...</h1>
+                    <h1>@Messages("s1.g5.help1")</h1>
                     
 
                     <article class="partner">
-                        <h2>This could affect your partner's benefits</h2>
-                        <p>Some benefits your partner might get can also be affected. You will need to enter their details so the Department for Work and Pensions can work out how much they're still entitled to.</p>
+                        <h2>@Messages("s1.g5.help2")</h2>
+                        <p>@Messages("s1.g5.help3")</p>
                     </article>
 
                     <article class="earnings">
-                        <h2>You need to be earning less than &pound;100 a week net</h2>
-                        <p>If your income after tax, National Insurance and certain allowable expenses is more than &pound;100 a week you won't be entitled to Carer's Allowance. Please see the <a href="/claim-notes" target="_blank">claim notes</a> for allowable expenses. You will need to enter your employment details.</p>
+                        <h2>@Html(Messages("s1.g5.help4"))</h2>
+                        <p>@Html(Messages("s1.g5.help5"))</p>
                     </article>
                    
 
                     <article class="education">
-                        <h2>If you're in full time education you might not get Carer's Allowance</h2>
-                        <p>If you're studying 21 hours a week or more you might not be entitled. You will need to enter details of any education courses you're studying for.</p>
+                        <h2>@Messages("s1.g5.help6")</h2>
+                        <p>@Messages("s1.g5.help7")</p>
                     </article>
   
                     
 
                     <div class="form-steps">
-                        <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-                        <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
+                        <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+                        <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")" @views.html.ga.trackSubmit()>@Messages("form.next")</button>
                     </div>
                 }
             </section>
