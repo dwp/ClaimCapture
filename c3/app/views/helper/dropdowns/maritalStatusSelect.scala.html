@@ -1,4 +1,4 @@
-@(field: Field)
+@(field: Field)(implicit lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,13 +8,13 @@
 @{
     carersSelect(field,
         options = options(
-            "" -> "Please select",
-            "m" -> "Married or civil partner",
-            "s" -> "Single",
-            "d" -> "Divorced or civil partnership dissolved",
-            "w" -> "Widowed or surviving civil partner",
-            "n" -> "Separated",
-            "p" -> "Living with partner"
+            "" -> Messages("maritalStatus.pleaseSelect"),
+            "m" -> Messages("maritalStatus.married"),
+            "s" -> Messages("maritalStatus.single"),
+            "d" -> Messages("maritalStatus.divorced"),
+            "w" -> Messages("maritalStatus.widowed"),
+            "n" -> Messages("maritalStatus.separated"),
+            "p" -> Messages("maritalStatus.livingWithPartner")
         ),
         '_label -> Messages("maritalStatus")
     )
