@@ -19,6 +19,7 @@ import models.PensionPaymentFrequency
 import scala.util.Success
 import models.MultiLineAddress
 import models.PeriodFromTo
+import play.api.i18n.Lang
 
 object Mappings {
   object Name {

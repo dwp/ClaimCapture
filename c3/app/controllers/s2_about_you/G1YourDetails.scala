@@ -10,6 +10,7 @@ import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import play.api.Logger
+import play.api.i18n.{MMessages => Messages}
 
 object G1YourDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
