@@ -6,7 +6,7 @@ object ConsentAndDeclaration extends Section.Identifier {
   val id = "s11"
 }
 
-case class AdditionalInfo(anythingElse: Option[String] = None, welshCommunication: String = "") extends QuestionGroup(AdditionalInfo)
+case class AdditionalInfo(anythingElse: YesNoWithText = YesNoWithText(answer = "", text = None), welshCommunication: String = "") extends QuestionGroup(AdditionalInfo)
 
 object AdditionalInfo extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g1"

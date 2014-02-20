@@ -556,7 +556,7 @@ object ClaimScenarioFactory {
   
   def s11ConsentAndDeclaration = {
     val claim = s9SelfEmployment
-
+    claim.ConsentDeclarationTellUsAnythingElseAnswerAboutClaim = "no"
     claim.ConsentDeclarationCommunicationWelsh = "no"
 
     claim
