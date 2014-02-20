@@ -54,8 +54,8 @@
                             case _ =>
                         }}
                     </td>
-                    <td><input id="iteration-@{currentIteration + 1}-change" type="button" class="button row secondary" value="Change" aria-label="@Messages("change.button")"></td>
-                    <td><input id="iteration-@{currentIteration + 1}-delete" type="button" class="button row warning" value="Delete" aria-label="@Messages("delete.button")"></td>
+                    <td><input id="iteration-@{currentIteration + 1}-change" name="changerow" type="button" class="button row secondary" value="@Messages("change")" aria-label="@Messages("change.button")"></td>
+                    <td><input id="iteration-@{currentIteration + 1}-delete" name="deleterow" type="button" class="button row warning" value="@Messages("delete")" aria-label="@Messages("delete.button")"></td>
                 </tr>
             }
             </tbody>
@@ -67,8 +67,8 @@
         
         <div class="prompt breaks-prompt">
             <p>@Messages("s2.g5.help2")</p>
-            <input id="selected-row-do-not-delete" type="button" class="button row secondary" value="No" aria-label="@Messages("no.delete")">
-            <input id="selected-row-delete" type="button" class="button row warning" value="Yes" aria-label="@Messages("yes.delete")">
+            <input id="selected-row-do-not-delete" name="no" type="button" class="button row secondary" value="@Messages("no.delete")" aria-label="@Messages("no.delete.label")">
+            <input id="selected-row-delete" name="yes" type="button" class="button row warning" value="@Messages("yes.delete")" aria-label="@Messages("yes.delete.label")">
             <span>&#33;</span>
         </div>
     </fieldset>
