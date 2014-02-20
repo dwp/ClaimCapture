@@ -1,4 +1,4 @@
-@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks], trips: models.domain.Trips)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks], trips: models.domain.Trips)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 @import scala.xml.NodeSeq
 
 @import scala.language.postfixOps
@@ -20,7 +20,7 @@
 
             <thead>
                 <tr>
-                    <th>Dates</th>
+                    <th>@Messages("dates")</th>
                     <th class="desc">@Messages("where")</th>
                     <th class="desc">@Messages("why")</th>
                     <th></th>
@@ -48,27 +48,27 @@
                         @{trip.why match {
                             case Some(reasonForBeingThere) => reasonForBeingThere.reason match {
                                     case Some (reason) =>
-                                        if (reasonForBeingThere.other.isDefined)"Other: " +reasonForBeingThere.other.get else reason
+                                        if (reasonForBeingThere.other.isDefined) Messages("other") + " " + reasonForBeingThere.other.get else reason
                                     case _ =>
                                 }
                             case _ =>
                         }}
                     </td>
-                    <td><input id="iteration-@{currentIteration + 1}-change" type="button" class="button row secondary" value="Change" aria-label="Change button"></td>
-                    <td><input id="iteration-@{currentIteration + 1}-delete" type="button" class="button row warning" value="Delete" aria-label="Delete button"></td>
+                    <td><input id="iteration-@{currentIteration + 1}-change" type="button" class="button row secondary" value="Change" aria-label="@Messages("change.button")"></td>
+                    <td><input id="iteration-@{currentIteration + 1}-delete" type="button" class="button row warning" value="Delete" aria-label="@Messages("delete.button")"></td>
                 </tr>
             }
             </tbody>
         </table>
 
         <div class="prompt table-helper">
-        	<p>We may need to contact you for more information about your trips.</p>
+        	<p>@Messages("s2.g5.help1")</p>
         </div>
         
         <div class="prompt breaks-prompt">
-            <p>Are you sure you want to delete this trip?</p>
-            <input id="selected-row-do-not-delete" type="button" class="button row secondary" value="No" aria-label="No Delete">
-            <input id="selected-row-delete" type="button" class="button row warning" value="Yes" aria-label="Yes Delete">
+            <p>@Messages("s2.g5.help2")</p>
+            <input id="selected-row-do-not-delete" type="button" class="button row secondary" value="No" aria-label="@Messages("no.delete")">
+            <input id="selected-row-delete" type="button" class="button row warning" value="Yes" aria-label="@Messages("yes.delete")">
             <span>&#33;</span>
         </div>
     </fieldset>
@@ -90,15 +90,15 @@
             </ul>
 
             <div id="warningMessageWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
-                <p>Tell us about any other time outside England, Scotland or Wales in the additional information section near the end of the claim.</p>
+                <p>@Messages("s2.g5.warning")</p>
                 <span>!</span>
             </div>
 
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")">@Messages("form.next")</button>
         </nav>
     }
 }

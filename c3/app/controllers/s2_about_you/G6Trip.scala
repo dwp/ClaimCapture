@@ -25,11 +25,11 @@ object G6Trip extends Controller with CachedClaim {
 
   val fiftyTwoWeeksLabel = "s2.g5"
 
-  def present = claiming { implicit claim => implicit request => lang =>
+  def present = claiming { implicit claim => implicit request => implicit lang =>
     Ok(views.html.s2_about_you.g6_trip(form, fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
   }
 
-  def submit = claiming { implicit claim => implicit request => lang =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         BadRequest(views.html.s2_about_you.g6_trip(formWithErrors, fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
@@ -41,7 +41,7 @@ object G6Trip extends Controller with CachedClaim {
       })
   }
 
-  def trip(id: String) = claiming { implicit claim => implicit request => lang =>
+  def trip(id: String) = claiming { implicit claim => implicit request => implicit lang =>
     claim.questionGroup(Trips) match {
       case Some(ts: Trips) => ts.fiftyTwoWeeksTrips.find(_.id == id) match {
         case Some(t: Trip) => Ok(views.html.s2_about_you.g6_trip(form.fill(t), fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
@@ -52,7 +52,7 @@ object G6Trip extends Controller with CachedClaim {
     }
   }
 
-  def delete(id: String) = claiming { implicit claim => implicit request => lang =>
+  def delete(id: String) = claiming { implicit claim => implicit request => implicit lang =>
     import play.api.libs.json.Json
     import language.postfixOps
 
