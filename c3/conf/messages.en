@@ -35,7 +35,8 @@ currentlyPaidIntoBank.text1.label=Name of current bank or building society
 currentlyPaidIntoBank.text2.label=Confirm your method of payment
 c2.g5.newPaymentDetails=New payment details
 
-
+c2.g6.newAddress=New address
+c2.g6.caredForChangedAddress=Person cared for - their new address
 caredForChangedAddress_answer=Has the person you care for changed address?
 caredForChangedAddress.answer=Has the person you care for changed address?
 caredForChangedAddress_sameAddress_answer=Is this the same address as you?
@@ -44,6 +45,7 @@ sameAddress.answer=Is this the same address as you?
 sameAddress_theirNewAddress=Their address
 sameAddress.theirNewAddress=Their address
 sameAddress_theirNewPostcode=Their postcode
+sameAddress.theirNewPostcode=Their postcode
 newAddress=Your new address
 newPostcode=Your new postcode
 
