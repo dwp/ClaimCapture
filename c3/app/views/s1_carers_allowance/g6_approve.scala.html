@@ -1,29 +1,30 @@
 @(approved: Boolean)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
+@import play.api.i18n.{MMessages => Messages}
 
 @main("Can you get Carer's Allowance?", None, claim.completedQuestionGroups(models.domain.CarersAllowance)) {
     @if(approved) {
         <div class="prompt entitlement">
-            <p>Based on your answers you may be entitled to Carer's Allowance.</p>
+            <p>@Messages("s1.g6.help1")</p>
         </div>
     } else {
         <div class="prompt entitlement-error">
-            <h3>Based on your answers you may not be entitled to Carer's Allowance.</h3>
-            <p>If your circumstances change, you may be entitled to Carer's Allowance <a href="https://www.gov.uk/carers-allowance/how-to-claim" target="_blank">Find out more about Carer's Allowance</a>.</p>
+            <h3>@Messages("s1.g6.help2")</h3>
+            <p>@Html(Messages("s1.g6.help3"))</p>
         </div>
     }
 
     @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit) {
         <div class="form-steps">
         	@if(approved == false) {
-        	    <p>However, if you wish to continue, click the <strong>'Next step'</strong> button below.</p>
+        	    <p>@Html(Messages("s1.g6.help4"))</p>
             } else {
-        	    <p>Please click the <strong>'Next step'</strong> button below.</p>
+        	    <p>@Html(Messages("s1.g6.help5"))</p>
             }
 
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next step button">Next step</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.step.help")">@Messages("form.next.step")</button>
         </div>
     }
 }
