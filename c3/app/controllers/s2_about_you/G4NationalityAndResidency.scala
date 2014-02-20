@@ -16,7 +16,7 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
       "answer" -> nonEmptyText.verifying(validYesNo),
       "text" -> optional(carersNonEmptyText(maxLength = 35))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("required", YesNoWithText.validateOnNo _)
+      .verifying("error.required", YesNoWithText.validateOnNo _)
 
   val form = Form(mapping(
     "nationality" -> carersNonEmptyText(maxLength = 35),
