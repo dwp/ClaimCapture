@@ -11,7 +11,7 @@ import scala.Some
 object CircsEvidenceList {
   def xml(circs: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{selfEmployed(circs)}{furtherInfo(circs)}{theirInfo(circs)}{paymentChange(circs)}{addressChange(circs)}
+      {xmlGenerated()}{furtherInfo(circs)}{theirInfo(circs)}{selfEmployed(circs)}{paymentChange(circs)}{addressChange(circs)}
     </EvidenceList>
   }
 
