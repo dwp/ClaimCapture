@@ -14,7 +14,7 @@ reportChanges.anyOtherChanges=Any other changes
 stoppedCaringDate = What date did you permanently stop caring?
 stoppedCaringDate.helper = This is when you stopped caring for the person you looked after for at least 35 hours a week.
 moreAboutChanges = Tell us more about your changes
-moreAboutChanges.helper = If you did not tell us about any of your change(s) as soon as they happened, we need you to tell us why.
+moreAboutChanges.helper = If you did not tell us about any of your changes as soon as they happened, we need you to tell us why.
 
 changeInCircs = Tell us about your changes including all dates.
 
@@ -26,7 +26,7 @@ stillCaring.date=What date did you stop caring 35 hours a week?
 stillCaring_date=What date did you stop caring 35 hours a week?
 whenThisSelfEmploymentStarted=When did you start this self-employed work?
 typeOfBusiness=What type of business is your self-employed work?
-totalOverWeeklyIncomeThreshold=Will the total income into your business be more than 100 a week?
+totalOverWeeklyIncomeThreshold=Will the total income into your business be more than £100 a week?
 
 c2.g5.helper=For security, we also need you to confirm your current payment details
 currentlyPaidIntoBank.answer=Are you currently paid into a bank or building society?
@@ -35,7 +35,8 @@ currentlyPaidIntoBank.text1.label=Name of current bank or building society
 currentlyPaidIntoBank.text2.label=Confirm your method of payment
 c2.g5.newPaymentDetails=New payment details
 
-
+c2.g6.newAddress=New address
+c2.g6.caredForChangedAddress=Person cared for - their new address
 caredForChangedAddress_answer=Has the person you care for changed address?
 caredForChangedAddress.answer=Has the person you care for changed address?
 caredForChangedAddress_sameAddress_answer=Is this the same address as you?
@@ -44,6 +45,7 @@ sameAddress.answer=Is this the same address as you?
 sameAddress_theirNewAddress=Their address
 sameAddress.theirNewAddress=Their address
 sameAddress_theirNewPostcode=Their postcode
+sameAddress.theirNewPostcode=Their postcode
 newAddress=Your new address
 newPostcode=Your new postcode
 

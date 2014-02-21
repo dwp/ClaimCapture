@@ -11,7 +11,7 @@ import scala.Some
 object CircsEvidenceList {
   def xml(circs: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{selfEmployed(circs)}{furtherInfo(circs)}{theirInfo(circs)}{paymentChange(circs)}{addressChange(circs)}
+      {xmlGenerated()}{furtherInfo(circs)}{theirInfo(circs)}{selfEmployed(circs)}{paymentChange(circs)}{addressChange(circs)}
     </EvidenceList>
   }
 
@@ -84,7 +84,7 @@ object CircsEvidenceList {
 
         buffer ++= textLine(Messages("accountHolderName") + " = " + paymentChange.accountHolderName)
 
-        buffer ++= textLine(Messages("whoseNameIsTheAccountIn") + " = " + paymentChange.whoseNameIsTheAccountIn.toString())
+        buffer ++= textLine(Messages("whoseNameIsTheAccountIn") + " = " + paymentChange.whoseNameIsTheAccountIn)
 
         buffer ++= textLine(Messages("bankFullName") + " = " + paymentChange.bankFullName)
 
@@ -103,6 +103,7 @@ object CircsEvidenceList {
     buffer
   }
 
+
   def addressChange(circs: Claim): NodeSeq = {
     val addressChangeOption = circs.questionGroup[CircumstancesAddressChange]
 
@@ -116,58 +117,37 @@ object CircsEvidenceList {
         buffer ++= textSeparatorLine(Messages("c2.g6"))
 
         // still caring answer
-        buffer ++= textLine(Messages("stillCaring.answer") + " = " + addressChange.stillCaring.answer)
+        buffer ++= textLine(Messages("stillCaring.answer") + " = ", addressChange.stillCaring.answer)
 
         // still caring date if it exists
         addressChange.stillCaring.answer match {
-          case "no" => buffer ++= textLine(Messages("whenStoppedCaring") + " = " + addressChange.stillCaring.date.get.`dd/MM/yyyy`)
-          case "yes" => caredForChangedAddress = true
+          case "no" => buffer ++= textLine(Messages("whenStoppedCaring") + " = ", addressChange.stillCaring.date.get.`dd/MM/yyyy`)
+          case _ =>
         }
 
-        // new address - it is mandatory so should have at least one line
+        // new address
         buffer ++= textSeparatorLine(Messages("c2.g6.newAddress"))
 
-        buffer ++= textLine(Messages("newAddress") + " = " + addressChange.newAddress.lineOne.get)
-        if("None"!=addressChange.newAddress.lineTwo) buffer ++= textLine(addressChange.newAddress.lineTwo.get)
-        if("None"!=addressChange.newAddress.lineThree) buffer ++= textLine(addressChange.newAddress.lineThree.get)
-
-        // new postcode if it exists
-        addressChange.newPostcode match {
-          case Some(addressChange.newPostcode) => {
-            buffer ++= textSeparatorLine(Messages("c2.g6.newPostcode"))
-            buffer ++= textLine(Messages("newPostcode") + " = " + addressChange.newPostcode)
-          }
-          case _ =>
-        }
+        buffer ++= textLine(Messages("newAddress") + " = ", addressChange.newAddress.lineOne)
+        buffer ++= textLine("", addressChange.newAddress.lineTwo)
+        buffer ++= textLine("", addressChange.newAddress.lineThree)
+        buffer ++= textLine(Messages("newPostcode")  + " = ", addressChange.newPostcode)
 
         buffer ++= textSeparatorLine(Messages("c2.g6.caredForChangedAddress"))
-        // caredForChangedAddress answer if it exists
-        if(caredForChangedAddress)  buffer ++= textLine(Messages("caredForChangedAddress.answer") + " = " + addressChange.caredForChangedAddress.answer.get)
+        buffer ++= textLine(Messages("caredForChangedAddress.answer") + " = ",addressChange.caredForChangedAddress.answer)
+        buffer ++= textLine(Messages("sameAddress.answer") + " = ", addressChange.sameAddress.answer)
 
-        // cared for new address if it exists
-        addressChange.caredForChangedAddress.answer match {
-          case Some("yes") => {
-            buffer ++= textLine(Messages("sameAddress.answer") + " = " + addressChange.sameAddress.answer.get)
-            addressChange.sameAddress.answer match {
-              case Some("no") => {
-                buffer ++= textLine(Messages("sameAddress.theirNewAddress") + " = " + addressChange.sameAddress.address.get.lineOne.orNull)
-                buffer ++= textLine(addressChange.sameAddress.address.get.lineTwo.orNull)
-                buffer ++= textLine(addressChange.sameAddress.address.get.lineThree.orNull)
+        addressChange.sameAddress.address match {
+          case Some(address) => {
+            buffer ++= textLine(Messages("sameAddress.theirNewAddress") + " = ", address.lineOne)
+            buffer ++= textLine("", address.lineTwo)
+            buffer ++= textLine("", address.lineThree)
 
-                // cared for new postcode if it exists
-                addressChange.sameAddress.postCode match {
-                  case Some(addressChange.sameAddress.postCode) =>
-                    buffer ++= textLine(Messages("sameAddress.theirNewPostcode") + " = " + addressChange.sameAddress.postCode.get)
-                  case _ =>
-                }
-              }
-              case _ =>
-            }
           }
           case _ =>
         }
+        buffer ++= textLine(Messages("sameAddress.theirNewPostcode") + " = ", addressChange.sameAddress.postCode)
       }
-
       case _ =>
     }
 
