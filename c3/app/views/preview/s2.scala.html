@@ -1,0 +1,24 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+
+@import models.domain._
+@import play.api.i18n.{MMessages => Messages}
+
+@yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
+    @nino = @{yourDetails.nationalInsuranceNumber}
+@contactDetails = @{claim.questionGroup[ContactDetails].getOrElse(ContactDetails())}
+    @address = @{contactDetails.address}
+@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
+
+
+<h2>@Messages("s2.progressbar.name")</h2>
+<dl class="clearfix">
+    <dt>Name</dt><dd>@{Messages("titleSelect."+yourDetails.title)} @yourDetails.firstName @yourDetails.middleName @yourDetails.surname</dd>
+    <dt>National Insurance Number</dt><dd>@nino.ni1 @nino.ni2 @nino.ni3 @nino.ni4 @nino.ni5</dd>
+    <dt>Date of birth</dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
+    <dt>Address</dt><dd>@address.lineOne@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @contactDetails.postcode.getOrElse("")</dd>
+    @if(contactDetails.phoneNumber.isDefined || contactDetails.mobileNumber.isDefined){
+        <dt>Phone</dt><dd>@contactDetails.phoneNumber.getOrElse("") @contactDetails.mobileNumber.fold("")(s=>(if(contactDetails.phoneNumber.isDefined)"/ " else "")+s)</dd>
+    }
+    <dt>Your claim date</dt><dd>@{claimDate.dateOfClaim.`dd month, yyyy`}</dd>
+
+</dl>
