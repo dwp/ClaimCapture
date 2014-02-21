@@ -30,7 +30,7 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
     .verifying("lastWorkDate", JobDetails.validateLastWorkDate _)
   )
 
-  def job(jobID: String) = claiming { implicit claim => implicit request => implicit lang =>
+  def job(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     claim.questionGroup(Jobs) match {
       case Some(js: Jobs) if js.job(jobID).isDefined =>
         track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g3_jobDetails(form.fillWithJobID(JobDetails, jobID))) }
@@ -39,11 +39,11 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def present(jobID: String) = claiming { implicit claim => implicit request => implicit lang =>
+  def present(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g3_jobDetails(form.fillWithJobID(JobDetails, jobID))) }
   }
 
-  def submit = claimingInJob { jobID => implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors =>{
         val pastPresent = formWithErrors("finishedThisJob").value match {

@@ -110,6 +110,34 @@ trait CachedClaim {
     }
   }
 
+  def claimingWithCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
+    request => {
+      implicit val r = request
+      originCheck(
+        fromCache(request) match {
+          case Some(claim) if !Play.isTest && (
+                    !claim.questionGroup[ClaimDate].isDefined ||
+                        claim.questionGroup[ClaimDate].isDefined &&
+                        claim.questionGroup[ClaimDate].get.dateOfClaim == null) =>
+            Logger.info(s"$cacheKey lost the claim date")
+            Redirect(timeoutPage)
+          case Some(claim) =>
+            val lang = claim.lang.getOrElse(bestLang)
+            action(copyInstance(claim), request, lang)(f)
+          case None =>
+            if (Play.isTest) {
+              val (key, expiration) = keyAndExpiration(request)
+              val claim = newInstance
+              Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
+              action(claim, request, bestLang)(f)
+            } else {
+              Logger.info(s"$cacheKey timeout")
+              Redirect(timeoutPage)
+            }
+        })
+    }
+  }
+
   def submitting(f: (Claim) => Request[AnyContent] => Lang => Future[SimpleResult]) = Action.async {
     request => {
       val (referer, host) = refererAndHost(request)
@@ -157,6 +185,11 @@ trait CachedClaim {
   def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = Action.async {
     request =>
       claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
+  }
+
+  def claimingWithCheckInJob(f: (JobID) => Claim => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = Action.async {
+    request =>
+      claimingWithCheck(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
   }
 
   private def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {

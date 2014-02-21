@@ -1,10 +1,6 @@
-window.initEvents = (anythingElseY, anythingElseN, anythingElse) ->
+window.initEvents = (anythingElseY,anythingElseN,anythingElseText) ->
   $("#" + anythingElseY).on "click", ->
     $("#anythingElseWrapper").slideDown 500
-    $("#anythingElseWrapper").css('display', "block")
-
 
   $("#" + anythingElseN).on "click", ->
-    $("#anythingElseWrapper").slideUp 500, ->
-      $("#" + anythingElse).val("")
-
+    $("#anythingElseWrapper").slideUp 500, -> $("#"+anythingElseText).val("")

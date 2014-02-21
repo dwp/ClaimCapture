@@ -26,7 +26,7 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim w
     .verifying("howMuchDidYouPay", SelfEmploymentPensionsAndExpenses.validateHowMuchSelfEmployed _)
     .verifying("howOften.required", SelfEmploymentPensionsAndExpenses.validateHowOftenSelfEmployed _))
 
-  def present = claiming { implicit claim => implicit request => implicit lang =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     presentConditionally(selfEmploymentYourAccounts)
   }
 
@@ -34,7 +34,7 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim w
     track(SelfEmploymentPensionsAndExpenses) { implicit claim => Ok(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses))) }
   }
   
-  def submit = claiming { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val pastPresent = didYouDoYouIfSelfEmployed

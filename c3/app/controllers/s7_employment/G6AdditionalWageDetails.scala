@@ -21,11 +21,11 @@ object G6AdditionalWageDetails extends Controller with CachedClaim with Navigabl
     "employerOwesYouMoney" -> (nonEmptyText verifying validYesNo)
   )(AdditionalWageDetails.apply)(AdditionalWageDetails.unapply))
 
-  def present(jobID: String) = claiming { implicit claim => implicit request => implicit lang =>
+  def present(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     track(AdditionalWageDetails) { implicit claim => Ok(views.html.s7_employment.g6_additionalWageDetails(form.fillWithJobID(AdditionalWageDetails, jobID))) }
   }
 
-  def submit = claimingInJob { jobID => implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val newForm = formWithErrors

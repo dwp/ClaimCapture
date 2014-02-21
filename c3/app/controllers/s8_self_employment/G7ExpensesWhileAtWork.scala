@@ -36,7 +36,7 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
     }
   }
 
-  def present = claiming { implicit claim => implicit request => implicit lang =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     presentConditionally(expensesWhileAtWork)
   }
 
@@ -52,7 +52,7 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
     }
   }
 
-  def submit = claiming { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
