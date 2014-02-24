@@ -15,7 +15,7 @@
 
         <section>
 
-            <h1>About your partner/spouse</h1>
+            <h1>@Messages("s3.help1")</h1>
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
@@ -23,7 +23,7 @@
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
                                 <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="Change these answers - this is an optional link relating to a previous section">Change these answers</a>
+                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Messages("change.this.help")">@Messages("change.this")</a>
                             </li>
                         }
                     </ul>
