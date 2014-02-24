@@ -1,4 +1,4 @@
-@(field: play.api.data.Field, id: String, args: (Symbol, Any)*)
+@(field: play.api.data.Field, id: String, args: (Symbol, Any)*)(implicit lang: Lang)
 
 @import helper._
 @import utils.helpers.EmptyTemplate._
@@ -7,6 +7,7 @@
 @import utils.helpers.CarersCrypto
 @import scala.language.postfixOps
 @import views.html.helper.checkConstraintRequired
+@import play.api.i18n.{MMessages => Messages}
 
 @checkConstraintRequired(field, args:_*) <!-- datePlaceholder -->
 <div id="@CarersCrypto.encryptAES(id)">
