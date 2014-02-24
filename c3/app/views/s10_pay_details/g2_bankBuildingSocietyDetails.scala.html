@@ -10,6 +10,7 @@
 @import app.WhoseNameAccount._
 @import models.domain.BankBuildingSocietyDetails
 @import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Lang
 
 @main(Messages("s10.g2") + " - " + Messages("s10.longName"), Some(currentForm), claim.completedQuestionGroups(BankBuildingSocietyDetails)) {
 
@@ -21,7 +22,7 @@
             <ul>
                 @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
 
-                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> "Please Select", YourName.name -> "Your name", Yourpartner.name -> "Your partner's name", Both.name  -> "Both you and your partner", PersonActingBehalf.name -> "Person acting on your behalf", YouPersonBehalf.name -> "You and the person acting on behalf"))
+                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> Messages("pleaseSelect"), YourName.name -> Messages("yourName"), Yourpartner.name -> Messages("yourPartner"), Both.name  -> Messages("both"), PersonActingBehalf.name -> Messages("PersonActingBehalf"), YouPersonBehalf.name -> Messages("youPersonBehalf")))
 
                 @carersInputText(currentForm("bankFullName"))
 
@@ -34,8 +35,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")" @views.html.ga.trackSubmit()>@Messages("form.next")</button>
         </nav>
     }
 }
