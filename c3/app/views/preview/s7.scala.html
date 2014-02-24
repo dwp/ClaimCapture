@@ -12,8 +12,10 @@
     val aboutExpenses = job.questionGroup[AboutExpenses].get
     val pensionSchemes = job.questionGroup[PensionSchemes].get
     var elems = Seq.empty[String]
-    if(aboutExpenses.payForAnythingNecessary == "yes" || aboutExpenses.payAnyoneToLookAfterChildren == "yes" || aboutExpenses.payAnyoneToLookAfterPerson == "yes") elems = elems ++ Seq("expenses")
-    if(pensionSchemes.payOccupationalPensionScheme == "yes" || pensionSchemes.payPersonalPensionScheme == "yes") elems = elems ++ Seq("pension schemes")
+    if(aboutExpenses.payForAnythingNecessary == "yes" || aboutExpenses.payAnyoneToLookAfterChildren == "yes" || aboutExpenses.payAnyoneToLookAfterPerson == "yes")
+        elems = elems ++ Seq("expenses")
+    if(pensionSchemes.payOccupationalPensionScheme == "yes" || pensionSchemes.payPersonalPensionScheme == "yes")
+        elems = elems ++ Seq("pension schemes")
 
     elems
 }
@@ -37,9 +39,11 @@
     @if(jobs.isDefined && jobs.get.jobs.size > 0){
         <dt>Employment</dt>
         <dd>
+            <ul>
             @for(job <- jobs.get.jobs){
-                <p>@employmentSummary(job)</p>
+                <li>@employmentSummary(job)</li>
             }
+            </ul>
         </dd>
     }
     <dt>Have you been self employed at any time since @{oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`}</dt>
