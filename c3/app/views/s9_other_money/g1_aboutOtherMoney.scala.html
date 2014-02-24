@@ -34,7 +34,7 @@
                            'id -> "howOften",
                            'visibleOn -> "yes",
                            '_label -> Messages("howOften"),
-                           'textAreaHelper -> "60 characters left", 'maxLength -> 60,
+                           'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60,
                            'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
                            )
                      ),
@@ -45,8 +45,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")">@Messages("form.next")</button>
         </nav>
     }
 }
