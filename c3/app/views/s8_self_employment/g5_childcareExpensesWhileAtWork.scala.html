@@ -20,14 +20,14 @@
     @form(action = controllers.s8_self_employment.routes.G5ChildcareExpensesWhileAtWork.submit) {
 
         <fieldset class="form-elements">
-            <legend>Childcare expenses while you are at work</legend>
+            <legend>@Messages("s8.g5")</legend>
 
             <ul>
                 @carersInputText(currentForm("whoLooksAfterChildren"))
 
                 @carersCurrency(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxlength -> Mappings.sixty)
 
-                @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> Messages ("howOftenPayChildCare","", didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayChildCare",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> Messages ("howOftenPayChildCare","", didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayChildCare",'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60)
 
                 @relationshipSelectWithNone(currentForm("whatRelationIsToYou"))
 
@@ -44,9 +44,9 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
 
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @{if(doWeTrack) views.html.ga.trackSubmit()}>Next</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")" @{if(doWeTrack) views.html.ga.trackSubmit()}>@Messages("form.next")</button>
         </nav>
     }
 }

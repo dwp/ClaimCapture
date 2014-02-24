@@ -14,6 +14,7 @@ import models.view.Navigable
 import play.api.mvc.Request
 import play.api.mvc.AnyContent
 import controllers.CarersForms._
+import play.api.i18n.Lang
 
 
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
@@ -38,7 +39,7 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with N
     presentConditionally(childcareExpensesWhileAtWork)
   }
 
-  def childcareExpensesWhileAtWork(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def childcareExpensesWhileAtWork(implicit claim: Claim, request: Request[AnyContent], lang: Lang): ClaimResult = {
     val payToLookAfterChildren = claim.questionGroup(SelfEmploymentPensionsAndExpenses) match {
       case Some(s: SelfEmploymentPensionsAndExpenses) => s.doYouPayToLookAfterYourChildren == `yes`
       case _ => false
