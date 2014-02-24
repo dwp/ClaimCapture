@@ -10,7 +10,8 @@ import utils.pageobjects._
  */
 class G1AdditionalInfoPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1AdditionalInfoPage.url, G1AdditionalInfoPage.title) {
   declareYesNo("#welshCommunication", "ConsentDeclarationCommunicationWelsh")
-  declareInput("#anythingElse", "ConsentDeclarationTellUsAnythingElseAboutClaim")
+  declareYesNo("#anythingElse_answer", "ConsentDeclarationTellUsAnythingElseAnswerAboutClaim")
+  declareInput("#anythingElse_text", "ConsentDeclarationTellUsAnythingElseTextAboutClaim")
 }
 
 /**

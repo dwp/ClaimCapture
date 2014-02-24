@@ -33,7 +33,7 @@ object DWPCAClaim {
       {Partner.xml(claim)}
       {OtherBenefits.xml(claim)}
       {Payment.xml(claim)}
-      {<OtherInformation/> +++ additionalInfo.anythingElse}
+      {<OtherInformation/> +++ additionalInfo.anythingElse.text}
       <ThirdParty>{no}</ThirdParty>
       {Declaration.xml(claim)}
       {EvidenceList.xml(claim)}

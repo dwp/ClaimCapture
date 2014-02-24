@@ -1,6 +1,6 @@
 package xml
 
-import models.domain.{CircumstancesReportChange, CircumstancesDeclaration, CircumstancesSelfEmployment, CircumstancesPaymentChange, Claim}
+import models.domain.{CircumstancesReportChange, CircumstancesDeclaration, CircumstancesSelfEmployment, CircumstancesPaymentChange, CircumstancesAddressChange, Claim}
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 import play.api.i18n.{MMessages => Messages}
@@ -11,7 +11,7 @@ import scala.Some
 object CircsEvidenceList {
   def xml(circs: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{selfEmployed(circs)}{furtherInfo(circs)}{theirInfo(circs)}{paymentChange(circs)}
+      {xmlGenerated()}{furtherInfo(circs)}{theirInfo(circs)}{selfEmployed(circs)}{paymentChange(circs)}{addressChange(circs)}
     </EvidenceList>
   }
 
@@ -92,9 +92,61 @@ object CircsEvidenceList {
 
         buffer ++= textLine(Messages("accountNumber") + " = " + paymentChange.accountNumber)
 
+        // check if empty
         buffer ++= textLine(Messages("rollOrReferenceNumber") + " = " + paymentChange.rollOrReferenceNumber)
 
         buffer ++= textLine(Messages("paymentFrequency") + " = " + paymentChange.paymentFrequency)
+      }
+      case _ =>
+    }
+
+    buffer
+  }
+
+
+  def addressChange(circs: Claim): NodeSeq = {
+    val addressChangeOption = circs.questionGroup[CircumstancesAddressChange]
+
+    var buffer = NodeSeq.Empty
+
+    addressChangeOption match {
+      case Some(addressChange) => {
+        var caredForChangedAddress = false
+
+        // Still caring section
+        buffer ++= textSeparatorLine(Messages("c2.g6"))
+
+        // still caring answer
+        buffer ++= textLine(Messages("stillCaring.answer") + " = ", addressChange.stillCaring.answer)
+
+        // still caring date if it exists
+        addressChange.stillCaring.answer match {
+          case "no" => buffer ++= textLine(Messages("whenStoppedCaring") + " = ", addressChange.stillCaring.date.get.`dd/MM/yyyy`)
+          case _ =>
+        }
+
+        // new address
+        buffer ++= textSeparatorLine(Messages("c2.g6.newAddress"))
+
+        buffer ++= textLine(Messages("newAddress") + " = ", addressChange.newAddress.lineOne)
+        buffer ++= textLine("", addressChange.newAddress.lineTwo)
+        buffer ++= textLine("", addressChange.newAddress.lineThree)
+        buffer ++= textLine(Messages("newPostcode")  + " = ", addressChange.newPostcode)
+
+        buffer ++= textSeparatorLine(Messages("c2.g6.caredForChangedAddress"))
+        buffer ++= textLine(Messages("caredForChangedAddress.answer") + " = ",addressChange.caredForChangedAddress.answer)
+        buffer ++= textLine(Messages("sameAddress.answer") + " = ", addressChange.sameAddress.answer)
+
+        addressChange.sameAddress.address match {
+          case Some(address) => {
+            buffer ++= textLine(Messages("sameAddress.theirNewAddress") + " = ", address.lineOne)
+            buffer ++= textLine("", address.lineTwo)
+            buffer ++= textLine("", address.lineThree)
+
+          }
+          case _ =>
+        }
+        buffer ++= textLine(Messages("sameAddress.theirNewPostcode") + " = ", addressChange.sameAddress.postCode)
       }
       case _ =>
     }

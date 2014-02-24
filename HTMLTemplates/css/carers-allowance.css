@@ -8,14 +8,91 @@
 main {
   background: #fff;
   border-bottom: 10px solid #f47738;
-  display: block; }
+  display: block;
+  padding: 0 .7em; }
+
+header div {
+  padding: 1.2em 0;
+  margin: 0 auto;
+  max-width: 980px; }
+  header div #logo {
+    top: 3px; }
+    @media screen and (max-width: 1024px) {
+      header div #logo {
+        left: 1em; } }
+  header div section {
+    float: left;
+    padding: 0 0 0 9em;
+    width: auto; }
+    @media screen and (max-width: 700px) {
+      header div section {
+        float: none;
+        padding: 1em 0 0 1em;
+        clear: both; } }
+    header div section h1 {
+      color: #fff;
+      font-size: 24px; }
+      @media screen and (max-width: 500px) {
+        header div section h1 {
+          font-size: 20px; } }
+      header div section h1 span {
+        width: auto;
+        margin-left: .3em;
+        letter-spacing: 0.14em;
+        font-weight: 700;
+        font-size: 16px;
+        text-transform: uppercase;
+        padding: 5px 6px 2px 6px;
+        position: relative;
+        top: 0px; }
+        @media screen and (max-width: 500px) {
+          header div section h1 span {
+            font-size: 14px; } }
+      header div section h1.beta span {
+        background: #f47738; }
+    header div section ul {
+      margin: 2px 0 0 0;
+      padding: 0;
+      list-style: none; }
+      header div section ul li {
+        line-height: 1em;
+        display: inline-block; }
+        header div section ul li a {
+          color: #fff;
+          text-decoration: none;
+          font-weight: 600; }
+          header div section ul li a:hover {
+            color: #fff;
+            text-decoration: underline; }
+
+.feedback-container {
+  display: none;
+  border: 10px solid #f47738;
+  border-top: 0;
+  background: #fff;
+  padding: 1.5em; }
+  .feedback-container p {
+    margin: 0;
+    padding-top: 1em;
+    font-size: 17px; }
+  .feedback-container .feed-close {
+    margin-top: 1em;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 600; }
+    .feedback-container .feed-close:before {
+      content: "\00d7";
+      font-size: 26px;
+      top: 3px;
+      position: relative;
+      margin-right: 4px; }
 
 .carers-allowance {
+  border-top: 10px solid #f47738;
   background: #fff;
-  padding: 0 1em 4em 1em;
+  padding: 0 0 4em 0;
   margin: 0 auto;
   max-width: 980px;
-  /* Claim info */
   /* progress steps */
   /* section */
   /* completed questions */
@@ -26,13 +103,6 @@ main {
   /* button styling */ }
   .ie6 .carers-allowance {
     width: 980px; }
-  @media screen and (max-width: 500px) {
-    .carers-allowance {
-      padding-left: .75em;
-      padding-right: .75em; } }
-  @media screen and (max-width: 640px) {
-    .carers-allowance {
-      border-top: 10px solid #f47738; } }
   .carers-allowance .prototype {
     background: #f47738;
     overflow: hidden;
@@ -62,60 +132,6 @@ main {
         margin-left: .25em; }
         .carers-allowance .prototype p a:hover {
           color: #000; }
-  .carers-allowance .claim-info {
-    margin: 0;
-    padding: 16px 1em 10px 0;
-    list-style: none;
-    text-align: right;
-    border-top: 10px solid #f47738; }
-    @media screen and (max-width: 640px) {
-      .carers-allowance .claim-info {
-        border: 0;
-        padding-right: 0; } }
-    .carers-allowance .claim-info li {
-      margin-left: 14px;
-      display: inline;
-      font-size: 14px;
-      color: #000;
-      font-weight: 500; }
-      .carers-allowance .claim-info li:first-child {
-        border: 0;
-        margin: 0;
-        padding: 0; }
-        .carers-allowance .claim-info li:first-child a.info {
-          display: inline-block;
-          position: relative;
-          height: 18px;
-          width: 18px;
-          text-align: center;
-          padding: 0;
-          color: #000;
-          font-size: 11px;
-          background: #f5f5f5;
-          text-decoration: none;
-          font-weight: bold;
-          line-height: 1.8em;
-          font-family: 'georgia';
-          font-style: italic;
-          top: -1px;
-          margin-right: 5px;
-          border-radius: 100px;
-          box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6); }
-          .carers-allowance .claim-info li:first-child a.info:hover {
-            background: #333;
-            color: #fff; }
-          .carers-allowance .claim-info li:first-child a.info span {
-            text-indent: -9999px;
-            display: inline-block; }
-      @media screen and (max-width: 480px) {
-        .carers-allowance .claim-info li.feedback {
-          display: none; } }
-      .carers-allowance .claim-info li a {
-        color: #000;
-        display: inline-block;
-        padding-top: 5px; }
-        .carers-allowance .claim-info li a:hover {
-          color: #666; }
   .carers-allowance .progress-steps {
     padding-bottom: .5em; }
     @media print {
@@ -125,7 +141,7 @@ main {
       list-style: none;
       margin: 0;
       overflow: hidden;
-      padding: 1.8em 0 0.3em 0; }
+      padding: 2.5em 0 0.3em 0; }
       @media screen and (max-width: 760px) {
         .carers-allowance .progress-steps ol {
           padding-top: 2em; } }
@@ -1524,40 +1540,6 @@ main {
         .carers-allowance .send-info article.address p {
           margin-top: 1.25em; }
 
-/* Header title */
-.header-global .page-title {
-  color: #fff;
-  font-weight: 600;
-  font-size: 2rem;
-  padding: .3em 1.5rem 0 0;
-  overflow: hidden;
-  width: auto;
-  text-align: right; }
-  .ie .header-global .page-title {
-    font-size: 20px;
-    padding-right: 15px; }
-  .header-global .page-title span {
-    width: auto;
-    margin-left: .75em;
-    letter-spacing: 0.2em;
-    font-weight: 700;
-    font-size: 1.4rem;
-    text-transform: uppercase;
-    padding: 6px 10px 4px 10px;
-    position: relative;
-    top: -2px; }
-    .ie .header-global .page-title span {
-      font-size: 14px; }
-  .header-global .page-title.beta span {
-    background: #f47738; }
-  @media screen and (max-width: 480px) {
-    .header-global .page-title strong {
-      display: none; }
-    .header-global .page-title span {
-      position: absolute;
-      top: 13px;
-      right: 13px; } }
-
 .content-panel {
   margin-top: 2em; }
 
@@ -1677,9 +1659,6 @@ main {
 /* Header - Global Overrides - inc !important overrides */
 html {
   background: #dee0e2 !important; }
-
-#global-header #logo img {
-  left: -211px !important; }
 
 #global-header .header-wrapper {
   padding: 0.5em 1px !important; }

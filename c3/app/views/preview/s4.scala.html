@@ -1,0 +1,33 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@import models.domain.BreaksInCare
+@import models.domain.MoreAboutTheCare
+@import models.domain.TheirContactDetails
+
+@import models.domain.TheirPersonalDetails
+@import models.domain.MoreAboutThePerson
+@import play.api.i18n.{MMessages => Messages}
+
+@aboutThePerson = @{claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())}
+@abouTheCare = @{claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())}
+@theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
+@theirContactDetails = @{claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())}
+@address = @{theirContactDetails.address}
+@breaks = @{claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())}
+
+<h2>@Messages("s4.progressbar.name")</h2>
+<dl class="clearfix">
+    <dt>Name</dt><dd>@{Messages("titleSelect."+theirPersonalDetails.title)} @theirPersonalDetails.firstName @theirPersonalDetails.middleName @theirPersonalDetails.surname</dd>
+    @if(theirPersonalDetails.nationalInsuranceNumber.isDefined){
+        @defining(theirPersonalDetails.nationalInsuranceNumber.get){ nino =>
+            <dt>National Insurance Number</dt><dd>@nino.ni1 @nino.ni2 @nino.ni3 @nino.ni4 @nino.ni5</dd>
+        }
+    }
+    <dt>Date of birth</dt><dd>@{theirPersonalDetails.dateOfBirth.`dd month, yyyy`}</dd>
+    <dt>Address</dt><dd>@address.lineOne@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @theirContactDetails.postcode.getOrElse("")</dd>
+    @if(theirContactDetails.phoneNumber.isDefined){
+        <dt>Phone number</dt><dd>@{theirContactDetails.phoneNumber.get}</dd>
+    }
+    <dt>What's their relationship to you</dt><dd>@{Messages("relationship."+aboutThePerson.relationship)}</dd>
+    <dt>Do you spend 35 hours or more each week caring for this person</dt><dd>@{Messages("label."+abouTheCare.spent35HoursCaring)}</dd>
+    <dt>Have you had any breaks in caring for this person</dt><dd>@{Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no")) + (if (breaks.breaks.length > 0) Messages("breaks.details",breaks.breaks.length) else "")}</dd>
+</dl>

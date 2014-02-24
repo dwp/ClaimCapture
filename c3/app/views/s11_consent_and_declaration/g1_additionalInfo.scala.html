@@ -15,7 +15,16 @@
             <legend>@Messages("s11.g1")</legend>
 
             <ul>
-                @carersInputTextArea(currentForm("anythingElse"),'placeholder->Messages("anythingElse.please.specify"),'helper->"2000 characters left", 'maxLength -> 2000)
+                @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helper->"You do not need to tell us about any medical details.")
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),
+                        'placeholder->Messages("anythingElse.please.specify"),'helper->"2000 characters left", 'maxLength -> 2000,
+                        'ignoreOptional -> true)
+                    ),
+                    'id -> "anythingElseWrapper",
+                    'display ->  { if (currentForm("anythingElse.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+                )
 
                 @yesNoRadioGroup(currentForm("welshCommunication"))
             </ul>
@@ -28,11 +37,16 @@
     }
 }
 
+
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s11_consent_and_declaration/g1_additionalInfo.js")'></script>
 
 <script type="text/javascript">
     $(function(){
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse")",maxChars:2000});
         @ga.stagePrompt()
-    })
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse_text")",maxChars:2000});
+        window.initEvents("@CarersCrypto.encryptAES("anythingElse_answer_yes")",
+        "@CarersCrypto.encryptAES("anythingElse_answer_no")",
+        "@CarersCrypto.encryptAES("anythingElse_text")");
+    });
 </script>

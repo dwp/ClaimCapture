@@ -18,11 +18,11 @@ object G4Declaration extends Controller with CachedClaim with Navigable {
   )(Declaration.apply)(Declaration.unapply)
     .verifying("nameOrOrganisation",Declaration.validateNameOrOrganisation _))
 
-  def present = claiming { implicit claim => implicit request => implicit lang =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     track(Declaration) { implicit claim => Ok(views.html.s11_consent_and_declaration.g4_declaration(form.fill(Declaration))) }
   }
 
-  def submit = claiming { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors.replaceError("","nameOrOrganisation", FormError("nameOrOrganisation", "error.required"))
