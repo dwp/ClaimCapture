@@ -159,6 +159,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
     }
 
     """show "all options" for "Where was the person you care for during the break?".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
+      pending
       import scala.collection.JavaConverters._
 
       goTo("/care-you-provide/break")
