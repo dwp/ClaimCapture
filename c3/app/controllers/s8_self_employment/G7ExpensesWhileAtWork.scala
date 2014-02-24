@@ -17,6 +17,7 @@ import controllers.CarersForms._
 import play.api.data.FormError
 import models.domain.Claim
 import scala.Some
+import play.api.i18n.Lang
 
 object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
@@ -40,7 +41,7 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
     presentConditionally(expensesWhileAtWork)
   }
 
-  def expensesWhileAtWork(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def expensesWhileAtWork(implicit claim: Claim, request: Request[AnyContent],lang:Lang): ClaimResult = {
     val payToLookPersonYouCareFor = claim.questionGroup(SelfEmploymentPensionsAndExpenses) match {
       case Some(s: SelfEmploymentPensionsAndExpenses) => s.didYouPayToLookAfterThePersonYouCaredFor == `yes`
       case _ => false
