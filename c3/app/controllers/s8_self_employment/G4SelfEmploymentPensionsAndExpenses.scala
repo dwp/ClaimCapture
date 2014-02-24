@@ -14,6 +14,7 @@ import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment._
 import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
 import models.view.Navigable
+import play.api.i18n.Lang
 
 object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
@@ -30,7 +31,7 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim w
     presentConditionally(selfEmploymentYourAccounts)
   }
 
-  def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent], lang: Lang): ClaimResult = {
     track(SelfEmploymentPensionsAndExpenses) { implicit claim => Ok(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses))) }
   }
   
