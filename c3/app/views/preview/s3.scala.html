@@ -1,0 +1,23 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@import models.domain.YourPartnerPersonalDetails
+@import play.api.i18n.{MMessages => Messages}
+
+@partner = @{claim.questionGroup[YourPartnerPersonalDetails]}
+
+@if(partner.isDefined){
+    @defining(partner.get){ yourPartner =>
+        <h2>@Messages("s3.progressbar.name")</h2>
+        <dl class="clearfix">
+            <dt>Name</dt><dd>@{Messages("titleSelect."+yourPartner.title)} @yourPartner.firstName @yourPartner.middleName @yourPartner.surname</dd>
+
+            @if(yourPartner.nationalInsuranceNumber.isDefined){
+                @defining(yourPartner.nationalInsuranceNumber.get){ nino =>
+                    <dt>National Insurance Number</dt><dd>@nino.ni1 @nino.ni2 @nino.ni3 @nino.ni4 @nino.ni5</dd>
+                }
+            }
+            <dt>Date of birth</dt><dd>@{yourPartner.dateOfBirth.`dd month, yyyy`}</dd>
+            <dt>Have you separated from your partner/spouse since your claim date</dt><dd>@{Messages("label."+yourPartner.separatedFromPartner)}</dd>
+        </dl>
+
+    }
+}

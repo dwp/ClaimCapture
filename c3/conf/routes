@@ -10,6 +10,8 @@ GET           /change-language/:chosenLanguage                          controll
 # Obscure URL to hide health page
 GET           /Ewd4Oys3baIj3Yeg0o                                       controllers.HealthController.health
 
+GET           /preview                                                  controllers.preview.Preview.present
+
 # Cache Timeout
 GET           /timeout                                                  controllers.ClaimEnding.timeout
 GET           /circs-timeout                                            controllers.CircsEnding.timeout
