@@ -16,7 +16,7 @@
         
         <section>
 
-            <h1>About your education</h1>
+            <h1>@Messages("s6.longName")</h1>
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
@@ -24,7 +24,7 @@
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
                                 <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="Change these answers - this is an optional link relating to a previous section">Change these answers</a>
+                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Messages("change.these.help")">@Messages("change.these")</a>
                             </li>
                         }
                     </ul>
