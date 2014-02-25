@@ -4,6 +4,10 @@
 @import views.html.helper._
 @import play.api.i18n.{MMessages => Messages}
 
+@defaultValues = @{Seq("yes" -> Messages("label.yes"), "no" -> Messages("label.no"))}
+
+@values = @{args.find(t => t._1 == 'values).getOrElse('values->defaultValues).asInstanceOf[(Symbol,Seq[(String, String)])]._2}
+
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
-    @yesNoPlaceholder(field, Seq("yes" -> Messages("label.yes"), "no" -> Messages("label.no")), args.filter(_._1 != 'label):_*)
+    @yesNoPlaceholder(field, values, args.filter(_._1 != 'label):_*)
 }
