@@ -16,27 +16,27 @@
 			@progressBar(CarersAllowance)
 
 
-            <section class="response clearfix">
+            <article class="response clearfix">
                 @form(action = controllers.s1_carers_allowance.routes.G5CarersResponse.submit) {
 
                     <h1>@Messages("s1.g5.help1")</h1>
                     
 
-                    <article class="partner">
+                    <section class="partner">
                         <h2>@Messages("s1.g5.help2")</h2>
                         <p>@Messages("s1.g5.help3")</p>
-                    </article>
+                    </section>
 
-                    <article class="earnings">
+                    <section class="earnings">
                         <h2>@Html(Messages("s1.g5.help4"))</h2>
                         <p>@Html(Messages("s1.g5.help5"))</p>
-                    </article>
+                    </section>
                    
 
-                    <article class="education">
+                    <section class="education">
                         <h2>@Messages("s1.g5.help6")</h2>
                         <p>@Messages("s1.g5.help7")</p>
-                    </article>
+                    </section>
   
                     
 
@@ -45,7 +45,7 @@
                         <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")" @views.html.ga.trackSubmit()>@Messages("form.next")</button>
                     </div>
                 }
-            </section>
+            </article>
         </div>
 
 }

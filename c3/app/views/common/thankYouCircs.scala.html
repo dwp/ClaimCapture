@@ -10,29 +10,29 @@
 
         @common.feedback()
 
-        <section class="finish-statement">
+        <article class="finish-statement">
         
             <div class="app-complete">
 	            <h1><span>@Messages("circs.thankyou")</span></h1>            
 	            <p>@Messages("circs.received")</p>
             </div>
 	            
-	            <article class="finish-next prompt helper-prompt">
+	            <section class="finish-next prompt helper-prompt">
 	            <h3>@Messages("next")</h3>
 	            <ul>
 	                <li>@Html(Messages("circs.next.1"))</li>
 	                <li>@Html(Messages("next.last"))</li>
 	            </ul>
-	            </article>
-	            <article>
+	            </section>
+	            <section>
 	            <h3>@Messages("change.head")</h3>
 	            <p>@Html(Messages("change.link"))</p>
-	            </article>
-	            <article>
+	            </section>
+	            <section>
 	            <h3>@Messages("feedback.head")</h3>
 	            <p>@Html(Messages("circs.feedback.link"))</p>
-	            </article>
+	            </section>
             
-        </section>
+        </article>
     </div>
 }

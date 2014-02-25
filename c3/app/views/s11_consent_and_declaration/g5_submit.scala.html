@@ -18,13 +18,13 @@
             claim.questionGroup(Employment).get.asInstanceOf[Employment].beenSelfEmployedSince1WeekBeforeClaim == "yes")) {
             <div class="send-info">
 
-                <article>
+                <section>
                     <h2>After you submit your claim</h2>
                     <p>Send us the following documents below including your Name and National Insurance (NI) number.</p>
-                </article>
+                </section>
 
                 @if(claim.questionGroup(Employment).get.asInstanceOf[Employment].beenEmployedSince6MonthsBeforeClaim == "yes") {
-                    <article>
+                    <section>
                         <h2>Your Employment documents</h2>
 
                         <ul>
@@ -32,28 +32,28 @@
                             <li>Any payslips you have had since then</li>
                             <li>Any pension statements you may have</li>
                         </ul>
-                    </article>
+                    </section>
                 }
 
                 @if(claim.questionGroup(Employment).get.asInstanceOf[Employment].beenSelfEmployedSince1WeekBeforeClaim == "yes") {
-                    <article>
+                    <section>
                         <h2>Your Self-employed documents</h2>
 
                         <ul>
                             <li>Most recent finalised accounts you have for your business</li>
                             <li>Any pension statements you may have</li>
                         </ul>
-                    </article>
+                    </section>
                 }
 
-                <article class="address">
+                <section class="address">
                     <h3>Send the above documents to:</h3>
                     <span>CA Freepost</span>
                     <span>Palatine House</span>
                     <span>Preston</span>
                     <span>PR1 1HN</span>
                     <p>The Carer's Allowance unit will contact you if they need any further information.</p>
-                </article>
+                </section>
             </div>
         }
 
