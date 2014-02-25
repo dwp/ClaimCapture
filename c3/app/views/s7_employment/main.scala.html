@@ -10,21 +10,21 @@
 
         @common.protoType()
         
-        @common.helpLine(lang, request)
+        @common.feedback()
 
         @progressBar(Employed)
 
         <section>
 
-            <h1>About your employment</h1>
+            <h1>@Messages("s7.main.help1")</h1>
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
-                    <ul aria-label="Completed questions">
+                    <ul ul aria-label="@Messages("completedQuestions")">
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
-                                <h3>@completedQuestionGroup.definition</h3>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="Change these answers - this is an optional link relating to a previous section">Change these answers</a>
+                                <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Messages("change.this.help")">@Messages("change.this")</a>
                             </li>
                         }
                     </ul>

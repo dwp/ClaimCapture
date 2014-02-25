@@ -1,0 +1,31 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+
+
+@common.govMain("Review your application") {
+
+    <div class="carers-allowance">
+
+        @common.protoType()
+
+        @common.feedback()
+
+
+        <section>
+
+            <h1>Review your application</h1>
+
+            <div class="review">
+                @s2()
+                @s3()
+                @s4()
+                @s6()
+                @s7()
+                @s9()
+                @s10()
+            </div>
+        </section>
+    </div>
+}
+
+
+

@@ -15,6 +15,7 @@ import models.view.Navigable
 import controllers.CarersForms._
 import play.api.data.FormError
 import models.domain.Claim
+import play.api.i18n.Lang
 
 object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -35,7 +36,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
     presentConditionally(aboutSelfEmployment)
   }
 
-  def aboutSelfEmployment(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def aboutSelfEmployment(implicit claim: Claim, request: Request[AnyContent], lang: Lang): ClaimResult = {
     track(AboutSelfEmployment) {
       implicit claim => Ok(views.html.s8_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment)))
     }

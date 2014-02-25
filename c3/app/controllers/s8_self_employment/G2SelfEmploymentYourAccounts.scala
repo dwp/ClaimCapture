@@ -18,6 +18,7 @@ import play.api.data.FormError
 import models.domain.Claim
 import scala.Some
 import play.api.Logger
+import play.api.i18n.Lang
 
 
 object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Navigable {
@@ -41,7 +42,7 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Nav
     presentConditionally(selfEmploymentYourAccounts)
   }
 
-  def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent], lang: Lang): ClaimResult = {
     track(SelfEmploymentYourAccounts) { implicit claim => Ok(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts))) }
   }
 

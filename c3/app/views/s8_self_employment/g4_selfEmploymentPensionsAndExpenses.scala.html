@@ -23,7 +23,7 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         carersCurrency(currentForm("howMuchDidYouPay"), '_label -> Messages ("doYouPayToPensionScheme.howMuchDidYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxLength -> Mappings.sixty),
-                        pensionPaymentFrequencySelect(currentForm("howOften"), '_label -> Messages ("doYouPayToPensionScheme.howOften", didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOften",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                        pensionPaymentFrequencySelect(currentForm("howOften"), '_label -> Messages ("doYouPayToPensionScheme.howOften", didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOften",'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60)
                     ),
                     'id -> "selfEmployedPensionWrap",
                     'display -> currentForm("doYouPayToPensionScheme").value.getOrElse("no")
@@ -37,8 +37,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit(isOptional=true)>Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")" @views.html.ga.trackSubmit(isOptional=true)>@Messages("form.next")</button>
         </nav>
     }
 }

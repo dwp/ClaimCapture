@@ -20,15 +20,15 @@
             <legend>@Messages("s10.g1")</legend>
 
             <ul>
-                @listRadioGroup(currentForm("likeToPay"), 'items -> Seq(BankBuildingAccount.name -> "UK bank or building society account", AppliedForAccount.name -> "You don't have an account but intend to open one", NotOpenAccount.name -> "Other - you would like more information"), 'helperBelow -> Messages("howWePayYou.helper"))
+                @listRadioGroup(currentForm("likeToPay"), 'items -> Seq(BankBuildingAccount.name , AppliedForAccount.name, NotOpenAccount.name ).map(s => s -> Messages("label."+s)), 'helperBelow -> Messages("howWePayYou.helper"))
 
-                @carersSelect(currentForm("paymentFrequency"), Seq("" -> "Please Select", EveryWeek.name -> "Every week", FourWeekly.name -> "Every four weeks"))
+                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect")) ++ Seq(EveryWeek.name,FourWeekly.name).map(s => s -> Messages("label."+s)))
             </ul>
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit(isOptional=true)>Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")" @views.html.ga.trackSubmit(isOptional=true)>@Messages("form.next")</button>
         </nav>
     }
 }

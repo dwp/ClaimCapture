@@ -1,0 +1,51 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@import models.domain._
+@import scala.language.postfixOps
+@import play.api.i18n.{MMessages => Messages}
+
+@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
+@emp = @{claim.questionGroup[Employment].getOrElse(Employment())}
+@jobs = @{claim.questionGroup[Jobs]}
+@sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}
+@oneWeekBeforeDate(date:DayMonthYear) = @{date - 1 weeks}
+@employmentItems(job:Job) = @{
+    val aboutExpenses = job.questionGroup[AboutExpenses].get
+    val pensionSchemes = job.questionGroup[PensionSchemes].get
+    var elems = Seq.empty[String]
+    if(aboutExpenses.payForAnythingNecessary == "yes" || aboutExpenses.payAnyoneToLookAfterChildren == "yes" || aboutExpenses.payAnyoneToLookAfterPerson == "yes")
+        elems = elems ++ Seq("expenses")
+    if(pensionSchemes.payOccupationalPensionScheme == "yes" || pensionSchemes.payPersonalPensionScheme == "yes")
+        elems = elems ++ Seq("pension schemes")
+
+    elems
+}
+@employmentSummary(job:Job) = @{
+    var text = "Details provided for "+job.questionGroup[JobDetails].get.employerName
+    val items = employmentItems(job)
+
+    if(items.size > 0){
+        text = text +", including "+items(0)
+        if(items.size > 1){
+            text = text +", and "+items(1)
+        }
+    }
+    text
+}
+
+<h2>@Messages("s7.progressbar.name")</h2>
+<dl class="clearfix">
+    <dt>Have you been employed at any time since @{sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`}</dt>
+    <dd>@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}</dd>
+    @if(jobs.isDefined && jobs.get.jobs.size > 0){
+        <dt>Employment</dt>
+        <dd>
+            <ul>
+            @for(job <- jobs.get.jobs){
+                <li>@employmentSummary(job)</li>
+            }
+            </ul>
+        </dd>
+    }
+    <dt>Have you been self employed at any time since @{oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`}</dt>
+    <dd>@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)}</dd>
+</dl>

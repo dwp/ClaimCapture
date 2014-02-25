@@ -1,0 +1,46 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+
+@import models.domain._
+@import play.api.i18n.{MMessages => Messages}
+
+@yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
+    @nino = @{yourDetails.nationalInsuranceNumber}
+@contactDetails = @{claim.questionGroup[ContactDetails].getOrElse(ContactDetails())}
+    @address = @{contactDetails.address}
+@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
+@nationality = @{claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency())}
+@otherEEA = @{claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())}
+@trips = @{claim.questionGroup[Trips].getOrElse(Trips())}
+@moreAboutYou = @{claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())}
+@maritalStatus = @{
+    moreAboutYou.maritalStatus match{
+        case "m" => Messages("maritalStatus.married")
+        case "s" => Messages("maritalStatus.single")
+        case "d" => Messages("maritalStatus.divorced")
+        case "w" => Messages("maritalStatus.widowed")
+        case "n" => Messages("maritalStatus.separated")
+        case "p" => Messages("maritalStatus.livingWithPartner")
+        case _ => ""
+    }
+}
+
+
+<h2>@Messages("s2.progressbar.name")</h2>
+<dl class="clearfix">
+    <dt>Name</dt><dd>@{Messages("titleSelect."+yourDetails.title)} @yourDetails.firstName @yourDetails.middleName @yourDetails.surname</dd>
+    <dt>National Insurance Number</dt><dd>@nino.ni1 @nino.ni2 @nino.ni3 @nino.ni4 @nino.ni5</dd>
+    <dt>Date of birth</dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
+    <dt>Address</dt><dd>@address.lineOne@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @contactDetails.postcode.getOrElse("")</dd>
+    @if(contactDetails.phoneNumber.isDefined || contactDetails.mobileNumber.isDefined){
+        <dt>Phone</dt><dd>@contactDetails.phoneNumber.getOrElse("") @contactDetails.mobileNumber.fold("")(s=>(if(contactDetails.phoneNumber.isDefined)"/ " else "")+s)</dd>
+    }
+    <dt>Your claim date</dt><dd>@{claimDate.dateOfClaim.`dd month, yyyy`}</dd>
+    <dt>Your nationality</dt><dd>@{nationality.nationality}</dd>
+    <dt>Do you normally livein England, Scotland or Wales</dt><dd>@{Messages("label."+nationality.resideInUK.answer)}</dd>
+    <dt>Time outside of England, Scotland or Wales</dt><dd>@{Messages("label."+(if (trips.fiftyTwoWeeksTrips.size > 0) "yes" else "no"))}</dd>
+    <dt>Do you, or any member of your family, receive any benefits or pensions from a EEA state or Switzerland</dt><dd>@{Messages("label."+otherEEA.benefitsFromEEA)}</dd>
+    <dt>Have you, or a member of your family, made a claim for any benefits or pensions from a EEA state or Switzerland</dt><dd>@{Messages("label."+otherEEA.claimedForBenefitsFromEEA)}</dd>
+    <dt>Are you, or a member of your family, working in or paying insurance to, another EEA state or Switzerland</dt><dd>@{Messages("label."+otherEEA.workingForEEA)}</dd>
+    <dt>Marital status</dt><dd>@{maritalStatus}</dd>
+
+</dl>

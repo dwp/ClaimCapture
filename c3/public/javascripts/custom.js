@@ -28,6 +28,12 @@ $(function() {
 
         $(this).text(labelText);
     });
+    
+    $('.feedback, .feed-close').click(function(){
+       $(this).toggleClass("feedback-close");
+       $('.feedback-container').slideToggle('slow');
+  
+     });
 
     // Nino auto jump
 	$('.ni-number input, .sort-code input').autotab_magic();

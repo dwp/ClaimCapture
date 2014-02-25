@@ -1,0 +1,23 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@import models.domain._
+
+@import play.api.i18n.{MMessages => Messages}
+
+@moreAboutYou = @{claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())}
+@yourCourseDetails = @{claim.questionGroup[YourCourseDetails]}
+
+<h2>@Messages("s6.progressbar.name")</h2>
+<dl class="clearfix">
+    <dt>Have you been on a course of education since your claim date</dt><dd>@{Messages("label."+moreAboutYou.beenInEducationSinceClaimDate)}</dd>
+    @if(yourCourseDetails.isDefined){
+        @defining(yourCourseDetails.get){ yourCourseDetails =>
+          <dt>Course title</dt><dd>@{yourCourseDetails.title}</dd>
+          <dt>Name of school, college or university</dt><dd>@{yourCourseDetails.nameOfSchoolCollegeOrUniversity}</dd>
+          <dt>Name of main teacher or tutor</dt><dd>@{yourCourseDetails.nameOfMainTeacherOrTutor}</dd>
+          @if(yourCourseDetails.courseContactNumber.isDefined){
+            <dt>Course contact number</dt><dd>@{yourCourseDetails.courseContactNumber.get}</dd>
+          }
+          <dt>Start/end dates</dt><dd>@{yourCourseDetails.startDate.`dd month, yyyy`} - @{yourCourseDetails.expectedEndDate.`dd month, yyyy`}</dd>
+        }
+    }
+</dl>

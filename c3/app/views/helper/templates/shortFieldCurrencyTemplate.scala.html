@@ -1,6 +1,5 @@
 @(elements: helper.FieldElements)
 
-@import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersHelpers._
 
@@ -8,7 +7,7 @@
 @if(elements.hasErrors){ <li class="currency validation"> } else { <li class="currency"> }
 
     @if(elements.hasErrors){
-        <p class="error">@elements.carersErrors.mkString(", ")</p>
+        <p class="error">@elements.carersErrors(elements.lang).mkString(", ")</p>
     }
        @if(elements.args.contains('prompt)){
         <div class="prompt helper-prompt">@Html(Messages(elements.args.get('prompt).get.toString))</div>
