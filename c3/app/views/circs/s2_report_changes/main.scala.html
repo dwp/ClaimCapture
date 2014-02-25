@@ -21,7 +21,7 @@
                     @for((completedQuestionGroup, call) <- completedQuestionGroups) {
                     <li>
                         <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                        <a href="@call" aria-label="Change these answers - this is an optional link relating to a previous section">Change these answers</a>
+                        <a href="@call" aria-label="@Messages("change.these.help")">@Messages("change.these")</a>
                     </li>
                     }
                 </ul>

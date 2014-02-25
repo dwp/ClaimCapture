@@ -13,7 +13,7 @@
 
         <article>
 
-            <h1>Declaration</h1>
+            <h1>@Messages("c3.g1")</h1>
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
@@ -21,7 +21,7 @@
                         @for((completedQuestionGroup, call) <- completedQuestionGroups) {
                         <li>
                             <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                            <a href="@call">Change these answers</a>
+                            <a href="@call">@Messages("change.these")</a>
                         </li>
                         }
                     </ul>
