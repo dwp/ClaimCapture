@@ -103,8 +103,10 @@
 		          <nav>
 		          	<ul>
 		          		<li class="feedback"><a href="#">@Messages("helpAndFeedback")</a></li>
-		          		<li><a id="lang-en" href="/change-language/en" aria-label="Change default language to English">@Messages("english")</a></li>
-                        <li><a id="lang-cy" href="/change-language/cy" aria-label="Change default language to Welsh">@Messages("welsh")</a></li>
+                        @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
+                          <li><a id="lang-en" href="/change-language/en" aria-label="Change default language to English">@Messages("english")</a></li>
+                          <li><a id="lang-cy" href="/change-language/cy" aria-label="Change default language to Welsh">@Messages("welsh")</a></li>
+                        }
 		          	</ul>
 		          </nav>
 	          </section>
