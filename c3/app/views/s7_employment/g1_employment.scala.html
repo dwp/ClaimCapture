@@ -2,11 +2,7 @@
 
 @import scala.language.postfixOps
 @import helper._
-@import views.html.common._
-@import models.domain.Claim
 @import utils.helpers.CarersCrypto
-@import models.domain.ClaimDate
-@import utils.helpers.CarersTemplate._
 
 @import play.api.i18n.{MMessages => Messages}
 @main(Messages("s7.g1") + "  " + Messages("s7.longName"), Some(employmentForm)) {
@@ -18,29 +14,29 @@
         
             <div class="prompt helper-prompt">
                 <p class="intro">
-                By employment we mean:
+                @Messages("s7.g1.help1")
                 </p>
         
                 <ul>
-                <li>full-time or part time work</li>
-                <li>casual or temporary work</li>
-                <li>job sharing</li>
-                <li>being included in any tax return as a worker or non worker</li>
-                <li>being a company director</li>
-                <li>being in the territorial army or other auxiliary armed forces</li>
-                <li>being on a career break</li>
+                <li>@Messages("s7.g1.help2")</li>
+                <li>@Messages("s7.g1.help3")</li>
+                <li>@Messages("s7.g1.help4")</li>
+                <li>@Messages("s7.g1.help5")</li>
+                <li>@Messages("s7.g1.help6")</li>
+                <li>@Messages("s7.g1.help7")</li>
+                <li>@Messages("s7.g1.help8")</li>
                 </ul>
         
         
                 <p class="intro">
-                Self employment could mean:
+                @Messages("s7.g1.help9")
                 </p>
         
                 <ul>
-                <li>working for yourself, or</li>
-                <li>being a partner or sleeping partner in a business</li>
-                <li>receive income from property or land you own</li>
-                <li>renting out any part of the home you live in  i.e to a lodger</li>
+                <li>@Messages("s7.g1.help10")</li>
+                <li>@Messages("s7.g1.help11")</li>
+                <li>@Messages("s7.g1.help12")</li>
+                <li>@Messages("s7.g1.help13")</li>
                 </ul>
             </div>
         
@@ -54,8 +50,8 @@
         </fieldset>
     
         <nav class="formsteps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" arialabel="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" arialabel="Next button" @views.html.ga.trackSubmit(isOptional=true)>Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")" @views.html.ga.trackSubmit(isOptional=true)>@Messages("form.next")</button>
         </nav>
     }
 }
