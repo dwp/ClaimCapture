@@ -7,7 +7,7 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-@import controllers.s7_employment.Employment._
+@import controllers.s7_employment.Employment.completedQuestionGroups
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 
@@ -25,7 +25,7 @@
             <ul>
                 @paymentFrequencySelect(currentForm("oftenGetPaid"),
                     '_label -> Messages("oftenGetPaidFrequency", pastPresentLabelForEmployment(claim, wereYou, areYou, JobID(currentForm))),
-                    'id -> "oftenGetPaid",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                    'id -> "oftenGetPaid",'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60)
 
                 @carersInputText(currentForm("whenGetPaid"),
                     '_label -> Messages("whenGetPaid", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, JobID(currentForm))),
@@ -36,8 +36,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")">@Messages("form.next")</button>
         </nav>
     }
 }

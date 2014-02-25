@@ -25,8 +25,8 @@
                 @yesNoRadioGroup(currentForm("finishedThisJob"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(inputDayMonthYear(currentForm("lastWorkDate"), 'helperBelow -> Messages("date.helper")),
-                                   inputDayMonthYear(currentForm("p45LeavingDate"), 'helperBelow -> Messages("date.helper"))),
+                    inputDef = Seq(inputDayMonthYear(currentForm("lastWorkDate"), 'helperBelow -> Messages("jobStartDate.helper")),
+                                   inputDayMonthYear(currentForm("p45LeavingDate"), 'helperBelow -> Messages("jobStartDate.helper"))),
                     'id -> "lastWorkData",
                     'display -> currentForm("finishedThisJob").value.getOrElse("no"))
 
