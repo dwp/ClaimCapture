@@ -392,7 +392,7 @@ header {
    
    
    /* section */
-   section {
+   article {
 	   background: #fff;
 	   position: relative;
 	   padding: 1.6em 0 0 1em;
@@ -423,7 +423,7 @@ header {
 
    	   &.finish-statement {
 
-	   	   article {
+	   	   section {
 		   	   margin-top: 1.5em;
 		   	   &.finish-next {
 			   	   margin-top: 1.4em;
@@ -509,7 +509,7 @@ header {
    	   		h1 {
 	   	   		margin-right: 0;
    	   		}
-			article {
+			section {
 				margin: 2em 0;
 				background-image: url('images/response-trio-xl.png');
 				background-position: 0 0;

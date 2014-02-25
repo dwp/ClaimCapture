@@ -18,13 +18,13 @@
             claim.questionGroup(Employment).get.asInstanceOf[Employment].beenSelfEmployedSince1WeekBeforeClaim == "yes")) {
             <div class="send-info">
 
-                <article>
+                <section>
                     <h2>@Messages("s11.g5.help1")</h2>
                     <p>@Messages("s11.g5.help2")</p>
-                </article>
+                </section>
 
                 @if(claim.questionGroup(Employment).get.asInstanceOf[Employment].beenEmployedSince6MonthsBeforeClaim == "yes") {
-                    <article>
+                    <section>
                         <h2>@Messages("s11.g5.help3")</h2>
 
                         <ul>
@@ -32,28 +32,31 @@
                             <li>@Messages("s11.g5.help5")</li>
                             <li>@Messages("s11.g5.help6")</li>
                         </ul>
-                    </article>
+                    </section>
                 }
 
                 @if(claim.questionGroup(Employment).get.asInstanceOf[Employment].beenSelfEmployedSince1WeekBeforeClaim == "yes") {
-                    <article>
+
+                    <section>
                         <h2>@Messages("s11.g5.help7")</h2>
+
 
                         <ul>
                             <li>@Messages("s11.g5.help8")</li>
                             <li>@Messages("s11.g5.help9")</li>
                         </ul>
-                    </article>
+                    </section>
                 }
 
-                <article class="address">
+                <section class="address">
                     <h3>@Messages("s11.g5.help10")</h3>
                     <span>@Messages("s11.g5.help11")</span>
                     <span>@Messages("s11.g5.help12")</span>
                     <span>@Messages("s11.g5.help13")</span>
                     <span>@Messages("s11.g5.help14")</span>
                     <p>@Messages("s11.g5.help15")</p>
-                </article>
+                </section>
+
             </div>
         }
 
