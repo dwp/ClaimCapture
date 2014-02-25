@@ -16,7 +16,7 @@
     }
 
     @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit) {
-        <div class="form-steps">
+        <nav class="form-steps">
         	@if(approved == false) {
         	    <p>@Html(Messages("s1.g6.help4"))</p>
             } else {
@@ -25,6 +25,6 @@
 
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
             <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.step.help")">@Messages("form.next.step")</button>
-        </div>
+        </nav>
     }
 }
