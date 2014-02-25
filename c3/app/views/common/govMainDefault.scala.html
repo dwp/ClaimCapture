@@ -1,6 +1,7 @@
 @(title: String)(content: Html)(implicit footerCategories: Html = Html.empty, lang: Lang, request:play.api.mvc.Request[AnyContent])
 
 @import play.api.i18n.{MMessages => Messages}
+@import controllers.Application.welshAvailable
 
 <!DOCTYPE html>
     <!--[if IE 6]>         <html class="ie ie6" lang="en"> <![endif]-->
@@ -103,9 +104,11 @@
 		          <nav>
 		          	<ul>
 		          		<li class="feedback"><a href="#">@Messages("helpAndFeedback")</a></li>
-                        @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
-                          <li><a id="lang-en" href="/change-language/en" aria-label="Change default language to English">@Messages("english")</a></li>
-                          <li><a id="lang-cy" href="/change-language/cy" aria-label="Change default language to Welsh">@Messages("welsh")</a></li>
+                        @if(welshAvailable == "true") {
+                          @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
+                            <li><a id="lang-en" href="/change-language/en" aria-label="Change default language to English">@Messages("english")</a></li>
+                            <li><a id="lang-cy" href="/change-language/cy" aria-label="Change default language to Welsh">@Messages("welsh")</a></li>
+                          }
                         }
 		          	</ul>
 		          </nav>
