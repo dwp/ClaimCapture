@@ -11,26 +11,27 @@ import controllers.s7_employment.Employment.jobs
 import models.domain.Claim
 import models.domain.Claim
 import scala.reflect.ClassTag
+import play.api.i18n.Lang
 
 object G2BeenEmployed extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "beenEmployed" -> (nonEmptyText verifying validYesNo)
   )(BeenEmployed.apply)(BeenEmployed.unapply))
 
-  def presentConditionally(c: => Either[Result,ClaimResult])(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] = {
+  def presentConditionally(c: => Either[Result,ClaimResult])(implicit claim: Claim, request: Request[AnyContent], lang:Lang): Either[Result,ClaimResult] = {
     claim.questionGroup[Emp].collect {
       case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == yes => c
     }.getOrElse(redirect)
   }
 
-  def redirect(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] =
+  def redirect(implicit claim: Claim, request: Request[AnyContent], lang:Lang): Either[Result,ClaimResult] =
     Left(Redirect(controllers.s8_self_employment.routes.G1AboutSelfEmployment.present()))
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
       presentConditionally(beenEmployed)
   }
 
-  def beenEmployed(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] = {
+  def beenEmployed(implicit claim: Claim, request: Request[AnyContent], lang:Lang): Either[Result,ClaimResult] = {
     if(getCompletedJobs) {
       val f:Claim => Result = { implicit claim => Ok(views.html.s7_employment.g2_beenEmployed(form.fill(BeenEmployed)))}
       Right(trackBackToBeginningOfEmploymentSection(BeenEmployed)(f)(claim, request,ClassTag[BeenEmployed.type](BeenEmployed.getClass)) )
