@@ -1,12 +1,7 @@
 @(currentForm: Form[models.domain.Benefits])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
-@import utils.helpers.CarersTemplate._
 @import views.html.helper._
-@import views.html.helper.base._
-@import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
-@import views.html.helper.dates._
 @import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm)) {
@@ -43,7 +38,7 @@
             </div>
             
             <ul>
-                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'trackLabel -> "benefits.answer")
+                @yesNoRadioGroup(currentForm("answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'trackLabel -> "benefits.answer")
             </ul>
             
             @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
