@@ -4,7 +4,6 @@
 @import models.domain.MoreAboutTheCare
 @import views.html.helper._
 @import views.html.helper.dates._
-@import utils.helpers.CarersTemplate._
 @import app.Whereabouts._
 @import play.api.i18n.{MMessages => Messages}
 
@@ -48,7 +47,7 @@
                 @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
     
 
-                @yesNoRadioGroup(breakForm("medicalDuringBreak"))
+                @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))
             </ul>
         </fieldset>
 

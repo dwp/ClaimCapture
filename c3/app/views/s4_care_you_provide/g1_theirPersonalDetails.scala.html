@@ -1,6 +1,5 @@
 @(currentForm: Form[models.domain.TheirPersonalDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
@@ -29,7 +28,7 @@
 
                 @inputDayMonthYear(currentForm("dateOfBirth"), 'helperBelow-> Messages("dateOfBirth.helper"))
 
-                @yesNoRadioGroup(currentForm("liveAtSameAddressCareYouProvide"))
+                @yesNoRadioGroup(currentForm("liveAtSameAddressCareYouProvide"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
             </ul>
         </fieldset>
 
