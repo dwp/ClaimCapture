@@ -12,6 +12,7 @@ import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s10_pay_details._
 import utils.pageobjects.S11_consent_and_declaration._
 import utils.pageobjects.IterationManager._
+import utils.pageobjects.preview.PreviewPage
 
 
 /**
@@ -95,6 +96,7 @@ object ClaimPageFactory extends PageFactory {
         case G4SelfEmploymentPensionsAndExpensesPage.title => G4SelfEmploymentPensionsAndExpensesPage (ctx)
         case G5ChildcareExpensesWhileAtWorkPage.title => G5ChildcareExpensesWhileAtWorkPage (ctx)
         case G7ExpensesWhileAtWorkPage.title => G7ExpensesWhileAtWorkPage (ctx)
+        case PreviewPage.title => PreviewPage(ctx)
         // S10
         case G1AdditionalInfoPage.title => G1AdditionalInfoPage (ctx)
         case G2ConsentPage.title => G2ConsentPage (ctx)
