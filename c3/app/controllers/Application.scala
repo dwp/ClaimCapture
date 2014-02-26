@@ -3,6 +3,8 @@ package controllers
 import app.ConfigProperties._
 import play.api.mvc._
 import models.view.CachedClaim
+import play.api.{Logger, Play}
+import play.api.Play.current
 
 object Application extends Controller with CachedClaim {
 
@@ -11,5 +13,13 @@ object Application extends Controller with CachedClaim {
 
   def index = Action {
     MovedPermanently(govUk)
+  }
+
+  def pdf = Action {
+    val path = Play.application.path
+    Logger.debug(path.toString)
+    Ok.sendFile(
+      content = new java.io.File(s"$path/NewPDF.pdf"), inline = true
+    )
   }
 }
