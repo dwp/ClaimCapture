@@ -19,7 +19,7 @@ object Application extends Controller with CachedClaim {
     val path = Play.application.path
     Logger.debug(path.toString)
     Ok.sendFile(
-      content = new java.io.File(s"$path/NewPDF.pdf"), inline = true
+      content = new java.io.File(s"$path/conf/NewPDF.pdf"), inline = true
     )
   }
 }
