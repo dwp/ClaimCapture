@@ -4,14 +4,16 @@ import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.FormError
 import controllers.CarersForms._
 import models.view.CachedClaim
-import models.domain.{Claim, AboutOtherMoney, MoreAboutYou}
+import models.domain.{AboutOtherMoney, MoreAboutYou}
 import controllers.Mappings._
-import models.yesNo.YesNo
 import utils.helpers.CarersForm._
 import models.view.Navigable
+import play.api.data.FormError
+import models.domain.Claim
+import scala.Some
+import models.yesNo.{YesNo, YesNoWithEmployerAndMoney}
 
 object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
   val yourBenefitsMapping =
@@ -24,12 +26,38 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
       "answer" -> nonEmptyText.verifying(validYesNo)
     )(YesNo.apply)(YesNo.unapply)
 
+  val statutorySickPayMapping =
+    "statutorySickPay" -> mapping(
+      "answer" ->  nonEmptyText.verifying(validYesNo),
+      "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
+      "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
+      "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
+      "employersAddress" -> optional(address),
+      "employersPostcode" -> optional(text verifying validPostcode)
+    )(YesNoWithEmployerAndMoney.apply)(YesNoWithEmployerAndMoney.unapply)
+      .verifying("statEmployerNameRequired", YesNoWithEmployerAndMoney.validateEmployerNameOnYes _)
+      .verifying("statHowMuchRequired", YesNoWithEmployerAndMoney.validateHowMuchOnYes _)
+
+  val otherStatutoryPayMapping =
+    "otherStatutoryPay" -> mapping(
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
+      "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
+      "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
+      "employersAddress" -> optional(address),
+      "employersPostcode" -> optional(text verifying validPostcode)
+    )(YesNoWithEmployerAndMoney.apply)(YesNoWithEmployerAndMoney.unapply)
+      .verifying("otherPayEmployerNameRequired", YesNoWithEmployerAndMoney.validateEmployerNameOnYes _)
+      .verifying("otherPayHowMuchRequired", YesNoWithEmployerAndMoney.validateHowMuchOnYes _)
+
   val form = Form(mapping(
     yourBenefitsMapping,
     anyPaymentsSinceClaimDateMapping,
     "whoPaysYou" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),
     "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
-    "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly)
+    "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
+    statutorySickPayMapping,
+    otherStatutoryPayMapping
   )(AboutOtherMoney.apply)(AboutOtherMoney.unapply)
     .verifying("howMuch.required", validateHowMuch _)
     .verifying("whoPaysYou.required", validateWhoPays _)
@@ -71,10 +99,13 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
           .replaceError("yourBenefits.answer","error.required", FormError("yourBenefits.answer","error.required",yourBenefitsAnswerErrorParams))
           .replaceError("anyPaymentsSinceClaimDate.answer","error.required", FormError("anyPaymentsSinceClaimDate.answer","error.required",anyPaymentsErrorParams))
           .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
-
+          .replaceError("statutorySickPay","statEmployerNameRequired", FormError("statutorySickPay.employersName", "error.required"))
+          .replaceError("statutorySickPay","statHowMuchRequired", FormError("statutorySickPay.howMuch", "error.required"))
+          .replaceError("otherStatutoryPay","otherPayEmployerNameRequired", FormError("otherStatutoryPay.employersName", "error.required"))
+          .replaceError("otherStatutoryPay","otherPayHowMuchRequired", FormError("otherStatutoryPay.howMuch", "error.required"))
 
         BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate))
       },
-      f => claim.update(f) -> Redirect(routes.G5StatutorySickPay.present()))
+      f => claim.update(f) -> Redirect(controllers.s10_pay_details.routes.G1HowWePayYou.present))
   }
 }
