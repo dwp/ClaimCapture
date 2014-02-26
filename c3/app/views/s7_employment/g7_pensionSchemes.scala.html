@@ -29,7 +29,7 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         carersCurrency(currentForm("howMuchPension"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPension", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
-                        pensionPaymentFrequencySelect(currentForm("howOftenPension"), '_label -> Messages("howOftenPension"), 'id -> "howOftenPension",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                        pensionPaymentFrequencySelect(currentForm("howOftenPension"), '_label -> Messages("howOftenPension"), 'id -> "howOftenPension",'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60)
                     ),
                     'id -> "payOccupationalPensionSchemeWrapper",
                     'display -> currentForm("payOccupationalPensionScheme").value.getOrElse("no"))
@@ -41,7 +41,7 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         carersCurrency(currentForm("howMuchPersonal"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPersonal", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
-                        pensionPaymentFrequencySelect(currentForm("howOftenPersonal"), '_label -> Messages("howOftenPersonal"), 'id -> "howOftenPersonal",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                        pensionPaymentFrequencySelect(currentForm("howOftenPersonal"), '_label -> Messages("howOftenPersonal"), 'id -> "howOftenPersonal",'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60)
                     ),
                     'id -> "payPersonalPensionSchemeWrapper",
                     'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))
@@ -49,8 +49,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")">@Messages("form.next")</button>
         </nav>
     }
 }

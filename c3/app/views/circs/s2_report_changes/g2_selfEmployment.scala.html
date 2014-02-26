@@ -34,7 +34,8 @@
                 @carersInputText(selfEmployment("typeOfBusiness"),
                     'maxLength -> 35)
 
-                @yesNoRadioDontKnowGroup(selfEmployment("totalOverWeeklyIncomeThreshold"))
+                @yesNoRadioGroup(selfEmployment("totalOverWeeklyIncomeThreshold"),
+                    'values -> Seq("yes" -> Messages("label.yes"), "no" -> Messages("label.no"), "dontknow" -> Messages("label.dontknow")))
 
                 @carersInputTextArea(selfEmployment("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Messages("300charsLeft"), 'maxLength -> 300)
             </ul>
