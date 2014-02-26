@@ -23,8 +23,16 @@
                 @s9()
                 @s10()
             </div>
+            @helper.form(action = controllers.preview.routes.Preview.submit) {
+            <nav class="form-steps">
+                <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+                <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")">@Messages("form.next")</button>
+            </nav>
+            }
         </section>
     </div>
+
+
 }
 
 

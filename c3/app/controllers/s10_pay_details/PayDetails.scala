@@ -6,7 +6,7 @@ import models.domain.Claim
 import play.api.i18n.Lang
 
 object PayDetails extends Controller with CachedClaim with Navigable {
-  val redirectPath = Redirect(controllers.s11_consent_and_declaration.routes.G1AdditionalInfo.present)
+  val redirectPath = Redirect(controllers.preview.routes.Preview.present)
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent], lang: Lang): ClaimResult = {
     if (models.domain.PayDetails.visible) c
