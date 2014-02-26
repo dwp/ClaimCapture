@@ -52,7 +52,7 @@
             <ul class="coc-layout">
                 @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
 
-                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> "Please Select", YourName.name -> "Your name", Yourpartner.name -> "Your partner's name", Both.name  -> "Both you and your partner", PersonActingBehalf.name -> "Person acting on your behalf", YouPersonBehalf.name -> "You and the person acting on behalf"))
+                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> Messages("pleaseSelect"), YourName.name -> Messages("yourName"), Yourpartner.name -> Messages("yourPartner"), Both.name  -> Messages("both"), PersonActingBehalf.name -> Messages("personActingBehalf"), YouPersonBehalf.name -> Messages("youPersonBehalf")))
 
                 @carersInputText(currentForm("bankFullName"))
 
@@ -62,16 +62,16 @@
 
                 @carersInputText(currentForm("rollOrReferenceNumber"), 'maxLength -> "18")
 
-                @carersSelect(currentForm("paymentFrequency"), Seq("" -> "Please Select", EveryWeek.name -> "Every week", FourWeekly.name -> "Every four weeks"))
+                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect"), EveryWeek.name -> Messages("label.everyWeek"), FourWeekly.name -> Messages("label.fourWeekly")))
 
-                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> "300 characters left", 'maxLength -> 300)
+                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Messages("300charsLeft"), 'maxLength -> 300)
             </ul>
 
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")">@Messages("form.next")</button>
         </nav>
     }
 }

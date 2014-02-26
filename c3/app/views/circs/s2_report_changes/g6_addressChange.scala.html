@@ -56,15 +56,15 @@
                     'id -> "sameAddressData",
                     'display -> {if (addressForm("sameAddress.answer").value.getOrElse("yes") == "no") "yes" else "no" }
                 )
-                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> "300 characters left", 'maxLength -> 300)
+                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Messages("300charsLeft"), 'maxLength -> 300)
 
             </ul>
 
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")">@Messages("form.next")</button>
         </nav>
     }
 }

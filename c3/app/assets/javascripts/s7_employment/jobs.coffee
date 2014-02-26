@@ -3,7 +3,7 @@ $ ->
 
     $(".breaks-prompt").hide()
 
-    $("tbody").on "click", "input[value='Change']", ->
+    $("tbody").on "click", "input[id='changeButton']", ->
         tr = $(this).closest("tr")
         window.location.href = "/employment/job/" + tr.attr("id")
 
@@ -11,7 +11,7 @@ $ ->
         if ($("#backButton").attr("disabled") == "disabled")
             event.preventDefault()
 
-    $("tbody").on "click", "input[value='Delete']", ->
+    $("tbody").on "click", "input[id='deleteButton']", ->
         disable()
         enableConfirmation()
 
@@ -22,14 +22,14 @@ $ ->
             start:->
                 dynamicMessage()
             ,complete:->
-                $("input[value='No']").unbind "click"
-                $("input[value='Yes']").unbind "click"
+                $("input[id='noDeleteButton']").unbind "click"
+                $("input[id='yesDeleteButton']").unbind "click"
 
-                $("input[value='No']").on "click", ->
+                $("input[id='noDeleteButton']").on "click", ->
                     enable()
                     $(".breaks-prompt").slideUp()
 
-                $("input[value='Yes']").on "click", ->
+                $("input[id='yesDeleteButton']").on "click", ->
                     disableConfirmation()
 
                     $.ajax
