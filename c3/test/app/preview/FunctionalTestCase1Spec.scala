@@ -8,6 +8,8 @@ import app.FunctionalTestCommon
 import utils.pageobjects.preview.PreviewPage
 import org.fluentlenium.core.filter.FilterConstructor._
 import org.openqa.selenium.By
+import models.DayMonthYear
+import org.joda.time.format.DateTimeFormat
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.
@@ -30,7 +32,7 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
 
       val toFindData = Seq("Name" -> Seq("AboutYouTitle","AboutYouFirstName","AboutYouMiddleName","AboutYouSurname"),
           "National insurance number" -> Seq("AboutYouNINO"),
-          "Date of birth" -> Seq(""))
+          "Date of birth" -> Seq(DateTransformer("AboutYouDateOfBirth")))
 
 
       toFindData.foreach{t =>
@@ -44,3 +46,14 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
   } section ("functional","preview")
 }
 
+trait Transformer{
+  def transform(in:String):String
+}
+
+class DateTransformer(id:String,patternIn:String,patternOut:String) extends Transformer{
+  override def transform(in: String): String = DateTimeFormat.forPattern(patternIn).parseDateTime(in).toString(patternOut)
+}
+
+object DateTransformer{
+  def apply(id:String,patternIn:String="dd/MM/yyyy",patternOut:String = "dd MMMM, yyyy") = new DateTransformer(id,patternIn,patternOut)
+}
