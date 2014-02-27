@@ -106,8 +106,11 @@
 		          		<li class="feedback"><a href="#">@Messages("helpAndFeedback")</a></li>
                         @if(welshAvailable == "true") {
                           @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
-                            <li><a id="lang-en" href="/change-language/en" aria-label="Change default language to English" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Messages("english")</a></li>
-                            <li><a id="lang-cy" href="/change-language/cy" aria-label="Change default language to Welsh" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Messages("welsh")</a></li>
+                            @if(lang.language == "cy") {
+                                <li><a id="lang-en" href="/change-language/en" aria-label="Change default language to English" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Messages("english")</a></li>
+                            } else {
+                                <li><a id="lang-cy" href="/change-language/cy" aria-label="Change default language to Welsh" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Messages("welsh")</a></li>
+                            }
                           }
                         }
 		          	</ul>
