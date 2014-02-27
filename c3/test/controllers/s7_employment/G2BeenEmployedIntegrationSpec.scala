@@ -23,7 +23,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
-      titleMustEqual("Details about other money - About Other Money")
+      titleMustEqual("Benefits and payments - About Other Money")
     }
 
     """progress to next section i.e. "self employed".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {

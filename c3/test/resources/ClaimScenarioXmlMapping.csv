@@ -167,28 +167,28 @@ Self Employed,Expenses related to the person you care for while at work,How ofte
 Self Employed,Expenses related to the person you care for while at work,Name of the person/organisation you pay,SelfEmployedCareExpensesNameOfPerson,SelfEmployment>CareExpenses>CarerName
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person/organisation to you?",SelfEmployedCareExpensesWhatRelationIsToYou,SelfEmployment>CareExpenses>RelationshipCarerToClaimant
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is this person/organisation to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,SelfEmployment>CareExpenses>RelationshipCarerToCaree
-Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,DWPCAClaim>EvidenceList
-Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,DWPCAClaim>EvidenceList
-Other Money,Details about other money,Who pays you?,OtherMoneyWhoPaysYou,DWPCAClaim>EvidenceList
-Other Money,Details about other money,How much?,OtherMoneyHowMuch,DWPCAClaim>EvidenceList
-Other Money,Details about other money,How often?,OtherMoneyHowOften,DWPCAClaim>EvidenceList
-Other Money,Details about other money,How often other?,OtherMoneyHowOftenOther,DWPCAClaim>EvidenceList
-Other Money,Details about other money,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,OtherBenefits>OtherMoneySSP
-Other Money,Details about other money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,DWPCAClaim>EvidenceList
-Other Money,Details about other money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,DWPCAClaim>EvidenceList
-Other Money,Details about other money,Statutory Sick Pay,How often other?,OtherMoneySSPHowOftenOther,DWPCAClaim>EvidenceList
-Other Money,Details about other money,Statutory Sick Pay,Other,OtherMoneySSPOther,DWPCAClaim>EvidenceList
-Other Money,Details about other money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,OtherMoneySSPDetails>Name
-Other Money,Details about other money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,OtherMoneySSPDetails>Address>Line
-Other Money,Details about other money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,OtherMoneySSPDetails>Address>PostCode
-Other Money,Details about other money,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,OtherBenefits>OtherMoneySMP
-Other Money,Details about other money,Other Statutory Pay,How much?,OtherMOneySMPHowMuch,DWPCAClaim>EvidenceList
-Other Money,Details about other money,Other Statutory Pay,How often?,OtherMOneySMPHowOften,DWPCAClaim>EvidenceList
-Other Money,Details about other money,Other Statutory Pay,How often other?,OtherMOneySMPHowOftenOther,DWPCAClaim>EvidenceList
-Other Money,Details about other money,Other Statutory Pay,Other,OtherMoneySMPOther,DWPCAClaim>EvidenceList
-Other Money,Details about other money,Employer's Name,OtherMoneySMPEmployerName,OtherMoneySMPDetails>Name
-Other Money,Details about other money,Employer's Address,OtherMoneySMPEmployerAddress,OtherMoneySMPDetails>Address>Line
-Other Money,Details about other money,Employer's Postcode,OtherMoneySMPEmployerPostcode,OtherMoneySMPDetails>Address>PostCode
+Other Money,Benefits and payments,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,Who pays you?,OtherMoneyWhoPaysYou,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,How much?,OtherMoneyHowMuch,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,How often?,OtherMoneyHowOften,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,How often other?,OtherMoneyHowOftenOther,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,OtherBenefits>OtherMoneySSP
+Other Money,Benefits and payments,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,Statutory Sick Pay,How often other?,OtherMoneySSPHowOftenOther,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,Statutory Sick Pay,Other,OtherMoneySSPOther,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,OtherMoneySSPDetails>Name
+Other Money,Benefits and payments,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,OtherMoneySSPDetails>Address>Line
+Other Money,Benefits and payments,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,OtherMoneySSPDetails>Address>PostCode
+Other Money,Benefits and payments,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,OtherBenefits>OtherMoneySMP
+Other Money,Benefits and payments,Other Statutory Pay,How much?,OtherMOneySMPHowMuch,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,Other Statutory Pay,How often?,OtherMOneySMPHowOften,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,Other Statutory Pay,How often other?,OtherMOneySMPHowOftenOther,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,Other Statutory Pay,Other,OtherMoneySMPOther,DWPCAClaim>EvidenceList
+Other Money,Benefits and payments,Employer's Name,OtherMoneySMPEmployerName,OtherMoneySMPDetails>Name
+Other Money,Benefits and payments,Employer's Address,OtherMoneySMPEmployerAddress,OtherMoneySMPDetails>Address>Line
+Other Money,Benefits and payments,Employer's Postcode,OtherMoneySMPEmployerPostcode,OtherMoneySMPDetails>Address>PostCode
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,DWPCAClaim>Declaration
 About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,Caree>DaytimePhoneNumber>Number
 Consent & Declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf. =",ConsentDeclarationSomeoneElseTickBox,DWPCAClaim>Declaration

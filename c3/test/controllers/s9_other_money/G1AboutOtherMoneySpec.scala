@@ -10,7 +10,7 @@ import models.domain.Claim
 import models.view.CachedClaim
 
 class G1AboutOtherMoneySpec extends Specification with Tags {
-  "Details about other money - Controller" should {
+  "Benefits and payments - Controller" should {
     val yourBenefits = "yes"
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"

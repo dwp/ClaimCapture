@@ -94,15 +94,15 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
         val anyPaymentsErrorParams = Seq(claimDate)
 
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("", "howMuch.required", FormError("howMuch", "error.required"))
-          .replaceError("", "whoPaysYou.required", FormError("whoPaysYou", "error.required"))
           .replaceError("yourBenefits.answer","error.required", FormError("yourBenefits.answer","error.required",yourBenefitsAnswerErrorParams))
           .replaceError("anyPaymentsSinceClaimDate.answer","error.required", FormError("anyPaymentsSinceClaimDate.answer","error.required",anyPaymentsErrorParams))
+          .replaceError("", "whoPaysYou.required", FormError("whoPaysYou", "error.required"))
+          .replaceError("", "howMuch.required", FormError("howMuch", "error.required"))
           .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
-          .replaceError("statutorySickPay","statEmployerNameRequired", FormError("statutorySickPay.employersName", "error.required"))
           .replaceError("statutorySickPay","statHowMuchRequired", FormError("statutorySickPay.howMuch", "error.required"))
-          .replaceError("otherStatutoryPay","otherPayEmployerNameRequired", FormError("otherStatutoryPay.employersName", "error.required"))
+          .replaceError("statutorySickPay","statEmployerNameRequired", FormError("statutorySickPay.employersName", "error.required"))
           .replaceError("otherStatutoryPay","otherPayHowMuchRequired", FormError("otherStatutoryPay.howMuch", "error.required"))
+          .replaceError("otherStatutoryPay","otherPayEmployerNameRequired", FormError("otherStatutoryPay.employersName", "error.required"))
 
         BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate))
       },

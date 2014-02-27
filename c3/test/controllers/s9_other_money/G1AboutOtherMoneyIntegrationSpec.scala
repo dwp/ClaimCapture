@@ -12,14 +12,14 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "About Other Money" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
-      titleMustEqual("Details about other money - About Other Money")
+      titleMustEqual("Benefits and payments - About Other Money")
     }
 
     "contain errors on invalid submission" in {
       "no fields selected" in new WithBrowser with BrowserMatchers {
         browser.goTo("/other-money/about-other-money")
         browser.submit("button[type='submit']")
-        titleMustEqual("Details about other money - About Other Money")
+        titleMustEqual("Benefits and payments - About Other Money")
 
         findMustEqualSize("div[class=validation-summary] ol li", 4)
       }
