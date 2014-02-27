@@ -5,10 +5,9 @@ import play.api.test.{ FakeRequest, WithApplication }
 import models.domain._
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.domain
+import models.{MultiLineAddress, domain, PaymentFrequency}
 import models.domain.Claim
 import models.view.CachedClaim
-import models.PaymentFrequency
 
 class G1AboutOtherMoneySpec extends Specification with Tags {
   "Details about other money - Controller" should {
@@ -18,14 +17,40 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     val howMuch = "12"
     val howOften_frequency = "other"
     val howOften_frequency_other = "Every day and twice on Sundays"
+    val employersName = "Toys R Us"
+    val employersAddressLineOne = "Address line 1"
+    val employersAddressLineTwo = "Address line 2"
+    val employersAddressLineThree = "Address line 3"
+    val employersPostcode = "PR1A4JQ"
+    val yes = "yes"
+
     val formInput = Seq("yourBenefits.answer" -> yourBenefits,
       "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
       "whoPaysYou" -> whoPaysYou,
       "howMuch" -> howMuch,
       "howOften.frequency" -> howOften_frequency,
-      "howOften.frequency.other" -> howOften_frequency_other)
+      "howOften.frequency.other" -> howOften_frequency_other,
+      "statutorySickPay.answer" -> yes,
+      "statutorySickPay.howMuch" -> howMuch,
+      "statutorySickPay.howOften.frequency" -> howOften_frequency,
+      "statutorySickPay.howOften.frequency.other" -> howOften_frequency_other,
+      "statutorySickPay.employersName" -> employersName,
+      "statutorySickPay.employersAddress.lineOne" -> employersAddressLineOne,
+      "statutorySickPay.employersAddress.lineTwo" -> employersAddressLineTwo,
+      "statutorySickPay.employersAddress.lineThree" -> employersAddressLineThree,
+      "statutorySickPay.employersPostcode" -> employersPostcode,
+      "otherStatutoryPay.answer" -> yes,
+      "otherStatutoryPay.howMuch" -> howMuch,
+      "otherStatutoryPay.howOften.frequency" -> howOften_frequency,
+      "otherStatutoryPay.howOften.frequency.other" -> howOften_frequency_other,
+      "otherStatutoryPay.employersName" -> employersName,
+      "otherStatutoryPay.employersAddress.lineOne" -> employersAddressLineOne,
+      "otherStatutoryPay.employersAddress.lineTwo" -> employersAddressLineTwo,
+      "otherStatutoryPay.employersAddress.lineThree" -> employersAddressLineThree,
+      "otherStatutoryPay.employersPostcode" -> employersPostcode
+    )
 
-    "present 'Your course details'" in new WithApplication with Claiming {
+    "present 'Other money '" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val result = G1AboutOtherMoney.present(request)
@@ -48,6 +73,18 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
           f.whoPaysYou must equalTo(Some(whoPaysYou))
           f.howMuch must equalTo(Some(howMuch))
           f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_frequency_other))))
+          f.statutorySickPay.answer must equalTo(yes)
+          f.statutorySickPay.howMuch must equalTo(Some(howMuch))
+          f.statutorySickPay.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_frequency_other))))
+          f.statutorySickPay.employersName must equalTo(Some(employersName))
+          f.statutorySickPay.address must equalTo(Some(MultiLineAddress(Some(employersAddressLineOne), Some(employersAddressLineTwo), Some(employersAddressLineThree))))
+          f.statutorySickPay.postCode must equalTo(Some(employersPostcode))
+          f.otherStatutoryPay.answer must equalTo(yes)
+          f.otherStatutoryPay.howMuch must equalTo(Some(howMuch))
+          f.otherStatutoryPay.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_frequency_other))))
+          f.otherStatutoryPay.employersName must equalTo(Some(employersName))
+          f.otherStatutoryPay.address must equalTo(Some(MultiLineAddress(Some(employersAddressLineOne), Some(employersAddressLineTwo), Some(employersAddressLineThree))))
+          f.otherStatutoryPay.postCode must equalTo(Some(employersPostcode))
         }
       }
     }
@@ -56,7 +93,8 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
       "reject invalid yesNo answers" in new WithApplication with Claiming {
         val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
           .withFormUrlEncodedBody("yourBenefits.answer" -> "INVALID",
-            "anyPaymentsSinceClaimDate.answer" -> "INVALID")
+            "anyPaymentsSinceClaimDate.answer" -> "INVALID",
+            "statutorySickPay.answer" -> "INVALID", "otherStatutoryPay.answer" -> "INVALID")
 
         val result = controllers.s9_other_money.G1AboutOtherMoney.submit(request)
         status(result) mustEqual BAD_REQUEST
@@ -66,7 +104,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
         val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
           .withFormUrlEncodedBody("" -> "")
 
-        val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
+        val result = controllers.s9_other_money.G1AboutOtherMoney.submit(request)
         status(result) mustEqual BAD_REQUEST
       }
 
@@ -77,9 +115,10 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
             "whoPaysYou" -> whoPaysYou,
             "howMuch" -> howMuch,
             "howOften.frequency" -> "other",
-            "howOften.frequency.other" -> "")
-
-        val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
+            "howOften.frequency.other" -> "",
+            "statutorySickPay.answer" -> "no",
+            "otherStatutoryPay.answer" -> "no")
+        val result = controllers.s9_other_money.G1AboutOtherMoney.submit(request)
         status(result) mustEqual BAD_REQUEST
       }
     }

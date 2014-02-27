@@ -232,18 +232,16 @@ object EvidenceList {
 
   def otherMoney(claim: Claim) = {
     val aboutOtherMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
-    val statutorySickPay = claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay())
-    val otherStatutoryPay = claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay())
 
     val aboutOtherMoney_howOftenOther = aboutOtherMoney.howOften match {
       case Some(s) => s.other.getOrElse("")
       case _ => ""
     }
-    val ssp_howOftenOther = statutorySickPay.howOften match {
+    val ssp_howOftenOther = aboutOtherMoney.statutorySickPay.howOften match {
       case Some(s) => s.other.getOrElse("")
       case _ => ""
     }
-    val smp_howOftenOther = otherStatutoryPay.howOften match {
+    val smp_howOftenOther = aboutOtherMoney.otherStatutoryPay.howOften match {
       case Some(s) => s.other.getOrElse("")
       case _ => ""
     }
@@ -255,11 +253,11 @@ object EvidenceList {
       textLine("Details about other money: How much? = ", aboutOtherMoney.howMuch) ++
       textLine("Details about other money: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.howOften)) ++
       textLine("Details about other money: How often other? = ", aboutOtherMoney_howOftenOther) ++
-      textLine("Statutory Sick Pay: How much? = ", statutorySickPay.howMuch) ++
-      textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(statutorySickPay.howOften)) ++
+      textLine("Statutory Sick Pay: How much? = ", aboutOtherMoney.statutorySickPay.howMuch) ++
+      textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.statutorySickPay.howOften)) ++
       textLine("Statutory Sick Pay: How often other? = ", ssp_howOftenOther) ++
-      textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
-      textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(otherStatutoryPay.howOften)) ++
+      textLine("Other Statutory Pay: How much? = ", aboutOtherMoney.otherStatutoryPay.howMuch) ++
+      textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.otherStatutoryPay.howOften)) ++
       textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther)
   }
 

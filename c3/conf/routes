@@ -178,12 +178,6 @@ POST          /self-employment/completed                                controll
 GET           /other-money/about-other-money                            controllers.s9_other_money.G1AboutOtherMoney.present
 POST          /other-money/about-other-money                            controllers.s9_other_money.G1AboutOtherMoney.submit
 
-GET           /other-money/statutory-sick-pay                           controllers.s9_other_money.G5StatutorySickPay.present
-POST          /other-money/statutory-sick-pay                           controllers.s9_other_money.G5StatutorySickPay.submit
-
-GET           /other-money/other-statutory-pay                          controllers.s9_other_money.G6OtherStatutoryPay.present
-POST          /other-money/other-statutory-pay                          controllers.s9_other_money.G6OtherStatutoryPay.submit
-
 # Pay details
 ###############
 GET           /pay-details/how-we-pay-you                               controllers.s10_pay_details.G1HowWePayYou.present

@@ -353,24 +353,35 @@ object Formulate {
     browser.click("#anyPaymentsSinceClaimDate_answer_yes")
     browser.fill("#whoPaysYou") `with` "The Man"
     browser.fill("#howMuch") `with` "12"
+    browser.fill("#statutorySickPay_answer_no")
+    browser.fill("#otherStatutoryPay_answer_no")
+    browser.submit("button[type='submit']")
+  }
+
+  def aboutOtherMoneyInvalid(browser: TestBrowser) = {
+    browser.goTo("/other-money/about-other-money")
+    browser.click("#yourBenefits_answer_no")
+    browser.click("#anyPaymentsSinceClaimDate_answer_no")
+    browser.fill("#statutorySickPay_answer_yes")
+    browser.fill("#otherStatutoryPay_answer_no")
     browser.submit("button[type='submit']")
   }
 
   def statutorySickPay(browser: TestBrowser) = {
-    browser.goTo("/other-money/statutory-sick-pay")
-    browser.click("#haveYouHadAnyStatutorySickPay_yes")
-    browser.fill("#howMuch") `with` "1234"
-    browser.fill("#employersName") `with` "Some name"
-    browser.fill("#employersAddress_lineOne") `with` "Some address"
+    browser.goTo("/other-money/about-other-money")
+    browser.click("#yourBenefits_answer_no")
+    browser.click("#anyPaymentsSinceClaimDate_answer_no")
+    browser.fill("#statutorySickPay_answer_yes")
+    browser.fill("#otherStatutoryPay_answer_no")
     browser.submit("button[type='submit']")
   }
 
   def otherSickPay(browser: TestBrowser) = {
-    browser.goTo("/other-money/other-statutory-pay")
-    browser.click("#otherPay_yes")
-    browser.fill("#howMuch") `with` "1234"
-    browser.fill("#employersName") `with` "Some name"
-    browser.fill("#employersAddress_lineOne") `with` "Some address"
+    browser.goTo("/other-money/about-other-money")
+    browser.click("#yourBenefits_answer_no")
+    browser.click("#anyPaymentsSinceClaimDate_answer_no")
+    browser.fill("#statutorySickPay_answer_no")
+    browser.fill("#otherStatutoryPay_answer_yes")
     browser.submit("button[type='submit']")
   }
 

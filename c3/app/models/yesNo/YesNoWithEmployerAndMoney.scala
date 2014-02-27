@@ -8,7 +8,6 @@ import models.{PaymentFrequency, MultiLineAddress}
 /**
  * Created by neddakaltcheva on 2/25/14.
  */
-//class YesNoWithEmployerAndMoney (answer: String, address: Option[MultiLineAddress] = None, postCode: Option[String] = None)
 case class YesNoWithEmployerAndMoney(answer: String, howMuch: Option[String] = None, howOften: Option[PaymentFrequency] = None,
                                      employersName: Option[String] = None, address: Option[MultiLineAddress] = None, postCode: Option[String] = None)
 

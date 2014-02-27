@@ -1,23 +1,24 @@
 @(currentForm: Form[models.domain.Consent])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-    @import utils.helpers.CarersTemplate._
+@import helper._
+@import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
-    @import models.domain._
+@import models.domain._
 @import controllers.Mappings._
 @import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s11.g2") + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Consent)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G2Consent.submit) {
         <fieldset class="form-elements">
-            <legend>@Html(Messages("s11.g2"))</legend>
+            <legend>@Messages("s11.g2")</legend>
 
             <ul class="group">
 
                 @if(claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
-                    claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay()).haveYouHadAnyStatutorySickPay == `yes` ||
-                    claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay()).otherPay == `yes`){
+                    claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).statutorySickPay.answer == `yes` ||
+                    claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).otherStatutoryPay.answer == `yes`){
 
                     @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
 
