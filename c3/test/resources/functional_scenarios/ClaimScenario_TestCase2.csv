@@ -11,12 +11,12 @@ About You,Your Details,National Insurance (NI) number,AboutYouNINO,ja486278a
 About You,Your Details,Date of birth,AboutYouDateOfBirth,28/09/1976
 About You,Your contact details,Address,AboutYouAddress,2 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,pr1 2th
-About You,Your contact details,Phone number,AboutYouPhoneNumber,01772 888901
 About You,Your contact details,Mobile number,AboutYouMobileNumber,0771 5419808
+About You,Your contact details,Phone number,AboutYouPhoneNumber,01772 888901
+About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,22/03/2013
 About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,British
 About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Yes
 About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,
-About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,22/03/2013
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,Yes
 About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB_1,31/05/2011
 About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB_1,01/06/2012
@@ -248,26 +248,22 @@ Self Employed,Expenses related to the person you care for while at work,"What re
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,
 Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAddress,
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,
-Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,Yes
-Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,Yes
-Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,The Man
-Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,123
-Other Money,Details about other money,Details about other money: How often?,OtherMoneyHowOften,other
-Other Money,Details about other money,Details about other money: How often other?,OtherMoneyHowOftenOther,Every day and twice on Sundays
-Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,Yes
-Other Money,Statutory Sick Pay,Statutory Sick Pay: How much?,OtherMoneySSPHowMuch,123
-Other Money,Statutory Sick Pay,Statutory Sick Pay: How often?,OtherMoneySSPHowOften,other
-Other Money,Statutory Sick Pay,Statutory Sick Pay: How often other?,OtherMoneySSPHowOftenOther,Every day and twice on Sundays
-Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,Burger King
-Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,102 Preston  Road&Preston&Lancashure
-Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,pr45 6yh
+Other Money,Benefits and payments,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,Yes
+Other Money,Benefits and payments,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
+Other Money,Benefits and payments,Benefits and payments: Who pays you?,OtherMoneyWhoPaysYou,
+Other Money,Benefits and payments,Benefits and payments: How much?,OtherMoneyHowMuch,
+Other Money,Benefits and payments,Benefits and payments: How often?,OtherMoneyHowOften,
+Other Money,Benefits and payments,Benefits and payments: How often other?,OtherMoneyHowOftenOther,
+Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
+Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,
+Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,
+Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,Yes
-Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,120
-Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,other
-Other Money,Other Statutory Pay,Other Statutory Pay: How often other?,OtherMOneySMPHowOftenOther,Every day and twice on Sundays
-Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,Burger King
-Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,102 Preston  Road&Preston&Lancashure
-Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,pr45 6yh
+Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,145
+Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,monthly
+Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,Greggs Bakers
+Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,1012 Preston  Road&Preston&Lancashure
+Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,PR45 6YH
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,bankBuildingAccount
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,everyWeek
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Mr Test Casetwo

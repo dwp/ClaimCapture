@@ -462,20 +462,35 @@ object ClaimScenarioFactory {
     claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
     claim.OtherMoneyWhoPaysYou = "The Man"
     claim.OtherMoneyHowMuch = "12"
-    claim.OtherMoneyHowOften = "weekly"
-    // G5 Statutory Sick Pay
+    // G1 Statutory Sick Pay
     claim.OtherMoneyHaveYouSSPSinceClaim = "yes"
     claim.OtherMoneySSPHowMuch = "123"
-    claim.OtherMoneySSPHowOften = "weekly"
     claim.OtherMoneySSPEmployerName = "Burger King"
-    // G6 Other Statutory Pay
+    // G1 Other Statutory Pay
     claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
+    claim.OtherMoneySMPHowMuch = "123"
     claim.OtherMoneySMPEmployerName = "Employers Name"
-    claim.OtherMOneySMPHowOften = "weekly"
 
     claim
   }
+  def s9otherMoneyOther = {
+    val claim = s7Employment()
+    // G1 About other money
+    claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
+    claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
+    claim.OtherMoneyWhoPaysYou = "The Man"
+    claim.OtherMoneyHowMuch = "12"
+    claim.OtherMoneyHowOften = "other"
+    claim.OtherMoneyHowOftenOther = "every day and twice on Sundays"
+    // G1 Statutory Sick Pay
+    claim.OtherMoneyHaveYouSSPSinceClaim = "no"
 
+    // G1 Other Statutory Pay
+    claim.OtherMoneyHaveYouSMPSinceClaim = "no"
+
+
+    claim
+  }
   def s9SelfEmployment = {
     val claim = s9otherMoney
     // About self employment

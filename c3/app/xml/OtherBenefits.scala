@@ -8,8 +8,7 @@ import XMLHelper._
 object OtherBenefits {
 
   def xml(claim: Claim) = {
-    val statutorySickPayOption = claim.questionGroup[StatutorySickPay]
-    val otherStatutoryPayOption = claim.questionGroup[OtherStatutoryPay]
+    val aboutOtherMoney = claim.questionGroup[AboutOtherMoney]
 
     <OtherBenefits>
       <ClaimantBenefits>
@@ -48,38 +47,38 @@ object OtherBenefits {
         <NoBenefits>{NotAsked}</NoBenefits>
       </PartnerBenefits>
       <ExtraMoney>{NotAsked}</ExtraMoney>
-      {otherMoneySPPXml(statutorySickPayOption)}
-      {otherMoneySMPXml(otherStatutoryPayOption)}
+      {otherMoneySPPXml(aboutOtherMoney)}
+      {otherMoneySMPXml(aboutOtherMoney)}
     </OtherBenefits>
   }
 
-  def otherMoneySPPXml(statutorySickPayOption: Option[StatutorySickPay]) = {
+  def otherMoneySPPXml(aboutOtherMoney: Option[AboutOtherMoney]) = {
 
-    val statutorySickPay = statutorySickPayOption.getOrElse(StatutorySickPay(haveYouHadAnyStatutorySickPay = no))
+    val statutorySickPay = aboutOtherMoney.getOrElse(AboutOtherMoney())
 
-    if (statutorySickPay.haveYouHadAnyStatutorySickPay == yes) {
-      <OtherMoneySSP>{statutorySickPay.haveYouHadAnyStatutorySickPay}</OtherMoneySSP>
+    if (statutorySickPay.statutorySickPay.answer == yes) {
+      <OtherMoneySSP>{statutorySickPay.statutorySickPay.answer}</OtherMoneySSP>
       <OtherMoneySSPDetails>
-        <Name>{statutorySickPay.employersName.orNull}</Name>
-        <Address>{postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}</Address>
+        <Name>{statutorySickPay.statutorySickPay.employersName.orNull}</Name>
+        <Address>{postalAddressStructure(statutorySickPay.statutorySickPay.address, statutorySickPay.statutorySickPay.postCode)}</Address>
         <ConfirmAddress>yes</ConfirmAddress>
       </OtherMoneySSPDetails>
     }
-    else <OtherMoneySSP>{statutorySickPay.haveYouHadAnyStatutorySickPay}</OtherMoneySSP>
+    else <OtherMoneySSP>{statutorySickPay.statutorySickPay.answer}</OtherMoneySSP>
   }
 
-  def otherMoneySMPXml(otherStatutoryPayOption: Option[OtherStatutoryPay]) = {
+  def otherMoneySMPXml(aboutOtherMoney: Option[AboutOtherMoney]) = {
 
-    val otherStatutoryPay = otherStatutoryPayOption.getOrElse(OtherStatutoryPay(otherPay = no))
+    val otherStatutoryPay = aboutOtherMoney.getOrElse(AboutOtherMoney())
 
-    if (otherStatutoryPay.otherPay == yes) {
-      <OtherMoneySMP>{otherStatutoryPay.otherPay}</OtherMoneySMP>
+    if (otherStatutoryPay.otherStatutoryPay.answer == yes) {
+      <OtherMoneySMP>{otherStatutoryPay.otherStatutoryPay.answer}</OtherMoneySMP>
       <OtherMoneySMPDetails>
-        <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
-        <Address>{postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}</Address>
+        <Name>{otherStatutoryPay.otherStatutoryPay.employersName.getOrElse("empty")}</Name>
+        <Address>{postalAddressStructure(otherStatutoryPay.otherStatutoryPay.address, otherStatutoryPay.otherStatutoryPay.postCode)}</Address>
         <ConfirmAddress>{yes}</ConfirmAddress>
       </OtherMoneySMPDetails>
     }
-    else <OtherMoneySMP>{otherStatutoryPay.otherPay}</OtherMoneySMP>
+    else <OtherMoneySMP>{otherStatutoryPay.otherStatutoryPay.answer}</OtherMoneySMP>
   }
 }

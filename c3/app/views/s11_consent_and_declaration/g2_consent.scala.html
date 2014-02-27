@@ -1,13 +1,10 @@
 @(currentForm: Form[models.domain.Consent])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
-@import models.domain.StatutorySickPay
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
 @import models.domain._
 @import controllers.Mappings._
 @import play.api.i18n.{MMessages => Messages}
@@ -20,8 +17,8 @@
             <ul class="group">
 
                 @if(claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
-                    claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay()).haveYouHadAnyStatutorySickPay == `yes` ||
-                    claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay()).otherPay == `yes`){
+                    claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).statutorySickPay.answer == `yes` ||
+                    claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).otherStatutoryPay.answer == `yes`){
 
                     @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
 

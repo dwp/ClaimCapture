@@ -25,7 +25,7 @@
 	              claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)),
 	              'helperBelow -> Messages("anyPaymentsSinceClaimDate.helper")
 	            )
-	
+                <ul class="extra-group">
 	            @otherDetailPlaceHolder(
                      inputDef = Seq(
                         carersInputText(currentForm("whoPaysYou"), 'maxLength -> Mappings.Name.maxLength, '_label -> Messages("whoPaysYou.label")),
@@ -41,6 +41,58 @@
                        'id -> "otherPayWrap",
                        'display -> currentForm("anyPaymentsSinceClaimDate.answer").value.getOrElse("no")
 	             )
+                </ul>
+            </ul>
+
+            <legend>@Messages("s9.g5")</legend>
+            <ul>
+                @yesNoRadioGroup(currentForm("statutorySickPay.answer"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+
+                <ul class="extra-group">
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersCurrency(currentForm("statutorySickPay.howMuch"), 'type -> "tel", 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
+                        paymentFrequencySelect(currentForm("statutorySickPay.howOften"),
+                            'id -> "howOftenStatutorySickPay",
+                            'visibleOn -> "yes",
+                            '_label -> Messages("howOften"),
+                            'textAreaHelper -> "60 characters left", 'maxLength -> 60,
+                            'display -> {if(currentForm("statutorySickPay.howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+                        ),
+                        carersInputText(currentForm("statutorySickPay.employersName"), '_label -> Messages("employersName"),'maxLength -> Mappings.sixty),
+                        inputAddress(currentForm("statutorySickPay.employersAddress"), '_label -> Messages("employersAddress")),
+                        carersInputText(currentForm("statutorySickPay.employersPostcode"), '_label -> Messages("employersPostcode"), 'class -> "postcode")
+                    ),
+                    'id -> "sickPayWrap",
+                    'display -> currentForm("statutorySickPay.answer").value.getOrElse("no")
+                )
+                </ul>
+            </ul>
+
+
+            <ul>
+                @yesNoRadioGroup(currentForm("otherStatutoryPay.answer"), '_label -> Messages("otherPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+
+                <ul class="extra-group">
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersCurrency(currentForm("otherStatutoryPay.howMuch"), 'type -> "tel", 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
+                        paymentFrequencySelect(currentForm("otherStatutoryPay.howOften"),
+                            'id -> "howOftenOtherStatutoryPay",
+                            'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60,
+                            '_label -> Messages("howOften"),
+                            'visibleOn -> "yes",
+                            'display -> {if(currentForm("otherStatutoryPay.howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+                        ),
+                        carersInputText(currentForm("otherStatutoryPay.employersName"), '_label -> Messages("employersName"), 'maxLength -> Mappings.sixty),
+                        inputAddress(currentForm("otherStatutoryPay.employersAddress"), '_label -> Messages("employersAddress")),
+                        carersInputText(currentForm("otherStatutoryPay.employersPostcode"), '_label -> Messages("employersPostcode"), 'class -> "postcode")
+                    ),
+                    'id -> "otherStatPayWrap",
+                    'display -> currentForm("otherStatutoryPay.answer").value.getOrElse("no")
+                )
+                </ul>
+
             </ul>
         </fieldset>
 
@@ -63,8 +115,32 @@
           "@CarersCrypto.encryptAES("howMuch")",
           "@CarersCrypto.encryptAES("howOften_frequency")",
           "@CarersCrypto.encryptAES("howOften_frequency_other")",
-          "howOften_wrap");
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("howOften_frequency_other")",maxChars:60});
+          "@CarersCrypto.encryptAES("statutorySickPay_answer_yes")",
+          "@CarersCrypto.encryptAES("statutorySickPay_answer_no")",
+          "@CarersCrypto.encryptAES("statutorySickPay_howMuch")",
+          "@CarersCrypto.encryptAES("statutorySickPay_howOften_frequency")",
+          "@CarersCrypto.encryptAES("statutorySickPay_howOften_frequency_other")",
+          "@CarersCrypto.encryptAES("statutorySickPay_employersName")",
+          "@CarersCrypto.encryptAES("statutorySickPay_employersAddress_lineOne")",
+          "@CarersCrypto.encryptAES("statutorySickPay_employersAddress_lineTwo")",
+          "@CarersCrypto.encryptAES("statutorySickPay_employersAddress_lineThree")",
+          "@CarersCrypto.encryptAES("statutorySickPay_employersPostcode")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_answer_yes")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_answer_no")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_howMuch")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_howOften_frequency")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_howOften_frequency_other")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_employersName")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_employersAddress_lineOne")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_employersAddress_lineTwo")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_employersAddress_lineThree")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_employersPostcode")"
+        );
+
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("howOften_frequency_other")",maxChars:60});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("statutorySickPay_howOften_frequency_other")",maxChars:60});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("otherStatutoryPay_howOften_frequency_other")",maxChars:60});
+
         @ga.stagePrompt()
     });
 </script>

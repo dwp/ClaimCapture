@@ -4,17 +4,15 @@
 
 @partner = @{claim.questionGroup[YourPartnerPersonalDetails]}
 @aboutOtherMoney = @{claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())}
-@statutorySickPay = @{claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay())}
-@otherStatutoryPay = @{claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay())}
 
 <h2>@Messages("s9.progressbar.name")</h2>
 <dl class="clearfix">
-    <dt>@Messages("yourBenefits.answer.simple",if(partner.isDefined)Messages("orPartnerSpouse") else "")</dt>
+    <dt>Have you @{if(partner.isDefined) "or your Partner/Spouse"} claimed or received any other benefits since the date you want to claim</dt>
     <dd>@{Messages("label."+aboutOtherMoney.yourBenefits.answer)}</dd>
-    <dt>@Messages("anyPaymentsSinceClaimDate.answer.simple")</dt>
-    <dd>@{Messages("label."+aboutOtherMoney.anyPaymentsSinceClaimDate.answer)} @{if(aboutOtherMoney.anyPaymentsSinceClaimDate.answer == "yes")"- "+Messages("detailsProvided.simple")}</dd>
-    <dt>@Messages("statutoryPay.simple")</dt>
-    <dd>@{Messages("label."+statutorySickPay.haveYouHadAnyStatutorySickPay)} @{if(statutorySickPay.haveYouHadAnyStatutorySickPay == "yes")"- "+Messages("detailsProvided.simple")}</dd>
-    <dt>@Messages("smpSppSap.simple")</dt>
-    <dd>@{Messages("label."+otherStatutoryPay.otherPay)} @{if(otherStatutoryPay.otherPay == "yes")"- Details provided"}</dd>
+    <dt>Have you received any payments for the person you care for or any other person since your claim date</dt>
+    <dd>@{Messages("label."+aboutOtherMoney.anyPaymentsSinceClaimDate.answer)} @{if(aboutOtherMoney.anyPaymentsSinceClaimDate.answer == "yes")"- Details provided"}</dd>
+    <dt>Have you had any Statutory Sick Pay</dt>
+    <dd>@{Messages("label."+aboutOtherMoney.statutorySickPay.answer)} @{if(aboutOtherMoney.statutorySickPay.answer == "yes")"- Details provided"}</dd>
+    <dt>Have you had any SMP, SPP or SAP since your claim date</dt>
+    <dd>@{Messages("label."+aboutOtherMoney.otherStatutoryPay.answer)} @{if(aboutOtherMoney.otherStatutoryPay.answer == "yes")"- Details provided"}</dd>
 </dl>

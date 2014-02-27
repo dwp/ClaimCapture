@@ -24,7 +24,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYou(browser)
 
       browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("Review your application")
+      titleMustEqual("Additional information - Consent and Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
@@ -53,13 +53,13 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
       page submitPage()
 
-      val OtherStatutoryPage = page goToPage new G6OtherStatutoryPayPage(PageObjectsContext(browser))
+      val OtherStatutoryPage = page goToPage new G1AboutOtherMoneyPage(PageObjectsContext(browser))
       OtherStatutoryPage fillPageWith claim
       OtherStatutoryPage submitPage()
 
       val howWePayPage = OtherStatutoryPage goToPage new G1HowWePayYouPage(PageObjectsContext(browser))
       val previousPage = howWePayPage goBack()
-      previousPage must beAnInstanceOf[G6OtherStatutoryPayPage]
+      previousPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
 
     "navigate to 'Consent And Declaration'" in new WithBrowser with PageObjects{
@@ -69,7 +69,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
       val nextPage = page submitPage()
 
-      nextPage.submitPage() must beAnInstanceOf[G1AdditionalInfoPage]
+      nextPage must beAnInstanceOf[G1AdditionalInfoPage]
     }
 
   } section("integration", models.domain.PayDetails.id)
