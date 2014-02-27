@@ -1,7 +1,8 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
+@import play.api.i18n.{MMessages => Messages}
 
-@common.govMain("Review your application") {
+@common.govMain(Messages("preview.title")) {
 
     <div class="carers-allowance">
 
