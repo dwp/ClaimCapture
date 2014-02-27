@@ -133,20 +133,25 @@ object CircsEvidenceList {
         buffer ++= textLine("", addressChange.newAddress.lineThree)
         buffer ++= textLine(Messages("newPostcode")  + " = ", addressChange.newPostcode)
 
-        buffer ++= textSeparatorLine(Messages("c2.g6.caredForChangedAddress"))
-        buffer ++= textLine(Messages("caredForChangedAddress.answer") + " = ",addressChange.caredForChangedAddress.answer)
-        buffer ++= textLine(Messages("sameAddress.answer") + " = ", addressChange.sameAddress.answer)
+        addressChange.stillCaring.answer match {
+          case "yes" => {
+            buffer ++= textSeparatorLine(Messages("c2.g6.caredForChangedAddress"))
+            buffer ++= textLine(Messages("caredForChangedAddress.answer") + " = ",addressChange.caredForChangedAddress.answer)
+            buffer ++= textLine(Messages("sameAddress.answer") + " = ", addressChange.sameAddress.answer)
 
-        addressChange.sameAddress.address match {
-          case Some(address) => {
-            buffer ++= textLine(Messages("sameAddress.theirNewAddress") + " = ", address.lineOne)
-            buffer ++= textLine("", address.lineTwo)
-            buffer ++= textLine("", address.lineThree)
+            addressChange.sameAddress.address match {
+              case Some(address) => {
+                buffer ++= textLine(Messages("sameAddress.theirNewAddress") + " = ", address.lineOne)
+                buffer ++= textLine("", address.lineTwo)
+                buffer ++= textLine("", address.lineThree)
 
+              }
+              case _ =>
+            }
+            buffer ++= textLine(Messages("sameAddress.theirNewPostcode") + " = ", addressChange.sameAddress.postCode)
           }
           case _ =>
         }
-        buffer ++= textLine(Messages("sameAddress.theirNewPostcode") + " = ", addressChange.sameAddress.postCode)
       }
       case _ =>
     }
