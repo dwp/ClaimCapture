@@ -19,14 +19,36 @@
 
     elems
 }
+@selfEmploymentItems(claim:Claim) = @{
+    val pension = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())
+    var elems = Seq.empty[String]
+    if (pension.doYouPayToLookAfterYourChildren == "yes" || pension.didYouPayToLookAfterThePersonYouCaredFor == "yes")
+        elems = elems ++ Seq(Messages("expenses"))
+    if (pension.doYouPayToPensionScheme == "yes")
+        elems = elems ++ Seq(Messages("pension schemes"))
+
+    elems
+}
+@selfEmploymentSummary(claim:Claim) = @{
+    var text = Messages("detailsProvided.simple")
+    val items = selfEmploymentItems(claim)
+
+    if(items.size > 0){
+        text = text +" "+Messages("including")+" "+items(0)
+        if(items.size > 1){
+            text = text +" "+Messages("and")+" "+items(1)
+        }
+    }
+    text
+}
 @employmentSummary(job:Job) = @{
     var text = Messages("detailsProvided",job.questionGroup[JobDetails].get.employerName)
     val items = employmentItems(job)
 
     if(items.size > 0){
-        text = text +Messages("including")+items(0)
+        text = text +", "+Messages("including")+" "+items(0)
         if(items.size > 1){
-            text = text +Messages("and")+items(1)
+            text = text +", "+Messages("and")+" "+items(1)
         }
     }
     text
@@ -47,5 +69,5 @@
         </dd>
     }
     <dt>@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</dt>
-    <dd>@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)}</dd>
+    <dd>@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}</dd>
 </dl>

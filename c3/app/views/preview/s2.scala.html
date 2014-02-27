@@ -4,7 +4,11 @@
 @import play.api.i18n.{MMessages => Messages}
 
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
-    @nino = @{yourDetails.nationalInsuranceNumber}
+    @nino = @{
+        val ni = yourDetails.nationalInsuranceNumber
+        if (ni.ni1.isDefined) s"${ni.ni1.get.toUpperCase} ${ni.ni2.get} ${ni.ni3.get} ${ni.ni4.get} ${ni.ni5.get.toUpperCase}"
+        else ""
+    }
 @contactDetails = @{claim.questionGroup[ContactDetails].getOrElse(ContactDetails())}
     @address = @{contactDetails.address}
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
@@ -28,7 +32,7 @@
 <h2>@Messages("s2.progressbar.name")</h2>
 <dl class="clearfix">
     <dt>@Messages("name")</dt><dd>@{Messages("titleSelect."+yourDetails.title)} @yourDetails.firstName @yourDetails.middleName @yourDetails.surname</dd>
-    <dt>@Messages("nationalInsuranceNumber")</dt><dd>@nino.ni1 @nino.ni2 @nino.ni3 @nino.ni4 @nino.ni5</dd>
+    <dt>@Messages("nationalInsuranceNumber")</dt><dd>@nino</dd>
     <dt>@Messages("dateOfBirth")</dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
     <dt>@Messages("address")</dt><dd>@address.lineOne@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @contactDetails.postcode.getOrElse("")</dd>
     @if(contactDetails.phoneNumber.isDefined || contactDetails.mobileNumber.isDefined){

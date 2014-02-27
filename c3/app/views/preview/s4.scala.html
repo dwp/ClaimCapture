@@ -13,13 +13,16 @@
 @theirContactDetails = @{claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())}
 @address = @{theirContactDetails.address}
 @breaks = @{claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())}
+@ninoNumber(ni:NationalInsuranceNumber) = @{
+    s"${ni.ni1.get.toUpperCase} ${ni.ni2.get} ${ni.ni3.get} ${ni.ni4.get} ${ni.ni5.get.toUpperCase}"
+}
 
-<h2>@Messages("s4.progressbar.name")</h2>
+<h2>@Messages("careYouProvide")</h2>
 <dl class="clearfix">
     <dt>@Messages("name")</dt><dd>@{Messages("titleSelect."+theirPersonalDetails.title)} @theirPersonalDetails.firstName @theirPersonalDetails.middleName @theirPersonalDetails.surname</dd>
     @if(theirPersonalDetails.nationalInsuranceNumber.isDefined){
         @defining(theirPersonalDetails.nationalInsuranceNumber.get){ nino =>
-            <dt>@Messages("nationalInsuranceNumber")</dt><dd>@nino.ni1 @nino.ni2 @nino.ni3 @nino.ni4 @nino.ni5</dd>
+            <dt>@Messages("nationalInsuranceNumber")</dt><dd>@ninoNumber(nino)</dd>
         }
     }
     <dt>@Messages("dateOfBirth")</dt><dd>@{theirPersonalDetails.dateOfBirth.`dd month, yyyy`}</dd>
