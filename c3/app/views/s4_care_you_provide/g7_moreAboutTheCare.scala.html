@@ -1,6 +1,5 @@
 @(currentForm: Form[models.domain.MoreAboutTheCare])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import models.domain.{Claim,ClaimDate}
 @import views.html.helper._
 @import views.html.helper.dates._
 @import utils.helpers.CarersTemplate._
@@ -19,7 +18,7 @@
             <ul>
                 @yesNoRadioGroup(currentForm("spent35HoursCaring"))
 
-                @yesNoRadioGroup(currentForm("beforeClaimCaring.answer"),
+                @yesNoRadioGroup(currentForm("beforeClaimCaring.answer"),'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")),
                                  '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
 
                 @otherDetailPlaceHolder(

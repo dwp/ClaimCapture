@@ -24,9 +24,15 @@
                     <ul>
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
-                                <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                <p>@Messages(completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation)</p>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Messages("change.this.help")">@Messages("change.this")</a>
+                                @if(completedQuestionGroup.identifier == Benefits) {
+                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                    <p>@Messages("%s1".format(completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation))</p>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Messages("change.this.help")">@Messages("change.this")</a>
+                                } else {
+                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                    <p>@Messages(completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation)</p>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Messages("change.this.help")">@Messages("change.this")</a>
+                                }
                             </li>
                         }
                     </ul>

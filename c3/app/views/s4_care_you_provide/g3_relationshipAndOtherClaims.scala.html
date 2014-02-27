@@ -1,9 +1,6 @@
 @(currentForm: Form[models.domain.MoreAboutThePerson])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
-@import utils.helpers.CarersTemplate._
 @import views.html.helper._
-@import views.html.helper.base._
 @import models.domain.MoreAboutThePerson
 @import play.api.i18n.{MMessages => Messages}
 
@@ -19,7 +16,7 @@
             <ul>
                 @relationshipSelect(currentForm("relationship"))
 
-                @yesNoRadioGroup(currentForm("armedForcesPayment"))
+                @yesNoRadioGroup(currentForm("armedForcesPayment"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
             </ul>
         </fieldset>
 
