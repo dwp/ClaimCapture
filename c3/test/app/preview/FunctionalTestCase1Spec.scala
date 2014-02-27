@@ -53,7 +53,7 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
           "Have you been on a course of education since your claim date?" -> Seq("AboutYouHaveYouBeenOnACourseOfEducation"),
           "Have you been employed at any time since" -> Seq("EmploymentHaveYouBeenEmployedAtAnyTime_0"),
           "Have you been self employed at any time since" -> Seq("EmploymentHaveYouBeenSelfEmployedAtAnyTime"),
-          "Have you  claimed or received any other benefits since your claim date" -> Seq("OtherMoneyHaveYouClaimedOtherBenefits"),
+          "Have you  claimed or received any other benefits since the date you want to claim" -> Seq("OtherMoneyHaveYouClaimedOtherBenefits"),
           "Have you received any payments for the person you care for or any other person since your claim date" -> Seq("OtherMoneyAnyPaymentsSinceClaimDate"),
           "Have you had any Statutory Sick Pay" -> Seq("OtherMoneyHaveYouSSPSinceClaim"),
           "Have you had any SMP, SPP or SAP since your claim date" -> Seq("OtherMoneyHaveYouSMPSinceClaim")
