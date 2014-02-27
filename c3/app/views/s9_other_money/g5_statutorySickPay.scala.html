@@ -1,6 +1,5 @@
 @(currentForm: Form[models.domain.StatutorySickPay])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
@@ -15,7 +14,7 @@
     @form(action = controllers.s9_other_money.routes.G5StatutorySickPay.submit) {
 
         <fieldset class="form-elements">
-            <legend>@Messages("s9.g5")</legend>
+            <legend>@Html(Messages("s9.g5"))</legend>
 
             <ul>
 	            @yesNoRadioGroup(currentForm("haveYouHadAnyStatutorySickPay"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
