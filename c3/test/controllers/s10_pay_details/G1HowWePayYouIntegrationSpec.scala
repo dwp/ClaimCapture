@@ -24,7 +24,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYou(browser)
 
       browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("Review your application")
+      titleMustEqual("Additional information - Consent and Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
@@ -69,7 +69,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
       val nextPage = page submitPage()
 
-      nextPage.submitPage() must beAnInstanceOf[G1AdditionalInfoPage]
+      nextPage must beAnInstanceOf[G1AdditionalInfoPage]
     }
 
   } section("integration", models.domain.PayDetails.id)
