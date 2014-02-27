@@ -14,12 +14,4 @@ object Application extends Controller with CachedClaim {
   def index = Action {
     MovedPermanently(govUk)
   }
-
-  def pdf = Action {
-    val path = Play.application.path
-    Logger.debug(path.toString)
-    Ok.sendFile(
-      content = new java.io.File(s"$path/conf/NewPDF.pdf"), inline = true
-    )
-  }
 }
