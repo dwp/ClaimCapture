@@ -23,7 +23,7 @@
                     <ul ul aria-label="@Messages("completedQuestions")">
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
-                                <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
                                 <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Messages("change.this.help")">@Messages("change.this")</a>
                             </li>
                         }

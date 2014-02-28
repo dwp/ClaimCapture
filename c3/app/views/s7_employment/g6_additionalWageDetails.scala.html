@@ -1,11 +1,9 @@
 @(currentForm: Form[models.domain.AdditionalWageDetails])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
-@import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 @import controllers.s7_employment.Employment.completedQuestionGroups
 @import controllers.s7_employment.JobID
@@ -31,7 +29,7 @@
                     '_label -> Messages("whenGetPaid", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, JobID(currentForm))),
                     'helper -> Messages("whenGetPaid.helper"))
 
-                @yesNoRadioGroup(currentForm("employerOwesYouMoney"))
+                @yesNoRadioGroup(currentForm("employerOwesYouMoney"), 'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no")))
             </ul>
         </fieldset>
 
