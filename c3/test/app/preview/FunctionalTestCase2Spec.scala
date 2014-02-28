@@ -6,11 +6,7 @@ import utils.pageobjects._
 import app.FunctionalTestCommon
 import utils.pageobjects.preview.PreviewPage
 
-/**
- * End-to-End functional tests using input files created by Steve Moody.
- * @author Jorge Migueis
- *         Date: 02/08/2013
- */
+
 class FunctionalTestCase2Spec extends FunctionalTestCommon {
   isolated
 

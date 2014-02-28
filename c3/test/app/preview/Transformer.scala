@@ -45,3 +45,18 @@ case class PaymentTransformer(id:String)(implicit claim:TestData) extends Transf
     rels(claim.selectDynamic(id))
   }
 }
+
+case class NumDetailsProvidedTransformer(id:String)(implicit claim:TestData) extends Transformer{
+  override def transform():String = {
+    var valueSeq = Seq.empty[String]
+    var i = 1
+
+    while(claim.selectDynamic(id+"_"+i) != null){
+      valueSeq = valueSeq.+:(claim.selectDynamic(id+"_"+i).toLowerCase)
+      i = i+1
+    }
+    val yesNum = valueSeq.map(a => if(a=="yes") 1 else 0).fold(0){(v1,v2) => v1+v2}
+    s"Details provided for $yesNum break(s)"
+  }
+}
+
