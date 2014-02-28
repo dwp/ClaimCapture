@@ -8,15 +8,18 @@ import scala.language.implicitConversions
 
 case class Data(toReviewData:Seq[(String,Seq[Object])]){
 
-  def assertReview(claim: TestData, context: PageObjectsContext):Boolean = {
+  def assertReview(claim: TestData, context: PageObjectsContext,trace:Boolean = false):Boolean = {
     toReviewData.foreach {
       t =>
         import scala.collection.JavaConverters._
         var matchesAny = false
         val elems = context.browser.webDriver.findElements(By.xpath( s"""//dt[contains(.,"${t._1}")]/following-sibling::dd[1]""")).asScala
 
-        Logger.debug("")
-        Logger.debug(s"Checking for ${t._1} and found ${elems.size} elems")
+        if(trace) {
+          Logger.debug("")
+          Logger.debug(s"Checking for ${t._1} and found ${elems.size} elems")
+        }
+
         elems.foreach {
           webElem =>
             val elemValue = webElem.getText.toLowerCase.replaceAll(" ", "")
@@ -29,7 +32,7 @@ case class Data(toReviewData:Seq[(String,Seq[Object])]){
 
                 if (claimValue != null && claimValue.length > 0) {
                   val modifiedClaimValue = claimValue.toLowerCase.replaceAll(" ", "")
-                  Logger.debug(s"$modifiedClaimValue in $elemValue ? ${elemValue.contains(modifiedClaimValue)}")
+                  if(trace) Logger.debug(s"$modifiedClaimValue in $elemValue ? ${elemValue.contains(modifiedClaimValue)}")
                   if (elemValue.contains(modifiedClaimValue)) matchesAny = true
                 }
 
