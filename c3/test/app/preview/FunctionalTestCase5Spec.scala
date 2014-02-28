@@ -13,6 +13,7 @@ class FunctionalTestCase5Spec extends FunctionalTestCommon {
   "The application Claim" should {
 
     "Successfully run absolute Claim Test Case 5" in new WithBrowser with PageObjects {
+      pending
       import Data.displaying
 
       val page = G1BenefitsPage(context)
