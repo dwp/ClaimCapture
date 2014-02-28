@@ -64,7 +64,9 @@ object CircumstancesPaymentChange extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g5"
 }
 
-case class CircumstancesAddressChange(stillCaring: YesNoWithDateAndQs = YesNoWithDateAndQs("", None, None),
+case class CircumstancesAddressChange(previousAddress: MultiLineAddress = new MultiLineAddress(),
+                                      previousPostcode: Option[String] = None,
+                                      stillCaring: YesNoWithDateAndQs = YesNoWithDateAndQs("", None, None),
                                       newAddress: MultiLineAddress = new MultiLineAddress(),
                                       newPostcode: Option[String] = None,
                                       caredForChangedAddress: OptYesNoWithText = OptYesNoWithText(None, None),

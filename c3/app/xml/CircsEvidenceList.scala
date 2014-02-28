@@ -129,6 +129,14 @@ object CircsEvidenceList {
       case Some(addressChange) => {
         var caredForChangedAddress = false
 
+        // previous address
+        buffer ++= textSeparatorLine(Messages("c2.g6.previousAddress"))
+
+        buffer ++= textLine(Messages("previousAddress") + " = ", addressChange.previousAddress.lineOne)
+        buffer ++= textLine("", addressChange.previousAddress.lineTwo)
+        buffer ++= textLine("", addressChange.previousAddress.lineThree)
+        buffer ++= textLine(Messages("previousAddress")  + " = ", addressChange.previousPostcode)
+
         // Still caring section
         buffer ++= textSeparatorLine(Messages("c2.g6"))
 

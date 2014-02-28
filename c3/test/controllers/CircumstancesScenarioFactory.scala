@@ -44,9 +44,46 @@ object CircumstancesScenarioFactory {
     claim
   }
 
+  def addressChange = {
+    val claim = aboutDetails
+    claim.CircumstancesReportChanges = AddressChange.name
+    claim
+  }
+
   def otherChangeInfo = {
     val claim = reportChangesOtherChangeInfo
     claim.CircumstancesOtherChangeInfoChange = "I put in the wrong date of birth"
+    claim
+  }
+
+  def reportChangesAddressChangeYes = {
+    val claim = addressChange
+
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane"
+    claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeStillCaring = "yes"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeCaredForChangedAddress = "yes"
+    claim.CircumstancesAddressChangeSameAddress = "no"
+    claim.CircumstancesAddressChangeSameAddressTheirAddress ="1 test lane"
+    claim.CircumstancesAddressChangeSameAddressTheirPostcode ="PR1A4JQ"
+    claim.CircumstancesAddressChangeMoreAboutChanges ="Additional info about changes"
+
+    claim
+  }
+
+  def reportChangesAddressChangeNo = {
+    val claim = addressChange
+
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane"
+    claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeStillCaring = "no"
+    claim.CircumstancesAddressChangeFinishedStillCaringDate = "03/04/2013"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeMoreAboutChanges ="Additional info about changes"
+
     claim
   }
 

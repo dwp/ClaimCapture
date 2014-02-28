@@ -86,12 +86,6 @@ object ClaimScenarioFactory {
   def yourDetailsEnablingTimeOutsideUK() = {
     val claim = yourDetailsWithNotTimeOutside()
 
-    //claim.AboutYouHaveYouAlwaysLivedInTheUK = "No"
-    //claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
-    //claim.AboutYouWhenDidYouArriveInYheUK = "01/11/2003"
-    //claim.AboutYouDoYouPlantoGoBacktoThatCountry = "No"
-
-
     claim
   }
 
@@ -354,20 +348,13 @@ object ClaimScenarioFactory {
     claim.EmploymentAddtionalWageOther_1 = "Quarterly"
     claim.EmploymentAddtionalWageWhenDoYouGetPaid_1 = "two weeks ago"
     claim.EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1 = "no"
-//    claim.EmploymentHowMuchAreYouOwed_1 = "1250"
     claim.EmploymentWhatPeriodIsItForFrom_1 = "03/04/2013"
     claim.EmploymentWhatPeriodIsItForTo_1 = "03/05/2013"
     claim.EmploymentWhatIsTheMoneyOwedFor_1 = "This and that"
     claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_1 = "06/05/2013"
     claim.EmploymentWhenWillYouGetMoneyOwed_1 = "08/08/2013"
     claim.EmploymentDoYouPayTowardsanOccupationalPensionScheme_1 = "no"
-//    claim.EmploymentHowMuchYouPayforOccupationalPension_1 = "350"
-//    claim.EmploymentHowOftenOccupationalPension_1 = "other"
-//    claim.EmploymentHowOftenOtherOccupationalPension_1 = "every 5 minutes"
     claim.EmploymentDoYouPayTowardsAPersonalPension_1 = "no"
-//    claim.EmploymentHowMuchYouPayforPersonalPension_1 = "120"
-//    claim.EmploymentHowOftenPersonalPension_1 = "other"
-//    claim.EmploymentHowOftenOtherPersonalPension_1 = "every 5 minutes"
     claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "no"
     claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1 = "no"
     claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1 = "no"

@@ -16,6 +16,17 @@
 
     @form(action = controllers.circs.s2_report_changes.routes.G6AddressChange.submit) {
         <fieldset class="form-elements">
+            <legend>@Messages("c2.g6.previousAddress")</legend>
+
+            <ul>
+                @inputAddress(addressForm("previousAddress"))
+
+                @carersInputText(addressForm("previousPostcode"), 'class -> "postcode")
+            </ul>
+
+        </fieldset>
+
+        <fieldset class="form-elements">
             <legend>@Messages("c2.g6")</legend>
 
             <ul>

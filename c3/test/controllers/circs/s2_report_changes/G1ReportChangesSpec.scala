@@ -9,16 +9,25 @@ import controllers.circs.s2_report_changes
 import app.ReportChange._
 
 class G1ReportChangesSpec extends Specification with Tags {
-  val validAdditionalDetailsReportChangesFormInput = Seq(
-    "reportChanges" -> AdditionalInfo.name
+
+  val validStoppedCaringReportChangesFormInput = Seq(
+    "reportChanges" -> StoppedCaring.name
+  )
+
+  val validAddressChangeFormInput = Seq(
+    "reportChanges" -> AddressChange.name
   )
 
   val validSelfEmploymentReportChangesFormInput = Seq(
     "reportChanges" -> SelfEmployment.name
   )
 
-  val validStoppedCaringReportChangesFormInput = Seq(
-    "reportChanges" -> StoppedCaring.name
+  val validPaymentChangeFormInput = Seq(
+    "reportChanges" -> PaymentChange.name
+  )
+
+  val validAdditionalDetailsReportChangesFormInput = Seq(
+    "reportChanges" -> AdditionalInfo.name
   )
 
   "Report a change in your circumstances - Change in circumstances - Controller" should {
@@ -51,6 +60,22 @@ class G1ReportChangesSpec extends Specification with Tags {
 
       val result = s2_report_changes.G1ReportChanges.submit(request)
       redirectLocation(result) must beSome("/circumstances/report-changes/stopped-caring")
+    }
+
+    "redirect to the next page after a valid address change submission" in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+        .withFormUrlEncodedBody(validAddressChangeFormInput: _*)
+
+      val result = s2_report_changes.G1ReportChanges.submit(request)
+      redirectLocation(result) must beSome("/circumstances/report-changes/address-change")
+    }
+
+    "redirect to the next page after a valid payment change submission" in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+        .withFormUrlEncodedBody(validPaymentChangeFormInput: _*)
+
+      val result = s2_report_changes.G1ReportChanges.submit(request)
+      redirectLocation(result) must beSome("/circumstances/report-changes/payment-change")
     }
    } section("unit", models.domain.CircumstancesReportChanges.id)
  }

@@ -14,7 +14,7 @@ class G6AddressChangeSpec extends Specification with Tags {
 
   val yes = "yes"
   val no = "no"
-  val newPostcode = "PR1A4JQ"
+  val postCode = "PR1A4JQ"
   val stillCaringDateDay = 10
   val stillCaringDateMonth = 11
   val stillCaringDateYear = 2012
@@ -24,25 +24,31 @@ class G6AddressChangeSpec extends Specification with Tags {
   val addressLineThree = "lineThree"
 
   val validStillCaringFormInput = Seq(
+    "previousAddress.lineOne" -> addressLineOne,
+    "previousAddress.lineTwo" -> addressLineTwo,
+    "previousAddress.lineThree" -> addressLineThree,
+    "previousPostcode" -> postCode,
     "stillCaring.answer" -> yes,
     "newAddress.lineOne" -> addressLineOne,
     "newAddress.lineTwo" -> addressLineTwo,
     "newAddress.lineThree" -> addressLineThree,
-    "newPostcode" -> newPostcode,
+    "newPostcode" -> postCode,
     "caredForChangedAddress.answer" -> yes,
     "sameAddress.answer" -> yes,
     "moreAboutChanges" -> moreAboutChanges)
 
   val validNotCaringFormInput = Seq(
+    "previousAddress.lineOne" -> addressLineOne,
+    "previousAddress.lineTwo" -> addressLineTwo,
+    "previousAddress.lineThree" -> addressLineThree,
+    "previousPostcode" -> postCode,
     "stillCaring.answer" -> no,
     "stillCaring.date.day" -> stillCaringDateDay.toString,
     "stillCaring.date.month" -> stillCaringDateMonth.toString,
     "stillCaring.date.year" -> stillCaringDateYear.toString,
     "newAddress.lineOne" -> addressLineOne,
     "newAddress.lineTwo" -> addressLineTwo,
-    "newAddress.lineThree" -> addressLineThree,
-    "caredForChangedAddress.answer" -> no,
-    "sameAddress.answer" -> yes
+    "newAddress.lineThree" -> addressLineThree
   )
 
   "Circumstances - Address Change - Controller" should {
