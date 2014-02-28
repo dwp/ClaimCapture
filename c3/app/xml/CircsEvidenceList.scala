@@ -104,26 +104,20 @@ object CircsEvidenceList {
   }
 
   def getPaymentChange(paymentOption: String): String = {
-    var option = ""
     paymentOption match {
-      case ("everyWeek") => option = "Every week"
-      case ("fourWeekly") => option = "Every four weeks"
-      case _ =>
+      case "everyWeek" => Messages("reportChanges.everyWeek")
+      case "fourWeekly" => Messages("reportChanges.fourWeekly")
     }
-    option
   }
 
   def getAccountNameOption(accountOption: String): String = {
-    var option = ""
     accountOption match {
-      case ("yourName") => option = "Your name"
-      case ("partner") => option = "Your partner"
-      case ("bothNames") => option = "Both you and your partner"
-      case ("onBehalfOfYou") => option = "Person acting on your behalf"
-      case ("allNames") => option = "You and the person acting on behalf"
-      case _ =>
+      case "yourName" => Messages("reportChanges.yourName")
+      case "partner" => Messages("reportChanges.partner")
+      case "bothNames" => Messages("reportChanges.bothNames")
+      case "onBehalfOfYou" => Messages("reportChanges.onBehalfOfYou")
+      case "allNames" => Messages("reportChanges.allNames")
     }
-    option
   }
 
   def addressChange(circs: Claim): NodeSeq = {

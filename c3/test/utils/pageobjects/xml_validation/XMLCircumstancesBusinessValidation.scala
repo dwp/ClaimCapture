@@ -4,6 +4,7 @@ import scala.xml.Elem
 import utils.pageobjects.{TestDatumValue, PageObjectException, TestData}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import play.api.i18n.{MMessages => Messages}
 
 /**
  * Validates that an XML contains all the relevant data that was provided in a Claim.
@@ -55,16 +56,17 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
         def valuesMatching: Boolean = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value) 
           else if (nodeName.startsWith(EvidenceListNode)) {
-            claimValue.value match {
-              case "fourWeekly" => value.contains(claimValue.question + "=" + "Every four weeks")
-              case "everyWeek" => value.contains(claimValue.question + "=" + "Every week")
-              case ("yourName") => value.contains(claimValue.question + "=" + "Your name")
-              case ("partner") => value.contains(claimValue.question + "=" + "Your partner")
-              case ("bothNames") => value.contains(claimValue.question + "=" + "Both you and your partner")
-              case ("onBehalfOfYou") => value.contains(claimValue.question + "=" + "Person acting on your behalf")
-              case ("allNames") => value.contains(claimValue.question + "=" + "You and the person acting on behalf")
-              case _ => value.contains(claimValue.question + "=" + claimValue.value)
-            }
+            value.contains(claimValue.question + "=" + (
+              claimValue.value match {
+              case "fourWeekly" => Messages("reportChanges.fourWeekly")
+              case "everyWeek" => Messages("reportChanges.everyWeek")
+              case "yourName" => Messages("reportChanges.yourName")
+              case "partner" => Messages("reportChanges.partner")
+              case "bothNames" => Messages("reportChanges.bothNames")
+              case "onBehalfOfYou" => Messages("reportChanges.onBehalfOfYou")
+              case "allNames" => Messages("reportChanges.allNames")
+              case _ => claimValue.value
+            }))
           }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
           else if (nodeName.startsWith(DeclarationNode)) value.contains(claimValue.question + claimValue.value)
