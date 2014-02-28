@@ -44,7 +44,7 @@
                 </ul>
             </ul>
 
-            <legend>@Messages("s9.g5")</legend>
+            <legend>@Html(Messages("s9.g5"))</legend>
             <ul>
                 @yesNoRadioGroup(currentForm("statutorySickPay.answer"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
