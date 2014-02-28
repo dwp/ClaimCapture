@@ -9,10 +9,10 @@
 @import controllers.Mappings._
 @import play.api.i18n.{MMessages => Messages}
 
-@main(Messages("s11.g2") + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Consent)) {
+@main(Html(Messages("s11.g2")) + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Consent)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G2Consent.submit) {
         <fieldset class="form-elements">
-            <legend>@Messages("s11.g2")</legend>
+            <legend>@Html(Messages("s11.g2"))</legend>
 
             <ul class="group">
 
