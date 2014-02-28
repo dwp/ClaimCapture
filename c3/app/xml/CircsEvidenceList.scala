@@ -84,7 +84,7 @@ object CircsEvidenceList {
 
         buffer ++= textLine(Messages("accountHolderName") + " = " + paymentChange.accountHolderName)
 
-        buffer ++= textLine(Messages("whoseNameIsTheAccountIn") + " = " + paymentChange.whoseNameIsTheAccountIn)
+        buffer ++= textLine(Messages("whoseNameIsTheAccountIn") + " = " + getAccountNameOption(paymentChange.whoseNameIsTheAccountIn))
 
         buffer ++= textLine(Messages("bankFullName") + " = " + paymentChange.bankFullName)
 
@@ -95,7 +95,7 @@ object CircsEvidenceList {
         // check if empty
         buffer ++= textLine(Messages("rollOrReferenceNumber") + " = " + paymentChange.rollOrReferenceNumber)
 
-        buffer ++= textLine(Messages("paymentFrequency") + " = " + paymentChange.paymentFrequency)
+        buffer ++= textLine(Messages("paymentFrequency") + " = " + getPaymentChange(paymentChange.paymentFrequency))
       }
       case _ =>
     }
@@ -103,6 +103,22 @@ object CircsEvidenceList {
     buffer
   }
 
+  def getPaymentChange(paymentOption: String): String = {
+    paymentOption match {
+      case "everyWeek" => Messages("reportChanges.everyWeek")
+      case "fourWeekly" => Messages("reportChanges.fourWeekly")
+    }
+  }
+
+  def getAccountNameOption(accountOption: String): String = {
+    accountOption match {
+      case "yourName" => Messages("reportChanges.yourName")
+      case "partner" => Messages("reportChanges.partner")
+      case "bothNames" => Messages("reportChanges.bothNames")
+      case "onBehalfOfYou" => Messages("reportChanges.onBehalfOfYou")
+      case "allNames" => Messages("reportChanges.allNames")
+    }
+  }
 
   def addressChange(circs: Claim): NodeSeq = {
     val addressChangeOption = circs.questionGroup[CircumstancesAddressChange]
