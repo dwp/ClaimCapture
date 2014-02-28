@@ -1,9 +1,9 @@
-@()(implicit lang: Lang, request:play.api.mvc.Request[AnyContent])
+@()(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import views.html.helper._
 @import play.api.i18n.{MMessages => Messages}
 
-@common.govMain("Submitting"){
+@main("Submitting"){
     @form(action = controllers.circs.submission.routes.ChangeOfCircsSubmissionController.submit) {
     <div id="wrapper" class="carers-allowance">
         <div class="carers-container">
@@ -25,7 +25,7 @@
         </div>
     </div>
     }
-}(views.html.common.submittingFooter(), lang, request)
+}
 
 <script type="text/javascript">
     var n = 0
