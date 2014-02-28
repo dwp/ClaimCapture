@@ -1,0 +1,15 @@
+@()(implicit lang: Lang, request: Request[AnyContent])
+@import play.api.i18n.{MMessages => Messages}
+
+@common.govMain(Messages("page.not.found")) {
+    <div class="carers-allowance">
+
+        @common.protoType()
+        @common.feedback()
+
+        <article class="error-statement">
+            <h1>@Messages("page.not.found")</h1>
+            <p>@Messages("check.part1") <a href="http://www.gov.uk" target="_blank">GOV.UK</a> @Messages("check.part2")</p>
+        </article>
+    </div>
+}

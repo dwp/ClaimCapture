@@ -13,7 +13,6 @@ import jmx.JMXActors
 import play.api.mvc.SimpleResult
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
-import play.api.mvc.Controller
 import utils.helpers.CarersLanguageHelper
 
 /**
@@ -60,7 +59,10 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
   }
 
   // 404 - page not found error http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
-  override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] = Future(NotFound(views.html.errors.onHandlerNotFound(Request(request,AnyContentAsEmpty))))
+  override def onHandlerNotFound(requestHeader: RequestHeader): Future[SimpleResult] = {
+    implicit val request = Request(requestHeader,AnyContentAsEmpty)
+    Future(NotFound(views.html.common.onHandlerNotFound()))
+  }
 
   override def getControllerInstance[A](controllerClass: Class[A]): A = resolve(controllerClass)
 

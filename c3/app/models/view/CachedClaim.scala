@@ -170,13 +170,15 @@ trait CachedClaim {
     }
   }
 
-  def ending(f: Claim => Request[AnyContent]=> Result): Action[AnyContent] = Action {
+  def ending(f: Claim => Request[AnyContent] => Lang => Result): Action[AnyContent] = Action {
     request => {
       implicit val r = request
       implicit val cl = new Claim()
       fromCache(request) match {
-        case Some(claim) => originCheck(f(claim)(request)).withNewSession
-        case _ => originCheck(f(cl)(request)).withNewSession
+        case Some(claim) =>
+          val lang = claim.lang.getOrElse(bestLang)
+          originCheck(f(claim)(request)(lang)).withNewSession
+        case _ => originCheck(f(cl)(request)(bestLang)).withNewSession
       }
 
     }
