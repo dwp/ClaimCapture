@@ -20,7 +20,6 @@ class FunctionalTestCase5Spec extends FunctionalTestCommon {
       page goToThePage()
       val lastPage = page runClaimWith(claim, PreviewPage.title)
 
-      println(lastPage.source())
       val toFindData = Data.build(
           "Name"              displays ("AboutYouTitle","AboutYouFirstName","AboutYouMiddleName","AboutYouSurname"),
           "National Insurance number" displays "AboutYouNINO",

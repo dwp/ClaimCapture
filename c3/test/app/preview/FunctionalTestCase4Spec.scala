@@ -20,7 +20,6 @@ class FunctionalTestCase4Spec extends FunctionalTestCommon {
       page goToThePage()
       val lastPage = page runClaimWith(claim, PreviewPage.title)
 
-      println(lastPage.source())
       val toFindData = Data.build(
           "Name"              displays ("AboutYouTitle","AboutYouFirstName","AboutYouMiddleName","AboutYouSurname"),
           "National Insurance number" displays "AboutYouNINO",
@@ -42,6 +41,7 @@ class FunctionalTestCase4Spec extends FunctionalTestCommon {
           "Have you had any breaks in caring for this person"               displays (AnyYesTransformer("AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare"),NumDetailsProvidedTransformer("AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare")),
           "Have you been on a course of education since your claim date?"   displays "AboutYouHaveYouBeenOnACourseOfEducation",
           "Have you been employed at any time since"      displays "EmploymentHaveYouBeenEmployedAtAnyTime_0",
+          "Employment"                                    displays EmploymentDetailsTransformer("EmploymentEmployerName",1),
           "Have you been self employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",
           "Have you  claimed or received any other benefits since the date you want to claim"                    displays "OtherMoneyHaveYouClaimedOtherBenefits",
           "Have you received any payments for the person you care for or any other person since your claim date" displays "OtherMoneyAnyPaymentsSinceClaimDate",
