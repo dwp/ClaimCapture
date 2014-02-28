@@ -2,29 +2,49 @@ package utils.helpers
 
 import models.domain._
 import controllers.Mappings._
+import play.api.i18n.{MMessages => Messages, Lang}
 
-case class PastPresentLabelHelper(implicit claim: Claim)
+case class PastPresentLabelHelper(implicit claim: Claim, lang:Lang)
 
 object PastPresentLabelHelper {
 
-  val didYou = "Did you"
-  val doYou = "Do you"
-  val wereYou = "were you"
-  val areYou = "are you"
-
-  def isWasIfSelfEmployed(implicit claim: Claim): String = isSelfEmployed(claim) match {
-    case true => "is"
-    case false => "was"
+  def is (implicit lang:Lang) = {
+    Messages("is")
   }
 
-  def didYouDoYouIfSelfEmployed(implicit claim: Claim) = isSelfEmployed(claim) match {
-    case true => "Do you"
-    case false => "Did you"
+  def was (implicit lang:Lang) = {
+    Messages("was")
   }
 
-  def didYouDoYouIfSelfEmployedLower(implicit claim: Claim) = claim.questionGroup(AboutSelfEmployment) match {
-    case None => "do you"
-    case Some(a: AboutSelfEmployment) if a.areYouSelfEmployedNow == "yes" => "do you"
+  def areYou (implicit lang:Lang) = {
+    Messages("areYou")
+  }
+
+  def wereYou (implicit lang:Lang) = {
+    Messages("wereYou")
+  }
+
+  def doYou (implicit lang:Lang) = {
+    Messages("doYou")
+  }
+
+  def didYou (implicit lang:Lang) = {
+    Messages("didYou")
+  }
+
+  def isWasIfSelfEmployed(implicit claim: Claim,lang:Lang): String = isSelfEmployed(claim) match {
+    case true => is
+    case false => was
+  }
+
+  def didYouDoYouIfSelfEmployed(implicit claim: Claim,lang:Lang) = isSelfEmployed(claim) match {
+    case true => doYou
+    case false => didYou
+  }
+
+  def didYouDoYouIfSelfEmployedLower(implicit claim: Claim,lang:Lang) = claim.questionGroup(AboutSelfEmployment) match {
+    case None => doYou.toLowerCase
+    case Some(a: AboutSelfEmployment) if a.areYouSelfEmployedNow == "yes" => doYou.toLowerCase
     case _ => false
   }
 
