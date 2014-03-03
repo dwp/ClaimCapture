@@ -8,7 +8,7 @@
 @if(howWePayYouOpt.isDefined){
     @defining(howWePayYouOpt.get){ howWePayYou =>
         <h2>@Messages("s10.progressbar.name")</h2>
-        <dl class="clearfix">
+        <dl>
             <dt>@Messages("paymentMethod")</dt><dd>@{Messages("label."+howWePayYou.likeToBePaid)} - @{Messages("label."+howWePayYou.paymentFrequency)} @{if(bbsDetails.isDefined){Messages("paymentDetProvided")}} </dd>
         </dl>
     }

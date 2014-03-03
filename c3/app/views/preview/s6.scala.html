@@ -7,7 +7,7 @@
 @yourCourseDetails = @{claim.questionGroup[YourCourseDetails]}
 
 <h2>@Messages("s6.progressbar.name")</h2>
-<dl class="clearfix">
+<dl>
     <dt>@Messages("beenInEducationSinceClaimDate")</dt><dd>@{Messages("label."+moreAboutYou.beenInEducationSinceClaimDate)}</dd>
     @if(yourCourseDetails.isDefined){
         @defining(yourCourseDetails.get){ yourCourseDetails =>

@@ -18,7 +18,7 @@
             <thead>
                 <tr>
                     <th>@Messages("employerNameTable")</th>
-                    <th>@Messages("startDateTable")</th>
+                    <th class="desc">@Messages("startDateTable")</th>
                     <th>@Messages("changeTable")</th>
                     <th>@Messages("deleteTable")</th>
                 </tr>
@@ -30,7 +30,7 @@
                         @if(job.completed) {
                             <tr id="@job.jobID" class="@job.jobID">
                                 <td>@job.employerName</td>
-                                <td>@{(job.jobStartDate).`dd/MM/yyyy`}</td>
+                                <td class="desc">@{(job.jobStartDate).`dd/MM/yyyy`}</td>
                                 <td><input type="button" class="button row secondary" id="changeButton" value="@Messages("change")" aria-label="@Messages("change.button")"></td>
                                 <td><input type="button" class="button row warning" id="deleteButton" value="@Messages("delete")" aria-label="@Messages("delete.button")"></td>
                             </tr>
