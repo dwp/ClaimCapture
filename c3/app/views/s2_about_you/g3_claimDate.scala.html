@@ -7,7 +7,7 @@
 @import views.html.helper.dates._
 @import play.api.i18n.{MMessages => Messages}
 
-@main("Your claim date" + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
+@main(Messages("s2.g3.legend") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
     @errorsSummary(claimDateForm)
 
 
@@ -25,8 +25,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")">@Messages("form.next")</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

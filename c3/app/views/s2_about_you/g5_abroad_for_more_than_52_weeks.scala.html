@@ -36,7 +36,7 @@
                             case Some(dayMonthYear) => dayMonthYear.`dd/MM/yyyy`
                             case _ =>
                         }}
-                        @{if (trip.end.nonEmpty) <span>to</span>}
+                        @{if (trip.end.nonEmpty) <span>@Messages("to")</span>}
                         @{trip.end match {
                             case Some(dayMonthYear) => dayMonthYear.`dd/MM/yyyy`
                             case _ =>
@@ -62,11 +62,11 @@
         </table>
 
         <div class="prompt table-helper">
-        	<p>@Messages("s2.g5.help1")</p>
+        	<p>@Html(Messages("s2.g5.help1"))</p>
         </div>
         
         <div class="prompt breaks-prompt">
-            <p>@Messages("s2.g5.help2")</p>
+            <p>@Html(Messages("s2.g5.help2"))</p>
             <input id="selected-row-do-not-delete" name="no" type="button" class="button row secondary" value="@Messages("no.delete")" aria-label="@Messages("no.delete.label")">
             <input id="selected-row-delete" name="yes" type="button" class="button row warning" value="@Messages("yes.delete")" aria-label="@Messages("yes.delete.label")">
             <span>&#33;</span>
@@ -97,8 +97,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Messages("form.back.help")">@Messages("form.back")</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.next.help")">@Messages("form.next")</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }
