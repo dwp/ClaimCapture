@@ -76,7 +76,7 @@ object CircumstancesScenarioFactory {
   def reportChangesAddressChangeNo = {
     val claim = addressChange
 
-    claim.CircumstancesAddressChangePreviousAddress = "1 test lane"
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
     claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeStillCaring = "no"
     claim.CircumstancesAddressChangeFinishedStillCaringDate = "03/04/2013"
