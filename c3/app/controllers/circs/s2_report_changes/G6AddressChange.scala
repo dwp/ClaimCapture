@@ -34,7 +34,7 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
     )(YesNoWithAddress.apply)(YesNoWithAddress.unapply)
 
   val form = Form(mapping(
-    "previousAddress" -> address.verifying(requiredAddress),
+    "previousAddress" -> address.verifying(requiredAddressWithTwoLines),
     "previousPostcode" -> optional(text verifying validPostcode),
     stillCaringMapping,
     "newAddress" -> address.verifying(requiredAddress),
