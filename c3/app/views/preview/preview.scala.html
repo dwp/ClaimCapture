@@ -11,11 +11,11 @@
         @common.feedback()
 
 
-        <section>
+        <article>
 
-            <h1>Review your application</h1>
+            <h1>Summary of your application</h1>
 
-            <div class="review">
+            <section class="review">
                 @s2()
                 @s3()
                 @s4()
@@ -23,14 +23,14 @@
                 @s7()
                 @s9()
                 @s10()
-            </div>
+            </section>
             @helper.form(action = controllers.preview.routes.Preview.submit) {
             <nav class="form-steps">
                 <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
                 <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
             </nav>
             }
-        </section>
+        </article>
     </div>
 
 

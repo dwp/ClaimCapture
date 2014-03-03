@@ -9,7 +9,7 @@
 @if(partner.isDefined){
     @defining(partner.get){ yourPartner =>
         <h2>@Messages("partnerSpouse")</h2>
-        <dl class="clearfix">
+        <dl>
             <dt>@Messages("name")</dt><dd>@{Messages("titleSelect."+yourPartner.title)} @yourPartner.firstName @yourPartner.middleName @yourPartner.surname</dd>
 
             @if(yourPartner.nationalInsuranceNumber.isDefined){

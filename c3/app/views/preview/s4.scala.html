@@ -18,7 +18,7 @@
 }
 
 <h2>@Messages("careYouProvide")</h2>
-<dl class="clearfix">
+<dl>
     <dt>@Messages("name")</dt><dd>@{Messages("titleSelect."+theirPersonalDetails.title)} @theirPersonalDetails.firstName @theirPersonalDetails.middleName @theirPersonalDetails.surname</dd>
     @if(theirPersonalDetails.nationalInsuranceNumber.isDefined){
         @defining(theirPersonalDetails.nationalInsuranceNumber.get){ nino =>

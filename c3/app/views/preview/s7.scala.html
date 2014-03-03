@@ -55,7 +55,7 @@
 }
 
 <h2>@Messages("s7.progressbar.name")</h2>
-<dl class="clearfix">
+<dl>
     <dt> @{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</dt>
     <dd>@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}</dd>
     @if(jobs.isDefined && jobs.get.jobs.size > 0){

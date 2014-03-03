@@ -11,10 +11,11 @@
 		margin-top: 1.8em;
 	}
 	dl {
+		overflow: hidden;
 		border-bottom: 1px solid #ccc;
 		dt, dd {
 			display: inline-block;
-			width: 25%;
+			width: 27%;
 			margin: 0;
 			padding: 8px 0 6px 0;
 			border-top: 1px solid #ccc;
@@ -30,8 +31,8 @@
 			}
 		}
 		dd {
-			width: 72%;
-			padding-left: 3%;
+			width: 68%;
+			padding-left: 5%;
 			margin-left: -4px;
 			@media screen and (max-width: 640px) {
 				width: 100%;
