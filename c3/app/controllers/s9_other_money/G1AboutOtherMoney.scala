@@ -29,7 +29,7 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
   val statutorySickPayMapping =
     "statutorySickPay" -> mapping(
       "answer" ->  nonEmptyText.verifying(validYesNo),
-      "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
+      "howMuch" -> optional(nonEmptyText verifying validCurrencyRequired),
       "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
       "employersAddress" -> optional(address),
@@ -41,7 +41,7 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
   val otherStatutoryPayMapping =
     "otherStatutoryPay" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
+      "howMuch" -> optional(nonEmptyText verifying validCurrencyRequired),
       "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
       "employersAddress" -> optional(address),
@@ -54,7 +54,7 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
     yourBenefitsMapping,
     anyPaymentsSinceClaimDateMapping,
     "whoPaysYou" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),
-    "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
+    "howMuch" -> optional(nonEmptyText verifying validCurrencyRequired),
     "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
     statutorySickPayMapping,
     otherStatutoryPayMapping

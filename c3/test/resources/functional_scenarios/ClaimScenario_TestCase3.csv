@@ -303,7 +303,7 @@ Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,
 Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,Yes
-Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,145
+Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,£145
 Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,monthly
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,Greggs Bakers
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,1012 Preston  Road&Preston&Lancashure

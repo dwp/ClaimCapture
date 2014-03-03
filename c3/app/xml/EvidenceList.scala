@@ -250,18 +250,30 @@ object EvidenceList {
       textLine("Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim? = ", aboutOtherMoney.yourBenefits.answer) ++
       textLine("Have you received any payments for the person you care for or any other person since your claim date? = ", aboutOtherMoney.anyPaymentsSinceClaimDate.answer) ++
       textLine("Benefits and payments: Who pays you? = ", aboutOtherMoney.whoPaysYou) ++
-      textLine("Benefits and payments: How much? = ", aboutOtherMoney.howMuch) ++
+      textLine("Benefits and payments: How much? = ",currencyAmount(aboutOtherMoney.howMuch)) ++
       textLine("Benefits and payments: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.howOften)) ++
       textLine("Benefits and payments: How often other? = ", aboutOtherMoney_howOftenOther) ++
-      textLine("Statutory Sick Pay: How much? = ", aboutOtherMoney.statutorySickPay.howMuch) ++
+      textLine("Statutory Sick Pay: How much? = ", currencyAmount(aboutOtherMoney.statutorySickPay.howMuch)) ++
       textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.statutorySickPay.howOften)) ++
       textLine("Statutory Sick Pay: How often other? = ", ssp_howOftenOther) ++
-      textLine("Other Statutory Pay: How much? = ", aboutOtherMoney.otherStatutoryPay.howMuch) ++
+      textLine("Other Statutory Pay: How much? = ", currencyAmount(aboutOtherMoney.otherStatutoryPay.howMuch)) ++
       textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.otherStatutoryPay.howOften)) ++
       textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther)
   }
 
   private def sectionEmpty(nodeSeq: NodeSeq) = {
     if (nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty
+  }
+
+  def currencyAmount(currency: Option[String]) = {
+    val poundSign = "£"
+    currency match {
+      case Some(s) => {
+        if(s.split(poundSign).size >1)
+          s.split(poundSign)(1)
+        else s
+      }
+      case _ =>""
+    }
   }
 }

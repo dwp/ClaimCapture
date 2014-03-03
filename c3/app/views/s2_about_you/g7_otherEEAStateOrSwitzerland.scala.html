@@ -1,9 +1,5 @@
 @(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
-@import utils.helpers.CarersTemplate._
-@import views.html.helper.base._
-@import utils.helpers.CarersCrypto
 @import models.domain.OtherEEAStateOrSwitzerland
 @import views.html.helper._
 @import play.api.i18n.{MMessages => Messages}
@@ -15,7 +11,7 @@
             <legend>@Messages("s2.g7")</legend>
 
             <ul>
-                @sliderHelp(Messages("eeaCountryHelp.label"),Messages("eeaCountryHelp.closeLabel"),Html(Messages("eeaCountryHelp")))
+                @sliderHelp(Messages("eeaCountryHelp.label"),Messages("eeaCountryHelp.closeLabel"),Html(Messages("eeaCountryHelp")), 'track -> true)
 
                 @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromEEA"))
 
