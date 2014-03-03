@@ -13,7 +13,7 @@ class LanguageIntegrationSpec extends Specification with Tags {
     "claim will be presented in Welsh" in new WithBrowser {
       browser.goTo("/allowance/benefits")
       browser.waitUntil(browser.click("#lang-cy"))
-      browser.pageSource() must contain("(translate)")
+      browser.pageSource() must contain("Nesaf")
     }
 
     "claim will be presented in English after selecting Welsh and then English" in new WithBrowser {
@@ -31,7 +31,7 @@ class LanguageIntegrationSpec extends Specification with Tags {
     "change of circs will be presented in Welsh" in new WithBrowser {
       browser.goTo("/circumstances/identification/about-you")
       browser.waitUntil(browser.click("#lang-cy"))
-      browser.pageSource() must contain("(translate)")
+      browser.pageSource() must contain("Nesaf")
     }
 
     "change of circs will be presented in English after selecting Welsh and then English" in new WithBrowser {
