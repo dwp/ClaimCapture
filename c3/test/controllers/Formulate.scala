@@ -111,6 +111,20 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
+  def justEmployment(browser: TestBrowser) = {
+    browser.goTo("/employment/employment")
+    browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
+    browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
+    browser.submit("button[type='submit']")
+  }
+
+  def justSelfEmployment(browser: TestBrowser) = {
+    browser.goTo("/employment/employment")
+    browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
+    browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
+    browser.submit("button[type='submit']")
+  }
+
   def selfEmployment(browser: TestBrowser) = {
     browser.goTo("/employment/employment")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
