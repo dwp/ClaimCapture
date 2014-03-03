@@ -16,14 +16,14 @@
     @form(action = controllers.s8_self_employment.routes.G7ExpensesWhileAtWork.submit) {
 
         <fieldset class="form-elements">
-            <legend>@Messages("s8.g7")</legend>
+            <legend>@Html(Messages("s8.g7"))</legend>
 
             <ul>
                 @carersInputText(currentForm("nameOfPerson"))
 
                 @carersCurrency(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxlength -> Mappings.sixty)
 
-                @pensionPaymentFrequencySelect(currentForm("howOftenPayExpenses"), '_label -> Messages ("howOftenPayExpenses", "",didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayExpenses",'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60)
+                @pensionPaymentFrequencySelect(currentForm("howOftenPayExpenses"), '_label -> Messages ("howOftenPayExpenses", "",didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayExpenses",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 
                 @relationshipSelectWithNone(currentForm("whatRelationIsToYou"))
 

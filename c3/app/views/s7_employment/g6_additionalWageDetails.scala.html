@@ -23,7 +23,7 @@
             <ul>
                 @paymentFrequencySelect(currentForm("oftenGetPaid"),
                     '_label -> Messages("oftenGetPaidFrequency", pastPresentLabelForEmployment(claim, wereYou, areYou, JobID(currentForm))),
-                    'id -> "oftenGetPaid",'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60)
+                    'id -> "oftenGetPaid",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 
                 @carersInputText(currentForm("whenGetPaid"),
                     '_label -> Messages("whenGetPaid", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, JobID(currentForm))),

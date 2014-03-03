@@ -15,11 +15,11 @@
             <legend>@Messages("s11.g1")</legend>
 
             <ul>
-                @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helper->Messages("mustTellUs"))
+                @yesNoRadioGroup(currentForm("anythingElse.answer"), 'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no")), 'helper->Messages("mustTellUs"))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),
-                        'placeholder->Messages("anythingElse.please.specify"),'helper->Messages("2000charsLeft"), 'maxLength -> 2000,
+                        'placeholder->Messages("anythingElse.please.specify"),'helper->Html(Messages("2000charsLeft")), 'maxLength -> 2000,
                         'ignoreOptional -> true)
                     ),
                     'id -> "anythingElseWrapper",

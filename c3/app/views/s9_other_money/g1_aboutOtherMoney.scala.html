@@ -34,7 +34,7 @@
                            'id -> "howOften",
                            'visibleOn -> "yes",
                            '_label -> Messages("howOften"),
-                           'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60,
+                           'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
                            'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
                            )
                      ),
@@ -83,7 +83,7 @@
                         carersCurrency(currentForm("otherStatutoryPay.howMuch"), 'type -> "tel", 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
                         paymentFrequencySelect(currentForm("otherStatutoryPay.howOften"),
                             'id -> "howOftenOtherStatutoryPay",
-                            'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60,
+                            'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
                             '_label -> Messages("howOften"),
                             'visibleOn -> "yes",
                             'display -> {if(currentForm("otherStatutoryPay.howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
