@@ -121,6 +121,12 @@ object Mappings {
     if (a.lineOne.isEmpty) Invalid(ValidationError("error.required")) else Valid
   }
 
+  def requiredAddressWithTwoLines: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
+    if(a.lineOne.isEmpty) Invalid(ValidationError("error.required"))
+    else if ((!a.lineOne.isEmpty) && (a.lineTwo.isEmpty)) Invalid(ValidationError("error.addressLines.required"))
+    else Valid
+  }
+
   def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required") {
     case SortCode(s1, s2, s3) =>
       if (s1.length < 2 || s2.length < 2 || s3.length < 2) Invalid(ValidationError("error.sortcode.length"))
