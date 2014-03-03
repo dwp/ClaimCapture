@@ -1,8 +1,6 @@
 @(claimDateForm: Form[models.domain.ClaimDate])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
-@import scala.collection.immutable.ListMap
 @import helper._
-@import views.html.common._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.dates._
 @import play.api.i18n.{MMessages => Messages}
@@ -17,7 +15,7 @@
 
             <ul class="group">
             
-             @sliderHelp(Messages("dateOfClaimHelp.label"),Messages("dateOfClaimHelp.closeLabel"),Html(Messages("dateOfClaimHelp")))
+             @sliderHelp(Messages("dateOfClaimHelp.label"),Messages("dateOfClaimHelp.closeLabel"),Html(Messages("dateOfClaimHelp")), 'track -> true)
              @inputDayMonthYear(claimDateForm("dateOfClaim"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
                

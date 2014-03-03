@@ -1,6 +1,22 @@
-@(label: String, closeLabel: String, content: Html)(implicit lang: play.api.i18n.Lang)
+@(label: String, closeLabel: String, content: Html,args: (Symbol, Any)*)(implicit lang: play.api.i18n.Lang, request:play.api.mvc.Request[AnyContent])
+
+@import play.api.Play
+@import play.api.Play.current
+@import utils.helpers.GAHelper._
+@import app.ConfigProperties._
+
+@gaTrack(displayLabel:String) = @{ if(!Play.isTest && getProperty("include_analytics", false)){
+        trackEvent(request.uri, displayLabel)
+    }
+}
+
+@addTracking(displayLabel:String) = @{
+    val tracking = args.find(_._1 == 'track).getOrElse('track->false)._2.asInstanceOf[Boolean]
+    if (tracking) gaTrack(displayLabel)
+    else ""
+}
 
 <li class="c-help">
-    <div class="helper-more" data-initial="@label" data-close="@closeLabel"> @label </div>
+    <div class="helper-more" data-initial="@label" data-close="@closeLabel" onclick="if($(this).text().trim() === '@label'){ @addTracking(label) } else { @addTracking(closeLabel) }"> @label </div>
     <div class="helper-info"> @content </div>
 </li>
