@@ -50,7 +50,7 @@
                         @{trip.why match {
                             case Some(reasonForBeingThere) => reasonForBeingThere.reason match {
                                     case Some (reason) =>
-                                        if (reasonForBeingThere.other.isDefined) Messages("other") + " " + reasonForBeingThere.other.get else reason
+                                        if (reasonForBeingThere.other.isDefined) Messages("other") + " " + reasonForBeingThere.other.get else Messages("reasonForBeingThere." + reason)
                                     case _ =>
                                 }
                             case _ =>
