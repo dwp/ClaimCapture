@@ -69,7 +69,7 @@
                     'id -> "sameAddressData",
                     'display -> {if (addressForm("sameAddress.answer").value.getOrElse("yes") == "no") "yes" else "no" }
                 )
-                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Messages("300charsLeft"), 'maxLength -> 300)
+                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
 
             </ul>
 
