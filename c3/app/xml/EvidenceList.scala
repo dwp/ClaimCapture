@@ -266,7 +266,6 @@ object EvidenceList {
   }
 
   def currencyAmount(currency: Option[String]) = {
-//    val poundSign = "£"
     currency match {
       case Some(s) => {
         if(s.split(poundSign).size >1) s.split(poundSign)(1)
@@ -277,7 +276,6 @@ object EvidenceList {
   }
 
   def currencyAmount(currency:String) = {
-//    val poundSign = "£"
     if(currency.split(poundSign).size >1) currency.split(poundSign)(1)
     else currency
   }

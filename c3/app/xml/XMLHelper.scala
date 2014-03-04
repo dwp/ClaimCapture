@@ -155,14 +155,11 @@ object XMLHelper {
   }
 
   def currencyAmount(currency:String) = {
-//    val poundSign = "£"
     if(currency.split(poundSign).size >1) currency.split(poundSign)(1)
     else currency
   }
 
   def currencyAmount(currency:Option[_]):Option[_] = {
-//    val poundSign = "£"
-
     currency match {
       case Some(s) => {
         if(s.toString.split(poundSign).size >1) Some(s.toString.split(poundSign)(1))
