@@ -12,7 +12,7 @@
     <li id="@{args.toMap.get('id).map(_.toString + "_wrap").getOrElse("no-id")}" class="other-detail@{if(field.hasErrors)" validation" else ""}" style="display: @styleDisplay;">
             @carersInputTextArea(field(id)("other"), (Seq('placeholder -> Messages("ifOtherPleaseSpecify"), 'ignoreLabel -> true) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id)):_*)
             @if(args.find(_._1 == 'textAreaHelper).isDefined) {
-                <p class="helper right">@args.find(_._1 == 'textAreaHelper).get._2.toString</p>
+                <p class="helper right">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
             }
     </li>
 }
