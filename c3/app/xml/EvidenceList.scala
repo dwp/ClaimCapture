@@ -74,8 +74,8 @@ object EvidenceList {
     if (nationalityAndResidency.resideInUK.answer == Mappings.no){textLines ++= textLine(Messages("resideInUK") + " = ", nationalityAndResidency.resideInUK.text.get)}
     textLines ++= fiftyTwoWeeksTrips(claim)
     textLines ++= textLine("Mobile number = ", yourContactDetails.mobileNumber)
-    textLines ++= textLine("Do you, or any member of your family, receive any benefits or pensions from a European Economic Area (EEA) state or Switzerland? = ", otherEEAState.benefitsFromEEA)
-    textLines ++= textLine("Have you, or a member of your family, made a claim for any benefits or pensions from a European Economic Area (EEA) state or Switzerland? = ", otherEEAState.claimedForBenefitsFromEEA)
+    textLines ++= textLine("Do you, or any member of your family, receive any benefits or pensions from any other European Economic Area (EEA) state or Switzerland? = ", otherEEAState.benefitsFromEEA)
+    textLines ++= textLine("Have you, or a member of your family, made a claim for any benefits or pensions from any other European Economic Area (EEA) state or Switzerland? = ", otherEEAState.claimedForBenefitsFromEEA)
     textLines ++= textLine("Are you, or a member of your family, working in or paying insurance to, another European Economic Area (EEA) state or Switzerland? = ", otherEEAState.workingForEEA)
     textLines ++= textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
       textLine("If you have speech or hearing difficulties, would you like us to contact you by textphone? = ", yourContactDetails.contactYouByTextphone)
