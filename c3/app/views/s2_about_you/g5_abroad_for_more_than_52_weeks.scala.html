@@ -36,7 +36,9 @@
                             case Some(dayMonthYear) => dayMonthYear.`dd/MM/yyyy`
                             case _ =>
                         }}
-                        @{if (trip.end.nonEmpty) <span>@Messages("to")</span>}
+                        <span>
+                            @{if (trip.end.nonEmpty) Messages("to")}
+                        </span>
                         @{trip.end match {
                             case Some(dayMonthYear) => dayMonthYear.`dd/MM/yyyy`
                             case _ =>
