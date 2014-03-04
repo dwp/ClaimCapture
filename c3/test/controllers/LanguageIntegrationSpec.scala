@@ -40,5 +40,5 @@ class LanguageIntegrationSpec extends Specification with Tags {
       browser.waitUntil(browser.click("#lang-en"))
       browser.pageSource() must contain("details")
     }
-  }
+  } section "unit"
 }
