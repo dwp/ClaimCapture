@@ -34,7 +34,7 @@
 
                 @yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
-                @yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"))
+                @yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
             </ul>
         </fieldset>
 

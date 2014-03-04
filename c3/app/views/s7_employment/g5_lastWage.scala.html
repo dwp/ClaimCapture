@@ -23,7 +23,7 @@
 
                 @carersCurrency(currentForm("grossPay"), 'maxlength -> Mappings.sixty)
 
-                @carersInputTextArea(currentForm("payInclusions"), 'placeholder -> Messages("pleaseSpecify"), 'helper -> Messages("60charsLeft"), 'maxLength -> 60,'helperBelow -> Messages("payInclusions.helper"))
+                @carersInputTextArea(currentForm("payInclusions"), 'placeholder -> Messages("pleaseSpecify"), 'helper -> Html(Messages("60charsLeft")), 'maxLength -> 60,'helperBelow -> Messages("payInclusions.helper"))
 
                 @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> Messages ("sameAmountEachTime", pastPresentLabelForEmployment(claim, didYou, doYou, JobID(currentForm))))
             </ul>

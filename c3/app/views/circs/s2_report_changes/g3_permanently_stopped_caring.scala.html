@@ -15,7 +15,7 @@
             <legend>@Messages("c2.g3")</legend>
             <ul class="coc-layout">
                 @inputDayMonthYear(stoppedCaringForm("stoppedCaringDate"),  'helperBelow-> Messages("stoppedCaringDate.helper"))
-                @carersInputTextArea(stoppedCaringForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Messages("300charsLeft"), 'maxLength -> 300)
+                @carersInputTextArea(stoppedCaringForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
             </ul>
         </fieldset>
 

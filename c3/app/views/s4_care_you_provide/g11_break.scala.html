@@ -35,11 +35,11 @@
             
             	@whereabouts(breakForm("whereYou"),
                              Seq("" -> Messages("pleaseSelect"), Home -> Messages("whereabouts.Home"), Hospital -> Messages("whereabouts.Hospital"), Holiday -> Messages("whereabouts.Holiday"), RespiteCare -> Messages("whereabouts.RespiteCare"), Other -> Messages("other")),
-                             '_label -> Messages("whereYou.location"), 'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60)
+                             '_label -> Messages("whereYou.location"), 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
                              
                 @whereabouts(breakForm("wherePerson"),
                              Seq(""-> Messages("pleaseSelect"), Home -> Messages("whereabouts.Home"), Hospital -> Messages("whereabouts.Hospital"), RespiteCare -> Messages("whereabouts.RespiteCare"), CareHome -> Messages("whereabouts.CareHome"), NursingHome -> Messages("whereabouts.NursingHome"), Other -> Messages("other")),
-                             '_label -> Messages("wherePerson.location"), 'textAreaHelper -> Messages("60charsLeft"), 'maxLength -> 60)
+                             '_label -> Messages("wherePerson.location"), 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
                              
             
                 @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
