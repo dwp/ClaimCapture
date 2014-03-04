@@ -9,8 +9,8 @@
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
 
 @views.html.helper.selectWithOtherPlaceholder(field,"reason", Seq("" -> Messages("reasonForBeingThere.pleaseSelect"),
-"Home" -> Messages("reasonForBeingThere.home"),
-"Holiday" -> Messages("reasonForBeingThere.holiday"),
-"Work" -> Messages("reasonForBeingThere.work"),
-"other" -> Messages("reasonForBeingThere.other")), args:_*)
+"Home" -> Messages("reasonForBeingThere.Home"),
+"Holiday" -> Messages("reasonForBeingThere.Holiday"),
+"Work" -> Messages("reasonForBeingThere.Work"),
+"other" -> Messages("reasonForBeingThere.Other")), args:_*)
 }
