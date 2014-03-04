@@ -16,7 +16,7 @@
     @elements.input
 
     @if(elements.args.contains('helper)) {
-        <p class="helper right">@elements.args.get('helper).get.toString</p>
+        <p class="helper right">@Html(elements.args.get('helper).get.toString)</p>
     }
 
     @if(elements.args.contains('helperBelow)) {
