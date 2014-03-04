@@ -16,10 +16,10 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "payOccupationalPensionScheme" -> nonEmptyText.verifying(validYesNo),
-    "howMuchPension" -> optional(nonEmptyText verifying validDecimalNumber),
+    "howMuchPension" -> optional(nonEmptyText verifying validCurrencyRequired),
     "howOftenPension" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "payPersonalPensionScheme" -> nonEmptyText.verifying(validYesNo),
-    "howMuchPersonal" -> optional(nonEmptyText verifying validDecimalNumber),
+    "howMuchPersonal" -> optional(nonEmptyText verifying validCurrencyRequired),
     "howOftenPersonal" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly)
   )(PensionSchemes.apply)(PensionSchemes.unapply)
     .verifying("howMuchPension", PensionSchemes.validateHowMuchPension _)

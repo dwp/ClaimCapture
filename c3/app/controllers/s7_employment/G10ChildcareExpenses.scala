@@ -17,7 +17,7 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
     "jobID" -> nonEmptyText,
     "whoLooksAfterChildren" -> carersNonEmptyText(maxLength = sixty),
-    "howMuchCostChildcare" -> nonEmptyText.verifying(validDecimalNumber),
+    "howMuchCostChildcare" -> nonEmptyText.verifying(validCurrencyRequired),
     "howOftenPayChildCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "relationToYou" -> nonEmptyText,
     "relationToPartner" -> optional(nonEmptyText),

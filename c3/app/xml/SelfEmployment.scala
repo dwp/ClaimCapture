@@ -120,9 +120,20 @@ object SelfEmployment {
     if (hasPensionScheme) {
       <PensionScheme>
         <Type>personal_private</Type>
-        <Payment>{moneyStructure(pensionAndExpenses.howMuchDidYouPay.orNull)}</Payment>
+        <Payment>{moneyStructure(currencyAmount(pensionAndExpenses.howMuchDidYouPay))}</Payment>
         <Frequency>{if(pensionAndExpenses.howOften.isEmpty){} else pensionAndExpenses.howOften.get.frequency}</Frequency>
       </PensionScheme>
     } else NodeSeq.Empty
+  }
+
+  def currencyAmount(currency: Option[String]) = {
+    val poundSign = "£"
+    currency match {
+      case Some(s) => {
+        if(s.split(poundSign).size >1) s.split(poundSign)(1)
+        else s
+      }
+      case _ =>""
+    }
   }
 }

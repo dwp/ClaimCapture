@@ -20,7 +20,7 @@ import play.api.i18n.Lang
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
     "whoLooksAfterChildren" -> carersNonEmptyText(maxLength = sixty),
-    "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
+    "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validCurrencyRequired),
     "howOftenPayChildCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
     "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),

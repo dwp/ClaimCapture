@@ -164,14 +164,14 @@ object EvidenceList {
 
     var textLines = textLine("Are the income, outgoings and profit in these accounts similar to your current level of trading? = ", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading) ++
       textLine("Please tell us why and when the change happened = ", yourAccounts.tellUsWhyAndWhenTheChangeHappened) ++
-      textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare? = ", childCare.howMuchYouPay) ++
+      textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare? = ", currencyAmount(childCare.howMuchYouPay)) ++
       textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childCare.howOftenPayChildCare))
     if (childCare.howOftenPayChildCare.other.isDefined)
       textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = ", childCare.howOftenPayChildCare.other.get)
     if (childCare.relationToPartner.nonEmpty)
       textLines ++= textLine(Messages("relationToPartner") + " = ", childCare.relationToPartner.get)
 
-    textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ", expensesWhileAtWork.howMuchYouPay) ++
+    textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ", currencyAmount(expensesWhileAtWork.howMuchYouPay)) ++
       textLine("How often [[past=did you]] [[present=do you]] - expenses related to person you care for? = ", PensionPaymentFrequency.mapToHumanReadableString(expensesWhileAtWork.howOftenPayExpenses))
 
     if (expensesWhileAtWork.howOftenPayExpenses.other.isDefined)
@@ -205,7 +205,7 @@ object EvidenceList {
             textLines ++= textLine("About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time? = ", lastWage.sameAmountEachTime.get)
 
           if (childcareExpenses.howMuchCostChildcare.nonEmpty)
-            textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare expenses? = ", childcareExpenses.howMuchCostChildcare)
+            textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare expenses? = ", currencyAmount(childcareExpenses.howMuchCostChildcare))
           textLines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare))
           if (childcareExpenses.howOftenPayChildCare.other.isDefined)
             textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = ", childcareExpenses.howOftenPayChildCare.other.get)
@@ -213,7 +213,7 @@ object EvidenceList {
             textLines ++= textLine(Messages("relationToPartner") + " = ", childcareExpenses.relationToPartner.get)
 
           if (personYouCareForExpenses.howMuchCostCare.nonEmpty)
-            textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ", personYouCareForExpenses.howMuchCostCare)
+            textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ", currencyAmount(personYouCareForExpenses.howMuchCostCare))
           textLines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to the person you care for? = ", PensionPaymentFrequency.mapToHumanReadableString(personYouCareForExpenses.howOftenPayCare))
           if (personYouCareForExpenses.howOftenPayCare.other.isDefined)
             textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to the person you care for? = ", personYouCareForExpenses.howOftenPayCare.other.get)
@@ -266,14 +266,19 @@ object EvidenceList {
   }
 
   def currencyAmount(currency: Option[String]) = {
-    val poundSign = "£"
+//    val poundSign = "£"
     currency match {
       case Some(s) => {
-        if(s.split(poundSign).size >1)
-          s.split(poundSign)(1)
+        if(s.split(poundSign).size >1) s.split(poundSign)(1)
         else s
       }
       case _ =>""
     }
+  }
+
+  def currencyAmount(currency:String) = {
+//    val poundSign = "£"
+    if(currency.split(poundSign).size >1) currency.split(poundSign)(1)
+    else currency
   }
 }

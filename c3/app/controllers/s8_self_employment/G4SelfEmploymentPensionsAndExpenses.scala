@@ -19,7 +19,7 @@ import play.api.i18n.Lang
 object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
     "doYouPayToPensionScheme" -> nonEmptyText.verifying(validYesNo),
-    "howMuchDidYouPay" -> optional(nonEmptyText verifying validDecimalNumber),
+    "howMuchDidYouPay" -> optional(nonEmptyText verifying validCurrencyRequired),
     "howOften" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "doYouPayToLookAfterYourChildren" -> nonEmptyText.verifying(validYesNo),
     "didYouPayToLookAfterThePersonYouCaredFor" -> nonEmptyText.verifying(validYesNo)

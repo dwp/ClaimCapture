@@ -34,7 +34,7 @@ object Employment {
       {<DateLastPaid/> +++ lastWage.lastPaidDate}
       <GrossPayment>
         <Currency>{GBP}</Currency>
-        <Amount>{lastWage.grossPay}</Amount>
+        <Amount>{currencyAmount(lastWage.grossPay)}</Amount>
       </GrossPayment>
       {<IncludedInWage/> +++ lastWage.payInclusions}
       <PayPeriod>
@@ -75,7 +75,7 @@ object Employment {
           <Type>occupational</Type>
           <Payment>
             <Currency>{GBP}</Currency>
-            {<Amount/> +++ pensionScheme.howMuchPension}
+            {<Amount/> +++ currencyAmount(pensionScheme.howMuchPension)}
           </Payment>
           <Frequency>{pensionScheme.howOftenPension.get.frequency}</Frequency>
         </PensionScheme>
@@ -93,7 +93,7 @@ object Employment {
         <Type>personal_private</Type>
         <Payment>
           <Currency>{GBP}</Currency>
-          {<Amount/> +++ pensionScheme.howMuchPersonal}
+          {<Amount/> +++ currencyAmount(pensionScheme.howMuchPersonal)}
         </Payment>
         <Frequency>{pensionScheme.howOftenPersonal.get.frequency}</Frequency>
       </PensionScheme>
