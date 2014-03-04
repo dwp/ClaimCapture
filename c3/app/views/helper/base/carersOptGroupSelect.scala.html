@@ -21,6 +21,6 @@
 
 @subgroup(selectedValue: Option[String], groupOptions: Seq[(String,String)]) = {
     @for((optionValue:String, name:String) <- groupOptions){
-        <option value="@optionValue" @(if(selectedValue == Some(optionValue)) "selected" else "")>@name</option>
+        <option value="@optionValue" @(if(selectedValue == Some(optionValue)) "selected" else "")>@Html(name)</option>
     }
 }
