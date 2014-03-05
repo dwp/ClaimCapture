@@ -27,7 +27,7 @@
             <ul>
                 @carersInputText(currentForm("whoLooksAfterChildren"))
 
-                @carersCurrency(currentForm("howMuchCostChildcare"), '_label -> Messages(labelForEmployment(claim, "howMuchCostChildcare", JobID(currentForm))), 'maxlength -> Mappings.sixty)
+                @carersCurrency(currentForm("howMuchCostChildcare"), '_label -> labelForEmployment(claim, "howMuchCostChildcare", JobID(currentForm)), 'maxlength -> Mappings.sixty)
 
                 @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> Messages ("employment_howOftenPayChildCare", "",didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayChildCare",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 

@@ -61,10 +61,10 @@ object PastPresentLabelHelper {
   }
 
   def labelForEmployment(implicit claim: Claim, labelKey: String, jobID: String) = {
-    isTheJobFinished(claim, jobID) match {
+    Messages(isTheJobFinished(claim, jobID) match {
       case true => labelKey + ".present"
       case false => labelKey + ".past"
-    }
+    })
   }
 
   private def isTheJobFinished(claim: Claim, jobID: String) = theJobs(claim).questionGroup(jobID, JobDetails) match {

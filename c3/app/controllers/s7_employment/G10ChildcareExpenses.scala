@@ -48,8 +48,8 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
       formWithErrors => {
         val pastPResentLabel = pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID)
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("howMuchCostChildcare", "error.required", FormError("howMuchCostChildcare", "error.required", Seq(pastPResentLabel)))
-          .replaceError("howMuchCostChildcare", "decimal.invalid", FormError("howMuchCostChildcare", "decimal.invalid", Seq(pastPResentLabel)))
+          .replaceError("howMuchCostChildcare", "error.required", FormError("howMuchCostChildcare", "error.required", Seq(labelForEmployment(claim, "howMuchCostChildcare", jobID))))
+          .replaceError("howMuchCostChildcare", "decimal.invalid", FormError("howMuchCostChildcare", "decimal.invalid", Seq(labelForEmployment(claim, "howMuchCostChildcare", jobID))))
           .replaceError("howOftenPayChildCare.frequency","error.required", FormError("howOftenPayChildCare", "error.required",Seq("",pastPResentLabel)))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
           .replaceError("howOftenPayChildCare.frequency.other","error.maxLength",FormError("howOftenPayChildCare","error.maxLength",Seq("60",pastPResentLabel)))
