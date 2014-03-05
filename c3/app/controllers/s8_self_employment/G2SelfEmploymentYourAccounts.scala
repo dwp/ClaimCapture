@@ -51,8 +51,8 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Nav
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("","required", FormError("tellUsWhyAndWhenTheChangeHappened", "error.required"))
-          .replaceError("whatWasOrIsYourTradingYearFrom","error.invalid", FormError("whatWasOrIsYourTradingYearFrom", "error.invalid", Seq(isWasIfSelfEmployed)))
-          .replaceError("whatWasOrIsYourTradingYearTo","error.invalid", FormError("whatWasOrIsYourTradingYearTo", "error.invalid", Seq(isWasIfSelfEmployed)))
+          .replaceError("whatWasOrIsYourTradingYearFrom","error.invalid", FormError("whatWasOrIsYourTradingYearFrom", "error.invalid", Seq(labelForSelfEmployment(claim, "whatWasOrIsYourTradingYearFrom"))))
+          .replaceError("whatWasOrIsYourTradingYearTo","error.invalid", FormError("whatWasOrIsYourTradingYearTo", "error.invalid", Seq(labelForSelfEmployment(claim, "whatWasOrIsYourTradingYearTo"))))
         BadRequest(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G4SelfEmploymentPensionsAndExpenses.present()))

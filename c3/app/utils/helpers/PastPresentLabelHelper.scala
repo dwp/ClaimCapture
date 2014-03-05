@@ -32,20 +32,16 @@ object PastPresentLabelHelper {
     Messages("didYou")
   }
 
-  def isWasIfSelfEmployed(implicit claim: Claim,lang:Lang): String = isSelfEmployed(claim) match {
-    case true => is
-    case false => was
-  }
-
   def didYouDoYouIfSelfEmployed(implicit claim: Claim,lang:Lang) = isSelfEmployed(claim) match {
     case true => doYou
     case false => didYou
   }
 
-  def didYouDoYouIfSelfEmployedLower(implicit claim: Claim,lang:Lang) = claim.questionGroup(AboutSelfEmployment) match {
-    case None => doYou.toLowerCase
-    case Some(a: AboutSelfEmployment) if a.areYouSelfEmployedNow == "yes" => doYou.toLowerCase
-    case _ => false
+  def labelForSelfEmployment(implicit claim: Claim, labelKey: String) = {
+    Messages(isSelfEmployed(claim) match {
+      case true => labelKey + ".present"
+      case false => labelKey + ".past"
+    })
   }
 
   private def isSelfEmployed(claim: Claim) = claim.questionGroup(AboutSelfEmployment) match {
