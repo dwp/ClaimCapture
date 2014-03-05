@@ -7,36 +7,6 @@ import play.api.i18n.{MMessages => Messages, Lang}
 case class PastPresentLabelHelper(implicit claim: Claim, lang:Lang)
 
 object PastPresentLabelHelper {
-
-  def is (implicit lang:Lang) = {
-    Messages("is")
-  }
-
-  def was (implicit lang:Lang) = {
-    Messages("was")
-  }
-
-  def areYou (implicit lang:Lang) = {
-    Messages("areYou")
-  }
-
-  def wereYou (implicit lang:Lang) = {
-    Messages("wereYou")
-  }
-
-  def doYou (implicit lang:Lang) = {
-    Messages("doYou")
-  }
-
-  def didYou (implicit lang:Lang) = {
-    Messages("didYou")
-  }
-
-  def didYouDoYouIfSelfEmployed(implicit claim: Claim,lang:Lang) = isSelfEmployed(claim) match {
-    case true => doYou
-    case false => didYou
-  }
-
   def labelForSelfEmployment(implicit claim: Claim, labelKey: String) = {
     Messages(isSelfEmployed(claim) match {
       case true => labelKey + ".present"
