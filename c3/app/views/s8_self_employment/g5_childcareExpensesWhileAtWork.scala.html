@@ -6,7 +6,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import models.domain.{MoreAboutYou,YourPartnerPersonalDetails,SelfEmploymentPensionsAndExpenses}
-@import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
+@import utils.helpers.PastPresentLabelHelper.labelForSelfEmployment
 @import views.html.s8_self_employment.main
 @import views.html.helper.dropdowns.pensionPaymentFrequencySelect
 
@@ -25,9 +25,9 @@
             <ul>
                 @carersInputText(currentForm("whoLooksAfterChildren"))
 
-                @carersCurrency(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxlength -> Mappings.sixty)
+                @carersCurrency(currentForm("howMuchYouPay"), '_label -> labelForSelfEmployment(claim, "howMuchYouPay"), 'maxlength -> Mappings.sixty)
 
-                @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> Messages ("howOftenPayChildCare","", didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayChildCare",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+                @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> labelForSelfEmployment(claim, "howOftenPayChildCare"), 'id -> "howOftenPayChildCare",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 
                 @relationshipSelectWithNone(currentForm("whatRelationIsToYou"))
 

@@ -17,11 +17,11 @@
             <legend>@Html(Messages("s7.g8"))</legend>
 
             <ul>
-                @yesNoRadioGroup(currentForm("payForAnythingNecessary"), '_label -> Messages ("payForAnythingNecessary", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))
+                @yesNoRadioGroup(currentForm("payForAnythingNecessary"), '_label -> labelForEmployment(claim, "payForAnythingNecessary", JobID(currentForm)))
 
-                @yesNoRadioGroup(currentForm("payAnyoneToLookAfterChildren"), '_label -> Messages ("payAnyoneToLookAfterChildren", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))))
+                @yesNoRadioGroup(currentForm("payAnyoneToLookAfterChildren"), '_label -> labelForEmployment(claim, "payAnyoneToLookAfterChildren", JobID(currentForm)))
 
-                @yesNoRadioGroup(currentForm("payAnyoneToLookAfterPerson"), '_label -> Messages ("payAnyoneToLookAfterPerson", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))))
+                @yesNoRadioGroup(currentForm("payAnyoneToLookAfterPerson"), '_label -> labelForEmployment(claim, "payAnyoneToLookAfterPerson", JobID(currentForm)))
             </ul>
         </fieldset>
 

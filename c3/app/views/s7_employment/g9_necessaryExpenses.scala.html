@@ -14,12 +14,6 @@
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
 
-@jobTitleLabel() = @{
-    Messages("jobTitle." + jobs.questionGroup(JobID(currentForm), JobDetails)
-                               .collect { case jd: JobDetails if (jd.finishedThisJob == "yes") => "was" }.getOrElse("is"))
-}
-
-
 @main(Messages("s7.g9") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.NecessaryExpenses, JobID(currentForm))) {
 
 
@@ -31,9 +25,9 @@
             <legend>@Messages("s7.g9")</legend>
 
             <ul>
-                @carersInputText(currentForm("jobTitle"), '_label -> jobTitleLabel, 'maxLength -> 30)
+                @carersInputText(currentForm("jobTitle"), '_label -> labelForEmployment(claim, "jobTitle", JobID(currentForm)), 'maxLength -> 30)
 
-                @carersInputText(currentForm("whatAreThose"), '_label -> Messages("whatAreThose", pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , JobID(currentForm))))
+                @carersInputText(currentForm("whatAreThose"), '_label -> labelForEmployment(claim, "whatAreThose", JobID(currentForm)))
             </ul>
         </fieldset>
 
