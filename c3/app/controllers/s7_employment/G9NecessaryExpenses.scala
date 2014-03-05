@@ -33,9 +33,13 @@ object G9NecessaryExpenses extends Controller with CachedClaim with Navigable {
   def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
+        val pastPresentLabelWhatAreThose = labelForEmployment(claim, "whatAreThose", jobID)
+        val pastPresentLabelJobTitle = labelForEmployment(claim, "jobTitle", jobID)
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("whatAreThose", "error.required", FormError("whatAreThose", "error.required", Seq(pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , jobID))))
-          .replaceError("whatAreThose", "error.restricted.characters", FormError("whatAreThose", "error.restricted.characters", Seq(pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , jobID))))
+          .replaceError("jobTitle", "error.required", FormError("jobTitle", "error.required", Seq(pastPresentLabelJobTitle)))
+          .replaceError("jobTitle", "error.restricted.characters", FormError("jobTitle", "error.restricted.characters", Seq(pastPresentLabelJobTitle)))
+          .replaceError("whatAreThose", "error.required", FormError("whatAreThose", "error.required", Seq(pastPresentLabelWhatAreThose)))
+          .replaceError("whatAreThose", "error.restricted.characters", FormError("whatAreThose", "error.restricted.characters", Seq(pastPresentLabelWhatAreThose)))
         BadRequest(views.html.s7_employment.g9_necessaryExpenses(formWithErrorsUpdate))
       },
       necessaryExpenses => claim.update(jobs.update(necessaryExpenses)) -> Redirect(routes.G10ChildcareExpenses.present(jobID)))
