@@ -135,7 +135,7 @@ object CircsEvidenceList {
         buffer ++= textLine(Messages("previousAddress") + " = ", addressChange.previousAddress.lineOne)
         buffer ++= textLine("", addressChange.previousAddress.lineTwo)
         buffer ++= textLine("", addressChange.previousAddress.lineThree)
-        buffer ++= textLine(Messages("previousAddress")  + " = ", addressChange.previousPostcode)
+        buffer ++= textLine(Messages("previousPostcode")  + " = ", addressChange.previousPostcode)
 
         // Still caring section
         buffer ++= textSeparatorLine(Messages("c2.g6"))
