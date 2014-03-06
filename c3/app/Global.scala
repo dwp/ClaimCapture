@@ -47,9 +47,11 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
   override def onLoadConfig(configuration: Configuration, path: File, classloader: ClassLoader, mode: Mode.Mode): Configuration = {
     val dynamicConfig = Configuration.from(Map("session.cookieName" -> UUID.randomUUID().toString.substring(0, 16)))
     val applicationConf = System.getProperty("config.file", s"application.${mode.toString.toLowerCase}.conf")
+    val envConf = System.getProperty("env.conf", "env.conf")
     val environmentOverridingConfiguration = configuration ++
       Configuration(ConfigFactory.load(applicationConf)) ++
-      dynamicConfig
+      dynamicConfig ++
+      Configuration(ConfigFactory.load(envConf))
     super.onLoadConfig(environmentOverridingConfiguration, path, classloader, mode)
   }
 
