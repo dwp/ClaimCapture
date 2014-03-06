@@ -54,6 +54,10 @@ footer {
 			}
 			a {
 				color: #fff;
+				text-decoration: underline; 
+				&:hover {
+					color: #666;
+				}
 			}
 		}
 	}
