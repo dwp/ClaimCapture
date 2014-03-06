@@ -2,21 +2,13 @@
    article {
 	   background: #fff;
 	   position: relative;
-	   padding: 1.6em 1em 0 1em;
-	   @media screen and (max-width: 700px) {
-		   padding-left: 0;
-		   padding-right: 0;
-	   }
-	   
-	   &.eligible {
-		   .validation-summary {
-			   margin-left: 0;
-		   }
-	   }
+	   padding: 1.6em 0 0 0;
 	   
 	   &.error-statement {
 		margin: 0;
-		padding: 5em 1em 5em 1em;
+		padding: 5em 0 5em 1em;
+		@media screen and (max-width: 640px)
+		{padding-left: 0; padding-right: 0;}
 			p {
 				margin: 2em 40% 0 0;
 				@media screen and (max-width: 700px)
@@ -98,11 +90,14 @@
 			   font-weight: 700;
 			   line-height: 1.2em;
 			   margin-bottom: .25em;
+			   margin-right: 20%;
+			   margin-left: -2px;
+			   @media screen and (max-width: 700px)
+			   {margin-right: 0;}
 			   .ie & {
 				   font-size: 36px;
 			   }
-			    @media screen and (max-width: 500px) {
-			    	font-size: 3rem;
+			    @media screen and (max-width: 500px) {font-size: 3rem;
 				    .ie & {
 					    font-size: 30px;
 				    }
@@ -114,6 +109,9 @@
    	   
    	   
    	   &.response {
+   	   		h1 {
+	   	   		margin-right: 0;
+   	   		}
 			section {
 				margin: 2em 0;
 				background-image: url('images/response-trio-xl.png');

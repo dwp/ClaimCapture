@@ -2,7 +2,8 @@
    .prompt {
 	   background: #d5e8f3;
 	   padding: 1.4em 1em;
-	   margin: 1em 0 0 0;
+	   margin: 1em 0 0 -1em;
+	   @media screen and (max-width: 640px) {margin-left: 0;}
 	   p {
 		   margin-top: .25em;
 		   &:first-child {
@@ -23,9 +24,6 @@
 			   font-size: 1.7rem;
 			   &:first-child {
 				   margin: 0;
-			   }
-			   .ie {
-				   font-size: 17px;
 			   }
 			   @media screen and (max-width: 660px) {
 				   margin-top: 1em;
@@ -116,25 +114,26 @@
 			   margin-right: 0;
 		   }
 		   p {
-			   font-size: 1.7rem;
+			   font-size: 1.6rem;
 			   .ie & {
-				   font-size: 17px;
+				   font-size: 16px;
 			   }
 		   }
 	   }
 	   &.eligibility-prompt {
 		   margin-left: 0;
 		   p {
-			   font-size: 1.7rem;
+			   font-size: 1.6rem;
 			   margin: .75em 0 0 0;
 			   &:first-child {
 				   margin: 0;
 			   }
 			   .ie & {
-				   font-size: 17px;
+				   font-size: 16px;
 			   }
 		   }
 		   @media screen and (max-width: 480px) {
+		   	   margin-left: -2.5em;	
 			   span {
 				   display: none;
 			   }
@@ -157,7 +156,7 @@
 			   zoom: 1;
 		   }
 		   p {
-			   font-size: 1.7rem;
+			   font-size: 1.6rem;
 			   margin-top: 1em;
 			   &:first-child {
 				   margin: 0;
@@ -166,7 +165,7 @@
 			   font-weight: 600;
 			   }
 			   .ie & {
-				   font-size: 17px;
+				   font-size: 16px;
 			   }
 		   }
 		   ul {
