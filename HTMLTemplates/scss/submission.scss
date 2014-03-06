@@ -1,8 +1,8 @@
 .send-info {
-		margin: 2em 25% 0 0;
+		margin: 2em 1em 0 0;
 		padding: 1.5em;
 		border: 1px solid #a2a2a2;
-		 @media screen and (max-width: 860px) {
+		 @media screen and (max-width: 640px) {
 			 margin-right: 0;
 		 }
 		section {
@@ -23,7 +23,7 @@
 					padding: 0 0 2px 24px;
 					line-height: 1.4em;
 					font-size: 1.7rem;
-					background: url('images/tick.png') 0 4px no-repeat;
+					background: url('../img/tick.png') 0 4px no-repeat;
 				}
 			}
 			&.address {
@@ -40,4 +40,3 @@
 			}
 		}
 	}
-	

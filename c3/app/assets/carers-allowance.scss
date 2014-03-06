@@ -13,7 +13,6 @@
 
 main {
 	background: #fff;
-	border-bottom: 10px solid #f47738;
 	display: block;
 	padding: 0 .7em;
 }
@@ -30,7 +29,8 @@ main {
 
 
 .carers-allowance {
-   border-top: 10px solid #f47738;
+   border-top: 10px solid #005ea5;
+   border-bottom: 10px solid #005ea5;
    background: #fff;
    padding: 0 0 4em 0;
    margin: 0 auto;
@@ -55,42 +55,23 @@ main {
    
 /* form elements */
 .form-elements {
-	margin: 2em 18% 1em 0;
-   	@media screen and (max-width: 780px) {
+	margin: 2em 25% 1em 0;
+   	@media screen and (max-width: 860px) {
    		margin-right: 0;
    		}
-   	@media screen and (max-width: 500px) {
-   		padding-left: 0;
-   		}
-   	    
    	    
    	    
    	    /* Eligibility section */
    	    &.form-eligibility {
-	   	    padding-left: 1.9em;
-	   	    
-	   	    @media screen and (max-width: 640px) {
-	   	    	padding-left: 2.6em;
-	   			}
-	   	    
-	   	    legend {
-		   	    padding: .12em 0 1em 1.56em;
-		   	    margin-left: -1.64em;
-		   	    color: inherit;
-		   	    .ie7 & {
-			   	    display: block;
-			   	    line-height: 1.1em;
-			   	    margin-left: -48px;
-			   		}
-		   	    .ie6 & {
-			   	    padding-left: 40px;
-			   	    margin-left: -50px;
-			   		}
-			}
+
 	   	    
 	   	    li.validation {
 		   	    margin-top: 1em;
 	   	    }
+	   	    
+	   	   .helper-message {
+			   	margin: 0 0 1em 0;
+		   	}
 
    	    }
    	    
@@ -99,16 +80,6 @@ main {
 	   	    margin-top: 1em;
    	    }
    	    
-   	    
-   	    &.q1 {
-	   	    p {
-		   	    padding-right: 2em;
-		   	    @media screen and (max-width: 750px) {padding-right: 0;}
-		   	    &.helper-message {
-			   	    margin: 0 0 1em 0;
-		   	    }
-	   	    }
-   	    }
    	    
    	    
    	    &.results-detail {
@@ -129,7 +100,7 @@ main {
 	   	   padding: .12em 0 .5em 0;
 	   	   position: relative;
 	   	   line-height: 1.2em;
-	   	   color: #333399;
+	   	   color: #00487e;
 	   	   .ie & {
 		   	   font-size: 24px;
 		   	   }
@@ -213,7 +184,7 @@ main {
 		   zoom: 1;
 		   
 		   &.extra-group {
-			   border-left: 3px solid #a2a2a2;
+			   border-left: 5px solid #a2a2a2;
 			   padding-left: .8em;
 			   margin-top: 1em;
 		   }
@@ -258,18 +229,21 @@ main {
 			   &.validation {
 				   background: #fef7f7;
 				   padding: .7em;
-				   margin-left: -1.5rem;
 				   border-left: 3px solid #df3034;
 			       position: relative;
 			       overflow: hidden;
-			       .ie7 &, .ie8 & {
-				       margin-left: -15px;
-			       }
+			       margin-left: -0.7em;
 			       .ie6 & {
 				       zoom: 1;
 			       }
+			       
 
-			       @media screen and (max-width: 640px) {margin-left: 0; padding-top: 1em; padding-bottom: 1em; width: auto;} 
+			       @media screen and (max-width: 640px) {
+			       			padding-top: 1em;
+			       			padding-bottom: 1em;
+			       			width: auto;
+			       	} 
+			       	
 			       .error {
 				       color: #de3134;
 				       font-weight: 300;
@@ -288,6 +262,10 @@ main {
 					   	padding-left: 0;
 					   	}
 			   }
+			   
+			   
+			   
+			   
 			   
 			   &.date-time {
 				   padding-top: 0;
@@ -880,6 +858,14 @@ main {
 	
 /* Submission information */   
 @import 'submission';	
+
+
+/* Finish page */
+@import 'finish';
+
+
+/* Right col (Finish page) */
+@import 'right-panel';
 		
 }
 
@@ -903,7 +889,8 @@ main {
 
 
 
-
+/* Footer */
+@import 'footer';
 
 
 /* Assitive tech accessibility */

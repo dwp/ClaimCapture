@@ -1,17 +1,32 @@
 
    .completed {
    	   margin-top: 1.4em;
-   	   
+   	   margin-left: -1em;
+   	   @media screen and (max-width: 640px) {margin-left: 0;}
+   	   .start-again {
+	   	   text-align: right;
+	   	   a {
+		   	   display: inline-block;
+		   	   background: #006435;
+		   	   font-size: 1.9rem;
+		   	   padding: .7em 1.75em;
+		   	   color: #fff;
+		   	   line-height: 1em;
+		   	   text-decoration: none;
+		   	   .ie & {
+			   	   font-size: 19px;
+		   	   }
+		   	   &:hover {
+			   	   background: #004b27;
+		   	   }
+	   	   }
+   	   }
 	   ul {
 		   li {
-			   background: #e3ecf1 url('images/tick.png') 1.1em 1.3em no-repeat;
-			   border-top: 1px solid #fff;
-			   border-bottom: 1px solid #ddd;
+			   background: #e6eff5 url('images/tick.png') 1.1em 1.3em no-repeat;
+			   border-bottom: 1px solid #cdd7dc;
 			   padding: 1em 11em 1em 2.9em;
 			   position: relative;
-			   &:last-child {
-				   border-bottom: 0;
-			   }
 			   @media screen and (max-width: 760px) {padding-right: 1em;}
 			   h3 {
 				   font-size: 1.6rem;
