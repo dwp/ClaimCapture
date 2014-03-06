@@ -20,7 +20,7 @@ object G9NecessaryExpenses extends Controller with CachedClaim with Navigable {
     "whatAreThose" -> carersNonEmptyText
   )(NecessaryExpenses.apply)(NecessaryExpenses.unapply))
 
-  def present(jobID: String) = claiming { implicit claim => implicit request =>
+  def present(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     jobs.questionGroup(jobID, AboutExpenses) match {
       case Some(a: AboutExpenses) if a.payForAnythingNecessary == `yes`=>
         track(NecessaryExpenses) { implicit claim => Ok(views.html.s7_employment.g9_necessaryExpenses(form.fillWithJobID(NecessaryExpenses, jobID))) }
@@ -30,12 +30,16 @@ object G9NecessaryExpenses extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def submit = claimingInJob { jobID => implicit claim => implicit request =>
+  def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
+        val pastPresentLabelWhatAreThose = labelForEmployment(claim, "whatAreThose", jobID)
+        val pastPresentLabelJobTitle = labelForEmployment(claim, "jobTitle", jobID)
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("whatAreThose", "error.required", FormError("whatAreThose", "error.required", Seq(pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , jobID))))
-          .replaceError("whatAreThose", "error.restricted.characters", FormError("whatAreThose", "error.restricted.characters", Seq(pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , jobID))))
+          .replaceError("jobTitle", "error.required", FormError("jobTitle", "error.required", Seq(pastPresentLabelJobTitle)))
+          .replaceError("jobTitle", "error.restricted.characters", FormError("jobTitle", "error.restricted.characters", Seq(pastPresentLabelJobTitle)))
+          .replaceError("whatAreThose", "error.required", FormError("whatAreThose", "error.required", Seq(pastPresentLabelWhatAreThose)))
+          .replaceError("whatAreThose", "error.restricted.characters", FormError("whatAreThose", "error.restricted.characters", Seq(pastPresentLabelWhatAreThose)))
         BadRequest(views.html.s7_employment.g9_necessaryExpenses(formWithErrorsUpdate))
       },
       necessaryExpenses => claim.update(jobs.update(necessaryExpenses)) -> Redirect(routes.G10ChildcareExpenses.present(jobID)))

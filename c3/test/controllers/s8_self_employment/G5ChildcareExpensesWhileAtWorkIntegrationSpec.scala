@@ -50,7 +50,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
         page goToThePage()
         page fillPageWith claim
         val pageWithErrors = page.submitPage()
-        pageWithErrors.listErrors.size mustEqual 6
+        pageWithErrors.listErrors.size mustEqual 5
       }
     }
 

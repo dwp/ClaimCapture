@@ -1,4 +1,4 @@
-@(yourDetailsForm: Form[models.domain.YourDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(yourDetailsForm: Form[models.domain.YourDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,6 +8,7 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import views.html.s2_about_you.main
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s2.g1") + " - " + Messages("s2.longName")) {
     @errorsSummary(yourDetailsForm)
@@ -20,7 +21,7 @@
             <ul>
                 @titleSelect(yourDetailsForm("title"))
 
-                @carersInputText(yourDetailsForm("firstName"),'helperBelow -> Messages("your.name.helper"), 'maxLength -> 17)
+                @carersInputText(yourDetailsForm("firstName"), 'helperBelow -> Messages("your.name.helper"), 'maxLength -> 17)
 
                 @carersInputText(yourDetailsForm("middleName"), 'maxLength -> 17)
 
@@ -36,8 +37,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

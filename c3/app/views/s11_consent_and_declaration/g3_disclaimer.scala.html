@@ -1,13 +1,8 @@
-@(currentForm: Form[models.domain.Disclaimer])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.Disclaimer])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import models.domain.TheirPersonalDetails
-@import helper._
-@import utils.helpers.DeclareCheckTemplate._
 @import views.html.helper._
-@import views.html.helper.base._
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
-@import controllers.s11_consent_and_declaration._
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Disclaimer)) {
 
@@ -26,12 +21,12 @@
                 }
             </div>
 
-            @carersDeclareCheck(currentForm("read"))
+            @declareCheckPlaceholder(currentForm("read"))
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))n">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

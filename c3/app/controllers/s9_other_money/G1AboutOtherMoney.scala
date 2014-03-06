@@ -4,14 +4,16 @@ import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.FormError
 import controllers.CarersForms._
 import models.view.CachedClaim
-import models.domain.{Claim, AboutOtherMoney, MoreAboutYou}
+import models.domain.{AboutOtherMoney, MoreAboutYou}
 import controllers.Mappings._
-import models.yesNo.YesNo
 import utils.helpers.CarersForm._
 import models.view.Navigable
+import play.api.data.FormError
+import models.domain.Claim
+import scala.Some
+import models.yesNo.{YesNo, YesNoWithEmployerAndMoney}
 
 object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
   val yourBenefitsMapping =
@@ -24,12 +26,38 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
       "answer" -> nonEmptyText.verifying(validYesNo)
     )(YesNo.apply)(YesNo.unapply)
 
+  val statutorySickPayMapping =
+    "statutorySickPay" -> mapping(
+      "answer" ->  nonEmptyText.verifying(validYesNo),
+      "howMuch" -> optional(nonEmptyText verifying validCurrencyRequired),
+      "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
+      "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
+      "employersAddress" -> optional(address),
+      "employersPostcode" -> optional(text verifying validPostcode)
+    )(YesNoWithEmployerAndMoney.apply)(YesNoWithEmployerAndMoney.unapply)
+      .verifying("statEmployerNameRequired", YesNoWithEmployerAndMoney.validateEmployerNameOnYes _)
+      .verifying("statHowMuchRequired", YesNoWithEmployerAndMoney.validateHowMuchOnYes _)
+
+  val otherStatutoryPayMapping =
+    "otherStatutoryPay" -> mapping(
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "howMuch" -> optional(nonEmptyText verifying validCurrencyRequired),
+      "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
+      "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
+      "employersAddress" -> optional(address),
+      "employersPostcode" -> optional(text verifying validPostcode)
+    )(YesNoWithEmployerAndMoney.apply)(YesNoWithEmployerAndMoney.unapply)
+      .verifying("otherPayEmployerNameRequired", YesNoWithEmployerAndMoney.validateEmployerNameOnYes _)
+      .verifying("otherPayHowMuchRequired", YesNoWithEmployerAndMoney.validateHowMuchOnYes _)
+
   val form = Form(mapping(
     yourBenefitsMapping,
     anyPaymentsSinceClaimDateMapping,
     "whoPaysYou" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),
-    "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
-    "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly)
+    "howMuch" -> optional(nonEmptyText verifying validCurrencyRequired),
+    "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
+    statutorySickPayMapping,
+    otherStatutoryPayMapping
   )(AboutOtherMoney.apply)(AboutOtherMoney.unapply)
     .verifying("howMuch.required", validateHowMuch _)
     .verifying("whoPaysYou.required", validateWhoPays _)
@@ -54,11 +82,11 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
     case _ => false
   }
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     track(AboutOtherMoney) { implicit claim => Ok(views.html.s9_other_money.g1_aboutOtherMoney(form.fill(AboutOtherMoney), hadPartnerSinceClaimDate)) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val claimDate: String = claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)
@@ -66,15 +94,20 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
         val anyPaymentsErrorParams = Seq(claimDate)
 
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("", "howMuch.required", FormError("howMuch", "error.required"))
-          .replaceError("", "whoPaysYou.required", FormError("whoPaysYou", "error.required"))
           .replaceError("yourBenefits.answer","error.required", FormError("yourBenefits.answer","error.required",yourBenefitsAnswerErrorParams))
           .replaceError("anyPaymentsSinceClaimDate.answer","error.required", FormError("anyPaymentsSinceClaimDate.answer","error.required",anyPaymentsErrorParams))
+          .replaceError("", "whoPaysYou.required", FormError("whoPaysYou", "error.required"))
+          .replaceError("", "howMuch.required", FormError("howMuch", "error.required"))
           .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
-
+          .replaceError("statutorySickPay.answer","error.required", FormError("statutorySickPay.answer","error.required",anyPaymentsErrorParams))
+          .replaceError("otherStatutoryPay.answer","error.required", FormError("otherStatutoryPay.answer","error.required",anyPaymentsErrorParams))
+          .replaceError("statutorySickPay","statHowMuchRequired", FormError("statutorySickPay.howMuch", "error.required"))
+          .replaceError("statutorySickPay","statEmployerNameRequired", FormError("statutorySickPay.employersName", "error.required"))
+          .replaceError("otherStatutoryPay","otherPayHowMuchRequired", FormError("otherStatutoryPay.howMuch", "error.required"))
+          .replaceError("otherStatutoryPay","otherPayEmployerNameRequired", FormError("otherStatutoryPay.employersName", "error.required"))
 
         BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate))
       },
-      f => claim.update(f) -> Redirect(routes.G5StatutorySickPay.present()))
+      f => claim.update(f) -> Redirect(controllers.s10_pay_details.routes.G1HowWePayYou.present))
   }
 }

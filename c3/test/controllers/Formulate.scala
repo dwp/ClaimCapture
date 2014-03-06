@@ -111,6 +111,20 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
+  def justEmployment(browser: TestBrowser) = {
+    browser.goTo("/employment/employment")
+    browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
+    browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
+    browser.submit("button[type='submit']")
+  }
+
+  def justSelfEmployment(browser: TestBrowser) = {
+    browser.goTo("/employment/employment")
+    browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
+    browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
+    browser.submit("button[type='submit']")
+  }
+
   def selfEmployment(browser: TestBrowser) = {
     browser.goTo("/employment/employment")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
@@ -302,6 +316,7 @@ object Formulate {
 
   def additionalInfo(browser: TestBrowser) = {
     browser.goTo("/consent-and-declaration/additional-info")
+    browser.click("#anythingElse_answer_no")
     browser.click("#welshCommunication_yes")
     browser.submit("button[type='submit']")
   }
@@ -352,24 +367,35 @@ object Formulate {
     browser.click("#anyPaymentsSinceClaimDate_answer_yes")
     browser.fill("#whoPaysYou") `with` "The Man"
     browser.fill("#howMuch") `with` "12"
+    browser.fill("#statutorySickPay_answer_no")
+    browser.fill("#otherStatutoryPay_answer_no")
+    browser.submit("button[type='submit']")
+  }
+
+  def aboutOtherMoneyInvalid(browser: TestBrowser) = {
+    browser.goTo("/other-money/about-other-money")
+    browser.click("#yourBenefits_answer_no")
+    browser.click("#anyPaymentsSinceClaimDate_answer_no")
+    browser.fill("#statutorySickPay_answer_yes")
+    browser.fill("#otherStatutoryPay_answer_no")
     browser.submit("button[type='submit']")
   }
 
   def statutorySickPay(browser: TestBrowser) = {
-    browser.goTo("/other-money/statutory-sick-pay")
-    browser.click("#haveYouHadAnyStatutorySickPay_yes")
-    browser.fill("#howMuch") `with` "1234"
-    browser.fill("#employersName") `with` "Some name"
-    browser.fill("#employersAddress_lineOne") `with` "Some address"
+    browser.goTo("/other-money/about-other-money")
+    browser.click("#yourBenefits_answer_no")
+    browser.click("#anyPaymentsSinceClaimDate_answer_no")
+    browser.fill("#statutorySickPay_answer_yes")
+    browser.fill("#otherStatutoryPay_answer_no")
     browser.submit("button[type='submit']")
   }
 
   def otherSickPay(browser: TestBrowser) = {
-    browser.goTo("/other-money/other-statutory-pay")
-    browser.click("#otherPay_yes")
-    browser.fill("#howMuch") `with` "1234"
-    browser.fill("#employersName") `with` "Some name"
-    browser.fill("#employersAddress_lineOne") `with` "Some address"
+    browser.goTo("/other-money/about-other-money")
+    browser.click("#yourBenefits_answer_no")
+    browser.click("#anyPaymentsSinceClaimDate_answer_no")
+    browser.fill("#statutorySickPay_answer_no")
+    browser.fill("#otherStatutoryPay_answer_yes")
     browser.submit("button[type='submit']")
   }
 

@@ -1,6 +1,7 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import helper._
+@import play.api.i18n.{MMessages => Messages}
 
 @common.govMain(title) {
 
@@ -8,11 +9,11 @@
 
         @common.protoType()
 
-        @common.helpLine()
+        @common.feedback()
 
-        <section>
+        <article>
 
-            <h1>Declaration</h1>
+            <h1>@Messages("c3.g1")</h1>
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
@@ -20,7 +21,7 @@
                         @for((completedQuestionGroup, call) <- completedQuestionGroups) {
                         <li>
                             <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                            <a href="@call">Change these answers</a>
+                            <a href="@call">@Messages("change.these")</a>
                         </li>
                         }
                     </ul>
@@ -32,6 +33,6 @@
             }
 
             @content
-        </section>
+        </article>
     </div>
 }

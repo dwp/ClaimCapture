@@ -1,0 +1,15 @@
+@()(implicit lang: Lang)
+
+@import play.api.i18n.{MMessages => Messages}
+
+<div class="feedback-container">
+	<h2>@Html(Messages("feedback.help1"))</h2>
+
+	<p>@Html(Messages("feedback.help2"))</p>
+
+	<p>@Html(Messages("feedback.help3"))</p>
+
+    <p>@Html(Messages("feedback.help4"))</p>
+			
+	<div class="feed-close">@Html(Messages("feedback.close"))</div>
+</div>

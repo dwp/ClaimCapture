@@ -12,13 +12,16 @@ import models.domain.{Claim, SelfEmploymentPensionsAndExpenses}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment._
-import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
+import utils.helpers.PastPresentLabelHelper._
 import models.view.Navigable
+import play.api.i18n.Lang
+import play.api.data.FormError
+import models.domain.Claim
 
 object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
     "doYouPayToPensionScheme" -> nonEmptyText.verifying(validYesNo),
-    "howMuchDidYouPay" -> optional(nonEmptyText verifying validDecimalNumber),
+    "howMuchDidYouPay" -> optional(nonEmptyText verifying validCurrencyRequired),
     "howOften" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "doYouPayToLookAfterYourChildren" -> nonEmptyText.verifying(validYesNo),
     "didYouPayToLookAfterThePersonYouCaredFor" -> nonEmptyText.verifying(validYesNo)
@@ -26,27 +29,28 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim w
     .verifying("howMuchDidYouPay", SelfEmploymentPensionsAndExpenses.validateHowMuchSelfEmployed _)
     .verifying("howOften.required", SelfEmploymentPensionsAndExpenses.validateHowOftenSelfEmployed _))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     presentConditionally(selfEmploymentYourAccounts)
   }
 
-  def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent], lang: Lang): ClaimResult = {
     track(SelfEmploymentPensionsAndExpenses) { implicit claim => Ok(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses))) }
   }
   
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val pastPresent = didYouDoYouIfSelfEmployed
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("doYouPayToPensionScheme", "error.required", FormError("doYouPayToPensionScheme.answer", "error.required", Seq(pastPresent)))
-          .replaceError("", "howMuchDidYouPay", FormError("howMuchDidYouPay", "error.required", Seq(pastPresent.toLowerCase)))
-          .replaceError("", "howOften.required", FormError("howOften", "error.required", Seq(pastPresent.toLowerCase)))
-          .replaceError("howMuchDidYouPay", "decimal.invalid", FormError("howMuchDidYouPay", "decimal.invalid", Seq(pastPresent.toLowerCase)))
-          .replaceError("howOften", "error.paymentFrequency", FormError("howOften", "error.paymentFrequency", Seq(pastPresent.toLowerCase)))
-          .replaceError("doYouPayToLookAfterYourChildren", "error.required", FormError("doYouPayToLookAfterYourChildren", "error.required", Seq(pastPresent.toLowerCase)))
-          .replaceError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", FormError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", Seq(pastPresent.toLowerCase)))
-          .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength",Seq("60",pastPresent.toLowerCase)))
+          .replaceError("doYouPayToPensionScheme", "error.required", FormError("doYouPayToPensionScheme.answer", "error.required", Seq(labelForSelfEmployment(claim, "doYouPayToPensionScheme.answer"))))
+          .replaceError("", "howMuchDidYouPay", FormError("howMuchDidYouPay", "error.required", Seq(labelForSelfEmployment(claim, "howMuchDidYouPay"))))
+          .replaceError("", "howOften.required", FormError("howOften", "error.required", Seq(labelForSelfEmployment(claim, "howOften"))))
+          .replaceError("howMuchDidYouPay", "decimal.invalid", FormError("howMuchDidYouPay", "decimal.invalid", Seq(labelForSelfEmployment(claim, "howMuchDidYouPay"))))
+          .replaceError("howOften", "error.paymentFrequency", FormError("howOften", "error.paymentFrequency", Seq(labelForSelfEmployment(claim, "howOften"))))
+          .replaceError("doYouPayToLookAfterYourChildren", "error.required", FormError("doYouPayToLookAfterYourChildren", "error.required", Seq(labelForSelfEmployment(claim, "doYouPayToLookAfterYourChildren"))))
+          .replaceError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", FormError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", Seq(labelForSelfEmployment(claim, "didYouPayToLookAfterThePersonYouCaredFor"))))
+          .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength",Seq("60",labelForSelfEmployment(claim, "howOften"))))
+
+        formWithErrorsUpdate.errors.foreach(println _)
         BadRequest(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G5ChildcareExpensesWhileAtWork.present()))

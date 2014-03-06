@@ -18,13 +18,13 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "whoDoYouPay" -> carersNonEmptyText,
-    "howMuchCostCare" -> (nonEmptyText verifying validDecimalNumber),
+    "howMuchCostCare" -> (nonEmptyText verifying validCurrencyRequired),
     "howOftenPayCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "relationToYou" -> nonEmptyText,
     "relationToPersonYouCare" -> nonEmptyText
   )(PersonYouCareForExpenses.apply)(PersonYouCareForExpenses.unapply))
 
-  def present(jobID: String) = claiming { implicit claim => implicit request =>
+  def present(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     jobs.questionGroup(jobID, AboutExpenses) match {
       case Some(a: AboutExpenses) if a.payAnyoneToLookAfterPerson == `yes`=>
         track(PersonYouCareForExpenses) { implicit claim => Ok(views.html.s7_employment.g12_personYouCareForExpenses(form.fillWithJobID(PersonYouCareForExpenses, jobID))) }
@@ -34,18 +34,17 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
     }
   }
 
-  def submit = claimingInJob { jobID => implicit claim => implicit request =>
+  def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val pastPresentLabel = pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, jobID)
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("whoDoYouPay", "error.required", FormError("whoDoYouPay", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , jobID))))
-          .replaceError("whoDoYouPay", "error.restricted.characters", FormError("whoDoYouPay", "error.restricted.characters", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , jobID))))
-          .replaceError("howMuchCostCare", "error.required", FormError("howMuchCostCare", "error.required", Seq(pastPresentLabel)))
-          .replaceError("howMuchCostCare", "decimal.invalid", FormError("howMuchCostCare", "decimal.invalid", Seq(pastPresentLabel)))
-          .replaceError("howOftenPayCare.frequency", "error.required", FormError("howOftenPayCare", "error.required", Seq("",pastPresentLabel)))
-          .replaceError("howOftenPayCare.frequency.other","error.maxLength",FormError("howOftenPayCare","error.maxLength",Seq("60",pastPresentLabel)))
-          .replaceError("howOftenPayCare","error.paymentFrequency",FormError("howOftenPayCare","error.paymentFrequency",Seq("",pastPresentLabel)))
+          .replaceError("whoDoYouPay", "error.required", FormError("whoDoYouPay", "error.required", Seq(labelForEmployment(claim, "whoDoYouPay", jobID))))
+          .replaceError("whoDoYouPay", "error.restricted.characters", FormError("whoDoYouPay", "error.restricted.characters", Seq(labelForEmployment(claim, "whoDoYouPay", jobID))))
+          .replaceError("howMuchCostCare", "error.required", FormError("howMuchCostCare", "error.required", Seq(labelForEmployment(claim, "howMuchCostCare", jobID))))
+          .replaceError("howMuchCostCare", "decimal.invalid", FormError("howMuchCostCare", "decimal.invalid", Seq(labelForEmployment(claim, "howMuchCostCare", jobID))))
+          .replaceError("howOftenPayCare.frequency", "error.required", FormError("howOftenPayCare", "error.required", Seq("",labelForEmployment(claim, "howOftenPayCare", jobID))))
+          .replaceError("howOftenPayCare.frequency.other","error.maxLength",FormError("howOftenPayCare","error.maxLength",Seq("60",labelForEmployment(claim, "howOftenPayCare", jobID))))
+          .replaceError("howOftenPayCare","error.paymentFrequency",FormError("howOftenPayCare","error.paymentFrequency",Seq("",labelForEmployment(claim, "howOftenPayCare", jobID))))
 
           BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrorsUpdate))
       },

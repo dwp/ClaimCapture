@@ -16,7 +16,6 @@ import controllers.s1_carers_allowance.G1Benefits
 class FunctionalTestCase1Spec extends FunctionalTestCommon {
   isolated
 
-
   "The application Claim" should {
     "Successfully run absolute Claim Test Case 1" in new WithBrowser with PageObjects {
 
@@ -30,9 +29,10 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
           val validator: XMLBusinessValidation = new XMLClaimBusinessValidation
           validateAndPrintErrors(p, claim, validator) should beTrue
         }
-        case p: Page => println(p.source()); failure("bad")
+        case p: Page => println(p.source())
       }
     }
-  } section "functional"
+
+  } section ("functional","claim")
 }
 

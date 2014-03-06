@@ -1,30 +1,26 @@
-@(currentForm: Form[models.domain.BeenEmployed])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+@(currentForm: Form[models.domain.BeenEmployed])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
 
 @import scala.language.postfixOps
-@import helper._
-@import utils.helpers.CarersTemplate._
 @import views.html.helper._
-@import views.html.helper.base._
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-@import models.domain.Jobs
 @import models.domain._
-
+@import play.api.i18n.{MMessages => Messages}
 @nextSection = @{ if (SelfEmployment.visible) SelfEmployment.name else OtherMoney.name }
+
 
 @main("Your employment history - " + Messages("s7.longName"), Some(currentForm)) {
     <fieldset id="jobs" class="form-elements results-detail" data-journey="carers-allowance:page:employment">
-        <legend>Employment you have added</legend>
+        <legend>@Messages("tableTitle")</legend>
 
         <table class="employment">
-            <caption>Employments already added data</caption>
+            <caption>@Messages("s7.g2.help1")</caption>
 
             <thead>
                 <tr>
-                    <th>Employer name</th>
-                    <th>Change</th>
-                    <th>Delete</th>
+                    <th>@Messages("employerNameTable")</th>
+                    <th class="desc">@Messages("startDateTable")</th>
+                    <th>@Messages("changeTable")</th>
+                    <th>@Messages("deleteTable")</th>
                 </tr>
             </thead>
 
@@ -34,8 +30,9 @@
                         @if(job.completed) {
                             <tr id="@job.jobID" class="@job.jobID">
                                 <td>@job.employerName</td>
-                                <td><input type="button" class="button row secondary" value="Change" aria-label="Change button"></td>
-                                <td><input type="button" class="button row warning" value="Delete" aria-label="Delete button"></td>
+                                <td class="desc">@{(job.jobStartDate).`dd/MM/yyyy`}</td>
+                                <td><input type="button" class="button row secondary" id="changeButton" value="@Messages("change")" aria-label="@Messages("change.button")"></td>
+                                <td><input type="button" class="button row warning" id="deleteButton" value="@Messages("delete")" aria-label="@Messages("delete.button")"></td>
                             </tr>
                         }
                     }
@@ -44,10 +41,10 @@
         </table>
 
         <div class="prompt breaks-prompt">
-            <p class="normalMsg">Are you sure you want to delete this employment?</p>
-            <p class="warningMsg">You are about to delete the one employer record you have entered. You may be contacted about this, are you sure you want to delete this employment?</p>
-            <input type="button" class="button row secondary" value="No" aria-label="No delete button">
-            <input type="button" class="button row warning" value="Yes" aria-label="Yes delete button">
+            <p class="normalMsg">@Messages("deleteEmploymentMessage")</p>
+            <p class="warningMsg">@Messages("deleteOneEmploymentMessage")</p>
+            <input type="button" class="button row secondary" id = "noDeleteButton" value="@Messages("no.delete")" aria-label="@Messages("no.delete.label")">
+            <input type="button" class="button row warning" id = "yesDeleteButton" value="@Messages("yes.delete")" aria-label="@Messages("yes.delete.label")">
             <span>&#33;</span>
         </div>
     </fieldset>
@@ -56,7 +53,7 @@
 
     @form(action = controllers.s7_employment.routes.G2BeenEmployed.submit()){
         <fieldset class="form-elements">
-            <legend>Your employment history</legend>
+            <legend>@Messages("s7.g2")</legend>
 
             <ul>
                 @yesNoRadioGroup(currentForm("beenEmployed"), '_label -> Messages("beenEmployedSince6MonthsBeforeClaim.label", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => (dmy - 6 months).`dd/MM/yyyy`), claim.dateOfClaim.fold("{CLAIM DATE}")(_.`dd/MM/yyyy`)))
@@ -64,8 +61,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button>
         </nav>
     }
 }
@@ -73,6 +70,7 @@
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s7_employment/jobs.js")'></script>
 <script type="text/javascript">
     $(function(){
+        conditionRequired = window.initEvents("@CarersCrypto.encryptAES("beenEmployed")");
         @ga.stagePrompt()
     })
 </script>

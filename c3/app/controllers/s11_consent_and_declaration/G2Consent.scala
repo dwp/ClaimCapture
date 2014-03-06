@@ -5,12 +5,11 @@ import play.api.mvc.{AnyContent, Controller}
 import play.api.data.Form
 import play.api.data.Forms._
 import models.view.CachedClaim
-import models.domain.{OtherStatutoryPay, StatutorySickPay, Employment => Emp, Consent}
+import models.domain.{AboutOtherMoney, Employment => Emp, Consent}
 import utils.helpers.CarersForm._
 import models.yesNo.{OptYesNoWithText, YesNoWithText}
 import models.view.Navigable
 import controllers.Mappings._
-import play.api.data.FormError
 import play.api.mvc.Request
 import controllers.CarersForms._
 import play.api.data.FormError
@@ -21,8 +20,8 @@ object G2Consent extends Controller with CachedClaim with Navigable {
   def validateEmpRequired(input: OptYesNoWithText)(implicit request: Request[AnyContent]): Boolean = {
     fromCache(request) match {
       case Some(claim) if claim.questionGroup[Emp].getOrElse(Emp()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
-                          claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay()).haveYouHadAnyStatutorySickPay == `yes` ||
-                          claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay()).otherPay == `yes`=>
+                          claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).statutorySickPay.answer == `yes` ||
+                          claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).otherStatutoryPay.answer == `yes`=>
         input.answer.isDefined
       case _ => true
     }
@@ -47,11 +46,11 @@ object G2Consent extends Controller with CachedClaim with Navigable {
     informationFromPersonMapping
   )(Consent.apply)(Consent.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     track(Consent) { implicit claim => Ok(views.html.s11_consent_and_declaration.g2_consent(form.fill(Consent))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

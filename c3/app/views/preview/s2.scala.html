@@ -1,0 +1,50 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+
+@import models.domain._
+@import play.api.i18n.{MMessages => Messages}
+
+@yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
+    @nino = @{
+        val ni = yourDetails.nationalInsuranceNumber
+        if (ni.ni1.isDefined) s"${ni.ni1.get.toUpperCase} ${ni.ni2.get} ${ni.ni3.get} ${ni.ni4.get} ${ni.ni5.get.toUpperCase}"
+        else ""
+    }
+@contactDetails = @{claim.questionGroup[ContactDetails].getOrElse(ContactDetails())}
+    @address = @{contactDetails.address}
+@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
+@nationality = @{claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency())}
+@otherEEA = @{claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())}
+@trips = @{claim.questionGroup[Trips].getOrElse(Trips())}
+@moreAboutYou = @{claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())}
+@maritalStatus = @{
+    moreAboutYou.maritalStatus match{
+        case "m" => Messages("maritalStatus.married")
+        case "s" => Messages("maritalStatus.single")
+        case "d" => Messages("maritalStatus.divorced")
+        case "w" => Messages("maritalStatus.widowed")
+        case "n" => Messages("maritalStatus.separated")
+        case "p" => Messages("maritalStatus.livingWithPartner")
+        case _ => ""
+    }
+}
+
+
+<h2>@Messages("s2.progressbar.name")</h2>
+<dl>
+    <dt>@Messages("name")</dt><dd>@{Messages("titleSelect."+yourDetails.title)} @yourDetails.firstName @yourDetails.middleName @yourDetails.surname</dd>
+    <dt>@Messages("nationalInsuranceNumber")</dt><dd>@nino</dd>
+    <dt>@Messages("dateOfBirth")</dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
+    <dt>@Messages("address")</dt><dd>@address.lineOne@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @contactDetails.postcode.getOrElse("")</dd>
+    @if(contactDetails.phoneNumber.isDefined || contactDetails.mobileNumber.isDefined){
+        <dt>@Messages("phoneNumber")</dt><dd>@contactDetails.phoneNumber.getOrElse("") @contactDetails.mobileNumber.fold("")(s=>(if(contactDetails.phoneNumber.isDefined)"/ " else "")+s)</dd>
+    }
+    <dt>@Messages("dateOfClaim.simple")</dt><dd>@{claimDate.dateOfClaim.`dd month, yyyy`}</dd>
+    <dt>@Messages("yourNationality")</dt><dd>@{nationality.nationality}</dd>
+    <dt>@Messages("resideInUK.label")</dt><dd>@{Messages("label."+nationality.resideInUK.answer)}</dd>
+    <dt>@Messages("timeOutsideGB")</dt><dd>@{Messages("label."+(if (trips.fiftyTwoWeeksTrips.size > 0) "yes" else "no"))}</dd>
+    <dt>@Messages("benefitsFromEEA")</dt><dd>@{Messages("label."+otherEEA.benefitsFromEEA)}</dd>
+    <dt>@Messages("claimedForBenefitsFromEEA")</dt><dd>@{Messages("label."+otherEEA.claimedForBenefitsFromEEA)}</dd>
+    <dt>@Messages("workingForEEA")</dt><dd>@{Messages("label."+otherEEA.workingForEEA)}</dd>
+    <dt>@Messages("maritalStatusNQ")</dt><dd>@{maritalStatus}</dd>
+
+</dl>

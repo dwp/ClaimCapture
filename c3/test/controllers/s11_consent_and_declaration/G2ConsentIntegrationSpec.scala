@@ -31,26 +31,15 @@ class G2ConsentIntegrationSpec extends Specification with Tags {
       findMustEqualSize("div[class=validation-summary] ol li", 2)
     }
 
-    "contain errors on invalid submission with statutorySickPay" in new WithBrowser with BrowserMatchers {
+    "contain errors on invalid submission with aboutOtherMoney" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      Formulate.statutorySickPay(browser)
+      Formulate.aboutOtherMoneyInvalid(browser)
       browser.goTo("/consent-and-declaration/consent")
       titleMustEqual("Consent - Consent and Declaration")
 
       browser.submit("button[type='submit']")
       titleMustEqual("Consent - Consent and Declaration")
-      findMustEqualSize("div[class=validation-summary] ol li", 2)
-    }
-
-    "contain errors on invalid submission with otherSickPay" in new WithBrowser with BrowserMatchers {
-      Formulate.claimDate(browser)
-      Formulate.otherSickPay(browser)
-      browser.goTo("/consent-and-declaration/consent")
-      titleMustEqual("Consent - Consent and Declaration")
-
-      browser.submit("button[type='submit']")
-      titleMustEqual("Consent - Consent and Declaration")
-      findMustEqualSize("div[class=validation-summary] ol li", 2)
+      findMustEqualSize("div[class=validation-summary] ol li", 1)
     }
 
     "navigate to next page on valid submission (both no)" in new WithBrowser with BrowserMatchers {

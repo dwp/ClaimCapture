@@ -1,12 +1,13 @@
-@(currentForm: Form[models.domain.SelfEmploymentPensionsAndExpenses])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.SelfEmploymentPensionsAndExpenses])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
-@import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
 @import views.html.s8_self_employment.main
+@import utils.helpers.PastPresentLabelHelper.labelForSelfEmployment
 
+@import play.api.i18n.{MMessages => Messages}
 @main(Messages("s8.g4") + " - " + Messages("s8.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.SelfEmploymentPensionsAndExpenses)) {
 
 
@@ -17,27 +18,27 @@
             <legend>@Messages("s8.g4")</legend>
 
             <ul>
-                @yesNoRadioGroup(currentForm("doYouPayToPensionScheme"), '_label -> Messages ("doYouPayToPensionScheme.answer", didYouDoYouIfSelfEmployed))
+                @yesNoRadioGroup(currentForm("doYouPayToPensionScheme"), '_label -> labelForSelfEmployment(claim, "doYouPayToPensionScheme.answer"))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        carersCurrency(currentForm("howMuchDidYouPay"), '_label -> Messages ("doYouPayToPensionScheme.howMuchDidYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty),
-                        pensionPaymentFrequencySelect(currentForm("howOften"), '_label -> Messages ("doYouPayToPensionScheme.howOften", didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOften",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                        carersCurrency(currentForm("howMuchDidYouPay"), '_label -> labelForSelfEmployment(claim, "howMuchDidYouPay"), 'maxLength -> Mappings.sixty),
+                        pensionPaymentFrequencySelect(currentForm("howOften"), '_label -> labelForSelfEmployment(claim, "doYouPayToPensionScheme.howOften"), 'id -> "howOften",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
                     ),
                     'id -> "selfEmployedPensionWrap",
                     'display -> currentForm("doYouPayToPensionScheme").value.getOrElse("no")
                 )
 
-                @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> Messages ("doYouPayToLookAfterYourChildren", didYouDoYouIfSelfEmployed.toLowerCase))
+                @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> labelForSelfEmployment(claim, "doYouPayToLookAfterYourChildren"))
 
-                @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"), '_label -> Messages ("didYouPayToLookAfterThePersonYouCaredFor", didYouDoYouIfSelfEmployed.toLowerCase))
+                @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"), '_label -> labelForSelfEmployment(claim, "didYouPayToLookAfterThePersonYouCaredFor"))
 
             </ul>
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmitOptional()>Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button>
         </nav>
     }
 }

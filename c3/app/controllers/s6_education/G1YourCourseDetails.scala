@@ -20,7 +20,7 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
     "expectedEndDate" -> dayMonthYear.verifying(validDate)
   )(YourCourseDetails.apply)(YourCourseDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     presentConditionally {
       track(YourCourseDetails) { implicit claim => Ok(views.html.s6_education.g1_yourCourseDetails(form.fill(YourCourseDetails))) }
     }
@@ -34,7 +34,7 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
   def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
     claim -> Redirect("/employment/employment")
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrors)),
       yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(controllers.s7_employment.routes.G1Employment.present()))

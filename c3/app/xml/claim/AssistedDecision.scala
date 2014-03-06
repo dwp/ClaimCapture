@@ -1,4 +1,4 @@
-package xml.claim
+package xml
 
 import app.StatutoryPaymentFrequency
 import models.domain._
@@ -6,7 +6,7 @@ import scala.xml.NodeSeq
 import org.joda.time.DateTime
 import scala.Some
 import xml.XMLComponent
-
+import xml.XMLHelper._
 
 /**
  * Generate the XML presenting the Assisted decisions.
@@ -56,7 +56,7 @@ object AssistedDecision extends XMLComponent {
           //          Logger.debug("Assisted decision - Pension schemes " + job.questionGroup[PensionSchemes])
           if (!job.questionGroup[ChildcareExpenses].isDefined && !job.questionGroup[PersonYouCareForExpenses].isDefined
             && (!job.questionGroup[PensionSchemes].isDefined || (job.questionGroup[PensionSchemes].get.payPersonalPensionScheme.toLowerCase != "yes" && job.questionGroup[PensionSchemes].get.payOccupationalPensionScheme.toLowerCase != "yes"))) {
-            val earning = lastWage.grossPay.toDouble
+            val earning = currencyAmount(lastWage.grossPay).toDouble
             //            Logger.debug("Assisted decision - Pay frequency " + job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency)
             val frequencyFactor: Double = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency match {
               case StatutoryPaymentFrequency.Weekly => 1.0
@@ -126,8 +126,7 @@ object AssistedDecision extends XMLComponent {
     if (otherEEAStateOrSwitzerland.workingForEEA.toLowerCase == "yes") decisionElement("Claimant or partner dependent on EEA insurance or work.", "Transfer to Exportability team.")
     else NodeSeq.Empty
   }
-
+  
   private def decisionElement(reason: String, decision:String) = <AssistedDecision><Reason>{reason}</Reason><RecommendedDecision>{decision}</RecommendedDecision></AssistedDecision>
 
 }
-

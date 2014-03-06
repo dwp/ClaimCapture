@@ -1,32 +1,38 @@
-@()
+@()(implicit lang: Lang, request:Request[AnyContent])
 @import play.api.i18n._
+@import play.api.i18n.{MMessages => Messages}
 
-@common.govMain(Messages("thankyou")) {
+@common.govMain(Messages("circs.thankyou")) {
 
     <div class="carers-allowance">
 
         @common.protoType()
 
-        @common.helpLine()
+        @common.feedback()
 
-        <section class="finish-statement">
-            <h1>@Messages("thankyou")</h1>
-            <p>@Messages("circs.received")</p>
-            <article class="finish-next prompt helper-prompt">
-            <h3>@Messages("next")</h3>
-            <ul>
-                <li>@Html(Messages("circs.next.1"))</li>
-                <li>@Html(Messages("next.last"))</li>
-            </ul>
-            </article>
-            <article>
-            <h3>@Messages("change.head")</h3>
-            <p>@Html(Messages("change.link"))</p>
-            </article>
-            <article>
-            <h3>@Messages("feedback.head")</h3>
-            <p>@Html(Messages("circs.feedback.link"))</p>
-            </article>
-        </section>
+        <article class="finish-statement">
+        
+            <div class="app-complete">
+	            <h1><span>@Messages("circs.thankyou")</span></h1>            
+	            <p>@Messages("circs.received")</p>
+            </div>
+	            
+	            <section class="finish-next prompt helper-prompt">
+	            <h3>@Messages("next")</h3>
+	            <ul>
+	                <li>@Html(Messages("circs.next.1"))</li>
+	                <li>@Html(Messages("next.last"))</li>
+	            </ul>
+	            </section>
+	            <section>
+	            <h3>@Messages("change.head")</h3>
+	            <p>@Html(Messages("change.link"))</p>
+	            </section>
+	            <section>
+	            <h3>@Messages("feedback.head")</h3>
+	            <p>@Html(Messages("circs.feedback.link"))</p>
+	            </section>
+            
+        </article>
     </div>
 }

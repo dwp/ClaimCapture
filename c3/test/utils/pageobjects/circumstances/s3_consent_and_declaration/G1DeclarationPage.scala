@@ -4,10 +4,12 @@ import play.api.test.WithBrowser
 import utils.pageobjects._
 
 final class G1DeclarationPage (ctx:PageObjectsContext) extends CircumstancesPage(ctx, G1DeclarationPage.url, G1DeclarationPage.title){
+  declareInput("#furtherInfoContact","FurtherInfoContact")
   declareYesNo("#obtainInfoAgreement","CircumstancesDeclarationInfoAgreement")
   declareInput("#obtainInfoWhy","CircumstancesDeclarationWhyNot")
   declareCheck("#confirm","CircumstancesDeclarationConfirmation")
   declareCheck("#circsSomeOneElse","CircumstancesSomeOneElseConfirmation")
+  declareInput("#nameOrOrganisation","NameOrOrganisation")
 }
 
 object G1DeclarationPage {

@@ -1,4 +1,4 @@
-@()(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+@()(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,6 +8,7 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 @import models.domain.Employment
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s11.g5") + " - " + Messages("s11.longName"), None, claim.completedQuestionGroups(models.domain.Submit)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G5Submit.submit) {
@@ -17,48 +18,51 @@
             claim.questionGroup(Employment).get.asInstanceOf[Employment].beenSelfEmployedSince1WeekBeforeClaim == "yes")) {
             <div class="send-info">
 
-                <article>
-                    <h2>After you submit your claim</h2>
-                    <p>Send us the following documents below including your Name and National Insurance (NI) number.</p>
-                </article>
+                <section>
+                    <h2>@Html(Messages("s11.g5.help1"))</h2>
+                    <p>@Html(Messages("s11.g5.help2"))</p>
+                </section>
 
                 @if(claim.questionGroup(Employment).get.asInstanceOf[Employment].beenEmployedSince6MonthsBeforeClaim == "yes") {
-                    <article>
-                        <h2>Your Employment documents</h2>
+                    <section>
+                        <h2>@Html(Messages("s11.g5.help3"))</h2>
 
                         <ul>
-                            <li>Last payslip you got before your claim date: @{claim.dateOfClaim.get.`dd/MM/yyyy`}</li>
-                            <li>Any payslips you have had since then</li>
-                            <li>Any pension statements you may have</li>
+                            <li>@{Html(Messages("s11.g5.help4"))} @{claim.dateOfClaim.get.`dd/MM/yyyy`}</li>
+                            <li>@Html(Messages("s11.g5.help5"))</li>
+                            <li>@Html(Messages("s11.g5.help6"))</li>
                         </ul>
-                    </article>
+                    </section>
                 }
 
                 @if(claim.questionGroup(Employment).get.asInstanceOf[Employment].beenSelfEmployedSince1WeekBeforeClaim == "yes") {
-                    <article>
-                        <h2>Your Self-employed documents</h2>
+
+                    <section>
+                        <h2>@Html(Messages("s11.g5.help7"))</h2>
+
 
                         <ul>
-                            <li>Most recent finalised accounts you have for your business</li>
-                            <li>Any pension statements you may have</li>
+                            <li>@Html(Messages("s11.g5.help8"))</li>
+                            <li>@Html(Messages("s11.g5.help9"))</li>
                         </ul>
-                    </article>
+                    </section>
                 }
 
-                <article class="address">
-                    <h3>Send the above documents to:</h3>
-                    <span>CA Freepost</span>
-                    <span>Palatine House</span>
-                    <span>Preston</span>
-                    <span>PR1 1HN</span>
-                    <p>The Carer's Allowance unit will contact you if they need any further information.</p>
-                </article>
+                <section class="address">
+                    <h3>@Html(Messages("s11.g5.help10"))</h3>
+                    <span>@Html(Messages("s11.g5.help11"))</span>
+                    <span>@Html(Messages("s11.g5.help12"))</span>
+                    <span>@Html(Messages("s11.g5.help13"))</span>
+                    <span>@Html(Messages("s11.g5.help14"))</span>
+                    <p>@Html(Messages("s11.g5.help15"))</p>
+                </section>
+
             </div>
         }
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Submit claim button" @views.html.ga.trackSubmit(true)>Submit your claim</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back.help"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.submitClaim.help")" @views.html.ga.trackSubmit(true)>@Messages("form.submitClaim")</button>
         </nav>
     }
 }

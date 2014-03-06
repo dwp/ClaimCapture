@@ -9,12 +9,11 @@ import play.api._
 import play.api.Configuration
 import play.api.mvc._
 import play.api.mvc.Results._
-import play.api.Play.current
-import com.google.inject.Guice
 import jmx.JMXActors
-import modules.{ProdModule, DevModule}
+import play.api.mvc.SimpleResult
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
+import utils.helpers.CarersLanguageHelper
 
 /**
  * Application configuration is in a hierarchy of files:
@@ -31,10 +30,7 @@ import ExecutionContext.Implicits.global
  * play -Dconfig.file=conf/application.test.conf run
  */
 
-object Global extends GlobalSettings {
-  lazy val injector = Guice.createInjector(module)
-
-  def module = if (Play.isProd) ProdModule else DevModule
+object Global extends GlobalSettings with Injector with CarersLanguageHelper {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", Option(System.getProperty("http.port")).getOrElse("Value not set"))
@@ -51,9 +47,11 @@ object Global extends GlobalSettings {
   override def onLoadConfig(configuration: Configuration, path: File, classloader: ClassLoader, mode: Mode.Mode): Configuration = {
     val dynamicConfig = Configuration.from(Map("session.cookieName" -> UUID.randomUUID().toString.substring(0, 16)))
     val applicationConf = System.getProperty("config.file", s"application.${mode.toString.toLowerCase}.conf")
+    val envConf = System.getProperty("env.conf", "env.conf")
     val environmentOverridingConfiguration = configuration ++
       Configuration(ConfigFactory.load(applicationConf)) ++
-      dynamicConfig
+      dynamicConfig ++
+      Configuration(ConfigFactory.load(envConf))
     super.onLoadConfig(environmentOverridingConfiguration, path, classloader, mode)
   }
 
@@ -63,19 +61,38 @@ object Global extends GlobalSettings {
   }
 
   // 404 - page not found error http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
-  override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] = Future(NotFound(views.html.errors.onHandlerNotFound(request)))
+  override def onHandlerNotFound(requestHeader: RequestHeader): Future[SimpleResult] = {
+    implicit val request = Request(requestHeader,AnyContentAsEmpty)
+    Future(NotFound(views.html.common.onHandlerNotFound()))
+  }
 
-  override def getControllerInstance[A](controllerClass: Class[A]): A = injector.getInstance(controllerClass)
+  override def getControllerInstance[A](controllerClass: Class[A]): A = resolve(controllerClass)
 
   override def onError(request: RequestHeader, ex: Throwable) = {
     Logger.error(ex.getMessage)
     val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
-    Future(Ok(views.html.common.error(startUrl)))
+    Future(Ok(views.html.common.error(startUrl)(lang(request), Request(request, AnyContentAsEmpty))))
   }
 
   def actorSystems = {
     JMXActors
     ApplicationMonitor.begin
+  }
+
+}
+
+// Add WithFilters(LoggingFilter) to enable good debug
+object LoggingFilter extends Filter {
+  def apply(nextFilter: (RequestHeader) => Future[SimpleResult])
+           (requestHeader: RequestHeader): Future[SimpleResult] = {
+    val startTime = System.currentTimeMillis
+    nextFilter(requestHeader).map { result =>
+      val endTime = System.currentTimeMillis
+      val requestTime = endTime - startTime
+      Logger.info(s"${requestHeader.method} ${requestHeader.uri} " +
+        s"took ${requestTime}ms and returned ${result.header.status}")
+      result.withHeaders("Request-Time" -> requestTime.toString)
+    }
   }
 }
 

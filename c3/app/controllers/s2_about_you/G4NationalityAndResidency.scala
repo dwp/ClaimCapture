@@ -16,7 +16,7 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
       "answer" -> nonEmptyText.verifying(validYesNo),
       "text" -> optional(carersNonEmptyText(maxLength = 35))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("required", YesNoWithText.validateOnNo _)
+      .verifying("error.required", YesNoWithText.validateOnNo _)
 
   val form = Form(mapping(
     "nationality" -> carersNonEmptyText(maxLength = 35),
@@ -24,13 +24,13 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
   )(NationalityAndResidency.apply)(NationalityAndResidency.unapply)
   )
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     track(NationalityAndResidency) { implicit claim =>
       Ok(views.html.s2_about_you.g4_nationalityAndResidency(form.fill(NationalityAndResidency)))
     }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g4_nationalityAndResidency(formWithErrors)),
       nationalityAndResidency => claim.update(nationalityAndResidency) -> Redirect(routes.G5AbroadForMoreThan52Weeks.present()))

@@ -14,11 +14,11 @@ object G3Disclaimer extends Controller with CachedClaim with Navigable {
     "read" -> nonEmptyText
   )(Disclaimer.apply)(Disclaimer.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     track(Disclaimer) { implicit claim => Ok(views.html.s11_consent_and_declaration.g3_disclaimer(form.fill(Disclaimer))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s11_consent_and_declaration.g3_disclaimer(formWithErrors)),
       disclaimer => claim.update(disclaimer) -> Redirect(routes.G4Declaration.present()))

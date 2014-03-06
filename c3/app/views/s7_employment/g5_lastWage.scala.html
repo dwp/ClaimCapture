@@ -1,16 +1,15 @@
-@(currentForm: Form[models.domain.LastWage])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+@(currentForm: Form[models.domain.LastWage])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-@import controllers.s7_employment.Employment._
+@import controllers.s7_employment.Employment.completedQuestionGroups
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 
+@import play.api.i18n.{MMessages => Messages}
 @main(Messages("s7.g5") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.LastWage, JobID(currentForm))) {
 
 	@form(action = controllers.s7_employment.routes.G5LastWage.submit()) {
@@ -22,17 +21,17 @@
             <ul>
                 @inputDayMonthYear(currentForm("lastPaidDate"))
 
-                @carersCurrency(currentForm("grossPay"), 'placeholder -> Messages("poundSign"), 'maxlength -> Mappings.sixty)
+                @carersCurrency(currentForm("grossPay"), 'maxlength -> Mappings.sixty)
 
-                @carersInputTextArea(currentForm("payInclusions"), 'placeholder -> Messages("please.specify"), 'helper -> "60 characters left", 'maxLength -> 60,'helperBelow -> Messages("payInclusions.helper"))
+                @carersInputTextArea(currentForm("payInclusions"), 'placeholder -> Messages("pleaseSpecify"), 'helper -> Html(Messages("60charsLeft")), 'maxLength -> 60,'helperBelow -> Messages("payInclusions.helper"))
 
-                @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> Messages ("sameAmountEachTime", pastPresentLabelForEmployment(claim, didYou, doYou, JobID(currentForm))))
+                @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> labelForEmployment(claim, "sameAmountEachTime", JobID(currentForm)))
             </ul>
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

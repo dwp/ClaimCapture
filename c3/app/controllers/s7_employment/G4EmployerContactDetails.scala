@@ -18,11 +18,11 @@ object G4EmployerContactDetails extends Controller with CachedClaim with Navigab
     "phoneNumber" -> optional(text verifying validPhoneNumber)
   )(EmployerContactDetails.apply)(EmployerContactDetails.unapply))
 
-  def present(jobID: String) = claiming { implicit claim => implicit request =>
+  def present(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     track(EmployerContactDetails) { implicit claim => Ok(views.html.s7_employment.g4_employerContactDetails(form.fillWithJobID(EmployerContactDetails, jobID))) }
   }
 
-  def submit = claimingInJob { jobID => implicit claim => implicit request =>
+  def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g4_employerContactDetails(formWithErrors)),
       employerContactDetails => claim.update(jobs.update(employerContactDetails)) -> Redirect(routes.G5LastWage.present(jobID)))

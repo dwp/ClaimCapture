@@ -12,7 +12,7 @@ import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s10_pay_details._
 import utils.pageobjects.S11_consent_and_declaration._
 import utils.pageobjects.IterationManager._
-import utils.pageobjects.common.ErrorPage
+import utils.pageobjects.preview.PreviewPage
 
 
 /**
@@ -84,9 +84,7 @@ object ClaimPageFactory extends PageFactory {
       }.orElse[String,Page]{
         // S8
         case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage (ctx)
-        case G5StatutorySickPayPage.title => G5StatutorySickPayPage (ctx)
-        case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage (ctx)
-        // S9
+         // S9
         case G1HowWePayYouPage.title => G1HowWePayYouPage (ctx)
         case G2BankBuildingSocietyDetailsPage.title => G2BankBuildingSocietyDetailsPage (ctx)
         case G3PayDetailsCompletedPage.title => G3PayDetailsCompletedPage (ctx)
@@ -96,14 +94,13 @@ object ClaimPageFactory extends PageFactory {
         case G4SelfEmploymentPensionsAndExpensesPage.title => G4SelfEmploymentPensionsAndExpensesPage (ctx)
         case G5ChildcareExpensesWhileAtWorkPage.title => G5ChildcareExpensesWhileAtWorkPage (ctx)
         case G7ExpensesWhileAtWorkPage.title => G7ExpensesWhileAtWorkPage (ctx)
+        case PreviewPage.title => PreviewPage(ctx)
         // S10
         case G1AdditionalInfoPage.title => G1AdditionalInfoPage (ctx)
         case G2ConsentPage.title => G2ConsentPage (ctx)
         case G3DisclaimerPage.title => G3DisclaimerPage (ctx)
         case G4DeclarationPage.title => G4DeclarationPage (ctx)
         case G5SubmitPage.title => G5SubmitPage (ctx)
-        //Common
-        case ErrorPage.title => ErrorPage (ctx)
         // Catch pages not covered by framework
         case _ => new UnknownPage(title, ctx)
       }(title.toLowerCase)

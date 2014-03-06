@@ -19,6 +19,7 @@ import models.PensionPaymentFrequency
 import scala.util.Success
 import models.MultiLineAddress
 import models.PeriodFromTo
+import play.api.i18n.Lang
 
 object Mappings {
   object Name {
@@ -118,6 +119,12 @@ object Mappings {
 
   def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
     if (a.lineOne.isEmpty) Invalid(ValidationError("error.required")) else Valid
+  }
+
+  def requiredAddressWithTwoLines: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
+    if(a.lineOne.isEmpty) Invalid(ValidationError("error.required"))
+    else if ((!a.lineOne.isEmpty) && (a.lineTwo.isEmpty)) Invalid(ValidationError("error.addressLines.required"))
+    else Valid
   }
 
   def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required") {
@@ -251,6 +258,18 @@ object Mappings {
     }
   }
 
+  def validCurrencyRequired: Constraint[String] = Constraint[String]("constraint.currency") { decimal =>
+    val decimalPattern = """^\£?[0-9]{1,12}(\.[0-9]{1,2})?$""".r
+
+    if(decimal != null && !decimal.isEmpty()) {
+      decimalPattern.pattern.matcher(decimal).matches match {
+        case true => Valid
+        case false => Invalid(ValidationError("decimal.invalid"))
+      }
+    } else {
+      Valid
+    }
+  }
 
   def validDecimalNumber: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
     val decimalPattern = """^[0-9]{1,12}(\.[0-9]{1,2})?$""".r

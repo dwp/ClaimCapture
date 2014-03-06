@@ -13,6 +13,7 @@ class XmlPage (ctx: PageObjectsContext, url: String = XmlPage.url, title: String
    pageSource = ctx.browser.pageSource()
 
   def validateXmlWith(claim: TestData, validator: XMLBusinessValidation) = {
+
     Tuple2(
       validator.validateXMLClaim(claim, pageSource, throwException = false),
       validator.warnings

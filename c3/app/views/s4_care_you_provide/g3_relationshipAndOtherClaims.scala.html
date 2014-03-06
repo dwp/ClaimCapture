@@ -1,10 +1,8 @@
-@(currentForm: Form[models.domain.MoreAboutThePerson])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.MoreAboutThePerson])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
-@import utils.helpers.CarersTemplate._
 @import views.html.helper._
-@import views.html.helper.base._
 @import models.domain.MoreAboutThePerson
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s4.g3") + " - " + Messages("s4.longName"), Some(currentForm), claim.completedQuestionGroups(MoreAboutThePerson)) {
 
@@ -18,13 +16,13 @@
             <ul>
                 @relationshipSelect(currentForm("relationship"))
 
-                @yesNoRadioGroup(currentForm("armedForcesPayment"))
+                @yesNoRadioGroup(currentForm("armedForcesPayment"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
             </ul>
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

@@ -1,6 +1,7 @@
-@(sectionID: models.domain.Section.Identifier)(implicit claim: models.domain.Claim)
+@(sectionID: models.domain.Section.Identifier)(implicit claim: models.domain.Claim, lang: Lang)
 
 @import models.domain._
+@import play.api.i18n.{MMessages => Messages}
 
 @addClass(currentSectionID: Section.Identifier) = {
     @if(currentSectionID == sectionID) {
@@ -41,7 +42,7 @@
 <div class="progress-steps">
 
 
-    <ol aria-label="Progress bar">
+    <ol aria-label="@Messages("progressBar")">
         @renderListItem(CarersAllowance)
         @renderListItem(AboutYou)
         @renderListItem(YourPartner)

@@ -5,15 +5,15 @@ import models.view.CachedChangeOfCircs
 
 object CircsEnding extends Controller with CachedChangeOfCircs {
 
-  def timeout = ending {
+  def timeout = ending { implicit claim => implicit request  => implicit lang =>
     Ok(views.html.common.session_timeout(startPage))
   }
 
-  def error = ending {
+  def error = ending { implicit claim => implicit request  => implicit lang =>
     Ok(views.html.common.error(startPage))
   }
 
-  def thankyou = ending {
+  def thankyou = ending { implicit claim => implicit request  => implicit lang =>
     Ok(views.html.common.thankYouCircs())
   }
 

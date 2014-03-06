@@ -1,12 +1,15 @@
-@(elements: helper.FieldElements)
+@(elements: helper.FieldElements)(implicit lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersCrypto
 @import utils.helpers.EmptyTemplate._
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.CarersHelpers._
+@import play.api.i18n.{MMessages => Messages}
 
 @if(elements.hasErrors){ <li class="validation"> } else { <li> }
     @if(elements.hasErrors){
-        <p class="error">@elements.errors.mkString(", ")</p>
+        <p class="error">@elements.carersErrors.mkString(", ")</p>
     }
 
     @if(elements.args.contains('prompt)){
@@ -22,6 +25,6 @@
 
 @defining((elements.args.toMap.get('display).map(_.toString).getOrElse("yes") == elements.args.toMap.get('visibleOn).map(_.toString).getOrElse("yes")) match {case true => "block" case _ => "none"}) { styleDisplay =>
     <li id="@{elements.args.toMap.get('id).map(_.toString + "_wrap").getOrElse("no-id")}" class="other-detail" style="display: @styleDisplay;">
-        @textarea(elements.field("other"), 'placeholder -> "If other please specify...")
+        @textarea(elements.field("other"), 'placeholder -> Messages("ifOtherPleaseSpecify"))
     </li>
 }

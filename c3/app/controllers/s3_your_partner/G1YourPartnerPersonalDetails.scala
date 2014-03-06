@@ -11,6 +11,7 @@ import utils.helpers.CarersForm.formBinding
 import YourPartner._
 import controllers.CarersForms._
 import models.domain.Claim
+import play.api.i18n.Lang
 
 object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -26,15 +27,15 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
     "isPartnerPersonYouCareFor" -> nonEmptyText.verifying(validYesNo)
   )(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     presentConditionally(yourPartnerPersonalDetails)
   }
 
-  def yourPartnerPersonalDetails(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def yourPartnerPersonalDetails(implicit claim: Claim, request: Request[AnyContent], lang:Lang): ClaimResult = {
     track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
       f => claim.update(f) -> Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())

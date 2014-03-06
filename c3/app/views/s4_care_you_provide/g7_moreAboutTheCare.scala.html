@@ -1,11 +1,11 @@
-@(currentForm: Form[models.domain.MoreAboutTheCare])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.MoreAboutTheCare])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import models.domain.{Claim,ClaimDate}
 @import views.html.helper._
 @import views.html.helper.dates._
 @import utils.helpers.CarersTemplate._
 @import utils.helpers.CarersCrypto
 @import models.domain.MoreAboutTheCare
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s4.g4") + " - " + Messages("s4.longName"), Some(currentForm), claim.completedQuestionGroups(MoreAboutTheCare)) {
 
@@ -18,7 +18,7 @@
             <ul>
                 @yesNoRadioGroup(currentForm("spent35HoursCaring"))
 
-                @yesNoRadioGroup(currentForm("beforeClaimCaring.answer"),
+                @yesNoRadioGroup(currentForm("beforeClaimCaring.answer"),'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")),
                                  '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
 
                 @otherDetailPlaceHolder(
@@ -30,8 +30,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

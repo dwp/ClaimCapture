@@ -1,26 +1,24 @@
-@(currentForm: Form[models.domain.Consent])(implicit claim: models.domain.Claim,request: Request[AnyContent])
-@import models.domain.StatutorySickPay
+@(currentForm: Form[models.domain.Consent])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
 @import models.domain._
 @import controllers.Mappings._
+@import play.api.i18n.{MMessages => Messages}
 
-@main(Messages("s11.g2") + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Consent)) {
+@main(Html(Messages("s11.g2")) + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Consent)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G2Consent.submit) {
         <fieldset class="form-elements">
-            <legend>@Messages("s11.g2")</legend>
+            <legend>@Html(Messages("s11.g2"))</legend>
 
             <ul class="group">
 
                 @if(claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
-                    claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay()).haveYouHadAnyStatutorySickPay == `yes` ||
-                    claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay()).otherPay == `yes`){
+                    claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).statutorySickPay.answer == `yes` ||
+                    claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).otherStatutoryPay.answer == `yes`){
 
                     @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
 
@@ -42,8 +40,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

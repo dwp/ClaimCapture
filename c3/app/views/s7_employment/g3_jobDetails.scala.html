@@ -1,15 +1,14 @@
-@(currentForm: Form[models.domain.JobDetails])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+@(currentForm: Form[models.domain.JobDetails])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 
+@import play.api.i18n.{MMessages => Messages}
 @main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm)) {
 
     @form(action = controllers.s7_employment.routes.G3JobDetails.submit()) {
@@ -21,25 +20,25 @@
             <ul>
                 @carersInputText(currentForm("employerName"), 'maxLength -> Mappings.sixty)
 
-                @inputDayMonthYear(currentForm("jobStartDate"), 'helperBelow -> Messages("date.helper"))
+                @inputDayMonthYear(currentForm("jobStartDate"), 'helperBelow -> Messages("jobStartDate.helper"))
 
                 @yesNoRadioGroup(currentForm("finishedThisJob"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(inputDayMonthYear(currentForm("lastWorkDate"), 'helperBelow -> Messages("date.helper")),
-                                   inputDayMonthYear(currentForm("p45LeavingDate"), 'helperBelow -> Messages("date.helper"))),
+                    inputDef = Seq(inputDayMonthYear(currentForm("lastWorkDate"), 'helperBelow -> Messages("jobStartDate.helper")),
+                                   inputDayMonthYear(currentForm("p45LeavingDate"), 'helperBelow -> Messages("jobStartDate.helper"))),
                     'id -> "lastWorkData",
                     'display -> currentForm("finishedThisJob").value.getOrElse("no"))
 
-                @carersShortInputText(currentForm("hoursPerWeek"), '_label -> Messages ("hoursPerWeek", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, JobID(currentForm))),'placeholder -> "00", 'maxlength -> 2)
+                @carersShortInputText(currentForm("hoursPerWeek"), '_label -> labelForEmployment(claim, "hoursPerWeek", JobID(currentForm)),'placeholder -> "00", 'maxlength -> 2)
 
                 @carersInputText(currentForm("payrollEmployeeNumber"), 'maxLength -> 16)
             </ul>
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

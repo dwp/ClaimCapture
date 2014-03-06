@@ -1,22 +1,21 @@
-@(claimDateForm: Form[models.domain.ClaimDate])(implicit claim: models.domain.Claim)
+@(claimDateForm: Form[models.domain.ClaimDate])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
-@import scala.collection.immutable.ListMap
 @import helper._
-@import views.html.common._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.dates._
+@import play.api.i18n.{MMessages => Messages}
 
-@main("Your claim date" + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
+@main(Messages("s2.g3.legend") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
     @errorsSummary(claimDateForm)
 
 
     @form(action = controllers.s2_about_you.routes.G3ClaimDate.submit) {
         <fieldset class="form-elements">
-            <legend>Your claim date</legend>
+            <legend>@Messages("s2.g3.legend")</legend>
 
             <ul class="group">
             
-             @sliderHelp(Messages("dateOfClaimHelp.label"),Html(Messages("dateOfClaimHelp")))
+             @sliderHelp(Messages("dateOfClaimHelp.label"),Messages("dateOfClaimHelp.closeLabel"),Html(Messages("dateOfClaimHelp")), 'track -> true)
              @inputDayMonthYear(claimDateForm("dateOfClaim"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
                
@@ -24,8 +23,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

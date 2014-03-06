@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.ChildcareExpensesWhileAtWork])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.ChildcareExpensesWhileAtWork])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersCrypto
@@ -6,11 +6,13 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import models.domain.{MoreAboutYou,YourPartnerPersonalDetails,SelfEmploymentPensionsAndExpenses}
-@import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
+@import utils.helpers.PastPresentLabelHelper.labelForSelfEmployment
 @import views.html.s8_self_employment.main
 @import views.html.helper.dropdowns.pensionPaymentFrequencySelect
 
+@doWeTrack = @{claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses()).didYouPayToLookAfterThePersonYouCaredFor == "no"}
 
+@import play.api.i18n.{MMessages => Messages}
 @main(Messages("s8.g5") + " - " + Messages("s8.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.ChildcareExpensesWhileAtWork)) {
 
 
@@ -18,14 +20,14 @@
     @form(action = controllers.s8_self_employment.routes.G5ChildcareExpensesWhileAtWork.submit) {
 
         <fieldset class="form-elements">
-            <legend>Childcare expenses while you are at work</legend>
+            <legend>@Messages("s8.g5")</legend>
 
             <ul>
                 @carersInputText(currentForm("whoLooksAfterChildren"))
 
-                @carersCurrency(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxlength -> Mappings.sixty)
+                @carersCurrency(currentForm("howMuchYouPay"), '_label -> labelForSelfEmployment(claim, "howMuchYouPay"), 'maxlength -> Mappings.sixty)
 
-                @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> Messages ("howOftenPayChildCare","", didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayChildCare",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> labelForSelfEmployment(claim, "howOftenPayChildCare"), 'id -> "howOftenPayChildCare",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 
                 @relationshipSelectWithNone(currentForm("whatRelationIsToYou"))
 
@@ -42,13 +44,9 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            @if(claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses()).didYouPayToLookAfterThePersonYouCaredFor == "yes") {
-              <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-            }
-            @if(claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses()).didYouPayToLookAfterThePersonYouCaredFor == "no") {
-             <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
-            }
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @{if(doWeTrack) views.html.ga.trackSubmit()}>@Html(Messages("form.next"))</button>
         </nav>
     }
 }

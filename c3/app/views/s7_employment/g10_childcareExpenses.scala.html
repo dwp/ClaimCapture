@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.ChildcareExpenses])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@(currentForm: Form[models.domain.ChildcareExpenses])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,10 +8,11 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 @import models.domain.{MoreAboutYou,YourPartnerPersonalDetails}
-@import controllers.s7_employment.Employment._
+@import controllers.s7_employment.Employment.completedQuestionGroups
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 @import app.PensionPaymentFrequency._
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s7.g10") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.ChildcareExpenses, JobID(currentForm))) {
 
@@ -26,9 +27,9 @@
             <ul>
                 @carersInputText(currentForm("whoLooksAfterChildren"))
 
-                @carersCurrency(currentForm("howMuchCostChildcare"), 'placeholder -> Messages("poundSign"), '_label -> Messages("howMuchCostChildcare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'maxlength -> Mappings.sixty)
+                @carersCurrency(currentForm("howMuchCostChildcare"), '_label -> labelForEmployment(claim, "howMuchCostChildcare", JobID(currentForm)), 'maxlength -> Mappings.sixty)
 
-                @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> Messages ("employment_howOftenPayChildCare", "",didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayChildCare",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> labelForEmployment(claim, "employment_howOftenPayChildCare", JobID(currentForm)), 'id -> "howOftenPayChildCare",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 
                 @relationshipSelectWithNone(currentForm("relationToYou"))
 
@@ -45,8 +46,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

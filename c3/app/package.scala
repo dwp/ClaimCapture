@@ -1,3 +1,4 @@
+import models.{NationalInsuranceNumber, DayMonthYear}
 import play.api.Play
 import scala.util.{Success, Try}
 
@@ -56,6 +57,7 @@ package object app {
     val no = "no"
     val GBP = "GBP"
     val Other = "Other"
+    val poundSign = "£"
   }
 
   object WhoseNameAccount {
@@ -87,5 +89,13 @@ package object app {
     def getProperty(property:String,default:String) = Try(Play.current.configuration.getString(property).getOrElse(default)) match { case Success(s) => s case _ => default}
     def getProperty(property:String,default:Boolean) = Try(Play.current.configuration.getBoolean(property).getOrElse(default)) match { case Success(s) => s case _ => default}
     def getProperty(property:String,default:Long) = Try(Play.current.configuration.getLong(property).getOrElse(default)) match { case Success(s) => s case _ => default}
+  }
+
+  object ReportChange {
+    val StoppedCaring = 'stoppedCaring
+    val AddressChange = 'addressChange
+    val SelfEmployment = 'selfEmployment
+    val PaymentChange = 'paymentChange
+    val AdditionalInfo = 'additionalInfo
   }
 }

@@ -15,16 +15,16 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "lastPaidDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "grossPay" -> required(nonEmptyText.verifying(validDecimalNumberRequired)),
+    "grossPay" -> required(nonEmptyText.verifying(validCurrencyRequired)),
     "payInclusions" -> optional(carersText(maxLength = 500)),
     "sameAmountEachTime" -> optional(text.verifying(validYesNo))
   )(LastWage.apply)(LastWage.unapply))
 
-  def present(jobID: String) = claiming { implicit claim => implicit request =>
+  def present(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     track(LastWage) { implicit claim => Ok(views.html.s7_employment.g5_lastWage(form.fillWithJobID(LastWage, jobID))) }
   }
 
-  def submit = claimingInJob { jobID => implicit claim => implicit request =>
+  def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g5_lastWage(formWithErrors)),
       lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G6AdditionalWageDetails.present(jobID)))

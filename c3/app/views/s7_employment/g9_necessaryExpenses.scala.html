@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.NecessaryExpenses])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@(currentForm: Form[models.domain.NecessaryExpenses])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,15 +7,12 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-@import controllers.s7_employment.Employment._
+@import controllers.s7_employment.Employment.completedQuestionGroups
+@import controllers.s7_employment.Employment.jobs
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 @import models.domain._
-
-@jobTitleLabel() = @{
-    Messages("jobTitle." + jobs.questionGroup(JobID(currentForm), JobDetails)
-                               .collect { case jd: JobDetails if (jd.finishedThisJob == "yes") => "was" }.getOrElse("is"))
-}
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s7.g9") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.NecessaryExpenses, JobID(currentForm))) {
 
@@ -28,15 +25,15 @@
             <legend>@Messages("s7.g9")</legend>
 
             <ul>
-                @carersInputText(currentForm("jobTitle"), '_label -> jobTitleLabel, 'maxLength -> 30)
+                @carersInputText(currentForm("jobTitle"), '_label -> labelForEmployment(claim, "jobTitle", JobID(currentForm)), 'maxLength -> 30)
 
-                @carersInputText(currentForm("whatAreThose"), '_label -> Messages("whatAreThose", pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , JobID(currentForm))))
+                @carersInputText(currentForm("whatAreThose"), '_label -> labelForEmployment(claim, "whatAreThose", JobID(currentForm)))
             </ul>
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

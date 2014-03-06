@@ -1,13 +1,12 @@
 package models.domain
 
-import controllers.Mappings._
 import models.yesNo.{OptYesNoWithText, YesNoWithText}
 
 object ConsentAndDeclaration extends Section.Identifier {
   val id = "s11"
 }
 
-case class AdditionalInfo(anythingElse: Option[String] = None, welshCommunication: String = "") extends QuestionGroup(AdditionalInfo)
+case class AdditionalInfo(anythingElse: YesNoWithText = YesNoWithText(answer = "", text = None), welshCommunication: String = "") extends QuestionGroup(AdditionalInfo)
 
 object AdditionalInfo extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g1"
@@ -25,7 +24,7 @@ object Disclaimer extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g3"
 }
 
-case class Declaration(read: String = "", nameOrOrganisation:String = "", someoneElse: Option[String] = None) extends QuestionGroup(Declaration)
+case class Declaration(read: String = "", nameOrOrganisation:Option[String] = None, someoneElse: Option[String] = None) extends QuestionGroup(Declaration)
 
 object Declaration extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g4"

@@ -187,4 +187,20 @@ object XMLHelper {
     case Some(s) => textLine(label, value.get)
     case None => NodeSeq.Empty
   }
+
+  def currencyAmount(currency:String) = {
+    if(currency.split(poundSign).size >1) currency.split(poundSign)(1)
+    else currency
+  }
+
+  def currencyAmount(currency:Option[_]):Option[_] = {
+    currency match {
+      case Some(s) => {
+        if(s.toString.split(poundSign).size >1) Some(s.toString.split(poundSign)(1))
+        else Some(s)
+      }
+      case _ => Some("")
+    }
+  }
+
 }

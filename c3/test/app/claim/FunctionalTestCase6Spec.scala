@@ -31,5 +31,6 @@ class FunctionalTestCase6Spec extends FunctionalTestCommon {
         case p: Page => println(p.source()); failure("bad")
       }
     }
-  } section "functional"
+
+  } section ("functional","claim")
 }

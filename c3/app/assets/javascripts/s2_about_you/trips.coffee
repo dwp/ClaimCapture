@@ -3,7 +3,7 @@ $ ->
 
   $(".breaks-prompt").hide()
 
-  $("tbody").on "click", "input[value='Change']", ->
+  $("tbody").on "click", "input[name='changerow']", ->
     tr = $(this).closest("tr")
     window.location.href = "/about-you/trip/" + tr.attr("id")
 
@@ -11,7 +11,7 @@ $ ->
     if ($("#backButton").attr("disabled") == "disabled")
       event.preventDefault()
 
-  $("tbody").on "click", "input[value='Delete']", ->
+  $("tbody").on "click", "input[name='deleterow']", ->
     disable()
     enableConfirmation()
 
@@ -19,14 +19,14 @@ $ ->
     tbody = $(this).closest("tbody")
 
     $("#trips .breaks-prompt").slideDown ->
-      $("input[value='No']").unbind "click"
-      $("input[value='Yes']").unbind "click"
+      $("input[name='no']").unbind "click"
+      $("input[name='yes']").unbind "click"
 
-      $("input[value='No']").on "click", ->
+      $("input[name='no']").on "click", ->
         enable()
         $(".breaks-prompt").slideUp()
 
-      $("input[value='Yes']").on "click", ->
+      $("input[name='yes']").on "click", ->
         disableConfirmation()
 
         $.ajax

@@ -122,6 +122,13 @@ trait WebFillActions {
     case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
   }
 
+  def fillYesNoDontknow(elementCssSelector: String, value: String, sep: String = "_") = if (null != value && value.nonEmpty) try {
+    click(elementCssSelector + sep + value.toLowerCase)
+  }
+  catch {
+    case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
+  }
+
   private def handleUnknownElement(elementCssSelector: String) = {
     throw new PageObjectException("Unknown element with CSS selector " + elementCssSelector + " in html:\n" + ctx.browser.pageSource())
   }

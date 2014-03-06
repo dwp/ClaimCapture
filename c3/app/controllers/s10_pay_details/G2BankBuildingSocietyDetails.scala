@@ -13,7 +13,7 @@ import app.AccountStatus
 import controllers.CarersForms._
 import models.domain.Claim
 import scala.Some
-import play.api.i18n.Messages
+import play.api.i18n.Lang
 
 object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -25,14 +25,14 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
     "rollOrReferenceNumber" -> carersText(maxLength = 18)
   )(BankBuildingSocietyDetails.apply)(BankBuildingSocietyDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     presentConditionally(bankBuildingSocietyDetails)
   }
 
 
-  def bankBuildingSocietyDetails(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def bankBuildingSocietyDetails(implicit claim: Claim, request: Request[AnyContent], lang: Lang): ClaimResult = {
     val iAmVisible = claim.questionGroup(HowWePayYou) match {
-      case Some(y: HowWePayYou) => y.likeToBePaid == Messages(AccountStatus.BankBuildingAccount)
+      case Some(y: HowWePayYou) => y.likeToBePaid == AccountStatus.BankBuildingAccount.name
       case _ => true
     }
 
@@ -40,7 +40,7 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
     else claim.delete(BankBuildingSocietyDetails) -> redirectPath
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s10_pay_details.g2_bankBuildingSocietyDetails(formWithErrors)),
       howWePayYou => claim.update(howWePayYou) -> redirectPath)

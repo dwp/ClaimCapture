@@ -45,7 +45,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       bankBuildingSocietyDetailsPage fillPageWith bankDetailsClaim
       val nextPage = bankBuildingSocietyDetailsPage submitPage()
 
-      nextPage must beAnInstanceOf[G1AdditionalInfoPage]
+      nextPage.submitPage() must beAnInstanceOf[G1AdditionalInfoPage]
     }
 
     "be hidden when having state pension" in new WithBrowser with PageObjects{
@@ -78,7 +78,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
 
       val nextPage = moreAboutYouPage goToPage (new G2BankBuildingSocietyDetailsPage(PageObjectsContext(browser)), throwException = false)
 
-      nextPage must beAnInstanceOf[G1AdditionalInfoPage]
+      nextPage.submitPage() must beAnInstanceOf[G1AdditionalInfoPage]
     }
 
   } section("integration", models.domain.PayDetails.id)

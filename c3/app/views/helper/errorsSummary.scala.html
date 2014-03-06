@@ -1,11 +1,12 @@
-@(form: Form[_])
+@(form: Form[_])(implicit lang: Lang)
 
 @import utils.helpers.CarersCrypto
+@import play.api.i18n.{MMessages => Messages}
 
 @if(form.hasErrors) {
     <div class="validation-summary">
-        <h2>Please check the form</h2>
-        <p>Please fix the following:</p>
+        <h2>@Messages("error.title")</h2>
+        <p>@Messages("error.label")</p>
 
         <ol>
             @for(error <- form.errors) {

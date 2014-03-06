@@ -1,20 +1,16 @@
-@(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim,lang: play.api.i18n.Lang)
+@(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
-@import helper._
-@import utils.helpers.DeclareCheckTemplate._
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
-@import controllers.s11_consent_and_declaration._
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Declaration)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G4Declaration.submit) {
         <fieldset class="form-elements">
             <legend>@Messages("s11.g4")</legend>
 
-            <article class="dec">
+            <section class="dec">
                 <h3>@Messages("declaration.title")</h3>
 
                 <ul>
@@ -22,9 +18,9 @@
                         <li>@Html(Messages(s"declaration.$i"))</li>
                     }
                 </ul>
-            </article>
+            </section>
 
-             @carersDeclareCheck(currentForm("someoneElse"))
+             @declareCheckPlaceholder(currentForm("someoneElse"))
 
              <ul>
                  @otherDetailPlaceHolder(
@@ -34,12 +30,14 @@
                  )
 
              </ul>
-             @carersDeclareCheck(currentForm("confirm"),'secondary->true)
+             
+             @declareCheckPlaceholder(currentForm("confirm"),'secondary->true)
+             
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

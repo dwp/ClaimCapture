@@ -10,6 +10,7 @@ import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import play.api.Logger
+import play.api.i18n.{MMessages => Messages}
 
 object G1YourDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -22,12 +23,12 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
     "dateOfBirth" -> dayMonthYear.verifying(validDate)
   )(YourDetails.apply)(YourDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request => implicit lang =>
     Logger.info(s"Start your details")
     track(YourDetails) { implicit claim => Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g1_yourDetails(formWithErrors)),
       yourDetails => claim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present()))

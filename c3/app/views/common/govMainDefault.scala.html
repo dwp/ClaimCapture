@@ -1,6 +1,8 @@
-@(title: String)(content: Html)(implicit footerCategories: Html = Html.empty)
+@(title: String)(content: Html)(implicit footerCategories: Html = Html.empty, lang: Lang, request:play.api.mvc.Request[AnyContent])
 
-@import play.api.Play.current
+@import play.api.i18n.{MMessages => Messages}
+@import app.ConfigProperties._
+
 
 <!DOCTYPE html>
     <!--[if IE 6]>         <html class="ie ie6" lang="en"> <![endif]-->
@@ -88,32 +90,43 @@
         <div class="visuallyhidden"> <!-- visuallyhidden -->
                	
         	
-        	<a href="#main">Skip to main content</a>
+        	<a href="#main">@Messages("skipToMainContent")</a>
         	
         </div>
 
         <header role="banner" id="global-header">
-            <div class="header-wrapper">
-                <div class="header-global">
-                    <div class="header-logo">
-                        <a href="https://www.gov.uk" title="Go to the gov.uk homepage" id="logo" class="content">
-                            <img src="@routes.Assets.at("images/gov.uk_logotype-2x.png")" alt="GOV.UK">
-                        </a>
-                    </div>
-
-                    <h1 class="page-title beta"><strong>Carer's Allowance</strong> <span>beta</span></h1>
-
-                </div>
-            </div>
-        </header>
-        <!--end header-->
+	      <div class="clearfix">
+	            <a href="https://www.gov.uk" title="@Messages("logo.help")" id="logo" class="content">
+                    <img src="@routes.Assets.at("images/gov.uk_logotype-2x.png")" alt="GOV.UK">
+                </a>
+	   
+	          <section>
+	          <h1 class="page-title beta">@Html(Messages("siteHeader"))</h1>
+		          <nav>
+		          	<ul>
+		          		<li class="feedback"><a href="#">@Messages("helpAndFeedback")</a></li>
+                        @if(getProperty("galluogi.cymraeg", default = false)) {
+                            @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
+                            @if(lang.language == "cy") {
+                                <li><a id="lang-en" href="/change-language/en" aria-label="Change default language to English" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Messages("english")</a></li>
+                            } else {
+                                <li><a id="lang-cy" href="/change-language/cy" aria-label="Change default language to Welsh" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Messages("welsh")</a></li>
+                            }
+                          }
+                        }
+		          	</ul>
+		          </nav>
+	          </section>
+	      </div>
+	    </header>
+	    <!--end header-->
 
         <div id="global-cookie-message">
-            <p>GOV.UK uses cookies to make the site simpler. <a href="http://www.gov.uk/support/cookies">Find out more about cookies</a></p>
+            <p>@Html(Messages("cookiePolicy"))</p>
         </div>
 
         <div id="global-browser-prompt">
-            <p>For a safer, faster, better experience online you should upgrade your browser. <a href="http://www.gov.uk/support/browsers">Find out more about browsers</a> <a href="#" class="dismiss" title="Dismiss this message">Close</a></p>
+            <p>@Html(Messages("latestBrowserUpdate"))</p>
         </div>
 
         <main role="main" id="main">
@@ -130,15 +143,15 @@
                     <nav>
                     
                         <ul>
-                            <li><a href="/claim-notes#16" target="_blank">Helpdesk</a></li>
-                            <li><a href="http://www.dwp.gov.uk/privacy-policy/" target="_blank">Privacy &amp; Cookies</a></li>
-                            <li>Built by <a href="https://www.gov.uk/government/organisations/department-for-work-pensions" target="_blank">Department for Work &amp; Pensions</a></li>
+                            <li><a href="/claim-notes#16" target="_blank">@Messages("helpdesk")</a></li>
+                            <li><a href="http://www.dwp.gov.uk/privacy-policy/" target="_blank" @views.html.ga.trackClickEvent(linkName = "Privacy & Cookies")>@Messages("privacyLink")</a></li>
+                            <li>@Html(Messages("builtByDWP1")) <a href="https://www.gov.uk/government/organisations/department-for-work-pensions" target="_blank" @views.html.ga.trackClickEvent(linkName ="Department for Work & Pensions")>@Html(Messages("builtByDWP2"))</a></li>
                         </ul>
 
                     </nav>
 
                     <div class="copyright">
-                        <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm" target="_blank">&copy; Crown Copyright</a>
+                        <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm" target="_blank" @views.html.ga.trackClickEvent(linkName = "Crown Copyright")>&copy; @Messages("crownCopyright")</a>
                     </div>
                 </div>
             </div>

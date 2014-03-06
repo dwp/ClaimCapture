@@ -86,12 +86,6 @@ object ClaimScenarioFactory {
   def yourDetailsEnablingTimeOutsideUK() = {
     val claim = yourDetailsWithNotTimeOutside()
 
-    //claim.AboutYouHaveYouAlwaysLivedInTheUK = "No"
-    //claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
-    //claim.AboutYouWhenDidYouArriveInYheUK = "01/11/2003"
-    //claim.AboutYouDoYouPlantoGoBacktoThatCountry = "No"
-
-
     claim
   }
 
@@ -317,8 +311,8 @@ object ClaimScenarioFactory {
 
   def s6PayDetails() = {
     val claim = new TestData
-    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.NotOpenAccount
-    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.NotOpenAccount.name
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek.name
     claim
   }
 
@@ -326,7 +320,7 @@ object ClaimScenarioFactory {
     val claim = new TestData
 
     claim.HowWePayYouNameOfAccountHolder = "John Smith"
-    claim.WhoseNameOrNamesIsTheAccountIn = WhoseNameAccount.YourName
+    claim.WhoseNameOrNamesIsTheAccountIn = WhoseNameAccount.YourName.name
     claim.HowWePayYouFullNameOfBankorBuildingSociety = "Carers Bank"
     claim.HowWePayYouSortCode = "090126"
     claim.HowWePayYouAccountNumber = "12345678"
@@ -354,20 +348,13 @@ object ClaimScenarioFactory {
     claim.EmploymentAddtionalWageOther_1 = "Quarterly"
     claim.EmploymentAddtionalWageWhenDoYouGetPaid_1 = "two weeks ago"
     claim.EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1 = "no"
-//    claim.EmploymentHowMuchAreYouOwed_1 = "1250"
     claim.EmploymentWhatPeriodIsItForFrom_1 = "03/04/2013"
     claim.EmploymentWhatPeriodIsItForTo_1 = "03/05/2013"
     claim.EmploymentWhatIsTheMoneyOwedFor_1 = "This and that"
     claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_1 = "06/05/2013"
     claim.EmploymentWhenWillYouGetMoneyOwed_1 = "08/08/2013"
     claim.EmploymentDoYouPayTowardsanOccupationalPensionScheme_1 = "no"
-//    claim.EmploymentHowMuchYouPayforOccupationalPension_1 = "350"
-//    claim.EmploymentHowOftenOccupationalPension_1 = "other"
-//    claim.EmploymentHowOftenOtherOccupationalPension_1 = "every 5 minutes"
     claim.EmploymentDoYouPayTowardsAPersonalPension_1 = "no"
-//    claim.EmploymentHowMuchYouPayforPersonalPension_1 = "120"
-//    claim.EmploymentHowOftenPersonalPension_1 = "other"
-//    claim.EmploymentHowOftenOtherPersonalPension_1 = "every 5 minutes"
     claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "no"
     claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1 = "no"
     claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1 = "no"
@@ -462,19 +449,33 @@ object ClaimScenarioFactory {
     claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
     claim.OtherMoneyWhoPaysYou = "The Man"
     claim.OtherMoneyHowMuch = "12"
-    claim.OtherMoneyHowOften = "Weekly"
-    // G5 Statutory Sick Pay
+    // G1 Statutory Sick Pay
     claim.OtherMoneyHaveYouSSPSinceClaim = "yes"
     claim.OtherMoneySSPHowMuch = "123"
-    claim.OtherMoneySSPHowOften = "weekly"
     claim.OtherMoneySSPEmployerName = "Burger King"
-    // G6 Other Statutory Pay
+    // G1 Other Statutory Pay
     claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
+    claim.OtherMoneySMPHowMuch = "123"
     claim.OtherMoneySMPEmployerName = "Employers Name"
-    claim.OtherMOneySMPHowOften = "weekly"
-    // G7 EEA state or Switzerland
-    claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "yes"
-    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "yes"
+
+    claim
+  }
+  
+  def s9otherMoneyOther = {
+    val claim = s7Employment()
+    // G1 About other money
+    claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
+    claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
+    claim.OtherMoneyWhoPaysYou = "The Man"
+    claim.OtherMoneyHowMuch = "12"
+    claim.OtherMoneyHowOften = "Other"
+    claim.OtherMoneyHowOftenOther = "every day and twice on Sundays"
+    // G1 Statutory Sick Pay
+    claim.OtherMoneyHaveYouSSPSinceClaim = "no"
+
+    // G1 Other Statutory Pay
+    claim.OtherMoneyHaveYouSMPSinceClaim = "no"
+
 
     claim
   }
@@ -559,7 +560,7 @@ object ClaimScenarioFactory {
   
   def s11ConsentAndDeclaration = {
     val claim = s9SelfEmployment
-
+    claim.ConsentDeclarationTellUsAnythingElseAnswerAboutClaim = "no"
     claim.ConsentDeclarationCommunicationWelsh = "no"
 
     claim

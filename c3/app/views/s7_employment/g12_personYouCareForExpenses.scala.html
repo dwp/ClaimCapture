@@ -1,17 +1,15 @@
-@(currentForm: Form[models.domain.PersonYouCareForExpenses])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@(currentForm: Form[models.domain.PersonYouCareForExpenses])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
-@import views.html.helper.dates._
-@import utils.helpers.CarersCrypto
-@import controllers.s7_employment.Employment._
+    @import utils.helpers.CarersCrypto
+@import controllers.s7_employment.Employment.completedQuestionGroups
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 @import views.html.s7_employment.main
-@import app.PensionPaymentFrequency._
+    @import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s7.g12") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PersonYouCareForExpenses, JobID(currentForm))) {
 
@@ -21,14 +19,14 @@
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
-            <legend>@Messages("s7.g12")</legend>
+            <legend>@Html(Messages("s7.g12"))</legend>
 
             <ul>
-                @carersInputText(currentForm("whoDoYouPay"), '_label -> Messages ("whoDoYouPay", pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , JobID(currentForm))))
+                @carersInputText(currentForm("whoDoYouPay"), '_label -> labelForEmployment(claim, "whoDoYouPay", JobID(currentForm)))
 
-                @carersCurrency(currentForm("howMuchCostCare"), '_label -> Messages("howMuchCostCare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'maxlength -> Mappings.sixty)
+                @carersCurrency(currentForm("howMuchCostCare"), '_label -> labelForEmployment(claim, "howMuchCostCare", JobID(currentForm)), 'maxlength -> Mappings.sixty)
 
-                @pensionPaymentFrequencySelect(currentForm("howOftenPayCare"), '_label -> Messages ("howOftenPayCare", "",didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayCare",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                @pensionPaymentFrequencySelect(currentForm("howOftenPayCare"), '_label -> labelForEmployment(claim, "howOftenPayCare", JobID(currentForm)), 'id -> "howOftenPayCare",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 
                 @relationshipSelectWithNone(currentForm("relationToYou"))
 
@@ -37,8 +35,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

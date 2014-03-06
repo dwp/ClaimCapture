@@ -1,6 +1,6 @@
 package utils.pageobjects.xml_validation
 
-import utils.pageobjects.{PageObjectException, FactoryFromFile, TestData}
+import utils.pageobjects.{TestDatumValue, PageObjectException, FactoryFromFile, TestData}
 import scala.xml.{Elem, XML}
 import scala.collection.mutable
 import scala.language.postfixOps
@@ -14,6 +14,8 @@ abstract class XMLBusinessValidation() {
 
   val errors = mutable.MutableList.empty[String]
   val warnings = mutable.MutableList.empty[String]
+
+  def objValue(attribute: String, value: String, question: String): TestDatumValue
 
   def validateXMLClaim(claim: TestData, xml: Elem, throwException: Boolean): List[String]
 
@@ -56,7 +58,7 @@ abstract class XMLBusinessValidation() {
                 if (options.size > 1) validateNodeValue(options.drop(1))
                 else errors += attribute + " " + path + " XML element not found"
               } else {
-                if (elementValue doesNotMatch ClaimValue(attribute, value, xPathNodesAndQuestion.get._2)) {
+                if (elementValue doesNotMatch objValue(attribute, value, xPathNodesAndQuestion.get._2)) {
                   if (options.size > 1) validateNodeValue(options.drop(1))
                   else errors += attribute + " " + path + elementValue.error
                 }

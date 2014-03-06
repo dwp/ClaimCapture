@@ -21,7 +21,7 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
       titleMustEqual("Additional information - Consent and Declaration")
       browser.submit("button[type='submit']")
 
-      findMustEqualSize("div[class=validation-summary] ol li", 1)
+      findMustEqualSize("div[class=validation-summary] ol li", 2)
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
@@ -54,7 +54,7 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{
 			val page =  G1AdditionalInfoPage(context)
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 1
+      page.submitPage().listErrors.size mustEqual 2
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{

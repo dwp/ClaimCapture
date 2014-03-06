@@ -5,15 +5,15 @@ import models.view.CachedClaim
 
 object ClaimEnding extends Controller with CachedClaim {
 
-  def timeout = ending {
+  def timeout = ending {implicit claim => implicit request  => implicit lang =>
     Ok(views.html.common.session_timeout(startPage))
   }
 
-  def error = ending {
+  def error = ending {implicit claim => implicit request  => implicit lang =>
     Ok(views.html.common.error(startPage))
   }
 
-  def thankyou = ending {
+  def thankyou = ending { implicit claim => implicit request  => implicit lang =>
     Ok(views.html.common.thankYouClaim())
   }
 

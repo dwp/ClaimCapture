@@ -1,19 +1,20 @@
-@(field: Field)
+@(field: Field)(implicit lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
-
+@import play.api.i18n.{MMessages => Messages}
+    
 @{
     carersSelect(field,
         options = options(
-            "" -> "Please select",
-            "Married or civil partner" -> "Married or civil partner",
-            "Single" -> "Single",
-            "Divorced or civil partnership dissolved" -> "Divorced or civil partnership dissolved",
-            "Widowed or surviving civil partner" -> "Widowed or surviving civil partner",
-            "Separated" -> "Separated",
-            "Living with partner" -> "Living with partner"
+            "" -> Messages("maritalStatus.pleaseSelect"),
+            "Married or civil partner" -> Messages("maritalStatus.married"),
+            "Single" -> Messages("maritalStatus.single"),
+            "Divorced or civil partnership dissolved" -> Messages("maritalStatus.divorced"),
+            "Widowed or surviving civil partner" -> Messages("maritalStatus.widowed"),
+            "Separated" -> Messages("maritalStatus.separated"),
+            "Living with partner" -> Messages("maritalStatus.livingWithPartner")
         ),
         '_label -> Messages("maritalStatus")
     )

@@ -1,11 +1,8 @@
-@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
-@import utils.helpers.CarersTemplate._
-@import views.html.helper.base._
-@import utils.helpers.CarersCrypto
 @import models.domain.OtherEEAStateOrSwitzerland
 @import views.html.helper._
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s2.g7") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)) {
 
@@ -14,7 +11,7 @@
             <legend>@Messages("s2.g7")</legend>
 
             <ul>
-                @sliderHelp(Messages("eeaCountryHelp.label"),Html(Messages("eeaCountryHelp")))
+                @sliderHelp(Messages("eeaCountryHelp.label"),Messages("eeaCountryHelp.closeLabel"),Html(Messages("eeaCountryHelp")), 'track -> true)
 
                 @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromEEA"))
 
@@ -25,8 +22,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

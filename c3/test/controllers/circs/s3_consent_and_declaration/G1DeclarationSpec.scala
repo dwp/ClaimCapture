@@ -8,14 +8,15 @@ import play.api.test.Helpers._
 import org.specs2.mutable.{Tags, Specification}
 
 class G1DeclarationSpec extends Specification with Tags {
-
+  val byPost = "By Post"
   val infoAgreement = "yes"
   val why = "Cause i want"
   val confirm = "yes"
-  val someOneElse = "yes"
+  val someOneElse = "checked"
+  val nameOrOrganisation = "Tesco"
 
-  val declarationInput = Seq("obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse)
-  val declartionInputWithoutSomeOne = Seq("obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> "")
+  val declarationInput = Seq("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation)
+  val declartionInputWithoutSomeOne = Seq("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> "")
 
   "Circumstances - OtherChangeInfo - Controller" should {
 
@@ -39,23 +40,7 @@ class G1DeclarationSpec extends Specification with Tags {
           f.obtainInfoWhy.get must equalTo(why)
           f.confirm must equalTo(confirm)
           f.circsSomeOneElse must equalTo(Some(someOneElse))
-        }
-      }
-    }
-
-    "add submitted form to the cached claim with 'circsSomeOneElse' not cheched" in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
-        .withFormUrlEncodedBody(declartionInputWithoutSomeOne: _*)
-
-      val result = controllers.circs.s3_consent_and_declaration.G1Declaration.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
-
-      claim.questionGroup[CircumstancesDeclaration] must beLike {
-        case Some(f: CircumstancesDeclaration) => {
-          f.obtainInfoAgreement must equalTo(infoAgreement)
-          f.obtainInfoWhy.get must equalTo(why)
-          f.confirm must equalTo(confirm)
-          f.circsSomeOneElse must equalTo(None)
+          f.nameOrOrganisation must equalTo(Some(nameOrOrganisation))
         }
       }
     }

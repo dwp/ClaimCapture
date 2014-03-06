@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.PensionSchemes])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+@(currentForm: Form[models.domain.PensionSchemes])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,11 +7,12 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-@import controllers.s7_employment.Employment._
+@import controllers.s7_employment.Employment.completedQuestionGroups
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 @import app.PensionPaymentFrequency._
 
+@import play.api.i18n.{MMessages => Messages}
 @main(Messages("s7.g7") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PensionSchemes, JobID(currentForm))) {
 
 
@@ -23,24 +24,24 @@
             <legend>@Messages("s7.g7")</legend>
 
             <ul>
-                @yesNoRadioGroup(currentForm("payOccupationalPensionScheme"), '_label -> Messages ("payOccupationalPensionScheme", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))
+                @yesNoRadioGroup(currentForm("payOccupationalPensionScheme"), '_label -> labelForEmployment(claim, "payOccupationalPensionScheme", JobID(currentForm)))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        carersCurrency(currentForm("howMuchPension"), 'placeholder -> Messages("poundSign"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPension", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
-                        pensionPaymentFrequencySelect(currentForm("howOftenPension"), '_label -> Messages("howOftenPension"), 'id -> "howOftenPension",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                        carersCurrency(currentForm("howMuchPension"), 'maxlength -> Mappings.sixty, '_label -> labelForEmployment(claim, "howMuchPension", JobID(currentForm))),
+                        pensionPaymentFrequencySelect(currentForm("howOftenPension"), '_label -> Messages("howOftenPension"), 'id -> "howOftenPension",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
                     ),
                     'id -> "payOccupationalPensionSchemeWrapper",
                     'display -> currentForm("payOccupationalPensionScheme").value.getOrElse("no"))
 
 
 
-                @yesNoRadioGroup(currentForm("payPersonalPensionScheme"), '_label -> Messages ("payPersonalPensionScheme", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))
+                @yesNoRadioGroup(currentForm("payPersonalPensionScheme"), '_label -> labelForEmployment(claim, "payPersonalPensionScheme", JobID(currentForm)))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        carersCurrency(currentForm("howMuchPersonal"), 'placeholder -> Messages("poundSign"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPersonal", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
-                        pensionPaymentFrequencySelect(currentForm("howOftenPersonal"), '_label -> Messages("howOftenPersonal"), 'id -> "howOftenPersonal",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                        carersCurrency(currentForm("howMuchPersonal"), 'maxlength -> Mappings.sixty, '_label -> labelForEmployment(claim, "howMuchPersonal", JobID(currentForm))),
+                        pensionPaymentFrequencySelect(currentForm("howOftenPersonal"), '_label -> Messages("howOftenPersonal"), 'id -> "howOftenPersonal",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
                     ),
                     'id -> "payPersonalPensionSchemeWrapper",
                     'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))
@@ -48,8 +49,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
         </nav>
     }
 }

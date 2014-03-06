@@ -1,10 +1,11 @@
-@(currentForm: Form[models.domain.YourCourseDetails])(implicit claim: models.domain.Claim, request: Request[AnyContent])
+@(currentForm: Form[models.domain.YourCourseDetails])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import views.html.s6_education.main
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s6.g1") + " - " + Messages("s6.longName"), Some(currentForm)) {
 
@@ -30,8 +31,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button" @views.html.ga.trackSubmit()>Next</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button>
         </nav>
     }
 }

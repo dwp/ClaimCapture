@@ -35,7 +35,7 @@ class G4DeclarationSpec extends Specification with Tags {
                                  .withFormUrlEncodedBody("confirm" -> "checked")
 
       val result = G4Declaration.submit(request)
-      status(result) mustEqual BAD_REQUEST
+      status(result) mustEqual SEE_OTHER
     }
 
     """accept answers""" in new WithApplication with Claiming {

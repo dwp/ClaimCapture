@@ -4,12 +4,13 @@
 @import helper.dates._
 @import utils.helpers.CarersTemplate._
 @import app.StatutoryPaymentFrequency._
+@import play.api.i18n.{MMessages => Messages}
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
 
-@views.html.helper.selectWithOtherPlaceholder(field,"reason", Seq("" -> "Please select",
-"Home" -> "Home",
-"Holiday" -> "Holiday",
-"Work" -> "Work",
-"other" -> "Other"), args:_*)
+@views.html.helper.selectWithOtherPlaceholder(field,"reason", Seq("" -> Messages("reasonForBeingThere.pleaseSelect"),
+"Home" -> Messages("reasonForBeingThere.Home"),
+"Holiday" -> Messages("reasonForBeingThere.Holiday"),
+"Work" -> Messages("reasonForBeingThere.Work"),
+"other" -> Messages("reasonForBeingThere.Other")), args:_*)
 }
