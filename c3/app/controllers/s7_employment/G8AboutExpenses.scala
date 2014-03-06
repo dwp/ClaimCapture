@@ -27,11 +27,10 @@ object G8AboutExpenses extends Controller with CachedClaim with Navigable {
   def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val pastPresent = pastPresentLabelForEmployment(claim, didYou, doYou , jobID)
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("payForAnythingNecessary", "error.required", FormError("payForAnythingNecessary", "error.required", Seq(pastPresent)))
-          .replaceError("payAnyoneToLookAfterChildren", "error.required", FormError("payAnyoneToLookAfterChildren", "error.required", Seq(pastPresent.toLowerCase)))
-          .replaceError("payAnyoneToLookAfterPerson", "error.required", FormError("payAnyoneToLookAfterPerson", "error.required", Seq(pastPresent.toLowerCase)))
+          .replaceError("payForAnythingNecessary", "error.required", FormError("payForAnythingNecessary", "error.required", Seq(labelForEmployment(claim, "payForAnythingNecessary", jobID))))
+          .replaceError("payAnyoneToLookAfterChildren", "error.required", FormError("payAnyoneToLookAfterChildren", "error.required", Seq(labelForEmployment(claim, "payAnyoneToLookAfterChildren", jobID))))
+          .replaceError("payAnyoneToLookAfterPerson", "error.required", FormError("payAnyoneToLookAfterPerson", "error.required", Seq(labelForEmployment(claim, "payAnyoneToLookAfterPerson", jobID))))
         BadRequest(views.html.s7_employment.g8_aboutExpenses(formWithErrorsUpdate))
       },
       aboutExpenses => claim.update(jobs.update(aboutExpenses)) -> Redirect(routes.G9NecessaryExpenses.present(jobID)))

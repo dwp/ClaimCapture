@@ -19,18 +19,18 @@
             <div class="send-info">
 
                 <section>
-                    <h2>@Messages("s11.g5.help1")</h2>
-                    <p>@Messages("s11.g5.help2")</p>
+                    <h2>@Html(Messages("s11.g5.help1"))</h2>
+                    <p>@Html(Messages("s11.g5.help2"))</p>
                 </section>
 
                 @if(claim.questionGroup(Employment).get.asInstanceOf[Employment].beenEmployedSince6MonthsBeforeClaim == "yes") {
                     <section>
-                        <h2>@Messages("s11.g5.help3")</h2>
+                        <h2>@Html(Messages("s11.g5.help3"))</h2>
 
                         <ul>
-                            <li>@{Messages("s11.g5.help4")} @{claim.dateOfClaim.get.`dd/MM/yyyy`}</li>
-                            <li>@Messages("s11.g5.help5")</li>
-                            <li>@Messages("s11.g5.help6")</li>
+                            <li>@{Html(Messages("s11.g5.help4"))} @{claim.dateOfClaim.get.`dd/MM/yyyy`}</li>
+                            <li>@Html(Messages("s11.g5.help5"))</li>
+                            <li>@Html(Messages("s11.g5.help6"))</li>
                         </ul>
                     </section>
                 }
@@ -38,23 +38,23 @@
                 @if(claim.questionGroup(Employment).get.asInstanceOf[Employment].beenSelfEmployedSince1WeekBeforeClaim == "yes") {
 
                     <section>
-                        <h2>@Messages("s11.g5.help7")</h2>
+                        <h2>@Html(Messages("s11.g5.help7"))</h2>
 
 
                         <ul>
-                            <li>@Messages("s11.g5.help8")</li>
-                            <li>@Messages("s11.g5.help9")</li>
+                            <li>@Html(Messages("s11.g5.help8"))</li>
+                            <li>@Html(Messages("s11.g5.help9"))</li>
                         </ul>
                     </section>
                 }
 
                 <section class="address">
-                    <h3>@Messages("s11.g5.help10")</h3>
-                    <span>@Messages("s11.g5.help11")</span>
-                    <span>@Messages("s11.g5.help12")</span>
-                    <span>@Messages("s11.g5.help13")</span>
-                    <span>@Messages("s11.g5.help14")</span>
-                    <p>@Messages("s11.g5.help15")</p>
+                    <h3>@Html(Messages("s11.g5.help10"))</h3>
+                    <span>@Html(Messages("s11.g5.help11"))</span>
+                    <span>@Html(Messages("s11.g5.help12"))</span>
+                    <span>@Html(Messages("s11.g5.help13"))</span>
+                    <span>@Html(Messages("s11.g5.help14"))</span>
+                    <p>@Html(Messages("s11.g5.help15"))</p>
                 </section>
 
             </div>

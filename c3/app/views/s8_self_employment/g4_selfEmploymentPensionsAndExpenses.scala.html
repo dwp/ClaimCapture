@@ -4,8 +4,8 @@
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
-@import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
 @import views.html.s8_self_employment.main
+@import utils.helpers.PastPresentLabelHelper.labelForSelfEmployment
 
 @import play.api.i18n.{MMessages => Messages}
 @main(Messages("s8.g4") + " - " + Messages("s8.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.SelfEmploymentPensionsAndExpenses)) {
@@ -18,20 +18,20 @@
             <legend>@Messages("s8.g4")</legend>
 
             <ul>
-                @yesNoRadioGroup(currentForm("doYouPayToPensionScheme"), '_label -> Messages ("doYouPayToPensionScheme.answer", didYouDoYouIfSelfEmployed))
+                @yesNoRadioGroup(currentForm("doYouPayToPensionScheme"), '_label -> labelForSelfEmployment(claim, "doYouPayToPensionScheme.answer"))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        carersCurrency(currentForm("howMuchDidYouPay"), '_label -> Messages ("doYouPayToPensionScheme.howMuchDidYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxLength -> Mappings.sixty),
-                        pensionPaymentFrequencySelect(currentForm("howOften"), '_label -> Messages ("doYouPayToPensionScheme.howOften", didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOften",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+                        carersCurrency(currentForm("howMuchDidYouPay"), '_label -> labelForSelfEmployment(claim, "howMuchDidYouPay"), 'maxLength -> Mappings.sixty),
+                        pensionPaymentFrequencySelect(currentForm("howOften"), '_label -> labelForSelfEmployment(claim, "doYouPayToPensionScheme.howOften"), 'id -> "howOften",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
                     ),
                     'id -> "selfEmployedPensionWrap",
                     'display -> currentForm("doYouPayToPensionScheme").value.getOrElse("no")
                 )
 
-                @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> Messages ("doYouPayToLookAfterYourChildren", didYouDoYouIfSelfEmployed.toLowerCase))
+                @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> labelForSelfEmployment(claim, "doYouPayToLookAfterYourChildren"))
 
-                @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"), '_label -> Messages ("didYouPayToLookAfterThePersonYouCaredFor", didYouDoYouIfSelfEmployed.toLowerCase))
+                @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"), '_label -> labelForSelfEmployment(claim, "didYouPayToLookAfterThePersonYouCaredFor"))
 
             </ul>
         </fieldset>

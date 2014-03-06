@@ -22,11 +22,11 @@
 
             <ul>
                 @paymentFrequencySelect(currentForm("oftenGetPaid"),
-                    '_label -> Messages("oftenGetPaidFrequency", pastPresentLabelForEmployment(claim, wereYou, areYou, JobID(currentForm))),
+                    '_label -> labelForEmployment(claim, "oftenGetPaidFrequency", JobID(currentForm)),
                     'id -> "oftenGetPaid",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 
                 @carersInputText(currentForm("whenGetPaid"),
-                    '_label -> Messages("whenGetPaid", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, JobID(currentForm))),
+                    '_label -> labelForEmployment(claim, "whenGetPaid", JobID(currentForm)),
                     'helper -> Messages("whenGetPaid.helper"))
 
                 @yesNoRadioGroup(currentForm("employerOwesYouMoney"), 'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no")))

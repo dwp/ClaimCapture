@@ -46,14 +46,13 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
   def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val pastPResentLabel = pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID)
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("howMuchCostChildcare", "error.required", FormError("howMuchCostChildcare", "error.required", Seq(pastPResentLabel)))
-          .replaceError("howMuchCostChildcare", "decimal.invalid", FormError("howMuchCostChildcare", "decimal.invalid", Seq(pastPResentLabel)))
-          .replaceError("howOftenPayChildCare.frequency","error.required", FormError("howOftenPayChildCare", "error.required",Seq("",pastPResentLabel)))
+          .replaceError("howMuchCostChildcare", "error.required", FormError("howMuchCostChildcare", "error.required", Seq(labelForEmployment(claim, "howMuchCostChildcare", jobID))))
+          .replaceError("howMuchCostChildcare", "decimal.invalid", FormError("howMuchCostChildcare", "decimal.invalid", Seq(labelForEmployment(claim, "howMuchCostChildcare", jobID))))
+          .replaceError("howOftenPayChildCare.frequency","error.required", FormError("howOftenPayChildCare", "error.required",Seq("",labelForEmployment(claim, "employment_howOftenPayChildCare", jobID))))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
-          .replaceError("howOftenPayChildCare.frequency.other","error.maxLength",FormError("howOftenPayChildCare","error.maxLength",Seq("60",pastPResentLabel)))
-          .replaceError("howOftenPayChildCare","error.paymentFrequency",FormError("howOftenPayChildCare","error.paymentFrequency",Seq("",pastPResentLabel)))
+          .replaceError("howOftenPayChildCare.frequency.other","error.maxLength",FormError("howOftenPayChildCare","error.maxLength",Seq("60",labelForEmployment(claim, "employment_howOftenPayChildCare", jobID))))
+          .replaceError("howOftenPayChildCare","error.paymentFrequency",FormError("howOftenPayChildCare","error.paymentFrequency",Seq("",labelForEmployment(claim, "employment_howOftenPayChildCare", jobID))))
         BadRequest(views.html.s7_employment.g10_childcareExpenses(formWithErrorsUpdate))
       },
       childcareExpenses => claim.update(jobs.update(childcareExpenses)) -> Redirect(routes.G12PersonYouCareForExpenses.present(jobID)))
