@@ -39,13 +39,14 @@
 
 
             @declareCheckPlaceholder(declarationForm("circsSomeOneElse"))
-            <ul class="extra-group">
-            @otherDetailPlaceHolder(
-                inputDef = Seq(
-                    carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> Mappings.sixty)),
-                'id -> "nameOrOrganisationWrapper",
-                'display -> declarationForm("circsSomeOneElse").value.map(p => p match { case "true" => "yes" case _ => p}).getOrElse("no")
-            )
+
+            <ul>
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> Mappings.sixty)),
+                    'id -> "nameOrOrganisationWrapper",
+                    'display -> declarationForm("circsSomeOneElse").value.map(p => p match { case "true" => "yes" case _ => p}).getOrElse("no")
+                )
             </ul>
 
             @declareCheckPlaceholder(declarationForm("confirm"))
