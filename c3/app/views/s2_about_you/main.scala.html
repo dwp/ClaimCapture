@@ -1,5 +1,6 @@
 @(title: String, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
+@import utils.helpers.CarersTemplate.fieldConstructor
 @import models.domain._
 @import helper._
 @import play.api.i18n.{MMessages => Messages}

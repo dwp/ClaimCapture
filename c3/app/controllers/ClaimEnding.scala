@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc.Controller
 import models.view.CachedClaim
+import app.ConfigProperties._
 
 object ClaimEnding extends Controller with CachedClaim {
 
@@ -14,6 +15,9 @@ object ClaimEnding extends Controller with CachedClaim {
   }
 
   def thankyou = ending { implicit claim => implicit request  => implicit lang =>
+    if (getProperty("notifications.email",false)){
+
+    }
     Ok(views.html.common.thankYouClaim())
   }
 
