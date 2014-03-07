@@ -9,7 +9,7 @@
     path.substring(0,path.lastIndexOf("/")) + "/vpv/" + (isClaimSubmit match {case true => "claim" case false => "section"}) + "_completed"
 }
 
-@gaTrack() = @{ if(!Play.isTest && getProperty("include_analytics", false)){
+@gaTrack() = @{ if(getProperty("include.analytics", true)){
         trackPageView(constructURI)
     }
 }

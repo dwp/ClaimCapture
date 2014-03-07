@@ -31,7 +31,7 @@ trait CachedClaim {
 
   val cacheKey = CachedClaim.key
 
-  val redirect = getProperty("enforceRedirect", default = false)
+  val redirect = getProperty("enforceRedirect", default = true)
 
   val startPage: String = getProperty("claim.start.page", "/allowance/benefits")
 

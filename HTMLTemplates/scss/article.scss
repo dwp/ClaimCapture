@@ -1,0 +1,196 @@
+
+   article {
+	   background: #fff;
+	   position: relative;
+	   padding: 1.6em 1em 0 1em;
+	   
+	   &.error-statement {
+		margin: 0;
+		padding: 5em 0 5em 1em;
+		@media screen and (max-width: 640px)
+		{padding-left: 0; padding-right: 0;}
+			p {
+				margin: 2em 40% 0 0;
+				@media screen and (max-width: 700px)
+				{margin-right: 0;}
+			}
+			h1 {
+				font-size: 5rem;
+				@media screen and (max-width: 480px)
+				{font-size: 30px;}
+				.ie & {
+					font-size: 50px;
+				}
+			}	
+			
+   	   }
+
+
+   	   &.finish-statement {
+
+	   	   section {
+		   	   margin-top: 2em;
+		   	   &.finish-next {
+			   	   margin-top: 1.4em;
+			   	   margin-right: 1em;
+			   	   @media screen and (max-width: 640px) {
+				   	   margin-right: 0;
+			   	   }
+		   	   }
+		   	   li {
+			   	   font-size: 1.7rem;
+			   	   .ie & {
+				   	   font-size: 17px;
+			   	   }
+			   	   margin-top: .7em!important;
+		   	   }
+		   	   p {
+		   	   	   font-size: 1.7rem;
+		   	   	   .ie & {
+			   	   	   font-size: 17px;
+		   	   	   }
+			   	   margin-top: .5em;
+		   	   }
+		   	   
+	   	   }
+	   	   
+	   	   .app-complete {
+	   	   		margin-top: 0;
+	   	   		clear: both;
+	   	   	   h1 {
+		   	   	   color: #fff;
+		   	   	   margin-right: 0;
+		   	   	   margin-bottom: 0;
+		   	   	   padding-right: 0;
+		   	   	   span {
+			   	   	   display: inline-block;
+			   	   	   background: url('../img/white-tick.png') 0 6px no-repeat;
+			   	   	   padding-left: 44px;
+		   	   	   }
+	   	   	   }
+	   	   	   h2 {
+		   	   	   color: #fff;
+	   	   	   }
+	   	   	   p {
+		   	   	   color: #fff;
+		   	   	   &.nino-title {
+			   	   	   margin-top: 1em;
+		   	   	   }
+	   	   	   }
+	   	   	   text-align: center;
+		   	   background: #28a197;
+		   	   padding: 2em 1em;
+	   	   }
+   	   }
+   	   
+   	   
+   	   	   /* section header */		   	
+		   h1 {
+			   font-size: 3.6rem;
+			   font-weight: 700;
+			   line-height: 1.2em;
+			   margin-bottom: .25em;
+			   margin-right: 20%;
+			   margin-left: -2px;
+			   @media screen and (max-width: 700px)
+			   {margin-right: 0;}
+			   .ie & {
+				   font-size: 36px;
+			   }
+			    @media screen and (max-width: 500px) {font-size: 3rem;
+				    .ie & {
+					    font-size: 30px;
+				    }
+			    }
+		   }
+
+	  
+   	   
+   	   
+   	   
+   	   &.response {
+   	   		h1 {
+	   	   		margin-right: 0;
+   	   		}
+			section {
+				margin: 2em 0;
+				background-image: url('images/response-trio-xl.png');
+				background-position: 0 0;
+				background-repeat: no-repeat;
+				padding: 0 0 0 8em;
+				min-height: 100px;
+				@media screen and (max-width: 500px) {
+					padding: 7em 0 0 0;
+					background-position: center 0;
+				}
+				h2 {
+					font-size: 2.4rem;
+					line-height: 1.3em;
+					padding-top: .3em;
+					.ie & {
+						font-size: 24px;
+					}
+				}
+				p {
+					margin-top: .25em;
+				}
+				&.earnings {
+					background-position: 0 -756px;
+					@media screen and (max-width: 500px) {
+						background-position: center -756px;
+					}
+				}
+				&.education {
+					background-position: 0 -1500px;
+					@media screen and (max-width: 500px) {
+						background-position: center -1500px;
+					}
+				}
+			}
+			
+			.ie7 & {
+				zoom: 1;
+			}
+		}
+	   
+	   
+	   p {
+		   margin: 0;
+		   font-size: 1.9rem;
+		   font-weight: 400;
+		   line-height: 1.4em;
+		   .ie & {
+			   font-size: 19px;
+		   }
+		   &.mandatory {
+		   		margin-top: 1.6em;
+		   		font-size: 1.6rem;
+		   		.ie & {
+			   		font-size: 16px;
+		   		}
+					em {
+						font-style: normal;
+						font-size: 1.9rem;
+						.ie & {
+							font-size: 19px;
+						}
+					}
+			}
+			&.security-message {
+				margin-bottom: 1em;
+				font-size: 1.6rem;
+				.ie & {
+					font-size: 16px;
+				}
+				strong {
+					font-weight: 600;
+					text-decoration: underline;
+				}
+			}
+	   }
+	   ul {
+		   margin: 0;
+		   padding: 0;
+		   list-style: none;
+	   }
+   }
