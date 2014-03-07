@@ -31,8 +31,6 @@ trait CachedClaim {
 
   val cacheKey = CachedClaim.key
 
-  val redirect = getProperty("enforceRedirect", default = true)
-
   val startPage: String = getProperty("claim.start.page", "/allowance/benefits")
 
   val timeoutPage = routes.ClaimEnding.timeout()
@@ -158,7 +156,7 @@ trait CachedClaim {
       if (sameHostCheck) {
         doSubmit()
       } else {
-        if (redirect) {
+        if (getProperty("enforceRedirect", default = true)) {
           Logger.warn(s"HTTP Referer : $referer")
           Logger.warn(s"Conf Referer : $startPage")
           Logger.warn(s"HTTP Host : $host")
@@ -228,6 +226,10 @@ trait CachedClaim {
         withHeaders(action)
       }
     }
+  }
+
+  def redirect: Boolean = {
+    getProperty("enforceRedirect", default = true)
   }
 
   private def withHeaders(result: Result): Result = {
