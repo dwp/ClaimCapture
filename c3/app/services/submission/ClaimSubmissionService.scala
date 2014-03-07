@@ -1,45 +1,31 @@
-package controllers.submission
+package services.submission
 
-import play.api.mvc.Results.Redirect
+import play.api.mvc.{AnyContent, Request}
 import scala.concurrent.{ExecutionContext, Future}
-import play.api.mvc._
 import play.api.{http, Logger}
-import com.google.inject.Inject
-import services.TransactionIdService
-import services.submission.FormSubmission
-import ExecutionContext.Implicits.global
+import controllers.submission._
 import models.view.{CachedChangeOfCircs, CachedClaim}
+import play.api.mvc.Results._
 import play.api.libs.ws.Response
 import models.domain.Claim
-import xml.{XMLBuilder, ValidXMLBuilder}
+import play.api.mvc.SimpleResult
+import services.ClaimTransactionComponent
+import ExecutionContext.Implicits.global
 
+trait ClaimSubmissionService {
 
-class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission: FormSubmission) extends Submitter {
+  this : ClaimTransactionComponent with WebServiceClientComponent =>
 
-  val claimThankYouPageUrl = controllers.routes.ClaimEnding.thankyou()
-  val cofcThankYouPageUrl = controllers.routes.CircsEnding.thankyou()
-  val claimErrorPageUrl = controllers.routes.ClaimEnding.error()
-  val cofcErrorPageUrl = controllers.routes.CircsEnding.error()
-
-  lazy val xmlBuilder: XMLBuilder = ValidXMLBuilder()
-
-  override def submit(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = {
-    val txnID = idService.generateId
+  def submission(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = {
+    val txnID = claimTransaction.generateId
     Logger.info(s"Retrieved Id : $txnID")
 
-    claimSubmission.submitClaim(xmlBuilder.xml(claim, txnID)).map(
+    webServiceClient.submitClaim(claim, txnID).map(
       response => {
         registerId(claim, txnID, SUBMITTED)
         processResponse(claim, txnID, response, request)
       }
-    ).recover {
-      case e: java.net.ConnectException =>
-        Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-        errorAndCleanup(claim, txnID, COMMUNICATION_ERROR, request)
-      case e: java.lang.Exception =>
-        Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
-        errorAndCleanup(claim, txnID, UNKNOWN_ERROR, request)
-    }
+    )
   }
 
   private def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): SimpleResult = {
@@ -48,33 +34,44 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         val responseStr = response.body
         Logger.info(s"Received response : ${claim.key} : $responseStr")
         val responseXml = scala.xml.XML.loadString(responseStr)
-        val status = (responseXml \\ "statusCode").text
-        Logger.info(s"Received status code : $status")
-        status match {
-          case SUBMITTED =>
-            respondWithSuccess(claim,txnId,SUCCESS)
+        val result = (responseXml \\ "result").text
+        Logger.info(s"Received result : ${claim.key} : $result")
+        result match {
+          case "response" =>
+            updateStatus(claim, txnId, SUCCESS)
+            respondWithSuccess(claim, txnId, request)
+          case "acknowledgement" =>
+            updateStatus(claim, txnId, ACKNOWLEDGED)
+            respondWithSuccess(claim, txnId, request)
+          case "error" =>
+            val errorCode = (responseXml \\ "errorCode").text
+            errorAndCleanup(claim, txnId, errorCode, request)
           case _ =>
-            Logger.info(s"Received result : $status")
-            errorAndRedirect(claim, txnId, status)
+            Logger.error(s"Received error : $result, TxnId : $txnId, Headers : ${request.headers}")
+            errorAndCleanup(claim, txnId, UNKNOWN_ERROR, request)
+        }
+      case http.Status.SERVICE_UNAVAILABLE =>
+        Logger.error(s"SERVICE_UNAVAILABLE : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
+        claim.key match {
+          case CachedClaim.key =>
+            Redirect(controllers.s11_consent_and_declaration.routes.G6Error.present())
+          case CachedChangeOfCircs.key =>
+            Redirect(controllers.circs.s3_consent_and_declaration.routes.G3Error.present())
         }
       case http.Status.BAD_REQUEST =>
         Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
-        errorAndRedirect(claim, txnId, BAD_REQUEST_ERROR)
+        errorAndCleanup(claim, txnId, BAD_REQUEST_ERROR, request)
       case http.Status.REQUEST_TIMEOUT =>
         Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
-        errorAndRedirect(claim, txnId, REQUEST_TIMEOUT_ERROR)
+        errorAndCleanup(claim, txnId, REQUEST_TIMEOUT_ERROR, request)
       case http.Status.INTERNAL_SERVER_ERROR =>
         Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
-        errorAndRedirect(claim, txnId, INTERNAL_SERVER_ERROR)
-      case _ =>
-        Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
-        errorAndRedirect(claim, txnId, UNKNOWN_ERROR)
+        errorAndCleanup(claim, txnId, SERVER_ERROR, request)
     }
   }
 
-  private def respondWithSuccess(claim: Claim, txnId: String, code: String) : SimpleResult = {
+  def respondWithSuccess(claim: Claim, txnId: String, request: Request[AnyContent]): SimpleResult = {
     Logger.info(s"Successful submission : ${claim.key} : $txnId")
-    updateStatus(claim, txnId, code)
     claim.key match {
       case CachedClaim.key =>
         Redirect(controllers.routes.ClaimEnding.thankyou())
@@ -94,16 +91,6 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     }
   }
 
-  private def errorAndRedirect(claim: Claim, txnId: String, code: String): SimpleResult = {
-    Logger.error(s"errorAndCleanup : ${claim.key} : $txnId : $code")
-    updateStatus(claim, txnId, code)
-    claim.key match {
-      case CachedClaim.key => Redirect(claimErrorPageUrl)
-      case CachedChangeOfCircs.key => Redirect(cofcErrorPageUrl)
-    }
-  }
-
-
   private[submission] def pollXml(correlationID: String, pollEndpoint: String) = {
     <poll>
       <correlationID>{correlationID}</correlationID>
@@ -112,11 +99,11 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
   }
 
   private def updateStatus(claim: Claim, id: String, statusCode: String) = {
-    idService.updateStatus(id, statusCode, claimType(claim))
+    claimTransaction.updateStatus(id, statusCode, claimType(claim))
   }
 
   private def registerId(claim: Claim, id: String, statusCode: String) = {
-    idService.registerId(id, SUBMITTED, claimType(claim))
+    claimTransaction.registerId(id, statusCode, claimType(claim))
   }
 
   val SUBMITTED = "0000"
@@ -125,6 +112,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
   val UNKNOWN_ERROR = "9001"
   val BAD_REQUEST_ERROR = "9002"
   val REQUEST_TIMEOUT_ERROR = "9003"
-  val INTERNAL_SERVER_ERROR = "9004"
+  val SERVER_ERROR = "9004"
   val COMMUNICATION_ERROR = "9005"
+
 }

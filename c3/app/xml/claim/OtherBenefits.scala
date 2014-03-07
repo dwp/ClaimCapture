@@ -7,15 +7,16 @@ import xml.XMLHelper._
 import xml.XMLComponent
 import models.domain.Claim
 import scala.Some
+import models.yesNo.YesNoWithEmployerAndMoney
 
 
 object OtherBenefits extends XMLComponent {
 
   def xml(claim: Claim) = {
     val moreAboutYou = claim.questionGroup[MoreAboutYou]
-    val statutorySickPay = claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay(haveYouHadAnyStatutorySickPay = no))
-    val otherStatutoryPayOption = claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay(otherPay = no))
     val aboutOtherMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
+    val statutorySickPay = aboutOtherMoney.statutorySickPay
+    val otherStatutoryPayOption = aboutOtherMoney.otherStatutoryPay
     val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
 
 
@@ -27,9 +28,9 @@ object OtherBenefits extends XMLComponent {
           }
         }
       </ClaimantBenefits>
-      {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label", statutorySickPay.haveYouHadAnyStatutorySickPay,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
+      {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label", statutorySickPay.answer,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
       {otherMoneySPPXml(statutorySickPay)}
-      {question(<OtherMoneySP/>,"otherPay.label",otherStatutoryPayOption.otherPay,claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}
+      {question(<OtherMoneySP/>,"otherPay.label",otherStatutoryPayOption.answer,claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}
       {otherMoneySPDetails(otherStatutoryPayOption)}
       {question(<OtherMoney/>,"yourBenefits.answer", aboutOtherMoney.yourBenefits.answer, "or your Partner or Spouse", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}
       {question(<OtherMoneyPayments/>,"anyPaymentsSinceClaimDate.answer",aboutOtherMoney.anyPaymentsSinceClaimDate.answer,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
@@ -54,29 +55,29 @@ object OtherBenefits extends XMLComponent {
     </OtherBenefits>
   }
 
-  def otherMoneySPPXml(statutorySickPay: StatutorySickPay) = {
-    if (statutorySickPay.haveYouHadAnyStatutorySickPay.toLowerCase == yes) {
+  def otherMoneySPPXml(statutorySickPay: YesNoWithEmployerAndMoney) = {
+    if (statutorySickPay.answer.toLowerCase == yes) {
       <OtherMoneySSPDetails>
           <Payment>
             {questionCurrency(<Payment/>,"howMuch",statutorySickPay.howMuch)}
             {questionOther(<Frequency/>,"howOften_frequency", statutorySickPay.howOften.get.frequency, statutorySickPay.howOften.get.other)}
         </Payment>
         {if (statutorySickPay.employersName.isDefined) <Name>{statutorySickPay.employersName.get}</Name>}
-        {postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}
+        {postalAddressStructure(statutorySickPay.address, statutorySickPay.postCode)}
       </OtherMoneySSPDetails>
     }
     else NodeSeq.Empty
   }
 
-  def otherMoneySPDetails(otherStatutoryPay: OtherStatutoryPay) = {
-    if (otherStatutoryPay.otherPay.toLowerCase == yes) {
+  def otherMoneySPDetails(otherStatutoryPay: YesNoWithEmployerAndMoney) = {
+    if (otherStatutoryPay.answer.toLowerCase == yes) {
       <OtherMoneySPDetails>
           <Payment>
            {questionCurrency(<Payment/>, "howMuch", otherStatutoryPay.howMuch)}
            {questionOther(<Frequency/>,"howOften_frequency", otherStatutoryPay.howOften.get.frequency, otherStatutoryPay.howOften.get.other)}
         </Payment>
         {if (otherStatutoryPay.employersName.isDefined) <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>}
-        {postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}
+        {postalAddressStructure(otherStatutoryPay.address, otherStatutoryPay.postCode)}
       </OtherMoneySPDetails>
     }
     else NodeSeq.Empty

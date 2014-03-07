@@ -32,7 +32,7 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
 
   def bankBuildingSocietyDetails(implicit claim: Claim, request: Request[AnyContent], lang: Lang): ClaimResult = {
     val iAmVisible = claim.questionGroup(HowWePayYou) match {
-      case Some(y: HowWePayYou) => y.likeToBePaid == AccountStatus.BankBuildingAccount.name
+      case Some(y: HowWePayYou) => y.likeToBePaid == AccountStatus.BankBuildingAccount
       case _ => true
     }
 

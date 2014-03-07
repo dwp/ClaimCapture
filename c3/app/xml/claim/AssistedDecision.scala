@@ -1,4 +1,4 @@
-package xml
+package xml.claim
 
 import app.StatutoryPaymentFrequency
 import models.domain._
@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 import scala.Some
 import xml.XMLComponent
 import xml.XMLHelper._
+
 
 /**
  * Generate the XML presenting the Assisted decisions.
@@ -126,7 +127,8 @@ object AssistedDecision extends XMLComponent {
     if (otherEEAStateOrSwitzerland.workingForEEA.toLowerCase == "yes") decisionElement("Claimant or partner dependent on EEA insurance or work.", "Transfer to Exportability team.")
     else NodeSeq.Empty
   }
-  
+
   private def decisionElement(reason: String, decision:String) = <AssistedDecision><Reason>{reason}</Reason><RecommendedDecision>{decision}</RecommendedDecision></AssistedDecision>
 
 }
+

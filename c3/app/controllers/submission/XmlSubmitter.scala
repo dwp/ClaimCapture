@@ -9,10 +9,10 @@ import models.domain.Claim
 import xml.DWPBody
 
 
-class XmlSubmitter extends Submitter {
+object XmlSubmitter {
   val transactionID = "TEST432"
 
-  override def submit(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = {
+  def submission(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = {
     val validator = xmlValidator(claim)
     val fullXml = DWPBody().xml(claim,transactionID )
 

@@ -21,8 +21,8 @@ object SelfEmployment extends XMLComponent{
           {question(<DateStarted/>, "whenDidYouStartThisJob", aboutSelfEmployment.whenDidYouStartThisJob)}
           {question(<NatureBusiness/>, "natureOfYourBusiness", aboutSelfEmployment.natureOfYourBusiness)}
           <TradingYear>
-            {question(<DateFrom/>, "whatWasOrIsYourTradingYearFrom", yourAccounts.whatWasOrIsYourTradingYearFrom, isWasIfSelfEmployed(claim))}
-            {question(<DateTo/>, "whatWasOrIsYourTradingYearTo", yourAccounts.whatWasOrIsYourTradingYearTo, isWasIfSelfEmployed(claim))}
+            {question(<DateFrom/>, "whatWasOrIsYourTradingYearFrom", yourAccounts.whatWasOrIsYourTradingYearFrom, labelForSelfEmployment(claim, "whatWasOrIsYourTradingYearFrom"))}
+            {question(<DateTo/>, "whatWasOrIsYourTradingYearTo", yourAccounts.whatWasOrIsYourTradingYearTo, labelForSelfEmployment(claim, "whatWasOrIsYourTradingYearTo"))}
           </TradingYear>
           {question(<SameIncomeOutgoingLevels/>, "areIncomeOutgoingsProfitSimilarToTrading", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading)}
           {question(<WhyWhenChange/>, "tellUsWhyAndWhenTheChangeHappened", yourAccounts.tellUsWhyAndWhenTheChangeHappened)}
@@ -32,8 +32,8 @@ object SelfEmployment extends XMLComponent{
           {question(<DateStarted/>, "whenDidYouStartThisJob", aboutSelfEmployment.whenDidYouStartThisJob)}
           {question(<NatureBusiness/>, "natureOfYourBusiness", aboutSelfEmployment.natureOfYourBusiness)}
           <TradingYear>
-            {question(<DateFrom/>, "whatWasOrIsYourTradingYearFrom", yourAccounts.whatWasOrIsYourTradingYearFrom, isWasIfSelfEmployed(claim))}
-            {question(<DateTo/>, "whatWasOrIsYourTradingYearTo", yourAccounts.whatWasOrIsYourTradingYearTo, isWasIfSelfEmployed(claim))}
+            {question(<DateFrom/>, "whatWasOrIsYourTradingYearFrom", yourAccounts.whatWasOrIsYourTradingYearFrom, labelForSelfEmployment(claim, "whatWasOrIsYourTradingYearFrom"))}
+            {question(<DateTo/>, "whatWasOrIsYourTradingYearTo", yourAccounts.whatWasOrIsYourTradingYearTo, labelForSelfEmployment(claim, "whatWasOrIsYourTradingYearTo"))}
           </TradingYear>
           {question(<SameIncomeOutgoingLevels/>, "areIncomeOutgoingsProfitSimilarToTrading", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading)}
           {question(<WhyWhenChange/>, "tellUsWhyAndWhenTheChangeHappened", yourAccounts.tellUsWhyAndWhenTheChangeHappened)}
@@ -47,11 +47,11 @@ object SelfEmployment extends XMLComponent{
       <SelfEmployment>
         {question(<SelfEmployedNow/>, "areYouSelfEmployedNow", aboutSelfEmployment.areYouSelfEmployedNow)}
         {jobDetails()}
-        {question(<CareExpensesChildren/>, "doYouPayToLookAfterYourChildren", pensionAndExpenses.doYouPayToLookAfterYourChildren, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
+        {question(<CareExpensesChildren/>, "doYouPayToLookAfterYourChildren", pensionAndExpenses.doYouPayToLookAfterYourChildren, labelForSelfEmployment(claim, "doYouPayToLookAfterYourChildren"))}
         {childCareExpenses(claim)}
-        {question(<CareExpensesCaree/>, "didYouPayToLookAfterThePersonYouCaredFor", pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
+        {question(<CareExpensesCaree/>, "didYouPayToLookAfterThePersonYouCaredFor", pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor, labelForSelfEmployment(claim, "didYouPayToLookAfterThePersonYouCaredFor"))}
         {careExpenses(claim)}
-        {question(<PaidForPension/>, "doYouPayToPensionScheme.answer", pensionAndExpenses.doYouPayToPensionScheme, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
+        {question(<PaidForPension/>, "doYouPayToPensionScheme.answer", pensionAndExpenses.doYouPayToPensionScheme, labelForSelfEmployment(claim, "doYouPayToPensionScheme.answer"))}
         {pensionScheme(claim)}
       </SelfEmployment>
     } else NodeSeq.Empty
@@ -68,8 +68,8 @@ object SelfEmployment extends XMLComponent{
       <ChildCareExpenses>
         {question(<CarerName/>, "whoLooksAfterChildren", childCareExpenses.nameOfPerson)}
         <Expense>
-          {questionCurrency(<Payment/>, "howMuchCostChildcare", Some(childCareExpenses.howMuchYouPay), didYouDoYouIfSelfEmployed(claim))}
-          {questionOther(<Frequency/>, "howOftenPayChildCare", childCareExpenses.howOftenPayChildCare.frequency, childCareExpenses.howOftenPayChildCare.other, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
+          {questionCurrency(<Payment/>, "howMuchCostChildcare", Some(childCareExpenses.howMuchYouPay), labelForSelfEmployment(claim, "howMuchCostChildcare"))}
+          {questionOther(<Frequency/>, "howOftenPayChildCare", childCareExpenses.howOftenPayChildCare.frequency, childCareExpenses.howOftenPayChildCare.other, labelForSelfEmployment(claim, "howOftenPayChildCare"))}
         </Expense>
         {question(<RelationshipCarerToClaimant/>, "relationToYou", childCareExpenses.whatRelationIsToYou)}
         {question(<RelationshipCarerToPartner/>, "relationToPartner",childCareExpenses.relationToPartner)}
@@ -86,10 +86,10 @@ object SelfEmployment extends XMLComponent{
 
     if (hasCareExpenses) {
       <CareExpenses>
-        {question(<CarerName/>, "whoDoYouPay", expensesWhileAtWork.nameOfPerson, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
+        {question(<CarerName/>, "whoDoYouPay", expensesWhileAtWork.nameOfPerson, labelForSelfEmployment(claim, "whoDoYouPay"))}
         <Expense>
-          {questionCurrency(<Payment/>, "howMuchCostCare", Some(expensesWhileAtWork.howMuchYouPay), didYouDoYouIfSelfEmployed(claim))}
-          {questionOther(<Frequency/>, "howOftenPayExpenses", expensesWhileAtWork.howOftenPayExpenses.frequency, expensesWhileAtWork.howOftenPayExpenses.other, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
+          {questionCurrency(<Payment/>, "howMuchCostCare", Some(expensesWhileAtWork.howMuchYouPay), labelForSelfEmployment(claim, "howMuchCostCare"))}
+          {questionOther(<Frequency/>, "howOftenPayExpenses", expensesWhileAtWork.howOftenPayExpenses.frequency, expensesWhileAtWork.howOftenPayExpenses.other, labelForSelfEmployment(claim, "howOftenPayExpenses"))}
         </Expense>
         {question(<RelationshipCarerToClaimant/>, "whatRelationIsToYou", expensesWhileAtWork.whatRelationIsToYou)}
         {question(<RelationshipCarerToCaree/>, "whatRelationIsTothePersonYouCareFor", expensesWhileAtWork.whatRelationIsTothePersonYouCareFor)}
@@ -104,8 +104,8 @@ object SelfEmployment extends XMLComponent{
 
     if (hasPensionScheme) {
         <PensionScheme>
-          {questionCurrency(<Payment/>,"howMuchDidYouPay",pensionAndExpenses.howMuchDidYouPay, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
-          {questionOther(<Frequency/>, "doYouPayToPensionScheme.howOften", pensionAndExpenses.howOften.get.frequency, pensionAndExpenses.howOften.get.other, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
+          {questionCurrency(<Payment/>,"howMuchDidYouPay",pensionAndExpenses.howMuchDidYouPay, labelForSelfEmployment(claim, "howMuchDidYouPay"))}
+          {questionOther(<Frequency/>, "doYouPayToPensionScheme.howOften", pensionAndExpenses.howOften.get.frequency, pensionAndExpenses.howOften.get.other, labelForSelfEmployment(claim, "doYouPayToPensionScheme.howOften"))}
         </PensionScheme>
     } else NodeSeq.Empty
   }
