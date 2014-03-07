@@ -10,7 +10,8 @@
 
 @argsWithDateOfBirthSpecificArgs = @{
     val lastYear = "%d".format(Calendar.getInstance().getTime().format("yyyy").toInt - yearsInThePast)
-    args ++ Seq('helperBelow -> Messages("dateOfBirth.helper", lastYear))
+    val month = Messages("dynamicDate.month1.helper")
+    args ++ Seq('helperBelow -> Messages("dynamicDate.helper", month, lastYear))
 }
 
 @inputDayMonthYear(field, argsWithDateOfBirthSpecificArgs: _*)
