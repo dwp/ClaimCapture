@@ -1567,6 +1567,11 @@ header div {
         margin-top: 1.5em; }
       .carers-allowance .right-panel section h2 {
         line-height: 1.2em; }
+    .carers-allowance .right-panel.no-employment {
+      float: none;
+      margin-top: 2em;
+      border: 0;
+      width: auto; }
 
 .content-panel {
   margin-top: 2em; }
