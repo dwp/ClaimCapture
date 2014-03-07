@@ -1,20 +1,24 @@
 package services.mail
 
 import scala.concurrent.duration._
-
-import akka.actor.{OneForOneStrategy, Actor}
+import scala.language.postfixOps
+import akka.actor.{Props, ActorSystem, OneForOneStrategy, Actor}
 import akka.actor.SupervisorStrategy._
+import play.api.Play.current
 
-case class SendEmail(to: String, body: String,subject: String, from: String* )
 
 class EmailManagerActor extends Actor {
 
   override def supervisorStrategy = OneForOneStrategy(maxNrOfRetries = 5, withinTimeRange = 1 minute){
-    case e:Exception => Restart
+    case e:Exception => printf(e.getStackTraceString);Restart
   }
 
   override def receive: Actor.Receive = {
     case e:SendEmail =>
+      val actor = this.context.actorOf(Props[EmailSenderActor])
+      actor ! e
+      actor ! Stop
+
   }
 }
 
@@ -24,10 +28,7 @@ class EmailSenderActor extends Actor {
   override def receive: Actor.Receive = {
     case e:SendEmail => sendEmail(e)
   }
-
-
-  def sendEmail(e:SendEmail) = mailerPluginApi.setFrom("ruben.diaz.valtech@gmail.com").setRecipient(e.from:_*).setSubject(e.subject).sendHtml(e.body)
-
+  def sendEmail(mail:SendEmail) = mailerPluginApi.setFrom("ruben.diaz.valtech@gmail.com").setRecipient(mail.to:_*).setSubject(mail.subject).sendHtml(mail.body)
 
   def mailerPluginApi = {
     import com.typesafe.plugin._

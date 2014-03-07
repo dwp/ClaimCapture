@@ -1,27 +1,24 @@
 package services
 
 import play.api.templates.Html
-import play.api.Play.current
 import scala.language.existentials
+import services.mail.{EmailActors, SendEmail}
 
 object EmailServices {
 
-  import com.typesafe.plugin._
-
   def sendEmail = new {
-    private[services] val api = use[MailerPlugin].email.setFrom("ruben.diaz.valtech@gmail.com")
-    def to(recipients:String*) =  {
-      api.setRecipient(recipients:_*)
+    private[services] var email = SendEmail()
+    def to(r:String*) =  {
+      email = email.copy(to=r.toSeq)
       this
     }
     def withSubject(subject:String) = {
-      api.setSubject(subject)
+      email = email.copy(subject = subject)
       this
     }
-    def withBody(html:Html) = api.sendHtml(html.body)
+    def withBody(html:Html):Unit = EmailActors.manager ! email.copy(body = html.body)
 
-    def withBody(message:String) = api.send(message)
-
+    def withBody(message:String):Unit = EmailActors.manager ! email.copy(body = message)
 
   }
 
