@@ -14,12 +14,12 @@ trait BotChecking extends FastSubmissionNotifier {
   def honeyPot(claim: Claim): Boolean
 
   def isSpeedBot(claimOrCircs: Claim): Boolean = {
-    val checkForBotSpeed = getProperty("checkForBotSpeed", default = false)
+    val checkForBotSpeed = getProperty("checkForBotSpeed", default = true)
     checkForBotSpeed && checkTimeToCompleteAllSections(claimOrCircs, System.currentTimeMillis())
   }
 
   def isHoneyPotBot(claimOrCircs: Claim): Boolean = {
-    val checkForBotHoneyPot = getProperty("checkForBotHoneyPot", default = false)
+    val checkForBotHoneyPot = getProperty("checkForBotHoneyPot", default = true)
     checkForBotHoneyPot && honeyPot(claimOrCircs)
   }
 

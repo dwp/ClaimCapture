@@ -152,7 +152,7 @@
         
          
 
-        @if(play.Configuration.root().getBoolean("include_analytics", false)) {
+        @if(play.Configuration.root().getBoolean("include.analytics", true)) {
             @views.html.ga.setup()
         }
     </body>
