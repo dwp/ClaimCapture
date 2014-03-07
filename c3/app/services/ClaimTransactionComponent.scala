@@ -53,8 +53,16 @@ trait ClaimTransactionComponent {
       }
     }
 
-    var id: String = _
   }
+
+  class StubClaimTransaction extends ClaimTransaction {
+    override def generateId: String = "TEST623"
+
+    override def registerId(id: String, statusCode: String, claimType: Int) {}
+
+    override def updateStatus(id: String, statusCode: String, claimType: Int) {}
+  }
+
 }
 
 /**

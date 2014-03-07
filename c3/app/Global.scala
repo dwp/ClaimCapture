@@ -1,12 +1,8 @@
 import app.ConfigProperties._
-import java.io.File
 import java.net.InetAddress
-import com.typesafe.config.ConfigFactory
-import java.util.UUID
 import monitoring.ApplicationMonitor
 import org.slf4j.MDC
 import play.api._
-import play.api.Configuration
 import play.api.mvc._
 import play.api.mvc.Results._
 import jmx.JMXActors
@@ -15,44 +11,25 @@ import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
 import utils.helpers.CarersLanguageHelper
 
-/**
- * Application configuration is in a hierarchy of files:
- *
- *                            application.conf
- *                      /             |            \
- * application.prod.conf    application.dev.conf    application.test.conf <- these can override and add to application.conf
- *
- * play test  <- test mode picks up application.test.conf
- * play run   <- dev mode picks up application.dev.conf
- * play start <- prod mode picks up application.prod.conf
- *
- * To override and stipulate a particular "conf" e.g.
- * play -Dconfig.file=conf/application.test.conf run
- */
-
 object Global extends GlobalSettings with Injector with CarersLanguageHelper {
 
   override def onStart(app: Application) {
-    MDC.put("httpPort", Option(System.getProperty("http.port")).getOrElse("Value not set"))
+    MDC.put("httpPort", getProperty("http.port", "Value not set"))
     MDC.put("hostName", Option(InetAddress.getLocalHost.getHostName).getOrElse("Value not set"))
-    MDC.put("envName", Option(System.getProperty("env.name")).getOrElse("Value not set"))
-    MDC.put("appName", Option(System.getProperty("app.name")).getOrElse("Value not set"))
+    MDC.put("envName", getProperty("env.name", "Value not set"))
+    MDC.put("appName", getProperty("app.name", "Value not set"))
     super.onStart(app)
+
+    val secret: String = getProperty("application.secret", "secret")
+    val secretDefault: String = getProperty("secret.default", "don't Match")
+
+    if (secret.equals(secretDefault)) {
+      Logger.warn("application.secret is using default value")
+    }
 
     actorSystems
 
     Logger.info("c3 Started") // used for operations, do not remove
-  }
-
-  override def onLoadConfig(configuration: Configuration, path: File, classloader: ClassLoader, mode: Mode.Mode): Configuration = {
-    val dynamicConfig = Configuration.from(Map("session.cookieName" -> UUID.randomUUID().toString.substring(0, 16)))
-    val applicationConf = System.getProperty("config.file", s"application.${mode.toString.toLowerCase}.conf")
-    val envConf = System.getProperty("env.conf", "env.conf")
-    val environmentOverridingConfiguration = configuration ++
-      Configuration(ConfigFactory.load(applicationConf)) ++
-      dynamicConfig ++
-      Configuration(ConfigFactory.load(envConf))
-    super.onLoadConfig(environmentOverridingConfiguration, path, classloader, mode)
   }
 
   override def onStop(app: Application) {
