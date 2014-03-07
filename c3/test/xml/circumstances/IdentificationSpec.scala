@@ -3,13 +3,11 @@ package xml
 import app.XMLValues._
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
-import models.{DayMonthYear, MultiLineAddress, NationalInsuranceNumber}
+import models.DayMonthYear
 import models.domain.Claim
 import models.NationalInsuranceNumber
 import scala.Some
-import models.domain.Claim
-import models.NationalInsuranceNumber
-import scala.Some
+import xml.circumstances.CircsIdentification
 
 class IdentificationSpec extends Specification with Tags {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))

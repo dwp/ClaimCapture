@@ -2,12 +2,13 @@ package xml.circumstances
 
 import models.domain._
 import scala.xml.NodeSeq
-import xml.XMLHelper._
 import xml.XMLComponent
 
 object ClaimantDetails extends XMLComponent {
 
   def xml(circs :Claim): NodeSeq = {
+    // TODO : Schema and in turn the followwing xml needs to be changed to reflect the new changes : Prafulla Chandra
+    /*
     val yourDetails = circs.questionGroup[CircumstancesAboutYou].getOrElse(CircumstancesAboutYou())
     val contactDetails = circs.questionGroup[CircumstancesYourContactDetails].getOrElse(CircumstancesYourContactDetails())
     <ClaimantDetails>
@@ -20,5 +21,7 @@ object ClaimantDetails extends XMLComponent {
       {statement(<DayTimePhoneNumber/>,contactDetails.phoneNumber)}
       {statement(<MobileNumber/>,contactDetails.mobileNumber)}
     </ClaimantDetails>
+    */
+    NodeSeq.Empty
   }
 }

@@ -1,18 +1,13 @@
 @(currentForm: Form[models.domain.CircumstancesPaymentChange])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
-@import helper._
 @import utils.helpers.CarersTemplate._
-@import common._
-@import views.html.helper.dates._
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.circs.s2_report_changes.main
 @import app.PaymentFrequency._
 @import app.WhoseNameAccount._
-@import play.api.i18n.{MMessages => Messages}
-    
+
 @main(Messages("c2.g5") + " - " + Messages("c2.name")) {
     @errorsSummary(currentForm)
 
@@ -54,7 +49,7 @@
             <ul class="coc-layout">
                 @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
 
-                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> Messages("pleaseSelect"), YourName.name -> Messages("yourName"), Yourpartner.name -> Messages("yourPartner"), Both.name  -> Messages("both"), PersonActingBehalf.name -> Messages("personActingBehalf"), YouPersonBehalf.name -> Messages("youPersonBehalf")))
+                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> Messages("pleaseSelect"), YourName -> Messages("yourName"), Yourpartner -> Messages("yourPartner"), Both  -> Messages("both"), PersonActingBehalf -> Messages("personActingBehalf"), YouPersonBehalf -> Messages("youPersonBehalf")))
 
                 @carersInputText(currentForm("bankFullName"))
 
@@ -64,7 +59,7 @@
 
                 @carersInputText(currentForm("rollOrReferenceNumber"), 'maxLength -> "18")
 
-                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect"), EveryWeek.name -> Messages("label.everyWeek"), FourWeekly.name -> Messages("label.fourWeekly")))
+                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect"), EveryWeek -> Messages("label.everyWeek"), FourWeekly -> Messages("label.fourWeekly")))
 
                 @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
             </ul>

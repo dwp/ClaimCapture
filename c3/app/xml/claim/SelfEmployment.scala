@@ -104,9 +104,20 @@ object SelfEmployment extends XMLComponent{
 
     if (hasPensionScheme) {
         <PensionScheme>
-          {questionCurrency(<Payment/>,"howMuchDidYouPay",pensionAndExpenses.howMuchDidYouPay, labelForSelfEmployment(claim, "howMuchDidYouPay"))}
+          {questionCurrency(<Payment/>,"howMuchDidYouPay",currencyAmount(pensionAndExpenses.howMuchDidYouPay), labelForSelfEmployment(claim, "howMuchDidYouPay"))}
           {questionOther(<Frequency/>, "doYouPayToPensionScheme.howOften", pensionAndExpenses.howOften.get.frequency, pensionAndExpenses.howOften.get.other, labelForSelfEmployment(claim, "doYouPayToPensionScheme.howOften"))}
         </PensionScheme>
     } else NodeSeq.Empty
+  }
+
+  def currencyAmount(currency: Option[String]):Option[String] = {
+    val poundSign = "£"
+    currency match {
+      case Some(s) => {
+        if(s.split(poundSign).size >1) Some(s.split(poundSign)(1))
+        else Some(s)
+      }
+      case _ => None
+    }
   }
 }

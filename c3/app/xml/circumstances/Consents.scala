@@ -3,7 +3,6 @@ package xml.circumstances
 import xml.XMLComponent
 import models.domain.{CircumstancesDeclaration, Claim}
 import scala.xml.NodeSeq
-import play.api.i18n.Messages
 import xml.XMLHelper._
 
 /**

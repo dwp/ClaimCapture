@@ -1,16 +1,10 @@
 @(currentForm: Form[models.domain.HowWePayYou])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
-@import models.domain.HowWePayYou
 @import app.AccountStatus._
 @import app.PaymentFrequency._
-@import utils.helpers.CarersCrypto
-@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s10.g1") + " - " + Messages("s10.longName"), Some(currentForm)) {
 
@@ -20,9 +14,9 @@
             <legend>@Messages("s10.g1")</legend>
 
             <ul>
-                @listRadioGroup(currentForm("likeToPay"), 'items -> Seq(BankBuildingAccount.name , AppliedForAccount.name, NotOpenAccount.name ).map(s => s -> Messages("label."+s)), 'helperBelow -> Messages("howWePayYou.helper"))
+                @listRadioGroup(currentForm("likeToPay"), 'items -> Seq(BankBuildingAccount , AppliedForAccount, NotOpenAccount).map(s => s -> Messages("label."+s)), 'helperBelow -> Messages("howWePayYou.helper"))
 
-                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect")) ++ Seq(EveryWeek.name,FourWeekly.name).map(s => s -> Messages("label."+s)))
+                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect")) ++ Seq(EveryWeek,FourWeekly).map(s => s -> Messages("label."+s)))
             </ul>
         </fieldset>
 

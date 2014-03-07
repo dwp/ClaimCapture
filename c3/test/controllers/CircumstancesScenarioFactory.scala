@@ -2,8 +2,6 @@ package controllers
 
 import utils.pageobjects.TestData
 import app.ReportChange._
-import play.api.i18n.{Messages => Messages}
-import models.SortCode
 import app.{WhoseNameAccount, PaymentFrequency}
 
 object CircumstancesScenarioFactory {
@@ -93,11 +91,11 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesPaymentChangeCurrentlyPaidIntoBank = yes
     claim.CircumstancesPaymentChangeNameOfCurrentBank = "Nat West"
     claim.CircumstancesPaymentChangeAccountHolderName = "Mr John Doe"
-    claim.CircumstancesPaymentChangeWhoseNameIsTheAccountIn = WhoseNameAccount.YourName.name
+    claim.CircumstancesPaymentChangeWhoseNameIsTheAccountIn = WhoseNameAccount.YourName
     claim.CircumstancesPaymentChangeBankFullName = "HSBC"
     claim.CircumstancesPaymentChangeSortCode = "112233"
     claim.CircumstancesPaymentChangeAccountNumber = "12345678"
-    claim.CircumstancesPaymentChangePaymentFrequency = PaymentFrequency.EveryWeek.name
+    claim.CircumstancesPaymentChangePaymentFrequency = PaymentFrequency.EveryWeek
 
     claim
   }
@@ -108,11 +106,11 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesPaymentChangeCurrentlyPaidIntoBank = no
     claim.CircumstancesPaymentCurrentPaymentMethod = "Cheque"
     claim.CircumstancesPaymentChangeAccountHolderName = "Mr John Doe"
-    claim.CircumstancesPaymentChangeWhoseNameIsTheAccountIn = WhoseNameAccount.YourName.name
+    claim.CircumstancesPaymentChangeWhoseNameIsTheAccountIn = WhoseNameAccount.YourName
     claim.CircumstancesPaymentChangeBankFullName = "HSBC"
     claim.CircumstancesPaymentChangeSortCode = "112233"
     claim.CircumstancesPaymentChangeAccountNumber = "12345678"
-    claim.CircumstancesPaymentChangePaymentFrequency = PaymentFrequency.EveryWeek.name
+    claim.CircumstancesPaymentChangePaymentFrequency = PaymentFrequency.EveryWeek
 
     claim
   }

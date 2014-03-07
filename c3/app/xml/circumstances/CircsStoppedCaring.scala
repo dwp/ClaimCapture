@@ -1,5 +1,7 @@
 package xml.circumstances
 
+import models.domain.{CircumstancesStoppedCaring, Claim}
+
 object CircsStoppedCaring {
    def xml(circs: Claim) = {
      val circumstancesStoppedCaringOption = circs.questionGroup[CircumstancesStoppedCaring]

@@ -3,7 +3,6 @@ package xml.circumstances
 import models.domain.{CircumstancesReportChange, CircumstancesDeclaration, CircumstancesSelfEmployment, CircumstancesPaymentChange, CircumstancesAddressChange, Claim}
 import scala.xml.NodeSeq
 import xml.XMLHelper._
-import play.api.i18n.{MMessages => Messages}
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import scala.Some

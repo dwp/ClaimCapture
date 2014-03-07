@@ -9,9 +9,9 @@ import services.util.CharacterStripper
 import java.net.ConnectException
 import ExecutionContext.Implicits.global
 import java.util.concurrent.TimeoutException
-import controllers.submission._
 import play.api.libs.ws.Response
 import models.domain.Claim
+import xml.DWPBody
 
 trait WebServiceClientComponent {
 
@@ -19,7 +19,7 @@ trait WebServiceClientComponent {
 
   class WebServiceClient {
     def submitClaim(claim: Claim, txnId: String): Future[ws.Response] = {
-      val claimSubmission = xml(claim, txnId)
+      val claimSubmission = DWPBody().xml(claim, txnId)
       val submissionServerEndpoint: String =
         Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submit/claim"
       Logger.debug(s"Submission Server : $submissionServerEndpoint")

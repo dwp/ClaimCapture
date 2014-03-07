@@ -5,7 +5,6 @@ import scala.xml.NodeSeq
 import xml.XMLHelper._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
-import play.api.i18n.{MMessages => Messages}
 import controllers.Mappings
 
 object ConsentAndDeclaration {
@@ -21,14 +20,14 @@ object ConsentAndDeclaration {
         }
         declaration.circsSomeOneElse match {
           case Some(n) =>
-            textLines ++= textLine(Messages("circsSomeOneElse"), {booleanStringToYesNo(n)})
+            textLines ++= textLine(Messages("circsSomeOneElse"), {stringify(n)})
             declaration.nameOrOrganisation match {
               case Some(nOrO) => textLines ++= textLine(Messages("nameOrOrganisation")+". =", nOrO)
               case _ =>
             }
           case _ =>
         }
-        textLines ++= textLine(Messages("confirm"), {booleanStringToYesNo(declaration.confirm)})
+        textLines ++= textLine(Messages("confirm"), {stringify(declaration.confirm)})
         textLines ++= textLine(Messages("obtainInfoAgreement"), declaration.obtainInfoAgreement)
         declaration.obtainInfoAgreement match{
           case Mappings.no => textLines ++= textLine("I don't agree to you obtaining information from any other persons or organisations because ", declaration.obtainInfoWhy)

@@ -9,7 +9,7 @@ class OtherChangesSpec extends Specification with Tags {
   "Additional Info" should {
     "generate xml" in {
       val circs = Claim().update(CircumstancesOtherInfo(otherInfo))
-      val xml = OtherChanges.xml(circs)
+      val xml = AdditionalInfo.xml(circs)
       (xml \\ "OtherChanges" \ "QuestionLabel").text shouldEqual "c2.g1"
       (xml \\ "OtherChanges" \ "Answer").text shouldEqual otherInfo
     }

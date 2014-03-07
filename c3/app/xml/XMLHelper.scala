@@ -159,6 +159,8 @@ object XMLHelper {
 
   private def booleanToYesNo(value:Boolean) = if (value) Yes else No
 
+  def titleCase(s: String) = if(s != null && s.length() > 0) s.head.toUpper + s.tail.toLowerCase else ""
+
   private def formatValue(value:String):String = value match {
        case "yes" => Yes
        case "no" => No
@@ -169,6 +171,15 @@ object XMLHelper {
      }
 
   def extractIdFrom(xml:Elem):String = {(xml \\ "TransactionId").text}
+
+  def textSeparatorLine(title: String) = {
+    val lineWidth = 54
+    val padding = "=" * ((lineWidth - title.length) / 2)
+
+    <TextLine>
+      {s"$padding$title$padding"}
+    </TextLine>
+  }
 
   def textLine(): NodeSeq = <TextLine/>
 

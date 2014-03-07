@@ -3,7 +3,6 @@ package controllers
 import utils.pageobjects.TestData
 
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
-import models.domain.{SelfEmployment, Employed}
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -311,8 +310,8 @@ object ClaimScenarioFactory {
 
   def s6PayDetails() = {
     val claim = new TestData
-    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.NotOpenAccount.name
-    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek.name
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.NotOpenAccount
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek
     claim
   }
 
@@ -320,7 +319,7 @@ object ClaimScenarioFactory {
     val claim = new TestData
 
     claim.HowWePayYouNameOfAccountHolder = "John Smith"
-    claim.WhoseNameOrNamesIsTheAccountIn = WhoseNameAccount.YourName.name
+    claim.WhoseNameOrNamesIsTheAccountIn = WhoseNameAccount.YourName
     claim.HowWePayYouFullNameOfBankorBuildingSociety = "Carers Bank"
     claim.HowWePayYouSortCode = "090126"
     claim.HowWePayYouAccountNumber = "12345678"

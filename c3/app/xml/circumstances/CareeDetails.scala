@@ -1,7 +1,7 @@
 package xml.circumstances
 
 import xml.XMLComponent
-import models.domain.{DetailsOfThePersonYouCareFor, Claim}
+import models.domain.{CircumstancesReportChange, Claim}
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 
@@ -10,11 +10,12 @@ import xml.XMLHelper._
  */
 object CareeDetails extends XMLComponent {
   def xml(circs: Claim): NodeSeq = {
-      val detailsOfThePerson = circs.questionGroup[DetailsOfThePersonYouCareFor].getOrElse(DetailsOfThePersonYouCareFor())
+      val detailsOfThePerson = circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange())
 
+    // TODO : Schema and in turn the followwing xml needs to be changed to reflect the new changes : Prafulla Chandra
     <CareeDetails>
-      <Surname>{detailsOfThePerson.lastName}</Surname>
-      <OtherNames>{detailsOfThePerson.firstName} {detailsOfThePerson.middleName.getOrElse("")}</OtherNames>
+      <Surname>{detailsOfThePerson.fullName}</Surname>
+      <OtherNames>{detailsOfThePerson.fullName}</OtherNames>
       {statement(<DateOfBirth/>,detailsOfThePerson.dateOfBirth)}
       <NationalInsuranceNumber>{detailsOfThePerson.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
     </CareeDetails>
