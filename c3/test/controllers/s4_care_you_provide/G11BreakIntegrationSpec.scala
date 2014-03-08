@@ -160,6 +160,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
     """show "all options" for "Where was the person you care for during the break?".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       import scala.collection.JavaConverters._
+      Formulate.theirPersonalDetails(browser)
 
       goTo("/care-you-provide/break")
       titleMustEqual("Break - About the care you provide")
