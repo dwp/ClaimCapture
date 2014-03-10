@@ -36,14 +36,14 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("howMuchPension", "decimal.invalid", FormError("howMuchPension", "decimal.invalid", Seq(labelForEmployment(claim, "howMuchPension", jobID))))
-          .replaceError("howMuchPersonal", "decimal.invalid", FormError("howMuchPersonal", "decimal.invalid", Seq(labelForEmployment(claim, "howMuchPersonal", jobID))))
-          .replaceError("payOccupationalPensionScheme", "error.required", FormError("payOccupationalPensionScheme", "error.required", Seq(labelForEmployment(claim, "payOccupationalPensionScheme", jobID))))
-          .replaceError("payPersonalPensionScheme", "error.required", FormError("payPersonalPensionScheme", "error.required", Seq(labelForEmployment(claim, "payPersonalPensionScheme", jobID))))
-          .replaceError("", "howMuchPension", FormError("howMuchPension", "error.required", Seq(labelForEmployment(claim, "howMuchPension", jobID))))
-          .replaceError("", "howMuchPersonal", FormError("howMuchPersonal", "error.required", Seq(labelForEmployment(claim, "howMuchPersonal", jobID))))
-          .replaceError("", "howOftenPension.required", FormError("howOftenPension", "error.required", Seq(labelForEmployment(claim, "howOftenPension", jobID))))
-          .replaceError("", "howOftenPersonal.required", FormError("howOftenPersonal", "error.required", Seq(labelForEmployment(claim, "howOftenPersonal", jobID))))
+          .replaceError("howMuchPension", "decimal.invalid", FormError("howMuchPension", "decimal.invalid", Seq(labelForEmployment(claim, lang, "howMuchPension", jobID))))
+          .replaceError("howMuchPersonal", "decimal.invalid", FormError("howMuchPersonal", "decimal.invalid", Seq(labelForEmployment(claim, lang, "howMuchPersonal", jobID))))
+          .replaceError("payOccupationalPensionScheme", "error.required", FormError("payOccupationalPensionScheme", "error.required", Seq(labelForEmployment(claim, lang, "payOccupationalPensionScheme", jobID))))
+          .replaceError("payPersonalPensionScheme", "error.required", FormError("payPersonalPensionScheme", "error.required", Seq(labelForEmployment(claim, lang, "payPersonalPensionScheme", jobID))))
+          .replaceError("", "howMuchPension", FormError("howMuchPension", "error.required", Seq(labelForEmployment(claim, lang, "howMuchPension", jobID))))
+          .replaceError("", "howMuchPersonal", FormError("howMuchPersonal", "error.required", Seq(labelForEmployment(claim, lang, "howMuchPersonal", jobID))))
+          .replaceError("", "howOftenPension.required", FormError("howOftenPension", "error.required", Seq(labelForEmployment(claim, lang, "howOftenPension", jobID))))
+          .replaceError("", "howOftenPersonal.required", FormError("howOftenPersonal", "error.required", Seq(labelForEmployment(claim, lang, "howOftenPersonal", jobID))))
           .replaceError("howOftenPension.frequency.other","error.maxLength",FormError("howOftenPension","error.maxLength"))
           .replaceError("howOftenPersonal.frequency.other","error.maxLength",FormError("howOftenPersonal","error.maxLength"))
         BadRequest(views.html.s7_employment.g7_pensionSchemes(formWithErrorsUpdate))

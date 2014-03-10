@@ -33,8 +33,8 @@ object G9NecessaryExpenses extends Controller with CachedClaim with Navigable {
   def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val pastPresentLabelWhatAreThose = labelForEmployment(claim, "whatAreThose", jobID)
-        val pastPresentLabelJobTitle = labelForEmployment(claim, "jobTitle", jobID)
+        val pastPresentLabelWhatAreThose = labelForEmployment(claim, lang, "whatAreThose", jobID)
+        val pastPresentLabelJobTitle = labelForEmployment(claim, lang, "jobTitle", jobID)
         val formWithErrorsUpdate = formWithErrors
           .replaceError("jobTitle", "error.required", FormError("jobTitle", "error.required", Seq(pastPresentLabelJobTitle)))
           .replaceError("jobTitle", "error.restricted.characters", FormError("jobTitle", "error.restricted.characters", Seq(pastPresentLabelJobTitle)))

@@ -26,7 +26,7 @@
 	
 	                @carersInputTextArea(currentForm("payInclusions"), 'placeholder -> Messages("pleaseSpecify"), 'helper -> Html(Messages("60charsLeft")), 'maxLength -> 60,'helperBelow -> Messages("payInclusions.helper"))
 	
-	                @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> labelForEmployment(claim, "sameAmountEachTime", JobID(currentForm)))
+	                @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> labelForEmployment(claim, lang, "sameAmountEachTime", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
 	            </ul>
 	        </fieldset>
 	
