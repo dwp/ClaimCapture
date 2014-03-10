@@ -51,17 +51,19 @@ main {
 @import 'validation-summary';  
      
 
+/* form wrap */
+.form-wrap {
+		margin-right: 25%;
+		@media screen and (max-width: 860px) {
+			margin-right: 0;
+		}
+	}
 
    
 /* form elements */
 .form-elements {
-	margin: 2em 25% 1em 0;
-	display: block;
-	zoom: 1;
-   	@media screen and (max-width: 860px) {
-   		margin-right: 0;
-   		}
-   	    
+	margin: 2em 0 1em 0;
+
    	    
    	    /* Eligibility section */
    	    &.form-eligibility {

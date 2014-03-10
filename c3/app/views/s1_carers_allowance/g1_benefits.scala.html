@@ -10,49 +10,54 @@
 
     @form(action = controllers.s1_carers_allowance.routes.G1Benefits.submit) {
 
-        <fieldset class="form-elements form-eligibility">
-            <legend>@Html(Messages("s1.g1"))</legend>
-            
-            <p class="helper-message">@Html(Messages("s1.g1.help1"))</p>
-            
-            <div class="prompt question-prompt" data-journey="carers-allowance:page:eligibility">
 
-	            <p class="title">@Html(Messages("s1.g1.help2"))</p>
-	
-	            <p>@Html(Messages("s1.g1.help3"))</p>
-	
-	            <p class="title">@Html(Messages("s1.g1.help4"))</p>
-	
-	            <p>@Html(Messages("s1.g1.help5"))</p>
-	
-	            <p class="title">@Html(Messages("s1.g1.help6"))</p>
-	
-	            <p class="title">@Html(Messages("s1.g1.help7"))</p>
-	
-	            <p>@Html(Messages("s1.g1.help8"))</p>
-	
-	            <p>@Html(Messages("s1.g1.help9"))</p>
-	
-	            <p class="title">@Html(Messages("s1.g1.help10"))</p>
-            
-            </div>
-            
-            <ul>
-                @yesNoRadioGroup(currentForm("answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'trackLabel -> "benefits.answer")
-            </ul>
-            
-            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
-                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
-                    <p>@Html(Messages("s1.g1.help11"))</p>
-                    <p>@Html(Messages("s1.g1.help12"))</p>
-                    <span>!</span>
-                 </div>
-            }
-        </fieldset>
+			<div class="form-wrap">
+		        <fieldset class="form-elements form-eligibility">
+		            <legend>@Html(Messages("s1.g1"))</legend>
+		            
+		            <p class="helper-message">@Html(Messages("s1.g1.help1"))</p>
+		            
+		            <div class="prompt question-prompt" data-journey="carers-allowance:page:eligibility">
+		
+			            <p class="title">@Html(Messages("s1.g1.help2"))</p>
+			
+			            <p>@Html(Messages("s1.g1.help3"))</p>
+			
+			            <p class="title">@Html(Messages("s1.g1.help4"))</p>
+			
+			            <p>@Html(Messages("s1.g1.help5"))</p>
+			
+			            <p class="title">@Html(Messages("s1.g1.help6"))</p>
+			
+			            <p class="title">@Html(Messages("s1.g1.help7"))</p>
+			
+			            <p>@Html(Messages("s1.g1.help8"))</p>
+			
+			            <p>@Html(Messages("s1.g1.help9"))</p>
+			
+			            <p class="title">@Html(Messages("s1.g1.help10"))</p>
+		            
+		            </div>
+		            
+		            <ul>
+		                @yesNoRadioGroup(currentForm("answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'trackLabel -> "benefits.answer")
+		            </ul>
+		            
+		            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+		                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
+		                    <p>@Html(Messages("s1.g1.help11"))</p>
+		                    <p>@Html(Messages("s1.g1.help12"))</p>
+		                    <span>!</span>
+		                 </div>
+		            }
+		        </fieldset>
 
-        <nav class="form-steps">
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+
+		        <nav class="form-steps">
+		            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+		        </nav>
+		        
+			</div>
     }
 }
 

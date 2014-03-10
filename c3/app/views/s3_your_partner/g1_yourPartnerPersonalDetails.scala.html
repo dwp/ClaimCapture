@@ -12,36 +12,38 @@
 
     @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit) {
     
-        <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
-            <legend>@Messages("s3.g1")</legend>
-
-            <ul>
-                @titleSelect(currentForm("title"))
-
-                @carersInputText(currentForm("firstName"),'helperBelow -> Messages("their.name.helper"), 'maxLength -> 17)
-
-                @carersInputText(currentForm("middleName"), 'maxLength -> 17)
-
-                @carersInputText(currentForm("surname"), 'maxLength -> 35)
-                
-                @carersInputText(currentForm("otherNames"), 'maxLength -> 35)
-
-                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
-
-                @dateOfBirth(currentForm("dateOfBirth"))
-                
-                @carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35,'helperBelow -> Messages("partner.nationality.helper"))
-
-                @yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
-
-                @yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
+	            <legend>@Messages("s3.g1")</legend>
+	
+	            <ul>
+	                @titleSelect(currentForm("title"))
+	
+	                @carersInputText(currentForm("firstName"),'helperBelow -> Messages("their.name.helper"), 'maxLength -> 17)
+	
+	                @carersInputText(currentForm("middleName"), 'maxLength -> 17)
+	
+	                @carersInputText(currentForm("surname"), 'maxLength -> 35)
+	                
+	                @carersInputText(currentForm("otherNames"), 'maxLength -> 35)
+	
+	                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
+	
+	                @dateOfBirth(currentForm("dateOfBirth"))
+	                
+	                @carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35,'helperBelow -> Messages("partner.nationality.helper"))
+	
+	                @yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+	
+	                @yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
 <script type="text/javascript">

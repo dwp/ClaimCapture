@@ -7,23 +7,25 @@
 @main(Messages("s2.g7") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)) {
 
     @form(action = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.submit) {
-        <fieldset class="form-elements">
-            <legend>@Messages("s2.g7")</legend>
-
-            <ul>
-                @sliderHelp(Messages("eeaCountryHelp.label"),Messages("eeaCountryHelp.closeLabel"),Html(Messages("eeaCountryHelp")), 'track -> true)
-
-                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromEEA"))
-
-                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("claimedForBenefitsFromEEA"))
-
-                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForEEA"))
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Messages("s2.g7")</legend>
+	
+	            <ul>
+	                @sliderHelp(Messages("eeaCountryHelp.label"),Messages("eeaCountryHelp.closeLabel"),Html(Messages("eeaCountryHelp")), 'track -> true)
+	
+	                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromEEA"))
+	
+	                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("claimedForBenefitsFromEEA"))
+	
+	                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForEEA"))
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }

@@ -20,38 +20,40 @@
     @form(action = controllers.s7_employment.routes.G7PensionSchemes.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
-        <fieldset class="form-elements">
-            <legend>@Messages("s7.g7")</legend>
-
-            <ul>
-                @yesNoRadioGroup(currentForm("payOccupationalPensionScheme"), '_label -> labelForEmployment(claim, "payOccupationalPensionScheme", JobID(currentForm)))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                        carersCurrency(currentForm("howMuchPension"), 'maxlength -> Mappings.sixty, '_label -> labelForEmployment(claim, "howMuchPension", JobID(currentForm))),
-                        pensionPaymentFrequencySelect(currentForm("howOftenPension"), '_label -> Messages("howOftenPension"), 'id -> "howOftenPension",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
-                    ),
-                    'id -> "payOccupationalPensionSchemeWrapper",
-                    'display -> currentForm("payOccupationalPensionScheme").value.getOrElse("no"))
-
-
-
-                @yesNoRadioGroup(currentForm("payPersonalPensionScheme"), '_label -> labelForEmployment(claim, "payPersonalPensionScheme", JobID(currentForm)))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                        carersCurrency(currentForm("howMuchPersonal"), 'maxlength -> Mappings.sixty, '_label -> labelForEmployment(claim, "howMuchPersonal", JobID(currentForm))),
-                        pensionPaymentFrequencySelect(currentForm("howOftenPersonal"), '_label -> Messages("howOftenPersonal"), 'id -> "howOftenPersonal",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
-                    ),
-                    'id -> "payPersonalPensionSchemeWrapper",
-                    'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Messages("s7.g7")</legend>
+	
+	            <ul>
+	                @yesNoRadioGroup(currentForm("payOccupationalPensionScheme"), '_label -> labelForEmployment(claim, "payOccupationalPensionScheme", JobID(currentForm)))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+	                        carersCurrency(currentForm("howMuchPension"), 'maxlength -> Mappings.sixty, '_label -> labelForEmployment(claim, "howMuchPension", JobID(currentForm))),
+	                        pensionPaymentFrequencySelect(currentForm("howOftenPension"), '_label -> Messages("howOftenPension"), 'id -> "howOftenPension",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+	                    ),
+	                    'id -> "payOccupationalPensionSchemeWrapper",
+	                    'display -> currentForm("payOccupationalPensionScheme").value.getOrElse("no"))
+	
+	
+	
+	                @yesNoRadioGroup(currentForm("payPersonalPensionScheme"), '_label -> labelForEmployment(claim, "payPersonalPensionScheme", JobID(currentForm)))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+	                        carersCurrency(currentForm("howMuchPersonal"), 'maxlength -> Mappings.sixty, '_label -> labelForEmployment(claim, "howMuchPersonal", JobID(currentForm))),
+	                        pensionPaymentFrequencySelect(currentForm("howOftenPersonal"), '_label -> Messages("howOftenPersonal"), 'id -> "howOftenPersonal",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+	                    ),
+	                    'id -> "payPersonalPensionSchemeWrapper",
+	                    'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>

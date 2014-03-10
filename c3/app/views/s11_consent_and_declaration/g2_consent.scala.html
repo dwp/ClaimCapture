@@ -11,38 +11,40 @@
 
 @main(Html(Messages("s11.g2")) + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Consent)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G2Consent.submit) {
-        <fieldset class="form-elements">
-            <legend>@Html(Messages("s11.g2"))</legend>
-
-            <ul class="group">
-
-                @if(claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
-                    claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).statutorySickPay.answer == `yes` ||
-                    claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).otherStatutoryPay.answer == `yes`){
-
-                    @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
-
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder") )),
-                        'id->"whyWrapper",
-                        'display -> {if( currentForm("gettingInformationFromAnyEmployer.informationFromEmployer").value.getOrElse("yes") == "no" ) "yes" else "no"}
-                    )
-                }
-
-                @yesNoRadioGroup(currentForm("tellUsWhyEmployer.informationFromPerson"))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyEmployer.whyPerson"), 'placeholder->Messages("why_placeholder") )),
-                    'id->"whyPersonWrapper",
-                    'display -> {if( currentForm("tellUsWhyEmployer.informationFromPerson").value.getOrElse("yes") == "no" ) "yes" else "no"}
-                )
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("s11.g2"))</legend>
+	
+	            <ul class="group">
+	
+	                @if(claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
+	                    claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).statutorySickPay.answer == `yes` ||
+	                    claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).otherStatutoryPay.answer == `yes`){
+	
+	                    @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
+	
+	                    @otherDetailPlaceHolder(
+	                        inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder") )),
+	                        'id->"whyWrapper",
+	                        'display -> {if( currentForm("gettingInformationFromAnyEmployer.informationFromEmployer").value.getOrElse("yes") == "no" ) "yes" else "no"}
+	                    )
+	                }
+	
+	                @yesNoRadioGroup(currentForm("tellUsWhyEmployer.informationFromPerson"))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyEmployer.whyPerson"), 'placeholder->Messages("why_placeholder") )),
+	                    'id->"whyPersonWrapper",
+	                    'display -> {if( currentForm("tellUsWhyEmployer.informationFromPerson").value.getOrElse("yes") == "no" ) "yes" else "no"}
+	                )
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
 

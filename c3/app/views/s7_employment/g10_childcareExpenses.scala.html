@@ -21,34 +21,36 @@
     @form(action = controllers.s7_employment.routes.G10ChildcareExpenses.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
-        <fieldset class="form-elements">
-            <legend>@Messages("s7.g10")</legend>
-
-            <ul>
-                @carersInputText(currentForm("whoLooksAfterChildren"))
-
-                @carersCurrency(currentForm("howMuchCostChildcare"), '_label -> labelForEmployment(claim, "howMuchCostChildcare", JobID(currentForm)), 'maxlength -> Mappings.sixty)
-
-                @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> labelForEmployment(claim, "employment_howOftenPayChildCare", JobID(currentForm)), 'id -> "howOftenPayChildCare",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
-
-                @relationshipSelectWithNone(currentForm("relationToYou"))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                    relationshipSelectWithNone(currentForm("relationToPartner"))),
-                    'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
-                        case (Some(m: MoreAboutYou), Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
-                        case _ => "no"
-                    }))
-
-                @relationshipSelectWithNone(currentForm("relationToPersonYouCare"))
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Messages("s7.g10")</legend>
+	
+	            <ul>
+	                @carersInputText(currentForm("whoLooksAfterChildren"))
+	
+	                @carersCurrency(currentForm("howMuchCostChildcare"), '_label -> labelForEmployment(claim, "howMuchCostChildcare", JobID(currentForm)), 'maxlength -> Mappings.sixty)
+	
+	                @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> labelForEmployment(claim, "employment_howOftenPayChildCare", JobID(currentForm)), 'id -> "howOftenPayChildCare",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+	
+	                @relationshipSelectWithNone(currentForm("relationToYou"))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+	                    relationshipSelectWithNone(currentForm("relationToPartner"))),
+	                    'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
+	                        case (Some(m: MoreAboutYou), Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
+	                        case _ => "no"
+	                    }))
+	
+	                @relationshipSelectWithNone(currentForm("relationToPersonYouCare"))
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
 

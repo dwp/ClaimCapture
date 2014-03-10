@@ -13,21 +13,23 @@
     @form(action = controllers.s7_employment.routes.G8AboutExpenses.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
-        <fieldset class="form-elements">
-            <legend>@Html(Messages("s7.g8"))</legend>
-
-            <ul>
-                @yesNoRadioGroup(currentForm("payForAnythingNecessary"), '_label -> labelForEmployment(claim, "payForAnythingNecessary", JobID(currentForm)))
-
-                @yesNoRadioGroup(currentForm("payAnyoneToLookAfterChildren"), '_label -> labelForEmployment(claim, "payAnyoneToLookAfterChildren", JobID(currentForm)))
-
-                @yesNoRadioGroup(currentForm("payAnyoneToLookAfterPerson"), '_label -> labelForEmployment(claim, "payAnyoneToLookAfterPerson", JobID(currentForm)))
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("s7.g8"))</legend>
+	
+	            <ul>
+	                @yesNoRadioGroup(currentForm("payForAnythingNecessary"), '_label -> labelForEmployment(claim, "payForAnythingNecessary", JobID(currentForm)))
+	
+	                @yesNoRadioGroup(currentForm("payAnyoneToLookAfterChildren"), '_label -> labelForEmployment(claim, "payAnyoneToLookAfterChildren", JobID(currentForm)))
+	
+	                @yesNoRadioGroup(currentForm("payAnyoneToLookAfterPerson"), '_label -> labelForEmployment(claim, "payAnyoneToLookAfterPerson", JobID(currentForm)))
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
