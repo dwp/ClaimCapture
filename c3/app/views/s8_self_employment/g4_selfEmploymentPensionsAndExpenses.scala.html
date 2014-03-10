@@ -14,32 +14,36 @@
 
     @form(action = controllers.s8_self_employment.routes.G4SelfEmploymentPensionsAndExpenses.submit) {
 
-        <fieldset class="form-elements">
-            <legend>@Messages("s8.g4")</legend>
-
-            <ul>
-                @yesNoRadioGroup(currentForm("doYouPayToPensionScheme"), '_label -> labelForSelfEmployment(claim, "doYouPayToPensionScheme.answer"))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                        carersCurrency(currentForm("howMuchDidYouPay"), '_label -> labelForSelfEmployment(claim, "howMuchDidYouPay"), 'maxLength -> Mappings.sixty),
-                        pensionPaymentFrequencySelect(currentForm("howOften"), '_label -> labelForSelfEmployment(claim, "doYouPayToPensionScheme.howOften"), 'id -> "howOften",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
-                    ),
-                    'id -> "selfEmployedPensionWrap",
-                    'display -> currentForm("doYouPayToPensionScheme").value.getOrElse("no")
-                )
-
-                @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> labelForSelfEmployment(claim, "doYouPayToLookAfterYourChildren"))
-
-                @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"), '_label -> labelForSelfEmployment(claim, "didYouPayToLookAfterThePersonYouCaredFor"))
-
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button>
-        </nav>
+        
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Messages("s8.g4")</legend>
+	
+	            <ul>
+	                @yesNoRadioGroup(currentForm("doYouPayToPensionScheme"), '_label -> labelForSelfEmployment(claim, "doYouPayToPensionScheme.answer"))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+	                        carersCurrency(currentForm("howMuchDidYouPay"), '_label -> labelForSelfEmployment(claim, "howMuchDidYouPay"), 'maxLength -> Mappings.sixty),
+	                        pensionPaymentFrequencySelect(currentForm("howOften"), '_label -> labelForSelfEmployment(claim, "doYouPayToPensionScheme.howOften"), 'id -> "howOften",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+	                    ),
+	                    'id -> "selfEmployedPensionWrap",
+	                    'display -> currentForm("doYouPayToPensionScheme").value.getOrElse("no")
+	                )
+	
+	                @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> labelForSelfEmployment(claim, "doYouPayToLookAfterYourChildren"))
+	
+	                @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"), '_label -> labelForSelfEmployment(claim, "didYouPayToLookAfterThePersonYouCaredFor"))
+	
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
+       
     }
 }
 

@@ -16,26 +16,28 @@
     @form(action = actionCall) {
         <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
-        <fieldset class="form-elements">
-            <legend>@Messages(legend)</legend>
-
-            <ul class="group">
-                @carersInputText(tripForm("where"), 'maxLength -> 35)
-
-                @inputDayMonthYear(tripForm("start"), '_label -> Messages("start.trip"))
-
-                @inputDayMonthYear(tripForm("end"), '_label -> Messages("end.trip"))
-
-                @reasonForBeingThereSelect(tripForm("why"), '_label -> Messages("why"), 'id -> "reasonForBeingThere",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
-
-                @yesNoRadioGroup(tripForm("personWithYou"), 'values -> Seq("yes" -> Messages("label.yes2"), "no" -> Messages("label.no")))
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href='@backCall' class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Messages(legend)</legend>
+	
+	            <ul class="group">
+	                @carersInputText(tripForm("where"), 'maxLength -> 35)
+	
+	                @inputDayMonthYear(tripForm("start"), '_label -> Messages("start.trip"))
+	
+	                @inputDayMonthYear(tripForm("end"), '_label -> Messages("end.trip"))
+	
+	                @reasonForBeingThereSelect(tripForm("why"), '_label -> Messages("why"), 'id -> "reasonForBeingThere",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+	
+	                @yesNoRadioGroup(tripForm("personWithYou"), 'values -> Seq("yes" -> Messages("label.yes2"), "no" -> Messages("label.no")))
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href='@backCall' class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
 

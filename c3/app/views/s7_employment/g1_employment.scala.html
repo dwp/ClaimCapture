@@ -9,50 +9,52 @@
     @errorsSummary(employmentForm)
 
     @form(action = controllers.s7_employment.routes.G1Employment.submit) {
-        <fieldset class="form-elements">
-            <legend>@Messages("s7.g1")</legend>
-        
-            <div class="prompt helper-prompt">
-                <p class="intro">
-                @Messages("s7.g1.help1")
-                </p>
-        
-                <ul>
-                <li>@Messages("s7.g1.help2")</li>
-                <li>@Messages("s7.g1.help3")</li>
-                <li>@Messages("s7.g1.help4")</li>
-                <li>@Messages("s7.g1.help5")</li>
-                <li>@Messages("s7.g1.help6")</li>
-                <li>@Messages("s7.g1.help7")</li>
-                <li>@Messages("s7.g1.help8")</li>
-                </ul>
-        
-        
-                <p class="intro">
-                @Messages("s7.g1.help9")
-                </p>
-        
-                <ul>
-                <li>@Messages("s7.g1.help10")</li>
-                <li>@Messages("s7.g1.help11")</li>
-                <li>@Messages("s7.g1.help12")</li>
-                <li>@Messages("s7.g1.help13")</li>
-                </ul>
-            </div>
-        
-            <ul>
-                @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
-                    '_label -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label", (claim.dateOfClaim.get - 6 months) `dd/MM/yyyy`, claim.dateOfClaim.get.`dd/MM/yyyy`))
-        
-                @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
-                    '_label -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", (claim.dateOfClaim.get - 1 week) `dd/MM/yyyy`, claim.dateOfClaim.get.`dd/MM/yyyy`))
-            </ul>
-        </fieldset>
-    
-        <nav class="formsteps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Messages("s7.g1")</legend>
+	        
+	            <div class="prompt helper-prompt">
+	                <p class="intro">
+	                @Messages("s7.g1.help1")
+	                </p>
+	        
+	                <ul>
+	                <li>@Messages("s7.g1.help2")</li>
+	                <li>@Messages("s7.g1.help3")</li>
+	                <li>@Messages("s7.g1.help4")</li>
+	                <li>@Messages("s7.g1.help5")</li>
+	                <li>@Messages("s7.g1.help6")</li>
+	                <li>@Messages("s7.g1.help7")</li>
+	                <li>@Messages("s7.g1.help8")</li>
+	                </ul>
+	        
+	        
+	                <p class="intro">
+	                @Messages("s7.g1.help9")
+	                </p>
+	        
+	                <ul>
+	                <li>@Messages("s7.g1.help10")</li>
+	                <li>@Messages("s7.g1.help11")</li>
+	                <li>@Messages("s7.g1.help12")</li>
+	                <li>@Messages("s7.g1.help13")</li>
+	                </ul>
+	            </div>
+	        
+	            <ul>
+	                @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
+	                    '_label -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label", (claim.dateOfClaim.get - 6 months) `dd/MM/yyyy`, claim.dateOfClaim.get.`dd/MM/yyyy`))
+	        
+	                @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
+	                    '_label -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", (claim.dateOfClaim.get - 1 week) `dd/MM/yyyy`, claim.dateOfClaim.get.`dd/MM/yyyy`))
+	            </ul>
+	        </fieldset>
+	    
+	        <nav class="formsteps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
 
