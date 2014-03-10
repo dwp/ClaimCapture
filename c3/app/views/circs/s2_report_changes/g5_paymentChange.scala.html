@@ -18,63 +18,65 @@
 
 
     @form(action = controllers.circs.s2_report_changes.routes.G5PaymentChange.submit) {
-        <fieldset class="form-elements">
-            <p class="security-message">@Messages("c2.payment.helper")</p>
-
-            <legend>@Messages("c2.g5")</legend>
-
-            <ul class="coc-layout">
-                @yesNoRadioGroup(currentForm("currentlyPaidIntoBank.answer"),
-                    '_label -> Messages("currentlyPaidIntoBank.label"))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                        carersInputText(currentForm("currentlyPaidIntoBank.text1"),
-                            '_label -> Messages("currentlyPaidIntoBank.text1.label"),
-                            'maxLength -> 35)
-                    ),
-                    'id -> "currentlyPaidIntoBankWrap1",
-                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "yes") "yes" else "no" }
-                )
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                        carersInputText(currentForm("currentlyPaidIntoBank.text2"),
-                            '_label -> Messages("currentlyPaidIntoBank.text2.label"),
-                            'maxLength -> 35)
-                    ),
-                    'id -> "currentlyPaidIntoBankWrap2",
-                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "no") "yes" else "no" }
-                )
-            </ul>
-        </fieldset>
-        <fieldset class="form-elements">
-            <legend>@Messages("c2.g5.newPaymentDetails")</legend>
-
-            <ul class="coc-layout">
-                @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
-
-                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> Messages("pleaseSelect"), YourName.name -> Messages("yourName"), Yourpartner.name -> Messages("yourPartner"), Both.name  -> Messages("both"), PersonActingBehalf.name -> Messages("personActingBehalf"), YouPersonBehalf.name -> Messages("youPersonBehalf")))
-
-                @carersInputText(currentForm("bankFullName"))
-
-                @sortCode(currentForm("sortCode"))
-
-                @carersInputText(currentForm("accountNumber"), 'maxLength -> "10")
-
-                @carersInputText(currentForm("rollOrReferenceNumber"), 'maxLength -> "18")
-
-                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect"), EveryWeek.name -> Messages("label.everyWeek"), FourWeekly.name -> Messages("label.fourWeekly")))
-
-                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
-            </ul>
-
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <p class="security-message">@Messages("c2.payment.helper")</p>
+	
+	            <legend>@Messages("c2.g5")</legend>
+	
+	            <ul class="coc-layout">
+	                @yesNoRadioGroup(currentForm("currentlyPaidIntoBank.answer"),
+	                    '_label -> Messages("currentlyPaidIntoBank.label"))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+	                        carersInputText(currentForm("currentlyPaidIntoBank.text1"),
+	                            '_label -> Messages("currentlyPaidIntoBank.text1.label"),
+	                            'maxLength -> 35)
+	                    ),
+	                    'id -> "currentlyPaidIntoBankWrap1",
+	                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "yes") "yes" else "no" }
+	                )
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+	                        carersInputText(currentForm("currentlyPaidIntoBank.text2"),
+	                            '_label -> Messages("currentlyPaidIntoBank.text2.label"),
+	                            'maxLength -> 35)
+	                    ),
+	                    'id -> "currentlyPaidIntoBankWrap2",
+	                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "no") "yes" else "no" }
+	                )
+	            </ul>
+	        </fieldset>
+	        <fieldset class="form-elements">
+	            <legend>@Messages("c2.g5.newPaymentDetails")</legend>
+	
+	            <ul class="coc-layout">
+	                @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
+	
+	                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> Messages("pleaseSelect"), YourName.name -> Messages("yourName"), Yourpartner.name -> Messages("yourPartner"), Both.name  -> Messages("both"), PersonActingBehalf.name -> Messages("personActingBehalf"), YouPersonBehalf.name -> Messages("youPersonBehalf")))
+	
+	                @carersInputText(currentForm("bankFullName"))
+	
+	                @sortCode(currentForm("sortCode"))
+	
+	                @carersInputText(currentForm("accountNumber"), 'maxLength -> "10")
+	
+	                @carersInputText(currentForm("rollOrReferenceNumber"), 'maxLength -> "18")
+	
+	                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect"), EveryWeek.name -> Messages("label.everyWeek"), FourWeekly.name -> Messages("label.fourWeekly")))
+	
+	                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+	            </ul>
+	
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
 

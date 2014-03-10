@@ -15,36 +15,38 @@
     @errorsSummary(selfEmployment)
 
     @form(action = controllers.circs.s2_report_changes.routes.G2SelfEmployment.submit) {
-        <fieldset class="form-elements">
-            <legend>@Messages("c2.g2")</legend>
-
-            <ul class="coc-layout">
-                @yesNoRadioGroup(selfEmployment("stillCaring.answer"))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                        inputDayMonthYear(selfEmployment("stillCaring.date"))
-                    ),
-                    'id -> "stillCaringWrap",
-                    'display -> { if (selfEmployment("stillCaring.answer").value.getOrElse("yes") == "no") "yes" else "no" }
-                )
-
-                @inputDayMonthYear(selfEmployment("whenThisSelfEmploymentStarted"))
-
-                @carersInputText(selfEmployment("typeOfBusiness"),
-                    'maxLength -> 35)
-
-                @yesNoRadioGroup(selfEmployment("totalOverWeeklyIncomeThreshold"),
-                    'values -> Seq("yes" -> Messages("label.yes"), "no" -> Messages("label.no"), "dontknow" -> Messages("label.dontknow")))
-
-                @carersInputTextArea(selfEmployment("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Messages("c2.g2")</legend>
+	
+	            <ul class="coc-layout">
+	                @yesNoRadioGroup(selfEmployment("stillCaring.answer"))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+	                        inputDayMonthYear(selfEmployment("stillCaring.date"))
+	                    ),
+	                    'id -> "stillCaringWrap",
+	                    'display -> { if (selfEmployment("stillCaring.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+	                )
+	
+	                @inputDayMonthYear(selfEmployment("whenThisSelfEmploymentStarted"))
+	
+	                @carersInputText(selfEmployment("typeOfBusiness"),
+	                    'maxLength -> 35)
+	
+	                @yesNoRadioGroup(selfEmployment("totalOverWeeklyIncomeThreshold"),
+	                    'values -> Seq("yes" -> Messages("label.yes"), "no" -> Messages("label.no"), "dontknow" -> Messages("label.dontknow")))
+	
+	                @carersInputTextArea(selfEmployment("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
 
