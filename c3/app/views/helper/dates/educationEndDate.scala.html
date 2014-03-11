@@ -5,6 +5,7 @@
 @import helper.dates._
 @import helper._
 @import play.api.i18n.{MMessages => Messages}
+@import scala.language.postfixOps
 
 @argsWithSpecificArgs = @{
     val yearsToSubtract = (DayMonthYear.today.month.get < 9) match {

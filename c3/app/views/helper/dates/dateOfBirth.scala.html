@@ -5,6 +5,7 @@
 @import helper.dates._
 @import helper._
 @import play.api.i18n.{MMessages => Messages}
+@import scala.language.postfixOps
 
 @argsWithSpecificArgs = @{
   val year = (DayMonthYear.today - 34 years).`yyyy`
