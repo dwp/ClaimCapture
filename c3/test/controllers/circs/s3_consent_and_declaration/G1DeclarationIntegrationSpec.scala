@@ -37,7 +37,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
     "navigate to next page" in new WithBrowser with PageObjects{
 			val page =  G1DeclarationPage(context)
-      pending("of finishing the circs submission result page")
+
       val claim = CircumstancesScenarioFactory.otherChangeInfo
       page goToThePage()
       page fillPageWith claim
