@@ -6,12 +6,10 @@
 @import helper._
 @import play.api.i18n.{MMessages => Messages}
 
-@yearsInThePast = @{34}
-
-@argsWithDateOfBirthSpecificArgs = @{
-    val year = "%d".format(Calendar.getInstance().getTime().format("yyyy").toInt - yearsInThePast)
-    val month = Messages("dynamicDate.month1.helper")
-    args ++ Seq('helperBelow -> Messages("dynamicDate.helper", month, year))
+@argsWithSpecificArgs = @{
+  val year = (DayMonthYear.today - 34 years).`yyyy`
+  val month = Messages("dynamicDate.month1.helper")
+  args ++ Seq('helperBelow -> (Messages("dynamicDate.helper", month, year)))
 }
 
-@inputDayMonthYear(field, argsWithDateOfBirthSpecificArgs: _*)
+@inputDayMonthYear(field, argsWithSpecificArgs: _*)

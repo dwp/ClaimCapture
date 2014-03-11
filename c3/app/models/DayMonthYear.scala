@@ -10,6 +10,8 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
 
   def `yyyy-MM-dd`: String = format("yyyy-MM-dd")
 
+  def `yyyy`: String = format("yyyy")
+
   def `dd month, yyyy`: String = format("dd MMMM, yyyy")
 
   def `yyyy-MM-dd'T'HH:mm:00`: String = format("yyyy-MM-dd'T'HH:mm:00")
@@ -24,6 +26,16 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
     override def months = adjust { _.minusMonths(amount) }
 
     override def years = adjust { _.minusYears(amount) }
+  }
+
+  def +(amount: Int) = new Period {
+    override def days = adjust { _.plusDays(amount) }
+
+    override def weeks = adjust { _.plusWeeks(amount) }
+
+    override def months = adjust { _.plusMonths(amount) }
+
+    override def years = adjust { _.plusYears(amount) }
   }
 
   def numberOfCharactersInput = List(day, month, year, hour, minutes).foldLeft(0) { (x, i) => x + i.fold(0)(_.toString.length) }
