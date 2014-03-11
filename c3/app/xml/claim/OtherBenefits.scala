@@ -59,7 +59,7 @@ object OtherBenefits extends XMLComponent {
     if (statutorySickPay.answer.toLowerCase == yes) {
       <OtherMoneySSPDetails>
           <Payment>
-            {questionCurrency(<Payment/>,"howMuch",statutorySickPay.howMuch)}
+            {questionCurrency(<Payment/>,"howMuch", statutorySickPay.howMuch)}
             {questionOther(<Frequency/>,"howOften_frequency", statutorySickPay.howOften.get.frequency, statutorySickPay.howOften.get.other)}
         </Payment>
         {if (statutorySickPay.employersName.isDefined) <Name>{statutorySickPay.employersName.get}</Name>}

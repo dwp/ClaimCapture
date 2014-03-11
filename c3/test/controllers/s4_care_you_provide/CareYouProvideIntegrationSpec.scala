@@ -33,6 +33,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Your course details - About your education")
     }
 
+
     """navigate to Self Employment""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       titleMustEqual("Your nationality and residency - About you - the carer")
@@ -65,7 +66,6 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       browser.find("button[type='submit']").getText shouldEqual "Next"
 
       Formulate.selfEmployment(browser)
-
       titleMustEqual("Your job - About self-employment")
     }
 

@@ -4,9 +4,9 @@ import models.domain._
 import app.XMLValues._
 import models.domain.Claim
 import scala.xml.NodeSeq
-import play.api.i18n.Messages
 import xml.XMLHelper._
 import models.MultiLineAddress
+import play.api.i18n.{MMessages => Messages}
 
 object EvidenceList {
 

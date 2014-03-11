@@ -1,11 +1,13 @@
 package xml.circumstances
 
+import app.{PaymentFrequency, WhoseNameAccount}
 import models.domain.{CircumstancesReportChange, CircumstancesDeclaration, CircumstancesSelfEmployment, CircumstancesPaymentChange, CircumstancesAddressChange, Claim}
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import scala.Some
+import play.api.i18n.{MMessages => Messages}
 
 object CircsEvidenceList {
   def xml(circs: Claim) = {
@@ -104,18 +106,18 @@ object CircsEvidenceList {
 
   def getPaymentChange(paymentOption: String): String = {
     paymentOption match {
-      case "everyWeek" => Messages("reportChanges.everyWeek")
-      case "fourWeekly" => Messages("reportChanges.fourWeekly")
+      case PaymentFrequency.EveryWeek => Messages("reportChanges.everyWeek")
+      case PaymentFrequency.FourWeekly => Messages("reportChanges.fourWeekly")
     }
   }
 
   def getAccountNameOption(accountOption: String): String = {
     accountOption match {
-      case "yourName" => Messages("reportChanges.yourName")
-      case "partner" => Messages("reportChanges.partner")
-      case "bothNames" => Messages("reportChanges.bothNames")
-      case "onBehalfOfYou" => Messages("reportChanges.onBehalfOfYou")
-      case "allNames" => Messages("reportChanges.allNames")
+      case WhoseNameAccount.YourName => Messages("reportChanges.yourName")
+      case WhoseNameAccount.Yourpartner => Messages("reportChanges.partner")
+      case WhoseNameAccount.Both => Messages("reportChanges.bothNames")
+      case WhoseNameAccount.PersonActingBehalf => Messages("reportChanges.onBehalfOfYou")
+      case WhoseNameAccount.YouPersonBehalf => Messages("reportChanges.allNames")
     }
   }
 

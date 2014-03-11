@@ -89,8 +89,10 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
             "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
             "whoPaysYou" -> whoPaysYou,
             "howMuch" -> howMuch,
-            "howOften.frequency" -> "other",
-            "howOften.frequency.other" -> "")).fold(
+            "howOften.frequency" -> "Other",
+            "howOften.frequency.other" -> "",
+            "statutorySickPay.answer" -> no,
+            "otherStatutoryPay.answer" -> no)).fold(
             formWithErrors => {
               formWithErrors.errors.length must equalTo(1)
               formWithErrors.errors(0).message must equalTo("error.paymentFrequency")
@@ -105,7 +107,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
             "statutorySickPay.answer" -> yes,
             "statutorySickPay.whoPaysYou" -> whoPaysYou,
             "statutorySickPay.howMuch" -> howMuch,
-            "statutorySickPay.howOften.frequency" -> "other",
+            "statutorySickPay.howOften.frequency" -> "Other",
             "statutorySickPay.howOften.frequency.other" -> "",
             "otherStatutoryPay.answer" -> no)).fold(
             formWithErrors => {
@@ -122,7 +124,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
             "otherStatutoryPay.answer" -> yes,
             "otherStatutoryPay.whoPaysYou" -> whoPaysYou,
             "otherStatutoryPay.howMuch" -> howMuch,
-            "otherStatutoryPay.howOften.frequency" -> "other",
+            "otherStatutoryPay.howOften.frequency" -> "Other",
             "otherStatutoryPay.howOften.frequency.other" -> "",
             "statutorySickPay.answer" -> no)).fold(
             formWithErrors => {

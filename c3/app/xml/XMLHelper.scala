@@ -9,7 +9,7 @@ import models.PaymentFrequency
 import models.MultiLineAddress
 import models.PeriodFromTo
 import models.NationalInsuranceNumber
-import play.api.i18n.Messages
+import play.api.i18n.{MMessages => Messages}
 
 object XMLHelper {
 
@@ -114,7 +114,7 @@ object XMLHelper {
 
   private def moneyStructure(amount: String):NodeSeq = {
     <Currency>{GBP}</Currency>
-    <Amount>{amount}</Amount>
+    <Amount>{currencyAmount(amount)}</Amount>
   }
 
   private def questionOptional[T](wrappingNode:Node,questionLabelCode: String, answer:Option[T],labelParameters: String* ): NodeSeq = {

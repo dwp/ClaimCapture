@@ -3,7 +3,7 @@ package controllers.s7_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, WithBrowserHelper, BrowserMatchers}
-import utils.pageobjects.s2_about_you.{G3ClaimDatePage, G3ClaimDatePageContext}
+import utils.pageobjects.s2_about_you.G3ClaimDatePageContext
 import utils.pageobjects._
 import utils.pageobjects.s7_employment._
 import utils.pageobjects.s8_self_employment.G1AboutSelfEmploymentPage
@@ -64,7 +64,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       val employmentData = ClaimScenarioFactory.s7EmploymentMinimal()
       var historyPage = goToHistoryPage
       historyPage must beAnInstanceOf[G2BeenEmployedPage]
-      employmentData.EmploymentBeenEmployed_1 = "No"
+      employmentData.EmploymentHaveYouBeenEmployedAtAnyTime_1 = "No"
       historyPage fillPageWith employmentData
       val nextPage = historyPage submitPage()
 

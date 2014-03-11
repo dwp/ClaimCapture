@@ -2,8 +2,8 @@ package xml.claim
 
 import models.domain._
 import xml.XMLHelper._
-import play.api.i18n.Messages
 import xml.XMLComponent
+import play.api.i18n.{MMessages => Messages}
 
 object  Declaration extends XMLComponent {
 

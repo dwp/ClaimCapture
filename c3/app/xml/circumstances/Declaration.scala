@@ -3,6 +3,7 @@ package xml.circumstances
 import models.domain._
 import xml.XMLHelper._
 import scala.Some
+import play.api.i18n.{MMessages => Messages}
 
 object  Declaration {
 

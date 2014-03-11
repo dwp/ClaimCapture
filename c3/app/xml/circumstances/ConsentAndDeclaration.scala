@@ -6,6 +6,7 @@ import xml.XMLHelper._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import controllers.Mappings
+import play.api.i18n.{MMessages => Messages}
 
 object ConsentAndDeclaration {
   def xml(circs: Claim): NodeSeq = {

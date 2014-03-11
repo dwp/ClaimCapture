@@ -114,7 +114,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
             "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
             "whoPaysYou" -> whoPaysYou,
             "howMuch" -> howMuch,
-            "howOften.frequency" -> "other",
+            "howOften.frequency" -> "Other",
             "howOften.frequency.other" -> "",
             "statutorySickPay.answer" -> "no",
             "otherStatutoryPay.answer" -> "no")

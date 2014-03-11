@@ -77,7 +77,7 @@ object ClaimValue {
   private def prepareQuestion(question: String) = question.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
   private def prepareClaimValue(claimValue: String, attribute: String) = {
-    val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
+    val cleanValue = claimValue.replace("\\n", "").replace(" ", "").replace("£", "").trim.toLowerCase
 
     if (cleanValue.contains("/")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
