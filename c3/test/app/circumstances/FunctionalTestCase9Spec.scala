@@ -26,7 +26,7 @@ class FunctionalTestCase9Spec extends FunctionalTestCommon {
         }
         case p: Page => println(p.source())
       }
-    }
+    }.pendingUntilFixed("Pending till schema changes and modifying the code to new structure")
 
   } section "functional"
 }

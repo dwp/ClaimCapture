@@ -15,7 +15,7 @@ class DeclarationSpec  extends Specification with Tags {
       (xml \\ "DeclarationStatement" \ "Content").length mustEqual 3
       (xml \\ "DeclarationQuestion" \ "Answer").text mustEqual declaration.confirm
       (xml \\ "DeclarationQuestion" \ "QuestionLabel").text mustEqual "confirm"
-    }
+    }.pendingUntilFixed("Pending till schema changes and modifying the code to new structure")
 
   } section "unit"
 
