@@ -15,7 +15,7 @@ class MessageFilesSpec extends Specification {
     val enKeys = enFiles.map(
       enFile => {
         val enS = scala.io.Source.fromFile("conf/en/%s.en.properties".format(enFile))
-        val linesFromEnS = enS.getLines.toList
+        val linesFromEnS = enS.getLines.filterNot(_.isEmpty).filter(s => s.startsWith("#")).toList
         val enKeys = linesFromEnS.map(pair => pair.split("="))
         enS.close()
         enKeys
@@ -24,8 +24,9 @@ class MessageFilesSpec extends Specification {
 
     val cyKeys = cyFiles.map(
       cyFile => {
+        println("Loading " + "conf/cy/%s.cy.properties".format(cyFile))
         val cyS = scala.io.Source.fromFile("conf/cy/%s.cy.properties".format(cyFile))
-        val linesFromCyS = cyS.getLines.toList
+        val linesFromCyS = cyS.getLines.filterNot(_.isEmpty).filter(s => s.startsWith("#")).toList
         val cyKeys = linesFromCyS.map(pair => pair.split("="))
         cyS.close()
         cyKeys

@@ -26,9 +26,9 @@
 	            <legend>@Messages("s7.g9")</legend>
 	
 	            <ul>
-	                @carersInputText(currentForm("jobTitle"), '_label -> labelForEmployment(claim, "jobTitle", JobID(currentForm)), 'maxLength -> 30)
+	                @carersInputText(currentForm("jobTitle"), '_label -> labelForEmployment(claim, lang, "jobTitle", JobID(currentForm)), 'maxLength -> 30)
 	
-	                @carersInputText(currentForm("whatAreThose"), '_label -> labelForEmployment(claim, "whatAreThose", JobID(currentForm)))
+	                @carersInputText(currentForm("whatAreThose"), '_label -> labelForEmployment(claim, lang, "whatAreThose", JobID(currentForm)))
 	            </ul>
 	        </fieldset>
 	

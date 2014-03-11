@@ -57,12 +57,12 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("howMuchYouPay", "error.required", FormError("howMuchYouPay", "error.required", Seq(labelForSelfEmployment(claim, "howMuchYouPay"))))
-          .replaceError("howMuchYouPay", "decimal.invalid", FormError("howMuchYouPay", "decimal.invalid", Seq(labelForSelfEmployment(claim, "howMuchYouPay"))))
-          .replaceError("howOftenPayExpenses.frequency", "error.required", FormError("howOftenPayExpenses", "error.required", Seq("",labelForSelfEmployment(claim, "howOftenPayExpenses"))))
+          .replaceError("howMuchYouPay", "error.required", FormError("howMuchYouPay", "error.required", Seq(labelForSelfEmployment(claim, lang, "howMuchYouPay"))))
+          .replaceError("howMuchYouPay", "decimal.invalid", FormError("howMuchYouPay", "decimal.invalid", Seq(labelForSelfEmployment(claim, lang, "howMuchYouPay"))))
+          .replaceError("howOftenPayExpenses.frequency", "error.required", FormError("howOftenPayExpenses", "error.required", Seq("",labelForSelfEmployment(claim, lang, "howOftenPayExpenses"))))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
-          .replaceError("howOftenPayExpenses.frequency.other","error.maxLength",FormError("howOftenPayExpenses","error.maxLength",Seq("60",labelForSelfEmployment(claim, "howOftenPayExpenses"))))
-          .replaceError("howOftenPayExpenses","error.paymentFrequency",FormError("howOftenPayExpenses","error.paymentFrequency",Seq("",labelForSelfEmployment(claim, "howOftenPayExpenses"))))
+          .replaceError("howOftenPayExpenses.frequency.other","error.maxLength",FormError("howOftenPayExpenses","error.maxLength",Seq("60",labelForSelfEmployment(claim, lang, "howOftenPayExpenses"))))
+          .replaceError("howOftenPayExpenses","error.paymentFrequency",FormError("howOftenPayExpenses","error.paymentFrequency",Seq("",labelForSelfEmployment(claim, lang, "howOftenPayExpenses"))))
         BadRequest(views.html.s8_self_employment.g7_expensesWhileAtWork(formWithErrorsUpdate))
       },
       f => claim.update(f) ->  Redirect(routes.SelfEmployment.completedSubmit())
