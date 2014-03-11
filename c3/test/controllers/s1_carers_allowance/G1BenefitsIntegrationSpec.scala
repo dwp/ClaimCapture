@@ -36,7 +36,6 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
     }
 
     "warn if answer no to person get one of benefits" in new WithBrowser with PageObjects {
-      skipped("Breaks in CI")
 		  val page = G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
