@@ -53,7 +53,7 @@ object Employment extends XMLComponent{
     <Employer>
       {question(<DateJobStarted/>, "jobStartDate", jobDetails.jobStartDate)}
       {question(<DateJobEnded/>, "lastWorkDate",jobDetails.lastWorkDate)}
-      {question(<JobType/>,s"jobTitle.${if (jobDetails.finishedThisJob == "yes") "was" else "is"}", job.title)}
+      {question(<JobType/>,s"jobTitle.${if (jobDetails.finishedThisJob == "yes") "past" else "present"}", job.title)}
       {statement(<ClockPayrollNumber/>,jobDetails.payrollEmployeeNumber)}
       <Name>{jobDetails.employerName}</Name>
       {postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}
