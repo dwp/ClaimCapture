@@ -26,7 +26,7 @@
 	
 	                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"), 'helperBelow -> Messages("dateOfBirth.helper"))
 	
-	                @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"))
+	                @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(carersInputText(currentForm("tellUsWhyAndWhenTheChangeHappened"), 'maxLength -> 300)),

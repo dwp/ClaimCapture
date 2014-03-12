@@ -49,7 +49,9 @@ else OtherMoney.name
                     <tr id="@break.id" class="@break.id">
                         <td>
                             @{break.start.`dd/MM/yyyy`}
-                            @if(break.end.isDefined){<span>to</span>}
+                            <span>
+                            @{if(break.end.isDefined) Messages("to")}
+                            </span>
                             @{break.end.fold("")(_.`dd/MM/yyyy`)}
                         </td>
 
@@ -64,7 +66,7 @@ else OtherMoney.name
         </table>
 
         <div class="prompt breaks-prompt">
-            <p>@Messages("areYouSureYouWantToDeleteThisBreak")</p>
+            <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
             <input type="button" name="no" class="button row secondary" value="@Messages("no.delete")" aria-label="@Messages("no.delete.label")">
             <input type="button" name="yes" class="button row warning" value="@Messages("yes.delete")" aria-label="@Messages("yes.delete.label")">
             <span>&#33;</span>
