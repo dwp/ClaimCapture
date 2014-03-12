@@ -106,7 +106,7 @@
 		          <nav>
 		          	<ul>
 		          		<li class="feedback"><a href="#">@Messages("helpAndFeedback")</a></li>
-                        @if(getProperty("galluogi.cymraeg", default = false)) {
+                        @if(getProperty("galluogi.cymraeg", default = true)) {
                             @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
                             @if(lang.language == "cy") {
                                 <li><a id="lang-en" href="/change-language/en" aria-label="@Html(Messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Messages("english")</a></li>
