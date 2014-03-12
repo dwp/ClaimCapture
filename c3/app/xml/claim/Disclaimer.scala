@@ -2,9 +2,9 @@ package xml.claim
 
 import models.domain._
 import xml.XMLHelper._
-import play.api.i18n.Messages
 import scala.Some
 import xml.XMLComponent
+import play.api.i18n.{MMessages => Messages}
 
 object  Disclaimer extends XMLComponent{
 
