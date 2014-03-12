@@ -108,9 +108,9 @@ main {
 	   	   position: relative;
 	   	   line-height: 1.2em;
 	   	   color: #00487e;
+	   	   display: table;
 	   	   .ie & {
 		   	   font-size: 24px;
-		   	   display: table;
 		   	   }
 	   	   .ie7 & {
 		   	   margin-left: -10px;
