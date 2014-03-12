@@ -69,7 +69,7 @@ object SelfEmployment extends XMLComponent{
         {question(<CarerName/>, "whoLooksAfterChildren", childCareExpenses.nameOfPerson)}
         <Expense>
           {questionCurrency(<Payment/>, "howMuchCostChildcare", Some(childCareExpenses.howMuchYouPay), labelForSelfEmployment(claim, "howMuchCostChildcare"))}
-          {questionOther(<Frequency/>, "howOftenPayChildCare", childCareExpenses.howOftenPayChildCare.frequency, childCareExpenses.howOftenPayChildCare.other, labelForSelfEmployment(claim, "howOftenPayChildCare"))}
+          {questionOther(<Frequency/>, "howOftenPayChildCare", childCareExpenses.howOftenPayChildCare.frequency, childCareExpenses.howOftenPayChildCare.other, "", labelForSelfEmployment(claim, "howOftenPayChildCare"))}
         </Expense>
         {question(<RelationshipCarerToClaimant/>, "relationToYou", childCareExpenses.whatRelationIsToYou)}
         {question(<RelationshipCarerToPartner/>, "relationToPartner",childCareExpenses.relationToPartner)}
@@ -89,7 +89,7 @@ object SelfEmployment extends XMLComponent{
         {question(<CarerName/>, "whoDoYouPay", expensesWhileAtWork.nameOfPerson, labelForSelfEmployment(claim, "whoDoYouPay"))}
         <Expense>
           {questionCurrency(<Payment/>, "howMuchCostCare", Some(expensesWhileAtWork.howMuchYouPay), labelForSelfEmployment(claim, "howMuchCostCare"))}
-          {questionOther(<Frequency/>, "howOftenPayExpenses", expensesWhileAtWork.howOftenPayExpenses.frequency, expensesWhileAtWork.howOftenPayExpenses.other, labelForSelfEmployment(claim, "howOftenPayExpenses"))}
+          {questionOther(<Frequency/>, "howOftenPayExpenses", expensesWhileAtWork.howOftenPayExpenses.frequency, expensesWhileAtWork.howOftenPayExpenses.other, "", labelForSelfEmployment(claim, "howOftenPayExpenses"))}
         </Expense>
         {question(<RelationshipCarerToClaimant/>, "whatRelationIsToYou", expensesWhileAtWork.whatRelationIsToYou)}
         {question(<RelationshipCarerToCaree/>, "whatRelationIsTothePersonYouCareFor", expensesWhileAtWork.whatRelationIsTothePersonYouCareFor)}
