@@ -12,7 +12,7 @@ GET           /change-language/:chosenLanguage                          controll
 GET           /Ewd4Oys3baIj3Yeg0o                                       controllers.HealthController.health
 
 GET           /preview                                                  controllers.preview.Preview.present
-POST           /preview                                                 controllers.preview.Preview.submit
+POST          /preview                                                  controllers.preview.Preview.submit
 
 # Cache Timeout
 GET           /timeout                                                  controllers.ClaimEnding.timeout
@@ -23,8 +23,8 @@ GET           /error                                                    controll
 GET           /circs-error                                              controllers.CircsEnding.error
 
 # Claim submission
-POST           /submit                                                  @controllers.submission.ClaimSubmissionController.submit
-POST           /circs-submit                                            @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
+POST          /submit        @controllers.submission.ClaimSubmissionController.submit
+POST          /circs-submit        @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
 
 # Thank you
 GET           /thankyou/apply-carers                                    controllers.ClaimEnding.thankyou
