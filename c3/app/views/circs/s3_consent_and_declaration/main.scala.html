@@ -18,8 +18,8 @@
                     <ul>
                         @for((completedQuestionGroup, call) <- completedQuestionGroups) {
                         <li>
-                            <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                            <a href="@call">@Messages("change.these")</a>
+                            <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                            <a href="@call">@Html(Messages("change.these"))</a>
                         </li>
                         }
                     </ul>
