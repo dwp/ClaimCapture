@@ -5,7 +5,6 @@
 # Home page
 GET           /                                                         controllers.Application.index
 
-GET           /mail                                                     controllers.Application.mail
 GET           /claim-notes                                              controllers.ClaimNotes.notes
 
 GET           /change-language/:chosenLanguage                          controllers.Language.change(chosenLanguage: String)

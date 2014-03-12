@@ -77,8 +77,9 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
 
   def actorSystems = {
     JMXActors
-    ApplicationMonitor.begin
     EmailActors
+    ApplicationMonitor.begin
+
   }
 
 }

@@ -10,7 +10,6 @@ import utils.helpers.CarersForm._
 object Preview extends Controller with CachedClaim with Navigable {
 
   val form = Form(mapping(
-    "showEmail" -> nonEmptyText(maxLength = 4),
     "email" -> optional(text(60))
   )(PreviewModel.apply)(PreviewModel.unapply))
 

@@ -1,9 +1,10 @@
 package services.mail
 
-import akka.actor.{Props, ActorSystem}
+import akka.actor.ActorSystem
+
 
 object EmailActors {
   val actorSystem = ActorSystem("email-actor-system")
 
-  val manager = actorSystem.actorOf(Props[EmailManagerActor], name = "email-manager")
+  val manager = actorSystem.actorOf(EmailActorsCreators.emailManagerProps, name = "email-manager")
 }

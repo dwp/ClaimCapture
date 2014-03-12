@@ -6,19 +6,13 @@ import services.mail.{EmailActors, SendEmail}
 
 object EmailServices {
 
+  private[services] val SUBJECT = "Claim successfully finished"
+  private[services] val BODY = "Your claim has finished without trouble"
+
   def sendEmail = new {
     private[services] var email = SendEmail()
-    def to(r:String*) =  {
-      email = email.copy(to=r.toSeq)
-      this
-    }
-    def withSubject(subject:String) = {
-      email = email.copy(subject = subject)
-      this
-    }
-    def withBody(html:Html):Unit = EmailActors.manager ! email.copy(body = html.body)
 
-    def withBody(message:String):Unit = EmailActors.manager ! email.copy(body = message)
+    def to(r:String*) = EmailActors.manager ! email.copy(to=r.toSeq,subject = SUBJECT,body = BODY)
 
   }
 
