@@ -2,6 +2,7 @@ package services
 
 import play.api.db.DB
 import play.api.Play.current
+import anorm._
 
 trait ClaimTransactionComponent {
   val claimTransaction : ClaimTransaction
@@ -41,17 +42,15 @@ trait ClaimTransactionComponent {
       }
     }
 
-    def updateStatus(id: String, statusCode:String, claimType:Int) {
-      DB.withConnection("carers") {
-        connection =>
-          val insertSql: String = "UPDATE transactionstatus set status=?, type=? WHERE transaction_id=?;"
-          val statement = connection.prepareStatement(insertSql)
-          statement.setString(1, statusCode)
-          statement.setInt(2,claimType)
-          statement.setString(3, id)
-          statement.executeUpdate()
-      }
+    def updateStatus(id: String, statusCode:String, claimType:Int) = DB.withConnection("carers") {implicit connection =>
+      SQL(
+        """
+            UPDATE transactionstatus set status={status}, type={type}
+            WHERE transaction_id={transactionId};
+        """
+      ).on("status"->statusCode,"type"->claimType,"transactionId"->id).executeUpdate()
     }
+
 
   }
 
