@@ -137,7 +137,7 @@ object Employment extends XMLComponent{
           case false =>
             <Expense>
               {questionCurrency(<Payment/>, "howMuchCostChildcare",Some(childcareExpenses.howMuchCostChildcare), labelForEmployment(claim, "howMuchCostChildcare", job.jobID))}
-              {questionOther(<Frequency/>, "employment_howOftenPayChildCare",childcareExpenses.howOftenPayChildCare.frequency,childcareExpenses.howOftenPayChildCare.other, labelForEmployment(claim, "employment_howOftenPayChildCare", job.jobID))}
+              {questionOther(<Frequency/>, "employment_howOftenPayChildCare",childcareExpenses.howOftenPayChildCare.frequency,childcareExpenses.howOftenPayChildCare.other, "", labelForEmployment(claim, "employment_howOftenPayChildCare", job.jobID))}
             </Expense>
 
           case _ => NodeSeq.Empty
@@ -163,7 +163,7 @@ object Employment extends XMLComponent{
           case false =>
             <Expense>
               {questionCurrency(<Payment/>,"howMuchCostChildcare",Some(personYouCareExpenses.howMuchCostCare),labelForEmployment(claim, "howMuchCostChildcare", job.jobID))}
-              {questionOther(<Frequency/>,"employment_howOftenPayChildCare",personYouCareExpenses.howOftenPayCare.frequency,personYouCareExpenses.howOftenPayCare.other,labelForEmployment(claim, "employment_howOftenPayChildCare", job.jobID))}
+              {questionOther(<Frequency/>,"employment_howOftenPayChildCare",personYouCareExpenses.howOftenPayCare.frequency,personYouCareExpenses.howOftenPayCare.other,"", labelForEmployment(claim, "employment_howOftenPayChildCare", job.jobID))}
             </Expense>
 
           case _ => NodeSeq.Empty
