@@ -14,7 +14,8 @@ object DWPCoCircs {
     Logger.info(s"Build DWPCoCircs")
 
     <DWPCAChangeOfCircumstances>
-      {CircsIdentification.xml(circs)}
+      {Claimant.xml(circs)}
+      {Careree.xml(circs)}
       {StoppedCaring.xml(circs)}
       {AddressChange.xml(circs)}
       {PaymentChange.xml(circs)}
