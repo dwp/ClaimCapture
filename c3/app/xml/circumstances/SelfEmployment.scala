@@ -8,24 +8,24 @@ import models.domain.Claim
 
 object SelfEmployment {
 
-
   def xml(circs :Claim): NodeSeq = {
     val circsSelfEmploymentOption: Option[CircumstancesSelfEmployment] = circs.questionGroup[CircumstancesSelfEmployment]
 
     circsSelfEmploymentOption match {
       case Some(circsSelfEmployment) => {
-        <SelfEmployment>
-          {question(<StillCaring/>, "stillCaring.answer",circsSelfEmployment.stillCaring.answer)}
+        <SelfEmployedChange>
+          {question(<Caring35Hours/>,"stillCaring.answer", circsSelfEmployment.stillCaring.answer)}
           {
             circsSelfEmployment.stillCaring.answer match {
-              case "no" => {question(<StoppedCaring/>, "whenStoppedCaring",circsSelfEmployment.stillCaring.date.get.`dd/MM/yyyy`)}
+              case "no" => {question(<DateStoppedCaring35Hours/>, "whenStoppedCaring",circsSelfEmployment.stillCaring.date.get.`dd/MM/yyyy`)}
               case _ => NodeSeq.Empty
             }
           }
-          {question(<Started/>, "whenThisSelfEmploymentStarted",circsSelfEmployment.whenThisSelfEmploymentStarted.`dd/MM/yyyy`)}
-          {question(<TypeOfBusiness/>, "typeOfBusiness",circsSelfEmployment.typeOfBusiness)}
-          {question(<TotalOverWeekly/>, "totalOverWeeklyIncomeThreshold",circsSelfEmployment.totalOverWeeklyIncomeThreshold)}
-        </SelfEmployment>
+          {question(<BusinessStartDate/>, "whenThisSelfEmploymentStarted",circsSelfEmployment.whenThisSelfEmploymentStarted.`dd/MM/yyyy`)}
+          {question(<BusinessType/>, "typeOfBusiness",circsSelfEmployment.typeOfBusiness)}
+          {question(<MoreThan100/>, "totalOverWeeklyIncomeThreshold",circsSelfEmployment.totalOverWeeklyIncomeThreshold)}
+          {statement(<OtherChanges/>, circsSelfEmployment.moreAboutChanges)}
+        </SelfEmployedChange>
         }
       case _ => NodeSeq.Empty
     }

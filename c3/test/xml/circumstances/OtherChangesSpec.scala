@@ -10,7 +10,7 @@ class OtherChangesSpec extends Specification with Tags {
   "Additional Info" should {
     "generate xml" in {
       val circs = Claim().update(CircumstancesOtherInfo(otherInfo))
-      val xml = AdditionalInfo.xml(circs)
+      val xml = OtherChanges.xml(circs)
       (xml \\ "OtherChanges" \ "QuestionLabel").text shouldEqual "c2.g1"
       (xml \\ "OtherChanges" \ "Answer").text shouldEqual otherInfo
     }.pendingUntilFixed("Pending till schema changes and modifying the code to new structure")

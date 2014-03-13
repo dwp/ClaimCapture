@@ -2,36 +2,27 @@ package xml.circumstances
 
 import scala.xml.NodeSeq
 import xml.XMLHelper._
-import app.XMLValues._
 import scala.Some
-import models.domain.{CircumstancesReportChange, Claim}
+import models.domain.{CircumstancesDeclaration, CircumstancesReportChange, Claim}
 
 object CircsIdentification {
 
   def xml(circs :Claim): NodeSeq = {
-    <Claim>
       {claimant(circs)}
       {careeDetails(circs)}
-    </Claim>
   }
 
   def claimant(circs: Claim): NodeSeq = {
     val reportChange = circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange())
+    val contactPreference = circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration())
+
+    println("claimant info: ")
 
     <ClaimantDetails>
-      <Surname>{NotAsked}</Surname>
-      <OtherNames>{reportChange.fullName}</OtherNames>
+      <FullName>{reportChange.fullName}</FullName>
       <DateOfBirth>{reportChange.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
       <NationalInsuranceNumber>{stringify(Some(reportChange.nationalInsuranceNumber))}</NationalInsuranceNumber>
-      <Title>{NotAsked}</Title>
-      <Address>{postalAddressStructure(None, None)}</Address>
-      <ConfirmAddress>{NotAsked}</ConfirmAddress>
-      <HomePhone>{NotAsked}</HomePhone>
-      <DaytimePhone>
-        <Number></Number>
-        <Qualifier></Qualifier>
-      </DaytimePhone>
-      <EmailAddress/>
+      <ContactPreference>{contactPreference.furtherInfoContact}</ContactPreference>
     </ClaimantDetails>
   }
 
@@ -39,10 +30,8 @@ object CircsIdentification {
     val reportChange = circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange())
 
     <CareeDetails>
-      <Surname>{NotAsked}</Surname>
-      <OtherNames>{reportChange.theirFullName}</OtherNames>
-      <DateOfBirth>{NotAsked}</DateOfBirth>
-      <NationalInsuranceNumber>{NotAsked}</NationalInsuranceNumber>
+      <FullName>{reportChange.theirFullName}</FullName>
+      {question(<RelationToClaimant/>,"theirRelationshipToYou", reportChange.theirRelationshipToYou)}
     </CareeDetails>
   }
 }

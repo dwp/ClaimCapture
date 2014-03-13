@@ -1,8 +1,8 @@
-Report a change in your circumstances - Change in circumstances,Circumstances,Full Name,CircumstancesAboutYouFullName,Mr John Roger Smith
-Report a change in your circumstances - Change in circumstances,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,ja486278a
-Report a change in your circumstances - Change in circumstances,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,03/04/1950
-Report a change in your circumstances - Change in circumstances,Circumstances,Their Full Name,CircumstancesAboutYouTheirFullName,Mrs Jane Smith
-Report a change in your circumstances - Change in circumstances,Circumstances,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,Wife
+Report a change in your circumstances - Change in circumstances,Your Details,Full Name,CircumstancesAboutYouFullName,Mr John Roger Smith
+Report a change in your circumstances - Change in circumstances,Your Details,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,ja486278a
+Report a change in your circumstances - Change in circumstances,Your Details,Date of Birth,CircumstancesAboutYouDateOfBirth,03/04/1950
+Report a change in your circumstances - Change in circumstances,Person you are caring for,Their Full Name,CircumstancesAboutYouTheirFullName,Mrs Jane Smith
+Report a change in your circumstances - Change in circumstances,Person you are caring for,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,Wife
 Details of your change in circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,additionalInfo
 Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,other text
 Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,By Post
