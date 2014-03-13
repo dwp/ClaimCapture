@@ -5,5 +5,5 @@
 @import play.api.i18n.{MMessages => Messages}
 
 @input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
-    @nationalInsurancePlaceholder(field)
+    @nationalInsurancePlaceholder(field, args: _*)
 }

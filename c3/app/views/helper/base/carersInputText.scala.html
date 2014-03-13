@@ -11,6 +11,9 @@
               (args.find(_._1 == 'maxLength) match{ case Some(_) => Seq() case _ => Seq('maxLength -> Mappings.sixty)}):_* ) { (id, name, value, htmlArgs) =>
 
     @carersLabel(field, args: _*)
+    @if(args.find(_._1=='helperAbove).isDefined){
+        <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
+    }
 
     <input type="text" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" value="@value" @toHtmlArgs(htmlArgs)>
 }

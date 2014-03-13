@@ -22,7 +22,7 @@
 	            <ul>
 	                @titleSelect(yourDetailsForm("title"))
 	
-	                @carersInputText(yourDetailsForm("firstName"), 'helperBelow -> Messages("your.name.helper"), 'maxLength -> 17)
+	                @carersInputText(yourDetailsForm("firstName"), 'helperAbove -> Messages("your.name.helper"), 'maxLength -> 17)
 	
 	                @carersInputText(yourDetailsForm("middleName"), 'maxLength -> 17)
 	
@@ -30,7 +30,7 @@
 	
 	                @carersInputText(yourDetailsForm("otherNames"), 'maxLength -> 35)
 	
-	                @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper"))
+	                @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"), 'helperAbove -> Messages("mandatory.nationalInsuranceNumber.helper"))
 	
 	                @dateOfBirth(yourDetailsForm("dateOfBirth"))
 	
