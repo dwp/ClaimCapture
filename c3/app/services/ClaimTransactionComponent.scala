@@ -3,6 +3,7 @@ package services
 import play.api.db.DB
 import play.api.Play.current
 import anorm._
+import play.api.Play
 
 trait ClaimTransactionComponent {
   val claimTransaction : ClaimTransaction
@@ -30,19 +31,16 @@ trait ClaimTransactionComponent {
     /**
      * Record that an ID has been used
      */
-    def registerId(id: String, statusCode:String, claimType:Int) {
-      DB.withConnection("carers") {
-        connection =>
-          val insertSql: String = "INSERT INTO transactionstatus (transaction_id, status,type) VALUES (?,?,?);"
-          val statement = connection.prepareStatement(insertSql)
-          statement.setString(1, id)
-          statement.setString(2, statusCode)
-          statement.setInt(3,claimType)
-          statement.execute()
-      }
+    def registerId(id: String, statusCode:String, claimType:Int,thirdParty:Boolean=false):Unit = DB.withConnection("carers") {implicit c =>
+      SQL(
+        """
+          INSERT INTO transactionstatus (transaction_id, status,type,thirdparty) VALUES ({transactionId},{status},{type},{thirdparty});
+        """
+      ).on("transactionId"->id,"status"->statusCode,"type"->claimType,"thirdparty"->(if(thirdParty) 1 else 0)).execute()
     }
 
-    def updateStatus(id: String, statusCode:String, claimType:Int) = DB.withConnection("carers") {implicit connection =>
+
+    def updateStatus(id: String, statusCode:String, claimType:Int):Unit = DB.withConnection("carers") {implicit connection =>
       SQL(
         """
             UPDATE transactionstatus set status={status}, type={type}
