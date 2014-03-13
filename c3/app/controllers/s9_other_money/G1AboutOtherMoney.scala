@@ -14,6 +14,7 @@ import play.api.data.FormError
 import models.domain.Claim
 import scala.Some
 import models.yesNo.{YesNo, YesNoWithEmployerAndMoney}
+import play.api.i18n.{MMessages => Messages}
 
 object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
   val yourBenefitsMapping =
@@ -90,7 +91,7 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => {
         val claimDate: String = claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)
-        val yourBenefitsAnswerErrorParams = Seq(if (hadPartnerSinceClaimDate) "or your Partner/Spouse" else "", claimDate)
+        val yourBenefitsAnswerErrorParams = Seq(if (hadPartnerSinceClaimDate) Messages("orPartnerSpouse") else "", claimDate)
         val anyPaymentsErrorParams = Seq(claimDate)
 
         val formWithErrorsUpdate = formWithErrors
