@@ -22,9 +22,9 @@
 	
 	            <ul>
 	
-	                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"), 'helperBelow -> Messages("dateOfBirth.helper"))
+	                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"), 'helperAbove -> Messages("dateOfBirth.helper"))
 	
-	                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"), 'helperBelow -> Messages("dateOfBirth.helper"))
+	                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"), 'helperAbove -> Messages("dateOfBirth.helper"))
 	
 	                @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
 	

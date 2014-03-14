@@ -28,7 +28,7 @@
 	
 	                @carersInputText(currentForm("whenGetPaid"),
 	                    '_label -> labelForEmployment(claim, lang, "whenGetPaid", JobID(currentForm)),
-	                    'helper -> Messages("whenGetPaid.helper"))
+	                    'helperAbove -> Messages("whenGetPaid.helper"))
 	
 	                @yesNoRadioGroup(currentForm("employerOwesYouMoney"), 'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no")))
 	            </ul>
