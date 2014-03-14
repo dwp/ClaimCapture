@@ -16,7 +16,7 @@ object Claimant {
 
     <ClaimantDetails>
       <FullName>{reportChange.fullName}</FullName>
-      {statement(<DateOfBirth/>,reportChange.dateOfBirth)}
+      {statement(<DateOfBirth/>,reportChange.dateOfBirth.`yyyy-MM-dd`)}
       <NationalInsuranceNumber>{stringify(Some(reportChange.nationalInsuranceNumber))}</NationalInsuranceNumber>
       {question(<ContactPreference/>,"furtherInfoContact", contactPreference.furtherInfoContact)}
     </ClaimantDetails>
