@@ -21,7 +21,7 @@
 	            <ul>
 	                @maritalStatusSelect(moreAboutYouForm("maritalStatus"))
 	
-	                @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperBelow -> Messages("hadPartnerSinceClaimDate.helper"))
+	                @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperAbove -> Messages("hadPartnerSinceClaimDate.helper"))
 	
 	                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 	
