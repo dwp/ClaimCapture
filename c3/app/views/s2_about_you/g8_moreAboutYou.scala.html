@@ -7,7 +7,13 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.dropdowns._
+@import utils.helpers._
 @import play.api.i18n.{MMessages => Messages}
+
+@notSingleNorLivingWithPartner = @{
+    val v = moreAboutYouForm("maritalStatus").value.getOrElse("")
+    v != "s" && v != "p"
+}
 
 @main(Messages("s2.g8") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.MoreAboutYou)) {
     @errorsSummary(moreAboutYouForm)
@@ -20,8 +26,12 @@
 	
 	            <ul>
 	                @maritalStatusSelect(moreAboutYouForm("maritalStatus"))
-	
-	                @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperBelow -> Messages("hadPartnerSinceClaimDate.helper"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperBelow -> Messages("hadPartnerSinceClaimDate.helper"))),
+                        'id -> "hadPartnerWrapper",
+                        'display -> { if (notSingleNorLivingWithPartner) "yes" else "no" }
+                    )
 	
 	                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 	
@@ -36,3 +46,13 @@
         </div>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/g8_moreAboutYou.js")'></script>
+
+<script type="text/javascript">
+    $(function(){
+        window.initEvents("@CarersCrypto.encryptAES("maritalStatus")",
+                          "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
+                          "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")");
+    });
+</script>
