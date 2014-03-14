@@ -24,7 +24,7 @@
 		            @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), 
 		              '_label -> Messages("anyPaymentsSinceClaimDate.answer",
 		              claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)),
-		              'helperBelow -> Messages("anyPaymentsSinceClaimDate.helper")
+		              'helperAbove -> Messages("anyPaymentsSinceClaimDate.helper")
 		            )
 	                
 		            @otherDetailPlaceHolder(
