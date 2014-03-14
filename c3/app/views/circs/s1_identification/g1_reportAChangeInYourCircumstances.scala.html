@@ -22,7 +22,7 @@
 	            <ul>
 	                @carersInputText(reportAChangeForm("fullName"), 'maxLength -> 35)
 	
-	                @nationalInsuranceNumber(reportAChangeForm("nationalInsuranceNumber"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper"))
+	                @nationalInsuranceNumber(reportAChangeForm("nationalInsuranceNumber"), 'helperAbove -> Messages("mandatory.nationalInsuranceNumber.helper"))
 	
 	                @dateOfBirth(reportAChangeForm("dateOfBirth"))
 	            </ul>
@@ -35,7 +35,7 @@
 	            <ul>
 	                @carersInputText(reportAChangeForm("theirFullName"), 'maxLength -> 35)
 	
-	                @carersInputText(reportAChangeForm("theirRelationshipToYou"), 'helperBelow -> Messages("theirRelationshipToYou.helper"), 'maxLength -> 35)
+	                @carersInputText(reportAChangeForm("theirRelationshipToYou"), 'helperAbove -> Messages("theirRelationshipToYou.helper"), 'maxLength -> 35)
 	            </ul>
 	        </fieldset>
 	
