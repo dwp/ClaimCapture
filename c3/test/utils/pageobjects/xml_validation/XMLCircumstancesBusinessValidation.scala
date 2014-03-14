@@ -1,9 +1,10 @@
 package utils.pageobjects.xml_validation
 
-import scala.xml.Elem
+import scala.xml.{Node, Elem}
 import utils.pageobjects.{TestDatumValue, PageObjectException, TestData}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import scala.language.postfixOps
 import play.api.i18n.{MMessages => Messages}
 
 /**
@@ -50,9 +51,9 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
       if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(EvidenceListNode)) true
       else {
         val index = if (isRepeatedAttribute && isARepeatableNode) iteration else 0
-
-        val value = XMLValidationNode.prepareElement(theNodes(index).text)
-        val nodeName = theNodes(index).mkString
+        val node = theNodes(index)
+        val value = XMLValidationNode.prepareElement(node.text)
+        val nodeName = node.mkString
         def valuesMatching: Boolean = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value) 
           else if (nodeName.startsWith(EvidenceListNode)) {
@@ -69,7 +70,7 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
             }))
           }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
-          else if (nodeName.startsWith(DeclarationNode)) value.contains(claimValue.question + claimValue.value)
+          else if (nodeName.startsWith(DeclarationNode)) valuesMatchingForNodes(claimValue, node)
           else value == claimValue.value
         }
 
@@ -85,6 +86,13 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
     }
   }
 
+  def valuesMatchingForNodes(claimValue:TestDatumValue, node:Node):Boolean  = {
+    answerText(node, "DeclarationQuestion",claimValue.question).contains(claimValue.value)
+  }
+
+  def answerText(node:Node,questionTag:String,questionLabel:String) = {
+    XMLValidationNode.prepareElement(((node \\ questionTag).filter { n => XMLValidationNode.prepareElement(n \\ "QuestionLabel" text) == questionLabel } \\ "Answer").text)
+  }
 }
 
 class CircValue(attribute: String, value: String, question: String) extends TestDatumValue(attribute, value, question) {}
@@ -98,7 +106,7 @@ object CircValue {
 
     if (cleanValue.contains("/") && !attribute.startsWith("CircumstancesSelfEmploymentWhenThisStarted") && !attribute.startsWith("CircumstancesSelfEmploymentFinishedStillCaringDate")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
-      date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))
+      date.toString(DateTimeFormat.forPattern("dd-MM-yyy"))
     } else cleanValue
   }
 
