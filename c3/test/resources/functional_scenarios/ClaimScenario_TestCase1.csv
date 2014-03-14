@@ -11,8 +11,7 @@ About You,Your Details,National Insurance (NI) number,AboutYouNINO,AB123456C
 About You,Your Details,Date of birth,AboutYouDateOfBirth,28/09/1976
 About You,Your contact details,Address,AboutYouAddress,1 Preston Road&Preston
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 1HB
-About You,Your contact details,Mobile number,AboutYouMobileNumber,
-About You,Your contact details,Phone number,AboutYouPhoneNumber,
+About You,Your contact details,How we contact you,HowWeContactYou,07111 111 111
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouTextPhone,
 About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,21/07/2013
 About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,British

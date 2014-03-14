@@ -11,9 +11,8 @@ import utils.pageobjects._
 final class G2ContactDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G2ContactDetailsPage.url, G2ContactDetailsPage.title) {
   declareAddress("#address", "AboutYouAddress")
   declareInput("#postcode", "AboutYouPostcode")
-  declareInput("#phoneNumber", "AboutYouPhoneNumber")
+  declareInput("#howWeContactYou", "HowWeContactYou")
   declareYesNo("#contactYouByTextphone", "AboutYouContactYouByTextphone")
-  declareInput("#mobileNumber", "AboutYouMobileNumber")
 }
 
 /**

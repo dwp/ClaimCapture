@@ -27,6 +27,7 @@ object ClaimScenarioFactory {
     claim.AboutYouNINO = "AB123456C"
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
     claim.AboutYouPostcode = "FY1 2RW"
+    claim.HowWeContactYou = "01772 888901"
     claim
   }
 
@@ -106,8 +107,7 @@ object ClaimScenarioFactory {
     // Your contact details
     claim.AboutYouAddress = "An address"
     claim.AboutYouPostcode = "SE1 6EH"
-    claim.AboutYouPhoneNumber = "01253 111 111"
-    claim.AboutYouMobileNumber = "07111 111 111"
+    claim.HowWeContactYou = "01253 111 111"
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // Nationality and Residency
@@ -142,9 +142,8 @@ object ClaimScenarioFactory {
     // Your contact details
     claim.AboutYouAddress = "An address"
     claim.AboutYouPostcode = "SE1 6EH"
-    claim.AboutYouPhoneNumber = "01253 111 111"
+    claim.HowWeContactYou = "07111 111 111"
     claim.AboutYouContactYouByTextphone = "No"
-    claim.AboutYouMobileNumber = "07111 111 111"
 
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
