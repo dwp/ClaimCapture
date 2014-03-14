@@ -19,7 +19,7 @@
 	            <ul>
 	                @titleSelect(currentForm("title"))
 	
-	                @carersInputText(currentForm("firstName"),'helperBelow -> Messages("their.name.helper"), 'maxLength -> 17)
+	                @carersInputText(currentForm("firstName"),'helperAbove -> Messages("their.name.helper"), 'maxLength -> 17)
 	
 	                @carersInputText(currentForm("middleName"), 'maxLength -> 17)
 	
@@ -27,11 +27,11 @@
 	                
 	                @carersInputText(currentForm("otherNames"), 'maxLength -> 35)
 	
-	                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
+	                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove-> Messages("nationalInsuranceNumber.helper"))
 	
 	                @dateOfBirth(currentForm("dateOfBirth"))
 	                
-	                @carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35,'helperBelow -> Messages("partner.nationality.helper"))
+	                @carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35,'helperAbove -> Messages("partner.nationality.helper"))
 	
 	                @yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 	
