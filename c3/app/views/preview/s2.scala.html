@@ -35,9 +35,7 @@
     <dt>@Messages("nationalInsuranceNumber")</dt><dd>@nino</dd>
     <dt>@Messages("dateOfBirth")</dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
     <dt>@Messages("address")</dt><dd>@address.lineOne@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @contactDetails.postcode.getOrElse("")</dd>
-    @if(contactDetails.phoneNumber.isDefined || contactDetails.mobileNumber.isDefined){
-        <dt>@Messages("phoneNumber")</dt><dd>@contactDetails.phoneNumber.getOrElse("") @contactDetails.mobileNumber.fold("")(s=>(if(contactDetails.phoneNumber.isDefined)"/ " else "")+s)</dd>
-    }
+    <dt>@Messages("howWeContactYou")</dt><dd>@contactDetails.howWeContactYou</dd>
     <dt>@Messages("dateOfClaim.simple")</dt><dd>@{claimDate.dateOfClaim.`dd month, yyyy`}</dd>
     <dt>@Messages("yourNationality")</dt><dd>@{nationality.nationality}</dd>
     <dt>@Messages("resideInUK.label")</dt><dd>@{Messages("label."+nationality.resideInUK.answer)}</dd>

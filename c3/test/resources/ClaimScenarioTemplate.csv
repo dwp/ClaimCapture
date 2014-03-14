@@ -11,8 +11,7 @@ About You,Your Details,National Insurance (NI) number,AboutYouNINO,
 About You,Your Details,Date of birth,AboutYouDateOfBirth,
 About You,Your contact details,Address,AboutYouAddress,
 About You,Your contact details,Postcode,AboutYouPostcode,
-About You,Your contact details,Mobile number,AboutYouMobileNumber,
-About You,Your contact details,Phone number,AboutYouPhoneNumber,
+About You,Your contact details,How we contact you,HowWeContactYou,
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouTextPhone,DWPCAClaim>EvidenceList
 About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,
 About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality

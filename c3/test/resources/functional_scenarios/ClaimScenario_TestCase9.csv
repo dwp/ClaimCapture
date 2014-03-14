@@ -11,8 +11,7 @@ About You,Your Details,National Insurance (NI) number,AboutYouNINO,AB123456C
 About You,Your Details,Date of birth,AboutYouDateOfBirth,28/09/1976
 About You,Your contact details,Address,AboutYouAddress,1 Preston Road&Preston
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 1HB
-About You,Your contact details,Phone number,AboutYouPhoneNumber,
-About You,Your contact details,Mobile number,AboutYouMobileNumber,
+About You,Your contact details,How we contact you,HowWeContactYou,I do not have a contact number
 About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,British
 About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Yes
 About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,

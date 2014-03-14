@@ -24,9 +24,8 @@ object YourDetails extends QuestionGroup.Identifier {
 
 case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
                           postcode: Option[String] = None,
-                          phoneNumber: Option[String] = None,
-                          contactYouByTextphone: Option[String] = None,
-                          mobileNumber: Option[String] = None) extends QuestionGroup(ContactDetails)
+                          howWeContactYou: String = "",
+                          contactYouByTextphone: Option[String] = None) extends QuestionGroup(ContactDetails)
 
 object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
