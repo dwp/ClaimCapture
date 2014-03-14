@@ -120,7 +120,7 @@ object ClaimScenarioFactory {
     claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "no"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
     // More about you
-    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "d"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "Yes"
     claim.AboutYouHaveYouBeenOnACourseOfEducation = "Yes"
     claim.AboutYouDoYouGetStatePension = "Yes"

@@ -14,6 +14,12 @@
 @import app.PensionPaymentFrequency._
 @import play.api.i18n.{MMessages => Messages}
 
+@displayRelationToPartner = @{
+    claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
+        case (Some(m: MoreAboutYou),Some(p: YourPartnerPersonalDetails)) if (m.hadPartnerSinceClaimDate == Some("yes") || m.maritalStatus == "p" ) && p.isPartnerPersonYouCareFor == "no" => "yes"
+        case _ => "no"
+    }
+}
 @main(Messages("s7.g10") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.ChildcareExpenses, JobID(currentForm))) {
 
 
@@ -37,10 +43,7 @@
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                    relationshipSelectWithNone(currentForm("relationToPartner"))),
-	                    'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
-	                        case (Some(m: MoreAboutYou), Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
-	                        case _ => "no"
-	                    }))
+	                    'display -> displayRelationToPartner)
 	
 	                @relationshipSelectWithNone(currentForm("relationToPersonYouCare"))
 	            </ul>

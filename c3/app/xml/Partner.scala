@@ -8,11 +8,11 @@ import app.XMLValues._
 object Partner {
 
   def xml(claim: Claim) = {
-    val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(hadPartnerSinceClaimDate = no))
+    val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(hadPartnerSinceClaimDate = Some(no)))
 
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
 
-    val hadPartner = moreAboutYou.hadPartnerSinceClaimDate == yes
+    val hadPartner = (if(moreAboutYou.maritalStatus == "s") NotAsked else if(moreAboutYou.maritalStatus == "p") yes else moreAboutYou.hadPartnerSinceClaimDate.get) == yes
 
     if (hadPartner) {
       <Partner>
