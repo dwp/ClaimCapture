@@ -1,10 +1,9 @@
 package xml.circumstances
 
-import models.domain.{CircumstancesDeclaration, CircumstancesReportChange, Claim}
+import models.domain.CircumstancesReportChange
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 import models.domain.Claim
-import scala.Some
 
 /**
  * Created by neddakaltcheva on 3/13/14.
