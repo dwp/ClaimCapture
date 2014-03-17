@@ -22,7 +22,7 @@ object Caree extends XMLComponent {
       {statement(<NationalInsuranceNumber/>,theirPersonalDetails.nationalInsuranceNumber)}
       {postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode)}
       {statement(<DayTimePhoneNumber/>,theirContactDetails.phoneNumber)}
-      {question(<RelationToClaimant/>,"whatRelationIsToYou", moreAboutThePerson.relationship)}
+      {question(<RelationToClaimant/>,"relationship", moreAboutThePerson.relationship)}
       {question(<Cared35Hours/>,"hours.answer", moreAboutTheCare.spent35HoursCaring)}
       {question(<BreaksSinceClaim/>,"answer.label",breaksInCare.hasBreaks,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
       {careBreak(claim)}
@@ -32,16 +32,6 @@ object Caree extends XMLComponent {
       {question(<ArmedForcesIndependencePayment/>,"armedForcesPayment", moreAboutThePerson.armedForcesPayment)}
     </Caree>
   }
-
-//  private def breaksBeforeClaim(claim: Claim) = {
-//    val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-//    val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
-//    val hasSpent35HoursCaringBeforeClaimDate = moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == yes
-//
-//    if (hasSpent35HoursCaringBeforeClaimDate) {
-//      <BreaksBeforeClaim>{stringify(breaksInCare.hasBreaks)}</BreaksBeforeClaim>
-//    } else NodeSeq.Empty
-//  }
 
   private def careBreak(claim: Claim) = {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())

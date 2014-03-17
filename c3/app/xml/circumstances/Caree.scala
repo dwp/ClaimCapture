@@ -8,7 +8,7 @@ import models.domain.Claim
 /**
  * Created by neddakaltcheva on 3/13/14.
  */
-object Careree {
+object Caree {
   def xml(circs :Claim): NodeSeq = {
     val reportChange = circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange())
 

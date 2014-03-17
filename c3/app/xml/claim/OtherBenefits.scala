@@ -8,6 +8,7 @@ import xml.XMLComponent
 import models.domain.Claim
 import scala.Some
 import models.yesNo.YesNoWithEmployerAndMoney
+import play.api.i18n.{MMessages => Messages}
 
 
 object OtherBenefits extends XMLComponent {
@@ -32,7 +33,7 @@ object OtherBenefits extends XMLComponent {
       {otherMoneySPPXml(statutorySickPay)}
       {question(<OtherMoneySP/>,"otherPay.label",otherStatutoryPayOption.answer,claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}
       {otherMoneySPDetails(otherStatutoryPayOption)}
-      {question(<OtherMoney/>,"yourBenefits.answer", aboutOtherMoney.yourBenefits.answer, "or your Partner or Spouse", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}
+      {question(<OtherMoney/>,"yourBenefits.answer", aboutOtherMoney.yourBenefits.answer, if(hadPartnerSinceClaimDate(claim)) Messages("orPartnerSpouse") else "", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}
       {question(<OtherMoneyPayments/>,"anyPaymentsSinceClaimDate.answer",aboutOtherMoney.anyPaymentsSinceClaimDate.answer,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
       {aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
           case "yes" =>{
@@ -81,5 +82,10 @@ object OtherBenefits extends XMLComponent {
       </OtherMoneySPDetails>
     }
     else NodeSeq.Empty
+  }
+
+  def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) match {
+    case Some(m: MoreAboutYou) => m.hadPartnerSinceClaimDate == yes
+    case _ => false
   }
 }
