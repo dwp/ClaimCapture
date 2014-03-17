@@ -7,7 +7,7 @@ import controllers.submission._
 import models.view.{CachedChangeOfCircs, CachedClaim}
 import play.api.mvc.Results._
 import play.api.libs.ws.Response
-import models.domain.Claim
+import models.domain.{Declaration, Claim}
 import play.api.mvc.SimpleResult
 import services.ClaimTransactionComponent
 import ExecutionContext.Implicits.global
@@ -18,17 +18,19 @@ trait ClaimSubmissionService {
 
   def submission(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = {
     val txnID = claimTransaction.generateId
+    val declaration = claim.questionGroup[Declaration].getOrElse(Declaration())
+    val thirdParty = declaration.someoneElse.isDefined
     Logger.info(s"Retrieved Id : $txnID")
 
     webServiceClient.submitClaim(claim, txnID).map(
       response => {
-        registerId(claim, txnID, SUBMITTED)
+        registerId(claim, txnID, SUBMITTED,thirdParty)
         processResponse(claim, txnID, response, request)
       }
     )
   }
 
-  private def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): SimpleResult = {
+  private[submission] def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): SimpleResult = {
     response.status match {
       case http.Status.OK =>
         val responseStr = response.body
@@ -98,12 +100,12 @@ trait ClaimSubmissionService {
     </poll>
   }
 
-  private def updateStatus(claim: Claim, id: String, statusCode: String) = {
+  private[submission] def updateStatus(claim: Claim, id: String, statusCode: String) = {
     claimTransaction.updateStatus(id, statusCode, claimType(claim))
   }
 
-  private def registerId(claim: Claim, id: String, statusCode: String) = {
-    claimTransaction.registerId(id, statusCode, claimType(claim))
+  private[submission] def registerId(claim: Claim, id: String, statusCode: String, thirdparty: Boolean,circsChange:Option[Int]=None) = {
+    claimTransaction.registerId(id, statusCode, claimType(claim),thirdparty,circsChange)
   }
 
   val SUBMITTED = "0000"
