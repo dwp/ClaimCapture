@@ -23,7 +23,7 @@
 
                     <legend>@Messages("s2.g2.howcontactyou")</legend>
 
-                    @carersInputText(contactDetailsForm("howWeContactYou"),'maxLength -> 35,'helperBelow -> Messages("furtherInfoContact.helper"))
+                    @carersInputText(contactDetailsForm("howWeContactYou"),'maxLength -> 35,'helperAbove -> Messages("furtherInfoContact.helper"))
 
 	                @yesNoRadioGroup(contactDetailsForm("contactYouByTextphone"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
 	
