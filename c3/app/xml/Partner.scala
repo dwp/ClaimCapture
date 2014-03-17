@@ -12,7 +12,7 @@ object Partner {
 
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
 
-    val hadPartner = (if(moreAboutYou.maritalStatus == "s") NotAsked else if(moreAboutYou.maritalStatus == "p") yes else moreAboutYou.hadPartnerSinceClaimDate.get) == yes
+    val hadPartner = (if(moreAboutYou.maritalStatus == "p") yes else moreAboutYou.hadPartnerSinceClaimDate.get) == yes
 
     if (hadPartner) {
       <Partner>

@@ -1,0 +1,19 @@
+@(field: Field,args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+@import play.api.i18n.{MMessages => Messages}
+    
+@{
+    radioListPlaceholder(field,
+        options = options(
+            "s" -> Messages("maritalStatus.single"),
+            "m" -> Messages("maritalStatus.married"),
+            "p" -> Messages("maritalStatus.livingWithPartner"),
+            "d" -> Messages("maritalStatus.divorced"),
+            "w" -> Messages("maritalStatus.widowed"),
+            "n" -> Messages("maritalStatus.separated")
+        ),(args ++ Seq('_label -> Messages("maritalStatus")):_*)
+    )
+}

@@ -40,7 +40,7 @@ class G8MoreAboutYouIntegrationSpec extends Specification with Tags {
       h3.getText.contains(dateString) mustEqual true
 
       val questionLabels = browser.find("fieldset[class=question-group] legend")
-      questionLabels.get(0).getText must contain(dateString)
+      questionLabels.get(1).getText must contain(dateString)
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
