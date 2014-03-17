@@ -14,7 +14,7 @@
     }
     val year = (DayMonthYear.today + yearsToSubtract years).`yyyy`
     val month = Messages("dynamicDate.month1.helper")
-    args ++ Seq('helperBelow -> Messages("dynamicDate.helper", month, year))
+    args ++ Seq('helperAbove -> Messages("dynamicDate.helper", month, year))
 }
 
 @inputDayMonthYear(field, argsWithSpecificArgs: _*)

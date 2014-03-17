@@ -22,11 +22,11 @@
 	            <ul>
 	                @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"))
 	
-	                @inputDayMonthYear(currentForm("whenDidYouStartThisJob"), 'helperBelow -> Messages("dateOfBirth.helper"))
+	                @inputDayMonthYear(currentForm("whenDidYouStartThisJob"), 'helperAbove -> Messages("dateOfBirth.helper"))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                    inputDayMonthYear(currentForm("whenDidTheJobFinish"),'helperBelow -> Messages("dateOfBirth.helper")),
+	                    inputDayMonthYear(currentForm("whenDidTheJobFinish"),'helperAbove -> Messages("dateOfBirth.helper")),
 	                    yesNoRadioGroup(currentForm("haveYouCeasedTrading"))
 	                    ),
 	                    'id -> "selfEmployedNoWrap",

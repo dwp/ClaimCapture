@@ -21,7 +21,7 @@
 	            <legend>@Messages("s10.g1")</legend>
 	
 	            <ul>
-	                @listRadioGroup(currentForm("likeToPay"), 'items -> Seq(BankBuildingAccount.name , AppliedForAccount.name, NotOpenAccount.name ).map(s => s -> Messages("label."+s)), 'helperBelow -> Messages("howWePayYou.helper"))
+	                @listRadioGroup(currentForm("likeToPay"), 'items -> Seq(BankBuildingAccount.name , AppliedForAccount.name, NotOpenAccount.name ).map(s => s -> Messages("label."+s)), 'helperAbove -> Messages("howWePayYou.helper"))
 	
 	                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect")) ++ Seq(EveryWeek.name,FourWeekly.name).map(s => s -> Messages("label."+s)))
 	            </ul>

@@ -25,7 +25,7 @@ object Claimant {
       <ConfirmAddress>{yes}</ConfirmAddress>
       <HomePhoneNumber></HomePhoneNumber>
       <DaytimePhoneNumber>
-        <Number>{contactDetails.phoneNumber.orNull}</Number>
+        <Number>{contactDetails.howWeContactYou}</Number>
         <Qualifier/>
       </DaytimePhoneNumber>
       <EmailAddress/>

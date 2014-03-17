@@ -16,7 +16,7 @@
 	            <legend>@Messages("s11.g1")</legend>
 	
 	            <ul>
-	                @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helper->Messages("mustTellUs"))
+	                @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helperAbove -> Messages("mustTellUs"))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),

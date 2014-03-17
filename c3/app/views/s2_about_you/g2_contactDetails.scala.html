@@ -20,11 +20,11 @@
 	                @inputAddress(contactDetailsForm("address"))
 	
 	                @carersInputText(contactDetailsForm("postcode"), 'class -> "postcode")
-	                
-	                @carersInputTel(contactDetailsForm("mobileNumber"))
-	
-	                @carersInputTel(contactDetailsForm("phoneNumber"))
-	                
+
+                    <legend>@Messages("s2.g2.howcontactyou")</legend>
+
+                    @carersInputText(contactDetailsForm("howWeContactYou"),'maxLength -> 35,'helperBelow -> Messages("furtherInfoContact.helper"))
+
 	                @yesNoRadioGroup(contactDetailsForm("contactYouByTextphone"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
 	
 	            </ul>

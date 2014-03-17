@@ -28,11 +28,11 @@
 	                @maritalStatusSelect(moreAboutYouForm("maritalStatus"))
 
                     @otherDetailPlaceHolder(
-                        inputDef = Seq(yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperBelow -> Messages("hadPartnerSinceClaimDate.helper"))),
+                        inputDef = Seq(yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperAbove -> Messages("hadPartnerSinceClaimDate.helper"))),
                         'id -> "hadPartnerWrapper",
                         'display -> { if (notSingleNorLivingWithPartner) "yes" else "no" }
                     )
-	
+
 	                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 	
 	                @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"), '_label -> Messages("receiveStatePension"))

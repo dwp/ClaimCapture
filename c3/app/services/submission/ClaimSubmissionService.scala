@@ -47,11 +47,11 @@ trait ClaimSubmissionService {
             val errorCode = (responseXml \\ "errorCode").text
             errorAndCleanup(claim, txnId, errorCode, request)
           case _ =>
-            Logger.error(s"Received error : $result, TxnId : $txnId, Headers : ${request.headers}")
+            Logger.error(s"Received error : $result, TxnId : $txnId, User-Agent : ${request.headers.get("User-Agent").orNull}")
             errorAndCleanup(claim, txnId, UNKNOWN_ERROR, request)
         }
       case http.Status.SERVICE_UNAVAILABLE =>
-        Logger.error(s"SERVICE_UNAVAILABLE : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
+        Logger.error(s"SERVICE_UNAVAILABLE : ${response.status} : ${response.toString}, TxnId : $txnId, User-Agent : ${request.headers.get("User-Agent").orNull}")
         claim.key match {
           case CachedClaim.key =>
             Redirect(controllers.s11_consent_and_declaration.routes.G6Error.present())
@@ -59,13 +59,13 @@ trait ClaimSubmissionService {
             Redirect(controllers.circs.s3_consent_and_declaration.routes.G3Error.present())
         }
       case http.Status.BAD_REQUEST =>
-        Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
+        Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}, TxnId : $txnId, User-Agent : ${request.headers.get("User-Agent").orNull}")
         errorAndCleanup(claim, txnId, BAD_REQUEST_ERROR, request)
       case http.Status.REQUEST_TIMEOUT =>
-        Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
+        Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}, TxnId : $txnId, User-Agent : ${request.headers.get("User-Agent").orNull}")
         errorAndCleanup(claim, txnId, REQUEST_TIMEOUT_ERROR, request)
       case http.Status.INTERNAL_SERVER_ERROR =>
-        Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
+        Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}, TxnId : $txnId, User-Agent : ${request.headers.get("User-Agent").orNull}")
         errorAndCleanup(claim, txnId, SERVER_ERROR, request)
     }
   }
