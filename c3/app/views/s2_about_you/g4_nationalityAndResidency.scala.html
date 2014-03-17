@@ -20,7 +20,8 @@
 	
 	            <ul>
 	                @carersInputText(nationalityAndResidencyForm("nationality"),
-	                    'helperAbove -> Messages("nationality.helper"),
+                        'helperAbove -> Messages("nationality.helper"),
+                        'helperBelow -> Messages("nationality.helper2"),
 	                    'maxLength -> 35)
 	
 	                @yesNoRadioGroup(nationalityAndResidencyForm("resideInUK.answer"),
