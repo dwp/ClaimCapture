@@ -19,9 +19,9 @@ object PaymentChange {
             {question(<BankName/>,"currentlyPaidIntoBank.text1", circsPaymentChange.currentlyPaidIntoBank.text1)}
             {question(<MethodOfPayment/>,"currentlyPaidIntoBank.text2", circsPaymentChange.currentlyPaidIntoBank.text2)}
           </PaidIntoAccountDetails>
-          <AccountDetails>{account(circs)}</AccountDetails>
+          {account(circs)}
           {question(<PaymentFrequency/>,"paymentFrequency", circsPaymentChange.paymentFrequency)}
-          {statement(<OtherChanges/>, circsPaymentChange.moreAboutChanges)}
+          {question(<OtherChanges/>, "moreAboutChanges", circsPaymentChange.moreAboutChanges)}
         </PaymentChange>
       }
       case _ => NodeSeq.Empty
@@ -30,8 +30,7 @@ object PaymentChange {
 
   def account(circs:Claim) = {
     val bankBuildingSocietyDetails = circs.questionGroup[CircumstancesPaymentChange].getOrElse(CircumstancesPaymentChange())
-
-    <Account>
+    <AccountDetails>
       <AccountHolder>{bankBuildingSocietyDetails.whoseNameIsTheAccountIn}</AccountHolder>
       <HolderName>{bankBuildingSocietyDetails.accountHolderName}</HolderName>
       <BuildingSocietyDetails>
@@ -40,6 +39,6 @@ object PaymentChange {
         {statement(<SortCode/>,bankBuildingSocietyDetails.sortCode)}
         <Name>{bankBuildingSocietyDetails.bankFullName}</Name>
       </BuildingSocietyDetails>
-    </Account>
+    </AccountDetails>
   }
 }

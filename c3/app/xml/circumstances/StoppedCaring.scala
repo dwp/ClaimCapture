@@ -15,7 +15,7 @@ object StoppedCaring {
       case Some(circsStoppedCaring) => {
         <StoppedCaring>
           {question(<DateStoppedCaring/>,"stoppedCaringDate", circsStoppedCaring.stoppedCaringDate)}
-          {statement(<OtherChanges/>, circsStoppedCaring.moreAboutChanges)}
+          {question(<OtherChanges/>, "moreAboutChanges", circsStoppedCaring.moreAboutChanges)}
         </StoppedCaring>
       }
       case _ => NodeSeq.Empty

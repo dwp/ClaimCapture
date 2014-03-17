@@ -17,14 +17,14 @@ object SelfEmployment {
           {question(<Caring35Hours/>,"stillCaring.answer", circsSelfEmployment.stillCaring.answer)}
           {
             circsSelfEmployment.stillCaring.answer match {
-              case "no" => {question(<DateStoppedCaring35Hours/>, "whenStoppedCaring",circsSelfEmployment.stillCaring.date.get.`dd/MM/yyyy`)}
+              case "no" => {question(<DateStoppedCaring35Hours/>, "whenStoppedCaring",circsSelfEmployment.stillCaring.date)}
               case _ => NodeSeq.Empty
             }
           }
-          {question(<BusinessStartDate/>, "whenThisSelfEmploymentStarted",circsSelfEmployment.whenThisSelfEmploymentStarted.`dd/MM/yyyy`)}
+          {question(<BusinessStartDate/>, "whenThisSelfEmploymentStarted",circsSelfEmployment.whenThisSelfEmploymentStarted)}
           {question(<BusinessType/>, "typeOfBusiness",circsSelfEmployment.typeOfBusiness)}
           {question(<MoreThan100/>, "totalOverWeeklyIncomeThreshold",circsSelfEmployment.totalOverWeeklyIncomeThreshold)}
-          {statement(<OtherChanges/>, circsSelfEmployment.moreAboutChanges)}
+          {question(<OtherChanges/>, "moreAboutChanges", circsSelfEmployment.moreAboutChanges)}
         </SelfEmployedChange>
         }
       case _ => NodeSeq.Empty

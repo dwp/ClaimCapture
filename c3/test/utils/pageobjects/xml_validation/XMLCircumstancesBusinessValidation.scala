@@ -104,7 +104,7 @@ object CircValue {
   private def prepareCircValue(claimValue: String, attribute:String) = {
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
 
-    if (cleanValue.contains("/") && !attribute.startsWith("CircumstancesSelfEmploymentWhenThisStarted") && !attribute.startsWith("CircumstancesSelfEmploymentFinishedStillCaringDate")) {
+    if (cleanValue.contains("/")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
       date.toString(DateTimeFormat.forPattern("dd-MM-yyy"))
     } else cleanValue

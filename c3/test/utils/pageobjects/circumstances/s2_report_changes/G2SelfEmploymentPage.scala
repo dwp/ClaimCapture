@@ -9,7 +9,7 @@ final class G2SelfEmploymentPage(ctx:PageObjectsContext) extends CircumstancesPa
   declareDate("#whenThisSelfEmploymentStarted", "CircumstancesSelfEmploymentWhenThisStarted")
   declareInput("#typeOfBusiness", "CircumstancesSelfEmploymentTypeOfBusiness")
   declareYesNoDontKnow("#totalOverWeeklyIncomeThreshold", "CircumstancesSelfEmploymentTotalOverWeeklyIncomeThreshold")
-  declareInput("#moreAboutChanges", "CircumstancesSelfEmploymentCaringMoreAboutChanges")
+  declareInput("#moreAboutChanges", "CircumstancesSelfEmploymentMoreAboutChanges")
 }
 
 /**
