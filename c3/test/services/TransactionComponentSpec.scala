@@ -1,10 +1,13 @@
 package services
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeApplication, WithApplication}
+import play.api.test.WithApplication
 import play.api.test.Helpers._
 import play.api.db.DB
 import anorm._
+import anorm.SqlParser._
+import anorm.~
+import play.api.test.FakeApplication
 
 class TransactionComponentSpec extends Specification with Tags {
 
@@ -17,12 +20,20 @@ class TransactionComponentSpec extends Specification with Tags {
 
       DBTests.prepareDDL
 
-      transactionComponent.claimTransaction.registerId(DBTests.newId,"0002",1,false)
+      val id = DBTests.newId
+
+      transactionComponent.claimTransaction.registerId(id,"0002",1,thirdParty = false)
+
+      val transactionStatus = DBTests.getId(id)
+
+      transactionStatus mustEqual Some(TransactionStatus(id,"0002",1,0))
 
     }
   }
 
 }
+
+case class TransactionStatus(transactionID: String, status: String, typeI: Int, thirdparty: Int)
 
 object DBTests{
 
@@ -47,6 +58,28 @@ object DBTests{
       SQL("INSERT INTO transactionids (transaction_id) VALUES ({id});").on("id"->id).execute()
     }
     id
+  }
+
+  val parser = {
+    get[String]("transaction_id") ~
+      get[String]("status") ~
+      get[Int]("type") ~
+      get[Int]("thirdparty") map{
+      case id~status~typeI~thirdparty => TransactionStatus(id,status,typeI,thirdparty)
+    }
+  }
+  def getId(id: String)(implicit app:FakeApplication):Option[TransactionStatus] = {
+    import scala.language.postfixOps
+    DB.withConnection("carers"){implicit c =>
+      SQL(
+        """
+          SELECT transaction_id, status,type,thirdparty
+          FROM transactionstatus
+          WHERE transaction_id = {id}
+        """
+      ).on("id"->id)
+      .as(parser singleOpt)
+    }
   }
 
 
