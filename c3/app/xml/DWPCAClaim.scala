@@ -15,7 +15,7 @@ object DWPCAClaim {
 
     val additionalInfo = claim.questionGroup[models.domain.AdditionalInfo].getOrElse(models.domain.AdditionalInfo())
 
-    val havePartner = if(moreAboutYou.maritalStatus == "s") NotAsked else if(moreAboutYou.maritalStatus == "p") yes else moreAboutYou.hadPartnerSinceClaimDate.get
+    val havePartner = if(moreAboutYou.maritalStatus == "p") yes else moreAboutYou.hadPartnerSinceClaimDate.get
 
     Logger.info(s"Build DWPCAClaim : $transactionId")
 

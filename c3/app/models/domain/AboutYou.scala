@@ -103,6 +103,6 @@ case class MoreAboutYou(maritalStatus: String = "",
 object MoreAboutYou extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g8"
 
-  def validateHadPartner(moreAboutYou: MoreAboutYou) = (moreAboutYou.maritalStatus == "p" || moreAboutYou.maritalStatus == "s") || moreAboutYou.hadPartnerSinceClaimDate.isDefined
+  def validateHadPartner(moreAboutYou: MoreAboutYou) = moreAboutYou.maritalStatus == "p" || moreAboutYou.hadPartnerSinceClaimDate.isDefined
 
 }

@@ -1,8 +1,8 @@
 window.initEvents = (maritalStatus,hadPartnerY,hadPartnerN) ->
-  $("#" + maritalStatus).on "change", ->
-    if ($(this).val() == "p" || $(this).val() == "s")
+  $("#" + maritalStatus + " input").on "change", ->
+    if ($(this).val() == "p")
       $("#hadPartnerWrapper").slideUp 500, ->
         $("#"+hadPartnerY).prop('checked', false)
         $("#"+hadPartnerN).prop('checked', false)
-    else
+    else if($(this).val() != "")
       $("#hadPartnerWrapper").slideDown 500
