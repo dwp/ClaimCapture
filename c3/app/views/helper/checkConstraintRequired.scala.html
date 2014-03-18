@@ -10,8 +10,8 @@
 @if(showLabel) {
   <p>
     @carersLabelText(field,args:_*)
-    @if(args.find(_._1=='helperAbove).isDefined){
-      <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
-    }
   </p>
+  @if(args.find(_._1=='helperAbove).isDefined){
+    <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
+  }
 }
