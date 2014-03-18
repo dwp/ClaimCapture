@@ -2,6 +2,11 @@ var IE10 = (navigator.userAgent.match(/(MSIE 10.0)/g) ? true : false);
 if (IE10) {
 	$('html').addClass('ie10');
 }
+var IE11 = (navigator.userAgent.match(/(MSIE 11.0)/g) ? true : false);
+if (IE11) {
+	$('html').addClass('ie11');
+}
+
 
 // Chris' datepicker
 function datepicker(dateFieldId) {
