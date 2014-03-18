@@ -350,7 +350,8 @@ main {
 					   font-size: 16px;
 				   }
 				   &.above {
-					   margin-top: .2em;
+					   margin-top: 0;
+					   padding-bottom: .5em;
 				   }
 			   }
 			   .specific-help {
