@@ -12,7 +12,7 @@ import models.domain._
 
 object G8MoreAboutYou extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "maritalStatus" -> nonEmptyText(maxLength = 1),
+    "maritalStatus" -> nonEmptyText,
     "hadPartnerSinceClaimDate" -> optional(nonEmptyText.verifying(validYesNo)),
     "beenInEducationSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
     "receiveStatePension" -> nonEmptyText.verifying(validYesNo)

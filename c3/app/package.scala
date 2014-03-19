@@ -75,7 +75,14 @@ package object app {
     val Work = "Work"
     val Other = "Other"
   }
-
+  object MaritalStatus {
+    val Married = "Married or civil partner"
+    val Single = "Single"
+    val Divorced = "Divorced or civil partnership dissolved"
+    val Widowed = "Widowed or surviving civil partner"
+    val Separated = "Separated"
+    val Partner = "Living with partner"
+  }
   val mb = 1024L * 1000L
   def convertToMB(bytes:Long) = {
     bytes / mb

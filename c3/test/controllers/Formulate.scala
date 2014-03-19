@@ -77,7 +77,7 @@ object Formulate {
 
   def moreAboutYou(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
-    browser.click("#maritalStatus option[value='Single']")
+    browser.click("#maritalStatus_Single")
     browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_yes")
     browser.click("#receiveStatePension_yes")
@@ -86,7 +86,7 @@ object Formulate {
 
   def moreAboutYouNotHadPartnerSinceClaimDate(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
-    browser.click("#maritalStatus option[value='Single']")
+    browser.click("#maritalStatus_Single")
     browser.click("#hadPartnerSinceClaimDate_no")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_yes")
@@ -96,7 +96,7 @@ object Formulate {
   
   def moreAboutYouNotBeenInEducationSinceClaimDate(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
-    browser.click("#maritalStatus option[value='Single']")
+    browser.click("#maritalStatus_Single")
     browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_no")

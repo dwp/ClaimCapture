@@ -21,7 +21,7 @@ class XmlHelperSpec extends Specification with Tags {
       }
 
       "when question with question label having two arguments." in new WithApplication {
-        XMLHelper.question(<Test/>,"beenEmployedSince6MonthsBeforeClaim", <myNode>hello</myNode>,"arg1","arg2").toString shouldEqual "<Test><QuestionLabel>Have you had another job at any time since arg1 (this is six months before your claim date: arg2)?</QuestionLabel><Answer><myNode>hello</myNode></Answer></Test>"
+        XMLHelper.question(<Test/>,"yourBenefits.answer", <myNode>hello</myNode>,"arg1","arg2").toString shouldEqual "<Test><QuestionLabel>Have you arg1 claimed or received any other benefits since your claim date: arg2?</QuestionLabel><Answer><myNode>hello</myNode></Answer></Test>"
       }
 
     }

@@ -9,7 +9,16 @@ import models.PaymentFrequency
 import models.MultiLineAddress
 import models.PeriodFromTo
 import models.NationalInsuranceNumber
-import play.api.i18n.{MMessages => Messages}
+import play.api.i18n.{MMessages => Messages, Lang}
+import utils.helpers.PastPresentLabelHelper._
+import models.SortCode
+import models.PaymentFrequency
+import models.NationalInsuranceNumber
+import scala.Some
+import models.PensionPaymentFrequency
+import models.MultiLineAddress
+import models.PeriodFromTo
+import models.domain.Claim
 
 object XMLHelper {
 
@@ -212,6 +221,14 @@ object XMLHelper {
       }
       case _ => Some("")
     }
+  }
+
+  def questionLabel(claim:Claim, labelKey:String) = {
+    labelForSelfEmployment(claim, claim.lang.getOrElse(new Lang("en")), labelKey)
+  }
+
+  def questionLabelEmployment(claim:Claim, labelKey:String, jobID: String) = {
+    labelForEmployment(claim, claim.lang.getOrElse(new Lang("en")), labelKey, jobID)
   }
 
 }

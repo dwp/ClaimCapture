@@ -8,13 +8,17 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
                         hour: Option[Int] = None, minutes: Option[Int] = None) {
   def withTime(hour: Int, minutes: Int) = copy(hour = Some(hour), minutes = Some(minutes))
 
+  def `yyyy`: String = format("yyyy")
+
   def `yyyy-MM-dd`: String = format("yyyy-MM-dd")
 
-  def `yyyy`: String = format("yyyy")
+  def `dd-MM-yyyy`: String = format("dd-MM-yyyy")
 
   def `dd month, yyyy`: String = format("dd MMMM, yyyy")
 
   def `yyyy-MM-dd'T'HH:mm:00`: String = format("yyyy-MM-dd'T'HH:mm:00")
+
+  def `dd-MM-yyyy HH:mm`: String = format("dd-MM-yyyy HH:mm")
 
   def `dd/MM/yyyy`: String = pad(day) + "/" + pad(month) + "/" + year.fold("")(_.toString)
 

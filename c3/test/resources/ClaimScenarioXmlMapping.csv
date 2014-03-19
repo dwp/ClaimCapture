@@ -11,7 +11,7 @@ About You,Your Details,National Insurance (NI) number,AboutYouNINO,Claimant>Nati
 About You,Your Details,Date of birth,AboutYouDateOfBirth,Claimant>DateOfBirth
 About You,Your contact details,Address,AboutYouAddress,Claimant>Address>Line
 About You,Your contact details,Postcode,AboutYouPostcode,Claimant>Address>PostCode
-About You,Your contact details,Daytime phone number,AboutYouPhoneNumber,Claimant>DayTimePhoneNumber
+About You,Your contact details,How we contact you,HowWeContactYou,Claimant>DayTimePhoneNumber
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,Claimant>TextPhoneContact>Answer
 About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,Residency>Nationality
 About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Residency>NormallyLiveInGB>Answer

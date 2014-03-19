@@ -18,8 +18,7 @@ object Claimant extends XMLComponent {
       {statement(<DateOfBirth/>,yourDetails.dateOfBirth)}
       {statement(<NationalInsuranceNumber/>,yourDetails.nationalInsuranceNumber)}
       {postalAddressStructure(contactDetails.address, contactDetails.postcode)}
-      {statement(<DayTimePhoneNumber/>,contactDetails.phoneNumber)}
-      {statement(<MobileNumber/>,contactDetails.mobileNumber)}
+      {statement(<DayTimePhoneNumber/>,contactDetails.howWeContactYou)}
       <MaritalStatus>{moreAboutYou.maritalStatus}</MaritalStatus>
       {question(<TextPhoneContact/>,"contactYouByTextphone", contactDetails.contactYouByTextphone)}
     </Claimant>

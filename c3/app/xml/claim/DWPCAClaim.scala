@@ -16,6 +16,7 @@ object DWPCAClaim extends XMLComponent {
     val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = no, beenSelfEmployedSince1WeekBeforeClaim = no))
     val additionalInfo = claim.questionGroup[models.domain.AdditionalInfo].getOrElse(models.domain.AdditionalInfo())
     val claimDate = claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)
+    val havePartner = if(moreAboutYou.maritalStatus == "p") yes else moreAboutYou.hadPartnerSinceClaimDate.get
 
     Logger.info(s"Build DWPCAClaim")
 
@@ -30,7 +31,7 @@ object DWPCAClaim extends XMLComponent {
       {SelfEmployment.xml(claim)}
       {question(<Employed/>,"aboutYou_beenEmployedSince6MonthsBeforeClaim.label",employment.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => (dmy - 6 months).`dd/MM/yyyy`), claimDate)}
       {Employment.xml(claim)}
-      {question(<HavePartner/>,"hadPartnerSinceClaimDate.label",moreAboutYou.hadPartnerSinceClaimDate,claimDate)}
+      {question(<HavePartner/>,"hadPartnerSinceClaimDate.label",havePartner,claimDate)}
       {Partner.xml(claim)}
       {OtherBenefits.xml(claim)}
       {Payment.xml(claim)}

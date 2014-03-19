@@ -20,6 +20,7 @@ class FunctionalTestCase9Spec extends FunctionalTestCommon {
 
       val page = G1BenefitsPage(context)
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase9.csv")
+
       page goToThePage()
       val lastPage = page runClaimWith(claim, XmlPage.title)
 
