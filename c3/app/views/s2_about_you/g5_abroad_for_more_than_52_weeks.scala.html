@@ -78,30 +78,32 @@
 
 
     @form(action = controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.submit) {
-        <fieldset class="form-elements">
-            <legend>@Messages("s2.g5")</legend>
-
-            <ul class="group">
-            @defining(if(trips.fiftyTwoWeeksTrips == Nil || trips.fiftyTwoWeeksTrips.isEmpty) {"52Weeks.label"} else {"52Weeks.more.label"}) { label =>
-                @yesNoRadioGroup(AbroadForMoreThan52WeeksForm(
-                    "anyTrips"),
-                    '_label -> Messages(label),
-                    'helperBelow -> Messages("52Weeks.helper")
-                )
-            }
-            </ul>
-
-            <div id="warningMessageWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
-                <p>@Messages("s2.g5.warning")</p>
-                <span>!</span>
-            </div>
-
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Messages("s2.g5")</legend>
+	
+	            <ul class="group">
+	            @defining(if(trips.fiftyTwoWeeksTrips == Nil || trips.fiftyTwoWeeksTrips.isEmpty) {"52Weeks.label"} else {"52Weeks.more.label"}) { label =>
+	                @yesNoRadioGroup(AbroadForMoreThan52WeeksForm(
+	                    "anyTrips"),
+	                    '_label -> Messages(label),
+	                    'helperAbove -> Messages("52Weeks.helper")
+	                )
+	            }
+	            </ul>
+	
+	            <div id="warningMessageWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
+	                <p>@Messages("s2.g5.warning")</p>
+	                <span>!</span>
+	            </div>
+	
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
 

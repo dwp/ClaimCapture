@@ -31,8 +31,6 @@ trait CachedClaim {
 
   val cacheKey = CachedClaim.key
 
-  val redirect = getProperty("enforceRedirect", default = false)
-
   val startPage: String = getProperty("claim.start.page", "/allowance/benefits")
 
   val timeoutPage = routes.ClaimEnding.timeout()
@@ -103,7 +101,7 @@ trait CachedClaim {
               Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
               action(claim, request, bestLang)(f)
             } else {
-              Logger.info(s"$cacheKey timeout")
+              Logger.warn(s"$cacheKey timeout")
               Redirect(timeoutPage)
             }
         })
@@ -119,7 +117,7 @@ trait CachedClaim {
                     !claim.questionGroup[ClaimDate].isDefined ||
                         claim.questionGroup[ClaimDate].isDefined &&
                         claim.questionGroup[ClaimDate].get.dateOfClaim == null) =>
-            Logger.info(s"$cacheKey lost the claim date")
+            Logger.error(s"$cacheKey lost the claim date")
             Redirect(timeoutPage)
           case Some(claim) =>
             val lang = claim.lang.getOrElse(bestLang)
@@ -131,7 +129,7 @@ trait CachedClaim {
               Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
               action(claim, request, bestLang)(f)
             } else {
-              Logger.info(s"$cacheKey timeout")
+              Logger.warn(s"$cacheKey timeout")
               Redirect(timeoutPage)
             }
         })
@@ -150,7 +148,7 @@ trait CachedClaim {
             val lang = claim.lang.getOrElse(bestLang)
             f(copyInstance(claim))(request)(lang).map(res => res.withSession(claim.key -> key))
           case None =>
-            Logger.info(s"$cacheKey timeout")
+            Logger.warn(s"$cacheKey timeout")
             Future(Redirect(timeoutPage))
         }
       }
@@ -158,7 +156,7 @@ trait CachedClaim {
       if (sameHostCheck) {
         doSubmit()
       } else {
-        if (redirect) {
+        if (getProperty("enforceRedirect", default = true)) {
           Logger.warn(s"HTTP Referer : $referer")
           Logger.warn(s"Conf Referer : $startPage")
           Logger.warn(s"HTTP Host : $host")
@@ -228,6 +226,10 @@ trait CachedClaim {
         withHeaders(action)
       }
     }
+  }
+
+  def redirect: Boolean = {
+    getProperty("enforceRedirect", default = true)
   }
 
   private def withHeaders(result: Result): Result = {

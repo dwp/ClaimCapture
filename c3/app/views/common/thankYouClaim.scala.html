@@ -4,7 +4,6 @@
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
 
-@nino = @{claim.questionGroup[YourDetails].getOrElse(YourDetails()).nationalInsuranceNumber.stringify}
 @employment = @{claim.questionGroup[Employment].getOrElse(Employment())}
 @isEmployment = @{employment.beenEmployedSince6MonthsBeforeClaim == "yes"}
 @isSelfEmployment = @{employment.beenSelfEmployedSince1WeekBeforeClaim == "yes"}
@@ -19,71 +18,91 @@
 
         @common.feedback()
 
-        <article class="finish-statement">
+        <article class="finish-statement clearfix">
            
-            <div class="app-complete">
+            <section class="app-complete">
 	            <h1><span>@Messages("thankyou")</span></h1>
 	            <p>@Messages("claim.received")</p>
-	            <p class="nino-title">Your reference number is</p>
-	            <h2 id="nino">@nino</h2>
-            </div>
-            <div class="send-info">
+	            <p class="nino-title">@Messages("claim.recieved2")</p>
+            </section>
+            
+            
             @if(isEmploymentOrSelfEmployment){
+            
+            <div class="finish-info">
+            
 
                     <section>
-                        <h3>@Messages("documents.title")</h3>
-                        <h2>@Messages("documents.sendingDocs.title")</h2>
+                        <h1>@Messages("documents.title")</h1>
+                        <h3>@Messages("documents.sendingDocs.title")</h3>
                         <p>@Messages("documents.sendingDocs.text")</p>
                     </section>
-                    @if(isEmployment){
-                        <section>
-                            <h3 id="employment">@Messages("s11.g5.help3")</h3>
-                            <ul>
-                                <li>@{Messages("s11.g5.help4")} @claimDate</li>
-                                <li>@Messages("s11.g5.help5")</li>
-                                <li>@Messages("s11.g5.help6")</li>
-                            </ul>
+            
+                <div class="send-info">
+
+                        @if(isEmployment){
+                            <section>
+                                <h2 id="employment">@Messages("s11.g5.help3")</h2>
+                                <ul>
+                                    <li>@{Messages("s11.g5.help4")} @claimDate</li>
+                                    <li>@Messages("s11.g5.help5")</li>
+                                    <li>@Messages("s11.g5.help6")</li>
+                                </ul>
+                            </section>
+                        }
+                        @if(isSelfEmployment){
+                            <section>
+                                <h2 id="selfEmployment">@Messages("s11.g5.help7")</h2>
+                                <ul>
+                                    <li>@Messages("s11.g5.help8")</li>
+                                    <li>@Messages("s11.g5.help9")</li>
+                                </ul>
+                            </section>
+                        }
+                        <section class="address">
+                            <h2>@Messages("s11.g5.help10")</h2>
+                            <span>@Messages("s11.g5.help11")</span>
+                            <span>@Messages("s11.g5.help12")</span>
+                            <span>@Messages("s11.g5.help13")</span>
+                            <span>@Messages("s11.g5.help14")</span>
+                            <p>@Messages("s11.g5.help15")</p>
                         </section>
-                    }
-                    @if(isSelfEmployment){
-                        <section>
-                            <h3 id="selfEmployment">@Messages("s11.g5.help7")</h3>
-                            <ul>
-                                <li>@Messages("s11.g5.help8")</li>
-                                <li>@Messages("s11.g5.help9")</li>
-                            </ul>
-                        </section>
-                    }
-                    <section class="address">
-                        <h3>@Messages("s11.g5.help10")</h3>
-                        <span>@Messages("s11.g5.help11")</span>
-                        <span>@Messages("s11.g5.help12")</span>
-                        <span>@Messages("s11.g5.help13")</span>
-                        <span>@Messages("s11.g5.help14")</span>
-                        <p>@Messages("s11.g5.help15")</p>
-                    </section>
-
-            }
 
 
-            <section>
-                <h3>@Messages("next")</h3>
-                <ul>
-                    <li>@Html(Messages("claim.next.1"))</li>
-                    <li>@Html(Messages("claim.next.2"))</li>
-                    <li>@Html(Messages("claim.next.3"))</li>
-                    <li>@Html(Messages("next.last"))</li>
-                </ul>
-                </section>
-                <section>
-                <h3>@Messages("change.head")</h3>
-                <p>@Html(Messages("change.link"))</p>
-                </section>
-                <section>
-                <h3>@Messages("feedback.head")</h3>
-                <p>@Html(Messages("claim.feedback.link"))</p>
-            </section>
+                </div>
             </div>
+            }
+            
+            
+
+            <!-- / left-panel -->
+
+			<aside class="right-panel @{if(!isEmploymentOrSelfEmployment)"no-employment"}">
+			
+            	<section>
+	                <h2>@Messages("next")</h2>
+	                <ul>
+	                    <li>@Html(Messages("claim.next.1"))</li>
+	                    <li>@Html(Messages("claim.next.2"))</li>
+	                    <li>@Html(Messages("claim.next.3"))</li>
+	                    <li>@Html(Messages("next.last"))</li>
+	                </ul>
+                </section>
+                
+                <section>
+	                <h2>@Messages("change.head")</h2>
+	                <p>@Html(Messages("change.link"))</p>
+                </section>
+                
+                <section>
+	                <h2>@Messages("feedback.head")</h2>
+	                <p>@Html(Messages("claim.feedback.link"))</p>
+				</section>
+	            
+            </aside>
+            <!-- / right panel -->
+            
+            
         </article>
         
     </div>

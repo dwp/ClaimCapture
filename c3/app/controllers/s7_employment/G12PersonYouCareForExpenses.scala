@@ -38,13 +38,13 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("whoDoYouPay", "error.required", FormError("whoDoYouPay", "error.required", Seq(labelForEmployment(claim, "whoDoYouPay", jobID))))
-          .replaceError("whoDoYouPay", "error.restricted.characters", FormError("whoDoYouPay", "error.restricted.characters", Seq(labelForEmployment(claim, "whoDoYouPay", jobID))))
-          .replaceError("howMuchCostCare", "error.required", FormError("howMuchCostCare", "error.required", Seq(labelForEmployment(claim, "howMuchCostCare", jobID))))
-          .replaceError("howMuchCostCare", "decimal.invalid", FormError("howMuchCostCare", "decimal.invalid", Seq(labelForEmployment(claim, "howMuchCostCare", jobID))))
-          .replaceError("howOftenPayCare.frequency", "error.required", FormError("howOftenPayCare", "error.required", Seq("",labelForEmployment(claim, "howOftenPayCare", jobID))))
-          .replaceError("howOftenPayCare.frequency.other","error.maxLength",FormError("howOftenPayCare","error.maxLength",Seq("60",labelForEmployment(claim, "howOftenPayCare", jobID))))
-          .replaceError("howOftenPayCare","error.paymentFrequency",FormError("howOftenPayCare","error.paymentFrequency",Seq("",labelForEmployment(claim, "howOftenPayCare", jobID))))
+          .replaceError("whoDoYouPay", "error.required", FormError("whoDoYouPay", "error.required", Seq(labelForEmployment(claim, lang, "whoDoYouPay", jobID))))
+          .replaceError("whoDoYouPay", "error.restricted.characters", FormError("whoDoYouPay", "error.restricted.characters", Seq(labelForEmployment(claim, lang, "whoDoYouPay", jobID))))
+          .replaceError("howMuchCostCare", "error.required", FormError("howMuchCostCare", "error.required", Seq(labelForEmployment(claim, lang, "howMuchCostCare", jobID))))
+          .replaceError("howMuchCostCare", "decimal.invalid", FormError("howMuchCostCare", "decimal.invalid", Seq(labelForEmployment(claim, lang, "howMuchCostCare", jobID))))
+          .replaceError("howOftenPayCare.frequency", "error.required", FormError("howOftenPayCare", "error.required", Seq("",labelForEmployment(claim, lang, "howOftenPayCare", jobID))))
+          .replaceError("howOftenPayCare.frequency.other","error.maxLength",FormError("howOftenPayCare","error.maxLength",Seq("60",labelForEmployment(claim, lang, "howOftenPayCare", jobID))))
+          .replaceError("howOftenPayCare","error.paymentFrequency",FormError("howOftenPayCare","error.paymentFrequency",Seq("",labelForEmployment(claim, lang, "howOftenPayCare", jobID))))
 
           BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrorsUpdate))
       },

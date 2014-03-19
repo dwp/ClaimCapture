@@ -58,6 +58,7 @@ trait DataFiller {
   def `/about-you/contact-details`: Fluent = {
     fill("#address_lineOne") `with` "My Address"
     fill("#postcode") `with` "SE1 6EH"
+    fill("#howWeContactYou") `with` "01772 888901"
     fluent
   }
 }

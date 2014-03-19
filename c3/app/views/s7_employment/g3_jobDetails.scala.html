@@ -14,32 +14,34 @@
     @form(action = controllers.s7_employment.routes.G3JobDetails.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
-        <fieldset class="form-elements">
-            <legend>@Messages("s7.g3")</legend>
-
-            <ul>
-                @carersInputText(currentForm("employerName"), 'maxLength -> Mappings.sixty)
-
-                @inputDayMonthYear(currentForm("jobStartDate"), 'helperBelow -> Messages("jobStartDate.helper"))
-
-                @yesNoRadioGroup(currentForm("finishedThisJob"))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(inputDayMonthYear(currentForm("lastWorkDate"), 'helperBelow -> Messages("jobStartDate.helper")),
-                                   inputDayMonthYear(currentForm("p45LeavingDate"), 'helperBelow -> Messages("jobStartDate.helper"))),
-                    'id -> "lastWorkData",
-                    'display -> currentForm("finishedThisJob").value.getOrElse("no"))
-
-                @carersShortInputText(currentForm("hoursPerWeek"), '_label -> labelForEmployment(claim, "hoursPerWeek", JobID(currentForm)),'placeholder -> "00", 'maxlength -> 2)
-
-                @carersInputText(currentForm("payrollEmployeeNumber"), 'maxLength -> 16)
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Messages("s7.g3")</legend>
+	
+	            <ul>
+	                @carersInputText(currentForm("employerName"), 'maxLength -> Mappings.sixty)
+	
+	                @inputDayMonthYear(currentForm("jobStartDate"), 'helperAbove -> Messages("jobStartDate.helper"))
+	
+	                @yesNoRadioGroup(currentForm("finishedThisJob"))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(inputDayMonthYear(currentForm("lastWorkDate"), 'helperAbove -> Messages("jobStartDate.helper")),
+	                                   inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("jobStartDate.helper"))),
+	                    'id -> "lastWorkData",
+	                    'display -> currentForm("finishedThisJob").value.getOrElse("no"))
+	
+	                @carersShortInputText(currentForm("hoursPerWeek"), '_label -> labelForEmployment(claim, lang, "hoursPerWeek", JobID(currentForm)),'placeholder -> "00", 'maxlength -> 2)
+	
+	                @carersInputText(currentForm("payrollEmployeeNumber"), 'maxLength -> 16)
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
 

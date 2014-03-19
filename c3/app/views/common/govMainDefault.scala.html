@@ -95,9 +95,10 @@
         </div>
 
         <header role="banner" id="global-header">
-	      <div class="clearfix">
-	            <a href="https://www.gov.uk" title="@Messages("logo.help")" id="logo" class="content">
-                    <img src="@routes.Assets.at("images/gov.uk_logotype-2x.png")" alt="GOV.UK">
+	      <div class="wrapper clearfix">
+	            <a href="https://www.gov.uk" title="@Messages("logo.help")" class="crown">
+                    <img src="@routes.Assets.at("images/crown.png")" alt="GOV.UK">
+                    GOV.UK
                 </a>
 	   
 	          <section>
@@ -105,12 +106,12 @@
 		          <nav>
 		          	<ul>
 		          		<li class="feedback"><a href="#">@Messages("helpAndFeedback")</a></li>
-                        @if(getProperty("galluogi.cymraeg", default = false)) {
+                        @if(getProperty("galluogi.cymraeg", default = true)) {
                             @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
                             @if(lang.language == "cy") {
-                                <li><a id="lang-en" href="/change-language/en" aria-label="Change default language to English" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Messages("english")</a></li>
+                                <li><a id="lang-en" href="/change-language/en" aria-label="@Html(Messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Messages("english")</a></li>
                             } else {
-                                <li><a id="lang-cy" href="/change-language/cy" aria-label="Change default language to Welsh" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Messages("welsh")</a></li>
+                                <li><a id="lang-cy" href="/change-language/cy" aria-label="@Html(Messages("welsh.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Messages("welsh")</a></li>
                             }
                           }
                         }
@@ -133,36 +134,26 @@
            @content
         </main>
 
-        <footer class="group js-footer" id="footer" role="contentinfo">
-            <div class="footer-wrapper carers-allowance-footer">
-                @footerCategories
-
-                <div class="footer-meta">
-                
-                
-                    <nav>
-                    
-                        <ul>
-                            <li><a href="/claim-notes#16" target="_blank">@Messages("helpdesk")</a></li>
-                            <li><a href="http://www.dwp.gov.uk/privacy-policy/" target="_blank" @views.html.ga.trackClickEvent(linkName = "Privacy & Cookies")>@Messages("privacyLink")</a></li>
-                            <li>@Html(Messages("builtByDWP1")) <a href="https://www.gov.uk/government/organisations/department-for-work-pensions" target="_blank" @views.html.ga.trackClickEvent(linkName ="Department for Work & Pensions")>@Html(Messages("builtByDWP2"))</a></li>
-                        </ul>
-
-                    </nav>
-
-                    <div class="copyright">
-                        <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm" target="_blank" @views.html.ga.trackClickEvent(linkName = "Crown Copyright")>&copy; @Messages("crownCopyright")</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!--end footer-->
+        <footer>
+	      <div class="container clearfix">
+	
+			  <div class="left">
+				  <p>@Html(Messages("openGovLicense"))</p>
+			  </div>
+			 
+			  <div class="right">
+				  <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm">&copy; @Html(Messages("crownCopyright"))</a>
+			  </div>
+	
+	      </div>
+	    </footer>
+	    <!--/ footer -->
 
         <div id="global-app-error" class="app-error hidden"></div>
         
          
 
-        @if(play.Configuration.root().getBoolean("include_analytics", false)) {
+        @if(play.Configuration.root().getBoolean("include.analytics", true)) {
             @views.html.ga.setup()
         }
     </body>

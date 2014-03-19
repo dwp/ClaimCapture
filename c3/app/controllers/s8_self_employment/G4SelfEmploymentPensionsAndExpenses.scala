@@ -41,14 +41,14 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim w
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("doYouPayToPensionScheme", "error.required", FormError("doYouPayToPensionScheme.answer", "error.required", Seq(labelForSelfEmployment(claim, "doYouPayToPensionScheme.answer"))))
-          .replaceError("", "howMuchDidYouPay", FormError("howMuchDidYouPay", "error.required", Seq(labelForSelfEmployment(claim, "howMuchDidYouPay"))))
-          .replaceError("", "howOften.required", FormError("howOften", "error.required", Seq(labelForSelfEmployment(claim, "howOften"))))
-          .replaceError("howMuchDidYouPay", "decimal.invalid", FormError("howMuchDidYouPay", "decimal.invalid", Seq(labelForSelfEmployment(claim, "howMuchDidYouPay"))))
-          .replaceError("howOften", "error.paymentFrequency", FormError("howOften", "error.paymentFrequency", Seq(labelForSelfEmployment(claim, "howOften"))))
-          .replaceError("doYouPayToLookAfterYourChildren", "error.required", FormError("doYouPayToLookAfterYourChildren", "error.required", Seq(labelForSelfEmployment(claim, "doYouPayToLookAfterYourChildren"))))
-          .replaceError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", FormError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", Seq(labelForSelfEmployment(claim, "didYouPayToLookAfterThePersonYouCaredFor"))))
-          .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength",Seq("60",labelForSelfEmployment(claim, "howOften"))))
+          .replaceError("doYouPayToPensionScheme", "error.required", FormError("doYouPayToPensionScheme.answer", "error.required", Seq(labelForSelfEmployment(claim, lang, "doYouPayToPensionScheme.answer"))))
+          .replaceError("", "howMuchDidYouPay", FormError("howMuchDidYouPay", "error.required", Seq(labelForSelfEmployment(claim, lang, "howMuchDidYouPay"))))
+          .replaceError("", "howOften.required", FormError("howOften", "error.required", Seq(labelForSelfEmployment(claim, lang, "howOften"))))
+          .replaceError("howMuchDidYouPay", "decimal.invalid", FormError("howMuchDidYouPay", "decimal.invalid", Seq(labelForSelfEmployment(claim, lang, "howMuchDidYouPay"))))
+          .replaceError("howOften", "error.paymentFrequency", FormError("howOften", "error.paymentFrequency", Seq(labelForSelfEmployment(claim, lang, "howOften"))))
+          .replaceError("doYouPayToLookAfterYourChildren", "error.required", FormError("doYouPayToLookAfterYourChildren", "error.required", Seq(labelForSelfEmployment(claim, lang, "doYouPayToLookAfterYourChildren"))))
+          .replaceError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", FormError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", Seq(labelForSelfEmployment(claim, lang, "didYouPayToLookAfterThePersonYouCaredFor"))))
+          .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength",Seq("60",labelForSelfEmployment(claim, lang, "howOften"))))
 
         formWithErrorsUpdate.errors.foreach(println _)
         BadRequest(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrorsUpdate))

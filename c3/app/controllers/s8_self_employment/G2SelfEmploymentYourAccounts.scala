@@ -51,10 +51,10 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Nav
         println("G2SelfEmploymentYourAccount:submit "+formWithErrors.errors)
         val formWithErrorsUpdate = formWithErrors
           .replaceError("","required", FormError("tellUsWhyAndWhenTheChangeHappened", "error.required"))
-          .replaceError("whatWasOrIsYourTradingYearFrom","error.invalid", FormError("whatWasOrIsYourTradingYearFrom", "error.invalid", Seq(labelForSelfEmployment(claim, "whatWasOrIsYourTradingYearFrom"))))
-          .replaceError("whatWasOrIsYourTradingYearFrom.year","error.number", FormError("whatWasOrIsYourTradingYearFrom.year", "error.number", Seq(labelForSelfEmployment(claim, "whatWasOrIsYourTradingYearFrom.year"))))
-          .replaceError("whatWasOrIsYourTradingYearTo","error.invalid", FormError("whatWasOrIsYourTradingYearTo", "error.invalid", Seq(labelForSelfEmployment(claim, "whatWasOrIsYourTradingYearTo"))))
-          .replaceError("whatWasOrIsYourTradingYearTo.year","error.number", FormError("whatWasOrIsYourTradingYearTo.year", "error.number", Seq(labelForSelfEmployment(claim, "whatWasOrIsYourTradingYearTo.year"))))
+          .replaceError("whatWasOrIsYourTradingYearFrom","error.invalid", FormError("whatWasOrIsYourTradingYearFrom", "error.invalid", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"))))
+          .replaceError("whatWasOrIsYourTradingYearFrom.year","error.number", FormError("whatWasOrIsYourTradingYearFrom.year", "error.number", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom.year"))))
+          .replaceError("whatWasOrIsYourTradingYearTo","error.invalid", FormError("whatWasOrIsYourTradingYearTo", "error.invalid", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"))))
+          .replaceError("whatWasOrIsYourTradingYearTo.year","error.number", FormError("whatWasOrIsYourTradingYearTo.year", "error.number", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo.year"))))
         BadRequest(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G4SelfEmploymentPensionsAndExpenses.present()))

@@ -18,26 +18,28 @@
     @form(action = controllers.s7_employment.routes.G12PersonYouCareForExpenses.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
-        <fieldset class="form-elements">
-            <legend>@Html(Messages("s7.g12"))</legend>
-
-            <ul>
-                @carersInputText(currentForm("whoDoYouPay"), '_label -> labelForEmployment(claim, "whoDoYouPay", JobID(currentForm)))
-
-                @carersCurrency(currentForm("howMuchCostCare"), '_label -> labelForEmployment(claim, "howMuchCostCare", JobID(currentForm)), 'maxlength -> Mappings.sixty)
-
-                @pensionPaymentFrequencySelect(currentForm("howOftenPayCare"), '_label -> labelForEmployment(claim, "howOftenPayCare", JobID(currentForm)), 'id -> "howOftenPayCare",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
-
-                @relationshipSelectWithNone(currentForm("relationToYou"))
-
-                @relationshipSelectWithNone(currentForm("relationToPersonYouCare"))
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("s7.g12"))</legend>
+	
+	            <ul>
+	                @carersInputText(currentForm("whoDoYouPay"), '_label -> labelForEmployment(claim, lang, "whoDoYouPay", JobID(currentForm)))
+	
+	                @carersCurrency(currentForm("howMuchCostCare"), '_label -> labelForEmployment(claim, lang, "howMuchCostCare", JobID(currentForm)), 'maxlength -> Mappings.sixty)
+	
+	                @pensionPaymentFrequencySelect(currentForm("howOftenPayCare"), '_label -> labelForEmployment(claim, lang, "howOftenPayCare", JobID(currentForm)), 'id -> "howOftenPayCare",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+	
+	                @relationshipSelectWithNone(currentForm("relationToYou"))
+	
+	                @relationshipSelectWithNone(currentForm("relationToPersonYouCare"))
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
 

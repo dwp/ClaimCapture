@@ -1,4 +1,4 @@
-@(field: play.api.data.Field)(implicit lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
 
 @import views.html.helper.base.carersInputText
 @import views.html.helper.base.carersInputTel
@@ -9,7 +9,7 @@
 
 <fieldset class="question-group">
 
-@NInumberConstraintRequired(field)
+@NInumberConstraintRequired(field, args: _*)
 
 <ul class="inline ni-number label-strip">
     <li>

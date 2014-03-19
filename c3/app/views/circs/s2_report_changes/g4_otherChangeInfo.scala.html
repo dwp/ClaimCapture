@@ -14,16 +14,18 @@
     @errorsSummary(otherInfoForm)
 
     @form(action = controllers.circs.s2_report_changes.routes.G4OtherChangeInfo.submit) {
-        <fieldset class="form-elements">
-            <legend>@Messages("c2.g4")</legend>
-            <ul class="coc-layout">
-                @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000)
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+        	<fieldset class="form-elements">
+	            <legend>@Messages("c2.g4")</legend>
+	            <ul class="coc-layout">
+	                @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000)
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }

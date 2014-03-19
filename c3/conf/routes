@@ -5,14 +5,17 @@
 # Home page
 GET           /                                                         controllers.Application.index
 
+# claim pack notes accessed externally
 GET           /claim-notes                                              controllers.ClaimNotes.notes
+# claim pack notes accessed internally (with claim lang)
+GET           /internal-claim-notes                                     controllers.ClaimNotes.internalNotes
 
 GET           /change-language/:chosenLanguage                          controllers.Language.change(chosenLanguage: String)
 # Obscure URL to hide health page
 GET           /Ewd4Oys3baIj3Yeg0o                                       controllers.HealthController.health
 
 GET           /preview                                                  controllers.preview.Preview.present
-POST           /preview                                                 controllers.preview.Preview.submit
+POST          /preview                                                  controllers.preview.Preview.submit
 
 # Cache Timeout
 GET           /timeout                                                  controllers.ClaimEnding.timeout
@@ -23,8 +26,8 @@ GET           /error                                                    controll
 GET           /circs-error                                              controllers.CircsEnding.error
 
 # Claim submission
-POST           /submit                                                  @controllers.submission.ClaimSubmissionController.submit
-POST           /circs-submit                                            @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
+POST          /submit        @controllers.submission.ClaimSubmissionController.submit
+POST          /circs-submit        @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
 
 # Thank you
 GET           /thankyou/apply-carers                                    controllers.ClaimEnding.thankyou

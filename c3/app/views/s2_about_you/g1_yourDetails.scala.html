@@ -15,31 +15,33 @@
 
 
     @form(action = controllers.s2_about_you.routes.G1YourDetails.submit) {
-        <fieldset class="form-elements" data-journey="carers-allowance:page:about-you">
-            <legend>@Messages("s2.g1")</legend>
-
-            <ul>
-                @titleSelect(yourDetailsForm("title"))
-
-                @carersInputText(yourDetailsForm("firstName"), 'helperBelow -> Messages("your.name.helper"), 'maxLength -> 17)
-
-                @carersInputText(yourDetailsForm("middleName"), 'maxLength -> 17)
-
-                @carersInputText(yourDetailsForm("surname"), 'maxLength -> 35)
-
-                @carersInputText(yourDetailsForm("otherNames"), 'maxLength -> 35)
-
-                @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper"))
-
-                @inputDayMonthYear(yourDetailsForm("dateOfBirth"), 'helperBelow -> Messages("dateOfBirth.helper"))
-
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements" data-journey="carers-allowance:page:about-you">
+	            <legend>@Messages("s2.g1")</legend>
+	
+	            <ul>
+	                @titleSelect(yourDetailsForm("title"))
+	
+	                @carersInputText(yourDetailsForm("firstName"), 'helperAbove -> Messages("your.name.helper"), 'maxLength -> 17)
+	
+	                @carersInputText(yourDetailsForm("middleName"), 'maxLength -> 17)
+	
+	                @carersInputText(yourDetailsForm("surname"), 'maxLength -> 35)
+	
+	                @carersInputText(yourDetailsForm("otherNames"), 'maxLength -> 35)
+	
+	                @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"), 'helperAbove -> Messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper2"))
+	
+	                @dateOfBirth(yourDetailsForm("dateOfBirth"))
+	
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
 <script type="text/javascript">

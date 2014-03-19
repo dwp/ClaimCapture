@@ -15,7 +15,7 @@
         @progressBar(CarersAllowance)
         
 
-        <article>
+        <article class="eligible">
 
             <h1>@Messages("s1.longName")</h1>
 
@@ -38,6 +38,7 @@
                     </ul>
                 </div>
             }
+
 
             @if(currentForm.isDefined) {
                 @errorsSummary(currentForm.get)

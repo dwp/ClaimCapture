@@ -11,8 +11,7 @@ About You,Your Details,National Insurance (NI) number,AboutYouNINO,AB123456C
 About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1949
 About You,Your contact details,Address,AboutYouAddress,6 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
-About You,Your contact details,Phone number,AboutYouPhoneNumber,01772 888901
-About You,Your contact details,Mobile number,AboutYouMobileNumber,0771 5419899
+About You,Your contact details,How we contact you,HowWeContactYou,01772 888901
 About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,British
 About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,No
 About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,France

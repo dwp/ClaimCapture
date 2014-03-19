@@ -7,30 +7,56 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.dropdowns._
+@import utils.helpers._
 @import play.api.i18n.{MMessages => Messages}
+
+@notSingleNorLivingWithPartner = @{
+    val v = moreAboutYouForm("maritalStatus").value.getOrElse("")
+    v != "p" && v != ""
+}
 
 @main(Messages("s2.g8") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.MoreAboutYou)) {
     @errorsSummary(moreAboutYouForm)
 
 
     @form(action = controllers.s2_about_you.routes.G8MoreAboutYou.submit) {
-        <fieldset class="form-elements">
-            <legend>@Messages("s2.g8")</legend>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
 
-            <ul>
-                @maritalStatusSelect(moreAboutYouForm("maritalStatus"))
+                <legend>@Messages("maritalStatus")</legend>
+	            <ul>
+	                @maritalStatusSelect(moreAboutYouForm("maritalStatus"),'_showLabel->false)
 
-                @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperBelow -> Messages("hadPartnerSinceClaimDate.helper"))
-
-                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
-
-                @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"), '_label -> Messages("receiveStatePension"))
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button>
-        </nav>
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperAbove -> Messages("hadPartnerSinceClaimDate.helper"))),
+                        'id -> "hadPartnerWrapper",
+                        'display -> { if (notSingleNorLivingWithPartner) "yes" else "no" }
+                    )
+                </ul>
+            </fieldset>
+            <fieldset class="form-elements">
+                <legend>@Messages("s2.g8")</legend>
+                <ul>
+	                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+	
+	                @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"), '_label -> Messages("receiveStatePension"))
+	            </ul>
+            </fieldset>
+	
+	        <nav class="form-steps">
+	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button>
+	        </nav>
+        </div>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/g8_moreAboutYou.js")'></script>
+
+<script type="text/javascript">
+    $(function(){
+        window.initEvents("@CarersCrypto.encryptAES("maritalStatus")",
+                          "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
+                          "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")");
+    });
+</script>

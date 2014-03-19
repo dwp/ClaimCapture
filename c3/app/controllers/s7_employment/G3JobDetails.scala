@@ -47,7 +47,7 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors =>{
         val form = formWithErrors.replaceError("", "lastWorkDate", FormError("lastWorkDate", "error.required"))
-        .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(labelForEmployment(claim, "hoursPerWeek", jobID))))
+        .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(labelForEmployment(claim, lang, "hoursPerWeek", jobID))))
         BadRequest(views.html.s7_employment.g3_jobDetails(form))
       },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G4EmployerContactDetails.present(jobID)))
   }

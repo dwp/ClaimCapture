@@ -9,7 +9,7 @@ import utils.pageobjects._
  *         Date: 17/07/2013
  */
 final class G8MoreAboutYouPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G8MoreAboutYouPage.url, G8MoreAboutYouPage.title) {
-  declareSelect("#maritalStatus", "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus")
+  declareRadioList("#maritalStatus", "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus")
   declareYesNo("#hadPartnerSinceClaimDate", "AboutYouHaveYouHadaPartnerSpouseatAnyTime")
   declareYesNo("#beenInEducationSinceClaimDate", "AboutYouHaveYouBeenOnACourseOfEducation")
   declareYesNo("#receiveStatePension", "AboutYouDoYouGetStatePension")
