@@ -20,9 +20,16 @@ object DBTests{
         DROP TABLE  IF EXISTS transactionids CASCADE;
         CREATE TABLE transactionids (transaction_id CHARACTER(7) NOT NULL, createdon TIMESTAMP(6) DEFAULT now() NOT NULL, PRIMARY KEY (transaction_id));
         DROP TABLE IF EXISTS transactionstatus CASCADE;
-        CREATE TABLE transactionstatus
-            ( transaction_id CHARACTER(7) NOT NULL, createdon TIMESTAMP(6) DEFAULT now() NOT NULL, status CHARACTER VARYING(10), type INTEGER, thirdparty INTEGER, PRIMARY KEY(transaction_id), CONSTRAINT transaction_fk FOREIGN KEY(transaction_id) REFERENCES transactionids(transaction_id)
-            ) ;
+        CREATE TABLE transactionstatus(
+          transaction_id CHARACTER(7) NOT NULL,
+          createdon TIMESTAMP(6) DEFAULT now() NOT NULL,
+          status CHARACTER VARYING(10),
+          type INTEGER,
+          thirdparty INTEGER,
+          circs_type INTEGER,
+          PRIMARY KEY(transaction_id),
+          CONSTRAINT transaction_fk FOREIGN KEY(transaction_id) REFERENCES transactionids(transaction_id)
+        );
         """
       ).execute()
     }
@@ -38,10 +45,11 @@ object DBTests{
 
   val parser = {
     get[String]("transaction_id") ~
-      get[String]("status") ~
-      get[Int]("type") ~
-      get[Int]("thirdparty") map{
-      case id~status~typeI~thirdparty => TransactionStatus(id,status,typeI,thirdparty)
+    get[String]("status") ~
+    get[Int]("type") ~
+    get[Int]("thirdparty") ~
+    get[Option[Int]]("circs_type") map {
+      case id~status~typeI~thirdparty~circsType => TransactionStatus(id,status,typeI,thirdparty,circsType)
     }
   }
 
@@ -50,12 +58,12 @@ object DBTests{
     DB.withConnection("carers"){implicit c =>
       SQL(
         """
-          SELECT transaction_id, status,type,thirdparty
+          SELECT transaction_id, status,type,thirdparty,circs_type
           FROM transactionstatus
           WHERE transaction_id = {id}
         """
       ).on("id"->id)
-        .as(parser singleOpt)
+       .as(parser singleOpt)
     }
   }
 

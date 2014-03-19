@@ -31,12 +31,13 @@ trait ClaimTransactionComponent {
     /**
      * Record that an ID has been used
      */
-    def registerId(id: String, statusCode:String, claimType:Int,thirdParty:Boolean=false):Unit = DB.withConnection("carers") {implicit c =>
+    def registerId(id: String, statusCode:String, claimType:Int,thirdParty:Boolean=false, circsChange:Option[Int]=None):Unit = DB.withConnection("carers") {implicit c =>
       SQL(
         """
-          INSERT INTO transactionstatus (transaction_id, status,type,thirdparty) VALUES ({transactionId},{status},{type},{thirdparty});
+          INSERT INTO transactionstatus (transaction_id, status,type,thirdparty,circs_type)
+          VALUES ({transactionId},{status},{type},{thirdparty},{circsChange});
         """
-      ).on("transactionId"->id,"status"->statusCode,"type"->claimType,"thirdparty"->(if(thirdParty) 1 else 0)).execute()
+      ).on("transactionId"->id,"status"->statusCode,"type"->claimType,"thirdparty"->(if(thirdParty) 1 else 0),"circsChange"->circsChange).execute()
     }
 
 
@@ -55,7 +56,7 @@ trait ClaimTransactionComponent {
   class StubClaimTransaction extends ClaimTransaction {
     override def generateId: String = "TEST623"
 
-    override def registerId(id: String, statusCode: String, claimType: Int, thirdParty:Boolean) {}
+    override def registerId(id: String, statusCode: String, claimType: Int, thirdParty:Boolean, circsChange:Option[Int]) {}
 
     override def updateStatus(id: String, statusCode: String, claimType: Int) {}
   }
