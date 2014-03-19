@@ -32,9 +32,10 @@
 	                <h3>@Html(Messages("declaration.title"))</h3>
 	
 	                <ul>
-	                @for(i <- 1 to 4) {
-	                    <li>@Html(Messages(s"circs.declaration.$i"))</li>
-	                }
+                        <li>@Html(Messages("circs.declaration.1a")) <a href="/internal-claim-notes" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>@Html(Messages("circs.declaration.1b"))</a> @Html(Messages("circs.declaration.1c"))</li>
+                        <li>@Html(Messages("circs.declaration.2"))</li>
+                        <li>@Html(Messages("circs.declaration.3"))</li>
+                        <li>@Html(Messages("circs.declaration.4"))</li>
 	                </ul>
 	            </section>
 	
