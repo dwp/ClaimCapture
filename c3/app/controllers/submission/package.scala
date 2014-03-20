@@ -16,13 +16,13 @@ package object submission {
   }
 
   def xmlValidator(claim: Claim) = claim match {
-    case _: Claim with FullClaim => XmlValidatorFactory.buildCaValidator()
-    case _: Claim with ChangeOfCircs => XmlValidatorFactory.buildCocValidator()
+    case _: Claim with FullClaim => XmlValidatorFactory.buildCaLegacyValidator()
+    case _: Claim with ChangeOfCircs => XmlValidatorFactory.buildCocLegacyValidator()
   }
 
   def xmlAndValidator(claim: Claim, txnID: TransactionID): (Elem, XmlValidator) = claim match {
-    case _: Claim with FullClaim => (DWPCAClaim.xml(claim, txnID), XmlValidatorFactory.buildCaValidator())
-    case _: Claim with ChangeOfCircs => (DWPCoCircs.xml(claim, txnID), XmlValidatorFactory.buildCocValidator())
+    case _: Claim with FullClaim => (DWPCAClaim.xml(claim, txnID), XmlValidatorFactory.buildCaLegacyValidator())
+    case _: Claim with ChangeOfCircs => (DWPCoCircs.xml(claim, txnID), XmlValidatorFactory.buildCocLegacyValidator())
   }
 
   def claimType(claim:Claim) = claim match {
