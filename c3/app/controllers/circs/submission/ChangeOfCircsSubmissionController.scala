@@ -4,7 +4,7 @@ import controllers.submission.SubmissionController
 import models.view.CachedChangeOfCircs
 import services.ClaimTransactionComponent
 import monitoring.ChangeBotChecking
-import services.submission.{CircsSubmissionService, WebServiceClientComponent, ClaimSubmissionService}
+import services.submission.{WebServiceClientComponent, ClaimSubmissionService}
 
 class ChangeOfCircsSubmissionController extends SubmissionController
     with ClaimSubmissionService
