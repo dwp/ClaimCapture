@@ -56,6 +56,12 @@ object CircumstancesScenarioFactory {
     claim
   }
 
+  def reportBreakFromCaring = {
+    val claim = aboutDetails
+    claim.CircumstancesReportChanges = BreakFromCaring.name
+    claim
+  }
+
   def reportChangesAddressChangeYes = {
     val claim = addressChange
 
