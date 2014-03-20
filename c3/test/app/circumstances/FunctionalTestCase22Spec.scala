@@ -26,7 +26,7 @@ class FunctionalTestCase22Spec extends FunctionalTestCommon {
         }
         case p: Page => println(p.source())
       }
-    }
+    }.pendingUntilFixed("Dev mode")
 
   } section "functional"
 }

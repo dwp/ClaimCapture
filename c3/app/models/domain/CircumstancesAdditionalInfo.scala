@@ -76,3 +76,16 @@ case class CircumstancesAddressChange(previousAddress: MultiLineAddress = new Mu
 object CircumstancesAddressChange extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g6"
 }
+
+case class CircumstancesBreaksInCare(startDate: DayMonthYear = DayMonthYear(None, None, None),
+                  startTime: Option[String] = None ,
+                  wherePerson: RadioWithText = RadioWithText("", None),
+                  whereYou: RadioWithText = RadioWithText("", None),
+                  breakEnded: YesNoWithDateTimeAndText = YesNoWithDateTimeAndText("", None, None, None),
+                  expectStartCaring: YesNoDontKnowWithDates = YesNoDontKnowWithDates(None, None, None),
+                  medicalDuringBreak: String = "",
+                  moreAboutChanges: Option[String] = None) extends QuestionGroup(CircumstancesBreaksInCare)
+
+object CircumstancesBreaksInCare extends QuestionGroup.Identifier {
+  val id = s"${CircumstancesReportChanges.id}.g7"
+}

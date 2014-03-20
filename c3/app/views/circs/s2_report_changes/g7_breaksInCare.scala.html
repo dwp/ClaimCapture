@@ -1,0 +1,119 @@
+@(breaksForm: Form[models.domain.CircumstancesBreaksInCare])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import common._
+@import views.html.helper.dates._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import views.html.circs.s2_report_changes.main
+@import play.api.i18n.{MMessages => Messages}
+@import app.CircsBreaksWhereabouts._
+
+@main(Messages("c2.g7") + " - " + Messages("c2.name")) {
+    @errorsSummary(breaksForm)
+
+    @form(action = controllers.circs.s2_report_changes.routes.G7BreaksInCare.submit) {
+        <div class="form-wrap">
+            <fieldset class="form-elements">
+                <p class="security-message">@Messages("c2.address.helper")</p>
+
+                <legend>@Messages("c2.g7.breaksInCare")</legend>
+
+                <ul>
+                   <li>@Html(Messages("circsBreaks"))</li>
+
+                    @sliderHelp(Messages("circsBreaksHelp.label"),Messages("circsBreaksHelp.closeLabel"),Html(Messages("circsBreaksHelp")))
+                </ul>
+
+            </fieldset>
+
+            <fieldset class="form-elements">
+                <legend>@Messages("c2.g7")</legend>
+
+                <ul>
+                    @inputDayMonthYear(breaksForm("startDate"), 'helperAbove-> Messages("startDate.helper"))
+
+                    @carersInputText(breaksForm("startTime"), 'helperAbove-> Messages("startTime.helper"))
+
+                    @listRadioGroup(breaksForm("wherePerson"),
+                        'items -> Seq(
+                            Hospital -> Messages("circsBreaks.Hospital"),
+                            RespiteCare -> Messages("circsBreaks.RespiteCare"),
+                            Holiday -> Messages("circsBreaks.Holiday"),
+                            Home -> Messages("circsBreaks.Home"),
+                            SomewhereElse -> Messages("circsBreaks.SomewhereElse")),
+                            'helperAbove-> Messages("wherePerson.helper"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(carersInputText(breaksForm("wherePerson.somewhereElse"), 'ignoreOptional -> true)
+                        ),
+                        'id -> "wherePersonSomewhereElse",
+                        'display -> {if (breaksForm("wherePerson.answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" }
+                    )
+
+                    @listRadioGroup(breaksForm("whereYou"),
+                        'items -> Seq(
+                            Hospital -> Messages("circsBreaks.Hospital"),
+                            RespiteCare -> Messages("circsBreaks.RespiteCare"),
+                            Holiday -> Messages("circsBreaks.Holiday"),
+                            Home -> Messages("circsBreaks.Home"),
+                            SomewhereElse -> Messages("circsBreaks.SomewhereElse")),
+                        'helperAbove-> Messages("whereYou.helper"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(carersInputText(breaksForm("whereYou.somewhereElse"), 'ignoreOptional -> true)
+                        ),
+                        'id -> "whereYouSomewhereElse",
+                        'display -> {if (breaksForm("whereYou.answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" }
+                    )
+
+                    @yesNoRadioGroup(breaksForm("breakEnded.answer"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            inputDayMonthYear(breaksForm("breakEnded.endDate")),
+                            carersInputText(breaksForm("breakEnded.endTime"))
+                         ),
+                        'id -> "breakEndedDateTime",
+                        'display ->  { if (breaksForm("breakEnded.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(yesNoRadioGroup(breaksForm("expectStartCaring"))),
+                    'id -> "expectStartCaring",
+                    'display ->  { if (breaksForm("breakEnded.answer").value.getOrElse("no") == "no") "yes" else "no" }
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(inputDayMonthYear(breaksForm("expectStartCaring.expectStartCaringDate"))),
+                        'id -> "expectStartCaringDate",
+                        'display ->  { if (breaksForm("expectStartCaring.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(inputDayMonthYear(breaksForm("expectStartCaring.permanentBreakDate"))),
+                        'id -> "permanentBreakDate",
+                        'display ->  { if (breaksForm("expectStartCaring.answer").value.getOrElse("no") == "no") "yes" else "no" }
+                    )
+
+                    @yesNoRadioGroup(breaksForm("medicalDuringBreak"))
+
+                    @carersInputTextArea(breaksForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+
+                </ul>
+
+            </fieldset>
+
+            <nav class="form-steps">
+                <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+                <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+            </nav>
+        </div>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g6_addressChange.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>

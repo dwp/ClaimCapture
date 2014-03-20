@@ -232,6 +232,9 @@ POST          /circumstances/report-changes/payment-change              controll
 GET           /circumstances/report-changes/other-change                controllers.circs.s2_report_changes.G4OtherChangeInfo.present
 POST          /circumstances/report-changes/other-change                controllers.circs.s2_report_changes.G4OtherChangeInfo.submit
 
+GET           /circumstances/report-changes/breaks-in-care              controllers.circs.s2_report_changes.G7BreaksInCare.present
+POST          /circumstances/report-changes/breaks-in-care              controllers.circs.s2_report_changes.G7BreaksInCare.submit
+
 GET           /circumstances/consent-and-declaration/declaration        controllers.circs.s3_consent_and_declaration.G1Declaration.present
 POST          /circumstances/consent-and-declaration/declaration        controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 

@@ -87,7 +87,7 @@ class G1ReportChangesSpec extends Specification with Tags {
         .withFormUrlEncodedBody(validBreakFromCaringFormInput: _*)
 
       val result = s2_report_changes.G1ReportChanges.submit(request)
-      redirectLocation(result) must beSome("/circumstances/report-changes/payment-change")
+      redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
     }
 
    } section("unit", models.domain.CircumstancesReportChanges.id)
