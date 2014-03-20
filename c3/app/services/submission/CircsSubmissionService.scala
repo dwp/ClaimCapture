@@ -26,7 +26,7 @@ trait CircsSubmissionService extends ClaimSubmissionService{
 
     webServiceClient.submitClaim(claim, txnID).map(
       response => {
-        registerId(claim, txnID, SUBMITTED, thirdParty, Some(circsChange))
+        registerId(claim, txnID, SUBMITTED)
         processResponse(claim, txnID, response, request)
       }
     )

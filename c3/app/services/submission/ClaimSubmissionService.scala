@@ -1,30 +1,33 @@
 package services.submission
 
+import app.ReportChange._
+import app.XMLValues._
 import play.api.mvc.{AnyContent, Request}
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.{http, Logger}
 import controllers.submission._
 import models.view.{CachedChangeOfCircs, CachedClaim}
 import play.api.mvc.Results._
-import play.api.libs.ws.Response
-import models.domain.{Declaration, Claim}
-import play.api.mvc.SimpleResult
+import models.domain.{ReportChanges, Declaration}
 import services.ClaimTransactionComponent
 import ExecutionContext.Implicits.global
+import play.api.libs.ws.Response
+import models.domain.Claim
+import scala.Some
+import play.api.mvc.SimpleResult
 
 trait ClaimSubmissionService {
 
-  this : ClaimTransactionComponent with WebServiceClientComponent =>
+  this: ClaimTransactionComponent with WebServiceClientComponent =>
 
   def submission(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = {
     val txnID = claimTransaction.generateId
-    val declaration = claim.questionGroup[Declaration].getOrElse(Declaration())
-    val thirdParty = declaration.someoneElse.isDefined
     Logger.info(s"Retrieved Id : $txnID")
 
     webServiceClient.submitClaim(claim, txnID).map(
       response => {
-        registerId(claim, txnID, SUBMITTED,thirdParty)
+        registerId(claim, txnID, SUBMITTED)
+        recordMi(claim, txnID)
         processResponse(claim, txnID, response, request)
       }
     )
@@ -95,8 +98,12 @@ trait ClaimSubmissionService {
 
   private[submission] def pollXml(correlationID: String, pollEndpoint: String) = {
     <poll>
-      <correlationID>{correlationID}</correlationID>
-      <pollEndpoint>{pollEndpoint}</pollEndpoint>
+      <correlationID>
+        {correlationID}
+      </correlationID>
+      <pollEndpoint>
+        {pollEndpoint}
+      </pollEndpoint>
     </poll>
   }
 
@@ -104,8 +111,16 @@ trait ClaimSubmissionService {
     claimTransaction.updateStatus(id, statusCode, claimType(claim))
   }
 
-  private[submission] def registerId(claim: Claim, id: String, statusCode: String, thirdparty: Boolean,circsChange:Option[Int]=None) = {
-    claimTransaction.registerId(id, statusCode, claimType(claim),thirdparty,circsChange)
+  private[submission] def registerId(claim: Claim, id: String, statusCode: String) = {
+    claimTransaction.registerId(id, statusCode, claimType(claim))
+  }
+
+  private[submission] def recordMi(claim: Claim, id: String) = {
+    val changesMap = Map(StoppedCaring.name -> Some(0), AddressChange.name -> Some(1), SelfEmployment.name -> Some(2), PaymentChange.name -> Some(3), AdditionalInfo.name -> Some(4), NotAsked -> None)
+    val declaration = claim.questionGroup[Declaration].getOrElse(Declaration())
+    val thirdParty = declaration.someoneElse.isDefined
+    val circsChange = changesMap(claim.questionGroup[ReportChanges].getOrElse(ReportChanges()).reportChanges)
+    claimTransaction.recordMi(id, thirdParty, circsChange)
   }
 
   val SUBMITTED = "0000"
