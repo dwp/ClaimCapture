@@ -4,10 +4,8 @@
 @import models.domain.TheirContactDetails
 
 @import models.domain.TheirPersonalDetails
-@import models.domain.MoreAboutThePerson
 @import play.api.i18n.{MMessages => Messages}
 
-@aboutThePerson = @{claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())}
 @abouTheCare = @{claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())}
 @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
 @theirContactDetails = @{claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())}
@@ -30,7 +28,7 @@
     @if(theirContactDetails.phoneNumber.isDefined){
         <dt>@Messages("phoneNumber")</dt><dd>@{theirContactDetails.phoneNumber.get}</dd>
     }
-    <dt>@Messages("relationship")</dt><dd>@{Messages("relationship."+aboutThePerson.relationship)}</dd>
+    <dt>@Messages("relationship")</dt><dd>@{Messages("relationship."+theirPersonalDetails.relationship)}</dd>
     <dt>@Messages("spent35HoursCaring")</dt><dd>@{Messages("label."+abouTheCare.spent35HoursCaring)}</dd>
     <dt>@Messages("anyBreaks")</dt><dd>@{Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no")) + (if (breaks.breaks.length > 0) Messages("breaks.details",breaks.breaks.length) else "")}</dd>
 </dl>

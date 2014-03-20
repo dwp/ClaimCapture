@@ -10,7 +10,6 @@ object Caree {
   def xml(claim: Claim) = {
     val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
     val theirContactDetails = claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())
-    val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
 
     <Caree>
@@ -26,7 +25,7 @@ object Caree {
         <Number>{theirContactDetails.phoneNumber.orNull}</Number>
         <Qualifier/>
       </DaytimePhoneNumber>
-      <RelationToClaimant>{moreAboutThePerson.relationship}</RelationToClaimant>
+      <RelationToClaimant>{theirPersonalDetails.relationship}</RelationToClaimant>
       <Cared35hours>{NotAsked}</Cared35hours>
       <CanCareeSign>{NotAsked}</CanCareeSign>
       <CanSomeoneElseSign>{NotAsked}</CanSomeoneElseSign>
