@@ -2,7 +2,7 @@ package controllers.s7_employment
 
 import models.view.{Navigable, CachedClaim}
 import play.api.mvc._
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import models.domain.{Employment => Emp, Claim, Jobs, BeenEmployed}
 import utils.helpers.CarersForm._
@@ -49,7 +49,12 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g2_beenEmployed(formWithErrors)),
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("beenEmployed", "error.required", FormError("beenEmployedSince6MonthsBeforeClaim.label", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+          (dmy - 6 months).`dd/MM/yyyy`))))
+        BadRequest(views.html.s7_employment.g2_beenEmployed(formWithErrorsUpdate))
+      },
       beenEmployed => clearUnfinishedJobs.update(beenEmployed) -> next(beenEmployed))
   }
 
