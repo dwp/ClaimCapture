@@ -23,12 +23,12 @@
 	            <ul class="coc-layout">
 	                @listRadioGroup(reportChangesForm("reportChanges"),
 	                    'items -> Seq(
+	                        BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
 	                        StoppedCaring.name -> Messages("reportChanges.stoppedCaring"),
 	                        AddressChange.name -> Messages("reportChanges.addressChange"),
 	                        SelfEmployment.name -> Messages("reportChanges.selfEmployed"),
 	                        PaymentChange.name -> Messages("reportChanges.paymentChange"),
-	                        AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")),
-	                    'helperAbove -> Messages("reportChanges.helper"))
+	                        AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")))
 	            </ul>
 	        </fieldset>
 	

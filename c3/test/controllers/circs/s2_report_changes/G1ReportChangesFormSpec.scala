@@ -6,7 +6,7 @@ import app.ReportChange._
 class G1ReportChangesFormSpec extends Specification with Tags {
    "Report a change in your circumstances - Change in circumstances" should {
 
-     "map data into case class" in {
+     "map additionalInfo into case class" in {
        G1ReportChanges.form.bind(
          Map(
            "reportChanges" -> AdditionalInfo.name
@@ -15,6 +15,19 @@ class G1ReportChangesFormSpec extends Specification with Tags {
          formWithErrors => "This mapping should not happen." must equalTo("Error"),
          f => {
            f.reportChanges must equalTo(AdditionalInfo.name)
+         }
+       )
+     }
+
+     "map breakFromcaring into case class" in {
+       G1ReportChanges.form.bind(
+         Map(
+           "reportChanges" -> BreakFromCaring.name
+         )
+       ).fold(
+         formWithErrors => "This mapping should not happen." must equalTo("Error"),
+         f => {
+           f.reportChanges must equalTo(BreakFromCaring.name)
          }
        )
      }
