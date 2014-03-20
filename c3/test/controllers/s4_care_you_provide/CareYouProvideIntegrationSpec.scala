@@ -15,7 +15,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("Relationship and other claims - About the care you provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
 
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
       titleMustEqual("More about the care you provide - About the care you provide")
@@ -47,7 +47,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("Relationship and other claims - About the care you provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
 
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
       titleMustEqual("More about the care you provide - About the care you provide")
@@ -80,7 +80,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("Relationship and other claims - About the care you provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
 
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
       titleMustEqual("More about the care you provide - About the care you provide")

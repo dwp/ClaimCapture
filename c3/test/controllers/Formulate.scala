@@ -188,12 +188,14 @@ object Formulate {
 
   def theirPersonalDetailsNotLiveAtSameAddress(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-personal-details")
+    browser.click("#relationship option[value='father']")
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
+    browser.click("#armedForcesPayment_yes")
     browser.click("#liveAtSameAddressCareYouProvide_no")
     browser.submit("button[type='submit']")
   }
@@ -210,14 +212,6 @@ object Formulate {
     browser.fill("#address_lineOne") `with` "Their Address"
     browser.fill("#postcode") `with` "RM11 1DA"
     browser.fill("#phoneNumber") `with` "INVALID"
-    browser.submit("button[type='submit']")
-  }
-
-  def moreAboutThePersonWithNotClaimedAllowanceBefore(browser: TestBrowser) = {
-    browser.goTo("/care-you-provide/relationship-and-other-claims")
-    browser.click("#relationship option[value='father']")
-    browser.click("#armedForcesPayment_no")
-    browser.click("#claimedAllowanceBefore_no")
     browser.submit("button[type='submit']")
   }
 

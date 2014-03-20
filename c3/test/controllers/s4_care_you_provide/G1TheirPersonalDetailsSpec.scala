@@ -12,7 +12,7 @@ import models.view.CachedClaim
 class G1TheirPersonalDetailsSpec extends Specification with Tags {
 
   val theirPersonalDetailsInput = Seq("relationship" -> "father", "title" -> "Mr", "firstName" -> "John", "surname" -> "Doo",
-    "dateOfBirth.day" -> "5", "dateOfBirth.month" -> "12", "dateOfBirth.year" -> "1990", "armedForcesPayment" -> "yes", liveAtSameAddressCareYouProvide" -> "yes")
+    "dateOfBirth.day" -> "5", "dateOfBirth.month" -> "12", "dateOfBirth.year" -> "1990", "armedForcesPayment" -> "yes", "liveAtSameAddressCareYouProvide" -> "yes")
 
   "Their Personal Details - Controller" should {
 
