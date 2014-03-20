@@ -89,8 +89,8 @@ object AssistedDecision {
   }
 
   private def getAFIP(claim: Claim): NodeSeq = {
-    val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
-    if (moreAboutThePerson.armedForcesPayment.toLowerCase == "yes") textLine("Person receives Armed Forces Independence Payment. Transfer to Armed Forces Independent Payments team.")
+    val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
+    if (theirPersonalDetails.armedForcesPayment.toLowerCase == "yes") textLine("Person receives Armed Forces Independence Payment. Transfer to Armed Forces Independent Payments team.")
     else NodeSeq.Empty
   }
 

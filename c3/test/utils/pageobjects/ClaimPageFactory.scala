@@ -55,7 +55,6 @@ object ClaimPageFactory extends PageFactory {
         // S4
         case G1TheirPersonalDetailsPage.title => G1TheirPersonalDetailsPage (ctx)
         case G2TheirContactDetailsPage.title => G2TheirContactDetailsPage (ctx)
-        case G3RelationshipAndOtherClaimsPage.title => G3RelationshipAndOtherClaimsPage (ctx)
         case G7MoreAboutTheCarePage.title => G7MoreAboutTheCarePage (ctx)
       }.orElse[String,Page]{
         IterableNode(Breaks,ctx)(iteration =>{

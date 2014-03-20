@@ -64,18 +64,18 @@ About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBi
 About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,French
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,No
 About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,No
+About the care you provide,Details of the person you care for,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Father
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Mr
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Person
 About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,Cared
 About the care you provide,Details of the person you care for,Surname or family name,AboutTheCareYouProvideSurnamePersonCareFor,For
 About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,JA789871C
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,12/09/1923
+About the care you provide,Details of the person you care for,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,No
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,No
 About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,12 Preston Road&Preston&Lancashire
 About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,pr1 2th
 About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,01772 998761
-About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Father
-About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,No
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Yes
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date: <ddmmyyyy>?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,No
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,

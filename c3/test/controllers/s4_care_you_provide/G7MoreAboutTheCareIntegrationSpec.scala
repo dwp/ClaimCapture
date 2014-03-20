@@ -29,9 +29,9 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back" in new WithBrowser with BrowserMatchers {
-      Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
+      Formulate.theirContactDetailsInvalidPhoneNumber(browser)
       browser.click("#backButton")
-      titleMustEqual("Relationship and other claims - About the care you provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
     }
 
     "contain the completed forms" in new WithBrowser {

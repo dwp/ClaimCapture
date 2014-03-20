@@ -60,7 +60,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.theirContactDetails(browser)
-      titleMustEqual("Relationship and other claims - About the care you provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
     }
   } section("integration", models.domain.CareYouProvide.id)
 }

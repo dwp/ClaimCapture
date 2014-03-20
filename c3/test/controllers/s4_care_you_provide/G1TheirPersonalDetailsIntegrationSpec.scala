@@ -17,7 +17,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Details of the person you care for - About the care you provide"
       browser.submit("button[type='submit']")
 
-      browser.find("div[class=validation-summary] ol li").size mustEqual 5
+      browser.find("div[class=validation-summary] ol li").size mustEqual 7
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {

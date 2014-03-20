@@ -9,23 +9,28 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
 
     "map data into case class" in {
       G1TheirPersonalDetails.form.bind(
-        Map("title" -> "Mr",
+        Map(
+          "relationship" -> "father",
+          "title" -> "Mr",
           "firstName" -> "Ronald",
           "middleName" -> "Mc",
           "surname" -> "Donald",
           "dateOfBirth.day" -> "3",
           "dateOfBirth.month" -> "4",
           "dateOfBirth.year" -> "1980",
+          "armedForcesPayment" -> "yes",
           "liveAtSameAddressCareYouProvide" -> "yes"
         )
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         theirPersonalDetails => {
+          theirPersonalDetails.relationship must equalTo("father")
           theirPersonalDetails.title must equalTo("Mr")
           theirPersonalDetails.firstName must equalTo("Ronald")
           theirPersonalDetails.middleName must equalTo(Some("Mc"))
           theirPersonalDetails.surname must equalTo("Donald")
           theirPersonalDetails.dateOfBirth must equalTo(DayMonthYear(Some(3), Some(4), Some(1980), None, None))
+          theirPersonalDetails.armedForcesPayment must equalTo("yes")
           theirPersonalDetails.liveAtSameAddressCareYouProvide must equalTo("yes")
         }
       )
@@ -33,13 +38,16 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
 
     "reject too long firstName, middleName or surname" in {
       G1TheirPersonalDetails.form.bind(
-        Map("title" -> "Mr",
+        Map(
+          "relationship" -> "father",
+          "title" -> "Mr",
           "firstName" -> "HARACTERS,CHARACTE",
           "middleName" -> "HARACTERS,CHARACTE",
           "surname" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "dateOfBirth.day" -> "1",
           "dateOfBirth.month" -> "1",
           "dateOfBirth.year" -> "1980",
+          "armedForcesPayment" -> "yes",
           "liveAtSameAddressCareYouProvide" -> "yes"
         )
       ).fold(
@@ -57,12 +65,14 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
         Map("middleName" -> "middle optional")
       ).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(5)
+          formWithErrors.errors.length must equalTo(7)
           formWithErrors.errors(0).message must equalTo("error.required")
           formWithErrors.errors(1).message must equalTo("error.required")
           formWithErrors.errors(2).message must equalTo("error.required")
           formWithErrors.errors(3).message must equalTo("error.required")
           formWithErrors.errors(4).message must equalTo("error.required")
+          formWithErrors.errors(5).message must equalTo("error.required")
+          formWithErrors.errors(6).message must equalTo("error.required")
         },
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
       )
@@ -70,13 +80,16 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
 
     "reject special characters" in {
       G1TheirPersonalDetails.form.bind(
-        Map("title" -> "Mr",
+        Map(
+          "relationship" -> "father",
+          "title" -> "Mr",
           "firstName" -> "Fir>name;",
           "middleName" -> "Mcƒ",
           "surname" -> "Surname<",
           "dateOfBirth.day" -> "3",
           "dateOfBirth.month" -> "4",
           "dateOfBirth.year" -> "1980",
+          "armedForcesPayment" -> "yes",
           "liveAtSameAddressCareYouProvide" -> "yes"
         )
       ).fold(formWithErrors => {

@@ -17,6 +17,8 @@
 	            <legend>@Messages("s4.g1")</legend>
 	
 	            <ul>
+                    @relationshipSelect(currentForm("relationship"))
+
 	                @titleSelect(currentForm("title"))
 	
 	                @carersInputText(currentForm("firstName"),'helperAbove -> Messages("their.name.helper"), 'maxLength -> 17)
@@ -28,7 +30,9 @@
 	                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove-> Messages("nationalInsuranceNumber.helper"), 'helperBelow-> Messages("nationalInsuranceNumber.helper2"))
 	
 	                @dateOfBirth(currentForm("dateOfBirth"))
-	
+
+                    @yesNoRadioGroup(currentForm("armedForcesPayment"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
+
 	                @yesNoRadioGroup(currentForm("liveAtSameAddressCareYouProvide"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
 	            </ul>
 	        </fieldset>

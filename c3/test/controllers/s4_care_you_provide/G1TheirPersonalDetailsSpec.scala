@@ -11,8 +11,8 @@ import models.view.CachedClaim
 
 class G1TheirPersonalDetailsSpec extends Specification with Tags {
 
-  val theirPersonalDetailsInput = Seq("title" -> "Mr", "firstName" -> "John", "surname" -> "Doo",
-    "dateOfBirth.day" -> "5", "dateOfBirth.month" -> "12", "dateOfBirth.year" -> "1990", "liveAtSameAddressCareYouProvide" -> "yes")
+  val theirPersonalDetailsInput = Seq("relationship" -> "father", "title" -> "Mr", "firstName" -> "John", "surname" -> "Doo",
+    "dateOfBirth.day" -> "5", "dateOfBirth.month" -> "12", "dateOfBirth.year" -> "1990", "armedForcesPayment" -> "yes", "liveAtSameAddressCareYouProvide" -> "yes")
 
   "Their Personal Details - Controller" should {
 
@@ -33,10 +33,12 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
 
       section.questionGroup(TheirPersonalDetails) must beLike {
         case Some(t: TheirPersonalDetails) => {
+          t.relationship mustEqual "father"
           t.title mustEqual "Mr"
           t.firstName mustEqual "John"
           t.surname mustEqual "Doo"
           t.dateOfBirth mustEqual DayMonthYear(Some(5), Some(12), Some(1990), None, None)
+          t.armedForcesPayment mustEqual "yes"
           t.liveAtSameAddressCareYouProvide mustEqual "yes"
         }
       }
