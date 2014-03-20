@@ -12,6 +12,7 @@ import models.domain.Claim
 import models.domain.Claim
 import scala.reflect.ClassTag
 import play.api.i18n.Lang
+import scala.language.postfixOps
 
 object G2BeenEmployed extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
