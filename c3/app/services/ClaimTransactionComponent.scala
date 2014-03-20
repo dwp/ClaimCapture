@@ -31,21 +31,34 @@ trait ClaimTransactionComponent {
     /**
      * Record that an ID has been used
      */
-    def registerId(id: String, statusCode:String, claimType:Int,thirdParty:Boolean=false, circsChange:Option[Int]=None):Unit = DB.withConnection("carers") {implicit c =>
+    def registerId(id: String, statusCode:String, claimType:Int):Unit = DB.withConnection("carers") {implicit c =>
       SQL(
         """
-          INSERT INTO transactionstatus (transaction_id, status,type,thirdparty,circs_type)
-          VALUES ({transactionId},{status},{type},{thirdparty},{circsChange});
+          INSERT INTO transactionstatus (transaction_id, status,type)
+          VALUES ({transactionId},{status},{type});
         """
-      ).on("transactionId"->id,"status"->statusCode,"type"->claimType,"thirdparty"->(if(thirdParty) 1 else 0),"circsChange"->circsChange).execute()
+      ).on("transactionId"->id,"status"->statusCode,"type"->claimType).execute()
+    }
+
+    /**
+     * Update MI data
+     */
+    def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int] = None): Unit = DB.withConnection("carers") {
+      implicit c =>
+        SQL(
+          """
+            UPDATE transactionstatus set thirdparty={thirdParty}, circs_type={circsChange}
+            WHERE transaction_id={transactionId};
+          """
+        ).on("transactionId" -> id, "thirdParty" -> (if (thirdParty) 1 else 0), "circsChange" -> circsChange).execute()
     }
 
 
     def updateStatus(id: String, statusCode:String, claimType:Int):Unit = DB.withConnection("carers") {implicit connection =>
       SQL(
         """
-            UPDATE transactionstatus set status={status}, type={type}
-            WHERE transaction_id={transactionId};
+          UPDATE transactionstatus set status={status}, type={type}
+          WHERE transaction_id={transactionId};
         """
       ).on("status"->statusCode,"type"->claimType,"transactionId"->id).executeUpdate()
     }
@@ -56,7 +69,9 @@ trait ClaimTransactionComponent {
   class StubClaimTransaction extends ClaimTransaction {
     override def generateId: String = "TEST623"
 
-    override def registerId(id: String, statusCode: String, claimType: Int, thirdParty:Boolean, circsChange:Option[Int]) {}
+    override def registerId(id: String, statusCode: String, claimType: Int) {}
+
+    override def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int]) {}
 
     override def updateStatus(id: String, statusCode: String, claimType: Int) {}
   }

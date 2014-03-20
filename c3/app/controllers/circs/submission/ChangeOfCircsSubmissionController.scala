@@ -7,7 +7,7 @@ import monitoring.ChangeBotChecking
 import services.submission.{CircsSubmissionService, WebServiceClientComponent, ClaimSubmissionService}
 
 class ChangeOfCircsSubmissionController extends SubmissionController
-    with CircsSubmissionService
+    with ClaimSubmissionService
     with ClaimTransactionComponent
     with WebServiceClientComponent
     with ChangeBotChecking
