@@ -28,7 +28,7 @@
 	                @maritalStatusSelect(moreAboutYouForm("maritalStatus"),'_showLabel->false)
 
                     @otherDetailPlaceHolder(
-                        inputDef = Seq(yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperAbove -> Messages("hadPartnerSinceClaimDate.helper"))),
+                        inputDef = Seq(yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperAbove -> Messages(if (moreAboutYouForm("maritalStatus").value.getOrElse("") != "w") "hadPartnerSinceClaimDate.helper1" else "hadPartnerSinceClaimDate.helper2"))),
                         'id -> "hadPartnerWrapper",
                         'display -> { if (notSingleNorLivingWithPartner) "yes" else "no" }
                     )
@@ -57,6 +57,9 @@
     $(function(){
         window.initEvents("@CarersCrypto.encryptAES("maritalStatus")",
                           "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
-                          "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")");
+                          "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
+                          "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate")",
+                          "@Messages("hadPartnerSinceClaimDate.helper1")",
+                          "@Messages("hadPartnerSinceClaimDate.helper2")");
     });
 </script>
