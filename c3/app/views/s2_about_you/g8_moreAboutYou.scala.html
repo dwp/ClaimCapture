@@ -23,7 +23,7 @@
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 
-                <legend>@Messages("maritalStatus")</legend>
+                <legend>@Html(Messages("maritalStatus"))</legend>
 	            <ul>
 	                @maritalStatusSelect(moreAboutYouForm("maritalStatus"),'_showLabel->false)
 
@@ -35,7 +35,7 @@
                 </ul>
             </fieldset>
             <fieldset class="form-elements">
-                <legend>@Messages("s2.g8")</legend>
+                <legend>@Html(Messages("s2.g8"))</legend>
                 <ul>
 	                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 	
@@ -59,7 +59,7 @@
                           "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
                           "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
                           "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate")",
-                          "@Messages("hadPartnerSinceClaimDate.helper1")",
-                          "@Messages("hadPartnerSinceClaimDate.helper2")");
+                          "@Html(Messages("hadPartnerSinceClaimDate.helper1"))",
+                          "@Html(Messages("hadPartnerSinceClaimDate.helper2"))");
     });
 </script>

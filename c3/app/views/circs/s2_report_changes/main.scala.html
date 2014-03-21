@@ -13,15 +13,15 @@
 
     <article>
 
-        <h1>@Messages("c2c.longName")</h1>
+        <h1>@Html(Messages("c2c.longName"))</h1>
 
         @if(completedQuestionGroups.size > 0) {
             <div class="completed">
                 <ul>
                     @for((completedQuestionGroup, call) <- completedQuestionGroups) {
                     <li>
-                        <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                        <a href="@call" aria-label="@Messages("change.these.help")">@Messages("change.these")</a>
+                        <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                        <a href="@call" aria-label="@Html(Messages("change.these.help"))">@Html(Messages("change.these"))</a>
                     </li>
                     }
                 </ul>

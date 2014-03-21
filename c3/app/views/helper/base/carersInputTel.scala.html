@@ -12,5 +12,5 @@
 
     @carersLabel(field,args:_*)
     
-    <input type="tel" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" pattern="[0-9 \-]{1,20}" title="@Messages("mustBeNumbersOnly")" value="@value" @toHtmlArgs(htmlArgs)>
+    <input type="tel" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" pattern="[0-9 \-]{1,20}" title="@Html(Messages("mustBeNumbersOnly"))" value="@value" @toHtmlArgs(htmlArgs)>
 }

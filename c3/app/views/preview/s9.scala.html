@@ -5,7 +5,7 @@
 @partner = @{claim.questionGroup[YourPartnerPersonalDetails]}
 @aboutOtherMoney = @{claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())}
 
-<h2>@Messages("s9.progressbar.name")</h2>
+<h2>@Html(Messages("s9.progressbar.name"))</h2>
 <dl>
     <dt>Have you @{if(partner.isDefined) "or your Partner/Spouse"} claimed or received any other benefits since the date you want to claim</dt>
     <dd>@{Messages("label."+aboutOtherMoney.yourBenefits.answer)}</dd>

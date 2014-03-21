@@ -16,7 +16,7 @@
     @form(action = controllers.circs.s2_report_changes.routes.G4OtherChangeInfo.submit) {
         <div class="form-wrap">
         	<fieldset class="form-elements">
-	            <legend>@Messages("c2.g4")</legend>
+	            <legend>@Html(Messages("c2.g4"))</legend>
 	            <ul class="coc-layout">
 	                @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000)
 	            </ul>

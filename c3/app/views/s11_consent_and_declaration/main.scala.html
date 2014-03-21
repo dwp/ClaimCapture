@@ -20,11 +20,11 @@
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
-                    <ul ul aria-label="@Messages("completedQuestions")">
+                    <ul ul aria-label="@Html(Messages("completedQuestions"))">
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
                                 <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Messages("change.these.help")">@Messages("change.these")</a>
+                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Html(Messages("change.these.help"))">@Html(Messages("change.these"))</a>
                             </li>
                         }
                     </ul>
