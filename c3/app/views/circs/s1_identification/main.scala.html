@@ -13,15 +13,15 @@
 
         <article>
 
-            <h1>@Messages("c1")</h1>
+            <h1>@Html(Messages("c1"))</h1>
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
                     <ul>
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                         <li>
-                            <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                            <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Messages("change.these.help")>@Messages("change.these")</a>
+                            <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                            <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Html(Messages("change.these.help"))>@Html(Messages("change.these"))</a>
                         </li>
                         }
                     </ul>

@@ -6,18 +6,18 @@
 @moreAboutYou = @{claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())}
 @yourCourseDetails = @{claim.questionGroup[YourCourseDetails]}
 
-<h2>@Messages("s6.progressbar.name")</h2>
+<h2>@Html(Messages("s6.progressbar.name"))</h2>
 <dl>
-    <dt>@Messages("beenInEducationSinceClaimDate")</dt><dd>@{Messages("label."+moreAboutYou.beenInEducationSinceClaimDate)}</dd>
+    <dt>@Html(Messages("beenInEducationSinceClaimDate"))</dt><dd>@{Messages("label."+moreAboutYou.beenInEducationSinceClaimDate)}</dd>
     @if(yourCourseDetails.isDefined){
         @defining(yourCourseDetails.get){ yourCourseDetails =>
-          <dt>@Messages("courseTitle")</dt><dd>@{yourCourseDetails.title}</dd>
-          <dt>@Messages("nameOfSchoolCollegeOrUniversity")</dt><dd>@{yourCourseDetails.nameOfSchoolCollegeOrUniversity}</dd>
-          <dt>@Messages("nameOfMainTeacherOrTutor")</dt><dd>@{yourCourseDetails.nameOfMainTeacherOrTutor}</dd>
+          <dt>@Html(Messages("courseTitle"))</dt><dd>@{yourCourseDetails.title}</dd>
+          <dt>@Html(Messages("nameOfSchoolCollegeOrUniversity"))</dt><dd>@{yourCourseDetails.nameOfSchoolCollegeOrUniversity}</dd>
+          <dt>@Html(Messages("nameOfMainTeacherOrTutor"))</dt><dd>@{yourCourseDetails.nameOfMainTeacherOrTutor}</dd>
           @if(yourCourseDetails.courseContactNumber.isDefined){
-            <dt>@Messages("courseContactNumber")</dt><dd>@{yourCourseDetails.courseContactNumber.get}</dd>
+            <dt>@Html(Messages("courseContactNumber"))</dt><dd>@{yourCourseDetails.courseContactNumber.get}</dd>
           }
-          <dt>@Messages("startEndDates")</dt><dd>@{yourCourseDetails.startDate.`dd month, yyyy`} - @{yourCourseDetails.expectedEndDate.`dd month, yyyy`}</dd>
+          <dt>@Html(Messages("startEndDates"))</dt><dd>@{yourCourseDetails.startDate.`dd month, yyyy`} - @{yourCourseDetails.expectedEndDate.`dd month, yyyy`}</dd>
         }
     }
 </dl>

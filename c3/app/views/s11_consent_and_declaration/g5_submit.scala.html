@@ -62,7 +62,7 @@
 
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back.help"))</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("form.submitClaim.help")" @views.html.ga.trackSubmit(true)>@Messages("form.submitClaim")</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.submitClaim.help"))" @views.html.ga.trackSubmit(true)>@Html(Messages("form.submitClaim"))</button>
         </nav>
     }
 }

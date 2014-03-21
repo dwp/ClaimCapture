@@ -8,17 +8,17 @@
 }
 @if(partner.isDefined){
     @defining(partner.get){ yourPartner =>
-        <h2>@Messages("partnerSpouse")</h2>
+        <h2>@Html(Messages("partnerSpouse"))</h2>
         <dl>
-            <dt>@Messages("name")</dt><dd>@{Messages("titleSelect."+yourPartner.title)} @yourPartner.firstName @yourPartner.middleName @yourPartner.surname</dd>
+            <dt>@Html(Messages("name"))</dt><dd>@{Messages("titleSelect."+yourPartner.title)} @yourPartner.firstName @yourPartner.middleName @yourPartner.surname</dd>
 
             @if(yourPartner.nationalInsuranceNumber.isDefined){
                 @defining(yourPartner.nationalInsuranceNumber.get){ nino =>
-                    <dt>@Messages("nationalInsuranceNumber")</dt><dd>@ninoNumber(nino)</dd>
+                    <dt>@Html(Messages("nationalInsuranceNumber"))</dt><dd>@ninoNumber(nino)</dd>
                 }
             }
-            <dt>@Messages("dateOfBirth")</dt><dd>@{yourPartner.dateOfBirth.`dd month, yyyy`}</dd>
-            <dt>@Messages("separated.fromPartner")</dt><dd>@{Messages("label."+yourPartner.separatedFromPartner)}</dd>
+            <dt>@Html(Messages("dateOfBirth"))</dt><dd>@{yourPartner.dateOfBirth.`dd month, yyyy`}</dd>
+            <dt>@Html(Messages("separated.fromPartner"))</dt><dd>@{Messages("label."+yourPartner.separatedFromPartner)}</dd>
         </dl>
 
     }

@@ -18,7 +18,7 @@
     @form(action = controllers.s10_pay_details.routes.G2BankBuildingSocietyDetails.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <legend>@Messages("s10.g2")</legend>
+	            <legend>@Html(Messages("s10.g2"))</legend>
 	
 	            <ul>
 	                @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
