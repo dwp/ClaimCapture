@@ -33,7 +33,7 @@ trait ClaimSubmissionService {
     )
   }
 
-  private[submission] def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): SimpleResult = {
+  private def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): SimpleResult = {
     response.status match {
       case http.Status.OK =>
         val responseStr = response.body
