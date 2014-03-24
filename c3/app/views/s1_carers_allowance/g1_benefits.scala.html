@@ -1,5 +1,7 @@
 @(currentForm: Form[models.domain.Benefits])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
+
+@import utils.helpers.EmptyTemplate._
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
@@ -39,9 +41,8 @@
 		            
 		            </div>
 		            
-		            <ul>
-		                @yesNoRadioGroup(currentForm("answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'trackLabel -> "benefits.answer")
-		            </ul>
+	                @yesNoRadioGroup(currentForm("answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'allowance -> true,'trackLabel -> "benefits.answer")
+
 		            
 		            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
 		                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
