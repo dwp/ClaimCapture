@@ -55,9 +55,21 @@ else OtherMoney.name
                             @{break.end.fold("")(_.`dd/MM/yyyy`)}
                         </td>
 
-                        <td class="desc">@break.whereYou.location</td>
-                        <td class="desc">@break.wherePerson.location</td>
-                        <td class="desc">@if("yes" == break.medicalDuringBreak) { Yes } else { No }</td>
+                        <td class="desc">
+                            @break.whereYou.location.isEmpty match {
+                                case false => { @Html(Messages("whereabouts." + break.whereYou.location.replaceAll(" ",""))) }
+                                case true => {}
+                            }
+                        </td>
+
+                        <td class="desc">
+                            @break.wherePerson.location.isEmpty match {
+                                case false => { @Html(Messages("whereabouts." + break.wherePerson.location.replaceAll(" ",""))) }
+                                case true => {}
+                            }
+                        </td>
+
+                        <td class="desc">@if("yes" == break.medicalDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</td>
                         <td><input type="button" name="changerow" class="button row secondary" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))"></td>
                         <td><input type="button" name="deleterow" class="button row warning" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))"></td>
                     </tr>
