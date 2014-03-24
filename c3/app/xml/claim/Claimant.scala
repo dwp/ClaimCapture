@@ -1,4 +1,4 @@
-package xml
+package xml.claim
 
 import app.XMLValues._
 import models.domain.{MoreAboutYou, ContactDetails, YourDetails, Claim}

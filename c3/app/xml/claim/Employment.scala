@@ -1,4 +1,4 @@
-package xml
+package xml.claim
 
 import scala.language.reflectiveCalls
 import scala.xml.{NodeSeq, Elem}
