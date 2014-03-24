@@ -20,7 +20,7 @@ trait WebServiceClientComponent {
 
   class WebServiceClient {
     def submitClaim(claim: Claim, txnId: String): Future[ws.Response] = {
-      val claimSubmission = xml(claim, txnId)
+      val claimSubmission = xmlGenerator(claim, Some(txnId))
       val submissionServerEndpoint: String =
         Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submit/claim"
       Logger.debug(s"Submission Server : $submissionServerEndpoint")
