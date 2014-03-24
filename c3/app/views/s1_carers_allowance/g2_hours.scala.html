@@ -18,9 +18,9 @@
 	
 	            <p>@Html(Messages("s1.g2.help1"))</p>
 	            
-	            <ul>
-	                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages("hours.answer"), '_showLabel -> false,'track -> true, 'trackLabel -> "hours.answer")
-	            </ul>
+
+	             @yesNoRadioGroup(currentForm("answer"), '_label -> Messages("hours.answer"), '_showLabel -> false,'track -> true, 'allowance -> true,'trackLabel -> "hours.answer")
+
 	
 	            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
 	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
