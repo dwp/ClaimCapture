@@ -1,62 +1,38 @@
 
    .completed {
    	   margin-top: 1.4em;
-   	   margin-left: -1em;
-   	   @media screen and (max-width: 640px) {margin-left: 0;}
-   	   .start-again {
-	   	   text-align: right;
-	   	   a {
-		   	   display: inline-block;
-		   	   background: #006435;
-		   	   font-size: 1.9rem;
-		   	   padding: .7em 1.75em;
-		   	   color: #fff;
-		   	   line-height: 1em;
-		   	   text-decoration: none;
-		   	   .ie & {
-			   	   font-size: 19px;
-		   	   }
-		   	   &:hover {
-			   	   background: #004b27;
-		   	   }
-	   	   }
-   	   }
+   	   
 	   ul {
 		   li {
-			   background: #e6eff5 url('images/tick.png') 1.1em 1.3em no-repeat;
-			   border-bottom: 1px solid #cdd7dc;
-			   padding: 1em 11em 1em 2.9em;
+			   background: #e3ecf1 url('images/tick.png') 1.5em 1.42em no-repeat;
+			   border-top: 1px solid #fff;
+			   border-bottom: 1px solid #ddd;
+			   padding: 1.25em 11em 1.25em 3.8em;
 			   position: relative;
+			   &:last-child {
+				   border-bottom: 0;
+			   }
 			   @media screen and (max-width: 760px) {padding-right: 1em;}
 			   h3 {
-				   font-size: 1.6rem;
+				   font-size: 16px;
 				   font-weight: 300;
 				   line-height: 1.25;
-				   .ie & {
-					   font-size: 16px;
-				   }
 			   }
 			   p {
-			   	   font-size: 1.6rem;
+			   	   font-size: 17px;
 				   font-weight: 800;
 				   color: #000;
 				   line-height: 1em;
 				   margin-top: .4em;
-				   .ie & {
-					   font-size: 16px;
-				   }
 			   }
 			   a {
 				   position: absolute;
-				   right: 1.2em;
-				   top: 1.95em;
-				   margin-top: -10px;
+				   right: 1.5em;
+				   top: 50%;
+				   margin-top: -9px;
 				   color: inherit;
-				   font-size: 1.4rem;
+				   font-size: 14px;
 				   font-weight: 300;
-				   .ie & {
-					   font-size: 14px;
-				   }
 				   .ie6 & {
 					   right: auto;
 					   top: auto;
@@ -69,11 +45,6 @@
 				   }
 				   @media screen and (max-width: 760px) {position: relative; right: auto; top: auto; margin-top: 1em; display: inline-block;}
 			   }
-		   }
-	   }
-	   &.eligibility-completed {
-		   li {
-			   background-color: #D5ECEA;
 		   }
 	   }
    }
