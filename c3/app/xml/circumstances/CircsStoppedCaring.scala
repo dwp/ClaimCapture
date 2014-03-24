@@ -1,15 +1,7 @@
-package xml
+package xml.circumstances
 
-import app.ReportChange._
-import app.XMLValues._
 import models.domain.{CircumstancesStoppedCaring, Claim}
-import scala.xml.NodeSeq
-import XMLHelper._
 import play.api.i18n.{MMessages => Messages}
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.DateTime
-import scala.Some
-import scala.Some
 
 object CircsStoppedCaring {
   def xml(circs: Claim) = {

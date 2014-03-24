@@ -1,4 +1,4 @@
-package xml
+package xml.circumstances
 
 import models.domain.{Claim, CircumstancesDeclaration}
 import scala.xml.NodeSeq

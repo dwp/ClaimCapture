@@ -18,12 +18,11 @@
     @form(action = controllers.circs.s2_report_changes.routes.G7BreaksInCare.submit) {
         <div class="form-wrap">
             <fieldset class="form-elements">
-                <p class="security-message">@Messages("c2.address.helper")</p>
 
-                <legend>@Messages("c2.g7.breaksInCare")</legend>
+                <legend>@Messages("c2.g7")</legend>
 
                 <ul>
-                   <li>@Html(Messages("circsBreaks"))</li>
+                   <li>@Html(Messages("circsBreaksMessage"))</li>
 
                     @sliderHelp(Messages("circsBreaksHelp.label"),Messages("circsBreaksHelp.closeLabel"),Html(Messages("circsBreaksHelp")))
                 </ul>
@@ -31,43 +30,46 @@
             </fieldset>
 
             <fieldset class="form-elements">
-                <legend>@Messages("c2.g7")</legend>
 
                 <ul>
-                    @inputDayMonthYear(breaksForm("startDate"), 'helperAbove-> Messages("startDate.helper"))
+                    @inputDayMonthYear(breaksForm("breaksInCareStartDate"), 'helperAbove-> Messages("breaksInCareStartDate.helper"))
 
-                    @carersInputText(breaksForm("startTime"), 'helperAbove-> Messages("startTime.helper"))
+                    @carersInputText(breaksForm("breaksInCareStartTime"), 'helperAbove-> Messages("breaksInCareStartTime.helper"))
 
-                    @listRadioGroup(breaksForm("wherePerson"),
+                    @listRadioGroupWithOther(breaksForm("wherePersonBreaksInCare.answer"),
                         'items -> Seq(
                             Hospital -> Messages("circsBreaks.Hospital"),
                             RespiteCare -> Messages("circsBreaks.RespiteCare"),
                             Holiday -> Messages("circsBreaks.Holiday"),
                             Home -> Messages("circsBreaks.Home"),
                             SomewhereElse -> Messages("circsBreaks.SomewhereElse")),
-                            'helperAbove-> Messages("wherePerson.helper"))
-
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(carersInputText(breaksForm("wherePerson.somewhereElse"), 'ignoreOptional -> true)
-                        ),
-                        'id -> "wherePersonSomewhereElse",
-                        'display -> {if (breaksForm("wherePerson.answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" }
+                            'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
+                            'id -> "wherePersonBreaksInCare"
                     )
 
-                    @listRadioGroup(breaksForm("whereYou"),
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(carersInputText(breaksForm("wherePersonBreaksInCare.somewhereElse"), 'ignoreOptional -> true)
+                        ),
+                        'id -> "wherePersonSomewhereElse",
+                        'display -> {if (breaksForm("wherePersonBreaksInCare.answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" }
+                    )
+
+                    @listRadioGroupWithOther(breaksForm("whereYouBreaksInCare.answer"),
                         'items -> Seq(
                             Hospital -> Messages("circsBreaks.Hospital"),
                             RespiteCare -> Messages("circsBreaks.RespiteCare"),
                             Holiday -> Messages("circsBreaks.Holiday"),
                             Home -> Messages("circsBreaks.Home"),
                             SomewhereElse -> Messages("circsBreaks.SomewhereElse")),
-                        'helperAbove-> Messages("whereYou.helper"))
+                            'helperAbove-> Messages("whereYouBreaksInCare.helper"),
+                            'id -> "whereYouBreaksInCare"
+                    )
 
                     @otherDetailPlaceHolder(
-                        inputDef = Seq(carersInputText(breaksForm("whereYou.somewhereElse"), 'ignoreOptional -> true)
+                        inputDef = Seq(carersInputText(breaksForm("whereYouBreaksInCare.somewhereElse"), 'ignoreOptional -> true)
                         ),
                         'id -> "whereYouSomewhereElse",
-                        'display -> {if (breaksForm("whereYou.answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" }
+                        'display -> {if (breaksForm("whereYouBreaksInCare.answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" }
                     )
 
                     @yesNoRadioGroup(breaksForm("breakEnded.answer"))
@@ -75,7 +77,7 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             inputDayMonthYear(breaksForm("breakEnded.endDate")),
-                            carersInputText(breaksForm("breakEnded.endTime"))
+                            carersInputText(breaksForm("breakEnded.endTime"), 'helperAbove-> Messages("breakEnded.endTime.helper"))
                          ),
                         'id -> "breakEndedDateTime",
                         'display ->  { if (breaksForm("breakEnded.answer").value.getOrElse("no") == "yes") "yes" else "no" }
@@ -84,7 +86,7 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(yesNoRadioGroup(breaksForm("expectStartCaring"))),
                     'id -> "expectStartCaring",
-                    'display ->  { if (breaksForm("breakEnded.answer").value.getOrElse("no") == "no") "yes" else "no" }
+                    'display ->  { if (breaksForm("breakEnded.answer").value.getOrElse("yes") == "no") "yes" else "no" }
                     )
 
                     @otherDetailPlaceHolder(
@@ -96,10 +98,10 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(inputDayMonthYear(breaksForm("expectStartCaring.permanentBreakDate"))),
                         'id -> "permanentBreakDate",
-                        'display ->  { if (breaksForm("expectStartCaring.answer").value.getOrElse("no") == "no") "yes" else "no" }
+                        'display ->  { if (breaksForm("expectStartCaring.answer").value.getOrElse("yes") == "no") "yes" else "no" }
                     )
 
-                    @yesNoRadioGroup(breaksForm("medicalDuringBreak"))
+                    @yesNoRadioGroup(breaksForm("medicalCareDuringBreak"))
 
                     @carersInputTextArea(breaksForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
 
@@ -115,5 +117,16 @@
     }
 }
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g6_addressChange.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g7_breaksFromCaring.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+<script type="text/javascript">
+$(function(){
+window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
+"@CarersCrypto.encryptAES("breakEnded_answer_no")",
+"@CarersCrypto.encryptAES("expectStartCaring_yes")",
+"@CarersCrypto.encryptAES("expectStartCaring_no")"
+);
+});
+</script>

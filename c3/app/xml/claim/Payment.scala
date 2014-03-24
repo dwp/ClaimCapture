@@ -1,4 +1,4 @@
-package xml
+package xml.claim
 
 import models.domain.{BankBuildingSocietyDetails, Claim, HowWePayYou}
 import xml.XMLHelper._

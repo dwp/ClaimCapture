@@ -1,11 +1,10 @@
-package xml
+package xml.circumstances
 
 import models.domain._
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 import app.XMLValues._
 import scala.Some
-import models.MultiLineAddress
 
 object CircsIdentification {
 

@@ -33,7 +33,7 @@ trait ClaimSubmissionService {
     )
   }
 
-  private[submission] def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): SimpleResult = {
+  private def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): SimpleResult = {
     response.status match {
       case http.Status.OK =>
         val responseStr = response.body
@@ -96,26 +96,15 @@ trait ClaimSubmissionService {
     }
   }
 
-  private[submission] def pollXml(correlationID: String, pollEndpoint: String) = {
-    <poll>
-      <correlationID>
-        {correlationID}
-      </correlationID>
-      <pollEndpoint>
-        {pollEndpoint}
-      </pollEndpoint>
-    </poll>
-  }
-
-  private[submission] def updateStatus(claim: Claim, id: String, statusCode: String) = {
+  private def updateStatus(claim: Claim, id: String, statusCode: String) = {
     claimTransaction.updateStatus(id, statusCode, claimType(claim))
   }
 
-  private[submission] def registerId(claim: Claim, id: String, statusCode: String) = {
+  private def registerId(claim: Claim, id: String, statusCode: String) = {
     claimTransaction.registerId(id, statusCode, claimType(claim))
   }
 
-  private[submission] def recordMi(claim: Claim, id: String) = {
+  private def recordMi(claim: Claim, id: String) = {
     val changesMap = Map(StoppedCaring.name -> Some(0), AddressChange.name -> Some(1), SelfEmployment.name -> Some(2), PaymentChange.name -> Some(3), AdditionalInfo.name -> Some(4), NotAsked -> None)
     val declaration = claim.questionGroup[Declaration].getOrElse(Declaration())
     val thirdParty = declaration.someoneElse.isDefined

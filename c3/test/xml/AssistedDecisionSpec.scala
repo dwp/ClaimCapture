@@ -9,6 +9,7 @@ import models.PaymentFrequency
 import models.domain.Claim
 import scala.Some
 import models.yesNo.YesNoWithText
+import xml.claim.AssistedDecision
 
 
 class AssistedDecisionSpec extends Specification with Tags {

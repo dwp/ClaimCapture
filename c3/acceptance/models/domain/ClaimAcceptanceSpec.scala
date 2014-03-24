@@ -1,9 +1,9 @@
 package models.domain
 
 import org.specs2.mutable.Specification
-import xml.DWPCAClaim
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import controllers.submission.XmlSubmitter
+import xml.claim.DWPCAClaim
 
 class ClaimAcceptanceSpec extends Specification {
   "Claim" should {

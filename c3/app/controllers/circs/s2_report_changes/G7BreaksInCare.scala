@@ -18,14 +18,14 @@ import play.api.data.FormError
 object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable {
 
   val whereWereYouMapping =
-    "whereYou" -> mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo),
+    "whereYouBreaksInCare" -> mapping(
+      "answer" -> nonEmptyText,
       "somewhereElse" -> optional(text)
     )(RadioWithText.apply)(RadioWithText.unapply)
 
   val whereWasPersonMapping =
-    "wherePerson" -> mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo),
+    "wherePersonBreaksInCare" -> mapping(
+      "answer" -> nonEmptyText,
       "somewhereElse" -> optional(text)
     )(RadioWithText.apply)(RadioWithText.unapply)
 
@@ -39,19 +39,19 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
 
   val expectStartCaringMapping =
   "expectStartCaring" -> mapping(
-    "answer" -> optional(carersText()),
+    "answer" -> optional(text),
     "expectStartCaringDate" -> optional(dayMonthYear verifying validDateOnly),
     "permanentBreakDate" -> optional(dayMonthYear verifying validDateOnly)
   )(YesNoDontKnowWithDates.apply)(YesNoDontKnowWithDates.unapply)
 
   val form = Form(mapping(
-    "startDate" -> (dayMonthYear verifying validDateOnly),
-    "startTime" -> optional(text),
+    "breaksInCareStartDate" -> dayMonthYear.verifying(validDate),
+    "breaksInCareStartTime" -> optional(text),
     whereWasPersonMapping,
     whereWereYouMapping,
     breakEndedMapping,
     expectStartCaringMapping,
-    "medicalDuringBreak" -> (nonEmptyText verifying validYesNo),
+    "medicalCareDuringBreak" -> (nonEmptyText verifying validYesNo),
     "moreAboutChanges" -> optional(text)
   )(CircumstancesBreaksInCare.apply)(CircumstancesBreaksInCare.unapply)
     .verifying("breakEnded.answer", validateBreakEnded _)

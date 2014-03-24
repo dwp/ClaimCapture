@@ -1,4 +1,4 @@
-package xml
+package xml.claim
 
 import scala.xml.NodeSeq
 import app.XMLValues._
@@ -64,7 +64,6 @@ object Caree {
   }
 
   def careBreak(claim: Claim) = {
-    import models.DayMonthYear._
 
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 

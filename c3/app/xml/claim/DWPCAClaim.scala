@@ -1,13 +1,15 @@
-package xml
+package xml.claim
 
 import app.XMLValues._
 import play.api.Logger
-import models.domain.{MoreAboutYou, Claim}
+import models.domain.MoreAboutYou
 import xml.XMLHelper._
+import xml.XMLComponent
+import models.domain.Claim
 
-object DWPCAClaim {
+object DWPCAClaim extends XMLComponent {
 
-  def xml(claim: Claim, transactionId : String) = {
+  def xml(claim: Claim, transactionId : Option[String] = None) = {
 
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
 
@@ -17,9 +19,9 @@ object DWPCAClaim {
 
     val havePartner = if(moreAboutYou.maritalStatus == "p") yes else moreAboutYou.hadPartnerSinceClaimDate.get
 
-    Logger.info(s"Build DWPCAClaim : $transactionId")
+    Logger.info(s"Build DWPCAClaim : ${transactionId.getOrElse("")}")
 
-    <DWPCAClaim id={transactionId}>
+    <DWPCAClaim id={transactionId.getOrElse("")}>
       {Claimant.xml(claim)}
       {Caree.xml(claim)}
       <ClaimADI>{no}</ClaimADI>

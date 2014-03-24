@@ -1,16 +1,19 @@
-package xml
+package xml.circumstances
 
-import models.domain.{CircumstancesSelfEmployment, CircumstancesOtherInfo, CircumstancesStoppedCaring, ReportChanges, Claim, CircumstancesPaymentChange, CircumstancesAddressChange}
+import models.domain.{CircumstancesSelfEmployment, CircumstancesOtherInfo, CircumstancesStoppedCaring, ReportChanges, CircumstancesPaymentChange, CircumstancesAddressChange}
 import scala.xml.Elem
 import play.api.Logger
 import app.XMLValues._
 import app.ReportChange._
+import models.domain.Claim
+import scala.Some
+import xml.XMLComponent
 
-object DWPCoCircs {
-  def xml(circs: Claim, transactionId : String):Elem = {
-    Logger.info(s"Build DWPCoCircs : $transactionId")
+object DWPCoCircs extends XMLComponent {
+  def xml(circs: Claim, transactionId : Option[String] = None):Elem = {
+    Logger.info(s"Build DWPCoCircs : ${transactionId.getOrElse("")}")
 
-    <DWPCAChangeOfCircumstances id={transactionId}>
+    <DWPCAChangeOfCircumstances id={transactionId.getOrElse("")}>
       <InitialQuestions>
         <ChangeAddress>{NotAsked}</ChangeAddress>
         <ChangeName>{NotAsked}</ChangeName>

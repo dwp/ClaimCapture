@@ -1,4 +1,4 @@
-package xml
+package xml.circumstances
 
 import models.domain.{CircumstancesReportChange, CircumstancesDeclaration, CircumstancesSelfEmployment, CircumstancesPaymentChange, CircumstancesAddressChange, Claim}
 import scala.xml.NodeSeq
