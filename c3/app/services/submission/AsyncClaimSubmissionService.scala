@@ -71,7 +71,7 @@ trait AsyncClaimSubmissionService {
     val declaration = claim.questionGroup[Declaration].getOrElse(Declaration())
     val thirdParty = declaration.someoneElse.isDefined
     val circsChange = changesMap(claim.questionGroup[ReportChanges].getOrElse(ReportChanges()).reportChanges)
-    claimTransaction.recordMi(id, thirdParty, circsChange)
+    claimTransaction.recordMi(id, thirdParty, circsChange, claim.lang)
   }
 
   val SUBMITTED = "0000"

@@ -1,6 +1,7 @@
 package services
 
 import org.specs2.mutable.{Tags, Specification}
+import play.api.i18n.Lang
 
 class TransactionComponentSpec extends Specification with Tags {
 
@@ -14,9 +15,9 @@ class TransactionComponentSpec extends Specification with Tags {
       val id = DBTests.newId
 
       transactionComponent.claimTransaction.registerId(id, "0002", 1)
-      transactionComponent.claimTransaction.recordMi(id, thirdParty = false, circsChange = Some(1))
+      transactionComponent.claimTransaction.recordMi(id, thirdParty = false, circsChange = Some(1), Some(Lang("en")))
 
-      DBTests.getId(id) mustEqual Some(TransactionStatus(id, "0002", 1, 0, Some(1)))
+      DBTests.getId(id) mustEqual Some(TransactionStatus(id, "0002", 1, 0, Some(1), "en"))
 
     }
 
@@ -24,7 +25,7 @@ class TransactionComponentSpec extends Specification with Tags {
 
       val id = DBTests.newId
       transactionComponent.claimTransaction.registerId(id, "0002", 1)
-      transactionComponent.claimTransaction.recordMi(id, thirdParty = false)
+      transactionComponent.claimTransaction.recordMi(id, thirdParty = false, None, Some(Lang("en")))
 
       val existingId = DBTests.getId(id)
 
@@ -32,12 +33,12 @@ class TransactionComponentSpec extends Specification with Tags {
 
       val transactionStatusUpdated = DBTests.getId(id)
       transactionStatusUpdated mustNotEqual Some(existingId)
-      transactionStatusUpdated mustEqual Some(TransactionStatus(id, "0001", 0, 0, None))
+      transactionStatusUpdated mustEqual Some(TransactionStatus(id, "0001", 0, 0, None, "en"))
     }
   }
 
 }
 
-case class TransactionStatus(transactionID: String, status: String, typeI: Int, thirdParty: Int, circsChange: Option[Int])
+case class TransactionStatus(transactionID: String, status: String, typeI: Int, thirdParty: Int, circsChange: Option[Int], lang:String)
 
 

@@ -10,6 +10,7 @@ import com.typesafe.config.ConfigFactory
 import scala.language.existentials
 import submission.FormSubmission
 import models.domain.Claim
+import play.api.i18n.Lang
 
 trait MockInjector {
   // used to create different test conditions
@@ -44,8 +45,8 @@ trait MockInjector {
             Logger.info(s"MockTransactionIdService.registerId: $id, $statusCode, $claimType")
           }
 
-          override def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int] = None) {
-            Logger.info(s"MockTransactionIdService.recordMi: $id, $thirdParty")
+          override def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int] = None, lang: Option[Lang]) {
+            Logger.info(s"MockTransactionIdService.recordMi: $id, $thirdParty, $lang")
           }
 
           override def updateStatus(id: String, statusCode: String, claimType: Int) {
@@ -64,8 +65,8 @@ trait MockInjector {
             Logger.info(s"MockTransactionIdService.registerId: $id, $statusCode, $claimType")
           }
 
-          override def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int] = None) {
-            Logger.info(s"MockTransactionIdService.recordMi: $id, $thirdParty")
+          override def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int] = None, lang: Option[Lang]) {
+            Logger.info(s"MockTransactionIdService.recordMi: $id, $thirdParty, $lang")
           }
 
           override def updateStatus(id: String, statusCode: String, claimType: Int) {
