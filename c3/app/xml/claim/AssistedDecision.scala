@@ -1,4 +1,4 @@
-package xml
+package xml.claim
 
 import app.StatutoryPaymentFrequency
 import models.domain._

@@ -1,4 +1,4 @@
-package xml
+package xml.claim
 
 import models.domain.Claim
 import app.XMLValues._

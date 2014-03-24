@@ -1,8 +1,6 @@
-package xml
+package xml.claim
 
 import models.domain._
-import XMLHelper._
-import app.XMLValues._
 import scala.xml.NodeSeq
 import app.XMLValues._
 

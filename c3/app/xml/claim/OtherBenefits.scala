@@ -1,8 +1,8 @@
-package xml
+package xml.claim
 
 import app.XMLValues._
 import models.domain._
-import XMLHelper._
+import xml.XMLHelper._
 
 
 object OtherBenefits {

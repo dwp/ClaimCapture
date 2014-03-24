@@ -43,7 +43,7 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
     try {
       val nodeStart = theNodes(0).mkString
 
-      val isARepeatableNode = !nodeStart.contains(EvidenceListNode) && !nodeStart.contains(DeclarationNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>")
+      val isARepeatableNode = !nodeStart.contains(EvidenceListNode) && !nodeStart.contains(DeclarationNode) && !nodeStart.contains("<Employed") && !nodeStart.contains("<BreaksSinceClaim")
 
       val isRepeatedAttribute = claimValue.attribute.contains( """_""")
 
@@ -51,7 +51,7 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
 
       if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(EvidenceListNode)) true
       else {
-        val isPensionScheme = theNodes.mkString.contains("<PensionScheme>") // Because of bug in Schema :(  Do not like it
+        val isPensionScheme = theNodes.mkString.contains("<PensionScheme") // Because of bug in Schema :(  Do not like it
 
         val index = if (isRepeatedAttribute && isARepeatableNode && !isPensionScheme) iteration else 0
 

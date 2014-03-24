@@ -9,7 +9,7 @@ class AdditionalInfoSpec extends Specification with Tags {
   "Additional Info" should {
     "generate xml" in {
       val claim = Claim().update(CircumstancesOtherInfo(otherInfo))
-      val xml = AdditionalInfo.xml(claim)
+      val xml = circumstances.AdditionalInfo.xml(claim)
 
       (xml \\ "OtherChanges").text shouldEqual otherInfo
     }

@@ -1,7 +1,7 @@
-package xml
+package xml.claim
 
 import models.domain._
-import XMLHelper._
+import xml.XMLHelper._
 import scala.xml.NodeSeq
 import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 import app.XMLValues._
