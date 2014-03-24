@@ -21,7 +21,7 @@ with WebServiceClientComponent {
 
   "claim submission should record the correct status based on WS call results" should {
     "record BAD_REQUEST" in {
-
+      pending
       webServiceClient.submitClaim(any[Claim], any[String]) returns
         Future(new Response(null) {
           override def toString: String = "Dummy response"
