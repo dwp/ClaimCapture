@@ -38,11 +38,11 @@
 
                     @listRadioGroupWithOther(breaksForm("wherePersonBreaksInCare.answer"),
                         'items -> Seq(
-                            Hospital -> Messages("circsBreaks.Hospital"),
-                            RespiteCare -> Messages("circsBreaks.RespiteCare"),
-                            Holiday -> Messages("circsBreaks.Holiday"),
-                            Home -> Messages("circsBreaks.Home"),
-                            SomewhereElse -> Messages("circsBreaks.SomewhereElse")),
+                            Hospital -> Messages("circsBreaks.inhospital"),
+                            RespiteCare -> Messages("circsBreaks.inrespitecare"),
+                            Holiday -> Messages("circsBreaks.onholiday"),
+                            Home -> Messages("circsBreaks.athome"),
+                            SomewhereElse -> Messages("circsBreaks.somewhereelse")),
                             'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
                             'id -> "wherePersonBreaksInCare",
                             'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
@@ -51,11 +51,11 @@
 
                     @listRadioGroupWithOther(breaksForm("whereYouBreaksInCare.answer"),
                         'items -> Seq(
-                            Hospital -> Messages("circsBreaks.Hospital"),
-                            RespiteCare -> Messages("circsBreaks.RespiteCare"),
-                            Holiday -> Messages("circsBreaks.Holiday"),
-                            Home -> Messages("circsBreaks.Home"),
-                            SomewhereElse -> Messages("circsBreaks.SomewhereElse")),
+                            Hospital -> Messages("circsBreaks.inhospital"),
+                            RespiteCare -> Messages("circsBreaks.inrespitecare"),
+                            Holiday -> Messages("circsBreaks.onholiday"),
+                            Home -> Messages("circsBreaks.athome"),
+                            SomewhereElse -> Messages("circsBreaks.somewhereelse")),
                             'helperAbove-> Messages("whereYouBreaksInCare.helper"),
                             'id -> "whereYouBreaksInCare",
                             'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60
@@ -96,7 +96,7 @@
                         'display ->  { if (breaksForm("expectStartCaring.answer").value.getOrElse("yes") == "no") "yes" else "no" }
                     )
 
-                    @yesNoRadioGroup(breaksForm("medicalCareDuringBreak"))
+                    @yesNoRadioGroup(breaksForm("medicalCareDuringBreak"),'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))
 
                     @carersInputTextArea(breaksForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
 
