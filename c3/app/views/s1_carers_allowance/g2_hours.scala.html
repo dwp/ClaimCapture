@@ -19,10 +19,10 @@
 	            <p>@Html(Messages("s1.g2.help1"))</p>
 	            
 
-	             @yesNoRadioGroup(currentForm("answer"), '_label -> Messages("hours.answer"), '_showLabel -> false,'track -> true, 'allowance -> true,'trackLabel -> "hours.answer")
+	             @yesNoRadioGroup(currentForm("hours.answer"), '_label -> Messages("hours.answer"), '_showLabel -> false,'track -> true, 'allowance -> true,'trackLabel -> "hours.answer")
 
 	
-	            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+	            @defining(currentForm("hours.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
 	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 	                    <p>@Html(Messages("s1.g2.help2"))</p>
 	                    <p>@Html(Messages("s1.g2.help3"))</p>
@@ -43,6 +43,6 @@
 
 <script type="text/javascript">
     $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("hours_answer_yes")", "@CarersCrypto.encryptAES("hours_answer_no")");
     });
 </script>

@@ -1,6 +1,6 @@
 package models.yesNo
 
-import controllers.Mappings._
+import app.CircsBreaksWhereabouts._
 
 /**
  * Created by neddakaltcheva on 3/20/14.
@@ -9,10 +9,9 @@ import controllers.Mappings._
 case class RadioWithText(answer: String = "", text: Option[String] = None)
 
 object RadioWithText {
-  val somewhereElse = "somewhere else"
 
   def validateOnOther(input: RadioWithText): Boolean = input.answer match {
-    case "somewhere else" => input.text.isDefined
+    case SomewhereElse => input.text.isDefined
     case _ => true
   }
 

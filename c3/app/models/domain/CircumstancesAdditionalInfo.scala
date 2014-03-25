@@ -81,8 +81,8 @@ case class CircumstancesBreaksInCare(breaksInCareStartDate: DayMonthYear = DayMo
                                      breaksInCareStartTime: Option[String] = None ,
                                      wherePersonBreaksInCare: RadioWithText = RadioWithText("", None),
                                      whereYouBreaksInCare: RadioWithText = RadioWithText("", None),
-                                     breakEnded: YesNoWithDateTimeAndText = YesNoWithDateTimeAndText("", None, None, None),
-                                     expectedStartCaring: YesNoDontKnowWithDates = YesNoDontKnowWithDates(None, None, None),
+                                     breakEnded: YesNoWithDateTimeAndText = YesNoWithDateTimeAndText("", None, None),
+                                     expectStartCaring: YesNoDontKnowWithDates = YesNoDontKnowWithDates(None, None, None),
                                      medicalCareDuringBreak: String = "",
                                      moreAboutChanges: Option[String] = None) extends QuestionGroup(CircumstancesBreaksInCare)
 

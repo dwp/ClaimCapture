@@ -2,7 +2,7 @@ footer {
 	background: #000;
 	.container {
 		margin: 0 auto;
-		max-width: 980px;
+		max-width: 960px;
 		padding: 4em 1em;
 		div {
 			float: left;
@@ -24,7 +24,7 @@ footer {
 					margin-top: 1em;
 				}
 				a {
-					background: url('../img/govuk-crest-inverse.png') center 0 no-repeat;
+					background: url('images/govuk-crest-inverse.png') center 0 no-repeat;
 					display: block;
 					width: 150px;
 					height: 22px;
@@ -45,7 +45,7 @@ footer {
 			font-size: 15px;
 			color: #fff;
 			&:before {
-				content: url('../img/ogl.png');
+				content: url('images/ogl.png');
 				width: 41px;
 				height: 17px;
 				position: relative;
@@ -54,6 +54,10 @@ footer {
 			}
 			a {
 				color: #fff;
+				text-decoration: underline; 
+				&:hover {
+					color: #666;
+				}
 			}
 		}
 	}

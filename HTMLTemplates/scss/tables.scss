@@ -20,7 +20,7 @@
 				}
 			}
 			th {
-				font-size: 1.6rem;
+				font-size: 17px;
 				font-weight: 600;
 				background: #dee0e2;
 				padding: .8em;
@@ -35,9 +35,6 @@
 						width: auto;
 					}
 				}
-				.ie & {
-					font-size: 16px;
-				}
 				.ie7 & {
 					border-top: 1px solid #bfc1c3;
 					border-bottom: 1px solid #bfc1c3;
@@ -49,7 +46,7 @@
 				}
 			}
 			td {
-				font-size: 1.6rem;
+				font-size: 17px;
 				padding: .8em;
 				border-left: 1px dotted #bfc1c3;
 				line-height: 1em;
@@ -60,9 +57,6 @@
 				&:first-child {
 					border-left: 0;
 					text-align: center;
-				}
-				.ie & {
-					font-size: 16px;
 				}
 				.ie7 & {
 					border-left: 0;
