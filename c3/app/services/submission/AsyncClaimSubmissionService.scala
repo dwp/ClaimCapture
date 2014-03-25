@@ -30,27 +30,31 @@ trait AsyncClaimSubmissionService {
     )
   }
 
+  private def ok(claim: Claim, txnID: String, response: Response) = {
+    val responseStr = response.body
+    Logger.info(s"Received response : ${claim.key} : $responseStr")
+    val responseXml = scala.xml.XML.loadString(responseStr)
+    val result = (responseXml \\ "result").text
+    Logger.info(s"Received result : ${claim.key} : $result")
+    result match {
+      case "response" =>
+        claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
+      case "acknowledgement" =>
+        claimTransaction.updateStatus(txnID, ACKNOWLEDGED, claimType(claim))
+      case "error" =>
+        val errorCode = (responseXml \\ "errorCode").text
+        Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $errorCode")
+        claimTransaction.updateStatus(txnID, errorCode, claimType(claim))
+      case _ =>
+        Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $UNKNOWN_ERROR")
+        claimTransaction.updateStatus(txnID, UNKNOWN_ERROR, claimType(claim))
+    }
+  }
+
   private def processResponse(claim: Claim, txnID: String, response: Response): Unit = {
     response.status match {
-      case http.Status.OK =>
-        val responseStr = response.body
-        Logger.info(s"Received response : ${claim.key} : $responseStr")
-        val responseXml = scala.xml.XML.loadString(responseStr)
-        val result = (responseXml \\ "result").text
-        Logger.info(s"Received result : ${claim.key} : $result")
-        result match {
-          case "response" =>
-            claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
-          case "acknowledgement" =>
-            claimTransaction.updateStatus(txnID, ACKNOWLEDGED, claimType(claim))
-          case "error" =>
-            val errorCode = (responseXml \\ "errorCode").text
-            Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $errorCode")
-            claimTransaction.updateStatus(txnID, errorCode, claimType(claim))
-          case _ =>
-            Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $UNKNOWN_ERROR")
-            claimTransaction.updateStatus(txnID, UNKNOWN_ERROR, claimType(claim))
-        }
+      case http.Status.OK => ok(claim,txnID,response)
+
       case http.Status.SERVICE_UNAVAILABLE =>
         Logger.error(s"SERVICE_UNAVAILABLE : ${response.status} : ${response.toString}, TxnId : $txnID")
         claimTransaction.updateStatus(txnID, SERVICE_UNAVAILABLE, claimType(claim))

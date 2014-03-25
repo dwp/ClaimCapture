@@ -9,6 +9,7 @@ import jmx.JMXActors
 import play.api.mvc.SimpleResult
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
+import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.helpers.CarersLanguageHelper
 
@@ -55,6 +56,7 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
   def actorSystems = {
     JMXActors
     EmailActors
+    AsyncActors
     ApplicationMonitor.begin
 
   }

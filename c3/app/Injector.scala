@@ -18,7 +18,7 @@ trait Injector {
 
     if (getProperty("submit.prints.xml", default = false)) {
       Logger.warn("submit.prints.xml = true")
-    Map(
+      Map(
         controller[ClaimSubmissionController](new ClaimSubmissionController {
           override def submission(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = XmlSubmitter.submission(claim, request)
         }),
@@ -32,8 +32,7 @@ trait Injector {
         controller[ClaimSubmissionController](new ClaimSubmissionController { override val claimTransaction = new StubClaimTransaction }),
         controller[ChangeOfCircsSubmissionController](new ChangeOfCircsSubmissionController { override val claimTransaction = new StubClaimTransaction })
       )
-    }
-    else
+    }else
       Map(
         controller[ClaimSubmissionController](new ClaimSubmissionController),
         controller[ChangeOfCircsSubmissionController](new ChangeOfCircsSubmissionController)

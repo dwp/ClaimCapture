@@ -38,19 +38,23 @@ object DBTests{
 
   def newId(implicit app: FakeApplication) = {
     val id = (for(i <- 1 to 7)yield{ "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"((31 * Math.random()).toInt + 1)})(collection.breakOut)
+    createId(id)
+    id
+  }
+
+  def createId(id:String = "")(implicit app: FakeApplication) = {
     DB.withConnection("carers"){implicit c =>
       SQL("INSERT INTO transactionids (transaction_id) VALUES ({id});").on("id"->id).execute()
     }
-    id
   }
 
   val parser = {
     get[String]("transaction_id") ~
     get[String]("status") ~
     get[Int]("type") ~
-    get[Int]("thirdparty") ~
+    get[Option[Int]]("thirdparty") ~
     get[Option[Int]]("circs_type") ~
-    get[String]("lang") map {
+    get[Option[String]]("lang") map {
       case id~status~typeI~thirdparty~circsType~lang => TransactionStatus(id,status,typeI,thirdparty,circsType, lang)
     }
   }

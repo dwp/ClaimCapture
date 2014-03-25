@@ -3,6 +3,8 @@ package controllers.s11_consent_and_declaration
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import models.view.Navigable
+import app.ConfigProperties._
+import services.async.AsyncActors
 
 object G5Submit extends Controller with CachedClaim with Navigable {
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
@@ -10,6 +12,11 @@ object G5Submit extends Controller with CachedClaim with Navigable {
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+
+    if (getProperty("asyncSubmit",false)){
+      AsyncActors.asyncActor ! claim
+    }
+
     Redirect(routes.G7Submitting.present())
   }
 }
