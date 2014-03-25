@@ -5,13 +5,10 @@
 		   padding: 1em 1.25em;
 		   margin-top: 1.2em;
 		   p {
-			   font-size: 1.6rem;
+			   font-size: 17px;
 			   margin-top: 1em;
 			   &:first-child {
 				   margin: 0;
-			   }
-			   .ie & {
-				   font-size: 16px;
 			   }
 		   }
 	   } 

@@ -8,7 +8,7 @@
 		   list-style: none;
 		   margin: 0;
 		   overflow: hidden;
-		   padding: 3em 0 0.3em 0;
+		   padding: 3.5em 0 0.3em 0;
 		    @media screen and (max-width: 760px)
 		     {padding-top: 2em;}
 		   .ie6 &, .ie7 &, .ie8 & {
@@ -68,12 +68,9 @@
 				     width: 26px;
 			     }
 			   span {
-				   font-size: 1.3rem;
+				   font-size: 13px;
 				   @media screen and (max-width: 770px) {
 					   font-size: 12px;
-				   }
-				   .ie & {
-					   font-size: 13px;
 				   }
 				   &:before {
 					   position: absolute;
@@ -87,10 +84,7 @@
 					   background: #afafaf;
 					   color: #fff;
 					   font-weight: 300;
-					   font-size: 2rem;
-					   .ie & {
-						   font-size: 20px;
-					   }
+					   font-size: 20px;
 					   text-align: center;
 					   display: block;
 					   line-height: 1em;
@@ -127,10 +121,7 @@
 						   margin: -8px 0 0 -25px;
 						   font-weight: 300;
 						   padding-top: 11px;
-						   font-size: 2.6rem;
-						   .ie & {
-							   font-size: 26px;
-						   }
+						   font-size: 26px;
 						   @media screen and (max-width: 760px) {
 							   width: 30px;
 							   height: 29px;
@@ -203,10 +194,9 @@
 			     }
 			     span {
 				     @media screen and (max-width: 770px) {
-					   font-size: 13px;
-				   }
-			     }
-				}
+					 font-size: 13px;
+					}
+			    }
 			}
-			
-   }
+		}		
+	}

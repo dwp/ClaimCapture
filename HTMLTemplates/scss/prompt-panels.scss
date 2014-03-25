@@ -2,8 +2,7 @@
    .prompt {
 	   background: #d5e8f3;
 	   padding: 1.4em 1em;
-	   margin: 1em 0 0 -1em;
-	   @media screen and (max-width: 640px) {margin-left: 0;}
+	   margin: 1em 0 0 0;
 	   p {
 		   margin-top: .25em;
 		   &:first-child {
@@ -21,7 +20,7 @@
 		   p {
 			   margin: .5em 0 0 0;
 			   font-weight: 600;
-			   font-size: 1.7rem;
+			   font-size: 17px;
 			   &:first-child {
 				   margin: 0;
 			   }
@@ -40,15 +39,14 @@
 			   background: #008bc2;
 			   color: #fff;
 			   text-align: center;
-			   font-size: 2.6rem;
+			   font-size: 26px;
 			   font-weight: 700;
-			   .ie & {
-				   font-size: 26px;
-			   }
-			    @media screen and (max-width: 660px) {width: 50px; height: 50px; font-size: 3.8rem; top: 1em; right: .5em;
-				    .ie & {
-					    font-size: 38px;
-				    }
+			    @media screen and (max-width: 660px) {
+			    	width: 50px;
+			    	height: 50px;
+			    	font-size: 38px;
+			    	top: 1em;
+			    	right: .5em;
 			    }
 		   }
 	   }
@@ -91,15 +89,13 @@
 			   background: #990c1a;
 			   color: #fff;
 			   text-align: center;
-			   font-size: 2.6rem;
+			   font-size: 26px;
 			   font-weight: 700;
-			   .ie & {
-				   font-size: 26px;
-			   }
-			    @media screen and (max-width: 660px) {width: 50px; height: 50px; margin-top: -25px; font-size: 3.8rem;
-				    .ie & {
-					    font-size: 38px;
-				    }
+			    @media screen and (max-width: 660px) {
+			    	width: 50px;
+			    	height: 50px;
+			    	margin-top: -25px;
+			    	font-size: 38px;
 			    }
 		   }
 	   }
@@ -114,26 +110,19 @@
 			   margin-right: 0;
 		   }
 		   p {
-			   font-size: 1.6rem;
-			   .ie & {
-				   font-size: 16px;
-			   }
+			   font-size: 17px;
 		   }
 	   }
 	   &.eligibility-prompt {
 		   margin-left: 0;
 		   p {
-			   font-size: 1.6rem;
+			   font-size: 17px;
 			   margin: .75em 0 0 0;
 			   &:first-child {
 				   margin: 0;
 			   }
-			   .ie & {
-				   font-size: 16px;
-			   }
 		   }
 		   @media screen and (max-width: 480px) {
-		   	   margin-left: -2.5em;	
 			   span {
 				   display: none;
 			   }
@@ -156,16 +145,13 @@
 			   zoom: 1;
 		   }
 		   p {
-			   font-size: 1.6rem;
+			   font-size: 17px;
 			   margin-top: 1em;
 			   &:first-child {
 				   margin: 0;
 			   }
 			   &.intro {
 			   font-weight: 600;
-			   }
-			   .ie & {
-				   font-size: 16px;
 			   }
 		   }
 		   ul {
