@@ -16,6 +16,8 @@ trait AsyncClaimSubmissionService {
 
   this: ClaimTransactionComponent with WebServiceClientComponent =>
 
+  import AsyncClaimSubmissionService._
+
   def submission(claim: Claim): Unit = {
     val txnID = claimTransaction.generateId
     Logger.info(s"Retrieved Id : $txnID")
@@ -78,6 +80,10 @@ trait AsyncClaimSubmissionService {
     claimTransaction.recordMi(id, thirdParty, circsChange, claim.lang)
   }
 
+
+}
+
+object AsyncClaimSubmissionService{
   val SUBMITTED = "0000"
   val ACKNOWLEDGED = "0001"
   val SUCCESS = "0002"

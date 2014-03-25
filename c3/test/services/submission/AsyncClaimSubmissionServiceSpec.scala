@@ -1,11 +1,11 @@
 package services.submission
 
 import org.specs2.mutable.{Tags, Specification}
-import services.{ DBTests, WithApplicationAndDB, ClaimTransactionComponent}
+import services.{TransactionStatus, DBTests, WithApplicationAndDB, ClaimTransactionComponent}
 import play.api.http
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.libs.ws.Response
-import models.domain.Claim
+import models.domain.{FullClaim, Claim}
 import org.specs2.mock.Mockito
 import models.view.CachedClaim
 
@@ -22,7 +22,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
     </response>
   }
 
-  def asyncService( status:Int=200, result: String= "", correlationID: String="", messageClass:String="", errorCode: String="", pollEndpoint: String ="") =
+  def asyncService( status:Int=200, transactionId:String, result: String= "", correlationID: String="", messageClass:String="", errorCode: String="", pollEndpoint: String ="") =
     new AsyncClaimSubmissionService with ClaimTransactionComponent with WebServiceClientComponent {
       import ExecutionContext.Implicits.global
       val webServiceClient = mock[WebServiceClient]
@@ -32,23 +32,24 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
       webServiceClient.submitClaim(any[Claim],any[String]) returns Future(response)
       val claimTransaction = spy(new ClaimTransaction)
-      org.mockito.Mockito.doReturn("1234567").when(claimTransaction).generateId
+      org.mockito.Mockito.doReturn(transactionId).when(claimTransaction).generateId
   }
 
   "claim submission should record the correct status based on WS call results" should {
     "record BAD_REQUEST" in new WithApplicationAndDB {
-      val service = asyncService(http.Status.BAD_REQUEST)
+      val transactionId = "1234567"
+      val service = asyncService(http.Status.BAD_REQUEST,transactionId)
 
-      DBTests.createId("1234567")
-      service.claimTransaction.registerId("1234567", "0000", 0)
-      service.submission(mock[Claim])
+      DBTests.createId(transactionId)
+      service.submission(new Claim with FullClaim)
 
       Thread.sleep(5000)
-      val id = DBTests.getId("1234567")
+      val transactionStatus = DBTests.getId(transactionId)
 
-      println("RETRIEVED VALUE:"+id)
+      transactionStatus must not beEmpty
 
-      id must not beEmpty
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,AsyncClaimSubmissionService.BAD_REQUEST_ERROR,1,Some(0),None,Some("en")))
+
     }
   }
 }
