@@ -7,9 +7,11 @@ import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
-import models.yesNo.{RadioWithText, YesNoWithDateTimeAndText, YesNoDontKnowWithDates}
+import models.yesNo.{YesNoWithDateAndQs, RadioWithText, YesNoWithDateTimeAndText, YesNoDontKnowWithDates}
 import models.domain.{CircumstancesAddressChange, CircumstancesBreaksInCare}
 import controllers.CarersForms._
+import play.api.data.FormError
+import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
 
 /**
@@ -22,27 +24,30 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
       "answer" -> nonEmptyText,
       "somewhereElse" -> optional(text)
     )(RadioWithText.apply)(RadioWithText.unapply)
+    .verifying("somewhereElse", RadioWithText.validateOnOther _)
 
   val whereWasPersonMapping =
     "wherePersonBreaksInCare" -> mapping(
       "answer" -> nonEmptyText,
       "somewhereElse" -> optional(text)
     )(RadioWithText.apply)(RadioWithText.unapply)
+     .verifying("somewhereElse", RadioWithText.validateOnOther _)
 
   val breakEndedMapping =
     "breakEnded" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
       "endDate" -> optional(dayMonthYear verifying validDateOnly),
-      "endTime" -> optional(text),
-      "expectedStartCaring" -> optional(text) //YesNoDontKnow
+      "endTime" -> optional(text)
     )(YesNoWithDateTimeAndText.apply)(YesNoWithDateTimeAndText.unapply)
+    .verifying("endDate", validateBreakEndedEndDate _)
 
   val expectStartCaringMapping =
   "expectStartCaring" -> mapping(
-    "answer" -> optional(text),
+    "answer" -> optional(text), //YesNoDontKnow
     "expectStartCaringDate" -> optional(dayMonthYear verifying validDateOnly),
     "permanentBreakDate" -> optional(dayMonthYear verifying validDateOnly)
   )(YesNoDontKnowWithDates.apply)(YesNoDontKnowWithDates.unapply)
+    .verifying("permanentBreakDate", validateStartCaring _)
 
   val form = Form(mapping(
     "breaksInCareStartDate" -> dayMonthYear.verifying(validDate),
@@ -54,12 +59,29 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
     "medicalCareDuringBreak" -> (nonEmptyText verifying validYesNo),
     "moreAboutChanges" -> optional(text)
   )(CircumstancesBreaksInCare.apply)(CircumstancesBreaksInCare.unapply)
-    .verifying("breakEnded.answer", validateBreakEnded _)
+    .verifying("expectStartCaring", validateBreakEnded _)
   )
 
   def validateBreakEnded(form: CircumstancesBreaksInCare) = {
     form.breakEnded.answer match {
-      case `yes` => form.breakEnded.expectStartCaring.isDefined
+      case `no` => form.expectStartCaring.answer.isDefined
+      case _ => true
+    }
+  }
+
+  def validateBreakEndedEndDate(breakEnded: YesNoWithDateTimeAndText) = {
+    breakEnded.answer match {
+      case `yes` => breakEnded.date.isDefined
+      case _ => true
+    }
+  }
+
+  def validateStartCaring(expectStartCaring: YesNoDontKnowWithDates) = {
+    expectStartCaring.answer match {
+      case Some(n) =>  n match {
+        case `no` => expectStartCaring.permanentBreakDate.isDefined
+        case _ => true
+      }
       case _ => true
     }
   }
@@ -73,7 +95,12 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
   def submit = claiming { implicit circs => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val updatedFormWithErrors = formWithErrors.replaceError("breakEnded","breakEnded.answer", FormError("breakEnded.expectedStartCaring", "error.required"))
+        val updatedFormWithErrors = formWithErrors
+          .replaceError("breakEnded","endDate", FormError("breakEnded.endDate", "error.required"))
+          .replaceError("","expectStartCaring", FormError("expectStartCaring.answer", "error.required"))
+          .replaceError("expectStartCaring","permanentBreakDate", FormError("expectStartCaring.permanentBreakDate", "error.required"))
+          .replaceError("whereYouBreaksInCare","somewhereElse", FormError("whereYouBreaksInCare.somewhereElse", "error.required"))
+          .replaceError("wherePersonBreaksInCare","somewhereElse", FormError("wherePersonBreaksInCare.somewhereElse", "error.required"))
         BadRequest(views.html.circs.s2_report_changes.g7_breaksInCare(updatedFormWithErrors))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())

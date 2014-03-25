@@ -3,7 +3,7 @@ package services
 import play.api.db.DB
 import play.api.Play.current
 import anorm._
-import play.api.Play
+import play.api.i18n.Lang
 
 trait ClaimTransactionComponent {
   val claimTransaction : ClaimTransaction
@@ -43,14 +43,14 @@ trait ClaimTransactionComponent {
     /**
      * Update MI data
      */
-    def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int] = None): Unit = DB.withConnection("carers") {
+    def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int] = None, lang: Option[Lang]): Unit = DB.withConnection("carers") {
       implicit c =>
         SQL(
           """
-            UPDATE transactionstatus set thirdparty={thirdParty}, circs_type={circsChange}
+            UPDATE transactionstatus set thirdparty={thirdParty}, circs_type={circsChange}, lang={lang}
             WHERE transaction_id={transactionId};
           """
-        ).on("transactionId" -> id, "thirdParty" -> (if (thirdParty) 1 else 0), "circsChange" -> circsChange).execute()
+        ).on("transactionId" -> id, "thirdParty" -> (if (thirdParty) 1 else 0), "circsChange" -> circsChange, "lang" -> lang.getOrElse(Lang("en")).code).execute()
     }
 
 
@@ -71,7 +71,7 @@ trait ClaimTransactionComponent {
 
     override def registerId(id: String, statusCode: String, claimType: Int) {}
 
-    override def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int]) {}
+    override def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int], lang: Option[Lang]) {}
 
     override def updateStatus(id: String, statusCode: String, claimType: Int) {}
   }

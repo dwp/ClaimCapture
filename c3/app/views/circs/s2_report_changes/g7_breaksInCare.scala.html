@@ -34,7 +34,7 @@
                 <ul>
                     @inputDayMonthYear(breaksForm("breaksInCareStartDate"), 'helperAbove-> Messages("breaksInCareStartDate.helper"))
 
-                    @carersInputText(breaksForm("breaksInCareStartTime"), 'helperAbove-> Messages("breaksInCareStartTime.helper"))
+                    @carersInputText(breaksForm("breaksInCareStartTime"), 'helperAbove-> Messages("breaksInCareStartTime.helper"), 'maxLength -> 10)
 
                     @listRadioGroupWithOther(breaksForm("wherePersonBreaksInCare.answer"),
                         'items -> Seq(
@@ -44,14 +44,9 @@
                             Home -> Messages("circsBreaks.Home"),
                             SomewhereElse -> Messages("circsBreaks.SomewhereElse")),
                             'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
-                            'id -> "wherePersonBreaksInCare"
-                    )
-
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(carersInputText(breaksForm("wherePersonBreaksInCare.somewhereElse"), 'ignoreOptional -> true)
-                        ),
-                        'id -> "wherePersonSomewhereElse",
-                        'display -> {if (breaksForm("wherePersonBreaksInCare.answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" }
+                            'id -> "wherePersonBreaksInCare",
+                            'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
+                            'display -> {if (breaksForm("wherePersonBreaksInCare.answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" }
                     )
 
                     @listRadioGroupWithOther(breaksForm("whereYouBreaksInCare.answer"),
@@ -62,41 +57,38 @@
                             Home -> Messages("circsBreaks.Home"),
                             SomewhereElse -> Messages("circsBreaks.SomewhereElse")),
                             'helperAbove-> Messages("whereYouBreaksInCare.helper"),
-                            'id -> "whereYouBreaksInCare"
-                    )
-
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(carersInputText(breaksForm("whereYouBreaksInCare.somewhereElse"), 'ignoreOptional -> true)
-                        ),
-                        'id -> "whereYouSomewhereElse",
-                        'display -> {if (breaksForm("whereYouBreaksInCare.answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" }
+                            'id -> "whereYouBreaksInCare",
+                            'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60
                     )
 
                     @yesNoRadioGroup(breaksForm("breakEnded.answer"))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            inputDayMonthYear(breaksForm("breakEnded.endDate")),
-                            carersInputText(breaksForm("breakEnded.endTime"), 'helperAbove-> Messages("breakEnded.endTime.helper"))
+                            inputDayMonthYear(breaksForm("breakEnded.endDate"), 'ignoreOptional -> true),
+                            carersInputText(breaksForm("breakEnded.endTime"), 'helperAbove-> Messages("breakEnded.endTime.helper"), 'maxLength -> 10)
                          ),
                         'id -> "breakEndedDateTime",
                         'display ->  { if (breaksForm("breakEnded.answer").value.getOrElse("no") == "yes") "yes" else "no" }
                     )
 
                     @otherDetailPlaceHolder(
-                        inputDef = Seq(yesNoRadioGroup(breaksForm("expectStartCaring"))),
-                    'id -> "expectStartCaring",
-                    'display ->  { if (breaksForm("breakEnded.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+                        inputDef = Seq(yesNoRadioGroup(breaksForm("expectStartCaring.answer"),
+                            'values -> Seq("yes" -> Messages("label.yes7"), "no" -> Messages("label.no"), "dontknow" -> Messages("label.dontknow")),
+                            'ignoreOptional -> true)),
+                            'id -> "expectStartCaring",
+                            'display ->  { if (breaksForm("breakEnded.answer").value.getOrElse("yes") == "no") "yes" else "no" }
                     )
 
                     @otherDetailPlaceHolder(
-                        inputDef = Seq(inputDayMonthYear(breaksForm("expectStartCaring.expectStartCaringDate"))),
+                        inputDef = Seq(inputDayMonthYear(breaksForm("expectStartCaring.expectStartCaringDate"), 'helperAbove-> Messages("breaksInCareStartDate.helper"))),
                         'id -> "expectStartCaringDate",
                         'display ->  { if (breaksForm("expectStartCaring.answer").value.getOrElse("no") == "yes") "yes" else "no" }
                     )
 
                     @otherDetailPlaceHolder(
-                        inputDef = Seq(inputDayMonthYear(breaksForm("expectStartCaring.permanentBreakDate"))),
+                        inputDef = Seq(inputDayMonthYear(breaksForm("expectStartCaring.permanentBreakDate"),
+                            'helperAbove-> Messages("breaksInCareStartDate.helper"), 'ignoreOptional -> true)),
                         'id -> "permanentBreakDate",
                         'display ->  { if (breaksForm("expectStartCaring.answer").value.getOrElse("yes") == "no") "yes" else "no" }
                     )
@@ -123,10 +115,16 @@
 
 <script type="text/javascript">
 $(function(){
+window.areaCounter({selector:"@CarersCrypto.encryptAES("wherePersonBreaksInCare_answer_wherePersonBreaksInCare_Somewhere_else")",maxChars:60});
+window.areaCounter({selector:"@CarersCrypto.encryptAES("whereYouBreaksInCare_answer_whereYouBreaksInCare_Somewhere_else")",maxChars:60});
+window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+})
+$(function(){
 window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
 "@CarersCrypto.encryptAES("breakEnded_answer_no")",
-"@CarersCrypto.encryptAES("expectStartCaring_yes")",
-"@CarersCrypto.encryptAES("expectStartCaring_no")"
+"@CarersCrypto.encryptAES("expectStartCaring_answer_yes")",
+"@CarersCrypto.encryptAES("expectStartCaring_answer_no")",
+"@CarersCrypto.encryptAES("expectStartCaring_answer_dontknow")"
 );
 });
 </script>

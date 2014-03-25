@@ -6,37 +6,38 @@ import play.api.test.WithBrowser
 /**
  * Created by neddakaltcheva on 3/20/14.
  */
-class G7BreaksInCarePage {
-//  final class G6AddressChangePage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G6AddressChangePage.url, G6AddressChangePage.title) {
-//    declareAddress("#previousAddress", "CircumstancesAddressChangePreviousAddress")
-//    declareInput("#previousPostcode", "CircumstancesAddressChangePreviousPostcode")
-//    declareYesNo("#stillCaring_answer", "CircumstancesAddressChangeStillCaring")
-//    declareDate("#stillCaring_date", "CircumstancesAddressChangeFinishedStillCaringDate")
-//    declareAddress("#newAddress", "CircumstancesAddressChangeNewAddress")
-//    declareInput("#newPostcode", "CircumstancesAddressChangeNewPostcode")
-//    declareYesNo("#caredForChangedAddress_answer", "CircumstancesAddressChangeCaredForChangedAddress")
-//    declareYesNo("#sameAddress_answer", "CircumstancesAddressChangeSameAddress")
-//    declareInput("#sameAddress_theirNewAddress", "CircumstancesAddressChangeSameAddressTheirAddress")
-//    declareInput("#sameAddress_theirNewPostcode", "CircumstancesAddressSameAddressTheirPostcode")
-//    declareInput("#moreAboutChanges", "CircumstancesAddressChangeMoreAboutChanges")
-//  }
-//
-//  /**
-//   * Companion object that integrates factory method.
-//   * It is used by PageFactory object defined in PageFactory.scala
-//   */
-//  object G6AddressChangePage {
-//    val title = "Change of address - change in circumstances".toLowerCase
-//
-//    val url  = "/circumstances/report-changes/address-change"
-//
-//    def apply(ctx:PageObjectsContext) = new G6AddressChangePage(ctx)
-//  }
-//
-//  /** The context for Specs tests */
-//  trait G6AddressChangePageContext extends PageContext {
-//    this: WithBrowser[_] =>
-//
-//    val page = G6AddressChangePage(PageObjectsContext(browser))
-//  }
+
+final class G7BreaksInCarePage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G7BreaksInCarePage.url, G7BreaksInCarePage.title) {
+    declareDate("#breaksInCareStartDate", "BreaksInCareStartDate")
+    declareInput("#breaksInCareStartTime", "BreaksInCareStartTime")
+    declareRadioList("#wherePersonBreaksInCare_answer", "BreaksInCareWhereWasThePersonYouCareFor")
+    declareRadioList("#whereYouBreaksInCare_answer", "BreaksInCareWhereWereYou")
+    declareYesNo("#breakEnded_answer", "BreaksInCareEnded")
+    declareDate("#breakEnded_endDate", "BreaksInCareEndDate")
+    declareInput("#breakEnded_endTime", "BreaksInCareEndTime")
+    declareYesNoDontKnow("#expectStartCaring_answer", "BreaksInCareExpectToStartCaringAgain")
+    declareDate("#expectStartCaring_expectStartCaringDate", "BreaksInCareExpectToStartCaringAgainDate")
+    declareDate("#expectStartCaring_permanentBreakDate", "BreaksInCareExpectToStartCaringPermanentEndDate")
+    declareYesNo("#medicalCareDuringBreak", "BreaksInCareMedicalCareDuringBreak")
+    declareInput("#moreAboutChanges", "BreaksInCareMoreAboutChanges")
 }
+
+/**
+ * Companion object that integrates factory method.
+ * It is used by PageFactory object defined in PageFactory.scala
+ */
+object G7BreaksInCarePage {
+  val title = "Breaks from caring - change in circumstances".toLowerCase
+
+  val url  = "/circumstances/report-changes/breaks-in-care"
+
+  def apply(ctx:PageObjectsContext) = new G7BreaksInCarePage(ctx)
+}
+
+/** The context for Specs tests */
+trait G7BreaksInCarePageContext extends PageContext {
+  this: WithBrowser[_] =>
+
+  val page = G7BreaksInCarePage(PageObjectsContext(browser))
+}
+

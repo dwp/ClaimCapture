@@ -27,6 +27,7 @@ object DBTests{
           type INTEGER,
           thirdparty INTEGER,
           circs_type INTEGER,
+          lang CHARACTER VARYING(10),
           PRIMARY KEY(transaction_id),
           CONSTRAINT transaction_fk FOREIGN KEY(transaction_id) REFERENCES transactionids(transaction_id)
         );
@@ -48,8 +49,9 @@ object DBTests{
     get[String]("status") ~
     get[Int]("type") ~
     get[Int]("thirdparty") ~
-    get[Option[Int]]("circs_type") map {
-      case id~status~typeI~thirdparty~circsType => TransactionStatus(id,status,typeI,thirdparty,circsType)
+    get[Option[Int]]("circs_type") ~
+    get[String]("lang") map {
+      case id~status~typeI~thirdparty~circsType~lang => TransactionStatus(id,status,typeI,thirdparty,circsType, lang)
     }
   }
 
@@ -58,7 +60,7 @@ object DBTests{
     DB.withConnection("carers"){implicit c =>
       SQL(
         """
-          SELECT transaction_id, status,type,thirdparty,circs_type
+          SELECT transaction_id, status,type,thirdparty,circs_type,lang
           FROM transactionstatus
           WHERE transaction_id = {id}
         """
