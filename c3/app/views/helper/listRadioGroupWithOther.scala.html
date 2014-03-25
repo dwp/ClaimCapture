@@ -7,15 +7,15 @@
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
 
-    @radioListPlaceholder(field, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items) ++ Seq('selectWithOther -> "true"): _*)
+    @radioListPlaceholder(field, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items && e._1 == 'maxLength && e._1 == 'textAreaHelper) ++ Seq('listWithOther -> "true"): _*)
 
     @defining((args.toMap.get('display).map(_.toString).getOrElse("yes") == args.toMap.get('visibleOn).map(_.toString).getOrElse("yes")) match { case true => "block" case _ => "none" }) { styleDisplay =>
 
         <li id="@{args.toMap.get('id).map(_.toString + "_wrap").getOrElse("no-id")}" class="other-detail@{if(field.hasErrors)" validation" else ""}" style="display: @styleDisplay;">
-            @carersInputTextArea(field(id)("Somewhere else"), (Seq('placeholder -> Messages("ifOtherPleaseSpecify"), 'ignoreLabel -> true) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id)):_*)
-            @if(args.find(_._1 == 'textAreaHelper).isDefined) {
-                <p class="helper right">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
-            }
+                @carersInputTextArea(field(id)("Somewhere_else"), (Seq('placeholder -> Messages("ifOtherPleaseSpecify"), 'ignoreLabel -> true) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id || p._1 == 'items)):_*)
+                @if(args.find(_._1 == 'textAreaHelper).isDefined) {
+                    <p class="helper right">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
+                }
         </li>
     }
 }
