@@ -32,7 +32,7 @@
             <fieldset class="form-elements">
 
                 <ul>
-                    @inputDayMonthYear(breaksForm("breaksInCareStartDate"), 'helperAbove-> Messages("breaksInCareStartDate.helper"))
+                    @dateTimePickerWithDynamicLabel(breaksForm("breaksInCareStartDate"), 'dynamicDateDays-> 34)
 
                     @carersInputText(breaksForm("breaksInCareStartTime"), 'helperAbove-> Messages("breaksInCareStartTime.helper"), 'maxLength -> 10)
 
@@ -65,7 +65,7 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            inputDayMonthYear(breaksForm("breakEnded.endDate"), 'ignoreOptional -> true),
+                            dateTimePickerWithDynamicLabel(breaksForm("breakEnded.endDate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27),
                             carersInputText(breaksForm("breakEnded.endTime"), 'helperAbove-> Messages("breakEnded.endTime.helper"), 'maxLength -> 10)
                          ),
                         'id -> "breakEndedDateTime",
@@ -81,14 +81,17 @@
                     )
 
                     @otherDetailPlaceHolder(
-                        inputDef = Seq(inputDayMonthYear(breaksForm("expectStartCaring.expectStartCaringDate"), 'helperAbove-> Messages("breaksInCareStartDate.helper"))),
+                        inputDef = Seq(
+                            dateTimePickerWithDynamicLabel(breaksForm("expectStartCaring.expectStartCaringDate"), 'dynamicDateDays-> -7)
+                        ),
                         'id -> "expectStartCaringDate",
                         'display ->  { if (breaksForm("expectStartCaring.answer").value.getOrElse("no") == "yes") "yes" else "no" }
                     )
 
                     @otherDetailPlaceHolder(
-                        inputDef = Seq(inputDayMonthYear(breaksForm("expectStartCaring.permanentBreakDate"),
-                            'helperAbove-> Messages("breaksInCareStartDate.helper"), 'ignoreOptional -> true)),
+                        inputDef = Seq(
+                            dateTimePickerWithDynamicLabel(breaksForm("expectStartCaring.permanentBreakDate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27)
+                        ),
                         'id -> "permanentBreakDate",
                         'display ->  { if (breaksForm("expectStartCaring.answer").value.getOrElse("yes") == "no") "yes" else "no" }
                     )
