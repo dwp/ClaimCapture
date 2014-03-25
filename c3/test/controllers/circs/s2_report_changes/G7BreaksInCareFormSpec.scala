@@ -220,5 +220,5 @@ class G7BreaksInCareFormSpec extends Specification with Tags {
         form => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  }
+  }section("unit", models.domain.CircumstancesAddressChange.id)
 }

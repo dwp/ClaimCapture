@@ -4,7 +4,7 @@ import utils.pageobjects.TestData
 import app.ReportChange._
 import play.api.i18n.{Messages => Messages}
 import models.SortCode
-import app.{WhoseNameAccount, PaymentFrequency}
+import app.{CircsBreaksWhereabouts, WhoseNameAccount, PaymentFrequency}
 
 object CircumstancesScenarioFactory {
   val yes = "yes"
@@ -59,6 +59,50 @@ object CircumstancesScenarioFactory {
   def reportBreakFromCaring = {
     val claim = aboutDetails
     claim.CircumstancesReportChanges = BreakFromCaring.name
+    claim
+  }
+
+  def reportBreakFromCaringBreaksInCareEndedYes = {
+    val claim = reportBreakFromCaring
+
+    claim.BreaksInCareStartDate = "03/04/2002"
+    claim.BreaksInCareStartTime = "10 am"
+    claim.BreaksInCareWhereWasThePersonYouCareFor = CircsBreaksWhereabouts.Hospital
+    claim.BreaksInCareWhereWereYou = CircsBreaksWhereabouts.Holiday
+    claim.BreaksInCareEnded = Mappings.yes
+    claim.BreaksInCareEndDate = "01/01/2004"
+    claim.BreaksInCareEndTime = "10 am"
+    claim.BreaksInCareMedicalCareDuringBreak = Mappings.yes
+
+    claim
+  }
+
+  def reportBreakFromCaringBreaksInCareEndedNo = {
+    val claim = reportBreakFromCaring
+
+    claim.BreaksInCareStartDate = "03/04/2002"
+    claim.BreaksInCareStartTime = "10 am"
+    claim.BreaksInCareWhereWasThePersonYouCareFor = CircsBreaksWhereabouts.Hospital
+    claim.BreaksInCareWhereWereYou = CircsBreaksWhereabouts.Holiday
+    claim.BreaksInCareEnded = Mappings.no
+    claim.BreaksInCareExpectToStartCaringAgain = Mappings.yes
+    claim.BreaksInCareMedicalCareDuringBreak = Mappings.yes
+
+    claim
+  }
+
+  def reportBreakFromCaringBreaksInCareEndedNoAndExpectToStartCaringNo = {
+    val claim = reportBreakFromCaring
+
+    claim.BreaksInCareStartDate = "03/04/2002"
+    claim.BreaksInCareStartTime = "10 am"
+    claim.BreaksInCareWhereWasThePersonYouCareFor = CircsBreaksWhereabouts.Hospital
+    claim.BreaksInCareWhereWereYou = CircsBreaksWhereabouts.Holiday
+    claim.BreaksInCareEnded = Mappings.no
+    claim.BreaksInCareExpectToStartCaringAgain = Mappings.no
+    claim.BreaksInCareExpectToStartCaringPermanentEndDate = "01/01/2002"
+    claim.BreaksInCareMedicalCareDuringBreak = Mappings.yes
+
     claim
   }
 
