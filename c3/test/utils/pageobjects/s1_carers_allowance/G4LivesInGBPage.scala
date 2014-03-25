@@ -4,7 +4,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects._
 
 final class G4LivesInGBPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G4LivesInGBPage.url, G4LivesInGBPage.title) {
-  declareYesNo("#answer", "CanYouGetCarersAllowanceDoYouNormallyLiveinGb")
+  declareYesNo("#livesInGB_answer", "CanYouGetCarersAllowanceDoYouNormallyLiveinGb")
 }
 
 object G4LivesInGBPage {

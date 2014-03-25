@@ -4,7 +4,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects._
 
 final class G3Over16Page(ctx:PageObjectsContext) extends ClaimPage(ctx, G3Over16Page.url, G3Over16Page.title) {
-  declareYesNo("#answer", "CanYouGetCarersAllowanceAreYouAged16OrOver")
+  declareYesNo("#over16_answer", "CanYouGetCarersAllowanceAreYouAged16OrOver")
 }
 
 object G3Over16Page {

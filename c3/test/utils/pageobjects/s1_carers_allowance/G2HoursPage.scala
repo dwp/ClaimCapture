@@ -4,7 +4,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects._
 
 final class G2HoursPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G2HoursPage.url, G2HoursPage.title) {
-  declareYesNo("#answer", "CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring")
+  declareYesNo("#hours_answer", "CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring")
 }
 
 object G2HoursPage {
