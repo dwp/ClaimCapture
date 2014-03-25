@@ -8,7 +8,7 @@ class G4LivesInGBFormSpec extends Specification with Tags {
       
     "map data into case class" in {
       G4LivesInGB.form.bind(
-        Map("answer" -> answerYesNo)
+        Map("livesInGB.answer" -> answerYesNo)
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
@@ -19,7 +19,7 @@ class G4LivesInGBFormSpec extends Specification with Tags {
 
     "reject if mandatory field is not filled" in {
       G4LivesInGB.form.bind(
-        Map("answer" -> "")
+        Map("livesInGB.answer" -> "")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
         f => "This mapping should not happen." must equalTo("Valid")
