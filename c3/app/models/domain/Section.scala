@@ -2,7 +2,7 @@ package models.domain
 
 import play.api.i18n.{MMessages => Messages}
 
-case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil, visible: Boolean = true) {
+case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil, visible: Boolean = true) extends Serializable {
   def name = Messages(identifier.id + ".name")
 
   def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
@@ -40,7 +40,7 @@ case class Section(identifier: Section.Identifier, questionGroups: List[Question
   def hide = copy(visible = false)
 }
 
-case object Section {
+case object Section extends Serializable {
   def sectionIdentifier(questionGroup: QuestionGroup): Section.Identifier = sectionIdentifier(questionGroup.identifier)
 
   def sectionIdentifier(questionGroupIdentifier: QuestionGroup.Identifier): Section.Identifier = {
@@ -49,7 +49,7 @@ case object Section {
     }
   }
 
-  trait Identifier {
+  trait Identifier extends Serializable {
     val id: String
     
     def index = id.drop(1).toInt

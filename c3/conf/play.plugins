@@ -1,2 +1,3 @@
 500:play.api.i18n.MultipleMessagesPlugin
 1500:com.typesafe.plugin.CommonsMailerPlugin
+5000:com.github.mumoshu.play2.memcached.MemcachedPlugin
