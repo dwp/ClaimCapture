@@ -27,8 +27,14 @@ object G1Employment extends Controller with CachedClaim with Navigable {
       form.bindEncrypted.fold(
         formWithErrors => {
           val formWithErrorsUpdate = formWithErrors
-            .replaceError("beenEmployedSince6MonthsBeforeClaim", "error.required", FormError("beenEmployedSince6MonthsBeforeClaim", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-              (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
+            .replaceError("beenEmployedSince6MonthsBeforeClaim", "error.required",
+              FormError("aboutYou_beenEmployedSince6MonthsBeforeClaim.label",
+                "error.required",
+                Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
+            .replaceError("beenSelfEmployedSince1WeekBeforeClaim", "error.required",
+              FormError("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label",
+                "error.required",
+                Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
           BadRequest(views.html.s7_employment.g1_employment(formWithErrorsUpdate))}
         ,employment => {
           val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, Employed)
