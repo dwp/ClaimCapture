@@ -10,6 +10,10 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
 
   def `yyyy-MM-dd`: String = format("yyyy-MM-dd")
 
+  def `dd`: String = format("dd")
+
+  def `M`: String = format("M")
+
   def `yyyy`: String = format("yyyy")
 
   def `dd month, yyyy`: String = format("dd MMMM, yyyy")
