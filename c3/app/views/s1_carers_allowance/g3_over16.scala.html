@@ -16,9 +16,9 @@
 	        <fieldset class="form-elements form-eligibility">
 	            <legend>@Html(Messages("s1.g3"))</legend>
 
-	             @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("over16.answer"), '_showLabel -> false,'track -> true,'allowance -> true, 'trackLabel -> "over16.answer")
+	             @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("over16.answer"), '_showLabel -> false,'track -> true,'allowance -> true, 'trackLabel -> "over16.answer")
 	                
-	            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+	            @defining(currentForm("over16.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
 	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 	                    <p>@Html(Messages("s1.g3.help1"))</p>
 	                    <p>@Html(Messages("s1.g3.help2"))</p>
@@ -39,6 +39,6 @@
 
 <script type="text/javascript">
     $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("over16_answer_yes")", "@CarersCrypto.encryptAES("over16_answer_no")");
     });
 </script>

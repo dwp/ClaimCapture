@@ -20,10 +20,10 @@
 	            </div>
 	            
 
-	                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("livesInGB.answer"), '_showLabel -> false,'track -> true,'allowance -> true, 'trackLabel -> "livesInGB.answer")
+	            @yesNoRadioGroup(currentForm("livesInGB.answer"), '_label -> Messages ("livesInGB.answer"), '_showLabel -> false,'track -> true,'allowance -> true, 'trackLabel -> "livesInGB.answer")
 
 	                
-	            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+	            @defining(currentForm("livesInGB.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
 	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 	                    <p>@Html(Messages("s1.g4.help4"))</p>
 	                    <p>@Html(Messages("s1.g4.help5"))</p>
@@ -44,6 +44,6 @@
 
 <script type="text/javascript">
     $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("livesInGB_answer_yes")", "@CarersCrypto.encryptAES("livesInGB_answer_no")");
     });
 </script>

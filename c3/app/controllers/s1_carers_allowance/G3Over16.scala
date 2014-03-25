@@ -13,7 +13,7 @@ import models.view.Navigable
 
 object G3Over16 extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "answer" -> nonEmptyText.verifying(validYesNo)
+    "over16.answer" -> nonEmptyText.verifying(validYesNo)
   )(Over16.apply)(Over16.unapply))
 
   def present = claiming { implicit claim => implicit request => implicit lang =>
@@ -23,9 +23,7 @@ object G3Over16 extends Controller with CachedClaim with Navigable {
   def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val formWithErrorsUpdate = formWithErrors
-          .replaceError("answer", FormError("over16.answer", "error.required"))
-        BadRequest(views.html.s1_carers_allowance.g3_over16(formWithErrorsUpdate))
+        BadRequest(views.html.s1_carers_allowance.g3_over16(formWithErrors))
       },
       f => claim.update(f) -> Redirect(routes.G4LivesInGB.present()))
   }
