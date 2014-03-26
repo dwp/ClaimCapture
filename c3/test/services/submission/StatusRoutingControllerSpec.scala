@@ -41,42 +41,52 @@ class StatusRoutingControllerSpec extends Specification with Tags {
 
     }
 
-    "Handled not yet submitted (retry)" in new WithApplicationAndDB{
-      pending
-      val request = FakeRequest()
+    "Handled service unavailable" in new WithApplicationAndDB with Claiming{
+      Cache.set(claimKey,new Claim(transactionId = Some(transId)))
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+
+      DBTests.createId(transId)
+      transactionComponent.claimTransaction.registerId(transId, AsyncClaimSubmissionService.SERVICE_UNAVAILABLE, controllers.submission.FULL_CLAIM)
 
       val result = StatusRoutingController.submit(request)
 
-      status(result) mustEqual OK
-      redirectLocation(result) mustEqual "/error-retry"
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustEqual Some("/error-retry")
 
     }
 
-    "Handled not yet submitted (retry)" in new WithApplicationAndDB{
+    "Handled not yet submitted (retry)" in new WithApplicationAndDB with Claiming {
+      Cache.set(claimKey,new Claim(transactionId = Some(transId)))
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
-      pending
-      val request = FakeRequest()
+      DBTests.createId(transId)
+      transactionComponent.claimTransaction.registerId(transId, AsyncClaimSubmissionService.GENERATED, controllers.submission.FULL_CLAIM)
+
 
       val result = StatusRoutingController.submit(request)
 
-      status(result) mustEqual OK
-      redirectLocation(result) mustEqual "/submitting"
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustEqual Some("/async-submitting")
 
     }
 
-    "Handle error case on failed submission" in new WithApplicationAndDB{
+    "Handle error case on failed submission" in new WithApplicationAndDB with Claiming {
+      Cache.set(claimKey,new Claim(transactionId = Some(transId)))
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
-      pending
-      val request = FakeRequest()
+      DBTests.createId(transId)
+      transactionComponent.claimTransaction.registerId(transId, AsyncClaimSubmissionService.BAD_REQUEST_ERROR, controllers.submission.FULL_CLAIM)
+
 
       val result = StatusRoutingController.submit(request)
 
-      status(result) mustEqual BAD_REQUEST
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustEqual Some("/async-error")
 
     }
 
 
 
-  }
+  } section "unit"
 
 }

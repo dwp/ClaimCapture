@@ -84,6 +84,7 @@ trait AsyncClaimSubmissionService {
 }
 
 object AsyncClaimSubmissionService{
+  val GENERATED = "0100"
   val SUBMITTED = "0000"
   val ACKNOWLEDGED = "0001"
   val SUCCESS = "0002"
