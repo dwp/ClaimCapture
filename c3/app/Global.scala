@@ -31,7 +31,7 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
 
     actorSystems
 
-    Logger.info("c3 Started") // used for operations, do not remove
+    Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}") // used for operations, do not remove
   }
 
   override def onStop(app: Application) {
