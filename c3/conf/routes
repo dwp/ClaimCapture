@@ -236,7 +236,7 @@ GET           /circumstances/report-changes/breaks-in-care              controll
 POST          /circumstances/report-changes/breaks-in-care              controllers.circs.s2_report_changes.G7BreaksInCare.submit
 
 GET           /circumstances/report-changes/breaks-in-care-summary      controllers.circs.s2_report_changes.G8BreaksInCareSummary.present
-#POST          /circumstances/report-changes/breaks-in-care-summary      controllers.circs.s2_report_changes.G8BreaksInCareSummary.submit
+POST          /circumstances/report-changes/breaks-in-care-summary      controllers.circs.s2_report_changes.G8BreaksInCareSummary.submit
 
 GET           /circumstances/consent-and-declaration/declaration        controllers.circs.s3_consent_and_declaration.G1Declaration.present
 POST          /circumstances/consent-and-declaration/declaration        controllers.circs.s3_consent_and_declaration.G1Declaration.submit
