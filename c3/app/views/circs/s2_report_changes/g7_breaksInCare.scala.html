@@ -1,21 +1,26 @@
 @(breaksForm: Form[models.domain.CircumstancesBreaksInCare])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
-@import helper._
 @import utils.helpers.CarersTemplate._
-@import common._
 @import views.html.helper.dates._
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.circs.s2_report_changes.main
 @import play.api.i18n.{MMessages => Messages}
 @import app.CircsBreaksWhereabouts._
 
-@circsWhereAboutsList = @{
+@circsWhereWasThePersonList = @{
     Seq(
         Hospital -> Html(Messages("circsBreaks.inhospital")),
         RespiteCare -> Html(Messages("circsBreaks.inrespitecare")),
+        Holiday -> Html(Messages("circsBreaks.onholiday")),
+        Home -> Html(Messages("circsBreaks.athome")),
+        SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
+}
+
+@circsWhereWereList = @{
+    Seq(
+        Hospital -> Html(Messages("circsBreaks.inhospital")),
         Holiday -> Html(Messages("circsBreaks.onholiday")),
         Home -> Html(Messages("circsBreaks.athome")),
         SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
@@ -46,17 +51,19 @@
                     @carersInputText(breaksForm("breaksInCareStartTime"), 'helperAbove-> Html(Messages("breaksInCareStartTime.helper")), 'maxLength -> 10)
 
                     @listRadioGroupWithOther(breaksForm("wherePersonBreaksInCare.answer"),
-                        'items -> circsWhereAboutsList,
+                        'items -> circsWhereWasThePersonList,
                             'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
                             'id -> "wherePersonBreaksInCare",
-                            'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60
+                            'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
+                            'display -> {if (breaksForm("wherePersonBreaksInCare.answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" }
                     )
 
                     @listRadioGroupWithOther(breaksForm("whereYouBreaksInCare.answer"),
-                        'items -> circsWhereAboutsList,
+                        'items -> circsWhereWereList,
                             'helperAbove-> Messages("whereYouBreaksInCare.helper"),
                             'id -> "whereYouBreaksInCare",
-                            'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60
+                            'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
+                            'display -> {if (breaksForm("whereYouBreaksInCare.answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" }
                     )
 
                     @yesNoRadioGroup(breaksForm("breakEnded.answer"))

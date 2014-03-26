@@ -17,7 +17,7 @@ class FunctionalTestCase22Spec extends FunctionalTestCommon {
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase22.csv")
       page goToThePage()
 
-      val lastPage = page runClaimWith(circs, XmlPage.title)
+      val lastPage = page runClaimWith(circs, XmlPage.title, trace=true)
 
       lastPage match {
         case p: XmlPage => {
@@ -26,7 +26,6 @@ class FunctionalTestCase22Spec extends FunctionalTestCommon {
         }
         case p: Page => println(p.source())
       }
-    }.pendingUntilFixed("Dev mode")
-
+    }.pendingUntilFixed("Devlopment in progress")
   } section "functional"
 }
