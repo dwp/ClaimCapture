@@ -18,7 +18,7 @@ object G8BreaksInCareSummary extends Controller with CachedChangeOfCircs with Na
    val additionalBreaksMapping =
     "additionalBreaks" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "text" -> optional(carersNonEmptyText(maxLength = 35))
+      "text" -> optional(carersNonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("additionalBreaks.text.required", YesNoWithText.validateOnYes _)
 

@@ -81,7 +81,6 @@ object CircumstancesScenarioFactory {
     val claim = reportBreakFromCaringBreaksInCareEndedYes
 
     claim.BreaksInCareSummaryAdditionalBreaks = no
-    claim.BreaksInCareSummaryAdditionalBreaksInfo = ""
 
     claim
   }
@@ -99,7 +98,6 @@ object CircumstancesScenarioFactory {
     val claim = reportBreakFromCaringBreaksInCareEndedYes
 
     claim.BreaksInCareSummaryAdditionalBreaks = ""
-    claim.BreaksInCareSummaryAdditionalBreaksInfo = ""
 
     claim
   }
