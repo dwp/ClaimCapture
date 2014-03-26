@@ -15,7 +15,7 @@ import play.api.Logger
  */
  class DWPBody extends XMLBuilder {
   def xml(claim: Claim, transactionId : String): Elem = {
-    signDwpClaim(<DWPBody xmlns:bs7666="http://www.govtalk.gov.uk/people/bs7666"
+    <DWPBody xmlns:bs7666="http://www.govtalk.gov.uk/people/bs7666"
                           xmlns={xmlValidator(claim).getGlobalXmlns}
                           xmlns:gds="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails"
                           xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -48,20 +48,8 @@ import play.api.Logger
           <TransactionId>{transactionId}</TransactionId>
         </DWPCAHeader>{coreXml(claim,Some(transactionId))}
       </DWPEnvelope>
-    </DWPBody>,transactionId)
+    </DWPBody>
 
-  }
-
-  /**
-   * Signed the XML provided as a sequence of nodes according to XML security standard.
-   * @param dwpClaim XML to sign
-   * @param transactionId transaction id used to indicate which section of the XML to sign (i.e. DWPCATransaction)
-   * @return  XML signed
-   */
-  private def signDwpClaim(dwpClaim: Elem,transactionId: String): Elem = {
-    val signatory = XmlSignatureFactory.buildDsaSha1Generator()
-    val xmlStringSigned = signatory.sign(dwpClaim.buildString(stripComments = true),s"$transactionId")
-    XML.loadString(xmlStringSigned)
   }
 
   protected def coreXml(claim:Claim,transactionId:Option[String]) = controllers.submission.xmlGenerator(claim,transactionId)
