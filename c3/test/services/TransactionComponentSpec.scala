@@ -17,7 +17,7 @@ class TransactionComponentSpec extends Specification with Tags {
       transactionComponent.claimTransaction.registerId(id, "0002", 1)
       transactionComponent.claimTransaction.recordMi(id, thirdParty = false, circsChange = Some(1), Some(Lang("en")))
 
-      DBTests.getId(id) mustEqual Some(TransactionStatus(id, "0002", 1, 0, Some(1), "en"))
+      DBTests.getId(id) mustEqual Some(TransactionStatus(id, "0002", 1, Some(0), Some(1), Some("en")))
 
     }
 
@@ -33,12 +33,12 @@ class TransactionComponentSpec extends Specification with Tags {
 
       val transactionStatusUpdated = DBTests.getId(id)
       transactionStatusUpdated mustNotEqual Some(existingId)
-      transactionStatusUpdated mustEqual Some(TransactionStatus(id, "0001", 0, 0, None, "en"))
+      transactionStatusUpdated mustEqual Some(TransactionStatus(id, "0001", 0, Some(0), None, Some("en")))
     }
   }
 
 }
 
-case class TransactionStatus(transactionID: String, status: String, typeI: Int, thirdParty: Int, circsChange: Option[Int], lang:String)
+case class TransactionStatus(transactionID: String, status: String, typeI: Int, thirdParty: Option[Int], circsChange: Option[Int], lang:Option[String])
 
 

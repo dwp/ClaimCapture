@@ -55,6 +55,7 @@ trait ClaimTransactionComponent {
 
 
     def updateStatus(id: String, statusCode:String, claimType:Int):Unit = DB.withConnection("carers") {implicit connection =>
+
       SQL(
         """
           UPDATE transactionstatus set status={status}, type={type}
