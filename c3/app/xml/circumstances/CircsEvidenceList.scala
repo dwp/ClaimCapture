@@ -1,17 +1,20 @@
 package xml.circumstances
 
-import models.domain.{CircumstancesReportChange, CircumstancesDeclaration, CircumstancesSelfEmployment, CircumstancesPaymentChange, CircumstancesAddressChange, Claim}
+import app.CircsBreaksWhereabouts
+import models.domain._
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 import play.api.i18n.{MMessages => Messages}
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
+import models.domain.Claim
 import scala.Some
+import controllers.Mappings
 
 object CircsEvidenceList {
   def xml(circs: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{furtherInfo(circs)}{theirInfo(circs)}{selfEmployed(circs)}{paymentChange(circs)}{addressChange(circs)}
+      {xmlGenerated()}{furtherInfo(circs)}{theirInfo(circs)}{selfEmployed(circs)}{paymentChange(circs)}{addressChange(circs)}{breaksFromCaring(circs)}{breaksFromCaringSummary(circs)}
     </EvidenceList>
   }
 
@@ -74,7 +77,7 @@ object CircsEvidenceList {
         buffer ++= textSeparatorLine(Messages("c2.g5"))
 
         buffer ++= textLine(Messages("currentlyPaidIntoBank.label") + " = " + paymentChange.currentlyPaidIntoBank.answer)
-        if (paymentChange.currentlyPaidIntoBank.answer.toLowerCase() == "yes") {
+        if (paymentChange.currentlyPaidIntoBank.answer.toLowerCase == "yes") {
           buffer ++= textLine(Messages("currentlyPaidIntoBank.text1.label") + " = " + paymentChange.currentlyPaidIntoBank.text1.get)
         } else {
           buffer ++= textLine(Messages("currentlyPaidIntoBank.text2.label") + " = " + paymentChange.currentlyPaidIntoBank.text2.get)
@@ -127,8 +130,6 @@ object CircsEvidenceList {
 
     addressChangeOption match {
       case Some(addressChange) => {
-        var caredForChangedAddress = false
-
         // previous address
         buffer ++= textSeparatorLine(Messages("c2.g6.previousAddress"))
 
@@ -181,5 +182,59 @@ object CircsEvidenceList {
     }
 
     buffer
+  }
+
+  def breaksFromCaring(circs: Claim): NodeSeq = {
+      val breaksFromCaring = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
+
+      var buffer = NodeSeq.Empty
+
+      buffer ++=  textSeparatorLine(Messages("c2.g7"))
+
+      buffer ++= textLine(Messages("breaksInCareStartDate") + " = " + breaksFromCaring.breaksInCareStartDate.`dd/MM/yyyy`)
+
+      if (!breaksFromCaring.breaksInCareStartTime.isEmpty) buffer ++= textLine(Messages("breaksInCareStartTime") + " = " + breaksFromCaring.breaksInCareStartTime)
+
+      buffer ++= textLine(Messages("wherePersonBreaksInCare.answer") + " = " + breaksFromCaring.wherePersonBreaksInCare.answer)
+      if(breaksFromCaring.wherePersonBreaksInCare.answer == CircsBreaksWhereabouts.SomewhereElse) buffer ++= textLine(Messages("wherePersonBreaksInCare.answer") + " ? Somewhere else = " +breaksFromCaring.wherePersonBreaksInCare.text.get)
+
+      buffer ++= textLine(Messages("whereYouBreaksInCare.answer") + " = " + breaksFromCaring.whereYouBreaksInCare.answer)
+      if(breaksFromCaring.whereYouBreaksInCare.answer == CircsBreaksWhereabouts.SomewhereElse) buffer ++= textLine(Messages("whereYouBreaksInCare.answer") + " = " + breaksFromCaring.whereYouBreaksInCare.text.get)
+
+      buffer ++= textLine(Messages("breakEnded.answer") + " = " + breaksFromCaring.breakEnded.answer)
+
+      breaksFromCaring.breakEnded.answer match {
+        case Mappings.yes => {
+          buffer ++= textLine(Messages("breakEnded.endDate") + " = " + breaksFromCaring.breakEnded.date.get.`dd/MM/yyyy`)
+          if (breaksFromCaring.breakEnded.time.isDefined) buffer ++= textLine(Messages("breakEnded.endTime") + " = " + breaksFromCaring.breakEnded.time.get)
+        }
+        case Mappings.no => buffer ++= textLine(Messages("expectStartCaring.answer") + " = " + breaksFromCaring.expectStartCaring.answer.get)
+      }
+
+      breaksFromCaring.expectStartCaring.answer match {
+        case Some(n) => n match {
+            case Mappings.yes => if (breaksFromCaring.expectStartCaring.expectStartCaringDate.isDefined) buffer ++= textLine(Messages("expectStartCaring.expectStartCaringDate") + " = " + breaksFromCaring.expectStartCaring.expectStartCaringDate.get.`dd/MM/yyyy`)
+            case Mappings.no => buffer ++= textLine(Messages("expectStartCaring.permanentBreakDate") + " = " + breaksFromCaring.expectStartCaring.permanentBreakDate.get.`dd/MM/yyyy`)
+            case _ =>
+         }
+        case _ =>
+      }
+
+      buffer ++= textLine(Messages("medicalCareDuringBreak") + " = " + breaksFromCaring.medicalCareDuringBreak)
+
+      if (breaksFromCaring.moreAboutChanges.isDefined) buffer ++= textLine(Messages("moreAboutChanges") + " = " + breaksFromCaring.moreAboutChanges.get)
+
+      buffer
+    }
+
+  def breaksFromCaringSummary(circs: Claim): NodeSeq = {
+      val breaksFromCaringSummary = circs.questionGroup[CircumstancesBreaksInCareSummary].getOrElse(CircumstancesBreaksInCareSummary())
+      var buffer = NodeSeq.Empty
+
+      buffer ++= textLine(Messages("additionalBreaks.label") + " = " + breaksFromCaringSummary.additionalBreaks.answer)
+
+      if (breaksFromCaringSummary.additionalBreaks.answer == Mappings.yes) buffer ++= textLine(Messages("additionalBreaks.label") + "?yes = " + breaksFromCaringSummary.additionalBreaks.text.get)
+
+      buffer
   }
 }

@@ -1,13 +1,14 @@
 package xml.circumstances
 
-import models.domain.{CircumstancesSelfEmployment, CircumstancesOtherInfo, CircumstancesStoppedCaring, ReportChanges, CircumstancesPaymentChange, CircumstancesAddressChange}
+import models.domain._
 import scala.xml.Elem
 import play.api.Logger
 import app.XMLValues._
 import app.ReportChange._
-import models.domain.Claim
 import scala.Some
 import xml.XMLComponent
+import models.domain.Claim
+import scala.Some
 
 object DWPCoCircs extends XMLComponent {
   def xml(circs: Claim, transactionId : Option[String] = None):Elem = {
@@ -70,6 +71,7 @@ object DWPCoCircs extends XMLComponent {
     lazy val stoppedCaringOption = circs.questionGroup[CircumstancesStoppedCaring]
     lazy val paymentChangeOption = circs.questionGroup[CircumstancesPaymentChange]
     lazy val addressChangeOption = circs.questionGroup[CircumstancesAddressChange]
+    lazy val breaksFromCaringOption = circs.questionGroup[CircumstancesBreaksInCare]
 
     if (additionalInfoOption.isDefined) {
       yes
@@ -93,6 +95,12 @@ object DWPCoCircs extends XMLComponent {
       }
     } else if (addressChangeOption.isDefined) {
       if (addressChangeOption.get.moreAboutChanges.isEmpty) {
+        no
+      } else {
+        yes
+      }
+    } else if (breaksFromCaringOption.isDefined){
+      if (breaksFromCaringOption.get.moreAboutChanges.isEmpty) {
         no
       } else {
         yes

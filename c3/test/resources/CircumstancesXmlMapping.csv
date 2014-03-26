@@ -24,6 +24,20 @@ About Your Self-Employment - Change in circumstances,About Your Self-Employment,
 About Your Self-Employment - Change in circumstances,About Your Self-Employment,Will the total income into your business be more than £100 a week?,CircumstancesSelfEmploymentTotalOverWeeklyIncomeThreshold,DWPCAChangeOfCircumstances>EvidenceList
 About Your Self-Employment - Change in circumstances,About Your Self-Employment,Tell us more about your changes,CircumstancesSelfEmploymentMoreAboutChanges,DWPCAChangeOfCircumstances>OtherChanges
 About Your Self-Employment - Change in circumstances,About Your Self-Employment,Tell us more about your changes,CircumstancesSelfEmploymentMoreAboutChanges,DWPCAChangeOfCircumstances>OtherChanges
+Breaks from caring - change in circumstances,Breaks from caring,When did your most recent break from caring start?,BreaksInCareStartDate,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,Start time,BreaksInCareStartTime,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,Where was the person you care for?,BreaksInCareWhereWasThePersonYouCareFor,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,Where were you?,BreaksInCareWhereWereYou,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,Has this break from caring ended?,BreaksInCareEnded,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,When did the break from caring end?,BreaksInCareEndDate,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,End time,BreaksInCareEndTime,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,Do you expect to start caring again?,BreaksInCareExpectToStartCaringAgain,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,What date do you expect to start caring again?,BreaksInCareExpectToStartCaringAgainDate,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,What date did you decide that the break was permanent?,BreaksInCareExpectToStartCaringPermanentEndDate,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,Did you or the person you care for receive any medical treatment or professional care during the break?,BreaksInCareMedicalCareDuringBreak,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,Tell us more about your changes,BreaksInCareMoreAboutChanges,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks in care that you have not already reported to us?,BreaksInCareSummaryAdditionalBreaks,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks in care that you have not already reported to us?Yes,BreaksInCareSummaryAdditionalBreaksInfo,DWPCAChangeOfCircumstances>EvidenceList
 Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges
 Consent and declaration,Further Information,Contact phone or mobile number,FurtherInfoContact,DWPCAChangeOfCircumstances>EvidenceList
 Consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have told us about?,CircumstancesDeclarationInfoAgreement,DWPCAChangeOfCircumstances>Declaration
