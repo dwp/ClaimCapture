@@ -48,7 +48,9 @@
                 <ul>
                     @dateTimePickerWithDynamicLabel(breaksForm("breaksInCareStartDate"), 'dynamicDateDays-> 34)
 
-                    @carersInputText(breaksForm("breaksInCareStartTime"), 'helperAbove-> Html(Messages("breaksInCareStartTime.helper")), 'maxLength -> 10)
+                    @carersShortInputText(breaksForm("breaksInCareStartTime"),
+                        'helperAbove-> Html(Messages("breaksInCareStartTime.helper")),
+                        'maxLength -> 10)
 
                     @listRadioGroupWithOther(breaksForm("wherePersonBreaksInCare.answer"),
                         'items -> circsWhereWasThePersonList,
@@ -71,7 +73,7 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             dateTimePickerWithDynamicLabel(breaksForm("breakEnded.endDate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27),
-                            carersInputText(breaksForm("breakEnded.endTime"), 'helperAbove-> Html(Messages("breakEnded.endTime.helper")), 'maxLength -> 10)
+                            carersShortInputText(breaksForm("breakEnded.endTime"), 'helperAbove-> Html(Messages("breakEnded.endTime.helper")), 'maxLength -> 10)
                          ),
                         'id -> "breakEndedDateTime",
                         'display ->  { if (breaksForm("breakEnded.answer").value.getOrElse("no") == "yes") "yes" else "no" }

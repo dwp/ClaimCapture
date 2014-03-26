@@ -26,8 +26,8 @@
                 <thead>
                     <tr>
                         <th>@Html(Messages("breakPeriod"))</th>
-                        <th class="desc">@Html(Messages("breaks.whereYou.label"))</th>
                         <th class="desc">@Html(Messages("wherePerson"))</th>
+                        <th class="desc">@Html(Messages("breaks.whereYou.label"))</th>
                         <th class="desc">@Html(Messages("medicalTreatment"))</th>
                         <th>@Html(Messages("change"))</th>
                     </tr>
@@ -48,11 +48,11 @@
                         </td>
 
                         <td class="desc">
-                            @Html(Messages("circsBreaks." + breaksInCare.wherePersonBreaksInCare.answer.replaceAll(" ","").toLowerCase))
+                            @Html(Messages("circsBreaks." + breaksInCare.whereYouBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))
                         </td>
 
                         <td class="desc">
-                            @Html(Messages("circsBreaks." + breaksInCare.whereYouBreaksInCare.answer.replaceAll(" ","").toLowerCase))
+                            @Html(Messages("circsBreaks." + breaksInCare.wherePersonBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))
                         </td>
 
                         <td class="desc">@if("yes" == breaksInCare.medicalCareDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</td>
@@ -75,7 +75,9 @@
 	                    inputDef = Seq(
                             carersInputTextArea(breaksInCareSummaryForm("additionalBreaks.text"),
 	                            '_label -> Messages("additionalBreaks.text.label"),
-	                            'maxLength -> 35)
+                                'helperAbove-> Html(Messages("moreAboutChanges.helper")),
+                                'helper -> Html(Messages("300charsLeft")),
+	                            'maxLength -> 300)
 	                    ),
 	                    'id -> "additionalBreaksWrap",
 	                    'display -> { if (breaksInCareSummaryForm("additionalBreaks.answer").value.getOrElse("no") == "yes") "yes" else "no" }
@@ -97,9 +99,7 @@
 
 <script type="text/javascript">
 $(function(){
-window.areaCounter({selector:"@CarersCrypto.encryptAES("wherePersonBreaksInCare_answer_wherePersonBreaksInCare_Somewhere_else")",maxChars:60});
-window.areaCounter({selector:"@CarersCrypto.encryptAES("whereYouBreaksInCare_answer_whereYouBreaksInCare_Somewhere_else")",maxChars:60});
-window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+window.areaCounter({selector:"@CarersCrypto.encryptAES("additionalBreaks_text")",maxChars:300});
 })
 $(function(){
 window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
