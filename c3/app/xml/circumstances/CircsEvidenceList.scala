@@ -14,7 +14,7 @@ import controllers.Mappings
 object CircsEvidenceList {
   def xml(circs: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{furtherInfo(circs)}{theirInfo(circs)}{selfEmployed(circs)}{paymentChange(circs)}{addressChange(circs)}{breaksFromCaring(circs)}{breaksFromCaringSummary(circs)}
+      {xmlGenerated()}{furtherInfo(circs)}{theirInfo(circs)}{selfEmployed(circs)}{paymentChange(circs)}{addressChange(circs)}
     </EvidenceList>
   }
 
