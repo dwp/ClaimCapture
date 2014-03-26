@@ -17,7 +17,6 @@ class G7BreaksInCareIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page when 'has this break from caring ended' yes" in new WithBrowser with PageObjects{
-      pending
       val page =  G7BreaksInCarePage(context)
       val claim = CircumstancesScenarioFactory.reportBreakFromCaringBreaksInCareEndedYes
       page goToThePage()
@@ -28,7 +27,6 @@ class G7BreaksInCareIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page when 'has this break from caring ended' no" in new WithBrowser with PageObjects{
-      pending
       val page =  G7BreaksInCarePage(context)
       val claim = CircumstancesScenarioFactory.reportBreakFromCaringBreaksInCareEndedNo
       page goToThePage()
@@ -39,7 +37,6 @@ class G7BreaksInCareIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page when 'has this break from caring ended' no and expect to start caring is no" in new WithBrowser with PageObjects{
-      pending
       val page =  G7BreaksInCarePage(context)
       val claim = CircumstancesScenarioFactory.reportBreakFromCaringBreaksInCareEndedNoAndExpectToStartCaringNo
       page goToThePage()

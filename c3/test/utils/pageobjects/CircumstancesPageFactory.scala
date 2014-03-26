@@ -21,6 +21,7 @@ object CircumstancesPageFactory extends PageFactory {
       case G4OtherChangeInfoPage.title => G4OtherChangeInfoPage (ctx)
       case G5PaymentChangePage.title => G5PaymentChangePage (ctx)
       case G7BreaksInCarePage.title => G7BreaksInCarePage (ctx)
+      case G8BreaksInCareSummaryPage.title => G8BreaksInCareSummaryPage (ctx)
       case G1DeclarationPage.title => G1DeclarationPage (ctx)
       case _ => new UnknownPage(title, ctx)
     }
