@@ -52,4 +52,58 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
     }
   }
+
+  "claim submission should record the correct status based on WS call results" should {
+    "record SERVICE_UNAVAILABLE" in new WithApplicationAndDB {
+      val transactionId = "1234567"
+      val service = asyncService(http.Status.SERVICE_UNAVAILABLE,transactionId)
+
+      DBTests.createId(transactionId)
+      service.submission(new Claim with FullClaim)
+
+      Thread.sleep(5000)
+      val transactionStatus = DBTests.getId(transactionId)
+
+      transactionStatus must not beEmpty
+
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,AsyncClaimSubmissionService.SERVICE_UNAVAILABLE,1,Some(0),None,Some("en")))
+
+    }
+  }
+
+  "claim submission should record the correct status based on WS call results" should {
+    "record REQUEST_TIMEOUT_ERROR" in new WithApplicationAndDB {
+      val transactionId = "1234567"
+      val service = asyncService(http.Status.REQUEST_TIMEOUT,transactionId)
+
+      DBTests.createId(transactionId)
+      service.submission(new Claim with FullClaim)
+
+      Thread.sleep(5000)
+      val transactionStatus = DBTests.getId(transactionId)
+
+      transactionStatus must not beEmpty
+
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,AsyncClaimSubmissionService.REQUEST_TIMEOUT_ERROR,1,Some(0),None,Some("en")))
+
+    }
+  }
+
+  "claim submission should record the correct status based on WS call results" should {
+    "record SERVER_ERROR" in new WithApplicationAndDB {
+      val transactionId = "1234567"
+      val service = asyncService(http.Status.INTERNAL_SERVER_ERROR,transactionId)
+
+      DBTests.createId(transactionId)
+      service.submission(new Claim with FullClaim)
+
+      Thread.sleep(5000)
+      val transactionStatus = DBTests.getId(transactionId)
+
+      transactionStatus must not beEmpty
+
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,AsyncClaimSubmissionService.SERVER_ERROR,1,Some(0),None,Some("en")))
+
+    }
+  }
 }
