@@ -89,3 +89,9 @@ case class CircumstancesBreaksInCare(breaksInCareStartDate: DayMonthYear = DayMo
 object CircumstancesBreaksInCare extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g7"
 }
+
+case class CircumstancesBreaksInCareSummary(additionalBreaks: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(CircumstancesBreaksInCareSummary)
+
+object CircumstancesBreaksInCareSummary extends QuestionGroup.Identifier {
+  val id = s"${CircumstancesReportChanges.id}.g8"
+}

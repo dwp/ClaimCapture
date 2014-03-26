@@ -103,7 +103,7 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
           .replaceError("wherePersonBreaksInCare","somewhereElse", FormError("wherePersonBreaksInCare.somewhereElse", "error.required"))
         BadRequest(views.html.circs.s2_report_changes.g7_breaksInCare(updatedFormWithErrors))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
+      f => circs.update(f) -> Redirect(controllers.circs.s2_report_changes.routes.G8BreaksInCareSummary.present())
     )
   }
 }

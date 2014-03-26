@@ -57,14 +57,14 @@ else OtherMoney.name
 
                         <td class="desc">
                             @break.whereYou.location.isEmpty match {
-                                case false => { @Html(Messages("whereabouts." + break.whereYou.location.replaceAll(" ",""))) }
+                                case false => { @Html(Messages("whereabouts." + break.whereYou.location.replaceAll(" ","").toLowerCase)) }
                                 case true => {}
                             }
                         </td>
 
                         <td class="desc">
                             @break.wherePerson.location.isEmpty match {
-                                case false => { @Html(Messages("whereabouts." + break.wherePerson.location.replaceAll(" ",""))) }
+                                case false => { @Html(Messages("whereabouts." + break.wherePerson.location.replaceAll(" ","").toLowerCase)) }
                                 case true => {}
                             }
                         </td>

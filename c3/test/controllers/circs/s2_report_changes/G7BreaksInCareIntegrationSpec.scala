@@ -3,9 +3,8 @@ package controllers.circs.s2_report_changes
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.PageObjects
-import utils.pageobjects.circumstances.s2_report_changes.G7BreaksInCarePage
+import utils.pageobjects.circumstances.s2_report_changes.{G7BreaksInCarePage,G8BreaksInCareSummaryPage}
 import controllers.CircumstancesScenarioFactory
-import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 
 
 class G7BreaksInCareIntegrationSpec extends Specification with Tags {
@@ -24,7 +23,7 @@ class G7BreaksInCareIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
 
       val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[G1DeclarationPage]
+      nextPage must beAnInstanceOf[G8BreaksInCareSummaryPage]
     }
 
     "navigate to next page when 'has this break from caring ended' no" in new WithBrowser with PageObjects{
@@ -34,7 +33,7 @@ class G7BreaksInCareIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
 
       val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[G1DeclarationPage]
+      nextPage must beAnInstanceOf[G8BreaksInCareSummaryPage]
     }
 
     "navigate to next page when 'has this break from caring ended' no and expect to start caring is no" in new WithBrowser with PageObjects{
@@ -44,7 +43,7 @@ class G7BreaksInCareIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
 
       val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[G1DeclarationPage]
+      nextPage must beAnInstanceOf[G8BreaksInCareSummaryPage]
     }
 
     "show errors when no mandatory field is filled in" in new WithBrowser with PageObjects{
