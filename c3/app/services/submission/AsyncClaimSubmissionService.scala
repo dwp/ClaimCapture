@@ -84,14 +84,14 @@ trait AsyncClaimSubmissionService {
 }
 
 object AsyncClaimSubmissionService{
-  val GENERATED = "0100"
-  val SUBMITTED = "0000"
-  val ACKNOWLEDGED = "0001"
-  val SUCCESS = "0002"
-  val UNKNOWN_ERROR = "9001"
-  val BAD_REQUEST_ERROR = "9002"
-  val REQUEST_TIMEOUT_ERROR = "9003"
-  val SERVER_ERROR = "9004"
-  val COMMUNICATION_ERROR = "9005"
-  val SERVICE_UNAVAILABLE = "9006"
+  val GENERATED = "0100" //submitting
+  val SUBMITTED = "0000" //submitting
+  val ACKNOWLEDGED = "0001" //thankyou
+  val SUCCESS = "0002" //thankyou
+  val UNKNOWN_ERROR = "9001" //error
+  val BAD_REQUEST_ERROR = "9002" //error
+  val REQUEST_TIMEOUT_ERROR = "9003"//error
+  val SERVER_ERROR = "9004"//error
+  val COMMUNICATION_ERROR = "9005"//error
+  val SERVICE_UNAVAILABLE = "9006"//errorretry
 }
