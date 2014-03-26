@@ -47,33 +47,6 @@ object DBTests{
       SQL("INSERT INTO transactionids (transaction_id) VALUES ({id});").on("id"->id).execute()
     }
   }
-
-  val parser = {
-    get[String]("transaction_id") ~
-    get[String]("status") ~
-    get[Int]("type") ~
-    get[Option[Int]]("thirdparty") ~
-    get[Option[Int]]("circs_type") ~
-    get[Option[String]]("lang") map {
-      case id~status~typeI~thirdparty~circsType~lang => TransactionStatus(id,status,typeI,thirdparty,circsType, lang)
-    }
-  }
-
-  def getId(id: String)(implicit app:FakeApplication):Option[TransactionStatus] = {
-    import scala.language.postfixOps
-    DB.withConnection("carers"){implicit c =>
-      SQL(
-        """
-          SELECT transaction_id, status,type,thirdparty,circs_type,lang
-          FROM transactionstatus
-          WHERE transaction_id = {id}
-        """
-      ).on("id"->id)
-       .as(parser singleOpt)
-    }
-  }
-
-
 }
 
 class WithApplicationAndDB extends WithApplication(app = FakeApplication(additionalConfiguration = inMemoryDatabase("carers",options=Map("MODE" -> "PostgreSQL","DB_CLOSE_DELAY"->"-1")))) with Around{

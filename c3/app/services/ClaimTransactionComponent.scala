@@ -4,6 +4,8 @@ import play.api.db.DB
 import play.api.Play.current
 import anorm._
 import play.api.i18n.Lang
+import anorm.SqlParser._
+import anorm.~
 
 trait ClaimTransactionComponent {
   val claimTransaction : ClaimTransaction
@@ -64,8 +66,33 @@ trait ClaimTransactionComponent {
       ).on("status"->statusCode,"type"->claimType,"transactionId"->id).executeUpdate()
     }
 
+    val transactionStatusParser = {
+      get[String]("transaction_id") ~
+        get[String]("status") ~
+        get[Int]("type") ~
+        get[Option[Int]]("thirdparty") ~
+        get[Option[Int]]("circs_type") ~
+        get[Option[String]]("lang") map {
+        case id~status~typeI~thirdparty~circsType~lang => TransactionStatus(id,status,typeI,thirdparty,circsType, lang)
+      }
+    }
+
+    def getTransactionStatusById(id: String):Option[TransactionStatus] = {
+      import scala.language.postfixOps
+      DB.withConnection("carers"){implicit c =>
+        SQL(
+          """
+          SELECT transaction_id, status,type,thirdparty,circs_type,lang
+          FROM transactionstatus
+          WHERE transaction_id = {id}
+          """
+        ).on("id"->id)
+          .as(transactionStatusParser singleOpt)
+      }
+    }
 
   }
+
 
   class StubClaimTransaction extends ClaimTransaction {
     override def generateId: String = "TEST623"
@@ -78,6 +105,8 @@ trait ClaimTransactionComponent {
   }
 
 }
+
+case class TransactionStatus(transactionID: String, status: String, typeI: Int, thirdParty: Option[Int], circsChange: Option[Int], lang:Option[String])
 
 /**
  * Exception thrown by UniqueTransactionId if it could not generate an id. The cause is described by the nested exception.

@@ -19,7 +19,7 @@ trait AsyncClaimSubmissionService {
   import AsyncClaimSubmissionService._
 
   def submission(claim: Claim): Unit = {
-    val txnID = claimTransaction.generateId
+    val txnID = claim.transactionId.get
     Logger.info(s"Retrieved Id : $txnID")
 
 
