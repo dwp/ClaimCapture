@@ -77,6 +77,42 @@ object CircumstancesScenarioFactory {
     claim
   }
 
+  def reportBreakFromCaringSummaryBreaksInCareEndedYesWithNoAdditionalBreaks = {
+    val claim = reportBreakFromCaringBreaksInCareEndedYes
+
+    claim.BreaksInCareSummaryAdditionalBreaks = no
+    claim.BreaksInCareSummaryAdditionalBreaksInfo = ""
+
+    claim
+  }
+
+  def reportBreakFromCaringSummaryBreaksInCareEndedYesWithAdditionalBreaks = {
+    val claim = reportBreakFromCaringBreaksInCareEndedYes
+
+    claim.BreaksInCareSummaryAdditionalBreaks = yes
+    claim.BreaksInCareSummaryAdditionalBreaksInfo = "A break I haven't told you about yet"
+
+    claim
+  }
+
+  def reportBreakFromCaringSummaryBreaksInCareEndedYesWithAdditionalBreaksNotAnswered = {
+    val claim = reportBreakFromCaringBreaksInCareEndedYes
+
+    claim.BreaksInCareSummaryAdditionalBreaks = ""
+    claim.BreaksInCareSummaryAdditionalBreaksInfo = ""
+
+    claim
+  }
+
+  def reportBreakFromCaringSummaryBreaksInCareEndedYesWithAdditionalBreaksButNotSpecified = {
+    val claim = reportBreakFromCaringBreaksInCareEndedYes
+
+    claim.BreaksInCareSummaryAdditionalBreaks = yes
+    claim.BreaksInCareSummaryAdditionalBreaksInfo = ""
+
+    claim
+  }
+
   def reportBreakFromCaringBreaksInCareEndedNo = {
     val claim = reportBreakFromCaring
 
