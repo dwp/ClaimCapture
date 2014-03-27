@@ -21,6 +21,8 @@ POST          /preview                                                  controll
 GET           /timeout                                                  controllers.ClaimEnding.timeout
 GET           /circs-timeout                                            controllers.CircsEnding.timeout
 
+GET           /error-retry                                              controllers.submission.StatusRoutingController.errorRetry
+
 # Unrecoverable error
 GET           /error                                                    controllers.ClaimEnding.error
 GET           /circs-error                                              controllers.CircsEnding.error
@@ -28,6 +30,9 @@ GET           /circs-error                                              controll
 # Claim submission
 POST          /submit        @controllers.submission.ClaimSubmissionController.submit
 POST          /circs-submit        @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
+POST          /async-submit                                             controllers.submission.AsyncSubmissionController.submit
+GET           /async-submitting                                         controllers.submission.StatusRoutingController.present
+GET           /async-error                                              controllers.submission.StatusRoutingController.error
 
 # Thank you
 GET           /thankyou/apply-carers                                    controllers.ClaimEnding.thankyou

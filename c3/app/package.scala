@@ -30,11 +30,11 @@ package object app {
   }
 
   object CircsBreaksWhereabouts {
-    val Home = "At_home"
-    val Hospital = "In_hospital"
-    val Holiday = "On_holiday"
-    val RespiteCare = "In_respite_care"
-    val SomewhereElse = "Somewhere_else"
+    val Home = "At home"
+    val Hospital = "In hospital"
+    val Holiday = "On holiday"
+    val RespiteCare = "In respite care"
+    val SomewhereElse = "Somewhere else"
   }
 
   object PaymentFrequency {

@@ -96,10 +96,20 @@ object CircValue {
   private def prepareCircValue(claimValue: String, attribute:String) = {
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
 
-    if (cleanValue.contains("/") && !attribute.startsWith("CircumstancesSelfEmploymentWhenThisStarted") && !attribute.startsWith("CircumstancesSelfEmploymentFinishedStillCaringDate")) {
+    if (cleanValue.contains("/") && !checkAttributeToExclude(attribute)) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
       date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))
     } else cleanValue
+  }
+
+  private def checkAttributeToExclude (attribute:String):Boolean = {
+    val attributes = Seq("CircumstancesSelfEmploymentWhenThisStarted",
+      "CircumstancesSelfEmploymentFinishedStillCaringDate", "BreaksInCareStartDate",
+      "BreaksInCareEndDate", "BreaksInCareExpectToStartCaringAgainDate",
+      "BreaksInCareExpectToStartCaringPermanentEndDate"
+    )
+    attributes.foreach(f => if(f.startsWith(attribute)) return true)
+    false
   }
 
   def apply(attribute: String, value: String, question: String) = new CircValue(attribute, prepareCircValue(value,attribute), prepareQuestion(question))
