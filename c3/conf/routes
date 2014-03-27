@@ -28,10 +28,11 @@ GET           /error                                                    controll
 GET           /circs-error                                              controllers.CircsEnding.error
 
 # Claim submission
-POST          /submit        @controllers.submission.ClaimSubmissionController.submit
-POST          /circs-submit        @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
+POST          /submit                                                   @controllers.submission.ClaimSubmissionController.submit
+POST          /circs-submit                                             @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
 POST          /async-submit                                             controllers.submission.AsyncSubmissionController.submit
 GET           /async-submitting                                         controllers.submission.StatusRoutingController.present
+POST          /async-submitting                                         controllers.submission.StatusRoutingController.submit
 GET           /async-error                                              controllers.submission.StatusRoutingController.error
 
 # Thank you
