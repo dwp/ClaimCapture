@@ -6,10 +6,11 @@
 @common.govMain(Messages("s11.g7")) {
     @form(action = controllers.submission.routes.ClaimSubmissionController.submit) {
     <div id="wrapper" class="carers-allowance">
-        <div id="jswrapper" hidden="true" class="carers-container">
+        <div class="carers-container">
             <article class="error-statement">
 
-                <h1>@Html(Messages("s11.g7.help1"))<span id="dots"></span></h1>
+                    <h1>@Html(Messages("s11.g7.help1"))<span id="dots"></span></h1>
+
 
                 <div class="prompt submitting">
                     <p>@Html(Messages("s11.g7.help2"))</p>
@@ -18,17 +19,9 @@
                 </div>
 
             </article>
+
+
         </div>
-
-        <nav id="refresh" class="form-steps">
-            <div class="prompt submitting">
-                <p>@Html(Messages("s11.g7.refresh1"))</p>
-                <p>@Html(Messages("s11.g7.refresh2"))</p>
-                <span>i</span>
-            </div>
-            <button type="submit" name="action" value="next" class="button secondary" @views.html.ga.trackSubmit(true)>@Html(Messages("s11.g7.refresh"))</button>
-        </nav>
-
     </div>
     }
 }(views.html.common.submittingFooter(), lang, request)
@@ -45,8 +38,7 @@
         setTimeout(dots,500);
     }
     $(function(){
-        $("#refresh").hide();
-        $("#jswrapper").show();
+
         $("form").submit();
         setTimeout(dots,1000);
     })
