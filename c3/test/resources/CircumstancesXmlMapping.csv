@@ -27,7 +27,9 @@ About Your Self-Employment - Change in circumstances,About Your Self-Employment,
 Breaks from caring - change in circumstances,Breaks from caring,When did your most recent break from caring start?,BreaksInCareStartDate,DWPCAChangeOfCircumstances>EvidenceList
 Breaks from caring - change in circumstances,Breaks from caring,Start time,BreaksInCareStartTime,DWPCAChangeOfCircumstances>EvidenceList
 Breaks from caring - change in circumstances,Breaks from caring,Where was the person you care for?,BreaksInCareWhereWasThePersonYouCareFor,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,Where was the person you care for? Somewhere else,BreaksInCareWhereWasThePersonYouCareForSomewhereElse,DWPCAChangeOfCircumstances>EvidenceList
 Breaks from caring - change in circumstances,Breaks from caring,Where were you?,BreaksInCareWhereWereYou,DWPCAChangeOfCircumstances>EvidenceList
+Breaks from caring - change in circumstances,Breaks from caring,Where were you? Somewhere else,BreaksInCareWhereWereYouSomewhereElse,DWPCAChangeOfCircumstances>EvidenceList
 Breaks from caring - change in circumstances,Breaks from caring,Has this break from caring ended?,BreaksInCareEnded,DWPCAChangeOfCircumstances>EvidenceList
 Breaks from caring - change in circumstances,Breaks from caring,When did the break from caring end?,BreaksInCareEndDate,DWPCAChangeOfCircumstances>EvidenceList
 Breaks from caring - change in circumstances,Breaks from caring,End time,BreaksInCareEndTime,DWPCAChangeOfCircumstances>EvidenceList

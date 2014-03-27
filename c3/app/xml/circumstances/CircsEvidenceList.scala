@@ -200,10 +200,10 @@ object CircsEvidenceList {
           if (breaksFromCaring.breaksInCareStartTime.isDefined) buffer ++= textLine(Messages("breaksInCareStartTime") + " = " + breaksFromCaring.breaksInCareStartTime.get)
 
           buffer ++= textLine(Messages("wherePersonBreaksInCare.answer") + " = " + breaksFromCaring.wherePersonBreaksInCare.answer.replace("_", " "))
-          if(breaksFromCaring.wherePersonBreaksInCare.answer == CircsBreaksWhereabouts.SomewhereElse) buffer ++= textLine(Messages("wherePersonBreaksInCare.answer") + " ? Somewhere else = " +breaksFromCaring.wherePersonBreaksInCare.text.get)
+          if(breaksFromCaring.wherePersonBreaksInCare.answer == CircsBreaksWhereabouts.SomewhereElse) buffer ++= textLine(Messages("wherePersonBreaksInCare.answer") + " Somewhere else = " +breaksFromCaring.wherePersonBreaksInCare.text.get)
 
           buffer ++= textLine(Messages("whereYouBreaksInCare.answer") + " = " + breaksFromCaring.whereYouBreaksInCare.answer.replace("_", " "))
-          if(breaksFromCaring.whereYouBreaksInCare.answer == CircsBreaksWhereabouts.SomewhereElse) buffer ++= textLine(Messages("whereYouBreaksInCare.answer") + " = " + breaksFromCaring.whereYouBreaksInCare.text.get)
+          if(breaksFromCaring.whereYouBreaksInCare.answer == CircsBreaksWhereabouts.SomewhereElse) buffer ++= textLine(Messages("whereYouBreaksInCare.answer") + " Somewhere else = " + breaksFromCaring.whereYouBreaksInCare.text.get)
 
           buffer ++= textLine(Messages("breakEnded.answer") + " = " + breaksFromCaring.breakEnded.answer)
 
