@@ -7,5 +7,10 @@ object AsyncActors {
 
   val actorSystem = ActorSystem("async-actor-system")
 
-  def asyncActor = actorSystem.actorOf(Props[AsyncSubmissionActor])
+  val asyncActorProps = Props[AsyncSubmissionActor]
+
+  val asyncManagerActorProps = Props(classOf[AsyncSubmissionManagerActor],asyncActorProps)
+
+  val asyncManagerActor = actorSystem.actorOf(asyncManagerActorProps)
+
 }

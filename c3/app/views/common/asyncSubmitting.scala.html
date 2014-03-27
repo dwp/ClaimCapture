@@ -47,7 +47,7 @@
     $(function(){
         $("#refresh").hide();
         $("#jswrapper").show();
-        $("form").submit();
+        setTimeout(function(){$("form").submit()},30000);
         setTimeout(dots,1000);
     })
 </script>

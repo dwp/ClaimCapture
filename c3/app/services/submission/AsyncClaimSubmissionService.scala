@@ -25,9 +25,14 @@ trait AsyncClaimSubmissionService {
 
     webServiceClient.submitClaim(claim, txnID).map(
       response => {
-        claimTransaction.registerId(txnID, SUBMITTED, claimType(claim))
-        recordMi(claim, txnID)
-        processResponse(claim, txnID, response)
+        Logger.debug("Got response from WS:"+response)
+        try{
+          claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
+          recordMi(claim, txnID)
+          processResponse(claim, txnID, response)
+        }catch{
+          case e:Exception => Logger.error(e.getMessage+" "+e.getStackTraceString)
+        }
       }
     )
   }
@@ -54,6 +59,7 @@ trait AsyncClaimSubmissionService {
   }
 
   private def processResponse(claim: Claim, txnID: String, response: Response): Unit = {
+    Logger.debug("Response status is "+response.status)
     response.status match {
       case http.Status.OK => ok(claim,txnID,response)
 
