@@ -18,20 +18,19 @@ import play.api.data.FormError
  * Created by neddakaltcheva on 3/20/14.
  */
 object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable {
+  val whereWasPersonMapping =
+    "wherePersonBreaksInCare" -> mapping(
+      "answer" -> nonEmptyText,
+      "text" -> optional(text)
+    )(RadioWithText.apply)(RadioWithText.unapply)
+     .verifying("wherePersonBreaksInCare.text.required", RadioWithText.validateOnOther _)
 
   val whereWereYouMapping =
     "whereYouBreaksInCare" -> mapping(
       "answer" -> nonEmptyText,
-      "somewhereElse" -> optional(text)
+      "text" -> optional(text)
     )(RadioWithText.apply)(RadioWithText.unapply)
-    .verifying("somewhereElse", RadioWithText.validateOnOther _)
-
-  val whereWasPersonMapping =
-    "wherePersonBreaksInCare" -> mapping(
-      "answer" -> nonEmptyText,
-      "somewhereElse" -> optional(text)
-    )(RadioWithText.apply)(RadioWithText.unapply)
-     .verifying("somewhereElse", RadioWithText.validateOnOther _)
+    .verifying("whereYouBreaksInCare.text.required", RadioWithText.validateOnOther _)
 
   val breakEndedMapping =
     "breakEnded" -> mapping(
@@ -99,8 +98,8 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
           .replaceError("breakEnded","endDate", FormError("breakEnded.endDate", "error.required"))
           .replaceError("","expectStartCaring", FormError("expectStartCaring.answer", "error.required"))
           .replaceError("expectStartCaring","permanentBreakDate", FormError("expectStartCaring.permanentBreakDate", "error.required"))
-          .replaceError("whereYouBreaksInCare","somewhereElse", FormError("whereYouBreaksInCare.somewhereElse", "error.required"))
-          .replaceError("wherePersonBreaksInCare","somewhereElse", FormError("wherePersonBreaksInCare.somewhereElse", "error.required"))
+          .replaceError("wherePersonBreaksInCare","wherePersonBreaksInCare.text.required", FormError("wherePersonBreaksInCare.text", "error.required"))
+          .replaceError("whereYouBreaksInCare","whereYouBreaksInCare.text.required", FormError("whereYouBreaksInCare.text", "error.required"))
         BadRequest(views.html.circs.s2_report_changes.g7_breaksInCare(updatedFormWithErrors))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s2_report_changes.routes.G8BreaksInCareSummary.present())
