@@ -12,11 +12,6 @@ object G5Submit extends Controller with CachedClaim with Navigable {
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
-
-    if (getProperty("asyncSubmit",false)){
-      AsyncActors.asyncActor ! claim
-    }
-
     Redirect(routes.G7Submitting.present())
   }
 }

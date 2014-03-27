@@ -84,4 +84,8 @@ case class Claim(key: String = CachedClaim.key, sections: List[Section] = List()
     case Some(c: ClaimDate) => Some(c.dateOfClaim)
     case _ => None
   }
+
+  def withTransactionId(transactionID: String) = {
+    copy(transactionId = Some(transactionID))
+  }
 }

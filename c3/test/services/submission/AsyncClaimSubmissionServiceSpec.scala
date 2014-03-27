@@ -8,6 +8,7 @@ import play.api.libs.ws.Response
 import models.domain.{FullClaim, Claim}
 import org.specs2.mock.Mockito
 import models.view.CachedClaim
+import play.api.test.FakeApplication
 
 
 class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Tags with CachedClaim {
@@ -38,13 +39,15 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
   val transactionId = "1234567"
 
+
   "claim submission" should {
     "record BAD_REQUEST" in new WithApplicationAndDB {
 
       val service = asyncService(http.Status.BAD_REQUEST,transactionId)
 
-      DBTests.createId(transactionId)
-      service.submission(new Claim(transactionId = Some(transactionId)) with FullClaim)
+      val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
+
+      serviceSubmission(service, claim)
 
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
@@ -57,8 +60,9 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
       val service = asyncService(http.Status.OK,transactionId,result = "response")
 
-      DBTests.createId(transactionId)
-      service.submission(new Claim(transactionId = Some(transactionId)) with FullClaim)
+      val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
+
+      serviceSubmission(service, claim)
 
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
@@ -71,8 +75,9 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
       val service = asyncService(http.Status.SERVICE_UNAVAILABLE,transactionId)
 
-      DBTests.createId(transactionId)
-      service.submission(new Claim(transactionId = Some(transactionId)) with FullClaim)
+      val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
+
+      serviceSubmission(service, claim)
 
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
@@ -85,8 +90,9 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
       val service = asyncService(http.Status.REQUEST_TIMEOUT,transactionId)
 
-      DBTests.createId(transactionId)
-      service.submission(new Claim(transactionId = Some(transactionId)) with FullClaim)
+      val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
+
+      serviceSubmission(service, claim)
 
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
@@ -99,8 +105,9 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
       val service = asyncService(http.Status.INTERNAL_SERVER_ERROR,transactionId)
 
-      DBTests.createId(transactionId)
-      service.submission(new Claim(transactionId = Some(transactionId)) with FullClaim)
+      val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
+
+      serviceSubmission(service, claim)
 
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
@@ -110,4 +117,10 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
     }
   } section "unit"
 
+
+  def serviceSubmission(service: AsyncClaimSubmissionService with ClaimTransactionComponent, claim: Claim)(implicit app: FakeApplication) {
+    DBTests.createId(transactionId)
+    service.claimTransaction.registerId(transactionId, AsyncClaimSubmissionService.SUBMITTED, controllers.submission.claimType(claim))
+    service.submission(claim)
+  }
 }
