@@ -41,7 +41,7 @@ class G7BreaksInCareFormSpec extends Specification with Tags {
             "breaksInCareStartTime" -> breaksInCareStartTime,
             "wherePersonBreaksInCare.answer" -> CircsBreaksWhereabouts.Hospital,
             "whereYouBreaksInCare.answer" -> CircsBreaksWhereabouts.SomewhereElse,
-            "whereYouBreaksInCare.somewhereElse" -> "Other reasons",
+            "whereYouBreaksInCare.text" -> "Other reasons",
             "breakEnded.answer" -> yes,
             "breakEnded.endDate.day" -> breakEndedEndDateDay,
             "breakEnded.endDate.month" -> breakEndedEndDateMonth,
