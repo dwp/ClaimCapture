@@ -52,33 +52,15 @@
                         'helperAbove-> Html(Messages("breaksInCareStartTime.helper")),
                         'maxLength -> 10)
 
-                    @listRadioGroup(breaksForm("wherePersonBreaksInCare")("answer"),
-                        'items -> circsWhereWasThePersonList)
+                    @listRadioGroupWithOther(breaksForm("wherePersonBreaksInCare"),
+                        'items -> circsWhereWasThePersonList,
+                        'wrapperName -> "wherePersonBreaksInCareWrap",
+                        'otherValue -> SomewhereElse)
 
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(
-                            carersInputTextArea(breaksForm("wherePersonBreaksInCare")("text"),
-                                'ignoreLabel -> true,
-                                'placeholder -> Messages("ifOtherPleaseSpecify"),
-                                'textAreaHelper -> Html(Messages("60charsLeft")),
-                                'maxLength -> 60)
-                        ),
-                        'id -> "wherePersonBreaksInCareWrap",
-                        'display -> {if (breaksForm("wherePersonBreaksInCare")("answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" })
-
-                    @listRadioGroup(breaksForm("whereYouBreaksInCare")("answer"),
-                        'items -> circsWhereWasThePersonList)
-
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(
-                            carersInputTextArea(breaksForm("whereYouBreaksInCare")("text"),
-                                'ignoreLabel -> true,
-                                'placeholder -> Messages("ifOtherPleaseSpecify"),
-                                'textAreaHelper -> Html(Messages("60charsLeft")),
-                                'maxLength -> 60)
-                        ),
-                        'id -> "whereYouBreaksInCareWrap",
-                        'display -> {if (breaksForm("whereYouBreaksInCare")("answer").value.getOrElse("no") == SomewhereElse) "yes" else "no" })
+                    @listRadioGroupWithOther(breaksForm("whereYouBreaksInCare"),
+                        'items -> circsWhereWasThePersonList,
+                        'wrapperName -> "whereYouBreaksInCareWrap",
+                        'otherValue -> SomewhereElse)
 
                     @yesNoRadioGroup(breaksForm("breakEnded.answer"))
 

@@ -7,11 +7,17 @@
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
 
-    @radioListPlaceholder(field, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items && e._1 == 'maxLength && e._1 == 'textAreaHelper) ++ Seq('listWithOther -> "true"): _*)
+    @listRadioGroup(field("answer"), args.find(_._1 == 'items).get)
 
-    @defining((args.toMap.get('display).map(_.toString).getOrElse("yes") == args.toMap.get('visibleOn).map(_.toString).getOrElse("yes")) match { case true => "block" case _ => "none" }) { styleDisplay =>
-        <li id="@{args.toMap.get('id).map(_.toString + "_wrap").getOrElse("no-id")}" class="other-detail@{if(field.hasErrors)" validation" else ""}" style="display: @styleDisplay;">
-            @carersInputTextArea(field(id), (Seq('placeholder -> Messages("ifOtherPleaseSpecify"), 'ignoreLabel -> true) ++ args.filterNot(p => p._1 == 'id || p._1 == 'items)):_*)
-        </li>
-    }
+    @otherDetailPlaceHolder(
+        inputDef = Seq(
+            carersInputTextArea(field("text"),
+                'ignoreLabel -> true,
+                'placeholder -> Messages("ifOtherPleaseSpecify"),
+                'textAreaHelper -> Html(Messages("60charsLeft")),
+                'maxLength -> 60)
+        ),
+        'id -> args.toMap.get('wrapperName).map(_.toString).getOrElse("answerWrap"),
+        'display -> {if (field("answer").value.getOrElse("no") == args.toMap.get('otherValue).map(_.toString).getOrElse("no")) "yes" else "no" })
+
 }
