@@ -2,7 +2,7 @@
 
 @import play.api.i18n.{MMessages => Messages}
 
-<div class="feedback-container">
+<section class="feedback-container">
 	<h2>@Html(Messages("feedback.help1"))</h2>
 
 	<p><a href="/internal-claim-notes" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>@Html(Messages("feedback.help2a"))</a> @Html(Messages("feedback.help2b"))</p>
@@ -12,4 +12,4 @@
     <p>@Html(Messages("feedback.help4a")) <a href="mailto:cau.e-service-feedback@@dwp.gsi.gov.uk?subject=Carers" @views.html.ga.trackClickEvent(linkName = "Your Feedback")>@Html(Messages("feedback.help4b"))</a> @Html(Messages("feedback.help4c"))</p>
 			
 	<div class="feed-close">@Html(Messages("feedback.close"))</div>
-</div>
+</section>

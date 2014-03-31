@@ -27,11 +27,6 @@ main {
 @import 'feedback';
 
 
-
-
-
-
-
 .carers-allowance {
    border-top: 10px solid $mainstream-brand;
    border-bottom: 10px solid $mainstream-brand;
@@ -134,6 +129,12 @@ main {
 		   	   position: absolute;
 		   	   top: 1px; 
 		   	   left: 1px;
+	   	   }
+	   	   &.nestedLabel {
+		   	   	font-size: 19px;
+				font-weight: 400;
+				color: #000;
+				padding-bottom: .5em;
 	   	   }
    	   }
    	   
