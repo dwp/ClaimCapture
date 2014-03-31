@@ -33,7 +33,7 @@ slideDownExpectStartCaring = (expectStartCaringY, expectStartCaringN) ->
   $("#" + expectStartCaringY).attr("checked", false)
   $("#" + expectStartCaringN).attr("checked", false)
 
-window.wherePersonBreaksInCareEvents = (wrapperId, inHospital, inRespiteCare, onHoliday, atHome, somewherElse, text) ->
+window.wherePersonBreaksInCareEvents = (wrapperId, inHospital, inRespiteCare, onHoliday, atHome, somewhereElse, text) ->
   $("#" + inHospital).on "click", ->
     $("#" + wrapperId).slideUp 500, ->
       $("#" + text).val("")
@@ -50,12 +50,12 @@ window.wherePersonBreaksInCareEvents = (wrapperId, inHospital, inRespiteCare, on
     $("#" + wrapperId).slideUp 500, ->
       $("#" + text).val("")
 
-  $("#" + somewherElse).on "click", ->
+  $("#" + somewhereElse).on "click", ->
     $("#" + wrapperId).slideDown 500
     $("#" + wrapperId).css('display', "block")
 
 
-window.whereYouBreaksInCareEvents = (wrapperId, inHospital, onHoliday, atHome, somewherElse, text) ->
+window.whereYouBreaksInCareEvents = (wrapperId, inHospital, onHoliday, atHome, somewhereElse, text) ->
   $("#" + inHospital).on "click", ->
     $("#" + wrapperId).slideUp 500, ->
       $("#" + text).val("")
@@ -68,7 +68,7 @@ window.whereYouBreaksInCareEvents = (wrapperId, inHospital, onHoliday, atHome, s
     $("#" + wrapperId).slideUp 500, ->
       $("#" + text).val("")
 
-  $("#" + somewherElse).on "click", ->
+  $("#" + somewhereElse).on "click", ->
     $("#" + wrapperId).slideDown 500
     $("#" + wrapperId).css('display', "block")
 
