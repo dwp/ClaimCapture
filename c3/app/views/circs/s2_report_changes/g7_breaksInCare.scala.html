@@ -44,8 +44,8 @@
             </fieldset>
 
             <fieldset class="form-elements">
-
                 <ul>
+
                     @dateTimePickerWithDynamicLabel(breaksForm("breaksInCareStartDate"), 'dynamicDateDays-> 34)
 
                     @carersShortInputText(breaksForm("breaksInCareStartTime"),
@@ -55,11 +55,15 @@
                     @listRadioGroupWithOther(breaksForm("wherePersonBreaksInCare"),
                         'items -> circsWhereWasThePersonList,
                         'wrapperName -> "wherePersonBreaksInCareWrap",
+                        '_nestedFieldSet -> true,
+                        'maxLength -> 60,
                         'otherValue -> SomewhereElse)
 
                     @listRadioGroupWithOther(breaksForm("whereYouBreaksInCare"),
                         'items -> circsWhereWasThePersonList,
                         'wrapperName -> "whereYouBreaksInCareWrap",
+                        '_nestedFieldSet -> true,
+                        'maxLength -> 60,
                         'otherValue -> SomewhereElse)
 
                     @yesNoRadioGroup(breaksForm("breakEnded.answer"))
