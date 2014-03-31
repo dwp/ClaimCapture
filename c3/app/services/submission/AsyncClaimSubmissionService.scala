@@ -11,12 +11,11 @@ import ExecutionContext.Implicits.global
 import play.api.libs.ws.Response
 import models.domain.Claim
 import scala.Some
+import AsyncClaimSubmissionService._
 
 trait AsyncClaimSubmissionService {
 
   this: ClaimTransactionComponent with WebServiceClientComponent =>
-
-  import AsyncClaimSubmissionService._
 
   def submission(claim: Claim): Unit = {
     val txnID = claim.transactionId.get

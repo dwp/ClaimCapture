@@ -21,7 +21,8 @@ POST          /preview                                                  controll
 GET           /timeout                                                  controllers.ClaimEnding.timeout
 GET           /circs-timeout                                            controllers.CircsEnding.timeout
 
-GET           /error-retry                                              controllers.submission.StatusRoutingController.errorRetry
+GET           /error-retry                                              controllers.submission.ClaimStatusRoutingController.errorRetry
+GET           /circs-error-retry                                        controllers.submission.CofCStatusRoutingController.errorRetry
 
 # Unrecoverable error
 GET           /error                                                    controllers.ClaimEnding.error
@@ -30,10 +31,13 @@ GET           /circs-error                                              controll
 # Claim submission
 POST          /submit                                                   @controllers.submission.ClaimSubmissionController.submit
 POST          /circs-submit                                             @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
-POST          /async-submit                                             controllers.submission.AsyncSubmissionController.submit
-GET           /async-submitting                                         controllers.submission.StatusRoutingController.present
-POST          /async-submitting                                         controllers.submission.StatusRoutingController.submit
-GET           /async-error                                              controllers.submission.StatusRoutingController.error
+
+GET           /async-submitting                                         controllers.submission.ClaimStatusRoutingController.present
+POST          /async-submitting                                         controllers.submission.ClaimStatusRoutingController.submit
+GET           /async-error                                              controllers.submission.ClaimStatusRoutingController.error
+GET           /circs-async-submitting                                   controllers.submission.CofCStatusRoutingController.present
+POST          /circs-async-submitting                                   controllers.submission.CofCStatusRoutingController.submit
+GET           /circs-async-error                                        controllers.submission.CofCStatusRoutingController.error
 
 # Thank you
 GET           /thankyou/apply-carers                                    controllers.ClaimEnding.thankyou

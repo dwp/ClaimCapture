@@ -15,6 +15,7 @@ import play.api.mvc.Request
 import play.api.mvc.AnyContent
 import controllers.CarersForms._
 import play.api.i18n.Lang
+import models.view.CachedClaim.ClaimResult
 
 
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with Navigable {

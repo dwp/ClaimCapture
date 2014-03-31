@@ -4,7 +4,6 @@ import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
-import play.api.data.FormError
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain.Hours

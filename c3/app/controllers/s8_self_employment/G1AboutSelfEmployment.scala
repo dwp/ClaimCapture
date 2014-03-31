@@ -1,13 +1,13 @@
 package controllers.s8_self_employment
 
 import language.reflectiveCalls
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import play.api.mvc.Request
 import play.api.mvc.AnyContent
 import controllers.Mappings._
-import models.domain.{Claim, AboutSelfEmployment}
+import models.domain.AboutSelfEmployment
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import SelfEmployment._
@@ -16,6 +16,7 @@ import controllers.CarersForms._
 import play.api.data.FormError
 import models.domain.Claim
 import play.api.i18n.Lang
+import models.view.CachedClaim.ClaimResult
 
 object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

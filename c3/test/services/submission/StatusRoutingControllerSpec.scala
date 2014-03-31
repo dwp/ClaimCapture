@@ -1,7 +1,7 @@
 package services.submission
 
 import org.specs2.mutable.{Tags, Specification}
-import controllers.submission.StatusRoutingController
+import controllers.submission.{ClaimStatusRoutingController, StatusRoutingController}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.{ClaimTransactionComponent, DBTests, WithApplicationAndDB}
@@ -30,7 +30,7 @@ class StatusRoutingControllerSpec extends Specification with Tags {
 
       // call controller which will check and find success status in db
       // how do we pass txId to controller or do we need to at all?
-      val result = StatusRoutingController.submit(request)
+      val result = ClaimStatusRoutingController.submit(request)
 
       // ensure that the controller processed the success status properly
       // and that it redirects to the happy route
@@ -48,7 +48,7 @@ class StatusRoutingControllerSpec extends Specification with Tags {
       DBTests.createId(transId)
       transactionComponent.claimTransaction.registerId(transId, AsyncClaimSubmissionService.SERVICE_UNAVAILABLE, controllers.submission.FULL_CLAIM)
 
-      val result = StatusRoutingController.submit(request)
+      val result = ClaimStatusRoutingController.submit(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustEqual Some("/error-retry")
@@ -63,7 +63,7 @@ class StatusRoutingControllerSpec extends Specification with Tags {
       transactionComponent.claimTransaction.registerId(transId, AsyncClaimSubmissionService.GENERATED, controllers.submission.FULL_CLAIM)
 
 
-      val result = StatusRoutingController.submit(request)
+      val result = ClaimStatusRoutingController.submit(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustEqual Some("/async-submitting")
@@ -78,7 +78,7 @@ class StatusRoutingControllerSpec extends Specification with Tags {
       transactionComponent.claimTransaction.registerId(transId, AsyncClaimSubmissionService.BAD_REQUEST_ERROR, controllers.submission.FULL_CLAIM)
 
 
-      val result = StatusRoutingController.submit(request)
+      val result = ClaimStatusRoutingController.submit(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustEqual Some("/async-error")

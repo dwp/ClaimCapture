@@ -5,6 +5,7 @@ import models.view.CachedClaim
 import models.domain._
 import models.view.Navigable
 import play.api.i18n.Lang
+import models.view.CachedClaim.ClaimResult
 
 object SelfEmployment extends Controller with CachedClaim with Navigable {
   def completed = claimingWithCheck {implicit claim => implicit request => implicit lang =>

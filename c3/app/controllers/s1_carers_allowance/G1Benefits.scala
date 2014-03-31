@@ -9,7 +9,6 @@ import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain._
 import models.view.Navigable
-import play.api.data.FormError
 import play.api.Logger
 
 object G1Benefits extends Controller with CachedClaim with Navigable {

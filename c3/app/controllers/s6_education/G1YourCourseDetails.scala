@@ -9,6 +9,7 @@ import models.domain.{Claim, YourCourseDetails}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.CarersForms._
+import models.view.CachedClaim.ClaimResult
 
 object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

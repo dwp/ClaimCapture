@@ -2,7 +2,7 @@ package controllers.s7_employment
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
 import models.domain.{Jobs, JobDetails}
@@ -10,11 +10,9 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
 import controllers.CarersForms._
-import scala.Some
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
 import scala.Some
-import play.api.Logger
 
 object G3JobDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

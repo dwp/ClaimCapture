@@ -18,14 +18,15 @@ import scala.concurrent.{ExecutionContext, Future}
 import models.domain.Claim
 import scala.Some
 import ExecutionContext.Implicits.global
+import models.view.CachedClaim.ClaimResult
 
 object CachedClaim {
   val missingRefererConfig = "Referer not set in config"
   val key = "claim"
+  type ClaimResult = (Claim, Result)
 }
 
 trait CachedClaim {
-  type ClaimResult = (Claim, Result)
 
   type JobID = String
 

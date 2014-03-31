@@ -1,13 +1,16 @@
 package controllers.circs.s3_consent_and_declaration
 
-import play.api.mvc.Controller
+import play.api.mvc._
 import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import models.domain.{CircumstancesDeclaration, CircumstancesOtherInfo}
 import controllers.CarersForms._
+import controllers.submission.{AsyncCofCSubmissionController, AsyncSubmissionController, ClaimSubmittable}
+import models.view.CachedClaim._
 import play.api.data.FormError
+import models.domain.Claim
 
 object G1Declaration extends Controller with CachedChangeOfCircs with Navigable {
   val form = Form(mapping(
@@ -28,6 +31,9 @@ object G1Declaration extends Controller with CachedChangeOfCircs with Navigable 
     }
   }
 
+  val circsSubmission:ClaimSubmittable = if (AsyncSubmissionController.asyncCondition) new AsyncCofCSubmissionController else new CofCSyncSubmit
+
+
   def submit = claiming { implicit circs => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
@@ -36,7 +42,14 @@ object G1Declaration extends Controller with CachedChangeOfCircs with Navigable 
           .replaceError("", "nameOrOrganisation", FormError("nameOrOrganisation", "error.required"))
         BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(formWithErrorsUpdate))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G2Submitting.present())
+      f => circsSubmission.submitAction(circs.update(f))
     )
   }
+}
+
+class CofCSyncSubmit extends Controller with CachedChangeOfCircs with ClaimSubmittable {
+
+  override def submitAction(claim:Claim): Either[Result, ClaimResult] = claim -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G2Submitting.present())
+
+  override def submissionRoute(claim: Claim): Call = controllers.circs.submission.routes.ChangeOfCircsSubmissionController.submit
 }

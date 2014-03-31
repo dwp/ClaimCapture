@@ -2,7 +2,7 @@ package controllers.s7_employment
 
 import scala.language.reflectiveCalls
 import play.api.mvc.Controller
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
 import models.domain.AboutExpenses

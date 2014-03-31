@@ -6,9 +6,8 @@ import play.api.data.Forms._
 import play.api.mvc.Controller
 import play.api.mvc.Request
 import play.api.mvc.AnyContent
-import play.api.data.FormError
 import controllers.Mappings._
-import models.domain.{Claim, SelfEmploymentPensionsAndExpenses}
+import models.domain.SelfEmploymentPensionsAndExpenses
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment._
@@ -17,6 +16,7 @@ import models.view.Navigable
 import play.api.i18n.Lang
 import play.api.data.FormError
 import models.domain.Claim
+import models.view.CachedClaim.ClaimResult
 
 object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(

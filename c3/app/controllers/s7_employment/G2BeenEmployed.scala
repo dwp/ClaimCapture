@@ -4,15 +4,15 @@ import models.view.{Navigable, CachedClaim}
 import play.api.mvc._
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
-import models.domain.{Employment => Emp, Claim, Jobs, BeenEmployed}
+import models.domain.{Employment => Emp, Jobs, BeenEmployed}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s7_employment.Employment.jobs
 import models.domain.Claim
-import models.domain.Claim
 import scala.reflect.ClassTag
 import play.api.i18n.Lang
 import scala.language.postfixOps
+import models.view.CachedClaim.ClaimResult
 
 object G2BeenEmployed extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

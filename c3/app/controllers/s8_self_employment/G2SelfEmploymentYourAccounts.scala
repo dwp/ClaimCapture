@@ -18,6 +18,7 @@ import play.api.data.FormError
 import models.domain.Claim
 import scala.Some
 import play.api.i18n.Lang
+import models.view.CachedClaim.ClaimResult
 
 
 object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Navigable {

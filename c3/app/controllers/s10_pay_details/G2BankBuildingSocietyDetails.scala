@@ -14,6 +14,7 @@ import controllers.CarersForms._
 import models.domain.Claim
 import scala.Some
 import play.api.i18n.Lang
+import models.view.CachedClaim.ClaimResult
 
 object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

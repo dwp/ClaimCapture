@@ -1,13 +1,21 @@
 @()(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
+@import models.domain.{Claim,FullClaim,ChangeOfCircs}
 @import views.html.helper._
 @import play.api.i18n.{MMessages => Messages}
 
+@submitCall = @{
+    claim match {
+        case _: Claim with FullClaim => controllers.submission.routes.ClaimStatusRoutingController.submit
+        case _: Claim with ChangeOfCircs => controllers.submission.routes.CofCStatusRoutingController.submit
+    }
+}
+
 @common.govMain("Async Submitting") {
-    @form(action = controllers.submission.routes.StatusRoutingController.submit) {
-        <div id="wrapper" class="carers-allowance">
-            <div id="jswrapper" hidden="true" class="carers-container">
-                <article class="error-statement">
+    @form(action = submitCall) {
+        <div class="carers-allowance">
+            <article>
+                <div id="jswrapper" hidden="true" class="carers-container">
 
                     <h1>@Html(Messages("s11.g7.help1"))<span id="dots"></span></h1>
 
@@ -17,17 +25,19 @@
                         <span>i</span>
                     </div>
 
-                </article>
-            </div>
-
-            <nav id="refresh" class="form-steps">
-                <div class="prompt submitting">
-                    <p>@Html(Messages("s11.g7.refresh1"))</p>
-                    <p>@Html(Messages("s11.g7.refresh2"))</p>
-                    <span>i</span>
                 </div>
-                <button type="submit" name="action" value="next" class="button secondary" @views.html.ga.trackSubmit(true)>@Html(Messages("s11.g7.refresh"))</button>
-            </nav>
+
+                <div id="refresh" class="form-steps">
+
+                    <h1>@Html(Messages("s11.g7.help1"))<span id="dots"></span></h1>
+                    <div class="prompt submitting">
+                        <p>@Html(Messages("s11.g7.refresh1"))</p>
+                        <p>@Html(Messages("s11.g7.refresh2"))</p>
+                        <span>i</span>
+                    </div>
+                    <button type="submit" name="action" value="next" class="button secondary" @views.html.ga.trackSubmit(true)>@Html(Messages("s11.g7.refresh"))</button>
+                </div>
+            </article>
 
         </div>
     }
