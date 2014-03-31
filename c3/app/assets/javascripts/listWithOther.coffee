@@ -1,11 +1,11 @@
 $ ->
 
   $("input[listWithOther=true]").each ->
-    $(this).closest("ul").parents("li").next().next().hide() if (($(this).val() == "Somewhere else") && ($(this).is("checked") == false))
+    $(this).closest("ul").next().hide() if (($(this).val() == $(this).attr("othervalue")) && ($(this).attr("checked") == undefined))
 
   $("input[listWithOther=true]").change ->
-    if $(this).val() is "Somewhere else"
-      $(this).closest("ul").parents("li").next().next().slideDown()
+    if $(this).val() is $(this).attr("othervalue")
+      $(this).closest("ul").next().slideDown()
     else
-      textArea = $(this).closest("ul").parents("li").next().next().find("textarea")
-      $(this).closest("ul").parents("li").next().next().slideUp -> textArea.val("")
+      textArea = $(this).parent().next().find("textarea")
+      $(this).closest("ul").next().slideUp -> textArea.val("")

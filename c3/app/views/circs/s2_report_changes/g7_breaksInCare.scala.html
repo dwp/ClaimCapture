@@ -51,7 +51,8 @@
                         'wrapperName -> "wherePersonBreaksInCareWrap",
                         '_nestedFieldSet -> true,
                         'maxLength -> 60,
-                        'otherValue -> SomewhereElse)
+                        'otherValue -> SomewhereElse
+                    )
 
                     @listRadioGroupWithOther(breaksForm("whereYouBreaksInCare"),
                         'items -> circsWhereWasThePersonList,
@@ -112,7 +113,7 @@
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g7_breaksFromCaring.js")'></script>
-<!--script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script-->
+<script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 <script type="text/javascript">
@@ -131,22 +132,4 @@ window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
 );
 });
 
-$(function(){
-window.wherePersonBreaksInCareEvents("wherePersonBreaksInCareWrap",
-"@CarersCrypto.encryptAES("wherePersonBreaksInCare_answer_In_hospital")",
-"@CarersCrypto.encryptAES("wherePersonBreaksInCare_answer_In_respite_care")",
-"@CarersCrypto.encryptAES("wherePersonBreaksInCare_answer_On_holiday")",
-"@CarersCrypto.encryptAES("wherePersonBreaksInCare_answer_At_home")",
-"@CarersCrypto.encryptAES("wherePersonBreaksInCare_answer_Somewhere_else")",
-"@CarersCrypto.encryptAES("wherePersonBreaksInCare_text")");
-});
-
-$(function(){
-window.whereYouBreaksInCareEvents("whereYouBreaksInCareWrap",
-"@CarersCrypto.encryptAES("whereYouBreaksInCare_answer_In_hospital")",
-"@CarersCrypto.encryptAES("whereYouBreaksInCare_answer_On_holiday")",
-"@CarersCrypto.encryptAES("whereYouBreaksInCare_answer_At_home")",
-"@CarersCrypto.encryptAES("whereYouBreaksInCare_answer_Somewhere_else")",
-"@CarersCrypto.encryptAES("whereYouBreaksInCare_text")");
-});
 </script>
