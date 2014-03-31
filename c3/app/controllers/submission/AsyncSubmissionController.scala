@@ -9,11 +9,15 @@ import app.ConfigProperties._
 import models.view.CachedClaim._
 import models.domain.Claim
 import play.api.Play
+import scala.util.{Try, Success, Failure}
 
 object AsyncSubmissionController{
   import Play.current
 
-  def asyncCondition = !Play.isTest && !getProperty("submit.prints.xml",false) && getProperty("async.submission",false)
+  def asyncCondition = Try(!Play.isTest && !getProperty("submit.prints.xml",false) && getProperty("async.submission",false)) match {
+    case Success(s) => s
+    case Failure(_) => false
+  }
 }
 
 class AsyncSubmissionController extends Controller with ClaimTransactionComponent with ClaimSubmittable{
