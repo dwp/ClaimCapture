@@ -45,8 +45,10 @@ trait AsyncClaimSubmissionService {
     result match {
       case "response" =>
         claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
+        Logger.info(s"Successful submission : ${claim.key} : $txnID")
       case "acknowledgement" =>
         claimTransaction.updateStatus(txnID, ACKNOWLEDGED, claimType(claim))
+        Logger.info(s"Successful submission : ${claim.key} : $txnID")
       case "error" =>
         val errorCode = (responseXml \\ "errorCode").text
         Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $errorCode")
@@ -78,7 +80,7 @@ trait AsyncClaimSubmissionService {
   }
 
   private def recordMi(claim: Claim, id: String): Unit = {
-    val changesMap = Map(StoppedCaring.name -> Some(0), AddressChange.name -> Some(1), SelfEmployment.name -> Some(2), PaymentChange.name -> Some(3), AdditionalInfo.name -> Some(4), NotAsked -> None)
+    val changesMap = Map(StoppedCaring.name -> Some(0), AddressChange.name -> Some(1), SelfEmployment.name -> Some(2), PaymentChange.name -> Some(3), AdditionalInfo.name -> Some(4), BreakFromCaring.name -> Some(5), NotAsked -> None)
     val declaration = claim.questionGroup[Declaration].getOrElse(Declaration())
     val thirdParty = declaration.someoneElse.isDefined
     val circsChange = changesMap(claim.questionGroup[ReportChanges].getOrElse(ReportChanges()).reportChanges)
