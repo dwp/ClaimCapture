@@ -26,8 +26,8 @@
                 <thead>
                     <tr>
                         <th>@Html(Messages("breakPeriod"))</th>
-                        <th class="desc">@Html(Messages("wherePerson"))</th>
-                        <th class="desc">@Html(Messages("breaks.whereYou.label"))</th>
+                        <th class="desc">@Html(Messages("wherePersonBreaksInCare.answer"))</th>
+                        <th class="desc">@Html(Messages("whereYouBreaksInCare.answer"))</th>
                         <th class="desc">@Html(Messages("medicalTreatment"))</th>
                         <th>@Html(Messages("change"))</th>
                     </tr>
@@ -48,11 +48,11 @@
                         </td>
 
                         <td class="desc">
-                            @Html(Messages("circsBreaks." + breaksInCare.whereYouBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))
+                        @Html(Messages("circsBreaks." + breaksInCare.wherePersonBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))
                         </td>
 
                         <td class="desc">
-                            @Html(Messages("circsBreaks." + breaksInCare.wherePersonBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))
+                            @Html(Messages("circsBreaks." + breaksInCare.whereYouBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))
                         </td>
 
                         <td class="desc">@if("yes" == breaksInCare.medicalCareDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</td>
