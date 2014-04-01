@@ -22,6 +22,7 @@
 	
 	            <ul>
 	                @listRadioGroup(reportChangesForm("reportChanges"),
+                        '_nestedFieldSet -> true,
 	                    'items -> Seq(
 	                        BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
 	                        StoppedCaring.name -> Messages("reportChanges.stoppedCaring"),
