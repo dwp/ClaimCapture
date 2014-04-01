@@ -3,9 +3,11 @@ package controllers.submission
 import play.api.mvc.{Call, Controller}
 import models.view.{CachedChangeOfCircs, CachedClaim}
 import services.ClaimTransactionComponent
-import services.submission.AsyncClaimSubmissionService
+import services.submission.{ClaimSubmissionService, AsyncClaimSubmissionService}
 import play.api.Logger
 import models.domain.Claim
+import AsyncClaimSubmissionService._
+import ClaimSubmissionService._
 
 object StatusRoutingController {
   import play.api.mvc.Results._
@@ -41,17 +43,18 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
   val claimTransaction = new ClaimTransaction
 
   def present = claiming{ implicit claim => implicit request => implicit lang =>
-    Logger.debug("Showing asyng submitting")
+    Logger.debug("Showing async submitting")
     Ok(views.html.common.asyncSubmitting())
   }
 
   def submit = claiming { implicit claim => implicit request => implicit lang =>
-    import AsyncClaimSubmissionService._
+
+
     import StatusRoutingController._
 
     val transactionStatus = claimTransaction.getTransactionStatusById(claim.transactionId.getOrElse(""))
 
-    Logger.debug("Checking transaction status:"+transactionStatus)
+    Logger.info("Checking transaction status:"+transactionStatus)
     transactionStatus match {
 
       case Some(ts) if ts.status == SUCCESS   || ts.status == ACKNOWLEDGED          => Redirect(redirectThankYou)
@@ -62,9 +65,6 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
     }
 
   }
-
-
-
 
 
   def error = claiming { implicit claim => implicit request => implicit lang =>

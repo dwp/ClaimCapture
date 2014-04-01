@@ -1,17 +1,14 @@
 package services.submission
 
-import app.ReportChange._
-import app.XMLValues._
 import scala.concurrent.ExecutionContext
 import play.api.{http, Logger}
 import controllers.submission._
-import models.domain.{ReportChanges, Declaration}
 import services.ClaimTransactionComponent
 import ExecutionContext.Implicits.global
 import play.api.libs.ws.Response
 import models.domain.Claim
-import scala.Some
 import AsyncClaimSubmissionService._
+import ClaimSubmissionService._
 
 trait AsyncClaimSubmissionService {
 
@@ -27,7 +24,7 @@ trait AsyncClaimSubmissionService {
         Logger.debug("Got response from WS:"+response)
         try{
           claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
-          recordMi(claim, txnID)
+          ClaimSubmissionService.recordMi(claim, txnID,claimTransaction.recordMi)
           processResponse(claim, txnID, response)
         }catch{
           case e:Exception => Logger.error(e.getMessage+" "+e.getStackTraceString)
@@ -45,8 +42,10 @@ trait AsyncClaimSubmissionService {
     result match {
       case "response" =>
         claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
+        Logger.info(s"Successful submission : ${claim.key} : $txnID")
       case "acknowledgement" =>
         claimTransaction.updateStatus(txnID, ACKNOWLEDGED, claimType(claim))
+        Logger.info(s"Successful submission : ${claim.key} : $txnID")
       case "error" =>
         val errorCode = (responseXml \\ "errorCode").text
         Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $errorCode")
@@ -77,26 +76,10 @@ trait AsyncClaimSubmissionService {
     }
   }
 
-  private def recordMi(claim: Claim, id: String): Unit = {
-    val changesMap = Map(StoppedCaring.name -> Some(0), AddressChange.name -> Some(1), SelfEmployment.name -> Some(2), PaymentChange.name -> Some(3), AdditionalInfo.name -> Some(4), NotAsked -> None)
-    val declaration = claim.questionGroup[Declaration].getOrElse(Declaration())
-    val thirdParty = declaration.someoneElse.isDefined
-    val circsChange = changesMap(claim.questionGroup[ReportChanges].getOrElse(ReportChanges()).reportChanges)
-    claimTransaction.recordMi(id, thirdParty, circsChange, claim.lang)
-  }
-
 
 }
 
 object AsyncClaimSubmissionService{
   val GENERATED = "0100" //submitting
-  val SUBMITTED = "0000" //submitting
-  val ACKNOWLEDGED = "0001" //thankyou
-  val SUCCESS = "0002" //thankyou
-  val UNKNOWN_ERROR = "9001" //error
-  val BAD_REQUEST_ERROR = "9002" //error
-  val REQUEST_TIMEOUT_ERROR = "9003"//error
-  val SERVER_ERROR = "9004"//error
-  val COMMUNICATION_ERROR = "9005"//error
-  val SERVICE_UNAVAILABLE = "9006"//errorretry
+  val SERVICE_UNAVAILABLE = "9006"
 }
