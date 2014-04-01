@@ -15,6 +15,8 @@ import play.api.libs.ws.Response
 import models.domain.Claim
 import scala.Some
 import play.api.mvc.SimpleResult
+import play.api.i18n.Lang
+import ClaimSubmissionService._
 
 trait ClaimSubmissionService {
 
@@ -27,7 +29,7 @@ trait ClaimSubmissionService {
     webServiceClient.submitClaim(claim, txnID).map(
       response => {
         registerId(claim, txnID, SUBMITTED)
-        recordMi(claim, txnID)
+        ClaimSubmissionService.recordMi(claim, txnID,claimTransaction.recordMi)
         processResponse(claim, txnID, response, request)
       }
     )
@@ -104,12 +106,18 @@ trait ClaimSubmissionService {
     claimTransaction.registerId(id, statusCode, claimType(claim))
   }
 
-  private def recordMi(claim: Claim, id: String) = {
+
+
+}
+
+object ClaimSubmissionService {
+  def recordMi(claim: Claim, id: String, recordMI:(String,Boolean,Option[Int],Option[Lang]) => Unit) = {
     val changesMap = Map(StoppedCaring.name -> Some(0), AddressChange.name -> Some(1), SelfEmployment.name -> Some(2), PaymentChange.name -> Some(3), AdditionalInfo.name -> Some(4), BreakFromCaring.name -> Some(5), NotAsked -> None)
     val declaration = claim.questionGroup[Declaration].getOrElse(Declaration())
     val thirdParty = declaration.someoneElse.isDefined
     val circsChange = changesMap(claim.questionGroup[ReportChanges].getOrElse(ReportChanges()).reportChanges)
-    claimTransaction.recordMi(id, thirdParty, circsChange, claim.lang)
+    recordMI(id,thirdParty,circsChange,claim.lang)
+
   }
 
   val SUBMITTED = "0000"
@@ -120,5 +128,4 @@ trait ClaimSubmissionService {
   val REQUEST_TIMEOUT_ERROR = "9003"
   val SERVER_ERROR = "9004"
   val COMMUNICATION_ERROR = "9005"
-
 }
