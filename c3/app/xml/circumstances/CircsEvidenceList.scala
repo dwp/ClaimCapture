@@ -185,53 +185,62 @@ object CircsEvidenceList {
   }
 
   def breaksFromCaring(circs: Claim): NodeSeq = {
-      val breaksFromCaringOption = circs.questionGroup[CircumstancesBreaksInCare]
+    val breaksFromCaringOption = circs.questionGroup[CircumstancesBreaksInCare]
 
-      var buffer = NodeSeq.Empty
+    var buffer = NodeSeq.Empty
 
-      breaksFromCaringOption match {
+    breaksFromCaringOption match {
 
-       case Some(breaksFromCaring) => {
+      case Some(breaksFromCaring) => {
 
-          buffer ++=  textSeparatorLine(Messages("c2.g7"))
+        buffer ++=  textSeparatorLine(Messages("c2.g7"))
 
-          buffer ++= textLine(Messages("breaksInCareStartDate") + " = " + breaksFromCaring.breaksInCareStartDate.`dd/MM/yyyy`)
+        buffer ++= textLine(Messages("breaksInCareStartDate") + " = " + breaksFromCaring.breaksInCareStartDate.`dd/MM/yyyy`)
 
-          if (breaksFromCaring.breaksInCareStartTime.isDefined) buffer ++= textLine(Messages("breaksInCareStartTime") + " = " + breaksFromCaring.breaksInCareStartTime.get)
+        if (breaksFromCaring.breaksInCareStartTime.isDefined) buffer ++= textLine(Messages("breaksInCareStartTime") + " = " + breaksFromCaring.breaksInCareStartTime.get)
 
+        if(breaksFromCaring.wherePersonBreaksInCare.answer == CircsBreaksWhereabouts.SomewhereElse){
+          buffer ++= textLine(Messages("wherePersonBreaksInCare.answer") + " Somewhere else = " +breaksFromCaring.wherePersonBreaksInCare.text.get)
+        } else {
           buffer ++= textLine(Messages("wherePersonBreaksInCare.answer") + " = " + breaksFromCaring.wherePersonBreaksInCare.answer.replace("_", " "))
-          if(breaksFromCaring.wherePersonBreaksInCare.answer == CircsBreaksWhereabouts.SomewhereElse) buffer ++= textLine(Messages("wherePersonBreaksInCare.answer") + " Somewhere else = " +breaksFromCaring.wherePersonBreaksInCare.text.get)
+        }
 
+        if(breaksFromCaring.whereYouBreaksInCare.answer == CircsBreaksWhereabouts.SomewhereElse){
+          buffer ++= textLine(Messages("whereYouBreaksInCare.answer") + " Somewhere else = " + breaksFromCaring.whereYouBreaksInCare.text.get)
+        } else {
           buffer ++= textLine(Messages("whereYouBreaksInCare.answer") + " = " + breaksFromCaring.whereYouBreaksInCare.answer.replace("_", " "))
-          if(breaksFromCaring.whereYouBreaksInCare.answer == CircsBreaksWhereabouts.SomewhereElse) buffer ++= textLine(Messages("whereYouBreaksInCare.answer") + " Somewhere else = " + breaksFromCaring.whereYouBreaksInCare.text.get)
+        }
 
-          buffer ++= textLine(Messages("breakEnded.answer") + " = " + breaksFromCaring.breakEnded.answer)
+        buffer ++= textLine(Messages("breakEnded.answer") + " = " + breaksFromCaring.breakEnded.answer)
 
-          breaksFromCaring.breakEnded.answer match {
-            case Mappings.yes => {
-              buffer ++= textLine(Messages("breakEnded.endDate") + " = " + breaksFromCaring.breakEnded.date.get.`dd/MM/yyyy`)
-              if (breaksFromCaring.breakEnded.time.isDefined) buffer ++= textLine(Messages("breakEnded_endTime") + " = " + breaksFromCaring.breakEnded.time.get)
-            }
-            case Mappings.no => buffer ++= textLine(Messages("expectStartCaring.answer") + " = " + breaksFromCaring.expectStartCaring.answer.get)
+        breaksFromCaring.breakEnded.answer match {
+          case Mappings.yes => {
+            buffer ++= textLine(Messages("breakEnded.endDate") + " = " + breaksFromCaring.breakEnded.date.get.`dd/MM/yyyy`)
+            if (breaksFromCaring.breakEnded.time.isDefined) buffer ++= textLine(Messages("breakEnded_endTime") + " = " + breaksFromCaring.breakEnded.time.get)
           }
+          case Mappings.no => {
+            val expectStartCaringAnswer = if(breaksFromCaring.expectStartCaring.answer.get == Mappings.dontknow) "Don't Know" else breaksFromCaring.expectStartCaring.answer.get
+            buffer ++= textLine(Messages("expectStartCaring.answer") + " = " + expectStartCaringAnswer)
+          }
+        }
 
-          breaksFromCaring.expectStartCaring.answer match {
-            case Some(n) => n match {
-                case Mappings.yes => if (breaksFromCaring.expectStartCaring.expectStartCaringDate.isDefined) buffer ++= textLine(Messages("expectStartCaring_expectStartCaringDate") + " = " + breaksFromCaring.expectStartCaring.expectStartCaringDate.get.`dd/MM/yyyy`)
-                case Mappings.no => buffer ++= textLine(Messages("expectStartCaring_permanentBreakDate") + " = " + breaksFromCaring.expectStartCaring.permanentBreakDate.get.`dd/MM/yyyy`)
-                case _ =>
-             }
+        breaksFromCaring.expectStartCaring.answer match {
+          case Some(n) => n match {
+            case Mappings.yes => if (breaksFromCaring.expectStartCaring.expectStartCaringDate.isDefined) buffer ++= textLine(Messages("expectStartCaring_expectStartCaringDate") + " = " + breaksFromCaring.expectStartCaring.expectStartCaringDate.get.`dd/MM/yyyy`)
+            case Mappings.no => buffer ++= textLine(Messages("expectStartCaring_permanentBreakDate") + " = " + breaksFromCaring.expectStartCaring.permanentBreakDate.get.`dd/MM/yyyy`)
             case _ =>
           }
+          case _ =>
+        }
 
-          buffer ++= textLine(Messages("medicalCareDuringBreak") + " = " + breaksFromCaring.medicalCareDuringBreak)
+        buffer ++= textLine(Messages("medicalCareDuringBreak") + " = " + breaksFromCaring.medicalCareDuringBreak)
 
-          if (breaksFromCaring.moreAboutChanges.isDefined) buffer ++= textLine(Messages("moreAboutChanges") + " = " + breaksFromCaring.moreAboutChanges.get)
-       }
-       case _ =>
+        if (breaksFromCaring.moreAboutChanges.isDefined) buffer ++= textLine(Messages("moreAboutChanges") + " = " + breaksFromCaring.moreAboutChanges.get)
       }
-      buffer
+      case _ =>
     }
+    buffer
+  }
 
   def breaksFromCaringSummary(circs: Claim): NodeSeq = {
     val breaksFromCaringSummaryOption = circs.questionGroup[CircumstancesBreaksInCareSummary]
@@ -239,9 +248,8 @@ object CircsEvidenceList {
 
     breaksFromCaringSummaryOption match {
       case Some(breaksFromCaringSummary) => {
-        buffer ++= textLine(Messages("additionalBreaks.label") + " = " + breaksFromCaringSummary.additionalBreaks.answer)
-
         if (breaksFromCaringSummary.additionalBreaks.answer == Mappings.yes) buffer ++= textLine(Messages("additionalBreaks.label") + "yes = " + breaksFromCaringSummary.additionalBreaks.text.get)
+        else buffer ++= textLine(Messages("additionalBreaks.label") + " = " + breaksFromCaringSummary.additionalBreaks.answer)
       }
       case _ =>
     }

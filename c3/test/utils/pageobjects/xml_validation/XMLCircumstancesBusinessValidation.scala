@@ -54,7 +54,8 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
         val value = XMLValidationNode.prepareElement(theNodes(index).text)
         val nodeName = theNodes(index).mkString
         def valuesMatching: Boolean = {
-          if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value) 
+          if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value)
+          else if (nodeName.startsWith(EvidenceListNode) && ignoreQuestions(claimValue)) true
           else if (nodeName.startsWith(EvidenceListNode)) {
             value.contains(claimValue.question + "=" + (
               claimValue.value match {
@@ -83,6 +84,13 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
     catch {
       case e: IndexOutOfBoundsException => throw new PageObjectException("XML Validation failed" + this.toString() + " - " + claimValue.attribute)
     }
+  }
+
+  private def ignoreQuestions(claimValue: TestDatumValue) = {
+    val questions = Seq ("BreaksInCareSummaryAdditionalBreaks", "BreaksInCareWhereWasThePersonYouCareFor", "BreaksInCareWhereWereYou")
+    val answers = Seq ("yes", "somewhereelse")
+
+    questions.contains(claimValue.attribute) && answers.contains(claimValue.value.toLowerCase)
   }
 
 }
