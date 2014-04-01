@@ -25,7 +25,7 @@ class StatusRoutingControllerSpec extends Specification with Tags {
 
       // create id with status success in db, to mock that a successful submit took place
       DBTests.createId(transId)
-      transactionComponent.claimTransaction.registerId(transId, AsyncClaimSubmissionService.SUCCESS, controllers.submission.FULL_CLAIM)
+      transactionComponent.claimTransaction.registerId(transId, ClaimSubmissionService.SUCCESS, controllers.submission.FULL_CLAIM)
 
 
       // call controller which will check and find success status in db
@@ -75,7 +75,7 @@ class StatusRoutingControllerSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       DBTests.createId(transId)
-      transactionComponent.claimTransaction.registerId(transId, AsyncClaimSubmissionService.BAD_REQUEST_ERROR, controllers.submission.FULL_CLAIM)
+      transactionComponent.claimTransaction.registerId(transId, ClaimSubmissionService.BAD_REQUEST_ERROR, controllers.submission.FULL_CLAIM)
 
 
       val result = ClaimStatusRoutingController.submit(request)
