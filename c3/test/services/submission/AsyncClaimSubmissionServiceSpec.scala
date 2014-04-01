@@ -52,7 +52,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,AsyncClaimSubmissionService.BAD_REQUEST_ERROR,1,Some(0),None,Some("en")))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.BAD_REQUEST_ERROR,1,Some(0),None,Some("en")))
 
     }
 
@@ -67,7 +67,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,AsyncClaimSubmissionService.SUCCESS,1,Some(0),None,Some("en")))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SUCCESS,1,Some(0),None,Some("en")))
 
     }
 
@@ -97,7 +97,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,AsyncClaimSubmissionService.REQUEST_TIMEOUT_ERROR,1,Some(0),None,Some("en")))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.REQUEST_TIMEOUT_ERROR,1,Some(0),None,Some("en")))
 
     }
 
@@ -112,7 +112,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,AsyncClaimSubmissionService.SERVER_ERROR,1,Some(0),None,Some("en")))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,Some(0),None,Some("en")))
 
     }
   } section "unit"
@@ -120,7 +120,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
   def serviceSubmission(service: AsyncClaimSubmissionService with ClaimTransactionComponent, claim: Claim)(implicit app: FakeApplication) {
     DBTests.createId(transactionId)
-    service.claimTransaction.registerId(transactionId, AsyncClaimSubmissionService.SUBMITTED, controllers.submission.claimType(claim))
+    service.claimTransaction.registerId(transactionId, ClaimSubmissionService.SUBMITTED, controllers.submission.claimType(claim))
     service.submission(claim)
   }
 }
