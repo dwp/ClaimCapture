@@ -49,6 +49,7 @@
                     @listRadioGroupWithOther(breaksForm("wherePersonBreaksInCare"),
                         'items -> circsWhereWasThePersonList,
                         'wrapperName -> "wherePersonBreaksInCareWrap",
+                        'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
                         '_nestedFieldSet -> true,
                         'maxLength -> 60,
                         'otherValue -> SomewhereElse
@@ -57,6 +58,7 @@
                     @listRadioGroupWithOther(breaksForm("whereYouBreaksInCare"),
                         'items -> circsWhereWereList,
                         'wrapperName -> "whereYouBreaksInCareWrap",
+                        'helperAbove-> Messages("whereYouBreaksInCare.helper"),
                         '_nestedFieldSet -> true,
                         'maxLength -> 60,
                         'otherValue -> SomewhereElse)
