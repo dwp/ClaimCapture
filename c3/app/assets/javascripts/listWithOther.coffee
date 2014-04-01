@@ -7,5 +7,5 @@ $ ->
     if $(this).val() is $(this).attr("othervalue")
       $(this).closest("ul").next().slideDown()
     else
-      textArea = $(this).parent().next().find("textarea")
+      textArea = $(this).closest("ul").next().find("textarea")
       $(this).closest("ul").next().slideUp -> textArea.val("")

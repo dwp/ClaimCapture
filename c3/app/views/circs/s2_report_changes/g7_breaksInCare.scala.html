@@ -20,9 +20,9 @@
 
 @circsWhereWereList = @{
     Seq(
-        Hospital -> Html(Messages("circsBreaks.inhospital")),
-        Holiday -> Html(Messages("circsBreaks.onholiday")),
         Home -> Html(Messages("circsBreaks.athome")),
+        Holiday -> Html(Messages("circsBreaks.onholiday")),
+        Hospital -> Html(Messages("circsBreaks.inhospital")),
         SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
 }
 
@@ -55,7 +55,7 @@
                     )
 
                     @listRadioGroupWithOther(breaksForm("whereYouBreaksInCare"),
-                        'items -> circsWhereWasThePersonList,
+                        'items -> circsWhereWereList,
                         'wrapperName -> "whereYouBreaksInCareWrap",
                         '_nestedFieldSet -> true,
                         'maxLength -> 60,
