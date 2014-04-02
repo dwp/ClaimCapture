@@ -41,25 +41,26 @@ trait Injector {
       )
     }
 
-    if (getProperty("submit.prints.xml", default = false)) {
+    val controllers = if (!Play.isTest && getProperty("async.submission",false)){
+      Logger.info("async controllers being used")
+      // ASYNC SUBMIT POINT HERE
+      Map(controller[G5Submit](new G5AsyncSubmit), controller[G1Declaration](new G1AsyncDeclaration))
+    }else{
+      Logger.info("sync controllers being used")
+      // SYNC SUBMIT POINT
+      Map(controller[G5Submit](new G5SyncSubmit), controller[G1Declaration](new G1SyncDeclaration))
+    }
+
+    controllers ++ (if (getProperty("submit.prints.xml", default = false)) {
       Logger.warn("submit.prints.xml = true")
       xmlPrintControllers
-    } else{
-      val controllers = if (!Play.isTest && getProperty("async.submission",false)){
-        //ASYNC SUBMIT POINT HERE
-        Map(controller[G5Submit](new G5AsyncSubmit), controller[G1Declaration](new G1AsyncDeclaration))
-      }else{
-        //SYNC SUBMIT POINT
-        Map(controller[G5Submit](new G5SyncSubmit), controller[G1Declaration](new G1SyncDeclaration))
-      }
-
-      if (getProperty("stub.db", default = false)) {
+    } else if (getProperty("stub.db", default = false)) {
         Logger.warn("stub.db = true")
-        controllers ++ stubDBControllers
-      } else {
-        controllers ++ Map(controller[ClaimSubmissionController](new ClaimSubmissionController),
-          controller[ChangeOfCircsSubmissionController](new ChangeOfCircsSubmissionController))
-      }
+        stubDBControllers
     }
+    else {
+      Map(controller[ClaimSubmissionController](new ClaimSubmissionController),
+        controller[ChangeOfCircsSubmissionController](new ChangeOfCircsSubmissionController))
+    })
   }
 }
