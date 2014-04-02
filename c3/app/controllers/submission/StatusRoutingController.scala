@@ -57,7 +57,7 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
 
       case Some(ts) if ts.status == SUCCESS   || ts.status == ACKNOWLEDGED          => Redirect(redirectThankYou)
       case Some(ts) if ts.status == GENERATED || ts.status == SUBMITTED             => Redirect(redirectSubmitting)
-      case Some(ts) if ts.status == SERVICE_UNAVAILABLE                             => Redirect(redirectErrorRetry)
+      case Some(ts) if ts.status == ClaimSubmissionService.SERVICE_UNAVAILABLE      => Redirect(redirectErrorRetry)
       case None                                                                     => Redirect(redirectTimeout)
       case _                                                                        => Redirect(redirectError)
     }
