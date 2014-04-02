@@ -4,6 +4,7 @@ import play.api.mvc._
 import models.view.CachedClaim
 import models.view.Navigable
 import controllers.submission._
+import monitoring.ClaimBotChecking
 
 abstract class G5Submit extends Controller with CachedClaim with Navigable {
 
@@ -20,7 +21,7 @@ class G5SyncSubmit extends G5Submit{
   }
 }
 
-class G5AsyncSubmit extends G5Submit with AsyncSubmittable
+class G5AsyncSubmit extends G5Submit with AsyncSubmittable with ClaimBotChecking
 
 
 
