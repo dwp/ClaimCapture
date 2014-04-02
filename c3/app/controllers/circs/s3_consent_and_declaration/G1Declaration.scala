@@ -7,12 +7,10 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import models.domain.{CircumstancesDeclaration, CircumstancesOtherInfo}
 import controllers.CarersForms._
-import controllers.submission.{AsyncCofCSubmissionController, AsyncSubmissionController, ClaimSubmittable}
-import models.view.CachedClaim._
+import controllers.submission.AsyncSubmittable
 import play.api.data.FormError
-import models.domain.Claim
 
-object G1Declaration extends Controller with CachedChangeOfCircs with Navigable {
+abstract class G1Declaration extends Controller with CachedChangeOfCircs with Navigable {
   val form = Form(mapping(
     "furtherInfoContact" -> carersNonEmptyText(maxLength = 35),
     "obtainInfoAgreement" -> nonEmptyText,
@@ -31,10 +29,11 @@ object G1Declaration extends Controller with CachedChangeOfCircs with Navigable 
     }
   }
 
-  val circsSubmission:ClaimSubmittable = if (AsyncSubmissionController.asyncCondition) new AsyncCofCSubmissionController else new CofCSyncSubmit
+  def submit: Action[AnyContent]
+}
 
-
-  def submit = claiming { implicit circs => implicit request => implicit lang =>
+class G1SyncDeclaration extends G1Declaration {
+  override def submit: Action[AnyContent] = claiming { implicit circs => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -42,14 +41,9 @@ object G1Declaration extends Controller with CachedChangeOfCircs with Navigable 
           .replaceError("", "nameOrOrganisation", FormError("nameOrOrganisation", "error.required"))
         BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(formWithErrorsUpdate))
       },
-      f => circsSubmission.submitAction(circs.update(f))
+      f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G2Submitting.present())
     )
   }
 }
 
-class CofCSyncSubmit extends Controller with CachedChangeOfCircs with ClaimSubmittable {
-
-  override def submitAction(claim:Claim): Either[Result, ClaimResult] = claim -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G2Submitting.present())
-
-  override def submissionRoute(claim: Claim): Call = controllers.circs.submission.routes.ChangeOfCircsSubmissionController.submit
-}
+class G1AsyncDeclaration extends G1Declaration with AsyncSubmittable

@@ -210,8 +210,8 @@ POST          /consent-and-declaration/disclaimer                       controll
 GET           /consent-and-declaration/declaration                      controllers.s11_consent_and_declaration.G4Declaration.present
 POST          /consent-and-declaration/declaration                      controllers.s11_consent_and_declaration.G4Declaration.submit
 
-GET           /consent-and-declaration/submit                           controllers.s11_consent_and_declaration.G5Submit.present
-POST          /consent-and-declaration/submit                           controllers.s11_consent_and_declaration.G5Submit.submit
+GET           /consent-and-declaration/submit                           @controllers.s11_consent_and_declaration.G5Submit.present
+POST          /consent-and-declaration/submit                           @controllers.s11_consent_and_declaration.G5Submit.submit
 
 GET           /consent-and-declaration/error                            controllers.s11_consent_and_declaration.G6Error.present
 
@@ -248,8 +248,8 @@ POST          /circumstances/report-changes/breaks-in-care              controll
 GET           /circumstances/report-changes/breaks-in-care-summary      controllers.circs.s2_report_changes.G8BreaksInCareSummary.present
 POST          /circumstances/report-changes/breaks-in-care-summary      controllers.circs.s2_report_changes.G8BreaksInCareSummary.submit
 
-GET           /circumstances/consent-and-declaration/declaration        controllers.circs.s3_consent_and_declaration.G1Declaration.present
-POST          /circumstances/consent-and-declaration/declaration        controllers.circs.s3_consent_and_declaration.G1Declaration.submit
+GET           /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.present
+POST          /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
 GET           /circumstances/consent-and-declaration/error              controllers.circs.s3_consent_and_declaration.G3Error.present
 

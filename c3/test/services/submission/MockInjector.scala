@@ -11,6 +11,8 @@ import scala.language.existentials
 import submission.FormSubmission
 import models.domain.Claim
 import play.api.i18n.Lang
+import controllers.s11_consent_and_declaration.{G5SyncSubmit, G5Submit}
+import controllers.circs.s3_consent_and_declaration.{G1SyncDeclaration, G1Declaration}
 
 trait MockInjector {
   // used to create different test conditions
@@ -74,7 +76,9 @@ trait MockInjector {
           }
 
         }
-      })
+      }),
+      controller[G5Submit](new G5SyncSubmit),
+      controller[G1Declaration](new G1SyncDeclaration)
     )
   }
 }
