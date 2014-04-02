@@ -7,7 +7,6 @@ import services.ClaimTransactionComponent
 import ExecutionContext.Implicits.global
 import play.api.libs.ws.Response
 import models.domain.Claim
-import AsyncClaimSubmissionService._
 import ClaimSubmissionService._
 
 trait AsyncClaimSubmissionService {
@@ -81,5 +80,4 @@ trait AsyncClaimSubmissionService {
 
 object AsyncClaimSubmissionService{
   val GENERATED = "0100" //submitting
-  val SERVICE_UNAVAILABLE = "9006"
 }

@@ -7,8 +7,6 @@ import models.domain.Claim
 
 trait ClaimSubmittable {
 
-  def submissionRoute(claim:Claim): Call
-
   def submitAction(claim:Claim): Either[Result, ClaimResult]
 
 }

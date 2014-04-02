@@ -42,8 +42,6 @@ class AsyncSubmissionController extends Controller with ClaimTransactionComponen
       claimTransaction.registerId(transId,AsyncClaimSubmissionService.GENERATED,claimType(claim))
       transId
   }
-
-  override def submissionRoute(claim:Claim) = StatusRoutingController.redirectSubmitting(claim)
 }
 
 class AsyncClaimSubmissionController extends AsyncSubmissionController with CachedClaim

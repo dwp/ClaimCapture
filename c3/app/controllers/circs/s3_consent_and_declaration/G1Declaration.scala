@@ -51,5 +51,4 @@ class CofCSyncSubmit extends Controller with CachedChangeOfCircs with ClaimSubmi
 
   override def submitAction(claim:Claim): Either[Result, ClaimResult] = claim -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G2Submitting.present())
 
-  override def submissionRoute(claim: Claim): Call = controllers.circs.submission.routes.ChangeOfCircsSubmissionController.submit
 }

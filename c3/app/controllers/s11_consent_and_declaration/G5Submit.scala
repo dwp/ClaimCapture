@@ -25,8 +25,6 @@ object G5Submit extends Controller with CachedClaim with Navigable {
 class ClaimSyncSubmit extends Controller with CachedClaim with ClaimSubmittable{
 
   override def submitAction(claim:Claim): Either[Result, ClaimResult] = Redirect(routes.G7Submitting.present())
-
-  override def submissionRoute(claim:Claim): Call = controllers.s11_consent_and_declaration.routes.G7Submitting.present
 }
 
 

@@ -59,6 +59,7 @@ trait ClaimSubmissionService {
         }
       case http.Status.SERVICE_UNAVAILABLE =>
         Logger.error(s"SERVICE_UNAVAILABLE : ${response.status} : ${response.toString}, TxnId : $txnId, User-Agent : ${request.headers.get("User-Agent").orNull}")
+        updateStatus(claim, txnId, SERVICE_UNAVAILABLE)
         claim.key match {
           case CachedClaim.key =>
             Redirect(controllers.s11_consent_and_declaration.routes.G6Error.present())
@@ -128,4 +129,5 @@ object ClaimSubmissionService {
   val REQUEST_TIMEOUT_ERROR = "9003"
   val SERVER_ERROR = "9004"
   val COMMUNICATION_ERROR = "9005"
+  val SERVICE_UNAVAILABLE = "9006"
 }
