@@ -9,6 +9,7 @@ import models.domain.{CircumstancesDeclaration, CircumstancesOtherInfo}
 import controllers.CarersForms._
 import controllers.submission.AsyncSubmittable
 import play.api.data.FormError
+import monitoring.ChangeBotChecking
 
 abstract class G1Declaration extends Controller with CachedChangeOfCircs with Navigable {
   val form = Form(mapping(
@@ -46,4 +47,4 @@ class G1SyncDeclaration extends G1Declaration {
   }
 }
 
-class G1AsyncDeclaration extends G1Declaration with AsyncSubmittable
+class G1AsyncDeclaration extends G1Declaration with AsyncSubmittable with ChangeBotChecking
