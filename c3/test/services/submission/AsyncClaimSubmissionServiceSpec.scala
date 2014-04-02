@@ -82,7 +82,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,AsyncClaimSubmissionService.SERVICE_UNAVAILABLE,1,Some(0),None,Some("en")))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVICE_UNAVAILABLE,1,Some(0),None,Some("en")))
 
     }
 

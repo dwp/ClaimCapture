@@ -1,32 +1,20 @@
 package controllers.submission
 
-import play.api.mvc.{Result, Controller}
-import models.view.{CachedChangeOfCircs, CachedClaim}
+import play.api.mvc.{AnyContent, Action}
+import models.view.CachedClaim
 import services.ClaimTransactionComponent
 import services.submission.AsyncClaimSubmissionService
 import services.async.AsyncActors
-import app.ConfigProperties._
-import models.view.CachedClaim._
 import models.domain.Claim
-import play.api.Play
-import scala.util.{Try, Success, Failure}
+import play.api.mvc.Results._
 
-object AsyncSubmissionController{
-  import Play.current
-
-  def asyncCondition = Try(!Play.isTest && !getProperty("submit.prints.xml",false) && getProperty("async.submission",false)) match {
-    case Success(s) => s
-    case Failure(_) => false
-  }
-}
-
-class AsyncSubmissionController extends Controller with ClaimTransactionComponent with ClaimSubmittable{
+trait AsyncSubmittable extends ClaimSubmittable with ClaimTransactionComponent {
 
   this: CachedClaim =>
 
   val claimTransaction = new ClaimTransaction
 
-  def submitAction(claim:Claim):Either[Result, ClaimResult] = {
+  def submit:Action[AnyContent] = claimingWithCheck { implicit claim => implicit request => implicit lang =>
 
     val transId = getTransactionIdAndRegisterGenerated(copyInstance(claim))
 
@@ -38,11 +26,9 @@ class AsyncSubmissionController extends Controller with ClaimTransactionComponen
   }
 
   def getTransactionIdAndRegisterGenerated(claim:Claim) = {
-      val transId = claimTransaction.generateId
-      claimTransaction.registerId(transId,AsyncClaimSubmissionService.GENERATED,claimType(claim))
-      transId
+    val transId = claimTransaction.generateId
+    claimTransaction.registerId(transId,AsyncClaimSubmissionService.GENERATED,claimType(claim))
+    transId
   }
 }
 
-class AsyncClaimSubmissionController extends AsyncSubmissionController with CachedClaim
-class AsyncCofCSubmissionController extends AsyncSubmissionController with CachedChangeOfCircs

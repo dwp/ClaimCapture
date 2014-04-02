@@ -3,29 +3,24 @@ package controllers.s11_consent_and_declaration
 import play.api.mvc._
 import models.view.CachedClaim
 import models.view.Navigable
-import controllers.submission.{AsyncSubmissionController, ClaimSubmittable, AsyncClaimSubmissionController}
-import models.view.CachedClaim._
-import play.api.mvc.Call
-import models.domain.Claim
+import controllers.submission._
 
-object G5Submit extends Controller with CachedClaim with Navigable {
-
-  val claimSubmission:ClaimSubmittable = if (AsyncSubmissionController.asyncCondition) new AsyncClaimSubmissionController else new ClaimSyncSubmit
+abstract class G5Submit extends Controller with CachedClaim with Navigable {
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     track(models.domain.Submit) { implicit claim => Ok(views.html.s11_consent_and_declaration.g5_submit()) }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
-    claimSubmission.submitAction(claim)
+  def submit: Action[AnyContent]
+}
+
+class G5SyncSubmit extends G5Submit{
+  override def submit: Action[AnyContent] = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+    Redirect(routes.G7Submitting.present())
   }
 }
 
-
-class ClaimSyncSubmit extends Controller with CachedClaim with ClaimSubmittable{
-
-  override def submitAction(claim:Claim): Either[Result, ClaimResult] = Redirect(routes.G7Submitting.present())
-}
+class G5AsyncSubmit extends G5Submit with AsyncSubmittable
 
 
 

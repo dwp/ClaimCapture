@@ -46,7 +46,7 @@ class StatusRoutingControllerSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       DBTests.createId(transId)
-      transactionComponent.claimTransaction.registerId(transId, AsyncClaimSubmissionService.SERVICE_UNAVAILABLE, controllers.submission.FULL_CLAIM)
+      transactionComponent.claimTransaction.registerId(transId, ClaimSubmissionService.SERVICE_UNAVAILABLE, controllers.submission.FULL_CLAIM)
 
       val result = ClaimStatusRoutingController.submit(request)
 
