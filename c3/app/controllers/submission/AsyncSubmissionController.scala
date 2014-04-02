@@ -16,7 +16,7 @@ trait AsyncSubmittable extends ClaimSubmittable with ClaimTransactionComponent  
 
   val claimTransaction = new ClaimTransaction
 
-  def submit:Action[AnyContent] = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit:Action[AnyContent] = claiming { implicit claim => implicit request => implicit lang =>
 
     if (isHoneyPotBot(claim)) {
       // Only log honeypot for now.
