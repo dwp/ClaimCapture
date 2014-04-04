@@ -29,7 +29,7 @@ object EvidenceList {
 
     var nodes = NodeSeq.Empty
 
-    if (employed || selfEmployed) nodes ++= recepientAddress
+    if (employed || selfEmployed) nodes ++= recepientAddress("s11.g5.help10")
 
     nodes ++= evidenceSection(employed, "evidence.employed.statement1", evidenceEmployedStatements)
     nodes ++= evidenceSection(selfEmployed, "evidence.selfemployed.statement1", evidenceSelfEmployedStatements)
@@ -62,8 +62,8 @@ object EvidenceList {
     <Content>{Messages(text)}</Content>
   }
 
-  private def recepientAddress:NodeSeq = {
+  private def recepientAddress(questionLabelCode: String):NodeSeq = {
     val address = MultiLineAddress(Some(Messages("evidence.statement3")),Some(Messages("evidence.statement4")),Some(Messages("evidence.statement5")))
-    postalAddressStructureRecipientAddress(address, Some(Messages("evidence.statement6")))
+    postalAddressStructureRecipientAddress(questionLabelCode, address, Some(Messages("evidence.statement6")))
   }
 }

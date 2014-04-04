@@ -34,7 +34,7 @@ import controllers.submission.xmlValidator
    */
   private def signDwpClaim(dwpClaim: Elem,transactionId: String): Elem = {
     val signatory = XmlSignatureFactory.buildDsaSha1Generator()
-    val xmlStringSigned = signatory.sign(dwpClaim.buildString(stripComments = true),s"#$transactionId")
+    val xmlStringSigned = signatory.sign(dwpClaim.buildString(stripComments = true),s"$transactionId")
     XML.loadString(xmlStringSigned)
   }
 

@@ -13,7 +13,7 @@ object Caree {
     val reportChange = circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange())
 
     <CareeDetails>
-      <FullName>{reportChange.theirFullName}</FullName>
+      {question(<FullName/>, "fullName", reportChange.theirFullName)}
       {question(<RelationToClaimant/>,"theirRelationshipToYou", reportChange.theirRelationshipToYou)}
     </CareeDetails>
   }

@@ -19,9 +19,9 @@ class ClaimantSpec extends Specification with Tags {
       val claim = Claim().update(yourDetails)
       val xml = Claimant.xml(claim)
 
-      (xml \\ "ClaimantDetails" \\ "FullName").text shouldEqual yourDetails.fullName
-      (xml \\ "ClaimantDetails" \\ "DateOfBirth").text shouldEqual yourDetails.dateOfBirth.`dd-MM-yyyy`
-      (xml \\ "ClaimantDetails" \\ "NationalInsuranceNumber").text shouldEqual nationalInsuranceNr.stringify
+      (xml \\ "ClaimantDetails" \\ "FullName" \\ "Answer").text shouldEqual yourDetails.fullName
+      (xml \\ "ClaimantDetails" \\ "DateOfBirth" \\ "Answer").text shouldEqual yourDetails.dateOfBirth.`dd-MM-yyyy`
+      (xml \\ "ClaimantDetails" \\ "NationalInsuranceNumber" \\ "Answer").text shouldEqual nationalInsuranceNr.stringify
     }
   } section "unit"
 }

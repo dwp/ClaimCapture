@@ -31,13 +31,13 @@ object PaymentChange {
   def account(circs:Claim) = {
     val bankBuildingSocietyDetails = circs.questionGroup[CircumstancesPaymentChange].getOrElse(CircumstancesPaymentChange())
     <AccountDetails>
-      <AccountHolder>{bankBuildingSocietyDetails.whoseNameIsTheAccountIn}</AccountHolder>
-      <HolderName>{bankBuildingSocietyDetails.accountHolderName}</HolderName>
+      {question(<AccountHolder/>, "whoseNameIsTheAccountIn", bankBuildingSocietyDetails.whoseNameIsTheAccountIn)}
+      {question(<HolderName/>, "accountHolderName", bankBuildingSocietyDetails.accountHolderName)}
       <BuildingSocietyDetails>
-        <AccountNumber>{bankBuildingSocietyDetails.accountNumber}</AccountNumber>
-        {statement(<RollNumber/>,bankBuildingSocietyDetails.rollOrReferenceNumber)}
-        {statement(<SortCode/>,bankBuildingSocietyDetails.sortCode)}
-        <Name>{bankBuildingSocietyDetails.bankFullName}</Name>
+        {question(<AccountNumber/>, "accountNumber", bankBuildingSocietyDetails.accountNumber)}
+        {question(<RollNumber/>,"rollOrReferenceNumber", bankBuildingSocietyDetails.rollOrReferenceNumber)}
+        {question(<SortCode/>,"sortCode", bankBuildingSocietyDetails.sortCode)}
+        {question(<Name/>, "bankFullName", bankBuildingSocietyDetails.bankFullName)}
       </BuildingSocietyDetails>
     </AccountDetails>
   }

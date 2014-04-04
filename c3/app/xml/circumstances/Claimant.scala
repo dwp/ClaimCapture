@@ -15,9 +15,9 @@ object Claimant {
     val contactPreference = circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration())
 
     <ClaimantDetails>
-      <FullName>{reportChange.fullName}</FullName>
-      {statement(<DateOfBirth/>,reportChange.dateOfBirth)}
-      <NationalInsuranceNumber>{stringify(Some(reportChange.nationalInsuranceNumber))}</NationalInsuranceNumber>
+      {question(<FullName/>, "fullName", reportChange.fullName)}
+      {question(<DateOfBirth/>,"dateOfBirth", reportChange.dateOfBirth)}
+      {question(<NationalInsuranceNumber/>, "nationalInsuranceNumber", stringify(Some(reportChange.nationalInsuranceNumber)))}
       {question(<ContactPreference/>,"furtherInfoContact", contactPreference.furtherInfoContact)}
     </ClaimantDetails>
   }

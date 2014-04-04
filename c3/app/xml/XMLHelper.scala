@@ -95,22 +95,28 @@ object XMLHelper {
     case _ => Text(stringify(value,default))
   }
 
-  def postalAddressStructure(addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
-    case Some(address:MultiLineAddress) => postalAddressStructure(address, postcodeOption)
-    case _ => postalAddressStructure(new MultiLineAddress(), postcodeOption)
+  def postalAddressStructure(questionLabelCode: String, addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
+    case Some(address:MultiLineAddress) => postalAddressStructure(questionLabelCode,address, postcodeOption)
+    case _ => postalAddressStructure(questionLabelCode, new MultiLineAddress(), postcodeOption)
   }
 
-  def postalAddressStructure(addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeSeq = postalAddressStructure(addressOption, postcodeOption.getOrElse(""))
+  def postalAddressStructure(questionLabelCode: String, addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeSeq = postalAddressStructure(questionLabelCode, addressOption, postcodeOption.getOrElse(""))
 
-  private def postalAddressStructure(address: MultiLineAddress, postcode: String): NodeSeq = {
+  private def postalAddressStructure(questionLabelCode: String, address: MultiLineAddress, postcode: String): NodeSeq = {
     <Address>
-      {postalAddress(address, postcode)}
+      {questionLabel(questionLabelCode)}
+      <Answer>
+        {postalAddress(address, postcode)}
+      </Answer>
     </Address>
   }
 
-  def postalAddressStructureRecipientAddress(address: MultiLineAddress, postcode: Option[String]): NodeSeq = {
+  def postalAddressStructureRecipientAddress(questionLabelCode: String, address: MultiLineAddress, postcode: Option[String]): NodeSeq = {
     <RecipientAddress>
-      {postalAddress(address, postcode.orNull)}
+      {questionLabel(questionLabelCode)}
+      <Answer>
+        {postalAddress(address, postcode.orNull)}
+      </Answer>
     </RecipientAddress>
   }
 

@@ -15,13 +15,13 @@ object Caree extends XMLComponent {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     <Caree>
-      <Surname>{theirPersonalDetails.surname}</Surname>
-      <OtherNames>{theirPersonalDetails.firstName} {theirPersonalDetails.middleName.getOrElse("")}</OtherNames>
-      <Title>{theirPersonalDetails.title}</Title>
-      <DateOfBirth>{theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
-      {statement(<NationalInsuranceNumber/>,theirPersonalDetails.nationalInsuranceNumber)}
-      {postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode)}
-      {statement(<DayTimePhoneNumber/>,theirContactDetails.phoneNumber)}
+      {question(<Surname/>, "surname", theirPersonalDetails.surname)}
+      {question(<OtherNames/>, "firstName", theirPersonalDetails.firstName+" "+ theirPersonalDetails.middleName.getOrElse(""))}
+      {question(<Title/>, "title", theirPersonalDetails.title)}
+      {question(<DateOfBirth/>, "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`)}
+      {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", theirPersonalDetails.nationalInsuranceNumber)}
+      {postalAddressStructure("address", theirContactDetails.address, theirContactDetails.postcode)}
+      {question(<DayTimePhoneNumber/>,"phoneNumber", theirContactDetails.phoneNumber)}
       {question(<RelationToClaimant/>,"relationship", moreAboutThePerson.relationship)}
       {question(<Cared35Hours/>,"hours.answer", moreAboutTheCare.spent35HoursCaring)}
       {question(<BreaksSinceClaim/>,"answer.label",breaksInCare.hasBreaks,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
@@ -38,9 +38,9 @@ object Caree extends XMLComponent {
 
     for (break <- breaksInCare.breaks) yield {
       <CareBreak>
-        <StartDateTime>{break.start.`dd-MM-yyyy HH:mm`}</StartDateTime>
+        {question(<StartDateTime/>, "start", break.start.`dd-MM-yyyy HH:mm`)}
         {break.end match {
-          case Some(n) => <EndDateTime>{break.end.get.`dd-MM-yyyy HH:mm`}</EndDateTime>
+          case Some(n) => {question(<EndDateTime/>,"end", break.end.get.`dd-MM-yyyy HH:mm`)}
           case None => NodeSeq.Empty
         }}
         {question(<MedicalCare/>,"medicalDuringBreak", break.medicalDuringBreak)}

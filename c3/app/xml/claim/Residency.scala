@@ -22,7 +22,7 @@ object Residency extends XMLComponent{
         case _ => NodeSeq.Empty
       }}
 
-      <Nationality>{nationalityAndResidency.nationality}</Nationality>
+      {question(<Nationality/>, "nationality", nationalityAndResidency.nationality)}
 
       {periodAbroadLastYear(tripsOption, claim)}
 

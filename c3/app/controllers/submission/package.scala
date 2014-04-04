@@ -1,8 +1,7 @@
 package controllers
 
 import models.domain.{ChangeOfCircs, FullClaim, Claim}
-import com.dwp.carers.s2.xml.validation.{XmlValidator, XmlValidatorFactory}
-import scala.xml.Elem
+import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import xml.circumstances.DWPCoCircs
 import xml.claim.DWPCAClaim
 
@@ -17,8 +16,8 @@ package object submission {
   }
 
   def xmlValidator(claim: Claim) = claim match {
-    case _: Claim with FullClaim => XmlValidatorFactory.buildCaValidator()
-    case _: Claim with ChangeOfCircs => XmlValidatorFactory.buildCocValidator()
+    case _: Claim with FullClaim => XmlValidatorFactory.buildCaFutureValidator()
+    case _: Claim with ChangeOfCircs => XmlValidatorFactory.buildCocFutureValidator()
   }
 
   def claimType(claim:Claim) = claim match {

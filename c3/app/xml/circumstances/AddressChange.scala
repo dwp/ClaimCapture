@@ -17,11 +17,11 @@ object AddressChange {
       case Some(circsAddressChange) => {
         <AddressChange>
           <PreviousAddress>
-            {postalAddressStructure(circsAddressChange.previousAddress, circsAddressChange.previousPostcode)}
+            {postalAddressStructure("previousAddress", circsAddressChange.previousAddress, circsAddressChange.previousPostcode)}
           </PreviousAddress>
           {question(<Caring35Hours/>,"stillCaring.answer", circsAddressChange.stillCaring.answer)}
           <NewAddress>
-            {postalAddressStructure(circsAddressChange.newAddress, circsAddressChange.newPostcode)}
+            {postalAddressStructure("newAddress", circsAddressChange.newAddress, circsAddressChange.newPostcode)}
           </NewAddress>
           {circsAddressChange.stillCaring.answer match {
             case "no" => {question(<DateStoppedCaring35Hours/>,"stillCaring.date", circsAddressChange.stillCaring.date)}
@@ -32,7 +32,7 @@ object AddressChange {
               {circsAddressChange.sameAddress.answer match {
                 case Some("yes") => {
                   <CareeAddress>
-                    {postalAddressStructure(circsAddressChange.sameAddress.address, circsAddressChange.sameAddress.postCode)}
+                    {postalAddressStructure("sameAddress.theirNewAddress", circsAddressChange.sameAddress.address, circsAddressChange.sameAddress.postCode)}
                   </CareeAddress>
                 }
                 case Some("no") => NodeSeq.Empty
@@ -41,7 +41,7 @@ object AddressChange {
               }
             }
           }}
-          {statement(<OtherChanges/>, circsAddressChange.moreAboutChanges)}
+          {question(<OtherChanges/>, "moreAboutChanges", circsAddressChange.moreAboutChanges)}
         </AddressChange>
       }
       case _ => NodeSeq.Empty

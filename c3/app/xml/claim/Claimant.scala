@@ -11,15 +11,15 @@ object Claimant extends XMLComponent {
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
 
     <Claimant>
-      <Surname>{yourDetails.surname}</Surname>
-      <OtherNames>{yourDetails.firstName} {yourDetails.middleName.getOrElse("")}</OtherNames>
-      {statement(<OtherSurnames/>,yourDetails.otherSurnames)}
-      <Title>{yourDetails.title}</Title>
-      {statement(<DateOfBirth/>,yourDetails.dateOfBirth)}
-      {statement(<NationalInsuranceNumber/>,yourDetails.nationalInsuranceNumber)}
-      {postalAddressStructure(contactDetails.address, contactDetails.postcode)}
-      {statement(<DayTimePhoneNumber/>,contactDetails.howWeContactYou)}
-      <MaritalStatus>{moreAboutYou.maritalStatus}</MaritalStatus>
+      {question(<Surname/>, "surname", {yourDetails.surname})}
+      {question(<OtherNames/>, "firstName", yourDetails.firstName+" "+yourDetails.middleName.getOrElse(""))}
+      {question(<OtherSurnames/>,"otherNames", yourDetails.otherSurnames)}
+      {question(<Title/>, "title", yourDetails.title)}
+      {question(<DateOfBirth/>,"dateOfBirth", yourDetails.dateOfBirth)}
+      {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", yourDetails.nationalInsuranceNumber)}
+      {postalAddressStructure("address", contactDetails.address, contactDetails.postcode)}
+      {question(<DayTimePhoneNumber/>,"s2.g2.howcontactyou", contactDetails.howWeContactYou)}
+      {question(<MaritalStatus/>, "maritalStatus", moreAboutYou.maritalStatus)}
       {question(<TextPhoneContact/>,"contactYouByTextphone", contactDetails.contactYouByTextphone)}
     </Claimant>
   }

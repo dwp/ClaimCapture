@@ -20,7 +20,7 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka"  %% "akka-agent"          % "2.2.3" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-actor"          % "2.2.3" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-remote"         % "2.2.3" % "test" withSources() withJavadoc(),
-    "com.dwp.carers"     %% "carerscommon"        % "0.19.6",
+    "com.dwp.carers"     %% "carerscommon"        % "2.2.1",
     "postgresql"          % "postgresql"          % "9.1-901.jdbc4",
     "com.h2database"      % "h2"                  % "1.3.174",
     "me.moocar"           % "logback-gelf"        % "0.9.6p2",
@@ -28,7 +28,8 @@ object ApplicationBuild extends Build {
     "org.jacoco"          % "org.jacoco.core"     % "0.6.4.201312101107",
     "org.jacoco"          % "org.jacoco.report"   % "0.6.4.201312101107",
     "com.dwp"            %% "play2-multimessages" % "2.2.1",
-    "com.typesafe"       %% "play-plugins-mailer" % "2.2.0"
+    "com.typesafe"       %% "play-plugins-mailer" % "2.2.0",
+    "com.github.mumoshu" %% "play2-memcached"     % "0.4.0"
   )
 
   var sO: Seq[Def.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))

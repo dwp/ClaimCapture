@@ -57,12 +57,19 @@ class XmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml, pat
     val nodeName = node.mkString
     val value = prepareElement(node.text)
 //    Logger.debug(nodeName)
-    if (nodeName.endsWith("DateTime>") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value)
+    if (attributeForContains(claimValue)) value.contains(claimValue.value)
     else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
     else if (nodeName.startsWith(DeclarationNode)) answerText(node, "DeclarationQuestion",claimValue.question).contains(claimValue.value)
     else if (nodeName.startsWith(DisclaimerNode))  answerText(node, "DisclaimerQuestion", claimValue.question).contains(claimValue.value)
     else if (nodeName.startsWith(ConsentsNode))  answerText(node, "Consent", claimValue.question).contains(claimValue.value)
     else value == claimValue.value
+  }
+
+  private def attributeForContains (claimValue:TestDatumValue):Boolean = {
+     val attributes = Seq("StartDate","StartTime","EndDate","EndTime","FirstName","MiddleName", "MiddleNamePersonCareFor", "FirstNamePersonCareFor")
+     val claimAttribute = if(claimValue.attribute.contains("_")) claimValue.attribute.split("_")(0) else claimValue.attribute
+     attributes.foreach(a => if(claimAttribute.endsWith(a)) return true) // Could have done with contains
+     return false
   }
 
   def answerText(node:Node,questionTag:String,questionLabel:String) = {

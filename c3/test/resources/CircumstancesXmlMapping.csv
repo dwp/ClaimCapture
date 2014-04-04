@@ -1,20 +1,20 @@
-Report a change in your circumstances - Change in circumstances,Your Details,Full Name,CircumstancesAboutYouFullName,DWPCAChangeOfCircumstances>ClaimantDetails>FullName
-Report a change in your circumstances - Change in circumstances,Your Details,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,DWPCAChangeOfCircumstances>ClaimantDetails>NationalInsuranceNumber
-Report a change in your circumstances - Change in circumstances,Your Details,Date of Birth,CircumstancesAboutYouDateOfBirth,DWPCAChangeOfCircumstances>ClaimantDetails>DateOfBirth
-Report a change in your circumstances - Change in circumstances,Person you are caring for,Their Full Name,CircumstancesAboutYouTheirFullName,DWPCAChangeOfCircumstances>CareeDetails>FullName
+Report a change in your circumstances - Change in circumstances,Your Details,Full Name,CircumstancesAboutYouFullName,DWPCAChangeOfCircumstances>ClaimantDetails>FullName>Answer
+Report a change in your circumstances - Change in circumstances,Your Details,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,DWPCAChangeOfCircumstances>ClaimantDetails>NationalInsuranceNumber>Answer
+Report a change in your circumstances - Change in circumstances,Your Details,Date of Birth,CircumstancesAboutYouDateOfBirth,DWPCAChangeOfCircumstances>ClaimantDetails>DateOfBirth>Answer
+Report a change in your circumstances - Change in circumstances,Person you are caring for,Their Full Name,CircumstancesAboutYouTheirFullName,DWPCAChangeOfCircumstances>CareeDetails>FullName>Answer
 Report a change in your circumstances - Change in circumstances,Person you are caring for,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,DWPCAChangeOfCircumstances>CareeDetails>RelationToClaimant>Answer
 Permanently stopped caring - Change in circumstances,Permanently stopped caring,Tell us more about your changes,CircumstancesPermanentlyStoppedCaringMoreAboutChanges,DWPCAChangeOfCircumstances>StoppedCaring>OtherChanges>Answer
 Permanently stopped caring - Change in circumstances,Permanently stopped caring,What date did you permanently stop caring?,CircumstancesPermanentlyStoppedCaringStoppedCaringDate,DWPCAChangeOfCircumstances>StoppedCaring>DateStoppedCaring>Answer
-Change of address - Change in circumstances,Change of address,Your previous address,CircumstancesAddressChangePreviousAddress,DWPCAChangeOfCircumstances>AddressChange>PreviousAddress>Line
-Change of address - Change in circumstances,Change of address,Your previous postcode,CircumstancesAddressChangePreviousPostcode,DWPCAChangeOfCircumstances>AddressChange>PreviousAddress>PostCode
+Change of address - Change in circumstances,Change of address,Your previous address,CircumstancesAddressChangePreviousAddress,DWPCAChangeOfCircumstances>AddressChange>PreviousAddress>Answer>Line
+Change of address - Change in circumstances,Change of address,Your previous postcode,CircumstancesAddressChangePreviousPostcode,DWPCAChangeOfCircumstances>AddressChange>PreviousAddress>Answer>PostCode
 Change of address - Change in circumstances,Change of address,Are you still caring 35 hours or more each week?,CircumstancesAddressChangeStillCaring,DWPCAChangeOfCircumstances>AddressChange>Caring35Hours>Answer
 Change of address - Change in circumstances,Change of address,What date did you stop caring 35 hours a week?,CircumstancesAddressChangeFinishedStillCaringDate,DWPCAChangeOfCircumstances>AddressChange>DateStoppedCaring35Hours>Answer
-Change of address - Change in circumstances,Change of address,Your new address,CircumstancesAddressChangeNewAddress,DWPCAChangeOfCircumstances>AddressChange>NewAddress>Line
-Change of address - Change in circumstances,Change of address,Your new postcode,CircumstancesAddressChangeNewPostcode,DWPCAChangeOfCircumstances>AddressChange>NewAddress>PostCode
+Change of address - Change in circumstances,Change of address,Your new address,CircumstancesAddressChangeNewAddress,DWPCAChangeOfCircumstances>AddressChange>NewAddress>Answer>Line
+Change of address - Change in circumstances,Change of address,Your new postcode,CircumstancesAddressChangeNewPostcode,DWPCAChangeOfCircumstances>AddressChange>NewAddress>Answer>PostCode
 Change of address - Change in circumstances,Change of address,Has the person you care for changed address?,CircumstancesAddressChangeCaredForChangedAddress,DWPCAChangeOfCircumstances>AddressChange>CareeChangedAddress>Answer
 Change of address - Change in circumstances,Change of address,Is this the same address as you?,CircumstancesAddressChangeSameAddress,DWPCAChangeOfCircumstances>AddressChange>CareeSameAddress>Answer
-Change of address - Change in circumstances,Change of address,Their new address,CircumstancesAddressChangeSameAddressTheirAddress,DWPCAChangeOfCircumstances>AddressChange>CareeAddress>Line
-Change of address - Change in circumstances,Change of address,Their new postcode,CircumstancesAddressChangeSameAddressTheirPostcode,DWPCAChangeOfCircumstances>AddressChange>CareeAddress>PostCode
+Change of address - Change in circumstances,Change of address,Their new address,CircumstancesAddressChangeSameAddressTheirAddress,DWPCAChangeOfCircumstances>AddressChange>CareeAddress>Answer>Line
+Change of address - Change in circumstances,Change of address,Their new postcode,CircumstancesAddressChangeSameAddressTheirPostcode,DWPCAChangeOfCircumstances>AddressChange>CareeAddress>Answer>PostCode
 Change of address - Change in circumstances,Change of address,Tell us more about your changes,CircumstancesAddressChangeMoreAboutChanges,DWPCAChangeOfCircumstances>AddressChange>OtherChanges>Answer
 About Your Self-Employment - Change in circumstances,About Your Self-Employment,Are you still caring 35 hours or more each week?,CircumstancesSelfEmploymentStillCaring,DWPCAChangeOfCircumstances>SelfEmployedChange>Caring35Hours>Answer
 About Your Self-Employment - Change in circumstances,About Your Self-Employment,What date did you stop caring 35 hours a week?,CircumstancesSelfEmploymentFinishedStillCaringDate,DWPCAChangeOfCircumstances>SelfEmployedChange>DateStoppedCaring35Hours>Answer

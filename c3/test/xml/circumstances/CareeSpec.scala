@@ -18,7 +18,7 @@ class CareeSpec extends Specification with Tags {
       val claim = Claim().update(yourDetails)
       val xml = Caree.xml(claim)
 
-      (xml \\ "CareeDetails" \\ "FullName").text shouldEqual yourDetails.theirFullName
+      (xml \\ "CareeDetails" \\ "FullName" \\ "Answer").text shouldEqual yourDetails.theirFullName
       (xml \\ "CareeDetails" \\ "RelationToClaimant" \\ "Answer").text shouldEqual yourDetails.theirRelationshipToYou
 
     }

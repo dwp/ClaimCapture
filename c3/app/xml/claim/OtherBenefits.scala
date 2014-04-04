@@ -63,8 +63,8 @@ object OtherBenefits extends XMLComponent {
             {questionCurrency(<Payment/>,"howMuch", statutorySickPay.howMuch)}
             {questionOther(<Frequency/>,"howOften_frequency", statutorySickPay.howOften.get.frequency, statutorySickPay.howOften.get.other)}
         </Payment>
-        {if (statutorySickPay.employersName.isDefined) <Name>{statutorySickPay.employersName.get}</Name>}
-        {postalAddressStructure(statutorySickPay.address, statutorySickPay.postCode)}
+        {if (statutorySickPay.employersName.isDefined) question(<Name/>, "employersName", statutorySickPay.employersName.get)}
+        {postalAddressStructure("employersAddress", statutorySickPay.address, statutorySickPay.postCode)}
       </OtherMoneySSPDetails>
     }
     else NodeSeq.Empty
@@ -77,8 +77,8 @@ object OtherBenefits extends XMLComponent {
            {questionCurrency(<Payment/>, "howMuch", otherStatutoryPay.howMuch)}
            {questionOther(<Frequency/>,"howOften_frequency", otherStatutoryPay.howOften.get.frequency, otherStatutoryPay.howOften.get.other)}
         </Payment>
-        {if (otherStatutoryPay.employersName.isDefined) <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>}
-        {postalAddressStructure(otherStatutoryPay.address, otherStatutoryPay.postCode)}
+        {if (otherStatutoryPay.employersName.isDefined) question(<Name/>, "employersName", otherStatutoryPay.employersName.getOrElse("empty"))}
+        {postalAddressStructure("employersAddress", otherStatutoryPay.address, otherStatutoryPay.postCode)}
       </OtherMoneySPDetails>
     }
     else NodeSeq.Empty

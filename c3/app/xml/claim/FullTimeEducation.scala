@@ -28,7 +28,7 @@ object FullTimeEducation extends XMLComponent {
 
     <CourseDetails>
       {/*TODO: Remove courseType from the new schema.*/}
-      {statement(<Title/>,courseDetails.title)}
+      {question(<Title/>,"courseTitle",courseDetails.title)}
       {question(<DateStarted/>, "startDate", courseDetails.startDate)}
       {/*TODO: Remove finished date from the new schema.*/}
       {question(<ExpectedEndDate/>, "expectedEndDate", courseDetails.expectedEndDate)}
@@ -39,12 +39,12 @@ object FullTimeEducation extends XMLComponent {
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <LocationDetails>
-      {statement(<Name/>,courseDetails.nameOfSchoolCollegeOrUniversity)}
+      {question(<Name/>,"nameOfSchoolCollegeOrUniversity",courseDetails.nameOfSchoolCollegeOrUniversity)}
       {/*TODO: Remove address from the new schema*/}
-      {statement(<PhoneNumber/>,courseDetails.courseContactNumber)}
+      {question(<PhoneNumber/>,"courseContactNumber", courseDetails.courseContactNumber)}
       {/*TODO: Remove fax from the new schema*/}
       {/*TODO: Remove student reference number from the new schema*/}
-      {statement(<Tutor/>,courseDetails.nameOfMainTeacherOrTutor)}
+      {question(<Tutor/>,"nameOfMainTeacherOrTutor", courseDetails.nameOfMainTeacherOrTutor)}
     </LocationDetails>
   }
 }
