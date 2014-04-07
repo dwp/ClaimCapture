@@ -53,7 +53,6 @@ trait ClaimBotChecking extends BotChecking {
       "s2" -> getProperty("speed.s2", 5000L),
       "s3" -> getProperty("speed.s3", 5000L),
       "s4" -> getProperty("speed.s4", 5000L),
-      "s5" -> getProperty("speed.s5", 5000L),
       "s6" -> getProperty("speed.s6", 5000L),
       "s7" -> getProperty("speed.s7", 5000L),
       "s8" -> getProperty("speed.s8", 5000L),
