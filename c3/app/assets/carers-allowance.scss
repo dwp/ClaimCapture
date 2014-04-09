@@ -24,7 +24,7 @@ main {
 
 @import 'header';
 
-@import 'feedback';
+@import 'feedback ';
 
 
 .carers-allowance {
@@ -188,6 +188,9 @@ main {
 			   border-left: 5px solid #a2a2a2;
 			   padding-left: .8em;
 			   margin-top: 1em;
+			   .validation {
+				   margin-left: -1.08em;
+			   }
 		   }
 		   
 		   &.circs-group {
@@ -335,26 +338,31 @@ main {
 			   }
 			   .helper-more {
 				   cursor: pointer;
-				   font-size: 17px;
+				   font-size: 19px;
 				   margin: .6em 0 0 0;
 				   font-weight: 500;
 				   overflow: hidden;
 				   line-height: 1em;
 				   padding: .5em .7em .45em .7em;
-				   border-left: 5px solid #333;
-				   color: #000;
+				   border-left: 5px solid #dee0e2;
+				   color: #005ea5;
+				   text-decoration: underline;
+				   &:hover {
+					   color: #2e8aca;
+					   text-decoration: none;
+				   }
 			   }
 
 				.helper-info {
 					display: none;
-					padding: 1.3em 1em 1em .8em;
+					padding: 1em 1em 0 .8em;
 					background: #fff;
-					border-left: 5px solid #333;
+					border-left: 5px solid #dee0e2;
 					h3 {
-						font-size: 17px;
+						font-size: 19px;
 					}
 					p {
-						font-size: 17px;
+						font-size: 19px;
 						margin-top: 1em;
 						color: #515151;
 						line-height: 1.4em;
@@ -368,7 +376,7 @@ main {
 						}
 					}
 					a {
-						color: #2e3191;
+						color: #005ea5;
 						text-decoration: underline;
 						&:hover {
 							color: #2e8aca;
@@ -779,7 +787,7 @@ main {
 	
 	
 	   
-/* Information panel style */
+/* Information panel   */
 @import 'info-panel';	   
 	   
 	      
@@ -809,7 +817,7 @@ main {
 @import 'finish';
 
 
-/* Right col (Finish page) */
+/* Right col (Finish page)  */
 @import 'right-panel';
 		
 }

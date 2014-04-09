@@ -73,8 +73,10 @@
 	        </fieldset>
 	
 	        <nav class="form-steps">
-	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
 	        </nav>
         </div>
     }
