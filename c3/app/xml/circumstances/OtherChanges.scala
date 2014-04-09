@@ -13,7 +13,7 @@ object OtherChanges {
     val circsOtherChangesOption: Option[CircumstancesOtherInfo] = circs.questionGroup[CircumstancesOtherInfo]
 
     circsOtherChangesOption match {
-      case Some(circsOtherChanges) => {question(<OtherChanges/>,"change", circsOtherChanges.change)}
+      case Some(circsOtherChanges) => {question(<OtherChanges/>,"reportChanges.anyOtherChanges", circsOtherChanges.change)}
       case _ => NodeSeq.Empty
     }
   }
