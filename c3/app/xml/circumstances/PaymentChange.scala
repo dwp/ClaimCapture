@@ -15,9 +15,9 @@ object PaymentChange {
       case Some(circsPaymentChange) => {
         <PaymentChange>
           <PaidIntoAccountDetails>
-            {question(<PaidIntoAccount/>,"currentlyPaidIntoBank", circsPaymentChange.currentlyPaidIntoBank)}
-            {question(<BankName/>,"currentlyPaidIntoBank.text1", circsPaymentChange.currentlyPaidIntoBank.text1)}
-            {question(<MethodOfPayment/>,"currentlyPaidIntoBank.text2", circsPaymentChange.currentlyPaidIntoBank.text2)}
+            {question(<PaidIntoAccount/>,"currentlyPaidIntoBank.label", circsPaymentChange.currentlyPaidIntoBank)}
+            {question(<BankName/>,"currentlyPaidIntoBank.text1.label", circsPaymentChange.currentlyPaidIntoBank.text1)}
+            {question(<MethodOfPayment/>,"currentlyPaidIntoBank.text2.label", circsPaymentChange.currentlyPaidIntoBank.text2)}
           </PaidIntoAccountDetails>
           {account(circs)}
           {question(<PaymentFrequency/>,"paymentFrequency", circsPaymentChange.paymentFrequency)}
