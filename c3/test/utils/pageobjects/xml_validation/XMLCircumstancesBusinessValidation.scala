@@ -52,6 +52,7 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
         val index = if (isRepeatedAttribute && isARepeatableNode) iteration else 0
 
         val value = XMLValidationNode.prepareElement(theNodes(index).text)
+
         val nodeName = theNodes(index).mkString
         def valuesMatching: Boolean = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value)
@@ -69,7 +70,9 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
               case _ => claimValue.value
             }))
           }
-          else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
+          else if (nodeName.endsWith("gds:Line>")) {
+            claimValue.value.contains(value)
+          }
           else if (nodeName.startsWith(DeclarationNode)) value.contains(claimValue.question + claimValue.value)
           else value == claimValue.value
         }
@@ -102,7 +105,7 @@ object CircValue {
   private def prepareQuestion(question: String) = question.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
   private def prepareCircValue(claimValue: String, attribute:String) = {
-    val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
+    val cleanValue = claimValue.replace("\\n", "").replace(" ", "").replace("&", "").trim.toLowerCase
 
     if (cleanValue.contains("/") && !checkAttributeToExclude(attribute)) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
@@ -114,7 +117,7 @@ object CircValue {
     val attributes = Seq("CircumstancesSelfEmploymentWhenThisStarted",
       "CircumstancesSelfEmploymentFinishedStillCaringDate", "BreaksInCareStartDate",
       "BreaksInCareEndDate", "BreaksInCareExpectToStartCaringAgainDate",
-      "BreaksInCareExpectToStartCaringPermanentEndDate"
+      "BreaksInCareExpectToStartCaringPermanentEndDate", "CircumstancesAddressChangeFinishedStillCaringDate"
     )
     attributes.foreach(f => if(f.startsWith(attribute)) return true)
     false

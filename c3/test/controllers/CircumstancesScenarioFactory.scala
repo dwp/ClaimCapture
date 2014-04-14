@@ -143,7 +143,7 @@ object CircumstancesScenarioFactory {
   def reportChangesAddressChangeYes = {
     val claim = addressChange
 
-    claim.CircumstancesAddressChangePreviousAddress = "1 test lane"
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
     claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeStillCaring = "yes"
     claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
@@ -167,6 +167,64 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
     claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeMoreAboutChanges ="Additional info about changes"
+
+    claim
+  }
+
+  def reportChangeAddressMissingPersonChangedAddress = {
+    val claim = addressChange
+
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
+    claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeStillCaring = "yes"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
+
+    claim
+  }
+
+  def reportChangeAddressMissingDateStoppedCaring = {
+    val claim = addressChange
+
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
+    claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeStillCaring = "no"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
+
+    claim
+  }
+
+  def reportChangeAddressMissingNewAddress = {
+    val claim = addressChange
+
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
+    claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeStillCaring = "no"
+    claim.CircumstancesAddressChangeFinishedStillCaringDate = "03/04/2013"
+
+    claim
+  }
+
+  def reportChangeAddressMissingNewAddressAndDate = {
+    val claim = addressChange
+
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
+    claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeStillCaring = "no"
+
+    claim
+  }
+
+  def reportChangesAddressMissingSameAddress = {
+    val claim = addressChange
+
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
+    claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeStillCaring = "yes"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeCaredForChangedAddress = "yes"
 
     claim
   }
