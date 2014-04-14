@@ -25,7 +25,7 @@ About Your Self-Employment - Change in circumstances,About Your Self-Employment,
 Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges>Answer
 Consent and declaration,Further Information,Contact phone or mobile number,FurtherInfoContact,DWPCAChangeOfCircumstances>ClaimantDetails>ContactPreference>Answer
 Consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have told us about?,CircumstancesDeclarationInfoAgreement,DWPCAChangeOfCircumstances>Consents>Consent>Answer
-Consent & Declaration,Consent & Declaration,Please tell us why not,CircumstancesDeclarationWhyNot,DWPCAChangeOfCircumstances>Consents>Consent>Why
+Consent & Declaration,Consent & Declaration,Please tell us why not,CircumstancesDeclarationWhyNot,DWPCAChangeOfCircumstances>Consents>Consent>Why>Answer
 Consent and declaration,Declaration,"Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,DWPCAChangeOfCircumstances>Declaration
 Consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,DWPCAChangeOfCircumstances>Declaration>DeclarationNameOrg>Answer
 Consent and declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,CircumstancesDeclarationConfirmation,DWPCAChangeOfCircumstances>Declaration

@@ -26,7 +26,7 @@ class ConsentsSpec  extends Specification with Tags {
       (xml \\ "Consents" \ "Consent").length mustEqual 1
       (xml \\ "Consents"  \ "Consent" \ "Answer").text mustEqual declaration.obtainInfoAgreement
       (xml \\ "Consents" \ "Consent" \ "QuestionLabel").text mustEqual "obtainInfoAgreement"
-      (xml \\ "Consents"  \ "Consent" \ "Why").text mustEqual "Because"
+      (xml \\ "Consents"  \ "Consent" \ "Why" \ "Answer").text mustEqual "Because"
     }
 
   } section "unit"

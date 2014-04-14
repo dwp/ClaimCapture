@@ -11,8 +11,8 @@ object Consents extends XMLComponent {
     val consent = claim.questionGroup[Consent].getOrElse(Consent())
 
     <Consents>
-      {questionWhy(<Consent/>,"gettingInformationFromAnyEmployer.informationFromEmployer", consent.informationFromEmployer.answer, consent.informationFromEmployer.text)}
-      {questionWhy(<Consent/>,"tellUsWhyEmployer.informationFromPerson", consent.informationFromPerson.answer, consent.informationFromPerson.text)}
+      {questionWhy(<Consent/>,"gettingInformationFromAnyEmployer.informationFromEmployer", consent.informationFromEmployer.answer, consent.informationFromEmployer.text, "gettingInformationFromAnyEmployer.why")}
+      {questionWhy(<Consent/>,"tellUsWhyEmployer.informationFromPerson", consent.informationFromPerson.answer, consent.informationFromPerson.text, "tellUsWhyEmployer.whyPerson")}
     </Consents>
   }
 }

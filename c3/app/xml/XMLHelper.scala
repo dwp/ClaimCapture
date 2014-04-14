@@ -47,11 +47,11 @@ object XMLHelper {
 
   // We should only see a why text supplied if the answer is no, but add the why text regardless if supplied.
   // The business logic should be in the UI not in XML generation.
-  def questionWhy[T](wrappingNode:Node,questionLabelCode: String, answerText: T, whyText: Option[String],labelParameters: String*): NodeSeq = {
-    if (answerText.isInstanceOf[Option[_]]) questionOptionalWhy(wrappingNode,questionLabelCode,answerText.asInstanceOf[Option[_]],whyText,labelParameters:_*)
+  def questionWhy[T](wrappingNode:Node,questionLabelCode: String, answerText: T, whyText: Option[String], questionWhyLabelCode: String,labelParameters: String*): NodeSeq = {
+    if (answerText.isInstanceOf[Option[_]]) questionOptionalWhy(wrappingNode,questionLabelCode,answerText.asInstanceOf[Option[_]],whyText,questionWhyLabelCode,labelParameters:_*)
     else {
-      val why = <Why/>
-      addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ <Answer>{stringify(answerText)}</Answer> ++ optionalEmpty(whyText,why))
+      val whyTextNode = if (whyText.isDefined) addChild(<Why/>,questionLabel(questionWhyLabelCode,labelParameters:_*) ++ <Answer>{nodify(whyText)}</Answer>) else NodeSeq.Empty
+      addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ <Answer>{stringify(answerText)}</Answer> ++ whyTextNode)
     }
   }
 
@@ -141,9 +141,9 @@ object XMLHelper {
     <QuestionLabel>{Messages(questionLabelCode, labelParameters: _*)}</QuestionLabel>
   }
 
-  private def questionOptionalWhy[T](wrappingNode:Node,questionLabelCode: String, answerOption: Option[T], whyText: Option[String],labelParameters: String*): NodeSeq = {
+  private def questionOptionalWhy[T](wrappingNode:Node,questionLabelCode: String, answerOption: Option[T], whyText: Option[String],questionWhyLabelCode: String,labelParameters: String*): NodeSeq = {
     if (answerOption.isDefined) {
-      questionWhy(wrappingNode,questionLabelCode,answerOption.get,whyText,labelParameters:_* )
+      questionWhy(wrappingNode,questionLabelCode,answerOption.get,whyText,questionWhyLabelCode,labelParameters:_* )
     }
     else NodeSeq.Empty
   }

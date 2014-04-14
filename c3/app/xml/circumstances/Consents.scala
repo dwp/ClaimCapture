@@ -14,7 +14,7 @@ object Consents extends XMLComponent{
     val consent = circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration())
 
     <Consents>
-      {questionWhy(<Consent/>,"obtainInfoAgreement",consent.obtainInfoAgreement,consent.obtainInfoWhy)}
+      {questionWhy(<Consent/>,"obtainInfoAgreement",consent.obtainInfoAgreement,consent.obtainInfoWhy, "obtainInfoWhy")}
     </Consents>
   }
 }
