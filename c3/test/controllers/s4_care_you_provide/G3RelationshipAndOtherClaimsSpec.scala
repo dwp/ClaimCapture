@@ -11,7 +11,7 @@ import models.view.CachedClaim
 
 class G3RelationshipAndOtherClaimsSpec extends Specification with Mockito with Tags {
 
-  val moreAboutThePersonInput = Seq("relationship" -> "Father", "armedForcesPayment" -> "yes")
+  val moreAboutThePersonInput = Seq("relationship" -> "father", "armedForcesPayment" -> "yes")
 
   "More About The Person - Controller" should {
 
@@ -32,7 +32,7 @@ class G3RelationshipAndOtherClaimsSpec extends Specification with Mockito with T
 
       section.questionGroup(MoreAboutThePerson) must beLike {
         case Some(m: MoreAboutThePerson) => {
-          m.relationship mustEqual "Father"
+          m.relationship mustEqual "father"
           m.armedForcesPayment mustEqual "yes"
         }
       }

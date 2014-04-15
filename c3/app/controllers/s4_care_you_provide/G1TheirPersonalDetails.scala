@@ -13,12 +13,14 @@ import scala.Some
 
 object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
+    "relationship" -> nonEmptyText(maxLength = 20),
     "title" -> nonEmptyText(maxLength = 4),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
+    "armedForcesPayment" -> nonEmptyText.verifying(validYesNo),
     "liveAtSameAddressCareYouProvide" -> nonEmptyText.verifying(validYesNo)
   )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
@@ -29,7 +31,10 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
     val currentForm = if (isPartnerPersonYouCareFor) {
       claim.questionGroup(YourPartnerPersonalDetails) match {
         case Some(t: YourPartnerPersonalDetails) =>
-          form.fill(TheirPersonalDetails(title = t.title, firstName = t.firstName, middleName = t.middleName, surname = t.surname,
+          form.fill(TheirPersonalDetails(title = t.title,
+                                         firstName = t.firstName,
+                                         middleName = t.middleName,
+                                         surname = t.surname,
                                          nationalInsuranceNumber = t.nationalInsuranceNumber,
                                          dateOfBirth = t.dateOfBirth)) // Pre-populate form with values from YourPartnerPersonalDetails
         case _ => form // Blank form (user can only get here if they skip sections by manually typing URL).

@@ -14,7 +14,7 @@
     
         <div class="form-wrap">
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
-	            <legend>@Messages("s3.g1")</legend>
+	            <legend>@Html(Messages("s3.g1"))</legend>
 	
 	            <ul>
 	                @titleSelect(currentForm("title"))
@@ -40,8 +40,10 @@
 	        </fieldset>
 	
 	        <nav class="form-steps">
-	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button>
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
 	        </nav>
         </div>
     }

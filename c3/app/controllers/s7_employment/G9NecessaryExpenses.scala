@@ -5,7 +5,7 @@ import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
-import models.domain.{ChildcareExpenses, AboutExpenses, NecessaryExpenses}
+import models.domain.{AboutExpenses, NecessaryExpenses}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._

@@ -2,11 +2,11 @@ package models.domain
 
 import play.api.i18n.{MMessages => Messages}
 
-abstract class QuestionGroup(val identifier: QuestionGroup.Identifier) {
+abstract class QuestionGroup(val identifier: QuestionGroup.Identifier) extends Serializable {
   val definition: String = Messages(identifier.id)
 }
 
-object QuestionGroup {
+object QuestionGroup extends Serializable {
   trait Identifier {
     val id: String
 

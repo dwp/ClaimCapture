@@ -10,4 +10,7 @@
     @carersLabel(field,args:_*)
 
     <textarea id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>@value</textarea>
+    @if(args.find(_._1 == 'textAreaHelper).isDefined) {
+        <p class="helper right">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
+    }
 }

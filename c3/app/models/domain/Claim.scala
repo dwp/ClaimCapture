@@ -6,7 +6,7 @@ import models.view.{CachedClaim, Navigation}
 import models.{Timestamped, DayMonthYear}
 import play.api.i18n.Lang
 
-case class Claim(key: String = CachedClaim.key, sections: List[Section] = List(), override val created: Long = System.currentTimeMillis(), lang: Option[Lang] = None)(implicit val navigation: Navigation = Navigation()) extends Claimable with Timestamped {
+case class Claim(key: String = CachedClaim.key, sections: List[Section] = List(), override val created: Long = System.currentTimeMillis(), lang: Option[Lang] = None, transactionId: Option[String] = None)(implicit val navigation: Navigation = Navigation()) extends Claimable with Timestamped {
   def section(sectionIdentifier: Section.Identifier): Section = {
     sections.find(s => s.identifier == sectionIdentifier) match {
       case Some(s: Section) => s
@@ -83,5 +83,9 @@ case class Claim(key: String = CachedClaim.key, sections: List[Section] = List()
   def dateOfClaim: Option[DayMonthYear] = questionGroup(ClaimDate) match {
     case Some(c: ClaimDate) => Some(c.dateOfClaim)
     case _ => None
+  }
+
+  def withTransactionId(transactionID: String) = {
+    copy(transactionId = Some(transactionID))
   }
 }

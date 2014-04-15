@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import com.dwp.carers.s2.xml.signing.XmlSignatureFactory
 import controllers.submission.xmlValidator
+import play.api.Logger
 
 /**
  * Generates the full XML, including the digital signature.

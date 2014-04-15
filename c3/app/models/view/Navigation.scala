@@ -3,6 +3,7 @@ package models.view
 import play.api.mvc.{Request, Result, AnyContent}
 import models.domain.Claim
 import scala.reflect.ClassTag
+import models.view.CachedClaim.ClaimResult
 
 trait Navigable {
   this: CachedClaim =>

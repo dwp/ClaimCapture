@@ -1,15 +1,17 @@
 package controllers.circs.s3_consent_and_declaration
 
-import play.api.mvc.Controller
+import play.api.mvc._
 import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import models.domain.{CircumstancesDeclaration, CircumstancesOtherInfo}
 import controllers.CarersForms._
+import controllers.submission.AsyncSubmittable
 import play.api.data.FormError
+import monitoring.ChangeBotChecking
 
-object G1Declaration extends Controller with CachedChangeOfCircs with Navigable {
+abstract class G1Declaration extends Controller with CachedChangeOfCircs with Navigable {
   val form = Form(mapping(
     "furtherInfoContact" -> carersNonEmptyText(maxLength = 35),
     "obtainInfoAgreement" -> nonEmptyText,
@@ -28,7 +30,11 @@ object G1Declaration extends Controller with CachedChangeOfCircs with Navigable 
     }
   }
 
-  def submit = claiming { implicit circs => implicit request => implicit lang =>
+  def submit: Action[AnyContent]
+}
+
+class G1SyncDeclaration extends G1Declaration {
+  override def submit: Action[AnyContent] = claiming { implicit circs => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -40,3 +46,5 @@ object G1Declaration extends Controller with CachedChangeOfCircs with Navigable 
     )
   }
 }
+
+class G1AsyncDeclaration extends G1Declaration with AsyncSubmittable with ChangeBotChecking

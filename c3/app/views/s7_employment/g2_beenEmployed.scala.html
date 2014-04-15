@@ -10,17 +10,17 @@
 
 @main("Your employment history - " + Messages("s7.longName"), Some(currentForm)) {
     <fieldset id="jobs" class="form-elements results-detail" data-journey="carers-allowance:page:employment">
-        <legend>@Messages("tableTitle")</legend>
+        <legend>@Html(Messages("tableTitle"))</legend>
 
         <table class="employment">
-            <caption>@Messages("s7.g2.help1")</caption>
+            <caption>@Html(Messages("s7.g2.help1"))</caption>
 
             <thead>
                 <tr>
-                    <th>@Messages("employerNameTable")</th>
-                    <th class="desc">@Messages("startDateTable")</th>
-                    <th>@Messages("changeTable")</th>
-                    <th>@Messages("deleteTable")</th>
+                    <th>@Html(Messages("employerNameTable"))</th>
+                    <th class="desc">@Html(Messages("startDateTable"))</th>
+                    <th>@Html(Messages("changeTable"))</th>
+                    <th>@Html(Messages("deleteTable"))</th>
                 </tr>
             </thead>
 
@@ -31,8 +31,8 @@
                             <tr id="@job.jobID" class="@job.jobID">
                                 <td>@job.employerName</td>
                                 <td class="desc">@{(job.jobStartDate).`dd/MM/yyyy`}</td>
-                                <td><input type="button" class="button row secondary" id="changeButton" value="@Messages("change")" aria-label="@Messages("change.button")"></td>
-                                <td><input type="button" class="button row warning" id="deleteButton" value="@Messages("delete")" aria-label="@Messages("delete.button")"></td>
+                                <td><input type="button" class="button row secondary" id="changeButton" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))"></td>
+                                <td><input type="button" class="button row warning" id="deleteButton" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))"></td>
                             </tr>
                         }
                     }
@@ -41,10 +41,10 @@
         </table>
 
         <div class="prompt breaks-prompt">
-            <p class="normalMsg">@Messages("deleteEmploymentMessage")</p>
-            <p class="warningMsg">@Messages("deleteOneEmploymentMessage")</p>
-            <input type="button" class="button row secondary" id = "noDeleteButton" value="@Messages("no.delete")" aria-label="@Messages("no.delete.label")">
-            <input type="button" class="button row warning" id = "yesDeleteButton" value="@Messages("yes.delete")" aria-label="@Messages("yes.delete.label")">
+            <p class="normalMsg">@Html(Messages("deleteEmploymentMessage"))</p>
+            <p class="warningMsg">@Html(Messages("deleteOneEmploymentMessage"))</p>
+            <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
+            <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(Messages("yes.delete"))" aria-label="@Html(Messages("yes.delete.label"))">
             <span>&#33;</span>
         </div>
     </fieldset>
@@ -54,7 +54,7 @@
     @form(action = controllers.s7_employment.routes.G2BeenEmployed.submit()){
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <legend>@Messages("s7.g2")</legend>
+	            <legend>@Html(Messages("s7.g2"))</legend>
 	
 	            <ul>
 	                @yesNoRadioGroup(currentForm("beenEmployed"),
@@ -64,8 +64,10 @@
 	        </fieldset>
 	
 	        <nav class="form-steps">
-	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button>
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
 	        </nav>
         </div>
     }

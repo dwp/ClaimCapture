@@ -9,12 +9,11 @@ import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain._
 import models.view.Navigable
-import play.api.data.FormError
 import play.api.Logger
 
 object G1Benefits extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "answer" -> nonEmptyText.verifying(validYesNo)
+    "benefits.answer" -> nonEmptyText.verifying(validYesNo)
   )(Benefits.apply)(Benefits.unapply))
 
   def present = newClaim { implicit claim => implicit request => implicit lang =>
@@ -25,9 +24,7 @@ object G1Benefits extends Controller with CachedClaim with Navigable {
   def submit = claiming {implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val formWithErrorsUpdate = formWithErrors
-          .replaceError("answer", FormError("benefits.answer", "error.required"))
-        BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrorsUpdate))
+        BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrors))
       },
       f => claim.update(f) -> Redirect(routes.G2Hours.present()))
   }

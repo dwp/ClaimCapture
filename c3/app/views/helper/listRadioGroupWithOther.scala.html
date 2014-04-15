@@ -1,0 +1,28 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang)
+
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import play.api.i18n.{MMessages => Messages}
+
+@nestedFieldSet = @{ args.toMap.get('_nestedFieldSet).getOrElse(false) == true }
+
+@helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
+
+    <fieldset @if(nestedFieldSet) {class="nested-fieldset"} else {class="form-elements"}>
+
+        @radioListPlaceholder(field("answer"), args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items) ++ Seq('listWithOther -> "true"):_*)
+
+        @ulDetailPlaceHolder(
+            inputDef = Seq(
+                carersInputTextArea(field("text"),
+                    'ignoreLabel -> true,
+                    'placeholder -> Messages("ifOtherPleaseSpecify"),
+                    'textAreaHelper -> Html(Messages("60charsLeft")),
+                    'maxLength -> args.toMap.get('maxLength).getOrElse(60))
+            ),
+            'id -> args.toMap.get('wrapperName).map(_.toString).getOrElse("answerWrap"),
+            'display -> {if (field("answer").value.getOrElse("no") == args.toMap.get('otherValue).map(_.toString).getOrElse("no")) "yes" else "no" })
+
+    </fieldset>
+}

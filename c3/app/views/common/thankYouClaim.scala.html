@@ -21,9 +21,9 @@
         <article class="finish-statement clearfix">
            
             <section class="app-complete">
-	            <h1><span>@Messages("thankyou")</span></h1>
-	            <p>@Messages("claim.received")</p>
-	            <p class="nino-title">@Messages("claim.recieved2")</p>
+	            <h1><span>@Html(Messages("thankyou"))</span></h1>
+	            <p>@Html(Messages("claim.received"))</p>
+	            <p class="nino-title">@Html(Messages("claim.recieved2"))</p>
             </section>
             
             
@@ -33,43 +33,44 @@
             
 
                     <section>
-                        <h1>@Messages("documents.title")</h1>
-                        <h3>@Messages("documents.sendingDocs.title")</h3>
-                        <p>@Messages("documents.sendingDocs.text")</p>
+                        <h1>@Html(Messages("documents.title"))</h1>
+                        <h3>@Html(Messages("documents.sendingDocs.title"))</h3>
+                        <p>@Html(Messages("documents.sendingDocs.text"))</p>
                     </section>
             
                 <div class="send-info">
 
                         @if(isEmployment){
                             <section>
-                                <h2 id="employment">@Messages("s11.g5.help3")</h2>
+                                <h2 id="employment">@Html(Messages("s11.g5.help3"))</h2>
                                 <ul>
                                     <li>@{Messages("s11.g5.help4")} @claimDate</li>
-                                    <li>@Messages("s11.g5.help5")</li>
-                                    <li>@Messages("s11.g5.help6")</li>
+                                    <li>@Html(Messages("s11.g5.help5"))</li>
+                                    <li>@Html(Messages("s11.g5.help6"))</li>
                                 </ul>
                             </section>
                         }
                         @if(isSelfEmployment){
                             <section>
-                                <h2 id="selfEmployment">@Messages("s11.g5.help7")</h2>
+                                <h2 id="selfEmployment">@Html(Messages("s11.g5.help7"))</h2>
                                 <ul>
-                                    <li>@Messages("s11.g5.help8")</li>
-                                    <li>@Messages("s11.g5.help9")</li>
+                                    <li>@Html(Messages("s11.g5.help8"))</li>
+                                    <li>@Html(Messages("s11.g5.help9"))</li>
                                 </ul>
                             </section>
                         }
                         <section class="address">
-                            <h2>@Messages("s11.g5.help10")</h2>
-                            <span>@Messages("s11.g5.help11")</span>
-                            <span>@Messages("s11.g5.help12")</span>
-                            <span>@Messages("s11.g5.help13")</span>
-                            <span>@Messages("s11.g5.help14")</span>
-                            <p>@Messages("s11.g5.help15")</p>
+                            <h2>@Html(Messages("s11.g5.help10"))</h2>
+                            <span>@Html(Messages("s11.g5.help11"))</span>
+                            <span>@Html(Messages("s11.g5.help12"))</span>
+                            <span>@Html(Messages("s11.g5.help13"))</span>
+                            <span>@Html(Messages("s11.g5.help14"))</span>
+                            <p>@Html(Messages("s11.g5.help15"))</p>
                         </section>
 
-
                 </div>
+                
+                
             </div>
             }
             
@@ -80,7 +81,7 @@
 			<aside class="right-panel @{if(!isEmploymentOrSelfEmployment)"no-employment"}">
 			
             	<section>
-	                <h2>@Messages("next")</h2>
+	                <h2>@Html(Messages("next"))</h2>
 	                <ul>
 	                    <li>@Html(Messages("claim.next.1"))</li>
 	                    <li>@Html(Messages("claim.next.2"))</li>
@@ -90,13 +91,12 @@
                 </section>
                 
                 <section>
-	                <h2>@Messages("change.head")</h2>
+	                <h2>@Html(Messages("change.head"))</h2>
 	                <p>@Html(Messages("change.link"))</p>
                 </section>
                 
                 <section>
-	                <h2>@Messages("feedback.head")</h2>
-	                <p>@Html(Messages("claim.feedback.link"))</p>
+	                <p class="finish">@Html(Messages("claim.feedback.link"))</p>
 				</section>
 	            
             </aside>

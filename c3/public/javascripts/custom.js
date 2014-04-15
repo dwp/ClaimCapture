@@ -33,12 +33,13 @@ $(function() {
 
         $(this).text(labelText);
     });
-    
-    $('.feedback, .feed-close').click(function(){
-       $(this).toggleClass("feedback-close");
-       $('.feedback-container').slideToggle('slow');
-  
+
+     
+     
+     $('.feedback, .feed-close').click(function(){
+     $( ".feedback-container" ).toggle();
      });
+     
 
     // Nino auto jump
 	$('.ni-number input, .sort-code input').autotab_magic();

@@ -18,14 +18,15 @@ import scala.concurrent.{ExecutionContext, Future}
 import models.domain.Claim
 import scala.Some
 import ExecutionContext.Implicits.global
+import models.view.CachedClaim.ClaimResult
 
 object CachedClaim {
   val missingRefererConfig = "Referer not set in config"
   val key = "claim"
+  type ClaimResult = (Claim, Result)
 }
 
 trait CachedClaim {
-  type ClaimResult = (Claim, Result)
 
   type JobID = String
 
@@ -52,7 +53,7 @@ trait CachedClaim {
 
   def newInstance: Claim = new Claim(cacheKey) with FullClaim
 
-  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang)(claim.navigation) with FullClaim
+  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.transactionId)(claim.navigation) with FullClaim
 
   def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
     r.session.get(cacheKey).getOrElse(randomUUID.toString) -> getProperty("cache.expiry", 3600)
@@ -89,10 +90,9 @@ trait CachedClaim {
       implicit val r = request
       originCheck(
         fromCache(request) match {
-          case Some(claim) => {
+          case Some(claim) =>
             val lang = claim.lang.getOrElse(bestLang)
             action(copyInstance(claim), request, lang)(f)
-          }
 
           case None =>
             if (Play.isTest) {

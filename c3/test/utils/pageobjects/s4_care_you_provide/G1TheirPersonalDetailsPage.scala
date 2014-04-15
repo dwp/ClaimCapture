@@ -9,12 +9,14 @@ import utils.pageobjects._
  *         Date: 25/07/2013
  */
 final class G1TheirPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1TheirPersonalDetailsPage.url, G1TheirPersonalDetailsPage.title) {
+  declareSelect("#relationship","AboutTheCareYouProvideWhatTheirRelationshipToYou")
   declareSelect("#title", "AboutTheCareYouProvideTitlePersonCareFor")
   declareInput("#firstName","AboutTheCareYouProvideFirstNamePersonCareFor")
   declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePersonCareFor")
   declareInput("#surname", "AboutTheCareYouProvideSurnamePersonCareFor")
   declareNino("#nationalInsuranceNumber", "AboutTheCareYouProvideNINOPersonCareFor")
   declareDate("#dateOfBirth", "AboutTheCareYouProvideDateofBirthPersonYouCareFor")
+  declareYesNo("#armedForcesPayment", "AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment")
   declareYesNo("#liveAtSameAddressCareYouProvide", "AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou")
 }
 

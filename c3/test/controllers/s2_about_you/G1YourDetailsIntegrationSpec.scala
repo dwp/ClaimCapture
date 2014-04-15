@@ -39,29 +39,5 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
       
       g2 must beAnInstanceOf[G2ContactDetailsPage]
     }
-    
-    "contain error if invalid nationality containing numbers" in new WithBrowser with PageObjects{
-			val page =  G1YourDetailsPage(context)
-      pending
-      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      claim.AboutYouNationality = "a12345"
-      page goToThePage()
-      page fillPageWith claim
-
-      val errors = page.submitPage().listErrors
-      errors.size mustEqual 1
-      errors(0) must contain("Nationality")
-    }
-    
-    "contain error if invalid nationality containing special characters" in new WithBrowser with PageObjects{
-			val page =  G1YourDetailsPage(context)
-      pending
-      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      claim.AboutYouNationality = "a!@£$%^&*(){}"
-      page goToThePage()
-      page fillPageWith claim
-
-      page.submitPage().listErrors.size mustEqual 1
-    }
   } section("integration", models.domain.AboutYou.id)
 }

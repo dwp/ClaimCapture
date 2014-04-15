@@ -52,11 +52,4 @@ class ThankYouIntegrationSpec extends Specification with Tags {
 
     }
   } section "integration"
-
-  "Change Thank You" should {
-    "present 'Thank You' page" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/thankyou/change-carers")
-      titleMustEqual("Change complete")
-    }
-  } section "integration"
 }

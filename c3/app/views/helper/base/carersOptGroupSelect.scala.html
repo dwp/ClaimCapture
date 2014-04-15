@@ -9,7 +9,7 @@
     @carersLabel(field,args:_*)
 
     <select id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>
-        <option value="">@Messages("pleaseSelect")</option>
+        <option value="">@Html(Messages("pleaseSelect"))</option>
 
         @for((groupLabel: String, groupOptions: Seq[(String, String)]) <- optGroups){
             <optgroup label="@groupLabel">

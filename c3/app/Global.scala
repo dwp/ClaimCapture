@@ -9,6 +9,7 @@ import jmx.JMXActors
 import play.api.mvc.SimpleResult
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
+import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.helpers.CarersLanguageHelper
 
@@ -30,7 +31,8 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
 
     actorSystems
 
-    Logger.info("c3 Started") // used for operations, do not remove
+    Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}, " +
+      s"async.submission is ${getProperty("async.submission", "Not defined")}") // used for operations, do not remove
   }
 
   override def onStop(app: Application) {
@@ -55,6 +57,7 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
   def actorSystems = {
     JMXActors
     EmailActors
+    AsyncActors
     ApplicationMonitor.begin
 
   }

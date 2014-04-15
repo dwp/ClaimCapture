@@ -90,13 +90,13 @@
         <div class="visuallyhidden"> <!-- visuallyhidden -->
                	
         	
-        	<a href="#main">@Messages("skipToMainContent")</a>
+        	<a href="#main">@Html(Messages("skipToMainContent"))</a>
         	
         </div>
 
         <header role="banner" id="global-header">
 	      <div class="wrapper clearfix">
-	            <a href="https://www.gov.uk" title="@Messages("logo.help")" class="crown">
+	            <a href="https://www.gov.uk" title="@Html(Messages("logo.help"))" class="crown">
                     <img src="@routes.Assets.at("images/crown.png")" alt="GOV.UK">
                     GOV.UK
                 </a>
@@ -105,13 +105,13 @@
 	          <h1 class="page-title beta">@Html(Messages("siteHeader"))</h1>
 		          <nav>
 		          	<ul>
-		          		<li class="feedback"><a href="#">@Messages("helpAndFeedback")</a></li>
+		          		<li class="feedback"><a href="#" @views.html.ga.trackClickEvent(linkName = "Help and Feedback expansion")>@Html(Messages("helpAndFeedback"))</a></li>
                         @if(getProperty("galluogi.cymraeg", default = true)) {
                             @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
                             @if(lang.language == "cy") {
-                                <li><a id="lang-en" href="/change-language/en" aria-label="@Html(Messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Messages("english")</a></li>
+                                <li><a id="lang-en" href="/change-language/en" aria-label="@Html(Messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Html(Messages("english"))</a></li>
                             } else {
-                                <li><a id="lang-cy" href="/change-language/cy" aria-label="@Html(Messages("welsh.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Messages("welsh")</a></li>
+                                <li><a id="lang-cy" href="/change-language/cy" aria-label="@Html(Messages("welsh.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Html(Messages("welsh"))</a></li>
                             }
                           }
                         }
@@ -137,12 +137,14 @@
         <footer>
 	      <div class="container clearfix">
 	
-			  <div class="left">
-				  <p>@Html(Messages("openGovLicense"))</p>
+			  <div>
+			  
+			  	  <p>@Html(Messages("madePreston"))</p>
+				  <p class="ogl">@Html(Messages("openGovLicensea")) <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2" @views.html.ga.trackClickEvent(linkName = "Open Government Licence")>@Html(Messages("openGovLicenseb"))</a>@Html(Messages("openGovLicensec"))</p>
 			  </div>
 			 
-			  <div class="right">
-				  <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm">&copy; @Html(Messages("crownCopyright"))</a>
+			  <div class="fr">
+				  <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm" @views.html.ga.trackClickEvent(linkName = "Crown Copyright")>&copy; @Html(Messages("crownCopyright"))</a>
 			  </div>
 	
 	      </div>

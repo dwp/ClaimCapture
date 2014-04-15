@@ -28,6 +28,14 @@ package object app {
     val Other = "Other"
   }
 
+  object CircsBreaksWhereabouts {
+    val Home = "At home"
+    val Hospital = "In hospital"
+    val Holiday = "On holiday"
+    val RespiteCare = "In respite care"
+    val SomewhereElse = "Somewhere else"
+  }
+
   object PaymentFrequency {
     val EveryWeek = "Weekly"
     val FourWeekly = "Four-Weekly"
@@ -105,5 +113,6 @@ package object app {
     val SelfEmployment = 'selfEmployment
     val PaymentChange = 'paymentChange
     val AdditionalInfo = 'additionalInfo
+    val BreakFromCaring = 'breakFromCaring
   }
 }

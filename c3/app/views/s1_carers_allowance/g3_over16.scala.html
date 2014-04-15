@@ -14,13 +14,11 @@
     @form(action = controllers.s1_carers_allowance.routes.G3Over16.submit) {
 		<div class="form-wrap">
 	        <fieldset class="form-elements form-eligibility">
-	            <legend>@Messages("s1.g3")</legend>
-	
-	            <ul>
-	                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("over16.answer"), '_showLabel -> false,'track -> true, 'trackLabel -> "over16.answer")
-	            </ul>
+	            <legend>@Html(Messages("s1.g3"))</legend>
+
+	             @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("over16.answer"), '_showLabel -> false,'track -> true,'allowance -> true, 'trackLabel -> "over16.answer")
 	                
-	            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+	            @defining(currentForm("over16.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
 	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 	                    <p>@Html(Messages("s1.g3.help1"))</p>
 	                    <p>@Html(Messages("s1.g3.help2"))</p>
@@ -30,8 +28,10 @@
 	        </fieldset>
 	
 	        <nav class="form-steps">
-	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        	<ul>
+	           		<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	           		<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	        	</ul>
 	        </nav>
 		</div>
     }
@@ -41,6 +41,6 @@
 
 <script type="text/javascript">
     $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("over16_answer_yes")", "@CarersCrypto.encryptAES("over16_answer_no")");
     });
 </script>

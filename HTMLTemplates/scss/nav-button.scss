@@ -1,6 +1,6 @@
 /* button panel */
    .form-steps {
-	   margin-top: 1.2em;
+	   margin-top: 3em;
 	   clear: both;
 	   @media screen and (max-width: 500px) {padding-left: 0;}
 	   p {
@@ -26,7 +26,7 @@
    
    /* button styling */
    .button {
-		   font-size: 1.9rem;
+		   font-size: 19px;
 		   line-height: 1em;
 		   color: #fff;
 		   box-shadow: 0 3px 0 #000;
@@ -34,7 +34,7 @@
 		   padding: 0.4em 1em 0.25em 1em;
 		   cursor: pointer;
 		   -webkit-appearance: none;
-		   display: inline-block;
+
 		   margin: .8em .25em 0 0;
 		   background: #006435;
 		   font-weight: 500;
@@ -54,9 +54,6 @@
 			   position: absolute;
 			   top: -3px;
 			   left: 0;
-		   }
-		   .ie & {
-			   font-size: 19px;
 		   }
 		   .ie7 & {
 			   padding: .2em 1em;
@@ -93,11 +90,8 @@
 			   opacity: .3;
 		   }
 		   &.row {
-			   font-size: 1.6rem;
+			   font-size: 16px;
 			   margin: 0;
-			   .ie & {
-					font-size: 16px;
-				}
 				@media screen and (max-width: 350px) {
 					font-size: 14px;
 					padding-left: .75em;

@@ -3,7 +3,9 @@ package services
 import play.api.db.DB
 import play.api.Play.current
 import anorm._
-import play.api.Play
+import play.api.i18n.Lang
+import anorm.SqlParser._
+import anorm.~
 
 trait ClaimTransactionComponent {
   val claimTransaction : ClaimTransaction
@@ -31,37 +33,80 @@ trait ClaimTransactionComponent {
     /**
      * Record that an ID has been used
      */
-    def registerId(id: String, statusCode:String, claimType:Int,thirdParty:Boolean=false, circsChange:Option[Int]=None):Unit = DB.withConnection("carers") {implicit c =>
+    def registerId(id: String, statusCode:String, claimType:Int):Unit = DB.withConnection("carers") {implicit c =>
       SQL(
         """
-          INSERT INTO transactionstatus (transaction_id, status,type,thirdparty,circs_type)
-          VALUES ({transactionId},{status},{type},{thirdparty},{circsChange});
+          INSERT INTO transactionstatus (transaction_id, status,type)
+          VALUES ({transactionId},{status},{type});
         """
-      ).on("transactionId"->id,"status"->statusCode,"type"->claimType,"thirdparty"->(if(thirdParty) 1 else 0),"circsChange"->circsChange).execute()
+      ).on("transactionId"->id,"status"->statusCode,"type"->claimType).execute()
+    }
+
+    /**
+     * Update MI data
+     */
+    def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int] = None, lang: Option[Lang]): Unit = DB.withConnection("carers") {
+      implicit c =>
+        SQL(
+          """
+            UPDATE transactionstatus set thirdparty={thirdParty}, circs_type={circsChange}, lang={lang}
+            WHERE transaction_id={transactionId};
+          """
+        ).on("transactionId" -> id, "thirdParty" -> (if (thirdParty) 1 else 0), "circsChange" -> circsChange, "lang" -> lang.getOrElse(Lang("en")).code).execute()
     }
 
 
     def updateStatus(id: String, statusCode:String, claimType:Int):Unit = DB.withConnection("carers") {implicit connection =>
+
       SQL(
         """
-            UPDATE transactionstatus set status={status}, type={type}
-            WHERE transaction_id={transactionId};
+          UPDATE transactionstatus set status={status}, type={type}
+          WHERE transaction_id={transactionId};
         """
       ).on("status"->statusCode,"type"->claimType,"transactionId"->id).executeUpdate()
     }
 
+    val transactionStatusParser = {
+      get[String]("transaction_id") ~
+        get[String]("status") ~
+        get[Int]("type") ~
+        get[Option[Int]]("thirdparty") ~
+        get[Option[Int]]("circs_type") ~
+        get[Option[String]]("lang") map {
+        case id~status~typeI~thirdparty~circsType~lang => TransactionStatus(id,status,typeI,thirdparty,circsType, lang)
+      }
+    }
+
+    def getTransactionStatusById(id: String):Option[TransactionStatus] = {
+      import scala.language.postfixOps
+      DB.withConnection("carers"){implicit c =>
+        SQL(
+          """
+          SELECT transaction_id, status,type,thirdparty,circs_type,lang
+          FROM transactionstatus
+          WHERE transaction_id = {id}
+          """
+        ).on("id"->id)
+          .as(transactionStatusParser singleOpt)
+      }
+    }
 
   }
+
 
   class StubClaimTransaction extends ClaimTransaction {
     override def generateId: String = "TEST623"
 
-    override def registerId(id: String, statusCode: String, claimType: Int, thirdParty:Boolean, circsChange:Option[Int]) {}
+    override def registerId(id: String, statusCode: String, claimType: Int) {}
+
+    override def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int], lang: Option[Lang]) {}
 
     override def updateStatus(id: String, statusCode: String, claimType: Int) {}
   }
 
 }
+
+case class TransactionStatus(transactionID: String, status: String, typeI: Int, thirdParty: Option[Int], circsChange: Option[Int], lang:Option[String])
 
 /**
  * Exception thrown by UniqueTransactionId if it could not generate an id. The cause is described by the nested exception.

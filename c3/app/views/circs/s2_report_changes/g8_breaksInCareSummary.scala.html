@@ -1,0 +1,122 @@
+@(breaksInCareSummaryForm: Form[models.domain.CircumstancesBreaksInCareSummary], breaksInCare: models.domain.CircumstancesBreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import common._
+@import views.html.helper.dates._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import views.html.circs.s2_report_changes.main
+@import play.api.i18n.{MMessages => Messages}
+@import app.CircsBreaksWhereabouts._
+
+@main(Messages("c2.g8") + " - " + Messages("c2.name")) {
+    @errorsSummary(breaksInCareSummaryForm)
+
+    @form(action = controllers.circs.s2_report_changes.routes.G8BreaksInCareSummary.submit) {
+
+        <fieldset id="breaks" class="form-elements results-detail">
+            <table>
+                <fieldset class="form-elements">
+                    <legend>@Messages("c2.g7")</legend>
+                </fieldset>
+
+                <thead>
+                    <tr>
+                        <th>@Html(Messages("breakPeriod"))</th>
+                        <th class="desc">@Html(Messages("wherePersonBreaksInCare.answer"))</th>
+                        <th class="desc">@Html(Messages("whereYouBreaksInCare.answer"))</th>
+                        <th class="desc">@Html(Messages("medicalTreatment"))</th>
+                        <th>@Html(Messages("change"))</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            @{breaksInCare.breaksInCareStartDate.`dd/MM/yyyy`}
+                            @{if(breaksInCare.breaksInCareStartTime.isDefined) Html(Messages("at")) }
+                            @{if(breaksInCare.breaksInCareStartTime.isDefined) breaksInCare.breaksInCareStartTime }
+                        <span>
+                            @{if(breaksInCare.breakEnded.answer == "yes") Html(Messages("to"))}
+                        </span>
+                            @{if(breaksInCare.breakEnded.answer == "yes") breaksInCare.breakEnded.date.get.`dd/MM/yyyy`}
+                            @{if(breaksInCare.breakEnded.time.isDefined) Html(Messages("at")) }
+                            @{if(breaksInCare.breakEnded.time.isDefined) breaksInCare.breakEnded.time }
+                        </td>
+
+                        <td class="desc">
+                        @Html(Messages("circsBreaks." + breaksInCare.wherePersonBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))
+                        </td>
+
+                        <td class="desc">
+                            @Html(Messages("circsBreaks." + breaksInCare.whereYouBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))
+                        </td>
+
+                        <td class="desc">@if("yes" == breaksInCare.medicalCareDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</td>
+                        <td><a id="changeButton" href="@controllers.circs.s2_report_changes.routes.G7BreaksInCare.present" class="button row secondary" aria-label="@Html(Messages("change.button"))">@Html(Messages("change"))</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+
+        <div class="form-wrap">
+            <fieldset class="form-elements">
+                <legend>@Messages("c2.g8")</legend>
+
+                <ul>
+                    @yesNoRadioGroup(breaksInCareSummaryForm("additionalBreaks.answer"),
+                                     '_label -> Messages("additionalBreaks.label"),
+                                     'helperAbove -> Messages("additionalBreaks.text.helper"))
+
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+                            carersInputTextArea(breaksInCareSummaryForm("additionalBreaks.text"),
+	                            '_label -> Messages("additionalBreaks.text.label"),
+                                'helperAbove-> Html(Messages("moreAboutChanges.helper")),
+                                'helper -> Html(Messages("300charsLeft")),
+	                            'maxLength -> 300)
+	                    ),
+	                    'id -> "additionalBreaksWrap",
+	                    'display -> { if (breaksInCareSummaryForm("additionalBreaks.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+	                )
+                </ul>
+            </fieldset>
+
+            <nav class="form-steps">
+                <ul>
+                	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+                </ul>
+            </nav>
+        </div>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g8_breaksFromCaringSummary.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+<script type="text/javascript">
+$(function(){
+window.areaCounter({selector:"@CarersCrypto.encryptAES("additionalBreaks_text")",maxChars:300});
+})
+$(function(){
+window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
+"@CarersCrypto.encryptAES("breakEnded_answer_no")",
+"@CarersCrypto.encryptAES("expectStartCaring_answer_yes")",
+"@CarersCrypto.encryptAES("expectStartCaring_answer_no")",
+"@CarersCrypto.encryptAES("expectStartCaring_answer_dontknow")"
+);
+});
+</script>
+
+<script type="text/javascript">
+    $(function(){
+        window.initEvents("@CarersCrypto.encryptAES("additionalBreaks_answer_yes")",
+                          "@CarersCrypto.encryptAES("additionalBreaks_answer_no")",
+                          "@CarersCrypto.encryptAES("additionalBreaks_text")");
+    });
+</script>

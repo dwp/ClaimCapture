@@ -17,15 +17,15 @@
 
         <article>
 
-            <h1>@Messages("s4.longName")</h1>
+            <h1>@Html(Messages("s4.longName"))</h1>
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
-                    <ul ul aria-label="@Messages("completedQuestions")">
+                    <ul ul aria-label="@Html(Messages("completedQuestions"))">
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
-                                <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Messages("change.these.help2")">@Messages("change.these")</a>
+                                <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Html(Messages("change.these.help2"))">@Html(Messages("change.these"))</a>
                             </li>
                         }
                     </ul>

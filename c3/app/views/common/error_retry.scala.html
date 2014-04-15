@@ -1,0 +1,24 @@
+@(url:String)(implicit lang: Lang, request: Request[AnyContent])
+
+@import play.api.i18n.{MMessages => Messages}
+
+@common.govMain(Messages("error.retry")) {
+
+    <div class="carers-allowance">
+
+        @common.protoType()
+
+        @common.feedback()
+
+        <article class="error-statement">
+
+            <h1>@Html(Messages("error.retry"))</h1>
+
+            <p>@Html(Messages("retry.message"))</p>
+
+            <nav class="form-steps">
+                <button type="submit" name="action" value="next" class="button secondary" onClick="location.href = ' @url '" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("retry.button"))</button>
+            </nav>
+        </article>
+    </div>
+}

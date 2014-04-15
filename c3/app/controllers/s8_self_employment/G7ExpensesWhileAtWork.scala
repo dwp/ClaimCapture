@@ -1,7 +1,7 @@
 package controllers.s8_self_employment
 
 import language.reflectiveCalls
-import play.api.data.{Form, FormError}
+import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import play.api.mvc.Request
@@ -18,6 +18,7 @@ import play.api.data.FormError
 import models.domain.Claim
 import scala.Some
 import play.api.i18n.Lang
+import models.view.CachedClaim.ClaimResult
 
 object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(

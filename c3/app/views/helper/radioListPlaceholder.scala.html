@@ -6,7 +6,8 @@
 @import views.html.helper.checkConstraintRequired
 @import play.api.i18n.{MMessages => Messages}
 
-@checkConstraintRequired(field, args:_*)
+
+@radioConstraintRequired(field, args:_*)
 <ul class="radio radio-stack" id="@CarersCrypto.encryptAES(field.id)">
     @carersRadio(field, options, args:_*)
 </ul>

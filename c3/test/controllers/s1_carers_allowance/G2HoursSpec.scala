@@ -11,7 +11,7 @@ import models.view.CachedClaim
 class G2HoursSpec extends Specification with Tags {
   "Carer's Allowance - Hours - Controller" should {
     val answerYesNo = "yes"
-    val hoursInput = Seq("answer" -> answerYesNo)
+    val hoursInput = Seq("hours.answer" -> answerYesNo)
 
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
@@ -22,7 +22,7 @@ class G2HoursSpec extends Specification with Tags {
 
     "missing mandatory field" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("answer" -> "")
+        .withFormUrlEncodedBody("hours.answer" -> "")
 
       val result = controllers.s1_carers_allowance.G2Hours.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -52,7 +52,7 @@ class G2HoursSpec extends Specification with Tags {
 
     "add submitted form to the cached claim when answered 'no'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("answer" -> "no")
+        .withFormUrlEncodedBody("hours.answer" -> "no")
 
       val result = controllers.s1_carers_allowance.G2Hours.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get

@@ -22,21 +22,21 @@
 
     @form(action = controllers.s2_about_you.routes.G8MoreAboutYou.submit) {
         <div class="form-wrap">
+
 	        <fieldset class="form-elements">
 
-                <legend>@Messages("maritalStatus")</legend>
-	            <ul>
-	                @maritalStatusSelect(moreAboutYouForm("maritalStatus"),'_showLabel->false)
+                @maritalStatusSelect(moreAboutYouForm("maritalStatus"))
 
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperAbove -> Messages("hadPartnerSinceClaimDate.helper"))),
-                        'id -> "hadPartnerWrapper",
-                        'display -> { if (notSingleNorLivingWithPartner) "yes" else "no" }
-                    )
-                </ul>
+                @ulDetailPlaceHolder(
+                    inputDef = Seq(yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperAbove -> Messages(if (moreAboutYouForm("maritalStatus").value.getOrElse("") != "w") "hadPartnerSinceClaimDate.helper1" else "hadPartnerSinceClaimDate.helper2"))),
+                    'id -> "hadPartnerWrapper",
+                    'display -> { if (notSingleNorLivingWithPartner) "yes" else "no" }
+                )
+
             </fieldset>
+
             <fieldset class="form-elements">
-                <legend>@Messages("s2.g8")</legend>
+                <legend>@Html(Messages("s2.g8"))</legend>
                 <ul>
 	                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 	
@@ -45,8 +45,10 @@
             </fieldset>
 	
 	        <nav class="form-steps">
-	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button>
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
 	        </nav>
         </div>
     }
@@ -58,6 +60,9 @@
     $(function(){
         window.initEvents("@CarersCrypto.encryptAES("maritalStatus")",
                           "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
-                          "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")");
+                          "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
+                          "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate")",
+                          "@Html(Messages("hadPartnerSinceClaimDate.helper1"))",
+                          "@Html(Messages("hadPartnerSinceClaimDate.helper2"))");
     });
 </script>

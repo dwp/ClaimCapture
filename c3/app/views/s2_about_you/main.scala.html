@@ -17,19 +17,19 @@
 
         <article>
 
-            <h1>@Messages("s2.longName")</h1>
+            <h1>@Html(Messages("s2.longName"))</h1>
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
-                    <ul ul aria-label="@Messages("completedQuestions")">
+                    <ul ul aria-label="@Html(Messages("completedQuestions"))">
                         @for(completedQuestionGroup <- completedQuestionGroups;if completedQuestionGroup.identifier != Trips) {
                             <li>
                                 @if(completedQuestionGroup.identifier == ClaimDate) {
-                                    <h3>@Messages(completedQuestionGroup.identifier.id, claim.dateOfClaim.get.`dd/MM/yyyy`)</h3>
-                                    <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Messages("change.this.help")">@Messages("change.this")</a>
+                                    <h3>@Html(Messages(completedQuestionGroup.identifier.id, claim.dateOfClaim.get.`dd/MM/yyyy`))</h3>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Html(Messages("change.this.help"))">@Html(Messages("change.this"))</a>
                                 } else {
-                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                    <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Messages("change.these.help")">@Messages("change.these")</a>
+                                    <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Html(Messages("change.these.help"))">@Html(Messages("change.these"))</a>
                                 }
                             </li>
                         }

@@ -18,18 +18,23 @@
     @form(action = controllers.s10_pay_details.routes.G1HowWePayYou.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:pay-details">
-	            <legend>@Messages("s10.g1")</legend>
+	            <legend>@Html(Messages("s10.g1"))</legend>
 	
 	            <ul>
-	                @listRadioGroup(currentForm("likeToPay"), 'items -> Seq(BankBuildingAccount , AppliedForAccount, NotOpenAccount).map(s => s -> Messages("label."+s)), 'helperAbove -> Messages("howWePayYou.helper"))
+	                @listRadioGroup(currentForm("likeToPay"),
+                                    'items -> Seq(BankBuildingAccount.name , AppliedForAccount.name, NotOpenAccount.name ).map(s => s -> Messages("label."+s)),
+                                    'helperAbove -> Messages("howWePayYou.helper"),
+                                    '_nestedFieldSet -> true)
 	
-	                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect")) ++ Seq(EveryWeek,FourWeekly).map(s => s -> Messages("label."+s)))
+	                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect")) ++ Seq(EveryWeek.name,FourWeekly.name).map(s => s -> Messages("label."+s)))
 	            </ul>
 	        </fieldset>
 	
 	        <nav class="form-steps">
-	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button>
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
 	        </nav>
         </div>
     }

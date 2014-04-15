@@ -4,7 +4,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.{PageObjectsContext, ClaimPage, PageContext}
 
 final class G1BenefitsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1BenefitsPage.url, G1BenefitsPage.title) {
-  declareYesNo("#answer", "CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits")
+  declareYesNo("#benefits_answer", "CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits")
 }
 
 object G1BenefitsPage {

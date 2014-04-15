@@ -23,6 +23,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
+
       titleMustEqual("Benefits and payments - About Other Money")
     }
 

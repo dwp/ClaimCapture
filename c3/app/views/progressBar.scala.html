@@ -25,13 +25,13 @@
 
 @renderListItem(currentSectionID: Section.Identifier) = {
     @if(currentSectionID.visible) {
-        <li @addClass(currentSectionID)><span>@Messages(currentSectionID.id + ".progressbar.name")</span></li>
+        <li @addClass(currentSectionID)><span>@Html(Messages(currentSectionID.id + ".progressbar.name"))</span></li>
     }
 }
 
 @renderEmployment = {
     @defining(addClassEmployment){ clazz =>
-        <li @clazz ><span>@Messages(Employed.id + ".progressbar.name")</span></li>
+        <li @clazz ><span>@Html(Messages(Employed.id + ".progressbar.name"))</span></li>
     }
 }
 
@@ -42,7 +42,7 @@
 <div class="progress-steps">
 
 
-    <ol aria-label="@Messages("progressBar")">
+    <ol aria-label="@Html(Messages("progressBar"))">
         @renderListItem(CarersAllowance)
         @renderListItem(AboutYou)
         @renderListItem(YourPartner)

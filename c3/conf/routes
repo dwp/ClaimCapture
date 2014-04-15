@@ -21,13 +21,23 @@ POST          /preview                                                  controll
 GET           /timeout                                                  controllers.ClaimEnding.timeout
 GET           /circs-timeout                                            controllers.CircsEnding.timeout
 
+GET           /error-retry                                              controllers.submission.ClaimStatusRoutingController.errorRetry
+GET           /circs-error-retry                                        controllers.submission.CofCStatusRoutingController.errorRetry
+
 # Unrecoverable error
 GET           /error                                                    controllers.ClaimEnding.error
 GET           /circs-error                                              controllers.CircsEnding.error
 
 # Claim submission
-POST          /submit        @controllers.submission.ClaimSubmissionController.submit
-POST          /circs-submit        @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
+POST          /submit                                                   @controllers.submission.ClaimSubmissionController.submit
+POST          /circs-submit                                             @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
+
+GET           /async-submitting                                         controllers.submission.ClaimStatusRoutingController.present
+POST          /async-submitting                                         controllers.submission.ClaimStatusRoutingController.submit
+GET           /async-error                                              controllers.submission.ClaimStatusRoutingController.error
+GET           /circs-async-submitting                                   controllers.submission.CofCStatusRoutingController.present
+POST          /circs-async-submitting                                   controllers.submission.CofCStatusRoutingController.submit
+GET           /circs-async-error                                        controllers.submission.CofCStatusRoutingController.error
 
 # Thank you
 GET           /thankyou/apply-carers                                    controllers.ClaimEnding.thankyou
@@ -97,9 +107,6 @@ POST          /care-you-provide/their-personal-details                  controll
 
 GET           /care-you-provide/their-contact-details                   controllers.s4_care_you_provide.G2TheirContactDetails.present
 POST          /care-you-provide/their-contact-details                   controllers.s4_care_you_provide.G2TheirContactDetails.submit
-
-GET           /care-you-provide/relationship-and-other-claims           controllers.s4_care_you_provide.G3RelationshipAndOtherClaims.present
-POST          /care-you-provide/relationship-and-other-claims           controllers.s4_care_you_provide.G3RelationshipAndOtherClaims.submit
 
 GET           /care-you-provide/more-about-the-care                     controllers.s4_care_you_provide.G7MoreAboutTheCare.present
 POST          /care-you-provide/more-about-the-care                     controllers.s4_care_you_provide.G7MoreAboutTheCare.submit
@@ -203,8 +210,8 @@ POST          /consent-and-declaration/disclaimer                       controll
 GET           /consent-and-declaration/declaration                      controllers.s11_consent_and_declaration.G4Declaration.present
 POST          /consent-and-declaration/declaration                      controllers.s11_consent_and_declaration.G4Declaration.submit
 
-GET           /consent-and-declaration/submit                           controllers.s11_consent_and_declaration.G5Submit.present
-POST          /consent-and-declaration/submit                           controllers.s11_consent_and_declaration.G5Submit.submit
+GET           /consent-and-declaration/submit                           @controllers.s11_consent_and_declaration.G5Submit.present
+POST          /consent-and-declaration/submit                           @controllers.s11_consent_and_declaration.G5Submit.submit
 
 GET           /consent-and-declaration/error                            controllers.s11_consent_and_declaration.G6Error.present
 
@@ -235,8 +242,14 @@ POST          /circumstances/report-changes/payment-change              controll
 GET           /circumstances/report-changes/other-change                controllers.circs.s2_report_changes.G4OtherChangeInfo.present
 POST          /circumstances/report-changes/other-change                controllers.circs.s2_report_changes.G4OtherChangeInfo.submit
 
-GET           /circumstances/consent-and-declaration/declaration        controllers.circs.s3_consent_and_declaration.G1Declaration.present
-POST          /circumstances/consent-and-declaration/declaration        controllers.circs.s3_consent_and_declaration.G1Declaration.submit
+GET           /circumstances/report-changes/breaks-in-care              controllers.circs.s2_report_changes.G7BreaksInCare.present
+POST          /circumstances/report-changes/breaks-in-care              controllers.circs.s2_report_changes.G7BreaksInCare.submit
+
+GET           /circumstances/report-changes/breaks-in-care-summary      controllers.circs.s2_report_changes.G8BreaksInCareSummary.present
+POST          /circumstances/report-changes/breaks-in-care-summary      controllers.circs.s2_report_changes.G8BreaksInCareSummary.submit
+
+GET           /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.present
+POST          /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
 GET           /circumstances/consent-and-declaration/error              controllers.circs.s3_consent_and_declaration.G3Error.present
 

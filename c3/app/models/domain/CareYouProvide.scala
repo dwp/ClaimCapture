@@ -10,12 +10,14 @@ case object CareYouProvide extends Section.Identifier {
   val id = "s4"
 }
 
-case class TheirPersonalDetails(title: String = "",
+case class TheirPersonalDetails(relationship: String = "",
+                                title: String = "",
                                 firstName: String = "",
                                 middleName: Option[String] = None,
                                 surname: String = "",
                                 nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
                                 dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                                armedForcesPayment: String = "",
                                 liveAtSameAddressCareYouProvide: String = "") extends QuestionGroup(TheirPersonalDetails)
 
 case object TheirPersonalDetails extends QuestionGroup.Identifier {
@@ -26,12 +28,6 @@ case class TheirContactDetails(address: MultiLineAddress = MultiLineAddress(), p
 
 case object TheirContactDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g2"
-}
-
-case class MoreAboutThePerson(relationship: String = "", armedForcesPayment: String = "") extends QuestionGroup(MoreAboutThePerson)
-
-case object MoreAboutThePerson extends QuestionGroup.Identifier {
-  val id = s"${CareYouProvide.id}.g3"
 }
 
 case class MoreAboutTheCare(spent35HoursCaring: String = "", spent35HoursCaringBeforeClaim:YesNoWithDate = YesNoWithDate("", None)) extends QuestionGroup(MoreAboutTheCare)

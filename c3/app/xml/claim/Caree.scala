@@ -1,51 +1,79 @@
 package xml.claim
 
 import scala.xml.NodeSeq
+import app.XMLValues._
 import models.domain._
 import xml.XMLHelper._
-import xml.XMLComponent
 
-object Caree extends XMLComponent {
+object Caree {
 
   def xml(claim: Claim) = {
     val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
     val theirContactDetails = claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())
-    val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-    val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     <Caree>
-      {question(<Surname/>, "surname", theirPersonalDetails.surname)}
-      {question(<OtherNames/>, "firstName", theirPersonalDetails.firstName+" "+ theirPersonalDetails.middleName.getOrElse(""))}
-      {question(<Title/>, "title", theirPersonalDetails.title)}
-      {question(<DateOfBirth/>, "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`)}
-      {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", theirPersonalDetails.nationalInsuranceNumber)}
-      {postalAddressStructure("address", theirContactDetails.address, theirContactDetails.postcode)}
-      {question(<DayTimePhoneNumber/>,"phoneNumber", theirContactDetails.phoneNumber)}
-      {question(<RelationToClaimant/>,"relationship", moreAboutThePerson.relationship)}
-      {question(<Cared35Hours/>,"hours.answer", moreAboutTheCare.spent35HoursCaring)}
-      {question(<BreaksSinceClaim/>,"answer.label",breaksInCare.hasBreaks,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
+      <Surname>{theirPersonalDetails.surname}</Surname>
+      <OtherNames>{theirPersonalDetails.firstName} {theirPersonalDetails.middleName.orNull}</OtherNames>
+      <Title>{theirPersonalDetails.title}</Title>
+      <DateOfBirth>{theirPersonalDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
+      <NationalInsuranceNumber>{stringify(theirPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
+      <Address>{postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode.orNull)}</Address>
+      <ConfirmAddress>{yes}</ConfirmAddress>
+      <HomePhoneNumber/>
+      <DaytimePhoneNumber>
+        <Number>{theirContactDetails.phoneNumber.orNull}</Number>
+        <Qualifier/>
+      </DaytimePhoneNumber>
+      <RelationToClaimant>{theirPersonalDetails.relationship}</RelationToClaimant>
+      <Cared35hours>{NotAsked}</Cared35hours>
+      <CanCareeSign>{NotAsked}</CanCareeSign>
+      <CanSomeoneElseSign>{NotAsked}</CanSomeoneElseSign>
+      <CanClaimantSign>{NotAsked}</CanClaimantSign>
+      {breaksSinceClaim(claim)}
       {careBreak(claim)}
-      {question(<Cared35HoursBefore/>,"beforeClaimCaring.answer", moreAboutTheCare.spent35HoursCaringBeforeClaim.answer)}
-      {question(<DateStartCaring/>,"beforeClaimCaring_date", moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}
-      {question(<LiveSameAddress/>,"liveAtSameAddressCareYouProvide", theirPersonalDetails.liveAtSameAddressCareYouProvide)}
-      {question(<ArmedForcesIndependencePayment/>,"armedForcesPayment", moreAboutThePerson.armedForcesPayment)}
+      <Cared35hoursBefore>{NotAsked}</Cared35hoursBefore>
+      {dateStartedCaring(moreAboutTheCare)}
+      {breaksBeforeClaim(claim)}
+      <PaidForCaring>{NotAsked}</PaidForCaring>
+      <ClaimedPreviously>{NotAsked}</ClaimedPreviously>
     </Caree>
   }
 
-  private def careBreak(claim: Claim) = {
+  def breaksSinceClaim(claim: Claim) = {
+    val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+    <BreaksSinceClaim>{if (breaksInCare.hasBreaks) yes else no}</BreaksSinceClaim>
+  }
+
+  def breaksBeforeClaim(claim: Claim) = {
+    val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
+    val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+    val hasSpent35HoursCaringBeforeClaimDate = moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == yes
+
+    if (hasSpent35HoursCaringBeforeClaimDate) {
+      <BreaksBeforeClaim>{if (breaksInCare.hasBreaks) yes else no}</BreaksBeforeClaim>
+    } else NodeSeq.Empty
+  }
+
+  def dateStartedCaring(moreAboutTheCare: MoreAboutTheCare) = {
+    val startedCaringBeforeClaimDate = moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == yes
+
+    if (startedCaringBeforeClaimDate) {
+      <DateStartedCaring>{stringify(moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}</DateStartedCaring>
+    } else NodeSeq.Empty
+  }
+
+  def careBreak(claim: Claim) = {
+
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     for (break <- breaksInCare.breaks) yield {
       <CareBreak>
-        {question(<StartDateTime/>, "start", break.start.`dd-MM-yyyy HH:mm`)}
-        {break.end match {
-          case Some(n) => {question(<EndDateTime/>,"end", break.end.get.`dd-MM-yyyy HH:mm`)}
-          case None => NodeSeq.Empty
-        }}
-        {question(<MedicalCare/>,"medicalDuringBreak", break.medicalDuringBreak)}
-        {questionOther(<ReasonClaimant/>,"whereYou", break.whereYou.location, break.whereYou.other)}
-        {questionOther(<ReasonCaree/>,"wherePerson", break.wherePerson.location, break.wherePerson.other)}
+        <StartDateTime>{break.start.`yyyy-MM-dd'T'HH:mm:00`}</StartDateTime>
+        <EndDateTime>{if (break.end.isDefined) break.end.get.`yyyy-MM-dd'T'HH:mm:00`}</EndDateTime>
+        <Reason>{break.whereYou.location}</Reason>
+        <MedicalCare>{break.medicalDuringBreak}</MedicalCare>
+        <AwayFromHome>{NotAsked}</AwayFromHome>
       </CareBreak>
     }
   }

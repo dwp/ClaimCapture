@@ -12,10 +12,10 @@
 
         <article class="error-statement">
 
-            <h1>@Messages("session.timeout")</h1>
+            <h1>@Html(Messages("session.timeout"))</h1>
 
             <nav class="form-steps">
-                <button type="submit" name="action" value="next" class="button secondary" onClick="location.href = ' @url '" aria-label="@Messages("restart.claim.help")">@Messages("restart.claim")</button>
+                <button type="submit" name="action" value="next" class="button secondary" onClick="location.href = ' @url '" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("restart.claim"))</button>
             </nav>
         </article>
     </div>

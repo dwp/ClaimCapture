@@ -4,6 +4,7 @@ import play.api.mvc._
 import models.view._
 import models.domain._
 import play.api.i18n.Lang
+import models.view.CachedClaim.ClaimResult
 
 object YourPartner extends Controller with CachedClaim with Navigable {
 

@@ -49,6 +49,7 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
         case r.AddressChange.name => CircumstancesAddressChange  -> routes.G6AddressChange.present()
         case r.StoppedCaring.name =>  CircumstancesStoppedCaring  -> routes.G3PermanentlyStoppedCaring.present()
         case r.PaymentChange.name => CircumstancesPaymentChange  -> routes.G5PaymentChange.present()
+        case r.BreakFromCaring.name => CircumstancesBreaksInCare  -> routes.G7BreaksInCare.present()
         case _ => CircumstancesOtherInfo      -> routes.G4OtherChangeInfo.present()
       }
     }

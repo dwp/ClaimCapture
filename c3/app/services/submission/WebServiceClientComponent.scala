@@ -9,8 +9,10 @@ import services.util.CharacterStripper
 import java.net.ConnectException
 import ExecutionContext.Implicits.global
 import java.util.concurrent.TimeoutException
+import controllers.submission._
 import play.api.libs.ws.Response
 import models.domain.Claim
+import play.api.i18n.Lang
 import xml.DWPBody
 
 trait WebServiceClientComponent {
@@ -26,6 +28,7 @@ trait WebServiceClientComponent {
       val result = WS.url(submissionServerEndpoint)
         .withRequestTimeout(60000) // wait 1 minute
         .withHeaders(("Content-Type", "text/xml"))
+        .withHeaders(("CarersClaimLang",claim.lang.getOrElse(new Lang("en")).language))
         .post(CharacterStripper.stripNonPdf(claimSubmission.buildString(stripComments = true))) recover {
 
         case e: ConnectException =>

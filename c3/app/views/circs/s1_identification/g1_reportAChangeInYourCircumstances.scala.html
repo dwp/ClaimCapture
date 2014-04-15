@@ -15,9 +15,9 @@
     @form(action = controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <p class="security-message">@Messages("c1.helper")</p>
+	            <p>@Html(Messages("c1.helper"))</p>
 	
-	            <legend>@Messages("c1.yourDetails")</legend>
+	            <legend>@Html(Messages("c1.yourDetails"))</legend>
 	
 	            <ul>
 	                @carersInputText(reportAChangeForm("fullName"), 'maxLength -> 35)
@@ -31,7 +31,7 @@
 	        </fieldset>
 	        
 	        <fieldset class="form-elements">
-	        <legend>@Messages("c1.personYouAreCaringFor")</legend>
+	        <legend>@Html(Messages("c1.personYouAreCaringFor"))</legend>
 	            <ul>
 	                @carersInputText(reportAChangeForm("theirFullName"), 'maxLength -> 35)
 	
@@ -40,7 +40,9 @@
 	        </fieldset>
 	
 	        <nav class="form-steps">
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            </ul>
 	        </nav>
         </div>
     }

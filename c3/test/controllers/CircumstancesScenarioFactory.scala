@@ -2,7 +2,9 @@ package controllers
 
 import utils.pageobjects.TestData
 import app.ReportChange._
-import app.{WhoseNameAccount, PaymentFrequency}
+import play.api.i18n.{Messages => Messages}
+import models.SortCode
+import app.{CircsBreaksWhereabouts, WhoseNameAccount, PaymentFrequency}
 
 object CircumstancesScenarioFactory {
   val yes = "yes"
@@ -54,10 +56,94 @@ object CircumstancesScenarioFactory {
     claim
   }
 
+  def reportBreakFromCaring = {
+    val claim = aboutDetails
+    claim.CircumstancesReportChanges = BreakFromCaring.name
+    claim
+  }
+
+  def reportBreakFromCaringBreaksInCareEndedYes = {
+    val claim = reportBreakFromCaring
+
+    claim.BreaksInCareStartDate = "03/04/2002"
+    claim.BreaksInCareStartTime = "10 am"
+    claim.BreaksInCareWhereWasThePersonYouCareFor = CircsBreaksWhereabouts.Hospital
+    claim.BreaksInCareWhereWereYou = CircsBreaksWhereabouts.Holiday
+    claim.BreaksInCareEnded = Mappings.yes
+    claim.BreaksInCareEndDate = "01/01/2004"
+    claim.BreaksInCareEndTime = "10 am"
+    claim.BreaksInCareMedicalCareDuringBreak = Mappings.yes
+
+    claim
+  }
+
+  def reportBreakFromCaringSummaryBreaksInCareEndedYesWithNoAdditionalBreaks = {
+    val claim = reportBreakFromCaringBreaksInCareEndedYes
+
+    claim.BreaksInCareSummaryAdditionalBreaks = no
+
+    claim
+  }
+
+  def reportBreakFromCaringSummaryBreaksInCareEndedYesWithAdditionalBreaks = {
+    val claim = reportBreakFromCaringBreaksInCareEndedYes
+
+    claim.BreaksInCareSummaryAdditionalBreaks = yes
+    claim.BreaksInCareSummaryAdditionalBreaksInfo = "A break I haven't told you about yet"
+
+    claim
+  }
+
+  def reportBreakFromCaringSummaryBreaksInCareEndedYesWithAdditionalBreaksNotAnswered = {
+    val claim = reportBreakFromCaringBreaksInCareEndedYes
+
+    claim.BreaksInCareSummaryAdditionalBreaks = ""
+
+    claim
+  }
+
+  def reportBreakFromCaringSummaryBreaksInCareEndedYesWithAdditionalBreaksButNotSpecified = {
+    val claim = reportBreakFromCaringBreaksInCareEndedYes
+
+    claim.BreaksInCareSummaryAdditionalBreaks = yes
+    claim.BreaksInCareSummaryAdditionalBreaksInfo = ""
+
+    claim
+  }
+
+  def reportBreakFromCaringBreaksInCareEndedNo = {
+    val claim = reportBreakFromCaring
+
+    claim.BreaksInCareStartDate = "03/04/2002"
+    claim.BreaksInCareStartTime = "10 am"
+    claim.BreaksInCareWhereWasThePersonYouCareFor = CircsBreaksWhereabouts.Hospital
+    claim.BreaksInCareWhereWereYou = CircsBreaksWhereabouts.Holiday
+    claim.BreaksInCareEnded = Mappings.no
+    claim.BreaksInCareExpectToStartCaringAgain = Mappings.yes
+    claim.BreaksInCareMedicalCareDuringBreak = Mappings.yes
+
+    claim
+  }
+
+  def reportBreakFromCaringBreaksInCareEndedNoAndExpectToStartCaringNo = {
+    val claim = reportBreakFromCaring
+
+    claim.BreaksInCareStartDate = "03/04/2002"
+    claim.BreaksInCareStartTime = "10 am"
+    claim.BreaksInCareWhereWasThePersonYouCareFor = CircsBreaksWhereabouts.Hospital
+    claim.BreaksInCareWhereWereYou = CircsBreaksWhereabouts.Holiday
+    claim.BreaksInCareEnded = Mappings.no
+    claim.BreaksInCareExpectToStartCaringAgain = Mappings.no
+    claim.BreaksInCareExpectToStartCaringPermanentEndDate = "01/01/2002"
+    claim.BreaksInCareMedicalCareDuringBreak = Mappings.yes
+
+    claim
+  }
+
   def reportChangesAddressChangeYes = {
     val claim = addressChange
 
-    claim.CircumstancesAddressChangePreviousAddress = "1 test lane"
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
     claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeStillCaring = "yes"
     claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
@@ -81,6 +167,64 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
     claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeMoreAboutChanges ="Additional info about changes"
+
+    claim
+  }
+
+  def reportChangeAddressMissingPersonChangedAddress = {
+    val claim = addressChange
+
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
+    claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeStillCaring = "yes"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
+
+    claim
+  }
+
+  def reportChangeAddressMissingDateStoppedCaring = {
+    val claim = addressChange
+
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
+    claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeStillCaring = "no"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
+
+    claim
+  }
+
+  def reportChangeAddressMissingNewAddress = {
+    val claim = addressChange
+
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
+    claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeStillCaring = "no"
+    claim.CircumstancesAddressChangeFinishedStillCaringDate = "03/04/2013"
+
+    claim
+  }
+
+  def reportChangeAddressMissingNewAddressAndDate = {
+    val claim = addressChange
+
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
+    claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeStillCaring = "no"
+
+    claim
+  }
+
+  def reportChangesAddressMissingSameAddress = {
+    val claim = addressChange
+
+    claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
+    claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeStillCaring = "yes"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
+    claim.CircumstancesAddressChangeCaredForChangedAddress = "yes"
 
     claim
   }

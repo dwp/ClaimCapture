@@ -11,7 +11,7 @@ import models.view.CachedClaim
 class G3Over16Spec extends Specification with Tags {
   "Carer's Allowance - Over16 - Controller" should {
     val answerYesNo = "yes"
-    val hoursInput = Seq("answer" -> answerYesNo)
+    val hoursInput = Seq("over16.answer" -> answerYesNo)
 
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
@@ -22,7 +22,7 @@ class G3Over16Spec extends Specification with Tags {
 
     "missing mandatory field" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("answer" -> "")
+        .withFormUrlEncodedBody("over16.answer" -> "")
 
       val result = controllers.s1_carers_allowance.G3Over16.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -52,7 +52,7 @@ class G3Over16Spec extends Specification with Tags {
 
     "add submitted form to the cached claim when answered 'no'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("answer" -> "no")
+        .withFormUrlEncodedBody("over16.answer" -> "no")
 
       val result = controllers.s1_carers_allowance.G3Over16.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get

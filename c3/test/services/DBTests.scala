@@ -27,6 +27,7 @@ object DBTests{
           type INTEGER,
           thirdparty INTEGER,
           circs_type INTEGER,
+          lang CHARACTER VARYING(10),
           PRIMARY KEY(transaction_id),
           CONSTRAINT transaction_fk FOREIGN KEY(transaction_id) REFERENCES transactionids(transaction_id)
         );
@@ -37,37 +38,15 @@ object DBTests{
 
   def newId(implicit app: FakeApplication) = {
     val id = (for(i <- 1 to 7)yield{ "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"((31 * Math.random()).toInt + 1)})(collection.breakOut)
-    DB.withConnection("carers"){implicit c =>
-      SQL("INSERT INTO transactionids (transaction_id) VALUES ({id});").on("id"->id).execute()
-    }
+    createId(id)
     id
   }
 
-  val parser = {
-    get[String]("transaction_id") ~
-    get[String]("status") ~
-    get[Int]("type") ~
-    get[Int]("thirdparty") ~
-    get[Option[Int]]("circs_type") map {
-      case id~status~typeI~thirdparty~circsType => TransactionStatus(id,status,typeI,thirdparty,circsType)
-    }
-  }
-
-  def getId(id: String)(implicit app:FakeApplication):Option[TransactionStatus] = {
-    import scala.language.postfixOps
+  def createId(id:String = "")(implicit app: FakeApplication) = {
     DB.withConnection("carers"){implicit c =>
-      SQL(
-        """
-          SELECT transaction_id, status,type,thirdparty,circs_type
-          FROM transactionstatus
-          WHERE transaction_id = {id}
-        """
-      ).on("id"->id)
-       .as(parser singleOpt)
+      SQL("INSERT INTO transactionids (transaction_id) VALUES ({id});").on("id"->id).execute()
     }
   }
-
-
 }
 
 class WithApplicationAndDB extends WithApplication(app = FakeApplication(additionalConfiguration = inMemoryDatabase("carers",options=Map("MODE" -> "PostgreSQL","DB_CLOSE_DELAY"->"-1")))) with Around{

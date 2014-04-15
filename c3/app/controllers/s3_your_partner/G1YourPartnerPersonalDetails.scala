@@ -12,6 +12,7 @@ import YourPartner._
 import controllers.CarersForms._
 import models.domain.Claim
 import play.api.i18n.Lang
+import models.view.CachedClaim.ClaimResult
 
 object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

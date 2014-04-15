@@ -27,7 +27,7 @@
 
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <legend>@Messages("s4.g11.help1") @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
+	            <legend>@Html(Messages("s4.g11.help1")) @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
 	
 				<div class="prompt helper-prompt"><p>@Html(Messages("s4.g11.help2"))</p>
 				<p>@Html(Messages("s4.g11.help3"))</p></div>
@@ -35,11 +35,11 @@
 	            <ul>
 	            
 	            	@whereabouts(breakForm("whereYou"),
-	                             Seq("" -> Messages("pleaseSelect"), Home -> Messages("whereabouts.Home"), Hospital -> Messages("whereabouts.Hospital"), Holiday -> Messages("whereabouts.Holiday"), RespiteCare -> Messages("whereabouts.RespiteCare"), Other -> Messages("other")),
+	                             Seq("" -> Messages("pleaseSelect"), Home -> Messages("whereabouts.home"), Hospital -> Messages("whereabouts.hospital"), Holiday -> Messages("whereabouts.holiday"), RespiteCare -> Messages("whereabouts.respitecare"), Other -> Messages("other")),
 	                             '_label -> Messages("whereYou.location"), 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 	                             
 	                @whereabouts(breakForm("wherePerson"),
-	                             Seq(""-> Messages("pleaseSelect"), Home -> Messages("whereabouts.Home"), Hospital -> Messages("whereabouts.Hospital"), RespiteCare -> Messages("whereabouts.RespiteCare"), CareHome -> Messages("whereabouts.CareHome"), NursingHome -> Messages("whereabouts.NursingHome"), Other -> Messages("other")),
+	                             Seq(""-> Messages("pleaseSelect"), Home -> Messages("whereabouts.home"), Hospital -> Messages("whereabouts.hospital"), RespiteCare -> Messages("whereabouts.respitecare"), CareHome -> Messages("whereabouts.carehome"), NursingHome -> Messages("whereabouts.nursinghome"), Other -> Messages("other")),
 	                             '_label -> Messages("wherePerson.location"), 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 	                             
 	            
@@ -53,8 +53,10 @@
 	        </fieldset>
 	
 	        <nav class="form-steps">
-	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
 	        </nav>
         </div>
     }

@@ -1,3 +1,7 @@
+/* GDS Colours */
+@import 'gds-colours';
+
+
 @font-face {
   font-family: 'FontAwesome';
   src: url('fonts/fontawesome-webfont.eot?v=3.2.1');
@@ -20,23 +24,18 @@ main {
 
 @import 'header';
 
-@import 'feedback';
-
-
-
-
-
+@import 'feedback ';
 
 
 .carers-allowance {
-   border-top: 10px solid #005ea5;
-   border-bottom: 10px solid #005ea5;
+   border-top: 10px solid $mainstream-brand;
+   border-bottom: 10px solid $mainstream-brand;
    background: #fff;
    padding: 0 0 4em 0;
    margin: 0 auto;
-   max-width: 980px;
+   max-width: 960px;
    .ie6 & {
-	   width: 980px;
+	   width: 960px;
    }
 
 
@@ -62,7 +61,7 @@ main {
    
 /* form elements */
 .form-elements {
-	margin: 2em 0 1em 0;
+	margin: 50px 0 1em 0;
 
    	    
    	    /* Eligibility section */
@@ -79,6 +78,10 @@ main {
 	   	   .helper-message {
 			   	margin: 0 0 1em 0;
 		   	}
+		   	
+		   	.radio {
+			   	margin-top: 1.5em;
+		   	}
 
    	    }
    	    
@@ -94,7 +97,7 @@ main {
 	   	    padding-left: 0;
 	   	    position: relative;
 	   	    legend {
-		   	    padding-bottom: .8em;
+		   	    padding-bottom: 1.5em;
 		   		}
 	   	    @media screen and (max-width: 750px) {
 	   	    	margin-right: 0;
@@ -103,15 +106,12 @@ main {
    	    
    	   legend {
 	   	   font-weight: 600; 
-	   	   font-size: 2.4rem;
-	   	   padding: .12em 0 .5em 0;
+	   	   font-size: 24px;
+	   	   padding: 0 0 1em 0;
 	   	   position: relative;
 	   	   line-height: 1.2em;
-	   	   color: #00487e;
+	   	   color: #0b0c0c;
 	   	   display: table;
-	   	   .ie & {
-		   	   font-size: 24px;
-		   	   }
 	   	   .ie7 & {
 		   	   margin-left: -10px;
 		   	   }
@@ -122,27 +122,27 @@ main {
 		   	   width: 30px;
 		   	   height: 22px;
 		   	   color: #fff;
-		   	   font-size: 1.5rem;
+		   	   font-size: 15px;
 		   	   text-align: center;
 		   	   padding-top: 8px;
 		   	   line-height: 1em;
 		   	   position: absolute;
 		   	   top: 1px; 
 		   	   left: 1px;
-		   	   .ie & {
-			   	   font-size: 15px;
-		   	   }
+	   	   }
+	   	   &.nestedLabel {
+		   	   	font-size: 19px;
+				font-weight: 400;
+				color: #000;
+				padding-bottom: .5em;
 	   	   }
    	   }
    	   
    	   h2, p.title {
-	   	   font-size: 1.9rem;
+	   	   font-size: 19px;
 	   	   font-weight: 600;
 	   	   line-height: 1.4em;
 	   	   padding-top: 1em;
-	   	   .ie & {
-		   	   font-size: 19px;
-	   	   }
 	   	   &:first-child {
 		   	   padding-top: 0;
 	   	   }
@@ -159,22 +159,15 @@ main {
 			margin-top: 0;
 			margin-bottom: 0;
 			legend {
-				font-size: 1.9rem;
+				font-size: 19px;
 				font-weight: 400;
 				color: #000;
 				padding-bottom: .34em;
-				.ie & {
-					font-size: 19px;
-				}
 				em {
 				   display: inline;
-				   font-size: 1.8rem;
-				   margin-right: .4rem;
+				   font-size: 18px;
+				   margin-right: 4px;
 				   font-style: normal;
-				   .ie & {
-					   font-size: 18px;
-					   margin-right: 4px;
-					   }
 				   }
 				}
 				ul {
@@ -195,6 +188,9 @@ main {
 			   border-left: 5px solid #a2a2a2;
 			   padding-left: .8em;
 			   margin-top: 1em;
+			   .validation {
+				   margin-left: -1.08em;
+			   }
 		   }
 		   
 		   &.circs-group {
@@ -204,12 +200,9 @@ main {
 		   
 		   li {
 			   display: block;
-			   margin-top: .4rem;
+			   margin-top: 16px;
 			   padding: .8em 0;
 			   position: relative;
-			   &:first-child {
-				   margin: 0;
-			   }
 			   .ie & {
 				   margin-top: 4px;
 			   }
@@ -255,11 +248,8 @@ main {
 			       .error {
 				       color: #de3134;
 				       font-weight: 300;
-				       font-size: 1.6rem;
+				       font-size: 16px;
 				       padding-bottom: .6em;
-				       .ie & {
-					       font-size: 16px;
-				       }
 				       .ie6 & {
 					       background: transparent;
 				       }
@@ -283,15 +273,9 @@ main {
 			   
 			   &.short-field {
 				   input[type="text"], input[type="tel"] {
-					   width: 13rem;
-					   .ie & {
-						   width: 130px;
-					   }
+					   width: 130px;
 					   @media screen and (max-width: 500px) {
-						   width: 12.8rem;
-						   .ie & {
-							   width: 128px;
-						   }
+						   width: 128px;
 					   }
 				   }
 			   }
@@ -321,16 +305,10 @@ main {
 			   &.currency {
 			   	   position: relative;
 				   input[type="text"], input[type="tel"] {
-					   width: 11.8rem;
+					   width: 118px;
 					   position: relative;
-					   .ie & {
-						   width: 118px;
-					   }
 					   @media screen and (max-width: 500px) {
-						   width: 11.6rem;
-						   .ie & {
-							   width: 116px;
-						   }
+						   width: 116px;
 					   }
 				   }
 			   }
@@ -343,12 +321,9 @@ main {
 			   }
 			   
 			   .helper {
-				   font-size: 1.9rem;
+				   font-size: 19px;
 				   margin-top: .5em;
 				   font-weight: 300;
-				   .ie & {
-					   font-size: 19px;
-				   }
 				   &.above {
 					   margin-top: 0;
 					   padding-bottom: .5em;
@@ -363,51 +338,46 @@ main {
 			   }
 			   .helper-more {
 				   cursor: pointer;
-				   font-size: 1.6rem;
+				   font-size: 19px;
 				   margin: .6em 0 0 0;
 				   font-weight: 500;
 				   overflow: hidden;
 				   line-height: 1em;
 				   padding: .5em .7em .45em .7em;
-				   border-left: 5px solid #333;
-				   color: #000;
+				   border-left: 5px solid #dee0e2;
+				   color: #005ea5;
+				   text-decoration: underline;
+				   &:hover {
+					   color: #2e8aca;
+					   text-decoration: none;
+				   }
 			   }
 
 				.helper-info {
 					display: none;
-					padding: 1.3em 1em 1em .8em;
-					background: #f9f9f9;
-					border-left: 5px solid #333;
+					padding: 1em 1em 0 .8em;
+					background: #fff;
+					border-left: 5px solid #dee0e2;
 					h3 {
-						font-size: 1.6rem;
-						.ie & {
-							font-size: 16px;
-						}
+						font-size: 19px;
 					}
 					p {
-						font-size: 1.6rem;
+						font-size: 19px;
 						margin-top: 1em;
 						color: #515151;
 						line-height: 1.4em;
-						.ie & {
-							font-size: 16px;
-						}
 						&:first-child {
 							margin: 0;
 						}
 						em, i {
-							font-size: 1.6rem;
+							font-size: 17px;
 							margin: 0;
 							font-style: italic;
-							.ie & {
-								font-size: 16px;
-							}
 						}
 					}
 					a {
-						color: #2e3191;
+						color: #005ea5;
 						text-decoration: underline;
-						font-size: 1.6rem;
 						&:hover {
 							color: #2e8aca;
 						}
@@ -416,7 +386,7 @@ main {
 						li {
 							margin: 0;
 							padding: .65em 0;
-							font-size: 1.6rem;
+							font-size: 17px;
 							border-top: 1px dotted #e8e8e8;
 							color: #626262;
 							&:first-child {
@@ -428,39 +398,33 @@ main {
 			  
 			   label, p {
 				   display: block;
-				   font-size: 1.9rem;
+				   font-size: 19px;
 				   font-weight: 400;
 				   line-height: 1.3em;
 				   padding-bottom: .3em;
-				   @media screen and (max-width: 600px) {line-height: 1.2em;}
-				   .ie & {
-					   font-size: 19px;
+				   @media screen and (max-width: 600px) {
+				   	   line-height: 1.2em;
 				   }
 				   em {
 					   display: inline;
-					   font-size: 1.8rem;
-					   margin-right: .4rem;
+					   font-size: 18px;
+					   margin-right: 4px;
 					   font-style: normal;
-					   .ie & {
-						   font-size: 18px;
-						   margin-right: 4px;
-					   }
 				   }
 			   }
 			  
 			   
 			   input[type="text"], input[type="number"], input[type="tel"], textarea {
-				    background: #f9f9f9;
-					border: 1px solid #a2a2a2;
-					font-size: 1.9rem;
+				    background: $white;
+					border: 1px solid $grey-2;
+					font-size: 19px;
 					line-height: 1.31579;
 					font-weight: 400;
 					text-transform: none;
 					padding: 0.25em 0 0.1em 0.4em;
-					width: 28.3rem;
+					width: 340px;
 					@media screen and (max-width: 500px) {width: 96%;}
 					.ie & {
-						font-size: 19px;
 						width: 283px;
 					}
 					&.postcode {
@@ -471,12 +435,12 @@ main {
 					}
 					&.datepicker {
 						cursor: pointer;
-						background: #f9f9f9 url('images/calendar-icon.png') 97% 50% no-repeat;
+						background: #fff url('images/calendar-icon.png') 97% 50% no-repeat;
 						position: relative;
 						z-index: 20;
 						.ie7 & {
 							cursor: auto;
-							background: #f9f9f9;
+							background: #fff;
 						}
 					}
 			   }
@@ -493,17 +457,14 @@ main {
 			   }
 			   textarea {
 				   height: 6em;
-				   width: 56.6rem;
-				   background: #f9f9f9;
+				   width: 566px;
+				   background: #fff;
 				   @media screen and (max-width: 620px) {width: 96%;}
-				   .ie & {
-					   width: 566px;
-				   }
 			   }
 			   select {
 				   padding: 2px;
-				   min-width: 15rem;
-				   max-width: 29.3rem;
+				   min-width: 150px;
+				   max-width: 293px;
 				   position: relative;
 				   font-size: 13px;
 				   height: 30px;
@@ -511,8 +472,6 @@ main {
 				   background: #fafafa;
 				   border: 1px solid #a2a2a2;
 				   .ie & {
-					   min-width: 150px;
-					   max-width: 293px;
 					   height: auto;
 					   padding: 5px;
 				   }
@@ -526,10 +485,7 @@ main {
 			   .stacked {
 					   margin: 0;
 					   padding: 0;
-					   font-size: 1.6rem;
-					   .ie & {
-						   font-size: 16px;
-					   }
+					   font-size: 16px;
 				   }
 		   }
 		   
@@ -583,14 +539,11 @@ main {
 						   display: block;
 						   background: #e8e8e8;
 						   padding: 12px 14px 10px 34px;
-						   font-size: 1.7rem;
+						   font-size: 17px;
 						   cursor: pointer;
 						   line-height: 1em;
 						   border: 1px solid #fff;
 						   font-weight: 500;
-						   .ie & {
-							   font-size: 17px;
-						   }
 						   
 						   .ie7 &:hover, .ie8 &:hover {
 							   background: #fff;
@@ -629,8 +582,15 @@ main {
 						   }
 					   }
 				   }
+				   &.benefits-validation {
+					   background: #fef7f7;
+					   padding: .7em;
+					   border-left: 3px solid #df3034;
+				   }
 			 }
 
+
+			 	
 			 
 			 
 			 
@@ -662,13 +622,10 @@ main {
 					   padding-left: 0.25em;
 					   display: inline-block;
 					   line-height: 1.2em;
-					   font-size: 1.7rem;
+					   font-size: 17px;
 					   color: #555;
 					   &:hover {
 						   color: #0b0c0c;
-					   }
-					   .ie & {
-						   font-size: 17px;
 					   }
 				   }
 				   select {
@@ -704,11 +661,10 @@ main {
 					   margin-left: .25em;
 					   line-height: 1.2em;
 					   padding: 0;
-					   font-size: 1.7rem;
+					   font-size: 17px;
 					   color: #555;
 					   cursor: pointer;
 					   .ie & {
-						   font-size: 17px;
 						   width: 90%;
 					   }
 				   }
@@ -731,21 +687,19 @@ main {
 				   }
 				   select {
 				   	  margin: 0;
-					   min-width: 8.6rem;
+					   min-width: 86px;
 					   top: -2px;
-					   @media screen and (max-width: 500px) {width: auto; min-width: 1rem;}
+					   @media screen and (max-width: 500px) {width: auto; min-width: 10px;}
 					   .ie & {
 						   width: 86px;
-						   min-width: 86px;
 						   top: 2px;
 					   }
 				   }
 				   input {
-					   width: 7.6rem;
-					   background: #f9f9f9;
+					   width: 76px;
+					   background: #fff;
 					   position: relative;
 					   .ie9 & {
-						   width: 76px;
 						   top: 3px;
 					   }
 					   .ie8 &, .ie7 & {
@@ -774,10 +728,7 @@ main {
 				 	   left: -9999px;
 			 	   }
                    input[type="tel"],input[type="text"] {
-					   width: 8.1rem;
-					   .ie & {
-						   width: 81px;
-					   }
+					   width: 81px;
 				   }
 			   }  
 		   
@@ -816,24 +767,16 @@ main {
 			   	   left: -9999px;
 		   	   }
 			   input[type="text"], input[type="tel"] {
-				   width: 4.4rem;
+				   width: 44px;
 				   text-transform: uppercase;
-				   .ie & {
-					   width: 44px;
-				   }
 				   .ie7 & {
 					   width: 43px;
 				   }
 				   &.single {
-					   width: 2.7rem;
-					   .ie & {
-						   width: 27px;
-					   }
+					   width: 27px;
 				   }
-				   @media screen and (max-width: 750px) {width: 4.2rem;
-					   .ie & {
-						   width: 42px;
-					   }
+				   @media screen and (max-width: 750px) {
+				   		width: 42px;
 				   }
 			   }
 		   }
@@ -844,7 +787,7 @@ main {
 	
 	
 	   
-/* Information panel style */
+/* Information panel   */
 @import 'info-panel';	   
 	   
 	      
@@ -874,7 +817,7 @@ main {
 @import 'finish';
 
 
-/* Right col (Finish page) */
+/* Right col (Finish page)  */
 @import 'right-panel';
 		
 }
@@ -911,5 +854,6 @@ main {
 
 /* Include & Overrides */
 @import 'includes';
+
 
 

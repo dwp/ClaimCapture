@@ -13,7 +13,7 @@
     @form(action = controllers.circs.s3_consent_and_declaration.routes.G1Declaration.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <legend>@Messages("c3.g2")</legend>
+	            <legend>@Html(Messages("c3.g2"))</legend>
 	
 	            <ul>
 	                @carersInputText(
@@ -32,9 +32,10 @@
 	                <h3>@Html(Messages("declaration.title"))</h3>
 	
 	                <ul>
-	                @for(i <- 1 to 4) {
-	                    <li>@Html(Messages(s"circs.declaration.$i"))</li>
-	                }
+                        <li>@Html(Messages("circs.declaration.1a")) <a href="/internal-claim-notes" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>@Html(Messages("circs.declaration.1b"))</a> @Html(Messages("circs.declaration.1c"))</li>
+                        <li>@Html(Messages("circs.declaration.2"))</li>
+                        <li>@Html(Messages("circs.declaration.3"))</li>
+                        <li>@Html(Messages("circs.declaration.4"))</li>
 	                </ul>
 	            </section>
 	
@@ -64,8 +65,10 @@
 	        </fieldset>
 	
 	        <nav class="form-steps">
-	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.back"))</a>
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Messages("s3.g1.submit.help")">@Messages("s3.g1.submit")</button>
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("s3.g1.submit"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
 	        </nav>
         </div>
     }

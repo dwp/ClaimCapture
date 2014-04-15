@@ -1,14 +1,10 @@
 package xml.claim
 
 import models.domain._
-import app.XMLValues._
 import scala.xml.NodeSeq
-import xml.XMLHelper._
-import xml.XMLComponent
-import models.domain.Claim
-import scala.Some
+import app.XMLValues._
 
-object FullTimeEducation extends XMLComponent {
+object FullTimeEducation {
 
   def xml(claim: Claim) = {
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
@@ -27,24 +23,31 @@ object FullTimeEducation extends XMLComponent {
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <CourseDetails>
-      {/*TODO: Remove courseType from the new schema.*/}
-      {question(<Title/>,"courseTitle",courseDetails.title)}
-      {question(<DateStarted/>, "startDate", courseDetails.startDate)}
-      {/*TODO: Remove finished date from the new schema.*/}
-      {question(<ExpectedEndDate/>, "expectedEndDate", courseDetails.expectedEndDate)}
+      <Type>{NotAsked}</Type>
+      <Title>{courseDetails.title}</Title>
+      <HoursSpent></HoursSpent>
+      <DateStarted>{courseDetails.startDate.`yyyy-MM-dd`}</DateStarted>
+      <DateStopped></DateStopped>
+      <ExpectedEndDate>{courseDetails.expectedEndDate.`yyyy-MM-dd`}</ExpectedEndDate>
     </CourseDetails>
   }
 
   def locationDetailsXml(claim:Claim) = {
+    val schoolData = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <LocationDetails>
-      {question(<Name/>,"nameOfSchoolCollegeOrUniversity",courseDetails.nameOfSchoolCollegeOrUniversity)}
-      {/*TODO: Remove address from the new schema*/}
-      {question(<PhoneNumber/>,"courseContactNumber", courseDetails.courseContactNumber)}
-      {/*TODO: Remove fax from the new schema*/}
-      {/*TODO: Remove student reference number from the new schema*/}
-      {question(<Tutor/>,"nameOfMainTeacherOrTutor", courseDetails.nameOfMainTeacherOrTutor)}
+      <Name>{courseDetails.nameOfSchoolCollegeOrUniversity}</Name>
+      <Address>
+        <gds:Line>{NotAsked}</gds:Line>
+        <gds:Line>{NotAsked}</gds:Line>
+        <gds:Line>{NotAsked}</gds:Line>
+        <gds:PostCode></gds:PostCode>
+      </Address>
+      <PhoneNumber>{courseDetails.courseContactNumber.orNull}</PhoneNumber>
+      <FaxNumber>{NotAsked}</FaxNumber>
+      <StudentReferenceNumber>{NotAsked}</StudentReferenceNumber>
+      <Tutor>{courseDetails.nameOfMainTeacherOrTutor}</Tutor>
     </LocationDetails>
   }
 }

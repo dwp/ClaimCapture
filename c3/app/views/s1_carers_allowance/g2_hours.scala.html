@@ -14,15 +14,15 @@
     @form(action = controllers.s1_carers_allowance.routes.G2Hours.submit) {
 		<div class="form-wrap">
 	        <fieldset class="form-elements form-eligibility">
-	            <legend>@Messages("s1.g2")</legend>
+	            <legend>@Html(Messages("s1.g2"))</legend>
 	
-	            <p>@Messages("s1.g2.help1")</p>
+	            <p>@Html(Messages("s1.g2.help1"))</p>
 	            
-	            <ul>
-	                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages("hours.answer"), '_showLabel -> false,'track -> true, 'trackLabel -> "hours.answer")
-	            </ul>
+
+	             @yesNoRadioGroup(currentForm("hours.answer"), '_label -> Messages("hours.answer"), '_showLabel -> false,'track -> true, 'allowance -> true,'trackLabel -> "hours.answer")
+
 	
-	            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+	            @defining(currentForm("hours.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
 	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 	                    <p>@Html(Messages("s1.g2.help2"))</p>
 	                    <p>@Html(Messages("s1.g2.help3"))</p>
@@ -32,8 +32,10 @@
 	        </fieldset>
 	
 	        <nav class="form-steps">
-	            <a id="backButton" href="@{claim.navigation.previous}@{if (claim.navigation.previous.uri.endsWith("?changing=true")) "" else "?changing=true"}" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	        	<ul>
+			   		<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+			   		<li><a id="backButton" href="@{claim.navigation.previous}@{if (claim.navigation.previous.uri.endsWith("?changing=true")) "" else "?changing=true"}">@Html(Messages("form.back"))</a></li>
+	        	</ul>
 	        </nav>
 		</div>
     }
@@ -43,6 +45,6 @@
 
 <script type="text/javascript">
     $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("hours_answer_yes")", "@CarersCrypto.encryptAES("hours_answer_no")");
     });
 </script>

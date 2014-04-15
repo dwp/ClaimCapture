@@ -1,7 +1,7 @@
 package controllers.circs.submission
 
 import org.specs2.mutable.{Tags, Specification}
-import services.submission.{CircsSubmissionService, WebServiceClientComponent}
+import services.submission.{ClaimSubmissionService, WebServiceClientComponent}
 import monitoring.ChangeBotChecking
 import models.view.{CachedClaim, CachedChangeOfCircs}
 import services.ClaimTransactionComponent
@@ -12,7 +12,7 @@ import controllers.submission.SubmissionController
 class ChangeOfCircsSubmissionControllerSpec extends Specification with Tags with Mockito with CachedClaim {
 
   val changeOfCircsSubmissionController = new SubmissionController
-    with CircsSubmissionService
+    with ClaimSubmissionService
     with ClaimTransactionComponent
     with WebServiceClientComponent
     with ChangeBotChecking

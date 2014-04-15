@@ -64,6 +64,16 @@ class G1ReportChangesIntegrationSpec extends Specification with Tags {
        nextPage must beAnInstanceOf[G3PermanentlyStoppedCaringPage]
      }
 
+     "navigate to next page when break from caring selected" in new WithBrowser with PageObjects{
+       val page =  G1ReportChangesPage(context)
+       val claim = CircumstancesScenarioFactory.reportBreakFromCaring
+       page goToThePage()
+       page fillPageWith claim
+
+       val nextPage = page submitPage ()
+       nextPage must beAnInstanceOf[G7BreaksInCarePage]
+     }
+
    } section("integration", models.domain.CircumstancesIdentification.id)
 
  }

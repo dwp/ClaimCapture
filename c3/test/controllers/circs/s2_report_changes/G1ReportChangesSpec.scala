@@ -30,6 +30,10 @@ class G1ReportChangesSpec extends Specification with Tags {
     "reportChanges" -> AdditionalInfo.name
   )
 
+  val validBreakFromCaringFormInput = Seq(
+    "reportChanges" -> BreakFromCaring.name
+  )
+
   "Report a change in your circumstances - Change in circumstances - Controller" should {
     "present 'CoC Report Changes' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
@@ -77,5 +81,14 @@ class G1ReportChangesSpec extends Specification with Tags {
       val result = s2_report_changes.G1ReportChanges.submit(request)
       redirectLocation(result) must beSome("/circumstances/report-changes/payment-change")
     }
+
+    "redirect to the next page after a valid break from caring submission" in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+        .withFormUrlEncodedBody(validBreakFromCaringFormInput: _*)
+
+      val result = s2_report_changes.G1ReportChanges.submit(request)
+      redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
+    }
+
    } section("unit", models.domain.CircumstancesReportChanges.id)
  }

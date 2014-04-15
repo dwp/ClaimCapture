@@ -20,9 +20,9 @@
     @form(action = controllers.circs.s2_report_changes.routes.G5PaymentChange.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <p class="security-message">@Messages("c2.payment.helper")</p>
+	            <p class="security-message">@Html(Messages("c2.payment.helper"))</p>
 	
-	            <legend>@Messages("c2.g5")</legend>
+	            <legend>@Html(Messages("c2.g5"))</legend>
 	
 	            <ul class="coc-layout">
 	                @yesNoRadioGroup(currentForm("currentlyPaidIntoBank.answer"),
@@ -50,7 +50,7 @@
 	            </ul>
 	        </fieldset>
 	        <fieldset class="form-elements">
-	            <legend>@Messages("c2.g5.newPaymentDetails")</legend>
+	            <legend>@Html(Messages("c2.g5.newPaymentDetails"))</legend>
 	
 	            <ul class="coc-layout">
 	                @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
@@ -73,8 +73,10 @@
 	        </fieldset>
 	
 	        <nav class="form-steps">
-	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
 	        </nav>
         </div>
     }

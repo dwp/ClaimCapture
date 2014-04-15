@@ -14,34 +14,25 @@
 			   }
 			   @media screen and (max-width: 760px) {padding-right: 1em;}
 			   h3 {
-				   font-size: 1.6rem;
+				   font-size: 16px;
 				   font-weight: 300;
 				   line-height: 1.25;
-				   .ie & {
-					   font-size: 16px;
-				   }
 			   }
 			   p {
-			   	   font-size: 1.6rem;
+			   	   font-size: 17px;
 				   font-weight: 800;
 				   color: #000;
 				   line-height: 1em;
 				   margin-top: .4em;
-				   .ie & {
-					   font-size: 16px;
-				   }
 			   }
 			   a {
 				   position: absolute;
 				   right: 1.5em;
-				   top: 2.4em;
-				   margin-top: -7px;
+				   top: 50%;
+				   margin-top: -9px;
 				   color: inherit;
-				   font-size: 1.4rem;
+				   font-size: 14px;
 				   font-weight: 300;
-				   .ie & {
-					   font-size: 14px;
-				   }
 				   .ie6 & {
 					   right: auto;
 					   top: auto;

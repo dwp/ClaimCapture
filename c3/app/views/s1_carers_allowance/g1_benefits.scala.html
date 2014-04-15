@@ -1,5 +1,7 @@
 @(currentForm: Form[models.domain.Benefits])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
+
+@import utils.helpers.EmptyTemplate._
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
@@ -39,11 +41,10 @@
 		            
 		            </div>
 		            
-		            <ul>
-		                @yesNoRadioGroup(currentForm("answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'trackLabel -> "benefits.answer")
-		            </ul>
+	                @yesNoRadioGroup(currentForm("benefits.answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'allowance -> true,'trackLabel -> "benefits.answer")
+
 		            
-		            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+		            @defining(currentForm("benefits.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
 		                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 		                    <p>@Html(Messages("s1.g1.help11"))</p>
 		                    <p>@Html(Messages("s1.g1.help12"))</p>
@@ -54,7 +55,9 @@
 
 
 		        <nav class="form-steps">
-		            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+		            <ul>
+		            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+		            </ul>
 		        </nav>
 		        
 			</div>
@@ -65,7 +68,7 @@
 
 <script type="text/javascript">
     $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("benefits_answer_yes")", "@CarersCrypto.encryptAES("benefits_answer_no")");
         @ga.stagePrompt()
     });
 </script>

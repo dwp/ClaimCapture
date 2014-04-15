@@ -8,8 +8,8 @@ import org.joda.time.DateTime
 import models.PaymentFrequency
 import models.domain.Claim
 import scala.Some
-import xml.claim.AssistedDecision
 import models.yesNo.YesNoWithText
+import xml.claim.AssistedDecision
 
 
 class AssistedDecisionSpec extends Specification with Tags {

@@ -17,7 +17,7 @@
 
         <article class="eligible">
 
-            <h1>@Messages("s1.longName")</h1>
+            <h1>@Html(Messages("s1.longName"))</h1>
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
@@ -25,13 +25,13 @@
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
                                 @if(completedQuestionGroup.identifier == Benefits) {
-                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                    <p>@Messages("%s1".format(completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation))</p>
-                                    <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Messages("change.this.help")">@Messages("change.this")</a>
+                                    <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                                    <p>@Html(Messages("%s1".format(completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation)))</p>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Html(Messages("change.this.help"))">@Html(Messages("change.this"))</a>
                                 } else {
-                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                    <p>@Messages(completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation)</p>
-                                    <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Messages("change.this.help")">@Messages("change.this")</a>
+                                    <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                                    <p>@Html(Messages(completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation))</p>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Html(Messages("change.this.help"))">@Html(Messages("change.this"))</a>
                                 }
                             </li>
                         }

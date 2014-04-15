@@ -8,11 +8,11 @@ class G3RelationshipAndOtherClaimsFormSpec extends Specification with Tags {
 
     "map data into case class" in {
       G3RelationshipAndOtherClaims.form.bind(
-        Map("relationship" -> "Father", "armedForcesPayment" -> "yes")
+        Map("relationship" -> "father", "armedForcesPayment" -> "yes")
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         moreAboutThePerson => {
-          moreAboutThePerson.relationship must equalTo("Father")
+          moreAboutThePerson.relationship must equalTo("father")
           moreAboutThePerson.armedForcesPayment must equalTo("yes")
         }
       )

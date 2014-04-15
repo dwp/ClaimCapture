@@ -18,12 +18,13 @@ class G1DeclarationSpec extends Specification with Tags {
   val declarationInput = Seq("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation)
   val declartionInputWithoutSomeOne = Seq("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> "")
 
+  val G1Declaration = new G1SyncDeclaration()
   "Circumstances - OtherChangeInfo - Controller" should {
 
     "present 'Other Change Information' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
-      val result = controllers.circs.s3_consent_and_declaration.G1Declaration.present(request)
+      val result = G1Declaration.present(request)
       status(result) mustEqual OK
     }
 
@@ -31,7 +32,7 @@ class G1DeclarationSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(declarationInput: _*)
 
-      val result = controllers.circs.s3_consent_and_declaration.G1Declaration.submit(request)
+      val result = G1Declaration.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
 
       claim.questionGroup[CircumstancesDeclaration] must beLike {
@@ -49,7 +50,7 @@ class G1DeclarationSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(declarationInput: _*)
 
-      val result = controllers.circs.s3_consent_and_declaration.G1Declaration.submit(request)
+      val result = G1Declaration.submit(request)
       redirectLocation(result) must beSome("/circumstances/consent-and-declaration/submitting")
     }
 

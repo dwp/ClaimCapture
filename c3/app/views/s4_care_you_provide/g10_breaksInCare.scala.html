@@ -28,19 +28,19 @@ else OtherMoney.name
 
 @main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(yesNoForm), claim.completedQuestionGroups(BreaksInCare)) {
     <fieldset id="breaks" class="form-elements results-detail">
-        <legend>@Messages("breaksAlreadyAdded")</legend>
+        <legend>@Html(Messages("breaksAlreadyAdded"))</legend>
 
         <table>
-            <caption>@Messages("breakDetails")</caption>
+            <caption>@Html(Messages("breakDetails"))</caption>
 
             <thead>
                 <tr>
-                    <th>@Messages("breakPeriod")</th>
-                    <th class="desc">@Messages("breaks.whereYou.label")</th>
-                    <th class="desc">@Messages("wherePerson")</th>
-                    <th class="desc">@Messages("medicalTreatment")</th>
-                    <th>@Messages("change")</th>
-                    <th>@Messages("delete")</th>
+                    <th>@Html(Messages("breakPeriod"))</th>
+                    <th class="desc">@Html(Messages("breaks.whereYou.label"))</th>
+                    <th class="desc">@Html(Messages("wherePerson"))</th>
+                    <th class="desc">@Html(Messages("medicalTreatment"))</th>
+                    <th>@Html(Messages("change"))</th>
+                    <th>@Html(Messages("delete"))</th>
                 </tr>
             </thead>
 
@@ -55,11 +55,23 @@ else OtherMoney.name
                             @{break.end.fold("")(_.`dd/MM/yyyy`)}
                         </td>
 
-                        <td class="desc">@break.whereYou.location</td>
-                        <td class="desc">@break.wherePerson.location</td>
-                        <td class="desc">@if("yes" == break.medicalDuringBreak) { Yes } else { No }</td>
-                        <td><input type="button" name="changerow" class="button row secondary" value="@Messages("change")" aria-label="@Messages("change.button")"></td>
-                        <td><input type="button" name="deleterow" class="button row warning" value="@Messages("delete")" aria-label="@Messages("delete.button")"></td>
+                        <td class="desc">
+                            @break.whereYou.location.isEmpty match {
+                                case false => { @Html(Messages("whereabouts." + break.whereYou.location.replaceAll(" ","").toLowerCase)) }
+                                case true => {}
+                            }
+                        </td>
+
+                        <td class="desc">
+                            @break.wherePerson.location.isEmpty match {
+                                case false => { @Html(Messages("whereabouts." + break.wherePerson.location.replaceAll(" ","").toLowerCase)) }
+                                case true => {}
+                            }
+                        </td>
+
+                        <td class="desc">@if("yes" == break.medicalDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</td>
+                        <td><input type="button" name="changerow" class="button row secondary" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))"></td>
+                        <td><input type="button" name="deleterow" class="button row warning" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))"></td>
                     </tr>
                 }
             </tbody>
@@ -67,8 +79,8 @@ else OtherMoney.name
 
         <div class="prompt breaks-prompt">
             <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
-            <input type="button" name="no" class="button row secondary" value="@Messages("no.delete")" aria-label="@Messages("no.delete.label")">
-            <input type="button" name="yes" class="button row warning" value="@Messages("yes.delete")" aria-label="@Messages("yes.delete.label")">
+            <input type="button" name="no" class="button row secondary" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
+            <input type="button" name="yes" class="button row warning" value="@Html(Messages("yes.delete"))" aria-label="@Html(Messages("yes.delete.label"))">
             <span>&#33;</span>
         </div>
     </fieldset>
@@ -78,18 +90,18 @@ else OtherMoney.name
     @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <legend>@Messages("s4.g5")</legend>
+	            <legend>@Html(Messages("s4.g5"))</legend>
 	            
 	            <div class="prompt helper-prompt">
-	                <p>@Messages("s4.g5.help1")</p>
+	                <p>@Html(Messages("s4.g5.help1"))</p>
 	
 	                <p class="intro">
-	                    @Messages("s4.g5.help2")
+	                    @Html(Messages("s4.g5.help2"))
 	                </p>
 	
 	                <ul>
-	                    <li>@Messages("s4.g5.help3")</li>
-	                    <li>@Messages("s4.g5.help4")</li>
+	                    <li>@Html(Messages("s4.g5.help3"))</li>
+	                    <li>@Html(Messages("s4.g5.help4"))</li>
 	                </ul>
 	            </div>
 	
@@ -100,7 +112,7 @@ else OtherMoney.name
 	            </ul>
 	
 	            <div id="warningMessageWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
-	                <p>@Messages("s4.g5.help5")</p>
+	                <p>@Html(Messages("s4.g5.help5"))</p>
 	                <span>!</span>
 	            </div>
 	
@@ -109,8 +121,10 @@ else OtherMoney.name
 	        </fieldset>
 	
 	        <nav class="form-steps">
-	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button>
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
 	        </nav>
         </div>
     }

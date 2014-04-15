@@ -1,6 +1,22 @@
-@()(implicit lang: Lang, request:Request[AnyContent])
+@()(implicit circs: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+
+
+@import models.domain.CircumstancesBreaksInCare
+
 @import play.api.i18n._
 @import play.api.i18n.{MMessages => Messages}
+
+@showBreaksInCareMessages = @{
+    var breaksIncare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
+    breaksIncare.expectStartCaring.answer match {
+            case Some(n) => n match {
+                case Mappings.yes => if(!breaksIncare.expectStartCaring.expectStartCaringDate.isDefined) true else false
+                case Mappings.dontknow => true
+                case _ => false
+            }
+            case _ => false
+        }
+}
 
 @common.govMain(Messages("circs.thankyou")) {
 
@@ -13,25 +29,31 @@
         <article class="finish-statement">
         
             <div class="app-complete">
-	            <h1><span>@Messages("circs.thankyou")</span></h1>            
-	            <p>@Messages("circs.received")</p>
+	            <h1><span>@Html(Messages("circs.thankyou"))</span></h1>            
+	            <p>@Html(Messages("circs.received"))</p>
             </div>
-	            
+
+                @if(showBreaksInCareMessages){
+                    <section class="finish-next prompt helper-prompt">
+                        <h3 id="breaksInCareMessageTitle">@Html(Messages("circs.thankyou.breakmessage.title"))</h3>
+                        <p>@Html(Messages("circs.thankyou.breakmessage.content"))</p>
+                    </section>
+                }
 	            <section class="finish-next prompt helper-prompt">
-	            <h3>@Messages("next")</h3>
+	            <h3>@Html(Messages("next"))</h3>
 	            <ul>
 	                <li>@Html(Messages("circs.next.1"))</li>
 	                <li>@Html(Messages("next.last"))</li>
 	            </ul>
 	            </section>
 	            <section>
-	            <h3>@Messages("change.head")</h3>
+	            <h3>@Html(Messages("change.head"))</h3>
 	            <p>@Html(Messages("change.link"))</p>
 	            </section>
 	            <section>
-	            <h3>@Messages("feedback.head")</h3>
-	            <p>@Html(Messages("circs.feedback.link"))</p>
+	            <p class="finish">@Html(Messages("circs.feedback.link"))</p>
 	            </section>
+	            
             
         </article>
     </div>

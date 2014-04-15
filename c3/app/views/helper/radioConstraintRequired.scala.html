@@ -6,9 +6,10 @@
 @import play.api.i18n.{MMessages => Messages}
 
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
+@nestedFieldSet = @{ args.toMap.get('_nestedFieldSet).getOrElse(false) == true }
 
 @if(showLabel) {
-  <legend>
+  <legend @if(nestedFieldSet) {class="nestedLabel"}>
     @carersLabelText(field,args:_*)
   </legend>
   @if(args.find(_._1=='helperAbove).isDefined){

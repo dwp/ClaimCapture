@@ -13,7 +13,7 @@
     @form(action = controllers.circs.s2_report_changes.routes.G3PermanentlyStoppedCaring.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <legend>@Messages("c2.g3")</legend>
+	            <legend>@Html(Messages("c2.g3"))</legend>
 	            <ul class="coc-layout">
 	                @inputDayMonthYear(stoppedCaringForm("stoppedCaringDate"),  'helperAbove-> Messages("stoppedCaringDate.helper"))
 	                @carersInputTextArea(stoppedCaringForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
@@ -21,8 +21,10 @@
 	        </fieldset>
 	
 	        <nav class="form-steps">
-	            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
-	            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
 	        </nav>
         </div>
         }
