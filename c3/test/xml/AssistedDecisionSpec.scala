@@ -218,7 +218,7 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Create an assisted decision section if AFIP is yes" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(resideInUK = YesNoWithText("yes", None))
-      val moreAboutThePerson = MoreAboutThePerson(armedForcesPayment = "yes")
+      val moreAboutThePerson = TheirPersonalDetails(armedForcesPayment = "yes")
       val claim = Claim().update(moreAboutTheCare).update(moreAboutThePerson).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Person receives Armed Forces Independence Payment.")
@@ -228,7 +228,7 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Not create an assisted decision section if AFIP is no" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(resideInUK = YesNoWithText("yes", None))
-      val moreAboutThePerson = MoreAboutThePerson(armedForcesPayment = "no")
+      val moreAboutThePerson = TheirPersonalDetails(armedForcesPayment = "no")
       val claim = Claim().update(moreAboutTheCare).update(moreAboutThePerson).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0

@@ -5,6 +5,7 @@ import scala.xml.NodeSeq
 import xml.XMLHelper._
 import scala.Some
 import models.domain.Claim
+import models.MultiLineAddress
 
 /**
  * Created by neddakaltcheva on 3/13/14.
@@ -16,31 +17,20 @@ object AddressChange {
     circsAddressChangeOption match {
       case Some(circsAddressChange) => {
         <AddressChange>
-          <PreviousAddress>
-            {postalAddressStructure("previousAddress", circsAddressChange.previousAddress, circsAddressChange.previousPostcode)}
-          </PreviousAddress>
-          {question(<Caring35Hours/>,"stillCaring.answer", circsAddressChange.stillCaring.answer)}
-          <NewAddress>
-            {postalAddressStructure("newAddress", circsAddressChange.newAddress, circsAddressChange.newPostcode)}
-          </NewAddress>
-          {circsAddressChange.stillCaring.answer match {
-            case "no" => {question(<DateStoppedCaring35Hours/>,"stillCaring.date", circsAddressChange.stillCaring.date)}
-            case "yes" => {
-              {question(<CareeChangedAddress/>,"caredForChangedAddress.answer", circsAddressChange.caredForChangedAddress.answer)}
-              {question(<CareeChangedAddress/>,"sameAddress.answer", circsAddressChange.sameAddress.answer)}
+          {postalAddressStructurePreviousAddress("previousAddress", circsAddressChange.previousAddress, circsAddressChange.previousPostcode)}
 
-              {circsAddressChange.sameAddress.answer match {
-                case Some("yes") => {
-                  <CareeAddress>
-                    {postalAddressStructure("sameAddress.theirNewAddress", circsAddressChange.sameAddress.address, circsAddressChange.sameAddress.postCode)}
-                  </CareeAddress>
-                }
-                case Some("no") => NodeSeq.Empty
-                case _ => throw new RuntimeException("circsAddressChange.sameAddress is either Yes Or No")
-                }
-              }
-            }
-          }}
+          {question(<Caring35Hours/>,"stillCaring.answer", circsAddressChange.stillCaring.answer)}
+
+          {question(<DateStoppedCaring35Hours/>,"stillCaring.date", circsAddressChange.stillCaring.date)}
+
+          {postalAddressStructureNewAddress("newAddress", circsAddressChange.newAddress, circsAddressChange.newPostcode)}
+
+          {question(<CareeChangedAddress/>,"caredForChangedAddress.answer", circsAddressChange.caredForChangedAddress.answer)}
+
+          {question(<CareeSameAddress/>,"sameAddress.answer", circsAddressChange.sameAddress.answer)}
+
+          {postalAddressStructureCareeAddress("sameAddress.theirNewAddress", circsAddressChange.sameAddress.address, circsAddressChange.sameAddress.postCode)}
+
           {question(<OtherChanges/>, "moreAboutChanges", circsAddressChange.moreAboutChanges)}
         </AddressChange>
       }

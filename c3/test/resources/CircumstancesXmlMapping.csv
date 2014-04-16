@@ -1,29 +1,27 @@
-Report a change in your circumstances - Change in circumstances,Circumstances,Full Name,CircumstancesAboutYouFullName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>OtherNames
-Report a change in your circumstances - Change in circumstances,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>NationalInsuranceNumber
-Report a change in your circumstances - Change in circumstances,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>DateOfBirth
-Report a change in your circumstances - Change in circumstances,Your contact details,Address,CircumstancesYourContactDetailsAddress,DWPCAChangeOfCircumstances>EvidenceList
-Report a change in your circumstances - Change in circumstances,Circumstances,Their Full Name,CircumstancesAboutYouTheirFullName,DWPCAChangeOfCircumstances>Claim>CareeDetails>OtherNames
-Report a change in your circumstances - Change in circumstances,Circumstances,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,DWPCAChangeOfCircumstances>EvidenceList
-Permanently stopped caring - Change in circumstances,Permanently stopped caring,Tell us more about your changes,CircumstancesPermanentlyStoppedCaringMoreAboutChanges,DWPCAChangeOfCircumstances>OtherChanges
-Permanently stopped caring - Change in circumstances,Permanently stopped caring,What date did you permanently stop caring?,CircumstancesPermanentlyStoppedCaringStoppedCaringDate,DWPCAChangeOfCircumstances>StoppedCaring>DateStoppedCaring
-Change of address - change in circumstances,Previous address,Your previous address,CircumstancesAddressChangePreviousAddress,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - change in circumstances,Previous address,Your previous postcode,CircumstancesAddressChangePreviousPostcode,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - change in circumstances,Change of address,Are you still caring 35 hours or more each week?,CircumstancesAddressChangeStillCaring,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - change in circumstances,Change of address,What date did you stop caring 35 hours a week?,CircumstancesAddressChangeFinishedStillCaringDate,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - change in circumstances,Change of address,Your new address,CircumstancesAddressChangeNewAddress,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - change in circumstances,Change of address,Your new postcode,CircumstancesAddressChangeNewPostcode,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - change in circumstances,Change of address,Has the person you care for changed address?,CircumstancesAddressChangeCaredForChangedAddress,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - change in circumstances,Change of address,Is this the same address as you?,CircumstancesAddressChangeSameAddress,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - change in circumstances,Change of address,Their address,CircumstancesAddressChangeSameAddressTheirAddress,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - change in circumstances,Change of address,Their postcode,CircumstancesAddressChangeSameAddressTheirPostcode,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - change in circumstances,Change of address,Tell us more about your changes,CircumstancesAddressChangeMoreAboutChanges,DWPCAChangeOfCircumstances>EvidenceList
-About Your Self-Employment - Change in circumstances,About Your Self-Employment,Are you still caring 35 hours or more each week?,CircumstancesSelfEmploymentStillCaring,DWPCAChangeOfCircumstances>EvidenceList
-About Your Self-Employment - Change in circumstances,About Your Self-Employment,What date did you stop caring 35 hours a week?,CircumstancesSelfEmploymentFinishedStillCaringDate,DWPCAChangeOfCircumstances>EvidenceList
-About Your Self-Employment - Change in circumstances,About Your Self-Employment,When did you start this self-employed work?,CircumstancesSelfEmploymentWhenThisStarted,DWPCAChangeOfCircumstances>EvidenceList
-About Your Self-Employment - Change in circumstances,About Your Self-Employment,What type of business is your self-employed work?,CircumstancesSelfEmploymentTypeOfBusiness,DWPCAChangeOfCircumstances>EvidenceList
-About Your Self-Employment - Change in circumstances,About Your Self-Employment,Will the total income into your business be more than £100 a week?,CircumstancesSelfEmploymentTotalOverWeeklyIncomeThreshold,DWPCAChangeOfCircumstances>EvidenceList
-About Your Self-Employment - Change in circumstances,About Your Self-Employment,Tell us more about your changes,CircumstancesSelfEmploymentMoreAboutChanges,DWPCAChangeOfCircumstances>OtherChanges
-About Your Self-Employment - Change in circumstances,About Your Self-Employment,Tell us more about your changes,CircumstancesSelfEmploymentMoreAboutChanges,DWPCAChangeOfCircumstances>OtherChanges
+Report a change in your circumstances - Change in circumstances,Your Details,Full Name,CircumstancesAboutYouFullName,DWPCAChangeOfCircumstances>ClaimantDetails>FullName>Answer
+Report a change in your circumstances - Change in circumstances,Your Details,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,DWPCAChangeOfCircumstances>ClaimantDetails>NationalInsuranceNumber>Answer
+Report a change in your circumstances - Change in circumstances,Your Details,Date of Birth,CircumstancesAboutYouDateOfBirth,DWPCAChangeOfCircumstances>ClaimantDetails>DateOfBirth>Answer
+Report a change in your circumstances - Change in circumstances,Person you are caring for,Their Full Name,CircumstancesAboutYouTheirFullName,DWPCAChangeOfCircumstances>CareeDetails>FullName>Answer
+Report a change in your circumstances - Change in circumstances,Person you are caring for,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,DWPCAChangeOfCircumstances>CareeDetails>RelationToClaimant>Answer
+Permanently stopped caring - Change in circumstances,Permanently stopped caring,Tell us more about your changes,CircumstancesPermanentlyStoppedCaringMoreAboutChanges,DWPCAChangeOfCircumstances>StoppedCaring>OtherChanges>Answer
+Permanently stopped caring - Change in circumstances,Permanently stopped caring,What date did you permanently stop caring?,CircumstancesPermanentlyStoppedCaringStoppedCaringDate,DWPCAChangeOfCircumstances>StoppedCaring>DateStoppedCaring>Answer
+Change of address - change in circumstances,Previous address,Your previous address,CircumstancesAddressChangePreviousAddress,DWPCAChangeOfCircumstances>AddressChange>PreviousAddress>Answer>Line
+Change of address - change in circumstances,Previous address,Your previous postcode,CircumstancesAddressChangePreviousPostcode,DWPCAChangeOfCircumstances>AddressChange>PreviousAddress>Answer>PostCode
+Change of address - change in circumstances,Change of address,Are you still caring 35 hours or more each week?,CircumstancesAddressChangeStillCaring,DWPCAChangeOfCircumstances>AddressChange>Caring35Hours>Answer
+Change of address - change in circumstances,Change of address,What date did you stop caring 35 hours a week?,CircumstancesAddressChangeFinishedStillCaringDate,DWPCAChangeOfCircumstances>AddressChange>DateStoppedCaring35Hours>Answer
+Change of address - change in circumstances,Change of address,Your new address,CircumstancesAddressChangeNewAddress,DWPCAChangeOfCircumstances>AddressChange>NewAddress>Answer>Line
+Change of address - change in circumstances,Change of address,Your new postcode,CircumstancesAddressChangeNewPostcode,DWPCAChangeOfCircumstances>AddressChange>NewAddress>Answer>PostCode
+Change of address - change in circumstances,Change of address,Has the person you care for changed address?,CircumstancesAddressChangeCaredForChangedAddress,DWPCAChangeOfCircumstances>AddressChange>CareeChangedAddress>Answer
+Change of address - change in circumstances,Change of address,Is this the same address as you?,CircumstancesAddressChangeSameAddress,DWPCAChangeOfCircumstances>AddressChange>CareeSameAddress>Answer
+Change of address - change in circumstances,Change of address,Their address,CircumstancesAddressChangeSameAddressTheirAddress,DWPCAChangeOfCircumstances>AddressChange>CareeAddress>Answer>Line
+Change of address - change in circumstances,Change of address,Their postcode,CircumstancesAddressChangeSameAddressTheirPostcode,DWPCAChangeOfCircumstances>AddressChange>CareeAddress>Answer>PostCode
+Change of address - change in circumstances,Change of address,Tell us more about your changes,CircumstancesAddressChangeMoreAboutChanges,DWPCAChangeOfCircumstances>AddressChange>OtherChanges>Answer
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,Are you still caring 35 hours or more each week?,CircumstancesSelfEmploymentStillCaring,DWPCAChangeOfCircumstances>SelfEmployedChange>Caring35Hours>Answer
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,What date did you stop caring 35 hours a week?,CircumstancesSelfEmploymentFinishedStillCaringDate,DWPCAChangeOfCircumstances>SelfEmployedChange>DateStoppedCaring35Hours>Answer
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,When did you start this self-employed work?,CircumstancesSelfEmploymentWhenThisStarted,DWPCAChangeOfCircumstances>SelfEmployedChange>BusinessStartDate>Answer
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,What type of business is your self-employed work?,CircumstancesSelfEmploymentTypeOfBusiness,DWPCAChangeOfCircumstances>SelfEmployedChange>BusinessType>Answer
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,Will the total income into your business be more than £100 a week?,CircumstancesSelfEmploymentTotalOverWeeklyIncomeThreshold,DWPCAChangeOfCircumstances>SelfEmployedChange>MoreThan100>Answer
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,Tell us more about your changes,CircumstancesSelfEmploymentMoreAboutChanges,DWPCAChangeOfCircumstances>SelfEmployedChange>OtherChanges>Answer
 Breaks from caring - change in circumstances,Breaks from caring,When did your most recent break from caring start?,BreaksInCareStartDate,DWPCAChangeOfCircumstances>EvidenceList
 Breaks from caring - change in circumstances,Breaks from caring,Start time,BreaksInCareStartTime,DWPCAChangeOfCircumstances>EvidenceList
 Breaks from caring - change in circumstances,Breaks from caring,Where was the person you care for?,BreaksInCareWhereWasThePersonYouCareFor,DWPCAChangeOfCircumstances>EvidenceList
@@ -40,10 +38,10 @@ Breaks from caring - change in circumstances,Breaks from caring,Did you or the p
 Breaks from caring - change in circumstances,Breaks from caring,Tell us more about your changes,BreaksInCareMoreAboutChanges,DWPCAChangeOfCircumstances>EvidenceList
 Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks in care that you have not already reported to us?,BreaksInCareSummaryAdditionalBreaks,DWPCAChangeOfCircumstances>EvidenceList
 Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks in care that you have not already reported to us?Yes,BreaksInCareSummaryAdditionalBreaksInfo,DWPCAChangeOfCircumstances>EvidenceList
-Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges
-Consent and declaration,Further Information,Contact phone or mobile number,FurtherInfoContact,DWPCAChangeOfCircumstances>EvidenceList
-Consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have told us about?,CircumstancesDeclarationInfoAgreement,DWPCAChangeOfCircumstances>Declaration
+Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges>Answer
+Consent and declaration,Further Information,Contact phone or mobile number,FurtherInfoContact,DWPCAChangeOfCircumstances>ClaimantDetails>ContactPreference>Answer
+Consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have told us about?,CircumstancesDeclarationInfoAgreement,DWPCAChangeOfCircumstances>Consents>Consent>Answer
+Consent & Declaration,Consent & Declaration,Please tell us why not,CircumstancesDeclarationWhyNot,DWPCAChangeOfCircumstances>Consents>Consent>Why>Answer
 Consent and declaration,Declaration,"Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,DWPCAChangeOfCircumstances>Declaration
-Consent and declaration,Declaration,Your name and/or organisation. =,NameOrOrganisation,DWPCAChangeOfCircumstances>Declaration
+Consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,DWPCAChangeOfCircumstances>Declaration>DeclarationNameOrg>Answer
 Consent and declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,CircumstancesDeclarationConfirmation,DWPCAChangeOfCircumstances>Declaration
-Consent and declaration,Declaration,I don't agree to you obtaining information from any other persons or organisations because,CircumstancesDeclarationWhyNot,DWPCAChangeOfCircumstances>Declaration

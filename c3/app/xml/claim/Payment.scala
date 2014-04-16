@@ -1,45 +1,43 @@
 package xml.claim
 
-import models.domain.{BankBuildingSocietyDetails, Claim, HowWePayYou}
+import models.domain.{BankBuildingSocietyDetails, HowWePayYou}
 import xml.XMLHelper._
 import scala.xml.NodeSeq
 import app.AccountStatus
-import app.XMLValues._
+import play.api.i18n.Messages
+import xml.XMLComponent
+import models.domain.Claim
+import scala.Some
 
-object Payment {
+object Payment extends XMLComponent {
 
   def xml(claim: Claim) = {
-
     val howWePayYou = claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou())
+    val showAccount = howWePayYou.likeToBePaid == Messages(AccountStatus.BankBuildingAccount)
 
-    val showAccount = howWePayYou.likeToBePaid == AccountStatus.BankBuildingAccount.name
-
-    <Payment>
-      <PaymentFrequency>{howWePayYou.paymentFrequency}</PaymentFrequency>
-      <InitialAccountQuestion>{howWePayYou.likeToBePaid}</InitialAccountQuestion>
-      {if (showAccount) account(claim) else NodeSeq.Empty}
-    </Payment>
+    claim.questionGroup[HowWePayYou] match {
+      case Some(how) => {
+        <Payment>
+          {question(<PaymentFrequency/>,"paymentFrequency", how.paymentFrequency)}
+          {question(<InitialAccountQuestion/>,"likeToPay", how.likeToBePaid)}
+          {if (showAccount) account(claim) else NodeSeq.Empty}
+        </Payment>
+      }
+      case None => NodeSeq.Empty
+    }
   }
 
   def account(claim:Claim) = {
     val bankBuildingSocietyDetails = claim.questionGroup[BankBuildingSocietyDetails].getOrElse(BankBuildingSocietyDetails())
 
     <Account>
-      <DirectPayment>{NotAsked}</DirectPayment>
-      <AccountHolder>{bankBuildingSocietyDetails.whoseNameIsTheAccountIn}</AccountHolder>
-      <HolderName>{bankBuildingSocietyDetails.accountHolderName}</HolderName>
-      <SecondHolderName/>
-      <AccountType>bank</AccountType>
-      <OtherBenefitsToBePaidDirect/>
+      {question(<AccountHolder/>, "whoseNameIsTheAccountIn", bankBuildingSocietyDetails.whoseNameIsTheAccountIn)}
+      {question(<HolderName/>, "accountHolderName", bankBuildingSocietyDetails.accountHolderName)}
       <BuildingSocietyDetails>
-        <BuildingSocietyQualifier/>
-        <AccountNumber>{bankBuildingSocietyDetails.accountNumber}</AccountNumber>
-        <RollNumber>{bankBuildingSocietyDetails.rollOrReferenceNumber}</RollNumber>
-        <SortCode>{stringify(Some(bankBuildingSocietyDetails.sortCode))}</SortCode>
-        <Name>{bankBuildingSocietyDetails.bankFullName}</Name>
-        <Branch></Branch>
-        <Address>{postalAddressStructure(None, None)}</Address>
-        <ConfirmAddress>{yes}</ConfirmAddress>
+        {question(<AccountNumber/>, "accountNumber", bankBuildingSocietyDetails.accountNumber)}
+        {question(<RollNumber/>,"rollOrReferenceNumber", bankBuildingSocietyDetails.rollOrReferenceNumber)}
+        {question(<SortCode/>,"sortCode", bankBuildingSocietyDetails.sortCode)}
+        {question(<Name/>, "bankFullName", bankBuildingSocietyDetails.bankFullName)}
       </BuildingSocietyDetails>
     </Account>
   }

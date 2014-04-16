@@ -51,10 +51,9 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
       if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(EvidenceListNode)) true
       else {
         val index = if (isRepeatedAttribute && isARepeatableNode) iteration else 0
-
-        val value = XMLValidationNode.prepareElement(theNodes(index).text)
-
-        val nodeName = theNodes(index).mkString
+        val node = theNodes(index)
+        val value = XMLValidationNode.prepareElement(node.text)
+        val nodeName = node.mkString
         def valuesMatching: Boolean = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value)
           else if (nodeName.startsWith(EvidenceListNode) && ignoreQuestions(claimValue)) true
@@ -71,10 +70,8 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
               case _ => claimValue.value
             }))
           }
-          else if (nodeName.endsWith("gds:Line>")) {
-            claimValue.value.contains(value)
-          }
-          else if (nodeName.startsWith(DeclarationNode)) value.contains(claimValue.question + claimValue.value)
+          else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
+          else if (nodeName.startsWith(DeclarationNode)) valuesMatchingForNodes(claimValue, node)
           else value == claimValue.value
         }
 
@@ -113,22 +110,14 @@ object CircValue {
   private def prepareQuestion(question: String) = question.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
   private def prepareCircValue(claimValue: String, attribute:String) = {
+
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").replace("&", "").trim.toLowerCase
 
-    if (cleanValue.contains("/") && !checkAttributeToExclude(attribute)) {
+    if (cleanValue.contains("/")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
-      date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))
-    } else cleanValue
-  }
-
-  private def checkAttributeToExclude (attribute:String):Boolean = {
-    val attributes = Seq("CircumstancesSelfEmploymentWhenThisStarted",
-      "CircumstancesSelfEmploymentFinishedStillCaringDate", "BreaksInCareStartDate",
-      "BreaksInCareEndDate", "BreaksInCareExpectToStartCaringAgainDate",
-      "BreaksInCareExpectToStartCaringPermanentEndDate", "CircumstancesAddressChangeFinishedStillCaringDate"
-    )
-    attributes.foreach(f => if(f.startsWith(attribute)) return true)
-    false
+      date.toString(DateTimeFormat.forPattern("dd-MM-yyyy"))
+    } else
+      cleanValue
   }
 
   def apply(attribute: String, value: String, question: String) = new CircValue(attribute, prepareCircValue(value,attribute), prepareQuestion(question))

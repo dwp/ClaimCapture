@@ -1,176 +1,13 @@
 package xml.claim
 
-import scala.language.reflectiveCalls
-import scala.xml.{NodeSeq, Elem}
 import models.domain._
 import xml.XMLHelper._
 import app.XMLValues._
+import scala.xml.{Elem, NodeSeq}
+import xml.XMLComponent
+import utils.helpers.PastPresentLabelHelper._
 
-object Employment {
-
-  def employerXml(job: Job): Elem = {
-    val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-    val employerContactDetails = job.questionGroup[EmployerContactDetails].getOrElse(EmployerContactDetails())
-
-    <Employer>
-      {<DateJobStarted/> +++ Some(jobDetails.jobStartDate)}
-      {<DateJobEnded/> +++ jobDetails.lastWorkDate}
-      <JobType>{job.title}</JobType>
-      {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
-      <Name>{jobDetails.employerName}</Name>
-      <Address>{postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}</Address>
-      <ConfirmAddress>{yes}</ConfirmAddress> <!-- Always default to yes -->
-      {<EmployersPhoneNumber/> +++ employerContactDetails.phoneNumber}
-      <EmployersFaxNumber/>
-      <WagesDepartment/>
-      <DepartmentPhoneFaxNumber/>
-    </Employer>
-  }
-
-  def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails): Elem = {
-    <Pay>
-      {<WeeklyHoursWorked/> ?+ jobDetails.hoursPerWeek}
-      <DateLastWorked/>
-      {<DateLastPaid/> +++ lastWage.lastPaidDate}
-      <GrossPayment>
-        <Currency>{GBP}</Currency>
-        <Amount>{currencyAmount(lastWage.grossPay)}</Amount>
-      </GrossPayment>
-      {<IncludedInWage/> +++ lastWage.payInclusions}
-      <PayPeriod>
-        <DateFrom></DateFrom>
-        <DateTo></DateTo>
-      </PayPeriod>
-      {paymentFrequency(additionalWageDetails.oftenGetPaid)}
-      {<UsualPayDay/> +- additionalWageDetails.whenGetPaid}
-      <VaryingEarnings>{NotAsked}</VaryingEarnings>
-    </Pay>
-  }
-
-  def howMuchOwedXml(s: Option[String]) = {
-    val showXml = s.isDefined
-
-    if (showXml) {
-      <Payment>
-        <Currency>{GBP}</Currency>
-        <Amount>{s.get}</Amount>
-      </Payment>
-    } else {
-      NodeSeq.Empty
-    }
-  }
-
-  def pensionSchemeXml(job: Job) = {
-    val pensionScheme:PensionSchemes = job.questionGroup[PensionSchemes].getOrElse(PensionSchemes())
-
-    NodeSeq.Empty ++ {occupationalPensionSchemeXml(pensionScheme)} ++ {personalPensionSchemeXml(pensionScheme)}
-  }
-
-  def occupationalPensionSchemeXml(pensionScheme: PensionSchemes) = {
-    val showXml = pensionScheme.payOccupationalPensionScheme == yes
-
-    if (showXml) {
-      <PaidForOccupationalPension>{pensionScheme.payOccupationalPensionScheme}</PaidForOccupationalPension>
-        <PensionScheme>
-          <Type>occupational</Type>
-          <Payment>
-            <Currency>{GBP}</Currency>
-            {<Amount/> +++ currencyAmount(pensionScheme.howMuchPension)}
-          </Payment>
-          <Frequency>{pensionScheme.howOftenPension.get.frequency}</Frequency>
-        </PensionScheme>
-    } else {
-      <PaidForOccupationalPension>{pensionScheme.payOccupationalPensionScheme}</PaidForOccupationalPension>
-    }
-  }
-
-  def personalPensionSchemeXml(pensionScheme:PensionSchemes): NodeSeq = {
-    val showXml = pensionScheme.payPersonalPensionScheme == yes
-
-    if (showXml) {
-      <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
-      <PensionScheme>
-        <Type>personal_private</Type>
-        <Payment>
-          <Currency>{GBP}</Currency>
-          {<Amount/> +++ currencyAmount(pensionScheme.howMuchPersonal)}
-        </Payment>
-        <Frequency>{pensionScheme.howOftenPersonal.get.frequency}</Frequency>
-      </PensionScheme>
-    } else {
-      <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
-    }
-  }
-
-  def jobExpensesXml(job: Job) = {
-    val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
-    val necessaryExpenses: NecessaryExpenses = job.questionGroup[NecessaryExpenses].getOrElse(NecessaryExpenses())
-    val showXml = aboutExpenses.payForAnythingNecessary == "yes"
-
-    if (showXml) {
-      <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
-      <JobExpenses>
-        <Expense>{necessaryExpenses.whatAreThose}</Expense>
-        <Reason>{NotAsked}</Reason>
-        <WeeklyPayment>
-          <Currency></Currency>
-          <Amount>{NotAsked}</Amount>
-        </WeeklyPayment>
-      </JobExpenses>
-    } else {
-      <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
-    }
-  }
-
-  def childcareExpensesXml(job: Job) = {
-    val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
-    val childcareExpenses: ChildcareExpenses = job.questionGroup[ChildcareExpenses].getOrElse(ChildcareExpenses())
-    val showXml = aboutExpenses.payAnyoneToLookAfterChildren == yes
-
-    if (showXml) {
-      <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
-      <ChildCareExpenses>
-        <CarerName>{childcareExpenses.whoLooksAfterChildren}</CarerName>
-        <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-        <ConfirmAddress>{yes}</ConfirmAddress>
-        <WeeklyPayment>
-          <Currency></Currency>
-          <Amount>{NotAsked}</Amount>
-        </WeeklyPayment>
-        <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
-        <ChildDetails>
-          <Name>{NotAsked}</Name>
-          <RelationToChild>{childcareExpenses.relationToPersonYouCare}</RelationToChild>
-        </ChildDetails>
-      </ChildCareExpenses>
-    } else {
-      <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
-    }
-  }
-
-  def careExpensesXml(job: Job) = {
-    val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
-    val personYouCareExpenses: PersonYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses].getOrElse(PersonYouCareForExpenses())
-
-    val showXml = aboutExpenses.payAnyoneToLookAfterPerson == yes
-
-    if (showXml) {
-      <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
-      <CareExpenses>
-        <CarerName>{personYouCareExpenses.whoDoYouPay}</CarerName>
-        <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-        <ConfirmAddress>{yes}</ConfirmAddress>
-        <WeeklyPayment>
-          <Currency></Currency>
-          <Amount>{NotAsked}</Amount>
-        </WeeklyPayment>
-        <RelationshipCarerToClaimant>{personYouCareExpenses.relationToYou}</RelationshipCarerToClaimant>
-        <RelationshipCarerToCaree>{personYouCareExpenses.relationToPersonYouCare}</RelationshipCarerToCaree>
-      </CareExpenses>
-    } else {
-      <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
-    }
-  }
+object Employment extends XMLComponent{
 
   def xml(claim: Claim) = {
     val jobsQG = claim.questionGroup[Jobs].getOrElse(Jobs())
@@ -187,27 +24,155 @@ object Employment {
       }
 
       <Employment>
-        <CurrentlyEmployed>{currentlyEmployed}</CurrentlyEmployed>
-        <DateLastWorked>{NotAsked}</DateLastWorked>
+        {question(<CurrentlyEmployed/>,"finishedThisJob",currentlyEmployed)}
         {for (job <- jobsQG) yield {
-          val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-          val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
-          val additionalWageDetails = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails())
+            val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
+            val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
+            val additionalWageDetails = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails())
 
-          <JobDetails>
-            {employerXml(job)}
-            {payXml(jobDetails, lastWage, additionalWageDetails)}
-            <OtherThanMoney>{NotAsked}</OtherThanMoney>
-            <OweMoney>{additionalWageDetails.employerOwesYouMoney}</OweMoney>
-            {childcareExpensesXml(job)}
-            {careExpensesXml(job)}
-            {pensionSchemeXml(job)}
-            {jobExpensesXml(job)}
-          </JobDetails>
-        }}
+            <JobDetails>
+              {employerXml(job)}
+              {payXml(jobDetails, lastWage, additionalWageDetails, claim)}
+              {question(<OweMoney/>, "employerOwesYouMoney",additionalWageDetails.employerOwesYouMoney)}
+              {childcareExpensesXml(job,claim)}
+              {careExpensesXml(job, claim)}
+              {pensionSchemeXml(job,claim)}
+              {jobExpensesXml(job, claim)}
+            </JobDetails>
+      }}
       </Employment>
     } else {
       NodeSeq.Empty
+    }
+  }
+
+  private def employerXml(job: Job): Elem = {
+    val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
+    val employerContactDetails = job.questionGroup[EmployerContactDetails].getOrElse(EmployerContactDetails())
+
+    <Employer>
+      {question(<DateJobStarted/>, "jobStartDate", jobDetails.jobStartDate)}
+      {question(<DateJobEnded/>, "lastWorkDate",jobDetails.lastWorkDate)}
+      {question(<JobType/>,s"jobTitle.${if (jobDetails.finishedThisJob == "yes") "past" else "present"}", job.title)}
+      {question(<ClockPayrollNumber/>,"payrollEmployeeNumber", jobDetails.payrollEmployeeNumber)}
+      {question(<Name/>, "employerName", jobDetails.employerName)}
+      {postalAddressStructure("address", employerContactDetails.address, employerContactDetails.postcode)}
+      {question(<EmployersPhoneNumber/>,"phoneNumber", employerContactDetails.phoneNumber)}
+      {question(<P45LeavingDate/>, "p45LeavingDate", jobDetails.p45LeavingDate)}
+    </Employer>
+  }
+
+  private def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails, claim: Claim): Elem = {
+    val oftenPaid = additionalWageDetails.oftenGetPaid
+    <Pay>
+      {question(<WeeklyHoursWorked/>, "hoursPerWeek", jobDetails.hoursPerWeek, questionLabelEmployment(claim, "hoursPerWeek", jobDetails.jobID))}
+      {question(<DateLastPaid/>, "lastPaidDate", lastWage.lastPaidDate)}
+      {questionCurrency(<GrossPayment/>, "grossPay",Some(lastWage.grossPay))}
+      {question(<IncludedInWage/>, "payInclusions", lastWage.payInclusions)}
+      {questionOther(<PayFrequency/>,"paymentFrequency",oftenPaid.frequency,oftenPaid.other)}
+      {question(<UsualPayDay/>, "whenGetPaid", additionalWageDetails.whenGetPaid, questionLabelEmployment(claim, "whenGetPaid", jobDetails.jobID))}
+      {question(<ConstantEarnings/>,"sameAmountEachTime",lastWage.sameAmountEachTime,questionLabelEmployment(claim, "sameAmountEachTime", jobDetails.jobID))}
+    </Pay>
+  }
+
+  private def pensionSchemeXml(job: Job, claim:Claim) = {
+    val pensionScheme:PensionSchemes = job.questionGroup[PensionSchemes].getOrElse(PensionSchemes())
+
+    occupationalPensionSchemeXml(pensionScheme, claim, job) ++ personalPensionSchemeXml(pensionScheme, claim, job)
+  }
+
+  private def occupationalPensionSchemeXml(pensionScheme: PensionSchemes, claim:Claim, job:Job):NodeSeq = {
+    val showXml = pensionScheme.payOccupationalPensionScheme.toLowerCase == yes
+
+    question(<PaidForOccupationalPension/>,"payOccupationalPensionScheme",pensionScheme.payOccupationalPensionScheme,questionLabelEmployment(claim, "payOccupationalPensionScheme", job.jobID)) ++
+    (if (showXml) {
+        <OccupationalPension>
+          {questionCurrency(<Payment/>,"howMuchPension",pensionScheme.howMuchPension,questionLabelEmployment(claim, "howMuchPension", job.jobID))}
+          {questionOther(<Frequency/>,"howOftenPension",pensionScheme.howOftenPension.get.frequency,pensionScheme.howOftenPension.get.other)}
+        </OccupationalPension>
+    } else {
+      NodeSeq.Empty
+    })
+  }
+
+  private def personalPensionSchemeXml(pensionScheme:PensionSchemes, claim:Claim, job:Job): NodeSeq = {
+    val showXml = pensionScheme.payPersonalPensionScheme.toLowerCase == yes
+
+    question(<PaidForPersonalPension/>,"payPersonalPensionScheme",pensionScheme.payPersonalPensionScheme,questionLabelEmployment(claim, "payPersonalPensionScheme", job.jobID)) ++
+    (if (showXml) {
+        <PersonalPension>
+          {questionCurrency(<Payment/>,"howMuchPersonal",pensionScheme.howMuchPersonal,questionLabelEmployment(claim, "howMuchPersonal", job.jobID))}
+          {questionOther(<Frequency/>,"howOftenPersonal",pensionScheme.howOftenPersonal.get.frequency,pensionScheme.howOftenPersonal.get.other)}
+        </PersonalPension>
+    } else {
+      NodeSeq.Empty
+    })
+  }
+
+  private def jobExpensesXml(job: Job, claim:Claim):NodeSeq = {
+    val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
+    val necessaryExpenses: NecessaryExpenses = job.questionGroup[NecessaryExpenses].getOrElse(NecessaryExpenses())
+    val showXml = aboutExpenses.payForAnythingNecessary.toLowerCase == "yes"
+
+    if (showXml) {
+        question(<PaidForJobExpenses/>,"payForAnythingNecessary",aboutExpenses.payForAnythingNecessary,questionLabelEmployment(claim, "payForAnythingNecessary", job.jobID)) ++
+        <JobExpenses>
+          {question(<Expense/>,"whatAreThose",necessaryExpenses.whatAreThose,questionLabelEmployment(claim, "whatAreThose", job.jobID))}
+        </JobExpenses>
+    } else {
+      question(<PaidForJobExpenses/>,"payForAnythingNecessary",aboutExpenses.payForAnythingNecessary,questionLabelEmployment(claim, "payForAnythingNecessary", job.jobID))
+    }
+  }
+
+  private def childcareExpensesXml(job: Job, claim:Claim):NodeSeq = {
+    val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
+    val childcareExpenses: ChildcareExpenses = job.questionGroup[ChildcareExpenses].getOrElse(ChildcareExpenses())
+    val showXml = aboutExpenses.payAnyoneToLookAfterChildren.toLowerCase == yes
+
+    if (showXml) {
+      question(<CareExpensesChildren/>, "payAnyoneToLookAfterChildren", aboutExpenses.payAnyoneToLookAfterChildren, questionLabelEmployment(claim, "payAnyoneToLookAfterChildren", job.jobID)) ++
+      <ChildCareExpenses>
+        {question(<CarerName/>, "whoLooksAfterChildren",childcareExpenses.whoLooksAfterChildren)}
+        {childcareExpenses.howMuchCostChildcare.isEmpty match {
+          case false =>
+            <Expense>
+              {questionCurrency(<Payment/>, "howMuchCostChildcare",Some(childcareExpenses.howMuchCostChildcare), questionLabelEmployment(claim, "howMuchCostChildcare", job.jobID))}
+              {questionOther(<Frequency/>, "employment_howOftenPayChildCare",childcareExpenses.howOftenPayChildCare.frequency,childcareExpenses.howOftenPayChildCare.other, "", questionLabelEmployment(claim, "employment_howOftenPayChildCare", job.jobID))}
+            </Expense>
+
+          case _ => NodeSeq.Empty
+        }}
+        {question(<RelationshipCarerToClaimant/>, "relationToYou",childcareExpenses.relationToYou)}
+        {question(<RelationshipCarerToPartner/>, "relationToPartner",childcareExpenses.relationToPartner)}
+      </ChildCareExpenses>
+    } else {
+      {question(<CareExpensesChildren/>, "payAnyoneToLookAfterChildren",aboutExpenses.payAnyoneToLookAfterChildren,questionLabelEmployment(claim, "payAnyoneToLookAfterChildren", job.jobID))}
+    }
+  }
+
+  private def careExpensesXml(job: Job, claim:Claim):NodeSeq = {
+    val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
+    val personYouCareExpenses: PersonYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses].getOrElse(PersonYouCareForExpenses())
+    val showXml = aboutExpenses.payAnyoneToLookAfterPerson.toUpperCase == yes.toUpperCase
+
+    if (showXml) {
+      question(<CareExpensesCaree/>,"payAnyoneToLookAfterPerson",aboutExpenses.payAnyoneToLookAfterPerson,questionLabelEmployment(claim, "payAnyoneToLookAfterPerson", job.jobID)) ++
+      <CareExpenses>
+        {question(<CarerName/>,"whoLooksAfterChildren",personYouCareExpenses.whoDoYouPay)}
+        {personYouCareExpenses.howMuchCostCare.isEmpty match {
+          case false =>
+            <Expense>
+              {questionCurrency(<Payment/>,"howMuchCostChildcare",Some(personYouCareExpenses.howMuchCostCare),questionLabelEmployment(claim, "howMuchCostChildcare", job.jobID))}
+              {questionOther(<Frequency/>,"employment_howOftenPayChildCare",personYouCareExpenses.howOftenPayCare.frequency,personYouCareExpenses.howOftenPayCare.other,"", questionLabelEmployment(claim, "employment_howOftenPayChildCare", job.jobID))}
+            </Expense>
+
+          case _ => NodeSeq.Empty
+        }}
+        {question(<RelationshipCarerToClaimant/>,"relationToYou",personYouCareExpenses.relationToYou)}
+        {question(<RelationshipCarerToCaree/>,"relationToPersonYouCare",personYouCareExpenses.relationToPersonYouCare)}
+      </CareExpenses>
+    } else {
+      question(<CareExpensesCaree/>,"payAnyoneToLookAfterPerson",aboutExpenses.payAnyoneToLookAfterPerson,questionLabelEmployment(claim, "payAnyoneToLookAfterPerson", job.jobID))
     }
   }
 }

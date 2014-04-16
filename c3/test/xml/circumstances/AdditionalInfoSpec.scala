@@ -1,7 +1,8 @@
-package xml
+package xml.circumstances
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
+import models.domain.Claim
 
 class AdditionalInfoSpec extends Specification with Tags {
   val otherInfo = "Some other info"

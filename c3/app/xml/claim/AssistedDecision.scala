@@ -92,7 +92,7 @@ object AssistedDecision extends XMLComponent {
 
   private def getAFIP(claim: Claim): NodeSeq = {
     val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
-    if (theirPersonalDetails.armedForcesPayment.toLowerCase == "yes") textLine("Person receives Armed Forces Independence Payment. Transfer to Armed Forces Independent Payments team.")
+    if (theirPersonalDetails.armedForcesPayment.toLowerCase == "yes") decisionElement("Person receives Armed Forces Independence Payment.","Transfer to Armed Forces Independent Payments team.")
     else NodeSeq.Empty
   }
 

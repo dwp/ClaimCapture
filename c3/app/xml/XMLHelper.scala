@@ -120,6 +120,35 @@ object XMLHelper {
     </RecipientAddress>
   }
 
+  def postalAddressStructurePreviousAddress(questionLabelCode: String, address: MultiLineAddress, postcode: Option[String]): NodeSeq = {
+    <PreviousAddress>
+      {questionLabel(questionLabelCode)}
+      <Answer>
+        {postalAddress(address, postcode.orNull)}
+      </Answer>
+    </PreviousAddress>
+  }
+
+  def postalAddressStructureNewAddress(questionLabelCode: String, address: MultiLineAddress, postcode: Option[String]): NodeSeq = {
+    <NewAddress>
+      {questionLabel(questionLabelCode)}
+      <Answer>
+        {postalAddress(address, postcode.orNull)}
+      </Answer>
+    </NewAddress>
+  }
+
+  def postalAddressStructureCareeAddress(questionLabelCode: String, address: Option[MultiLineAddress], postcode: Option[String]): NodeSeq = {
+    if(address.isDefined) {
+      <CareeAddress>
+        {questionLabel(questionLabelCode)}
+        <Answer>
+          {postalAddress(address.get, postcode.orNull)}
+        </Answer>
+      </CareeAddress>
+    } else NodeSeq.Empty
+  }
+
   private def postalAddress(address: MultiLineAddress, postcode: String):NodeSeq = {
     {if(address.lineOne.isEmpty){NodeSeq.Empty}else{<Line>{address.lineOne.get}</Line>}} ++
     {if(address.lineTwo.isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo.get}</Line>}} ++
