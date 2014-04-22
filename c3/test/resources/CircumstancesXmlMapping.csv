@@ -6,17 +6,17 @@ Report a change in your circumstances - Change in circumstances,Circumstances,Th
 Report a change in your circumstances - Change in circumstances,Circumstances,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,DWPCAChangeOfCircumstances>EvidenceList
 Permanently stopped caring - Change in circumstances,Permanently stopped caring,Tell us more about your changes,CircumstancesPermanentlyStoppedCaringMoreAboutChanges,DWPCAChangeOfCircumstances>OtherChanges
 Permanently stopped caring - Change in circumstances,Permanently stopped caring,What date did you permanently stop caring?,CircumstancesPermanentlyStoppedCaringStoppedCaringDate,DWPCAChangeOfCircumstances>StoppedCaring>DateStoppedCaring
-Change of address - Change in circumstances,Previous address,Your previous address,CircumstancesAddressChangePreviousAddress,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - Change in circumstances,Previous address,Your previous postcode,CircumstancesAddressChangePreviousPostcode,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - Change in circumstances,Change of address,Are you still caring 35 hours or more each week?,CircumstancesAddressChangeStillCaring,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - Change in circumstances,Change of address,What date did you stop caring 35 hours a week?,CircumstancesAddressChangeFinishedStillCaringDate,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - Change in circumstances,Change of address,Your new address,CircumstancesAddressChangeNewAddress,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - Change in circumstances,Change of address,Your new postcode,CircumstancesAddressChangeNewPostcode,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - Change in circumstances,Change of address,Has the person you care for changed address?,CircumstancesAddressChangeCaredForChangedAddress,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - Change in circumstances,Change of address,Is this the same address as you?,CircumstancesAddressChangeSameAddress,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - Change in circumstances,Change of address,Their new address,CircumstancesAddressChangeSameAddressTheirAddress,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - Change in circumstances,Change of address,Their new postcode,CircumstancesAddressChangeSameAddressTheirPostcode,DWPCAChangeOfCircumstances>EvidenceList
-Change of address - Change in circumstances,Change of address,Tell us more about your changes,CircumstancesAddressChangeMoreAboutChanges,DWPCAChangeOfCircumstances>EvidenceList
+Change of address - change in circumstances,Previous address,Your previous address,CircumstancesAddressChangePreviousAddress,DWPCAChangeOfCircumstances>EvidenceList
+Change of address - change in circumstances,Previous address,Your previous postcode,CircumstancesAddressChangePreviousPostcode,DWPCAChangeOfCircumstances>EvidenceList
+Change of address - change in circumstances,Change of address,Are you still caring 35 hours or more each week?,CircumstancesAddressChangeStillCaring,DWPCAChangeOfCircumstances>EvidenceList
+Change of address - change in circumstances,Change of address,What date did you stop caring 35 hours a week?,CircumstancesAddressChangeFinishedStillCaringDate,DWPCAChangeOfCircumstances>EvidenceList
+Change of address - change in circumstances,Change of address,Your new address,CircumstancesAddressChangeNewAddress,DWPCAChangeOfCircumstances>EvidenceList
+Change of address - change in circumstances,Change of address,Your new postcode,CircumstancesAddressChangeNewPostcode,DWPCAChangeOfCircumstances>EvidenceList
+Change of address - change in circumstances,Change of address,Has the person you care for changed address?,CircumstancesAddressChangeCaredForChangedAddress,DWPCAChangeOfCircumstances>EvidenceList
+Change of address - change in circumstances,Change of address,Is this the same address as you?,CircumstancesAddressChangeSameAddress,DWPCAChangeOfCircumstances>EvidenceList
+Change of address - change in circumstances,Change of address,Their address,CircumstancesAddressChangeSameAddressTheirAddress,DWPCAChangeOfCircumstances>EvidenceList
+Change of address - change in circumstances,Change of address,Their postcode,CircumstancesAddressChangeSameAddressTheirPostcode,DWPCAChangeOfCircumstances>EvidenceList
+Change of address - change in circumstances,Change of address,Tell us more about your changes,CircumstancesAddressChangeMoreAboutChanges,DWPCAChangeOfCircumstances>EvidenceList
 About Your Self-Employment - Change in circumstances,About Your Self-Employment,Are you still caring 35 hours or more each week?,CircumstancesSelfEmploymentStillCaring,DWPCAChangeOfCircumstances>EvidenceList
 About Your Self-Employment - Change in circumstances,About Your Self-Employment,What date did you stop caring 35 hours a week?,CircumstancesSelfEmploymentFinishedStillCaringDate,DWPCAChangeOfCircumstances>EvidenceList
 About Your Self-Employment - Change in circumstances,About Your Self-Employment,When did you start this self-employed work?,CircumstancesSelfEmploymentWhenThisStarted,DWPCAChangeOfCircumstances>EvidenceList

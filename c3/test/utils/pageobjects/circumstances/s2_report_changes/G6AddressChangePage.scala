@@ -15,8 +15,8 @@ final class G6AddressChangePage(ctx:PageObjectsContext) extends CircumstancesPag
   declareInput("#newPostcode", "CircumstancesAddressChangeNewPostcode")
   declareYesNo("#caredForChangedAddress_answer", "CircumstancesAddressChangeCaredForChangedAddress")
   declareYesNo("#sameAddress_answer", "CircumstancesAddressChangeSameAddress")
-  declareInput("#sameAddress_theirNewAddress", "CircumstancesAddressChangeSameAddressTheirAddress")
-  declareInput("#sameAddress_theirNewPostcode", "CircumstancesAddressSameAddressTheirPostcode")
+  declareInput("#sameAddress_theirNewAddress_lineOne", "CircumstancesAddressChangeSameAddressTheirAddress")
+  declareInput("#sameAddress_theirNewPostcode", "CircumstancesAddressChangeSameAddressTheirPostcode")
   declareInput("#moreAboutChanges", "CircumstancesAddressChangeMoreAboutChanges")
 }
 
