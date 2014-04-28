@@ -16,11 +16,12 @@ trait AsyncClaimSubmissionService {
   def submission(claim: Claim): Unit = {
     val txnID = claim.transactionId.get
     Logger.info(s"Retrieved Id : $txnID")
+    Logger.info("Making sure gets new version, webServiceClient:"+webServiceClient.toString)
 
     try{
       webServiceClient.submitClaim(claim, txnID).map(
         response => {
-          Logger.debug("Got response from WS:"+response)
+          Logger.info("Got response from WS:"+response)
           try{
             claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
             ClaimSubmissionService.recordMi(claim, txnID,claimTransaction.recordMi)

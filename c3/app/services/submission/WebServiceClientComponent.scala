@@ -21,12 +21,12 @@ trait WebServiceClientComponent {
 
   class WebServiceClient {
     def submitClaim(claim: Claim, txnId: String): Future[ws.Response] = {
-      Logger.debug("Entered on submitClaim")
+      Logger.info("Entered on submitClaim")
       val claimSubmission = DWPBody().xml(claim, txnId)
-      Logger.debug("Created xml")
+      Logger.info("Created xml")
       val submissionServerEndpoint: String =
         Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submission"
-      Logger.debug(s"Submission Server : $submissionServerEndpoint")
+      Logger.info(s"Submission Server : $submissionServerEndpoint")
       val result = WS.url(submissionServerEndpoint)
         .withRequestTimeout(60000) // wait 1 minute
         .withHeaders(("Content-Type", "text/xml"))
