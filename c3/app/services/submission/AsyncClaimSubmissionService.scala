@@ -17,19 +17,22 @@ trait AsyncClaimSubmissionService {
     val txnID = claim.transactionId.get
     Logger.info(s"Retrieved Id : $txnID")
 
-
-    webServiceClient.submitClaim(claim, txnID).map(
-      response => {
-        Logger.debug("Got response from WS:"+response)
-        try{
-          claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
-          ClaimSubmissionService.recordMi(claim, txnID,claimTransaction.recordMi)
-          processResponse(claim, txnID, response)
-        }catch{
-          case e:Exception => Logger.error(e.getMessage+" "+e.getStackTraceString)
+    try{
+      webServiceClient.submitClaim(claim, txnID).map(
+        response => {
+          Logger.debug("Got response from WS:"+response)
+          try{
+            claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
+            ClaimSubmissionService.recordMi(claim, txnID,claimTransaction.recordMi)
+            processResponse(claim, txnID, response)
+          }catch{
+            case e:Exception => Logger.error(e.getMessage+" "+e.getStackTraceString)
+          }
         }
-      }
-    )
+      )
+    }catch{
+      case e:Exception => Logger.error("global error talking to ingress "+e.getMessage+" "+e.getStackTraceString)
+    }
   }
 
   private def ok(claim: Claim, txnID: String, response: Response) = {
