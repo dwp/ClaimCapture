@@ -7,6 +7,7 @@ import java.util.Date
 import com.dwp.carers.s2.xml.signing.XmlSignatureFactory
 import controllers.submission.xmlValidator
 import play.api.Logger
+import services.util.CharacterStripper
 
 /**
  * Generates the full XML, including the digital signature.
@@ -35,7 +36,7 @@ import play.api.Logger
    */
   private def signDwpClaim(dwpClaim: Elem,transactionId: String): Elem = {
     val signatory = XmlSignatureFactory.buildDsaSha1Generator()
-    val xmlStringSigned = signatory.sign(dwpClaim.buildString(stripComments = true),s"$transactionId")
+    val xmlStringSigned = signatory.sign(CharacterStripper.stripNonPdf(dwpClaim.buildString(stripComments = true)),s"$transactionId")
     XML.loadString(xmlStringSigned)
   }
 
