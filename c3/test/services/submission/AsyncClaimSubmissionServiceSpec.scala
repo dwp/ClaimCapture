@@ -14,13 +14,9 @@ import play.api.test.FakeApplication
 class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Tags with CachedClaim {
 
   def resultXml(result: String, correlationID: String, messageClass:String, errorCode: String, pollEndpoint: String) = {
-    <response>
-      <result>{result}</result>
-      <correlationID>{correlationID}</correlationID>
-      <messageClass>{messageClass}</messageClass>
-      <pollEndpoint>{pollEndpoint}</pollEndpoint>
-      <errorCode>{errorCode}</errorCode>
-    </response>
+    <Response>
+      <statusCode>{result}</statusCode>
+    </Response>
   }
 
   def asyncService( status:Int=200, transactionId:String, result: String= "",
@@ -39,11 +35,13 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
   val transactionId = "1234567"
 
+  //TODO: This was OPRT based codes working with S2, this has been uptated to work in lab env. but needs major reworking when Ingress moves to full REST interface
+
 
   "claim submission" should {
     "record BAD_REQUEST" in new WithApplicationAndDB {
 
-      val service = asyncService(http.Status.BAD_REQUEST,transactionId)
+      val service = asyncService(http.Status.OK,transactionId,result="0001")
 
       val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
 
@@ -52,13 +50,13 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.BAD_REQUEST_ERROR,1,Some(0),None,Some("en")))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.UNKNOWN_ERROR,1,Some(0),None,Some("en")))
 
     }
 
     "record SUCCESS" in new WithApplicationAndDB {
 
-      val service = asyncService(http.Status.OK,transactionId,result = "response")
+      val service = asyncService(http.Status.OK,transactionId,result = "0000")
 
       val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
 
@@ -71,50 +69,6 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
     }
 
-    "record SERVICE_UNAVAILABLE" in new WithApplicationAndDB {
-
-      val service = asyncService(http.Status.SERVICE_UNAVAILABLE,transactionId)
-
-      val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
-
-      serviceSubmission(service, claim)
-
-      Thread.sleep(500)
-      val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
-
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVICE_UNAVAILABLE,1,Some(0),None,Some("en")))
-
-    }
-
-    "record REQUEST_TIMEOUT_ERROR" in new WithApplicationAndDB {
-
-      val service = asyncService(http.Status.REQUEST_TIMEOUT,transactionId)
-
-      val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
-
-      serviceSubmission(service, claim)
-
-      Thread.sleep(500)
-      val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
-
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.REQUEST_TIMEOUT_ERROR,1,Some(0),None,Some("en")))
-
-    }
-
-    "record SERVER_ERROR" in new WithApplicationAndDB {
-
-      val service = asyncService(http.Status.INTERNAL_SERVER_ERROR,transactionId)
-
-      val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
-
-      serviceSubmission(service, claim)
-
-      Thread.sleep(500)
-      val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
-
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,Some(0),None,Some("en")))
-
-    }
   } section "unit"
 
 

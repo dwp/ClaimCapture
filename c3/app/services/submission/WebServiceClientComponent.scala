@@ -23,13 +23,13 @@ trait WebServiceClientComponent {
     def submitClaim(claim: Claim, txnId: String): Future[ws.Response] = {
       val claimSubmission = DWPBody().xml(claim, txnId)
       val submissionServerEndpoint: String =
-        Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submit/claim"
+        Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submission"
       Logger.debug(s"Submission Server : $submissionServerEndpoint")
       val result = WS.url(submissionServerEndpoint)
         .withRequestTimeout(60000) // wait 1 minute
         .withHeaders(("Content-Type", "text/xml"))
         .withHeaders(("CarersClaimLang",claim.lang.getOrElse(new Lang("en")).language))
-        .post(CharacterStripper.stripNonPdf(claimSubmission.buildString(stripComments = true))) recover {
+        .post(claimSubmission.buildString(stripComments = false)) recover {
 
         case e: ConnectException =>
           Logger.error(s"ConnectException ! $txnId")
