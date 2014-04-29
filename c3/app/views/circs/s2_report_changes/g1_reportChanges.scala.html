@@ -18,19 +18,19 @@
     @form(action = controllers.circs.s2_report_changes.routes.G1ReportChanges.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("c2.g1"))</legend>
-	
-	            <ul>
-	                @listRadioGroup(reportChangesForm("reportChanges"),
-                        '_nestedFieldSet -> true,
+	            <legend>@Html(Messages("reportChanges"))</legend>
+	                @listRadioGroupWithSubGroups(reportChangesForm("reportChanges"),
+                        '_nestedFieldSet -> false,
+                        '_showLabel -> false,
 	                    'items -> Seq(
-	                        BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
+                            Messages("reportChanges.group1"),
 	                        StoppedCaring.name -> Messages("reportChanges.stoppedCaring"),
+                            BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
+                            Messages("reportChanges.group2"),
 	                        AddressChange.name -> Messages("reportChanges.addressChange"),
 	                        SelfEmployment.name -> Messages("reportChanges.selfEmployed"),
 	                        PaymentChange.name -> Messages("reportChanges.paymentChange"),
 	                        AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")))
-	            </ul>
 	        </fieldset>
 	
 	        <nav class="form-steps">
