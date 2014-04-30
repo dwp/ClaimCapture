@@ -1,12 +1,8 @@
 package xml.circumstances
 
-import app.ReportChange._
-import app.XMLValues._
-import models.domain._
 import scala.xml.Elem
 import play.api.Logger
 import models.domain.Claim
-import scala.Some
 
 object DWPCoCircs {
 
@@ -16,6 +12,7 @@ object DWPCoCircs {
     <DWPCAChangeOfCircumstances>
       {Claimant.xml(circs)}
       {Caree.xml(circs)}
+      {CircsBreaksInCare.xml(circs)}
       {StoppedCaring.xml(circs)}
       {AddressChange.xml(circs)}
       {PaymentChange.xml(circs)}
