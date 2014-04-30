@@ -11,6 +11,12 @@
 @import utils.helpers.CarersCrypto
 @import app.ReportChange._
 @import play.api.i18n.{MMessages => Messages}
+@import app.ConfigProperties._
+
+@employmentOption = @{
+  if(getProperty("circs.employment.active", default = false)) EmploymentChange.name -> Messages("reportChanges.employed")
+  else SelfEmployment.name -> Messages("reportChanges.selfEmployed")
+}
 
 @main(Messages("c2.g1") + " - " + Messages("c2.name")) {
     @errorsSummary(reportChangesForm)
@@ -28,7 +34,7 @@
                             BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
                             Messages("reportChanges.group2"),
 	                        AddressChange.name -> Messages("reportChanges.addressChange"),
-	                        SelfEmployment.name -> Messages("reportChanges.selfEmployed"),
+                            employmentOption,
 	                        PaymentChange.name -> Messages("reportChanges.paymentChange"),
 	                        AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")))
 	        </fieldset>
