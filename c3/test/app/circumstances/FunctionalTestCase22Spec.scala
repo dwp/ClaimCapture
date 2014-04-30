@@ -26,6 +26,6 @@ class FunctionalTestCase22Spec extends FunctionalTestCommon {
         }
         case p: Page => println(p.source())
       }
-    } .pendingUntilFixed("Need to update to match new schema structure")
+    }
   } section "functional"
 }
