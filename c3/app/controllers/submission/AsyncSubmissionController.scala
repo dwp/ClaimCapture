@@ -1,6 +1,6 @@
 package controllers.submission
 
-import play.api.mvc.{AnyContent, Action}
+import play.api.mvc.{Request, AnyContent}
 import models.view.CachedClaim
 import services.ClaimTransactionComponent
 import services.submission.AsyncClaimSubmissionService
@@ -16,8 +16,7 @@ trait AsyncSubmittable extends ClaimSubmittable with ClaimTransactionComponent  
 
   val claimTransaction = new ClaimTransaction
 
-  def submit:Action[AnyContent] = claiming { implicit claim => implicit request => implicit lang =>
-
+  def submit(claim: Claim, request: Request[AnyContent]) = {
     if (isHoneyPotBot(claim)) {
       // Only log honeypot for now.
       // May send to an error page in the future
@@ -36,7 +35,7 @@ trait AsyncSubmittable extends ClaimSubmittable with ClaimTransactionComponent  
 
     AsyncActors.asyncManagerActor ! updatedClaim
 
-    updatedClaim -> Redirect(StatusRoutingController.redirectSubmitting(updatedClaim))
+    Redirect(StatusRoutingController.redirectSubmitting(updatedClaim))
   }
 
   def getTransactionIdAndRegisterGenerated(claim:Claim) = {
