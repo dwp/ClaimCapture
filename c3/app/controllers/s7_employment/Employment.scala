@@ -1,6 +1,12 @@
 package controllers.s7_employment
 
+import controllers.Mappings._
+import controllers.s4_care_you_provide.G10BreaksInCare._
+import models.yesNo.{YesNo, DeleteId}
+import play.api.data.Forms._
+
 import scala.language.implicitConversions
+import utils.helpers.CarersForm._
 import scala.reflect.ClassTag
 import play.api.mvc._
 import play.api.data.Form
@@ -29,13 +35,33 @@ object Employment extends Controller with CachedClaim  with Navigable{
     case _ => Jobs()
   }
 
-  def delete(jobID: String) = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
-    import play.api.libs.json.Json
 
-    val updatedJobs = jobs.delete(jobID)
+  def fillForm(implicit request:Request[_],claim:Claim)= {
+    claim.questionGroup[BeenEmployed] match {
+      case Some(qg) => G2BeenEmployed.form.fill(qg)
+      case None => G2BeenEmployed.form
+    }
+  }
 
-    if (updatedJobs == jobs) BadRequest(s"""Failed to delete job with ID "$jobID" as it does not exist""")
-    else if (updatedJobs.isEmpty) claim.update(updatedJobs) -> Ok(Json.obj("answer" -> Messages("answer.label")))
-    else claim.update(updatedJobs) -> Ok(Json.obj("answer" -> Messages("answer.more.label")))
+  val deleteForm = Form(mapping(
+    "deleteId" -> nonEmptyText
+  )(DeleteId.apply)(DeleteId.unapply))
+
+  def deleteRedirect(updatedJobs:Jobs) = {
+
+
+  }
+
+  def delete = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
+
+    deleteForm.bindEncrypted.fold(
+      errors    =>  BadRequest(views.html.s7_employment.g2_beenEmployed(fillForm)(lang)),
+      deleteForm=>  {
+        val updatedJobs = jobs.delete(deleteForm.id)
+        if (updatedJobs.jobs == jobs.jobs) BadRequest(views.html.s7_employment.g2_beenEmployed(fillForm)(lang))
+        else claim.update(updatedJobs) -> (if(updatedJobs.jobs.size == 0 ) Redirect(controllers.s7_employment.routes.G1Employment.present)
+                                          else Redirect(controllers.s7_employment.routes.G2BeenEmployed.present))
+      }
+    )
   }
 }

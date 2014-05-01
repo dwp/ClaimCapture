@@ -32,8 +32,7 @@ object ApplicationBuild extends Build {
     "com.dwp"            %% "play2-multimessages" % "2.3.5",
     "com.typesafe"       %% "play-plugins-mailer" % "2.2.0",
     "com.github.mumoshu" %% "play2-memcached"     % "0.4.0",
-    "com.google.guava"    % "guava"               % "14.0",
-    "org.jasypt"          % "jasypt"              % "1.9.2"
+    "com.google.guava"    % "guava"               % "14.0"
   )
 
   var sO: Seq[Def.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))
