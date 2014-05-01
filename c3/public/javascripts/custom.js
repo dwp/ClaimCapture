@@ -23,22 +23,32 @@ function datepicker(dateFieldId) {
     });
 }
 
-$(function() {
+    
+    
+$(function() {    
     // view more / view less
-    $('.helper-more').click(function(){
-        var labelText = $(this).text() === $(this).attr('data-close')? $(this).attr('data-initial') : $(this).attr('data-close');
+$(".helper-info").css("display", "none");
+$('.helper-more').click(function(){
+   var labelText = $(this).text() === $(this).attr('data-close')? $(this).attr('data-initial') : $(this).attr('data-close');
 
         $(this).toggleClass("helper-less")
-        $(this).next(".helper-info").slideToggle("medium");
+        $(this).next(".helper-info").slideToggle();
 
         $(this).text(labelText);
-    });
-
-     
-     
+});    
+    
+	// Help & Feedback container
+     $(".feedback-container").css("display", "none");
      $('.feedback, .feed-close').click(function(){
-     $( ".feedback-container" ).toggle();
+     	$( ".feedback-container" ).toggle();
      });
+     
+     
+     // Non JS message 
+     $(".js-message").css("display", "none");
+     $("header ul, .feed-close").css("display", "block");
+     
+    
      
 
     // Nino auto jump

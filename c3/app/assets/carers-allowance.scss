@@ -13,6 +13,11 @@
   font-style: normal;
 }
 
+.js-message {
+   padding: 1em 0;
+   margin: 0 auto;
+   max-width: 960px;
+   } 
 
 
 main {
@@ -37,7 +42,7 @@ main {
    .ie6 & {
 	   width: 960px;
    }
-
+    
 
 @import 'prototype';
 	   
@@ -223,6 +228,13 @@ main {
 				   padding-top: 0;
 				  margin-top: 0;
 			   }
+			   
+			   &.radioGroupLabel {
+				   p {
+					   font-weight: 600;
+					   padding-top: 1em;
+				   }
+			   }
 			  
 			   
 			   
@@ -354,7 +366,6 @@ main {
 			   }
 
 				.helper-info {
-					display: none;
 					padding: 1em 1em 0 .8em;
 					background: #fff;
 					border-left: 5px solid #dee0e2;
@@ -412,6 +423,7 @@ main {
 					   font-style: normal;
 				   }
 			   }
+			  
 			  
 			   
 			   input[type="text"], input[type="number"], input[type="tel"], textarea {
@@ -838,6 +850,7 @@ main {
     }
   }
 }
+
 
 
 
