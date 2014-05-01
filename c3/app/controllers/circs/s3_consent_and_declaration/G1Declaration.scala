@@ -61,8 +61,8 @@ class G1AsyncDeclaration extends G1Declaration with AsyncSubmittable with Change
             .replaceError("", "nameOrOrganisation", FormError("nameOrOrganisation", "error.required"))
           BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(formWithErrorsUpdate))
         },
-        f => circs.update(f) -> {
-          submit(circs, request)
+        f => {
+          submit(circs.update(f), request)
         }
       )
   }
