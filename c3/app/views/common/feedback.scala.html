@@ -5,7 +5,7 @@
 <section class="feedback-container">
 	<h2>@Html(Messages("feedback.help1"))</h2>
 
-	<p><a href="/internal-claim-notes" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>@Html(Messages("feedback.help2a"))</a> @Html(Messages("feedback.help2b"))</p>
+	<p><a href="/internal-claim-notes/@lang.code" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>@Html(Messages("feedback.help2a"))</a> @Html(Messages("feedback.help2b"))</p>
 
 	<p>@Html(Messages("feedback.help3a")) <a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Helpline")>@Html(Messages("feedback.help3b"))</a>@Html(Messages("feedback.help3c"))</p>
 
