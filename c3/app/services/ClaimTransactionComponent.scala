@@ -33,13 +33,13 @@ trait ClaimTransactionComponent {
     /**
      * Record that an ID has been used
      */
-    def registerId(id: String, statusCode:String, claimType:Int, jsEnabled:Boolean):Unit = DB.withConnection("carers") {implicit c =>
+    def registerId(id: String, statusCode:String, claimType:Int, jsEnabled:Int):Unit = DB.withConnection("carers") {implicit c =>
       SQL(
         """
-          INSERT INTO transactionstatus (transaction_id, status,type)
-          VALUES ({transactionId},{status},{type});
+          INSERT INTO transactionstatus (transaction_id, status, type, js_enabled)
+          VALUES ({transactionId},{status},{type},{js_enabled});
         """
-      ).on("transactionId"->id,"status"->statusCode,"type"->claimType).execute()
+      ).on("transactionId"->id,"status"->statusCode,"type"->claimType,"js_enabled"->jsEnabled).execute()
     }
 
     /**
@@ -97,7 +97,7 @@ trait ClaimTransactionComponent {
   class StubClaimTransaction extends ClaimTransaction {
     override def generateId: String = "TEST623"
 
-    override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled: Boolean) {}
+    override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled: Int) {}
 
     override def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int], lang: Option[Lang]) {}
 

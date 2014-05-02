@@ -35,7 +35,7 @@ trait AsyncSubmittable extends ClaimSubmittable with ClaimTransactionComponent  
       Logger.warn(s"Speed check ! User-Agent : ${request.headers.get("User-Agent").orNull}")
     }
 
-    val transId = getTransactionIdAndRegisterGenerated(copyInstance(claim), jsEnabled)
+    val transId = getTransactionIdAndRegisterGenerated(copyInstance(claim), if (jsEnabled) 1 else 0)
 
     val updatedClaim = copyInstance(claim withTransactionId transId)
 
@@ -44,7 +44,7 @@ trait AsyncSubmittable extends ClaimSubmittable with ClaimTransactionComponent  
     updatedClaim -> Redirect(StatusRoutingController.redirectSubmitting(updatedClaim))
   }
 
-  def getTransactionIdAndRegisterGenerated(claim:Claim, jsEnabled:Boolean) = {
+  def getTransactionIdAndRegisterGenerated(claim:Claim, jsEnabled:Int) = {
     val transId = claimTransaction.generateId
     claimTransaction.registerId(transId,AsyncClaimSubmissionService.GENERATED,claimType(claim), jsEnabled)
     transId
