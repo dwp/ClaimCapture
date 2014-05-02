@@ -1,20 +1,18 @@
 package models.domain
 
-import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
+import models.{DayMonthYear, NationalInsuranceNumber}
 
 
 case object CircumstancesIdentification extends Section.Identifier {
   val id = "c1"
-  //override val expectedMinTimeToCompleteInMillis: Long = 10000
 }
 
-case class CircumstancesReportChange(
-                    fullName: String = "",
-                    nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
-                    dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
-                    theirFullName: String = "",
-                    theirRelationshipToYou: String = ""
-                     ) extends QuestionGroup(CircumstancesReportChange){
+case class CircumstancesReportChange(jsEnabled: Boolean = false,
+                                     fullName: String = "",
+                                     nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
+                                     dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                                     theirFullName: String = "",
+                                     theirRelationshipToYou: String = "") extends QuestionGroup(CircumstancesReportChange) {
 }
 
 object CircumstancesReportChange extends QuestionGroup.Identifier {

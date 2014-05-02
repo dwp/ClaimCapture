@@ -10,9 +10,11 @@ import controllers.CarersForms._
 import controllers.submission.AsyncSubmittable
 import monitoring.ChangeBotChecking
 import play.api.data.FormError
+import play.api.Logger
 
 abstract class G1Declaration extends Controller with CachedChangeOfCircs with Navigable {
   val form = Form(mapping(
+    "jsEnabled" -> boolean,
     "furtherInfoContact" -> carersNonEmptyText(maxLength = 35),
     "obtainInfoAgreement" -> nonEmptyText,
     "obtainInfoWhy" -> optional(carersNonEmptyText(maxLength = 2000)),
@@ -62,7 +64,7 @@ class G1AsyncDeclaration extends G1Declaration with AsyncSubmittable with Change
           BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(formWithErrorsUpdate))
         },
         f => {
-          submit(circs.update(f), request)
+          submit(circs.update(f), request, f.jsEnabled)
         }
       )
   }

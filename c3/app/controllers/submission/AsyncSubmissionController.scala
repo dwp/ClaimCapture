@@ -17,7 +17,12 @@ trait AsyncSubmittable extends ClaimSubmittable with ClaimTransactionComponent  
 
   val claimTransaction = new ClaimTransaction
 
-  def submit(claim: Claim, request: Request[AnyContent]) : ClaimResult = {
+  def submit(claim: Claim, request: Request[AnyContent], jsEnabled:Boolean) : ClaimResult = {
+
+    if (!jsEnabled) {
+      Logger.info(s"No JS - Submit ${claim.key} ")
+    }
+
     if (isHoneyPotBot(claim)) {
       // Only log honeypot for now.
       // May send to an error page in the future
