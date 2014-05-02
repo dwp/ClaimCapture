@@ -1,6 +1,6 @@
 package controllers.submission
 
-import play.api.mvc.{AnyContent, Action}
+import play.api.mvc.{Request, AnyContent}
 import models.view.CachedClaim
 import services.ClaimTransactionComponent
 import services.submission.AsyncClaimSubmissionService
@@ -9,6 +9,7 @@ import models.domain.Claim
 import play.api.mvc.Results._
 import play.api.Logger
 import monitoring.BotChecking
+import models.view.CachedClaim.ClaimResult
 
 trait AsyncSubmittable extends ClaimSubmittable with ClaimTransactionComponent  {
 
@@ -16,8 +17,7 @@ trait AsyncSubmittable extends ClaimSubmittable with ClaimTransactionComponent  
 
   val claimTransaction = new ClaimTransaction
 
-  def submit:Action[AnyContent] = claiming { implicit claim => implicit request => implicit lang =>
-
+  def submit(claim: Claim, request: Request[AnyContent]) : ClaimResult = {
     if (isHoneyPotBot(claim)) {
       // Only log honeypot for now.
       // May send to an error page in the future

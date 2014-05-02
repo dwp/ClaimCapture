@@ -23,9 +23,11 @@ trait Injector {
       Map(
         controller[ClaimSubmissionController](new ClaimSubmissionController {
           override def submission(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = XmlSubmitter.submission(claim, request)
+          override val claimTransaction = new StubClaimTransaction
         }),
         controller[ChangeOfCircsSubmissionController](new ChangeOfCircsSubmissionController {
           override def submission(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = XmlSubmitter.submission(claim, request)
+          override val claimTransaction = new StubClaimTransaction
         })
       )
     }
