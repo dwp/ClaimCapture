@@ -248,6 +248,9 @@ POST          /circumstances/report-changes/breaks-in-care              controll
 GET           /circumstances/report-changes/breaks-in-care-summary      controllers.circs.s2_report_changes.G8BreaksInCareSummary.present
 POST          /circumstances/report-changes/breaks-in-care-summary      controllers.circs.s2_report_changes.G8BreaksInCareSummary.submit
 
+GET           /circumstances/report-changes/employment-change           controllers.circs.s2_report_changes.G9EmploymentChange.present
+POST          /circumstances/report-changes/employment-change           controllers.circs.s2_report_changes.G9EmploymentChange.submit
+
 GET           /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.present
 POST          /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
