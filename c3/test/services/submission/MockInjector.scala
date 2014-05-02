@@ -43,7 +43,7 @@ trait MockInjector {
         override val claimTransaction = new ClaimTransaction {
           override def generateId: String = txnId
 
-          override def registerId(id: String, statusCode: String, claimType: Int) {
+          override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled:Boolean) {
             Logger.info(s"MockTransactionIdService.registerId: $id, $statusCode, $claimType")
           }
 
@@ -63,7 +63,7 @@ trait MockInjector {
         override val claimTransaction = new ClaimTransaction {
           override def generateId: String = txnId
 
-          override def registerId(id: String, statusCode: String, claimType: Int) {
+          override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled:Boolean) {
             Logger.info(s"MockTransactionIdService.registerId: $id, $statusCode, $claimType")
           }
 
