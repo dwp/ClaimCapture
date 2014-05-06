@@ -6,7 +6,7 @@ import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s2_about_you.G1YourDetailsPage
 import utils.pageobjects.s1_carers_allowance._
 
-class G5ApproveIntegrationSpec extends Specification with Tags {
+class G6ApproveIntegrationSpec extends Specification with Tags {
   "Approve" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  G6ApprovePage(context)

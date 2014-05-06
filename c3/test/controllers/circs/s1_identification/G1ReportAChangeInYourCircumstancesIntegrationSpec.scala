@@ -133,6 +133,13 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         errors.size mustEqual 1
         errors(0) must contain("Their relationship to you - This field is required")
       }
+
+      "page contains JS enabled check" in new WithBrowser with PageObjects {
+        val page = G1ReportAChangeInYourCircumstancesPage(context)
+        page goToThePage()
+        page jsCheckEnabled() must beTrue
+      }
+
     }
   } section("integration", models.domain.CircumstancesIdentification.id)
 

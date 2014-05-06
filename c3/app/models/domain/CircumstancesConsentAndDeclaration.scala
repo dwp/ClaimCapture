@@ -5,10 +5,15 @@ import scala.Some
 
 case object CircumstancesConsentAndDeclaration extends Section.Identifier {
   val id = "c3"
-  //override val expectedMinTimeToCompleteInMillis: Long = 10000
 }
 
-case class CircumstancesDeclaration(furtherInfoContact: String = "", obtainInfoAgreement: String = "",obtainInfoWhy: Option[String] = Some(""), confirm: String = "", circsSomeOneElse: Option[String] = None, nameOrOrganisation:Option[String] = None) extends QuestionGroup(CircumstancesDeclaration)
+case class CircumstancesDeclaration(jsEnabled: Boolean = false,
+                                    furtherInfoContact: String = "",
+                                    obtainInfoAgreement: String = "",
+                                    obtainInfoWhy: Option[String] = Some(""),
+                                    confirm: String = "",
+                                    circsSomeOneElse: Option[String] = None,
+                                    nameOrOrganisation: Option[String] = None) extends QuestionGroup(CircumstancesDeclaration)
 
 object CircumstancesDeclaration extends QuestionGroup.Identifier {
   val id = s"${CircumstancesConsentAndDeclaration.id}.g1"
