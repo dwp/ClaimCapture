@@ -69,7 +69,7 @@ object Employment extends XMLComponent{
       {question(<DateLastPaid/>, "lastPaidDate", lastWage.lastPaidDate)}
       {questionCurrency(<GrossPayment/>, "grossPay",Some(lastWage.grossPay))}
       {question(<IncludedInWage/>, "payInclusions", lastWage.payInclusions)}
-      {questionOther(<PayFrequency/>,"paymentFrequency",oftenPaid.frequency,oftenPaid.other)}
+      {questionOther(<PayFrequency/>,"oftenGetPaidFrequency",oftenPaid.frequency,oftenPaid.other, questionLabelEmployment(claim, "oftenGetPaidFrequency", jobDetails.jobID))}
       {question(<UsualPayDay/>, "whenGetPaid", additionalWageDetails.whenGetPaid, questionLabelEmployment(claim, "whenGetPaid", jobDetails.jobID))}
       {question(<ConstantEarnings/>,"sameAmountEachTime",lastWage.sameAmountEachTime,questionLabelEmployment(claim, "sameAmountEachTime", jobDetails.jobID))}
     </Pay>
