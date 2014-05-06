@@ -6,6 +6,7 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.circumstances.s2_report_changes.G4OtherChangeInfoPage
+import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
 
 class G1DeclarationIntegrationSpec extends Specification with Tags {
 
@@ -136,6 +137,13 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         page.readLabel("nameOrOrganisation") mustEqual("Your name and/or organisation")
       }
+
+      "page contains JS enabled check" in new WithBrowser with PageObjects {
+        val page = G1DeclarationPage(context)
+        page goToThePage()
+        page jsCheckEnabled() must beTrue
+      }
+
 
     }
   } section("integration", models.domain.CircumstancesConsentAndDeclaration.id)

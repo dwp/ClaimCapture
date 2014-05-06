@@ -11,6 +11,7 @@
     @errorsSummary(declarationForm)
 
     @form(action = controllers.circs.s3_consent_and_declaration.routes.G1Declaration.submit) {
+        <input type="hidden" id="js" name="jsEnabled" value="false">
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("c3.g2"))</legend>
@@ -73,6 +74,7 @@
         </div>
     }
 }
+<script type="text/javascript">$($("#js").val("true"));</script>
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s3_consent_and_declaration/g1_declaration.js")'></script>
 

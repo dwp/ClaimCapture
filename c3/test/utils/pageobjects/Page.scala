@@ -199,6 +199,9 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
    */
   def source() = if (this.pageLeftOrSubmitted) this.pageSource else getPageSource()
 
+
+  def jsCheckEnabled() = source.contains("jsEnabled") && source.contains("#js")
+
   /**
    * Provides the full list of pages traversed to get to the current page.
    * @return String that lists the titles of the pages traversed, separated by '<'.

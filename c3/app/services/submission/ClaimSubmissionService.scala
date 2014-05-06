@@ -104,7 +104,7 @@ trait ClaimSubmissionService {
   }
 
   private def registerId(claim: Claim, id: String, statusCode: String) = {
-    claimTransaction.registerId(id, statusCode, claimType(claim))
+    claimTransaction.registerId(id, statusCode, claimType(claim), 1)
   }
 
 

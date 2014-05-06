@@ -3,15 +3,13 @@ package services
 import play.api.test._
 import play.api.db.DB
 import anorm._
-import anorm.SqlParser._
 import play.api.test.Helpers._
-import anorm.~
 import play.api.test.FakeApplication
 import org.specs2.mutable.Around
 import org.specs2.execute.{Result, AsResult}
 
 
-object DBTests{
+object DBTests {
 
   def prepareDDL(implicit app: FakeApplication) = {
     DB.withConnection("carers"){implicit c =>
@@ -28,6 +26,7 @@ object DBTests{
           thirdparty INTEGER,
           circs_type INTEGER,
           lang CHARACTER VARYING(10),
+          js_enabled INTEGER,
           PRIMARY KEY(transaction_id),
           CONSTRAINT transaction_fk FOREIGN KEY(transaction_id) REFERENCES transactionids(transaction_id)
         );
