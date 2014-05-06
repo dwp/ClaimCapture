@@ -20,7 +20,7 @@ trait AsyncSubmittable extends ClaimSubmittable with ClaimTransactionComponent  
   def submit(claim: Claim, request: Request[AnyContent], jsEnabled:Boolean) : ClaimResult = {
 
     if (!jsEnabled) {
-      Logger.info(s"No JS - Submit ${claim.key} ")
+      Logger.info(s"No JS - Submit ${claim.key} User-Agent : ${request.headers.get("User-Agent").orNull}")
     }
 
     if (isHoneyPotBot(claim)) {

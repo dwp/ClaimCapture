@@ -29,7 +29,7 @@ object G5CarersResponse extends Controller with CachedClaim with Navigable {
         },
         f => {
           if (!f.jsEnabled) {
-            Logger.info(s"No JS - Start ${claim.key}")
+            Logger.info(s"No JS - Start ${claim.key} User-Agent : ${request.headers.get("User-Agent").orNull}")
           }
           Redirect("/about-you/your-details")
         })

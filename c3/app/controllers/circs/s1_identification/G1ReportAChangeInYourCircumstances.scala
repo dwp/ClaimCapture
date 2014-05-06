@@ -42,7 +42,7 @@ object G1ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
         formWithErrors => BadRequest(views.html.circs.s1_identification.g1_reportAChangeInYourCircumstances(formWithErrors)),
         f => circs.update(f) -> {
           if (!f.jsEnabled) {
-            Logger.info(s"No JS - Start ${circs.key}")
+            Logger.info(s"No JS - Start ${circs.key} User-Agent : ${request.headers.get("User-Agent").orNull}")
           }
           Redirect(controllers.circs.s2_report_changes.routes.G1ReportChanges.present())
         }
