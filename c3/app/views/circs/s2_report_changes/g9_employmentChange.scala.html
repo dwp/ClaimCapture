@@ -34,7 +34,7 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            inputDayMonthYear(employmentChange("hasWorkStartedYet.dateWhenStarted")),
+                            dateTimePickerWithDynamicLabel(employmentChange("hasWorkStartedYet.dateWhenStarted"), 'dynamicDateDays-> 31),
                             yesNoRadioGroup(employmentChange("hasWorkStartedYet.hasWorkFinishedYet.answer"))
                         ),
                         'id -> "hasWorkStartedYetWrap",
@@ -43,7 +43,7 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            inputDayMonthYear(employmentChange("hasWorkStartedYet.hasWorkFinishedYet.dateWhenFinished"))
+                            dateTimePickerWithDynamicLabel(employmentChange("hasWorkStartedYet.hasWorkFinishedYet.dateWhenFinished"), 'dynamicDateDays-> -7)
                         ),
                         'id -> "hasWorkFinishedYetWrap",
                         'display -> { if (employmentChange("hasWorkStartedYet.hasWorkFinishedYet.answer").value.getOrElse("no") == "yes") "yes" else "no" }
