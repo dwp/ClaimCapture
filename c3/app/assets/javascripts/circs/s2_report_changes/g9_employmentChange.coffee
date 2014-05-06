@@ -15,6 +15,8 @@ window.hasWorkStartedYet = (hasWorkStartedYetY, hasWorkStartedYetN, dateWhenStar
   $("#" + hasWorkStartedYetN).on "click", ->
     $("#hasWorkStartedYetWrap").slideUp 500, ->
       $("#" + dateWhenStarted).val("")
+    $("#hasWorkFinishedYetWrap").slideUp 500, ->
+      $("#" + dateWhenFinished).val("")
 
 window.hasWorkFinishedYet = (hasWorkFinishedYetY, hasWorkFinishedYetN, dateWhenFinished) ->
   $("#" + hasWorkFinishedYetY).on "click", ->
