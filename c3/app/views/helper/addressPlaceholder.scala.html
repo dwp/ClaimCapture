@@ -1,4 +1,4 @@
-@(field: play.api.data.Field)(implicit lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
 
 @import views.html.helper.base.carersInputText
 @import utils.helpers.EmptyTemplate._
@@ -6,7 +6,7 @@
 @import views.html.helper.checkConstraintRequired
 @import play.api.i18n.{MMessages => Messages}
 
-@checkConstraintRequired(field)
+@checkConstraintRequired(field,args: _*)
 <ul class="address-stack">
     <li>
         @carersInputText(field("lineOne"),'maxLength -> 35)

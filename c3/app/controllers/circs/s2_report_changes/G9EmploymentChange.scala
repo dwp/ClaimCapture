@@ -2,15 +2,14 @@ package controllers.circs.s2_report_changes
 
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import models.domain.CircumstancesEmploymentChange
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import models.yesNo._
-import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
-import models.DayMonthYear
-import models.yesNo.YesNo
+import play.api.data.validation.{Invalid, Valid, Constraint}
+import controllers.CarersForms._
 import play.api.data.FormError
 import play.api.data.validation.ValidationError
 
@@ -36,16 +35,29 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
     "hasWorkStartedYet" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
       "dateWhenStarted" -> optional(dayMonthYear.verifying(validDate)),
+      "dateWhenWillItStart" -> optional(dayMonthYear.verifying(validDate)),
       hasWorkFinishedYet,
       "dateWhenWillStart" -> optional(dayMonthYear.verifying(validDate))
-    )(YesNoWithDateAndOptYesNoWithDateOrDate.apply)(YesNoWithDateAndOptYesNoWithDateOrDate.unapply)
-      .verifying("expected.yesDateValue", YesNoWithDateAndOptYesNoWithDateOrDate.validateDateOnYes _)
-      .verifying("expected.yesYesNoValue", YesNoWithDateAndOptYesNoWithDateOrDate.validateYesNoOnYes _)
+    )(YesNoWithDateOrDateAndOptYesNoWithDateOrDate.apply)(YesNoWithDateOrDateAndOptYesNoWithDateOrDate.unapply)
+      .verifying("expected.yesDateValue", YesNoWithDateOrDateAndOptYesNoWithDateOrDate.validateDateOnYes _)
+      .verifying("expected.yesYesNoValue", YesNoWithDateOrDateAndOptYesNoWithDateOrDate.validateYesNoOnYes _)
+      .verifying("expected.noDateValue", YesNoWithDateOrDateAndOptYesNoWithDateOrDate.validateDateOnNo _)
 
   val typeOfWork =
     "typeOfWork" -> mapping(
-      "answer" -> nonEmptyText.verifying(validTypeOfWork)
-    )(YesNo.apply)(YesNo.unapply)
+      "answer" -> nonEmptyText.verifying(validTypeOfWork),
+      "employerNameAndAddress" -> optional(address.verifying(requiredAddress)),
+      "employerPostcode" -> optional(text verifying validPostcode),
+      "employerContactNumber" -> optional(carersNonEmptyText(maxLength = 15)),
+      "employerPayroll" -> optional(carersNonEmptyText(maxLength = 15)),
+      "selfEmployedTypeOfWork" -> optional(carersNonEmptyText(maxLength = 15)),
+      "selfEmployedTotalIncome" -> optional(nonEmptyText.verifying(validYesNoDontKnow))
+    )(YesNoWithAddressAnd2TextOrTextWithYesNo.apply)(YesNoWithAddressAnd2TextOrTextWithYesNo.unapply)
+      .verifying("expected.employerNameAndAddress1", YesNoWithAddressAnd2TextOrTextWithYesNo.validateAddressLine1OnSpecifiedAnswer(_, "employed"))
+      .verifying("expected.employerNameAndAddress2", YesNoWithAddressAnd2TextOrTextWithYesNo.validateAddressLine2OnSpecifiedAnswer(_, "employed"))
+      .verifying("expected.employerPostCode", YesNoWithAddressAnd2TextOrTextWithYesNo.validatePostcodeOnSpecifiedAnswer(_, "employed"))
+      .verifying("expected.selfEmploymentTypeOfWork", YesNoWithAddressAnd2TextOrTextWithYesNo.validateText2OnSpecifiedAnswer(_, "self-employed"))
+      .verifying("expected.selfEmploymentTotalIncome", YesNoWithAddressAnd2TextOrTextWithYesNo.validateAnswer2OnSpecifiedAnswer(_, "self-employed"))
 
   val form = Form(mapping(
     stillCaringMapping,
@@ -68,6 +80,12 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
           .replaceError("hasWorkStartedYet","expected.yesDateValue", FormError("hasWorkStartedYet.dateWhenStarted", "error.required"))
           .replaceError("hasWorkStartedYet","expected.yesYesNoValue", FormError("hasWorkStartedYet.hasWorkFinishedYet.answer", "error.required"))
           .replaceError("hasWorkStartedYet.hasWorkFinishedYet","expected.yesValue", FormError("hasWorkStartedYet.hasWorkFinishedYet.dateWhenFinished", "error.required"))
+          .replaceError("hasWorkStartedYet","expected.noDateValue", FormError("hasWorkStartedYet.dateWhenWillItStart", "error.required"))
+          .replaceError("typeOfWork","expected.employerNameAndAddress1", FormError("typeOfWork.employerNameAndAddress", "error.required"))
+          .replaceError("typeOfWork","expected.employerNameAndAddress2", FormError("typeOfWork.employerNameAndAddress", "nameAndAddress.required"))
+          .replaceError("typeOfWork","expected.employerPostCode", FormError("typeOfWork.employerPostcode", "error.required"))
+          .replaceError("typeOfWork","expected.selfEmploymentTypeOfWork", FormError("typeOfWork.selfEmployedTypeOfWork", "error.required"))
+          .replaceError("typeOfWork","expected.selfEmploymentTotalIncome", FormError("typeOfWork.selfEmployedTotalIncome", "error.required"))
         BadRequest(views.html.circs.s2_report_changes.g9_employmentChange(updatedFormWithErrors))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())

@@ -7,18 +7,9 @@ case class OptYesNoWithDate(answer: Option[String], date: Option[DayMonthYear])
 
 object OptYesNoWithDate {
 
-  def validateOnYes(input: OptYesNoWithDate): Boolean = {
-    println("************* (validatedOnYes) input.answer = " + input.answer)
-    input.answer.getOrElse("no") match {
-      case `yes` => {
-        println("******** case yes response " + input.date.isDefined)
-        input.date.isDefined
-      }
-      case _ => {
-        println("******** case no response true")
-        true
-      }
-    }
+  def validateOnYes(input: OptYesNoWithDate): Boolean = input.answer.getOrElse("no") match {
+    case `yes` => input.date.isDefined
+    case _ => true
   }
 
   def validateNo(input: OptYesNoWithDate): Boolean = input.answer.getOrElse("yes") match {
