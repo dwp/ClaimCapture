@@ -104,3 +104,10 @@ case class CircumstancesEmploymentChange(stillCaring: YesNoWithDate = YesNoWithD
 object CircumstancesEmploymentChange extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g9"
 }
+
+case class CircumstancesStartedEmploymentAndOngoing(howMuchPaid: String)
+  extends QuestionGroup(CircumstancesStartedEmploymentAndOngoing)
+
+object CircumstancesStartedEmploymentAndOngoing extends QuestionGroup.Identifier {
+  val id = s"${CircumstancesReportChanges.id}.g10"
+}

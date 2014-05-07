@@ -47,16 +47,15 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
     "typeOfWork" -> mapping(
       "answer" -> nonEmptyText.verifying(validTypeOfWork),
       "employerNameAndAddress" -> optional(address.verifying(requiredAddress)),
-      "employerPostcode" -> optional(text verifying validPostcode),
-      "employerContactNumber" -> optional(carersNonEmptyText(maxLength = 15)),
-      "employerPayroll" -> optional(carersNonEmptyText(maxLength = 15)),
-      "selfEmployedTypeOfWork" -> optional(carersNonEmptyText(maxLength = 15)),
-      "selfEmployedTotalIncome" -> optional(nonEmptyText.verifying(validYesNoDontKnow)),
+      "employerPostcode" -> optional(carersText verifying validPostcode),
+      "employerContactNumber" -> optional(carersText(maxLength = 15)),
+      "employerPayroll" -> optional(carersText(maxLength = 15)),
+      "selfEmployedTypeOfWork" -> optional(carersText(maxLength = 15)),
+      "selfEmployedTotalIncome" -> optional(carersText.verifying(validYesNoDontKnow)),
       "selfEmployedMoreAboutChanges" -> optional(carersText(maxLength = 300))
     )(YesNoWithAddressAnd2TextOrTextWithYesNoAndText.apply)(YesNoWithAddressAnd2TextOrTextWithYesNoAndText.unapply)
       .verifying("expected.employerNameAndAddress1", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateAddressLine1OnSpecifiedAnswer(_, "employed"))
       .verifying("expected.employerNameAndAddress2", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateAddressLine2OnSpecifiedAnswer(_, "employed"))
-      .verifying("expected.employerPostCode", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validatePostcodeOnSpecifiedAnswer(_, "employed"))
       .verifying("expected.selfEmploymentTypeOfWork", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateText2OnSpecifiedAnswer(_, "self-employed"))
       .verifying("expected.selfEmploymentTotalIncome", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateAnswer2OnSpecifiedAnswer(_, "self-employed"))
 
@@ -73,6 +72,19 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
   }
 
   def submit = claiming { implicit circs => implicit request => implicit lang =>
+    def next(employmentChange: CircumstancesEmploymentChange) = employmentChange.typeOfWork.answer match {
+      case `employed` => {
+        employmentChange.hasWorkStartedYet.answer match {
+          case `yes` => {
+            if (employmentChange.hasWorkStartedYet.yesNoDate.answer.getOrElse("no") == `yes`) Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
+            else Redirect(controllers.circs.s2_report_changes.routes.G10StartedEmploymentAndOngoing.present())
+          }
+          case _ => Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
+        }
+      }
+      case _ => Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
+    }
+
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
@@ -88,7 +100,7 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
           .replaceError("typeOfWork","expected.selfEmploymentTotalIncome", FormError("typeOfWork.selfEmployedTotalIncome", "error.required"))
         BadRequest(views.html.circs.s2_report_changes.g9_employmentChange(updatedFormWithErrors))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
+      employmentChange => circs.update(employmentChange) -> next(employmentChange)
     )
   }
 

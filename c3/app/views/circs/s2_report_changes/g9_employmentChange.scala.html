@@ -11,6 +11,10 @@
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
 
+@stillCaring = @{employmentChange("stillCaring")}
+@hasWorkStartedYet = @{employmentChange("hasWorkStartedYet")}
+@typeOfWork = @{employmentChange("typeOfWork")}
+    
 @main(Messages("c2.g2") + " - " + Messages("c2.name")) {
     @errorsSummary(employmentChange)
 
@@ -20,67 +24,67 @@
 	            <legend>@Html(Messages("c2.g9"))</legend>
 	
 	            <ul class="coc-layout">
-	                @yesNoRadioGroup(employmentChange("stillCaring")("answer"))
+	                @yesNoRadioGroup(stillCaring("answer"))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-                            dateTimePickerWithDynamicLabel(employmentChange("stillCaring")("date"))
+                            dateTimePickerWithDynamicLabel(stillCaring("date"))
 	                    ),
 	                    'id -> "stillCaringWrap",
-	                    'display -> { if (employmentChange("stillCaring")("answer").value.getOrElse("yes") == "no") "yes" else "no" }
+	                    'display -> { if (stillCaring("answer").value.getOrElse("yes") == "no") "yes" else "no" }
 	                )
 
-                    @yesNoRadioGroup(employmentChange("hasWorkStartedYet")("answer"))
+                    @yesNoRadioGroup(hasWorkStartedYet("answer"))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            dateTimePickerWithDynamicLabel(employmentChange("hasWorkStartedYet")("dateWhenStarted"), 'dynamicDateDays-> 31),
-                            yesNoRadioGroup(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("answer"))
+                            dateTimePickerWithDynamicLabel(hasWorkStartedYet("dateWhenStarted"), 'dynamicDateDays-> 31),
+                            yesNoRadioGroup(hasWorkStartedYet("hasWorkFinishedYet")("answer"))
                         ),
                         'id -> "hasWorkStartedYetWrap",
-                        'display -> { if (employmentChange("hasWorkStartedYet")("answer").value.getOrElse("no") == "yes") "yes" else "no" }
+                        'display -> { if (hasWorkStartedYet("answer").value.getOrElse("no") == "yes") "yes" else "no" }
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            dateTimePickerWithDynamicLabel(employmentChange("hasWorkStartedYet")("dateWhenWillItStart"), 'dynamicDateDays-> -7)
+                            dateTimePickerWithDynamicLabel(hasWorkStartedYet("dateWhenWillItStart"), 'dynamicDateDays-> -7)
                         ),
                         'id -> "workNotStartedYetWrap",
-                        'display -> { if (employmentChange("hasWorkStartedYet")("answer").value.getOrElse("yes") == "no") "yes" else "no" }
+                        'display -> { if (hasWorkStartedYet("answer").value.getOrElse("yes") == "no") "yes" else "no" }
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            dateTimePickerWithDynamicLabel(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished"), 'dynamicDateDays-> 7)
+                            dateTimePickerWithDynamicLabel(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished"), 'dynamicDateDays-> 7)
                         ),
                         'id -> "hasWorkFinishedYetWrap",
-                        'display -> { if (employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("answer").value.getOrElse("no") == "yes") "yes" else "no" }
+                        'display -> { if (hasWorkStartedYet("hasWorkFinishedYet")("answer").value.getOrElse("no") == "yes") "yes" else "no" }
                     )
 
-                    @yesNoRadioGroup(employmentChange("typeOfWork")("answer"),
+                    @yesNoRadioGroup(typeOfWork("answer"),
                         'values -> Seq("employed" -> Html(Messages("typeOfWork.employed")), "self-employed" -> Html(Messages("typeOfWork.selfemployed"))),
                         'helperAbove -> Html(Messages("typeOfWork.help"))
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            inputAddress(employmentChange("typeOfWork")("employerNameAndAddress"), 'ignoreOptional -> true),
-                            carersInputText(employmentChange("typeOfWork")("employerPostcode"), 'class -> "postcode", 'ignoreOptional -> true),
-                            carersInputText(employmentChange("typeOfWork")("employerContactNumber"), 'maxLength -> 15),
-                            carersInputText(employmentChange("typeOfWork")("employerPayroll"), 'maxLength -> 15)
+                            inputAddress(typeOfWork("employerNameAndAddress"), 'ignoreOptional -> true),
+                            carersInputText(typeOfWork("employerPostcode"), 'class -> "postcode"),
+                            carersInputText(typeOfWork("employerContactNumber"), 'maxLength -> 15),
+                            carersInputText(typeOfWork("employerPayroll"), 'maxLength -> 15)
                         ),
                         'id -> "typeOfWorkEmployedWrap",
-                        'display -> { if (employmentChange("typeOfWork")("answer").value.getOrElse("self-employed") == "employed") "yes" else "no" }
+                        'display -> { if (typeOfWork("answer").value.getOrElse("self-employed") == "employed") "yes" else "no" }
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersInputText(employmentChange("typeOfWork")("selfEmployedTypeOfWork"), 'maxLength -> 35, 'ignoreOptional -> true),
-                            yesNoRadioGroup(employmentChange("typeOfWork")("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'values -> Seq("yes" -> Messages("label.yes7"), "no" -> Messages("label.no"), "dontknow" -> Messages("label.dontknow"))),
-                            carersInputTextArea(employmentChange("typeOfWork")("selfEmployedMoreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+                            carersInputText(typeOfWork("selfEmployedTypeOfWork"), 'maxLength -> 35, 'ignoreOptional -> true),
+                            yesNoRadioGroup(typeOfWork("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'values -> Seq("yes" -> Messages("label.yes7"), "no" -> Messages("label.no"), "dontknow" -> Messages("label.dontknow"))),
+                            carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
                         ),
                         'id -> "typeOfWorkSelfEmployedWrap",
-                        'display -> { if (employmentChange("typeOfWork")("answer").value.getOrElse("employed") == "self-employed") "yes" else "no" }
+                        'display -> { if (typeOfWork("answer").value.getOrElse("employed") == "self-employed") "yes" else "no" }
                     )
 	            </ul>
 	        </fieldset>
@@ -112,43 +116,43 @@ window.stillCaring("@CarersCrypto.encryptAES(employmentChange("stillCaring")("an
 });
 
 $(function(){
-window.hasWorkStartedYet("@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("answer")("yes").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("answer")("no").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenStarted")("day").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenStarted")("month").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenStarted")("year").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenWillItStart")("day").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenWillItStart")("month").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenWillItStart")("year").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("answer")("yes").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("answer")("no").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished")("day").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished")("month").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished")("year").id)");
+window.hasWorkStartedYet("@CarersCrypto.encryptAES(hasWorkStartedYet("answer")("yes").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("answer")("no").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenStarted")("day").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenStarted")("month").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenStarted")("year").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenWillItStart")("day").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenWillItStart")("month").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenWillItStart")("year").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("answer")("yes").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("answer")("no").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished")("day").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished")("month").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished")("year").id)");
 });
 
 $(function(){
-window.hasWorkFinishedYet("@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("answer")("yes").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("answer")("no").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished")("day").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished")("month").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished")("year").id)");
+window.hasWorkFinishedYet("@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("answer")("yes").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("answer")("no").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished")("day").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished")("month").id)",
+"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished")("year").id)");
 });
 
 $(function(){
-window.typeOfWork("@CarersCrypto.encryptAES(employmentChange("typeOfWork")("answer")("employed").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("answer")("self-employed").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerNameAndAddress")("lineOne").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerNameAndAddress")("lineTwo").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerNameAndAddress")("lineThree").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerPostcode").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerContactNumber").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerPayroll").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("selfEmployedTypeOfWork").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("selfEmployedTotalIncome")("yes").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("selfEmployedTotalIncome")("no").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("selfEmployedTotalIncome")("dontknow").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("selfEmployedMoreAboutChanges").id)");
+window.typeOfWork("@CarersCrypto.encryptAES(typeOfWork("answer")("employed").id)",
+"@CarersCrypto.encryptAES(typeOfWork("answer")("self-employed").id)",
+"@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineOne").id)",
+"@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineTwo").id)",
+"@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineThree").id)",
+"@CarersCrypto.encryptAES(typeOfWork("employerPostcode").id)",
+"@CarersCrypto.encryptAES(typeOfWork("employerContactNumber").id)",
+"@CarersCrypto.encryptAES(typeOfWork("employerPayroll").id)",
+"@CarersCrypto.encryptAES(typeOfWork("selfEmployedTypeOfWork").id)",
+"@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("yes").id)",
+"@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("no").id)",
+"@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("dontknow").id)",
+"@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)");
 });
 
 </script>
