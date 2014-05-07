@@ -51,19 +51,19 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
       "employerContactNumber" -> optional(carersNonEmptyText(maxLength = 15)),
       "employerPayroll" -> optional(carersNonEmptyText(maxLength = 15)),
       "selfEmployedTypeOfWork" -> optional(carersNonEmptyText(maxLength = 15)),
-      "selfEmployedTotalIncome" -> optional(nonEmptyText.verifying(validYesNoDontKnow))
-    )(YesNoWithAddressAnd2TextOrTextWithYesNo.apply)(YesNoWithAddressAnd2TextOrTextWithYesNo.unapply)
-      .verifying("expected.employerNameAndAddress1", YesNoWithAddressAnd2TextOrTextWithYesNo.validateAddressLine1OnSpecifiedAnswer(_, "employed"))
-      .verifying("expected.employerNameAndAddress2", YesNoWithAddressAnd2TextOrTextWithYesNo.validateAddressLine2OnSpecifiedAnswer(_, "employed"))
-      .verifying("expected.employerPostCode", YesNoWithAddressAnd2TextOrTextWithYesNo.validatePostcodeOnSpecifiedAnswer(_, "employed"))
-      .verifying("expected.selfEmploymentTypeOfWork", YesNoWithAddressAnd2TextOrTextWithYesNo.validateText2OnSpecifiedAnswer(_, "self-employed"))
-      .verifying("expected.selfEmploymentTotalIncome", YesNoWithAddressAnd2TextOrTextWithYesNo.validateAnswer2OnSpecifiedAnswer(_, "self-employed"))
+      "selfEmployedTotalIncome" -> optional(nonEmptyText.verifying(validYesNoDontKnow)),
+      "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    )(YesNoWithAddressAnd2TextOrTextWithYesNoAndText.apply)(YesNoWithAddressAnd2TextOrTextWithYesNoAndText.unapply)
+      .verifying("expected.employerNameAndAddress1", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateAddressLine1OnSpecifiedAnswer(_, "employed"))
+      .verifying("expected.employerNameAndAddress2", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateAddressLine2OnSpecifiedAnswer(_, "employed"))
+      .verifying("expected.employerPostCode", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validatePostcodeOnSpecifiedAnswer(_, "employed"))
+      .verifying("expected.selfEmploymentTypeOfWork", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateText2OnSpecifiedAnswer(_, "self-employed"))
+      .verifying("expected.selfEmploymentTotalIncome", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateAnswer2OnSpecifiedAnswer(_, "self-employed"))
 
   val form = Form(mapping(
     stillCaringMapping,
     hasWorkStartedYet,
-    typeOfWork,
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    typeOfWork
   )(CircumstancesEmploymentChange.apply)(CircumstancesEmploymentChange.unapply))
 
   def present = claiming { implicit circs => implicit request => implicit lang =>

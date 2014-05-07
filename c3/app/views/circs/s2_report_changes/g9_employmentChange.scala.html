@@ -58,7 +58,9 @@
                     )
 
                     @yesNoRadioGroup(employmentChange("typeOfWork")("answer"),
-                        'values -> Seq("employed" -> Html(Messages("typeOfWork.employed")), "self-employed" -> Html(Messages("typeOfWork.selfemployed"))))
+                        'values -> Seq("employed" -> Html(Messages("typeOfWork.employed")), "self-employed" -> Html(Messages("typeOfWork.selfemployed"))),
+                        'helperAbove -> Html(Messages("typeOfWork.help"))
+                    )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
@@ -74,13 +76,12 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputText(employmentChange("typeOfWork")("selfEmployedTypeOfWork"), 'maxLength -> 35, 'ignoreOptional -> true),
-                            yesNoRadioGroup(employmentChange("typeOfWork")("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'values -> Seq("yes" -> Messages("label.yes7"), "no" -> Messages("label.no"), "dontknow" -> Messages("label.dontknow")))
+                            yesNoRadioGroup(employmentChange("typeOfWork")("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'values -> Seq("yes" -> Messages("label.yes7"), "no" -> Messages("label.no"), "dontknow" -> Messages("label.dontknow"))),
+                            carersInputTextArea(employmentChange("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
                         ),
                         'id -> "typeOfWorkSelfEmployedWrap",
                         'display -> { if (employmentChange("typeOfWork")("answer").value.getOrElse("employed") == "self-employed") "yes" else "no" }
                     )
-
-                    @carersInputTextArea(employmentChange("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
 	            </ul>
 	        </fieldset>
 	
