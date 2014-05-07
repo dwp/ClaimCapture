@@ -95,3 +95,13 @@ case class CircumstancesBreaksInCareSummary(additionalBreaks: YesNoWithText = Ye
 object CircumstancesBreaksInCareSummary extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g8"
 }
+
+case class CircumstancesEmploymentChange(stillCaring: YesNoWithDate = YesNoWithDate("", None),
+                                         hasWorkStartedYet: YesNoWithDateOrDateAndOptYesNoWithDateOrDate = YesNoWithDateOrDateAndOptYesNoWithDateOrDate("", None, None, OptYesNoWithDate(None, None)),
+                                         typeOfWork: YesNoWithAddressAnd2TextOrTextWithYesNo = YesNoWithAddressAnd2TextOrTextWithYesNo("", None, None, None),
+                                         moreAboutChanges: Option[String] = None)
+  extends QuestionGroup(CircumstancesEmploymentChange)
+
+object CircumstancesEmploymentChange extends QuestionGroup.Identifier {
+  val id = s"${CircumstancesReportChanges.id}.g9"
+}

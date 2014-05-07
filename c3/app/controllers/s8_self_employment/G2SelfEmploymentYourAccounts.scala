@@ -49,7 +49,6 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Nav
   def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        println("G2SelfEmploymentYourAccount:submit "+formWithErrors.errors)
         val formWithErrorsUpdate = formWithErrors
           .replaceError("","required", FormError("tellUsWhyAndWhenTheChangeHappened", "error.required"))
           .replaceError("whatWasOrIsYourTradingYearFrom","error.invalid", FormError("whatWasOrIsYourTradingYearFrom", "error.invalid", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"))))

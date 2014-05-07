@@ -2,7 +2,7 @@
 
 @import utils.helpers._
 
-    @ignoreLabel = @{
+@ignoreLabel = @{
    !args.find(t => t._1 == 'ignoreLabel).getOrElse('ignoreLabel->false).asInstanceOf[(Symbol,Boolean)]._2
 }
 
