@@ -79,6 +79,8 @@
                         'id -> "typeOfWorkSelfEmployedWrap",
                         'display -> { if (employmentChange("typeOfWork")("answer").value.getOrElse("employed") == "self-employed") "yes" else "no" }
                     )
+
+                    @carersInputTextArea(employmentChange("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
 	            </ul>
 	        </fieldset>
 	

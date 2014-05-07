@@ -27,10 +27,7 @@ object YesNoWithAddressAnd2TextOrTextWithYesNo {
   }
 
   def validateAnswer2OnSpecifiedAnswer(input: YesNoWithAddressAnd2TextOrTextWithYesNo, requiredAnswer: String): Boolean = input.answer match {
-    case s if (s == requiredAnswer) => {
-      println(s"*********** validateAnswer2OnSpecifiedAnswer ${input.answer2}")
-      input.answer2.isDefined
-    }
+    case s if (s == requiredAnswer) => input.answer2.isDefined
     case _ => true
   }
 

@@ -62,7 +62,8 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
   val form = Form(mapping(
     stillCaringMapping,
     hasWorkStartedYet,
-    typeOfWork
+    typeOfWork,
+    "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesEmploymentChange.apply)(CircumstancesEmploymentChange.unapply))
 
   def present = claiming { implicit circs => implicit request => implicit lang =>
@@ -74,7 +75,6 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
   def submit = claiming { implicit circs => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        println(formWithErrors)
         val updatedFormWithErrors = formWithErrors
           .replaceError("stillCaring","dateRequired", FormError("stillCaring.date", "error.required"))
           .replaceError("hasWorkStartedYet","expected.yesDateValue", FormError("hasWorkStartedYet.dateWhenStarted", "error.required"))
