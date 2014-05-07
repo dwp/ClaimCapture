@@ -77,7 +77,7 @@
                         inputDef = Seq(
                             carersInputText(employmentChange("typeOfWork")("selfEmployedTypeOfWork"), 'maxLength -> 35, 'ignoreOptional -> true),
                             yesNoRadioGroup(employmentChange("typeOfWork")("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'values -> Seq("yes" -> Messages("label.yes7"), "no" -> Messages("label.no"), "dontknow" -> Messages("label.dontknow"))),
-                            carersInputTextArea(employmentChange("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+                            carersInputTextArea(employmentChange("typeOfWork")("selfEmployedMoreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
                         ),
                         'id -> "typeOfWorkSelfEmployedWrap",
                         'display -> { if (employmentChange("typeOfWork")("answer").value.getOrElse("employed") == "self-employed") "yes" else "no" }
@@ -106,33 +106,49 @@ window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxC
 $(function(){
 window.stillCaring("@CarersCrypto.encryptAES(employmentChange("stillCaring")("answer")("yes").id)",
 "@CarersCrypto.encryptAES(employmentChange("stillCaring")("answer")("no").id)",
-"@CarersCrypto.encryptAES(employmentChange("stillCaring")("date").id)");
+"@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("day").id)",
+"@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("month").id)",
+"@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("year").id)");
 });
 
 $(function(){
 window.hasWorkStartedYet("@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("answer")("yes").id)",
 "@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("answer")("no").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenStarted").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenWillItStart").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("answer").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished").id)");
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenStarted")("day").id)",
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenStarted")("month").id)",
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenStarted")("year").id)",
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenWillItStart")("day").id)",
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenWillItStart")("month").id)",
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("dateWhenWillItStart")("year").id)",
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("answer")("yes").id)",
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("answer")("no").id)",
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished")("day").id)",
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished")("month").id)",
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished")("year").id)");
 });
 
 $(function(){
 window.hasWorkFinishedYet("@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("answer")("yes").id)",
 "@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("answer")("no").id)",
-"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished").id)");
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished")("day").id)",
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished")("month").id)",
+"@CarersCrypto.encryptAES(employmentChange("hasWorkStartedYet")("hasWorkFinishedYet")("dateWhenFinished")("year").id)");
 });
 
 $(function(){
 window.typeOfWork("@CarersCrypto.encryptAES(employmentChange("typeOfWork")("answer")("employed").id)",
 "@CarersCrypto.encryptAES(employmentChange("typeOfWork")("answer")("self-employed").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerNameAndAddress").id)",
+"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerNameAndAddress")("lineOne").id)",
+"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerNameAndAddress")("lineTwo").id)",
+"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerNameAndAddress")("lineThree").id)",
 "@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerPostcode").id)",
 "@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerContactNumber").id)",
 "@CarersCrypto.encryptAES(employmentChange("typeOfWork")("employerPayroll").id)",
 "@CarersCrypto.encryptAES(employmentChange("typeOfWork")("selfEmployedTypeOfWork").id)",
-"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("selfEmployedTotalIncome").id)");
+"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("selfEmployedTotalIncome")("yes").id)",
+"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("selfEmployedTotalIncome")("no").id)",
+"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("selfEmployedTotalIncome")("dontknow").id)",
+"@CarersCrypto.encryptAES(employmentChange("typeOfWork")("selfEmployedMoreAboutChanges").id)");
 });
 
 </script>
