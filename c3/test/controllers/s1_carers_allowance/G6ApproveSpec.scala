@@ -9,7 +9,7 @@ import controllers.s1_carers_allowance
 import models.domain.Claim
 import models.view.CachedClaim
 
-class G5ApproveSpec extends Specification with Tags {
+class G6ApproveSpec extends Specification with Tags {
   """Can you get Carer's Allowance""" should {
     "acknowledge that the carer is eligible for allowance" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)

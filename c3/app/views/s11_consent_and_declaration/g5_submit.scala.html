@@ -12,6 +12,7 @@
 
 @main(Messages("s11.g5") + " - " + Messages("s11.longName"), None, claim.completedQuestionGroups(models.domain.Submit)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G5Submit.submit) {
+        <input type="hidden" id="js" name="jsEnabled" value="false">
 
         @if(claim.questionGroup(Employment).isDefined &&
             (claim.questionGroup(Employment).get.asInstanceOf[Employment].beenEmployedSince6MonthsBeforeClaim == "yes"||
@@ -68,3 +69,4 @@
         </nav>
     }
 }
+<script type="text/javascript">$($("#js").val("true"));</script>
