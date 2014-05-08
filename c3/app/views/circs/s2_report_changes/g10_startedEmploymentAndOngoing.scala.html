@@ -31,7 +31,37 @@
                         'id -> "haventBeenPaidYetWrap",
                         'display -> { if (startedEmploymentAndOngoing("haventBeenPaidYet").value.getOrElse("yes") == "no") "yes" else "no" }
                     )
-	            </ul>
+
+                    @dateTimePickerWithDynamicLabel(startedEmploymentAndOngoing("whatDatePaid"), 'dynamicDateDays-> 31)
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            Html(Messages("whatDatePaid.help"))
+                        ),
+                        'id -> "whatDatePaidWrap",
+                        'display -> { if (startedEmploymentAndOngoing("haventBeenPaidYet").value.getOrElse("yes") == "no") "yes" else "no" }
+                    )
+
+                    @paymentFrequencySelect(startedEmploymentAndOngoing("howOften"),
+                        'id -> "howOften",
+                        'visibleOn -> "yes",
+                        '_label -> Messages("howOften"),
+                        'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
+                        'display -> {if(startedEmploymentAndOngoing("howOften")("frequency").value.getOrElse("no") == "other") "yes" else "no"}
+                    )
+
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputText(startedEmploymentAndOngoing("monthlyPayDay"),
+                            'ignoreOptional -> true,
+                            'helperAbove -> Html(Messages("monthlyPayDay.help")))
+                        ),
+                        'id -> "monthlyPayDayWrap",
+                        'display -> {if(startedEmploymentAndOngoing("howOften")("frequency").value.getOrElse("no") == "monthly") "yes" else "no"}
+                    )
+
+                </ul>
 	        </fieldset>
 	
 	        <nav class="form-steps">
@@ -46,13 +76,16 @@
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g10_startedEmploymentAndOngoing.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
 
 <script type="text/javascript">
 $(function(){
-window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+    window.areaCounter({selector:"@CarersCrypto.encryptAES(startedEmploymentAndOngoing("howOften")("frequency").id)",maxChars:60});
 })
-
 $(function(){
-window.haventBeenPaidYet("@CarersCrypto.encryptAES(startedEmploymentAndOngoing("haventBeenPaidYet").id)");
+    window.haventBeenPaidYet("@CarersCrypto.encryptAES(startedEmploymentAndOngoing("haventBeenPaidYet").id)");
+    window.monthlyPayDay("@CarersCrypto.encryptAES(startedEmploymentAndOngoing("howOften")("frequency").id)",
+                         "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("monthlyPayDay").id)");
+    window.areaCounter({selector: "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("howOften")("frequency")("other").id)",maxChars:60});
 });
 </script>
