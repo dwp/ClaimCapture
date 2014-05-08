@@ -29,9 +29,6 @@ GET           /error                                                    controll
 GET           /circs-error                                              controllers.CircsEnding.error
 
 # Claim submission
-POST          /submit                                                   @controllers.submission.ClaimSubmissionController.submit
-POST          /circs-submit                                             @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
-
 GET           /async-submitting                                         controllers.submission.ClaimStatusRoutingController.present
 POST          /async-submitting                                         controllers.submission.ClaimStatusRoutingController.submit
 GET           /async-error                                              controllers.submission.ClaimStatusRoutingController.error
@@ -215,8 +212,6 @@ POST          /consent-and-declaration/submit                           @control
 
 GET           /consent-and-declaration/error                            controllers.s11_consent_and_declaration.G6Error.present
 
-GET           /consent-and-declaration/submitting                       controllers.s11_consent_and_declaration.G7Submitting.present
-
 GET           /consent-and-declaration/completed                        controllers.s11_consent_and_declaration.ConsentAndDeclaration.completed
 POST          /consent-and-declaration/completed                        controllers.s11_consent_and_declaration.ConsentAndDeclaration.completedSubmit
 
@@ -252,5 +247,3 @@ GET           /circumstances/consent-and-declaration/declaration        @control
 POST          /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
 GET           /circumstances/consent-and-declaration/error              controllers.circs.s3_consent_and_declaration.G3Error.present
-
-GET           /circumstances/consent-and-declaration/submitting         controllers.circs.s3_consent_and_declaration.G2Submitting.present
