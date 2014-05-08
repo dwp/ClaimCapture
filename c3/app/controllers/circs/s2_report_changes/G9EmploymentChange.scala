@@ -50,7 +50,7 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
       "employerPostcode" -> optional(carersText verifying validPostcode),
       "employerContactNumber" -> optional(carersText(maxLength = 15)),
       "employerPayroll" -> optional(carersText(maxLength = 15)),
-      "selfEmployedTypeOfWork" -> optional(carersText(maxLength = 15)),
+      "selfEmployedTypeOfWork" -> optional(carersText(maxLength = 35)),
       "selfEmployedTotalIncome" -> optional(carersText.verifying(validYesNoDontKnow)),
       "selfEmployedMoreAboutChanges" -> optional(carersText(maxLength = 300))
     )(YesNoWithAddressAnd2TextOrTextWithYesNoAndText.apply)(YesNoWithAddressAnd2TextOrTextWithYesNoAndText.unapply)

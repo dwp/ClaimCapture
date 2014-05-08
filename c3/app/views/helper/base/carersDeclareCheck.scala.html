@@ -8,6 +8,6 @@
 @boxValue = @{ args.toMap.get('value).getOrElse("true") }
 
 @input(field, args: _*) { (id, name, value, htmlArgs) =>
-    <input type="checkbox" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" value="@boxValue" @(if(value == Some(boxValue)) "checked" else "") @toHtmlArgs(htmlArgs.filterKeys(_ != 'value))>
+    <input type="checkbox" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" value="@boxValue" class="aligned-text" @(if(value == Some(boxValue)) "checked" else "") @toHtmlArgs(htmlArgs.filterKeys(_ != 'value))>
     <label for="@CarersCrypto.encryptAES(id)">@labelOrId(id, args: _*)</label>
 }

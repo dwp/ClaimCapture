@@ -7,10 +7,12 @@ import play.api.data.{Form, FormError}
 import controllers.Mappings._
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
+import controllers.CarersForms._
 
 object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCircs with Navigable {
   val form = Form(mapping(
-    "howMuchPaid" -> nonEmptyText(maxLength = 20)
+    "howMuchPaid" -> nonEmptyText(maxLength = 20),
+    "haventBeenPaidYet" -> optional(carersText)
   )(CircumstancesStartedEmploymentAndOngoing.apply)(CircumstancesStartedEmploymentAndOngoing.unapply))
 
   def present = claiming { implicit circs => implicit request => implicit lang =>

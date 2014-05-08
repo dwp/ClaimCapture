@@ -20,9 +20,17 @@
 	            <legend>@Html(Messages("c2.g10"))</legend>
 	
 	            <ul class="coc-layout">
-                    @carersInputText(startedEmploymentAndOngoing("howMuchPaid"))
+                    @carersShortInputText(startedEmploymentAndOngoing("howMuchPaid"))
 
-                    @declareCheckPlaceholder(startedEmploymentAndOngoing("circsSomeOneElse"))
+                    @checkPlaceholder(startedEmploymentAndOngoing("haventBeenPaidYet"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            Html(Messages("haventBeenPaidYet.help"))
+                        ),
+                        'id -> "haventBeenPaidYetWrap",
+                        'display -> { if (startedEmploymentAndOngoing("haventBeenPaidYet").value.getOrElse("yes") == "no") "yes" else "no" }
+                    )
 	            </ul>
 	        </fieldset>
 	
@@ -43,4 +51,8 @@
 $(function(){
 window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
 })
+
+$(function(){
+window.haventBeenPaidYet("@CarersCrypto.encryptAES(startedEmploymentAndOngoing("haventBeenPaidYet").id)");
+});
 </script>
