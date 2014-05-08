@@ -12,6 +12,7 @@ import ExecutionContext.Implicits.global
 import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.helpers.CarersLanguageHelper
+import utils.Injector
 
 object Global extends GlobalSettings with Injector with CarersLanguageHelper {
 

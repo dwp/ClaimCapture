@@ -7,9 +7,16 @@ import controllers.submission._
 import monitoring.ClaimBotChecking
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{JSEnabled, Declaration}
+import models.domain.JSEnabled
+import services.submission.ClaimSubmissionService
+import services.ClaimTransactionComponent
 
-abstract class G5Submit extends Controller with CachedClaim with Navigable {
+class G5Submit extends Controller with CachedClaim with Navigable
+      with AsyncSubmissionController
+      with ClaimBotChecking
+      with ClaimSubmissionService
+      with ClaimTransactionComponent {
+  val claimTransaction = new ClaimTransaction
 
   val form = Form(mapping(
     "jsEnabled" -> boolean
@@ -22,24 +29,17 @@ abstract class G5Submit extends Controller with CachedClaim with Navigable {
       }
   }
 
-  def submit: Action[AnyContent]
-}
-
-class G5SyncSubmit extends G5Submit {
-  override def submit: Action[AnyContent] = claimingWithCheck {
-    implicit claim => implicit request => implicit lang =>
-      Redirect(routes.G7Submitting.present())
-  }
-}
-
-class G5AsyncSubmit extends G5Submit with AsyncSubmittable with ClaimBotChecking {
   def submit: Action[AnyContent] = claiming {
     implicit claim => implicit request => implicit lang =>
-      form.bindFromRequest.fold (
+      form.bindFromRequest.fold(
         formWithErrors => {
           NotFound
         },
-        f => submit(claim, request, f.jsEnabled)
+        f => {
+          println(claim.getClass) // class models.view.CachedClaim$$anon$2
+          checkForBot(claim, request)
+          submission(claim, request, f.jsEnabled)
+        }
       )
   }
 }
