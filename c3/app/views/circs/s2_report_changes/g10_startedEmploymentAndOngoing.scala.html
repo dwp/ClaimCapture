@@ -1,7 +1,7 @@
 @(startedEmploymentAndOngoing: Form[models.domain.CircumstancesStartedEmploymentAndOngoing])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import helper._
-@import utils.helpers.CarersTemplate._
+@import utils.helpers.EmptyTemplate._
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.dropdowns._
@@ -24,7 +24,7 @@
 
                     @checkPlaceholder(startedEmploymentAndOngoing("haventBeenPaidYet"))
 
-                    @otherDetailPlaceHolder(
+                    @otherDetailSimplePlaceHolder(
                         inputDef = Seq(
                             Html(Messages("haventBeenPaidYet.help"))
                         ),
@@ -34,7 +34,7 @@
 
                     @dateTimePickerWithDynamicLabel(startedEmploymentAndOngoing("whatDatePaid"), 'dynamicDateDays-> 31)
 
-                    @otherDetailPlaceHolder(
+                    @otherDetailSimplePlaceHolder(
                         inputDef = Seq(
                             Html(Messages("whatDatePaid.help"))
                         ),
