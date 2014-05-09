@@ -35,24 +35,8 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
   val transactionId = "1234567"
 
-  //TODO: This was OPRT based codes working with S2, this has been uptated to work in lab env. but needs major reworking when Ingress moves to full REST interface
-
 
   "claim submission" should {
-    "record BAD_REQUEST" in new WithApplicationAndDB {
-
-      val service = asyncService(http.Status.OK,transactionId,result="0001")
-
-      val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
-
-      serviceSubmission(service, claim)
-
-      Thread.sleep(500)
-      val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
-
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.UNKNOWN_ERROR,1,Some(0),None,Some("en")))
-
-    }
 
     "record SUCCESS" in new WithApplicationAndDB {
 
