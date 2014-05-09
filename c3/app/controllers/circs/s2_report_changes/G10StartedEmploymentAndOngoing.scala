@@ -16,7 +16,8 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
     "haventBeenPaidYet" -> optional(carersText),
     "whatDatePaid" -> dayMonthYear.verifying(validDate),
     "howOften" -> mandatoryPaymentFrequency.verifying(validPaymentFrequencyOnly),
-    "monthlyPayDay" -> optional(carersText)
+    "monthlyPayDay" -> optional(carersText),
+    "usuallyPaidSameAmount" -> nonEmptyText.verifying(validYesNo)
   )(CircumstancesStartedEmploymentAndOngoing.apply)(CircumstancesStartedEmploymentAndOngoing.unapply)
     .verifying("expected.monthlyPayDay", validateMonthlyPayDay _))
 

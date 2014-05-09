@@ -28,7 +28,7 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-                            dateTimePickerWithDynamicLabel(stillCaring("date"))
+                            dateTimePickerWithDynamicLabel(stillCaring("date"), 'dynamicDateDays-> 31)
 	                    ),
 	                    'id -> "stillCaringWrap",
 	                    'display -> { if (stillCaring("answer").value.getOrElse("yes") == "no") "yes" else "no" }

@@ -109,7 +109,8 @@ case class CircumstancesStartedEmploymentAndOngoing(howMuchPaid: String,
                                                     notBeenPaid: Option[String],
                                                     date: DayMonthYear,
                                                     howOften: PaymentFrequency,
-                                                    monthlyPayDay: Option[String])
+                                                    monthlyPayDay: Option[String],
+                                                    usuallyPaidSameAmount: String)
   extends QuestionGroup(CircumstancesStartedEmploymentAndOngoing)
 
 object CircumstancesStartedEmploymentAndOngoing extends QuestionGroup.Identifier {
