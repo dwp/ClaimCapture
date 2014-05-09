@@ -37,19 +37,11 @@ trait AsyncClaimSubmissionService {
   }
 
   private def ok(claim: Claim, txnID: String, response: Response) = {
-    val responseStr = response.body
-    Logger.info(s"Received response : ${claim.key} : $responseStr")
-    val responseXml = scala.xml.XML.loadString(responseStr)
-    val result = (responseXml \\ "statusCode").text
-    Logger.info(s"Received result : ${claim.key} : $result")
-    result match {
-      case "0000" =>
-        claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
-        Logger.info(s"Successful submission : ${claim.key} : $txnID")
-      case _ =>
-        Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $UNKNOWN_ERROR")
-        claimTransaction.updateStatus(txnID, UNKNOWN_ERROR, claimType(claim))
-    }
+    Logger.info(s"Received OK : ${claim.key}")
+
+    claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
+    Logger.info(s"Successful submission : ${claim.key} : $txnID")
+
   }
 
   private def processResponse(claim: Claim, txnID: String, response: Response): Unit = {
@@ -58,16 +50,16 @@ trait AsyncClaimSubmissionService {
       case http.Status.OK => ok(claim,txnID,response)
 
       case http.Status.SERVICE_UNAVAILABLE =>
-        Logger.error(s"SERVICE_UNAVAILABLE : ${response.status} : ${response.toString}, TxnId : $txnID")
+        Logger.error(s"SERVICE_UNAVAILABLE : ${response.status} , TxnId : $txnID")
         claimTransaction.updateStatus(txnID, SERVICE_UNAVAILABLE, claimType(claim))
       case http.Status.BAD_REQUEST =>
-        Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}, TxnId : $txnID")
+        Logger.error(s"BAD_REQUEST : ${response.status} , TxnId : $txnID")
         claimTransaction.updateStatus(txnID, BAD_REQUEST_ERROR, claimType(claim))
       case http.Status.REQUEST_TIMEOUT =>
-        Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}, TxnId : $txnID")
+        Logger.error(s"REQUEST_TIMEOUT : ${response.status} , TxnId : $txnID")
         claimTransaction.updateStatus(txnID, REQUEST_TIMEOUT_ERROR, claimType(claim))
       case http.Status.INTERNAL_SERVER_ERROR =>
-        Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}, TxnId : $txnID")
+        Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} , TxnId : $txnID")
         claimTransaction.updateStatus(txnID, SERVER_ERROR, claimType(claim))
     }
   }
