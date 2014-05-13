@@ -9,15 +9,32 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
+import models.yesNo.{YesNoWithText, YesNo}
 
 object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCircs with Navigable {
+  val payIntoPension =
+    "doYouPayIntoPension" -> mapping (
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "whatFor" -> optional(carersNonEmptyText(maxLength = 300))
+    )(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("doYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
+
+  val careCostsForThisWork =
+    "doCareCostsForThisWork" -> mapping (
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "whatCosts" -> optional(carersNonEmptyText(maxLength = 300))
+    )(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("doCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
+
   val form = Form(mapping(
+    "beenPaidYet" -> nonEmptyText.verifying(validYesNo),
     "howMuchPaid" -> nonEmptyText(maxLength = 20),
-    "haventBeenPaidYet" -> optional(carersText),
     "whatDatePaid" -> dayMonthYear.verifying(validDate),
     "howOften" -> mandatoryPaymentFrequency.verifying(validPaymentFrequencyOnly),
     "monthlyPayDay" -> optional(carersText),
-    "usuallyPaidSameAmount" -> nonEmptyText.verifying(validYesNo)
+    "usuallyPaidSameAmount" -> optional(text.verifying(validYesNo)),
+    payIntoPension,
+    careCostsForThisWork
   )(CircumstancesStartedEmploymentAndOngoing.apply)(CircumstancesStartedEmploymentAndOngoing.unapply)
     .verifying("expected.monthlyPayDay", validateMonthlyPayDay _))
 
@@ -34,6 +51,8 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
           .replaceError("howOften.frequency","error.required",FormError("howOften","error.required"))
           .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
           .replaceError("", "expected.monthlyPayDay",FormError("monthlyPayDay","error.required"))
+          .replaceError("doYouPayIntoPension","doYouPayIntoPension.text.required",FormError("doYouPayIntoPension.whatFor","error.required"))
+          .replaceError("doCareCostsForThisWork","doCareCostsForThisWork.text.required",FormError("doCareCostsForThisWork.whatCosts","error.required"))
 
         BadRequest(views.html.circs.s2_report_changes.g10_startedEmploymentAndOngoing(formWithErrorsUpdate))
       },

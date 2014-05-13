@@ -23,7 +23,7 @@
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("c2.g9"))</legend>
 	
-	            <ul class="coc-layout">
+	            <ul>
 	                @yesNoRadioGroup(stillCaring("answer"))
 	
 	                @otherDetailPlaceHolder(
@@ -63,7 +63,8 @@
 
                     @yesNoRadioGroup(typeOfWork("answer"),
                         'values -> Seq("employed" -> Html(Messages("typeOfWork.employed")), "self-employed" -> Html(Messages("typeOfWork.selfemployed"))),
-                        'helperAbove -> Html(Messages("typeOfWork.help"))
+                        'helperAbove -> Html(Messages("typeOfWork.help")),
+                        '_boltonClass -> "radio-stack"
                     )
 
                     @otherDetailPlaceHolder(

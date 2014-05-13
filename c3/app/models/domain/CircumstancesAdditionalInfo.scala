@@ -105,12 +105,14 @@ object CircumstancesEmploymentChange extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g9"
 }
 
-case class CircumstancesStartedEmploymentAndOngoing(howMuchPaid: String,
-                                                    notBeenPaid: Option[String],
+case class CircumstancesStartedEmploymentAndOngoing(beenPaid: String,
+                                                    howMuchPaid: String,
                                                     date: DayMonthYear,
                                                     howOften: PaymentFrequency,
                                                     monthlyPayDay: Option[String],
-                                                    usuallyPaidSameAmount: String)
+                                                    usuallyPaidSameAmount: Option[String],
+                                                    payIntoPension: YesNoWithText = YesNoWithText("", None),
+                                                    careCostsForThisWork: YesNoWithText = YesNoWithText("", None))
   extends QuestionGroup(CircumstancesStartedEmploymentAndOngoing)
 
 object CircumstancesStartedEmploymentAndOngoing extends QuestionGroup.Identifier {
