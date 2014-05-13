@@ -499,6 +499,11 @@ main {
 				   height: 6em;
 				   width: 566px;
 				   background: #fff;
+				   
+				   &.textarea-reduced {
+					   height: 3em;
+				   }
+				   
 				   @media screen and (max-width: 620px) {width: 96%;}
 			   }
 			   select {

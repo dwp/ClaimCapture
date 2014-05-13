@@ -12,7 +12,7 @@
 
 @common.govMain(Messages("thankyou")) {
 
-    <div class="carers-allowance">
+    <div class="carers-allowance" data-journey="carers-allowance:page:thank-you">
 
         @common.protoType()
 
@@ -107,3 +107,8 @@
         
     </div>
 }
+<script type="text/javascript">
+$(function(){
+    @ga.stagePrompt()
+})
+</script>
