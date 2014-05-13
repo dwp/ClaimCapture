@@ -11,6 +11,12 @@
 @import utils.helpers.CarersCrypto
 @import app.ReportChange._
 @import play.api.i18n.{MMessages => Messages}
+@import app.ConfigProperties._
+
+@employmentOption = @{
+  if(getProperty("circs.employment.active", default = false)) EmploymentChange.name -> Messages("reportChanges.employed")
+  else SelfEmployment.name -> Messages("reportChanges.selfEmployed")
+}
 
 @main(Messages("c2.g1") + " - " + Messages("c2.name")) {
     @errorsSummary(reportChangesForm)
@@ -18,19 +24,19 @@
     @form(action = controllers.circs.s2_report_changes.routes.G1ReportChanges.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("c2.g1"))</legend>
-	
-	            <ul>
-	                @listRadioGroup(reportChangesForm("reportChanges"),
-                        '_nestedFieldSet -> true,
+	            <legend>@Html(Messages("reportChanges"))</legend>
+	                @listRadioGroupWithSubGroups(reportChangesForm("reportChanges"),
+                        '_nestedFieldSet -> false,
+                        '_showLabel -> false,
 	                    'items -> Seq(
-	                        BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
-	                        StoppedCaring.name -> Messages("reportChanges.stoppedCaring"),
+                            Messages("reportChanges.group1"),
+                            BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
+                            StoppedCaring.name -> Messages("reportChanges.stoppedCaring"),
+                            Messages("reportChanges.group2"),
 	                        AddressChange.name -> Messages("reportChanges.addressChange"),
-	                        SelfEmployment.name -> Messages("reportChanges.selfEmployed"),
+                            employmentOption,
 	                        PaymentChange.name -> Messages("reportChanges.paymentChange"),
 	                        AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")))
-	            </ul>
 	        </fieldset>
 	
 	        <nav class="form-steps">

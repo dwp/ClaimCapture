@@ -10,7 +10,7 @@ class G1DeclarationFormSpec extends Specification with Tags {
   val someOneElse = "yes"
   val nameOrOrganisation = "Tesco"
 
-  val G1Declaration = new G1SyncDeclaration
+  val G1Declaration = new G1Declaration
 
   "Change of circumstances - Declaration Form" should {
     "map data into case class" in {

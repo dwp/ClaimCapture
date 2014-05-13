@@ -1,0 +1,39 @@
+@(field: play.api.data.Field, options: Seq[(Any)], args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang, request: Request[AnyContent])
+
+@import utils.helpers.CarersCrypto
+@import play.api.Play
+@import play.api.Play.current
+@import utils.helpers.GAHelper._
+@import app.ConfigProperties._
+@import play.api.i18n.{MMessages => Messages}
+
+    @gaTrack(id: String,v: (String,String)) = @{
+        val tracking = args.find(_._1 == 'track).getOrElse('track->false)._2.asInstanceOf[Boolean]
+
+        if(getProperty("include.analytics", true) && tracking){
+            trackEvent(request.path,args.find(_._1 == 'trackLabel).getOrElse('trackLabel->(id+".tracking"))._2.toString,Some(v._2))
+        }
+    }
+
+
+@helper.input(field, args.filter(p => p._1 != 'track && p._1 != 'trackLabel):_*) { (id, name, value, htmlArgs) =>
+
+    @options.map { v =>
+        @v match {
+            case (s: String) => {
+              <li class="radioGroupLabel">
+                  <p>@s</p>
+              </li>
+            }
+            case (a: String, b: String) => {
+              <li>
+                @{/* printing the id needs replacement of spaces for underscores because browsers don't like spaces */}
+                <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+a.replace(" ","_"))" name="@CarersCrypto.encryptAES(field.name)" onclick="@gaTrack(id,(a,b))"  value="@a" @(if(value == Some(a)) "checked" else "") @toHtmlArgs(htmlArgs)>
+                <label for="@CarersCrypto.encryptAES(id+"_"+a.replace(" ","_"))">@b</label>
+              </li>
+            }
+          }
+      </li>
+    }
+
+}

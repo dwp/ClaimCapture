@@ -9,6 +9,13 @@ import play.api.libs.ws.Response
 import models.domain.Claim
 import ClaimSubmissionService._
 
+class AsyncClaimSubmissionComponent extends AsyncClaimSubmissionService
+with ClaimTransactionComponent
+with WebServiceClientComponent {
+  val webServiceClient = new WebServiceClient
+  val claimTransaction = new ClaimTransaction
+}
+
 trait AsyncClaimSubmissionService {
 
   this: ClaimTransactionComponent with WebServiceClientComponent =>
@@ -20,13 +27,13 @@ trait AsyncClaimSubmissionService {
 
     webServiceClient.submitClaim(claim, txnID).map(
       response => {
-        Logger.debug("Got response from WS:"+response)
-        try{
+        Logger.debug("Got response from WS:" + response)
+        try {
           claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
-          ClaimSubmissionService.recordMi(claim, txnID,claimTransaction.recordMi)
+          ClaimSubmissionService.recordMi(claim, txnID, claimTransaction.recordMi)
           processResponse(claim, txnID, response)
-        }catch{
-          case e:Exception => Logger.error(e.getMessage+" "+e.getStackTraceString)
+        } catch {
+          case e: Exception => Logger.error(e.getMessage + " " + e.getStackTraceString)
         }
       }
     )
@@ -56,9 +63,9 @@ trait AsyncClaimSubmissionService {
   }
 
   private def processResponse(claim: Claim, txnID: String, response: Response): Unit = {
-    Logger.debug("Response status is "+response.status)
+    Logger.debug("Response status is " + response.status)
     response.status match {
-      case http.Status.OK => ok(claim,txnID,response)
+      case http.Status.OK => ok(claim, txnID, response)
 
       case http.Status.SERVICE_UNAVAILABLE =>
         Logger.error(s"SERVICE_UNAVAILABLE : ${response.status} : ${response.toString}, TxnId : $txnID")
@@ -74,10 +81,8 @@ trait AsyncClaimSubmissionService {
         claimTransaction.updateStatus(txnID, SERVER_ERROR, claimType(claim))
     }
   }
-
-
 }
 
-object AsyncClaimSubmissionService{
+object AsyncClaimSubmissionService {
   val GENERATED = "0100" //submitting
 }
