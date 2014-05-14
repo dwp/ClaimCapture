@@ -110,7 +110,7 @@ case class CircumstancesStartedEmploymentAndOngoing(beenPaid: String,
                                                     date: DayMonthYear,
                                                     howOften: PaymentFrequency,
                                                     monthlyPayDay: Option[String],
-                                                    usuallyPaidSameAmount: Option[String],
+                                                    usuallyPaidSameAmount: String,
                                                     payIntoPension: YesNoWithText = YesNoWithText("", None),
                                                     careCostsForThisWork: YesNoWithText = YesNoWithText("", None))
   extends QuestionGroup(CircumstancesStartedEmploymentAndOngoing)
