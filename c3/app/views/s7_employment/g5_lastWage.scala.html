@@ -24,7 +24,7 @@
 	
 	                @carersCurrency(currentForm("grossPay"), 'maxlength -> Mappings.sixty)
 	
-	                @carersInputTextArea(currentForm("payInclusions"), 'placeholder -> Messages("pleaseSpecify"), 'helper -> Html(Messages("60charsLeft")), 'maxLength -> 60,'helperAbove -> Messages("payInclusions.helper"))
+	                @carersInputTextArea(currentForm("payInclusions"), 'placeholder -> Messages("pleaseSpecify"), 'helper -> Html(Messages("60charsLeft")), 'class -> "textarea-reduced", 'maxLength -> 60,'helperAbove -> Messages("payInclusions.helper"))
 	
 	                @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> labelForEmployment(claim, lang, "sameAmountEachTime", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
 	            </ul>

@@ -6,6 +6,10 @@ object CarersTemplate {
   implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.carersTemplate.f)
 }
 
+object CheckTemplate {
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.checkTemplate.f)
+}
+
 object EmptyTemplate {
   implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.emptyTemplate.f)
 }

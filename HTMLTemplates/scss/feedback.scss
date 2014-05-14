@@ -1,5 +1,4 @@
 .feedback-container {
-	display: none;
 	border: 10px solid #005ea5;
 	border-top: 0;
 	background: #fff;
@@ -17,6 +16,7 @@
 		display: inline-block;
 		cursor: pointer;
 		font-weight: 600;
+		display: none;
 		&:before {
 			content: "\00d7";
 			font-size: 26px;

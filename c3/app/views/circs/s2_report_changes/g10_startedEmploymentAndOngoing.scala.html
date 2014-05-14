@@ -1,0 +1,162 @@
+@(startedEmploymentAndOngoing: Form[models.domain.CircumstancesStartedEmploymentAndOngoing])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.common._
+@import views.html.helper._
+@import views.html.helper.dropdowns._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import controllers.Mappings._
+@import utils.helpers.CarersCrypto
+@import play.api.i18n.{MMessages => Messages}
+
+@main(Messages("c2.g2") + " - " + Messages("c2.name")) {
+    @errorsSummary(startedEmploymentAndOngoing)
+
+    @form(action = controllers.circs.s2_report_changes.routes.G10StartedEmploymentAndOngoing.submit) {
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("c2.g10"))</legend>
+	
+	            <ul>
+                    @yesNoRadioGroup(startedEmploymentAndOngoing("beenPaidYet"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersShortInputText(startedEmploymentAndOngoing("howMuchPaid")),
+                            dateTimePickerWithDynamicLabel(startedEmploymentAndOngoing("whatDatePaid"), 'dynamicDateDays-> 31),
+                            paymentFrequencySelect(startedEmploymentAndOngoing("howOften"),
+                                'id -> "howOften",
+                                'visibleOn -> "yes",
+                                '_label -> Messages("circs.howOften"),
+                                'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
+                                'display -> {if(startedEmploymentAndOngoing("howOften")("frequency").value.getOrElse("no") == "other") "yes" else "no"}
+                            )
+                        ),
+                        'id -> "beenPaidYetWrap",
+                        'display -> {if(startedEmploymentAndOngoing("beenPaidYet").value == Some) "yes" else "no"}
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputText(startedEmploymentAndOngoing("monthlyPayDay"),
+                                'ignoreOptional -> true,
+                                'helperAbove -> Html(Messages("monthlyPayDay.help")))
+                            ),
+                        'id -> "monthlyPayDayWrap",
+                        'display -> {if(startedEmploymentAndOngoing("howOften")("frequency").value.getOrElse("no") == "monthly") "yes" else "no"}
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            yesNoRadioGroup(startedEmploymentAndOngoing("usuallyPaidSameAmount"),
+                                'ignoreOptional -> true,
+                                '_label -> "usuallyPaidSameAmount.time")
+                            ),
+                        'id -> "usuallyPaidSameAmountWrap",
+                        'display -> {if(startedEmploymentAndOngoing("howOften")("frequency").value == Some) "yes" else "no"}
+                    )
+                </ul>
+            </fieldset>
+            <fieldset class="form-elements">
+                <legend>@Html(Messages("c2.g10.pensionsAndExpenses"))</legend>
+
+                <ul>
+                    @yesNoRadioGroup(startedEmploymentAndOngoing("doYouPayIntoPension")("answer"),
+                        '_label -> "doYouPayIntoPension"
+                    )
+
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(startedEmploymentAndOngoing("doYouPayIntoPension")("whatFor"),
+                                'helper -> Html(Messages("300charsLeft")),
+                                'ignoreOptional -> true,
+                                'maxLength -> 300)
+                        ),
+                        'id -> "whatForWrap",
+                        'display -> {if(startedEmploymentAndOngoing("doYouPayIntoPension")("answer").value.getOrElse("no") == "yes") "yes" else "no"}
+                    )
+
+                    @yesNoRadioGroup(startedEmploymentAndOngoing("doCareCostsForThisWork")("answer"),
+                        '_label -> "doCareCostsForThisWork"
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(startedEmploymentAndOngoing("doCareCostsForThisWork")("whatCosts"),
+                                'helper -> Html(Messages("300charsLeft")),
+                                'helperAbove -> Html(Messages("doCareCostsForThisWork.whatCosts.help")),
+                                'ignoreOptional -> true,
+                                'maxLength -> 300)
+                        ),
+                        'id -> "whatCostsWrap",
+                        'display -> {if(startedEmploymentAndOngoing("doCareCostsForThisWork")("answer").value.getOrElse("no") == "yes") "yes" else "no"}
+                    )
+
+                </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+        </div>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g10_startedEmploymentAndOngoing.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
+
+<script type="text/javascript">
+$(function(){
+    window.areaCounter({selector:"@CarersCrypto.encryptAES(startedEmploymentAndOngoing("howOften")("frequency").id)",maxChars:60});
+})
+$(function(){
+    window.beenPaidYet("@CarersCrypto.encryptAES(startedEmploymentAndOngoing("beenPaidYet")("yes").id)",
+                       "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("beenPaidYet")("no").id)",
+                       "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("howMuchPaid").id)",
+                       "@Html(Messages("howMuchPaid"))",
+                       "@Html(Messages("howMuchPaid.expect"))",
+                       "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("whatDatePaid").id)",
+                       "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("whatDatePaid")("day").id)",
+                       "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("whatDatePaid")("month").id)",
+                       "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("whatDatePaid")("year").id)",
+                       "@Html(Messages("whatDatePaid"))",
+                       "@Html(Messages("whatDatePaid.expect"))",
+                       "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("howOften")("frequency").id)",
+                       "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("howOften")("frequency")("other").id)",
+                       "@Html(Messages("circs.howOften"))",
+                       "@Html(Messages("circs.howOften.expect"))",
+                       "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("monthlyPayDay").id)",
+                       "@Html(Messages("monthlyPayDay"))",
+                       "@Html(Messages("monthlyPayDay.expect"))",
+                       "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("usuallyPaidSameAmount").id)",
+                       "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("usuallyPaidSameAmount")("yes").id)",
+                       "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("usuallyPaidSameAmount")("no").id)",
+                       "@Html(Messages("usuallyPaidSameAmount"))",
+                       "@Html(Messages("usuallyPaidSameAmount.expect"))");
+
+    window.payDay("@CarersCrypto.encryptAES(startedEmploymentAndOngoing("howOften")("frequency").id)",
+                  "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("monthlyPayDay").id)",
+                  "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("usuallyPaidSameAmount").id)",
+                  "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("usuallyPaidSameAmount")("yes").id)",
+                  "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("usuallyPaidSameAmount")("no").id)",
+                  "@Html(Messages("pleaseSelect"))");
+
+    window.whatFor("@CarersCrypto.encryptAES(startedEmploymentAndOngoing("doYouPayIntoPension")("answer")("yes").id)",
+                   "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("doYouPayIntoPension")("answer")("no").id)",
+                   "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("doYouPayIntoPension")("whatFor").id)");
+
+    window.whatCosts("@CarersCrypto.encryptAES(startedEmploymentAndOngoing("doCareCostsForThisWork")("answer")("yes").id)",
+                     "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("doCareCostsForThisWork")("answer")("no").id)",
+                     "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("doCareCostsForThisWork")("whatCosts").id)");
+    window.areaCounter({selector: "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("howOften")("frequency")("other").id)",maxChars:60});
+    window.areaCounter({selector: "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("doYouPayIntoPension")("whatFor").id)",maxChars:300});
+    window.areaCounter({selector: "@CarersCrypto.encryptAES(startedEmploymentAndOngoing("doCareCostsForThisWork")("whatCosts").id)",maxChars:300});
+});
+</script>

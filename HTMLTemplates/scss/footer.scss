@@ -7,14 +7,14 @@ footer {
 		div {
 			float: left;
 			width: 75%;
-			padding-top: 6.7em;
+			padding-top: 4.5em;
 			@media screen and (max-width: 640px) {
 				float: none;
 				width: 100%;
 				text-align: center;
 				padding: 0;
 			}
-			&.right {
+			&.fr {
 				float: right;
 				width: 150px;	
 				padding: 0;
@@ -44,19 +44,22 @@ footer {
 			margin: 0;
 			font-size: 15px;
 			color: #fff;
-			&:before {
-				content: url('images/ogl.png');
-				width: 41px;
-				height: 17px;
-				position: relative;
-				top: 3px;
-				margin-right: 10px;
-			}
 			a {
 				color: #fff;
 				text-decoration: underline; 
 				&:hover {
 					color: #666;
+				}
+			}
+			&.ogl {
+				margin-top: 16px;
+				&:before {
+					content: url('images/ogl.png');
+					width: 41px;
+					height: 17px;
+					position: relative;
+					top: 3px;
+					margin-right: 10px;
 				}
 			}
 		}
