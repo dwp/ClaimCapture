@@ -43,13 +43,9 @@ trait Injector {
                 new Response(null) {
                   override def status: Int = http.Status.OK
                   override lazy val body: String =
-                    <response>
-                      <result>response</result>
-                      <correlationID>correlationID</correlationID>
-                      <messageClass>messageClass</messageClass>
-                      <pollEndpoint>pollEndpoint</pollEndpoint>
-                      <errorCode>errorCode</errorCode>
-                    </response>.buildString(stripComments = false)
+                    <Response>
+                      <statusCode>0000</statusCode>
+                    </Response>.buildString(stripComments = false)
                 }
               Future(resp)
             }

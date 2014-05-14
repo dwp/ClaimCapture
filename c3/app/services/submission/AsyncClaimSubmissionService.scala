@@ -24,10 +24,10 @@ trait AsyncClaimSubmissionService {
     val txnID = claim.transactionId.get
     Logger.info(s"Retrieved Id : $txnID")
 
-
+    try{
     webServiceClient.submitClaim(claim, txnID).map(
       response => {
-        Logger.debug("Got response from WS:" + response)
+          Logger.info("Got response from WS:"+response)
         try {
           claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
           ClaimSubmissionService.recordMi(claim, txnID, claimTransaction.recordMi)
@@ -37,29 +37,17 @@ trait AsyncClaimSubmissionService {
         }
       }
     )
+    }catch{
+      case e:Exception => Logger.error("global error talking to ingress "+e.getMessage+" "+e.getStackTraceString)
+    }
   }
 
   private def ok(claim: Claim, txnID: String, response: Response) = {
-    val responseStr = response.body
-    Logger.info(s"Received response : ${claim.key} : $responseStr")
-    val responseXml = scala.xml.XML.loadString(responseStr)
-    val result = (responseXml \\ "result").text
-    Logger.info(s"Received result : ${claim.key} : $result")
-    result match {
-      case "response" =>
-        claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
-        Logger.info(s"Successful submission : ${claim.key} : $txnID")
-      case "acknowledgement" =>
-        claimTransaction.updateStatus(txnID, ACKNOWLEDGED, claimType(claim))
-        Logger.info(s"Successful submission : ${claim.key} : $txnID")
-      case "error" =>
-        val errorCode = (responseXml \\ "errorCode").text
-        Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $errorCode")
-        claimTransaction.updateStatus(txnID, errorCode, claimType(claim))
-      case _ =>
-        Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $UNKNOWN_ERROR")
-        claimTransaction.updateStatus(txnID, UNKNOWN_ERROR, claimType(claim))
-    }
+    Logger.info(s"Received OK : ${claim.key}")
+
+    claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
+    Logger.info(s"Successful submission : ${claim.key} : $txnID")
+
   }
 
   private def processResponse(claim: Claim, txnID: String, response: Response): Unit = {
