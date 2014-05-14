@@ -6,15 +6,16 @@ import utils.pageobjects.{PageObjects, XmlPage, TestData, Page}
 import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
 import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
+import app.ConfigProperties._
 
-class FunctionalTestCase7Spec extends FunctionalTestCommon {
+class FunctionalTestCase28Spec extends FunctionalTestCommon {
   isolated
 
   "The application Circumstances" should {
-    "Successfully run absolute Circumstances Test Case 7" in new WithBrowser(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "false"))) with PageObjects {
+    "Successfully run absolute Circumstances Test Case 28" in new WithBrowser(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
 
       val page = G1ReportAChangeInYourCircumstancesPage(context)
-      val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase7.csv")
+      val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase28.csv")
       page goToThePage()
 
       val lastPage = page runClaimWith(circs, XmlPage.title)

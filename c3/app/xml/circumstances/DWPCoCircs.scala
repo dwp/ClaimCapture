@@ -72,6 +72,7 @@ object DWPCoCircs extends XMLComponent {
     lazy val paymentChangeOption = circs.questionGroup[CircumstancesPaymentChange]
     lazy val addressChangeOption = circs.questionGroup[CircumstancesAddressChange]
     lazy val breaksFromCaringOption = circs.questionGroup[CircumstancesBreaksInCare]
+    lazy val employmentChangesOptions = circs.questionGroup[CircumstancesEmploymentChange]
 
     if (additionalInfoOption.isDefined) {
       yes
@@ -101,6 +102,12 @@ object DWPCoCircs extends XMLComponent {
       }
     } else if (breaksFromCaringOption.isDefined){
       if (breaksFromCaringOption.get.moreAboutChanges.isEmpty) {
+        no
+      } else {
+        yes
+      }
+    } else if (employmentChangesOptions.isDefined){
+      if (employmentChangesOptions.get.typeOfWork.text2b.isEmpty) {
         no
       } else {
         yes

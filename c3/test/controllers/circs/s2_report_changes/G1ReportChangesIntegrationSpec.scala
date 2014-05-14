@@ -1,6 +1,6 @@
 package controllers.circs.s2_report_changes
 
-import play.api.test.WithBrowser
+import play.api.test.{FakeApplication, WithBrowser}
 import utils.pageobjects.circumstances.s2_report_changes._
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable.{Tags, Specification}
@@ -44,7 +44,7 @@ class G1ReportChangesIntegrationSpec extends Specification with Tags {
        nextPage must beAnInstanceOf[G4OtherChangeInfoPage]
      }
 
-     "navigate to next page when self employment selected" in new WithBrowser with PageObjects{
+     "navigate to next page when self employment selected" in new WithBrowser(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "false"))) with PageObjects{
        val page =  G1ReportChangesPage(context)
        val claim = CircumstancesScenarioFactory.reportChangesSelfEmployment
        page goToThePage()

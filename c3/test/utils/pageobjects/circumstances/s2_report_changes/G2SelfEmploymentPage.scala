@@ -19,7 +19,7 @@ final class G2SelfEmploymentPage(ctx:PageObjectsContext) extends CircumstancesPa
 object G2SelfEmploymentPage {
   val title = "About Your Self-Employment - Change in circumstances".toLowerCase
 
-  val url  = "/circumstances/report-changes/selection"
+  val url  = "/circumstances/report-changes/self-employment"
 
   def apply(ctx:PageObjectsContext) = new G2SelfEmploymentPage(ctx)
 }

@@ -10,6 +10,10 @@ import org.joda.time.DateTime
 import models.domain.Claim
 import scala.Some
 import controllers.Mappings
+import app.ConfigProperties._
+import play.Logger
+import models.domain.Claim
+import scala.Some
 
 object CircsEvidenceList {
   def xml(circs: Claim) = {
@@ -23,25 +27,63 @@ object CircsEvidenceList {
   }
 
   def selfEmployed(circs: Claim): NodeSeq = {
-    val circsSelfEmploymentOption: Option[CircumstancesSelfEmployment] = circs.questionGroup[CircumstancesSelfEmployment]
-
     var buffer = NodeSeq.Empty
 
-    circsSelfEmploymentOption match {
-      case Some(circsSelfEmployment) => {
-        buffer ++=  textSeparatorLine(Messages("c2.g2"))
+    Logger.debug("circs.employment.active = " + getProperty("circs.employment.active", default = false))
+    if(getProperty("circs.employment.active", default = false)) {
+      val employmentChangeOption: Option[CircumstancesEmploymentChange] = circs.questionGroup[CircumstancesEmploymentChange]
+      employmentChangeOption match {
+        case Some(employmentChange) => {
+          buffer ++= textSeparatorLine(Messages("c2.g9"))
 
-        buffer ++= textLine(Messages("stillCaring.answer") + " = " + circsSelfEmployment.stillCaring.answer)
+          buffer ++= textLine(Messages("stillCaring.answer") + " = " + employmentChange.stillCaring.answer)
 
-        circsSelfEmployment.stillCaring.answer match {
-          case "no" => buffer ++= textLine(Messages("whenStoppedCaring") + " = " + circsSelfEmployment.stillCaring.date.get.`dd/MM/yyyy`)
-          case _ =>
+          employmentChange.stillCaring.answer match {
+            case "no" => buffer ++= textLine(Messages("whenStoppedCaring") + " = " + employmentChange.stillCaring.date.get.`dd/MM/yyyy`)
+            case _ =>
+          }
+
+          buffer ++= textLine(Messages("hasWorkStartedYet.answer") + " = " + employmentChange.hasWorkStartedYet.answer)
+
+          employmentChange.hasWorkStartedYet.answer match {
+            case "yes" => {
+              buffer ++= textLine(Messages("hasWorkStartedYet.dateWhenStarted") + " = " + employmentChange.hasWorkStartedYet.date1.get.`dd/MM/yyyy`)
+              buffer ++= textLine(Messages("hasWorkStartedYet.hasWorkFinishedYet.answer") + " = " + employmentChange.hasWorkStartedYet.answer)
+              employmentChange.hasWorkStartedYet.yesNoDate.answer.getOrElse("no") match {
+                case "yes" => {
+                  buffer ++= textLine(Messages("hasWorkStartedYet.hasWorkFinishedYet") + " = " + employmentChange.hasWorkStartedYet.yesNoDate.date.get.`dd/MM/yyyy`)
+                }
+                case _ =>
+              }
+            }
+            case _ => {
+              buffer ++= textLine(Messages("hasWorkStartedYet.dateWhenWillItStart") + " = " + employmentChange.hasWorkStartedYet.date2.get.`dd/MM/yyyy`)
+            }
+          }
+
+          buffer ++= textLine(Messages("typeOfWork") + " = " + employmentChange.typeOfWork.answer)
         }
-        buffer ++= textLine(Messages("whenThisSelfEmploymentStarted") + " = " + circsSelfEmployment.whenThisSelfEmploymentStarted.`dd/MM/yyyy`)
-        buffer ++= textLine(Messages("typeOfBusiness") + " = " + circsSelfEmployment.typeOfBusiness)
-        buffer ++= textLine(Messages("totalOverWeeklyIncomeThreshold") + " = " + circsSelfEmployment.totalOverWeeklyIncomeThreshold)
+        case _ =>
       }
-      case _ =>
+    }
+    else {
+      val circsSelfEmploymentOption: Option[CircumstancesSelfEmployment] = circs.questionGroup[CircumstancesSelfEmployment]
+      circsSelfEmploymentOption match {
+        case Some(circsSelfEmployment) => {
+          buffer ++= textSeparatorLine(Messages("c2.g2"))
+
+          buffer ++= textLine(Messages("stillCaring.answer") + " = " + circsSelfEmployment.stillCaring.answer)
+
+          circsSelfEmployment.stillCaring.answer match {
+            case "no" => buffer ++= textLine(Messages("whenStoppedCaring") + " = " + circsSelfEmployment.stillCaring.date.get.`dd/MM/yyyy`)
+            case _ =>
+          }
+          buffer ++= textLine(Messages("whenThisSelfEmploymentStarted") + " = " + circsSelfEmployment.whenThisSelfEmploymentStarted.`dd/MM/yyyy`)
+          buffer ++= textLine(Messages("typeOfBusiness") + " = " + circsSelfEmployment.typeOfBusiness)
+          buffer ++= textLine(Messages("totalOverWeeklyIncomeThreshold") + " = " + circsSelfEmployment.totalOverWeeklyIncomeThreshold)
+        }
+        case _ =>
+      }
     }
 
     buffer

@@ -36,12 +36,11 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
       "answer" -> nonEmptyText.verifying(validYesNo),
       "dateWhenStarted" -> optional(dayMonthYear.verifying(validDate)),
       "dateWhenWillItStart" -> optional(dayMonthYear.verifying(validDate)),
-      hasWorkFinishedYet,
-      "dateWhenWillStart" -> optional(dayMonthYear.verifying(validDate))
-    )(YesNoWithDateOrDateAndOptYesNoWithDateOrDate.apply)(YesNoWithDateOrDateAndOptYesNoWithDateOrDate.unapply)
-      .verifying("expected.yesDateValue", YesNoWithDateOrDateAndOptYesNoWithDateOrDate.validateDateOnYes _)
-      .verifying("expected.yesYesNoValue", YesNoWithDateOrDateAndOptYesNoWithDateOrDate.validateYesNoOnYes _)
-      .verifying("expected.noDateValue", YesNoWithDateOrDateAndOptYesNoWithDateOrDate.validateDateOnNo _)
+      hasWorkFinishedYet
+    )(YesNoWithDateOrDateAndOptYesNoWithDate.apply)(YesNoWithDateOrDateAndOptYesNoWithDate.unapply)
+      .verifying("expected.yesDateValue", YesNoWithDateOrDateAndOptYesNoWithDate.validateDateOnYes _)
+      .verifying("expected.yesYesNoValue", YesNoWithDateOrDateAndOptYesNoWithDate.validateYesNoOnYes _)
+      .verifying("expected.noDateValue", YesNoWithDateOrDateAndOptYesNoWithDate.validateDateOnNo _)
 
   val typeOfWork =
     "typeOfWork" -> mapping(

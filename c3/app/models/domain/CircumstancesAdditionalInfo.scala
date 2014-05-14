@@ -97,7 +97,7 @@ object CircumstancesBreaksInCareSummary extends QuestionGroup.Identifier {
 }
 
 case class CircumstancesEmploymentChange(stillCaring: YesNoWithDate = YesNoWithDate("", None),
-                                         hasWorkStartedYet: YesNoWithDateOrDateAndOptYesNoWithDateOrDate = YesNoWithDateOrDateAndOptYesNoWithDateOrDate("", None, None, OptYesNoWithDate(None, None)),
+                                         hasWorkStartedYet: YesNoWithDateOrDateAndOptYesNoWithDate = YesNoWithDateOrDateAndOptYesNoWithDate("", None, None, OptYesNoWithDate(None, None)),
                                          typeOfWork: YesNoWithAddressAnd2TextOrTextWithYesNoAndText = YesNoWithAddressAnd2TextOrTextWithYesNoAndText("", None, None, None))
   extends QuestionGroup(CircumstancesEmploymentChange)
 
