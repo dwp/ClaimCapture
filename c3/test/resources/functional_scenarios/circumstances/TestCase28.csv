@@ -9,7 +9,8 @@ Employment - Change in circumstances,Employment,What date did you stop caring 35
 Employment - Change in circumstances,Employment,Has this work started yet?,CircumstancesEmploymentChangeHasWorkStartedYet,yes
 Employment - Change in circumstances,Employment,When did you start this work?,CircumstancesEmploymentChangeDateWhenStarted,01/01/2014
 Employment - Change in circumstances,Employment,When will you start this work?,CircumstancesEmploymentChangeDateWhenWillItStart,
-Employment - Change in circumstances,Employment,Has this work finished?,CircumstancesEmploymentChangeHasWorkFinishedYet,no
+Employment - Change in circumstances,Employment,When did this work finish?,CircumstancesEmploymentChangeHasWorkFinishedYet,no
+Employment - Change in circumstances,Employment,When will you start this work?,CircumstancesEmploymentChangeDateWhenFinished,
 Employment - Change in circumstances,Employment,What type of work is this?,CircumstancesEmploymentChangeTypeOfWork,self-employed
 Employment - Change in circumstances,Employment,Type of work or business,CircumstancesEmploymentChangeSelfEmployedTypeOfWork,Plumber
 Employment - Change in circumstances,Employment,Will the total income into your business be more than £102 a week?,CircumstancesEmploymentChangeSelfEmployedTotalIncome,dontknow
