@@ -36,32 +36,50 @@ object CircsEvidenceList {
         case Some(employmentChange) => {
           buffer ++= textSeparatorLine(Messages("c2.g9"))
 
-          buffer ++= textLine(Messages("stillCaring.answer") + " = " + employmentChange.stillCaring.answer)
+          buffer ++= textLine(Messages("stillCaring.answer") + " = " + Messages("label." + employmentChange.stillCaring.answer))
 
           employmentChange.stillCaring.answer match {
             case "no" => buffer ++= textLine(Messages("whenStoppedCaring") + " = " + employmentChange.stillCaring.date.get.`dd/MM/yyyy`)
             case _ =>
           }
 
-          buffer ++= textLine(Messages("hasWorkStartedYet.answer") + " = " + employmentChange.hasWorkStartedYet.answer)
+          buffer ++= textLine(Messages("hasWorkStartedYet.answer") + " = " + Messages("label." + employmentChange.hasWorkStartedYet.answer))
 
           employmentChange.hasWorkStartedYet.answer match {
             case "yes" => {
               buffer ++= textLine(Messages("hasWorkStartedYet.dateWhenStarted") + " = " + employmentChange.hasWorkStartedYet.date1.get.`dd/MM/yyyy`)
-              buffer ++= textLine(Messages("hasWorkStartedYet.hasWorkFinishedYet.answer") + " = " + employmentChange.hasWorkStartedYet.answer)
-              employmentChange.hasWorkStartedYet.yesNoDate.answer.getOrElse("no") match {
-                case "yes" => {
-                  buffer ++= textLine(Messages("hasWorkStartedYet.hasWorkFinishedYet") + " = " + employmentChange.hasWorkStartedYet.yesNoDate.date.get.`dd/MM/yyyy`)
+
+              employmentChange.hasWorkFinishedYet.answer match {
+                case Some(answer) => {
+                  buffer ++= textLine(Messages("hasWorkStartedYet.hasWorkFinishedYet.answer") + " = " + Messages("label." + employmentChange.hasWorkFinishedYet.answer.get))
+
+                  employmentChange.hasWorkFinishedYet.answer.getOrElse("no") match {
+                    case "yes" => {
+                      buffer ++= textLine(Messages("hasWorkStartedYet.hasWorkFinishedYet") + " = " + employmentChange.hasWorkFinishedYet.date.get.`dd/MM/yyyy`)
+                    }
+                    case _ =>
+                  }
                 }
                 case _ =>
               }
+
             }
             case _ => {
               buffer ++= textLine(Messages("hasWorkStartedYet.dateWhenWillItStart") + " = " + employmentChange.hasWorkStartedYet.date2.get.`dd/MM/yyyy`)
             }
           }
 
-          buffer ++= textLine(Messages("typeOfWork") + " = " + employmentChange.typeOfWork.answer)
+          buffer ++= textLine(Messages("typeOfWork") + " = " + Messages("label." + employmentChange.typeOfWork.answer))
+
+          employmentChange.typeOfWork.answer match {
+            case "self-employed" => {
+              buffer ++= textLine(Messages("typeOfWork.selfEmployedTypeOfWork") + " = " + employmentChange.typeOfWork.text2a.get)
+              buffer ++= textLine(Messages("typeOfWork.selfEmployedTotalIncome") + " = " + Messages("label." + employmentChange.typeOfWork.answer2.get))
+            }
+            case _ => {
+
+            }
+          }
         }
         case _ =>
       }

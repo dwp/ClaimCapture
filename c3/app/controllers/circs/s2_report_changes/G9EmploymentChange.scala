@@ -35,12 +35,11 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
     "hasWorkStartedYet" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
       "dateWhenStarted" -> optional(dayMonthYear.verifying(validDate)),
-      "dateWhenWillItStart" -> optional(dayMonthYear.verifying(validDate)),
-      hasWorkFinishedYet
-    )(YesNoWithDateOrDateAndOptYesNoWithDate.apply)(YesNoWithDateOrDateAndOptYesNoWithDate.unapply)
-      .verifying("expected.yesDateValue", YesNoWithDateOrDateAndOptYesNoWithDate.validateDateOnYes _)
-      .verifying("expected.yesYesNoValue", YesNoWithDateOrDateAndOptYesNoWithDate.validateYesNoOnYes _)
-      .verifying("expected.noDateValue", YesNoWithDateOrDateAndOptYesNoWithDate.validateDateOnNo _)
+      "dateWhenWillItStart" -> optional(dayMonthYear.verifying(validDate))
+    )(YesNoWithMutuallyExclusiveDates.apply)(YesNoWithMutuallyExclusiveDates.unapply)
+      .verifying("expected.yesDateValue", YesNoWithMutuallyExclusiveDates.validateDateOnYes _)
+//      .verifying("expected.yesYesNoValue", YesNoWithMutuallyExclusiveDates.validateYesNoOnYes _)
+      .verifying("expected.noDateValue", YesNoWithMutuallyExclusiveDates.validateDateOnNo _)
 
   val typeOfWork =
     "typeOfWork" -> mapping(
@@ -61,8 +60,11 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
   val form = Form(mapping(
     stillCaringMapping,
     hasWorkStartedYet,
+    hasWorkFinishedYet,
     typeOfWork
-  )(CircumstancesEmploymentChange.apply)(CircumstancesEmploymentChange.unapply))
+  )(CircumstancesEmploymentChange.apply)(CircumstancesEmploymentChange.unapply)
+    .verifying("expected.hasWorkFinished", validHasWorkFinished _)
+  )
 
   def present = claiming { implicit circs => implicit request => implicit lang =>
     track(CircumstancesEmploymentChange) {
@@ -75,7 +77,7 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
       case `employed` => {
         employmentChange.hasWorkStartedYet.answer match {
           case `yes` => {
-            if (employmentChange.hasWorkStartedYet.yesNoDate.answer.getOrElse("no") == `yes`) Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
+            if (employmentChange.hasWorkFinishedYet.answer.getOrElse("no") == `yes`) Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
             else Redirect(controllers.circs.s2_report_changes.routes.G10StartedEmploymentAndOngoing.present())
           }
           case _ => Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
@@ -89,14 +91,15 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
         val updatedFormWithErrors = formWithErrors
           .replaceError("stillCaring","dateRequired", FormError("stillCaring.date", "error.required"))
           .replaceError("hasWorkStartedYet","expected.yesDateValue", FormError("hasWorkStartedYet.dateWhenStarted", "error.required"))
-          .replaceError("hasWorkStartedYet","expected.yesYesNoValue", FormError("hasWorkStartedYet.hasWorkFinishedYet.answer", "error.required"))
-          .replaceError("hasWorkStartedYet.hasWorkFinishedYet","expected.yesValue", FormError("hasWorkStartedYet.hasWorkFinishedYet.dateWhenFinished", "error.required"))
+          .replaceError("hasWorkStartedYet","expected.yesYesNoValue", FormError("hasWorkFinishedYet.answer", "error.required"))
+          .replaceError("hasWorkFinishedYet","expected.yesValue", FormError("hasWorkFinishedYet.dateWhenFinished", "error.required"))
           .replaceError("hasWorkStartedYet","expected.noDateValue", FormError("hasWorkStartedYet.dateWhenWillItStart", "error.required"))
           .replaceError("typeOfWork","expected.employerNameAndAddress1", FormError("typeOfWork.employerNameAndAddress", "error.required"))
           .replaceError("typeOfWork","expected.employerNameAndAddress2", FormError("typeOfWork.employerNameAndAddress", "nameAndAddress.required"))
           .replaceError("typeOfWork","expected.employerPostCode", FormError("typeOfWork.employerPostcode", "error.required"))
           .replaceError("typeOfWork","expected.selfEmploymentTypeOfWork", FormError("typeOfWork.selfEmployedTypeOfWork", "error.required"))
           .replaceError("typeOfWork","expected.selfEmploymentTotalIncome", FormError("typeOfWork.selfEmployedTotalIncome", "error.required"))
+          .replaceError("", "expected.hasWorkFinished", FormError("hasWorkFinishedYet.answer", "error.required"))
         BadRequest(views.html.circs.s2_report_changes.g9_employmentChange(updatedFormWithErrors))
       },
       employmentChange => circs.update(employmentChange) -> next(employmentChange)
@@ -117,5 +120,10 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
       case `no` => Valid
       case _ => Invalid(ValidationError("hasWorkStatedYet.invalid"))
     }
+  }
+
+  def validHasWorkFinished(input: CircumstancesEmploymentChange): Boolean = {
+    if ((input.hasWorkStartedYet.answer == "yes") && (input.hasWorkFinishedYet.answer == None)) false
+    else true
   }
 }

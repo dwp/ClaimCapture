@@ -103,6 +103,7 @@
                         inputDef = Seq(
                             carersInputTextArea(doYouPayIntoPension("whatFor"),
                                 'helper -> Html(Messages("300charsLeft")),
+                                'helperAbove -> Html(Messages("doYouPayIntoPension.whatFor.help")),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
