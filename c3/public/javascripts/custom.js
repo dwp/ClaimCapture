@@ -46,7 +46,7 @@ $('.helper-more').click(function(){
      
      // Non JS message 
      $(".js-message").css("display", "none");
-     $("header ul, .feed-close").css("display", "block");
+     $(".feed-close").css("display", "block");
      
     
      
