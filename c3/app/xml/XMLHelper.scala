@@ -95,6 +95,10 @@ object XMLHelper {
     case _ => Text(stringify(value,default))
   }
 
+  def postalAddressStructureOpt(questionLabelCode: String, addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
+    case Some(address:MultiLineAddress) => postalAddressStructure(questionLabelCode,address, postcodeOption)
+    case _ => NodeSeq.Empty
+  }
   def postalAddressStructure(questionLabelCode: String, addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
     case Some(address:MultiLineAddress) => postalAddressStructure(questionLabelCode,address, postcodeOption)
     case _ => postalAddressStructure(questionLabelCode, new MultiLineAddress(), postcodeOption)

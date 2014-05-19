@@ -64,7 +64,7 @@ object OtherBenefits extends XMLComponent {
             {questionOther(<Frequency/>,"howOften_frequency", statutorySickPay.howOften.get.frequency, statutorySickPay.howOften.get.other)}
         </Payment>
         {if (statutorySickPay.employersName.isDefined) question(<Name/>, "employersName", statutorySickPay.employersName.get)}
-        {postalAddressStructure("employersAddress", statutorySickPay.address, statutorySickPay.postCode)}
+        {postalAddressStructureOpt("employersAddress", statutorySickPay.address, statutorySickPay.postCode)}
       </OtherMoneySSPDetails>
     }
     else NodeSeq.Empty
@@ -78,7 +78,7 @@ object OtherBenefits extends XMLComponent {
            {questionOther(<Frequency/>,"howOften_frequency", otherStatutoryPay.howOften.get.frequency, otherStatutoryPay.howOften.get.other)}
         </Payment>
         {if (otherStatutoryPay.employersName.isDefined) question(<Name/>, "employersName", otherStatutoryPay.employersName.getOrElse("empty"))}
-        {postalAddressStructure("employersAddress", otherStatutoryPay.address, otherStatutoryPay.postCode)}
+        {postalAddressStructureOpt("employersAddress", otherStatutoryPay.address, otherStatutoryPay.postCode)}
       </OtherMoneySPDetails>
     }
     else NodeSeq.Empty
