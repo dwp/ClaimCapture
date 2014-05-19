@@ -14,6 +14,8 @@ import app.ConfigProperties._
 import play.Logger
 import models.domain.Claim
 import scala.Some
+import models.domain.Claim
+import scala.Some
 
 object CircsEvidenceList {
   def xml(circs: Claim) = {
@@ -51,11 +53,11 @@ object CircsEvidenceList {
 
               employmentChange.hasWorkFinishedYet.answer match {
                 case Some(answer) => {
-                  buffer ++= textLine(Messages("hasWorkStartedYet.hasWorkFinishedYet.answer") + " = " + Messages("label." + employmentChange.hasWorkFinishedYet.answer.get))
+                  buffer ++= textLine(Messages("hasWorkFinishedYet.answer") + " = " + Messages("label." + employmentChange.hasWorkFinishedYet.answer.get))
 
                   employmentChange.hasWorkFinishedYet.answer.getOrElse("no") match {
                     case "yes" => {
-                      buffer ++= textLine(Messages("hasWorkStartedYet.hasWorkFinishedYet") + " = " + employmentChange.hasWorkFinishedYet.date.get.`dd/MM/yyyy`)
+                      buffer ++= textLine(Messages("hasWorkFinishedYet.dateWhenFinished") + " = " + employmentChange.hasWorkFinishedYet.date.get.`dd/MM/yyyy`)
                     }
                     case _ =>
                   }
@@ -69,15 +71,53 @@ object CircsEvidenceList {
             }
           }
 
-          buffer ++= textLine(Messages("typeOfWork") + " = " + Messages("label." + employmentChange.typeOfWork.answer))
+          buffer ++= textLine(Messages("typeOfWork.answer") + " = " + Messages("typeOfWork." + employmentChange.typeOfWork.answer))
+
+          buffer ++= textSeparatorLine(Messages("typeOfWork." + employmentChange.typeOfWork.answer))
 
           employmentChange.typeOfWork.answer match {
             case "self-employed" => {
               buffer ++= textLine(Messages("typeOfWork.selfEmployedTypeOfWork") + " = " + employmentChange.typeOfWork.text2a.get)
               buffer ++= textLine(Messages("typeOfWork.selfEmployedTotalIncome") + " = " + Messages("label." + employmentChange.typeOfWork.answer2.get))
+              buffer ++= textLine(Messages("typeOfWork.selfEmployedMoreAboutChanges") + " = " + employmentChange.typeOfWork.text2b.get)
             }
             case _ => {
+              buffer ++= textLine(Messages("typeOfWork.employerNameAndAddress") + " = " + employmentChange.typeOfWork.address.get.lineOne.get + " " + employmentChange.typeOfWork.address.get.lineTwo.get + " " + employmentChange.typeOfWork.address.get.lineThree.getOrElse(""))
+              buffer ++= textLine(Messages("typeOfWork.employerPostcode") + " = " + employmentChange.typeOfWork.postCode.getOrElse(""))
+              buffer ++= textLine(Messages("typeOfWork.employerContactNumber") + " = " + employmentChange.typeOfWork.text1a.getOrElse(""))
+              buffer ++= textLine(Messages("typeOfWork.employerPayroll") + " = " + employmentChange.typeOfWork.text1b.getOrElse(""))
 
+              val startedEmploymentAndOngoingOption: Option[CircumstancesStartedEmploymentAndOngoing] = circs.questionGroup[CircumstancesStartedEmploymentAndOngoing]
+              startedEmploymentAndOngoingOption match {
+                case Some(startedEmploymentAndOngoing) => {
+                  buffer ++= textLine(Messages("beenPaidYet") + " = " + Messages("label." + startedEmploymentAndOngoing.beenPaid))
+                  buffer ++= textLine(Messages("howMuchPaid") + " = " + startedEmploymentAndOngoing.howMuchPaid)
+                  buffer ++= textLine(Messages("whatDatePaid") + " = " + startedEmploymentAndOngoing.date.`dd/MM/yyyy`)
+                  buffer ++= textLine(Messages("circs.howOften") + " = " + Messages(startedEmploymentAndOngoing.howOften.frequency))
+                  if (startedEmploymentAndOngoing.howOften.other.isDefined) buffer ++= textLine(Messages("other") + " = " + Messages(startedEmploymentAndOngoing.howOften.other.get))
+                  if (startedEmploymentAndOngoing.monthlyPayDay.isDefined) buffer ++= textLine(Messages("monthlyPayDay") + " = " + startedEmploymentAndOngoing.monthlyPayDay)
+
+                  val frequencyContext = startedEmploymentAndOngoing.howOften.frequency match {
+                    case "weekly" => "week"
+                    case "fortnightly" => "fortnight"
+                    case "monthly" => "month"
+                    case _ => "other"
+                  }
+                  buffer ++= textLine(Messages("usuallyPaidSameAmount." + frequencyContext) + " = " + Messages("label." + startedEmploymentAndOngoing.usuallyPaidSameAmount))
+
+                  buffer ++= textLine(Messages("doYouPayIntoPension.answer") + " = " + Messages("label." + startedEmploymentAndOngoing.payIntoPension.answer))
+                  buffer ++= textLine(startedEmploymentAndOngoing.payIntoPension.answer match {
+                    case "yes" if (startedEmploymentAndOngoing.payIntoPension.text.isDefined) => Messages("doYouPayIntoPension.whatFor") + " = " + startedEmploymentAndOngoing.payIntoPension.text.get
+                    case _ => ""
+                  })
+                  buffer ++= textLine(Messages("doCareCostsForThisWork.answer") + " = " + Messages("label." + startedEmploymentAndOngoing.careCostsForThisWork.answer))
+                  buffer ++= textLine(startedEmploymentAndOngoing.careCostsForThisWork.answer match {
+                    case "yes" if (startedEmploymentAndOngoing.careCostsForThisWork.text.isDefined) => Messages("doCareCostsForThisWork.whatFor") + " = " + startedEmploymentAndOngoing.careCostsForThisWork.text.get
+                    case _ => ""
+                  })
+                }
+                case _ =>
+              }
             }
           }
         }

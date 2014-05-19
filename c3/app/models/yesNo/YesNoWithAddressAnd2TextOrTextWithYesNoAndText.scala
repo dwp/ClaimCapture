@@ -6,6 +6,11 @@ import models.MultiLineAddress
 case class YesNoWithAddressAnd2TextOrTextWithYesNoAndText(answer: String = "", address: Option[MultiLineAddress] = None, postCode: Option[String] = None, text1a: Option[String] = None, text1b: Option[String] = None, text2a: Option[String] = None, answer2: Option[String] = None, text2b: Option[String] = None)
 
 object YesNoWithAddressAnd2TextOrTextWithYesNoAndText {
+  def validateAddressOnSpecifiedAnswer(input: YesNoWithAddressAnd2TextOrTextWithYesNoAndText, requiredAnswer: String): Boolean = input.answer match {
+    case s if (s == requiredAnswer) => input.address.isDefined
+    case _ => true
+  }
+
   def validateAddressLine1OnSpecifiedAnswer(input: YesNoWithAddressAnd2TextOrTextWithYesNoAndText, requiredAnswer: String): Boolean = input.answer match {
     case s if (s == requiredAnswer) => input.address.isDefined && input.address.get.lineOne.isDefined
     case _ => true

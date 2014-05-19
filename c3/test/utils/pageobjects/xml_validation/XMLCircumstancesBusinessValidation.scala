@@ -90,7 +90,10 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
   }
 
   private def ignoreQuestions(claimValue: TestDatumValue) = {
-    val questions = Seq ("BreaksInCareSummaryAdditionalBreaks", "BreaksInCareWhereWasThePersonYouCareFor", "BreaksInCareWhereWereYou")
+    val questions = Seq (
+      "BreaksInCareSummaryAdditionalBreaks", "BreaksInCareWhereWasThePersonYouCareFor",
+      "BreaksInCareWhereWereYou"
+    )
     val answers = Seq ("yes", "somewhereelse")
 
     questions.contains(claimValue.attribute) && answers.contains(claimValue.value.toLowerCase)
@@ -117,7 +120,10 @@ object CircValue {
     val attributes = Seq("CircumstancesSelfEmploymentWhenThisStarted",
       "CircumstancesSelfEmploymentFinishedStillCaringDate", "BreaksInCareStartDate",
       "BreaksInCareEndDate", "BreaksInCareExpectToStartCaringAgainDate",
-      "BreaksInCareExpectToStartCaringPermanentEndDate", "CircumstancesAddressChangeFinishedStillCaringDate"
+      "BreaksInCareExpectToStartCaringPermanentEndDate", "CircumstancesAddressChangeFinishedStillCaringDate",
+      "CircumstancesEmploymentChangeDateWhenStarted","CircumstancesEmploymentChangeDateWhenWillItStart",
+      "CircumstancesEmploymentChangeDateWhenFinished", "CircumstancesEmploymentChangeWhatDatePaid",
+      "CircumstancesEmploymentChangeFinishedStillCaringDate"
     )
     attributes.foreach(f => if(f.startsWith(attribute)) return true)
     false

@@ -21,7 +21,7 @@
 @howMuchPaid = @{startedEmploymentAndOngoing("howMuchPaid")}
 @monthlyPayDay = @{startedEmploymentAndOngoing("monthlyPayDay")}
 
-@main(Messages("c2.g2") + " - " + Messages("c2.name")) {
+@main(Messages("c2.g10") + " - " + Messages("c2.name")) {
     @errorsSummary(startedEmploymentAndOngoing)
 
     @form(action = controllers.circs.s2_report_changes.routes.G10StartedEmploymentAndOngoing.submit) {
