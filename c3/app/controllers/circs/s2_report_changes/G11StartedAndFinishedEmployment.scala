@@ -1,17 +1,16 @@
 package controllers.circs.s2_report_changes
 
-import models.domain.CircumstancesStartedEmploymentAndOngoing
+import models.domain.CircumstancesStartedAndFinishedEmployment
+import play.api.data.{Form, FormError}
+import play.api.data.Forms._
+import controllers.Mappings._
+import controllers.CarersForms._
+import utils.helpers.CarersForm._
+import models.yesNo.YesNoWithText
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
-import play.api.data.{Form, FormError}
-import controllers.Mappings._
-import play.api.data.Forms._
-import utils.helpers.CarersForm._
-import controllers.CarersForms._
-import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
-import models.yesNo.{YesNoWithText, YesNo}
 
-object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCircs with Navigable {
+object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCircs with Navigable {
   val payIntoPension =
     "doYouPayIntoPension" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -27,21 +26,21 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
       .verifying("doCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
 
   val form = Form(mapping(
-    "beenPaidYet" -> nonEmptyText.verifying(validYesNo),
-    "howMuchPaid" -> nonEmptyText(maxLength = 20),
-    "whatDatePaid" -> dayMonthYear.verifying(validDate),
+    "dateLastPaid" -> dayMonthYear.verifying(validDate),
+    "whatWasIncluded" -> text(maxLength = 60),
     "howOften" -> mandatoryPaymentFrequency.verifying(validPaymentFrequencyOnly),
     "monthlyPayDay" -> optional(carersText(maxLength = 35)),
     "usuallyPaidSameAmount" -> nonEmptyText.verifying(validYesNo),
+    "employerOwesYouMoney" -> nonEmptyText.verifying(validYesNo),
     payIntoPension,
     careCostsForThisWork,
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
-  )(CircumstancesStartedEmploymentAndOngoing.apply)(CircumstancesStartedEmploymentAndOngoing.unapply)
+  )(CircumstancesStartedAndFinishedEmployment.apply)(CircumstancesStartedAndFinishedEmployment.unapply)
     .verifying("expected.monthlyPayDay", validateMonthlyPayDay _))
 
   def present = claiming { implicit circs => implicit request => implicit lang =>
-    track(CircumstancesStartedEmploymentAndOngoing) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g10_startedEmploymentAndOngoing(form.fill(CircumstancesStartedEmploymentAndOngoing)))
+    track(CircumstancesStartedAndFinishedEmployment) {
+      implicit circs => Ok(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(form.fill(CircumstancesStartedAndFinishedEmployment)))
     }
   }
 
@@ -55,14 +54,15 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
           .replaceError("doYouPayIntoPension","doYouPayIntoPension.text.required",FormError("doYouPayIntoPension.whatFor","error.required"))
           .replaceError("doCareCostsForThisWork","doCareCostsForThisWork.text.required",FormError("doCareCostsForThisWork.whatCosts","error.required"))
 
-        BadRequest(views.html.circs.s2_report_changes.g10_startedEmploymentAndOngoing(formWithErrorsUpdate))
+        BadRequest(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(formWithErrorsUpdate))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )
   }
 
-  def validateMonthlyPayDay(input: CircumstancesStartedEmploymentAndOngoing): Boolean = input.howOften.frequency match {
+  def validateMonthlyPayDay(input: CircumstancesStartedAndFinishedEmployment): Boolean = input.howOften.frequency match {
     case "monthly" => input.monthlyPayDay.isDefined
     case _ => true
   }
+
 }
