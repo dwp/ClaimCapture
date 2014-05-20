@@ -38,7 +38,10 @@ trait AsyncClaimSubmissionService {
       }
     )
     }catch{
-      case e:Exception => Logger.error("global error talking to ingress "+e.getMessage+" "+e.getStackTraceString)
+      case e:Exception =>
+        Logger.error(s"INTERNAL_SERVER_ERROR TxnId : $txnID")
+        Logger.error("global error talking to ingress "+e.getMessage+" "+e.getStackTraceString)
+        claimTransaction.updateStatus(txnID, SERVER_ERROR, claimType(claim))
     }
   }
 
