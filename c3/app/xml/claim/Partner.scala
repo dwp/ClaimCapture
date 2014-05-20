@@ -23,7 +23,7 @@ object Partner extends XMLComponent {
         {question(<Title/>, "title", yourPartnerPersonalDetails.title)}
         {question(<DateOfBirth/>,"dateOfBirth", yourPartnerPersonalDetails.dateOfBirth)}
         {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber",yourPartnerPersonalDetails.nationalInsuranceNumber)}
-        {question(<NationalityPartner/>, "partner.nationality", yourPartnerPersonalDetails.nationality.get)}
+        {question(<NationalityPartner/>, "partner.nationality", yourPartnerPersonalDetails.nationality)}
         <RelationshipStatus>
           {question(<SeparatedFromPartner/>, "separated_fromPartner.label", yourPartnerPersonalDetails.separatedFromPartner, claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
         </RelationshipStatus>
