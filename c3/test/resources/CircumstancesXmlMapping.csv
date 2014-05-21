@@ -60,11 +60,8 @@ Employment - Change in circumstances,Employment,How much were you last paid?,Cir
 Employment - Change in circumstances,Employment,What date did you receive your last pay?,CircumstancesEmploymentChangeWhatDatePaid,DWPCAChangeOfCircumstances>EvidenceList
 Employment - Change in circumstances,Employment,How often are you paid?,CircumstancesEmploymentChangeHowOftenFrequency,DWPCAChangeOfCircumstances>EvidenceList
 Employment - Change in circumstances,Employment,What day or date of the month will you be paid?,CircumstancesEmploymentChangeMonthlyPayDay,DWPCAChangeOfCircumstances>EvidenceList
-Employment - Change in circumstances,Employment,Do you usually get the same amount each week?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,DWPCAChangeOfCircumstances>EvidenceList
-Employment - Change in circumstances,Employment,Do you usually get the same amount each fortnight?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,DWPCAChangeOfCircumstances>EvidenceList
 Employment - Change in circumstances,Employment,Do you usually get the same amount each time?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,DWPCAChangeOfCircumstances>EvidenceList
-Employment - Change in circumstances,Employment,Do you usually get the same amount each month?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,DWPCAChangeOfCircumstances>EvidenceList
-Employment - Change in circumstances,Employment,How often are you paid other,CircumstancesEmploymentChangeHowOftenFrequencyOther,DWPCAChangeOfCircumstances>EvidenceList
+Employment - Change in circumstances,Employment,Other,CircumstancesEmploymentChangeHowOftenFrequencyOther,DWPCAChangeOfCircumstances>EvidenceList
 Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,DWPCAChangeOfCircumstances>EvidenceList
 Employment - Change in circumstances,Employment,Tell us what this is for, how much and how often,CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor,DWPCAChangeOfCircumstances>EvidenceList
 Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,DWPCAChangeOfCircumstances>EvidenceList

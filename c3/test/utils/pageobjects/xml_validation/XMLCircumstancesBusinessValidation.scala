@@ -54,20 +54,24 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
         val value = XMLValidationNode.prepareElement(theNodes(index).text)
 
         val nodeName = theNodes(index).mkString
+
         def valuesMatching: Boolean = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value)
           else if (nodeName.startsWith(EvidenceListNode) && ignoreQuestions(claimValue)) true
+          else if (nodeName.startsWith(EvidenceListNode) && (claimValue.attribute.contains("CircumstancesEmploymentChangeUsuallyPaidSameAmount"))) {
+            if (iteration == 0 ) value.matches(".*doyouusuallygetthesameamounteach[^=]*=" + claimValue.value +".*") else true
+          }
           else if (nodeName.startsWith(EvidenceListNode)) {
             value.contains(claimValue.question + "=" + (
               claimValue.value match {
-              case "fourWeekly" => Messages("reportChanges.fourWeekly")
-              case "everyWeek" => Messages("reportChanges.everyWeek")
-              case "yourName" => Messages("reportChanges.yourName")
-              case "partner" => Messages("reportChanges.partner")
-              case "bothNames" => Messages("reportChanges.bothNames")
-              case "onBehalfOfYou" => Messages("reportChanges.onBehalfOfYou")
-              case "allNames" => Messages("reportChanges.allNames")
-              case _ => claimValue.value
+                case "fourWeekly" => Messages("reportChanges.fourWeekly")
+                case "everyWeek" => Messages("reportChanges.everyWeek")
+                case "yourName" => Messages("reportChanges.yourName")
+                case "partner" => Messages("reportChanges.partner")
+                case "bothNames" => Messages("reportChanges.bothNames")
+                case "onBehalfOfYou" => Messages("reportChanges.onBehalfOfYou")
+                case "allNames" => Messages("reportChanges.allNames")
+                case _ => claimValue.value
             }))
           }
           else if (nodeName.endsWith("gds:Line>")) {
