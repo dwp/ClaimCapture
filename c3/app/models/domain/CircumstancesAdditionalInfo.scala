@@ -135,3 +135,16 @@ case class CircumstancesStartedAndFinishedEmployment(dateLastPaid: DayMonthYear,
 object CircumstancesStartedAndFinishedEmployment extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g11"
 }
+
+case class CircumstancesEmploymentNotStarted(howMuchPaid: String,
+                                             whenExpectedToBePaidDate: Option[DayMonthYear],
+                                             howOften: PaymentFrequency,
+                                             usuallyPaidSameAmount: String,
+                                             payIntoPension: YesNoWithText = YesNoWithText("", None),
+                                             careCostsForThisWork: YesNoWithText = YesNoWithText("", None),
+                                             moreAboutChanges: Option[String] = None)
+  extends QuestionGroup(CircumstancesEmploymentNotStarted)
+
+object CircumstancesEmploymentNotStarted extends QuestionGroup.Identifier {
+  val id = s"${CircumstancesReportChanges.id}.g12"
+}

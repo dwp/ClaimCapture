@@ -92,7 +92,10 @@ object CircsEvidenceList {
               if (startedEmploymentAndOngoingOption.isDefined) buffer ++= renderStartedEmploymentAndOngoing(startedEmploymentAndOngoingOption.get)
 
               val startAndFinishedEmploymentOption = circs.questionGroup[CircumstancesStartedAndFinishedEmployment]
-              if (startAndFinishedEmploymentOption.isDefined) buffer ++= renderStartedAndFinishedEmploymentOption(startAndFinishedEmploymentOption.get)
+              if (startAndFinishedEmploymentOption.isDefined) buffer ++= renderStartedAndFinishedEmployment(startAndFinishedEmploymentOption.get)
+
+              val employmentNotStartedOption = circs.questionGroup[CircumstancesEmploymentNotStarted]
+              if (employmentNotStartedOption.isDefined) buffer ++= renderEmploymentNotStarted(employmentNotStartedOption.get)
             }
           }
         }
@@ -357,7 +360,7 @@ object CircsEvidenceList {
     buffer
   }
 
-  private def renderStartedAndFinishedEmploymentOption(startedAndFinishedEmployment: CircumstancesStartedAndFinishedEmployment): NodeSeq = {
+  private def renderStartedAndFinishedEmployment(startedAndFinishedEmployment: CircumstancesStartedAndFinishedEmployment): NodeSeq = {
     var buffer = NodeSeq.Empty
 
     buffer ++= textLine(Messages("dateLastPaid") + " = " + startedAndFinishedEmployment.dateLastPaid.`dd/MM/yyyy`)
@@ -379,6 +382,30 @@ object CircsEvidenceList {
     buffer ++= renderEmploymentCommonQuestionAnswers(
       startedAndFinishedEmployment.payIntoPension,
       startedAndFinishedEmployment.careCostsForThisWork
+    )
+
+    buffer
+  }
+
+  private def renderEmploymentNotStarted(employmentNotStartedOption: CircumstancesEmploymentNotStarted): NodeSeq = {
+    var buffer = NodeSeq.Empty
+
+    buffer ++= textLine(Messages("howMuchPaid") + " = " + employmentNotStartedOption.howMuchPaid)
+    if (employmentNotStartedOption.whenExpectedToBePaidDate.isDefined) buffer ++= textLine(Messages("whenExpectedToBePaidDate") + " = " + employmentNotStartedOption.whenExpectedToBePaidDate.get.`dd/MM/yyyy`)
+    buffer ++= textLine(Messages("circs.howOften") + " = " + Messages(employmentNotStartedOption.howOften.frequency))
+    if (employmentNotStartedOption.howOften.other.isDefined) buffer ++= textLine(Messages("other") + " = " + Messages(employmentNotStartedOption.howOften.other.get))
+
+    val frequencyContext = employmentNotStartedOption.howOften.frequency match {
+      case "weekly" => "week"
+      case "fortnightly" => "fortnight"
+      case "monthly" => "month"
+      case _ => "other"
+    }
+    buffer ++= textLine(Messages("usuallyPaidSameAmount.did." + frequencyContext) + " = " + Messages("label." + employmentNotStartedOption.usuallyPaidSameAmount))
+
+    buffer ++= renderEmploymentCommonQuestionAnswers(
+      employmentNotStartedOption.payIntoPension,
+      employmentNotStartedOption.careCostsForThisWork
     )
 
     buffer

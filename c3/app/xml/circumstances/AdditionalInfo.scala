@@ -38,6 +38,9 @@ object AdditionalInfo {
         else if (circs.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined) {
           circs.questionGroup[CircumstancesStartedAndFinishedEmployment].get.moreAboutChanges.getOrElse("")
         }
+        else if (circs.questionGroup[CircumstancesEmploymentNotStarted].isDefined) {
+          circs.questionGroup[CircumstancesEmploymentNotStarted].get.moreAboutChanges.getOrElse("")
+        }
       }
     }
   }

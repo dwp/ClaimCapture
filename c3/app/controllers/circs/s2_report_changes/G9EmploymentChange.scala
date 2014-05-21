@@ -79,7 +79,7 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
             if (employmentChange.hasWorkFinishedYet.answer.getOrElse("no") == `yes`) Redirect(controllers.circs.s2_report_changes.routes.G11StartedAndFinishedEmployment.present())
             else Redirect(controllers.circs.s2_report_changes.routes.G10StartedEmploymentAndOngoing.present())
           }
-          case _ => Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
+          case _ => Redirect(controllers.circs.s2_report_changes.routes.G12EmploymentNotStarted.present())
         }
       }
       case _ => Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())

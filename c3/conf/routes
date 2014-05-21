@@ -252,6 +252,9 @@ POST          /circumstances/report-changes/started-employment-ongoing  controll
 GET           /circumstances/report-changes/started-employment          controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.present
 POST          /circumstances/report-changes/started-employment          controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.submit
 
+GET           /circumstances/report-changes/employment-not-started      controllers.circs.s2_report_changes.G12EmploymentNotStarted.present
+POST          /circumstances/report-changes/employment-not-started      controllers.circs.s2_report_changes.G12EmploymentNotStarted.submit
+
 GET           /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.present
 POST          /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
