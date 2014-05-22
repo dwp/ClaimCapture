@@ -67,7 +67,7 @@
 
                 <ul>
                     @yesNoRadioGroup(doYouPayIntoPension("answer"),
-                        '_label -> "doYouPayIntoPension"
+                        '_label -> "willYouPayIntoPension"
                     )
 
                     @otherDetailPlaceHolder(
@@ -83,7 +83,7 @@
                     )
 
                     @yesNoRadioGroup(doCareCostsForThisWork("answer"),
-                        '_label -> "doCareCostsForThisWork"
+                        '_label -> "willCareCostsForThisWork"
                     )
 
                     @otherDetailPlaceHolder(
@@ -129,7 +129,13 @@ $(function(){
             "@Html(Messages("usuallyPaidSameAmount.did.fortnight"))",
             "@Html(Messages("usuallyPaidSameAmount.did.time"))",
             "@Html(Messages("usuallyPaidSameAmount.did.month"))",
-            "@Html(Messages("usuallyPaidSameAmount.did.time"))"
+            "@Html(Messages("usuallyPaidSameAmount.did.time"))",
+            "@CarersCrypto.encryptAES(doYouPayIntoPension("answer").id)",
+            "@Html(Messages("doYouPayIntoPension"))",
+            "@Html(Messages("willYouPayIntoPension"))",
+            "@CarersCrypto.encryptAES(doCareCostsForThisWork("answer").id)",
+            "@Html(Messages("doCareCostsForThisWork"))",
+            "@Html(Messages("willCareCostsForThisWork"))"
     );
 
 

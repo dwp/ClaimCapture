@@ -2,11 +2,17 @@ window.fixErrorMessages = (howOften,
                            howOftenFrequency,
                            usuallyPaidSameAmount,
                            usuallyPaidSameAmountText,
-                           usuallyPaidSameAmountWeekText
-                           usuallyPaidSameAmountFortnightText
-                           usuallyPaidSameAmountFourWeekText
-                           usuallyPaidSameAmountMonthText
-                           usuallyPaidSameAmountOtherText) ->
+                           usuallyPaidSameAmountWeekText,
+                           usuallyPaidSameAmountFortnightText,
+                           usuallyPaidSameAmountFourWeekText,
+                           usuallyPaidSameAmountMonthText,
+                           usuallyPaidSameAmountOtherText,
+                           doYouPayIntoPensionAnswer,
+                           doYouPayIntoPensionText,
+                           willYouPayIntoPensionText,
+                           doCareCostsForThisWorkAnswer,
+                           doCareCostsForThisWorkText,
+                           willCareCostsForThisWorkText) ->
   currentText = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text().trim()
   existingError = currentText.substring(usuallyPaidSameAmountText.length, currentText.length)
   textToUse = switch ($("#" + howOftenFrequency).val())
@@ -16,6 +22,16 @@ window.fixErrorMessages = (howOften,
     when "monthly" then usuallyPaidSameAmountMonthText
     else usuallyPaidSameAmountOtherText
   $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text(textToUse + existingError)
+  pathDoYouPayIntoPensionAnswer = $("div[class='validation-summary'] a[href='#" + doYouPayIntoPensionAnswer + "']")
+  if ((pathDoYouPayIntoPensionAnswer != undefined) && (pathDoYouPayIntoPensionAnswer.length > 0))
+    currentTextDoYouPayIntoPensionAnswer = pathDoYouPayIntoPensionAnswer.text().trim()
+    existingErrorDoYouPayIntoPensionAnswer = currentTextDoYouPayIntoPensionAnswer.substring(doYouPayIntoPensionText.length, currentTextDoYouPayIntoPensionAnswer.length)
+    pathDoYouPayIntoPensionAnswer.text(willYouPayIntoPensionText + existingErrorDoYouPayIntoPensionAnswer)
+  pathDoCareCostsForThisWorkAnswer = $("div[class='validation-summary'] a[href='#" + doCareCostsForThisWorkAnswer + "']")
+  if ((pathDoCareCostsForThisWorkAnswer != undefined) && (pathDoCareCostsForThisWorkAnswer.length > 0))
+    currentTextDoCareCostsForThisWorkAnswer = pathDoCareCostsForThisWorkAnswer.text().trim()
+    existingErrorDoCareCostsForThisWorkAnswer = currentTextDoCareCostsForThisWorkAnswer.substring(doCareCostsForThisWorkText.length, currentTextDoCareCostsForThisWorkAnswer.length)
+    pathDoCareCostsForThisWorkAnswer.text(willCareCostsForThisWorkText + existingErrorDoCareCostsForThisWorkAnswer)
 
 
 window.usuallyPaidSameAmount = (howOftenFrequency,

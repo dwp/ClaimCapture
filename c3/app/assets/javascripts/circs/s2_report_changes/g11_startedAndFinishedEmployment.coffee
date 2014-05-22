@@ -1,22 +1,46 @@
 window.fixErrorMessages = (howOften,
                            howOftenFrequency,
+                           howOftenText,
+                           howOftenCircsText,
                            usuallyPaidSameAmount,
                            usuallyPaidSameAmountText,
-                           usuallyPaidSameAmountWeekText
-                           usuallyPaidSameAmountFortnightText
-                           usuallyPaidSameAmountFourWeekText
-                           usuallyPaidSameAmountMonthText
-                           usuallyPaidSameAmountOtherText) ->
-    currentText = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text().trim()
-    existingError = currentText.substring(usuallyPaidSameAmountText.length, currentText.length)
-    textToUse = switch ($("#" + howOftenFrequency).val())
+                           usuallyPaidSameAmountWeekText,
+                           usuallyPaidSameAmountFortnightText,
+                           usuallyPaidSameAmountFourWeekText,
+                           usuallyPaidSameAmountMonthText,
+                           usuallyPaidSameAmountOtherText,
+                           doYouPayIntoPensionAnswer,
+                           doYouPayIntoPensionText,
+                           didYouPayIntoPensionText,
+                           doCareCostsForThisWorkAnswer,
+                           doCareCostsForThisWorkText,
+                           didCareCostsForThisWorkText) ->
+  pathUsuallyPaidSameAmount = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']")
+  if ((pathUsuallyPaidSameAmount != undefined) && (pathUsuallyPaidSameAmount.length > 0))
+    currentTextUsuallyPaidSameAmount = pathUsuallyPaidSameAmount.text().trim()
+    existingErrorUsuallyPaidSameAmount = currentTextUsuallyPaidSameAmount.substring(usuallyPaidSameAmountText.length, currentTextUsuallyPaidSameAmount.length)
+    textToUseUsuallyPaidSameAmount = switch ($("#" + howOftenFrequency).val())
       when "weekly" then usuallyPaidSameAmountWeekText
       when "fortnightly" then usuallyPaidSameAmountFortnightText
       when "fourweekly" then usuallyPaidSameAmountFourWeekText
       when "monthly" then usuallyPaidSameAmountMonthText
       else usuallyPaidSameAmountOtherText
-    $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text(textToUse + existingError)
-
+    pathUsuallyPaidSameAmount.text(textToUseUsuallyPaidSameAmount + existingErrorUsuallyPaidSameAmount)
+  pathHowOften = $("div[class='validation-summary'] a[href='#" + howOften + "']")
+  if ((pathHowOften != undefined) && (pathHowOften.length > 0))
+    currentTextHowOften = pathHowOften.text().trim()
+    existingErrorHowOften = currentTextHowOften.substring(howOftenText.length, currentTextHowOften.length)
+    pathHowOften.text(howOftenCircsText + existingErrorHowOften)
+  pathDoYouPayIntoPensionAnswer = $("div[class='validation-summary'] a[href='#" + doYouPayIntoPensionAnswer + "']")
+  if ((pathDoYouPayIntoPensionAnswer != undefined) && (pathDoYouPayIntoPensionAnswer.length > 0))
+    currentTextDoYouPayIntoPensionAnswer = pathDoYouPayIntoPensionAnswer.text().trim()
+    existingErrorDoYouPayIntoPensionAnswer = currentTextDoYouPayIntoPensionAnswer.substring(doYouPayIntoPensionText.length, currentTextDoYouPayIntoPensionAnswer.length)
+    pathDoYouPayIntoPensionAnswer.text(didYouPayIntoPensionText + existingErrorDoYouPayIntoPensionAnswer)
+  pathDoCareCostsForThisWorkAnswer = $("div[class='validation-summary'] a[href='#" + doCareCostsForThisWorkAnswer + "']")
+  if ((pathDoCareCostsForThisWorkAnswer != undefined) && (pathDoCareCostsForThisWorkAnswer.length > 0))
+    currentTextDoCareCostsForThisWorkAnswer = pathDoCareCostsForThisWorkAnswer.text().trim()
+    existingErrorDoCareCostsForThisWorkAnswer = currentTextDoCareCostsForThisWorkAnswer.substring(doCareCostsForThisWorkText.length, currentTextDoCareCostsForThisWorkAnswer.length)
+    pathDoCareCostsForThisWorkAnswer.text(didCareCostsForThisWorkText + existingErrorDoCareCostsForThisWorkAnswer)
 
 window.usuallyPaidSameAmount = (howOftenFrequency,
                                 monthlyPayDay

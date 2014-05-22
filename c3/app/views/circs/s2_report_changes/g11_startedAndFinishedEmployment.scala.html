@@ -94,7 +94,7 @@
 
                 <ul>
                     @yesNoRadioGroup(doYouPayIntoPension("answer"),
-                        '_label -> "doYouPayIntoPension"
+                        '_label -> "didYouPayIntoPension"
                     )
 
 
@@ -111,7 +111,7 @@
                     )
 
                     @yesNoRadioGroup(doCareCostsForThisWork("answer"),
-                        '_label -> "doCareCostsForThisWork"
+                        '_label -> "didCareCostsForThisWork"
                     )
 
                     @otherDetailPlaceHolder(
@@ -149,13 +149,21 @@ $(function(){
     window.fixErrorMessages(
             "@CarersCrypto.encryptAES(howOften.id)",
             "@CarersCrypto.encryptAES(howOftenFrequency.id)",
+            "@Html(Messages("howOften"))",
+            "@Html(Messages("circs.howOften"))",
             "@CarersCrypto.encryptAES(usuallyPaidSameAmount.id)",
             "@Html(Messages("usuallyPaidSameAmount.did"))",
             "@Html(Messages("usuallyPaidSameAmount.did.week"))",
             "@Html(Messages("usuallyPaidSameAmount.did.fortnight"))",
             "@Html(Messages("usuallyPaidSameAmount.did.time"))",
             "@Html(Messages("usuallyPaidSameAmount.did.month"))",
-            "@Html(Messages("usuallyPaidSameAmount.did.time"))"
+            "@Html(Messages("usuallyPaidSameAmount.did.time"))",
+            "@CarersCrypto.encryptAES(doYouPayIntoPension("answer").id)",
+            "@Html(Messages("doYouPayIntoPension"))",
+            "@Html(Messages("didYouPayIntoPension"))",
+            "@CarersCrypto.encryptAES(doCareCostsForThisWork("answer").id)",
+            "@Html(Messages("doCareCostsForThisWork"))",
+            "@Html(Messages("didCareCostsForThisWork"))"
     );
 
     window.usuallyPaidSameAmount(
@@ -165,11 +173,11 @@ $(function(){
             "@CarersCrypto.encryptAES(usuallyPaidSameAmount("yes").id)",
             "@CarersCrypto.encryptAES(usuallyPaidSameAmount("no").id)",
             "@Html(Messages("pleaseSelect"))",
-            "@Html(Messages("usuallyPaidSameAmount.week"))",
-            "@Html(Messages("usuallyPaidSameAmount.fortnight"))",
-            "@Html(Messages("usuallyPaidSameAmount.fourweekly"))",
-            "@Html(Messages("usuallyPaidSameAmount.month"))",
-            "@Html(Messages("usuallyPaidSameAmount.other"))"
+            "@Html(Messages("usuallyPaidSameAmount.did.week"))",
+            "@Html(Messages("usuallyPaidSameAmount.did.fortnight"))",
+            "@Html(Messages("usuallyPaidSameAmount.did.fourweekly"))",
+            "@Html(Messages("usuallyPaidSameAmount.did.month"))",
+            "@Html(Messages("usuallyPaidSameAmount.did.other"))"
     );
 
     window.employerOwesYouMoney(
