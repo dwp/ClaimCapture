@@ -4,21 +4,21 @@ Report a change in your circumstances - Change in circumstances,Circumstances,Da
 Report a change in your circumstances - Change in circumstances,Circumstances,Their Full Name,CircumstancesAboutYouTheirFullName,Mrs Jane Smith
 Report a change in your circumstances - Change in circumstances,Circumstances,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,Wife
 Details of your change in circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,EmploymentChange
-Employment - Change in circumstances,Employment,Are you still caring 35 hours or more each week?,CircumstancesEmploymentChangeStillCaring,no
-Employment - Change in circumstances,Employment,What date did you stop caring 35 hours a week?,CircumstancesEmploymentChangeFinishedStillCaringDate,19/12/2013
-Employment - Change in circumstances,Employment,Has this work started yet?,CircumstancesEmploymentChangeHasWorkStartedYet,no
-Employment - Change in circumstances,Employment,When did you start this work?,CircumstancesEmploymentChangeDateWhenStarted,
-Employment - Change in circumstances,Employment,When will you start this work?,CircumstancesEmploymentChangeDateWhenWillItStart,01/01/2014
-Employment - Change in circumstances,Employment,Has this work finished?,CircumstancesEmploymentChangeHasWorkFinishedYet,
-Employment - Change in circumstances,Employment,When did this work finish?,CircumstancesEmploymentChangeDateWhenFinished,
-Employment - Change in circumstances,Employment,What type of work is this?,CircumstancesEmploymentChangeTypeOfWork,self-employed
-Employment - Change in circumstances,Employment,Type of work or business,CircumstancesEmploymentChangeSelfEmployedTypeOfWork,Plumber
-Employment - Change in circumstances,Employment,Will the total income into your business be more than £102 a week?,CircumstancesEmploymentChangeSelfEmployedTotalIncome,yes
-Employment - Change in circumstances,Employment,Tell us more about your changes,CircumstancesEmploymentChangeSelfEmployedMoreAboutChanges,other info
-Employment - Change in circumstances,Employment,Employer's name and address,CircumstancesEmploymentChangeEmployerNameAndAddress,
-Employment - Change in circumstances,Employment,Postcode,CircumstancesEmploymentChangeEmployerPostcode,
-Employment - Change in circumstances,Employment,Employer's contact number,CircumstancesEmploymentChangeEmployerContactNumber,
-Employment - Change in circumstances,Employment,Payroll or employee number,CircumstancesEmploymentChangeEmployerPayroll,
+Employment Changes - Change in circumstances,Employment,Are you still caring 35 hours or more each week?,CircumstancesEmploymentChangeStillCaring,no
+Employment Changes - Change in circumstances,Employment,What date did you stop caring 35 hours a week?,CircumstancesEmploymentChangeFinishedStillCaringDate,19/12/2013
+Employment Changes - Change in circumstances,Employment,Has this work started yet?,CircumstancesEmploymentChangeHasWorkStartedYet,no
+Employment Changes - Change in circumstances,Employment,When did you start this work?,CircumstancesEmploymentChangeDateWhenStarted,
+Employment Changes - Change in circumstances,Employment,When will you start this work?,CircumstancesEmploymentChangeDateWhenWillItStart,01/01/2014
+Employment Changes - Change in circumstances,Employment,Has this work finished?,CircumstancesEmploymentChangeHasWorkFinishedYet,
+Employment Changes - Change in circumstances,Employment,When did this work finish?,CircumstancesEmploymentChangeDateWhenFinished,
+Employment Changes - Change in circumstances,Employment,What type of work is this?,CircumstancesEmploymentChangeTypeOfWork,self-employed
+Employment Changes - Change in circumstances,Employment,Type of work or business,CircumstancesEmploymentChangeSelfEmployedTypeOfWork,Plumber
+Employment Changes - Change in circumstances,Employment,Will the total income into your business be more than £102 a week?,CircumstancesEmploymentChangeSelfEmployedTotalIncome,yes
+Employment Changes - Change in circumstances,Employment,Tell us more about your changes,CircumstancesEmploymentChangeSelfEmployedMoreAboutChanges,other info
+Employment Changes - Change in circumstances,Employment,Employer's name and address,CircumstancesEmploymentChangeEmployerNameAndAddress,
+Employment Changes - Change in circumstances,Employment,Postcode,CircumstancesEmploymentChangeEmployerPostcode,
+Employment Changes - Change in circumstances,Employment,Employer's contact number,CircumstancesEmploymentChangeEmployerContactNumber,
+Employment Changes - Change in circumstances,Employment,Payroll or employee number,CircumstancesEmploymentChangeEmployerPayroll,
 Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,By Post
 Declaration - consent and declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,yes
 Declaration - consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,Mr Smith

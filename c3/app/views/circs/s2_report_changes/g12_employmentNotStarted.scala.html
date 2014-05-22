@@ -11,6 +11,7 @@
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
 
+@beenPaidYet = @{employmentNotStarted("beenPaidYet")}
 @howMuchPaid = @{employmentNotStarted("howMuchPaid")}
 @whenExpectedToBePaidDate = @{employmentNotStarted("whenExpectedToBePaidDate")}
 @howOften = @{employmentNotStarted("howOften")}
@@ -29,6 +30,8 @@
 	            <legend>@Html(Messages("c2.g12"))</legend>
 	
 	            <ul>
+                    @yesNoRadioGroup(beenPaidYet)
+
                     @carersShortInputText(howMuchPaid)
 
                     @dateTimePickerWithDynamicLabel(whenExpectedToBePaidDate,
@@ -47,16 +50,17 @@
                             yesNoRadioGroup(usuallyPaidSameAmount,
                             '_label -> {
                                 howOftenFrequency.value.getOrElse("noset") match {
-                                    case "weekly" => "usuallyPaidSameAmount.did.week"
-                                    case "fortnightly" => "usuallyPaidSameAmount.did.fortnight"
-                                    case "fourweekly" => "usuallyPaidSameAmount.did.time"
-                                    case "monthly" => "usuallyPaidSameAmount.did.month"
-                                    case _ => "usuallyPaidSameAmount.did.time"
+                                    case "weekly" => "usuallyPaidSameAmount.will.week"
+                                    case "fortnightly" => "usuallyPaidSameAmount.will.fortnight"
+                                    case "fourweekly" => "usuallyPaidSameAmount.will.time"
+                                    case "monthly" => "usuallyPaidSameAmount.will.month"
+                                    case _ => "usuallyPaidSameAmount.will.time"
                                 }
                             })
                         ),
                         'id -> "usuallyPaidSameAmountWrap",
-                        'display -> {if((howOftenFrequency.value != None) &&
+                        'display -> {if((beenPaidYet.value == "yes") &&
+                                        (howOftenFrequency.value != None) &&
                                         (howOftenFrequency.value.getOrElse("no") != Html(Messages("pleaseSelect"))) &&
                                         (howOftenFrequency.value.getOrElse("no") != "")) "yes" else "no"}
                     )
@@ -124,12 +128,12 @@ $(function(){
     window.fixErrorMessages("@CarersCrypto.encryptAES(howOften.id)",
             "@CarersCrypto.encryptAES(howOftenFrequency.id)",
             "@CarersCrypto.encryptAES(usuallyPaidSameAmount.id)",
-            "@Html(Messages("usuallyPaidSameAmount.did"))",
-            "@Html(Messages("usuallyPaidSameAmount.did.week"))",
-            "@Html(Messages("usuallyPaidSameAmount.did.fortnight"))",
-            "@Html(Messages("usuallyPaidSameAmount.did.time"))",
-            "@Html(Messages("usuallyPaidSameAmount.did.month"))",
-            "@Html(Messages("usuallyPaidSameAmount.did.time"))",
+            "@Html(Messages("usuallyPaidSameAmount.will"))",
+            "@Html(Messages("usuallyPaidSameAmount.will.week"))",
+            "@Html(Messages("usuallyPaidSameAmount.will.fortnight"))",
+            "@Html(Messages("usuallyPaidSameAmount.will.time"))",
+            "@Html(Messages("usuallyPaidSameAmount.will.month"))",
+            "@Html(Messages("usuallyPaidSameAmount.will.time"))",
             "@CarersCrypto.encryptAES(doYouPayIntoPension("answer").id)",
             "@Html(Messages("doYouPayIntoPension"))",
             "@Html(Messages("willYouPayIntoPension"))",
@@ -144,11 +148,11 @@ $(function(){
             "@CarersCrypto.encryptAES(usuallyPaidSameAmount("yes").id)",
             "@CarersCrypto.encryptAES(usuallyPaidSameAmount("no").id)",
             "@Html(Messages("pleaseSelect"))",
-            "@Html(Messages("usuallyPaidSameAmount.week"))",
-            "@Html(Messages("usuallyPaidSameAmount.fortnight"))",
-            "@Html(Messages("usuallyPaidSameAmount.fourweekly"))",
-            "@Html(Messages("usuallyPaidSameAmount.month"))",
-            "@Html(Messages("usuallyPaidSameAmount.other"))"
+            "@Html(Messages("usuallyPaidSameAmount.will.week"))",
+            "@Html(Messages("usuallyPaidSameAmount.will.fortnight"))",
+            "@Html(Messages("usuallyPaidSameAmount.will.fourweekly"))",
+            "@Html(Messages("usuallyPaidSameAmount.will.month"))",
+            "@Html(Messages("usuallyPaidSameAmount.will.other"))"
     );
 
     window.whatFor("@CarersCrypto.encryptAES(doYouPayIntoPension("answer")("yes").id)",

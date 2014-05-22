@@ -27,6 +27,7 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
       .verifying("doCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
 
   val form = Form(mapping(
+    "beenPaidYet" -> nonEmptyText.verifying(validYesNo),
     "howMuchPaid" -> nonEmptyText(maxLength = 20),
     "whenExpectedToBePaidDate" -> optional(dayMonthYear.verifying(validDate)),
     "howOften" -> mandatoryPaymentFrequency.verifying(validPaymentFrequencyOnly),

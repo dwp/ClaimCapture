@@ -26,7 +26,7 @@ final class G9EmploymentChangePage(ctx:PageObjectsContext) extends Circumstances
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G9EmploymentChangePage {
-  val title = "Employment - Change in circumstances".toLowerCase
+  val title = "Employment Changes - Change in circumstances".toLowerCase
 
   val url  = "/circumstances/report-changes/employment-change"
 

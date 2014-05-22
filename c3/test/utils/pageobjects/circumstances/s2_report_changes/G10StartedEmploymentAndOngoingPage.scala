@@ -22,7 +22,7 @@ final class G10StartedEmploymentAndOngoingPage(ctx:PageObjectsContext) extends C
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G10StartedEmploymentAndOngoingPage {
-  val title = "Ongoing Employment - Change in circumstances".toLowerCase
+  val title = "Employment - Change in circumstances".toLowerCase
 
   val url  = "/circumstances/report-changes/started-employment-ongoing"
 

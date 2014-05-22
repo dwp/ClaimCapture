@@ -136,7 +136,8 @@ object CircumstancesStartedAndFinishedEmployment extends QuestionGroup.Identifie
   val id = s"${CircumstancesReportChanges.id}.g11"
 }
 
-case class CircumstancesEmploymentNotStarted(howMuchPaid: String,
+case class CircumstancesEmploymentNotStarted(beenPaid: String,
+                                             howMuchPaid: String,
                                              whenExpectedToBePaidDate: Option[DayMonthYear],
                                              howOften: PaymentFrequency,
                                              usuallyPaidSameAmount: String,
