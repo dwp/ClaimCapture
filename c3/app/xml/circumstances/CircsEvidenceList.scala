@@ -353,7 +353,9 @@ object CircsEvidenceList {
     buffer ++= textLine(Messages("usuallyPaidSameAmount." + frequencyContext) + " = " + Messages("label." + startedEmploymentAndOngoing.usuallyPaidSameAmount))
 
     buffer ++= renderEmploymentCommonQuestionAnswers(
+      "doYouPayIntoPension.answer",
       startedEmploymentAndOngoing.payIntoPension,
+      "doCareCostsForThisWork.answer",
       startedEmploymentAndOngoing.careCostsForThisWork
     )
 
@@ -380,7 +382,9 @@ object CircsEvidenceList {
     buffer ++= textLine(Messages("employerOwesYouMoney") + " = " + Messages("label." + startedAndFinishedEmployment.employerOwesYouMoney))
 
     buffer ++= renderEmploymentCommonQuestionAnswers(
+      "didYouPayIntoPension.answer",
       startedAndFinishedEmployment.payIntoPension,
+      "didCareCostsForThisWork.answer",
       startedAndFinishedEmployment.careCostsForThisWork
     )
 
@@ -404,24 +408,26 @@ object CircsEvidenceList {
     buffer ++= textLine(Messages("usuallyPaidSameAmount.did." + frequencyContext) + " = " + Messages("label." + employmentNotStartedOption.usuallyPaidSameAmount))
 
     buffer ++= renderEmploymentCommonQuestionAnswers(
+      "willYouPayIntoPension.answer",
       employmentNotStartedOption.payIntoPension,
+      "willCareCostsForThisWork.answer",
       employmentNotStartedOption.careCostsForThisWork
     )
 
     buffer
   }
 
-  private def renderEmploymentCommonQuestionAnswers(payIntoPension: YesNoWithText, careCostsForThisWork: YesNoWithText): NodeSeq = {
+  private def renderEmploymentCommonQuestionAnswers(payIntoPensionQuestion: String, payIntoPension: YesNoWithText, careCostsForThisWorkQuestion: String, careCostsForThisWork: YesNoWithText): NodeSeq = {
     var buffer = NodeSeq.Empty
 
-    buffer ++= textLine(Messages("doYouPayIntoPension.answer") + " = " + Messages("label." + payIntoPension.answer))
+    buffer ++= textLine(Messages(payIntoPensionQuestion) + " = " + Messages("label." + payIntoPension.answer))
     buffer ++= textLine(payIntoPension.answer match {
       case "yes" if (payIntoPension.text.isDefined) => Messages("doYouPayIntoPension.whatFor") + " = " + payIntoPension.text.get
       case _ => ""
     })
-    buffer ++= textLine(Messages("doCareCostsForThisWork.answer") + " = " + Messages("label." + careCostsForThisWork.answer))
+    buffer ++= textLine(Messages(careCostsForThisWorkQuestion) + " = " + Messages("label." + careCostsForThisWork.answer))
     buffer ++= textLine(careCostsForThisWork.answer match {
-      case "yes" if (careCostsForThisWork.text.isDefined) => Messages("doCareCostsForThisWork.whatFor") + " = " + careCostsForThisWork.text.get
+      case "yes" if (careCostsForThisWork.text.isDefined) => Messages("doCareCostsForThisWork.whatCosts") + " = " + careCostsForThisWork.text.get
       case _ => ""
     })
 

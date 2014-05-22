@@ -19,17 +19,17 @@ Employment - Change in circumstances,Employment,Employer's name and address,Circ
 Employment - Change in circumstances,Employment,Postcode,CircumstancesEmploymentChangeEmployerPostcode,PN1 3DJ
 Employment - Change in circumstances,Employment,Employer's contact number,CircumstancesEmploymentChangeEmployerContactNumber,0111 123 4567
 Employment - Change in circumstances,Employment,Payroll or employee number,CircumstancesEmploymentChangeEmployerPayroll,XYZ123890
-Employment - Change in circumstances,Employment,Have you been paid yet?,CircumstancesEmploymentChangeBeenPaidYet,yes
-Employment - Change in circumstances,Employment,How much were you last paid?,CircumstancesEmploymentChangeHowMuchPaid,100
-Employment - Change in circumstances,Employment,What date did you receive your last pay?,CircumstancesEmploymentChangeWhatDatePaid,20/01/2014
-Employment - Change in circumstances,Employment,How often are you paid?,CircumstancesEmploymentChangeHowOftenFrequency,weekly
-Employment - Change in circumstances,Employment,What day or date of the month will you be paid?,CircumstancesEmploymentChangeMonthlyPayDay,
-Employment - Change in circumstances,Employment,Do you usually get the same amount each week?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,yes
-Employment - Change in circumstances,Employment,How often are you paid other,CircumstancesEmploymentChangeHowOftenFrequencyOther,
-Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,no
-Employment - Change in circumstances,Employment,"Tell us what this is for, how much and how often",CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor,
-Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,no
-Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
+Ongoing Employment - Change in circumstances,Employment,Have you been paid yet?,CircumstancesEmploymentChangeBeenPaidYet,yes
+Ongoing Employment - Change in circumstances,Employment,How much were you last paid?,CircumstancesEmploymentChangeHowMuchPaid,100
+Ongoing Employment - Change in circumstances,Employment,What date did you receive your last pay?,CircumstancesEmploymentChangeWhatDatePaid,20/01/2014
+Ongoing Employment - Change in circumstances,Employment,How often are you paid?,CircumstancesEmploymentChangeHowOftenFrequency,weekly
+Ongoing Employment - Change in circumstances,Employment,What day or date of the month will you be paid?,CircumstancesEmploymentChangeMonthlyPayDay,
+Ongoing Employment - Change in circumstances,Employment,Do you usually get the same amount each week?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,yes
+Ongoing Employment - Change in circumstances,Employment,How often are you paid other,CircumstancesEmploymentChangeHowOftenFrequencyOther,
+Ongoing Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,no
+Ongoing Employment - Change in circumstances,Employment,"Tell us what this is for, how much and how often",CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor,
+Ongoing Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,no
+Ongoing Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
 Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,By Post
 Declaration - consent and declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,yes
 Declaration - consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,Mr Smith

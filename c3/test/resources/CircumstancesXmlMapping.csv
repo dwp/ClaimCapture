@@ -66,17 +66,17 @@ Employment - Change in circumstances,Employment,Do you pay into a pension and/or
 Employment - Change in circumstances,Employment,Tell us what this is for, how much and how often,CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor,DWPCAChangeOfCircumstances>EvidenceList
 Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,DWPCAChangeOfCircumstances>EvidenceList
 Employment - Change in circumstances,Employment,Tell us what the cost is for, how much, how often and who to,CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,DWPCAChangeOfCircumstances>EvidenceList
-Finished Employment - Change in circumstances,Employment,What date did you receive your last pay?,CircumstancesEmploymentChangeWhatDatePaid,20/01/2014
-Finished Employment - Change in circumstances,Employment,What was included in this pay?,CircumstancesEmploymentChangeWhatWasIncluded,Overtime
-Finished Employment - Change in circumstances,Employment,How often are you paid?,CircumstancesEmploymentChangeHowOftenFrequency,other
-Finished Employment - Change in circumstances,Employment,What day or date of the month will you be paid?,CircumstancesEmploymentChangeMonthlyPayDay,
-Finished Employment - Change in circumstances,Employment,Do you usually get the same amount each week?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,yes
-Finished Employment - Change in circumstances,Employment,Other,CircumstancesEmploymentChangeHowOftenFrequencyOther,
-Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoney,no
-Finished Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,no
-Finished Employment - Change in circumstances,Employment,"Tell us what this is for, how much and how often",CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor,
-Finished Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,no
-Finished Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
+Finished Employment - Change in circumstances,Employment,What date did you receive your last pay?,CircumstancesEmploymentChangeWhatDatePaid,DWPCAChangeOfCircumstances>EvidenceList
+Finished Employment - Change in circumstances,Employment,What was included in this pay?,CircumstancesEmploymentChangeWhatWasIncluded,DWPCAChangeOfCircumstances>EvidenceList
+Finished Employment - Change in circumstances,Employment,How often are you paid?,CircumstancesEmploymentChangeHowOftenFrequency,DWPCAChangeOfCircumstances>EvidenceList
+Finished Employment - Change in circumstances,Employment,What day or date of the month will you be paid?,CircumstancesEmploymentChangeMonthlyPayDay,DWPCAChangeOfCircumstances>EvidenceList
+Finished Employment - Change in circumstances,Employment,Do you usually get the same amount each week?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,DWPCAChangeOfCircumstances>EvidenceList
+Finished Employment - Change in circumstances,Employment,Other,CircumstancesEmploymentChangeHowOftenFrequencyOther,DWPCAChangeOfCircumstances>EvidenceList
+Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoney,DWPCAChangeOfCircumstances>EvidenceList
+Finished Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,DWPCAChangeOfCircumstances>EvidenceList
+Finished Employment - Change in circumstances,Employment,"Tell us what this is for, how much and how often",CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor,DWPCAChangeOfCircumstances>EvidenceList
+Finished Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,DWPCAChangeOfCircumstances>EvidenceList
+Finished Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,DWPCAChangeOfCircumstances>EvidenceList
 Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges
 Consent and declaration,Further Information,Contact phone or mobile number,FurtherInfoContact,DWPCAChangeOfCircumstances>EvidenceList
 Consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have told us about?,CircumstancesDeclarationInfoAgreement,DWPCAChangeOfCircumstances>Declaration
