@@ -1,10 +1,10 @@
 package controllers.circs.s2_report_changes
 
-import play.api.mvc.Controller
+import play.api.mvc.{Call, Controller}
 import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.CircumstancesEmploymentChange
+import models.domain._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import models.yesNo._
@@ -12,6 +12,11 @@ import play.api.data.validation.{Invalid, Valid, Constraint}
 import controllers.CarersForms._
 import play.api.data.FormError
 import play.api.data.validation.ValidationError
+import play.api.data.FormError
+import play.api.data.validation.ValidationError
+import play.api.mvc.Call
+import scala.annotation.tailrec
+import scala.collection.immutable.Stack
 
 object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navigable {
   val employed = "employed"
@@ -72,17 +77,23 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
   }
 
   def submit = claiming { implicit circs => implicit request => implicit lang =>
-    def next(employmentChange: CircumstancesEmploymentChange) = employmentChange.typeOfWork.answer match {
+    def next(employmentChange: CircumstancesEmploymentChange):(QuestionGroup.Identifier,Call) = employmentChange.typeOfWork.answer match {
       case `employed` => {
         employmentChange.hasWorkStartedYet.answer match {
           case `yes` => {
-            if (employmentChange.hasWorkFinishedYet.answer.getOrElse("no") == `yes`) Redirect(controllers.circs.s2_report_changes.routes.G11StartedAndFinishedEmployment.present())
-            else Redirect(controllers.circs.s2_report_changes.routes.G10StartedEmploymentAndOngoing.present())
+            if (employmentChange.hasWorkFinishedYet.answer.getOrElse("no") == `yes`) CircumstancesStartedAndFinishedEmployment -> controllers.circs.s2_report_changes.routes.G11StartedAndFinishedEmployment.present()
+            else CircumstancesStartedEmploymentAndOngoing -> controllers.circs.s2_report_changes.routes.G10StartedEmploymentAndOngoing.present()
           }
-          case _ => Redirect(controllers.circs.s2_report_changes.routes.G12EmploymentNotStarted.present())
+          case _ => CircumstancesEmploymentNotStarted -> controllers.circs.s2_report_changes.routes.G12EmploymentNotStarted.present()
         }
       }
-      case _ => Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
+      case _ => CircumstancesEmploymentChange -> controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present()
+    }
+
+    @tailrec
+    def popDeleteQG(circs:Claim,optSections:Stack[QuestionGroup.Identifier]):Claim = {
+      if (optSections.isEmpty) circs
+      else popDeleteQG(circs delete(optSections top),optSections pop)
     }
 
     form.bindEncrypted.fold(
@@ -102,7 +113,13 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
         BadRequest(views.html.circs.s2_report_changes.g9_employmentChange(updatedFormWithErrors))
       },
       employmentChange => {
-        circs.update(employmentChange) -> next(employmentChange)
+        val optSections = Stack(CircumstancesStartedAndFinishedEmployment, CircumstancesStartedEmploymentAndOngoing, CircumstancesEmploymentNotStarted, CircumstancesEmploymentChange)
+
+        val nextPage = next(employmentChange)
+
+        val updatedCircs = popDeleteQG(circs, optSections.filter(_.id != nextPage._1.id))
+
+        updatedCircs.update(employmentChange) -> Redirect(nextPage._2)
       }
     )
   }

@@ -80,7 +80,6 @@ object CircsEvidenceList {
             case "self-employed" => {
               buffer ++= textLine(Messages("typeOfWork.selfEmployedTypeOfWork") + " = " + employmentChange.typeOfWork.text2a.get)
               buffer ++= textLine(Messages("typeOfWork.selfEmployedTotalIncome") + " = " + Messages("label." + employmentChange.typeOfWork.answer2.get))
-              buffer ++= textLine(Messages("typeOfWork.selfEmployedMoreAboutChanges") + " = " + employmentChange.typeOfWork.text2b.get)
             }
             case _ => {
               buffer ++= textLine(Messages("typeOfWork.employerNameAndAddress") + " = " + employmentChange.typeOfWork.address.get.lineOne.get + " " + employmentChange.typeOfWork.address.get.lineTwo.get + " " + employmentChange.typeOfWork.address.get.lineThree.getOrElse(""))
