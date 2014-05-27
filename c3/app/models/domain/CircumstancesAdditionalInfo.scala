@@ -127,6 +127,7 @@ case class CircumstancesStartedAndFinishedEmployment(dateLastPaid: DayMonthYear,
                                                      monthlyPayDay: Option[String],
                                                      usuallyPaidSameAmount: String,
                                                      employerOwesYouMoney: String,
+                                                     employerOwesYouMoneyInfo: Option[String] = None,
                                                      payIntoPension: YesNoWithText = YesNoWithText("", None),
                                                      careCostsForThisWork: YesNoWithText = YesNoWithText("", None),
                                                      moreAboutChanges: Option[String] = None)

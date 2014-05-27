@@ -394,6 +394,7 @@ object CircsEvidenceList {
     buffer ++= textLine(Messages("usuallyPaidSameAmount." + frequencyContext) + " = " + Messages("label." + startedAndFinishedEmployment.usuallyPaidSameAmount))
 
     buffer ++= textLine(Messages("employerOwesYouMoney") + " = " + Messages("label." + startedAndFinishedEmployment.employerOwesYouMoney))
+    if (startedAndFinishedEmployment.employerOwesYouMoneyInfo.isDefined) buffer ++= textLine(Messages("employerOwesYouMoneyInfo") + " = " + startedAndFinishedEmployment.employerOwesYouMoneyInfo.get)
 
     buffer ++= renderEmploymentCommonQuestionAnswers(
       "didYouPayIntoPension.answer",

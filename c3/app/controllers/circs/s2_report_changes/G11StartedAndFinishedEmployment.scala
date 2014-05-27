@@ -32,6 +32,7 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
     "monthlyPayDay" -> optional(carersText(maxLength = 35)),
     "usuallyPaidSameAmount" -> nonEmptyText.verifying(validYesNo),
     "employerOwesYouMoney" -> nonEmptyText.verifying(validYesNo),
+    "employerOwesYouMoneyInfo" -> optional(text(maxLength = 60)),
     payIntoPension,
     careCostsForThisWork,
     "moreAboutChanges" -> optional(carersText(maxLength = 300))

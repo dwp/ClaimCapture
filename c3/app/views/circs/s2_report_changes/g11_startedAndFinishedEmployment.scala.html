@@ -20,6 +20,7 @@
 @doYouPayIntoPension = @{startedAndFinishedEmployment("doYouPayIntoPension")}
 @doCareCostsForThisWork = @{startedAndFinishedEmployment("doCareCostsForThisWork")}
 @employerOwesYouMoney = @{startedAndFinishedEmployment("employerOwesYouMoney")}
+@employerOwesYouMoneyInfo = @{startedAndFinishedEmployment("employerOwesYouMoneyInfo")}
 @moreAboutChanges = @{startedAndFinishedEmployment("moreAboutChanges")}
 
 @main(Messages("c2.g11") + " - " + Messages("c2.name")) {
@@ -43,7 +44,7 @@
                     @paymentFrequencySelect(howOften,
                         'id -> "howOften",
                         'visibleOn -> "yes",
-                        '_label -> "circs.howOften",
+                        '_label -> "circs.howOften.were",
                         'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
                         'display -> {if(howOftenFrequency.value.getOrElse("no") == "other") "yes" else "no"}
                     )
@@ -82,7 +83,8 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            Html(Messages("employerOwesYouMoney.help"))
+                            carersInputTextArea(employerOwesYouMoneyInfo,
+                                'ignoreOptional -> true)
                         ),
                         'id -> "employerOwesYouMoneyHelpWrap",
                         'display -> { if (employerOwesYouMoney.value.getOrElse("no") == "yes") "yes" else "no" }
