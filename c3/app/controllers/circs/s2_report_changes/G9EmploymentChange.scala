@@ -17,6 +17,7 @@ import play.api.data.validation.ValidationError
 import play.api.mvc.Call
 import scala.annotation.tailrec
 import scala.collection.immutable.Stack
+import scala.language.postfixOps
 
 object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navigable {
   val employed = "employed"
