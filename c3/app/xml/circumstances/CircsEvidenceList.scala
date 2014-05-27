@@ -21,12 +21,27 @@ import models.yesNo.YesNoWithText
 object CircsEvidenceList {
   def xml(circs: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{furtherInfo(circs)}{theirInfo(circs)}{employment(circs)}{paymentChange(circs)}{addressChange(circs)}{breaksFromCaring(circs)}{breaksFromCaringSummary(circs)}
+      {xmlGenerated()}{furtherInfo(circs)}{theirInfo(circs)}{typeOfChange(circs)}{employment(circs)}{paymentChange(circs)}{addressChange(circs)}{breaksFromCaring(circs)}{breaksFromCaringSummary(circs)}
     </EvidenceList>
   }
 
   def xmlGenerated() = {
     textLine("XML Generated at: " + DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss").print(DateTime.now()))
+  }
+
+  def typeOfChange(circs: Claim): NodeSeq = {
+    var buffer = NodeSeq.Empty
+
+    buffer ++= textSeparatorLine(Messages("c2.g1"))
+
+    val typeOfChangeBeingReported = circs.questionGroup[ReportChanges] match {
+      case Some(reportChanges) => reportChanges.reportChanges
+      case _ => "Not set!"
+    }
+
+    buffer ++= textLine(Messages("reportChanges") + " = " + typeOfChangeBeingReported)
+
+    buffer
   }
 
   def employment(circs: Claim): NodeSeq = {

@@ -4,6 +4,7 @@ Report a change in your circumstances - Change in circumstances,Circumstances,Da
 Report a change in your circumstances - Change in circumstances,Your contact details,Address,CircumstancesYourContactDetailsAddress,DWPCAChangeOfCircumstances>EvidenceList
 Report a change in your circumstances - Change in circumstances,Circumstances,Their Full Name,CircumstancesAboutYouTheirFullName,DWPCAChangeOfCircumstances>Claim>CareeDetails>OtherNames
 Report a change in your circumstances - Change in circumstances,Circumstances,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,DWPCAChangeOfCircumstances>EvidenceList
+Details of your change in circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,DWPCAChangeOfCircumstances>EvidenceList
 Permanently stopped caring - Change in circumstances,Permanently stopped caring,Tell us more about your changes,CircumstancesPermanentlyStoppedCaringMoreAboutChanges,DWPCAChangeOfCircumstances>OtherChanges
 Permanently stopped caring - Change in circumstances,Permanently stopped caring,What date did you permanently stop caring?,CircumstancesPermanentlyStoppedCaringStoppedCaringDate,DWPCAChangeOfCircumstances>StoppedCaring>DateStoppedCaring
 Change of address - change in circumstances,Previous address,Your previous address,CircumstancesAddressChangePreviousAddress,DWPCAChangeOfCircumstances>EvidenceList
@@ -40,7 +41,7 @@ Breaks from caring - change in circumstances,Breaks from caring,Did you or the p
 Breaks from caring - change in circumstances,Breaks from caring,Tell us more about your changes,BreaksInCareMoreAboutChanges,DWPCAChangeOfCircumstances>EvidenceList
 Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks in care that you have not already reported to us?,BreaksInCareSummaryAdditionalBreaks,DWPCAChangeOfCircumstances>EvidenceList
 Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks in care that you have not already reported to us?Yes,BreaksInCareSummaryAdditionalBreaksInfo,DWPCAChangeOfCircumstances>EvidenceList
-Employment Changes - Change in circumstances,Employment,What type of work is this?,CircumstancesEmploymentChangeTypeOfWork,DWPCAChangeOfCircumstances>EvidenceList
+Employment Changes - Change in circumstances,Employment,Are you still caring 35 hours or more each week?,CircumstancesEmploymentChangeStillCaring,DWPCAChangeOfCircumstances>EvidenceList
 Employment Changes - Change in circumstances,Employment,What date did you stop caring 35 hours a week?,CircumstancesEmploymentChangeFinishedStillCaringDate,DWPCAChangeOfCircumstances>EvidenceList
 Employment Changes - Change in circumstances,Employment,Has this work started yet?,CircumstancesEmploymentChangeHasWorkStartedYet,DWPCAChangeOfCircumstances>EvidenceList
 Employment Changes - Change in circumstances,Employment,When did you start this work?,CircumstancesEmploymentChangeDateWhenStarted,DWPCAChangeOfCircumstances>EvidenceList
