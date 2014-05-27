@@ -160,6 +160,7 @@ $(function(){
                             "@Html(Messages("whatDatePaid.expect"))",
                             "@CarersCrypto.encryptAES(howOften.id)",
                             "@CarersCrypto.encryptAES(howOftenFrequency.id)",
+                            "@Html(Messages("howOften"))",
                             "@Html(Messages("circs.howOften"))",
                             "@Html(Messages("circs.howOften.expect"))",
                             "@CarersCrypto.encryptAES(usuallyPaidSameAmount.id)",
@@ -173,7 +174,9 @@ $(function(){
                             "@Html(Messages("usuallyPaidSameAmount.month"))",
                             "@Html(Messages("usuallyPaidSameAmount.month.expect"))",
                             "@Html(Messages("usuallyPaidSameAmount.other"))",
-                            "@Html(Messages("usuallyPaidSameAmount.other.expect"))");
+                            "@Html(Messages("usuallyPaidSameAmount.other.expect"))",
+                            "@CarersCrypto.encryptAES(doYouPayIntoPension("answer").id)"
+    );
 
     window.beenPaidYet("@CarersCrypto.encryptAES(beenPaidYet("yes").id)",
                        "@CarersCrypto.encryptAES(beenPaidYet("no").id)",

@@ -394,9 +394,10 @@ object CircsEvidenceList {
   private def renderEmploymentNotStarted(employmentNotStartedOption: CircumstancesEmploymentNotStarted): NodeSeq = {
     var buffer = NodeSeq.Empty
 
-    buffer ++= textLine(Messages("howMuchPaid") + " = " + employmentNotStartedOption.howMuchPaid)
+    buffer ++= textLine(Messages("beenPaidYet") + " = " + Messages("label." + employmentNotStartedOption.beenPaid))
+    if (employmentNotStartedOption.howMuchPaid.isDefined) buffer ++= textLine(Messages("howMuchPaid") + " = " + employmentNotStartedOption.howMuchPaid.get)
     if (employmentNotStartedOption.whenExpectedToBePaidDate.isDefined) buffer ++= textLine(Messages("whenExpectedToBePaidDate") + " = " + employmentNotStartedOption.whenExpectedToBePaidDate.get.`dd/MM/yyyy`)
-    buffer ++= textLine(Messages("circs.howOften") + " = " + Messages(employmentNotStartedOption.howOften.frequency))
+    if (employmentNotStartedOption.howOften.frequency.length > 0) buffer ++= textLine(Messages("circs.howOften.will") + " = " + Messages(employmentNotStartedOption.howOften.frequency))
     if (employmentNotStartedOption.howOften.other.isDefined) buffer ++= textLine(Messages("other") + " = " + Messages(employmentNotStartedOption.howOften.other.get))
 
     val frequencyContext = employmentNotStartedOption.howOften.frequency match {
@@ -405,7 +406,7 @@ object CircsEvidenceList {
       case "monthly" => "month"
       case _ => "other"
     }
-    buffer ++= textLine(Messages("usuallyPaidSameAmount.did." + frequencyContext) + " = " + Messages("label." + employmentNotStartedOption.usuallyPaidSameAmount))
+    if (employmentNotStartedOption.usuallyPaidSameAmount.isDefined) buffer ++= textLine(Messages("usuallyPaidSameAmount.did." + frequencyContext) + " = " + Messages("label." + employmentNotStartedOption.usuallyPaidSameAmount.get))
 
     buffer ++= renderEmploymentCommonQuestionAnswers(
       "willYouPayIntoPension.answer",

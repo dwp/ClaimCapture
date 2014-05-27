@@ -137,10 +137,10 @@ object CircumstancesStartedAndFinishedEmployment extends QuestionGroup.Identifie
 }
 
 case class CircumstancesEmploymentNotStarted(beenPaid: String,
-                                             howMuchPaid: String,
+                                             howMuchPaid: Option[String],
                                              whenExpectedToBePaidDate: Option[DayMonthYear],
                                              howOften: PaymentFrequency,
-                                             usuallyPaidSameAmount: String,
+                                             usuallyPaidSameAmount: Option[String],
                                              payIntoPension: YesNoWithText = YesNoWithText("", None),
                                              careCostsForThisWork: YesNoWithText = YesNoWithText("", None),
                                              moreAboutChanges: Option[String] = None)

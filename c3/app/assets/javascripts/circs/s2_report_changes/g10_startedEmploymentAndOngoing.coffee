@@ -1,13 +1,16 @@
 window.fixErrorMessages = (beenPaidYetY, beenPaidYetN,
                            howMuchPaid, howMuchPaidYText, howMuchPaidNText,
                            whatDatePaid, whatDatePaidYText, whatDatePaidNText,
-                           howOften, howOftenFrequency, howOftenYText, howOftenNText,
+                           howOften, howOftenFrequency, howOftenText, howOftenYText, howOftenNText,
                            usuallyPaidSameAmount, usuallyPaidSameAmountText,
                            usuallyPaidSameAmountYWeekText, usuallyPaidSameAmountNWeekText,
                            usuallyPaidSameAmountYFortnightText, usuallyPaidSameAmountNFortnightText,
                            usuallyPaidSameAmountYFourWeekText, usuallyPaidSameAmountNFourWeekText,
                            usuallyPaidSameAmountYMonthText, usuallyPaidSameAmountNMonthText,
                            usuallyPaidSameAmountYOtherText, usuallyPaidSameAmountNOtherText) ->
+  currentText = $("div[class='validation-summary'] a[href='#" + howOften + "']").text().trim()
+  existingError = currentText.substring(howOftenText.length, currentText.length)
+  $("div[class='validation-summary'] a[href='#" + howOften + "']").text(howOftenNText + existingError)
   if ($("#" + beenPaidYetN).prop('checked'))
     currentText = $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text().trim()
     existingError = currentText.substring(howMuchPaidYText.length, currentText.length)
@@ -16,7 +19,7 @@ window.fixErrorMessages = (beenPaidYetY, beenPaidYetN,
     existingError = currentText.substring(whatDatePaidYText.length, currentText.length)
     $("div[class='validation-summary'] a[href='#" + whatDatePaid + "']").text(whatDatePaidNText + existingError)
     currentText = $("div[class='validation-summary'] a[href='#" + howOften + "']").text().trim()
-    existingError = currentText.substring(howOftenYText.length, currentText.length)
+    existingError = currentText.substring(howOftenText.length, currentText.length)
     $("div[class='validation-summary'] a[href='#" + howOften + "']").text(howOftenNText + existingError)
     currentText = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text().trim()
     existingError = currentText.substring(usuallyPaidSameAmountText.length, currentText.length)
@@ -37,6 +40,9 @@ window.fixErrorMessages = (beenPaidYetY, beenPaidYetN,
       when "monthly" then usuallyPaidSameAmountNMonthText
       else usuallyPaidSameAmountNOtherText
     $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text(textToUse + existingError)
+    currentText = $("div[class='validation-summary'] a[href='#" + howOften + "']").text().trim()
+    existingError = currentText.substring(howOftenText.length, currentText.length)
+    $("div[class='validation-summary'] a[href='#" + howOften + "']").text(howOftenYText + existingError)
 
 window.beenPaidYet = (beenPaidYetY, beenPaidYetN,
                       howMuchPaid, howMuchPaidYText, howMuchPaidNText,

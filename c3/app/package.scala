@@ -69,6 +69,7 @@ package object app {
     val Weekly = "weekly"
     val Fortnightly = "fortnightly"
     val FourWeekly = "fourWeekly"
+    val DontKnowYet = "dontknowyet"
     val Monthly = "monthly"
     val Other = "other"
 

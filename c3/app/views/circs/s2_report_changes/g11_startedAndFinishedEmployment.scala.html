@@ -102,7 +102,8 @@
                         inputDef = Seq(
                             carersInputTextArea(doYouPayIntoPension("whatFor"),
                                 'helper -> Html(Messages("300charsLeft")),
-                                'helperAbove -> Html(Messages("doYouPayIntoPension.whatFor.help")),
+                                '_label -> "didYouPayIntoPension.whatFor",
+                                'helperAbove -> Html(Messages("didYouPayIntoPension.whatFor.help")),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
@@ -118,7 +119,8 @@
                         inputDef = Seq(
                             carersInputTextArea(doCareCostsForThisWork("whatCosts"),
                                 'helper -> Html(Messages("300charsLeft")),
-                                'helperAbove -> Html(Messages("doCareCostsForThisWork.whatCosts.help")),
+                                '_label -> "didCareCostsForThisWork.whatCosts",
+                                'helperAbove -> Html(Messages("didCareCostsForThisWork.whatCosts.help")),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),

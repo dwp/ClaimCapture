@@ -1,4 +1,9 @@
-window.fixErrorMessages = (howOften,
+window.fixErrorMessages = (beenPaidYet,
+                           beenPaidYetText,
+                           willBePaidText,
+                           howOften,
+                           howOftenText,
+                           howOftenWillText
                            howOftenFrequency,
                            usuallyPaidSameAmount,
                            usuallyPaidSameAmountText,
@@ -13,6 +18,11 @@ window.fixErrorMessages = (howOften,
                            doCareCostsForThisWorkAnswer,
                            doCareCostsForThisWorkText,
                            willCareCostsForThisWorkText) ->
+  pathBeenPaidYet = $("div[class='validation-summary'] a[href='#" + beenPaidYet + "']")
+  if ((pathBeenPaidYet != undefined) && (pathBeenPaidYet.length > 0))
+    currentTextBeenPaidYet = pathBeenPaidYet.text().trim()
+    existingErrorBeenPaidYet = currentTextBeenPaidYet.substring(beenPaidYetText.length, currentTextBeenPaidYet.length)
+    pathBeenPaidYet.text(willBePaidText + existingErrorBeenPaidYet)
   currentText = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text().trim()
   existingError = currentText.substring(usuallyPaidSameAmountText.length, currentText.length)
   textToUse = switch ($("#" + howOftenFrequency).val())
@@ -32,13 +42,27 @@ window.fixErrorMessages = (howOften,
     currentTextDoCareCostsForThisWorkAnswer = pathDoCareCostsForThisWorkAnswer.text().trim()
     existingErrorDoCareCostsForThisWorkAnswer = currentTextDoCareCostsForThisWorkAnswer.substring(doCareCostsForThisWorkText.length, currentTextDoCareCostsForThisWorkAnswer.length)
     pathDoCareCostsForThisWorkAnswer.text(willCareCostsForThisWorkText + existingErrorDoCareCostsForThisWorkAnswer)
+  pathHowOften = $("div[class='validation-summary'] a[href='#" + howOften + "']")
+  if ((pathHowOften != undefined) && (pathHowOften.length > 0))
+    currentTextHowOften = pathHowOften.text().trim()
+    existingErrorHowOften = currentTextHowOften.substring(howOftenText.length, currentTextHowOften.length)
+    pathHowOften.text(howOftenWillText + existingErrorHowOften)
 
+
+window.beenPaidYet = (beenPaidYetY, beenPaidYetN) ->
+  $("#" + beenPaidYetY).on "click", ->
+    $("#beenPaidYetWrap").slideDown 500
+    $("#beenPaidYetWrap").css('display', "block")
+
+  $("#" + beenPaidYetN).on "click", ->
+    $("#beenPaidYetWrap").slideUp 500
 
 window.usuallyPaidSameAmount = (howOftenFrequency,
                                 usuallyPaidSameAmount,
                                 usuallyPaidSameAmountY,
                                 usuallyPaidSameAmountN,
                                 defaultValue,
+                                dontknowKey,
                                 usuallyPaidSameAmountWeeklyText,
                                 usuallyPaidSameAmountFortnightlyText,
                                 usuallyPaidSameAmountFourWeeklyText,
@@ -50,7 +74,7 @@ window.usuallyPaidSameAmount = (howOftenFrequency,
         $("#usuallyPaidSameAmountWrap").css('display', "none")
         $("#" + usuallyPaidSameAmountY).prop('checked', false)
         $("#" + usuallyPaidSameAmountN).prop('checked', false)
-    if (($("#" + howOftenFrequency).val() is defaultValue) or ($("#" + howOftenFrequency).val() is ""))
+    if (($("#" + howOftenFrequency).val() is defaultValue) or ($("#" + howOftenFrequency).val() is "") or ($("#" + howOftenFrequency).val() is dontknowKey))
     else
       if ($("#" + howOftenFrequency).val() == "weekly")
         $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountWeeklyText)
