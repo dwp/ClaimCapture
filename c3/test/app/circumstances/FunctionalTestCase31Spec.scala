@@ -12,6 +12,7 @@ class FunctionalTestCase31Spec extends FunctionalTestCommon {
 
   "The application Circumstances" should {
     "Successfully run absolute Circumstances Test Case 31" in new WithBrowser(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+      pending
       val page = G1ReportAChangeInYourCircumstancesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase31.csv")
       page goToThePage()
