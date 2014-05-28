@@ -7,9 +7,10 @@ import controllers.submission._
 import monitoring.ClaimBotChecking
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.JSEnabled
 import services.submission.ClaimSubmissionService
 import services.ClaimTransactionComponent
+import services.{CacheService, EncryptionService}
+import models.domain.JSEnabled
 
 class G5Submit extends Controller with CachedClaim with Navigable
       with AsyncSubmissionController
@@ -36,9 +37,22 @@ class G5Submit extends Controller with CachedClaim with Navigable
           NotFound
         },
         f => {
-          println(claim.getClass) // class models.view.CachedClaim$$anon$2
-          checkForBot(claim, request)
-          submission(claim, request, f.jsEnabled)
+          // check the cache to see whether this is a duplicate claim or not
+          val fingerprint = EncryptionService.encryptClaimFingeprint(claim)
+
+          if(!CacheService.getFromCache(fingerprint).isEmpty) {
+            // If a duplicate claim is suspected, drop it silently, record an error and go to the thankyou page.
+            println("Uh oh already in cache: "+fingerprint)
+            Redirect(controllers.routes.ClaimEnding.thankyou())
+          } else {
+            CacheService.storeInCache(fingerprint)
+            println("Storing fingerprint in cache: " + fingerprint)
+
+            println(claim.getClass) // class models.view.CachedClaim$$anon$2
+
+            checkForBot(claim, request)
+            submission(claim, request, f.jsEnabled)
+          }
         }
       )
   }

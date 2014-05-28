@@ -25,6 +25,7 @@ trait AsyncClaimSubmissionService {
     Logger.info(s"Retrieved Id : $txnID")
 
     try{
+      // TODO: If  submission fails, remove the key from the cache
       webServiceClient.submitClaim(claim, txnID).map(
         response => {
           Logger.debug("Got response from WS:" + response)
