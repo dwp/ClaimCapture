@@ -24,7 +24,7 @@ class G12EmploymentNotStartedPage(ctx:PageObjectsContext) extends CircumstancesP
 object G12EmploymentNotStartedPage {
   val title = "Future Employment - Change in circumstances".toLowerCase
 
-  val url  = "/circumstances/report-changes/employment-not-started"
+  val url  = "/circumstances/report-changes/future-employment"
 
   def apply(ctx:PageObjectsContext) = new G12EmploymentNotStartedPage(ctx)
 }

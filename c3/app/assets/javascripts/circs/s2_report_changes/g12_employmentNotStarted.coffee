@@ -56,6 +56,7 @@ window.beenPaidYet = (beenPaidYetY, beenPaidYetN) ->
 
   $("#" + beenPaidYetN).on "click", ->
     $("#beenPaidYetWrap").slideUp 500
+    $("#usuallyPaidSameAmountWrap").slideUp 500
 
 window.usuallyPaidSameAmount = (howOftenFrequency,
                                 usuallyPaidSameAmount,

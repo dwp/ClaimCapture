@@ -25,7 +25,7 @@ final class G10StartedEmploymentAndOngoingPage(ctx:PageObjectsContext) extends C
 object G10StartedEmploymentAndOngoingPage {
   val title = "Employment - Change in circumstances".toLowerCase
 
-  val url  = "/circumstances/report-changes/started-employment-ongoing"
+  val url  = "/circumstances/report-changes/employment-ongoing"
 
   def apply(ctx:PageObjectsContext) = new G10StartedEmploymentAndOngoingPage(ctx)
 }

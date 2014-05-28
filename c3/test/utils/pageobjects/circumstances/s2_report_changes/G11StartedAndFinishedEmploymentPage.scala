@@ -28,7 +28,7 @@ final class G11StartedAndFinishedEmploymentPage(ctx:PageObjectsContext) extends 
 object G11StartedAndFinishedEmploymentPage {
   val title = "Finished Employment - Change in circumstances".toLowerCase
 
-  val url  = "/circumstances/report-changes/started-employment-ongoing"
+  val url  = "/circumstances/report-changes/employment-finished"
 
   def apply(ctx:PageObjectsContext) = new G11StartedAndFinishedEmploymentPage(ctx)
 }

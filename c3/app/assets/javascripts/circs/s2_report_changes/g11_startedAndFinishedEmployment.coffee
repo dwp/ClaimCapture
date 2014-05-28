@@ -89,8 +89,8 @@ window.employerOwesYouMoney = (usuallyPaidSameAmountY, usuallyPaidSameAmountN) -
   $("#" + usuallyPaidSameAmountN).on "click", ->
     if ($("#" + usuallyPaidSameAmountY).prop('checked'))
     else
-      $("#employerOwesYouMoneyHelpWrap").slideUp 500
-      $("#employerOwesYouMoneyHelpWrap").css('display', "block")
+      $("#employerOwesYouMoneyHelpWrap").slideUp 500, ->
+        $("#employerOwesYouMoneyHelpWrap").css('display', "none")
 
 window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
   $("#" + payIntoPensionY).on "click", ->
