@@ -112,5 +112,5 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
           }
         )
     }
-  }
+  } section("unit", models.domain.CircumstancesSelfEmployment.id)
 }
