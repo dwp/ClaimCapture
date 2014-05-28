@@ -18,6 +18,7 @@ final class G11StartedAndFinishedEmploymentPage(ctx:PageObjectsContext) extends 
   declareInput("#doYouPayIntoPension_whatFor", "CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor")
   declareYesNo("#doCareCostsForThisWork_answer", "CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer")
   declareInput("#doCareCostsForThisWork_whatCosts", "CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts")
+  declareInput("#moreAboutChanges", "CircumstancesEmploymentChangeMoreAboutChanges")
 }
 
 /**
