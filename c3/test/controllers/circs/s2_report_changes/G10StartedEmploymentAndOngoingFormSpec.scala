@@ -43,8 +43,8 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
             f.date must equalTo(DayMonthYear(Some(whatDatePaidDay), Some(whatDatePaidMonth), Some(whatDatePaidYear), None, None))
             f.howOften.frequency must equalTo(weekly)
             f.usuallyPaidSameAmount must equalTo(no)
-            f.payIntoPension must equalTo(no)
-            f.careCostsForThisWork must equalTo(no)
+            f.payIntoPension.answer must equalTo(no)
+            f.careCostsForThisWork.answer must equalTo(no)
           }
         )
     }
@@ -111,8 +111,8 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
             f.howOften.frequency must equalTo(monthly)
             f.monthlyPayDay.get must equalTo(monthlyPayDay)
             f.usuallyPaidSameAmount must equalTo(no)
-            f.payIntoPension must equalTo(no)
-            f.careCostsForThisWork must equalTo(no)
+            f.payIntoPension.answer must equalTo(no)
+            f.careCostsForThisWork.answer must equalTo(no)
           }
         )
     }
