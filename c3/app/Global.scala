@@ -1,11 +1,9 @@
 import app.ConfigProperties._
 import java.net.InetAddress
-import monitoring.ApplicationMonitor
 import org.slf4j.MDC
 import play.api._
 import play.api.mvc._
 import play.api.mvc.Results._
-import jmx.JMXActors
 import play.api.mvc.SimpleResult
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
@@ -55,37 +53,7 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
   }
 
   def actorSystems = {
-    JMXActors
     EmailActors
     AsyncActors
-    ApplicationMonitor.begin
-
-  }
-
-}
-
-// Add WithFilters(LoggingFilter) to enable good debug
-object LoggingFilter extends Filter {
-  def apply(nextFilter: (RequestHeader) => Future[SimpleResult])
-           (requestHeader: RequestHeader): Future[SimpleResult] = {
-    val startTime = System.currentTimeMillis
-    nextFilter(requestHeader).map { result =>
-      val endTime = System.currentTimeMillis
-      val requestTime = endTime - startTime
-      Logger.info(s"${requestHeader.method} ${requestHeader.uri} " +
-        s"took ${requestTime}ms and returned ${result.header.status}")
-      result.withHeaders("Request-Time" -> requestTime.toString)
-    }
-  }
-}
-
-class JMXFilter extends Filter {
-  def apply(f: (RequestHeader) => Future[SimpleResult])(rh: RequestHeader): Future[SimpleResult] = f(rh)
-
-//  def apply(f: (RequestHeader) => Result)(rh: RequestHeader): Result = f(rh)
-
-  override def apply(f: EssentialAction): EssentialAction = {
-    if (play.Configuration.root().getBoolean("jmxEnabled", false)) super.apply(f)
-    else f
   }
 }
