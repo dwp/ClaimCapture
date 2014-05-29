@@ -19,6 +19,9 @@ import models.domain.Claim
 import scala.Some
 import ExecutionContext.Implicits.global
 import models.view.CachedClaim.ClaimResult
+import monitoring.Histograms
+import scala.util.Try
+import net.sf.ehcache.CacheManager
 
 object CachedClaim {
   val missingRefererConfig = "Referer not set in config"
@@ -69,9 +72,16 @@ trait CachedClaim {
     Cache.getAs[Claim](key)
   }
 
+  def recordMeasurements() = {
+    Histograms.cacheSize.update(Try(CacheManager.getInstance().getCache("play").getKeysWithExpiryCheck.size()).getOrElse(0))
+  }
+
+
   def newClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
       implicit val r = request
+
+      recordMeasurements()
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         withHeaders(action(newInstance, request, bestLang)(f))
