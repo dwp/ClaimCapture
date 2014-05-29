@@ -17,6 +17,7 @@ import utils.Injector
 
 object Global extends WithFilters(MetricsFilter) with Injector with CarersLanguageHelper {
 
+
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
     MDC.put("hostName", Option(InetAddress.getLocalHost.getHostName).getOrElse("Value not set"))
@@ -31,8 +32,14 @@ object Global extends WithFilters(MetricsFilter) with Injector with CarersLangua
       Logger.warn("application.secret is using default value")
     }
 
-    actorSystems
+    actorSystems()
 
+    registerReporters()
+
+    Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}") // used for operations, do not remove
+  }
+
+  private def registerReporters() {
     if (getProperty("metrics.enabled", default = false) && getProperty("metrics.slf4j", default = false)) {
       Slf4jReporter.forRegistry(MetricsRegistry.default)
         .outputTo(LoggerFactory.getLogger("application"))
@@ -41,8 +48,6 @@ object Global extends WithFilters(MetricsFilter) with Injector with CarersLangua
         .build()
         .start(1, TimeUnit.MINUTES)
     }
-
-    Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}") // used for operations, do not remove
   }
 
   override def onStop(app: Application) {
@@ -64,7 +69,7 @@ object Global extends WithFilters(MetricsFilter) with Injector with CarersLangua
     Future(Ok(views.html.common.error(startUrl)(lang(request), Request(request, AnyContentAsEmpty))))
   }
 
-  def actorSystems = {
+  def actorSystems() {
     EmailActors
     AsyncActors
   }
