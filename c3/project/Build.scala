@@ -33,7 +33,8 @@ object ApplicationBuild extends Build {
     "com.github.mumoshu" %% "play2-memcached"     % "0.4.0",
     "com.google.guava"    % "guava"               % "14.0",
     "org.feijoas"        %% "mango"               % "0.10",
-    "org.jasypt"          % "jasypt"              % "1.9.2"
+    "org.jasypt"          % "jasypt"              % "1.9.2",
+    "com.kenshoo"        %% "metrics-play"        % "0.1.4"
   )
 
   var sO: Seq[Def.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))
