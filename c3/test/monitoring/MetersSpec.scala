@@ -12,7 +12,7 @@ class MetersSpec extends Specification {
       val page = G1BenefitsPage(context)
       page goToThePage()
       val count = MetricsRegistry.default.meter("com.kenshoo.play.metrics.MetricsFilter.200").getCount
-      count mustEqual (3)
+      count mustEqual 3
     }
   } section "unit"
 }

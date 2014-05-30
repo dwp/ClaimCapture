@@ -73,7 +73,7 @@ trait CachedClaim {
   }
 
   def recordMeasurements() = {
-    Histograms.cacheSize.update(Try(CacheManager.getInstance().getCache("play").getKeysWithExpiryCheck.size()).getOrElse(0))
+    Histograms.recordCacheSize(Try(CacheManager.getInstance().getCache("play").getKeysWithExpiryCheck.size()).getOrElse(0))
   }
 
 
