@@ -32,21 +32,21 @@ object Residency extends XMLComponent{
   def periodAbroadLastYear(tripsOption: Option[Trips], claim: Claim) = {
     val trips = tripsOption.getOrElse(Trips())
 
-    def fiftyWeeksLabel (label:String) = {
-      question(<TimeOutsideGBLast3Years/>, label, trips.fiftyTwoWeeksTrips.size > 0, claim.dateOfClaim.get.`dd/MM/yyyy`)
+    def fiftyWeeksLabel (label:String, answer:Boolean) = {
+      question(<TimeOutsideGBLast3Years/>, label, answer, claim.dateOfClaim.get.`dd/MM/yyyy`)
     }
 
     val xmlNoTrip = {
       <PeriodAbroad>
-        {fiftyWeeksLabel("52Weeks.label")}
+        {fiftyWeeksLabel("52Weeks.label", false)}
       </PeriodAbroad>
     }
 
     def xml(trip: TripPeriod, index:Int) = {
       <PeriodAbroad>
         {index > 0 match {
-          case true =>  fiftyWeeksLabel("52Weeks.more.label")
-          case false => fiftyWeeksLabel("52Weeks.label")
+          case true =>  fiftyWeeksLabel("52Weeks.more.label", true)
+          case false => fiftyWeeksLabel("52Weeks.label", true)
         }}
         <Period>
           {question(<DateFrom/>, "start.trip", trip.start)}
@@ -60,7 +60,7 @@ object Residency extends XMLComponent{
 
     trips.fiftyTwoWeeksTrips.size == 0 match {
       case true => xmlNoTrip
-      case false => {for ((fiftyTwoWeeksTrip, index) <- trips.fiftyTwoWeeksTrips.zipWithIndex) yield xml(fiftyTwoWeeksTrip, index)}
+      case false => {for ((fiftyTwoWeeksTrip, index) <- trips.fiftyTwoWeeksTrips.zipWithIndex) yield xml(fiftyTwoWeeksTrip, index)} ++ xmlNoTrip
     }
   }
 }
