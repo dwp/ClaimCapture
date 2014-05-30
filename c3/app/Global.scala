@@ -40,7 +40,7 @@ object Global extends WithFilters(MetricsFilter) with Injector with CarersLangua
   }
 
   private def registerReporters() {
-    if (getProperty("metrics.enabled", default = false) && getProperty("metrics.slf4j", default = false)) {
+    if (getProperty("metrics.slf4j", default = false)) {
       Slf4jReporter.forRegistry(MetricsRegistry.default)
         .outputTo(LoggerFactory.getLogger("application"))
         .convertRatesTo(TimeUnit.SECONDS)
