@@ -50,11 +50,11 @@ window.beenPaidYet = (beenPaidYetY, beenPaidYetN,
                       howOften, howOftenFrequencyOther, howOftenYText, howOftenNText,
                       monthlyPayDay, monthlyPayDayYText, monthlyPayDayNText,
                       usuallyPaidSameAmount, usuallyPaidSameAmountY, usuallyPaidSameAmountN,
-                        usuallyPaidSameAmountWeeklyText, usuallyPaidSameAmountWeeklyTextExpected,
-                        usuallyPaidSameAmountFortnightlyText, usuallyPaidSameAmountFortnightlyTextExpected,
-                        usuallyPaidSameAmountFourWeeklyText, usuallyPaidSameAmountFourWeeklyTextExpected,
-                        usuallyPaidSameAmountMonthlyText, usuallyPaidSameAmountMonthlyTextExpected,
-                        usuallyPaidSameAmountOtherText, usuallyPaidSameAmountOtherTextExpected) ->
+                      usuallyPaidSameAmountWeeklyText, usuallyPaidSameAmountWeeklyTextExpected,
+                      usuallyPaidSameAmountFortnightlyText, usuallyPaidSameAmountFortnightlyTextExpected,
+                      usuallyPaidSameAmountFourWeeklyText, usuallyPaidSameAmountFourWeeklyTextExpected,
+                      usuallyPaidSameAmountMonthlyText, usuallyPaidSameAmountMonthlyTextExpected,
+                      usuallyPaidSameAmountOtherText, usuallyPaidSameAmountOtherTextExpected) ->
   $("#" + beenPaidYetY).on "click", ->
     $("#beenPaidYetWrap").slideUp 500, ->
       $("#beenPaidYetWrap").css('display', "none")

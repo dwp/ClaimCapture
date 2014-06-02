@@ -379,6 +379,8 @@ object CircsEvidenceList {
   private def renderStartedAndFinishedEmployment(startedAndFinishedEmployment: CircumstancesStartedAndFinishedEmployment): NodeSeq = {
     var buffer = NodeSeq.Empty
 
+    buffer ++= textLine(Messages("beenPaidYet") + " = " + Messages("label." + startedAndFinishedEmployment.beenPaid))
+    buffer ++= textLine(Messages("howMuchPaid") + " = " + startedAndFinishedEmployment.howMuchPaid)
     buffer ++= textLine(Messages("dateLastPaid") + " = " + startedAndFinishedEmployment.dateLastPaid.`dd/MM/yyyy`)
     if (startedAndFinishedEmployment.whatWasIncluded.isDefined) buffer ++= textLine(Messages("whatWasIncluded") + " = " + startedAndFinishedEmployment.whatWasIncluded.get)
     buffer ++= textLine(Messages("circs.howOften") + " = " + Messages(startedAndFinishedEmployment.howOften.frequency))

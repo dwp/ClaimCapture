@@ -73,7 +73,7 @@
 
 @common.govMain(Messages("circs.thankyou")) {
 
-    <div class="carers-allowance">
+    <div class="carers-allowance" xmlns="http://www.w3.org/1999/html">
 
         @common.protoType()
 
@@ -101,11 +101,13 @@
                         @if(showEmploymentPensionMessage) {
                             <p>@Html(Messages("circs.thankyou.employment1message3.content"))</p>
                         }
+                    </section>
+                    <section class="address">
                         <h3 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment1message.address.title"))</h3>
-                        <p>@Html(Messages("circs.thankyou.employment1message1.address"))</p>
-                        <p>@Html(Messages("circs.thankyou.employment1message2.address"))</p>
-                        <p>@Html(Messages("circs.thankyou.employment1message3.address"))</p>
-                        <p>@Html(Messages("circs.thankyou.employment1message4.address"))</p>
+                        <span>@Html(Messages("circs.thankyou.employment1message1.address"))</span>
+                        <span>@Html(Messages("circs.thankyou.employment1message2.address"))</span>
+                        <span>@Html(Messages("circs.thankyou.employment1message3.address"))</span>
+                        <span>@Html(Messages("circs.thankyou.employment1message4.address"))</span>
                     </section>
                 }
 
@@ -118,11 +120,13 @@
                         @if(showEmploymentPensionMessage) {
                             <p>@Html(Messages("circs.thankyou.employment2message4.content"))</p>
                         }
+                    </section>
+                    <section class="address">
                         <h3 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment2message.address.title"))</h3>
-                        <p>@Html(Messages("circs.thankyou.employment2message1.address"))</p>
-                        <p>@Html(Messages("circs.thankyou.employment2message2.address"))</p>
-                        <p>@Html(Messages("circs.thankyou.employment2message3.address"))</p>
-                        <p>@Html(Messages("circs.thankyou.employment2message4.address"))</p>
+                        <span>@Html(Messages("circs.thankyou.employment2message1.address"))</span>
+                        <span>@Html(Messages("circs.thankyou.employment2message2.address"))</span>
+                        <span>@Html(Messages("circs.thankyou.employment2message3.address"))</span>
+                        <span>@Html(Messages("circs.thankyou.employment2message4.address"))</span>
                     </section>
                 }
 

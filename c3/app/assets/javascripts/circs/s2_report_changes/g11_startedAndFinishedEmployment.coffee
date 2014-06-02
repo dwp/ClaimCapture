@@ -1,20 +1,31 @@
-window.fixErrorMessages = (howOften,
-                           howOftenFrequency,
-                           howOftenText,
-                           howOftenCircsText,
-                           usuallyPaidSameAmount,
-                           usuallyPaidSameAmountText,
-                           usuallyPaidSameAmountWeekText,
-                           usuallyPaidSameAmountFortnightText,
-                           usuallyPaidSameAmountFourWeekText,
-                           usuallyPaidSameAmountMonthText,
-                           usuallyPaidSameAmountOtherText,
-                           doYouPayIntoPensionAnswer,
-                           doYouPayIntoPensionText,
-                           didYouPayIntoPensionText,
-                           doCareCostsForThisWorkAnswer,
-                           doCareCostsForThisWorkText,
-                           didCareCostsForThisWorkText) ->
+window.fixErrorMessages = (beenPaidYet, beenPaidYetY, beenPaidYetN, beenPaidYetOldText, beenPaidYetText,
+                           howMuchPaid, howMuchPaidOldText, howMuchPaidYText, howMuchPaidNText,
+                           dateLastPaid, dateLastPaidYText, dateLastPaidNText,
+                           whatWasIncluded, whatWasIncludedYText, whatWasIncludedNText,
+                           howOften, howOftenFrequency,
+                           howOftenText, howOftenCircsText,
+                           usuallyPaidSameAmount, usuallyPaidSameAmountText,
+                           usuallyPaidSameAmountWeekText, usuallyPaidSameAmountFortnightText,
+                           usuallyPaidSameAmountFourWeekText, usuallyPaidSameAmountMonthText, usuallyPaidSameAmountOtherText,
+                           doYouPayIntoPensionAnswer, doYouPayIntoPensionText, didYouPayIntoPensionText,
+                           doCareCostsForThisWorkAnswer, doCareCostsForThisWorkText, didCareCostsForThisWorkText) ->
+  currentText = $("div[class='validation-summary'] a[href='#" + beenPaidYet + "']").text().trim()
+  existingError = currentText.substring(beenPaidYetOldText.length, currentText.length)
+  $("div[class='validation-summary'] a[href='#" + beenPaidYet + "']").text(beenPaidYetText + existingError)
+  currentText = $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text().trim()
+  existingError = currentText.substring(howMuchPaidOldText.length, currentText.length)
+  $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text(howMuchPaidYText + existingError)
+  if ($("#" + beenPaidYetN).prop('checked'))
+    currentText = $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text().trim()
+    existingError = currentText.substring(howMuchPaidOldText.length, currentText.length)
+    $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text(howMuchPaidNText + existingError)
+    currentText = $("div[class='validation-summary'] a[href='#" + dateLastPaid + "']").text().trim()
+    existingError = currentText.substring(dateLastPaidYText.length, currentText.length)
+    $("div[class='validation-summary'] a[href='#" + dateLastPaid + "']").text(dateLastPaidNText + existingError)
+  if ($("#" + beenPaidYetY).prop('checked'))
+    currentText = $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text().trim()
+    existingError = currentText.substring(howMuchPaidOldText.length, currentText.length)
+    $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text(howMuchPaidYText + existingError)
   pathUsuallyPaidSameAmount = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']")
   if ((pathUsuallyPaidSameAmount != undefined) && (pathUsuallyPaidSameAmount.length > 0))
     currentTextUsuallyPaidSameAmount = pathUsuallyPaidSameAmount.text().trim()
@@ -41,6 +52,38 @@ window.fixErrorMessages = (howOften,
     currentTextDoCareCostsForThisWorkAnswer = pathDoCareCostsForThisWorkAnswer.text().trim()
     existingErrorDoCareCostsForThisWorkAnswer = currentTextDoCareCostsForThisWorkAnswer.substring(doCareCostsForThisWorkText.length, currentTextDoCareCostsForThisWorkAnswer.length)
     pathDoCareCostsForThisWorkAnswer.text(didCareCostsForThisWorkText + existingErrorDoCareCostsForThisWorkAnswer)
+
+window.beenPaidYet = (beenPaidYetY, beenPaidYetN,
+                      howMuchPaid, howMuchPaidYText, howMuchPaidNText,
+                      dateLastPaid, dateLastPaidDay, dateLastPaidMonth, dateLastPaidYear, dateLastPaidYText, dateLastPaidNText,
+                      whatWasIncluded, whatWasIncludedYText, whatWasIncludedNText) ->
+  $("#" + beenPaidYetY).on "click", ->
+    $("#beenPaidYetWrap").slideUp 500, ->
+      $("#beenPaidYetWrap").css('display', "none")
+      $("label[for='" + howMuchPaid + "']").text(howMuchPaidYText)
+      $("#" + howMuchPaid).val("")
+      $("#" + dateLastPaid).parent().find("legend").html(dateLastPaidYText)
+      $("#" + dateLastPaidDay).val("")
+      $("#" + dateLastPaidMonth).val("")
+      $("#" + dateLastPaidYear).val("")
+      $("label[for='" + whatWasIncluded + "']").text(whatWasIncludedYText)
+      $("#" + whatWasIncluded).val("")
+    $("#beenPaidYetWrap").slideDown 500, ->
+      $("#beenPaidYetWrap").css('display', "block")
+
+  $("#" + beenPaidYetN).on "click", ->
+    $("#beenPaidYetWrap").slideUp 500, ->
+      $("#beenPaidYetWrap").css('display', "none")
+      $("label[for='" + howMuchPaid + "']").text(howMuchPaidNText)
+      $("#" + howMuchPaid).val("")
+      $("#" + dateLastPaid).parent().find("legend").html(dateLastPaidNText)
+      $("#" + dateLastPaidDay).val("")
+      $("#" + dateLastPaidMonth).val("")
+      $("#" + dateLastPaidYear).val("")
+      $("label[for='" + whatWasIncluded + "']").text(whatWasIncludedNText)
+      $("#" + whatWasIncluded).val("")
+    $("#beenPaidYetWrap").slideDown 500, ->
+      $("#beenPaidYetWrap").css('display', "block")
 
 window.usuallyPaidSameAmount = (howOftenFrequency,
                                 monthlyPayDay
