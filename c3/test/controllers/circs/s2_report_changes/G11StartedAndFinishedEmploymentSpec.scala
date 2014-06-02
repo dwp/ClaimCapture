@@ -10,6 +10,7 @@ import play.api.test.FakeApplication
 class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
   val yes = "yes"
   val no = "no"
+  val howMuchPaid = "£35"
   val whatWasIncluded = "not enough"
   val dateLastPaidDay = 10
   val dateLastPaidMonth = 11
@@ -25,6 +26,8 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
   val moreInfo = "more information"
 
   val validFinishedWeeklyPaymentEmployment = Seq(
+    "beenPaidYet" -> no,
+    "howMuchPaid" -> howMuchPaid,
     "whatWasIncluded" -> whatWasIncluded,
     "dateLastPaid.day" -> dateLastPaidDay.toString,
     "dateLastPaid.month" -> dateLastPaidMonth.toString,
@@ -37,6 +40,8 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
   )
 
   val validFinishedMonthlyPaymentEmployment = Seq(
+    "beenPaidYet" -> no,
+    "howMuchPaid" -> howMuchPaid,
     "whatWasIncluded" -> whatWasIncluded,
     "dateLastPaid.day" -> dateLastPaidDay.toString,
     "dateLastPaid.month" -> dateLastPaidMonth.toString,
@@ -50,6 +55,8 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
   )
 
   val validFinishedOtherPaymentEmployment = Seq(
+    "beenPaidYet" -> yes,
+    "howMuchPaid" -> howMuchPaid,
     "whatWasIncluded" -> whatWasIncluded,
     "dateLastPaid.day" -> dateLastPaidDay.toString,
     "dateLastPaid.month" -> dateLastPaidMonth.toString,

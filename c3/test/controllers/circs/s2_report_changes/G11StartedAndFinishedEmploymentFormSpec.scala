@@ -6,6 +6,7 @@ import models.DayMonthYear
 class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
   val yes = "yes"
   val no = "no"
+  val howMuchPaid = "£50"
   val whatWasIncluded = "not enough"
   val dateLastPaidDay = 10
   val dateLastPaidMonth = 11
@@ -24,6 +25,8 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
     "map weekly paid with no pension/expenses paid when employer does not owe money" in {
       G11StartedAndFinishedEmployment.form.bind(
         Map(
+          "beenPaidYet" -> no,
+          "howMuchPaid" -> howMuchPaid,
           "whatWasIncluded" -> whatWasIncluded,
           "dateLastPaid.day" -> dateLastPaidDay.toString,
           "dateLastPaid.month" -> dateLastPaidMonth.toString,
@@ -54,6 +57,8 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
     "map monthly paid with no pension/expenses paid when employer does not owe money" in {
       G11StartedAndFinishedEmployment.form.bind(
         Map(
+          "beenPaidYet" -> no,
+          "howMuchPaid" -> howMuchPaid,
           "whatWasIncluded" -> whatWasIncluded,
           "dateLastPaid.day" -> dateLastPaidDay.toString,
           "dateLastPaid.month" -> dateLastPaidMonth.toString,
@@ -86,6 +91,8 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
     "map other paid with pension/expenses paid when employer does owes money and further information is provided" in {
       G11StartedAndFinishedEmployment.form.bind(
         Map(
+          "beenPaidYet" -> yes,
+          "howMuchPaid" -> howMuchPaid,
           "whatWasIncluded" -> whatWasIncluded,
           "dateLastPaid.day" -> dateLastPaidDay.toString,
           "dateLastPaid.month" -> dateLastPaidMonth.toString,
