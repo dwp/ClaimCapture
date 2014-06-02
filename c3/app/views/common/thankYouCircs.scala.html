@@ -2,6 +2,10 @@
 
 
 @import models.domain.CircumstancesBreaksInCare
+@import models.domain.CircumstancesEmploymentChange
+@import models.domain.CircumstancesStartedEmploymentAndOngoing
+@import models.domain.CircumstancesStartedAndFinishedEmployment
+@import models.domain.CircumstancesEmploymentNotStarted
 
 @import play.api.i18n._
 @import play.api.i18n.{MMessages => Messages}
@@ -16,6 +20,55 @@
             }
             case _ => false
         }
+}
+
+@showEmployment1Messages = @{
+    var employmentChange = circs.questionGroup[CircumstancesEmploymentChange].getOrElse(CircumstancesEmploymentChange())
+    employmentChange.typeOfWork.answer match {
+        case "employed" => {
+            employmentChange.hasWorkStartedYet.answer match {
+                case "yes" => {
+                    if(employmentChange.hasWorkFinishedYet.answer.getOrElse("yes") == "no") true
+                    else false
+                }
+                case _ => true
+            }
+        }
+        case _ => false
+    }
+}
+
+@showEmployment2Messages = @{
+    var employmentChange = circs.questionGroup[CircumstancesEmploymentChange].getOrElse(CircumstancesEmploymentChange())
+    employmentChange.typeOfWork.answer match {
+        case "employed" => {
+            employmentChange.hasWorkStartedYet.answer match {
+                case "yes" => {
+                    if(employmentChange.hasWorkFinishedYet.answer.getOrElse("no") == "yes") true
+                    else false
+                }
+                case _ => true
+            }
+        }
+        case _ => false
+    }
+}
+
+@showEmploymentPensionMessage = @{
+    lazy val ongoingEmploymentOption = circs.questionGroup[CircumstancesStartedEmploymentAndOngoing]
+    lazy val finishedEmploymentOption = circs.questionGroup[CircumstancesStartedAndFinishedEmployment]
+    lazy val futureEmploymentOption = circs.questionGroup[CircumstancesEmploymentNotStarted]
+
+    val show =
+        if (ongoingEmploymentOption.isDefined)
+            ongoingEmploymentOption.get.payIntoPension.answer == "yes"
+        else if (finishedEmploymentOption.isDefined)
+            finishedEmploymentOption.get.payIntoPension.answer == "yes"
+        else if (futureEmploymentOption.isDefined)
+            futureEmploymentOption.get.payIntoPension.answer == "yes"
+        else false
+
+    show
 }
 
 @common.govMain(Messages("circs.thankyou")) {
@@ -39,7 +92,41 @@
                         <p>@Html(Messages("circs.thankyou.breakmessage.content"))</p>
                     </section>
                 }
-	            <section class="finish-next prompt helper-prompt">
+
+                @if(showEmployment1Messages){
+                    <section class="finish-next prompt helper-prompt">
+                        <h3 id="employment1MessageTitle">@Html(Messages("circs.thankyou.employment1message.title"))</h3>
+                        <p>@Html(Messages("circs.thankyou.employment1message1.content"))</p>
+                        <p>@Html(Messages("circs.thankyou.employment1message2.content"))</p>
+                        @if(showEmploymentPensionMessage) {
+                            <p>@Html(Messages("circs.thankyou.employment1message3.content"))</p>
+                        }
+                        <h3 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment1message.address.title"))</h3>
+                        <p>@Html(Messages("circs.thankyou.employment1message1.address"))</p>
+                        <p>@Html(Messages("circs.thankyou.employment1message2.address"))</p>
+                        <p>@Html(Messages("circs.thankyou.employment1message3.address"))</p>
+                        <p>@Html(Messages("circs.thankyou.employment1message4.address"))</p>
+                    </section>
+                }
+
+                @if(showEmployment2Messages){
+                    <section class="finish-next prompt helper-prompt">
+                        <h3 id="employment2MessageTitle">@Html(Messages("circs.thankyou.employment2message.title"))</h3>
+                        <p>@Html(Messages("circs.thankyou.employment2message1.content"))</p>
+                        <p>@Html(Messages("circs.thankyou.employment2message2.content"))</p>
+                        <p>@Html(Messages("circs.thankyou.employment2message3.content"))</p>
+                        @if(showEmploymentPensionMessage) {
+                            <p>@Html(Messages("circs.thankyou.employment2message4.content"))</p>
+                        }
+                        <h3 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment2message.address.title"))</h3>
+                        <p>@Html(Messages("circs.thankyou.employment2message1.address"))</p>
+                        <p>@Html(Messages("circs.thankyou.employment2message2.address"))</p>
+                        <p>@Html(Messages("circs.thankyou.employment2message3.address"))</p>
+                        <p>@Html(Messages("circs.thankyou.employment2message4.address"))</p>
+                    </section>
+                }
+
+                <section class="finish-next prompt helper-prompt">
 	            <h3>@Html(Messages("next"))</h3>
 	            <ul>
 	                <li>@Html(Messages("circs.next.1"))</li>
