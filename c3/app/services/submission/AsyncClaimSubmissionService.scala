@@ -3,7 +3,7 @@ package services.submission
 import scala.concurrent.ExecutionContext
 import play.api.{http, Logger}
 import controllers.submission._
-import services.ClaimTransactionComponent
+import services.{CacheService, ClaimTransactionComponent}
 import ExecutionContext.Implicits.global
 import play.api.libs.ws.Response
 import models.domain.Claim
@@ -25,7 +25,6 @@ trait AsyncClaimSubmissionService {
     Logger.info(s"Retrieved Id : $txnID")
 
     try{
-      // TODO: If  submission fails, remove the key from the cache
       webServiceClient.submitClaim(claim, txnID).map(
         response => {
           Logger.debug("Got response from WS:" + response)
@@ -63,9 +62,11 @@ trait AsyncClaimSubmissionService {
         val errorCode = (responseXml \\ "errorCode").text
         Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $errorCode")
         claimTransaction.updateStatus(txnID, errorCode, claimType(claim))
+      // TODO: anything other than SUCCESS -> failure
       case _ =>
         Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $UNKNOWN_ERROR")
         claimTransaction.updateStatus(txnID, UNKNOWN_ERROR, claimType(claim))
+      // TODO:
     }
   }
 
@@ -77,15 +78,27 @@ trait AsyncClaimSubmissionService {
       case http.Status.SERVICE_UNAVAILABLE =>
         Logger.error(s"SERVICE_UNAVAILABLE : ${response.status} : ${response.toString}, TxnId : $txnID")
         claimTransaction.updateStatus(txnID, SERVICE_UNAVAILABLE, claimType(claim))
+
+        // submission failed - remove from cache
+
       case http.Status.BAD_REQUEST =>
         Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}, TxnId : $txnID")
         claimTransaction.updateStatus(txnID, BAD_REQUEST_ERROR, claimType(claim))
+        // submission failed - remove from cache
+        //val fingerprint = EncryptionService.encryptClaimFingeprint(claim)
+        //CacheService.removeFromCache(fingerprint)
       case http.Status.REQUEST_TIMEOUT =>
         Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}, TxnId : $txnID")
         claimTransaction.updateStatus(txnID, REQUEST_TIMEOUT_ERROR, claimType(claim))
+        // submission failed - remove from cache
+        //val fingerprint = EncryptionService.encryptClaimFingeprint(claim)
+       // CacheService.removeFromCache(fingerprint)
       case http.Status.INTERNAL_SERVER_ERROR =>
         Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}, TxnId : $txnID")
         claimTransaction.updateStatus(txnID, SERVER_ERROR, claimType(claim))
+        // submission failed - remove from cache
+        //val fingerprint = EncryptionService.encryptClaimFingeprint(claim)
+        //CacheService.removeFromCache(fingerprint)
     }
   }
 }

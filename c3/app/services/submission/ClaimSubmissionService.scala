@@ -30,6 +30,7 @@ trait ClaimSubmissionService {
 
     val updatedClaim = copyInstance(claim withTransactionId transId)
 
+    // actor.receive, which calls async service submission
     AsyncActors.asyncManagerActor ! updatedClaim
 
     updatedClaim -> Redirect(StatusRoutingController.redirectSubmitting(updatedClaim))
