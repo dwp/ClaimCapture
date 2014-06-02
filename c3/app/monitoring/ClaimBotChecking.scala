@@ -63,6 +63,12 @@ trait ClaimBotChecking extends BotChecking {
     evaluateTimeToCompleteAllSections(claim, currentTime, sectionExpectedTimes)
   }
 
+  def calculateActualTimeToCompleteAllSections(currentTime: Long, created: Long): Long = {
+    val actualTimeToCompleteAllSections: Long = currentTime - created
+    Histograms.recordClaimSubmissionTime(actualTimeToCompleteAllSections)
+    actualTimeToCompleteAllSections
+  }
+
   def honeyPot(claim: Claim): Boolean = {
     def checkMoreAboutTheCare: Boolean = {
       claim.questionGroup[MoreAboutTheCare] match {

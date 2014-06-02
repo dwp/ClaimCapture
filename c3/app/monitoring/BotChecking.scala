@@ -5,13 +5,14 @@ import models.domain.Claimable
 import models.domain.Claim
 import scala.Some
 import play.api.Logger
-import jmx.inspectors.FastSubmissionNotifier
 
-trait BotChecking extends FastSubmissionNotifier {
+trait BotChecking {
 
   def checkTimeToCompleteAllSections(claimOrCircs: Claim with Claimable, currentTime: Long): Boolean
 
   def honeyPot(claim: Claim): Boolean
+
+  def calculateActualTimeToCompleteAllSections(currentTime: Long, created: Long): Long
 
   def isSpeedBot(claimOrCircs: Claim): Boolean = {
     val checkForBotSpeed = getProperty("checkForBotSpeed", default = true)
@@ -33,16 +34,13 @@ trait BotChecking extends FastSubmissionNotifier {
       }
     }).reduce(_ + _) // Aggregate all of the sectionExpectedTimes for completed sections only.
 
-    val actualTimeToCompleteAllSections: Long = currentTime - claim.created
+    val actualTimeToCompleteAllSections: Long = calculateActualTimeToCompleteAllSections(currentTime, claim.created)
 
     val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
 
     if (result) {
-      fireFastNotification(claim)
       Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
     }
     result
   }
-
-
 }

@@ -16,6 +16,12 @@ trait ChangeBotChecking extends BotChecking {
     evaluateTimeToCompleteAllSections(circs, currentTime, sectionExpectedTimes)
   }
 
+  def calculateActualTimeToCompleteAllSections(currentTime: Long, created: Long): Long = {
+    val actualTimeToCompleteAllSections: Long = currentTime - created
+    Histograms.recordChangeOfCircsSubmissionTime(actualTimeToCompleteAllSections)
+    actualTimeToCompleteAllSections
+  }
+
   def honeyPot(circs: Claim): Boolean = {
 
     def checkDeclaration: Boolean = {

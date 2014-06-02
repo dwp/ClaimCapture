@@ -9,6 +9,7 @@ import models.DayMonthYear
 import models.domain.Claim
 import scala.Some
 import models.MultiLineAddress
+import play.api.test.WithBrowser
 
 class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
 
@@ -28,11 +29,11 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
   }
 
   "Claim submission" should {
-    "be flagged for completing sections too quickly e.g. a bot" in {
+    "be flagged for completing sections too quickly e.g. a bot" in new WithBrowser {
       controller.checkTimeToCompleteAllSections(claim, currentTime = 0) should beTrue
     }
 
-    "be completed slow enough to be human" in {
+    "be completed slow enough to be human" in new WithBrowser {
       controller.checkTimeToCompleteAllSections(claim, currentTime = Long.MaxValue) should beFalse
     }
 
