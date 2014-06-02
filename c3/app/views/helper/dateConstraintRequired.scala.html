@@ -12,6 +12,9 @@
 
   </legend>
   @if(args.find(_._1=='helperAbove).isDefined){
-    <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
+    <p class="helper above" id="@{field.id}_defaultDateContextualHelp">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
+  }
+  @if(args.find(_._1=='helperAlternativeAbove).isDefined){
+    <p class="helper above" style="display: none" id="@{field.id}_alternativeDateContextualHelp">@Html(Messages(args.find(_._1=='helperAlternativeAbove).get._2.toString()))</p>
   }
 }

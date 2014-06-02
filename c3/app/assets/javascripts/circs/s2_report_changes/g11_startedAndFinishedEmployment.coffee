@@ -66,6 +66,8 @@ window.beenPaidYet = (beenPaidYetY, beenPaidYetN,
       $("#" + dateLastPaidDay).val("")
       $("#" + dateLastPaidMonth).val("")
       $("#" + dateLastPaidYear).val("")
+      $("#" + dateLastPaid + "_defaultDateContextualHelp").css('display', "block")
+      $("#" + dateLastPaid + "_alternativeDateContextualHelp").css('display', "none")
       $("label[for='" + whatWasIncluded + "']").text(whatWasIncludedYText)
       $("#" + whatWasIncluded).val("")
     $("#beenPaidYetWrap").slideDown 500, ->
@@ -80,6 +82,8 @@ window.beenPaidYet = (beenPaidYetY, beenPaidYetN,
       $("#" + dateLastPaidDay).val("")
       $("#" + dateLastPaidMonth).val("")
       $("#" + dateLastPaidYear).val("")
+      $("#" + dateLastPaid + "_defaultDateContextualHelp").css('display', "none")
+      $("#" + dateLastPaid + "_alternativeDateContextualHelp").css('display', "block")
       $("label[for='" + whatWasIncluded + "']").text(whatWasIncludedNText)
       $("#" + whatWasIncluded).val("")
     $("#beenPaidYetWrap").slideDown 500, ->

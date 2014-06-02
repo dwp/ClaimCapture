@@ -44,7 +44,8 @@
                                 '_label -> {if(beenPaidYet.value == Some("yes")) "howMuchPaid.have" else "howMuchPaid.have.expect"}
                             ),
                             dateTimePickerWithDynamicLabel(dateLastPaid,
-                                'dynamicDateDays-> 7,
+                                'dynamicDateDays -> 7,
+                                'dynamicDateDaysAlternative -> -7,
                                 '_label -> {if(beenPaidYet.value == Some("yes")) "dateLastPaid" else "dateLastPaid.expect"}
                             ),
                             carersInputTextArea(whatWasIncluded,
