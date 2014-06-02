@@ -88,7 +88,9 @@
                                         case "monthly" => "usuallyPaidSameAmount.did.month"
                                         case _ => "usuallyPaidSameAmount.did.time"
                                     }
-                                })
+                                },
+                                'values -> Seq("yes" -> Messages("label.yes6"), "no" -> Messages("label.no"))
+                            )
                             ),
                         'id -> "usuallyPaidSameAmountWrap",
                         'display -> {if((howOftenFrequency.value != None) &&
@@ -96,7 +98,9 @@
                                         (howOftenFrequency.value.getOrElse("no") != "")) "yes" else "no"}
                     )
 
-                    @yesNoRadioGroup(employerOwesYouMoney)
+                    @yesNoRadioGroup(employerOwesYouMoney,
+                        'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no"))
+                    )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
@@ -115,7 +119,8 @@
 
                 <ul>
                     @yesNoRadioGroup(doYouPayIntoPension("answer"),
-                        '_label -> "didYouPayIntoPension"
+                        '_label -> "didYouPayIntoPension",
+                        'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no"))
                     )
 
 
@@ -133,7 +138,8 @@
                     )
 
                     @yesNoRadioGroup(doCareCostsForThisWork("answer"),
-                        '_label -> "didCareCostsForThisWork"
+                        '_label -> "didCareCostsForThisWork",
+                        'values -> Seq("yes" -> Messages("label.yes2"), "no" -> Messages("label.no"))
                     )
 
                     @otherDetailPlaceHolder(
