@@ -4,6 +4,7 @@ import org.specs2.mutable.Specification
 import models.domain.{CircumstancesDeclaration, Claim}
 import models.view.CachedChangeOfCircs
 import org.specs2.mock.Mockito
+import play.api.test.{WithApplication, WithBrowser}
 
 class ChangeBotCheckingSpec extends Specification with Mockito with CachedChangeOfCircs {
 
@@ -25,12 +26,12 @@ class ChangeBotCheckingSpec extends Specification with Mockito with CachedChange
       controller.honeyPot(circs) should beTrue
     }
 
-    "be flagged for completing sections too quickly e.g. a bot" in {
+    "be flagged for completing sections too quickly e.g. a bot" in new WithApplication {
       val circs = copyInstance(Claim().update(CircumstancesDeclaration(obtainInfoAgreement = "no", obtainInfoWhy = Some("stuff"))))
       controller.checkTimeToCompleteAllSections(circs, currentTime = 0) should beTrue
     }
 
-    "be completed slow enough to be human" in {
+    "be completed slow enough to be human" in new WithApplication   {
       val circs = copyInstance(Claim().update(CircumstancesDeclaration(obtainInfoAgreement = "no", obtainInfoWhy = Some("stuff"))))
       controller.checkTimeToCompleteAllSections(circs, currentTime = Long.MaxValue) should beFalse
     }

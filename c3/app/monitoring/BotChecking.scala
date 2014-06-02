@@ -12,6 +12,8 @@ trait BotChecking {
 
   def honeyPot(claim: Claim): Boolean
 
+  def calculateActualTimeToCompleteAllSections(currentTime: Long, created: Long): Long
+
   def isSpeedBot(claimOrCircs: Claim): Boolean = {
     val checkForBotSpeed = getProperty("checkForBotSpeed", default = true)
     checkForBotSpeed && checkTimeToCompleteAllSections(claimOrCircs, System.currentTimeMillis())
@@ -32,7 +34,7 @@ trait BotChecking {
       }
     }).reduce(_ + _) // Aggregate all of the sectionExpectedTimes for completed sections only.
 
-    val actualTimeToCompleteAllSections: Long = currentTime - claim.created
+    val actualTimeToCompleteAllSections: Long = calculateActualTimeToCompleteAllSections(currentTime, claim.created)
 
     val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
 
@@ -41,6 +43,4 @@ trait BotChecking {
     }
     result
   }
-
-
 }
