@@ -36,9 +36,13 @@ object Residency extends XMLComponent{
       question(<TimeOutsideGBLast3Years/>, label, answer, claim.dateOfClaim.get.`dd/MM/yyyy`)
     }
 
-    val xmlNoTrip = {
+    def xmlNoTrip(noTrips:Boolean) = {
       <PeriodAbroad>
-        {fiftyWeeksLabel("52Weeks.label", false)}
+        {if(noTrips){
+          {fiftyWeeksLabel("52Weeks.label", false)}
+        }else {
+          {fiftyWeeksLabel("52Weeks.more.label", false)}
+        }}
       </PeriodAbroad>
     }
 
@@ -59,8 +63,8 @@ object Residency extends XMLComponent{
     }
 
     trips.fiftyTwoWeeksTrips.size == 0 match {
-      case true => xmlNoTrip
-      case false => {for ((fiftyTwoWeeksTrip, index) <- trips.fiftyTwoWeeksTrips.zipWithIndex) yield xml(fiftyTwoWeeksTrip, index)} ++ xmlNoTrip
+      case true => xmlNoTrip(true)
+      case false => {for ((fiftyTwoWeeksTrip, index) <- trips.fiftyTwoWeeksTrips.zipWithIndex) yield xml(fiftyTwoWeeksTrip, index)} ++ xmlNoTrip(false)
     }
   }
 }
