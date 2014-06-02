@@ -54,7 +54,7 @@ trait ClaimSubmissionService {
 
 object ClaimSubmissionService {
   def recordMi(claim: Claim, id: String, recordMI:(String,Boolean,Option[Int],Option[Lang]) => Unit) = {
-    val changesMap = Map(StoppedCaring.name -> Some(0), AddressChange.name -> Some(1), SelfEmployment.name -> Some(2), PaymentChange.name -> Some(3), AdditionalInfo.name -> Some(4), BreakFromCaring.name -> Some(5), NotAsked -> None)
+    val changesMap = Map(StoppedCaring.name -> Some(0), AddressChange.name -> Some(1), SelfEmployment.name -> Some(2), PaymentChange.name -> Some(3), AdditionalInfo.name -> Some(4), BreakFromCaring.name -> Some(5), EmploymentChange.name -> Some(6), NotAsked -> None)
     val declaration = claim.questionGroup[Declaration].getOrElse(Declaration())
     val thirdParty = declaration.someoneElse.isDefined
     val circsChange = changesMap(claim.questionGroup[ReportChanges].getOrElse(ReportChanges()).reportChanges)
