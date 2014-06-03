@@ -112,7 +112,8 @@
                     )
 
                     @yesNoRadioGroup(doCareCostsForThisWork("answer"),
-                        '_label -> "doCareCostsForThisWork"
+                        '_label -> "doCareCostsForThisWork",
+                        'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no"))
                     )
 
                     @otherDetailPlaceHolder(

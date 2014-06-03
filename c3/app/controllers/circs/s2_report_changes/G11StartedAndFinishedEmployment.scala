@@ -14,18 +14,20 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
   val payIntoPension =
     "doYouPayIntoPension" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatFor" -> optional(carersNonEmptyText(maxLength = 300))
+      "whatFor" -> optional(nonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("doYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
 
   val careCostsForThisWork =
     "doCareCostsForThisWork" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatCosts" -> optional(carersNonEmptyText(maxLength = 300))
+      "whatCosts" -> optional(nonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("doCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
 
   val form = Form(mapping(
+    "beenPaidYet" -> nonEmptyText.verifying(validYesNo),
+    "howMuchPaid" -> nonEmptyText(maxLength = 20),
     "dateLastPaid" -> dayMonthYear.verifying(validDate),
     "whatWasIncluded" -> optional(text(maxLength = 60)),
     "howOften" -> mandatoryPaymentFrequency.verifying(validPaymentFrequencyOnly),

@@ -15,14 +15,14 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
   val payIntoPension =
     "doYouPayIntoPension" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatFor" -> optional(carersNonEmptyText(maxLength = 300))
+      "whatFor" -> optional(nonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("doYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
 
   val careCostsForThisWork =
     "doCareCostsForThisWork" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatCosts" -> optional(carersNonEmptyText(maxLength = 300))
+      "whatCosts" -> optional(nonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("doCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
 
