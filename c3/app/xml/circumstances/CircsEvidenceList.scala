@@ -89,27 +89,46 @@ object CircsEvidenceList {
 
           buffer ++= textLine(Messages("typeOfWork.answer") + " = " + Messages("typeOfWork." + employmentChange.typeOfWork.answer))
 
-          buffer ++= textSeparatorLine(Messages("typeOfWork." + employmentChange.typeOfWork.answer))
-
           employmentChange.typeOfWork.answer match {
             case "self-employed" => {
+              buffer ++= textSeparatorLine(Messages("c2.g9.selfEmployment"))
+
               buffer ++= textLine(Messages("typeOfWork.selfEmployedTypeOfWork") + " = " + employmentChange.typeOfWork.text2a.get)
               buffer ++= textLine(Messages("typeOfWork.selfEmployedTotalIncome") + " = " + Messages("label." + employmentChange.typeOfWork.answer2.get))
             }
             case _ => {
-              buffer ++= textLine(Messages("typeOfWork.employerNameAndAddress") + " = " + employmentChange.typeOfWork.address.get.lineOne.get + " " + employmentChange.typeOfWork.address.get.lineTwo.get + " " + employmentChange.typeOfWork.address.get.lineThree.getOrElse(""))
-              if (employmentChange.typeOfWork.postCode.isDefined) buffer ++= textLine(Messages("typeOfWork.employerPostcode") + " = " + employmentChange.typeOfWork.postCode.get)
-              if (employmentChange.typeOfWork.text1a.isDefined) buffer ++= textLine(Messages("typeOfWork.employerContactNumber") + " = " + employmentChange.typeOfWork.text1a.get)
-              if (employmentChange.typeOfWork.text1b.isDefined) buffer ++= textLine(Messages("typeOfWork.employerPayroll") + " = " + employmentChange.typeOfWork.text1b.get)
-
               val startedEmploymentAndOngoingOption = circs.questionGroup[CircumstancesStartedEmploymentAndOngoing]
-              if (startedEmploymentAndOngoingOption.isDefined) buffer ++= renderStartedEmploymentAndOngoing(startedEmploymentAndOngoingOption.get)
+              if (startedEmploymentAndOngoingOption.isDefined) {
+                buffer ++= textSeparatorLine(Messages("c2.g10"))
+                buffer ++= textLine(Messages("typeOfWork.employerNameAndAddress") + " = " + employmentChange.typeOfWork.address.get.lineOne.get + " " + employmentChange.typeOfWork.address.get.lineTwo.get + " " + employmentChange.typeOfWork.address.get.lineThree.getOrElse(""))
+                if (employmentChange.typeOfWork.postCode.isDefined) buffer ++= textLine(Messages("typeOfWork.employerPostcode") + " = " + employmentChange.typeOfWork.postCode.get)
+                if (employmentChange.typeOfWork.text1a.isDefined) buffer ++= textLine(Messages("typeOfWork.employerContactNumber") + " = " + employmentChange.typeOfWork.text1a.get)
+                if (employmentChange.typeOfWork.text1b.isDefined) buffer ++= textLine(Messages("typeOfWork.employerPayroll") + " = " + employmentChange.typeOfWork.text1b.get)
+
+                buffer ++= renderStartedEmploymentAndOngoing(startedEmploymentAndOngoingOption.get)
+              }
 
               val startAndFinishedEmploymentOption = circs.questionGroup[CircumstancesStartedAndFinishedEmployment]
-              if (startAndFinishedEmploymentOption.isDefined) buffer ++= renderStartedAndFinishedEmployment(startAndFinishedEmploymentOption.get)
+              if (startAndFinishedEmploymentOption.isDefined) {
+                buffer ++= textSeparatorLine(Messages("c2.g11"))
+                buffer ++= textLine(Messages("typeOfWork.employerNameAndAddress") + " = " + employmentChange.typeOfWork.address.get.lineOne.get + " " + employmentChange.typeOfWork.address.get.lineTwo.get + " " + employmentChange.typeOfWork.address.get.lineThree.getOrElse(""))
+                if (employmentChange.typeOfWork.postCode.isDefined) buffer ++= textLine(Messages("typeOfWork.employerPostcode") + " = " + employmentChange.typeOfWork.postCode.get)
+                if (employmentChange.typeOfWork.text1a.isDefined) buffer ++= textLine(Messages("typeOfWork.employerContactNumber") + " = " + employmentChange.typeOfWork.text1a.get)
+                if (employmentChange.typeOfWork.text1b.isDefined) buffer ++= textLine(Messages("typeOfWork.employerPayroll") + " = " + employmentChange.typeOfWork.text1b.get)
+
+                buffer ++= renderStartedAndFinishedEmployment(startAndFinishedEmploymentOption.get)
+              }
 
               val employmentNotStartedOption = circs.questionGroup[CircumstancesEmploymentNotStarted]
-              if (employmentNotStartedOption.isDefined) buffer ++= renderEmploymentNotStarted(employmentNotStartedOption.get)
+              if (employmentNotStartedOption.isDefined) {
+                buffer ++= textSeparatorLine(Messages("c2.g12"))
+                buffer ++= textLine(Messages("typeOfWork.employerNameAndAddress") + " = " + employmentChange.typeOfWork.address.get.lineOne.get + " " + employmentChange.typeOfWork.address.get.lineTwo.get + " " + employmentChange.typeOfWork.address.get.lineThree.getOrElse(""))
+                if (employmentChange.typeOfWork.postCode.isDefined) buffer ++= textLine(Messages("typeOfWork.employerPostcode") + " = " + employmentChange.typeOfWork.postCode.get)
+                if (employmentChange.typeOfWork.text1a.isDefined) buffer ++= textLine(Messages("typeOfWork.employerContactNumber") + " = " + employmentChange.typeOfWork.text1a.get)
+                if (employmentChange.typeOfWork.text1b.isDefined) buffer ++= textLine(Messages("typeOfWork.employerPayroll") + " = " + employmentChange.typeOfWork.text1b.get)
+
+                buffer ++= renderEmploymentNotStarted(employmentNotStartedOption.get)
+              }
             }
           }
         }
@@ -379,6 +398,8 @@ object CircsEvidenceList {
   private def renderStartedAndFinishedEmployment(startedAndFinishedEmployment: CircumstancesStartedAndFinishedEmployment): NodeSeq = {
     var buffer = NodeSeq.Empty
 
+    buffer ++= textLine(Messages("beenPaidYet") + " = " + Messages("label." + startedAndFinishedEmployment.beenPaid))
+    buffer ++= textLine(Messages("howMuchPaid") + " = " + startedAndFinishedEmployment.howMuchPaid)
     buffer ++= textLine(Messages("dateLastPaid") + " = " + startedAndFinishedEmployment.dateLastPaid.`dd/MM/yyyy`)
     if (startedAndFinishedEmployment.whatWasIncluded.isDefined) buffer ++= textLine(Messages("whatWasIncluded") + " = " + startedAndFinishedEmployment.whatWasIncluded.get)
     buffer ++= textLine(Messages("circs.howOften") + " = " + Messages(startedAndFinishedEmployment.howOften.frequency))
@@ -409,8 +430,8 @@ object CircsEvidenceList {
   private def renderEmploymentNotStarted(employmentNotStartedOption: CircumstancesEmploymentNotStarted): NodeSeq = {
     var buffer = NodeSeq.Empty
 
-    buffer ++= textLine(Messages("beenPaidYet") + " = " + Messages("label." + employmentNotStartedOption.beenPaid))
-    if (employmentNotStartedOption.howMuchPaid.isDefined) buffer ++= textLine(Messages("howMuchPaid") + " = " + employmentNotStartedOption.howMuchPaid.get)
+    buffer ++= textLine(Messages("beenPaidYet.will") + " = " + Messages("label." + employmentNotStartedOption.beenPaid))
+    if (employmentNotStartedOption.howMuchPaid.isDefined) buffer ++= textLine(Messages("howMuchPaid.will") + " = " + employmentNotStartedOption.howMuchPaid.get)
     if (employmentNotStartedOption.whenExpectedToBePaidDate.isDefined) buffer ++= textLine(Messages("whenExpectedToBePaidDate") + " = " + employmentNotStartedOption.whenExpectedToBePaidDate.get.`dd/MM/yyyy`)
     if (employmentNotStartedOption.howOften.frequency.length > 0) buffer ++= textLine(Messages("circs.howOften.will") + " = " + Messages(employmentNotStartedOption.howOften.frequency))
     if (employmentNotStartedOption.howOften.other.isDefined) buffer ++= textLine(Messages("other") + " = " + Messages(employmentNotStartedOption.howOften.other.get))

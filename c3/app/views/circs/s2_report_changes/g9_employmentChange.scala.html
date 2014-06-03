@@ -35,12 +35,16 @@
 	                    'display -> { if (stillCaring("answer").value.getOrElse("yes") == "no") "yes" else "no" }
 	                )
 
-                    @yesNoRadioGroup(hasWorkStartedYet("answer"))
+                    @yesNoRadioGroup(hasWorkStartedYet("answer"),
+                        'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no"))
+                    )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             dateTimePickerWithDynamicLabel(hasWorkStartedYet("dateWhenStarted"), 'dynamicDateDays-> 31),
-                            yesNoRadioGroup(hasWorkFinishedYet("answer"))
+                            yesNoRadioGroup(hasWorkFinishedYet("answer"),
+                                'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no"))
+                            )
                         ),
                         'id -> "hasWorkStartedYetWrap",
                         'display -> { if (hasWorkStartedYet("answer").value.getOrElse("no") == "yes") "yes" else "no" }

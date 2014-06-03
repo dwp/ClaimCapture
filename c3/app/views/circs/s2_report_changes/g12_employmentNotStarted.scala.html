@@ -83,7 +83,8 @@
 
                 <ul>
                     @yesNoRadioGroup(doYouPayIntoPension("answer"),
-                        '_label -> "willYouPayIntoPension"
+                        '_label -> "willYouPayIntoPension",
+                        'values -> Seq("yes" -> Messages("label.yes8"), "no" -> Messages("label.no"))
                     )
 
                     @otherDetailPlaceHolder(
@@ -100,7 +101,8 @@
                     )
 
                     @yesNoRadioGroup(doCareCostsForThisWork("answer"),
-                        '_label -> "willCareCostsForThisWork"
+                        '_label -> "willCareCostsForThisWork",
+                        'values -> Seq("yes" -> Messages("label.yes7"), "no" -> Messages("label.no"))
                     )
 
                     @otherDetailPlaceHolder(
