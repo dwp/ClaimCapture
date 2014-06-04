@@ -5,10 +5,11 @@ import com.codahale.metrics.Slf4jReporter
 import com.kenshoo.play.metrics.MetricsRegistry
 import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit
+import utils.Injector
 
-object Reporting {
+object MonitorRegistration extends Injector {
 
-  def registerReporters() {
+  def registerReporters()  {
     if (getProperty("metrics.slf4j", default = false)) {
       Slf4jReporter.forRegistry(MetricsRegistry.default)
         .outputTo(LoggerFactory.getLogger("application"))
@@ -18,4 +19,9 @@ object Reporting {
         .start(1, TimeUnit.MINUTES)
     }
   }
+
+  def registerHealthChecks() {
+    HealthMonitor.register("c3-transaction-db", resolve(classOf[ClaimTransactionCheck]))
+  }
+
 }

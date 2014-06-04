@@ -1,6 +1,6 @@
 import app.ConfigProperties._
 import java.net.InetAddress
-import monitoring.{MonitorFilter, Reporting}
+import monitoring.{HealthMonitor, MonitorFilter, MonitorRegistration}
 import org.slf4j.MDC
 import play.api._
 import play.api.mvc._
@@ -32,7 +32,8 @@ object Global extends WithFilters(MonitorFilter) with Injector with CarersLangua
 
     actorSystems()
 
-    Reporting.registerReporters()
+    MonitorRegistration.registerReporters()
+    MonitorRegistration.registerHealthChecks()
 
     Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}") // used for operations, do not remove
   }

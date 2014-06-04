@@ -31,6 +31,7 @@ object ApplicationBuild extends Build {
     "com.dwp"            %% "play2-multimessages" % "2.2.1",
     "com.typesafe"       %% "play-plugins-mailer" % "2.2.0",
     "com.github.mumoshu" %% "play2-memcached"     % "0.4.0",
+    "com.codahale.metrics" % "metrics-healthchecks" % "3.0.1",
     "com.kenshoo"        %% "metrics-play"        % "0.1.4"
   )
 

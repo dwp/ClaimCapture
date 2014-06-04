@@ -16,6 +16,10 @@ class TransactionComponentSpec extends Specification with Tags {
       transactionComponent.claimTransaction.getTransactionStatusById(id) mustEqual None
     }
 
+    "run a health check" in new WithApplicationAndDB {
+      transactionComponent.claimTransaction.health()
+    }
+
     "successfully register an ID" in new WithApplicationAndDB {
 
       val id = DBTests.newId

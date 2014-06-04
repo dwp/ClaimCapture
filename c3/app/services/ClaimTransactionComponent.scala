@@ -6,9 +6,10 @@ import anorm._
 import play.api.i18n.Lang
 import anorm.SqlParser._
 import anorm.~
+import play.api.Logger
 
 trait ClaimTransactionComponent {
-  val claimTransaction : ClaimTransaction
+  val claimTransaction: ClaimTransaction
 
   class ClaimTransaction {
     /**
@@ -33,13 +34,14 @@ trait ClaimTransactionComponent {
     /**
      * Record that an ID has been used
      */
-    def registerId(id: String, statusCode:String, claimType:Int, jsEnabled:Int):Unit = DB.withConnection("carers") {implicit c =>
-      SQL(
-        """
+    def registerId(id: String, statusCode: String, claimType: Int, jsEnabled: Int): Unit = DB.withConnection("carers") {
+      implicit c =>
+        SQL(
+          """
           INSERT INTO transactionstatus (transaction_id, status, type, js_enabled)
           VALUES ({transactionId},{status},{type},{js_enabled});
-        """
-      ).on("transactionId"->id,"status"->statusCode,"type"->claimType,"js_enabled"->jsEnabled).execute()
+          """
+        ).on("transactionId" -> id, "status" -> statusCode, "type" -> claimType, "js_enabled" -> jsEnabled).execute()
     }
 
     /**
@@ -55,16 +57,17 @@ trait ClaimTransactionComponent {
         ).on("transactionId" -> id, "thirdParty" -> (if (thirdParty) 1 else 0), "circsChange" -> circsChange, "lang" -> lang.getOrElse(Lang("en")).code).execute()
     }
 
+    def updateStatus(id: String, statusCode: String, claimType: Int): Unit = DB.withConnection("carers") {
+      implicit connection =>
 
-    def updateStatus(id: String, statusCode:String, claimType:Int):Unit = DB.withConnection("carers") {implicit connection =>
-
-      SQL(
-        """
+        SQL(
+          """
           UPDATE transactionstatus set status={status}, type={type}
           WHERE transaction_id={transactionId};
-        """
-      ).on("status"->statusCode,"type"->claimType,"transactionId"->id).executeUpdate()
+          """
+        ).on("status" -> statusCode, "type" -> claimType, "transactionId" -> id).executeUpdate()
     }
+
 
     val transactionStatusParser = {
       get[String]("transaction_id") ~
@@ -73,22 +76,35 @@ trait ClaimTransactionComponent {
         get[Option[Int]]("thirdparty") ~
         get[Option[Int]]("circs_type") ~
         get[Option[String]]("lang") map {
-        case id~status~typeI~thirdparty~circsType~lang => TransactionStatus(id,status,typeI,thirdparty,circsType, lang)
+        case id ~ status ~ typeI ~ thirdparty ~ circsType ~ lang => TransactionStatus(id, status, typeI, thirdparty, circsType, lang)
       }
     }
 
-    def getTransactionStatusById(id: String):Option[TransactionStatus] = {
+    def getTransactionStatusById(id: String): Option[TransactionStatus] = {
       import scala.language.postfixOps
-      DB.withConnection("carers"){implicit c =>
-        SQL(
-          """
+      DB.withConnection("carers") {
+        implicit c =>
+          SQL(
+            """
           SELECT transaction_id, status,type,thirdparty,circs_type,lang
           FROM transactionstatus
           WHERE transaction_id = {id}
-          """
-        ).on("id"->id)
-          .as(transactionStatusParser singleOpt)
+            """
+          ).on("id" -> id)
+            .as(transactionStatusParser singleOpt)
       }
+    }
+
+    /**
+     * Health check
+     */
+    def health(): Unit = DB.withConnection("carers") {
+      implicit c =>
+        SQL(
+          """
+          SELECT 1;
+          """
+        ).execute()
     }
 
   }
@@ -102,11 +118,13 @@ trait ClaimTransactionComponent {
     override def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int], lang: Option[Lang]) {}
 
     override def updateStatus(id: String, statusCode: String, claimType: Int) {}
+
+    override def health(): Unit = { Logger.debug("Stub health check")}
   }
 
 }
 
-case class TransactionStatus(transactionID: String, status: String, typeI: Int, thirdParty: Option[Int], circsChange: Option[Int], lang:Option[String])
+case class TransactionStatus(transactionID: String, status: String, typeI: Int, thirdParty: Option[Int], circsChange: Option[Int], lang: Option[String])
 
 /**
  * Exception thrown by UniqueTransactionId if it could not generate an id. The cause is described by the nested exception.
