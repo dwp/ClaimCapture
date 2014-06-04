@@ -22,17 +22,19 @@ object EvidenceList {
     val selfEmployed = employment.beenSelfEmployedSince1WeekBeforeClaim.toLowerCase == yes
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
 
-    val evidenceEmployedStatements = Seq(Messages("evidence.employed.statement2", stringify(claimDate.dateOfClaim)), "evidence.employed.statement3", "evidence.employed.statement4")
-    val evidenceSelfEmployedStatements = Seq("evidence.selfemployed.statement2", "evidence.selfemployed.statement3")
+    val evidenceEmployedStatements = Seq(Messages("evidence.employed.statement2", stringify(claimDate.dateOfClaim)), "s11.g5.help5", "s11.g5.help6")
+    val evidenceSelfEmployedStatements = Seq("s11.g5.help8", "s11.g5.help9")
+    val commonHeaders = Seq("documents.title", "documents.sendingDocs.title", "documents.sendingDocs.text")
 
     val alwaysPrint = true
 
     var nodes = NodeSeq.Empty
 
-    if (employed || selfEmployed) nodes ++= recepientAddress("s11.g5.help10")
+    if (employed || selfEmployed) nodes ++= recepientAddress("s11.g5.help10") ++  evidenceTitle(commonHeaders)
 
-    nodes ++= evidenceSection(employed, "evidence.employed.statement1", evidenceEmployedStatements)
-    nodes ++= evidenceSection(selfEmployed, "evidence.selfemployed.statement1", evidenceSelfEmployedStatements)
+
+    nodes ++= evidenceSection(employed, "s11.g5.help3", evidenceEmployedStatements)
+    nodes ++= evidenceSection(selfEmployed, "s11.g5.help7", evidenceSelfEmployedStatements)
     nodes ++= evidenceSection(alwaysPrint, "", Seq("evidence.statement7"))
 
     nodes
@@ -41,6 +43,16 @@ object EvidenceList {
   def  sectionEmpty(nodeSeq: NodeSeq) = {
     if (nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty
   }
+
+  /**
+   * This is used to display some common titles
+   * @param titles
+   * @return
+   */
+  def evidenceTitle(titles: Seq[String]) = {
+      {titles map (t => <Evidence>{title(t)}</Evidence>)}
+  }
+
 
   def evidenceSection (condition: Boolean, titleText: String, contents: Seq[String]): NodeSeq = {
     condition match {
