@@ -24,7 +24,6 @@ object Caree extends XMLComponent {
       {question(<DayTimePhoneNumber/>,"phoneNumber", theirContactDetails.phoneNumber)}
       {question(<RelationToClaimant/>,"relationship", theirPersonalDetails.relationship)}
       {question(<Cared35Hours/>,"hours.answer", moreAboutTheCare.spent35HoursCaring)}
-      {question(<BreaksSinceClaim/>,"answer.label",breaksInCare.hasBreaks,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
       {careBreak(claim)}
       {question(<Cared35HoursBefore/>,"beforeClaimCaring.answer", moreAboutTheCare.spent35HoursCaringBeforeClaim.answer)}
       {question(<DateStartCaring/>,"beforeClaimCaring_date", moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}
@@ -36,8 +35,26 @@ object Caree extends XMLComponent {
   private def careBreak(claim: Claim) = {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
-    for (break <- breaksInCare.breaks) yield {
+    def breaksInCareLabel (label:String, answer:Boolean) = {
+      question(<BreaksSinceClaim/>, label, answer, claim.dateOfClaim.get.`dd/MM/yyyy`)
+    }
+
+    val xmlNoBreaks = {
       <CareBreak>
+        {if (breaksInCare.breaks.size > 0){
+          {breaksInCareLabel("answer.more.label", false)}
+        } else {
+          {breaksInCareLabel("answer.label", false)}
+        }}
+      </CareBreak>
+    }
+
+    {for ((break, index) <- breaksInCare.breaks.zipWithIndex) yield {
+      <CareBreak>
+        {index > 0 match {
+          case true =>  breaksInCareLabel("answer.more.label", true)
+          case false => breaksInCareLabel("answer.label", true)
+        }}
         {question(<StartDateTime/>, "start", break.start.`dd-MM-yyyy HH:mm`)}
         {break.end match {
           case Some(n) => {question(<EndDateTime/>,"end", break.end.get.`dd-MM-yyyy HH:mm`)}
@@ -47,6 +64,6 @@ object Caree extends XMLComponent {
         {questionOther(<ReasonClaimant/>,"whereYou", break.whereYou.location, break.whereYou.other)}
         {questionOther(<ReasonCaree/>,"wherePerson", break.wherePerson.location, break.wherePerson.other)}
       </CareBreak>
-    }
+    }} ++ xmlNoBreaks
   }
 }

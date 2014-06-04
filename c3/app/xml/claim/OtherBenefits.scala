@@ -40,7 +40,9 @@ object OtherBenefits extends XMLComponent {
             <OtherMoneyDetails>
               <Payment>
                 {questionCurrency(<Payment/>,"howMuch.label", aboutOtherMoney.howMuch)}
-                {questionOther(<Frequency/>,"howOftenPension", aboutOtherMoney.howOften.get.frequency, aboutOtherMoney.howOften.get.other)}
+                {if(aboutOtherMoney.howOften.isDefined){
+                  {questionOther(<Frequency/>,"howOftenPension", aboutOtherMoney.howOften.get.frequency, aboutOtherMoney.howOften.get.other)}
+                }}
               </Payment>
               {question(<Name/>,"whoPaysYou.label", aboutOtherMoney.whoPaysYou)}
               </OtherMoneyDetails>
@@ -61,7 +63,9 @@ object OtherBenefits extends XMLComponent {
       <OtherMoneySSPDetails>
           <Payment>
             {questionCurrency(<Payment/>,"howMuch", statutorySickPay.howMuch)}
-            {questionOther(<Frequency/>,"howOften_frequency", statutorySickPay.howOften.get.frequency, statutorySickPay.howOften.get.other)}
+            {if (statutorySickPay.howOften.isDefined){
+              questionOther(<Frequency/>,"howOften_frequency", statutorySickPay.howOften.get.frequency, statutorySickPay.howOften.get.other)
+            }}
         </Payment>
         {if (statutorySickPay.employersName.isDefined) question(<Name/>, "employersName", statutorySickPay.employersName.get)}
         {postalAddressStructureOpt("employersAddress", statutorySickPay.address, statutorySickPay.postCode)}
@@ -75,7 +79,9 @@ object OtherBenefits extends XMLComponent {
       <OtherMoneySPDetails>
           <Payment>
            {questionCurrency(<Payment/>, "howMuch", otherStatutoryPay.howMuch)}
-           {questionOther(<Frequency/>,"howOften_frequency", otherStatutoryPay.howOften.get.frequency, otherStatutoryPay.howOften.get.other)}
+           {if(otherStatutoryPay.howOften.isDefined){
+            {questionOther(<Frequency/>,"howOften_frequency", otherStatutoryPay.howOften.get.frequency, otherStatutoryPay.howOften.get.other)}
+           }}
         </Payment>
         {if (otherStatutoryPay.employersName.isDefined) question(<Name/>, "employersName", otherStatutoryPay.employersName.getOrElse("empty"))}
         {postalAddressStructureOpt("employersAddress", otherStatutoryPay.address, otherStatutoryPay.postCode)}

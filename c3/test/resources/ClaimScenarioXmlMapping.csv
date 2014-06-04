@@ -54,7 +54,7 @@ About the care you provide,Relationship and other claims,Does this person get Ar
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Caree>Cared35Hours>Answer
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date ?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,Caree>Cared35HoursBefore>Answer
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,Caree>DateStartCaring>Answer
-About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare,Caree>BreaksSinceClaim>Answer
+About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare,Caree>CareBreak>BreaksSinceClaim>Answer
 About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate,Caree>CareBreak>StartDateTime>Answer
 About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime,Caree>CareBreak>StartDateTime>Answer
 About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate,Caree>CareBreak>EndDateTime>Answer
