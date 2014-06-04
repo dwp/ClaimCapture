@@ -2,19 +2,21 @@ package services
 
 import org.specs2.mutable.{Tags, Specification}
 
-class EncryptionServiceSpec extends Specification with Tags {
+class EncryptionServiceSpec extends Specification with Tags with EncryptionService {
 
-  "PasswordService" should {
+  "EncryptionService" should {
 
     "encrypt a password given a plain password" in {
-      EncryptionService.encrypt("AB123456Dtest3453-01-02") must not beEmpty
+      digest("AB123456Dtest3453-01-02") must not beEmpty
     }
 
-    "check that a password is valid" in {
-      val check = EncryptionService.checkFingerprint("AB123456Dtest3453-01-02", "3VDaBdCDU9AN/ZbShZ5UDPPZKaM49PmX")
-      check mustEqual true
+    "generate the same encryption sequence for a given value" in {
+      val text1 = EncryptionService.digester.digest("AB123456Dtest3453-01-02")
+      val text2 = EncryptionService.digester.digest("AB123456Dtest3453-01-02")
+
+      text1 mustEqual(text2)
     }
+
   }
-
 
 }

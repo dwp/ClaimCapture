@@ -7,17 +7,15 @@ import controllers.submission._
 import monitoring.ClaimBotChecking
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.Logger
-import services.submission.ClaimSubmissionService
-import services.{ClaimTransactionComponent, CacheService}
 import models.domain.JSEnabled
+import services.submission.ClaimSubmissionService
+import services.ClaimTransactionComponent
 
 class G5Submit extends Controller with CachedClaim with Navigable
       with AsyncSubmissionController
       with ClaimBotChecking
       with ClaimSubmissionService
-      with ClaimTransactionComponent
-      with CacheService {
+      with ClaimTransactionComponent {
   val claimTransaction = new ClaimTransaction
 
   val form = Form(mapping(
@@ -38,20 +36,9 @@ class G5Submit extends Controller with CachedClaim with Navigable
           NotFound
         },
         f => {
-          // check the cache to see whether this is a duplicate claim or not
-          if(isInCache(claim)) {
-            // If a duplicate claim is suspected, log and throw an error
-            Logger.error("Claim is already in cache ")
-            throw new Exception("Duplicate claim found.")
-          } else {
-            storeInCache(claim)
-            Logger.debug("Stored fingerprint in cache ")
-
-            println(claim.getClass) // class models.view.CachedClaim$$anon$2
-
-            checkForBot(claim, request)
-            submission(claim, request, f.jsEnabled)
-           }
+          println(claim.getClass) // class models.view.CachedClaim$$anon$2
+          checkForBot(claim, request)
+          submission(claim, request, f.jsEnabled)
         }
       )
   }
