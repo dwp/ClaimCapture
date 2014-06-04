@@ -29,7 +29,7 @@ trait HealthController {
 
   def healthReport = Action {
     request =>
-      Ok(Json.toJson(HealthMonitor.runHealthChecks())).as("application/json").withHeaders("Cache-Control" -> "must-revalidate,no-cache,no-store")
+      Ok(Json.prettyPrint(Json.toJson(HealthMonitor.runHealthChecks()))).as("application/json").withHeaders("Cache-Control" -> "must-revalidate,no-cache,no-store")
   }
 }
 
