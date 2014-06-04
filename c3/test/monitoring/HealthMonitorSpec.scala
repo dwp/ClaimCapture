@@ -12,5 +12,10 @@ class HealthMonitorSpec extends Specification {
       page goToThePage()
       HealthMonitor.runHealthChecks().get("c3-transaction-db").get.isHealthy must beTrue
     }
+    "must report a healthy cache" in new WithBrowser with PageObjects {
+      val page = G1BenefitsPage(context)
+      page goToThePage()
+      HealthMonitor.runHealthChecks().get("c3-cache").get.isHealthy must beTrue
+    }
   } section "unit"
 }

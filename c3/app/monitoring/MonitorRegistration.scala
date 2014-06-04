@@ -22,6 +22,7 @@ object MonitorRegistration extends Injector {
 
   def registerHealthChecks() {
     HealthMonitor.register("c3-transaction-db", resolve(classOf[ClaimTransactionCheck]))
+    HealthMonitor.register("c3-cache", new CacheCheck())
   }
 
 }
