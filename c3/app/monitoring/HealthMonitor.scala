@@ -1,17 +1,18 @@
 package monitoring
 
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
-import scala.collection.SortedMap
 import collection.JavaConversions._
+import scala.collection.immutable.SortedMap
 
 object HealthMonitor  {
-  val healthChecks = new HealthCheckRegistry()
+  val registry = new HealthCheckRegistry()
 
   def register(label: String, healthCheck: HealthCheck) {
-    healthChecks.register(label, healthCheck)
+    registry.register(label, healthCheck)
   }
 
-  def runHealthChecks(): SortedMap[String, HealthCheck.Result] = {
-    SortedMap(healthChecks.runHealthChecks().toSeq: _*)
+  def runHealthChecks() = {
+    SortedMap(registry.runHealthChecks().toSeq: _*)
   }
 }
+

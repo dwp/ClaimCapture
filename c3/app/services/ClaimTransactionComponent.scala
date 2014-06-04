@@ -119,7 +119,7 @@ trait ClaimTransactionComponent {
 
     override def updateStatus(id: String, statusCode: String, claimType: Int) {}
 
-    override def health(): Unit = { Logger.debug("Stub health check")}
+    override def health(): Unit = { Logger.warn("Stub health check")}
   }
 
 }

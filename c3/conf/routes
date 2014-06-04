@@ -2,7 +2,8 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET           /report/metrics                                                  com.kenshoo.play.metrics.MetricsController.metrics
+GET           /report/metrics                                                 com.kenshoo.play.metrics.MetricsController.metrics
+GET           /report/health                                                  controllers.HealthController.healthReport
 
 # Home page
 GET           /                                                               controllers.Application.index

@@ -5,16 +5,31 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import monitoring.HealthMonitor
 import play.api.Logger
+import play.api.libs.json._
+import com.codahale.metrics.health.HealthCheck
 
 trait HealthController {
   this: Controller =>
 
-  def health = Action { request =>
-    val now = DateTimeFormat.forPattern("dd-MM-yy HH:mm:ss").print(DateTime.now())
+  implicit val healthWrites = new Writes[(String,HealthCheck.Result)] {
+    def writes(healthCheck:(String,HealthCheck.Result)) = Json.obj(
+      "name" -> healthCheck._1,
+      "isHealthy" -> healthCheck._2.isHealthy
+    )
+  }
 
-    HealthMonitor.runHealthChecks().map( check => Logger.debug(check.toString()))
+  def health = Action {
+    request =>
+      val now = DateTimeFormat.forPattern("dd-MM-yy HH:mm:ss").print(DateTime.now())
 
-    Ok(views.html.common.health(now)(lang(request), request))
+      HealthMonitor.runHealthChecks().map(check => Logger.debug(check.toString()))
+
+      Ok(views.html.common.health(now)(lang(request), request))
+  }
+
+  def healthReport = Action {
+    request =>
+      Ok(Json.toJson(HealthMonitor.runHealthChecks())).as("application/json").withHeaders("Cache-Control" -> "must-revalidate,no-cache,no-store")
   }
 }
 
