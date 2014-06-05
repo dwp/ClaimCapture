@@ -9,8 +9,11 @@ import play.api.Play.current
 class CacheCheck extends HealthCheck {
 
   override protected def check: HealthCheck.Result = {
-    Cache.set("cache-test", new DateTime()) // any exceptions thrown here are converted to Result.unhealthy
-    Result.healthy
+    Cache.set("cache-test", new DateTime())
+    Cache.get("cache-test") match {
+      case Some(date) => Result.healthy
+      case None => Result.unhealthy("cache unavailable")
+    }
   }
 }
 

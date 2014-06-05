@@ -1,31 +1,41 @@
 package services.submission
 
-import play.api.{GlobalSettings, Logger}
+import play.api.{Application, GlobalSettings, Logger}
 import scala.language.existentials
 import play.api.i18n.Lang
 import controllers.s11_consent_and_declaration.G5Submit
 import controllers.circs.s3_consent_and_declaration.G1Declaration
+import monitoring._
+import utils.Injector
 
-trait MockInjector {
+trait MockInjector extends Injector with MonitorRegistration {
   // used to create different test conditions
   var txnId: String = ""
 
   import scala.reflect.{classTag, ClassTag}
 
   val global = new GlobalSettings {
+
     override def getControllerInstance[A](controllerClass: Class[A]): A = resolve(controllerClass)
+
+    override def onStart(app: Application): Unit = {
+      registerReporters()
+      registerHealthChecks()
+    }
   }
 
-  def resolve[A](clazz: Class[A]) = instances(clazz).asInstanceOf[A]
+  override def resolve[A](clazz: Class[A]) = {
+    instances(clazz).asInstanceOf[A]
+  }
 
   private val instances: Map[Class[_ <: Any], Any] = {
-    def controller[A: ClassTag](instance: A) = classTag[A].runtimeClass -> instance
+    def bind[A: ClassTag](instance: A) = classTag[A].runtimeClass -> instance
     Map(
-      controller[G5Submit](new G5Submit {
+      bind[G5Submit](new G5Submit {
         override val claimTransaction = new ClaimTransaction {
           override def generateId: String = txnId
 
-          override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled:Int) {
+          override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled: Int) {
             Logger.info(s"MockTransactionIdService.registerId: $id, $statusCode, $claimType")
           }
 
@@ -38,11 +48,11 @@ trait MockInjector {
           }
         }
       }),
-      controller[G1Declaration](new G1Declaration {
+      bind[G1Declaration](new G1Declaration {
         override val claimTransaction = new ClaimTransaction {
           override def generateId: String = txnId
 
-          override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled:Int) {
+          override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled: Int) {
             Logger.info(s"MockTransactionIdService.registerId: $id, $statusCode, $claimType")
           }
 
@@ -56,11 +66,11 @@ trait MockInjector {
 
         }
       }),
-      controller[AsyncClaimSubmissionComponent](new AsyncClaimSubmissionComponent {
+      bind[AsyncClaimSubmissionComponent](new AsyncClaimSubmissionComponent {
         override val claimTransaction = new ClaimTransaction {
           override def generateId: String = txnId
 
-          override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled:Int) {
+          override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled: Int) {
             Logger.info(s"MockTransactionIdService.registerId: $id, $statusCode, $claimType")
           }
 
@@ -72,7 +82,19 @@ trait MockInjector {
             Logger.info(s"MockTransactionIdService.updateStatus: $id, $statusCode, $claimType")
           }
         }
-      })
+      }),
+      bind[ClaimTransactionCheck](new ClaimTransactionCheck {
+        override val claimTransaction = new ClaimTransaction {
+          override def health(): Unit = {
+            throw new Exception("I'm unhealthy")
+          }
+        }
+      }),
+      bind[HealthMonitor](TestHealthMonitor)
     )
   }
 }
+
+object TestHealthMonitor extends HealthMonitor
+
+

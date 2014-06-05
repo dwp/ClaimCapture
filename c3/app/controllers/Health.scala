@@ -7,9 +7,12 @@ import monitoring.HealthMonitor
 import play.api.Logger
 import play.api.libs.json._
 import com.codahale.metrics.health.HealthCheck
+import utils.Injector
 
-trait HealthController {
+trait HealthController extends Injector {
   this: Controller =>
+
+  val healthMonitor = resolve(classOf[HealthMonitor])
 
   implicit val healthWrites = new Writes[(String,HealthCheck.Result)] {
     def writes(healthCheck:(String,HealthCheck.Result)) = Json.obj(
@@ -22,14 +25,14 @@ trait HealthController {
     request =>
       val now = DateTimeFormat.forPattern("dd-MM-yy HH:mm:ss").print(DateTime.now())
 
-      HealthMonitor.runHealthChecks().map(check => Logger.debug(check.toString()))
+      healthMonitor.runHealthChecks().map(check => Logger.debug(check.toString()))
 
       Ok(views.html.common.health(now)(lang(request), request))
   }
 
   def healthReport = Action {
     request =>
-      Ok(Json.prettyPrint(Json.toJson(HealthMonitor.runHealthChecks()))).as("application/json").withHeaders("Cache-Control" -> "must-revalidate,no-cache,no-store")
+      Ok(Json.prettyPrint(Json.toJson(healthMonitor.runHealthChecks()))).as("application/json").withHeaders("Cache-Control" -> "must-revalidate,no-cache,no-store")
   }
 }
 

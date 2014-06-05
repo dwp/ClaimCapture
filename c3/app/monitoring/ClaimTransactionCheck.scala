@@ -8,7 +8,13 @@ class ClaimTransactionCheck extends HealthCheck with ClaimTransactionComponent {
   val claimTransaction = new ClaimTransaction
 
   override protected def check: HealthCheck.Result = {
-    claimTransaction.health() // any exceptions thrown here are converted to Result.unhealthy
-    Result.healthy
+    try {
+      claimTransaction.health()
+      Result.healthy
+    }
+    catch {
+      case e: Exception =>
+        Result.unhealthy(e)
+    }
   }
 }

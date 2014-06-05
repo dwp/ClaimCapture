@@ -14,7 +14,7 @@ import scala.language.existentials
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.libs.ws.Response
 import ExecutionContext.Implicits.global
-import monitoring.ClaimTransactionCheck
+import monitoring.{HealthMonitor, ProdHealthMonitor, ClaimTransactionCheck}
 
 trait Injector {
 
@@ -54,7 +54,8 @@ trait Injector {
         }),
         bind[ClaimTransactionCheck](new ClaimTransactionCheck {
           override val claimTransaction = new StubClaimTransaction
-        })
+        }),
+        bind[HealthMonitor](ProdHealthMonitor)
       )
     }
 
@@ -71,7 +72,8 @@ trait Injector {
         }),
         bind[ClaimTransactionCheck](new ClaimTransactionCheck {
           override val claimTransaction = new StubClaimTransaction
-        })
+        }),
+        bind[HealthMonitor](ProdHealthMonitor)
       )
     }
 
@@ -86,7 +88,8 @@ trait Injector {
       Map(bind[G5Submit](new G5Submit),
         bind[G1Declaration](new G1Declaration),
         bind[AsyncClaimSubmissionComponent](new AsyncClaimSubmissionComponent),
-        bind[ClaimTransactionCheck](new ClaimTransactionCheck)
+        bind[ClaimTransactionCheck](new ClaimTransactionCheck),
+        bind[HealthMonitor](ProdHealthMonitor)
       )
     }
   }

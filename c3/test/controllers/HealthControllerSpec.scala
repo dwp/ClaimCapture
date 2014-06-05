@@ -21,7 +21,11 @@ class HealthControllerSpec extends PlaySpecification with Results {
       val controller = new TestController()
       val result: Future[SimpleResult] = controller.healthReport().apply(FakeRequest())
       val bodyText: String = contentAsString(result)
-      bodyText must contain("{\"name\":\"c3-transaction-db\",\"isHealthy\":true}")
+      bodyText must contain("[ {\n  \"name\" : \"c3-cache\",\n  \"isHealthy\" : true\n}, {\n  \"name\" : \"c3-transaction-db\",\n  \"isHealthy\" : true\n} ]")
     }
   } section "unit"
 }
+
+
+
+

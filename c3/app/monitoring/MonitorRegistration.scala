@@ -7,9 +7,10 @@ import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit
 import utils.Injector
 
-object MonitorRegistration extends Injector {
+trait MonitorRegistration {
+  this: Injector =>
 
-  def registerReporters()  {
+  def registerReporters() {
     if (getProperty("metrics.slf4j", default = false)) {
       Slf4jReporter.forRegistry(MetricsRegistry.default)
         .outputTo(LoggerFactory.getLogger("application"))
@@ -21,8 +22,8 @@ object MonitorRegistration extends Injector {
   }
 
   def registerHealthChecks() {
-    HealthMonitor.register("c3-transaction-db", resolve(classOf[ClaimTransactionCheck]))
-    HealthMonitor.register("c3-cache", new CacheCheck())
+    resolve(classOf[HealthMonitor]).register("c3-transaction-db", resolve(classOf[ClaimTransactionCheck]))
+    resolve(classOf[HealthMonitor]).register("c3-cache", new CacheCheck)
   }
 
 }
