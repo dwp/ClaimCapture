@@ -10,7 +10,7 @@ class G1ClaimDateIntegrationSpec extends Specification with Tags {
 
     "be presented " in new WithBrowser with BrowserMatchers {
       browser.goTo("/your-claim-date/claim-date")
-      titleMustEqual("Your claim date - Your claim date")
+      titleMustEqual("Claim date - When do you want Carer's Allowance to start?")
     }
 
     "navigate to next section" in new WithBrowser with BrowserMatchers {

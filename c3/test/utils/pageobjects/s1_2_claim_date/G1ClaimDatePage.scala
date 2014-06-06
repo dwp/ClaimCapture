@@ -17,7 +17,7 @@ final class G1ClaimDatePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1Cla
  * It is used by PageFactory object defined in Page.scala
  */
 object G1ClaimDatePage {
-  val title = "Your claim date - Your claim date".toLowerCase
+  val title = "Claim date - When do you want Carer's Allowance to start?".toLowerCase
 
   val url  = "/your-claim-date/claim-date"
 
