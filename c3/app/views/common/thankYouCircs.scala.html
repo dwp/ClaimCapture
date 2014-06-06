@@ -87,11 +87,13 @@
                     @if(showEmployment1Messages){
                         <section class="finish-next">
                             <h3 id="employment1MessageTitle">@Html(Messages("circs.thankyou.employment1message.title"))</h3>
-                            <p>@Html(Messages("circs.thankyou.employment1message1.content"))</p>
-                            <p>@Html(Messages("circs.thankyou.employment1message2.content"))</p>
-                            @if(showEmploymentPensionMessage) {
-                                <p>@Html(Messages("circs.thankyou.employment1message3.content"))</p>
-                            }
+                            <ul>
+                                <li>@Html(Messages("circs.thankyou.employment1message1.content"))</li>
+                                <li>@Html(Messages("circs.thankyou.employment1message2.content"))</li>
+                                @if(showEmploymentPensionMessage) {
+                                    <li>@Html(Messages("circs.thankyou.employment1message3.content"))</li>
+                                }
+                            </ul>
                         </section>
                         <section class="address">
                             <h3 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment1message.address.title"))</h3>
@@ -105,12 +107,14 @@
                     @if(showEmployment2Messages){
                         <section class="finish-next">
                             <h3 id="employment2MessageTitle">@Html(Messages("circs.thankyou.employment2message.title"))</h3>
-                            <p>@Html(Messages("circs.thankyou.employment2message1.content"))</p>
-                            <p>@Html(Messages("circs.thankyou.employment2message2.content"))</p>
-                            <p>@Html(Messages("circs.thankyou.employment2message3.content"))</p>
-                            @if(showEmploymentPensionMessage) {
-                                <p>@Html(Messages("circs.thankyou.employment2message4.content"))</p>
-                            }
+                            <ul>
+                                <li>@Html(Messages("circs.thankyou.employment2message1.content"))</li>
+                                <li>@Html(Messages("circs.thankyou.employment2message2.content"))</li>
+                                <li>@Html(Messages("circs.thankyou.employment2message3.content"))</li>
+                                @if(showEmploymentPensionMessage) {
+                                    <li>@Html(Messages("circs.thankyou.employment2message4.content"))</li>
+                                }
+                            </ul>
                         </section>
                         <section class="address">
                             <h3 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment2message.address.title"))</h3>
