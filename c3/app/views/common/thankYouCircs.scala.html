@@ -26,13 +26,9 @@
     var employmentChange = circs.questionGroup[CircumstancesEmploymentChange].getOrElse(CircumstancesEmploymentChange())
     employmentChange.typeOfWork.answer match {
         case "employed" => {
-            employmentChange.hasWorkStartedYet.answer match {
-                case "yes" => {
-                    if(employmentChange.hasWorkFinishedYet.answer.getOrElse("yes") == "no") true
-                    else false
-                }
-                case _ => true
-            }
+            if ((employmentChange.hasWorkStartedYet.answer == "yes") && (employmentChange.hasWorkFinishedYet.answer.getOrElse("yes") == "no")) true
+            else if (employmentChange.hasWorkStartedYet.answer == "no") true
+            else false
         }
         case _ => false
     }
@@ -42,13 +38,8 @@
     var employmentChange = circs.questionGroup[CircumstancesEmploymentChange].getOrElse(CircumstancesEmploymentChange())
     employmentChange.typeOfWork.answer match {
         case "employed" => {
-            employmentChange.hasWorkStartedYet.answer match {
-                case "yes" => {
-                    if(employmentChange.hasWorkFinishedYet.answer.getOrElse("no") == "yes") true
-                    else false
-                }
-                case _ => true
-            }
+            if ((employmentChange.hasWorkStartedYet.answer == "yes") && (employmentChange.hasWorkFinishedYet.answer.getOrElse("no") == "yes")) true
+            else false
         }
         case _ => false
     }
