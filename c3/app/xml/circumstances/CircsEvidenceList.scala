@@ -371,9 +371,10 @@ object CircsEvidenceList {
     var buffer = NodeSeq.Empty
 
     buffer ++= textLine(Messages("beenPaidYet") + " = " + Messages("label." + startedEmploymentAndOngoing.beenPaid))
-    buffer ++= textLine(Messages("howMuchPaid") + " = " + startedEmploymentAndOngoing.howMuchPaid)
-    buffer ++= textLine(Messages("whatDatePaid") + " = " + startedEmploymentAndOngoing.date.`dd/MM/yyyy`)
-    buffer ++= textLine(Messages("circs.howOften") + " = " + Messages(startedEmploymentAndOngoing.howOften.frequency))
+    val labelExtension = if (startedEmploymentAndOngoing.beenPaid == "yes") "" else ".expect"
+    buffer ++= textLine(Messages("howMuchPaid" + labelExtension) + " = " + startedEmploymentAndOngoing.howMuchPaid)
+    buffer ++= textLine(Messages("whatDatePaid" + labelExtension) + " = " + startedEmploymentAndOngoing.date.`dd/MM/yyyy`)
+    buffer ++= textLine(Messages("circs.howOften" + labelExtension) + " = " + Messages(startedEmploymentAndOngoing.howOften.frequency))
     if (startedEmploymentAndOngoing.howOften.other.isDefined) buffer ++= textLine(Messages("other") + " = " + Messages(startedEmploymentAndOngoing.howOften.other.get))
     if (startedEmploymentAndOngoing.monthlyPayDay.isDefined) buffer ++= textLine(Messages("monthlyPayDay") + " = " + startedEmploymentAndOngoing.monthlyPayDay.get)
 
@@ -399,9 +400,10 @@ object CircsEvidenceList {
     var buffer = NodeSeq.Empty
 
     buffer ++= textLine(Messages("beenPaidYet") + " = " + Messages("label." + startedAndFinishedEmployment.beenPaid))
-    buffer ++= textLine(Messages("howMuchPaid") + " = " + startedAndFinishedEmployment.howMuchPaid)
-    buffer ++= textLine(Messages("dateLastPaid") + " = " + startedAndFinishedEmployment.dateLastPaid.`dd/MM/yyyy`)
-    if (startedAndFinishedEmployment.whatWasIncluded.isDefined) buffer ++= textLine(Messages("whatWasIncluded") + " = " + startedAndFinishedEmployment.whatWasIncluded.get)
+    val labelExtension = if (startedAndFinishedEmployment.beenPaid == "yes") "" else ".expect"
+    buffer ++= textLine(Messages("howMuchPaid.have" + labelExtension) + " = " + startedAndFinishedEmployment.howMuchPaid)
+    buffer ++= textLine(Messages("dateLastPaid" + labelExtension) + " = " + startedAndFinishedEmployment.dateLastPaid.`dd/MM/yyyy`)
+    if (startedAndFinishedEmployment.whatWasIncluded.isDefined) buffer ++= textLine(Messages("whatWasIncluded" + labelExtension) + " = " + startedAndFinishedEmployment.whatWasIncluded.get)
     buffer ++= textLine(Messages("circs.howOften") + " = " + Messages(startedAndFinishedEmployment.howOften.frequency))
     if (startedAndFinishedEmployment.howOften.other.isDefined) buffer ++= textLine(Messages("other") + " = " + Messages(startedAndFinishedEmployment.howOften.other.get))
     if (startedAndFinishedEmployment.monthlyPayDay.isDefined) buffer ++= textLine(Messages("monthlyPayDay") + " = " + startedAndFinishedEmployment.monthlyPayDay.get)
