@@ -63,6 +63,11 @@ POST          /allowance/carers-response                                      co
 GET           /allowance/approve                                              controllers.s1_carers_allowance.CarersAllowance.approve
 POST          /allowance/approve                                              controllers.s1_carers_allowance.CarersAllowance.approveSubmit
 
+#Section 1.5
+###############
+GET           /your-claim-date/claim-date                                     controllers.s1_2_claim_date.G1ClaimDate.present
+POST          /your-claim-date/claim-date                                     controllers.s1_2_claim_date.G1ClaimDate.submit
+
 #Section 2
 ###############
 GET           /about-you/your-details                                         controllers.s2_about_you.G1YourDetails.present
@@ -70,9 +75,6 @@ POST          /about-you/your-details                                         co
 
 GET           /about-you/contact-details                                      controllers.s2_about_you.G2ContactDetails.present
 POST          /about-you/contact-details                                      controllers.s2_about_you.G2ContactDetails.submit
-
-GET           /about-you/claim-date                                           controllers.s2_about_you.G3ClaimDate.present
-POST          /about-you/claim-date                                           controllers.s2_about_you.G3ClaimDate.submit
 
 GET           /about-you/nationality-and-residency                            controllers.s2_about_you.G4NationalityAndResidency.present
 POST          /about-you/nationality-and-residency                            controllers.s2_about_you.G4NationalityAndResidency.submit

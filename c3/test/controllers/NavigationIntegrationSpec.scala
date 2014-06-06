@@ -30,7 +30,7 @@ class NavigationIntegrationSpec extends Specification with Tags {
       next.title shouldEqual "Your contact details - About you - the carer"
       fill in `/about-you/contact-details`
 
-      next.title shouldEqual "Your claim date - About you - the carer"
+      next.title shouldEqual "Your nationality and residency - About you - the carer"
       back.title shouldEqual "Your contact details - About you - the carer"
       back.title shouldEqual "Your details - About you - the carer"
     }

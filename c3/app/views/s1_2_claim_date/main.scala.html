@@ -1,0 +1,46 @@
+@(title: String, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+
+@import utils.helpers.CarersTemplate.fieldConstructor
+@import models.domain._
+@import helper._
+@import play.api.i18n.{MMessages => Messages}
+
+@common.govMain(title) {
+
+    <div class="carers-allowance">
+
+        @common.protoType()
+        
+        @common.feedback()
+
+        @progressBar(AboutYou)
+
+        <article>
+
+            <h1>@Html(Messages("s1_2.longName"))</h1>
+
+            @if(completedQuestionGroups.size > 0) {
+                <div class="completed">
+                    <ul ul aria-label="@Html(Messages("completedQuestions"))">
+                        @for(completedQuestionGroup <- completedQuestionGroups;if completedQuestionGroup.identifier != Trips) {
+                            <li>
+                                @if(completedQuestionGroup.identifier == ClaimDate) {
+                                    <h3>@Html(Messages(completedQuestionGroup.identifier.id, claim.dateOfClaim.get.`dd/MM/yyyy`))</h3>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Html(Messages("change.this.help"))">@Html(Messages("change.this"))</a>
+                                } else {
+                                    <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Html(Messages("change.these.help"))">@Html(Messages("change.these"))</a>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+			
+            @content
+
+        </article>
+    </div>
+
+}

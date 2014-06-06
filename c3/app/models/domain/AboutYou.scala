@@ -4,7 +4,7 @@ import models.{ReasonForBeingThere, NationalInsuranceNumber, MultiLineAddress, D
 import models.yesNo.YesNoWithText
 
 object AboutYou extends Section.Identifier {
-  val id = "s2"
+  val id = "s3"
 }
 
 case class YourDetails(title: String = "",
@@ -29,12 +29,6 @@ case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
 
 object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
-}
-
-case class ClaimDate(dateOfClaim: DayMonthYear = DayMonthYear()) extends QuestionGroup(ClaimDate)
-
-object ClaimDate extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g3"
 }
 
 case class NationalityAndResidency(nationality: String = "",

@@ -1,7 +1,7 @@
 package app.claim
 
 import play.api.test.WithBrowser
-import utils.pageobjects.s1_carers_allowance.{G1BenefitsPage, G1BenefitsPageContext}
+import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
 import utils.pageobjects._
 import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon

@@ -9,7 +9,6 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
   "Care you provide" should {
     """navigate to Education""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("Your nationality and residency - About you - the carer")
 
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")
@@ -32,7 +31,6 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
     """navigate to Self Employment""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("Your nationality and residency - About you - the carer")
 
       Formulate.nationalityAndResidency(browser)
       titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
@@ -65,7 +63,6 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
     """navigate to Other Money""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("Your nationality and residency - About you - the carer")
 
       Formulate.nationalityAndResidency(browser)
       titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")

@@ -68,10 +68,10 @@ object Formulate {
   }
 
   def claimDate(browser: TestBrowser) = {
-    browser.goTo("/about-you/claim-date")
-    browser.click("#dateOfClaim_day option[value='3']")
-    browser.click("#dateOfClaim_month option[value='4']")
-    browser.fill("#dateOfClaim_year") `with` "1950"
+    browser.goTo("/your-claim-date/claim-date")
+    browser.click("#dateOfClaim_day option[value='1']")
+    browser.click("#dateOfClaim_month option[value='1']")
+    browser.fill("#dateOfClaim_year") `with` "2014"
     browser.submit("button[type='submit']")
   }
 
