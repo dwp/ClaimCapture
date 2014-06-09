@@ -20,7 +20,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("More about the care you provide - About the care you provide")
 
       browser.goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual("Breaks in care - About the care you provide")
+      titleMustEqual("Breaks from care - About the care you provide")
       browser.click("#answer_no")
 
       browser.find("button[type='submit']").getText shouldEqual "Next"
@@ -51,7 +51,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("More about the care you provide - About the care you provide")
 
       browser.goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual("Breaks in care - About the care you provide")
+      titleMustEqual("Breaks from care - About the care you provide")
       browser.click("#answer_no")
 
       browser.find("button[type='submit']").getText shouldEqual "Next"
@@ -83,7 +83,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("More about the care you provide - About the care you provide")
 
       browser.goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual("Breaks in care - About the care you provide")
+      titleMustEqual("Breaks from care - About the care you provide")
       browser.click("#answer_no")
 
       browser.find("button[type='submit']").getText shouldEqual "Next"

@@ -8,7 +8,7 @@ import models.domain.{Claiming, BreaksInCare, Claim}
 import models.view.CachedClaim
 
 class G10BreaksInCareSpec extends Specification with Tags {
-  "Breaks in care" should {
+  "Breaks from care" should {
     """present "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 

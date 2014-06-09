@@ -81,108 +81,108 @@ About the care you provide,Contact details of the person you care for,Phone numb
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Yes
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date: <ddmmyyyy>?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,Yes
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,01/05/2012
-About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,Yes
-About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_1,10/01/2010
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_1,10:15
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_1,17/01/2010
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_1,17:30
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_1,Home
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_1,
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1,Hospital
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_1,
-About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1,Yes
-About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_2,Yes
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_2,20/01/2010
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_2,
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_2,27/01/2010
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_2,
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_2,Holiday
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_2,
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_2,Nursing Home
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_2,
-About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_2,Yes
-About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_3,Yes
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_3,20/02/2010
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_3,12:15
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_3,
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_3,
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_3,Respite Care
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_3,
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_3,Care Home
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_3,
-About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_3,Yes
-About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_4,Yes
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_4,20/03/2010
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_4,
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_4,
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_4,
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_4,Holiday
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_4,
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_4,Nursing Home
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_4,
-About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_4,Yes
-About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_5,Yes
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_5,20/03/2013
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_5,12:00
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_5,21/02/2013
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_5,
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_5,Other
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_5,Other Place 5a
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_5,Other
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_5,Other place 5b
-About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_5,No
-About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_6,Yes
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_6,10/01/2010
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_6,10:30
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_6,17/01/2010
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_6,16:45
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_6,Home
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_6,
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_6,Hospital
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_6,
-About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_6,Yes
-About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_7,Yes
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_7,20/01/2010
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_7,10:15
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_7,27/01/2010
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_7,18:30
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_7,Holiday
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_5,
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_7,Nursing Home
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_7,
-About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_7,Yes
-About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_8,Yes
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_8,20/02/2010
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_8,12:00
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_8,27/02/2010
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_8,13:45
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_8,Respite Care
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_8,
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_8,Care Home
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_8,
-About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_8,Yes
-About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_9,Yes
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_9,20/03/2010
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_9,12:15
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_9,21/02/2010
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_9,13:30
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_9,Holiday
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_9,
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_9,Nursing Home
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_9,
-About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_9,Yes
-About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_10,Yes
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_10,20/03/2013
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_10,12:00
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_10,21/02/2013
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_10,13:45
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_10,Other
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_10,Other place 10a
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_10,Other
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_10,Other place 10b
-About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_10,No
-About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_11,No
+About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,Yes
+About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,
+About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_1,10/01/2010
+About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_1,10:15
+About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_1,17/01/2010
+About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_1,17:30
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_1,Home
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_1,
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1,Hospital
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_1,
+About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1,Yes
+About the care you provide,About the breaks from care,Have you had any more breaks from care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_2,Yes
+About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_2,20/01/2010
+About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_2,
+About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_2,27/01/2010
+About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_2,
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_2,Holiday
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_2,
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_2,Nursing Home
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_2,
+About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_2,Yes
+About the care you provide,About the breaks from care,Have you had any more breaks from care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_3,Yes
+About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_3,20/02/2010
+About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_3,12:15
+About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_3,
+About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_3,
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_3,Respite Care
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_3,
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_3,Care Home
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_3,
+About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_3,Yes
+About the care you provide,About the breaks from care,Have you had any more breaks from care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_4,Yes
+About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_4,20/03/2010
+About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_4,
+About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_4,
+About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_4,
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_4,Holiday
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_4,
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_4,Nursing Home
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_4,
+About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_4,Yes
+About the care you provide,About the breaks from care,Have you had any more breaks from care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_5,Yes
+About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_5,20/03/2013
+About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_5,12:00
+About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_5,21/02/2013
+About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_5,
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_5,Other
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_5,Other Place 5a
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_5,Other
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_5,Other place 5b
+About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_5,No
+About the care you provide,About the breaks from care,Have you had any more breaks from care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_6,Yes
+About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_6,10/01/2010
+About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_6,10:30
+About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_6,17/01/2010
+About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_6,16:45
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_6,Home
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_6,
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_6,Hospital
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_6,
+About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_6,Yes
+About the care you provide,About the breaks from care,Have you had any more breaks from care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_7,Yes
+About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_7,20/01/2010
+About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_7,10:15
+About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_7,27/01/2010
+About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_7,18:30
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_7,Holiday
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_5,
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_7,Nursing Home
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_7,
+About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_7,Yes
+About the care you provide,About the breaks from care,Have you had any more breaks from care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_8,Yes
+About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_8,20/02/2010
+About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_8,12:00
+About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_8,27/02/2010
+About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_8,13:45
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_8,Respite Care
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_8,
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_8,Care Home
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_8,
+About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_8,Yes
+About the care you provide,About the breaks from care,Have you had any more breaks from care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_9,Yes
+About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_9,20/03/2010
+About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_9,12:15
+About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_9,21/02/2010
+About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_9,13:30
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_9,Holiday
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_9,
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_9,Nursing Home
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_9,
+About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_9,Yes
+About the care you provide,About the breaks from care,Have you had any more breaks from care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_10,Yes
+About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_10,20/03/2013
+About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_10,12:00
+About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_10,21/02/2013
+About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_10,13:45
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_10,Other
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_10,Other place 10a
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_10,Other
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_10,Other place 10b
+About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_10,No
+About the care you provide,About the breaks from care,Have you had any more breaks from care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_11,No
 Education,Your course details,Course title,EducationCourseTitle,Bussines Studies
 Education,Your course details,"Name of school, college or university",EducationNameofSchool,Oxford College
 Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,Edward Mansfield

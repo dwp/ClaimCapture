@@ -57,17 +57,17 @@ About the care you provide,Relationship and other claims,Does this person get Ar
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,DWPCAClaim>EvidenceList
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date ?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,DWPCAClaim>EvidenceList
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,Caree>DateStartedCaring
-About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare,Caree>BreaksSinceClaim
-About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,Caree>BreaksBeforeClaim
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate,CareBreak>StartDateTime
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime,CareBreak>StartDateTime
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate,CareBreak>EndDateTime
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime,CareBreak>EndDateTime
-About the care you provide,About the breaks in care,Where were you during the break?,AboutTheCareYouProvideWhereWereYouDuringTheBreak,CareBreak>Reason
-About the care you provide,About the breaks in care,Where were you during the break? Other detail,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther,DWPCAClaim>EvidenceList
-About the care you provide,About the breaks in care,Where was the person you care for during the break?,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak,DWPCAClaim>EvidenceList
-About the care you provide,About the breaks in care,Where was the person you care for during the break? Other detail,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther,DWPCAClaim>EvidenceList
-About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment,CareBreak>MedicalCare
+About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare,Caree>BreaksSinceClaim
+About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,Caree>BreaksBeforeClaim
+About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate,CareBreak>StartDateTime
+About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime,CareBreak>StartDateTime
+About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate,CareBreak>EndDateTime
+About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime,CareBreak>EndDateTime
+About the care you provide,About the breaks from care,Where were you during the break?,AboutTheCareYouProvideWhereWereYouDuringTheBreak,CareBreak>Reason
+About the care you provide,About the breaks from care,Where were you during the break? Other detail,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther,DWPCAClaim>EvidenceList
+About the care you provide,About the breaks from care,Where was the person you care for during the break?,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak,DWPCAClaim>EvidenceList
+About the care you provide,About the breaks from care,Where was the person you care for during the break? Other detail,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther,DWPCAClaim>EvidenceList
+About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment,CareBreak>MedicalCare
 Education,Your course details,Course title,EducationCourseTitle,FullTimeEducation>CourseDetails>Title
 Education,Your course details,"Name of school, college or university",EducationNameofSchool,FullTimeEducation>LocationDetails>Name
 Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,FullTimeEducation>LocationDetails>Tutor

@@ -13,8 +13,8 @@ Breaks from caring - change in circumstances,Breaks from caring,When did the bre
 Breaks from caring - change in circumstances,Breaks from caring,End time,BreaksInCareEndTime,10 am
 Breaks from caring - change in circumstances,Breaks from caring,Did you or the person you care for receive any medical treatment or professional care during the break?,BreaksInCareMedicalCareDuringBreak,no
 Breaks from caring - change in circumstances,Breaks from caring,Tell us more about your changes,BreaksInCareMoreAboutChanges,Other changes
-Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks in care that you have not already reported to us?,BreaksInCareSummaryAdditionalBreaks,Yes
-Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks in care that you have not already reported to us?Yes,BreaksInCareSummaryAdditionalBreaksInfo,Other Changes
+Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks from caring that you have not already reported to us?,BreaksInCareSummaryAdditionalBreaks,Yes
+Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks from caring that you have not already reported to us?Yes,BreaksInCareSummaryAdditionalBreaksInfo,Other Changes
 Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,By Post
 Declaration - consent and declaration,Declaration,"Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,Yes
 Declaration - consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,Mr Smith
