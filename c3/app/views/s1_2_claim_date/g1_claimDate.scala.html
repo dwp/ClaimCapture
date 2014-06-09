@@ -8,21 +8,16 @@
 @main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
     @errorsSummary(claimDateForm)
 
-    <p class="title">@Html(Messages("dateOfClaimHelp"))</p>
+    <p class="intro">@Html(Messages("dateOfClaimHelp"))</p>
 
     @form(action = controllers.s1_2_claim_date.routes.G1ClaimDate.submit) {
         <div class="form-wrap">
-	        <fieldset class="form-elements">
+            <fieldset class="form-elements">
+             <ul>
+	        @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateOfBirth.helper"))
+             </ul>
+            </fieldset>
 
-	            <legend>@Html(Messages("s1_2.g1.legend"))</legend>
-                <ul class="group">
-	            
-	             @inputDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateOfBirth.helper"))
-	               
-	            </ul>
-
-	        </fieldset>
-	
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
