@@ -1,10 +1,8 @@
 .send-info {
-		margin: 2em 25% 0 0;
+		margin: 2em 0 0 0;
 		padding: 1.5em;
 		border: 1px solid #a2a2a2;
-		 @media screen and (max-width: 860px) {
-			 margin-right: 0;
-		 }
+
 		section {
 			margin-top: 2em;
 			&:first-child {

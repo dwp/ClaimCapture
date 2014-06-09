@@ -6,7 +6,7 @@
 @import play.api.i18n.{MMessages => Messages}
 
 @common.govMain(title) {
-    <div class="carers-allowance">
+    <div class="carers-allowance clearfix">
     
     	@common.protoType()
     
@@ -36,5 +36,8 @@
 
             @content
         </article>
+        
+         @common.leftcol()
+        
     </div>
 }

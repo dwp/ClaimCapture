@@ -57,7 +57,7 @@ main {
 
 /* form wrap */
 .form-wrap {
-		margin-right: 25%;
+
 		@media screen and (max-width: 860px) {
 			margin-right: 0;
 		}
@@ -137,7 +137,7 @@ main {
 	   	   }
 	   	   &.nestedLabel {
 		   	   	font-size: 19px;
-				font-weight: 400;
+				font-weight: 600;
 				color: #000;
 				padding-bottom: .5em;
 	   	   }
@@ -165,7 +165,7 @@ main {
 			margin-bottom: 0;
 			legend {
 				font-size: 19px;
-				font-weight: 400;
+				font-weight: 600;
 				color: #000;
 				padding-bottom: .34em;
 				em {
@@ -205,7 +205,7 @@ main {
 		   
 		   li {
 			   display: block;
-			   margin-top: 16px;
+			   margin-top: 18px;
 			   padding: .8em 0;
 			   position: relative;
 			   .ie & {
@@ -435,10 +435,10 @@ main {
 					}
 				}
 			  
-			   label, p {
+			   label, .sub {
 				   display: block;
 				   font-size: 19px;
-				   font-weight: 400;
+				   font-weight: 600;
 				   line-height: 1.3em;
 				   padding-bottom: .3em;
 				   @media screen and (max-width: 600px) {
@@ -588,7 +588,7 @@ main {
 						   cursor: pointer;
 						   line-height: 1em;
 						   border: 1px solid #fff;
-						   font-weight: 500;
+						   font-weight: 400;
 						   
 						   .ie7 &:hover, .ie8 &:hover {
 							   background: #fff;
@@ -841,7 +841,7 @@ main {
 	   
 	   
 /* Table base styles */	   
-@import 'tables'; 	   
+@import 'tables';	   
 	     
 }
  
