@@ -384,7 +384,11 @@ object CircsEvidenceList {
       case "monthly" => "month"
       case _ => "other"
     }
-    buffer ++= textLine(Messages("usuallyPaidSameAmount." + frequencyContext) + " = " + Messages("label." + startedEmploymentAndOngoing.usuallyPaidSameAmount))
+    val tenseContext = startedEmploymentAndOngoing.beenPaid match {
+      case "yes" => ""
+      case "no" => ".expect"
+    }
+    buffer ++= textLine(Messages("usuallyPaidSameAmount." + frequencyContext + tenseContext) + " = " + Messages("label." + startedEmploymentAndOngoing.usuallyPaidSameAmount))
 
     buffer ++= renderEmploymentCommonQuestionAnswers(
       "doYouPayIntoPension",
@@ -404,7 +408,7 @@ object CircsEvidenceList {
     buffer ++= textLine(Messages("howMuchPaid.have" + labelExtension) + " = " + startedAndFinishedEmployment.howMuchPaid)
     buffer ++= textLine(Messages("dateLastPaid" + labelExtension) + " = " + startedAndFinishedEmployment.dateLastPaid.`dd/MM/yyyy`)
     if (startedAndFinishedEmployment.whatWasIncluded.isDefined) buffer ++= textLine(Messages("whatWasIncluded" + labelExtension) + " = " + startedAndFinishedEmployment.whatWasIncluded.get)
-    buffer ++= textLine(Messages("circs.howOften") + " = " + Messages(startedAndFinishedEmployment.howOften.frequency))
+    buffer ++= textLine(Messages("circs.howOften.were") + " = " + Messages(startedAndFinishedEmployment.howOften.frequency))
     if (startedAndFinishedEmployment.howOften.other.isDefined) buffer ++= textLine(Messages("other") + " = " + Messages(startedAndFinishedEmployment.howOften.other.get))
     if (startedAndFinishedEmployment.monthlyPayDay.isDefined) buffer ++= textLine(Messages("monthlyPayDay") + " = " + startedAndFinishedEmployment.monthlyPayDay.get)
 
@@ -414,7 +418,7 @@ object CircsEvidenceList {
       case "monthly" => "month"
       case _ => "other"
     }
-    buffer ++= textLine(Messages("usuallyPaidSameAmount." + frequencyContext) + " = " + Messages("label." + startedAndFinishedEmployment.usuallyPaidSameAmount))
+    buffer ++= textLine(Messages("usuallyPaidSameAmount.did." + frequencyContext) + " = " + Messages("label." + startedAndFinishedEmployment.usuallyPaidSameAmount))
 
     buffer ++= textLine(Messages("employerOwesYouMoney") + " = " + Messages("label." + startedAndFinishedEmployment.employerOwesYouMoney))
     if (startedAndFinishedEmployment.employerOwesYouMoneyInfo.isDefined) buffer ++= textLine(Messages("employerOwesYouMoneyInfo") + " = " + startedAndFinishedEmployment.employerOwesYouMoneyInfo.get)
@@ -444,7 +448,7 @@ object CircsEvidenceList {
       case "monthly" => "month"
       case _ => "other"
     }
-    if (employmentNotStartedOption.usuallyPaidSameAmount.isDefined) buffer ++= textLine(Messages("usuallyPaidSameAmount.did." + frequencyContext) + " = " + Messages("label." + employmentNotStartedOption.usuallyPaidSameAmount.get))
+    if (employmentNotStartedOption.usuallyPaidSameAmount.isDefined) buffer ++= textLine(Messages("usuallyPaidSameAmount.will." + frequencyContext) + " = " + Messages("label." + employmentNotStartedOption.usuallyPaidSameAmount.get))
 
     buffer ++= renderEmploymentCommonQuestionAnswers(
       "willYouPayIntoPension",
