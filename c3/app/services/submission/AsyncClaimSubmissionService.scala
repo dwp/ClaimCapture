@@ -67,11 +67,9 @@ trait AsyncClaimSubmissionService extends CacheService {
       case "response" =>
         claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
         Logger.info(s"Successful submission : ${claim.key} : $txnID")
-        storeInCache(claim.getFingerprint(claimType(claim)))
       case "acknowledgement" =>
         claimTransaction.updateStatus(txnID, ACKNOWLEDGED, claimType(claim))
         Logger.info(s"Successful submission : ${claim.key} : $txnID")
-        storeInCache(claim.getFingerprint(claimType(claim)))
       case "error" =>
         val errorCode = (responseXml \\ "errorCode").text
         Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $errorCode")

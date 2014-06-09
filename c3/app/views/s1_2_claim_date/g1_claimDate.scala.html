@@ -6,13 +6,16 @@
 @import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
-    @errorsSummary(claimDateForm)
 
-    <p class="intro">@Html(Messages("dateOfClaimHelp"))</p>
+	<p class="intro-info">@Html(Messages("dateOfClaimHelp"))</p>
+	
+    @errorsSummary(claimDateForm)
 
     @form(action = controllers.s1_2_claim_date.routes.G1ClaimDate.submit) {
         <div class="form-wrap">
+          
             <fieldset class="form-elements">
+          	   
              <ul>
 	        @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateOfBirth.helper"))
              </ul>
