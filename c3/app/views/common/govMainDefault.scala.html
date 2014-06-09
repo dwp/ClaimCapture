@@ -107,7 +107,7 @@
 	          <h1 class="page-title beta">@Html(Messages("siteHeader"))</h1>
 		       <nav>
 		          	<ul>
-		          		<!-- <li class="feedback"><a href="#" @views.html.ga.trackClickEvent(linkName = "Help and Feedback expansion")>@Html(Messages("helpAndFeedback"))</a></li> -->
+		          		<li class="help"><a href="#help" @views.html.ga.trackClickEvent(linkName = "Help and Feedback expansion")>@Html(Messages("helpAndFeedback"))</a></li>
                         @if(getProperty("galluogi.cymraeg", default = true)) {
                             @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
                             @if(lang.language == "cy") {
@@ -120,6 +120,8 @@
 		          	</ul>
 		          </nav>
 	          </section>
+
+	          
 	      </div>
 	    </header>
 	    <!--end header-->

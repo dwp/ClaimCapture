@@ -21,7 +21,7 @@
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
-                    <ul ul aria-label="@Html(Messages("completedQuestions"))">
+                    <ul aria-label="@Html(Messages("completedQuestions"))">
                         @for(completedQuestionGroup <- completedQuestionGroups;if completedQuestionGroup.identifier != Trips) {
                             <li>
                                 @if(completedQuestionGroup.identifier == ClaimDate) {
