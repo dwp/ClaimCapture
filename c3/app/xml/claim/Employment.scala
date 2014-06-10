@@ -144,6 +144,7 @@ object Employment extends XMLComponent{
         }}
         {question(<RelationshipCarerToClaimant/>, "relationToYou",childcareExpenses.relationToYou)}
         {question(<RelationshipCarerToPartner/>, "relationToPartner",childcareExpenses.relationToPartner)}
+        {question(<RelationshipCarerToPersonYouCare/>, "relationToPersonYouCare",childcareExpenses.relationToPersonYouCare)}
       </ChildCareExpenses>
     } else {
       {question(<CareExpensesChildren/>, "payAnyoneToLookAfterChildren",aboutExpenses.payAnyoneToLookAfterChildren,questionLabelEmployment(claim, "payAnyoneToLookAfterChildren", job.jobID))}
