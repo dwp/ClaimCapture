@@ -84,9 +84,9 @@ About the care you provide,More about the care you provide,When did you start to
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,Yes
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,
 About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_1,10/01/2010
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_1,10:00
+About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_1,
 About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_1,17/01/2010
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_1,17:00
+About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_1,
 About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_1,Home
 About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1,Hospital
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1,Yes

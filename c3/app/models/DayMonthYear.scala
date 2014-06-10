@@ -26,6 +26,8 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
 
   def `dd/MM/yyyy`: String = pad(day) + "/" + pad(month) + "/" + year.fold("")(_.toString)
 
+  def `HH:mm`:String = format("HH:mm")
+
   def -(amount: Int) = new Period {
     override def days = adjust { _.minusDays(amount) }
 

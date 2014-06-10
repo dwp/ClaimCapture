@@ -55,9 +55,23 @@ object Caree extends XMLComponent {
           case true =>  breaksInCareLabel("answer.more.label", true)
           case false => breaksInCareLabel("answer.label", true)
         }}
-        {question(<StartDateTime/>, "start", break.start.`dd-MM-yyyy HH:mm`)}
+        {(break.start.hour, break.start.minutes) match {
+            case (Some(h), Some(m)) => {question(<StartDate/>, "start", break.start.`dd-MM-yyyy`) ++
+                                        question(<StartTime/>, "start.time", break.start.`HH:mm`)
+                                       }
+            case _ => question(<StartDate/>, "start", break.start.`dd-MM-yyyy`)
+          }
+        }
         {break.end match {
-          case Some(n) => {question(<EndDateTime/>,"end", break.end.get.`dd-MM-yyyy HH:mm`)}
+          case Some(n) => {
+            (n.hour, n.minutes) match {
+              case (Some(h), Some(m)) => {
+                                          question(<EndDate/>,"end", break.end.get.`dd-MM-yyyy`) ++
+                                          question(<EndTime/>, "end.time", break.end.get.`HH:mm`)
+                                         }
+              case _ => question(<EndDate/>,"end", break.end.get.`dd-MM-yyyy`)
+            }
+          }
           case None => NodeSeq.Empty
         }}
         {question(<MedicalCare/>,"medicalDuringBreak", break.medicalDuringBreak)}
