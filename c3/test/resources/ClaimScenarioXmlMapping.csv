@@ -55,10 +55,10 @@ About the care you provide,More about the care you provide,Do you spend 35 hours
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date ?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,Caree>Cared35HoursBefore>Answer
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,Caree>DateStartCaring>Answer
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare,Caree>CareBreak>BreaksSinceClaim>Answer
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate,Caree>CareBreak>StartDateTime>Answer
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime,Caree>CareBreak>StartDateTime>Answer
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate,Caree>CareBreak>EndDateTime>Answer
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime,Caree>CareBreak>EndDateTime>Answer
+About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate,Caree>CareBreak>StartDate>Answer
+About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime,Caree>CareBreak>StartTime>Answer
+About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate,Caree>CareBreak>EndDate>Answer
+About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime,Caree>CareBreak>EndTime>Answer
 About the care you provide,About the breaks in care,Where were you during the break?,AboutTheCareYouProvideWhereWereYouDuringTheBreak,Caree>CareBreak>ReasonClaimant>Answer
 About the care you provide,About the breaks in care,Where were you during the break? Other detail,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther,Caree>CareBreak>ReasonClaimant>Other
 About the care you provide,About the breaks in care,Where was the person you care for during the break?,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak,Caree>CareBreak>ReasonCaree>Answer
