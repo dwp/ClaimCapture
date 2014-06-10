@@ -79,7 +79,7 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
   }
 
   def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) match {
-    case Some(m: MoreAboutYou) => m.hadPartnerSinceClaimDate == yes
+    case Some(m: MoreAboutYou) => m.maritalStatus == "p" || m.hadPartnerSinceClaimDate == Some(yes)
     case _ => false
   }
 
