@@ -13,6 +13,7 @@ import utils.pageobjects.s10_pay_details._
 import utils.pageobjects.S11_consent_and_declaration._
 import utils.pageobjects.IterationManager._
 import utils.pageobjects.preview.PreviewPage
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 
 
 /**
@@ -36,10 +37,11 @@ object ClaimPageFactory extends PageFactory {
         case G4LivesInGBPage.title => G4LivesInGBPage (ctx)
         case G5CarersResponsePage.title => G5CarersResponsePage (ctx)
         case G6ApprovePage.title => G6ApprovePage (ctx)
+        //S1.5
+        case G1ClaimDatePage.title => G1ClaimDatePage (ctx)
         // S2
         case G1YourDetailsPage.title => G1YourDetailsPage (ctx)
         case G2ContactDetailsPage.title => G2ContactDetailsPage (ctx)
-        case G3ClaimDatePage.title => G3ClaimDatePage (ctx)
         case G4NationalityAndResidencyPage.title => G4NationalityAndResidencyPage (ctx)
       }
       m.orElse[String,Page]{

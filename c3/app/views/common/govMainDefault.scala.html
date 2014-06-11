@@ -92,8 +92,8 @@
         
         
         <section class="js-message">
-		   	<h2>Javascript is currently disabled</h2>
-		   	<p>For full functionality of this website it is necessary to enable JavaScript, not doing so will result in a reduced user experience.</p>
+		   	<h2>@Html(Messages("javascript.disabled1"))</h2>
+		   	<p>@Html(Messages("javascript.disabled2"))</p>
        </section>
         
 
@@ -103,12 +103,11 @@
                     <img src="@routes.Assets.at("images/crown.png")" alt="GOV.UK">
                     GOV.UK
                 </a>
-	   
-	          <section>
+	  <section>
 	          <h1 class="page-title beta">@Html(Messages("siteHeader"))</h1>
-		          <nav>
+		       <nav>
 		          	<ul>
-		          		<li class="feedback"><a href="#" @views.html.ga.trackClickEvent(linkName = "Help and Feedback expansion")>@Html(Messages("helpAndFeedback"))</a></li>
+		          		<li class="help"><a href="#help" @views.html.ga.trackClickEvent(linkName = "Help and Feedback expansion")>@Html(Messages("helpAndFeedback"))</a></li>
                         @if(getProperty("galluogi.cymraeg", default = true)) {
                             @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
                             @if(lang.language == "cy") {
@@ -121,6 +120,8 @@
 		          	</ul>
 		          </nav>
 	          </section>
+
+	          
 	      </div>
 	    </header>
 	    <!--end header-->
@@ -132,7 +133,6 @@
         <div id="global-browser-prompt">
             <p>@Html(Messages("latestBrowserUpdate"))</p>
         </div>
-                
 
         <main role="main" id="main">
            @content

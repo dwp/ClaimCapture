@@ -7,7 +7,6 @@ import utils.pageobjects.s9_other_money._
 import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
 
-
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "About Other Money" should {
     "be presented" in new WithBrowser with BrowserMatchers {

@@ -1,0 +1,38 @@
+Report a change in your circumstances - Change in circumstances,Circumstances,Full Name,CircumstancesAboutYouFullName,Mr John Roger Smith
+Report a change in your circumstances - Change in circumstances,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,ja486278a
+Report a change in your circumstances - Change in circumstances,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,03/04/1950
+Report a change in your circumstances - Change in circumstances,Circumstances,Their Full Name,CircumstancesAboutYouTheirFullName,Mrs Jane Smith
+Report a change in your circumstances - Change in circumstances,Circumstances,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,Wife
+Details of your change in circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,EmploymentChange
+Employment - Change in circumstances,Employment,Are you still caring 35 hours or more each week?,CircumstancesEmploymentChangeStillCaring,yes
+Employment - Change in circumstances,Employment,What date did you stop caring 35 hours a week?,CircumstancesEmploymentChangeFinishedStillCaringDate,
+Employment - Change in circumstances,Employment,Has this work started yet?,CircumstancesEmploymentChangeHasWorkStartedYet,yes
+Employment - Change in circumstances,Employment,When did you start this work?,CircumstancesEmploymentChangeDateWhenStarted,01/01/2014
+Employment - Change in circumstances,Employment,When will you start this work?,CircumstancesEmploymentChangeDateWhenWillItStart,
+Employment - Change in circumstances,Employment,Has this work finished?,CircumstancesEmploymentChangeHasWorkFinishedYet,yes
+Employment - Change in circumstances,Employment,When did this work finish?,CircumstancesEmploymentChangeDateWhenFinished,20/02/2014
+Employment - Change in circumstances,Employment,What type of work is this?,CircumstancesEmploymentChangeTypeOfWork,employed
+Employment - Change in circumstances,Employment,Type of work or business,CircumstancesEmploymentChangeSelfEmployedTypeOfWork,
+Employment - Change in circumstances,Employment,Will the total income into your business be more than £102 a week?,CircumstancesEmploymentChangeSelfEmployedTotalIncome,
+Employment - Change in circumstances,Employment,Tell us more about your changes,CircumstancesEmploymentChangeSelfEmployedMoreAboutChanges,
+Employment - Change in circumstances,Employment,Employer's name and address,CircumstancesEmploymentChangeEmployerNameAndAddress,1 Plod Avenue&Preston
+Employment - Change in circumstances,Employment,Postcode,CircumstancesEmploymentChangeEmployerPostcode,PN1 3DJ
+Employment - Change in circumstances,Employment,Employer's contact number,CircumstancesEmploymentChangeEmployerContactNumber,0111 123 4567
+Employment - Change in circumstances,Employment,Payroll or employee number,CircumstancesEmploymentChangeEmployerPayroll,XYZ123890
+Finished Employment - Change in circumstances,Employment,What date did you receive your last pay?,CircumstancesEmploymentChangeWhatDatePaid,20/01/2014
+Finished Employment - Change in circumstances,Employment,What was included in this pay?,CircumstancesEmploymentChangeWhatWasIncluded,Overtime
+Finished Employment - Change in circumstances,Employment,How often are you paid?,CircumstancesEmploymentChangeHowOftenFrequency,other
+Finished Employment - Change in circumstances,Employment,What day or date of the month will you be paid?,CircumstancesEmploymentChangeMonthlyPayDay,
+Finished Employment - Change in circumstances,Employment,Did you usually get the same amount each week?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,yes
+Finished Employment - Change in circumstances,Employment,Other,CircumstancesEmploymentChangeHowOftenFrequencyOther,
+Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoney,no
+Finished Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,no
+Finished Employment - Change in circumstances,Employment,"Tell us what this is for, how much and how often",CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor,
+Finished Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,no
+Finished Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
+Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,By Post
+Declaration - consent and declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,yes
+Declaration - consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,Mr Smith
+Declaration - consent and declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,CircumstancesDeclarationConfirmation,yes
+Declaration - consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have told us about?,CircumstancesDeclarationInfoAgreement,no
+Declaration - consent and declaration,Declaration,Please tell us why not,CircumstancesDeclarationWhyNot,I don't want to

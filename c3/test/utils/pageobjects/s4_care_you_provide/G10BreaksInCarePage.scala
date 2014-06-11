@@ -12,7 +12,7 @@ final class G10BreaksInCarePage(ctx:PageObjectsContext, iteration: Int) extends 
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G10BreaksInCarePage {
-  val title = "Breaks in care - About the care you provide".toLowerCase
+  val title = "Breaks from care - About the care you provide".toLowerCase
 
   val url  = "/care-you-provide/breaks-in-care"
 

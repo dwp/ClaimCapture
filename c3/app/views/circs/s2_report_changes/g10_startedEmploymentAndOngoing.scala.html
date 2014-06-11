@@ -20,8 +20,9 @@
 @whatDatePaid = @{startedEmploymentAndOngoing("whatDatePaid")}
 @howMuchPaid = @{startedEmploymentAndOngoing("howMuchPaid")}
 @monthlyPayDay = @{startedEmploymentAndOngoing("monthlyPayDay")}
+@moreAboutChanges = @{startedEmploymentAndOngoing("moreAboutChanges")}
 
-@main(Messages("c2.g2") + " - " + Messages("c2.name")) {
+@main(Messages("c2.g10") + " - " + Messages("c2.name")) {
     @errorsSummary(startedEmploymentAndOngoing)
 
     @form(action = controllers.circs.s2_report_changes.routes.G10StartedEmploymentAndOngoing.submit) {
@@ -69,17 +70,17 @@
                                                 howOftenFrequency.value.getOrElse("noset") match {
                                                     case "weekly" => "usuallyPaidSameAmount.week"
                                                     case "fortnightly" => "usuallyPaidSameAmount.fortnight"
-                                                    case "fourweekly" => "usuallyPaidSameAmount.time"
+                                                    case "fourweekly" => "usuallyPaidSameAmount.fourweekly"
                                                     case "monthly" => "usuallyPaidSameAmount.month"
-                                                    case _ => "usuallyPaidSameAmount.time"
+                                                    case _ => "usuallyPaidSameAmount.other"
                                                 }
                                             else
                                                 howOftenFrequency.value.getOrElse("noset") match {
                                                     case "weekly" => "usuallyPaidSameAmount.week.expect"
                                                     case "fortnightly" => "usuallyPaidSameAmount.fortnight.expect"
-                                                    case "fourweekly" => "usuallyPaidSameAmount.time.expect"
+                                                    case "fourweekly" => "usuallyPaidSameAmount.fourweekly.expect"
                                                     case "monthly" => "usuallyPaidSameAmount.month.expect"
-                                                    case _ => "usuallyPaidSameAmount.time.expect"
+                                                    case _ => "usuallyPaidSameAmount.other.expect"
                                             }
                                 })
                             ),
@@ -91,18 +92,18 @@
                 </ul>
             </fieldset>
             <fieldset class="form-elements">
-                <legend>@Html(Messages("c2.g10.pensionsAndExpenses"))</legend>
+                <legend>@Html(Messages("c2.g9.pensionsAndExpenses"))</legend>
 
                 <ul>
                     @yesNoRadioGroup(doYouPayIntoPension("answer"),
                         '_label -> "doYouPayIntoPension"
                     )
 
-
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputTextArea(doYouPayIntoPension("whatFor"),
                                 'helper -> Html(Messages("300charsLeft")),
+                                'helperAbove -> Html(Messages("doYouPayIntoPension.whatFor.help")),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
@@ -111,7 +112,8 @@
                     )
 
                     @yesNoRadioGroup(doCareCostsForThisWork("answer"),
-                        '_label -> "doCareCostsForThisWork"
+                        '_label -> "doCareCostsForThisWork",
+                        'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no"))
                     )
 
                     @otherDetailPlaceHolder(
@@ -126,6 +128,7 @@
                         'display -> {if(doCareCostsForThisWork("answer").value.getOrElse("no") == "yes") "yes" else "no"}
                     )
 
+                    @carersInputTextArea(moreAboutChanges, 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
                 </ul>
 	        </fieldset>
 	
@@ -158,6 +161,7 @@ $(function(){
                             "@Html(Messages("whatDatePaid.expect"))",
                             "@CarersCrypto.encryptAES(howOften.id)",
                             "@CarersCrypto.encryptAES(howOftenFrequency.id)",
+                            "@Html(Messages("howOften"))",
                             "@Html(Messages("circs.howOften"))",
                             "@Html(Messages("circs.howOften.expect"))",
                             "@CarersCrypto.encryptAES(usuallyPaidSameAmount.id)",
@@ -166,12 +170,14 @@ $(function(){
                             "@Html(Messages("usuallyPaidSameAmount.week.expect"))",
                             "@Html(Messages("usuallyPaidSameAmount.fortnight"))",
                             "@Html(Messages("usuallyPaidSameAmount.fortnight.expect"))",
-                            "@Html(Messages("usuallyPaidSameAmount.time"))",
-                            "@Html(Messages("usuallyPaidSameAmount.time.expect"))",
+                            "@Html(Messages("usuallyPaidSameAmount.fourweekly"))",
+                            "@Html(Messages("usuallyPaidSameAmount.fourweekly.expect"))",
                             "@Html(Messages("usuallyPaidSameAmount.month"))",
                             "@Html(Messages("usuallyPaidSameAmount.month.expect"))",
-                            "@Html(Messages("usuallyPaidSameAmount.time"))",
-                            "@Html(Messages("usuallyPaidSameAmount.time.expect"))");
+                            "@Html(Messages("usuallyPaidSameAmount.other"))",
+                            "@Html(Messages("usuallyPaidSameAmount.other.expect"))",
+                            "@CarersCrypto.encryptAES(doYouPayIntoPension("answer").id)"
+    );
 
     window.beenPaidYet("@CarersCrypto.encryptAES(beenPaidYet("yes").id)",
                        "@CarersCrypto.encryptAES(beenPaidYet("no").id)",
@@ -198,12 +204,12 @@ $(function(){
                        "@Html(Messages("usuallyPaidSameAmount.week.expect"))",
                        "@Html(Messages("usuallyPaidSameAmount.fortnight"))",
                        "@Html(Messages("usuallyPaidSameAmount.fortnight.expect"))",
-                       "@Html(Messages("usuallyPaidSameAmount.time"))",
-                       "@Html(Messages("usuallyPaidSameAmount.time.expect"))",
+                       "@Html(Messages("usuallyPaidSameAmount.fourweekly"))",
+                       "@Html(Messages("usuallyPaidSameAmount.fourweekly.expect"))",
                        "@Html(Messages("usuallyPaidSameAmount.month"))",
                        "@Html(Messages("usuallyPaidSameAmount.month.expect"))",
-                       "@Html(Messages("usuallyPaidSameAmount.time"))",
-                       "@Html(Messages("usuallyPaidSameAmount.time.expect"))");
+                       "@Html(Messages("usuallyPaidSameAmount.other"))",
+                       "@Html(Messages("usuallyPaidSameAmount.other.expect"))");
 
     window.payDay("@CarersCrypto.encryptAES(beenPaidYet("yes").id)",
                   "@CarersCrypto.encryptAES(beenPaidYet("no").id)",
@@ -217,12 +223,12 @@ $(function(){
                   "@Html(Messages("usuallyPaidSameAmount.week.expect"))",
                   "@Html(Messages("usuallyPaidSameAmount.fortnight"))",
                   "@Html(Messages("usuallyPaidSameAmount.fortnight.expect"))",
-                  "@Html(Messages("usuallyPaidSameAmount.time"))",
-                  "@Html(Messages("usuallyPaidSameAmount.time.expect"))",
+                  "@Html(Messages("usuallyPaidSameAmount.fourweekly"))",
+                  "@Html(Messages("usuallyPaidSameAmount.fourweekly.expect"))",
                   "@Html(Messages("usuallyPaidSameAmount.month"))",
                   "@Html(Messages("usuallyPaidSameAmount.month.expect"))",
-                  "@Html(Messages("usuallyPaidSameAmount.time"))",
-                  "@Html(Messages("usuallyPaidSameAmount.time.expect"))");
+                  "@Html(Messages("usuallyPaidSameAmount.other"))",
+                  "@Html(Messages("usuallyPaidSameAmount.other.expect"))");
 
     window.whatFor("@CarersCrypto.encryptAES(doYouPayIntoPension("answer")("yes").id)",
                    "@CarersCrypto.encryptAES(doYouPayIntoPension("answer")("no").id)",
@@ -234,5 +240,6 @@ $(function(){
     window.areaCounter({selector: "@CarersCrypto.encryptAES(howOftenFrequency("other").id)",maxChars:60});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(doYouPayIntoPension("whatFor").id)",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(doCareCostsForThisWork("whatCosts").id)",maxChars:300});
+    window.areaCounter({selector: "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:300});
 });
 </script>

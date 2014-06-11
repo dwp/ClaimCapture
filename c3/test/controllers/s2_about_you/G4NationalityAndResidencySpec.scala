@@ -6,7 +6,6 @@ import models.domain.Claiming
 import models.view.CachedClaim
 import play.api.test.Helpers._
 
-
 class G4NationalityAndResidencySpec extends Specification with Tags {
 
   val aboutYourMinimalInput = Seq("nationality" -> "British", "resideInUK.answer" -> "yes")

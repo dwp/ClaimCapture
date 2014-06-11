@@ -15,7 +15,7 @@ About You,Your contact details,How we contact you,HowWeContactYou,01772 888901
 About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,British
 About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,No
 About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,France
-About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,23/07/2013
+Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,23/07/2013
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,No
 About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB_1,
 About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB_1,
@@ -55,16 +55,16 @@ About the care you provide,Contact details of the person you care for,Phone numb
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,No
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date: <ddmmyyyy>?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,No
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,
-About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,Yes
-About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,
-About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_1,10/01/2010
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_1,10:15
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_1,17/01/2010
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_1,17:45
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_1,Hospital
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1,Nursing Home
-About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1,Yes
-About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_2,No
+About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,Yes
+About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,
+About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_1,10/01/2010
+About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_1,10:15
+About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_1,17/01/2010
+About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_1,17:45
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_1,Hospital
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1,Nursing Home
+About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1,Yes
+About the care you provide,About the breaks from care,Have you had any more breaks from care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_2,No
 Education,Your course details,Course title,EducationCourseTitle,
 Education,Your course details,"Name of school, college or university",EducationNameofSchool,
 Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,

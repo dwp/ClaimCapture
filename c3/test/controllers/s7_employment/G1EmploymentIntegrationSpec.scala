@@ -2,7 +2,7 @@ package controllers.s7_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{WithBrowserHelper, Formulate, BrowserMatchers}
+import controllers.{Formulate, BrowserMatchers}
 
 class G1EmploymentIntegrationSpec extends Specification with Tags {
   "Employment - Integration" should {
@@ -14,7 +14,6 @@ trait EmployedSinceClaimDate extends BrowserMatchers {
 
   def beginClaim() = {
     Formulate.claimDate(browser)
-    titleMustEqual("Your nationality and residency - About you - the carer")
 
     Formulate.employment(browser)
   }
@@ -25,7 +24,6 @@ trait EducatedSinceClaimDate extends BrowserMatchers {
 
   def beginClaim() = {
     Formulate.claimDate(browser)
-    titleMustEqual("Your nationality and residency - About you - the carer")
 
     Formulate.otherEEAStateOrSwitzerland(browser)
 
@@ -40,7 +38,6 @@ trait EducatedAndEmployedSinceClaimDate extends BrowserMatchers {
 
   def beginClaim() = {
     Formulate.claimDate(browser)
-    titleMustEqual("Your nationality and residency - About you - the carer")
 
     Formulate.otherEEAStateOrSwitzerland(browser)
 
@@ -55,7 +52,6 @@ trait NotEmployedSinceClaimDate extends BrowserMatchers {
 
   def beginClaim() = {
     Formulate.claimDate(browser)
-    titleMustEqual("Your nationality and residency - About you - the carer")
 
     Formulate.notInEmployment(browser)
   }

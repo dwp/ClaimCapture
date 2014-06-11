@@ -7,7 +7,7 @@ import models.NationalInsuranceNumber
 import yesNo.YesNoWithDate
 
 case object CareYouProvide extends Section.Identifier {
-  val id = "s4"
+  val id = "s5"
 }
 
 case class TheirPersonalDetails(relationship: String = "",

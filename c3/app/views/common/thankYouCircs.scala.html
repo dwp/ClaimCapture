@@ -2,6 +2,10 @@
 
 
 @import models.domain.CircumstancesBreaksInCare
+@import models.domain.CircumstancesEmploymentChange
+@import models.domain.CircumstancesStartedEmploymentAndOngoing
+@import models.domain.CircumstancesStartedAndFinishedEmployment
+@import models.domain.CircumstancesEmploymentNotStarted
 
 @import play.api.i18n._
 @import play.api.i18n.{MMessages => Messages}
@@ -18,9 +22,34 @@
         }
 }
 
+@showEmployment1Messages = @{
+    circs.questionGroup[CircumstancesStartedEmploymentAndOngoing].isDefined
+}
+
+@showEmployment2Messages = @{
+    circs.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined
+}
+
+@showEmploymentPensionMessage = @{
+    lazy val ongoingEmploymentOption = circs.questionGroup[CircumstancesStartedEmploymentAndOngoing]
+    lazy val finishedEmploymentOption = circs.questionGroup[CircumstancesStartedAndFinishedEmployment]
+    lazy val futureEmploymentOption = circs.questionGroup[CircumstancesEmploymentNotStarted]
+
+    val show =
+        if (ongoingEmploymentOption.isDefined)
+            ongoingEmploymentOption.get.payIntoPension.answer == "yes"
+        else if (finishedEmploymentOption.isDefined)
+            finishedEmploymentOption.get.payIntoPension.answer == "yes"
+        else if (futureEmploymentOption.isDefined)
+            futureEmploymentOption.get.payIntoPension.answer == "yes"
+        else false
+
+    show
+}
+
 @common.govMain(Messages("circs.thankyou")) {
 
-    <div class="carers-allowance">
+    <div class="carers-allowance" xmlns="http://www.w3.org/1999/html">
 
         @common.protoType()
 
@@ -32,24 +61,67 @@
 	            <h1><span>@Html(Messages("circs.thankyou"))</span></h1>            
 	            <p>@Html(Messages("circs.received"))</p>
             </div>
+                <div class="send-info">
+                    @if(showBreaksInCareMessages){
+                        <section class="finish-next">
+                            <h3 id="breaksInCareMessageTitle">@Html(Messages("circs.thankyou.breakmessage.title"))</h3>
+                            <p>@Html(Messages("circs.thankyou.breakmessage.content"))</p>
+                        </section>
+                    }
 
-                @if(showBreaksInCareMessages){
-                    <section class="finish-next prompt helper-prompt">
-                        <h3 id="breaksInCareMessageTitle">@Html(Messages("circs.thankyou.breakmessage.title"))</h3>
-                        <p>@Html(Messages("circs.thankyou.breakmessage.content"))</p>
+                    @if(showEmployment1Messages){
+                        <section class="finish-next">
+                            <h3 id="employment1MessageTitle">@Html(Messages("circs.thankyou.employment1message.title"))</h3>
+                            <p>@Html(Messages("circs.thankyou.employment1message1.content"))</p>
+                            <ul>
+                                <li>@Html(Messages("circs.thankyou.employment1message2.content"))</li>
+                                @if(showEmploymentPensionMessage) {
+                                    <li>@Html(Messages("circs.thankyou.employment1message3.content"))</li>
+                                }
+                            </ul>
+                        </section>
+                        <section class="address">
+                            <h3 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment1message.address.title"))</h3>
+                            <span>@Html(Messages("circs.thankyou.employment1message1.address"))</span>
+                            <span>@Html(Messages("circs.thankyou.employment1message2.address"))</span>
+                            <span>@Html(Messages("circs.thankyou.employment1message3.address"))</span>
+                            <span>@Html(Messages("circs.thankyou.employment1message4.address"))</span>
+                        </section>
+                    }
+
+                    @if(showEmployment2Messages){
+                        <section class="finish-next">
+                            <h3 id="employment2MessageTitle">@Html(Messages("circs.thankyou.employment2message.title"))</h3>
+                            <ul>
+                                <li>@Html(Messages("circs.thankyou.employment2message1.content"))</li>
+                                <li>@Html(Messages("circs.thankyou.employment2message2.content"))</li>
+                                <li>@Html(Messages("circs.thankyou.employment2message3.content"))</li>
+                                @if(showEmploymentPensionMessage) {
+                                    <li>@Html(Messages("circs.thankyou.employment2message4.content"))</li>
+                                }
+                            </ul>
+                        </section>
+                        <section class="address">
+                            <h3 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment2message.address.title"))</h3>
+                            <span>@Html(Messages("circs.thankyou.employment2message1.address"))</span>
+                            <span>@Html(Messages("circs.thankyou.employment2message2.address"))</span>
+                            <span>@Html(Messages("circs.thankyou.employment2message3.address"))</span>
+                            <span>@Html(Messages("circs.thankyou.employment2message4.address"))</span>
+                        </section>
+                    }
+
+                    <section class="finish-next">
+                        <h3>@Html(Messages("next"))</h3>
+                        <ul>
+                            <li>@Html(Messages("circs.next.1"))</li>
+                            <li>@Html(Messages("next.last"))</li>
+                        </ul>
                     </section>
-                }
-	            <section class="finish-next prompt helper-prompt">
-	            <h3>@Html(Messages("next"))</h3>
-	            <ul>
-	                <li>@Html(Messages("circs.next.1"))</li>
-	                <li>@Html(Messages("next.last"))</li>
-	            </ul>
-	            </section>
-	            <section>
-	            <h3>@Html(Messages("change.head"))</h3>
-	            <p>@Html(Messages("change.link"))</p>
-	            </section>
+                    <section>
+                        <h3>@Html(Messages("change.head"))</h3>
+                        <p>@Html(Messages("change.link"))</p>
+                    </section>
+                </div>
 	            <section>
 	            <p class="finish">@Html(Messages("circs.feedback.link"))</p>
 	            </section>

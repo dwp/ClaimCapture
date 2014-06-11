@@ -3,7 +3,7 @@ package controllers.s1_carers_allowance
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.{PageObjects, TestData}
-import utils.pageobjects.s1_carers_allowance.{G1BenefitsPage, G1BenefitsPageContext, G2HoursPage}
+import utils.pageobjects.s1_carers_allowance.{G1BenefitsPage, G2HoursPage}
 
 class G1BenefitsIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {

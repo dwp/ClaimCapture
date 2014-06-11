@@ -5,6 +5,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s2_about_you.G1YourDetailsPage
 import utils.pageobjects.s1_carers_allowance._
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 
 class G6ApproveIntegrationSpec extends Specification with Tags {
   "Approve" should {
@@ -70,7 +71,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
       page goToThePage()
-      page runClaimWith (claim, G1YourDetailsPage.title)
+      page runClaimWith (claim, G1ClaimDatePage.title)
     }
 
     "contain the completed forms" in new WithBrowser with PageObjects{

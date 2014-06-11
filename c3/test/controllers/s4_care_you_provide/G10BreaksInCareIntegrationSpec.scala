@@ -6,7 +6,7 @@ import controllers.{WithBrowserHelper, BrowserMatchers, Formulate}
 import utils.pageobjects.s4_care_you_provide.G10BreaksInCarePage
 
 class G10BreaksInCareIntegrationSpec extends Specification with Tags {
-  "Breaks in care" should {
+  "Breaks from care" should {
     "present" in new WithBrowser with BrowserMatchers {
       browser.goTo("/care-you-provide/breaks-in-care")
       titleMustEqual(G10BreaksInCarePage.title)

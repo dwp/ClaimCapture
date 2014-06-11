@@ -88,7 +88,7 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
       this
     }
     catch {
-      case e: Exception => throw new PageObjectException("Error when filling form in page [" + pageTitle + "]", exception = e)
+      case e: Exception => throw new PageObjectException("Error when filling form in page [" + pageTitle + "] Exception:"+e.getMessage, exception = e)
     }
   }
 

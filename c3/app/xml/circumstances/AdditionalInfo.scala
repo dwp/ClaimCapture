@@ -15,6 +15,7 @@ object AdditionalInfo {
     lazy val stoppedCaringOption = circs.questionGroup[CircumstancesStoppedCaring]
     lazy val paymentChangeOption = circs.questionGroup[CircumstancesPaymentChange]
     lazy val addressChangeOption = circs.questionGroup[CircumstancesAddressChange]
+    lazy val employmentChangesOptions = circs.questionGroup[CircumstancesEmploymentChange]
 
     if (additionalInfoOption.isDefined) {
       additionalInfoOption.get.change
@@ -26,6 +27,21 @@ object AdditionalInfo {
       paymentChangeOption.get.moreAboutChanges.getOrElse("")
     } else if (addressChangeOption.isDefined) {
       addressChangeOption.get.moreAboutChanges.getOrElse("")
+    } else if (employmentChangesOptions.isDefined) {
+      if (employmentChangesOptions.get.typeOfWork.answer == "self-employed") {
+        employmentChangesOptions.get.typeOfWork.text2b.getOrElse("")
+      }
+      else {
+        if (circs.questionGroup[CircumstancesStartedEmploymentAndOngoing].isDefined) {
+          circs.questionGroup[CircumstancesStartedEmploymentAndOngoing].get.moreAboutChanges.getOrElse("")
+        }
+        else if (circs.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined) {
+          circs.questionGroup[CircumstancesStartedAndFinishedEmployment].get.moreAboutChanges.getOrElse("")
+        }
+        else if (circs.questionGroup[CircumstancesEmploymentNotStarted].isDefined) {
+          circs.questionGroup[CircumstancesEmploymentNotStarted].get.moreAboutChanges.getOrElse("")
+        }
+      }
     }
   }
 }

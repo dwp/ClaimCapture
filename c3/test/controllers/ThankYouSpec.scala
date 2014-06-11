@@ -12,7 +12,6 @@ import play.api.test.WithApplication
 import akka.util.Timeout
 import java.util.concurrent.TimeUnit
 
-
 class ThankYouSpec extends Specification with Mockito with Tags {
   implicit val timeout = Timeout(10, TimeUnit.SECONDS)
 

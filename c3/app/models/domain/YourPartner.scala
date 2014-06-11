@@ -3,7 +3,7 @@ package models.domain
 import models.{DayMonthYear, NationalInsuranceNumber}
 
 object YourPartner extends Section.Identifier {
-  val id = "s3"
+  val id = "s4"
 }
 
 case class YourPartnerPersonalDetails(title: String = "",

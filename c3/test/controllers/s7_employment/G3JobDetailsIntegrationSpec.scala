@@ -4,8 +4,6 @@ import language.reflectiveCalls
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers}
-import utils.pageobjects.s7_employment.G2BeenEmployedPage
-import utils.pageobjects.TestData
 
 class G3JobDetailsIntegrationSpec extends Specification with Tags {
   "Your job" should {

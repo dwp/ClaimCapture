@@ -2,9 +2,8 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
-import play.api.i18n.{Messages => Messages}
-import utils.pageobjects.s2_about_you.{G5AbroadForMoreThan52WeeksPage, G4NationalityAndResidencyPage, G4NationalityAndResidencyPageContext}
+import controllers.ClaimScenarioFactory
+import utils.pageobjects.s2_about_you.{G5AbroadForMoreThan52WeeksPage, G4NationalityAndResidencyPage}
 import utils.pageobjects.PageObjects
 
 class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {

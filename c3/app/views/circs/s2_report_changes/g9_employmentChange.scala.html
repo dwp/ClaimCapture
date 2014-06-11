@@ -13,9 +13,10 @@
 
 @stillCaring = @{employmentChange("stillCaring")}
 @hasWorkStartedYet = @{employmentChange("hasWorkStartedYet")}
+@hasWorkFinishedYet = @{employmentChange("hasWorkFinishedYet")}
 @typeOfWork = @{employmentChange("typeOfWork")}
     
-@main(Messages("c2.g2") + " - " + Messages("c2.name")) {
+@main(Messages("c2.g9") + " - " + Messages("c2.name")) {
     @errorsSummary(employmentChange)
 
     @form(action = controllers.circs.s2_report_changes.routes.G9EmploymentChange.submit) {
@@ -34,12 +35,16 @@
 	                    'display -> { if (stillCaring("answer").value.getOrElse("yes") == "no") "yes" else "no" }
 	                )
 
-                    @yesNoRadioGroup(hasWorkStartedYet("answer"))
+                    @yesNoRadioGroup(hasWorkStartedYet("answer"),
+                        'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no"))
+                    )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             dateTimePickerWithDynamicLabel(hasWorkStartedYet("dateWhenStarted"), 'dynamicDateDays-> 31),
-                            yesNoRadioGroup(hasWorkStartedYet("hasWorkFinishedYet")("answer"))
+                            yesNoRadioGroup(hasWorkFinishedYet("answer"),
+                                'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no"))
+                            )
                         ),
                         'id -> "hasWorkStartedYetWrap",
                         'display -> { if (hasWorkStartedYet("answer").value.getOrElse("no") == "yes") "yes" else "no" }
@@ -55,10 +60,10 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            dateTimePickerWithDynamicLabel(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished"), 'dynamicDateDays-> 7)
+                            dateTimePickerWithDynamicLabel(hasWorkFinishedYet("dateWhenFinished"), 'dynamicDateDays-> 7)
                         ),
                         'id -> "hasWorkFinishedYetWrap",
-                        'display -> { if (hasWorkStartedYet("hasWorkFinishedYet")("answer").value.getOrElse("no") == "yes") "yes" else "no" }
+                        'display -> { if (hasWorkFinishedYet("answer").value.getOrElse("no") == "yes") "yes" else "no" }
                     )
 
                     @yesNoRadioGroup(typeOfWork("answer"),
@@ -125,19 +130,19 @@ window.hasWorkStartedYet("@CarersCrypto.encryptAES(hasWorkStartedYet("answer")("
 "@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenWillItStart")("day").id)",
 "@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenWillItStart")("month").id)",
 "@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenWillItStart")("year").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("answer")("yes").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("answer")("no").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished")("day").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished")("month").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished")("year").id)");
+"@CarersCrypto.encryptAES(hasWorkFinishedYet("answer")("yes").id)",
+"@CarersCrypto.encryptAES(hasWorkFinishedYet("answer")("no").id)",
+"@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("day").id)",
+"@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("month").id)",
+"@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("year").id)");
 });
 
 $(function(){
-window.hasWorkFinishedYet("@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("answer")("yes").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("answer")("no").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished")("day").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished")("month").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("hasWorkFinishedYet")("dateWhenFinished")("year").id)");
+window.hasWorkFinishedYet("@CarersCrypto.encryptAES(hasWorkFinishedYet("answer")("yes").id)",
+"@CarersCrypto.encryptAES(hasWorkFinishedYet("answer")("no").id)",
+"@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("day").id)",
+"@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("month").id)",
+"@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("year").id)");
 });
 
 $(function(){
