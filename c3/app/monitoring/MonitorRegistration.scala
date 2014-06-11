@@ -17,7 +17,7 @@ trait MonitorRegistration {
         .convertRatesTo(TimeUnit.SECONDS)
         .convertDurationsTo(TimeUnit.MILLISECONDS)
         .build()
-        .start(1, TimeUnit.MINUTES)
+        .start(getProperty("metrics.slf4j.frequency", default = 1), TimeUnit.MINUTES)
     }
   }
 
