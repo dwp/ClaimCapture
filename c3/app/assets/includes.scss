@@ -12,17 +12,7 @@
     clear: both;
 }
 
-
-/* firefix radio fix */
-@-moz-document url-prefix() {
-	.radio {
-		input[type="radio"] {
-				top: 15px!important; /* temp */
-				left: 12px!important; /* temp */
-			}
-		}
-}
-									 
+							 
 
 
 /* Header - Global Overrides - inc !important overrides */

@@ -544,7 +544,7 @@ main {
 				   li {
 					   position: relative;
 					   float: left;
-					   margin: 0 0 0 1px;
+					   margin: 0 0 0 2px;
 					   padding: 0;
 					   &:first-child {
 						   margin-left: 0;
@@ -552,24 +552,17 @@ main {
 					   input[type="radio"] {
 						   position: absolute;
 						   top: 13px;
-						   left: 14px;
+						   left: -9914px;
 						   margin: 0;
 						   cursor: pointer;
 						   line-height: 1em;
+
 						   
-						   .ie & {
+						   .ie8 &, .ie7 & {
 							   top: 10px;
 							   left: 10px;
 						   }
 						   
-						   .ie10 & {
-							   top: 10px;
-							   left: 10px;
-						   }
-						   
-						   .ie8 & {
-							   top: 11px;
-						   }
 
 						   .ie6 & {
 							   position: relative;
@@ -583,16 +576,20 @@ main {
 					   label {
 						   display: block;
 						   background: #e8e8e8;
-						   padding: 12px 14px 10px 34px;
-						   font-size: 17px;
+						   padding: 14px 24px 12px 24px;
+						   font-size: 19px;
 						   cursor: pointer;
 						   line-height: 1em;
 						   border: 1px solid #fff;
 						   font-weight: 400;
 						   
-						   .ie7 &:hover, .ie8 &:hover {
+						   &:hover {
 							   background: #fff;
 							   border: 1px solid #a2a2a2;
+						   }
+						   
+						   .ie8 &, .ie7 & {
+							   padding-left: 34px;
 						   }
 						   
 						   .ie6 & {
@@ -609,7 +606,8 @@ main {
 						   -ms-transition: all 200ms ease-in;
 						   -o-transition: all 200ms ease-in;
 						   transition: all 200ms ease-in;
-						   border: 1px solid #a2a2a2;
+						   border: 1px solid #000;
+						   font-weight: 500;
 					   }
 				   }
 				   &.radio-stack {
