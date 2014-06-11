@@ -87,16 +87,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
       var claim = new Claim(transactionId = Some(transactionId))
 
-      // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
-      val det = new YourDetails("", "",None, "test",None, NationalInsuranceNumber(Some("AB"),Some("12"),Some("34"),Some("56"),Some("D")), DayMonthYear(None, None, None))
-      val contact = new ContactDetails(new MultiLineAddress(), None, "", None)
-      val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
-
-      claim = claim + det
-      claim = claim + contact
-      claim = claim + claimDate
-
-      claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.transactionId)(claim.navigation) with FullClaim
+      claim = getClaim("test")
 
       serviceSubmission(service, claim)
 
@@ -109,7 +100,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
     "do not submit a duplicate claim" in new WithApplicationAndDB {
 
-      val service = asyncService(http.Status.SERVICE_UNAVAILABLE,transactionId)
+      val service = asyncService(http.Status.INTERNAL_SERVER_ERROR,transactionId)
 
       val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
 
@@ -118,7 +109,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVICE_UNAVAILABLE,1,Some(0),None,Some("en")))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,Some(0),None,Some("en")))
 
     }
 
@@ -173,6 +164,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
   def serviceSubmission(service: AsyncClaimSubmissionService with ClaimTransactionComponent, claim: Claim)(implicit app: FakeApplication) {
     DBTests.createId(transactionId)
     service.claimTransaction.registerId(transactionId, ClaimSubmissionService.SUBMITTED, controllers.submission.claimType(claim), 1)
+    println("calling service.submission")
     service.submission(claim)
   }
 }
