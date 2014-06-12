@@ -159,12 +159,12 @@ object Employment extends XMLComponent{
     if (showXml) {
       question(<CareExpensesCaree/>,"payAnyoneToLookAfterPerson",aboutExpenses.payAnyoneToLookAfterPerson,questionLabelEmployment(claim, "payAnyoneToLookAfterPerson", job.jobID)) ++
       <CareExpenses>
-        {question(<CarerName/>,"whoLooksAfterChildren",personYouCareExpenses.whoDoYouPay)}
+        {question(<CarerName/>,"whoDoYouPay",personYouCareExpenses.whoDoYouPay, questionLabelEmployment(claim, "whoDoYouPay", job.jobID))}
         {personYouCareExpenses.howMuchCostCare.isEmpty match {
           case false =>
             <Expense>
-              {questionCurrency(<Payment/>,"howMuchCostChildcare",Some(personYouCareExpenses.howMuchCostCare),questionLabelEmployment(claim, "howMuchCostChildcare", job.jobID))}
-              {questionOther(<Frequency/>,"employment_howOftenPayChildCare",personYouCareExpenses.howOftenPayCare.frequency,personYouCareExpenses.howOftenPayCare.other,"", questionLabelEmployment(claim, "employment_howOftenPayChildCare", job.jobID))}
+              {questionCurrency(<Payment/>,"howMuchCostCare",Some(personYouCareExpenses.howMuchCostCare),questionLabelEmployment(claim, "howMuchCostCare", job.jobID))}
+              {questionOther(<Frequency/>,"howOftenPayCare",personYouCareExpenses.howOftenPayCare.frequency,personYouCareExpenses.howOftenPayCare.other,"", questionLabelEmployment(claim, "howOftenPayCare", job.jobID))}
             </Expense>
 
           case _ => NodeSeq.Empty
