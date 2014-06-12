@@ -5,11 +5,24 @@
 @import utils.helpers.EmptyTemplate._
 @import play.api.i18n.{MMessages => Messages}
 
+@isEmployed = @{
+    args.find(t => t._1 == 'employed).getOrElse('employed -> false)._2.asInstanceOf[Boolean]
+}
+@isSelfEmployed = @{
+    args.find(t => t._1 == 'selfEmployed).getOrElse('selfEmployed -> false)._2.asInstanceOf[Boolean]
+}
 <fieldset class="question-group">
 
 @boltonClass = @{ args.toMap.get('_boltonClass).getOrElse("") }
 
-@radioConstraintRequired(field, args:_*)
+@if(isEmployed){
+    @radioEmploymentConstraintRequired(field, args:_*)
+}
+@if(isSelfEmployed) {
+    @radioSelfEmploymentConstraintRequired(field, args:_*)
+} else {
+    @radioConstraintRequired(field, args:_*)
+}
 
 <ul class="radio @{boltonClass}" id="@CarersCrypto.encryptAES(field.id)">
     @carersRadio(field, options, args:_*)

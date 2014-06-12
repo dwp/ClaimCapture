@@ -1,27 +1,26 @@
 package services
 
-import org.jasypt.digest.StandardStringDigester
-import org.jasypt.salt.StringFixedSaltGenerator
+import org.jasypt.util.text.BasicTextEncryptor
 
 object EncryptionService {
-  val digester = new StandardStringDigester()
-  // If this salt is not specified, a random salt will be used which will result
-  // different output values being generated each time for the same input string
-  val salt = new StringFixedSaltGenerator("claimsCache")
-  digester.setSaltSizeBytes(4)
-  digester.setSaltGenerator(salt)
+  val textEncryptor = new BasicTextEncryptor()
+  textEncryptor.setPassword("claimCache")
 }
 
 trait EncryptionService {
 
-  val digester = EncryptionService.digester
+  val encryptor = EncryptionService.textEncryptor
 
   /**
-   * @param  value Plain string to encrypt
+   * @param  text Plain string to encrypt
    * @return String - the encrypted string
    */
-  def digest(value: String) = digester.digest(value)
+  def encrypt(text: String): String = encryptor.encrypt(text)
 
-  def matches(message: String, digest: String) = digester.matches(message, digest)
+  /**
+   * @param encryptedText The encrypted value
+   * @return String - the plain string resulting from decryption
+   */
+  def decrypt(encryptedText: String): String = encryptor.decrypt(encryptedText)
 
 }

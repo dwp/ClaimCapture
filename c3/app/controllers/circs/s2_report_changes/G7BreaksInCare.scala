@@ -21,14 +21,14 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
   val whereWasPersonMapping =
     "wherePersonBreaksInCare" -> mapping(
       "answer" -> nonEmptyText,
-      "text" -> optional(text)
+      "text" -> optional(carersText)
     )(RadioWithText.apply)(RadioWithText.unapply)
      .verifying("wherePersonBreaksInCare.text.required", RadioWithText.validateOnOther _)
 
   val whereWereYouMapping =
     "whereYouBreaksInCare" -> mapping(
       "answer" -> nonEmptyText,
-      "text" -> optional(text)
+      "text" -> optional(carersText)
     )(RadioWithText.apply)(RadioWithText.unapply)
     .verifying("whereYouBreaksInCare.text.required", RadioWithText.validateOnOther _)
 
@@ -56,7 +56,7 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
     breakEndedMapping,
     expectStartCaringMapping,
     "medicalCareDuringBreak" -> (nonEmptyText verifying validYesNo),
-    "moreAboutChanges" -> optional(text)
+    "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesBreaksInCare.apply)(CircumstancesBreaksInCare.unapply)
     .verifying("expectStartCaring", validateBreakEnded _)
   )

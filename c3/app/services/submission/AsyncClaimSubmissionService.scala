@@ -3,12 +3,11 @@ package services.submission
 import scala.concurrent.ExecutionContext
 import play.api.{http, Logger}
 import controllers.submission._
-import services.{CacheService, ClaimTransactionComponent}
+import services.{CacheService, EncryptionService, ClaimTransactionComponent}
 import ExecutionContext.Implicits.global
 import ClaimSubmissionService._
 import play.api.libs.ws.Response
 import models.domain.Claim
-import monitoring.Counters
 import scala.Some
 
 class AsyncClaimSubmissionComponent extends AsyncClaimSubmissionService
@@ -19,42 +18,73 @@ with WebServiceClientComponent
   val claimTransaction = new ClaimTransaction
 }
 
-trait AsyncClaimSubmissionService extends CacheService {
+case class DuplicateClaimException(msg:String) extends Exception(msg)
+
+trait AsyncClaimSubmissionService extends CacheService with EncryptionService {
 
   this: ClaimTransactionComponent with WebServiceClientComponent =>
+
 
   def submission(claim: Claim): Unit = {
     val txnID = claim.transactionId.get
     Logger.info(s"Retrieved Id : $txnID")
 
-    // check if claim is in cache already, if not store
-    getFromCache(claim.getFingerprint(claimType(claim))) match {
-      case Some(x) =>
-        Logger.error("Already in cache, should not be submitting again!")
-        throw new Exception("Duplicate claim with fingerprint: " + x)
-      case _ =>
-        try{
-          storeInCache(claim.getFingerprint(claimType(claim)))
-          webServiceClient.submitClaim(claim, txnID).map(
-            response => {
-              Logger.debug("Got response from WS:" + response)
-              try {
-                claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
-                ClaimSubmissionService.recordMi(claim, txnID, claimTransaction.recordMi)
-                processResponse(claim, txnID, response)
-              } catch {
-                case e: Exception =>
-                  Logger.error(e.getMessage + " " + e.getStackTraceString)
-                  removeFromCache(claim.getFingerprint(claimType(claim)))
-              }
-            }
-          )
-        } catch {
+    checkCacheStore(claim)
+
+    try {
+      webServiceClient.submitClaim(claim, txnID).map(
+        response => processClaimSubmission(claim, response)
+      )
+    } catch {
       case e:Exception =>
         Logger.error(s"INTERNAL_SERVER_ERROR TxnId : $txnID")
         Logger.error("global error talking to ingress "+e.getMessage+" "+e.getStackTraceString)
         updateTransactionAndCache(txnID, SERVER_ERROR, claim)
-      }
+    }
+  }
+
+  def processClaimSubmission(claim: Claim, response: Response) = {
+    val txnID = claim.transactionId.get
+    Logger.debug("Got response from WS:" + response)
+    try {
+      claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
+      ClaimSubmissionService.recordMi(claim, txnID, claimTransaction.recordMi)
+      processResponse(claim, txnID, response)
+    } catch {
+      case e: Exception =>
+        Logger.error(e.getMessage + " " + e.getStackTraceString)
+        removeFromCache(claim)
+    }
+  }
+
+  def checkCacheStore(claim:Claim): Unit = {
+    getFromCache(claim) match {
+      case Some(x) =>
+        Logger.error("Already in cache, should not be submitting again!")
+        claimTransaction.updateStatus(claim.transactionId.get, SERVER_ERROR, claimType(claim))
+
+        // this gets logged by the actor
+        throw new DuplicateClaimException("Duplicate claim with fingerprint: " + encrypt(x))
+      case _ => storeInCache(claim)
+    }
+  }
+
+  private def updateTransactionAndCache(txnID: String, status: String, claim: Claim) = {
+    claimTransaction.updateStatus(txnID, status, claimType(claim))
+    removeFromCache(claim)
+  }
+
+  private def processErrorResponse(claim: Claim, txnID: String, response: Response): Unit = {
+    val statusMsg = httpStatusCodes(response.status)
+    Logger.error(s"$statusMsg : ${response.status} : ${response.toString}, TxnId : $txnID")
+    updateTransactionAndCache(txnID, txnStatusConst(statusMsg), claim)
+  }
+
+  private def processResponse(claim: Claim, txnID: String, response: Response): Unit = {
+    Logger.debug("Response status is " + response.status)
+    response.status match {
+      case http.Status.OK => ok(claim, txnID, response)
+      case _ => processErrorResponse(claim, txnID, response)
     }
   }
 
@@ -80,37 +110,6 @@ trait AsyncClaimSubmissionService extends CacheService {
         updateTransactionAndCache(txnID, UNKNOWN_ERROR, claim)
     }
   }
-
-  private def processResponse(claim: Claim, txnID: String, response: Response): Unit = {
-    Logger.debug("Response status is " + response.status)
-    response.status match {
-      case http.Status.OK =>
-        Counters.incrementClaimSubmissionCount()
-        ok(claim, txnID, response)
-      case http.Status.SERVICE_UNAVAILABLE =>
-        Counters.incrementSubmissionErrorStatus("service-unavailable")
-        Logger.error(s"SERVICE_UNAVAILABLE : ${response.status} : ${response.toString}, TxnId : $txnID")
-        updateTransactionAndCache(txnID, SERVICE_UNAVAILABLE, claim)
-      case http.Status.BAD_REQUEST =>
-        Counters.incrementSubmissionErrorStatus("bad-request-error")
-        Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}, TxnId : $txnID")
-        updateTransactionAndCache(txnID, BAD_REQUEST_ERROR, claim)
-      case http.Status.REQUEST_TIMEOUT =>
-        Counters.incrementSubmissionErrorStatus("request-timeout-error")
-        Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}, TxnId : $txnID")
-        updateTransactionAndCache(txnID, REQUEST_TIMEOUT_ERROR, claim)
-      case http.Status.INTERNAL_SERVER_ERROR =>
-        Counters.incrementSubmissionErrorStatus("internal-server-error")
-        Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}, TxnId : $txnID")
-        updateTransactionAndCache(txnID, SERVER_ERROR, claim)
-    }
-  }
-
-  private def updateTransactionAndCache(txnID: String, status: String, claim: Claim) = {
-    claimTransaction.updateStatus(txnID, status, claimType(claim))
-    removeFromCache(claim.getFingerprint(claimType(claim)))
-  }
-
 }
 
 object AsyncClaimSubmissionService {

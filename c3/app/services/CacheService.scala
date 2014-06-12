@@ -3,13 +3,13 @@ package services
 import app.ConfigProperties._
 import java.util.concurrent.TimeUnit
 import org.feijoas.mango.common.cache._
-import play.api.Logger
+import models.domain.Claim
 
 object CacheService {
   // the function to cache - str is already the encrypted fingerprint
   val buildHashOfClaim = (str: String) => str
 
-  val timeout = getProperty("claim.cache.expiry", 10)
+  var timeout = getProperty("claim.cache.expiry", 10)
 
   // create a cache with expiration time of 10 minutes
   val cache = CacheBuilder.newBuilder()
@@ -17,29 +17,16 @@ object CacheService {
     .build(buildHashOfClaim) //> cache  : LoadingCache[String,String]
 }
 
-trait CacheService extends EncryptionService {
+trait CacheService {
   private val cache = CacheService.cache
 
-  private def getEncryptedFingerprintFromClaim(fingerprint: String): String = digest(fingerprint)
-
-  def storeInCache(fingerprint: String): Unit = {
-    val claimFingerprint = getEncryptedFingerprintFromClaim(fingerprint)
-    Logger.debug("CacheService: fingerprint is: "+ claimFingerprint)
-    cache.put(claimFingerprint, claimFingerprint)
+  def storeInCache(claim: Claim): Unit = {
+    val fingerprint = claim.getFingerprint
+    cache.put(fingerprint, fingerprint)
   }
 
-  def getFromCache(fingerprint: String): Option[String] = {
-    val key = getEncryptedFingerprintFromClaim(fingerprint)
-    Logger.debug("CacheService: Getting key: "+ key)
-    cache.getIfPresent(key)
-  }
+  def getFromCache(claim: Claim): Option[String] = cache.getIfPresent(claim.getFingerprint)
 
-  // shall we check for the key's existence before attempting to remove it?
-  def removeFromCache(fingerprint: String): Unit = {
-    val key = getEncryptedFingerprintFromClaim(fingerprint)
-    Logger.debug("CacheService: Removing key: "+ key)
-    cache.invalidate(key)
-  }
-
+  def removeFromCache(claim: Claim): Unit = cache.invalidate(claim.getFingerprint)
 }
 

@@ -72,4 +72,17 @@ object ClaimSubmissionService {
   val SERVER_ERROR = "9004"
   val COMMUNICATION_ERROR = "9005"
   val SERVICE_UNAVAILABLE = "9006"
+
+  val httpStatusCodes = Map(
+  400->"BAD_REQUEST_ERROR",
+  408->"REQUEST_TIMEOUT_ERROR",
+  500->"SERVER_ERROR",
+  503->"SERVICE_UNAVAILABLE")
+
+  val txnStatusConst = Map(
+    "BAD_REQUEST_ERROR"->"9002",
+    "REQUEST_TIMEOUT_ERROR"->"9003",
+    "SERVER_ERROR"->"9004",
+    "SERVICE_UNAVAILABLE"->"9006")
+
 }
