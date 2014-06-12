@@ -45,6 +45,7 @@ class MessageFilesSpec extends Specification {
     }
 
     "each key in a English property file must have a corresponding key in the Welsh file" in {
+      println(enKeys.filterNot(enKey => cyKeys.contains(enKey)).toString)
       enKeys.filterNot(enKey => cyKeys.contains(enKey)) must beEmpty
     }
 
