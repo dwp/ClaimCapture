@@ -42,11 +42,13 @@
 	            <ul>
                     @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
                         '_label -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", (claim.dateOfClaim.get - 1 week) `dd/MM/yyyy`),
-                        'helperAbove -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label.helper", claim.dateOfClaim.get.`dd/MM/yyyy`))
+                        'selfEmployed -> true,
+                        'helperAbove -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label.helper"))
 
                     @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
                         '_label -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label", (claim.dateOfClaim.get - 6 months) `dd/MM/yyyy`),
-                        'helperAbove -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper", claim.dateOfClaim.get.`dd/MM/yyyy`))
+                        'employed -> true,
+                        'helperAbove -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper"))
 	        
 	            </ul>
 	        </fieldset>
