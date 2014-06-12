@@ -4,7 +4,7 @@
 
 @common.govMain(Messages("session.timeout")) {
 
-    <div class="carers-allowance">
+    <div class="carers-allowance clearfix">
 
         @common.protoType()
 
@@ -18,5 +18,8 @@
                 <button type="submit" name="action" value="next" class="button secondary" onClick="location.href = ' @url '" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("restart.claim"))</button>
             </nav>
         </article>
+        
+         @common.leftcol()
+        
     </div>
 }

@@ -1,13 +1,16 @@
 window.fixErrorMessages = (beenPaidYetY, beenPaidYetN,
                            howMuchPaid, howMuchPaidYText, howMuchPaidNText,
                            whatDatePaid, whatDatePaidYText, whatDatePaidNText,
-                           howOften, howOftenFrequency, howOftenYText, howOftenNText,
+                           howOften, howOftenFrequency, howOftenText, howOftenYText, howOftenNText,
                            usuallyPaidSameAmount, usuallyPaidSameAmountText,
                            usuallyPaidSameAmountYWeekText, usuallyPaidSameAmountNWeekText,
                            usuallyPaidSameAmountYFortnightText, usuallyPaidSameAmountNFortnightText,
                            usuallyPaidSameAmountYFourWeekText, usuallyPaidSameAmountNFourWeekText,
                            usuallyPaidSameAmountYMonthText, usuallyPaidSameAmountNMonthText,
                            usuallyPaidSameAmountYOtherText, usuallyPaidSameAmountNOtherText) ->
+  currentText = $("div[class='validation-summary'] a[href='#" + howOften + "']").text().trim()
+  existingError = currentText.substring(howOftenText.length, currentText.length)
+  $("div[class='validation-summary'] a[href='#" + howOften + "']").text(howOftenNText + existingError)
   if ($("#" + beenPaidYetN).prop('checked'))
     currentText = $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text().trim()
     existingError = currentText.substring(howMuchPaidYText.length, currentText.length)
@@ -16,7 +19,7 @@ window.fixErrorMessages = (beenPaidYetY, beenPaidYetN,
     existingError = currentText.substring(whatDatePaidYText.length, currentText.length)
     $("div[class='validation-summary'] a[href='#" + whatDatePaid + "']").text(whatDatePaidNText + existingError)
     currentText = $("div[class='validation-summary'] a[href='#" + howOften + "']").text().trim()
-    existingError = currentText.substring(howOftenYText.length, currentText.length)
+    existingError = currentText.substring(howOftenText.length, currentText.length)
     $("div[class='validation-summary'] a[href='#" + howOften + "']").text(howOftenNText + existingError)
     currentText = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text().trim()
     existingError = currentText.substring(usuallyPaidSameAmountText.length, currentText.length)
@@ -27,6 +30,19 @@ window.fixErrorMessages = (beenPaidYetY, beenPaidYetN,
       when "monthly" then usuallyPaidSameAmountNMonthText
       else usuallyPaidSameAmountNOtherText
     $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text(textToUse + existingError)
+  if ($("#" + beenPaidYetY).prop('checked'))
+    currentText = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text().trim()
+    existingError = currentText.substring(usuallyPaidSameAmountText.length, currentText.length)
+    textToUse = switch ($("#" + howOftenFrequency).val())
+      when "weekly" then usuallyPaidSameAmountNWeekText
+      when "fortnightly" then usuallyPaidSameAmountNFortnightText
+      when "fourweekly" then usuallyPaidSameAmountNFourWeekText
+      when "monthly" then usuallyPaidSameAmountNMonthText
+      else usuallyPaidSameAmountNOtherText
+    $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text(textToUse + existingError)
+    currentText = $("div[class='validation-summary'] a[href='#" + howOften + "']").text().trim()
+    existingError = currentText.substring(howOftenText.length, currentText.length)
+    $("div[class='validation-summary'] a[href='#" + howOften + "']").text(howOftenYText + existingError)
 
 window.beenPaidYet = (beenPaidYetY, beenPaidYetN,
                       howMuchPaid, howMuchPaidYText, howMuchPaidNText,
@@ -34,11 +50,11 @@ window.beenPaidYet = (beenPaidYetY, beenPaidYetN,
                       howOften, howOftenFrequencyOther, howOftenYText, howOftenNText,
                       monthlyPayDay, monthlyPayDayYText, monthlyPayDayNText,
                       usuallyPaidSameAmount, usuallyPaidSameAmountY, usuallyPaidSameAmountN,
-                        usuallyPaidSameAmountWeeklyText, usuallyPaidSameAmountWeeklyTextExpected,
-                        usuallyPaidSameAmountFortnightlyText, usuallyPaidSameAmountFortnightlyTextExpected,
-                        usuallyPaidSameAmountFourWeeklyText, usuallyPaidSameAmountFourWeeklyTextExpected,
-                        usuallyPaidSameAmountMonthlyText, usuallyPaidSameAmountMonthlyTextExpected,
-                        usuallyPaidSameAmountOtherText, usuallyPaidSameAmountOtherTextExpected) ->
+                      usuallyPaidSameAmountWeeklyText, usuallyPaidSameAmountWeeklyTextExpected,
+                      usuallyPaidSameAmountFortnightlyText, usuallyPaidSameAmountFortnightlyTextExpected,
+                      usuallyPaidSameAmountFourWeeklyText, usuallyPaidSameAmountFourWeeklyTextExpected,
+                      usuallyPaidSameAmountMonthlyText, usuallyPaidSameAmountMonthlyTextExpected,
+                      usuallyPaidSameAmountOtherText, usuallyPaidSameAmountOtherTextExpected) ->
   $("#" + beenPaidYetY).on "click", ->
     $("#beenPaidYetWrap").slideUp 500, ->
       $("#beenPaidYetWrap").css('display', "none")

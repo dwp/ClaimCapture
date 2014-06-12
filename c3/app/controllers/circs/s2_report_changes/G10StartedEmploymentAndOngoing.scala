@@ -1,8 +1,8 @@
 package controllers.circs.s2_report_changes
 
+import models.domain.CircumstancesStartedEmploymentAndOngoing
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
-import models.domain.CircumstancesStartedEmploymentAndOngoing
 import play.api.data.{Form, FormError}
 import controllers.Mappings._
 import play.api.data.Forms._
@@ -15,14 +15,14 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
   val payIntoPension =
     "doYouPayIntoPension" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatFor" -> optional(carersNonEmptyText(maxLength = 300))
+      "whatFor" -> optional(nonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("doYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
 
   val careCostsForThisWork =
     "doCareCostsForThisWork" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatCosts" -> optional(carersNonEmptyText(maxLength = 300))
+      "whatCosts" -> optional(nonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("doCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
 
@@ -31,10 +31,11 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
     "howMuchPaid" -> nonEmptyText(maxLength = 20),
     "whatDatePaid" -> dayMonthYear.verifying(validDate),
     "howOften" -> mandatoryPaymentFrequency.verifying(validPaymentFrequencyOnly),
-    "monthlyPayDay" -> optional(carersText),
+    "monthlyPayDay" -> optional(carersText(maxLength = 35)),
     "usuallyPaidSameAmount" -> nonEmptyText.verifying(validYesNo),
     payIntoPension,
-    careCostsForThisWork
+    careCostsForThisWork,
+    "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesStartedEmploymentAndOngoing.apply)(CircumstancesStartedEmploymentAndOngoing.unapply)
     .verifying("expected.monthlyPayDay", validateMonthlyPayDay _))
 

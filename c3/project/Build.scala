@@ -32,6 +32,9 @@ object ApplicationBuild extends Build {
     "com.typesafe"       %% "play-plugins-mailer" % "2.2.0",
     "com.github.mumoshu" %% "play2-memcached"     % "0.4.0",
     "com.codahale.metrics" % "metrics-healthchecks" % "3.0.1",
+    "com.google.guava"    % "guava"               % "14.0",
+    "org.feijoas"        %% "mango"               % "0.10",
+    "org.jasypt"          % "jasypt"              % "1.9.2",
     "com.kenshoo"        %% "metrics-play"        % "0.1.4"
   )
 

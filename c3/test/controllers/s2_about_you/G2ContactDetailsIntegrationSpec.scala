@@ -5,7 +5,6 @@ import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.PageObjects
-import models.MultiLineAddress
 
 class G2ContactDetailsIntegrationSpec extends Specification with Tags {
   "Contact Details" should {
@@ -47,7 +46,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
 
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G3ClaimDatePage]
+      nextPage must beAnInstanceOf[G4NationalityAndResidencyPage]
     }
 
     "valid submission if 'Contact phone or mobile number' is filled in with text" in new WithBrowser with PageObjects{
@@ -59,7 +58,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
 
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G3ClaimDatePage]
+      nextPage must beAnInstanceOf[G4NationalityAndResidencyPage]
     }
 
     "contain 1 completed form" in new WithBrowser with PageObjects{
@@ -84,7 +83,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
 
       val nextPage = page submitPage()
       
-      nextPage must beAnInstanceOf[G3ClaimDatePage]
+      nextPage must beAnInstanceOf[G4NationalityAndResidencyPage]
     }
 
     "be able to navigate back to a completed form" in new WithBrowser  with PageObjects{

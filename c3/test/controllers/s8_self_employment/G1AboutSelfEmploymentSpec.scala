@@ -10,7 +10,6 @@ import models.domain.Claim
 import scala.Some
 import models.view.CachedClaim
 
-
 class G1AboutSelfEmploymentSpec extends Specification with Tags {
 
   "Self Employment - About Self Employment - Controller" should {

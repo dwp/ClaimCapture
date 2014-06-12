@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s9_other_money._
-import utils.pageobjects.s10_pay_details.{G1HowWePayYouPageContext, G1HowWePayYouPage}
+import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
 import utils.pageobjects.S11_consent_and_declaration.G1AdditionalInfoPage
 import utils.pageobjects.{PageObjects, PageObjectsContext}
 
@@ -17,8 +17,6 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
 
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("Your nationality and residency - About you - the carer")
-
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)

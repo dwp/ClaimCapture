@@ -3,11 +3,12 @@ package controllers.s10_pay_details
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
-import utils.pageobjects.s10_pay_details.{G1HowWePayYouPage, G2BankBuildingSocietyDetailsPage, G1HowWePayYouPageContext}
+import utils.pageobjects.s10_pay_details.{G1HowWePayYouPage, G2BankBuildingSocietyDetailsPage}
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.S11_consent_and_declaration.G1AdditionalInfoPage
 import app.AccountStatus
 import utils.pageobjects.{PageObjects, PageObjectsContext}
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 
 class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tags {
   "Bank building society details" should {
@@ -49,18 +50,15 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
     }
 
     "be hidden when having state pension" in new WithBrowser with PageObjects{
-			val page =  G2ContactDetailsPage(context)
+
+			val page = new G2ContactDetailsPage(PageObjectsContext(browser))
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
 
       page fillPageWith claim
       page submitPage ()
 
-      val claimDatePage = page goToPage new G3ClaimDatePage(PageObjectsContext(browser))
-      claimDatePage fillPageWith claim
-      claimDatePage submitPage()
-
-      val nationalityAndResidencyPage = claimDatePage goToPage new G4NationalityAndResidencyPage(PageObjectsContext(browser))
+      val nationalityAndResidencyPage = page goToPage new G4NationalityAndResidencyPage(PageObjectsContext(browser))
       nationalityAndResidencyPage fillPageWith claim
       nationalityAndResidencyPage submitPage()
 

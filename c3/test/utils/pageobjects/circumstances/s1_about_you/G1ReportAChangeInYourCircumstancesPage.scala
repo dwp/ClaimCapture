@@ -1,7 +1,7 @@
 package utils.pageobjects.circumstances.s1_about_you
 
 import play.api.test.WithBrowser
-import utils.pageobjects.{PageObjectsContext, CircumstancesPage, PageContext, Page}
+import utils.pageobjects.{PageObjectsContext, CircumstancesPage, PageContext}
 
 final class G1ReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G1ReportAChangeInYourCircumstancesPage.url, G1ReportAChangeInYourCircumstancesPage.title) {
   declareInput("#fullName","CircumstancesAboutYouFullName")

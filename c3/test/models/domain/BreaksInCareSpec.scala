@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
 
 class BreaksInCareSpec extends Specification with Mockito {
-  "Breaks in care" should {
+  "Breaks from care" should {
     "give zero breaks upon deleting from no existing breaks in care" in {
       val breaksInCare = BreaksInCare()
 

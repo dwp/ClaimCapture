@@ -26,6 +26,36 @@ object CircumstancesScenarioFactory {
     claim
   }
 
+  def reportChangesEmploymentChangeSelfEmploymentNotStartedYet = {
+    val claim = aboutDetails
+    claim.CircumstancesReportChanges = EmploymentChange.name
+
+    claim.CircumstancesEmploymentChangeStillCaring = "no"
+    claim.CircumstancesEmploymentChangeFinishedStillCaringDate = "03/04/2014"
+    claim.CircumstancesEmploymentChangeHasWorkStartedYet = "no"
+    claim.CircumstancesEmploymentChangeDateWhenWillItStart = "03/04/2014"
+    claim.CircumstancesEmploymentChangeTypeOfWork = "self-employed"
+    claim.CircumstancesEmploymentChangeSelfEmployedTypeOfWork = "IT Consultant"
+    claim.CircumstancesEmploymentChangeSelfEmployedTotalIncome = "no"
+
+    claim
+  }
+
+  def reportChangesEmploymentChangeSelfEmploymentStartedAndOngoing = {
+    val claim = aboutDetails
+    claim.CircumstancesReportChanges = EmploymentChange.name
+
+    claim.CircumstancesEmploymentChangeStillCaring = "yes"
+    claim.CircumstancesEmploymentChangeHasWorkStartedYet = "yes"
+    claim.CircumstancesEmploymentChangeDateWhenStarted = "03/04/2014"
+    claim.CircumstancesEmploymentChangeHasWorkFinishedYet = "no"
+    claim.CircumstancesEmploymentChangeTypeOfWork = "self-employed"
+    claim.CircumstancesEmploymentChangeSelfEmployedTypeOfWork = "IT Consultant"
+    claim.CircumstancesEmploymentChangeSelfEmployedTotalIncome = "yes"
+
+    claim
+  }
+
   def reportChangesStoppedCaring = {
     val claim = aboutDetails
     claim.CircumstancesReportChanges = StoppedCaring.name

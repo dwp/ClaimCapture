@@ -6,7 +6,29 @@
 @import app.StatutoryPaymentFrequency._
 @import play.api.i18n.{MMessages => Messages}
 
-@helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
 
-    @views.html.helper.selectWithOtherPlaceholder(field,"frequency", Seq("" -> Messages("pleaseSelect"), Weekly->Messages("weekly"), Fortnightly->Messages("fortnightly"),FourWeekly-> Messages("fourWeekly"),Monthly-> Messages("monthly"),Other->Messages("other")), args:_*)
+@displayDontKnowYet = @{
+    (args.find(t => t._1 == 'displayDontKnowYet).getOrElse('displayDontKnowYet->false).asInstanceOf[(Symbol,Boolean)]._2)
+}
+
+@listOfOptions = @{
+    if (displayDontKnowYet)
+        Seq("" -> Messages("pleaseSelect"),
+            Weekly->Messages("weekly"),
+            Fortnightly->Messages("fortnightly"),
+            FourWeekly-> Messages("fourWeekly"),
+            DontKnowYet-> Messages("dontKnowYet"),
+            Monthly-> Messages("monthly"),
+            Other->Messages("other"))
+    else
+        Seq("" -> Messages("pleaseSelect"),
+            Weekly->Messages("weekly"),
+            Fortnightly->Messages("fortnightly"),
+            FourWeekly-> Messages("fourWeekly"),
+            Monthly-> Messages("monthly"),
+            Other->Messages("other"))
+}
+
+@helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
+    @views.html.helper.selectWithOtherPlaceholder(field,"frequency", listOfOptions, args:_*)
 }

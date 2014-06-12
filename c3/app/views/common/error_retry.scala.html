@@ -4,7 +4,7 @@
 
 @common.govMain(Messages("error.retry")) {
 
-    <div class="carers-allowance">
+    <div class="carers-allowance clearfix">
 
         @common.protoType()
 
@@ -20,5 +20,17 @@
                 <button type="submit" name="action" value="next" class="button secondary" onClick="location.href = ' @url '" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("retry.button"))</button>
             </nav>
         </article>
+        
+        <aside class="left-col">
+        	<section>
+				<h2>Get help</h2>
+				<p><a href="#">Read the guide</a></p>
+				<h3>Helpline 0845 601 8040</h3>
+				<p>Open until 9pm. Your call will be answered within 5 minutes. <a href="#">Call charges</a></p>	
+				<h3>No time limit</h3>
+				<p>For your security, this application will reset if inactive for more than 1 hour.</p>
+			</section>
+        </aside>
+        
     </div>
 }
