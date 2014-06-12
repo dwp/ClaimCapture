@@ -5,7 +5,6 @@ import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s2_report_changes.G7BreaksInCarePage
 import org.specs2.mutable.{Tags, Specification}
 
-
 class ThankYouCircsIntegrationSpec extends Specification with Tags {
 
   "Change Thank You" should {

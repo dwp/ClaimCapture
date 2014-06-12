@@ -5,13 +5,15 @@
 
 @common.govMain(title) {
 
-    <div class="carers-allowance">
+    <div class="carers-allowance clearfix">
 
         @common.protoType()
 
         @common.feedback()
 
         <article>
+        
+        <h1>@Html(Messages("c3.g1"))</h1>
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
@@ -32,5 +34,8 @@
 
             @content
         </article>
+        
+        @common.leftcol()
+        
     </div>
 }

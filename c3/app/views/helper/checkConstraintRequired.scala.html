@@ -8,7 +8,7 @@
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
 
 @if(showLabel) {
-  <p>
+  <p class="sub">
     @carersLabelText(field,args:_*)
   </p>
   @if(args.find(_._1=='helperAbove).isDefined){

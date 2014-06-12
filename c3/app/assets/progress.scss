@@ -1,6 +1,7 @@
 /* progress steps */
    .progress-steps {
 	   padding-bottom: .5em;
+
 	   @media print {
 		   display: none;
 	   }

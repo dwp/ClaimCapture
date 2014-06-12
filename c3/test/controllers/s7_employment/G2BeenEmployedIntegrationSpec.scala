@@ -3,11 +3,11 @@ package controllers.s7_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, WithBrowserHelper, BrowserMatchers}
-import utils.pageobjects.s2_about_you.G3ClaimDatePageContext
 import utils.pageobjects._
 import utils.pageobjects.s7_employment._
 import utils.pageobjects.s8_self_employment.G1AboutSelfEmploymentPage
 import scala.Some
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePageContext
 
 class G2BeenEmployedIntegrationSpec extends Specification with Tags {
   "Been Employed" should {
@@ -85,12 +85,12 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
   } section("integration", models.domain.Employed.id)
 }
 
-trait EmployedHistoryPage extends G3ClaimDatePageContext {
+trait EmployedHistoryPage extends G1ClaimDatePageContext {
   this: WithBrowser[_] =>
 
   def goToHistoryPage = {
     val claim = new TestData
-    claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
+    claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     page goToThePage()
     page fillPageWith claim
     page submitPage()

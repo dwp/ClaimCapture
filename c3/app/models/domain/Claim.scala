@@ -88,4 +88,19 @@ case class Claim(key: String = CachedClaim.key, sections: List[Section] = List()
   def withTransactionId(transactionID: String) = {
     copy(transactionId = Some(transactionID))
   }
+
+  def getFingerprint(isCoc: Int): String = {
+    val nino = questionGroup[YourDetails].getOrElse(YourDetails()).nationalInsuranceNumber.stringify
+    val surname = questionGroup[YourDetails].getOrElse(YourDetails()).surname
+    val postcode = questionGroup[ContactDetails].getOrElse(ContactDetails()).postcode.getOrElse("")
+    isCoc match {
+      case 1 =>
+        val claimDate = questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.`yyyy-MM-dd`.toString
+        nino+surname+claimDate+postcode
+      case 2 =>
+        val changeType = questionGroup[ReportChanges].getOrElse(ReportChanges()).reportChanges
+        nino+surname+changeType+postcode
+    }
+  }
+
 }

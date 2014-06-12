@@ -5,9 +5,9 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment.{G1AboutSelfEmploymentPage, G1AboutSelfEmploymentPageContext}
 import utils.pageobjects.{PageObjects, IterationManager, TestData}
 import controllers.{Formulate, ClaimScenarioFactory}
-import utils.pageobjects.s2_about_you.G3ClaimDatePageContext
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.s7_employment.G1EmploymentPage
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePageContext
 
 class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
 
@@ -17,7 +17,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
       page goToThePage ()
     }
 
-    "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
+    "not be presented if section not visible" in new WithBrowser with G1ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed()
       page goToThePage()
 

@@ -2,14 +2,12 @@ package controllers.s8_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s8_self_employment.{G4SelfEmploymentPensionsAndExpensesPage, G4SelfEmploymentPensionsAndExpensesPageContext}
+import utils.pageobjects.s8_self_employment.G4SelfEmploymentPensionsAndExpensesPage
 import utils.pageobjects.{PageObjects, TestData}
-import controllers.{Formulate, ClaimScenarioFactory}
-import utils.pageobjects.s2_about_you.G3ClaimDatePageContext
+import controllers.ClaimScenarioFactory
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
-import controllers.s7_employment.G1Employment
-import utils.pageobjects.s7_employment.{G1EmploymentPageContext, G1EmploymentPage}
-
+import utils.pageobjects.s7_employment.G1EmploymentPage
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePageContext
 
 class G4SelfEmploymentPensionsAndExpensesIntegrationSpec extends Specification with Tags {
 
@@ -19,7 +17,7 @@ class G4SelfEmploymentPensionsAndExpensesIntegrationSpec extends Specification w
       page goToThePage()
     }
 
-    "not be presented if section not visible" in new WithBrowser with G3ClaimDatePageContext {
+    "not be presented if section not visible" in new WithBrowser with G1ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed()
       page goToThePage()
 

@@ -37,6 +37,7 @@ trait WebServiceClientComponent {
           Logger.error(s"ConnectException ! $txnId")
           Logger.error(s"ConnectException ! ${e.getMessage}")
           // Spoof service unavailable
+          // submission failed - remove from cache
           new Response(null) {
             override def status: Int = http.Status.SERVICE_UNAVAILABLE
           }
@@ -44,6 +45,7 @@ trait WebServiceClientComponent {
           Logger.error(s"TimeoutException ! $txnId")
           Logger.error(s"TimeoutException ! ${e.getMessage}")
           // Spoof service unavailable
+          // submission failed - remove from cache
           new Response(null) {
             override def status: Int = http.Status.SERVICE_UNAVAILABLE
           }

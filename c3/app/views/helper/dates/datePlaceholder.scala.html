@@ -11,7 +11,7 @@
 
 <fieldset class="question-group">
 
-@dateConstraintRequired(field, args:_*) <!-- datePlaceholder -->
+@dateConstraintRequired(field, id, args:_*) <!-- datePlaceholder -->
 
 <ul class="inline year" id="@CarersCrypto.encryptAES(id)">
     <li>
@@ -23,7 +23,7 @@
     </li>
 
     <li>
-        @carersInputTel(field("year"), 'placeholder -> Messages("datePlaceholder.year"), 'maxlength -> 4)
+        @carersInputTel(field("year"), 'maxlength -> 4)
     </li>
 </ul>
 

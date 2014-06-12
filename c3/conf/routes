@@ -66,6 +66,11 @@ POST          /allowance/carers-response                                      co
 GET           /allowance/approve                                              controllers.s1_carers_allowance.CarersAllowance.approve
 POST          /allowance/approve                                              controllers.s1_carers_allowance.CarersAllowance.approveSubmit
 
+#Section 1.5
+###############
+GET           /your-claim-date/claim-date                                     controllers.s1_2_claim_date.G1ClaimDate.present
+POST          /your-claim-date/claim-date                                     controllers.s1_2_claim_date.G1ClaimDate.submit
+
 #Section 2
 ###############
 GET           /about-you/your-details                                         controllers.s2_about_you.G1YourDetails.present
@@ -73,9 +78,6 @@ POST          /about-you/your-details                                         co
 
 GET           /about-you/contact-details                                      controllers.s2_about_you.G2ContactDetails.present
 POST          /about-you/contact-details                                      controllers.s2_about_you.G2ContactDetails.submit
-
-GET           /about-you/claim-date                                           controllers.s2_about_you.G3ClaimDate.present
-POST          /about-you/claim-date                                           controllers.s2_about_you.G3ClaimDate.submit
 
 GET           /about-you/nationality-and-residency                            controllers.s2_about_you.G4NationalityAndResidency.present
 POST          /about-you/nationality-and-residency                            controllers.s2_about_you.G4NationalityAndResidency.submit
@@ -249,8 +251,14 @@ POST          /circumstances/report-changes/breaks-in-care-summary            co
 GET           /circumstances/report-changes/employment-change                 controllers.circs.s2_report_changes.G9EmploymentChange.present
 POST          /circumstances/report-changes/employment-change                 controllers.circs.s2_report_changes.G9EmploymentChange.submit
 
-GET           /circumstances/report-changes/started-employment-ongoing        controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.present
-POST          /circumstances/report-changes/started-employment-ongoing        controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.submit
+GET           /circumstances/report-changes/employment-ongoing                controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.present
+POST          /circumstances/report-changes/employment-ongoing                controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.submit
+
+GET           /circumstances/report-changes/employment-finished               controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.present
+POST          /circumstances/report-changes/employment-finished               controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.submit
+
+GET           /circumstances/report-changes/future-employment                 controllers.circs.s2_report_changes.G12EmploymentNotStarted.present
+POST          /circumstances/report-changes/future-employment                 controllers.circs.s2_report_changes.G12EmploymentNotStarted.submit
 
 GET           /circumstances/consent-and-declaration/declaration              @controllers.circs.s3_consent_and_declaration.G1Declaration.present
 POST          /circumstances/consent-and-declaration/declaration              @controllers.circs.s3_consent_and_declaration.G1Declaration.submit

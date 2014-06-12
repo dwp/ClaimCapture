@@ -3,7 +3,6 @@ package controllers
 import utils.pageobjects.TestData
 
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
-import models.domain.{SelfEmployment, Employed}
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -15,13 +14,19 @@ object ClaimScenarioFactory {
   val partnerAddress = "Partner Address"
   val partnerPostcode = "RM11 1AA"
 
-  def yourDetailsWithNotTimeOutside() = {
+  def s12ClaimDate() = {
     val claim = new TestData
+    // Claim date
+    claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "10/10/2014"
+    claim
+  }
+
+  def yourDetailsWithNotTimeOutside() = {
+    val claim = s12ClaimDate()
     claim.AboutYouTitle = "Mr"
     claim.AboutYouFirstName = "John"
     claim.AboutYouSurname = "Appleseed"
     claim.AboutYouDateOfBirth = "03/04/1950"
-    //claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
     claim.AboutYouNationalityAndResidencyNationality = "British"
     claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
     claim.AboutYouNINO = "AB123456C"
@@ -109,7 +114,7 @@ object ClaimScenarioFactory {
     claim.AboutYouPostcode = "SE1 6EH"
     claim.HowWeContactYou = "01253 111 111"
     // Claim date
-    claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
+    //claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"
     claim.AboutYouNationalityAndResidencyResideInUK = "yes"
@@ -146,8 +151,6 @@ object ClaimScenarioFactory {
     claim.AboutYouContactYouByTextphone = "No"
     claim.AboutYouMobileNumber = "07111 111 111"
 
-    // Claim date
-    claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"
     claim.AboutYouNationalityAndResidencyResideInUK = "yes"
@@ -366,7 +369,7 @@ object ClaimScenarioFactory {
     claim.EmploymentChildcareExpensesHowOften_1 = PensionPaymentFrequency.Weekly
     claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
-    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "Father-In-Law"
+//    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "Father-In-Law"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1 = "Grandfather"
     claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
     claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
@@ -427,7 +430,7 @@ object ClaimScenarioFactory {
     claim.EmploymentChildcareExpensesHowOftenOther_1 = "why is my train 80 minutes late"
     claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
-    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "Father-In-Law"
+//    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "Father-In-Law"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1 = "Grandfather"
     claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
     claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
@@ -539,7 +542,6 @@ object ClaimScenarioFactory {
     claim.SelfEmployedChildcareExpensesHowOftenOther = "Every day and twice on Sunday's"
     claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "Father"
     claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "Father"
-    claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "Father"
 
     claim
   }
@@ -552,7 +554,6 @@ object ClaimScenarioFactory {
     claim.SelfEmployedCareExpensesHowOftenOther = "Every day and twice on Sunday's"
     claim.SelfEmployedCareExpensesNameOfPerson = "John"
     claim.SelfEmployedCareExpensesWhatRelationIsToYou = "Father"
-    claim.SelfEmployedCareExpensesWhatRelationToPartner = "Father"
     claim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor = "Father"
 
     claim
