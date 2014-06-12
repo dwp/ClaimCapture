@@ -14,24 +14,27 @@ class MessageFilesSpec extends Specification {
 
     val enKeys = enFiles.map(
       enFile => {
+//        println("Loading " + "conf/en/%s.en.properties".format(enFile))
         val enS = scala.io.Source.fromFile("conf/en/%s.en.properties".format(enFile))
-        val linesFromEnS = enS.getLines.filterNot(_.isEmpty).filter(s => s.startsWith("#")).toList
-        val enKeys = linesFromEnS.map(pair => pair.split("="))
+        val linesFromEnS = enS.getLines.filterNot(_.isEmpty).filterNot(s => s.startsWith("#")).toList
+        val enKeys = linesFromEnS.map(pair => pair.split("=").map(k => k.trim))
         enS.close()
         enKeys
       }
     ).flatMap(y => y).map(a => a(0))
+//    println("en:" + enKeys)
 
     val cyKeys = cyFiles.map(
       cyFile => {
-        println("Loading " + "conf/cy/%s.cy.properties".format(cyFile))
+//        println("Loading " + "conf/cy/%s.cy.properties".format(cyFile))
         val cyS = scala.io.Source.fromFile("conf/cy/%s.cy.properties".format(cyFile))
-        val linesFromCyS = cyS.getLines.filterNot(_.isEmpty).filter(s => s.startsWith("#")).toList
-        val cyKeys = linesFromCyS.map(pair => pair.split("="))
+        val linesFromCyS = cyS.getLines.filterNot(_.isEmpty).filterNot(s => s.startsWith("#")).toList
+        val cyKeys = linesFromCyS.map(pair => pair.split("=").map(k => k.trim))
         cyS.close()
         cyKeys
       }
     ).flatMap(y => y).map(a => a(0))
+//    println("cy:" + cyKeys)
 
     "have corresponding Welsh file for each English file" in {
       enFiles.filterNot(enFile => cyFiles.contains(enFile)) must beEmpty
