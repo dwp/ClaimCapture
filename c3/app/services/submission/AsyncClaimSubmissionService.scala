@@ -89,26 +89,8 @@ trait AsyncClaimSubmissionService extends CacheService with EncryptionService {
   }
 
   private def ok(claim: Claim, txnID: String, response: Response) = {
-    val responseStr = response.body
-    Logger.info(s"Received response : ${claim.key} : $responseStr")
-    val responseXml = scala.xml.XML.loadString(responseStr)
-    val result = (responseXml \\ "result").text
-    Logger.info(s"Received result : ${claim.key} : $result")
-    result match {
-      case "response" =>
-        claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
-        Logger.info(s"Successful submission : ${claim.key} : $txnID")
-      case "acknowledgement" =>
-        claimTransaction.updateStatus(txnID, ACKNOWLEDGED, claimType(claim))
-        Logger.info(s"Successful submission : ${claim.key} : $txnID")
-      case "error" =>
-        val errorCode = (responseXml \\ "errorCode").text
-        Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $errorCode")
-        updateTransactionAndCache(txnID, errorCode, claim)
-      case _ =>
-        Logger.error(s"Received error : $result, TxnId : $txnID, Error code : $UNKNOWN_ERROR")
-        updateTransactionAndCache(txnID, UNKNOWN_ERROR, claim)
-    }
+    claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
+    Logger.info(s"Successful submission : ${claim.key} : $txnID")
   }
 }
 
