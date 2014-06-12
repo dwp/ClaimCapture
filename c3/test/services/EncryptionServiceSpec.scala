@@ -6,17 +6,17 @@ class EncryptionServiceSpec extends Specification with Tags with EncryptionServi
 
   "EncryptionService" should {
 
-    "encrypt a password given a plain password" in {
-      digest("AB123456Dtest3453-01-02") must not beEmpty
+    val plainText = "AB123456Dtest2014-01-02"
+
+    "encrypt a value" in {
+      encrypt(plainText) must not beEmpty
     }
 
-    "generate the same encryption sequence for a given value" in {
-      val text1 = EncryptionService.digester.digest("AB123456Dtest3453-01-02")
-      val text2 = EncryptionService.digester.digest("AB123456Dtest3453-01-02")
+    "decrypt a value" in {
+      val encrypted = encrypt(plainText)
+      val decrypted = decrypt(encrypted)
 
-      text1 mustEqual(text2)
+      plainText mustEqual(decrypted)
     }
-
   }
-
 }
