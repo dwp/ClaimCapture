@@ -9,7 +9,7 @@ import models.domain.Claim
 import models.NationalInsuranceNumber
 import scala.Some
 
-class CacheServiceSpec extends Specification with Tags with CacheService with CachedClaim {
+class SubmissionCacheServiceSpec extends Specification with Tags with SubmissionCacheService with CachedClaim {
 
   "CacheService" should {
 
