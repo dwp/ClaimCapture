@@ -3,7 +3,7 @@ package services.submission
 import scala.concurrent.ExecutionContext
 import play.api.{http, Logger}
 import controllers.submission._
-import services.{CacheService, EncryptionService, ClaimTransactionComponent}
+import services.{SubmissionCacheService, EncryptionService, ClaimTransactionComponent}
 import ExecutionContext.Implicits.global
 import ClaimSubmissionService._
 import play.api.libs.ws.Response
@@ -20,7 +20,7 @@ with WebServiceClientComponent
 
 case class DuplicateClaimException(msg:String) extends Exception(msg)
 
-trait AsyncClaimSubmissionService extends CacheService with EncryptionService {
+trait AsyncClaimSubmissionService extends SubmissionCacheService with EncryptionService {
 
   this: ClaimTransactionComponent with WebServiceClientComponent =>
 
@@ -58,14 +58,16 @@ trait AsyncClaimSubmissionService extends CacheService with EncryptionService {
   }
 
   def checkCacheStore(claim:Claim): Unit = {
-    getFromCache(claim) match {
-      case Some(x) =>
+    if (checkEnabled) {
+      getFromCache(claim) match {
+        case Some(x) =>
         Logger.error("Already in cache, should not be submitting again!")
         claimTransaction.updateStatus(claim.transactionId.get, SERVER_ERROR, claimType(claim))
 
         // this gets logged by the actor
         throw new DuplicateClaimException("Duplicate claim with fingerprint: " + encrypt(x))
-      case _ => storeInCache(claim)
+        case _ => storeInCache(claim)
+      }
     }
   }
 
