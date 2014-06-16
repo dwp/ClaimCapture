@@ -15,11 +15,15 @@
 	}
 	
 	h3 {
-		margin-top: 2em;
+		margin: 2em 0 .5em 0;
 	}
 	
 	a {
 		display: inline-block;
+	}
+	
+	p {
+		margin: 0;
 	}
 	
 	
@@ -198,4 +202,34 @@ article {
 		   padding: 0;
 		   list-style: none;
 	   }
+	   
+	   
+	   .employment-info {
+	   
+	   			   p {
+		   			   color: #6f777b;
+		   			   font-size: 19px;
+		   			   padding-top: .5em;
+	   			   }
+
+				   ul {
+					   list-style: disc;
+					   padding: 1.5em 0;
+					   margin: 0;
+
+					   li {
+						   font-size: 19px;
+						   padding: 0 0 0 1em;
+						   margin: .8em 0 0 0;
+						   color: #6f777b;
+						   line-height: 1.2em;
+						   &:first-child {
+							   margin: 0;
+						   }
+					   }
+				   
+				   }
+			   }
+	   
+	   
    }

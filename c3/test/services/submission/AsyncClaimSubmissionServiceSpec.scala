@@ -1,32 +1,31 @@
 package services.submission
 
 import org.specs2.mutable.{Tags, Specification}
-import services.{TransactionStatus, DBTests, WithApplicationAndDB, ClaimTransactionComponent}
+import services._
 import play.api.http
 import scala.concurrent.{ExecutionContext, Future}
-import play.api.libs.ws.Response
 import models.domain._
 import org.specs2.mock.Mockito
 import models.view.CachedClaim
-import play.api.test.FakeApplication
-import services.TransactionStatus
-import play.api.libs.ws.Response
-import scala.Some
-import play.api.test.FakeApplication
+import models.DayMonthYear
 import services.TransactionStatus
 import play.api.libs.ws.Response
 import models.domain.Claim
+import models.NationalInsuranceNumber
 import scala.Some
 import play.api.test.FakeApplication
-import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 
 
-class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Tags with CachedClaim {
+class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Tags with CachedClaim with EncryptionService {
 
   def resultXml(result: String, correlationID: String, messageClass:String, errorCode: String, pollEndpoint: String) = {
-    <Response>
-      <statusCode>{result}</statusCode>
-    </Response>
+    <response>
+      <result>{result}</result>
+      <correlationID>{correlationID}</correlationID>
+      <messageClass>{messageClass}</messageClass>
+      <pollEndpoint>{pollEndpoint}</pollEndpoint>
+      <errorCode>{errorCode}</errorCode>
+    </response>
   }
 
   def asyncService( status:Int=200, transactionId:String, result: String= "",
@@ -44,43 +43,68 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
   }
 
   def getClaim(surname: String): Claim = {
-    var claim = new Claim(transactionId = Some(transactionId))
+    val claim = new Claim(transactionId = Some(transactionId))
 
     // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
-    val det = new YourDetails("", "",None, surname,None, NationalInsuranceNumber(Some("AB"),Some("12"),Some("34"),Some("56"),Some("D")), DayMonthYear(None, None, None))
-    val contact = new ContactDetails(new MultiLineAddress(), None, "", None)
+    val det = new YourDetails("", "",None, surname,None, NationalInsuranceNumber(Some("AB"),Some("12"),Some("34"),Some("56"),Some("D")), DayMonthYear(Some(1), Some(1), Some(1969)))
+
     val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 
-    claim = claim + det
-    claim = claim + contact
-    claim = claim + claimDate
+    claim + det + claimDate match {
+      case c:Claim => new Claim(c.key, c.sections, c.created, c.lang, c.transactionId)(c.navigation) with FullClaim
+    }
 
-    claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.transactionId)(claim.navigation) with FullClaim
-    claim
+  }
+
+  def getCofc(fullname: String): Claim = {
+    val claim = new Claim("change-of-circs",transactionId = Some(transactionId))
+
+    // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
+    val det = new CircumstancesReportChange(true, fullname, NationalInsuranceNumber(Some("AB"),Some("12"),Some("34"),Some("56"),Some("D")), DayMonthYear(Some(1), Some(1), Some(1967)), "", "")
+
+    val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
+
+    claim + det + claimDate match {
+      case c:Claim => new Claim(c.key, c.sections, c.created, c.lang, c.transactionId)(c.navigation) with FullClaim
+    }
   }
 
   val transactionId = "1234567"
 
   "claim submission" should {
+    "record BAD_REQUEST" in new WithApplicationAndDB {
 
-    "record SUCCESS" in new WithApplicationAndDB {
-      pending
-      val service = asyncService(http.Status.OK,transactionId,result = "0000")
+      val service = asyncService(http.Status.BAD_REQUEST,transactionId)
 
-      var claim = new Claim(transactionId = Some(transactionId))
-
-      // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
-      val det = new YourDetails("", "",None, "test",None, NationalInsuranceNumber(Some("AB"),Some("12"),Some("34"),Some("56"),Some("D")), DayMonthYear(None, None, None))
-      val contact = new ContactDetails(new MultiLineAddress(), None, "", None)
-      val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
-
-      claim = claim + det
-      claim = claim + contact
-      claim = claim + claimDate
-
-      claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.transactionId)(claim.navigation) with FullClaim
+      val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
 
       serviceSubmission(service, claim)
+
+      Thread.sleep(500)
+      val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
+
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.BAD_REQUEST_ERROR,1,Some(0),None,Some("en")))
+
+    }
+
+    "record SUCCESS" in new WithApplicationAndDB {
+
+      val service = asyncService(http.Status.OK,transactionId,result = "response")
+
+      serviceSubmission(service, getClaim("test"))
+
+      Thread.sleep(500)
+      val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
+
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SUCCESS,1,Some(0),None,Some("en")))
+
+    }
+
+    "record change of circs submission SUCCESS" in new WithApplicationAndDB {
+
+      val service = asyncService(http.Status.OK,transactionId,result = "response")
+
+      serviceSubmission(service, getCofc("test"))
 
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
@@ -91,16 +115,29 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
     "do not submit a duplicate claim" in new WithApplicationAndDB {
 
-      val service = asyncService(http.Status.SERVICE_UNAVAILABLE,transactionId)
+      val service = asyncService(http.Status.INTERNAL_SERVER_ERROR,transactionId)
+      val claim = getClaim("test")
 
-      val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
-
-      serviceSubmission(service, claim)
+      serviceSubmission(service, claim) must throwAn(DuplicateClaimException("Duplicate claim submission."))
 
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVICE_UNAVAILABLE,1,Some(0),None,Some("en")))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,None,None,None))
+
+    }
+
+    "do not submit a duplicate change of circs" in new WithApplicationAndDB {
+
+      val service = asyncService(http.Status.INTERNAL_SERVER_ERROR,transactionId)
+      val claim = getCofc("test")
+
+      serviceSubmission(service, claim) must throwAn(DuplicateClaimException("Duplicate claim submission."))
+
+      Thread.sleep(500)
+      val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
+
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,None,None,None))
 
     }
 
@@ -109,7 +146,6 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       val service = asyncService(http.Status.SERVICE_UNAVAILABLE,transactionId)
 
       val claim = getClaim("test1")
-
 
       serviceSubmission(service, claim)
 
@@ -155,6 +191,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
   def serviceSubmission(service: AsyncClaimSubmissionService with ClaimTransactionComponent, claim: Claim)(implicit app: FakeApplication) {
     DBTests.createId(transactionId)
     service.claimTransaction.registerId(transactionId, ClaimSubmissionService.SUBMITTED, controllers.submission.claimType(claim), 1)
+    println("calling service.submission")
     service.submission(claim)
   }
 }

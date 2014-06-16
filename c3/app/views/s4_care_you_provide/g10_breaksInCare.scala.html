@@ -39,8 +39,7 @@ else OtherMoney.name
                     <th class="desc">@Html(Messages("breaks.whereYou.label"))</th>
                     <th class="desc">@Html(Messages("wherePerson"))</th>
                     <th class="desc">@Html(Messages("medicalTreatment"))</th>
-                    <th>@Html(Messages("change"))</th>
-                    <th>@Html(Messages("delete"))</th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -70,8 +69,10 @@ else OtherMoney.name
                         </td>
 
                         <td class="desc">@if("yes" == break.medicalDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</td>
-                        <td><input type="button" name="changerow" class="button row secondary" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))"></td>
-                        <td><input type="button" name="deleterow" class="button row warning" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))"></td>
+                        <td>
+                        	<input type="button" name="changerow" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))">
+                        	<input type="button" name="deleterow" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))">
+                        </td>
                     </tr>
                 }
             </tbody>
