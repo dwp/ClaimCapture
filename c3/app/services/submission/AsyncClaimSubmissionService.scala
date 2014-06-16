@@ -61,11 +61,11 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
     if (checkEnabled) {
       getFromCache(claim) match {
         case Some(x) =>
-        Logger.error("Already in cache, should not be submitting again!")
+        Logger.error("Already in cache, should not be submitting again! Duplicate claim submission. Claim fingerprint: " + encrypt(x))
         claimTransaction.updateStatus(claim.transactionId.get, SERVER_ERROR, claimType(claim))
 
         // this gets logged by the actor
-        throw new DuplicateClaimException("Duplicate claim with fingerprint: " + encrypt(x))
+        throw new DuplicateClaimException("Duplicate claim submission.")
         case _ => storeInCache(claim)
       }
     }
