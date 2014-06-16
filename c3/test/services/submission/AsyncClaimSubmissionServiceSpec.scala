@@ -132,7 +132,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       val service = asyncService(http.Status.INTERNAL_SERVER_ERROR,transactionId)
       val claim = getCofc("test")
 
-      serviceSubmission(service, claim) must throwAn(DuplicateClaimException("Duplicate claim submission."))
+      serviceSubmission(service, claim) must throwA(DuplicateClaimException("Duplicate claim submission."))
 
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
