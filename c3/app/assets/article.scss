@@ -120,11 +120,11 @@ article {
    	   
    	   	   /* section header */		   	
 		   h1 {
-			   font-size: 40px;
+			   font-size: 36px;
 			   font-weight: 700;
 			   line-height: 1.2em;
 			   @media screen and (max-width: 600px) {
-				   font-size: 32px;
+				   font-size: 30px;
 			   }
 		   }
 
@@ -200,36 +200,11 @@ article {
 	   ul {
 		   margin: 0;
 		   padding: 0;
-		   list-style: none;
+		   list-style: none;	 
 	   }
 	   
 	   
-	   .employment-info {
-	   
-	   			   p {
-		   			   color: #6f777b;
-		   			   font-size: 19px;
-		   			   padding-top: .5em;
-	   			   }
-
-				   ul {
-					   list-style: disc;
-					   padding: 1.5em 0;
-					   margin: 0;
-
-					   li {
-						   font-size: 19px;
-						   padding: 0 0 0 1em;
-						   margin: .8em 0 0 0;
-						   color: #6f777b;
-						   line-height: 1.2em;
-						   &:first-child {
-							   margin: 0;
-						   }
-					   }
-				   
-				   }
-			   }
+	  
 	   
 	   
    }

@@ -1,3 +1,5 @@
+
+
 /* GDS Colours */
 @import 'gds-colours';
 
@@ -180,7 +182,52 @@ main {
 						padding-top: 0;
 						}
 				}  	
+				
+				
+				.employment-info {
+
+	   
+	   			   p {
+		   			   color: #6f777b;
+		   			   font-size: 19px;
+		   			   padding-top: .5em;
+	   			   }
+
+				   ul {
+					   list-style: disc;
+					   padding: 1.2em 0 1.5em 0;
+					   margin: 0;
+
+					   li {
+						   font-size: 19px;
+						   padding: 0 0 0 1em;
+						   margin: .8em 0 0 0;
+						   color: #6f777b;
+						   line-height: 1.2em;
+						   position: relative;
+						   &:before {
+							   content: "";
+							   position: absolute;
+							   width: 6px;
+							   height: 6px;
+							   background: #000;
+							   border-radius: 500px;
+							   top: 50%;
+							   left:0;
+							   margin-top: -3px;
+						   }
+						   
+						   &:first-child {
+							   margin: 0;
+						   }
+					   }
+				   
+				   }
+			   }
+				
 		}
+		
+	
    	   
    	   
    	   
@@ -843,6 +890,10 @@ main {
 /* Table base styles */	   
 @import 'tables';	   
 	     
+	     
+	     
+	     
+	     
 }
  
    
@@ -900,6 +951,8 @@ main {
 
 /* Include & Overrides */
 @import 'includes';
+
+
 
 
 
