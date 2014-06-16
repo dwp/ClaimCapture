@@ -24,7 +24,7 @@
           }
         </ul>
           @if(args.find(_._1=='paragraph).isDefined){
-              <p>@Html(Messages(args.find(_._1=='paragraph).getOrElse('paragraph->"")._2.toString()))
+              <p>@Html(Messages(args.find(_._1=='paragraph).getOrElse('paragraph->"")._2.toString()))</p>
           }
       </div>
   } else {
