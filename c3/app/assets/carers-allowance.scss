@@ -191,6 +191,10 @@ main {
 		   			   color: #6f777b;
 		   			   font-size: 19px;
 		   			   padding-top: .5em;
+		   			   margin: 0 0 1em 0;
+		   			   &:first-child {
+			   			   margin: 0;
+		   			   }
 	   			   }
 
 				   ul {
