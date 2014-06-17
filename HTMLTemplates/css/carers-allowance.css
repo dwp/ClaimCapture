@@ -349,6 +349,9 @@ header div {
       display: inline-block; }
     .carers-allowance .left-col p {
       margin: 0; }
+    .carers-allowance .left-col ul {
+      list-style: none;
+      margin: 0; }
   .carers-allowance article {
     background: #fff;
     position: relative;
