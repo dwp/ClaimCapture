@@ -1,12 +1,5 @@
 .finish-info {
-	float: left;
-	width: 62%;
 	margin: 1em 0 0 0;
-	@media screen and (max-width: 600px) {
-		width: auto;
-		float: none;
-		margin: 1em 0 0 0;
-	}
 	
 	p.finish {
 		margin-top: 2em;
