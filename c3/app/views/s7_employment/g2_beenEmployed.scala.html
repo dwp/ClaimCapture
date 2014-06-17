@@ -31,8 +31,8 @@
                             <tr id="@job.jobID" class="@job.jobID">
                                 <td>@job.employerName</td>
                                 <td class="desc">@{(job.jobStartDate).`dd/MM/yyyy`}</td>
-                                <td><input type="button" class="button row secondary" id="changeButton" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))"></td>
-                                <td><input type="button" class="button row warning" id="deleteButton" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))"></td>
+                                <td><input type="button" id="changeButton" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))"></td>
+                                <td><input type="button" id="deleteButton" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))"></td>
                             </tr>
                         }
                     }

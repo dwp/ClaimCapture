@@ -12,13 +12,13 @@
 
 @common.govMain(Messages("thankyou")) {
 
-    <div class="carers-allowance" data-journey="carers-allowance:page:thank-you">
+    <div class="carers-allowance clearfix" data-journey="carers-allowance:page:thank-you">
 
         @common.protoType()
 
         @common.feedback()
 
-        <article class="finish-statement clearfix">
+        <article class="finish-statement">
            
             <section class="app-complete">
 	            <h1><span>@Html(Messages("thankyou"))</span></h1>
@@ -74,11 +74,11 @@
             </div>
             }
             
-            
+            </article>
 
-            <!-- / left-panel -->
+            <!-- left-panel -->
 
-			<aside class="right-panel @{if(!isEmploymentOrSelfEmployment)"no-employment"}">
+			<aside class="left-col right-panel @{if(!isEmploymentOrSelfEmployment)"no-employment"}">
 			
             	<section>
 	                <h2>@Html(Messages("next"))</h2>
@@ -102,8 +102,7 @@
             </aside>
             <!-- / right panel -->
             
-            
-        </article>
+   
         
     </div>
 }
