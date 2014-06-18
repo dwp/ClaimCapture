@@ -1,10 +1,49 @@
+.left-col {
+	float: left;
+	width: 23%;
+	margin-top: 2.8em;
+	@media screen and (max-width: 700px) {
+		float: none;
+		width: auto;
+		border-top: 10px solid #005ea5;
+		padding-top: 2.5em;
+	}
+	h1 {
+		color: #ccc;
+		font-size: 30px;
+		margin-bottom: 1em;
+	}
+	
+	h3 {
+		margin: 2em 0 .5em 0;
+	}
+	
+	a {
+		display: inline-block;
+	}
+	
+	p {
+		margin: 0;
+	}
+	
+	ul {
+		list-style: none;
+		margin: 0;
+	}
+	
+	
+}
+
+
 article {
 	   background: #fff;
 	   position: relative;
-	   padding: 2.5em 1em 0 1em;
+	   padding: 2.5em 0 0 0;
+	   float: right;
+	   width: 68%;
 	   @media screen and (max-width: 700px) {
-		   padding-left: 0;
-		   padding-right: 0;
+		   float: none;
+		   width: auto;
 	   }
 	   
 	   &.eligible {
@@ -14,19 +53,13 @@ article {
 	   }
 	   
 	   &.error-statement {
-		margin: 0;
-		padding: 5em 1em 5em 1em;
+
 			p {
 				margin: 2em 40% 0 0;
 				@media screen and (max-width: 700px)
 				{margin-right: 0;}
 			}
-			h1 {
-				font-size: 50px;
-				@media screen and (max-width: 480px) {
-					font-size: 30px;
-				}
-			}	
+	
 			
    	   }
 
@@ -92,10 +125,12 @@ article {
    	   
    	   	   /* section header */		   	
 		   h1 {
-			   font-size: 40px;
+			   font-size: 36px;
 			   font-weight: 700;
 			   line-height: 1.2em;
-
+			   @media screen and (max-width: 600px) {
+				   font-size: 30px;
+			   }
 		   }
 
 	  
@@ -104,7 +139,7 @@ article {
    	   
    	   &.response {
 			section {
-				margin: 2em 0;
+				margin: 2.5em 0;
 				background-image: url('images/response-trio-xl.png');
 				background-position: 0 0;
 				background-repeat: no-repeat;
@@ -163,10 +198,18 @@ article {
 					text-decoration: underline;
 				}
 			}
+			&.intro-info {
+				margin-top: 1em;
+			}
 	   }
 	   ul {
 		   margin: 0;
 		   padding: 0;
-		   list-style: none;
+		   list-style: none;	 
 	   }
+	   
+	   
+	  
+	   
+	   
    }

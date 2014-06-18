@@ -1,6 +1,8 @@
 /* progress steps */
    .progress-steps {
 	   padding-bottom: .5em;
+	   display: none; /* Experiment */
+
 	   @media print {
 		   display: none;
 	   }

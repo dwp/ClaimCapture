@@ -104,86 +104,106 @@
         </nav>
       </div>  -->
 
-    <!-- carers allowance -->
-    <div id="wrapper" class="group">
     
    <main role="main" id="main">
            
 
-    <div class="carers-allowance" xmlns="http://www.w3.org/1999/html">
-
-        
-
-
-<div class="prototype">
-  <p><strong>BETA</strong> This is a prototype. You cannot claim Carers Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carers Allowance using the live service</a></p>
-</div>
+   
+    <div class="carers-allowance clearfix">
 
 
-
-        
-
-
-<section class="feedback-container">
-	<h2>Help and feedback</h2>
-
-	<p><a href="/internal-claim-notes/en" target="_blank" 
-
-
-
-onclick="trackEvent(&quot;/thankyou/change-carers&quot;,&quot;Claim Notes&quot;);">Read this guide</a> for answers to the most common questions about applying for Carers Allowance.</p>
-
-	<p>Alternatively, you can call us on 0345 601 8040 or 0845 601 8040. Opening hours are Monday to Friday 08:00 am - 09:00 pm. Weekends: 09:00am - 04:00pm. Closed on all public and bank holidays. <a href="https://www.gov.uk/call-charges" target="_blank" 
-
-
-
-onclick="trackEvent(&quot;/thankyou/change-carers&quot;,&quot;Helpline&quot;);">Find out about call charges</a>.</p>
-
-    <p>You can also <a href="mailto:cau.e-service-feedback@dwp.gsi.gov.uk?subject=Carers" 
-
-
-
-onclick="trackEvent(&quot;/thankyou/change-carers&quot;,&quot;Your Feedback&quot;);">email us feedback</a> to help us improve this service.</p>
-			
-	<div class="feed-close">Close</div>
-</section>
-
-        <article class="finish-statement">
-        
-            <div class="app-complete">
-	            <h1><span>Change complete</span></h1>            
-	            <p>Your change has been successfully received and is being processed</p>
-            </div>
-
-                
-
-                
-
-                
-
-                <section class="finish-next prompt helper-prompt">
-	            <h3>What happens next?</h3>
-	            <ul>
-	                <li>The Carer's Allowance unit will now check the information you have provided.</li>
-	                <li>The Carer's Allowance unit will contact you if they need any further information.</li>
-	            </ul>
-	            </section>
-	            <section>
-	            <h3>If your circumstances change</h3>
-	            <p>You should contact us as soon as possible. You may contact the <a href="https://www.gov.uk/carers-allowance-report-change">Carer's Allowance unit online</a> to notify the changes.</p>
-	            </section>
-	            <section>
-	            <p class="finish"><a href="https://www.gov.uk/done/report-change-carers-allowance" class="button">Finished</a></p>
-	            </section>
-	            
+        <article class="finish-statement clearfix">
+           
+            <section class="app-complete">
+	            <h1><span>@Html(Messages("thankyou"))</span></h1>
+	            <p>@Html(Messages("claim.received"))</p>
+	            <p class="nino-title">@Html(Messages("claim.recieved2"))</p>
+            </section>
             
-        </article>
+            
+            @if(isEmploymentOrSelfEmployment){
+            
+            <div class="finish-info">
+            
+
+                    <section>
+                        <h1>@Html(Messages("documents.title"))</h1>
+                        <h3>@Html(Messages("documents.sendingDocs.title"))</h3>
+                        <p>@Html(Messages("documents.sendingDocs.text"))</p>
+                    </section>
+            
+                <div class="send-info">
+
+                        @if(isEmployment){
+                            <section>
+                                <h2 id="employment">@Html(Messages("s11.g5.help3"))</h2>
+                                <ul>
+                                    <li>@{Messages("s11.g5.help4")} @claimDate</li>
+                                    <li>@Html(Messages("s11.g5.help5"))</li>
+                                    <li>@Html(Messages("s11.g5.help6"))</li>
+                                </ul>
+                            </section>
+                        }
+                        @if(isSelfEmployment){
+                            <section>
+                                <h2 id="selfEmployment">@Html(Messages("s11.g5.help7"))</h2>
+                                <ul>
+                                    <li>@Html(Messages("s11.g5.help8"))</li>
+                                    <li>@Html(Messages("s11.g5.help9"))</li>
+                                </ul>
+                            </section>
+                        }
+                        <section class="address">
+                            <h2>@Html(Messages("s11.g5.help10"))</h2>
+                            <span>@Html(Messages("s11.g5.help11"))</span>
+                            <span>@Html(Messages("s11.g5.help12"))</span>
+                            <span>@Html(Messages("s11.g5.help13"))</span>
+                            <span>@Html(Messages("s11.g5.help14"))</span>
+                            <p>@Html(Messages("s11.g5.help15"))</p>
+                        </section>
+
+                </div>
+                
+                
+            </div>
+            }
+             </article>
+            
+            
+
+            <!-- / left-panel -->
+
+			<aside class="left-col right-panel @{if(!isEmploymentOrSelfEmployment)"no-employment"}">
+			
+            	<section>
+	                <h2>@Html(Messages("next"))</h2>
+	                <ul>
+	                    <li>@Html(Messages("claim.next.1"))</li>
+	                    <li>@Html(Messages("claim.next.2"))</li>
+	                    <li>@Html(Messages("claim.next.3"))</li>
+	                    <li>@Html(Messages("next.last"))</li>
+	                </ul>
+                </section>
+                
+                <section>
+	                <h2>@Html(Messages("change.head"))</h2>
+	                <p>@Html(Messages("change.link"))</p>
+                </section>
+                
+                <section>
+	                <p class="finish">@Html(Messages("claim.feedback.link"))</p>
+				</section>
+	            
+            </aside>
+            <!-- / right panel -->
+            
+            
+       
+        
     </div>
 
         </main>
-    
-    </div>
-    <!-- / carers allowance end -->
+
 
     <footer>
       <div class="container clearfix">
