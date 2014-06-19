@@ -28,6 +28,8 @@ object Global extends WithFilters(MetricsFilter) with Injector with CarersLangua
     val secret: String = getProperty("application.secret", "secret")
     val secretDefault: String = getProperty("secret.default", "don't Match")
 
+    duplicateClaimCheckEnabled
+
     if (secret.equals(secretDefault)) {
       Logger.warn("application.secret is using default value")
     }
@@ -72,5 +74,11 @@ object Global extends WithFilters(MetricsFilter) with Injector with CarersLangua
   def actorSystems() {
     EmailActors
     AsyncActors
+  }
+
+  def duplicateClaimCheckEnabled() = {
+    val checkLabel: String = "duplicate.submission.check"
+    val check = getProperty(checkLabel, default = true)
+    Logger.info(s"$checkLabel = $check")
   }
 }

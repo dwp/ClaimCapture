@@ -7,12 +7,12 @@ import models.domain.Claim
 import play.api.Logger
 
 object SubmissionCacheService {
-  // the function to cache - str is already the encrypted fingerprint
+  // the function to cache
   val buildHashOfClaim = (str: String) => str
 
   val timeout = getProperty("submission.cache.expiry", 2)
 
-  // create a cache with expiration time of 10 minutes
+  // create a cache with expiration time of the number of minutes specified by timeout
   val cache = CacheBuilder.newBuilder()
     .expireAfterWrite(timeout, TimeUnit.MINUTES)
     .build(buildHashOfClaim) //> cache  : LoadingCache[String,String]
@@ -24,7 +24,6 @@ trait SubmissionCacheService {
   def checkEnabled : Boolean = {
     val checkLabel: String = "duplicate.submission.check"
     val check = getProperty(checkLabel, default = true)
-    Logger.info(s"$checkLabel = $check")
     check
   }
 
