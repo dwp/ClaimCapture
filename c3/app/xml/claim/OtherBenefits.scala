@@ -67,7 +67,7 @@ object OtherBenefits extends XMLComponent {
               questionOther(<Frequency/>,"howOften_frequency", statutorySickPay.howOften.get.frequency, statutorySickPay.howOften.get.other)
             }}
         </Payment>
-        {if (statutorySickPay.employersName.isDefined) question(<Name/>, "employersName", statutorySickPay.employersName.get)}
+        {if (statutorySickPay.employersName.isDefined) {question(<Name/>, "employersName", statutorySickPay.employersName.get)}}
         {postalAddressStructureOpt("employersAddress", statutorySickPay.address, statutorySickPay.postCode)}
       </OtherMoneySSPDetails>
     }

@@ -13,14 +13,14 @@ object Claimant extends XMLComponent {
     <Claimant>
       {question(<Surname/>, "surname", {yourDetails.surname})}
       {question(<OtherNames/>, "firstName", yourDetails.firstName+" "+yourDetails.middleName.getOrElse(""))}
-      {question(<OtherSurnames/>,"otherNames", yourDetails.otherSurnames)}
+      {question(<OtherSurnames/>,"otherNames", yourDetails.otherSurnames.getOrElse(""))}
       {question(<Title/>, "title", yourDetails.title)}
       {question(<DateOfBirth/>,"dateOfBirth", yourDetails.dateOfBirth)}
       {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", yourDetails.nationalInsuranceNumber)}
       {postalAddressStructure("address", contactDetails.address, contactDetails.postcode)}
       {question(<DayTimePhoneNumber/>,"s2.g2.howcontactyou", contactDetails.howWeContactYou)}
       {question(<MaritalStatus/>, "maritalStatus", moreAboutYou.maritalStatus)}
-      {question(<TextPhoneContact/>,"contactYouByTextphone", contactDetails.contactYouByTextphone)}
+      {question(<TextPhoneContact/>,"contactYouByTextphone", contactDetails.contactYouByTextphone.getOrElse(""))}
     </Claimant>
   }
 }
