@@ -15,11 +15,6 @@
   font-style: normal;
 }
 
-.js-message {
-   padding: 1em 0;
-   margin: 0 auto;
-   max-width: 960px;
-   } 
 
 
 main {
@@ -199,7 +194,7 @@ main {
 
 				   ul {
 					   list-style: disc;
-					   padding: 1.2em 0 1.5em 0;
+					   padding: .5em 0 1em 0;
 					   margin: 0;
 
 					   li {
@@ -209,18 +204,12 @@ main {
 						   color: #6f777b;
 						   line-height: 1.2em;
 						   position: relative;
-						   &:before {
-							   content: "";
-							   position: absolute;
-							   width: 6px;
-							   height: 6px;
-							   background: #000;
-							   border-radius: 500px;
-							   top: 50%;
-							   left:0;
-							   margin-top: -3px;
-						   }
-						   
+						   background: url('images/dot.png') 0 center no-repeat;
+						   background-size: 6px 6px;	
+						   .ie7 &, .ie8 & {
+							   background: none;
+							   border-left: 3px solid #000;
+						   }				   
 						   &:first-child {
 							   margin: 0;
 						   }
@@ -390,7 +379,7 @@ main {
 			   &.currency {
 			   	   position: relative;
 				   input[type="text"], input[type="tel"] {
-					   width: 118px;
+					   width: 118px!important;
 					   position: relative;
 					   @media screen and (max-width: 500px) {
 						   width: 116px;
@@ -612,7 +601,7 @@ main {
 
 						   
 						   .ie8 &, .ie7 & {
-							   top: 10px;
+							   top: 12px;
 							   left: 10px;
 						   }
 						   
@@ -675,6 +664,11 @@ main {
 							   @media screen and (max-width: 480px) {
 								   display: block;
 							   }
+							   
+							   .ie7 &, .ie8 & {
+								   padding-left: 36px;
+							   }
+							   
 						   }
 					   }
 				   }
@@ -792,7 +786,7 @@ main {
 					   }
 				   }
 				   input {
-					   width: 76px;
+					   width: 76px!important;
 					   background: #fff;
 					   position: relative;
 					   .ie9 & {
@@ -800,7 +794,7 @@ main {
 					   }
 					   .ie8 &, .ie7 & {
 					   	   top: 3px;
-						   width: 60px;
+						   width: 60px!important;
 						   font-size: 14px;
 						   padding: 5px 8px;
 					   }
@@ -823,8 +817,8 @@ main {
 				 	   position: absolute;
 				 	   left: -9999px;
 			 	   }
-                   input[type="tel"],input[type="text"] {
-					   width: 81px;
+                   input, input[type="tel"], input[type="text"] {
+					   width: 81px!important;
 				   }
 			   }  
 		   
@@ -862,14 +856,14 @@ main {
 			   	   position: absolute;
 			   	   left: -9999px;
 		   	   }
-			   input[type="text"], input[type="tel"] {
-				   width: 44px;
+			   input, input[type="text"], input[type="tel"] {
+				   width: 44px!important;
 				   text-transform: uppercase;
 				   .ie7 & {
 					   width: 43px;
 				   }
 				   &.single {
-					   width: 27px;
+					   width: 27px!important;
 				   }
 				   @media screen and (max-width: 750px) {
 				   		width: 42px;
@@ -943,6 +937,7 @@ main {
 
 
 
+
 /* Footer */
 @import 'footer';
 
@@ -956,7 +951,11 @@ main {
 /* Include & Overrides */
 @import 'includes';
 
-
+.js-message {
+   padding: 1em 0;
+   background: #ccc;
+   text-align: center;
+   } 
 
 
 
