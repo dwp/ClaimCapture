@@ -52,13 +52,17 @@ object Employment extends XMLComponent{
 
     <Employer>
       {question(<DateJobStarted/>, "jobStartDate", jobDetails.jobStartDate)}
-      {question(<DateJobEnded/>, "lastWorkDate",jobDetails.lastWorkDate)}
+      {if(jobDetails.lastWorkDate.isDefined){
+        {question(<DateJobEnded/>, "lastWorkDate",jobDetails.lastWorkDate)}
+      }}
       {question(<JobType/>,s"jobTitle.${if (jobDetails.finishedThisJob == "yes") "past" else "present"}", job.title)}
       {question(<ClockPayrollNumber/>,"payrollEmployeeNumber", jobDetails.payrollEmployeeNumber)}
       {question(<Name/>, "employerName", jobDetails.employerName)}
       {postalAddressStructure("address", employerContactDetails.address, employerContactDetails.postcode)}
       {question(<EmployersPhoneNumber/>,"phoneNumber", employerContactDetails.phoneNumber)}
-      {question(<P45LeavingDate/>, "p45LeavingDate", jobDetails.p45LeavingDate)}
+      {if(jobDetails.p45LeavingDate.isDefined){
+        {question(<P45LeavingDate/>, "p45LeavingDate", jobDetails.p45LeavingDate)}
+      }}
     </Employer>
   }
 

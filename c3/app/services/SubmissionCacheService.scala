@@ -10,7 +10,7 @@ object SubmissionCacheService {
   // the function to cache - str is already the encrypted fingerprint
   val buildHashOfClaim = (str: String) => str
 
-  val timeout = getProperty("submission.cache.expiry", 10)
+  val timeout = getProperty("submission.cache.expiry", 2)
 
   // create a cache with expiration time of 10 minutes
   val cache = CacheBuilder.newBuilder()

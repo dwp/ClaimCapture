@@ -24,7 +24,6 @@
                     <th class="desc">@Html(Messages("where"))</th>
                     <th class="desc">@Html(Messages("why"))</th>
                     <th></th>
-                    <th></th>
                 </tr>
             </thead>
 
@@ -56,8 +55,9 @@
                             case _ =>
                         }}
                     </td>
-                    <td><input id="iteration-@{currentIteration + 1}-change" name="changerow" type="button" class="button row secondary" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))"></td>
-                    <td><input id="iteration-@{currentIteration + 1}-delete" name="deleterow" type="button" class="button row warning" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))"></td>
+                    <td>
+                    <input id="iteration-@{currentIteration + 1}-change" name="changerow" type="button" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))">
+                    <input id="iteration-@{currentIteration + 1}-delete" name="deleterow" type="button" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))"></td>
                 </tr>
             }
             </tbody>

@@ -19,14 +19,16 @@ object Caree extends XMLComponent {
       {question(<OtherNames/>, "firstName", theirPersonalDetails.firstName+" "+ theirPersonalDetails.middleName.getOrElse(""))}
       {question(<Title/>, "title", theirPersonalDetails.title)}
       {question(<DateOfBirth/>, "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`)}
-      {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", theirPersonalDetails.nationalInsuranceNumber)}
+      {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", theirPersonalDetails.nationalInsuranceNumber.getOrElse(""))}
       {postalAddressStructure("address", theirContactDetails.address, theirContactDetails.postcode)}
       {question(<DayTimePhoneNumber/>,"phoneNumber", theirContactDetails.phoneNumber)}
       {question(<RelationToClaimant/>,"relationship", theirPersonalDetails.relationship)}
       {question(<Cared35Hours/>,"hours.answer", moreAboutTheCare.spent35HoursCaring)}
       {careBreak(claim)}
       {question(<Cared35HoursBefore/>,"beforeClaimCaring.answer", moreAboutTheCare.spent35HoursCaringBeforeClaim.answer)}
-      {question(<DateStartCaring/>,"beforeClaimCaring_date", moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}
+      {if(moreAboutTheCare.spent35HoursCaringBeforeClaim.date.isDefined){
+        {question(<DateStartCaring/>,"beforeClaimCaring_date", moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}
+      }}
       {question(<LiveSameAddress/>,"liveAtSameAddressCareYouProvide", theirPersonalDetails.liveAtSameAddressCareYouProvide)}
       {question(<ArmedForcesIndependencePayment/>,"armedForcesPayment", theirPersonalDetails.armedForcesPayment)}
     </Caree>

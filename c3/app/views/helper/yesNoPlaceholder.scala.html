@@ -15,14 +15,7 @@
 
 @boltonClass = @{ args.toMap.get('_boltonClass).getOrElse("") }
 
-@if(isEmployed){
-    @radioEmploymentConstraintRequired(field, args:_*)
-}
-@if(isSelfEmployed) {
-    @radioSelfEmploymentConstraintRequired(field, args:_*)
-} else {
-    @radioConstraintRequired(field, args:_*)
-}
+@radioConstraintRequired(field, args:_*)
 
 <ul class="radio @{boltonClass}" id="@CarersCrypto.encryptAES(field.id)">
     @carersRadio(field, options, args:_*)

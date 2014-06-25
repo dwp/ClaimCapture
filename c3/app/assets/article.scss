@@ -15,11 +15,15 @@
 	}
 	
 	h3 {
-		margin-top: 2em;
+		margin: 2em 0 .5em 0;
 	}
 	
 	a {
 		display: inline-block;
+	}
+	
+	p {
+		margin: 0;
 	}
 	
 	
@@ -116,11 +120,11 @@ article {
    	   
    	   	   /* section header */		   	
 		   h1 {
-			   font-size: 40px;
+			   font-size: 36px;
 			   font-weight: 700;
 			   line-height: 1.2em;
 			   @media screen and (max-width: 600px) {
-				   font-size: 32px;
+				   font-size: 30px;
 			   }
 		   }
 
@@ -196,6 +200,11 @@ article {
 	   ul {
 		   margin: 0;
 		   padding: 0;
-		   list-style: none;
+		   list-style: none;	 
 	   }
+	   
+	   
+	  
+	   
+	   
    }

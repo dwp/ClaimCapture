@@ -56,7 +56,9 @@ object Residency extends XMLComponent{
           {question(<DateFrom/>, "start.trip", trip.start)}
           {question(<DateTo/>, "end.trip", trip.end)}
          </Period>
-        {questionOther(<Reason/>, "why", trip.why.get.reason, trip.why.get.other)}
+        {if(trip.why.isDefined){
+          {questionOther(<Reason/>, "why", trip.why.get.reason, trip.why.get.other)}
+        }}
         {question(<Country/>, "where", trip.where)}
         {question(<CareePresent/>, "personWithYou", trip.personWithYou)}
       </PeriodAbroad>

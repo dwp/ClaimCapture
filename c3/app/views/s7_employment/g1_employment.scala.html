@@ -3,52 +3,38 @@
 @import scala.language.postfixOps
 @import helper._
 @import utils.helpers.CarersCrypto
-
 @import play.api.i18n.{MMessages => Messages}
+
+@bulletsConstructor(label: String, maxBullets: Int) = @{
+    for(i<-1 to maxBullets) yield label+i
+}
+
+@bulletsSelfEmployed = @{
+    bulletsConstructor("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label.helper.l", 4)
+}
+
+@bulletsEmployed = @{
+    bulletsConstructor("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper.l", 6)
+}
+
 @main(Messages("s7.g1") + "  " + Messages("s7.longName"), Some(employmentForm)) {
     @form(action = controllers.s7_employment.routes.G1Employment.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s7.g1"))</legend>
-	        
-	            <div class="prompt helper-prompt">
-	                <p class="intro">
-	                @Html(Messages("s7.g1.help1"))
-	                </p>
-	        
-	                <ul>
-	                <li>@Html(Messages("s7.g1.help2"))</li>
-	                <li>@Html(Messages("s7.g1.help3"))</li>
-	                <li>@Html(Messages("s7.g1.help4"))</li>
-	                <li>@Html(Messages("s7.g1.help5"))</li>
-	                <li>@Html(Messages("s7.g1.help6"))</li>
-	                <li>@Html(Messages("s7.g1.help7"))</li>
-	                <li>@Html(Messages("s7.g1.help8"))</li>
-	                </ul>
-	        
-	        
-	                <p class="intro">
-	                @Html(Messages("s7.g1.help9"))
-	                </p>
-	        
-	                <ul>
-	                <li>@Html(Messages("s7.g1.help10"))</li>
-	                <li>@Html(Messages("s7.g1.help11"))</li>
-	                <li>@Html(Messages("s7.g1.help12"))</li>
-	                <li>@Html(Messages("s7.g1.help13"))</li>
-	                </ul>
-	            </div>
+
 	        
 	            <ul>
                     @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
                         '_label -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", (claim.dateOfClaim.get - 1 week) `dd/MM/yyyy`),
-                        'selfEmployed -> true,
-                        'helperAbove -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label.helper"))
+                        'helperAbove -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label.helper"),
+                        'bullets -> bulletsSelfEmployed)
 
                     @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
                         '_label -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label", (claim.dateOfClaim.get - 6 months) `dd/MM/yyyy`),
-                        'employed -> true,
-                        'helperAbove -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper"))
+                        'helperAbove -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper"),
+                        'bullets -> bulletsEmployed,
+                        'paragraph -> "aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper.p")
 	        
 	            </ul>
 	        </fieldset>

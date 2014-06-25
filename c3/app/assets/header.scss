@@ -44,7 +44,7 @@ header {
 				color: #fff;
 				font-size: 24px;
 				padding-top: 2px;
-				@media screen and (max-width: 500px) {
+				@media screen and (max-width: 600px) {
 					font-size: 18px;
 				}
 				span {
@@ -57,7 +57,7 @@ header {
 					padding: 5px 6px 2px 6px;
 					position: relative;
 					top: -1px;
-					@media screen and (max-width: 500px) {
+					@media screen and (max-width: 600px) {
 						font-size: 14px;
 					}
 				}
@@ -85,7 +85,7 @@ header {
 					display: inline-block;
 					&.help {
 						display: none;
-						@media screen and (max-width: 480px) {
+						@media screen and (max-width: 600px) {
 							display: block;
 							position: absolute;
 							top: 20px;
@@ -104,6 +104,5 @@ header {
 				}
 			}
 		}
-		
 	}
 }

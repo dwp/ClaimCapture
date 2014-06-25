@@ -12,7 +12,24 @@
   <legend @if(nestedFieldSet) {class="nestedLabel"}>
     @carersLabelText(field,args:_*)
   </legend>
-  @if(args.find(_._1=='helperAbove).isDefined){
-    <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
+  @if(args.find(_._1=='bullets).isDefined){
+
+      <div class="employment-info">
+        @if(args.find(_._1=='helperAbove).isDefined){
+          <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
+        }
+        <ul>
+          @for(bullet <- args.find(_._1=='bullets).getOrElse('bullets->Seq.empty[String])._2.asInstanceOf[Seq[String]]) {
+            <li> @Html(Messages(bullet))</li>
+          }
+        </ul>
+          @if(args.find(_._1=='paragraph).isDefined){
+              <p>@Html(Messages(args.find(_._1=='paragraph).getOrElse('paragraph->"")._2.toString()))</p>
+          }
+      </div>
+  } else {
+    @if(args.find(_._1=='helperAbove).isDefined){
+      <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
+    }
   }
 }
