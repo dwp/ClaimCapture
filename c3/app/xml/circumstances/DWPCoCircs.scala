@@ -18,6 +18,7 @@ object DWPCoCircs {
       {PaymentChange.xml(circs)}
       {SelfEmployment.xml(circs)}
       {OtherChanges.xml(circs)}
+      {EmploymentChange.xml(circs)}
       {Declaration.xml(circs)}
       {Consents.xml(circs)}
     </DWPCAChangeOfCircumstances>

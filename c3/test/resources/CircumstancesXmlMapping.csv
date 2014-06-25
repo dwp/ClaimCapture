@@ -40,19 +40,19 @@ Breaks from caring - change in circumstances,Breaks from caring,Did you or the p
 Breaks from caring - change in circumstances,Breaks from caring,Tell us more about your changes,BreaksInCareMoreAboutChanges,DWPCAChangeOfCircumstances>BreakFromCaring>MoreChanges>Answer
 Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks from caring that you have not already reported to us?,BreaksInCareSummaryAdditionalBreaks,DWPCAChangeOfCircumstances>BreakFromCaring>AdditionalBreaksNotReported>Answer
 Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks from caring that you have not already reported to us?Yes,BreaksInCareSummaryAdditionalBreaksInfo,DWPCAChangeOfCircumstances>BreakFromCaring>AdditionalBreaksNotReportedDesc>Answer
-Employment Changes - Change in circumstances,Employment,Are you still caring 35 hours or more each week?,CircumstancesEmploymentChangeStillCaring,
-Employment Changes - Change in circumstances,Employment,What date did you stop caring 35 hours a week?,CircumstancesEmploymentChangeFinishedStillCaringDate,
-Employment Changes - Change in circumstances,Employment,Has this work started yet?,CircumstancesEmploymentChangeHasWorkStartedYet,
-Employment Changes - Change in circumstances,Employment,When did you start this work?,CircumstancesEmploymentChangeDateWhenStarted,
-Employment Changes - Change in circumstances,Employment,When will you start this work?,CircumstancesEmploymentChangeDateWhenWillItStart,
-Employment Changes - Change in circumstances,Employment,Has this work finished?,CircumstancesEmploymentChangeHasWorkFinishedYet,
-Employment Changes - Change in circumstances,Employment,When will you start this work?,CircumstancesEmploymentChangeDateWhenFinished,
-Employment Changes - Change in circumstances,Employment,What type of work is this?,CircumstancesEmploymentChangeTypeOfWork,
-Employment Changes - Change in circumstances,Employment,Type of work or business,CircumstancesEmploymentChangeSelfEmployedTypeOfWork,
-Employment Changes - Change in circumstances,Employment,Will the total income into your business be more than £102 a week?,CircumstancesEmploymentChangeSelfEmployedTotalIncome,
-Employment Changes - Change in circumstances,Employment,Tell us more about your changes,CircumstancesEmploymentChangeSelfEmployedMoreAboutChanges,
-Employment Changes - Change in circumstances,Employment,Employer's name and address,CircumstancesEmploymentChangeEmployerNameAndAddress,
-Employment Changes - Change in circumstances,Employment,Postcode,CircumstancesEmploymentChangeEmployerPostcode,
+Employment Changes - Change in circumstances,Employment,Are you still caring 35 hours or more each week?,CircumstancesEmploymentChangeStillCaring,DWPCAChangeOfCircumstances>EmploymentChange>StillCaring>Answer
+Employment Changes - Change in circumstances,Employment,What date did you stop caring 35 hours a week?,CircumstancesEmploymentChangeFinishedStillCaringDate,DWPCAChangeOfCircumstances>EmploymentChange>DateStoppedCaring>Answer
+Employment Changes - Change in circumstances,Employment,Has this work started yet?,CircumstancesEmploymentChangeHasWorkStartedYet,DWPCAChangeOfCircumstances>EmploymentChange>HasWorkStartedYet>Answer
+Employment Changes - Change in circumstances,Employment,When did you start this work?,CircumstancesEmploymentChangeDateWhenStarted,DWPCAChangeOfCircumstances>EmploymentChange>DateWorkedStarted>Answer
+Employment Changes - Change in circumstances,Employment,When will you start this work?,CircumstancesEmploymentChangeDateWhenWillItStart,DWPCAChangeOfCircumstances>EmploymentChange>DateWhenWillWorkStart>Answer
+Employment Changes - Change in circumstances,Employment,Has this work finished?,CircumstancesEmploymentChangeHasWorkFinishedYet,DWPCAChangeOfCircumstances>EmploymentChange>HasWorkFinishedYet>Answer
+Employment Changes - Change in circumstances,Employment,When will you start this work?,CircumstancesEmploymentChangeDateWhenFinished,DWPCAChangeOfCircumstances>EmploymentChange>DateWorkedStarted>DateWorkedFinished>Answer
+Employment Changes - Change in circumstances,Employment,What type of work is this?,CircumstancesEmploymentChangeTypeOfWork,DWPCAChangeOfCircumstances>EmploymentChange>TypeOfWork>Answer
+Employment Changes - Change in circumstances,Employment,Type of work or business,CircumstancesEmploymentChangeSelfEmployedTypeOfWork,DWPCAChangeOfCircumstances>EmploymentChange>SelfEmployment>TypeOfSelfEmployment>Answer
+Employment Changes - Change in circumstances,Employment,Will the total income into your business be more than £102 a week?,CircumstancesEmploymentChangeSelfEmployedTotalIncome,DWPCAChangeOfCircumstances>EmploymentChange>SelfEmployment>TotalIncome>Answer
+Employment Changes - Change in circumstances,Employment,Tell us more about your changes,CircumstancesEmploymentChangeSelfEmployedMoreAboutChanges,DWPCAChangeOfCircumstances>EmploymentChange>SelfEmployment>MoreAboutChanges>Answer
+Employment Changes - Change in circumstances,Employment,Employer's name and address,CircumstancesEmploymentChangeEmployerNameAndAddress,DWPCAChangeOfCircumstances>EmploymentChange>StartedEmploymentAndOngoing>Address>Answer>Line
+Employment Changes - Change in circumstances,Employment,Postcode,CircumstancesEmploymentChangeEmployerPostcode,DWPCAChangeOfCircumstances>EmploymentChange>StartedEmploymentAndOngoing>Address>Answer>PostCode
 Employment Changes - Change in circumstances,Employment,Employer's contact number,CircumstancesEmploymentChangeEmployerContactNumber,
 Employment Changes - Change in circumstances,Employment,Payroll or employee number,CircumstancesEmploymentChangeEmployerPayroll,
 Employment - Change in circumstances,Employment,Have you been paid yet?,CircumstancesEmploymentChangeBeenPaidYet,

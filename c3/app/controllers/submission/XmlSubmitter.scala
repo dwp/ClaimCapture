@@ -6,6 +6,7 @@ import play.api.mvc.{AnyContent, Request}
 import xml.DWPBody
 import models.view.CachedClaim._
 import models.domain.Claim
+import play.api.Logger
 
 object XmlSubmitter {
   val transactionID = "TEST432"
@@ -18,7 +19,10 @@ object XmlSubmitter {
       val fullXmlString = fullXml.buildString(stripComments = true)
       validator.validate(fullXmlString) match {
         case true => claim -> Ok(fullXml.buildString(stripComments = false))
-        case false => claim -> Ok("Failed validation")
+        case false => claim -> {
+          Logger.debug(fullXmlString)
+          Ok("Failed validation")
+        }
       }
     } else {
      claim -> Ok(fullXml.buildString(stripComments = false))
