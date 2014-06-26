@@ -33,7 +33,7 @@ object EmploymentChange {
                 buff = buff ++ question(<DateWorkedStarted/>, "hasWorkStartedYet.dateWhenStarted", circsEmploymentChange.hasWorkStartedYet.date1.get)
                 buff = buff ++ question(<HasWorkFinishedYet/>, "hasWorkFinishedYet.answer", circsEmploymentChange.hasWorkFinishedYet.answer.get)
                 circsEmploymentChange.hasWorkFinishedYet.answer.get match {
-                  case "yes" => buff = buff ++ {question(<DateWorkedStarted/>, "hasWorkFinishedYet.dateWhenFinished",circsEmploymentChange.hasWorkFinishedYet.date.get)}
+                  case "yes" => buff = buff ++ {question(<DateWorkedFinished/>, "hasWorkFinishedYet.dateWhenFinished",circsEmploymentChange.hasWorkFinishedYet.date.get)}
                   case _ => buff = buff ++ NodeSeq.Empty
                 }
                 buff
