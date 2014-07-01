@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
-import utils.pageobjects.{PageObjects, TestData}
+import utils.pageobjects.PageObjects
 
 class G8AboutExpensesIntegrationSpec extends Specification with Tags {
   "About expenses" should {
@@ -19,33 +19,9 @@ class G8AboutExpensesIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
       page submitPage() match {
-        case p: G9NecessaryExpensesPage => p numberSectionsCompleted()  mustEqual 1
+        case p: G2BeenEmployedPage => p numberSectionsCompleted()  mustEqual 2
         case _ => ko("Next Page is not of the right type.")
       }
-    }
-
-    "go to childcare" in new WithBrowser with PageObjects{
-			val page =  G8AboutExpensesPage(context)
-      val claim = new TestData
-      claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1= "no"
-      claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1= "yes"
-      claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1= "yes"
-
-      page goToThePage()
-      page fillPageWith claim
-      page submitPage() must beAnInstanceOf[G10ChildcareExpensesPage]
-    }
-
-    "go to care" in new WithBrowser with PageObjects{
-			val page =  G8AboutExpensesPage(context)
-      val claim = new TestData
-      claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1= "no"
-      claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1= "no"
-      claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1= "yes"
-
-      page goToThePage()
-      page fillPageWith claim
-      page submitPage() must beAnInstanceOf[G12PersonYouCareForExpensesPage]
     }
 
     "be able to navigate back to a completed form" in new WithBrowser  with PageObjects{

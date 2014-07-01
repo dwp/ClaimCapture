@@ -15,7 +15,7 @@ object Employment {
     <Employer>
       {<DateJobStarted/> +++ Some(jobDetails.jobStartDate)}
       {<DateJobEnded/> +++ jobDetails.lastWorkDate}
-      <JobType>{job.title}</JobType>
+      <JobType>{NotAsked}</JobType>
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
       <Address>{postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}</Address>
@@ -104,13 +104,14 @@ object Employment {
 
   def jobExpensesXml(job: Job) = {
     val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
-    val necessaryExpenses: NecessaryExpenses = job.questionGroup[NecessaryExpenses].getOrElse(NecessaryExpenses())
-    val showXml = aboutExpenses.payForAnythingNecessary == "yes"
+    val showXml = aboutExpenses.haveExpensesForJob == "yes"
 
     if (showXml) {
-      <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
+
+
+      <PaidForJobExpenses>{aboutExpenses.haveExpensesForJob}</PaidForJobExpenses>
       <JobExpenses>
-        <Expense>{necessaryExpenses.whatAreThose}</Expense>
+        <Expense>{aboutExpenses.whatExpensesForJob.get}</Expense>
         <Reason>{NotAsked}</Reason>
         <WeeklyPayment>
           <Currency></Currency>
@@ -118,29 +119,28 @@ object Employment {
         </WeeklyPayment>
       </JobExpenses>
     } else {
-      <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
+      <PaidForJobExpenses>{aboutExpenses.haveExpensesForJob}</PaidForJobExpenses>
     }
   }
 
   def childcareExpensesXml(job: Job) = {
     val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
-    val childcareExpenses: ChildcareExpenses = job.questionGroup[ChildcareExpenses].getOrElse(ChildcareExpenses())
     val showXml = aboutExpenses.payAnyoneToLookAfterChildren == yes
 
     if (showXml) {
       <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
       <ChildCareExpenses>
-        <CarerName>{childcareExpenses.whoLooksAfterChildren}</CarerName>
+        <CarerName>{aboutExpenses.nameLookAfterChildren.get}</CarerName>
         <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
         <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>
           <Currency></Currency>
           <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
-        <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
+        <RelationshipCarerToClaimant>{other}</RelationshipCarerToClaimant>
         <ChildDetails>
           <Name>{NotAsked}</Name>
-          <RelationToChild>{childcareExpenses.relationToPersonYouCare}</RelationToChild>
+          <RelationToChild>{other}</RelationToChild>
         </ChildDetails>
       </ChildCareExpenses>
     } else {
@@ -150,22 +150,21 @@ object Employment {
 
   def careExpensesXml(job: Job) = {
     val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
-    val personYouCareExpenses: PersonYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses].getOrElse(PersonYouCareForExpenses())
 
     val showXml = aboutExpenses.payAnyoneToLookAfterPerson == yes
 
     if (showXml) {
       <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
       <CareExpenses>
-        <CarerName>{personYouCareExpenses.whoDoYouPay}</CarerName>
+        <CarerName>{aboutExpenses.nameLookAfterPerson.get}</CarerName>
         <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
         <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>
           <Currency></Currency>
           <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
-        <RelationshipCarerToClaimant>{personYouCareExpenses.relationToYou}</RelationshipCarerToClaimant>
-        <RelationshipCarerToCaree>{personYouCareExpenses.relationToPersonYouCare}</RelationshipCarerToCaree>
+        <RelationshipCarerToClaimant>{other}</RelationshipCarerToClaimant>
+        <RelationshipCarerToCaree>{other}</RelationshipCarerToCaree>
       </CareExpenses>
     } else {
       <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>

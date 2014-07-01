@@ -53,7 +53,7 @@ object AssistedDecision {
           //          Logger.debug("Assisted decision - child expense " + job.questionGroup[ChildcareExpenses])
           //          Logger.debug("Assisted decision - Person you care expenses " + job.questionGroup[PersonYouCareForExpenses])
           //          Logger.debug("Assisted decision - Pension schemes " + job.questionGroup[PensionSchemes])
-          if (!job.questionGroup[ChildcareExpenses].isDefined && !job.questionGroup[PersonYouCareForExpenses].isDefined
+          if (!job.questionGroup[AboutExpenses].isDefined
             && (!job.questionGroup[PensionSchemes].isDefined || (job.questionGroup[PensionSchemes].get.payPersonalPensionScheme.toLowerCase != "yes" && job.questionGroup[PensionSchemes].get.payOccupationalPensionScheme.toLowerCase != "yes"))) {
             val earning = currencyAmount(lastWage.grossPay).toDouble
             //            Logger.debug("Assisted decision - Pay frequency " + job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency)

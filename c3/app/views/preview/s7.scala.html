@@ -12,7 +12,7 @@
     val aboutExpenses = job.questionGroup[AboutExpenses].get
     val pensionSchemes = job.questionGroup[PensionSchemes].get
     var elems = Seq.empty[String]
-    if(aboutExpenses.payForAnythingNecessary == "yes" || aboutExpenses.payAnyoneToLookAfterChildren == "yes" || aboutExpenses.payAnyoneToLookAfterPerson == "yes")
+    if(aboutExpenses.haveExpensesForJob == "yes" || aboutExpenses.payAnyoneToLookAfterChildren == "yes" || aboutExpenses.payAnyoneToLookAfterPerson == "yes")
         elems = elems ++ Seq(Messages("expenses"))
     if(pensionSchemes.payOccupationalPensionScheme == "yes" || pensionSchemes.payPersonalPensionScheme == "yes")
         elems = elems ++ Seq(Messages("pension schemes"))

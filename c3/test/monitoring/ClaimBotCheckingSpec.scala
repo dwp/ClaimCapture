@@ -56,28 +56,70 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
     }
 
     "returns false given NormalResidenceAndCurrentLocation honeyPot not filled (frequency not other)" in {
-      val claim = Claim().update(ChildcareExpenses(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = None)))
+      val claim = Claim().update(AboutExpenses(howOftenLookAfterChildren = Some(models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = None))))
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given ChildcareExpenses honeyPot not filled (frequency other and text entered)" in {
-      val jobs = new Jobs().update(createJob("12345", ChildcareExpenses(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other, other = Some("other text")))))
+    /************* start childcare ********************/
+
+    "returns false given AboutExpense childcare expenses honeyPot not filled (frequency other and text entered)" in {
+      val aboutExpenses = AboutExpenses(
+        haveExpensesForJob = "no",
+        payAnyoneToLookAfterChildren = "yes",
+        payAnyoneToLookAfterPerson = "no",
+        nameLookAfterChildren = Some("Jane Doe"),
+        howMuchLookAfterChildren = Some("125.40"),
+        relationToYouLookAfterChildren = Some("none"),
+        relationToPersonLookAfterChildren = Some("some relation"),
+        howOftenLookAfterChildren = Some(models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other,
+        other = Some("other text"))))
+
+      val jobs = new Jobs().update(createJob("12345", aboutExpenses))
       val claim = Claim().update(jobs)
 
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given ChildcareExpenses honeyPot filled (frequency not other and text entered)" in {
-      val jobs = new Jobs().update(createJob("12345", ChildcareExpenses(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text")))))
-      val claim = Claim().update(jobs)
+    "returns true given AboutExpense childcare expenses honeyPot filled (frequency not other and text entered)" in {
+      val aboutExpenses = AboutExpenses(
+        haveExpensesForJob = "no",
+        payAnyoneToLookAfterChildren = "yes",
+        payAnyoneToLookAfterPerson = "no",
+        nameLookAfterChildren = Some("Jane Doe"),
+        howMuchLookAfterChildren = Some("125.40"),
+        relationToYouLookAfterChildren = Some("none"),
+        relationToPersonLookAfterChildren = Some("some relation"),
+        howOftenLookAfterChildren = Some(models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Monthly,
+          other = Some("other text"))))
 
+      val jobs = new Jobs().update(createJob("12345", aboutExpenses))
+      val claim = Claim().update(jobs)
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns true given ChildcareExpenses honeyPot filled (frequency not other and text entered) for more than one job" in {
+    "returns true given AboutExpenses childcare expenses honeyPot filled (frequency not other and text entered) for more than one job" in {
+      val childCareExpense =
+        AboutExpenses(
+          haveExpensesForJob = "no",
+          payAnyoneToLookAfterChildren = "yes",
+          payAnyoneToLookAfterPerson = "no",
+          nameLookAfterChildren = Some("Jane Doe"),
+          howMuchLookAfterChildren = Some("125.40"),
+          relationToYouLookAfterChildren = Some("none"),
+          relationToPersonLookAfterChildren = Some("some relation"),
+          howOftenLookAfterChildren = Some(models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other,
+            other = Some("other text"))))
 
-      val childCareExpense = ChildcareExpenses(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other, other = Some("other text")))
-      val childCareExpenseWithHoneyPot = ChildcareExpenses(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text")))
+      val childCareExpenseWithHoneyPot = AboutExpenses(
+        haveExpensesForJob = "no",
+        payAnyoneToLookAfterChildren = "yes",
+        payAnyoneToLookAfterPerson = "no",
+        nameLookAfterChildren = Some("Jane Doe"),
+        howMuchLookAfterChildren = Some("125.40"),
+        relationToYouLookAfterChildren = Some("none"),
+        relationToPersonLookAfterChildren = Some("some relation"),
+        howOftenLookAfterChildren = Some(models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Monthly,
+          other = Some("other text"))))
 
       val jobs = new Jobs().update(createJob("12345", childCareExpense)).update(createJob("123456", childCareExpense)).update(createJob("1234567", childCareExpenseWithHoneyPot)).update(createJob("12345678", childCareExpense)).update(createJob("123456789", childCareExpenseWithHoneyPot))
       val claim = Claim().update(jobs)
@@ -85,36 +127,88 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns false given PersonYouCareForExpenses honeyPot not filled (frequency not other)" in {
-      val jobs = new Jobs().update(createJob("12345", PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = None))))
+    "returns false given AboutExpenses personYouCareFor expenses honeyPot not filled (frequency not other)" in {
+      val aboutExpenses = AboutExpenses(
+        haveExpensesForJob = "no",
+        payAnyoneToLookAfterChildren = "no",
+        payAnyoneToLookAfterPerson = "yes",
+        nameLookAfterPerson= Some("Jane Doe"),
+        howMuchLookAfterPerson = Some("125.40"),
+        relationToYouLookAfterPerson = Some("none"),
+        relationToPersonLookAfterPerson = Some("some relation"),
+        howOftenLookAfterPerson = Some(models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Monthly,
+          other = None)))
+      val jobs = new Jobs().update(createJob("12345", aboutExpenses))
       val claim = Claim().update(jobs)
 
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given PersonYouCareForExpenses honeyPot not filled (frequency other and text entered)" in {
-      val jobs = new Jobs().update(createJob("12345", PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other, other = Some("other text")))))
+    "returns false given AboutExpenses personYouCareFor expenses honeyPot not filled (frequency other and text entered)" in {
+      val aboutExpenses =
+        AboutExpenses(
+          haveExpensesForJob = "no",
+          payAnyoneToLookAfterChildren = "no",
+          payAnyoneToLookAfterPerson = "yes",
+          nameLookAfterPerson = Some("Jane Doe"),
+          howMuchLookAfterPerson = Some("125.40"),
+          relationToYouLookAfterPerson = Some("none"),
+          relationToPersonLookAfterPerson = Some("some relation"),
+          howOftenLookAfterPerson = Some(models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other,
+            other = Some("other text"))))
+      val jobs = new Jobs().update(createJob("12345", aboutExpenses))
       val claim = Claim().update(jobs)
 
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given PersonYouCareForExpenses honeyPot filled (frequency not other and text entered)" in {
-      val jobs = new Jobs().update(createJob("12345", PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text")))))
+    "returns true given AboutExpenses personYouCareFor expenses honeyPot filled (frequency not other and text entered)" in {
+      val aboutExpenses =
+        AboutExpenses(
+          haveExpensesForJob = "no",
+          payAnyoneToLookAfterChildren = "no",
+          payAnyoneToLookAfterPerson = "yes",
+          nameLookAfterPerson = Some("Jane Doe"),
+          howMuchLookAfterPerson = Some("125.40"),
+          relationToYouLookAfterPerson = Some("none"),
+          relationToPersonLookAfterPerson = Some("some relation"),
+          howOftenLookAfterPerson = Some(models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly,
+            other = Some("other text"))))
+      val jobs = new Jobs().update(createJob("12345", aboutExpenses))
       val claim = Claim().update(jobs)
 
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns true given PersonYouCareForExpenses honeyPot filled (frequency not other and text entered) for more than one job" in {
-      val personYouCareForExpenses = PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other, other = Some("other text")))
-      val personYouCareForExpensesWithHoneyPot = PersonYouCareForExpenses(howOftenPayCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text")))
+    "returns true given AboutExpenses personYouCareFor expenses honeyPot filled (frequency not other and text entered) for more than one job" in {
+      val personYouCareForExpenses =   AboutExpenses(
+        haveExpensesForJob = "no",
+        payAnyoneToLookAfterChildren = "no",
+        payAnyoneToLookAfterPerson = "yes",
+        nameLookAfterPerson = Some("Jane Doe"),
+        howMuchLookAfterPerson = Some("125.40"),
+        relationToYouLookAfterPerson = Some("none"),
+        relationToPersonLookAfterPerson = Some("some relation"),
+        howOftenLookAfterPerson = Some(models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other,
+          other = Some("other text"))))
+      val personYouCareForExpensesWithHoneyPot =  AboutExpenses(
+        haveExpensesForJob = "no",
+        payAnyoneToLookAfterChildren = "no",
+        payAnyoneToLookAfterPerson = "yes",
+        nameLookAfterPerson = Some("Jane Doe"),
+        howMuchLookAfterPerson = Some("125.40"),
+        relationToYouLookAfterPerson = Some("none"),
+        relationToPersonLookAfterPerson = Some("some relation"),
+        howOftenLookAfterPerson = Some(models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly,
+          other = Some("other text"))))
 
       val jobs = new Jobs().update(createJob("12345", personYouCareForExpenses)).update(createJob("123456", personYouCareForExpenses)).update(createJob("1234567", personYouCareForExpensesWithHoneyPot)).update(createJob("12345678", personYouCareForExpenses)).update(createJob("123456789", personYouCareForExpensesWithHoneyPot))
       val claim = Claim().update(jobs)
 
       controller.honeyPot(claim) should beTrue
     }
+
+    /************* end about expenses related *****************/
 
     "returns false given ChildcareExpensesWhileAtWork honeyPot not filled (frequency not other)" in {
       val claim = Claim().update(ChildcareExpensesWhileAtWork(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = None)))

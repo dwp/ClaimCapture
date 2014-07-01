@@ -153,15 +153,6 @@ POST          /employment/pension-schemes                                     co
 GET           /employment/about-expenses/:jobID                               controllers.s7_employment.G8AboutExpenses.present(jobID: String)
 POST          /employment/about-expenses                                      controllers.s7_employment.G8AboutExpenses.submit
 
-GET           /employment/necessary-expenses/:jobID                           controllers.s7_employment.G9NecessaryExpenses.present(jobID: String)
-POST          /employment/necessary-expenses                                  controllers.s7_employment.G9NecessaryExpenses.submit
-
-GET           /employment/childcare-expenses/:jobID                           controllers.s7_employment.G10ChildcareExpenses.present(jobID: String)
-POST          /employment/childcare-expenses                                  controllers.s7_employment.G10ChildcareExpenses.submit
-
-GET           /employment/person-you-care-for-expenses/:jobID                 controllers.s7_employment.G12PersonYouCareForExpenses.present(jobID: String)
-POST          /employment/person-you-care-for-expenses                        controllers.s7_employment.G12PersonYouCareForExpenses.submit
-
 # Self-employment
 ###############
 GET           /self-employment/about-self-employment                          controllers.s8_self_employment.G1AboutSelfEmployment.present

@@ -109,7 +109,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val job1 = Job("12", List(lastWage1, additionalWage1))
       val lastWage2 = LastWage(jobID = "13", grossPay = "200.04", sameAmountEachTime = Some("yes"))
       val additionalWage2 = AdditionalWageDetails(jobID = "13", oftenGetPaid = PaymentFrequency(StatutoryPaymentFrequency.FourWeekly))
-      val expense2 = ChildcareExpenses(jobID = "13", howMuchCostChildcare = "2")
+      val expense2 = AboutExpenses(jobID = "13", howMuchLookAfterChildren = Some("2"))
       val job2 = Job("13", List(lastWage2, additionalWage2, expense2))
       val jobs = Jobs(List(job1, job2))
       val claim = Claim().update(moreAboutTheCare).update(jobs)
