@@ -5,8 +5,9 @@ import play.api.test.{FakeApplication, WithBrowser}
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
 import services.submission.MockInjector
+import monitor.HealthMonitor
 
-class HealthMonitorSpec extends Specification with MockInjector {
+class HealthC3MonitorSpec extends Specification with MockInjector {
   "Health Monitor" should {
     "must report a healthy database" in new WithBrowser with PageObjects {
       val page = G1BenefitsPage(context)

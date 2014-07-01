@@ -1,5 +1,6 @@
 import app.ConfigProperties._
 import java.net.InetAddress
+import monitor.MonitorFilter
 import monitoring._
 import org.slf4j.MDC
 import play.api._
@@ -13,7 +14,7 @@ import services.mail.EmailActors
 import utils.helpers.CarersLanguageHelper
 import utils.Injector
 
-object Global extends WithFilters(MonitorFilter) with Injector with CarersLanguageHelper with MonitorRegistration {
+object Global extends WithFilters(MonitorFilter) with Injector with CarersLanguageHelper with C3MonitorRegistration {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))

@@ -14,7 +14,8 @@ import scala.language.existentials
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.libs.ws.Response
 import ExecutionContext.Implicits.global
-import monitoring.{HealthMonitor, ProdHealthMonitor, ClaimTransactionCheck}
+import monitoring.{ProdHealthMonitor, ClaimTransactionCheck}
+import monitor.HealthMonitor
 
 trait Injector {
 
