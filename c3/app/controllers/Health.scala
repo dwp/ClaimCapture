@@ -3,11 +3,11 @@ package controllers
 import play.api.mvc.{Controller, Action}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import monitoring.HealthMonitor
 import play.api.Logger
 import play.api.libs.json._
 import com.codahale.metrics.health.HealthCheck
 import utils.Injector
+import monitor.HealthMonitor
 
 trait HealthController extends Injector {
   this: Controller =>

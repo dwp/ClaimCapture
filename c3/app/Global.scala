@@ -1,5 +1,6 @@
 import app.ConfigProperties._
 import java.net.InetAddress
+import monitor.MonitorFilter
 import monitoring._
 import org.slf4j.MDC
 import play.api._
@@ -12,8 +13,9 @@ import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.helpers.CarersLanguageHelper
 import utils.Injector
+import play.api.Play.current
 
-object Global extends WithFilters(MonitorFilter) with Injector with CarersLanguageHelper with MonitorRegistration {
+object Global extends WithFilters(MonitorFilter) with Injector with CarersLanguageHelper with C3MonitorRegistration {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
@@ -32,7 +34,6 @@ object Global extends WithFilters(MonitorFilter) with Injector with CarersLangua
     actorSystems()
 
     registerReporters()
-
     registerHealthChecks()
 
     Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}") // used for operations, do not remove

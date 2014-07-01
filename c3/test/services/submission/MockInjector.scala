@@ -7,8 +7,9 @@ import controllers.s11_consent_and_declaration.G5Submit
 import controllers.circs.s3_consent_and_declaration.G1Declaration
 import monitoring._
 import utils.Injector
+import monitor.HealthMonitor
 
-trait MockInjector extends Injector with MonitorRegistration {
+trait MockInjector extends C3MonitorRegistration with Injector {
   // used to create different test conditions
   var txnId: String = ""
 
