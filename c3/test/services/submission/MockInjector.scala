@@ -9,7 +9,7 @@ import monitoring._
 import utils.Injector
 import monitor.HealthMonitor
 
-trait MockInjector extends Injector with C3MonitorRegistration {
+trait MockInjector extends C3MonitorRegistration with Injector {
   // used to create different test conditions
   var txnId: String = ""
 
