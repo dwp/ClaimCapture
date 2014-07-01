@@ -4,18 +4,6 @@
 @import 'gds-colours';
 
 
-@font-face {
-  font-family: 'FontAwesome';
-  src: url('fonts/fontawesome-webfont.eot?v=3.2.1');
-  src: url('fonts/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'),
-  url('fonts/fontawesome-webfont.woff?v=3.2.1') format('woff'),
-  url('fonts/fontawesome-webfont.ttf?v=3.2.1') format('truetype'),
-  url('fonts/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-
 
 main {
 	background: #fff;
@@ -31,7 +19,6 @@ main {
 
 .carers-allowance {
    border-top: 10px solid $mainstream-brand;
-   border-bottom: 10px solid $mainstream-brand;
    background: #fff;
    padding: 0 0 4em 0;
    margin: 0 auto;
@@ -957,5 +944,68 @@ main {
    text-align: center;
    } 
 
+
+
+.data-table {
+
+	margin-bottom: 3em;
+	
+	h2 {
+		font-weight: 300!important;
+	}
+	
+	ul {
+		margin-top: 1em!important;
+	}
+	
+	li {
+		border-top: 1px solid #bfc1c3;
+		padding: 1.5em 0!important;
+		margin: 0!important;
+	}
+	
+	h3 {
+		font-size: 16px;
+	}
+	
+	dl {
+		overflow: hidden;
+	}
+	
+	dt {
+		display: inline-block;
+		width: 46%;
+		padding: .4em 0;
+		vertical-align: top;
+		line-height: 1.25em;
+		&:first-child {
+			padding-top: 0;
+		}
+	}
+	
+	dd {
+		display: inline-block;
+		width: 49%;
+		margin: 0;
+		padding: .4em 0 .4em 4%;
+		vertical-align: top;
+		line-height: 1.25em;
+		&:first-child {
+			padding-top: 0;
+		}
+	}
+	
+	.actions {
+		overflow: hidden;
+		input {
+			float: right;
+			width: auto;
+			&:first-child {
+				float: left;
+			}
+		}
+	}
+	
+}
 
 
