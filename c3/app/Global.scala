@@ -33,7 +33,7 @@ object Global extends WithFilters(MonitorFilter) with Injector with CarersLangua
 
     actorSystems()
 
-    if (!Play.isProd) {
+    if (Play.isProd) {
       registerReporters()
       registerHealthChecks()
     }
