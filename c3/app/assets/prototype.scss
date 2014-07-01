@@ -9,7 +9,7 @@
 			   padding: 0;
 			   line-height: 1.2em;
 			   color: #fff;
-			   font-weight: 600;
+			   font-weight: 300;
 			   font-size: 15px;
 			   .ie7 & {
 				   font-size: 13px;
@@ -21,7 +21,7 @@
 				   color: #fff;
 				   margin-left: .25em;
 				   &:hover {
-					   color: #000;
+					   text-decoration: none;
 				   }
 			   }
 		   }
