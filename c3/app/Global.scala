@@ -33,10 +33,8 @@ object Global extends WithFilters(MonitorFilter) with Injector with CarersLangua
 
     actorSystems()
 
-    if (Play.isProd) {
-      registerReporters()
-      registerHealthChecks()
-    }
+    registerReporters()
+    registerHealthChecks()
 
     Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}") // used for operations, do not remove
   }
