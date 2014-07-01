@@ -1,7 +1,7 @@
 .left-col {
 	float: left;
 	width: 23%;
-	margin-top: 2.8em;
+	margin-top: 3em;
 	@media screen and (max-width: 700px) {
 		float: none;
 		width: auto;
@@ -15,7 +15,7 @@
 	}
 	
 	h3 {
-		margin: 2em 0 .5em 0;
+		margin: 2.2em 0 .5em 0;
 	}
 	
 	a {
@@ -44,7 +44,7 @@
 article {
 	   background: #fff;
 	   position: relative;
-	   padding: 2.5em 0 0 0;
+	   padding: 3em 0 0 0;
 	   float: right;
 	   width: 68%;
 	   @media screen and (max-width: 700px) {
