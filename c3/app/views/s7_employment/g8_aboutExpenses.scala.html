@@ -25,7 +25,7 @@
 	                @yesNoRadioGroup(currentForm("haveExpensesForJob"),
                         '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", JobID(currentForm)),
                         valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)),
-                        'helperAbove -> Messages("haveExpensesForJob.helper"))
+                        'helperAbove -> Html(Messages("haveExpensesForJob.helper")))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
