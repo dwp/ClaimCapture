@@ -5,7 +5,7 @@ import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
-import models.domain.{JobDetails, AboutExpenses}
+import models.domain.AboutExpenses
 import utils.helpers.CarersForm._
 import Employment._
 import utils.helpers.PastPresentLabelHelper._
