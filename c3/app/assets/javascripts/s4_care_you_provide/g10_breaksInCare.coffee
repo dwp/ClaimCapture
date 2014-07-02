@@ -1,21 +1,21 @@
 $ ->
-    $("#breaks").hide() if $("tbody").children().length is 0
+    $("#breaks").hide() if $("ul.break-data").children().length is 0
 
     $(".breaks-prompt").hide()
 
-    $("tbody").on "click", "input[name='changerow']", ->
-        tr = $(this).closest("tr")
-        window.location.href = "/care-you-provide/breaks/" + tr.attr("id")
+    $("ul").on "click", "input[name='changerow']", ->
+        li = $(this).closest("li")
+        window.location.href = "/care-you-provide/breaks/" + li.attr("id")
 
     $("#backButton").on "click", (event) ->
         if ($("#backButton").attr("disabled") == "disabled")
             event.preventDefault()
 
-    $("tbody").on "click", "input[name='deleterow']", ->
+    $("ul").on "click", "input[name='deleterow']", ->
         disable()
         enableConfirmation()
 
-        tr = $(this).closest("tr")
+        li = $(this).closest("li")
 
         $("#breaks .breaks-prompt").slideDown ->
             $("input[name='no']").unbind "click"
@@ -30,7 +30,7 @@ $ ->
 
                 $.ajax
                     type: "DELETE"
-                    url: "/care-you-provide/breaks-in-care/" + tr.attr("id")
+                    url: "/care-you-provide/breaks-in-care/" + li.attr("id")
 
                     success: (data) ->
                         $("label[for='answer']").text(data.answer)
@@ -38,12 +38,12 @@ $ ->
 
                         $("#breaks .breaks-prompt").slideUp()
 
-                        if tr.closest("tbody").children().length is 1
-                            $("#breaks").wrapInner("<div />").children().slideUp -> tr.remove()
+                        if li.closest("ul").children().length is 1
+                            $("#breaks").wrapInner("<div />").children().slideUp -> li.remove()
                         else
-                            tr.find("td").wrapInner "<div>"
-                            tr.find("td div:not(:last)").slideUp()
-                            tr.find("td div:last").slideUp -> tr.remove()
+                            li.find("dd").wrapInner "<div>"
+                            li.find("dd div:not(:last)").slideUp()
+                            li.find("dd div:last").slideUp -> li.remove()
 
                     error: ->
                         location.reload(true)
@@ -52,7 +52,7 @@ enableConfirmation = ->
     $("#breaks .breaks-prompt input[type='button']").removeAttr("disabled").removeClass("disabled")
 
 enable = ->
-    $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
+    $("li input[type='button']").removeAttr("disabled").removeClass("disabled")
     $("input[type='radio']").removeAttr("disabled", "true").removeClass("disabled")
     $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
 
@@ -60,17 +60,17 @@ disableConfirmation = ->
     $("#breaks .breaks-prompt input[type='button']").attr("disabled", "true").addClass("disabled")
 
 disable = ->
-    $("tr input[type='button']").attr("disabled", "true").addClass("disabled")
+    $("li input[type='button']").attr("disabled", "true").addClass("disabled")
     $("input[type='radio']").attr("disabled", "true").addClass("disabled")
     $(".form-steps").children().attr("disabled", "true").addClass("disabled")
 
 window.initEvents = (answer_yes, answer_no) ->
-  if ($("#" + answer_yes).is ":checked") && $("tbody").children().length is 10
+  if ($("#" + answer_yes).is ":checked") && $("ul").children().length is 10
     $("#warningMessageWrap").slideDown()
     $("#warningMessageWrap").css('display', "block")
 
   $("#" + answer_yes).on "click", ->
-      if $("tbody").children().length is 10
+      if $("ul.break-data").children().length is 10
           $("#warningMessageWrap").slideDown()
           $("#warningMessageWrap").css('display', "block")
 

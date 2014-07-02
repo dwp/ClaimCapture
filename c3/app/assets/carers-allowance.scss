@@ -948,7 +948,7 @@ main {
 
 .data-table {
 
-	margin-bottom: 3em;
+	margin-bottom: 2em;
 	
 	h2 {
 		font-weight: 300!important;
@@ -970,6 +970,7 @@ main {
 	
 	dl {
 		overflow: hidden;
+		margin: 0;
 	}
 	
 	dt {
@@ -978,9 +979,6 @@ main {
 		padding: .4em 0;
 		vertical-align: top;
 		line-height: 1.25em;
-		&:first-child {
-			padding-top: 0;
-		}
 	}
 	
 	dd {
@@ -997,9 +995,21 @@ main {
 	
 	.actions {
 		overflow: hidden;
+		margin-top: 1em;
 		input {
 			float: right;
 			width: auto;
+			background: none;
+			padding: 0;
+			border: 0;
+			font-size: 16px;
+			color: #005ea5;
+			text-decoration: underline;
+			cursor: pointer;
+			&:hover {
+				color: #2e8aca;
+				text-decoration: none;
+			}
 			&:first-child {
 				float: left;
 			}
