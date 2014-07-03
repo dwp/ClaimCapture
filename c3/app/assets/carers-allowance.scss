@@ -188,7 +188,7 @@ main {
 						   font-size: 19px;
 						   padding: 0;
 						   margin: .8em 0 0 0;
-						   color: #6f777b;
+						   color: #171819;
 						   line-height: 1.2em;
 						   position: relative;
 						   display: list-item;				   
@@ -284,7 +284,7 @@ main {
 			       .error {
 				       color: #de3134;
 				       font-weight: 300;
-				       font-size: 16px;
+				       font-size: 17px;
 				       padding-bottom: .6em;
 				       .ie6 & {
 					       background: transparent;
@@ -946,7 +946,8 @@ main {
 	margin-bottom: 2em;
 	
 	h2 {
-		font-weight: 300!important;
+		font-weight: 600;
+		font-size: 24px!important;
 	}
 	
 	ul {
@@ -963,12 +964,12 @@ main {
 	}
 	
 	h3 {
-		font-size: 16px;
+		font-size: 17px;
 	}
 	
 	dl {
 		overflow: hidden;
-		margin: 0;
+		margin: 6px 0 0 0;
 	}
 	
 	dt {
@@ -977,6 +978,7 @@ main {
 		padding: .4em 0;
 		vertical-align: top;
 		line-height: 1.25em;
+		font-size: 17px;
 	}
 	
 	dd {
@@ -986,6 +988,7 @@ main {
 		padding: .4em 0 .4em 4%;
 		vertical-align: top;
 		line-height: 1.25em;
+		font-size: 17px;
 		&:first-child {
 			padding-top: 0;
 		}
@@ -1000,7 +1003,7 @@ main {
 			background: none;
 			padding: 0;
 			border: 0;
-			font-size: 16px;
+			font-size: 17px;
 			color: #005ea5;
 			text-decoration: underline;
 			cursor: pointer;

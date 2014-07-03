@@ -255,3 +255,5 @@ GET           /circumstances/consent-and-declaration/declaration          @contr
 POST          /circumstances/consent-and-declaration/declaration          @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
 GET           /circumstances/consent-and-declaration/error                controllers.circs.s3_consent_and_declaration.G3Error.present
+
+POST          /decrypt/:encryptedValue                                    controllers.Decrypt.decryptValue(encryptedValue)
