@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil, employerName: Option[String] = None)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import models.domain.Employed
 @import helper._
@@ -13,8 +13,12 @@
         @progressBar(Employed)
 
         <article>
-
-            <h1>@Html(Messages("s7.main.help1"))</h1>
+            @if(employerName.isDefined && !employerName.isEmpty) {
+                <h1>@employerName</h1>
+            }
+            @if(!employerName.isDefined || employerName.isEmpty){
+                <h1>@Html(Messages("s7.main.help1"))</h1>
+            }
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">

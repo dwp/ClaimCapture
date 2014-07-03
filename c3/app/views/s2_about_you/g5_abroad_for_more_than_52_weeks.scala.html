@@ -15,24 +15,18 @@
     <fieldset id="trips" class="form-elements results-detail">
         <legend>@Html(Messages("52Weeks.summaryTable.label"))</legend>
 
+        
+        
+        <div class="data-table">
+        
 
-      <table>
-            <caption>@Html(Messages("52Weeks.summaryTable.label"))</caption>
-
-            <thead>
-                <tr>
-                    <th>@Html(Messages("dates"))</th>
-                    <th class="desc">@Html(Messages("where"))</th>
-                    <th class="desc">@Html(Messages("why"))</th>
-                    <th></th>
-                </tr>
-            </thead>
-
-            <tbody>
-            @for((trip,currentIteration) <- trips.fiftyTwoWeeksTrips.zipWithIndex) {
-                <tr id="@trip.id" class="@trip.id">
-                    <td>
-                        @{trip.start match {
+			  <ul class="trip-data">
+			  
+			  	@for((trip,currentIteration) <- trips.fiftyTwoWeeksTrips.zipWithIndex) {
+			  
+				  	<li id="@trip.id" class="@trip.id">
+				  	
+					  	<h3>@{trip.start match {
                             case Some(dayMonthYear) => dayMonthYear.`dd/MM/yyyy`
                             case _ =>
                         }}
@@ -42,27 +36,37 @@
                         @{trip.end match {
                             case Some(dayMonthYear) => dayMonthYear.`dd/MM/yyyy`
                             case _ =>
-                        }}
-                    </td>
-
-                    <td class="desc">@trip.where</td>
-                    <td class="desc">
-                        @{trip.why match {
+                        }}</h3>
+					  	
+					  	<dl>
+						  	<dt>@Html(Messages("where")):</dt>
+						  	<dd>@trip.where</dd>
+						  	
+						  	<dt>@Html(Messages("why")):</dt>
+						  	<dd>@{trip.why match {
                             case Some(reasonForBeingThere) => reasonForBeingThere.reason match {
                                     case Some (reason) =>
                                         if (reasonForBeingThere.other.isDefined) Messages("other") + " " + reasonForBeingThere.other.get else Messages("reasonForBeingThere." + reason)
                                     case _ =>
                                 }
                             case _ =>
-                        }}
-                    </td>
-                    <td>
-                    <input id="iteration-@{currentIteration + 1}-change" name="changerow" type="button" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))">
-                    <input id="iteration-@{currentIteration + 1}-delete" name="deleterow" type="button" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))"></td>
-                </tr>
-            }
-            </tbody>
-        </table> 
+                        }}</dd>
+					  	</dl>
+					  	
+						<div class="actions">
+							<input id="iteration-@{currentIteration + 1}-change" name="changerow" type="button" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))">
+                    <input id="iteration-@{currentIteration + 1}-delete" name="deleterow" type="button" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))">
+						</div>
+					
+				  	</li>
+				  	
+				  	}
+				  
+				
+			  </ul>
+			  
+        </div>
+        
 
         <div class="prompt table-helper">
         	<p>@Html(Messages("s2.g5.help1"))</p>
@@ -75,6 +79,8 @@
             <span>&#33;</span>
         </div>
     </fieldset>
+    
+    
 
 
 

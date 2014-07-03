@@ -11,8 +11,13 @@
 @import utils.helpers.CarersCrypto
 @import app.PensionPaymentFrequency._
 @import play.api.i18n.{MMessages => Messages}
+@import models.domain.{Job, Jobs, JobDetails}
 
-@main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.AboutExpenses, JobID(currentForm))) {
+@employerName = @{
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).employerName
+}
+
+@main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.AboutExpenses, JobID(currentForm)), Some(employerName)) {
 
     @form(action = controllers.s7_employment.routes.G8AboutExpenses.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
@@ -25,7 +30,7 @@
 	                @yesNoRadioGroup(currentForm("haveExpensesForJob"),
                         '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", JobID(currentForm)),
                         valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)),
-                        'helperAbove -> Messages("haveExpensesForJob.helper"))
+                        'helperAbove -> Html(Messages("haveExpensesForJob.helper")))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
