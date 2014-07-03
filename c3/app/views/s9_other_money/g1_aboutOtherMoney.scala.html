@@ -19,8 +19,11 @@
 	            <legend>@Html(Messages("s9.g1"))</legend>
 	
 	            <ul>
-		            @yesNoRadioGroup(currentForm("yourBenefits")("answer"), '_label -> Messages("yourBenefits.answer", if(hadPartnerSinceClaimDate) Messages("orPartnerSpouse") else "", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
-		            
+		            @yesNoRadioGroup(currentForm("yourBenefits")("answer"),
+                        '_label -> Messages("yourBenefits.answer", if(hadPartnerSinceClaimDate) Messages("orPartnerSpouse") else "", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)),
+                        'helperAbove -> Html(Messages("yourBenefits.help"))
+                    )
+
 		            @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), 
 		              '_label -> Messages("anyPaymentsSinceClaimDate.answer",
 		              claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)),
