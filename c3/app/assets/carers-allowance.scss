@@ -181,22 +181,17 @@ main {
 
 				   ul {
 					   list-style: disc;
-					   padding: .5em 0 1em 0;
+					   padding: .5em 0 1em 1.4em;
 					   margin: 0;
 
 					   li {
 						   font-size: 19px;
-						   padding: 0 0 0 1em;
+						   padding: 0;
 						   margin: .8em 0 0 0;
 						   color: #6f777b;
 						   line-height: 1.2em;
 						   position: relative;
-						   background: url('images/dot.png') 0 center no-repeat;
-						   background-size: 6px 6px;	
-						   .ie7 &, .ie8 & {
-							   background: none;
-							   border-left: 3px solid #000;
-						   }				   
+						   display: list-item;				   
 						   &:first-child {
 							   margin: 0;
 						   }
@@ -959,9 +954,12 @@ main {
 	}
 	
 	li {
-		border-top: 1px solid #bfc1c3;
+		border-bottom: 1px solid #bfc1c3;
 		padding: 1.5em 0!important;
 		margin: 0!important;
+		&:first-child {
+			border-top: 1px solid #bfc1c3;
+		}
 	}
 	
 	h3 {

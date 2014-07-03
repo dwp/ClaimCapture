@@ -39,7 +39,7 @@
                 <ul>
 	                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 	
-	                @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"), '_label -> Messages("receiveStatePension"))
+	                @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"), '_label -> Messages("receiveStatePension"), 'helperAbove -> Html(Messages("receiveStatePension.help")))
 	            </ul>
             </fieldset>
 	
