@@ -25,12 +25,16 @@ class G3JobDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
+        "address.lineOne" -> "Street Test 1",
+        "address.lineTwo" -> "lineTwo",
+        "address.lineThree" -> "lineThree",
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "no")
 
       val result = G3JobDetails.submit(request)
+
       status(result) mustEqual SEE_OTHER
 
       val claim = Cache.getAs[Claim](claimKey).get
@@ -50,6 +54,9 @@ class G3JobDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
+        "address.lineOne" -> "Street Test 1",
+        "address.lineTwo" -> "lineTwo",
+        "address.lineThree" -> "lineThree",
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",
@@ -68,6 +75,9 @@ class G3JobDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
+        "address.lineOne" -> "Street Test 1",
+        "address.lineTwo" -> "lineTwo",
+        "address.lineThree" -> "lineThree",
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",

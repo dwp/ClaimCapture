@@ -39,7 +39,7 @@ case class Jobs(jobs: List[Job] = Nil) extends QuestionGroup(Jobs) with Iterable
 
   def completeJob(jobID: String): Jobs = {
     job(jobID) match {
-        case Some(j:Job) => update(j.copy( completed = j.questionGroups.size > 5 ))
+        case Some(j:Job) => update(j.copy( completed = j.questionGroups.size > 4 ))
         case _ => copy()
       }
   }
@@ -116,12 +116,14 @@ object Job {
 
 case class JobDetails(jobID: String = "",
                       employerName: String = "",
+                      phoneNumber: Option[String] = None,
+                      payrollEmployeeNumber: Option[String] = None,
+                      address: MultiLineAddress = MultiLineAddress(),
+                      postcode: Option[String] = None,
                       jobStartDate: DayMonthYear = DayMonthYear(None, None, None),
                       finishedThisJob: String = "",
                       lastWorkDate:Option[DayMonthYear] = None,
-                      p45LeavingDate:Option[DayMonthYear] = None,
-                      hoursPerWeek: Option[String] = None,
-                      payrollEmployeeNumber: Option[String] = None) extends QuestionGroup(JobDetails) with Job.Identifier {
+                      hoursPerWeek: Option[String] = None) extends QuestionGroup(JobDetails) with Job.Identifier {
   override val definition = Messages(identifier.id, employerName)
 }
 
@@ -132,15 +134,11 @@ object JobDetails extends QuestionGroup.Identifier {
     case `yes` => input.lastWorkDate.isDefined
     case `no` => true
   }
-}
 
-case class EmployerContactDetails(jobID: String = "",
-                                  address: MultiLineAddress = MultiLineAddress(),
-                                  postcode: Option[String] = None,
-                                  phoneNumber: Option[String] = None) extends QuestionGroup(EmployerContactDetails) with Job.Identifier
-
-object EmployerContactDetails extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g3"
+  def validateHoursPerWeek(input: JobDetails):Boolean = input.finishedThisJob match {
+    case `yes` => input.hoursPerWeek.isDefined
+    case `no` => true
+  }
 }
 
 case class LastWage(jobID: String = "",

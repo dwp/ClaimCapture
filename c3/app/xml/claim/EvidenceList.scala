@@ -195,8 +195,6 @@ object EvidenceList {
           val pensionScheme = job.questionGroup[PensionSchemes].getOrElse(PensionSchemes())
 
           textLines ++= textLine("Employer:" + jobDetails.employerName)
-          if (jobDetails.p45LeavingDate.isDefined)
-            textLines ++= textLine("What is the leaving date on your P45, if you have one? = ", jobDetails.p45LeavingDate.get.`dd/MM/yyyy`)
 
           if (lastWage.sameAmountEachTime.isDefined)
             textLines ++= textLine("About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time? = ", lastWage.sameAmountEachTime.get)

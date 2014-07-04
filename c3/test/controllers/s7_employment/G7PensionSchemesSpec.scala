@@ -44,6 +44,7 @@ class G7PensionSchemesSpec extends Specification with Tags {
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
+        "address.lineOne" -> "Street Test 1",
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",

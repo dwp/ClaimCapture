@@ -30,6 +30,7 @@ class G5LastWageSpec extends Specification with Tags {
         withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
+        "address.lineOne" -> "Street Test 1",
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",

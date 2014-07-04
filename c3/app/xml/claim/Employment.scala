@@ -10,7 +10,6 @@ object Employment {
 
   def employerXml(job: Job): Elem = {
     val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-    val employerContactDetails = job.questionGroup[EmployerContactDetails].getOrElse(EmployerContactDetails())
 
     <Employer>
       {<DateJobStarted/> +++ Some(jobDetails.jobStartDate)}
@@ -18,9 +17,9 @@ object Employment {
       <JobType>{NotAsked}</JobType>
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
-      <Address>{postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}</Address>
+      <Address>{postalAddressStructure(jobDetails.address, jobDetails.postcode)}</Address>
       <ConfirmAddress>{yes}</ConfirmAddress> <!-- Always default to yes -->
-      {<EmployersPhoneNumber/> +++ employerContactDetails.phoneNumber}
+      {<EmployersPhoneNumber/> +++ jobDetails.phoneNumber}
       <EmployersFaxNumber/>
       <WagesDepartment/>
       <DepartmentPhoneFaxNumber/>

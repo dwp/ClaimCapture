@@ -8,21 +8,14 @@ import controllers.{WithBrowserHelper, BrowserMatchers}
 class G3JobDetailsIntegrationSpec extends Specification with Tags {
   "Your job" should {
     "present" in new WithBrowser with WithBrowserHelper {
-      goTo("/employment/job-details/dummyJobID").title shouldEqual "Your job - Employment History"
-    }
-
-    "show 3 errors upon submitting no mandatory data" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-      browser.goTo(s"/employment/job-details/dummyJobID")
-
-      browser.submit("button[type='submit']")
-
-      titleMustEqual("Your job - Employment History")
-      findMustEqualSize("div[class=validation-summary] ol li", 3)
+      goTo("/employment/job-details/dummyJobID").title shouldEqual "Employer details - Employment History"
     }
 
     "accept only mandatory data" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       browser.goTo(s"/employment/job-details/dummyJobID")
       browser.fill("#employerName") `with` "Toys r not Us"
+      browser.fill("#payrollEmployeeNumber") `with` "445566"
+      browser.fill("#address_lineOne") `with` "Street Test 1"
       browser.click("#jobStartDate_day option[value='1']")
       browser.click("#jobStartDate_month option[value='1']")
       browser.fill("#jobStartDate_year") `with` "2000"
@@ -30,7 +23,7 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
 
       browser.submit("button[type='submit']")
 
-      titleMustEqual("Employer's contact details - Employment History")
+      titleMustEqual("Your last wage - Employment History")
     }
 
     "accept all data" in new WithBrowser with EmploymentFiller {
@@ -60,22 +53,20 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
       browser.goTo(s"/employment/job-details/$jobID")
 
       browser.fill("#employerName") `with` "Toys r not Us"
-
+      browser.fill("#payrollEmployeeNumber") `with` "445566"
+      browser.fill("#address_lineOne") `with` "Street Test 1"
       browser.click("#jobStartDate_day option[value='1']")
       browser.click("#jobStartDate_month option[value='1']")
       browser.fill("#jobStartDate_year") `with` "2000"
-
       browser.click("#finishedThisJob_yes")
-
       browser.click("#lastWorkDate_day option[value='1']")
       browser.click("#lastWorkDate_month option[value='1']")
       browser.fill("#lastWorkDate_year") `with` "2005"
-
       browser.fill("#hoursPerWeek") `with` "75"
-      browser.fill("#payrollEmployeeNumber") `with` "445566"
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Employer's contact details - Employment History")
+
+      titleMustEqual("Your last wage - Employment History")
     }
   }
 }
