@@ -8,6 +8,11 @@
 @import utils.helpers.CarersCrypto
 
 @import play.api.i18n.{MMessages => Messages}
+
+@yourBenefitsHelpWithLink = @{
+    Html(Messages("yourBenefits.help")) + """ <a href="/claim-help#3"""" + views.html.ga.trackClickEvent(linkName = "Claim Notes - Other Benefits") + """>""" + Html(Messages("yourBenefits.help.link")) + """</a>"""
+}
+
 @main(Messages("s9.g1") + " - " + Messages("s9.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.AboutOtherMoney)) {
 
 
@@ -21,7 +26,7 @@
 	            <ul>
 		            @yesNoRadioGroup(currentForm("yourBenefits")("answer"),
                         '_label -> Messages("yourBenefits.answer", if(hadPartnerSinceClaimDate) Messages("orPartnerSpouse") else "", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)),
-                        'helperAbove -> Html(Messages("yourBenefits.help"))
+                        'helperAbove -> yourBenefitsHelpWithLink
                     )
 
 		            @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), 
