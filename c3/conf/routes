@@ -144,9 +144,6 @@ POST          /employment/job-details                                     contro
 GET           /employment/last-wage/:jobID                                controllers.s7_employment.G5LastWage.present(jobID: String)
 POST          /employment/last-wage                                       controllers.s7_employment.G5LastWage.submit
 
-GET           /employment/additional-wage-details/:jobID                  controllers.s7_employment.G6AdditionalWageDetails.present(jobID: String)
-POST          /employment/additional-wage-details                         controllers.s7_employment.G6AdditionalWageDetails.submit
-
 GET           /employment/pension-schemes/:jobID                          controllers.s7_employment.G7PensionSchemes.present(jobID: String)
 POST          /employment/pension-schemes                                 controllers.s7_employment.G7PensionSchemes.submit
 

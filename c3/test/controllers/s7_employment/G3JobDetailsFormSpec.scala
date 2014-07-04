@@ -8,7 +8,9 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     val jobId = "1"
     val yes = "yes"
     val no = "no"
-    val addressLine = "1 Brackenbury Rd"
+    val addressLine = "test 1 rd"
+    val addressLineTwo = "line two"
+    val addressLineThree = "line three"
     val employerName = "Toys r not us"
     val hrsPerWeek =  "25"
     val phoneNumber = "12345678"
@@ -26,9 +28,9 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "employerName" -> employerName,
           "phoneNumber" -> phoneNumber,
           "payrollEmployeeNumber" -> payrollNumber,
-          "address.lineOne" -> "test 1 rd",
-          "address.lineTwo" -> "lineTwo",
-          "address.lineThree" -> "lineThree",
+          "address.lineOne" -> addressLine,
+          "address.lineTwo" -> addressLineTwo,
+          "address.lineThree" -> addressLineThree,
           "postcode" -> postCode,
           "jobStartDate.day" -> day,
           "jobStartDate.month" -> month,
@@ -46,9 +48,9 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           f.employerName must equalTo(employerName)
           f.phoneNumber must equalTo(Some(phoneNumber))
           f.payrollEmployeeNumber must equalTo(Some(payrollNumber))
-          f.address.lineOne must equalTo(Some("test 1 rd"))
-          f.address.lineTwo must equalTo(Some("lineTwo"))
-          f.address.lineThree must equalTo(Some("lineThree"))
+          f.address.lineOne must equalTo(Some(addressLine))
+          f.address.lineTwo must equalTo(Some(addressLineTwo))
+          f.address.lineThree must equalTo(Some(addressLineThree))
           f.postcode must equalTo(Some(postCode))
           f.jobStartDate must equalTo(DayMonthYear())
           f.lastWorkDate must equalTo(Some(DayMonthYear()))
@@ -64,12 +66,12 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "phoneNumber" -> phoneNumber,
           "payrollEmployeeNumber" -> payrollNumber,
           "postcode" -> postCode,
-          "jobStartDate.day" -> "1",
-          "jobStartDate.month" -> "1",
-          "jobStartDate.year" -> "2000",
-          "lastWorkDate.day" -> "1",
-          "lastWorkDate.month" -> "1",
-          "lastWorkDate.year" -> "2001",
+          "jobStartDate.day" -> day,
+          "jobStartDate.month" -> month,
+          "jobStartDate.year" -> year1,
+          "lastWorkDate.day" -> day,
+          "lastWorkDate.month" -> month,
+          "lastWorkDate.year" -> year2,
           "hoursPerWeek" -> hrsPerWeek)
       ).fold(
           formWithErrors => {
@@ -88,9 +90,9 @@ class G3JobDetailsFormSpec extends Specification with Tags {
         Map(
           "jobID" -> jobId,
           "address.lineOne" -> addressLine,
-          "jobStartDate.day" -> "1",
-          "jobStartDate.month" -> "1",
-          "jobStartDate.year" -> "2000",
+          "jobStartDate.day" -> day,
+          "jobStartDate.month" -> month,
+          "jobStartDate.year" -> year1,
           "finishedThisJob" -> no)
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
@@ -103,9 +105,9 @@ class G3JobDetailsFormSpec extends Specification with Tags {
         Map(
           "jobID" -> jobId,
           "employerName" -> employerName,
-          "jobStartDate.day" -> "1",
-          "jobStartDate.month" -> "1",
-          "jobStartDate.year" -> "2000",
+          "jobStartDate.day" -> day,
+          "jobStartDate.month" -> month,
+          "jobStartDate.year" -> year1,
           "finishedThisJob" -> no)
       ).fold(
           formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
@@ -119,9 +121,9 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "jobID" -> jobId,
           "employerName" -> employerName,
           "address.lineOne" -> addressLine,
-          "jobStartDate.day" -> "1",
-          "jobStartDate.month" -> "1",
-          "jobStartDate.year" -> "2000")
+          "jobStartDate.day" -> day,
+          "jobStartDate.month" -> month,
+          "jobStartDate.year" -> year1)
       ).fold(
           formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
           f => "This mapping should not happen." must equalTo("Valid")
@@ -135,9 +137,9 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "jobID" -> jobId,
           "employerName" -> employerName,
           "address.lineOne" -> addressLine,
-          "jobStartDate.day" -> "1",
-          "jobStartDate.month" -> "1",
-          "jobStartDate.year" -> "2000",
+          "jobStartDate.day" -> day,
+          "jobStartDate.month" -> month,
+          "jobStartDate.year" -> year1,
           "finishedThisJob" -> yes)
       ).fold(
           formWithErrors => {

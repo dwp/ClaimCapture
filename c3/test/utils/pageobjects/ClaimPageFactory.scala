@@ -74,12 +74,8 @@ object ClaimPageFactory extends PageFactory {
           case G2BeenEmployedPage.title => G2BeenEmployedPage (ctx,iteration)
           case G3JobDetailsPage.title => G3JobDetailsPage (ctx,iteration)
           case G5LastWagePage.title => G5LastWagePage (ctx,iteration)
-          case G6AdditionalWageDetailsPage.title => G6AdditionalWageDetailsPage (ctx,iteration)
           case G7PensionSchemesPage.title => G7PensionSchemesPage (ctx,iteration)
           case G8AboutExpensesPage.title => G8AboutExpensesPage (ctx,iteration)
-          case G9NecessaryExpensesPage.title => G9NecessaryExpensesPage (ctx,iteration)
-          case G10ChildcareExpensesPage.title => G10ChildcareExpensesPage (ctx,iteration)
-          case G12PersonYouCareForExpensesPage.title => G12PersonYouCareForExpensesPage (ctx,iteration)
         })
       }.orElse[String,Page]{
         // S8
