@@ -18,7 +18,6 @@ class G8AboutExpensesFormSpec extends Specification with Tags {
     val howOften_frequency = Other
     val howOften_frequency_other = "Every day and twice on Sundays"
 
-
     "map data into case class" in {
       G8AboutExpenses.form.bind(
         Map(

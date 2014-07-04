@@ -170,16 +170,15 @@ Education,Your course details,When do you expect the course to end?,EducationWhe
 Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,yes
 Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,yes
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
-Employment,Your Job,Employers Name,EmploymentEmployerName_1,Kwik Fit Tryes
-Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,02/04/2013
-Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,Yes
-Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,10/04/2013
-Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_1,25/12/2010
-Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,45
-Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,
-Employment,Employers contact details,Address,EmploymentEmployerAddress_1,1223 Yeadon Way&Blackpool&Lancashire
-Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,
-Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,
+Employment,Employer Details,Employers Name,EmploymentEmployerName_1,Kwik Fit Tryes
+Employment,Employer Details,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,02/04/2013
+Employment,Employer Details,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,Yes
+Employment,Employer Details,When did you last work? ,EmploymentWhenDidYouLastWork_1,10/04/2013
+Employment,Employer Details,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,45
+Employment,Employer Details,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,
+Employment,Employer Details,Address,EmploymentEmployerAddress_1,1223 Yeadon Way&Blackpool&Lancashire
+Employment,Employer Details,Postcode ,EmploymentEmployerPostcode_1,
+Employment,Employer Details,Phone number,EmploymentEmployerPhoneNumber_1,
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,08/07/2013
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,610.01
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,All amounts due
@@ -214,13 +213,12 @@ Employment,Expenses related to the person you care for while at work,"What relat
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1,
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouBeenEmployedAtAnyTime_1,no
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
-Employment,Your Job,Employers Name,EmploymentEmployerName_2,
-Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_2,
-Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,
-Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_2,
-Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_2,
-Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_2,
-Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_2,
+Employment,Employer Details,Employers Name,EmploymentEmployerName_2,
+Employment,Employer Details,When did you start your job?,EmploymentWhenDidYouStartYourJob_2,
+Employment,Employer Details,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,
+Employment,Employer Details,When did you last work? ,EmploymentWhenDidYouLastWork_2,
+Employment,Employer Details,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_2,
+Employment,Employer Details,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_2,
 Employment,Employers contact details,Address,EmploymentEmployerAddress_2,
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_2,
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_2,

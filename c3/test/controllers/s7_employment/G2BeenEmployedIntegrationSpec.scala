@@ -16,7 +16,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
 
       goTo("/employment/been-employed")
       back
-      titleMustEqual("Your job - Employment History")
+      titleMustEqual("Employer Details - Employment History")
     }
 
     """be bypassed and go onto "other money" having indicated that "employment" is not required.""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with NotEmployedSinceClaimDate {
@@ -40,7 +40,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       goTo("/employment/been-employed")
       click("#beenEmployed_yes")
       next
-      titleMustEqual("Your job - Employment History")
+      titleMustEqual("Employer Details - Employment History")
     }
 
     "show 1 error upon submitting no mandatory data" in new WithBrowser with EmployedHistoryPage {
@@ -103,9 +103,7 @@ trait EmployedHistoryPage extends G1ClaimDatePageContext {
     val jobDetailsPage = employmentPage submitPage()
 
     jobDetailsPage fillPageWith employmentData
-    val contactDetailsPage = jobDetailsPage submitPage ()
-    contactDetailsPage fillPageWith employmentData
-    val lastWage = contactDetailsPage submitPage()
+    val lastWage = jobDetailsPage submitPage ()
     lastWage fillPageWith employmentData
     val additionalDetailsWage = lastWage submitPage()
     additionalDetailsWage fillPageWith employmentData

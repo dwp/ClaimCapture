@@ -31,6 +31,7 @@ class G6AdditionalWageDetailsSpec extends Specification with Tags {
         withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
+        "address.lineOne" -> "street test 1",
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",
