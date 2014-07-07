@@ -101,13 +101,10 @@ trait EmployedHistoryPage extends G1ClaimDatePageContext {
     val employmentPage = page goToPage new G1EmploymentPage(PageObjectsContext(browser))
     employmentPage fillPageWith employmentData
     val jobDetailsPage = employmentPage submitPage()
-
     jobDetailsPage fillPageWith employmentData
-    val lastWage = jobDetailsPage submitPage ()
+    val lastWage = jobDetailsPage submitPage()
     lastWage fillPageWith employmentData
-    val additionalDetailsWage = lastWage submitPage()
-    additionalDetailsWage fillPageWith employmentData
-    val pensionSchmesPage = additionalDetailsWage submitPage()
+    val pensionSchmesPage = lastWage submitPage()
     pensionSchmesPage fillPageWith employmentData
     val expensesPage = pensionSchmesPage submitPage()
     expensesPage fillPageWith employmentData

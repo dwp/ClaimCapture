@@ -332,7 +332,6 @@ object ClaimScenarioFactory {
 
 
   def s7EmploymentMinimal() = {
-
     val claim = new TestData
     claim.EmploymentEmployerName_1 = "Tesco's"
     claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"

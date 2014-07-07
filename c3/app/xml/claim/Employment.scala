@@ -5,6 +5,10 @@ import scala.xml.{NodeSeq, Elem}
 import models.domain._
 import xml.XMLHelper._
 import app.XMLValues._
+import models.{DayMonthYear, PaymentFrequency}
+import models.PaymentFrequency
+import models.domain.Claim
+import scala.Some
 
 object Employment {
 
@@ -12,7 +16,7 @@ object Employment {
     val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
 
     <Employer>
-      {<DateJobStarted/> +++ Some(jobDetails.jobStartDate)}
+      <DateJobStarted>{jobDetails.jobStartDate.`yyyy-MM-dd`}</DateJobStarted>
       {<DateJobEnded/> +++ jobDetails.lastWorkDate}
       <JobType>{NotAsked}</JobType>
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
@@ -26,11 +30,13 @@ object Employment {
     </Employer>
   }
 
-  def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails): Elem = {
+  def payXml(jobDetails: JobDetails, lastWage: LastWage): Elem = {
+
     <Pay>
       {<WeeklyHoursWorked/> ?+ jobDetails.hoursPerWeek}
       <DateLastWorked/>
-      {<DateLastPaid/> +++ lastWage.lastPaidDate}
+
+      <DateLastPaid>{lastWage.lastPaidDate.`yyyy-MM-dd`}</DateLastPaid>
       <GrossPayment>
         <Currency>{GBP}</Currency>
         <Amount>{currencyAmount(lastWage.grossPay)}</Amount>
@@ -40,8 +46,8 @@ object Employment {
         <DateFrom></DateFrom>
         <DateTo></DateTo>
       </PayPeriod>
-      {paymentFrequency(additionalWageDetails.oftenGetPaid)}
-      {<UsualPayDay/> +- additionalWageDetails.whenGetPaid}
+      {paymentFrequency(lastWage.oftenGetPaid)}
+      <UsualPayDay>{lastWage.whenGetPaid}</UsualPayDay>
       <VaryingEarnings>{NotAsked}</VaryingEarnings>
     </Pay>
   }
@@ -106,11 +112,9 @@ object Employment {
     val showXml = aboutExpenses.haveExpensesForJob == "yes"
 
     if (showXml) {
-
-
       <PaidForJobExpenses>{aboutExpenses.haveExpensesForJob}</PaidForJobExpenses>
       <JobExpenses>
-        <Expense>{aboutExpenses.whatExpensesForJob.get}</Expense>
+        {<Expense/> +++aboutExpenses.whatExpensesForJob}
         <Reason>{NotAsked}</Reason>
         <WeeklyPayment>
           <Currency></Currency>
@@ -129,7 +133,7 @@ object Employment {
     if (showXml) {
       <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
       <ChildCareExpenses>
-        <CarerName>{aboutExpenses.nameLookAfterChildren.get}</CarerName>
+        {<CarerName/> +++ aboutExpenses.nameLookAfterChildren}
         <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
         <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>
@@ -155,7 +159,7 @@ object Employment {
     if (showXml) {
       <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
       <CareExpenses>
-        <CarerName>{aboutExpenses.nameLookAfterPerson.get}</CarerName>
+        {<CarerName/> +++ aboutExpenses.nameLookAfterPerson}
         <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
         <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>
@@ -189,14 +193,13 @@ object Employment {
         <DateLastWorked>{NotAsked}</DateLastWorked>
         {for (job <- jobsQG) yield {
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-          val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
-          val additionalWageDetails = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails())
+          val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(),"",DayMonthYear(),"", None, None, ""))
 
           <JobDetails>
             {employerXml(job)}
-            {payXml(jobDetails, lastWage, additionalWageDetails)}
+            {payXml(jobDetails, lastWage)}
             <OtherThanMoney>{NotAsked}</OtherThanMoney>
-            <OweMoney>{additionalWageDetails.employerOwesYouMoney}</OweMoney>
+            <OweMoney>{lastWage.employerOwesYouMoney}</OweMoney>
             {childcareExpensesXml(job)}
             {careExpensesXml(job)}
             {pensionSchemeXml(job)}

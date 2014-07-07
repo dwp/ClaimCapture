@@ -2,7 +2,7 @@ package controllers.s7_employment
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
 import models.domain.LastWage
@@ -10,14 +10,19 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
 import controllers.CarersForms._
+import utils.helpers.PastPresentLabelHelper._
+
 
 object G5LastWage extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "lastPaidDate" -> optional(dayMonthYear.verifying(validDateOnly)),
+    "oftenGetPaid" -> (mandatoryPaymentFrequency verifying validPaymentFrequencyOnly),
+    "whenGetPaid" -> carersNonEmptyText,
+    "lastPaidDate" -> dayMonthYear.verifying(validDate),
     "grossPay" -> required(nonEmptyText.verifying(validCurrencyRequired)),
-    "payInclusions" -> optional(carersText(maxLength = 500)),
-    "sameAmountEachTime" -> optional(text.verifying(validYesNo))
+    "payInclusions" -> optional(carersText(maxLength = 100)),
+    "sameAmountEachTime" -> optional(carersText(maxLength = 60)),
+    "employerOwesYouMoney" -> (nonEmptyText verifying validYesNo)
   )(LastWage.apply)(LastWage.unapply))
 
   def present(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
@@ -26,7 +31,16 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
 
   def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g5_lastWage(formWithErrors)),
-      lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G6AdditionalWageDetails.present(jobID)))
+      formWithErrors => {
+        val form = formWithErrors
+          .replaceError("oftenGetPaid.frequency.other","error.maxLength",FormError("oftenGetPaid","error.maxLength"))
+          .replaceError("oftenGetPaid.frequency","error.required",FormError("oftenGetPaid","error.required"))
+          .replaceError("whenGetPaid", "error.required", FormError("whenGetPaid", "error.required", Seq(labelForEmployment(claim, lang, "whenGetPaid", jobID))))
+          .replaceError("lastPaidDate", "error.required", FormError("lastPaidDate", "error.required", Seq(labelForEmployment(claim, lang, "lastPaidDate", jobID))))
+          .replaceError("grossPay", "error.required", FormError("grossPay", "error.required", Seq(labelForEmployment(claim, lang, "grossPay", jobID))))
+          .replaceError("employerOwesYouMoney", "error.required", FormError("employerOwesYouMoney", "error.required", Seq(labelForEmployment(claim, lang, "employerOwesYouMoney", jobID))))
+        BadRequest(views.html.s7_employment.g5_lastWage(form))
+      },
+      lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G7PensionSchemes.present(jobID)))
   }
 }

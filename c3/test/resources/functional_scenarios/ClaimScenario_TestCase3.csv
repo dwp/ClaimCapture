@@ -181,7 +181,7 @@ Employment,Employer Details,Payroll or Employee number,EmploymentPayrollOrEmploy
 Employment,Employer Details,Address,EmploymentEmployerAddress_1,23 Yeadon Way&Blackpool&Lancashire
 Employment,Employer Details,Postcode ,EmploymentEmployerPostcode_1,FY4 5TH
 Employment,Employer Details,Phone number,EmploymentEmployerPhoneNumber_1,01253 667889
-Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,
+Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,01/01/2014
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,600
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,All amounts due
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_1,
@@ -231,7 +231,7 @@ Employment,Your last wage,What was included in this pay?,EmploymentWhatWasInclud
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_2,No
 Employment,Additional wage details,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_2, weekly
 Employment,Additional wage details,Other,EmploymentAddtionalWageOther_2,
-Employment,Additional wage details,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_2,
+Employment,Additional wage details,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_2,Mondays
 Employment,Additional wage details,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_2,Yes
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme_2,Yes
 Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension_2,120.03

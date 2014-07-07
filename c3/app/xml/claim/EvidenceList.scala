@@ -9,6 +9,7 @@ import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import play.api.i18n.{MMessages => Messages}
 import controllers.Mappings
+import models.{DayMonthYear, PaymentFrequency}
 
 object EvidenceList {
 
@@ -190,7 +191,7 @@ object EvidenceList {
         for (job <- jobs) {
 
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-          val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
+          val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("",PaymentFrequency(),"",DayMonthYear(),"", None, None, ""))
           val aboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
           val pensionScheme = job.questionGroup[PensionSchemes].getOrElse(PensionSchemes())
 

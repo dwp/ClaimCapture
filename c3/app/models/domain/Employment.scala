@@ -39,7 +39,7 @@ case class Jobs(jobs: List[Job] = Nil) extends QuestionGroup(Jobs) with Iterable
 
   def completeJob(jobID: String): Jobs = {
     job(jobID) match {
-        case Some(j:Job) => update(j.copy( completed = j.questionGroups.size > 4 ))
+        case Some(j:Job) => update(j.copy( completed = j.questionGroups.size > 3 ))
         case _ => copy()
       }
   }
@@ -142,24 +142,19 @@ object JobDetails extends QuestionGroup.Identifier {
 }
 
 case class LastWage(jobID: String = "",
-                    lastPaidDate: Option[DayMonthYear] = None,
+                    oftenGetPaid: PaymentFrequency = PaymentFrequency(),
+                    whenGetPaid: String = "",
+                    lastPaidDate: DayMonthYear,
                     grossPay: String = "",
                     payInclusions: Option[String] = None,
-                    sameAmountEachTime: Option[String] = None) extends QuestionGroup(LastWage) with Job.Identifier
+                    sameAmountEachTime: Option[String] = None,
+                    employerOwesYouMoney: String = "") extends QuestionGroup(LastWage) with Job.Identifier
+
 
 object LastWage extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g4"
-}
 
-case class AdditionalWageDetails(jobID:String = "",
-                                 oftenGetPaid: PaymentFrequency = PaymentFrequency(),
-                                 whenGetPaid: Option[String] = None,
-                                 employerOwesYouMoney: String = "") extends QuestionGroup(AdditionalWageDetails) with Job.Identifier
-
-object AdditionalWageDetails extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g5"
-
-  def validateOftenGetPaid(input: AdditionalWageDetails): Boolean = input.oftenGetPaid match {
+  def validateOftenGetPaid(input: LastWage): Boolean = input.oftenGetPaid match {
     case payment if payment.frequency == "other" => payment.other.isDefined
     case _ => true
   }
