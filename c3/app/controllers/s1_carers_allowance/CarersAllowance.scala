@@ -7,29 +7,51 @@ import play.api.data.Form
 import play.api.data.Forms._
 import models.domain.JSEnabled
 import play.api.Logger
+import controllers.Mappings._
 
 object CarersAllowance extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
+    "answerRequired" -> boolean,
+    "answer" -> optional(nonEmptyText.verifying(validYesNo)),
     "jsEnabled" -> boolean
-  )(JSEnabled.apply)(JSEnabled.unapply))
+  )(ProceedAnyway.apply)(ProceedAnyway.unapply))
 
   def approve = claiming {implicit claim => implicit request => implicit lang =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CarersAllowance)
-    val approved = completedQuestionGroups.length == 4 && completedQuestionGroups.forall(_.asInstanceOf[BooleanConfirmation].answer)
+    val benefitsAnswer = claim.questionGroup[Benefits].getOrElse(Benefits()).asInstanceOf[BooleanConfirmation].answer
+    val hoursAnswer = claim.questionGroup[Hours].getOrElse(Hours()).asInstanceOf[BooleanConfirmation].answer
+    val over16Answer = claim.questionGroup[Over16].getOrElse(Over16()).asInstanceOf[BooleanConfirmation].answer
+    val livesInGBAnswer = claim.questionGroup[LivesInGB].getOrElse(LivesInGB()).asInstanceOf[BooleanConfirmation].answer
+    val completedQuestionGroups = List(benefitsAnswer, hoursAnswer, over16Answer, livesInGBAnswer)
+    val approved = completedQuestionGroups.length == 4 && completedQuestionGroups.forall(_.asInstanceOf[Boolean])
 
-    track(LivesInGB) { implicit claim => Ok(views.html.s1_carers_allowance.g6_approve(approved)) }
+    track(LivesInGB) { implicit claim => Ok(views.html.s1_carers_allowance.g6_approve(form.fill(ProceedAnyway), approved, benefitsAnswer, hoursAnswer, over16Answer, livesInGBAnswer)) }
   }
 
   def approveSubmit = claiming {implicit claim => implicit request => implicit lang =>
     form.bindFromRequest.fold(
       formWithErrors => {
-        NotFound
+        val benefitsAnswer = claim.questionGroup[Benefits].getOrElse(Benefits()).asInstanceOf[BooleanConfirmation].answer
+        val hoursAnswer = claim.questionGroup[Hours].getOrElse(Hours()).asInstanceOf[BooleanConfirmation].answer
+        val over16Answer = claim.questionGroup[Over16].getOrElse(Over16()).asInstanceOf[BooleanConfirmation].answer
+        val livesInGBAnswer = claim.questionGroup[LivesInGB].getOrElse(LivesInGB()).asInstanceOf[BooleanConfirmation].answer
+        val completedQuestionGroups = List(benefitsAnswer, hoursAnswer, over16Answer, livesInGBAnswer)
+        val approved = completedQuestionGroups.length == 4 && completedQuestionGroups.forall(_.asInstanceOf[Boolean])
+
+        BadRequest(views.html.s1_carers_allowance.g6_approve(formWithErrors, approved, benefitsAnswer, hoursAnswer, over16Answer, livesInGBAnswer))
       },
       f => {
         if (!f.jsEnabled) {
           Logger.info(s"No JS - Start ${claim.key} User-Agent : ${request.headers.get("User-Agent").orNull}")
         }
-        Redirect(controllers.s1_2_claim_date.routes.G1ClaimDate.present())
+
+        if (f.answerRequired) {
+          claim.update(f) -> Redirect(controllers.s1_2_claim_date.routes.G1ClaimDate.present())
+        } else {
+          f.answerYesNo match {
+            case Some(proceed) if (proceed == "yes") => claim.update(f) -> Redirect(controllers.s1_2_claim_date.routes.G1ClaimDate.present())
+            case _ => claim.update(f) -> Redirect("http://www.gov.uk/done/apply-carers-allowance")
+          }
+        }
       }
     )
   }

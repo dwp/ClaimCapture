@@ -49,3 +49,14 @@ case class LivesInGB(answerYesNo: String = "") extends QuestionGroup(LivesInGB) 
 object LivesInGB extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g4"
 }
+
+case class ProceedAnyway(answerRequired: Boolean, answerYesNo: Option[String] = None, jsEnabled: Boolean = false) extends QuestionGroup(ProceedAnyway) with BooleanConfirmation {
+  val answer: Boolean = answerRequired || (answerYesNo match {
+    case Some(answer) if (answer == "yes") => true
+    case _ => false
+  })
+}
+
+object ProceedAnyway extends QuestionGroup.Identifier {
+  val id = s"${CarersAllowance.id}.g6"
+}

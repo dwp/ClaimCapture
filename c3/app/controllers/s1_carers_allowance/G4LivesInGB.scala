@@ -6,7 +6,7 @@ import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import models.domain.LivesInGB
+import models.domain.{Hours, Over16, Benefits, LivesInGB}
 import controllers.Mappings._
 import models.view.Navigable
 
@@ -16,6 +16,10 @@ object G4LivesInGB extends Controller with CachedClaim with Navigable {
   )(LivesInGB.apply)(LivesInGB.unapply))
 
   def present = claiming { implicit claim => implicit request => implicit lang =>
+    claim.-(Benefits)
+    claim.-(Over16)
+    claim.-(Hours)
+    claim.-(LivesInGB)
     track(LivesInGB) { implicit claim => Ok(views.html.s1_carers_allowance.g4_livesInGB(form.fill(LivesInGB))) }
   }
 
