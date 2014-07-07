@@ -97,6 +97,7 @@ object EvidenceList {
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
 
     textSeparatorLine("About Care You Provide") ++
+      textLine("What's their relationship to you? = ", theirPersonalDetails.relationship) ++
       textLine("Do they live at the same address as you? = ", theirPersonalDetails.liveAtSameAddressCareYouProvide) ++
       textLine("Does this person get Armed Forces Independence Payment? = ", theirPersonalDetails.armedForcesPayment) ++
       textLine("Do you spend 35 hours or more each week caring for this person? = ", moreAboutTheCare.spent35HoursCaring) ++
