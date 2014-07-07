@@ -175,6 +175,7 @@ Employment,Employer Details,Employers Name,EmploymentEmployerName_1,DWP
 Employment,Employer Details,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,03/05/2010
 Employment,Employer Details,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,Yes
 Employment,Employer Details,When did you last work? ,EmploymentWhenDidYouLastWork_1,24/12/2010
+Employment,Employer Details,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_1,
 Employment,Employer Details,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,25
 Employment,Employer Details,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,987656788
 Employment,Employer Details,Address,EmploymentEmployerAddress_1,9923 Yeadon Way&Blackpool&Lancashire
@@ -218,6 +219,7 @@ Employment,Employer Details,Employers Name,EmploymentEmployerName_2,
 Employment,Employer Details,When did you start your job?,EmploymentWhenDidYouStartYourJob_2,
 Employment,Employer Details,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,
 Employment,Employer Details,When did you last work? ,EmploymentWhenDidYouLastWork_2,
+Employment,Employer Details,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_2
 Employment,Employer Details,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_2,
 Employment,Employer Details,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_2,
 Employment,Employer Details,Address,EmploymentEmployerAddress_2,

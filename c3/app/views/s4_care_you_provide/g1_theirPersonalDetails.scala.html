@@ -17,7 +17,7 @@
 	            <legend>@Html(Messages("s4.g1"))</legend>
 	
 	            <ul>
-                    @relationshipSelect(currentForm("relationship"))
+                    @carersInputText(currentForm("relationship"), 'helperAbove-> Messages("relationship.helper"),'maxLength -> 60)
 
 	                @titleSelect(currentForm("title"))
 	
