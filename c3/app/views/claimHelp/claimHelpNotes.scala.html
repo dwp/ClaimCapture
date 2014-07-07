@@ -8,7 +8,12 @@
 @main(Messages("claimHelp.legend")) {
 
 		<section>
+			 <nav class="first">
+	            <a id="backButton" href="@claim.navigation.current">@Html(Messages("form.back.to.app"))</a>
+	        </nav>
+			
 			<p>@Html(Messages("claimHelp.main.1"))</p>
+			
 		    <h3>@Html(Messages("claimHelp.main.2"))</h3>
 	
 	        <ol>
@@ -21,6 +26,7 @@
 		        <li>@Html(Messages("claimHelp.main.9"))</li>
 		        <li>@Html(Messages("claimHelp.main.10"))</li>
 	        </ol>
+	        
 		</section>
         
         <section>
