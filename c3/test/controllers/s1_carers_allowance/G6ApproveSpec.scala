@@ -22,7 +22,7 @@ class G6ApproveSpec extends Specification with Tags {
       Cache.set(claimKey, claim)
 
       val result = s1_carers_allowance.CarersAllowance.approve(request)
-      contentAsString(result) must contain("div class=\"prompt entitlement\"")
+      contentAsString(result) must contain("div class=\"prompt helper-prompt\"")
     }
 
     "note that the carer is not eligible for allowance" in new WithApplication with Claiming {

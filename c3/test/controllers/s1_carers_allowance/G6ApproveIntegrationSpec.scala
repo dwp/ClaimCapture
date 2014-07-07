@@ -6,6 +6,7 @@ import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s2_about_you.G1YourDetailsPage
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import play.api.Logger
 
 class G6ApproveIntegrationSpec extends Specification with Tags {
   "Approve" should {
@@ -70,7 +71,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
-      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
+      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
       page goToThePage()
       page runClaimWith (claim, G1ClaimDatePage.title)
     }
