@@ -11,11 +11,13 @@ import Employment._
 import utils.helpers.PastPresentLabelHelper._
 import controllers.Mappings._
 import play.api.data.FormError
+import controllers.CarersForms._
 
 object G8AboutExpenses extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "haveExpensesForJob" -> nonEmptyText.verifying(validYesNo),
+    "jobTitle" -> optional(carersNonEmptyText),
     "whatExpensesForJob" -> optional(nonEmptyText),
     "payAnyoneToLookAfterChildren" -> nonEmptyText.verifying(validYesNo),
     "nameLookAfterChildren" -> optional(nonEmptyText),
@@ -30,6 +32,7 @@ object G8AboutExpenses extends Controller with CachedClaim with Navigable {
     "relationToYouLookAfterPerson" -> optional(nonEmptyText),
     "relationToPersonLookAfterPerson" -> optional(nonEmptyText)
   )(AboutExpenses.apply)(AboutExpenses.unapply)
+    .verifying("jobTitle.required", AboutExpenses.validateJobTitle _)
     .verifying("whatExpensesForJob.required", AboutExpenses.validateWhatExpensesForJob _)
     .verifying("nameLookAfterChildren.required", AboutExpenses.validateNameLookAfterChildren _)
     .verifying("howMuchLookAfterChildren.required", AboutExpenses.validateHowMuchLookAfterChildren _)
@@ -54,6 +57,7 @@ object G8AboutExpenses extends Controller with CachedClaim with Navigable {
           .replaceError("haveExpensesForJob", "error.required", FormError("haveExpensesForJob", "error.required", Seq(labelForEmployment(claim, lang, "haveExpensesForJob", jobID))))
           .replaceError("payAnyoneToLookAfterPerson", "error.required", FormError("payAnyoneToLookAfterPerson", "error.required", Seq(labelForEmployment(claim, lang, "payAnyoneToLookAfterPerson", jobID))))
           .replaceError("payAnyoneToLookAfterChildren", "error.required", FormError("payAnyoneToLookAfterChildren", "error.required", Seq(labelForEmployment(claim, lang, "payAnyoneToLookAfterChildren", jobID))))
+          .replaceError("", "jobTitle.required", FormError("jobTitle", "error.required", Seq(labelForEmployment(claim, lang, "jobTitle", jobID))))
           .replaceError("", "whatExpensesForJob.required", FormError("whatExpensesForJob", "error.required", Seq(labelForEmployment(claim, lang, "whatExpensesForJob", jobID))))
           .replaceError("", "nameLookAfterChildren.required", FormError("nameLookAfterChildren", "error.required", Seq(labelForEmployment(claim, lang, "nameLookAfterChildren", jobID))))
           .replaceError("", "howMuchLookAfterChildren.required", FormError("howMuchLookAfterChildren", "error.required", Seq(labelForEmployment(claim, lang, "howMuchLookAfterChildren", jobID))))

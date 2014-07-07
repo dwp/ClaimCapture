@@ -18,7 +18,7 @@ object Employment {
     <Employer>
       <DateJobStarted>{jobDetails.jobStartDate.`yyyy-MM-dd`}</DateJobStarted>
       {<DateJobEnded/> +++ jobDetails.lastWorkDate}
-      <JobType>{NotAsked}</JobType>
+      <JobType>{job.title}</JobType>
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
       <Address>{postalAddressStructure(jobDetails.address, jobDetails.postcode)}</Address>

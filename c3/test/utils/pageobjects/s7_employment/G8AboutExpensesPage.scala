@@ -5,6 +5,7 @@ import utils.pageobjects._
 
 final class G8AboutExpensesPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G8AboutExpensesPage.url.replace(":jobID", iteration.toString), G8AboutExpensesPage.title, iteration) {
   declareYesNo("#haveExpensesForJob", "EmploymentDoYouPayforAnythingNecessaryToDoYourJob_" + iteration)
+  declareInput("#jobTitle", "EmploymentJobTitle_" + iteration)
   declareInput("#whatExpensesForJob", "EmploymentWhatAreNecessaryJobExpenses_" + iteration)
   declareYesNo("#payAnyoneToLookAfterChildren", "EmploymentDoYouPayAnyoneLookAfterYourChild_" + iteration)
   declareInput("#nameLookAfterChildren", "EmploymentNameOfthePersonWhoLooksAfterYourChild_" + iteration)

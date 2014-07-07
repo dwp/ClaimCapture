@@ -73,6 +73,8 @@ object Jobs extends QuestionGroup.Identifier {
 case class Job(jobID: String="", questionGroups: List[QuestionGroup with Job.Identifier] = Nil, completed:Boolean=false) extends Job.Identifier with Iterable[QuestionGroup with Job.Identifier] {
   def employerName = jobDetails(_.employerName)
 
+  def title = aboutExpenses(_.jobTitle.getOrElse(""))
+
   def jobStartDate = jobDetailsDate(_.jobStartDate)
 
   def update(questionGroup: QuestionGroup with Job.Identifier): Job = {
@@ -82,6 +84,11 @@ case class Job(jobID: String="", questionGroups: List[QuestionGroup with Job.Ide
 
   private def jobDetails(f: JobDetails => String) = questionGroups.find(_.isInstanceOf[JobDetails]) match {
     case Some(j: JobDetails) => f(j)
+    case _ => ""
+  }
+
+  private def aboutExpenses(f: AboutExpenses => String) = questionGroups.find(_.isInstanceOf[AboutExpenses]) match {
+    case Some(n: AboutExpenses) => f(n)
     case _ => ""
   }
 
@@ -195,6 +202,7 @@ object PensionSchemes extends QuestionGroup.Identifier {
 
 case class AboutExpenses(jobID: String = "",
                          haveExpensesForJob: String = "",
+                         jobTitle: Option[String] = None,
                          whatExpensesForJob: Option[String] = None,
                          payAnyoneToLookAfterChildren: String = "",
                          nameLookAfterChildren: Option[String] = None,
@@ -211,6 +219,11 @@ case class AboutExpenses(jobID: String = "",
 
 object AboutExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g8"
+
+  def validateJobTitle(input: AboutExpenses): Boolean = input.haveExpensesForJob match {
+    case `yes` => input.jobTitle.isDefined
+    case `no` => true
+  }
 
   def validateWhatExpensesForJob(input: AboutExpenses): Boolean = input.haveExpensesForJob match {
     case `yes` => input.whatExpensesForJob.isDefined

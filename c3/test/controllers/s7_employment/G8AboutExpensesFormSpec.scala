@@ -17,12 +17,14 @@ class G8AboutExpensesFormSpec extends Specification with Tags {
     val howMuch =  "125.45"
     val howOften_frequency = Other
     val howOften_frequency_other = "Every day and twice on Sundays"
+    val title = "some position"
 
     "map data into case class" in {
       G8AboutExpenses.form.bind(
         Map(
           "jobID" -> jobId,
           "haveExpensesForJob" -> yes,
+          "jobTitle" -> title,
           "whatExpensesForJob" -> expenses,
           "payAnyoneToLookAfterChildren" -> yes,
           "nameLookAfterChildren" -> name1,
@@ -43,6 +45,7 @@ class G8AboutExpensesFormSpec extends Specification with Tags {
         f => {
           f.jobID must equalTo(jobId)
           f.haveExpensesForJob must equalTo(yes)
+          f.jobTitle must equalTo(Some(title))
           f.whatExpensesForJob must equalTo(Some(expenses))
           f.payAnyoneToLookAfterChildren must equalTo(yes)
           f.nameLookAfterChildren must equalTo(Some(name1))
@@ -62,7 +65,8 @@ class G8AboutExpensesFormSpec extends Specification with Tags {
 
     "have 4 mandatory fields" in {
       G8AboutExpenses.form.bind(
-        Map("whatExpensesForJob" -> expenses,
+        Map("jobTitle" -> title,
+            "whatExpensesForJob" -> expenses,
             "nameLookAfterChildren" -> name1,
             "howMuchLookAfterChildren" -> howMuch,
             "howOftenLookAfterChildren.frequency" -> howOften_frequency,
@@ -123,7 +127,7 @@ class G8AboutExpensesFormSpec extends Specification with Tags {
         )
     }
 
-    "have 1 expanded mandatory field if haveExpensesForJob is yes" in {
+    "have 2 expanded mandatory field if haveExpensesForJob is yes" in {
       G8AboutExpenses.form.bind(
         Map(
           "jobID" -> jobId,
@@ -133,8 +137,10 @@ class G8AboutExpensesFormSpec extends Specification with Tags {
       ).fold(
 
           formWithErrors =>  {
-            formWithErrors.errors.length must equalTo(1)
-            formWithErrors.errors(0).message must equalTo("whatExpensesForJob.required")},
+            formWithErrors.errors.length must equalTo(2)
+            formWithErrors.errors(0).message must equalTo("jobTitle.required")
+            formWithErrors.errors(1).message must equalTo("whatExpensesForJob.required")
+          },
           f => "This mapping should not happen." must equalTo("Valid")
         )
     }
@@ -181,7 +187,8 @@ class G8AboutExpensesFormSpec extends Specification with Tags {
 
     "reject if other is select but not filled under look after children" in {
       G8AboutExpenses.form.bind(
-        Map("whatExpensesForJob" -> expenses,
+        Map("jobTitle" -> title,
+          "whatExpensesForJob" -> expenses,
           "nameLookAfterChildren" -> name1,
           "howMuchLookAfterChildren" -> howMuch,
           "howOftenLookAfterChildren.frequency" -> howOften_frequency,
@@ -201,7 +208,8 @@ class G8AboutExpensesFormSpec extends Specification with Tags {
 
     "reject if other is select but not filled under look after person" in {
       G8AboutExpenses.form.bind(
-        Map("whatExpensesForJob" -> expenses,
+        Map("jobTitle" -> title,
+          "whatExpensesForJob" -> expenses,
           "nameLookAfterChildren" -> name1,
           "howMuchLookAfterChildren" -> howMuch,
           "howOftenLookAfterChildren.frequency" -> howOften_frequency,

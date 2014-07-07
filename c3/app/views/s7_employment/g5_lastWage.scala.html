@@ -13,7 +13,7 @@
 @import play.api.i18n.{MMessages => Messages}
 
 @employerName = @{
-    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).employerName
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).employerName + " - "
 }
 
 @main(Messages("s7.g5") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.LastWage, JobID(currentForm)), Some(employerName)) {
