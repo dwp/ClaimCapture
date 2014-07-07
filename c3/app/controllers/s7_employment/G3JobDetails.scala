@@ -25,6 +25,7 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
     "jobStartDate" -> dayMonthYear.verifying(validDate),
     "finishedThisJob" -> nonEmptyText.verifying(validYesNo),
     "lastWorkDate" -> optional(dayMonthYear.verifying(validDate)),
+    "p45LeavingDate" -> optional(dayMonthYear.verifying(validDateOnly)),
     "hoursPerWeek" -> optional(nonEmptyText(maxLength = 2).verifying(validNumber))
   )(JobDetails.apply)(JobDetails.unapply)
     .verifying("lastWorkDate.required", JobDetails.validateLastWorkDate _)

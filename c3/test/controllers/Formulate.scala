@@ -174,7 +174,7 @@ object Formulate {
   // Care You Provide
   def theirPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-personal-details")
-    browser.click("#relationship option[value='father']")
+    browser.fill("#relationship") `with` "some other relationship"
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
@@ -188,7 +188,7 @@ object Formulate {
 
   def theirPersonalDetailsNotLiveAtSameAddress(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-personal-details")
-    browser.click("#relationship option[value='father']")
+    browser.fill("#relationship") `with` "some other relationship"
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
@@ -329,7 +329,6 @@ object Formulate {
   // Education
   def yourCourseDetails(browser: TestBrowser) = {
     val courseTitle = "Law"
-    val startDateDay = "16"
     val nameOfSchoolCollegeOrUniversity = "MIT"
     val nameOfMainTeacherOrTutor = "Albert Einstein"
     val courseContactNumber = "02076541058"

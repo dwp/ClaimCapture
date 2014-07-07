@@ -13,7 +13,7 @@ import scala.Some
 
 object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "relationship" -> nonEmptyText(maxLength = 20),
+    "relationship" -> nonEmptyText(maxLength = 60),
     "title" -> nonEmptyText(maxLength = 4),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),

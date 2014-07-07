@@ -12,8 +12,8 @@ final class G3JobDetailsPage(ctx:PageObjectsContext, iteration: Int) extends Cla
   declareDate("#jobStartDate", "EmploymentWhenDidYouStartYourJob_" + iteration)
   declareYesNo("#finishedThisJob", "EmploymentHaveYouFinishedThisJob_" + iteration)
   declareDate("#lastWorkDate", "EmploymentWhenDidYouLastWork_" + iteration)
+  declareDate("#p45LeavingDate","EmploymentLeavingDateP45_"+iteration)
   declareInput("#hoursPerWeek", "EmploymentHowManyHoursAWeekYouNormallyWork_" + iteration)
-
 }
 
 object G3JobDetailsPage {

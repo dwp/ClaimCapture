@@ -39,6 +39,9 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "lastWorkDate.day" -> day,
           "lastWorkDate.month" -> month,
           "lastWorkDate.year" -> year2,
+          "p45LeavingDate.day" -> day,
+          "p45LeavingDate.month" -> month,
+          "p45LeavingDate.year" -> year2,
           "hoursPerWeek" -> hrsPerWeek
           )
       ).fold(
@@ -72,6 +75,9 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "lastWorkDate.day" -> day,
           "lastWorkDate.month" -> month,
           "lastWorkDate.year" -> year2,
+          "p45LeavingDate.day" -> day,
+          "p45LeavingDate.month" -> month,
+          "p45LeavingDate.year" -> year2,
           "hoursPerWeek" -> hrsPerWeek)
       ).fold(
           formWithErrors => {
