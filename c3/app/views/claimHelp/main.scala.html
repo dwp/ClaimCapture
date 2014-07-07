@@ -12,15 +12,15 @@
         @common.protoType()
 
         <article>
-            <nav class="form-steps">
-                <ul>
-                    <li><a id="backButton" href="@claim.navigation.current">@Html(Messages("form.back.to.app"))</a></li>
-                </ul>
-            </nav>
+            
 
             <h1>@Html(Messages("claimHelp.legend"))</h1>
+            
+            <div class="claim-notes">
 
             @content
+            
+            </div>
 
         </article>
 

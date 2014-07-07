@@ -60,9 +60,6 @@ POST          /allowance/over-16                                          contro
 GET           /allowance/lives-in-gb                                      controllers.s1_carers_allowance.G4LivesInGB.present
 POST          /allowance/lives-in-gb                                      controllers.s1_carers_allowance.G4LivesInGB.submit
 
-GET           /allowance/carers-response                                  controllers.s1_carers_allowance.G5CarersResponse.present
-POST          /allowance/carers-response                                  controllers.s1_carers_allowance.G5CarersResponse.submit
-
 GET           /allowance/approve                                          controllers.s1_carers_allowance.CarersAllowance.approve
 POST          /allowance/approve                                          controllers.s1_carers_allowance.CarersAllowance.approveSubmit
 
