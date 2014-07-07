@@ -176,6 +176,7 @@ Employment,Employer Details,Employers Name,EmploymentEmployerName_1,Tesco's
 Employment,Employer Details,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,01/01/2013
 Employment,Employer Details,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,Yes
 Employment,Employer Details,When did you last work? ,EmploymentWhenDidYouLastWork_1,01/07/2013
+Employment,Employer Details,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_1,
 Employment,Employer Details,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,25
 Employment,Employer Details,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,12345678
 Employment,Employer Details,Address,EmploymentEmployerAddress_1,23 Yeadon Way&Blackpool&Lancashire
@@ -216,15 +217,16 @@ Employment,About expenses to do with your employment,"What relation, if any, is 
 Employment,About expenses to do with your employment,"What relation, if any, is this person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1,other
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouBeenEmployedAtAnyTime_1,Yes
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
-Employment,Emplyer Details,Employers Name,EmploymentEmployerName_2,Tesco's
-Employment,Emplyer Details,When did you start your job?,EmploymentWhenDidYouStartYourJob_2,01/01/2013
-Employment,Emplyer Details,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,Yes
-Employment,Emplyer Details,When did you last work? ,EmploymentWhenDidYouLastWork_2,01/01/2001
-Employment,Emplyer Details,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_2,20
-Employment,Emplyer Details,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_2,12345678
-Employment,Emplyer Details,Address,EmploymentEmployerAddress_2,23 Yeadon Way&Blackpool&Lancashire
-Employment,Emplyer Details,Postcode ,EmploymentEmployerPostcode_2,FY4 5TH
-Employment,Emplyer Details,Phone number,EmploymentEmployerPhoneNumber_2,01253 667889
+Employment,Employer Details,Employers Name,EmploymentEmployerName_2,Tesco's
+Employment,Employer Details,When did you start your job?,EmploymentWhenDidYouStartYourJob_2,01/01/2013
+Employment,Employer Details,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,Yes
+Employment,Employer Details,When did you last work? ,EmploymentWhenDidYouLastWork_2,01/01/2001
+Employment,Employer Details,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_2,25/12/2010
+Employment,Employer Details,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_2,20
+Employment,Employer Details,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_2,12345678
+Employment,Employer Details,Address,EmploymentEmployerAddress_2,23 Yeadon Way&Blackpool&Lancashire
+Employment,Employer Details,Postcode ,EmploymentEmployerPostcode_2,FY4 5TH
+Employment,Employer Details,Phone number,EmploymentEmployerPhoneNumber_2,01253 667889
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_2,08/07/2013
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_2,600
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_2,

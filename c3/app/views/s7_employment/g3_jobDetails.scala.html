@@ -31,8 +31,6 @@
             </fieldset>
 
             <fieldset class="form-elements">
-                <legend>@Html(Messages("s7.g3.address"))</legend>
-
                 <ul>
                     @inputAddress(currentForm("address"))
 
@@ -57,8 +55,9 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(inputDayMonthYear(currentForm("lastWorkDate"), 'helperAbove -> Messages("jobStartDate.helper")),
-                        carersShortInputText(currentForm("hoursPerWeek"),
-                            '_label -> labelForEmployment(claim, lang, "hoursPerWeek", JobID(currentForm)),'placeholder -> "00", 'maxlength -> 2)),
+                            inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("jobStartDate.helper")),
+                            carersShortInputText(currentForm("hoursPerWeek"),
+                            '_label -> labelForEmployment(claim, lang, "hoursPerWeek", JobID(currentForm)), 'maxlength -> 2)),
 	                    'id -> "lastWorkData",
 	                    'display -> currentForm("finishedThisJob").value.getOrElse("no"))
 	            </ul>

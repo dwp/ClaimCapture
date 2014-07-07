@@ -64,6 +64,9 @@ class G3JobDetailsSpec extends Specification with Tags {
         "lastWorkDate.day" -> "1",
         "lastWorkDate.month" -> "1",
         "lastWorkDate.year" -> "2001",
+        "p45LeavingDate.day" -> "1",
+        "p45LeavingDate.month" -> "1",
+        "p45LeavingDate.year" -> "2001",
         "hoursPerWeek" -> "75",
         "payrollEmployeeNumber" -> "445566")
 
@@ -85,6 +88,9 @@ class G3JobDetailsSpec extends Specification with Tags {
         "lastWorkDate.day" -> "1",
         "lastWorkDate.month" -> "1",
         "lastWorkDate.year" -> "2001",
+        "p45LeavingDate.day" -> "1",
+        "p45LeavingDate.month" -> "1",
+        "p45LeavingDate.year" -> "2001",
         "hoursPerWeek" -> "75",
         "payrollEmployeeNumber" -> "445566")
 
