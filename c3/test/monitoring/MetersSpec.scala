@@ -7,6 +7,9 @@ import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
 import com.kenshoo.play.metrics.MetricsRegistry
 
 class MetersSpec extends Specification {
+
+  args(skipAll=true)
+
   "Meters metrics" should {
     "must measure com.kenshoo.play.metrics.MetricsFilter.200" in new WithBrowser with PageObjects {
       val page = G1BenefitsPage(context)

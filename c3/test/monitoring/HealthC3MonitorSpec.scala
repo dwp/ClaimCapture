@@ -8,7 +8,12 @@ import services.submission.{TestHealthMonitor, MockInjector}
 import monitor.HealthMonitor
 
 class HealthC3MonitorSpec extends Specification with MockInjector {
+
+  args(skipAll=true)
+
+
   "Health Monitor" should {
+
     "must report an unhealthy database" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with PageObjects {
       val page = G1BenefitsPage(context)
       page goToThePage()
@@ -20,4 +25,5 @@ class HealthC3MonitorSpec extends Specification with MockInjector {
       TestHealthMonitor.runHealthChecks().get("c3-cache").get.isHealthy must beTrue
     }
   } section "unit"
+
 }

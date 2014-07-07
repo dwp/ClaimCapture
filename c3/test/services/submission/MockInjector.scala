@@ -9,7 +9,7 @@ import monitoring._
 import utils.Injector
 import monitor.HealthMonitor
 
-trait MockInjector extends C3MonitorRegistration with Injector {
+trait MockInjector  extends Injector { //extends C3MonitorRegistration
   // used to create different test conditions
   var txnId: String = ""
 
@@ -20,8 +20,8 @@ trait MockInjector extends C3MonitorRegistration with Injector {
     override def getControllerInstance[A](controllerClass: Class[A]): A = resolve(controllerClass)
 
     override def onStart(app: Application): Unit = {
-      registerReporters()
-      registerHealthChecks()
+//      registerReporters()
+//      registerHealthChecks()
     }
   }
 

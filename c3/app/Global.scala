@@ -31,7 +31,9 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
 
     actorSystems()
 
-//    registerReporters()
+//    reg
+//
+// isterReporters()
 //    registerHealthChecks()
 
     Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}") // used for operations, do not remove

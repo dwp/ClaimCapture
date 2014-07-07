@@ -5,6 +5,8 @@ import play.api.test.{WithApplication, FakeRequest, PlaySpecification}
 import scala.concurrent.Future
 
 class HealthControllerSpec extends PlaySpecification with Results {
+  args(skipAll=true)
+
   class TestController() extends Controller with HealthController
 
   "Health Page#health" should {
