@@ -12,6 +12,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  G6ApprovePage(context)
       page goToThePage()
+      page jsCheckEnabled() must beTrue
     }
   } section("integration",models.domain.CarersAllowance.id)
 

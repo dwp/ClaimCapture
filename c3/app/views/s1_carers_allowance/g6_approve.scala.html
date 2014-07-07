@@ -16,6 +16,7 @@
     }
 
     @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit) {
+        <input type="hidden" id="js" name="jsEnabled" value="false">
         <nav class="form-steps">
         	@if(approved == false) {
         	    <p>@Html(Messages("s1.g6.help4"))</p>
@@ -30,3 +31,4 @@
         </nav>
     }
 }
+<script type="text/javascript">$($("#js").val("true"));</script>
