@@ -221,7 +221,7 @@ Employment,Employer Details,Employers Name,EmploymentEmployerName_2,Tesco's
 Employment,Employer Details,When did you start your job?,EmploymentWhenDidYouStartYourJob_2,01/01/2013
 Employment,Employer Details,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,Yes
 Employment,Employer Details,When did you last work? ,EmploymentWhenDidYouLastWork_2,01/01/2001
-Employment,Employer Details,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_2,25/12/2010
+Employment,Employer Details,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_2,
 Employment,Employer Details,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_2,20
 Employment,Employer Details,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_2,12345678
 Employment,Employer Details,Address,EmploymentEmployerAddress_2,23 Yeadon Way&Blackpool&Lancashire

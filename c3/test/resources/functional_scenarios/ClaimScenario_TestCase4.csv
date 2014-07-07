@@ -175,7 +175,7 @@ Employment,Employer Details,When did you start your job?,EmploymentWhenDidYouSta
 Employment,Employer Details,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,No
 Employment,Employer Details,When did you last work? ,EmploymentWhenDidYouLastWork_1,
 Employment,Employer Details,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_1,
-Employment,Employer Detailsb,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,25
+Employment,Employer Detailsb,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,
 Employment,Employer Details,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,12345678
 Employment,Employer Details,Address,EmploymentEmployerAddress_1,23 Yeadon Way&Blackpool&Lancashire
 Employment,Employer Details,Postcode ,EmploymentEmployerPostcode_1,FY4 5TH
