@@ -916,31 +916,6 @@ main {
 }
 
 
-
-
-
-
-/* Footer */
-@import 'footer';
-
-
-/* Assitive tech accessibility */
-@import 'assistive';
-
-/* Form review */
-@import 'review';
-
-/* Include & Overrides */
-@import 'includes';
-
-.js-message {
-   padding: 1em 0;
-   background: #ccc;
-   text-align: center;
-   } 
-
-
-
 .data-table {
 
 	margin-bottom: 2em;
@@ -1018,5 +993,33 @@ main {
 	}
 	
 }
+
+
+
+
+
+/* Claim notes */
+@import 'claimnotes';
+
+
+/* Footer */
+@import 'footer';
+
+
+/* Assitive tech accessibility */
+@import 'assistive';
+
+/* Form review */
+@import 'review';
+
+/* Include & Overrides */
+@import 'includes';
+
+.js-message {
+   padding: 1em 0;
+   background: #ccc;
+   text-align: center;
+   } 
+
 
 
