@@ -1,0 +1,17 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang)
+
+@import helper._
+@import utils.helpers.CarersCrypto
+@import utils.helpers._
+@import views.html.helper.base._
+@import play.api.i18n.{MMessages => Messages}
+
+@value = @{
+    if(args.find(_._1 == 'hiddenValue).isDefined) {
+        args.find(_._1 == 'hiddenValue).get._2.toString
+    } else {
+        ""
+    }
+}
+
+<input type="hidden" id="@CarersCrypto.encryptAES(field.id)" name="@CarersCrypto.encryptAES(field.name)" value="@value">

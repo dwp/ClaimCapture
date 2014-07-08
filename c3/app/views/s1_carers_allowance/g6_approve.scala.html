@@ -1,6 +1,7 @@
 @(currentForm: Form[models.domain.ProceedAnyway], approved: Boolean, benefitsAnswer: Boolean, hoursAnswer: Boolean, over16Answer: Boolean, liveInGBAnswer: Boolean)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
+@import helper.base._
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersCrypto
 
@@ -35,7 +36,8 @@
     }
 
     @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit) {
-        <input type="hidden" name="answerRequired" value="@approved"/>
+        @carersInputHidden(currentForm("answerRequired"),
+            'hiddenValue -> approved)
         <input type="hidden" id="js" name="jsEnabled" value="false"/>
         @if(approved) {
             <nav class="form-steps">
