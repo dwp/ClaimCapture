@@ -8,6 +8,7 @@ import play.api.data.Forms._
 import models.domain.JSEnabled
 import play.api.Logger
 import controllers.Mappings._
+import utils.helpers.CarersForm._
 
 object CarersAllowance extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -28,7 +29,7 @@ object CarersAllowance extends Controller with CachedClaim with Navigable {
   }
 
   def approveSubmit = claiming {implicit claim => implicit request => implicit lang =>
-    form.bindFromRequest.fold(
+    form.bindEncrypted.fold(
       formWithErrors => {
         val benefitsAnswer = claim.questionGroup[Benefits].getOrElse(Benefits()).asInstanceOf[BooleanConfirmation].answer
         val hoursAnswer = claim.questionGroup[Hours].getOrElse(Hours()).asInstanceOf[BooleanConfirmation].answer
