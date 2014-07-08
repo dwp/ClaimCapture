@@ -36,8 +36,7 @@
     }
 
     @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit) {
-        @carersInputHidden(currentForm("answerRequired"),
-            'hiddenValue -> approved)
+        <input type="hidden" name="answerRequired" value="@approved"/>
         <input type="hidden" id="js" name="jsEnabled" value="false"/>
         @if(approved) {
             <nav class="form-steps">
