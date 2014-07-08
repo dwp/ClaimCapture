@@ -7,15 +7,17 @@
 
 @main("Can you get Carer's Allowance?", None, claim.completedQuestionGroups(models.domain.CarersAllowance)) {
     @if(approved) {
-        <div class="prompt helper-prompt">
-            <h3>@Html(Messages("s1.g6.green.help1"))</h3>
-            <p>@Html(Messages("s1.g6.green.help2"))</p>
-            <p>@Html(Messages("s1.g6.green.help3"))</p>
-            <p>@Html(Messages("s1.g6.green.help4"))</p>
+        <div class="prompt e-prompt">
+            <h2>@Html(Messages("s1.g6.green.help1"))</h2>
+            <ul>
+	            <li>@Html(Messages("s1.g6.green.help2"))</li>
+	            <li>@Html(Messages("s1.g6.green.help3"))</li>
+	            <li>@Html(Messages("s1.g6.green.help4"))</li>
+            </ul>
             <p>@Html(Messages("s1.g6.green.help.moreinfo")) <a href="/claim-notes">@Html(Messages("s1.g6.green.help.moreinfo.link"))</a>@Html(Messages("s1.g6.green.help.moreinfo.end"))</p>
         </div>
     } else {
-        <div class="prompt entitlement-error">
+        <div class="prompt e-prompt entitlement-error">
             <h2>@Html(Messages("s1.g6.red.help1"))</h2>
             <ul>
                 @if(!hoursAnswer) {
@@ -46,7 +48,7 @@
                 </ul>
             </nav>
         } else {
-            <fieldset class="form-elements form-eligibility">
+            <fieldset class="form-elements">
                 <legend>@Messages("proceedAnyway.answer")</legend>
                 <p>@Messages("proceedAnyway.help")</p>
                 <ul>

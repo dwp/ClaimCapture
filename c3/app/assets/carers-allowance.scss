@@ -26,6 +26,9 @@ main {
    .ie6 & {
 	   width: 960px;
    }
+   @media screen and (max-width: 500px) {
+	   padding-bottom: 3em;
+   }
     
 
 @import 'prototype';
@@ -51,6 +54,9 @@ main {
 /* form elements */
 .form-elements {
 	margin: 50px 0 1em 0;
+	@media screen and (max-width: 500px) {
+		margin-top: 30px;
+	}
 
    	    
    	    /* Eligibility section */

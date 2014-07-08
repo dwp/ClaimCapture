@@ -12,6 +12,10 @@
 	   &.error {
 		   background: #f2f2f2;
 	   }
+	   h2 {
+		   font-size: 24px;
+		   line-height: 1.3em;
+	   }
 	   &.submitting {
 	   	   position: relative;
 	   	    @media screen and (max-width: 660px) {
@@ -137,7 +141,8 @@
 		   border: 1px solid #a2a2a2;
 		   background: #fff;
 		   }
-	   &.helper-prompt {
+		   
+	   &.helper-prompt, &.e-prompt {
 		   margin: .5em 0 1em 0;
 		   border: 1px solid #a2a2a2;
 		   background: #fff;
@@ -167,7 +172,15 @@
 		   }
 	   }
 	   
+	   &.e-prompt {
+		   margin-top: 2em;
+	   }
 	   
+	   &.entitlement-error {
+	   	   margin-top: 2em;
+		   background: #fef7f7;
+		   border: 3px solid #df3034;
+	   }
 	   
 	   &.nested-prompt {
 		   margin: 1em 0 2em 0;

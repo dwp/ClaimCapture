@@ -55,6 +55,9 @@ article {
 		   float: none;
 		   width: auto;
 	   }
+	   @media screen and (max-width: 700px) {
+		   padding-top: 1.8em;
+	   }
 	   
 	   &.eligible {
 		   .validation-summary {
