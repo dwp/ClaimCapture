@@ -38,8 +38,10 @@
     }
 
     @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit) {
-        <input type="hidden" name="answerRequired" value="@approved"/>
-        <input type="hidden" id="js" name="jsEnabled" value="false"/>
+        @carersInputHidden(currentForm("answerRequired"),
+            'hiddenValue -> approved)
+        @carersInputHidden(currentForm("jsEnabled"),
+            'hiddenValue -> "false")
         @if(approved) {
             <nav class="form-steps">
                 <ul>
@@ -65,7 +67,7 @@
         }
     }
 }
-<script type="text/javascript">$($("#js").val("true"));</script>
+<script type="text/javascript">$($("#jsEnabled").val("true"));</script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/g6_approve.js")'></script>
 
 <script type="text/javascript">
