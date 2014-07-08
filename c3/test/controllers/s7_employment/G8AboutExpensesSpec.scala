@@ -31,6 +31,7 @@ class G8AboutExpensesSpec extends Specification with Tags {
     "accept all mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
         "haveExpensesForJob" -> "yes", "payAnyoneToLookAfterChildren" -> "yes", "payAnyoneToLookAfterPerson" -> "yes",
+        "jobTitle" -> "some title",
         "whatExpensesForJob" -> "some expense",
         "nameLookAfterChildren" -> "Jane Doe",
         "howMuchLookAfterChildren" -> "125.40",
@@ -45,13 +46,12 @@ class G8AboutExpensesSpec extends Specification with Tags {
         "relationToYouLookAfterPerson" -> "no relation",
         "relationToPersonLookAfterPerson" -> "some other relation"
       )
-
       val result = G8AboutExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     "be added to a (current) job" in new WithApplication with Claiming {
-      G3JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result1 = G3JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
@@ -61,7 +61,8 @@ class G8AboutExpensesSpec extends Specification with Tags {
         "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "no"))
 
-      val result = G8AboutExpenses.submit(FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
+      val result = G8AboutExpenses.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+        withFormUrlEncodedBody("jobID" -> jobID,
         "haveExpensesForJob" -> "no", "payAnyoneToLookAfterChildren" -> "no", "payAnyoneToLookAfterPerson" -> "no"))
 
       status(result) mustEqual SEE_OTHER

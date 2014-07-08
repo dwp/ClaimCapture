@@ -14,7 +14,7 @@
 @import models.domain.{Job, Jobs, JobDetails}
 
 @employerName = @{
-    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).employerName
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).employerName + " - "
 }
 
 @main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.AboutExpenses, JobID(currentForm)), Some(employerName)) {
@@ -34,8 +34,8 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                         carersInputText(currentForm("whatExpensesForJob"), 'maxLength -> Mappings.hundred,
-                             '_label -> labelForEmployment(claim, lang, "whatExpensesForJob", JobID(currentForm)))),
+                         carersInputText(currentForm("jobTitle"), 'maxLength -> 30, '_label -> labelForEmployment(claim, lang, "jobTitle", JobID(currentForm))),
+                         carersInputText(currentForm("whatExpensesForJob"), 'maxLength -> Mappings.hundred, '_label -> labelForEmployment(claim, lang, "whatExpensesForJob", JobID(currentForm)))),
                         'id -> "haveExpensesForJobWrap",
                         'display -> currentForm("haveExpensesForJob").value.getOrElse("no")
                     )
