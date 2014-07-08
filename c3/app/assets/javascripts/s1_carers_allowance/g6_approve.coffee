@@ -1,12 +1,12 @@
 window.initialButtonState = (answerY, answerN) ->
-  if (!$("#" + answerN).prop('checked') && !$("#" + answerN).prop('checked'))
+  if (!$("#" + answerY).prop('checked') && !$("#" + answerN).prop('checked'))
     $("#showAppropriateButtonWrap").css('display', "none")
 
   if ($("#" + answerN).prop('checked'))
     $("#actionButtonId").text("Finished")
     $("#showAppropriateButtonWrap").css('display', "block")
 
-  if ($("#" + answerN).prop('checked'))
+  if ($("#" + answerY).prop('checked'))
     $("#actionButtonId").text("Continue")
     $("#showAppropriateButtonWrap").css('display', "block")
 

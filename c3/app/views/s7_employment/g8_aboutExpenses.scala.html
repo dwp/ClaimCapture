@@ -47,8 +47,8 @@
                           carersInputText(currentForm("nameLookAfterChildren"), 'maxLength -> Mappings.hundred, '_label -> Messages("nameLookAfterChildren")),
                           carersCurrency(currentForm("howMuchLookAfterChildren"), 'maxlength -> Mappings.sixty, '_label -> labelForEmployment(claim, lang, "howMuchLookAfterChildren", JobID(currentForm))),
                           pensionPaymentFrequencySelect(currentForm("howOftenLookAfterChildren"), '_label -> Messages("howOftenLookAfterChildren"), 'id -> "howOftenLookAfterChildren",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60),
-                          carersInputText(currentForm("relationToYouLookAfterChildren"), 'maxLength -> Mappings.hundred, '_label -> Messages("relationToYouLookAfterChildren")),
-                          carersInputText(currentForm("relationToPersonLookAfterChildren"), 'maxLength -> Mappings.hundred, '_label -> Messages("relationToPersonLookAfterChildren"))),
+                          carersInputText(currentForm("relationToYouLookAfterChildren"), 'maxLength -> Mappings.thirtyfive, '_label -> Messages("relationToYouLookAfterChildren")),
+                          carersInputText(currentForm("relationToPersonLookAfterChildren"), 'maxLength -> Mappings.thirtyfive, '_label -> Messages("relationToPersonLookAfterChildren"))),
                         'id -> "payToLookAfterChildrenJobWrap",
                         'display -> currentForm("payAnyoneToLookAfterChildren").value.getOrElse("no")
                     )
@@ -60,8 +60,8 @@
                           carersInputText(currentForm("nameLookAfterPerson"), 'maxLength -> Mappings.hundred, '_label -> Messages("nameLookAfterPerson")),
                           carersCurrency(currentForm("howMuchLookAfterPerson"), 'maxlength -> Mappings.sixty, '_label -> labelForEmployment(claim, lang, "howMuchLookAfterPerson", JobID(currentForm))),
                           pensionPaymentFrequencySelect(currentForm("howOftenLookAfterPerson"), '_label -> Messages("howOftenLookAfterPerson"), 'id -> "howOftenLookAfterPerson",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60),
-                          carersInputText(currentForm("relationToYouLookAfterPerson"), 'maxLength -> Mappings.hundred, '_label -> Messages("relationToYouLookAfterPerson")),
-                          carersInputText(currentForm("relationToPersonLookAfterPerson"), 'maxLength -> Mappings.hundred, '_label -> Messages("relationToPersonLookAfterPerson"))),
+                          carersInputText(currentForm("relationToYouLookAfterPerson"), 'maxLength -> Mappings.thirtyfive, '_label -> Messages("relationToYouLookAfterPerson")),
+                          carersInputText(currentForm("relationToPersonLookAfterPerson"), 'maxLength -> Mappings.thirtyfive, '_label -> Messages("relationToPersonLookAfterPerson"))),
                         'id -> "payToLookAfterPersonJobWrap",
                         'display -> currentForm("payAnyoneToLookAfterPerson").value.getOrElse("no")
                     )

@@ -23,14 +23,14 @@ object G8AboutExpenses extends Controller with CachedClaim with Navigable {
     "nameLookAfterChildren" -> optional(nonEmptyText),
     "howMuchLookAfterChildren" -> optional(nonEmptyText verifying validCurrencyRequired),
     "howOftenLookAfterChildren" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
-    "relationToYouLookAfterChildren" -> optional(nonEmptyText),
-    "relationToPersonLookAfterChildren" -> optional(nonEmptyText),
+    "relationToYouLookAfterChildren" -> optional(nonEmptyText(maxLength = 35)),
+    "relationToPersonLookAfterChildren" -> optional(nonEmptyText(maxLength = 35)),
     "payAnyoneToLookAfterPerson" -> nonEmptyText.verifying(validYesNo),
     "nameLookAfterPerson" -> optional(nonEmptyText),
     "howMuchLookAfterPerson" -> optional(nonEmptyText verifying validCurrencyRequired),
     "howOftenLookAfterPerson" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
-    "relationToYouLookAfterPerson" -> optional(nonEmptyText),
-    "relationToPersonLookAfterPerson" -> optional(nonEmptyText)
+    "relationToYouLookAfterPerson" -> optional(nonEmptyText(maxLength = 35)),
+    "relationToPersonLookAfterPerson" -> optional(nonEmptyText(maxLength = 35))
   )(AboutExpenses.apply)(AboutExpenses.unapply)
     .verifying("jobTitle.required", AboutExpenses.validateJobTitle _)
     .verifying("whatExpensesForJob.required", AboutExpenses.validateWhatExpensesForJob _)
