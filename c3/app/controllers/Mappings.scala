@@ -30,6 +30,8 @@ object Mappings {
 
   val sixty = 60
 
+  val thirtyfive = 35
+
   val two = 2
 
   val hundred = 100
