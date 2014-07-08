@@ -34,7 +34,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val lastWage = LastWage(jobID = "12",
                               oftenGetPaid = PaymentFrequency("Weekly"),
-                              whenGetPaid = "Mondays",
+                              whenGetPaid = Some("Mondays"),
                               lastPaidDate = DayMonthYear(),
                               grossPay = "100.01",
                               employerOwesYouMoney = "no")
@@ -49,7 +49,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val lastWage = LastWage(jobID = "12",
                               oftenGetPaid = PaymentFrequency("Weekly"),
-                              whenGetPaid = "Mondays",
+                              whenGetPaid = Some("Mondays"),
                               lastPaidDate = DayMonthYear(),
                               grossPay = "100.01",
                               employerOwesYouMoney = "no")
@@ -64,7 +64,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val lastWage = LastWage(jobID = "12",
                               oftenGetPaid = PaymentFrequency("Weekly"),
-                              whenGetPaid = "Mondays",
+                              whenGetPaid = Some("Mondays"),
                               lastPaidDate = DayMonthYear(),
                               grossPay = "100.01",
                               employerOwesYouMoney = "no")
@@ -79,7 +79,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val lastWage = LastWage(jobID = "12",
                               oftenGetPaid = PaymentFrequency("Weekly"),
-                              whenGetPaid = "Mondays",
+                              whenGetPaid = Some("Mondays"),
                               lastPaidDate = DayMonthYear(),
                               grossPay = "100.01",
                               employerOwesYouMoney = "no")
@@ -94,7 +94,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val lastWage1 = LastWage(jobID = "12",
                                 oftenGetPaid = PaymentFrequency("Weekly"),
-                                whenGetPaid = "Mondays",
+                                whenGetPaid = Some("Mondays"),
                                 lastPaidDate = DayMonthYear(),
                                 grossPay = "100.01",
                                 employerOwesYouMoney = "no")
@@ -102,7 +102,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val job1 = Job("12", List(lastWage1))
       val lastWage2 = LastWage(jobID = "13",
                                 oftenGetPaid = PaymentFrequency("Weekly"),
-                                whenGetPaid = "Mondays",
+                                whenGetPaid = Some("Mondays"),
                                 lastPaidDate = DayMonthYear(),
                                 grossPay = "100.01",
                                 employerOwesYouMoney = "no")
@@ -117,7 +117,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val lastWage1 = LastWage(jobID = "12",
                                 oftenGetPaid = PaymentFrequency("Weekly"),
-                                whenGetPaid = "Mondays",
+                                whenGetPaid = Some("Mondays"),
                                 lastPaidDate = DayMonthYear(),
                                 grossPay = "100.01",
                                 employerOwesYouMoney = "no")
@@ -125,7 +125,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
       val lastWage2 = LastWage(jobID = "13",
                                 oftenGetPaid = PaymentFrequency("Weekly"),
-                                whenGetPaid = "Mondays",
+                                whenGetPaid = Some("Mondays"),
                                 lastPaidDate = DayMonthYear(),
                                 grossPay = "100.01",
                                 employerOwesYouMoney = "no")
@@ -141,7 +141,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val lastWage1 = LastWage(jobID = "12",
                                 oftenGetPaid = PaymentFrequency("Weekly"),
-                                whenGetPaid = "Mondays",
+                                whenGetPaid = Some("Mondays"),
                                 lastPaidDate = DayMonthYear(),
                                 grossPay = "100.01",
                                 employerOwesYouMoney = "no")
@@ -149,7 +149,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
       val lastWage2 = LastWage(jobID = "13",
                                 oftenGetPaid = PaymentFrequency("Weekly"),
-                                whenGetPaid = "Mondays",
+                                whenGetPaid = Some("Mondays"),
                                 lastPaidDate = DayMonthYear(),
                                 grossPay = "100.01",
                                 employerOwesYouMoney = "no")
@@ -166,7 +166,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val lastWage1 = LastWage(jobID = "12",
                                 oftenGetPaid = PaymentFrequency("Weekly"),
-                                whenGetPaid = "Mondays",
+                                whenGetPaid = Some("Mondays"),
                                 lastPaidDate = DayMonthYear(),
                                 grossPay = "100.01",
                                 employerOwesYouMoney = "no")
@@ -174,7 +174,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
       val lastWage2 = LastWage(jobID = "13",
                                 oftenGetPaid = PaymentFrequency("Weekly"),
-                                whenGetPaid = "Mondays",
+                                whenGetPaid = Some("Mondays"),
                                 lastPaidDate = DayMonthYear(),
                                 grossPay = "100.01",
                                 employerOwesYouMoney = "no")
@@ -190,7 +190,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val lastWage1 = LastWage(jobID = "12",
                                 oftenGetPaid = PaymentFrequency("Weekly"),
-                                whenGetPaid = "Mondays",
+                                whenGetPaid = Some("Mondays"),
                                 lastPaidDate = DayMonthYear(),
                                 grossPay = "100.01",
                                 employerOwesYouMoney = "no")
@@ -198,7 +198,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
       val lastWage2 = LastWage(jobID = "13",
                                 oftenGetPaid = PaymentFrequency("Weekly"),
-                                whenGetPaid = "Mondays",
+                                whenGetPaid = Some("Mondays"),
                                 lastPaidDate = DayMonthYear(),
                                 grossPay = "100.01",
                                 employerOwesYouMoney = "no")
@@ -214,7 +214,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val lastWage1 = LastWage(jobID = "12",
                       oftenGetPaid = PaymentFrequency("Weekly"),
-                      whenGetPaid = "Mondays",
+                      whenGetPaid = Some("Mondays"),
                       lastPaidDate = DayMonthYear(),
                       grossPay = "100.01",
                       employerOwesYouMoney = "no")
@@ -222,7 +222,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val job1 = Job("13", List(lastWage1))
       val lastWage2 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = "Mondays",
+        whenGetPaid = Some("Mondays"),
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -238,14 +238,14 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("no")
       val lastWage1 = LastWage(jobID = "12",
                               oftenGetPaid = PaymentFrequency("Weekly"),
-                              whenGetPaid = "Mondays",
+                              whenGetPaid = Some("Mondays"),
                               lastPaidDate = DayMonthYear(),
                               grossPay = "100.01",
                               employerOwesYouMoney = "no")
       val job1 = Job("12", List(lastWage1))
       val lastWage2 = LastWage(jobID = "13",
                                 oftenGetPaid = PaymentFrequency("Weekly"),
-                                whenGetPaid = "Mondays",
+                                whenGetPaid = Some("Mondays"),
                                 lastPaidDate = DayMonthYear(),
                                 grossPay = "100.01",
                                 employerOwesYouMoney = "no")

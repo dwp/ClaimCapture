@@ -47,7 +47,7 @@ object Employment {
         <DateTo></DateTo>
       </PayPeriod>
       {paymentFrequency(lastWage.oftenGetPaid)}
-      <UsualPayDay>{lastWage.whenGetPaid}</UsualPayDay>
+      {<UsualPayDay/> +- lastWage.whenGetPaid}
       <VaryingEarnings>{NotAsked}</VaryingEarnings>
     </Pay>
   }
@@ -193,7 +193,7 @@ object Employment {
         <DateLastWorked>{NotAsked}</DateLastWorked>
         {for (job <- jobsQG) yield {
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-          val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(),"",DayMonthYear(),"", None, None, ""))
+          val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(),None,DayMonthYear(),"", None, None, ""))
 
           <JobDetails>
             {employerXml(job)}

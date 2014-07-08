@@ -50,7 +50,7 @@ object AssistedDecision {
     var weeklyEarning: Double = 0.0d
     claim.questionGroup[Jobs] match {
       case Some(jobs) => for (job <- jobs) {
-        val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(),"",DayMonthYear(),"", None, None, ""))
+        val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(), None,DayMonthYear(),"", None, None, ""))
         if (weeklyEarning > -1d && lastWage.sameAmountEachTime.getOrElse("").toLowerCase == "yes") {
           //          Logger.debug("Assisted decision - child expense " + job.questionGroup[ChildcareExpenses])
           //          Logger.debug("Assisted decision - Person you care expenses " + job.questionGroup[PersonYouCareForExpenses])

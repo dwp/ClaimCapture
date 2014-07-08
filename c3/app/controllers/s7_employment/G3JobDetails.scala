@@ -26,10 +26,9 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
     "finishedThisJob" -> nonEmptyText.verifying(validYesNo),
     "lastWorkDate" -> optional(dayMonthYear.verifying(validDate)),
     "p45LeavingDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "hoursPerWeek" -> optional(nonEmptyText(maxLength = 2).verifying(validNumber))
+    "hoursPerWeek" -> optional(carersText(maxLength = 2).verifying(validNumber))
   )(JobDetails.apply)(JobDetails.unapply)
     .verifying("lastWorkDate.required", JobDetails.validateLastWorkDate _)
-    .verifying("hoursPerWeek.required", JobDetails.validateHoursPerWeek _)
   )
 
   def job(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
@@ -50,7 +49,6 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
       formWithErrors =>{
         val form = formWithErrors
           .replaceError("", "lastWorkDate.required", FormError("lastWorkDate", "error.required", Seq(labelForEmployment(claim, lang, "lastWorkDate", jobID))))
-          .replaceError("", "hoursPerWeek.required", FormError("hoursPerWeek", "error.required", Seq(labelForEmployment(claim, lang, "hoursPerWeek", jobID))))
           .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(labelForEmployment(claim, lang, "hoursPerWeek", jobID))))
         BadRequest(views.html.s7_employment.g3_jobDetails(form))
       },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G5LastWage.present(jobID)))

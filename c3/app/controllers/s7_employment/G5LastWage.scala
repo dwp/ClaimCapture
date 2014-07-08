@@ -17,11 +17,11 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "oftenGetPaid" -> (mandatoryPaymentFrequency verifying validPaymentFrequencyOnly),
-    "whenGetPaid" -> carersNonEmptyText,
+    "whenGetPaid" -> optional(carersText),
     "lastPaidDate" -> dayMonthYear.verifying(validDate),
     "grossPay" -> required(nonEmptyText.verifying(validCurrencyRequired)),
     "payInclusions" -> optional(carersText(maxLength = 100)),
-    "sameAmountEachTime" -> optional(carersText(maxLength = 60)),
+    "sameAmountEachTime" -> optional(text.verifying(validYesNo)),
     "employerOwesYouMoney" -> (nonEmptyText verifying validYesNo)
   )(LastWage.apply)(LastWage.unapply))
 
@@ -35,7 +35,6 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
         val form = formWithErrors
           .replaceError("oftenGetPaid.frequency.other","error.maxLength",FormError("oftenGetPaid","error.maxLength"))
           .replaceError("oftenGetPaid.frequency","error.required",FormError("oftenGetPaid","error.required"))
-          .replaceError("whenGetPaid", "error.required", FormError("whenGetPaid", "error.required", Seq(labelForEmployment(claim, lang, "whenGetPaid", jobID))))
           .replaceError("lastPaidDate", "error.required", FormError("lastPaidDate", "error.required", Seq(labelForEmployment(claim, lang, "lastPaidDate", jobID))))
           .replaceError("grossPay", "error.required", FormError("grossPay", "error.required", Seq(labelForEmployment(claim, lang, "grossPay", jobID))))
           .replaceError("employerOwesYouMoney", "error.required", FormError("employerOwesYouMoney", "error.required", Seq(labelForEmployment(claim, lang, "employerOwesYouMoney", jobID))))

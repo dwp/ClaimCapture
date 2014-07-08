@@ -192,7 +192,7 @@ object EvidenceList {
         for (job <- jobs) {
 
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-          val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("",PaymentFrequency(),"",DayMonthYear(),"", None, None, ""))
+          val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("",PaymentFrequency(),None,DayMonthYear(),"", None, None, ""))
           val aboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
           val pensionScheme = job.questionGroup[PensionSchemes].getOrElse(PensionSchemes())
 

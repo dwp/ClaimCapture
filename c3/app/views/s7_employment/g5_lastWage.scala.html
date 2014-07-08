@@ -38,9 +38,8 @@
 	                @carersCurrency(currentForm("grossPay"), 'maxlength -> Mappings.sixty)
 	
 	                @carersInputText(currentForm("payInclusions"), 'maxLength -> 60,'helperAbove -> Messages("payInclusions.helper"))
-	
-	                @carersInputText(currentForm("sameAmountEachTime"),
-                        '_label -> labelForEmployment(claim, lang, "sameAmountEachTime", JobID(currentForm)))
+
+                    @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> labelForEmployment(claim, lang, "sameAmountEachTime", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
 
                     @yesNoRadioGroup(currentForm("employerOwesYouMoney"), 'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no")))
                 </ul>

@@ -10,7 +10,7 @@ final class G5LastWagePage(ctx:PageObjectsContext, iteration:Int) extends ClaimP
   declareDate("#lastPaidDate", "EmploymentWhenWereYouLastPaid_" + iteration)
   declareInput("#grossPay", "EmploymentWhatWasTheGrossPayForTheLastPayPeriod_" + iteration)
   declareInput("#payInclusions", "EmploymentWhatWasIncludedInYourLastPay_" + iteration)
-  declareInput("#sameAmountEachTime", "EmploymentDoYouGettheSameAmountEachTime_" + iteration)
+  declareYesNo("#sameAmountEachTime", "EmploymentDoYouGettheSameAmountEachTime_" + iteration)
   declareYesNo("#employerOwesYouMoney","EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_" + iteration)
 }
 
