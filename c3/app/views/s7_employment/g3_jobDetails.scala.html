@@ -26,22 +26,11 @@
                     @carersInputTel(currentForm("phoneNumber"))
 
                     @carersInputText(currentForm("payrollEmployeeNumber"), 'maxLength -> 16)
-                </ul>
 
-            </fieldset>
-
-            <fieldset class="form-elements">
-                <ul>
                     @inputAddress(currentForm("address"))
 
                     @carersInputText(currentForm("postcode"), 'class -> "postcode")
 
-                </ul>
-            </fieldset>
-
-            <fieldset class="form-elements">
-
-                <ul>
                     @inputDayMonthYear(currentForm("jobStartDate"), 'helperAbove -> Messages("jobStartDate.helper"))
                 </ul>
             </fieldset>
