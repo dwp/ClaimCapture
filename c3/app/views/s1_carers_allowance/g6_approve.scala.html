@@ -70,7 +70,7 @@
         @if(approved) {
             <nav class="form-steps">
                 <ul>
-                    <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.continue.step"))</button></li>
+                    <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Elibigility - Yes - Continue")>@Html(Messages("form.continue.step"))</button></li>
                     <li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
@@ -85,7 +85,7 @@
             </fieldset>
             <nav class="form-steps">
                 <ul>
-                    <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button">@Html(Messages("form.continue.step"))</button></div></li>
+                    <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button" onclick="analyticsCallback()">@Html(Messages("form.continue.step"))</button></div></li>
                     <li><div id="backButtonWrap"><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
@@ -93,6 +93,13 @@
     }
 }
 <script type="text/javascript">$($("#jsEnabled").val("true"));</script>
+<script type="text/javascript">
+    function analyticsCallback() {
+        var linkName = "Eligilibility - " + document.getElementById("actionButtonId" ).innerHTML
+        trackEvent("/allowance/approve",linkName)
+    }
+</script>
+
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/g6_approve.js")'></script>
 
 <script type="text/javascript">
@@ -102,7 +109,7 @@
     });
 
     $(function(){
-    window.showAppropriateButton("@CarersCrypto.encryptAES(currentForm("answer")("yes").id)",
+    window.answer("@CarersCrypto.encryptAES(currentForm("answer")("yes").id)",
     "@CarersCrypto.encryptAES(currentForm("answer")("no").id)");
     });
 </script>

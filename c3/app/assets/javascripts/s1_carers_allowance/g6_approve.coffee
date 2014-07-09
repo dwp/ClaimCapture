@@ -14,7 +14,7 @@ window.initialButtonState = (answerY, answerN) ->
     $("#showAppropriateButtonWrap").css('display', "block")
 
 
-window.showAppropriateButton = (answerY, answerN) ->
+window.answer = (answerY, answerN) ->
   $("#" + answerN).on "click", ->
     $("#actionButtonId").text("Finished")
     $("#backButtonWrap").css('display', "none")
