@@ -1,8 +1,10 @@
 package xml.circumstances
 
-import org.specs2.mutable.{Tags, Specification}
-import models.{DayMonthYear, NationalInsuranceNumber}
-import models.domain.{Claim, CircumstancesReportChange}
+import javax.xml.bind.DatatypeConverter
+
+import com.dwp.carers.security.encryption.EncryptorAES
+import models.domain.{CircumstancesReportChange, Claim}
+import org.specs2.mutable.{Specification, Tags}
 
 /**
  * Created by neddakaltcheva on 3/14/14.
@@ -18,7 +20,7 @@ class CareeSpec extends Specification with Tags {
       val claim = Claim().update(yourDetails)
       val xml = Caree.xml(claim)
 
-      (xml \\ "CareeDetails" \\ "FullName" \\ "Answer").text shouldEqual yourDetails.theirFullName
+      (new  EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary((xml \\ "CareeDetails" \\ "FullName" \\ "Answer").text)) shouldEqual yourDetails.theirFullName
       (xml \\ "CareeDetails" \\ "RelationToClaimant" \\ "Answer").text shouldEqual yourDetails.theirRelationshipToYou
 
     }

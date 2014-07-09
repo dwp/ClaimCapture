@@ -1,5 +1,10 @@
 package utils.pageobjects.xml_validation
 
+import javax.xml.bind.DatatypeConverter
+
+import com.dwp.carers.security.encryption.EncryptorAES
+import com.dwp.exceptions.DwpRuntimeException
+
 import scala.xml.{Node, Elem}
 import utils.pageobjects.{PageObjectException, TestDatumValue}
 import scala.annotation.tailrec
@@ -55,7 +60,13 @@ class XmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml, pat
 
   def valuesMatching(claimValue:TestDatumValue,node:Node): Boolean = {
     val nodeName = node.mkString
-    val value = prepareElement(node.text)
+    val value = {
+      try {
+        prepareElement((new EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary(node.text.trim)))
+      } catch {
+        case e: DwpRuntimeException => prepareElement(node.text);
+      }
+    }
 //    Logger.debug(nodeName)
     if (attributeForContains(claimValue)) value.contains(claimValue.value)
     else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)

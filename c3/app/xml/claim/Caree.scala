@@ -1,10 +1,10 @@
 package xml.claim
 
-import scala.xml.NodeSeq
-import app.XMLValues._
 import models.domain._
-import xml.XMLHelper._
 import xml.XMLComponent
+import xml.XMLHelper._
+
+import scala.xml.NodeSeq
 
 object Caree extends XMLComponent {
 
@@ -15,12 +15,12 @@ object Caree extends XMLComponent {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     <Caree>
-      {question(<Surname/>, "surname", theirPersonalDetails.surname)}
+      {question(<Surname/>, "surname", encrypt(theirPersonalDetails.surname))}
       {question(<OtherNames/>, "firstName", theirPersonalDetails.firstName+" "+ theirPersonalDetails.middleName.getOrElse(""))}
       {question(<Title/>, "title", theirPersonalDetails.title)}
       {question(<DateOfBirth/>, "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`)}
-      {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", theirPersonalDetails.nationalInsuranceNumber.getOrElse(""))}
-      {postalAddressStructure("address", theirContactDetails.address, theirContactDetails.postcode)}
+      {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", encrypt(theirPersonalDetails.nationalInsuranceNumber.getOrElse("")))}
+      {postalAddressStructure("address", theirContactDetails.address, encrypt(theirContactDetails.postcode.getOrElse("").toUpperCase))}
       {question(<DayTimePhoneNumber/>,"phoneNumber", theirContactDetails.phoneNumber)}
       {question(<RelationToClaimant/>,"relationship", theirPersonalDetails.relationship)}
       {question(<Cared35Hours/>,"hours.answer", moreAboutTheCare.spent35HoursCaring)}

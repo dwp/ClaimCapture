@@ -1,5 +1,11 @@
 package utils.pageobjects.xml_validation
 
+import javax.xml.bind.DatatypeConverter
+
+import com.dwp.carers.security.encryption.EncryptorAES
+import com.dwp.exceptions.DwpRuntimeException
+import utils.pageobjects.xml_validation.XMLValidationNode._
+
 import scala.xml.{Node, Elem}
 import utils.pageobjects.{TestDatumValue, PageObjectException, TestData}
 import org.joda.time.DateTime
@@ -53,7 +59,13 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
         val index = if (isRepeatedAttribute && isARepeatableNode) iteration else 0
 
         val node = theNodes(index)
-        val value = XMLValidationNode.prepareElement(node.text)
+        val value =  {
+          try {
+            prepareElement((new EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary(node.text.trim)))
+          } catch {
+            case e: DwpRuntimeException => prepareElement(node.text);
+          }
+        }
         val nodeName = node.mkString
 
         def valuesMatching: Boolean = {

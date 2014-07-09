@@ -1,5 +1,8 @@
 package xml
 
+import javax.xml.bind.DatatypeConverter
+
+import com.dwp.carers.security.encryption.EncryptorAES
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithApplication
 
@@ -37,6 +40,17 @@ class XmlHelperSpec extends Specification with Tags {
 
     "when question is about currency" in new WithApplication{
       XMLHelper.questionCurrency(<Test/>,"s7.g2", Some("122.12")).toString shouldEqual "<Test><QuestionLabel>"+employedQuestion+"</QuestionLabel><Answer><Currency>GBP</Currency><Amount>122.12</Amount></Answer></Test>"
+    }
+  }
+
+  "can encrypt data with random salt" in {
+    "when receives a string" in new WithApplication {
+      val text = "text"
+      val encrypted1 = XMLHelper.encrypt(text);
+      val encrypted2 = XMLHelper.encrypt(text);
+      encrypted1 shouldNotEqual text
+      encrypted2 shouldNotEqual encrypted1
+      (new  EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary(encrypted1)) shouldEqual text
     }
   }
 }

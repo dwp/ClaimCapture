@@ -1,24 +1,17 @@
 package xml
 
-import scala.xml._
+import javax.xml.bind.DatatypeConverter
+
+import app.XMLValues._
+import com.dwp.carers.security.encryption.EncryptorAES
+import models._
+import models.domain.Claim
+import play.api.i18n.{Lang, MMessages => Messages}
+import utils.helpers.PastPresentLabelHelper._
+
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
-import app.XMLValues._
-import models._
-import models.PaymentFrequency
-import models.MultiLineAddress
-import models.PeriodFromTo
-import models.NationalInsuranceNumber
-import play.api.i18n.{MMessages => Messages, Lang}
-import utils.helpers.PastPresentLabelHelper._
-import models.SortCode
-import models.PaymentFrequency
-import models.NationalInsuranceNumber
-import scala.Some
-import models.PensionPaymentFrequency
-import models.MultiLineAddress
-import models.PeriodFromTo
-import models.domain.Claim
+import scala.xml._
 
 object XMLHelper {
 
@@ -95,18 +88,18 @@ object XMLHelper {
     case _ => Text(stringify(value,default))
   }
 
-  def postalAddressStructureOpt(questionLabelCode: String, addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
+  def postalAddressStructureOpt(questionLabelCode: String, addressOption: Option[MultiLineAddress], postcodeOption: String): NodeSeq = addressOption match {
     case Some(address:MultiLineAddress) => postalAddressStructure(questionLabelCode,address, postcodeOption)
     case _ => NodeSeq.Empty
   }
-  def postalAddressStructure(questionLabelCode: String, addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
+  def postalAddressStructure(questionLabelCode: String, addressOption: Option[MultiLineAddress], postcodeOption:String): NodeSeq = addressOption match {
     case Some(address:MultiLineAddress) => postalAddressStructure(questionLabelCode,address, postcodeOption)
     case _ => postalAddressStructure(questionLabelCode, new MultiLineAddress(), postcodeOption)
   }
 
-  def postalAddressStructure(questionLabelCode: String, addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeSeq = postalAddressStructure(questionLabelCode, addressOption, postcodeOption.getOrElse(""))
+//def postalAddressStructure(questionLabelCode: String, addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeSeq = postalAddressStructure(questionLabelCode, addressOption, postcodeOption.getOrElse(""))
 
-  private def postalAddressStructure(questionLabelCode: String, address: MultiLineAddress, postcode: String): NodeSeq = {
+   def postalAddressStructure(questionLabelCode: String, address: MultiLineAddress, postcode: String): NodeSeq = {
     <Address>
       {questionLabel(questionLabelCode)}
       <Answer>
@@ -157,7 +150,7 @@ object XMLHelper {
     {if(address.lineOne.isEmpty){NodeSeq.Empty}else{<Line>{address.lineOne.get}</Line>}} ++
     {if(address.lineTwo.isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo.get}</Line>}} ++
     {if(address.lineThree.isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree.get}</Line>}} ++
-    {if(postcode == null || postcode.isEmpty) NodeSeq.Empty else <PostCode>{postcode.toUpperCase}</PostCode>}
+    {if(postcode == null || postcode.isEmpty) NodeSeq.Empty else <PostCode>{postcode}</PostCode>}
   }
 
   private def moneyStructure(amount: String):NodeSeq = {
@@ -269,5 +262,7 @@ object XMLHelper {
   def questionLabelEmployment(claim:Claim, labelKey:String, jobID: String) = {
     labelForEmployment(claim, claim.lang.getOrElse(new Lang("en")), labelKey, jobID)
   }
+
+  def encrypt[T](text:T) = DatatypeConverter.printBase64Binary((new  EncryptorAES).encrypt(stringify(text)))
 
 }

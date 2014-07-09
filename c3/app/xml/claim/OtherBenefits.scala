@@ -2,13 +2,12 @@ package xml.claim
 
 import app.XMLValues._
 import models.domain._
-import scala.xml.NodeSeq
-import xml.XMLHelper._
-import xml.XMLComponent
-import models.domain.Claim
-import scala.Some
 import models.yesNo.YesNoWithEmployerAndMoney
 import play.api.i18n.{MMessages => Messages}
+import xml.XMLComponent
+import xml.XMLHelper._
+
+import scala.xml.NodeSeq
 
 
 object OtherBenefits extends XMLComponent {
@@ -68,7 +67,7 @@ object OtherBenefits extends XMLComponent {
             }}
         </Payment>
         {if (statutorySickPay.employersName.isDefined) {question(<Name/>, "employersName", statutorySickPay.employersName.get)}}
-        {postalAddressStructureOpt("employersAddress", statutorySickPay.address, statutorySickPay.postCode)}
+        {postalAddressStructureOpt("employersAddress", statutorySickPay.address, statutorySickPay.postCode.getOrElse("").toUpperCase)}
       </OtherMoneySSPDetails>
     }
     else NodeSeq.Empty
@@ -84,7 +83,7 @@ object OtherBenefits extends XMLComponent {
            }}
         </Payment>
         {if (otherStatutoryPay.employersName.isDefined) question(<Name/>, "employersName", otherStatutoryPay.employersName.getOrElse("empty"))}
-        {postalAddressStructureOpt("employersAddress", otherStatutoryPay.address, otherStatutoryPay.postCode)}
+        {postalAddressStructureOpt("employersAddress", otherStatutoryPay.address, otherStatutoryPay.postCode.getOrElse("").toUpperCase)}
       </OtherMoneySPDetails>
     }
     else NodeSeq.Empty

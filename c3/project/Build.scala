@@ -7,7 +7,7 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 object ApplicationBuild extends Build {
   val appName         = "c3"
 
-  val appVersion      = "1.0-SNAPSHOT"
+  val appVersion      = "2.0-SNAPSHOT"
 
   val appDependencies = Seq(
     // Add your project dependencies here,
@@ -20,7 +20,7 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka"  %% "akka-agent"          % "2.2.3" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-actor"          % "2.2.3" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-remote"         % "2.2.3" % "test" withSources() withJavadoc(),
-    "com.dwp.carers"     %% "xmlcommons"          % "2.0",
+    "com.dwp.carers"     %% "xmlcommons"          % "2.0.2",
     "postgresql"          % "postgresql"          % "9.1-901.jdbc4",
     "com.h2database"      % "h2"                  % "1.3.174",
     "me.moocar"           % "logback-gelf"        % "0.9.6p2",

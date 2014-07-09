@@ -34,9 +34,9 @@ object PaymentChange {
       {question(<AccountHolder/>, "whoseNameIsTheAccountIn", bankBuildingSocietyDetails.whoseNameIsTheAccountIn)}
       {question(<HolderName/>, "accountHolderName", bankBuildingSocietyDetails.accountHolderName)}
       <BuildingSocietyDetails>
-        {question(<AccountNumber/>, "accountNumber", bankBuildingSocietyDetails.accountNumber)}
+        {question(<AccountNumber/>, "accountNumber", encrypt(bankBuildingSocietyDetails.accountNumber))}
         {question(<RollNumber/>,"rollOrReferenceNumber", bankBuildingSocietyDetails.rollOrReferenceNumber)}
-        {question(<SortCode/>,"sortCode", bankBuildingSocietyDetails.sortCode)}
+        {question(<SortCode/>,"sortCode", encrypt(bankBuildingSocietyDetails.sortCode))}
         {question(<Name/>, "bankFullName", bankBuildingSocietyDetails.bankFullName)}
       </BuildingSocietyDetails>
     </AccountDetails>

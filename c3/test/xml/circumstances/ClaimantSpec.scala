@@ -1,10 +1,11 @@
 package xml.circumstances
 
-import org.specs2.mutable.{Tags, Specification}
-import models.domain.{Claim, CircumstancesReportChange}
-import models.DayMonthYear
-import models.NationalInsuranceNumber
-import scala.Some
+import javax.xml.bind.DatatypeConverter
+
+import com.dwp.carers.security.encryption.EncryptorAES
+import models.{DayMonthYear, NationalInsuranceNumber}
+import models.domain.{CircumstancesReportChange, Claim}
+import org.specs2.mutable.{Specification, Tags}
 
 class ClaimantSpec extends Specification with Tags {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
@@ -19,9 +20,9 @@ class ClaimantSpec extends Specification with Tags {
       val claim = Claim().update(yourDetails)
       val xml = Claimant.xml(claim)
 
-      (xml \\ "ClaimantDetails" \\ "FullName" \\ "Answer").text shouldEqual yourDetails.fullName
+      (new  EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary((xml \\ "ClaimantDetails" \\ "FullName" \\ "Answer").text)) shouldEqual yourDetails.fullName
       (xml \\ "ClaimantDetails" \\ "DateOfBirth" \\ "Answer").text shouldEqual yourDetails.dateOfBirth.`dd-MM-yyyy`
-      (xml \\ "ClaimantDetails" \\ "NationalInsuranceNumber" \\ "Answer").text shouldEqual nationalInsuranceNr.stringify
+      (new  EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary((xml \\ "ClaimantDetails" \\ "NationalInsuranceNumber" \\ "Answer").text)) shouldEqual nationalInsuranceNr.stringify
     }
   } section "unit"
 }

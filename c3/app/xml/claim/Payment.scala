@@ -1,13 +1,12 @@
 package xml.claim
 
-import models.domain.{BankBuildingSocietyDetails, HowWePayYou}
-import xml.XMLHelper._
-import scala.xml.NodeSeq
 import app.AccountStatus
+import models.domain.{BankBuildingSocietyDetails, Claim, HowWePayYou}
 import play.api.i18n.Messages
 import xml.XMLComponent
-import models.domain.Claim
-import scala.Some
+import xml.XMLHelper._
+
+import scala.xml.NodeSeq
 
 object Payment extends XMLComponent {
 
@@ -34,9 +33,9 @@ object Payment extends XMLComponent {
       {question(<AccountHolder/>, "whoseNameIsTheAccountIn", bankBuildingSocietyDetails.whoseNameIsTheAccountIn)}
       {question(<HolderName/>, "accountHolderName", bankBuildingSocietyDetails.accountHolderName)}
       <BuildingSocietyDetails>
-        {question(<AccountNumber/>, "accountNumber", bankBuildingSocietyDetails.accountNumber)}
+        {question(<AccountNumber/>, "accountNumber", encrypt(bankBuildingSocietyDetails.accountNumber))}
         {question(<RollNumber/>,"rollOrReferenceNumber", bankBuildingSocietyDetails.rollOrReferenceNumber)}
-        {question(<SortCode/>,"sortCode", bankBuildingSocietyDetails.sortCode)}
+        {question(<SortCode/>,"sortCode", encrypt(bankBuildingSocietyDetails.sortCode))}
         {question(<Name/>, "bankFullName", bankBuildingSocietyDetails.bankFullName)}
       </BuildingSocietyDetails>
     </Account>

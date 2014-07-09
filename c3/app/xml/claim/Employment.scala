@@ -1,11 +1,11 @@
 package xml.claim
 
-import models.domain._
-import xml.XMLHelper._
 import app.XMLValues._
-import scala.xml.{Elem, NodeSeq}
+import models.domain._
 import xml.XMLComponent
-import utils.helpers.PastPresentLabelHelper._
+import xml.XMLHelper._
+
+import scala.xml.{Elem, NodeSeq}
 
 object Employment extends XMLComponent{
 
@@ -58,7 +58,7 @@ object Employment extends XMLComponent{
       {question(<JobType/>,s"jobTitle.${if (jobDetails.finishedThisJob == "yes") "past" else "present"}", job.title)}
       {question(<ClockPayrollNumber/>,"payrollEmployeeNumber", jobDetails.payrollEmployeeNumber)}
       {question(<Name/>, "employerName", jobDetails.employerName)}
-      {postalAddressStructure("address", employerContactDetails.address, employerContactDetails.postcode)}
+      {postalAddressStructure("address", employerContactDetails.address, employerContactDetails.postcode.getOrElse("").toUpperCase)}
       {question(<EmployersPhoneNumber/>,"phoneNumber", employerContactDetails.phoneNumber)}
       {if(jobDetails.p45LeavingDate.isDefined){
         {question(<P45LeavingDate/>, "p45LeavingDate", jobDetails.p45LeavingDate)}
