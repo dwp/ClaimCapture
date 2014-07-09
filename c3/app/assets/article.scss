@@ -23,7 +23,10 @@
 	}
 	
 	p {
-		margin: 0;
+		margin: .75em 0 0 0;
+		&.grouped {
+			margin-top: 0;
+		}
 	}
 	
 	ul {
