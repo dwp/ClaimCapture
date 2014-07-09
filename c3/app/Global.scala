@@ -39,6 +39,7 @@ object Global extends WithFilters(MetricsFilter) with Injector with CarersLangua
     registerReporters()
 
     Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}") // used for operations, do not remove
+    Logger.info(s"c3 property include.analytics is ${getProperty("include.analytics", "Not defined")}") // used for operations, do not remove
   }
 
   private def registerReporters() {
