@@ -1,9 +1,34 @@
-@(currentForm: Form[models.domain.ProceedAnyway], approved: Boolean, benefitsAnswer: Boolean, hoursAnswer: Boolean, over16Answer: Boolean, liveInGBAnswer: Boolean)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.ProceedAnyway])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import helper.base._
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersCrypto
+@import models.domain._
+
+@benefitsAnswer = @{
+    claim.questionGroup[Benefits].getOrElse(Benefits()).asInstanceOf[BooleanConfirmation].answer
+}
+
+@hoursAnswer = @{
+    claim.questionGroup[Hours].getOrElse(Hours()).asInstanceOf[BooleanConfirmation].answer
+}
+
+@over16Answer = @{
+    claim.questionGroup[Over16].getOrElse(Over16()).asInstanceOf[BooleanConfirmation].answer
+}
+
+@livesInGBAnswer = @{
+    claim.questionGroup[LivesInGB].getOrElse(LivesInGB()).asInstanceOf[BooleanConfirmation].answer
+}
+
+@completedQuestionGroups = @{
+    List(benefitsAnswer, hoursAnswer, over16Answer, livesInGBAnswer)
+}
+
+@approved = @{
+    completedQuestionGroups.length == 4 && completedQuestionGroups.forall(_.asInstanceOf[Boolean])
+}
 
 @main("Can you get Carer's Allowance?", None, claim.completedQuestionGroups(models.domain.CarersAllowance)) {
     @if(approved) {
@@ -29,7 +54,7 @@
                 @if(!over16Answer) {
                     <li>@Html(Messages("s1.g6.red.over16"))</li>
                 }
-                @if(!liveInGBAnswer) {
+                @if(!livesInGBAnswer) {
                     <li>@Html(Messages("s1.g6.red.liveInGB"))</li>
                 }
             </ul>
@@ -38,7 +63,7 @@
     }
 
     @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit) {
-        @carersInputHidden(currentForm("answerRequired"),
+        @carersInputHidden(currentForm("allowedToContinue"),
             'hiddenValue -> approved)
         @carersInputHidden(currentForm("jsEnabled"),
             'hiddenValue -> "false")
@@ -61,6 +86,7 @@
             <nav class="form-steps">
                 <ul>
                     <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button">@Html(Messages("form.continue.step"))</button></div></li>
+                    <li><div id="backButtonWrap"><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
         }

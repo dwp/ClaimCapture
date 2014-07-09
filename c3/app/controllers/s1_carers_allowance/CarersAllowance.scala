@@ -5,55 +5,46 @@ import models.view._
 import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.JSEnabled
 import play.api.Logger
 import controllers.Mappings._
 import utils.helpers.CarersForm._
+import scala.Some
 
 object CarersAllowance extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "answerRequired" -> boolean,
+    "allowedToContinue" -> boolean,
     "answer" -> optional(nonEmptyText.verifying(validYesNo)),
     "jsEnabled" -> boolean
-  )(ProceedAnyway.apply)(ProceedAnyway.unapply))
+  )(ProceedAnyway.apply)(ProceedAnyway.unapply)
+    .verifying("error.required", mandatoryChecks _))
 
   def approve = claiming {implicit claim => implicit request => implicit lang =>
-    val benefitsAnswer = claim.questionGroup[Benefits].getOrElse(Benefits()).asInstanceOf[BooleanConfirmation].answer
-    val hoursAnswer = claim.questionGroup[Hours].getOrElse(Hours()).asInstanceOf[BooleanConfirmation].answer
-    val over16Answer = claim.questionGroup[Over16].getOrElse(Over16()).asInstanceOf[BooleanConfirmation].answer
-    val livesInGBAnswer = claim.questionGroup[LivesInGB].getOrElse(LivesInGB()).asInstanceOf[BooleanConfirmation].answer
-    val completedQuestionGroups = List(benefitsAnswer, hoursAnswer, over16Answer, livesInGBAnswer)
-    val approved = completedQuestionGroups.length == 4 && completedQuestionGroups.forall(_.asInstanceOf[Boolean])
-
-    track(LivesInGB) { implicit claim => Ok(views.html.s1_carers_allowance.g6_approve(form.fill(ProceedAnyway), approved, benefitsAnswer, hoursAnswer, over16Answer, livesInGBAnswer)) }
+    track(LivesInGB) { implicit claim => Ok(views.html.s1_carers_allowance.g6_approve(form.fill(ProceedAnyway))) }
   }
 
   def approveSubmit = claiming {implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val benefitsAnswer = claim.questionGroup[Benefits].getOrElse(Benefits()).asInstanceOf[BooleanConfirmation].answer
-        val hoursAnswer = claim.questionGroup[Hours].getOrElse(Hours()).asInstanceOf[BooleanConfirmation].answer
-        val over16Answer = claim.questionGroup[Over16].getOrElse(Over16()).asInstanceOf[BooleanConfirmation].answer
-        val livesInGBAnswer = claim.questionGroup[LivesInGB].getOrElse(LivesInGB()).asInstanceOf[BooleanConfirmation].answer
-        val completedQuestionGroups = List(benefitsAnswer, hoursAnswer, over16Answer, livesInGBAnswer)
-        val approved = completedQuestionGroups.length == 4 && completedQuestionGroups.forall(_.asInstanceOf[Boolean])
-
-        BadRequest(views.html.s1_carers_allowance.g6_approve(formWithErrors, approved, benefitsAnswer, hoursAnswer, over16Answer, livesInGBAnswer))
+        BadRequest(views.html.s1_carers_allowance.g6_approve(formWithErrors))
       },
       f => {
         if (!f.jsEnabled) {
           Logger.info(s"No JS - Start ${claim.key} User-Agent : ${request.headers.get("User-Agent").orNull}")
         }
 
-        if (f.answerRequired) {
-          claim.update(f) -> Redirect(controllers.s1_2_claim_date.routes.G1ClaimDate.present())
-        } else {
-          f.answerYesNo match {
-            case Some(proceed) if (proceed == "yes") => claim.update(f) -> Redirect(controllers.s1_2_claim_date.routes.G1ClaimDate.present())
-            case _ => claim.update(f) -> Redirect("http://www.gov.uk/done/apply-carers-allowance")
-          }
+        f.answer match {
+          case true => claim.update(f) -> Redirect(controllers.s1_2_claim_date.routes.G1ClaimDate.present())
+          case _ => claim.update(f) -> Redirect("http://www.gov.uk/done/apply-carers-allowance")
         }
       }
     )
+  }
+
+  def mandatoryChecks(proceedAnyway: ProceedAnyway) = {
+    proceedAnyway.allowedToContinue match {
+      case true => true
+      case false if (proceedAnyway.answerYesNo.isDefined) => true
+      case _ => false
+    }
   }
 }
