@@ -33,7 +33,7 @@
                     <li>@Html(Messages("s1.g6.red.liveInGB"))</li>
                 }
             </ul>
-            <p>@Html(Messages("s1.g6.green.help.moreinfo")) <a href="/claim-help">@Html(Messages("s1.g6.green.help.moreinfo.link"))</a>@Html(Messages("s1.g6.green.help.moreinfo.end"))</p>
+            <p>@Html(Messages("s1.g6.green.help.moreinfo")) <a href="/claim-notes">@Html(Messages("s1.g6.green.help.moreinfo.link"))</a>@Html(Messages("s1.g6.green.help.moreinfo.end"))</p>
         </div>
     }
 
@@ -61,7 +61,6 @@
             <nav class="form-steps">
                 <ul>
                     <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button">@Html(Messages("form.continue.step"))</button></div></li>
-                    <li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
         }
