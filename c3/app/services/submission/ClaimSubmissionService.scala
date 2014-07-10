@@ -7,11 +7,10 @@ import play.api.Logger
 import controllers.submission._
 import models.view.{CachedChangeOfCircs, CachedClaim}
 import play.api.mvc.Results._
-import models.domain.{ReportChanges, Declaration}
+import models.domain.{CircumstancesDeclaration, ReportChanges, Claim}
 import services.ClaimTransactionComponent
 import play.api.i18n.Lang
 import models.view.CachedClaim._
-import models.domain.Claim
 import scala.Some
 import play.api.mvc.SimpleResult
 import services.async.AsyncActors
@@ -56,8 +55,8 @@ trait ClaimSubmissionService {
 object ClaimSubmissionService {
   def recordMi(claim: Claim, id: String, recordMI:(String,Boolean,Option[Int],Option[Lang]) => Unit) = {
     val changesMap = Map(StoppedCaring.name -> Some(0), AddressChange.name -> Some(1), SelfEmployment.name -> Some(2), PaymentChange.name -> Some(3), AdditionalInfo.name -> Some(4), BreakFromCaring.name -> Some(5), EmploymentChange.name -> Some(6), NotAsked -> None)
-    val declaration = claim.questionGroup[Declaration].getOrElse(Declaration())
-    val thirdParty = declaration.someoneElse.isDefined
+    val declaration = claim.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration())
+    val thirdParty = declaration.circsSomeOneElse.isDefined
     val circsChange = changesMap(claim.questionGroup[ReportChanges].getOrElse(ReportChanges()).reportChanges)
     recordMI(id,thirdParty,circsChange,claim.lang)
 
