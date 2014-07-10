@@ -11,7 +11,11 @@ object GAHelper {
   }
 
   def trackEvent(category:String, action:String, label:Option[String]=None, value:Option[String]=None, noninteraction:Option[String]=None):String = {
+    if (!Play.isTest) {
     s"""trackEvent("$category","$action"${addOpt(label)}${addOpt(value)}${addOpt(noninteraction)});""".toString
+    } else {
+      ""
+    }
   }
 
   def trackPageView(category:String):String = {
