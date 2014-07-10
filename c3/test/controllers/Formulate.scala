@@ -174,7 +174,7 @@ object Formulate {
   // Care You Provide
   def theirPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-personal-details")
-    browser.click("#relationship option[value='Father']")
+    browser.fill("#relationship") `with` "some other relationship"
     browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
@@ -188,7 +188,7 @@ object Formulate {
 
   def theirPersonalDetailsNotLiveAtSameAddress(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-personal-details")
-    browser.click("#relationship option[value='Father']")
+    browser.fill("#relationship") `with` "some other relationship"
     browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"

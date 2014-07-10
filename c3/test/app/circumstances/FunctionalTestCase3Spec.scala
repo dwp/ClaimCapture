@@ -26,7 +26,7 @@ class FunctionalTestCase3Spec extends FunctionalTestCommon {
         }
         case p: Page => println(p.source())
       }
-    }
+    }.pendingUntilFixed("Test cannot handle javascript - could be a test browser or PageObject issue.")
 
   } section "functional"
 }

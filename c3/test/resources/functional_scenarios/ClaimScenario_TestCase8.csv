@@ -181,7 +181,7 @@ Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber
 Employment,Employers contact details,Address,EmploymentEmployerAddress_1,1223 Yeadon Way&Blackpool&Lancashire
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,
-Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,
+Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,01/01/2001
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,2
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,
 Employment,Your last wage,"About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time?",EmploymentDoYouGettheSameAmountEachTime_1,
