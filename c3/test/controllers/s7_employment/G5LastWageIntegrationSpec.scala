@@ -19,19 +19,19 @@ class G5LastWageIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
       page submitPage() match {
-        case p: G6AdditionalWageDetailsPage => p numberSectionsCompleted()  mustEqual 1
+        case p: G7PensionSchemesPage => p numberSectionsCompleted()  mustEqual 1
         case _ => ko("Next Page is not of the right type.")
       }
     }
 
     "be able to navigate back to a completed form" in new WithBrowser  with PageObjects{
-			val page =  G4EmployerContactDetailsPage(context)
+			val page =  G3JobDetailsPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim
       val submitted = page submitPage()
       val backPage = submitted goBack ()
-      backPage must beAnInstanceOf[G4EmployerContactDetailsPage]
+      backPage must beAnInstanceOf[G3JobDetailsPage]
     }
   } section("integration",models.domain.Employed.id)
 }

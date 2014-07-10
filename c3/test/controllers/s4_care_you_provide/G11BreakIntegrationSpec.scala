@@ -62,7 +62,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       next
       titleMustEqual(G10BreaksInCarePage.title)
 
-      $("#breaks table tbody tr").size() shouldEqual 2
+      $("#breaks .data-table ul li").size() shouldEqual 2
     }
 
     "show zero breaks after creating one and then deleting" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
@@ -78,13 +78,13 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       break()
       next
       titleMustEqual(G10BreaksInCarePage.title)
-      $("tbody tr").size mustEqual 1
+      $("ul li").size mustEqual 1
 
       click("input[value='Delete']")
       await().atMost(10, TimeUnit.SECONDS).until(".breaks-prompt").areDisplayed
       click("input[value='Yes']")
 
-      await().atMost(10, TimeUnit.SECONDS).until("tbody tr").hasSize(0)
+      await().atMost(10, TimeUnit.SECONDS).until("ul li").hasSize(0)
     }
 
     "show two breaks after creating three and then deleting one" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
@@ -116,13 +116,13 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       next
       titleMustEqual(G10BreaksInCarePage.title)
 
-      $("tbody tr").size() mustEqual 3
+      $("ul li").size() mustEqual 3
 
-      findFirst("tbody tr input[value='Delete']").click()
+      findFirst("ul li input[value='Delete']").click()
       await().atMost(30, TimeUnit.SECONDS).until(".breaks-prompt").areDisplayed
       click("input[value='Yes']")
 
-      await().atMost(30, TimeUnit.SECONDS).until("tbody tr").hasSize(2)
+      await().atMost(30, TimeUnit.SECONDS).until("ul li").hasSize(2)
     }
 
     "add two breaks and edit the second's start year" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
@@ -154,8 +154,8 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       next
       titleMustEqual(G10BreaksInCarePage.title)
 
-      $("tbody tr").size() mustEqual 2
-      $("tbody").findFirst("tr").findFirst("td").getText shouldEqual "01/01/1999 to 01/01/2001"
+      $("ul li").size() mustEqual 2
+      $("ul").findFirst("li").findFirst("h3").getText shouldEqual "01/01/1999 to 01/01/2001"
     }
 
     """show "all options" for "Where was the person you care for during the break?".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {

@@ -68,30 +68,20 @@ header {
 				}
 			}
 			
+			
 			nav {
 				float: right;
 				margin-top: -30px; 
-			}
 			
-			ul {
-				margin: 0;
-				padding: 0;
-				list-style: none;
-				@media screen and (max-width: 600px) {
-					margin-top: .4em;
-				}
-				li {
-					line-height: 1em;
-					display: inline-block;
-					&.help {
-						display: none;
-						@media screen and (max-width: 600px) {
-							display: block;
-							position: absolute;
-							top: 20px;
-							right: 1em;
-						}
+			.help {
+					display: none;
+					@media screen and (max-width: 600px) {
+						display: block;
+						position: absolute;
+						top: 20px;
+						right: 1em;
 					}
+				}
 					a {
 						color: #fff;
 						text-decoration: none;
@@ -101,8 +91,12 @@ header {
 							text-decoration: underline;
 						}
 					}
-				}
+					
 			}
+			
+			
+			
+			
 		}
 	}
 }

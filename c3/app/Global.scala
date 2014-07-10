@@ -25,6 +25,8 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
     val secret: String = getProperty("application.secret", "secret")
     val secretDefault: String = getProperty("secret.default", "don't Match")
 
+    duplicateClaimCheckEnabled
+
     if (secret.equals(secretDefault)) {
       Logger.warn("application.secret is using default value")
     }
@@ -37,6 +39,7 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
 //    registerHealthChecks()
 
     Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}") // used for operations, do not remove
+    Logger.info(s"c3 property include.analytics is ${getProperty("include.analytics", "Not defined")}") // used for operations, do not remove
   }
 
   override def onStop(app: Application) {
@@ -61,5 +64,11 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
   def actorSystems() {
     EmailActors
     AsyncActors
+  }
+
+  def duplicateClaimCheckEnabled() = {
+    val checkLabel: String = "duplicate.submission.check"
+    val check = getProperty(checkLabel, default = true)
+    Logger.info(s"$checkLabel = $check")
   }
 }

@@ -90,6 +90,7 @@ package object app {
     val no = "no"
     val GBP = "GBP"
     val Other = "Other"
+    val other = "other"
     val poundSign = "£"
   }
 

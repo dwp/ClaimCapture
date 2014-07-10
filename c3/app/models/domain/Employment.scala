@@ -39,7 +39,7 @@ case class Jobs(jobs: List[Job] = Nil) extends QuestionGroup(Jobs) with Iterable
 
   def completeJob(jobID: String): Jobs = {
     job(jobID) match {
-        case Some(j:Job) => update(j.copy( completed = j.questionGroups.size > 5 ))
+        case Some(j:Job) => update(j.copy( completed = j.questionGroups.size > 3 ))
         case _ => copy()
       }
   }
@@ -73,7 +73,7 @@ object Jobs extends QuestionGroup.Identifier {
 case class Job(jobID: String="", questionGroups: List[QuestionGroup with Job.Identifier] = Nil, completed:Boolean=false) extends Job.Identifier with Iterable[QuestionGroup with Job.Identifier] {
   def employerName = jobDetails(_.employerName)
 
-  def title = necessaryExpenses(_.jobTitle)
+  def title = aboutExpenses(_.jobTitle.getOrElse(""))
 
   def jobStartDate = jobDetailsDate(_.jobStartDate)
 
@@ -87,8 +87,8 @@ case class Job(jobID: String="", questionGroups: List[QuestionGroup with Job.Ide
     case _ => ""
   }
 
-  private def necessaryExpenses(f: NecessaryExpenses => String) = questionGroups.find(_.isInstanceOf[NecessaryExpenses]) match {
-    case Some(n: NecessaryExpenses) => f(n)
+  private def aboutExpenses(f: AboutExpenses => String) = questionGroups.find(_.isInstanceOf[AboutExpenses]) match {
+    case Some(n: AboutExpenses) => f(n)
     case _ => ""
   }
 
@@ -123,12 +123,15 @@ object Job {
 
 case class JobDetails(jobID: String = "",
                       employerName: String = "",
+                      phoneNumber: Option[String] = None,
+                      payrollEmployeeNumber: Option[String] = None,
+                      address: MultiLineAddress = MultiLineAddress(),
+                      postcode: Option[String] = None,
                       jobStartDate: DayMonthYear = DayMonthYear(None, None, None),
                       finishedThisJob: String = "",
                       lastWorkDate:Option[DayMonthYear] = None,
                       p45LeavingDate:Option[DayMonthYear] = None,
-                      hoursPerWeek: Option[String] = None,
-                      payrollEmployeeNumber: Option[String] = None) extends QuestionGroup(JobDetails) with Job.Identifier {
+                      hoursPerWeek: Option[String] = None) extends QuestionGroup(JobDetails) with Job.Identifier {
   override val definition = Messages(identifier.id, employerName)
 }
 
@@ -139,36 +142,27 @@ object JobDetails extends QuestionGroup.Identifier {
     case `yes` => input.lastWorkDate.isDefined
     case `no` => true
   }
-}
 
-case class EmployerContactDetails(jobID: String = "",
-                                  address: MultiLineAddress = MultiLineAddress(),
-                                  postcode: Option[String] = None,
-                                  phoneNumber: Option[String] = None) extends QuestionGroup(EmployerContactDetails) with Job.Identifier
-
-object EmployerContactDetails extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g3"
+  def validateHoursPerWeek(input: JobDetails):Boolean = input.finishedThisJob match {
+    case `yes` => input.hoursPerWeek.isDefined
+    case `no` => true
+  }
 }
 
 case class LastWage(jobID: String = "",
-                    lastPaidDate: Option[DayMonthYear] = None,
+                    oftenGetPaid: PaymentFrequency = PaymentFrequency(),
+                    whenGetPaid: Option[String] = None,
+                    lastPaidDate: DayMonthYear,
                     grossPay: String = "",
                     payInclusions: Option[String] = None,
-                    sameAmountEachTime: Option[String] = None) extends QuestionGroup(LastWage) with Job.Identifier
+                    sameAmountEachTime: Option[String] = None,
+                    employerOwesYouMoney: String = "") extends QuestionGroup(LastWage) with Job.Identifier
+
 
 object LastWage extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g4"
-}
 
-case class AdditionalWageDetails(jobID:String = "",
-                                 oftenGetPaid: PaymentFrequency = PaymentFrequency(),
-                                 whenGetPaid: Option[String] = None,
-                                 employerOwesYouMoney: String = "") extends QuestionGroup(AdditionalWageDetails) with Job.Identifier
-
-object AdditionalWageDetails extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g5"
-
-  def validateOftenGetPaid(input: AdditionalWageDetails): Boolean = input.oftenGetPaid match {
+  def validateOftenGetPaid(input: LastWage): Boolean = input.oftenGetPaid match {
     case payment if payment.frequency == "other" => payment.other.isDefined
     case _ => true
   }
@@ -207,43 +201,84 @@ object PensionSchemes extends QuestionGroup.Identifier {
 }
 
 case class AboutExpenses(jobID: String = "",
-                         payForAnythingNecessary: String = "",
+                         haveExpensesForJob: String = "",
+                         jobTitle: Option[String] = None,
+                         whatExpensesForJob: Option[String] = None,
                          payAnyoneToLookAfterChildren: String = "",
-                         payAnyoneToLookAfterPerson: String = "") extends QuestionGroup(AboutExpenses) with Job.Identifier
+                         nameLookAfterChildren: Option[String] = None,
+                         howMuchLookAfterChildren: Option[String] = None,
+                         howOftenLookAfterChildren: Option[PensionPaymentFrequency] = None,
+                         relationToYouLookAfterChildren: Option[String] = None,
+                         relationToPersonLookAfterChildren: Option[String] = None,
+                         payAnyoneToLookAfterPerson: String = "",
+                         nameLookAfterPerson: Option[String] = None,
+                         howMuchLookAfterPerson: Option[String] = None,
+                         howOftenLookAfterPerson: Option[PensionPaymentFrequency] = None,
+                         relationToYouLookAfterPerson: Option[String] = None,
+                         relationToPersonLookAfterPerson: Option[String] = None ) extends QuestionGroup(AboutExpenses) with Job.Identifier
 
 object AboutExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g8"
-}
 
-case class NecessaryExpenses(jobID: String = "",
-                             jobTitle: String = "",
-                             whatAreThose: String = "") extends QuestionGroup(NecessaryExpenses) with Job.Identifier
+  def validateJobTitle(input: AboutExpenses): Boolean = input.haveExpensesForJob match {
+    case `yes` => input.jobTitle.isDefined
+    case `no` => true
+  }
 
-object NecessaryExpenses extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g9"
-}
+  def validateWhatExpensesForJob(input: AboutExpenses): Boolean = input.haveExpensesForJob match {
+    case `yes` => input.whatExpensesForJob.isDefined
+    case `no` => true
+  }
 
-case class ChildcareExpenses(jobID: String = "",
-                             whoLooksAfterChildren: String = "",
-                             howMuchCostChildcare: String = "",
-                             howOftenPayChildCare: PensionPaymentFrequency = models.PensionPaymentFrequency(""),
-                             relationToYou: String = "",
-                             relationToPartner: Option[String] = None,
-                             relationToPersonYouCare: String = "") extends QuestionGroup(ChildcareExpenses) with Job.Identifier
+  def validateNameLookAfterChildren(input: AboutExpenses): Boolean = input.payAnyoneToLookAfterChildren match {
+    case `yes` => input.nameLookAfterChildren.isDefined
+    case `no` => true
+  }
 
-object ChildcareExpenses extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g10"
-}
+  def validateHowMuchLookAfterChildren(input: AboutExpenses): Boolean = input.payAnyoneToLookAfterChildren match {
+    case `yes` => input.howMuchLookAfterChildren.isDefined
+    case `no` => true
+  }
 
-case class PersonYouCareForExpenses(jobID: String = "",
-                                    whoDoYouPay: String = "",
-                                    howMuchCostCare: String = "",
-                                    howOftenPayCare: PensionPaymentFrequency = models.PensionPaymentFrequency(""),
-                                    relationToYou: String = "",
-                                    relationToPersonYouCare: String = "") extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier
+  def validateHowOftenLookAfterChildren(input: AboutExpenses): Boolean = input.payAnyoneToLookAfterChildren match {
+    case `yes` => input.howOftenLookAfterChildren.isDefined
+    case `no` => true
+  }
 
-object PersonYouCareForExpenses extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g12"
+  def validateRelationToYouLookAfterChildren(input: AboutExpenses): Boolean = input.payAnyoneToLookAfterChildren match {
+    case `yes` => input.relationToYouLookAfterChildren.isDefined
+    case `no` => true
+  }
+
+  def validateRelationToPersonLookAfterChildren(input: AboutExpenses): Boolean = input.payAnyoneToLookAfterChildren match {
+    case `yes` => input.relationToPersonLookAfterChildren.isDefined
+    case `no` => true
+  }
+
+  def validateNameLookAfterPerson(input: AboutExpenses): Boolean = input.payAnyoneToLookAfterPerson match {
+    case `yes` => input.nameLookAfterPerson.isDefined
+    case `no` => true
+  }
+
+  def validateHowMuchLookAfterPerson(input: AboutExpenses): Boolean = input.payAnyoneToLookAfterPerson match {
+    case `yes` => input.howMuchLookAfterPerson.isDefined
+    case `no` => true
+  }
+
+  def validateHowOftenLookAfterPerson(input: AboutExpenses): Boolean = input.payAnyoneToLookAfterPerson match {
+    case `yes` => input.howOftenLookAfterPerson.isDefined
+    case `no` => true
+  }
+
+  def validateRelationToYouLookAfterPerson(input: AboutExpenses): Boolean = input.payAnyoneToLookAfterPerson match {
+    case `yes` => input.relationToYouLookAfterPerson.isDefined
+    case `no` => true
+  }
+
+  def validateRelationToPersonLookAfterPerson(input: AboutExpenses): Boolean = input.payAnyoneToLookAfterPerson match {
+    case `yes` => input.relationToPersonLookAfterPerson.isDefined
+    case `no` => true
+  }
 }
 
 object JobCompletion extends QuestionGroup.Identifier {

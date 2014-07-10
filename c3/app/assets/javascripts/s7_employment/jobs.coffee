@@ -1,22 +1,22 @@
 $ ->
-    $("#jobs").hide() if $("tbody").children().length is 0
+    $("#jobs").hide() if $("ul.trip-data").children().length is 0
 
     $(".breaks-prompt").hide()
 
-    $("tbody").on "click", "input[id='changeButton']", ->
-        tr = $(this).closest("tr")
-        window.location.href = "/employment/job/" + tr.attr("id")
+    $("ul").on "click", "input[id='changeButton']", ->
+        li = $(this).closest("li")
+        window.location.href = "/employment/job/" + li.attr("id")
 
     $("#backButton").on "click", (event) ->
         if ($("#backButton").attr("disabled") == "disabled")
             event.preventDefault()
 
-    $("tbody").on "click", "input[id='deleteButton']", ->
+    $("ul").on "click", "input[id='deleteButton']", ->
         disable()
         enableConfirmation()
 
-        tr = $(this).closest("tr")
-        tbody = $(this).closest("tbody")
+        li = $(this).closest("li")
+        ul = $(this).closest("ul")
 
         $("#jobs .breaks-prompt").slideDown {
             start:->
@@ -34,7 +34,7 @@ $ ->
 
                     $.ajax
                         type: "DELETE"
-                        url: "/employment/job/" + tr.attr("id")
+                        url: "/employment/job/" + li.attr("id")
 
                         success: (data) ->
                             $("label[for='answer']").text(data.answer)
@@ -42,12 +42,12 @@ $ ->
 
                             $("#jobs .breaks-prompt").slideUp()
 
-                            if tr.closest("tbody").children().length is 1
-                                $("#jobs").wrapInner("<div />").children().slideUp -> tr.remove()
+                            if li.closest("ul").children().length is 1
+                                $("#jobs").wrapInner("<div />").children().slideUp -> li.remove()
                             else
-                                tr.find("td").wrapInner "<div>"
-                                tr.find("td div:not(:last)").slideUp()
-                                tr.find("td div:last").slideUp -> tr.remove()
+                                li.find("dd").wrapInner "<div>"
+                                li.find("dd div:not(:last)").slideUp()
+                                li.find("dd div:last").slideUp -> li.remove()
 
                         error: ->
                             location.reload(true)
@@ -56,7 +56,7 @@ $ ->
 dynamicMessage = ->
   normalMsg = $(".normalMsg")
   warningMsg = $(".warningMsg")
-  if $("tbody").find("tr").length is 1
+  if $("ul").find("tr").length is 1
     normalMsg.hide()
     warningMsg.show()
   else
@@ -67,7 +67,7 @@ enableConfirmation = ->
     $("#jobs .breaks-prompt input[type='button']").removeAttr("disabled").removeClass("disabled")
 
 enable = ->
-    $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
+    $("li input[type='button']").removeAttr("disabled").removeClass("disabled")
     $("input[type='radio']").removeAttr("disabled", "true").removeClass("disabled")
     $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
 
@@ -75,7 +75,7 @@ disableConfirmation = ->
     $("#jobs .breaks-prompt input[type='button']").attr("disabled", "true").addClass("disabled")
 
 disable = ->
-    $("tr input[type='button']").attr("disabled", "true").addClass("disabled")
+    $("li input[type='button']").attr("disabled", "true").addClass("disabled")
     $("input[type='radio']").attr("disabled", "true").addClass("disabled")
     $(".form-steps").children().attr("disabled", "true").addClass("disabled")
 

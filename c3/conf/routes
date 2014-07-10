@@ -13,7 +13,10 @@ GET           /claim-notes                                                    co
 # claim pack notes accessed internally (with claim lang)
 GET           /internal-claim-notes/:languageCode                             controllers.ClaimNotes.internalNotes(languageCode: String)
 
-GET           /change-language/:chosenLanguage                                controllers.Language.change(chosenLanguage: String)
+# claim pack notes accessed externally
+GET           /claim-help                                                 controllers.ClaimHelp.notes
+
+GET           /change-language/:chosenLanguage                            controllers.Language.change(chosenLanguage: String)
 # Obscure URL to hide health page
 GET           /Ewd4Oys3baIj3Yeg0o                                             controllers.HealthController.health
 
@@ -59,9 +62,6 @@ POST          /allowance/over-16                                              co
 
 GET           /allowance/lives-in-gb                                          controllers.s1_carers_allowance.G4LivesInGB.present
 POST          /allowance/lives-in-gb                                          controllers.s1_carers_allowance.G4LivesInGB.submit
-
-GET           /allowance/carers-response                                      controllers.s1_carers_allowance.G5CarersResponse.present
-POST          /allowance/carers-response                                      controllers.s1_carers_allowance.G5CarersResponse.submit
 
 GET           /allowance/approve                                              controllers.s1_carers_allowance.CarersAllowance.approve
 POST          /allowance/approve                                              controllers.s1_carers_allowance.CarersAllowance.approveSubmit
@@ -150,21 +150,6 @@ POST          /employment/last-wage                                           co
 GET           /employment/additional-wage-details/:jobID                      controllers.s7_employment.G6AdditionalWageDetails.present(jobID: String)
 POST          /employment/additional-wage-details                             controllers.s7_employment.G6AdditionalWageDetails.submit
 
-GET           /employment/pension-schemes/:jobID                              controllers.s7_employment.G7PensionSchemes.present(jobID: String)
-POST          /employment/pension-schemes                                     controllers.s7_employment.G7PensionSchemes.submit
-
-GET           /employment/about-expenses/:jobID                               controllers.s7_employment.G8AboutExpenses.present(jobID: String)
-POST          /employment/about-expenses                                      controllers.s7_employment.G8AboutExpenses.submit
-
-GET           /employment/necessary-expenses/:jobID                           controllers.s7_employment.G9NecessaryExpenses.present(jobID: String)
-POST          /employment/necessary-expenses                                  controllers.s7_employment.G9NecessaryExpenses.submit
-
-GET           /employment/childcare-expenses/:jobID                           controllers.s7_employment.G10ChildcareExpenses.present(jobID: String)
-POST          /employment/childcare-expenses                                  controllers.s7_employment.G10ChildcareExpenses.submit
-
-GET           /employment/person-you-care-for-expenses/:jobID                 controllers.s7_employment.G12PersonYouCareForExpenses.present(jobID: String)
-POST          /employment/person-you-care-for-expenses                        controllers.s7_employment.G12PersonYouCareForExpenses.submit
-
 # Self-employment
 ###############
 GET           /self-employment/about-self-employment                          controllers.s8_self_employment.G1AboutSelfEmployment.present
@@ -251,16 +236,18 @@ POST          /circumstances/report-changes/breaks-in-care-summary            co
 GET           /circumstances/report-changes/employment-change                 controllers.circs.s2_report_changes.G9EmploymentChange.present
 POST          /circumstances/report-changes/employment-change                 controllers.circs.s2_report_changes.G9EmploymentChange.submit
 
-GET           /circumstances/report-changes/employment-ongoing                controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.present
-POST          /circumstances/report-changes/employment-ongoing                controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.submit
+GET           /circumstances/report-changes/employment-ongoing          controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.present
+POST          /circumstances/report-changes/employment-ongoing          controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.submit
 
-GET           /circumstances/report-changes/employment-finished               controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.present
-POST          /circumstances/report-changes/employment-finished               controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.submit
+GET           /circumstances/report-changes/employment-finished         controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.present
+POST          /circumstances/report-changes/employment-finished         controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.submit
 
-GET           /circumstances/report-changes/future-employment                 controllers.circs.s2_report_changes.G12EmploymentNotStarted.present
-POST          /circumstances/report-changes/future-employment                 controllers.circs.s2_report_changes.G12EmploymentNotStarted.submit
+GET           /circumstances/report-changes/future-employment           controllers.circs.s2_report_changes.G12EmploymentNotStarted.present
+POST          /circumstances/report-changes/future-employment           controllers.circs.s2_report_changes.G12EmploymentNotStarted.submit
 
 GET           /circumstances/consent-and-declaration/declaration              @controllers.circs.s3_consent_and_declaration.G1Declaration.present
 POST          /circumstances/consent-and-declaration/declaration              @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
 GET           /circumstances/consent-and-declaration/error                    controllers.circs.s3_consent_and_declaration.G3Error.present
+
+POST          /decrypt/:encryptedValue                                    controllers.Decrypt.decryptValue(encryptedValue)

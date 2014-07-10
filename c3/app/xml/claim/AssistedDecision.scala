@@ -2,11 +2,13 @@ package xml.claim
 
 import app.StatutoryPaymentFrequency
 import models.domain._
+import models.PaymentFrequency
 import scala.xml.NodeSeq
 import org.joda.time.DateTime
 import scala.Some
 import xml.XMLComponent
 import xml.XMLHelper._
+import models.DayMonthYear
 
 
 /**
@@ -50,16 +52,16 @@ object AssistedDecision extends XMLComponent {
     var weeklyEarning: Double = 0.0d
     claim.questionGroup[Jobs] match {
       case Some(jobs) => for (job <- jobs) {
-        val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
+        val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(), None,DayMonthYear(),"", None, None, ""))
         if (weeklyEarning > -1d && lastWage.sameAmountEachTime.getOrElse("").toLowerCase == "yes") {
           //          Logger.debug("Assisted decision - child expense " + job.questionGroup[ChildcareExpenses])
           //          Logger.debug("Assisted decision - Person you care expenses " + job.questionGroup[PersonYouCareForExpenses])
           //          Logger.debug("Assisted decision - Pension schemes " + job.questionGroup[PensionSchemes])
-          if (!job.questionGroup[ChildcareExpenses].isDefined && !job.questionGroup[PersonYouCareForExpenses].isDefined
+          if (!job.questionGroup[AboutExpenses].isDefined
             && (!job.questionGroup[PensionSchemes].isDefined || (job.questionGroup[PensionSchemes].get.payPersonalPensionScheme.toLowerCase != "yes" && job.questionGroup[PensionSchemes].get.payOccupationalPensionScheme.toLowerCase != "yes"))) {
             val earning = currencyAmount(lastWage.grossPay).toDouble
             //            Logger.debug("Assisted decision - Pay frequency " + job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency)
-            val frequencyFactor: Double = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency match {
+            val frequencyFactor: Double = lastWage.oftenGetPaid.frequency match {
               case StatutoryPaymentFrequency.Weekly => 1.0
               case StatutoryPaymentFrequency.Fortnightly => 2.0001
               case StatutoryPaymentFrequency.FourWeekly => 4.0003

@@ -12,39 +12,53 @@
     <fieldset id="jobs" class="form-elements results-detail" data-journey="carers-allowance:page:employment">
         <legend>@Html(Messages("tableTitle"))</legend>
 
-        <table class="employment">
-            <caption>@Html(Messages("s7.g2.help1"))</caption>
+        
+        
+        
+        
+          <div class="data-table">
+        
 
-            <thead>
-                <tr>
-                    <th>@Html(Messages("employerNameTable"))</th>
-                    <th class="desc">@Html(Messages("startDateTable"))</th>
-                    <th>@Html(Messages("changeTable"))</th>
-                    <th>@Html(Messages("deleteTable"))</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @claim.questionGroup[Jobs].map { jobs =>
+			  <ul class="trip-data">
+			  
+			  	@claim.questionGroup[Jobs].map { jobs =>
                     @for(job <- jobs) {
                         @if(job.completed) {
-                            <tr id="@job.jobID" class="@job.jobID">
-                                <td>@job.employerName</td>
-                                <td class="desc">@{(job.jobStartDate).`dd/MM/yyyy`}</td>
-                                <td><input type="button" class="button row secondary" id="changeButton" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))"></td>
-                                <td><input type="button" class="button row warning" id="deleteButton" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))"></td>
-                            </tr>
-                        }
-                    }
+			  
+				  	<li id="@job.jobID" class="@job.jobID">
+				  	
+					  	<h3>@job.employerName</h3>
+					  	
+					  	<dl>
+						  	<dt>@Html(Messages("startDateTable")):</dt>
+						  	<dd>@{(job.jobStartDate).`dd/MM/yyyy`}</dd>
+					  	</dl>
+					  	
+						<div class="actions">
+							<input type="button" id="changeButton" value="@Html(Messages("change"))">
+							<input type="button" id="deleteButton" value="@Html(Messages("delete"))">
+						</div>
+					
+				  	</li>
+				  	
+				  	}
+                  }
                 }
-            </tbody>
-        </table>
+				  
+				
+			  </ul>
+			  
+        </div>
+        
+        
+        
+        
 
         <div class="prompt breaks-prompt">
             <p class="normalMsg">@Html(Messages("deleteEmploymentMessage"))</p>
             <p class="warningMsg">@Html(Messages("deleteOneEmploymentMessage"))</p>
-            <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
-            <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(Messages("yes.delete"))" aria-label="@Html(Messages("yes.delete.label"))">
+            <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(Messages("no.delete"))">
+            <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(Messages("yes.delete"))">
             <span>&#33;</span>
         </div>
     </fieldset>

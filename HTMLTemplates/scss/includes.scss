@@ -12,21 +12,11 @@
     clear: both;
 }
 
-
-/* firefix radio fix */
-@-moz-document url-prefix() {
-	.radio {
-		input[type="radio"] {
-				top: 15px!important; /* temp */
-				left: 12px!important; /* temp */
-			}
-		}
-}
-									 
+							 
 
 
 /* Header - Global Overrides - inc !important overrides */
-html {background: #dee0e2!important;}
+html {background: #000!important;}
 #global-header .header-wrapper {padding: 0.5em 1px!important;}
 
 .carers-allowance-footer {padding-top: 30px!important; padding-bottom: 30px!important;}

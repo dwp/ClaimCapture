@@ -7,33 +7,43 @@
 @import utils.helpers.CarersCrypto
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
-
+@import controllers.s7_employment.Employment.completedQuestionGroups
 @import play.api.i18n.{MMessages => Messages}
-@main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm)) {
+
+@main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm),completedQuestionGroups(models.domain.JobDetails, JobID(currentForm)), Some(Messages("s7.g3"))) {
 
     @form(action = controllers.s7_employment.routes.G3JobDetails.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <div class="form-wrap">
-	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("s7.g3"))</legend>
-	
+            <fieldset class="form-elements" data-journey="carers-allowance:page:employment">
+
+                <p>@Html(Messages("s7.g3.helper"))</p>
+
 	            <ul>
 	                @carersInputText(currentForm("employerName"), 'maxLength -> Mappings.sixty)
-	
-	                @inputDayMonthYear(currentForm("jobStartDate"), 'helperAbove -> Messages("jobStartDate.helper"))
-	
+
+                    @carersInputTel(currentForm("phoneNumber"))
+
+                    @carersInputText(currentForm("payrollEmployeeNumber"), 'maxLength -> 16)
+
+                    @inputAddress(currentForm("address"))
+
+                    @carersInputText(currentForm("postcode"), 'class -> "postcode")
+
+                    @inputDayMonthYear(currentForm("jobStartDate"), 'helperAbove -> Messages("jobStartDate.helper"))
+                </ul>
+
+                <ul>
 	                @yesNoRadioGroup(currentForm("finishedThisJob"))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(inputDayMonthYear(currentForm("lastWorkDate"), 'helperAbove -> Messages("jobStartDate.helper")),
-	                                   inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("jobStartDate.helper"))),
+                            inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("jobStartDate.helper")),
+                            carersShortInputText(currentForm("hoursPerWeek"),
+                            '_label -> labelForEmployment(claim, lang, "hoursPerWeek", JobID(currentForm)), 'maxlength -> 2)),
 	                    'id -> "lastWorkData",
 	                    'display -> currentForm("finishedThisJob").value.getOrElse("no"))
-	
-	                @carersShortInputText(currentForm("hoursPerWeek"), '_label -> labelForEmployment(claim, lang, "hoursPerWeek", JobID(currentForm)),'placeholder -> "00", 'maxlength -> 2)
-	
-	                @carersInputText(currentForm("payrollEmployeeNumber"), 'maxLength -> 16)
 	            </ul>
 	        </fieldset>
 	

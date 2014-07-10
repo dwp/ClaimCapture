@@ -18,8 +18,8 @@
     @form(action = controllers.s10_pay_details.routes.G1HowWePayYou.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:pay-details">
-	            <legend>@Html(Messages("s10.g1"))</legend>
-	
+                <p>@Html(Messages("howWePayYou.help")) <a href="/claim-help#8" @views.html.ga.trackClickEvent(linkName = "Claim Notes - How We Pay You")>@Html(Messages("howWePayYou.help.link"))</a></p>
+
 	            <ul>
 	                @listRadioGroup(currentForm("likeToPay"),
                                     'items -> Seq(BankBuildingAccount , AppliedForAccount, NotOpenAccount).map(s => s -> Messages(s)),

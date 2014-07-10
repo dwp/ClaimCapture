@@ -16,7 +16,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
 
       goTo("/employment/been-employed")
       back
-      titleMustEqual("Your job - Employment History")
+      titleMustEqual("Employer Details - Employment History")
     }
 
     """be bypassed and go onto "other money" having indicated that "employment" is not required.""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with NotEmployedSinceClaimDate {
@@ -40,7 +40,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       goTo("/employment/been-employed")
       click("#beenEmployed_yes")
       next
-      titleMustEqual("Your job - Employment History")
+      titleMustEqual("Employer Details - Employment History")
     }
 
     "show 1 error upon submitting no mandatory data" in new WithBrowser with EmployedHistoryPage {
@@ -74,12 +74,12 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       historyPage.readYesNo("#beenEmployed") mustEqual Some("no")
     }
 
-    """have table data after filling a job""" in new WithBrowser with EmployedHistoryPage {
+    """have job data after filling a job""" in new WithBrowser with EmployedHistoryPage {
       val employmentData = ClaimScenarioFactory.s7EmploymentMinimal()
       var historyPage = goToHistoryPage
       historyPage must beAnInstanceOf[G2BeenEmployedPage]
-      historyPage.readTableCell(0, 0) mustEqual Some("Tesco's")
-      historyPage.readTableCell(0, 1) mustEqual Some("01/01/2013")
+      historyPage.source().contains(("Tesco's")) mustEqual true
+      historyPage.source().contains(("01/01/2013")) mustEqual true
     }
 
   } section("integration", models.domain.Employed.id)
@@ -101,15 +101,10 @@ trait EmployedHistoryPage extends G1ClaimDatePageContext {
     val employmentPage = page goToPage new G1EmploymentPage(PageObjectsContext(browser))
     employmentPage fillPageWith employmentData
     val jobDetailsPage = employmentPage submitPage()
-
     jobDetailsPage fillPageWith employmentData
-    val contactDetailsPage = jobDetailsPage submitPage ()
-    contactDetailsPage fillPageWith employmentData
-    val lastWage = contactDetailsPage submitPage()
+    val lastWage = jobDetailsPage submitPage()
     lastWage fillPageWith employmentData
-    val additionalDetailsWage = lastWage submitPage()
-    additionalDetailsWage fillPageWith employmentData
-    val pensionSchmesPage = additionalDetailsWage submitPage()
+    val pensionSchmesPage = lastWage submitPage()
     pensionSchmesPage fillPageWith employmentData
     val expensesPage = pensionSchmesPage submitPage()
     expensesPage fillPageWith employmentData

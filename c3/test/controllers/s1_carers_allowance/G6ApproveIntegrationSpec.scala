@@ -6,12 +6,14 @@ import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s2_about_you.G1YourDetailsPage
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import play.api.Logger
 
 class G6ApproveIntegrationSpec extends Specification with Tags {
   "Approve" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  G6ApprovePage(context)
       page goToThePage()
+      page jsCheckEnabled() must beTrue
     }
   } section("integration",models.domain.CarersAllowance.id)
 
@@ -69,7 +71,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
-      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
+      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
       page goToThePage()
       page runClaimWith (claim, G1ClaimDatePage.title)
     }

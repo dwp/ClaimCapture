@@ -30,53 +30,51 @@ else OtherMoney.name
     <fieldset id="breaks" class="form-elements results-detail">
         <legend>@Html(Messages("breaksAlreadyAdded"))</legend>
 
-        <table>
-            <caption>@Html(Messages("breakDetails"))</caption>
+        <div class="data-table">
+        
 
-            <thead>
-                <tr>
-                    <th>@Html(Messages("breakPeriod"))</th>
-                    <th class="desc">@Html(Messages("breaks.whereYou.label"))</th>
-                    <th class="desc">@Html(Messages("wherePerson"))</th>
-                    <th class="desc">@Html(Messages("medicalTreatment"))</th>
-                    <th></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @for(break <- breaksInCare.breaks) {
-                    <tr id="@break.id" class="@break.id">
-                        <td>
-                            @{break.start.`dd/MM/yyyy`}
+				 <ul class="break-data">
+				 
+				 
+				 @for(break <- breaksInCare.breaks) {
+        			<li id="@break.id" class="@break.id">
+				  	
+					  	<h3>@{break.start.`dd/MM/yyyy`}
                             <span>
                             @{if(break.end.isDefined) Messages("to")}
                             </span>
                             @{break.end.fold("")(_.`dd/MM/yyyy`)}
-                        </td>
-
-                        <td class="desc">
-                            @break.whereYou.location.isEmpty match {
+                         </h3>
+					  	
+					  	<dl>
+						  	<dt>@Html(Messages("breaks.whereYou.label")):</dt>
+						  	<dd>@break.whereYou.location.isEmpty match {
                                 case false => { @Html(Messages("whereabouts." + break.whereYou.location.replaceAll(" ","").toLowerCase)) }
                                 case true => {}
-                            }
-                        </td>
-
-                        <td class="desc">
-                            @break.wherePerson.location.isEmpty match {
+                            }</dd>
+						  	
+						  	<dt>@Html(Messages("wherePerson")):</dt>
+						  	<dd>@break.wherePerson.location.isEmpty match {
                                 case false => { @Html(Messages("whereabouts." + break.wherePerson.location.replaceAll(" ","").toLowerCase)) }
                                 case true => {}
-                            }
-                        </td>
-
-                        <td class="desc">@if("yes" == break.medicalDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</td>
-                        <td>
-                        	<input type="button" name="changerow" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))">
+                            }</dd>
+						  	
+						  	<dt>@Html(Messages("medicalTreatment")):</dt>
+						  	<dd>@if("yes" == break.medicalDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</dd>
+					  	</dl>
+					  	
+						<div class="actions">
+							<input type="button" name="changerow" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))">
                         	<input type="button" name="deleterow" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))">
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+						</div>
+					
+				  	</li>
+				  	
+				  	}
+				  	
+				 </ul>
+				 
+        	 </div>
 
         <div class="prompt breaks-prompt">
             <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
@@ -93,18 +91,16 @@ else OtherMoney.name
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s4.g5"))</legend>
 	            
-	            <div class="prompt helper-prompt">
+	            <div class="prompt nested-prompt">
 	                <p>@Html(Messages("s4.g5.help1"))</p>
-	
-	                <p class="intro">
-	                    @Html(Messages("s4.g5.help2"))
-	                </p>
 	
 	                <ul>
 	                    <li>@Html(Messages("s4.g5.help3"))</li>
 	                    <li>@Html(Messages("s4.g5.help4"))</li>
 	                </ul>
-	            </div>
+
+                    <p>@Html(Messages("s4.g5.help2")) <a href="/claim-help#6" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Breaks from Caring")>@Html(Messages("s4.g5.help2.link"))</a></p>
+                </div>
 	
 	            <ul>
 	                @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>

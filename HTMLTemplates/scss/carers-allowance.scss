@@ -1,3 +1,5 @@
+
+
 /* GDS Colours */
 @import 'gds-colours';
 
@@ -52,12 +54,12 @@ main {
     
 @import 'completed'; 
    
-@import 'validation-summary';  
+@import 'validation-summary';
      
 
 /* form wrap */
 .form-wrap {
-		margin-right: 25%;
+
 		@media screen and (max-width: 860px) {
 			margin-right: 0;
 		}
@@ -137,7 +139,7 @@ main {
 	   	   }
 	   	   &.nestedLabel {
 		   	   	font-size: 19px;
-				font-weight: 400;
+				font-weight: 600;
 				color: #000;
 				padding-bottom: .5em;
 	   	   }
@@ -165,7 +167,7 @@ main {
 			margin-bottom: 0;
 			legend {
 				font-size: 19px;
-				font-weight: 400;
+				font-weight: 600;
 				color: #000;
 				padding-bottom: .34em;
 				em {
@@ -180,7 +182,56 @@ main {
 						padding-top: 0;
 						}
 				}  	
+				
+				
+				.employment-info {
+
+	   
+	   			   p {
+		   			   color: #6f777b;
+		   			   font-size: 19px;
+		   			   padding-top: .5em;
+		   			   margin: 0 0 1em 0;
+		   			   &:first-child {
+			   			   margin: 0;
+		   			   }
+	   			   }
+
+				   ul {
+					   list-style: disc;
+					   padding: 1.2em 0 1.5em 0;
+					   margin: 0;
+
+					   li {
+						   font-size: 19px;
+						   padding: 0 0 0 1em;
+						   margin: .8em 0 0 0;
+						   color: #6f777b;
+						   line-height: 1.2em;
+						   position: relative;
+						   &:before {
+							   content: "";
+							   position: absolute;
+							   width: 6px;
+							   height: 6px;
+							   background: #000;
+							   border-radius: 500px;
+							   top: 50%;
+							   left:0;
+							   margin-top: -3px;
+						   }
+						   
+						   &:first-child {
+							   margin: 0;
+						   }
+					   }
+				   
+				   }
+			   }
+				
 		}
+		
+	
    	   
    	   
    	   
@@ -190,7 +241,7 @@ main {
 		   zoom: 1;
 		   
 		   &.extra-group {
-			   border-left: 5px solid #a2a2a2;
+			   border-left: 5px solid #dee0e2;
 			   padding-left: .8em;
 			   margin-top: 1em;
 			   .validation {
@@ -205,7 +256,7 @@ main {
 		   
 		   li {
 			   display: block;
-			   margin-top: 16px;
+			   margin-top: 18px;
 			   padding: .8em 0;
 			   position: relative;
 			   .ie & {
@@ -235,6 +286,8 @@ main {
 					   padding-top: 1em;
 				   }
 			   }
+			   
+			 
 			  
 			   
 			   
@@ -274,6 +327,26 @@ main {
 			   }
 			   
 			   
+			   
+			   /* Form check */
+			   
+			   &.form-check {
+				   margin-top: 0;
+				   padding-top: 0;
+				   label {
+					   display: inline-block;
+					   padding-left: 5px;
+					   color: #666;
+				   }
+				   input {
+					   display: inline-block;
+					   vertical-align: top;
+					   margin-top: 5px;
+					   &:checked + label {
+						   color: #000;
+					   }
+				   }
+			   }
 			   
 			   
 			   
@@ -336,12 +409,20 @@ main {
 				   font-size: 19px;
 				   margin-top: .5em;
 				   font-weight: 300;
+				   color: #666;
 				   &.above {
 					   margin-top: 0;
 					   padding-bottom: .5em;
-					   color: #666;
 				   }
 			   }
+			   .helper-show {
+				   font-size: 19px;
+				   font-weight: 300;
+				   color: #666;
+				   margin-top: -2px;
+				   padding: 0;
+			   }
+			   
 			   .specific-help {
 				   display: none;
 				   .ie7 & {
@@ -407,10 +488,10 @@ main {
 					}
 				}
 			  
-			   label, p {
+			   label, .sub {
 				   display: block;
 				   font-size: 19px;
-				   font-weight: 400;
+				   font-weight: 600;
 				   line-height: 1.3em;
 				   padding-bottom: .3em;
 				   @media screen and (max-width: 600px) {
@@ -471,6 +552,11 @@ main {
 				   height: 6em;
 				   width: 566px;
 				   background: #fff;
+				   
+				   &.textarea-reduced {
+					   height: 3em;
+				   }
+				   
 				   @media screen and (max-width: 620px) {width: 96%;}
 			   }
 			   select {
@@ -511,7 +597,7 @@ main {
 				   li {
 					   position: relative;
 					   float: left;
-					   margin: 0 0 0 1px;
+					   margin: 0 0 0 2px;
 					   padding: 0;
 					   &:first-child {
 						   margin-left: 0;
@@ -519,24 +605,17 @@ main {
 					   input[type="radio"] {
 						   position: absolute;
 						   top: 13px;
-						   left: 14px;
+						   left: -9914px;
 						   margin: 0;
 						   cursor: pointer;
 						   line-height: 1em;
+
 						   
-						   .ie & {
+						   .ie8 &, .ie7 & {
 							   top: 10px;
 							   left: 10px;
 						   }
 						   
-						   .ie10 & {
-							   top: 10px;
-							   left: 10px;
-						   }
-						   
-						   .ie8 & {
-							   top: 11px;
-						   }
 
 						   .ie6 & {
 							   position: relative;
@@ -549,17 +628,20 @@ main {
 					   
 					   label {
 						   display: block;
-						   background: #e8e8e8;
-						   padding: 12px 14px 10px 34px;
-						   font-size: 17px;
+						   background: #eee;
+						   padding: 12px 28px 10px 28px;
+						   font-size: 19px;
 						   cursor: pointer;
 						   line-height: 1em;
-						   border: 1px solid #fff;
-						   font-weight: 500;
+						   border: 2px solid #fff;
+						   font-weight: 400;
 						   
-						   .ie7 &:hover, .ie8 &:hover {
-							   background: #fff;
-							   border: 1px solid #a2a2a2;
+						   &:hover {
+							   background: #ccc;
+						   }
+						   
+						   .ie8 &, .ie7 & {
+							   padding-left: 34px;
 						   }
 						   
 						   .ie6 & {
@@ -571,12 +653,13 @@ main {
 					   
 					   input[type="radio"]:checked + label {
 						   background: #fff;
-						   -webkit-transition: all 200ms ease-in;
-						   -moz-transition: all 200ms ease-in;
-						   -ms-transition: all 200ms ease-in;
-						   -o-transition: all 200ms ease-in;
-						   transition: all 200ms ease-in;
-						   border: 1px solid #a2a2a2;
+						   -webkit-transition: all 150ms ease-in;
+						   -moz-transition: all 150ms ease-in;
+						   -ms-transition: all 150ms ease-in;
+						   -o-transition: all 150ms ease-in;
+						   transition: all 150ms ease-in;
+						   border: 2px solid #000;
+						   font-weight: 500;
 					   }
 				   }
 				   &.radio-stack {
@@ -588,6 +671,7 @@ main {
 						   }
 						   label {
 							   display: inline-block;
+							   padding: 14px 16px 12px 16px;
 							   @media screen and (max-width: 480px) {
 								   display: block;
 							   }
@@ -808,13 +892,17 @@ main {
 	   
 	   
 /* Table base styles */	   
-@import 'tables'; 	   
+@import 'tables';	   
+	     
+	     
+	     
+	     
 	     
 }
  
    
 /* Prompt panels */ 
-@import 'prompt-panels'; 
+@import 'prompt-panels';
    
    
 /* Navigation & Button styles */   
@@ -822,7 +910,7 @@ main {
 
 	
 /* Submission information */   
-@import 'submission';	
+@import 'submission';
 
 
 /* Finish page */
@@ -867,6 +955,8 @@ main {
 
 /* Include & Overrides */
 @import 'includes';
+
+
 
 
 

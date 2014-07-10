@@ -6,9 +6,8 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import play.api.i18n.{MMessages => Messages}
+
 @main(Messages("s4.g1") + " - " + Messages("s4.longName"), Some(currentForm)) {
-
-
 
     @form(action = controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.submit) {
     
@@ -17,7 +16,7 @@
 	            <legend>@Html(Messages("s4.g1"))</legend>
 	
 	            <ul>
-                    @relationshipSelect(currentForm("relationship"))
+                    @carersInputText(currentForm("relationship"), 'helperAbove-> Messages("relationship.helper"),'maxLength -> Mappings.thirtyfive)
 
 	                @titleSelect(currentForm("title"))
 	
@@ -25,7 +24,7 @@
 	
 	                @carersInputText(currentForm("middleName"), 'maxLength -> 17)
 	
-	                @carersInputText(currentForm("surname"), 'maxLength -> 35)
+	                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.thirtyfive)
 	
 	                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove-> Messages("nationalInsuranceNumber.helper"), 'helperBelow-> Messages("nationalInsuranceNumber.helper2"))
 	

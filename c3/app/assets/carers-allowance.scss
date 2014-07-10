@@ -4,23 +4,6 @@
 @import 'gds-colours';
 
 
-@font-face {
-  font-family: 'FontAwesome';
-  src: url('fonts/fontawesome-webfont.eot?v=3.2.1');
-  src: url('fonts/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'),
-  url('fonts/fontawesome-webfont.woff?v=3.2.1') format('woff'),
-  url('fonts/fontawesome-webfont.ttf?v=3.2.1') format('truetype'),
-  url('fonts/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.js-message {
-   padding: 1em 0;
-   margin: 0 auto;
-   max-width: 960px;
-   } 
-
 
 main {
 	background: #fff;
@@ -36,13 +19,15 @@ main {
 
 .carers-allowance {
    border-top: 10px solid $mainstream-brand;
-   border-bottom: 10px solid $mainstream-brand;
    background: #fff;
    padding: 0 0 4em 0;
    margin: 0 auto;
    max-width: 960px;
    .ie6 & {
 	   width: 960px;
+   }
+   @media screen and (max-width: 500px) {
+	   padding-bottom: 3em;
    }
     
 
@@ -69,6 +54,9 @@ main {
 /* form elements */
 .form-elements {
 	margin: 50px 0 1em 0;
+	@media screen and (max-width: 500px) {
+		margin-top: 30px;
+	}
 
    	    
    	    /* Eligibility section */
@@ -191,32 +179,25 @@ main {
 		   			   color: #6f777b;
 		   			   font-size: 19px;
 		   			   padding-top: .5em;
+		   			   margin: 0 0 1em 0;
+		   			   &:first-child {
+			   			   margin: 0;
+		   			   }
 	   			   }
 
 				   ul {
 					   list-style: disc;
-					   padding: 1.2em 0 1.5em 0;
+					   padding: .5em 0 1em 1.4em;
 					   margin: 0;
 
 					   li {
 						   font-size: 19px;
-						   padding: 0 0 0 1em;
+						   padding: 0;
 						   margin: .8em 0 0 0;
-						   color: #6f777b;
+						   color: #171819;
 						   line-height: 1.2em;
 						   position: relative;
-						   &:before {
-							   content: "";
-							   position: absolute;
-							   width: 6px;
-							   height: 6px;
-							   background: #000;
-							   border-radius: 500px;
-							   top: 50%;
-							   left:0;
-							   margin-top: -3px;
-						   }
-						   
+						   display: list-item;				   
 						   &:first-child {
 							   margin: 0;
 						   }
@@ -309,7 +290,7 @@ main {
 			       .error {
 				       color: #de3134;
 				       font-weight: 300;
-				       font-size: 16px;
+				       font-size: 17px;
 				       padding-bottom: .6em;
 				       .ie6 & {
 					       background: transparent;
@@ -386,7 +367,7 @@ main {
 			   &.currency {
 			   	   position: relative;
 				   input[type="text"], input[type="tel"] {
-					   width: 118px;
+					   width: 118px!important;
 					   position: relative;
 					   @media screen and (max-width: 500px) {
 						   width: 116px;
@@ -608,7 +589,7 @@ main {
 
 						   
 						   .ie8 &, .ie7 & {
-							   top: 10px;
+							   top: 12px;
 							   left: 10px;
 						   }
 						   
@@ -671,6 +652,11 @@ main {
 							   @media screen and (max-width: 480px) {
 								   display: block;
 							   }
+							   
+							   .ie7 &, .ie8 & {
+								   padding-left: 36px;
+							   }
+							   
 						   }
 					   }
 				   }
@@ -788,7 +774,7 @@ main {
 					   }
 				   }
 				   input {
-					   width: 76px;
+					   width: 76px!important;
 					   background: #fff;
 					   position: relative;
 					   .ie9 & {
@@ -796,7 +782,7 @@ main {
 					   }
 					   .ie8 &, .ie7 & {
 					   	   top: 3px;
-						   width: 60px;
+						   width: 60px!important;
 						   font-size: 14px;
 						   padding: 5px 8px;
 					   }
@@ -819,8 +805,8 @@ main {
 				 	   position: absolute;
 				 	   left: -9999px;
 			 	   }
-                   input[type="tel"],input[type="text"] {
-					   width: 81px;
+                   input, input[type="tel"], input[type="text"] {
+					   width: 81px!important;
 				   }
 			   }  
 		   
@@ -858,14 +844,14 @@ main {
 			   	   position: absolute;
 			   	   left: -9999px;
 		   	   }
-			   input[type="text"], input[type="tel"] {
-				   width: 44px;
+			   input, input[type="text"], input[type="tel"] {
+				   width: 44px!important;
 				   text-transform: uppercase;
 				   .ie7 & {
 					   width: 43px;
 				   }
 				   &.single {
-					   width: 27px;
+					   width: 27px!important;
 				   }
 				   @media screen and (max-width: 750px) {
 				   		width: 42px;
@@ -936,7 +922,90 @@ main {
 }
 
 
+.data-table {
 
+	margin-bottom: 2em;
+	
+	h2 {
+		font-weight: 600;
+		font-size: 24px!important;
+	}
+	
+	ul {
+		margin-top: 1em!important;
+	}
+	
+	li {
+		border-bottom: 1px solid #bfc1c3;
+		padding: 1.5em 0!important;
+		margin: 0!important;
+		&:first-child {
+			border-top: 1px solid #bfc1c3;
+		}
+	}
+	
+	h3 {
+		font-size: 17px;
+	}
+	
+	dl {
+		overflow: hidden;
+		margin: 6px 0 0 0;
+	}
+	
+	dt {
+		display: inline-block;
+		width: 46%;
+		padding: .4em 0;
+		vertical-align: top;
+		line-height: 1.25em;
+		font-size: 17px;
+	}
+	
+	dd {
+		display: inline-block;
+		width: 49%;
+		margin: 0;
+		padding: .4em 0 .4em 4%;
+		vertical-align: top;
+		line-height: 1.25em;
+		font-size: 17px;
+		&:first-child {
+			padding-top: 0;
+		}
+	}
+	
+	.actions {
+		overflow: hidden;
+		margin-top: 1em;
+		input {
+			float: right;
+			width: auto;
+			background: none;
+			padding: 0;
+			border: 0;
+			font-size: 17px;
+			color: #005ea5;
+			text-decoration: underline;
+			cursor: pointer;
+			&:hover {
+				color: #2e8aca;
+				text-decoration: none;
+			}
+			&:first-child {
+				float: left;
+			}
+		}
+	}
+	
+}
+
+
+
+
+
+/* Claim notes */
+@import 'claimnotes';
 
 
 /* Footer */
@@ -952,7 +1021,11 @@ main {
 /* Include & Overrides */
 @import 'includes';
 
-
+.js-message {
+   padding: 1em 0;
+   background: #ccc;
+   text-align: center;
+   } 
 
 
 

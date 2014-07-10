@@ -5,7 +5,7 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.view.CachedClaim
 import play.api.cache.Cache
-import models.domain.{Claim, EmployerContactDetails, Job, Jobs, JobDetails, Claiming}
+import models.domain.{Claim, Job, Jobs, JobDetails, Claiming}
 
 class G1EmploymentSpec extends Specification with Tags {
   "Employment" should {
@@ -20,7 +20,7 @@ class G1EmploymentSpec extends Specification with Tags {
       Cache.set(claimKey, claim)
 
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-      val completedQuestionGroups = Employment.completedQuestionGroups(EmployerContactDetails, jobID)(claim)
+      val completedQuestionGroups = Employment.completedQuestionGroups(JobDetails, jobID)(claim)
     }
 
     "issue an 'error' when deleting a non-existing job" in new WithApplication with Claiming {

@@ -11,11 +11,14 @@
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 @import app.PensionPaymentFrequency._
-
 @import play.api.i18n.{MMessages => Messages}
-@main(Messages("s7.g7") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PensionSchemes, JobID(currentForm))) {
+    @import models.domain.{Job, Jobs}
 
+@employerName = @{
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).employerName + " - "
+}
 
+@main(Messages("s7.g7") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PensionSchemes, JobID(currentForm)), Some(employerName)) {
 
     @form(action = controllers.s7_employment.routes.G7PensionSchemes.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">

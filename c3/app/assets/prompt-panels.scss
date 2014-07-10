@@ -12,6 +12,10 @@
 	   &.error {
 		   background: #f2f2f2;
 	   }
+	   h2 {
+		   font-size: 22px;
+		   line-height: 1.3em;
+	   }
 	   &.submitting {
 	   	   position: relative;
 	   	    @media screen and (max-width: 660px) {
@@ -137,7 +141,8 @@
 		   border: 1px solid #a2a2a2;
 		   background: #fff;
 		   }
-	   &.helper-prompt {
+		   
+	   &.helper-prompt, &.e-prompt {
 		   margin: .5em 0 1em 0;
 		   border: 1px solid #a2a2a2;
 		   background: #fff;
@@ -166,4 +171,45 @@
 			   }
 		   }
 	   }
+	   
+	   &.e-prompt {
+		   margin-top: 2em;
+	   }
+	   
+	   &.entitlement-error {
+	   	   margin-top: 2em;
+		   background: #fef7f7;
+		   border: 3px solid #df3034;
+	   }
+	   
+	   &.nested-prompt {
+		   margin: 1em 0 2em 0;
+		   padding: 0;
+		   border: 0;
+		   background: #fff;
+		   .ie7 & {
+			   zoom: 1;
+		   }
+		   p {
+			   font-size: 19px;
+			   margin-top: 1em;
+			   &:first-child {
+				   margin: 0;
+			   }
+			   &.intro {
+			   font-weight: 600;
+			   }
+		   }
+		   ul {
+			   margin: 1em 0 0 1.4em;
+			   list-style: disc;
+			   li {
+				   display: list-item;
+				   padding: 0;
+				   margin: 0;
+				   font-size: 19px;
+			   }
+		   }
+	   }
+	   
    }

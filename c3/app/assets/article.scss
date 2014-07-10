@@ -1,7 +1,7 @@
 .left-col {
 	float: left;
 	width: 23%;
-	margin-top: 2.8em;
+	margin-top: 3em;
 	@media screen and (max-width: 700px) {
 		float: none;
 		width: auto;
@@ -15,7 +15,7 @@
 	}
 	
 	h3 {
-		margin: 2em 0 .5em 0;
+		margin: 2.2em 0 .5em 0;
 	}
 	
 	a {
@@ -23,7 +23,25 @@
 	}
 	
 	p {
+		margin: .75em 0 0 0;
+		&.grouped {
+			margin-top: 0;
+		}
+	}
+	
+	ul {
+		list-style: none;
 		margin: 0;
+		padding: 0;
+		
+		li {
+			margin: 10px 0 0 0;
+		}
+		
+	}
+	
+	&.notes-col {
+
 	}
 	
 	
@@ -33,12 +51,15 @@
 article {
 	   background: #fff;
 	   position: relative;
-	   padding: 2.5em 0 0 0;
+	   padding: 3em 0 0 0;
 	   float: right;
 	   width: 68%;
 	   @media screen and (max-width: 700px) {
 		   float: none;
 		   width: auto;
+	   }
+	   @media screen and (max-width: 700px) {
+		   padding-top: 1.8em;
 	   }
 	   
 	   &.eligible {

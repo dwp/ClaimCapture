@@ -113,10 +113,8 @@ class ClaimSpec extends Specification {
 
     "iterate over jobs" in {
       val job1 = Job("job 1").update(JobDetails("job 1"))
-        .update(EmployerContactDetails("job 1"))
 
       val job2 = Job("job 2").update(JobDetails("job 2"))
-        .update(EmployerContactDetails("job 2"))
 
       val jobs = new Jobs(job1 :: job2 :: Nil)
 

@@ -5,8 +5,10 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
-import models.domain.Claim
 import models.view.CachedClaim
+import app.PensionPaymentFrequency._
+import models.domain.Claim
+import scala.Some
 
 class G8AboutExpensesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
@@ -28,24 +30,40 @@ class G8AboutExpensesSpec extends Specification with Tags {
 
     "accept all mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "payForAnythingNecessary" -> "yes", "payAnyoneToLookAfterChildren" -> "yes", "payAnyoneToLookAfterPerson" -> "yes")
-
+        "haveExpensesForJob" -> "yes", "payAnyoneToLookAfterChildren" -> "yes", "payAnyoneToLookAfterPerson" -> "yes",
+        "jobTitle" -> "some title",
+        "whatExpensesForJob" -> "some expense",
+        "nameLookAfterChildren" -> "Jane Doe",
+        "howMuchLookAfterChildren" -> "125.40",
+        "howOftenLookAfterChildren.frequency" -> Other,
+        "howOftenLookAfterChildren.frequency.other" -> "every day",
+        "relationToYouLookAfterChildren" -> "none",
+        "relationToPersonLookAfterChildren" -> "some relation",
+        "nameLookAfterPerson" -> "John Daney",
+        "howMuchLookAfterPerson" -> "123",
+        "howOftenLookAfterPerson.frequency" -> Other,
+        "howOftenLookAfterPerson.frequency.other" -> "every other day",
+        "relationToYouLookAfterPerson" -> "no relation",
+        "relationToPersonLookAfterPerson" -> "some other relation"
+      )
       val result = G8AboutExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     "be added to a (current) job" in new WithApplication with Claiming {
-      G3JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result1 = G3JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
+        "address.lineOne" -> "Street Test 1",
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "no"))
 
-      val result = G8AboutExpenses.submit(FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "payForAnythingNecessary" -> "yes", "payAnyoneToLookAfterChildren" -> "yes", "payAnyoneToLookAfterPerson" -> "yes"))
+      val result = G8AboutExpenses.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+        withFormUrlEncodedBody("jobID" -> jobID,
+        "haveExpensesForJob" -> "no", "payAnyoneToLookAfterChildren" -> "no", "payAnyoneToLookAfterPerson" -> "no"))
 
       status(result) mustEqual SEE_OTHER
 

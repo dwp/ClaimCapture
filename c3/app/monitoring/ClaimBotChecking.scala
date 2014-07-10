@@ -29,19 +29,71 @@ trait ClaimBotChecking extends BotChecking {
     false
   }
 
-  private def verifyChildCareExpenses(job: Job): Boolean = {
-    job.questionGroup[ChildcareExpenses] match {
+  private def verifyAboutExpenses(job: Job): Boolean = {
+    job.questionGroup[AboutExpenses] match {
       case Some(q) =>
-        if (q.howOftenPayChildCare.frequency != Other && q.howOftenPayChildCare.other.isDefined) return true // Bot given field howOftenPayChildCare.other was not visible.
-      case _ => false
-    }
-    false
-  }
-
-  private def verifyPersonYouCareForExpenses(job: Job): Boolean = {
-    job.questionGroup[PersonYouCareForExpenses] match {
-      case Some(q) =>
-        if (q.howOftenPayCare.frequency != Other && q.howOftenPayCare.other.isDefined) return true // Bot given field howOftenPayCare.other was not visible.
+        if(q.haveExpensesForJob == "no") {
+          q.whatExpensesForJob match {
+            case Some(f) => return true; // Bot given field whatExpensesForJob was not visible.
+            case _ => false
+          }
+        }
+        if(q.payAnyoneToLookAfterChildren == "yes") {
+          q.howOftenLookAfterChildren match {
+            case Some(f) => if (f.frequency != Other && f.other.isDefined) return true // Bot given field howOftenLookAfterChildren.other was not visible.
+            case _ => false
+          }
+        }
+        if (q.payAnyoneToLookAfterChildren == "no"){
+          q.nameLookAfterChildren match {
+            case Some(f) => return true // Bot given field nameLookAfterChildren was not visible.
+            case _ => false
+          }
+          q.howMuchLookAfterChildren match {
+            case Some(f) => return true // Bot given field howMuchLookAfterChildren was not visible.
+            case _ => false
+          }
+          q.howOftenLookAfterChildren match {
+            case Some(f) => return true // Bot given field howOftenLookAfterChildren was not visible.
+            case _ => false
+          }
+          q.relationToYouLookAfterChildren match {
+            case Some(f) => return true // Bot given field relationToYouLookAfterChildren was not visible.
+            case _ => false
+          }
+          q.relationToPersonLookAfterChildren match {
+            case Some(f) => return true // Bot given field relationToPersonLookAfterChildren was not visible.
+            case _ => false
+          }
+        }
+        if(q.payAnyoneToLookAfterPerson == "yes") {
+          q.howOftenLookAfterPerson match {
+            case Some(f) => if (f.frequency != Other && f.other.isDefined) return true // Bot given field howOftenLookAfterPerson.other was not visible.
+            case _ => false
+          }
+        }
+        if (q.payAnyoneToLookAfterPerson == "no"){
+          q.nameLookAfterPerson match {
+            case Some(f) => return true // Bot given field nameLookAfterPerson was not visible.
+            case _ => false
+          }
+          q.howMuchLookAfterPerson match {
+            case Some(f) => return true // Bot given field howMuchLookAfterPerson was not visible.
+            case _ => false
+          }
+          q.howOftenLookAfterPerson match {
+            case Some(f) => return true // Bot given field howOftenLookAfterPerson was not visible.
+            case _ => false
+          }
+          q.relationToYouLookAfterPerson match {
+            case Some(f) => return true // Bot given field relationToYouLookAfterPerson was not visible.
+            case _ => false
+          }
+          q.relationToPersonLookAfterPerson match {
+            case Some(f) => return true // Bot given field relationToPersonLookAfterPerson was not visible.
+            case _ => false
+          }
+        }
       case _ => false
     }
     false
@@ -83,6 +135,10 @@ trait ClaimBotChecking extends BotChecking {
       checkEmploymentCriteria(verifyPensionScheme)
     }
 
+    def checkAboutExpenses: Boolean = {
+      checkEmploymentCriteria(verifyAboutExpenses)
+    }
+
     def checkEmploymentCriteria(executeFunction: (Job) => Boolean): Boolean = {
       claim.questionGroup[Jobs].map {
         jobs =>
@@ -91,14 +147,6 @@ trait ClaimBotChecking extends BotChecking {
           }
       }
       false
-    }
-
-    def checkChildcareExpenses: Boolean = {
-      checkEmploymentCriteria(verifyChildCareExpenses)
-    }
-
-    def checkPersonYouCareForExpenses: Boolean = {
-      checkEmploymentCriteria(verifyPersonYouCareForExpenses)
     }
 
     def checkChildcareExpensesWhileAtWork: Boolean = {
@@ -147,8 +195,7 @@ trait ClaimBotChecking extends BotChecking {
 
     val moreAboutTheCare = checkMoreAboutTheCare
     val pensionSchemes = checkPensionSchemes
-    val childcareExpenses = checkChildcareExpenses
-    val personYouCareForExpenses = checkPersonYouCareForExpenses
+    val aboutExpenses = checkAboutExpenses
     val childcareExpensesWhileAtWork = checkChildcareExpensesWhileAtWork
     val expensesWhileAtWork = checkExpensesWhileAtWork
     val aboutOtherMoney = checkAboutOtherMoney
@@ -157,8 +204,7 @@ trait ClaimBotChecking extends BotChecking {
 
     if (moreAboutTheCare) Logger.warn("Honeypot triggered : moreAboutTheCare")
     if (pensionSchemes) Logger.warn("Honeypot triggered : pensionSchemes")
-    if (childcareExpenses) Logger.warn("Honeypot triggered : childcareExpenses")
-    if (personYouCareForExpenses) Logger.warn("Honeypot triggered : personYouCareForExpenses")
+    if (aboutExpenses) Logger.warn("Honeypot triggered : aboutExpenses")
     if (childcareExpensesWhileAtWork) Logger.warn("Honeypot triggered : childcareExpensesWhileAtWork")
     if (expensesWhileAtWork) Logger.warn("Honeypot triggered : expensesWhileAtWork")
     if (aboutOtherMoney) Logger.warn("Honeypot triggered : aboutOtherMoney")
@@ -167,8 +213,7 @@ trait ClaimBotChecking extends BotChecking {
 
     moreAboutTheCare ||
       pensionSchemes ||
-      childcareExpenses ||
-      personYouCareForExpenses ||
+      aboutExpenses ||
       childcareExpensesWhileAtWork ||
       expensesWhileAtWork ||
       aboutOtherMoney ||

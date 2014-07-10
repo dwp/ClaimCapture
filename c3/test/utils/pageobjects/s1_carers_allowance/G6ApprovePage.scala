@@ -9,7 +9,7 @@ import utils.pageobjects._
  *         Date: 10/07/2013
  */
 final class G6ApprovePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G6ApprovePage.url, G6ApprovePage.title) {
-  def isApproved =  ctx.browser.find(".prompt.entitlement").size != 0 && ctx.browser.find(".prompt.entitlement-error").size == 0
+  def isApproved =  ctx.browser.find(".prompt.e-prompt").size != 0 && ctx.browser.find(".prompt.entitlement-error").size == 0
 
   def isNotApproved =  ctx.browser.find(".prompt.entitlement-error").size != 0
 }
