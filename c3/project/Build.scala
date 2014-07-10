@@ -57,7 +57,9 @@ object ApplicationBuild extends Build {
     sTest = Seq(testOptions in Test += Tests.Argument("exclude", System.getProperty("exclude")))
   }
 
-  var jO: Seq[Def.Setting[_]] = Seq(javaOptions in Test += System.getProperty("waitSeconds"),testOptions in Test += Tests.Argument("sequential", "true"))
+  var jO: Seq[Def.Setting[_]] = Seq(javaOptions in Test += System.getProperty("waitSeconds"),
+                                    javaOptions in Test += "-Dcarers.keystore="+(System.getProperty("carers.keystore") match { case s:String => s case null => ""}),
+                                    testOptions in Test += Tests.Argument("sequential", "true"))
 
   var gS: Seq[Def.Setting[_]] = Seq(concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 4), Tags.limit(Tags.Network, 10), Tags.limit(Tags.Test, 4)))
 
