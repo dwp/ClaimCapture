@@ -17,19 +17,19 @@ object AddressChange {
     circsAddressChangeOption match {
       case Some(circsAddressChange) => {
         <AddressChange>
-          {postalAddressStructurePreviousAddress("previousAddress", circsAddressChange.previousAddress, circsAddressChange.previousPostcode)}
+          {postalAddressStructurePreviousAddress("previousAddress", circsAddressChange.previousAddress, encrypt(circsAddressChange.previousPostcode.getOrElse("").toUpperCase))}
 
           {question(<Caring35Hours/>,"stillCaring.answer", circsAddressChange.stillCaring.answer)}
 
           {question(<DateStoppedCaring35Hours/>,"stillCaring.date", circsAddressChange.stillCaring.date)}
 
-          {postalAddressStructureNewAddress("newAddress", circsAddressChange.newAddress, circsAddressChange.newPostcode)}
+          {postalAddressStructureNewAddress("newAddress", circsAddressChange.newAddress, encrypt(circsAddressChange.newPostcode.getOrElse("").toUpperCase))}
 
           {question(<CareeChangedAddress/>,"caredForChangedAddress.answer", circsAddressChange.caredForChangedAddress.answer)}
 
           {question(<CareeSameAddress/>,"sameAddress.answer", circsAddressChange.sameAddress.answer)}
 
-          {postalAddressStructureCareeAddress("sameAddress.theirNewAddress", circsAddressChange.sameAddress.address, circsAddressChange.sameAddress.postCode)}
+          {postalAddressStructureCareeAddress("sameAddress.theirNewAddress", circsAddressChange.sameAddress.address, encrypt(circsAddressChange.sameAddress.postCode.getOrElse("").toUpperCase))}
 
           {question(<OtherChanges/>, "moreAboutChanges", circsAddressChange.moreAboutChanges)}
         </AddressChange>

@@ -117,30 +117,30 @@ object XMLHelper {
     </RecipientAddress>
   }
 
-  def postalAddressStructurePreviousAddress(questionLabelCode: String, address: MultiLineAddress, postcode: Option[String]): NodeSeq = {
+  def postalAddressStructurePreviousAddress(questionLabelCode: String, address: MultiLineAddress, postcode: String): NodeSeq = {
     <PreviousAddress>
       {questionLabel(questionLabelCode)}
       <Answer>
-        {postalAddress(address, postcode.orNull)}
+        {postalAddress(address, postcode)}
       </Answer>
     </PreviousAddress>
   }
 
-  def postalAddressStructureNewAddress(questionLabelCode: String, address: MultiLineAddress, postcode: Option[String]): NodeSeq = {
+  def postalAddressStructureNewAddress(questionLabelCode: String, address: MultiLineAddress, postcode: String): NodeSeq = {
     <NewAddress>
       {questionLabel(questionLabelCode)}
       <Answer>
-        {postalAddress(address, postcode.orNull)}
+        {postalAddress(address, postcode)}
       </Answer>
     </NewAddress>
   }
 
-  def postalAddressStructureCareeAddress(questionLabelCode: String, address: Option[MultiLineAddress], postcode: Option[String]): NodeSeq = {
+  def postalAddressStructureCareeAddress(questionLabelCode: String, address: Option[MultiLineAddress], postcode:String): NodeSeq = {
     if(address.isDefined) {
       <CareeAddress>
         {questionLabel(questionLabelCode)}
         <Answer>
-          {postalAddress(address.get, postcode.orNull)}
+          {postalAddress(address.get, postcode)}
         </Answer>
       </CareeAddress>
     } else NodeSeq.Empty
