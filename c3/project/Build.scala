@@ -57,7 +57,8 @@ object ApplicationBuild extends Build {
     sTest = Seq(testOptions in Test += Tests.Argument("exclude", System.getProperty("exclude")))
   }
 
-  var jO: Seq[Def.Setting[_]] = Seq(javaOptions in Test += System.getProperty("waitSeconds"),testOptions in Test += Tests.Argument("sequential", "true"))
+  var jO: Seq[Def.Setting[_]] = Seq(javaOptions in Test += System.getProperty("waitSeconds"),
+                                    testOptions in Test += Tests.Argument("sequential", "true"))
 
   var gS: Seq[Def.Setting[_]] = Seq(concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 4), Tags.limit(Tags.Network, 10), Tags.limit(Tags.Test, 4)))
 
@@ -65,7 +66,11 @@ object ApplicationBuild extends Build {
 
   var jcoco: Seq[Def.Setting[_]] = Seq(parallelExecution in jacoco.Config := false)
 
-  var appSettings: Seq[Def.Setting[_]] =  SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco
+  val keyStore = System.getProperty("sbt.carers.keystore")
+
+  var keyStoreOptions: Seq[Def.Setting[_]] =  Seq(javaOptions in Test += ("-Dcarers.keystore=" + keyStore))
+
+  var appSettings: Seq[Def.Setting[_]] =  SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions
 
   val main = play.Project(appName, appVersion, appDependencies, settings = play.Project.playScalaSettings ++ jacoco.settings).settings(appSettings: _*)
 }
