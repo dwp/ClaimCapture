@@ -15,7 +15,7 @@ import utils.Injector
 import utils.helpers.CarersLanguageHelper
 import play.api.GlobalSettings
 
-object Global extends WithFilters(MonitorFilter) with Injector with CarersLanguageHelper with C3MonitorRegistration with GlobalSettings {
+object Global extends WithFilters(MonitorFilter) with Injector with CarersLanguageHelper /*with C3MonitorRegistration */ with GlobalSettings {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
@@ -35,8 +35,8 @@ object Global extends WithFilters(MonitorFilter) with Injector with CarersLangua
 
     actorSystems()
 
-    registerReporters()
-    registerHealthChecks()
+//    registerReporters()
+//    registerHealthChecks()
 
     Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}") // used for operations, do not remove
     Logger.info(s"c3 property include.analytics is ${getProperty("include.analytics", "Not defined")}") // used for operations, do not remove
