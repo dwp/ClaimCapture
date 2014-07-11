@@ -1,19 +1,21 @@
-import java.net.InetAddress
-
 import app.ConfigProperties._
+import java.net.InetAddress
+import monitor.MonitorFilter
+import monitoring._
 import org.slf4j.MDC
 import play.api._
 import play.api.mvc.Results._
-import play.api.mvc.{SimpleResult, _}
+import play.api.mvc._
+import play.api.mvc.SimpleResult
+import scala.concurrent.{ExecutionContext, Future}
+import ExecutionContext.Implicits.global
 import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.Injector
 import utils.helpers.CarersLanguageHelper
+import play.api.GlobalSettings
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{ExecutionContext, Future}
-
-object Global extends GlobalSettings with Injector with CarersLanguageHelper {
+object Global extends WithFilters(MonitorFilter) with Injector with CarersLanguageHelper with C3MonitorRegistration with GlobalSettings {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
@@ -33,10 +35,8 @@ object Global extends GlobalSettings with Injector with CarersLanguageHelper {
 
     actorSystems()
 
-//    reg
-//
-// isterReporters()
-//    registerHealthChecks()
+    registerReporters()
+    registerHealthChecks()
 
     Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}") // used for operations, do not remove
     Logger.info(s"c3 property include.analytics is ${getProperty("include.analytics", "Not defined")}") // used for operations, do not remove
