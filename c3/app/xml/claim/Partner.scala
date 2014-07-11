@@ -17,12 +17,12 @@ object Partner extends XMLComponent {
 
     if (hadPartner) {
       <Partner>
-        {question(<Surname/>,"surname",yourPartnerPersonalDetails.surname)}
+        {question(<Surname/>,"surname",encrypt(yourPartnerPersonalDetails.surname))}
         {question(<OtherNames/>, "firstName", yourPartnerPersonalDetails.firstName+" "+yourPartnerPersonalDetails.middleName.getOrElse(""))}
         {question(<OtherSurnames/>,"otherNames", yourPartnerPersonalDetails.otherSurnames)}
         {question(<Title/>, "title", yourPartnerPersonalDetails.title)}
         {question(<DateOfBirth/>,"dateOfBirth", yourPartnerPersonalDetails.dateOfBirth)}
-        {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber",yourPartnerPersonalDetails.nationalInsuranceNumber)}
+        {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber",encrypt(yourPartnerPersonalDetails.nationalInsuranceNumber))}
         {question(<NationalityPartner/>, "partner.nationality", yourPartnerPersonalDetails.nationality)}
         <RelationshipStatus>
           {question(<SeparatedFromPartner/>, "separated_fromPartner.label", yourPartnerPersonalDetails.separatedFromPartner, claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
