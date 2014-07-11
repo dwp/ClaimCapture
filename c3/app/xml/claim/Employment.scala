@@ -16,20 +16,12 @@ object Employment extends XMLComponent{
     val employment = claim.questionGroup[models.domain.Employment]
 
     if (jobsQG.jobs.length > 0 && employment.fold(false)(_.beenEmployedSince6MonthsBeforeClaim == "yes")) {
-      // We will search in all jobs for at least one case finishedThisJob = "no" because that means he is currently employed
-      val currentlyEmployed = jobsQG.jobs.count(_.apply(JobDetails) match {
-        case Some(j: JobDetails) => j.finishedThisJob == no
-        case _ => false
-      }) match {
-        case i if i > 0 => yes
-        case _ => no
-      }
 
       <Employment>
-        {question(<CurrentlyEmployed/>,"finishedThisJob",currentlyEmployed)}
+
         {for (job <- jobsQG) yield {
             val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-        val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(),None,DayMonthYear(),"", None, None, ""))
+            val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(),None,DayMonthYear(),"", None, None, ""))
 
             <JobDetails>
               {employerXml(job)}
@@ -51,6 +43,7 @@ object Employment extends XMLComponent{
     val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
 
     <Employer>
+      {question(<CurrentlyEmployed/>,"finishedThisJob",jobDetails.finishedThisJob)}
       {question(<DateJobStarted/>, "jobStartDate", jobDetails.jobStartDate)}
       {if(jobDetails.lastWorkDate.isDefined){
         {question(<DateJobEnded/>, "lastWorkDate",jobDetails.lastWorkDate)}
