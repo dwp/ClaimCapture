@@ -34,7 +34,7 @@ trait WebServiceClientComponent {
         .post(claimSubmission.buildString(stripComments = false)) recover {
 
         case e: ConnectException =>
-          Logger.error(s"ConnectException ! $txnId")
+          Logger.error(s"ConnectException ! transactionId [$txnId]")
           Logger.error(s"ConnectException ! ${e.getMessage}")
           // Spoof service unavailable
           // submission failed - remove from cache
@@ -42,7 +42,7 @@ trait WebServiceClientComponent {
             override def status: Int = http.Status.SERVICE_UNAVAILABLE
           }
         case e: TimeoutException =>
-          Logger.error(s"TimeoutException ! $txnId")
+          Logger.error(s"TimeoutException ! transactionId [$txnId]")
           Logger.error(s"TimeoutException ! ${e.getMessage}")
           // Spoof service unavailable
           // submission failed - remove from cache

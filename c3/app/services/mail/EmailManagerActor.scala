@@ -18,7 +18,9 @@ object EmailActorsCreators {
 class EmailManagerActor(emailSendingCreator:Props) extends Actor {
 
   override def supervisorStrategy = OneForOneStrategy(maxNrOfRetries = 5, withinTimeRange = 1 minute){
-    case e:Exception => Restart
+    case e:Exception =>
+      Logger.error("Could not send email.", e)
+      Restart
   }
 
   override def receive: Actor.Receive = {

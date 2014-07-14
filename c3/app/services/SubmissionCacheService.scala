@@ -1,10 +1,10 @@
 package services
 
-import app.ConfigProperties._
 import java.util.concurrent.TimeUnit
-import org.feijoas.mango.common.cache._
+
+import app.ConfigProperties._
 import models.domain.Claim
-import play.api.Logger
+import org.feijoas.mango.common.cache._
 
 object SubmissionCacheService {
   // the function to cache

@@ -42,7 +42,7 @@ trait ClaimSubmissionService {
   }
 
   def respondWithSuccess(claim: Claim, txnId: String, request: Request[AnyContent]): SimpleResult = {
-    Logger.info(s"Successful submission : ${claim.key} : $txnId")
+    Logger.info(s"Successful submission : ${claim.key} : transactionId [$txnId]")
     claim.key match {
       case CachedClaim.key =>
         Redirect(controllers.routes.ClaimEnding.thankyou())

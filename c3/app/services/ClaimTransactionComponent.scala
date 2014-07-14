@@ -1,5 +1,6 @@
 package services
 
+import com.dwp.exceptions.DwpRuntimeException
 import play.api.db.DB
 import play.api.Play.current
 import anorm._
@@ -132,4 +133,4 @@ case class TransactionStatus(transactionID: String, status: String, typeI: Int, 
  * @param nestedException  the cause
  */
 class UnavailableTransactionIdException(message: String, nestedException: Exception)
-  extends RuntimeException(message, nestedException) {}
+  extends DwpRuntimeException(message, nestedException) {}

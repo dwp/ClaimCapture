@@ -15,7 +15,7 @@ class AsyncSubmissionActor extends Actor with Injector {
 
   override def receive: Actor.Receive = {
     case claim:Claim =>
-      Logger.debug(s"Processing claim with transactionid:${claim.transactionId.get}")
+      Logger.debug(s"Processing claim with transactionId [${claim.transactionId.get}]")
       asyncSubmissionService.submission(claim)
   }
 }
@@ -31,7 +31,7 @@ class AsyncSubmissionManagerActor(childActorProps:Props) extends Actor {
 
   override def receive: Actor.Receive = {
     case claim:Claim =>
-      Logger.debug(s"Received claim with transactionid:${claim.transactionId.get}")
+      Logger.debug(s"Received claim with transactionId [${claim.transactionId.get}]")
       context.actorOf(childActorProps) ! claim
   }
 }

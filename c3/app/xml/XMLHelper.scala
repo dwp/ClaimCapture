@@ -211,7 +211,7 @@ object XMLHelper {
        case _ => value
      }
 
-  def extractIdFrom(xml:Elem):String = {(xml \\ "TransactionId").text}
+//  def extractIdFrom(xml:Elem):String = {(xml \\ "TransactionId").text}
 
   def textSeparatorLine(title: String) = {
     val lineWidth = 54
