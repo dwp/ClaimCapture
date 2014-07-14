@@ -27,7 +27,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
 
   def submission(claim: Claim): Unit = {
     val txnID = claim.transactionId.get
-    Logger.info(s"Retrieved Id : $txnID")
+    Logger.info(s"Retrieved transaction Id [$txnID]")
 
     checkCacheStore(claim)
 
@@ -37,8 +37,8 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
       )
     } catch {
       case e:Exception =>
-        Logger.error(s"INTERNAL_SERVER_ERROR TxnId : $txnID")
-        Logger.error("global error talking to ingress "+e.getMessage+" "+e.getStackTraceString)
+        Logger.error(s"INTERNAL_SERVER_ERROR transactionId [$txnID]")
+        Logger.error("global error talking to ingress ",e)
         updateTransactionAndCache(txnID, SERVER_ERROR, claim)
     }
   }
@@ -52,7 +52,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
       processResponse(claim, txnID, response)
     } catch {
       case e: Exception =>
-        Logger.error(e.getMessage + " " + e.getStackTraceString)
+        Logger.error(s"Error processing claim submission for transactionId [$txnID].",e)
         removeFromCache(claim)
     }
   }
@@ -78,7 +78,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
 
   private def processErrorResponse(claim: Claim, txnID: String, response: Response): Unit = {
     val statusMsg = httpStatusCodes(response.status)
-    Logger.error(s"$statusMsg : ${response.status} : ${response.toString}, TxnId : $txnID")
+    Logger.error(s"$statusMsg : ${response.status} : ${response.toString}, transactionId [$txnID]")
     updateTransactionAndCache(txnID, txnStatusConst(statusMsg), claim)
   }
 
