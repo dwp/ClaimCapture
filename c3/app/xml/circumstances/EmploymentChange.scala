@@ -130,19 +130,19 @@ object EmploymentChange {
       val labelToUse = change.beenPaid match {
           case "yes" => {
             change.howOften.frequency match {
-              case "weekly" => "usuallyPaidSameAmount.week"
-              case "fortnightly" => "usuallyPaidSameAmount.fortnight"
-              case "fourweekly" => "usuallyPaidSameAmount.fourweekly"
-              case "monthly" => "usuallyPaidSameAmount.month"
+              case "Weekly" => "usuallyPaidSameAmount.week"
+              case "Fortnightly" => "usuallyPaidSameAmount.fortnight"
+              case "Four-Weekly" => "usuallyPaidSameAmount.fourweekly"
+              case "Monthly" => "usuallyPaidSameAmount.month"
               case _ => "usuallyPaidSameAmount.other"
             }
           }
           case _ => {
             change.howOften.frequency match {
-              case "weekly" => "usuallyPaidSameAmount.week.expect"
-              case "fortnightly" => "usuallyPaidSameAmount.fortnight.expect"
-              case "fourweekly" => "usuallyPaidSameAmount.fourweekly.expect"
-              case "monthly" => "usuallyPaidSameAmount.month.expect"
+              case "Weekly" => "usuallyPaidSameAmount.week.expect"
+              case "Fortnightly" => "usuallyPaidSameAmount.fortnight.expect"
+              case "Four-Weekly" => "usuallyPaidSameAmount.fourweekly.expect"
+              case "Monthly" => "usuallyPaidSameAmount.month.expect"
               case _ => "usuallyPaidSameAmount.other.expect"
             }
           }
@@ -218,10 +218,10 @@ object EmploymentChange {
 
       {
         val labelToUse = change.howOften.frequency match {
-          case "weekly" => "usuallyPaidSameAmount.did.week"
-          case "fortnightly" => "usuallyPaidSameAmount.did.fortnight"
-          case "fourweekly" => "usuallyPaidSameAmount.did.time"
-          case "monthly" => "usuallyPaidSameAmount.did.month"
+          case "Weekly" => "usuallyPaidSameAmount.did.week"
+          case "Fortnightly" => "usuallyPaidSameAmount.did.fortnight"
+          case "Four-Weekly" => "usuallyPaidSameAmount.did.time"
+          case "Monthly" => "usuallyPaidSameAmount.did.month"
           case _ => "usuallyPaidSameAmount.did.time"
         }
         {
@@ -282,10 +282,10 @@ object EmploymentChange {
         change.usuallyPaidSameAmount.isDefined match {
           case true => {
             val labelToUse = change.howOften.frequency match {
-              case "weekly" => "usuallyPaidSameAmount.will.week"
-              case "fortnightly" => "usuallyPaidSameAmount.will.fortnight"
-              case "fourweekly" => "usuallyPaidSameAmount.will.time"
-              case "monthly" => "usuallyPaidSameAmount.will.month"
+              case "Weekly" => "usuallyPaidSameAmount.will.week"
+              case "Fortnightly" => "usuallyPaidSameAmount.will.fortnight"
+              case "Four-Weekly" => "usuallyPaidSameAmount.will.time"
+              case "Monthly" => "usuallyPaidSameAmount.will.month"
               case _ => "usuallyPaidSameAmount.will.time"
             }
             {

@@ -31,10 +31,10 @@ window.fixErrorMessages = (beenPaidYet, beenPaidYetY, beenPaidYetN, beenPaidYetO
     currentTextUsuallyPaidSameAmount = pathUsuallyPaidSameAmount.text().trim()
     existingErrorUsuallyPaidSameAmount = currentTextUsuallyPaidSameAmount.substring(usuallyPaidSameAmountText.length, currentTextUsuallyPaidSameAmount.length)
     textToUseUsuallyPaidSameAmount = switch ($("#" + howOftenFrequency).val())
-      when "weekly" then usuallyPaidSameAmountWeekText
-      when "fortnightly" then usuallyPaidSameAmountFortnightText
-      when "fourweekly" then usuallyPaidSameAmountFourWeekText
-      when "monthly" then usuallyPaidSameAmountMonthText
+      when "Weekly" then usuallyPaidSameAmountWeekText
+      when "Fortnightly" then usuallyPaidSameAmountFortnightText
+      when "Four-Weekly" then usuallyPaidSameAmountFourWeekText
+      when "Monthly" then usuallyPaidSameAmountMonthText
       else usuallyPaidSameAmountOtherText
     pathUsuallyPaidSameAmount.text(textToUseUsuallyPaidSameAmount + existingErrorUsuallyPaidSameAmount)
   pathHowOften = $("div[class='validation-summary'] a[href='#" + howOften + "']")
@@ -112,15 +112,15 @@ window.usuallyPaidSameAmount = (howOftenFrequency,
         $("#" + monthlyPayDay).val("")
     if (($("#" + howOftenFrequency).val() is defaultValue) or ($("#" + howOftenFrequency).val() is ""))
     else
-      if ($("#" + howOftenFrequency).val() == "weekly")
+      if ($("#" + howOftenFrequency).val() == "Weekly")
         $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountWeeklyText)
-      if ($("#" + howOftenFrequency).val() == "fortnightly")
+      if ($("#" + howOftenFrequency).val() == "Fortnightly")
         $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountFortnightlyText)
-      if ($("#" + howOftenFrequency).val() == "fourWeekly")
+      if ($("#" + howOftenFrequency).val() == "Four-Weekly")
         $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountFourWeeklyText)
-      if ($("#" + howOftenFrequency).val() == "monthly")
+      if ($("#" + howOftenFrequency).val() == "Monthly")
         $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountMonthlyText)
-      if ($("#" + howOftenFrequency).val() == "other")
+      if ($("#" + howOftenFrequency).val() == "Other")
         $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountOtherText)
       $("#" + usuallyPaidSameAmountY).prop('checked', false)
       $("#" + usuallyPaidSameAmountN).prop('checked', false)
