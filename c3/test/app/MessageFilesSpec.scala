@@ -2,6 +2,7 @@ package app
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithApplication
+import play.Logger
 
 class MessageFilesSpec extends Specification with Tags {
   "Property files" should {
@@ -14,6 +15,7 @@ class MessageFilesSpec extends Specification with Tags {
 
     val enKeys = enFiles.map(
       enFile => {
+        println("conf/en/%s.en.properties".format(enFile))
         val enS = scala.io.Source.fromFile("conf/en/%s.en.properties".format(enFile))
         val linesFromEnS = enS.getLines.filterNot(_.isEmpty).filterNot(s => s.startsWith("#")).toList
         val enKeys = linesFromEnS.map(pair => pair.split("=").map(k => k.trim))
@@ -24,6 +26,7 @@ class MessageFilesSpec extends Specification with Tags {
 
     val cyKeys = cyFiles.map(
       cyFile => {
+        println("conf/cy/%s.cy.properties".format(cyFile))
         val cyS = scala.io.Source.fromFile("conf/cy/%s.cy.properties".format(cyFile))
         val linesFromCyS = cyS.getLines.filterNot(_.isEmpty).filterNot(s => s.startsWith("#")).toList
         val cyKeys = linesFromCyS.map(pair => pair.split("=").map(k => k.trim))
