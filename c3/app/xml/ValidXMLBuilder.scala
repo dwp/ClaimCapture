@@ -1,8 +1,9 @@
 package xml
 
-import models.domain.Claim
-import scala.xml.Elem
 import app.ConfigProperties._
+import models.domain.Claim
+
+import scala.xml.NodeSeq
 
 /**
  * Validates the XML built by an underlying XML builder, by default [[xml.DWPBody]].
@@ -11,7 +12,7 @@ import app.ConfigProperties._
  * @author Jorge Migueis
  */
 class ValidXMLBuilder(underlying:XMLBuilder)  extends XMLBuilder {
-  def xml(claim: Claim, transactionId: String): Elem = {
+  def xml(claim: Claim, transactionId: String): NodeSeq = {
     val xmlGenerated = underlying.xml(claim,transactionId)
     val validator = controllers.submission.xmlValidator(claim)
     if (getProperty("validateXml",default=true)

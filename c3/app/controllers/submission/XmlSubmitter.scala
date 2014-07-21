@@ -16,16 +16,15 @@ object XmlSubmitter {
     val fullXml = DWPBody().xml(claim,transactionID)
 
     if (getProperty("validateXml", true)) {
-      val fullXmlString = fullXml.buildString(stripComments = true)
-      validator.validate(fullXmlString) match {
-        case true => claim -> Ok(fullXml.buildString(stripComments = false))
+      validator.validate(fullXml.mkString) match {
+        case true => claim -> Ok(fullXml)
         case false => claim -> {
-          Logger.debug(fullXmlString)
+          Logger.debug(fullXml.mkString)
           Ok("Failed validation")
         }
       }
     } else {
-     claim -> Ok(fullXml.buildString(stripComments = false))
+     claim -> Ok(fullXml)
     }
   }
 }

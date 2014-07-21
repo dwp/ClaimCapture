@@ -1,7 +1,8 @@
 package xml
 
 import models.domain.Claim
-import scala.xml.Elem
+
+import scala.xml.NodeSeq
 
 /**
  * Interface of the classes/Objects that build a full XML.
@@ -9,6 +10,6 @@ import scala.xml.Elem
  */
 trait XMLBuilder {
 
-  def xml(claim: Claim, transactionId : String):Elem
+  def xml(claim: Claim, transactionId : String):NodeSeq
 
 }

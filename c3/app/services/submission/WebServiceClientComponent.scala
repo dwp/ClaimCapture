@@ -1,19 +1,18 @@
 package services.submission
 
-import scala.concurrent.{ExecutionContext, Future}
-import play.api.libs.ws
-import play.Configuration
-import play.api.{http, Logger}
-import play.api.libs.ws.WS
-import services.util.CharacterStripper
 import java.net.ConnectException
-import ExecutionContext.Implicits.global
 import java.util.concurrent.TimeoutException
-import controllers.submission._
-import play.api.libs.ws.Response
+
 import models.domain.Claim
+import play.Configuration
 import play.api.i18n.Lang
+import play.api.libs.ws
+import play.api.libs.ws.{Response, WS}
+import play.api.{Logger, http}
 import xml.DWPBody
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 trait WebServiceClientComponent {
 
@@ -29,7 +28,7 @@ trait WebServiceClientComponent {
       Logger.info(s"Submission Server : $submissionServerEndpoint")
       val result = WS.url(submissionServerEndpoint)
         .withRequestTimeout(60000) // wait 1 minute
-        .withHeaders(("Content-Type", "text/xml"))
+        .withHeaders(("Content-Type", "application/xml"))
         .withHeaders(("CarersClaimLang",claim.lang.getOrElse(new Lang("en")).language))
         .post(claimSubmission) recover {
 
