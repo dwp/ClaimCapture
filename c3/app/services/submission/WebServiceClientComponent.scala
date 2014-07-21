@@ -31,7 +31,7 @@ trait WebServiceClientComponent {
         .withRequestTimeout(60000) // wait 1 minute
         .withHeaders(("Content-Type", "text/xml"))
         .withHeaders(("CarersClaimLang",claim.lang.getOrElse(new Lang("en")).language))
-        .post(claimSubmission.buildString(stripComments = false)) recover {
+        .post(claimSubmission) recover {
 
         case e: ConnectException =>
           Logger.error(s"ConnectException ! transactionId [$txnId]")

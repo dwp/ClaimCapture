@@ -55,6 +55,10 @@ object XMLHelper {
     else NodeSeq.Empty
   }
 
+  def questionCurrency(wrappingNode:Node,questionLabelCode: String, amount:String): NodeSeq = {
+      question(wrappingNode,questionLabelCode,moneyStructure(amount))
+  }
+
   private def stringifyOption(value: Option[_], default: String = ""):String = value match {
     case Some(s) => stringify(s,default)
     case None => default

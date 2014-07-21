@@ -1,6 +1,6 @@
 package xml.circumstances
 
-import models.domain.{Claim, _}
+import models.domain._
 import xml.XMLHelper._
 
 import scala.xml.NodeSeq
@@ -101,13 +101,13 @@ object EmploymentChange {
         change.beenPaid match {
           case "yes" => {
             var buff = NodeSeq.Empty
-            buff = buff ++ {question(<HowMuchPaid/>, "howMuchPaid", change.howMuchPaid)}
+            buff = buff ++ {question(<HowMuchPaid/>, "howMuchPaid", currencyAmount(change.howMuchPaid))}
             buff = buff ++ {question(<PaymentDate/>, "whatDatePaid", change.date)}
             buff
           }
           case "no" => {
             var buff = NodeSeq.Empty
-            buff = buff ++ {question(<HowMuchPaid/>, "howMuchPaid.expect", change.howMuchPaid)}
+            buff = buff ++ {question(<HowMuchPaid/>, "howMuchPaid.expect", currencyAmount(change.howMuchPaid))}
             buff = buff ++ {question(<PaymentDate/>, "whatDatePaid.expect", change.date)}
             buff
           }
