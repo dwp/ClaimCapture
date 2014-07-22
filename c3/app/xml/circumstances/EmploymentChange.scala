@@ -268,11 +268,13 @@ object EmploymentChange {
       {
         change.beenPaid match {
           case "yes" => {
-            {question(<HowMuchPaid/>, "howMuchPaid.will", change.howMuchPaid)}
-            {question(<PaymentDate/>, "whenExpectedToBePaidDate", change.whenExpectedToBePaidDate)}
-            <PayFrequency>
+            var buff = NodeSeq.Empty
+            buff = buff ++  {question(<HowMuchPaid/>, "howMuchPaid.will", change.howMuchPaid)}
+            buff = buff ++ {question(<PaymentDate/>, "whenExpectedToBePaidDate", change.whenExpectedToBePaidDate)}
+            buff = buff ++ {<PayFrequency>
               {questionOther(<Frequency/>,"circs.howOften.will", change.howOften.frequency, change.howOften.other)}
-            </PayFrequency>
+            </PayFrequency>}
+            buff
           }
           case _ => NodeSeq.Empty
         }
