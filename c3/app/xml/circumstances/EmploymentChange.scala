@@ -4,6 +4,7 @@ import models.domain._
 import xml.XMLHelper._
 
 import scala.xml.NodeSeq
+import play.api.i18n.{MMessages => Messages}
 
 
 object EmploymentChange {
@@ -82,7 +83,7 @@ object EmploymentChange {
   def selfEmploymentChange(circsEmploymentChange: CircumstancesEmploymentChange): NodeSeq = {
     <SelfEmployment>
       {question(<TypeOfSelfEmployment/>, "typeOfWork.selfEmployedTypeOfWork",circsEmploymentChange.typeOfWork.text2a.get)}
-      {question(<TotalIncome/>, "typeOfWork.selfEmployedTotalIncome", circsEmploymentChange.typeOfWork.answer2.get)}
+      {question(<TotalIncome/>, "typeOfWork.selfEmployedTotalIncome", Messages(circsEmploymentChange.typeOfWork.answer2.get))}
       {question(<MoreAboutChanges/>, "typeOfWork.selfEmployedMoreAboutChanges", circsEmploymentChange.typeOfWork.text2b)}
     </SelfEmployment>
   }
