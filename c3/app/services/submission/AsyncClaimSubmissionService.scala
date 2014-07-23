@@ -1,5 +1,7 @@
 package services.submission
 
+import monitoring.{Counters, Histograms}
+
 import scala.concurrent.ExecutionContext
 import play.api.{http, Logger}
 import controllers.submission._
@@ -40,10 +42,11 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
         Logger.error(s"INTERNAL_SERVER_ERROR transactionId [$txnID]")
         Logger.error("global error talking to ingress ",e)
         updateTransactionAndCache(txnID, SERVER_ERROR, claim)
+        Counters.incrementSubmissionErrorStatus(SERVER_ERROR)
     }
   }
 
-  def processClaimSubmission(claim: Claim, response: Response) = {
+  private def processClaimSubmission(claim: Claim, response: Response) = {
     val txnID = claim.transactionId.get
     Logger.debug("Got response from WS:" + response)
     try {
@@ -57,7 +60,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
     }
   }
 
-  def checkCacheStore(claim:Claim): Unit = {
+  private def checkCacheStore(claim:Claim): Unit = {
     if (checkEnabled) {
       getFromCache(claim) match {
         case Some(x) =>
@@ -80,12 +83,15 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
     val statusMsg = httpStatusCodes(response.status)
     Logger.error(s"$statusMsg : ${response.status} : ${response.toString}, transactionId [$txnID]")
     updateTransactionAndCache(txnID, txnStatusConst(statusMsg), claim)
+    Counters.incrementSubmissionErrorStatus(statusMsg)
   }
 
   private def processResponse(claim: Claim, txnID: String, response: Response): Unit = {
     Logger.debug("Response status is " + response.status)
     response.status match {
-      case http.Status.OK => ok(claim, txnID, response)
+      case http.Status.OK =>
+        Counters.incrementClaimSubmissionCount
+        ok(claim, txnID, response)
       case _ => processErrorResponse(claim, txnID, response)
     }
   }

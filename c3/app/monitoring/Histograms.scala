@@ -20,6 +20,6 @@ object Counters {
   }
   def incrementClaimSubmissionCount() {
     // claims and coc
-    MetricsRegistry.default.counter("c3-claim-submission-count").inc()
+    MetricsRegistry.default.counter("submission-successful-count").inc()
   }
 }
