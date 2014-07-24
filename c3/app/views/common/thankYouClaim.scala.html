@@ -3,6 +3,7 @@
 @import play.api.i18n._
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
+@import app.ConfigProperties._
 
 @employment = @{claim.questionGroup[Employment].getOrElse(Employment())}
 @isEmployment = @{employment.beenEmployedSince6MonthsBeforeClaim == "yes"}
@@ -101,9 +102,10 @@
 	            
             </aside>
             <!-- / right panel -->
-            
-   
-    <input type="hidden" name="transId" value="@{claim.transactionId.getOrElse("NO_TRANS_ID")}"/>
+
+        @if(getProperty("display.transid",false)){
+            <input type="hidden" name="transId" value="@{claim.transactionId.getOrElse("NO_TRANS_ID")}"/>
+        }
     </div>
 }
 <script type="text/javascript">

@@ -9,6 +9,7 @@
 
 @import play.api.i18n._
 @import play.api.i18n.{MMessages => Messages}
+@import app.ConfigProperties._
 
 @showBreaksInCareMessages = @{
     var breaksIncare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
@@ -128,6 +129,8 @@
 	            
             
         </article>
-        <input type="hidden" name="transId" value="@{circs.transactionId.getOrElse("NO_TRANS_ID")}"/>
+        @if(getProperty("display.transid",false)){
+            <input type="hidden" name="transId" value="@{circs.transactionId.getOrElse("NO_TRANS_ID")}"/>
+        }
     </div>
 }
