@@ -104,7 +104,7 @@
             <!-- / right panel -->
 
         @if(getProperty("display.transid",false)){
-            <input type="hidden" name="transId" value="@{claim.transactionId.getOrElse("NO_TRANS_ID")}"/>
+            <input type="hidden" name="transId" id="transId" value="@{claim.transactionId.getOrElse("NO_TRANS_ID")}"/>
         }
     </div>
 }
