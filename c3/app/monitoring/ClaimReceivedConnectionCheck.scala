@@ -29,8 +29,8 @@ class ClaimReceivedConnectionCheck extends HealthCheck {
       response.status match {
         case Status.OK =>
           Result.healthy
-        case _ =>
-          Result.unhealthy(s"Claim Received ping failed: ${http.Status.toString}.")
+        case status@_ =>
+          Result.unhealthy(s"Claim Received ping failed: $status.")
       }
     }
 
