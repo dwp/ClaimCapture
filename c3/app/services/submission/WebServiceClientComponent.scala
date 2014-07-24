@@ -3,8 +3,8 @@ package services.submission
 import java.net.ConnectException
 import java.util.concurrent.TimeoutException
 
+import app.ConfigProperties
 import models.domain.Claim
-import play.Configuration
 import play.api.i18n.Lang
 import play.api.libs.ws
 import play.api.libs.ws.{Response, WS}
@@ -23,11 +23,10 @@ trait WebServiceClientComponent {
       Logger.info("Entered on submitClaim")
       val claimSubmission = DWPBody().xml(claim, txnId)
       Logger.info("Created xml")
-      val submissionServerEndpoint: String =
-        Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submission"
+      val submissionServerEndpoint = ConfigProperties.getProperty("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submission"
       Logger.info(s"Submission Server : $submissionServerEndpoint")
       val result = WS.url(submissionServerEndpoint)
-        .withRequestTimeout(60000) // wait 1 minute
+        .withRequestTimeout(ConfigProperties.getProperty("cr.timeout",60000)) // wait 1 minute
         .withHeaders(("Content-Type", "application/xml"))
         .withHeaders(("CarersClaimLang",claim.lang.getOrElse(new Lang("en")).language))
         .post(claimSubmission) recover {

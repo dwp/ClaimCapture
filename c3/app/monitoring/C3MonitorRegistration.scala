@@ -20,5 +20,6 @@ trait C3MonitorRegistration extends MonitorRegistration {
   override def registerHealthChecks() {
     resolve(classOf[HealthMonitor]).register("c3-transaction-db", resolve(classOf[ClaimTransactionCheck]))
     resolve(classOf[HealthMonitor]).register("c3-cache", new CacheCheck)
+    resolve(classOf[HealthMonitor]).register("c3-il3-connection", new ClaimReceivedConnectionCheck)
   }
 }
