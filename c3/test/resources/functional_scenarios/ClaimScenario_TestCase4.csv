@@ -203,15 +203,15 @@ Employment,About expenses to do with your employment,How much [[past=did you]] [
 Employment,About expenses to do with your employment,How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses?,EmploymentChildcareExpensesHowOften_1,02
 Employment,About expenses to do with your employment,How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses?,EmploymentChildcareExpensesHowOftenOther_1,
 Employment,About expenses to do with your employment,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_1,Mr Grandfather Senior
-Employment,About expenses to do with your employment,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,other
+Employment,About expenses to do with your employment,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,Not asked
 Employment,About expenses to do with your employment,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1,
-Employment,About expenses to do with your employment,"What relation, if any, is this person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1,other
+Employment,About expenses to do with your employment,"What relation, if any, is this person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1,Not asked
 Employment,About expenses to do with your employment,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor_1,150.89
 Employment,About expenses to do with your employment,How often [[past=did you]] [[present=do you]] pay them - expenses related to person you care for?,EmploymentCareExpensesHowOftenYouPayfor_1,03
 Employment,About expenses to do with your employment,How often [[past=did you]] [[present=do you]] pay them Other- expenses related to person you care for?,EmploymentCareExpensesHowOftenYouPayforOther_1,
 Employment,About expenses to do with your employment,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring_1,Carers UK Ltd
-Employment,About expenses to do with your employment,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_1,other
-Employment,About expenses to do with your employment,"What relation, if any, is this person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1,other
+Employment,About expenses to do with your employment,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_1,Not asked
+Employment,About expenses to do with your employment,"What relation, if any, is this person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1,Not asked
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouBeenEmployedAtAnyTime_1,No
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Employer Details,Employers Name,EmploymentEmployerName_2,

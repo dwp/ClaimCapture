@@ -140,10 +140,10 @@ object Employment {
           <Currency></Currency>
           <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
-        <RelationshipCarerToClaimant>{other}</RelationshipCarerToClaimant>
+        <RelationshipCarerToClaimant>{NotAsked}</RelationshipCarerToClaimant>
         <ChildDetails>
           <Name>{NotAsked}</Name>
-          <RelationToChild>{other}</RelationToChild>
+          <RelationToChild>{NotAsked}</RelationToChild>
         </ChildDetails>
       </ChildCareExpenses>
     } else {
@@ -166,8 +166,8 @@ object Employment {
           <Currency></Currency>
           <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
-        <RelationshipCarerToClaimant>{other}</RelationshipCarerToClaimant>
-        <RelationshipCarerToCaree>{other}</RelationshipCarerToCaree>
+        <RelationshipCarerToClaimant>{NotAsked}</RelationshipCarerToClaimant>
+        <RelationshipCarerToCaree>{NotAsked}</RelationshipCarerToCaree>
       </CareExpenses>
     } else {
       <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>

@@ -203,9 +203,9 @@ Employment,Childcare expenses while you are at work,How much [[past=did you]] [[
 Employment,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses?,EmploymentChildcareExpensesHowOften_1,02
 Employment,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses?,EmploymentChildcareExpensesHowOftenOther_1,
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_1,Childcare UK
-Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,other
+Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,Not asked
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1,
-Employment,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1,other
+Employment,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1,Not asked
 Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor_1,
 Employment,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] pay them - expenses related to person you care for?,EmploymentCareExpensesHowOftenYouPayfor_1,
 Employment,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] pay them Other- expenses related to person you care for?,EmploymentCareExpensesHowOftenYouPayforOther_1,
