@@ -24,7 +24,7 @@
 	                    @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
 	
 	                    @otherDetailPlaceHolder(
-	                        inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder") )),
+	                        inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
 	                        'id->"whyWrapper",
 	                        'display -> {if( currentForm("gettingInformationFromAnyEmployer.informationFromEmployer").value.getOrElse("yes") == "no" ) "yes" else "no"}
 	                    )
@@ -33,7 +33,7 @@
 	                @yesNoRadioGroup(currentForm("tellUsWhyEmployer.informationFromPerson"))
 	
 	                @otherDetailPlaceHolder(
-	                    inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyEmployer.whyPerson"), 'placeholder->Messages("why_placeholder") )),
+	                    inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyEmployer.whyPerson"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
 	                    'id->"whyPersonWrapper",
 	                    'display -> {if( currentForm("tellUsWhyEmployer.informationFromPerson").value.getOrElse("yes") == "no" ) "yes" else "no"}
 	                )
@@ -51,8 +51,13 @@
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s11_consent_and_declaration/g2_consent.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 <script type="text/javascript">
+    $(function(){
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_why")",maxChars:300});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("tellUsWhyEmployer_whyPerson")",maxChars:300});
+    })
     $(function() {
         window.initEvents( "@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_informationFromEmployer_yes")",
         "@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_informationFromEmployer_no")",

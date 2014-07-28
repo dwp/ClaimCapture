@@ -18,7 +18,7 @@
         	<fieldset class="form-elements">
 	            <legend>@Html(Messages("c2.g4"))</legend>
 	            <ul class="coc-layout">
-	                @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000)
+	                @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000, 'textAreaHelper -> Html(Messages("2000charsLeft")), 'maxLength -> 2000 )
 	            </ul>
 	        </fieldset>
 	
@@ -31,3 +31,11 @@
         </div>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+<script type="text/javascript">
+    $(function(){
+    window.areaCounter({selector:"@CarersCrypto.encryptAES("changeInCircs")",maxChars:2000});
+})
+</script>
