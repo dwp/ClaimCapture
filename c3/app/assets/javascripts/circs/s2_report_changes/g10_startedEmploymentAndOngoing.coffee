@@ -175,7 +175,7 @@ window.payDay = (beenPaidYetY, beenPaidYetN, howOftenFrequency, monthlyPayDay,
       $("#" + usuallyPaidSameAmountN).prop('checked', false)
       $("#usuallyPaidSameAmountWrap").slideDown(500)
 
-    if $("#" + howOftenFrequency).val() is "monthly"
+    if $("#" + howOftenFrequency).val() is "Monthly"
       $("#monthlyPayDayWrap").slideDown(500)
 
 window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
