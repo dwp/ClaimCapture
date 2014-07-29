@@ -25,7 +25,7 @@ object Caree {
         <Number>{theirContactDetails.phoneNumber.orNull}</Number>
         <Qualifier/>
       </DaytimePhoneNumber>
-      <RelationToClaimant>{other}</RelationToClaimant>
+      <RelationToClaimant>{NotAsked}</RelationToClaimant>
       <Cared35hours>{NotAsked}</Cared35hours>
       <CanCareeSign>{NotAsked}</CanCareeSign>
       <CanSomeoneElseSign>{NotAsked}</CanSomeoneElseSign>
