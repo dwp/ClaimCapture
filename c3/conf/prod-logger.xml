@@ -26,6 +26,7 @@
         <additionalField>httpPort:_http_port</additionalField>
         <additionalField>hostName:_host_name</additionalField>
         <additionalField>envName:_Environment</additionalField>
+        <additionalField>appName:_AppName</additionalField>
         <additionalField>uuid:_uuid</additionalField>
     </appender>
 
