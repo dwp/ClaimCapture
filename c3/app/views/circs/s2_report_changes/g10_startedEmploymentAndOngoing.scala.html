@@ -56,6 +56,7 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputText(monthlyPayDay,
+                                'maxLength -> 35,
                                 'ignoreOptional -> true,
                                 'helperAbove -> Html(Messages("monthlyPayDay.help")))
                             ),
