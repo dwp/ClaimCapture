@@ -7,7 +7,7 @@
 @main(Messages("s2.g7") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)) {
 
     @form(action = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.submit) {
-        <div class="form-wrap">
+       
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g7"))</legend>
 	
@@ -28,6 +28,6 @@
 			   		<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	        	</ul>
 	        </nav>
-        </div>
+
     }
 }

@@ -142,7 +142,7 @@
 		   background: #fff;
 		   }
 		   
-	   &.helper-prompt, &.e-prompt {
+	   &.helper-prompt {
 		   margin: .5em 0 1em 0;
 		   border: 1px solid #a2a2a2;
 		   background: #fff;
@@ -173,13 +173,47 @@
 	   }
 	   
 	   &.e-prompt {
-		   margin-top: 2em;
+		   margin: 2em 0 1em 0;
+		   border: 0;
+		   background: #fff;
+		   padding: 0;
+		   .ie7 & {
+			   zoom: 1;
+		   }
+		   h2 {
+			   background: #eee;
+			   padding: 1em;
+		   }
+		   p {
+			   font-size: 19px;
+			   margin-top: 1em;
+			   &:first-child {
+				   margin: 0;
+			   }
+			   &.intro {
+			   font-weight: 600;
+			   }
+		   }
+		   ul {
+			   margin-top: 1em;
+			   list-style: disc;
+			   border: 1px solid #a2a2a2;
+			   padding: 1em 1em 1em 2.4em;
+			   li {
+				   display: list-item;
+				   padding: 0;
+				   margin: .5em 0 0 0;
+				   font-size: 19px;
+			   }
+		   }
 	   }
 	   
 	   &.entitlement-error {
-	   	   margin-top: 2em;
-		   background: #fef7f7;
-		   border: 3px solid #df3034;
+	   	   h2 {
+	   	   	   margin-top: 2em;
+			   background: #fef7f7;
+			   border: 3px solid #df3034;	   
+	   	   }
 	   }
 	   
 	   &.nested-prompt {

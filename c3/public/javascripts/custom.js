@@ -23,6 +23,7 @@ function datepicker(dateFieldId) {
     });
 }
 
+
     
     
 $(function() {    
@@ -36,6 +37,25 @@ $('.helper-more').click(function(){
 
         $(this).text(labelText);
 });    
+
+
+// Add the "focus" value to class attribute 
+  $('ul.radio li label').focusin( function() {
+    $(this).addClass('focus');
+  }
+  );
+
+  // Remove the "focus" value to class attribute 
+  $('ul.radio li label').focusout( function() {
+    $(this).removeClass('focus');
+  }
+  );
+
+
+$(".other-detail").css("display", "none");
+
+
+
     
 	// Help & Feedback container
      $(".feedback-container").css("display", "none");
@@ -48,9 +68,6 @@ $('.helper-more').click(function(){
      $(".js-message").css("display", "none");
      $(".feed-close").css("display", "block");
      
-    
-     
-
     // Nino auto jump
 	$('.ni-number input, .sort-code input').autotab_magic();
 

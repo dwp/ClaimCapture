@@ -21,8 +21,9 @@
     @options.map { v =>
         <li>
             @{/* printing the id needs replacement of spaces for underscores because browsers don't like spaces */}
+            <label for="@CarersCrypto.encryptAES(id+"_"+v._1.replace(" ","_"))">
             <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+v._1.replace(" ","_"))" name="@CarersCrypto.encryptAES(field.name)" onclick="@gaTrack(id,v)"  value="@v._1" @(if(value == Some(v._1)) "checked" else "") @toHtmlArgs(htmlArgs)>
-            <label for="@CarersCrypto.encryptAES(id+"_"+v._1.replace(" ","_"))">@v._2</label>
+            <span>@v._2</span></label>
         </li>
     }
 
