@@ -28,8 +28,10 @@
             case (a: String, b: String) => {
               <li>
                 @{/* printing the id needs replacement of spaces for underscores because browsers don't like spaces */}
-                <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+a.replace(" ","_"))" name="@CarersCrypto.encryptAES(field.name)" onclick="@gaTrack(id,(a,b))"  value="@a" @(if(value == Some(a)) "checked" else "") @toHtmlArgs(htmlArgs)>
-                <label for="@CarersCrypto.encryptAES(id+"_"+a.replace(" ","_"))">@b</label>
+                <label for="@CarersCrypto.encryptAES(id+"_"+a.replace(" ","_"))">
+	                <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+a.replace(" ","_"))" name="@CarersCrypto.encryptAES(field.name)" onclick="@gaTrack(id,(a,b))"  value="@a" @(if(value == Some(a)) "checked" else "") @toHtmlArgs(htmlArgs)>
+	                <span>@b</span>
+                </label>
               </li>
             }
           }
