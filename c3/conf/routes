@@ -5,6 +5,10 @@
 # Home page
 GET           /                                                               controllers.Application.index
 
+# Health checks
+GET         /report/metrics                      com.kenshoo.play.metrics.MetricsController.metrics
+GET         /report/health                       controllers.HealthController.healthReport
+
 # claim pack notes accessed externally
 GET           /claim-notes                                                    controllers.ClaimNotes.notes
 # claim pack notes accessed internally (with claim lang)
@@ -247,4 +251,3 @@ POST          /circumstances/consent-and-declaration/declaration              @c
 
 GET           /circumstances/consent-and-declaration/error                    controllers.circs.s3_consent_and_declaration.G3Error.present
 
-POST          /decrypt/:encryptedValue                                    controllers.Decrypt.decryptValue(encryptedValue)
