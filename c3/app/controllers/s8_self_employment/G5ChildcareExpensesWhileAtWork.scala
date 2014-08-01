@@ -21,7 +21,7 @@ import models.view.CachedClaim.ClaimResult
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
     "whoLooksAfterChildren" -> carersNonEmptyText(maxLength = sixty),
-    "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validCurrencyRequired),
+    "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validCurrency5Required),
     "howOftenPayChildCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
     "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),

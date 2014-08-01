@@ -5,6 +5,8 @@
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersCrypto
 @import models.domain._
+@import play.api.Play
+@import play.api.Play.current
 
 @benefitsAnswer = @{
     claim.questionGroup[Benefits].getOrElse(Benefits()).asInstanceOf[BooleanConfirmation].answer
@@ -96,7 +98,9 @@
 <script type="text/javascript">
     function analyticsCallback() {
         var linkName = "Eligilibility - " + document.getElementById("actionButtonId" ).innerHTML
-        trackEvent("/allowance/approve",linkName)
+        @if(!Play.isTest){
+            trackEvent("/allowance/approve",linkName)
+        }
     }
 </script>
 

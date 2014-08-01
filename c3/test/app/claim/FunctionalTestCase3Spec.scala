@@ -24,12 +24,11 @@ class FunctionalTestCase3Spec extends FunctionalTestCommon {
       val lastPage = page runClaimWith(claim, XmlPage.title)
 
       lastPage match {
-        case p: XmlPage => {
+        case p: XmlPage =>
           val validator: XMLBusinessValidation = new XMLClaimBusinessValidation
           validateAndPrintErrors(p, claim, validator) should beTrue
-        }
         case p: Page => println(p.source()); failure("bad")
       }
-    }.pendingUntilFixed("Test cannot handle javascript - could be a test browser or PageObject issue.")
+    }
   } section ("functional","claim")
 }

@@ -19,7 +19,7 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
     "jobID" -> nonEmptyText,
     "employerName"-> carersNonEmptyText(maxLength = 60),
     "phoneNumber" -> optional(text verifying validPhoneNumber),
-    "payrollEmployeeNumber" -> optional(carersText),
+    "payrollEmployeeNumber" -> optional(carersText(maxLength = 16)),
     "address" -> address.verifying(requiredAddress),
     "postcode" -> optional(text verifying validPostcode),
     "jobStartDate" -> dayMonthYear.verifying(validDate),

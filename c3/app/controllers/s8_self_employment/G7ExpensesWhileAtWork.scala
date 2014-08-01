@@ -23,7 +23,7 @@ import models.view.CachedClaim.ClaimResult
 object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
     "nameOfPerson" -> carersNonEmptyText(maxLength = sixty),
-    "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validCurrencyRequired),
+    "howMuchYouPay" -> nonEmptyText.verifying(validCurrency5Required),
     "howOftenPayExpenses" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "whatRelationIsToYou" -> carersNonEmptyText(maxLength = sixty),
     "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
@@ -33,7 +33,7 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
 
   def validateRelationToPartner(implicit claim: Claim, expensesWhileAtWork: ExpensesWhileAtWork) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
-      case (Some(m: MoreAboutYou), Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => expensesWhileAtWork.relationToPartner.isDefined
+      case (Some(m: MoreAboutYou), Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == Some("yes") && p.isPartnerPersonYouCareFor == "no" => expensesWhileAtWork.relationToPartner.isDefined
       case _ => true
     }
   }

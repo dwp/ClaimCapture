@@ -11,16 +11,17 @@ import controllers.Mappings._
 import Employment._
 import controllers.CarersForms._
 import utils.helpers.PastPresentLabelHelper._
+import controllers.Mappings
 
 
 object G5LastWage extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "oftenGetPaid" -> (mandatoryPaymentFrequency verifying validPaymentFrequencyOnly),
-    "whenGetPaid" -> optional(carersText),
+    "whenGetPaid" -> optional(carersText(maxLength = Mappings.sixty)),
     "lastPaidDate" -> dayMonthYear.verifying(validDate),
-    "grossPay" -> required(nonEmptyText.verifying(validCurrencyRequired)),
-    "payInclusions" -> optional(carersText(maxLength = 100)),
+    "grossPay" -> required(nonEmptyText.verifying(validCurrency5Required)),
+    "payInclusions" -> optional(carersText(maxLength = Mappings.sixty)),
     "sameAmountEachTime" -> optional(text.verifying(validYesNo)),
     "employerOwesYouMoney" -> (nonEmptyText verifying validYesNo)
   )(LastWage.apply)(LastWage.unapply))
