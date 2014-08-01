@@ -50,13 +50,13 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
     val txnID = claim.transactionId.get
     Logger.debug("Got response from WS:" + response)
     try {
-      Logger.info(s"Claim submitted - response status ${response.status} for : ${claim.key} : transactionId [$txnID].")
+      Logger.info(s"Claim submitted [${SUBMITTED}] - response status ${response.status} for : ${claim.key} : transactionId [$txnID].")
       claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
       ClaimSubmissionService.recordMi(claim, txnID, claimTransaction.recordMi)
       processResponse(claim, txnID, response)
     } catch {
       case e: Exception =>
-        Logger.error(s"Error processing submitted claim [${SUBMITTED}] submission's response with response status ${response.status} : ${response.toString} for transactionId [$txnID].",e)
+        Logger.error(s"Error processing submitted claim [${SUBMITTED}] submission's response with response status ${response.status} for transactionId [$txnID].",e)
         removeFromCache(claim)
     }
   }
@@ -99,7 +99,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
   }
 
   private def ok(claim: Claim, txnID: String, response: Response) = {
-    Logger.info(s"Successful submission  [${SUCCESS}] - response status ${response.status} : ${response.toString} for : ${claim.key} : transactionId [$txnID].")
+    Logger.info(s"Successful submission  [${SUCCESS}] - response status ${response.status} for : ${claim.key} : transactionId [$txnID].")
     claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
   }
 }
