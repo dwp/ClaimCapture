@@ -168,7 +168,7 @@ trait ClaimBotChecking extends BotChecking {
     def checkAboutOtherMoney: Boolean = {
       claim.questionGroup[AboutOtherMoney] match {
         case Some(q) =>
-          q.anyPaymentsSinceClaimDate.answer == "no" && (q.whoPaysYou.isDefined || q.howMuch.isDefined || q.howOften.isDefined) && q.otherStatutoryPay == "no" && q.otherStatutoryPay == "no"// Bot given fields were not visible.
+          q.anyPaymentsSinceClaimDate.answer == "no" && (q.whoPaysYou.isDefined || q.howMuch.isDefined || q.howOften.isDefined) && q.otherStatutoryPay.answer == "no" && q.otherStatutoryPay.answer == "no"// Bot given fields were not visible.
         case _ => false
       }
     }

@@ -301,7 +301,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
 
     "returns true given AboutOtherMoney answered no and honeyPot howOften filled" in {
 
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("yes"), Some("Toys R Us"), Some("12"), howOften = Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text"))),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), Some("Toys R Us"), Some("12"), howOften = Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text"))),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
 
@@ -321,7 +321,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
     }
 
     "returns false given StatutorySickPay answered no and honeyPot howMuch filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", howMuch = Some("12"), None, None, None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", howMuch = None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
@@ -362,16 +362,16 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given OtherStatutoryPay answered no and honeyPot howMuch filled" in {
+    "returns true given OtherStatutoryPay answered no and honeyPot howMuch filled" in {
       val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", howMuch=Some("12"), None, None, None, None)))
-      controller.honeyPot(claim) should beFalse
+      controller.honeyPot(claim) should beTrue
     }
 
-    "returns false given OtherStatutoryPay answered no and honeyPot howOften filled" in {
+    "returns true given OtherStatutoryPay answered no and honeyPot howOften filled" in {
       val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly)), None, None, None)))
-      controller.honeyPot(claim) should beFalse
+      controller.honeyPot(claim) should beTrue
     }
 
     "returns true given OtherStatutoryPay answered no and honeyPot employersName filled" in {
