@@ -1,5 +1,6 @@
 package controllers.s11_consent_and_declaration
 
+import play.api.Logger
 import play.api.mvc._
 import models.view.CachedClaim
 import models.view.Navigable
@@ -36,7 +37,7 @@ class G5Submit extends Controller with CachedClaim with Navigable
           NotFound
         },
         f => {
-          println(claim.getClass) // class models.view.CachedClaim$$anon$2
+          Logger.debug(claim.getClass.toString) // class models.view.CachedClaim$$anon$2
           checkForBot(claim, request)
           submission(claim, request, f.jsEnabled)
         }

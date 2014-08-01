@@ -40,13 +40,3 @@ case class Navigation(routes: List[Route[_]] = List()) {
 case class Route[T](uri: String)(implicit val classTag: ClassTag[T]) {
   override def toString = uri
 }
-
-
-
-/*
-for { routes <- play.api.Play.current.routes.toList
-      (method, pattern, call) <- routes.documentation
-} yield {
-  println(call)
-}
-*/
