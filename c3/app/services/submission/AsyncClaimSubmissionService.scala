@@ -39,8 +39,8 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
       )
     } catch {
       case e:Exception =>
-        Logger.error(s"INTERNAL_SERVER_ERROR transactionId [$txnID]")
-        Logger.error("global error talking to ingress ",e)
+        Logger.error(s"INTERNAL_SERVER_ERROR [$SERVER_ERROR] transactionId [$txnID].")
+        Logger.error("global error talking to Claim Received service.",e)
         updateTransactionAndCache(txnID, SERVER_ERROR, claim)
         Counters.incrementSubmissionErrorStatus(SERVER_ERROR)
     }
@@ -50,12 +50,13 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
     val txnID = claim.transactionId.get
     Logger.debug("Got response from WS:" + response)
     try {
+      Logger.info(s"Claim submitted - response status ${response.status} for : ${claim.key} : transactionId [$txnID].")
       claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
       ClaimSubmissionService.recordMi(claim, txnID, claimTransaction.recordMi)
       processResponse(claim, txnID, response)
     } catch {
       case e: Exception =>
-        Logger.error(s"Error processing claim submission for transactionId [$txnID].",e)
+        Logger.error(s"Error processing submitted claim [${SUBMITTED}] submission's response with response status ${response.status} : ${response.toString} for transactionId [$txnID].",e)
         removeFromCache(claim)
     }
   }
@@ -64,8 +65,9 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
     if (checkEnabled) {
       getFromCache(claim) match {
         case Some(x) =>
-        Logger.error("Already in cache, should not be submitting again! Duplicate claim submission. Claim fingerprint: " + encrypt(x))
-        claimTransaction.updateStatus(claim.transactionId.get, SERVER_ERROR, claimType(claim))
+          Logger.error("Already in cache, should not be submitting again! Duplicate claim submission. Claim fingerprint: " + encrypt(x))
+          Logger.error(s"Status ${SERVER_ERROR} for transactionId [${claim.transactionId.get}].")
+          claimTransaction.updateStatus(claim.transactionId.get, SERVER_ERROR, claimType(claim))
 
         // this gets logged by the actor
         throw new DuplicateClaimException("Duplicate claim submission.")
@@ -81,7 +83,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
 
   private def processErrorResponse(claim: Claim, txnID: String, response: Response): Unit = {
     val statusMsg = httpStatusCodes(response.status)
-    Logger.error(s"$statusMsg : ${response.status} : ${response.toString}, transactionId [$txnID]")
+    Logger.error(s"Submission failed. [${txnStatusConst(statusMsg)}] : response status ${response.status} : ${response.toString}, transactionId [$txnID].")
     updateTransactionAndCache(txnID, txnStatusConst(statusMsg), claim)
     Counters.incrementSubmissionErrorStatus(statusMsg)
   }
@@ -97,8 +99,8 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
   }
 
   private def ok(claim: Claim, txnID: String, response: Response) = {
+    Logger.info(s"Successful submission  [${SUCCESS}] - response status ${response.status} : ${response.toString} for : ${claim.key} : transactionId [$txnID].")
     claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
-    Logger.info(s"Successful submission : ${claim.key} : $txnID")
   }
 }
 
