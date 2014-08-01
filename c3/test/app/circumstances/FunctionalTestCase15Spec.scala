@@ -16,7 +16,7 @@ class FunctionalTestCase15Spec extends FunctionalTestCommon {
   isolated
 
   "The application Circumstances" should {
-    "Successfully run absolute Circumstances Test Case 11" in new WithBrowser with PageObjects {
+    "Successfully run absolute Circumstances Test Case 15" in new WithBrowser with PageObjects {
 
       val page = G1ReportAChangeInYourCircumstancesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase11.csv")
