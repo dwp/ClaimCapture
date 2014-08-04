@@ -12,7 +12,7 @@ class FunctionalTestCase33Spec extends FunctionalTestCommon {
 
   "The application Circumstances" should {
     "Successfully run absolute Circumstances Test Case 33" in new WithBrowser(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
-      pending("throws JavaScript error because test browser is not capable of handling the level of JS used")
+
       val page = G1ReportAChangeInYourCircumstancesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase33.csv")
       page goToThePage()

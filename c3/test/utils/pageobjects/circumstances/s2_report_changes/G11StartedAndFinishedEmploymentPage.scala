@@ -7,6 +7,8 @@ import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
 import play.api.test.WithBrowser
 
 final class G11StartedAndFinishedEmploymentPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G11StartedAndFinishedEmploymentPage.url, G11StartedAndFinishedEmploymentPage.title) {
+  declareYesNo("#beenPaidYet", "CircumstancesEmploymentChangeBeenPaidYet")
+  declareInput("#howMuchPaid", "CircumstancesEmploymentChangeHowMuchPaid")
   declareDate("#dateLastPaid", "CircumstancesEmploymentChangeWhatDatePaid")
   declareInput("#whatWasIncluded", "CircumstancesEmploymentChangeWhatWasIncluded")
   declareSelect("#howOften_frequency", "CircumstancesEmploymentChangeHowOftenFrequency")
