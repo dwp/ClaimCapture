@@ -9,7 +9,7 @@ import play.api.i18n.Lang
 import play.api.libs.ws
 import play.api.libs.ws.{Response, WS}
 import play.api.{Logger, http}
-import xml.DWPBody
+import xml.{ValidXMLBuilder, DWPBody}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -21,7 +21,7 @@ trait WebServiceClientComponent {
   class WebServiceClient {
     def submitClaim(claim: Claim, txnId: String): Future[ws.Response] = {
       Logger.info("Entered on submitClaim")
-      val claimSubmission = DWPBody().xml(claim, txnId)
+      val claimSubmission = ValidXMLBuilder().xml(claim, txnId)
       Logger.info("Created xml")
       val submissionServerEndpoint = ConfigProperties.getProperty("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submission"
       Logger.info(s"Submission Server : $submissionServerEndpoint")

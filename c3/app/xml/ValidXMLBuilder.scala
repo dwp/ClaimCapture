@@ -15,7 +15,7 @@ class ValidXMLBuilder(underlying:XMLBuilder)  extends XMLBuilder {
   def xml(claim: Claim, transactionId: String): NodeSeq = {
     val xmlGenerated = underlying.xml(claim,transactionId)
     val validator = controllers.submission.xmlValidator(claim)
-    if (getProperty("validateXml",default=true)
+    if (getProperty("validateXml",default=false)
       && !validator.validate(xmlGenerated.toString())) throw new RuntimeException("Invalid XML generated. See log file.")
     xmlGenerated
   }

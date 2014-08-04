@@ -18,8 +18,6 @@ GET           /internal-claim-notes/:languageCode                             co
 GET           /claim-help                                                 controllers.ClaimHelp.notes
 
 GET           /change-language/:chosenLanguage                            controllers.Language.change(chosenLanguage: String)
-# Obscure URL to hide health page
-GET           /Ewd4Oys3baIj3Yeg0o                                             controllers.HealthController.health
 
 GET           /preview                                                        controllers.preview.Preview.present
 POST          /preview                                                        controllers.preview.Preview.submit
