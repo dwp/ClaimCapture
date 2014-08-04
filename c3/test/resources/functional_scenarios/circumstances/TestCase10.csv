@@ -5,13 +5,13 @@ Report a change in your circumstances - Change in circumstances,Circumstances,Th
 Report a change in your circumstances - Change in circumstances,Circumstances,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,Wife or civil partner
 Details of your change in circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,paymentChange
 Existing payment details - Change in circumstances,Existing payment details,Are you currently paid into a bank or building society?,CircumstancesPaymentChangeCurrentlyPaidIntoBank,yes
-Existing payment details - Change in circumstances,Existing payment details,Name of current bank or building society,CircumstancesPaymentChangeNameOfCurrentBank,Nat West
+Existing payment details - Change in circumstances,Existing payment details,Name of current bank or building society,CircumstancesPaymentChangeNameOfCurrentBank,Some previous bank name i am invent
 Existing payment details - Change in circumstances,Existing payment details,Confirm your method of payment,CircumstancesPaymentCurrentPaymentMethod,
-Existing payment details - Change in circumstances,New payment details,New payment details,CircumstancesPaymentChangeAccountHolderName,Mr John Roger Smith
+Existing payment details - Change in circumstances,New payment details,New payment details,CircumstancesPaymentChangeAccountHolderName,A little bigger name that what we are us
 Existing payment details - Change in circumstances,New payment details,Whose name or names is the account in?,CircumstancesPaymentChangeWhoseNameIsTheAccountIn,Your name
-Existing payment details - Change in circumstances,New payment details,Full name of bank or building society,CircumstancesPaymentChangeBankFullName,HSBC
+Existing payment details - Change in circumstances,New payment details,Full name of bank or building society,CircumstancesPaymentChangeBankFullName,this is a really large bank name that i have to make up in order to test some stuff and i don't know
 Existing payment details - Change in circumstances,New payment details,Sort code,CircumstancesPaymentChangeSortCode,112233
-Existing payment details - Change in circumstances,New payment details,Account number,CircumstancesPaymentChangeAccountNumber,12345678
+Existing payment details - Change in circumstances,New payment details,Account number,CircumstancesPaymentChangeAccountNumber,1234567890
 Existing payment details - Change in circumstances,New payment details,Building society roll or reference number,CircumstancesPaymentChangeRollOrReferenceNumber,
 Existing payment details - Change in circumstances,New payment details,How often do you want to get paid?,CircumstancesPaymentChangePaymentFrequency,Weekly
 Existing payment details - Change in circumstances,New payment details,Tell us more about your changes,CircumstancesPaymentChangeCaringMoreAboutChanges,

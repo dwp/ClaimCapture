@@ -13,6 +13,7 @@ import controllers.CarersForms._
 import play.api.data.FormError
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
+import controllers.Mappings
 
 /**
  * Created by neddakaltcheva on 3/20/14.
@@ -21,14 +22,14 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
   val whereWasPersonMapping =
     "wherePersonBreaksInCare" -> mapping(
       "answer" -> nonEmptyText,
-      "text" -> optional(carersText)
+      "text" -> optional(carersText(maxLength = Mappings.sixty))
     )(RadioWithText.apply)(RadioWithText.unapply)
      .verifying("wherePersonBreaksInCare.text.required", RadioWithText.validateOnOther _)
 
   val whereWereYouMapping =
     "whereYouBreaksInCare" -> mapping(
       "answer" -> nonEmptyText,
-      "text" -> optional(carersText)
+      "text" -> optional(carersText(maxLength = Mappings.sixty))
     )(RadioWithText.apply)(RadioWithText.unapply)
     .verifying("whereYouBreaksInCare.text.required", RadioWithText.validateOnOther _)
 
