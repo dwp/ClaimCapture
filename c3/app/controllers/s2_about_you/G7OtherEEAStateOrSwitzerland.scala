@@ -13,7 +13,6 @@ import models.view.Navigable
 object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "benefitsFromEEA" -> nonEmptyText.verifying(validYesNo),
-    "claimedForBenefitsFromEEA" -> nonEmptyText.verifying(validYesNo),
     "workingForEEA" -> nonEmptyText.verifying(validYesNo)
   )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply))
 

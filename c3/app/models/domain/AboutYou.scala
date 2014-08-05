@@ -83,7 +83,7 @@ trait FiftyTwoWeeksTrip extends TripPeriod {
   this: Trip =>
 }
 
-case class OtherEEAStateOrSwitzerland(benefitsFromEEA: String = "", claimedForBenefitsFromEEA: String = "", workingForEEA: String = "") extends QuestionGroup(OtherEEAStateOrSwitzerland)
+case class OtherEEAStateOrSwitzerland(benefitsFromEEA: String = "", workingForEEA: String = "") extends QuestionGroup(OtherEEAStateOrSwitzerland)
 
 object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g7"

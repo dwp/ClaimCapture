@@ -10,15 +10,21 @@
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g7"))</legend>
-	
-	            <ul>
-	                @sliderHelp(Messages("eeaCountryHelp.label"),Messages("eeaCountryHelp.closeLabel"),Html(Messages("eeaCountryHelp")), 'track -> true)
-	
+
+                <div class="prompt nested-prompt">
+                    <p>@Html(Messages("eeaCountryHelp.label"))</p>
+
+                    <ul>
+                        <p>@Html(Messages("eeaCountryHelp"))</p>
+                    </ul>
+                </div>
+
+                <ul>
+
 	                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromEEA"))
 	
-	                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("claimedForBenefitsFromEEA"))
-	
 	                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForEEA"))
+
 	            </ul>
 	        </fieldset>
 	

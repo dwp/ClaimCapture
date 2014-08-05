@@ -100,7 +100,6 @@ object ClaimScenarioFactory {
 
     // G7 EEA state or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "yes"
-    claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "yes"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "yes"
 
     claim
@@ -122,8 +121,8 @@ object ClaimScenarioFactory {
     claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
     // Other EEA State or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
-    claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "no"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
+
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Divorced or civil partnership dissolved"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "Yes"
@@ -158,7 +157,6 @@ object ClaimScenarioFactory {
     claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
     // Other EEA State or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
-    claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "no"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"

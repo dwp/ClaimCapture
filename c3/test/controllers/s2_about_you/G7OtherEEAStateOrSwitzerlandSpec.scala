@@ -26,7 +26,7 @@ class G7OtherEEAStateOrSwitzerlandSpec extends Specification with Tags {
 
     """be added to cached claim upon answering "no" to "benefits from other EEA state or Switzerland".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("benefitsFromEEA" -> "no", "claimedForBenefitsFromEEA" -> "no", "workingForEEA" -> "no")
+        .withFormUrlEncodedBody("benefitsFromEEA" -> "no", "workingForEEA" -> "no")
 
       val result = G7OtherEEAStateOrSwitzerland.submit(request)
 
@@ -35,7 +35,6 @@ class G7OtherEEAStateOrSwitzerlandSpec extends Specification with Tags {
       claim.questionGroup(OtherEEAStateOrSwitzerland) must beLike {
         case Some(o: OtherEEAStateOrSwitzerland) => {
           o.benefitsFromEEA shouldEqual "no"
-          o.claimedForBenefitsFromEEA shouldEqual "no"
           o.workingForEEA shouldEqual "no"
         }
       }
