@@ -16,8 +16,7 @@ class G8MoreAboutYouSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("maritalStatus" -> maritalStatus,
           "hadPartnerSinceClaimDate" -> "yes",
-        "beenInEducationSinceClaimDate" -> "yes",
-        "receiveStatePension" -> "yes")
+        "beenInEducationSinceClaimDate" -> "yes")
 
       val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
@@ -30,8 +29,7 @@ class G8MoreAboutYouSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("maritalStatus" -> maritalStatus,
         "hadPartnerSinceClaimDate" -> "no",
-        "beenInEducationSinceClaimDate" -> "yes",
-        "receiveStatePension" -> "yes")
+        "beenInEducationSinceClaimDate" -> "yes")
 
       val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
@@ -44,8 +42,7 @@ class G8MoreAboutYouSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("maritalStatus" -> maritalStatus,
          "hadPartnerSinceClaimDate" -> "yes",
-        "beenInEducationSinceClaimDate" -> "yes",
-        "receiveStatePension" -> "yes")
+        "beenInEducationSinceClaimDate" -> "yes")
 
       val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
@@ -58,8 +55,7 @@ class G8MoreAboutYouSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("maritalStatus" -> maritalStatus,
          "hadPartnerSinceClaimDate" -> "yes",
-        "beenInEducationSinceClaimDate" -> "no",
-        "receiveStatePension" -> "yes")
+        "beenInEducationSinceClaimDate" -> "no")
 
       val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get

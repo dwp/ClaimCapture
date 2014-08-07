@@ -13,7 +13,6 @@ G8MoreAboutYouPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G8MoreAboutYo
   declareRadioList("#maritalStatus", "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus")
   declareYesNo("#hadPartnerSinceClaimDate", "AboutYouHaveYouHadaPartnerSpouseatAnyTime")
   declareYesNo("#beenInEducationSinceClaimDate", "AboutYouHaveYouBeenOnACourseOfEducation")
-  declareYesNo("#receiveStatePension", "AboutYouDoYouGetStatePension")
 }
 
 /**
