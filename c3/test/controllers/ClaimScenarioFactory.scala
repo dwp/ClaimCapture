@@ -312,7 +312,7 @@ object ClaimScenarioFactory {
 
   def s6PayDetails() = {
     val claim = new TestData
-    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.NotOpenAccount
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.AppliedForAccount
     claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek
     claim
   }
