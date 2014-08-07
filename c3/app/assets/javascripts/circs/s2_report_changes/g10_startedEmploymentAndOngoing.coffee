@@ -8,9 +8,10 @@ window.fixErrorMessages = (beenPaidYetY, beenPaidYetN,
                            usuallyPaidSameAmountYFourWeekText, usuallyPaidSameAmountNFourWeekText,
                            usuallyPaidSameAmountYMonthText, usuallyPaidSameAmountNMonthText,
                            usuallyPaidSameAmountYOtherText, usuallyPaidSameAmountNOtherText) ->
-  currentText = $("div[class='validation-summary'] a[href='#" + howOften + "']").text().trim()
+  howOftenError = $("div[class='validation-summary'] a[href='#" + howOften + "']")
+  currentText = if howOftenError.length > 0 then howOftenError.text().trim()  else ""
   existingError = currentText.substring(howOftenText.length, currentText.length)
-  $("div[class='validation-summary'] a[href='#" + howOften + "']").text(howOftenNText + existingError)
+  howOftenError.text(howOftenNText + existingError)
   if ($("#" + beenPaidYetN).prop('checked'))
     currentText = $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text().trim()
     existingError = currentText.substring(howMuchPaidYText.length, currentText.length)
@@ -18,9 +19,9 @@ window.fixErrorMessages = (beenPaidYetY, beenPaidYetN,
     currentText = $("div[class='validation-summary'] a[href='#" + whatDatePaid + "']").text().trim()
     existingError = currentText.substring(whatDatePaidYText.length, currentText.length)
     $("div[class='validation-summary'] a[href='#" + whatDatePaid + "']").text(whatDatePaidNText + existingError)
-    currentText = $("div[class='validation-summary'] a[href='#" + howOften + "']").text().trim()
+    howOftenError.text().trim()
     existingError = currentText.substring(howOftenText.length, currentText.length)
-    $("div[class='validation-summary'] a[href='#" + howOften + "']").text(howOftenNText + existingError)
+    howOftenError.text(howOftenNText + existingError)
     currentText = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text().trim()
     existingError = currentText.substring(usuallyPaidSameAmountText.length, currentText.length)
     textToUse = switch ($("#" + howOftenFrequency).val())

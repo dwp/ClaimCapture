@@ -9,23 +9,29 @@ window.fixErrorMessages = (beenPaidYet, beenPaidYetY, beenPaidYetN, beenPaidYetO
                            usuallyPaidSameAmountFourWeekText, usuallyPaidSameAmountMonthText, usuallyPaidSameAmountOtherText,
                            doYouPayIntoPensionAnswer, doYouPayIntoPensionText, didYouPayIntoPensionText,
                            doCareCostsForThisWorkAnswer, doCareCostsForThisWorkText, didCareCostsForThisWorkText) ->
-  currentText = $("div[class='validation-summary'] a[href='#" + beenPaidYet + "']").text().trim()
+  beenPaidYetError = $("div[class='validation-summary'] a[href='#" + beenPaidYet + "']")
+  currentText = if beenPaidYetError.length > 0 then beenPaidYetError.text().trim() else ""
   existingError = currentText.substring(beenPaidYetOldText.length, currentText.length)
-  $("div[class='validation-summary'] a[href='#" + beenPaidYet + "']").text(beenPaidYetText + existingError)
-  currentText = $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text().trim()
+  beenPaidYetError.text(beenPaidYetText + existingError)
+  howMuchPaidError = $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']")
+  currentText = if howMuchPaidError.length > 0 then howMuchPaidError.text().trim() else ""
   existingError = currentText.substring(howMuchPaidOldText.length, currentText.length)
-  $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text(howMuchPaidYText + existingError)
+  howMuchPaidError.text(howMuchPaidYText + existingError)
+
   if ($("#" + beenPaidYetN).prop('checked'))
-    currentText = $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text().trim()
+    currentText = if howMuchPaidError.length > 0 then howMuchPaidError.text().trim() else ""
     existingError = currentText.substring(howMuchPaidOldText.length, currentText.length)
-    $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text(howMuchPaidNText + existingError)
-    currentText = $("div[class='validation-summary'] a[href='#" + dateLastPaid + "']").text().trim()
+    howMuchPaidError.text(howMuchPaidNText + existingError)
+    dateLastPaidError = $("div[class='validation-summary'] a[href='#" + dateLastPaid + "']")
+    currentText = if dateLastPaidError.length > 0 then dateLastPaidError.text().trim() else ""
     existingError = currentText.substring(dateLastPaidYText.length, currentText.length)
     $("div[class='validation-summary'] a[href='#" + dateLastPaid + "']").text(dateLastPaidNText + existingError)
+
   if ($("#" + beenPaidYetY).prop('checked'))
-    currentText = $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text().trim()
+    currentText = if howMuchPaidError.length > 0 then howMuchPaidError.text().trim() else ""
     existingError = currentText.substring(howMuchPaidOldText.length, currentText.length)
-    $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text(howMuchPaidYText + existingError)
+    howMuchPaidError.text(howMuchPaidYText + existingError)
+
   pathUsuallyPaidSameAmount = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']")
   if ((pathUsuallyPaidSameAmount != undefined) && (pathUsuallyPaidSameAmount.length > 0))
     currentTextUsuallyPaidSameAmount = pathUsuallyPaidSameAmount.text().trim()
@@ -37,18 +43,22 @@ window.fixErrorMessages = (beenPaidYet, beenPaidYetY, beenPaidYetN, beenPaidYetO
       when "Monthly" then usuallyPaidSameAmountMonthText
       else usuallyPaidSameAmountOtherText
     pathUsuallyPaidSameAmount.text(textToUseUsuallyPaidSameAmount + existingErrorUsuallyPaidSameAmount)
+
   pathHowOften = $("div[class='validation-summary'] a[href='#" + howOften + "']")
-  if ((pathHowOften != undefined) && (pathHowOften.length > 0))
-    currentTextHowOften = pathHowOften.text().trim()
+  if pathHowOften != undefined and pathHowOften.length > 0
+    currentTextHowOften = pathHowOften.text().toString()
+    currentTextHowOften = if currentTextHowOften.trim? then currentTextHowOften.trim() else currentTextHowOften
     existingErrorHowOften = currentTextHowOften.substring(howOftenText.length, currentTextHowOften.length)
     pathHowOften.text(howOftenCircsText + existingErrorHowOften)
+
   pathDoYouPayIntoPensionAnswer = $("div[class='validation-summary'] a[href='#" + doYouPayIntoPensionAnswer + "']")
-  if ((pathDoYouPayIntoPensionAnswer != undefined) && (pathDoYouPayIntoPensionAnswer.length > 0))
+  if pathDoYouPayIntoPensionAnswer != undefined and pathDoYouPayIntoPensionAnswer.length > 0
     currentTextDoYouPayIntoPensionAnswer = pathDoYouPayIntoPensionAnswer.text().trim()
     existingErrorDoYouPayIntoPensionAnswer = currentTextDoYouPayIntoPensionAnswer.substring(doYouPayIntoPensionText.length, currentTextDoYouPayIntoPensionAnswer.length)
     pathDoYouPayIntoPensionAnswer.text(didYouPayIntoPensionText + existingErrorDoYouPayIntoPensionAnswer)
+
   pathDoCareCostsForThisWorkAnswer = $("div[class='validation-summary'] a[href='#" + doCareCostsForThisWorkAnswer + "']")
-  if ((pathDoCareCostsForThisWorkAnswer != undefined) && (pathDoCareCostsForThisWorkAnswer.length > 0))
+  if pathDoCareCostsForThisWorkAnswer != undefined and pathDoCareCostsForThisWorkAnswer.length > 0
     currentTextDoCareCostsForThisWorkAnswer = pathDoCareCostsForThisWorkAnswer.text().trim()
     existingErrorDoCareCostsForThisWorkAnswer = currentTextDoCareCostsForThisWorkAnswer.substring(doCareCostsForThisWorkText.length, currentTextDoCareCostsForThisWorkAnswer.length)
     pathDoCareCostsForThisWorkAnswer.text(didCareCostsForThisWorkText + existingErrorDoCareCostsForThisWorkAnswer)
