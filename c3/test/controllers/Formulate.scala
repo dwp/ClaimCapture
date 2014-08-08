@@ -80,7 +80,7 @@ object Formulate {
     browser.goTo("/about-you/more-about-you")
     browser.click("#maritalStatus_Single")
     browser.click("#hadPartnerSinceClaimDate_yes")
-    browser.click("#beenInEducationSinceClaimDate_yes")
+    browser.click("#receiveStatePension_yes")
     browser.submit("button[type='submit']")
   }
 
@@ -89,16 +89,16 @@ object Formulate {
     browser.click("#maritalStatus_Single")
     browser.click("#hadPartnerSinceClaimDate_no")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
-    browser.click("#beenInEducationSinceClaimDate_yes")
+    browser.click("#receiveStatePension_yes")
     browser.submit("button[type='submit']")
   }
   
-  def moreAboutYouNotBeenInEducationSinceClaimDate(browser: TestBrowser) = {
+  def moreAboutYouSinglePartnerBenefitsYes(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
     browser.click("#maritalStatus_Single")
     browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
-    browser.click("#beenInEducationSinceClaimDate_no")
+    browser.click("#receiveStatePension_yes")
     browser.submit("button[type='submit']")
   }
 
@@ -327,12 +327,12 @@ object Formulate {
   // Education
   def yourCourseDetails(browser: TestBrowser) = {
     val courseTitle = "Law"
-    val startDateDay = "16"
     val nameOfSchoolCollegeOrUniversity = "University"
     val nameOfMainTeacherOrTutor = "Mr Whiskers"
     val courseContactNumber = "12345"
 
     browser.goTo("/education/your-course-details")
+    browser.click("#beenInEducationSinceClaimDate_yes")
     browser.fill("#courseTitle") `with` courseTitle
     browser.fill("#nameOfSchoolCollegeOrUniversity") `with` nameOfSchoolCollegeOrUniversity
     browser.fill("#nameOfMainTeacherOrTutor") `with` nameOfMainTeacherOrTutor

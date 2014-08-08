@@ -12,7 +12,7 @@ final class
 G8MoreAboutYouPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G8MoreAboutYouPage.url, G8MoreAboutYouPage.title) {
   declareRadioList("#maritalStatus", "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus")
   declareYesNo("#hadPartnerSinceClaimDate", "AboutYouHaveYouHadaPartnerSpouseatAnyTime")
-  declareYesNo("#beenInEducationSinceClaimDate", "AboutYouHaveYouBeenOnACourseOfEducation")
+  declareYesNo("#receiveStatePension", "AboutYouDoYouGetStatePension")
 }
 
 /**

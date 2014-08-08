@@ -9,6 +9,7 @@ import utils.pageobjects._
  *         Date: 06/08/2013
  */
 class G1YourCourseDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1YourCourseDetailsPage.url, G1YourCourseDetailsPage.title) {
+  declareYesNo("#beenInEducationSinceClaimDate", "EducationHaveYouBeenOnACourseOfEducation")
   declareInput("#courseTitle","EducationCourseTitle")
   declareInput("#nameOfSchoolCollegeOrUniversity","EducationNameofSchool")
   declareInput("#nameOfMainTeacherOrTutor","EducationNameOfMainTeacherOrTutor")

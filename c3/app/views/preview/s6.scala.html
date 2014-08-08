@@ -3,21 +3,18 @@
 
 @import play.api.i18n.{MMessages => Messages}
 
-@moreAboutYou = @{claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())}
-@yourCourseDetails = @{claim.questionGroup[YourCourseDetails]}
+@yourCourseDetails = @{claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())}
 
 <h2>@Html(Messages("s6.progressbar.name"))</h2>
 <dl>
-    <dt>@Html(Messages("beenInEducationSinceClaimDate"))</dt><dd>@{Messages("label."+moreAboutYou.beenInEducationSinceClaimDate)}</dd>
-    @if(yourCourseDetails.isDefined){
-        @defining(yourCourseDetails.get){ yourCourseDetails =>
-          <dt>@Html(Messages("courseTitle"))</dt><dd>@{yourCourseDetails.title}</dd>
-          <dt>@Html(Messages("nameOfSchoolCollegeOrUniversity"))</dt><dd>@{yourCourseDetails.nameOfSchoolCollegeOrUniversity}</dd>
-          <dt>@Html(Messages("nameOfMainTeacherOrTutor"))</dt><dd>@{yourCourseDetails.nameOfMainTeacherOrTutor}</dd>
-          @if(yourCourseDetails.courseContactNumber.isDefined){
-            <dt>@Html(Messages("courseContactNumber"))</dt><dd>@{yourCourseDetails.courseContactNumber.get}</dd>
-          }
-          <dt>@Html(Messages("startEndDates"))</dt><dd>@{yourCourseDetails.startDate.`dd month, yyyy`} - @{yourCourseDetails.expectedEndDate.`dd month, yyyy`}</dd>
+    <dt>@Html(Messages("beenInEducationSinceClaimDate"))</dt><dd>@{Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate)}</dd>
+        @if(yourCourseDetails.beenInEducationSinceClaimDate == "yes"){
+            <dt>@Html(Messages("courseTitle"))</dt><dd>@{yourCourseDetails.title}</dd>
+            <dt>@Html(Messages("nameOfSchoolCollegeOrUniversity"))</dt><dd>@{yourCourseDetails.nameOfSchoolCollegeOrUniversity}</dd>
+            <dt>@Html(Messages("nameOfMainTeacherOrTutor"))</dt><dd>@{yourCourseDetails.nameOfMainTeacherOrTutor}</dd>
+            @if(yourCourseDetails.courseContactNumber.isDefined){
+              <dt>@Html(Messages("courseContactNumber"))</dt><dd>@{yourCourseDetails.courseContactNumber.get}</dd>
+            }
+            <dt>@Html(Messages("startEndDates"))</dt><dd>@{yourCourseDetails.startDate.get.`dd month, yyyy`} - @{yourCourseDetails.expectedEndDate.get.`dd month, yyyy`}</dd>
         }
-    }
 </dl>

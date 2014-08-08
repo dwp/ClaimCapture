@@ -16,7 +16,7 @@ class G8MoreAboutYouSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("maritalStatus" -> maritalStatus,
           "hadPartnerSinceClaimDate" -> "yes",
-        "beenInEducationSinceClaimDate" -> "yes")
+          "receiveStatePension" -> "yes")
 
       val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
@@ -29,7 +29,7 @@ class G8MoreAboutYouSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("maritalStatus" -> maritalStatus,
         "hadPartnerSinceClaimDate" -> "no",
-        "beenInEducationSinceClaimDate" -> "yes")
+        "receiveStatePension" -> "yes")
 
       val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
@@ -37,31 +37,6 @@ class G8MoreAboutYouSpec extends Specification with Tags {
       val section: Section = claim.section(domain.YourPartner)
       section.visible must beFalse
     }
-    
-    "make Education Section visible" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("maritalStatus" -> maritalStatus,
-         "hadPartnerSinceClaimDate" -> "yes",
-        "beenInEducationSinceClaimDate" -> "yes")
 
-      val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
-
-      val section: Section = claim.section(domain.Education)
-      section.visible mustEqual true
-    }
-
-    "hide Education Section" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("maritalStatus" -> maritalStatus,
-         "hadPartnerSinceClaimDate" -> "yes",
-        "beenInEducationSinceClaimDate" -> "no")
-
-      val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
-
-      val section: Section = claim.section(domain.Education)
-      section.visible mustEqual false
-    }
   } section("unit", models.domain.AboutYou.id)
 }

@@ -18,6 +18,7 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
   val title = "Law"
 
   val formInput = Seq(
+    "beenInEducationSinceClaimDate" -> "yes",
     "courseTitle" -> title,
     "nameOfSchoolCollegeOrUniversity" -> nameOfSchoolCollegeOrUniversity,
     "nameOfMainTeacherOrTutor" -> nameOfMainTeacherOrTutor,
@@ -48,12 +49,13 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
 
       section.questionGroup(YourCourseDetails) must beLike {
         case Some(f: YourCourseDetails) => {
-          f.title mustEqual(title)
-          f.nameOfSchoolCollegeOrUniversity mustEqual(nameOfSchoolCollegeOrUniversity)
-          f.nameOfMainTeacherOrTutor mustEqual (nameOfMainTeacherOrTutor)
+          f.beenInEducationSinceClaimDate mustEqual("yes")
+          f.title mustEqual Some(title)
+          f.nameOfSchoolCollegeOrUniversity mustEqual Some(nameOfSchoolCollegeOrUniversity)
+          f.nameOfMainTeacherOrTutor mustEqual Some(nameOfMainTeacherOrTutor)
           f.courseContactNumber mustEqual Some(courseContactNumber)
-          f.startDate must equalTo(DayMonthYear(Some(16), Some(4), Some(1992), None, None))
-          f.expectedEndDate must equalTo(DayMonthYear(Some(30), Some(9), Some(1997), None, None))
+          f.startDate must equalTo(Some(DayMonthYear(Some(16), Some(4), Some(1992), None, None)))
+          f.expectedEndDate must equalTo(Some(DayMonthYear(Some(30), Some(9), Some(1997), None, None)))
         }
       }
     }

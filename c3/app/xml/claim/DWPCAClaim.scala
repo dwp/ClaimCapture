@@ -2,17 +2,17 @@ package xml.claim
 
 import app.XMLValues._
 import play.api.Logger
-import models.domain.MoreAboutYou
+import models.domain.{YourCourseDetails, MoreAboutYou, Claim}
 import xml.XMLHelper._
 import xml._
-import models.domain.Claim
 import scala.language.postfixOps
 
 object DWPCAClaim extends XMLComponent {
 
   def xml(claim: Claim) = {
 
-    val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
+    val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
+    val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails(beenInEducationSinceClaimDate = no))
     val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = no, beenSelfEmployedSince1WeekBeforeClaim = no))
     val additionalInfo = claim.questionGroup[models.domain.AdditionalInfo].getOrElse(models.domain.AdditionalInfo())
     val claimDate = claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)
@@ -25,7 +25,7 @@ object DWPCAClaim extends XMLComponent {
       {Claimant.xml(claim)}
       {Caree.xml(claim)}
       {Residency.xml(claim)}
-      {question(<CourseOfEducation/>, "beenInEducationSinceClaimDate.label",moreAboutYou.beenInEducationSinceClaimDate, claimDate)}
+      {question(<CourseOfEducation/>, "beenInEducationSinceClaimDate.label",courseDetails.beenInEducationSinceClaimDate, claimDate)}
       {FullTimeEducation.xml(claim)}
       {question(<SelfEmployed/>, "beenSelfEmployedSince1WeekBeforeClaim.label",employment.beenSelfEmployedSince1WeekBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 1 week}")(dmy => (dmy - 1 week).`dd/MM/yyyy`),claimDate)}
       {SelfEmployment.xml(claim)}

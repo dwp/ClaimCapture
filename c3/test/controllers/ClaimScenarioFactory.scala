@@ -127,7 +127,6 @@ object ClaimScenarioFactory {
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Divorced or civil partnership dissolved"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "Yes"
-    claim.AboutYouHaveYouBeenOnACourseOfEducation = "Yes"
 
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
@@ -162,7 +161,6 @@ object ClaimScenarioFactory {
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "no"
-    claim.AboutYouHaveYouBeenOnACourseOfEducation = "no"
     claim.AboutYouDoYouGetStatePension = "no"
 
     claim
@@ -268,7 +266,7 @@ object ClaimScenarioFactory {
     val claim = s4CareYouProvideWithNoBreaksInCare()
 
     // Education
-    claim.AboutYouHaveYouBeenOnACourseOfEducation = "No"
+    claim.EducationHaveYouBeenOnACourseOfEducation = "No"
 
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
@@ -299,15 +297,17 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s6PayDetailsPageObjects() = {
+  def s6Education() = {
     val claim = s5TimeSpentAbroad()
     // Address of School College or University
+    claim.EducationHaveYouBeenOnACourseOfEducation = "Yes"
+    claim.EducationCourseTitle = "Course 101"
     claim.EducationNameofSchool = "Lancaster University"
     claim.EducationNameOfMainTeacherOrTutor = "Dr. Ray Charles"
-    claim.EducationAddress = "Lancaster University& Bailrigg& Lancaster"
-    claim.EducationPostcode = "LA1 4YW"
-    claim.EducationPhoneNumber = "01524 65201"
-    claim.EducationFaxNumber = "01524 36841"
+    claim.EducationPhoneNumber = "123456789"
+    claim.EducationWhenDidYouStartTheCourse = "10/04/2013"
+    claim.EducationWhenDoYouExpectTheCourseToEnd = "10/04/2013"
+
     claim
   }
 
