@@ -2,18 +2,18 @@ package services.submission
 
 import app.ReportChange._
 import app.XMLValues._
-import play.api.mvc.{AnyContent, Request}
-import play.api.Logger
 import controllers.submission._
-import models.view.{CachedChangeOfCircs, CachedClaim}
-import play.api.mvc.Results._
-import models.domain.{CircumstancesDeclaration, ReportChanges, Claim}
-import services.ClaimTransactionComponent
-import play.api.i18n.Lang
+import models.domain.{CircumstancesDeclaration, Claim, ReportChanges}
 import models.view.CachedClaim._
-import scala.Some
-import play.api.mvc.SimpleResult
+import models.view.{CachedChangeOfCircs, CachedClaim}
+import play.api.Logger
+import play.api.i18n.Lang
+import play.api.mvc.Results._
+import play.api.mvc.{AnyContent, Request, SimpleResult}
+import services.ClaimTransactionComponent
 import services.async.AsyncActors
+
+import scala.util.{Success, Try}
 
 trait ClaimSubmissionService {
 
@@ -71,17 +71,25 @@ object ClaimSubmissionService {
   val SERVER_ERROR = "9004"
   val COMMUNICATION_ERROR = "9005"
   val SERVICE_UNAVAILABLE = "9006"
+  val BAD_GATEWAY = "9007"
 
-  val httpStatusCodes = Map(
-  400->"BAD_REQUEST_ERROR",
-  408->"REQUEST_TIMEOUT_ERROR",
-  500->"SERVER_ERROR",
-  503->"SERVICE_UNAVAILABLE")
+
+  def httpStatusCodes(status: Int) = status match {
+    case 400 => "BAD_REQUEST_ERROR"
+    case 408 => "REQUEST_TIMEOUT_ERROR"
+    case 500 => "SERVER_ERROR"
+    case 502 => "BAD_GATEWAY"
+    case 503 => "SERVICE_UNAVAILABLE"
+    case _ => "UNKNOWN_ERROR"
+  }
 
   val txnStatusConst = Map(
-    "BAD_REQUEST_ERROR"->"9002",
-    "REQUEST_TIMEOUT_ERROR"->"9003",
-    "SERVER_ERROR"->"9004",
-    "SERVICE_UNAVAILABLE"->"9006")
+    "UNKNOWN_ERROR"->UNKNOWN_ERROR,
+    "BAD_REQUEST_ERROR"->BAD_REQUEST_ERROR,
+    "REQUEST_TIMEOUT_ERROR"->REQUEST_TIMEOUT_ERROR,
+    "SERVER_ERROR"->SERVER_ERROR,
+    "SERVICE_UNAVAILABLE"->SERVICE_UNAVAILABLE,
+    "BAD_GATEWAY"->BAD_GATEWAY
+  )
 
 }

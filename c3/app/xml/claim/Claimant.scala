@@ -18,7 +18,7 @@ object Claimant extends XMLComponent {
       {question(<DateOfBirth/>,"dateOfBirth", yourDetails.dateOfBirth)}
       {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", encrypt(yourDetails.nationalInsuranceNumber))}
       {postalAddressStructure("address", contactDetails.address, encrypt(contactDetails.postcode.getOrElse("").toUpperCase))}
-      {question(<DayTimePhoneNumber/>,"s2.g2.howcontactyou", contactDetails.howWeContactYou)}
+      {question(<DayTimePhoneNumber/>,"howWeContactYou", contactDetails.howWeContactYou)}
       {question(<MaritalStatus/>, "maritalStatus", moreAboutYou.maritalStatus)}
       {question(<TextPhoneContact/>,"contactYouByTextphone", contactDetails.contactYouByTextphone.getOrElse(""))}
     </Claimant>
