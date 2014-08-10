@@ -17,7 +17,9 @@
 	            <legend>@Html(Messages("s6.g1"))</legend>
 	
 	            <ul>
-                    @yesNoRadioGroup(currentForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+                    @yesNoRadioGroup(currentForm("beenInEducationSinceClaimDate"),
+                        '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)),
+                        'helperAbove -> Messages("beenInEducationSinceClaimDate.label.helper"))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
