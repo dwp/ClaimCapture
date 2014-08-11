@@ -80,7 +80,6 @@ object Formulate {
     browser.goTo("/about-you/more-about-you")
     browser.click("#maritalStatus_Single")
     browser.click("#hadPartnerSinceClaimDate_yes")
-    browser.click("#receiveStatePension_yes")
     browser.submit("button[type='submit']")
   }
 
@@ -89,7 +88,6 @@ object Formulate {
     browser.click("#maritalStatus_Single")
     browser.click("#hadPartnerSinceClaimDate_no")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
-    browser.click("#receiveStatePension_yes")
     browser.submit("button[type='submit']")
   }
   
@@ -98,7 +96,6 @@ object Formulate {
     browser.click("#maritalStatus_Single")
     browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
-    browser.click("#receiveStatePension_yes")
     browser.submit("button[type='submit']")
   }
 

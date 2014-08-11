@@ -91,8 +91,7 @@ object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
 }
 
 case class MoreAboutYou(maritalStatus: String = "",
-                        hadPartnerSinceClaimDate: Option[String] = None,
-                        receiveStatePension: String = "") extends QuestionGroup(MoreAboutYou)
+                        hadPartnerSinceClaimDate: Option[String] = None) extends QuestionGroup(MoreAboutYou)
 
 object MoreAboutYou extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g8"

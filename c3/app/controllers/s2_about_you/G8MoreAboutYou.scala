@@ -13,8 +13,7 @@ import models.domain._
 object G8MoreAboutYou extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "maritalStatus" -> nonEmptyText,
-    "hadPartnerSinceClaimDate" -> optional(nonEmptyText.verifying(validYesNo)),
-    "receiveStatePension" -> nonEmptyText.verifying(validYesNo)
+    "hadPartnerSinceClaimDate" -> optional(nonEmptyText.verifying(validYesNo))
   )(MoreAboutYou.apply)(MoreAboutYou.unapply)
     .verifying("hadPartnerSinceClaimDate.required",MoreAboutYou.validateHadPartner _)
   )
@@ -36,7 +35,6 @@ object G8MoreAboutYou extends Controller with CachedClaim with Navigable {
       ,
       moreAboutYou => {
         val updatedClaim = claim.showHideSection(moreAboutYou.hadPartnerSinceClaimDate == Some(yes) || moreAboutYou.maritalStatus == "p", YourPartner)
-                                .showHideSection(moreAboutYou.receiveStatePension == no, PayDetails)
 
         updatedClaim.update(moreAboutYou) -> Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
       })
