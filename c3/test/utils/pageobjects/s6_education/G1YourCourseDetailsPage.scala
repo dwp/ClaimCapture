@@ -23,7 +23,7 @@ class G1YourCourseDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1YourCourseDetailsPage {
-  val title = "Your course details - About your education".toLowerCase
+  val title = "Your course details - Education".toLowerCase
 
   val url  = "/education/your-course-details"
 

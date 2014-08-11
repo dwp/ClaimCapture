@@ -26,7 +26,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       browser.find("button[type='submit']").getText shouldEqual "Next"
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Your course details - About your education")
+      titleMustEqual("Your course details - Education")
     }
 
 
