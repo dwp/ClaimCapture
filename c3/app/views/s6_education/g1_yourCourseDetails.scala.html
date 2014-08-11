@@ -14,12 +14,12 @@
 
         <div class="form-wrap">
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:education">
-	            <legend>@Html(Messages("s6.g1"))</legend>
 	
 	            <ul>
                     @yesNoRadioGroup(currentForm("beenInEducationSinceClaimDate"),
                         '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)),
-                        'helperAbove -> Messages("beenInEducationSinceClaimDate.label.helper"))
+                        'helperAbove -> Messages("beenInEducationSinceClaimDate.label.helper", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))
+                    )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
