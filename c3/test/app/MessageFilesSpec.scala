@@ -3,6 +3,7 @@ package app
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithApplication
 import play.Logger
+import play.api.i18n.Messages
 
 class MessageFilesSpec extends Specification with Tags {
   "Property files" should {
@@ -29,6 +30,7 @@ class MessageFilesSpec extends Specification with Tags {
         println("conf/cy/%s.cy.properties".format(cyFile))
         val cyS = scala.io.Source.fromFile("conf/cy/%s.cy.properties".format(cyFile))
         val linesFromCyS = cyS.getLines.filterNot(_.isEmpty).filterNot(s => s.startsWith("#")).toList
+        if (linesFromCyS.toString.contains("translate")) Logger.warn(s"$cyFile contains English text waiting for translation to Welsh")
         val cyKeys = linesFromCyS.map(pair => pair.split("=").map(k => k.trim))
         cyS.close()
         cyKeys
