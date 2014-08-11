@@ -13,7 +13,8 @@ case class YourDetails(title: String = "",
                        surname: String = "",
                        otherSurnames: Option[String] = None,
                        nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(None,None,None,None,None),
-                       dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)) extends QuestionGroup(YourDetails) {
+                       dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                       receiveStatePension: String = "") extends QuestionGroup(YourDetails) {
 
   def otherNames = firstName + middleName.map(" " + _).getOrElse("")
 }
@@ -83,7 +84,7 @@ trait FiftyTwoWeeksTrip extends TripPeriod {
   this: Trip =>
 }
 
-case class OtherEEAStateOrSwitzerland(benefitsFromEEA: String = "", claimedForBenefitsFromEEA: String = "", workingForEEA: String = "") extends QuestionGroup(OtherEEAStateOrSwitzerland)
+case class OtherEEAStateOrSwitzerland(benefitsFromEEA: String = "", workingForEEA: String = "") extends QuestionGroup(OtherEEAStateOrSwitzerland)
 
 object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g7"
@@ -91,7 +92,6 @@ object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
 
 case class MoreAboutYou(maritalStatus: String = "",
                         hadPartnerSinceClaimDate: Option[String] = None,
-                        beenInEducationSinceClaimDate: String = "",
                         receiveStatePension: String = "") extends QuestionGroup(MoreAboutYou)
 
 object MoreAboutYou extends QuestionGroup.Identifier {

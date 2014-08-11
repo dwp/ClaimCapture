@@ -22,7 +22,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       click("#answer_no")
       next
-      titleMustEqual("Your course details - About your education")
+      titleMustEqual("Your course details - Education")
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start date" and "medical" """ in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {

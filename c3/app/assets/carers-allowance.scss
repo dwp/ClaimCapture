@@ -142,9 +142,21 @@ main {
 		   	   padding-top: 0;
 	   	   }
    	   }
-   	   
-   	   
-   	   
+
+
+  .help-statement {
+
+    h3 {
+      font-weight: 100;
+    }
+
+    p {
+      padding: 0 0 0 .8em;
+      margin: 1em 0 2em 0;
+      border-left: 5px solid #dee0e2;
+    }
+
+  }
    	   
    	   
    	   
@@ -422,6 +434,9 @@ main {
 					   text-decoration: none;
 				   }
 			   }
+
+
+
 
 				.helper-info {
 					padding: 1em 1em 0 .8em;
@@ -1025,7 +1040,7 @@ main {
    padding: 1em 0;
    background: #ccc;
    text-align: center;
-   } 
+   }
 
 
 

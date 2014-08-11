@@ -13,7 +13,7 @@ import scala.xml.NodeSeq
 object OtherBenefits extends XMLComponent {
 
   def xml(claim: Claim) = {
-    val moreAboutYou = claim.questionGroup[MoreAboutYou]
+    val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
     val aboutOtherMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
     val statutorySickPay = aboutOtherMoney.statutorySickPay
     val otherStatutoryPayOption = aboutOtherMoney.otherStatutoryPay
@@ -22,11 +22,7 @@ object OtherBenefits extends XMLComponent {
 
     <OtherBenefits>
       <ClaimantBenefits>
-        { moreAboutYou match {
-            case Some(n) => question(<StatePension/>,"receiveStatePension",n.receiveStatePension)
-            case _ => NodeSeq.Empty
-          }
-        }
+        {question(<StatePension/>,"receiveStatePension",yourDetails.receiveStatePension)}
       </ClaimantBenefits>
       {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label", statutorySickPay.answer,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
       {otherMoneySPPXml(statutorySickPay)}
@@ -51,7 +47,6 @@ object OtherBenefits extends XMLComponent {
         }}
       <EEA>
         {question(<EEAReceivePensionsBenefits/>,"benefitsFromEEA", otherEEAState.benefitsFromEEA)}
-        {question(<EEAClaimPensionsBenefits/>,"claimedForBenefitsFromEEA", otherEEAState.claimedForBenefitsFromEEA)}
         {question(<EEAWorkingInsurance/>,"workingForEEA", otherEEAState.workingForEEA)}
       </EEA>
     </OtherBenefits>

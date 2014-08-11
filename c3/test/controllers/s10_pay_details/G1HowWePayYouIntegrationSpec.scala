@@ -17,9 +17,9 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
 
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
+      Formulate.yourDetails(browser)
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYou(browser)
 
       browser.goTo("/pay-details/how-we-pay-you")
       titleMustEqual("Additional information - Consent and Declaration")

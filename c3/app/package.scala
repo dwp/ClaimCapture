@@ -6,7 +6,6 @@ package object app {
   object AccountStatus {
     val BankBuildingAccount = "UK bank or building society account"
     val AppliedForAccount = "You don't have an account but intend to open one"
-    val NotOpenAccount = "Other - you would like more information"
   }
 
   object ActingType {

@@ -22,8 +22,7 @@
 
 	            <ul>
 	                @listRadioGroup(currentForm("likeToPay"),
-                                    'items -> Seq(BankBuildingAccount , AppliedForAccount, NotOpenAccount).map(s => s -> Messages(s)),
-                                    'helperAbove -> Messages("howWePayYou.helper"),
+                                    'items -> Seq(BankBuildingAccount , AppliedForAccount).map(s => s -> Messages(s)),
                                     '_nestedFieldSet -> true)
 	
 	                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect")) ++ Seq(EveryWeek,FourWeekly).map(s => s -> Messages(s)))

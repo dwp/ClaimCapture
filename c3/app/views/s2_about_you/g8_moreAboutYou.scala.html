@@ -42,8 +42,6 @@
             <fieldset class="form-elements">
                 <legend>@Html(Messages("s2.g8"))</legend>
                 <ul>
-	                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
-	
 	                @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"), '_label -> Messages("receiveStatePension"), 'helperAbove -> pensionHelpWithLink)
 	            </ul>
             </fieldset>
