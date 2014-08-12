@@ -137,6 +137,7 @@ object Formulate {
   // Your partner
   def yourPartnerPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/your-partner/personal-details")
+    browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#middleName") `with` "Dave"
@@ -154,10 +155,11 @@ object Formulate {
     browser.click("#isPartnerPersonYouCareFor_yes")
     browser.submit("button[type='submit']")
   }
-  
+
   def personYouCareForNotPartner(browser: TestBrowser) = {
     browser.goTo("/your-partner/person-you-care-for")
     browser.click("#isPartnerPersonYouCareFor_no")
+    browser.click("#hadPartnerSinceClaimDate_yes")
     browser.submit("button[type='submit']")
   }
   
