@@ -203,14 +203,6 @@ object Formulate {
     browser.fill("#postcode") `with` "RM11 1DA"
     browser.submit("button[type='submit']")
   }
-  
-  def theirContactDetailsInvalidPhoneNumber(browser: TestBrowser) = {
-    browser.goTo("/care-you-provide/their-contact-details")
-    browser.fill("#address_lineOne") `with` "Their Address"
-    browser.fill("#postcode") `with` "RM11 1DA"
-    browser.fill("#phoneNumber") `with` "INVALID"
-    browser.submit("button[type='submit']")
-  }
 
   def moreAboutTheCare(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/more-about-the-care")

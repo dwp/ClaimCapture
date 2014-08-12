@@ -21,7 +21,6 @@ object Caree extends XMLComponent {
       {question(<DateOfBirth/>, "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`)}
       {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", encrypt(theirPersonalDetails.nationalInsuranceNumber.getOrElse("")))}
       {postalAddressStructure("address", theirContactDetails.address, encrypt(theirContactDetails.postcode.getOrElse("").toUpperCase))}
-      {question(<DayTimePhoneNumber/>,"phoneNumber", theirContactDetails.phoneNumber)}
       {question(<RelationToClaimant/>,"relationship", theirPersonalDetails.relationship)}
       {question(<Cared35Hours/>,"hours.answer", moreAboutTheCare.spent35HoursCaring)}
       {careBreak(claim)}
