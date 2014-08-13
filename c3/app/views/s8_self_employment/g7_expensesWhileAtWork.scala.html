@@ -12,7 +12,7 @@
 
 @displayRelationToPartner = @{
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
-        case (Some(m: MoreAboutYou),Some(p: YourPartnerPersonalDetails)) if (m.hadPartnerSinceClaimDate == Some("yes") || m.maritalStatus == "p" ) && p.isPartnerPersonYouCareFor == Some("no") => "yes"
+        case (Some(m: MoreAboutYou),Some(p: YourPartnerPersonalDetails)) if (p.hadPartnerSinceClaimDate == "yes" || m.maritalStatus == "Living with partner" ) && p.isPartnerPersonYouCareFor == Some("no") => "yes"
         case _ => "no"
     }
 }

@@ -40,7 +40,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("More about you - About you - the carer")
 
       Formulate.moreAboutYouSinglePartnerBenefitsYes(browser)
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
+      titleMustEqual("Partner details - About your partner")
 
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")
@@ -71,7 +71,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("More about you - About you - the carer")
 
       Formulate.moreAboutYouSinglePartnerBenefitsYes(browser)
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
+      titleMustEqual("Partner details - About your partner")
 
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")

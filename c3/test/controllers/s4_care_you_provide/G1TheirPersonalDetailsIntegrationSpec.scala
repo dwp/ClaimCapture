@@ -25,7 +25,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       titleMustEqual("Contact details of the person you care for - About the care you provide")
     }
 
-    """navigate back to "Partner/Spouse details - About your partner/spouse" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
+    """navigate back to "Partner details - About your partner" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
@@ -35,17 +35,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       Formulate.clickBackButton(browser)
       titleMustEqual(G1YourPartnerPersonalDetailsPage.title)
     }
-        
-    """navigate back to "More about you - About you - the carer" when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
-      Formulate.claimDate(browser)
-      Formulate.nationalityAndResidency(browser)
-      Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
-      browser.goTo("/care-you-provide/their-personal-details")
-      browser.click("#backButton")
-      titleMustEqual("More about you - About you - the carer")
-    }
-    
+
     "contain the completed forms" in new WithBrowser {
       Formulate.theirPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1

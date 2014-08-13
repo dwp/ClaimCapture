@@ -7,6 +7,12 @@
 @import views.html.helper.dates._
 @import utils.helpers._
 @import play.api.i18n.{MMessages => Messages}
+
+@partnerHelpWithLink = @{
+    Html(Messages("s3.g1.help")) + """ <a href="/claim-help#5"""" + views.html.ga.trackClickEvent(linkName = Messages("s3.g1.track")) + """>""" + Html(Messages("s3.g1.link")) + """</a>"""
+}
+
+
 @main(Messages("s3.g1") + " - " + Messages("s3.longName"), Some(currentForm)) {
 
 
@@ -15,12 +21,19 @@
 
         <div class="form-wrap">
             <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
-                <legend>@Html(Messages("s3.g1"))</legend>
+                <p>@Html(partnerHelpWithLink)</p>
+                <div class="prompt nested-prompt">
+                    <legend>@Html(Messages("haveLivedWithPartnerSinceClaimDate.label"))</legend>
+                    <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help1", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))</p>
+                    <ul>
+                        <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help2"))</li>
+                        <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help3"))</li>
+                    </ul>
+                    <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help4"))</p>
+                </div>
                 <ul>
                     @yesNoRadioGroup(currentForm("hadPartnerSinceClaimDate"),
-                        '_label -> Messages("haveLivedWithPartnerSinceClaimDate.label",
-                            claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)),
-                        'helperAbove -> Messages("hadPartnerSinceClaimDate.helper1"))
+                        '_label -> Messages("haveLivedWithPartnerSinceClaimDate.label"), '_showLabel -> false)
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(

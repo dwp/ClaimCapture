@@ -11,7 +11,7 @@
 @import play.api.i18n.{MMessages => Messages}
 
 @pensionHelpWithLink = @{
-    Html(Messages("receiveStatePension.help")) + """ <a href="/claim-help#4"""" + views.html.ga.trackClickEvent(linkName = "Claim Notes - State Pension") + """>""" + Html(Messages("receiveStatePension.help.link")) + """</a>"""
+    Html(Messages("receiveStatePension.help")) + """ <a href="/claim-help#4"""" + views.html.ga.trackClickEvent(linkName = Messages("receiveStatePension.help.track")) + """>""" + Html(Messages("receiveStatePension.help.link")) + """</a>"""
 }
 
 @main(Messages("s2.g1") + " - " + Messages("s2.longName")) {
