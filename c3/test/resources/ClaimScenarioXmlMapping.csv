@@ -148,7 +148,6 @@ Self Employed,Expenses related to the person you care for while at work,How ofte
 Self Employed,Expenses related to the person you care for while at work,Name of the person/organisation you pay,SelfEmployedCareExpensesNameOfPerson,SelfEmployment>CareExpenses>CarerName>Answer
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person/organisation to you?",SelfEmployedCareExpensesWhatRelationIsToYou,SelfEmployment>CareExpenses>RelationshipCarerToClaimant>Answer
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is this person/organisation to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,SelfEmployment>CareExpenses>RelationshipCarerToCaree>Answer
-Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,OtherBenefits>OtherMoney>Answer
 Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,OtherBenefits>OtherMoneyPayments>Answer
 Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,OtherBenefits>OtherMoneyDetails>Name>Answer
 Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,OtherBenefits>OtherMoneyDetails>Payment>Payment>Answer>Amount

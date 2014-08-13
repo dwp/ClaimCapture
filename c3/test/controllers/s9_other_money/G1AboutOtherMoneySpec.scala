@@ -11,7 +11,6 @@ import models.view.CachedClaim
 
 class G1AboutOtherMoneySpec extends Specification with Tags {
   "Benefits and payments - Controller" should {
-    val yourBenefits = "yes"
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"
     val howMuch = "12"
@@ -24,8 +23,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     val employersPostcode = "PR1A4JQ"
     val yes = "yes"
 
-    val formInput = Seq("yourBenefits.answer" -> yourBenefits,
-      "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
+    val formInput = Seq("anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
       "whoPaysYou" -> whoPaysYou,
       "howMuch" -> howMuch,
       "howOften.frequency" -> howOften_frequency,
@@ -68,7 +66,6 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
 
       section.questionGroup(AboutOtherMoney) must beLike {
         case Some(f: AboutOtherMoney) => {
-          f.yourBenefits.answer must equalTo(yourBenefits)
           f.anyPaymentsSinceClaimDate.answer must equalTo(anyPaymentsSinceClaimDate)
           f.whoPaysYou must equalTo(Some(whoPaysYou))
           f.howMuch must equalTo(Some(howMuch))
@@ -92,8 +89,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     "return a bad request after an invalid submission" in {
       "reject invalid yesNo answers" in new WithApplication with Claiming {
         val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-          .withFormUrlEncodedBody("yourBenefits.answer" -> "INVALID",
-            "anyPaymentsSinceClaimDate.answer" -> "INVALID",
+          .withFormUrlEncodedBody("anyPaymentsSinceClaimDate.answer" -> "INVALID",
             "statutorySickPay.answer" -> "INVALID", "otherStatutoryPay.answer" -> "INVALID")
 
         val result = controllers.s9_other_money.G1AboutOtherMoney.submit(request)
@@ -110,8 +106,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
 
       "reject a howOften frequency of other with no other text entered" in new WithApplication with Claiming {
         val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-          .withFormUrlEncodedBody("yourBenefits.answer" -> yourBenefits,
-            "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
+          .withFormUrlEncodedBody("anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
             "whoPaysYou" -> whoPaysYou,
             "howMuch" -> howMuch,
             "howOften.frequency" -> "Other",

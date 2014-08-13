@@ -5,7 +5,6 @@ import models.{MultiLineAddress, PaymentFrequency}
 
 class G1AboutOtherMoneyFormSpec extends Specification with Tags {
   "About Other Money Form" should {
-    val yourBenefits = "yes"
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"
     val howMuch = "12"
@@ -21,8 +20,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
 
     "map data into case class" in {
       G1AboutOtherMoney.form.bind(
-        Map("yourBenefits.answer" -> yourBenefits,
-          "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
+        Map("anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
           "whoPaysYou" -> whoPaysYou,
           "howMuch" -> howMuch,
           "howOften.frequency" -> howOften_frequency,
@@ -49,7 +47,6 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
       ).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
-            f.yourBenefits.answer must equalTo(yourBenefits)
             f.anyPaymentsSinceClaimDate.answer must equalTo(anyPaymentsSinceClaimDate)
             f.whoPaysYou must equalTo(Some(whoPaysYou))
             f.howMuch must equalTo(Some(howMuch))
@@ -70,23 +67,20 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
     "return a bad request after an invalid submission" in {
       "reject invalid yesNo answers" in {
         G1AboutOtherMoney.form.bind(
-          Map("yourBenefits.answer" -> "INVALID",
-            "anyPaymentsSinceClaimDate.answer" -> "INVALID",
+          Map("anyPaymentsSinceClaimDate.answer" -> "INVALID",
             "statutorySickPay.answer" -> "INVALID", "otherStatutoryPay.answer" -> "INVALID")).fold(
             formWithErrors => {
-              formWithErrors.errors.length must equalTo(4)
+              formWithErrors.errors.length must equalTo(3)
               formWithErrors.errors(0).message must equalTo("yesNo.invalid")
               formWithErrors.errors(1).message must equalTo("yesNo.invalid")
               formWithErrors.errors(2).message must equalTo("yesNo.invalid")
-              formWithErrors.errors(3).message must equalTo("yesNo.invalid")
             },
             f => "This mapping should not happen." must equalTo("Valid"))
       }
 
       "reject a howOften frequency of other with no other text entered - other money" in {
         G1AboutOtherMoney.form.bind(
-          Map("yourBenefits.answer" -> yourBenefits,
-            "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
+          Map("anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
             "whoPaysYou" -> whoPaysYou,
             "howMuch" -> howMuch,
             "howOften.frequency" -> "Other",
@@ -102,8 +96,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
 
       "reject a howOften frequency of other with no other text entered - statutory sick pay" in {
         G1AboutOtherMoney.form.bind(
-          Map("yourBenefits.answer" -> no,
-            "anyPaymentsSinceClaimDate.answer" -> no,
+          Map("anyPaymentsSinceClaimDate.answer" -> no,
             "statutorySickPay.answer" -> yes,
             "statutorySickPay.whoPaysYou" -> whoPaysYou,
             "statutorySickPay.howMuch" -> howMuch,
@@ -119,8 +112,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
 
       "reject a howOften frequency of other with no other text entered - other pay" in {
         G1AboutOtherMoney.form.bind(
-          Map("yourBenefits.answer" -> no,
-            "anyPaymentsSinceClaimDate.answer" -> no,
+          Map("anyPaymentsSinceClaimDate.answer" -> no,
             "otherStatutoryPay.answer" -> yes,
             "otherStatutoryPay.whoPaysYou" -> whoPaysYou,
             "otherStatutoryPay.howMuch" -> howMuch,
@@ -136,15 +128,13 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
 
       "allow optional fields to be left blank when answer is yes - other money" in {
         G1AboutOtherMoney.form.bind(
-          Map("yourBenefits.answer" -> "no",
-            "anyPaymentsSinceClaimDate.answer" -> yes,
+          Map("anyPaymentsSinceClaimDate.answer" -> yes,
             "statutorySickPay.answer" -> no,
             "otherStatutoryPay.answer" -> no,
             "whoPaysYou" -> whoPaysYou,
             "howMuch" -> howMuch)).fold(
             formWithErrors => "This mapping should not happen." must equalTo("Error"),
             f => {
-              f.yourBenefits.answer must equalTo("no")
               f.anyPaymentsSinceClaimDate.answer must equalTo("yes")
               f.howOften must equalTo(None)
               f.otherStatutoryPay.answer must equalTo(no)

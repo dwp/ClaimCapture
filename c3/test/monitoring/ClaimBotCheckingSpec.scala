@@ -291,17 +291,8 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beTrue
     }
 
-
-    "returns false given AboutOtherMoney answered no and honeyPot not filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("yes"), None, None, None,
-        YesNoWithEmployerAndMoney("no", None, None, None, None, None),
-        YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
-      controller.honeyPot(claim) should beFalse
-    }
-
     "returns true given AboutOtherMoney answered no and honeyPot howOften filled" in {
-
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), Some("Toys R Us"), Some("12"), howOften = Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text"))),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), Some("Toys R Us"), Some("12"), howOften = Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text"))),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
 
@@ -309,89 +300,87 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
     }
 
     "returns false given StatutorySickPay answered yes and honeyPot filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes", howMuch = Some("12"), None, None, None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes", howMuch = Some("12"), None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
     "returns false given StatutorySickPay answered no and honeyPot not filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
     "returns false given StatutorySickPay answered no and honeyPot howMuch filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", howMuch = None, None, None, None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", howMuch = None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
     "returns false given StatutorySickPay answered no and honeyPot howOften filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes",  None, Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly)), None, None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes",  None, Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly)), None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
     "returns true given StatutorySickPay answered no and honeyPot employersName filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, employersName = Some("some employersName"), None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, employersName = Some("some employersName"), None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beTrue
     }
 
     "returns false given StatutorySickPay answered no and honeyPot employersAddress filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes", None, None, None, Some(MultiLineAddress(Some("some lineOne"))), None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes", None, None, None, Some(MultiLineAddress(Some("some lineOne"))), None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
     "returns true given StatutorySickPay answered no and honeyPot employersPostcode filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, Some("PR1A4JQ")),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, Some("PR1A4JQ")),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beTrue
     }
 
     "returns false given OtherStatutoryPay answered yes and honeyPot filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("yes", Some("12"), None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
     "returns false given OtherStatutoryPay answered no and honeyPot not filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
     "returns true given OtherStatutoryPay answered no and honeyPot howMuch filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", howMuch=Some("12"), None, None, None, None)))
       controller.honeyPot(claim) should beTrue
     }
 
     "returns true given OtherStatutoryPay answered no and honeyPot howOften filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly)), None, None, None)))
       controller.honeyPot(claim) should beTrue
     }
 
     "returns true given OtherStatutoryPay answered no and honeyPot employersName filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, employersName = Some("some employersName"), None, None)))
       controller.honeyPot(claim) should beTrue
     }
 
     "returns true given OtherStatutoryPay answered no and honeyPot employersAddress filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, Some(MultiLineAddress(Some("some lineOne"))), None)))
       controller.honeyPot(claim) should beTrue
     }
 
     "returns true given OtherStatutoryPay answered no and honeyPot employersPostcode filled" in {
-      val claim = Claim().update(AboutOtherMoney(YesNo("no"), YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
+      val claim = Claim().update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, Some("PR1A4JQ"))))
       controller.honeyPot(claim) should beTrue
     }
-
-
   }
 }
