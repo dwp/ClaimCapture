@@ -20,7 +20,7 @@
 	            <legend>@Html(Messages("s2.g4"))</legend>
 	
 	            <ul>
-	                @yesNoRadioGroup(nationalityAndResidencyForm("nationality")("answer"),
+	                @yesNoRadioGroup(nationalityAndResidencyForm("nationality"),
                         'helperAbove -> Messages("nationality.helper"),
                         'values -> Seq(NationalityAndResidency.british -> Messages("label.british"), NationalityAndResidency.anothercountry -> Messages("label.anothercountry")),
 	                    '_label -> Messages("nationality.label"))
@@ -32,7 +32,7 @@
 	                            'maxLength -> 35)
 	                    ),
 	                    'id -> "residencyWrap",
-	                    'display -> { if (nationalityAndResidencyForm("nationality")("answer").value.getOrElse("notset") == "anothercountry") "yes" else "no" }
+	                    'display -> { if (nationalityAndResidencyForm("nationality").value.getOrElse("notset") == "anothercountry") "yes" else "no" }
 	                )
 	            </ul>
 	
@@ -52,8 +52,8 @@
 
 <script type="text/javascript">
     $(function(){
-        window.initEvents("@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("answer")("british").id)",
-                          "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("answer")("anothercountry").id)",
+        window.initEvents("@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("british").id)",
+                          "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("anothercountry").id)",
                           "@CarersCrypto.encryptAES(nationalityAndResidencyForm("residency").id)");
     });
 </script>

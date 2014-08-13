@@ -13,13 +13,8 @@ import utils.helpers.CarersForm._
 import models.yesNo.YesNo
 
 object G4NationalityAndResidency extends Controller with CachedClaim with Navigable {
-  val nationalityMapping =
-    "nationality" -> mapping(
-      "answer" -> nonEmptyText.verifying(NationalityAndResidency.validNationality)
-    )(YesNo.apply)(YesNo.unapply)
-
   val form = Form(mapping(
-    nationalityMapping,
+    "nationality" -> nonEmptyText.verifying(NationalityAndResidency.validNationality),
     "residency" -> optional(carersNonEmptyText(maxLength = 35))
   )(NationalityAndResidency.apply)(NationalityAndResidency.unapply)
     .verifying(NationalityAndResidency.residencyRequired)

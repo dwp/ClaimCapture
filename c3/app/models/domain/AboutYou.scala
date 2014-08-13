@@ -33,7 +33,7 @@ object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
 }
 
-case class NationalityAndResidency(nationality: YesNo = YesNo(""),
+case class NationalityAndResidency(nationality: String,
                                    residency: Option[String] = None) extends QuestionGroup(NationalityAndResidency)
 
 object NationalityAndResidency extends QuestionGroup.Identifier {
@@ -51,7 +51,7 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   }
 
   def residencyRequired: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.residency") { nationalityAndResidency =>
-    if (nationalityAndResidency.nationality.answer == anothercountry) {
+    if (nationalityAndResidency.nationality == anothercountry) {
       nationalityAndResidency.residency match {
         case Some(place) => Valid
         case None => Invalid(ValidationError("residency.required"))

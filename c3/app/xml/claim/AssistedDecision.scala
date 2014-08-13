@@ -106,8 +106,8 @@ object AssistedDecision extends XMLComponent {
   }
 
   private def normallyResideInUK(claim: Claim): NodeSeq = {
-    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency())
-    if (nationalityAndResidency.nationality.answer.toLowerCase != "yes") decisionElement("Person does not normally live in England, Scotland or Wales.", "Transfer to Exportability team.")
+    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
+    if (nationalityAndResidency.nationality.toLowerCase != "yes") decisionElement("Person does not normally live in England, Scotland or Wales.", "Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
