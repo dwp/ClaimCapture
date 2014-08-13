@@ -39,7 +39,7 @@ case class NationalityAndResidency(nationality: String,
 object NationalityAndResidency extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
 
-  val british = "british"
+  val british = "British"
   val anothercountry = "anothercountry"
 
   def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { answer =>

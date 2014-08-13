@@ -8,7 +8,7 @@ import play.api.test.Helpers._
 
 class G4NationalityAndResidencySpec extends Specification with Tags {
 
-  val inputBritish = Seq("nationality" -> "british")
+  val inputBritish = Seq("nationality" -> "British")
   val inputAnotherCountry = Seq("nationality" -> "anothercountry", "residency" -> "French")
   val inputAnotherCountryMissingData = Seq("nationality" -> "anothercountry")
   
@@ -27,7 +27,7 @@ class G4NationalityAndResidencySpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
-    """success for british input""" in new WithApplication with Claiming {
+    """success for British input""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputBritish: _*)
 
       val result = G4NationalityAndResidency.submit(request)
