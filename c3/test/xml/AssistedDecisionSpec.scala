@@ -388,7 +388,7 @@ class AssistedDecisionSpec extends Specification with Tags {
     }
 
     "Create an assisted decision section if person does not normally live in England, Scotland or Wales" in {
-      val residency = NationalityAndResidency(nationality = "anothercountry", residency=Some("Brazil"))
+      val residency = NationalityAndResidency(nationality = "Another Country", residency=Some("Brazil"))
       val claim = Claim().update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Person does not normally live in England, Scotland or Wales.")

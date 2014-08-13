@@ -9,8 +9,8 @@ import play.api.test.Helpers._
 class G4NationalityAndResidencySpec extends Specification with Tags {
 
   val inputBritish = Seq("nationality" -> "British")
-  val inputAnotherCountry = Seq("nationality" -> "anothercountry", "residency" -> "French")
-  val inputAnotherCountryMissingData = Seq("nationality" -> "anothercountry")
+  val inputAnotherCountry = Seq("nationality" -> "Another Country", "residency" -> "French")
+  val inputAnotherCountryMissingData = Seq("nationality" -> "Another Country")
   
   "Your nationality and residency" should {
     """present Your nationality and residency""" in new WithApplication with Claiming {

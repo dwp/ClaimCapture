@@ -44,7 +44,7 @@ object ClaimScenarioFactory {
 
   def yourNationalityAndResidencyNonResident() = {
     val claim = new TestData
-    claim.AboutYouNationalityAndResidencyNationality = "anothercountry"
+    claim.AboutYouNationalityAndResidencyNationality = "Another Country"
     claim.AboutYouNationalityAndResidencyNormalResidency = "France"
     claim
   }

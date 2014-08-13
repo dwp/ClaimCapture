@@ -40,7 +40,7 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
 
   val british = "British"
-  val anothercountry = "anothercountry"
+  val anothercountry = "Another Country"
 
   def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { answer =>
     answer match {
