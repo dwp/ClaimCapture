@@ -63,7 +63,6 @@ Education,Your course details,When did you start the course?,EducationWhenDidYou
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,01/01/2014
 Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,no
 Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,no
-Other Money,Benefits and payments,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,Yes
 Other Money,Benefits and payments,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
 Other Money,Benefits and payments,Benefits and payments: Who pays you?,OtherMoneyWhoPaysYou,
 Other Money,Benefits and payments,Benefits and payments: How much?,OtherMoneyHowMuch,

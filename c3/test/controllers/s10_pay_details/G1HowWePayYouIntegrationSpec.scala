@@ -44,7 +44,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
      * This test case has been modified to be in line with the new Page Object pattern.
      * Please modify the other test cases when you address them
      */
-    "navigate back to Other Statutory Pay - About Other Money" in new WithBrowser with PageObjects{
+    "navigate back to Other Statutory Pay - Other Money" in new WithBrowser with PageObjects{
 			val page =  G1AboutOtherMoneyPage(context)
       val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage()

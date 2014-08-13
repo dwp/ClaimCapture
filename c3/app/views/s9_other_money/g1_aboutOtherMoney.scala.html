@@ -24,11 +24,6 @@
 	            <legend>@Html(Messages("s9.g1"))</legend>
 	
 	            <ul>
-		            @yesNoRadioGroup(currentForm("yourBenefits")("answer"),
-                        '_label -> Messages("yourBenefits.answer", if(hadPartnerSinceClaimDate) Messages("orPartnerSpouse") else "", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)),
-                        'helperAbove -> yourBenefitsHelpWithLink
-                    )
-
 		            @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), 
 		              '_label -> Messages("anyPaymentsSinceClaimDate.answer",
 		              claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)),
@@ -59,9 +54,7 @@
 	            <legend>@Html(Messages("s9.g5"))</legend>
 	            <ul>
 	                @yesNoRadioGroup(currentForm("statutorySickPay.answer"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
-	
-	
-	
+
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        carersCurrency(currentForm("statutorySickPay.howMuch"), 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
@@ -82,11 +75,7 @@
 	             
 	
 	                @yesNoRadioGroup(currentForm("otherStatutoryPay.answer"), '_label -> Messages("otherPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
-	
-	
-	
-	
-	          
+
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        carersCurrency(currentForm("otherStatutoryPay.howMuch"), 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),

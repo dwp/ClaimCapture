@@ -7,8 +7,7 @@ case object OtherMoney extends Section.Identifier {
   val id = "s9"
 }
 
-case class AboutOtherMoney(yourBenefits: YesNo = YesNo(""),
-                        anyPaymentsSinceClaimDate: YesNo = YesNo(""),
+case class AboutOtherMoney(anyPaymentsSinceClaimDate: YesNo = YesNo(""),
                         whoPaysYou: Option[String] = None,
                         howMuch: Option[String] = None,
                         howOften: Option[PaymentFrequency] = None,
