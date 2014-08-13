@@ -8,6 +8,7 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
+@import models.domain.NationalityAndResidency
 
 @main(Messages("s2.g4") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.NationalityAndResidency)) {
     @errorsSummary(nationalityAndResidencyForm)
@@ -19,22 +20,19 @@
 	            <legend>@Html(Messages("s2.g4"))</legend>
 	
 	            <ul>
-	                @carersInputText(nationalityAndResidencyForm("nationality"),
+	                @yesNoRadioGroup(nationalityAndResidencyForm("nationality")("answer"),
                         'helperAbove -> Messages("nationality.helper"),
-                        'helperBelow -> Messages("nationality.helper2"),
-	                    'maxLength -> 35)
-	
-	                @yesNoRadioGroup(nationalityAndResidencyForm("resideInUK.answer"),
-	                    '_label -> Messages("resideInUK.label"))
+                        'values -> Seq(NationalityAndResidency.british -> Messages("label.british"), NationalityAndResidency.anothercountry -> Messages("label.anothercountry")),
+	                    '_label -> Messages("nationality.label"))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        carersInputText(nationalityAndResidencyForm("resideInUK.text"),
-	                            '_label -> Messages("resideInUK.text.label"),
+	                        carersInputText(nationalityAndResidencyForm("residency"),
+	                            '_label -> Messages("residency.text.label"),
 	                            'maxLength -> 35)
 	                    ),
 	                    'id -> "residencyWrap",
-	                    'display -> { if (nationalityAndResidencyForm("resideInUK.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+	                    'display -> { if (nationalityAndResidencyForm("nationality")("answer").value.getOrElse("notset") == "anothercountry") "yes" else "no" }
 	                )
 	            </ul>
 	
@@ -54,8 +52,8 @@
 
 <script type="text/javascript">
     $(function(){
-        window.initEvents("@CarersCrypto.encryptAES("resideInUK_answer_yes")",
-                          "@CarersCrypto.encryptAES("resideInUK_answer_no")",
-                          "@CarersCrypto.encryptAES("resideInUK_text")");
+        window.initEvents("@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("answer")("british").id)",
+                          "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("answer")("anothercountry").id)",
+                          "@CarersCrypto.encryptAES(nationalityAndResidencyForm("residency").id)");
     });
 </script>

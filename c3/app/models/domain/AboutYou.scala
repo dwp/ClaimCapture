@@ -1,7 +1,8 @@
 package models.domain
 
 import models.{ReasonForBeingThere, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
-import models.yesNo.YesNoWithText
+import models.yesNo.{YesNo, YesNoWithText}
+import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
 
 object AboutYou extends Section.Identifier {
   val id = "s3"
@@ -32,11 +33,32 @@ object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
 }
 
-case class NationalityAndResidency(nationality: String = "",
-                                   resideInUK: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(NationalityAndResidency)
+case class NationalityAndResidency(nationality: YesNo = YesNo(""),
+                                   residency: Option[String] = None) extends QuestionGroup(NationalityAndResidency)
 
 object NationalityAndResidency extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
+
+  val british = "british"
+  val anothercountry = "anothercountry"
+
+  def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { answer =>
+    answer match {
+      case `british` => Valid
+      case `anothercountry` => Valid
+      case _ => Invalid(ValidationError("nationality.invalid"))
+    }
+  }
+
+  def residencyRequired: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.residency") { nationalityAndResidency =>
+    if (nationalityAndResidency.nationality.answer == anothercountry) {
+      nationalityAndResidency.residency match {
+        case Some(place) => Valid
+        case None => Invalid(ValidationError("residency.required"))
+      }
+    }
+    else Valid
+  }
 }
 
 case class AbroadForMoreThan52Weeks(anyTrips: String = "") extends QuestionGroup(AbroadForMoreThan52Weeks)
