@@ -10,9 +10,8 @@ import models.domain.Claim
 object FullTimeEducation extends XMLComponent {
 
   def xml(claim: Claim) = {
-    val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
-
-    val hasBeenInEducation = moreAboutYou.beenInEducationSinceClaimDate == yes
+    val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails(beenInEducationSinceClaimDate = no))
+    val hasBeenInEducation = courseDetails.beenInEducationSinceClaimDate == yes
 
     if (hasBeenInEducation) {
       <FullTimeEducation>
@@ -23,7 +22,7 @@ object FullTimeEducation extends XMLComponent {
   }
 
   def courseDetailsXml(claim: Claim) = {
-    val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
+    val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails(beenInEducationSinceClaimDate = no))
 
     <CourseDetails>
       {/*TODO: Remove courseType from the new schema.*/}
@@ -35,7 +34,7 @@ object FullTimeEducation extends XMLComponent {
   }
 
   def locationDetailsXml(claim:Claim) = {
-    val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
+    val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails(beenInEducationSinceClaimDate = no))
 
     <LocationDetails>
       {question(<Name/>,"nameOfSchoolCollegeOrUniversity",courseDetails.nameOfSchoolCollegeOrUniversity)}

@@ -6,6 +6,7 @@
 @import views.html.helper.dates._
 @import views.html.s6_education.main
 @import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.CarersCrypto
 
 @main(Messages("s6.g1") + " - " + Messages("s6.longName"), Some(currentForm)) {
 
@@ -13,21 +14,25 @@
 
         <div class="form-wrap">
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:education">
-	            <legend>@Html(Messages("s6.g1"))</legend>
 	
 	            <ul>
-	                @carersInputText(currentForm("courseTitle"), 'maxLength -> 50)
-	
-	                @carersInputText(currentForm("nameOfSchoolCollegeOrUniversity"), 'maxLength -> Mappings.sixty)
-	
-	                @carersInputText(currentForm("nameOfMainTeacherOrTutor"), 'maxLength -> Mappings.sixty)
-	
-	                @carersInputTel(currentForm("courseContactNumber"),  'helperAbove-> Messages("courseContactNumber.helper"))
-	
-	                @educationStartDate(currentForm("startDate"))
-	
-	                @educationEndDate(currentForm("expectedEndDate"))
-	
+                    @yesNoRadioGroup(currentForm("beenInEducationSinceClaimDate"),
+                        '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)),
+                        'helperAbove -> Messages("beenInEducationSinceClaimDate.label.helper", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputText(currentForm("courseTitle"), 'maxLength -> 50),
+                            carersInputText(currentForm("nameOfSchoolCollegeOrUniversity"), 'maxLength -> Mappings.sixty),
+                            carersInputText(currentForm("nameOfMainTeacherOrTutor"), 'maxLength -> Mappings.sixty),
+                            carersInputTel(currentForm("courseContactNumber"),  'helperAbove-> Messages("courseContactNumber.helper")),
+                            educationStartDate(currentForm("startDate")),
+                            educationEndDate(currentForm("expectedEndDate"))),
+                        'id -> "educationWrap",
+                        'display -> currentForm("beenInEducationSinceClaimDate").value.getOrElse("no")
+                    )
+
 	            </ul>
 	        </fieldset>
 	
@@ -40,7 +45,27 @@
         </div>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s6_education/g1_yourCourseDetails.js")'></script>
+
 <script type="text/javascript">
+    $(function(){
+        window.initEvents(
+        "@CarersCrypto.encryptAES("beenInEducationSinceClaimDate_yes")",
+        "@CarersCrypto.encryptAES("beenInEducationSinceClaimDate_no")",
+        "@CarersCrypto.encryptAES("courseTitle")",
+        "@CarersCrypto.encryptAES("nameOfSchoolCollegeOrUniversity")",
+        "@CarersCrypto.encryptAES("nameOfMainTeacherOrTutor")",
+        "@CarersCrypto.encryptAES("courseContactNumber")",
+        "@CarersCrypto.encryptAES("startDate_day")",
+        "@CarersCrypto.encryptAES("startDate_month")",
+        "@CarersCrypto.encryptAES("startDate_year")",
+        "@CarersCrypto.encryptAES("expectedEndDate_day")",
+        "@CarersCrypto.encryptAES("expectedEndDate_month")",
+        "@CarersCrypto.encryptAES("expectedEndDate_year")"
+        );
+    });
+
     $(function(){
         @ga.stagePrompt()
     })

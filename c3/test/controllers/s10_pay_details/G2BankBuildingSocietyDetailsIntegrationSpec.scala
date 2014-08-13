@@ -51,8 +51,9 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
 
     "be hidden when having state pension" in new WithBrowser with PageObjects{
 
-			val page = new G2ContactDetailsPage(PageObjectsContext(browser))
+			val page = new G1YourDetailsPage(PageObjectsContext(browser))
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
+
       page goToThePage()
 
       page fillPageWith claim

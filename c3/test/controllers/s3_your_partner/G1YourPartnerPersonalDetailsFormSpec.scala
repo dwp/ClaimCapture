@@ -23,7 +23,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
   val separatedFromPartner = "yes"
 
   "Your Partner Personal Details Form" should {
-    "map data into case class" in {
+    "map data into case class when partner answer is yes" in {
       G1YourPartnerPersonalDetails.form.bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -40,19 +40,21 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> nationality,
           "separated.fromPartner" -> separatedFromPartner,
-          "isPartnerPersonYouCareFor"->"yes")).fold(
+          "isPartnerPersonYouCareFor"->"yes",
+          "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
-            f.title must equalTo(title)
-            f.firstName must equalTo(firstName)
+            f.title must equalTo(Some(title))
+            f.firstName must equalTo(Some(firstName))
             f.middleName must equalTo(Some(middleName))
-            f.surname must equalTo(surname)
+            f.surname must equalTo(Some(surname))
             f.otherSurnames must equalTo(Some(otherNames))
             f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5))))
-            f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
+            f.dateOfBirth must equalTo(Some(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None)))
             f.nationality must equalTo(Some(nationality))
-            f.separatedFromPartner must equalTo(separatedFromPartner)
-            f.isPartnerPersonYouCareFor must equalTo("yes")
+            f.separatedFromPartner must equalTo(Some(separatedFromPartner))
+            f.isPartnerPersonYouCareFor must equalTo(Some("yes"))
+            f.hadPartnerSinceClaimDate must equalTo("yes")
           })
     }
 
@@ -68,7 +70,8 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "separated.fromPartner" -> separatedFromPartner,
-          "isPartnerPersonYouCareFor"->"yes")).fold(
+          "isPartnerPersonYouCareFor"->"yes",
+          "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(5)
             formWithErrors.errors(0).message must equalTo("error.maxLength")
@@ -80,19 +83,28 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "have 5 mandatory fields" in {
+    "have 6 mandatory fields" in {
       G1YourPartnerPersonalDetails.form.bind(
-        Map("middleName" -> "middle optional")).fold(
+        Map("hadPartnerSinceClaimDate" -> "yes","middleName" -> "middle optional")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(6)
-            formWithErrors.errors(0).message must equalTo("error.required")
-            formWithErrors.errors(1).message must equalTo("error.required")
-            formWithErrors.errors(2).message must equalTo("error.required")
-            formWithErrors.errors(3).message must equalTo("error.required")
-            formWithErrors.errors(4).message must equalTo("error.required")
-            formWithErrors.errors(5).message must equalTo("error.required")
+            formWithErrors.errors(0).message must equalTo("title.required")
+            formWithErrors.errors(1).message must equalTo("firstName.required")
+            formWithErrors.errors(2).message must equalTo("surname.required")
+            formWithErrors.errors(3).message must equalTo("dateOfBirth.required")
+            formWithErrors.errors(4).message must equalTo("separated.fromPartner.required")
+            formWithErrors.errors(5).message must equalTo("isPartnerPersonYouCareFor.required")
           },
           theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
+    }
+
+    "reject form when partner question not answered" in {
+      G1YourPartnerPersonalDetails.form.bind(
+        Map("hadPartnerSinceClaimDate" -> "")).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(2) // error.required and yesNo.invalid
+        },
+        theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject invalid national insurance number" in {
@@ -112,7 +124,8 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> nationality,
           "separated.fromPartner" -> separatedFromPartner,
-          "isPartnerPersonYouCareFor"->"yes")).fold(
+          "isPartnerPersonYouCareFor"->"yes",
+          "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => {
             formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber")
             formWithErrors.errors.length must equalTo(1)
@@ -137,7 +150,8 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> "12345",
           "nationality" -> nationality,
           "separated.fromPartner" -> separatedFromPartner,
-          "isPartnerPersonYouCareFor"->"yes")).fold(
+          "isPartnerPersonYouCareFor"->"yes",
+          "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => {
             formWithErrors.errors.head.message must equalTo("error.invalid")
             formWithErrors.errors.length must equalTo(1)
@@ -161,10 +175,11 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> "United States",
-          "separated.fromPartner" -> separatedFromPartner)).fold(
+          "separated.fromPartner" -> separatedFromPartner,
+          "hadPartnerSinceClaimDate" -> "yes")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
-          formWithErrors.errors.head.message must equalTo("error.required")
+          formWithErrors.errors.head.message must equalTo("isPartnerPersonYouCareFor.required")
         },f => "This mapping should not happen." must equalTo("Valid"))
     }
 
@@ -185,7 +200,8 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> "United States",
           "separated.fromPartner" -> separatedFromPartner,
-          "isPartnerPersonYouCareFor"->"yes")).fold(
+          "isPartnerPersonYouCareFor"->"yes",
+          "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
             f.nationality must equalTo(Some("United States"))
@@ -209,7 +225,8 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> "a123456",
           "separated.fromPartner" -> separatedFromPartner,
-          "isPartnerPersonYouCareFor"->"yes")).fold(
+          "isPartnerPersonYouCareFor"->"yes",
+          "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
             formWithErrors.errors.head.message must equalTo("error.nationality")
@@ -234,7 +251,8 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> "a!@£$%^&*(){}",
           "separated.fromPartner" -> separatedFromPartner,
-          "isPartnerPersonYouCareFor"->"yes")).fold(
+          "isPartnerPersonYouCareFor"->"yes",
+          "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
             formWithErrors.errors.head.message must equalTo("error.nationality")
@@ -259,7 +277,8 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> "United States",
           "separated.fromPartner" -> separatedFromPartner,
-          "isPartnerPersonYouCareFor"->"yes")).fold(
+          "isPartnerPersonYouCareFor"->"yes",
+          "hadPartnerSinceClaimDate" -> "yes")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(4)
           formWithErrors.errors.head.message must equalTo("error.restricted.characters")

@@ -19,7 +19,8 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "otherNames" -> optional(carersText(maxLength = Name.maxLength)),
     "nationalInsuranceNumber" -> nino.verifying(filledInNino,validNino),
-    "dateOfBirth" -> dayMonthYear.verifying(validDate)
+    "dateOfBirth" -> dayMonthYear.verifying(validDate),
+    "receiveStatePension" -> nonEmptyText.verifying(validYesNo)
   )(YourDetails.apply)(YourDetails.unapply))
 
   def present = claiming { implicit claim => implicit request => implicit lang =>
@@ -30,6 +31,9 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
   def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g1_yourDetails(formWithErrors)),
-      yourDetails => claim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present()))
+      yourDetails => {
+          val updatedClaim = claim.showHideSection(yourDetails.receiveStatePension == no, PayDetails)
+          updatedClaim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present())
+      })
   }
 }

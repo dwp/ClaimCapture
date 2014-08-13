@@ -58,7 +58,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
 
       goTo("/employment/employment")
       back
-      titleMustEqual("Your course details - About your education")
+      titleMustEqual("Your course details - Education")
     }
 
     """remember "employment" upon stating "employment" and returning""" in new WithBrowser with EmployedHistoryPage {

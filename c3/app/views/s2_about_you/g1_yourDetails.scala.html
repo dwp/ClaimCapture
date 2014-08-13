@@ -10,6 +10,10 @@
 @import views.html.s2_about_you.main
 @import play.api.i18n.{MMessages => Messages}
 
+@pensionHelpWithLink = @{
+    Html(Messages("receiveStatePension.help")) + """ <a href="/claim-help#4"""" + views.html.ga.trackClickEvent(linkName = "Claim Notes - State Pension") + """>""" + Html(Messages("receiveStatePension.help.link")) + """</a>"""
+}
+
 @main(Messages("s2.g1") + " - " + Messages("s2.longName")) {
     @errorsSummary(yourDetailsForm)
 
@@ -33,6 +37,8 @@
 	                @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"), 'helperAbove -> Messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper2"))
 	
 	                @dateOfBirth(yourDetailsForm("dateOfBirth"))
+
+                    @yesNoRadioGroup(yourDetailsForm("receiveStatePension"), '_label -> Messages("receiveStatePension"), 'helperAbove -> pensionHelpWithLink)
 	
 	            </ul>
 	        </fieldset>

@@ -33,6 +33,7 @@ object ClaimScenarioFactory {
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
     claim.AboutYouPostcode = "FY1 2RW"
     claim.HowWeContactYou = "01772 888901"
+    claim.AboutYouDoYouGetStatePension = "Yes"
     claim
   }
 
@@ -100,7 +101,6 @@ object ClaimScenarioFactory {
 
     // G7 EEA state or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "yes"
-    claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "yes"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "yes"
 
     claim
@@ -122,13 +122,12 @@ object ClaimScenarioFactory {
     claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
     // Other EEA State or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
-    claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "no"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
+
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Divorced or civil partnership dissolved"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "Yes"
-    claim.AboutYouHaveYouBeenOnACourseOfEducation = "Yes"
-    claim.AboutYouDoYouGetStatePension = "Yes"
+
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
@@ -158,12 +157,10 @@ object ClaimScenarioFactory {
     claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
     // Other EEA State or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
-    claim.OtherMoneyOtherAreYouClaimingForBenefitsFromAnotherEEA = "no"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "no"
-    claim.AboutYouHaveYouBeenOnACourseOfEducation = "no"
     claim.AboutYouDoYouGetStatePension = "no"
 
     claim
@@ -183,12 +180,14 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerHaveYouSeparatedfromYourPartner = "Yes"
     // Person you care for
     claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
+    claim.AboutYourPartnerHadPartnerSinceClaimDate = "Yes"
     claim
   }
 
   def s3YourPartnerNotThePersonYouCareFor() = {
     val claim = s2AboutYouWithTimeOutside()
     // Partner personal details
+    claim.AboutYourPartnerHadPartnerSinceClaimDate = "Yes"
     claim.AboutYourPartnerTitle = "Mrs"
     claim.AboutYourPartnerFirstName = "Cloe"
     claim.AboutYourPartnerMiddleName = "Scott"
@@ -269,7 +268,7 @@ object ClaimScenarioFactory {
     val claim = s4CareYouProvideWithNoBreaksInCare()
 
     // Education
-    claim.AboutYouHaveYouBeenOnACourseOfEducation = "No"
+    claim.EducationHaveYouBeenOnACourseOfEducation = "No"
 
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
@@ -300,21 +299,23 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s6PayDetailsPageObjects() = {
+  def s6Education() = {
     val claim = s5TimeSpentAbroad()
     // Address of School College or University
+    claim.EducationHaveYouBeenOnACourseOfEducation = "Yes"
+    claim.EducationCourseTitle = "Course 101"
     claim.EducationNameofSchool = "Lancaster University"
     claim.EducationNameOfMainTeacherOrTutor = "Dr. Ray Charles"
-    claim.EducationAddress = "Lancaster University& Bailrigg& Lancaster"
-    claim.EducationPostcode = "LA1 4YW"
-    claim.EducationPhoneNumber = "01524 65201"
-    claim.EducationFaxNumber = "01524 36841"
+    claim.EducationPhoneNumber = "123456789"
+    claim.EducationWhenDidYouStartTheCourse = "10/04/2013"
+    claim.EducationWhenDoYouExpectTheCourseToEnd = "10/04/2013"
+
     claim
   }
 
   def s6PayDetails() = {
     val claim = new TestData
-    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.NotOpenAccount
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.AppliedForAccount
     claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek
     claim
   }
