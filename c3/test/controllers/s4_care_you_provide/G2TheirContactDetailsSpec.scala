@@ -12,8 +12,7 @@ import models.view.CachedClaim
 class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
 
   val theirContactDetailsInput = Seq("address.lineOne" -> "123 Street",
-    "postcode" -> "PR2 8AE",
-    "phoneNumber" -> "020-76541058")
+    "postcode" -> "PR2 8AE")
 
   "Their Contact Details - Controller" should {
 
@@ -29,7 +28,6 @@ class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
         case Some(t: TheirContactDetails) => {
           t.address.lineOne mustEqual Some("123 Street")
           t.postcode mustEqual Some("PR2 8AE")
-          t.phoneNumber mustEqual Some("020-76541058")
         }
       }
     }

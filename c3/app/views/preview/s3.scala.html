@@ -17,7 +17,7 @@
                     <dt>@Html(Messages("nationalInsuranceNumber"))</dt><dd>@ninoNumber(nino)</dd>
                 }
             }
-            <dt>@Html(Messages("dateOfBirth"))</dt><dd>@{yourPartner.dateOfBirth.`dd month, yyyy`}</dd>
+            <dt>@Html(Messages("dateOfBirth"))</dt><dd>@{yourPartner.dateOfBirth.getOrElse(DayMonthYear(None,None,None)).`dd month, yyyy`}</dd>
             <dt>@Html(Messages("separated.fromPartner"))</dt><dd>@{Messages("label."+yourPartner.separatedFromPartner)}</dd>
         </dl>
 
