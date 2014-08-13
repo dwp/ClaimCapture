@@ -11,11 +11,16 @@ class G1YourCourseDetailsFormSpec extends Specification with Tags {
   val nameOfMainTeacherOrTutor = "Albert Einstein"
   val courseContactNumber = "02076541058"
   val title = "Law"
+  val dateDay = 5
+  val dateMonth = 12
+  val dateYear = 1990
 
   "Your course details Form" should {
     "map data into case class" in {
       G1YourCourseDetails.form.bind(
-        Map("courseTitle" -> title,
+        Map(
+          "beenInEducationSinceClaimDate" -> "yes",
+          "courseTitle" -> title,
           "nameOfSchoolCollegeOrUniversity" -> nameOfSchoolCollegeOrUniversity,
           "nameOfMainTeacherOrTutor" -> nameOfMainTeacherOrTutor,
           "courseContactNumber" -> courseContactNumber,
@@ -25,39 +30,87 @@ class G1YourCourseDetailsFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Valid"),
         success = f => {
-          f.title mustEqual(title)
-          f.nameOfSchoolCollegeOrUniversity must equalTo(nameOfSchoolCollegeOrUniversity)
-          f.nameOfMainTeacherOrTutor must equalTo(nameOfMainTeacherOrTutor)
+          f.beenInEducationSinceClaimDate mustEqual("yes")
+          f.title mustEqual(Some(title))
+          f.nameOfSchoolCollegeOrUniversity must equalTo(Some(nameOfSchoolCollegeOrUniversity))
+          f.nameOfMainTeacherOrTutor must equalTo(Some(nameOfMainTeacherOrTutor))
           f.courseContactNumber must equalTo(Some(courseContactNumber))
-          f.startDate must equalTo(DayMonthYear(Some(16), Some(4), Some(1992), None, None))
-          f.expectedEndDate must equalTo(DayMonthYear(Some(30), Some(9), Some(1997), None, None))
+          f.startDate must equalTo(Some(DayMonthYear(Some(16), Some(4), Some(1992), None, None)))
+          f.expectedEndDate must equalTo(Some(DayMonthYear(Some(30), Some(9), Some(1997), None, None)))
         }
       )
     }
 
-    "have a max length for course title" in {
+    "have 1 mandatory field on initial load" in {
       G1YourCourseDetails.form.bind(
-        Map("courseTitle" -> overHundredChars)
-      ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.maxLength"),
-        f => "This mapping should not happen." must equalTo("Error")
-      )
-    }
-
-    "have 5 mandatory fields" in {
-      G1YourCourseDetails.form.bind(
-        Map("courseContactNumber" -> courseContactNumber)
+        Map("courseTitle" -> title,
+          "nameOfSchoolCollegeOrUniversity" -> nameOfSchoolCollegeOrUniversity,
+          "nameOfMainTeacherOrTutor" -> nameOfMainTeacherOrTutor,
+          "courseContactNumber" -> courseContactNumber,
+          "startDate.day" -> "16", "startDate.month" -> "4", "startDate.year" -> "1992",
+          "expectedEndDate.day" -> "30", "expectedEndDate.month" -> "9", "expectedEndDate.year" -> "1997")
       ).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(5)
+            formWithErrors.errors.length must equalTo(1)
             formWithErrors.errors(0).message must equalTo("error.required")
-            formWithErrors.errors(1).message must equalTo("error.required")
-            formWithErrors.errors(2).message must equalTo("error.required")
-            formWithErrors.errors(3).message must equalTo("error.required")
-            formWithErrors.errors(4).message must equalTo("error.required")
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
+    }
+
+    "have 5 mandatory fields if beenInEducationSinceClaimDate is yes" in {
+      G1YourCourseDetails.form.bind(
+        Map("beenInEducationSinceClaimDate" -> "yes")
+      ).fold(
+          formWithErrors => {
+            formWithErrors.errors.length must equalTo(5)
+            formWithErrors.errors(0).message must equalTo("courseTitle.required")
+            formWithErrors.errors(1).message must equalTo("nameOfSchoolCollegeOrUniversity.required")
+            formWithErrors.errors(2).message must equalTo("nameOfMainTeacherOrTutor.required")
+            formWithErrors.errors(3).message must equalTo("startDate.required")
+            formWithErrors.errors(4).message must equalTo("expectedEndDate.required")
+          },
+          f => "This mapping should not happen." must equalTo("Valid")
+        )
+    }
+
+    "reject too many characters in text fields" in {
+      G1YourCourseDetails.form.bind(
+        Map(
+          "beenInEducationSinceClaimDate" -> "yes",
+          "courseTitle" -> overHundredChars,
+          "nameOfSchoolCollegeOrUniversity" -> overHundredChars,
+          "nameOfMainTeacherOrTutor" -> overHundredChars,
+          "courseContactNumber" -> courseContactNumber,
+          "startDate.day" -> "16", "startDate.month" -> "4", "startDate.year" -> "1992",
+          "expectedEndDate.day" -> "30", "expectedEndDate.month" -> "9", "expectedEndDate.year" -> "1997")
+        ).fold(
+          formWithErrors => {
+            formWithErrors.errors.length must equalTo(3)
+            formWithErrors.errors(0).message must equalTo("error.maxLength")
+            formWithErrors.errors(1).message must equalTo("error.maxLength")
+            formWithErrors.errors(2).message must equalTo("error.maxLength")
+          },
+          f => "This mapping should not happen." must equalTo("Valid"))
+    }
+
+    "reject invalid dates" in {
+      G1YourCourseDetails.form.bind(
+        Map(
+          "beenInEducationSinceClaimDate" -> "yes",
+          "courseTitle" -> title,
+          "nameOfSchoolCollegeOrUniversity" -> nameOfSchoolCollegeOrUniversity,
+          "nameOfMainTeacherOrTutor" -> nameOfMainTeacherOrTutor,
+          "courseContactNumber" -> courseContactNumber,
+          "startDate.day" -> dateDay.toString, "startDate.month" -> dateMonth.toString, "startDate.year" -> "12345",
+          "expectedEndDate.day" -> dateDay.toString, "expectedEndDate.month" -> dateMonth.toString, "expectedEndDate.year" -> "20146"
+        )).fold(
+          formWithErrors => {
+            formWithErrors.errors.length must equalTo(2)
+            formWithErrors.errors(0).message must equalTo("error.invalid")
+            formWithErrors.errors(0).message must equalTo("error.invalid")
+          },
+          f => "This mapping should not happen." must equalTo("Valid"))
     }
 
   } section("unit", models.domain.Education.id)

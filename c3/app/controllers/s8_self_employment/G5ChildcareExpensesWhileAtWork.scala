@@ -31,7 +31,7 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with N
 
   def validateRelationToPartner(implicit claim: Claim, childcareExpensesWhileAtWork: ChildcareExpensesWhileAtWork) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
-      case (Some(m: MoreAboutYou), Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => childcareExpensesWhileAtWork.relationToPartner.nonEmpty
+      case (Some(m: MoreAboutYou), Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == Some("yes") && p.isPartnerPersonYouCareFor == Some("no") => childcareExpensesWhileAtWork.relationToPartner.nonEmpty
       case _ => true
     }
   }

@@ -26,7 +26,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{
 			val page =  G1YourDetailsPage(context)
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 6
+      page.submitPage().listErrors.size mustEqual 7
     }
 
     "Accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{

@@ -21,6 +21,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
     val dateOfBirthMonth = 12
     val dateOfBirthYear = 1990
     val alwaysLivedUK = "yes"
+    val receiveStatePension = "yes"
 
     "map data into case class" in {
       G1YourDetails.form.bind(
@@ -38,7 +39,8 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "alwaysLivedUK" -> alwaysLivedUK
+          "alwaysLivedUK" -> alwaysLivedUK,
+          "receiveStatePension" -> receiveStatePension
           )).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
@@ -50,6 +52,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
             f.nationalInsuranceNumber must equalTo(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5)))
 //            f.nationality must equalTo(nationality)
             f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
+            f.receiveStatePension must equalTo(receiveStatePension)
 //            f.alwaysLivedUK must equalTo(alwaysLivedUK)
           })
     }
@@ -70,7 +73,8 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "alwaysLivedUK" -> alwaysLivedUK)).fold(
+          "alwaysLivedUK" -> alwaysLivedUK,
+          "receiveStatePension" -> receiveStatePension)).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(4)
             formWithErrors.errors(0).message must equalTo("error.maxLength")
@@ -98,7 +102,8 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "alwaysLivedUK" -> alwaysLivedUK)).fold(
+          "alwaysLivedUK" -> alwaysLivedUK,
+          "receiveStatePension" -> receiveStatePension)).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(4)
             formWithErrors.errors(0).message must equalTo("error.restricted.characters")
@@ -110,17 +115,18 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "have 8 mandatory fields" in {
+    "have 7 mandatory fields" in {
       G1YourDetails.form.bind(
         Map("middleName" -> "middle optional")).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(6)
+            formWithErrors.errors.length must equalTo(7)
             formWithErrors.errors(0).message must equalTo("error.required")
             formWithErrors.errors(1).message must equalTo("error.required")
             formWithErrors.errors(2).message must equalTo("error.required")
             formWithErrors.errors(3).message must equalTo("error.required")
             formWithErrors.errors(4).message must equalTo("error.nationalInsuranceNumber")
             formWithErrors.errors(5).message must equalTo("error.required")
+            formWithErrors.errors(6).message must equalTo("error.required")
 //            formWithErrors.errors(6).message must equalTo("error.required")
           },
           f => "This mapping should not happen." must equalTo("Valid"))
@@ -142,7 +148,8 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "alwaysLivedUK" -> alwaysLivedUK)).fold(
+          "alwaysLivedUK" -> alwaysLivedUK,
+          "receiveStatePension" -> receiveStatePension)).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
             formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber")
@@ -166,7 +173,8 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> "12345",
-          "alwaysLivedUK" -> alwaysLivedUK)).fold(
+          "alwaysLivedUK" -> alwaysLivedUK,
+          "receiveStatePension" -> receiveStatePension)).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
             formWithErrors.errors.head.message must equalTo("error.invalid")

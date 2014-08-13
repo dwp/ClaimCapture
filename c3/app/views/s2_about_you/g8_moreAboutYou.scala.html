@@ -16,10 +16,6 @@
     v != Partner && v != ""
 }
 
-@pensionHelpWithLink = @{
-    Html(Messages("receiveStatePension.help")) + """ <a href="/claim-help#4"""" + views.html.ga.trackClickEvent(linkName = "Claim Notes - State Pension") + """>""" + Html(Messages("receiveStatePension.help.link")) + """</a>"""
-}
-
 @main(Messages("s2.g8") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.MoreAboutYou)) {
     @errorsSummary(moreAboutYouForm)
 
@@ -39,15 +35,6 @@
 
             </fieldset>
 
-            <fieldset class="form-elements">
-                <legend>@Html(Messages("s2.g8"))</legend>
-                <ul>
-	                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
-	
-	                @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"), '_label -> Messages("receiveStatePension"), 'helperAbove -> pensionHelpWithLink)
-	            </ul>
-            </fieldset>
-	
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>

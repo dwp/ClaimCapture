@@ -357,16 +357,6 @@ class AssistedDecisionSpec extends Specification with Tags {
       (xml \\ "AssistedDecisions").length mustEqual 0
     }
 
-    "Create an assisted decision section if EEA benefits claimed for" in {
-      val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(resideInUK = YesNoWithText("yes", None))
-      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(claimedForBenefitsFromEEA = "yes")
-      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Claimant or partner dependent on EEA pensions or benefits.")
-      (xml \\ "RecommendedDecision").text must contain ("Transfer to Exportability team.")
-    }
-
     "Not create an assisted decision section if no EEA benefits claimed for" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(resideInUK = YesNoWithText("yes", None))

@@ -9,6 +9,7 @@ import utils.pageobjects._
  *         Date: 19/07/2013
  */
 final class G1YourPartnerPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1YourPartnerPersonalDetailsPage.url, G1YourPartnerPersonalDetailsPage.title) {
+  declareYesNo("#hadPartnerSinceClaimDate", "AboutYourPartnerHadPartnerSinceClaimDate")
   declareSelect("#title", "AboutYourPartnerTitle")
   declareInput("#firstName", "AboutYourPartnerFirstName")
   declareInput("#middleName", "AboutYourPartnerMiddleName")

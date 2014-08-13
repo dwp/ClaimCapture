@@ -25,7 +25,6 @@ object AssistedDecision extends XMLComponent {
     //      assisted ++= employmentGrossPay(claim)
     var assisted = getAFIP(claim)
     assisted ++= noEEABenefits(claim)
-    assisted ++= noEEABenefitsClaimedFor(claim)
     assisted ++= noEEAWork(claim)
     assisted ++= normallyResideInUK(claim)
     //    }
@@ -115,12 +114,6 @@ object AssistedDecision extends XMLComponent {
   private def noEEABenefits(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
     if (otherEEAStateOrSwitzerland.benefitsFromEEA.toLowerCase == "yes") decisionElement("Claimant or partner dependent on EEA pensions or benefits.", "Transfer to Exportability team.")
-    else NodeSeq.Empty
-  }
-
-  private def noEEABenefitsClaimedFor(claim: Claim): NodeSeq = {
-    val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.claimedForBenefitsFromEEA.toLowerCase == "yes") decisionElement("Claimant or partner dependent on EEA pensions or benefits.", "Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
