@@ -10,6 +10,7 @@ About You,Your Details,Surname or family name,AboutYouSurname,CaseThree
 About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,Smithson
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,JB486278C
 About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1931
+About You,Your Details,Do you get state Pension?,AboutYouDoYouGetStatePension,No
 About You,Your contact details,Address,AboutYouAddress,3 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
 About You,Your contact details,How we contact you,HowWeContactYou,01772 888901
@@ -40,7 +41,6 @@ About You,Other European Economic Area (EEA) states or Switzerland,"Have you or 
 About You,Other European Economic Area (EEA) states or Switzerland,"Do you or anyone in your family work or pay insurance in any of these countries?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,No
 About You,More about you,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Married or civil partner
 About You,More about you,Have you had a partner/spouse at any time since your claim date: <ddmmyyyy>?,AboutYouHaveYouHadaPartnerSpouseatAnyTime,Yes
-About You,More about you,Do you get state Pension?,AboutYouDoYouGetStatePension,No
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,Mrs
 About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,Test
 About Your Partner,Partner/Spouse details,Middle name,AboutYourPartnerMiddleName,Middle
@@ -51,6 +51,7 @@ About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBi
 About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,British
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,no
 About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,yes
+About Your Partner,Person you care for,Have you lived with a partner at any time since your claim date?,AboutYourPartnerHadPartnerSinceClaimDate,yes
 About the care you provide,Details of the person you care for,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Wife
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,
@@ -62,7 +63,6 @@ About the care you provide,Details of the person you care for,Does this person g
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,No
 About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,12 Preston Road&Preston&Lancashire
 About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,PR1 2TH
-About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,01772 998761
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Wife or civil partner
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,No
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Yes

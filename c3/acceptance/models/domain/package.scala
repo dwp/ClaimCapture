@@ -17,7 +17,7 @@ package object domain {
     ClaimDate(dateOfClaim = DayMonthYear(1, 1, 2013)) +
     MoreAboutYou(hadPartnerSinceClaimDate = yes, beenInEducationSinceClaimDate = yes) +
     Employment(beenSelfEmployedSince1WeekBeforeClaim = yes, beenEmployedSince6MonthsBeforeClaim = yes) +
-    YourPartnerPersonalDetails(title = "Mrs", firstName = "Daphne", surname = "Schoo", dateOfBirth = DayMonthYear(1, 1, 1980), separatedFromPartner = no) +
+    YourPartnerPersonalDetails(title = "Mrs", firstName = "Daphne", surname = "Schoo", dateOfBirth = DayMonthYear(1, 1, 1980), separatedFromPartner = no, hadPartnerSinceClaimDate = yes) +
     PersonYouCareFor(isPartnerPersonYouCareFor = yes) +
     TheirPersonalDetails(title = "Mrs", firstName = "Daphne", surname = "Schoo", dateOfBirth = DayMonthYear(1, 1, 1980), liveAtSameAddressCareYouProvide = yes) +
     TheirContactDetails(address = MultiLineAddress(Street(Some("Scooby Street")))) +

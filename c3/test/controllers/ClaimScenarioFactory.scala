@@ -180,12 +180,14 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerHaveYouSeparatedfromYourPartner = "Yes"
     // Person you care for
     claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
+    claim.AboutYourPartnerHadPartnerSinceClaimDate = "Yes"
     claim
   }
 
   def s3YourPartnerNotThePersonYouCareFor() = {
     val claim = s2AboutYouWithTimeOutside()
     // Partner personal details
+    claim.AboutYourPartnerHadPartnerSinceClaimDate = "Yes"
     claim.AboutYourPartnerTitle = "Mrs"
     claim.AboutYourPartnerFirstName = "Cloe"
     claim.AboutYourPartnerMiddleName = "Scott"

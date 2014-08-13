@@ -18,7 +18,7 @@ object Partner extends XMLComponent {
     if (hadPartner) {
       <Partner>
         {question(<Surname/>,"surname",encrypt(yourPartnerPersonalDetails.surname))}
-        {question(<OtherNames/>, "firstName", yourPartnerPersonalDetails.firstName+" "+yourPartnerPersonalDetails.middleName.getOrElse(""))}
+        {question(<OtherNames/>, "firstName", yourPartnerPersonalDetails.firstName.getOrElse("")+" "+yourPartnerPersonalDetails.middleName.getOrElse(""))}
         {question(<OtherSurnames/>,"otherNames", yourPartnerPersonalDetails.otherSurnames)}
         {question(<Title/>, "title", yourPartnerPersonalDetails.title)}
         {question(<DateOfBirth/>,"dateOfBirth", yourPartnerPersonalDetails.dateOfBirth)}

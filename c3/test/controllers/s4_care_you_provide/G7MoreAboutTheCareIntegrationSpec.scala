@@ -29,7 +29,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back" in new WithBrowser with BrowserMatchers {
-      Formulate.theirContactDetailsInvalidPhoneNumber(browser)
+      Formulate.theirContactDetails(browser)
       browser.click("#backButton")
       titleMustEqual("Contact details of the person you care for - About the care you provide")
     }
