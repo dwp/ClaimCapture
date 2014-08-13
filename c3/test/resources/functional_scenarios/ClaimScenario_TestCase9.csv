@@ -13,9 +13,8 @@ About You,Your Details,Do you get state Pension?,AboutYouDoYouGetStatePension,Ye
 About You,Your contact details,Address,AboutYouAddress,1 Preston Road&Preston
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 1HB
 About You,Your contact details,How we contact you,HowWeContactYou,I do not have a contact number
-About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,British
-About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Yes
-About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,
+About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,british
+About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyNormalResidency,
 Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,21/07/2013
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,No
 About You,Details of trips abroad for more than 52 weeks ,Date you left,DateYouLeftGB_1,

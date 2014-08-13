@@ -15,9 +15,8 @@ About You,Your contact details,Postcode,AboutYouPostcode,PR1 1HB
 About You,Your contact details,How we contact you,HowWeContactYou,this is my nice way of contactingok
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouTextPhone,
 Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,21/07/2013
-About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,My nationality  antigua and barbuda
-About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Yes
-About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,
+About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,anothercountry
+About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyNormalResidency,French
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,No
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,No
 About You,Other European Economic Area (EEA) states or Switzerland,"Do you or anyone in your family work or pay insurance in any of these countries?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,No

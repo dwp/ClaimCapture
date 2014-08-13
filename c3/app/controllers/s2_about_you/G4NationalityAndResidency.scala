@@ -29,7 +29,6 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
   def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        Logger.error(formWithErrors.toString)
         val formWithErrorsUpdate = formWithErrors
           .replaceError("", "residency.required", FormError("residency", "error.required"))
         BadRequest(views.html.s2_about_you.g4_nationalityAndResidency(formWithErrorsUpdate))

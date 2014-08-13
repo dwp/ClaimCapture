@@ -39,15 +39,13 @@ object ClaimScenarioFactory {
 
   def yourNationalityAndResidencyResident() = {
     val claim = new TestData
-    claim.AboutYouNationalityAndResidencyNationality = "British"
-    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
+    claim.AboutYouNationalityAndResidencyNationality = "british"
     claim
   }
 
   def yourNationalityAndResidencyNonResident() = {
     val claim = new TestData
-    claim.AboutYouNationalityAndResidencyNationality = "British"
-    claim.AboutYouNationalityAndResidencyResideInUK = "No"
+    claim.AboutYouNationalityAndResidencyNationality = "anothercountry"
     claim.AboutYouNationalityAndResidencyNormalResidency = "France"
     claim
   }
@@ -117,7 +115,6 @@ object ClaimScenarioFactory {
     //claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"
-    claim.AboutYouNationalityAndResidencyResideInUK = "yes"
     // Abroad For More Than 52 Weeks
     claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
     // Other EEA State or Switzerland
@@ -152,7 +149,6 @@ object ClaimScenarioFactory {
 
     // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"
-    claim.AboutYouNationalityAndResidencyResideInUK = "yes"
     // Abroad For More Than 52 Weeks
     claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
     // Other EEA State or Switzerland

@@ -16,9 +16,8 @@ About You,Your contact details,Postcode,AboutYouPostcode,Claimant>Address>Answer
 About You,Your contact details,How we contact you,HowWeContactYou,Claimant>DayTimePhoneNumber>Answer
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouTextPhone,Claimant>TextPhoneContact>Answer
 Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,DWPCAClaim>DateOfClaim>Answer
-About You,Your nationality and residency,What is your nationality (e.g. British),AboutYouNationalityAndResidencyNationality,Residency>Nationality>Answer
-About You,Your nationality and residency,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Residency>NormallyLiveInGB>Answer
-About You,Your nationality and residency,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,Residency>CountryNormallyLive>Answer
+About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,Residency>Nationality>Answer
+About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyNormalResidency,Residency>CountryNormallyLive>Answer
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,Residency>PeriodAbroad>TimeOutsideGBLast3Years>Answer
 About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB,Residency>PeriodAbroad>Period>DateFrom>Answer
 About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB,Residency>PeriodAbroad>Period>DateTo>Answer
