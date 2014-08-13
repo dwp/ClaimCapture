@@ -17,11 +17,7 @@ import models.yesNo.{YesNo, YesNoWithEmployerAndMoney}
 import play.api.i18n.{MMessages => Messages}
 
 object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
-  val yourBenefitsMapping =
-    "yourBenefits" -> mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo)
-    )(YesNo.apply)(YesNo.unapply)
-    
+
   val anyPaymentsSinceClaimDateMapping =
     "anyPaymentsSinceClaimDate" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo)
@@ -52,7 +48,6 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
       .verifying("otherPayHowMuchRequired", YesNoWithEmployerAndMoney.validateHowMuchOnYes _)
 
   val form = Form(mapping(
-    yourBenefitsMapping,
     anyPaymentsSinceClaimDateMapping,
     "whoPaysYou" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),
     "howMuch" -> optional(nonEmptyText verifying validCurrencyRequired),

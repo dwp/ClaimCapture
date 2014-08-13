@@ -4,7 +4,6 @@ import play.api.test.WithBrowser
 import utils.pageobjects._
 
 final class G1AboutOtherMoneyPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1AboutOtherMoneyPage.url, G1AboutOtherMoneyPage.title) {
-  declareYesNo("#yourBenefits_answer", "OtherMoneyHaveYouClaimedOtherBenefits")
   declareYesNo("#anyPaymentsSinceClaimDate_answer", "OtherMoneyAnyPaymentsSinceClaimDate")
   declareInput("#whoPaysYou", "OtherMoneyWhoPaysYou")
   declareInput("#howMuch", "OtherMoneyHowMuch")
@@ -27,7 +26,7 @@ final class G1AboutOtherMoneyPage(ctx:PageObjectsContext) extends ClaimPage(ctx,
 }
 
 object G1AboutOtherMoneyPage {
-  val title = "Benefits and payments - About Other Money".toLowerCase
+  val title = "Benefits and payments - Other Money".toLowerCase
 
   val url  = "/other-money/about-other-money"
 

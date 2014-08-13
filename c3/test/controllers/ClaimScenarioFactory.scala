@@ -444,7 +444,6 @@ object ClaimScenarioFactory {
   def s9otherMoney = {
     val claim = s7Employment()
     // G1 About other money
-    claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
     claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
     claim.OtherMoneyWhoPaysYou = "The Man"
     claim.OtherMoneyHowMuch = "12"
@@ -463,7 +462,6 @@ object ClaimScenarioFactory {
   def s9otherMoneyOther = {
     val claim = s7Employment()
     // G1 About other money
-    claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
     claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
     claim.OtherMoneyWhoPaysYou = "The Man"
     claim.OtherMoneyHowMuch = "12"
