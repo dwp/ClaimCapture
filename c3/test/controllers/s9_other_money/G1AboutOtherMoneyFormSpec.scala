@@ -4,7 +4,7 @@ import org.specs2.mutable.{ Tags, Specification }
 import models.{MultiLineAddress, PaymentFrequency}
 
 class G1AboutOtherMoneyFormSpec extends Specification with Tags {
-  "About Other Money Form" should {
+  "Other Money Form" should {
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"
     val howMuch = "12"

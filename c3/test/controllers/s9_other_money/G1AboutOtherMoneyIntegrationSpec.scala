@@ -8,17 +8,17 @@ import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
-  "About Other Money" should {
+  "Other Money" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
-      titleMustEqual("Benefits and payments - About Other Money")
+      titleMustEqual("Benefits and payments - Other Money")
     }
 
     "contain errors on invalid submission" in {
       "no fields selected" in new WithBrowser with BrowserMatchers {
         browser.goTo("/other-money/about-other-money")
         browser.submit("button[type='submit']")
-        titleMustEqual("Benefits and payments - About Other Money")
+        titleMustEqual("Benefits and payments - Other Money")
 
         findMustEqualSize("div[class=validation-summary] ol li", 3)
       }
