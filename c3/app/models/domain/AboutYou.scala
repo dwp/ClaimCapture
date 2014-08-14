@@ -43,6 +43,7 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   val anothercountry = "Another Country"
 
   def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { answer =>
+    // Nationality is a radio list with two possible values, British and Another Country
     answer match {
       case `british` => Valid
       case `anothercountry` => Valid
@@ -51,6 +52,7 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   }
 
   def residencyRequired: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.residency") { nationalityAndResidency =>
+    // if the Nationality is Another Country the user must provide their National Residency
     if (nationalityAndResidency.nationality == anothercountry) {
       nationalityAndResidency.residency match {
         case Some(place) => Valid
