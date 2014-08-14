@@ -15,7 +15,6 @@ package object domain {
     YourDetails(title = "Mr", firstName = "Scooby", surname = "Doo", nationality = "Scottish", dateOfBirth = DayMonthYear(1, 1, 1980), alwaysLivedUK = yes, maritalStatus = "Married or civil partner", receiveStatePension = yes) +
     ContactDetails(address = MultiLineAddress(Street(Some("Scooby Street")))) +
     ClaimDate(dateOfClaim = DayMonthYear(1, 1, 2013)) +
-    MoreAboutYou(hadPartnerSinceClaimDate = yes, beenInEducationSinceClaimDate = yes) +
     Employment(beenSelfEmployedSince1WeekBeforeClaim = yes, beenEmployedSince6MonthsBeforeClaim = yes) +
     YourPartnerPersonalDetails(title = "Mrs", firstName = "Daphne", surname = "Schoo", dateOfBirth = DayMonthYear(1, 1, 1980), separatedFromPartner = no, hadPartnerSinceClaimDate = yes) +
     PersonYouCareFor(isPartnerPersonYouCareFor = yes) +

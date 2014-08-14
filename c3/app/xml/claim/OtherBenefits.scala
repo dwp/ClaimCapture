@@ -83,8 +83,8 @@ object OtherBenefits extends XMLComponent {
     else NodeSeq.Empty
   }
 
-  def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) match {
-    case Some(m: MoreAboutYou) => m.hadPartnerSinceClaimDate == yes
+  def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(YourPartnerPersonalDetails) match {
+    case Some(p: YourPartnerPersonalDetails) => p.hadPartnerSinceClaimDate == yes
     case _ => false
   }
 }
