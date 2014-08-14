@@ -18,7 +18,14 @@ object Residency extends XMLComponent{
       {question(<Nationality/>, "nationality", nationalityAndResidency.nationality)}
 
       {nationalityAndResidency.nationality match {
-        case NationalityAndResidency.anothercountry => question(<NationalResidency/>, "residency.text.label", nationalityAndResidency.residency)
+        case NationalityAndResidency.anothercountry => question(<ActualNationality/>, "actualnationality.text.label", nationalityAndResidency.actualnationality)
+        case _ => NodeSeq.Empty
+      }}
+
+      {question(<NormallyLiveInGB/>, "resideInUK.answer", nationalityAndResidency.resideInUK.answer)}
+
+      {nationalityAndResidency.resideInUK.answer match {
+        case Mappings.no => question(<CountryNormallyLive/>, "resideInUK.text.label", nationalityAndResidency.resideInUK.text)
         case _ => NodeSeq.Empty
       }}
 

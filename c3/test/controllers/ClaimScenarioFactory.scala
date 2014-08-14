@@ -28,6 +28,7 @@ object ClaimScenarioFactory {
     claim.AboutYouSurname = "Appleseed"
     claim.AboutYouDateOfBirth = "03/04/1950"
     claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
     claim.AboutYouNINO = "AB123456C"
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
     claim.AboutYouPostcode = "FY1 2RW"
@@ -39,12 +40,15 @@ object ClaimScenarioFactory {
   def yourNationalityAndResidencyResident() = {
     val claim = new TestData
     claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
     claim
   }
 
   def yourNationalityAndResidencyNonResident() = {
     val claim = new TestData
     claim.AboutYouNationalityAndResidencyNationality = "Another Country"
+    claim.AboutYouNationalityAndResidencyActualNationality = "French"
+    claim.AboutYouNationalityAndResidencyResideInUK = "No"
     claim.AboutYouNationalityAndResidencyNormalResidency = "France"
     claim
   }

@@ -34,7 +34,8 @@ object ContactDetails extends QuestionGroup.Identifier {
 }
 
 case class NationalityAndResidency(nationality: String,
-                                   residency: Option[String] = None) extends QuestionGroup(NationalityAndResidency)
+                                   actualnationality: Option[String] = None,
+                                   resideInUK: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(NationalityAndResidency)
 
 object NationalityAndResidency extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
@@ -51,12 +52,12 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
     }
   }
 
-  def residencyRequired: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.residency") { nationalityAndResidency =>
+  def actualNationalityRequired: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.actualnationality") { nationalityAndResidency =>
     // if the Nationality is Another Country the user must provide their National Residency
     if (nationalityAndResidency.nationality == anothercountry) {
-      nationalityAndResidency.residency match {
+      nationalityAndResidency.actualnationality match {
         case Some(place) => Valid
-        case None => Invalid(ValidationError("residency.required"))
+        case None => Invalid(ValidationError("actualnationality.required"))
       }
     }
     else Valid

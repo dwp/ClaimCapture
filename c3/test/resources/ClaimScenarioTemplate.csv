@@ -16,7 +16,9 @@ About You,Your contact details,How we contact you,HowWeContactYou,
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouTextPhone,DWPCAClaim>EvidenceList
 Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,
 About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality
-About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyNormalResidency
+About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality
+About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK
+About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,
 About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB_1,
 About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB_1,

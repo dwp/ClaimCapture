@@ -15,7 +15,9 @@ About You,Your contact details,Postcode,AboutYouPostcode,pr1 2th
 About You,Your contact details,How we contact you,HowWeContactYou,01772 888901
 Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,22/03/2013
 About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,British
-About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyNormalResidency,
+About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,
+About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Yes
+About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,Yes
 About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB_1,31/05/2011
 About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB_1,01/06/2012

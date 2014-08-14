@@ -52,7 +52,7 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
     "contain errors on invalid non resident submission" in new WithBrowser with PageObjects{
 			val page =  G4NationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
-      claim.AboutYouNationalityAndResidencyNormalResidency = ""
+      claim.AboutYouNationalityAndResidencyActualNationality = ""
       page goToThePage()
       page fillPageWith claim
 

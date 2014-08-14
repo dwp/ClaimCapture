@@ -26,6 +26,7 @@ object AssistedDecision extends XMLComponent {
     var assisted = getAFIP(claim)
     assisted ++= noEEABenefits(claim)
     assisted ++= noEEAWork(claim)
+    assisted ++= nationalityCheck(claim)
     assisted ++= normallyResideInUK(claim)
     //    }
     //    assisted ++= dateOfClaim(claim)
@@ -105,9 +106,15 @@ object AssistedDecision extends XMLComponent {
     else NodeSeq.Empty
   }
 
+  private def nationalityCheck(claim: Claim): NodeSeq = {
+    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
+    if (nationalityAndResidency.nationality == NationalityAndResidency.anothercountry) decisionElement("Person is not British.", "Transfer to Exportability team.")
+    else NodeSeq.Empty
+  }
+
   private def normallyResideInUK(claim: Claim): NodeSeq = {
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
-    if (nationalityAndResidency.nationality == NationalityAndResidency.anothercountry) decisionElement("Person does not normally live in England, Scotland or Wales.", "Transfer to Exportability team.")
+    if (nationalityAndResidency.resideInUK.answer.toLowerCase != "yes") decisionElement("Person does not normally live in England, Scotland or Wales.", "Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 

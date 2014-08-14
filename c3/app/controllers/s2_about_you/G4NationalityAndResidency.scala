@@ -11,13 +11,22 @@ import play.api.data.{FormError, Form}
 import models.domain.NationalityAndResidency
 import utils.helpers.CarersForm._
 import models.yesNo.YesNo
+import models.yesNo.YesNoWithText
 
 object G4NationalityAndResidency extends Controller with CachedClaim with Navigable {
+  val resideInUKMapping =
+    "resideInUK" -> mapping(
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "text" -> optional(carersNonEmptyText(maxLength = 35))
+    )(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("error.text.required", YesNoWithText.validateOnNo _)
+
   val form = Form(mapping(
     "nationality" -> nonEmptyText.verifying(NationalityAndResidency.validNationality),
-    "residency" -> optional(carersNonEmptyText(maxLength = 35))
+    "actualnationality" -> optional(carersNonEmptyText(maxLength = 35)),
+    resideInUKMapping
   )(NationalityAndResidency.apply)(NationalityAndResidency.unapply)
-    .verifying(NationalityAndResidency.residencyRequired)
+    .verifying(NationalityAndResidency.actualNationalityRequired)
   )
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
@@ -30,7 +39,8 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("", "residency.required", FormError("residency", "error.required"))
+          .replaceError("", "actualnationality.required", FormError("actualnationality", "error.required"))
+          .replaceError("resideInUK", "error.text.required", FormError("resideInUK.text", "error.required"))
         BadRequest(views.html.s2_about_you.g4_nationalityAndResidency(formWithErrorsUpdate))
       },
       nationalityAndResidency => claim.update(nationalityAndResidency) -> Redirect(routes.G5AbroadForMoreThan52Weeks.present()))

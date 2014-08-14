@@ -27,14 +27,28 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        carersInputText(nationalityAndResidencyForm("residency"),
-	                            '_label -> Messages("residency.text.label"),
+	                        carersInputText(nationalityAndResidencyForm("actualnationality"),
+	                            '_label -> Messages("actualnationality.text.label"),
 	                            'maxLength -> 35)
 	                    ),
-	                    'id -> "residencyWrap",
+	                    'id -> "nationalityWrap",
 	                    'display -> { if (nationalityAndResidencyForm("nationality").value.getOrElse("notset") == NationalityAndResidency.anothercountry) "yes" else "no" }
 	                )
-	            </ul>
+
+                    @yesNoRadioGroup(nationalityAndResidencyForm("resideInUK")("answer"),
+                        '_label -> Messages("resideInUK.label"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputText(nationalityAndResidencyForm("resideInUK")("text"),
+                            '_label -> Messages("resideInUK.text.label"),
+                            'maxLength -> 35)
+                        ),
+                        'id -> "residencyWrap",
+                        'display -> { if (nationalityAndResidencyForm("resideInUK")("answer").value.getOrElse("yes") == "no") "yes" else "no" }
+                    )
+
+                </ul>
 	
 	        </fieldset>
 	
@@ -54,6 +68,9 @@
     $(function(){
         window.initEvents("@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)",
                           "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("Another_Country").id)",
-                          "@CarersCrypto.encryptAES(nationalityAndResidencyForm("residency").id)");
+                          "@CarersCrypto.encryptAES(nationalityAndResidencyForm("actualnationality").id)",
+                          "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("yes").id)",
+                          "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("no").id)",
+                          "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("text").id)");
     });
 </script>

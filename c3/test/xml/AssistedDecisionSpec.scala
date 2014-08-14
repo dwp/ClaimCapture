@@ -18,7 +18,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if care less than 35 hours" in {
       val moreAboutTheCare = MoreAboutTheCare("no")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val claim = Claim().update(moreAboutTheCare).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain ("Do not spend 35 hours or more each week caring.")
@@ -27,7 +27,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if care more than 35 hours" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val claim = Claim().update(moreAboutTheCare).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0
@@ -35,7 +35,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if employment with £100.01 a week and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = Some("Mondays"),
@@ -52,7 +52,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if employment with £200.02 a fortnight and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = Some("Mondays"),
@@ -69,7 +69,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if employment with £400.04 every 4 weeks and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = Some("Mondays"),
@@ -86,7 +86,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if employment with £433.38 a month and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = Some("Mondays"),
@@ -103,7 +103,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if employment with 2 jobs one £50 a week and one 200.04 four-weekly and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = Some("Mondays"),
@@ -129,7 +129,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if employment with 2 jobs one £100.01 a week and one 200.04 with no frequency." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = Some("Mondays"),
@@ -155,7 +155,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if employment with 2 jobs one £50 a week and one 200.04 four-weekly and job 2 has an expense." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = Some("Mondays"),
@@ -181,7 +181,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if employment with 2 jobs one £50 a week and one 100.04 four-weekly." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None) 
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = Some("Mondays"),
@@ -205,7 +205,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if employment with 2 jobs one £100.01 a week and one 22.13 with not same amount each time." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = Some("Mondays"),
@@ -231,7 +231,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if employment with 2 jobs one £100.01 a week and one 22.13 both with not same amount each time." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = Some("Mondays"),
@@ -256,7 +256,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section only for caring hours if care less than 35 hours and employment with 2 jobs one £100.01 a week and one 200.04." in {
       val moreAboutTheCare = MoreAboutTheCare("no")
-      val residency = NationalityAndResidency(nationality = "British", residency=None) 
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = Some("Mondays"),
@@ -281,7 +281,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if less than 16 years old" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-            val residency = NationalityAndResidency(nationality = "British", residency=None) 
+            val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val now = DateTime.now()
       val details = YourDetails(dateOfBirth = DayMonthYear(now.minusYears(16).plusDays(1)))
       val claim = Claim().update(moreAboutTheCare).update(details).update(residency)
@@ -291,7 +291,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if care 16 years old" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-            val residency = NationalityAndResidency(nationality = "British", residency=None) 
+            val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val now = DateTime.now()
       val details = YourDetails(dateOfBirth = DayMonthYear(now.minusYears(16).minusDays(1)))
       val claim = Claim().update(moreAboutTheCare).update(details).update(residency)
@@ -301,7 +301,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if AFIP is yes" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val moreAboutThePerson = TheirPersonalDetails(armedForcesPayment = "yes")
       val claim = Claim().update(moreAboutTheCare).update(moreAboutThePerson).update(residency)
       val xml = AssistedDecision.xml(claim)
@@ -311,7 +311,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if AFIP is no" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val moreAboutThePerson = TheirPersonalDetails(armedForcesPayment = "no")
       val claim = Claim().update(moreAboutTheCare).update(moreAboutThePerson).update(residency)
       val xml = AssistedDecision.xml(claim)
@@ -320,7 +320,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if date of claim > 3 months and 1 day" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None)
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val now = DateTime.now()
       val details = ClaimDate(DayMonthYear(now.plusMonths(3).plusDays(2)))
       val claim = Claim().update(moreAboutTheCare).update(details).update(residency)
@@ -330,7 +330,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if date of claim <= 3 month and 1 day" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-            val residency = NationalityAndResidency(nationality = "British", residency=None) 
+            val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val now = DateTime.now()
       val details = ClaimDate(DayMonthYear(now.plusMonths(3)))
       val claim = Claim().update(moreAboutTheCare).update(details).update(residency)
@@ -340,7 +340,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if EEA pension" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-            val residency = NationalityAndResidency(nationality = "British", residency=None) 
+            val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromEEA = "yes")
       val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
       val xml = AssistedDecision.xml(claim)
@@ -350,7 +350,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if no EEA pension" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-            val residency = NationalityAndResidency(nationality = "British", residency=None) 
+            val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromEEA = "no")
       val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
       val xml = AssistedDecision.xml(claim)
@@ -359,7 +359,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if no EEA benefits claimed for" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-            val residency = NationalityAndResidency(nationality = "British", residency=None) 
+            val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForEEA = "no")
       val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
       val xml = AssistedDecision.xml(claim)
@@ -368,7 +368,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if EEA insurance or working" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-            val residency = NationalityAndResidency(nationality = "British", residency=None) 
+            val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val now = DateTime.now()
       val details = ClaimDate(DayMonthYear(now.plusMonths(3).plusDays(2)))
       val claim = Claim().update(moreAboutTheCare).update(details).update(residency)
@@ -379,7 +379,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if no EEA insurance or working" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", residency=None) 
+      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val now = DateTime.now()
       val details = ClaimDate(DayMonthYear(now.plusMonths(3)))
       val claim = Claim().update(moreAboutTheCare).update(details).update(residency)
@@ -387,8 +387,16 @@ class AssistedDecisionSpec extends Specification with Tags {
       (xml \\ "AssistedDecisions").length mustEqual 0
     }
 
+    "Create an assisted decision section if person is not British" in {
+      val residency = NationalityAndResidency(nationality = "Another Country", actualnationality=Some("French"), resideInUK = YesNoWithText("yes", None))
+      val claim = Claim().update(residency)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "Reason").text must contain("Person is not British.")
+      (xml \\ "RecommendedDecision").text must contain ("Transfer to Exportability team.")
+    }
+
     "Create an assisted decision section if person does not normally live in England, Scotland or Wales" in {
-      val residency = NationalityAndResidency(nationality = "Another Country", residency=Some("Brazil"))
+      val residency = NationalityAndResidency(nationality = "British", resideInUK=YesNoWithText("no", Some("France")))
       val claim = Claim().update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Person does not normally live in England, Scotland or Wales.")
@@ -396,7 +404,7 @@ class AssistedDecisionSpec extends Specification with Tags {
     }
 
     "Not create an assisted decision section if person normally lives in England, Scotland or Wales" in {
-      val residency = NationalityAndResidency(nationality = "British")
+      val residency = NationalityAndResidency(nationality = "British", resideInUK = YesNoWithText("yes", None))
       val claim = Claim().update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0

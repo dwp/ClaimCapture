@@ -57,6 +57,7 @@ object Formulate {
   def nationalityAndResidency(browser: TestBrowser) = {
     browser.goTo("/about-you/nationality-and-residency")
     browser.click("#nationality_British")
+    browser.click("#resideInUK_answer_yes")
     browser.submit("button[type='submit']")
   }
 

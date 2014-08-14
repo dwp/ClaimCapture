@@ -5,7 +5,9 @@ import utils.pageobjects._
 
 final class G4NationalityAndResidencyPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G4NationalityAndResidencyPage.url, G4NationalityAndResidencyPage.title) {
   declareRadioList("#nationality", "AboutYouNationalityAndResidencyNationality")
-  declareInput("#residency", "AboutYouNationalityAndResidencyNormalResidency")
+  declareInput("#actualnationality", "AboutYouNationalityAndResidencyActualNationality")
+  declareYesNo("#resideInUK_answer", "AboutYouNationalityAndResidencyResideInUK")
+  declareInput("#resideInUK_text", "AboutYouNationalityAndResidencyNormalResidency")
 }
 
 object G4NationalityAndResidencyPage {
