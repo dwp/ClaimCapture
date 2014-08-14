@@ -112,12 +112,11 @@ object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g7"
 }
 
-case class MoreAboutYou(maritalStatus: String = "",
-                        hadPartnerSinceClaimDate: Option[String] = None) extends QuestionGroup(MoreAboutYou)
+case class MoreAboutYou(maritalStatus: String = "") extends QuestionGroup(MoreAboutYou)
 
 object MoreAboutYou extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g8"
 
-  def validateHadPartner(moreAboutYou: MoreAboutYou) = moreAboutYou.maritalStatus == "p" || moreAboutYou.hadPartnerSinceClaimDate.isDefined
+  def validateHadPartner(moreAboutYou: MoreAboutYou) = moreAboutYou.maritalStatus == "p"
 
 }

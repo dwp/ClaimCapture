@@ -13,21 +13,10 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
+      titleMustEqual("Partner details - About your partner")
 
       browser.goTo("/your-partner/personal-details")
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
-    }
-
-    "navigate to next section if carer has no partner" in new WithBrowser with BrowserMatchers {
-      Formulate.claimDate(browser)
-      Formulate.nationalityAndResidency(browser)
-      Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
-      titleMustEqual("Details of the person you care for - About the care you provide")
-
-      browser.goTo("/your-partner/personal-details")
-      titleMustEqual("Details of the person you care for - About the care you provide")
+      titleMustEqual("Partner details - About your partner")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
@@ -35,10 +24,10 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
+      titleMustEqual("Partner details - About your partner")
 
       browser.goTo("/your-partner/personal-details")
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
+      titleMustEqual("Partner details - About your partner")
       browser.submit("button[type='submit']")
 
       browser.find("div[class=validation-summary] ol li").size mustEqual 6
@@ -49,7 +38,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
+      titleMustEqual("Partner details - About your partner")
 
       Formulate.yourPartnerPersonalDetails(browser)
       titleMustEqual(G1TheirPersonalDetailsPage.title)
@@ -61,10 +50,10 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
 
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
+      titleMustEqual("Partner details - About your partner")
 
       browser.goTo("/your-partner/personal-details")
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
+      titleMustEqual("Partner details - About your partner")
 
       browser.click("#backButton")
       titleMustEqual("More about you - About you - the carer")
@@ -75,12 +64,12 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
+      titleMustEqual("Partner details - About your partner")
 
       Formulate.yourPartnerPersonalDetails(browser)
       titleMustEqual("Details of the person you care for - About the care you provide")
       Formulate.clickBackButton(browser)
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
+      titleMustEqual("Partner details - About your partner")
     }
   } section("integration", models.domain.YourPartner.id)
 }

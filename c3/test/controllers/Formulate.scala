@@ -78,14 +78,12 @@ object Formulate {
   def moreAboutYou(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
     browser.click("#maritalStatus_Single")
-    browser.click("#hadPartnerSinceClaimDate_yes")
     browser.submit("button[type='submit']")
   }
 
   def moreAboutYouNotHadPartnerSinceClaimDate(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
     browser.click("#maritalStatus_Single")
-    browser.click("#hadPartnerSinceClaimDate_no")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
     browser.submit("button[type='submit']")
   }
@@ -93,7 +91,6 @@ object Formulate {
   def moreAboutYouSinglePartnerBenefitsYes(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
     browser.click("#maritalStatus_Single")
-    browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
     browser.submit("button[type='submit']")
   }

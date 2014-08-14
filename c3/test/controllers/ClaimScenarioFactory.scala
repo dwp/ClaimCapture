@@ -122,7 +122,6 @@ object ClaimScenarioFactory {
 
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Divorced or civil partnership dissolved"
-    claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "Yes"
 
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
@@ -155,7 +154,6 @@ object ClaimScenarioFactory {
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
     // More about you
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
-    claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "no"
     claim.AboutYouDoYouGetStatePension = "no"
 
     claim
@@ -534,6 +532,7 @@ object ClaimScenarioFactory {
     claim.SelfEmployedChildcareExpensesHowOften = app.PensionPaymentFrequency.Other
     claim.SelfEmployedChildcareExpensesHowOftenOther = "Every day and twice on Sunday's"
     claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "Father"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "Father"
     claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "Father"
 
     claim
@@ -548,6 +547,7 @@ object ClaimScenarioFactory {
     claim.SelfEmployedCareExpensesNameOfPerson = "John"
     claim.SelfEmployedCareExpensesWhatRelationIsToYou = "Father"
     claim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor = "Father"
+    claim.SelfEmployedCareExpensesWhatRelationToPartner = "Father"
 
     claim
   }

@@ -9,6 +9,7 @@ import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects.s7_employment.G1EmploymentPage
 import utils.pageobjects.s1_2_claim_date.{G1ClaimDatePageContext, G1ClaimDatePage}
+import utils.pageobjects.s2_about_you.G1YourDetailsPage
 
 class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
 
@@ -61,21 +62,31 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       val pageClaimDate = new G1ClaimDatePage(PageObjectsContext(browser))
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith claimDate
-      val nationality = pageClaimDate.submitPage()
-      nationality fillPageWith claimDate
-      val abroadForMoreThan52Weeks = nationality.submitPage(throwException = true)
-      abroadForMoreThan52Weeks fillPageWith claimDate
-      val otherEAAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
-      otherEAAStateOrSwitzerland fillPageWith claimDate
-      val pageMoreAboutYou = otherEAAStateOrSwitzerland.submitPage(throwException = true)
-      pageMoreAboutYou fillPageWith claimDate
-      pageMoreAboutYou.submitPage(throwException = true)
 
-      val claimAboutYourPartner = ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
-      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(PageObjectsContext(browser))
-      pageAboutYourPartner goToThePage()
-      pageAboutYourPartner fillPageWith claimAboutYourPartner
+      val aboutYou = ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      val pageAboutYou = new G1YourDetailsPage(PageObjectsContext(browser))
+      pageAboutYou goToThePage()
+      pageAboutYou fillPageWith aboutYou
+
+      val aboutYouContactDetails = pageAboutYou.submitPage(throwException = true)
+      aboutYouContactDetails fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+
+      val nationalityAndResidency = aboutYouContactDetails.submitPage(throwException = true)
+      nationalityAndResidency fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+
+      val abroadForMoreThan52Weeks = nationalityAndResidency.submitPage(throwException = true)
+      abroadForMoreThan52Weeks fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+
+      val otherEEAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
+      otherEEAStateOrSwitzerland fillPageWith aboutYou
+
+      val pageMoreAboutYou = otherEEAStateOrSwitzerland.submitPage(throwException = true)
+      pageMoreAboutYou fillPageWith aboutYou
+
+      val pageAboutYourPartner = pageMoreAboutYou.submitPage(throwException = true)
+      pageAboutYourPartner fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
       pageAboutYourPartner.submitPage(throwException = true)
+
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(PageObjectsContext(browser))
@@ -98,20 +109,29 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       val pageClaimDate = new G1ClaimDatePage(PageObjectsContext(browser))
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith claimDate
-      val nationality = pageClaimDate.submitPage()
-      nationality fillPageWith claimDate
-      val abroadForMoreThan52Weeks = nationality.submitPage(throwException = true)
-      abroadForMoreThan52Weeks fillPageWith claimDate
-      val otherEAAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
-      otherEAAStateOrSwitzerland fillPageWith claimDate
-      val pageMoreAboutYou = otherEAAStateOrSwitzerland.submitPage(throwException = true)
-      pageMoreAboutYou fillPageWith claimDate
-      pageMoreAboutYou.submitPage(throwException = true)
 
-      val claimAboutYourPartner = ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
-      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(PageObjectsContext(browser))
-      pageAboutYourPartner goToThePage()
-      pageAboutYourPartner fillPageWith claimAboutYourPartner
+      val aboutYou = ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      val pageAboutYou = new G1YourDetailsPage(PageObjectsContext(browser))
+      pageAboutYou goToThePage()
+      pageAboutYou fillPageWith aboutYou
+
+      val aboutYouContactDetails = pageAboutYou.submitPage(throwException = true)
+      aboutYouContactDetails fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+
+      val nationalityAndResidency = aboutYouContactDetails.submitPage(throwException = true)
+      nationalityAndResidency fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+
+      val abroadForMoreThan52Weeks = nationalityAndResidency.submitPage(throwException = true)
+      abroadForMoreThan52Weeks fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+
+      val otherEEAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
+      otherEEAStateOrSwitzerland fillPageWith aboutYou
+
+      val pageMoreAboutYou = otherEEAStateOrSwitzerland.submitPage(throwException = true)
+      pageMoreAboutYou fillPageWith aboutYou
+
+      val pageAboutYourPartner = pageMoreAboutYou.submitPage(throwException = true)
+      pageAboutYourPartner fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
       pageAboutYourPartner.submitPage(throwException = true)
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses

@@ -9,14 +9,12 @@ import utils.helpers.CarersForm._
 import controllers.Mappings.validYesNo
 import controllers.Mappings._
 import models.domain._
+import play.api.Logger
 
 object G8MoreAboutYou extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "maritalStatus" -> nonEmptyText,
-    "hadPartnerSinceClaimDate" -> optional(nonEmptyText.verifying(validYesNo))
-  )(MoreAboutYou.apply)(MoreAboutYou.unapply)
-    .verifying("hadPartnerSinceClaimDate.required",MoreAboutYou.validateHadPartner _)
-  )
+    "maritalStatus" -> nonEmptyText
+  )(MoreAboutYou.apply)(MoreAboutYou.unapply))
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     claim.questionGroup(OtherEEAStateOrSwitzerland) match {
@@ -27,16 +25,10 @@ object G8MoreAboutYou extends Controller with CachedClaim with Navigable {
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
-      formWithErrors => {
-        val formWithErrorsUpdate = formWithErrors
-          .replaceError("hadPartnerSinceClaimDate", "error.required", FormError("hadPartnerSinceClaimDate", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
-          .replaceError("", "hadPartnerSinceClaimDate.required", FormError("hadPartnerSinceClaimDate", "error.required",Seq(claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))))
-        BadRequest(views.html.s2_about_you.g8_moreAboutYou(formWithErrorsUpdate))}
-      ,
-      moreAboutYou => {
-        val updatedClaim = claim.showHideSection(moreAboutYou.hadPartnerSinceClaimDate == Some(yes) || moreAboutYou.maritalStatus == "p", YourPartner)
-
-        updatedClaim.update(moreAboutYou) -> Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
-      })
+      formWithErrors => BadRequest(views.html.s2_about_you.g8_moreAboutYou(formWithErrors)),
+      moreAboutYou =>  {
+        claim.update(moreAboutYou) -> Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
+      }
+    )
   }
 }
