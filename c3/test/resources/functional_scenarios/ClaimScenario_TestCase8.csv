@@ -171,6 +171,7 @@ Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (thi
 Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,yes
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName_1,Kwik Fit Tryes
+Employment,Your Job,Phone Number,EmploymentEmployerPhoneNumber_1,12345678
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,01/05/2013
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,Yes
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,01/01/2001

@@ -25,6 +25,7 @@ class G3JobDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
+        "phoneNumber" -> "12345678",
         "address.lineOne" -> "Street Test 1",
         "address.lineTwo" -> "lineTwo",
         "address.lineThree" -> "lineThree",
@@ -54,6 +55,7 @@ class G3JobDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
+        "phoneNumber" -> "12345678",
         "address.lineOne" -> "Street Test 1",
         "address.lineTwo" -> "lineTwo",
         "address.lineThree" -> "lineThree",
@@ -78,6 +80,7 @@ class G3JobDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
+        "phoneNumber" -> "12345678",
         "address.lineOne" -> "Street Test 1",
         "address.lineTwo" -> "lineTwo",
         "address.lineThree" -> "lineThree",

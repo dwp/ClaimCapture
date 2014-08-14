@@ -55,6 +55,7 @@ class G8AboutExpensesSpec extends Specification with Tags {
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
+        "phoneNumber" -> "12345678",
         "address.lineOne" -> "Street Test 1",
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",

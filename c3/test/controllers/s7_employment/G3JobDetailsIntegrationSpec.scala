@@ -14,6 +14,7 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
     "accept only mandatory data" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       browser.goTo(s"/employment/job-details/dummyJobID")
       browser.fill("#employerName") `with` "Toys r not Us"
+      browser.fill("#phoneNumber") `with` "12345678"
       browser.fill("#payrollEmployeeNumber") `with` "445566"
       browser.fill("#address_lineOne") `with` "Street Test 1"
       browser.click("#jobStartDate_day option[value='1']")
@@ -53,6 +54,7 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
       browser.goTo(s"/employment/job-details/$jobID")
 
       browser.fill("#employerName") `with` "Toys r not Us"
+      browser.fill("#phoneNumber") `with` "12345678"
       browser.fill("#payrollEmployeeNumber") `with` "445566"
       browser.fill("#address_lineOne") `with` "Street Test 1"
       browser.click("#jobStartDate_day option[value='1']")

@@ -123,7 +123,7 @@ object Job {
 
 case class JobDetails(jobID: String = "",
                       employerName: String = "",
-                      phoneNumber: Option[String] = None,
+                      phoneNumber: String = "",
                       payrollEmployeeNumber: Option[String] = None,
                       address: MultiLineAddress = MultiLineAddress(),
                       postcode: Option[String] = None,
