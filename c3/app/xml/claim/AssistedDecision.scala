@@ -52,15 +52,13 @@ object AssistedDecision extends XMLComponent {
     var weeklyEarning: Double = 0.0d
     claim.questionGroup[Jobs] match {
       case Some(jobs) => for (job <- jobs) {
-        val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(), None,DayMonthYear(),"", None, None, ""))
+        val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(), "",DayMonthYear(),"", None, None, ""))
         if (weeklyEarning > -1d && lastWage.sameAmountEachTime.getOrElse("").toLowerCase == "yes") {
-          //          Logger.debug("Assisted decision - child expense " + job.questionGroup[ChildcareExpenses])
-          //          Logger.debug("Assisted decision - Person you care expenses " + job.questionGroup[PersonYouCareForExpenses])
-          //          Logger.debug("Assisted decision - Pension schemes " + job.questionGroup[PensionSchemes])
+
           if (!job.questionGroup[AboutExpenses].isDefined
             && (!job.questionGroup[PensionSchemes].isDefined || (job.questionGroup[PensionSchemes].get.payPersonalPensionScheme.toLowerCase != "yes" && job.questionGroup[PensionSchemes].get.payOccupationalPensionScheme.toLowerCase != "yes"))) {
             val earning = currencyAmount(lastWage.grossPay).toDouble
-            //            Logger.debug("Assisted decision - Pay frequency " + job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency)
+
             val frequencyFactor: Double = lastWage.oftenGetPaid.frequency match {
               case StatutoryPaymentFrequency.Weekly => 1.0
               case StatutoryPaymentFrequency.Fortnightly => 2.0001

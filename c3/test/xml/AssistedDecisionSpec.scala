@@ -14,6 +14,8 @@ import xml.claim.AssistedDecision
 
 class AssistedDecisionSpec extends Specification with Tags {
 
+  val whenGetPaid = "Monday"
+
   "Assisted section" should {
 
     "Create an assisted decision section if care less than 35 hours" in {
@@ -38,7 +40,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -55,7 +57,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -72,7 +74,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -89,7 +91,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -106,7 +108,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -114,7 +116,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
       val lastWage2 = LastWage(jobID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -132,7 +134,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -140,7 +142,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
       val lastWage2 = LastWage(jobID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -158,7 +160,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -166,7 +168,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
       val lastWage2 = LastWage(jobID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -184,14 +186,14 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
       val job1 = Job("12", List(lastWage1))
       val lastWage2 = LastWage(jobID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -208,7 +210,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -216,7 +218,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
       val lastWage2 = LastWage(jobID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -234,7 +236,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -242,7 +244,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
       val lastWage2 = LastWage(jobID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
@@ -259,14 +261,14 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val lastWage1 = LastWage(jobID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
       val job1 = Job("12", List(lastWage1))
       val lastWage2 = LastWage(jobID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
-        whenGetPaid = Some("Mondays"),
+        whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")

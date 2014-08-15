@@ -18,7 +18,7 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "oftenGetPaid" -> (mandatoryPaymentFrequency verifying validPaymentFrequencyOnly),
-    "whenGetPaid" -> optional(carersText(maxLength = Mappings.sixty)),
+    "whenGetPaid" -> carersNonEmptyText(maxLength = Mappings.sixty),
     "lastPaidDate" -> dayMonthYear.verifying(validDate),
     "grossPay" -> required(nonEmptyText.verifying(validCurrency5Required)),
     "payInclusions" -> optional(carersText(maxLength = Mappings.sixty)),
@@ -39,6 +39,7 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
           .replaceError("lastPaidDate", "error.required", FormError("lastPaidDate", "error.required", Seq(labelForEmployment(claim, lang, "lastPaidDate", jobID))))
           .replaceError("grossPay", "error.required", FormError("grossPay", "error.required", Seq(labelForEmployment(claim, lang, "grossPay", jobID))))
           .replaceError("employerOwesYouMoney", "error.required", FormError("employerOwesYouMoney", "error.required", Seq(labelForEmployment(claim, lang, "employerOwesYouMoney", jobID))))
+          .replaceError("whenGetPaid", "error.required", FormError("whenGetPaid", "error.required", Seq(labelForEmployment(claim, lang, "whenGetPaid", jobID))))
         BadRequest(views.html.s7_employment.g5_lastWage(form))
       },
       lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G7PensionSchemes.present(jobID)))
