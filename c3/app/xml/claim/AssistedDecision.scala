@@ -52,8 +52,8 @@ object AssistedDecision extends XMLComponent {
     var weeklyEarning: Double = 0.0d
     claim.questionGroup[Jobs] match {
       case Some(jobs) => for (job <- jobs) {
-        val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(), "",DayMonthYear(),"", None, None, ""))
-        if (weeklyEarning > -1d && lastWage.sameAmountEachTime.getOrElse("").toLowerCase == "yes") {
+        val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(), "",DayMonthYear(),"", None, "", ""))
+        if (weeklyEarning > -1d && lastWage.sameAmountEachTime.toLowerCase == "yes") {
 
           if (!job.questionGroup[AboutExpenses].isDefined
             && (!job.questionGroup[PensionSchemes].isDefined || (job.questionGroup[PensionSchemes].get.payPersonalPensionScheme.toLowerCase != "yes" && job.questionGroup[PensionSchemes].get.payOccupationalPensionScheme.toLowerCase != "yes"))) {

@@ -34,6 +34,7 @@ class G5LastWageSpec extends Specification with Tags {
           "lastPaidDate.month" -> "1",
           "lastPaidDate.year" -> "2014",
           "grossPay" -> "200",
+          "sameAmountEachTime" -> "yes",
           "employerOwesYouMoney" -> "no")
 
       val result = G5LastWage.submit(request)
@@ -60,6 +61,7 @@ class G5LastWageSpec extends Specification with Tags {
           "lastPaidDate.month" -> "1",
           "lastPaidDate.year" -> "2014",
           "grossPay" -> "200",
+          "sameAmountEachTime" -> "yes",
           "employerOwesYouMoney" -> "no"))
 
       status(result) mustEqual SEE_OTHER

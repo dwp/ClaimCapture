@@ -154,7 +154,7 @@ case class LastWage(jobID: String = "",
                     lastPaidDate: DayMonthYear,
                     grossPay: String = "",
                     payInclusions: Option[String] = None,
-                    sameAmountEachTime: Option[String] = None,
+                    sameAmountEachTime: String = "",
                     employerOwesYouMoney: String = "") extends QuestionGroup(LastWage) with Job.Identifier
 
 

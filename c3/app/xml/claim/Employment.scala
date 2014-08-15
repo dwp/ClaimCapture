@@ -21,7 +21,7 @@ object Employment extends XMLComponent{
 
         {for (job <- jobsQG) yield {
             val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-            val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(),"",DayMonthYear(),"", None, None, ""))
+            val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(),"",DayMonthYear(),"", None, "", ""))
 
             <JobDetails>
               {employerXml(job)}
