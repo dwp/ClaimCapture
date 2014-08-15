@@ -1,14 +1,10 @@
 package controllers.s3_your_partner
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
-import play.api.cache.Cache
 import models.domain._
-import models.{DayMonthYear, domain}
+import models.{DayMonthYear, NationalInsuranceNumber, domain}
+import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import models.domain.Claim
-import models.NationalInsuranceNumber
-import models.view.CachedClaim
+import play.api.test.{FakeRequest, WithApplication}
 
 class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
   val title = "Mr"
@@ -49,18 +45,18 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
 
   "Your Partner Personal Details - Controller" should {
     "present 'Your Partner Personal Details' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
 
       val result = G1YourPartnerPersonalDetails.present(request)
       status(result) mustEqual OK
     }
     
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
 
       val result = G1YourPartnerPersonalDetails.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
       val section: Section = claim.section(domain.YourPartner)
 
       section.questionGroup(YourPartnerPersonalDetails) must beLike {
@@ -79,11 +75,11 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
     }
 
     "add submitted form to the cached claim when partner answer is no" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "no")
 
       val result = G1YourPartnerPersonalDetails.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
       val section: Section = claim.section(domain.YourPartner)
 
       section.questionGroup(YourPartnerPersonalDetails) must beLike {
@@ -103,7 +99,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
     }
     
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("foo" -> "bar")
 
       val result = G1YourPartnerPersonalDetails.submit(request)
@@ -111,7 +107,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
     }
     
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
 
       val result = G1YourPartnerPersonalDetails.submit(request)
@@ -119,7 +115,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission when partner answer is no" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "no")
 
       val result = G1YourPartnerPersonalDetails.submit(request)

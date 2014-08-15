@@ -13,24 +13,24 @@ class G8MoreAboutYouSpec extends Specification with Tags {
     val maritalStatus = "m"
 
     "make Your Partner Section visible" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("maritalStatus" -> maritalStatus,
           "hadPartnerSinceClaimDate" -> "yes")
 
       val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
 
       val section: Section = claim.section(domain.YourPartner)
       section.visible must beTrue
     }
 
     "hide Your Partner Section" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("maritalStatus" -> maritalStatus,
         "hadPartnerSinceClaimDate" -> "no")
 
       val result = controllers.s2_about_you.G8MoreAboutYou.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
 
       val section: Section = claim.section(domain.YourPartner)
       section.visible must beFalse

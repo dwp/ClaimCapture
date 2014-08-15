@@ -1,13 +1,11 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.{Tags, Specification}
-import org.specs2.mock.Mockito
-import play.api.test.{WithApplication, FakeRequest}
-import play.api.cache.Cache
-import models.domain.{Claiming, Claim, Section, TheirContactDetails}
 import models.domain
+import models.domain.{Claiming, Section, TheirContactDetails}
+import org.specs2.mock.Mockito
+import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import models.view.CachedClaim
+import play.api.test.{FakeRequest, WithApplication}
 
 class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
 
@@ -17,11 +15,11 @@ class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
   "Their Contact Details - Controller" should {
 
     "add their contect details to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(theirContactDetailsInput: _*)
 
       val result = G2TheirContactDetails.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
       val section: Section = claim.section(domain.CareYouProvide)
 
       section.questionGroup(TheirContactDetails) must beLike {
@@ -33,7 +31,7 @@ class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
     }
 
     "return a BadRequest on an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
       val result = G2TheirContactDetails.submit(request)
@@ -41,7 +39,7 @@ class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(theirContactDetailsInput: _*)
 
       val result = G2TheirContactDetails.submit(request)

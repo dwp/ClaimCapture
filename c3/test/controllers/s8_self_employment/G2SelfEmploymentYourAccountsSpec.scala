@@ -1,12 +1,10 @@
 package controllers.s8_self_employment
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
-import models.domain._
-import play.api.test.Helpers._
-import play.api.cache.Cache
 import models.DayMonthYear
-import models.view.CachedClaim
+import models.domain._
+import org.specs2.mutable.{Specification, Tags}
+import play.api.test.Helpers._
+import play.api.test.{FakeRequest, WithApplication}
 
 class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
 
@@ -32,18 +30,18 @@ class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
     )
 
     "present 'Self Employment Your Accounts' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
 
       val result = controllers.s8_self_employment.G2SelfEmploymentYourAccounts.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(selfEmploymentYourAccountsInput: _*)
 
       val result = controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.SelfEmployment)
 
       section.questionGroup(SelfEmploymentYourAccounts) must beLike {
@@ -57,7 +55,7 @@ class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(selfEmploymentYourAccountsInput: _*)
 
       val result = controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit(request)

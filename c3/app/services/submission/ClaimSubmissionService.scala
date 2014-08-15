@@ -38,6 +38,7 @@ trait ClaimSubmissionService {
   def getTransactionIdAndRegisterGenerated(claim:Claim, jsEnabled:Int) = {
     val transId = claimTransaction.generateId
     claimTransaction.registerId(transId,AsyncClaimSubmissionService.GENERATED,claimType(claim), jsEnabled)
+    Logger.info(s"Transaction id [$transId] generated for ${claim.key} ${claim.uuid}.")
     transId
   }
 

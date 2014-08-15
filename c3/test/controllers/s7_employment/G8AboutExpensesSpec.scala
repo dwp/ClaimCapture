@@ -1,27 +1,24 @@
 package controllers.s7_employment
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
-import play.api.test.Helpers._
-import models.domain._
-import play.api.cache.Cache
-import models.view.CachedClaim
 import app.PensionPaymentFrequency._
-import models.domain.Claim
-import scala.Some
+import models.domain._
+import models.view.CachedClaim
+import org.specs2.mutable.{Specification, Tags}
+import play.api.test.Helpers._
+import play.api.test.{FakeRequest, WithApplication}
 
 class G8AboutExpensesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
 
   "About expenses" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
       val result = G8AboutExpenses.present(jobID)(request)
       status(result) mustEqual OK
     }
 
     "require all mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("jobID" -> jobID)
 
       val result = G8AboutExpenses.submit(request)
@@ -29,7 +26,7 @@ class G8AboutExpensesSpec extends Specification with Tags {
     }
 
     "accept all mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
+      val request = FakeRequest().withFormUrlEncodedBody("jobID" -> jobID,
         "haveExpensesForJob" -> "yes", "payAnyoneToLookAfterChildren" -> "yes", "payAnyoneToLookAfterPerson" -> "yes",
         "jobTitle" -> "some title",
         "whatExpensesForJob" -> "some expense",
@@ -51,7 +48,7 @@ class G8AboutExpensesSpec extends Specification with Tags {
     }
 
     "be added to a (current) job" in new WithApplication with Claiming {
-      val result1 = G3JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result1 = G3JobDetails.submit(FakeRequest()
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
@@ -61,13 +58,13 @@ class G8AboutExpensesSpec extends Specification with Tags {
         "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "no"))
 
-      val result = G8AboutExpenses.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result2 = G8AboutExpenses.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
         withFormUrlEncodedBody("jobID" -> jobID,
         "haveExpensesForJob" -> "no", "payAnyoneToLookAfterChildren" -> "no", "payAnyoneToLookAfterPerson" -> "no"))
 
-      status(result) mustEqual SEE_OTHER
+      status(result2) mustEqual SEE_OTHER
 
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result2)
 
       claim.questionGroup(Jobs) must beLike {
         case Some(js: Jobs) => {

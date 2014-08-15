@@ -30,7 +30,7 @@ object G1ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
 
   def present = newClaim {
     implicit circs => implicit request => implicit lang =>
-      Logger.info(s"Starting new $cacheKey")
+      Logger.info(s"Starting new $cacheKey - ${circs.uuid}")
       track(CircumstancesReportChange) {
         implicit circs => Ok(views.html.circs.s1_identification.g1_reportAChangeInYourCircumstances(form.fill(CircumstancesReportChange)))
       }

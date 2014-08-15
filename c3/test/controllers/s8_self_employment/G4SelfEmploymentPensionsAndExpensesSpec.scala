@@ -1,13 +1,10 @@
 package controllers.s8_self_employment
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
-import models.domain._
-import play.api.test.Helpers._
-import play.api.cache.Cache
-import scala.Some
-import models.view.CachedClaim
 import models.PensionPaymentFrequency
+import models.domain._
+import org.specs2.mutable.{Specification, Tags}
+import play.api.test.Helpers._
+import play.api.test.{FakeRequest, WithApplication}
 
 class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
 
@@ -29,18 +26,18 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     )
 
     "present 'Pensions and Expenses' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
 
       val result = controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(selfEmploymentPensionsAndExpensesInput: _*)
 
       val result = controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.SelfEmployment)
 
       section.questionGroup(SelfEmploymentPensionsAndExpenses) must beLike {
@@ -55,7 +52,7 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     }
 
     "reject missing mandatory field doYouPayToPensionScheme" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "howMuchDidYouPay" -> howMuchDidYouPay,
         "howOften.frequency" -> howOften_frequency,
@@ -69,7 +66,7 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     }
 
     "reject missing mandatory field mandatory field doYouPayToLookAfterYourChildren" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
         "howMuchDidYouPay" -> howMuchDidYouPay,
@@ -83,7 +80,7 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     }
 
     "reject missing mandatory field mandatory field didYouPayToLookAfterThePersonYouCaredFor" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
         "howMuchDidYouPay" -> howMuchDidYouPay,
@@ -97,7 +94,7 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     }
 
     "reject missing mandatory field howMuch" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
         "howOften.frequency" -> howOften_frequency,
@@ -111,7 +108,7 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     }
 
     "reject missing mandatory field howOften frequency" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
         "howMuchDidYouPay" -> howMuchDidYouPay,
@@ -125,7 +122,7 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     }
 
     "reject other selected but not filled in" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
         "howMuchDidYouPay" -> howMuchDidYouPay,
@@ -139,7 +136,7 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(selfEmploymentPensionsAndExpensesInput: _*)
 
       val result = controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit(request)
