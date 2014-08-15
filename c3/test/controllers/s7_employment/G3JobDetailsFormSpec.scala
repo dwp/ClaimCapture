@@ -15,7 +15,6 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     val hrsPerWeek =  "25"
     val phoneNumber = "12345678"
     val postCode = "PR1 7UP"
-    val payrollNumber = "445566"
     val day = "1"
     val month = "1"
     val year1 = "1970"
@@ -27,7 +26,6 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "jobID" -> jobId,
           "employerName" -> employerName,
           "phoneNumber" -> phoneNumber,
-          "payrollEmployeeNumber" -> payrollNumber,
           "address.lineOne" -> addressLine,
           "address.lineTwo" -> addressLineTwo,
           "address.lineThree" -> addressLineThree,
@@ -50,7 +48,6 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           f.jobID must equalTo(jobId)
           f.employerName must equalTo(employerName)
           f.phoneNumber must equalTo(phoneNumber)
-          f.payrollEmployeeNumber must equalTo(Some(payrollNumber))
           f.address.lineOne must equalTo(Some(addressLine))
           f.address.lineTwo must equalTo(Some(addressLineTwo))
           f.address.lineThree must equalTo(Some(addressLineThree))
@@ -66,7 +63,6 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "have 5 mandatory fields" in {
       G3JobDetails.form.bind(
         Map(
-          "payrollEmployeeNumber" -> payrollNumber,
           "postcode" -> postCode,
           "jobStartDate.day" -> day,
           "jobStartDate.month" -> month,

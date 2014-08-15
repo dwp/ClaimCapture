@@ -176,7 +176,6 @@ Employment,Employer Details,Have you finished this job?,EmploymentHaveYouFinishe
 Employment,Employer Details,When did you last work? ,EmploymentWhenDidYouLastWork_1,
 Employment,Employer Details,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_1,
 Employment,Employer Details,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,
-Employment,Employer Details,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,
 Employment,Employer Details,Address,EmploymentEmployerAddress_1,
 Employment,Employer Details,Postcode ,EmploymentEmployerPostcode_1,
 Employment,Employer Details,Phone number,EmploymentEmployerPhoneNumber_1,

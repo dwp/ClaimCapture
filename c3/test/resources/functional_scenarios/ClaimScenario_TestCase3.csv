@@ -128,7 +128,6 @@ Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,01/07/2013
 Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_1,
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,25
-Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,1234567890123456
 Employment,Employers contact details,Address,EmploymentEmployerAddress_1,23 Yeadon Way&Blackpool&Lancashire
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY4 5TH
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,12345678901234567890
@@ -173,7 +172,6 @@ Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_2,01/01/2001
 Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_2,25/12/2010
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_2,
-Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_2,12345678
 Employment,Employers contact details,Address,EmploymentEmployerAddress_2,23 Yeadon Way&Blackpool&Lancashire
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_2,FY4 5TH
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_2,01253 667889

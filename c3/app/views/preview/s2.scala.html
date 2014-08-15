@@ -10,7 +10,7 @@
         else ""
     }
 @contactDetails = @{claim.questionGroup[ContactDetails].getOrElse(ContactDetails())}
-    @address = @{contactDetails.address}
+@address = @{contactDetails.address}
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @nationalityAndResidency = @{claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))}
 @otherEEA = @{claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())}

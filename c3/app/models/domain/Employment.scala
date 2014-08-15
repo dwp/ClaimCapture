@@ -124,7 +124,6 @@ object Job {
 case class JobDetails(jobID: String = "",
                       employerName: String = "",
                       phoneNumber: String = "",
-                      payrollEmployeeNumber: Option[String] = None,
                       address: MultiLineAddress = MultiLineAddress(),
                       postcode: Option[String] = None,
                       jobStartDate: DayMonthYear = DayMonthYear(None, None, None),

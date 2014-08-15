@@ -224,6 +224,7 @@ trait CachedClaim {
   private def originCheck(action: => Result)(implicit request: Request[AnyContent]) = {
     val (referer, host) = refererAndHost(request)
 
+    Logger.info(s"Redirect $redirect $sameHostCheck")
     if (sameHostCheck) {
       withHeaders(action)
     } else {

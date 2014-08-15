@@ -82,7 +82,6 @@ Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJo
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork,Employment>JobDetails>Employer>DateJobEnded>Answer
 Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45,Employment>JobDetails>Employer>P45LeavingDate>Answer
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork,Employment>JobDetails>Pay>WeeklyHoursWorked>Answer
-Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber,Employment>JobDetails>Employer>ClockPayrollNumber>Answer
 Employment,Employers contact details,Address,EmploymentEmployerAddress,Employment>JobDetails>Employer>Address>Answer>Line
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode,Employment>JobDetails>Employer>Address>Answer>PostCode
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber,Employment>JobDetails>Employer>EmployersPhoneNumber>Answer
