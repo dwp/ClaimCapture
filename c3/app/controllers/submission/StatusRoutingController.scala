@@ -43,7 +43,7 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
   val claimTransaction = new ClaimTransaction
 
   def present = claiming{ implicit claim => implicit request => implicit lang =>
-    Logger.debug("Showing async submitting")
+    Logger.debug(s"Showing async submitting ${claim.key} ${claim.uuid}")
     Ok(views.html.common.asyncSubmitting())
   }
 

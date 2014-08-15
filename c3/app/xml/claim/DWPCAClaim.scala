@@ -18,7 +18,7 @@ object DWPCAClaim extends XMLComponent {
     val claimDate = claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)
     val havePartner = if(moreAboutYou.maritalStatus == "p") yes else moreAboutYou.hadPartnerSinceClaimDate.get
 
-    Logger.info(s"Build DWPCAClaim")
+    Logger.info(s"Build DWPCAClaim for : ${claim.key} ${claim.uuid}.")
 
     <DWPCAClaim>
       {question(<DateOfClaim/>, "dateOfClaim",claim.dateOfClaim)}

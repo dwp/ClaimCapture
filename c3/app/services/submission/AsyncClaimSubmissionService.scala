@@ -48,7 +48,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
 
   private def processClaimSubmission(claim: Claim, response: Response) = {
     val txnID = claim.transactionId.get
-    Logger.debug("Got response from WS:" + response)
+    Logger.debug(s"Got response from WS ${response} for : ${claim.key} : transactionId [$txnID].")
     try {
       Logger.info(s"Claim submitted [${SUBMITTED}] - response status ${response.status} for : ${claim.key} : transactionId [$txnID].")
       claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
@@ -89,7 +89,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
   }
 
   private def processResponse(claim: Claim, txnID: String, response: Response): Unit = {
-    Logger.debug("Response status is " + response.status)
+    Logger.debug(s"Response status is ${response.status} for : ${claim.key} : transactionId [$txnID].")
     response.status match {
       case http.Status.OK =>
         Counters.incrementClaimSubmissionCount
