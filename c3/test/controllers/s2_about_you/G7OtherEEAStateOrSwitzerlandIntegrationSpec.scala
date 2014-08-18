@@ -3,7 +3,7 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s2_about_you.{G8MoreAboutYouPage, G7OtherEEAStateOrSwitzerlandPage}
+import utils.pageobjects.s2_about_you.G7OtherEEAStateOrSwitzerlandPage
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 

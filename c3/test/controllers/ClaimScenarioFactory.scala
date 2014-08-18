@@ -50,6 +50,7 @@ object ClaimScenarioFactory {
     claim.AboutYouNationalityAndResidencyActualNationality = "French"
     claim.AboutYouNationalityAndResidencyResideInUK = "No"
     claim.AboutYouNationalityAndResidencyNormalResidency = "France"
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
     claim
   }
 

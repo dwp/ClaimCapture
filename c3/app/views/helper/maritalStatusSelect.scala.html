@@ -15,6 +15,7 @@
             Widowed -> Messages("maritalStatus.widowed"),
             Separated -> Messages("maritalStatus.separated"),
             Partner -> Messages("maritalStatus.livingWithPartner")
-        ),(args ++ Seq('_label -> Messages("maritalStatus")):_*)
+        ),
+        (args ++ Seq('_label -> Messages("maritalStatus")):_*)
     )
 }

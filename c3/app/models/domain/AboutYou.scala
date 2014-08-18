@@ -58,7 +58,18 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
     if (nationalityAndResidency.nationality == anothercountry) {
       nationalityAndResidency.actualnationality match {
         case Some(place) => Valid
-        case None => Invalid(ValidationError("actualnationality.required"))
+        case _ => Invalid(ValidationError("actualnationality.required"))
+      }
+    }
+    else Valid
+  }
+
+  def maritalStatusRequired: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.actualnationality") { nationalityAndResidency =>
+    // if the Nationality is Another Country the user must provide their National Residency
+    if (nationalityAndResidency.nationality == anothercountry) {
+      nationalityAndResidency.maritalStatus match {
+        case Some(maritalStatus) => Valid
+        case _ => Invalid(ValidationError("maritalstatus.required"))
       }
     }
     else Valid

@@ -1,8 +1,7 @@
-@(field: play.api.data.Field, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang)
+@(field: play.api.data.Field, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, handler: helper.FieldConstructor)
 
 @import helper.base._
 @import utils.helpers.CarersCrypto
-@import utils.helpers.EmptyTemplate._
 @import views.html.helper.checkConstraintRequired
 @import play.api.i18n.{MMessages => Messages}
 
