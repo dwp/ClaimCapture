@@ -35,7 +35,8 @@ object ContactDetails extends QuestionGroup.Identifier {
 
 case class NationalityAndResidency(nationality: String,
                                    actualnationality: Option[String] = None,
-                                   resideInUK: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(NationalityAndResidency)
+                                   resideInUK: YesNoWithText = YesNoWithText("", None),
+                                   maritalStatus: Option[String] = None) extends QuestionGroup(NationalityAndResidency)
 
 object NationalityAndResidency extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
@@ -62,6 +63,8 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
     }
     else Valid
   }
+
+  def validateHadPartner(nationalityAndResidency: NationalityAndResidency) = nationalityAndResidency.maritalStatus == "p"
 }
 
 case class AbroadForMoreThan52Weeks(anyTrips: String = "") extends QuestionGroup(AbroadForMoreThan52Weeks)
@@ -115,11 +118,3 @@ object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g7"
 }
 
-case class MoreAboutYou(maritalStatus: String = "") extends QuestionGroup(MoreAboutYou)
-
-object MoreAboutYou extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g8"
-
-  def validateHadPartner(moreAboutYou: MoreAboutYou) = moreAboutYou.maritalStatus == "p"
-
-}

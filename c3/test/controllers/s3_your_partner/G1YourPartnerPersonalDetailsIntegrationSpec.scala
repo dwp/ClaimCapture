@@ -12,7 +12,6 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYou(browser)
       titleMustEqual("Partner details - About your partner")
 
       browser.goTo("/your-partner/personal-details")
@@ -23,7 +22,6 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYou(browser)
       titleMustEqual("Partner details - About your partner")
 
       browser.goTo("/your-partner/personal-details")
@@ -37,7 +35,6 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYou(browser)
       titleMustEqual("Partner details - About your partner")
 
       Formulate.yourPartnerPersonalDetails(browser)
@@ -48,7 +45,6 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYou(browser)
 
       titleMustEqual("Partner details - About your partner")
 
@@ -56,14 +52,13 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Partner details - About your partner")
 
       browser.click("#backButton")
-      titleMustEqual("More about you - About you - the carer")
+      titleMustEqual("Payments from abroad and working abroad - About you - the carer")
     }
 
     "navigate back to About your partner/spouse - Partner/Spouse details" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYou(browser)
       titleMustEqual("Partner details - About your partner")
 
       Formulate.yourPartnerPersonalDetails(browser)

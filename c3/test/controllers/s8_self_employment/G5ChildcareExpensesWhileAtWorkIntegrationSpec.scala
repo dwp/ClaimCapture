@@ -80,10 +80,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       val otherEEAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
       otherEEAStateOrSwitzerland fillPageWith aboutYou
 
-      val pageMoreAboutYou = otherEEAStateOrSwitzerland.submitPage(throwException = true)
-      pageMoreAboutYou fillPageWith aboutYou
-
-      val pageAboutYourPartner = pageMoreAboutYou.submitPage(throwException = true)
+      val pageAboutYourPartner = otherEEAStateOrSwitzerland.submitPage(throwException = true)
       pageAboutYourPartner fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
       pageAboutYourPartner.submitPage(throwException = true)
 
@@ -127,10 +124,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       val otherEEAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
       otherEEAStateOrSwitzerland fillPageWith aboutYou
 
-      val pageMoreAboutYou = otherEEAStateOrSwitzerland.submitPage(throwException = true)
-      pageMoreAboutYou fillPageWith aboutYou
-
-      val pageAboutYourPartner = pageMoreAboutYou.submitPage(throwException = true)
+      val pageAboutYourPartner = otherEEAStateOrSwitzerland.submitPage(throwException = true)
       pageAboutYourPartner fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
       pageAboutYourPartner.submitPage(throwException = true)
 

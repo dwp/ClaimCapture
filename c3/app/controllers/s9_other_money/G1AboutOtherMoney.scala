@@ -6,7 +6,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.CarersForms._
 import models.view.CachedClaim
-import models.domain.{YourPartnerPersonalDetails, AboutOtherMoney, MoreAboutYou, Claim}
+import models.domain.{YourPartnerPersonalDetails, AboutOtherMoney, Claim}
 import controllers.Mappings._
 import utils.helpers.CarersForm._
 import models.view.Navigable
@@ -72,8 +72,8 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
-    case (Some(m: MoreAboutYou),Some(p: YourPartnerPersonalDetails)) => m.maritalStatus == "p" || p.hadPartnerSinceClaimDate == yes
+  def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(YourPartnerPersonalDetails) match {
+    case Some(p: YourPartnerPersonalDetails) => p.hadPartnerSinceClaimDate == yes
     case _ => false
   }
 

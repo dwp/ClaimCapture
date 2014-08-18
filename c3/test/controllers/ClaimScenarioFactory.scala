@@ -120,12 +120,10 @@ object ClaimScenarioFactory {
     claim.AboutYouNationalityAndResidencyNationality = "British"
     // Abroad For More Than 52 Weeks
     claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
+
     // Other EEA State or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
-
-    // More about you
-    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Divorced or civil partnership dissolved"
 
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
@@ -156,8 +154,7 @@ object ClaimScenarioFactory {
     // Other EEA State or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
-    // More about you
-    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+
     claim.AboutYouDoYouGetStatePension = "no"
 
     claim

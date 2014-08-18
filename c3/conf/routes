@@ -93,9 +93,6 @@ DELETE        /about-you/trip/:id                                             co
 GET           /about-you/other-eea-state-or-switzerland                       controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.present
 POST          /about-you/other-eea-state-or-switzerland                       controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.submit
 
-GET           /about-you/more-about-you                                       controllers.s2_about_you.G8MoreAboutYou.present
-POST          /about-you/more-about-you                                       controllers.s2_about_you.G8MoreAboutYou.submit
-
 # Your partner
 ###############
 GET           /your-partner/personal-details                                  controllers.s3_your_partner.G1YourPartnerPersonalDetails.present

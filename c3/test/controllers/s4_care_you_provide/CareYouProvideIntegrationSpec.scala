@@ -37,9 +37,6 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
 
       Formulate.otherEEAStateOrSwitzerland(browser)
-      titleMustEqual("More about you - About you - the carer")
-
-      Formulate.moreAboutYouSinglePartnerBenefitsYes(browser)
       titleMustEqual("Partner details - About your partner")
 
       Formulate.theirPersonalDetails(browser)
@@ -68,9 +65,6 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
 
       Formulate.otherEEAStateOrSwitzerland(browser)
-      titleMustEqual("More about you - About you - the carer")
-
-      Formulate.moreAboutYouSinglePartnerBenefitsYes(browser)
       titleMustEqual("Partner details - About your partner")
 
       Formulate.theirPersonalDetails(browser)

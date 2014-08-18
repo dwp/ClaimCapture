@@ -8,6 +8,7 @@ final class G4NationalityAndResidencyPage(ctx:PageObjectsContext) extends ClaimP
   declareInput("#actualnationality", "AboutYouNationalityAndResidencyActualNationality")
   declareYesNo("#resideInUK_answer", "AboutYouNationalityAndResidencyResideInUK")
   declareInput("#resideInUK_text", "AboutYouNationalityAndResidencyNormalResidency")
+  declareRadioList("#maritalStatus", "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus")
 }
 
 object G4NationalityAndResidencyPage {

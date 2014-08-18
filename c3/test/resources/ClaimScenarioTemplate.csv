@@ -19,6 +19,7 @@ About You,Nationality and where you live,What is your nationality?,AboutYouNatio
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality
 About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK
 About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency
+About You,Nationality and where you live,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,
 About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB_1,
 About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB_1,
@@ -57,7 +58,6 @@ About You,Details of trips abroad for more than 52 weeks,Was the person you care
 About You,Details of trips abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_6,
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,
 About You,Other European Economic Area (EEA) states or Switzerland,"Do you or anyone in your family work or pay insurance in any of these countries?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,
-About You,More about you,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,
 About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,
 About Your Partner,Partner/Spouse details,Middle name,AboutYourPartnerMiddleName,

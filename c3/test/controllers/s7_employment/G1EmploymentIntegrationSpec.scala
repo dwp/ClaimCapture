@@ -25,9 +25,9 @@ trait EducatedSinceClaimDate extends BrowserMatchers {
   def beginClaim() = {
     Formulate.claimDate(browser)
 
-    Formulate.otherEEAStateOrSwitzerland(browser)
+    Formulate.nationalityAndResidency(browser)
 
-    Formulate.moreAboutYou(browser)
+    Formulate.otherEEAStateOrSwitzerland(browser)
 
     Formulate.yourCourseDetails(browser)
   }
@@ -39,9 +39,9 @@ trait EducatedAndEmployedSinceClaimDate extends BrowserMatchers {
   def beginClaim() = {
     Formulate.claimDate(browser)
 
-    Formulate.otherEEAStateOrSwitzerland(browser)
+    Formulate.nationalityAndResidency(browser)
 
-    Formulate.moreAboutYou(browser)
+    Formulate.otherEEAStateOrSwitzerland(browser)
 
     Formulate.employment(browser)
   }

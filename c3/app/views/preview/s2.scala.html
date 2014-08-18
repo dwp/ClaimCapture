@@ -15,15 +15,14 @@
 @nationalityAndResidency = @{claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))}
 @otherEEA = @{claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())}
 @trips = @{claim.questionGroup[Trips].getOrElse(Trips())}
-@moreAboutYou = @{claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())}
 @maritalStatus = @{
-    moreAboutYou.maritalStatus match{
-        case "m" => Messages("maritalStatus.married")
-        case "s" => Messages("maritalStatus.single")
-        case "d" => Messages("maritalStatus.divorced")
-        case "w" => Messages("maritalStatus.widowed")
-        case "n" => Messages("maritalStatus.separated")
-        case "p" => Messages("maritalStatus.livingWithPartner")
+nationalityAndResidency.maritalStatus match {
+        case Some(ms) if (ms == "m") => Messages("maritalStatus.married")
+        case Some(ms) if (ms == "s") => Messages("maritalStatus.single")
+        case Some(ms) if (ms == "d") => Messages("maritalStatus.divorced")
+        case Some(ms) if (ms == "w") => Messages("maritalStatus.widowed")
+        case Some(ms) if (ms == "n") => Messages("maritalStatus.separated")
+        case Some(ms) if (ms == "p") => Messages("maritalStatus.livingWithPartner")
         case _ => ""
     }
 }

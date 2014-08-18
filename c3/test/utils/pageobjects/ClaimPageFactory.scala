@@ -51,7 +51,6 @@ object ClaimPageFactory extends PageFactory {
         })
       }.orElse[String,Page]{
         case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (ctx)
-        case G8MoreAboutYouPage.title => G8MoreAboutYouPage (ctx)
         // S3
         case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage (ctx)
         // S4

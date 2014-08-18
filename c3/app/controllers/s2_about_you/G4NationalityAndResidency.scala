@@ -24,7 +24,8 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
   val form = Form(mapping(
     "nationality" -> nonEmptyText.verifying(NationalityAndResidency.validNationality),
     "actualnationality" -> optional(carersNonEmptyText(maxLength = 35)),
-    resideInUKMapping
+    resideInUKMapping,
+    "maritalStatus" -> optional(nonEmptyText)
   )(NationalityAndResidency.apply)(NationalityAndResidency.unapply)
     .verifying(NationalityAndResidency.actualNationalityRequired)
   )

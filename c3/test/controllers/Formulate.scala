@@ -76,26 +76,6 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
-  def moreAboutYou(browser: TestBrowser) = {
-    browser.goTo("/about-you/more-about-you")
-    browser.click("#maritalStatus_Single")
-    browser.submit("button[type='submit']")
-  }
-
-  def moreAboutYouNotHadPartnerSinceClaimDate(browser: TestBrowser) = {
-    browser.goTo("/about-you/more-about-you")
-    browser.click("#maritalStatus_Single")
-    browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
-    browser.submit("button[type='submit']")
-  }
-  
-  def moreAboutYouSinglePartnerBenefitsYes(browser: TestBrowser) = {
-    browser.goTo("/about-you/more-about-you")
-    browser.click("#maritalStatus_Single")
-    browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
-    browser.submit("button[type='submit']")
-  }
-
   def employment(browser: TestBrowser) = {
     browser.goTo("/employment/employment")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")

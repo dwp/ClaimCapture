@@ -33,7 +33,6 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       Formulate.nationalityAndResidency(browser)
       Formulate.abroadForMoreThan52Weeks(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYou(browser)
       Formulate.notInEmployment(browser)
 
       page goToPage( throwException = false, page = new G1EmploymentPage(PageObjectsContext(browser)))
@@ -117,21 +116,18 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       pageAboutYou fillPageWith aboutYou
 
       val aboutYouContactDetails = pageAboutYou.submitPage(throwException = true)
-      aboutYouContactDetails fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      aboutYouContactDetails fillPageWith aboutYou
 
       val nationalityAndResidency = aboutYouContactDetails.submitPage(throwException = true)
-      nationalityAndResidency fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      nationalityAndResidency fillPageWith aboutYou
 
       val abroadForMoreThan52Weeks = nationalityAndResidency.submitPage(throwException = true)
-      abroadForMoreThan52Weeks fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      abroadForMoreThan52Weeks fillPageWith aboutYou
 
       val otherEEAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
       otherEEAStateOrSwitzerland fillPageWith aboutYou
 
-      val pageMoreAboutYou = otherEEAStateOrSwitzerland.submitPage(throwException = true)
-      pageMoreAboutYou fillPageWith aboutYou
-
-      val pageAboutYourPartner = pageMoreAboutYou.submitPage(throwException = true)
+      val pageAboutYourPartner = otherEEAStateOrSwitzerland.submitPage(throwException = true)
       pageAboutYourPartner fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
       pageAboutYourPartner.submitPage(throwException = true)
 

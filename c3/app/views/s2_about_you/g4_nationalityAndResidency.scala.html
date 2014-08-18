@@ -9,6 +9,7 @@
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
 @import models.domain.NationalityAndResidency
+@import app.MaritalStatus._
 
 @main(Messages("s2.g4") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.NationalityAndResidency)) {
     @errorsSummary(nationalityAndResidencyForm)
@@ -29,7 +30,10 @@
 	                    inputDef = Seq(
 	                        carersInputText(nationalityAndResidencyForm("actualnationality"),
 	                            '_label -> Messages("actualnationality.text.label"),
-	                            'maxLength -> 35)
+	                            'maxLength -> 35),
+
+                            maritalStatusSelect(nationalityAndResidencyForm("maritalStatus"),
+                                '_nestedFieldSet -> true)
 	                    ),
 	                    'id -> "nationalityWrap",
 	                    'display -> { if (nationalityAndResidencyForm("nationality").value.getOrElse("notset") == NationalityAndResidency.anothercountry) "yes" else "no" }
@@ -47,7 +51,6 @@
                         'id -> "residencyWrap",
                         'display -> { if (nationalityAndResidencyForm("resideInUK")("answer").value.getOrElse("yes") == "no") "yes" else "no" }
                     )
-
                 </ul>
 	
 	        </fieldset>
