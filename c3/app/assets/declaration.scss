@@ -48,12 +48,12 @@
 			   left: 1.1em;
 			   &[type=checkbox]:checked + label {
 				   background: #fff;
-				   -webkit-transition: all 200ms ease-in;
-				   -moz-transition: all 200ms ease-in;
-				   -ms-transition: all 200ms ease-in;
-				   -o-transition: all 200ms ease-in;
-				   transition: all 200ms ease-in;
-				   border: 1px solid #bfc1c3;
+				   -webkit-transition: all 10ms ease-in;
+				   -moz-transition: all 10ms ease-in;
+				   -ms-transition: all 10ms ease-in;
+				   -o-transition: all 10ms ease-in;
+				   transition: all 10ms ease-in;
+				   border: 1px solid #111;
 			   }
 		   }
 		   &.dec-validation {

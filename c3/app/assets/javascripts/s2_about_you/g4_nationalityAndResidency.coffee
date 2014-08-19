@@ -1,8 +1,8 @@
 window.initEvents = (resideInUKY, resideInUKN, residence) ->
   $("#" + resideInUKN).on "click", ->
-    $("#residencyWrap").slideDown 500
+    $("#residencyWrap").slideDown 0
     $("#residencyWrap").css('display', "block")
 
   $("#" + resideInUKY).on "click", ->
-    $("#residencyWrap").slideUp 500, ->
+    $("#residencyWrap").slideUp 0, ->
       $("#" + residence).val("")

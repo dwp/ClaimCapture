@@ -1,6 +1,6 @@
 window.initEvents = (anythingElseY,anythingElseN,anythingElseText) ->
   $("#" + anythingElseY).on "click", ->
-    $("#anythingElseWrapper").slideDown 500
+    $("#anythingElseWrapper").slideDown 0
 
   $("#" + anythingElseN).on "click", ->
-    $("#anythingElseWrapper").slideUp 500, -> $("#"+anythingElseText).val("")
+    $("#anythingElseWrapper").slideUp 0, -> $("#"+anythingElseText).val("")

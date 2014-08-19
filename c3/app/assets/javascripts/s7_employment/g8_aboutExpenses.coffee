@@ -8,19 +8,19 @@ window.initEvents = (
         relationToYouLookAfterPerson,relationToPersonLookAfterPerson) ->
 
   $("#" + haveExpensesForJobYes).on "click", ->
-    $("#haveExpensesForJobWrap").slideDown 500
+    $("#haveExpensesForJobWrap").slideDown 0
     $("#haveExpensesForJobWrap").css('display', "block")
 
   $("#" + haveExpensesForJobNo).on "click", ->
-    $("#haveExpensesForJobWrap").slideUp 500, ->
+    $("#haveExpensesForJobWrap").slideUp 0, ->
       $("#" + whatExpensesForJob).val("")
 
   $("#" + payAnyoneToLookAfterChildrenYes).on "click", ->
-    $("#payToLookAfterChildrenJobWrap").slideDown 500
+    $("#payToLookAfterChildrenJobWrap").slideDown 0
     $("#payToLookAfterChildrenJobWrap").css('display', "block")
 
   $("#" + payAnyoneToLookAfterChildrenNo).on "click", ->
-    $("#payToLookAfterChildrenJobWrap").slideUp 500, ->
+    $("#payToLookAfterChildrenJobWrap").slideUp 0, ->
       $("#" + nameLookAfterChildren).val("")
       $("#" + howMuchLookAfterChildren).val("")
       $("#" + howOftenLookAfterChildren).val("")
@@ -28,11 +28,11 @@ window.initEvents = (
       $("#" + relationToPersonLookAfterChildren).val("")
 
   $("#" + payAnyoneToLookAfterPersonYes).on "click", ->
-    $("#payToLookAfterPersonJobWrap").slideDown 500
+    $("#payToLookAfterPersonJobWrap").slideDown 0
     $("#payToLookAfterPersonJobWrap").css('display', "block")
 
   $("#" + payAnyoneToLookAfterPersonNo).on "click", ->
-    $("#payToLookAfterPersonJobWrap").slideUp 500, ->
+    $("#payToLookAfterPersonJobWrap").slideUp 0, ->
       $("#" + nameLookAfterPerson).val("")
       $("#" + howMuchLookAfterPerson).val("")
       $("#" + howOftenLookAfterPerson).val("")

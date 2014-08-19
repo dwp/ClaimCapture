@@ -6,8 +6,8 @@ window.initEvents = (maritalStatus,hadPartnerY,hadPartnerN,hadPartner,message1,m
       $("#" + hadPartner).prev().html(message2)
 
     if ($(this).val() == "p")
-      $("#hadPartnerWrapper").slideUp 500, ->
+      $("#hadPartnerWrapper").slideUp 0, ->
         $("#"+hadPartnerY).prop('checked', false)
         $("#"+hadPartnerN).prop('checked', false)
     else if($(this).val() != "")
-      $("#hadPartnerWrapper").slideDown 500
+      $("#hadPartnerWrapper").slideDown 0
