@@ -3,6 +3,8 @@
 @import models.domain._
 @import helper._
 @import play.api.i18n.{MMessages => Messages}
+@import views.html.common._
+
 @common.govMain(title) {
  
     <div class="carers-allowance clearfix">
@@ -13,6 +15,7 @@
 
         <article>
 
+            @sectionTitle(YourPartner)
             <h1>@Html(Messages("s3.help1"))</h1>
 
             @if(completedQuestionGroups.size > 0) {
