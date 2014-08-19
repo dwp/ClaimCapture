@@ -16,7 +16,6 @@
     @form(action = actionCall) {
         <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
-        <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages(legend))</legend>
 	
@@ -39,7 +38,7 @@
 	            	<li><a id="backButton" href='@backCall'>@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
-        </div>
+   
     }
 }
 

@@ -1,7 +1,11 @@
 @(inputDef: Seq[Html], args: (Symbol, Any)*)
 
-@defining((args.toMap.get('display).map(_.toString).getOrElse("yes") == args.toMap.get('visibleOn).map(_.toString).getOrElse("yes")) match {case true => "block" case _ => "none"}) { styleDisplay =>
-    <ul id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}" class="other-detail extra-group" style="display: @styleDisplay;">
+@getClass(visible:Boolean) = @{
+    if(!visible) "closure"
+    else ""
+}
+@defining(args.toMap.get('display).map(_.toString).getOrElse("yes") == args.toMap.get('visibleOn).map(_.toString).getOrElse("yes")) { styleDisplay =>
+    <ul id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}" class="other-detail extra-group @getClass(styleDisplay)">
        @for(html <- inputDef) {
             @html
        }

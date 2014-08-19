@@ -160,6 +160,7 @@ object Employment extends XMLComponent{
             </Expense>
 
           case _ => NodeSeq.Empty
+
         }}
         {question(<RelationshipCarerToClaimant/>,"relationToYouLookAfterPerson",aboutExpenses.relationToYouLookAfterPerson)}
         {question(<RelationshipCarerToCaree/>,"relationToPersonLookAfterPerson",aboutExpenses.relationToPersonLookAfterPerson)}
