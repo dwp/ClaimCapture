@@ -1,13 +1,10 @@
 package controllers.s9_other_money
 
-import org.specs2.mutable.{ Tags, Specification }
-import play.api.test.{ FakeRequest, WithApplication }
 import models.domain._
+import models.{MultiLineAddress, PaymentFrequency, domain}
+import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import play.api.cache.Cache
-import models.{MultiLineAddress, domain, PaymentFrequency}
-import models.domain.Claim
-import models.view.CachedClaim
+import play.api.test.{FakeRequest, WithApplication}
 
 class G1AboutOtherMoneySpec extends Specification with Tags {
   "Benefits and payments - Controller" should {
@@ -49,7 +46,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     )
 
     "present 'Other money '" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
 
       val result = G1AboutOtherMoney.present(request)
 
@@ -57,11 +54,11 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     }
 
     "add submitted data to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = G1AboutOtherMoney.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
       val section: Section = claim.section(domain.OtherMoney)
 
       section.questionGroup(AboutOtherMoney) must beLike {
@@ -88,7 +85,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
 
     "return a bad request after an invalid submission" in {
       "reject invalid yesNo answers" in new WithApplication with Claiming {
-        val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+        val request = FakeRequest()
           .withFormUrlEncodedBody("anyPaymentsSinceClaimDate.answer" -> "INVALID",
             "statutorySickPay.answer" -> "INVALID", "otherStatutoryPay.answer" -> "INVALID")
 
@@ -97,7 +94,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
       }
 
       "missing mandatory fields" in new WithApplication with Claiming {
-        val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+        val request = FakeRequest()
           .withFormUrlEncodedBody("" -> "")
 
         val result = controllers.s9_other_money.G1AboutOtherMoney.submit(request)
@@ -105,7 +102,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
       }
 
       "reject a howOften frequency of other with no other text entered" in new WithApplication with Claiming {
-        val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+        val request = FakeRequest()
           .withFormUrlEncodedBody("anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
             "whoPaysYou" -> whoPaysYou,
             "howMuch" -> howMuch,
@@ -119,7 +116,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = G1AboutOtherMoney.submit(request)

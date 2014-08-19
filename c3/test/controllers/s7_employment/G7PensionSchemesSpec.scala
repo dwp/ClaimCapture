@@ -1,13 +1,11 @@
 package controllers.s7_employment
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
-import play.api.test.Helpers._
-import models.domain._
-import play.api.cache.Cache
-import models.domain.Claim
-import models.view.CachedClaim
 import app.PensionPaymentFrequency._
+import models.domain._
+import models.view.CachedClaim
+import org.specs2.mutable.{Specification, Tags}
+import play.api.test.Helpers._
+import play.api.test.{FakeRequest, WithApplication}
 
 class G7PensionSchemesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
@@ -16,13 +14,13 @@ class G7PensionSchemesSpec extends Specification with Tags {
 
   "Pension schemes - Controller" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
       val result = G7PensionSchemes.present(jobID)(request)
       status(result) mustEqual OK
     }
 
     "require all mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("jobID" -> jobID)
 
       val result = G7PensionSchemes.submit(request)
@@ -30,7 +28,7 @@ class G7PensionSchemesSpec extends Specification with Tags {
     }
 
     "accept all mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("jobID" -> jobID,
                                 "payOccupationalPensionScheme" -> "yes", "howMuchPension" -> "100", "howOftenPension.frequency" -> howOften_frequency, "howOftenPension.frequency.other" -> howOften_frequency_other,
                                 "payPersonalPensionScheme" -> "yes", "howMuchPersonal" -> "100", "howOftenPersonal.frequency" -> howOften_frequency, "howOftenPersonal.frequency.other" -> howOften_frequency_other)
@@ -40,7 +38,7 @@ class G7PensionSchemesSpec extends Specification with Tags {
     }
 
     "be added to a (current) job" in new WithApplication with Claiming {
-      G3JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result1 = G3JobDetails.submit(FakeRequest()
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
@@ -51,12 +49,12 @@ class G7PensionSchemesSpec extends Specification with Tags {
         "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "no"))
 
-      val result = G7PensionSchemes.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result = G7PensionSchemes.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
         .withFormUrlEncodedBody("jobID" -> jobID, "payOccupationalPensionScheme" -> "no", "payPersonalPensionScheme" -> "no"))
 
       status(result) mustEqual SEE_OTHER
 
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
 
       claim.questionGroup(Jobs) must beLike {
         case Some(js: Jobs) => {

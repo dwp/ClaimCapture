@@ -10,19 +10,19 @@ import models.view.CachedClaim
 class G3JobDetailsSpec extends Specification with Tags {
   "Your job" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
       val result = G3JobDetails.present("dummyJobID")(request)
       status(result) mustEqual OK
     }
 
     "miss all mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
       val result = G3JobDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """submit only mandatory data to a "new employment".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(
+      val request = FakeRequest().withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
         "phoneNumber" -> "12345678",
@@ -38,7 +38,7 @@ class G3JobDetailsSpec extends Specification with Tags {
 
       status(result) mustEqual SEE_OTHER
 
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
 
       claim.questionGroup(Jobs) must beLike {
         case Some(js: Jobs) => {
@@ -52,7 +52,7 @@ class G3JobDetailsSpec extends Specification with Tags {
     }
 
     """submit all data to a "new employment".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(
+      val request = FakeRequest().withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
         "phoneNumber" -> "12345678",
@@ -77,7 +77,7 @@ class G3JobDetailsSpec extends Specification with Tags {
     }
 
     """submit all data to a "new employment" and then delete it.""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(
+      val request = FakeRequest().withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
         "phoneNumber" -> "12345678",
@@ -100,13 +100,13 @@ class G3JobDetailsSpec extends Specification with Tags {
       val result = G3JobDetails.submit(request)
       status(result) mustEqual SEE_OTHER
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(Jobs) must beLike {
+      getClaimFromCache(result).questionGroup(Jobs) must beLike {
         case Some(js: Jobs) => js.size shouldEqual 1
       }
 
-      Employment.delete("1")(FakeRequest().withSession(CachedClaim.key -> claimKey))
+      Employment.delete("1")(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result)))
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(Jobs) must beLike {
+      getClaimFromCache(result).questionGroup(Jobs) must beLike {
         case Some(js: Jobs) => js.size shouldEqual 0
       }
     }

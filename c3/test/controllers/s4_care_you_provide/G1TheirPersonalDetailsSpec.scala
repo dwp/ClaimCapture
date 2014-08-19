@@ -17,18 +17,18 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
   "Their Personal Details - Controller" should {
 
     "present 'Their Personal Details'." in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
 
       val result = G1TheirPersonalDetails.present(request)
       status(result) mustEqual OK
     }
 
     "add 'Their Personal Details' to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(theirPersonalDetailsInput: _*)
 
       val result = G1TheirPersonalDetails.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
       val section: Section = claim.section(domain.CareYouProvide)
 
       section.questionGroup(TheirPersonalDetails) must beLike {
@@ -45,7 +45,7 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
     }
 
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("title" -> "Mr")
 
       val result = G1TheirPersonalDetails.submit(request)
@@ -53,7 +53,7 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(theirPersonalDetailsInput: _*)
 
       val result = G1TheirPersonalDetails.submit(request)

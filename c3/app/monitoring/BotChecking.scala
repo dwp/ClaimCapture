@@ -39,7 +39,7 @@ trait BotChecking {
     val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
 
     if (result) {
-      Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
+      Logger.error(s"Detected bot completing sections too quickly! ${claim.key} ${claim.uuid}. actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
     }
     result
   }

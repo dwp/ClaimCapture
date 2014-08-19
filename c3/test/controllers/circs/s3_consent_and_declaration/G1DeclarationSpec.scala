@@ -1,11 +1,10 @@
 package controllers.circs.s3_consent_and_declaration
 
-import play.api.test.{FakeApplication, FakeRequest, WithApplication}
 import models.domain._
 import models.view.CachedChangeOfCircs
-import play.api.cache.Cache
+import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import org.specs2.mutable.{Tags, Specification}
+import play.api.test.{FakeApplication, FakeRequest, WithApplication}
 import services.submission.MockInjector
 
 class G1DeclarationSpec extends Specification with MockInjector with Tags {
@@ -25,18 +24,18 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
   "Circumstances - OtherChangeInfo - Controller" should {
 
     "present 'Other Change Information' " in new WithApplication(app = FakeApplication(withGlobal = Some(global))) with MockForm {
-      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+      val request = FakeRequest()
 
       val result = G1Declaration.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication(app = FakeApplication(withGlobal = Some(global))) with MockForm {
-      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(declarationInput: _*)
 
       val result = G1Declaration.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
 
       claim.questionGroup[CircumstancesDeclaration] must beLike {
         case Some(f: CircumstancesDeclaration) =>
@@ -49,7 +48,7 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication(app = FakeApplication(withGlobal = Some(global))) with MockForm {
-      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(declarationInput: _*)
 
       val result = G1Declaration.submit(request)

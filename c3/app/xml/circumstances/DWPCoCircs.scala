@@ -7,7 +7,7 @@ import models.domain.Claim
 object DWPCoCircs {
 
   def xml(circs: Claim): Elem = {
-    Logger.info(s"Build DWPCoCircs")
+    Logger.info(s"Build DWPCoCircs for : ${circs.key} ${circs.uuid}.")
 
     <DWPCAChangeOfCircumstances>
       {Claimant.xml(circs)}

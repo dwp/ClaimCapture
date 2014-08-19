@@ -43,7 +43,7 @@ trait ChangeBotChecking extends BotChecking {
 
     val declaration = checkDeclaration
 
-    if (declaration) Logger.warn("Honeypot triggered coc : declaration")
+    if (declaration) Logger.warn(s"Honeypot triggered coc : declaration. ${circs.key} ${circs.uuid}")
 
     declaration
   }

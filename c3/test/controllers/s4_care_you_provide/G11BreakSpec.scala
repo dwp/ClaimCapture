@@ -13,21 +13,21 @@ class G11BreakSpec extends Specification with Tags {
     val breakId1 = "1"
 
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
 
       val result = G11Break.present(request)
       status(result) mustEqual OK
     }
 
     "reject when submitted with missing mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
 
       val result = G11Break.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
         "start.day" -> "1",
@@ -42,7 +42,7 @@ class G11BreakSpec extends Specification with Tags {
     }
 
     "reject when submitted with other selected but missing other data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
         "start.day" -> "1",
@@ -59,7 +59,7 @@ class G11BreakSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission with other selected" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
         "start.day" -> "1",
@@ -76,7 +76,7 @@ class G11BreakSpec extends Specification with Tags {
     }
 
     "add 2 breaks" in new WithApplication with Claiming {
-      val request1 = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request1 = FakeRequest()
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
         "start.day" -> "1",
@@ -86,9 +86,9 @@ class G11BreakSpec extends Specification with Tags {
         "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
 
-      G11Break.submit(request1)
+      val result = G11Break.submit(request1)
 
-      val request2 = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
         .withFormUrlEncodedBody(
         "breakID" -> "2",
         "start.day" -> "1",
@@ -100,13 +100,13 @@ class G11BreakSpec extends Specification with Tags {
 
       G11Break.submit(request2)
 
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
 
       claim.questionGroup(BreaksInCare) must beLike { case Some(b: BreaksInCare) => b.breaks.size mustEqual 2 }
     }
 
     "update existing break" in new WithApplication with Claiming {
-      val requestNew = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val requestNew = FakeRequest()
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
         "start.day" -> "1",
@@ -116,11 +116,11 @@ class G11BreakSpec extends Specification with Tags {
         "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
 
-      G11Break.submit(requestNew)
+      val result = G11Break.submit(requestNew)
 
       val yearUpdate = 2005
 
-      val requestUpdate = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val requestUpdate = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
         "start.day" -> "1",
@@ -132,7 +132,7 @@ class G11BreakSpec extends Specification with Tags {
 
       G11Break.submit(requestUpdate)
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare) must beLike {
+      getClaimFromCache(result).questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) =>
           b.breaks.head.start.year.get shouldEqual yearUpdate
       }

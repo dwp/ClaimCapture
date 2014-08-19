@@ -1,14 +1,12 @@
 package controllers.s8_self_employment
 
-import play.api.test.{FakeRequest, WithApplication}
-import models.domain._
-import play.api.test.Helpers._
-import org.specs2.mutable.{Tags, Specification}
-import play.api.cache.Cache
-import models.view.CachedClaim
 import app.PensionPaymentFrequency._
-import scala.Some
 import models.PensionPaymentFrequency
+import models.domain._
+import models.view.CachedClaim
+import org.specs2.mutable.{Specification, Tags}
+import play.api.test.Helpers._
+import play.api.test.{FakeRequest, WithApplication}
 
 class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
 
@@ -32,23 +30,23 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
     )
 
     "present 'Child Care Expenses while at work' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("doYouPayToPensionScheme" -> "no", "doYouPayToLookAfterYourChildren" -> "yes", "didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
       val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
-      val request2 = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
 
-      val result2 = G5ChildcareExpensesWhileAtWork.present(request)
+      val result2 = G5ChildcareExpensesWhileAtWork.present(request2)
       status(result2) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(selfEmploymentChildCareExpensesInput: _*)
 
       val result = controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.SelfEmployment)
 
       section.questionGroup(ChildcareExpensesWhileAtWork) must beLike {
@@ -64,7 +62,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field whoLooksAfterChildren" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "whoLooksAfterChildren" -> "",
         "howMuchYouPay" -> howMuchYouPay,
@@ -80,7 +78,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject missing mandatory field howMuchYouPay" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchYouPay" -> "",
@@ -96,7 +94,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject missing mandatory field howOftenPayChildCare" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchYouPay" -> howMuchYouPay,
@@ -112,7 +110,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject other selected but other not filled on" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchYouPay" -> howMuchYouPay,
@@ -128,7 +126,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject missing mandatory field whatRelationIsToYou" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchYouPay" -> howMuchYouPay,
@@ -144,7 +142,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject missing mandatory field whatRelationIsTothePersonYouCareFor" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchYouPay" -> howMuchYouPay,
@@ -160,7 +158,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(selfEmploymentChildCareExpensesInput: _*)
 
       val result = controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit(request)

@@ -20,13 +20,13 @@ import scala.Some
 class G5LastWageSpec extends Specification with Tags {
   "Last wage" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
       val result = G5LastWage.present("Dummy job ID")(request)
       status(result) mustEqual OK
     }
 
     """require "job ID" and "grossPay".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("jobID" -> "1",
           "oftenGetPaid.frequency" -> "Weekly",
           "whenGetPaid" -> "Mondays",
@@ -42,7 +42,7 @@ class G5LastWageSpec extends Specification with Tags {
     }
 
     """be added to a (current) job""" in new WithApplication with Claiming {
-      G3JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result1 = G3JobDetails.submit(FakeRequest()
         withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
@@ -53,7 +53,7 @@ class G5LastWageSpec extends Specification with Tags {
         "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "no"))
 
-      val result = G5LastWage.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result2 = G5LastWage.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
         .withFormUrlEncodedBody("jobID" -> "1",
           "oftenGetPaid.frequency" -> "Weekly",
           "whenGetPaid" -> "Mondays",
@@ -64,9 +64,9 @@ class G5LastWageSpec extends Specification with Tags {
           "sameAmountEachTime" -> "yes",
           "employerOwesYouMoney" -> "no"))
 
-      status(result) mustEqual SEE_OTHER
+      status(result2) mustEqual SEE_OTHER
 
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result2)
 
       claim.questionGroup(Jobs) must beLike {
         case Some(js: Jobs) => {

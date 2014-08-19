@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 import scala.language.postfixOps
 import scala.reflect.ClassTag
 
-case class Claim(key: String = CachedClaim.key, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None, transactionId: Option[String] = None)(implicit val navigation: Navigation = Navigation()) extends Claimable {
+case class Claim(key: String = CachedClaim.key, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None, uuid: String="", transactionId: Option[String] = None)(implicit val navigation: Navigation = Navigation()) extends Claimable {
   def section(sectionIdentifier: Section.Identifier): Section = {
     sections.find(s => s.identifier == sectionIdentifier) match {
       case Some(s: Section) => s

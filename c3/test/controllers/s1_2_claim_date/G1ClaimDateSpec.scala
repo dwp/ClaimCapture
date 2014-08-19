@@ -1,14 +1,10 @@
 package controllers.s1_2_claim_date
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
 import models.domain._
-import models.view.CachedClaim
-import play.api.test.Helpers._
-import play.api.cache.Cache
 import models.{DayMonthYear, domain}
-import models.domain.Claim
-import scala.Some
+import org.specs2.mutable.{Specification, Tags}
+import play.api.test.Helpers._
+import play.api.test.{FakeRequest, WithApplication}
 
 class G1ClaimDateSpec extends Specification with Tags {
 
@@ -24,18 +20,18 @@ class G1ClaimDateSpec extends Specification with Tags {
   "Your claim date" should {
 
     "present 'Your claim date' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
 
       val result = G1ClaimDate.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(claimDateInput: _*)
 
       val result = G1ClaimDate.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
       val section: Section = claim.section(domain.YourClaimDate)
 
       section.questionGroup(ClaimDate) must beLike {
@@ -45,7 +41,7 @@ class G1ClaimDateSpec extends Specification with Tags {
     }
 
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("foo" -> "bar")
 
       val result = G1ClaimDate.submit(request)
@@ -53,7 +49,7 @@ class G1ClaimDateSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(claimDateInput: _*)
 
       val result = G1ClaimDate.submit(request)
