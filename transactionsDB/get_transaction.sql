@@ -9,7 +9,7 @@ BEGIN
     -- Try to generate an unique transaction id up to 5 times
     -- If it cannot generate an unique transaction id after 5 attemps then throws exception
     <<ATTEMPS>> 
-    FOR attemps IN 1..5 LOOP
+    FOR attemps IN 1..20 LOOP
         <<GENERATION>> FOR i IN 1..7
         LOOP
             pos := FLOOR(32 * random()) + 1 ;
