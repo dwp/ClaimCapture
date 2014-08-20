@@ -73,12 +73,12 @@ object Employment extends XMLComponent{
     val showXml = aboutExpenses.payPensionScheme.answer.toLowerCase == "yes"
 
     if (showXml) {
-      question(<PaidForPension/>,"payPensionScheme.answer",aboutExpenses.payPensionScheme,questionLabelEmployment(claim, "payPensionScheme.answer", job.jobID)) ++
-        <PensionExpenses>
-          {question(<Expense/>,"payPensionScheme.text",aboutExpenses.payPensionScheme.text,questionLabelEmployment(claim, "payPensionScheme.text", job.jobID))}
-        </PensionExpenses>
+      question(<PaidForPension/>,"payPensionScheme.answer",aboutExpenses.payPensionScheme.answer,questionLabelEmployment(claim, "payPensionScheme.answer", job.jobID)) ++
+      {<PensionExpenses>
+        {question(<Expense/>,"payPensionScheme.text",aboutExpenses.payPensionScheme.text,questionLabelEmployment(claim, "payPensionScheme.text", job.jobID))}
+      </PensionExpenses>}
     } else {
-      question(<PaidForJobExpenses/>,"payPensionScheme.answer",aboutExpenses.payPensionScheme.answer,questionLabelEmployment(claim, "payPensionScheme.answer", job.jobID))
+      question(<PaidForPension/>,"payPensionScheme.answer",aboutExpenses.payPensionScheme.answer,questionLabelEmployment(claim, "payPensionScheme.answer", job.jobID))
     }
   }
 
@@ -87,7 +87,7 @@ object Employment extends XMLComponent{
     val showXml = aboutExpenses.haveExpensesForJob.answer.toLowerCase == "yes"
 
     if (showXml) {
-        question(<PaidForJobExpenses/>,"haveExpensesForJob.answer",aboutExpenses.haveExpensesForJob,questionLabelEmployment(claim, "haveExpensesForJob.answer", job.jobID)) ++
+        question(<PaidForJobExpenses/>,"haveExpensesForJob.answer",aboutExpenses.haveExpensesForJob.answer,questionLabelEmployment(claim, "haveExpensesForJob.answer", job.jobID)) ++
         <JobExpenses>
           {question(<Expense/>,"haveExpensesForJob.text",aboutExpenses.haveExpensesForJob.text,questionLabelEmployment(claim, "haveExpensesForJob.text", job.jobID))}
         </JobExpenses>

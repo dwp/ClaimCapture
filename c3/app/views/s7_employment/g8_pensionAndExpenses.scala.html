@@ -27,12 +27,12 @@
 	            <legend>@Html(Messages("s7.g8"))</legend>
 	
 	            <ul>
-                    @yesNoRadioGroup(currentForm("payPensionScheme.answer"),
+                    @yesNoRadioGroup(currentForm("payPensionScheme")("answer"),
                         '_label -> labelForEmployment(claim, lang, "payPensionScheme.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersInputTextArea(currentForm("payPensionScheme.text"),
+                            carersInputTextArea(currentForm("payPensionScheme")("text"),
                                 '_label -> labelForEmployment(claim, lang, "payPensionScheme.text", JobID(currentForm)),
                                 'helper -> Html(Messages("300charsLeft")),
                                 'helperAbove -> Html(labelForEmployment(claim, lang, "payPensionScheme.text.helper", JobID(currentForm))),
@@ -40,14 +40,14 @@
                                 'maxLength -> 300)
                         ),
                         'id -> "pensionExpenses",
-                        'display -> currentForm("payPensionScheme.answer").value.getOrElse("no")
+                        'display -> currentForm("payPensionScheme")("answer").value.getOrElse("no")
                     )
 
-                    @yesNoRadioGroup(currentForm("haveExpensesForJob.answer"), '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
+                    @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"), '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersInputTextArea(currentForm("haveExpensesForJob.text"),
+                            carersInputTextArea(currentForm("haveExpensesForJob")("text"),
                                 '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.text", JobID(currentForm)),
                                 'helper -> Html(Messages("300charsLeft")),
                                 'helperAbove -> Html(labelForEmployment(claim, lang, "haveExpensesForJob.text.helper", JobID(currentForm))),
@@ -55,7 +55,7 @@
                                 'maxLength -> 300)
                         ),
                         'id -> "jobExpenses",
-                        'display -> currentForm("haveExpensesForJob.answer").value.getOrElse("no")
+                        'display -> currentForm("haveExpensesForJob")("answer").value.getOrElse("no")
                     )
 
 	            </ul>
