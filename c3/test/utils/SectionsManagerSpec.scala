@@ -11,14 +11,14 @@ class SectionsManagerSpec extends Specification with Tags {
 
     "Retrieve the correct number of sections" in {
 
-      SectionsManager.claimSectionsNum(Claim()) mustEqual 8
+      SectionsManager.claimSectionsNum(Claim()) mustEqual 9
     }
 
     "Retrieve the correct section position for some Sections" in {
 
       implicit val claim = Claim()
       SectionsManager.currentSection(AboutYou) mustEqual 1
-      SectionsManager.currentSection(ConsentAndDeclaration) mustEqual 8
+      SectionsManager.currentSection(ConsentAndDeclaration) mustEqual 9
       SectionsManager.currentSection(Employed) mustEqual 5
     }
 
@@ -26,7 +26,14 @@ class SectionsManagerSpec extends Specification with Tags {
       implicit val claim = Claim().showHideSection(visible = false,PayDetails)
 
       SectionsManager.currentSection(AboutYou) mustEqual 1
-      SectionsManager.currentSection(ConsentAndDeclaration) mustEqual 7
+      SectionsManager.currentSection(ConsentAndDeclaration) mustEqual 8
+    }
+
+    "Retrieve the correct section positions when there are hidden employment" in {
+      implicit val claim = Claim().showHideSection(visible = false,Employed)
+
+      SectionsManager.currentSection(SelfEmployment) mustEqual 5
+      SectionsManager.currentSection(ConsentAndDeclaration) mustEqual 8
     }
 
   }
