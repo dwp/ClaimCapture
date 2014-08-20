@@ -43,6 +43,6 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
           .replaceError("sameAmountEachTime", "error.required", FormError("sameAmountEachTime", "error.required", Seq(labelForEmployment(claim, lang, "sameAmountEachTime", jobID))))
         BadRequest(views.html.s7_employment.g5_lastWage(form))
       },
-      lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G7PensionSchemes.present(jobID)))
+      lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G8PensionAndExpenses.present(jobID)))
   }
 }
