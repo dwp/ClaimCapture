@@ -1,12 +1,12 @@
 window.initEvents = (informationFromEmployerY, informationFromEmployerN,informationFromPersonY,informationFromPersonN,why,whyWrapper,whyPerson,whyPersonWrapper) ->
   $("#" + informationFromEmployerY).on "click", ->
-    $("#"+whyWrapper).slideUp 500, -> $("#"+why).val("")
+    $("#"+whyWrapper).slideUp 0, -> $("#"+why).val("")
 
   $("#" + informationFromEmployerN).on "click", ->
-    $("#"+whyWrapper).slideDown 500
+    $("#"+whyWrapper).slideDown 0
 
   $("#" + informationFromPersonY).on "click", ->
-    $("#"+whyPersonWrapper).slideUp 500, -> $("#"+whyPerson).val("")
+    $("#"+whyPersonWrapper).slideUp 0, -> $("#"+whyPerson).val("")
 
   $("#" + informationFromPersonN).on "click", ->
-    $("#"+whyPersonWrapper).slideDown 500
+    $("#"+whyPersonWrapper).slideDown 0

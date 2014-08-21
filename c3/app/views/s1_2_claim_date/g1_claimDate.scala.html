@@ -12,9 +12,9 @@
     @errorsSummary(claimDateForm)
 
     @form(action = controllers.s1_2_claim_date.routes.G1ClaimDate.submit) {
-        <div class="form-wrap">
+        <div class="form-elements">
           
-            <fieldset class="form-elements">
+            <fieldset class="question-group">
           	   
              <ul>
 	        @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateOfBirth.helper"))
