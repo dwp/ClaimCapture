@@ -7,7 +7,7 @@
 @if(elements.hasErrors){ <li class="currency validation"> } else { <li class="currency"> }
 
     @if(elements.hasErrors){
-        <p class="error">@elements.carersErrors(elements.lang).mkString(", ")</p>
+        <p class="error">@elements.carersErrors.mkString(", ")</p>
     }
        @if(elements.args.contains('prompt)){
         <div class="prompt helper-prompt">@Html(Messages(elements.args.get('prompt).get.toString))</div>

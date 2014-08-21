@@ -31,8 +31,7 @@
 	                            '_label -> Messages("actualnationality.text.label"),
 	                            'maxLength -> 35),
 
-                            maritalStatusSelect(nationalityAndResidencyForm("maritalStatus"),
-                                '_nestedFieldSet -> true)
+                            maritalStatusSelect(nationalityAndResidencyForm("maritalStatus"),'_nestedFieldSet -> true)
 	                    ),
 	                    'id -> "nationalityWrap",
 	                    'display -> { if (nationalityAndResidencyForm("nationality").value.getOrElse("notset") == NationalityAndResidency.anothercountry) "yes" else "no" }

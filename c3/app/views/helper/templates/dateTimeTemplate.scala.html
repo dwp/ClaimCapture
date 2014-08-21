@@ -6,7 +6,7 @@
 
 <li class="date-time @defining(if (elements.hasErrors) "validation" else ""){ v => @v}">
     @if(elements.hasErrors) {
-        <p class="error">@elements.carersErrors(elements.lang).mkString(", ")</p>
+        <p class="error">@elements.carersErrors.mkString(", ")</p>
     }
 
     <ul>
