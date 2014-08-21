@@ -152,7 +152,6 @@
                         <DateJobStarted><QuestionLabel>When did you start your job?</QuestionLabel><Answer>01-01-2013</Answer></DateJobStarted>
                         <DateJobEnded><QuestionLabel>What date did you last work?</QuestionLabel><Answer>01-07-2013</Answer></DateJobEnded>
                         <JobType><QuestionLabel>jobTitle.was</QuestionLabel><Answer>Hacker</Answer></JobType>
-                        <ClockPayrollNumber>12345678</ClockPayrollNumber>
                         <Name>Tesco's</Name>
                         <Address>
                             <Line>23 Yeadon Way</Line><Line>Blackpool</Line><Line>Lancashire</Line><PostCode>FY4 5TH</PostCode>
@@ -203,7 +202,6 @@
                     <DateJobStarted><QuestionLabel>When did you start your job?</QuestionLabel><Answer>01-01-2013</Answer></DateJobStarted>
                     <DateJobEnded><QuestionLabel>What date did you last work?</QuestionLabel><Answer>01-01-2001</Answer></DateJobEnded>
                     <JobType><QuestionLabel>jobTitle.was</QuestionLabel><Answer>Hacker</Answer></JobType>
-                    <ClockPayrollNumber>12345678</ClockPayrollNumber>
                     <Name>Tesco's</Name>
                     <Address>
                         <Line>23 Yeadon Way</Line><Line>Blackpool</Line><Line>Lancashire</Line><PostCode>FY4 5TH</PostCode>
