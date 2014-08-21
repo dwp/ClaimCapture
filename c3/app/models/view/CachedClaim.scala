@@ -214,7 +214,7 @@ trait CachedClaim {
 
   private def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {
     val (key, expiration) = keyAndExpiration(request)
-    if (!key.isEmpty && key != claim.uuid) Logger.error(s"action - Claim uuid ${claim.uuid} does not match cache key $key")
+    if (!key.isEmpty && key != claim.uuid) Logger.warn(s"action - Claim uuid ${claim.uuid} does not match cache key $key. Can happen if action new claim and user reuses session. Will disregard session key and use uuid.")
 
     f(claim)(request)(lang) match {
       case Left(r: Result) => {
