@@ -171,13 +171,22 @@ main {
 		   	   padding-top: 0;
 	   	   }
    	   }
-   	   
-   	   
-   	   
-   	   
-   	   
-   	   
-   	   /* Nested fieldset */
+
+      .help-statement {
+
+        h3 {
+          font-weight: 100;
+        }
+
+        p {
+          padding: 0 0 0 .8em;
+          margin: 1em 0 2em 0;
+          border-left: 5px solid #dee0e2;
+        }
+      }
+
+
+    /* Nested fieldset */
    	   
    	   .question-group {
 			margin-top: 0;
