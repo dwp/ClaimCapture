@@ -136,7 +136,7 @@ trait CachedClaim {
           case Some(claim) =>
             Logger.debug(s"claimingWithCheck - ${claim.key} ${claim.uuid}")
             val key = keyAndExpiration(request)._1
-            if (key != claim.uuid) Logger.error(s"Claim uuid ${claim.uuid} does not match cache key $key")
+            if (key != claim.uuid) Logger.error(s"claimingWithCheck - Claim uuid ${claim.uuid} does not match cache key $key")
             val lang = claim.lang.getOrElse(bestLang)
             action(copyInstance(claim), request, lang)(f)
           case None =>
@@ -164,7 +164,7 @@ trait CachedClaim {
           case Some(claim) =>
             Logger.debug(s"submitting - ${claim.key} ${claim.uuid}")
             val (key, _) = keyAndExpiration(request)
-            if (key != claim.uuid) Logger.error(s"Claim uuid ${claim.uuid} does not match cache key $key")
+            if (key != claim.uuid) Logger.error(s"submitting - Claim uuid ${claim.uuid} does not match cache key $key")
             val lang = claim.lang.getOrElse(bestLang)
             f(copyInstance(claim))(request)(lang).map(res => res.withSession(claim.key -> key))
           case None =>
@@ -214,7 +214,7 @@ trait CachedClaim {
 
   private def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {
     val (key, expiration) = keyAndExpiration(request)
-    if (!key.isEmpty && key != claim.uuid) Logger.error(s"Claim uuid ${claim.uuid} does not match cache key $key")
+    if (!key.isEmpty && key != claim.uuid) Logger.error(s"action - Claim uuid ${claim.uuid} does not match cache key $key")
 
     f(claim)(request)(lang) match {
       case Left(r: Result) => {
