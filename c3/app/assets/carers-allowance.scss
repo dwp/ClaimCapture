@@ -264,6 +264,7 @@ main {
 				   margin-left: -1.08em;
 			   }
 		   }
+
 		   
 		   &.circs-group {
 			   margin-top: 1em;
@@ -309,7 +310,7 @@ main {
 			   }
 			   
 			 
-			  
+			 
 			   
 			   
 			   /* In form validation styling */
@@ -612,7 +613,11 @@ main {
 
       
 
-
+		  &.partner-group {
+				   li {
+					   margin-top: 10px;
+				   }
+			   } 
 
 		  
 		   

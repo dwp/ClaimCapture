@@ -11,6 +11,7 @@ object SectionsManager {
     CareYouProvide,
     Education,
     Employed,
+    SelfEmployment,
     OtherMoney,
     PayDetails,
     ConsentAndDeclaration
