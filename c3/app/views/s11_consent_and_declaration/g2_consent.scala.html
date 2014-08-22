@@ -10,7 +10,7 @@
 @import play.api.i18n.{MMessages => Messages}
 
 @main(Html(Messages("s11.g2")) + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Consent)) {
-    @form(action = controllers.s11_consent_and_declaration.routes.G2Consent.submit) {
+    @form(action = CSRF(controllers.s11_consent_and_declaration.routes.G2Consent.submit)) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s11.g2"))</legend>

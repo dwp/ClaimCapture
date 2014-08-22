@@ -11,7 +11,7 @@
 @main(Messages("s1.g3") + " - " + Messages("s1.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Over16)) {
 
 
-    @form(action = controllers.s1_carers_allowance.routes.G3Over16.submit) {
+    @form(action = CSRF(controllers.s1_carers_allowance.routes.G3Over16.submit)) {
 	        <fieldset class="form-elements form-eligibility">
 	            <legend>@Html(Messages("s1.g3"))</legend>
 

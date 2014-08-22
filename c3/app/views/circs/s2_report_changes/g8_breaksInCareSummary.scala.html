@@ -15,7 +15,7 @@
 @main(Messages("c2.g8") + " - " + Messages("c2.name")) {
     @errorsSummary(breaksInCareSummaryForm)
 
-    @form(action = controllers.circs.s2_report_changes.routes.G8BreaksInCareSummary.submit) {
+    @form(action = CSRF(controllers.circs.s2_report_changes.routes.G8BreaksInCareSummary.submit)) {
 
         <fieldset id="breaks" class="form-elements results-detail">
            <!--  <table>

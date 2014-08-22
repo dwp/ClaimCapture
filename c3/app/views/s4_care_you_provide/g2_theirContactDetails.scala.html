@@ -11,7 +11,7 @@
 
 
 
-    @form(action = controllers.s4_care_you_provide.routes.G2TheirContactDetails.submit) {
+    @form(action = CSRF(controllers.s4_care_you_provide.routes.G2TheirContactDetails.submit)) {
     
         <div class="form-wrap">
 	        <fieldset class="form-elements">

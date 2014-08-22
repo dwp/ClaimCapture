@@ -24,7 +24,7 @@
 @main(Messages("c2.g12") + " - " + Messages("c2.name")) {
     @errorsSummary(employmentNotStarted)
 
-    @form(action = controllers.circs.s2_report_changes.routes.G12EmploymentNotStarted.submit) {
+    @form(action = CSRF(controllers.circs.s2_report_changes.routes.G12EmploymentNotStarted.submit)) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("c2.g12"))</legend>

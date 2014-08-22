@@ -65,7 +65,7 @@
         </div>
     }
 
-    @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit) {
+    @form(action = CSRF(controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit)) {
         @carersInputHidden(currentForm("allowedToContinue"),
             'hiddenValue -> approved)
         @carersInputHidden(currentForm("jsEnabled"),

@@ -19,7 +19,7 @@
 
 @main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PensionAndExpenses, JobID(currentForm)), Some(employerName)) {
 
-    @form(action = controllers.s7_employment.routes.G8PensionAndExpenses.submit()) {
+    @form(action = CSRF(controllers.s7_employment.routes.G8PensionAndExpenses.submit())) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <div class="form-wrap">

@@ -14,7 +14,7 @@
 @main(Messages("c2.g6") + " - " + Messages("c2.name")) {
     @errorsSummary(addressForm)
 
-    @form(action = controllers.circs.s2_report_changes.routes.G6AddressChange.submit) {
+    @form(action = CSRF(controllers.circs.s2_report_changes.routes.G6AddressChange.submit)) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <p class="security-message">@Html(Messages("c2.address.helper"))</p>

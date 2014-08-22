@@ -14,7 +14,7 @@
 @main(Messages("c2.g4") + " - " + Messages("c2.name")) {
     @errorsSummary(otherInfoForm)
 
-    @form(action = controllers.circs.s2_report_changes.routes.G4OtherChangeInfo.submit) {
+    @form(action = CSRF(controllers.circs.s2_report_changes.routes.G4OtherChangeInfo.submit)) {
         <div class="form-wrap">
         	<fieldset class="form-elements">
 	            <legend>@Html(Messages("c2.g4"))</legend>

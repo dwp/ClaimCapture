@@ -18,7 +18,7 @@
 }
 
 @main(Messages("s7.g1") + "  " + Messages("s7.longName"), Some(employmentForm)) {
-    @form(action = controllers.s7_employment.routes.G1Employment.submit) {
+    @form(action = CSRF(controllers.s7_employment.routes.G1Employment.submit)) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s7.g1"))</legend>

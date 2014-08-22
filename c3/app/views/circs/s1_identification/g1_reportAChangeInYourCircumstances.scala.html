@@ -12,7 +12,7 @@
 
 @main(Messages("c1") + " - " + Messages("c2.longName"), Some(reportAChangeForm), claim.completedQuestionGroups(models.domain.CircumstancesReportChange)) {
 
-    @form(action = controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.submit) {
+    @form(action = CSRF(controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.submit)) {
         <input type="hidden" id="js" name="jsEnabled" value="false">
         <div class="form-wrap">
 	        <fieldset class="form-elements">
