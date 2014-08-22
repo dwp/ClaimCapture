@@ -43,14 +43,16 @@
                         'display -> currentForm("payPensionScheme")("answer").value.getOrElse("no")
                     )
 
-                    @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"), '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
+                    @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"),
+                        'helperAbove -> Html(labelForEmployment(claim, lang, "haveExpensesForJob.answer.helper", JobID(currentForm))),
+                        '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputTextArea(currentForm("haveExpensesForJob")("text"),
                                 '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.text", JobID(currentForm)),
                                 'helper -> Html(Messages("300charsLeft")),
-                                'helperAbove -> Html(labelForEmployment(claim, lang, "haveExpensesForJob.text.helper", JobID(currentForm))),
+                                'helperAbove -> Html(Messages("haveExpensesForJob.text.helper")),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
