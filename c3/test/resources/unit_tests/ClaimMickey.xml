@@ -169,7 +169,6 @@
                                     <QuestionLabel>job.title</QuestionLabel>
                                     <Answer>Cheese Taster</Answer>
                                 </JobType>
-                                <ClockPayrollNumber>89765432</ClockPayrollNumber>
                                 <Name>Cheeseworld</Name>
                                 <Address>
                                     <gds:Line>3</gds:Line>

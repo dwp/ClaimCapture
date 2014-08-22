@@ -31,7 +31,7 @@
 </DateJobStarted><JobType>
     <QuestionLabel>job.title</QuestionLabel>
     <Answer>Cheese Taster</Answer>
-</JobType><ClockPayrollNumber>89765432</ClockPayrollNumber><Name>Cheeseworld</Name><Address><gds:Line>3</gds:Line><gds:Line>Whocares Avenue</gds:Line><gds:Line></gds:Line><gds:Line></gds:Line><gds:PostCode></gds:PostCode></Address><ConfirmAddress>yes</ConfirmAddress><EmployersPhoneNumber>08907 1234567</EmployersPhoneNumber><EmployersFaxNumber>01253 667889</EmployersFaxNumber></Employer><Pay><WeeklyHoursWorked>
+</JobType><Name>Cheeseworld</Name><Address><gds:Line>3</gds:Line><gds:Line>Whocares Avenue</gds:Line><gds:Line></gds:Line><gds:Line></gds:Line><gds:PostCode></gds:PostCode></Address><ConfirmAddress>yes</ConfirmAddress><EmployersPhoneNumber>08907 1234567</EmployersPhoneNumber><EmployersFaxNumber>01253 667889</EmployersFaxNumber></Employer><Pay><WeeklyHoursWorked>
     <QuestionLabel>job.hours</QuestionLabel>
     <Answer>40</Answer>
 </WeeklyHoursWorked><DateLastPaid>

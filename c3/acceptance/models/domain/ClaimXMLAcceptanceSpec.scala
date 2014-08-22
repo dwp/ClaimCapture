@@ -156,7 +156,6 @@ class ClaimXMLAcceptanceSpec extends Specification {
               <QuestionLabel>job.title</QuestionLabel>
               <Answer>Hacker</Answer>
             </JobType>
-            <ClockPayrollNumber>12345678</ClockPayrollNumber>
             <Name>Tesco's Bank</Name>
             <Address><gds:Line>23 Yeadon Way</gds:Line><gds:Line>Blackpool</gds:Line><gds:Line>Lancashire</gds:Line><gds:PostCode>FY4 5TH</gds:PostCode></Address>
             <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->

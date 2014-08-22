@@ -6,11 +6,13 @@ object SectionsManager {
 
   //This list has to change for any section modification (add/remove/modify)
   private val claimSections = List(
+    YourClaimDate,
     AboutYou,
     YourPartner,
     CareYouProvide,
     Education,
     Employed,
+    SelfEmployment,
     OtherMoney,
     PayDetails,
     ConsentAndDeclaration
