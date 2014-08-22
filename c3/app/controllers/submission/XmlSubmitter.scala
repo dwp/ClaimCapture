@@ -15,6 +15,8 @@ object XmlSubmitter {
     val validator = xmlValidator(claim)
     val fullXml = DWPBody().xml(claim,transactionID)
 
+    println(fullXml)
+
     if (getProperty("validateXml", true)) {
       validator.validate(fullXml.mkString) match {
         case true => claim -> Ok(fullXml)
@@ -24,6 +26,7 @@ object XmlSubmitter {
         }
       }
     } else {
+     // TODO println(fullXml) - use when you want to get test xml for the pdfService functional tests
      claim -> Ok(fullXml)
     }
   }

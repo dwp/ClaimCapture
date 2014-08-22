@@ -268,5 +268,6 @@ object XMLHelper {
   }
 
   def encrypt[T](text:T) = DatatypeConverter.printBase64Binary((new  EncryptorAES).encrypt(stringify(text)))
+  // = text - use when printing out test xml for the pdfService
 
 }
