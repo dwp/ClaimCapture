@@ -12,34 +12,32 @@
 
     @form(action = controllers.s1_carers_allowance.routes.G1Benefits.submit) {
 
-
-			<div class="form-wrap">
+			
+	
+			
 		        <fieldset class="form-elements form-eligibility">
 		            <legend>@Html(Messages("s1.g1"))</legend>
 		            
 		            <p class="helper-message">@Html(Messages("s1.g1.help1"))</p>
 		            
-		            <div class="prompt question-prompt" data-journey="carers-allowance:page:eligibility">
+		           
+		            <dl data-journey="carers-allowance:page:eligibility">
 		
-			            <p class="title">@Html(Messages("s1.g1.help2"))</p>
+			            <dt>@Html(Messages("s1.g1.help2"))</dt>			
+			            <dd>@Html(Messages("s1.g1.help3"))</dd>
 			
-			            <p>@Html(Messages("s1.g1.help3"))</p>
+			            <dt>@Html(Messages("s1.g1.help4"))</dt>
+			            <dd>@Html(Messages("s1.g1.help5"))</dd>
 			
-			            <p class="title">@Html(Messages("s1.g1.help4"))</p>
+			            <dt>@Html(Messages("s1.g1.help6"))</dt>
+			            <dd>@Html(Messages("s1.g1.help7"))</dd>
 			
-			            <p>@Html(Messages("s1.g1.help5"))</p>
+			            <dt>@Html(Messages("s1.g1.help8"))</dt>
+			            <dd>@Html(Messages("s1.g1.help9"))</dd>
 			
-			            <p class="title">@Html(Messages("s1.g1.help6"))</p>
-			
-			            <p class="title">@Html(Messages("s1.g1.help7"))</p>
-			
-			            <p>@Html(Messages("s1.g1.help8"))</p>
-			
-			            <p>@Html(Messages("s1.g1.help9"))</p>
-			
-			            <p class="title">@Html(Messages("s1.g1.help10"))</p>
+			            <dt>@Html(Messages("s1.g1.help10"))</dt>
 		            
-		            </div>
+		            </dl>
 		            
 	                @yesNoRadioGroup(currentForm("benefits.answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'allowance -> true,'trackLabel -> "benefits.answer")
 
@@ -59,8 +57,7 @@
 		            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
 		            </ul>
 		        </nav>
-		        
-			</div>
+
     }
 }
 

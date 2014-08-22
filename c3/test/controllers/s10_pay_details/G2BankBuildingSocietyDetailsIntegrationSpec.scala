@@ -71,11 +71,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       eeaPage fillPageWith claim
       eeaPage submitPage()
 
-      val moreAboutYouPage =  eeaPage goToPage new G8MoreAboutYouPage(PageObjectsContext(browser))
-      moreAboutYouPage fillPageWith claim
-      moreAboutYouPage submitPage()
-
-      val nextPage = moreAboutYouPage goToPage (new G2BankBuildingSocietyDetailsPage(PageObjectsContext(browser)), throwException = false)
+      val nextPage = eeaPage goToPage (new G2BankBuildingSocietyDetailsPage(PageObjectsContext(browser)), throwException = false)
 
       nextPage.submitPage() must beAnInstanceOf[G1AdditionalInfoPage]
     }

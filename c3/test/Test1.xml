@@ -1,7 +1,7 @@
 <DWPBody xsi:schemaLocation="http://www.govtalk.gov.uk/dwp/carers-allowance file:/xsdfiles/schema/ca/CarersAllowance_Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance">
     <Version>0.1</Version>
-    <DWPCATransaction id="TEST432">
-        <TransactionId>TEST432</TransactionId>
+    <DWPCATransaction id="1501TEST432">
+        <TransactionId>1501TEST432</TransactionId>
         <DateTimeGenerated>10-03-2014 16:40</DateTimeGenerated>
         <DWPCAClaim>
             <DateOfClaim><QuestionLabel>When do you want your Carer's Allowance claim to start?</QuestionLabel><Answer>01-01-2010</Answer></DateOfClaim>
@@ -152,7 +152,6 @@
                         <DateJobStarted><QuestionLabel>When did you start your job?</QuestionLabel><Answer>01-01-2013</Answer></DateJobStarted>
                         <DateJobEnded><QuestionLabel>What date did you last work?</QuestionLabel><Answer>01-07-2013</Answer></DateJobEnded>
                         <JobType><QuestionLabel>jobTitle.was</QuestionLabel><Answer>Hacker</Answer></JobType>
-                        <ClockPayrollNumber>12345678</ClockPayrollNumber>
                         <Name>Tesco's</Name>
                         <Address>
                             <Line>23 Yeadon Way</Line><Line>Blackpool</Line><Line>Lancashire</Line><PostCode>FY4 5TH</PostCode>
@@ -203,7 +202,6 @@
                     <DateJobStarted><QuestionLabel>When did you start your job?</QuestionLabel><Answer>01-01-2013</Answer></DateJobStarted>
                     <DateJobEnded><QuestionLabel>What date did you last work?</QuestionLabel><Answer>01-01-2001</Answer></DateJobEnded>
                     <JobType><QuestionLabel>jobTitle.was</QuestionLabel><Answer>Hacker</Answer></JobType>
-                    <ClockPayrollNumber>12345678</ClockPayrollNumber>
                     <Name>Tesco's</Name>
                     <Address>
                         <Line>23 Yeadon Way</Line><Line>Blackpool</Line><Line>Lancashire</Line><PostCode>FY4 5TH</PostCode>
@@ -350,7 +348,7 @@
         <ds:SignedInfo>
             <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
             <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
-            <ds:Reference URI="#TEST432">
+            <ds:Reference URI="#1501TEST432">
                 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
                 <ds:DigestValue>ugGjt59YG/DIXwWvJR0OmagTrhA=</ds:DigestValue>
             </ds:Reference>

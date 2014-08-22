@@ -3,8 +3,9 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s2_about_you.{G8MoreAboutYouPage, G7OtherEEAStateOrSwitzerlandPage}
+import utils.pageobjects.s2_about_you.G7OtherEEAStateOrSwitzerlandPage
 import utils.pageobjects.PageObjects
+import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 
 class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags {
   sequential
@@ -35,7 +36,7 @@ class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tag
 
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G8MoreAboutYouPage]
+      nextPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
     }
 
     "navigate to next page on valid non resident submission" in new WithBrowser with PageObjects{
@@ -46,7 +47,7 @@ class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tag
 
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G8MoreAboutYouPage]
+      nextPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
     }
   } section("integration", models.domain.AboutYou.id)
 }

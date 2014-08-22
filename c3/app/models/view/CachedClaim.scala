@@ -29,6 +29,9 @@ object CachedClaim {
   type ClaimResult = (Claim, Result)
 }
 
+/**
+* The Unique ID use to identified a claim/circs in the cache is a UUID, stored in the claim/circs and set in the request session (cookie).
+*/
 trait CachedClaim {
 
   type JobID = String
@@ -54,12 +57,12 @@ trait CachedClaim {
 
   implicit def claimAndResultToRight(claimingResult: ClaimResult) = Right(claimingResult)
 
-  def newInstance: Claim = new Claim(cacheKey) with FullClaim
+  def newInstance(newuuid:String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid) with FullClaim
 
-  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.transactionId)(claim.navigation) with FullClaim
+  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid,claim.transactionId)(claim.navigation) with FullClaim
 
-  def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
-    r.session.get(cacheKey).getOrElse(randomUUID.toString) -> getProperty("cache.expiry", 3600)
+  private def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
+    r.session.get(cacheKey).getOrElse("") -> getProperty("cache.expiry", 3600)  //.getOrElse(randomUUID.toString)
   }
 
   def refererAndHost(r: Request[AnyContent]): (String, String) = {
@@ -68,8 +71,7 @@ trait CachedClaim {
 
   def fromCache(request: Request[AnyContent]): Option[Claim] = {
     val (key, _) = keyAndExpiration(request)
-
-    Cache.getAs[Claim](key)
+    if (key.isEmpty) None else Cache.getAs[Claim](key)
   }
 
   def recordMeasurements() = {
@@ -84,11 +86,11 @@ trait CachedClaim {
       recordMeasurements()
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
-        withHeaders(action(newInstance, request, bestLang)(f))
+        withHeaders(action(newInstance(), request, bestLang)(f))
       }
       else {
-        Logger.info(s"Changing $cacheKey")
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
+        Logger.info(s"Changing $cacheKey - $key")
         val claim = Cache.getAs[Claim](key).getOrElse(throw new RuntimeException("I expected a claim in the cache!"))
         originCheck(action(claim, request, claim.lang.getOrElse(bestLang))(f))
       }
@@ -101,17 +103,19 @@ trait CachedClaim {
       originCheck(
         fromCache(request) match {
           case Some(claim) =>
+            Logger.debug(s"claiming - ${claim.key} ${claim.uuid}")
             val lang = claim.lang.getOrElse(bestLang)
             action(copyInstance(claim), request, lang)(f)
 
           case None =>
             if (Play.isTest) {
-              val (key, expiration) = keyAndExpiration(request)
-              val claim = newInstance
-              Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
+              Logger.debug(s"claiming - None and test")
+              val (_, expiration) = keyAndExpiration(request)
+              val claim = newInstance()
+              Cache.set(claim.uuid, claim, expiration) // place an empty claim in the cache to satisfy tests
               action(claim, request, bestLang)(f)
             } else {
-              Logger.warn(s"$cacheKey timeout")
+              Logger.warn(s"Cache $cacheKey - ${keyAndExpiration(request)._1} timeout")
               Redirect(timeoutPage)
             }
         })
@@ -127,19 +131,23 @@ trait CachedClaim {
                     !claim.questionGroup[ClaimDate].isDefined ||
                         claim.questionGroup[ClaimDate].isDefined &&
                         claim.questionGroup[ClaimDate].get.dateOfClaim == null) =>
-            Logger.error(s"$cacheKey lost the claim date")
+            Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date")
             Redirect(timeoutPage)
           case Some(claim) =>
+            Logger.debug(s"claimingWithCheck - ${claim.key} ${claim.uuid}")
+            val key = keyAndExpiration(request)._1
+            if (key != claim.uuid) Logger.error(s"claimingWithCheck - Claim uuid ${claim.uuid} does not match cache key $key")
             val lang = claim.lang.getOrElse(bestLang)
             action(copyInstance(claim), request, lang)(f)
           case None =>
             if (Play.isTest) {
-              val (key, expiration) = keyAndExpiration(request)
-              val claim = newInstance
-              Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
+              Logger.debug(s"claimingWithCheck - None and test")
+              val (_, expiration) = keyAndExpiration(request)
+              val claim = newInstance()
+              Cache.set(claim.uuid, claim, expiration) // place an empty claim in the cache to satisfy tests
               action(claim, request, bestLang)(f)
             } else {
-              Logger.warn(s"$cacheKey timeout")
+              Logger.warn(s"$cacheKey - ${keyAndExpiration(request)._1} timeout")
               Redirect(timeoutPage)
             }
         })
@@ -154,11 +162,13 @@ trait CachedClaim {
       def doSubmit() = {
         fromCache(request) match {
           case Some(claim) =>
+            Logger.debug(s"submitting - ${claim.key} ${claim.uuid}")
             val (key, _) = keyAndExpiration(request)
+            if (key != claim.uuid) Logger.error(s"submitting - Claim uuid ${claim.uuid} does not match cache key $key")
             val lang = claim.lang.getOrElse(bestLang)
             f(copyInstance(claim))(request)(lang).map(res => res.withSession(claim.key -> key))
           case None =>
-            Logger.warn(s"$cacheKey timeout")
+            Logger.warn(s"Cache for $cacheKey - ${keyAndExpiration(request)._1} timeout")
             Future(Redirect(timeoutPage))
         }
       }
@@ -204,14 +214,15 @@ trait CachedClaim {
 
   private def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {
     val (key, expiration) = keyAndExpiration(request)
+    if (!key.isEmpty && key != claim.uuid) Logger.warn(s"action - Claim uuid ${claim.uuid} does not match cache key $key. Can happen if action new claim and user reuses session. Will disregard session key and use uuid.")
 
     f(claim)(request)(lang) match {
       case Left(r: Result) => {
-        r.withSession(claim.key -> key)
+        r.withSession(claim.key -> claim.uuid)
       }
       case Right((c: Claim, r: Result)) => {
-        Cache.set(key, c, expiration)
-        r.withSession(claim.key -> key)
+        Cache.set(claim.uuid, c, expiration)
+        r.withSession(claim.key -> claim.uuid)
       }
     }
   }
@@ -224,6 +235,7 @@ trait CachedClaim {
   private def originCheck(action: => Result)(implicit request: Request[AnyContent]) = {
     val (referer, host) = refererAndHost(request)
 
+    Logger.info(s"Redirect $redirect $sameHostCheck")
     if (sameHostCheck) {
       withHeaders(action)
     } else {

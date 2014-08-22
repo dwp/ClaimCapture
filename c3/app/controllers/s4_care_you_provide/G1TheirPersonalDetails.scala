@@ -10,6 +10,7 @@ import utils.helpers.CarersForm._
 import models.domain._
 import controllers.CarersForms._
 import scala.Some
+import models.DayMonthYear
 
 object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -26,17 +27,17 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     val isPartnerPersonYouCareFor = YourPartner.visible &&
-                                    claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor == "yes")
+                                    claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse("") == "yes")
 
     val currentForm = if (isPartnerPersonYouCareFor) {
       claim.questionGroup(YourPartnerPersonalDetails) match {
         case Some(t: YourPartnerPersonalDetails) =>
-          form.fill(TheirPersonalDetails(title = t.title,
-                                         firstName = t.firstName,
+          form.fill(TheirPersonalDetails(title = t.title.getOrElse(""),
+                                         firstName = t.firstName.getOrElse(""),
                                          middleName = t.middleName,
-                                         surname = t.surname,
+                                         surname = t.surname.getOrElse(""),
                                          nationalInsuranceNumber = t.nationalInsuranceNumber,
-                                         dateOfBirth = t.dateOfBirth)) // Pre-populate form with values from YourPartnerPersonalDetails
+                                         dateOfBirth = t.dateOfBirth.getOrElse(DayMonthYear(None,None,None)))) // Pre-populate form with values from YourPartnerPersonalDetails
         case _ => form // Blank form (user can only get here if they skip sections by manually typing URL).
       }
     } else {

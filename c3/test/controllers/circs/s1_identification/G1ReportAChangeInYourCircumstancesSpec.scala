@@ -1,13 +1,11 @@
 package controllers.circs.s1_identification
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
 import models.domain._
 import models.view.CachedChangeOfCircs
+import models.{DayMonthYear, NationalInsuranceNumber}
+import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import play.api.cache.Cache
-import models.{NationalInsuranceNumber, DayMonthYear}
-import scala.Some
+import play.api.test.{FakeRequest, WithApplication}
 
 class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
 
@@ -39,19 +37,21 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
       "theirRelationshipToYou" -> theirRelationshipToYou
     )
 
+    //CachedChangeOfCircs.key
+    
     "present 'Circumstances About You' " in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+      val request = FakeRequest()
 
       val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
       val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
       val section: Section = claim.section(models.domain.CircumstancesIdentification)
       section.questionGroup(CircumstancesReportChange) must beLike {
         case Some(f: CircumstancesReportChange) => {
@@ -63,7 +63,7 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
     }
 
     "missing mandatory field" in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("firstName" -> "")
 
       val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit(request)
@@ -71,7 +71,7 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
       val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit(request)
@@ -79,10 +79,10 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
     }
 
     "when present called Lang should not be set on Claim" in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey).withHeaders(REFERER -> "http://localhost:9000/circumstances/identification/about-you")
+      val request = FakeRequest().withHeaders(REFERER -> "http://localhost:9000/circumstances/identification/about-you")
 
       val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
       claim.lang mustEqual None
     }
   } section("unit", models.domain.CircumstancesIdentification.id)

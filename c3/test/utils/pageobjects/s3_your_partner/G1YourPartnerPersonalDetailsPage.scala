@@ -9,6 +9,7 @@ import utils.pageobjects._
  *         Date: 19/07/2013
  */
 final class G1YourPartnerPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1YourPartnerPersonalDetailsPage.url, G1YourPartnerPersonalDetailsPage.title) {
+  declareYesNo("#hadPartnerSinceClaimDate", "AboutYourPartnerHadPartnerSinceClaimDate")
   declareSelect("#title", "AboutYourPartnerTitle")
   declareInput("#firstName", "AboutYourPartnerFirstName")
   declareInput("#middleName", "AboutYourPartnerMiddleName")
@@ -27,7 +28,7 @@ final class G1YourPartnerPersonalDetailsPage (ctx:PageObjectsContext) extends Cl
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1YourPartnerPersonalDetailsPage {
-  val title = "Partner/Spouse details - About your partner/spouse".toLowerCase
+  val title = "Partner details - About your partner".toLowerCase
 
   val url  = "/your-partner/personal-details"
 

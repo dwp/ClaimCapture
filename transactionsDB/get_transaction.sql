@@ -1,18 +1,19 @@
-CREATE OR REPLACE FUNCTION get_new_transaction_id ()  RETURNS character varying
+CREATE OR REPLACE FUNCTION "public"."get_new_transaction_id" ()  RETURNS character varying
   VOLATILE
-AS $valtech$
+AS $dbvis$
 DECLARE
-    id VARCHAR;
-    allowed VARCHAR := '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+    id VARCHAR := to_char(CURRENT_DATE,'YYMM');
+    allowed VARCHAR := '23456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     pos INTEGER;
+    begining VARCHAR := to_char(CURRENT_DATE,'YYMM');
 BEGIN
     -- Try to generate an unique transaction id up to 5 times
     -- If it cannot generate an unique transaction id after 5 attemps then throws exception
-    <<ATTEMPS>> 
-    FOR attemps IN 1..5 LOOP
+    <<ATTEMPS>>
+    FOR attemps IN 1..20 LOOP
         <<GENERATION>> FOR i IN 1..7
         LOOP
-            pos := FLOOR(32 * random()) + 1 ;
+            pos := FLOOR(34 * random()) + 1 ;
             id := concat(id, SUBSTR(allowed, pos, 1)) ;
         END LOOP GENERATION;
         BEGIN
@@ -21,10 +22,11 @@ BEGIN
         EXCEPTION
             WHEN unique_violation THEN 
             -- Need to reset id so try to build a new one
-            id := '';
+            id := begining;
+            RAISE INFO 'Was not unique';
             END;
     END LOOP ATTEMPS;
     RAISE EXCEPTION 'Did not manage to generate unique transaction id';
 END;
-$valtech$ LANGUAGE plpgsql
+$dbvis$ LANGUAGE plpgsql
 

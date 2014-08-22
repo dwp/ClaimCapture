@@ -8,9 +8,12 @@ import play.api.test.Helpers._
 
 class G4NationalityAndResidencySpec extends Specification with Tags {
 
-  val aboutYourMinimalInput = Seq("nationality" -> "British", "resideInUK.answer" -> "yes")
-  val aboutYourWithOptionalInput = Seq("nationality" -> "British", "resideInUK.answer" -> "no", "resideInUK.text" -> "Maldives")
-  val aboutYourWithMissingOptionalInput = Seq("nationality" -> "British", "resideInUK.answer" -> "no")
+  val inputBritish = Seq("nationality" -> "British", "resideInUK.answer" -> "yes")
+  val inputAnotherCountry = Seq("nationality" -> "Another Country", "actualnationality" -> "French", "resideInUK.answer" -> "yes", "maritalStatus" -> "Single")
+  val inputBritishResideOutside = Seq("nationality" -> "British", "resideInUK.answer" -> "no", "resideInUK.text" -> "Maldives")
+  val inputAnotherCountryResideOutside = Seq("nationality" -> "Another Country", "actualnationality" -> "French", "resideInUK.answer" -> "no", "resideInUK.text" -> "Maldives", "maritalStatus" -> "Single")
+  val inputAnotherCountryMissingData = Seq("nationality" -> "Another Country", "resideInUK.answer" -> "yes")
+  val inputAnotherCountryMissingData2 = Seq("nationality" -> "British", "resideInUK.answer" -> "no")
 
   "Your nationality and residency" should {
     """present Your nationality and residency""" in new WithApplication with Claiming {
@@ -27,22 +30,43 @@ class G4NationalityAndResidencySpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
-    """success for minimal input""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(aboutYourMinimalInput: _*)
+    """success for British input residing inside the UK""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputBritish: _*)
 
       val result = G4NationalityAndResidency.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
-    """success for minimal input""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(aboutYourWithOptionalInput: _*)
+    """success for British input residing outside the UK""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputBritishResideOutside: _*)
 
       val result = G4NationalityAndResidency.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
-    """fail submit for missing residency""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(aboutYourWithMissingOptionalInput: _*)
+    """success for input with another country residing the UK""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputAnotherCountry: _*)
+
+      val result = G4NationalityAndResidency.submit(request)
+      status(result) mustEqual SEE_OTHER
+    }
+
+    """success for input with another country outsiding the UK""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputAnotherCountryResideOutside: _*)
+
+      val result = G4NationalityAndResidency.submit(request)
+      status(result) mustEqual SEE_OTHER
+    }
+
+    """fail submit for missing actualnationality""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputAnotherCountryMissingData: _*)
+
+      val result = G4NationalityAndResidency.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    """fail submit for missing residence outside UK""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputAnotherCountryMissingData2: _*)
 
       val result = G4NationalityAndResidency.submit(request)
       status(result) mustEqual BAD_REQUEST

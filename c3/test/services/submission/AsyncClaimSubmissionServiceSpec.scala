@@ -51,7 +51,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
     val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 
     claim + det + claimDate match {
-      case c:Claim => new Claim(c.key, c.sections, c.created, c.lang, c.transactionId)(c.navigation) with FullClaim
+      case c:Claim => new Claim(c.key, c.sections, c.created, c.lang, c.uuid, c.transactionId)(c.navigation) with FullClaim
     }
 
   }
@@ -65,7 +65,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
     val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 
     claim + det + claimDate match {
-      case c:Claim => new Claim(c.key, c.sections, c.created, c.lang, c.transactionId)(c.navigation) with FullClaim
+      case c:Claim => new Claim(c.key, c.sections, c.created, c.lang, c.uuid, c.transactionId)(c.navigation) with FullClaim
     }
   }
 

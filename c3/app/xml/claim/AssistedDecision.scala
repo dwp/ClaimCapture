@@ -26,6 +26,7 @@ object AssistedDecision extends XMLComponent {
     var assisted = getAFIP(claim)
     assisted ++= noEEABenefits(claim)
     assisted ++= noEEAWork(claim)
+    assisted ++= nationalityCheck(claim)
     assisted ++= normallyResideInUK(claim)
     //    }
     //    assisted ++= dateOfClaim(claim)
@@ -51,13 +52,11 @@ object AssistedDecision extends XMLComponent {
     var weeklyEarning: Double = 0.0d
     claim.questionGroup[Jobs] match {
       case Some(jobs) => for (job <- jobs) {
-        val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(), None,DayMonthYear(),"", None, None, ""))
-        if (weeklyEarning > -1d && lastWage.sameAmountEachTime.getOrElse("").toLowerCase == "yes") {
-          //          Logger.debug("Assisted decision - child expense " + job.questionGroup[ChildcareExpenses])
-          //          Logger.debug("Assisted decision - Person you care expenses " + job.questionGroup[PersonYouCareForExpenses])
-          //          Logger.debug("Assisted decision - Pension schemes " + job.questionGroup[PensionSchemes])
-          if (!job.questionGroup[AboutExpenses].isDefined
-            && (!job.questionGroup[PensionSchemes].isDefined || (job.questionGroup[PensionSchemes].get.payPersonalPensionScheme.toLowerCase != "yes" && job.questionGroup[PensionSchemes].get.payOccupationalPensionScheme.toLowerCase != "yes"))) {
+        val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(), "",DayMonthYear(),"", None, "", ""))
+        if (weeklyEarning > -1d && lastWage.sameAmountEachTime.toLowerCase == "yes") {
+
+          if (!job.questionGroup[PensionAndExpenses].isDefined
+            && (!job.questionGroup[PensionAndExpenses].isDefined || (job.questionGroup[PensionAndExpenses].get.payPensionScheme.answer.toLowerCase != "yes" && job.questionGroup[PensionAndExpenses].get.haveExpensesForJob.answer.toLowerCase != "yes"))) {
             val earning = currencyAmount(lastWage.grossPay).toDouble
             //            Logger.debug("Assisted decision - Pay frequency " + job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency)
             val frequencyFactor: Double = lastWage.oftenGetPaid.frequency match {
@@ -105,8 +104,14 @@ object AssistedDecision extends XMLComponent {
     else NodeSeq.Empty
   }
 
+  private def nationalityCheck(claim: Claim): NodeSeq = {
+    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
+    if (nationalityAndResidency.nationality == NationalityAndResidency.anothercountry) decisionElement("Person is not British.", "Transfer to Exportability team.")
+    else NodeSeq.Empty
+  }
+
   private def normallyResideInUK(claim: Claim): NodeSeq = {
-    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency())
+    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
     if (nationalityAndResidency.resideInUK.answer.toLowerCase != "yes") decisionElement("Person does not normally live in England, Scotland or Wales.", "Transfer to Exportability team.")
     else NodeSeq.Empty
   }

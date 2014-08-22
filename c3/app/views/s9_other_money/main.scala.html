@@ -3,6 +3,7 @@
 @import models.domain.OtherMoney
 @import helper._
 @import play.api.i18n.{MMessages => Messages}
+@import views.html.common._
 
 @common.govMain(title) {
 	
@@ -14,6 +15,7 @@
 
         <article>
 
+            @sectionTitle(OtherMoney)
             <h1>@Html(Messages("s9.longName"))</h1>
 
             @if(completedQuestionGroups.size > 0) {

@@ -23,6 +23,7 @@ import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
  *         Date: 10/07/2013
  */
 object ClaimPageFactory extends PageFactory {
+
   def buildPageFromTitle(title: String,ctx:PageObjectsContext) = {
 
     // Generic solution using mapping does not work because the objects should register themselves
@@ -51,7 +52,6 @@ object ClaimPageFactory extends PageFactory {
         })
       }.orElse[String,Page]{
         case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (ctx)
-        case G8MoreAboutYouPage.title => G8MoreAboutYouPage (ctx)
         // S3
         case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage (ctx)
         // S4
@@ -74,8 +74,7 @@ object ClaimPageFactory extends PageFactory {
           case G2BeenEmployedPage.title => G2BeenEmployedPage (ctx,iteration)
           case G3JobDetailsPage.title => G3JobDetailsPage (ctx,iteration)
           case G5LastWagePage.title => G5LastWagePage (ctx,iteration)
-          case G7PensionSchemesPage.title => G7PensionSchemesPage (ctx,iteration)
-          case G8AboutExpensesPage.title => G8AboutExpensesPage (ctx,iteration)
+          case G8PensionAndExpensesPage.title => G8PensionAndExpensesPage(ctx,iteration)
         })
       }.orElse[String,Page]{
         // S8

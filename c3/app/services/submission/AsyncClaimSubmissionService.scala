@@ -48,7 +48,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
 
   private def processClaimSubmission(claim: Claim, response: Response) = {
     val txnID = claim.transactionId.get
-    Logger.debug("Got response from WS:" + response)
+    Logger.debug(s"Got response from WS ${response} for : ${claim.key} : transactionId [$txnID].")
     try {
       Logger.info(s"Claim submitted [${SUBMITTED}] - response status ${response.status} for : ${claim.key} : transactionId [$txnID].")
       claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
@@ -65,8 +65,8 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
     if (checkEnabled) {
       getFromCache(claim) match {
         case Some(x) =>
-          Logger.error("Already in cache, should not be submitting again! Duplicate claim submission. Claim fingerprint: " + encrypt(x))
-          Logger.error(s"Status ${SERVER_ERROR} for transactionId [${claim.transactionId.get}].")
+          Logger.error(s"Already in cache, should not be submitting again! Duplicate claim submission. ${claim.key} ${claim.uuid} fingerprint: ${encrypt(x)}")
+          Logger.error(s"Status ${SERVER_ERROR} for ${claim.key} ${claim.uuid} transactionId [${claim.transactionId.get}].")
           claimTransaction.updateStatus(claim.transactionId.get, SERVER_ERROR, claimType(claim))
 
         // this gets logged by the actor
@@ -89,7 +89,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
   }
 
   private def processResponse(claim: Claim, txnID: String, response: Response): Unit = {
-    Logger.debug("Response status is " + response.status)
+    Logger.debug(s"Response status is ${response.status} for : ${claim.key} : transactionId [$txnID].")
     response.status match {
       case http.Status.OK =>
         Counters.incrementClaimSubmissionCount

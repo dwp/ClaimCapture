@@ -31,7 +31,7 @@ object CarersAllowance extends Controller with CachedClaim with Navigable {
       },
       f => {
         if (!f.jsEnabled) {
-          Logger.info(s"No JS - Start ${claim.key} User-Agent : ${request.headers.get("User-Agent").orNull}")
+          Logger.info(s"No JS - Start ${claim.key} ${claim.uuid} User-Agent : ${request.headers.get("User-Agent").orNull}")
         }
 
         f.answer match {

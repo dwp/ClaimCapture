@@ -6,7 +6,6 @@ import utils.pageobjects._
 final class G3JobDetailsPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G3JobDetailsPage.url.replace(":jobID", iteration.toString), G3JobDetailsPage.title, iteration) {
   declareInput("#employerName", "EmploymentEmployerName_" + iteration)
   declareInput("#phoneNumber","EmploymentEmployerPhoneNumber_" + iteration)
-  declareInput("#payrollEmployeeNumber", "EmploymentPayrollOrEmployeeNumber_" + iteration)
   declareAddress("#address", "EmploymentEmployerAddress_" + iteration)
   declareInput("#postcode","EmploymentEmployerPostcode_" + iteration)
   declareDate("#jobStartDate", "EmploymentWhenDidYouStartYourJob_" + iteration)

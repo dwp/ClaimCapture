@@ -93,9 +93,6 @@ DELETE        /about-you/trip/:id                                             co
 GET           /about-you/other-eea-state-or-switzerland                       controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.present
 POST          /about-you/other-eea-state-or-switzerland                       controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.submit
 
-GET           /about-you/more-about-you                                       controllers.s2_about_you.G8MoreAboutYou.present
-POST          /about-you/more-about-you                                       controllers.s2_about_you.G8MoreAboutYou.submit
-
 # Your partner
 ###############
 GET           /your-partner/personal-details                                  controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
@@ -143,11 +140,8 @@ POST          /employment/job-details                                         co
 GET           /employment/last-wage/:jobID                                    controllers.s7_employment.G5LastWage.present(jobID: String)
 POST          /employment/last-wage                                           controllers.s7_employment.G5LastWage.submit
 
-GET           /employment/pension-schemes/:jobID                              controllers.s7_employment.G7PensionSchemes.present(jobID: String)
-POST          /employment/pension-schemes                                     controllers.s7_employment.G7PensionSchemes.submit
-
-GET           /employment/about-expenses/:jobID                               controllers.s7_employment.G8AboutExpenses.present(jobID: String)
-POST          /employment/about-expenses                                      controllers.s7_employment.G8AboutExpenses.submit
+GET           /employment/about-expenses/:jobID                               controllers.s7_employment.G8PensionAndExpenses.present(jobID: String)
+POST          /employment/about-expenses                                      controllers.s7_employment.G8PensionAndExpenses.submit
 
 # Self-employment
 ###############

@@ -28,7 +28,6 @@ object OtherBenefits extends XMLComponent {
       {otherMoneySPPXml(statutorySickPay)}
       {question(<OtherMoneySP/>,"otherPay.label",otherStatutoryPayOption.answer,claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}
       {otherMoneySPDetails(otherStatutoryPayOption)}
-      {question(<OtherMoney/>,"yourBenefits.answer", aboutOtherMoney.yourBenefits.answer, if(hadPartnerSinceClaimDate(claim)) Messages("orPartnerSpouse") else "", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}
       {question(<OtherMoneyPayments/>,"anyPaymentsSinceClaimDate.answer",aboutOtherMoney.anyPaymentsSinceClaimDate.answer,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
       {aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
           case "yes" =>{
@@ -84,8 +83,8 @@ object OtherBenefits extends XMLComponent {
     else NodeSeq.Empty
   }
 
-  def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) match {
-    case Some(m: MoreAboutYou) => m.hadPartnerSinceClaimDate == yes
+  def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(YourPartnerPersonalDetails) match {
+    case Some(p: YourPartnerPersonalDetails) => p.hadPartnerSinceClaimDate == yes
     case _ => false
   }
 }

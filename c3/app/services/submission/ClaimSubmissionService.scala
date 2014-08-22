@@ -24,7 +24,7 @@ trait ClaimSubmissionService {
     val transId = getTransactionIdAndRegisterGenerated(copyInstance(claim), if (jsEnabled) 1 else 0)
 
     if (!jsEnabled) {
-      Logger.info(s"No JS - Submit ${claim.key}, User-Agent : ${request.headers.get("User-Agent").orNull}, TxnId : $transId")
+      Logger.info(s"No JS - Submit ${claim.key} ${claim.uuid}, User-Agent : ${request.headers.get("User-Agent").orNull}, TxnId : $transId")
     }
 
     val updatedClaim = copyInstance(claim withTransactionId transId)
@@ -38,6 +38,7 @@ trait ClaimSubmissionService {
   def getTransactionIdAndRegisterGenerated(claim:Claim, jsEnabled:Int) = {
     val transId = claimTransaction.generateId
     claimTransaction.registerId(transId,AsyncClaimSubmissionService.GENERATED,claimType(claim), jsEnabled)
+    Logger.info(s"Transaction id [$transId] generated for ${claim.key} ${claim.uuid}.")
     transId
   }
 

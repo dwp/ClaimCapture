@@ -26,7 +26,7 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
   }
 
   def redirect(implicit claim: Claim, request: Request[AnyContent], lang:Lang): Either[Result,ClaimResult] =
-    Left(Redirect(controllers.s8_self_employment.routes.G1AboutSelfEmployment.present()))
+    Left(Redirect(controllers.s9_other_money.routes.G1AboutOtherMoney.present()))
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
       presentConditionally(beenEmployed)
@@ -44,9 +44,9 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
     import controllers.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
-      case `yes` if jobs.size < 5 => Redirect(routes.G3JobDetails.present(JobID(form)))
+      case `yes` if jobs.size < 2 => Redirect(routes.G3JobDetails.present(JobID(form)))
       case `yes` => Redirect(routes.G2BeenEmployed.present())
-      case _ => Redirect(controllers.s8_self_employment.routes.G1AboutSelfEmployment.present())
+      case _ => Redirect(controllers.s9_other_money.routes.G1AboutOtherMoney.present())
     }
 
     form.bindEncrypted.fold(

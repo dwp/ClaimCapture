@@ -13,7 +13,7 @@
     Html(Messages("yourBenefits.help")) + """ <a href="/claim-help#3"""" + views.html.ga.trackClickEvent(linkName = "Claim Notes - Other Benefits") + """>""" + Html(Messages("yourBenefits.help.link")) + """</a>"""
 }
 
-@main(Messages("s9.g1") + " - " + Messages("s9.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.AboutOtherMoney)) {
+@main(Messages("s9.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.AboutOtherMoney)) {
 
 
 
@@ -21,17 +21,10 @@
 
         <div class="form-wrap">
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:other-money">
-	            <legend>@Html(Messages("s9.g1"))</legend>
-	
-	            <ul>
-		            @yesNoRadioGroup(currentForm("yourBenefits")("answer"),
-                        '_label -> Messages("yourBenefits.answer", if(hadPartnerSinceClaimDate) Messages("orPartnerSpouse") else "", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)),
-                        'helperAbove -> yourBenefitsHelpWithLink
-                    )
 
+	            <ul>
 		            @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), 
-		              '_label -> Messages("anyPaymentsSinceClaimDate.answer",
-		              claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)),
+		              '_label -> Messages("anyPaymentsSinceClaimDate.answer"),
 		              'helperAbove -> Messages("anyPaymentsSinceClaimDate.helper")
 		            )
 	                
@@ -50,63 +43,52 @@
 	                       'id -> "otherPayWrap",
 	                       'display -> currentForm("anyPaymentsSinceClaimDate.answer").value.getOrElse("no")
 		             )
+
+                    @yesNoRadioGroup(currentForm("statutorySickPay.answer"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersCurrency(currentForm("statutorySickPay.howMuch"), 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
+                            paymentFrequencySelect(currentForm("statutorySickPay.howOften"),
+                                'id -> "howOftenStatutorySickPay",
+                                'visibleOn -> "yes",
+                                '_label -> Messages("howOften"),
+                                'textAreaHelper -> "60 characters left", 'maxLength -> 60,
+                                'display -> {if(currentForm("statutorySickPay.howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+                            ),
+                            carersInputText(currentForm("statutorySickPay.employersName"), '_label -> Messages("employersName"),'maxLength -> Mappings.sixty),
+                            inputAddress(currentForm("statutorySickPay.employersAddress"), '_label -> Messages("employersAddress")),
+                            carersInputText(currentForm("statutorySickPay.employersPostcode"), '_label -> Messages("employersPostcode"), 'class -> "postcode")
+                        ),
+                        'id -> "sickPayWrap",
+                        'display -> currentForm("statutorySickPay.answer").value.getOrElse("no")
+                    )
+
+
+                    @yesNoRadioGroup(currentForm("otherStatutoryPay.answer"), '_label -> Messages("otherPay.label"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersCurrency(currentForm("otherStatutoryPay.howMuch"), 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
+                            paymentFrequencySelect(currentForm("otherStatutoryPay.howOften"),
+                                'id -> "howOftenOtherStatutoryPay",
+                                'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
+                                '_label -> Messages("howOften"),
+                                'visibleOn -> "yes",
+                                'display -> {if(currentForm("otherStatutoryPay.howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+                            ),
+                            carersInputText(currentForm("otherStatutoryPay.employersName"), '_label -> Messages("employersName"), 'maxLength -> Mappings.sixty),
+                            inputAddress(currentForm("otherStatutoryPay.employersAddress"), '_label -> Messages("employersAddress")),
+                            carersInputText(currentForm("otherStatutoryPay.employersPostcode"), '_label -> Messages("employersPostcode"), 'class -> "postcode")
+                        ),
+                        'id -> "otherStatPayWrap",
+                        'display -> currentForm("otherStatutoryPay.answer").value.getOrElse("no")
+                    )
 	                
 	            </ul>
 	            
 	        </fieldset>
-	
-			<fieldset class="form-elements" data-journey="carers-allowance:page:other-money">
-	            <legend>@Html(Messages("s9.g5"))</legend>
-	            <ul>
-	                @yesNoRadioGroup(currentForm("statutorySickPay.answer"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
-	
-	
-	
-	                @otherDetailPlaceHolder(
-	                    inputDef = Seq(
-	                        carersCurrency(currentForm("statutorySickPay.howMuch"), 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
-	                        paymentFrequencySelect(currentForm("statutorySickPay.howOften"),
-	                            'id -> "howOftenStatutorySickPay",
-	                            'visibleOn -> "yes",
-	                            '_label -> Messages("howOften"),
-	                            'textAreaHelper -> "60 characters left", 'maxLength -> 60,
-	                            'display -> {if(currentForm("statutorySickPay.howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
-	                        ),
-	                        carersInputText(currentForm("statutorySickPay.employersName"), '_label -> Messages("employersName"),'maxLength -> Mappings.sixty),
-	                        inputAddress(currentForm("statutorySickPay.employersAddress"), '_label -> Messages("employersAddress")),
-	                        carersInputText(currentForm("statutorySickPay.employersPostcode"), '_label -> Messages("employersPostcode"), 'class -> "postcode")
-	                    ),
-	                    'id -> "sickPayWrap",
-	                    'display -> currentForm("statutorySickPay.answer").value.getOrElse("no")
-	                )
-	             
-	
-	                @yesNoRadioGroup(currentForm("otherStatutoryPay.answer"), '_label -> Messages("otherPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
-	
-	
-	
-	
-	          
-	                @otherDetailPlaceHolder(
-	                    inputDef = Seq(
-	                        carersCurrency(currentForm("otherStatutoryPay.howMuch"), 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
-	                        paymentFrequencySelect(currentForm("otherStatutoryPay.howOften"),
-	                            'id -> "howOftenOtherStatutoryPay",
-	                            'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
-	                            '_label -> Messages("howOften"),
-	                            'visibleOn -> "yes",
-	                            'display -> {if(currentForm("otherStatutoryPay.howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
-	                        ),
-	                        carersInputText(currentForm("otherStatutoryPay.employersName"), '_label -> Messages("employersName"), 'maxLength -> Mappings.sixty),
-	                        inputAddress(currentForm("otherStatutoryPay.employersAddress"), '_label -> Messages("employersAddress")),
-	                        carersInputText(currentForm("otherStatutoryPay.employersPostcode"), '_label -> Messages("employersPostcode"), 'class -> "postcode")
-	                    ),
-	                    'id -> "otherStatPayWrap",
-	                    'display -> currentForm("otherStatutoryPay.answer").value.getOrElse("no")
-	                )
-	                </ul>
-	        </fieldset>
-	
+
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>

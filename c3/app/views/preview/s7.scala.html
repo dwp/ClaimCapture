@@ -9,14 +9,10 @@
 @sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}
 @oneWeekBeforeDate(date:DayMonthYear) = @{date - 1 weeks}
 @employmentItems(job:Job) = @{
-    val aboutExpenses = job.questionGroup[AboutExpenses].get
-    val pensionSchemes = job.questionGroup[PensionSchemes].get
+    val aboutExpenses = job.questionGroup[PensionAndExpenses].get
     var elems = Seq.empty[String]
-    if(aboutExpenses.haveExpensesForJob == "yes" || aboutExpenses.payAnyoneToLookAfterChildren == "yes" || aboutExpenses.payAnyoneToLookAfterPerson == "yes")
+    if(aboutExpenses.haveExpensesForJob.answer == "yes" || aboutExpenses.payPensionScheme.answer == "yes")
         elems = elems ++ Seq(Messages("expenses"))
-    if(pensionSchemes.payOccupationalPensionScheme == "yes" || pensionSchemes.payPersonalPensionScheme == "yes")
-        elems = elems ++ Seq(Messages("pension schemes"))
-
     elems
 }
 @selfEmploymentItems(claim:Claim) = @{

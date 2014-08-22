@@ -1,8 +1,10 @@
 @(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@import models.domain.Employed
 
 @import models.domain.SelfEmployment
 @import helper._
 @import play.api.i18n.{MMessages => Messages}
+@import views.html.common._
 
 @common.govMain(title) {
 	
@@ -14,6 +16,7 @@
 
         <article>
 
+            @sectionTitle(SelfEmployment)
             <h1>@Html(Messages("s8.longName"))</h1>
 
             @if(completedQuestionGroups.size > 0) {

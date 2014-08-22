@@ -47,7 +47,7 @@ class SubmissionCacheServiceSpec extends Specification with Tags with Submission
       claim = claim + contact
       claim = claim + claimDate
 
-      claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.transactionId)(claim.navigation) with FullClaim
+      claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid,claim.transactionId)(claim.navigation) with FullClaim
       claim
     }
 

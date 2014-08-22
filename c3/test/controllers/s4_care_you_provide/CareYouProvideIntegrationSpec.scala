@@ -37,10 +37,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
 
       Formulate.otherEEAStateOrSwitzerland(browser)
-      titleMustEqual("More about you - About you - the carer")
-
-      Formulate.moreAboutYouSinglePartnerBenefitsYes(browser)
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
+      titleMustEqual("Partner details - About your partner")
 
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")
@@ -68,10 +65,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
 
       Formulate.otherEEAStateOrSwitzerland(browser)
-      titleMustEqual("More about you - About you - the carer")
-
-      Formulate.moreAboutYouSinglePartnerBenefitsYes(browser)
-      titleMustEqual("Partner/Spouse details - About your partner/spouse")
+      titleMustEqual("Partner details - About your partner")
 
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")
@@ -90,7 +84,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
       Formulate.notInEmployment(browser)
 
-      titleMustEqual("Benefits and payments - About Other Money")
+      titleMustEqual("Other Money")
     }
 
   } section("integration", models.domain.CareYouProvide.id)

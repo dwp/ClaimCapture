@@ -1,7 +1,7 @@
 package controllers.s8_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import play.api.test.{TestBrowser, WithBrowser}
 import utils.pageobjects.s8_self_employment._
 import controllers.{Formulate, ClaimScenarioFactory}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
@@ -33,7 +33,6 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
       Formulate.nationalityAndResidency(browser)
       Formulate.abroadForMoreThan52Weeks(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYou(browser)
       Formulate.notInEmployment(browser)
 
       page goToPage( throwException = false, page = new G1EmploymentPage(PageObjectsContext(browser)))
@@ -94,72 +93,54 @@ class G7ExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to previous page" in new WithBrowser with PageObjects{
-      val page =  G7ExpensesWhileAtWorkPage(context)
 
-      val aboutYou = ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val pageAboutYou = new G1YourDetailsPage(PageObjectsContext(browser))
-      pageAboutYou goToThePage()
-      pageAboutYou fillPageWith aboutYou
+      val g7ExpensesWhileAtWork = gotoExpensesPage(context,browser)
 
-      val nationality = pageAboutYou.submitPage(throwException = true)
-      nationality fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val abroadForMoreThan52Weeks = nationality.submitPage(throwException = true)
-      abroadForMoreThan52Weeks fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val otherEEAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
-      otherEEAStateOrSwitzerland fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val pageMoreAboutYou = otherEEAStateOrSwitzerland.submitPage(throwException = true)
-      pageMoreAboutYou fillPageWith aboutYou
-      pageMoreAboutYou.submitPage(throwException = true)
-
-      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(PageObjectsContext(browser))
-      pageAboutYourPartner goToThePage()
-      pageAboutYourPartner fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
-      pageAboutYourPartner.submitPage(throwException = true)
-
-      val g4 = new G4SelfEmploymentPensionsAndExpensesPage(PageObjectsContext(browser))
-      g4 goToThePage()
-      g4 fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
-      val g5 = g4.submitPage(throwException = true)
-      g5 fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
-      val g7 = g5.submitPage(throwException = true)
-
-      g7.goBack() must beAnInstanceOf[G5ChildcareExpensesWhileAtWorkPage]
+      g7ExpensesWhileAtWork.goBack() must beAnInstanceOf[G5ChildcareExpensesWhileAtWorkPage]
     }
 
     "navigate to next page on valid submission" in new WithBrowser with PageObjects{
-			val page =  G7ExpensesWhileAtWorkPage(context)
+      val g7ExpensesWhileAtWork = gotoExpensesPage(context,browser)
+      g7ExpensesWhileAtWork fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
+
+      val nextPage = g7ExpensesWhileAtWork.submitPage(throwException = true)
+
+      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
+    }
+
+    def gotoExpensesPage(context:PageObjectsContext, browser:TestBrowser) = {
 
       val aboutYou = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val pageAboutYou = new G1YourDetailsPage(PageObjectsContext(browser))
       pageAboutYou goToThePage()
       pageAboutYou fillPageWith aboutYou
 
-      val nationality = pageAboutYou.submitPage(throwException = true)
-      nationality fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val abroadForMoreThan52Weeks = nationality.submitPage(throwException = true)
-      abroadForMoreThan52Weeks fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val otherEEAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
-      otherEEAStateOrSwitzerland fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      val pageMoreAboutYou = otherEEAStateOrSwitzerland.submitPage(throwException = true)
-      pageMoreAboutYou fillPageWith aboutYou
-      pageMoreAboutYou.submitPage(throwException = true)
+      val aboutYouContactDetails = pageAboutYou.submitPage(throwException = true)
+      aboutYouContactDetails fillPageWith aboutYou
 
-      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(PageObjectsContext(browser))
-      pageAboutYourPartner goToThePage()
+      val nationalityAndResidency = aboutYouContactDetails.submitPage(throwException = true)
+      nationalityAndResidency fillPageWith aboutYou
+
+      val abroadForMoreThan52Weeks = nationalityAndResidency.submitPage(throwException = true)
+      abroadForMoreThan52Weeks fillPageWith aboutYou
+
+      val otherEEAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
+      otherEEAStateOrSwitzerland fillPageWith aboutYou
+
+      val pageAboutYourPartner = otherEEAStateOrSwitzerland.submitPage(throwException = true)
       pageAboutYourPartner fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
       pageAboutYourPartner.submitPage(throwException = true)
 
-      val g4 = new G4SelfEmploymentPensionsAndExpensesPage(PageObjectsContext(browser))
-      g4 goToThePage()
-      g4 fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
-      val g5 = g4.submitPage(throwException = true)
-      g5 fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
-      val g7 = g5.submitPage(throwException = true)
-      g7 fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
+      val g4SelfEmploymentPensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(PageObjectsContext(browser))
+      g4SelfEmploymentPensionAndExpenses goToThePage()
+      g4SelfEmploymentPensionAndExpenses fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
 
-      val nextPage = g7.submitPage(throwException = true)
+      val g5ChildCareExpensesWhileAtWork = g4SelfEmploymentPensionAndExpenses.submitPage(throwException = true)
+      g5ChildCareExpensesWhileAtWork fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
 
-      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
+      val g7ExpensesWhileAtWork = g5ChildCareExpensesWhileAtWork.submitPage(throwException = true)
+
+      g7ExpensesWhileAtWork
     }
   } section("integration", models.domain.SelfEmployment.id)
 }

@@ -4,6 +4,7 @@
 @import models.domain.ClaimDate
 @import helper._
 @import play.api.i18n.{MMessages => Messages}
+@import views.html.common._
 
 @common.govMain(title) {
 	
@@ -15,6 +16,7 @@
 
         <article>
 
+            @sectionTitle(CareYouProvide)
             <h1>@Html(Messages("s4.longName"))</h1>
 
             @if(completedQuestionGroups.size > 0) {

@@ -15,7 +15,7 @@ class AsyncSubmissionActor extends Actor with Injector {
 
   override def receive: Actor.Receive = {
     case claim:Claim =>
-      Logger.debug(s"Processing claim with transactionId [${claim.transactionId.get}]")
+      Logger.debug(s"Processing ${claim.key} ${claim.uuid} with transactionId [${claim.transactionId.get}]")
       asyncSubmissionService.submission(claim)
   }
 }

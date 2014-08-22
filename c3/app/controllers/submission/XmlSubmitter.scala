@@ -9,7 +9,7 @@ import models.domain.Claim
 import play.api.Logger
 
 object XmlSubmitter {
-  val transactionID = "TEST432"
+  val transactionID = "1408TEST432"
 
   def submission(claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val validator = xmlValidator(claim)

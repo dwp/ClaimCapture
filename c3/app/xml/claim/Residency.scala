@@ -12,17 +12,22 @@ object Residency extends XMLComponent{
   def xml(claim: Claim) = {
 
     val tripsOption = claim.questionGroup[Trips]
-    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency())
+    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
 
     <Residency>
+      {question(<Nationality/>, "nationality", nationalityAndResidency.nationality)}
+
+      {nationalityAndResidency.nationality match {
+        case NationalityAndResidency.anothercountry => question(<ActualNationality/>, "actualnationality.text.label", nationalityAndResidency.actualnationality)
+        case _ => NodeSeq.Empty
+      }}
+
       {question(<NormallyLiveInGB/>, "resideInUK.answer", nationalityAndResidency.resideInUK.answer)}
 
       {nationalityAndResidency.resideInUK.answer match {
         case Mappings.no => question(<CountryNormallyLive/>, "resideInUK.text.label", nationalityAndResidency.resideInUK.text)
         case _ => NodeSeq.Empty
       }}
-
-      {question(<Nationality/>, "nationality", nationalityAndResidency.nationality)}
 
       {periodAbroadLastYear(tripsOption, claim)}
 

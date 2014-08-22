@@ -56,7 +56,7 @@ object Formulate {
 
   def nationalityAndResidency(browser: TestBrowser) = {
     browser.goTo("/about-you/nationality-and-residency")
-    browser.fill("#nationality") `with` "British"
+    browser.click("#nationality_British")
     browser.click("#resideInUK_answer_yes")
     browser.submit("button[type='submit']")
   }
@@ -73,32 +73,6 @@ object Formulate {
     browser.click("#dateOfClaim_day option[value='1']")
     browser.click("#dateOfClaim_month option[value='1']")
     browser.fill("#dateOfClaim_year") `with` "2014"
-    browser.submit("button[type='submit']")
-  }
-
-  def moreAboutYou(browser: TestBrowser) = {
-    browser.goTo("/about-you/more-about-you")
-    browser.click("#maritalStatus_Single")
-    browser.click("#hadPartnerSinceClaimDate_yes")
-    browser.click("#receiveStatePension_yes")
-    browser.submit("button[type='submit']")
-  }
-
-  def moreAboutYouNotHadPartnerSinceClaimDate(browser: TestBrowser) = {
-    browser.goTo("/about-you/more-about-you")
-    browser.click("#maritalStatus_Single")
-    browser.click("#hadPartnerSinceClaimDate_no")
-    browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
-    browser.click("#receiveStatePension_yes")
-    browser.submit("button[type='submit']")
-  }
-  
-  def moreAboutYouSinglePartnerBenefitsYes(browser: TestBrowser) = {
-    browser.goTo("/about-you/more-about-you")
-    browser.click("#maritalStatus_Single")
-    browser.click("#hadPartnerSinceClaimDate_yes")
-    browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
-    browser.click("#receiveStatePension_yes")
     browser.submit("button[type='submit']")
   }
 
@@ -140,6 +114,7 @@ object Formulate {
   // Your partner
   def yourPartnerPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/your-partner/personal-details")
+    browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#middleName") `with` "Dave"
@@ -157,10 +132,11 @@ object Formulate {
     browser.click("#isPartnerPersonYouCareFor_yes")
     browser.submit("button[type='submit']")
   }
-  
+
   def personYouCareForNotPartner(browser: TestBrowser) = {
     browser.goTo("/your-partner/person-you-care-for")
     browser.click("#isPartnerPersonYouCareFor_no")
+    browser.click("#hadPartnerSinceClaimDate_yes")
     browser.submit("button[type='submit']")
   }
   
@@ -202,14 +178,6 @@ object Formulate {
     browser.goTo("/care-you-provide/their-contact-details")
     browser.fill("#address_lineOne") `with` "Their Address"
     browser.fill("#postcode") `with` "RM11 1DA"
-    browser.submit("button[type='submit']")
-  }
-  
-  def theirContactDetailsInvalidPhoneNumber(browser: TestBrowser) = {
-    browser.goTo("/care-you-provide/their-contact-details")
-    browser.fill("#address_lineOne") `with` "Their Address"
-    browser.fill("#postcode") `with` "RM11 1DA"
-    browser.fill("#phoneNumber") `with` "INVALID"
     browser.submit("button[type='submit']")
   }
 

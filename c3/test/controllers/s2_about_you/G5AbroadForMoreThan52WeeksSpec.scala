@@ -17,93 +17,96 @@ class G5AbroadForMoreThan52WeeksSpec extends Specification with Tags {
 
   "Abroad more than 52 weeks" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
 
       val result = G5AbroadForMoreThan52Weeks.present(request)
       status(result) mustEqual OK
     }
 
     """enforce answer to "Time outside of England, Scotland or Wales".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
 
       val result = G5AbroadForMoreThan52Weeks.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """accept "yes" to "Time outside of England, Scotland or Wales".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("anyTrips" -> "yes")
+      val request = FakeRequest().withFormUrlEncodedBody("anyTrips" -> "yes")
 
       val result = G5AbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result) must beSome(tripsPage)
     }
 
     """accept "no" to "Time outside of England, Scotland or Wales".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("anyTrips" -> "no")
+      val request = FakeRequest().withFormUrlEncodedBody("anyTrips" -> "no")
 
       val result = G5AbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result) must beSome(eeaPage)
     }
 
     "go to Other EEA state or switzerland page having now provided less than 5 trips and answering 'no' to Time outside of England, Scotland or Wales" in new WithApplication with Claiming {
-      createTrip(claimKey, "12345")
-      verifyTrips(claimKey, 1)
+      val result1 = createTrip("12345")
+      verifyTrips(extractCacheKey(result1), 1)
 
-      val requestNoTrips = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("anyTrips" -> "no")
+      val requestNoTrips = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("anyTrips" -> "no")
       val resultNoTrips = G5AbroadForMoreThan52Weeks.submit(requestNoTrips)
       redirectLocation(resultNoTrips) must beSome(eeaPage)
     }
 
     "go to trips page having now provided less than 5 trips and answering 'yes' to Time outside of England, Scotland or Wales" in new WithApplication with Claiming {
-      for (i <- 1 to 4){
-        createTrip(claimKey, "12345"+i)
+      val result1 = createTrip( "123451")
+      for (i <- 2 to 4){
+        createTrip( "12345"+i,extractCacheKey(result1))
       }
-      verifyTrips(claimKey, 4)
+      verifyTrips(extractCacheKey(result1), 4)
 
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("anyTrips" -> "yes")
+      val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("anyTrips" -> "yes")
       val result = G5AbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result) must beSome(tripsPage)
 
     }
 
     "stay on Time outside of England, Scotland or Wales page having now provided 5 trips and answering 'yes' to Time outside of England, Scotland or Wales" in new WithApplication with Claiming {
-      for (i <- 1 to 5){
-        createTrip(claimKey, "12345"+i)
+      val result1 = createTrip( "123451")
+      for (i <- 2 to 5){
+        createTrip("12345"+i,extractCacheKey(result1))
       }
-      verifyTrips(claimKey, 5)
+      verifyTrips(extractCacheKey(result1), 5)
 
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("anyTrips" -> "yes")
+      val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("anyTrips" -> "yes")
       val result = G5AbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result) must beSome(timeAbroadPage)
 
     }
 
     "go to Other EEA state or switzerland page deleting existing trip and answering 'no' to Time outside of England, Scotland or Wales" in new WithApplication with Claiming {
-      createTrip(claimKey, "12345")
-      verifyTrips(claimKey, 1)
+      val result1 = createTrip("12345")
+      verifyTrips(extractCacheKey(result1), 1)
 
-      G6Trip.delete("12345")(FakeRequest().withSession(CachedClaim.key -> claimKey))
-      verifyTrips(claimKey, 0)
+      G6Trip.delete("12345")(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)))
+      verifyTrips(extractCacheKey(result1), 0)
 
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("anyTrips" -> "no")
-      val result = G5AbroadForMoreThan52Weeks.submit(request)
-      redirectLocation(result) must beSome(eeaPage)
+      val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("anyTrips" -> "no")
+      val result2 = G5AbroadForMoreThan52Weeks.submit(request)
+      redirectLocation(result2) must beSome(eeaPage)
     }
 
-    def verifyTrips (claimKey:String, noOfTrips:Int) = {
+    def verifyTrips (key: String, noOfTrips:Int) = {
       import play.api.Play.current
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(Trips) should beLike {
+      Cache.getAs[Claim](key).get.questionGroup(Trips) should beLike {
         case Some(t: Trips) => t.fiftyTwoWeeksTrips.size shouldEqual noOfTrips
       }
     }
 
 
-    def createTrip(claimKey: String, tripId: String) = {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("anyTrips" -> "yes")
+    def createTrip(tripId: String,key:String="") = {
+
+      val request = if (key.isEmpty) FakeRequest().withFormUrlEncodedBody("anyTrips" -> "yes") else FakeRequest().withSession(CachedClaim.key -> key).withFormUrlEncodedBody("anyTrips" -> "yes")
       val result = G5AbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result) must beSome(tripsPage)
 
-      val tripRequest = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("tripID" -> tripId,
+      val tripRequest = FakeRequest().withSession(CachedClaim.key -> session(result).get(CachedClaim.key).get).withFormUrlEncodedBody("tripID" -> tripId,
         "where" -> "USA",
         "start.day" -> "01",
         "start.month" -> "01",
@@ -115,6 +118,7 @@ class G5AbroadForMoreThan52WeeksSpec extends Specification with Tags {
         "personWithYou" -> "yes")
       val tripResult = G6Trip.submit(tripRequest)
       redirectLocation(tripResult) must beSome(timeAbroadPage)
+      tripResult
     }
 
   } section("unit", models.domain.AboutYou.id)

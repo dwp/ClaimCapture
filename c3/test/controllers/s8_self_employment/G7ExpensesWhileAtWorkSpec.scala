@@ -1,15 +1,12 @@
 package controllers.s8_self_employment
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
-import models.domain._
-import play.api.test.Helpers._
-import play.api.cache.Cache
-import models.domain.Claim
-import models.view.CachedClaim
 import app.PensionPaymentFrequency._
-import scala.Some
 import models.PensionPaymentFrequency
+import models.domain._
+import models.view.CachedClaim
+import org.specs2.mutable.{Specification, Tags}
+import play.api.test.Helpers._
+import play.api.test.{FakeRequest, WithApplication}
 
 class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
   "Expenses related to the Person you care for while at work - Self Employment - Controller" should {
@@ -32,23 +29,23 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     )
 
     "present 'Expenses related to the Person you care for while at work' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("doYouPayToPensionScheme" -> "no", "doYouPayToLookAfterYourChildren" -> "yes", "didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
       val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
-      val request2 = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
 
-      val result2 = G7ExpensesWhileAtWork.present(request)
+      val result2 = G7ExpensesWhileAtWork.present(request2)
       status(result2) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(expensesWhileAtWorkInput: _*)
 
       val result = controllers.s8_self_employment.G7ExpensesWhileAtWork.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.SelfEmployment)
 
       section.questionGroup(ExpensesWhileAtWork) must beLike {
@@ -63,7 +60,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field nameOfPerson" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "nameOfPerson" -> "",
         "howMuchYouPay" -> howMuchYouPay,
@@ -79,7 +76,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field howMuchYouPay" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "nameOfPerson" -> nameOfPerson,
         "howMuchYouPay" -> "",
@@ -95,7 +92,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field howOftenPayExpenses.frequency" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "nameOfPerson" -> nameOfPerson,
         "howMuchYouPay" -> howMuchYouPay,
@@ -111,7 +108,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when other selected but other not filled in" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "nameOfPerson" -> nameOfPerson,
         "howMuchYouPay" -> howMuchYouPay,
@@ -127,7 +124,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field whatRelationIsToYou" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "nameOfPerson" -> nameOfPerson,
         "howMuchYouPay" -> howMuchYouPay,
@@ -143,7 +140,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field whatRelationIsTothePersonYouCareFor" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(
         "nameOfPerson" -> nameOfPerson,
         "howMuchYouPay" -> howMuchYouPay,
@@ -159,7 +156,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(expensesWhileAtWorkInput: _*)
 
       val result = controllers.s8_self_employment.G7ExpensesWhileAtWork.submit(request)
@@ -167,14 +164,14 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "redirect to next page when payAnyoneToLookAfterPerson is not in About Employment" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("doYouPayToPensionScheme_answer" -> "no", "doYouPayToLookAfterYourChildren" -> "yes", "didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
       val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
-      val request2 = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
 
-      val result2 = G7ExpensesWhileAtWork.present(request)
+      val result2 = G7ExpensesWhileAtWork.present(request2)
       status(result2) mustEqual SEE_OTHER
     }
   } section("unit", models.domain.SelfEmployment.id)

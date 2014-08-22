@@ -8,35 +8,48 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
+@import models.domain.NationalityAndResidency
+@import app.MaritalStatus._
 
 @main(Messages("s2.g4") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.NationalityAndResidency)) {
     @errorsSummary(nationalityAndResidencyForm)
 
 
     @form(action = controllers.s2_about_you.routes.G4NationalityAndResidency.submit) {
-        <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g4"))</legend>
 	
 	            <ul>
-	                @carersInputText(nationalityAndResidencyForm("nationality"),
+	                @yesNoRadioGroup(nationalityAndResidencyForm("nationality"),
                         'helperAbove -> Messages("nationality.helper"),
-                        'helperBelow -> Messages("nationality.helper2"),
-	                    'maxLength -> 35)
-	
-	                @yesNoRadioGroup(nationalityAndResidencyForm("resideInUK.answer"),
-	                    '_label -> Messages("resideInUK.label"))
+                        'values -> Seq(NationalityAndResidency.british -> Messages("label.british"), NationalityAndResidency.anothercountry -> Messages("label.anothercountry")),
+	                    '_label -> Messages("nationality.label"))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        carersInputText(nationalityAndResidencyForm("resideInUK.text"),
-	                            '_label -> Messages("resideInUK.text.label"),
-	                            'maxLength -> 35)
+	                        carersInputText(nationalityAndResidencyForm("actualnationality"),
+	                            '_label -> Messages("actualnationality.text.label"),
+	                            'maxLength -> 35),
+
+                            maritalStatusSelect(nationalityAndResidencyForm("maritalStatus"),'_nestedFieldSet -> true)
 	                    ),
-	                    'id -> "residencyWrap",
-	                    'display -> { if (nationalityAndResidencyForm("resideInUK.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+	                    'id -> "nationalityWrap",
+	                    'display -> { if (nationalityAndResidencyForm("nationality").value.getOrElse("notset") == NationalityAndResidency.anothercountry) "yes" else "no" }
 	                )
-	            </ul>
+
+                    @yesNoRadioGroup(nationalityAndResidencyForm("resideInUK")("answer"),
+                        '_label -> Messages("resideInUK.label"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputText(nationalityAndResidencyForm("resideInUK")("text"),
+                            '_label -> Messages("resideInUK.text.label"),
+                            'maxLength -> 35)
+                        ),
+                        'id -> "residencyWrap",
+                        'display -> { if (nationalityAndResidencyForm("resideInUK")("answer").value.getOrElse("yes") == "no") "yes" else "no" }
+                    )
+                </ul>
 	
 	        </fieldset>
 	
@@ -46,7 +59,6 @@
 	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
-        </div>
     }
 }
 
@@ -54,8 +66,17 @@
 
 <script type="text/javascript">
     $(function(){
-        window.initEvents("@CarersCrypto.encryptAES("resideInUK_answer_yes")",
-                          "@CarersCrypto.encryptAES("resideInUK_answer_no")",
-                          "@CarersCrypto.encryptAES("resideInUK_text")");
+        window.initEvents("@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("Another_Country").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("actualnationality").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("yes").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("no").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("text").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Married_or_civil_partner").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Single").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Divorced_or_civil_partnership_dissolved").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Widowed_or_surviving_civil_partner").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Separated").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Living_with_partner").id)");
     });
 </script>

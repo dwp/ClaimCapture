@@ -6,22 +6,17 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.CarersForms._
 import models.view.CachedClaim
-import models.domain.{AboutOtherMoney, MoreAboutYou}
+import models.domain.{YourPartnerPersonalDetails, AboutOtherMoney, Claim}
 import controllers.Mappings._
 import utils.helpers.CarersForm._
 import models.view.Navigable
 import play.api.data.FormError
-import models.domain.Claim
 import scala.Some
 import models.yesNo.{YesNo, YesNoWithEmployerAndMoney}
 import play.api.i18n.{MMessages => Messages}
 
 object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
-  val yourBenefitsMapping =
-    "yourBenefits" -> mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo)
-    )(YesNo.apply)(YesNo.unapply)
-    
+
   val anyPaymentsSinceClaimDateMapping =
     "anyPaymentsSinceClaimDate" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo)
@@ -52,7 +47,6 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
       .verifying("otherPayHowMuchRequired", YesNoWithEmployerAndMoney.validateHowMuchOnYes _)
 
   val form = Form(mapping(
-    yourBenefitsMapping,
     anyPaymentsSinceClaimDateMapping,
     "whoPaysYou" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),
     "howMuch" -> optional(nonEmptyText verifying validCurrencyRequired),
@@ -78,8 +72,8 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) match {
-    case Some(m: MoreAboutYou) => m.maritalStatus == "p" || m.hadPartnerSinceClaimDate == Some(yes)
+  def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(YourPartnerPersonalDetails) match {
+    case Some(p: YourPartnerPersonalDetails) => p.hadPartnerSinceClaimDate == yes
     case _ => false
   }
 

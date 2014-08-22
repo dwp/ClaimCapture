@@ -23,6 +23,7 @@ object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim with Nav
   def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g7_otherEEAStateOrSwitzerland(formWithErrors)),
-      benefitsFromEEA => claim.update(benefitsFromEEA) -> Redirect(routes.G8MoreAboutYou.present()))
+      benefitsFromEEA => claim.update(benefitsFromEEA) -> Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
+    )
   }
 }

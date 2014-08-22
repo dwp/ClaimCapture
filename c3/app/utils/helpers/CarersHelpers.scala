@@ -6,16 +6,16 @@ import scala.language.implicitConversions
 
 class EnhancedFieldElements(f:FieldElements) {
 
-  def carersErrors(implicit lang: play.api.i18n.Lang): Seq[String] = {
+  def carersErrors(): Seq[String] = {
     (f.args.get('_error) match {
-      case Some(Some(play.api.data.FormError(_, message, args))) => Some(Seq(play.api.i18n.MMessages(message, args: _*)))
+      case Some(Some(play.api.data.FormError(_, message, args))) => Some(Seq(play.api.i18n.MMessages(message, args: _*)(f.lang)))
       case _ => None
     }).getOrElse {
       if (f.args.get('_showErrors) match {
         case Some(false) => false
         case _ => true
       }) {
-        f.field.errors.map(e => play.api.i18n.MMessages(e.message, e.args: _*))
+        f.field.errors.map(e => play.api.i18n.MMessages(e.message, e.args: _*)(f.lang))
       } else Nil
     }
   }

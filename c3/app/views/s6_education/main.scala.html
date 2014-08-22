@@ -3,6 +3,7 @@
 @import helper._
 @import models.domain.Education
 @import play.api.i18n.{MMessages => Messages}
+@import views.html.common._
 
 @common.govMain(title) {
 	
@@ -14,6 +15,7 @@
         
         <article>
 
+            @sectionTitle(Education)
             <h1>@Html(Messages("s6.longName"))</h1>
 
             @if(completedQuestionGroups.size > 0) {

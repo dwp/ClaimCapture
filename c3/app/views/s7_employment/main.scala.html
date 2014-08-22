@@ -3,6 +3,7 @@
 @import models.domain.Employed
 @import helper._
 @import play.api.i18n.{MMessages => Messages}
+@import views.html.common._
 
 @common.govMain(title) {
 	
@@ -13,6 +14,9 @@
         @progressBar(Employed)
 
         <article>
+
+            @sectionTitle(Employed)
+
             @if(employerName.isDefined && !employerName.isEmpty) {
                 <h1>@employerName </h1>
             }

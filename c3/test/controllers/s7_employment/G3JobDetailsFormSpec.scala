@@ -15,7 +15,6 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     val hrsPerWeek =  "25"
     val phoneNumber = "12345678"
     val postCode = "PR1 7UP"
-    val payrollNumber = "445566"
     val day = "1"
     val month = "1"
     val year1 = "1970"
@@ -27,7 +26,6 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "jobID" -> jobId,
           "employerName" -> employerName,
           "phoneNumber" -> phoneNumber,
-          "payrollEmployeeNumber" -> payrollNumber,
           "address.lineOne" -> addressLine,
           "address.lineTwo" -> addressLineTwo,
           "address.lineThree" -> addressLineThree,
@@ -49,8 +47,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
         f => {
           f.jobID must equalTo(jobId)
           f.employerName must equalTo(employerName)
-          f.phoneNumber must equalTo(Some(phoneNumber))
-          f.payrollEmployeeNumber must equalTo(Some(payrollNumber))
+          f.phoneNumber must equalTo(phoneNumber)
           f.address.lineOne must equalTo(Some(addressLine))
           f.address.lineTwo must equalTo(Some(addressLineTwo))
           f.address.lineThree must equalTo(Some(addressLineThree))
@@ -63,11 +60,9 @@ class G3JobDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "have 4 mandatory fields" in {
-      G8AboutExpenses.form.bind(
+    "have 5 mandatory fields" in {
+      G3JobDetails.form.bind(
         Map(
-          "phoneNumber" -> phoneNumber,
-          "payrollEmployeeNumber" -> payrollNumber,
           "postcode" -> postCode,
           "jobStartDate.day" -> day,
           "jobStartDate.month" -> month,
@@ -80,19 +75,20 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "p45LeavingDate.year" -> year2,
           "hoursPerWeek" -> hrsPerWeek)
       ).fold(
-          formWithErrors => {
-            formWithErrors.errors.length must equalTo(4)
-            formWithErrors.errors(0).message must equalTo("error.required")
-            formWithErrors.errors(1).message must equalTo("error.required")
-            formWithErrors.errors(2).message must equalTo("error.required")
-            formWithErrors.errors(3).message must equalTo("error.required")
-          },
-          f => "This mapping should not happen." must equalTo("Valid")
-        )
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(5)
+          formWithErrors.errors(0).message must equalTo("error.required")
+          formWithErrors.errors(1).message must equalTo("error.required")
+          formWithErrors.errors(2).message must equalTo("error.required")
+          formWithErrors.errors(3).message must equalTo("error.required")
+          formWithErrors.errors(4).message must equalTo("error.required")
+        },
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
     }
 
     "reject if employerName is not filled" in {
-      G8AboutExpenses.form.bind(
+      G3JobDetails.form.bind(
         Map(
           "jobID" -> jobId,
           "address.lineOne" -> addressLine,
@@ -107,7 +103,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     }
 
     "reject if address is not filled" in {
-      G8AboutExpenses.form.bind(
+      G3JobDetails.form.bind(
         Map(
           "jobID" -> jobId,
           "employerName" -> employerName,
@@ -122,7 +118,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     }
 
     "reject if finishedThisJob is not filled" in {
-      G8AboutExpenses.form.bind(
+      G3JobDetails.form.bind(
         Map(
           "jobID" -> jobId,
           "employerName" -> employerName,
@@ -136,12 +132,12 @@ class G3JobDetailsFormSpec extends Specification with Tags {
         )
     }
 
-
-    "have 2 expanded mandatory fields if finishedThisJob is yes" in {
-      G8AboutExpenses.form.bind(
+    "have 1 expanded mandatory fields if finishedThisJob is yes" in {
+      G3JobDetails.form.bind(
         Map(
           "jobID" -> jobId,
           "employerName" -> employerName,
+          "phoneNumber" -> phoneNumber,
           "address.lineOne" -> addressLine,
           "jobStartDate.day" -> day,
           "jobStartDate.month" -> month,
@@ -149,12 +145,44 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "finishedThisJob" -> yes)
       ).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(3)
-            formWithErrors.errors(0).message must equalTo("error.required")
-            formWithErrors.errors(1).message must equalTo("error.required")
+            formWithErrors.errors.length must equalTo(1)
+            formWithErrors.errors(0).message must equalTo("lastWorkDate.required")
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
+    }
+
+    "reject if phoneNumber is not filled" in {
+      G3JobDetails.form.bind(
+        Map(
+          "jobID" -> jobId,
+          "employerName" -> employerName,
+          "address.lineOne" -> addressLine,
+          "jobStartDate.day" -> day,
+          "jobStartDate.month" -> month,
+          "jobStartDate.year" -> year1,
+          "finishedThisJob" -> no)
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
+    "reject if phoneNumber is not valid" in {
+      G3JobDetails.form.bind(
+        Map(
+          "jobID" -> jobId,
+          "employerName" -> employerName,
+          "phoneNumber" -> "AB126789*",
+          "address.lineOne" -> addressLine,
+          "jobStartDate.day" -> day,
+          "jobStartDate.month" -> month,
+          "jobStartDate.year" -> year1,
+          "finishedThisJob" -> no)
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
     }
 
   } section("unit", models.domain.SelfEmployment.id)

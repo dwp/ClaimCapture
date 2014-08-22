@@ -5,7 +5,7 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
-@import models.domain.{MoreAboutYou,YourPartnerPersonalDetails,SelfEmploymentPensionsAndExpenses}
+@import models.domain.{YourPartnerPersonalDetails,SelfEmploymentPensionsAndExpenses}
 @import utils.helpers.PastPresentLabelHelper.labelForSelfEmployment
 @import views.html.s8_self_employment.main
 @import views.html.helper.dropdowns.pensionPaymentFrequencySelect
@@ -13,8 +13,8 @@
 @doWeTrack = @{claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses()).didYouPayToLookAfterThePersonYouCaredFor == "no"}
 
 @displayRelationToPartner = @{
-    claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
-        case (Some(m: MoreAboutYou),Some(p: YourPartnerPersonalDetails)) if (m.hadPartnerSinceClaimDate == Some("yes") || m.maritalStatus == "p" ) && p.isPartnerPersonYouCareFor == "no" => "yes"
+    claim.questionGroup(YourPartnerPersonalDetails) match {
+        case (Some(p: YourPartnerPersonalDetails)) if (p.hadPartnerSinceClaimDate == "yes" ) && p.isPartnerPersonYouCareFor == Some("no") => "yes"
         case _ => "no"
     }
 }

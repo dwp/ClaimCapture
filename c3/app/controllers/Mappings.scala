@@ -246,6 +246,26 @@ object Mappings {
     }
   }
 
+  /**
+   * Use this method to validate phone number when it is not empty. This was created for fields which are mandatory and have to validate for
+   * a valid phone number because the mandatory fields have their validation for empty fields.
+   * @return
+   */
+
+  def validPhoneNumberRequired: Constraint[String] = Constraint[String]("constraint.phoneNumber") { phoneNumber =>
+    val phoneNumberPattern = """[0-9 \-]{1,20}""".r
+
+    if (null != phoneNumber && !phoneNumber.isEmpty){
+        phoneNumberPattern.pattern.matcher(phoneNumber).matches match {
+        case true => Valid
+        case false => Invalid(ValidationError("error.invalid"))
+      }
+    } else {
+      Valid
+    }
+  }
+
+
 
   def validDecimalNumberRequired: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
     val decimalPattern = """^[0-9]{1,12}(\.[0-9]{1,2})?$""".r

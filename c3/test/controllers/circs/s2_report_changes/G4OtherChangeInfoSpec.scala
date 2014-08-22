@@ -17,7 +17,7 @@ class G4OtherChangeInfoSpec extends Specification with Tags{
   "Circumstances - OtherChangeInfo - Controller" should {
 
     "present 'Other Change Information' " in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+      val request = FakeRequest()
 
       val result = G4OtherChangeInfo.present(request)
       status(result) mustEqual OK
@@ -25,11 +25,11 @@ class G4OtherChangeInfoSpec extends Specification with Tags{
 
 
     "add submitted form to the cached claim" in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(otherChangeInfoInput: _*)
 
       val result = s2_report_changes.G4OtherChangeInfo.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
       claim.questionGroup[CircumstancesOtherInfo] must beLike {
         case Some(f: CircumstancesOtherInfo) => {
           f.change must equalTo(otherInfo)
@@ -38,7 +38,7 @@ class G4OtherChangeInfoSpec extends Specification with Tags{
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(otherChangeInfoInput: _*)
 
       val result = s2_report_changes.G4OtherChangeInfo.submit(request)

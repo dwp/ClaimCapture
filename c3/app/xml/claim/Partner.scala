@@ -10,15 +10,14 @@ import xml.XMLComponent
 object Partner extends XMLComponent {
 
   def xml(claim: Claim) = {
-    val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(hadPartnerSinceClaimDate = Some(no)))
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
     val personYouCareFor = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
-    val hadPartner = (if(moreAboutYou.maritalStatus == "Living with partner") yes else moreAboutYou.hadPartnerSinceClaimDate.get) == yes
+    val hadPartner = (yourPartnerPersonalDetails.hadPartnerSinceClaimDate == yes)
 
     if (hadPartner) {
       <Partner>
         {question(<Surname/>,"surname",encrypt(yourPartnerPersonalDetails.surname))}
-        {question(<OtherNames/>, "firstName", yourPartnerPersonalDetails.firstName+" "+yourPartnerPersonalDetails.middleName.getOrElse(""))}
+        {question(<OtherNames/>, "firstName", yourPartnerPersonalDetails.firstName.getOrElse("")+" "+yourPartnerPersonalDetails.middleName.getOrElse(""))}
         {question(<OtherSurnames/>,"otherNames", yourPartnerPersonalDetails.otherSurnames)}
         {question(<Title/>, "title", yourPartnerPersonalDetails.title)}
         {question(<DateOfBirth/>,"dateOfBirth", yourPartnerPersonalDetails.dateOfBirth)}
