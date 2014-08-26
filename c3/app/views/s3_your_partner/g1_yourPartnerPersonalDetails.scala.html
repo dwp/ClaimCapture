@@ -19,11 +19,11 @@
 
     @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit) {
 
-        <div class="form-wrap">
+        <p class="intro-info">@Html(partnerHelpWithLink)</p>
+        
             <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
-                <p>@Html(partnerHelpWithLink)</p>
-                <div class="prompt nested-prompt">
-                    <legend>@Html(Messages("haveLivedWithPartnerSinceClaimDate.label"))</legend>
+                <legend>@Html(Messages("haveLivedWithPartnerSinceClaimDate.label"))</legend>
+                <div class="prompt nested-prompt partner-linked">
                     <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help1", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))</p>
                     <ul>
                         <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help2"))</li>
@@ -31,7 +31,7 @@
                     </ul>
                     <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help4"))</p>
                 </div>
-                <ul>
+                <ul class="partner-group">
                     @yesNoRadioGroup(currentForm("hadPartnerSinceClaimDate"),
                         '_label -> Messages("haveLivedWithPartnerSinceClaimDate.label"), '_showLabel -> false)
 
@@ -69,7 +69,6 @@
                     <li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
-        </div>
     }
 }
 
