@@ -9,8 +9,8 @@
 
 @defining((args.toMap.get('display).map(_.toString).getOrElse("yes") == args.toMap.get('visibleOn).map(_.toString).getOrElse("yes")) match { case true => "block" case _ => "none" }) { styleDisplay =>
 
-    <ul style="display: @styleDisplay;">
-        <li id="@{args.toMap.get('id).map(_.toString + "_wrap").getOrElse("no-id")}" class="extra-text@{if(field.hasErrors)" validation" else ""}">
+    <ul id="@{args.toMap.get('id).map(_.toString + "_wrap").getOrElse("no-id")}" style="display: @styleDisplay;">
+        <li class="extra-text@{if(field.hasErrors)" validation" else ""}">
                 @carersInputTextArea(field(id)("other"), (Seq('placeholder -> Messages("ifOtherPleaseSpecify"), 'ignoreLabel -> false) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id)):_*)
                 @if(args.find(_._1 == 'textAreaHelper).isDefined) {
                     <p class="helper right">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
