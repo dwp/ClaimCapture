@@ -23,7 +23,7 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
     "grossPay" -> required(nonEmptyText.verifying(validCurrency5Required)),
     "payInclusions" -> optional(carersText(maxLength = Mappings.sixty)),
     "sameAmountEachTime" -> (nonEmptyText verifying validYesNo),
-    "employerOwesYouMoney" -> (nonEmptyText verifying validYesNo)
+    "employerOwesYouMoney" -> optional(nonEmptyText verifying validYesNo)
   )(LastWage.apply)(LastWage.unapply))
 
   def present(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>

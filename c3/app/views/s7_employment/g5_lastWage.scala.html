@@ -11,9 +11,14 @@
 @import utils.helpers.PastPresentLabelHelper._
 @import models.domain.{Job, Jobs}
 @import play.api.i18n.{MMessages => Messages}
+@import controllers.Mappings._
 
 @employerName = @{
     claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).employerName + " - "
+}
+
+@finishedThisJob = @{
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).finishedThisJob
 }
 
 @main(Messages("s7.g5") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.LastWage, JobID(currentForm)), Some(employerName)) {
@@ -41,7 +46,9 @@
 
                     @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> labelForEmployment(claim, lang, "sameAmountEachTime", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
 
-                    @yesNoRadioGroup(currentForm("employerOwesYouMoney"), 'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no")))
+                    @if(finishedThisJob == `yes`){
+                        @yesNoRadioGroup(currentForm("employerOwesYouMoney"), 'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no")))
+                    }
                 </ul>
 	        </fieldset>
 	

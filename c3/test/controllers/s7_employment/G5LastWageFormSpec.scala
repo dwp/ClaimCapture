@@ -42,25 +42,24 @@ class G5LastWageFormSpec extends Specification with Tags{
           f.lastPaidDate must equalTo(DayMonthYear(1,1,1980))
           f.grossPay must equalTo(grossPay)
           f.sameAmountEachTime must equalTo(yes)
-          f.employerOwesYouMoney must equalTo(yes)
+          f.employerOwesYouMoney must equalTo(Some(yes))
         }
       )
 
     }
 
-    "have 6 mandatory fields" in {
+    "have 5 mandatory fields" in {
       G5LastWage.form.bind(
       Map(
         "jobID" -> jobId)
       ).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(6)
+          formWithErrors.errors.length must equalTo(5)
           formWithErrors.errors(0).message must equalTo("error.required")
           formWithErrors.errors(1).message must equalTo("error.required")
           formWithErrors.errors(2).message must equalTo("error.required")
           formWithErrors.errors(3).message must equalTo("error.required")
           formWithErrors.errors(4).message must equalTo("error.required")
-          formWithErrors.errors(5).message must equalTo("error.required")
         },
         f => "This mapping should not happen." must equalTo("Valid")
       )

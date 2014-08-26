@@ -75,6 +75,8 @@ case class Job(jobID: String="", questionGroups: List[QuestionGroup with Job.Ide
 
   def jobStartDate = jobDetailsDate(_.jobStartDate)
 
+  def finishedThisJob = jobDetails(_.finishedThisJob)
+
   def update(questionGroup: QuestionGroup with Job.Identifier): Job = {
     val updated = questionGroups map { qg => if (qg.identifier == questionGroup.identifier) questionGroup else qg }
     if (updated.contains(questionGroup)) copy(questionGroups = updated) else copy(questionGroups = questionGroups :+ questionGroup)
@@ -148,7 +150,7 @@ case class LastWage(jobID: String = "",
                     grossPay: String = "",
                     payInclusions: Option[String] = None,
                     sameAmountEachTime: String = "",
-                    employerOwesYouMoney: String = "") extends QuestionGroup(LastWage) with Job.Identifier
+                    employerOwesYouMoney: Option[String] = None) extends QuestionGroup(LastWage) with Job.Identifier
 
 
 object LastWage extends QuestionGroup.Identifier {
