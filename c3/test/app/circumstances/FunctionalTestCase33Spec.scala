@@ -26,6 +26,9 @@ class FunctionalTestCase33Spec extends FunctionalTestCommon {
         }
         case p: Page => println(p.source())
       }
+
+      // This test has evidence list items, make sure they appear
+      lastPage.source must contain("<Evidence>")
     }
 
   } section "functional"
