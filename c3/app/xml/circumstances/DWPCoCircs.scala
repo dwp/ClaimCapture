@@ -20,6 +20,7 @@ object DWPCoCircs {
       {OtherChanges.xml(circs)}
       {EmploymentChange.xml(circs)}
       {Declaration.xml(circs)}
+      {EvidenceList.buildXml(circs)}
       {Consents.xml(circs)}
     </DWPCAChangeOfCircumstances>
   }
