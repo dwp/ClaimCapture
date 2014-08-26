@@ -48,7 +48,7 @@ class FunctionalTestCase2Spec extends FunctionalTestCommon {
         "Have you been employed at any time since"      displays "EmploymentHaveYouBeenEmployedAtAnyTime_0",
         "Have you been self employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",
         "Have you or your Partner/Spouse claimed or received any other benefits since the date you want to claim"                    displays "OtherMoneyHaveYouClaimedOtherBenefits",
-        "Have you received any payments for the person you care for or any other person since your claim date" displays "OtherMoneyAnyPaymentsSinceClaimDate",
+        "Have you received any payments for the person you care for or any other person since your claim date?" displays "OtherMoneyAnyPaymentsSinceClaimDate",
         "Have you had any Statutory Sick Pay"                    displays "OtherMoneyHaveYouSSPSinceClaim",
         "Have you had any SMP, SPP or SAP since your claim date" displays "OtherMoneyHaveYouSMPSinceClaim",
         "Payment method" displays PaymentTransformer("HowWePayYouHowWouldYouLikeToGetPaid")

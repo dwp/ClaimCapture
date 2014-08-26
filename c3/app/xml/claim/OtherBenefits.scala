@@ -24,11 +24,11 @@ object OtherBenefits extends XMLComponent {
       <ClaimantBenefits>
         {question(<StatePension/>,"receiveStatePension",yourDetails.receiveStatePension)}
       </ClaimantBenefits>
-      {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label", statutorySickPay.answer,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
+      {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label", statutorySickPay.answer)}
       {otherMoneySPPXml(statutorySickPay)}
-      {question(<OtherMoneySP/>,"otherPay.label",otherStatutoryPayOption.answer,claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}
+      {question(<OtherMoneySP/>,"otherPay.label",otherStatutoryPayOption.answer)}
       {otherMoneySPDetails(otherStatutoryPayOption)}
-      {question(<OtherMoneyPayments/>,"anyPaymentsSinceClaimDate.answer",aboutOtherMoney.anyPaymentsSinceClaimDate.answer,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
+      {question(<OtherMoneyPayments/>,"anyPaymentsSinceClaimDate.answer",aboutOtherMoney.anyPaymentsSinceClaimDate.answer)}
       {aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
           case "yes" =>{
             <OtherMoneyDetails>
