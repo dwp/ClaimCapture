@@ -10,7 +10,7 @@
 @main(Messages("c3.g1") + " - " + Messages("c3.name")) {
     @errorsSummary(declarationForm)
 
-    @form(action = CSRF(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.submit)) {
+    @form(action = controllers.circs.s3_consent_and_declaration.routes.G1Declaration.submit) {
         <input type="hidden" id="js" name="jsEnabled" value="false">
         <div class="form-wrap">
 	        <fieldset class="form-elements">

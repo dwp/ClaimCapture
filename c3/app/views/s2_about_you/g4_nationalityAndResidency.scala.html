@@ -15,7 +15,7 @@
     @errorsSummary(nationalityAndResidencyForm)
 
 
-    @form(action = CSRF(controllers.s2_about_you.routes.G4NationalityAndResidency.submit)) {
+    @form(action = controllers.s2_about_you.routes.G4NationalityAndResidency.submit) {
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g4"))</legend>
 	

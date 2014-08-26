@@ -10,7 +10,7 @@
 @main(Messages("c2.g3") + " - " + Messages("c2.name")) {
     @errorsSummary(stoppedCaringForm)
 
-    @form(action = CSRF(controllers.circs.s2_report_changes.routes.G3PermanentlyStoppedCaring.submit)) {
+    @form(action = controllers.circs.s2_report_changes.routes.G3PermanentlyStoppedCaring.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("c2.g3"))</legend>

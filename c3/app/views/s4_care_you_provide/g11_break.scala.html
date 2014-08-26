@@ -22,7 +22,7 @@
 
 @main("Break - About the care you provide", Some(breakForm)) {
 
-    @form(action = CSRF(controllers.s4_care_you_provide.routes.G11Break.submit)) {
+    @form(action = controllers.s4_care_you_provide.routes.G11Break.submit) {
         <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
         <div class="form-wrap">

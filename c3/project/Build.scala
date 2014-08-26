@@ -14,7 +14,6 @@ object ApplicationBuild extends Build {
     jdbc,
     cache,
     anorm,
-    filters,
     "org.specs2"         %% "specs2"              % "2.3.6" % "test" withSources() withJavadoc(),
     "org.mockito"         % "mockito-all"         % "1.9.5" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-testkit"        % "2.2.3" % "test" withSources() withJavadoc(),

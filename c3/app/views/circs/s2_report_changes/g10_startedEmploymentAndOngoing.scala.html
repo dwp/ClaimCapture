@@ -25,7 +25,7 @@
 @main(Messages("c2.g10") + " - " + Messages("c2.name")) {
     @errorsSummary(startedEmploymentAndOngoing)
 
-    @form(action = CSRF(controllers.circs.s2_report_changes.routes.G10StartedEmploymentAndOngoing.submit)) {
+    @form(action = controllers.circs.s2_report_changes.routes.G10StartedEmploymentAndOngoing.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("c2.g10"))</legend>

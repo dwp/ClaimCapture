@@ -13,7 +13,7 @@
 @main(Messages("s2.g6") + " - " + Messages("s2.longName")) {
 @errorsSummary(tripForm)
 
-    @form(action = CSRF(actionCall)) {
+    @form(action = actionCall) {
         <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
 	        <fieldset class="form-elements">

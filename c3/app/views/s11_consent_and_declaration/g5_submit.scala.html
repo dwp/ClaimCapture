@@ -11,7 +11,7 @@
 @import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s11.g5") + " - " + Messages("s11.longName"), None, claim.completedQuestionGroups(models.domain.Submit)) {
-    @form(action = CSRF(controllers.s11_consent_and_declaration.routes.G5Submit.submit)) {
+    @form(action = controllers.s11_consent_and_declaration.routes.G5Submit.submit) {
         <input type="hidden" id="js" name="jsEnabled" value="false">
 
         @if(claim.questionGroup(Employment).isDefined &&

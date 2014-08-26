@@ -7,7 +7,7 @@
 @main(Messages("s1.g4") + " - " + Messages("s1.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.LivesInGB)) {
 
 
-    @form(action = CSRF(controllers.s1_carers_allowance.routes.G4LivesInGB.submit)) {
+    @form(action = controllers.s1_carers_allowance.routes.G4LivesInGB.submit) {
 	        <fieldset class="form-elements form-eligibility">
 	            <legend>@Html(Messages("s1.g4"))</legend>
 	

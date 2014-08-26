@@ -29,7 +29,7 @@
 @main(Messages("c2.g7") + " - " + Messages("c2.name")) {
     @errorsSummary(breaksForm)
 
-    @form(action = CSRF(controllers.circs.s2_report_changes.routes.G7BreaksInCare.submit)) {
+    @form(action = controllers.circs.s2_report_changes.routes.G7BreaksInCare.submit) {
         <div class="form-wrap">
             <fieldset class="form-elements">
 
