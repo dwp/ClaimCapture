@@ -7,88 +7,19 @@ import play.api.Logger
 
 trait ClaimBotChecking extends BotChecking {
 
-  private def verifyPensionScheme(job: Job): Boolean = {
-    job.questionGroup[PensionSchemes] match {
-      case Some(q) =>
-        if (q.payPersonalPensionScheme == "no") {
-          q.howOftenPersonal match {
-            case Some(f) => return true; // Bot given field howOftenPersonal was not visible.
-            case _ => false
-          }
-        }
-        else {
-          q.howOftenPersonal match {
-            case Some(f) => if (f.frequency != Other && f.other.isDefined) return true // Bot given field howOftenPersonal.other was not visible.
-            case _ => false
-          }
-        }
-      case _ => false
-    }
-    false
-  }
 
   private def verifyAboutExpenses(job: Job): Boolean = {
-    job.questionGroup[AboutExpenses] match {
+    job.questionGroup[PensionAndExpenses] match {
       case Some(q) =>
-        if(q.haveExpensesForJob == "no") {
-          q.whatExpensesForJob match {
+        if(q.payPensionScheme.answer == "no") {
+          q.payPensionScheme.text match {
+            case Some(f) => return true; // Bot given field pension expenses was not visible.
+            case _ => false
+          }
+        }
+        if(q.haveExpensesForJob.answer == "no") {
+          q.haveExpensesForJob.text match {
             case Some(f) => return true; // Bot given field whatExpensesForJob was not visible.
-            case _ => false
-          }
-        }
-        if(q.payAnyoneToLookAfterChildren == "yes") {
-          q.howOftenLookAfterChildren match {
-            case Some(f) => if (f.frequency != Other && f.other.isDefined) return true // Bot given field howOftenLookAfterChildren.other was not visible.
-            case _ => false
-          }
-        }
-        if (q.payAnyoneToLookAfterChildren == "no"){
-          q.nameLookAfterChildren match {
-            case Some(f) => return true // Bot given field nameLookAfterChildren was not visible.
-            case _ => false
-          }
-          q.howMuchLookAfterChildren match {
-            case Some(f) => return true // Bot given field howMuchLookAfterChildren was not visible.
-            case _ => false
-          }
-          q.howOftenLookAfterChildren match {
-            case Some(f) => return true // Bot given field howOftenLookAfterChildren was not visible.
-            case _ => false
-          }
-          q.relationToYouLookAfterChildren match {
-            case Some(f) => return true // Bot given field relationToYouLookAfterChildren was not visible.
-            case _ => false
-          }
-          q.relationToPersonLookAfterChildren match {
-            case Some(f) => return true // Bot given field relationToPersonLookAfterChildren was not visible.
-            case _ => false
-          }
-        }
-        if(q.payAnyoneToLookAfterPerson == "yes") {
-          q.howOftenLookAfterPerson match {
-            case Some(f) => if (f.frequency != Other && f.other.isDefined) return true // Bot given field howOftenLookAfterPerson.other was not visible.
-            case _ => false
-          }
-        }
-        if (q.payAnyoneToLookAfterPerson == "no"){
-          q.nameLookAfterPerson match {
-            case Some(f) => return true // Bot given field nameLookAfterPerson was not visible.
-            case _ => false
-          }
-          q.howMuchLookAfterPerson match {
-            case Some(f) => return true // Bot given field howMuchLookAfterPerson was not visible.
-            case _ => false
-          }
-          q.howOftenLookAfterPerson match {
-            case Some(f) => return true // Bot given field howOftenLookAfterPerson was not visible.
-            case _ => false
-          }
-          q.relationToYouLookAfterPerson match {
-            case Some(f) => return true // Bot given field relationToYouLookAfterPerson was not visible.
-            case _ => false
-          }
-          q.relationToPersonLookAfterPerson match {
-            case Some(f) => return true // Bot given field relationToPersonLookAfterPerson was not visible.
             case _ => false
           }
         }
@@ -127,10 +58,6 @@ trait ClaimBotChecking extends BotChecking {
 
         case _ => false
       }
-    }
-
-    def checkPensionSchemes: Boolean = {
-      checkEmploymentCriteria(verifyPensionScheme)
     }
 
     def checkAboutExpenses: Boolean = {
@@ -192,7 +119,6 @@ trait ClaimBotChecking extends BotChecking {
     }
 
     val moreAboutTheCare = checkMoreAboutTheCare
-    val pensionSchemes = checkPensionSchemes
     val aboutExpenses = checkAboutExpenses
     val childcareExpensesWhileAtWork = checkChildcareExpensesWhileAtWork
     val expensesWhileAtWork = checkExpensesWhileAtWork
@@ -201,7 +127,6 @@ trait ClaimBotChecking extends BotChecking {
     val otherStatutoryPay = checkOtherStatutoryPay
 
     if (moreAboutTheCare) Logger.warn("Honeypot triggered : moreAboutTheCare")
-    if (pensionSchemes) Logger.warn("Honeypot triggered : pensionSchemes")
     if (aboutExpenses) Logger.warn("Honeypot triggered : aboutExpenses")
     if (childcareExpensesWhileAtWork) Logger.warn("Honeypot triggered : childcareExpensesWhileAtWork")
     if (expensesWhileAtWork) Logger.warn("Honeypot triggered : expensesWhileAtWork")
@@ -210,7 +135,6 @@ trait ClaimBotChecking extends BotChecking {
     if (otherStatutoryPay) Logger.warn("Honeypot triggered : otherStatutoryPay")
 
     moreAboutTheCare ||
-      pensionSchemes ||
       aboutExpenses ||
       childcareExpensesWhileAtWork ||
       expensesWhileAtWork ||

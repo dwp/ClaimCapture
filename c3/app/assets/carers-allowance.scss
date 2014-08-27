@@ -72,6 +72,10 @@ main {
 	   	    
 	   	   .helper-message {
 			   	margin: 2em 0 0 0;
+			   	
+			   	.ie7 & {
+				   	margin-top: 0;
+			   	}
 		   	}
 		   	
 		   	.radio {
@@ -118,10 +122,10 @@ main {
 	   	    position: relative;
 	   	    legend {
 		   	    padding-bottom: 1.5em;
-		   		}
+		   	}
 	   	    @media screen and (max-width: 750px) {
-	   	    	margin-right: 0;
-	   	    	}
+   	    		margin-right: 0;
+   	    	}
    	    }
    	    
    	   legend {
@@ -134,7 +138,7 @@ main {
 	   	   display: table;
 	   	   .ie7 & {
 		   	   margin-left: -10px;
-		   	   }
+		   }
 	   	   span {
 		   	   background: #000;
 		   	   display: block;
@@ -168,24 +172,21 @@ main {
 	   	   }
    	   }
 
+      .help-statement {
 
-  .help-statement {
+        h3 {
+          font-weight: 100;
+        }
 
-    h3 {
-      font-weight: 100;
-    }
+        p {
+          padding: 0 0 0 .8em;
+          margin: 1em 0 2em 0;
+          border-left: 5px solid #dee0e2;
+        }
+      }
 
-    p {
-      padding: 0 0 0 .8em;
-      margin: 1em 0 2em 0;
-      border-left: 5px solid #dee0e2;
-    }
 
-  }
-   	   
-   	   
-   	   
-   	   /* Nested fieldset */
+    /* Nested fieldset */
    	   
    	   .question-group {
 			margin-top: 0;
@@ -200,12 +201,13 @@ main {
 				   font-size: 18px;
 				   margin-right: 4px;
 				   font-style: normal;
-				   }
 				}
+			}
+			
 				ul {
 					li {
 						padding-top: 0;
-						}
+					}
 				}  	
 				
 				
@@ -242,7 +244,7 @@ main {
 				   
 				   }
 			   }
-				
+			   			
 		}
 		
 	
@@ -325,9 +327,9 @@ main {
 			       
 
 			       @media screen and (max-width: 640px) {
-			       			padding-top: 1em;
-			       			padding-bottom: 1em;
-			       			width: auto;
+		       			padding-top: 1em;
+		       			padding-bottom: 1em;
+		       			width: auto;
 			       	} 
 			       	
 			       .error {
@@ -343,7 +345,7 @@ main {
 			       .inline-stack {
 					   	border-left: none;
 					   	padding-left: 0;
-					   	}
+				   }
 			   }
 			   
 			   
@@ -466,9 +468,6 @@ main {
 				   }
 			   }
 
-
-
-
 				.helper-info {
 					padding: 1em 1em 0 .8em;
 					background: #fff;
@@ -539,7 +538,7 @@ main {
 					text-transform: none;
 					padding: 0.25em 0 0.1em 0.4em;
 					width: 340px;
-					@media screen and (max-width: 500px) {width: 96%;}
+					@media screen and (max-width: 700px) {width: 96%;}
 					.ie & {
 						width: 283px;
 					}
@@ -853,11 +852,11 @@ main {
 					   margin-left: 0;
 				   }
 			   	   label {
-				   position: absolute;
-				   left: -9999px;
+					   position: absolute;
+					   left: -9999px;
 				   }
 				   select {
-				   	  margin: 0;
+				   	   margin: 0;
 					   min-width: 86px;
 					   top: -2px;
 					   @media screen and (max-width: 500px) {width: auto; min-width: 10px;}
@@ -951,7 +950,6 @@ main {
 				   }
 			   }
 		   }
-		   
 	   }
 
 	
@@ -1100,7 +1098,6 @@ main {
 			}
 		}
 	}
-	
 }
 
 
@@ -1136,7 +1133,11 @@ main {
 	   font-size: 16px;
 	   margin: 0;
    }
-}
+} 
 
+
+
+
+  
 
 

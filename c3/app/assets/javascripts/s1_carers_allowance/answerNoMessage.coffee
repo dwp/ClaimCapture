@@ -1,7 +1,10 @@
 window.initEvents = (answer_yes, answer_no) ->
     $("#" + answer_yes).on "click", ->
-      $("#answerNoMessageWrap").slideUp()
+      $("#answerNoMessageWrap").hide()
 
     $("#" + answer_no).on "click", ->
-      $("#answerNoMessageWrap").slideDown()
+      $("#answerNoMessageWrap").show()
       $("#answerNoMessageWrap").css('display', "block")
+      
+
+

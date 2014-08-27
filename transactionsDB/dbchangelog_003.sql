@@ -1,3 +1,15 @@
+--liquibase formatted sql
+
+--changeset jmigueis:003_1
+ALTER TABLE public.transactionids ALTER COLUMN transaction_id TYPE CHARACTER(11)
+--rollback ALTER TABLE public.transactionids ALTER COLUMN transaction_id TYPE CHARACTER(7)
+
+--changeset jmigueis:003_2
+ALTER TABLE public.transactionstatus ALTER COLUMN transaction_id TYPE CHARACTER(11)
+--rollback ALTER TABLE public.transactionstatus ALTER COLUMN transaction_id TYPE CHARACTER(7)
+
+
+--changeset jmigueis:003_3 splitStatements:false
 CREATE OR REPLACE FUNCTION "public"."get_new_transaction_id" ()  RETURNS character varying
   VOLATILE
 AS $dbvis$
@@ -29,4 +41,4 @@ BEGIN
     RAISE EXCEPTION 'Did not manage to generate unique transaction id';
 END;
 $dbvis$ LANGUAGE plpgsql
-
+--rollback DROP FUNCTION IF EXISTS get_new_transaction_id();

@@ -172,7 +172,7 @@ class AssistedDecisionSpec extends Specification with Tags {
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = "no")
-      val expense2 = AboutExpenses(jobID = "13", howMuchLookAfterChildren = Some("2"))
+      val expense2 = PensionAndExpenses(jobID = "13", YesNoWithText("yes", Some("some pension expenses")), YesNoWithText("yes", Some("some job expenses")))
       val job2 = Job("13", List(lastWage2, expense2))
 
       val jobs = Jobs(List(job1, job2))

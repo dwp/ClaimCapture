@@ -187,30 +187,10 @@ Employment,Additional details on your last wage,How often [[past=were you]] [[pr
 Employment,Additional details on your last wage,Other,EmploymentAddtionalWageOther_1,
 Employment,Additional details on your last wage,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_1,Monday
 Employment,Additional details on your last wage,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1,Yes
-Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme_1,Yes
-Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension_1,500
-Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension_1,Weekly
-Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,EmploymentDoYouPayTowardsAPersonalPension_1,Yes
-Employment,Pension schemes,How much [[past=Did you]] [[present=Do you]] pay?,EmploymentHowMuchYouPayforPersonalPension_1,346.12
-Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension_1,Weekly
-Employment,About expenses to do with your employment,[[past=Did you]] [[present=Do you]] pay for anything necessary to do your job?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1,Yes
-Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for your children?",EmploymentDoYouPayAnyoneLookAfterYourChild_1,Yes
-Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for the person you normally care for?",EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1,Yes
-Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentJobTitle_1,Tyre fitter
-Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses_1,big boots
-Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_1,120.23
-Employment,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses?,EmploymentChildcareExpensesHowOften_1,Fortnightly
-Employment,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses?,EmploymentChildcareExpensesHowOftenOther_1,
-Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_1,Childcare UK
-Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,None
-Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1,
-Employment,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1,GrandFather
-Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor_1, 121.02
-Employment,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] pay them - expenses related to person you care for?,EmploymentCareExpensesHowOftenYouPayfor_1,Fortnightly
-Employment,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] pay them Other- expenses related to person you care for?,EmploymentCareExpensesHowOftenYouPayforOther_1,
-Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring_1,Wellington
-Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_1,Sister
-Employment,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1,GrandDaughter
+Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?,EmploymentDoYouPayForPensionExpenses_1,Yes
+Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] have any care costs because of this work?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1,Yes
+Employment,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",EmploymentPensionExpenses_1,Some pension expenses paying 200 a week for xyz
+Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to", EmploymentWhatAreNecessaryJobExpenses_1,Some job expenses paying 200 a week for xyz
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouBeenEmployedAtAnyTime_1,no
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName_2,
@@ -230,28 +210,10 @@ Employment,Additional wage details,How often [[past=were you]] [[present=are you
 Employment,Additional wage details,Other,EmploymentAddtionalWageOther_2,
 Employment,Additional wage details,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_2,
 Employment,Additional wage details,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_2,
-Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme_2,
-Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension_2,
-Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension_2,
-Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,EmploymentDoYouPayTowardsAPersonalPension_2,
-Employment,Pension schemes,How much [[past=Did you]] [[present=Do you]] pay?,EmploymentHowMuchYouPayforPersonalPension_2,
-Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension_2,
-Employment,About expenses to do with your employment,[[past=Did you]] [[present=Do you]] pay for anything necessary to do your job?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_2,
-Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for your children?",EmploymentDoYouPayAnyoneLookAfterYourChild_2,
-Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for the person you normally care for?",EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_2,
-Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentJobTitle_2,
-Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses_2,
-Employment,Necessary expenses to do your job,Why [[past=did you]] [[present=do you]] need these things to do your job?,EmploymentWhyYouNeedTheseExpensesToDoYourJob_2,
-Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_2,
-Employment,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowOften_2,Fortnightly
-Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_2,
-Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_2,
-Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_2,
-Employment,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_2,
-Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor_2,
-Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring_2,
-Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_2,
-Employment,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_2,
+Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?,EmploymentDoYouPayForPensionExpenses_2,
+Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] have any care costs because of this work?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_2,
+Employment,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",EmploymentPensionExpenses_2,
+Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to", EmploymentWhatAreNecessaryJobExpenses_2,
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouBeenEmployedAtAnyTime_2,
 Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,No
 Self Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,31/12/2012
