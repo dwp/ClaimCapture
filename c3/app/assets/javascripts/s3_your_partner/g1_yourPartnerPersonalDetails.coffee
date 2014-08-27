@@ -1,12 +1,26 @@
 window.initEvents = (hadPartnerY,hadPartnerN,title,firstName,middleName,lastName,otherSurName,
                      ninoNi1,ninoNi2,ninoNi3,ninoNi4,ninoNi5,dateOfBirthDay,dateOfBirthMonth,dateOfBirthYear,
                      nationality,seperatedFromPartnerY,seperatedFromPartnerN,partnerClaimingForY,partnerClaimingForN) ->
+  if not $("#" + hadPartnerY).prop('checked')
+    hidePartnerDetailsWrap(hadPartnerY,hadPartnerN,title,firstName,middleName,lastName,otherSurName,
+      ninoNi1,ninoNi2,ninoNi3,ninoNi4,ninoNi5,dateOfBirthDay,dateOfBirthMonth,dateOfBirthYear,
+      nationality,seperatedFromPartnerY,seperatedFromPartnerN,partnerClaimingForY,partnerClaimingForN)
+
   $("#" + hadPartnerY).on "click", ->
-    $("#partnerDetailsWrap").slideDown 500
-    $("#partnerDetailsWrap").css('display', "block")
+    showPartnerDetailsWrap()
 
   $("#" + hadPartnerN).on "click", ->
-    $("#partnerDetailsWrap").slideUp 500, ->
+    hidePartnerDetailsWrap(hadPartnerY,hadPartnerN,title,firstName,middleName,lastName,otherSurName,
+      ninoNi1,ninoNi2,ninoNi3,ninoNi4,ninoNi5,dateOfBirthDay,dateOfBirthMonth,dateOfBirthYear,
+      nationality,seperatedFromPartnerY,seperatedFromPartnerN,partnerClaimingForY,partnerClaimingForN)
+
+showPartnerDetailsWrap = ->
+    $("#partnerDetailsWrap").slideDown 0
+
+hidePartnerDetailsWrap = (hadPartnerY,hadPartnerN,title,firstName,middleName,lastName,otherSurName,
+ninoNi1,ninoNi2,ninoNi3,ninoNi4,ninoNi5,dateOfBirthDay,dateOfBirthMonth,dateOfBirthYear,
+nationality,seperatedFromPartnerY,seperatedFromPartnerN,partnerClaimingForY,partnerClaimingForN) ->
+    $("#partnerDetailsWrap").slideUp 0, ->
       $("#" + title).val("")
       $("#" + firstName).val("")
       $("#" + middleName).val("")
@@ -25,5 +39,3 @@ window.initEvents = (hadPartnerY,hadPartnerN,title,firstName,middleName,lastName
       $("#" + seperatedFromPartnerN).prop('checked', false)
       $("#" + partnerClaimingForY).prop('checked', false)
       $("#" + partnerClaimingForN).prop('checked', false)
-
-
