@@ -15,7 +15,7 @@ or download jar and add it to your path
 Creating the SCHEMA
 ===================
 
-This will create STP_ALPHA_1 role, the STP and STP_SECURE schemas and the tables for those schemas.
+This will create schemas and the tables for those schemas.
 
   liquibase --url="jdbc:postgresql://localhost:5432/carerstransactions_db" --classpath=<location driver>/postgresql.jar update
 
