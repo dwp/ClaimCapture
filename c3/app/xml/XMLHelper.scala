@@ -267,6 +267,10 @@ object XMLHelper {
     labelForEmployment(claim, claim.lang.getOrElse(new Lang("en")), labelKey, jobID)
   }
 
+  def questionLabelSelfEmployment(claim:Claim, labelKey:String) = {
+    labelForSelfEmployment(claim, claim.lang.getOrElse(new Lang("en")), labelKey)
+  }
+
   def encrypt[T](text:T) = DatatypeConverter.printBase64Binary((new  EncryptorAES).encrypt(stringify(text)))
   // = text - use when printing out test xml for the pdfService
 

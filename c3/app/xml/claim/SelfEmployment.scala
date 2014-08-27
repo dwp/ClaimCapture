@@ -12,7 +12,6 @@ object SelfEmployment extends XMLComponent{
     val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment())
     val aboutSelfEmployment = claim.questionGroup[AboutSelfEmployment].getOrElse(AboutSelfEmployment())
     val yourAccounts =  claim.questionGroup[SelfEmploymentYourAccounts].getOrElse(SelfEmploymentYourAccounts())
-    val pensionAndExpenses = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())
 
     def jobDetails() = {
       if (aboutSelfEmployment.areYouSelfEmployedNow.toLowerCase == yes) {
@@ -46,68 +45,38 @@ object SelfEmployment extends XMLComponent{
       <SelfEmployment>
         {question(<SelfEmployedNow/>, "areYouSelfEmployedNow", aboutSelfEmployment.areYouSelfEmployedNow)}
         {jobDetails()}
-        {question(<CareExpensesChildren/>, "doYouPayToLookAfterYourChildren", pensionAndExpenses.doYouPayToLookAfterYourChildren, questionLabel(claim, "doYouPayToLookAfterYourChildren"))}
-        {childCareExpenses(claim)}
-        {question(<CareExpensesCaree/>, "didYouPayToLookAfterThePersonYouCaredFor", pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor, questionLabel(claim, "didYouPayToLookAfterThePersonYouCaredFor"))}
-        {careExpenses(claim)}
-        {question(<PaidForPension/>, "doYouPayToPensionScheme.answer", pensionAndExpenses.doYouPayToPensionScheme, questionLabel(claim, "doYouPayToPensionScheme.answer"))}
-        {pensionScheme(claim)}
+        {pensionExpensesXml(claim)}
+        {jobExpensesXml(claim)}
       </SelfEmployment>
     } else NodeSeq.Empty
   }
 
-  def childCareExpenses(claim: Claim) = {
-    val pensionsAndExpensesOption = claim.questionGroup[SelfEmploymentPensionsAndExpenses]
-    val pensionAndExpenses = pensionsAndExpensesOption.getOrElse(SelfEmploymentPensionsAndExpenses())
-    val childCareExpensesOption =  claim.questionGroup[ChildcareExpensesWhileAtWork]
-    val childCareExpenses =  childCareExpensesOption.getOrElse(ChildcareExpensesWhileAtWork())
-    val hasChildCareExpenses = pensionAndExpenses.doYouPayToLookAfterYourChildren == yes
+  private def jobExpensesXml(claim:Claim):NodeSeq = {
+    val aboutExpenses = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())
+    val showXml = aboutExpenses.haveExpensesForJob.answer.toLowerCase == "yes"
 
-    if (hasChildCareExpenses) {
-      <ChildCareExpenses>
-        {question(<CarerName/>, "whoLooksAfterChildren", childCareExpenses.nameOfPerson)}
-        <Expense>
-          {questionCurrency(<Payment/>, "howMuchCostChildcare", Some(childCareExpenses.howMuchYouPay), questionLabel(claim, "howMuchCostChildcare"))}
-          {questionOther(<Frequency/>, "howOftenPayChildCare", childCareExpenses.howOftenPayChildCare.frequency, childCareExpenses.howOftenPayChildCare.other, "", questionLabel(claim, "howOftenPayChildCare"))}
-        </Expense>
-        {question(<RelationshipCarerToClaimant/>, "relationToYou", childCareExpenses.whatRelationIsToYou)}
-        {question(<RelationshipCarerToPartner/>, "relationToPartner",childCareExpenses.relationToPartner)}
-        {question(<RelationshipCarerToPersonYouCare/>, "relationToPersonYouCare",childCareExpenses.whatRelationIsTothePersonYouCareFor)}
-      </ChildCareExpenses>
-    } else NodeSeq.Empty
+    if (showXml) {
+      question(<PaidForJobExpenses/>,"haveExpensesForJob.answer",aboutExpenses.haveExpensesForJob.answer,questionLabelSelfEmployment(claim, "haveExpensesForJob.answer")) ++
+        <JobExpenses>
+          {question(<Expense/>,"haveExpensesForJob.text",aboutExpenses.haveExpensesForJob.text,questionLabelSelfEmployment(claim, "haveExpensesForJob.text"))}
+        </JobExpenses>
+    } else {
+      question(<PaidForJobExpenses/>,"haveExpensesForJob.answer",aboutExpenses.haveExpensesForJob.answer,questionLabelSelfEmployment(claim, "haveExpensesForJob.answer"))
+    }
   }
 
-  def careExpenses(claim: Claim) = {
-    val pensionsAndExpensesOption = claim.questionGroup[SelfEmploymentPensionsAndExpenses]
-    val pensionAndExpenses = pensionsAndExpensesOption.getOrElse(SelfEmploymentPensionsAndExpenses())
-    val expensesWhileAtWorkOption = claim.questionGroup[ExpensesWhileAtWork]
-    val expensesWhileAtWork =  expensesWhileAtWorkOption.getOrElse(ExpensesWhileAtWork())
-    val hasCareExpenses = pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor == yes
+  private def pensionExpensesXml(claim:Claim):NodeSeq = {
+    val aboutExpenses = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())
+    val showXml = aboutExpenses.payPensionScheme.answer.toLowerCase == "yes"
 
-    if (hasCareExpenses) {
-      <CareExpenses>
-        {question(<CarerName/>, "whoDoYouPay", expensesWhileAtWork.nameOfPerson, questionLabel(claim, "whoDoYouPay"))}
-        <Expense>
-          {questionCurrency(<Payment/>, "howMuchCostCare", Some(expensesWhileAtWork.howMuchYouPay), questionLabel(claim, "howMuchCostCare"))}
-          {questionOther(<Frequency/>, "howOftenPayExpenses", expensesWhileAtWork.howOftenPayExpenses.frequency, expensesWhileAtWork.howOftenPayExpenses.other, "", questionLabel(claim, "howOftenPayExpenses"))}
-        </Expense>
-        {question(<RelationshipCarerToClaimant/>, "whatRelationIsToYou", expensesWhileAtWork.whatRelationIsToYou)}
-        {question(<RelationshipCarerToCaree/>, "whatRelationIsTothePersonYouCareFor", expensesWhileAtWork.whatRelationIsTothePersonYouCareFor)}
-      </CareExpenses>
-    } else NodeSeq.Empty
-  }
-
-  def pensionScheme(claim: Claim) = {
-    val pensionsAndExpensesOption = claim.questionGroup[SelfEmploymentPensionsAndExpenses]
-    val pensionAndExpenses = pensionsAndExpensesOption.getOrElse(SelfEmploymentPensionsAndExpenses())
-    val hasPensionScheme = pensionAndExpenses.doYouPayToPensionScheme.toLowerCase == yes
-
-    if (hasPensionScheme) {
-        <PensionScheme>
-          {questionCurrency(<Payment/>,"howMuchDidYouPay",currencyAmount(pensionAndExpenses.howMuchDidYouPay), questionLabel(claim, "howMuchDidYouPay"))}
-          {questionOther(<Frequency/>, "doYouPayToPensionScheme.howOften", pensionAndExpenses.howOften.get.frequency, pensionAndExpenses.howOften.get.other, questionLabel(claim, "doYouPayToPensionScheme.howOften"))}
-        </PensionScheme>
-    } else NodeSeq.Empty
+    if (showXml) {
+      question(<PaidForPension/>,"payPensionScheme.answer",aboutExpenses.payPensionScheme.answer,questionLabelSelfEmployment(claim, "payPensionScheme.answer")) ++
+        <PensionExpenses>
+          {question(<Expense/>,"payPensionScheme.text",aboutExpenses.payPensionScheme.text,questionLabelSelfEmployment(claim, "payPensionScheme.text"))}
+        </PensionExpenses>
+    } else {
+      question(<PaidForPension/>,"payPensionScheme.answer",aboutExpenses.payPensionScheme.answer,questionLabelSelfEmployment(claim, "payPensionScheme.answer"))
+    }
   }
 
   def currencyAmount(currency: Option[String]):Option[String] = {

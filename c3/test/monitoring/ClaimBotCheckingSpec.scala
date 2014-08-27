@@ -56,7 +56,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beTrue
     }
 
-    /************* start pension and job expenses ********************/
+    /************* start employment pension and job expenses ********************/
 
     "returns true given PensionAndExpenses pension expenses honeyPot not filled (pension expenses entered)" in {
       val aboutExpenses = PensionAndExpenses(
@@ -145,36 +145,48 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beFalse
     }
 
-    /************* end about expenses related *****************/
+    /************* end employment about expenses related *****************/
 
-    "returns false given ChildcareExpensesWhileAtWork honeyPot not filled (frequency not other)" in {
-      val claim = Claim().update(ChildcareExpensesWhileAtWork(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = None)))
-      controller.honeyPot(claim) should beFalse
-    }
+    "returns true given SelfEmploymentPensionAndExpenses pension expenses honeyPot not filled (pension expenses entered)" in {
+      val aboutExpenses = SelfEmploymentPensionsAndExpenses(
+        YesNoWithText("no",None),
+        YesNoWithText("no",Some("Some expenses"))
+      )
 
-    "returns false given ChildcareExpensesWhileAtWork honeyPot not filled (frequency other and text entered)" in {
-      val claim = Claim().update(ChildcareExpensesWhileAtWork(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other, other = Some("other text"))))
-      controller.honeyPot(claim) should beFalse
-    }
+      val claim = Claim().update(aboutExpenses)
 
-    "returns true given ChildcareExpensesWhileAtWork honeyPot filled (frequency not other and text entered)" in {
-      val claim = Claim().update(ChildcareExpensesWhileAtWork(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text"))))
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns false given ExpensesWhileAtWork honeyPot not filled (frequency not other)" in {
-      val claim = Claim().update(ExpensesWhileAtWork(howOftenPayExpenses = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = None)))
+    "returns false given SelfEmploymentPensionAndExpenses pension expenses honeyPot filled (pension expenses entered)" in {
+      val aboutExpenses = SelfEmploymentPensionsAndExpenses(
+        YesNoWithText("no",None),
+        YesNoWithText("yes",Some("Some expenses"))
+      )
+
+      val claim = Claim().update(aboutExpenses)
+
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given ExpensesWhileAtWork honeyPot not filled (frequency other and text entered)" in {
-      val claim = Claim().update(ExpensesWhileAtWork(howOftenPayExpenses = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Other, other = Some("other text"))))
-      controller.honeyPot(claim) should beFalse
-    }
+    "returns true given SelfEmploymentPensionsAndExpenses job expenses honeyPot not filled (job expenses entered)" in {
+      val aboutExpenses = SelfEmploymentPensionsAndExpenses(
+        YesNoWithText("no",Some("Some expenses")),
+        YesNoWithText("no")
+      )
+      val claim = Claim().update(aboutExpenses)
 
-    "returns true given ExpensesWhileAtWork honeyPot filled (frequency not other and text entered)" in {
-      val claim = Claim().update(ExpensesWhileAtWork(howOftenPayExpenses = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text"))))
       controller.honeyPot(claim) should beTrue
+    }
+
+    "returns false given SelfEmploymentPensionsAndExpenses job expenses honeyPot filled (job expenses entered)" in {
+      val aboutExpenses = SelfEmploymentPensionsAndExpenses(
+        YesNoWithText("yes",Some("Some expenses")),
+        YesNoWithText("no")
+      )
+      val claim = Claim().update(aboutExpenses)
+
+      controller.honeyPot(claim) should beFalse
     }
 
     "returns true given AboutOtherMoney answered no and honeyPot howOften filled" in {

@@ -18,10 +18,8 @@
 @selfEmploymentItems(claim:Claim) = @{
     val pension = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())
     var elems = Seq.empty[String]
-    if (pension.doYouPayToLookAfterYourChildren == "yes" || pension.didYouPayToLookAfterThePersonYouCaredFor == "yes")
+    if(pension.haveExpensesForJob.answer == "yes" || pension.payPensionScheme.answer == "yes")
         elems = elems ++ Seq(Messages("expenses"))
-    if (pension.doYouPayToPensionScheme == "yes")
-        elems = elems ++ Seq(Messages("pension schemes"))
 
     elems
 }

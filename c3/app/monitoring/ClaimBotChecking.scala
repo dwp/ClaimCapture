@@ -1,7 +1,6 @@
 package monitoring
 
 import app.ConfigProperties._
-import app.PensionPaymentFrequency._
 import models.domain._
 import play.api.Logger
 
@@ -60,6 +59,26 @@ trait ClaimBotChecking extends BotChecking {
       }
     }
 
+    def checkSelfEmploymentAboutExpenses: Boolean = {
+      claim.questionGroup[SelfEmploymentPensionsAndExpenses] match {
+        case Some(q) =>
+          if(q.payPensionScheme.answer == "no") {
+            q.payPensionScheme.text match {
+              case Some(f) => return true; // Bot given field pension expenses was not visible.
+              case _ => false
+            }
+          }
+          if(q.haveExpensesForJob.answer == "no") {
+            q.haveExpensesForJob.text match {
+              case Some(f) => return true; // Bot given field whatExpensesForJob was not visible.
+              case _ => false
+            }
+          }
+        case _ => false
+      }
+      false
+    }
+
     def checkAboutExpenses: Boolean = {
       checkEmploymentCriteria(verifyAboutExpenses)
     }
@@ -72,24 +91,6 @@ trait ClaimBotChecking extends BotChecking {
           }
       }
       false
-    }
-
-    def checkChildcareExpensesWhileAtWork: Boolean = {
-      claim.questionGroup[ChildcareExpensesWhileAtWork] match {
-        case Some(q) =>
-          q.howOftenPayChildCare.frequency != Other && q.howOftenPayChildCare.other.isDefined // Bot given field howOftenPayChildCare.other was not visible.
-
-        case _ => false
-      }
-    }
-
-    def checkExpensesWhileAtWork: Boolean = {
-      claim.questionGroup[ExpensesWhileAtWork] match {
-        case Some(q) =>
-          q.howOftenPayExpenses.frequency != Other && q.howOftenPayExpenses.other.isDefined // Bot given field howOftenPayExpenses.other was not visible.
-
-        case _ => false
-      }
     }
 
     def checkAboutOtherMoney: Boolean = {
@@ -120,24 +121,21 @@ trait ClaimBotChecking extends BotChecking {
 
     val moreAboutTheCare = checkMoreAboutTheCare
     val aboutExpenses = checkAboutExpenses
-    val childcareExpensesWhileAtWork = checkChildcareExpensesWhileAtWork
-    val expensesWhileAtWork = checkExpensesWhileAtWork
+    val selfEmploymentAboutExpenses = checkSelfEmploymentAboutExpenses
     val aboutOtherMoney = checkAboutOtherMoney
     val statutorySickPay = checkStatutorySickPay
     val otherStatutoryPay = checkOtherStatutoryPay
 
     if (moreAboutTheCare) Logger.warn("Honeypot triggered : moreAboutTheCare")
-    if (aboutExpenses) Logger.warn("Honeypot triggered : aboutExpenses")
-    if (childcareExpensesWhileAtWork) Logger.warn("Honeypot triggered : childcareExpensesWhileAtWork")
-    if (expensesWhileAtWork) Logger.warn("Honeypot triggered : expensesWhileAtWork")
+    if (aboutExpenses) Logger.warn("Honeypot triggered : employment aboutExpenses")
+    if (selfEmploymentAboutExpenses) Logger.warn("Honeypot triggered : selfEmploymentAboutExpenses")
     if (aboutOtherMoney) Logger.warn("Honeypot triggered : aboutOtherMoney")
     if (statutorySickPay) Logger.warn("Honeypot triggered : statutorySickPay")
     if (otherStatutoryPay) Logger.warn("Honeypot triggered : otherStatutoryPay")
 
     moreAboutTheCare ||
       aboutExpenses ||
-      childcareExpensesWhileAtWork ||
-      expensesWhileAtWork ||
+      selfEmploymentAboutExpenses ||
       aboutOtherMoney ||
       statutorySickPay ||
       otherStatutoryPay

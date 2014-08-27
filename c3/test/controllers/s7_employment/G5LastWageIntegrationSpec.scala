@@ -19,7 +19,7 @@ class G5LastWageIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
       page submitPage() match {
-        case p: G7PensionSchemesPage => p numberSectionsCompleted()  mustEqual 1
+        case p: G8PensionAndExpensesPage => p numberSectionsCompleted()  mustEqual 1
         case _ => ko("Next Page is not of the right type.")
       }
     }

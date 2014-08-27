@@ -154,12 +154,6 @@ POST          /self-employment/your-accounts                                  co
 GET           /self-employment/pensions-and-expenses                          controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.present
 POST          /self-employment/pensions-and-expenses                          controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit
 
-GET           /self-employment/childcare-expenses-while-at-work               controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.present
-POST          /self-employment/childcare-expenses-while-at-work               controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit
-
-GET           /self-employment/expenses-while-at-work                         controllers.s8_self_employment.G7ExpensesWhileAtWork.present
-POST          /self-employment/expenses-while-at-work                         controllers.s8_self_employment.G7ExpensesWhileAtWork.submit
-
 GET           /self-employment/completed                                      controllers.s8_self_employment.SelfEmployment.completed
 POST          /self-employment/completed                                      controllers.s8_self_employment.SelfEmployment.completedSubmit
 

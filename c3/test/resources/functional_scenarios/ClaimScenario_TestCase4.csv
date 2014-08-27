@@ -224,27 +224,10 @@ Self Employed,Your accounts,What was/is your trading year. From,SelfEmployedWhat
 Self Employed,Your accounts,What was/is your trading year. Is,SelfEmployedWhatWasIsYourTradingYearIs,31/01/2013
 Self Employed,Your accounts,"Are the income, outgoings and profit in these accounts similar to your current level of trading?",SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent,No
 Self Employed,Your accounts,Please tell us why and when the change happened,SelfEmployedTellUsWhyandWhentheChangeHappened,"Depends on the seasons, and productivity of the fruit."
-Self Employed,Pensions and Expenses,[Past=Did you] [Present=Do you] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,SelfEmployedDoYouPayTowardsPensionScheme,Yes
-Self Employed,Pensions and Expenses,How much [past=did you] [present=do you] pay?,SelfEmployedHowMuchYouPayTowardsPensionScheme,100
-Self Employed,Pensions and Expenses,How often do you pay into a Pension,SelfEmployedHowoftenYouPayTowardsPensionScheme,Weekly
-Self Employed,Pensions and Expenses,How often do you pay into a Pension? Other,SelfEmployedHowOftenOtherYouPayTowardsPensionScheme,
-Self Employed,Pensions and Expenses,"White at work, [past=did you] [present=do you] pay anyone to care for your children?",SelfEmployedDoYouPayAnyonetoLookAfterYourChild,Yes
-Self Employed,Pensions and Expenses,Is this the same as the expenses you have told us about during your employed work?,SelfEmployedChildCareIsThistheSameAsDuringYourEmployedWork,
-Self Employed,Pensions and Expenses,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for the person you normally care for?",SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor,Yes
-Self Employed,Pensions and Expenses,Is this the same as the expenses you have told us about during your employed work?,SelfEmployedCareIsThistheSameAsDuringYourEmployedWork,
-Self Employed,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,SelfEmployedChildcareExpensesHowMuchYouPay,234
-Self Employed,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] childcare expenses,SelfEmployedChildcareExpensesHowOften,Fortnightly
-Self Employed,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses?,SelfEmployedChildcareExpensesHowOftenOther,
-Self Employed,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,SelfEmployedChildcareProviderNameOfPerson,Mr John Johnson
-Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to you?",SelfEmployedChildcareProviderWhatRelationIsToYou,Brother
-Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",SelfEmployedChildcareProviderWhatRelationIsToYourPartner,
-Self Employed,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor,Stepbrother
-Self Employed,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,SelfEmployedCareExpensesHowMuchYouPay,1235.01
-Self Employed,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] pay them - expenses related to person you care for?,SelfEmployedCareExpensesHowOften,Fortnightly
-Self Employed,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] Other - expenses related to person you care for?,SelfEmployedCareExpensesHowOftenOther,
-Self Employed,Expenses related to the person you care for while at work,Name of the person/organisation you pay,SelfEmployedCareExpensesNameOfPerson,Mrs Terry Thornhill
-Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",SelfEmployedCareExpensesWhatRelationIsToYou,Aunt
-Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,Adopted Son
+Self Employed,Pension and expenses,[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?,SelfEmploymentDoYouPayForPensionExpenses,Yes
+Self Employed,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",SelfEmploymentPensionExpenses,some pension expenses
+Self Employed,Pension and expenses,[[past=Did you]] [[present=Do you]] have any care costs because of this work?,SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob,Yes
+Self Employed,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",SelfEmploymentWhatAreNecessaryJobExpenses,some job expenses
 Other Money,Benefits and payments,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
 Other Money,Benefits and payments,Benefits and payments: Who pays you?,OtherMoneyWhoPaysYou,
 Other Money,Benefits and payments,Benefits and payments: How much?,OtherMoneyHowMuch,
