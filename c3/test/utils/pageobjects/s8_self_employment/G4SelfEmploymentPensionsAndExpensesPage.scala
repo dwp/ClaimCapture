@@ -4,12 +4,10 @@ import play.api.test.WithBrowser
 import utils.pageobjects._
 
 final class G4SelfEmploymentPensionsAndExpensesPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G4SelfEmploymentPensionsAndExpensesPage.url, G4SelfEmploymentPensionsAndExpensesPage.title) {
-  declareYesNo("#doYouPayToPensionScheme", "SelfEmployedDoYouPayTowardsPensionScheme")
-  declareInput("#howMuchDidYouPay", "SelfEmployedHowMuchYouPayTowardsPensionScheme")
-  declareSelect("#howOften_frequency", "SelfEmployedHowoftenYouPayTowardsPensionScheme")
-  declareInput("#howOften_frequency_other","SelfEmployedHowOftenOtherYouPayTowardsPensionScheme")
-  declareYesNo("#doYouPayToLookAfterYourChildren", "SelfEmployedDoYouPayAnyonetoLookAfterYourChild")
-  declareYesNo("#didYouPayToLookAfterThePersonYouCaredFor", "SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor")
+  declareYesNo("#payPensionScheme_answer", "SelfEmploymentDoYouPayForPensionExpenses") //SelfEmployedDoYouPayTowardsPensionScheme")
+  declareInput("#payPensionScheme_text", "SelfEmploymentPensionExpenses")
+  declareYesNo("#haveExpensesForJob_answer", "SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob")
+  declareInput("#haveExpensesForJob_text", "SelfEmploymentWhatAreNecessaryJobExpenses")
 }
 
 object G4SelfEmploymentPensionsAndExpensesPage {

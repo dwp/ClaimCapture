@@ -1,10 +1,10 @@
-package controllers.s7_employment
+package controllers.s8_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 
-class G8PensionAndExpensesFormSpec extends Specification with Tags {
-  "About Employment - Pension and Expenses Form" should {
-    val jobId = "1"
+class G4PensionAndExpensesFormSpec extends Specification with Tags {
+  "About Self Employment - Pension and Expenses Form" should {
+
     val yes = "yes"
     val no = "no"
     val pensionExpenses = "Some pension expenses"
@@ -12,42 +12,37 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     val overThreeHundredChars = "Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters"
 
     "map data into case class" in {
-      G8PensionAndExpenses.form.bind(
+      G4SelfEmploymentPensionsAndExpenses.form.bind(
         Map(
-          "jobID" -> jobId,
           "payPensionScheme.answer" -> no,
           "haveExpensesForJob.answer" -> no
           )
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.jobID must equalTo(jobId)
           f.payPensionScheme.answer must equalTo(no)
           f.haveExpensesForJob.answer must equalTo(no)
         }
       )
     }
 
-    "have 3 mandatory fields" in {
-      G8PensionAndExpenses.form.bind(
+    "have 2 mandatory fields" in {
+      G4SelfEmploymentPensionsAndExpenses.form.bind(
         Map("payPensionScheme.text" -> pensionExpenses,
           "haveExpensesForJob.text" -> jobExpenses)
       ).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(3)
+            formWithErrors.errors.length must equalTo(2)
             formWithErrors.errors(0).message must equalTo("error.required")
             formWithErrors.errors(1).message must equalTo("error.required")
-            formWithErrors.errors(2).message must equalTo("error.required")
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
     }
 
     "reject if haveExpensesForJob is not filled" in {
-      G8PensionAndExpenses.form.bind(
-        Map(
-          "jobID" -> jobId,
-          "payPensionScheme.answer" -> no)
+      G4SelfEmploymentPensionsAndExpenses.form.bind(
+        Map("payPensionScheme.answer" -> no)
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
         f => "This mapping should not happen." must equalTo("Valid")
@@ -55,10 +50,8 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     }
 
     "reject if payPensionScheme is not filled" in {
-      G8PensionAndExpenses.form.bind(
-        Map(
-          "jobID" -> jobId,
-          "haveExpensesForJob.answer" -> no)
+      G4SelfEmploymentPensionsAndExpenses.form.bind(
+        Map("haveExpensesForJob.answer" -> no)
       ).fold(
           formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
           f => "This mapping should not happen." must equalTo("Valid")
@@ -66,10 +59,8 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     }
 
     "have 1 expanded mandatory field if payPensionScheme is yes" in {
-      G8PensionAndExpenses.form.bind(
-        Map(
-          "jobID" -> jobId,
-          "haveExpensesForJob.answer" -> no,
+      G4SelfEmploymentPensionsAndExpenses.form.bind(
+        Map("haveExpensesForJob.answer" -> no,
           "payPensionScheme.answer" -> yes)
       ).fold(
 
@@ -82,10 +73,8 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     }
 
     "have 1 expanded mandatory field if haveExpensesForJob is yes" in {
-      G8PensionAndExpenses.form.bind(
-        Map(
-          "jobID" -> jobId,
-          "haveExpensesForJob.answer" -> yes,
+      G4SelfEmploymentPensionsAndExpenses.form.bind(
+        Map("haveExpensesForJob.answer" -> yes,
           "payPensionScheme.answer" -> no)
       ).fold(
 
@@ -98,10 +87,8 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     }
 
     "reject too many characters in text fields" in {
-      G8PensionAndExpenses.form.bind(
-        Map(
-          "jobID" -> jobId,
-          "payPensionScheme.answer" -> yes,
+      G4SelfEmploymentPensionsAndExpenses.form.bind(
+        Map("payPensionScheme.answer" -> yes,
           "haveExpensesForJob.answer" -> yes,
           "payPensionScheme.text" -> overThreeHundredChars,
           "haveExpensesForJob.text" -> overThreeHundredChars)
@@ -115,10 +102,8 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     }
 
     "reject special characters in text fields" in {
-      G8PensionAndExpenses.form.bind(
-        Map(
-          "jobID" -> jobId,
-          "payPensionScheme.answer" -> yes,
+      G4SelfEmploymentPensionsAndExpenses.form.bind(
+        Map("payPensionScheme.answer" -> yes,
           "haveExpensesForJob.answer" -> yes,
           "payPensionScheme.text" -> "<>",
           "haveExpensesForJob.text" -> "<>"
@@ -132,5 +117,5 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section("unit", models.domain.Employment.id)
+  } section("unit", models.domain.SelfEmployment.id)
 }
