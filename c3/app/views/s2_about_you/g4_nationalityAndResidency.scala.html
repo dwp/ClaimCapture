@@ -34,8 +34,7 @@
                             maritalStatusSelect(nationalityAndResidencyForm("maritalStatus"),
                                 '_nestedFieldSet -> true)
 	                    ),
-	                    'id -> "nationalityWrap",
-	                    'display -> { if (nationalityAndResidencyForm("nationality").value.getOrElse("notset") == NationalityAndResidency.anothercountry) "yes" else "no" }
+	                    'id -> "nationalityWrap"
 	                )
 
                     @yesNoRadioGroup(nationalityAndResidencyForm("resideInUK")("answer"),
@@ -47,8 +46,7 @@
                             '_label -> Messages("resideInUK.text.label"),
                             'maxLength -> 35)
                         ),
-                        'id -> "residencyWrap",
-                        'display -> { if (nationalityAndResidencyForm("resideInUK")("answer").value.getOrElse("yes") == "no") "yes" else "no" }
+                        'id -> "residencyWrap"
                     )
                 </ul>
 	
