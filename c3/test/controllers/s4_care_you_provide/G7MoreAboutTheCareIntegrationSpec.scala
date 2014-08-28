@@ -38,5 +38,12 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutTheCare(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
+
+    "start to care for the person to be displayed when back button is clicked" in new WithBrowser {
+      Formulate.moreAboutTheCare(browser)
+      browser.click("#backButton")
+      browser.find("#beforeClaimCaring_date_year").size() mustEqual 1
+    }
+
   } section ("integration", models.domain.CareYouProvide.id)
 }
