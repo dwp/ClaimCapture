@@ -170,6 +170,12 @@ main {
 				color: #000;
 				padding-bottom: .5em;
 	   	   }
+	   	   
+	   	   &.legend-hidden {
+		   	   font-size: 0;
+		   	   text-indent: -9999px;
+	   	   }
+	   	   
    	   }
    	   
    	   h2, p.title {
