@@ -36,9 +36,14 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
     "navigate back" in new WithBrowser with BrowserMatchers {
       browser.goTo("/care-you-provide/breaks-in-care")
 
-      browser.goTo("/education/your-course-details")
+        browser.goTo("/education/your-course-details")
       browser.click("#backButton")
       titleMustNotEqual("Your course details - Education")
+    }
+
+    "Navigate back and Course title is displayed when Have you been on a course of education is yes" in new WithBrowser with BrowserMatchers{
+      browser.goTo("/education/your-course-details")
+      findMustEqualSize("#courseTitle", 1)
     }
   } section("integration", models.domain.Education.id)
 }

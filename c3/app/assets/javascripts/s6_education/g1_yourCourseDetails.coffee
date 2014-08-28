@@ -2,19 +2,34 @@ window.initEvents = (educationY, educationN,
                      courseTitle, nameOfSchoolCollegeOrUniversity,nameOfMainTeacherOrTutor,
                      courseContactNumber,startDateDay, startDateMonth, startDateYear,
                      expectedEndDateDay, expectedEndDateMonth, expectedEndDateYear) ->
+
+  if not $("#" + educationY).prop('checked')
+    hideEducationWrap(courseTitle, nameOfSchoolCollegeOrUniversity,nameOfMainTeacherOrTutor,
+      courseContactNumber,startDateDay, startDateMonth, startDateYear,
+      expectedEndDateDay, expectedEndDateMonth, expectedEndDateYear)
+
   $("#" + educationY).on "click", ->
-    $("#educationWrap").slideDown 500
-    $("#educationWrap").css('display', "block")
+    showEducationWrap()
 
   $("#" + educationN).on "click", ->
-    $("#educationWrap").slideUp 500, ->
-      $("#" + courseTitle).val("")
-      $("#" + nameOfSchoolCollegeOrUniversity).val("")
-      $("#" + nameOfMainTeacherOrTutor).val("")
-      $("#" + courseContactNumber).val("")
-      $("#" + startDateDay).val("")
-      $("#" + startDateMonth).val("")
-      $("#" + startDateYear).val("")
-      $("#" + expectedEndDateDay).val("")
-      $("#" + expectedEndDateMonth).val("")
-      $("#" + expectedEndDateYear).val("")
+    hideEducationWrap(courseTitle, nameOfSchoolCollegeOrUniversity,nameOfMainTeacherOrTutor,
+      courseContactNumber,startDateDay, startDateMonth, startDateYear,
+      expectedEndDateDay, expectedEndDateMonth, expectedEndDateYear)
+
+showEducationWrap = ->
+  $("#educationWrap").slideDown 0
+
+hideEducationWrap = (courseTitle, nameOfSchoolCollegeOrUniversity,nameOfMainTeacherOrTutor,
+  courseContactNumber,startDateDay, startDateMonth, startDateYear,
+  expectedEndDateDay, expectedEndDateMonth, expectedEndDateYear) ->
+  $("#educationWrap").slideUp 0, ->
+    $("#" + courseTitle).val("")
+    $("#" + nameOfSchoolCollegeOrUniversity).val("")
+    $("#" + nameOfMainTeacherOrTutor).val("")
+    $("#" + courseContactNumber).val("")
+    $("#" + startDateDay).val("")
+    $("#" + startDateMonth).val("")
+    $("#" + startDateYear).val("")
+    $("#" + expectedEndDateDay).val("")
+    $("#" + expectedEndDateMonth).val("")
+    $("#" + expectedEndDateYear).val("")
