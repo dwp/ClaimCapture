@@ -1,34 +1,64 @@
 window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCaringN, expectStartCaringDontKnow) ->
+  if not $("#" + breakEndedY).prop("checked")
+    hideBreakEndedDate()
+
+  if not $("#" + breakEndedN).prop("checked")
+    hideExpectStartCaring(expectStartCaringY, expectStartCaringN)
+    hideExpectStartCaringDate()
+    hidePermanentBreakDate()
+
+  if not $("#" + expectStartCaringY).prop("checked")
+#    hideExpectStartCaring()
+    hideExpectStartCaringDate()
+    hidePermanentBreakDate()
+
+  if not $("#" + expectStartCaringN).prop("checked")
+    hidePermanentBreakDate()
+
   $("#" + breakEndedY).on "click", ->
-    $("#breakEndedDateTime").slideDown 500
-    $("#breakEndedDateTime").css('display', "block")
-    slideUpExpectStartCaring()
+    showBreakEndedDate()
+    hideExpectStartCaring(expectStartCaringY, expectStartCaringN)
+    hideExpectStartCaringDate()
+    hidePermanentBreakDate()
 
   $("#" + breakEndedN).on "click", ->
-    $("#breakEndedDateTime").slideUp 500
-    slideDownExpectStartCaring(expectStartCaringY, expectStartCaringN)
+    showExpectStartCaring()
+    hideBreakEndedDate()
 
   $("#" + expectStartCaringY).on "click", ->
-    $("#expectStartCaringDate").slideDown 500
-    $("#expectStartCaringDate").css('display', "block")
-    $("#permanentBreakDate").slideUp 500
+    showExpectStartCaringDate()
+    hidePermanentBreakDate()
 
   $("#" + expectStartCaringN).on "click", ->
-    $("#permanentBreakDate").slideDown 500
-    $("#permanentBreakDate").css('display', "block")
-    $("#expectStartCaringDate").slideUp 500
+    showPermanentBreakDate()
+    hideExpectStartCaringDate()
 
   $("#" + expectStartCaringDontKnow).on "click", ->
-    $("#expectStartCaringDate").slideUp 500
-    $("#permanentBreakDate").slideUp 500
+    hideExpectStartCaringDate()
+    hidePermanentBreakDate()
 
-slideUpExpectStartCaring = ->
-  $("#expectStartCaring").slideUp 500
-  $("#expectStartCaringDate").slideUp 500
-  $("#permanentBreakDate").slideUp 500
+hideBreakEndedDate = () ->
+  $("#breakEndedDateTime").slideUp 0
 
-slideDownExpectStartCaring = (expectStartCaringY, expectStartCaringN) ->
-  $("#expectStartCaring").slideDown 500
-  $("#expectStartCaring").css('display', "block")
+showBreakEndedDate = () ->
+  $("#breakEndedDateTime").slideDown 0
+
+hideExpectStartCaring = (expectStartCaringY, expectStartCaringN) ->
+  $("#expectStartCaring").slideUp 0
   $("#" + expectStartCaringY).attr("checked", false)
   $("#" + expectStartCaringN).attr("checked", false)
+
+showExpectStartCaring = () ->
+  $("#expectStartCaring").slideDown 0
+
+hidePermanentBreakDate = () ->
+  $("#permanentBreakDate").slideUp 0
+
+showPermanentBreakDate = () ->
+  $("#permanentBreakDate").slideDown 0
+
+hideExpectStartCaringDate = () ->
+  $("#expectStartCaringDate").slideUp 0
+
+showExpectStartCaringDate = () ->
+  $("#expectStartCaringDate").slideDown 0
