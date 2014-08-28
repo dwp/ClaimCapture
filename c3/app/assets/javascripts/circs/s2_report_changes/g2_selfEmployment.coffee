@@ -1,8 +1,16 @@
 window.initEvents = (stillCaringY, stillCaringN, whenStoppedCaring) ->
+  if not $("#" + stillCaringN).prop('checked')
+    hideStillCaringWrap(whenStoppedCaring)
+
   $("#" + stillCaringN).on "click", ->
-    $("#stillCaringWrap").slideDown 500
-    $("#stillCaringWrap").css('display', "block")
+    showStillCaringWrap()
 
   $("#" + stillCaringY).on "click", ->
-    $("#stillCaringWrap").slideUp 500, ->
-      $("#" + whenStoppedCaring).val("")
+    hideStillCaringWrap(whenStoppedCaring)
+
+hideStillCaringWrap = (whenStoppedCaring) ->
+  $("#residencyWrap").slideUp 0, ->
+  $("#" + whenStoppedCaring).val("")
+
+showStillCaringWrap = ->
+  $("#residencyWrap").slideDown 0
