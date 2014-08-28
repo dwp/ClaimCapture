@@ -70,32 +70,28 @@
                             dateTimePickerWithDynamicLabel(breaksForm("breakEnded.endDate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27),
                             carersShortInputText(breaksForm("breakEnded.endTime"), 'helperAbove-> Html(Messages("breakEnded.endTime.helper")), 'maxLength -> 10)
                          ),
-                        'id -> "breakEndedDateTime",
-                        'display ->  { if (breaksForm("breakEnded.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+                        'id -> "breakEndedDateTime"
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(yesNoRadioGroup(breaksForm("expectStartCaring.answer"),
                             'values -> Seq("yes" -> Html(Messages("label.yes7")), "no" -> Html(Messages("label.no")), "dontknow" -> Html(Messages("label.dontknow"))),
                             'ignoreOptional -> true)),
-                            'id -> "expectStartCaring",
-                            'display ->  { if (breaksForm("breakEnded.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+                            'id -> "expectStartCaring"
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             dateTimePickerWithDynamicLabel(breaksForm("expectStartCaring.expectStartCaringDate"), 'dynamicDateDays-> -7)
                         ),
-                        'id -> "expectStartCaringDate",
-                        'display ->  { if (breaksForm("expectStartCaring.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+                        'id -> "expectStartCaringDate"
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             dateTimePickerWithDynamicLabel(breaksForm("expectStartCaring.permanentBreakDate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27)
                         ),
-                        'id -> "permanentBreakDate",
-                        'display ->  { if (breaksForm("expectStartCaring.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+                        'id -> "permanentBreakDate"
                     )
 
                     @yesNoRadioGroup(breaksForm("medicalCareDuringBreak"),'values -> Seq("yes" -> Html(Messages("label.yes3")), "no" -> Html(Messages("label.no"))))
