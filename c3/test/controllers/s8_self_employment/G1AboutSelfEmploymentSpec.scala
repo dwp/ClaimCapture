@@ -60,7 +60,7 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
               dmy.year must equalTo(Some(finishYear))
           }
           f.haveYouCeasedTrading must equalTo(Some(haveYouCeasedTrading))
-          f.natureOfYourBusiness must equalTo(Some(natureOfYourBusiness))
+          f.natureOfYourBusiness must equalTo(natureOfYourBusiness)
         }
       }
     }

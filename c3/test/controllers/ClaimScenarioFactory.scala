@@ -431,14 +431,8 @@ object ClaimScenarioFactory {
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
     claim.SelfEmployedWhenDidYouStartThisJob = "11/09/2001"
     claim.SelfEmployedWhenDidTheJobFinish = "07/07/2005"
+    claim.SelfEmployedNatureofYourBusiness = "Some type of business"
 
-    // G4
-    claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
-    claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
-
-    // G6 Childcare provider's contact Details
-    claim.SelfEmployedChildcareProviderAddress = "Care Provider Address"
-    claim.SelfEmployedChildcareProviderPostcode = "SE1 6EH"
     // G8 Pension and Expenses
     claim.SelfEmploymentDoYouPayForPensionExpenses = "Yes"
     claim.SelfEmploymentPensionExpenses = "Some self employment pension expenses"

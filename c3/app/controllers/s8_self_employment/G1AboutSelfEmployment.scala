@@ -24,7 +24,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
     "whenDidYouStartThisJob" -> dayMonthYear.verifying(validDate),
     "whenDidTheJobFinish" -> optional(dayMonthYear.verifying(validDate)),
     "haveYouCeasedTrading" -> optional(text.verifying(validYesNo)),
-    "natureOfYourBusiness" -> optional(carersText(maxLength = sixty))
+    "natureOfYourBusiness" -> carersNonEmptyText(maxLength = sixty)
   )(AboutSelfEmployment.apply)(AboutSelfEmployment.unapply)
     .verifying("whenDidTheJobFinish.error.required", validateWhenDidTheJobFinish _))
 

@@ -87,8 +87,6 @@ object ClaimPageFactory extends PageFactory {
         case G1AboutSelfEmploymentPage.title => G1AboutSelfEmploymentPage (ctx)
         case G2SelfEmploymentYourAccountsPage.title => G2SelfEmploymentYourAccountsPage (ctx)
         case G4SelfEmploymentPensionsAndExpensesPage.title => G4SelfEmploymentPensionsAndExpensesPage (ctx)
-        case G5ChildcareExpensesWhileAtWorkPage.title => G5ChildcareExpensesWhileAtWorkPage (ctx)
-        case G7ExpensesWhileAtWorkPage.title => G7ExpensesWhileAtWorkPage (ctx)
         case PreviewPage.title => PreviewPage(ctx)
         // S10
         case G1AdditionalInfoPage.title => G1AdditionalInfoPage (ctx)

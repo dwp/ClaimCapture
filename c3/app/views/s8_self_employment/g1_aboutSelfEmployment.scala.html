@@ -30,7 +30,8 @@
 	                    yesNoRadioGroup(currentForm("haveYouCeasedTrading"))
 	                    ),
 	                    'id -> "selfEmployedNoWrap",
-	                    'display -> (currentForm("areYouSelfEmployedNow").value.getOrElse("yes") match { case "yes" => "no" case _ => "yes" }))
+	                    'display -> (currentForm("areYouSelfEmployedNow").value.getOrElse("yes") match { case "yes" => "no" case _ => "yes" })
+                    )
 	
 	                @carersInputText(currentForm("natureOfYourBusiness"), 'maxLength -> Mappings.sixty)
 	            </ul>

@@ -2,8 +2,8 @@ package controllers.s8_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s8_self_employment.{G1AboutSelfEmploymentPage, G1AboutSelfEmploymentPageContext}
-import utils.pageobjects.{PageObjects, IterationManager, TestData}
+import utils.pageobjects.s8_self_employment.{G1AboutSelfEmploymentPage, G2SelfEmploymentYourAccountsPage}
+import utils.pageobjects.{PageObjects,TestData}
 import controllers.{Formulate, ClaimScenarioFactory}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.s7_employment.G1EmploymentPage
@@ -29,13 +29,15 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
     }
 
     "contain errors on invalid submission" in {
-      "missing mandatory field" in new WithBrowser with PageObjects{
+      "missing mandatory fields" in new WithBrowser with PageObjects{
 			val page =  G1AboutSelfEmploymentPage(context)
         val claim = new TestData
         page goToThePage()
         val pageWithErrors = page.submitPage()
-        pageWithErrors.listErrors.size mustEqual 2
+        pageWithErrors.listErrors.size mustEqual 3
         pageWithErrors.listErrors(0) must contain("This field is required")
+        pageWithErrors.listErrors(1) must contain("This field is required")
+        pageWithErrors.listErrors(2) must contain("This field is required")
       }
 
       "self employed now but missing date" in new WithBrowser with PageObjects{
@@ -55,6 +57,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
         val claim = new TestData
         claim.SelfEmployedAreYouSelfEmployedNow = "yes"
         claim.SelfEmployedWhenDidYouStartThisJob = "01/01/0000"
+        claim.SelfEmployedNatureofYourBusiness = "Some type of business"
         page goToThePage ()
         page fillPageWith claim
         val pageWithErrors = page.submitPage()
@@ -79,7 +82,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
 
       val nextPage = page submitPage()
 
-      nextPage must not(beAnInstanceOf[G1AboutSelfEmploymentPage])
+      nextPage must (beAnInstanceOf[G2SelfEmploymentYourAccountsPage])
     }
   } section("integration", models.domain.SelfEmployment.id)
 }

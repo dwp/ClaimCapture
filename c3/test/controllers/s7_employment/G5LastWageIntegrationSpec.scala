@@ -13,18 +13,21 @@ class G5LastWageIntegrationSpec extends Specification with Tags {
       page goToThePage()
     }
 
-    "contain 1 completed form" in new WithBrowser with PageObjects{
-			val page =  G5LastWagePage(context)
+    "contain the completed form" in new WithBrowser with PageObjects{
+      val jobDetailsPage = G3JobDetailsPage(context)
+      jobDetailsPage goToThePage()
       val claim = ClaimScenarioFactory s7Employment()
-      page goToThePage()
-      page fillPageWith claim
-      page submitPage() match {
-        case p: G8PensionAndExpensesPage => p numberSectionsCompleted()  mustEqual 1
+      jobDetailsPage fillPageWith claim
+      val lastWagePage = jobDetailsPage submitPage()
+      lastWagePage fillPageWith claim
+
+      lastWagePage submitPage() match {
+        case p: G8PensionAndExpensesPage => p numberSectionsCompleted()  mustEqual 2
         case _ => ko("Next Page is not of the right type.")
       }
     }
 
-    "contain 1 completed form when 'have finished job is 'yes'" in new WithBrowser with PageObjects{
+    "contain the completed form when 'have finished job is 'yes'" in new WithBrowser with PageObjects{
       val jobDetailsPage = G3JobDetailsPage(context)
       jobDetailsPage goToThePage()
       val claim = ClaimScenarioFactory s7Employment()

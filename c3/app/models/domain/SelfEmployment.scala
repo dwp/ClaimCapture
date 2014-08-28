@@ -17,7 +17,7 @@ case class AboutSelfEmployment(areYouSelfEmployedNow: String = "",
                                whenDidYouStartThisJob: DayMonthYear = DayMonthYear(None, None, None),
                                whenDidTheJobFinish: Option[DayMonthYear] = None,
                                haveYouCeasedTrading: Option[String] = None,
-                               natureOfYourBusiness: Option[String] = None) extends QuestionGroup(AboutSelfEmployment)
+                               natureOfYourBusiness: String = "") extends QuestionGroup(AboutSelfEmployment)
 
 case object SelfEmploymentYourAccounts extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g2"
