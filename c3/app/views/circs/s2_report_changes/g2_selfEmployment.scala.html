@@ -26,8 +26,7 @@
 	                    inputDef = Seq(
 	                        inputDayMonthYear(selfEmployment("stillCaring.date"))
 	                    ),
-	                    'id -> "stillCaringWrap",
-	                    'display -> { if (selfEmployment("stillCaring.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+	                    'id -> "stillCaringWrap"
 	                )
 	
 	                @inputDayMonthYear(selfEmployment("whenThisSelfEmploymentStarted"))

@@ -27,17 +27,13 @@ hideNationalityWrap = (nationalResidency, maritalStatusMarried, maritalStatusSin
     $("#" + maritalStatusWidowed).prop('checked', false)
     $("#" + maritalStatusSeparated).prop('checked', false)
     $("#" + maritalStatusLiving).prop('checked', false)
-    $("#nationalityWrap").css('display', "none")
 
 showNationalityWrap = ->
   $("#nationalityWrap").slideDown 0
-  $("#nationalityWrap").css('display', "block")
 
 hideResidencyWrap = (resideInUKText) ->
   $("#residencyWrap").slideUp 0, ->
   $("#" + resideInUKText).val("")
-  $("#residencyWrap").css('display', "none")
 
 showResidencyWrap = ->
   $("#residencyWrap").slideDown 0
-  $("#residencyWrap").css('display', "block")
