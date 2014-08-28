@@ -1,48 +1,72 @@
 window.initEvents = (stillCaringY, stillCaringN, dateStoppedCaring,
                      caredForChangedAddress, caredForChangedAddressY, caredForChangedAddressN,
                      sameAddressY, sameAddressN, theirNewAddress, theirNewPostcode) ->
+  if not $("#" + stillCaringN).prop("checked")
+    hideStillCaringDate(dateStoppedCaring)
+
+  if not $("#" + stillCaringY).prop("checked")
+    hideStillCaringAddress(caredForChangedAddressN, caredForChangedAddressY)
+    hideStillCaringSameAddress(sameAddressY, sameAddressN)
+    hideStillCaringSameAddressData(theirNewAddress, theirNewPostcode)
+
+  if not $("#" + caredForChangedAddressY).prop("checked")
+    hideStillCaringSameAddress(sameAddressY, sameAddressN)
+    hideStillCaringSameAddressData(theirNewAddress, theirNewPostcode)
+
+  if not $("#" + sameAddressN).prop("checked")
+    hideStillCaringSameAddressData(theirNewAddress, theirNewPostcode)
+
   $("#" + stillCaringN).on "click", ->
-    $("#stillCaringDate").slideDown 500
-    $("#stillCaringDate").css('display', "block")
-
-    $("#stillCaringAddress").slideUp 500
-    $("#changedAddressSame").slideUp 500
-    $("#sameAddressData").slideUp 500
-
-    $("#"+sameAddressY).attr("checked", false)
-    $("#"+sameAddressN).attr("checked", false)
-    $("#"+caredForChangedAddressN).attr("checked", false)
-    $("#"+caredForChangedAddressY).attr("checked", false)
+    showStillCaringDate()
+    hideStillCaringAddress(caredForChangedAddressN, caredForChangedAddressY)
+    hideStillCaringSameAddress(sameAddressY, sameAddressN)
+    hideStillCaringSameAddressData(theirNewAddress, theirNewPostcode)
 
   $("#" + stillCaringY).on "click", ->
-    $("#stillCaringDate").slideUp 500, ->
-      $("#" + dateStoppedCaring).val("")
-
-    $("#"+caredForChangedAddressN).attr("checked", false)
-    $("#"+caredForChangedAddressY).attr("checked", false)
-    $("#stillCaringAddress").slideDown 500
-    $("#stillCaringAddress").css('display', "block")
-
+    hideStillCaringDate(dateStoppedCaring)
+    showStillCaringAddress()
 
   $("#" + caredForChangedAddressY).on "click", ->
-    $("#changedAddressSame").slideDown 500
-    $("#changedAddressSame").css('display', "block")
-    $("#"+sameAddressY).attr("checked", false)
-    $("#"+sameAddressN).attr("checked", false)
+    showStillCaringSameAddress()
 
   $("#" + caredForChangedAddressN).on "click", ->
-    $("#changedAddressSame").slideUp 500
-
-    $("#sameAddressData").slideUp 500, ->
-    $("#" + theirNewAddress).val("")
-    $("#" + theirNewPostcode).val("")
+    hideStillCaringSameAddress(sameAddressY, sameAddressN)
+    hideStillCaringSameAddressData(theirNewAddress, theirNewPostcode)
 
   $("#" + sameAddressN).on "click", ->
-    $("#sameAddressData").slideDown 500
-    $("#sameAddressData").css('display', "block")
+    showStillCaringSameAddressData()
 
   $("#" + sameAddressY).on "click", ->
-    $("#sameAddressData").slideUp 500, ->
-      $("#" + theirNewAddress).val("")
-      $("#" + theirNewPostcode).val("")
+    hideStillCaringSameAddressData(theirNewAddress, theirNewPostcode)
 
+
+hideStillCaringDate = (dateStoppedCaring) ->
+  $("#stillCaringDate").slideUp 0, ->
+    $("#" + dateStoppedCaring).val("")
+
+showStillCaringDate = () ->
+  $("#stillCaringDate").slideDown 0
+
+hideStillCaringAddress = (caredForChangedAddressN, caredForChangedAddressY) ->
+  $("#stillCaringAddress").slideUp 0
+  $("#"+caredForChangedAddressN).attr("checked", false)
+  $("#"+caredForChangedAddressY).attr("checked", false)
+
+showStillCaringAddress = () ->
+  $("#stillCaringAddress").slideDown 0
+
+hideStillCaringSameAddress = (sameAddressY, sameAddressN) ->
+  $("#changedAddressSame").slideUp 0
+  $("#"+sameAddressY).attr("checked", false)
+  $("#"+sameAddressN).attr("checked", false)
+
+showStillCaringSameAddress = () ->
+  $("#changedAddressSame").slideDown 0
+
+hideStillCaringSameAddressData = (theirNewAddress, theirNewPostcode) ->
+  $("#sameAddressData").slideUp 0
+  $("#" + theirNewAddress).val("")
+  $("#" + theirNewPostcode).val("")
+
+showStillCaringSameAddressData = () ->
+  $("#sameAddressData").slideDown 0

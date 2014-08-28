@@ -39,8 +39,7 @@
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring")("date"))
 	                    ),
-	                    'id -> "stillCaringDate",
-	                    'display ->  { if (addressForm("stillCaring.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+	                    'id -> "stillCaringDate"
 	                )
 	
 	                @inputAddress(addressForm("newAddress"))
@@ -50,16 +49,14 @@
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(yesNoRadioGroup(addressForm("caredForChangedAddress.answer"), 'ignoreOptional -> true)
 	                    ),
-	                    'id -> "stillCaringAddress",
-	                    'display -> {if (addressForm("stillCaring.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+	                    'id -> "stillCaringAddress"
 	                    )
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        yesNoRadioGroup(addressForm("sameAddress.answer"), 'ignoreOptional -> true)
 	                    ),
-	                    'id -> "changedAddressSame",
-	                    'display -> {if (addressForm("caredForChangedAddress.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+	                    'id -> "changedAddressSame"
 	                )
 	
 	                @otherDetailPlaceHolder(
@@ -67,8 +64,7 @@
 	                        inputAddress(addressForm("sameAddress.theirNewAddress")),
 	                        carersInputText(addressForm("sameAddress.theirNewPostcode"), 'class -> "postcode")
 	                    ),
-	                    'id -> "sameAddressData",
-	                    'display -> {if (addressForm("sameAddress.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+	                    'id -> "sameAddressData"
 	                )
 	                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
 	
