@@ -12,7 +12,7 @@
 
 
     @form(action = controllers.s1_carers_allowance.routes.G3Over16.submit) {
-	        <fieldset class="form-elements form-eligibility">
+	        <fieldset class="form-elements form-eligibility over16">
 	            <legend>@Html(Messages("s1.g3"))</legend>
 
 	             @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("over16.answer"), '_showLabel -> false,'track -> true,'allowance -> true, 'trackLabel -> "over16.answer")
