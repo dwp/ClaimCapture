@@ -57,8 +57,7 @@
 
                             yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
                         ),
-                        'id -> "partnerDetailsWrap",
-                        'display -> { if (currentForm("hadPartnerSinceClaimDate").value.getOrElse("no") == "yes") "yes" else "no" }
+                        'id -> "partnerDetailsWrap"
                     )
                 </ul>
             </fieldset>
