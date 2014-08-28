@@ -20,7 +20,7 @@
     }
 
 
-@helper.input(field, args.filter(p => p._1 != 'track && p._1 != 'trackLabel):_*) { (id, name, value, htmlArgs) =>
+@helper.input(field, args.filter(a => a._1 == 'class):_*) { (id, name, value, htmlArgs) =>
 
     @options.map { v =>
         <li>

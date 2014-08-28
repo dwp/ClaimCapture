@@ -1,8 +1,8 @@
 $ ->
-    $("select[selectWithOther=true] option:selected").each ->
+    $("select[class=selectWithOther] option:selected").each ->
         $(this).parent().next().hide() if ($(this).val() != "Other")
 
-    $("select[selectWithOther=true]").change ->
+    $("select[class=selectWithOther]").change ->
         if $(this).val() is "Other"
             $(this).next().slideDown(0)
         else

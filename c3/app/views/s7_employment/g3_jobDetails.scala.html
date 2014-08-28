@@ -39,7 +39,7 @@
 	                    inputDef = Seq(inputDayMonthYear(currentForm("lastWorkDate"), 'helperAbove -> Messages("jobStartDate.helper")),
                             inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("jobStartDate.helper")),
                             carersShortInputText(currentForm("hoursPerWeek"),
-                            '_label -> labelForEmployment(claim, lang, "hoursPerWeek", JobID(currentForm)), 'maxlength -> 2)),
+                            '_label -> labelForEmployment(claim, lang, "hoursPerWeek", JobID(currentForm)), 'maxLength -> 2)),
 	                    'id -> "lastWorkData",
 	                    'display -> currentForm("finishedThisJob").value.getOrElse("no"))
 	            </ul>
@@ -53,8 +53,6 @@
 	        </nav>
         </div>
     }
-}
-
 <script type="text/javascript">
     $(function() {
         var hoursPerWeek = $("label[for='hoursPerWeek']");
@@ -77,3 +75,4 @@
         });
     });
 </script>
+}
