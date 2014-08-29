@@ -35,8 +35,7 @@
 	                        carersCurrency(currentForm("howMuchPension"), 'maxlength -> Mappings.sixty, '_label -> labelForEmployment(claim, lang, "howMuchPension", JobID(currentForm))),
 	                        pensionPaymentFrequencySelect(currentForm("howOftenPension"), '_label -> Messages("howOftenPension"), 'id -> "howOftenPension",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 	                    ),
-	                    'id -> "payOccupationalPensionSchemeWrapper",
-	                    'display -> currentForm("payOccupationalPensionScheme").value.getOrElse("no"))
+	                    'id -> "payOccupationalPensionSchemeWrapper")
 	
 	
 	
@@ -47,8 +46,7 @@
 	                        carersCurrency(currentForm("howMuchPersonal"), 'maxlength -> Mappings.sixty, '_label -> labelForEmployment(claim, lang, "howMuchPersonal", JobID(currentForm))),
 	                        pensionPaymentFrequencySelect(currentForm("howOftenPersonal"), '_label -> Messages("howOftenPersonal"), 'id -> "howOftenPersonal",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 	                    ),
-	                    'id -> "payPersonalPensionSchemeWrapper",
-	                    'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))
+	                    'id -> "payPersonalPensionSchemeWrapper")
 	            </ul>
 	        </fieldset>
 	

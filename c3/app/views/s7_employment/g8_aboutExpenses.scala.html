@@ -36,8 +36,7 @@
                         inputDef = Seq(
                          carersInputText(currentForm("jobTitle"), 'maxLength -> 30, '_label -> labelForEmployment(claim, lang, "jobTitle", JobID(currentForm))),
                          carersInputText(currentForm("whatExpensesForJob"), 'maxLength -> Mappings.hundred, '_label -> labelForEmployment(claim, lang, "whatExpensesForJob", JobID(currentForm)))),
-                        'id -> "haveExpensesForJobWrap",
-                        'display -> currentForm("haveExpensesForJob").value.getOrElse("no")
+                        'id -> "haveExpensesForJobWrap"
                     )
 
 	                @yesNoRadioGroup(currentForm("payAnyoneToLookAfterChildren"), '_label -> labelForEmployment(claim, lang, "payAnyoneToLookAfterChildren.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
@@ -49,8 +48,7 @@
                           pensionPaymentFrequencySelect(currentForm("howOftenLookAfterChildren"), '_label -> Messages("howOftenLookAfterChildren"), 'id -> "howOftenLookAfterChildren",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60),
                           carersInputText(currentForm("relationToYouLookAfterChildren"), 'maxLength -> Mappings.thirtyfive, '_label -> Messages("relationToYouLookAfterChildren")),
                           carersInputText(currentForm("relationToPersonLookAfterChildren"), 'maxLength -> Mappings.thirtyfive, '_label -> Messages("relationToPersonLookAfterChildren"))),
-                        'id -> "payToLookAfterChildrenJobWrap",
-                        'display -> currentForm("payAnyoneToLookAfterChildren").value.getOrElse("no")
+                        'id -> "payToLookAfterChildrenJobWrap"
                     )
 
 	                @yesNoRadioGroup(currentForm("payAnyoneToLookAfterPerson"), '_label -> labelForEmployment(claim, lang, "payAnyoneToLookAfterPerson.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
@@ -62,8 +60,7 @@
                           pensionPaymentFrequencySelect(currentForm("howOftenLookAfterPerson"), '_label -> Messages("howOftenLookAfterPerson"), 'id -> "howOftenLookAfterPerson",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60),
                           carersInputText(currentForm("relationToYouLookAfterPerson"), 'maxLength -> Mappings.thirtyfive, '_label -> Messages("relationToYouLookAfterPerson")),
                           carersInputText(currentForm("relationToPersonLookAfterPerson"), 'maxLength -> Mappings.thirtyfive, '_label -> Messages("relationToPersonLookAfterPerson"))),
-                        'id -> "payToLookAfterPersonJobWrap",
-                        'display -> currentForm("payAnyoneToLookAfterPerson").value.getOrElse("no")
+                        'id -> "payToLookAfterPersonJobWrap"
                     )
 	            </ul>
 	        </fieldset>
@@ -92,6 +89,7 @@
         "@CarersCrypto.encryptAES("haveExpensesForJob_yes")",
         "@CarersCrypto.encryptAES("haveExpensesForJob_no")",
         "@CarersCrypto.encryptAES("whatExpensesForJob")",
+        "@CarersCrypto.encryptAES("jobTitle")",
         "@CarersCrypto.encryptAES("payAnyoneToLookAfterChildren_yes")",
         "@CarersCrypto.encryptAES("payAnyoneToLookAfterChildren_no")",
         "@CarersCrypto.encryptAES("nameLookAfterChildren")",

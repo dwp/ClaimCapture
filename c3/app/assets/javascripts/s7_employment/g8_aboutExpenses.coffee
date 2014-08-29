@@ -1,5 +1,5 @@
 window.initEvents = (
-        haveExpensesForJobYes, haveExpensesForJobNo, whatExpensesForJob,
+        haveExpensesForJobYes, haveExpensesForJobNo, whatExpensesForJob,jobTitle
         payAnyoneToLookAfterChildrenYes,payAnyoneToLookAfterChildrenNo,
         nameLookAfterChildren,howMuchLookAfterChildren, howOftenLookAfterChildren,
         relationToYouLookAfterChildren,relationToPersonLookAfterChildren,
@@ -7,34 +7,59 @@ window.initEvents = (
         nameLookAfterPerson,howMuchLookAfterPerson, howOftenLookAfterPerson,
         relationToYouLookAfterPerson,relationToPersonLookAfterPerson) ->
 
+  if not $("#" + haveExpensesForJobYes).prop('checked')
+    hideHaveExpensesForJobWrap(whatExpensesForJob, jobTitle)
+
+  if not $("#" + payAnyoneToLookAfterChildrenYes).prop('checked')
+    hidePayToLookAfterChildrenJobWrap(nameLookAfterChildren, howMuchLookAfterChildren, howOftenLookAfterChildren, relationToYouLookAfterChildren, relationToPersonLookAfterChildren)
+
+  if not $("#" + payAnyoneToLookAfterPersonYes).prop('checked')
+    hidePayToLookAfterPersonJobWrap(nameLookAfterPerson, howMuchLookAfterPerson, howOftenLookAfterPerson, relationToYouLookAfterPerson, relationToPersonLookAfterPerson)
+
   $("#" + haveExpensesForJobYes).on "click", ->
-    $("#haveExpensesForJobWrap").slideDown 0
-    $("#haveExpensesForJobWrap").css('display', "block")
+    showHaveExpensesForJobWrap()
 
   $("#" + haveExpensesForJobNo).on "click", ->
-    $("#haveExpensesForJobWrap").slideUp 0, ->
-      $("#" + whatExpensesForJob).val("")
+    hideHaveExpensesForJobWrap(whatExpensesForJob, jobTitle)
 
   $("#" + payAnyoneToLookAfterChildrenYes).on "click", ->
-    $("#payToLookAfterChildrenJobWrap").slideDown 0
-    $("#payToLookAfterChildrenJobWrap").css('display', "block")
+    showPayToLookAfterChildrenJobWrap()
 
   $("#" + payAnyoneToLookAfterChildrenNo).on "click", ->
-    $("#payToLookAfterChildrenJobWrap").slideUp 0, ->
-      $("#" + nameLookAfterChildren).val("")
-      $("#" + howMuchLookAfterChildren).val("")
-      $("#" + howOftenLookAfterChildren).val("")
-      $("#" + relationToYouLookAfterChildren).val("")
-      $("#" + relationToPersonLookAfterChildren).val("")
+    hidePayToLookAfterChildrenJobWrap(nameLookAfterChildren, howMuchLookAfterChildren, howOftenLookAfterChildren, relationToYouLookAfterChildren, relationToPersonLookAfterChildren)
 
   $("#" + payAnyoneToLookAfterPersonYes).on "click", ->
-    $("#payToLookAfterPersonJobWrap").slideDown 0
-    $("#payToLookAfterPersonJobWrap").css('display', "block")
+    showPayToLookAfterPersonJobWrap()
 
   $("#" + payAnyoneToLookAfterPersonNo).on "click", ->
-    $("#payToLookAfterPersonJobWrap").slideUp 0, ->
-      $("#" + nameLookAfterPerson).val("")
-      $("#" + howMuchLookAfterPerson).val("")
-      $("#" + howOftenLookAfterPerson).val("")
-      $("#" + relationToYouLookAfterPerson).val("")
-      $("#" + relationToPersonLookAfterPerson).val("")
+    hidePayToLookAfterPersonJobWrap(nameLookAfterPerson, howMuchLookAfterPerson, howOftenLookAfterPerson, relationToYouLookAfterPerson, relationToPersonLookAfterPerson)
+
+showHaveExpensesForJobWrap = ->
+  $("#haveExpensesForJobWrap").slideDown 0
+
+hideHaveExpensesForJobWrap = (whatExpensesForJob, jobTitle) ->
+  $("#haveExpensesForJobWrap").slideUp 0, ->
+    $("#" + whatExpensesForJob).val("")
+    $("#" + jobTitle).val("")
+
+showPayToLookAfterChildrenJobWrap = ->
+  $("#payToLookAfterChildrenJobWrap").slideDown 0
+
+hidePayToLookAfterChildrenJobWrap = (nameLookAfterChildren, howMuchLookAfterChildren, howOftenLookAfterChildren, relationToYouLookAfterChildren, relationToPersonLookAfterChildren) ->
+  $("#payToLookAfterChildrenJobWrap").slideUp 0, ->
+    $("#" + nameLookAfterChildren).val("")
+    $("#" + howMuchLookAfterChildren).val("")
+    $("#" + howOftenLookAfterChildren).val("")
+    $("#" + relationToYouLookAfterChildren).val("")
+    $("#" + relationToPersonLookAfterChildren).val("")
+
+showPayToLookAfterPersonJobWrap = ->
+  $("#payToLookAfterPersonJobWrap").slideDown 0
+
+hidePayToLookAfterPersonJobWrap = (nameLookAfterPerson, howMuchLookAfterPerson, howOftenLookAfterPerson, relationToYouLookAfterPerson, relationToPersonLookAfterPerson) ->
+  $("#payToLookAfterPersonJobWrap").slideUp 0, ->
+    $("#" + nameLookAfterPerson).val("")
+    $("#" + howMuchLookAfterPerson).val("")
+    $("#" + howOftenLookAfterPerson).val("")
+    $("#" + relationToYouLookAfterPerson).val("")
+    $("#" + relationToPersonLookAfterPerson).val("")
