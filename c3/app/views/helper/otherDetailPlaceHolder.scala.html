@@ -1,15 +1,9 @@
 @(inputDef: Seq[Html], args: (Symbol, Any)*)
 
-@getClass(visible:Boolean) = @{
-    if(!visible) "closure"
-    else ""
-}
-@defining(args.toMap.get('display).map(_.toString).getOrElse("yes") == args.toMap.get('visibleOn).map(_.toString).getOrElse("yes")) { styleDisplay =>
-    <li id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}" class="other-detail @getClass(styleDisplay)">
-        <ul class="extra-group">
-           @for(html <- inputDef) {
-                @html
-           }
-        </ul>
-    </li>
-}
+<li id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}" class="other-detail">
+    <ul class="extra-group">
+       @for(html <- inputDef) {
+            @html
+       }
+    </ul>
+</li>
