@@ -47,8 +47,7 @@
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> Mappings.sixty)),
-	                    'id -> "nameOrOrganisationWrapper",
-	                    'display -> declarationForm("circsSomeOneElse").value.map(p => p match { case "true" => "yes" case _ => p}).getOrElse("no")
+	                    'id -> "nameOrOrganisationWrapper"
 	                )
 	            </ul>
 	
@@ -58,10 +57,9 @@
 	                @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 2000)),
-	                    'id -> "why",
-	                    'display -> (if (claim.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration()).obtainInfoAgreement == "no" || declarationForm("obtainInfoAgreement").value.getOrElse("") == "no" ) "yes" else "no"))
-	
+                           carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 2000)),
+	                    'id -> "why"
+                    )
 	            </ul>
 	        </fieldset>
 	
