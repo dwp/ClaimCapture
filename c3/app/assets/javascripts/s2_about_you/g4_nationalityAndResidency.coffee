@@ -1,8 +1,19 @@
 window.initEvents = (resideInUKY, resideInUKN, residence) ->
+
+  if not $("#" + resideInUKN).prop('checked')
+    hideResidencyWrap(residence)
+
   $("#" + resideInUKN).on "click", ->
-    $("#residencyWrap").slideDown 0
-    $("#residencyWrap").css('display', "block")
+    showResidencyWrap()
+
 
   $("#" + resideInUKY).on "click", ->
-    $("#residencyWrap").slideUp 0, ->
-      $("#" + residence).val("")
+    hideResidencyWrap(residence)
+
+
+showResidencyWrap = ->
+  $("#residencyWrap").slideDown 0
+
+hideResidencyWrap = (residence) ->
+  $("#residencyWrap").slideUp 0, ->
+    $("#" + residence).val("")
