@@ -11,7 +11,7 @@
 
     <fieldset @if(nestedFieldSet) {class="nested-fieldset"} else {class="form-elements"}>
 
-        @radioListPlaceholder(field("answer"), args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items) ++ Seq('listWithOther -> "true"):_*)
+        @radioListPlaceholder(field("answer"), args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items) ++ Seq('class -> "listWithOther"):_*)(request,lang,utils.helpers.EmptyTemplate.fieldConstructor)
 
         @ulDetailPlaceHolder(
             inputDef = Seq(

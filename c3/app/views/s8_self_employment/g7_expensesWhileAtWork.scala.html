@@ -30,7 +30,7 @@
 	            <ul>
 	                @carersInputText(currentForm("nameOfPerson"))
 	
-	                @carersCurrency(currentForm("howMuchYouPay"), '_label -> labelForSelfEmployment(claim, lang, "howMuchYouPay"), 'maxlength -> Mappings.sixty)
+	                @carersCurrency(currentForm("howMuchYouPay"), '_label -> labelForSelfEmployment(claim, lang, "howMuchYouPay"), 'maxLength -> Mappings.sixty)
 	
 	                @pensionPaymentFrequencySelect(currentForm("howOftenPayExpenses"), '_label -> labelForSelfEmployment(claim, lang, "howOftenPayExpenses"), 'id -> "howOftenPayExpenses",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 	
@@ -53,8 +53,6 @@
 	        </nav>
         </div>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
@@ -63,3 +61,4 @@ $(function(){
     window.areaCounter({selector:"@CarersCrypto.encryptAES("howOftenPayExpenses_frequency_other")",maxChars:60});
 })
 </script>
+}

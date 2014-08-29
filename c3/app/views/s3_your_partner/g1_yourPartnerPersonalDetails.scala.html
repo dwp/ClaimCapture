@@ -69,37 +69,36 @@
                 </ul>
             </nav>
     }
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s3_your_partner/g1_yourPartnerPersonalDetails.js")'></script>
+
+    <script type="text/javascript">
+    $(function(){
+        @ga.stagePrompt()
+    })
+
+    $(function(){
+        window.initEvents("@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
+        "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
+        "@CarersCrypto.encryptAES("title")",
+        "@CarersCrypto.encryptAES("firstName")",
+        "@CarersCrypto.encryptAES("middleName")",
+        "@CarersCrypto.encryptAES("surname")",
+        "@CarersCrypto.encryptAES("otherNames")",
+        "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni1")",
+        "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni2")",
+        "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni3")",
+        "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni4")",
+        "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni5")",
+        "@CarersCrypto.encryptAES("dateOfBirth_day")",
+        "@CarersCrypto.encryptAES("dateOfBirth_month")",
+        "@CarersCrypto.encryptAES("dateOfBirth_year")",
+        "@CarersCrypto.encryptAES("nationality")",
+        "@CarersCrypto.encryptAES("separated_fromPartner_yes")",
+        "@CarersCrypto.encryptAES("separated_fromPartner_no")",
+        "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
+        "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")"
+        );
+    })
+
+    </script>
 }
-
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s3_your_partner/g1_yourPartnerPersonalDetails.js")'></script>
-
-<script type="text/javascript">
-$(function(){
-    @ga.stagePrompt()
-})
-
-$(function(){
-window.initEvents("@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
-                  "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
-                  "@CarersCrypto.encryptAES("title")",
-                  "@CarersCrypto.encryptAES("firstName")",
-                  "@CarersCrypto.encryptAES("middleName")",
-                  "@CarersCrypto.encryptAES("surname")",
-                  "@CarersCrypto.encryptAES("otherNames")",
-                  "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni1")",
-                  "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni2")",
-                  "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni3")",
-                  "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni4")",
-                  "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni5")",
-                  "@CarersCrypto.encryptAES("dateOfBirth_day")",
-                  "@CarersCrypto.encryptAES("dateOfBirth_month")",
-                  "@CarersCrypto.encryptAES("dateOfBirth_year")",
-                  "@CarersCrypto.encryptAES("nationality")",
-                  "@CarersCrypto.encryptAES("separated_fromPartner_yes")",
-                  "@CarersCrypto.encryptAES("separated_fromPartner_no")",
-                  "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
-                  "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")"
-);
-})
-
-</script>

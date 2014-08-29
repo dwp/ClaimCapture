@@ -6,7 +6,7 @@
 @import views.html.helper.base._
 @import play.api.i18n.{MMessages => Messages}
 
-@input(field, args ++
+@input(field, args.filter(p=> p._1 == 'maxLength) ++
               Seq('autocomplete -> "off") ++
               (args.find(_._1 == 'maxLength) match{ case Some(_) => Seq() case _ => Seq('maxLength -> Mappings.sixty)}):_* ) { (id, name, value, htmlArgs) =>
 

@@ -21,7 +21,7 @@
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
-                    <ul ul aria-label="@Html(Messages("completedQuestions"))">
+                    <ul aria-label="@Html(Messages("completedQuestions"))">
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                         <li>
                             <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>

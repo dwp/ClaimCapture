@@ -96,6 +96,8 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
+          .replaceError("wherePersonBreaksInCare.answer","error.required",FormError("wherePersonBreaksInCare","error.required"))
+          .replaceError("whereYouBreaksInCare.answer","error.required",FormError("whereYouBreaksInCare","error.required"))
           .replaceError("breakEnded","endDate", FormError("breakEnded.endDate", "error.required"))
           .replaceError("","expectStartCaring", FormError("expectStartCaring.answer", "error.required"))
           .replaceError("expectStartCaring","permanentBreakDate", FormError("expectStartCaring.permanentBreakDate", "error.required"))

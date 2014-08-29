@@ -52,23 +52,25 @@
 	        </nav>
         </div>
     }
-}
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s7_employment/g3_jobDetails.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s7_employment/g3_jobDetails.js")'></script>
 
-<script type="text/javascript">
-$(function(){
+    <script type="text/javascript">
+    $(function(){
     window.initEvents(
-        "@CarersCrypto.encryptAES("finishedThisJob_yes")",
-        "@CarersCrypto.encryptAES("finishedThisJob_no")",
-        "@CarersCrypto.encryptAES("lastWorkDate_day")",
-        "@CarersCrypto.encryptAES("lastWorkDate_month")",
-        "@CarersCrypto.encryptAES("lastWorkDate_year")",
-        "@CarersCrypto.encryptAES("p45LeavingDate_day")",
-        "@CarersCrypto.encryptAES("p45LeavingDate_month")",
-        "@CarersCrypto.encryptAES("p45LeavingDate_year")",
-        "@CarersCrypto.encryptAES("hoursPerWeek")"
+    "@CarersCrypto.encryptAES("finishedThisJob_yes")",
+    "@CarersCrypto.encryptAES("finishedThisJob_no")",
+    "@CarersCrypto.encryptAES("lastWorkDate_day")",
+    "@CarersCrypto.encryptAES("lastWorkDate_month")",
+    "@CarersCrypto.encryptAES("lastWorkDate_year")",
+    "@CarersCrypto.encryptAES("p45LeavingDate_day")",
+    "@CarersCrypto.encryptAES("p45LeavingDate_month")",
+    "@CarersCrypto.encryptAES("p45LeavingDate_year")",
+    "@CarersCrypto.encryptAES("hoursPerWeek")"
     );
     });
-</script>
+    </script>
+}
+
+
 

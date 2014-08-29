@@ -1,10 +1,10 @@
 $ ->
-    $("select[selectWithOther=true] option:selected").each ->
-        $(this).closest("li").next().hide() if ($(this).val().toLowerCase() != "other")
+    $("select[class=selectWithOther] option:selected").each ->
+        $(this).parent().next().slideUp(0) if ($(this).val().toLowerCase() != "other")
 
-    $("select[selectWithOther=true]").change ->
+    $("select[class=selectWithOther]").change ->
         if $(this).val().toLowerCase() is "other"
-            $(this).parent().next().slideDown()
+            $(this).next().slideDown(0)
         else
             textArea = $(this).parent().next().find("textarea")
-            $(this).parent().next().slideUp -> textArea.val("")
+            $(this).next().slideUp {duration:0,complete:-> textArea.val("")}

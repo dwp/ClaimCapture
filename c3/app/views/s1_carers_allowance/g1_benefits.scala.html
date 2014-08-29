@@ -36,6 +36,7 @@
 			            <dd>@Html(Messages("s1.g1.help9"))</dd>
 			
 			            <dt>@Html(Messages("s1.g1.help10"))</dt>
+                        <dd> </dd>
 		            
 		            </dl>
 		            
@@ -59,13 +60,14 @@
 		        </nav>
 
     }
-}
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
     $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("benefits_answer_yes")", "@CarersCrypto.encryptAES("benefits_answer_no")");
+    window.initEvents("@CarersCrypto.encryptAES("benefits_answer_yes")", "@CarersCrypto.encryptAES("benefits_answer_no")");
         @ga.stagePrompt()
     });
-</script>
+    </script>
+}
+

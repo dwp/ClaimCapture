@@ -16,10 +16,10 @@
         <input type="hidden" id="js" name="jsEnabled" value="false">
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <p>@Html(Messages("c1.helper"))</p>
-	
-	            <legend>@Html(Messages("c1.yourDetails"))</legend>
-	
+                <legend>@Html(Messages("c1.yourDetails"))</legend>
+
+                <p>@Html(Messages("c1.helper"))</p>
+
 	            <ul>
 	                @carersInputText(reportAChangeForm("fullName"), 'maxLength -> 35)
 	
@@ -32,7 +32,7 @@
 	        </fieldset>
 	        
 	        <fieldset class="form-elements">
-	        <legend>@Html(Messages("c1.personYouAreCaringFor"))</legend>
+	            <legend>@Html(Messages("c1.personYouAreCaringFor"))</legend>
 	            <ul>
 	                @carersInputText(reportAChangeForm("theirFullName"), 'maxLength -> 35)
 	
@@ -47,5 +47,5 @@
 	        </nav>
         </div>
     }
-}
 <script type="text/javascript">$($("#js").val("true"));</script>
+}
