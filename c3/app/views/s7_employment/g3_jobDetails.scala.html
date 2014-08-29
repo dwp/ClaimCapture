@@ -40,8 +40,7 @@
                             inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("jobStartDate.helper")),
                             carersShortInputText(currentForm("hoursPerWeek"),
                             '_label -> labelForEmployment(claim, lang, "hoursPerWeek", JobID(currentForm)), 'maxlength -> 2)),
-	                    'id -> "lastWorkData",
-	                    'display -> currentForm("finishedThisJob").value.getOrElse("no"))
+	                    'id -> "lastWorkData")
 	            </ul>
 	        </fieldset>
 	
@@ -55,25 +54,21 @@
     }
 }
 
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s7_employment/g3_jobDetails.js")'></script>
+
 <script type="text/javascript">
-    $(function() {
-        var hoursPerWeek = $("label[for='hoursPerWeek']");
-        var lastWorkData = $("#lastWorkData");
-        var finishedJobY = $("#@CarersCrypto.encryptAES("finishedThisJob_yes")");
-        var finishedJobN = $("#@CarersCrypto.encryptAES("finishedThisJob_no")");
-
-        finishedJobY.change(function() {
-            if ($(this).val() === "yes") {
-                hoursPerWeek.text(hoursPerWeek.text().replace("do","did"));
-                lastWorkData.slideDown();
-            }
-        });
-
-        finishedJobN.change(function() {
-            if ($(this).val() === "no") {
-                hoursPerWeek.text(hoursPerWeek.text().replace("did","do"));
-                lastWorkData.slideUp();
-            }
-        });
+$(function(){
+    window.initEvents(
+        "@CarersCrypto.encryptAES("finishedThisJob_yes")",
+        "@CarersCrypto.encryptAES("finishedThisJob_no")",
+        "@CarersCrypto.encryptAES("lastWorkDate_day")",
+        "@CarersCrypto.encryptAES("lastWorkDate_month")",
+        "@CarersCrypto.encryptAES("lastWorkDate_year")",
+        "@CarersCrypto.encryptAES("p45LeavingDate_day")",
+        "@CarersCrypto.encryptAES("p45LeavingDate_month")",
+        "@CarersCrypto.encryptAES("p45LeavingDate_year")",
+        "@CarersCrypto.encryptAES("hoursPerWeek")"
+    );
     });
 </script>
+
