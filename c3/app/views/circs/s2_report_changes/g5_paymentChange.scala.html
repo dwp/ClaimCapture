@@ -20,9 +20,8 @@
     @form(action = controllers.circs.s2_report_changes.routes.G5PaymentChange.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <p class="security-message">@Html(Messages("c2.payment.helper"))</p>
-	
 	            <legend>@Html(Messages("c2.g5"))</legend>
+                <p class="security-message">@Html(Messages("c2.payment.helper"))</p>
 	
 	            <ul class="coc-layout">
 	                @yesNoRadioGroup(currentForm("currentlyPaidIntoBank.answer"),

@@ -17,10 +17,10 @@
     @form(action = controllers.circs.s2_report_changes.routes.G6AddressChange.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <p class="security-message">@Html(Messages("c2.address.helper"))</p>
-	
+
 	            <legend>@Html(Messages("c2.g6.previousAddress"))</legend>
-	
+
+                <p class="security-message">@Html(Messages("c2.address.helper"))</p>
 	            <ul>
 	                @inputAddress(addressForm("previousAddress"))
 	

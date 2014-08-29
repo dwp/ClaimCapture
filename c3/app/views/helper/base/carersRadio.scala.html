@@ -19,6 +19,20 @@
         id.replace(" ","_").replace("'","")
     }
 
+    @addOtherValue(value:String,htmlArgs:Map[Symbol,Any]) = @{
+        if(value == args.toMap.get('otherValue).map(_.toString).getOrElse("empty")){
+            val classes = if(htmlArgs.contains('class)){
+                htmlArgs.get('class).get.toString + " otherValue"
+            }else{
+                "otherValue"
+            }
+            htmlArgs + ('class -> classes)
+
+        }else{
+            htmlArgs
+        }
+    }
+
 
 @helper.input(field, args.filter(a => a._1 == 'class):_*) { (id, name, value, htmlArgs) =>
 
@@ -26,7 +40,7 @@
         <li>
             @{/* printing the id needs replacement of spaces for underscores because browsers don't like spaces */}
             <label for="@CarersCrypto.encryptAES(id+"_"+replaceCharacters(v._1))">
-            <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+replaceCharacters(v._1))" name="@CarersCrypto.encryptAES(field.name)" onclick="@gaTrack(id,v)"  value="@v._1" @(if(value == Some(v._1)) "checked" else "") @toHtmlArgs(htmlArgs)>
+            <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+replaceCharacters(v._1))" name="@CarersCrypto.encryptAES(field.name)" onclick="@gaTrack(id,v)"  value="@v._1" @(if(value == Some(v._1)) "checked" else "") @{toHtmlArgs(addOtherValue(v._1,htmlArgs))}>
             <span>@v._2</span></label>
         </li>
     }
