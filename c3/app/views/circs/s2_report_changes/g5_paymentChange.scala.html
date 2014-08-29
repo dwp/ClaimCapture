@@ -34,8 +34,7 @@
 	                            '_label -> Messages("currentlyPaidIntoBank.text1.label"),
 	                            'maxLength -> 35)
 	                    ),
-	                    'id -> "currentlyPaidIntoBankWrap1",
-	                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "yes") "yes" else "no" }
+	                    'id -> "currentlyPaidIntoBankWrap1"
 	                )
 	
 	                @otherDetailPlaceHolder(
@@ -44,8 +43,7 @@
 	                            '_label -> Messages("currentlyPaidIntoBank.text2.label"),
 	                            'maxLength -> 35)
 	                    ),
-	                    'id -> "currentlyPaidIntoBankWrap2",
-	                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "no") "yes" else "no" }
+	                    'id -> "currentlyPaidIntoBankWrap2"
 	                )
 	            </ul>
 	        </fieldset>
