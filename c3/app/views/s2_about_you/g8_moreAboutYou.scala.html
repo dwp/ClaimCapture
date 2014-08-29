@@ -31,8 +31,7 @@
 
                 @ulDetailPlaceHolder(
                     inputDef = Seq(yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperAbove -> Messages(if (moreAboutYouForm("maritalStatus").value.getOrElse("") != "w") "hadPartnerSinceClaimDate.helper1" else "hadPartnerSinceClaimDate.helper2"))),
-                    'id -> "hadPartnerWrapper",
-                    'display -> { if (notSingleNorLivingWithPartner) "yes" else "no" }
+                    'id -> "hadPartnerWrapper"
                 )
 
             </fieldset>
