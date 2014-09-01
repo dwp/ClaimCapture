@@ -1,7 +1,15 @@
 window.initEvents = (check,input) ->
-  selector = "#" + check
-  $(selector).change ->
-    if $(selector).is(':checked')
-      $("#nameOrOrgWrapper").slideDown 0
+  if not $("#" + check).prop 'checked'
+    hideNameOrgWrapper(input)
+
+  $("#" + check).change ->
+    if $("#" + check).is(':checked')
+      showNameOrgWrapper()
     else
-      $("#nameOrOrgWrapper").slideUp 0, -> $("#"+input).val("")
+      hideNameOrgWrapper(input)
+
+hideNameOrgWrapper = (input)->
+  $("#nameOrOrgWrapper").slideUp 0, -> $("#"+input).val("")
+
+showNameOrgWrapper = ->
+  $("#nameOrOrgWrapper").slideDown 0

@@ -1,6 +1,16 @@
 window.initEvents = (anythingElseY,anythingElseN,anythingElseText) ->
+
+  if not $("#" + anythingElseY).prop 'checked'
+    hideAnythingElseWrapper(anythingElseText)
+
   $("#" + anythingElseY).on "click", ->
-    $("#anythingElseWrapper").slideDown 0
+    showAnythingElseWrapper()
 
   $("#" + anythingElseN).on "click", ->
-    $("#anythingElseWrapper").slideUp 0, -> $("#"+anythingElseText).val("")
+    hideAnythingElseWrapper(anythingElseText)
+
+showAnythingElseWrapper = ->
+  $("#anythingElseWrapper").slideDown 0
+
+hideAnythingElseWrapper = (anythingElseText) ->
+  $("#anythingElseWrapper").slideUp 0, -> $("#"+anythingElseText).val("")

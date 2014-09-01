@@ -1,12 +1,32 @@
 window.initEvents = (informationFromEmployerY, informationFromEmployerN,informationFromPersonY,informationFromPersonN,why,whyWrapper,whyPerson,whyPersonWrapper) ->
+
+  if not $("#" + informationFromEmployerN).prop 'checked'
+    hideWhyWrapper(whyWrapper)
+
+  if not $("#" + informationFromPersonN).prop 'checked'
+    hideWhyPersonWrapper(whyPersonWrapper)
+
   $("#" + informationFromEmployerY).on "click", ->
-    $("#"+whyWrapper).slideUp 0, -> $("#"+why).val("")
+    hideWhyWrapper(whyWrapper,why)
 
   $("#" + informationFromEmployerN).on "click", ->
-    $("#"+whyWrapper).slideDown 0
+    showWhyWrapper(whyWrapper)
 
   $("#" + informationFromPersonY).on "click", ->
-    $("#"+whyPersonWrapper).slideUp 0, -> $("#"+whyPerson).val("")
+    hideWhyPersonWrapper(whyPersonWrapper,whyPerson)
 
   $("#" + informationFromPersonN).on "click", ->
-    $("#"+whyPersonWrapper).slideDown 0
+    showWhyPersonWrapper(whyPersonWrapper)
+
+
+showWhyWrapper = (whyWrapper) ->
+  $("#"+whyWrapper).slideDown 0
+
+hideWhyWrapper = (whyWrapper,why)->
+  $("#"+whyWrapper).slideUp 0, -> $("#"+why).val("")
+
+hideWhyPersonWrapper = (whyPersonWrapper,whyPerson) ->
+  $("#"+whyPersonWrapper).slideUp 0, -> $("#"+whyPerson).val("")
+
+showWhyPersonWrapper = (whyPersonWrapper) ->
+  $("#"+whyPersonWrapper).slideDown 0
