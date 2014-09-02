@@ -73,6 +73,7 @@ object ClaimSubmissionService {
   val COMMUNICATION_ERROR = "9005"
   val SERVICE_UNAVAILABLE = "9006"
   val BAD_GATEWAY = "9007"
+  val INTERNAL_ERROR = "9008"
 
 
   def httpStatusCodes(status: Int) = status match {
