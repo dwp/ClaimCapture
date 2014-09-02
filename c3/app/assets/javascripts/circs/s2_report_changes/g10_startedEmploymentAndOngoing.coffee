@@ -134,15 +134,14 @@ window.beenPaidYet = (ctx) ->
 
 window.payDay = (o) ->
   S(o.howOftenFrequency).change ->
-    if visible("#usuallyPaidSameAmountWrap")
+    if visible("usuallyPaidSameAmountWrap")
       S("usuallyPaidSameAmountWrap").slideUp 0, ->
         checked(o.usuallyPaidSameAmountY,false)
         checked(o.usuallyPaidSameAmountN,false)
 
-    S("monthlyPayDayWrap").slideUp 0, -> val(o.monthlyPayDay,"") if visible("#monthlyPayDayWrap")
+    S("monthlyPayDayWrap").slideUp 0, -> val(o.monthlyPayDay,"") if visible("monthlyPayDayWrap")
 
-    if val(o.howOftenFrequency) is o.defaultValue or val(o.howOftenFrequency) is ""
-    else
+    if not (val(o.howOftenFrequency) is o.defaultValue or val(o.howOftenFrequency) is "")
       if checked(o.beenPaidYetN)
         textToUse = switch (val(o.howOftenFrequency))
           when "weekly" then o.usuallyPaidSameAmountWeeklyTextExpected
@@ -150,8 +149,7 @@ window.payDay = (o) ->
           when "fourweekly" then o.usuallyPaidSameAmountFourWeeklyTextExpected
           when "monthly" then o.usuallyPaidSameAmountMonthlyTextExpected
           else o.usuallyPaidSameAmountOtherTextExpected
-
-          legend(o.usuallyPaidSameAmount).html(textToUse)
+        legend(o.usuallyPaidSameAmount).html(textToUse)
           
       if checked(o.beenPaidYetY)
         textToUse = switch (val(o.howOftenFrequency))
@@ -160,7 +158,6 @@ window.payDay = (o) ->
           when "fourweekly" then o.usuallyPaidSameAmountFourWeeklyText
           when "monthly" then o.usuallyPaidSameAmountMonthlyText
           else o.usuallyPaidSameAmountOtherText
-
         legend(o.usuallyPaidSameAmount).html(textToUse)
 
       checked(o.usuallyPaidSameAmountY, false)
