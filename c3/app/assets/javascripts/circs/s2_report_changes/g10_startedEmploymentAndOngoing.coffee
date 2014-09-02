@@ -9,59 +9,51 @@ subString = (str,start,end) -> str.substring(start.length,end.length)
 visible = (selector) -> $("##{selector}").is(":visible")
 legend = (selector)-> $("##{selector}").parent().find("legend")
 label = (selector) -> $("label[for='#{selector}']")
+S = (selector) -> $("##{selector}")
 
 
 #
 # Fix Error Messages function
 #
 
-window.fixErrorMessages = (beenPaidYetY, beenPaidYetN,
-                           howMuchPaid, howMuchPaidYText, howMuchPaidNText,
-                           whatDatePaid, whatDatePaidYText, whatDatePaidNText,
-                           howOften, howOftenFrequency, howOftenText, howOftenYText, howOftenNText,
-                           usuallyPaidSameAmount, usuallyPaidSameAmountText,
-                           usuallyPaidSameAmountYWeekText, usuallyPaidSameAmountNWeekText,
-                           usuallyPaidSameAmountYFortnightText, usuallyPaidSameAmountNFortnightText,
-                           usuallyPaidSameAmountYFourWeekText, usuallyPaidSameAmountNFourWeekText,
-                           usuallyPaidSameAmountYMonthText, usuallyPaidSameAmountNMonthText,
-                           usuallyPaidSameAmountYOtherText, usuallyPaidSameAmountNOtherText) ->
+window.fixErrorMessages = (o) ->
 
-  currentText = vssText(howOften)
-  vssText(howOften, howOftenNText + subString(currentText, howOftenText, currentText))
+  currentText = vssText(o.howOften)
+  vssText(o.howOften, o.howOftenNText + subString(currentText, o.howOftenText, currentText))
 
-  if checked beenPaidYetN
-    currentText = vssText(howMuchPaid)
-    vssText(howMuchPaid,howMuchPaidNText + subString(currentText, howMuchPaidYText, currentText))
+  if checked o.beenPaidYetN
+    currentText = vssText(o.howMuchPaid)
+    vssText(o.howMuchPaid,o.howMuchPaidNText + subString(currentText, o.howMuchPaidYText, currentText))
 
-    currentText = vssText(whatDatePaid)
-    vssText(whatDatePaid,whatDatePaidNText + subString(currentText, whatDatePaidYText, currentText))
+    currentText = vssText(o.whatDatePaid)
+    vssText(o.whatDatePaid,o.whatDatePaidNText + subString(currentText, o.whatDatePaidYText, currentText))
 
-    currentText = vssText(howOften)
-    vssText(howOften,howOftenNText + subString(currentText, howOftenText, currentText))
+    currentText = vssText(o.howOften)
+    vssText(o.howOften,o.howOftenNText + subString(currentText, o.howOftenText, currentText))
 
-    currentText = vssText(usuallyPaidSameAmount)
+    currentText = vssText(o.usuallyPaidSameAmount)
 
-    textToUse = switch (val howOftenFrequency)
-      when "weekly"       then usuallyPaidSameAmountNWeekText
-      when "fortnightly"  then usuallyPaidSameAmountNFortnightText
-      when "fourweekly"   then usuallyPaidSameAmountNFourWeekText
-      when "monthly"      then usuallyPaidSameAmountNMonthText
-      else usuallyPaidSameAmountNOtherText
+    textToUse = switch (val o.howOftenFrequency)
+      when "weekly"       then o.usuallyPaidSameAmountNWeekText
+      when "fortnightly"  then o.usuallyPaidSameAmountNFortnightText
+      when "fourweekly"   then o.usuallyPaidSameAmountNFourWeekText
+      when "monthly"      then o.usuallyPaidSameAmountNMonthText
+      else o.usuallyPaidSameAmountNOtherText
 
-    vssText(usuallyPaidSameAmount,textToUse + subString(currentText, usuallyPaidSameAmountText, currentText))
+    vssText(o.usuallyPaidSameAmount,textToUse + subString(currentText, o.usuallyPaidSameAmountText, currentText))
 
-  if checked beenPaidYetY
-    currentText = vssText(usuallyPaidSameAmount)
-    textToUse = switch (val(howOftenFrequency))
-      when "weekly" then usuallyPaidSameAmountNWeekText
-      when "fortnightly" then usuallyPaidSameAmountNFortnightText
-      when "fourweekly" then usuallyPaidSameAmountNFourWeekText
-      when "monthly" then usuallyPaidSameAmountNMonthText
-      else usuallyPaidSameAmountNOtherText
-    vssText(usuallyPaidSameAmount,textToUse + subString(currentText, usuallyPaidSameAmountText, currentText))
+  if checked o.beenPaidYetY
+    currentText = vssText(o.usuallyPaidSameAmount)
+    textToUse = switch (val(o.howOftenFrequency))
+      when "weekly" then o.usuallyPaidSameAmountNWeekText
+      when "fortnightly" then o.usuallyPaidSameAmountNFortnightText
+      when "fourweekly" then o.usuallyPaidSameAmountNFourWeekText
+      when "monthly" then o.usuallyPaidSameAmountNMonthText
+      else o.usuallyPaidSameAmountNOtherText
+    vssText(o.usuallyPaidSameAmount,textToUse + subString(currentText, o.usuallyPaidSameAmountText, currentText))
 
-    currentText = vssText(howOften)
-    vssText(howOften,howOftenYText + subString(currentText, howOftenText, currentText))
+    currentText = vssText(o.howOften)
+    vssText(o.howOften,o.howOftenYText + subString(currentText, o.howOftenText, currentText))
 
 
 
@@ -106,24 +98,24 @@ hideBeenPaidYetWrapOnN = (o) ->
     else o.usuallyPaidSameAmountOtherTextExpected
 
   legend(usuallyPaidSameAmount).html(textToUse)
-  $("#" + o.usuallyPaidSameAmountY).prop('checked', false)
-  $("#" + o.usuallyPaidSameAmountN).prop('checked', false)
+  checked(o.usuallyPaidSameAmountY, false)
+  checked(o.usuallyPaidSameAmountN, false)
 
 onBeenPaidYetY = (ctx) -> #Double -> because it's a function returning a function, which the jQuqery .on function will receive.
   ->                      #The first function exists so the returned function has the "context" variable in scope
-    $("#beenPaidYetWrap").slideUp 0, -> hideBeenPaidYetWrapOnY(ctx)
-    $("#usuallyPaidSameAmountWrap").slideUp 0
-    $("#monthlyPayDayWrap").slideUp 0 if visible ctx.monthlyPayDayWrap
-    $("#beenPaidYetWrap").slideDown 0
-    $("#howOften_wrap").slideUp(0, -> val ctx.howOftenFrequencyOther , "") if visible ctx.howOften_wrap
+    S("beenPaidYetWrap").slideUp 0, -> hideBeenPaidYetWrapOnY(ctx)
+    S("usuallyPaidSameAmountWrap").slideUp 0
+    S("monthlyPayDayWrap").slideUp 0 if visible ctx.monthlyPayDayWrap
+    S("beenPaidYetWrap").slideDown 0
+    S("howOften_wrap").slideUp(0, -> val ctx.howOftenFrequencyOther , "") if visible ctx.howOften_wrap
 
 onBeenPaidYetN = (ctx) -> #Double -> because it's a function returning a function, which the jQuqery .on function will receive.
   ->                      #The first function exists so the returned function has the "context" variable in scope
-    $("#beenPaidYetWrap").slideUp 0, -> hideBeenPaidYetWrapOnN(ctx)
-    $("#usuallyPaidSameAmountWrap").slideUp 0
-    $("#monthlyPayDayWrap").slideUp 0 if visible ctx.monthlyPayDayWrap
-    $("#beenPaidYetWrap").slideDown 0
-    $("#howOften_wrap").slideUp(0, -> val ctx.howOftenFrequencyOther, "") if visible ctx.howOften_wrap
+    S("beenPaidYetWrap").slideUp 0, -> hideBeenPaidYetWrapOnN(ctx)
+    S("usuallyPaidSameAmountWrap").slideUp 0
+    S("monthlyPayDayWrap").slideUp 0 if visible ctx.monthlyPayDayWrap
+    S("beenPaidYetWrap").slideDown 0
+    S("howOften_wrap").slideUp(0, -> val ctx.howOftenFrequencyOther, "") if visible ctx.howOften_wrap
 
 
 #
@@ -131,8 +123,8 @@ onBeenPaidYetN = (ctx) -> #Double -> because it's a function returning a functio
 #
 
 window.beenPaidYet = (ctx) ->
-  $("#" + ctx.beenPaidYetY).on "click", onBeenPaidYetY(ctx)
-  $("#" + ctx.beenPaidYetN).on "click", onBeenPaidYetN(ctx)
+  S(ctx.beenPaidYetY).on "click", onBeenPaidYetY(ctx)
+  S(ctx.beenPaidYetN).on "click", onBeenPaidYetN(ctx)
 
 
 
@@ -141,13 +133,13 @@ window.beenPaidYet = (ctx) ->
 #
 
 window.payDay = (o) ->
-  $("#" + o.howOftenFrequency).change ->
+  S(o.howOftenFrequency).change ->
     if visible("#usuallyPaidSameAmountWrap")
-      $("#usuallyPaidSameAmountWrap").slideUp 0, ->
-      checked(o.usuallyPaidSameAmountY,false)
-      checked(o.usuallyPaidSameAmountN,false)
+      S("usuallyPaidSameAmountWrap").slideUp 0, ->
+        checked(o.usuallyPaidSameAmountY,false)
+        checked(o.usuallyPaidSameAmountN,false)
 
-    $("#monthlyPayDayWrap").slideUp 0, -> val(o.monthlyPayDay,"") if visible("#monthlyPayDayWrap")
+    S("monthlyPayDayWrap").slideUp 0, -> val(o.monthlyPayDay,"") if visible("#monthlyPayDayWrap")
 
     if val(o.howOftenFrequency) is o.defaultValue or val(o.howOftenFrequency) is ""
     else
@@ -158,7 +150,7 @@ window.payDay = (o) ->
           when "fourweekly" then o.usuallyPaidSameAmountFourWeeklyTextExpected
           when "monthly" then o.usuallyPaidSameAmountMonthlyTextExpected
           else o.usuallyPaidSameAmountOtherTextExpected
-            
+
           legend(o.usuallyPaidSameAmount).html(textToUse)
           
       if checked(o.beenPaidYetY)
@@ -173,32 +165,24 @@ window.payDay = (o) ->
 
       checked(o.usuallyPaidSameAmountY, false)
       checked(o.usuallyPaidSameAmountN, false)
-      $("#usuallyPaidSameAmountWrap").slideDown(0)
+      S("usuallyPaidSameAmountWrap").slideDown(0)
 
 
-    $("#monthlyPayDayWrap").slideDown(0) if val(o.howOftenFrequency) is "monthly"
+    S("monthlyPayDayWrap").slideDown(0) if val(o.howOftenFrequency) is "monthly"
 
 #
 # What For function
 #
 
 window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
-  $("#" + payIntoPensionY).on "click", ->
-    $("#whatForWrap").slideDown 0
-    $("#whatForWrap").css('display', "block")
+  S(payIntoPensionY).on "click", -> S("whatForWrap").slideDown 0
 
-  $("#" + payIntoPensionN).on "click", ->
-    $("#whatForWrap").slideUp 0, ->
-      val(whatFor,"")
+  S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp 0, -> val(whatFor,"")
 
 #
 # What Costs function
 #
 window.whatCosts = (careCostsForThisWorkY, careCostsForThisWorkN, whatCosts) ->
-  $("#" + careCostsForThisWorkY).on "click", ->
-    $("#whatCostsWrap").slideDown 0
-    $("#whatCostsWrap").css('display', "block")
+  S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown 0
 
-  $("#" + careCostsForThisWorkN).on "click", ->
-    $("#whatCostsWrap").slideUp 0, ->
-      val(whatCosts,"")
+  S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp 0, -> val(whatCosts,"")
