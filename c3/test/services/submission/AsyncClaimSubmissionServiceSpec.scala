@@ -123,7 +123,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,None,None,None))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,1,None,None,None))
 
     }
 
@@ -137,7 +137,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,None,None,None))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,1,None,None,None))
 
     }
 

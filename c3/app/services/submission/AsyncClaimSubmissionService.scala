@@ -39,10 +39,10 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
       )
     } catch {
       case e:Exception =>
-        Logger.error(s"INTERNAL_SERVER_ERROR [$SERVER_ERROR] transactionId [$txnID].")
+        Logger.error(s"INTERNAL_SERVER_ERROR [$INTERNAL_ERROR] transactionId [$txnID].")
         Logger.error("global error talking to Claim Received service.",e)
-        updateTransactionAndCache(txnID, SERVER_ERROR, claim)
-        Counters.incrementSubmissionErrorStatus(SERVER_ERROR)
+        updateTransactionAndCache(txnID, INTERNAL_ERROR, claim)
+        Counters.incrementSubmissionErrorStatus(INTERNAL_ERROR)
     }
   }
 
@@ -66,8 +66,8 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
       getFromCache(claim) match {
         case Some(x) =>
           Logger.error(s"Already in cache, should not be submitting again! Duplicate claim submission. ${claim.key} ${claim.uuid} fingerprint: ${encrypt(x)}")
-          Logger.error(s"Status ${SERVER_ERROR} for ${claim.key} ${claim.uuid} transactionId [${claim.transactionId.get}].")
-          claimTransaction.updateStatus(claim.transactionId.get, SERVER_ERROR, claimType(claim))
+          Logger.error(s"Status ${INTERNAL_ERROR} for ${claim.key} ${claim.uuid} transactionId [${claim.transactionId.get}].")
+          claimTransaction.updateStatus(claim.transactionId.get, INTERNAL_ERROR, claimType(claim))
 
         // this gets logged by the actor
         throw new DuplicateClaimException("Duplicate claim submission.")
