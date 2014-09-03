@@ -20,10 +20,11 @@
 	            <legend>@Html(Messages("s2.g4"))</legend>
 	
 	            <ul>
-	                @yesNoRadioGroup(nationalityAndResidencyForm("nationality"),
+	                @listRadioGroup(nationalityAndResidencyForm("nationality"),
                         'helperAbove -> Messages("nationality.helper"),
-                        'values -> Seq(NationalityAndResidency.british -> Messages("label.british"), NationalityAndResidency.anothercountry -> Messages("label.anothercountry")),
-	                    '_label -> Messages("nationality.label"))
+                        'items -> Seq(NationalityAndResidency.british -> Messages("label.british"), NationalityAndResidency.anothercountry -> Messages("label.anothercountry")),
+	                    '_label -> Messages("nationality.label"),
+                        '_nestedFieldSet -> true)
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
