@@ -57,17 +57,17 @@ window.fixErrorMessages = (o) ->
 
 
 
-hideBeenPaidYetWrapOnY = (o) ->
+hideBeenPaidYetWrapOnY = (o,reset) ->
   label(o.howMuchPaid).text(o.howMuchPaidYText)
-  val(o.howMuchPaid,"")
+  val(o.howMuchPaid,"") if reset
   legend(o.whatDatePaid).html(o.whatDatePaidYText)
-  val(o.whatDatePaidDay,"")
-  val(o.whatDatePaidMonth,"")
-  val(o.whatDatePaidYear,"")
+  val(o.whatDatePaidDay,"") if reset
+  val(o.whatDatePaidMonth,"") if reset
+  val(o.whatDatePaidYear,"") if reset
   label(o.howOften).text(o.howOftenYText)
-  val(o.howOften,"")
+  val(o.howOften,"") if reset
   label(o.monthlyPayDay).text(o.monthlyPayDayYText)
-  val(o.monthlyPayDay,"")
+  val(o.monthlyPayDay,"") if reset
   textToUse = switch (val(o.howOften))
     when "weekly" then o.usuallyPaidSameAmountWeeklyText
     when "fortnightly" then o.usuallyPaidSameAmountFortnightlyText
@@ -75,21 +75,21 @@ hideBeenPaidYetWrapOnY = (o) ->
     when "monthly" then o.usuallyPaidSameAmountMonthlyText
     else o.usuallyPaidSameAmountOtherText
 
-  legend(usuallyPaidSameAmount).html(textToUse)
-  checked(o.usuallyPaidSameAmountY, false)
-  checked(o.usuallyPaidSameAmountN, false)
+  legend(o.usuallyPaidSameAmount).html(textToUse)
+  checked(o.usuallyPaidSameAmountY, false) if reset
+  checked(o.usuallyPaidSameAmountN, false) if reset
 
-hideBeenPaidYetWrapOnN = (o) ->
+hideBeenPaidYetWrapOnN = (o,reset) ->
   label(o.howMuchPaid).text(o.howMuchPaidNText)
-  val(o.howMuchPaid,"")
+  val(o.howMuchPaid,"") if reset
   legend(o.whatDatePaid).html(o.whatDatePaidNText)
-  val(o.whatDatePaidDay,"")
-  val(o.whatDatePaidMonth,"")
-  val(o.whatDatePaidYear,"")
+  val(o.whatDatePaidDay,"") if reset
+  val(o.whatDatePaidMonth,"") if reset
+  val(o.whatDatePaidYear,"") if reset
   label(o.howOften).text(o.howOftenNText)
-  val(o.howOften,"")
+  val(o.howOften,"") if reset
   label(o.monthlyPayDay).text(o.monthlyPayDayNText)
-  val(o.monthlyPayDay,"")
+  val(o.monthlyPayDay,"") if reset
   textToUse = switch (val(o.howOften))
     when "weekly" then o.usuallyPaidSameAmountWeeklyTextExpected
     when "fortnightly" then o.usuallyPaidSameAmountFortnightlyTextExpected
@@ -97,25 +97,25 @@ hideBeenPaidYetWrapOnN = (o) ->
     when "monthly" then o.usuallyPaidSameAmountMonthlyTextExpected
     else o.usuallyPaidSameAmountOtherTextExpected
 
-  legend(usuallyPaidSameAmount).html(textToUse)
-  checked(o.usuallyPaidSameAmountY, false)
-  checked(o.usuallyPaidSameAmountN, false)
+  legend(o.usuallyPaidSameAmount).html(textToUse)
+  checked(o.usuallyPaidSameAmountY, false) if reset
+  checked(o.usuallyPaidSameAmountN, false) if reset
 
-onBeenPaidYetY = (ctx) -> #Double -> because it's a function returning a function, which the jQuqery .on function will receive.
-  ->                      #The first function exists so the returned function has the "context" variable in scope
-    S("beenPaidYetWrap").slideUp 0, -> hideBeenPaidYetWrapOnY(ctx)
-    S("usuallyPaidSameAmountWrap").slideUp 0
-    S("monthlyPayDayWrap").slideUp 0 if visible ctx.monthlyPayDayWrap
-    S("beenPaidYetWrap").slideDown 0
-    S("howOften_wrap").slideUp(0, -> val ctx.howOftenFrequencyOther , "") if visible ctx.howOften_wrap
 
-onBeenPaidYetN = (ctx) -> #Double -> because it's a function returning a function, which the jQuqery .on function will receive.
+hideBeenPaid = (ctx,reset,hideFunction) ->
+  S("beenPaidYetWrap").slideUp 0, -> hideFunction(ctx,reset)
+  S("usuallyPaidSameAmountWrap").slideUp 0
+  S("monthlyPayDayWrap").slideUp 0
+  S("beenPaidYetWrap").slideDown 0
+  S("howOften_wrap").slideUp(0, -> (val ctx.howOftenFrequencyOther, "") if reset)
+
+onBeenPaidYetY = (ctx,reset) -> #Double -> because it's a function returning a function, which the jQuqery .on function will receive.
   ->                      #The first function exists so the returned function has the "context" variable in scope
-    S("beenPaidYetWrap").slideUp 0, -> hideBeenPaidYetWrapOnN(ctx)
-    S("usuallyPaidSameAmountWrap").slideUp 0
-    S("monthlyPayDayWrap").slideUp 0 if visible ctx.monthlyPayDayWrap
-    S("beenPaidYetWrap").slideDown 0
-    S("howOften_wrap").slideUp(0, -> val ctx.howOftenFrequencyOther, "") if visible ctx.howOften_wrap
+    hideBeenPaid(ctx,reset,hideBeenPaidYetWrapOnY)
+
+onBeenPaidYetN = (ctx,reset) -> #Double -> because it's a function returning a function, which the jQuqery .on function will receive.
+  ->                      #The first function exists so the returned function has the "context" variable in scope
+    hideBeenPaid(ctx,reset,hideBeenPaidYetWrapOnN)
 
 
 #
@@ -123,55 +123,72 @@ onBeenPaidYetN = (ctx) -> #Double -> because it's a function returning a functio
 #
 
 window.beenPaidYet = (ctx) ->
-  S(ctx.beenPaidYetY).on "click", onBeenPaidYetY(ctx)
-  S(ctx.beenPaidYetN).on "click", onBeenPaidYetN(ctx)
+  if checked(ctx.beenPaidYetY)
+    onBeenPaidYetY(ctx,false)()
+  else if checked(ctx.beenPaidYetN)
+    onBeenPaidYetN(ctx,false)()
+  else
+    S("beenPaidYetWrap").slideUp 0, -> hideBeenPaidYetWrapOnN(ctx,false)
+    S("usuallyPaidSameAmountWrap").slideUp 0
+    S("monthlyPayDayWrap").slideUp 0
+    S("howOften_wrap").slideUp(0)
+
+  S(ctx.beenPaidYetY).on "click", onBeenPaidYetY(ctx,true)
+  S(ctx.beenPaidYetN).on "click", onBeenPaidYetN(ctx,true)
 
 
+  
+  
+onHowOftenFrequency = (ctx,reset) -> #Double -> because it's a function returning a function, which the jQuqery .on function will receive.
+  ->                           #The first function exists so the returned function has the "context" variable in scope
+    if visible("usuallyPaidSameAmountWrap")
+      S("usuallyPaidSameAmountWrap").slideUp 0, ->
+        checked(ctx.usuallyPaidSameAmountY,false) if reset
+        checked(ctx.usuallyPaidSameAmountN,false) if reset
+
+    S("monthlyPayDayWrap").slideUp 0, -> val(ctx.monthlyPayDay,"") if visible("monthlyPayDayWrap") and reset
+
+    if not (val(ctx.howOftenFrequency) is ctx.defaultValue or val(ctx.howOftenFrequency) is "")
+      if checked(ctx.beenPaidYetN)
+        textToUse = switch (val(ctx.howOftenFrequency))
+          when "weekly" then ctx.usuallyPaidSameAmountWeeklyTextExpected
+          when "fortnightly" then ctx.usuallyPaidSameAmountFortnightlyTextExpected
+          when "fourweekly" then ctx.usuallyPaidSameAmountFourWeeklyTextExpected
+          when "monthly" then ctx.usuallyPaidSameAmountMonthlyTextExpected
+          else ctx.usuallyPaidSameAmountOtherTextExpected
+        legend(ctx.usuallyPaidSameAmount).html(textToUse)
+
+      if checked(ctx.beenPaidYetY)
+        textToUse = switch (val(ctx.howOftenFrequency))
+          when "weekly" then ctx.usuallyPaidSameAmountWeeklyText
+          when "fortnightly" then ctx.usuallyPaidSameAmountFortnightlyText
+          when "fourweekly" then ctx.usuallyPaidSameAmountFourWeeklyText
+          when "monthly" then ctx.usuallyPaidSameAmountMonthlyText
+          else ctx.usuallyPaidSameAmountOtherText
+        legend(ctx.usuallyPaidSameAmount).html(textToUse)
+
+      checked(ctx.usuallyPaidSameAmountY, false) if reset
+      checked(ctx.usuallyPaidSameAmountN, false) if reset
+      S("usuallyPaidSameAmountWrap").slideDown(0)
+
+
+    S("monthlyPayDayWrap").slideDown(0) if val(ctx.howOftenFrequency) is "monthly"
 
 #
 #Pay Day function
 #
 
 window.payDay = (o) ->
-  S(o.howOftenFrequency).change ->
-    if visible("usuallyPaidSameAmountWrap")
-      S("usuallyPaidSameAmountWrap").slideUp 0, ->
-        checked(o.usuallyPaidSameAmountY,false)
-        checked(o.usuallyPaidSameAmountN,false)
-
-    S("monthlyPayDayWrap").slideUp 0, -> val(o.monthlyPayDay,"") if visible("monthlyPayDayWrap")
-
-    if not (val(o.howOftenFrequency) is o.defaultValue or val(o.howOftenFrequency) is "")
-      if checked(o.beenPaidYetN)
-        textToUse = switch (val(o.howOftenFrequency))
-          when "weekly" then o.usuallyPaidSameAmountWeeklyTextExpected
-          when "fortnightly" then o.usuallyPaidSameAmountFortnightlyTextExpected
-          when "fourweekly" then o.usuallyPaidSameAmountFourWeeklyTextExpected
-          when "monthly" then o.usuallyPaidSameAmountMonthlyTextExpected
-          else o.usuallyPaidSameAmountOtherTextExpected
-        legend(o.usuallyPaidSameAmount).html(textToUse)
-          
-      if checked(o.beenPaidYetY)
-        textToUse = switch (val(o.howOftenFrequency))
-          when "weekly" then o.usuallyPaidSameAmountWeeklyText
-          when "fortnightly" then o.usuallyPaidSameAmountFortnightlyText
-          when "fourweekly" then o.usuallyPaidSameAmountFourWeeklyText
-          when "monthly" then o.usuallyPaidSameAmountMonthlyText
-          else o.usuallyPaidSameAmountOtherText
-        legend(o.usuallyPaidSameAmount).html(textToUse)
-
-      checked(o.usuallyPaidSameAmountY, false)
-      checked(o.usuallyPaidSameAmountN, false)
-      S("usuallyPaidSameAmountWrap").slideDown(0)
-
-
-    S("monthlyPayDayWrap").slideDown(0) if val(o.howOftenFrequency) is "monthly"
+  onHowOftenFrequency(o,false)()
+  S(o.howOftenFrequency).on "change", onHowOftenFrequency(o,true)
 
 #
 # What For function
 #
 
 window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
+  if not checked(payIntoPensionY)
+    S("whatForWrap").slideUp 0, -> val(whatFor,"")
   S(payIntoPensionY).on "click", -> S("whatForWrap").slideDown 0
 
   S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp 0, -> val(whatFor,"")
@@ -180,6 +197,9 @@ window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
 # What Costs function
 #
 window.whatCosts = (careCostsForThisWorkY, careCostsForThisWorkN, whatCosts) ->
+  if not checked(careCostsForThisWorkY)
+    S("whatCostsWrap").slideUp 0, -> val(whatCosts,"")
+
   S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown 0
 
   S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp 0, -> val(whatCosts,"")
