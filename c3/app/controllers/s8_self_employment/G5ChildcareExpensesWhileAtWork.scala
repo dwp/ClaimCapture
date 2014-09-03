@@ -23,9 +23,9 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with N
     "whoLooksAfterChildren" -> carersNonEmptyText(maxLength = sixty),
     "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validCurrency5Required),
     "howOftenPayChildCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
-    "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
-    "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
-    "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
+    "whatRelationIsToYou" -> carersNonEmptyText(maxLength = sixty),
+    "relationToPartner" -> optional(carersNonEmptyText(maxLength = sixty)),
+    "whatRelationIsTothePersonYouCareFor" -> carersNonEmptyText
   )(ChildcareExpensesWhileAtWork.apply)(ChildcareExpensesWhileAtWork.unapply)
     .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
 

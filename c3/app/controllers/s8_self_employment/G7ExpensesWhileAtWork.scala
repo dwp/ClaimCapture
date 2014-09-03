@@ -26,8 +26,8 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
     "howMuchYouPay" -> nonEmptyText.verifying(validCurrency5Required),
     "howOftenPayExpenses" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "whatRelationIsToYou" -> carersNonEmptyText(maxLength = sixty),
-    "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
-    "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
+    "relationToPartner" -> optional(carersNonEmptyText(maxLength = sixty)),
+    "whatRelationIsTothePersonYouCareFor" -> carersNonEmptyText
   )(ExpensesWhileAtWork.apply)(ExpensesWhileAtWork.unapply)
     .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
 

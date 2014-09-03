@@ -11,13 +11,15 @@ import controllers.Mappings._
 import models.view.CachedClaim.ClaimResult
 import play.api.data.FormError
 import models.domain.Claim
+import controllers.CarersForms._
+
 
 object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "beenInEducationSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
-    "courseTitle" -> optional(nonEmptyText(maxLength = 50)),
-    "nameOfSchoolCollegeOrUniversity" -> optional(nonEmptyText(maxLength = sixty)),
-    "nameOfMainTeacherOrTutor" -> optional(nonEmptyText(maxLength = sixty)),
+    "courseTitle" -> optional(carersNonEmptyText(maxLength = 50)),
+    "nameOfSchoolCollegeOrUniversity" -> optional(carersNonEmptyText(maxLength = sixty)),
+    "nameOfMainTeacherOrTutor" -> optional(carersNonEmptyText(maxLength = sixty)),
     "courseContactNumber" -> optional(text verifying validPhoneNumber),
     "startDate" -> optional(dayMonthYear.verifying(validDate)),
     "expectedEndDate" -> optional(dayMonthYear.verifying(validDate))

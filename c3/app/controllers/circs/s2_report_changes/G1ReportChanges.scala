@@ -15,7 +15,7 @@ import scala.annotation.tailrec
 object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigable {
 
   val form = Form(mapping(
-    "reportChanges" -> nonEmptyText(maxLength = 20)
+    "reportChanges" -> carersNonEmptyText(maxLength = 20)
   )(ReportChanges.apply)(ReportChanges.unapply))
 
   def present = claiming { implicit circs => implicit request => implicit lang =>

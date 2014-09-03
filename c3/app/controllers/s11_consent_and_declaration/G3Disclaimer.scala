@@ -1,5 +1,7 @@
 package controllers.s11_consent_and_declaration
 
+import controllers.CarersForms._
+
 import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
@@ -11,7 +13,7 @@ import models.view.Navigable
 
 object G3Disclaimer extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "read" -> nonEmptyText
+    "read" -> carersNonEmptyText
   )(Disclaimer.apply)(Disclaimer.unapply))
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>

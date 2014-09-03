@@ -14,27 +14,27 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
   val payIntoPension =
     "doYouPayIntoPension" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatFor" -> optional(nonEmptyText(maxLength = 300))
+      "whatFor" -> optional(carersNonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("doYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
 
   val careCostsForThisWork =
     "doCareCostsForThisWork" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatCosts" -> optional(nonEmptyText(maxLength = 300))
+      "whatCosts" -> optional(carersNonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("doCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
 
   val form = Form(mapping(
     "beenPaidYet" -> nonEmptyText.verifying(validYesNo),
-    "howMuchPaid" -> nonEmptyText(maxLength = 20),
+    "howMuchPaid" -> carersTextWithPound(minLength=1,maxLength = 20),
     "dateLastPaid" -> dayMonthYear.verifying(validDate),
-    "whatWasIncluded" -> optional(text(maxLength = 60)),
+    "whatWasIncluded" -> optional(carersText(maxLength = 60)),
     "howOften" -> mandatoryPaymentFrequency.verifying(validPaymentFrequencyOnly),
     "monthlyPayDay" -> optional(carersText(maxLength = 35)),
     "usuallyPaidSameAmount" -> nonEmptyText.verifying(validYesNo),
     "employerOwesYouMoney" -> nonEmptyText.verifying(validYesNo),
-    "employerOwesYouMoneyInfo" -> optional(text(maxLength = 60)),
+    "employerOwesYouMoneyInfo" -> optional(carersText(maxLength = 60)),
     payIntoPension,
     careCostsForThisWork,
     "moreAboutChanges" -> optional(carersText(maxLength = 300))

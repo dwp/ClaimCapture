@@ -1,5 +1,7 @@
 package controllers.s10_pay_details
 
+import controllers.CarersForms._
+
 import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
@@ -11,8 +13,8 @@ import PayDetails._
 
 object G1HowWePayYou extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "likeToPay" -> nonEmptyText(maxLength = 60),
-    "paymentFrequency" -> nonEmptyText(maxLength = 15)
+    "likeToPay" -> carersNonEmptyText(maxLength = 60),
+    "paymentFrequency" -> carersNonEmptyText(maxLength = 15)
   )(HowWePayYou.apply)(HowWePayYou.unapply))
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>

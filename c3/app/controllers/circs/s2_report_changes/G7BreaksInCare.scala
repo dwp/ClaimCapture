@@ -21,14 +21,14 @@ import controllers.Mappings
 object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable {
   val whereWasPersonMapping =
     "wherePersonBreaksInCare" -> mapping(
-      "answer" -> nonEmptyText,
+      "answer" -> carersNonEmptyText,
       "text" -> optional(carersText(maxLength = Mappings.sixty))
     )(RadioWithText.apply)(RadioWithText.unapply)
      .verifying("wherePersonBreaksInCare.text.required", RadioWithText.validateOnOther _)
 
   val whereWereYouMapping =
     "whereYouBreaksInCare" -> mapping(
-      "answer" -> nonEmptyText,
+      "answer" -> carersNonEmptyText,
       "text" -> optional(carersText(maxLength = Mappings.sixty))
     )(RadioWithText.apply)(RadioWithText.unapply)
     .verifying("whereYouBreaksInCare.text.required", RadioWithText.validateOnOther _)
@@ -43,7 +43,7 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
 
   val expectStartCaringMapping =
   "expectStartCaring" -> mapping(
-    "answer" -> optional(text), //YesNoDontKnow
+    "answer" -> optional(carersText), //YesNoDontKnow
     "expectStartCaringDate" -> optional(dayMonthYear verifying validDateOnly),
     "permanentBreakDate" -> optional(dayMonthYear verifying validDateOnly)
   )(YesNoDontKnowWithDates.apply)(YesNoDontKnowWithDates.unapply)

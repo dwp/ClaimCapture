@@ -16,7 +16,7 @@ import controllers.Mappings
 
 object G5LastWage extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "jobID" -> nonEmptyText,
+    "jobID" -> carersNonEmptyText,
     "oftenGetPaid" -> (mandatoryPaymentFrequency verifying validPaymentFrequencyOnly),
     "whenGetPaid" -> carersNonEmptyText(maxLength = Mappings.sixty),
     "lastPaidDate" -> dayMonthYear.verifying(validDate),

@@ -29,7 +29,7 @@ object G2Consent extends Controller with CachedClaim with Navigable {
 
   def informationFromEmployerMapping(implicit request: Request[AnyContent]) =
     "gettingInformationFromAnyEmployer" -> mapping(
-      "informationFromEmployer" -> optional(nonEmptyText),
+      "informationFromEmployer" -> optional(carersNonEmptyText),
       "why" -> optional(carersNonEmptyText(maxLength = 300)))(OptYesNoWithText.apply)(OptYesNoWithText.unapply)
       .verifying("employerRequired", validateEmpRequired _)
       .verifying("required", OptYesNoWithText.validateOnNo _)

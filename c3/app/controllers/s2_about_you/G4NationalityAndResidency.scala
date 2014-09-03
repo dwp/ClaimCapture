@@ -25,7 +25,7 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
     "nationality" -> nonEmptyText.verifying(NationalityAndResidency.validNationality),
     "actualnationality" -> optional(carersNonEmptyText(maxLength = 35)),
     resideInUKMapping,
-    "maritalStatus" -> optional(nonEmptyText)
+    "maritalStatus" -> optional(carersNonEmptyText)
   )(NationalityAndResidency.apply)(NationalityAndResidency.unapply)
     .verifying(NationalityAndResidency.actualNationalityRequired)
     .verifying(NationalityAndResidency.maritalStatusRequired)

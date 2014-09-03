@@ -10,15 +10,17 @@ import models.view.CachedClaim
 import play.api.data.FormError
 import models.domain.Break
 import G10BreaksInCare.breaksInCare
+import controllers.CarersForms._
+
 
 object G11Break extends Controller with CachedClaim {
   val form = Form(mapping(
-    "breakID" -> nonEmptyText,
+    "breakID" -> carersNonEmptyText,
     "start" -> (dayMonthYear verifying validDateTime),
     "end" -> optional(dayMonthYear verifying validDateTimeOnly),
     "whereYou" -> whereabouts.verifying(requiredWhereabouts),
     "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
-    "medicalDuringBreak" -> nonEmptyText
+    "medicalDuringBreak" -> carersNonEmptyText
   )(Break.apply)(Break.unapply))
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
