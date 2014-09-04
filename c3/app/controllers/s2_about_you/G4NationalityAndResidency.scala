@@ -1,8 +1,6 @@
 package controllers.s2_about_you
 
 import models.view.{CachedClaim, Navigable}
-import play.api.Logger
-import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
 import play.api.mvc.Controller
 import controllers.CarersForms._
 import play.api.data.Forms._
@@ -10,7 +8,6 @@ import controllers.Mappings._
 import play.api.data.{FormError, Form}
 import models.domain.NationalityAndResidency
 import utils.helpers.CarersForm._
-import models.yesNo.YesNo
 import models.yesNo.YesNoWithText
 
 object G4NationalityAndResidency extends Controller with CachedClaim with Navigable {

@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.{Controller, Action, AnyContent, Request}
-import play.api.{Logger, Play}
 import java.util.UUID._
 import play.api.cache.Cache
 import models.domain.Claim
