@@ -40,8 +40,7 @@ class G5LastWageIntegrationSpec extends Specification with Tags {
     "employer owes you money is not visible when 'have finished job is 'no'" in new WithBrowser with PageObjects{
       val jobDetailsPage = G3JobDetailsPage(context)
       jobDetailsPage goToThePage()
-      val claim = ClaimScenarioFactory s7Employment()
-      claim.EmploymentHaveYouFinishedThisJob_1 = "no"
+      val claim = ClaimScenarioFactory s7EmploymentWhenFinishedJobNo()
       jobDetailsPage fillPageWith claim
       val lastWagePage = jobDetailsPage submitPage()
       context.browser.find("#employerOwesYouMoney").size() mustEqual 0
