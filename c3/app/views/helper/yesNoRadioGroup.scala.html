@@ -14,8 +14,8 @@
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
     @if(isAllowance){
-        @allowanceYesNoPlaceholder(field, values, args.filter(_._1 != 'label):_*)
+        @allowanceYesNoPlaceholder(field, values, args.filter(d => d._1 != 'label && d._1 != 'values && d._1 != 'allowance):_*)
     }else{
-        @yesNoPlaceholder(field, values, args.filter(_._1 != 'label):_*)
+        @yesNoPlaceholder(field, values, args.filter(d => d._1 != 'label && d._1 != 'values && d._1 != 'allowance):_*)
     }
 }(fieldConstructor,lang)

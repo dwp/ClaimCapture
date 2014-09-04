@@ -39,23 +39,23 @@
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
-                        'id -> "pensionExpenses",
-                        'display -> currentForm("payPensionScheme")("answer").value.getOrElse("no")
+                        'id -> "pensionExpenses"
                     )
 
-                    @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"), '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
+                    @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"),
+                        'helperAbove -> Html(labelForEmployment(claim, lang, "haveExpensesForJob.answer.helper", JobID(currentForm))),
+                        '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputTextArea(currentForm("haveExpensesForJob")("text"),
                                 '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.text", JobID(currentForm)),
                                 'helper -> Html(Messages("300charsLeft")),
-                                'helperAbove -> Html(labelForEmployment(claim, lang, "haveExpensesForJob.text.helper", JobID(currentForm))),
+                                'helperAbove -> Html(Messages("haveExpensesForJob.text.helper")),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
-                        'id -> "jobExpenses",
-                        'display -> currentForm("haveExpensesForJob")("answer").value.getOrElse("no")
+                        'id -> "jobExpenses"
                     )
 
 	            </ul>
@@ -69,8 +69,6 @@
 	        </nav>
         </div>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s7_employment/g8_pensionAndExpenses.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
@@ -89,3 +87,4 @@
     window.areaCounter({selector: "@CarersCrypto.encryptAES("payPensionScheme_text")",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES("haveExpensesForJob_text")",maxChars:300});
 </script>
+}

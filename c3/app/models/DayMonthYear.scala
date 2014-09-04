@@ -88,6 +88,27 @@ object DayMonthYear {
 
   def apply(day: Int, month: Int, year: Int) = new DayMonthYear(Some(day), Some(month), Some(year))
 
+  def convert(day: Option[String], month: Option[String], year: Option[String], hour: Option[String], minutes: Option[String]) = {
+    def intArg(value:Option[String]):Option[Int] = {
+      value match {
+        case Some(x) => Try(x.toInt) match { case Success(y) => Some(y); case _ => None}
+        case _ => None
+      }
+    }
+
+    new DayMonthYear(intArg(day), intArg(month), intArg(year), intArg(hour), intArg(minutes))
+  }
+
+  def extract(date: DayMonthYear):Option[(Option[String], Option[String], Option[String],Option[String],Option[String])] = {
+    def stringArg(value:Option[Int]):Option[String] = {
+      value match {
+        case Some(x) => Try(x.toString) match { case Success(y) => Some(y); case _ => None}
+        case _ => None
+      }
+    }
+    Some((stringArg(date.day), stringArg(date.month), stringArg(date.year), stringArg(date.hour), stringArg(date.minutes)))
+  }
+
   def apply(dt: DateTime) = {
     new DayMonthYear(Some(dt.dayOfMonth().get), Some(dt.monthOfYear().get), Some(dt.year().get), Some(dt.hourOfDay().get()), Some(dt.minuteOfHour().get))
   }

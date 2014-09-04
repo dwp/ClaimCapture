@@ -29,8 +29,7 @@
                             carersInputTel(currentForm("courseContactNumber"),  'helperAbove-> Messages("courseContactNumber.helper")),
                             educationStartDate(currentForm("startDate")),
                             educationEndDate(currentForm("expectedEndDate"))),
-                        'id -> "educationWrap",
-                        'display -> currentForm("beenInEducationSinceClaimDate").value.getOrElse("no")
+                        'id -> "educationWrap"
                     )
 
 	            </ul>
@@ -44,8 +43,6 @@
 	        </nav>
         </div>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s6_education/g1_yourCourseDetails.js")'></script>
 
 <script type="text/javascript">
@@ -70,3 +67,4 @@
         @ga.stagePrompt()
     })
 </script>
+}

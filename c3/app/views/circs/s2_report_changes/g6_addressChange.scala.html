@@ -17,10 +17,10 @@
     @form(action = controllers.circs.s2_report_changes.routes.G6AddressChange.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <p class="security-message">@Html(Messages("c2.address.helper"))</p>
-	
+
 	            <legend>@Html(Messages("c2.g6.previousAddress"))</legend>
-	
+
+                <p class="security-message">@Html(Messages("c2.address.helper"))</p>
 	            <ul>
 	                @inputAddress(addressForm("previousAddress"))
 	
@@ -39,8 +39,7 @@
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring")("date"))
 	                    ),
-	                    'id -> "stillCaringDate",
-	                    'display ->  { if (addressForm("stillCaring.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+	                    'id -> "stillCaringDate"
 	                )
 	
 	                @inputAddress(addressForm("newAddress"))
@@ -50,16 +49,14 @@
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(yesNoRadioGroup(addressForm("caredForChangedAddress.answer"), 'ignoreOptional -> true)
 	                    ),
-	                    'id -> "stillCaringAddress",
-	                    'display -> {if (addressForm("stillCaring.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+	                    'id -> "stillCaringAddress"
 	                    )
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        yesNoRadioGroup(addressForm("sameAddress.answer"), 'ignoreOptional -> true)
 	                    ),
-	                    'id -> "changedAddressSame",
-	                    'display -> {if (addressForm("caredForChangedAddress.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+	                    'id -> "changedAddressSame"
 	                )
 	
 	                @otherDetailPlaceHolder(
@@ -67,8 +64,7 @@
 	                        inputAddress(addressForm("sameAddress.theirNewAddress")),
 	                        carersInputText(addressForm("sameAddress.theirNewPostcode"), 'class -> "postcode")
 	                    ),
-	                    'id -> "sameAddressData",
-	                    'display -> {if (addressForm("sameAddress.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+	                    'id -> "sameAddressData"
 	                )
 	                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
 	
@@ -84,8 +80,6 @@
 	        </nav>
         </div>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g6_addressChange.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
@@ -108,3 +102,4 @@ window.initEvents("@CarersCrypto.encryptAES("stillCaring_answer_yes")",
 );
 });
 </script>
+}

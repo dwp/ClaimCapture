@@ -136,7 +136,7 @@ trait CachedClaim {
           case Some(claim) =>
             Logger.debug(s"claimingWithCheck - ${claim.key} ${claim.uuid}")
             val key = keyAndExpiration(request)._1
-            if (key != claim.uuid) Logger.error(s"claimingWithCheck - Claim uuid ${claim.uuid} does not match cache key $key")
+            if (key != claim.uuid) Logger.error(s"claimingWithCheck - Claim uuid ${claim.uuid} does not match cache key $key.")
             val lang = claim.lang.getOrElse(bestLang)
             action(copyInstance(claim), request, lang)(f)
           case None =>
@@ -177,9 +177,7 @@ trait CachedClaim {
         doSubmit()
       } else {
         if (getProperty("enforceRedirect", default = true)) {
-          Logger.warn(s"HTTP Referer : $referer")
-          Logger.warn(s"Conf Referer : $startPage")
-          Logger.warn(s"HTTP Host : $host")
+          Logger.warn(s"HTTP Referrer : $referer. Conf Referrer : $startPage. HTTP Host : $host")
           Future(MovedPermanently(startPage))
         } else {
           doSubmit()
@@ -240,9 +238,7 @@ trait CachedClaim {
       withHeaders(action)
     } else {
       if (redirect) {
-        Logger.warn(s"HTTP Referer : $referer")
-        Logger.warn(s"Conf Referer : $startPage")
-        Logger.warn(s"HTTP Host : $host")
+        Logger.warn(s"HTTP Referrer : $referer. Conf Referrer : $startPage. HTTP Host : $host")
         MovedPermanently(startPage)
       } else {
         withHeaders(action)

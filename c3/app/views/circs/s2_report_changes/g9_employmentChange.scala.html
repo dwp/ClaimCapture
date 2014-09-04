@@ -31,8 +31,7 @@
 	                    inputDef = Seq(
                             dateTimePickerWithDynamicLabel(stillCaring("date"), 'dynamicDateDays-> 31)
 	                    ),
-	                    'id -> "stillCaringWrap",
-	                    'display -> { if (stillCaring("answer").value.getOrElse("yes") == "no") "yes" else "no" }
+	                    'id -> "stillCaringWrap"
 	                )
 
                     @yesNoRadioGroup(hasWorkStartedYet("answer"),
@@ -46,24 +45,21 @@
                                 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no"))
                             )
                         ),
-                        'id -> "hasWorkStartedYetWrap",
-                        'display -> { if (hasWorkStartedYet("answer").value.getOrElse("no") == "yes") "yes" else "no" }
+                        'id -> "hasWorkStartedYetWrap"
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             dateTimePickerWithDynamicLabel(hasWorkStartedYet("dateWhenWillItStart"), 'dynamicDateDays-> -7)
                         ),
-                        'id -> "workNotStartedYetWrap",
-                        'display -> { if (hasWorkStartedYet("answer").value.getOrElse("yes") == "no") "yes" else "no" }
+                        'id -> "workNotStartedYetWrap"
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             dateTimePickerWithDynamicLabel(hasWorkFinishedYet("dateWhenFinished"), 'dynamicDateDays-> 7)
                         ),
-                        'id -> "hasWorkFinishedYetWrap",
-                        'display -> { if (hasWorkFinishedYet("answer").value.getOrElse("no") == "yes") "yes" else "no" }
+                        'id -> "hasWorkFinishedYetWrap"
                     )
 
                     @yesNoRadioGroup(typeOfWork("answer"),
@@ -79,8 +75,7 @@
                             carersInputText(typeOfWork("employerContactNumber"), 'maxLength -> 15),
                             carersInputText(typeOfWork("employerPayroll"), 'maxLength -> 15)
                         ),
-                        'id -> "typeOfWorkEmployedWrap",
-                        'display -> { if (typeOfWork("answer").value.getOrElse("self-employed") == "employed") "yes" else "no" }
+                        'id -> "typeOfWorkEmployedWrap"
                     )
 
                     @otherDetailPlaceHolder(
@@ -89,8 +84,7 @@
                             yesNoRadioGroup(typeOfWork("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'values -> Seq("yes" -> Messages("label.yes7"), "no" -> Messages("label.no"), "dontknow" -> Messages("label.dontknow"))),
                             carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
                         ),
-                        'id -> "typeOfWorkSelfEmployedWrap",
-                        'display -> { if (typeOfWork("answer").value.getOrElse("employed") == "self-employed") "yes" else "no" }
+                        'id -> "typeOfWorkSelfEmployedWrap"
                     )
 	            </ul>
 	        </fieldset>
@@ -103,8 +97,6 @@
 	        </nav>
         </div>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g9_employmentChange.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
@@ -162,3 +154,4 @@ window.typeOfWork("@CarersCrypto.encryptAES(typeOfWork("answer")("employed").id)
 });
 
 </script>
+}

@@ -24,7 +24,7 @@ trait ClaimSubmissionService {
     val transId = getTransactionIdAndRegisterGenerated(copyInstance(claim), if (jsEnabled) 1 else 0)
 
     if (!jsEnabled) {
-      Logger.info(s"No JS - Submit ${claim.key} ${claim.uuid}, User-Agent : ${request.headers.get("User-Agent").orNull}, TxnId : $transId")
+      Logger.info(s"No JS - Submit ${claim.key} ${claim.uuid}, User-Agent : ${request.headers.get("User-Agent").orNull}, TxnId : [$transId]")
     }
 
     val updatedClaim = copyInstance(claim withTransactionId transId)
@@ -43,7 +43,7 @@ trait ClaimSubmissionService {
   }
 
   def respondWithSuccess(claim: Claim, txnId: String, request: Request[AnyContent]): SimpleResult = {
-    Logger.info(s"Successful submission : ${claim.key} : transactionId [$txnId]")
+    Logger.info(s"Successful submission : ${claim.key}  ${claim.uuid} transactionId [$txnId]")
     claim.key match {
       case CachedClaim.key =>
         Redirect(controllers.routes.ClaimEnding.thankyou())
@@ -73,6 +73,7 @@ object ClaimSubmissionService {
   val COMMUNICATION_ERROR = "9005"
   val SERVICE_UNAVAILABLE = "9006"
   val BAD_GATEWAY = "9007"
+  val INTERNAL_ERROR = "9008"
 
 
   def httpStatusCodes(status: Int) = status match {

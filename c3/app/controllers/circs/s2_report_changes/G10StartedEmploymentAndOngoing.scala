@@ -28,7 +28,7 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
 
   val form = Form(mapping(
     "beenPaidYet" -> nonEmptyText.verifying(validYesNo),
-    "howMuchPaid" -> nonEmptyText(maxLength = 20),
+    "howMuchPaid" -> carersTextWithPound(minLength=1,maxLength = 20),
     "whatDatePaid" -> dayMonthYear.verifying(validDate),
     "howOften" -> mandatoryPaymentFrequency.verifying(validPaymentFrequencyOnly),
     "monthlyPayDay" -> optional(carersText(maxLength = 35)),

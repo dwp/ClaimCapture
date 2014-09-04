@@ -1,11 +1,12 @@
 $ ->
 
-  $("input[listWithOther=true]").each ->
-    $(this).closest("ul").next().hide() if (($(this).val() == $(this).attr("othervalue")) && ($(this).attr("checked") == undefined))
+  $("input[class='listWithOther otherValue']").each ->
+    $(this).closest("ul").next().hide() if ($(this).prop("checked"))
 
-  $("input[listWithOther=true]").change ->
-    if $(this).val() is $(this).attr("othervalue")
+  $("input[class='listWithOther otherValue']").change ->
       $(this).closest("ul").next().slideDown()
-    else
-      textArea = $(this).closest("ul").next().find("textarea")
-      $(this).closest("ul").next().slideUp -> textArea.val("")
+
+
+  $("input[class='listWithOther']").change ->
+    textArea = $(this).closest("ul").next().find("textarea")
+    $(this).closest("ul").next().slideUp -> textArea.val("")

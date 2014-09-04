@@ -40,7 +40,7 @@
 
 	                @inputDayMonthYear(currentForm("lastPaidDate"), 'helperAbove -> Messages("jobStartDate.helper"))
 
-	                @carersCurrency(currentForm("grossPay"), 'maxlength -> Mappings.sixty)
+	                @carersCurrency(currentForm("grossPay"), 'maxLength -> Mappings.sixty)
 	
 	                @carersInputText(currentForm("payInclusions"), 'maxLength -> 60,'helperAbove -> Messages("payInclusions.helper"))
 
@@ -60,8 +60,6 @@
 	        </nav>
         </div>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
@@ -72,3 +70,4 @@ $(function(){
     window.areaCounter({selector:"@CarersCrypto.encryptAES("oftenGetPaid_frequency_other")",maxChars:60});
 })
 </script>
+}

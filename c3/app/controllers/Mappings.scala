@@ -43,11 +43,13 @@ object Mappings {
   val dontknow = "dontknow"
 
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
-    "day" -> optional(number(max = 100)),
-    "month" -> optional(number(max = 100)),
-    "year" -> optional(number(max = 99999)),
-    "hour" -> optional(number(max = 100, min = 0)),
-    "minutes" -> optional(number(max = 100, min = 0)))(DayMonthYear.apply)(DayMonthYear.unapply)
+    "day" -> optional(text),
+    "month" -> optional(text),
+    "year" -> optional(text),
+    "hour" -> optional(text),
+    "minutes" -> optional(text))(DayMonthYear.convert)(DayMonthYear.extract)
+
+
 
   val periodFromTo: Mapping[PeriodFromTo] = mapping(
     "from" -> dayMonthYear.verifying(validDate),

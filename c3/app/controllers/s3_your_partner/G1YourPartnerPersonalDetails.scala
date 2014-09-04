@@ -16,7 +16,7 @@ import models.view.CachedClaim.ClaimResult
 
 object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "title" -> optional(nonEmptyText(maxLength = 4)),
+    "title" -> optional(carersNonEmptyText(maxLength = 4)),
     "firstName" -> optional(carersNonEmptyText(maxLength = 17)),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),

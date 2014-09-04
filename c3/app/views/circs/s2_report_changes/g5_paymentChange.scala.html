@@ -20,9 +20,8 @@
     @form(action = controllers.circs.s2_report_changes.routes.G5PaymentChange.submit) {
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <p class="security-message">@Html(Messages("c2.payment.helper"))</p>
-	
 	            <legend>@Html(Messages("c2.g5"))</legend>
+                <p class="security-message">@Html(Messages("c2.payment.helper"))</p>
 	
 	            <ul class="coc-layout">
 	                @yesNoRadioGroup(currentForm("currentlyPaidIntoBank.answer"),
@@ -34,8 +33,7 @@
 	                            '_label -> Messages("currentlyPaidIntoBank.text1.label"),
 	                            'maxLength -> 35)
 	                    ),
-	                    'id -> "currentlyPaidIntoBankWrap1",
-	                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "yes") "yes" else "no" }
+	                    'id -> "currentlyPaidIntoBankWrap1"
 	                )
 	
 	                @otherDetailPlaceHolder(
@@ -44,8 +42,7 @@
 	                            '_label -> Messages("currentlyPaidIntoBank.text2.label"),
 	                            'maxLength -> 35)
 	                    ),
-	                    'id -> "currentlyPaidIntoBankWrap2",
-	                    'display -> { if (currentForm("currentlyPaidIntoBank.answer").value.getOrElse("") == "no") "yes" else "no" }
+	                    'id -> "currentlyPaidIntoBankWrap2"
 	                )
 	            </ul>
 	        </fieldset>
@@ -80,8 +77,6 @@
 	        </nav>
         </div>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g5_paymentChange.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
@@ -97,3 +92,4 @@ window.initEvents("@CarersCrypto.encryptAES("currentlyPaidIntoBank_answer_yes")"
 "@CarersCrypto.encryptAES("currentlyPaidIntoBank_text2")");
 });
 </script>
+}

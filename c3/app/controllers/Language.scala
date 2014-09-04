@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.{Controller, Action, AnyContent, Request}
-import play.api.{Logger, Play}
 import java.util.UUID._
 import play.api.cache.Cache
 import models.domain.Claim
@@ -17,7 +16,7 @@ object Language extends Controller {
       fromCache(request) match {
         case Some(claim) => {
           val (key, expiration) = keyAndExpiration(request)
-          Cache.set(key, Claim(claim.key, claim.sections, claim.created, Some(Lang(chosenLanguage))), expiration)
+          Cache.set(key, Claim(claim.key, claim.sections, claim.created, Some(Lang(chosenLanguage)), claim.uuid), expiration)
           Redirect(redirectUrl(request))
         }
         case None => {

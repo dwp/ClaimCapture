@@ -13,7 +13,7 @@ import play.api.Logger
 
 object G1YourDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "title" -> nonEmptyText(maxLength = 4),
+    "title" -> carersNonEmptyText(maxLength = 4),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),

@@ -14,8 +14,8 @@ import models.DayMonthYear
 
 object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "relationship" -> nonEmptyText(maxLength = 35),
-    "title" -> nonEmptyText(maxLength = 4),
+    "relationship" -> carersNonEmptyText(maxLength = 35),
+    "title" -> carersNonEmptyText(maxLength = 4),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),

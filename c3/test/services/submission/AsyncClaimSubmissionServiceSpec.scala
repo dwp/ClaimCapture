@@ -118,12 +118,12 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       val service = asyncService(http.Status.INTERNAL_SERVER_ERROR,transactionId)
       val claim = getClaim("test")
 
-      serviceSubmission(service, claim) must throwA(DuplicateClaimException("Duplicate claim submission."))
+      serviceSubmission(service, claim) must throwA(DuplicateClaimException(s"Duplicate claim submission. transactionId [${claim.transactionId.get}]"))
 
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,None,None,None))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,1,None,None,None))
 
     }
 
@@ -132,12 +132,12 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       val service = asyncService(http.Status.INTERNAL_SERVER_ERROR,transactionId)
       val claim = getCofc("test")
 
-      serviceSubmission(service, claim) must throwA(DuplicateClaimException("Duplicate claim submission."))
+      serviceSubmission(service, claim) must throwA(DuplicateClaimException(s"Duplicate claim submission. transactionId [${claim.transactionId.get}]"))
 
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,None,None,None))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,1,None,None,None))
 
     }
 

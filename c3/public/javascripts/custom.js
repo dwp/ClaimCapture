@@ -52,8 +52,6 @@ $('.helper-more').click(function(){
   );
 
 
-$(".other-detail").css("display", "none");
-
 
 
     

@@ -44,6 +44,13 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
       back
       $("#jobs table tbody tr").size() shouldEqual 0
     }
+
+    "hours a week must be visible when clicked back" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmploymentFiller{
+      jobDetails("dummyJobID")
+      back
+      findMustEqualSize("#hoursPerWeek", 1)
+    }
+
   } section("integration", models.domain.Employed.id)
 
   trait EmploymentFiller extends BrowserMatchers {

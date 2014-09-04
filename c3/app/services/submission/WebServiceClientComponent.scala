@@ -32,16 +32,14 @@ trait WebServiceClientComponent {
         .post(claimSubmission) recover {
 
         case e: ConnectException =>
-          Logger.error(s"ConnectException ! transactionId [$txnId]")
-          Logger.error(s"ConnectException ! ${e.getMessage}")
+          Logger.error(s"ConnectException for transactionId [$txnId]: ${e.getMessage}")
           // Spoof service unavailable
           // submission failed - remove from cache
           new Response(null) {
             override def status: Int = http.Status.SERVICE_UNAVAILABLE
           }
         case e: TimeoutException =>
-          Logger.error(s"TimeoutException ! transactionId [$txnId]")
-          Logger.error(s"TimeoutException ! ${e.getMessage}")
+          Logger.error(s"TimeoutException for transactionId [$txnId]: ${e.getMessage}")
           // Spoof service unavailable
           // submission failed - remove from cache
           new Response(null) {

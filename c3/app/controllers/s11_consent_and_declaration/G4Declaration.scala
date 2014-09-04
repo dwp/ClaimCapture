@@ -12,7 +12,7 @@ import controllers.CarersForms._
 
 object G4Declaration extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "confirm" -> nonEmptyText,
+    "confirm" -> carersNonEmptyText,
     "nameOrOrganisation" -> optional(carersNonEmptyText(maxLength = 60)),
     "someoneElse" -> optional(carersText)
   )(Declaration.apply)(Declaration.unapply)

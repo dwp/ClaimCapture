@@ -1,18 +1,35 @@
 window.initEvents =(payPensionSchemeY, payPensionSchemeN, pensionExpenses,
                     haveExpensesForJobY, haveExpensesForJobN, jobExpenses) ->
 
+  if not $("#" + payPensionSchemeY).prop('checked')
+    hidePensionExpenses(pensionExpenses)
+
   $("#" + payPensionSchemeY).on "click", ->
-    $("#pensionExpenses").slideDown 500
-    $("#pensionExpenses").css('display', "block")
+    showPensionExpenses()
 
   $("#" + payPensionSchemeN).on "click", ->
-    $("#pensionExpenses").slideUp 500, ->
-      $("#" + pensionExpenses).val("")
+    hidePensionExpenses(pensionExpenses)
+
+  if not $("#" + haveExpensesForJobY).prop('checked')
+    hideExpensesForJob(jobExpenses)
 
   $("#" + haveExpensesForJobY).on "click", ->
-    $("#jobExpenses").slideDown 500
-    $("#jobExpenses").css('display', "block")
+    showHaveExpensesForJob()
 
   $("#" + haveExpensesForJobN).on "click", ->
-    $("#jobExpenses").slideUp 500, ->
-      $("#" + jobExpenses).val("")
+    hideExpensesForJob(jobExpenses)
+
+
+showPensionExpenses = ->
+  $("#pensionExpenses").slideDown 0
+
+hidePensionExpenses = (pensionExpenses) ->
+  $("#pensionExpenses").slideUp 0, ->
+    $("#" + pensionExpenses).val("")
+
+showHaveExpensesForJob = ->
+  $("#jobExpenses").slideDown 0
+
+hideExpensesForJob = (jobExpenses) ->
+  $("#jobExpenses").slideUp 0, ->
+    $("#" + jobExpenses).val("")

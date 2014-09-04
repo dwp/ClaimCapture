@@ -20,10 +20,11 @@
 	            <legend>@Html(Messages("s2.g4"))</legend>
 	
 	            <ul>
-	                @yesNoRadioGroup(nationalityAndResidencyForm("nationality"),
+	                @listRadioGroup(nationalityAndResidencyForm("nationality"),
                         'helperAbove -> Messages("nationality.helper"),
-                        'values -> Seq(NationalityAndResidency.british -> Messages("label.british"), NationalityAndResidency.anothercountry -> Messages("label.anothercountry")),
-	                    '_label -> Messages("nationality.label"))
+                        'items -> Seq(NationalityAndResidency.british -> Messages("label.british"), NationalityAndResidency.anothercountry -> Messages("label.anothercountry")),
+	                    '_label -> Messages("nationality.label"),
+                        '_nestedFieldSet -> true)
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
@@ -33,8 +34,7 @@
 
                             maritalStatusSelect(nationalityAndResidencyForm("maritalStatus"),'_nestedFieldSet -> true)
 	                    ),
-	                    'id -> "nationalityWrap",
-	                    'display -> { if (nationalityAndResidencyForm("nationality").value.getOrElse("notset") == NationalityAndResidency.anothercountry) "yes" else "no" }
+	                    'id -> "nationalityWrap"
 	                )
 
                     @yesNoRadioGroup(nationalityAndResidencyForm("resideInUK")("answer"),
@@ -46,8 +46,7 @@
                             '_label -> Messages("resideInUK.text.label"),
                             'maxLength -> 35)
                         ),
-                        'id -> "residencyWrap",
-                        'display -> { if (nationalityAndResidencyForm("resideInUK")("answer").value.getOrElse("yes") == "no") "yes" else "no" }
+                        'id -> "residencyWrap"
                     )
                 </ul>
 	
@@ -60,8 +59,6 @@
 	            </ul>
 	        </nav>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/g4_nationalityAndResidency.js")'></script>
 
 <script type="text/javascript">
@@ -80,3 +77,4 @@
                         "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Living_with_partner").id)");
     });
 </script>
+}

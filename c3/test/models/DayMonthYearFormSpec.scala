@@ -22,7 +22,7 @@ class DayMonthYearFormSpec extends Specification {
 
     "only accept a numerical year" in {
       Form("date" -> dayMonthYear.verifying(validDate)).bind(Map("date.day" -> "1", "date.month" -> "2", "date.year" -> "bbbb")).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.number"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
         dateMonthYear => "This mapping should not happen." must equalTo("Valid")
       )
     }
