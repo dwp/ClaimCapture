@@ -1,198 +1,205 @@
-window.fixErrorMessages = (beenPaidYetY, beenPaidYetN,
-                           howMuchPaid, howMuchPaidYText, howMuchPaidNText,
-                           whatDatePaid, whatDatePaidYText, whatDatePaidNText,
-                           howOften, howOftenFrequency, howOftenText, howOftenYText, howOftenNText,
-                           usuallyPaidSameAmount, usuallyPaidSameAmountText,
-                           usuallyPaidSameAmountYWeekText, usuallyPaidSameAmountNWeekText,
-                           usuallyPaidSameAmountYFortnightText, usuallyPaidSameAmountNFortnightText,
-                           usuallyPaidSameAmountYFourWeekText, usuallyPaidSameAmountNFourWeekText,
-                           usuallyPaidSameAmountYMonthText, usuallyPaidSameAmountNMonthText,
-                           usuallyPaidSameAmountYOtherText, usuallyPaidSameAmountNOtherText) ->
-  howOftenError = $("div[class='validation-summary'] a[href='#" + howOften + "']")
-  currentText = if howOftenError.length > 0 then howOftenError.text().trim()  else ""
-  existingError = currentText.substring(howOftenText.length, currentText.length)
-  howOftenError.text(howOftenNText + existingError)
-  if ($("#" + beenPaidYetN).prop('checked'))
-    currentText = $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text().trim()
-    existingError = currentText.substring(howMuchPaidYText.length, currentText.length)
-    $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']").text(howMuchPaidNText + existingError)
-    currentText = $("div[class='validation-summary'] a[href='#" + whatDatePaid + "']").text().trim()
-    existingError = currentText.substring(whatDatePaidYText.length, currentText.length)
-    $("div[class='validation-summary'] a[href='#" + whatDatePaid + "']").text(whatDatePaidNText + existingError)
-    howOftenError.text().trim()
-    existingError = currentText.substring(howOftenText.length, currentText.length)
-    howOftenError.text(howOftenNText + existingError)
-    currentText = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text().trim()
-    existingError = currentText.substring(usuallyPaidSameAmountText.length, currentText.length)
-    textToUse = switch ($("#" + howOftenFrequency).val())
-      when "Weekly" then usuallyPaidSameAmountNWeekText
-      when "Fortnightly" then usuallyPaidSameAmountNFortnightText
-      when "Four-Weekly" then usuallyPaidSameAmountNFourWeekText
-      when "Monthly" then usuallyPaidSameAmountNMonthText
-      else usuallyPaidSameAmountNOtherText
-    $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text(textToUse + existingError)
-  if ($("#" + beenPaidYetY).prop('checked'))
-    currentText = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text().trim()
-    existingError = currentText.substring(usuallyPaidSameAmountText.length, currentText.length)
-    textToUse = switch ($("#" + howOftenFrequency).val())
-      when "Weekly" then usuallyPaidSameAmountNWeekText
-      when "Fortnightly" then usuallyPaidSameAmountNFortnightText
-      when "Four-Weekly" then usuallyPaidSameAmountNFourWeekText
-      when "Monthly" then usuallyPaidSameAmountNMonthText
-      else usuallyPaidSameAmountNOtherText
-    $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']").text(textToUse + existingError)
-    currentText = $("div[class='validation-summary'] a[href='#" + howOften + "']").text().trim()
-    existingError = currentText.substring(howOftenText.length, currentText.length)
-    $("div[class='validation-summary'] a[href='#" + howOften + "']").text(howOftenYText + existingError)
+#Util functions so the code looks cleaner
 
-window.beenPaidYet = (beenPaidYetY, beenPaidYetN,
-                      howMuchPaid, howMuchPaidYText, howMuchPaidNText,
-                      whatDatePaid, whatDatePaidDay, whatDatePaidMonth, whatDatePaidYear, whatDatePaidYText, whatDatePaidNText,
-                      howOften, howOftenFrequencyOther, howOftenYText, howOftenNText,
-                      monthlyPayDay, monthlyPayDayYText, monthlyPayDayNText,
-                      usuallyPaidSameAmount, usuallyPaidSameAmountY, usuallyPaidSameAmountN,
-                      usuallyPaidSameAmountWeeklyText, usuallyPaidSameAmountWeeklyTextExpected,
-                      usuallyPaidSameAmountFortnightlyText, usuallyPaidSameAmountFortnightlyTextExpected,
-                      usuallyPaidSameAmountFourWeeklyText, usuallyPaidSameAmountFourWeeklyTextExpected,
-                      usuallyPaidSameAmountMonthlyText, usuallyPaidSameAmountMonthlyTextExpected,
-                      usuallyPaidSameAmountOtherText, usuallyPaidSameAmountOtherTextExpected) ->
-  $("#" + beenPaidYetY).on "click", ->
-    $("#beenPaidYetWrap").slideUp 500, ->
-      $("#beenPaidYetWrap").css('display', "none")
-      $("label[for='" + howMuchPaid + "']").text(howMuchPaidYText)
-      $("#" + howMuchPaid).val("")
-      $("#" + whatDatePaid).parent().find("legend").html(whatDatePaidYText)
-      $("#" + whatDatePaidDay).val("")
-      $("#" + whatDatePaidMonth).val("")
-      $("#" + whatDatePaidYear).val("")
-      $("label[for='" + howOften + "']").text(howOftenYText)
-      $("#" + howOften).val("")
-      $("label[for='" + monthlyPayDay + "']").text(monthlyPayDayYText)
-      $("#" + monthlyPayDay).val("")
-      if ($("#" + howOften).val() == "Weekly")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountWeeklyText)
-      if ($("#" + howOften).val() == "Fortnightly")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountFortnightlyText)
-      if ($("#" + howOften).val() == "Four-Weekly")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountFourWeeklyText)
-      if ($("#" + howOften).val() == "Monthly")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountMonthlyText)
-      if ($("#" + howOften).val() == "Other")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountOtherText)
-      $("#" + usuallyPaidSameAmountY).prop('checked', false)
-      $("#" + usuallyPaidSameAmountN).prop('checked', false)
-    $("#usuallyPaidSameAmountWrap").slideUp 500, ->
-      $("#usuallyPaidSameAmountWrap").css('display', "none")
-    if ($("#monthlyPayDayWrap").is(":visible"))
-      $("#monthlyPayDayWrap").slideUp 500, ->
-        $("#monthlyPayDayWrap").css('display', "none")
-    $("#beenPaidYetWrap").slideDown 500, ->
-      $("#beenPaidYetWrap").css('display', "block")
-    if ($("#howOften_wrap").is(":visible"))
-      $("#howOften_wrap").slideUp 500, ->
-        $("#howOften_wrap").css('display', "none")
-        $("#" + howOftenFrequencyOther).val("")
+#vss stands for validation-summary selector
+vss = (href) -> $("div[class='validation-summary'] a[href='##{href}']")
+vssText = (href,text)     -> if text? then vss(href).text(text) else vss(href).text().trim()
+checked = (selector,val)  -> if val?  then $("##{selector}").prop('checked',val) else $("##{selector}").prop('checked')
+val = (selector,text)     -> if text? then $("##{selector}").val(text) else $("##{selector}").val()
+subString = (str,start,end) -> str.substring(start.length,end.length)
+visible = (selector) -> $("##{selector}").is(":visible")
+legend = (selector)-> $("##{selector}").parent().find("legend")
+label = (selector) -> $("label[for='#{selector}']")
+S = (selector) -> $("##{selector}")
 
-  $("#" + beenPaidYetN).on "click", ->
-    $("#beenPaidYetWrap").slideUp 500, ->
-      $("#beenPaidYetWrap").css('display', "none")
-      $("label[for='" + howMuchPaid + "']").text(howMuchPaidNText)
-      $("#" + howMuchPaid).val("")
-      $("#" + whatDatePaid).parent().find("legend").html(whatDatePaidNText)
-      $("#" + whatDatePaidDay).val("")
-      $("#" + whatDatePaidMonth).val("")
-      $("#" + whatDatePaidYear).val("")
-      $("label[for='" + howOften + "']").text(howOftenNText)
-      $("#" + howOften).val("")
-      $("label[for='" + monthlyPayDay + "']").text(monthlyPayDayNText)
-      $("#" + monthlyPayDay).val("")
-      if ($("#" + howOften).val() == "Weekly")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountWeeklyTextExpected)
-      if ($("#" + howOften).val() == "Fortnightly")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountFortnightlyTextExpected)
-      if ($("#" + howOften).val() == "Four-Weekly")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountFourWeeklyTextExpected)
-      if ($("#" + howOften).val() == "Monthly")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountMonthlyTextExpected)
-      if ($("#" + howOften).val() == "Other")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountOtherTextExpected)
-      $("#" + usuallyPaidSameAmountY).prop('checked', false)
-      $("#" + usuallyPaidSameAmountN).prop('checked', false)
-    $("#usuallyPaidSameAmountWrap").slideUp 500, ->
-      $("#usuallyPaidSameAmountWrap").css('display', "none")
-    if ($("#monthlyPayDayWrap").is(":visible"))
-      $("#monthlyPayDayWrap").slideUp 500, ->
-        $("#monthlyPayDayWrap").css('display', "none")
-    $("#beenPaidYetWrap").slideDown 500, ->
-      $("#beenPaidYetWrap").css('display', "block")
-    if ($("#howOften_wrap").is(":visible"))
-      $("#howOften_wrap").slideUp 500, ->
-        $("#howOften_wrap").css('display', "none")
-        $("#" + howOftenFrequencyOther).val("")
 
-window.payDay = (beenPaidYetY, beenPaidYetN, howOftenFrequency, monthlyPayDay,
-                 usuallyPaidSameAmount, usuallyPaidSameAmountY, usuallyPaidSameAmountN, defaultValue,
-                 usuallyPaidSameAmountWeeklyText, usuallyPaidSameAmountWeeklyTextExpected,
-                 usuallyPaidSameAmountFortnightlyText, usuallyPaidSameAmountFortnightlyTextExpected,
-                 usuallyPaidSameAmountFourWeeklyText, usuallyPaidSameAmountFourWeeklyTextExpected,
-                 usuallyPaidSameAmountMonthlyText, usuallyPaidSameAmountMonthlyTextExpected,
-                 usuallyPaidSameAmountOtherText, usuallyPaidSameAmountOtherTextExpected) ->
-  $("#" + howOftenFrequency).change ->
-    if ($("#usuallyPaidSameAmountWrap").is(":visible"))
-      $("#usuallyPaidSameAmountWrap").slideUp 500, ->
-        $("#usuallyPaidSameAmountWrap").css('display', "none")
-        $("#" + usuallyPaidSameAmountY).prop('checked', false)
-        $("#" + usuallyPaidSameAmountN).prop('checked', false)
-    if ($("#monthlyPayDayWrap").is(":visible"))
-      $("#monthlyPayDayWrap").slideUp 500, ->
-        $("#monthlyPayDayWrap").css('display', "none")
-        $("#" + monthlyPayDay).val("")
+#
+# Fix Error Messages function
+#
 
-    if (($("#" + howOftenFrequency).val() is defaultValue) or ($("#" + howOftenFrequency).val() is ""))
-    else
-      if ($("#" + beenPaidYetN).prop('checked'))
-        if ($("#" + howOftenFrequency).val() == "Weekly")
-          $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountWeeklyTextExpected)
-        if ($("#" + howOftenFrequency).val() == "Fortnightly")
-          $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountFortnightlyTextExpected)
-        if ($("#" + howOftenFrequency).val() == "Four-Weekly")
-          $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountFourWeeklyTextExpected)
-        if ($("#" + howOftenFrequency).val() == "Monthly")
-          $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountMonthlyTextExpected)
-        if ($("#" + howOftenFrequency).val() == "Other")
-          $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountOtherTextExpected)
-      if ($("#" + beenPaidYetY).prop('checked'))
-        if ($("#" + howOftenFrequency).val() == "Weekly")
-          $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountWeeklyText)
-        if ($("#" + howOftenFrequency).val() == "Fortnightly")
-          $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountFortnightlyText)
-        if ($("#" + howOftenFrequency).val() == "Four-Weekly")
-          $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountFourWeeklyText)
-        if ($("#" + howOftenFrequency).val() == "Monthly")
-          $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountMonthlyText)
-        if ($("#" + howOftenFrequency).val() == "Other")
-          $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountOtherText)
-      $("#" + usuallyPaidSameAmountY).prop('checked', false)
-      $("#" + usuallyPaidSameAmountN).prop('checked', false)
-      $("#usuallyPaidSameAmountWrap").slideDown(500)
+window.fixErrorMessages = (o) ->
 
-    if $("#" + howOftenFrequency).val() is "Monthly"
-      $("#monthlyPayDayWrap").slideDown(500)
+  currentText = vssText(o.howOften)
+  vssText(o.howOften, o.howOftenNText + subString(currentText, o.howOftenText, currentText))
+
+  if checked o.beenPaidYetN
+    currentText = vssText(o.howMuchPaid)
+    vssText(o.howMuchPaid,o.howMuchPaidNText + subString(currentText, o.howMuchPaidYText, currentText))
+
+    currentText = vssText(o.whatDatePaid)
+    vssText(o.whatDatePaid,o.whatDatePaidNText + subString(currentText, o.whatDatePaidYText, currentText))
+
+    currentText = vssText(o.howOften)
+    vssText(o.howOften,o.howOftenNText + subString(currentText, o.howOftenText, currentText))
+
+    currentText = vssText(o.usuallyPaidSameAmount)
+
+    textToUse = switch (val o.howOftenFrequency)
+      when "weekly"       then o.usuallyPaidSameAmountNWeekText
+      when "fortnightly"  then o.usuallyPaidSameAmountNFortnightText
+      when "fourweekly"   then o.usuallyPaidSameAmountNFourWeekText
+      when "monthly"      then o.usuallyPaidSameAmountNMonthText
+      else o.usuallyPaidSameAmountNOtherText
+
+    vssText(o.usuallyPaidSameAmount,textToUse + subString(currentText, o.usuallyPaidSameAmountText, currentText))
+
+  if checked o.beenPaidYetY
+    currentText = vssText(o.usuallyPaidSameAmount)
+    textToUse = switch (val(o.howOftenFrequency))
+      when "weekly" then o.usuallyPaidSameAmountNWeekText
+      when "fortnightly" then o.usuallyPaidSameAmountNFortnightText
+      when "fourweekly" then o.usuallyPaidSameAmountNFourWeekText
+      when "monthly" then o.usuallyPaidSameAmountNMonthText
+      else o.usuallyPaidSameAmountNOtherText
+    vssText(o.usuallyPaidSameAmount,textToUse + subString(currentText, o.usuallyPaidSameAmountText, currentText))
+
+    currentText = vssText(o.howOften)
+    vssText(o.howOften,o.howOftenYText + subString(currentText, o.howOftenText, currentText))
+
+
+
+hideBeenPaidYetWrapOnY = (o,reset) ->
+  label(o.howMuchPaid).text(o.howMuchPaidYText)
+  val(o.howMuchPaid,"") if reset
+  legend(o.whatDatePaid).html(o.whatDatePaidYText)
+  val(o.whatDatePaidDay,"") if reset
+  val(o.whatDatePaidMonth,"") if reset
+  val(o.whatDatePaidYear,"") if reset
+  label(o.howOften).text(o.howOftenYText)
+  val(o.howOften,"") if reset
+  label(o.monthlyPayDay).text(o.monthlyPayDayYText)
+  val(o.monthlyPayDay,"") if reset
+  textToUse = switch (val(o.howOften))
+    when "weekly" then o.usuallyPaidSameAmountWeeklyText
+    when "fortnightly" then o.usuallyPaidSameAmountFortnightlyText
+    when "fourweekly" then o.usuallyPaidSameAmountFourWeeklyText
+    when "monthly" then o.usuallyPaidSameAmountMonthlyText
+    else o.usuallyPaidSameAmountOtherText
+
+  legend(o.usuallyPaidSameAmount).html(textToUse)
+  checked(o.usuallyPaidSameAmountY, false) if reset
+  checked(o.usuallyPaidSameAmountN, false) if reset
+
+hideBeenPaidYetWrapOnN = (o,reset) ->
+  label(o.howMuchPaid).text(o.howMuchPaidNText)
+  val(o.howMuchPaid,"") if reset
+  legend(o.whatDatePaid).html(o.whatDatePaidNText)
+  val(o.whatDatePaidDay,"") if reset
+  val(o.whatDatePaidMonth,"") if reset
+  val(o.whatDatePaidYear,"") if reset
+  label(o.howOften).text(o.howOftenNText)
+  val(o.howOften,"") if reset
+  label(o.monthlyPayDay).text(o.monthlyPayDayNText)
+  val(o.monthlyPayDay,"") if reset
+  textToUse = switch (val(o.howOften))
+    when "weekly" then o.usuallyPaidSameAmountWeeklyTextExpected
+    when "fortnightly" then o.usuallyPaidSameAmountFortnightlyTextExpected
+    when "fourweekly" then o.usuallyPaidSameAmountFourWeeklyTextExpected
+    when "monthly" then o.usuallyPaidSameAmountMonthlyTextExpected
+    else o.usuallyPaidSameAmountOtherTextExpected
+
+  legend(o.usuallyPaidSameAmount).html(textToUse)
+  checked(o.usuallyPaidSameAmountY, false) if reset
+  checked(o.usuallyPaidSameAmountN, false) if reset
+
+
+hideBeenPaid = (ctx,reset,hideFunction) ->
+  S("beenPaidYetWrap").slideUp 0, -> hideFunction(ctx,reset)
+  S("usuallyPaidSameAmountWrap").slideUp 0
+  S("monthlyPayDayWrap").slideUp 0
+  S("beenPaidYetWrap").slideDown 0
+  S("howOften_wrap").slideUp(0, -> (val ctx.howOftenFrequencyOther, "") if reset)
+
+onBeenPaidYetY = (ctx,reset) -> #Double -> because it's a function returning a function, which the jQuqery .on function will receive.
+  ->                      #The first function exists so the returned function has the "context" variable in scope
+    hideBeenPaid(ctx,reset,hideBeenPaidYetWrapOnY)
+
+onBeenPaidYetN = (ctx,reset) -> #Double -> because it's a function returning a function, which the jQuqery .on function will receive.
+  ->                      #The first function exists so the returned function has the "context" variable in scope
+    hideBeenPaid(ctx,reset,hideBeenPaidYetWrapOnN)
+
+
+#
+#Been Paid Yet function
+#
+
+window.beenPaidYet = (ctx) ->
+  if checked(ctx.beenPaidYetY)
+    onBeenPaidYetY(ctx,false)()
+  else if checked(ctx.beenPaidYetN)
+    onBeenPaidYetN(ctx,false)()
+  else
+    S("beenPaidYetWrap").slideUp 0, -> hideBeenPaidYetWrapOnN(ctx,false)
+    S("usuallyPaidSameAmountWrap").slideUp 0
+    S("monthlyPayDayWrap").slideUp 0
+    S("howOften_wrap").slideUp(0)
+
+  S(ctx.beenPaidYetY).on "click", onBeenPaidYetY(ctx,true)
+  S(ctx.beenPaidYetN).on "click", onBeenPaidYetN(ctx,true)
+
+
+  
+  
+onHowOftenFrequency = (ctx,reset) -> #Double -> because it's a function returning a function, which the jQuqery .on function will receive.
+  ->                           #The first function exists so the returned function has the "context" variable in scope
+    if visible("usuallyPaidSameAmountWrap")
+      S("usuallyPaidSameAmountWrap").slideUp 0, ->
+        checked(ctx.usuallyPaidSameAmountY,false) if reset
+        checked(ctx.usuallyPaidSameAmountN,false) if reset
+
+    S("monthlyPayDayWrap").slideUp 0, -> val(ctx.monthlyPayDay,"") if visible("monthlyPayDayWrap") and reset
+
+    if not (val(ctx.howOftenFrequency) is ctx.defaultValue or val(ctx.howOftenFrequency) is "")
+      if checked(ctx.beenPaidYetN)
+        textToUse = switch (val(ctx.howOftenFrequency))
+          when "weekly" then ctx.usuallyPaidSameAmountWeeklyTextExpected
+          when "fortnightly" then ctx.usuallyPaidSameAmountFortnightlyTextExpected
+          when "fourweekly" then ctx.usuallyPaidSameAmountFourWeeklyTextExpected
+          when "monthly" then ctx.usuallyPaidSameAmountMonthlyTextExpected
+          else ctx.usuallyPaidSameAmountOtherTextExpected
+        legend(ctx.usuallyPaidSameAmount).html(textToUse)
+
+      if checked(ctx.beenPaidYetY)
+        textToUse = switch (val(ctx.howOftenFrequency))
+          when "weekly" then ctx.usuallyPaidSameAmountWeeklyText
+          when "fortnightly" then ctx.usuallyPaidSameAmountFortnightlyText
+          when "fourweekly" then ctx.usuallyPaidSameAmountFourWeeklyText
+          when "monthly" then ctx.usuallyPaidSameAmountMonthlyText
+          else ctx.usuallyPaidSameAmountOtherText
+        legend(ctx.usuallyPaidSameAmount).html(textToUse)
+
+      checked(ctx.usuallyPaidSameAmountY, false) if reset
+      checked(ctx.usuallyPaidSameAmountN, false) if reset
+      S("usuallyPaidSameAmountWrap").slideDown(0)
+
+
+    S("monthlyPayDayWrap").slideDown(0) if val(ctx.howOftenFrequency) is "monthly"
+
+#
+#Pay Day function
+#
+
+window.payDay = (o) ->
+  onHowOftenFrequency(o,false)()
+  S(o.howOftenFrequency).on "change", onHowOftenFrequency(o,true)
+
+#
+# What For function
+#
 
 window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
-  $("#" + payIntoPensionY).on "click", ->
-    $("#whatForWrap").slideDown 500
-    $("#whatForWrap").css('display', "block")
+  if not checked(payIntoPensionY)
+    S("whatForWrap").slideUp 0, -> val(whatFor,"")
+  S(payIntoPensionY).on "click", -> S("whatForWrap").slideDown 0
 
-  $("#" + payIntoPensionN).on "click", ->
-    $("#whatForWrap").slideUp 500, ->
-      $("#" + whatFor).val("")
+  S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp 0, -> val(whatFor,"")
 
+#
+# What Costs function
+#
 window.whatCosts = (careCostsForThisWorkY, careCostsForThisWorkN, whatCosts) ->
-  $("#" + careCostsForThisWorkY).on "click", ->
-    $("#whatCostsWrap").slideDown 500
-    $("#whatCostsWrap").css('display', "block")
+  if not checked(careCostsForThisWorkY)
+    S("whatCostsWrap").slideUp 0, -> val(whatCosts,"")
 
-  $("#" + careCostsForThisWorkN).on "click", ->
-    $("#whatCostsWrap").slideUp 500, ->
-      $("#" + whatCosts).val("")
+  S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown 0
+
+  S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp 0, -> val(whatCosts,"")

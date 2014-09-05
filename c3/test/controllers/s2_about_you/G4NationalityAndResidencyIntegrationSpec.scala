@@ -61,5 +61,16 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G4NationalityAndResidencyPage]
     }
 
+    "country normally live in visible when clicked back" in new WithBrowser with PageObjects{
+      val page =  G4NationalityAndResidencyPage(context)
+      val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+      nextPage.goBack()
+      browser.find("#resideInUK_text").size() mustEqual 1
+    }
+
   } section("integration", models.domain.AboutYou.id)
 }

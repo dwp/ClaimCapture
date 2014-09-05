@@ -1,8 +1,16 @@
 window.initEvents = (answerY, answerN) ->
 
+  if not $("#"+answerN).prop 'checked'
+    hideSelfEmployedIncomeWrap()
+
   $("#" + answerY).on "click", ->
-    $("#selfEmployedIncomeWrap").slideUp 0
+    hideSelfEmployedIncomeWrap()
 
   $("#" + answerN).on "click", ->
-    $("#selfEmployedIncomeWrap").slideDown 0
-    $("#selfEmployedIncomeWrap").css('display', "block")
+    showSelfEmployedIncomeWrap()
+
+hideSelfEmployedIncomeWrap = ->
+  $("#selfEmployedIncomeWrap").slideUp 0
+
+showSelfEmployedIncomeWrap = ->
+  $("#selfEmployedIncomeWrap").slideDown 0

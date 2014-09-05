@@ -139,44 +139,47 @@ $(function(){
     window.areaCounter({selector:"@CarersCrypto.encryptAES(howOftenFrequency.id)",maxChars:60});
 })
 $(function(){
-    window.fixErrorMessages("@CarersCrypto.encryptAES(beenPaidYet.id)",
-            "@Html(Messages("beenPaidYet"))",
-            "@Html(Messages("beenPaidYet.will"))",
-            "@CarersCrypto.encryptAES(howOften.id)",
-            "@Html(Messages("howOften"))",
-            "@Html(Messages("circs.howOften.will"))",
-            "@CarersCrypto.encryptAES(howOftenFrequency.id)",
-            "@CarersCrypto.encryptAES(usuallyPaidSameAmount.id)",
-            "@Html(Messages("usuallyPaidSameAmount.will"))",
-            "@Html(Messages("usuallyPaidSameAmount.will.week"))",
-            "@Html(Messages("usuallyPaidSameAmount.will.fortnight"))",
-            "@Html(Messages("usuallyPaidSameAmount.will.time"))",
-            "@Html(Messages("usuallyPaidSameAmount.will.month"))",
-            "@Html(Messages("usuallyPaidSameAmount.will.time"))",
-            "@CarersCrypto.encryptAES(doYouPayIntoPension("answer").id)",
-            "@Html(Messages("doYouPayIntoPension"))",
-            "@Html(Messages("willYouPayIntoPension"))",
-            "@CarersCrypto.encryptAES(doCareCostsForThisWork("answer").id)",
-            "@Html(Messages("doCareCostsForThisWork"))",
-            "@Html(Messages("willCareCostsForThisWork"))"
-    );
+
+    window.fixErrorMessages({
+            beenPaidYet:"@CarersCrypto.encryptAES(beenPaidYet.id)",
+            beenPaidYetText:"@Html(Messages("beenPaidYet"))",
+            willBePaidText:"@Html(Messages("beenPaidYet.will"))",
+            howOften:"@CarersCrypto.encryptAES(howOften.id)",
+            howOftenText:"@Html(Messages("howOften"))",
+            howOftenWillText:"@Html(Messages("circs.howOften.will"))",
+            howOftenFrequency:"@CarersCrypto.encryptAES(howOftenFrequency.id)",
+            usuallyPaidSameAmount:"@CarersCrypto.encryptAES(usuallyPaidSameAmount.id)",
+            usuallyPaidSameAmountText:"@Html(Messages("usuallyPaidSameAmount.will"))",
+            usuallyPaidSameAmountWeekText:"@Html(Messages("usuallyPaidSameAmount.will.week"))",
+            usuallyPaidSameAmountFortnightText:"@Html(Messages("usuallyPaidSameAmount.will.fortnight"))",
+            usuallyPaidSameAmountFourWeekText:"@Html(Messages("usuallyPaidSameAmount.will.time"))",
+            usuallyPaidSameAmountMonthText:"@Html(Messages("usuallyPaidSameAmount.will.month"))",
+            usuallyPaidSameAmountOtherText:"@Html(Messages("usuallyPaidSameAmount.will.time"))",
+            doYouPayIntoPensionAnswer:"@CarersCrypto.encryptAES(doYouPayIntoPension("answer").id)",
+            doYouPayIntoPensionText:"@Html(Messages("doYouPayIntoPension"))",
+            willYouPayIntoPensionText:"@Html(Messages("willYouPayIntoPension"))",
+            doCareCostsForThisWorkAnswer:"@CarersCrypto.encryptAES(doCareCostsForThisWork("answer").id)",
+            doCareCostsForThisWorkText:"@Html(Messages("doCareCostsForThisWork"))",
+            willCareCostsForThisWorkText:"@Html(Messages("willCareCostsForThisWork"))"
+    });
 
     window.beenPaidYet("@CarersCrypto.encryptAES(beenPaidYet("yes").id)",
         "@CarersCrypto.encryptAES(beenPaidYet("no").id)"
     );
 
-    window.usuallyPaidSameAmount("@CarersCrypto.encryptAES(howOftenFrequency.id)",
-            "@CarersCrypto.encryptAES(usuallyPaidSameAmount.id)",
-            "@CarersCrypto.encryptAES(usuallyPaidSameAmount("yes").id)",
-            "@CarersCrypto.encryptAES(usuallyPaidSameAmount("no").id)",
-            "@Html(Messages("pleaseSelect"))",
-            "dontknowyet",
-            "@Html(Messages("usuallyPaidSameAmount.will.week"))",
-            "@Html(Messages("usuallyPaidSameAmount.will.fortnight"))",
-            "@Html(Messages("usuallyPaidSameAmount.will.fourweekly"))",
-            "@Html(Messages("usuallyPaidSameAmount.will.month"))",
-            "@Html(Messages("usuallyPaidSameAmount.will.other"))"
-    );
+    window.usuallyPaidSameAmount({
+            howOftenFrequency:"@CarersCrypto.encryptAES(howOftenFrequency.id)",
+            usuallyPaidSameAmount:"@CarersCrypto.encryptAES(usuallyPaidSameAmount.id)",
+            usuallyPaidSameAmountY:"@CarersCrypto.encryptAES(usuallyPaidSameAmount("yes").id)",
+            usuallyPaidSameAmountN:"@CarersCrypto.encryptAES(usuallyPaidSameAmount("no").id)",
+            defaultValue:"@Html(Messages("pleaseSelect"))",
+            dontknowKey:"dontknowyet",
+            usuallyPaidSameAmountWeeklyText:"@Html(Messages("usuallyPaidSameAmount.will.week"))",
+            usuallyPaidSameAmountFortnightlyText:"@Html(Messages("usuallyPaidSameAmount.will.fortnight"))",
+            usuallyPaidSameAmountFourWeeklyText:"@Html(Messages("usuallyPaidSameAmount.will.fourweekly"))",
+            usuallyPaidSameAmountMonthlyText:"@Html(Messages("usuallyPaidSameAmount.will.month"))",
+            usuallyPaidSameAmountOtherText:"@Html(Messages("usuallyPaidSameAmount.will.other"))"
+    });
 
     window.whatFor("@CarersCrypto.encryptAES(doYouPayIntoPension("answer")("yes").id)",
                    "@CarersCrypto.encryptAES(doYouPayIntoPension("answer")("no").id)",

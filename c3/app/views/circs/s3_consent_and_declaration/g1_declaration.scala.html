@@ -47,8 +47,7 @@
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> Mappings.sixty)),
-	                    'id -> "nameOrOrganisationWrapper",
-	                    'display -> declarationForm("circsSomeOneElse").value.map(p => p match { case "true" => "yes" case _ => p}).getOrElse("no")
+	                    'id -> "nameOrOrganisationWrapper"
 	                )
 	            </ul>
 	
@@ -59,8 +58,7 @@
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 300, 'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
-	                    'id -> "why",
-	                    'display -> (if (claim.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration()).obtainInfoAgreement == "no" || declarationForm("obtainInfoAgreement").value.getOrElse("") == "no" ) "yes" else "no"))
+	                    'id -> "why"
 	
 	            </ul>
 	        </fieldset>
@@ -73,22 +71,17 @@
 	        </nav>
         </div>
     }
+}
 <script type="text/javascript">$($("#js").val("true"));</script>
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s3_consent_and_declaration/g1_declaration.js")'></script>
-<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 <script type="text/javascript">
-    $(function(){
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("obtainInfoWhy")",maxChars:300});
-    })
-
-    $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
+$(function() {
+window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
                    "@CarersCrypto.encryptAES("obtainInfoAgreement_no")",
                    "@CarersCrypto.encryptAES("obtainInfoWhy")",
                    "@CarersCrypto.encryptAES("circsSomeOneElse")",
                    "@CarersCrypto.encryptAES("nameOrOrganisation")");
 })
 </script>
-}

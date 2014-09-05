@@ -1,168 +1,163 @@
-window.fixErrorMessages = (beenPaidYet, beenPaidYetY, beenPaidYetN, beenPaidYetOldText, beenPaidYetText,
-                           howMuchPaid, howMuchPaidOldText, howMuchPaidYText, howMuchPaidNText,
-                           dateLastPaid, dateLastPaidYText, dateLastPaidNText,
-                           whatWasIncluded, whatWasIncludedYText, whatWasIncludedNText,
-                           howOften, howOftenFrequency,
-                           howOftenText, howOftenCircsText,
-                           usuallyPaidSameAmount, usuallyPaidSameAmountText,
-                           usuallyPaidSameAmountWeekText, usuallyPaidSameAmountFortnightText,
-                           usuallyPaidSameAmountFourWeekText, usuallyPaidSameAmountMonthText, usuallyPaidSameAmountOtherText,
-                           doYouPayIntoPensionAnswer, doYouPayIntoPensionText, didYouPayIntoPensionText,
-                           doCareCostsForThisWorkAnswer, doCareCostsForThisWorkText, didCareCostsForThisWorkText) ->
-  beenPaidYetError = $("div[class='validation-summary'] a[href='#" + beenPaidYet + "']")
-  currentText = if beenPaidYetError.length > 0 then beenPaidYetError.text().trim() else ""
-  existingError = currentText.substring(beenPaidYetOldText.length, currentText.length)
-  beenPaidYetError.text(beenPaidYetText + existingError)
-  howMuchPaidError = $("div[class='validation-summary'] a[href='#" + howMuchPaid + "']")
-  currentText = if howMuchPaidError.length > 0 then howMuchPaidError.text().trim() else ""
-  existingError = currentText.substring(howMuchPaidOldText.length, currentText.length)
-  howMuchPaidError.text(howMuchPaidYText + existingError)
+#Util functions so the code looks cleaner
 
-  if ($("#" + beenPaidYetN).prop('checked'))
-    currentText = if howMuchPaidError.length > 0 then howMuchPaidError.text().trim() else ""
-    existingError = currentText.substring(howMuchPaidOldText.length, currentText.length)
-    howMuchPaidError.text(howMuchPaidNText + existingError)
-    dateLastPaidError = $("div[class='validation-summary'] a[href='#" + dateLastPaid + "']")
-    currentText = if dateLastPaidError.length > 0 then dateLastPaidError.text().trim() else ""
-    existingError = currentText.substring(dateLastPaidYText.length, currentText.length)
-    $("div[class='validation-summary'] a[href='#" + dateLastPaid + "']").text(dateLastPaidNText + existingError)
+#vss stands for validation-summary selector
+vss = (href) -> $("div[class='validation-summary'] a[href='##{href}']")
+vssText = (href,text)     -> if text? then vss(href).text(text) else vss(href).text().trim()
+checked = (selector,val)  -> if val?  then $("##{selector}").prop('checked',val) else $("##{selector}").prop('checked')
+val = (selector,text)     -> if text? then $("##{selector}").val(text) else $("##{selector}").val()
+subString = (str,start,end) -> str.substring(start.length,end.length)
+visible = (selector) -> $("##{selector}").is(":visible")
+legend = (selector)-> $("##{selector}").parent().find("legend")
+label = (selector) -> $("label[for='#{selector}']")
+exists = (elem) -> elem? and elem.length > 0
+S = (selector) -> $("##{selector}")
 
-  if ($("#" + beenPaidYetY).prop('checked'))
-    currentText = if howMuchPaidError.length > 0 then howMuchPaidError.text().trim() else ""
-    existingError = currentText.substring(howMuchPaidOldText.length, currentText.length)
-    howMuchPaidError.text(howMuchPaidYText + existingError)
+window.fixErrorMessages = (o) ->
+  currentText = vssText(o.beenPaidYet)
+  existingError = subString(currentText,o.beenPaidYetOldText,currentText)
+  vss(o.beenPaidYet).text(o.beenPaidYetText + existingError)
+  currentText = vssText(o.howMuchPaid)
+  existingError = subString(currentText,o.howMuchPaidOldText,currentText)
+  vss(o.howMuchPaid).text(o.howMuchPaidYText + existingError)
 
-  pathUsuallyPaidSameAmount = $("div[class='validation-summary'] a[href='#" + usuallyPaidSameAmount + "']")
-  if ((pathUsuallyPaidSameAmount != undefined) && (pathUsuallyPaidSameAmount.length > 0))
+  if checked o.beenPaidYetN
+    currentText = vssText(o.howMuchPaid)
+    existingError = subString(currentText,o.howMuchPaidOldText,currentText)
+    vss(o.howMuchPaid).text(o.howMuchPaidNText + existingError)
+    currentText = vssText(o.dateLastPaid)
+    existingError = subString(currentText,o.dateLastPaidYText,currentText)
+    vss(o.dateLastPaid).text(o.dateLastPaidNText + existingError)
+
+  if checked o.beenPaidYetY
+    currentText = vssText(o.howMuchPaid)
+    existingError = subString(currentText,o.howMuchPaidOldText,currentText)
+    vss(o.howMuchPaid).text(o.howMuchPaidYText + existingError)
+
+  pathUsuallyPaidSameAmount = vss(o.usuallyPaidSameAmount)
+
+  if exists pathUsuallyPaidSameAmount
     currentTextUsuallyPaidSameAmount = pathUsuallyPaidSameAmount.text().trim()
-    existingErrorUsuallyPaidSameAmount = currentTextUsuallyPaidSameAmount.substring(usuallyPaidSameAmountText.length, currentTextUsuallyPaidSameAmount.length)
-    textToUseUsuallyPaidSameAmount = switch ($("#" + howOftenFrequency).val())
-      when "Weekly" then usuallyPaidSameAmountWeekText
-      when "Fortnightly" then usuallyPaidSameAmountFortnightText
-      when "Four-Weekly" then usuallyPaidSameAmountFourWeekText
-      when "Monthly" then usuallyPaidSameAmountMonthText
-      else usuallyPaidSameAmountOtherText
+    existingErrorUsuallyPaidSameAmount = subString(currentTextUsuallyPaidSameAmount,o.usuallyPaidSameAmountText,currentTextUsuallyPaidSameAmount)
+    textToUseUsuallyPaidSameAmount = switch (val o.howOftenFrequency)
+      when "weekly" then o.usuallyPaidSameAmountWeekText
+      when "fortnightly" then o.usuallyPaidSameAmountFortnightText
+      when "fourweekly" then o.usuallyPaidSameAmountFourWeekText
+      when "monthly" then o.usuallyPaidSameAmountMonthText
+      else o.usuallyPaidSameAmountOtherText
     pathUsuallyPaidSameAmount.text(textToUseUsuallyPaidSameAmount + existingErrorUsuallyPaidSameAmount)
+  pathHowOften = vss(o.howOften)
 
-  pathHowOften = $("div[class='validation-summary'] a[href='#" + howOften + "']")
-  if pathHowOften != undefined and pathHowOften.length > 0
-    currentTextHowOften = pathHowOften.text().toString()
-    currentTextHowOften = if currentTextHowOften.trim? then currentTextHowOften.trim() else currentTextHowOften
-    existingErrorHowOften = currentTextHowOften.substring(howOftenText.length, currentTextHowOften.length)
-    pathHowOften.text(howOftenCircsText + existingErrorHowOften)
+  if exists pathHowOften
+    currentTextHowOften = pathHowOften.text().trim()
+    existingErrorHowOften = subString(currentTextHowOften,o.howOftenText,currentTextHowOften)
+    pathHowOften.text(o.howOftenCircsText + existingErrorHowOften)
 
-  pathDoYouPayIntoPensionAnswer = $("div[class='validation-summary'] a[href='#" + doYouPayIntoPensionAnswer + "']")
-  if pathDoYouPayIntoPensionAnswer != undefined and pathDoYouPayIntoPensionAnswer.length > 0
+  pathDoYouPayIntoPensionAnswer = vss(o.doYouPayIntoPensionAnswer)
+  if exists pathDoYouPayIntoPensionAnswer
     currentTextDoYouPayIntoPensionAnswer = pathDoYouPayIntoPensionAnswer.text().trim()
-    existingErrorDoYouPayIntoPensionAnswer = currentTextDoYouPayIntoPensionAnswer.substring(doYouPayIntoPensionText.length, currentTextDoYouPayIntoPensionAnswer.length)
-    pathDoYouPayIntoPensionAnswer.text(didYouPayIntoPensionText + existingErrorDoYouPayIntoPensionAnswer)
+    existingErrorDoYouPayIntoPensionAnswer = subString(currentTextDoYouPayIntoPensionAnswer,o.doYouPayIntoPensionText,currentTextDoYouPayIntoPensionAnswer)
+    pathDoYouPayIntoPensionAnswer.text(o.didYouPayIntoPensionText + existingErrorDoYouPayIntoPensionAnswer)
 
-  pathDoCareCostsForThisWorkAnswer = $("div[class='validation-summary'] a[href='#" + doCareCostsForThisWorkAnswer + "']")
-  if pathDoCareCostsForThisWorkAnswer != undefined and pathDoCareCostsForThisWorkAnswer.length > 0
+  pathDoCareCostsForThisWorkAnswer = vss(o.doCareCostsForThisWorkAnswer)
+  if exists pathDoCareCostsForThisWorkAnswer
     currentTextDoCareCostsForThisWorkAnswer = pathDoCareCostsForThisWorkAnswer.text().trim()
-    existingErrorDoCareCostsForThisWorkAnswer = currentTextDoCareCostsForThisWorkAnswer.substring(doCareCostsForThisWorkText.length, currentTextDoCareCostsForThisWorkAnswer.length)
-    pathDoCareCostsForThisWorkAnswer.text(didCareCostsForThisWorkText + existingErrorDoCareCostsForThisWorkAnswer)
+    existingErrorDoCareCostsForThisWorkAnswer = subString(currentTextDoCareCostsForThisWorkAnswer,o.doCareCostsForThisWorkText,currentTextDoCareCostsForThisWorkAnswer)
+    pathDoCareCostsForThisWorkAnswer.text(o.didCareCostsForThisWorkText + existingErrorDoCareCostsForThisWorkAnswer)
 
-window.beenPaidYet = (beenPaidYetY, beenPaidYetN,
-                      howMuchPaid, howMuchPaidYText, howMuchPaidNText,
-                      dateLastPaid, dateLastPaidDay, dateLastPaidMonth, dateLastPaidYear, dateLastPaidYText, dateLastPaidNText,
-                      whatWasIncluded, whatWasIncludedYText, whatWasIncludedNText) ->
-  $("#" + beenPaidYetY).on "click", ->
-    $("#beenPaidYetWrap").slideUp 500, ->
-      $("#beenPaidYetWrap").css('display', "none")
-      $("label[for='" + howMuchPaid + "']").text(howMuchPaidYText)
-      $("#" + howMuchPaid).val("")
-      $("#" + dateLastPaid).parent().find("legend").html(dateLastPaidYText)
-      $("#" + dateLastPaidDay).val("")
-      $("#" + dateLastPaidMonth).val("")
-      $("#" + dateLastPaidYear).val("")
-      $("#" + dateLastPaid + "_defaultDateContextualHelp").css('display', "block")
-      $("#" + dateLastPaid + "_alternativeDateContextualHelp").css('display', "none")
-      $("label[for='" + whatWasIncluded + "']").text(whatWasIncludedYText)
-      $("#" + whatWasIncluded).val("")
-    $("#beenPaidYetWrap").slideDown 500, ->
-      $("#beenPaidYetWrap").css('display', "block")
+onBeenPaidYetY = (ctx,reset) ->
+  ->
+    S("beenPaidYetWrap").slideUp 0, ->
+      label(ctx.howMuchPaid).text(ctx.howMuchPaidYText)
+      S(ctx.howMuchPaid).val("") if reset
+      legend(ctx.dateLastPaid).html(ctx.dateLastPaidYText)
+      S(ctx.dateLastPaidDay).val("") if reset
+      S(ctx.dateLastPaidMonth).val("") if reset
+      S(ctx.dateLastPaidYear).val("") if reset
+      S(ctx.dateLastPaid + "_defaultDateContextualHelp").css('display', "block")
+      S(ctx.dateLastPaid + "_alternativeDateContextualHelp").css('display', "none")
+      label(ctx.whatWasIncluded).text(ctx.whatWasIncludedYText)
+      S(ctx.whatWasIncluded).val("") if reset
+    S("beenPaidYetWrap").slideDown 0
 
-  $("#" + beenPaidYetN).on "click", ->
-    $("#beenPaidYetWrap").slideUp 500, ->
-      $("#beenPaidYetWrap").css('display', "none")
-      $("label[for='" + howMuchPaid + "']").text(howMuchPaidNText)
-      $("#" + howMuchPaid).val("")
-      $("#" + dateLastPaid).parent().find("legend").html(dateLastPaidNText)
-      $("#" + dateLastPaidDay).val("")
-      $("#" + dateLastPaidMonth).val("")
-      $("#" + dateLastPaidYear).val("")
-      $("#" + dateLastPaid + "_defaultDateContextualHelp").css('display', "none")
-      $("#" + dateLastPaid + "_alternativeDateContextualHelp").css('display', "block")
-      $("label[for='" + whatWasIncluded + "']").text(whatWasIncludedNText)
-      $("#" + whatWasIncluded).val("")
-    $("#beenPaidYetWrap").slideDown 500, ->
-      $("#beenPaidYetWrap").css('display', "block")
+onBeenPaidYetN = (ctx,reset) ->
+  ->
+    S("beenPaidYetWrap").slideUp 0, ->
+      label(howMuchPaid).text(ctx.howMuchPaidNText)
+      S(ctx.howMuchPaid).val("") if reset
+      legend(ctx.dateLastPaid).html(ctx.dateLastPaidNText)
+      S(ctx.dateLastPaidDay).val("") if reset
+      S(ctx.dateLastPaidMonth).val("") if reset
+      S(ctx.dateLastPaidYear).val("") if reset
+      S(ctx.dateLastPaid + "_defaultDateContextualHelp").css('display', "none")
+      S(ctx.dateLastPaid + "_alternativeDateContextualHelp").css('display', "block")
+      label(ctx.whatWasIncluded).text(ctx.whatWasIncludedNText)
+      S(ctx.whatWasIncluded).val("") if reset
+    S("beenPaidYetWrap").slideDown 0
 
-window.usuallyPaidSameAmount = (howOftenFrequency,
-                                monthlyPayDay
-                                usuallyPaidSameAmount,
-                                usuallyPaidSameAmountY,
-                                usuallyPaidSameAmountN,
-                                defaultValue,
-                                usuallyPaidSameAmountWeeklyText,
-                                usuallyPaidSameAmountFortnightlyText,
-                                usuallyPaidSameAmountFourWeeklyText,
-                                usuallyPaidSameAmountMonthlyText,
-                                usuallyPaidSameAmountOtherText) ->
-  $("#" + howOftenFrequency).change ->
-    if ($("#usuallyPaidSameAmountWrap").is(":visible"))
-      $("#usuallyPaidSameAmountWrap").slideUp 500, ->
-        $("#usuallyPaidSameAmountWrap").css('display', "none")
-        $("#" + usuallyPaidSameAmountY).prop('checked', false)
-        $("#" + usuallyPaidSameAmountN).prop('checked', false)
-    if ($("#monthlyPayDayWrap").is(":visible"))
-      $("#monthlyPayDayWrap").slideUp 500, ->
-        $("#monthlyPayDayWrap").css('display', "none")
-        $("#" + monthlyPayDay).val("")
-    if (($("#" + howOftenFrequency).val() is defaultValue) or ($("#" + howOftenFrequency).val() is ""))
-    else
-      if ($("#" + howOftenFrequency).val() == "Weekly")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountWeeklyText)
-      if ($("#" + howOftenFrequency).val() == "Fortnightly")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountFortnightlyText)
-      if ($("#" + howOftenFrequency).val() == "Four-Weekly")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountFourWeeklyText)
-      if ($("#" + howOftenFrequency).val() == "Monthly")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountMonthlyText)
-      if ($("#" + howOftenFrequency).val() == "Other")
-        $("#" + usuallyPaidSameAmount).parent().find("legend").html(usuallyPaidSameAmountOtherText)
-      $("#" + usuallyPaidSameAmountY).prop('checked', false)
-      $("#" + usuallyPaidSameAmountN).prop('checked', false)
-      $("#usuallyPaidSameAmountWrap").slideDown(500)
-    if $("#" + howOftenFrequency).val() is "monthly"
-      $("#monthlyPayDayWrap").slideDown(500)
+window.beenPaidYet = (o) ->
+  if checked o.beenPaidYetY
+    onBeenPaidYetY(o,false)()
+  else if checked o.beenPaidYetN
+    onBeenPaidYetN(o,false)()
+  else
+    S("beenPaidYetWrap").slideUp 0
+
+
+  S(o.beenPaidYetY).on "click", onBeenPaidYetY(o,true)
+  S(o.beenPaidYetN).on "click", onBeenPaidYetN(o,true)
+
+onUsuallyPaidSameAmount = (o) ->
+  ->
+    if visible("usuallyPaidSameAmountWrap")
+      S("usuallyPaidSameAmountWrap").slideUp 0, ->
+        checked o.usuallyPaidSameAmountY,  false
+        checked o.usuallyPaidSameAmountN,  false
+
+    S("monthlyPayDayWrap").slideUp 0, -> S(o.monthlyPayDay).val("") if visible("monthlyPayDayWrap")
+
+    if not (val(o.howOftenFrequency) is o.defaultValue or val(o.howOftenFrequency) is "")
+
+      textToUse = switch(val o.howOftenFrequency)
+        when "weekly" then o.usuallyPaidSameAmountWeeklyText
+        when "fortnightly" then o.usuallyPaidSameAmountFortnightlyText
+        when "fourWeekly" then o.usuallyPaidSameAmountFourWeeklyText
+        when "montly" then o.usuallyPaidSameAmountMonthlyText
+        else o.usuallyPaidSameAmountOtherText
+      legend(o.usuallyPaidSameAmount).html(textToUse)
+
+      checked o.usuallyPaidSameAmountY,  false
+      checked o.usuallyPaidSameAmountN,  false
+      S("usuallyPaidSameAmountWrap").slideDown(0)
+
+    S("monthlyPayDayWrap").slideDown(0) if val(o.howOftenFrequency) is "monthly"
+
+window.usuallyPaidSameAmount = (o) ->
+  if val(o.howOftenFrequency) is ""
+    S("monthlyPayDayWrap").slideUp 0
+    S("usuallyPaidSameAmountWrap").slideUp 0
+
+  S(o.howOftenFrequency).change onUsuallyPaidSameAmount(o)
+
 
 window.employerOwesYouMoney = (usuallyPaidSameAmountY, usuallyPaidSameAmountN) ->
-  $("#" + usuallyPaidSameAmountY).on "click", ->
-    if ($("#" + usuallyPaidSameAmountY).prop('checked'))
-      $("#employerOwesYouMoneyHelpWrap").slideDown 500
-      $("#employerOwesYouMoneyHelpWrap").css('display', "block")
-  $("#" + usuallyPaidSameAmountN).on "click", ->
-    if ($("#" + usuallyPaidSameAmountY).prop('checked'))
-    else
-      $("#employerOwesYouMoneyHelpWrap").slideUp 500, ->
-        $("#employerOwesYouMoneyHelpWrap").css('display', "none")
+  if not checked(usuallyPaidSameAmountY)
+    S("employerOwesYouMoneyHelpWrap").slideUp 0
+
+  S(usuallyPaidSameAmountY).on "click", -> S("employerOwesYouMoneyHelpWrap").slideDown 0 if checked usuallyPaidSameAmountY
+  S(usuallyPaidSameAmountN).on "click", -> S("employerOwesYouMoneyHelpWrap").slideUp 0 if not checked usuallyPaidSameAmountY
+
 
 window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
-  $("#" + payIntoPensionY).on "click", ->
-    $("#whatForWrap").slideDown 500
-    $("#whatForWrap").css('display', "block")
+  if not checked(payIntoPensionY)
+    S("whatForWrap").slideUp 0
 
-  $("#" + payIntoPensionN).on "click", ->
-    $("#whatForWrap").slideUp 500, ->
-      $("#" + whatFor).val("")
+  S(payIntoPensionY).on "click", -> S("whatForWrap").slideDown 0
+  S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp 0, -> S(whatFor).val("")
+
 
 window.whatCosts = (careCostsForThisWorkY, careCostsForThisWorkN, whatCosts) ->
-  $("#" + careCostsForThisWorkY).on "click", ->
-    $("#whatCostsWrap").slideDown 500
-    $("#whatCostsWrap").css('display', "block")
+  if not checked(careCostsForThisWorkY)
+    S("whatCostsWrap").slideUp 0
 
-  $("#" + careCostsForThisWorkN).on "click", ->
-    $("#whatCostsWrap").slideUp 500, ->
-      $("#" + whatCosts).val("")
+  S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown 0
+  S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp 0, -> S(whatCosts).val("")
