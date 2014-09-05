@@ -132,6 +132,10 @@ onUsuallyPaidSameAmount = (o) ->
     S("monthlyPayDayWrap").slideDown(0) if val(o.howOftenFrequency) is "monthly"
 
 window.usuallyPaidSameAmount = (o) ->
+  if val(o.howOftenFrequency) is ""
+    S("monthlyPayDayWrap").slideUp 0
+    S("usuallyPaidSameAmountWrap").slideUp 0
+
   S(o.howOftenFrequency).change onUsuallyPaidSameAmount(o)
 
 
