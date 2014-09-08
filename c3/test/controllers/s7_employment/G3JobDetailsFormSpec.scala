@@ -30,6 +30,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "address.lineTwo" -> addressLineTwo,
           "address.lineThree" -> addressLineThree,
           "postcode" -> postCode,
+          "startJobBeforeClaimDate" -> no,
           "jobStartDate.day" -> day,
           "jobStartDate.month" -> month,
           "jobStartDate.year" -> year1,
@@ -52,7 +53,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           f.address.lineTwo must equalTo(Some(addressLineTwo))
           f.address.lineThree must equalTo(Some(addressLineThree))
           f.postcode must equalTo(Some(postCode))
-          f.jobStartDate must equalTo(DayMonthYear())
+          f.jobStartDate must equalTo(Some(DayMonthYear()))
           f.lastWorkDate must equalTo(Some(DayMonthYear()))
 
           f.hoursPerWeek must equalTo(Some(hrsPerWeek))
@@ -60,7 +61,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "have 5 mandatory fields" in {
+    "have 6 mandatory fields" in {
       G3JobDetails.form.bind(
         Map(
           "postcode" -> postCode,
@@ -76,12 +77,13 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "hoursPerWeek" -> hrsPerWeek)
       ).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(5)
+          formWithErrors.errors.length must equalTo(6)
           formWithErrors.errors(0).message must equalTo("error.required")
           formWithErrors.errors(1).message must equalTo("error.required")
           formWithErrors.errors(2).message must equalTo("error.required")
           formWithErrors.errors(3).message must equalTo("error.required")
           formWithErrors.errors(4).message must equalTo("error.required")
+          formWithErrors.errors(5).message must equalTo("error.required")
         },
         f => "This mapping should not happen." must equalTo("Valid")
       )
@@ -92,6 +94,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
         Map(
           "jobID" -> jobId,
           "address.lineOne" -> addressLine,
+          "startJobBeforeClaimDate" -> no,
           "jobStartDate.day" -> day,
           "jobStartDate.month" -> month,
           "jobStartDate.year" -> year1,
@@ -107,6 +110,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
         Map(
           "jobID" -> jobId,
           "employerName" -> employerName,
+          "startJobBeforeClaimDate" -> no,
           "jobStartDate.day" -> day,
           "jobStartDate.month" -> month,
           "jobStartDate.year" -> year1,
@@ -123,6 +127,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "jobID" -> jobId,
           "employerName" -> employerName,
           "address.lineOne" -> addressLine,
+          "startJobBeforeClaimDate" -> no,
           "jobStartDate.day" -> day,
           "jobStartDate.month" -> month,
           "jobStartDate.year" -> year1)
@@ -132,6 +137,38 @@ class G3JobDetailsFormSpec extends Specification with Tags {
         )
     }
 
+    "reject if startJobBeforeClaimDate is not filled" in {
+      G3JobDetails.form.bind(
+        Map(
+          "jobID" -> jobId,
+          "employerName" -> employerName,
+          "address.lineOne" -> addressLine,
+          "phoneNumber" -> phoneNumber,
+          "finishedThisJob" -> no)
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
+    "have 1 expanded mandatory fields if startJobBeforeClaimDate is no" in {
+      G3JobDetails.form.bind(
+        Map(
+          "jobID" -> jobId,
+          "employerName" -> employerName,
+          "phoneNumber" -> phoneNumber,
+          "address.lineOne" -> addressLine,
+          "startJobBeforeClaimDate" -> no,
+          "finishedThisJob" -> no)
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors(0).message must equalTo("jobStartDate.required")
+        },
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
     "have 1 expanded mandatory fields if finishedThisJob is yes" in {
       G3JobDetails.form.bind(
         Map(
@@ -139,6 +176,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "employerName" -> employerName,
           "phoneNumber" -> phoneNumber,
           "address.lineOne" -> addressLine,
+          "startJobBeforeClaimDate" -> no,
           "jobStartDate.day" -> day,
           "jobStartDate.month" -> month,
           "jobStartDate.year" -> year1,
@@ -158,6 +196,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "jobID" -> jobId,
           "employerName" -> employerName,
           "address.lineOne" -> addressLine,
+          "startJobBeforeClaimDate" -> no,
           "jobStartDate.day" -> day,
           "jobStartDate.month" -> month,
           "jobStartDate.year" -> year1,
@@ -175,6 +214,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "employerName" -> employerName,
           "phoneNumber" -> "AB126789*",
           "address.lineOne" -> addressLine,
+          "startJobBeforeClaimDate" -> no,
           "jobStartDate.day" -> day,
           "jobStartDate.month" -> month,
           "jobStartDate.year" -> year1,

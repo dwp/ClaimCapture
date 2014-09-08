@@ -29,9 +29,7 @@ class G3JobDetailsSpec extends Specification with Tags {
         "address.lineOne" -> "Street Test 1",
         "address.lineTwo" -> "lineTwo",
         "address.lineThree" -> "lineThree",
-        "jobStartDate.day" -> "1",
-        "jobStartDate.month" -> "1",
-        "jobStartDate.year" -> "2000",
+        "startJobBeforeClaimDate" -> "yes",
         "finishedThisJob" -> "no")
 
       val result = G3JobDetails.submit(request)
@@ -59,6 +57,7 @@ class G3JobDetailsSpec extends Specification with Tags {
         "address.lineOne" -> "Street Test 1",
         "address.lineTwo" -> "lineTwo",
         "address.lineThree" -> "lineThree",
+        "startJobBeforeClaimDate" -> "no",
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",
@@ -84,6 +83,7 @@ class G3JobDetailsSpec extends Specification with Tags {
         "address.lineOne" -> "Street Test 1",
         "address.lineTwo" -> "lineTwo",
         "address.lineThree" -> "lineThree",
+        "startJobBeforeClaimDate" -> "no",
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",

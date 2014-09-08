@@ -78,6 +78,7 @@ Employment,Employment,Have you been employed at any time since <ddmmyyyy> (this 
 Employment,Employment,Have you been self-employed at any time since <ddmmyyyy> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,DWPCAClaim>SelfEmployed>Answer
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName,Employment>JobDetails>Employer>Name>Answer
+Employment,Your Job,Did you start this job before claim date <ddmmyyyy_1>?,EmploymentDidYouStartThisJobBeforeClaimDate,Employment>JobDetails>Employer>DidJobStartBeforeClaimDate>Answer
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob,Employment>JobDetails>Employer>DateJobStarted>Answer
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork,Employment>JobDetails>Employer>DateJobEnded>Answer
 Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45,Employment>JobDetails>Employer>P45LeavingDate>Answer

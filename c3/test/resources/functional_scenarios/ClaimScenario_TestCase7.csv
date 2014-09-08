@@ -172,6 +172,7 @@ Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2>
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName_1,DWP
 Employment,Your Job,Phone Number,EmploymentEmployerPhoneNumber_1,12345678
+Employment,Your Job,Did you start this job before claim date <ddmmyyyy_1>?,EmploymentDidYouStartThisJobBeforeClaimDate_1,No
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,03/05/2010
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,Yes
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,24/12/2010

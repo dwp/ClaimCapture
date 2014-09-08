@@ -73,7 +73,7 @@ object Jobs extends QuestionGroup.Identifier {
 case class Job(jobID: String="", questionGroups: List[QuestionGroup with Job.Identifier] = Nil, completed:Boolean=false) extends Job.Identifier with Iterable[QuestionGroup with Job.Identifier] {
   def employerName = jobDetails(_.employerName)
 
-  def jobStartDate = jobDetailsDate(_.jobStartDate)
+  def jobStartDate = jobDetailsDate(_.jobStartDate.getOrElse(DayMonthYear(None,None,None)))
 
   def finishedThisJob = jobDetails(_.finishedThisJob)
 
@@ -121,7 +121,8 @@ case class JobDetails(jobID: String = "",
                       phoneNumber: String = "",
                       address: MultiLineAddress = MultiLineAddress(),
                       postcode: Option[String] = None,
-                      jobStartDate: DayMonthYear = DayMonthYear(None, None, None),
+                      startJobBeforeClaimDate:String = "",
+                      jobStartDate: Option[DayMonthYear] = None,
                       finishedThisJob: String = "",
                       lastWorkDate:Option[DayMonthYear] = None,
                       p45LeavingDate:Option[DayMonthYear] = None,
@@ -141,6 +142,13 @@ object JobDetails extends QuestionGroup.Identifier {
     case `yes` => input.hoursPerWeek.isDefined
     case `no` => true
   }
+
+  def validateJobStartDate(input: JobDetails):Boolean = input.startJobBeforeClaimDate match {
+    case `yes` => true
+    case `no` => input.jobStartDate.isDefined
+  }
+
+
 }
 
 case class LastWage(jobID: String = "",

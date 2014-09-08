@@ -195,6 +195,7 @@ Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (thi
 Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName,
+Employment,Your Job,Did you start this job before claim date <ddmmyyyy_1>?,EmploymentDidYouStartThisJobBeforeClaimDate,
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob,
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob,
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork,

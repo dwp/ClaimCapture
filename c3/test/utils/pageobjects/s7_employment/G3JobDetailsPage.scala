@@ -8,6 +8,7 @@ final class G3JobDetailsPage(ctx:PageObjectsContext, iteration: Int) extends Cla
   declareInput("#phoneNumber","EmploymentEmployerPhoneNumber_" + iteration)
   declareAddress("#address", "EmploymentEmployerAddress_" + iteration)
   declareInput("#postcode","EmploymentEmployerPostcode_" + iteration)
+  declareYesNo("#startJobBeforeClaimDate", "EmploymentDidYouStartThisJobBeforeClaimDate_" + iteration)
   declareDate("#jobStartDate", "EmploymentWhenDidYouStartYourJob_" + iteration)
   declareYesNo("#finishedThisJob", "EmploymentHaveYouFinishedThisJob_" + iteration)
   declareDate("#lastWorkDate", "EmploymentWhenDidYouLastWork_" + iteration)

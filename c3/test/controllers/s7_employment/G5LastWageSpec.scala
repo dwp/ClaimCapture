@@ -48,9 +48,7 @@ class G5LastWageSpec extends Specification with Tags {
         "employerName" -> "Toys r not us",
         "phoneNumber" -> "12345678",
         "address.lineOne" -> "Street Test 1",
-        "jobStartDate.day" -> "1",
-        "jobStartDate.month" -> "1",
-        "jobStartDate.year" -> "2000",
+        "startJobBeforeClaimDate" -> "yes",
         "finishedThisJob" -> "no"))
 
       val result2 = G5LastWage.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))

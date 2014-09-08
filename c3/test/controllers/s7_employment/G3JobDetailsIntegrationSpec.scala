@@ -16,9 +16,7 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
       browser.fill("#employerName") `with` "Toys r not Us"
       browser.fill("#phoneNumber") `with` "12345678"
       browser.fill("#address_lineOne") `with` "Street Test 1"
-      browser.click("#jobStartDate_day option[value='1']")
-      browser.click("#jobStartDate_month option[value='1']")
-      browser.fill("#jobStartDate_year") `with` "2000"
+      browser.click("#startJobBeforeClaimDate_yes")
       browser.click("#finishedThisJob_no")
 
       browser.submit("button[type='submit']")
@@ -62,6 +60,7 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
       browser.fill("#employerName") `with` "Toys r not Us"
       browser.fill("#phoneNumber") `with` "12345678"
       browser.fill("#address_lineOne") `with` "Street Test 1"
+      browser.click("#startJobBeforeClaimDate_no")
       browser.click("#jobStartDate_day option[value='1']")
       browser.click("#jobStartDate_month option[value='1']")
       browser.fill("#jobStartDate_year") `with` "2000"

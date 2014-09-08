@@ -1,24 +1,44 @@
-window.initEvents =(finishedThisJobY, finishedThisJobYN, lastWorkDateDay, lastWorkDateMonth, lastWorkDateYear, p45LeavingDateDay, p45LeavingDateMonth, p45LeavingDateYear, hoursPerWeek) ->
 
-  if not $("#" + finishedThisJobY).prop('checked')
-    hideLastWorkData(lastWorkDateDay, lastWorkDateMonth, lastWorkDateYear, p45LeavingDateDay, p45LeavingDateMonth, p45LeavingDateYear, hoursPerWeek)
+isChecked = (selector)  ->  $("##{selector}").prop('checked')
+val = (selector,text) -> if text? then $("##{selector}").val(text) else $("##{selector}").val()
+S = (selector) -> $("##{selector}")
 
-  $("#" + finishedThisJobY).on "click", ->
+window.initEvents =(o) ->
+
+  if not isChecked(o.finishedThisJobY)
+    hideLastWorkData(o)
+
+  if not isChecked(o.startJobBeforeClaimDateN)
+    hideJobStartDateWrapper(o)
+
+  S(o.finishedThisJobY).on "click", ->
     showLastWorkData()
 
-  $("#" + finishedThisJobYN).on "click", ->
-    hideLastWorkData(lastWorkDateDay, lastWorkDateMonth, lastWorkDateYear, p45LeavingDateDay, p45LeavingDateMonth, p45LeavingDateYear, hoursPerWeek)
+  S(o.finishedThisJobN).on "click", ->
+    hideLastWorkData(o)
+
+  S(o.startJobBeforeClaimDateN).on "click", ->
+    showJobStartDateWrapper()
+
+  S(o.startJobBeforeClaimDateY).on "click", ->
+    hideJobStartDateWrapper(o)
 
 
 showLastWorkData = ->
-  $("#lastWorkData").slideDown 0
+  S("lastWorkData").slideDown 0
 
-hideLastWorkData = (lastWorkDateDay, lastWorkDateMonth, lastWorkDateYear, p45LeavingDateDay, p45LeavingDateMonth, p45LeavingDateYear, hoursPerWeek) ->
-  $("#" + lastWorkDateDay).val("")
-  $("#" + lastWorkDateMonth).val("")
-  $("#" + lastWorkDateYear).val("")
-  $("#" + p45LeavingDateDay).val("")
-  $("#" + p45LeavingDateMonth).val("")
-  $("#" + p45LeavingDateYear).val("")
-  $("#" + hoursPerWeek).val("")
-  $("#lastWorkData").slideUp 0
+hideLastWorkData = (o) ->
+  reset(o.lastWorkData)
+  S("lastWorkData").slideUp 0
+
+
+showJobStartDateWrapper = ->
+  S("jobStartDateWrapper").slideDown 0
+
+hideJobStartDateWrapper = (o) ->
+  reset(o.jobStartDate)
+  S("jobStartDateWrapper").slideUp 0
+
+reset = (resetList) ->
+  (val(elem,"") for elem in resetList)
+

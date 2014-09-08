@@ -330,6 +330,7 @@ object ClaimScenarioFactory {
   def s7EmploymentMinimal() = {
     val claim = new TestData
     claim.EmploymentEmployerName_1 = "Tesco's"
+    claim.EmploymentDidYouStartThisJobBeforeClaimDate_1 = "no"
     claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
     claim.EmploymentHaveYouFinishedThisJob_1 = "yes"
     claim.EmploymentWhenDidYouLastWork_1 = "01/07/2013"
@@ -360,6 +361,7 @@ object ClaimScenarioFactory {
   def s7Employment() = {
     val claim = s2AboutYouWithTimeOutside
     claim.EmploymentEmployerName_1 = "Tesco's"
+    claim.EmploymentDidYouStartThisJobBeforeClaimDate_1 = "no"
     claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
     claim.EmploymentHaveYouFinishedThisJob_1 = "yes"
     claim.EmploymentWhenDidYouLastWork_1 = "01/07/2013"
@@ -392,6 +394,7 @@ object ClaimScenarioFactory {
   def s7EmploymentWhenFinishedJobNo() = {
     val claim = s2AboutYouWithTimeOutside
     claim.EmploymentEmployerName_1 = "Tesco's"
+    claim.EmploymentDidYouStartThisJobBeforeClaimDate_1 = "no"
     claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
     claim.EmploymentHaveYouFinishedThisJob_1 = "no"
     claim.EmploymentEmployerAddress_1 = "23 Yeadon Way&Blackpool&Lancashire"

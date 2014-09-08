@@ -24,7 +24,7 @@ object Employment extends XMLComponent{
             val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(),"",DayMonthYear(),"", None, "", None))
 
             <JobDetails>
-              {employerXml(job)}
+              {employerXml(job, claim)}
               {payXml(jobDetails, lastWage, claim)}
               {question(<OweMoney/>, "employerOwesYouMoney",lastWage.employerOwesYouMoney)}
               {pensionExpensesXml(job,claim)}
@@ -37,11 +37,12 @@ object Employment extends XMLComponent{
     }
   }
 
-  private def employerXml(job: Job): Elem = {
+  private def employerXml(job: Job, claim: Claim): Elem = {
     val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
 
     <Employer>
       {question(<CurrentlyEmployed/>,"finishedThisJob",jobDetails.finishedThisJob)}
+      {question(<DidJobStartBeforeClaimDate/>, "startJobBeforeClaimDate", jobDetails.startJobBeforeClaimDate, claim.dateOfClaim.fold("")(dmy => (dmy - 1 months).`dd month yyyy`))}
       {question(<DateJobStarted/>, "jobStartDate", jobDetails.jobStartDate)}
       {if(jobDetails.lastWorkDate.isDefined){
         {question(<DateJobEnded/>, "lastWorkDate",jobDetails.lastWorkDate)}

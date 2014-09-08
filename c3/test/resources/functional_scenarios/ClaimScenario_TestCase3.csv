@@ -123,6 +123,7 @@ Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (thi
 Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,yes
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName_1,Some company that is not paying me enough for my daily work'
+Employment,Your Job,Did you start this job before claim date <ddmmyyyy_1>?,EmploymentDidYouStartThisJobBeforeClaimDate_1,No
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,01/01/2013
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,Yes
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,01/07/2013
@@ -146,7 +147,8 @@ Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouBeenEmployedAtAnyTime_1,Yes
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName_2,Tesco's
-Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_2,01/01/2013
+Employment,Your Job,Did you start this job before claim date <ddmmyyyy_1>?,EmploymentDidYouStartThisJobBeforeClaimDate_2,Yes
+Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_2,
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,Yes
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_2,01/01/2001
 Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_2,25/12/2010
