@@ -2,7 +2,7 @@
 
 #vss stands for validation-summary selector
 vss = (href) -> $("div[class='validation-summary'] a[href='##{href}']")
-vssText = (href,text)     -> if text? then vss(href).text(text) else vss(href).text().trim()
+vssText = (href,text)     -> if text? then vss(href).text(text) else if vss(href).length > 0 then vss(href).text().trim() else ""
 checked = (selector,val)  -> if val?  then $("##{selector}").prop('checked',val) else $("##{selector}").prop('checked')
 val = (selector,text)     -> if text? then $("##{selector}").val(text) else $("##{selector}").val()
 subString = (str,start,end) -> str.substring(start.length,end.length)
@@ -39,10 +39,10 @@ window.fixErrorMessages = (o) ->
     currentTextUsuallyPaidSameAmount = pathUsuallyPaidSameAmount.text().trim()
     existingErrorUsuallyPaidSameAmount = subString(currentTextUsuallyPaidSameAmount,o.usuallyPaidSameAmountText,currentTextUsuallyPaidSameAmount)
     textToUseUsuallyPaidSameAmount = switch (val o.howOftenFrequency)
-      when "weekly" then o.usuallyPaidSameAmountWeekText
-      when "fortnightly" then o.usuallyPaidSameAmountFortnightText
-      when "fourweekly" then o.usuallyPaidSameAmountFourWeekText
-      when "monthly" then o.usuallyPaidSameAmountMonthText
+      when "Weekly" then o.usuallyPaidSameAmountWeekText
+      when "Fortnightly" then o.usuallyPaidSameAmountFortnightText
+      when "Four-Weekly" then o.usuallyPaidSameAmountFourWeekText
+      when "Monthly" then o.usuallyPaidSameAmountMonthText
       else o.usuallyPaidSameAmountOtherText
     pathUsuallyPaidSameAmount.text(textToUseUsuallyPaidSameAmount + existingErrorUsuallyPaidSameAmount)
   pathHowOften = vss(o.howOften)
@@ -118,10 +118,10 @@ onUsuallyPaidSameAmount = (o) ->
     if not (val(o.howOftenFrequency) is o.defaultValue or val(o.howOftenFrequency) is "")
 
       textToUse = switch(val o.howOftenFrequency)
-        when "weekly" then o.usuallyPaidSameAmountWeeklyText
-        when "fortnightly" then o.usuallyPaidSameAmountFortnightlyText
-        when "fourWeekly" then o.usuallyPaidSameAmountFourWeeklyText
-        when "montly" then o.usuallyPaidSameAmountMonthlyText
+        when "Weekly" then o.usuallyPaidSameAmountWeeklyText
+        when "Fortnightly" then o.usuallyPaidSameAmountFortnightlyText
+        when "Four-Weekly" then o.usuallyPaidSameAmountFourWeeklyText
+        when "Monthly" then o.usuallyPaidSameAmountMonthlyText
         else o.usuallyPaidSameAmountOtherText
       legend(o.usuallyPaidSameAmount).html(textToUse)
 
@@ -129,7 +129,7 @@ onUsuallyPaidSameAmount = (o) ->
       checked o.usuallyPaidSameAmountN,  false
       S("usuallyPaidSameAmountWrap").slideDown(0)
 
-    S("monthlyPayDayWrap").slideDown(0) if val(o.howOftenFrequency) is "monthly"
+    S("monthlyPayDayWrap").slideDown(0) if val(o.howOftenFrequency) is "Monthly"
 
 window.usuallyPaidSameAmount = (o) ->
   if val(o.howOftenFrequency) is ""

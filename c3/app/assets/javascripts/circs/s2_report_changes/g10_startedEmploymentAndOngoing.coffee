@@ -2,7 +2,7 @@
 
 #vss stands for validation-summary selector
 vss = (href) -> $("div[class='validation-summary'] a[href='##{href}']")
-vssText = (href,text)     -> if text? then vss(href).text(text) else vss(href).text().trim()
+vssText = (href,text)     -> if text? then vss(href).text(text) else if vss(href).length > 0 then vss(href).text().trim() else ""
 checked = (selector,val)  -> if val?  then $("##{selector}").prop('checked',val) else $("##{selector}").prop('checked')
 val = (selector,text)     -> if text? then $("##{selector}").val(text) else $("##{selector}").val()
 subString = (str,start,end) -> str.substring(start.length,end.length)
@@ -34,10 +34,10 @@ window.fixErrorMessages = (o) ->
     currentText = vssText(o.usuallyPaidSameAmount)
 
     textToUse = switch (val o.howOftenFrequency)
-      when "weekly"       then o.usuallyPaidSameAmountNWeekText
-      when "fortnightly"  then o.usuallyPaidSameAmountNFortnightText
-      when "fourweekly"   then o.usuallyPaidSameAmountNFourWeekText
-      when "monthly"      then o.usuallyPaidSameAmountNMonthText
+      when "Weekly"       then o.usuallyPaidSameAmountNWeekText
+      when "Fortnightly"  then o.usuallyPaidSameAmountNFortnightText
+      when "Four-Weekly"   then o.usuallyPaidSameAmountNFourWeekText
+      when "Monthly"      then o.usuallyPaidSameAmountNMonthText
       else o.usuallyPaidSameAmountNOtherText
 
     vssText(o.usuallyPaidSameAmount,textToUse + subString(currentText, o.usuallyPaidSameAmountText, currentText))
@@ -45,10 +45,10 @@ window.fixErrorMessages = (o) ->
   if checked o.beenPaidYetY
     currentText = vssText(o.usuallyPaidSameAmount)
     textToUse = switch (val(o.howOftenFrequency))
-      when "weekly" then o.usuallyPaidSameAmountNWeekText
-      when "fortnightly" then o.usuallyPaidSameAmountNFortnightText
-      when "fourweekly" then o.usuallyPaidSameAmountNFourWeekText
-      when "monthly" then o.usuallyPaidSameAmountNMonthText
+      when "Weekly" then o.usuallyPaidSameAmountNWeekText
+      when "Fortnightly" then o.usuallyPaidSameAmountNFortnightText
+      when "Four-Weekly" then o.usuallyPaidSameAmountNFourWeekText
+      when "Monthly" then o.usuallyPaidSameAmountNMonthText
       else o.usuallyPaidSameAmountNOtherText
     vssText(o.usuallyPaidSameAmount,textToUse + subString(currentText, o.usuallyPaidSameAmountText, currentText))
 
@@ -69,10 +69,10 @@ hideBeenPaidYetWrapOnY = (o,reset) ->
   label(o.monthlyPayDay).text(o.monthlyPayDayYText)
   val(o.monthlyPayDay,"") if reset
   textToUse = switch (val(o.howOften))
-    when "weekly" then o.usuallyPaidSameAmountWeeklyText
-    when "fortnightly" then o.usuallyPaidSameAmountFortnightlyText
-    when "fourweekly" then o.usuallyPaidSameAmountFourWeeklyText
-    when "monthly" then o.usuallyPaidSameAmountMonthlyText
+    when "Weekly" then o.usuallyPaidSameAmountWeeklyText
+    when "Fortnightly" then o.usuallyPaidSameAmountFortnightlyText
+    when "Four-Weekly" then o.usuallyPaidSameAmountFourWeeklyText
+    when "Monthly" then o.usuallyPaidSameAmountMonthlyText
     else o.usuallyPaidSameAmountOtherText
 
   legend(o.usuallyPaidSameAmount).html(textToUse)
@@ -91,10 +91,10 @@ hideBeenPaidYetWrapOnN = (o,reset) ->
   label(o.monthlyPayDay).text(o.monthlyPayDayNText)
   val(o.monthlyPayDay,"") if reset
   textToUse = switch (val(o.howOften))
-    when "weekly" then o.usuallyPaidSameAmountWeeklyTextExpected
-    when "fortnightly" then o.usuallyPaidSameAmountFortnightlyTextExpected
-    when "fourweekly" then o.usuallyPaidSameAmountFourWeeklyTextExpected
-    when "monthly" then o.usuallyPaidSameAmountMonthlyTextExpected
+    when "Weekly" then o.usuallyPaidSameAmountWeeklyTextExpected
+    when "Fortnightly" then o.usuallyPaidSameAmountFortnightlyTextExpected
+    when "Four-Weekly" then o.usuallyPaidSameAmountFourWeeklyTextExpected
+    when "Monthly" then o.usuallyPaidSameAmountMonthlyTextExpected
     else o.usuallyPaidSameAmountOtherTextExpected
 
   legend(o.usuallyPaidSameAmount).html(textToUse)
@@ -151,19 +151,19 @@ onHowOftenFrequency = (ctx,reset) -> #Double -> because it's a function returnin
     if not (val(ctx.howOftenFrequency) is ctx.defaultValue or val(ctx.howOftenFrequency) is "")
       if checked(ctx.beenPaidYetN)
         textToUse = switch (val(ctx.howOftenFrequency))
-          when "weekly" then ctx.usuallyPaidSameAmountWeeklyTextExpected
-          when "fortnightly" then ctx.usuallyPaidSameAmountFortnightlyTextExpected
-          when "fourweekly" then ctx.usuallyPaidSameAmountFourWeeklyTextExpected
-          when "monthly" then ctx.usuallyPaidSameAmountMonthlyTextExpected
+          when "Weekly" then ctx.usuallyPaidSameAmountWeeklyTextExpected
+          when "Fortnightly" then ctx.usuallyPaidSameAmountFortnightlyTextExpected
+          when "Four-Weekly" then ctx.usuallyPaidSameAmountFourWeeklyTextExpected
+          when "Monthly" then ctx.usuallyPaidSameAmountMonthlyTextExpected
           else ctx.usuallyPaidSameAmountOtherTextExpected
         legend(ctx.usuallyPaidSameAmount).html(textToUse)
 
       if checked(ctx.beenPaidYetY)
         textToUse = switch (val(ctx.howOftenFrequency))
-          when "weekly" then ctx.usuallyPaidSameAmountWeeklyText
-          when "fortnightly" then ctx.usuallyPaidSameAmountFortnightlyText
-          when "fourweekly" then ctx.usuallyPaidSameAmountFourWeeklyText
-          when "monthly" then ctx.usuallyPaidSameAmountMonthlyText
+          when "Weekly" then ctx.usuallyPaidSameAmountWeeklyText
+          when "Fortnightly" then ctx.usuallyPaidSameAmountFortnightlyText
+          when "Four-Weekly" then ctx.usuallyPaidSameAmountFourWeeklyText
+          when "Monthly" then ctx.usuallyPaidSameAmountMonthlyText
           else ctx.usuallyPaidSameAmountOtherText
         legend(ctx.usuallyPaidSameAmount).html(textToUse)
 
@@ -172,7 +172,7 @@ onHowOftenFrequency = (ctx,reset) -> #Double -> because it's a function returnin
       S("usuallyPaidSameAmountWrap").slideDown(0)
 
 
-    S("monthlyPayDayWrap").slideDown(0) if val(ctx.howOftenFrequency) is "monthly"
+    S("monthlyPayDayWrap").slideDown(0) if val(ctx.howOftenFrequency) is "Monthly"
 
 #
 #Pay Day function
