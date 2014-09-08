@@ -8,7 +8,10 @@
 main {
 	background: #fff;
 	display: block;
-	padding: 0 .7em;
+	padding: 0 1.9em;
+	@media screen and (max-width: 640px) {
+		padding: 0 .9em;
+	}
 }
 
 
@@ -87,11 +90,11 @@ main {
 
 		   	
 		   	dl {
-		   		margin: 1em 0 0 0;
-		   		padding: 0;
+		   		margin: 1.2em 0 0 0;
+		   		padding: .2em 0 0 1em;
 		   		font-size: 19px;
-		   		border: 1px solid #bfc1c3;
-		   		padding: 1em;
+		   		border-left: 5px solid #dee0e2;
+
 			   	
 			   	dt {
 				   	font-weight: 600;
@@ -346,6 +349,7 @@ main {
 		       			padding-top: 1em;
 		       			padding-bottom: 1em;
 		       			width: auto;
+		       			margin-left: -.9em;
 			       	} 
 			       	
 			       .error {
@@ -362,6 +366,18 @@ main {
 					   	border-left: none;
 					   	padding-left: 0;
 				   }
+				   
+				   @media screen and (max-width: 640px) {
+					   .ni-number {
+						   li {
+							   margin-left: .25em;
+							   &:first-child {
+								   margin: 0;
+							   }
+						   }
+					   }
+				   }
+				   
 			   }
 			   
 			   
@@ -723,11 +739,6 @@ main {
 					   
 					   input[type="radio"]:checked + span {
 						   background: #fff;
-						   -webkit-transition: all 150ms ease-in;
-						   -moz-transition: all 150ms ease-in;
-						   -ms-transition: all 150ms ease-in;
-						   -o-transition: all 150ms ease-in;
-						   transition: all 150ms ease-in;
 						   border: 3px solid #000;
 						   font-weight: 500;
 					   }
@@ -951,6 +962,9 @@ main {
 				   .ie7 & {
 					   margin-left: 0.15em;
 				   }
+				   @media screen and (max-width: 640px) {
+					   margin-left: .35em;
+				   }
 		   	   }
 		   	   label {
 			   	   position: absolute;
@@ -972,8 +986,6 @@ main {
 		   }
 	   }
 
-	
-	
 	
 	   
 /* Information panel   */
