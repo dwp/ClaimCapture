@@ -272,9 +272,12 @@ object EmploymentChange {
             var buff = NodeSeq.Empty
             buff = buff ++  {question(<HowMuchPaid/>, "howMuchPaid.will", change.howMuchPaid)}
             buff = buff ++ {question(<PaymentDate/>, "whenExpectedToBePaidDate", change.whenExpectedToBePaidDate)}
-            buff = buff ++ {<PayFrequency>
-              {questionOther(<Frequency/>,"circs.howOften.will", change.howOften.frequency, change.howOften.other)}
-            </PayFrequency>}
+            if (change.howOften.frequency.size > 0){
+              buff = buff ++
+                {<PayFrequency>
+                  {questionOther(<Frequency/>,"circs.howOften.will", change.howOften.frequency, change.howOften.other)}
+                </PayFrequency>}
+            }
             buff
           }
           case _ => NodeSeq.Empty

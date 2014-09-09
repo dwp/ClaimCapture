@@ -39,7 +39,9 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
     careCostsForThisWork,
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesStartedAndFinishedEmployment.apply)(CircumstancesStartedAndFinishedEmployment.unapply)
-    .verifying("expected.monthlyPayDay", validateMonthlyPayDay _))
+    .verifying("expected.monthlyPayDay", validateMonthlyPayDay _)
+    .verifying("expected.employerOwesYouMoneyInfo", validateEmployerOwesYou _)
+  )
 
   def present = claiming { implicit circs => implicit request => implicit lang =>
     track(CircumstancesStartedAndFinishedEmployment) {
@@ -54,6 +56,7 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
           .replaceError("howOften.frequency","error.required",FormError("howOften","error.required"))
           .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
           .replaceError("", "expected.monthlyPayDay",FormError("monthlyPayDay","error.required"))
+          .replaceError("", "expected.employerOwesYouMoneyInfo",FormError("employerOwesYouMoneyInfo","error.required"))
           .replaceError("doYouPayIntoPension","doYouPayIntoPension.text.required",FormError("doYouPayIntoPension.whatFor","error.required"))
           .replaceError("doCareCostsForThisWork","doCareCostsForThisWork.text.required",FormError("doCareCostsForThisWork.whatCosts","error.required"))
 
@@ -65,6 +68,11 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
 
   def validateMonthlyPayDay(input: CircumstancesStartedAndFinishedEmployment): Boolean = input.howOften.frequency match {
     case "monthly" => input.monthlyPayDay.isDefined
+    case _ => true
+  }
+
+  def validateEmployerOwesYou(input: CircumstancesStartedAndFinishedEmployment): Boolean = input.employerOwesYouMoney match {
+    case `yes` => input.employerOwesYouMoneyInfo.isDefined
     case _ => true
   }
 

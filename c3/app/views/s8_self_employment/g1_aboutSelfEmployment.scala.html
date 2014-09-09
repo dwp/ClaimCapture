@@ -29,8 +29,7 @@
                             inputDayMonthYear(currentForm("whenDidTheJobFinish"),'helperAbove -> Messages("dateOfBirth.helper")),
                             yesNoRadioGroup(currentForm("haveYouCeasedTrading"))
 	                    ),
-	                    'id -> "selfEmployedNoWrap",
-	                    'display -> (currentForm("areYouSelfEmployedNow").value.getOrElse("yes") match { case "yes" => "no" case _ => "yes" })
+	                    'id -> "selfEmployedNoWrap"
                     )
 	
 	                @carersInputText(currentForm("natureOfYourBusiness"), 'maxLength -> Mappings.sixty)

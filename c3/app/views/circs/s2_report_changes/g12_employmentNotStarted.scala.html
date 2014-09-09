@@ -30,10 +30,7 @@
 	            <legend>@Html(Messages("c2.g12"))</legend>
 	
 	            <ul>
-                    @yesNoRadioGroup(beenPaidYet,
-                        '_label -> "beenPaidYet.will"
-                    )
-
+                    @yesNoRadioGroup(beenPaidYet, '_label -> "beenPaidYet.will")
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
@@ -48,33 +45,17 @@
                                 'ignoreOptional -> true,
                                 'visibleOn -> "yes",
                                 '_label -> "circs.howOften.will",
-                                'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
-                                'display -> {if(howOftenFrequency.value.getOrElse("no") == "other") "yes" else "no"}
+                                'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60
                             )
                         ),
-                        'id -> "beenPaidYetWrap",
-                        'display -> {if(beenPaidYet.value.getOrElse("no") == "yes") "yes" else "no"}
+                        'id -> "beenPaidYetWrap"
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            yesNoRadioGroup(usuallyPaidSameAmount,
-                            'ignoreOptional -> true,
-                            '_label -> {
-                                howOftenFrequency.value.getOrElse("noset") match {
-                                    case "weekly" => "usuallyPaidSameAmount.will.week"
-                                    case "fortnightly" => "usuallyPaidSameAmount.will.fortnight"
-                                    case "fourweekly" => "usuallyPaidSameAmount.will.time"
-                                    case "monthly" => "usuallyPaidSameAmount.will.month"
-                                    case _ => "usuallyPaidSameAmount.will.time"
-                                }
-                            })
+                            yesNoRadioGroup(usuallyPaidSameAmount, 'ignoreOptional -> true)
                         ),
-                        'id -> "usuallyPaidSameAmountWrap",
-                        'display -> {if((beenPaidYet.value == "yes") &&
-                                        (howOftenFrequency.value != None) &&
-                                        (howOftenFrequency.value.getOrElse("no") != Html(Messages("pleaseSelect"))) &&
-                                        (howOftenFrequency.value.getOrElse("no") != "")) "yes" else "no"}
+                        'id -> "usuallyPaidSameAmountWrap"
                     )
                 </ul>
             </fieldset>
@@ -96,8 +77,7 @@
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
-                        'id -> "whatForWrap",
-                        'display -> {if(doYouPayIntoPension("answer").value.getOrElse("no") == "yes") "yes" else "no"}
+                        'id -> "whatForWrap"
                     )
 
                     @yesNoRadioGroup(doCareCostsForThisWork("answer"),
@@ -114,8 +94,7 @@
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
-                        'id -> "whatCostsWrap",
-                        'display -> {if(doCareCostsForThisWork("answer").value.getOrElse("no") == "yes") "yes" else "no"}
+                        'id -> "whatCostsWrap"
                     )
 
                     @carersInputTextArea(moreAboutChanges, 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
@@ -144,6 +123,8 @@ $(function(){
             beenPaidYet:"@CarersCrypto.encryptAES(beenPaidYet.id)",
             beenPaidYetText:"@Html(Messages("beenPaidYet"))",
             willBePaidText:"@Html(Messages("beenPaidYet.will"))",
+            howMuch:"@CarersCrypto.encryptAES(howMuchPaid.id)",
+            howMuchText:"@Html(Messages("howMuchPaid.will"))",
             howOften:"@CarersCrypto.encryptAES(howOften.id)",
             howOftenText:"@Html(Messages("howOften"))",
             howOftenWillText:"@Html(Messages("circs.howOften.will"))",

@@ -44,6 +44,12 @@ window.fixErrorMessages = (o) ->
     existingErrorHowOften = subString(currentTextHowOften,o.howOftenText,currentTextHowOften)
     pathHowOften.text(o.howOftenWillText + existingErrorHowOften)
 
+  pathHowMuch = vss(o.howMuch)
+  if exists pathHowMuch
+    currentTextHowMuch = pathHowMuch.text().trim()
+    existingErrorHowMuch = currentTextHowMuch.substring(currentTextHowMuch.lastIndexOf(' -'),currentTextHowMuch.length)
+    pathHowMuch.text(o.howMuchText + existingErrorHowMuch)
+
 
 window.beenPaidYet = (beenPaidYetY, beenPaidYetN) ->
   if checked beenPaidYetY
