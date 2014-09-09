@@ -13,8 +13,6 @@ import play.api.mvc.{AnyContent, Request, SimpleResult}
 import services.ClaimTransactionComponent
 import services.async.AsyncActors
 
-import scala.util.{Success, Try}
-
 trait ClaimSubmissionService {
 
   this: ClaimTransactionComponent with CachedClaim =>

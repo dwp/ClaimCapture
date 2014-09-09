@@ -1,42 +1,39 @@
 package services
 
-import org.specs2.mutable.{Tags, Specification}
-import models.domain._
-import models.DayMonthYear
+import models.{DayMonthYear, MultiLineAddress, NationalInsuranceNumber}
+import models.domain.{Claim, _}
 import models.view.CachedClaim
-import models.MultiLineAddress
-import models.domain.Claim
-import models.NationalInsuranceNumber
-import scala.Some
+import org.specs2.mutable.{Specification, Tags}
 
 class SubmissionCacheServiceSpec extends Specification with Tags with SubmissionCacheService with CachedClaim {
 
   "CacheService" should {
 
     "store a value in the cache" in {
-      storeInCache(getClaim("test"))
-      getFromCache(getClaim("test")) must not beEmpty
+      storeInCache(getClaim("test", "aksdhfkj123"))
+      getFromCache(getClaim("test","aksdhfkj123")) must not beEmpty
     }
 
     "remove a value from the cache" in {
-      storeInCache(getClaim("test"))
-      removeFromCache(getClaim("test"))
-      getFromCache(getClaim("test")) must beEmpty
+      storeInCache(getClaim("test","aksdhfkj143"))
+      removeFromCache(getClaim("test","aksdhfkj143"))
+      getFromCache(getClaim("test","aksdhfkj143")) must beEmpty
     }
 
     "remove a value that does not exist in the cache should not throw exceptions but execute silently" in {
-      removeFromCache(getClaim("test"))
-      getFromCache(getClaim("test")) must beEmpty
+      removeFromCache(getClaim("test","aksdhfkj143x3"))
+      getFromCache(getClaim("test","aksdhfkj143x3")) must beEmpty
     }
 
     "test that the cache times out after a specified period of time" in {
-      storeInCache(getClaim("test"))
+      skipped("Time dependent. Takes too long.")
+      storeInCache(getClaim("test","akspngjkj143"))
       Thread.sleep(60000)
-      getFromCache(getClaim("test")) must beEmpty
-    }.pendingUntilFixed("Need to find a good way of the tweaking the config property for the timeout in the tests")
+      getFromCache(getClaim("test","akspngjkj143")) must beEmpty
+    } //.pendingUntilFixed("Need to find a good way of the tweaking the config property for the timeout in the tests")
 
-    def getClaim(surname: String): Claim = {
-      var claim = new Claim(transactionId = Some("1234567"))
+    def getClaim(surname: String, newuuid:String): Claim = {
+      var claim = new Claim(transactionId = Some("1234567"), uuid=newuuid)
 
       // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
       val det = new YourDetails("", "",None, surname,None, NationalInsuranceNumber(Some("AB"),Some("12"),Some("34"),Some("56"),Some("D")), DayMonthYear(None, None, None))

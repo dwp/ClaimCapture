@@ -90,22 +90,6 @@ case class Claim(key: String = CachedClaim.key, sections: List[Section] = List()
     copy(transactionId = Some(transactionID))
   }
 
-  def getFingerprint: String = {
-
-    if(key.equals("claim")) {
-      val nino = questionGroup[YourDetails].getOrElse(YourDetails()).nationalInsuranceNumber.stringify
-      val surname = questionGroup[YourDetails].getOrElse(YourDetails()).surname
-      val dob = questionGroup[YourDetails].getOrElse(YourDetails()).dateOfBirth.`yyyy-MM-dd`.toString
-      val claimDate = questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.`yyyy-MM-dd`.toString
-      nino+surname+claimDate+dob
-    } else {
-      val nino = questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange()).nationalInsuranceNumber.stringify
-      val fullname = questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange()).theirFullName
-      val changeType = questionGroup[ReportChanges].getOrElse(ReportChanges()).reportChanges
-      val dob = questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange()).dateOfBirth.`yyyy-MM-dd`.toString
-      nino+fullname+changeType+dob
-    }
-
-  }
+  def getFingerprint: String = this.uuid
 
 }

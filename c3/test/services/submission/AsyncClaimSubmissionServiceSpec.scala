@@ -1,19 +1,18 @@
 package services.submission
 
-import org.specs2.mutable.{Tags, Specification}
-import services._
-import play.api.http
-import scala.concurrent.{ExecutionContext, Future}
-import models.domain._
-import org.specs2.mock.Mockito
+import java.util.UUID._
+
+import models.domain.{Claim, _}
 import models.view.CachedClaim
-import models.DayMonthYear
-import services.TransactionStatus
+import models.{DayMonthYear, NationalInsuranceNumber}
+import org.specs2.mock.Mockito
+import org.specs2.mutable.{Specification, Tags}
+import play.api.http
 import play.api.libs.ws.Response
-import models.domain.Claim
-import models.NationalInsuranceNumber
-import scala.Some
 import play.api.test.FakeApplication
+import services.{TransactionStatus, _}
+
+import scala.concurrent.Future
 
 
 class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Tags with CachedClaim with EncryptionService {
@@ -32,7 +31,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
                     correlationID: String="", messageClass:String="",
                     errorCode: String="", pollEndpoint: String ="") = new AsyncClaimSubmissionService with ClaimTransactionComponent
                                                                                                       with WebServiceClientComponent {
-      import ExecutionContext.Implicits.global
+      import scala.concurrent.ExecutionContext.Implicits.global
       val webServiceClient = mock[WebServiceClient]
       val response = mock[Response]
       response.status returns status
@@ -43,7 +42,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
   }
 
   def getClaim(surname: String): Claim = {
-    val claim = new Claim(transactionId = Some(transactionId))
+    val claim = new Claim(transactionId = Some(transactionId), uuid=randomUUID.toString)
 
     // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
     val det = new YourDetails("", "",None, surname,None, NationalInsuranceNumber(Some("AB"),Some("12"),Some("34"),Some("56"),Some("D")), DayMonthYear(Some(1), Some(1), Some(1969)))
@@ -57,7 +56,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
   }
 
   def getCofc(fullname: String): Claim = {
-    val claim = new Claim("change-of-circs",transactionId = Some(transactionId))
+    val claim = new Claim("change-of-circs",transactionId = Some(transactionId), uuid=randomUUID.toString)
 
     // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
     val det = new CircumstancesReportChange(true, fullname, NationalInsuranceNumber(Some("AB"),Some("12"),Some("34"),Some("56"),Some("D")), DayMonthYear(Some(1), Some(1), Some(1967)), "", "")
@@ -101,7 +100,6 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
     }
 
     "record change of circs submission SUCCESS" in new WithApplicationAndDB {
-
       val service = asyncService(http.Status.OK,transactionId,result = "response")
 
       serviceSubmission(service, getCofc("test"))
@@ -114,30 +112,33 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
     }
 
     "do not submit a duplicate claim" in new WithApplicationAndDB {
-
-      val service = asyncService(http.Status.INTERNAL_SERVER_ERROR,transactionId)
+      val service = asyncService(http.Status.OK,transactionId)
       val claim = getClaim("test")
 
-      serviceSubmission(service, claim) must throwA(DuplicateClaimException(s"Duplicate claim submission. transactionId [${claim.transactionId.get}]"))
+      serviceSubmission(service, claim)
+      Thread.sleep(100)
+      service.submission(claim) must throwA(DuplicateClaimException(s"Duplicate claim submission. transactionId [${claim.transactionId.get}]"))
 
-      Thread.sleep(500)
+      Thread.sleep(1500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,1,None,None,None))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,1,Some(0),None,Some("en")))
 
     }
 
     "do not submit a duplicate change of circs" in new WithApplicationAndDB {
 
-      val service = asyncService(http.Status.INTERNAL_SERVER_ERROR,transactionId)
+      val service = asyncService(http.Status.OK,transactionId)
       val claim = getCofc("test")
 
-      serviceSubmission(service, claim) must throwA(DuplicateClaimException(s"Duplicate claim submission. transactionId [${claim.transactionId.get}]"))
+      serviceSubmission(service, claim)
+      Thread.sleep(100)
+      service.submission(claim) must throwA(DuplicateClaimException(s"Duplicate claim submission. transactionId [${claim.transactionId.get}]"))
 
-      Thread.sleep(500)
+      Thread.sleep(1500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,1,None,None,None))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,1,Some(0),None,Some("en")))
 
     }
 
@@ -149,7 +150,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
       serviceSubmission(service, claim)
 
-      Thread.sleep(500)
+      Thread.sleep(1000)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
       transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVICE_UNAVAILABLE,1,Some(0),None,Some("en")))
