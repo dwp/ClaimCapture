@@ -7,7 +7,8 @@ import play.api.i18n.Lang
 import scala.language.postfixOps
 import scala.reflect.ClassTag
 
-case class Claim(key: String = CachedClaim.key, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None, uuid: String="", transactionId: Option[String] = None)(implicit val navigation: Navigation = Navigation()) extends Claimable {
+case class Claim(key: String = CachedClaim.key, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None,
+                 uuid: String = "", transactionId: Option[String] = None)(implicit val navigation: Navigation = Navigation()) extends Claimable {
   def section(sectionIdentifier: Section.Identifier): Section = {
     sections.find(s => s.identifier == sectionIdentifier) match {
       case Some(s: Section) => s
@@ -40,7 +41,8 @@ case class Claim(key: String = CachedClaim.key, sections: List[Section] = List()
     }
   }
 
-  def previousQuestionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = completedQuestionGroups(questionGroupIdentifier).lastOption
+  def previousQuestionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = completedQuestionGroups(questionGroupIdentifier)
+    .lastOption
 
   def completedQuestionGroups(sectionIdentifier: Section.Identifier): List[QuestionGroup] = section(sectionIdentifier).questionGroups
 
@@ -49,7 +51,7 @@ case class Claim(key: String = CachedClaim.key, sections: List[Section] = List()
     section(si).precedingQuestionGroups(questionGroupIdentifier)
   }
 
-  def update(section: Section) = {
+  def update(section: Section): Claim = {
     val updatedSections = sections.takeWhile(_.identifier.index < section.identifier.index) :::
       List(section) :::
       sections.dropWhile(_.identifier.index <= section.identifier.index)
@@ -57,7 +59,7 @@ case class Claim(key: String = CachedClaim.key, sections: List[Section] = List()
     copy(sections = updatedSections.sortWith(_.identifier.index < _.identifier.index))
   }
 
-  def +(section: Section) = update(section)
+  def +(section: Section): Claim = update(section)
 
   def update(questionGroup: QuestionGroup): Claim = {
     val si = Section.sectionIdentifier(questionGroup.identifier)
@@ -77,7 +79,7 @@ case class Claim(key: String = CachedClaim.key, sections: List[Section] = List()
 
   def showSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).show)
 
-  def showHideSection(visible: Boolean, sectionIdentifier: Section.Identifier) = {
+  def showHideSection(visible: Boolean, sectionIdentifier: Section.Identifier): Claim = {
     if (visible) showSection(sectionIdentifier) else hideSection(sectionIdentifier)
   }
 
@@ -86,7 +88,7 @@ case class Claim(key: String = CachedClaim.key, sections: List[Section] = List()
     case _ => None
   }
 
-  def withTransactionId(transactionID: String) = {
+  def withTransactionId(transactionID: String): Claim = {
     copy(transactionId = Some(transactionID))
   }
 
