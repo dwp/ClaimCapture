@@ -45,12 +45,10 @@
                                 'id -> "howOften",
                                 'visibleOn -> "yes",
                                 '_label -> {if(beenPaidYet.value == "yes") "circs.howOften" else "circs.howOften.expect"},
-                                'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
-                                'display -> {if(howOftenFrequency.value.getOrElse("no") == "other") "yes" else "no"}
+                                'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60
                             )
                         ),
-                        'id -> "beenPaidYetWrap",
-                        'display -> {if(beenPaidYet.value != None) "yes" else "no"}
+                        'id -> "beenPaidYetWrap"
                     )
 
                     @otherDetailPlaceHolder(
@@ -60,31 +58,13 @@
                                 'ignoreOptional -> true,
                                 'helperAbove -> Html(Messages("monthlyPayDay.help")))
                             ),
-                        'id -> "monthlyPayDayWrap",
-                        'display -> {if(howOftenFrequency.value.getOrElse("no") == "Monthly") "yes" else "no"}
+                        'id -> "monthlyPayDayWrap"
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            yesNoRadioGroup(usuallyPaidSameAmount,
-                                '_label -> {if(beenPaidYet.value == "Yes")
-                                                howOftenFrequency.value.getOrElse("noset") match {
-                                                    case "weekly" => "usuallyPaidSameAmount.week"
-                                                    case "fortnightly" => "usuallyPaidSameAmount.fortnight"
-                                                    case "fourweekly" => "usuallyPaidSameAmount.fourweekly"
-                                                    case "monthly" => "usuallyPaidSameAmount.month"
-                                                    case _ => "usuallyPaidSameAmount.other"
-                                                }
-                                            else
-                                                howOftenFrequency.value.getOrElse("noset") match {
-                                                    case "weekly" => "usuallyPaidSameAmount.week.expect"
-                                                    case "fortnightly" => "usuallyPaidSameAmount.fortnight.expect"
-                                                    case "fourweekly" => "usuallyPaidSameAmount.fourweekly.expect"
-                                                    case "monthly" => "usuallyPaidSameAmount.month.expect"
-                                                    case _ => "usuallyPaidSameAmount.other.expect"
-                                            }
-                                })
-                            ),
+                                yesNoRadioGroup(usuallyPaidSameAmount)
+                        ),
                         'id -> "usuallyPaidSameAmountWrap",
                         'display -> {if((howOftenFrequency.value != None) &&
                                         (howOftenFrequency.value.getOrElse("no") != Html(Messages("pleaseSelect"))) &&
@@ -108,8 +88,7 @@
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
-                        'id -> "whatForWrap",
-                        'display -> {if(doYouPayIntoPension("answer").value.getOrElse("no") == "yes") "yes" else "no"}
+                        'id -> "whatForWrap"
                     )
 
                     @yesNoRadioGroup(doCareCostsForThisWork("answer"),
@@ -125,8 +104,7 @@
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
-                        'id -> "whatCostsWrap",
-                        'display -> {if(doCareCostsForThisWork("answer").value.getOrElse("no") == "yes") "yes" else "no"}
+                        'id -> "whatCostsWrap"
                     )
 
                     @carersInputTextArea(moreAboutChanges, 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)

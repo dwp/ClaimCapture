@@ -30,8 +30,7 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(carersInputText(currentForm("tellUsWhyAndWhenTheChangeHappened"), 'maxLength -> 300)),
-	                    'id -> "selfEmployedIncomeWrap",
-	                    'display -> (currentForm("areIncomeOutgoingsProfitSimilarToTrading").value.getOrElse("yes") match { case "yes" => "no" case _ => "yes" })
+	                    'id -> "selfEmployedIncomeWrap"
 	                )
 	            </ul>
 	        </fieldset>
