@@ -26,7 +26,9 @@ class AsyncSubmissionManagerActor(childActorProps:Props) extends Actor {
 
 
   override def supervisorStrategy: SupervisorStrategy = OneForOneStrategy(maxNrOfRetries = 2, withinTimeRange = 30 seconds){
-    case e:Exception => Restart
+    case e:Exception =>
+      Logger.error("Need to restart AsyncSubmissionManagerActor.",e)
+      Restart
   }
 
   override def receive: Actor.Receive = {

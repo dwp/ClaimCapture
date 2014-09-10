@@ -1,6 +1,6 @@
 package services.submission
 
-import monitoring.{Counters, Histograms}
+import monitoring.{Counters}
 
 import scala.concurrent.ExecutionContext
 import play.api.{http, Logger}
@@ -10,7 +10,6 @@ import ExecutionContext.Implicits.global
 import ClaimSubmissionService._
 import play.api.libs.ws.Response
 import models.domain.Claim
-import scala.Some
 
 class AsyncClaimSubmissionComponent extends AsyncClaimSubmissionService
 with ClaimTransactionComponent
@@ -22,6 +21,11 @@ with WebServiceClientComponent
 
 case class DuplicateClaimException(msg:String) extends Exception(msg)
 
+/**
+* This service relies on [[webServiceClient]] to submit a claim and then it processes the asynchronous response.
+* The response is stored into the transaction database.
+* This service uses a submission cache to detect resubmission of a claim already submitted successfully (duplicate claims).
+*/
 trait AsyncClaimSubmissionService extends SubmissionCacheService with EncryptionService {
 
   this: ClaimTransactionComponent with WebServiceClientComponent =>

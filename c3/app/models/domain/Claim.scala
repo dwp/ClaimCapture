@@ -7,6 +7,12 @@ import play.api.i18n.Lang
 import scala.language.postfixOps
 import scala.reflect.ClassTag
 
+/**
+* Represents a Claim or Change of circumstances. Data is decomposed into sections that contain questions.
+* Each claim is identified uniquely by its statistically unique uuid. Transaction ID are also used to identify uniquely a claim, but are
+* generated only when submitting a claim. The transaction Id is then used to track the claim in all the other services and apps composing CAOL
+* and is shown in the printable form of the claim (see rendering service and casa).
+*/
 case class Claim(key: String = CachedClaim.key, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None,
                  uuid: String = "", transactionId: Option[String] = None)(implicit val navigation: Navigation = Navigation()) extends Claimable {
   def section(sectionIdentifier: Section.Identifier): Section = {
@@ -92,6 +98,9 @@ case class Claim(key: String = CachedClaim.key, sections: List[Section] = List()
     copy(transactionId = Some(transactionID))
   }
 
+  /**
+  * Used by submission cache to detect duplicated claims.
+  */
   def getFingerprint: String = "f" + this.uuid
 
 }
