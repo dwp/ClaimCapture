@@ -1,27 +1,16 @@
 package services
 
-import java.util.concurrent.TimeUnit
-
 import app.ConfigProperties._
 import models.domain.Claim
-import org.feijoas.mango.common.cache._
+import play.api.Play.current
+import play.api.cache.Cache
 
-object SubmissionCacheService {
-  // the function to cache
-  val buildHashOfClaim = (str: String) => str
-
-  val timeout = getProperty("submission.cache.expiry", 2)
-
-  // create a cache with expiration time of the number of minutes specified by timeout
-  val cache = CacheBuilder.newBuilder()
-    .expireAfterWrite(timeout, TimeUnit.MINUTES)
-    .build(buildHashOfClaim) //> cache  : LoadingCache[String,String]
-}
 
 trait SubmissionCacheService {
-  private val cache = SubmissionCacheService.cache
 
-  def checkEnabled : Boolean = {
+  private val TWO_MINUTES = 120
+
+  def checkEnabled: Boolean = {
     val checkLabel: String = "duplicate.submission.check"
     val check = getProperty(checkLabel, default = true)
     check
@@ -29,11 +18,10 @@ trait SubmissionCacheService {
 
   def storeInCache(claim: Claim): Unit = {
     val fingerprint = claim.getFingerprint
-    cache.put(fingerprint, fingerprint)
+    Cache.set(fingerprint, fingerprint, getProperty("submission.cache.expiry", default=TWO_MINUTES))
   }
 
-  def getFromCache(claim: Claim): Option[String] = cache.getIfPresent(claim.getFingerprint)
+  def getFromCache(claim: Claim): Option[String] = Cache.getAs[String](claim.getFingerprint)
 
-  def removeFromCache(claim: Claim): Unit = cache.invalidate(claim.getFingerprint)
+  def removeFromCache(claim: Claim): Unit = Cache.remove(claim.getFingerprint)
 }
-
