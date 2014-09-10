@@ -93,7 +93,6 @@ object ClaimPageFactory extends PageFactory {
         case G2ConsentPage.title => G2ConsentPage (ctx)
         case G3DisclaimerPage.title => G3DisclaimerPage (ctx)
         case G4DeclarationPage.title => G4DeclarationPage (ctx)
-        case G5SubmitPage.title => G5SubmitPage (ctx)
         // Catch pages not covered by framework
         case _ => new UnknownPage(title, ctx)
       }(title.toLowerCase)

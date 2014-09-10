@@ -13,6 +13,7 @@ import controllers.CarersForms._
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
 import scala.Some
+import scala.language.postfixOps
 
 object G3JobDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

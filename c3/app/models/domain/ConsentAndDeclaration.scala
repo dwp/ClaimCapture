@@ -24,7 +24,7 @@ object Disclaimer extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g3"
 }
 
-case class Declaration(read: String = "", nameOrOrganisation:Option[String] = None, someoneElse: Option[String] = None) extends QuestionGroup(Declaration)
+case class Declaration(read: String = "", nameOrOrganisation:Option[String] = None, someoneElse: Option[String] = None, jsEnabled: Boolean = false) extends QuestionGroup(Declaration)
 
 object Declaration extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g4"

@@ -1,10 +1,10 @@
 package xml.claim
 
-import app.XMLValues._
 import models.domain._
 import xml.XMLComponent
 import xml.XMLHelper._
 import models.{DayMonthYear, PaymentFrequency}
+import scala.language.postfixOps
 
 import scala.xml.{Elem, NodeSeq}
 
