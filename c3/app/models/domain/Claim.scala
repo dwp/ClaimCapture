@@ -92,6 +92,6 @@ case class Claim(key: String = CachedClaim.key, sections: List[Section] = List()
     copy(transactionId = Some(transactionID))
   }
 
-  def getFingerprint: String = this.uuid
+  def getFingerprint: String = "f"+this.uuid
 
 }
