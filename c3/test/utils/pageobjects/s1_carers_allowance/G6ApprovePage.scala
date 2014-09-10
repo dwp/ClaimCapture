@@ -2,6 +2,8 @@ package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.WithBrowser
 import utils.pageobjects._
+import org.fluentlenium.core.domain.{FluentWebElement, FluentList}
+import play.api.Logger
 
 /**
  * PageObject pattern associated to S1 carers allowance G5 approve page.
@@ -11,9 +13,11 @@ import utils.pageobjects._
 final class G6ApprovePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G6ApprovePage.url, G6ApprovePage.title) {
   declareYesNo("#answer", "CanYouGetCarersAllowanceApproveAnswer")
 
-  def isApproved =  ctx.browser.find(".prompt.e-prompt").size != 0 && ctx.browser.find(".prompt.entitlement-error").size == 0
+  def isApproved = {
+    ctx.browser.find(".prompt.e-prompt h2").getText.indexOf("not") == -1
+  }
 
-  def isNotApproved =  ctx.browser.find(".prompt.entitlement-error").size != 0
+  def isNotApproved =  ctx.browser.find(".prompt.e-prompt h2").getText.indexOf("not") > -1
 }
 
 /**

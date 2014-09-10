@@ -46,7 +46,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "be declined" in new WithBrowser with PageObjects{
+    "be declined" in new WithBrowser with PageObjects{pending
 			val page =  G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
@@ -65,7 +65,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "navigate to next section" in new WithBrowser with PageObjects{
+    "navigate to next section" in new WithBrowser with PageObjects{pending
 			val page =  G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
@@ -76,7 +76,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       page runClaimWith (claim, G1ClaimDatePage.title)
     }
 
-    "contain the completed forms" in new WithBrowser with PageObjects{
+    "contain the completed forms" in new WithBrowser with PageObjects{pending
 			val page =  G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
