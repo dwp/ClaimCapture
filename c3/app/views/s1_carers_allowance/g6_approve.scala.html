@@ -70,6 +70,7 @@
     }
 
     @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit) {
+        @CSRF.formField
         @carersInputHidden(currentForm("allowedToContinue"),
             'hiddenValue -> approved)
         @carersInputHidden(currentForm("jsEnabled"),

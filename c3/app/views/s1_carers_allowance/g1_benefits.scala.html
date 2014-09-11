@@ -5,6 +5,7 @@
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
+@import helper._
 
 @main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm)) {
 
@@ -12,7 +13,7 @@
 
     @form(action = controllers.s1_carers_allowance.routes.G1Benefits.submit) {
 
-			
+                @CSRF.formField
 	
 			
 		        <fieldset class="form-elements form-eligibility">

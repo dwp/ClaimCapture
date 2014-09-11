@@ -16,6 +16,7 @@
 
 
     @form(action = controllers.s2_about_you.routes.G4NationalityAndResidency.submit) {
+            @CSRF.formField
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g4"))</legend>
 	

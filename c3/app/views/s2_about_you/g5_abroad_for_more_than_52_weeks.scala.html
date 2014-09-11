@@ -85,7 +85,8 @@
 
 
     @form(action = controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.submit) {
-    
+
+            @CSRF.formField
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g5"))</legend>
 	

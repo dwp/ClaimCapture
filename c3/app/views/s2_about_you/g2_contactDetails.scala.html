@@ -12,7 +12,8 @@
 
 
     @form(action = controllers.s2_about_you.routes.G2ContactDetails.submit) {
-        
+
+            @CSRF.formField
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g2"))</legend>
 	

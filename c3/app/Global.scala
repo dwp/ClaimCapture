@@ -14,8 +14,9 @@ import services.mail.EmailActors
 import utils.Injector
 import utils.helpers.CarersLanguageHelper
 import play.api.GlobalSettings
+import play.filters.csrf._
 
-object Global extends WithFilters(MonitorFilter) with Injector with CarersLanguageHelper with C3MonitorRegistration with GlobalSettings {
+object Global extends WithFilters(MonitorFilter, CSRFFilter() ) with Injector with CarersLanguageHelper with C3MonitorRegistration with GlobalSettings {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
@@ -72,3 +73,10 @@ object Global extends WithFilters(MonitorFilter) with Injector with CarersLangua
     Logger.info(s"$checkLabel = $check")
   }
 }
+
+//object CSRFRequestCheck {
+//
+//  def createdIfNotFound(header:RequestHeader):Boolean = {
+//    if (header.path.contains(controllers.s1_carers_allowance.routes.G1Benefits.present().url)) true else false
+//  }
+//}

@@ -16,6 +16,7 @@
     @form(action = actionCall) {
         <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
+            @CSRF.formField
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages(legend))</legend>
 	

@@ -7,6 +7,7 @@
 @main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Disclaimer)) {
 
     @form(action = controllers.s11_consent_and_declaration.routes.G3Disclaimer.submit) {
+        @CSRF.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s11.g3"))</legend>

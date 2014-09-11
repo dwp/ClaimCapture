@@ -16,8 +16,9 @@
 
   
     @form(action = controllers.s10_pay_details.routes.G1HowWePayYou.submit) {
-    
-    
+
+
+    @CSRF.formField
     <p class="intro-info">@Html(Messages("howWePayYou.help")) <a href="/claim-help#8" @views.html.ga.trackClickEvent(linkName = "Claim Notes - How We Pay You")>@Html(Messages("howWePayYou.help.link"))</a></p>
     	
 

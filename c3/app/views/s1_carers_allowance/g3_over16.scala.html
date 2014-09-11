@@ -12,6 +12,7 @@
 
 
     @form(action = controllers.s1_carers_allowance.routes.G3Over16.submit) {
+            @CSRF.formField
 	        <fieldset class="form-elements form-eligibility over16">
 	            <legend>@Html(Messages("s1.g3"))</legend>
 
