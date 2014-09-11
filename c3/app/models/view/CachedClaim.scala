@@ -222,11 +222,11 @@ trait CachedClaim {
 
     f(claim)(request)(lang) match {
       case Left(r: Result) => {
-        r.withSession(claim.key -> claim.uuid)
+        r //.withSession(claim.key -> claim.uuid)
       }
       case Right((c: Claim, r: Result)) => {
         Cache.set(claim.uuid, c, expiration)
-        r.withSession(claim.key -> claim.uuid)
+        r //.withSession(claim.key -> claim.uuid)
       }
     }
   }

@@ -1,10 +1,11 @@
 package controllers.s1_carers_allowance
 
 import controllers.Mappings._
+import play.filters.csrf.CSRF
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.Controller
+import play.api.mvc.{AnyContent, Request, Controller}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain._
