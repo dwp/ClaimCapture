@@ -3,6 +3,7 @@
 @import scala.language.postfixOps
 @import helper._
 @import utils.helpers.CarersCrypto
+@import utils.helpers.DwpCSRF
 @import play.api.i18n.{MMessages => Messages}
 
 @bulletsConstructor(label: String, maxBullets: Int) = @{
@@ -19,7 +20,7 @@
 
 @main(Messages("s7.g1") + "  " + Messages("s7.longName"), Some(employmentForm)) {
     @form(action = controllers.s7_employment.routes.G1Employment.submit) {
-        @CSRF.formField
+        @DwpCSRF.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s7.g1"))</legend>

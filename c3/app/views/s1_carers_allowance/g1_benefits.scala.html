@@ -4,6 +4,7 @@
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
+@import utils.helpers.DwpCSRF
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
 
@@ -13,7 +14,7 @@
 
     @form(action = controllers.s1_carers_allowance.routes.G1Benefits.submit) {
 
-                @CSRF.formField
+                @DwpCSRF.formField
 	
 			
 		        <fieldset class="form-elements form-eligibility">

@@ -2,6 +2,7 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.helpers.DwpCSRF
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.dropdowns._
@@ -13,6 +14,8 @@
 @main(Messages("c1") + " - " + Messages("c2.longName"), Some(reportAChangeForm), claim.completedQuestionGroups(models.domain.CircumstancesReportChange)) {
 
     @form(action = controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.submit) {
+        @DwpCSRF.formField
+
         <input type="hidden" id="js" name="jsEnabled" value="false">
         <div class="form-wrap">
 	        <fieldset class="form-elements">

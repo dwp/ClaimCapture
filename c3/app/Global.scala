@@ -1,22 +1,23 @@
-import app.ConfigProperties._
 import java.net.InetAddress
+
+import Filters.WithProductionFilters
+import app.ConfigProperties._
 import monitor.MonitorFilter
 import monitoring._
 import org.slf4j.MDC
 import play.api._
 import play.api.mvc.Results._
 import play.api.mvc._
-import play.api.mvc.SimpleResult
-import scala.concurrent.{ExecutionContext, Future}
-import ExecutionContext.Implicits.global
+import play.filters.csrf._
 import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.Injector
 import utils.helpers.CarersLanguageHelper
-import play.api.GlobalSettings
-import play.filters.csrf._
 
-object Global extends WithFilters(MonitorFilter, CSRFFilter() ) with Injector with CarersLanguageHelper with C3MonitorRegistration with GlobalSettings {
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ExecutionContext, Future}
+
+object Global extends WithProductionFilters(MonitorFilter, CSRFFilter()) with Injector with CarersLanguageHelper with C3MonitorRegistration {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
@@ -43,6 +44,17 @@ object Global extends WithFilters(MonitorFilter, CSRFFilter() ) with Injector wi
     Logger.info(s"c3 property include.analytics is ${getProperty("include.analytics", "Not defined")}") // used for operations, do not remove
   }
 
+  def actorSystems() {
+    EmailActors
+    AsyncActors
+  }
+
+  def duplicateClaimCheckEnabled() = {
+    val checkLabel: String = "duplicate.submission.check"
+    val check = getProperty(checkLabel, default = true)
+    Logger.info(s"$checkLabel = $check")
+  }
+
   override def onStop(app: Application) {
     super.onStop(app)
     Logger.info("c3 Stopped") // used for operations, do not remove
@@ -61,22 +73,7 @@ object Global extends WithFilters(MonitorFilter, CSRFFilter() ) with Injector wi
     val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
     Future(Ok(views.html.common.error(startUrl)(lang(request), Request(request, AnyContentAsEmpty))))
   }
-
-  def actorSystems() {
-    EmailActors
-    AsyncActors
-  }
-
-  def duplicateClaimCheckEnabled() = {
-    val checkLabel: String = "duplicate.submission.check"
-    val check = getProperty(checkLabel, default = true)
-    Logger.info(s"$checkLabel = $check")
-  }
 }
 
-//object CSRFRequestCheck {
-//
-//  def createdIfNotFound(header:RequestHeader):Boolean = {
-//    if (header.path.contains(controllers.s1_carers_allowance.routes.G1Benefits.present().url)) true else false
-//  }
-//}
+
+

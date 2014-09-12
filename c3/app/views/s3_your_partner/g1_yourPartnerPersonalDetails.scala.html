@@ -1,6 +1,7 @@
 @(currentForm: Form[models.domain.YourPartnerPersonalDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import utils.helpers.CarersTemplate._
+@import utils.helpers.DwpCSRF
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
@@ -19,7 +20,7 @@
 
     @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit) {
 
-        @CSRF.formField
+        @DwpCSRF.formField
         <p class="intro-info">@Html(partnerHelpWithLink)</p>
         
             <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">

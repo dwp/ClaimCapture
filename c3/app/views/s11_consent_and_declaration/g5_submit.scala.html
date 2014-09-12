@@ -7,6 +7,7 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
+@import utils.helpers.DwpCSRF
 @import models.domain.Employment
 @import play.api.i18n.{MMessages => Messages}
 
@@ -14,7 +15,7 @@
     @form(action = controllers.s11_consent_and_declaration.routes.G5Submit.submit) {
         <input type="hidden" id="js" name="jsEnabled" value="false">
 
-        @CSRF.formField
+        @DwpCSRF.formField
         @if(claim.questionGroup(Employment).isDefined &&
             (claim.questionGroup(Employment).get.asInstanceOf[Employment].beenEmployedSince6MonthsBeforeClaim == "yes"||
             claim.questionGroup(Employment).get.asInstanceOf[Employment].beenSelfEmployedSince1WeekBeforeClaim == "yes")) {

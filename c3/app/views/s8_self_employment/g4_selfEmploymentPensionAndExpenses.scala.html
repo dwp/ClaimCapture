@@ -8,6 +8,7 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 @import utils.helpers.PastPresentLabelHelper.{labelForSelfEmployment, valuesForSelfEmployment}
+@import utils.helpers.DwpCSRF
 @import play.api.i18n.{MMessages => Messages}
 @import models.domain.{Job, Jobs}
 
@@ -16,7 +17,7 @@
 
     @form(action = controllers.s8_self_employment.routes.G4SelfEmploymentPensionsAndExpenses.submit) {
 
-        @CSRF.formField
+        @DwpCSRF.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s7.g8"))</legend>

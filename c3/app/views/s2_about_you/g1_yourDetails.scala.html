@@ -2,6 +2,7 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.helpers.DwpCSRF
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.dropdowns._
@@ -19,7 +20,7 @@
 
 
     @form(action = controllers.s2_about_you.routes.G1YourDetails.submit) {
-            @CSRF.formField
+            @DwpCSRF.formField
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:about-you">
 	            <legend>@Html(Messages("s2.g1"))</legend>
 	

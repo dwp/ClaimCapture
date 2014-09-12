@@ -2,6 +2,7 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.helpers.DwpCSRF
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
@@ -11,7 +12,7 @@
 
 @main(Html(Messages("s11.g2")) + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Consent)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G2Consent.submit) {
-        @CSRF.formField
+        @DwpCSRF.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s11.g2"))</legend>

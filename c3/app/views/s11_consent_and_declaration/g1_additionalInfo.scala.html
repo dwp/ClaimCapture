@@ -2,6 +2,7 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.helpers.DwpCSRF
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
@@ -11,7 +12,7 @@
 
 @main(Messages("s11.g1") + " - " + Messages("s11.longName"), Some(currentForm)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G1AdditionalInfo.submit) {
-        @CSRF.formField
+        @DwpCSRF.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:consent-and-declaration">
 	            <legend>@Html(Messages("s11.g1"))</legend>
