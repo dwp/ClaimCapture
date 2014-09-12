@@ -170,10 +170,14 @@ POST          /pay-details/how-we-pay-you                                     co
 GET           /pay-details/bank-building-society-details                      controllers.s10_pay_details.G2BankBuildingSocietyDetails.present
 POST          /pay-details/bank-building-society-details                      controllers.s10_pay_details.G2BankBuildingSocietyDetails.submit
 
+# Information
+###############
+
+GET           /information/additional-info                                    controllers.s10_2_information.G1AdditionalInfo.present
+POST          /information/additional-info                                    controllers.s10_2_information.G1AdditionalInfo.submit
+
 # Consent and declaration
 ###############
-GET           /consent-and-declaration/additional-info                        controllers.s11_consent_and_declaration.G1AdditionalInfo.present
-POST          /consent-and-declaration/additional-info                        controllers.s11_consent_and_declaration.G1AdditionalInfo.submit
 
 GET           /consent-and-declaration/consent                                controllers.s11_consent_and_declaration.G2Consent.present
 POST          /consent-and-declaration/consent                                controllers.s11_consent_and_declaration.G2Consent.submit

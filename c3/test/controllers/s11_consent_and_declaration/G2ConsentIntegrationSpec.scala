@@ -59,7 +59,7 @@ class G2ConsentIntegrationSpec extends Specification with Tags {
     "navigate back to AdditionalInformation" in new WithBrowser with BrowserMatchers {
       Formulate.additionalInfo(browser)
       browser.click(".form-steps a")
-      titleMustEqual("Additional information - Consent and Declaration")
+      titleMustEqual("Additional information - Information")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {

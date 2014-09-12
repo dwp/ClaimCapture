@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
-import utils.pageobjects.S11_consent_and_declaration.G1AdditionalInfoPage
+import utils.pageobjects.s10_2_information.G1AdditionalInfoPage
 import utils.pageobjects.{PageObjects, PageObjectsContext}
 
 class G1HowWePayYouIntegrationSpec extends Specification with Tags {
@@ -22,7 +22,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       Formulate.otherEEAStateOrSwitzerland(browser)
 
       browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("Additional information - Consent and Declaration")
+      titleMustEqual("Additional information - Information")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {

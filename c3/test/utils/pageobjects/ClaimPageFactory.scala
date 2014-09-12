@@ -10,6 +10,7 @@ import utils.pageobjects.s7_employment._
 import utils.pageobjects.s8_self_employment._
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s10_pay_details._
+import utils.pageobjects.s10_2_information._
 import utils.pageobjects.S11_consent_and_declaration._
 import utils.pageobjects.IterationManager._
 import utils.pageobjects.preview.PreviewPage

@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s10_pay_details.{G1HowWePayYouPage, G2BankBuildingSocietyDetailsPage}
 import utils.pageobjects.s2_about_you._
-import utils.pageobjects.S11_consent_and_declaration.G1AdditionalInfoPage
+import utils.pageobjects.s10_2_information.G1AdditionalInfoPage
 import app.AccountStatus
 import utils.pageobjects.{PageObjects, PageObjectsContext}
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage

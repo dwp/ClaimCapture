@@ -14,6 +14,7 @@ object SectionsManager {
     Employed,
     SelfEmployment,
     OtherMoney,
+    Information,
     PayDetails
   )
 

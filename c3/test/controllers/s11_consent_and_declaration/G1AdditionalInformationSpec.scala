@@ -5,6 +5,7 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
 import models.view.CachedClaim
+import controllers.s10_2_information.G1AdditionalInfo
 
 class G1AdditionalInformationSpec extends Specification with Tags {
 

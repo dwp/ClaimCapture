@@ -1,4 +1,4 @@
-package controllers.s11_consent_and_declaration
+package controllers.s10_2_information
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
@@ -27,12 +27,12 @@ object G1AdditionalInfo extends Controller with CachedClaim with Navigable {
   )(AdditionalInfo.apply)(AdditionalInfo.unapply))
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
-    track(AdditionalInfo) { implicit claim => Ok(views.html.s11_consent_and_declaration.g1_additionalInfo(form.fill(AdditionalInfo))) }
+    track(AdditionalInfo) { implicit claim => Ok(views.html.s10_2_information.g1_additionalInfo(form.fill(AdditionalInfo))) }
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s11_consent_and_declaration.g1_additionalInfo(formWithErrors)),
-      additionalInfo => claim.update(additionalInfo) -> Redirect(routes.G2Consent.present()))
+      formWithErrors => BadRequest(views.html.s10_2_information.g1_additionalInfo(formWithErrors)),
+      additionalInfo => claim.update(additionalInfo) -> Redirect(controllers.s11_consent_and_declaration.routes.G2Consent.present()))
   }
 }

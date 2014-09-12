@@ -6,19 +6,20 @@ import controllers.Formulate
 import controllers.BrowserMatchers
 import utils.pageobjects.S11_consent_and_declaration._
 import utils.pageobjects.s10_pay_details._
+import utils.pageobjects.s10_2_information._
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.PageObjects
 
 class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
   "Additional information" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/consent-and-declaration/additional-info")
-      titleMustEqual("Additional information - Consent and Declaration")
+      browser.goTo("/information/additional-info")
+      titleMustEqual("Additional information - Information")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/consent-and-declaration/additional-info")
-      titleMustEqual("Additional information - Consent and Declaration")
+      browser.goTo("/information/additional-info")
+      titleMustEqual("Additional information - Information")
       browser.submit("button[type='submit']")
 
       findMustEqualSize("div[class=validation-summary] ol li", 2)
@@ -27,11 +28,6 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.additionalInfo(browser)
       titleMustEqual("Consent - Consent and Declaration")
-    }
-
-    "contain the completed forms" in new WithBrowser with BrowserMatchers {
-      Formulate.additionalInfo(browser)
-      findMustEqualSize("div[class=completed] ul li", 1)
     }
     
     "be presented" in new WithBrowser with PageObjects{
