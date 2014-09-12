@@ -15,7 +15,7 @@ import play.api.i18n.Lang
 import models.view.CachedClaim.ClaimResult
 
 object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {
-  val form = Form(mapping(
+  def form(implicit claim: Claim) = Form(mapping(
     "title" -> optional(carersNonEmptyText(maxLength = 4)),
     "firstName" -> optional(carersNonEmptyText(maxLength = 17)),
     "middleName" -> optional(carersText(maxLength = 17)),
@@ -34,6 +34,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
     .verifying("dateOfBirth.required", YourPartnerPersonalDetails.validateDateOfBirth _)
     .verifying("separated.fromPartner.required", YourPartnerPersonalDetails.validateSeperatedFromPartner _)
     .verifying("isPartnerPersonYouCareFor.required", YourPartnerPersonalDetails.validatePartnerPersonYoucareFor _)
+    .verifying("nationality.required", YourPartnerPersonalDetails.validateNationalityIfPresent(_, claim))
   )
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
@@ -54,6 +55,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
           .replaceError("", "dateOfBirth.required", FormError("dateOfBirth", "error.required"))
           .replaceError("", "separated.fromPartner.required", FormError("separated.fromPartner", "error.required"))
           .replaceError("", "isPartnerPersonYouCareFor.required", FormError("isPartnerPersonYouCareFor", "error.required"))
+          .replaceError("", "nationality.required", FormError("nationality", "error.required"))
         BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())

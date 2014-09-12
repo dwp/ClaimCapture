@@ -66,5 +66,38 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.clickBackButton(browser)
       titleMustEqual("Partner details - About your partner")
     }
+
+    "nationality should not be visible when the carer is British" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.nationalityAndResidency(browser)
+      browser.goTo("/your-partner/personal-details")
+      browser.click("#hadPartnerSinceClaimDate_yes")
+      browser.find("#nationality").size shouldEqual 0
+    }
+
+    "nationality should be visible when the carer is not british and married" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.nationalityAndResidencyNotBritishMarried(browser)
+      browser.goTo("/your-partner/personal-details")
+      browser.click("#hadPartnerSinceClaimDate_yes")
+      browser.find("#nationality").size shouldEqual 1
+    }
+
+    "nationality should be visible when the carer is not british and Living with partner" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.nationalityAndResidencyNotBritishWithPartner(browser)
+      browser.goTo("/your-partner/personal-details")
+      browser.click("#hadPartnerSinceClaimDate_yes")
+      browser.find("#nationality").size shouldEqual 1
+    }
+
+    "nationality should not be visible when the carer is not british and neither married or living with partner" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.nationalityAndResidencyNotBritishSingle(browser)
+      browser.goTo("/your-partner/personal-details")
+      browser.click("#hadPartnerSinceClaimDate_yes")
+      browser.find("#nationality").size shouldEqual 0
+    }
+
   } section("integration", models.domain.YourPartner.id)
 }
