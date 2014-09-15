@@ -22,24 +22,12 @@ class G4DeclarationIntegrationSpec extends Specification with Tags {
       findMustEqualSize("div[class=validation-summary] ol li", 1)
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
-      Formulate.declaration(browser)
-      titleMustEqual("Documents you need to send us - Consent and Declaration")
-    }
-
     "navigate back to Disclaimer" in new WithBrowser with BrowserMatchers {
       Formulate.disclaimer(browser)
       titleMustEqual("Declaration - Consent and Declaration")
 
       browser.click(".form-steps a")
       titleMustEqual("Disclaimer - Consent and Declaration")
-    }
-
-    "contain the completed forms" in new WithBrowser with BrowserMatchers {
-      Formulate.declaration(browser)
-      titleMustEqual("Documents you need to send us - Consent and Declaration")
-
-      findMustEqualSize("div[class=completed] ul li", 1)
     }
 
     "not have name or organisation field with optional text" in new WithBrowser with PageObjects{
@@ -51,6 +39,12 @@ class G4DeclarationIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
 
       page.readLabel("nameOrOrganisation") mustEqual("Your name and/or organisation")
+    }
+
+    "page contains JS enabled check" in new WithBrowser with PageObjects {
+      val page = G4DeclarationPage(context)
+      page goToThePage()
+      page jsCheckEnabled() must beTrue
     }
 
   } section("integration", models.domain.ConsentAndDeclaration.id)

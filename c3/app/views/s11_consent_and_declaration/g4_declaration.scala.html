@@ -9,6 +9,9 @@
 @main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Declaration)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G4Declaration.submit) {
         @DwpCSRF.formField
+
+       <input type="hidden" id="js" name="jsEnabled" value="false">
+
        <div class="form-wrap">
         <fieldset class="form-elements">
             <legend>@Html(Messages("s11.g4"))</legend>
@@ -41,7 +44,7 @@
 
         <nav class="form-steps">
             <ul>
-            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(true)>@Html(Messages("form.submitClaim"))</button></li>
             	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
             </ul>
         </nav>
@@ -54,4 +57,5 @@ window.initEvents("@CarersCrypto.encryptAES("someoneElse")",
                      "@CarersCrypto.encryptAES("nameOrOrganisation")");
 });
 </script>
+<script type="text/javascript">$($("#js").val("true"));</script>
 }
