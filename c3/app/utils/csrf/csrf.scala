@@ -1,5 +1,6 @@
 package utils.csrf
 
+import com.dwp.exceptions.DwpRuntimeException
 import play.api.mvc._
 import play.api._
 import play.api.libs.Crypto
@@ -50,7 +51,7 @@ object DwpCSRF {
     val RequestTag = "CSRF_TOKEN"
 
     implicit def getToken(implicit request: RequestHeader): Token = {
-      DwpCSRF.getToken(request).getOrElse(sys.error("Missing CSRF Token"))
+      DwpCSRF.getToken(request).getOrElse( {throw new DwpRuntimeException("No CSRF Token found")})
     }
   }
 
