@@ -4,7 +4,7 @@
 @import helper.base._
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersCrypto
-@import utils.helpers.DwpCSRF
+@import utils.csrf.DwpCSRFFormHelper
 @import models.domain._
 @import play.api.Play
 @import play.api.Play.current
@@ -71,7 +71,7 @@
     }
 
     @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit) {
-        @DwpCSRF.formField
+        @DwpCSRFFormHelper.formField
         @carersInputHidden(currentForm("allowedToContinue"),
             'hiddenValue -> approved)
         @carersInputHidden(currentForm("jsEnabled"),

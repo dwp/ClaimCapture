@@ -2,7 +2,7 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
-@import utils.helpers.DwpCSRF
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
@@ -19,7 +19,7 @@
     @form(action = controllers.s10_pay_details.routes.G1HowWePayYou.submit) {
 
 
-    @DwpCSRF.formField
+    @DwpCSRFFormHelper.formField
     <p class="intro-info">@Html(Messages("howWePayYou.help")) <a href="/claim-help#8" @views.html.ga.trackClickEvent(linkName = "Claim Notes - How We Pay You")>@Html(Messages("howWePayYou.help.link"))</a></p>
     	
 

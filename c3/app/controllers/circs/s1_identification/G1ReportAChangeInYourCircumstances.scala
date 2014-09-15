@@ -1,7 +1,5 @@
 package controllers.circs.s1_identification
 
-import play.filters.csrf.CSRF
-
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._

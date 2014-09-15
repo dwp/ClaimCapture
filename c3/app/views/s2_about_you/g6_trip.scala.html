@@ -2,7 +2,7 @@
 
 @import utils.helpers.CarersCrypto
 @import utils.helpers.CarersTemplate._
-@import utils.helpers.DwpCSRF
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._
@@ -17,7 +17,7 @@
     @form(action = actionCall) {
         <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
-            @DwpCSRF.formField
+            @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages(legend))</legend>
 	

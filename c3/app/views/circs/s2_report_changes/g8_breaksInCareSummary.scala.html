@@ -2,7 +2,7 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
-@import utils.helpers.DwpCSRF
+@import utils.csrf.DwpCSRFFormHelper
 @import common._
 @import views.html.helper.dates._
 @import views.html.helper._
@@ -64,7 +64,7 @@
 
 
 
-            @DwpCSRF.formField
+            @DwpCSRFFormHelper.formField
 
             <div class="data-table">
 				 

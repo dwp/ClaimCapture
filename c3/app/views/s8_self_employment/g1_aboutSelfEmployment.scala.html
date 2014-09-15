@@ -6,7 +6,7 @@
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
-@import utils.helpers.DwpCSRF
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 
 @import play.api.i18n.{MMessages => Messages}
@@ -16,7 +16,7 @@
 
     @form(action = controllers.s8_self_employment.routes.G1AboutSelfEmployment.submit) {
 
-        @DwpCSRF.formField
+        @DwpCSRFFormHelper.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:self-employment">
 	            <legend>@Html(Messages("s8.g1"))</legend>

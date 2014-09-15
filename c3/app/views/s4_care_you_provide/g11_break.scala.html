@@ -1,7 +1,7 @@
 @(breakForm: Form[models.domain.Break])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
 @import utils.helpers.CarersCrypto
-@import utils.helpers.DwpCSRF
+@import utils.csrf.DwpCSRFFormHelper
 @import models.domain.MoreAboutTheCare
 @import views.html.helper._
 @import views.html.helper.dates._
@@ -26,7 +26,7 @@
     @form(action = controllers.s4_care_you_provide.routes.G11Break.submit) {
         <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
-        @DwpCSRF.formField
+        @DwpCSRFFormHelper.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s4.g11.help1")) @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>

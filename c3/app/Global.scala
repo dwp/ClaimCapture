@@ -1,6 +1,5 @@
 import java.net.InetAddress
 
-import filters.WithTestableFilters
 import app.ConfigProperties._
 import monitor.MonitorFilter
 import monitoring._

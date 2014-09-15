@@ -2,7 +2,7 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
-@import utils.helpers.DwpCSRF
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.base._
@@ -14,7 +14,7 @@
 
     @form(action = controllers.s2_about_you.routes.G2ContactDetails.submit) {
 
-            @DwpCSRF.formField
+            @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g2"))</legend>
 	
