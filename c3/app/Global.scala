@@ -1,6 +1,6 @@
 import java.net.InetAddress
 
-import Filters.WithProductionFilters
+import filters.WithTestableFilters
 import app.ConfigProperties._
 import monitor.MonitorFilter
 import monitoring._
@@ -8,16 +8,16 @@ import org.slf4j.MDC
 import play.api._
 import play.api.mvc.Results._
 import play.api.mvc._
-import play.filters.csrf._
 import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.Injector
+import utils.csrf.DwpCSRFFilter
 import utils.helpers.CarersLanguageHelper
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-object Global extends WithProductionFilters(MonitorFilter, CSRFFilter()) with Injector with CarersLanguageHelper with C3MonitorRegistration {
+object Global extends WithFilters(MonitorFilter, DwpCSRFFilter()) with Injector with CarersLanguageHelper with C3MonitorRegistration {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))

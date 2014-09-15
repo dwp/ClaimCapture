@@ -2,7 +2,7 @@ package models.view
 
 import app.ConfigProperties._
 import java.util.UUID._
-import play.filters.csrf.CSRF
+import utils.csrf.DwpCSRF
 
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
@@ -83,22 +83,22 @@ trait CachedClaim {
   def newClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
       // Need to overwrite CSRF and Sessions because this could be an user that has an old cookie with CSRF and session
-      val token = CSRF.SignedTokenProvider.generateToken
-      implicit val r = Request[AnyContent](request.copy(tags = request.tags.filterNot(_._1 == CSRF.Token.RequestTag) + (CSRF.Token.RequestTag -> token)), request.body )
+      val token = DwpCSRF.SignedTokenProvider.generateToken
+      implicit val r = Request[AnyContent](request.copy(tags = request.tags.filterNot(_._1 == DwpCSRF.Token.RequestTag) + (DwpCSRF.Token.RequestTag -> token)), request.body )
 
       recordMeasurements()
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         val claim = newInstance()
         val result = withHeaders(action(claim, r, bestLang)(f))
-        result.withSession((claim.key -> claim.uuid) ,(CSRF.TokenName -> token))
+        result.withSession((claim.key -> claim.uuid) ,(DwpCSRF.TokenName -> token))
       }
       else {
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
         Logger.info(s"Changing $cacheKey - $key")
         val claim = Cache.getAs[Claim](key).getOrElse(throw new RuntimeException("I expected a claim in the cache!"))
         val result = originCheck(action(claim, r, claim.lang.getOrElse(bestLang))(f))
-        result.withSession(r.session - (CSRF.TokenName) + (CSRF.TokenName -> token))
+        result.withSession(r.session - (DwpCSRF.TokenName) + (DwpCSRF.TokenName -> token))
       }
     }
   }
