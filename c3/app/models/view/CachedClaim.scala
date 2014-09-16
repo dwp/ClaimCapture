@@ -91,6 +91,7 @@ trait CachedClaim {
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         val claim = newInstance()
         val result = withHeaders(action(claim, r, bestLang)(f))
+        Logger.info(s"New ${claim.key} ${claim.uuid} cached. Token ${token}")
         result.withSession((claim.key -> claim.uuid) ,(DwpCSRF.TokenName -> token))
       }
       else {
