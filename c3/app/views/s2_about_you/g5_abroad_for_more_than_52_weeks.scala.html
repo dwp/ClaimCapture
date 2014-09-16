@@ -39,10 +39,10 @@
                         }}</h3>
 					  	
 					  	<dl>
-						  	<dt>@Html(Messages("where")):</dt>
+						  	<dt>@Html(Messages("where"))</dt>
 						  	<dd>@trip.where</dd>
 						  	
-						  	<dt>@Html(Messages("why")):</dt>
+						  	<dt>@Html(Messages("why"))</dt>
 						  	<dd>@{trip.why match {
                             case Some(reasonForBeingThere) => reasonForBeingThere.reason match {
                                     case Some (reason) =>

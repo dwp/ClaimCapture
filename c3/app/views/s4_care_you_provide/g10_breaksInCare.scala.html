@@ -47,19 +47,19 @@ else OtherMoney.name
                          </h3>
 					  	
 					  	<dl>
-						  	<dt>@Html(Messages("breaks.whereYou.label")):</dt>
+						  	<dt>@Html(Messages("breaks.whereYou.label"))</dt>
 						  	<dd>@break.whereYou.location.isEmpty match {
                                 case false => { @Html(Messages("whereabouts." + break.whereYou.location.replaceAll(" ","").toLowerCase)) }
                                 case true => {}
                             }</dd>
 						  	
-						  	<dt>@Html(Messages("wherePerson")):</dt>
+						  	<dt>@Html(Messages("wherePerson"))</dt>
 						  	<dd>@break.wherePerson.location.isEmpty match {
                                 case false => { @Html(Messages("whereabouts." + break.wherePerson.location.replaceAll(" ","").toLowerCase)) }
                                 case true => {}
                             }</dd>
 						  	
-						  	<dt>@Html(Messages("medicalTreatment")):</dt>
+						  	<dt>@Html(Messages("medicalTreatment"))</dt>
 						  	<dd>@if("yes" == break.medicalDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</dd>
 					  	</dl>
 					  	
