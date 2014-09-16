@@ -237,22 +237,6 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
-  def consent(browser: TestBrowser) = {
-    browser.goTo("/consent-and-declaration/consent")
-    browser.click("#gettingInformationFromAnyEmployer_informationFromEmployer_no")
-    browser.fill("#gettingInformationFromAnyEmployer_why") `with` "Foo"
-    browser.click("#tellUsWhyEmployer_informationFromPerson_no")
-    browser.fill("#tellUsWhyEmployer_whyPerson") `with` "Bar"
-    browser.submit("button[type='submit']")
-  }
-  
-  def consentBothYes(browser: TestBrowser) = {
-    browser.goTo("/consent-and-declaration/consent")
-    browser.click("#gettingInformationFromAnyEmployer_informationFromEmployer_yes")
-    browser.click("#tellUsWhyEmployer_informationFromPerson_yes")
-    browser.submit("button[type='submit']")
-  }
-
   def disclaimer(browser: TestBrowser) = {
     browser.goTo("/consent-and-declaration/disclaimer")
     browser.click("#read")
@@ -261,6 +245,20 @@ object Formulate {
 
   def declaration(browser: TestBrowser) = {
     browser.goTo("/consent-and-declaration/declaration")
+    browser.click("#gettingInformationFromAnyEmployer_informationFromEmployer_no")
+    browser.fill("#gettingInformationFromAnyEmployer_why") `with` "Foo"
+    browser.click("#tellUsWhyEmployer_informationFromPerson_no")
+    browser.fill("#tellUsWhyEmployer_whyPerson") `with` "Bar"
+    browser.click("#confirm")
+    browser.click("#someoneElse")
+    browser.fill("#nameOrOrganisation") `with` "SomeOrg"
+    browser.submit("button[type='submit']")
+  }
+
+  def declarationWithConsentYes(browser: TestBrowser) = {
+    browser.goTo("/consent-and-declaration/declaration")
+    browser.click("#gettingInformationFromAnyEmployer_informationFromEmployer_yes")
+    browser.click("#tellUsWhyEmployer_informationFromPerson_yes")
     browser.click("#confirm")
     browser.click("#someoneElse")
     browser.fill("#nameOrOrganisation") `with` "SomeOrg"
@@ -317,7 +315,6 @@ object Formulate {
   
   def aboutOtherMoney(browser: TestBrowser) = {
     browser.goTo("/other-money/about-other-money")
-    browser.click("#yourBenefits_answer_yes")
     browser.click("#anyPaymentsSinceClaimDate_answer_yes")
     browser.fill("#whoPaysYou") `with` "The Man"
     browser.fill("#howMuch") `with` "12"

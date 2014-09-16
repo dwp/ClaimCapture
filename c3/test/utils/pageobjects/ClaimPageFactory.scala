@@ -90,7 +90,6 @@ object ClaimPageFactory extends PageFactory {
         case PreviewPage.title => PreviewPage(ctx)
         // S10
         case G1AdditionalInfoPage.title => G1AdditionalInfoPage (ctx)
-        case G2ConsentPage.title => G2ConsentPage (ctx)
         case G3DisclaimerPage.title => G3DisclaimerPage (ctx)
         case G4DeclarationPage.title => G4DeclarationPage (ctx)
         // Catch pages not covered by framework

@@ -4,6 +4,10 @@
 @import utils.helpers.CarersCrypto
 @import views.html.helper.base._
 @import play.api.i18n.{MMessages => Messages}
+@import controllers.Mappings.yes
+@import models.domain.Employment
+@import models.domain.AboutOtherMoney
+@import utils.helpers.CarersTemplate._
 
 @main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Declaration)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G4Declaration.submit) {
@@ -11,6 +15,31 @@
        <input type="hidden" id="js" name="jsEnabled" value="false">
 
        <div class="form-wrap">
+        <fieldset class="form-elements">
+           <legend>@Html(Messages("s11.g2"))</legend>
+
+           <ul class="group">
+
+               @if(claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
+                       claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).statutorySickPay.answer == `yes` ||
+                       claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).otherStatutoryPay.answer == `yes`){
+
+                   @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
+
+                   @otherDetailPlaceHolder(
+                       inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
+                       'id->"whyWrapper"
+                   )
+               }
+
+               @yesNoRadioGroup(currentForm("tellUsWhyEmployer.informationFromPerson"))
+
+               @otherDetailPlaceHolder(
+                   inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyEmployer.whyPerson"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
+                   'id->"whyPersonWrapper"
+               )
+           </ul>
+        </fieldset>
         <fieldset class="form-elements">
             <legend>@Html(Messages("s11.g4"))</legend>
 
@@ -49,11 +78,28 @@
        </div>
     }
 <script type="text/javascript" src='@controllers.routes.Assets.at("javascripts/s11_consent_and_declaration/g4_declaration.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
 <script type="text/javascript">
-$(function() {
-window.initEvents("@CarersCrypto.encryptAES("someoneElse")",
-                     "@CarersCrypto.encryptAES("nameOrOrganisation")");
-});
+    $(function(){
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_why")",maxChars:300});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("tellUsWhyEmployer_whyPerson")",maxChars:300});
+    })
+    $(function() {
+        window.initEvents({
+            informationFromEmployerY:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_informationFromEmployer_yes")",
+            informationFromEmployerN:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_informationFromEmployer_no")",
+            informationFromPersonY:"@CarersCrypto.encryptAES("tellUsWhyEmployer_informationFromPerson_yes")",
+            informationFromPersonN:"@CarersCrypto.encryptAES("tellUsWhyEmployer_informationFromPerson_no")",
+            why:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_why")",
+            whyWrapper:"whyWrapper",
+            whyPerson:"@CarersCrypto.encryptAES("tellUsWhyEmployer_whyPerson")",
+            whyPersonWrapper:"whyPersonWrapper",
+            check:"@CarersCrypto.encryptAES("someoneElse")",
+            input:"@CarersCrypto.encryptAES("nameOrOrganisation")"
+        });
+    });
+
 </script>
 <script type="text/javascript">$($("#js").val("true"));</script>
 }

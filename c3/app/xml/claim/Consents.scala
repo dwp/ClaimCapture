@@ -1,6 +1,6 @@
 package xml.claim
 
-import models.domain.{Consent, Claim}
+import models.domain.Claim
 import xml.XMLHelper._
 import xml.XMLComponent
 
@@ -8,7 +8,7 @@ import xml.XMLComponent
 object Consents extends XMLComponent {
 
   def xml(claim: Claim) = {
-    val consent = claim.questionGroup[Consent].getOrElse(Consent())
+    val consent = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
 
     <Consents>
       {questionWhy(<Consent/>,"gettingInformationFromAnyEmployer.informationFromEmployer", consent.informationFromEmployer.answer, consent.informationFromEmployer.text, "gettingInformationFromAnyEmployer.why")}

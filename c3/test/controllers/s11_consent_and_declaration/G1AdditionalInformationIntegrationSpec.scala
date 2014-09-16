@@ -26,7 +26,7 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.additionalInfo(browser)
-      titleMustEqual("Consent - Consent and Declaration")
+      titleMustEqual("Disclaimer - Consent and Declaration")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
@@ -65,7 +65,7 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
 
       val g2 = page submitPage()
       
-      g2 must beAnInstanceOf[G2ConsentPage]
+      g2 must beAnInstanceOf[G3DisclaimerPage]
     }
   } section("integration", models.domain.ConsentAndDeclaration.id)
 }

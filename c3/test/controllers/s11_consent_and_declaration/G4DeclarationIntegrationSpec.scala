@@ -19,7 +19,7 @@ class G4DeclarationIntegrationSpec extends Specification with Tags {
 
       browser.submit("button[type='submit']")
       titleMustEqual("Declaration - Consent and Declaration")
-      findMustEqualSize("div[class=validation-summary] ol li", 1)
+      findMustEqualSize("div[class=validation-summary] ol li", 2)
     }
 
     "navigate back to Disclaimer" in new WithBrowser with BrowserMatchers {
@@ -47,5 +47,15 @@ class G4DeclarationIntegrationSpec extends Specification with Tags {
       page jsCheckEnabled() must beTrue
     }
 
+    "contain errors on invalid submission with employment" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.employment(browser)
+      browser.goTo("/consent-and-declaration/declaration")
+      titleMustEqual("Declaration - Consent and Declaration")
+
+      browser.submit("button[type='submit']")
+      titleMustEqual("Declaration - Consent and Declaration")
+      findMustEqualSize("div[class=validation-summary] ol li", 3)
+    }
   } section("integration", models.domain.ConsentAndDeclaration.id)
 }
