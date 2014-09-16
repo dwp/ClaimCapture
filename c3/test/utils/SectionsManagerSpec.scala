@@ -32,7 +32,7 @@ class SectionsManagerSpec extends Specification with Tags {
       implicit val claim = Claim().showHideSection(visible = false,Employed)
 
       SectionsManager.currentSection(SelfEmployment) mustEqual 6
-      SectionsManager.currentSection(PayDetails) mustEqual 9
+      SectionsManager.currentSection(PayDetails) mustEqual 8
     }
 
   }

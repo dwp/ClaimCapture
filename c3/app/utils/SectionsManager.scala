@@ -14,8 +14,8 @@ object SectionsManager {
     Employed,
     SelfEmployment,
     OtherMoney,
-    Information,
-    PayDetails
+    PayDetails,
+    Information
   )
 
   private def filterByVisibility(claim:Claim):Seq[Section.Identifier] = {
