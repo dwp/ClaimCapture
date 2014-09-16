@@ -13,11 +13,11 @@
     Html(Messages("s3.g1.help")) + """ <a href="/claim-help#5"""" + views.html.ga.trackClickEvent(linkName = Messages("s3.g1.track")) + """>""" + Html(Messages("s3.g1.link")) + """</a>"""
 }
 
-@removeNationality(elements:Seq[Html]) = @{
-    if (!YourPartnerPersonalDetails.shouldNationalityVisible(claim)){
-        elements.take(7) ++ elements.drop(8) // here the index for nationlity is 7: A good approach would be to find the index of nationality
+@showHideNationality = @{ // show nationality if not British and married or living with a partner
+    if (YourPartnerPersonalDetails.shouldNationalityVisible(claim)){
+        carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35,'helperAbove -> Messages("partner.nationality.helper"),'helperBelow -> Messages("partner.nationality.helper2"), 'ignoreOptional -> true)
     } else {
-        elements
+        Html("")
     }
 }
 
@@ -43,7 +43,7 @@
                         '_label -> Messages("haveLivedWithPartnerSinceClaimDate.label"), '_showLabel -> false)
 
                     @otherDetailPlaceHolder(
-                        inputDef = removeNationality(Seq(
+                        inputDef = Seq(
                             titleSelect(currentForm("title")),
 
                             carersInputText(currentForm("firstName"),'helperAbove -> Messages("their.name.helper"), 'maxLength -> 17),
@@ -58,12 +58,12 @@
 
                             dateOfBirth(currentForm("dateOfBirth")),
 
-                            carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35,'helperAbove -> Messages("partner.nationality.helper"),'helperBelow -> Messages("partner.nationality.helper2"), 'ignoreOptional -> true),
+                            showHideNationality,
 
                             yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))),
 
                             yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
-                        )),
+                        ),
                         'id -> "partnerDetailsWrap"
                     )
                 </ul>
