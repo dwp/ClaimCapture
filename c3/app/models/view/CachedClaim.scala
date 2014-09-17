@@ -120,7 +120,8 @@ trait CachedClaim {
               val (_, expiration) = keyAndExpiration(request)
               val claim = newInstance()
               Cache.set(claim.uuid, claim, expiration) // place an empty claim in the cache to satisfy tests
-              action(claim, request, bestLang)(f)
+              // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
+              action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
             } else {
               Logger.warn(s"Cache $cacheKey - ${keyAndExpiration(request)._1} timeout")
               Redirect(timeoutPage)
@@ -145,14 +146,20 @@ trait CachedClaim {
             val key = keyAndExpiration(request)._1
             if (key != claim.uuid) Logger.error(s"claimingWithCheck - Claim uuid ${claim.uuid} does not match cache key $key.")
             val lang = claim.lang.getOrElse(bestLang)
-            action(copyInstance(claim), request, lang)(f)
+            if (Play.isTest) {
+              // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
+              action (copyInstance (claim), request, lang)(f).withSession(claim.key -> claim.uuid)
+            } else {
+              // We do not need to add claim uuid in session since done by first step of process (newClaim).
+              action (copyInstance (claim), request, lang)(f)
+            }
           case None =>
             if (Play.isTest) {
               Logger.debug(s"claimingWithCheck - None and test")
               val (_, expiration) = keyAndExpiration(request)
               val claim = newInstance()
               Cache.set(claim.uuid, claim, expiration) // place an empty claim in the cache to satisfy tests
-              action(claim, request, bestLang)(f)
+              action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
             } else {
               Logger.warn(s"$cacheKey - ${keyAndExpiration(request)._1} timeout")
               Redirect(timeoutPage)
@@ -223,11 +230,11 @@ trait CachedClaim {
 
     f(claim)(request)(lang) match {
       case Left(r: Result) => {
-        r //.withSession(claim.key -> claim.uuid)
+        r
       }
       case Right((c: Claim, r: Result)) => {
         Cache.set(claim.uuid, c, expiration)
-        r //.withSession(claim.key -> claim.uuid)
+        r
       }
     }
   }
