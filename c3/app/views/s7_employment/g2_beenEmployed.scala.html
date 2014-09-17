@@ -31,7 +31,15 @@
 					  	
 					  	<dl>
 						  	<dt>@Html(Messages("startDateTable")):</dt>
-						  	<dd>@{(job.jobStartDate).`dd/MM/yyyy`}</dd>
+						  	<dd>@{
+                                    job.jobStartDate match{
+                                        case startDate@DayMonthYear(Some(_),Some(_),Some(_), None, None)   =>
+                                            startDate.`dd/MM/yyyy`
+                                        case _ =>
+                                            Html(Messages("startDateLabel", claim.dateOfClaim.fold("")(dmy => (dmy - 1 months).`dd/MM/yyyy`)))
+                                    }
+                                }
+                            </dd>
 					  	</dl>
 					  	
 						<div class="actions">
