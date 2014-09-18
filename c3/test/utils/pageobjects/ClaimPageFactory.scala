@@ -29,7 +29,10 @@ object ClaimPageFactory extends PageFactory {
 
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
-    if (null == title ) XmlPage (ctx)
+    if (null == title) { val xmlPage =XmlPage (ctx)
+      if (xmlPage.source().contains("xmlns")) xmlPage
+      else new UnknownPage("", ctx)
+    }
     else {
       val m:PartialFunction[String,Page] = {
         // S1
