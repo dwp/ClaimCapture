@@ -3,7 +3,7 @@ package services.submission
 import play.api.{Application, GlobalSettings, Logger}
 import scala.language.existentials
 import play.api.i18n.Lang
-import controllers.s11_consent_and_declaration.G4Declaration
+import controllers.s12_consent_and_declaration.G3Declaration
 import controllers.circs.s3_consent_and_declaration.G1Declaration
 import monitoring._
 import utils.Injector
@@ -32,7 +32,7 @@ trait MockInjector  extends Injector { //extends C3MonitorRegistration
   private val instances: Map[Class[_ <: Any], Any] = {
     def bind[A: ClassTag](instance: A) = classTag[A].runtimeClass -> instance
     Map(
-      bind[G4Declaration](new G4Declaration {
+      bind[G3Declaration](new G3Declaration {
         override val claimTransaction = new ClaimTransaction {
           override def generateId: String = txnId
 

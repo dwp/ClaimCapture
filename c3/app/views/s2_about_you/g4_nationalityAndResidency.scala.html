@@ -7,6 +7,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
 @import models.domain.NationalityAndResidency
 @import app.MaritalStatus._
@@ -16,6 +17,7 @@
 
 
     @form(action = controllers.s2_about_you.routes.G4NationalityAndResidency.submit) {
+            @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g4"))</legend>
 	

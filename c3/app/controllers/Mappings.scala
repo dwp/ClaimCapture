@@ -34,6 +34,10 @@ object Mappings {
 
   val two = 2
 
+  val four = 4
+
+  val seventeen = 17
+
   val hundred = 100
 
   val threeHundred = 300

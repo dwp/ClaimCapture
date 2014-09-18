@@ -2,6 +2,8 @@ package models.view
 
 import app.ConfigProperties._
 import java.util.UUID._
+import utils.csrf.DwpCSRF
+
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
 import play.api.Play.current
@@ -16,7 +18,6 @@ import controllers.routes
 import play.api.i18n.Lang
 import scala.concurrent.{ExecutionContext, Future}
 import models.domain.Claim
-import scala.Some
 import ExecutionContext.Implicits.global
 import models.view.CachedClaim.ClaimResult
 import monitoring.Histograms
@@ -81,18 +82,24 @@ trait CachedClaim {
 
   def newClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
-      implicit val r = request
+      // Need to overwrite CSRF and Sessions because this could be an user that has an old cookie with CSRF and session
+      val token = DwpCSRF.SignedTokenProvider.generateToken
+      implicit val r = Request[AnyContent](request.copy(tags = request.tags.filterNot(_._1 == DwpCSRF.Token.RequestTag) + (DwpCSRF.Token.RequestTag -> token)), request.body )
 
       recordMeasurements()
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
-        withHeaders(action(newInstance(), request, bestLang)(f))
+        val claim = newInstance()
+        val result = withHeaders(action(claim, r, bestLang)(f))
+        Logger.info(s"New ${claim.key} ${claim.uuid} cached. Token ${token}")
+        result.withSession((claim.key -> claim.uuid) ,(DwpCSRF.TokenName -> token))
       }
       else {
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
         Logger.info(s"Changing $cacheKey - $key")
         val claim = Cache.getAs[Claim](key).getOrElse(throw new RuntimeException("I expected a claim in the cache!"))
-        originCheck(action(claim, request, claim.lang.getOrElse(bestLang))(f))
+        val result = originCheck(action(claim, r, claim.lang.getOrElse(bestLang))(f))
+        result.withSession(r.session - (DwpCSRF.TokenName) + (DwpCSRF.TokenName -> token))
       }
     }
   }
@@ -113,7 +120,8 @@ trait CachedClaim {
               val (_, expiration) = keyAndExpiration(request)
               val claim = newInstance()
               Cache.set(claim.uuid, claim, expiration) // place an empty claim in the cache to satisfy tests
-              action(claim, request, bestLang)(f)
+              // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
+              action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
             } else {
               Logger.warn(s"Cache $cacheKey - ${keyAndExpiration(request)._1} timeout")
               Redirect(timeoutPage)
@@ -138,14 +146,20 @@ trait CachedClaim {
             val key = keyAndExpiration(request)._1
             if (key != claim.uuid) Logger.error(s"claimingWithCheck - Claim uuid ${claim.uuid} does not match cache key $key.")
             val lang = claim.lang.getOrElse(bestLang)
-            action(copyInstance(claim), request, lang)(f)
+            if (Play.isTest) {
+              // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
+              action (copyInstance (claim), request, lang)(f).withSession(claim.key -> claim.uuid)
+            } else {
+              // We do not need to add claim uuid in session since done by first step of process (newClaim).
+              action (copyInstance (claim), request, lang)(f)
+            }
           case None =>
             if (Play.isTest) {
               Logger.debug(s"claimingWithCheck - None and test")
               val (_, expiration) = keyAndExpiration(request)
               val claim = newInstance()
               Cache.set(claim.uuid, claim, expiration) // place an empty claim in the cache to satisfy tests
-              action(claim, request, bestLang)(f)
+              action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
             } else {
               Logger.warn(s"$cacheKey - ${keyAndExpiration(request)._1} timeout")
               Redirect(timeoutPage)
@@ -216,11 +230,11 @@ trait CachedClaim {
 
     f(claim)(request)(lang) match {
       case Left(r: Result) => {
-        r.withSession(claim.key -> claim.uuid)
+        r
       }
       case Right((c: Claim, r: Result)) => {
         Cache.set(claim.uuid, c, expiration)
-        r.withSession(claim.key -> claim.uuid)
+        r
       }
     }
   }

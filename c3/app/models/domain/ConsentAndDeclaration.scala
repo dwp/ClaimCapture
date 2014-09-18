@@ -3,13 +3,7 @@ package models.domain
 import models.yesNo.{OptYesNoWithText, YesNoWithText}
 
 object ConsentAndDeclaration extends Section.Identifier {
-  val id = "s11"
-}
-
-case class AdditionalInfo(anythingElse: YesNoWithText = YesNoWithText(answer = "", text = None), welshCommunication: String = "") extends QuestionGroup(AdditionalInfo)
-
-object AdditionalInfo extends QuestionGroup.Identifier {
-  val id = s"${ConsentAndDeclaration.id}.g1"
+  val id = "s12"
 }
 
 case class Disclaimer(read: String = "") extends QuestionGroup(Disclaimer)
