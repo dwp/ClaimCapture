@@ -24,7 +24,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
 
   "Your Partner Personal Details Form" should {
     "map data into case class when partner answer is yes" in {
-      G1YourPartnerPersonalDetails.form.bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -59,7 +59,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject too many characters in text fields" in {
-      G1YourPartnerPersonalDetails.form.bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
         Map("title" -> title,
           "firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
@@ -84,7 +84,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "have 6 mandatory fields" in {
-      G1YourPartnerPersonalDetails.form.bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
         Map("hadPartnerSinceClaimDate" -> "yes","middleName" -> "middle optional")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(6)
@@ -99,7 +99,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject form when partner question not answered" in {
-      G1YourPartnerPersonalDetails.form.bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
         Map("hadPartnerSinceClaimDate" -> "")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(2) // error.required and yesNo.invalid
@@ -108,7 +108,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject invalid national insurance number" in {
-      G1YourPartnerPersonalDetails.form.bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -134,7 +134,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject invalid date" in {
-      G1YourPartnerPersonalDetails.form.bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -160,7 +160,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject form without partnerispersonyoucarefor" in {
-      G1YourPartnerPersonalDetails.form.bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -184,7 +184,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "accept nationality with space character, uppercase and lowercase" in {
-      G1YourPartnerPersonalDetails.form.bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -209,7 +209,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject invalid nationality with numbers" in {
-      G1YourPartnerPersonalDetails.form.bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -235,7 +235,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject invalid nationality with special characters" in {
-      G1YourPartnerPersonalDetails.form.bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -261,7 +261,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject special characters" in {
-      G1YourPartnerPersonalDetails.form.bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
         Map("title" -> title,
           "firstName" -> "MyNa>me",
           "middleName" -> "middleNam©e",

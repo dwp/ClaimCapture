@@ -17,7 +17,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
 
       goTo("/employment/been-employed")
       back
-      titleMustEqual("Your job - About self-employment")
+      titleMustEqual("Your job - About self employment")
     }
 
     """be bypassed and go onto "other money" having indicated that "employment" is not required.""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with NotEmployedSinceClaimDate {
@@ -32,7 +32,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       next
-      titleMustEqual("Your job - About self-employment")
+      titleMustEqual("Your job - About self employment")
     }
 
     "start employment entry" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {

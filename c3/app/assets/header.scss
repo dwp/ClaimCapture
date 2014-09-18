@@ -21,12 +21,12 @@ header {
 			position: relative;
 			img {
 				height: 31px;
+				width: 35px;
 				position: absolute;
 				top: 2px;
 				left: 0;
 				border: 0;
 				margin-right: 1px;
-				display: inline;
 			}
 			&:hover {
 				border-bottom: 1px solid #fff;

@@ -34,13 +34,24 @@ object Mappings {
 
   val two = 2
 
+  val four = 4
+
+  val seventeen = 17
+
   val hundred = 100
+
+  val threeHundred = 300
+
+  val twoThousand = 2000
 
   val yes = "yes"
 
   val no = "no"
 
   val dontknow = "dontknow"
+
+  val errorRequired = "error.required"
+  val required = "required"
 
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
     "day" -> optional(text),

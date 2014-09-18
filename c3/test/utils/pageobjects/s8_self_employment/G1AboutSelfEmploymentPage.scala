@@ -12,7 +12,7 @@ final class G1AboutSelfEmploymentPage(ctx:PageObjectsContext) extends ClaimPage(
 }
 
 object G1AboutSelfEmploymentPage {
-  val title = "Your job - About self-employment".toLowerCase
+  val title = "Your job - About self employment".toLowerCase
   val url = "/self-employment/about-self-employment"
 
   def apply(ctx:PageObjectsContext) = new G1AboutSelfEmploymentPage(ctx)
