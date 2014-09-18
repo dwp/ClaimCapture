@@ -11,7 +11,7 @@ final class G4SelfEmploymentPensionsAndExpensesPage (ctx:PageObjectsContext) ext
 }
 
 object G4SelfEmploymentPensionsAndExpensesPage {
-  val title = "Pensions and expenses - About self-employment".toLowerCase
+  val title = "Pensions and expenses - About self employment".toLowerCase
   val url = "/self-employment/pensions-and-expenses"
 
   def apply(ctx:PageObjectsContext) = new G4SelfEmploymentPensionsAndExpensesPage(ctx)

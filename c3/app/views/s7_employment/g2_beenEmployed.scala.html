@@ -2,6 +2,7 @@
 
 @import scala.language.postfixOps
 @import views.html.helper._
+@import utils.csrf.DwpCSRFFormHelper
 @import utils.helpers.CarersCrypto
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
@@ -66,6 +67,8 @@
 
 
     @form(action = controllers.s7_employment.routes.G2BeenEmployed.submit()){
+        @DwpCSRFFormHelper.formField
+
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s7.g2"))</legend>
