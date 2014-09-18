@@ -2,6 +2,7 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 @import play.api.i18n.{MMessages => Messages}
 
@@ -12,6 +13,7 @@
     @errorsSummary(claimDateForm)
 
     @form(action = controllers.s1_2_claim_date.routes.G1ClaimDate.submit) {
+        @DwpCSRFFormHelper.formField
         <div class="form-elements">
           
             <fieldset class="question-group">

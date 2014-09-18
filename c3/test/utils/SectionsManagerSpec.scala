@@ -11,7 +11,7 @@ class SectionsManagerSpec extends Specification with Tags {
 
     "Retrieve the correct number of sections" in {
 
-      SectionsManager.claimSectionsNum(Claim()) mustEqual 9
+      SectionsManager.claimSectionsNum(Claim()) mustEqual 10
     }
 
     "Retrieve the correct section position for some Sections" in {
