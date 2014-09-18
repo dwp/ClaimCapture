@@ -30,7 +30,7 @@ class G2DisclaimerIntegrationSpec extends Specification with Tags {
       Formulate.employment(browser)
       Formulate.additionalInfo(browser)
       browser.click(".form-steps a")
-      titleMustEqual("Additional information - Consent and Declaration")
+      titleMustEqual("Additional information - Information")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {

@@ -1,4 +1,4 @@
-package controllers.s11_consent_and_declaration
+package controllers.s12_consent_and_declaration
 
 import language.reflectiveCalls
 import play.api.mvc.{Action, AnyContent, Request, Controller}
@@ -19,7 +19,7 @@ import models.domain.{AboutOtherMoney, Employment => Emp, Declaration}
 import controllers.Mappings
 import controllers.Mappings.{yes, threeHundred, sixty}
 
-class G4Declaration extends Controller with CachedClaim with Navigable
+class G3Declaration extends Controller with CachedClaim with Navigable
        with AsyncSubmissionController
        with ClaimBotChecking
        with ClaimSubmissionService
@@ -65,7 +65,7 @@ class G4Declaration extends Controller with CachedClaim with Navigable
     .verifying(nameOrOrganisation,Declaration.validateNameOrOrganisation _))
 
   def present:Action[AnyContent] = claimingWithCheck { implicit claim => implicit request => implicit lang =>
-    track(Declaration) { implicit claim => Ok(views.html.s11_consent_and_declaration.g4_declaration(form.fill(Declaration))) }
+    track(Declaration) { implicit claim => Ok(views.html.s12_consent_and_declaration.g3_declaration(form.fill(Declaration))) }
   }
 
   def submit:Action[AnyContent] = claiming { implicit claim => implicit request => implicit lang =>
@@ -78,7 +78,7 @@ class G4Declaration extends Controller with CachedClaim with Navigable
           .replaceError(gettingInformationFromAnyEmployer,Mappings.required,
                         FormError(gettingInformationFromAnyEmployer.concat(".why"), Mappings.errorRequired))
           .replaceError("tellUsWhyEmployer", FormError("tellUsWhyEmployer.whyPerson", Mappings.errorRequired))
-        BadRequest(views.html.s11_consent_and_declaration.g4_declaration(updatedFormWithErrors))
+        BadRequest(views.html.s12_consent_and_declaration.g3_declaration(updatedFormWithErrors))
       },
       declaration => {
         val updatedClaim = copyInstance(claim.update(declaration))

@@ -15,6 +15,7 @@ import utils.pageobjects.s12_consent_and_declaration._
 import utils.pageobjects.IterationManager._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
 
 
 /**
@@ -94,7 +95,6 @@ object ClaimPageFactory extends PageFactory {
         case PreviewPage.title => PreviewPage(ctx)
         // S10
         case G1AdditionalInfoPage.title => G1AdditionalInfoPage (ctx)
-        case G1ConsentPage.title => G1ConsentPage (ctx)
         case G2DisclaimerPage.title => G2DisclaimerPage (ctx)
         case G3DeclarationPage.title => G3DeclarationPage (ctx)
         // Catch pages not covered by framework

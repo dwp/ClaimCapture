@@ -1,13 +1,14 @@
-package controllers.s11_consent_and_declaration
+package controllers.s10_information
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.Formulate
 import controllers.BrowserMatchers
-import utils.pageobjects.S11_consent_and_declaration._
-import utils.pageobjects.s10_pay_details._
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.PageObjects
+import utils.pageobjects.s10_information.G1AdditionalInfoPage
+import utils.pageobjects.s11_pay_details.G2BankBuildingSocietyDetailsPage
+import utils.pageobjects.s12_consent_and_declaration.G2DisclaimerPage
 
 class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
   "Additional information" should {
@@ -29,11 +30,6 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
       titleMustEqual("Disclaimer - Consent and Declaration")
     }
 
-    "contain the completed forms" in new WithBrowser with BrowserMatchers {
-      Formulate.additionalInfo(browser)
-      findMustEqualSize("div[class=completed] ul li", 1)
-    }
-    
     "be presented" in new WithBrowser with PageObjects{
 			val page =  G1AdditionalInfoPage(context)
       page goToThePage()
@@ -65,7 +61,7 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
 
       val g2 = page submitPage()
       
-      g2 must beAnInstanceOf[G3DisclaimerPage]
+      g2 must beAnInstanceOf[G2DisclaimerPage]
     }
   } section("integration", models.domain.ConsentAndDeclaration.id)
 }

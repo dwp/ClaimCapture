@@ -179,9 +179,6 @@ POST          /information/additional-info                                    co
 # Consent and declaration
 ###############
 
-GET           /consent-and-declaration/consent                                controllers.s12_consent_and_declaration.G1Consent.present
-POST          /consent-and-declaration/consent                                controllers.s12_consent_and_declaration.G1Consent.submit
-
 GET           /consent-and-declaration/disclaimer                             controllers.s12_consent_and_declaration.G2Disclaimer.present
 POST          /consent-and-declaration/disclaimer                             controllers.s12_consent_and_declaration.G2Disclaimer.submit
 
