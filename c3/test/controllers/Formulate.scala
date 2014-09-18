@@ -295,7 +295,7 @@ object Formulate {
   }
 
   def additionalInfo(browser: TestBrowser) = {
-    browser.goTo("/consent-and-declaration/additional-info")
+    browser.goTo("/information/additional-info")
     browser.click("#anythingElse_answer_no")
     browser.click("#welshCommunication_yes")
     browser.submit("button[type='submit']")

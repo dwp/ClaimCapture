@@ -2,12 +2,14 @@
 
 @import models.domain.OtherEEAStateOrSwitzerland
 @import views.html.helper._
+@import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s2.g7") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)) {
 
     @form(action = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.submit) {
-       
+
+            @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g7"))</legend>
 

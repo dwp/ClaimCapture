@@ -5,7 +5,7 @@ import controllers.{ BrowserMatchers, Formulate, ClaimScenarioFactory }
 import play.api.test.WithBrowser
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.{PageObjects, TestData}
-import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
+import utils.pageobjects.s11_pay_details.G1HowWePayYouPage
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "Other Money" should {

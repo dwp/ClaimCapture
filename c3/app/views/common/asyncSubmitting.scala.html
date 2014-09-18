@@ -3,6 +3,7 @@
 @import models.domain.{Claim,FullClaim,ChangeOfCircs}
 @import views.html.helper._
 @import play.api.i18n.{MMessages => Messages}
+@import utils.csrf.DwpCSRFFormHelper
 
 @submitCall = @{
     claim match {
@@ -20,7 +21,9 @@
 
 @common.govMain("Async Submitting") {
     @form(action = submitCall) {
-        <div class="carers-allowance clearfix">
+         @DwpCSRFFormHelper.formField
+
+         <div class="carers-allowance clearfix">
             <article>
                 <div id="jswrapper" hidden="true" class="carers-container">
 

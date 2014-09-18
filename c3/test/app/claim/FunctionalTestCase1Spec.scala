@@ -22,7 +22,7 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
       val page = G1BenefitsPage(context)
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
-      val lastPage = page runClaimWith(claim, XmlPage.title)
+      val lastPage = page runClaimWith(claim, XmlPage.title,trace=true)
 
       lastPage match {
         case p: XmlPage => {
