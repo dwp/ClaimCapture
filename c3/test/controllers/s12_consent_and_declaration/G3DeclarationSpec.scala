@@ -96,7 +96,7 @@ class G3DeclarationSpec extends Specification with MockInjector with Tags {
 
       val result = g3Declaration.submit(request)
 
-      val claim = getClaimFromCache(result)
+      val claim = getClaimFromCache(result1)
 
       claim.questionGroup[Declaration] must beLike {
         case Some(f: Declaration) =>
@@ -109,7 +109,7 @@ class G3DeclarationSpec extends Specification with MockInjector with Tags {
           f.someoneElse.get must equalTo("checked")
       }
       redirectLocation(result) must beSome("/async-submitting")
-    }.pendingUntilFixed("GetClaimFromCache returning an error")
+    }
 
     """accept answers with both consent questions answered yes""" in new WithApplication with Claiming {
       val result1 = G1AboutOtherMoney.submit(FakeRequest()
