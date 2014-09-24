@@ -30,8 +30,8 @@ trait WebSearchActions {
   }
 
   def readDate(elementCssSelector: String): Option[String] = {
-    val day = readSelect(elementCssSelector + "_day")
-    val month = readSelect(elementCssSelector + "_month")
+    val day = readInput(elementCssSelector + "_day")
+    val month = readInput(elementCssSelector + "_month")
     val year = readInput(elementCssSelector + "_year")
     if (day.isDefined && month.isDefined && year.isDefined) Some(leftPadWithZero(2, day.get) + "/" + leftPadWithZero(2, month.get) + "/" + year.get)
     else None
