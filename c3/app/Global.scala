@@ -10,13 +10,13 @@ import play.api.mvc._
 import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.Injector
-import utils.csrf.DwpCSRFFilter
+import utils.csrf.{DwpCSRFFilter}
 import utils.helpers.CarersLanguageHelper
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-object Global extends WithFilters(MonitorFilter, DwpCSRFFilter()) with Injector with CarersLanguageHelper with C3MonitorRegistration {
+object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfNotFound = CSRFCreationFilter.createIfNotFound )) with Injector with CarersLanguageHelper with C3MonitorRegistration {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
@@ -72,6 +72,15 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter()) with Injector 
     val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
     Future(Ok(views.html.common.error(startUrl)(lang(request), Request(request, AnyContentAsEmpty))))
   }
+}
+
+object CSRFCreationFilter {
+
+  /**
+  * We do not want to generate CSRF here for C3. It will be handled by [[models.view.CachedClaim.newClaim]].
+  * And it adds security that the process needs to start from the first pages we have defined for Claim and Change of Circumstances.
+  */
+  def createIfNotFound(request:RequestHeader): Boolean = false
 }
 
 
