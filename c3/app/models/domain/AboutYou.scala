@@ -14,8 +14,7 @@ case class YourDetails(title: String = "",
                        surname: String = "",
                        otherSurnames: Option[String] = None,
                        nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(None,None,None,None,None),
-                       dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
-                       receiveStatePension: String = "") extends QuestionGroup(YourDetails) {
+                       dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)) extends QuestionGroup(YourDetails) {
 
   def otherNames = firstName + middleName.map(" " + _).getOrElse("")
 }

@@ -21,9 +21,6 @@ object OtherBenefits extends XMLComponent {
 
 
     <OtherBenefits>
-      <ClaimantBenefits>
-        {question(<StatePension/>,"receiveStatePension",yourDetails.receiveStatePension)}
-      </ClaimantBenefits>
       {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label", statutorySickPay.answer)}
       {otherMoneySPPXml(statutorySickPay)}
       {question(<OtherMoneySP/>,"otherPay.label",otherStatutoryPayOption.answer)}
