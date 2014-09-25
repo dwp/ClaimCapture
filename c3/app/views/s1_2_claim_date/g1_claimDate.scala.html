@@ -13,15 +13,13 @@
     @errorsSummary(claimDateForm)
 
     @form(action = controllers.s1_2_claim_date.routes.G1ClaimDate.submit) {
-        @DwpCSRFFormHelper.formField
+         @DwpCSRFFormHelper.formField
         <div class="form-elements">
-          
-            <fieldset class="question-group">
           	   
-             <ul>
-	        @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateOfBirth.helper"))
-             </ul>
-            </fieldset>
+            <ul>
+	        	@inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateOfBirth.helper"))
+            </ul>
+
 
 	        <nav class="form-steps">
 	            <ul>
@@ -29,6 +27,7 @@
 	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
+	        
         </div>
     }
 }
