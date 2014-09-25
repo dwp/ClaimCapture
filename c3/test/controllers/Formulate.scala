@@ -22,7 +22,6 @@ object Formulate {
     browser.fill("#dateOfBirth_day") `with` "3"
     browser.fill("#dateOfBirth_month") `with` "4"
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.click("#receiveStatePension_yes")
     //browser.fill("#nationality") `with` "English"
     //browser.click("#alwaysLivedUK_yes")
     browser.submit("button[type='submit']")
@@ -41,7 +40,6 @@ object Formulate {
     browser.fill("#dateOfBirth_day") `with` "3"
     browser.fill("#dateOfBirth_month") `with` "4"
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.click("#receiveStatePension_yes")
     //browser.fill("#nationality") `with` "English"
     //browser.click("#alwaysLivedUK_no")
     browser.submit("button[type='submit']")

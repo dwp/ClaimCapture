@@ -53,7 +53,6 @@ trait DataFiller {
     fill("#dateOfBirth_month") `with` "4"
     fill("#dateOfBirth_year") `with` "2001"
     click("#maritalStatus option[value='Single']")    
-    click("#receiveStatePension_yes")
   }
 
   def `/about-you/contact-details`: Fluent = {

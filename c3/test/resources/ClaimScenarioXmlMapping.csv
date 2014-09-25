@@ -10,7 +10,6 @@ About You,Your Details,Last name,AboutYouSurname,Claimant>Surname>Answer
 About You,Your Details,Other name or maiden name,AboutYouOtherNames,Claimant>OtherSurnames>Answer
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,Claimant>NationalInsuranceNumber>Answer
 About You,Your Details,Date of birth,AboutYouDateOfBirth,Claimant>DateOfBirth>Answer
-About You,Your Details,Do you get state Pension?,AboutYouDoYouGetStatePension,DWPCAClaim>OtherBenefits>ClaimantBenefits>StatePension>Answer
 About You,Your contact details,Address,AboutYouAddress,Claimant>Address>Answer>Line
 About You,Your contact details,Postcode,AboutYouPostcode,Claimant>Address>Answer>PostCode
 About You,Your contact details,How we contact you,HowWeContactYou,Claimant>DayTimePhoneNumber>Answer

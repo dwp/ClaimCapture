@@ -5,6 +5,7 @@ import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.PageObjects
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 
 class G2ContactDetailsIntegrationSpec extends Specification with Tags {
   "Contact Details" should {
@@ -62,11 +63,17 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "contain 1 completed form" in new WithBrowser with PageObjects{
-			val page =  G1YourDetailsPage(context)
+      val claimDatePage = G1ClaimDatePage(context)
+      claimDatePage goToThePage()
+      val claimDate = ClaimScenarioFactory.s12ClaimDate()
+      claimDatePage fillPageWith claimDate
+
+      val aboutYouPage =  claimDatePage submitPage()
+
       val claim = ClaimScenarioFactory yourDetailsWithNotTimeOutside()
-      page goToThePage()
-      page fillPageWith claim
-      page submitPage() match {
+      aboutYouPage goToThePage()
+      aboutYouPage fillPageWith claim
+      aboutYouPage submitPage() match {
         case p: G2ContactDetailsPage =>  {
           p numberSectionsCompleted()  mustEqual 1
           p fillPageWith claim
@@ -87,12 +94,17 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "be able to navigate back to a completed form" in new WithBrowser  with PageObjects{
-			val page =  G1YourDetailsPage(context)
+      val claimDatePage = G1ClaimDatePage(context)
+      claimDatePage goToThePage()
+      val claimDate = ClaimScenarioFactory.s12ClaimDate()
+      claimDatePage fillPageWith claimDate
+
+      val page =  claimDatePage submitPage()
       val claim = ClaimScenarioFactory yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
       val contactDetailsPage = page submitPage(waitForPage = true)
-      val completedPage = contactDetailsPage goToCompletedSection(waitForPage = true)
+      val completedPage = contactDetailsPage goBack ()
       completedPage must beAnInstanceOf[G1YourDetailsPage]
     }
   } section("integration", models.domain.AboutYou.id)
