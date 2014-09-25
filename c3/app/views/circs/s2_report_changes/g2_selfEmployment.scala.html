@@ -11,6 +11,7 @@
 @import controllers.Mappings._
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
+@import scala.language.postfixOps
 
 @main(Messages("c2.g2") + " - " + Messages("c2.name")) {
     @errorsSummary(selfEmployment)
@@ -26,7 +27,7 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        inputDayMonthYear(selfEmployment("stillCaring.date"))
+	                        inputDayMonthYear(selfEmployment("stillCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 31 days).`dd month yyyy`))
 	                    ),
 	                    'id -> "stillCaringWrap"
 	                )

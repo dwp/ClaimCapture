@@ -11,6 +11,8 @@
 @import utils.helpers.CarersCrypto
 @import views.html.circs.s2_report_changes.main
 @import play.api.i18n.{MMessages => Messages}
+@import scala.language.postfixOps
+
 
 @main(Messages("c2.g6") + " - " + Messages("c2.name")) {
     @errorsSummary(addressForm)
@@ -39,7 +41,7 @@
 	                @yesNoRadioGroup(addressForm("stillCaring.answer"))
 	
 	                @otherDetailPlaceHolder(
-	                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring")("date"))
+	                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring")("date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 31 days).`dd month yyyy`))
 	                    ),
 	                    'id -> "stillCaringDate"
 	                )
