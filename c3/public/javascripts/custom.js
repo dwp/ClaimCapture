@@ -67,7 +67,7 @@ $('.helper-more').click(function(){
      $(".feed-close").css("display", "block");
      
     // Nino auto jump
-	$('.ni-number input, .sort-code input').autotab_magic();
+	$('.ni-number input, .sort-code input, .year input').autotab_magic();
 
     // smooth scroll
     $('a[href^="#"]').bind('click.smoothscroll', function (e) {
