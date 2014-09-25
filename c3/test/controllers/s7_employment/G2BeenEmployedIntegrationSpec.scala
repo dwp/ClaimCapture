@@ -25,7 +25,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
 
       goTo("/employment/been-employed")
 
-      titleMustEqual("Other Money")
+      titleMustEqual("Statutory pay, benefits and payments")
     }
 
     """progress to next section i.e. "self employed".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate{

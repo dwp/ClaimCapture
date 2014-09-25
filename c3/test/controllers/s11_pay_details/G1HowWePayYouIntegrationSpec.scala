@@ -9,10 +9,10 @@ import utils.pageobjects.s10_information.G1AdditionalInfoPage
 import utils.pageobjects.{PageObjects, PageObjectsContext}
 
 class G1HowWePayYouIntegrationSpec extends Specification with Tags {
-  "How we pay you" should {
+  "Pay details" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("How would you like to get paid? - How we pay you")
+      titleMustEqual("How would you like to get paid? - Pay details")
     }
 
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
@@ -27,17 +27,17 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("How would you like to get paid? - How we pay you")
+      titleMustEqual("How would you like to get paid? - Pay details")
 
       browser.submit("button[type='submit']")
-      titleMustEqual("How would you like to get paid? - How we pay you")
+      titleMustEqual("How would you like to get paid? - Pay details")
 
       findMustEqualSize("div[class=validation-summary] ol li", 2)
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.howWePayYou(browser)
-      titleMustEqual("Bank/Building society details - How we pay you")
+      titleMustEqual("Bank/Building society details - Pay details")
     }
 
     /**

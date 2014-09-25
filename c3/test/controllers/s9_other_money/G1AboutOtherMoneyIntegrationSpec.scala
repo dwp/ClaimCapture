@@ -11,14 +11,14 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "Other Money" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
-      titleMustEqual("Other Money")
+      titleMustEqual("Statutory pay, benefits and payments")
     }
 
     "contain errors on invalid submission" in {
       "no fields selected" in new WithBrowser with BrowserMatchers {
         browser.goTo("/other-money/about-other-money")
         browser.submit("button[type='submit']")
-        titleMustEqual("Other Money")
+        titleMustEqual("Statutory pay, benefits and payments")
 
         findMustEqualSize("div[class=validation-summary] ol li", 3)
       }
@@ -30,7 +30,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       browser.click("#statutorySickPay_answer_no")
       browser.click("#otherStatutoryPay_answer_no")
       browser.submit("button[type='submit']")
-      titleMustEqual("How would you like to get paid? - How we pay you")
+      titleMustEqual("How would you like to get paid? - Pay details")
     }
 
     "be presented" in new WithBrowser with PageObjects{
