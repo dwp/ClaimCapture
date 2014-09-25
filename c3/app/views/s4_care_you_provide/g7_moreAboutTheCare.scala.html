@@ -23,7 +23,7 @@
 	                @yesNoRadioGroup(currentForm("spent35HoursCaring"))
 	
 	                @yesNoRadioGroup(currentForm("beforeClaimCaring.answer"),'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")),
-	                                 '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
+	                                 '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.displayPlaybackDatesFormat)))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(inputDayMonthYear(currentForm("beforeClaimCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 years).`dd month yyyy`))),

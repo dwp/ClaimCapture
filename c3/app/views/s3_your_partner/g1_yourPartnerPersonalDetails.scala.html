@@ -34,7 +34,7 @@
             <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
                 <legend>@Html(Messages("haveLivedWithPartnerSinceClaimDate.label"))</legend>
                 <div class="prompt nested-prompt partner-linked">
-                    <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help1", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))</p>
+                    <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help1", claim.dateOfClaim.fold("")(_.displayPlaybackDatesFormat)))</p>
                     <ul>
                         <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help2"))</li>
                         <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help3"))</li>
@@ -62,7 +62,7 @@
 
                             showHideNationality,
 
-                            yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))),
+                            yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.displayPlaybackDatesFormat))),
 
                             yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
                         ),

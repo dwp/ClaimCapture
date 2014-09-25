@@ -19,8 +19,8 @@
 	
 	            <ul>
                     @yesNoRadioGroup(currentForm("beenInEducationSinceClaimDate"),
-                        '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)),
-                        'helperAbove -> Messages("beenInEducationSinceClaimDate.label.helper", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))
+                        '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.displayPlaybackDatesFormat)),
+                        'helperAbove -> Messages("beenInEducationSinceClaimDate.label.helper", claim.dateOfClaim.fold("")(_.displayPlaybackDatesFormat))
                     )
 
                     @otherDetailPlaceHolder(

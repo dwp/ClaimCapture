@@ -9,7 +9,7 @@
 @isEmployment = @{employment.beenEmployedSince6MonthsBeforeClaim == "yes"}
 @isSelfEmployment = @{employment.beenSelfEmployedSince1WeekBeforeClaim == "yes"}
 @isEmploymentOrSelfEmployment = @{isEmployment || isSelfEmployment}
-@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.`dd/MM/yyyy`}
+@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.displayPlaybackDatesFormat}
 
 @common.govMain(Messages("thankyou")) {
 
