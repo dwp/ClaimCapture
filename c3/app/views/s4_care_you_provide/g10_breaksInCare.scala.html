@@ -4,6 +4,7 @@
 @import models.DayMonthYear._
 @import models.domain.{BreaksInCare, Claim, ClaimDate, MoreAboutTheCare, Education, Employed, OtherMoney, SelfEmployment}
 @import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
@@ -87,6 +88,7 @@ else OtherMoney.name
 
 
     @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit) {
+        @DwpCSRFFormHelper.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s4.g5"))</legend>

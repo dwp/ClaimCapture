@@ -1,6 +1,7 @@
 @(currentForm: Form[models.domain.JobDetails])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
 
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._
@@ -14,6 +15,7 @@
 @main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm),completedQuestionGroups(models.domain.JobDetails, JobID(currentForm)), Some(Messages("s7.g3"))) {
 
     @form(action = controllers.s7_employment.routes.G3JobDetails.submit()) {
+        @DwpCSRFFormHelper.formField
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <div class="form-wrap">

@@ -1,6 +1,7 @@
 package controllers.s1_2_claim_date
 
 import models.domain._
+import models.view.CachedClaim
 import models.{DayMonthYear, domain}
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._

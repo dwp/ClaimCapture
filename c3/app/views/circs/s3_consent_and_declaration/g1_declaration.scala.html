@@ -1,6 +1,7 @@
 @(declarationForm: Form[models.domain.CircumstancesDeclaration])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
 @import models.domain._
@@ -12,6 +13,7 @@
 
     @form(action = controllers.circs.s3_consent_and_declaration.routes.G1Declaration.submit) {
         <input type="hidden" id="js" name="jsEnabled" value="false">
+        @DwpCSRFFormHelper.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("c3.g2"))</legend>

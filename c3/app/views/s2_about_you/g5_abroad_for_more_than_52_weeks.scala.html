@@ -6,6 +6,7 @@
 @import models.domain.Trips
 @import models.DayMonthYear
 @import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.s2_about_you.main
 @import play.api.i18n.{MMessages => Messages}
 
@@ -85,7 +86,8 @@
 
 
     @form(action = controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.submit) {
-    
+
+            @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g5"))</legend>
 	

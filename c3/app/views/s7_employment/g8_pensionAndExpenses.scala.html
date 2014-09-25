@@ -2,6 +2,7 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
@@ -20,6 +21,7 @@
 @main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PensionAndExpenses, JobID(currentForm)), Some(employerName)) {
 
     @form(action = controllers.s7_employment.routes.G8PensionAndExpenses.submit()) {
+        @DwpCSRFFormHelper.formField
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <div class="form-wrap">

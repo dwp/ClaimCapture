@@ -9,11 +9,13 @@ import utils.pageobjects.s6_education._
 import utils.pageobjects.s7_employment._
 import utils.pageobjects.s8_self_employment._
 import utils.pageobjects.s9_other_money._
-import utils.pageobjects.s10_pay_details._
-import utils.pageobjects.S11_consent_and_declaration._
+import utils.pageobjects.s11_pay_details._
+import utils.pageobjects.s10_information._
+import utils.pageobjects.s12_consent_and_declaration._
 import utils.pageobjects.IterationManager._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
 
 
 /**
@@ -28,7 +30,10 @@ object ClaimPageFactory extends PageFactory {
 
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
-    if (null == title ) XmlPage (ctx)
+    if (null == title) { val xmlPage =XmlPage (ctx)
+      if (xmlPage.source().contains("xmlns")) xmlPage
+      else new UnknownPage("", ctx)
+    }
     else {
       val m:PartialFunction[String,Page] = {
         // S1
@@ -90,9 +95,8 @@ object ClaimPageFactory extends PageFactory {
         case PreviewPage.title => PreviewPage(ctx)
         // S10
         case G1AdditionalInfoPage.title => G1AdditionalInfoPage (ctx)
-        case G2ConsentPage.title => G2ConsentPage (ctx)
-        case G3DisclaimerPage.title => G3DisclaimerPage (ctx)
-        case G4DeclarationPage.title => G4DeclarationPage (ctx)
+        case G2DisclaimerPage.title => G2DisclaimerPage (ctx)
+        case G3DeclarationPage.title => G3DeclarationPage (ctx)
         // Catch pages not covered by framework
         case _ => new UnknownPage(title, ctx)
       }(title.toLowerCase)
