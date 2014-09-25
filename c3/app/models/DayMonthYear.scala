@@ -3,6 +3,8 @@ package models
 import scala.util.{Failure, Success, Try}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import play.api.i18n.{MMessages => Messages}
+
 
 case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
                         hour: Option[Int] = None, minutes: Option[Int] = None) {
@@ -17,10 +19,16 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
   def `dd`: String = format("dd")
 
   def `M`: String = format("M")
-  
-  def `dd month, yyyy`: String = format("dd MMMM, yyyy")
 
-  def `dd month yyyy`: String = format("dd MMMM yyyy")
+  /**
+  * Convert a DayMonthYear object to a string with 'month' in local language. See "conf/headingAndTitle.<local>.properties" files
+  */
+  def `dd month, yyyy`(implicit lang: play.api.i18n.Lang): String = s"${this.`dd`} ${Messages("dynamicDatePlaceholder." + this.`M`)}, ${this.`yyyy`}"
+
+  /**
+   * Convert a DayMonthYear object to a string with 'month' in local language. See "conf/headingAndTitle.<local>.properties" files
+   */
+  def `dd month yyyy`(implicit lang: play.api.i18n.Lang): String =  s"${this.`dd`} ${Messages("dynamicDatePlaceholder." + this.`M`)} ${this.`yyyy`}"
 
   def `yyyy-MM-dd'T'HH:mm:00`: String = format("yyyy-MM-dd'T'HH:mm:00")
 
@@ -50,6 +58,18 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
     override def years = adjust { _.plusYears(amount) }
   }
 
+  def isBefore(that: DayMonthYear): Boolean = {
+        DayMonthYearComparator.compare(Some(this),Some(that)) == -1
+  }
+
+  def isAfter(that: DayMonthYear): Boolean = {
+    DayMonthYearComparator.compare(Some(this),Some(that)) == 1
+  }
+
+  def isEqualTo(that: DayMonthYear): Boolean = {
+    DayMonthYearComparator.compare(Some(this),Some(that)) == 0
+  }
+
   def numberOfCharactersInput = List(day, month, year, hour, minutes).foldLeft(0) { (x, i) => x + i.fold(0)(_.toString.length) }
 
   private def pad(i: Option[Int]): String = i.fold("")(i => if (i < 10) s"0$i" else s"$i")
@@ -70,11 +90,11 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
 
 object DayMonthYearComparator extends Ordering[Option[DayMonthYear]]{
   def compare(a:Option[DayMonthYear],b:Option[DayMonthYear]): Int = {
-    (Try(new DateTime(a.get.year.get, a.get.month.get, a.get.day.get, a.get.hour.get, a.get.minutes.get)) match {
+    (Try(new DateTime(a.get.year.get, a.get.month.get, a.get.day.get, a.get.hour.getOrElse(0), a.get.minutes.getOrElse(0))) match {
       case Success(dt: DateTime) => dt
       case Failure(_) => new DateTime()
     }).compareTo(
-      Try(new DateTime(b.get.year.get, b.get.month.get, b.get.day.get, b.get.hour.get, b.get.minutes.get)) match {
+      Try(new DateTime(b.get.year.get, b.get.month.get, b.get.day.get, b.get.hour.getOrElse(0), b.get.minutes.getOrElse(0))) match {
       case Success(dt: DateTime) => dt
       case Failure(_) => new DateTime()
     })
@@ -119,6 +139,7 @@ object DayMonthYear {
     val now = DateTime.now()
     new DayMonthYear(Some(now.dayOfMonth().get), Some(now.monthOfYear().get), Some(now.year().get))
   }
+
 }
 
 sealed trait Period {

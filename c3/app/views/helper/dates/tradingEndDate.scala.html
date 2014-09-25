@@ -8,7 +8,14 @@
 @import scala.language.postfixOps
 
 @argsWithSpecificArgs = @{
-  args ++ Seq('helperAbove -> (Messages("dateExample.helper", (DayMonthYear.today - 40 years).`dd month yyyy`)))
+    val today = DayMonthYear.today
+    val yearsToSubtract = (today.isBefore(DayMonthYear(4,4,today.year.get))) match {
+        case true => 1
+        case false => 0
+    }
+    val year = (today - yearsToSubtract years).year.get
+    val endDate = DayMonthYear(4,4,year)
+    args ++ Seq('helperAbove -> Messages("dateExample.helper", endDate.`dd month yyyy`))
 }
 
 @inputDayMonthYear(field, argsWithSpecificArgs: _*)

@@ -9,6 +9,8 @@
 @import views.html.helper.dates._
 @import utils.csrf.DwpCSRFFormHelper
 @import utils.helpers.PastPresentLabelHelper.labelForSelfEmployment
+@import scala.language.postfixOps
+
 
 @import play.api.i18n.{MMessages => Messages}
 @main(Messages("s8.g2") + " - " + Messages("s8.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.SelfEmploymentYourAccounts)) {
@@ -24,9 +26,9 @@
 	
 	            <ul>
 	
-	                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"), 'helperAbove -> Messages("dateOfBirth.helper"))
+	                @tradingStartDate(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"))
 	
-	                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"), 'helperAbove -> Messages("dateOfBirth.helper"))
+	                @tradingEndDate(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"))
 	
 	                @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
 	

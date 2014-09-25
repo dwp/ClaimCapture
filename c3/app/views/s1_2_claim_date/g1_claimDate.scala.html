@@ -5,6 +5,8 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 @import play.api.i18n.{MMessages => Messages}
+@import scala.language.postfixOps
+
 
 @main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
 
@@ -19,7 +21,7 @@
             <fieldset class="question-group">
           	   
              <ul>
-	        @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateOfBirth.helper"))
+	        @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 3 months).`dd month yyyy`))
              </ul>
             </fieldset>
 

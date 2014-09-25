@@ -13,6 +13,7 @@
 @import models.domain.{Job, Jobs}
 @import play.api.i18n.{MMessages => Messages}
 @import controllers.Mappings._
+@import scala.language.postfixOps
 
 @employerName = @{
     claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).employerName + " - "
@@ -40,7 +41,7 @@
                         '_label -> labelForEmployment(claim, lang, "whenGetPaid", JobID(currentForm)),
                         'helperAbove -> Messages("whenGetPaid.helper"))
 
-	                @inputDayMonthYear(currentForm("lastPaidDate"), 'helperAbove -> Messages("jobStartDate.helper"))
+	                @inputDayMonthYear(currentForm("lastPaidDate"), 'helperAbove -> Messages("dateExample.helper",claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`dd month yyyy`)))
 
 	                @carersCurrency(currentForm("grossPay"), 'maxLength -> Mappings.sixty)
 	

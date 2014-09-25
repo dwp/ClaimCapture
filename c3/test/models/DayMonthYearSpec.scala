@@ -3,6 +3,8 @@ package models
 import org.specs2.mutable.Specification
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import play.api.i18n.Lang
+import play.api.test.WithApplication
 import scala.util.Try
 
 class DayMonthYearSpec extends Specification {
@@ -81,9 +83,16 @@ class DayMonthYearSpec extends Specification {
       dmy.year should beSome(2013)
     }
 
-    "format as '23 September, 2013' " in {
+    "format as '23 September, 2013' in English and Welsh" in new WithApplication {
       val dmy = DayMonthYear(23, 9, 2013)
-      dmy.`dd month, yyyy` shouldEqual "23 September, 2013"
+      dmy.`dd month, yyyy`(Lang("en")) shouldEqual "23 September, 2013"
+      dmy.`dd month, yyyy`(Lang("cy")) shouldEqual "23 Medi, 2013"
+    }
+
+    "format as '23 September 2013' in English and Welsh" in new WithApplication {
+      val dmy = DayMonthYear(23, 9, 2013)
+      dmy.`dd month yyyy`(Lang("en")) shouldEqual "23 September 2013"
+      dmy.`dd month yyyy`(Lang("cy")) shouldEqual "23 Medi 2013"
     }
 
     "include time" in {
@@ -98,5 +107,30 @@ class DayMonthYearSpec extends Specification {
     """accept format "01 September 2001" """ in {
       Try(DateTimeFormat.forPattern("dd MMMM yyyy").parseDateTime("01 September 2001")).isSuccess should beTrue
     }
+
+    "Checks a date is before another one" in {
+      val dmy = DayMonthYear(23, 9, 2013)
+      val dmy2 = DayMonthYear(22, 9, 2013)
+      dmy.isBefore(dmy2) should beFalse
+      dmy.isBefore(dmy) should beFalse
+      dmy2.isBefore(dmy) should beTrue
+    }
+
+    "Checks a date is after another one" in {
+      val dmy = DayMonthYear(23, 9, 2013)
+      val dmy2 = DayMonthYear(22, 9, 2013)
+      dmy.isAfter(dmy2) should beTrue
+      dmy.isAfter(dmy) should beFalse
+      dmy2.isAfter(dmy) should beFalse
+    }
+
+    "Checks a date is equal to another one" in {
+      val dmy = DayMonthYear(23, 9, 2013)
+      val dmy2 = DayMonthYear(22, 9, 2013)
+      dmy.isEqualTo(dmy2) should beFalse
+      dmy.isEqualTo(dmy) should beTrue
+      dmy2.isEqualTo(dmy) should beFalse
+    }
+
   }
 }
