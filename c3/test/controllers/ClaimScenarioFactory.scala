@@ -33,7 +33,6 @@ object ClaimScenarioFactory {
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
     claim.AboutYouPostcode = "FY1 2RW"
     claim.HowWeContactYou = "01772 888901"
-    claim.AboutYouDoYouGetStatePension = "Yes"
     claim
   }
 
@@ -155,8 +154,6 @@ object ClaimScenarioFactory {
     // Other EEA State or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
-
-    claim.AboutYouDoYouGetStatePension = "no"
 
     claim
   }

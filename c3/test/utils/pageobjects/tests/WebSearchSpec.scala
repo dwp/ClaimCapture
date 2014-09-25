@@ -6,9 +6,10 @@ import utils.pageobjects.s2_about_you.G1YourDetailsPageContext
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s11_pay_details.G1HowWePayYouPageContext
 import utils.pageobjects.s12_consent_and_declaration.G2DisclaimerPageContext
-import utils.pageobjects.TestData
+import utils.pageobjects.{Page, PageObjectsContext, PageObjects, TestData}
 import app._
 import play.api.i18n.Messages
+import utils.pageobjects.s1_2_claim_date.{G1ClaimDatePageContext, G1ClaimDatePage}
 
 class WebSearchSpec extends Specification with Tags{
   "Web Search Actions " should {
@@ -17,17 +18,18 @@ class WebSearchSpec extends Specification with Tags{
       page goToThePage()
     }
 
-    "be able to read Input, Select, Nino, YesNo, Address and Date elements." in new WithBrowser with G1YourDetailsPageContext {
+    "be able to read Input, Select, Nino, YesNo, Address and Date elements." in new WithBrowser with PageObjects {
       val claim = ClaimScenarioFactory yourDetailsEnablingTimeOutsideUK()
-      page goToThePage()
-      page fillPageWith claim
-      val firstName = page readInput("#firstName")
+      val yourDetailsPage = fillClaimDate(context) submitPage ()
+      yourDetailsPage goToThePage()
+      yourDetailsPage fillPageWith claim
+      val firstName = yourDetailsPage readInput("#firstName")
       firstName.get mustEqual claim.AboutYouFirstName
-      val title = page readSelect("#title")
+      val title = yourDetailsPage readSelect("#title")
       title.get mustEqual claim.AboutYouTitle
-      val nino  = page readNino("#nationalInsuranceNumber")
+      val nino  = yourDetailsPage readNino("#nationalInsuranceNumber")
       nino.get mustEqual claim.AboutYouNINO
-      val contactPage = page submitPage()
+      val contactPage = yourDetailsPage submitPage()
       contactPage fillPageWith claim
       val address = contactPage readAddress ("#address")
       address.get mustEqual claim.AboutYouAddress
@@ -65,13 +67,17 @@ class WebSearchSpec extends Specification with Tags{
   } section "integration"
 
   "A page with Web Search Actions " should {
-    "be able to populate a claim using data read with WebSearchActions." in new WithBrowser with G1YourDetailsPageContext {
+    "be able to populate a claim using data read with WebSearchActions." in new WithBrowser with PageObjects {
       val claimSource = ClaimScenarioFactory yourDetailsEnablingTimeOutsideUK()
       val claimRead = new TestData
-      page goToThePage()
-      page fillPageWith claimSource
-      page populateClaim claimRead
-      val contactPage = page submitPage()
+
+      val claim = ClaimScenarioFactory yourDetailsEnablingTimeOutsideUK()
+      val yourDetailsPage = fillClaimDate(context) submitPage ()
+
+      yourDetailsPage goToThePage()
+      yourDetailsPage fillPageWith claimSource
+      yourDetailsPage populateClaim claimRead
+      val contactPage = yourDetailsPage submitPage()
       contactPage fillPageWith claimSource
       contactPage populateClaim claimRead
       val outsideUkPage  = contactPage.submitPage()
@@ -84,4 +90,14 @@ class WebSearchSpec extends Specification with Tags{
       claimRead.AboutYouPostcode mustEqual claimSource.AboutYouPostcode
     }
   }section "integration"
+
+  def fillClaimDate (context:PageObjectsContext):Page = {
+    val claimDatePage = G1ClaimDatePage (context)
+    val claimDate = ClaimScenarioFactory s12ClaimDate()
+
+    claimDatePage goToThePage()
+    claimDatePage fillPageWith claimDate
+    claimDatePage
+  }
+
 }
