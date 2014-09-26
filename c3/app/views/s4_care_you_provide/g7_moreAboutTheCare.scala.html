@@ -26,7 +26,7 @@
 	                                 '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
 	
 	                @otherDetailPlaceHolder(
-	                    inputDef = Seq(inputDayMonthYear(currentForm("beforeClaimCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 years).`dd month yyyy`))),
+	                    inputDef = Seq(inputDayMonthYear(currentForm("beforeClaimCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 years).`dd M yyyy`))),
 	                    'id -> "careStartDateWrap"
 	                )
 	            </ul>

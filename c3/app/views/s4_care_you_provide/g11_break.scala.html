@@ -47,9 +47,9 @@
 	                             '_label -> Messages("wherePerson.location"), 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 	                             
 	            
-	                @inputDayMonthYearHM(breakForm("start"), 'helperAbove  -> Messages("dateExample.helper", (DayMonthYear.today - 34 days).`dd month yyyy`))
+	                @inputDayMonthYearHM(breakForm("start"), 'helperAbove  -> Messages("dateExample.helper", (DayMonthYear.today - 34 days).`dd M yyyy`))
 	
-	                @inputDayMonthYearHM(breakForm("end"), 'helperAbove  -> Messages("dateExample.helper", (DayMonthYear.today - 27 days).`dd month yyyy`))
+	                @inputDayMonthYearHM(breakForm("end"), 'helperAbove  -> Messages("dateExample.helper", (DayMonthYear.today - 27 days).`dd M yyyy`))
 	    
 	
 	                @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))

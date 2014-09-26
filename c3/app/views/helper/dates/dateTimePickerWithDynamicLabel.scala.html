@@ -14,7 +14,7 @@
     30
   }
   val date = (DayMonthYear.today - dynamicDateDays days)
-  val month = date.`M`//Html(Messages("dynamicDatePlaceholder." + date.`M`))
+  val month = date.`M`
   val specificArgs = args ++ Seq('helperAbove -> (Messages("dynamicDate.helper2", date.`dd`, month, date.`yyyy`)))
 
   args.find(_._1=='dynamicDateDaysAlternative).isDefined match {
