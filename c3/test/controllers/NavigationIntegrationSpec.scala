@@ -49,10 +49,10 @@ trait DataFiller {
     fill("#nationalInsuranceNumber_ni3") `with` "34"
     fill("#nationalInsuranceNumber_ni4") `with` "56"
     fill("#nationalInsuranceNumber_ni5") `with` "C"
-    click("#dateOfBirth_day option[value='3']")
-    click("#dateOfBirth_month option[value='4']")
-    fill("#dateOfBirth_year") `with` "1950"    
-    click("#maritalStatus option[value='Single']")
+    fill("#dateOfBirth_day") `with` "3"
+    fill("#dateOfBirth_month") `with` "4"
+    fill("#dateOfBirth_year") `with` "2001"
+    click("#maritalStatus option[value='Single']")    
   }
 
   def `/about-you/contact-details`: Fluent = {

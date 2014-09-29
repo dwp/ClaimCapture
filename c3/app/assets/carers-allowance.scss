@@ -180,6 +180,7 @@ main {
 		   	   text-indent: -9999px;
 		   	   padding-bottom: 0;
 		   	   line-height: .1em;
+		   	   margin: 0;
 	   	   }
 	   	   
    	   }
@@ -882,41 +883,39 @@ main {
 		   &.year {
 			   li {
 			   	   margin-left: .5em;
+			   	   display: inline-block;
+			   	   
+			   	   .ie7 & {
+				   	   float: left;
+				   	   width: auto;
+			   	   }
+			   	   
 			   	   label {
-					   position: absolute;
-					   left: -9999px;
+				   	   display: block;
+				   	   font-weight: 300;
+				   	   padding-left: 0;
+				   	   font-size: 19px;
+				   	   color: #0b0c0c;
 				   }
-				   select {
-				   	   margin: 0;
-					   min-width: 110px;
-					   top: -2px;
-					   @media screen and (max-width: 500px) {width: auto; min-width: 10px;}
-					   .ie & {
-						   width: 86px;
-						   top: 2px;
-					   }
-				   }
+				   
 				   input {
-					   width: 76px!important;
+					   width: 66px!important;
 					   background: #fff;
-					   position: relative;
-					   .ie9 & {
-						   top: 3px;
-					   }
-					   .ie8 &, .ie7 & {
-					   	   top: 3px;
-						   width: 60px!important;
-						   font-size: 14px;
-						   padding: 5px 8px;
-					   }
 				   }
 				   
 				    &:first-child {
 					   margin-left: 0;
-					   select {
-						   min-width: 70px;
+					   input {
+						   width: 46px!important;
 					   }
 				   }
+				   
+				   &.month {
+					   input {
+						   width: 46px!important;
+					   }
+				   }
+				   
 			   }
 		   }
 
@@ -1040,16 +1039,6 @@ main {
 }
 
 
-.coc-layout {
-  li {
-    label {
-      padding-right: 12em;
-      @media screen and (max-width: 760px) {
-        padding-right: 0;
-      }
-    }
-  }
-}
 
 
 .data-table {

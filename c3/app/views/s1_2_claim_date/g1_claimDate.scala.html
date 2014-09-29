@@ -4,9 +4,8 @@
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
-@import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
-
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
 
@@ -15,15 +14,12 @@
     @errorsSummary(claimDateForm)
 
     @form(action = controllers.s1_2_claim_date.routes.G1ClaimDate.submit) {
-        @DwpCSRFFormHelper.formField
+         @DwpCSRFFormHelper.formField
         <div class="form-elements">
-          
-            <fieldset class="question-group">
           	   
-             <ul>
-	        @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 3 months).`dd month yyyy`))
-             </ul>
-            </fieldset>
+            <ul>
+            @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 3 months).`dd M yyyy`))
+            </ul>
 
 	        <nav class="form-steps">
 	            <ul>

@@ -41,7 +41,7 @@
                         '_label -> labelForEmployment(claim, lang, "whenGetPaid", JobID(currentForm)),
                         'helperAbove -> Messages("whenGetPaid.helper"))
 
-	                @inputDayMonthYear(currentForm("lastPaidDate"), 'helperAbove -> Messages("dateExample.helper",claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`dd month yyyy`)))
+	                @inputDayMonthYear(currentForm("lastPaidDate"), 'helperAbove -> Messages("dateExample.helper",claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`dd M yyyy`)))
 
 	                @carersCurrency(currentForm("grossPay"), 'maxLength -> Mappings.sixty)
 	

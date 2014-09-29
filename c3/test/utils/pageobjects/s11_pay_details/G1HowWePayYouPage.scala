@@ -19,7 +19,7 @@ class G1HowWePayYouPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1HowWePa
  * efined in Page.scala
  */
 object G1HowWePayYouPage {
-  val title = "How would you like to get paid? - How we pay you".toLowerCase
+  val title = "How would you like to get paid? - Pay details".toLowerCase
 
   val url  = "/pay-details/how-we-pay-you"
 

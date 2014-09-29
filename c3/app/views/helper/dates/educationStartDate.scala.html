@@ -8,11 +8,8 @@
 @import scala.language.postfixOps
 
 @argsWithSpecificArgs = @{
-    val yearsToSubtract = (DayMonthYear.today.month.get < 9) match {
-      case true => 1
-      case false => 0
-    }
-    val year = (DayMonthYear.today - yearsToSubtract years).`yyyy`
+
+    val year = (DayMonthYear.today - 1 years).`yyyy`
     val month = Messages("dynamicDate.month2.helper")
     args ++ Seq('helperAbove -> Messages("dynamicDate.helper", month, year))
 }

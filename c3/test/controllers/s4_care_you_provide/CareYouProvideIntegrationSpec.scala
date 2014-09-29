@@ -84,7 +84,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
       Formulate.notInEmployment(browser)
 
-      titleMustEqual("Other Money")
+      titleMustEqual("Statutory pay, benefits and payments")
     }
 
   } section("integration", models.domain.CareYouProvide.id)

@@ -61,15 +61,15 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
       browser.fill("#phoneNumber") `with` "12345678"
       browser.fill("#address_lineOne") `with` "Street Test 1"
       browser.click("#startJobBeforeClaimDate_no")
-      browser.click("#jobStartDate_day option[value='1']")
-      browser.click("#jobStartDate_month option[value='1']")
+      browser.fill("#jobStartDate_day") `with` "1"
+      browser.fill("#jobStartDate_month") `with` "1"
       browser.fill("#jobStartDate_year") `with` "2000"
       browser.click("#finishedThisJob_yes")
-      browser.click("#lastWorkDate_day option[value='1']")
-      browser.click("#lastWorkDate_month option[value='1']")
+      browser.fill("#lastWorkDate_day") `with` "1"
+      browser.fill("#lastWorkDate_month") `with` "1"
       browser.fill("#lastWorkDate_year") `with` "2005"
-      browser.click("#p45LeavingDate_day option[value='1']")
-      browser.click("#p45LeavingDate_month option[value='1']")
+      browser.fill("#p45LeavingDate_day") `with` "1"
+      browser.fill("#p45LeavingDate_month") `with` "1"
       browser.fill("#p45LeavingDate_year") `with` "2005"
       browser.fill("#hoursPerWeek") `with` "75"
 

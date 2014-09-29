@@ -9,7 +9,7 @@ import play.api.i18n.Lang
 import play.api.libs.ws
 import play.api.libs.ws.{Response, WS}
 import play.api.{Logger, http}
-import xml.{ValidXMLBuilder, DWPBody}
+import xml.ValidXMLBuilder
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -20,34 +20,41 @@ trait WebServiceClientComponent {
 
   class WebServiceClient {
     def submitClaim(claim: Claim, txnId: String): Future[ws.Response] = {
-      Logger.info(s"Entered on submitClaim for : ${claim.key} : transactionId [$txnId].")
-      val claimSubmission = ValidXMLBuilder().xml(claim, txnId)
-      Logger.info("Created xml")
-      val submissionServerEndpoint = ConfigProperties.getProperty("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submission"
-      Logger.info(s"Submission Server : $submissionServerEndpoint")
-      val result = WS.url(submissionServerEndpoint)
-        .withRequestTimeout(ConfigProperties.getProperty("cr.timeout",60000)) // wait 1 minute
-        .withHeaders(("Content-Type", "application/xml"))
-        .withHeaders(("CarersClaimLang",claim.lang.getOrElse(new Lang("en")).language))
-        .post(claimSubmission) recover {
+      Logger.info (s"Entered on submitClaim for : ${claim.key} : transactionId [$txnId].")
+      val claimSubmission = ValidXMLBuilder ().xml (claim, txnId)
+      Logger.info ("Created xml")
+      val submissionServerEndpoint = ConfigProperties.getProperty ("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submission"
+      Logger.info (s"Submission Server : $submissionServerEndpoint")
+      val result = WS.url (submissionServerEndpoint)
+        .withRequestTimeout (ConfigProperties.getProperty ("cr.timeout", 60000)) // wait 1 minute
+        .withHeaders (("Content-Type", "application/xml"))
+        .withHeaders (("CarersClaimLang", claim.lang.getOrElse (new Lang ("en")).language))
+        .post (claimSubmission) recover {
 
         case e: ConnectException =>
-          Logger.error(s"ConnectException for transactionId [$txnId]: ${e.getMessage}")
+          Logger.error (s"ConnectException for transactionId [$txnId]: ${e.getMessage}")
           // Spoof service unavailable
           // submission failed - remove from cache
-          new Response(null) {
-            override def status: Int = http.Status.SERVICE_UNAVAILABLE
-          }
+          UnavailableResponse ()
+
         case e: TimeoutException =>
-          Logger.error(s"TimeoutException for transactionId [$txnId]: ${e.getMessage}")
+          Logger.error (s"TimeoutException for transactionId [$txnId]: ${e.getMessage}")
           // Spoof service unavailable
           // submission failed - remove from cache
-          new Response(null) {
-            override def status: Int = http.Status.SERVICE_UNAVAILABLE
-          }
+          UnavailableResponse ()
       }
       result
     }
   }
 
+}
+
+object UnavailableResponse {
+
+  def apply(): Response = new Response (null) {
+
+    override def status: Int = http.Status.SERVICE_UNAVAILABLE
+
+    override def statusText: String = ClaimSubmissionService.httpStatusCodes (status)
+  }
 }
