@@ -62,7 +62,7 @@
 
                             showHideNationality,
 
-                            yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))),
+                            yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label"),  'helperAbove-> Messages("separated_fromPartner.helper",claim.dateOfClaim.fold("")(_.`dd month yyyy`))),
 
                             yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
                         ),
