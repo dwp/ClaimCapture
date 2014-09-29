@@ -16,6 +16,7 @@ GET           /internal-claim-notes/:languageCode                             co
 
 # claim pack notes accessed externally
 GET           /claim-help                                                 controllers.ClaimHelp.notes
+GET           /cofc-help                                                 controllers.CofcHelp.notes
 
 GET           /change-language/:chosenLanguage                            controllers.Language.change(chosenLanguage: String)
 
