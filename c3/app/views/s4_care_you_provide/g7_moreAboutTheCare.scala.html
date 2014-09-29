@@ -8,6 +8,13 @@
 @import models.domain.MoreAboutTheCare
 @import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+@displayDateForLabel = @{
+    claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+        displayPlaybackDatesFormat(lang,dmy)
+    )
+}
 
 @main(Messages("s4.g4") + " - " + Messages("s4.longName"), Some(currentForm), claim.completedQuestionGroups(MoreAboutTheCare)) {
 
@@ -23,7 +30,7 @@
 	                @yesNoRadioGroup(currentForm("spent35HoursCaring"))
 	
 	                @yesNoRadioGroup(currentForm("beforeClaimCaring.answer"),'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")),
-	                                 '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.displayPlaybackDatesFormat)))
+	                                 '_label -> Messages("spent35HoursCaringBeforeClaim.label", displayDateForLabel))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(inputDayMonthYear(currentForm("beforeClaimCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 years).`dd month yyyy`))),

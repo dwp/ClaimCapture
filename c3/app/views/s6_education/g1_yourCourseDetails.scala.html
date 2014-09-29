@@ -8,6 +8,13 @@
 @import views.html.s6_education.main
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersCrypto
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+@displayDateForLabel = @{
+    claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+        displayPlaybackDatesFormat(lang,dmy)
+    )
+}
 
 @main(Messages("s6.g1") + " - " + Messages("s6.longName"), Some(currentForm)) {
 
@@ -19,8 +26,8 @@
 	
 	            <ul>
                     @yesNoRadioGroup(currentForm("beenInEducationSinceClaimDate"),
-                        '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.displayPlaybackDatesFormat)),
-                        'helperAbove -> Messages("beenInEducationSinceClaimDate.label.helper", claim.dateOfClaim.fold("")(_.displayPlaybackDatesFormat))
+                        '_label -> Messages("beenInEducationSinceClaimDate.label", displayDateForLabel),
+                        'helperAbove -> Messages("beenInEducationSinceClaimDate.label.helper", displayDateForLabel)
                     )
 
                     @otherDetailPlaceHolder(

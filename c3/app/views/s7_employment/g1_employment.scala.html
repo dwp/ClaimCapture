@@ -5,6 +5,7 @@
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 @bulletsConstructor(label: String, maxBullets: Int) = @{
     for(i<-1 to maxBullets) yield label+i
@@ -28,12 +29,12 @@
 	        
 	            <ul>
                     @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
-                        '_label -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", (claim.dateOfClaim.get - 1 week) displayPlaybackDatesFormat),
+                        '_label -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 1 week)),
                         'helperAbove -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label.helper"),
                         'bullets -> bulletsSelfEmployed)
 
                     @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
-                        '_label -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label", (claim.dateOfClaim.get - 6 months) displayPlaybackDatesFormat),
+                        '_label -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 6 months)),
                         'helperAbove -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper"),
                         'bullets -> bulletsEmployed,
                         'paragraph -> "aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper.p")
