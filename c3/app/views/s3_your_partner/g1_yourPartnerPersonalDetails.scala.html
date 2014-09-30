@@ -9,6 +9,7 @@
 @import utils.helpers._
 @import play.api.i18n.{MMessages => Messages}
 @import models.domain.YourPartnerPersonalDetails
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 @partnerHelpWithLink = @{
     Html(Messages("s3.g1.help")) + """ <a href="/claim-help#5"""" + views.html.ga.trackClickEvent(linkName = Messages("s3.g1.track")) + """>""" + Html(Messages("s3.g1.link")) + """</a>"""
@@ -20,6 +21,10 @@
     } else {
         Html("")
     }
+}
+
+@displayDateForLabel = @{
+    claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang,dmy))
 }
 
 @main(Messages("s3.g1") + " - " + Messages("s3.longName"), Some(currentForm)) {
@@ -34,7 +39,7 @@
             <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
                 <legend>@Html(Messages("haveLivedWithPartnerSinceClaimDate.label"))</legend>
                 <div class="prompt nested-prompt partner-linked">
-                    <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help1", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))</p>
+                    <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help1", displayDateForLabel))</p>
                     <ul>
                         <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help2"))</li>
                         <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help3"))</li>
@@ -62,7 +67,7 @@
 
                             showHideNationality,
 
-                            yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label"),  'helperAbove-> Messages("separated_fromPartner.helper",claim.dateOfClaim.fold("")(_.`dd month yyyy`))),
+                            yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", displayDateForLabel)),
 
                             yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
                         ),

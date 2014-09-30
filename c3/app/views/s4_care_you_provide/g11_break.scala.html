@@ -8,6 +8,7 @@
 @import app.Whereabouts._
 @import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
@@ -19,8 +20,8 @@
     }
 
     claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-        if (spent35HoursCaringBeforeClaim) (dmy - 6 months).`dd/MM/yyyy`
-        else dmy.`dd/MM/yyyy`)
+        if (spent35HoursCaringBeforeClaim) displayPlaybackDatesFormat(lang, dmy - 6 months)
+        else displayPlaybackDatesFormat(lang, dmy))
 }
 
 @main("Break - About the care you provide", Some(breakForm)) {

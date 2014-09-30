@@ -6,6 +6,10 @@
 @import utils.helpers.CarersCrypto
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+
+
 @nextSection = @{ if (SelfEmployment.visible) SelfEmployment.name else OtherMoney.name }
 
 
@@ -83,8 +87,8 @@
 	
 	            <ul>
 	                @yesNoRadioGroup(currentForm("beenEmployed"),
-                        '_label -> Messages("beenEmployedSince6MonthsBeforeClaim.label", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => (dmy - 6 months).`dd/MM/yyyy`)),
-                        'helperAbove -> Messages("beenEmployedSince6MonthsBeforeClaim.label.helper", claim.dateOfClaim.fold("{CLAIM DATE}")(_.`dd/MM/yyyy`)))
+                        '_label -> Messages("beenEmployedSince6MonthsBeforeClaim.label", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(lang, dmy - 6 months))),
+                        'helperAbove -> Messages("beenEmployedSince6MonthsBeforeClaim.label.helper", claim.dateOfClaim.fold("{CLAIM DATE}")(dmy => displayPlaybackDatesFormat(lang, dmy))))
 	            </ul>
 	        </fieldset>
 	
