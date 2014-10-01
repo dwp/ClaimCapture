@@ -22,7 +22,7 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
     "oftenGetPaid" -> (mandatoryPaymentFrequency verifying validPaymentFrequencyOnly),
     "whenGetPaid" -> carersNonEmptyText(maxLength = Mappings.sixty),
     "lastPaidDate" -> dayMonthYear.verifying(validDate),
-    "grossPay" -> required(nonEmptyText.verifying(validCurrency5Required)),
+    "grossPay" -> required(nonEmptyText.verifying(validCurrency8Required)),
     "payInclusions" -> optional(carersText(maxLength = Mappings.sixty)),
     "sameAmountEachTime" -> (nonEmptyText verifying validYesNo),
     "employerOwesYouMoney" -> optional(nonEmptyText verifying validYesNo)

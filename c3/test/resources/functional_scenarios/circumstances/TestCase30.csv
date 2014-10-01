@@ -20,7 +20,7 @@ Employment Changes - Change in circumstances,Employment,Postcode,CircumstancesEm
 Employment Changes - Change in circumstances,Employment,Employer's contact number,CircumstancesEmploymentChangeEmployerContactNumber,0111 123 4567
 Employment Changes - Change in circumstances,Employment,Payroll or employee number,CircumstancesEmploymentChangeEmployerPayroll,XYZ123890
 Employment - Change in circumstances,Employment,Have you been paid yet?,CircumstancesEmploymentChangeBeenPaidYet,yes
-Employment - Change in circumstances,Employment,How much were you last paid?,CircumstancesEmploymentChangeHowMuchPaid,12345678901234567890
+Employment - Change in circumstances,Employment,How much were you last paid?,CircumstancesEmploymentChangeHowMuchPaid,12345678.12
 Employment - Change in circumstances,Employment,What date did you receive your last pay?,CircumstancesEmploymentChangeWhatDatePaid,20/01/2014
 Employment - Change in circumstances,Employment,How often are you paid?,CircumstancesEmploymentChangeHowOftenFrequency,weekly
 Employment - Change in circumstances,Employment,What day or date of the month will you be paid?,CircumstancesEmploymentChangeMonthlyPayDay,

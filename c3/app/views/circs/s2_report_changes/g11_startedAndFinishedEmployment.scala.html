@@ -42,8 +42,9 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersShortInputText(howMuchPaid,
-                                '_label -> {if(beenPaidYet.value == Some("yes")) "howMuchPaid.have" else "howMuchPaid.have.expect"}
+                            carersCurrency(howMuchPaid,
+                                '_label -> {if(beenPaidYet.value == Some("yes")) "howMuchPaid.have" else "howMuchPaid.have.expect"},
+                                'maxLength -> 12
                             ),
                             dateTimePickerWithDynamicLabel(dateLastPaid,
                                 'dynamicDateDays -> 7,
