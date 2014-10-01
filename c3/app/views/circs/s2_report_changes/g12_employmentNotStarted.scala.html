@@ -36,8 +36,9 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersShortInputText(howMuchPaid,
+                    carersCurrency(howMuchPaid,
                                 '_label -> "howMuchPaid.will",
+                                'maxLength -> 12,
                                 'ignoreOptional -> true),
                             dateTimePickerWithDynamicLabel(whenExpectedToBePaidDate,
                                 'dynamicDateDays-> -7),
