@@ -9,13 +9,14 @@ import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import models.domain._
 import controllers.CarersForms._
+import play.api.Logger
 
 object G2ContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "address" -> address.verifying(requiredAddress),
     "postcode" -> optional(text verifying validPostcode),
     "howWeContactYou" -> carersNonEmptyText(maxLength = 35),
-    "contactYouByTextphone" -> optional(text(maxLength = 3).verifying(validYesNo))
+    "contactYouByTextphone" -> optional(text(maxLength = 4))
   )(ContactDetails.apply)(ContactDetails.unapply))
 
   def present = claiming { implicit claim => implicit request => implicit lang =>
@@ -25,6 +26,6 @@ object G2ContactDetails extends Controller with CachedClaim with Navigable {
   def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g2_contactDetails(formWithErrors)),
-      contactDetails => claim.update(contactDetails) -> Redirect(routes.G4NationalityAndResidency.present()))
+      contactDetails =>{ Logger.info(s"ContactDetails value $contactDetails");claim.update(contactDetails) -> Redirect(routes.G4NationalityAndResidency.present())})
   }
 }
