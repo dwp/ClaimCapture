@@ -455,6 +455,21 @@ main {
 					   }
 				   }
 			   }
+
+               &.checkbox-single {
+                 padding-top: 0;
+                 margin: 0;
+                 overflow: hidden;
+                 label {
+                   float: left;
+                   font-weight: 100;
+                 }
+                 input {
+                   float: left;
+                   margin: 5px 8px 0 0;
+                   padding: 0;
+                 }
+               }
 			   
 			   &.validation {
 				   &:before {

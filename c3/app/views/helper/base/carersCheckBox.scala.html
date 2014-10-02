@@ -1,0 +1,7 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: play.api.i18n.Lang)
+
+@import utils.helpers.EmptyTemplate._
+@import views.html.helper.base._
+
+
+    <li class="checkbox-single">@carersDeclareCheck(field,args:_*)</li>
