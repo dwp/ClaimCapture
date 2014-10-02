@@ -6,7 +6,7 @@
 	<section id="help">
 		<h2>@Html(Messages("leftcol.title"))</h2>
         @if((!request.uri.startsWith("/claim-help"))) {
-            <p><a href="/claim-help" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a></p>
+            <p><a href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a></p>
         }
 		<h3>@Html(Messages("leftcol.helpline"))</h3>
 		<p>@Html(Messages("leftcol.helplinecontent.1"))</p>
