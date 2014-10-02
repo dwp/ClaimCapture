@@ -448,10 +448,10 @@ main {
 			   &.currency {
 			   	   position: relative;
 				   input[type="text"], input[type="tel"] {
-					   width: 118px!important;
+					   width: 128px!important;
 					   position: relative;
 					   @media screen and (max-width: 500px) {
-						   width: 116px;
+						   width: 126px;
 					   }
 				   }
 			   }
