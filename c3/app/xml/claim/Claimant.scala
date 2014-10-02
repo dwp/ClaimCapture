@@ -3,6 +3,8 @@ package xml.claim
 import models.domain._
 import xml.XMLHelper._
 import xml.XMLComponent
+import controllers.Mappings
+import play.api.Logger
 
 object Claimant extends XMLComponent {
   def xml(claim: Claim) = {
@@ -20,7 +22,14 @@ object Claimant extends XMLComponent {
       {postalAddressStructure("address", contactDetails.address, encrypt(contactDetails.postcode.getOrElse("").toUpperCase))}
       {question(<DayTimePhoneNumber/>,"howWeContactYou", contactDetails.howWeContactYou)}
       {question(<MaritalStatus/>, "maritalStatus", nationalityAndResidency.maritalStatus)}
-      {question(<TextPhoneContact/>,"contactYouByTextphone", contactDetails.contactYouByTextphone.getOrElse(""))}
+      {question(<TextPhoneContact/>,"contactYouByTextphone", textPhone(contactDetails))}
     </Claimant>
+  }
+
+  def textPhone(contactDetails:ContactDetails) = {
+    contactDetails.contactYouByTextphone match {
+      case Some(_) => Mappings.yes
+      case None =>    Mappings.no
+    }
   }
 }
