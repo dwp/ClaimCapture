@@ -10,7 +10,6 @@ import utils.pageobjects._
  */
 final class G2BankBuildingSocietyDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G2BankBuildingSocietyDetailsPage.url, G2BankBuildingSocietyDetailsPage.title) {
   declareInput("#accountHolderName", "HowWePayYouNameOfAccountHolder")
-  declareSelect("#whoseNameIsTheAccountIn", "WhoseNameOrNamesIsTheAccountIn")
   declareInput("#bankFullName", "HowWePayYouFullNameOfBankorBuildingSociety")
   declareSortCode("#sortCode", "HowWePayYouSortCode")
   declareInput("#accountNumber", "HowWePayYouAccountNumber")

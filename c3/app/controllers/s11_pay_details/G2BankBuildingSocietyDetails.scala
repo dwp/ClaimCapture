@@ -19,7 +19,6 @@ import models.view.CachedClaim.ClaimResult
 object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "accountHolderName" -> carersNonEmptyText(maxLength = 40),
-    "whoseNameIsTheAccountIn" -> carersNonEmptyText(maxLength = 40),
     "bankFullName" -> carersNonEmptyText(maxLength = 100),
     "sortCode" -> (sortCode verifying requiredSortCode),
     "accountNumber" -> carersNonEmptyText(minLength = 6, maxLength = 10),

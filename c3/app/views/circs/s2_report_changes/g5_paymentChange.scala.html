@@ -53,9 +53,7 @@
 	
 	            <ul class="coc-layout">
 	                @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
-	
-	                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> Messages("pleaseSelect"), YourName -> Messages("yourName"), Yourpartner -> Messages("yourPartner"), Both -> Messages("both"), PersonActingBehalf -> Messages("personActingBehalf"), YouPersonBehalf -> Messages("youPersonBehalf")))
-	
+		
 	                @carersInputText(currentForm("bankFullName"))
 	
 	                @sortCode(currentForm("sortCode"))

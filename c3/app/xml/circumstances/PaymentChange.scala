@@ -31,7 +31,6 @@ object PaymentChange {
   def account(circs:Claim) = {
     val bankBuildingSocietyDetails = circs.questionGroup[CircumstancesPaymentChange].getOrElse(CircumstancesPaymentChange())
     <AccountDetails>
-      {question(<AccountHolder/>, "whoseNameIsTheAccountIn", bankBuildingSocietyDetails.whoseNameIsTheAccountIn)}
       {question(<HolderName/>, "accountHolderName", encrypt(bankBuildingSocietyDetails.accountHolderName))}
       <BuildingSocietyDetails>
         {question(<AccountNumber/>, "accountNumber", encrypt(bankBuildingSocietyDetails.accountNumber))}

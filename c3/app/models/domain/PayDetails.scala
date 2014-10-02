@@ -14,7 +14,6 @@ object HowWePayYou extends QuestionGroup.Identifier {
 }
 
 case class BankBuildingSocietyDetails(accountHolderName: String = "",
-                                      whoseNameIsTheAccountIn: String = "",
                                       bankFullName: String = "",
                                       sortCode: SortCode = SortCode("","",""),
                                       accountNumber: String = "",
