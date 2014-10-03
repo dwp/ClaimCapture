@@ -8,7 +8,6 @@ final class G5PaymentChangePage(ctx:PageObjectsContext) extends CircumstancesPag
   declareInput("#currentlyPaidIntoBank_text1", "CircumstancesPaymentChangeNameOfCurrentBank")
   declareInput("#currentlyPaidIntoBank_text2", "CircumstancesPaymentCurrentPaymentMethod")
   declareInput("#accountHolderName", "CircumstancesPaymentChangeAccountHolderName")
-  declareSelect("#whoseNameIsTheAccountIn", "CircumstancesPaymentChangeWhoseNameIsTheAccountIn")
   declareInput("#bankFullName", "CircumstancesPaymentChangeBankFullName")
   declareSortCode("#sortCode", "CircumstancesPaymentChangeSortCode")
   declareInput("#accountNumber", "CircumstancesPaymentChangeAccountNumber")
