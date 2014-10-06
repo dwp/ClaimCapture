@@ -54,5 +54,26 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       findMustEqualValue("#firstName","John")
       findMustEqualValue("#surname", "Appleseed")
     }
+
+    "fields must not be visible if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
+
+      titleMustEqual("Details of the person you care for - About the care you provide")
+      findMustEqualSize("#careYouProvideWrap", 1)
+      browser.find("#careYouProvideWrap").getAttribute("style") shouldEqual "display: none;"
+    }
+
+    "fields must be visible if user answered no to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourPartnerPersonalDetailsPartnerPersonYouCareForNo(browser)
+
+      titleMustEqual("Details of the person you care for - About the care you provide")
+      findMustEqualSize("#careYouProvideWrap", 1)
+      browser.find("#careYouProvideWrap").getAttribute("style") shouldEqual null
+    }
+
   } section("integration", models.domain.CareYouProvide.id)
 }
