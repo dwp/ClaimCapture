@@ -1,0 +1,11 @@
+@* use this class to show and hide the main contents on a page *@
+
+@(inputDef: Seq[Html], args: (Symbol, Any)*)
+
+<li id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}">
+    <ul>
+    @for(html <- inputDef) {
+        @html
+    }
+    </ul>
+</li>

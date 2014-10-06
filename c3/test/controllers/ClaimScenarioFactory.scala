@@ -258,6 +258,9 @@ object ClaimScenarioFactory {
   def s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed() = {
     val claim = s4CareYouProvideWithNoBreaksInCare()
 
+    // Person you care for
+    claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
+
     // Education
     claim.EducationHaveYouBeenOnACourseOfEducation = "No"
 
