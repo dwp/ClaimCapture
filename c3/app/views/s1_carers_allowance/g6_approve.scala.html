@@ -94,7 +94,7 @@
             </fieldset>
             <nav class="form-steps">
                 <ul>
-                    <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button" onclick="analyticsCallback()">@Html(Messages("form.continue.step"))</button></div></li>
+                    <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button" onmousedown="analyticsCallback()">@Html(Messages("form.continue.step"))</button></div></li>
                     <li><div id="backButtonWrap"><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
