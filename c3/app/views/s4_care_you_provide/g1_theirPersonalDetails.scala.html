@@ -7,6 +7,12 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import play.api.i18n.{MMessages => Messages}
+@import models.domain.YourPartnerPersonalDetails
+@import utils.helpers.CarersCrypto
+
+@isPartnerPersonYouCareFor = @{
+    claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse("") == "yes")
+}
 
 @main(Messages("s4.g1") + " - " + Messages("s4.longName"), Some(currentForm)) {
 
@@ -20,17 +26,22 @@
 	            <ul>
                     @carersInputText(currentForm("relationship"), 'helperAbove-> Messages("relationship.helper"),'maxLength -> Mappings.thirtyfive)
 
-	                @titleSelect(currentForm("title"))
-	
-	                @carersInputText(currentForm("firstName"),'helperAbove -> Messages("their.name.helper"), 'maxLength -> 17)
-	
-	                @carersInputText(currentForm("middleName"), 'maxLength -> 17)
-	
-	                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.thirtyfive)
-	
-	                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove-> Messages("nationalInsuranceNumber.helper"), 'helperBelow-> Messages("nationalInsuranceNumber.helper2"))
-	
-	                @dateOfBirth(currentForm("dateOfBirth"))
+                    @simpleDetailPlaceHolder(
+                        inputDef = Seq(
+                            titleSelect(currentForm("title")),
+
+                            carersInputText(currentForm("firstName"),'helperAbove -> Messages("their.name.helper"), 'maxLength -> 17),
+
+                            carersInputText(currentForm("middleName"), 'maxLength -> 17),
+
+                            carersInputText(currentForm("surname"), 'maxLength -> Mappings.thirtyfive),
+
+                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove-> Messages("nationalInsuranceNumber.helper"), 'helperBelow-> Messages("nationalInsuranceNumber.helper2")),
+
+                            dateOfBirth(currentForm("dateOfBirth"))
+                        ),
+                        'id -> "careYouProvideWrap"
+                    )
 
                     @yesNoRadioGroup(currentForm("armedForcesPayment"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
 
@@ -46,9 +57,18 @@
 	        </nav>
         </div>
     }
+
 <script type="text/javascript">
     $(function(){
         @ga.stagePrompt()
     })
+    $(function(){
+        window.showOrHideCareYouProvideDetails({
+            showOrHideDetails:@isPartnerPersonYouCareFor
+        });
+    })
 </script>
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g1_theirPersonalDetails.js")'></script>
+
 }

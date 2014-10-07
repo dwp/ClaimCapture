@@ -17,6 +17,6 @@
 }
 
 <li class="c-help">
-    <div class="helper-more" data-initial="@label" data-close="@closeLabel" onclick="if($(this).text().trim() === '@label'){ @addTracking(label) } else { @addTracking(closeLabel) }"> @label </div>
+    <div class="helper-more" data-initial="@label" data-close="@closeLabel" onmousedown="if($(this).text().trim() === '@label'){ @addTracking(label) } else { @addTracking(closeLabel) }"> @label </div>
     <div class="helper-info"> <p>@content </p></div>
 </li>
