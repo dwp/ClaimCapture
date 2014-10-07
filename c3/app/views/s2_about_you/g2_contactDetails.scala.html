@@ -31,7 +31,7 @@
 	        	<ul>
                     @carersInputText(contactDetailsForm("howWeContactYou"),'maxLength -> 35,'helperAbove -> Messages("furtherInfoContact.helper"))
 
-	                @yesNoRadioGroup(contactDetailsForm("contactYouByTextphone"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
+	                @carersCheckBox(contactDetailsForm("contactYouByTextphone"))
 				</ul>
 	        </fieldset>
 	        

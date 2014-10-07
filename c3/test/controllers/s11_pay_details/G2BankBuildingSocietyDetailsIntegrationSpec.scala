@@ -22,7 +22,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Bank/Building society details - Pay details")
       browser.submit("button[type='submit']")
 
-      findMustEqualSize("div[class=validation-summary] ol li", 6)
+      findMustEqualSize("div[class=validation-summary] ol li", 5)
     }
 
     "navigate back to Pay details - Pay Details" in new WithBrowser with BrowserMatchers {

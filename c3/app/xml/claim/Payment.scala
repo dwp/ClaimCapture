@@ -30,7 +30,6 @@ object Payment extends XMLComponent {
     val bankBuildingSocietyDetails = claim.questionGroup[BankBuildingSocietyDetails].getOrElse(BankBuildingSocietyDetails())
 
     <Account>
-      {question(<AccountHolder/>, "whoseNameIsTheAccountIn", bankBuildingSocietyDetails.whoseNameIsTheAccountIn)}
       {question(<HolderName/>, "accountHolderName", encrypt(bankBuildingSocietyDetails.accountHolderName))}
       <BuildingSocietyDetails>
         {question(<AccountNumber/>, "accountNumber", encrypt(bankBuildingSocietyDetails.accountNumber))}

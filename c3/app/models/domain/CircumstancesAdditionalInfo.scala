@@ -51,7 +51,6 @@ object CircumstancesOtherInfo extends QuestionGroup.Identifier {
 case class CircumstancesPaymentChange(
   currentlyPaidIntoBank: YesNoWith2Text = YesNoWith2Text("", None, None),
   accountHolderName: String = "",
-  whoseNameIsTheAccountIn: String = "",
   bankFullName: String = "",
   sortCode: SortCode = SortCode("","",""),
   accountNumber: String = "",

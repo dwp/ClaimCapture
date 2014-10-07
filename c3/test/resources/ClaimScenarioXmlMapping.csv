@@ -134,7 +134,6 @@ Other Money,Other EEA State or Switzerland,"Do you or anyone in your family work
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,Payment>InitialAccountQuestion>Answer
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Payment>PaymentFrequency>Answer
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Payment>Account>HolderName>Answer
-How we pay you,Bank/Building society details,Whose name or names is the account in?,WhoseNameOrNamesIsTheAccountIn,Payment>Account>AccountHolder>Answer
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,Payment>Account>BuildingSocietyDetails>Name>Answer
 How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,Payment>Account>BuildingSocietyDetails>SortCode>Answer
 How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,Payment>Account>BuildingSocietyDetails>AccountNumber>Answer

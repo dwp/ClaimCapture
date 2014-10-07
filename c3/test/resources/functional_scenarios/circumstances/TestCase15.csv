@@ -8,7 +8,6 @@ Existing payment details - Change in circumstances,Existing payment details,Are 
 Existing payment details - Change in circumstances,Existing payment details,Name of current bank or building society,CircumstancesPaymentChangeNameOfCurrentBank,Nat West
 Existing payment details - Change in circumstances,Existing payment details,Confirm your method of payment,CircumstancesPaymentCurrentPaymentMethod,
 Existing payment details - Change in circumstances,New payment details,New payment details,CircumstancesPaymentChangeAccountHolderName,Mr John Roger Smith
-Existing payment details - Change in circumstances,New payment details,Whose name or names is the account in?,CircumstancesPaymentChangeWhoseNameIsTheAccountIn,yourName
 Existing payment details - Change in circumstances,New payment details,Full name of bank or building society,CircumstancesPaymentChangeBankFullName,HSBC
 Existing payment details - Change in circumstances,New payment details,Sort code,CircumstancesPaymentChangeSortCode,112233
 Existing payment details - Change in circumstances,New payment details,Account number,CircumstancesPaymentChangeAccountNumber,12345678
