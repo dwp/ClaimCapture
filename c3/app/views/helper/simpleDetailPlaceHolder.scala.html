@@ -2,7 +2,7 @@
 
 @(inputDef: Seq[Html], args: (Symbol, Any)*)
 
-<li id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}">
+<li id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}" class="extra-detail">
     <ul>
     @for(html <- inputDef) {
         @html
