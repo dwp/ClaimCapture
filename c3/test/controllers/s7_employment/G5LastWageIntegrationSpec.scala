@@ -13,30 +13,6 @@ class G5LastWageIntegrationSpec extends Specification with Tags {
       page goToThePage()
     }
 
-    "contain the completed form" in new WithBrowser with PageObjects{
-      val jobDetailsPage = G3JobDetailsPage(context)
-      jobDetailsPage goToThePage()
-      val claim = ClaimScenarioFactory s7Employment()
-      jobDetailsPage fillPageWith claim
-      val lastWagePage = jobDetailsPage submitPage()
-      lastWagePage fillPageWith claim
-
-      lastWagePage submitPage() match {
-        case p: G8PensionAndExpensesPage => p numberSectionsCompleted()  mustEqual 2
-        case _ => ko("Next Page is not of the right type.")
-      }
-    }
-
-    "contain the completed form when 'have finished job is 'yes'" in new WithBrowser with PageObjects{
-      val jobDetailsPage = G3JobDetailsPage(context)
-      jobDetailsPage goToThePage()
-      val claim = ClaimScenarioFactory s7Employment()
-      jobDetailsPage fillPageWith claim
-      val lastWagePage = jobDetailsPage submitPage()
-      lastWagePage fillPageWith claim
-      lastWagePage.readYesNo("#employerOwesYouMoney") mustEqual Some("yes")
-    }
-
     "employer owes you money is not visible when 'have finished job is 'no'" in new WithBrowser with PageObjects{
       val jobDetailsPage = G3JobDetailsPage(context)
       jobDetailsPage goToThePage()
@@ -46,7 +22,7 @@ class G5LastWageIntegrationSpec extends Specification with Tags {
       context.browser.find("#employerOwesYouMoney").size() mustEqual 0
     }
 
-    "be able to navigate back to a completed form" in new WithBrowser  with PageObjects{
+    "be able to navigate back" in new WithBrowser  with PageObjects{
 			val page =  G3JobDetailsPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()

@@ -35,10 +35,6 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       titleMustEqual(G1YourPartnerPersonalDetailsPage.title)
     }
 
-    "contain the completed forms" in new WithBrowser {
-      Formulate.theirPersonalDetails(browser)
-      browser.find("div[class=completed] ul li").size() mustEqual 1
-    }
     
     "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)

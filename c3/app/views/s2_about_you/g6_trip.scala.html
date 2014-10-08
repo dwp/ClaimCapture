@@ -11,7 +11,7 @@
 @import play.api.i18n.{MMessages => Messages}
 
 
-@main(Messages("s2.g6") + " - " + Messages("s2.longName")) {
+@main(Messages("s2.g6") + " - " + Messages("s2.longName"),Some(backCall)) {
 @errorsSummary(tripForm)
 
     @form(action = actionCall) {
@@ -37,7 +37,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href='@backCall'>@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
    

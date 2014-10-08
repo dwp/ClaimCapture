@@ -29,13 +29,9 @@ class G2DisclaimerIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
       Formulate.employment(browser)
       Formulate.additionalInfo(browser)
-      browser.click(".form-steps a")
+      browser.click("#backButton")
       titleMustEqual("Additional information - Information")
     }
 
-    "contain the completed forms" in new WithBrowser with BrowserMatchers {
-      Formulate.disclaimer(browser)
-      findMustEqualSize("div[class=completed] ul li", 1)
-    }
   } section("integration", models.domain.ConsentAndDeclaration.id)
 }

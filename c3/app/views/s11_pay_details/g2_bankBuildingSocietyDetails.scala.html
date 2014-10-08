@@ -13,7 +13,7 @@
 @import play.api.i18n.{MMessages => Messages}
 @import play.api.i18n.Lang
 
-@main(Messages("s10.g2") + " - " + Messages("s10.longName"), Some(currentForm), claim.completedQuestionGroups(BankBuildingSocietyDetails)) {
+@main(Messages("s10.g2") + " - " + Messages("s10.longName"), Some(currentForm)) {
 
     
     @form(action = controllers.s11_pay_details.routes.G2BankBuildingSocietyDetails.submit) {
@@ -39,7 +39,6 @@
 	        <nav class="form-steps">
 	            <ul>
 					<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
-					<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>

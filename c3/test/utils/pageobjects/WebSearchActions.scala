@@ -130,16 +130,6 @@ trait WebSearchActions {
     completed.contains(name) && completed.contains(value)
   }
 
-  def hasSectionsBeenCompleted(location: String = "div[class=completed] ul li") = this hasListOfElements location
-
-  def numberSectionsCompleted(location: String = "div[class=completed] ul li") = this sizeLitOfElements location
-
-  /**
-   * Provides the list of completed sections displayed in a page. If there is no completed section then returns an empty list.
-   * @return The list of completed sections.
-   */
-  def listCompletedForms = findTarget("div[class=completed] ul li")
-
   // Table
   def hasTableEntriesChangeable(location: String = "input[value='Change']") = this hasListOfElements location
 

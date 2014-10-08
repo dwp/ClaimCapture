@@ -28,7 +28,7 @@ else if (SelfEmployment.visible) SelfEmployment.name
 else OtherMoney.name
 }
 
-@main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(yesNoForm), claim.completedQuestionGroups(BreaksInCare)) {
+@main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(yesNoForm)) {
     <fieldset id="breaks" class="form-elements results-detail">
         <legend>@Html(Messages("breaksAlreadyAdded"))</legend>
 
@@ -123,7 +123,6 @@ else OtherMoney.name
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>

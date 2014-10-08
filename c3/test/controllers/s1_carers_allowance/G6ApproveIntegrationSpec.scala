@@ -76,39 +76,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       page runClaimWith (claim, G1ClaimDatePage.title)
     }
 
-    "contain the completed forms" in new WithBrowser with PageObjects{pending
-			val page =  G1BenefitsPage(context)
-      val claim = new TestData
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
-      claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
-      claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "no"
-      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
-      page goToThePage()
-      page fillPageWith claim
-      val s1g2 = page submitPage()
-      
-      s1g2 fillPageWith claim
-      val s1g3 = s1g2 submitPage()
-      
-      s1g3 fillPageWith claim
-      val s1g4 = s1g3 submitPage()
-      
-      s1g4 fillPageWith claim
-      val s1g5 = s1g4 submitPage()
 
-      s1g5 match {
-        case p: G6ApprovePage => {
-          p numberSectionsCompleted() mustEqual 4
 
-          val completed = p.listCompletedForms
-
-          completed(0) must contain("No")
-          completed(1) must contain("Yes")
-          completed(2) must contain("No")
-          completed(3) must contain("Yes")
-        }
-        case _ => ko("Next Page is not of the right type.")
-      }
-    }
   } section("integration", models.domain.CarersAllowance.id)
 }

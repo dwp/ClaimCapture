@@ -26,7 +26,7 @@ class G3DeclarationIntegrationSpec extends Specification with Tags {
       Formulate.disclaimer(browser)
       titleMustEqual("Declaration - Consent and Declaration")
 
-      browser.click(".form-steps a")
+      browser.click("#backButton")
       titleMustEqual("Disclaimer - Consent and Declaration")
     }
 
