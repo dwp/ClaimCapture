@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request:play.api.mvc.Request[AnyContent])
+@(title: String, currentForm: Option[Form[_]] = None,changing:Boolean=false)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request:play.api.mvc.Request[AnyContent])
 
 @import helper._
 @import play.api.i18n.{MMessages => Messages}
@@ -14,7 +14,7 @@
     <article>
 
         <nav class="back-nav">
-            <a id="backButton" href="@claim.navigation.previous@{if (claim.navigation.previous.uri.endsWith("?changing=true")) "" else "?changing=true"}">@Html(Messages("form.back"))</a>
+            <a id="backButton" href="@claim.navigation.previous@{if (changing)"?changing=true"}">@Html(Messages("form.back"))</a>
         </nav>
 
         <h1>@Html(Messages("c2c.longName"))</h1>

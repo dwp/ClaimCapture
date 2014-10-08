@@ -9,7 +9,7 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 @import play.api.i18n.{MMessages => Messages}
-@main(Messages("s1.g2") + " - " + Messages("s1.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Hours)) {
+@main(Messages("s1.g2") + " - " + Messages("s1.longName"), Some(currentForm),changing = true) {
 
 
     @form(action = controllers.s1_carers_allowance.routes.G2Hours.submit) {
