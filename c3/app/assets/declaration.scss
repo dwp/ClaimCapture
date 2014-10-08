@@ -35,30 +35,32 @@
 		   }
 		   label {
 			   display: block;
-			   padding: 1.2em 1em 1.2em 2.3em;
-			   background: #fff;
+			   padding: 16px 16px 16px 40px;
+			   background: #eee;
 			   font-size: 19px;
 			   line-height: 1.25em;
 			   cursor: pointer;
-			   border: 1px solid #ddd;
+			   border: 3px solid #eee;
 		   }
 		   input {
 			   position: absolute;
-			   top: 24px;
-			   left: 1.1em;
+			   top: 20px;
+			   left: 14px;
+			   &[type=checkbox]:hover + label {
+				   background: #ccc;
+				   border: 3px solid #ccc;
+			   }
 			   &[type=checkbox]:checked + label {
 				   background: #fff;
-				   -webkit-transition: all 10ms ease-in;
-				   -moz-transition: all 10ms ease-in;
-				   -ms-transition: all 10ms ease-in;
-				   -o-transition: all 10ms ease-in;
-				   transition: all 10ms ease-in;
-				   border: 1px solid #111;
+				   border: 3px solid #000;
 			   }
+
 		   }
 		   &.dec-validation {
-			   border: 1px solid #df3034!important;
-			   background: #fef7f7;
+			   label {
+				   border: 3px solid #df3034;
+				   background: #fef7f7;
+				}
 		   }
 		   &.secondary {
 			   margin-top: 1em;
