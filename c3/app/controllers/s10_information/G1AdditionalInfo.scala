@@ -33,6 +33,6 @@ object G1AdditionalInfo extends Controller with CachedClaim with Navigable {
   def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s10_information.g1_additionalInfo(formWithErrors)),
-      additionalInfo => claim.update(additionalInfo) -> Redirect(controllers.s12_consent_and_declaration.routes.G2Disclaimer.present()))
+      additionalInfo => claim.update(additionalInfo) -> Redirect(controllers.preview.routes.Preview.present()))
   }
 }
