@@ -9,7 +9,7 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 @import play.api.i18n.{MMessages => Messages}
-@main(Messages("s1.g3") + " - " + Messages("s1.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Over16)) {
+@main(Messages("s1.g3") + " - " + Messages("s1.longName"), Some(currentForm)) {
 
 
     @form(action = controllers.s1_carers_allowance.routes.G3Over16.submit) {
@@ -30,7 +30,6 @@
 	        <nav class="form-steps">
 	        	<ul>
 	           		<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	           		<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	        	</ul>
 	        </nav>
     }

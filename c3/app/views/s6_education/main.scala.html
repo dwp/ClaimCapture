@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(title: String, currentForm: Option[Form[_]] = None)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import helper._
 @import models.domain.Education
@@ -14,22 +14,12 @@
         @progressBar(Education)
         
         <article>
+            <nav class="back-nav">
+                <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
+            </nav>
 
             @sectionTitle(Education)
             <h1>@Html(Messages("s6.longName"))</h1>
-
-            @if(completedQuestionGroups.size > 0) {
-                <div class="completed">
-                    <ul aria-label="@Html(Messages("completedQuestions"))">
-                        @for(completedQuestionGroup <- completedQuestionGroups) {
-                            <li>
-                                <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Html(Messages("change.these.help"))">@Html(Messages("change.these"))</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            }
 
             @if(currentForm.isDefined){
                 @errorsSummary(currentForm.get)

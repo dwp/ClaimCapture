@@ -44,24 +44,6 @@ class G2HoursIntegrationSpec extends Specification with Tags {
 
       nextPage must beAnInstanceOf[G3Over16Page]
     }
-    
-    "contain the completed forms" in new WithBrowser with PageObjects{
-			val page =  G1BenefitsPage(context)
-      val claim = new TestData
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
-      page goToThePage()
-      page fillPageWith claim
 
-      val nextPage = page submitPage() 
-
-      nextPage match {
-        case p: G2HoursPage => {
-          p numberSectionsCompleted() mustEqual 1
-          val completed = p.listCompletedForms
-          completed(0) must contain("Yes")
-        }
-        case _ => ko("Next Page is not of the right type.")
-      }
-    }
   } section("integration", models.domain.CarersAllowance.id)
 }

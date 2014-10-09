@@ -5,7 +5,7 @@
 @import views.html.helper._
 @import play.api.i18n.{MMessages => Messages}
 
-@main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Disclaimer)) {
+@main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm)) {
 
 
     @form(action = controllers.s12_consent_and_declaration.routes.G2Disclaimer.submit) {
@@ -32,7 +32,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>

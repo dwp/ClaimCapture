@@ -10,7 +10,7 @@
 @import models.domain.AboutOtherMoney
 @import utils.helpers.CarersTemplate._
 
-@main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Declaration)) {
+@main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm)) {
 
     @form(action = controllers.s12_consent_and_declaration.routes.G3Declaration.submit) {
         @DwpCSRFFormHelper.formField
@@ -74,7 +74,6 @@
         <nav class="form-steps">
             <ul>
             	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(true)>@Html(Messages("form.submitClaim"))</button></li>
-            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
             </ul>
         </nav>
     }

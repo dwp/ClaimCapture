@@ -1,7 +1,7 @@
 @()(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import play.api.i18n.{MMessages => Messages}
-@main(Messages("tryChangeAgain")) {
+@main(Messages("tryChangeAgain"),None,false) {
     <div id="wrapper" class="carers-allowance">
         <div class="carers-container">
             <section class="error-statement">

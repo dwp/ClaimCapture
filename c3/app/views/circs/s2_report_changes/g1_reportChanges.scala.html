@@ -19,7 +19,7 @@
   else SelfEmployment.name -> Messages("reportChanges.selfEmployed")
 }
 
-@main(Messages("c2.g1") + " - " + Messages("c2.name")) {
+@main(Messages("c2.g1") + " - " + Messages("c2.name"),changing=true) {
     @errorsSummary(reportChangesForm)
 
     @form(action = controllers.circs.s2_report_changes.routes.G1ReportChanges.submit) {
@@ -44,7 +44,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@{claim.navigation.previous}@{if (claim.navigation.previous.uri.endsWith("?changing=true")) "" else "?changing=true"}">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>

@@ -32,12 +32,16 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
     val currentForm = if (isPartnerPersonYouCareFor) {
       claim.questionGroup(YourPartnerPersonalDetails) match {
         case Some(t: YourPartnerPersonalDetails) =>
-          form.fill(TheirPersonalDetails(title = t.title.getOrElse(""),
+          val theirPersonalDetails =  claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
+          form.fill(TheirPersonalDetails( relationship = theirPersonalDetails.relationship,
+                                          title = t.title.getOrElse(""),
                                          firstName = t.firstName.getOrElse(""),
                                          middleName = t.middleName,
                                          surname = t.surname.getOrElse(""),
                                          nationalInsuranceNumber = t.nationalInsuranceNumber,
-                                         dateOfBirth = t.dateOfBirth.getOrElse(DayMonthYear(None,None,None)))) // Pre-populate form with values from YourPartnerPersonalDetails
+                                         dateOfBirth = t.dateOfBirth.getOrElse(DayMonthYear(None,None,None)),
+                                         armedForcesPayment = theirPersonalDetails.armedForcesPayment,
+                                         liveAtSameAddressCareYouProvide = theirPersonalDetails.liveAtSameAddressCareYouProvide)) // Pre-populate form with values from YourPartnerPersonalDetails
         case _ => form // Blank form (user can only get here if they skip sections by manually typing URL).
       }
     } else {

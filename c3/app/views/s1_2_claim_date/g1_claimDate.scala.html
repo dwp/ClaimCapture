@@ -7,7 +7,7 @@
 @import scala.language.postfixOps
 @import play.api.i18n.{MMessages => Messages}
 
-@main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
+@main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName")) {
 
 	<p class="intro-info">@Html(Messages("dateOfClaimHelp")) <a href="/claim-help#1" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date")>@Html(Messages("dateOfClaimHelp.link"))</a></p>
 	
@@ -24,7 +24,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>

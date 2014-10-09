@@ -12,7 +12,7 @@
 @import models.domain.NationalityAndResidency
 @import app.MaritalStatus._
 
-@main(Messages("s2.g4") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.NationalityAndResidency)) {
+@main(Messages("s2.g4") + " - " + Messages("s2.longName")) {
     @errorsSummary(nationalityAndResidencyForm)
 
 
@@ -57,7 +57,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
     }

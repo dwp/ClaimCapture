@@ -62,25 +62,6 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G4NationalityAndResidencyPage]
     }
 
-    "contain 1 completed form" in new WithBrowser with PageObjects{
-      val claimDatePage = G1ClaimDatePage(context)
-      claimDatePage goToThePage()
-      val claimDate = ClaimScenarioFactory.s12ClaimDate()
-      claimDatePage fillPageWith claimDate
-
-      val aboutYouPage =  claimDatePage submitPage()
-
-      val claim = ClaimScenarioFactory yourDetailsWithNotTimeOutside()
-      aboutYouPage goToThePage()
-      aboutYouPage fillPageWith claim
-      aboutYouPage submitPage() match {
-        case p: G2ContactDetailsPage =>  {
-          p numberSectionsCompleted()  mustEqual 1
-          p fillPageWith claim
-        }
-        case _ => ko("Next Page is not of the right type.")
-      }
-    }
     
     "navigate to next page on valid submission" in new WithBrowser with PageObjects{
 			val page =  G2ContactDetailsPage(context)
@@ -93,7 +74,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G4NationalityAndResidencyPage]
     }
 
-    "be able to navigate back to a completed form" in new WithBrowser  with PageObjects{
+    "be able to navigate back " in new WithBrowser  with PageObjects{
       val claimDatePage = G1ClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()

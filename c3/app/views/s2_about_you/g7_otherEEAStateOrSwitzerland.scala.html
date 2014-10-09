@@ -5,7 +5,7 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
 
-@main(Messages("s2.g7") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)) {
+@main(Messages("s2.g7") + " - " + Messages("s2.longName")) {
 
     @form(action = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.submit) {
 
@@ -31,7 +31,6 @@
 	        <nav class="form-steps">
 	        	<ul>
 			   		<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-			   		<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	        	</ul>
 	        </nav>
 

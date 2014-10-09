@@ -33,7 +33,7 @@
     completedQuestionGroups.length == 4 && completedQuestionGroups.forall(_.asInstanceOf[Boolean])
 }
 
-@main("Can you get Carer's Allowance?", None, claim.completedQuestionGroups(models.domain.CarersAllowance)) {
+@main("Can you get Carer's Allowance?", None) {
     @if(approved) {
         <section class="prompt e-prompt">
             <h2>@Html(Messages("s1.g6.green.help1"))</h2>
@@ -80,7 +80,6 @@
             <nav class="form-steps">
                 <ul>
                     <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Elibigility - Yes - Continue")>@Html(Messages("form.continue.step"))</button></li>
-                    <li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
         } else {
@@ -95,7 +94,6 @@
             <nav class="form-steps">
                 <ul>
                     <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button" onmousedown="analyticsCallback()">@Html(Messages("form.continue.step"))</button></div></li>
-                    <li><div id="backButtonWrap"><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
         }
