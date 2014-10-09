@@ -299,6 +299,11 @@ main {
 			   margin-top: 18px;
 			   padding: .8em 0;
 			   position: relative;
+			   
+			   &.extra-detail {
+				   padding: 0;
+				   margin-bottom: -.8em;
+			   }
 
 			   
 			   &.other-detail {
