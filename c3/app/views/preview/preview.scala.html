@@ -4,6 +4,7 @@
 @import views.html.helper.base._
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 
 @common.govMain(Messages("preview.title")) {
 
@@ -37,7 +38,7 @@
             </section>
 
             @helper.form(action = controllers.preview.routes.Preview.submit) {
-
+                @DwpCSRFFormHelper.formField
                 <fieldset class="form-elements">
                     <ul>
                         @carersInputText(previewForm("email"))
