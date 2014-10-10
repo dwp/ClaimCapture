@@ -299,6 +299,11 @@ main {
 			   margin-top: 18px;
 			   padding: .8em 0;
 			   position: relative;
+			   
+			   &.extra-detail {
+				   padding: 0;
+				   margin-bottom: -.8em;
+			   }
 
 			   
 			   &.other-detail {
@@ -448,10 +453,10 @@ main {
 			   &.currency {
 			   	   position: relative;
 				   input[type="text"], input[type="tel"] {
-					   width: 128px!important;
+					   width: 154px!important;
 					   position: relative;
 					   @media screen and (max-width: 500px) {
-						   width: 126px;
+						   width: 152px;
 					   }
 				   }
 			   }
