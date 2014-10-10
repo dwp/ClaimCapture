@@ -50,7 +50,7 @@
 
 @common.govMain(Messages("circs.thankyou")) {
 
-    <div class="carers-allowance clearfix">
+    <div class="carers-allowance clearfix" data-journey="carers-allowance:report-change:thank-you">
 
         @common.protoType()
 
@@ -134,3 +134,8 @@
         }
     </div>
 }
+<script type="text/javascript">
+    $(function(){
+        @ga.stagePrompt()
+    })
+</script>

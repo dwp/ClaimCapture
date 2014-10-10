@@ -14,7 +14,7 @@
     @form(action = controllers.circs.s2_report_changes.routes.G3PermanentlyStoppedCaring.submit) {
         @DwpCSRFFormHelper.formField
         <div class="form-wrap">
-	        <fieldset class="form-elements">
+	        <fieldset class="form-elements"  data-journey="carers-allowance:report-change:stop-caring">
 	            <legend>@Html(Messages("c2.g3"))</legend>
 	            <ul class="coc-layout">
 	                @inputDayMonthYear(stoppedCaringForm("stoppedCaringDate"),  'helperAbove-> Messages("stoppedCaringDate.helper"))
@@ -33,7 +33,8 @@
 
 <script type="text/javascript">
     $(function(){
-    window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+        @ga.stagePrompt()
     })
 </script>
 }
