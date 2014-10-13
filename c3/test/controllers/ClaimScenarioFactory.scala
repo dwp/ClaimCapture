@@ -247,10 +247,50 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s4CareYouProvideWithNoPersonalDetails() = {
+    val claim = new TestData
+    // Their Personal Details
+    claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
+    // Their Contact Details
+    claim.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street&Line 2"
+    claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"
+    claim.AboutTheCareYouProvidePhoneNumberPersonYouCare = "07922 222 222"
+    // More About The Person
+    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
+    claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
+    claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
+    // More About The Care
+    claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
+    claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "Yes"
+    claim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson = "03/04/2013"
+    claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
+
+    // Breaks in care
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "Home"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "Hospital"
+    claim.AboutTheCareYouProvideBreakStartDate_1 = "12/12/2006"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "no"
+
+    claim
+  }
+
   def s4CareYouProvideWithNoBreaksInCare() = {
     val claim = s4CareYouProvide()
 
     claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+
+    claim
+  }
+
+  def s4CareYouProvideWithBreaksInCare() = {
+    val claim = s4CareYouProvide()
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "Home"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "Hospital"
+    claim.AboutTheCareYouProvideBreakStartDate_1 = "12/12/2006"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "no"
 
     claim
   }
