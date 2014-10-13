@@ -26,12 +26,12 @@
 @trips = @{claim.questionGroup[Trips].getOrElse(Trips())}
 @maritalStatus = @{
 nationalityAndResidency.maritalStatus match {
-        case Some(ms) if (ms == Married) => Messages("maritalStatus.married")
-        case Some(ms) if (ms == Single) => Messages("maritalStatus.single")
-        case Some(ms) if (ms == Divorced) => Messages("maritalStatus.divorced")
-        case Some(ms) if (ms == Widowed) => Messages("maritalStatus.widowed")
-        case Some(ms) if (ms == Separated) => Messages("maritalStatus.separated")
-        case Some(ms) if (ms == Partner) => Messages("maritalStatus.livingWithPartner")
+        case Some(Married) => Messages("maritalStatus.married")
+        case Some(Single) => Messages("maritalStatus.single")
+        case Some(Divorced) => Messages("maritalStatus.divorced")
+        case Some(Widowed) => Messages("maritalStatus.widowed")
+        case Some(Separated) => Messages("maritalStatus.separated")
+        case Some(Partner) => Messages("maritalStatus.livingWithPartner")
         case _ => ""
     }
 }
@@ -43,7 +43,7 @@ nationalityAndResidency.maritalStatus match {
     <dt>@Html(Messages("dateOfBirth"))</dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
     <dt>@Html(Messages("address"))</dt><dd>@address.lineOne@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @contactDetails.postcode.getOrElse("")</dd>
     <dt>@Html(Messages("howWeContactYou"))</dt><dd>@contactDetails.howWeContactYou</dd>
-    @if(!maritalStatus.isEmpty){
+    @if(!nationalityAndResidency.maritalStatus.isEmpty){
         <dt>@Html(Messages("maritalStatusNQ"))</dt><dd>@{maritalStatus}</dd>
     }
     <dt>@Html(Messages("dateOfClaim.simple"))</dt><dd>@{claimDate.dateOfClaim.`dd month, yyyy`}</dd>
