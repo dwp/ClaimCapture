@@ -45,9 +45,6 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val source = page.source()
 
       source.contains("About the person you care for") must beTrue
-      source.contains("Mr Tom Potter Wilson") must beFalse
-      source.contains("AA 12 34 56 A") must beFalse
-      source.contains("02 March, 1990") must beFalse
       source.contains("123 Colne Street, Line 2 BB9 2AD") must beTrue
       source.contains("Father") must beTrue
       source.contains("Yes- Details provided for 1 break(s)") must beTrue

@@ -7,7 +7,7 @@
 
 <h2>@Html(Messages("s6.progressbar.name"))</h2>
 <dl>
-    <dt>@Html(Messages("beenInEducationSinceClaimDate"))</dt><dd>@{Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate)}</dd>
+    <dt>@Html(Messages("beenInEducationSinceClaimDate"))</dt><dd>@{Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase)}</dd>
         @if(yourCourseDetails.beenInEducationSinceClaimDate == "yes"){
             <dt>@Html(Messages("courseTitle"))</dt><dd>@{yourCourseDetails.title}</dd>
             <dt>@Html(Messages("nameOfSchoolCollegeOrUniversity"))</dt><dd>@{yourCourseDetails.nameOfSchoolCollegeOrUniversity}</dd>
