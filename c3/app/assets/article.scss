@@ -45,6 +45,29 @@
 
 	}
 	
+	&.no-employment {
+		   	   float: right;
+		   	   width: 68%;
+		   	   clear: both;
+		   	   margin-top: 2em;
+		   	   
+		   	   li, p {
+			   	   font-size: 19px;
+		   	   }
+		   	   
+		   	   li {
+			   	   list-style: disc;
+			   	   margin-left: 1.2em;
+		   	   }
+		   	   
+		   	    @media screen and (max-width: 700px) {
+				   float: none;
+				   width: auto;
+				   padding-top: 2em;
+				   margin-top: 2em;
+			   }
+	   	   }
+	
 	
 }
 
@@ -58,8 +81,6 @@ article {
 	   @media screen and (max-width: 700px) {
 		   float: none;
 		   width: auto;
-	   }
-	   @media screen and (max-width: 700px) {
 		   padding-top: 1.8em;
 	   }
 	   
@@ -90,12 +111,13 @@ article {
 			   	   }
 		   	   }
 		   	   li {
-			   	   font-size: 17px;
+			   	   font-size: 19px;
 			   	   margin-top: .7em!important;
 		   	   }
 		   	   p {
-		   	   	   font-size: 17px;
-			   	   margin-top: .5em;
+		   	   	   font-size: 19px;
+			   	   margin-top: 1em;
+			   	   margin-bottom: 0;
 		   	   }
 		   	   
 	   	   }
@@ -133,6 +155,8 @@ article {
 	   	   .send-info {
 		   	   margin: 2em 0 0 0;
 	   	   }
+	   	   
+	   	  
 	   	   
    	   }
    	   
