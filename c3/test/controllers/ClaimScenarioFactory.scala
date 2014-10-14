@@ -502,7 +502,7 @@ object ClaimScenarioFactory {
     claim.OtherMoneySSPEmployerName = "Burger King"
     // G1 Other Statutory Pay
     claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
-    claim.OtherMoneySMPHowMuch = "123"
+    claim.OtherMOneySMPHowMuch = "123"
     claim.OtherMoneySMPEmployerName = "Employers Name"
 
     claim
