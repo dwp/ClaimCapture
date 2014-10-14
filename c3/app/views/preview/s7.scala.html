@@ -5,6 +5,7 @@
 
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @emp = @{claim.questionGroup[Employment].getOrElse(Employment())}
+@aboutSelfEmployment = @{claim.questionGroup[AboutSelfEmployment].getOrElse(AboutSelfEmployment())}
 @jobs = @{claim.questionGroup[Jobs]}
 @sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}
 @oneWeekBeforeDate(date:DayMonthYear) = @{date - 1 weeks}
@@ -48,7 +49,7 @@
     text
 }
 
-<h2>@Html(Messages("s7.progressbar.name"))</h2>
+<h2>@Html(Messages("employment.title"))</h2>
 <dl>
     <dt> @{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</dt>
     <dd>@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}</dd>
@@ -64,4 +65,5 @@
     }
     <dt>@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</dt>
     <dd>@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}</dd>
+    <dt>@{Messages("natureOfYourBusiness")}</dt><dd>@{aboutSelfEmployment.natureOfYourBusiness}</dd>
 </dl>
