@@ -8,7 +8,7 @@
 }
 @if(yourPartner.hadPartnerSinceClaimDate.toLowerCase == "yes"){
 
-    <h2>@Html(Messages("partnerSpouse"))</h2>
+    <h2>@Html(Messages("s3.longName"))</h2>
     <dl>
         <dt>@Html(Messages("name"))</dt><dd>@{Messages("titleSelect."+yourPartner.title.get.toLowerCase)} @yourPartner.firstName @yourPartner.middleName @yourPartner.surname</dd>
 

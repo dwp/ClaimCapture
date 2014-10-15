@@ -18,7 +18,7 @@ class PreviewPagePartnerContentSpec extends Specification with Tags {
       page goToThePage()
       val source = page.source()
 
-      source.contains("About your partner/spouse") must beTrue
+      source.contains("About your partner") must beTrue
       source.contains("Name") must beTrue
       source.contains("Mrs Cloe Scott Smith") must beTrue
       source.contains("National Insurance number") must beTrue
