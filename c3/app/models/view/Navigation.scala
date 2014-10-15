@@ -1,17 +1,28 @@
 package models.view
 
+import play.api.Logger
 import play.api.mvc.{Request, Result, AnyContent}
-import models.domain.Claim
+import models.domain.{PreviewModel, Claim}
 import scala.reflect.ClassTag
 import models.view.CachedClaim.ClaimResult
 
 trait Navigable {
   this: CachedClaim =>
 
-  def track[T](t: T)(f: => Claim => Result)(implicit claim: Claim, request: Request[AnyContent], classTag: ClassTag[T]): ClaimResult = {
-    val updatedNavigation = claim.navigation.track(t)(request.uri)
+  def resetPreviewState(f: => Claim => Result)(implicit claim: Claim):ClaimResult = {
+
+    val updatedNavigation = claim.navigation.resetPreviewState()
+    val updatedClaim = claim.copy(claim.key, claim.sections)(updatedNavigation)
+    updatedClaim -> f(updatedClaim)
+  }
+
+  def track[T](t: T,beenInPreview:Boolean=false)(f: => Claim => Result)(implicit claim: Claim, request: Request[AnyContent], classTag: ClassTag[T]): ClaimResult = {
+
+
+    val updatedNavigation = claim.navigation.track(t,beenInPreview )(request.uri)
     val updatedClaim = claim.copy(claim.key, claim.sections)(updatedNavigation)
 
+    Logger.info("Navigation object:"+claim.navigation)
     updatedClaim -> f(updatedClaim)
   }
 
@@ -25,14 +36,28 @@ trait Navigable {
   }
 }
 
-case class Navigation(routes: List[Route[_]] = List()) {
-  def track[T](t: T)(route: String)(implicit classTag: ClassTag[T]): Navigation = copy(routes.takeWhile(_.uri != route) :+ Route[T](route))
+case class Navigation(routes: List[Route[_]] = List(), beenInPreview:Boolean = false) {
+
+
+  def resetPreviewState():Navigation = copy(beenInPreview = false)
+                                                                                                                                                                       //As all controllers are calling false, once we set it to true, we want to remain like that till we call resetPreviewState
+  def track[T](t: T,beenInPreviewParam:Boolean = false)(route: String)(implicit classTag: ClassTag[T]): Navigation = copy(routes.takeWhile(_.uri != route) :+ Route[T](route), if(!beenInPreview)beenInPreviewParam else beenInPreview)
 
   def trackBackToBeginningOfSection[T](t: T)(route: String)(implicit classTag: ClassTag[T]): Navigation = copy(routes.takeWhile(_.uri != route) :+ Route[T](route))
 
   def current: Route[_] = if (routes.isEmpty) Route("") else routes.last
 
-  def previous: Route[_] = if (routes.size > 1) routes.dropRight(1).last else if (routes.size == 1) current else Route("")
+  def previousIgnorePreview: Route[_] = {
+    if (routes.size > 1) routes.dropRight(1).last
+    else if (routes.size == 1) current
+    else Route("")
+  }
+
+  def previous: Route[_] = {
+    if (beenInPreview) Route(controllers.preview.routes.Preview.present.url)
+    else previousIgnorePreview
+
+  }
 
   def apply[T](t: T)(implicit classTag: ClassTag[T]): Option[Route[_]] = routes.find(_.classTag.runtimeClass == t.getClass)
 }

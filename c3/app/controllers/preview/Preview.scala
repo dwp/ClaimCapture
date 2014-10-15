@@ -1,6 +1,6 @@
 package controllers.preview
 
-import play.api.mvc.{EssentialFilter, Controller}
+import play.api.mvc.{Call, EssentialFilter, Controller}
 import models.view.{Navigable, CachedClaim}
 import models.domain.PreviewModel
 import play.api.data.Form
@@ -14,7 +14,11 @@ object Preview extends Controller with CachedClaim with Navigable {
   )(PreviewModel.apply)(PreviewModel.unapply))
 
   def present = claiming { implicit claim => implicit request => implicit lang =>
-    track(models.domain.PreviewModel) { implicit claim => Ok(views.html.preview.preview(form.fill(PreviewModel))) }
+    track(models.domain.PreviewModel, beenInPreview = true) { implicit claim => Ok(views.html.preview.preview(form.fill(PreviewModel))) }
+  }
+
+  def back = claiming { implicit claim => implicit request => implicit lang =>
+    resetPreviewState { implicit claim => Redirect(claim.navigation.previousIgnorePreview.toString) }
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>

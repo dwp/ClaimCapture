@@ -104,6 +104,21 @@ trait CachedClaim {
     }
   }
 
+  implicit def actionWrapper(action:Action[AnyContent]) = new {
+
+    def withPreview():Action[AnyContent] = Action.async(action.parser){ request =>
+      import ExecutionContext.Implicits.global
+
+      action(request).map{ result =>
+        result.header.status -> fromCache(request) match {
+          case (play.api.http.Status.SEE_OTHER,Some(claim)) if claim.navigation.beenInPreview => Redirect(controllers.preview.routes.Preview.present)
+          case _ => result
+        }
+      }
+    }
+  }
+
+
   def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
       implicit val r = request
