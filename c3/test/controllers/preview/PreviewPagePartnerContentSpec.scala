@@ -27,6 +27,8 @@ class PreviewPagePartnerContentSpec extends Specification with Tags {
       source.contains("12 July, 1990") must beTrue
       source.contains("Have you separated since your claim date?") must beTrue
       source.contains("Yes") must beTrue
+      source.contains("Is this the person you care for?") must beTrue
+      source.contains("Yes") must beTrue
     }
 
     "display no data - when no partner" in new WithBrowser with PageObjects{

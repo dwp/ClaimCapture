@@ -22,5 +22,6 @@
             <dt>@Html(Messages("partner.nationality"))</dt><dd>@{yourPartner.nationality.get}</dd>
         }
         <dt>@Html(Messages("separated.fromPartner"))</dt><dd>@{Messages("label."+yourPartner.separatedFromPartner.get.toLowerCase)}</dd>
+        <dt>@Html(Messages("isPartnerPersonYouCareFor"))</dt><dd>@{Messages("label."+yourPartner.isPartnerPersonYouCareFor.get.toLowerCase)}</dd>
     </dl>
 }

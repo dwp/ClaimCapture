@@ -50,7 +50,7 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       page goToThePage()
       val source = page.source()
       source.contains("British") must beFalse
-      source.contains("Another Country - French") must beTrue
+      source.contains("French") must beTrue
       source.contains("Marital status") must beTrue
       source.contains("Single") must beTrue
     }
