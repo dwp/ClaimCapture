@@ -19,17 +19,17 @@ class PreviewPageEmploymentContentSpec extends Specification with Tags {
       page goToThePage()
       val source = page.source()
 
-      source.contains("Employment and Self Employment") must beTrue
-      source.contains("Have you been employed at any time since 10/04/2014") must beTrue
-      source.contains("Yes") must beTrue
-      source.contains("Employment") must beTrue
-      source.contains("Details provided for Tesco's, including expenses") must beTrue
-      source.contains("Have you been self employed at any time since 03/10/2014") must beTrue
-      source.contains("Yes - Details provided including expenses") must beTrue
-      source.contains("Type of work or business?") must beTrue
-      source.contains("Some type of business") must beTrue
+      source must contain("Employment and Self Employment")
+      source must contain("Have you been employed at any time since 10/04/2014")
+      source must contain("Yes")
+      source must contain("Employment")
+      source must contain("Details provided for Tesco's, including expenses")
+      source must contain("Have you been self employed at any time since 03/10/2014")
+      source must contain("Yes - Details provided including expenses")
+      source must contain("Type of work or business?")
+      source must contain("Some type of business")
     }
-  }
+  } section "preview"
 
   def fillEmploymentSection (context:PageObjectsContext) = {
 

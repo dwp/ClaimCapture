@@ -19,12 +19,12 @@ class PreviewPageEducationContentSpec extends Specification with Tags {
       page goToThePage()
       val source = page.source()
 
-      source.contains("Education") must beTrue
-      source.contains("Course 101") must beTrue
-      source.contains("Lancaster University") must beTrue
-      source.contains("Dr. Ray Charles") must beTrue
-      source.contains("123456789") must beTrue
-      source.contains("10 April, 2013 - 10 April, 2013") must beTrue
+      source must contain("Education")
+      source must contain("Course 101")
+      source must contain("Lancaster University")
+      source must contain("Dr. Ray Charles")
+      source must contain("123456789")
+      source must contain("10 April, 2013 - 10 April, 2013")
     }
 
     "display Question - when not in education" in new WithBrowser with PageObjects{
@@ -37,16 +37,16 @@ class PreviewPageEducationContentSpec extends Specification with Tags {
       page goToThePage()
       val source = page.source()
 
-      source.contains("Education") must beTrue
-      source.contains("Have you been on a course of education since your claim date?") must beTrue
-      source.contains("Course title") must beFalse
-      source.contains("Name of school, college or university") must beFalse
-      source.contains("Name of main teacher or tutor") must beFalse
-      source.contains("Course contact number") must beFalse
-      source.contains("Start/end dates") must beFalse
+      source must contain("Education")
+      source must contain("Have you been on a course of education since your claim date?")
+      source must not contain "Course title"
+      source must not contain "Name of school, college or university"
+      source must not contain "Name of main teacher or tutor"
+      source must not contain "Course contact number"
+      source must not contain "Start/end dates"
     }
 
-  }
+  } section "preview"
 
   def fillEducationSection(context:PageObjectsContext, educationData:TestData = ClaimScenarioFactory.s6Education) = {
     val claimDatePage = G1ClaimDatePage(context)

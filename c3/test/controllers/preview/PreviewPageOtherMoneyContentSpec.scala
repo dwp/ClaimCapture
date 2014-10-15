@@ -19,15 +19,15 @@ class PreviewPageOtherMoneyContentSpec extends Specification with Tags {
       page goToThePage()
       val source = page.source()
 
-      source.contains("Statutory pay, benefits and payments") must beTrue
-      source.contains("Have you received any payments for the person you care for or any other person since your claim date?") must beTrue
-      source.contains("Yes - Details provided") must beTrue
-      source.contains("Have you had any Statutory Sick Pay") must beTrue
-      source.contains("Yes - Details provided") must beTrue
-      source.contains("Have you had any SMP, SPP or SAP since your claim date") must beTrue
-      source.contains("Yes - Details provided") must beTrue
+      source must contain("Statutory pay, benefits and payments")
+      source must contain("Have you received any payments for the person you care for or any other person since your claim date?")
+      source must contain("Yes - Details provided")
+      source must contain("Have you had any Statutory Sick Pay")
+      source must contain("Yes - Details provided")
+      source must contain("Have you had any SMP, SPP or SAP since your claim date")
+      source must contain("Yes - Details provided")
     }
-  }
+  } section "preview"
 
   def fillOtherMoneySection (context:PageObjectsContext) = {
     val claimDatePage = G1ClaimDatePage(context)

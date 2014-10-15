@@ -18,10 +18,10 @@ class PreviewPageHowWePayYouContentSpec extends Specification with Tags {
       val page =  PreviewPage(context)
       page goToThePage()
       val source = page.source()
-      source.contains("Payment method") must beTrue
-      source.contains("You dont have an account but intend to open one - Weekly") must beTrue
+      source must contain("Payment method")
+      source must contain("You dont have an account but intend to open one - Weekly")
     }
-  }
+  } section "preview"
 
   def fillHowWePayYouPage(context:PageObjectsContext) = {
     val claimDatePage = G1ClaimDatePage(context)

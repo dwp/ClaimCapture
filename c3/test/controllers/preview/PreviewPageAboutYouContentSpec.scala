@@ -15,27 +15,27 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       val page =  PreviewPage(context)
       page goToThePage()
       val source = page.source()
-      source.contains("Name") must beTrue
-      source.contains("Mr John middlename Appleseed") must beTrue
-      source.contains("National Insurance number") must beTrue
-      source.contains("AB 12 34 56 C") must beTrue
-      source.contains("Date of birth") must beTrue
-      source.contains("03 April, 1950") must beTrue
-      source.contains("Address") must beTrue
-      source.contains("101 Clifton Street, Blackpool FY1 2RW") must beTrue
-      source.contains("Contact phone or mobile number") must beTrue
-      source.contains("01772 888901") must beTrue
-      source.contains("Your claim date") must beTrue
-      source.contains("10 October, 2014") must beTrue
-      source.contains("Your nationality") must beTrue
-      source.contains("British") must beTrue
-      source.contains("Time outside of England, Scotland or Wales") must beTrue
-      source.contains("Yes") must beTrue
-      source.contains("Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries?") must beTrue
-      source.contains("Yes") must beTrue
-      source.contains("Do you or anyone in your family work or pay insurance in any of these countries?") must beTrue
-      source.contains("Yes") must beTrue
-      source.contains("Marital status") must beFalse
+      source must contain("Name")
+      source must contain("Mr John middlename Appleseed")
+      source must contain("National Insurance number")
+      source must contain("AB 12 34 56 C")
+      source must contain("Date of birth")
+      source must contain("03 April, 1950")
+      source must contain("Address")
+      source must contain("101 Clifton Street, Blackpool FY1 2RW")
+      source must contain("Contact phone or mobile number")
+      source must contain("01772 888901")
+      source must contain("Your claim date")
+      source must contain("10 October, 2014")
+      source must contain("Your nationality")
+      source must contain("British")
+      source must contain("Time outside of England, Scotland or Wales")
+      source must contain("Yes")
+      source must contain("Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries?")
+      source must contain("Yes")
+      source must contain("Do you or anyone in your family work or pay insurance in any of these countries?")
+      source must contain("Yes")
+      source must not contain "Marital status"
     }
 
     "display about you - the carer data with nationality another country" in new WithBrowser with PageObjects{
@@ -49,12 +49,12 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       val page =  PreviewPage(context)
       page goToThePage()
       val source = page.source()
-      source.contains("British") must beFalse
-      source.contains("French") must beTrue
-      source.contains("Marital status") must beTrue
-      source.contains("Single") must beTrue
+      source must not contain "British"
+      source must contain("French")
+      source must contain("Marital status")
+      source must contain("Single")
     }
-  }
+  } section "preview"
 
   def fillAboutYouTheCarerSection(context:PageObjectsContext, claim:TestData = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()) = {
     val claimDatePage = G1ClaimDatePage(context)

@@ -18,17 +18,17 @@ class PreviewPagePartnerContentSpec extends Specification with Tags {
       page goToThePage()
       val source = page.source()
 
-      source.contains("About your partner") must beTrue
-      source.contains("Name") must beTrue
-      source.contains("Mrs Cloe Scott Smith") must beTrue
-      source.contains("National Insurance number") must beTrue
-      source.contains("AB 12 34 56 A") must beTrue
-      source.contains("Date of birth") must beTrue
-      source.contains("12 July, 1990") must beTrue
-      source.contains("Have you separated since your claim date?") must beTrue
-      source.contains("Yes") must beTrue
-      source.contains("Is this the person you care for?") must beTrue
-      source.contains("Yes") must beTrue
+      source must contain("About your partner")
+      source must contain("Name")
+      source must contain("Mrs Cloe Scott Smith")
+      source must contain("National Insurance number")
+      source must contain("AB 12 34 56 A")
+      source must contain("Date of birth")
+      source must contain("12 July, 1990")
+      source must contain("Have you separated since your claim date?")
+      source must contain("Yes")
+      source must contain("Is this the person you care for?")
+      source must contain("Yes")
     }
 
     "display no data - when no partner" in new WithBrowser with PageObjects{
@@ -39,13 +39,13 @@ class PreviewPagePartnerContentSpec extends Specification with Tags {
       page goToThePage()
       val source = page.source()
 
-      source.contains("About your partner/spouse") must beFalse
-      source.contains("Mrs Cloe Scott Smith") must beFalse
-      source.contains("AB 12 34 56 A") must beFalse
-      source.contains("12 July, 1990") must beFalse
-      source.contains("Have you separated since your claim date?") must beFalse
+      source must not contain "About your partner/spouse"
+      source must not contain "Mrs Cloe Scott Smith"
+      source must not contain "AB 12 34 56 A"
+      source must not contain "12 July, 1990"
+      source must not contain "Have you separated since your claim date?"
     }
-  }
+  } section "preview"
 
   def fillPartnerSection(context:PageObjectsContext, partnerClaim:TestData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty) = {
     val claimDatePage = G1ClaimDatePage(context)
