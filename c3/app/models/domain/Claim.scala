@@ -36,12 +36,16 @@ case class Claim(key: String = CachedClaim.key, sections: List[Section] = List()
     section(si).questionGroup(questionGroupIdentifier)
   }
 
-  def questionGroup[Q <: QuestionGroup](implicit classTag: ClassTag[Q]): Option[Q] = {
-    def needQ(qg: QuestionGroup): Boolean = {
-      qg.getClass == classTag.runtimeClass
+  def questionGroup(clazz:Class[_]):Option[QuestionGroup] = {
+    sections.flatMap(_.questionGroups).find(_.getClass == clazz) match {
+      case Some(q: QuestionGroup) => Some(q)
+      case _ => None
     }
+  }
 
-    sections.flatMap(_.questionGroups).find(needQ) match {
+  def questionGroup[Q <: QuestionGroup](implicit classTag: ClassTag[Q]): Option[Q] = {
+
+    sections.flatMap(_.questionGroups).find(_.getClass == classTag.runtimeClass) match {
       case Some(q: Q) => Some(q)
       case _ => None
     }

@@ -12,6 +12,7 @@ import AboutYou.trips
 import controllers.Mappings._
 import controllers.CarersForms._
 import scala.Some
+import scala.reflect.ClassTag
 
 object G6Trip extends Controller with CachedClaim {
   val form = Form(mapping(

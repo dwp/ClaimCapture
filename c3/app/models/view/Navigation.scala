@@ -18,11 +18,9 @@ trait Navigable {
 
   def track[T](t: T,beenInPreview:Boolean=false)(f: => Claim => Result)(implicit claim: Claim, request: Request[AnyContent], classTag: ClassTag[T]): ClaimResult = {
 
-
     val updatedNavigation = claim.navigation.track(t,beenInPreview )(request.uri)
     val updatedClaim = claim.copy(claim.key, claim.sections)(updatedNavigation)
 
-    Logger.info("Navigation object:"+claim.navigation)
     updatedClaim -> f(updatedClaim)
   }
 
@@ -54,6 +52,7 @@ case class Navigation(routes: List[Route[_]] = List(), beenInPreview:Boolean = f
   }
 
   def previous: Route[_] = {
+    Logger.error(this.toString)
     if (beenInPreview) Route(controllers.preview.routes.Preview.present.url)
     else previousIgnorePreview
 

@@ -1,14 +1,14 @@
 package controllers.s2_about_you
 
-import play.api.mvc.Controller
+import controllers.Mappings
+import controllers.Mappings._
+import controllers.s2_about_you.AboutYou.trips
+import models.domain.AbroadForMoreThan52Weeks
+import models.view.{CachedClaim, Navigable}
 import play.api.data.Form
 import play.api.data.Forms._
-import controllers.Mappings._
-import models.domain.AbroadForMoreThan52Weeks
-import AboutYou.trips
-import models.view.Navigable
+import play.api.mvc.Controller
 import utils.helpers.CarersForm._
-import models.view.CachedClaim
 
 object G5AbroadForMoreThan52Weeks extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -37,5 +37,5 @@ object G5AbroadForMoreThan52Weeks extends Controller with CachedClaim with Navig
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g5_abroad_for_more_than_52_weeks(formWithErrors, trips)),
       abroadForMoreThan52Weeks => claim.update(abroadForMoreThan52Weeks).update(trips) -> next(abroadForMoreThan52Weeks))
-  }
+  } withPreviewConditionally((abroad:AbroadForMoreThan52Weeks) => abroad.anyTrips == Mappings.no)
 }

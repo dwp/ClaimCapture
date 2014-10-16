@@ -116,6 +116,20 @@ trait CachedClaim {
         }
       }
     }
+
+    def withPreviewConditionally[T <: QuestionGroup](t:(T) => Boolean)(implicit classTag:ClassTag[T]):Action[AnyContent] = Action.async(action.parser){ request =>
+      import ExecutionContext.Implicits.global
+
+
+      action(request).map{ result =>
+        result.header.status -> fromCache(request) match {
+          case (play.api.http.Status.SEE_OTHER,Some(claim)) if claim.navigation.beenInPreview && t(claim.questionGroup(classTag.runtimeClass).get.asInstanceOf[T])=> Redirect(controllers.preview.routes.Preview.present)
+          case _ => result
+        }
+      }
+    }
+
+
   }
 
 

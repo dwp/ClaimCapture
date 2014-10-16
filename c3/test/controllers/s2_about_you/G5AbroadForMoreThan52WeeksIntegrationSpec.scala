@@ -62,5 +62,6 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       backPage.ctx.browser.findFirst("#anyTrips_no").isSelected should beTrue
     }
 
+
   } section("integration", models.domain.AboutYou.id)
 }
