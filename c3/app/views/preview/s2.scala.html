@@ -41,7 +41,7 @@ nationalityAndResidency.maritalStatus match {
 }
 
 @addressPostcode = @{
-    s"${address.lineOne}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${contactDetails.postcode.getOrElse("")}"
+    s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${contactDetails.postcode.getOrElse("")}"
 }
 
 
@@ -50,8 +50,8 @@ nationalityAndResidency.maritalStatus match {
     <dt><a id="about_you_full_name" href="@controllers.s2_about_you.routes.G1YourDetails.present">@Html(Messages("name"))</a></dt><dd>@titleNames</dd>
     <dt>@Html(Messages("nationalInsuranceNumber"))</dt><dd>@nino</dd>
     <dt>@Html(Messages("dateOfBirth"))</dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
-    <dt>@Html(Messages("address"))</dt><dd>@addressPostcode</dd>
-    <dt>@Html(Messages("howWeContactYou"))</dt><dd>@contactDetails.howWeContactYou</dd>
+    <dt><a id="about_you_address" href="@controllers.s2_about_you.routes.G2ContactDetails.present">@Html(Messages("address"))</a></dt><dd>@addressPostcode</dd>
+    <dt><a id="about_you_contact" href="@controllers.s2_about_you.routes.G2ContactDetails.present">@Html(Messages("howWeContactYou"))</a></dt><dd>@contactDetails.howWeContactYou</dd>
     @if(nationalityAndResidency.maritalStatus.isDefined){
         <dt>@Html(Messages("maritalStatusNQ"))</dt><dd>@maritalStatus</dd>
     }

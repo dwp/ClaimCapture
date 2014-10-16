@@ -2,7 +2,7 @@ package utils.pageobjects
 
 import java.util.concurrent.TimeUnit
 import org.specs2.specification.Scope
-import org.openqa.selenium.TimeoutException
+import org.openqa.selenium.{By, TimeoutException}
 import org.fluentlenium.core.Fluent
 import scala.util.Try
 
@@ -313,6 +313,10 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
   }
   catch {
     case _: Exception => "Error: Page source not available."
+  }
+
+  def xpath(xpath:String) = {
+    ctx.browser.webDriver.findElement(By.xpath(xpath))
   }
 }
 
