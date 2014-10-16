@@ -3,8 +3,9 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
+import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s2_about_you._
-import utils.pageobjects.PageObjects
+import utils.pageobjects.{TestData, ClaimPageFactory, PageObjects}
 
 class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
   "Abroad for more that 52 weeks" should {
@@ -60,6 +61,43 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
 
       backPage.ctx.browser.findFirst("#anyTrips_yes").isSelected should beFalse
       backPage.ctx.browser.findFirst("#anyTrips_no").isSelected should beTrue
+    }
+
+    "Modify time outside from preview page" in new WithBrowser with PageObjects{
+
+      val page =  G5AbroadForMoreThan52WeeksPage(context)
+      val claim = ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationNo()
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+
+      val id = "about_you_abroad"
+      val previewPage = PreviewPage(context)
+      previewPage goToThePage()
+      previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "No"
+      val contactDetails = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+
+      contactDetails must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
+      val modifiedData = new TestData
+      modifiedData.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "Yes"
+
+      contactDetails fillPageWith modifiedData
+      val trips = contactDetails submitPage()
+
+      trips must beAnInstanceOf[G6TripPage]
+      val tripsData = ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
+
+      trips.fillPageWith(tripsData)
+      val modifiedAbroad = trips submitPage()
+
+      val newData = new TestData
+      newData.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_2 = "No"
+      modifiedAbroad.fillPageWith(newData)
+      val previewModifiedPage = modifiedAbroad submitPage()
+
+      previewModifiedPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "Yes"
+
     }
 
 

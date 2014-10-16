@@ -52,7 +52,6 @@ case class Navigation(routes: List[Route[_]] = List(), beenInPreview:Boolean = f
   }
 
   def previous: Route[_] = {
-    Logger.error(this.toString)
     if (beenInPreview) Route(controllers.preview.routes.Preview.present.url)
     else previousIgnorePreview
 
