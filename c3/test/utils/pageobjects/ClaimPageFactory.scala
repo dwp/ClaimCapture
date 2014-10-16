@@ -1,5 +1,8 @@
 package utils.pageobjects
 
+import org.fluentlenium.core.Fluent
+import play.api.test.TestBrowser
+
 import scala.language.dynamics
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
@@ -25,6 +28,9 @@ import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
  *         Date: 10/07/2013
  */
 object ClaimPageFactory extends PageFactory {
+
+
+
 
   def buildPageFromTitle(title: String,ctx:PageObjectsContext) = {
 
