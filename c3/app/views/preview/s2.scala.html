@@ -48,8 +48,8 @@ nationalityAndResidency.maritalStatus match {
 <h2>@Html(Messages("aboutYou.title"))</h2>
 <dl>
     <dt><a id="about_you_full_name" href="@controllers.s2_about_you.routes.G1YourDetails.present">@Html(Messages("name"))</a></dt><dd>@titleNames</dd>
-    <dt>@Html(Messages("nationalInsuranceNumber"))</dt><dd>@nino</dd>
-    <dt>@Html(Messages("dateOfBirth"))</dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
+    <dt><a id="about_you_nino" href="@controllers.s2_about_you.routes.G1YourDetails.present">@Html(Messages("nationalInsuranceNumber"))</a></dt><dd>@nino</dd>
+    <dt><a id="about_you_dob" href="@controllers.s2_about_you.routes.G1YourDetails.present">@Html(Messages("dateOfBirth"))</a></dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
     <dt><a id="about_you_address" href="@controllers.s2_about_you.routes.G2ContactDetails.present">@Html(Messages("address"))</a></dt><dd>@addressPostcode</dd>
     <dt><a id="about_you_contact" href="@controllers.s2_about_you.routes.G2ContactDetails.present">@Html(Messages("howWeContactYou"))</a></dt><dd>@contactDetails.howWeContactYou</dd>
     @if(nationalityAndResidency.maritalStatus.isDefined){
