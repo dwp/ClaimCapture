@@ -7,10 +7,10 @@
 
 <h2>@Html(Messages("s9.longName"))</h2>
 <dl>
-    <dt>Have you received any payments for the person you care for or any other person since your claim date?</dt>
+    <dt>@Html(Messages("anyPaymentsSinceClaimDate.answer"))</dt>
     <dd>@{Messages("label."+aboutOtherMoney.anyPaymentsSinceClaimDate.answer)} @{if(aboutOtherMoney.anyPaymentsSinceClaimDate.answer == "yes")"- Details provided"}</dd>
-    <dt>Have you had any Statutory Sick Pay</dt>
+    <dt>@Html(Messages("statutoryPay.simple"))</dt>
     <dd>@{Messages("label."+aboutOtherMoney.statutorySickPay.answer)} @{if(aboutOtherMoney.statutorySickPay.answer == "yes")"- Details provided"}</dd>
-    <dt>Have you had any SMP, SPP or SAP since your claim date</dt>
+    <dt>@Html(Messages("smpSppSap.simple"))</dt>
     <dd>@{Messages("label."+aboutOtherMoney.otherStatutoryPay.answer)} @{if(aboutOtherMoney.otherStatutoryPay.answer == "yes")"- Details provided"}</dd>
 </dl>
