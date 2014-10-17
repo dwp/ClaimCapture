@@ -45,28 +45,54 @@ nationalityAndResidency.maritalStatus match {
 }
 
 @g1YourDetailsRoute = @{
-    s"${controllers.s2_about_you.routes.G1YourDetails.present}"
+    controllers.s2_about_you.routes.G1YourDetails.present.toString
 }
 
-@fieldWithLink(id:String, href:String, name:String, value:String) = @{
+@g2ContactDetailsRoute = @{
+    controllers.s2_about_you.routes.G2ContactDetails.present.toString
+}
+
+@g4NationalityRoute = @{
+    controllers.s2_about_you.routes.G4NationalityAndResidency.present.toString
+}
+
+@g7OtherEEARoute = @{
+    controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.present.toString
+}
+
+@routesMap = @{
+    Map("about_you_full_name" -> g1YourDetailsRoute,
+        "about_you_nino" -> g1YourDetailsRoute,
+        "about_you_dob" -> g1YourDetailsRoute,
+        "about_you_address" -> g2ContactDetailsRoute,
+        "about_you_contact" -> g2ContactDetailsRoute,
+        "about_you_marital_status" -> g4NationalityRoute,
+        "about_you_claimDate" -> controllers.s1_2_claim_date.routes.G1ClaimDate.present.toString,
+        "about_you_nationality" -> g4NationalityRoute,
+        "about_you_abroad" -> controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.present.toString,
+        "about_you_benefitsFromEEA" -> g7OtherEEARoute,
+        "about_you_workingForEEA" -> g7OtherEEARoute)
+}
+
+@fieldWithLink(id:String, name:String, value:String) = @{
     val label = Html(Messages(name))
-    val row = s"<dt><a id=$id href=$href>$label</a></dt><dd>$value</dd>"
+    val row = s"<dt><a id=$id href=${routesMap(id)}>$label</a></dt><dd>$value</dd>"
     Html(row)
 }
 
 <h2>@Html(Messages("aboutYou.title"))</h2>
 <dl>
-    @fieldWithLink("about_you_full_name", g1YourDetailsRoute, "name", titleNames)
-    <dt><a id="about_you_nino"      href="@controllers.s2_about_you.routes.G1YourDetails.present">@Html(Messages("nationalInsuranceNumber"))</a></dt><dd>@nino</dd>
-    <dt><a id="about_you_dob"       href="@controllers.s2_about_you.routes.G1YourDetails.present">@Html(Messages("dateOfBirth"))</a></dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
-    <dt><a id="about_you_address"   href="@controllers.s2_about_you.routes.G2ContactDetails.present">@Html(Messages("address"))</a></dt><dd>@addressPostcode</dd>
-    <dt><a id="about_you_contact"   href="@controllers.s2_about_you.routes.G2ContactDetails.present">@Html(Messages("howWeContactYou"))</a></dt><dd>@contactDetails.howWeContactYou</dd>
+    @fieldWithLink("about_you_full_name", "name", titleNames)
+    @fieldWithLink("about_you_nino", "nationalInsuranceNumber", nino)
+    @fieldWithLink("about_you_dob", "dateOfBirth", yourDetails.dateOfBirth.`dd month, yyyy`)
+    @fieldWithLink("about_you_address", "address", addressPostcode)
+    @fieldWithLink("about_you_contact", "howWeContactYou", contactDetails.howWeContactYou)
     @if(nationalityAndResidency.maritalStatus.isDefined){
-        <dt><a id="about_you_marital_status" href="@controllers.s2_about_you.routes.G4NationalityAndResidency.present">@Html(Messages("maritalStatusNQ"))</a></dt><dd>@maritalStatus</dd>
+        @fieldWithLink("about_you_marital_status", "maritalStatusNQ", maritalStatus)
     }
-    <dt><a id="about_you_claimDate"        href="@controllers.s1_2_claim_date.routes.G1ClaimDate.present">@Html(Messages("dateOfClaim.simple"))</a></dt><dd>@{claimDate.dateOfClaim.`dd month, yyyy`}</dd>
-    <dt><a id="about_you_nationality"      href="@controllers.s2_about_you.routes.G4NationalityAndResidency.present">@Html(Messages("yourNationality"))</a></dt><dd>@nationality</dd>
-    <dt><a id="about_you_abroad"           href="@controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.present">@Html(Messages("timeOutsideGB"))</a></dt><dd>@{Messages("label."+(if (trips.fiftyTwoWeeksTrips.size > 0) "yes" else "no"))}</dd>
-    <dt><a id="about_you_benefitsFromEEA"  href="@controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.present">@Html(Messages("benefitsFromEEA"))</a></dt><dd>@{Messages("label."+otherEEA.benefitsFromEEA)}</dd>
-    <dt><a id="about_you_workingForEEA"    href="@controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.present">@Html(Messages("workingForEEA"))</a></dt><dd>@{Messages("label."+otherEEA.workingForEEA)}</dd>
+    @fieldWithLink("about_you_claimDate", "dateOfClaim.simple", claimDate.dateOfClaim.`dd month, yyyy`)
+    @fieldWithLink("about_you_nationality", "yourNationality", nationality)
+    @fieldWithLink("about_you_abroad", "timeOutsideGB", Messages("label."+(if (trips.fiftyTwoWeeksTrips.size > 0) "yes" else "no")))
+    @fieldWithLink("about_you_benefitsFromEEA", "benefitsFromEEA", Messages("label."+otherEEA.benefitsFromEEA))
+    @fieldWithLink("about_you_workingForEEA", "workingForEEA", Messages("label."+otherEEA.workingForEEA))
 </dl>
