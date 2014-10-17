@@ -1,6 +1,7 @@
 package utils
 
 import app.ConfigProperties._
+import play.api.libs.ws.ning.NingWSResponse
 import scala.reflect._
 import controllers.s12_consent_and_declaration.G3Declaration
 import play.api.mvc.{AnyContent, Request}
@@ -42,7 +43,7 @@ trait Injector {
           override val webServiceClient: WebServiceClient = new WebServiceClient {
             override def submitClaim(claim: Claim, txnId: String): Future[Response] = {
               val resp =
-                new Response(null) {
+                new NingWSResponse(null) {
                   override def status: Int = http.Status.OK
                   override lazy val body: String =
                     <Response>

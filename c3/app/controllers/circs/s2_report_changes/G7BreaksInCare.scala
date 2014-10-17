@@ -86,13 +86,13 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
     }
   }
 
-  def present = claiming { implicit circs => implicit request => implicit lang =>
+  def present = claiming {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesBreaksInCare) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g7_breaksInCare(form.fill(CircumstancesBreaksInCare)))
     }
   }
 
-  def submit = claiming { implicit circs => implicit request => implicit lang =>
+  def submit = claiming {implicit circs =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors

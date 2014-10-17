@@ -1,8 +1,8 @@
 package controllers
 
-import play.api.mvc.{SimpleResult, Action, Controller}
+import play.api.mvc.{Result, Action, Controller}
 import com.github.rjeschke.txtmark.Processor
-import play.api.templates.Html
+import play.twirl.api.Html
 import views.html.claimNotes.markdownWrapper
 import play.api.i18n.Lang
 
@@ -20,7 +20,7 @@ object ClaimNotes extends Controller {
     buildResponse(t)
   }
 
-  private def buildResponse(t: Html): SimpleResult = {
+  private def buildResponse(t: Html): Result = {
     val string = t.body
     val html = Processor.process(string)
     Ok(markdownWrapper(Html(html)))

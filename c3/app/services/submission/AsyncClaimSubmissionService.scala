@@ -1,6 +1,7 @@
 package services.submission
 
 import monitoring.{Counters}
+import play.api.libs.ws.WSResponse
 
 import scala.concurrent.ExecutionContext
 import play.api.{http, Logger}
@@ -8,7 +9,6 @@ import controllers.submission._
 import services.{SubmissionCacheService, EncryptionService, ClaimTransactionComponent}
 import ExecutionContext.Implicits.global
 import ClaimSubmissionService._
-import play.api.libs.ws.Response
 import models.domain.Claim
 
 class AsyncClaimSubmissionComponent extends AsyncClaimSubmissionService
@@ -22,7 +22,7 @@ with WebServiceClientComponent
 case class DuplicateClaimException(msg:String) extends Exception(msg)
 
 /**
-* This service relies on [[webServiceClient]] to submit a claim and then it processes the asynchronous response.
+* This service relies on [[play.api.libs.ws.WS]] to submit a claim and then it processes the asynchronous response.
 * The response is stored into the transaction database.
 * This service uses a submission cache to detect resubmission of a claim already submitted successfully (duplicate claims).
 */
@@ -49,7 +49,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
     }
   }
 
-  private def processClaimSubmission(claim: Claim, response: Response) = {
+  private def processClaimSubmission(claim: Claim, response: WSResponse) = {
     val txnID = claim.transactionId.get
     Logger.debug(s"Got response ${response.statusText} from WS for: ${claim.key} transactionId [$txnID].")
     try {
@@ -83,14 +83,14 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
     removeFromCache(claim)
   }
 
-  private def processErrorResponse(claim: Claim, txnID: String, response: Response): Unit = {
+  private def processErrorResponse(claim: Claim, txnID: String, response: WSResponse): Unit = {
     val statusMsg = httpStatusCodes(response.status)
     Logger.error(s"Submission failed. [${txnStatusConst(statusMsg)}] : response status ${response.status} : ${response.toString}, transactionId [$txnID].")
     updateTransactionAndCache(txnID, txnStatusConst(statusMsg), claim)
     Counters.incrementSubmissionErrorStatus(statusMsg)
   }
 
-  private def processResponse(claim: Claim, txnID: String, response: Response): Unit = {
+  private def processResponse(claim: Claim, txnID: String, response: WSResponse): Unit = {
     Logger.debug(s"Response status is ${response.status} for : ${claim.key} : transactionId [$txnID].")
     response.status match {
       case http.Status.OK =>
@@ -100,7 +100,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
     }
   }
 
-  private def ok(claim: Claim, txnID: String, response: Response) = {
+  private def ok(claim: Claim, txnID: String, response: WSResponse) = {
     Logger.info(s"Successful submission  [${SUCCESS}] - response status ${response.status} for : ${claim.key}  transactionId [$txnID].")
     claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
   }

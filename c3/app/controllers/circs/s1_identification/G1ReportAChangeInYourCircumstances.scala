@@ -29,7 +29,7 @@ object G1ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
   )(CircumstancesReportChange.apply)(CircumstancesReportChange.unapply))
 
   def present = newClaim {
-    implicit circs => implicit request => implicit lang =>
+implicit circs =>  implicit request =>  lang =>
       Logger.info(s"Starting new $cacheKey - ${circs.uuid}")
       track(CircumstancesReportChange) {
         implicit circs => Ok(views.html.circs.s1_identification.g1_reportAChangeInYourCircumstances(form.fill(CircumstancesReportChange)))
@@ -37,7 +37,7 @@ object G1ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
   }
 
   def submit = claiming {
-    implicit circs => implicit request => implicit lang =>
+implicit circs =>  implicit request =>  lang =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.circs.s1_identification.g1_reportAChangeInYourCircumstances(formWithErrors)),
         f => circs.update(f) -> {

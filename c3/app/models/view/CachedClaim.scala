@@ -168,7 +168,7 @@ trait CachedClaim {
     }
   }
 
-  def submitting(f: (Claim) => Request[AnyContent] => Lang => Future[SimpleResult]) = Action.async {
+  def submitting(f: (Claim) => Request[AnyContent] => Lang => Future[Result]) = Action.async {
     request => {
       val (referer, host) = refererAndHost(request)
       implicit val r = request

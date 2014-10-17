@@ -19,20 +19,20 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
     "beenEmployed" -> (nonEmptyText verifying validYesNo)
   )(BeenEmployed.apply)(BeenEmployed.unapply))
 
-  def presentConditionally(c: => Either[Result,ClaimResult])(implicit claim: Claim, request: Request[AnyContent], lang:Lang): Either[Result,ClaimResult] = {
+  private def presentConditionally(c: => Either[Result,ClaimResult], lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] = {
     claim.questionGroup[Emp].collect {
       case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == yes => c
-    }.getOrElse(redirect)
+    }.getOrElse(redirect(lang))
   }
 
-  def redirect(implicit claim: Claim, request: Request[AnyContent], lang:Lang): Either[Result,ClaimResult] =
+  private def redirect(lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] =
     Left(Redirect(controllers.s9_other_money.routes.G1AboutOtherMoney.present()))
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
-      presentConditionally(beenEmployed)
+  def present = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+      presentConditionally(beenEmployed(lang),lang)
   }
 
-  def beenEmployed(implicit claim: Claim, request: Request[AnyContent], lang:Lang): Either[Result,ClaimResult] = {
+  private def beenEmployed(lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] = {
     if(getCompletedJobs) {
       val f:Claim => Result = { implicit claim => Ok(views.html.s7_employment.g2_beenEmployed(form.fill(BeenEmployed)))}
       Right(trackBackToBeginningOfEmploymentSection(BeenEmployed)(f)(claim, request,ClassTag[BeenEmployed.type](BeenEmployed.getClass)) )
@@ -40,7 +40,7 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
     else Left(Redirect(routes.G3JobDetails.present(JobID(form))))
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
     import controllers.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
@@ -59,12 +59,12 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
       beenEmployed => clearUnfinishedJobs.update(beenEmployed) -> next(beenEmployed))
   }
 
-  def clearUnfinishedJobs(implicit claim: Claim) = {
+  private def clearUnfinishedJobs(implicit claim: Claim) = {
     val jobs = claim.questionGroup[Jobs].getOrElse(Jobs())
     claim.update(Jobs(jobs.jobs.filter(_.completed == true)))
   }
 
-  def getCompletedJobs(implicit claim: Claim) = {
+  private def getCompletedJobs(implicit claim: Claim) = {
     val jobs = claim.questionGroup[Jobs].getOrElse(Jobs())
     Jobs(jobs.jobs.filter(_.completed == true)).size > 0
   }

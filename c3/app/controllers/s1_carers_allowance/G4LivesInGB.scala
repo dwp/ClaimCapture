@@ -15,7 +15,7 @@ object G4LivesInGB extends Controller with CachedClaim with Navigable {
     "livesInGB.answer" -> nonEmptyText.verifying(validYesNo)
   )(LivesInGB.apply)(LivesInGB.unapply))
 
-  def present = claiming { implicit claim => implicit request => implicit lang =>
+  def present = claiming {implicit claim =>  implicit request =>  lang =>
     claim.-(Benefits)
     claim.-(Over16)
     claim.-(Hours)
@@ -23,7 +23,7 @@ object G4LivesInGB extends Controller with CachedClaim with Navigable {
     track(LivesInGB) { implicit claim => Ok(views.html.s1_carers_allowance.g4_livesInGB(form.fill(LivesInGB))) }
   }
 
-  def submit = claiming { implicit claim => implicit request => implicit lang =>
+  def submit = claiming {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         BadRequest(views.html.s1_carers_allowance.g4_livesInGB(formWithErrors))

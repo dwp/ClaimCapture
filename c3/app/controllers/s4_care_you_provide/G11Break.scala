@@ -23,11 +23,11 @@ object G11Break extends Controller with CachedClaim {
     "medicalDuringBreak" -> carersNonEmptyText
   )(Break.apply)(Break.unapply))
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     Ok(views.html.s4_care_you_provide.g11_break(form))
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val fwe = formWithErrors
@@ -44,7 +44,7 @@ object G11Break extends Controller with CachedClaim {
       })
   }
 
-  def break(id: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def break(id: String) = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     claim.questionGroup(BreaksInCare) match {
       case Some(b: BreaksInCare) => b.breaks.find(_.id == id) match {
         case Some(b: Break) => Ok(views.html.s4_care_you_provide.g11_break(form.fill(b)))

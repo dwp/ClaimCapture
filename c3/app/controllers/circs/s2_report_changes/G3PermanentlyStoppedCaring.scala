@@ -16,12 +16,12 @@ object G3PermanentlyStoppedCaring extends Controller with CachedChangeOfCircs wi
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesStoppedCaring.apply)(CircumstancesStoppedCaring.unapply))
 
-  def present = claiming { implicit circs => implicit request => implicit lang =>
+  def present = claiming {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesStoppedCaring) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g3_permanently_stopped_caring(form.fill(CircumstancesStoppedCaring)))
     }
   }
-  def submit = claiming { implicit circs => implicit request => implicit lang =>
+  def submit = claiming {implicit circs =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s2_report_changes.g3_permanently_stopped_caring(formWithErrors)),
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())

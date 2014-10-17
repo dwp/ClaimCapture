@@ -28,13 +28,13 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
     .verifying(NationalityAndResidency.maritalStatusRequired)
   )
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     track(NationalityAndResidency) { implicit claim =>
       Ok(views.html.s2_about_you.g4_nationalityAndResidency(form.fill(NationalityAndResidency)))
     }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

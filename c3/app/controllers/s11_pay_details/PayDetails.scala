@@ -11,9 +11,9 @@ object PayDetails extends Controller with CachedClaim with Navigable {
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent], lang: Lang): ClaimResult = {
     if (models.domain.PayDetails.visible) c
-    else redirect
+    else redirect(claim,request,lang)
   }
 
-  def redirect(implicit claim: Claim, request: Request[AnyContent], lang: Lang): ClaimResult =
+  private def redirect( claim: Claim, request: Request[AnyContent], lang: Lang): ClaimResult =
     claim -> redirectPath
 }

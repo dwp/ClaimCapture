@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(title: String, currentForm: Option[Form[_]] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
 @import models.domain.ClaimDate
 @import models.domain.PayDetails

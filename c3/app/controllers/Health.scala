@@ -8,8 +8,10 @@ import play.api.libs.json._
 import com.codahale.metrics.health.HealthCheck
 import utils.Injector
 import monitor.HealthMonitor
+import utils.helpers.CarersLanguageHelper
 
-trait HealthController extends Injector {
+
+trait HealthController extends Injector with CarersLanguageHelper{
   this: Controller =>
 
   val healthMonitor = resolve(classOf[HealthMonitor])
@@ -27,7 +29,7 @@ trait HealthController extends Injector {
 
       healthMonitor.runHealthChecks().map(check => Logger.debug(check.toString()))
 
-      Ok(views.html.common.health(now)(lang(request), request))
+      Ok(views.html.common.health(now)(request,lang(request)))
   }
 
   def healthReport = Action {

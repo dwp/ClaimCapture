@@ -1,4 +1,4 @@
-@(url:String)(implicit lang: Lang, request: Request[AnyContent])
+@(url:String)(implicit request: Request[AnyContent], lang: Lang)
 @common.govMain("Redirect") {
 
     <div class="carers-allowance clearfix">
@@ -24,4 +24,4 @@
         </aside>
         
     </div>
-}(Html.empty, lang, request)
+}(Html(""), lang, request)

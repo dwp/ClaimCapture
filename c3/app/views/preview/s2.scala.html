@@ -33,7 +33,7 @@ nationalityAndResidency.maritalStatus match {
     <dt>@Html(Messages("name"))</dt><dd>@{Messages("titleSelect."+yourDetails.title)} @yourDetails.firstName @yourDetails.middleName @yourDetails.surname</dd>
     <dt>@Html(Messages("nationalInsuranceNumber"))</dt><dd>@nino</dd>
     <dt>@Html(Messages("dateOfBirth"))</dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
-    <dt>@Html(Messages("address"))</dt><dd>@address.lineOne@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @contactDetails.postcode.getOrElse("")</dd>
+    <dt>@Html(Messages("address"))</dt><dd>@{address.lineOne}@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @contactDetails.postcode.getOrElse("")</dd>
     <dt>@Html(Messages("howWeContactYou"))</dt><dd>@contactDetails.howWeContactYou</dd>
     <dt>@Html(Messages("dateOfClaim.simple"))</dt><dd>@{claimDate.dateOfClaim.`dd month, yyyy`}</dd>
     <dt>@Html(Messages("yourNationality"))</dt><dd>@{nationalityAndResidency.nationality}</dd>

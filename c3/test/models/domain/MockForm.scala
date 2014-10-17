@@ -30,7 +30,7 @@ trait MockForm extends Scope with Mockito {
     questionGroup
   }
 
-  def extractCacheKey(result:scala.concurrent.Future[play.api.mvc.SimpleResult], sessionKey : String = CachedClaim.key) = session(result).get(sessionKey).get
+  def extractCacheKey(result:scala.concurrent.Future[play.api.mvc.Result], sessionKey : String = CachedClaim.key) = session(result).get(sessionKey).get
 
-  def getClaimFromCache(result:scala.concurrent.Future[play.api.mvc.SimpleResult], sessionKey : String = CachedClaim.key) = Cache.getAs[Claim](extractCacheKey(result, sessionKey)).get
+  def getClaimFromCache(result:scala.concurrent.Future[play.api.mvc.Result], sessionKey : String = CachedClaim.key) = Cache.getAs[Claim](extractCacheKey(result, sessionKey)).get
 }

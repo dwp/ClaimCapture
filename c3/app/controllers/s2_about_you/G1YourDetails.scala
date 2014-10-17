@@ -24,12 +24,12 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
     "dateOfBirth" -> dayMonthYear.verifying(validDate)
   )(YourDetails.apply)(YourDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request => implicit lang =>
+  def present = claiming {implicit claim =>  implicit request =>  lang =>
     Logger.info(s"Start your details ${claim.uuid}")
     track(YourDetails) { implicit claim => Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails))) }
   }
 
-  def submit = claiming { implicit claim => implicit request => implicit lang =>
+  def submit = claiming {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g1_yourDetails(formWithErrors)),
       yourDetails => { // Show pay details if the person is below 62 years of age on the day of the claim (claim date)

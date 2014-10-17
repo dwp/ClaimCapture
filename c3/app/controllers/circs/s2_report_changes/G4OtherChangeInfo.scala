@@ -16,13 +16,13 @@ object G4OtherChangeInfo extends Controller with CachedChangeOfCircs with Naviga
     change -> carersNonEmptyText(maxLength = 2000)
   )(CircumstancesOtherInfo.apply)(CircumstancesOtherInfo.unapply))
 
-  def present = claiming { implicit circs => implicit request => implicit lang =>
+  def present = claiming {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesOtherInfo) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g4_otherChangeInfo(form.fill(CircumstancesOtherInfo)))
     }
   }
 
-  def submit = claiming { implicit circs => implicit request => implicit lang =>
+  def submit = claiming {implicit circs =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s2_report_changes.g4_otherChangeInfo(formWithErrors)),
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())

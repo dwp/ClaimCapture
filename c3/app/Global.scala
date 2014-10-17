@@ -60,7 +60,7 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfNotFound 
   }
 
   // 404 - page not found error http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
-  override def onHandlerNotFound(requestHeader: RequestHeader): Future[SimpleResult] = {
+  override def onHandlerNotFound(requestHeader: RequestHeader): Future[Result] = {
     implicit val request = Request(requestHeader, AnyContentAsEmpty)
     Future(NotFound(views.html.common.onHandlerNotFound()))
   }
@@ -70,7 +70,7 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfNotFound 
   override def onError(request: RequestHeader, ex: Throwable) = {
     Logger.error(ex.getMessage)
     val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
-    Future(Ok(views.html.common.error(startUrl)(lang(request), Request(request, AnyContentAsEmpty))))
+    Future(Ok(views.html.common.error(startUrl)(Request(request, AnyContentAsEmpty),lang(request))))
   }
 }
 

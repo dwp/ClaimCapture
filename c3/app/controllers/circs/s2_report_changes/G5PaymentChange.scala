@@ -32,13 +32,13 @@ object G5PaymentChange extends Controller with CachedChangeOfCircs with Navigabl
   )
   (CircumstancesPaymentChange.apply)(CircumstancesPaymentChange.unapply))
 
-  def present = claiming { implicit circs => implicit request => implicit lang =>
+  def present = claiming {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesPaymentChange) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g5_paymentChange(form.fill(CircumstancesPaymentChange)))
     }
   }
 
-  def submit = claiming { implicit circs => implicit request => implicit lang =>
+  def submit = claiming {implicit circs =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s2_report_changes.g5_paymentChange(formWithErrors)),
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())

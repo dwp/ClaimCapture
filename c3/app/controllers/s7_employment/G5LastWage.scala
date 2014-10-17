@@ -37,11 +37,11 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def present(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def present(jobID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
     track(LastWage) { implicit claim => Ok(views.html.s7_employment.g5_lastWage(form.fillWithJobID(LastWage, jobID))) }
   }
 
-  def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheckInJob { jobID => implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val form = formWithErrors
