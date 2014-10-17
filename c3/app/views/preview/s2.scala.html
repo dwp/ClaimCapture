@@ -44,10 +44,19 @@ nationalityAndResidency.maritalStatus match {
     s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${contactDetails.postcode.getOrElse("")}"
 }
 
+@g1YourDetailsRoute = @{
+    s"${controllers.s2_about_you.routes.G1YourDetails.present}"
+}
+
+@fieldWithLink(id:String, href:String, name:String, value:String) = @{
+    val label = Html(Messages(name))
+    val row = s"<dt><a id=$id href=$href>$label</a></dt><dd>$value</dd>"
+    Html(row)
+}
 
 <h2>@Html(Messages("aboutYou.title"))</h2>
 <dl>
-    <dt><a id="about_you_full_name" href="@controllers.s2_about_you.routes.G1YourDetails.present">@Html(Messages("name"))</a></dt><dd>@titleNames</dd>
+    @fieldWithLink("about_you_full_name", g1YourDetailsRoute, "name", titleNames)
     <dt><a id="about_you_nino"      href="@controllers.s2_about_you.routes.G1YourDetails.present">@Html(Messages("nationalInsuranceNumber"))</a></dt><dd>@nino</dd>
     <dt><a id="about_you_dob"       href="@controllers.s2_about_you.routes.G1YourDetails.present">@Html(Messages("dateOfBirth"))</a></dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
     <dt><a id="about_you_address"   href="@controllers.s2_about_you.routes.G2ContactDetails.present">@Html(Messages("address"))</a></dt><dd>@addressPostcode</dd>
@@ -55,7 +64,7 @@ nationalityAndResidency.maritalStatus match {
     @if(nationalityAndResidency.maritalStatus.isDefined){
         <dt><a id="about_you_marital_status" href="@controllers.s2_about_you.routes.G4NationalityAndResidency.present">@Html(Messages("maritalStatusNQ"))</a></dt><dd>@maritalStatus</dd>
     }
-    <dt>@Html(Messages("dateOfClaim.simple"))</dt><dd>@{claimDate.dateOfClaim.`dd month, yyyy`}</dd>
+    <dt><a id="about_you_claimdate" href="@controllers.s1_2_claim_date.routes.G1ClaimDate.present">@Html(Messages("dateOfClaim.simple"))</a></dt><dd>@{claimDate.dateOfClaim.`dd month, yyyy`}</dd>
     <dt><a id="about_you_nationality" href="@controllers.s2_about_you.routes.G4NationalityAndResidency.present">@Html(Messages("yourNationality"))</a></dt><dd>@nationality</dd>
     <dt><a id="about_you_abroad" href="@controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.present">@Html(Messages("timeOutsideGB"))</a></dt><dd>@{Messages("label."+(if (trips.fiftyTwoWeeksTrips.size > 0) "yes" else "no"))}</dd>
     <dt>@Html(Messages("benefitsFromEEA"))</dt><dd>@{Messages("label."+otherEEA.benefitsFromEEA)}</dd>
