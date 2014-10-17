@@ -26,7 +26,7 @@ class G1ClaimDateIntegrationSpec extends Specification with Tags {
 
     "Modify claim date from preview page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
-      val id = "about_you_claimdate"
+      val id = "about_you_claimDate"
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "10 October, 2014"

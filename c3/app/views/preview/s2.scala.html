@@ -64,9 +64,9 @@ nationalityAndResidency.maritalStatus match {
     @if(nationalityAndResidency.maritalStatus.isDefined){
         <dt><a id="about_you_marital_status" href="@controllers.s2_about_you.routes.G4NationalityAndResidency.present">@Html(Messages("maritalStatusNQ"))</a></dt><dd>@maritalStatus</dd>
     }
-    <dt><a id="about_you_claimdate" href="@controllers.s1_2_claim_date.routes.G1ClaimDate.present">@Html(Messages("dateOfClaim.simple"))</a></dt><dd>@{claimDate.dateOfClaim.`dd month, yyyy`}</dd>
-    <dt><a id="about_you_nationality" href="@controllers.s2_about_you.routes.G4NationalityAndResidency.present">@Html(Messages("yourNationality"))</a></dt><dd>@nationality</dd>
-    <dt><a id="about_you_abroad" href="@controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.present">@Html(Messages("timeOutsideGB"))</a></dt><dd>@{Messages("label."+(if (trips.fiftyTwoWeeksTrips.size > 0) "yes" else "no"))}</dd>
-    <dt>@Html(Messages("benefitsFromEEA"))</dt><dd>@{Messages("label."+otherEEA.benefitsFromEEA)}</dd>
-    <dt>@Html(Messages("workingForEEA"))</dt><dd>@{Messages("label."+otherEEA.workingForEEA)}</dd>
+    <dt><a id="about_you_claimDate"        href="@controllers.s1_2_claim_date.routes.G1ClaimDate.present">@Html(Messages("dateOfClaim.simple"))</a></dt><dd>@{claimDate.dateOfClaim.`dd month, yyyy`}</dd>
+    <dt><a id="about_you_nationality"      href="@controllers.s2_about_you.routes.G4NationalityAndResidency.present">@Html(Messages("yourNationality"))</a></dt><dd>@nationality</dd>
+    <dt><a id="about_you_abroad"           href="@controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.present">@Html(Messages("timeOutsideGB"))</a></dt><dd>@{Messages("label."+(if (trips.fiftyTwoWeeksTrips.size > 0) "yes" else "no"))}</dd>
+    <dt><a id="about_you_benefitsFromEEA"  href="@controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.present">@Html(Messages("benefitsFromEEA"))</a></dt><dd>@{Messages("label."+otherEEA.benefitsFromEEA)}</dd>
+    <dt><a id="about_you_workingForEEA"    href="@controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.present">@Html(Messages("workingForEEA"))</a></dt><dd>@{Messages("label."+otherEEA.workingForEEA)}</dd>
 </dl>
