@@ -1,16 +1,36 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
+@import controllers.PreviewUtils._
 
 @partner = @{claim.questionGroup[YourPartnerPersonalDetails]}
 @aboutOtherMoney = @{claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())}
+@anyPaymentsSinceClaimDate = @{
+    var paymentsAnswer = Messages("label."+aboutOtherMoney.anyPaymentsSinceClaimDate.answer)
+    aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
+        case Mappings.yes => paymentsAnswer.concat(" - ").concat(Messages("detailsProvided.simple"))
+        case _ => paymentsAnswer
+    }
+}
+@statutoryPay = @{
+    var statutoryPay = Messages("label."+aboutOtherMoney.statutorySickPay.answer)
+    aboutOtherMoney.statutorySickPay.answer match {
+        case Mappings.yes => statutoryPay.concat(" - ").concat(Messages("detailsProvided.simple"))
+        case _ => statutoryPay
+    }
+}
+@otherStatutoryPay = @{
+    var otherStatutoryPay = Messages("label."+aboutOtherMoney.otherStatutoryPay.answer)
+    aboutOtherMoney.otherStatutoryPay.answer match {
+        case Mappings.yes => otherStatutoryPay.concat(" - ").concat(Messages("detailsProvided.simple"))
+        case _ => otherStatutoryPay
+    }
+}
+
 
 <h2>@Html(Messages("s9.longName"))</h2>
 <dl>
-    <dt>@Html(Messages("anyPaymentsSinceClaimDate.answer"))</dt>
-    <dd>@{Messages("label."+aboutOtherMoney.anyPaymentsSinceClaimDate.answer)} @{if(aboutOtherMoney.anyPaymentsSinceClaimDate.answer == "yes")"- Details provided"}</dd>
-    <dt>@Html(Messages("statutoryPay.simple"))</dt>
-    <dd>@{Messages("label."+aboutOtherMoney.statutorySickPay.answer)} @{if(aboutOtherMoney.statutorySickPay.answer == "yes")"- Details provided"}</dd>
-    <dt>@Html(Messages("smpSppSap.simple"))</dt>
-    <dd>@{Messages("label."+aboutOtherMoney.otherStatutoryPay.answer)} @{if(aboutOtherMoney.otherStatutoryPay.answer == "yes")"- Details provided"}</dd>
+    @fieldWithLink("other_money_anyPaymentsSinceClaimDate", "anyPaymentsSinceClaimDate.answer", anyPaymentsSinceClaimDate)
+    @fieldWithLink("other_money_statutoryPay", "statutoryPay.simple", statutoryPay)
+    @fieldWithLink("other_money_otherStatutoryPay", "smpSppSap.simple", otherStatutoryPay)
 </dl>

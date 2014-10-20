@@ -104,5 +104,5 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
         BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate))
       },
       f => claim.update(f) -> Redirect(controllers.s11_pay_details.routes.G1HowWePayYou.present))
-  }
+  } withPreview()
 }

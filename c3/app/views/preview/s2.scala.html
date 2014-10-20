@@ -3,6 +3,8 @@
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
 @import app.MaritalStatus._
+@import controllers.PreviewUtils._
+
 
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
     @nino = @{
@@ -42,42 +44,6 @@ nationalityAndResidency.maritalStatus match {
 
 @addressPostcode = @{
     s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${contactDetails.postcode.getOrElse("")}"
-}
-
-@g1YourDetailsRoute = @{
-    controllers.s2_about_you.routes.G1YourDetails.present.toString
-}
-
-@g2ContactDetailsRoute = @{
-    controllers.s2_about_you.routes.G2ContactDetails.present.toString
-}
-
-@g4NationalityRoute = @{
-    controllers.s2_about_you.routes.G4NationalityAndResidency.present.toString
-}
-
-@g7OtherEEARoute = @{
-    controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.present.toString
-}
-
-@routesMap = @{
-    Map("about_you_full_name" -> g1YourDetailsRoute,
-        "about_you_nino" -> g1YourDetailsRoute,
-        "about_you_dob" -> g1YourDetailsRoute,
-        "about_you_address" -> g2ContactDetailsRoute,
-        "about_you_contact" -> g2ContactDetailsRoute,
-        "about_you_marital_status" -> g4NationalityRoute,
-        "about_you_claimDate" -> controllers.s1_2_claim_date.routes.G1ClaimDate.present.toString,
-        "about_you_nationality" -> g4NationalityRoute,
-        "about_you_abroad" -> controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.present.toString,
-        "about_you_benefitsFromEEA" -> g7OtherEEARoute,
-        "about_you_workingForEEA" -> g7OtherEEARoute)
-}
-
-@fieldWithLink(id:String, name:String, value:String) = @{
-    val label = Html(Messages(name))
-    val row = s"<dt><a id=$id href=${routesMap(id)}>$label</a></dt><dd>$value</dd>"
-    Html(row)
 }
 
 <h2>@Html(Messages("aboutYou.title"))</h2>
