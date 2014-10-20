@@ -29,7 +29,7 @@ object G8BreaksInCareSummary extends Controller with CachedChangeOfCircs with Na
 
   def present = claiming {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesBreaksInCareSummary) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g8_breaksInCareSummary(form.fill(CircumstancesBreaksInCareSummary), circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare())))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g8_breaksInCareSummary(form.fill(CircumstancesBreaksInCareSummary), circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()))(lang))
     }
   }
 
@@ -38,7 +38,7 @@ object G8BreaksInCareSummary extends Controller with CachedChangeOfCircs with Na
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("additionalBreaks", "additionalBreaks.text.required", FormError("additionalBreaks.text", "error.required"))
-        BadRequest(views.html.circs.s2_report_changes.g8_breaksInCareSummary(formWithErrorsUpdate, circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare())))
+        BadRequest(views.html.circs.s2_report_changes.g8_breaksInCareSummary(formWithErrorsUpdate, circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()))(lang))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )

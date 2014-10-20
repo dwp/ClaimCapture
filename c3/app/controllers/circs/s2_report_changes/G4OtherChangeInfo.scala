@@ -18,13 +18,13 @@ object G4OtherChangeInfo extends Controller with CachedChangeOfCircs with Naviga
 
   def present = claiming {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesOtherInfo) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g4_otherChangeInfo(form.fill(CircumstancesOtherInfo)))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g4_otherChangeInfo(form.fill(CircumstancesOtherInfo))(lang))
     }
   }
 
   def submit = claiming {implicit circs =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.circs.s2_report_changes.g4_otherChangeInfo(formWithErrors)),
+      formWithErrors => BadRequest(views.html.circs.s2_report_changes.g4_otherChangeInfo(formWithErrors)(lang)),
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )
   }

@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Benefits])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.Benefits])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 
 @import utils.helpers.EmptyTemplate._
@@ -8,6 +8,7 @@
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
 
+@defining(lang) { implicit language =>
 @main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm),false) {
 
 
@@ -72,4 +73,4 @@
     });
     </script>
 }
-
+}

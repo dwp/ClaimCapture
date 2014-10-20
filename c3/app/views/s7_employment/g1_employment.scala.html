@@ -1,4 +1,4 @@
-    @(employmentForm: Form[models.domain.Employment])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+    @(employmentForm: Form[models.domain.Employment])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import scala.language.postfixOps
 @import helper._
@@ -19,7 +19,9 @@
     bulletsConstructor("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper.l", 7)
 }
 
-@main(Messages("s7.g1") + "  " + Messages("s7.longName"), Some(employmentForm)) {
+        @defining(lang) { implicit language =>
+
+        @main(Messages("s7.g1") + "  " + Messages("s7.longName"), Some(employmentForm)) {
     @form(action = controllers.s7_employment.routes.G1Employment.submit) {
         @DwpCSRFFormHelper.formField
         <div class="form-wrap">
@@ -57,3 +59,4 @@
     })
 </script>
 }
+    }

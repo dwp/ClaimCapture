@@ -27,12 +27,12 @@ object G2TheirContactDetails extends Controller with CachedClaim with Navigable 
       }.getOrElse(form)
     }
 
-    track(TheirContactDetails) { implicit claim => Ok(views.html.s4_care_you_provide.g2_theirContactDetails(theirContactDetailsForm)) }
+    track(TheirContactDetails) { implicit claim => Ok(views.html.s4_care_you_provide.g2_theirContactDetails(theirContactDetailsForm)(lang)) }
   }
 
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g2_theirContactDetails(formWithErrors)),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g2_theirContactDetails(formWithErrors)(lang)),
       theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.G7MoreAboutTheCare.present()))
   }
 }

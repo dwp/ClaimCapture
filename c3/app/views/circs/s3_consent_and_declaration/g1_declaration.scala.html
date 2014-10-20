@@ -1,4 +1,4 @@
-@(declarationForm: Form[models.domain.CircumstancesDeclaration])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(declarationForm: Form[models.domain.CircumstancesDeclaration])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
@@ -8,6 +8,7 @@
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
 
+@defining(lang) { implicit language =>
 @main(Messages("c3.g1") + " - " + Messages("c3.name")) {
     @errorsSummary(declarationForm)
 
@@ -87,3 +88,4 @@ window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
                    "@CarersCrypto.encryptAES("nameOrOrganisation")");
 })
 </script>
+}

@@ -1,4 +1,4 @@
-@(addressForm: Form[models.domain.CircumstancesAddressChange])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang:Lang)
+@(addressForm: Form[models.domain.CircumstancesAddressChange])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -13,7 +13,7 @@
 @import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
 
-
+@defining(lang) { implicit language =>
 @main(Messages("c2.g6") + " - " + Messages("c2.name")) {
     @errorsSummary(addressForm)
 
@@ -106,4 +106,5 @@ window.initEvents("@CarersCrypto.encryptAES("stillCaring_answer_yes")",
  @ga.stagePrompt()
 });
 </script>
+}
 }

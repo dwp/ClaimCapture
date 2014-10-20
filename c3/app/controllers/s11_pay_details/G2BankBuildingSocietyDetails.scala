@@ -38,13 +38,13 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
       case _ => true
     }
 
-    if (iAmVisible) track(BankBuildingSocietyDetails) { implicit claim => Ok(views.html.s11_pay_details.g2_bankBuildingSocietyDetails(form.fill(BankBuildingSocietyDetails))) }
+    if (iAmVisible) track(BankBuildingSocietyDetails) { implicit claim => Ok(views.html.s11_pay_details.g2_bankBuildingSocietyDetails(form.fill(BankBuildingSocietyDetails))(lang)) }
     else claim.delete(BankBuildingSocietyDetails) -> redirectPath
   }
 
   def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s11_pay_details.g2_bankBuildingSocietyDetails(formWithErrors)),
+      formWithErrors => BadRequest(views.html.s11_pay_details.g2_bankBuildingSocietyDetails(formWithErrors)(lang)),
       howWePayYou => claim.update(howWePayYou) -> redirectPath)
   }
 }

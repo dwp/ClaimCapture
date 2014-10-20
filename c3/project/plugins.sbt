@@ -7,3 +7,6 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.5")
 addSbtPlugin("net.litola" % "play-sass" % "0.4.0")
 
 addSbtPlugin("de.johoop" % "jacoco4sbt" % "2.1.5")
+
+addSbtPlugin("com.typesafe.sbt" % "sbt-coffeescript" % "1.0.0")
+

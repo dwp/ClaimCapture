@@ -22,7 +22,7 @@ object G5AbroadForMoreThan52Weeks extends Controller with CachedClaim with Navig
       case _ => form
     }
 
-    track(AbroadForMoreThan52Weeks) { implicit claim => Ok(views.html.s2_about_you.g5_abroad_for_more_than_52_weeks(filledForm, trips)) }
+    track(AbroadForMoreThan52Weeks) { implicit claim => Ok(views.html.s2_about_you.g5_abroad_for_more_than_52_weeks(filledForm, trips)(lang)) }
   }
 
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
@@ -35,7 +35,7 @@ object G5AbroadForMoreThan52Weeks extends Controller with CachedClaim with Navig
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g5_abroad_for_more_than_52_weeks(formWithErrors, trips)),
+      formWithErrors => BadRequest(views.html.s2_about_you.g5_abroad_for_more_than_52_weeks(formWithErrors, trips)(lang)),
       abroadForMoreThan52Weeks => claim.update(abroadForMoreThan52Weeks).update(trips) -> next(abroadForMoreThan52Weeks))
   }
 }

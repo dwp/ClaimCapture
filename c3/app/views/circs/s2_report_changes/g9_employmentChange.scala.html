@@ -1,4 +1,4 @@
-@(employmentChange: Form[models.domain.CircumstancesEmploymentChange])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang:Lang)
+@(employmentChange: Form[models.domain.CircumstancesEmploymentChange])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -16,8 +16,10 @@
 @hasWorkStartedYet = @{employmentChange("hasWorkStartedYet")}
 @hasWorkFinishedYet = @{employmentChange("hasWorkFinishedYet")}
 @typeOfWork = @{employmentChange("typeOfWork")}
-    
-@main(Messages("c2.g9") + " - " + Messages("c2.name")) {
+
+    @defining(lang) { implicit language =>
+
+    @main(Messages("c2.g9") + " - " + Messages("c2.name")) {
     @errorsSummary(employmentChange)
 
     @form(action = controllers.circs.s2_report_changes.routes.G9EmploymentChange.submit) {
@@ -157,4 +159,5 @@ window.typeOfWork("@CarersCrypto.encryptAES(typeOfWork("answer")("employed").id)
 });
 
 </script>
+}
 }

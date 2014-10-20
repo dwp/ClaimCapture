@@ -39,8 +39,6 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
-      click("#beenEmployed_yes")
-      next
       titleMustEqual("Employer Details - Employment History")
     }
 

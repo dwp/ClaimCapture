@@ -1,4 +1,4 @@
-@(reportChangesForm: Form[models.domain.ReportChanges])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang:Lang)
+@(reportChangesForm: Form[models.domain.ReportChanges])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -14,38 +14,42 @@
 @import play.api.i18n.{MMessages => Messages}
 @import app.ConfigProperties._
 
-@employmentOption = @{
-  if(getProperty("circs.employment.active", default = false)) EmploymentChange.name -> Messages("reportChanges.employed")
-  else SelfEmployment.name -> Messages("reportChanges.selfEmployed")
-}
 
-@main(Messages("c2.g1") + " - " + Messages("c2.name"),changing=true) {
-    @errorsSummary(reportChangesForm)
+    @employmentOption(implicit lang: Lang) = @{
+        if(getProperty("circs.employment.active", default = false)) EmploymentChange.name -> Messages("reportChanges.employed")
+        else SelfEmployment.name -> Messages("reportChanges.selfEmployed")
+    }
 
-    @form(action = controllers.circs.s2_report_changes.routes.G1ReportChanges.submit) {
-        @DwpCSRFFormHelper.formField
-        <div class="form-wrap">
-	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("reportChanges"))</legend>
-	                @listRadioGroupWithSubGroups(reportChangesForm("reportChanges"),
+    @defining(lang) { implicit language =>
+
+    @main(Messages("c2.g1") + " - " + Messages("c2.name"), changing = true) {
+        @errorsSummary(reportChangesForm)
+
+        @form(action = controllers.circs.s2_report_changes.routes.G1ReportChanges.submit) {
+            @DwpCSRFFormHelper.formField
+            <div class="form-wrap">
+                <fieldset class="form-elements">
+                    <legend>@Html(Messages("reportChanges"))</legend>
+                    @listRadioGroupWithSubGroups(reportChangesForm("reportChanges"),
                         '_nestedFieldSet -> false,
                         '_showLabel -> false,
-	                    'items -> Seq(
+                        'items -> Seq(
                             Messages("reportChanges.group1"),
                             BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
                             StoppedCaring.name -> Messages("reportChanges.stoppedCaring"),
                             Messages("reportChanges.group2"),
-	                        AddressChange.name -> Messages("reportChanges.addressChange"),
+                            AddressChange.name -> Messages("reportChanges.addressChange"),
                             employmentOption,
-	                        PaymentChange.name -> Messages("reportChanges.paymentChange"),
-	                        AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")))
-	        </fieldset>
-	
-	        <nav class="form-steps">
-	            <ul>
-	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            </ul>
-	        </nav>
-        </div>
+                            PaymentChange.name -> Messages("reportChanges.paymentChange"),
+                            AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")))
+                </fieldset>
+
+                <nav class="form-steps">
+                    <ul>
+                        <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                    </ul>
+                </nav>
+            </div>
+        }
     }
 }

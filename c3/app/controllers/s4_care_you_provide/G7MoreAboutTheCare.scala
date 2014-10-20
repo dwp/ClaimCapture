@@ -24,14 +24,14 @@ object G7MoreAboutTheCare extends Controller with CachedClaim with Navigable {
   )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply))
 
   def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
-    track(MoreAboutTheCare) { implicit claim => Ok(views.html.s4_care_you_provide.g7_moreAboutTheCare(form.fill(MoreAboutTheCare))) }
+    track(MoreAboutTheCare) { implicit claim => Ok(views.html.s4_care_you_provide.g7_moreAboutTheCare(form.fill(MoreAboutTheCare))(lang)) }
   }
 
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("beforeClaimCaring", FormError("beforeClaimCaring.date", "error.required"))
-        BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(formWithErrorsUpdate))
+        BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(formWithErrorsUpdate)(lang))
       },
       moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(routes.G10BreaksInCare.present())
     )

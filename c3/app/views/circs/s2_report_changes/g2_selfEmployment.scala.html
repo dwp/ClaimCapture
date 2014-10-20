@@ -1,4 +1,4 @@
-@(selfEmployment: Form[models.domain.CircumstancesSelfEmployment])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang:Lang)
+@(selfEmployment: Form[models.domain.CircumstancesSelfEmployment])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -12,6 +12,8 @@
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
+
+@defining(lang) { implicit language =>
 
 @main(Messages("c2.g2") + " - " + Messages("c2.name")) {
     @errorsSummary(selfEmployment)
@@ -66,4 +68,5 @@ window.initEvents("@CarersCrypto.encryptAES("stillCaring_answer_yes")",
 @ga.stagePrompt()
 });
 </script>
+}
 }

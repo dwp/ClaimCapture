@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.YourPartnerPersonalDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.YourPartnerPersonalDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
@@ -11,31 +11,33 @@
 @import models.domain.YourPartnerPersonalDetails
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
-@partnerHelpWithLink = @{
-    Html(Messages("s3.g1.help")) + """ <a href="/claim-help#3" target="_blank"""" + views.html.ga.trackClickEvent(linkName = Messages("s3.g1.track")) + """>""" + Html(Messages("s3.g1.link")) + """</a>"""
-}
-
-@showHideNationality = @{ // show nationality if not British and married or living with a partner
-    if (YourPartnerPersonalDetails.shouldNationalityVisible(claim)){
-        carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35,'helperAbove -> Messages("partner.nationality.helper"),'helperBelow -> Messages("partner.nationality.helper2"), 'ignoreOptional -> true)
-    } else {
-        Html("")
+    @partnerHelpWithLink(implicit lang: Lang) = @{
+        Html(Messages("s3.g1.help")) + """ <a href="/claim-help#3" target="_blank"""" + views.html.ga.trackClickEvent(linkName = Messages("s3.g1.track")) + """>""" + Html(Messages("s3.g1.link")) + """</a>"""
     }
-}
 
-@displayDateForLabel = @{
-    claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang,dmy))
-}
+    @showHideNationality(implicit lang: Lang) = @{
+        // show nationality if not British and married or living with a partner
+        if(YourPartnerPersonalDetails.shouldNationalityVisible(claim)) {
+            carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35, 'helperAbove -> Messages("partner.nationality.helper"), 'helperBelow -> Messages("partner.nationality.helper2"), 'ignoreOptional -> true)
+        } else {
+            Html("")
+        }
+    }
 
-@main(Messages("s3.g1") + " - " + Messages("s3.longName"), Some(currentForm)) {
+    @displayDateForLabel = @{
+        claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy))
+    }
+
+    @defining(lang) { implicit language =>
+
+    @main(Messages("s3.g1") + " - " + Messages("s3.longName"), Some(currentForm)) {
 
 
+        @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit) {
 
-    @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit) {
+            @DwpCSRFFormHelper.formField
+            <p class="intro-info">@Html(partnerHelpWithLink)</p>
 
-        @DwpCSRFFormHelper.formField
-        <p class="intro-info">@Html(partnerHelpWithLink)</p>
-        
             <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
                 <legend>@Html(Messages("haveLivedWithPartnerSinceClaimDate.label"))</legend>
                 <div class="prompt nested-prompt partner-linked">
@@ -53,7 +55,7 @@
                         inputDef = Seq(
                             titleSelect(currentForm("title")),
 
-                            carersInputText(currentForm("firstName"),'helperAbove -> Messages("their.name.helper"), 'maxLength -> 17),
+                            carersInputText(currentForm("firstName"), 'helperAbove -> Messages("their.name.helper"), 'maxLength -> 17),
 
                             carersInputText(currentForm("middleName"), 'maxLength -> 17),
 
@@ -61,7 +63,7 @@
 
                             carersInputText(currentForm("otherNames"), 'maxLength -> 35),
 
-                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove-> Messages("nationalInsuranceNumber.helper"), 'helperBelow-> Messages("nationalInsuranceNumber.helper2")),
+                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove -> Messages("nationalInsuranceNumber.helper"), 'helperBelow -> Messages("nationalInsuranceNumber.helper2")),
 
                             dateOfBirth(currentForm("dateOfBirth")),
 
@@ -81,16 +83,16 @@
                     <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
                 </ul>
             </nav>
-    }
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/s3_your_partner/g1_yourPartnerPersonalDetails.js")'></script>
+        }
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s3_your_partner/g1_yourPartnerPersonalDetails.js")'></script>
 
-    <script type="text/javascript">
-    $(function(){
-        @ga.stagePrompt()
-    })
+        <script type="text/javascript">
+        $ ( function ( ) {
+            @ga.stagePrompt()
+        } )
 
-    $(function(){
-        window.initEvents("@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
+        $ ( function ( ) {
+        window.initEvents ( "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
         "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
         "@CarersCrypto.encryptAES("title")",
         "@CarersCrypto.encryptAES("firstName")",
@@ -110,8 +112,9 @@
         "@CarersCrypto.encryptAES("separated_fromPartner_no")",
         "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
         "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")"
-        );
-    })
+        ) ;
+        } )
 
-    </script>
+        </script>
+    }
 }

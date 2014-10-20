@@ -45,7 +45,7 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
 
   def present = claiming {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesStartedAndFinishedEmployment) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(form.fill(CircumstancesStartedAndFinishedEmployment)))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(form.fill(CircumstancesStartedAndFinishedEmployment))(lang))
     }
   }
 
@@ -60,18 +60,18 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
           .replaceError("doYouPayIntoPension","doYouPayIntoPension.text.required",FormError("doYouPayIntoPension.whatFor","error.required"))
           .replaceError("doCareCostsForThisWork","doCareCostsForThisWork.text.required",FormError("doCareCostsForThisWork.whatCosts","error.required"))
 
-        BadRequest(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(formWithErrorsUpdate))
+        BadRequest(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(formWithErrorsUpdate)(lang))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )
   }
 
-  def validateMonthlyPayDay(input: CircumstancesStartedAndFinishedEmployment): Boolean = input.howOften.frequency match {
+  private def validateMonthlyPayDay(input: CircumstancesStartedAndFinishedEmployment): Boolean = input.howOften.frequency match {
     case "monthly" => input.monthlyPayDay.isDefined
     case _ => true
   }
 
-  def validateEmployerOwesYou(input: CircumstancesStartedAndFinishedEmployment): Boolean = input.employerOwesYouMoney match {
+  private def validateEmployerOwesYou(input: CircumstancesStartedAndFinishedEmployment): Boolean = input.employerOwesYouMoney match {
     case `yes` => input.employerOwesYouMoneyInfo.isDefined
     case _ => true
   }

@@ -52,7 +52,6 @@ trait DataFiller {
     fill("#dateOfBirth_day") `with` "3"
     fill("#dateOfBirth_month") `with` "4"
     fill("#dateOfBirth_year") `with` "2001"
-    click("#maritalStatus option[value='Single']")    
   }
 
   def `/about-you/contact-details`: Fluent = {

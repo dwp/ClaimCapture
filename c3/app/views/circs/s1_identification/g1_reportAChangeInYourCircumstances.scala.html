@@ -1,59 +1,59 @@
-@(reportAChangeForm: Form[models.domain.CircumstancesReportChange])(implicit claim: models.domain.Claim, request:Request[AnyContent], lang:Lang)
+@(reportAChangeForm: Form[models.domain.CircumstancesReportChange])(lang: Lang)(implicit claim: models.domain.Claim, request:Request[AnyContent])
 
 @import helper._
-@import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
-@import views.html.common._
+@import utils.helpers.CarersTemplate._
 @import views.html.helper._
-@import views.html.helper.dropdowns._
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import controllers.Mappings._
 @import play.api.i18n.{MMessages => Messages}
 
-@main(Messages("c1") + " - " + Messages("c2.longName"), Some(reportAChangeForm), claim.completedQuestionGroups(models.domain.CircumstancesReportChange)) {
+@defining(lang) { implicit language =>
+    @main(Messages("c1") + " - " + Messages("c2.longName"), Some(reportAChangeForm), claim.completedQuestionGroups(models.domain.CircumstancesReportChange)) {
 
-    @form(action = controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.submit) {
-        @DwpCSRFFormHelper.formField
+        @form(action = controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.submit) {
+            @DwpCSRFFormHelper.formField
 
-        <input type="hidden" id="js" name="jsEnabled" value="false">
-        <div class="form-wrap">
-	        <fieldset class="form-elements" data-journey="carers-allowance:report-change:identification">
-                <legend>@Html(Messages("c1.yourDetails"))</legend>
+            <input type="hidden" id="js" name="jsEnabled" value="false">
+            <div class="form-wrap">
+                <fieldset class="form-elements" data-journey="carers-allowance:report-change:identification">
+                    <legend>@Html(Messages("c1.yourDetails"))</legend>
 
-                <p>@Html(Messages("c1.helper"))</p>
+                    <p>@Html(Messages("c1.helper"))</p>
 
-	            <ul>
-	                @carersInputText(reportAChangeForm("fullName"), 'maxLength -> 35)
-	
-	                @nationalInsuranceNumber(reportAChangeForm("nationalInsuranceNumber"), 'helperAbove -> Messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper2"))
-	
-	                @dateOfBirth(reportAChangeForm("dateOfBirth"))
-	            </ul>
-	
-	          
-	        </fieldset>
-	        
-	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("c1.personYouAreCaringFor"))</legend>
-	            <ul>
-	                @carersInputText(reportAChangeForm("theirFullName"), 'maxLength -> 35)
-	
-	                @carersInputText(reportAChangeForm("theirRelationshipToYou"), 'helperAbove -> Messages("theirRelationshipToYou.helper"), 'maxLength -> 35)
-	            </ul>
-	        </fieldset>
-	
-	        <nav class="form-steps">
-	            <ul>
-	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            </ul>
-	        </nav>
-        </div>
+                    <ul>
+                        @carersInputText(reportAChangeForm("fullName"), 'maxLength -> 35)
+
+                        @nationalInsuranceNumber(reportAChangeForm("nationalInsuranceNumber"), 'helperAbove -> Messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper2"))
+
+                        @dateOfBirth(reportAChangeForm("dateOfBirth"))
+                    </ul>
+
+
+                </fieldset>
+
+                <fieldset class="form-elements">
+                    <legend>@Html(Messages("c1.personYouAreCaringFor"))</legend>
+                    <ul>
+                        @carersInputText(reportAChangeForm("theirFullName"), 'maxLength -> 35)
+
+                        @carersInputText(reportAChangeForm("theirRelationshipToYou"), 'helperAbove -> Messages("theirRelationshipToYou.helper"), 'maxLength -> 35)
+                    </ul>
+                </fieldset>
+
+                <nav class="form-steps">
+                    <ul>
+                        <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                    </ul>
+                </nav>
+            </div>
+        }
+        <script type="text/javascript">$ ( $ ( "#js" ).val ( "true" ) ) ;</script>
+        <script type="text/javascript">
+        $ ( function ( ) {
+            @ga.stagePrompt()
+        } )
+        </script>
     }
-<script type="text/javascript">$($("#js").val("true"));</script>
-<script type="text/javascript">
-    $(function(){
-        @ga.stagePrompt()
-    })
-</script>
 }

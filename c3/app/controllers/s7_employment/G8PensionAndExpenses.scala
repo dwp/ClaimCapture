@@ -38,7 +38,7 @@ object G8PensionAndExpenses extends Controller with CachedClaim with Navigable {
 
 
   def present(jobID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    track(PensionAndExpenses) { implicit claim => Ok(views.html.s7_employment.g8_pensionAndExpenses(form.fillWithJobID(PensionAndExpenses, jobID))) }
+    track(PensionAndExpenses) { implicit claim => Ok(views.html.s7_employment.g8_pensionAndExpenses(form.fillWithJobID(PensionAndExpenses, jobID))(lang)) }
   }
 
   def submit = claimingWithCheckInJob { jobID => implicit claim =>  implicit request =>  lang =>
@@ -50,7 +50,7 @@ object G8PensionAndExpenses extends Controller with CachedClaim with Navigable {
           .replaceError("haveExpensesForJob","haveExpensesForJob.text.required",FormError("haveExpensesForJob.text","error.required", Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", jobID))))
           .replaceError("haveExpensesForJob","haveExpensesForJob.text..maxLength",FormError("haveExpensesForJob.text","error.maxLength", Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", jobID))))
 
-          BadRequest(views.html.s7_employment.g8_pensionAndExpenses(formWithErrorsUpdate))
+          BadRequest(views.html.s7_employment.g8_pensionAndExpenses(formWithErrorsUpdate)(lang))
       },
       aboutExpenses => claim.update(jobs.update(aboutExpenses).completeJob(jobID)) -> Redirect(routes.G2BeenEmployed.present()))
 

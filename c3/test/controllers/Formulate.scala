@@ -238,7 +238,7 @@ object Formulate {
     browser.fill("#beforeClaimCaring_date_month") `with` "4"
     browser.fill("#beforeClaimCaring_date_year") `with` "1950"
 
-    browser.click("#hasSomeonePaidYou_yes")
+//    browser.click("#hasSomeonePaidYou_yes")
 
     browser.submit("button[type='submit']")
   }
@@ -257,8 +257,7 @@ object Formulate {
   def moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/more-about-the-care")
     browser.click("#spent35HoursCaring_yes")
-    browser.click("#spent35HoursCaringBeforeClaim_no")
-    browser.click("#hasSomeonePaidYou_yes")
+    browser.click("#beforeClaimCaring_answer_no")
     browser.submit("button[type='submit']")
   }
 

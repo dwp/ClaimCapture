@@ -1,10 +1,9 @@
-@(currentForm: Form[models.domain.SelfEmploymentYourAccounts])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.SelfEmploymentYourAccounts])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dates._
 @import utils.csrf.DwpCSRFFormHelper
@@ -13,6 +12,7 @@
 
 
 @import play.api.i18n.{MMessages => Messages}
+@defining(lang) { implicit language =>
 @main(Messages("s8.g2") + " - " + Messages("s8.longName"), Some(currentForm)) {
 
 
@@ -53,4 +53,5 @@
         window.initEvents("@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_yes")", "@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_no")");
     });
 </script>
+}
 }

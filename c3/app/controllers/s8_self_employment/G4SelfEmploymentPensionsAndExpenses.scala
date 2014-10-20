@@ -45,7 +45,7 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim w
   }
 
   def selfEmploymentYourAccounts( lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    track(SelfEmploymentPensionsAndExpenses) { implicit claim => Ok(views.html.s8_self_employment.g4_selfEmploymentPensionAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses))) }
+    track(SelfEmploymentPensionsAndExpenses) { implicit claim => Ok(views.html.s8_self_employment.g4_selfEmploymentPensionAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses))(lang)) }
   }
   
   def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
@@ -57,7 +57,7 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim w
           .replaceError("haveExpensesForJob","haveExpensesForJob.text.required",FormError("haveExpensesForJob.text","error.required", Seq(labelForSelfEmployment(claim, lang, "haveExpensesForJob.text"))))
           .replaceError("haveExpensesForJob","haveExpensesForJob.text.maxLength",FormError("haveExpensesForJob.text","error.maxLength", Seq(labelForSelfEmployment(claim, lang, "haveExpensesForJob.text"))))
 
-        BadRequest(views.html.s8_self_employment.g4_selfEmploymentPensionAndExpenses(formWithErrorsUpdate))
+        BadRequest(views.html.s8_self_employment.g4_selfEmploymentPensionAndExpenses(formWithErrorsUpdate)(lang))
       },
       f => claim.update(f) ->  Redirect(routes.SelfEmployment.completedSubmit())
     )

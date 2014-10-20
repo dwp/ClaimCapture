@@ -1,4 +1,4 @@
-@(tripForm: Form[models.domain.Trip], legend :String, actionCall: Call, backCall: Call)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
+@(tripForm: Form[models.domain.Trip], legend :String, actionCall: Call, backCall: Call)(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
 
 @import utils.helpers.CarersCrypto
 @import utils.helpers.CarersTemplate._
@@ -10,7 +10,7 @@
 @import views.html.helper.dropdowns._
 @import play.api.i18n.{MMessages => Messages}
 
-
+@defining(lang) { implicit language =>
 @main(Messages("s2.g6") + " - " + Messages("s2.longName"),Some(backCall)) {
 @errorsSummary(tripForm)
 
@@ -49,4 +49,5 @@
         window.areaCounter({selector:"@CarersCrypto.encryptAES("why_reason_other")",maxChars:60});
     })
 </script>
+}
 }

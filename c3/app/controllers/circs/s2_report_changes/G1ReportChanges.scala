@@ -20,24 +20,24 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
 
   def present = claiming {implicit circs =>  implicit request =>  lang =>
     track(ReportChanges) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g1_reportChanges(form.fill(ReportChanges)))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g1_reportChanges(form.fill(ReportChanges))(lang))
     }
   }
 
   def submit = claiming {implicit circs =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.circs.s2_report_changes.g1_reportChanges(formWithErrors)),
+      formWithErrors => BadRequest(views.html.circs.s2_report_changes.g1_reportChanges(formWithErrors)(lang)),
       form => updateCircs(form, circs)
     )
   }
 
   @tailrec
-  def popDeleteQG(circs:Claim,optSections:Stack[QuestionGroup.Identifier]):Claim = {
+  private def popDeleteQG(circs:Claim,optSections:Stack[QuestionGroup.Identifier]):Claim = {
     if (optSections.isEmpty) circs
     else popDeleteQG(circs delete(optSections top),optSections pop)
   }
 
-  def updateCircs(f:ReportChanges, circs:Claim) = {
+  private def updateCircs(f:ReportChanges, circs:Claim) = {
     import controllers.circs.s2_report_changes.{routes => routes}
 
     // for qs groups under this section, if it is not reportedChange - delete

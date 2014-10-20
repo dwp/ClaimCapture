@@ -24,7 +24,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
       case _ => form
     }
 
-    track(BreaksInCare) { implicit claim => Ok(views.html.s4_care_you_provide.g10_breaksInCare(filledForm, breaksInCare)) }
+    track(BreaksInCare) { implicit claim => Ok(views.html.s4_care_you_provide.g10_breaksInCare(filledForm, breaksInCare)(lang)) }
   }
 
   def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
@@ -46,7 +46,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
         }
         val formWithErrorsUpdate = formWithErrors.replaceError("answer", FormError("answer.label", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
           if (sixMonth) (dmy - 6 months).`dd/MM/yyyy` else dmy.`dd/MM/yyyy`))))
-        BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrorsUpdate, breaksInCare))
+        BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrorsUpdate, breaksInCare)(lang))
       },
       hasBreaks => claim.update(breaksInCare) -> next(hasBreaks))
   }

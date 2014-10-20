@@ -1,23 +1,24 @@
-@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import play.api.i18n.{MMessages => Messages}
-
-@common.govMain(Messages("tryClaimAgain")) {
-    <div id="wrapper" class="carers-allowance">
-        <div class="carers-container">
-            <article class="error-statement">
+@defining(lang) { implicit language =>
+    @common.govMain(Messages("tryClaimAgain")) {
+        <div id="wrapper" class="carers-allowance">
+            <div class="carers-container">
+                <article class="error-statement">
 
                     <h1>@Html(Messages("s11.g6.help1"))</h1>
 
 
-                <p>@Html(Messages("s11.g6.help2"))</p>
+                    <p>@Html(Messages("s11.g6.help2"))</p>
 
-                <nav class="form-steps">
-                    <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.tryAgain.help"))">@Html(Messages("form.tryAgain"))</a>
-                </nav>
+                    <nav class="form-steps">
+                        <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.tryAgain.help"))">@Html(Messages("form.tryAgain"))</a>
+                    </nav>
 
-           </article>
+                </article>
 
+            </div>
         </div>
-    </div>
-}(views.html.common.submittingFooter(), lang, request)
+    }(views.html.common.submittingFooter(), lang, request)
+}

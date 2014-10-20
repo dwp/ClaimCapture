@@ -33,16 +33,16 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
 
   def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     presentConditionally {
-      track(YourCourseDetails) { implicit claim => Ok(views.html.s6_education.g1_yourCourseDetails(form.fill(YourCourseDetails))) }
+      track(YourCourseDetails) { implicit claim => Ok(views.html.s6_education.g1_yourCourseDetails(form.fill(YourCourseDetails))(lang)) }
     }
   }
 
-  def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  private def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     if (models.domain.Education.visible) c
     else redirect(claim, request)
   }
 
-  def redirect( claim: Claim, request: Request[AnyContent]): ClaimResult =
+  private def redirect( claim: Claim, request: Request[AnyContent]): ClaimResult =
     claim -> Redirect("/employment/employment")
 
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
@@ -55,7 +55,7 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
           .replaceError("", "nameOfMainTeacherOrTutor.required", FormError("nameOfMainTeacherOrTutor", "error.required"))
           .replaceError("", "startDate.required", FormError("startDate", "error.required"))
           .replaceError("", "expectedEndDate.required", FormError("expectedEndDate", "error.required"))
-        BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrorsUpdate))
+        BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrorsUpdate)(lang))
       },
       yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(controllers.s7_employment.routes.G1Employment.present()))
   }

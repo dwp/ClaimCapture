@@ -1,4 +1,4 @@
-@(yesNoForm: Form[models.yesNo.YesNo], breaksInCare: models.domain.BreaksInCare)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
+@(yesNoForm: Form[models.yesNo.YesNo], breaksInCare: models.domain.BreaksInCare)(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
 
 @import views.html.helper._
 @import models.DayMonthYear._
@@ -7,9 +7,10 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import scala.language.postfixOps
+
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
-    import language.postfixOps
 
     val spent35HoursCaringBeforeClaim = claim.questionGroup(MoreAboutTheCare) match {
         case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim.answer == "yes"
@@ -28,7 +29,10 @@ else if (SelfEmployment.visible) SelfEmployment.name
 else OtherMoney.name
 }
 
-@main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(yesNoForm)) {
+    @defining(lang) { implicit language =>
+
+
+    @main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(yesNoForm)) {
     <fieldset id="breaks" class="form-elements results-detail">
         <legend>@Html(Messages("breaksAlreadyAdded"))</legend>
 
@@ -134,4 +138,5 @@ else OtherMoney.name
         window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
     });
 </script>
+}
 }

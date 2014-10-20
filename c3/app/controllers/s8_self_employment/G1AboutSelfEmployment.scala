@@ -28,7 +28,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
   )(AboutSelfEmployment.apply)(AboutSelfEmployment.unapply)
     .verifying("whenDidTheJobFinish.error.required", validateWhenDidTheJobFinish _))
 
-  def validateWhenDidTheJobFinish(f: AboutSelfEmployment) = f.areYouSelfEmployedNow match {
+  private def validateWhenDidTheJobFinish(f: AboutSelfEmployment) = f.areYouSelfEmployedNow match {
     case `no` => f.whenDidTheJobFinish.isDefined
     case _ => true
   }
@@ -39,7 +39,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
 
   private def aboutSelfEmployment(lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     track(AboutSelfEmployment) {
-      implicit claim => Ok(views.html.s8_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment)))
+      implicit claim => Ok(views.html.s8_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment))(lang))
     }
   }
 
@@ -47,7 +47,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("", "whenDidTheJobFinish.error.required", FormError("whenDidTheJobFinish", "error.required"))
-        BadRequest(views.html.s8_self_employment.g1_aboutSelfEmployment(formWithErrorsUpdate))},
+        BadRequest(views.html.s8_self_employment.g1_aboutSelfEmployment(formWithErrorsUpdate)(lang))},
       f => claim.update(f) -> Redirect(routes.G2SelfEmploymentYourAccounts.present()))
   }
 }

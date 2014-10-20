@@ -17,12 +17,12 @@ object ApplicationBuild extends Build {
     ws,
     "org.specs2"         %% "specs2"              % "2.3.6" % "test" withSources() withJavadoc(),
     "org.mockito"         % "mockito-all"         % "1.9.5" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka"  %% "akka-testkit"        % "2.2.3" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka"  %% "akka-agent"          % "2.2.3" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka"  %% "akka-actor"          % "2.2.3" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka"  %% "akka-remote"         % "2.2.3" % "test" withSources() withJavadoc(),
-    "com.dwp.carers"     %% "xmlcommons"          % "3.2.3",
-    "com.dwp.carers"     %%  "wscommons"          % "1.0",
+    "com.typesafe.akka"  %% "akka-testkit"        % "2.3.6" % "test" withSources() withJavadoc(),
+    "com.typesafe.akka"  %% "akka-agent"          % "2.3.6" % "test" withSources() withJavadoc(),
+    "com.typesafe.akka"  %% "akka-actor"          % "2.3.6" % "test" withSources() withJavadoc(),
+    "com.typesafe.akka"  %% "akka-remote"         % "2.3.6" % "test" withSources() withJavadoc(),
+    "com.dwp.carers"     %% "xmlcommons"          % "4.0.0",
+    "com.dwp.carers"     %%  "wscommons"          % "2.0",
     "postgresql"          % "postgresql"          % "9.1-901.jdbc4",
     "com.h2database"      % "h2"                  % "1.3.174",
     "me.moocar"           % "logback-gelf"        % "0.9.6p2",
@@ -32,10 +32,10 @@ object ApplicationBuild extends Build {
     "com.dwp"            %% "play2-multimessages" % "2.3.5",
     "com.typesafe"       %% "play-plugins-mailer" % "2.2.0",
     "com.github.mumoshu" %% "play2-memcached"     % "0.4.0",
-    "com.codahale.metrics" % "metrics-healthchecks" % "3.0.1",
+    "io.dropwizard.metrics" % "metrics-healthchecks" % "3.1.0",
     "com.google.guava"    % "guava"               % "14.0",
     "org.jasypt"          % "jasypt"              % "1.9.2",
-    "com.kenshoo"        %% "metrics-play"        % "0.1.4"
+    "com.kenshoo"         % "metrics-play_2.10"   % "2.3.0_0.1.7"
   )
 
   var sO: Seq[Def.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))

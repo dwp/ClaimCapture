@@ -15,12 +15,12 @@ object G1ClaimDate extends Controller with CachedClaim with Navigable {
   )(ClaimDate.apply)(ClaimDate.unapply))
 
   def present = claiming {implicit claim =>  implicit request =>  lang =>
-    track(ClaimDate) { implicit claim => Ok(views.html.s1_2_claim_date.g1_claimDate(form.fill(ClaimDate))) }
+    track(ClaimDate) { implicit claim => Ok(views.html.s1_2_claim_date.g1_claimDate(form.fill(ClaimDate))(lang)) }
   }
 
   def submit = claiming { implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s1_2_claim_date.g1_claimDate(formWithErrors)),
+      formWithErrors => BadRequest(views.html.s1_2_claim_date.g1_claimDate(formWithErrors)(lang)),
       claimDate => claim.update(claimDate) -> Redirect("/about-you/your-details"))
   }
 }

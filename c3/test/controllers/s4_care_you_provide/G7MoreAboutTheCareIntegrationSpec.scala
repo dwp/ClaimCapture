@@ -23,7 +23,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       browser.goTo("/care-you-provide/more-about-the-care")
       browser.click("#spent35HoursCaring_yes")
       browser.click("#beforeClaimCaring_answer_yes")
-      browser.click("#hasSomeonePaidYou_yes")
+//      browser.click("#hasSomeonePaidYou_yes")
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }

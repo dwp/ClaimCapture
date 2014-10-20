@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Hours])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.Hours])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -9,6 +9,8 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 @import play.api.i18n.{MMessages => Messages}
+
+@defining(lang) { implicit language =>
 @main(Messages("s1.g2") + " - " + Messages("s1.longName"), Some(currentForm),changing = true) {
 
 
@@ -46,4 +48,5 @@
         window.initEvents("@CarersCrypto.encryptAES("hours_answer_yes")", "@CarersCrypto.encryptAES("hours_answer_no")");
     });
 </script>
+}
 }

@@ -16,13 +16,13 @@ object G2Hours extends Controller with CachedClaim with Navigable {
   )(Hours.apply)(Hours.unapply))
 
   def present = claiming {implicit claim =>  implicit request =>  lang =>
-    track(Hours) { implicit claim => Ok(views.html.s1_carers_allowance.g2_hours(form.fill(Hours))) }
+    track(Hours) { implicit claim => Ok(views.html.s1_carers_allowance.g2_hours(form.fill(Hours))(lang)) }
   }
 
   def submit = claiming {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        BadRequest(views.html.s1_carers_allowance.g2_hours(formWithErrors))
+        BadRequest(views.html.s1_carers_allowance.g2_hours(formWithErrors)(lang))
       },
       f => claim.update(f) -> Redirect(routes.G3Over16.present()))
   }

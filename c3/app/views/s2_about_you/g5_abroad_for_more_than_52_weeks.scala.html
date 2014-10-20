@@ -1,4 +1,4 @@
-@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks], trips: models.domain.Trips)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks], trips: models.domain.Trips)(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 @import scala.xml.NodeSeq
 
 @import scala.language.postfixOps
@@ -10,6 +10,7 @@
 @import views.html.s2_about_you.main
 @import play.api.i18n.{MMessages => Messages}
 
+@defining(lang) { implicit language =>
 @main(Messages("s2.g5") + " - " + Messages("s2.longName")) {
 @errorsSummary(AbroadForMoreThan52WeeksForm)
 
@@ -121,4 +122,5 @@ $(function () {
 window.initEvents("@CarersCrypto.encryptAES("anyTrips_yes")", "@CarersCrypto.encryptAES("anyTrips_no")");
 });
 </script>
+}
 }

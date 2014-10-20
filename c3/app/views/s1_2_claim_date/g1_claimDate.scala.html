@@ -1,4 +1,4 @@
-@(claimDateForm: Form[models.domain.ClaimDate])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(claimDateForm: Form[models.domain.ClaimDate])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,25 +7,27 @@
 @import scala.language.postfixOps
 @import play.api.i18n.{MMessages => Messages}
 
-@main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName")) {
+@defining(lang) { implicit language =>
+    @main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName")) {
 
-	<p class="intro-info">@Html(Messages("dateOfClaimHelp")) <a href="/claim-help#1" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date")>@Html(Messages("dateOfClaimHelp.link"))</a></p>
-	
-    @errorsSummary(claimDateForm)
+        <p class="intro-info">@Html(Messages("dateOfClaimHelp")) <a href="/claim-help#1" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date")>@Html(Messages("dateOfClaimHelp.link"))</a></p>
 
-    @form(action = controllers.s1_2_claim_date.routes.G1ClaimDate.submit) {
-         @DwpCSRFFormHelper.formField
-        <div class="form-elements">
-          	   
-            <ul>
-            @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 3 months).`dd M yyyy`))
-            </ul>
+        @errorsSummary(claimDateForm)
 
-	        <nav class="form-steps">
-	            <ul>
-	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            </ul>
-	        </nav>
-        </div>
+        @form(action = controllers.s1_2_claim_date.routes.G1ClaimDate.submit) {
+            @DwpCSRFFormHelper.formField
+            <div class="form-elements">
+
+                <ul>
+                @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 3 months).`dd M yyyy`))
+                </ul>
+
+                <nav class="form-steps">
+                    <ul>
+                        <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                    </ul>
+                </nav>
+            </div>
+        }
     }
 }
