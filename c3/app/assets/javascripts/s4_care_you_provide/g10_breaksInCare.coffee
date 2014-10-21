@@ -35,15 +35,7 @@ $ ->
                     success: (data) ->
                         $("label[for='answer']").text(data.answer)
                         enable()
-
-                        $("#breaks .breaks-prompt").slideUp()
-
-                        if li.closest("ul").children().length is 1
-                            $("#breaks").wrapInner("<div />").children().slideUp -> li.remove()
-                        else
-                            li.find("dd").wrapInner "<div>"
-                            li.find("dd div:not(:last)").slideUp()
-                            li.find("dd div:last").slideUp -> li.remove()
+                        location.reload(true)
 
                     error: ->
                         location.reload(true)

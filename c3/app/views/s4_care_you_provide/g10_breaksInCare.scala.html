@@ -2,23 +2,32 @@
 
 @import views.html.helper._
 @import models.DayMonthYear._
-@import models.domain.{BreaksInCare, Claim, ClaimDate, MoreAboutTheCare, Education, Employed, OtherMoney, SelfEmployment}
+@import models.domain.{MoreAboutTheCare, Education, Employed, OtherMoney, SelfEmployment}
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
+@import language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
+@getCorrectDate(dmy:DayMonthYear,spent35HoursCaringBeforeClaim:Boolean) = @{
+    if (spent35HoursCaringBeforeClaim) dmy - 6 months
+    else dmy
+}
+
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
-    import language.postfixOps
 
     val spent35HoursCaringBeforeClaim = claim.questionGroup(MoreAboutTheCare) match {
         case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim.answer == "yes"
         case _ => false
     }
 
-    claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-        if (spent35HoursCaringBeforeClaim) displayPlaybackDatesFormat (lang, dmy - 6 months)
-        else displayPlaybackDatesFormat(lang,dmy))
+    claim.dateOfClaim.fold("{NO CLAIM DATE}") { dmy =>
+      val date = getCorrectDate(dmy, spent35HoursCaringBeforeClaim)
+      println(date)
+      val sorted = breaksInCare.breaks.map(_.start).sorted
+      println(sorted)
+      displayPlaybackDatesFormat (lang, sorted.find(_.isBefore(date)).getOrElse(date))
+    }
 }
 
 @nextSection = @{
