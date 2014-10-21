@@ -27,18 +27,9 @@ $ ->
 
             $("input[name='yes']").on "click", ->
                 disableConfirmation()
-
-                $.ajax
-                    type: "DELETE"
-                    url: "/care-you-provide/breaks-in-care/" + li.attr("id")
-
-                    success: (data) ->
-                        $("label[for='answer']").text(data.answer)
-                        enable()
-                        location.reload(true)
-
-                    error: ->
-                        location.reload(true)
+                id = li.attr("id")
+                $("#deleteId").val(id)
+                $(this).parents("form").submit()
 
 enableConfirmation = ->
     $("#breaks .breaks-prompt input[type='button']").removeAttr("disabled").removeClass("disabled")

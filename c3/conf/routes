@@ -112,7 +112,7 @@ POST          /care-you-provide/more-about-the-care                           co
 
 GET           /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.present
 POST          /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.submit
-DELETE        /care-you-provide/breaks-in-care/:id                            controllers.s4_care_you_provide.G10BreaksInCare.delete(id: String)
+POST          /care-you-provide/delete-break-in-care                         controllers.s4_care_you_provide.G10BreaksInCare.delete
 
 GET           /care-you-provide/breaks/:id                                    controllers.s4_care_you_provide.G11Break.break(id: String)
 GET           /care-you-provide/break                                         controllers.s4_care_you_provide.G11Break.present

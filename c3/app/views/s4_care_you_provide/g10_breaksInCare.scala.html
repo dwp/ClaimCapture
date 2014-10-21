@@ -1,5 +1,7 @@
 @(yesNoForm: Form[models.yesNo.YesNo], breaksInCare: models.domain.BreaksInCare)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
+@import controllers.s4_care_you_provide.G10BreaksInCare
 
+@import views.html.helper.base._
 @import views.html.helper._
 @import models.DayMonthYear._
 @import models.domain.{MoreAboutTheCare, Education, Employed, OtherMoney, SelfEmployment}
@@ -23,9 +25,7 @@
 
     claim.dateOfClaim.fold("{NO CLAIM DATE}") { dmy =>
       val date = getCorrectDate(dmy, spent35HoursCaringBeforeClaim)
-      println(date)
       val sorted = breaksInCare.breaks.map(_.start).sorted
-      println(sorted)
       displayPlaybackDatesFormat (lang, sorted.find(_.isBefore(date)).getOrElse(date))
     }
 }
@@ -86,13 +86,17 @@ else OtherMoney.name
 				 </ul>
 				 
         	 </div>
-
-        <div class="prompt breaks-prompt">
-            <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
-            <input type="button" name="no" class="button row secondary" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
-            <input type="button" name="yes" class="button row warning" value="@Html(Messages("yes.delete"))" aria-label="@Html(Messages("yes.delete.label"))">
-            <span>&#33;</span>
-        </div>
+        @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.delete){
+            @DwpCSRFFormHelper.formField
+            @carersInputHidden(G10BreaksInCare.deleteForm("deleteId"))
+            <input type="hidden" id="deleteId" style="display:none"/>
+            <div class="prompt breaks-prompt">
+                <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
+                <input type="button" name="no" class="button row secondary" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
+                <input type="button" name="yes" class="button row warning" value="@Html(Messages("yes.delete"))" aria-label="@Html(Messages("yes.delete.label"))">
+                <span>&#33;</span>
+            </div>
+        }
     </fieldset>
     
 
