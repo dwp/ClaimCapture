@@ -72,7 +72,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
   def delete = claimingWithCheck { implicit claim => implicit request =>  lang =>
 
     deleteForm.bindEncrypted.fold(
-      errors    =>  BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(fillForm, breaksInCare)(lang))),
+      errors    =>  BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(fillForm, breaksInCare)(lang)),
       deleteForm=>  {
         val updatedBreaks = breaksInCare.delete(deleteForm.id)
         if (updatedBreaks.breaks == breaksInCare.breaks) BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(fillForm, breaksInCare)(lang))
