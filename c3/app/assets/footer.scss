@@ -1,0 +1,88 @@
+footer {
+	background: #dee0e2;
+
+	.container {
+		margin: 0 auto;
+		max-width: 960px;
+		padding: 3em 1.9em;
+		@media screen and (max-width: 640px) {
+			padding: 3em .9em;
+		}
+		
+		div {
+			float: left;
+			width: 75%;
+			padding-top: 1em;
+			@media screen and (max-width: 640px) {
+				float: none;
+				width: 100%;
+				text-align: center;
+				padding: 0;
+			}
+			&.fr {
+				float: right;
+				width: 150px;	
+				padding: 0;
+				@media screen and (max-width: 640px) {
+					float: none;
+					width: auto;
+					margin-top: 1em;
+				}
+				a {
+					background: url('images/gov-crest.png') center 0 no-repeat;
+					display: block;
+					width: 150px;
+					height: 22px;
+					padding-top: 110px;
+					font-size: 15px;
+					color: #171819;
+					text-align: center;
+					text-decoration: none;
+					margin: 0 auto;
+					&:hover {
+						text-decoration: underline;
+					}
+				}			
+			}
+		}
+		
+		nav {
+			margin: 0 0 1.5em 0;
+			min-height: 1.4em;
+			@media screen and (max-width: 480px) {
+				min-height: 0;
+			}
+			a {
+				color: #171819;
+				font-size: 15px;
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
+		
+		p {
+			margin: 0;
+			font-size: 15px;
+			color: #171819;
+			a {
+				color: #171819;
+				text-decoration: underline; 
+				&:hover {
+					color: #666;
+				}
+			}
+			&.ogl {
+				margin-top: 1.5em;
+				&:before {
+					content: url('images/ogl.png');
+					width: 41px;
+					height: 17px;
+					position: relative;
+					top: 3px;
+					margin-right: 10px;
+				}
+			}
+		}
+	}
+}

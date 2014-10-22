@@ -1,10 +1,10 @@
 package utils.pageobjects.s1_carers_allowance
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G3Over16Page(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G3Over16Page.url, G3Over16Page.title, previousPage) {
-  declareYesNo("#answer", "CanYouGetCarersAllowanceAreYouAged16OrOver")
+final class G3Over16Page(ctx:PageObjectsContext) extends ClaimPage(ctx, G3Over16Page.url, G3Over16Page.title) {
+  declareYesNo("#over16_answer", "CanYouGetCarersAllowanceAreYouAged16OrOver")
 }
 
 object G3Over16Page {
@@ -12,11 +12,11 @@ object G3Over16Page {
 
   val url = "/allowance/over-16"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G3Over16Page(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G3Over16Page(ctx)
 }
 
 trait G3Over16PageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G3Over16Page (browser)
+  val page = G3Over16Page (PageObjectsContext(browser))
 }

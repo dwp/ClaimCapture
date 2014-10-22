@@ -1,18 +1,22 @@
+@()(implicit lang:Lang)
 
-## <a name="5"></a> 5. How to claim Carer’s Allowance
+@import views.html.helper._
+@import play.api.i18n.{MMessages => Messages}
 
-Just fill in the claim. Please answer all the questions that apply to you. Depending on your answers you will be guided to the appropriate questions on the form, some of which are mandatory. This means that you will not be able to move on until you have answered the question..
+## <a id="5"></a> 5. @Html(Messages("claimNotes.section5.1"))
 
-It is important to enter the correct date you want to claim Carer's Allowance from. If you change your claim date you will need to answer some of the questions already completed as part of your claim or you can exit the service amd make another claim.
+@Html(Messages("claimNotes.section5.2"))
 
-When you have completed all the questions you will be presented with **Consent**, **Disclaimer** and **Declaration** screens which you must complete. You will then be asked to submit your claim by pressing the submit button.
+@Html(Messages("claimNotes.section5.3"))
 
-You will then be presented with a **Thank you page** to confirm that your claim has been submitted to the Carer’s Allowance Unit. If for any reason your claim does not submit, you will be advised what to do next.
+@Html(Messages("claimNotes.section5.4"))
 
-If you have any difficulty filling in the claim form someone can do it for you. You can ask a friend or an advice centre like the Citizen’s Advice Bureau.
+@Html(Messages("claimNotes.section5.5"))
 
-**You must complete the disclaimer as part of your claim to declare that you have made / will make the person you are caring for or their representative aware that there could be a change to their benefits.**
+@Html(Messages("claimNotes.section5.6"))
 
-**You must complete the declaration to state that the information provided as part of the claim is correct and complete.**
+@Html(Messages("claimNotes.section5.7"))
 
-If you experience any technical problems when completing this claim form please [contact the e-service Helpdesk](#17).
+@Html(Messages("claimNotes.section5.8"))
+
+@Html(Messages("claimNotes.section5.9"))

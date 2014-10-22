@@ -4,6 +4,7 @@
 @import views.html.helper.base._
 @import utils.helpers._
 @import utils.helpers.DatepickerTemplate._
+@import play.api.i18n.{MMessages => Messages}
 
 @input(field, args: _*) { (id, name, value, htmlArgs) =>
     @carersLabel(field, args: _*)
@@ -12,6 +13,6 @@
     <p class="helper specific-help">Help</p>
 
     <li>
-        @timePlaceholder(field,args:_*)
+        @timePlaceholder(field,args:_*)(lang)
     </li>
 }

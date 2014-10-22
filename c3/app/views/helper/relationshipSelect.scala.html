@@ -1,21 +1,52 @@
-@(field: Field,withNone:Boolean=false)
+@(field: Field,withNone:Boolean=false)(implicit lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
+@import play.api.i18n.{MMessages => Messages}
 
 @{
     carersOptGroupSelect(field,
         optGroups = Seq(
-                "Common" -> Seq("wife"->"Wife or civil partner", "husband"->"Husband  or civil partner", "partner"->"Partner","son"->"Son","daughter"->"Daughter", "mother"->"Mother", "father"->"Father"),
-                "Other" -> (Seq("friend"->"Friend","other"->"Other")++(if (withNone)Seq("none"->"None") else Seq())),
-                "Parents" -> Seq("stepFather"->"Stepfather", "stepMother"->"Stepmother","stepDaughter"->"Stepdaughter","stepSon"->"Stepson"),
-                "Siblings" -> Seq("brother" -> "Brother","halfBrother"->"Half Brother","halfSister"->"Half Sister","sister"->"Sister","stepBrother"->"Stepbrother","stepSister"->"Stepsister"),
-                "Dependant" -> Seq("adoptedDaughter" -> "Adopted Daughter","adoptedSon" -> "Adopted Son"),
-                "Grandparents" -> Seq("grandMother"->"Grandmother","greatGrandMother"->"Great-Grandmother","grandFather"->"Grandfather","greatGrandFather"->"Great-Grandfather"),
-                "Grandchildren" -> Seq("grandSon"->"Grand Son","greatGrandSon"->"Great-Grandson","grandDaughter"->"Granddaughter", "greatGrandDaughter"->"Great-Granddaughter"),
-                "In-Laws" -> Seq("brotherInLaw"  ->"Brother-In-Law","daughterInLaw" ->"Daughter-In-Law","fatherInLaw"->"Father-In-Law","motherInLaw"->"Mother-In-Law","sisterInLaw"->"Sister-In-Law","sonInLaw"->"Son-In-Law"),
-                "Other Family" -> Seq("aunt" -> "Aunt","nephew"->"Nephew","niece"->"Niece","uncle"->"Uncle")
+                Messages("relationship.common") -> Seq("Wife or civil partner"->Messages("relationship.wife"),
+                    "Husband or civil partner"->Messages("relationship.husband"),
+                    "Partner"->Messages("relationship.partner"),
+                    "Son"->Messages("relationship.son"),
+                    "Daughter"->Messages("relationship.daughter"),
+                    "Mother"->Messages("relationship.mother"),
+                    "Father"->Messages("relationship.father")),
+                Messages("relationship.other") -> (Seq("Friend"->Messages("relationship.friend"),
+                    "Other"->Messages("relationship.other"))++(if (withNone)Seq("None"->Messages("relationship.none")) else Seq())),
+                Messages("relationship.parents") -> Seq("Stepfather"->Messages("relationship.stepFather"),
+                    "Stepmother"->Messages("relationship.stepMother"),
+                    "Stepdaughter"->Messages("relationship.stepDaughter"),
+                    "Stepson"->Messages("relationship.stepSon")),
+                Messages("relationship.siblings") -> Seq("Brother" -> Messages("relationship.brother"),
+                    "Half-Brother"->Messages("relationship.halfBrother"),
+                    "Half-Sister"->Messages("relationship.halfSister"),
+                    "Sister"->Messages("relationship.sister"),
+                    "Stepbrother"->Messages("relationship.stepBrother"),
+                    "Stepsister"->Messages("relationship.stepSister")),
+                Messages("relationship.dependant") -> Seq("Adopted Daughter" -> Messages("relationship.adoptedDaughter"),
+                    "Adopted Son" -> Messages("relationship.adoptedSon")),
+                Messages("relationship.grandparents") -> Seq("Grandmother"->Messages("relationship.grandMother"),
+                    "Great-Grandmother"->Messages("relationship.greatGrandMother"),
+                    "Grandfather"->Messages("relationship.grandFather"),
+                    "Great-Grandfather"->Messages("relationship.greatGrandFather")),
+                Messages("relationship.grandchildren") -> Seq("Grandson"->Messages("relationship.grandSon"),
+                    "Great-Grandson"->Messages("relationship.greatGrandSon"),
+                    "Granddaughter"->Messages("relationship.grandDaughter"),
+                    "Great-Granddaughter"->Messages("relationship.greatGrandDaughter")),
+                Messages("relationship.inLaws") -> Seq("Brother-In-Law"->Messages("relationship.brotherInLaw"),
+                    "Daughter-In-Law"->Messages("relationship.daughterInLaw"),
+                    "Father-In-Law"->Messages("relationship.fatherInLaw"),
+                    "Mother-In-Law"->Messages("relationship.motherInLaw"),
+                    "Sister-In-Law"->Messages("relationship.sisterInLaw"),
+                    "Son-In-Law"->Messages("relationship.sonInLaw")),
+                Messages("relationship.otherFamily") -> Seq("Aunt" -> Messages("relationship.aunt"),
+                    "Nephew"->Messages("relationship.nephew"),
+                    "Niece"->Messages("relationship.niece"),
+                    "Uncle"->Messages("relationship.uncle"))
             )
     )
 }

@@ -43,7 +43,7 @@ class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
               dmy.year must equalTo(Some(whenDidTheJobFinish_year))
           }
           f.haveYouCeasedTrading must equalTo(Some(haveYouCeasedTrading))
-          f.natureOfYourBusiness must equalTo(Some(natureOfYourBusiness))
+          f.natureOfYourBusiness must equalTo(natureOfYourBusiness)
         }
       )
     }
@@ -55,7 +55,7 @@ class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
           "whenDidYouStartThisJob.month" -> whenDidYouStartThisJob_month.toString,
           "whenDidYouStartThisJob.year" -> whenDidYouStartThisJob_year.toString)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("whenDidTheJobFinish.error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -67,12 +67,12 @@ class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
           "whenDidYouStartThisJob.month" -> whenDidYouStartThisJob_month.toString,
           "whenDidYouStartThisJob.year" -> whenDidYouStartThisJob_year.toString)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("whenDidTheJobFinish.error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
 
-    "allow optional fields to be left blank" in {
+    "allow optional field to be left blank" in {
       G1AboutSelfEmployment.form.bind(
         Map("areYouSelfEmployedNow" -> "no",
           "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
@@ -80,7 +80,8 @@ class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
           "whenDidYouStartThisJob.year" -> whenDidYouStartThisJob_year.toString,
           "whenDidTheJobFinish.day" -> whenDidTheJobFinish_day.toString,
           "whenDidTheJobFinish.month" -> whenDidTheJobFinish_month.toString,
-          "whenDidTheJobFinish.year" -> whenDidTheJobFinish_year.toString)
+          "whenDidTheJobFinish.year" -> whenDidTheJobFinish_year.toString,
+          "natureOfYourBusiness" -> natureOfYourBusiness)
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
@@ -97,6 +98,7 @@ class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
               dmy.month must equalTo(Some(whenDidTheJobFinish_month))
               dmy.year must equalTo(Some(whenDidTheJobFinish_year))
           }
+          f.natureOfYourBusiness must equalTo(natureOfYourBusiness)
         }
       )
     }

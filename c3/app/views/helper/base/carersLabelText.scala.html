@@ -1,12 +1,15 @@
-@(field:Field, args: (Symbol, Any)*)
+@(field:Field, args: (Symbol, Any)*)(implicit lang: Lang)
 
-@import helper._
-@import utils.helpers.CarersCrypto
-@import utils.helpers._
 @import views.html.helper.base.labelOrId
+@import play.api.i18n.{MMessages => Messages}
 
 @labelOrId(field.id,args: _*)
 
-@if(!field.constraints.find(_._1 == "constraint.required")) {
-    <em>(optional)</em>
+@displayOptional = @{
+    (!args.find(t => t._1 == 'ignoreOptional).getOrElse('ignoreOptional->false).asInstanceOf[(Symbol,Boolean)]._2 &&
+    !field.constraints.find(_._1 == "constraint.required"))
+}
+
+@if(displayOptional){
+    <em>(@Html(Messages("optional")))</em>
 }

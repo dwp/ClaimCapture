@@ -8,11 +8,12 @@ import utils.pageobjects.xml_validation.XMLBusinessValidation
  * @author Jorge Migueis
  *         Date: 02/08/2013
  */
-class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None, url: String = XmlPage.url, title: String = XmlPage.title) extends Page(null,browser, url, title, previousPage) {
+class XmlPage (ctx: PageObjectsContext, url: String = XmlPage.url, title: String = XmlPage.title) extends Page(null,ctx, url, title) {
 
-   pageSource = browser.pageSource()
+   pageSource = ctx.browser.pageSource()
 
   def validateXmlWith(claim: TestData, validator: XMLBusinessValidation) = {
+
     Tuple2(
       validator.validateXMLClaim(claim, pageSource, throwException = false),
       validator.warnings
@@ -31,7 +32,7 @@ class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None, url: Str
    * @param theClaim   Data to use to fill page
    */
   override def fillPageWith(theClaim: TestData): Page = {
-    throw new PageObjectException("Cannot fill the XML test page [" + pageTitle +"] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]" )
+    throw new PageObjectException("Cannot fill the XML test page [" + pageTitle +"] Previous page was [" + ctx.previousPage.getOrElse(this).pageTitle + "]" )
   }
 }
 
@@ -43,11 +44,11 @@ class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None, url: Str
 object XmlPage {
   val title = null
   val url = "/submit" // or circumstancesSubmit
-  def apply(browser: TestBrowser,previousPage: Option[Page] = None) = new XmlPage(browser, previousPage)
+  def apply(ctx: PageObjectsContext) = new XmlPage(ctx)
 }
 
 /** The context for Specs tests */
 trait TestPageContext extends PageContext {
   this: WithBrowser[_] =>
-  val page = XmlPage (browser)
+  val page = XmlPage (PageObjectsContext(browser))
 }

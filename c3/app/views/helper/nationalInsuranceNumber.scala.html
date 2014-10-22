@@ -1,8 +1,9 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
 
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
+@import play.api.i18n.{MMessages => Messages}
 
 @input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
-    @nationalInsurancePlaceholder(field)
+    @nationalInsurancePlaceholder(field, args: _*)
 }

@@ -1,58 +1,48 @@
-@(currentForm: Form[models.domain.LivesInGB])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.LivesInGB])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
-@import utils.helpers.CarersTemplate._
 @import views.html.helper._
-@import views.html.helper.base._
-@import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
-@import views.html.helper.dates._
 @import views.html.s1_carers_allowance.main
-
+@import play.api.i18n.{MMessages => Messages}
 @main(Messages("s1.g4") + " - " + Messages("s1.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.LivesInGB)) {
 
 
     @form(action = controllers.s1_carers_allowance.routes.G4LivesInGB.submit) {
+	        <fieldset class="form-elements form-eligibility">
+	            <legend>@Html(Messages("s1.g4"))</legend>
+	
+	            <p>@Html(Messages("s1.g4.help1"))</p>
+	
+	            <div class="info">
+	            <p>@Html(Messages("s1.g4.help2"))</p>
+	            <p>@Html(Messages("s1.g4.help3"))</p>
+	            </div>
+	            
 
-        <fieldset class="form-elements form-eligibility q1">
-            <legend><span>Q4</span>@Messages("s1.g4")</legend>
+	            @yesNoRadioGroup(currentForm("livesInGB.answer"), '_label -> Messages ("livesInGB.answer"), '_showLabel -> false,'track -> true,'allowance -> true, 'trackLabel -> "livesInGB.answer")
 
-            <p>You should also answer 'Yes' if you are part of a family living overseas with HM forces.</p>
-
-            <div class="info">
-            <p>If you live in Northern Ireland go to <a href="http://www.nidirect.gov.uk" target="_blank">NI Carer's Allowance</a>.</p>
-            <p>If you live outside England, Scotland or Wales, but in the European Economic Area (EEA) or Switzerland, and you have answered 'Yes' to the first three questions above,
-                there are some exceptions to these conditions if you're <a href="https://www.gov.uk/claiming-benefits-move-travel-abroad/where-you-can-claim-benefits" target="_blank">
-                living in another country</a>.
-            </p>
-                
-             
-            </div>
-            
-            <ul>
-                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("livesInGB.answer"), '_showLabel -> false,'track -> true, 'trackLabel -> "livesInGB.answer")
-            </ul>
-                
-            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
-                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
-                    <p>You can only qualify for Carer's Allowance if you normally live in England, Scotland or Wales.</p>
-                    <p>You are legally entitled to claim Carer's Allowance even though you <strong>do not</strong> qualify and <strong>will not</strong> get Carer's Allowance. If you wish to do so click the <strong>'Next'</strong> button below.</p>
-                    <span>!</span>
-                </div>
-            }
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+	                
+	            @defining(currentForm("livesInGB.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
+	                    <p>@Html(Messages("s1.g4.help4"))</p>
+	                    <p>@Html(Messages("s1.g4.help5"))</p>
+	                    <span>!</span>
+	                </div>
+	            }
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
 
 <script type="text/javascript">
     $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("livesInGB_answer_yes")", "@CarersCrypto.encryptAES("livesInGB_answer_no")");
     });
 </script>
+}

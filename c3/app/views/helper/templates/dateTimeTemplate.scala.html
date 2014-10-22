@@ -1,11 +1,12 @@
 @(elements: helper.FieldElements)
 
+@import utils.helpers.CarersHelpers._
 @import views.html.helper.dates._
 @import views.html.helper.checkConstraintRequired
 
 <li class="date-time @defining(if (elements.hasErrors) "validation" else ""){ v => @v}">
     @if(elements.hasErrors) {
-        <p class="error">@elements.errors.mkString(", ")</p>
+        <p class="error">@elements.carersErrors.mkString(", ")</p>
     }
 
     <ul>
@@ -13,12 +14,12 @@
 
             @elements.input
             @if(elements.args.contains('helper)){
-                <p class="helper right">@elements.args.get('helper).get.toString</p>
+                <p class="helper right">@Html(elements.args.get('helper).get.toString)</p>
             }
         </li>
 
         <li>
-            @timePlaceholder(elements.field,elements.args.toList:_*)
+            @timePlaceholder(elements.field,elements.args.toList:_*)(elements.lang)
         </li>
     </ul>
 </li>

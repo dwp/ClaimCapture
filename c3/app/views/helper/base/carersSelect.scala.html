@@ -3,8 +3,9 @@
 @import views.html.helper.base.carersLabel
 @import utils.helpers.CarersCrypto
 @import utils.helpers._
+@import play.api.i18n.{MMessages => Messages}
 
-@helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
+@helper.input(field, args.filter(_._1 == 'class): _*) { (id, name, value, htmlArgs) =>
     @carersLabel(field, args: _*)
 
     <select id="@CarersCrypto.encryptAES(field.id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>

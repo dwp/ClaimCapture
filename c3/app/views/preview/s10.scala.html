@@ -1,0 +1,15 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@import models.domain._
+@import play.api.i18n.{MMessages => Messages}
+
+@howWePayYouOpt = @{claim.questionGroup[HowWePayYou]}
+@bbsDetails = @{claim.questionGroup[BankBuildingSocietyDetails]}
+
+@if(howWePayYouOpt.isDefined){
+    @defining(howWePayYouOpt.get){ howWePayYou =>
+        <h2>@Html(Messages("s10.progressbar.name"))</h2>
+        <dl>
+            <dt>@Html(Messages("paymentMethod"))</dt><dd>@{Messages("label."+howWePayYou.likeToBePaid)} - @{Messages("label."+howWePayYou.paymentFrequency)} @{if(bbsDetails.isDefined){Messages("paymentDetProvided")}} </dd>
+        </dl>
+    }
+}

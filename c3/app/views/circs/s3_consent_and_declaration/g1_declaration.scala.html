@@ -1,60 +1,88 @@
-@(declarationForm: Form[models.domain.CircumstancesDeclaration])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(declarationForm: Form[models.domain.CircumstancesDeclaration])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
-@import views.html.common._
 @import views.html.helper._
-@import views.html.helper.dropdowns._
 @import views.html.helper.base._
-@import views.html.helper.dates._
-@import controllers.Mappings._
 @import models.domain._
 @import utils.helpers.CarersCrypto
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("c3.g1") + " - " + Messages("c3.name")) {
     @errorsSummary(declarationForm)
 
     @form(action = controllers.circs.s3_consent_and_declaration.routes.G1Declaration.submit) {
-        <fieldset class="form-elements">
-            <legend>@Messages("c3.g1")</legend>
-
-            <article class="dec">
-                <h3>@Messages("declaration.title")</h3>
-                <ul>
-                    <li>I declare that the information I have given on this form is correct and complete as far as I know and believe.</li>
-                    <li>I understand that if I knowingly give information that is incorrect or incomplete, I may be liable to prosecution or other action.</li>
-                    <li>I understand that I must promptly tell the office that pays my Carer's Allowance of anything that may affect my entitlement to, or the amount of, that benefit.</li>
-                </ul>
-            </article>
-
-            <div class="group declare">
-            @declareCheckPlaceholder(declarationForm("confirm"))
-            </div>
-
-            <ul>
-                @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                        carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 2000)),
-                    'id -> "why",
-                    'display -> (if (claim.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration()).obtainInfoAgreement == "no" || declarationForm("obtainInfoAgreement").value.getOrElse("") == "no" ) "yes" else "no"))
-
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Submit claim button">Submit</button>
-        </nav>
+        <input type="hidden" id="js" name="jsEnabled" value="false">
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("c3.g2"))</legend>
+	
+	            <ul>
+	                @carersInputText(
+	                    declarationForm("furtherInfoContact"),
+	                  'maxLength -> 35,
+	                  'helperAbove -> Messages("furtherInfoContact.helper")
+	                )
+	            </ul>
+	            
+	        </fieldset>
+	
+	<fieldset class="form-elements">
+	            <legend>@Html(Messages("c3.g1"))</legend>
+	
+	            <section class="dec">
+	                <h3>@Html(Messages("declaration.title"))</h3>
+	
+	                <ul>
+                        <li>@Html(Messages("circs.declaration.1a")) <a href="/internal-claim-notes/@lang.code" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>@Html(Messages("circs.declaration.1b"))</a> @Html(Messages("circs.declaration.1c"))</li>
+                        <li>@Html(Messages("circs.declaration.2"))</li>
+                        <li>@Html(Messages("circs.declaration.3"))</li>
+                        <li>@Html(Messages("circs.declaration.4"))</li>
+	                </ul>
+	            </section>
+	
+	
+	            @declareCheckPlaceholder(declarationForm("circsSomeOneElse"))
+	
+	            <ul>
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+	                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> Mappings.sixty)),
+	                    'id -> "nameOrOrganisationWrapper"
+	                )
+	            </ul>
+	
+	            @declareCheckPlaceholder(declarationForm("confirm"))
+	
+	            <ul class="circs-group">
+	                @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+	                        carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 300, 'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
+	                    'id -> "why"
+                    )
+	
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("s3.g1.submit"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+        </div>
     }
 }
+<script type="text/javascript">$($("#js").val("true"));</script>
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s3_consent_and_declaration/g1_declaration.js")'></script>
 
 <script type="text/javascript">
-    $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
-                          "@CarersCrypto.encryptAES("obtainInfoAgreement_no")",
-                          "@CarersCrypto.encryptAES("obtainInfoWhy")");
-    })
+$(function() {
+window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
+                   "@CarersCrypto.encryptAES("obtainInfoAgreement_no")",
+                   "@CarersCrypto.encryptAES("obtainInfoWhy")",
+                   "@CarersCrypto.encryptAES("circsSomeOneElse")",
+                   "@CarersCrypto.encryptAES("nameOrOrganisation")");
+})
 </script>

@@ -19,6 +19,7 @@ import models.PensionPaymentFrequency
 import scala.util.Success
 import models.MultiLineAddress
 import models.PeriodFromTo
+import play.api.i18n.Lang
 
 object Mappings {
   object Name {
@@ -29,6 +30,8 @@ object Mappings {
 
   val sixty = 60
 
+  val thirtyfive = 35
+
   val two = 2
 
   val hundred = 100
@@ -37,12 +40,16 @@ object Mappings {
 
   val no = "no"
 
+  val dontknow = "dontknow"
+
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
-    "day" -> optional(number(max = 100)),
-    "month" -> optional(number(max = 100)),
-    "year" -> optional(number(max = 99999)),
-    "hour" -> optional(number(max = 100, min = 0)),
-    "minutes" -> optional(number(max = 100, min = 0)))(DayMonthYear.apply)(DayMonthYear.unapply)
+    "day" -> optional(text),
+    "month" -> optional(text),
+    "year" -> optional(text),
+    "hour" -> optional(text),
+    "minutes" -> optional(text))(DayMonthYear.convert)(DayMonthYear.extract)
+
+
 
   val periodFromTo: Mapping[PeriodFromTo] = mapping(
     "from" -> dayMonthYear.verifying(validDate),
@@ -116,6 +123,12 @@ object Mappings {
 
   def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
     if (a.lineOne.isEmpty) Invalid(ValidationError("error.required")) else Valid
+  }
+
+  def requiredAddressWithTwoLines: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
+    if(a.lineOne.isEmpty) Invalid(ValidationError("error.required"))
+    else if ((!a.lineOne.isEmpty) && (a.lineTwo.isEmpty)) Invalid(ValidationError("error.addressLines.required"))
+    else Valid
   }
 
   def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required") {
@@ -218,7 +231,7 @@ object Mappings {
   }
 
   def validPostcode: Constraint[String] = Constraint[String]("constraint.postcode") { postcode =>
-    val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z]))))[ ]?[0-9][A-Z]{2})$""".r
+    val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) ?[0-9][A-Z]{2})$""".r
 
     postcodePattern.pattern.matcher(postcode).matches match {
       case true => Valid
@@ -235,6 +248,26 @@ object Mappings {
     }
   }
 
+  /**
+   * Use this method to validate phone number when it is not empty. This was created for fields which are mandatory and have to validate for
+   * a valid phone number because the mandatory fields have their validation for empty fields.
+   * @return
+   */
+
+  def validPhoneNumberRequired: Constraint[String] = Constraint[String]("constraint.phoneNumber") { phoneNumber =>
+    val phoneNumberPattern = """[0-9 \-]{1,20}""".r
+
+    if (null != phoneNumber && !phoneNumber.isEmpty){
+        phoneNumberPattern.pattern.matcher(phoneNumber).matches match {
+        case true => Valid
+        case false => Invalid(ValidationError("error.invalid"))
+      }
+    } else {
+      Valid
+    }
+  }
+
+
 
   def validDecimalNumberRequired: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
     val decimalPattern = """^[0-9]{1,12}(\.[0-9]{1,2})?$""".r
@@ -249,6 +282,31 @@ object Mappings {
     }
   }
 
+  def validCurrencyRequired: Constraint[String] = Constraint[String]("constraint.currency") { decimal =>
+    val decimalPattern = """^\£?[0-9]{1,12}(\.[0-9]{1,2})?$""".r
+
+    if(decimal != null && !decimal.isEmpty()) {
+      decimalPattern.pattern.matcher(decimal).matches match {
+        case true => Valid
+        case false => Invalid(ValidationError("decimal.invalid"))
+      }
+    } else {
+      Valid
+    }
+  }
+
+  def validCurrency5Required: Constraint[String] = Constraint[String]("constraint.currency") { decimal =>
+    val decimalPattern = """^\£?[0-9]{1,5}(\.[0-9]{1,2})?$""".r
+
+    if(decimal != null && !decimal.isEmpty()) {
+      decimalPattern.pattern.matcher(decimal).matches match {
+        case true => Valid
+        case false => Invalid(ValidationError("decimal.invalid"))
+      }
+    } else {
+      Valid
+    }
+  }
 
   def validDecimalNumber: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
     val decimalPattern = """^[0-9]{1,12}(\.[0-9]{1,2})?$""".r
@@ -276,9 +334,18 @@ object Mappings {
       case _ => Invalid(ValidationError("yesNo.invalid"))
     }
   }
-  
+
+  def validYesNoDontKnow: Constraint[String] = Constraint[String]("constraint.yesNoDontKnow") { answer =>
+    answer match {
+      case `yes` => Valid
+      case `no` => Valid
+      case `dontknow` => Valid
+      case _ => Invalid(ValidationError("yesNo.invalid"))
+    }
+  }
+
   def paymentFrequencyValidation(pf: PaymentFrequency): ValidationResult = Try(new PaymentFrequency(pf.frequency, pf.other)) match {
-    case Success(p: PaymentFrequency) if p.frequency.toLowerCase == app.PensionPaymentFrequency.Other && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
+    case Success(p: PaymentFrequency) if p.frequency == app.PensionPaymentFrequency.Other && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
     case Success(p: PaymentFrequency) => Valid
     case Failure(_) => Invalid(ValidationError("error.invalid"))
   }
@@ -288,7 +355,8 @@ object Mappings {
   }
 
   def pensionPaymentFrequencyValidation(pf: PensionPaymentFrequency): ValidationResult = Try(new PensionPaymentFrequency(pf.frequency, pf.other)) match {
-    case Success(p: PensionPaymentFrequency) if p.frequency.toLowerCase == "other" && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
+    case Success(p: PensionPaymentFrequency) if p.frequency.toLowerCase == "other" && p.other.isEmpty => {
+      Invalid(ValidationError("error.paymentFrequency"))}
     case Success(p: PensionPaymentFrequency) => Valid
     case Failure(_) => Invalid(ValidationError("error.invalid"))
   }
@@ -319,6 +387,17 @@ object Mappings {
     // This is the same allowable characters as per the xml schema with some characters removed
     // The removed characters are : £()@<>
     val restrictedStringPattern = """^[A-Za-z0-9\s~!"#$%&'\*\+,\-\./:;=\?\[\\\]_\{\}\^]*$""".r
+
+    restrictedStringPattern.pattern.matcher(restrictedString).matches match {
+      case true => Valid
+      case false => Invalid(ValidationError("error.restricted.characters"))
+    }
+  }
+
+  def restrictedStringTextWithPound: Constraint[String] = Constraint[String]("constraint.restrictedStringText") { restrictedString =>
+    // This is the same allowable characters as per the xml schema with some characters removed
+    // The removed characters are : £()@<>
+    val restrictedStringPattern = """^[A-Za-z0-9\s~!"#$%&£'\*\+,\-\./:;=\?\[\\\]_\{\}\^]*$""".r
 
     restrictedStringPattern.pattern.matcher(restrictedString).matches match {
       case true => Valid

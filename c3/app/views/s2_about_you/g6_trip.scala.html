@@ -1,44 +1,45 @@
-@(tripForm: Form[models.domain.Trip], legend :String, actionCall: Call, backCall: Call)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+@(tripForm: Form[models.domain.Trip], legend :String, actionCall: Call, backCall: Call)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
 
 @import utils.helpers.CarersCrypto
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import views.html.s2_about_you.main
 @import views.html.helper.dropdowns._
+@import play.api.i18n.{MMessages => Messages}
 
 
-@main(Messages("s2.g6") + " - " + Messages("s2.longName"), Nil, Some(tripForm)) {
+@main(Messages("s2.g6") + " - " + Messages("s2.longName")) {
 @errorsSummary(tripForm)
 
     @form(action = actionCall) {
         <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
-        <fieldset class="form-elements">
-            <legend>@Messages(legend)</legend>
-
-            <ul class="group">
-                @carersInputText(tripForm("where"), 'maxLength -> 35)
-
-                @inputDayMonthYear(tripForm("start"), '_label -> Messages("start.trip"))
-
-                @inputDayMonthYear(tripForm("end"), '_label -> Messages("end.trip"))
-
-                @reasonForBeingThereSelect(tripForm("why"), '_label -> Messages("why"), 'id -> "reasonForBeingThere",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
-
-                @yesNoRadioGroup(tripForm("personWithYou"))
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href='@backCall' class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages(legend))</legend>
+	
+	            <ul class="group">
+	                @carersInputText(tripForm("where"), 'maxLength -> 35)
+	
+	                @inputDayMonthYear(tripForm("start"), '_label -> Messages("start.trip"))
+	
+	                @inputDayMonthYear(tripForm("end"), '_label -> Messages("end.trip"))
+	
+	                @reasonForBeingThereSelect(tripForm("why"), '_label -> Messages("why"), 'id -> "reasonForBeingThere",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+	
+	                @yesNoRadioGroup(tripForm("personWithYou"), 'values -> Seq("yes" -> Messages("label.yes2"), "no" -> Messages("label.no")))
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href='@backCall'>@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+   
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
@@ -47,3 +48,4 @@
         window.areaCounter({selector:"@CarersCrypto.encryptAES("why_reason_other")",maxChars:60});
     })
 </script>
+}

@@ -1,12 +1,10 @@
-@(currentForm: Form[models.domain.Benefits])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.Benefits])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
-@import utils.helpers.CarersTemplate._
+
+@import utils.helpers.EmptyTemplate._
 @import views.html.helper._
-@import views.html.helper.base._
-@import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
-@import views.html.helper.dates._
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm)) {
 
@@ -14,57 +12,63 @@
 
     @form(action = controllers.s1_carers_allowance.routes.G1Benefits.submit) {
 
-        <fieldset class="form-elements form-eligibility q1">
-            <legend><span>Q1</span>@Messages("s1.g1")</legend>
-            
-            <p class="helper-message">You can only qualify for Carer's Allowance if the Person you care for is in receipt of one of the qualifying benefits listed below.</p>
-            
-            <div class="prompt question-prompt" data-journey="carers-allowance:page:eligibility">
+			
+	
+			
+		        <fieldset class="form-elements form-eligibility">
+		            <legend>@Html(Messages("s1.g1"))</legend>
+		            
+		            <p class="helper-message">@Html(Messages("s1.g1.help1"))</p>
+		            
+		           
+		            <dl data-journey="carers-allowance:page:eligibility">
+		
+			            <dt>@Html(Messages("s1.g1.help2"))</dt>			
+			            <dd>@Html(Messages("s1.g1.help3"))</dd>
+			
+			            <dt>@Html(Messages("s1.g1.help4"))</dt>
+			            <dd>@Html(Messages("s1.g1.help5"))</dd>
+			
+			            <dt>@Html(Messages("s1.g1.help6"))</dt>
+						<dd></dd>
+						
+						
+			            <dt>@Html(Messages("s1.g1.help7"))</dt>
+			            <dd>@Html(Messages("s1.g1.help8"))@Html(Messages("s1.g1.help9"))</dd>
+			
+			            <dt>@Html(Messages("s1.g1.help10"))</dt>
+                        <dd> </dd>
+		            
+		            </dl>
+		            
+	                @yesNoRadioGroup(currentForm("benefits.answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'allowance -> true,'trackLabel -> "benefits.answer")
 
-	            <p class="title">Personal Independence Payment (PIP)</p>
-	
-	            <p>At either the standard or enhanced rate of the Daily Living Component.</p>
-	
-	            <p class="title">The care component of Disability Living Allowance (DLA)</p>
-	
-	            <p>At the middle or highest rate.</p>
-	
-	            <p class="title">Attendance Allowance (AA)</p>
-	
-	            <p class="title">Constant Attendance Allowance (CAA)</p>
-	
-	            <p>At or above the normal maximum rate as an addition to Industrial Injuries Disablement Benefit (IIDB);</p>
-	
-	            <p>or the basic, full day rate as an addition to War Disablement Pension (WDP)</p>
-	
-	            <p class="title">Armed Forces Independence Payment (AFIP)</p>
-            
-            </div>
-            
-            <ul>
-                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'trackLabel -> "benefits.answer")
-            </ul>
-            
-            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
-                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
-                    <p>If they have applied for one of the benefits above and are still waiting on a decision, please do not apply for Carer's Allowance until that decision has been made.</p>
-                    <p>You are legally entitled to claim Carer's Allowance even though you <strong>do not</strong> qualify and <strong>will not</strong> get Carer's Allowance. If you wish to do so click the <strong>'Next'</strong> button below.</p>
-                    <span>!</span>
-                 </div>
-            }
-        </fieldset>
+		            
+		            @defining(currentForm("benefits.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+		                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
+		                    <p>@Html(Messages("s1.g1.help11"))</p>
+		                    <p>@Html(Messages("s1.g1.help12"))</p>
+		                    <span>!</span>
+		                 </div>
+		            }
+		        </fieldset>
 
-        <nav class="form-steps">
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+
+		        <nav class="form-steps">
+		            <ul>
+		            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+		            </ul>
+		        </nav>
+
     }
-}
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
     $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+    window.initEvents("@CarersCrypto.encryptAES("benefits_answer_yes")", "@CarersCrypto.encryptAES("benefits_answer_no")");
         @ga.stagePrompt()
     });
-</script>
+    </script>
+}
+

@@ -1,0 +1,134 @@
+@(breaksForm: Form[models.domain.CircumstancesBreaksInCare])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.dates._
+@import views.html.helper._
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
+@import views.html.circs.s2_report_changes.main
+@import play.api.i18n.{MMessages => Messages}
+@import app.CircsBreaksWhereabouts._
+
+@circsWhereWasThePersonList = @{
+    Seq(
+        Hospital -> Html(Messages("circsBreaks.inhospital")),
+        RespiteCare -> Html(Messages("circsBreaks.inrespitecare")),
+        Holiday -> Html(Messages("circsBreaks.onholiday")),
+        Home -> Html(Messages("circsBreaks.athome")),
+        SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
+}
+
+@circsWhereWereList = @{
+    Seq(
+        Home -> Html(Messages("circsBreaks.athome")),
+        Holiday -> Html(Messages("circsBreaks.onholiday")),
+        Hospital -> Html(Messages("circsBreaks.inhospital")),
+        SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
+}
+
+@main(Messages("c2.g7") + " - " + Messages("c2.name")) {
+    @errorsSummary(breaksForm)
+
+    @form(action = controllers.circs.s2_report_changes.routes.G7BreaksInCare.submit) {
+        <div class="form-wrap">
+            <fieldset class="form-elements">
+
+                <legend>@Messages("c2.g7")</legend>
+
+                <ul>
+                   <li><p>@Html(Messages("circsBreaksMessage"))</p></li>
+
+                    @sliderHelp(Messages("circsBreaksHelp.label"),Messages("circsBreaksHelp.closeLabel"),Html(Messages("circsBreaksHelp")))
+
+                    @dateTimePickerWithDynamicLabel(breaksForm("breaksInCareStartDate"), 'dynamicDateDays-> 34)
+
+                    @carersShortInputText(breaksForm("breaksInCareStartTime"),
+                        'helperAbove-> Html(Messages("breaksInCareStartTime.helper")),
+                        'maxLength -> 10)
+
+                    @listRadioGroupWithOther(breaksForm("wherePersonBreaksInCare"),
+                        'items -> circsWhereWasThePersonList,
+                        'wrapperName -> "wherePersonBreaksInCareWrap",
+                        'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
+                        '_nestedFieldSet -> true,
+                        'maxLength -> 60,
+                        'otherValue -> SomewhereElse
+                    )
+
+                    @listRadioGroupWithOther(breaksForm("whereYouBreaksInCare"),
+                        'items -> circsWhereWereList,
+                        'wrapperName -> "whereYouBreaksInCareWrap",
+                        'helperAbove-> Messages("whereYouBreaksInCare.helper"),
+                        '_nestedFieldSet -> true,
+                        'maxLength -> 60,
+                        'otherValue -> SomewhereElse)
+
+                    @yesNoRadioGroup(breaksForm("breakEnded.answer"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            dateTimePickerWithDynamicLabel(breaksForm("breakEnded.endDate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27),
+                            carersShortInputText(breaksForm("breakEnded.endTime"), 'helperAbove-> Html(Messages("breakEnded.endTime.helper")), 'maxLength -> 10)
+                         ),
+                        'id -> "breakEndedDateTime"
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(yesNoRadioGroup(breaksForm("expectStartCaring.answer"),
+                            'values -> Seq("yes" -> Html(Messages("label.yes7")), "no" -> Html(Messages("label.no")), "dontknow" -> Html(Messages("label.dontknow"))),
+                            'ignoreOptional -> true)),
+                            'id -> "expectStartCaring"
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            dateTimePickerWithDynamicLabel(breaksForm("expectStartCaring.expectStartCaringDate"), 'dynamicDateDays-> -7)
+                        ),
+                        'id -> "expectStartCaringDate"
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            dateTimePickerWithDynamicLabel(breaksForm("expectStartCaring.permanentBreakDate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27)
+                        ),
+                        'id -> "permanentBreakDate"
+                    )
+
+                    @yesNoRadioGroup(breaksForm("medicalCareDuringBreak"),'values -> Seq("yes" -> Html(Messages("label.yes3")), "no" -> Html(Messages("label.no"))))
+
+                    @carersInputTextArea(breaksForm("moreAboutChanges"), 'helperAbove-> Html(Messages("moreAboutChanges.helper")), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+
+                </ul>
+
+            </fieldset>
+
+            <nav class="form-steps">
+                <ul>
+                	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+                </ul>
+            </nav>
+        </div>
+    }
+<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g7_breaksFromCaring.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+<script type="text/javascript">
+$(function(){
+window.areaCounter({selector:"@CarersCrypto.encryptAES("wherePersonBreaksInCare_text")",maxChars:60});
+window.areaCounter({selector:"@CarersCrypto.encryptAES("whereYouBreaksInCare_text")",maxChars:60});
+window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+})
+
+$(function(){
+window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
+"@CarersCrypto.encryptAES("breakEnded_answer_no")",
+"@CarersCrypto.encryptAES("expectStartCaring_answer_yes")",
+"@CarersCrypto.encryptAES("expectStartCaring_answer_no")",
+"@CarersCrypto.encryptAES("expectStartCaring_answer_dontknow")"
+);
+});
+
+</script>
+}

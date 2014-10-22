@@ -12,5 +12,10 @@ object YesNoWithDate {
     case _ => true
   }
 
+  def validateNo(input: YesNoWithDate): Boolean = input.answer match {
+    case `no` => input.date.isDefined
+    case _ => true
+  }
+
   def validateAnswerNotEmpty(input: YesNoWithDate): Boolean = !input.answer.isEmpty
 }

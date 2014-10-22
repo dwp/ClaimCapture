@@ -1,20 +1,32 @@
-@(url:String)
-@common.govMain("Session has timed out") {
-	
-    <div class="carers-allowance">
+@(url:String)(implicit lang: Lang, request: Request[AnyContent])
+
+@import play.api.i18n.{MMessages => Messages}
+
+@common.govMain(Messages("session.timeout")) {
+
+    <div class="carers-allowance clearfix">
 
         @common.protoType()
+
+
+        <article class="error-statement">
+
+            <h1>@Html(Messages("session.timeout"))</h1>
+            <p>@Html(Messages("timeout.text"))</p>
+
+            <nav class="form-steps">
+            	<ul>
+            		<li><button type="submit" name="action" value="next" class="button" onClick="location.href = ' @url '" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("restart.claim"))</button></li>
+            		<li><a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("feedbacklink.claim"))</a></li>
+            	</ul>
+            </nav>
+            
+
+            
+            
+        </article>
         
-        @common.helpLine()
-
-
-        <section class="error-statement">
-
-                <h1>Your session has timed out</h1>
-
-                <nav class="form-steps">
-                    <button type="submit" name="action" value="next" class="button secondary" onClick="location.href='@url'" aria-label="Restart claim button">Restart claim</button>
-                </nav>
-            </section>
-        </div>
+         @common.leftcol()
+        
+    </div>
 }

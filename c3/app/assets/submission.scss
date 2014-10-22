@@ -1,0 +1,42 @@
+.send-info {
+		margin: 2em 0 0 0;
+		padding: 1.5em;
+		border: 1px solid #bfc1c3;
+
+		section {
+			margin-top: 2em;
+			&:first-child {
+				margin: 0;
+				}
+			p {
+				font-size: 19px;
+				margin-top: .5em;
+				}
+			h2 {
+				line-height: 1.2em;
+				}
+			ul {
+				margin-top: .35em;
+				li {
+					color: #555;
+					padding: 0 0 2px 24px;
+					line-height: 1.6em;
+					font-size: 19px;
+					background: url('images/tick.png') 0 7px no-repeat;
+				}
+			}
+			&.address {
+				margin-top: 2em;
+				span {
+					display: block;
+					font-size: 19px;
+					color: #555;
+					margin-top: 3px;
+				}	
+				p {
+					margin-top: 1.25em;
+				}
+			}
+		}
+	}
+	

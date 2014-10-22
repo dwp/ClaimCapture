@@ -1,0 +1,27 @@
+@(field: Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+@import app.MaritalStatus._
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.CarersHelpers._
+
+@nestedFieldSet = @{ args.toMap.get('_nestedFieldSet).getOrElse(false) == true }
+
+@helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
+    @if(nestedFieldSet) {<fieldset class="nested-fieldset">}
+
+    @radioListPlaceholder(field,
+        options = options(
+            Married -> Messages("maritalStatus.married"),
+            Single -> Messages("maritalStatus.single"),
+            Divorced -> Messages("maritalStatus.divorced"),
+            Widowed -> Messages("maritalStatus.widowed"),
+            Separated -> Messages("maritalStatus.separated"),
+            Partner -> Messages("maritalStatus.livingWithPartner")
+        ),
+        (args ++ Seq('_label -> Messages("maritalStatus")):_*)
+    )(request,lang,utils.helpers.EmptyTemplate.fieldConstructor)
+    @if(nestedFieldSet) {</fieldset>}
+}

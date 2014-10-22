@@ -1,36 +1,44 @@
-@(contactDetailsForm: Form[models.domain.ContactDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(contactDetailsForm: Form[models.domain.ContactDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.base._
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s2.g2") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ContactDetails)) {
     @errorsSummary(contactDetailsForm)
 
 
     @form(action = controllers.s2_about_you.routes.G2ContactDetails.submit) {
-        <fieldset class="form-elements">
-            <legend>@Messages("s2.g2")</legend>
+        
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("s2.g2"))</legend>
+	
+	            <ul>
+	                @inputAddress(contactDetailsForm("address"))
+	
+	                @carersInputText(contactDetailsForm("postcode"), 'class -> "postcode", 'ignoreOptional -> true)
+	            </ul>
+	        </fieldset>
+	        
+	        <fieldset class="form-elements">
+	        	<legend>@Html(Messages("s2.g2.howcontactyou"))</legend>
+	        	
+	        	<ul>
+                    @carersInputText(contactDetailsForm("howWeContactYou"),'maxLength -> 35,'helperAbove -> Messages("furtherInfoContact.helper"))
 
-            <ul>
-                @inputAddress(contactDetailsForm("address"))
-
-                @carersInputText(contactDetailsForm("postcode"), 'class -> "postcode")
-                
-                @carersInputTel(contactDetailsForm("mobileNumber"))
-
-                @carersInputTel(contactDetailsForm("phoneNumber"))
-                
-                @yesNoRadioGroup(contactDetailsForm("contactYouByTextphone"))
-
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+	                @yesNoRadioGroup(contactDetailsForm("contactYouByTextphone"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
+				</ul>
+	        </fieldset>
+	        
+	
+	        <nav class="form-steps">
+	        	<ul>
+	        		<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	        	</ul>
+	        </nav>
     }
 }

@@ -17,13 +17,6 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       browser.submit("button[type='submit']")
       findMustEqualSize("div[class=validation-summary] ol li", 1)
     }
-    
-    "contain error if invalid phone number" in new WithBrowser with BrowserMatchers {
-      Formulate.yourContactDetails(browser)
-      Formulate.theirPersonalDetails(browser)
-      Formulate.theirContactDetailsInvalidPhoneNumber(browser)
-      findMustEqualSize("div[class=validation-summary] ol li", 1)
-    }
 
     "be prepopulated if they live at same address" in new WithBrowser with BrowserMatchers {
       Formulate.yourContactDetails(browser)
@@ -60,7 +53,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.theirContactDetails(browser)
-      titleMustEqual("Relationship and other claims - About the care you provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
     }
   } section("integration", models.domain.CareYouProvide.id)
 }

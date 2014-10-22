@@ -2,7 +2,11 @@ package controllers.s10_pay_details
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, Formulate}
+import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
+import utils.pageobjects.s9_other_money._
+import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
+import utils.pageobjects.S11_consent_and_declaration.G1AdditionalInfoPage
+import utils.pageobjects.{PageObjects, PageObjectsContext}
 
 class G1HowWePayYouIntegrationSpec extends Specification with Tags {
   "How we pay you" should {
@@ -13,12 +17,9 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
 
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("Your nationality and residency - About you - the carer")
-
+      Formulate.yourDetails(browser)
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
-      Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About you - the carer")
 
       browser.goTo("/pay-details/how-we-pay-you")
       titleMustEqual("Additional information - Consent and Declaration")
@@ -39,17 +40,35 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       titleMustEqual("Bank/Building society details - How we pay you")
     }
 
-    "navigate back to Other Money - Completed" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/other-money/completed")
+    /**
+     * This test case has been modified to be in line with the new Page Object pattern.
+     * Please modify the other test cases when you address them
+     */
+    "navigate back to Other Statutory Pay - Other Money" in new WithBrowser with PageObjects{
+			val page =  G1AboutOtherMoneyPage(context)
+      val claim = ClaimScenarioFactory.s9otherMoney
+      page goToThePage()
+      page fillPageWith claim
+      page submitPage()
 
-      browser.goTo("/pay-details/how-we-pay-you")
-      browser.click(".form-steps a")
-      titleMustEqual("Details about other money - About Other Money")
+      val OtherStatutoryPage = page goToPage new G1AboutOtherMoneyPage(PageObjectsContext(browser))
+      OtherStatutoryPage fillPageWith claim
+      OtherStatutoryPage submitPage()
+
+      val howWePayPage = OtherStatutoryPage goToPage new G1HowWePayYouPage(PageObjectsContext(browser))
+      val previousPage = howWePayPage goBack()
+      previousPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
 
-    "contain the completed forms" in new WithBrowser with BrowserMatchers {
-      Formulate.howWePayYou(browser)
-      findMustEqualSize("div[class=completed] ul li", 1)
+    "navigate to 'Consent And Declaration'" in new WithBrowser with PageObjects{
+			val page =  G1HowWePayYouPage(context)
+      val claim = ClaimScenarioFactory.s6PayDetails()
+      page goToThePage()
+      page fillPageWith claim
+      val nextPage = page submitPage()
+
+      nextPage must beAnInstanceOf[G1AdditionalInfoPage]
     }
+
   } section("integration", models.domain.PayDetails.id)
 }

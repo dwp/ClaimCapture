@@ -1,9 +1,9 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-class G5AbroadForMoreThan52WeeksPage (browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends ClaimPage(browser, G5AbroadForMoreThan52WeeksPage.url, G5AbroadForMoreThan52WeeksPage.title, previousPage,iteration) {
+class G5AbroadForMoreThan52WeeksPage (ctx:PageObjectsContext, iteration:Int) extends ClaimPage(ctx, G5AbroadForMoreThan52WeeksPage.url, G5AbroadForMoreThan52WeeksPage.title,iteration) {
   declareYesNo("#anyTrips", "AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_" + iteration)
 }
 
@@ -16,12 +16,12 @@ object G5AbroadForMoreThan52WeeksPage {
 
   val url  = "/about-you/abroad-for-more-than-52-weeks"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G5AbroadForMoreThan52WeeksPage(browser,previousPage,iteration)
+  def apply(ctx:PageObjectsContext, iteration:Int=1) = new G5AbroadForMoreThan52WeeksPage(ctx,iteration)
 }
 
 /** The context for Specs tests */
 trait G5AbroadForMoreThan52WeeksPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G5AbroadForMoreThan52WeeksPage (browser , iteration = 1)
+  val page = G5AbroadForMoreThan52WeeksPage (PageObjectsContext(browser) , iteration = 1)
 }

@@ -1,11 +1,11 @@
-@(breakForm: Form[models.domain.Break])(implicit claim: models.domain.Claim, request: Request[AnyContent])
+@(breakForm: Form[models.domain.Break])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
 @import utils.helpers.CarersCrypto
 @import models.domain.MoreAboutTheCare
 @import views.html.helper._
 @import views.html.helper.dates._
-@import utils.helpers.CarersTemplate._
 @import app.Whereabouts._
+@import play.api.i18n.{MMessages => Messages}
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
     import language.postfixOps
@@ -25,39 +25,41 @@
     @form(action = controllers.s4_care_you_provide.routes.G11Break.submit) {
         <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
-        <fieldset class="form-elements">
-            <legend>About the break in care since @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
-
-			<div class="prompt helper-prompt"><p>We understand if you don't have exact details for each break but please add as much information as possible as it will help us process your claim and prevent any unnecessary delays.</p>
-			<p>We may contact you for additional information.</p></div>
-			
-            <ul>
-            
-            	@whereabouts(breakForm("whereYou"),
-                             Seq("", Home, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
-                             '_label -> Messages("whereYou.location"), 'textAreaHelper -> "60 characters left", 'maxLength -> 60)
-                             
-                @whereabouts(breakForm("wherePerson"),
-                             Seq("", Home, Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
-                             '_label -> Messages("wherePerson.location"), 'textAreaHelper -> "60 characters left", 'maxLength -> 60)             
-                             
-            
-                @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
-
-                @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
-    
-
-                @yesNoRadioGroup(breakForm("medicalDuringBreak"))
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("s4.g11.help1")) @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
+	
+				<div class="prompt helper-prompt"><p>@Html(Messages("s4.g11.help2"))</p>
+				<p>@Html(Messages("s4.g11.help3"))</p></div>
+				
+	            <ul>
+	            
+	            	@whereabouts(breakForm("whereYou"),
+	                             Seq("" -> Messages("pleaseSelect"), Home -> Messages("whereabouts.home"), Hospital -> Messages("whereabouts.hospital"), Holiday -> Messages("whereabouts.holiday"), RespiteCare -> Messages("whereabouts.respitecare"), Other -> Messages("other")),
+	                             '_label -> Messages("whereYou.location"), 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+	                             
+	                @whereabouts(breakForm("wherePerson"),
+	                             Seq(""-> Messages("pleaseSelect"), Home -> Messages("whereabouts.home"), Hospital -> Messages("whereabouts.hospital"), RespiteCare -> Messages("whereabouts.respitecare"), CareHome -> Messages("whereabouts.carehome"), NursingHome -> Messages("whereabouts.nursinghome"), Other -> Messages("other")),
+	                             '_label -> Messages("wherePerson.location"), 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+	                             
+	            
+	                @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
+	
+	                @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
+	    
+	
+	                @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+        </div>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g11_break.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
@@ -67,3 +69,4 @@
         window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_location_other")", maxChars: 60});
     })
 </script>
+}

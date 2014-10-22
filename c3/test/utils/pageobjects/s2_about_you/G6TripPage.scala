@@ -1,14 +1,14 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage, Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
 /**
  * * Page object for s2_about_you_time_spent_abroad g6_trip.
  * @author Saqib Kayani
  *         Date: 31/07/2013
  */
-class G6TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G6TripPage.url, G6TripPage.title, previousPage, iteration) {
+class G6TripPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G6TripPage.url, G6TripPage.title, iteration) {
 
   declareDate("#start", "DateYouLeftGB_" + iteration)
   declareDate("#end", "DateYouReturnedToGB_" + iteration)
@@ -17,7 +17,10 @@ class G6TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iterat
   declareInput("#why_reason_other", "WhyDidYouOther_" + iteration)
   declareYesNo("#personWithYou", "PersonWithYou_" + iteration)
 
-  protected override def getNewIterationNumber = iteration + 1
+  protected override def getNewIterationNumber = {
+    import IterationManager._
+    ctx.iterationManager.increment(Abroad)
+  }
 }
 
 /**
@@ -29,12 +32,12 @@ object G6TripPage {
 
   val url = "/about-you/trip/52-weeks"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G6TripPage(browser, previousPage, iteration)
+  def apply(ctx:PageObjectsContext, iteration: Int=1) = new G6TripPage(ctx, iteration)
 }
 
 /** The context for Specs tests */
 trait G6TripPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G6TripPage(browser = browser, iteration = 1)
+  val page = G6TripPage(PageObjectsContext(browser), iteration = 1)
 }

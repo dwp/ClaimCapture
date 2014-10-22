@@ -1,0 +1,103 @@
+
+/* declaration */
+	   .declaration {
+		   border: 1px solid #a2a2a2;
+		   padding: 1.5em;
+		   p {
+			   font-size: 19px;
+			   line-height: 1.25em;
+			   margin-top: 1em;
+			   &:first-child {
+				   margin-top: 0;
+			   }
+		   }
+	   }
+	   article {
+		   margin-top: 2em;
+		   line-height: 1em;
+		   p, h3 {
+			   display: inline;
+			   font-size: 19px;
+			   line-height: 1.25em;
+		   }
+		   .ie & {
+			   h3 {
+				   margin-right: .25em;
+			   }
+		   }
+	   }
+	   .declare {
+		   margin-top: 2em;
+		   clear: both;
+		   position: relative;
+		   @media print {
+			   display: none;
+		   }
+		   label {
+			   display: block;
+			   padding: 1.2em 1em 1.2em 2.3em;
+			   background: #fff;
+			   font-size: 19px;
+			   line-height: 1.25em;
+			   cursor: pointer;
+			   border: 1px solid #ddd;
+		   }
+		   input {
+			   position: absolute;
+			   top: 24px;
+			   left: 1.1em;
+			   &[type=checkbox]:checked + label {
+				   background: #fff;
+				   -webkit-transition: all 200ms ease-in;
+				   -moz-transition: all 200ms ease-in;
+				   -ms-transition: all 200ms ease-in;
+				   -o-transition: all 200ms ease-in;
+				   transition: all 200ms ease-in;
+				   border: 1px solid #a2a2a2;
+			   }
+		   }
+		   &.dec-validation {
+			   border: 1px solid #df3034!important;
+			   background: #fef7f7;
+		   }
+		   &.secondary {
+			   margin-top: 1em;
+		   }
+		   &.validation-check {  	
+		   	border-left: 3px solid #df3034;
+		   	background: #fef7f7;
+			   label {
+			   	   border: 0;
+				   background: #fef7f7;
+				   padding-top: 0;
+			   }
+			   input {
+				   top: 45px;
+				   &[type=checkbox]:checked + label {
+				   background: #fef7f7;
+				   }
+			   }
+			   .error {
+				   font-size: 16px;
+				   color: #df3034;
+				   padding: 1em 0 .5em .8em;
+			   }
+		   }
+	   }
+	   
+	   .dec {
+	   	   ul {
+		   	   margin: 2em 2.5em 0 2.65em;
+		   	   list-style: disc;
+			   li {
+				   line-height: 1.4em;
+				   padding: 0;
+				   margin: 1.4em 0 0 0;
+				   font-size: 19px;
+				   display: list-item;
+				   &:first-child {
+					   margin-top: 1em;
+				   }
+			   }
+		   }
+	   }

@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Over16])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.Over16])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,39 +7,37 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dates._
-
+@import play.api.i18n.{MMessages => Messages}
 @main(Messages("s1.g3") + " - " + Messages("s1.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Over16)) {
 
 
     @form(action = controllers.s1_carers_allowance.routes.G3Over16.submit) {
+	        <fieldset class="form-elements form-eligibility over16">
+	            <legend>@Html(Messages("s1.g3"))</legend>
 
-        <fieldset class="form-elements form-eligibility q1">
-            <legend><span>Q3</span>@Messages("s1.g3")</legend>
-
-            <ul>
-                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("over16.answer"), '_showLabel -> false,'track -> true, 'trackLabel -> "over16.answer")
-            </ul>
-                
-            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
-                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
-                    <p>You can only qualify for Carer's Allowance if you are 16 years or over.</p>
-                    <p>You are legally entitled to claim Carer's Allowance even though you <strong>do not</strong> qualify and <strong>will not</strong> get Carer's Allowance. If you wish to do so click the <strong>'Next'</strong> button below.</p>
-                    <span>!</span>
-                </div>
-            }
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+	             @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("over16.answer"), '_showLabel -> false,'track -> true,'allowance -> true, 'trackLabel -> "over16.answer")
+	                
+	            @defining(currentForm("over16.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
+	                    <p>@Html(Messages("s1.g3.help1"))</p>
+	                    <p>@Html(Messages("s1.g3.help2"))</p>
+	                    <span>!</span>
+	                </div>
+	            }
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	        	<ul>
+	           		<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	           		<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	        	</ul>
+	        </nav>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
 
 <script type="text/javascript">
     $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("over16_answer_yes")", "@CarersCrypto.encryptAES("over16_answer_no")");
     });
 </script>
+}

@@ -1,23 +1,24 @@
-@(field: Field)
+@(field: Field)(implicit lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
+@import play.api.i18n.{MMessages => Messages}
 
 @{
     carersSelect(field,
         options = options(
-            "" -> "Please select",
-            "mr" -> "Mr",
-            "mrs" -> "Mrs",
-            "miss" -> "Miss",
-            "ms" -> "Ms",
-            "dr"  ->"Dr",
-            "rev" ->"Rev",
-            "sir" ->"Sir",
-            "lord"->"Lord",
-            "lady"->"Lady",
-            "dame"->"Dame"),
+            "" -> Messages("titleSelect.pleaseSelect"),
+            "Mr" -> Messages("titleSelect.mr"),
+            "Mrs" -> Messages("titleSelect.mrs"),
+            "Miss" -> Messages("titleSelect.miss"),
+            "Ms" -> Messages("titleSelect.ms"),
+            "Dr"  -> Messages("titleSelect.dr"),
+            "Rev" -> Messages("titleSelect.rev"),
+            "Sir" -> Messages("titleSelect.sir"),
+            "Lord"-> Messages("titleSelect.lord"),
+            "Lady"-> Messages("titleSelect.lady"),
+            "Dame"-> Messages("titleSelect.dame")),
         '_label -> Messages("title")
     )
 }

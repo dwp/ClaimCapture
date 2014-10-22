@@ -1,0 +1,54 @@
+@(previewForm:Form[models.domain.PreviewModel])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+
+@import views.html.helper._
+@import views.html.helper.base._
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.CarersTemplate._
+
+@common.govMain(Messages("preview.title")) {
+
+    <div class="carers-allowance">
+
+        @common.protoType()
+
+        @common.feedback()
+
+
+        <article>
+
+            <h1>@Html(Messages("preview.summary"))</h1>
+
+
+            @errorsSummary(previewForm)
+
+
+            <section class="review">
+                @s2()
+                @s3()
+                @s4()
+                @s6()
+                @s7()
+                @s9()
+                @s10()
+            </section>
+
+            @helper.form(action = controllers.preview.routes.Preview.submit) {
+
+                <fieldset class="form-elements">
+                    <ul>
+                        @carersInputText(previewForm("email"))
+                    </ul>
+                </fieldset>
+                <nav class="form-steps">
+                    <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.back.help"))">@Html(Messages("form.back"))</a>
+                    <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+                </nav>
+            }
+        </article>
+    </div>
+
+
+}
+
+
+

@@ -1,21 +1,19 @@
 package controllers
 
 import play.api.mvc.Controller
-import models.view.{CachedChangeOfCircs, CachedClaim}
-import app.ConfigProperties._
+import models.view.CachedChangeOfCircs
 
 object CircsEnding extends Controller with CachedChangeOfCircs {
-  val startUrl: String = getProperty("cofc.start.page", "/circumstances/identification/about-you")
 
-  def timeout = ending {
-    Ok(views.html.common.session_timeout(startUrl))
+  def timeout = ending { implicit claim => implicit request  => implicit lang =>
+    Ok(views.html.common.session_timeout(startPage))
   }
 
-  def error = ending {
-    Ok(views.html.common.error(startUrl))
+  def error = ending { implicit claim => implicit request  => implicit lang =>
+    Ok(views.html.common.error(startPage))
   }
 
-  def thankyou = ending {
+  def thankyou = ending { implicit claim => implicit request  => implicit lang =>
     Ok(views.html.common.thankYouCircs())
   }
 

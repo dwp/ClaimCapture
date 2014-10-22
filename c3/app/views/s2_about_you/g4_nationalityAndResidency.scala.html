@@ -1,4 +1,4 @@
-@(nationalityAndResidencyForm: Form[models.domain.NationalityAndResidency])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(nationalityAndResidencyForm: Form[models.domain.NationalityAndResidency])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,50 +7,74 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
-@import views.html.s2_about_you.main
+@import play.api.i18n.{MMessages => Messages}
+@import models.domain.NationalityAndResidency
+@import app.MaritalStatus._
 
 @main(Messages("s2.g4") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.NationalityAndResidency)) {
     @errorsSummary(nationalityAndResidencyForm)
 
 
     @form(action = controllers.s2_about_you.routes.G4NationalityAndResidency.submit) {
-        <fieldset class="form-elements">
-            <legend>@Messages("s2.g4")</legend>
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("s2.g4"))</legend>
+	
+	            <ul>
+	                @listRadioGroup(nationalityAndResidencyForm("nationality"),
+                        'helperAbove -> Messages("nationality.helper"),
+                        'items -> Seq(NationalityAndResidency.british -> Messages("label.british"), NationalityAndResidency.anothercountry -> Messages("label.anothercountry")),
+	                    '_label -> Messages("nationality.label"),
+                        '_nestedFieldSet -> true)
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+	                        carersInputText(nationalityAndResidencyForm("actualnationality"),
+	                            '_label -> Messages("actualnationality.text.label"),
+	                            'maxLength -> 35),
 
-            <ul>
-                @carersInputText(nationalityAndResidencyForm("nationality"),
-                    'helperBelow -> Messages("nationality.helper"),
-                    'maxLength -> 35)
+                            maritalStatusSelect(nationalityAndResidencyForm("maritalStatus"),'_nestedFieldSet -> true)
+	                    ),
+	                    'id -> "nationalityWrap"
+	                )
 
-                @yesNoRadioGroup(nationalityAndResidencyForm("resideInUK.answer"),
-                    '_label -> Messages("resideInUK.label"))
+                    @yesNoRadioGroup(nationalityAndResidencyForm("resideInUK")("answer"),
+                        '_label -> Messages("resideInUK.label"))
 
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                        carersInputText(nationalityAndResidencyForm("resideInUK.text"),
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputText(nationalityAndResidencyForm("resideInUK")("text"),
                             '_label -> Messages("resideInUK.text.label"),
                             'maxLength -> 35)
-                    ),
-                    'id -> "residencyWrap",
-                    'display -> { if (nationalityAndResidencyForm("resideInUK.answer").value.getOrElse("yes") == "no") "yes" else "no" }
-                )
-            </ul>
-
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+                        ),
+                        'id -> "residencyWrap"
+                    )
+                </ul>
+	
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/g4_nationalityAndResidency.js")'></script>
 
 <script type="text/javascript">
     $(function(){
-        window.initEvents("@CarersCrypto.encryptAES("resideInUK_answer_yes")",
-                          "@CarersCrypto.encryptAES("resideInUK_answer_no")",
-                          "@CarersCrypto.encryptAES("resideInUK_text")");
+        window.initEvents("@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("Another_Country").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("actualnationality").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("yes").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("no").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("text").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Married_or_civil_partner").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Single").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Divorced_or_civil_partnership_dissolved").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Widowed_or_surviving_civil_partner").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Separated").id)",
+                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Living_with_partner").id)");
     });
 </script>
+}

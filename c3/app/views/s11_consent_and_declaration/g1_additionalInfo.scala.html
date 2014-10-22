@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.AdditionalInfo])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.AdditionalInfo])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,31 +7,48 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s11.g1") + " - " + Messages("s11.longName"), Some(currentForm)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G1AdditionalInfo.submit) {
-        <fieldset class="form-elements" data-journey="carers-allowance:page:consent-and-declaration">
-            <legend>@Messages("s11.g1")</legend>
-
-            <ul>
-                @carersInputTextArea(currentForm("anythingElse"),'placeholder->Messages("please.specify"),'helper->"2000 characters left", 'maxLength -> 2000)
-
-                @yesNoRadioGroup(currentForm("welshCommunication"))
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a href="@claim.navigation.previous" id="backButton" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements" data-journey="carers-allowance:page:consent-and-declaration">
+	            <legend>@Html(Messages("s11.g1"))</legend>
+	
+	            <ul>
+	                @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helperAbove -> Messages("mustTellUs"))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),
+	                        'placeholder->Messages("anythingElse.please.specify"),'helper->Html(Messages("2000charsLeft")), 'maxLength -> 2000,
+	                        'ignoreOptional -> true)
+	                    ),
+	                    'id -> "anythingElseWrapper",
+	                    'display ->  { if (currentForm("anythingElse.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+	                )
+	
+	                @yesNoRadioGroup(currentForm("welshCommunication"))
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+					<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+					<li><a href="@claim.navigation.previous" id="backButton">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+        </div>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s11_consent_and_declaration/g1_additionalInfo.js")'></script>
 
 <script type="text/javascript">
     $(function(){
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse")",maxChars:2000});
         @ga.stagePrompt()
-    })
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse_text")",maxChars:2000});
+        window.initEvents("@CarersCrypto.encryptAES("anythingElse_answer_yes")",
+        "@CarersCrypto.encryptAES("anythingElse_answer_no")",
+        "@CarersCrypto.encryptAES("anythingElse_text")");
+    });
 </script>
+}

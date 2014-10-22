@@ -14,7 +14,7 @@
         </rollingPolicy>
 
         <encoder>
-            <pattern>%coloredLevel %d %logger{15} - %message%n%xException{5}</pattern>
+            <pattern>%coloredLevel %d [%thread] %logger{15} - %message%n%xException{5}</pattern>
         </encoder>
     </appender>
 
@@ -26,6 +26,7 @@
         <additionalField>httpPort:_http_port</additionalField>
         <additionalField>hostName:_host_name</additionalField>
         <additionalField>envName:_Environment</additionalField>
+        <additionalField>appName:_AppName</additionalField>
         <additionalField>uuid:_uuid</additionalField>
     </appender>
 

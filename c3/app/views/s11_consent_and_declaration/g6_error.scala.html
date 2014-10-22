@@ -1,61 +1,23 @@
-@()(implicit claim: models.domain.Claim)
+@()(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
-@common.govMain("Error") {
+@import play.api.i18n.{MMessages => Messages}
+
+@common.govMain(Messages("tryClaimAgain")) {
     <div id="wrapper" class="carers-allowance">
         <div class="carers-container">
-            <section class="error-statement">
+            <article class="error-statement">
 
-                <header>
-                    <h1>Sorry, your claim has not been submitted</h1>
-                </header>
+                    <h1>@Html(Messages("s11.g6.help1"))</h1>
 
-                <p>There has been a slight technical problem with submitting your claim.
-                    We recommend you try again in a few minutes.</p>
+
+                <p>@Html(Messages("s11.g6.help2"))</p>
 
                 <nav class="form-steps">
-                    <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back to claim button">Back to your claim</a>
+                    <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="@Html(Messages("form.tryAgain.help"))">@Html(Messages("form.tryAgain"))</a>
                 </nav>
 
-           </section>
+           </article>
 
         </div>
     </div>
-}{
-    <!-- carers allowance -->
-    <nav class="footer-categories">
-        <div class="footer-explore">
-            <h2>Explore GOV.UK</h2>
-
-            <ul>
-                <li><a href="http://www.gov.uk/browse/driving" target="_blank">Driving and transport</a></li>
-                <li><a href="http://www.gov.uk/browse/benefits" target="_blank">Benefits</a></li>
-                <li><a href="http://www.gov.uk/browse/business" target="_blank">Businesses and self-employed</a></li>
-                <li><a href="http://www.gov.uk/browse/employing-people" target="_blank">Employing people</a></li>
-                <li><a href="http://www.gov.uk/browse/abroad" target="_blank">Passports, travel and living abroad</a></li>
-                <li><a href="http://www.gov.uk/browse/education" target="_blank">Education and learning</a></li>
-                <li><a href="http://www.gov.uk/browse/working" target="_blank">Working, jobs and pensions</a></li>
-                <li><a href="http://www.gov.uk/browse/housing" target="_blank">Housing and local services</a></li>
-                <li><a href="http://www.gov.uk/browse/justice" target="_blank">Crime, justice and the law</a></li>
-                <li><a href="http://www.gov.uk/browse/tax" target="_blank">Money and tax</a></li>
-                <li><a href="http://www.gov.uk/browse/births-deaths-marriages" target="_blank">Births, deaths, marriages and care</a></li>
-                <li><a href="http://www.gov.uk/browse/disabilities" target="_blank">Disabled people</a></li>
-                <li><a href="http://www.gov.uk/browse/citizenship" target="_blank">Citizenship and life in the UK</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-inside-government">
-            <h2><a href="http://www.gov.uk/government" target="_blank">Inside Government</a></h2>
-
-            <ul>
-                <li><a href="http://www.gov.uk/government/how-government-works" target="_blank">How government works</a></li>
-                <li><a href="http://www.gov.uk/government/organisations" target="_blank">Departments</a></li>
-                <li><a href="http://www.gov.uk/government/world" target="_blank">Worldwide</a></li>
-                <li><a href="http://www.gov.uk/government/topics" target="_blank">Topics</a></li>
-                <li><a href="http://www.gov.uk/government/policies" target="_blank">Policies</a></li>
-                <li><a href="http://www.gov.uk/government/publications" target="_blank">Publications</a></li>
-                <li><a href="http://www.gov.uk/government/announcements" target="_blank">Announcements</a></li>
-            </ul>
-        </div>
-
-    </nav>
-}
+}(views.html.common.submittingFooter(), lang, request)

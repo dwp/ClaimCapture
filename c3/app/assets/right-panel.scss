@@ -1,0 +1,12 @@
+.right-panel {
+	vertical-align: top;
+	section {
+		margin-top: 2em;
+		&:first-child {
+			margin-top: 1.5em;
+		}
+		h2 {
+			line-height: 1.2em;
+		}
+	}
+}

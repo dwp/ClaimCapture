@@ -2,7 +2,6 @@ package utils.pageobjects
 
 import java.util.concurrent.TimeUnit
 import org.specs2.specification.Scope
-import play.api.test.TestBrowser
 import org.openqa.selenium.TimeoutException
 import org.fluentlenium.core.Fluent
 import scala.util.Try
@@ -12,7 +11,7 @@ import scala.util.Try
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None, iteration: Int = 1) extends Object with FormFields with WebSearchActions with WebFillActions {
+abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: String, pageTitle: String, iteration: Int = 1) extends Object with FormFields with WebSearchActions with WebFillActions {
 
   // Cache of the page source
   protected var pageSource = ""
@@ -55,7 +54,7 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
    * @return Page object representing the html page the UI went back to.
    */
   def goBack(waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    val fluent = browser.click("#backButton")
+    val fluent = ctx.browser.click("#backButton")
     val title = getPageTitle(fluent, waitForPage, waitDuration)
     createPageWithTitle(title, iteration)
   }
@@ -82,13 +81,14 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
             case SORTCODE => fillSortCode(cssElem, theClaim.selectDynamic(claimAttribute))
             case TIME => fillTime(cssElem, theClaim.selectDynamic(claimAttribute))
             case YESNO => fillYesNo(cssElem, theClaim.selectDynamic(claimAttribute))
+            case YESNODONTKNOW => fillYesNoDontknow(cssElem, theClaim.selectDynamic(claimAttribute))
             case _ => throw new PageObjectException("Framework error in Page.fillPageWith. Unhandled fieldType: " + fieldType.name)
           }
       }
       this
     }
     catch {
-      case e: Exception => throw new PageObjectException("Error when filling form in page [" + pageTitle + "]", exception = e)
+      case e: Exception => throw new PageObjectException("Error when filling form in page [" + pageTitle + "] Exception:"+e.getMessage, exception = e)
     }
   }
 
@@ -112,11 +112,12 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
             case DATE_TO => assignToClaimAttribute(readDate(cssElem + "_to"))
             case INPUT | JSINPUT => assignToClaimAttribute(readInput(cssElem))
             case NINO => assignToClaimAttribute(readNino(cssElem))
-            // TODO            case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
+            case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
             case SELECT => assignToClaimAttribute(readSelect(cssElem))
             case SORTCODE => assignToClaimAttribute(readSortCode(cssElem))
             case TIME => assignToClaimAttribute(readTime(cssElem))
             case YESNO => assignToClaimAttribute(readYesNo(cssElem))
+            case YESNODONTKNOW => assignToClaimAttribute(readYesNoDontknow(cssElem))
             case _ => throw new PageObjectException("Framework error in Page.populateClaim. Unhandled fieldType: " + fieldType.name)
           }
       }
@@ -161,7 +162,7 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
     if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be submitted. " + this.toString)
     try {
       this.pageSource = getPageSource() // cache page source so can always look back at html as it was when submitting.
-      val fluent = browser.submit("button[type='submit']")
+      val fluent = ctx.browser.submit("button[type='submit']")
       if (errorsInPage(throwException)) this
       else {
         val title = getPageTitle(fluent, waitForPage, waitDuration)
@@ -180,13 +181,13 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
    * @return
    */
   def goToCompletedSection(waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    val fluent = browser.click("div[class=completed] ul li a")
+    val fluent = ctx.browser.click("div[class=completed] ul li a")
     val title = getPageTitle(fluent, waitForPage, waitDuration)
     createPageWithTitle(title, iteration)
   }
 
   def goToPageFromIterationsTableAtIndex(index: Int, location: String = "input[value='Change']", waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    browser.find(location, index).click
+    ctx.browser.find(location, index).click
     val title = getPageTitle(null, waitForPage, waitDuration)
     createPageWithTitle(title, iteration)
   }
@@ -198,13 +199,16 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
    */
   def source() = if (this.pageLeftOrSubmitted) this.pageSource else getPageSource()
 
+
+  def jsCheckEnabled() = source.contains("jsEnabled") && source.contains("#js")
+
   /**
    * Provides the full list of pages traversed to get to the current page.
    * @return String that lists the titles of the pages traversed, separated by '<'.
    */
   def fullPagePath: String = {
-    if (previousPage == None) this.pageTitle
-    else this.pageTitle + " < " + previousPage.get.fullPagePath
+    if (ctx.previousPage == None) this.pageTitle
+    else this.pageTitle + " < " + ctx.previousPage.get.fullPagePath
   }
 
   def getUrl = url
@@ -217,7 +221,7 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
 
   protected def waitForPage(waitDuration: Int) = {
     try {
-      browser.waitUntil[Boolean](waitDuration, TimeUnit.SECONDS) {
+      ctx.browser.waitUntil[Boolean](waitDuration, TimeUnit.SECONDS) {
         titleMatch()._1
       }
     }
@@ -230,7 +234,7 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
   protected def waitForNewTitle(waitDuration: Int) = {
     try {
       var matchResult = (false, "")
-      browser.waitUntil[Boolean](waitDuration, TimeUnit.SECONDS) {
+      ctx.browser.waitUntil[Boolean](waitDuration, TimeUnit.SECONDS) {
         matchResult = titleDoesNotMatch("")
         matchResult._1
       }
@@ -259,7 +263,7 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
   protected def getTitleFromBrowser(index: Int = 0): String = {
     if (index < 5) {
       try {
-        val htmlTitle = browser.title()
+        val htmlTitle = ctx.browser.title()
         if (htmlTitle != null && htmlTitle.isEmpty) getTitleFromBrowser(index + 1)
         else htmlTitle
       }
@@ -282,12 +286,13 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
 
   private def createPageWithTitle(title: String, newIterationNumber: Int) = {
     this.pageLeftOrSubmitted = true
-    pageFactory buildPageFromTitle(browser, title, Some(this), newIterationNumber)
+    val context = PageObjectsContext(ctx.browser,ctx.iterationManager,Some(this))
+    pageFactory buildPageFromTitle(title, context)
   }
 
   private def goToUrl(page: Page, throwException: Boolean, waitForPage: Boolean, waitDuration: Int) = {
     if (!this.pageLeftOrSubmitted) this.pageSource = getPageSource()
-    val fluent = browser.goTo(page.url)
+    val fluent = ctx.browser.goTo(page.url)
     val title = getPageTitle(fluent, waitForPage, waitDuration)
     if (title.toLowerCase != page.pageTitle.toLowerCase) {
       if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " Iteration(" + iteration + ") - Page loaded with title: " + title)
@@ -304,7 +309,7 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
   }
 
   private def getPageSource() = try {
-    browser.pageSource()
+    ctx.browser.pageSource()
   }
   catch {
     case _: Exception => "Error: Page source not available."
@@ -314,10 +319,10 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
 /**
  * A page object that represents an unknown html page, i.e. a page that is not covered by the framework.
  * A developer should create a new sub-class of Page to handle this "unknown" page.
- * @param browser  webDriver browser
  * @param pageTitle  Title of the unknown page
+ * @param context global context for the pageobjects
  */
-final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: Option[Page] = None) extends Page(null, browser, null, pageTitle, previousPage) {
+final class UnknownPage(pageTitle: String, context:PageObjectsContext) extends Page(null, context, null, pageTitle) {
   protected def createNextPage(): Page = this
 
   /**
@@ -341,14 +346,14 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * @param theClaim   Data to use to fill page
    */
   override def fillPageWith(theClaim: TestData): Page =
-    throw new PageObjectException("Cannot fill an unknown page [" + pageTitle + "] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]. Page content is" + source())
+    throw new PageObjectException("Cannot fill an unknown page [" + pageTitle + "] Previous page was [" + ctx.previousPage.getOrElse(this).pageTitle + "]. Page content is" + source())
 
   /**
    * Throws a PageObjectException.
    * @param theClaim   Claim to populate.
    */
   override def populateClaim(theClaim: TestData): Page =
-    throw new PageObjectException("Cannot populate a claim from an unknown page [" + pageTitle + "] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]. Page content is" + source())
+    throw new PageObjectException("Cannot populate a claim from an unknown page [" + pageTitle + "] Previous page was [" + ctx.previousPage.getOrElse(this).pageTitle + "]. Page content is" + source())
 }
 
 object Page {

@@ -1,36 +1,115 @@
-@()
+@()(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+
 @import play.api.i18n._
+@import models.domain._
+@import play.api.i18n.{MMessages => Messages}
+@import app.ConfigProperties._
+
+@employment = @{claim.questionGroup[Employment].getOrElse(Employment())}
+@isEmployment = @{employment.beenEmployedSince6MonthsBeforeClaim == "yes"}
+@isSelfEmployment = @{employment.beenSelfEmployedSince1WeekBeforeClaim == "yes"}
+@isEmploymentOrSelfEmployment = @{isEmployment || isSelfEmployment}
+@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.`dd/MM/yyyy`}
 
 @common.govMain(Messages("thankyou")) {
 
-    <div class="carers-allowance">
+    <div class="carers-allowance clearfix" data-journey="carers-allowance:page:thank-you">
 
         @common.protoType()
 
-        @common.helpLine()
+    
 
-        <section class="finish-statement">
-            <h1>@Messages("thankyou")</h1>
-            <p>@Messages("claim.received")</p>
+        <article class="finish-statement">
+           
+            <section class="app-complete">
+	            <h1><span>@Html(Messages("thankyou"))</span></h1>
+	            <p>@Html(Messages("claim.received"))</p>
+	            <p class="nino-title">@Html(Messages("claim.recieved2"))</p>
+            </section>
+            
+            
+            @if(isEmploymentOrSelfEmployment){
+            
+            <div class="finish-info">
+            
 
-            <article class="finish-next prompt helper-prompt">
-            <h3>@Messages("next")</h3>
-            <ul>
-                <li>@Html(Messages("claim.next.1"))</li>
-                <li>@Html(Messages("claim.next.2"))</li>
-                <li>@Html(Messages("claim.next.3"))</li>
-                <li>@Html(Messages("next.last"))</li>
-            </ul>
+                    <section>
+                        <h1>@Html(Messages("documents.title"))</h1>
+                        <h3>@Html(Messages("documents.sendingDocs.title"))</h3>
+                        <p>@Html(Messages("documents.sendingDocs.text"))</p>
+                    </section>
+            
+                <div class="send-info">
+
+                        @if(isEmployment){
+                            <section>
+                                <h2 id="employment">@Html(Messages("s11.g5.help3"))</h2>
+                                <ul>
+                                    <li>@{Messages("s11.g5.help4")} @claimDate</li>
+                                    <li>@Html(Messages("s11.g5.help5"))</li>
+                                    <li>@Html(Messages("s11.g5.help6"))</li>
+                                </ul>
+                            </section>
+                        }
+                        @if(isSelfEmployment){
+                            <section>
+                                <h2 id="selfEmployment">@Html(Messages("s11.g5.help7"))</h2>
+                                <ul>
+                                    <li>@Html(Messages("s11.g5.help8"))</li>
+                                    <li>@Html(Messages("s11.g5.help9"))</li>
+                                </ul>
+                            </section>
+                        }
+                        <section class="address">
+                            <h2>@Html(Messages("s11.g5.help10"))</h2>
+                            <span>@Html(Messages("s11.g5.help11"))</span>
+                            <span>@Html(Messages("s11.g5.help12"))</span>
+                            <span>@Html(Messages("s11.g5.help13"))</span>
+                            <span>@Html(Messages("s11.g5.help14"))</span>
+                            <p>@Html(Messages("s11.g5.help15"))</p>
+                        </section>
+
+                </div>
+                
+                
+            </div>
+            }
+            
             </article>
-            <article>
-            <h3>@Messages("change.head")</h3>
-            <p>@Html(Messages("change.link"))</p>
-            </article>
-            <article>
-            <h3>@Messages("feedback.head")</h3>
-            <p>@Html(Messages("claim.feedback.link"))</p>
-            </article>
-        </section>
-        
+
+            <!-- left-panel -->
+
+			<aside class="left-col right-panel @{if(!isEmploymentOrSelfEmployment)"no-employment"}">
+			
+            	<section>
+	                <h2>@Html(Messages("next"))</h2>
+	                <ul>
+	                    <li>@Html(Messages("claim.next.1"))</li>
+	                    <li>@Html(Messages("claim.next.2"))</li>
+	                    <li>@Html(Messages("claim.next.3"))</li>
+	                    <li>@Html(Messages("next.last"))</li>
+	                </ul>
+                </section>
+                
+                <section>
+	                <h2>@Html(Messages("change.head"))</h2>
+	                <p>@Html(Messages("change.link"))</p>
+                </section>
+                
+                <section>
+	                <p class="finish">@Html(Messages("claim.feedback.link"))</p>
+				</section>
+	            
+            </aside>
+            <!-- / right panel -->
+
+        @if(getProperty("display.transid",false)){
+            <input type="hidden" name="transId" id="transId" value="@{claim.transactionId.getOrElse("NO_TRANS_ID")}"/>
+        }
     </div>
 }
+<script type="text/javascript">
+$(function(){
+    @ga.stagePrompt()
+})
+</script>

@@ -2,22 +2,22 @@ package controllers.s4_care_you_provide
 
 import play.api.mvc.Controller
 import play.api.data.{FormError, Form}
-import play.api.i18n.Messages
+import play.api.i18n.{MMessages => Messages}
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
-import models.domain.{MoreAboutTheCare, BreaksInCare}
+import models.domain.{QuestionGroup, Claim, MoreAboutTheCare, BreaksInCare}
 import models.view.{Navigable, CachedClaim}
 import models.yesNo.YesNo
-import CareYouProvide.breaksInCare
 import scala.language.postfixOps
+import play.api.i18n.Lang
 
 object G10BreaksInCare extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "answer" -> nonEmptyText.verifying(validYesNo)
   )(YesNo.apply)(YesNo.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     val filledForm = request.headers.get("referer") match {
       case Some(referer) if referer endsWith routes.G11Break.present().url => form
       case _ if claim.questionGroup[BreaksInCare].isDefined => form.fill(YesNo(no))
@@ -27,13 +27,15 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
     track(BreaksInCare) { implicit claim => Ok(views.html.s4_care_you_provide.g10_breaksInCare(filledForm, breaksInCare)) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     import controllers.Mappings.yes
 
     def next(hasBreaks: YesNo) = hasBreaks.answer match {
       case `yes` if breaksInCare.breaks.size < 10 => Redirect(routes.G11Break.present())
       case `yes` => Redirect(routes.G10BreaksInCare.present())
-      case _ => Redirect(routes.CareYouProvide.completed())
+      case _ => redirect(claim, lang)
     }
 
     form.bindEncrypted.fold(
@@ -49,7 +51,16 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
       hasBreaks => claim.update(breaksInCare) -> next(hasBreaks))
   }
 
-  def delete(id: String) = claiming { implicit claim => implicit request =>
+  private def redirect(implicit claim: Claim, lang: Lang) = {
+    if (completedQuestionGroups.isEmpty) Redirect(routes.G1TheirPersonalDetails.present())
+    else Redirect("/education/your-course-details")
+  }
+
+  private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
+    claim.completedQuestionGroups(models.domain.CareYouProvide)
+  }
+
+  def delete(id: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     import play.api.libs.json.Json
 
     claim.questionGroup(BreaksInCare) match {

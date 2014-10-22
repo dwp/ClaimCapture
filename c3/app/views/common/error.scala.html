@@ -1,22 +1,23 @@
-@(url:String)
-@common.govMain("An unrecoverable error has occurred") {
-	
-    <div class="carers-allowance">
+@(url:String)(implicit lang: Lang, request: Request[AnyContent])
+@import play.api.i18n.{MMessages => Messages}
+
+@common.govMain(Messages("unrecoverable.error")) {
+
+    <div class="carers-allowance clearfix">
 
         @common.protoType()
 
-        @common.helpLine()
+ 
+        <article class="error-statement">
 
-        <section class="error-statement">
+            <h1>@Html(Messages("unrecoverable.error"))</h1>
 
-                    <h1>An unrecoverable error has occurred</h1>
-
-
-                <nav class="form-steps">
-                    <button type="submit" name="action" value="next" class="button secondary" onClick="location.href='@url'" aria-label="Restart claim button">Restart</button>
-                </nav>
-            </section>
-        </div>
-} {
-    <!-- Empty -->
+            <nav class="form-steps">
+                <button type="submit" name="action" value="next" class="button secondary" onClick="location.href='@url'" aria-label="Restart claim button">@Html(Messages("restart"))</button>
+            </nav>
+        </article>
+        
+         @common.leftcol()
+        
+    </div>
 }

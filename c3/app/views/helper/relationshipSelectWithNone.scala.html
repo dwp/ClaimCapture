@@ -1,7 +1,8 @@
-@(field: Field)
+@(field: Field)(implicit lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
+@import play.api.i18n.Lang
 
 @relationshipSelect(field,true)

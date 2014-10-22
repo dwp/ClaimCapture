@@ -1,11 +1,17 @@
-@(field:Field, args: (Symbol, Any)*)
+@(field:Field, args: (Symbol, Any)*)(implicit lang: Lang)
 
-@import helper._
-@import utils.helpers.CarersCrypto
 @import utils.helpers._
-@import views.html.helper.base.labelOrId
 
-<label for="@CarersCrypto.encryptAES(field.id)">
-    @{Space.*}
-    @carersLabelText(field,args:_*)
-</label>
+@ignoreLabel = @{
+   !args.find(t => t._1 == 'ignoreLabel).getOrElse('ignoreLabel->false).asInstanceOf[(Symbol,Boolean)]._2
+}
+
+@if(ignoreLabel){
+    <label for="@CarersCrypto.encryptAES(field.id)">
+        @{Space.*}
+        @carersLabelText(field,args:_*)
+    </label>
+    @if(args.find(_._1=='helperAbove).isDefined){
+      <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
+    }
+}

@@ -1,0 +1,7 @@
+@(elements: helper.FieldElements)
+
+@import utils.helpers._
+
+<li @if(elements.hasErrors) { class="validation" } else { class="form-check" }>
+    @commonTemplate(elements)
+</li>

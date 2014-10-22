@@ -1,6 +1,5 @@
 package utils.pageobjects
 
-import play.api.test.TestBrowser
 import scala.collection.convert.Wrappers.JListWrapper
 import org.openqa.selenium.By
 import scala.collection.mutable
@@ -14,7 +13,7 @@ import org.fluentlenium.core.filter.FilterConstructor._
  *         Date: 11/07/2013
  */
 trait WebSearchActions {
-  this: {val browser: TestBrowser} =>
+  this: {val ctx: PageObjectsContext} =>
 
   // Read operations
   def readAddress(elementCssSelector: String): Option[String] = {
@@ -26,7 +25,7 @@ trait WebSearchActions {
 
   def readCheck(elementCssSelector: String): Option[String] = {
     this checkElement elementCssSelector
-    if (browser.find(elementCssSelector, 0).isSelected) Some("yes")
+    if (ctx.browser.find(elementCssSelector, 0).isSelected) Some("yes")
     else None
   }
 
@@ -40,7 +39,7 @@ trait WebSearchActions {
 
   def readInput(elementCssSelector: String): Option[String] = {
     this checkElement elementCssSelector
-    Some(browser.value(elementCssSelector).get(0))
+    Some(ctx.browser.value(elementCssSelector).get(0))
   }
 
   def readNino(elementCssSelector: String): Option[String] = {
@@ -55,7 +54,7 @@ trait WebSearchActions {
 
   def readSelect(elementCssSelector: String): Option[String] = {
     this checkElement elementCssSelector
-    val select = browser.find(elementCssSelector, 0).getElement
+    val select = ctx.browser.find(elementCssSelector, 0).getElement
     val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
     var value = ""
     for (option <- allOptions; if option.isSelected) {
@@ -85,7 +84,7 @@ trait WebSearchActions {
     def isCheckSelected(value: String): Boolean = {
       val valCssSelector = location + sep + value
       this checkElement valCssSelector
-      browser.find(valCssSelector, 0).isSelected
+      ctx.browser.find(valCssSelector, 0).isSelected
     }
 
     if (isCheckSelected("yes")) Some("yes")
@@ -93,16 +92,41 @@ trait WebSearchActions {
     else None
   }
 
+  def readYesNoDontknow(location: String, sep: String = "_"): Option[String] = {
+    def isCheckSelected(value: String): Boolean = {
+      val valCssSelector = location + sep + value
+      this checkElement valCssSelector
+      ctx.browser.find(valCssSelector, 0).isSelected
+    }
+
+    if (isCheckSelected("yes")) Some("yes")
+    else if (isCheckSelected("no")) Some("no")
+    else if (isCheckSelected("dontknow")) Some("dontknow")
+    else None
+  }
+
+  def readLabel (label: String): String = {
+    val labelLocation = "label[for='"+label+"']"
+    this checkElement labelLocation
+    ctx.browser.find(labelLocation).getText
+  }
+
+  def readHeading (id: String): String = {
+    val headingLocation = "h2[id='"+id+"']"
+    this checkElement headingLocation
+    ctx.browser.find(headingLocation).getText
+  }
+
   //====================================================================================================================
   // Other search operations
   //====================================================================================================================
 
-  def titleOfSubmitButton = browser.find("#submit").getText
+  def titleOfSubmitButton = ctx.browser.find("#submit").getText
 
   // Completed Sections
   def isSpecifiedSectionCompleted(index: Integer, name: String, value: String, location: String = "div[class=completed] ul li") = {
     this checkElement location
-    val completed = browser.find(location).get(index).getText
+    val completed = ctx.browser.find(location).get(index).getText
     completed.contains(name) && completed.contains(value)
   }
 
@@ -121,11 +145,11 @@ trait WebSearchActions {
 
   def numberTableEntriesChangeable(location: String = "input[value='Change']") = this sizeLitOfElements location
 
-  def hasTable = !browser.find("table").isEmpty
+  def hasTable = !ctx.browser.find("table").isEmpty
 
   def readTableCell(row: Int, column: Int, elementCssSelector: String = "tbody"): Option[String] = {
     this checkElement elementCssSelector
-    val rowWebElement = browser.find("tbody", 0) find("tr", row)
+    val rowWebElement = ctx.browser.find("tbody", 0) find("tr", row)
     if (rowWebElement != null) {
       val columnWebElement = rowWebElement find("td", column)
       if (columnWebElement != null) Some(columnWebElement.getElement.getText)
@@ -150,7 +174,7 @@ trait WebSearchActions {
   def listDisplayedPromptMessages: List[String] = try {
     val target = "div.breaks-prompt"
     this checkElement target
-    val rawTarget = browser.find(target, `with`("style").notContains("display: none"))
+    val rawTarget = ctx.browser.find(target, `with`("style").notContains("display: none"))
     if (!rawTarget.isEmpty) new JListWrapper(rawTarget.getTexts).toList
     else List()
   } catch {
@@ -164,7 +188,7 @@ trait WebSearchActions {
   protected def findTarget(target: String): List[String] = {
     try {
       this checkElement target
-      val rawTarget = browser.find(target)
+      val rawTarget = ctx.browser.find(target)
       if (!rawTarget.isEmpty) new JListWrapper(rawTarget.getTexts).toList
       else List()
     }
@@ -175,20 +199,20 @@ trait WebSearchActions {
 
   protected def hasListOfElements(location: String) = {
     this checkElement location
-    !browser.find(location).isEmpty
+    !ctx.browser.find(location).isEmpty
   }
 
   protected def sizeLitOfElements(location: String) = {
     this checkElement location
-    browser.find(location).size()
+    ctx.browser.find(location).size()
   }
 
   protected def checkElement(elementCssSelector: String) = {
-    if (browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
+    if (ctx.browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
   }
 
   private def handleUnknownElement(elementCssSelector: String) = {
-    throw new PageObjectException("Unknown element with CSS selector " + elementCssSelector + " in html:\n" + browser.pageSource())
+    throw new PageObjectException("Unknown element with CSS selector " + elementCssSelector + " in html:\n" + ctx.browser.pageSource())
   }
 
 }

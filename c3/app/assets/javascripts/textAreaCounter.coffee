@@ -3,8 +3,8 @@ executeEvent = (selector, maxChars) ->
     helper = elem.parent().find(".right")
     text = helper.html()
     num = maxChars - elem.val().length
-
-    helper.html(text.replace /-?([0-9]+)/,num)
+    if ((text != undefined) && (text.length > 0))
+      helper.html(text.replace /-?([0-9]+)/,num)
 
 window.areaCounter = (textarea) ->
     selector = "#" +textarea.selector

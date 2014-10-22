@@ -4,90 +4,82 @@ import org.specs2.mutable.{ Tags, Specification }
 import controllers.{ BrowserMatchers, Formulate, ClaimScenarioFactory }
 import play.api.test.WithBrowser
 import utils.pageobjects.s9_other_money._
-import utils.pageobjects.s8_self_employment.G9CompletedPageContext
-import utils.pageobjects.s8_self_employment.G9CompletedPage
-import utils.pageobjects.TestData
-
+import utils.pageobjects.{PageObjects, TestData}
+import utils.pageobjects.s10_pay_details.G1HowWePayYouPage
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
-  "About Other Money" should {
+  "Other Money" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
-      titleMustEqual("Details about other money - About Other Money")
+      titleMustEqual("Other Money")
     }
 
     "contain errors on invalid submission" in {
       "no fields selected" in new WithBrowser with BrowserMatchers {
         browser.goTo("/other-money/about-other-money")
         browser.submit("button[type='submit']")
-        titleMustEqual("Details about other money - About Other Money")
+        titleMustEqual("Other Money")
 
-        findMustEqualSize("div[class=validation-summary] ol li", 2)
+        findMustEqualSize("div[class=validation-summary] ol li", 3)
       }
     }
 
-    "navigate to next page on valid submission with all text fields enabled and filled in" in new WithBrowser with BrowserMatchers {
-      Formulate.nationalityAndResidency(browser)
-      Formulate.moreAboutYou(browser)
-      Formulate.aboutOtherMoney(browser)
-      titleMustEqual("Statutory Sick Pay - About Other Money")
-    }
-
-    "navigate to next page on valid submission with first two mandatory fields set to no" in new WithBrowser with BrowserMatchers {
+    "navigate to next page on valid submission with the four mandatory fields set to no" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
-      browser.click("#yourBenefits_answer_no")
       browser.click("#anyPaymentsSinceClaimDate_answer_no")
+      browser.click("#statutorySickPay_answer_no")
+      browser.click("#otherStatutoryPay_answer_no")
       browser.submit("button[type='submit']")
-      titleMustEqual("Statutory Sick Pay - About Other Money")
+      titleMustEqual("How would you like to get paid? - How we pay you")
     }
 
-    "be presented" in new WithBrowser with G1AboutOtherMoneyPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G1AboutOtherMoneyPage(context)
       page goToThePage ()
     }
 
-    "present errors if mandatory fields are not populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
+    "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{
+			val page =  G1AboutOtherMoneyPage(context)
       page goToThePage ()
-      page.submitPage().listErrors.size mustEqual 2
+      page.submitPage().listErrors.size mustEqual 3
     }
 
-    "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.s9otherMoney
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+			val page =  G1AboutOtherMoneyPage(context)
+      val claim = ClaimScenarioFactory.s9otherMoneyOther
+      page goToThePage ()
+      page fillPageWith claim
+
+      val nextPage = page submitPage ()
+
+      nextPage must beAnInstanceOf[G1HowWePayYouPage]
+    }
+
+    "navigate to next page on valid submission with other field selected" in new WithBrowser with PageObjects {
+      val page = G1AboutOtherMoneyPage(context)
+      val claim = ClaimScenarioFactory.s9otherMoneyOther
+
       page goToThePage ()
       page fillPageWith claim
 
       val nextPage = page submitPage ()
 
-      nextPage must beAnInstanceOf[G5StatutorySickPayPage]
-    }
-
-    "navigate to next page on valid submission with other field selected" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.s9otherMoney
-      claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
-      claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
-      claim.OtherMoneyWhoPaysYou = "The Man"
-      claim.OtherMoneyHowMuch = "12"
-      claim.OtherMoneyHowOften = "other"
-      claim.OtherMoneyHowOftenOther = "every day and twice on Sundays"
-
-      page goToThePage ()
-      page fillPageWith claim
-
-      val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[G5StatutorySickPayPage]
+      nextPage must beAnInstanceOf[G1HowWePayYouPage]
     }
 
     "contain errors on invalid submission" in {
-      "mandatory fields empty" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      "mandatory fields empty" in new WithBrowser with PageObjects{
+			val page =  G1AboutOtherMoneyPage(context)
         val claim = new TestData
         page goToThePage ()
         page fillPageWith claim
         val pageWithErrors = page.submitPage()
-        pageWithErrors.listErrors.size mustEqual 2
+        pageWithErrors.listErrors.size mustEqual 3
       }
 
-      "howOften frequency of other with no other text entered" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      "howOften frequency of other with no other text entered" in new WithBrowser with PageObjects {
+        val page = G1AboutOtherMoneyPage(context)
         val claim = new TestData
-        claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
         claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
         claim.OtherMoneyWhoPaysYou = "The Man"
         claim.OtherMoneyHowMuch = "34"
@@ -97,22 +89,9 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
 
-        errors.size mustEqual 1
+        errors.size mustEqual 3
         errors(0) must contain("How often?")
       }
-    }
-    
-    "navigate back to previous section" in new WithBrowser with G9CompletedPageContext {
-      val claim = ClaimScenarioFactory.s9SelfEmployment
-      page goToThePage()
-      page must beAnInstanceOf[G9CompletedPage]
-      page fillPageWith claim
-      val s9g1 = page submitPage()
-      s9g1 must beAnInstanceOf[G1AboutOtherMoneyPage]
-
-      val previous = s9g1.goBack()
-      
-      previous must beAnInstanceOf[G9CompletedPage]
     }
   } section ("integration", models.domain.OtherMoney.id)
 }

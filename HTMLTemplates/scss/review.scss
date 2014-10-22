@@ -1,0 +1,47 @@
+.review {
+	padding-bottom: 3em;
+	.intro {
+		margin-top: 1.6em;
+		padding-right: 18em;
+		@media screen and (max-width: 800px) {
+			padding-right: 0;
+		}
+	}
+	h2 {
+		margin-top: 1.8em;
+	}
+	dl {
+		overflow: hidden;
+		border-bottom: 1px solid #ccc;
+		dt, dd {
+			display: inline-block;
+			width: 27%;
+			margin: 0;
+			padding: 8px 0 6px 0;
+			border-top: 1px solid #ccc;
+			font-size: 18px;
+			vertical-align: top;
+			line-height: 1.2em;
+			@media screen and (max-width: 640px) {
+				float: none;
+				display: block;
+				width: 100%;
+				font-weight: 800;
+				padding: 8px 0 0 0;
+			}
+		}
+		dd {
+			width: 68%;
+			padding-left: 5%;
+			margin-left: -4px;
+			@media screen and (max-width: 640px) {
+				width: 100%;
+				font-weight: 300;
+				border-top: none;
+				padding: 0 0 6px 0;
+				padding-left: 0;
+				margin-left: 0;
+			}
+		}
+	}
+}

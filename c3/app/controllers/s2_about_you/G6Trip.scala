@@ -6,7 +6,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import models.domain.{AbroadForMoreThan52Weeks, FiftyTwoWeeksTrip, Trips, Trip}
 import utils.helpers.CarersForm._
-import play.api.i18n.Messages
+import play.api.i18n.{MMessages => Messages}
 import models.DayMonthYear
 import AboutYou.trips
 import controllers.Mappings._
@@ -15,7 +15,7 @@ import scala.Some
 
 object G6Trip extends Controller with CachedClaim {
   val form = Form(mapping(
-    "tripID" -> nonEmptyText,
+    "tripID" -> carersNonEmptyText,
     "where" -> carersNonEmptyText(maxLength = 35),
     "start" -> optional(dayMonthYear.verifying(validDateOnly)),
     "end" -> optional(dayMonthYear.verifying(validDateOnly)),
@@ -25,11 +25,11 @@ object G6Trip extends Controller with CachedClaim {
 
   val fiftyTwoWeeksLabel = "s2.g5"
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     Ok(views.html.s2_about_you.g6_trip(form, fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         BadRequest(views.html.s2_about_you.g6_trip(formWithErrors, fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
@@ -41,7 +41,7 @@ object G6Trip extends Controller with CachedClaim {
       })
   }
 
-  def trip(id: String) = claiming { implicit claim => implicit request =>
+  def trip(id: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     claim.questionGroup(Trips) match {
       case Some(ts: Trips) => ts.fiftyTwoWeeksTrips.find(_.id == id) match {
         case Some(t: Trip) => Ok(views.html.s2_about_you.g6_trip(form.fill(t), fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
@@ -52,7 +52,7 @@ object G6Trip extends Controller with CachedClaim {
     }
   }
 
-  def delete(id: String) = claiming { implicit claim => implicit request =>
+  def delete(id: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     import play.api.libs.json.Json
     import language.postfixOps
 

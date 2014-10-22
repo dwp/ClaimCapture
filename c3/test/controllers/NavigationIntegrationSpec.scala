@@ -30,7 +30,7 @@ class NavigationIntegrationSpec extends Specification with Tags {
       next.title shouldEqual "Your contact details - About you - the carer"
       fill in `/about-you/contact-details`
 
-      next.title shouldEqual "Your claim date - About you - the carer"
+      next.title shouldEqual "Nationality and where you live - About you - the carer"
       back.title shouldEqual "Your contact details - About you - the carer"
       back.title shouldEqual "Your details - About you - the carer"
     }
@@ -41,7 +41,7 @@ trait DataFiller {
   this: WithBrowserHelper =>
 
   def `/about-you/your-details`: Fluent = {
-    click("#title option[value='mr']")
+    click("#title option[value='Mr']")
     fill("#firstName") `with` "Scooby"
     fill("#surname") `with` "Doo"
     fill("#nationalInsuranceNumber_ni1") `with` "AB"
@@ -51,13 +51,15 @@ trait DataFiller {
     fill("#nationalInsuranceNumber_ni5") `with` "C"
     click("#dateOfBirth_day option[value='3']")
     click("#dateOfBirth_month option[value='4']")
-    fill("#dateOfBirth_year") `with` "1950"
-    click("#maritalStatus option[value='s']")
+    fill("#dateOfBirth_year") `with` "1950"    
+    click("#maritalStatus option[value='Single']")    
+    click("#receiveStatePension_yes")
   }
 
   def `/about-you/contact-details`: Fluent = {
     fill("#address_lineOne") `with` "My Address"
     fill("#postcode") `with` "SE1 6EH"
+    fill("#howWeContactYou") `with` "01772 888901"
     fluent
   }
 }

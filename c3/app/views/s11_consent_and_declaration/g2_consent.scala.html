@@ -1,56 +1,61 @@
-@(currentForm: Form[models.domain.Consent])(implicit claim: models.domain.Claim,request: Request[AnyContent])
-@import models.domain.StatutorySickPay
+@(currentForm: Form[models.domain.Consent])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
 @import models.domain._
 @import controllers.Mappings._
+@import play.api.i18n.{MMessages => Messages}
 
-@main(Messages("s11.g2") + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Consent)) {
+@main(Html(Messages("s11.g2")) + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Consent)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G2Consent.submit) {
-        <fieldset class="form-elements">
-            <legend>@Messages("s11.g2")</legend>
-
-            <ul class="group">
-
-                @if(claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
-                    claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay()).haveYouHadAnyStatutorySickPay == `yes` ||
-                    claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay()).otherPay == `yes`){
-
-                    @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
-
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder") )),
-                        'id->"whyWrapper",
-                        'display -> {if( currentForm("gettingInformationFromAnyEmployer.informationFromEmployer").value.getOrElse("yes") == "no" ) "yes" else "no"}
-                    )
-                }
-
-                @yesNoRadioGroup(currentForm("tellUsWhyEmployer.informationFromPerson"))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyEmployer.whyPerson"), 'placeholder->Messages("why_placeholder") )),
-                    'id->"whyPersonWrapper",
-                    'display -> {if( currentForm("tellUsWhyEmployer.informationFromPerson").value.getOrElse("yes") == "no" ) "yes" else "no"}
-                )
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("s11.g2"))</legend>
+	
+	            <ul class="group">
+	
+	                @if(claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
+	                    claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).statutorySickPay.answer == `yes` ||
+	                    claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).otherStatutoryPay.answer == `yes`){
+	
+	                    @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
+	
+	                    @otherDetailPlaceHolder(
+	                        inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
+	                        'id->"whyWrapper",
+	                        'display -> {if( currentForm("gettingInformationFromAnyEmployer.informationFromEmployer").value.getOrElse("yes") == "no" ) "yes" else "no"}
+	                    )
+	                }
+	
+	                @yesNoRadioGroup(currentForm("tellUsWhyEmployer.informationFromPerson"))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyEmployer.whyPerson"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
+	                    'id->"whyPersonWrapper",
+	                    'display -> {if( currentForm("tellUsWhyEmployer.informationFromPerson").value.getOrElse("yes") == "no" ) "yes" else "no"}
+	                )
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+        </div>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s11_consent_and_declaration/g2_consent.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 <script type="text/javascript">
+    $(function(){
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_why")",maxChars:300});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("tellUsWhyEmployer_whyPerson")",maxChars:300});
+    })
     $(function() {
         window.initEvents( "@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_informationFromEmployer_yes")",
         "@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_informationFromEmployer_no")",
@@ -60,3 +65,4 @@
         "@CarersCrypto.encryptAES("tellUsWhyEmployer_whyPerson")","whyPersonWrapper");
     });
 </script>
+}

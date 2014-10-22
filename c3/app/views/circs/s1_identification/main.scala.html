@@ -1,26 +1,27 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import helper._
+@import play.api.i18n.{MMessages => Messages}
 
 @common.govMain(title) {
 
-    <div class="carers-allowance">
+    <div class="carers-allowance clearfix">
 
         @common.protoType()
 
-        @common.helpLine()
+        @common.feedback()
 
-        <section>
+        <article>
 
-            <h1>About You</h1>
+            <h1>@Html(Messages("c1"))</h1>
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
                     <ul>
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                         <li>
-                            <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                            <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true">Change these answers</a>
+                            <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                            <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Html(Messages("change.these.help"))">@Html(Messages("change.these"))</a>
                         </li>
                         }
                     </ul>
@@ -32,6 +33,9 @@
             }
 
             @content
-        </section>
+        </article>
+        
+        @common.leftcol()
+        
     </div>
 }

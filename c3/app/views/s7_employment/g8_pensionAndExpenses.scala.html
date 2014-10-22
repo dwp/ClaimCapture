@@ -1,0 +1,90 @@
+@(currentForm: Form[models.domain.PensionAndExpenses])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+@import controllers.s7_employment.Employment.completedQuestionGroups
+@import controllers.s7_employment.JobID
+@import utils.helpers.PastPresentLabelHelper._
+@import play.api.i18n.{MMessages => Messages}
+@import models.domain.{Job, Jobs}
+
+@employerName = @{
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).employerName + " - "
+}
+
+@main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PensionAndExpenses, JobID(currentForm)), Some(employerName)) {
+
+    @form(action = controllers.s7_employment.routes.G8PensionAndExpenses.submit()) {
+        <input type="hidden" name="jobID" value="@JobID(currentForm)">
+
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("s7.g8"))</legend>
+	
+	            <ul>
+                    @yesNoRadioGroup(currentForm("payPensionScheme")("answer"),
+                        '_label -> labelForEmployment(claim, lang, "payPensionScheme.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(currentForm("payPensionScheme")("text"),
+                                '_label -> labelForEmployment(claim, lang, "payPensionScheme.text", JobID(currentForm)),
+                                'helper -> Html(Messages("300charsLeft")),
+                                'helperAbove -> Html(labelForEmployment(claim, lang, "payPensionScheme.text.helper", JobID(currentForm))),
+                                'ignoreOptional -> true,
+                                'maxLength -> 300)
+                        ),
+                        'id -> "pensionExpenses"
+                    )
+
+                    @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"),
+                        'helperAbove -> Html(labelForEmployment(claim, lang, "haveExpensesForJob.answer.helper", JobID(currentForm))),
+                        '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(currentForm("haveExpensesForJob")("text"),
+                                '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.text", JobID(currentForm)),
+                                'helper -> Html(Messages("300charsLeft")),
+                                'helperAbove -> Html(Messages("haveExpensesForJob.text.helper")),
+                                'ignoreOptional -> true,
+                                'maxLength -> 300)
+                        ),
+                        'id -> "jobExpenses"
+                    )
+
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+        </div>
+    }
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s7_employment/g8_pensionAndExpenses.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+<script type="text/javascript">
+    $(function(){
+        window.initEvents(
+            "@CarersCrypto.encryptAES("payPensionScheme_answer_yes")",
+            "@CarersCrypto.encryptAES("payPensionScheme_answer_no")",
+            "@CarersCrypto.encryptAES("payPensionScheme_text")",
+            "@CarersCrypto.encryptAES("haveExpensesForJob_answer_yes")",
+            "@CarersCrypto.encryptAES("haveExpensesForJob_answer_no")",
+            "@CarersCrypto.encryptAES("haveExpensesForJob_text")"
+        );
+    });
+
+    window.areaCounter({selector: "@CarersCrypto.encryptAES("payPensionScheme_text")",maxChars:300});
+    window.areaCounter({selector: "@CarersCrypto.encryptAES("haveExpensesForJob_text")",maxChars:300});
+</script>
+}

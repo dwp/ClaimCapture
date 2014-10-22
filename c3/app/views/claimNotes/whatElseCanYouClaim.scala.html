@@ -1,11 +1,16 @@
-## <a name="9"></a> 9. What else can you claim?
+@()(implicit lang:Lang)
 
-**Jobseeker’s Allowance, Income Support, Universal Credit, Employment and Support Allowance and Pension Credit**
+@import views.html.helper._
+@import play.api.i18n.{MMessages => Messages}
 
-If you want to find out about or apply for Income Support, Jobseeker’s Allowance, Universal Credit or Employment and Support Allowance, contact Jobcentre Plus. You can also find out more about benefits and entitlements at your local Citizens Advice Bureau.
+## <a id="9"></a> 9. @Html(Messages("claimNotes.section9.1"))
 
-You can get leaflets about Income Support, Jobseeker’s AllowanceUniversal Credit or Employment and Support Allowance from Jobcentre Plus. Or visit **[www.gov.uk](http://www.gov.uk)**.
+@Html(Messages("claimNotes.section9.2"))
 
-If you want to find out about or apply for Pension Credit, contact the Pension Service.
+@Html(Messages("claimNotes.section9.3"))
 
-You can get a leaflet about Pension Credit from Jobcentre Plus or your Pension Centre. Or visit the Pension Service website at [www.gov.uk/pension-credit](http://www.gov.uk/pension-credit)
+@Html(Messages("claimNotes.section9.4"))
+
+@Html(Messages("claimNotes.section9.5"))
+
+@Html(Messages("claimNotes.section9.6"))

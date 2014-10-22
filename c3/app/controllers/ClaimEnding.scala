@@ -1,21 +1,29 @@
 package controllers
 
-import app.ConfigProperties._
 import play.api.mvc.Controller
 import models.view.CachedClaim
+import app.ConfigProperties._
+import services.mail.{SendEmail, EmailActors}
+import services.EmailServices
+import models.domain.PreviewModel
 
 object ClaimEnding extends Controller with CachedClaim {
-  val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
 
-  def timeout = ending {
-    Ok(views.html.common.session_timeout(startUrl))
+  def timeout = ending {implicit claim => implicit request  => implicit lang =>
+    Ok(views.html.common.session_timeout(startPage))
   }
 
-  def error = ending {
-    Ok(views.html.common.error(startUrl))
+  def error = ending {implicit claim => implicit request  => implicit lang =>
+    Ok(views.html.common.error(startPage))
   }
 
-  def thankyou = ending {
+  def thankyou = ending { implicit claim => implicit request  => implicit lang =>
+
+    if (getProperty("mailer.enabled",false)){
+      val preview = claim.questionGroup[PreviewModel].getOrElse(PreviewModel())
+      if (preview.email.isDefined) EmailServices.sendEmail to preview.email.get
+    }
+
     Ok(views.html.common.thankYouClaim())
   }
 

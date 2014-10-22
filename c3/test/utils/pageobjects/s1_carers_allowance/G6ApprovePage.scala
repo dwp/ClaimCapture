@@ -1,17 +1,23 @@
 package utils.pageobjects.s1_carers_allowance
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
+import org.fluentlenium.core.domain.{FluentWebElement, FluentList}
+import play.api.Logger
 
 /**
  * PageObject pattern associated to S1 carers allowance G5 approve page.
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
-final class G6ApprovePage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G6ApprovePage.url, G6ApprovePage.title, previousPage) {
-  def isApproved =  browser.find(".prompt.entitlement").size != 0 && browser.find(".prompt.entitlement-error").size == 0
+final class G6ApprovePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G6ApprovePage.url, G6ApprovePage.title) {
+  declareYesNo("#answer", "CanYouGetCarersAllowanceApproveAnswer")
 
-  def isNotApproved =  browser.find(".prompt.entitlement-error").size != 0
+  def isApproved = {
+    ctx.browser.find(".prompt.e-prompt h2").getText.indexOf("not") == -1
+  }
+
+  def isNotApproved =  ctx.browser.find(".prompt.e-prompt h2").getText.indexOf("not") > -1
 }
 
 /**
@@ -23,12 +29,12 @@ object G6ApprovePage {
 
   val url = "/allowance/approve"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G6ApprovePage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G6ApprovePage(ctx)
 }
 
 /** The context for Specs tests */
 trait G6ApprovePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G6ApprovePage (browser)
+  val page = G6ApprovePage (PageObjectsContext(browser))
 }

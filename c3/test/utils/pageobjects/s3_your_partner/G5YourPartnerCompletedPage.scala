@@ -1,14 +1,14 @@
 package utils.pageobjects.s3_your_partner
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
 /**
  * PageObject for page s2_about_you g10_completed.
  * @author Saqib Kayani
  *         Date: 24/07/2013
  */
-final class G5YourPartnerCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G5YourPartnerCompletedPage.url, G5YourPartnerCompletedPage.title, previousPage)
+final class G5YourPartnerCompletedPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G5YourPartnerCompletedPage.url, G5YourPartnerCompletedPage.title)
 
 /**
  * Companion object that integrates factory method.
@@ -19,12 +19,12 @@ object G5YourPartnerCompletedPage {
 
   val url  = "/your-partner/completed"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G5YourPartnerCompletedPage(browser,previousPage)
+  def apply(ctx:PageObjectsContext) = new G5YourPartnerCompletedPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G5YourPartnerCompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G5YourPartnerCompletedPage (browser)
+  val page = G5YourPartnerCompletedPage (PageObjectsContext(browser))
 }

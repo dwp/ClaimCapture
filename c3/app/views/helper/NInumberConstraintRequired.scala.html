@@ -1,8 +1,9 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
 
 @import views.html.helper.base.carersInputText
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper.base.{carersLabel,carersLabelText}
+@import play.api.i18n.{MMessages => Messages}
 
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
 
@@ -10,4 +11,7 @@
   <legend>
     @carersLabelText(field,args:_*)
   </legend>
+  @if(args.find(_._1=='helperAbove).isDefined){
+    <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
+  }
 }

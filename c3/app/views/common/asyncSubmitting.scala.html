@@ -1,0 +1,70 @@
+@()(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+
+@import models.domain.{Claim,FullClaim,ChangeOfCircs}
+@import views.html.helper._
+@import play.api.i18n.{MMessages => Messages}
+
+@submitCall = @{
+    claim match {
+        case _: Claim with FullClaim => controllers.submission.routes.ClaimStatusRoutingController.submit
+        case _: Claim with ChangeOfCircs => controllers.submission.routes.CofCStatusRoutingController.submit
+    }
+}
+
+@isClaim = @{
+    claim match {
+        case _: Claim with FullClaim => true
+        case _: Claim with ChangeOfCircs => false
+    }
+}
+
+@common.govMain("Async Submitting") {
+    @form(action = submitCall) {
+        <div class="carers-allowance clearfix">
+            <article>
+                <div id="jswrapper" hidden="true" class="carers-container">
+
+                    <h1>@Html(Messages(if(isClaim)"s11.g7.help1" else "s11.g7.help1.c"))<span id="dots"></span></h1>
+
+                    <div class="prompt submitting">
+                        <p>@Html(Messages("s11.g7.help2"))</p>
+                        <p>@Html(Messages("s11.g7.help3"))</p>
+                        <span>i</span>
+                    </div>
+
+                </div>
+
+                <div id="refresh" class="form-steps">
+
+                    <h1>@Html(Messages("s11.g7.help1"))<span id="dots"></span></h1>
+                    <div class="prompt submitting">
+                        <p>@Html(Messages("s11.g7.refresh1"))</p>
+                        <p>@Html(Messages(if(isClaim) "s11.g7.refresh2" else "s11.g7.refresh2.c"))</p>
+                        <span>i</span>
+                    </div>
+                    <button type="submit" name="action" value="next" class="button secondary">@Html(Messages("s11.g7.refresh"))</button>
+                </div>
+            </article>
+
+        </div>
+    }
+}(views.html.common.submittingFooter(), lang, request)
+
+<script type="text/javascript">
+    var n = 0
+    function dots(){
+        n = n % 4
+        $("#dots").html("");
+        for(var i = 0; i < n;i++){
+            $("#dots").html($("#dots").html()+".");
+        }
+        n = n+1
+        setTimeout(dots,500);
+    }
+    $(function(){
+        $("#refresh").hide();
+        $("#jswrapper").show();
+        setTimeout(function(){$("form").submit()},10000);
+        setTimeout(dots,1000);
+    })
+</script>

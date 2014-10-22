@@ -4,4 +4,4 @@
 @import views.html.helper.base._
 
 
-@carersDeclareCheck(field,args:_*)
+    <div class="group declare @if(field.hasErrors) { dec-validation }">@carersDeclareCheck(field,args:_*)</div>

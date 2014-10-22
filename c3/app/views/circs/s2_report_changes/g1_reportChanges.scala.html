@@ -1,0 +1,50 @@
+@(reportChangesForm: Form[models.domain.ReportChanges])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.common._
+@import views.html.helper._
+@import views.html.helper.dropdowns._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import controllers.Mappings._
+@import utils.helpers.CarersCrypto
+@import app.ReportChange._
+@import play.api.i18n.{MMessages => Messages}
+@import app.ConfigProperties._
+
+@employmentOption = @{
+  if(getProperty("circs.employment.active", default = false)) EmploymentChange.name -> Messages("reportChanges.employed")
+  else SelfEmployment.name -> Messages("reportChanges.selfEmployed")
+}
+
+@main(Messages("c2.g1") + " - " + Messages("c2.name")) {
+    @errorsSummary(reportChangesForm)
+
+    @form(action = controllers.circs.s2_report_changes.routes.G1ReportChanges.submit) {
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("reportChanges"))</legend>
+	                @listRadioGroupWithSubGroups(reportChangesForm("reportChanges"),
+                        '_nestedFieldSet -> false,
+                        '_showLabel -> false,
+	                    'items -> Seq(
+                            Messages("reportChanges.group1"),
+                            BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
+                            StoppedCaring.name -> Messages("reportChanges.stoppedCaring"),
+                            Messages("reportChanges.group2"),
+	                        AddressChange.name -> Messages("reportChanges.addressChange"),
+                            employmentOption,
+	                        PaymentChange.name -> Messages("reportChanges.paymentChange"),
+	                        AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")))
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@{claim.navigation.previous}@{if (claim.navigation.previous.uri.endsWith("?changing=true")) "" else "?changing=true"}">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+        </div>
+    }
+}

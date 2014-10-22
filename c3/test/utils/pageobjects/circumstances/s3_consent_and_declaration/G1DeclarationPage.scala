@@ -1,12 +1,15 @@
 package utils.pageobjects.circumstances.s3_consent_and_declaration
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{CircumstancesPage, PageContext, Page}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G1DeclarationPage (browser: TestBrowser, previousPage: Option[Page] = None) extends CircumstancesPage(browser, G1DeclarationPage.url, G1DeclarationPage.title, previousPage){
+final class G1DeclarationPage (ctx:PageObjectsContext) extends CircumstancesPage(ctx, G1DeclarationPage.url, G1DeclarationPage.title){
+  declareInput("#furtherInfoContact","FurtherInfoContact")
   declareYesNo("#obtainInfoAgreement","CircumstancesDeclarationInfoAgreement")
   declareInput("#obtainInfoWhy","CircumstancesDeclarationWhyNot")
   declareCheck("#confirm","CircumstancesDeclarationConfirmation")
+  declareCheck("#circsSomeOneElse","CircumstancesSomeOneElseConfirmation")
+  declareInput("#nameOrOrganisation","NameOrOrganisation")
 }
 
 object G1DeclarationPage {
@@ -14,12 +17,12 @@ object G1DeclarationPage {
 
   val url  = "/circumstances/consent-and-declaration/declaration"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1DeclarationPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G1DeclarationPage(ctx)
 }
 
 trait G1DeclarationPageContext extends PageContext {
   this: WithBrowser[_] =>
-  val page = G1DeclarationPage(browser)
+  val page = G1DeclarationPage(PageObjectsContext(browser))
 }
 
 

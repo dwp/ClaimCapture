@@ -2,6 +2,11 @@ var IE10 = (navigator.userAgent.match(/(MSIE 10.0)/g) ? true : false);
 if (IE10) {
 	$('html').addClass('ie10');
 }
+var IE11 = (navigator.userAgent.match(/(MSIE 11.0)/g) ? true : false);
+if (IE11) {
+	$('html').addClass('ie11');
+}
+
 
 // Chris' datepicker
 function datepicker(dateFieldId) {
@@ -18,22 +23,49 @@ function datepicker(dateFieldId) {
     });
 }
 
-$(function() {
+
+    
+    
+$(function() {    
     // view more / view less
-    $('.helper-more').click(function(){
+$(".helper-info").css("display", "none");
+$('.helper-more').click(function(){
+   var labelText = $(this).text() === $(this).attr('data-close')? $(this).attr('data-initial') : $(this).attr('data-close');
+
         $(this).toggleClass("helper-less")
-        $(this).next(".helper-info").slideToggle("medium");
+        $(this).next(".helper-info").slideToggle();
 
-        if ($(this).text() === 'Close')
-        {
-            $(this).text('What is an EEA State? - Help');
-        }
-        else
-        {
-            $(this).text('Close');
-        }
-    });
+        $(this).text(labelText);
+});    
 
+
+// Add the "focus" value to class attribute 
+  $('ul.radio li label').focusin( function() {
+    $(this).addClass('focus');
+  }
+  );
+
+  // Remove the "focus" value to class attribute 
+  $('ul.radio li label').focusout( function() {
+    $(this).removeClass('focus');
+  }
+  );
+
+
+
+
+    
+	// Help & Feedback container
+     $(".feedback-container").css("display", "none");
+     $('.feedback, .feed-close').click(function(){
+     	$( ".feedback-container" ).toggle();
+     });
+     
+     
+     // Non JS message 
+     $(".js-message").css("display", "none");
+     $(".feed-close").css("display", "block");
+     
     // Nino auto jump
 	$('.ni-number input, .sort-code input').autotab_magic();
 
@@ -80,6 +112,10 @@ function areCookiesEnabled(){
 
 function trackEvent(category, action, label, value, noninteraction){
     _gaq.push(['_trackEvent',category,action].concat(opt(label)).concat(opt(value)).concat(opt(noninteraction)));
+}
+
+function trackVirtualPageView(category){
+    _gaq.push(['_trackPageview',category]);
 }
 
 function opt(v){

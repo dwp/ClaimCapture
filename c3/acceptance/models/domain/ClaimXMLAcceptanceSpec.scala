@@ -21,7 +21,7 @@ class ClaimXMLAcceptanceSpec extends Specification {
         <Surname>CaseFour</Surname>
         <OtherNames>Test Middle</OtherNames>
         <OtherSurnames>Thornhill</OtherSurnames>
-        <Title>mr</Title>
+        <Title>Mr</Title>
         <MaritalStatus>m</MaritalStatus>
         <DateOfBirth>1951-01-01</DateOfBirth>
         <NationalInsuranceNumber>JB486248C</NationalInsuranceNumber>
@@ -39,7 +39,7 @@ class ClaimXMLAcceptanceSpec extends Specification {
       <Caree>
         <Surname>watson</Surname>
         <OtherNames>Cloe scott</OtherNames>
-        <Title>dame</Title>
+        <Title>Dame</Title>
         <DateOfBirth>1951-07-03</DateOfBirth>
         <NationalInsuranceNumber></NationalInsuranceNumber>
         <Address><gds:Line>12 Preston Road</gds:Line><gds:Line>Preston</gds:Line><gds:Line>Lancashire</gds:Line><gds:PostCode>PR1 1HB</gds:PostCode></Address>
@@ -51,7 +51,6 @@ class ClaimXMLAcceptanceSpec extends Specification {
         </DaytimePhoneNumber>
         <RelationToClaimant>mother</RelationToClaimant>
         <Cared35hours>yes</Cared35hours>
-        <CanCareeSign>Not asked</CanCareeSign>
         <CanSomeoneElseSign>Not asked</CanSomeoneElseSign>
         <CanClaimantSign>Not asked</CanClaimantSign>
         <BreaksSinceClaim>yes</BreaksSinceClaim>
@@ -68,7 +67,6 @@ class ClaimXMLAcceptanceSpec extends Specification {
         <PaidForCaring>Not asked</PaidForCaring>
         <ClaimedPreviously>Not asked</ClaimedPreviously>
       </Caree>
-      <ClaimADI>no</ClaimADI>
       <Residency>
         <!--Nationality>British</Nationality-->
         <EUEEASwissNational>Not asked</EUEEASwissNational>
@@ -95,111 +93,155 @@ class ClaimXMLAcceptanceSpec extends Specification {
             <DateTo>2013-01-31</DateTo>
           </TradingYear>
         </CurrentJobDetails>
-        <Accountant>
-          <HasAccountant>Not asked</HasAccountant>
-          <ContactAccountant>Not asked</ContactAccountant>
-        </Accountant>
-        <CareExpensesChildren>yes</CareExpensesChildren>
+        <CareExpensesChildren>
+          <QuestionLabel>chld.expenses</QuestionLabel>
+          <Answer>Yes</Answer>
+        </CareExpensesChildren>
         <ChildCareExpenses>
-          <CarerName>Mr John Johnson</CarerName>
-          <CarerAddress><gds:Line></gds:Line><gds:Line></gds:Line><gds:Line></gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-          <ConfirmAddress>yes</ConfirmAddress>
-          <WeeklyPayment><Currency>GBP</Currency><Amount>234</Amount></WeeklyPayment>
-          <RelationshipCarerToClaimant>brother</RelationshipCarerToClaimant>
-          <ChildDetails>
-            <Name></Name>
-            <RelationToChild>stepBrother</RelationToChild>
-          </ChildDetails>
+          <CarerName>
+            <QuestionLabel>child.carer</QuestionLabel>
+            <Answer>Mr John Johnson</Answer>
+          </CarerName>
+          <RelationshipCarerToClaimant>
+            <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+            <Answer>Brother</Answer>
+          </RelationshipCarerToClaimant>
         </ChildCareExpenses>
-        <CareExpensesCaree>yes</CareExpensesCaree>
+        <CareExpensesCaree>
+          <QuestionLabel>care.expenses</QuestionLabel>
+          <Answer>Yes</Answer>
+        </CareExpensesCaree>
         <CareExpenses>
-          <CarerName>Mrs Terry Thornhill</CarerName>
-          <CarerAddress><gds:Line></gds:Line><gds:Line></gds:Line><gds:Line></gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-          <ConfirmAddress>yes</ConfirmAddress>
-          <WeeklyPayment>
-            <Currency>GBP</Currency>
-            <Amount>1235.1</Amount>
-          </WeeklyPayment>
-          <RelationshipCarerToClaimant>aunt</RelationshipCarerToClaimant>
-          <RelationshipCarerToCaree>adoptedSon</RelationshipCarerToCaree>
+          <CarerName>
+            <QuestionLabel>child.carer</QuestionLabel>
+            <Answer>Mrs Terry Thornhill</Answer>
+          </CarerName>
+          <RelationshipCarerToClaimant>
+            <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+            <Answer>Aunt</Answer>
+          </RelationshipCarerToClaimant>
+          <RelationshipCarerToCaree>
+            <QuestionLabel>care.carer.rel.caree</QuestionLabel>
+            <Answer>adoptedSon</Answer>
+          </RelationshipCarerToCaree>
         </CareExpenses>
-        <PaidForPension>yes</PaidForPension>
+        <PaidForPension>
+          <QuestionLabel>self.pension</QuestionLabel>
+          <Answer>Yes</Answer>
+        </PaidForPension>
         <PensionScheme>
-          <Type>personal_private</Type>
-          <Payment><Currency>GBP</Currency><Amount>100</Amount></Payment>
-          <Frequency>02</Frequency>
+          <Payment>
+            <QuestionLabel>self.pension.amount</QuestionLabel>
+            <Answer>
+              <Currency>GBP</Currency>
+              <Amount>15.23</Amount>
+            </Answer>
+          </Payment>
+          <Frequency>
+            <QuestionLabel>self.pension.frequency</QuestionLabel>
+            <Answer>Weekly</Answer>
+          </Frequency>
         </PensionScheme>
       </SelfEmployment>
       <Employed>yes</Employed>
       <Employment>
         <CurrentlyEmployed>yes</CurrentlyEmployed>
-        <DateLastWorked>1970-01-01</DateLastWorked>
         <JobDetails>
           <Employer>
-            <DateJobStarted>2013-01-01</DateJobStarted>
-            <DateJobEnded/>
-            <JobType>Hacker</JobType>
-            <ClockPayrollNumber>12345678</ClockPayrollNumber>
+            <DateJobStarted>
+              <QuestionLabel>job.started</QuestionLabel>
+              <Answer>01-01-2013</Answer>
+            </DateJobStarted>
+            <JobType>
+              <QuestionLabel>job.title</QuestionLabel>
+              <Answer>Hacker</Answer>
+            </JobType>
             <Name>Tesco's Bank</Name>
             <Address><gds:Line>23 Yeadon Way</gds:Line><gds:Line>Blackpool</gds:Line><gds:Line>Lancashire</gds:Line><gds:PostCode>FY4 5TH</gds:PostCode></Address>
             <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
             <EmployersPhoneNumber>01253 667889</EmployersPhoneNumber>
-            <EmployersFaxNumber/>
-            <WagesDepartment/>
-            <DepartmentPhoneFaxNumber/>
+            <EmployersFaxNumber>01253 667889</EmployersFaxNumber>
           </Employer>
           <Pay>
-            <WeeklyHoursWorked>25</WeeklyHoursWorked>
-            <DateLastWorked/>
-            <DateLastPaid>2013-07-08</DateLastPaid>
+            <WeeklyHoursWorked>
+              <QuestionLabel>job.hours</QuestionLabel>
+              <Answer>25</Answer>
+            </WeeklyHoursWorked>
+            <DateLastPaid>
+              <QuestionLabel>job.lastpaid</QuestionLabel>
+              <Answer>08-07-2013</Answer>
+            </DateLastPaid>
             <GrossPayment>
-              <Currency>GBP</Currency>
-              <Amount>340</Amount>
+              <QuestionLabel>job.pay</QuestionLabel>
+              <Answer>
+                <Currency>GBP</Currency>
+                <Amount>340.00</Amount>
+              </Answer>
             </GrossPayment>
-            <IncludedInWage>All amounts due</IncludedInWage>
-            <PayPeriod>
-              <DateFrom></DateFrom>
-              <DateTo></DateTo>
-            </PayPeriod>
-            <PayFrequency>other</PayFrequency><PayFrequencyOther>Other Frequency</PayFrequencyOther>
+            <IncludedInWage>
+              <QuestionLabel>job.pay.include</QuestionLabel>
+              <Answer>All amounts due</Answer>
+            </IncludedInWage>
+            <PayFrequency>
+              <QuestionLabel>job.pay.frequency</QuestionLabel>
+              <Answer>Other</Answer>
+            </PayFrequency>
             <UsualPayDay>two weeks ago</UsualPayDay>
-            <VaryingEarnings>no</VaryingEarnings>
           </Pay>
-          <OtherThanMoney>Not asked</OtherThanMoney>
-          <OweMoney>no</OweMoney>
-          <CareExpensesChildren>yes</CareExpensesChildren><ChildCareExpenses>
-          <CarerName>Mr Grandfather Senior</CarerName>
-          <CarerAddress><gds:Line>Not asked</gds:Line><gds:Line>Not asked</gds:Line><gds:Line>Not asked</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-          <ConfirmAddress>yes</ConfirmAddress>
-          <WeeklyPayment>
-            <Currency>GBP</Currency>
-            <Amount>120.03</Amount>
-          </WeeklyPayment>
-          <RelationshipCarerToClaimant>father</RelationshipCarerToClaimant>
-          <ChildDetails>
-            <Name/>
-            <RelationToChild>grandFather</RelationToChild>
-          </ChildDetails>
+          <OweMoney>
+            <QuestionLabel>job.owe</QuestionLabel>
+            <Answer>No</Answer>
+          </OweMoney>
+          <CareExpensesChildren>
+            <QuestionLabel>chld.expenses</QuestionLabel>
+            <Answer>Yes</Answer>
+          </CareExpensesChildren>
+          <ChildCareExpenses>
+          <CarerName>
+            <QuestionLabel>child.carer</QuestionLabel>
+            <Answer>Mr Grandfather Senior</Answer>
+          </CarerName>
+            <RelationshipCarerToClaimant>
+              <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+              <Answer>Father</Answer>
+            </RelationshipCarerToClaimant>
         </ChildCareExpenses>
-          <CareExpensesCaree>yes</CareExpensesCaree><CareExpenses>
-          <CarerName>Carers UK Ltd</CarerName>
-          <CarerAddress><gds:Line>Not asked</gds:Line><gds:Line>Not asked</gds:Line><gds:Line>Not asked</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-          <ConfirmAddress>yes</ConfirmAddress>
-          <WeeklyPayment>
-            <Currency>GBP</Currency>
-            <Amount>150.89</Amount>
-          </WeeklyPayment>
-          <RelationshipCarerToClaimant>father</RelationshipCarerToClaimant>
-          <RelationshipCarerToCaree>other</RelationshipCarerToCaree>
+          <CareExpensesCaree>
+            <QuestionLabel>care.expenses</QuestionLabel>
+            <Answer>Yes</Answer>
+          </CareExpensesCaree>
+          <CareExpenses>
+          <CarerName>
+            <QuestionLabel>child.carer</QuestionLabel>
+            <Answer>Carers UK Ltd</Answer>
+          </CarerName>
+          <RelationshipCarerToClaimant>
+            <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+            <Answer>Father</Answer>
+          </RelationshipCarerToClaimant>
+          <RelationshipCarerToCaree>
+            <QuestionLabel>care.carer.rel.caree</QuestionLabel>
+            <Other>None</Other>
+            <Answer>Other</Answer>
+          </RelationshipCarerToCaree>
         </CareExpenses>
-          <PaidForOccupationalPension>no</PaidForOccupationalPension><PaidForPersonalPension>no</PaidForPersonalPension>
-          <PaidForJobExpenses>yes</PaidForJobExpenses><JobExpenses>
-          <Expense>Petrol money for driving</Expense>
-          <Reason>Not asked</Reason>
-          <WeeklyPayment>
-            <Currency>GBP</Currency>
-            <Amount>Not asked</Amount>
-          </WeeklyPayment>
+          <PaidForOccupationalPension>
+            <QuestionLabel>pension.occupational</QuestionLabel>
+            <Answer>No</Answer>
+          </PaidForOccupationalPension>
+          <PaidForPersonalPension>
+            <QuestionLabel>pension.personal</QuestionLabel>
+            <Answer>No</Answer>
+          </PaidForPersonalPension>
+          <PaidForJobExpenses>
+            <QuestionLabel>job.expenses</QuestionLabel>
+            <Answer>Yes</Answer>
+          </PaidForJobExpenses>
+          <JobExpenses>
+          <Expense>
+            <QuestionLabel>job.expense</QuestionLabel>
+            <Answer>Petrol money for driving</Answer>
+          </Expense>
         </JobExpenses>
         </JobDetails>
       </Employment>

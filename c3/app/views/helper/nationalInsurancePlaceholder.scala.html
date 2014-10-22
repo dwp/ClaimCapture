@@ -1,34 +1,35 @@
-@(field: play.api.data.Field)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
 
 @import views.html.helper.base.carersInputText
 @import views.html.helper.base.carersInputTel
 @import utils.helpers.CarersCrypto
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper.NInumberConstraintRequired
+@import play.api.i18n.{MMessages => Messages}
 
 <fieldset class="question-group">
 
-@NInumberConstraintRequired(field)
+@NInumberConstraintRequired(field, args: _*)
 
 <ul class="inline ni-number label-strip">
     <li>
-        @carersInputText(field("ni1"), 'placeholder -> "VO", 'maxlength -> 2)
+        @carersInputText(field("ni1"), 'maxLength -> 2)
     </li>
 
     <li>
-        @carersInputTel(field("ni2"), 'placeholder -> "12", 'maxlength -> 2)
+        @carersInputTel(field("ni2"), 'maxLength -> 2)
     </li>
 
     <li>
-        @carersInputTel(field("ni3"), 'placeholder -> "34", 'maxlength -> 2)
+        @carersInputTel(field("ni3"), 'maxLength -> 2)
     </li>
 
     <li>
-        @carersInputTel(field("ni4"), 'placeholder -> "56", 'maxlength -> 2)
+        @carersInputTel(field("ni4"), 'maxLength -> 2)
     </li>
 
     <li>
-        @carersInputText(field("ni5"), 'placeholder -> "D", 'maxlength -> 1, 'class -> "single")
+        @carersInputText(field("ni5"), 'maxLength -> 1, 'class -> "single")
     </li>
 </ul>
 

@@ -7,6 +7,7 @@ import controllers.BrowserMatchers
 import utils.pageobjects.S11_consent_and_declaration._
 import utils.pageobjects.s10_pay_details._
 import controllers.ClaimScenarioFactory
+import utils.pageobjects.PageObjects
 
 class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
   "Additional information" should {
@@ -20,7 +21,7 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
       titleMustEqual("Additional information - Consent and Declaration")
       browser.submit("button[type='submit']")
 
-      findMustEqualSize("div[class=validation-summary] ol li", 1)
+      findMustEqualSize("div[class=validation-summary] ol li", 2)
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
@@ -33,25 +34,31 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
       findMustEqualSize("div[class=completed] ul li", 1)
     }
     
-    "be presented" in new WithBrowser with G1AdditionalInfoPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G1AdditionalInfoPage(context)
       page goToThePage()
     }
     
-    "navigate back to Pay Details - Completed" in new WithBrowser with G3PayDetailsCompletedPageContext {
+    "navigate back to Bank/Building society details - How we pay you" in new WithBrowser with PageObjects{
+			val page =  G2BankBuildingSocietyDetailsPage(context)
+      val claim = ClaimScenarioFactory.s6BankBuildingSocietyDetails()
       page goToThePage()
-      val s11g1 = page submitPage()
+      page fillPageWith claim
+      val consentDeclarationPage = page submitPage()
       
-      val s10g3Again = s11g1.goBack()
-      
-      s10g3Again must beAnInstanceOf[G3PayDetailsCompletedPage]
+      val bankBuildingSocietyPage = consentDeclarationPage.goBack()
+
+      bankBuildingSocietyPage must beAnInstanceOf[G2BankBuildingSocietyDetailsPage]
     }
     
-    "present errors if mandatory fields are not populated" in new WithBrowser with G1AdditionalInfoPageContext {
+    "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{
+			val page =  G1AdditionalInfoPage(context)
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 1
+      page.submitPage().listErrors.size mustEqual 2
     }
     
-    "accept submit if all mandatory fields are populated" in new WithBrowser with G1AdditionalInfoPageContext {
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+			val page =  G1AdditionalInfoPage(context)
       val claim = ClaimScenarioFactory.s11ConsentAndDeclaration
       page goToThePage()
       page fillPageWith claim

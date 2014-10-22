@@ -50,7 +50,11 @@ $("#start-date, #end-date").datepicker({
     });
     
     
-   
+ $('.feedback, .feed-close').click(function(){
+       $(this).toggleClass("feedback-close");
+       $('.feedback-container').slideToggle('slow');
+  
+     });  
 
 	 
 	 

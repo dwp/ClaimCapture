@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.SelfEmploymentYourAccounts])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.SelfEmploymentYourAccounts])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,40 +7,42 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dates._
-@import utils.helpers.PastPresentLabelHelper.isWasIfSelfEmployed
+@import utils.helpers.PastPresentLabelHelper.labelForSelfEmployment
 
+@import play.api.i18n.{MMessages => Messages}
 @main(Messages("s8.g2") + " - " + Messages("s8.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.SelfEmploymentYourAccounts)) {
 
 
 
     @form(action = controllers.s8_self_employment.routes.G2SelfEmploymentYourAccounts.submit) {
 
-        <fieldset class="form-elements">
-            <legend>@Messages("s8.g2")</legend>
-
-            <ul>
-
-                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> Messages ("whatWasOrIsYourTradingYearFrom", isWasIfSelfEmployed), 'helperBelow -> Messages("dateOfBirth.helper"))
-
-                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> Messages ("whatWasOrIsYourTradingYearTo", isWasIfSelfEmployed), 'helperBelow -> Messages("dateOfBirth.helper"))
-
-                @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(carersInputText(currentForm("tellUsWhyAndWhenTheChangeHappened"), 'maxLength -> 300)),
-                    'id -> "selfEmployedIncomeWrap",
-                    'display -> (currentForm("areIncomeOutgoingsProfitSimilarToTrading").value.getOrElse("yes") match { case "yes" => "no" case _ => "yes" })
-                )
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("s8.g2"))</legend>
+	
+	            <ul>
+	
+	                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"), 'helperAbove -> Messages("dateOfBirth.helper"))
+	
+	                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"), 'helperAbove -> Messages("dateOfBirth.helper"))
+	
+	                @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(carersInputText(currentForm("tellUsWhyAndWhenTheChangeHappened"), 'maxLength -> 300)),
+	                    'id -> "selfEmployedIncomeWrap"
+	                )
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+        </div>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s8_self_employment/g2_selfEmploymentYourAccounts.js")'></script>
 
 <script type="text/javascript">
@@ -48,3 +50,4 @@
         window.initEvents("@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_yes")", "@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_no")");
     });
 </script>
+}

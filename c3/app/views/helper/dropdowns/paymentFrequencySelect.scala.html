@@ -4,8 +4,31 @@
 @import helper.dates._
 @import utils.helpers.CarersTemplate._
 @import app.StatutoryPaymentFrequency._
+@import play.api.i18n.{MMessages => Messages}
+
+
+@displayDontKnowYet = @{
+    (args.find(t => t._1 == 'displayDontKnowYet).getOrElse('displayDontKnowYet->false).asInstanceOf[(Symbol,Boolean)]._2)
+}
+
+@listOfOptions = @{
+    if (displayDontKnowYet)
+        Seq("" -> Messages("pleaseSelect"),
+            Weekly->Messages("weekly"),
+            Fortnightly->Messages("fortnightly"),
+            FourWeekly-> Messages("fourWeekly"),
+            DontKnowYet-> Messages("dontKnowYet"),
+            Monthly-> Messages("monthly"),
+            Other->Messages("other"))
+    else
+        Seq("" -> Messages("pleaseSelect"),
+            Weekly->Messages("weekly"),
+            Fortnightly->Messages("fortnightly"),
+            FourWeekly-> Messages("fourWeekly"),
+            Monthly-> Messages("monthly"),
+            Other->Messages("other"))
+}
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
-
-    @views.html.helper.selectWithOtherPlaceholder(field,"frequency", Seq("" -> "Please select", Weekly->"Weekly", Fortnightly->"Fortnightly",FourWeekly-> "Four-weekly",Monthly-> "Monthly",Other->"Other"), args:_*)
+    @views.html.helper.selectWithOtherPlaceholder(field,"frequency", listOfOptions, args:_*)
 }

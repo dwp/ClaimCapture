@@ -1,26 +1,27 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.i18n.Messages
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G4NationalityAndResidencyPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G4NationalityAndResidencyPage.url, G4NationalityAndResidencyPage.title, previousPage) {
-  declareInput("#nationality", "AboutYouNationalityAndResidencyNationality")
+final class G4NationalityAndResidencyPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G4NationalityAndResidencyPage.url, G4NationalityAndResidencyPage.title) {
+  declareRadioList("#nationality", "AboutYouNationalityAndResidencyNationality")
+  declareInput("#actualnationality", "AboutYouNationalityAndResidencyActualNationality")
   declareYesNo("#resideInUK_answer", "AboutYouNationalityAndResidencyResideInUK")
   declareInput("#resideInUK_text", "AboutYouNationalityAndResidencyNormalResidency")
+  declareRadioList("#maritalStatus", "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus")
 }
 
 object G4NationalityAndResidencyPage {
-  val title = ("Your nationality and residency - About you - the carer").toLowerCase()
+  val title = ("Nationality and where you live - About you - the carer").toLowerCase()
 
   val url = "/about-you/nationality-and-residency"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G4NationalityAndResidencyPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G4NationalityAndResidencyPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G4NationalityAndResidencyPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G4NationalityAndResidencyPage (browser)
+  val page = G4NationalityAndResidencyPage (PageObjectsContext(browser))
 }

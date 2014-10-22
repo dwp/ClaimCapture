@@ -1,20 +1,22 @@
 package utils.pageobjects.s4_care_you_provide
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
 /**
  * Page object for s4_care_you_provide g1_their_personal_details.
  * @author Saqib Kayani
  *         Date: 25/07/2013
  */
-final class G1TheirPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1TheirPersonalDetailsPage.url, G1TheirPersonalDetailsPage.title, previousPage) {
+final class G1TheirPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1TheirPersonalDetailsPage.url, G1TheirPersonalDetailsPage.title) {
+  declareInput("#relationship","AboutTheCareYouProvideWhatTheirRelationshipToYou")
   declareSelect("#title", "AboutTheCareYouProvideTitlePersonCareFor")
   declareInput("#firstName","AboutTheCareYouProvideFirstNamePersonCareFor")
   declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePersonCareFor")
   declareInput("#surname", "AboutTheCareYouProvideSurnamePersonCareFor")
   declareNino("#nationalInsuranceNumber", "AboutTheCareYouProvideNINOPersonCareFor")
   declareDate("#dateOfBirth", "AboutTheCareYouProvideDateofBirthPersonYouCareFor")
+  declareYesNo("#armedForcesPayment", "AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment")
   declareYesNo("#liveAtSameAddressCareYouProvide", "AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou")
 }
 
@@ -27,12 +29,12 @@ object G1TheirPersonalDetailsPage {
 
   val url  = "/care-you-provide/their-personal-details"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1TheirPersonalDetailsPage(browser,previousPage)
+  def apply(ctx:PageObjectsContext) = new G1TheirPersonalDetailsPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G1TheirPersonalDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1TheirPersonalDetailsPage (browser)
+  val page = G1TheirPersonalDetailsPage (PageObjectsContext(browser))
 }

@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.AboutSelfEmployment])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.AboutSelfEmployment])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,39 +8,42 @@
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dates._
 
+@import play.api.i18n.{MMessages => Messages}
 @main(Messages("s8.g1") + " - " + Messages("s8.longName"), Some(currentForm)) {
 
 
 
     @form(action = controllers.s8_self_employment.routes.G1AboutSelfEmployment.submit) {
 
-        <fieldset class="form-elements" data-journey="carers-allowance:page:self-employment">
-            <legend>@Messages("s8.g1")</legend>
-
-            <ul>
-                @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"))
-
-                @inputDayMonthYear(currentForm("whenDidYouStartThisJob"), 'helperBelow -> Messages("dateOfBirth.helper"))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                    inputDayMonthYear(currentForm("whenDidTheJobFinish"),'helperBelow -> Messages("dateOfBirth.helper")),
-                    yesNoRadioGroup(currentForm("haveYouCeasedTrading"))
-                    ),
-                    'id -> "selfEmployedNoWrap",
-                    'display -> (currentForm("areYouSelfEmployedNow").value.getOrElse("yes") match { case "yes" => "no" case _ => "yes" }))
-
-                @carersInputText(currentForm("natureOfYourBusiness"), 'maxLength -> Mappings.sixty)
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+        <div class="form-wrap">
+	        <fieldset class="form-elements" data-journey="carers-allowance:page:self-employment">
+	            <legend>@Html(Messages("s8.g1"))</legend>
+	
+	            <ul>
+	                @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"))
+	
+	                @inputDayMonthYear(currentForm("whenDidYouStartThisJob"), 'helperAbove -> Messages("dateOfBirth.helper"))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+                            inputDayMonthYear(currentForm("whenDidTheJobFinish"),'helperAbove -> Messages("dateOfBirth.helper")),
+                            yesNoRadioGroup(currentForm("haveYouCeasedTrading"))
+	                    ),
+	                    'id -> "selfEmployedNoWrap"
+                    )
+	
+	                @carersInputText(currentForm("natureOfYourBusiness"), 'maxLength -> Mappings.sixty)
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+					<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+					<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+        </div>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s8_self_employment/g1_aboutSelfEmployment.js")'></script>
 
 <script type="text/javascript">
@@ -49,3 +52,4 @@
         @ga.stagePrompt()
     });
 </script>
+}

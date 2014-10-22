@@ -1,12 +1,13 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
 
     @import helper._
-    @import utils.helpers.CarersCrypto
-    @import utils.helpers._
+@import utils.helpers._
     @import views.html.helper.base._
+    @import play.api.i18n.{MMessages => Messages}
 
 
-    @implicitField = @{ CurrencyTemplate.fieldConstructor }
+    @implicitField = @{ CurrencyTemplate.fieldConstructor}
+
 
     @input(field, args ++
             Seq('autocomplete -> "off") ++
@@ -14,5 +15,5 @@
 
         @carersLabel(field,args:_*)
 
-        <input type="tel" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" pattern="^[0-9]{1,12}(\.[0-9]{1,2})?$" title="@Messages("decimal.invalid")" value="@value" @toHtmlArgs(htmlArgs)>
+        <input type="tel" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" pattern="^\£?[0-9]{1,12}(\.[0-9]{1,2})?$" title="@Html(Messages("currency.invalid"))" value="@value" @toHtmlArgs(htmlArgs)>
     }

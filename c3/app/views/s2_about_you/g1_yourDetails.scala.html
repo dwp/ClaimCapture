@@ -1,4 +1,4 @@
-@(yourDetailsForm: Form[models.domain.YourDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(yourDetailsForm: Form[models.domain.YourDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,41 +8,50 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import views.html.s2_about_you.main
+@import play.api.i18n.{MMessages => Messages}
+
+@pensionHelpWithLink = @{
+    Html(Messages("receiveStatePension.help")) + """ <a href="/claim-help#4"""" + views.html.ga.trackClickEvent(linkName = Messages("receiveStatePension.help.track")) + """>""" + Html(Messages("receiveStatePension.help.link")) + """</a>"""
+}
 
 @main(Messages("s2.g1") + " - " + Messages("s2.longName")) {
     @errorsSummary(yourDetailsForm)
 
 
     @form(action = controllers.s2_about_you.routes.G1YourDetails.submit) {
-        <fieldset class="form-elements" data-journey="carers-allowance:page:about-you">
-            <legend>@Messages("s2.g1")</legend>
+	        <fieldset class="form-elements" data-journey="carers-allowance:page:about-you">
+	            <legend>@Html(Messages("s2.g1"))</legend>
+	
+	            <ul>
+	                @titleSelect(yourDetailsForm("title"))
+	
+	                @carersInputText(yourDetailsForm("firstName"), 'helperAbove -> Messages("your.name.helper"), 'maxLength -> 17)
+	
+	                @carersInputText(yourDetailsForm("middleName"), 'maxLength -> 17)
+	
+	                @carersInputText(yourDetailsForm("surname"), 'maxLength -> 35)
+	
+	                @carersInputText(yourDetailsForm("otherNames"), 'maxLength -> 35)
+	
+	                @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"), 'helperAbove -> Messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper2"))
+	
+	                @dateOfBirth(yourDetailsForm("dateOfBirth"))
 
-            <ul>
-                @titleSelect(yourDetailsForm("title"))
-
-                @carersInputText(yourDetailsForm("firstName"),'helperBelow -> Messages("your.name.helper"), 'maxLength -> 17)
-
-                @carersInputText(yourDetailsForm("middleName"), 'maxLength -> 17)
-
-                @carersInputText(yourDetailsForm("surname"), 'maxLength -> 35)
-
-                @carersInputText(yourDetailsForm("otherNames"), 'maxLength -> 35)
-
-                @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper"))
-
-                @inputDayMonthYear(yourDetailsForm("dateOfBirth"), 'helperBelow -> Messages("dateOfBirth.helper"))
-
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+                    @yesNoRadioGroup(yourDetailsForm("receiveStatePension"), '_label -> Messages("receiveStatePension"), 'helperAbove -> pensionHelpWithLink)
+	
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
     }
-}
 <script type="text/javascript">
     $(function(){
         @ga.stagePrompt()
     })
 </script>
+}

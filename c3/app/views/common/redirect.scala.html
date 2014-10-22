@@ -1,0 +1,27 @@
+@(url:String)(implicit lang: Lang, request: Request[AnyContent])
+@common.govMain("Redirect") {
+
+    <div class="carers-allowance clearfix">
+
+        @common.protoType()
+
+        @common.helpLine(lang, request)
+
+        <article class="finish-statement">
+            <h1>Please begin your claim or change of circumstance <a href='@url'>here</a></h1>
+        </article>
+        
+        
+        <aside class="left-col">
+        	<section>
+				<h2>Get help</h2>
+				<p><a href="#">Read the guide</a></p>
+				<h3>Helpline 0845 601 8040</h3>
+				<p>Open until 9pm. Your call will be answered within 5 minutes. <a href="#">Call charges</a></p>	
+				<h3>No time limit</h3>
+				<p>For your security, this application will reset if inactive for more than 1 hour.</p>
+			</section>
+        </aside>
+        
+    </div>
+}(Html.empty, lang, request)

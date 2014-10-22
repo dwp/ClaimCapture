@@ -4,12 +4,13 @@
 @import utils.helpers.CarersCrypto
 @import utils.helpers._
 @import views.html.helper.base._
+@import play.api.i18n.{MMessages => Messages}
 
-@input(field, args ++
+@input(field, args.filter(p=> p._1 == 'maxLength) ++
               Seq('autocomplete -> "off") ++
               (args.find(_._1 == 'maxLength) match{ case Some(_) => Seq() case _ => Seq('maxLength -> Mappings.sixty)}):_* ) { (id, name, value, htmlArgs) =>
 
     @carersLabel(field,args:_*)
     
-    <input type="tel" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" pattern="[0-9 \-]{1,20}" title="Must be numbers only" value="@value" @toHtmlArgs(htmlArgs)>
+    <input type="tel" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" pattern="[0-9 \-]{1,20}" title="@Html(Messages("mustBeNumbersOnly"))" value="@value" @toHtmlArgs(htmlArgs)>
 }

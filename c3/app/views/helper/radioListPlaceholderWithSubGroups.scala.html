@@ -1,0 +1,13 @@
+@(field: play.api.data.Field, options: Seq[(Any)], args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang)
+
+@import helper.base._
+@import utils.helpers.CarersCrypto
+@import utils.helpers.EmptyTemplate._
+@import views.html.helper.checkConstraintRequired
+@import play.api.i18n.{MMessages => Messages}
+
+
+@radioConstraintRequired(field, args:_*)
+<ul class="radio radio-stack" id="@CarersCrypto.encryptAES(field.id)">
+    @carersRadioWithSubGroups(field, options, args:_*)
+</ul>

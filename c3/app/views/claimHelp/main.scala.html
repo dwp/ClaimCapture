@@ -1,0 +1,31 @@
+@(title: String)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+
+@import utils.helpers.CarersTemplate.fieldConstructor
+@import models.domain._
+@import helper._
+@import play.api.i18n.{MMessages => Messages}
+
+@common.govMain(title) {
+
+    <div class="carers-allowance clearfix">
+
+        @common.protoType()
+
+        <article>
+            
+
+            <h1>@Html(Messages("claimHelp.legend"))</h1>
+            
+            <div class="claim-notes">
+
+            @content
+            
+            </div>
+
+        </article>
+
+        @common.leftcol()
+
+    </div>
+
+}

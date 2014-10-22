@@ -1,9 +1,21 @@
-@(isClaimSubmit:Boolean = false)(implicit request:play.api.mvc.Request[AnyContent])
+@(isClaimSubmit:Boolean = false, isOptional:Boolean = false)(implicit lang: Lang, request:play.api.mvc.Request[AnyContent])
 @import play.api.Play
 @import play.api.Play.current
 @import utils.helpers.GAHelper._
 @import app.ConfigProperties._
-@gaTrack() = @{ if(!Play.isTest && getProperty("include_analytics", false)){
-    trackEvent(request.path,(isClaimSubmit match {case true => "Claim" case false => "Section"})+" completed")
-    }}
-onclick="@gaTrack()"
+
+@constructURI = @{
+    val path = request.path
+    path.substring(0,path.lastIndexOf("/")) + "/vpv/" + (isClaimSubmit match {case true => "claim" case false => "section"}) + "_completed"
+}
+
+@gaTrack() = @{ if(getProperty("include.analytics", true)){
+        trackPageView(constructURI)
+    }
+}
+
+onclick="if(@isOptional && conditionRequired() || !@isOptional){@gaTrack()}"
+
+
+
+

@@ -3,6 +3,7 @@
 @import scala.util.Try
 @import helper.dates._
 @import helper._
+@import play.api.i18n.{MMessages => Messages}
 
 @input(field, args: _*) { (id, name, value, htmlArgs) =>
     @dateFromToPlaceholder(field, id, args:_*)

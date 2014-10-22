@@ -1,0 +1,16 @@
+/* info panel */
+	   .info {
+	       background: #fff;
+		   margin-top: 1.2em;
+		   border-left: 5px solid #dee0e2;
+		   padding: .2em 0 .2em 1em;
+		   p {
+			   font-size: 19px;
+			   margin-top: 1em;
+			   &:first-child {
+				   margin: 0;
+			   }
+		   }
+	   } 
+	   
+	 

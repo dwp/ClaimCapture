@@ -1,0 +1,113 @@
+/* table styling */
+	   table {
+			text-align: left;
+			border-collapse: collapse;
+			width: 100%;
+
+			thead {
+				border: 1px solid #bfc1c3;
+			}
+			tbody {
+				border: 1px dotted #bfc1c3;
+			}
+			tr {
+				border-top: 1px dotted #bfc1c3;
+				&:first-child {
+					border-top: 0;
+				}
+				&:nth-child(odd) {
+					background: #f8f8f8;
+				}
+			}
+			th {
+				font-size: 16px;
+				font-weight: 600;
+				background: #dee0e2;
+				padding: .8em;
+				vertical-align: middle;
+				border-left: 1px solid #bfc1c3;
+				line-height: 1.4em;
+				&:first-child {
+					width: 18%;
+					border-left: 0;
+					text-align: center;
+					@media screen and (max-width: 600px) {
+						width: auto;
+					}
+				}
+				.ie7 & {
+					border-top: 1px solid #bfc1c3;
+					border-bottom: 1px solid #bfc1c3;
+					border-left: 0;
+					border-right: 1px solid #bec0c2;
+					&:first-child {
+						border-left: 1px solid #bec0c2;
+					}
+				}
+			}
+			td {
+				font-size: 16px;
+				padding: .8em;
+				border-left: 1px dotted #bfc1c3;
+				line-height: 1em;
+				span {
+					display: block;
+					padding: .35em 0;
+				}
+				&:first-child {
+					border-left: 0;
+					text-align: center;
+				}
+				.ie7 & {
+					border-left: 0;
+					border-bottom: 1px dotted #bfc1c3;
+					border-right: 1px dotted #bfc1c3;
+					&:first-child {
+						border-left: 1px dotted #bfc1c3;
+					}
+				}
+				input {
+					background: transparent;
+					padding: 0;
+					border: 0;
+					color: #000;
+					text-decoration: underline;
+					display: inline-block;
+					margin-top: 10px;
+					margin-right: 10px;
+					font-size: 15px;
+					font-weight: 200;
+					cursor: pointer;
+					&:first-child {
+						margin-top: 0;
+					}
+					&:last-child {
+						margin-right: 0;
+					}
+				}
+				
+			}
+			.desc {
+				 @media screen and (max-width: 660px) {
+					 display: none;
+				 }
+			}
+			caption {
+				text-indent: -9999px;
+				font-size: 0;
+			}
+			&.employment {
+				th, td {
+					text-align: left;
+					&:first-child {
+						width: 65%;
+					}
+					&.desc {
+						width: 40%;
+					}
+				}
+			}	
+	   } 
+	   
+
+

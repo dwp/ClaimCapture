@@ -1,17 +1,14 @@
-@(now:String)
+@(now:String)(implicit lang: Lang, request: Request[AnyContent])
 @common.govMain("Alive") {
 
     <div class="carers-allowance">
 
         @common.protoType()
 
-        @common.helpLine()
 
-        <section class="finish-statement">
+        <article class="finish-statement">
             <h1>Carer's allowance is functioning</h1>
             <p>@now</p>
-        </section>
+        </article>
     </div>
-} {
-    <!-- Empty -->
 }

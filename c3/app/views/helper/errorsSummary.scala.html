@@ -1,17 +1,18 @@
-@(form: Form[_])
+@(form: Form[_])(implicit lang: Lang)
 
 @import utils.helpers.CarersCrypto
+@import play.api.i18n.{MMessages => Messages}
 
 @if(form.hasErrors) {
     <div class="validation-summary">
-        <h2>Please check the form</h2>
-        <p>Please fix the following:</p>
+        <h2>@Html(Messages("error.title"))</h2>
+        <p>@Html(Messages("error.label"))</p>
 
         <ol>
             @for(error <- form.errors) {
                 <li>
                     <a href="#@CarersCrypto.encryptAES(error.key.replace(".","_"))">
-                        @Messages(error.key, error.args: _*) - @Messages(error.message, error.args: _*)
+                        @Html(Messages(error.key, error.args: _*)) - @Html(Messages(error.message, error.args: _*))
                     </a>
                 </li>
             }

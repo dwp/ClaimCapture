@@ -69,20 +69,25 @@
     <a href="#content" class="visuallyhidden">Skip to main content</a>
 
    <header role="banner" id="global-header">
-      <div class="header-wrapper">
-        <div class="header-global">
-          <div class="header-logo">
-            <a href="/" title="Go to the gov.uk homepage" id="logo" class="content">
-              <img src="https://assets.digital.cabinet-office.gov.uk/static/gov.uk_logotype-2x-24145374d271079f08d96c618cc8d4a5.png" alt="GOV.UK">
-            </a>
-          </div>
-          
-          <h1 class="page-title beta"><strong>Carer's Allowance</strong> <span>beta</span></h1>
-
-        </div>
-      </div>
-    </header>
-    <!--end header-->
+	      <div class="wrapper clearfix">
+	            <a href="https://www.gov.uk" class="crown">
+                    <img src="../img/crown.png" alt="GOV.UK">
+                    GOV.UK
+                </a>
+	   
+	          <section>
+	          <h1 class="page-title beta">Carer's Allowance</h1>
+		          <nav>
+		          	<ul>
+		          		<li class="feedback"><a href="#" @views.html.ga.trackClickEvent(linkName = "Help and Feedback expansion")>Help and Feedback</a></li>
+<li><a id="lang-en" href="/change-language/en" aria-label="@Html(Messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>English</a></li>
+                        <li><a id="lang-cy" href="/change-language/cy" aria-label="@Html(Messages("welsh.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>Welsh</a></li>
+		          	</ul>
+		          </nav>
+	          </section>
+	      </div>
+	    </header>
+	    <!--end header-->
 
     <div id="global-cookie-message">
       <p>GOV.UK uses cookies to make the site simpler. <a href="/support/cookies">Find out more about cookies</a></p>
@@ -92,18 +97,7 @@
       <p>For a safer, faster, better experience online you should upgrade your browser. <a href="/support/browsers">Find out more about browsers</a> <a href="#" class="dismiss" title="Dismiss this message">Close</a></p>
     </div>
 
-    
 
-     <!--  <div id="global-breadcrumb" class="header-context">
-        <nav role="navigation">
-          <ol class="group">
-            <li><a href="/">Home</a></li>
-          </ol>
-        </nav>
-      </div>  -->
-
-    <!-- carers allowance -->
-    <div id="wrapper" class="group">
     
     <main role="main" id="main">
 	
@@ -113,7 +107,7 @@
     <div class="prototype">
     		<p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
     	</div>
-    	
+
     	
     	
     	<div class="progress-steps">
@@ -141,9 +135,6 @@
     				<span>Employment</span>
     			</li>
     			<li>
-    				<span>Other money</span>
-    			</li>
-    			<li>
     				<span>Pay details</span>
     			</li>
     			<li>
@@ -154,16 +145,19 @@
     	</div>
     
     
-    	<section>
-    	
-    		<header>
+    	<article>
+
     			<h1>About you - the Carer</h1>
-    		</header>
 				
-    	
+    	<div class="form-wrap">
 			<fieldset class="form-elements">
 				<legend>Your details</legend>
 				
+				
+				<details>
+					<summary>Show/hide</summary>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				</details>
 
 				
 				<ul class="group">
@@ -330,48 +324,37 @@
 			</fieldset>
 			<!-- / form elements -->
 			
+    	</div>
 			
-			<div class="form-steps">
-				<a href="../eligibility/carers-q1.html" class="button secondary">Back</a>
-				<a href="../about/carers-about2.html" class="button">Next</a>
-			</div>
+			
+			<nav class="form-steps">
+				<ul>
+					<li><a href="../about/carers-about2.html" class="button">Next</a></li>
+					<li><a href="../eligibility/carers-q1.html">Back</a></li>
+				</ul>
+			</nav>
 			<!-- / form steps -->
 			
-    	</section>
+    	</article>
     
     </div>
     </main>
-    
-    </div>
-    <!-- / carers allowance end -->
 
-    <footer class="group js-footer" id="footer" role="contentinfo">
 
-      <div class="footer-wrapper carers-allowance-footer">
- 
-
-        <div class="footer-meta">
-		  <nav>
-		    <ul>
-		      <li><a href="/support">Support</a></li>
-		      <li><a href="/support/cookies">Cookies</a></li>
-		      <li><a href="/feedback">Feedback</a></li>
-		      <li><a href="/cymraeg">Cymraeg</a></li>
-		      <li>Built by the <a href="http://digital.cabinetoffice.gov.uk/">Government Digital Service</a></li>
-		    </ul>
-		
-		    <p>All content is available under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/">Open Government Licence</a>, except where otherwise stated</p>
-		  </nav>
-
-  <div class="copyright">
-    <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm">&copy; Crown Copyright</a>
-  </div>
-</div>
-
-      </div>
-    </footer>
-
-    <!--end footer-->
+   <footer>
+	      <div class="container clearfix">
+	
+			  <div class="left">
+				  <p>@Html(Messages("openGovLicensea")) <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2">@Html(Messages("openGovLicenseb"))</a>@Html(Messages("openGovLicensec"))</p>
+			  </div>
+			 
+			  <div class="right">
+				  <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm">&copy; @Html(Messages("crownCopyright"))</a>
+			  </div>
+	
+	      </div>
+	    </footer>
+	    <!--/ footer -->
 
     <div id="global-app-error" class="app-error hidden"></div>
 

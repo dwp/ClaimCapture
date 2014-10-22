@@ -10,7 +10,9 @@ abstract class XMLValidationNode(xml: Elem, path:Array[String]) {
 
   val EvidenceListNode = "<EvidenceList>"
 
-  val DeclarationNode = "<Declaration>"
+  val DeclarationNode = "<Declaration"
+  val DisclaimerNode = "<Disclaimer"
+  val ConsentsNode = "<Consents"
 
   val theNodes = XMLValidationNode.childNode(xml.\\(path(0)), path.drop(1))
 

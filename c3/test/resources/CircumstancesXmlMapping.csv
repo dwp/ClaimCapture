@@ -1,19 +1,85 @@
-About you - the carer,Circumstances,Title,CircumstancesAboutYouTitle,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Title
-About you - the carer,Circumstances,First Name,CircumstancesAboutYouFirstName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>OtherNames
-About you - the carer,Circumstances,Middle Name,CircumstancesAboutYouMiddleName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>OtherNames
-About you - the carer,Circumstances,Last Name,CircumstancesAboutYouLastName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Surname
-About you - the carer,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>NationalInsuranceNumber
-About you - the carer,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>DateOfBirth
-About you - the carer,Your contact details,Address,CircumstancesYourContactDetailsAddress,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Address>Line
-About you - the carer,Your contact details,Postcode,CircumstancesYourContactDetailsPostcode,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Address>PostCode
-About you - the carer,Your contact details,Daytime phone number,CircumstancesYourContactDetailsPhoneNumber,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>HomePhone
-About you - the carer,Your contact details,Mobile number,CircumstancesYourContactDetailsMobileNumber,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>DaytimePhone>Number
-About you - the carer,Details of the person you care for,First Name,CircumstancesDetailsOfThePersonYouCareForFirstName,DWPCAChangeOfCircumstances>Claim>CareeDetails>OtherNames
-About you - the carer,Details of the person you care for,Middle Name,CircumstancesDetailsOfThePersonYouCareForMiddleName,DWPCAChangeOfCircumstances>Claim>CareeDetails>OtherNames
-About you - the carer,Details of the person you care for,Last Name,CircumstancesDetailsOfThePersonYouCareForLastName,DWPCAChangeOfCircumstances>Claim>CareeDetails>Surname
-About you - the carer,Details of the person you care for,National Insurance number,CircumstancesDetailsOfThePersonYouCareForNationalInsuranceNumber,DWPCAChangeOfCircumstances>Claim>CareeDetails>NationalInsuranceNumber
-About you - the carer,Details of the person you care for,Date of Birth,CircumstancesDetailsOfThePersonYouCareForDateOfBirth,DWPCAChangeOfCircumstances>Claim>CareeDetails>DateOfBirth
-Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges
-Consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have told us about?,CircumstancesDeclarationInfoAgreement,DWPCAChangeOfCircumstances>Declaration
-Consent and declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above,CircumstancesDeclarationConfirmation,DWPCAChangeOfCircumstances>Declaration
-Consent and declaration,Declaration,I don't agree to you obtaining information from any other persons or organisations because,CircumstancesDeclarationWhyNot,DWPCAChangeOfCircumstances>Declaration
+Report a change in your circumstances - Change in circumstances,Circumstances,Full Name,CircumstancesAboutYouFullName,DWPCAChangeOfCircumstances>ClaimantDetails>FullName>Answer
+Report a change in your circumstances - Change in circumstances,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,DWPCAChangeOfCircumstances>ClaimantDetails>NationalInsuranceNumber>Answer
+Report a change in your circumstances - Change in circumstances,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,DWPCAChangeOfCircumstances>ClaimantDetails>DateOfBirth>Answer
+Report a change in your circumstances - Change in circumstances,Your contact details,Address,CircumstancesYourContactDetailsAddress,
+Report a change in your circumstances - Change in circumstances,Circumstances,Their Full Name,CircumstancesAboutYouTheirFullName,DWPCAChangeOfCircumstances>CareeDetails>FullName>Answer
+Report a change in your circumstances - Change in circumstances,Circumstances,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,DWPCAChangeOfCircumstances>CareeDetails>RelationToClaimant>Answer
+Details of your change in circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,
+Permanently stopped caring - Change in circumstances,Permanently stopped caring,Tell us more about your changes,CircumstancesPermanentlyStoppedCaringMoreAboutChanges,DWPCAChangeOfCircumstances>StoppedCaring>OtherChanges>Answer
+Permanently stopped caring - Change in circumstances,Permanently stopped caring,What date did you permanently stop caring?,CircumstancesPermanentlyStoppedCaringStoppedCaringDate,DWPCAChangeOfCircumstances>StoppedCaring>DateStoppedCaring>Answer
+Change of address - change in circumstances,Previous address,Your previous address,CircumstancesAddressChangePreviousAddress,DWPCAChangeOfCircumstances>AddressChange>PreviousAddress>Answer>Line
+Change of address - change in circumstances,Previous address,Your previous postcode,CircumstancesAddressChangePreviousPostcode,,DWPCAChangeOfCircumstances>AddressChange>PreviousAddress>Answer>PostCode
+Change of address - change in circumstances,Change of address,Are you still caring 35 hours or more each week?,CircumstancesAddressChangeStillCaring,DWPCAChangeOfCircumstances>AddressChange>Caring35Hours>Answer
+Change of address - change in circumstances,Change of address,What date did you stop caring 35 hours a week?,CircumstancesAddressChangeFinishedStillCaringDate,DWPCAChangeOfCircumstances>AddressChange>DateStoppedCaring35Hours>Answer
+Change of address - change in circumstances,Change of address,Your new address,CircumstancesAddressChangeNewAddress,DWPCAChangeOfCircumstances>AddressChange>NewAddress>Answer>Line
+Change of address - change in circumstances,Change of address,Your new postcode,CircumstancesAddressChangeNewPostcode,DWPCAChangeOfCircumstances>AddressChange>NewAddress>Answer>PostCode
+Change of address - change in circumstances,Change of address,Has the person you care for changed address?,CircumstancesAddressChangeCaredForChangedAddress,DWPCAChangeOfCircumstances>AddressChange>CareeChangedAddress>Answer
+Change of address - change in circumstances,Change of address,Is this the same address as you?,CircumstancesAddressChangeSameAddress,DWPCAChangeOfCircumstances>AddressChange>CareeSameAddress>Answer
+Change of address - change in circumstances,Change of address,Their address,CircumstancesAddressChangeSameAddressTheirAddress,DWPCAChangeOfCircumstances>AddressChange>CareeAddress>Answer>Line
+Change of address - change in circumstances,Change of address,Their postcode,CircumstancesAddressChangeSameAddressTheirPostcode,DWPCAChangeOfCircumstances>AddressChange>CareeAddress>Answer>PostCode
+Change of address - change in circumstances,Change of address,Tell us more about your changes,CircumstancesAddressChangeMoreAboutChanges,DWPCAChangeOfCircumstances>AddressChange>OtherChanges>Answer
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,Are you still caring 35 hours or more each week?,CircumstancesSelfEmploymentStillCaring,DWPCAChangeOfCircumstances>SelfEmployedChange>Caring35Hours>Answer
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,What date did you stop caring 35 hours a week?,CircumstancesSelfEmploymentFinishedStillCaringDate,DWPCAChangeOfCircumstances>SelfEmployedChange>DateStoppedCaring35Hours>Answer
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,When did you start this self-employed work?,CircumstancesSelfEmploymentWhenThisStarted,DWPCAChangeOfCircumstances>SelfEmployedChange>BusinessStartDate>Answer
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,What type of business is your self-employed work?,CircumstancesSelfEmploymentTypeOfBusiness,DWPCAChangeOfCircumstances>SelfEmployedChange>BusinessType>Answer
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,Will the total income into your business be more than £102 a week?,CircumstancesSelfEmploymentTotalOverWeeklyIncomeThreshold,DWPCAChangeOfCircumstances>SelfEmployedChange>MoreThan100>Answer
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,Tell us more about your changes,CircumstancesSelfEmploymentMoreAboutChanges,DWPCAChangeOfCircumstances>SelfEmployedChange>OtherChanges>Answer
+Breaks from caring - change in circumstances,Breaks from caring,When did your most recent break from caring start?,BreaksInCareStartDate,DWPCAChangeOfCircumstances>BreakFromCaring>RecentBreakStartDate>Answer
+Breaks from caring - change in circumstances,Breaks from caring,Start time,BreaksInCareStartTime,DWPCAChangeOfCircumstances>BreakFromCaring>RecentBreakStartTime>Answer
+Breaks from caring - change in circumstances,Breaks from caring,Where was the person you care for?,BreaksInCareWhereWasThePersonYouCareFor,DWPCAChangeOfCircumstances>BreakFromCaring>WherePersonYouCare>Answer
+Breaks from caring - change in circumstances,Breaks from caring,Where was the person you care for? Somewhere else,BreaksInCareWhereWasThePersonYouCareForSomewhereElse,DWPCAChangeOfCircumstances>BreakFromCaring>WherePersonYouCare>Other
+Breaks from caring - change in circumstances,Breaks from caring,Where were you?,BreaksInCareWhereWereYou,DWPCAChangeOfCircumstances>BreakFromCaring>WhereWereYou>Answer
+Breaks from caring - change in circumstances,Breaks from caring,Where were you? Somewhere else,BreaksInCareWhereWereYouSomewhereElse,DWPCAChangeOfCircumstances>BreakFromCaring>WhereWereYou>Other
+Breaks from caring - change in circumstances,Breaks from caring,Has this break from caring ended?,BreaksInCareEnded,DWPCAChangeOfCircumstances>BreakFromCaring>BreakFromCaringEnded>HasBreakFromCaringEnded>Answer
+Breaks from caring - change in circumstances,Breaks from caring,When did the break from caring end?,DWPCAChangeOfCircumstances>BreakFromCaring>BreakFromCaringEnded>EndDate>Answer
+Breaks from caring - change in circumstances,Breaks from caring,End time,BreaksInCareEndTime,DWPCAChangeOfCircumstances>BreakFromCaring>BreakFromCaringEnded>EndTime>Answer
+Breaks from caring - change in circumstances,Breaks from caring,Do you expect to start caring again?,BreaksInCareExpectToStartCaringAgain,DWPCAChangeOfCircumstances>BreakFromCaring>BreakFromCaringEnded>ExpectStartCaringAgain>Answer
+Breaks from caring - change in circumstances,Breaks from caring,What date do you expect to start caring again?,BreaksInCareExpectToStartCaringAgainDate,DWPCAChangeOfCircumstances>BreakFromCaring>BreakFromCaringEnded>ExpectStartCaringAgainDate>Answer
+Breaks from caring - change in circumstances,Breaks from caring,What date did you decide that the break was permanent?,BreaksInCareExpectToStartCaringPermanentEndDate,DWPCAChangeOfCircumstances>BreakFromCaring>BreakFromCaringEnded>PermanentBreakDate>Answer
+Breaks from caring - change in circumstances,Breaks from caring,Did you or the person you care for receive any medical treatment or professional care during the break?,BreaksInCareMedicalCareDuringBreak,DWPCAChangeOfCircumstances>BreakFromCaring>MedicalTreatmentDuringBreak>Answer
+Breaks from caring - change in circumstances,Breaks from caring,Tell us more about your changes,BreaksInCareMoreAboutChanges,DWPCAChangeOfCircumstances>BreakFromCaring>MoreChanges>Answer
+Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks from caring that you have not already reported to us?,BreaksInCareSummaryAdditionalBreaks,DWPCAChangeOfCircumstances>BreakFromCaring>AdditionalBreaksNotReported>Answer
+Breaks from caring summary - change in circumstances,Breaks from caring summary,Are there any additional breaks from caring that you have not already reported to us?Yes,BreaksInCareSummaryAdditionalBreaksInfo,DWPCAChangeOfCircumstances>BreakFromCaring>AdditionalBreaksNotReportedDesc>Answer
+Employment Changes - Change in circumstances,Employment,Are you still caring 35 hours or more each week?,CircumstancesEmploymentChangeStillCaring,DWPCAChangeOfCircumstances>EmploymentChange>StillCaring>Answer
+Employment Changes - Change in circumstances,Employment,What date did you stop caring 35 hours a week?,CircumstancesEmploymentChangeFinishedStillCaringDate,DWPCAChangeOfCircumstances>EmploymentChange>DateStoppedCaring>Answer
+Employment Changes - Change in circumstances,Employment,Has this work started yet?,CircumstancesEmploymentChangeHasWorkStartedYet,DWPCAChangeOfCircumstances>EmploymentChange>HasWorkStartedYet>Answer
+Employment Changes - Change in circumstances,Employment,When did you start this work?,CircumstancesEmploymentChangeDateWhenStarted,DWPCAChangeOfCircumstances>EmploymentChange>DateWorkedStarted>Answer
+Employment Changes - Change in circumstances,Employment,When will you start this work?,CircumstancesEmploymentChangeDateWhenWillItStart,DWPCAChangeOfCircumstances>EmploymentChange>DateWhenWillWorkStart>Answer
+Employment Changes - Change in circumstances,Employment,Has this work finished?,CircumstancesEmploymentChangeHasWorkFinishedYet,DWPCAChangeOfCircumstances>EmploymentChange>HasWorkFinishedYet>Answer
+Employment Changes - Change in circumstances,Employment,When will you start this work?,CircumstancesEmploymentChangeDateWhenFinished,DWPCAChangeOfCircumstances>EmploymentChange>DateWorkedFinished>Answer
+Employment Changes - Change in circumstances,Employment,What type of work is this?,CircumstancesEmploymentChangeTypeOfWork,DWPCAChangeOfCircumstances>EmploymentChange>TypeOfWork>Answer
+Employment Changes - Change in circumstances,Employment,Type of work or business,CircumstancesEmploymentChangeSelfEmployedTypeOfWork,DWPCAChangeOfCircumstances>EmploymentChange>SelfEmployment>TypeOfSelfEmployment>Answer
+Employment Changes - Change in circumstances,Employment,Will the total income into your business be more than £102 a week?,CircumstancesEmploymentChangeSelfEmployedTotalIncome,DWPCAChangeOfCircumstances>EmploymentChange>SelfEmployment>TotalIncome>Answer
+Employment Changes - Change in circumstances,Employment,Tell us more about your changes,CircumstancesEmploymentChangeSelfEmployedMoreAboutChanges,DWPCAChangeOfCircumstances>EmploymentChange>SelfEmployment>MoreAboutChanges>Answer
+Employment Changes - Change in circumstances,Employment,Employer's name and address,CircumstancesEmploymentChangeEmployerNameAndAddress,DWPCAChangeOfCircumstances>EmploymentChange>StartedEmploymentAndOngoing>Address>Answer>Line|DWPCAChangeOfCircumstances>EmploymentChange>StartedEmploymentAndFinished>Address>Answer>Line
+Employment Changes - Change in circumstances,Employment,Postcode,CircumstancesEmploymentChangeEmployerPostcode,DWPCAChangeOfCircumstances>EmploymentChange>StartedEmploymentAndOngoing>Address>Answer>PostCode|DWPCAChangeOfCircumstances>EmploymentChange>StartedEmploymentAndFinished>Address>Answer>PostCode
+Employment Changes - Change in circumstances,Employment,Employer's contact number,CircumstancesEmploymentChangeEmployerContactNumber,
+Employment Changes - Change in circumstances,Employment,Payroll or employee number,CircumstancesEmploymentChangeEmployerPayroll,
+Employment - Change in circumstances,Employment,Have you been paid yet?,CircumstancesEmploymentChangeBeenPaidYet,
+Employment - Change in circumstances,Employment,How much were you last paid?,CircumstancesEmploymentChangeHowMuchPaid,
+Employment - Change in circumstances,Employment,What date did you receive your last pay?,CircumstancesEmploymentChangeWhatDatePaid,
+Employment - Change in circumstances,Employment,How often are you paid?,CircumstancesEmploymentChangeHowOftenFrequency,
+Employment - Change in circumstances,Employment,What day or date of the month will you be paid?,CircumstancesEmploymentChangeMonthlyPayDay,
+Employment - Change in circumstances,Employment,Do you usually get the same amount each time?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,
+Employment - Change in circumstances,Employment,Other,CircumstancesEmploymentChangeHowOftenFrequencyOther,
+Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,
+Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,
+Employment - Change in circumstances,Employment,Tell us what the cost is for, how much, how often and who to,CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
+Finished Employment - Change in circumstances,Employment,What date did you receive your last pay?,CircumstancesEmploymentChangeWhatDatePaid,
+Finished Employment - Change in circumstances,Employment,What was included in this pay?,CircumstancesEmploymentChangeWhatWasIncluded,
+Finished Employment - Change in circumstances,Employment,How often are you paid?,CircumstancesEmploymentChangeHowOftenFrequency,
+Finished Employment - Change in circumstances,Employment,What day or date of the month will you be paid?,CircumstancesEmploymentChangeMonthlyPayDay,
+Finished Employment - Change in circumstances,Employment,Do you usually get the same amount each week?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,
+Finished Employment - Change in circumstances,Employment,Other,CircumstancesEmploymentChangeHowOftenFrequencyOther,
+Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoney,
+Finished Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,
+Finished Employment - Change in circumstances,Employment,"Tell us what this is for, how much and how often",CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor,
+Finished Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,
+Finished Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
+Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges>Answer
+Consent and declaration,Further Information,Contact phone or mobile number,FurtherInfoContact,DWPCAChangeOfCircumstances>ClaimantDetails>ContactPreference>Answer
+Consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have told us about?,CircumstancesDeclarationInfoAgreement,DWPCAChangeOfCircumstances>Consents>Consent>Answer
+Consent & Declaration,Consent & Declaration,Please tell us why not,CircumstancesDeclarationWhyNot,DWPCAChangeOfCircumstances>Consents>Consent>Why>Answer
+Consent and declaration,Declaration,"Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,DWPCAChangeOfCircumstances>Declaration
+Consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,DWPCAChangeOfCircumstances>Declaration>DeclarationNameOrg>Answer
+Consent and declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,CircumstancesDeclarationConfirmation,DWPCAChangeOfCircumstances>Declaration

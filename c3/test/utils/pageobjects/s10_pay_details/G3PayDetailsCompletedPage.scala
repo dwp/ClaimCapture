@@ -1,20 +1,20 @@
 package utils.pageobjects.s10_pay_details
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G3PayDetailsCompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G3PayDetailsCompletedPage.url, G3PayDetailsCompletedPage.title, previousPage)
+final class G3PayDetailsCompletedPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G3PayDetailsCompletedPage.url, G3PayDetailsCompletedPage.title)
 
 object G3PayDetailsCompletedPage {
   val title = "Completion - How we pay you".toLowerCase
 
   val url = "/pay-details/completed"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G3PayDetailsCompletedPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G3PayDetailsCompletedPage(ctx)
 }
 
 trait G3PayDetailsCompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G3PayDetailsCompletedPage (browser)
+  val page = G3PayDetailsCompletedPage (PageObjectsContext(browser))
 }

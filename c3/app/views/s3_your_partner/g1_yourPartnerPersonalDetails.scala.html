@@ -1,52 +1,103 @@
-@(currentForm: Form[models.domain.YourPartnerPersonalDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.YourPartnerPersonalDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
+@import utils.helpers._
+@import play.api.i18n.{MMessages => Messages}
+
+@partnerHelpWithLink = @{
+    Html(Messages("s3.g1.help")) + """ <a href="/claim-help#5"""" + views.html.ga.trackClickEvent(linkName = Messages("s3.g1.track")) + """>""" + Html(Messages("s3.g1.link")) + """</a>"""
+}
+
 
 @main(Messages("s3.g1") + " - " + Messages("s3.longName"), Some(currentForm)) {
 
 
 
     @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit) {
-    
-        <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
-            <legend>@Messages("s3.g1")</legend>
 
-            <ul>
-                @titleSelect(currentForm("title"))
+        <p class="intro-info">@Html(partnerHelpWithLink)</p>
+        
+            <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
+                <legend>@Html(Messages("haveLivedWithPartnerSinceClaimDate.label"))</legend>
+                <div class="prompt nested-prompt partner-linked">
+                    <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help1", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))</p>
+                    <ul>
+                        <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help2"))</li>
+                        <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help3"))</li>
+                    </ul>
+                </div>
+                <ul class="partner-group">
+                    @yesNoRadioGroup(currentForm("hadPartnerSinceClaimDate"),
+                        '_label -> Messages("haveLivedWithPartnerSinceClaimDate.label"), '_showLabel -> false)
 
-                @carersInputText(currentForm("firstName"),'helperBelow -> Messages("their.name.helper"), 'maxLength -> 17)
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            titleSelect(currentForm("title")),
 
-                @carersInputText(currentForm("middleName"), 'maxLength -> 17)
+                            carersInputText(currentForm("firstName"),'helperAbove -> Messages("their.name.helper"), 'maxLength -> 17),
 
-                @carersInputText(currentForm("surname"), 'maxLength -> 35)
-                
-                @carersInputText(currentForm("otherNames"), 'maxLength -> 35)
+                            carersInputText(currentForm("middleName"), 'maxLength -> 17),
 
-                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
+                            carersInputText(currentForm("surname"), 'maxLength -> 35),
 
-                @inputDayMonthYear(currentForm("dateOfBirth"), 'helperBelow-> Messages("dateOfBirth.helper"))
-                
-                @carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35,'helperBelow -> Messages("partner.nationality.helper"))
+                            carersInputText(currentForm("otherNames"), 'maxLength -> 35),
 
-                @yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove-> Messages("nationalInsuranceNumber.helper"), 'helperBelow-> Messages("nationalInsuranceNumber.helper2")),
 
-                @yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"))
-            </ul>
-        </fieldset>
+                            dateOfBirth(currentForm("dateOfBirth")),
 
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+                            carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35,'helperAbove -> Messages("partner.nationality.helper"),'helperBelow -> Messages("partner.nationality.helper2")),
+
+                            yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))),
+
+                            yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
+                        ),
+                        'id -> "partnerDetailsWrap"
+                    )
+                </ul>
+            </fieldset>
+
+            <nav class="form-steps">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+                </ul>
+            </nav>
     }
-}
-<script type="text/javascript">
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s3_your_partner/g1_yourPartnerPersonalDetails.js")'></script>
+
+    <script type="text/javascript">
     $(function(){
         @ga.stagePrompt()
     })
-</script>
+
+    $(function(){
+        window.initEvents("@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
+        "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
+        "@CarersCrypto.encryptAES("title")",
+        "@CarersCrypto.encryptAES("firstName")",
+        "@CarersCrypto.encryptAES("middleName")",
+        "@CarersCrypto.encryptAES("surname")",
+        "@CarersCrypto.encryptAES("otherNames")",
+        "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni1")",
+        "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni2")",
+        "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni3")",
+        "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni4")",
+        "@CarersCrypto.encryptAES("nationalInsuranceNumber_ni5")",
+        "@CarersCrypto.encryptAES("dateOfBirth_day")",
+        "@CarersCrypto.encryptAES("dateOfBirth_month")",
+        "@CarersCrypto.encryptAES("dateOfBirth_year")",
+        "@CarersCrypto.encryptAES("nationality")",
+        "@CarersCrypto.encryptAES("separated_fromPartner_yes")",
+        "@CarersCrypto.encryptAES("separated_fromPartner_no")",
+        "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
+        "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")"
+        );
+    })
+
+    </script>
+}

@@ -53,7 +53,7 @@
                         <Surname>Mouse</Surname>
                         <OtherNames>Mickey</OtherNames>
                         <OtherSurnames></OtherSurnames>
-                        <Title>mr</Title>
+                        <Title>Mr</Title>
                         <MaritalStatus>m</MaritalStatus>
                         <DateOfBirth>1960-06-05</DateOfBirth>
                         <NationalInsuranceNumber>AB000000A</NationalInsuranceNumber>
@@ -77,7 +77,7 @@
                     <Caree>
                         <Surname>Mouse</Surname>
                         <OtherNames>Minnie</OtherNames>
-                        <Title>mrs</Title>
+                        <Title>Mrs</Title>
                         <DateOfBirth>1956-03-03</DateOfBirth>
                         <NationalInsuranceNumber>AB000000B</NationalInsuranceNumber>
                         <Address>
@@ -95,7 +95,6 @@
                         </DaytimePhoneNumber>
                         <RelationToClaimant>wife</RelationToClaimant>
                         <Cared35hours>yes</Cared35hours>
-                        <CanCareeSign>yes</CanCareeSign>
                         <CanSomeoneElseSign>no</CanSomeoneElseSign>
                         <CanClaimantSign>no</CanClaimantSign>
                         <BreaksSinceClaim>yes</BreaksSinceClaim>
@@ -122,7 +121,6 @@
                         <PaidForCaring>no</PaidForCaring>
                         <ClaimedPreviously>no</ClaimedPreviously>
                     </Caree>
-                    <ClaimADI>no</ClaimADI>
                     <Residency>
                         <Nationality>British</Nationality>
                         <EUEEASwissNational>yes</EUEEASwissNational>
@@ -161,13 +159,16 @@
                     <Employed>yes</Employed>
                     <Employment>
                         <CurrentlyEmployed>yes</CurrentlyEmployed>
-                        <DateLastWorked>2013-06-10</DateLastWorked>
                         <JobDetails>
                             <Employer>
-                                <DateJobStarted>2009-10-09</DateJobStarted>
-                                <DateJobEnded></DateJobEnded>
-                                <JobType>Cheese Taster</JobType>
-                                <ClockPayrollNumber>89765432</ClockPayrollNumber>
+                                <DateJobStarted>
+                                    <QuestionLabel>job.started</QuestionLabel>
+                                    <Answer>09-10-2009</Answer>
+                                </DateJobStarted>
+                                <JobType>
+                                    <QuestionLabel>job.title</QuestionLabel>
+                                    <Answer>Cheese Taster</Answer>
+                                </JobType>
                                 <Name>Cheeseworld</Name>
                                 <Address>
                                     <gds:Line>3</gds:Line>
@@ -178,36 +179,53 @@
                                 </Address>
                                 <ConfirmAddress>yes</ConfirmAddress>
                                 <EmployersPhoneNumber>08907 1234567</EmployersPhoneNumber>
-                                <EmployersFaxNumber></EmployersFaxNumber>
-                                <WagesDepartment></WagesDepartment>
-                                <DepartmentPhoneFaxNumber>07890 1234567</DepartmentPhoneFaxNumber>
+                                <EmployersFaxNumber>01253 667889</EmployersFaxNumber>
                             </Employer>
                             <Pay>
-                                <WeeklyHoursWorked>40</WeeklyHoursWorked>
-                                <DateLastWorked></DateLastWorked>
-                                <DateLastPaid>2013-05-31</DateLastPaid>
+                                <WeeklyHoursWorked>
+                                    <QuestionLabel>job.hours</QuestionLabel>
+                                    <Answer>40</Answer>
+                                </WeeklyHoursWorked>
+                                <DateLastPaid>
+                                    <QuestionLabel>job.lastpaid</QuestionLabel>
+                                    <Answer>31-05-2013</Answer>
+                                </DateLastPaid>
                                 <GrossPayment>
-                                    <Currency>GBP</Currency>
-                                    <Amount>2000.00</Amount>
+                                    <QuestionLabel>job.pay</QuestionLabel>
+                                    <Answer>
+                                        <Currency>GBP</Currency>
+                                        <Amount>2000.00</Amount>
+                                    </Answer>
                                 </GrossPayment>
-                                <IncludedInWage>Basic wage</IncludedInWage>
-                                <PayPeriod>
-                                    <DateFrom>2013-05-01</DateFrom>
-                                    <DateTo>2013-05-31</DateTo>
-                                </PayPeriod>
-                                <PayFrequency>05</PayFrequency>
-                                <PayFrequencyOther></PayFrequencyOther>
+                                <IncludedInWage>
+                                    <QuestionLabel>job.pay.include</QuestionLabel>
+                                    <Answer>Basic wage</Answer>
+                                </IncludedInWage>
+                                <PayFrequency><QuestionLabel>job.pay.frequency</QuestionLabel><Answer>Other</Answer></PayFrequency>
                                 <UsualPayDay>Last day of month</UsualPayDay>
-                                <VaryingEarnings>no</VaryingEarnings>
                                 <PaidForHolidays>no</PaidForHolidays>
                             </Pay>
-                            <OtherThanMoney>no</OtherThanMoney>
-                            <OweMoney>no</OweMoney>
-                            <CareExpensesChildren>no</CareExpensesChildren>
-                            <CareExpensesCaree>no</CareExpensesCaree>
-                            <PaidForOccupationalPension>no</PaidForOccupationalPension>
-                            <PaidForPersonalPension>no</PaidForPersonalPension>
-                            <PaidForJobExpenses>no</PaidForJobExpenses>
+                            <OweMoney>
+                                <QuestionLabel>job.owe</QuestionLabel>
+                                <Answer>No</Answer>
+                            </OweMoney>
+                            <CareExpensesChildren>
+                                <QuestionLabel>chld.expenses</QuestionLabel>
+                                <Answer>No</Answer>
+                            </CareExpensesChildren>
+                            <CareExpensesCaree>
+                                <QuestionLabel>care.expenses</QuestionLabel>
+                                <Answer>No</Answer>
+                            </CareExpensesCaree>
+                            <PaidForOccupationalPension>No</PaidForOccupationalPension>
+                            <PaidForPersonalPension>
+                                <QuestionLabel>pension.personal</QuestionLabel>
+                                <Answer>No</Answer>
+                            </PaidForPersonalPension>
+                            <PaidForJobExpenses>
+                                <QuestionLabel>job.expenses</QuestionLabel>
+                                <Answer>No</Answer>
+                            </PaidForJobExpenses>
                         </JobDetails>
                     </Employment>
                     <PropertyRentedOut>
@@ -221,7 +239,7 @@
                         <Surname>Mouse</Surname>
                         <OtherNames>Minnie</OtherNames>
                         <OtherSurnames></OtherSurnames>
-                        <Title>mrs</Title>
+                        <Title>Mrs</Title>
                         <DateOfBirth>1956-03-03</DateOfBirth>
                         <NationalInsuranceNumber>AB000000B</NationalInsuranceNumber>
                         <Address>

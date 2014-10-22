@@ -5,14 +5,17 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s1_carers_allowance.G6ApprovePage
 import controllers.ClaimScenarioFactory
+import utils.pageobjects.PageObjects
 
 class G1YourDetailsIntegrationSpec extends Specification with Tags {
   "Your Details" should {
-    "be presented" in new WithBrowser with G1YourDetailsPageContext {
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  G1YourDetailsPage(context)
       page goToThePage()
     }
 
-    "navigate back to approve page" in new WithBrowser with G1YourDetailsPageContext {
+    "navigate back to approve page" in new WithBrowser with PageObjects{
+			val page =  G1YourDetailsPage(context)
       browser goTo "/allowance/approve"
 
       page goToThePage()
@@ -20,12 +23,14 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
       backPage must beAnInstanceOf[G6ApprovePage]
     }
 
-    "present errors if mandatory fields are not populated" in new WithBrowser with G1YourDetailsPageContext {
+    "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{
+			val page =  G1YourDetailsPage(context)
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 6
+      page.submitPage().listErrors.size mustEqual 7
     }
 
-    "Accept submit if all mandatory fields are populated" in new WithBrowser with G1YourDetailsPageContext {
+    "Accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+			val page =  G1YourDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
@@ -33,28 +38,6 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
       val g2 = page submitPage()
       
       g2 must beAnInstanceOf[G2ContactDetailsPage]
-    }
-    
-    "contain error if invalid nationality containing numbers" in new WithBrowser with G1YourDetailsPageContext {
-      pending
-      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      claim.AboutYouNationality = "a12345"
-      page goToThePage()
-      page fillPageWith claim
-
-      val errors = page.submitPage().listErrors
-      errors.size mustEqual 1
-      errors(0) must contain("Nationality")
-    }
-    
-    "contain error if invalid nationality containing special characters" in new WithBrowser with G1YourDetailsPageContext {
-      pending
-      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      claim.AboutYouNationality = "a!@£$%^&*(){}"
-      page goToThePage()
-      page fillPageWith claim
-
-      page.submitPage().listErrors.size mustEqual 1
     }
   } section("integration", models.domain.AboutYou.id)
 }

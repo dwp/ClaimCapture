@@ -1,18 +1,18 @@
-@(field: play.api.data.Field,args: (Symbol, Any)*)
+@(field: play.api.data.Field,args: (Symbol, Any)*)(implicit lang: Lang)
 
 @import helper._
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper.base._
 @import scala.language.postfixOps
+@import play.api.i18n.{MMessages => Messages}
 
-
-<p>@args.find(_._1=='timeLabel).getOrElse(Messages(field.name+".time"))@if(!field("hour").constraints.find(_._1 == "constraint.required")) {<em>(optional)</em>}</p>
+<p class="sub">@args.find(_._1=='timeLabel).getOrElse(Messages(field.name+".time"))@if(!field("hour").constraints.find(_._1 == "constraint.required")) {<em>(@Html(Messages("optional")))</em>}</p>
 <ul class="inline year">
     <li>
-        @carersSelect(field("hour"), options = Seq("" -> "Hour") ++ ((0 to 23) map(v => (v toString) -> (if (v < 10) "0" + v else (v toString)))))
+        @carersSelect(field("hour"), options = Seq("" -> Messages("hour")) ++ ((0 to 23) map(v => (v toString) -> (if (v < 10) "0" + v else (v toString)))))
     </li>
 
     <li>
-        @carersSelect(field("minutes"), options = Seq("" -> "Minutes") ++ (Seq("00", "15", "30", "45") map(v => v -> v)))
+        @carersSelect(field("minutes"), options = Seq("" -> Messages("minutes")) ++ (Seq("00", "15", "30", "45") map(v => v -> v)))
     </li>
 </ul>

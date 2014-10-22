@@ -1,46 +1,52 @@
-@(currentForm: Form[models.domain.TheirPersonalDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.TheirPersonalDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s4.g1") + " - " + Messages("s4.longName"), Some(currentForm)) {
 
-
-
     @form(action = controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.submit) {
     
-        <fieldset class="form-elements" data-journey="carers-allowance:page:care-you-provide">
-            <legend>@Messages("s4.g1")</legend>
+        <div class="form-wrap">
+	        <fieldset class="form-elements" data-journey="carers-allowance:page:care-you-provide">
+	            <legend>@Html(Messages("s4.g1"))</legend>
+	
+	            <ul>
+                    @carersInputText(currentForm("relationship"), 'helperAbove-> Messages("relationship.helper"),'maxLength -> Mappings.thirtyfive)
 
-            <ul>
-                @titleSelect(currentForm("title"))
+	                @titleSelect(currentForm("title"))
+	
+	                @carersInputText(currentForm("firstName"),'helperAbove -> Messages("their.name.helper"), 'maxLength -> 17)
+	
+	                @carersInputText(currentForm("middleName"), 'maxLength -> 17)
+	
+	                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.thirtyfive)
+	
+	                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove-> Messages("nationalInsuranceNumber.helper"), 'helperBelow-> Messages("nationalInsuranceNumber.helper2"))
+	
+	                @dateOfBirth(currentForm("dateOfBirth"))
 
-                @carersInputText(currentForm("firstName"),'helperBelow -> Messages("their.name.helper"), 'maxLength -> 17)
+                    @yesNoRadioGroup(currentForm("armedForcesPayment"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
 
-                @carersInputText(currentForm("middleName"), 'maxLength -> 17)
-
-                @carersInputText(currentForm("surname"), 'maxLength -> 35)
-
-                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
-
-                @inputDayMonthYear(currentForm("dateOfBirth"), 'helperBelow-> Messages("dateOfBirth.helper"))
-
-                @yesNoRadioGroup(currentForm("liveAtSameAddressCareYouProvide"))
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+	                @yesNoRadioGroup(currentForm("liveAtSameAddressCareYouProvide"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+        </div>
     }
-}
 <script type="text/javascript">
     $(function(){
         @ga.stagePrompt()
     })
 </script>
+}

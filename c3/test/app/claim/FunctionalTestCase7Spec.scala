@@ -1,8 +1,8 @@
 package app.claim
 
 import play.api.test.WithBrowser
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.{XmlPage, TestData, Page}
+import utils.pageobjects.s1_carers_allowance.{G1BenefitsPage, G1BenefitsPageContext}
+import utils.pageobjects._
 import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
 
@@ -16,8 +16,9 @@ class FunctionalTestCase7Spec extends FunctionalTestCommon {
 
   "The application " should {
 
-    "Successfully run absolute Test Case 7 " in new WithBrowser with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 7 " in new WithBrowser with PageObjects {
 
+      val page = G1BenefitsPage(context)
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase7.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, XmlPage.title)
@@ -27,8 +28,8 @@ class FunctionalTestCase7Spec extends FunctionalTestCommon {
           val validator: XMLBusinessValidation = new XMLClaimBusinessValidation
           validateAndPrintErrors(p, claim, validator) should beTrue
         }
-        case p: Page => println(p.source())
+        case p: Page => println(p.source()); failure("bad")
       }
     }
-  } section "functional"
+  } section ("functional","claim")
 }

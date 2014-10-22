@@ -1,18 +1,20 @@
-@(field: play.api.data.Field,id:String, options: Seq[(String, String)], args: (Symbol, Any)*)
+@(field: play.api.data.Field,id:String, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit lang: Lang)
 
 
-@import utils.helpers._
 @import views.html.helper.base._
 @import utils.helpers.EmptyTemplate._
+@import play.api.i18n.{MMessages => Messages}
 
-@views.html.helper.base.carersSelect(field(id), options, args.filterNot(p => p._1 == 'maxLength || p._1 == 'textAreaHelper) ++ Seq('selectWithOther -> "true"): _*)
+@views.html.helper.base.carersSelect(field(id), options, args ++ Seq('class -> "selectWithOther"): _*)
 
 @defining((args.toMap.get('display).map(_.toString).getOrElse("yes") == args.toMap.get('visibleOn).map(_.toString).getOrElse("yes")) match { case true => "block" case _ => "none" }) { styleDisplay =>
 
-    <li id="@{args.toMap.get('id).map(_.toString + "_wrap").getOrElse("no-id")}" class="other-detail@{if(field.hasErrors)" validation" else ""}" style="display: @styleDisplay;">
-            @carersInputTextArea(field(id)("other"), (Seq('placeholder -> "If other please specify...") ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id)):_*)
+    <ul @{Html(args.toMap.get('id).map(p => s"""id="${p}_wrap" """).getOrElse(""))} style="display: @styleDisplay;">
+        <li  class="extra-text@{if(field.hasErrors)" validation" else ""}" >
+            @carersInputTextArea(field(id)("other"), (Seq('placeholder -> Messages("ifOtherPleaseSpecify"), 'ignoreLabel -> false) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id)):_*)
             @if(args.find(_._1 == 'textAreaHelper).isDefined) {
-                <p class="helper right">@args.find(_._1 == 'textAreaHelper).get._2.toString</p>
+                <p class="helper right">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
             }
-    </li>
+        </li>
+    </ul>
 }

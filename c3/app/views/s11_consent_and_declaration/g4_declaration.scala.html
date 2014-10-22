@@ -1,36 +1,59 @@
-@(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
-@import helper._
-@import utils.helpers.DeclareCheckTemplate._
 @import views.html.helper._
+@import utils.helpers.CarersCrypto
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
-@import controllers.s11_consent_and_declaration._
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Declaration)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G4Declaration.submit) {
-        <fieldset class="form-elements">
-            <legend>@Messages("s11.g4")</legend>
 
-            <article class="dec">
-                <h3>@Messages("declaration.title")</h3>
+       <input type="hidden" id="js" name="jsEnabled" value="false">
+
+       <div class="form-wrap">
+        <fieldset class="form-elements">
+            <legend>@Html(Messages("s11.g4"))</legend>
+
+            <section class="dec">
+                    <h3>@Html(Messages("declaration.title"))</h3>
 
                 <ul>
-                    @for(i <- 1 to 4) {
-                        <li>@Html(Messages(s"declaration.$i"))</li>
-                    }
+                    <li>@Html(Messages("declaration.1a")) <a href="/internal-claim-notes/@lang.code" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>@Html(Messages("declaration.1b"))</a> @Html(Messages("declaration.1c"))</li>
+                    <li>@Html(Messages("declaration.2"))</li>
+                    <li>@Html(Messages("declaration.3"))</li>
+                    <li>@Html(Messages("declaration.4"))</li>
                 </ul>
-            </article>
+            </section>
 
-             @carersDeclareCheck(currentForm("someoneElse"))
+             @declareCheckPlaceholder(currentForm("someoneElse"))
 
-             @carersDeclareCheck(currentForm("confirm"),'secondary->true)
+             <ul class="form-elements">
+                 @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputText(currentForm("nameOrOrganisation"))(utils.helpers.CarersTemplate.fieldConstructor,lang)),
+                    'id -> "nameOrOrgWrapper",
+                    'display -> currentForm("someoneElse").value.map(p => p match{ case "true" => "yes" case _ => p}).getOrElse("no")
+                 )
+
+             </ul>
+             
+             @declareCheckPlaceholder(currentForm("confirm"),'secondary->true)
+             
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+            <ul>
+            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(true)>@Html(Messages("form.submitClaim"))</button></li>
+            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+            </ul>
         </nav>
+       </div>
     }
+<script type="text/javascript" src='@controllers.routes.Assets.at("javascripts/s11_consent_and_declaration/g4_declaration.js")'></script>
+<script type="text/javascript">
+$(function() {
+window.initEvents("@CarersCrypto.encryptAES("someoneElse")",
+                     "@CarersCrypto.encryptAES("nameOrOrganisation")");
+});
+</script>
+<script type="text/javascript">$($("#js").val("true"));</script>
 }

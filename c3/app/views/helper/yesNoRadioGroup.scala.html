@@ -1,8 +1,21 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent])
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang)
 
-@import utils.helpers.CarersTemplate._
 @import views.html.helper._
+@import play.api.i18n.{MMessages => Messages}
+
+@defaultValues = @{Seq("yes" -> Messages("label.yes"), "no" -> Messages("label.no"))}
+@isAllowance = @{
+    args.find(t => t._1 == 'allowance).getOrElse('allowance -> false)._2.asInstanceOf[Boolean]
+}
+
+@fieldConstructor = @{ if(isAllowance) utils.helpers.EmptyTemplate.fieldConstructor else utils.helpers.CarersTemplate.fieldConstructor}
+
+@values = @{args.find(t => t._1 == 'values).getOrElse('values->defaultValues).asInstanceOf[(Symbol,Seq[(String, String)])]._2}
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
-    @yesNoPlaceholder(field, Seq("yes" -> "Yes", "no" -> "No"), args.filter(_._1 != 'label):_*)
-}
+    @if(isAllowance){
+        @allowanceYesNoPlaceholder(field, values, args.filter(d => d._1 != 'label && d._1 != 'values && d._1 != 'allowance):_*)
+    }else{
+        @yesNoPlaceholder(field, values, args.filter(d => d._1 != 'label && d._1 != 'values && d._1 != 'allowance):_*)
+    }
+}(fieldConstructor,lang)

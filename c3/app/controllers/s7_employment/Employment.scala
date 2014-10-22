@@ -4,7 +4,7 @@ import scala.language.implicitConversions
 import scala.reflect.ClassTag
 import play.api.mvc._
 import play.api.data.Form
-import play.api.i18n.Messages
+import play.api.i18n.{MMessages => Messages}
 import models.view.{Navigable, CachedClaim}
 import models.domain._
 
@@ -29,15 +29,7 @@ object Employment extends Controller with CachedClaim  with Navigable{
     case _ => Jobs()
   }
 
-  def completed = claiming { implicit claim => implicit request =>
-    track(Employed) { implicit claim => Ok(views.html.s7_employment.g15_completed()) }
-  }
-
-  def submit = claiming { implicit claim => implicit request =>
-    Redirect("/self-employment/about-self-employment")
-  }
-
-  def delete(jobID: String) = claiming { implicit claim => implicit request =>
+  def delete(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     import play.api.libs.json.Json
 
     val updatedJobs = jobs.delete(jobID)

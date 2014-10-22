@@ -7,6 +7,13 @@ import models.domain.Claiming
 import models.view.CachedClaim
 
 class G1AdditionalInformationSpec extends Specification with Tags {
+
+  val validYesInput = Seq(
+    "anythingElse.answer" -> "yes",
+    "anythingElse.text" -> "Additional info text",
+    "welshCommunication" -> "yes"
+  )
+
   "Additional information" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
@@ -24,7 +31,7 @@ class G1AdditionalInformationSpec extends Specification with Tags {
 
     """accept answers""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-                                 .withFormUrlEncodedBody("welshCommunication" -> "yes")
+                                 .withFormUrlEncodedBody(validYesInput: _*)
 
       val result = G1AdditionalInfo.submit(request)
       redirectLocation(result) must beSome("/consent-and-declaration/consent")

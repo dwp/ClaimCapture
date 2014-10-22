@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Hours])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.Hours])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,41 +7,41 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dates._
-
+@import play.api.i18n.{MMessages => Messages}
 @main(Messages("s1.g2") + " - " + Messages("s1.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Hours)) {
 
 
     @form(action = controllers.s1_carers_allowance.routes.G2Hours.submit) {
+	        <fieldset class="form-elements form-eligibility">
+	            <legend>@Html(Messages("s1.g2"))</legend>
+	
+	            <p>@Html(Messages("s1.g2.help1"))</p>
+	            
 
-        <fieldset class="form-elements form-eligibility q1">
-            <legend><span>Q2</span>@Messages("s1.g2")</legend>
+	             @yesNoRadioGroup(currentForm("hours.answer"), '_label -> Messages("hours.answer"), '_showLabel -> false,'track -> true, 'allowance -> true,'trackLabel -> "hours.answer")
 
-            <p>For example, cooking meals, or helping them with their shopping.</p>
-            
-            <ul>
-                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages("hours.answer"), '_showLabel -> false,'track -> true, 'trackLabel -> "hours.answer")
-            </ul>
-
-            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
-                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
-                    <p>You can only qualify for Carer's Allowance if you are caring for this person , for 35 hours or more each week.</p>
-                    <p>You are legally entitled to claim Carer's Allowance even though you <strong>do not</strong> qualify and <strong>will not</strong> get Carer's Allowance. If you wish to do so click the <strong>'Next'</strong> button below.</p>
-                    <span>!</span>
-                </div>
-            }
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous?changing=true" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+	
+	            @defining(currentForm("hours.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
+	                    <p>@Html(Messages("s1.g2.help2"))</p>
+	                    <p>@Html(Messages("s1.g2.help3"))</p>
+	                    <span>!</span>
+	                </div>
+	            }
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	        	<ul>
+			   		<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+			   		<li><a id="backButton" href="@{claim.navigation.previous}@{if (claim.navigation.previous.uri.endsWith("?changing=true")) "" else "?changing=true"}">@Html(Messages("form.back"))</a></li>
+	        	</ul>
+	        </nav>
     }
-}
-
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
 
 <script type="text/javascript">
     $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("hours_answer_yes")", "@CarersCrypto.encryptAES("hours_answer_no")");
     });
 </script>
+}

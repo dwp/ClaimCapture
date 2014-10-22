@@ -1,41 +1,70 @@
-@(currentForm: Form[models.domain.YourCourseDetails])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.YourCourseDetails])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import views.html.s6_education.main
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.CarersCrypto
 
 @main(Messages("s6.g1") + " - " + Messages("s6.longName"), Some(currentForm)) {
 
 	@form(action = controllers.s6_education.routes.G1YourCourseDetails.submit) {
 
-        <fieldset class="form-elements" data-journey="carers-allowance:page:education">
-            <legend>@Messages("s6.g1")</legend>
+        <div class="form-wrap">
+	        <fieldset class="form-elements" data-journey="carers-allowance:page:education">
+	
+	            <ul>
+                    @yesNoRadioGroup(currentForm("beenInEducationSinceClaimDate"),
+                        '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)),
+                        'helperAbove -> Messages("beenInEducationSinceClaimDate.label.helper", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))
+                    )
 
-            <ul>
-                @carersInputText(currentForm("courseType"), 'maxLength -> 50)
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputText(currentForm("courseTitle"), 'maxLength -> 50),
+                            carersInputText(currentForm("nameOfSchoolCollegeOrUniversity"), 'maxLength -> Mappings.sixty),
+                            carersInputText(currentForm("nameOfMainTeacherOrTutor"), 'maxLength -> Mappings.sixty),
+                            carersInputTel(currentForm("courseContactNumber"),  'helperAbove-> Messages("courseContactNumber.helper")),
+                            educationStartDate(currentForm("startDate")),
+                            educationEndDate(currentForm("expectedEndDate"))),
+                        'id -> "educationWrap"
+                    )
 
-                @carersInputText(currentForm("courseTitle"), 'maxLength -> 50)
-
-                @inputDayMonthYear(currentForm("startDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
-
-                @inputDayMonthYear(currentForm("expectedEndDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
-
-                @inputDayMonthYear(currentForm("finishedDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
-
-                @carersInputText(currentForm("studentReferenceNumber"), 'maxLength -> Mappings.sixty)
-            </ul>
-        </fieldset>
-
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            	<ul>
+	            		<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
+	            		<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            	</ul>
+	        </nav>
+        </div>
     }
-}
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s6_education/g1_yourCourseDetails.js")'></script>
+
 <script type="text/javascript">
+    $(function(){
+        window.initEvents(
+        "@CarersCrypto.encryptAES("beenInEducationSinceClaimDate_yes")",
+        "@CarersCrypto.encryptAES("beenInEducationSinceClaimDate_no")",
+        "@CarersCrypto.encryptAES("courseTitle")",
+        "@CarersCrypto.encryptAES("nameOfSchoolCollegeOrUniversity")",
+        "@CarersCrypto.encryptAES("nameOfMainTeacherOrTutor")",
+        "@CarersCrypto.encryptAES("courseContactNumber")",
+        "@CarersCrypto.encryptAES("startDate_day")",
+        "@CarersCrypto.encryptAES("startDate_month")",
+        "@CarersCrypto.encryptAES("startDate_year")",
+        "@CarersCrypto.encryptAES("expectedEndDate_day")",
+        "@CarersCrypto.encryptAES("expectedEndDate_month")",
+        "@CarersCrypto.encryptAES("expectedEndDate_year")"
+        );
+    });
+
     $(function(){
         @ga.stagePrompt()
     })
 </script>
+}

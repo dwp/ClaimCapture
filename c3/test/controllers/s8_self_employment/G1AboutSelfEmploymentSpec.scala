@@ -1,15 +1,10 @@
 package controllers.s8_self_employment
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
-import models.domain._
-import play.api.test.Helpers._
 import models.DayMonthYear
-import play.api.cache.Cache
-import models.domain.Claim
-import scala.Some
-import models.view.CachedClaim
-
+import models.domain._
+import org.specs2.mutable.{Specification, Tags}
+import play.api.test.Helpers._
+import play.api.test.{FakeRequest, WithApplication}
 
 class G1AboutSelfEmploymentSpec extends Specification with Tags {
 
@@ -36,18 +31,18 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
     )
 
     "present 'About Self Employment' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
 
       val result = controllers.s8_self_employment.G1AboutSelfEmployment.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(aboutSelfEmploymentInput: _*)
 
       val result = controllers.s8_self_employment.G1AboutSelfEmployment.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.SelfEmployment)
       section.questionGroup(AboutSelfEmployment) must beLike {
         case Some(f: AboutSelfEmployment) => {
@@ -65,13 +60,13 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
               dmy.year must equalTo(Some(finishYear))
           }
           f.haveYouCeasedTrading must equalTo(Some(haveYouCeasedTrading))
-          f.natureOfYourBusiness must equalTo(Some(natureOfYourBusiness))
+          f.natureOfYourBusiness must equalTo(natureOfYourBusiness)
         }
       }
     }
 
     "reject missing mandatory field" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("areYouSelfEmployedNow" -> "")
 
       val result = controllers.s8_self_employment.G1AboutSelfEmployment.submit(request)
@@ -79,7 +74,7 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
     }
 
     "reject if areYouSelfEmployedNow answered no but whenDidTheJobFinish not filled in" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody("areYouSelfEmployedNow" -> areYouSelfEmployedNow,
         "whenDidYouStartThisJob.day" -> startDay.toString,
         "whenDidYouStartThisJob.month" -> startMonth.toString,
@@ -90,7 +85,7 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest()
         .withFormUrlEncodedBody(aboutSelfEmploymentInput: _*)
 
       val result = controllers.s8_self_employment.G1AboutSelfEmployment.submit(request)

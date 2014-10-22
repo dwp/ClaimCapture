@@ -1,6 +1,6 @@
 package utils.pageobjects.s10_pay_details
 
-import play.api.test.{WithBrowser, TestBrowser}
+import play.api.test.WithBrowser
 import utils.pageobjects._
 
 /**
@@ -8,7 +8,7 @@ import utils.pageobjects._
  * @author Saqib Kayani
  *         Date: 01/08/2013
  */
-final class G2BankBuildingSocietyDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G2BankBuildingSocietyDetailsPage.url, G2BankBuildingSocietyDetailsPage.title, previousPage) {
+final class G2BankBuildingSocietyDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G2BankBuildingSocietyDetailsPage.url, G2BankBuildingSocietyDetailsPage.title) {
   declareInput("#accountHolderName", "HowWePayYouNameOfAccountHolder")
   declareSelect("#whoseNameIsTheAccountIn", "WhoseNameOrNamesIsTheAccountIn")
   declareInput("#bankFullName", "HowWePayYouFullNameOfBankorBuildingSociety")
@@ -26,12 +26,12 @@ object G2BankBuildingSocietyDetailsPage {
 
   val url  = "/pay-details/bank-building-society-details"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G2BankBuildingSocietyDetailsPage(browser,previousPage)
+  def apply(ctx:PageObjectsContext) = new G2BankBuildingSocietyDetailsPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G2BankBuildingSocietyDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2BankBuildingSocietyDetailsPage (browser)
+  val page = G2BankBuildingSocietyDetailsPage (PageObjectsContext(browser))
 }

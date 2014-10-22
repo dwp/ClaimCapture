@@ -1,5 +1,15 @@
+@()(implicit lang: Lang)
+@import play.api.i18n.{MMessages => Messages}
+
 @if(play.Configuration.root().getBoolean("prototype.disclaimer", true)) {
 <div class="prototype">
-  <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
+  <p>@Html(Messages("protoType.message"))</p>
 </div>
 }
+
+
+
+<section class="js-message">
+		   	<h2>@Html(Messages("javascript.disabled1"))</h2>
+		   	<p>@Html(Messages("javascript.disabled2"))</p>
+       </section>

@@ -1,0 +1,28 @@
+.prototype {
+		   background: #005ea5;
+		   overflow: hidden;
+		   zoom: 1;
+		   padding: 0 1em 0.7em 1em;
+
+		   p {
+			   margin: 0;
+			   padding: 0;
+			   line-height: 1.2em;
+			   color: #fff;
+			   font-weight: 600;
+			   font-size: 15px;
+			   .ie7 & {
+				   font-size: 13px;
+			   }
+			   strong {
+				    font-size: 15px;
+			   }
+			   a {
+				   color: #fff;
+				   margin-left: .25em;
+				   &:hover {
+					   color: #000;
+				   }
+			   }
+		   }
+	   }

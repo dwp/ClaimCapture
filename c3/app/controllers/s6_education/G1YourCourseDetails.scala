@@ -5,22 +5,33 @@ import play.api.mvc.{AnyContent, Request, Controller}
 import play.api.data.Form
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
-import models.domain.{Claim, YourCourseDetails}
+import models.domain.YourCourseDetails
 import utils.helpers.CarersForm._
 import controllers.Mappings._
+import models.view.CachedClaim.ClaimResult
+import play.api.data.FormError
+import models.domain.Claim
 import controllers.CarersForms._
+
 
 object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "courseType" -> optional(carersText(maxLength = 50)),
-    "courseTitle" -> optional(carersText(maxLength = 50)),
-    "startDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "expectedEndDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "finishedDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "studentReferenceNumber" -> optional(carersText(maxLength = sixty))
-  )(YourCourseDetails.apply)(YourCourseDetails.unapply))
+    "beenInEducationSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
+    "courseTitle" -> optional(carersNonEmptyText(maxLength = 50)),
+    "nameOfSchoolCollegeOrUniversity" -> optional(carersNonEmptyText(maxLength = sixty)),
+    "nameOfMainTeacherOrTutor" -> optional(carersNonEmptyText(maxLength = sixty)),
+    "courseContactNumber" -> optional(text verifying validPhoneNumber),
+    "startDate" -> optional(dayMonthYear.verifying(validDate)),
+    "expectedEndDate" -> optional(dayMonthYear.verifying(validDate))
+  )(YourCourseDetails.apply)(YourCourseDetails.unapply)
+    .verifying("courseTitle.required", YourCourseDetails.validateTitle _)
+    .verifying("nameOfSchoolCollegeOrUniversity.required", YourCourseDetails.validateNameOfSchool _)
+    .verifying("nameOfMainTeacherOrTutor.required", YourCourseDetails.validateNameOfTeacher _)
+    .verifying("startDate.required", YourCourseDetails.validateStartDate _)
+    .verifying("expectedEndDate.required", YourCourseDetails.validateExpectedEndDate _)
+  )
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     presentConditionally {
       track(YourCourseDetails) { implicit claim => Ok(views.html.s6_education.g1_yourCourseDetails(form.fill(YourCourseDetails))) }
     }
@@ -32,11 +43,20 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
   }
 
   def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
-    claim -> Redirect("/employment/been-employed")
+    claim -> Redirect("/employment/employment")
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrors)),
-      yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(routes.G2AddressOfSchoolCollegeOrUniversity.present()))
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("beenInEducationSinceClaimDate", "error.required", FormError("beenInEducationSinceClaimDate", "error.required"))
+          .replaceError("", "courseTitle.required", FormError("courseTitle", "error.required"))
+          .replaceError("", "nameOfSchoolCollegeOrUniversity.required", FormError("nameOfSchoolCollegeOrUniversity", "error.required"))
+          .replaceError("", "nameOfMainTeacherOrTutor.required", FormError("nameOfMainTeacherOrTutor", "error.required"))
+          .replaceError("", "startDate.required", FormError("startDate", "error.required"))
+          .replaceError("", "expectedEndDate.required", FormError("expectedEndDate", "error.required"))
+        BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrorsUpdate))
+      },
+      yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(controllers.s7_employment.routes.G1Employment.present()))
   }
 }

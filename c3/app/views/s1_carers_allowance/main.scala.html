@@ -1,36 +1,40 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
 
 @import helper._
 @import models.domain._
+@import play.api.i18n.{MMessages => Messages}
 
 @common.govMain(title) {
 
-    <div class="carers-allowance">
+    <div class="carers-allowance clearfix">
 
         @common.protoType()
          
-        @common.helpLine()
-        
-        @progressBar(CarersAllowance)
-        
 
-        <section>
+        <article class="eligible">
 
-            <h1>Can you get Carer's Allowance?</h1>
+            <h1>@Html(Messages("s1.longName"))</h1>
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
                     <ul>
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
-                                <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                <p>@completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation</p>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="Change this answer - this is an optional link">Change this answer</a>
+                                @if(completedQuestionGroup.identifier == Benefits) {
+                                    <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                                    <p>@Html(Messages("%s1".format(completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation)))</p>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Html(Messages("change.this.help"))">@Html(Messages("change.this"))</a>
+                                } else {
+                                    <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                                    <p>@Html(Messages(completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation))</p>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Html(Messages("change.this.help"))">@Html(Messages("change.this"))</a>
+                                }
                             </li>
                         }
                     </ul>
                 </div>
             }
+
 
             @if(currentForm.isDefined) {
                 @errorsSummary(currentForm.get)
@@ -38,6 +42,9 @@
 
             @content
 
-        </section>
+        </article>
+        
+        @common.leftcol()
+        
     </div>
 }

@@ -1,19 +1,18 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
 /**
  * To change this template use Preferences | File and Code Templates.
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
-final class G2ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G2ContactDetailsPage.url, G2ContactDetailsPage.title, previousPage) {
+final class G2ContactDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G2ContactDetailsPage.url, G2ContactDetailsPage.title) {
   declareAddress("#address", "AboutYouAddress")
   declareInput("#postcode", "AboutYouPostcode")
-  declareInput("#phoneNumber", "AboutYouPhoneNumber")
+  declareInput("#howWeContactYou", "HowWeContactYou")
   declareYesNo("#contactYouByTextphone", "AboutYouContactYouByTextphone")
-  declareInput("#mobileNumber", "AboutYouMobileNumber")
 }
 
 /**
@@ -25,12 +24,12 @@ object G2ContactDetailsPage {
 
   val url = "/about-you/contact-details"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G2ContactDetailsPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G2ContactDetailsPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G2ContactDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2ContactDetailsPage (browser)
+  val page = G2ContactDetailsPage (PageObjectsContext(browser))
 }

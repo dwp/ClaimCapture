@@ -2,30 +2,23 @@ package utils.helpers
 
 import models.domain._
 import controllers.Mappings._
+import play.api.i18n.{MMessages => Messages, Lang}
 
-case class PastPresentLabelHelper(implicit claim: Claim)
+case class PastPresentLabelHelper(implicit claim: Claim, lang:Lang)
 
 object PastPresentLabelHelper {
-
-  val didYou = "Did you"
-  val doYou = "Do you"
-  val wereYou = "were you"
-  val areYou = "are you"
-
-  def isWasIfSelfEmployed(implicit claim: Claim): String = isSelfEmployed(claim) match {
-    case true => "is"
-    case false => "was"
+  def labelForSelfEmployment(implicit claim: Claim, lang: Lang, labelKey: String) = {
+    Messages(isSelfEmployed(claim) match {
+      case true => labelKey + ".present"
+      case false => labelKey + ".past"
+    })
   }
 
-  def didYouDoYouIfSelfEmployed(implicit claim: Claim) = isSelfEmployed(claim) match {
-    case true => "Do you"
-    case false => "Did you"
-  }
-
-  def didYouDoYouIfSelfEmployedLower(implicit claim: Claim) = claim.questionGroup(AboutSelfEmployment) match {
-    case None => "do you"
-    case Some(a: AboutSelfEmployment) if a.areYouSelfEmployedNow == "yes" => "do you"
-    case _ => false
+  def valuesForSelfEmployment(implicit claim: Claim, lang: Lang, pastYes: String, pastNo: String, presentYes: String, presentNo: String) = {
+    isSelfEmployed(claim) match {
+      case true => 'values -> Seq("yes" -> Messages(presentYes), "no" -> Messages(presentNo))
+      case false => 'values -> Seq("yes" -> Messages(pastYes), "no" -> Messages(pastNo))
+    }
   }
 
   private def isSelfEmployed(claim: Claim) = claim.questionGroup(AboutSelfEmployment) match {
@@ -33,10 +26,17 @@ object PastPresentLabelHelper {
     case _ => false
   }
 
-  def pastPresentLabelForEmployment(implicit claim: Claim, pastLabel: String, presentLabel: String, jobID: String) = {
+  def labelForEmployment(implicit claim: Claim, lang: Lang, labelKey: String, jobID: String) = {
+    Messages(isTheJobFinished(claim, jobID) match {
+      case true => labelKey + ".present"
+      case false => labelKey + ".past"
+    })
+  }
+
+  def valuesForEmployment(implicit claim: Claim, lang: Lang, pastYes: String, pastNo: String, presentYes: String, presentNo: String, jobID: String) = {
     isTheJobFinished(claim, jobID) match {
-      case true => presentLabel
-      case false => pastLabel
+      case true => 'values -> Seq("yes" -> Messages(presentYes), "no" -> Messages(presentNo))
+      case false => 'values -> Seq("yes" -> Messages(pastYes), "no" -> Messages(pastNo))
     }
   }
 
@@ -45,7 +45,7 @@ object PastPresentLabelHelper {
     case _ => false
   }
 
-  def theJobs(implicit claim: Claim) = claim.questionGroup(Jobs) match {
+  private def theJobs(implicit claim: Claim) = claim.questionGroup(Jobs) match {
     case Some(js: Jobs) => js
     case _ => Jobs()
   }

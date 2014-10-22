@@ -4,8 +4,9 @@
 @import helper.dates._
 @import utils.helpers.CarersTemplate._
 @import app.PensionPaymentFrequency._
+@import play.api.i18n.{MMessages => Messages}
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
 
-    @views.html.helper.selectWithOtherPlaceholder(field,"frequency", Seq("" -> "Please select", Weekly->"Weekly", Fortnightly->"Fortnightly",FourWeekly-> "Four-weekly",Monthly-> "Monthly",Other->"Other"), args:_*)
+    @views.html.helper.selectWithOtherPlaceholder(field,"frequency", Seq("" -> Messages("pleaseSelect"), Weekly->Messages("weekly"), Fortnightly->Messages("fortnightly"),FourWeekly->Messages("fourWeekly"),Monthly->Messages("monthly"),Other->Messages("other")), args:_*)
 }

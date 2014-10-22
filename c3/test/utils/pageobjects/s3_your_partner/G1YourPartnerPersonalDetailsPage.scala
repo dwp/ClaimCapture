@@ -1,14 +1,15 @@
 package utils.pageobjects.s3_your_partner
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
 /**
  * PageObject for page s3_your_partner g1_yourPartnerPersonalDetails.
  * @author Jorge Migueis
  *         Date: 19/07/2013
  */
-final class G1YourPartnerPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1YourPartnerPersonalDetailsPage.url, G1YourPartnerPersonalDetailsPage.title, previousPage) {
+final class G1YourPartnerPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1YourPartnerPersonalDetailsPage.url, G1YourPartnerPersonalDetailsPage.title) {
+  declareYesNo("#hadPartnerSinceClaimDate", "AboutYourPartnerHadPartnerSinceClaimDate")
   declareSelect("#title", "AboutYourPartnerTitle")
   declareInput("#firstName", "AboutYourPartnerFirstName")
   declareInput("#middleName", "AboutYourPartnerMiddleName")
@@ -27,16 +28,16 @@ final class G1YourPartnerPersonalDetailsPage (browser: TestBrowser, previousPage
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1YourPartnerPersonalDetailsPage {
-  val title = "Partner/Spouse details - About your partner/spouse".toLowerCase
+  val title = "Partner details - About your partner".toLowerCase
 
   val url  = "/your-partner/personal-details"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1YourPartnerPersonalDetailsPage(browser,previousPage)
+  def apply(ctx:PageObjectsContext) = new G1YourPartnerPersonalDetailsPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G1YourPartnerPersonalDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1YourPartnerPersonalDetailsPage (browser)
+  val page = G1YourPartnerPersonalDetailsPage (PageObjectsContext(browser))
 }

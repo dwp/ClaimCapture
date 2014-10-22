@@ -1,0 +1,18 @@
+Report a change in your circumstances - Change in circumstances,Circumstances,Full Name,CircumstancesAboutYouFullName,Mr John Roger Smith
+Report a change in your circumstances - Change in circumstances,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,ja486278a
+Report a change in your circumstances - Change in circumstances,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,03/04/1950
+Report a change in your circumstances - Change in circumstances,Circumstances,Their Full Name,CircumstancesAboutYouTheirFullName,Mrs Jane Smith
+Report a change in your circumstances - Change in circumstances,Circumstances,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,Wife or civil partner
+Details of your change in circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,selfEmployment
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,Are you still caring 35 hours or more each week?,CircumstancesSelfEmploymentStillCaring,yes
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,What date did you stop caring 35 hours a week?,CircumstancesSelfEmploymentFinishedStillCaringDate,
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,When did you start this self-employed work?,CircumstancesSelfEmploymentWhenThisStarted,01/01/2014
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,What type of business is your self-employed work?,CircumstancesSelfEmploymentTypeOfBusiness,Plumber
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,Will the total income into your business be more than £102 a week?,CircumstancesSelfEmploymentTotalOverWeeklyIncomeThreshold,yes
+About Your Self-Employment - Change in circumstances,About Your Self-Employment,Tell us more about your changes,CircumstancesSelfEmploymentCaringMoreAboutChanges,
+Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,By Post
+Declaration - consent and declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,Yes
+Declaration - consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,Mr Smith
+Declaration - consent and declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,CircumstancesDeclarationConfirmation,Yes
+Declaration - consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have told us about?,CircumstancesDeclarationInfoAgreement,No
+Declaration - consent and declaration,Declaration,Please tell us why not,CircumstancesDeclarationWhyNot,I don't want to

@@ -1,0 +1,38 @@
+
+   .validation-summary {
+	   background: #fef7f7;
+	   border: 3px solid #df3034;
+	   padding: 1em .7em;
+	   margin: 3em 0 1em -0.7em;
+	   @media screen and (max-width: 700px) {
+		   margin-right: 0;
+		   margin-left: 0;
+	   }
+	   h2 {
+		   font-size: 24px;
+		   font-weight: 700;
+		   line-height: 1.2em;
+		   @media screen and (max-width: 500px) {
+		   	   font-size: 20px;
+		   }
+	   }
+	   p {
+		   margin-top: .75em;
+	   }
+	   ol {
+		   list-style: disc;
+		   padding-left: 1.25em;
+		   margin: .75em 0 0 0;
+		   color: #df3034;
+		   a {
+			   color: #df3034;
+			   text-decoration: none;
+			   font-size: 17px;
+			   &:hover {
+				   text-decoration: underline;
+			   }
+		   }
+	   }
+   }
+   
+   

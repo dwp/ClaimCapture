@@ -1,0 +1,41 @@
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request:play.api.mvc.Request[AnyContent])
+
+@import helper._
+@import play.api.i18n.{MMessages => Messages}
+
+@common.govMain(title) {
+
+<div class="carers-allowance clearfix">
+
+    @common.protoType()
+
+    @common.feedback()
+
+    <article>
+
+        <h1>@Html(Messages("c2c.longName"))</h1>
+
+        @if(completedQuestionGroups.size > 0) {
+            <div class="completed">
+                <ul>
+                    @for((completedQuestionGroup, call) <- completedQuestionGroups) {
+                    <li>
+                        <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                        <a href="@call" aria-label="@Html(Messages("change.these.help"))">@Html(Messages("change.these"))</a>
+                    </li>
+                    }
+                </ul>
+            </div>
+        }
+
+        @if(currentForm.isDefined) {
+            @errorsSummary(currentForm.get)
+        }
+
+        @content
+    </article>
+    
+    @common.leftcol()
+    
+</div>
+}

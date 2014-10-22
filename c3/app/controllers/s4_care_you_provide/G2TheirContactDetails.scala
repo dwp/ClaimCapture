@@ -11,11 +11,10 @@ import models.domain.{TheirPersonalDetails, ContactDetails, TheirContactDetails}
 object G2TheirContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "address" -> address.verifying(requiredAddress),
-    "postcode" -> optional(text verifying validPostcode),
-    "phoneNumber" -> optional(text verifying validPhoneNumber)
+    "postcode" -> optional(text verifying validPostcode)
   )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     val liveAtSameAddress = claim.questionGroup[TheirPersonalDetails].exists(_.liveAtSameAddressCareYouProvide == yes)
 
     val theirContactDetailsForm = if (liveAtSameAddress) {
@@ -31,9 +30,9 @@ object G2TheirContactDetails extends Controller with CachedClaim with Navigable 
     track(TheirContactDetails) { implicit claim => Ok(views.html.s4_care_you_provide.g2_theirContactDetails(theirContactDetailsForm)) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g2_theirContactDetails(formWithErrors)),
-      theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.G3RelationshipAndOtherClaims.present()))
+      theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.G7MoreAboutTheCare.present()))
   }
 }

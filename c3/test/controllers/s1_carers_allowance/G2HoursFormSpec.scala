@@ -8,7 +8,7 @@ class G2HoursFormSpec extends Specification with Tags {
       
     "map data into case class" in {
       G2Hours.form.bind(
-        Map("answer" -> answerYesNo)
+        Map("hours.answer" -> answerYesNo)
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
@@ -19,7 +19,7 @@ class G2HoursFormSpec extends Specification with Tags {
 
     "reject if mandatory field is not filled" in {
       G2Hours.form.bind(
-        Map("answer" -> "")
+        Map("hours.answer" -> "")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
         f => "This mapping should not happen." must equalTo("Valid")

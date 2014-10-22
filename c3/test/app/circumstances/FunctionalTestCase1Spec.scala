@@ -2,10 +2,10 @@ package app.circumstances
 
 import play.api.test.WithBrowser
 
-import utils.pageobjects.{XmlPage, TestData, Page}
+import utils.pageobjects.{PageObjects, XmlPage, TestData, Page}
 import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
-import utils.pageobjects.circumstances.s1_about_you.G1AboutYouPageContext
+import utils.pageobjects.circumstances.s1_about_you.{G1ReportAChangeInYourCircumstancesPage, G1ReportAChangeInYourCircumstancesPageContext}
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.
@@ -16,8 +16,9 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
   isolated
 
   "The application Circumstances" should {
-    "Successfully run absolute Circumstances Test Case 1" in new WithBrowser with G1AboutYouPageContext {
+    "Successfully run absolute Circumstances Test Case 1" in new WithBrowser with PageObjects {
 
+      val page = G1ReportAChangeInYourCircumstancesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase1.csv")
       page goToThePage()
 
@@ -30,7 +31,7 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
         }
         case p: Page => println(p.source())
       }
-    }//.pendingUntilFixed("throws a 'SAXParseException: Content is not allowed in prolog' because we are not returning valid XML yet")
+    }
 
   } section "functional"
 }

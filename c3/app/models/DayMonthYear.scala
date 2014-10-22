@@ -8,13 +8,27 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
                         hour: Option[Int] = None, minutes: Option[Int] = None) {
   def withTime(hour: Int, minutes: Int) = copy(hour = Some(hour), minutes = Some(minutes))
 
+  def `yyyy`: String = format("yyyy")
+
   def `yyyy-MM-dd`: String = format("yyyy-MM-dd")
 
+  def `dd-MM-yyyy`: String = format("dd-MM-yyyy")
+
+  def `dd`: String = format("dd")
+
+  def `M`: String = format("M")
+  
   def `dd month, yyyy`: String = format("dd MMMM, yyyy")
+
+  def `dd month yyyy`: String = format("dd MMMM yyyy")
 
   def `yyyy-MM-dd'T'HH:mm:00`: String = format("yyyy-MM-dd'T'HH:mm:00")
 
+  def `dd-MM-yyyy HH:mm`: String = format("dd-MM-yyyy HH:mm")
+
   def `dd/MM/yyyy`: String = pad(day) + "/" + pad(month) + "/" + year.fold("")(_.toString)
+
+  def `HH:mm`:String = format("HH:mm")
 
   def -(amount: Int) = new Period {
     override def days = adjust { _.minusDays(amount) }
@@ -24,6 +38,16 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
     override def months = adjust { _.minusMonths(amount) }
 
     override def years = adjust { _.minusYears(amount) }
+  }
+
+  def +(amount: Int) = new Period {
+    override def days = adjust { _.plusDays(amount) }
+
+    override def weeks = adjust { _.plusWeeks(amount) }
+
+    override def months = adjust { _.plusMonths(amount) }
+
+    override def years = adjust { _.plusYears(amount) }
   }
 
   def numberOfCharactersInput = List(day, month, year, hour, minutes).foldLeft(0) { (x, i) => x + i.fold(0)(_.toString.length) }
@@ -65,6 +89,27 @@ object DayMonthYear {
   def apply() = new DayMonthYear(Some(1), Some(1), Some(1970))
 
   def apply(day: Int, month: Int, year: Int) = new DayMonthYear(Some(day), Some(month), Some(year))
+
+  def convert(day: Option[String], month: Option[String], year: Option[String], hour: Option[String], minutes: Option[String]) = {
+    def intArg(value:Option[String]):Option[Int] = {
+      value match {
+        case Some(x) => Try(x.toInt) match { case Success(y) => Some(y); case _ => None}
+        case _ => None
+      }
+    }
+
+    new DayMonthYear(intArg(day), intArg(month), intArg(year), intArg(hour), intArg(minutes))
+  }
+
+  def extract(date: DayMonthYear):Option[(Option[String], Option[String], Option[String],Option[String],Option[String])] = {
+    def stringArg(value:Option[Int]):Option[String] = {
+      value match {
+        case Some(x) => Try(x.toString) match { case Success(y) => Some(y); case _ => None}
+        case _ => None
+      }
+    }
+    Some((stringArg(date.day), stringArg(date.month), stringArg(date.year), stringArg(date.hour), stringArg(date.minutes)))
+  }
 
   def apply(dt: DateTime) = {
     new DayMonthYear(Some(dt.dayOfMonth().get), Some(dt.monthOfYear().get), Some(dt.year().get), Some(dt.hourOfDay().get()), Some(dt.minuteOfHour().get))

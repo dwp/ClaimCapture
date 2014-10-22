@@ -1,7 +1,9 @@
 @(elements: helper.FieldElements)
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.CarersHelpers._
 
 @if(elements.hasErrors) {
-    <p class="error">@elements.errors.mkString(", ")</p>
+    <p class="error">@elements.carersErrors.mkString(", ")</p>
 }
 
 @if(elements.args.contains('prompt)) {
@@ -11,7 +13,7 @@
 @elements.input
 
 @if(elements.args.contains('helper)) {
-    <p class="helper right">@elements.args.get('helper).get.toString</p>
+    <p class="helper right">@Html(elements.args.get('helper).get.toString)</p>
 }
 
 @if(elements.args.contains('helperBelow)) {

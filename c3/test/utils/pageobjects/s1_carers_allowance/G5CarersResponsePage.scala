@@ -1,14 +1,14 @@
 package utils.pageobjects.s1_carers_allowance
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage, TestData, PageContext, Page}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
-final class G5CarersResponsePage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G5CarersResponsePage.url, G5CarersResponsePage.title, previousPage) {
+final class G5CarersResponsePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G5CarersResponsePage.url, G5CarersResponsePage.title) {
   override def fillPageWith(theClaim: TestData): Page = this
 
-  def isApproved =  browser.find(".prompt").size != 0 && browser.find(".prompt.error]").size == 0
+  def isApproved =  ctx.browser.find(".prompt").size != 0 && ctx.browser.find(".prompt.error]").size == 0
 
-  def isNotApproved =  browser.find(".prompt.error]").size != 0
+  def isNotApproved =  ctx.browser.find(".prompt.error]").size != 0
 }
 
 object G5CarersResponsePage {
@@ -16,11 +16,11 @@ object G5CarersResponsePage {
 
   val url = "/allowance/carers-response"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G5CarersResponsePage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G5CarersResponsePage(ctx)
 }
 
 trait G5CarersResponsePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G5CarersResponsePage (browser)
+  val page = G5CarersResponsePage (PageObjectsContext(browser))
 }

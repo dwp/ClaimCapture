@@ -1,10 +1,11 @@
 package models.domain
 
 import models.{ReasonForBeingThere, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
-import models.yesNo.YesNoWithText
+import models.yesNo.{YesNo, YesNoWithText}
+import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
 
 object AboutYou extends Section.Identifier {
-  val id = "s2"
+  val id = "s3"
 }
 
 case class YourDetails(title: String = "",
@@ -13,7 +14,8 @@ case class YourDetails(title: String = "",
                        surname: String = "",
                        otherSurnames: Option[String] = None,
                        nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(None,None,None,None,None),
-                       dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)) extends QuestionGroup(YourDetails) {
+                       dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                       receiveStatePension: String = "") extends QuestionGroup(YourDetails) {
 
   def otherNames = firstName + middleName.map(" " + _).getOrElse("")
 }
@@ -24,25 +26,56 @@ object YourDetails extends QuestionGroup.Identifier {
 
 case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
                           postcode: Option[String] = None,
-                          phoneNumber: Option[String] = None,
-                          contactYouByTextphone: Option[String] = None,
-                          mobileNumber: Option[String] = None) extends QuestionGroup(ContactDetails)
+                          howWeContactYou: String = "",
+                          contactYouByTextphone: Option[String] = None) extends QuestionGroup(ContactDetails)
 
 object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
 }
 
-case class ClaimDate(dateOfClaim: DayMonthYear = DayMonthYear()) extends QuestionGroup(ClaimDate)
-
-object ClaimDate extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g3"
-}
-
-case class NationalityAndResidency(nationality: String = "",
-                                   resideInUK: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(NationalityAndResidency)
+case class NationalityAndResidency(nationality: String,
+                                   actualnationality: Option[String] = None,
+                                   resideInUK: YesNoWithText = YesNoWithText("", None),
+                                   maritalStatus: Option[String] = None) extends QuestionGroup(NationalityAndResidency)
 
 object NationalityAndResidency extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
+
+  val british = "British"
+  val anothercountry = "Another Country"
+
+  def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { answer =>
+    // Nationality is a radio list with two possible values, British and Another Country
+    answer match {
+      case `british` => Valid
+      case `anothercountry` => Valid
+      case _ => Invalid(ValidationError("nationality.invalid"))
+    }
+  }
+
+  def actualNationalityRequired: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.actualnationality") { nationalityAndResidency =>
+    // if the Nationality is Another Country the user must provide their National Residency
+    if (nationalityAndResidency.nationality == anothercountry) {
+      nationalityAndResidency.actualnationality match {
+        case Some(place) => Valid
+        case _ => Invalid(ValidationError("actualnationality.required"))
+      }
+    }
+    else Valid
+  }
+
+  def maritalStatusRequired: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.actualnationality") { nationalityAndResidency =>
+    // if the Nationality is Another Country the user must provide their National Residency
+    if (nationalityAndResidency.nationality == anothercountry) {
+      nationalityAndResidency.maritalStatus match {
+        case Some(maritalStatus) => Valid
+        case _ => Invalid(ValidationError("maritalstatus.required"))
+      }
+    }
+    else Valid
+  }
+
+  def validateHadPartner(nationalityAndResidency: NationalityAndResidency) = nationalityAndResidency.maritalStatus == "p"
 }
 
 case class AbroadForMoreThan52Weeks(anyTrips: String = "") extends QuestionGroup(AbroadForMoreThan52Weeks)
@@ -90,23 +123,9 @@ trait FiftyTwoWeeksTrip extends TripPeriod {
   this: Trip =>
 }
 
-case class OtherEEAStateOrSwitzerland(benefitsFromEEA: String = "", claimedForBenefitsFromEEA: String = "", workingForEEA: String = "") extends QuestionGroup(OtherEEAStateOrSwitzerland)
+case class OtherEEAStateOrSwitzerland(benefitsFromEEA: String = "", workingForEEA: String = "") extends QuestionGroup(OtherEEAStateOrSwitzerland)
 
 object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g7"
 }
 
-case class MoreAboutYou(maritalStatus: String = "",
-                        hadPartnerSinceClaimDate: String = "",
-                        beenInEducationSinceClaimDate: String = "",
-                        receiveStatePension: String = "") extends QuestionGroup(MoreAboutYou)
-
-object MoreAboutYou extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g8"
-}
-
-case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)
-
-object Employment extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g9"
-}

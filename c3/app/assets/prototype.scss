@@ -1,0 +1,23 @@
+.prototype {
+		   zoom: 1;
+		   padding: 1em 0;
+		   border-bottom: 1px solid #bfc1c3;
+
+		   p {
+			   margin: 0;
+			   padding: 0;
+			   line-height: 1.2em;
+			   font-weight: 300;
+			   font-size: 16px;
+
+			   strong {
+				    font-size: 15px;
+			   }
+			   a {
+				   margin-left: .25em;
+				   &:hover {
+					   text-decoration: none;
+				   }
+			   }
+		   }
+	   }

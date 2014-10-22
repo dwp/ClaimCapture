@@ -2,14 +2,10 @@ package controllers
 
 import app.ConfigProperties._
 import play.api.mvc._
-import play.api.cache.Cache
-import play.api.Play.current
-import models.view.CachedClaim
+import services.EmailServices
 
-object Application extends Controller with CachedClaim {
-  val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
-
+object Application extends Controller {
   def index = Action {
-    Redirect(startUrl)
+    MovedPermanently(getProperty("gov.uk.start.page", "https://www.gov.uk/apply-carers-allowance"))
   }
 }

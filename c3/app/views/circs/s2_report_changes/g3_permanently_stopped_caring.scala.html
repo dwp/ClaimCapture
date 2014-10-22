@@ -1,0 +1,38 @@
+@(stoppedCaringForm: Form[models.domain.CircumstancesStoppedCaring])(implicit claim: models.domain.Claim, lang: Lang, request:play.api.mvc.Request[AnyContent])
+
+@import utils.helpers.CarersTemplate._
+@import utils.helpers.CarersCrypto
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import play.api.i18n.{MMessages => Messages}
+
+@main(Messages("c2.g3") + " - " + Messages("c2.name")) {
+    @errorsSummary(stoppedCaringForm)
+
+    @form(action = controllers.circs.s2_report_changes.routes.G3PermanentlyStoppedCaring.submit) {
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("c2.g3"))</legend>
+	            <ul class="coc-layout">
+	                @inputDayMonthYear(stoppedCaringForm("stoppedCaringDate"),  'helperAbove-> Messages("stoppedCaringDate.helper"))
+	                @carersInputTextArea(stoppedCaringForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+        </div>
+        }
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+<script type="text/javascript">
+    $(function(){
+    window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+    })
+</script>
+}

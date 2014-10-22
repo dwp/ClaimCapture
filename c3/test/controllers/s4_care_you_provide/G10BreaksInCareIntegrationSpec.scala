@@ -6,7 +6,7 @@ import controllers.{WithBrowserHelper, BrowserMatchers, Formulate}
 import utils.pageobjects.s4_care_you_provide.G10BreaksInCarePage
 
 class G10BreaksInCareIntegrationSpec extends Specification with Tags {
-  "Breaks in care" should {
+  "Breaks from care" should {
     "present" in new WithBrowser with BrowserMatchers {
       browser.goTo("/care-you-provide/breaks-in-care")
       titleMustEqual(G10BreaksInCarePage.title)
@@ -16,7 +16,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       goTo("/care-you-provide/breaks-in-care")
       browser.click("#answer_no")
       next
-      titleMustEqual("Completion - About the care you provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
     }
 
     "go back to contact details" in new WithBrowser {
@@ -27,7 +27,6 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
       Formulate.theirPersonalDetails(browser)
       Formulate.theirContactDetails(browser)
-      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       Formulate.moreAboutTheCare(browser)
       goTo("/care-you-provide/breaks-in-care")
       titleMustEqual(G10BreaksInCarePage.title)
@@ -39,7 +38,6 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
       Formulate.theirPersonalDetails(browser)
       Formulate.theirContactDetails(browser)
-      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
       goTo("/care-you-provide/breaks-in-care")
       titleMustEqual(G10BreaksInCarePage.title)
@@ -83,7 +81,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       browser.click("#answer_no")
       next
-      titleMustEqual("Completion - About the care you provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
 
       back
       titleMustEqual(G10BreaksInCarePage.title)

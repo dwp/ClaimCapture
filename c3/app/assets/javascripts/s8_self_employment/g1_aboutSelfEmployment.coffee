@@ -1,7 +1,17 @@
 window.initEvents = (answerY, answerN) ->
-    $("#" + answerY).on "click", ->
-      $("#selfEmployedNoWrap").slideUp()
 
-    $("#" + answerN).on "click", ->
-      $("#selfEmployedNoWrap").slideDown()
-      $("#selfEmployedNoWrap").css('display', "block")
+  if not $("#"+answerN).prop 'checked'
+    hideSelfEmployedNoWrap()
+
+  $("#" + answerY).on "click", ->
+    hideSelfEmployedNoWrap()
+
+  $("#" + answerN).on "click", ->
+    showSelfEmployedNoWrap()
+
+
+showSelfEmployedNoWrap = ->
+  $("#selfEmployedNoWrap").slideDown 0
+
+hideSelfEmployedNoWrap = ->
+  $("#selfEmployedNoWrap").slideUp 0

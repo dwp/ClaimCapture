@@ -1,0 +1,15 @@
+@()(implicit lang: Lang, request:play.api.mvc.Request[AnyContent])
+
+@import play.api.i18n.{MMessages => Messages}
+
+<section class="feedback-container">
+	<h2>@Html(Messages("feedback.help1"))</h2>
+
+	<p><a href="/internal-claim-notes/@lang.code" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>@Html(Messages("feedback.help2a"))</a> @Html(Messages("feedback.help2b"))</p>
+
+	<p>@Html(Messages("feedback.help3a")) <a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Helpline")>@Html(Messages("feedback.help3b"))</a>@Html(Messages("feedback.help3c"))</p>
+
+    <p>@Html(Messages("feedback.help4a")) <a href="mailto:cau.e-service-feedback@@dwp.gsi.gov.uk?subject=Carers" @views.html.ga.trackClickEvent(linkName = "Your Feedback")>@Html(Messages("feedback.help4b"))</a> @Html(Messages("feedback.help4c"))</p>
+			
+	<div class="feed-close">@Html(Messages("feedback.close"))</div>
+</section>

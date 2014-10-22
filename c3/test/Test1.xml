@@ -1,0 +1,357 @@
+<DWPBody xsi:schemaLocation="http://www.govtalk.gov.uk/dwp/carers-allowance file:/xsdfiles/schema/ca/CarersAllowance_Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance">
+    <Version>0.1</Version>
+    <DWPCATransaction id="1501TEST432">
+        <TransactionId>1501TEST432</TransactionId>
+        <DateTimeGenerated>10-03-2014 16:40</DateTimeGenerated>
+        <DWPCAClaim>
+            <DateOfClaim><QuestionLabel>When do you want your Carer's Allowance claim to start?</QuestionLabel><Answer>01-01-2010</Answer></DateOfClaim>
+            <Claimant>
+                <Surname>CaseThree</Surname>
+                <OtherNames>Test Middle</OtherNames>
+                <OtherSurnames>Smithson</OtherSurnames>
+                <Title>Mr</Title>
+                <DateOfBirth>01-01-1931</DateOfBirth>
+                <NationalInsuranceNumber>JB486278C</NationalInsuranceNumber>
+                <Address>
+                    <Line>3 Preston Road</Line><Line>Preston</Line><Line>Lancashire</Line><PostCode>PR1 2TH</PostCode>
+                </Address>
+                <DayTimePhoneNumber>01772 888901</DayTimePhoneNumber>
+                <MobileNumber>0771 5419808</MobileNumber>
+                <MaritalStatus>Married or civil partner</MaritalStatus>
+
+            </Claimant>
+            <Caree>
+                <Surname>CaseThree</Surname>
+                <OtherNames>Test Middle</OtherNames>
+                <Title>Mrs</Title>
+                <DateOfBirth>28-09-1937</DateOfBirth>
+                <NationalInsuranceNumber>BA234567A</NationalInsuranceNumber>
+                <Address>
+                    <Line>12 Preston Road</Line><Line>Preston</Line><Line>Lancashire</Line><PostCode>PR1 2TH</PostCode>
+                </Address>
+                <DayTimePhoneNumber>01772 998761</DayTimePhoneNumber>
+                <RelationToClaimant><QuestionLabel>What relation, if any, is the person/organisation to you?</QuestionLabel><Answer>Wife or civil partner</Answer></RelationToClaimant>
+                <Cared35Hours><QuestionLabel>Do you spend 35 hours or more each week caring for the person you care for?</QuestionLabel><Answer>Yes</Answer></Cared35Hours>
+                <BreaksSinceClaim><QuestionLabel>Have you had any breaks in caring for this person since 01/01/2010?</QuestionLabel><Answer>Yes</Answer></BreaksSinceClaim>
+                <CareBreak>
+                    <StartDateTime>10-01-2010 10:00</StartDateTime>
+                    <EndDateTime>17-01-2010 17:00</EndDateTime>
+                    <MedicalCare><QuestionLabel>Did you or the person you care for get any medical treatment or professional care during this time?</QuestionLabel><Answer>Yes</Answer></MedicalCare>
+                    <ReasonClaimant><QuestionLabel>Where were you during the break?</QuestionLabel><Answer>Home</Answer></ReasonClaimant>
+                    <ReasonCaree><QuestionLabel>Where was the person you care for during the break?</QuestionLabel><Answer>Hospital</Answer></ReasonCaree>
+                </CareBreak><CareBreak>
+                <StartDateTime>20-01-2010 10:00</StartDateTime>
+                <EndDateTime>27-01-2010 17:00</EndDateTime>
+                <MedicalCare><QuestionLabel>Did you or the person you care for get any medical treatment or professional care during this time?</QuestionLabel><Answer>Yes</Answer></MedicalCare>
+                <ReasonClaimant><QuestionLabel>Where were you during the break?</QuestionLabel><Answer>Holiday</Answer></ReasonClaimant>
+                <ReasonCaree><QuestionLabel>Where was the person you care for during the break?</QuestionLabel><Answer>Nursing Home</Answer></ReasonCaree>
+            </CareBreak><CareBreak>
+                <StartDateTime>20-02-2010 12:00</StartDateTime>
+                <EndDateTime>27-02-2010 13:00</EndDateTime>
+                <MedicalCare><QuestionLabel>Did you or the person you care for get any medical treatment or professional care during this time?</QuestionLabel><Answer>Yes</Answer></MedicalCare>
+                <ReasonClaimant><QuestionLabel>Where were you during the break?</QuestionLabel><Answer>Respite Care</Answer></ReasonClaimant>
+                <ReasonCaree><QuestionLabel>Where was the person you care for during the break?</QuestionLabel><Answer>Care Home</Answer></ReasonCaree>
+            </CareBreak><CareBreak>
+                <StartDateTime>20-03-2010 12:00</StartDateTime>
+                <EndDateTime>21-02-2010 13:00</EndDateTime>
+                <MedicalCare><QuestionLabel>Did you or the person you care for get any medical treatment or professional care during this time?</QuestionLabel><Answer>Yes</Answer></MedicalCare>
+                <ReasonClaimant><QuestionLabel>Where were you during the break?</QuestionLabel><Answer>Holiday</Answer></ReasonClaimant>
+                <ReasonCaree><QuestionLabel>Where was the person you care for during the break?</QuestionLabel><Answer>Nursing Home</Answer></ReasonCaree>
+            </CareBreak><CareBreak>
+                <StartDateTime>20-03-2013 12:15</StartDateTime>
+                <EndDateTime>21-02-2013 13:15</EndDateTime>
+                <MedicalCare><QuestionLabel>Did you or the person you care for get any medical treatment or professional care during this time?</QuestionLabel><Answer>No</Answer></MedicalCare>
+                <ReasonClaimant><QuestionLabel>Where were you during the break?</QuestionLabel><Other>Other text</Other><Answer>Other</Answer></ReasonClaimant>
+                <ReasonCaree><QuestionLabel>Where was the person you care for during the break?</QuestionLabel><Other>Other text</Other><Answer>Other</Answer></ReasonCaree>
+            </CareBreak>
+                <Cared35HoursBefore><QuestionLabel>Did you care for this person for 35 hours or more each week before your claim date?</QuestionLabel><Answer>No</Answer></Cared35HoursBefore>
+
+                <LiveSameAddress><QuestionLabel>Do they live at the same address as you?</QuestionLabel><Answer>No</Answer></LiveSameAddress>
+                <ArmedForcesIndependencePayment><QuestionLabel>Does this person get Armed Forces Independence Payment (AFIP)?</QuestionLabel><Answer>No</Answer></ArmedForcesIndependencePayment>
+            </Caree>
+            <Residency>
+                <NormallyLiveInGB><QuestionLabel>Do you normally live in England, Scotland or Wales?</QuestionLabel><Answer>Yes</Answer></NormallyLiveInGB>
+
+
+
+                <Nationality>British</Nationality>
+
+                <PeriodAbroad>
+                    <TimeOutsideGBLast3Years><QuestionLabel>Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date?</QuestionLabel><Answer>Yes</Answer></TimeOutsideGBLast3Years>
+                    <Period>
+                        <DateFrom><QuestionLabel>Date you left?</QuestionLabel><Answer>31-05-2012</Answer></DateFrom>
+                        <DateTo><QuestionLabel>Date you returned?</QuestionLabel><Answer>01-06-2012</Answer></DateTo>
+                    </Period>
+                    <Reason><QuestionLabel>Reason for being there?</QuestionLabel><Answer>Holiday</Answer></Reason>
+                    <Country><QuestionLabel>Which country did you go to?</QuestionLabel><Answer>Bangor</Answer></Country>
+                    <CareePresent><QuestionLabel>Was the person you care for with you?</QuestionLabel><Answer>No</Answer></CareePresent>
+                </PeriodAbroad><PeriodAbroad>
+                <TimeOutsideGBLast3Years><QuestionLabel>Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date?</QuestionLabel><Answer>Yes</Answer></TimeOutsideGBLast3Years>
+                <Period>
+                    <DateFrom><QuestionLabel>Date you left?</QuestionLabel><Answer>04-06-2012</Answer></DateFrom>
+                    <DateTo><QuestionLabel>Date you returned?</QuestionLabel><Answer>08-06-2012</Answer></DateTo>
+                </Period>
+                <Reason><QuestionLabel>Reason for being there?</QuestionLabel><Answer>Holiday</Answer></Reason>
+                <Country><QuestionLabel>Which country did you go to?</QuestionLabel><Answer>Spain</Answer></Country>
+                <CareePresent><QuestionLabel>Was the person you care for with you?</QuestionLabel><Answer>No</Answer></CareePresent>
+            </PeriodAbroad><PeriodAbroad>
+                <TimeOutsideGBLast3Years><QuestionLabel>Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date?</QuestionLabel><Answer>Yes</Answer></TimeOutsideGBLast3Years>
+                <Period>
+                    <DateFrom><QuestionLabel>Date you left?</QuestionLabel><Answer>14-06-2012</Answer></DateFrom>
+                    <DateTo><QuestionLabel>Date you returned?</QuestionLabel><Answer>18-06-2012</Answer></DateTo>
+                </Period>
+                <Reason><QuestionLabel>Reason for being there?</QuestionLabel><Answer>Holiday</Answer></Reason>
+                <Country><QuestionLabel>Which country did you go to?</QuestionLabel><Answer>USA</Answer></Country>
+                <CareePresent><QuestionLabel>Was the person you care for with you?</QuestionLabel><Answer>No</Answer></CareePresent>
+            </PeriodAbroad>
+
+            </Residency>
+            <CourseOfEducation><QuestionLabel>Have you been on a course of education since your claim date: 01/01/2010?</QuestionLabel><Answer>No</Answer></CourseOfEducation>
+
+            <SelfEmployed><QuestionLabel>Have you been self-employed at any time since 25/12/2009 (this is one week before your claim date: 01/01/2010)?</QuestionLabel><Answer>Yes</Answer></SelfEmployed>
+            <SelfEmployment>
+                <SelfEmployedNow><QuestionLabel>Are you self-employed now?</QuestionLabel><Answer>Yes</Answer></SelfEmployedNow>
+                <CurrentJobDetails>
+                    <DateStarted><QuestionLabel>When did you start this self employed work?</QuestionLabel><Answer>01-02-2010</Answer></DateStarted>
+                    <NatureBusiness><QuestionLabel>Nature of business?</QuestionLabel><Answer>Fruit and veg, delivery service</Answer></NatureBusiness>
+                    <TradingYear>
+                        <DateFrom><QuestionLabel>What is your trading year? From</QuestionLabel><Answer>01-02-2012</Answer></DateFrom>
+                        <DateTo><QuestionLabel>What is your trading year? To</QuestionLabel><Answer>31-01-2013</Answer></DateTo>
+                    </TradingYear>
+                    <SameIncomeOutgoingLevels><QuestionLabel>Are the income, outgoings and profit in these accounts similar to your current level of trading?</QuestionLabel><Answer>No</Answer></SameIncomeOutgoingLevels>
+                    <WhyWhenChange><QuestionLabel>Please tell us why and when the change happened</QuestionLabel><Answer>Depends on the seasons, and productivity of the fruit.</Answer></WhyWhenChange>
+                </CurrentJobDetails>
+                <CareExpensesChildren><QuestionLabel>While at work, do you pay anyone to care for your children?</QuestionLabel><Answer>Yes</Answer></CareExpensesChildren>
+                <ChildCareExpenses>
+                    <CarerName><QuestionLabel>Name of the person/organisation who looks after your child/children</QuestionLabel><Answer>Mr John Smith</Answer></CarerName>
+                    <Expense>
+                        <Payment><QuestionLabel>How much do you pay them?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>120</Amount></Answer></Payment>
+                        <Frequency><QuestionLabel>{1}</QuestionLabel><Answer>Weekly</Answer></Frequency>
+                    </Expense>
+                    <RelationshipCarerToClaimant><QuestionLabel>What relation, if any, is the person/organisation to you?</QuestionLabel><Answer>Uncle</Answer></RelationshipCarerToClaimant>
+
+                </ChildCareExpenses>
+                <CareExpensesCaree><QuestionLabel>While at work, do you pay anyone to care for the person you care for?</QuestionLabel><Answer>Yes</Answer></CareExpensesCaree>
+                <CareExpenses>
+                    <CarerName><QuestionLabel>Name of the person/organisation you do pay</QuestionLabel><Answer>Mrs Terry Smith</Answer></CarerName>
+                    <Expense>
+                        <Payment><QuestionLabel>How much do you pay them?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>450</Amount></Answer></Payment>
+                        <Frequency><QuestionLabel>{1}</QuestionLabel><Other>Other expenses frequency</Other><Answer>Other</Answer></Frequency>
+                    </Expense>
+                    <RelationshipCarerToClaimant><QuestionLabel>What relation, if any, is the person/organisation to you?</QuestionLabel><Answer>Aunt</Answer></RelationshipCarerToClaimant>
+                    <RelationshipCarerToCaree><QuestionLabel>What relation, if any, is this person/organisation to the person you care for?</QuestionLabel><Answer>Aunt</Answer></RelationshipCarerToCaree>
+                </CareExpenses>
+                <PaidForPension><QuestionLabel>Do you pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?</QuestionLabel><Answer>No</Answer></PaidForPension>
+
+            </SelfEmployment>
+            <Employed><QuestionLabel>Have you been employed at any time since 01/07/2009 (this is six months before your claim date: 01/01/2010)?</QuestionLabel><Answer>Yes</Answer></Employed>
+            <Employment>
+                <CurrentlyEmployed><QuestionLabel>Have you finished this job?</QuestionLabel><Answer>No</Answer></CurrentlyEmployed>
+                <JobDetails>
+                    <Employer>
+                        <DateJobStarted><QuestionLabel>When did you start your job?</QuestionLabel><Answer>01-01-2013</Answer></DateJobStarted>
+                        <DateJobEnded><QuestionLabel>What date did you last work?</QuestionLabel><Answer>01-07-2013</Answer></DateJobEnded>
+                        <JobType><QuestionLabel>jobTitle.was</QuestionLabel><Answer>Hacker</Answer></JobType>
+                        <Name>Tesco's</Name>
+                        <Address>
+                            <Line>23 Yeadon Way</Line><Line>Blackpool</Line><Line>Lancashire</Line><PostCode>FY4 5TH</PostCode>
+                        </Address>
+                        <EmployersPhoneNumber>01253 667889</EmployersPhoneNumber>
+
+                    </Employer>
+                    <Pay>
+                        <WeeklyHoursWorked><QuestionLabel>How many hours a week did you normally work?</QuestionLabel><Answer>25</Answer></WeeklyHoursWorked>
+
+                        <GrossPayment><QuestionLabel>What was the gross pay for this period?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>600</Amount></Answer></GrossPayment>
+                        <IncludedInWage><QuestionLabel>What was included in this pay?</QuestionLabel><Answer>All amounts due</Answer></IncludedInWage>
+                        <PayFrequency><QuestionLabel>How often do you want to get paid?</QuestionLabel><Answer>Four-Weekly</Answer></PayFrequency>
+                        <UsualPayDay><QuestionLabel>When did you get paid?</QuestionLabel><Answer>two weeks ago</Answer></UsualPayDay>
+
+                    </Pay>
+                    <OweMoney><QuestionLabel>Does your employer owe you any money?</QuestionLabel><Answer>Yes</Answer></OweMoney>
+                    <CareExpensesChildren><QuestionLabel>While at work, did you pay anyone to look after your children?</QuestionLabel><Answer>Yes</Answer></CareExpensesChildren><ChildCareExpenses>
+                    <CarerName><QuestionLabel>Name of the person/organisation who looks after your child/children</QuestionLabel><Answer>Mr Grandfather Senior</Answer></CarerName>
+                    <Expense>
+                        <Payment><QuestionLabel>How much did you pay them?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>120.12</Amount></Answer></Payment>
+                        <Frequency><QuestionLabel>{1}</QuestionLabel><Other>Quaterly</Other><Answer>Other</Answer></Frequency>
+                    </Expense>
+                    <RelationshipCarerToClaimant><QuestionLabel>What relation, if any, is the person/organisation to you?</QuestionLabel><Answer>Father</Answer></RelationshipCarerToClaimant>
+
+                </ChildCareExpenses>
+                    <CareExpensesCaree><QuestionLabel>While at work, did you pay anyone to look after the person you care for?</QuestionLabel><Answer>Yes</Answer></CareExpensesCaree><CareExpenses>
+                    <CarerName><QuestionLabel>Name of the person/organisation who looks after your child/children</QuestionLabel><Answer>Carers UK Ltd</Answer></CarerName>
+                    <Expense>
+                        <Payment><QuestionLabel>How much did you pay them?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>150.55</Amount></Answer></Payment>
+                        <Frequency><QuestionLabel>{1}</QuestionLabel><Other>Annually</Other><Answer>Other</Answer></Frequency>
+                    </Expense>
+                    <RelationshipCarerToClaimant><QuestionLabel>What relation, if any, is the person/organisation to you?</QuestionLabel><Answer>Uncle</Answer></RelationshipCarerToClaimant>
+                    <RelationshipCarerToCaree><QuestionLabel>What relation, if any, is this person/organisation to the person you care for?</QuestionLabel><Answer>Other</Answer></RelationshipCarerToCaree>
+                </CareExpenses>
+                    <PaidForOccupationalPension><QuestionLabel>Did you pay towards an occupational pension scheme?</QuestionLabel><Answer>Yes</Answer></PaidForOccupationalPension><OccupationalPension>
+                    <Payment><QuestionLabel>How much did you pay?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>350.1</Amount></Answer></Payment>
+                    <Frequency><QuestionLabel>How often?</QuestionLabel><Other>Other frequency fo occupational scheme</Other><Answer>Other</Answer></Frequency>
+                </OccupationalPension><PaidForPersonalPension><QuestionLabel>Did you pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?</QuestionLabel><Answer>Yes</Answer></PaidForPersonalPension><PersonalPension>
+                    <Payment><QuestionLabel>How much did you pay?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>200.1</Amount></Answer></Payment>
+                    <Frequency><QuestionLabel>How often?</QuestionLabel><Other>Another reason</Other><Answer>Other</Answer></Frequency>
+                </PersonalPension>
+                    <PaidForJobExpenses><QuestionLabel>Did you pay for anything necessary to do your job?</QuestionLabel><Answer>Yes</Answer></PaidForJobExpenses><JobExpenses>
+                    <Expense><QuestionLabel>What were these things?</QuestionLabel><Answer>Petrol money for driving</Answer></Expense>
+                </JobExpenses>
+                </JobDetails><JobDetails>
+                <Employer>
+                    <DateJobStarted><QuestionLabel>When did you start your job?</QuestionLabel><Answer>01-01-2013</Answer></DateJobStarted>
+                    <DateJobEnded><QuestionLabel>What date did you last work?</QuestionLabel><Answer>01-01-2001</Answer></DateJobEnded>
+                    <JobType><QuestionLabel>jobTitle.was</QuestionLabel><Answer>Hacker</Answer></JobType>
+                    <Name>Tesco's</Name>
+                    <Address>
+                        <Line>23 Yeadon Way</Line><Line>Blackpool</Line><Line>Lancashire</Line><PostCode>FY4 5TH</PostCode>
+                    </Address>
+                    <EmployersPhoneNumber>01253 667889</EmployersPhoneNumber>
+                    <P45LeavingDate><QuestionLabel>What is the leaving date on your P45, if you have one?</QuestionLabel><Answer>25-12-2010</Answer></P45LeavingDate>
+                </Employer>
+                <Pay>
+
+                    <DateLastPaid><QuestionLabel>When were you last paid?</QuestionLabel><Answer>08-07-2013</Answer></DateLastPaid>
+                    <GrossPayment><QuestionLabel>What was the gross pay for this period?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>600</Amount></Answer></GrossPayment>
+
+                    <PayFrequency><QuestionLabel>How often do you want to get paid?</QuestionLabel><Answer>Weekly</Answer></PayFrequency>
+
+                    <ConstantEarnings><QuestionLabel>Did you get the same amount each time?</QuestionLabel><Answer>No</Answer></ConstantEarnings>
+                </Pay>
+                <OweMoney><QuestionLabel>Does your employer owe you any money?</QuestionLabel><Answer>Yes</Answer></OweMoney>
+                <CareExpensesChildren><QuestionLabel>While at work, did you pay anyone to look after your children?</QuestionLabel><Answer>Yes</Answer></CareExpensesChildren><ChildCareExpenses>
+                <CarerName><QuestionLabel>Name of the person/organisation who looks after your child/children</QuestionLabel><Answer>Mr Grandfather Senior</Answer></CarerName>
+                <Expense>
+                    <Payment><QuestionLabel>How much did you pay them?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>120.12</Amount></Answer></Payment>
+                    <Frequency><QuestionLabel>{1}</QuestionLabel><Answer>Weekly</Answer></Frequency>
+                </Expense>
+                <RelationshipCarerToClaimant><QuestionLabel>What relation, if any, is the person/organisation to you?</QuestionLabel><Answer>Father</Answer></RelationshipCarerToClaimant>
+
+            </ChildCareExpenses>
+                <CareExpensesCaree><QuestionLabel>While at work, did you pay anyone to look after the person you care for?</QuestionLabel><Answer>Yes</Answer></CareExpensesCaree><CareExpenses>
+                <CarerName><QuestionLabel>Name of the person/organisation who looks after your child/children</QuestionLabel><Answer>Age Concern K Ltd</Answer></CarerName>
+                <Expense>
+                    <Payment><QuestionLabel>How much did you pay them?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>150.20</Amount></Answer></Payment>
+                    <Frequency><QuestionLabel>{1}</QuestionLabel><Answer>Fortnightly</Answer></Frequency>
+                </Expense>
+                <RelationshipCarerToClaimant><QuestionLabel>What relation, if any, is the person/organisation to you?</QuestionLabel><Answer>Other</Answer></RelationshipCarerToClaimant>
+                <RelationshipCarerToCaree><QuestionLabel>What relation, if any, is this person/organisation to the person you care for?</QuestionLabel><Answer>Other</Answer></RelationshipCarerToCaree>
+            </CareExpenses>
+                <PaidForOccupationalPension><QuestionLabel>Did you pay towards an occupational pension scheme?</QuestionLabel><Answer>Yes</Answer></PaidForOccupationalPension><OccupationalPension>
+                <Payment><QuestionLabel>How much did you pay?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>120.03</Amount></Answer></Payment>
+                <Frequency><QuestionLabel>How often?</QuestionLabel><Answer>Weekly</Answer></Frequency>
+            </OccupationalPension><PaidForPersonalPension><QuestionLabel>Did you pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?</QuestionLabel><Answer>Yes</Answer></PaidForPersonalPension><PersonalPension>
+                <Payment><QuestionLabel>How much did you pay?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>345.2</Amount></Answer></Payment>
+                <Frequency><QuestionLabel>How often?</QuestionLabel><Answer>Weekly</Answer></Frequency>
+            </PersonalPension>
+                <PaidForJobExpenses><QuestionLabel>Did you pay for anything necessary to do your job?</QuestionLabel><Answer>Yes</Answer></PaidForJobExpenses><JobExpenses>
+                <Expense><QuestionLabel>What were these things?</QuestionLabel><Answer>Petrol money for driving</Answer></Expense>
+            </JobExpenses>
+            </JobDetails>
+            </Employment>
+            <HavePartner><QuestionLabel>Have you had a partner/spouse living with you since your claim date: 01/01/2010?</QuestionLabel><Answer>Yes</Answer></HavePartner>
+            <Partner>
+                <Surname>CaseThree</Surname>
+                <OtherNames>Test Middle</OtherNames>
+                <OtherSurnames>Dixon</OtherSurnames>
+                <Title>Mrs</Title>
+                <DateOfBirth>28-09-1937</DateOfBirth>
+                <NationalInsuranceNumber>BA234567A</NationalInsuranceNumber>
+                <NationalityPartner>British</NationalityPartner>
+                <RelationshipStatus>
+                    <SeparatedFromPartner><QuestionLabel>Have you separated from your partner/spouse since the date you want to claim from: 01/01/2010?</QuestionLabel><Answer>No</Answer></SeparatedFromPartner>
+                </RelationshipStatus>
+                <IsCaree><QuestionLabel>Is your partner/spouse the person you are claiming Carer's Allowance for?</QuestionLabel><Answer>Yes</Answer></IsCaree>
+            </Partner>
+            <OtherBenefits>
+                <ClaimantBenefits>
+                    <StatePension><QuestionLabel>Do you get State Pension?</QuestionLabel><Answer>No</Answer></StatePension>
+                </ClaimantBenefits>
+                <OtherMoneySSP><QuestionLabel>Have you had any Statutory Sick Pay (SSP) since the date you want to claim from 01/01/2010?</QuestionLabel><Answer>No</Answer></OtherMoneySSP>
+
+                <OtherMoneySP><QuestionLabel>Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from 01/01/2010?</QuestionLabel><Answer>Yes</Answer></OtherMoneySP>
+                <OtherMoneySPDetails>
+                    <Payment>
+                        <Payment><QuestionLabel>How much</QuestionLabel><Answer><Currency>GBP</Currency><Amount>£145</Amount></Answer></Payment>
+                        <Frequency><QuestionLabel>How often</QuestionLabel><Answer>Monthly</Answer></Frequency>
+                    </Payment>
+                    <Name>Greggs Bakers</Name>
+                    <Address>
+                        <Line>1012 Preston  Road</Line><Line>Preston</Line><Line>Lancashure</Line><PostCode>PR45 6YH</PostCode>
+                    </Address>
+                </OtherMoneySPDetails>
+                <OtherMoney><QuestionLabel>Have you or your Partner or Spouse claimed or received any other benefits since your claim date: 01/01/2010?</QuestionLabel><Answer>Yes</Answer></OtherMoney>
+                <OtherMoneyPayments><QuestionLabel>Have you received any payments for the person you care for or any other person since your claim date 01/01/2010</QuestionLabel><Answer>No</Answer></OtherMoneyPayments>
+
+                <EEA>
+                    <EEAReceivePensionsBenefits><QuestionLabel>Do you, or any member of your family, receive any benefits or pensions from any other European Economic Area (EEA) state or Switzerland?</QuestionLabel><Answer>No</Answer></EEAReceivePensionsBenefits>
+                    <EEAClaimPensionsBenefits><QuestionLabel>Have you, or a member of your family, made a claim for any benefits or pensions from any other European Economic Area (EEA) state or Switzerland?</QuestionLabel><Answer>No</Answer></EEAClaimPensionsBenefits>
+                    <EEAWorkingInsurance><QuestionLabel>Are you, or a member of your family, working in or paying insurance to, another European Economic Area (EEA) state or Switzerland?</QuestionLabel><Answer>No</Answer></EEAWorkingInsurance>
+                </EEA>
+            </OtherBenefits>
+            <Payment>
+                <PaymentFrequency><QuestionLabel>How often do you want to get paid?</QuestionLabel><Answer>Four-Weekly</Answer></PaymentFrequency>
+                <InitialAccountQuestion><QuestionLabel>How would you like to get paid?</QuestionLabel><Answer>Other - you would like more information</Answer></InitialAccountQuestion>
+
+            </Payment>
+            <OtherInformation>
+                <WelshCommunication><QuestionLabel>Do you live in Wales and would like to receive future communications in Welsh?</QuestionLabel><Answer>No</Answer></WelshCommunication>
+
+            </OtherInformation>
+            <Declaration>
+                <DeclarationStatement>
+                    <Title>declaration.title</Title>
+                    <Content>declaration.1.pdf</Content>
+                    <Content>declaration.2</Content>
+                    <Content>declaration.3</Content>
+                    <Content>declaration.4</Content>
+                </DeclarationStatement>
+                <DeclarationQuestion><QuestionLabel>Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.</QuestionLabel><Answer>Yes</Answer></DeclarationQuestion>
+                <DeclarationQuestion><QuestionLabel>Please tick this box to confirm that you understand and make the declarations above.</QuestionLabel><Answer>Yes</Answer></DeclarationQuestion>
+                <DeclarationNameOrg><QuestionLabel>Your name and/or organisation</QuestionLabel><Answer>Some Org</Answer></DeclarationNameOrg>
+            </Declaration>
+            <Disclaimer>
+                <DisclaimerStatement>
+                    <Title>This is my claim for Carer's Allowance.</Title>
+                    <Content>disclaimer.1</Content>
+                    <Content>disclaimer.2</Content>
+                    <Content>disclaimer.3</Content>
+                    <Content>disclaimer.4</Content>
+                    <Content>disclaimer.5</Content>
+                    <Content>disclaimer.6</Content>
+                    <Content>disclaimer.7</Content>
+                </DisclaimerStatement>
+                <DisclaimerQuestion><QuestionLabel>Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits.</QuestionLabel><Answer>Yes</Answer></DisclaimerQuestion>
+            </Disclaimer>
+            <EvidenceList>
+                <RecipientAddress>
+                    <Line>CA Freepost</Line><Line>Palatine House</Line><Line>Preston</Line><PostCode>PR1 1HN</PostCode>
+                </RecipientAddress><Evidence>
+                <Title>Your Employment documents.</Title>
+                <Content>Last payslip you got before your claim date:01-01-2010</Content><Content>Any payslips you have had since then.</Content><Content>Any pension statements you may have.</Content>
+            </Evidence><Evidence>
+                <Title>Your Self-employed documents.</Title>
+                <Content>Most recent finalised accounts you have for your business.</Content><Content>Any pension statements you may have.</Content>
+            </Evidence><Evidence>
+                <Title/>
+                <Content>The Carer's Allowance unit will contact you if they need any further information.</Content>
+            </Evidence>
+            </EvidenceList>
+            <Consents>
+                <Consent><QuestionLabel>Do you agree to us getting information from any current or previous employer you have told us about on this form?</QuestionLabel><Answer>Yes</Answer></Consent>
+                <Consent><QuestionLabel>Do you agree to us getting information from any other person or organisation you have told us about on this claim?</QuestionLabel><Answer>Yes</Answer></Consent>
+            </Consents>
+
+        </DWPCAClaim>
+    </DWPCATransaction>
+    <ds:Signature>
+        <ds:SignedInfo>
+            <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+            <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
+            <ds:Reference URI="#1501TEST432">
+                <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                <ds:DigestValue>ugGjt59YG/DIXwWvJR0OmagTrhA=</ds:DigestValue>
+            </ds:Reference>
+        </ds:SignedInfo>
+        <ds:SignatureValue>E4Yrw9Db5Orw8oz2UXkNKoI46UF17wwWIRVKkLP5ZktO4SdZJKGmjQ==</ds:SignatureValue>
+    </ds:Signature></DWPBody>

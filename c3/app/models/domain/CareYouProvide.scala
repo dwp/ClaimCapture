@@ -7,31 +7,27 @@ import models.NationalInsuranceNumber
 import yesNo.YesNoWithDate
 
 case object CareYouProvide extends Section.Identifier {
-  val id = "s4"
+  val id = "s5"
 }
 
-case class TheirPersonalDetails(title: String = "",
+case class TheirPersonalDetails(relationship: String = "",
+                                title: String = "",
                                 firstName: String = "",
                                 middleName: Option[String] = None,
                                 surname: String = "",
                                 nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
                                 dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                                armedForcesPayment: String = "",
                                 liveAtSameAddressCareYouProvide: String = "") extends QuestionGroup(TheirPersonalDetails)
 
 case object TheirPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g1"
 }
 
-case class TheirContactDetails(address: MultiLineAddress = MultiLineAddress(), postcode: Option[String] = None, phoneNumber: Option[String] = None) extends QuestionGroup(TheirContactDetails)
+case class TheirContactDetails(address: MultiLineAddress = MultiLineAddress(), postcode: Option[String] = None) extends QuestionGroup(TheirContactDetails)
 
 case object TheirContactDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g2"
-}
-
-case class MoreAboutThePerson(relationship: String = "", armedForcesPayment: String = "") extends QuestionGroup(MoreAboutThePerson)
-
-case object MoreAboutThePerson extends QuestionGroup.Identifier {
-  val id = s"${CareYouProvide.id}.g3"
 }
 
 case class MoreAboutTheCare(spent35HoursCaring: String = "", spent35HoursCaringBeforeClaim:YesNoWithDate = YesNoWithDate("", None)) extends QuestionGroup(MoreAboutTheCare)

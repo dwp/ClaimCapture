@@ -1,14 +1,14 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage,Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects._
 
 /**
  * PageObject for page s2_about_you g1_yourDetails.
  * @author Jorge Migueis
  *         Date: 09/07/2013
  */
-final class G1YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1YourDetailsPage.url, G1YourDetailsPage.title, previousPage) {
+final class G1YourDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1YourDetailsPage.url, G1YourDetailsPage.title) {
   declareSelect("#title", "AboutYouTitle")
   declareInput("#firstName","AboutYouFirstName")
   declareInput("#middleName","AboutYouMiddleName")
@@ -16,6 +16,7 @@ final class G1YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] =
   declareInput("#otherNames", "AboutYouOtherNames")
   declareNino("#nationalInsuranceNumber","AboutYouNINO")
   declareDate("#dateOfBirth", "AboutYouDateOfBirth")
+  declareYesNo("#receiveStatePension", "AboutYouDoYouGetStatePension")
 }
 
 /**
@@ -27,12 +28,12 @@ object G1YourDetailsPage {
 
   val url  = "/about-you/your-details"
 
-  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1YourDetailsPage(browser, previousPage)
+  def apply(ctx:PageObjectsContext) = new G1YourDetailsPage(ctx)
 }
 
 /** The context for Specs tests */
 trait G1YourDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1YourDetailsPage (browser)
+  val page = G1YourDetailsPage (PageObjectsContext(browser))
 }

@@ -9,20 +9,43 @@ import models.domain._
 import utils.helpers.CarersForm._
 import models.view.Navigable
 import controllers.CarersForms._
+import play.api.Logger
+import controllers.submission.AsyncSubmissionController
+import monitoring.ClaimBotChecking
+import services.submission.ClaimSubmissionService
+import services.ClaimTransactionComponent
+import play.api.data.FormError
 
-object G4Declaration extends Controller with CachedClaim with Navigable {
+class G4Declaration extends Controller with CachedClaim with Navigable
+       with AsyncSubmissionController
+       with ClaimBotChecking
+       with ClaimSubmissionService
+       with ClaimTransactionComponent{
+  val claimTransaction = new ClaimTransaction
+
   val form = Form(mapping(
-    "confirm" -> nonEmptyText,
-    "someoneElse" -> optional(carersText)
-  )(Declaration.apply)(Declaration.unapply))
+    "confirm" -> carersNonEmptyText,
+    "nameOrOrganisation" -> optional(carersNonEmptyText(maxLength = 60)),
+    "someoneElse" -> optional(carersText),
+    "jsEnabled" -> boolean
+  )(Declaration.apply)(Declaration.unapply)
+    .verifying("nameOrOrganisation",Declaration.validateNameOrOrganisation _))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     track(Declaration) { implicit claim => Ok(views.html.s11_consent_and_declaration.g4_declaration(form.fill(Declaration))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s11_consent_and_declaration.g4_declaration(formWithErrors)),
-      declaration => claim.update(declaration) -> Redirect(routes.G5Submit.present()))
+      formWithErrors => {
+        val updatedFormWithErrors = formWithErrors.replaceError("","nameOrOrganisation", FormError("nameOrOrganisation", "error.required"))
+        BadRequest(views.html.s11_consent_and_declaration.g4_declaration(updatedFormWithErrors))
+      },
+      declaration => {
+        val updatedClaim = copyInstance(claim.update(declaration))
+        Logger.debug(updatedClaim.getClass.toString) // class models.view.CachedClaim$$anon$2
+        checkForBot(updatedClaim, request)
+        submission(updatedClaim, request, declaration.jsEnabled)
+      })
   }
 }

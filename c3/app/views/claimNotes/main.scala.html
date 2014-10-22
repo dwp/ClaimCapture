@@ -1,32 +1,31 @@
-@()
+@()(implicit lang:Lang)
 
-# Carer’s Allowance – help information
+@import views.html.helper._
+@import play.api.i18n.{MMessages => Messages}
 
-If you are inactive at any point in the claim for more than one hour you will not be able to go back into the claim and will lose the information you have already input. You will then need to restart your claim.
+# @Html(Messages("claimPack.main.1"))
 
-These notes give general information only and are not a complete statement of the law.
+@Html(Messages("claimPack.main.2"))
 
-If the person you are caring for receives certain benefits, the amount they receive may be affected by your claim for Carer’s Allowance. Because of this we need you and the person you care for to understand the potential consequences of your claim to Carer’s Allowance.
+@Html(Messages("claimPack.main.3"))
 
-You must tick the Disclaimer box as part of your claim to declare that you have understood the notes and you have made the person you are caring/or their representative aware that there could be a change to their benefits. 
+@Html(Messages("claimPack.main.4"))
 
-1. [What is Carer’s Allowance?](#1)
-2. [Can you get Carer’s Allowance?](#2)
-3. [Who cannot get Carer’s Allowance?](#3)
-4. [When to claim Carer’s Allowance](#4)
-5. [How to claim Carer's Allowance](#5)
-6. [How we pay you](#6)
-7. [What happens after we get your claim?](#7)
-8. [Will Carer’s Allowance affect other benefits you get?](#8)
-9. [What else can you claim?](#9)
-10. [Child Tax Credit](#10)
-11. [Carer’s Allowance and other benefits](#11)
-12. [More information about Carer’s Allowance](#12)
-13. [Carer’s Credit](#13)
-14. [Where to get help and advice](#14)
-15. [If you want help filling in these forms](#15)
-16. [Contact the e-Service Helpdesk](#16)
-17. [Contact the Carer’s Allowance Unit](#17)
+@Html(Messages("claimPack.main.5"))
+
+1. [@Html(Messages("claimPack.main.section1"))](#1)
+2. [@Html(Messages("claimPack.main.section2"))](#2)
+3. [@Html(Messages("claimPack.main.section3"))](#3)
+4. [@Html(Messages("claimPack.main.section4"))](#4)
+5. [@Html(Messages("claimPack.main.section5"))](#5)
+6. [@Html(Messages("claimPack.main.section6"))](#6)
+7. [@Html(Messages("claimPack.main.section7"))](#7)
+8. [@Html(Messages("claimPack.main.section8"))](#8)
+9. [@Html(Messages("claimPack.main.section9"))](#9)
+10. [@Html(Messages("claimPack.main.section10"))](#10)
+11. [@Html(Messages("claimPack.main.section11"))](#11)
+12. [@Html(Messages("claimPack.main.section12"))](#12)
+13. [@Html(Messages("claimPack.main.section13"))](#13)
 
 @whatIsCarersAllowance()
 @canYouGetCarersAllowance()
@@ -41,7 +40,3 @@ You must tick the Disclaimer box as part of your claim to declare that you have 
 @otherBenefits()
 @moreInformationAboutCarersAllowance()
 @carersCredit()
-@whereToHelpAndAdvice()
-@helpFillingTheseForms()
-@contactEServiceHelpdesk()
-@contactCAUnit()

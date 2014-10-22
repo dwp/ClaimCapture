@@ -13,23 +13,27 @@ import play.api.Logger
 
 object G1YourDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "title" -> nonEmptyText(maxLength = 4),
+    "title" -> carersNonEmptyText(maxLength = 4),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "otherNames" -> optional(carersText(maxLength = Name.maxLength)),
     "nationalInsuranceNumber" -> nino.verifying(filledInNino,validNino),
-    "dateOfBirth" -> dayMonthYear.verifying(validDate)
+    "dateOfBirth" -> dayMonthYear.verifying(validDate),
+    "receiveStatePension" -> nonEmptyText.verifying(validYesNo)
   )(YourDetails.apply)(YourDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
-    Logger.info(s"Start your details")
+  def present = claiming { implicit claim => implicit request => implicit lang =>
+    Logger.info(s"Start your details ${claim.uuid}")
     track(YourDetails) { implicit claim => Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g1_yourDetails(formWithErrors)),
-      yourDetails => claim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present()))
+      yourDetails => {
+          val updatedClaim = claim.showHideSection(yourDetails.receiveStatePension == no, PayDetails)
+          updatedClaim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present())
+      })
   }
 }

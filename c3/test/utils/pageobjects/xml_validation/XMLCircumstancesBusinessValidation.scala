@@ -1,9 +1,17 @@
 package utils.pageobjects.xml_validation
 
-import scala.xml.Elem
+import javax.xml.bind.DatatypeConverter
+
+import com.dwp.carers.security.encryption.EncryptorAES
+import com.dwp.exceptions.DwpRuntimeException
+import utils.pageobjects.xml_validation.XMLValidationNode._
+
+import scala.xml.{Node, Elem}
 import utils.pageobjects.{TestDatumValue, PageObjectException, TestData}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import scala.language.postfixOps
+import play.api.i18n.{MMessages => Messages}
 
 /**
  * Validates that an XML contains all the relevant data that was provided in a Claim.
@@ -24,6 +32,10 @@ class XMLCircumstancesBusinessValidation extends XMLBusinessValidation  {
    */
   def validateXMLClaim(claim: TestData, xml: Elem, throwException: Boolean): List[String] = {
     super.validateXMLClaim(claim, xml, throwException, mappingFilename, createXMLValidationNode)
+  }
+
+  override def objValue(attribute: String, value: String, question: String) = {
+    CircValue(attribute,value,question)
   }
 }
 
@@ -46,15 +58,37 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
       else {
         val index = if (isRepeatedAttribute && isARepeatableNode) iteration else 0
 
-        val value = XMLValidationNode.prepareElement(theNodes(index).text)
-        val nodeName = theNodes(index).mkString
-        def valuesMatching: Boolean = {
-          if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value) 
-          else if (nodeName.startsWith(EvidenceListNode)) {
-            value.contains(claimValue.question + "=" + claimValue.value)
+        val node = theNodes(index)
+        val value =  {
+          try {
+            prepareElement((new EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary(node.text.trim)))
+          } catch {
+            case e: DwpRuntimeException => prepareElement(node.text);
           }
-          else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
-          else if (nodeName.startsWith(DeclarationNode)) value.contains(claimValue.question + claimValue.value)
+        }
+        val nodeName = node.mkString
+
+        def valuesMatching: Boolean = {
+          if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value)
+          else if (nodeName.startsWith(EvidenceListNode) && ignoreQuestions(claimValue)) true
+          else if (nodeName.startsWith(EvidenceListNode) && (claimValue.attribute.contains("CircumstancesEmploymentChangeUsuallyPaidSameAmount"))) {
+            if (iteration == 0 ) value.matches(".*doyouusuallygetthesameamounteach[^=]*=" + claimValue.value +".*") else true
+          }
+          else if (nodeName.startsWith(EvidenceListNode)) {
+            value.contains(claimValue.question + "=" + (
+              claimValue.value match {
+                case "fourWeekly" => Messages("reportChanges.fourWeekly")
+                case "everyWeek" => Messages("reportChanges.everyWeek")
+                case "yourName" => Messages("reportChanges.yourName")
+                case "partner" => Messages("reportChanges.partner")
+                case "bothNames" => Messages("reportChanges.bothNames")
+                case "onBehalfOfYou" => Messages("reportChanges.onBehalfOfYou")
+                case "allNames" => Messages("reportChanges.allNames")
+                case _ => claimValue.value
+            }))
+          }
+          else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
+          else if (nodeName.startsWith(DeclarationNode)) valuesMatchingForNodes(claimValue, node)
           else value == claimValue.value
         }
 
@@ -70,6 +104,23 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
     }
   }
 
+  def valuesMatchingForNodes(claimValue:TestDatumValue, node:Node):Boolean  = {
+    answerText(node, "DeclarationQuestion",claimValue.question).contains(claimValue.value)
+  }
+
+  def answerText(node:Node,questionTag:String,questionLabel:String) = {
+    XMLValidationNode.prepareElement(((node \\ questionTag).filter { n => XMLValidationNode.prepareElement(n \\ "QuestionLabel" text) == questionLabel } \\ "Answer").text)
+  }
+  private def ignoreQuestions(claimValue: TestDatumValue) = {
+    val questions = Seq (
+      "BreaksInCareSummaryAdditionalBreaks", "BreaksInCareWhereWasThePersonYouCareFor",
+      "BreaksInCareWhereWereYou"
+    )
+    val answers = Seq ("yes", "somewhereelse")
+
+    questions.contains(claimValue.attribute) && answers.contains(claimValue.value.toLowerCase)
+  }
+
 }
 
 class CircValue(attribute: String, value: String, question: String) extends TestDatumValue(attribute, value, question) {}
@@ -79,12 +130,14 @@ object CircValue {
   private def prepareQuestion(question: String) = question.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
   private def prepareCircValue(claimValue: String, attribute:String) = {
-    val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
+
+    val cleanValue = claimValue.replace("\\n", "").replace(" ", "").replace("&", "").trim.toLowerCase
 
     if (cleanValue.contains("/")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
-      date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))
-    } else cleanValue
+      date.toString(DateTimeFormat.forPattern("dd-MM-yyyy"))
+    } else
+      cleanValue
   }
 
   def apply(attribute: String, value: String, question: String) = new CircValue(attribute, prepareCircValue(value,attribute), prepareQuestion(question))

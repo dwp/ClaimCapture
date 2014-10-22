@@ -1,32 +1,37 @@
-@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
-@import helper._
-@import utils.helpers.CarersTemplate._
-@import views.html.helper.base._
-@import utils.helpers.CarersCrypto
 @import models.domain.OtherEEAStateOrSwitzerland
 @import views.html.helper._
+@import play.api.i18n.{MMessages => Messages}
 
 @main(Messages("s2.g7") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)) {
 
     @form(action = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.submit) {
-        <fieldset class="form-elements">
-            <legend>@Messages("s2.g7")</legend>
+       
+	        <fieldset class="form-elements">
+	            <legend>@Html(Messages("s2.g7"))</legend>
 
-            <ul>
-                @sliderHelp(Messages("eeaCountryHelp.label"),Html(Messages("eeaCountryHelp")))
+                <div class="help-statement">
+                    <h3>@Html(Messages("eeaCountryHelp.label"))</h3>
 
-                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromEEA"))
+                    <p class="help-info">@Html(Messages("eeaCountryHelp"))</p>
+                </div>
 
-                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("claimedForBenefitsFromEEA"))
+                <ul>
 
-                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForEEA"))
-            </ul>
-        </fieldset>
+	                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromEEA"))
+	
+	                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForEEA"))
 
-        <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
-        </nav>
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps">
+	        	<ul>
+			   		<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+			   		<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	        	</ul>
+	        </nav>
+
     }
 }

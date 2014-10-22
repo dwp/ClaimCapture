@@ -1,51 +1,21 @@
 package models.domain
 
-import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
+import models.{DayMonthYear, NationalInsuranceNumber}
 
 
 case object CircumstancesIdentification extends Section.Identifier {
   val id = "c1"
-  //override val expectedMinTimeToCompleteInMillis: Long = 10000
 }
 
-case class CircumstancesAboutYou(title: String = "",
-                    firstName: String = "",
-                    middleName: Option[String] = None,
-                    lastName: String = "",
-                    nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
-                    dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)
-                     ) extends QuestionGroup(CircumstancesAboutYou){
-  def otherNames = firstName + middleName.map(" " + _).getOrElse("")
+case class CircumstancesReportChange(jsEnabled: Boolean = false,
+                                     fullName: String = "",
+                                     nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
+                                     dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                                     theirFullName: String = "",
+                                     theirRelationshipToYou: String = "") extends QuestionGroup(CircumstancesReportChange) {
 }
 
-object CircumstancesAboutYou extends QuestionGroup.Identifier {
+object CircumstancesReportChange extends QuestionGroup.Identifier {
   val id = s"${CircumstancesIdentification.id}.g1"
 }
 
-case class CircumstancesYourContactDetails(address: MultiLineAddress =new  MultiLineAddress(),
-                                           postcode: Option[String] = None,
-                                           phoneNumber: String = "",
-                                           mobileNumber: Option[String] = None
-                                  ) extends QuestionGroup(CircumstancesYourContactDetails){
-}
-
-object CircumstancesYourContactDetails extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesIdentification.id}.g2"
-}
-
-
-
-
-case class DetailsOfThePersonYouCareFor(firstName: String = "",
-                                 middleName: Option[String] = None,
-                                 lastName: String = "",
-                                 nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
-                                 dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)
-                                  ) extends QuestionGroup(DetailsOfThePersonYouCareFor){
-
-  def otherNames = firstName + middleName.map(" " + _).getOrElse("")
-}
-
-object DetailsOfThePersonYouCareFor extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesIdentification.id}.g3"
-}

@@ -1,0 +1,12 @@
+@(linkName:String = "")(implicit request:play.api.mvc.Request[AnyContent])
+
+@import play.api.Play
+@import play.api.Play.current
+@import utils.helpers.GAHelper._
+@import app.ConfigProperties._
+
+@gaTrack() = @{ if(getProperty("include.analytics", true)){
+        trackEvent(request.uri, linkName)
+    }
+}
+onclick="@gaTrack()"

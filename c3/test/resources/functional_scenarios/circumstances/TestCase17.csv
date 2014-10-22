@@ -1,0 +1,23 @@
+Report a change in your circumstances - Change in circumstances,Circumstances,Full Name,CircumstancesAboutYouFullName,Mr John Roger Smith
+Report a change in your circumstances - Change in circumstances,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,ja486278a
+Report a change in your circumstances - Change in circumstances,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,03/04/1950
+Report a change in your circumstances - Change in circumstances,Circumstances,Their Full Name,CircumstancesAboutYouTheirFullName,Mrs Jane Smith
+Report a change in your circumstances - Change in circumstances,Circumstances,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,Wife or civil partner
+Details of your change in circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,paymentChange
+Existing payment details - Change in circumstances,Existing payment details,Are you currently paid into a bank or building society?,CircumstancesPaymentChangeCurrentlyPaidIntoBank,yes
+Existing payment details - Change in circumstances,Existing payment details,Name of current bank or building society,CircumstancesPaymentChangeNameOfCurrentBank,Nat West
+Existing payment details - Change in circumstances,Existing payment details,Confirm your method of payment,CircumstancesPaymentCurrentPaymentMethod,
+Existing payment details - Change in circumstances,New payment details,New payment details,CircumstancesPaymentChangeAccountHolderName,Mr J and Mrs J Smith
+Existing payment details - Change in circumstances,New payment details,Whose name or names is the account in?,CircumstancesPaymentChangeWhoseNameIsTheAccountIn,Both you and your partner
+Existing payment details - Change in circumstances,New payment details,Full name of bank or building society,CircumstancesPaymentChangeBankFullName,HSBC
+Existing payment details - Change in circumstances,New payment details,Sort code,CircumstancesPaymentChangeSortCode,112233
+Existing payment details - Change in circumstances,New payment details,Account number,CircumstancesPaymentChangeAccountNumber,12345678
+Existing payment details - Change in circumstances,New payment details,Building society roll or reference number,CircumstancesPaymentChangeRollOrReferenceNumber,
+Existing payment details - Change in circumstances,New payment details,How often do you want to get paid?,CircumstancesPaymentChangePaymentFrequency,Four-Weekly
+Existing payment details - Change in circumstances,New payment details,Tell us more about your changes,CircumstancesPaymentChangeCaringMoreAboutChanges,
+Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,By Post
+Declaration - consent and declaration,Declaration,"Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,Yes
+Declaration - consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,Mr Smith
+Declaration - consent and declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,CircumstancesDeclarationConfirmation,Yes
+Declaration - consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have told us about?,CircumstancesDeclarationInfoAgreement,No
+Declaration - consent and declaration,Declaration,Please tell us why not,CircumstancesDeclarationWhyNot,I don't want to
