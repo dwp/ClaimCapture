@@ -3,7 +3,7 @@
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
 @import app.MaritalStatus._
-@import controllers.PreviewUtils._
+@import helper._
 
 
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}

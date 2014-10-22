@@ -117,6 +117,10 @@ trait WebSearchActions {
     ctx.browser.find(headingLocation).getText
   }
 
+  def visible (elementCssSelector: String):Boolean = {
+    ctx.browser.find(elementCssSelector).getAttribute("style") != "display: none;"
+  }
+
   //====================================================================================================================
   // Other search operations
   //====================================================================================================================

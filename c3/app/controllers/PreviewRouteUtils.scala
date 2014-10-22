@@ -44,4 +44,11 @@ object PreviewRouteUtils {
     routesMap
   }
 
+  def careYouProvide = {
+    val g1ThierPersonalDetailsRoute = controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present.toString
+    val personalDetailsList = Seq("care_you_provide_name", "care_you_provide_nino", "care_you_provide_dob")
+    val routesMap = Map(personalDetailsList map {id => (id, g1ThierPersonalDetailsRoute)} : _*)
+    routesMap
+  }
+
 }

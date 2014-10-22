@@ -6,6 +6,7 @@
 
 @import models.domain.TheirPersonalDetails
 @import play.api.i18n.{MMessages => Messages}
+@import helper._
 
 @yourPartner = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
 @abouTheCare = @{claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())}
@@ -17,17 +18,31 @@
     s"${ni.ni1.get.toUpperCase} ${ni.ni2.get} ${ni.ni3.get} ${ni.ni4.get} ${ni.ni5.get.toUpperCase}"
 }
 
+@showHidePartnerDetails = @{
+    yourPartner.hadPartnerSinceClaimDate == "no" ||
+            (yourPartner.isPartnerPersonYouCareFor.isDefined &&
+                    yourPartner.isPartnerPersonYouCareFor.get.toLowerCase == "no")
+}
+
+@partnerTitleName = @{
+    if (showHidePartnerDetails){
+        val title = Html(Messages("titleSelect."+theirPersonalDetails.title.toLowerCase))
+        s"$title ${theirPersonalDetails.firstName} ${theirPersonalDetails.middleName.map(_+" ").getOrElse("")}${theirPersonalDetails.surname}"
+    } else {
+        ""
+    }
+}
+
 <h2>@Html(Messages("careYouProvide"))</h2>
 <dl>
-    @if(yourPartner.hadPartnerSinceClaimDate == "no" ||
-            (yourPartner.isPartnerPersonYouCareFor.isDefined && yourPartner.isPartnerPersonYouCareFor.get.toLowerCase == "no")){
-        <dt>@Html(Messages("name"))</dt><dd>@{Html(Messages("titleSelect."+theirPersonalDetails.title.toLowerCase))} @theirPersonalDetails.firstName @theirPersonalDetails.middleName @theirPersonalDetails.surname</dd>
+    @if(showHidePartnerDetails){
+        @fieldWithLink("care_you_provide_name", "name", partnerTitleName)
         @if(theirPersonalDetails.nationalInsuranceNumber.isDefined){
             @defining(theirPersonalDetails.nationalInsuranceNumber.get){ nino =>
-                <dt>@Html(Messages("nationalInsuranceNumber"))</dt><dd>@ninoNumber(nino)</dd>
+                @fieldWithLink("care_you_provide_nino", "nationalInsuranceNumber", ninoNumber(nino))
             }
         }
-        <dt>@Html(Messages("dateOfBirth"))</dt><dd>@{theirPersonalDetails.dateOfBirth.`dd month, yyyy`}</dd>
+        @fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`)
     }
     <dt>@Html(Messages("address"))</dt><dd>@address.lineOne@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @theirContactDetails.postcode.getOrElse("")</dd>
     <dt>@Html(Messages("relationship"))</dt><dd>@theirPersonalDetails.relationship</dd>

@@ -1,7 +1,7 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
-@import controllers.PreviewUtils._
+@import helper._
 
 @partner = @{claim.questionGroup[YourPartnerPersonalDetails]}
 @aboutOtherMoney = @{claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())}

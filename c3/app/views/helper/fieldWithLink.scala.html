@@ -1,0 +1,17 @@
+@(id:String, name:String, value:String)(implicit lang: Lang)
+
+@import play.api.i18n.{MMessages => Messages}
+@import controllers.PreviewRouteUtils._
+
+
+@routesMap = @{
+    PreviewRouteUtils.yourDetailsRoute ++ PreviewRouteUtils.otherMoneyRoute ++ PreviewRouteUtils.educationRoute ++ PreviewRouteUtils.careYouProvide
+}
+
+@label = @{
+    Html(Messages(name))
+}
+
+<dt><a id="@id" href="@{routesMap(id)}">@label</a></dt><dd>@value</dd>
+
+
