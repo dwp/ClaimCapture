@@ -1,14 +1,21 @@
 @(yesNoForm: Form[models.yesNo.YesNo], breaksInCare: models.domain.BreaksInCare)(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+@import controllers.s4_care_you_provide.G10BreaksInCare
 
+@import views.html.helper.base._
 @import views.html.helper._
 @import models.DayMonthYear._
-@import models.domain.{BreaksInCare, Claim, ClaimDate, MoreAboutTheCare, Education, Employed, OtherMoney, SelfEmployment}
+@import models.domain.{MoreAboutTheCare, Education, Employed, OtherMoney, SelfEmployment}
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
+@import language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 @import scala.language.postfixOps
 
+@getCorrectDate(dmy:DayMonthYear,spent35HoursCaringBeforeClaim:Boolean) = @{
+    if (spent35HoursCaringBeforeClaim) dmy - 6 months
+    else dmy
+}
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
 
@@ -17,9 +24,11 @@
         case _ => false
     }
 
-    claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-        if (spent35HoursCaringBeforeClaim) displayPlaybackDatesFormat (lang, dmy - 6 months)
-        else displayPlaybackDatesFormat(lang,dmy))
+    claim.dateOfClaim.fold("{NO CLAIM DATE}") { dmy =>
+      val date = getCorrectDate(dmy, spent35HoursCaringBeforeClaim)
+      val sorted = breaksInCare.breaks.map(_.start).sorted
+      displayPlaybackDatesFormat (lang, sorted.find(_.isBefore(date)).getOrElse(date))
+    }
 }
 
 @nextSection = @{
@@ -29,10 +38,8 @@ else if (SelfEmployment.visible) SelfEmployment.name
 else OtherMoney.name
 }
 
-    @defining(lang) { implicit language =>
-
-
-    @main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(yesNoForm)) {
+@defining(lang) { implicit language =>
+@main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(yesNoForm)) {
     <fieldset id="breaks" class="form-elements results-detail">
         <legend>@Html(Messages("breaksAlreadyAdded"))</legend>
 
@@ -81,13 +88,17 @@ else OtherMoney.name
 				 </ul>
 				 
         	 </div>
-
-        <div class="prompt breaks-prompt">
-            <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
-            <input type="button" name="no" class="button row secondary" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
-            <input type="button" name="yes" class="button row warning" value="@Html(Messages("yes.delete"))" aria-label="@Html(Messages("yes.delete.label"))">
-            <span>&#33;</span>
-        </div>
+        @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.delete){
+            @DwpCSRFFormHelper.formField
+            @carersInputHidden(G10BreaksInCare.deleteForm("deleteId"))
+            <input type="hidden" id="deleteId" style="display:none"/>
+            <div class="prompt breaks-prompt">
+                <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
+                <input type="button" name="no" class="button row secondary" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
+                <input type="button" name="yes" class="button row warning" value="@Html(Messages("yes.delete"))" aria-label="@Html(Messages("yes.delete.label"))">
+                <span>&#33;</span>
+            </div>
+        }
     </fieldset>
     
 

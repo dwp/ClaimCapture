@@ -137,7 +137,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
 
       val result = G11Break.submit(request)
 
-      G10BreaksInCare.delete(breakID)(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result)))
+      G10BreaksInCare.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result)).withFormUrlEncodedBody("deleteId"->breakID))
 
       getClaimFromCache(result).questionGroup(BreaksInCare) should beLike {
         case Some(b: BreaksInCare) => b.breaks.size shouldEqual 0
@@ -145,9 +145,8 @@ class G10BreaksInCareSpec extends Specification with Tags {
     }
 
     "issue an 'error' when deleting a non-existing break when there are no existing breaks" in new WithApplication with Claiming {
-      val result = G10BreaksInCare.delete("nonExistingBreakID")(FakeRequest())
+      val result = G10BreaksInCare.delete(FakeRequest().withFormUrlEncodedBody("deleteId"->"nonExistingBreakID"))
       status(result) shouldEqual BAD_REQUEST
-      contentAsString(result) shouldEqual """Failed to delete break with ID "nonExistingBreakID" as claim currently has no breaks"""
     }
 
     "issue an 'error' when deleting a non-existing break when there are existing breaks" in new WithApplication with Claiming {
@@ -163,9 +162,8 @@ class G10BreaksInCareSpec extends Specification with Tags {
 
       val result1 = G11Break.submit(request)
 
-      val result = G10BreaksInCare.delete("nonExistingBreakID")(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)))
+      val result = G10BreaksInCare.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("deleteId"->"nonExistingBreakID"))
       status(result) shouldEqual BAD_REQUEST
-      contentAsString(result) shouldEqual """Failed to delete break with ID "nonExistingBreakID" as it does not exist in claim"""
     }
   } section("unit", models.domain.CareYouProvide.id)
 }

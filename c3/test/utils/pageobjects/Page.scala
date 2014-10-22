@@ -195,6 +195,10 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
     createPageWithTitle(title, iteration)
   }
 
+  def isElemSelected(cssSelector:String) = {
+    ctx.browser.findFirst(cssSelector).isSelected
+  }
+
 
   /**
    * Returns html code of the page.
