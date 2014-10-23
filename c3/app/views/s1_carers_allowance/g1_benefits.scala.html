@@ -20,29 +20,17 @@
 			
 		        <fieldset class="form-elements form-eligibility">
 		            <legend>@Html(Messages("s1.g1"))</legend>
-		            
-		            <p class="helper-message">@Html(Messages("s1.g1.help1"))</p>
-		            
-		           
-		            <dl data-journey="carers-allowance:page:eligibility">
+
+		          		           
+		            <div class="benefits" data-journey="carers-allowance:page:eligibility">
 		
-			            <dt>@Html(Messages("s1.g1.help2"))</dt>			
-			            <dd>@Html(Messages("s1.g1.help3"))</dd>
-			
-			            <dt>@Html(Messages("s1.g1.help4"))</dt>
-			            <dd>@Html(Messages("s1.g1.help5"))</dd>
-			
-			            <dt>@Html(Messages("s1.g1.help6"))</dt>
-						<dd></dd>
-						
-						
-			            <dt>@Html(Messages("s1.g1.help7"))</dt>
-			            <dd>@Html(Messages("s1.g1.help8"))@Html(Messages("s1.g1.help9"))</dd>
-			
-			            <dt>@Html(Messages("s1.g1.help10"))</dt>
-                        <dd> </dd>
-		            
-		            </dl>
+			            <p>@Html(Messages("s1.g1.help2"))</p>					
+			            <p>@Html(Messages("s1.g1.help4"))</p>
+			            <p>@Html(Messages("s1.g1.help6"))</p>
+			            <p>@Html(Messages("s1.g1.help7"))</p>
+						<p>@Html(Messages("s1.g1.help10"))</p>
+
+		            </div>
 		            
 	                @yesNoRadioGroup(currentForm("benefits.answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'allowance -> true,'trackLabel -> "benefits.answer")
 
@@ -50,7 +38,6 @@
 		            @defining(currentForm("benefits.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
 		                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 		                    <p>@Html(Messages("s1.g1.help11"))</p>
-		                    <p>@Html(Messages("s1.g1.help12"))</p>
 		                 </div>
 		            }
 		        </fieldset>
