@@ -80,6 +80,12 @@ trait CachedClaim {
   }
 
 
+  protected val C3VERSION = "C3Version"
+  protected val C3VERSION_VALUE = "0.2"
+
+  /**
+   * Called when starting a new claim. Overwrites CSRF token and Version in case user had old cookies.
+   */
   def newClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
       // Need to overwrite CSRF and Sessions because this could be an user that has an old cookie with CSRF and session
@@ -92,14 +98,18 @@ trait CachedClaim {
         val claim = newInstance()
         val result = withHeaders(action(claim, r, bestLang)(f))
         Logger.info(s"New ${claim.key} ${claim.uuid} cached. Token ${token}")
-        result.withSession((claim.key -> claim.uuid) ,(DwpCSRF.TokenName -> token))
+        // Cookies need to be changed BEFORE session, session is within cookies.
+        // Added C3Version for full Zero downtime
+        result.withCookies(r.cookies.toSeq.filterNot( _.name == C3VERSION) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withSession((claim.key -> claim.uuid) ,(DwpCSRF.TokenName -> token))
       }
       else {
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
         Logger.info(s"Changing $cacheKey - $key")
         val claim = Cache.getAs[Claim](key).getOrElse(throw new RuntimeException("I expected a claim in the cache!"))
         val result = originCheck(action(claim, r, claim.lang.getOrElse(bestLang))(f))
-        result.withSession(r.session - (DwpCSRF.TokenName) + (DwpCSRF.TokenName -> token))
+        // Cookies need to be changed BEFORE session, session is within cookies.
+        // Added C3Version for full Zero downtime
+        result.withCookies(r.cookies.toSeq.filterNot( _.name == C3VERSION) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withSession(r.session - (DwpCSRF.TokenName) + (DwpCSRF.TokenName -> token))
       }
     }
   }
