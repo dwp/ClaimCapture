@@ -22,13 +22,7 @@
                     @inputAddress(contactDetailsForm("address"))
 
                     @carersInputText(contactDetailsForm("postcode"), 'class -> "postcode", 'ignoreOptional -> true)
-                </ul>
-            </fieldset>
 
-            <fieldset class="form-elements">
-                <legend>@Html(Messages("s2.g2.howcontactyou"))</legend>
-
-                <ul>
                     @carersInputText(contactDetailsForm("howWeContactYou"), 'maxLength -> 35, 'helperAbove -> Messages("furtherInfoContact.helper"))
 
                     @carersCheckBox(contactDetailsForm("contactYouByTextphone"))
