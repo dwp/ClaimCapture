@@ -24,7 +24,6 @@
 	
 	            <ul>
 	                @listRadioGroup(nationalityAndResidencyForm("nationality"),
-                        'helperAbove -> Messages("nationality.helper"),
                         'items -> Seq(NationalityAndResidency.british -> Messages("label.british"), NationalityAndResidency.anothercountry -> Messages("label.anothercountry")),
 	                    '_label -> Messages("nationality.label"),
                         '_nestedFieldSet -> true)
