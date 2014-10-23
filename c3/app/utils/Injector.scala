@@ -1,6 +1,7 @@
 package utils
 
 import app.ConfigProperties._
+import play.api.libs.ws.ning.NingWSResponse
 import scala.reflect._
 import controllers.s12_consent_and_declaration.G3Declaration
 import play.api.mvc.{AnyContent, Request}
@@ -12,7 +13,7 @@ import play.api.{http, Logger}
 import services.submission.AsyncClaimSubmissionComponent
 import scala.language.existentials
 import scala.concurrent.{ExecutionContext, Future}
-import play.api.libs.ws.Response
+import play.api.libs.ws.WSResponse
 import ExecutionContext.Implicits.global
 import monitoring.{ProdHealthMonitor, ClaimTransactionCheck}
 import monitor.HealthMonitor
@@ -40,9 +41,9 @@ trait Injector {
         bind[AsyncClaimSubmissionComponent](new AsyncClaimSubmissionComponent {
           override val claimTransaction = new StubClaimTransaction
           override val webServiceClient: WebServiceClient = new WebServiceClient {
-            override def submitClaim(claim: Claim, txnId: String): Future[Response] = {
+            override def submitClaim(claim: Claim, txnId: String): Future[WSResponse] = {
               val resp =
-                new Response(null) {
+                new NingWSResponse(null) {
                   override def status: Int = http.Status.OK
                   override lazy val body: String =
                     <Response>

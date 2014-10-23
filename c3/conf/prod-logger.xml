@@ -47,6 +47,7 @@
 
     <!-- log application messages to root logger appenders -->
     <logger name="application" level="INFO"/>
+    <logger name="application" level="DEBUG"/>
 
     <!-- Note: The appenders are cumulative.
     A logger will log to the appenders attached to itself (if any) as well as all the appenders attached to its ancestors.

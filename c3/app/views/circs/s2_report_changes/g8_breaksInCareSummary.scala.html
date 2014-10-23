@@ -1,4 +1,4 @@
-@(breaksInCareSummaryForm: Form[models.domain.CircumstancesBreaksInCareSummary], breaksInCare: models.domain.CircumstancesBreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(breaksInCareSummaryForm: Form[models.domain.CircumstancesBreaksInCareSummary], breaksInCare: models.domain.CircumstancesBreaksInCare)(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -12,6 +12,8 @@
 @import views.html.circs.s2_report_changes.main
 @import play.api.i18n.{MMessages => Messages}
 @import app.CircsBreaksWhereabouts._
+
+@defining(lang) { implicit language =>
 
 @main(Messages("c2.g8") + " - " + Messages("c2.name")) {
     @errorsSummary(breaksInCareSummaryForm)
@@ -164,4 +166,5 @@ window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
                           "@CarersCrypto.encryptAES("additionalBreaks_text")");
     });
 </script>
+}
 }

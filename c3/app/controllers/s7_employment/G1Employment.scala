@@ -16,14 +16,14 @@ object G1Employment extends Controller with CachedClaim with Navigable {
       "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText.verifying(validYesNo)
       )(Emp.apply)(Emp.unapply))
 
-    def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+    def present = claimingWithCheck {  implicit claim =>  implicit request =>  lang =>
       claim.questionGroup(ClaimDate) match {
-        case Some(n) => track(Employment) { implicit claim => Ok(views.html.s7_employment.g1_employment(form.fill(Emp))) }
+        case Some(n) => track(Employment) { implicit claim => Ok(views.html.s7_employment.g1_employment(form.fill(Emp))(lang)) }
         case _ => Redirect("/")
       }
     }
 
-    def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+    def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
       form.bindEncrypted.fold(
         formWithErrors => {
           val formWithErrorsUpdate = formWithErrors
@@ -35,7 +35,7 @@ object G1Employment extends Controller with CachedClaim with Navigable {
               FormError("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label",
                 "error.required",
                 Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
-          BadRequest(views.html.s7_employment.g1_employment(formWithErrorsUpdate))}
+          BadRequest(views.html.s7_employment.g1_employment(formWithErrorsUpdate)(lang))}
         ,employment => {
           val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, Employed)
                                   .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, SelfEmployment)

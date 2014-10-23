@@ -43,13 +43,13 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
     .verifying("expected.usuallyPaidSameAmount",validateUsuallyPaidSameAmount _)
   )
 
-  def present = claiming { implicit circs => implicit request => implicit lang =>
+  def present = claiming {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesEmploymentNotStarted) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g12_employmentNotStarted(form.fill(CircumstancesEmploymentNotStarted)))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g12_employmentNotStarted(form.fill(CircumstancesEmploymentNotStarted))(lang))
     }
   }
 
-  def submit = claiming { implicit circs => implicit request => implicit lang =>
+  def submit = claiming {implicit circs =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -62,28 +62,28 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
           .replaceError("", "expected.howOften",FormError("howOften","error.required"))
           .replaceError("", "expected.usuallyPaidSameAmount",FormError("usuallyPaidSameAmount","error.required"))
 
-        BadRequest(views.html.circs.s2_report_changes.g12_employmentNotStarted(formWithErrorsUpdate))
+        BadRequest(views.html.circs.s2_report_changes.g12_employmentNotStarted(formWithErrorsUpdate)(lang))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )
   }
 
-  def validateHowMuchPaid(input: CircumstancesEmploymentNotStarted): Boolean = input.beenPaid match {
+  private def validateHowMuchPaid(input: CircumstancesEmploymentNotStarted): Boolean = input.beenPaid match {
     case `yes` => input.howMuchPaid.isDefined
     case _ => true
   }
 
-  def validateWhenExpectedToBePaid(input: CircumstancesEmploymentNotStarted): Boolean = input.beenPaid match {
+  private def validateWhenExpectedToBePaid(input: CircumstancesEmploymentNotStarted): Boolean = input.beenPaid match {
     case `yes` => input.whenExpectedToBePaidDate.isDefined
     case _ => true
   }
 
-  def validateHowOften(input: CircumstancesEmploymentNotStarted): Boolean = input.beenPaid match {
+  private def validateHowOften(input: CircumstancesEmploymentNotStarted): Boolean = input.beenPaid match {
     case `yes` => input.howOften.frequency.length > 0
     case _ => true
   }
 
-  def validateUsuallyPaidSameAmount(input: CircumstancesEmploymentNotStarted): Boolean = input.beenPaid match {
+  private def validateUsuallyPaidSameAmount(input: CircumstancesEmploymentNotStarted): Boolean = input.beenPaid match {
     case `yes` => input.howOften.frequency match{
       case app.PensionPaymentFrequency.Other => true
       case _ if input.howOften.frequency.size > 0 => input.usuallyPaidSameAmount.isDefined

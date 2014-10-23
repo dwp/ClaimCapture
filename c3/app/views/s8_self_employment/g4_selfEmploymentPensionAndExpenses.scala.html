@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.SelfEmploymentPensionsAndExpenses])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.SelfEmploymentPensionsAndExpenses])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -12,7 +12,7 @@
 @import play.api.i18n.{MMessages => Messages}
 @import models.domain.{Job, Jobs}
 
-
+@defining(lang) { implicit language =>
 @main(Messages("s8.g4") + " - " + Messages("s8.longName"), Some(currentForm)) {
 
     @form(action = controllers.s8_self_employment.routes.G4SelfEmploymentPensionsAndExpenses.submit) {
@@ -84,3 +84,4 @@
     window.areaCounter({selector: "@CarersCrypto.encryptAES("payPensionScheme_text")",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES("haveExpensesForJob_text")",maxChars:300});
 </script>
+}

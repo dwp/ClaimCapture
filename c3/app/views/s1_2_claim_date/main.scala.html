@@ -1,4 +1,4 @@
-@(title: String, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(title: String, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
 @import utils.helpers.CarersTemplate.fieldConstructor
 @import models.domain._

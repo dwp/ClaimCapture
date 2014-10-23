@@ -1,17 +1,18 @@
-@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import models.domain.OtherEEAStateOrSwitzerland
 @import views.html.helper._
 @import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
 
-@main(Messages("s2.g7") + " - " + Messages("s2.longName")) {
+@defining(lang) { implicit language =>
+    @main(Messages("s2.g7") + " - " + Messages("s2.longName")) {
 
-    @form(action = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.submit) {
+        @form(action = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.submit) {
 
             @DwpCSRFFormHelper.formField
-	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("s2.g7"))</legend>
+            <fieldset class="form-elements">
+                <legend>@Html(Messages("s2.g7"))</legend>
 
                 <div class="help-statement">
                     <h3>@Html(Messages("eeaCountryHelp.label"))</h3>
@@ -21,18 +22,19 @@
 
                 <ul>
 
-	                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromEEA"))
-	
-	                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForEEA"))
+                    @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromEEA"))
 
-	            </ul>
-	        </fieldset>
-	
-	        <nav class="form-steps">
-	        	<ul>
-			   		<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	        	</ul>
-	        </nav>
+                    @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForEEA"))
 
+                </ul>
+            </fieldset>
+
+            <nav class="form-steps">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                </ul>
+            </nav>
+
+        }
     }
 }

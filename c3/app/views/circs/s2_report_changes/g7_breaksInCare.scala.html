@@ -1,4 +1,4 @@
-@(breaksForm: Form[models.domain.CircumstancesBreaksInCare])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(breaksForm: Form[models.domain.CircumstancesBreaksInCare])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
@@ -10,7 +10,8 @@
 @import play.api.i18n.{MMessages => Messages}
 @import app.CircsBreaksWhereabouts._
 
-@circsWhereWasThePersonList = @{
+
+@circsWhereWasThePersonList(implicit lang: Lang) = @{
     Seq(
         Hospital -> Html(Messages("circsBreaks.inhospital")),
         RespiteCare -> Html(Messages("circsBreaks.inrespitecare")),
@@ -19,13 +20,15 @@
         SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
 }
 
-@circsWhereWereList = @{
+@circsWhereWereList(implicit lang: Lang) = @{
     Seq(
         Home -> Html(Messages("circsBreaks.athome")),
         Holiday -> Html(Messages("circsBreaks.onholiday")),
         Hospital -> Html(Messages("circsBreaks.inhospital")),
         SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
 }
+
+    @defining(lang) { implicit language =>
 
 @main(Messages("c2.g7") + " - " + Messages("c2.name")) {
     @errorsSummary(breaksForm)
@@ -133,4 +136,5 @@ window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
 });
 
 </script>
+}
 }

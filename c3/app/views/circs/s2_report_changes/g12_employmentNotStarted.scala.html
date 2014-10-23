@@ -1,4 +1,4 @@
-@(employmentNotStarted: Form[models.domain.CircumstancesEmploymentNotStarted])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(employmentNotStarted: Form[models.domain.CircumstancesEmploymentNotStarted])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -22,7 +22,9 @@
 @doCareCostsForThisWork = @{employmentNotStarted("doCareCostsForThisWork")}
 @moreAboutChanges = @{employmentNotStarted("moreAboutChanges")}
 
-@main(Messages("c2.g12") + " - " + Messages("c2.name")) {
+    @defining(lang) { implicit language =>
+
+    @main(Messages("c2.g12") + " - " + Messages("c2.name")) {
     @errorsSummary(employmentNotStarted)
 
     @form(action = controllers.circs.s2_report_changes.routes.G12EmploymentNotStarted.submit) {
@@ -178,4 +180,5 @@ $(function(){
     window.areaCounter({selector: "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:300});
 });
 </script>
+}
 }

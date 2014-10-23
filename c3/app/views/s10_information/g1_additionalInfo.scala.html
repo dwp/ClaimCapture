@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.AdditionalInfo])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.AdditionalInfo])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -10,6 +10,7 @@
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
 
+@defining(lang) { implicit language =>
 @main(Messages("s10_2.g1") + " - " + Messages("s10_2.longName"), Some(currentForm)) {
     @form(action = controllers.s10_information.routes.G1AdditionalInfo.submit) {
         @DwpCSRFFormHelper.formField
@@ -51,4 +52,5 @@
         "@CarersCrypto.encryptAES("anythingElse_text")");
     });
 </script>
+}
 }

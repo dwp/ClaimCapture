@@ -1,4 +1,4 @@
-@(breakForm: Form[models.domain.Break])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(breakForm: Form[models.domain.Break])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
@@ -10,9 +10,7 @@
 @import scala.language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
-
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
-    import language.postfixOps
 
     val spent35HoursCaringBeforeClaim = claim.questionGroup(MoreAboutTheCare) match {
         case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim.answer == "yes"
@@ -24,7 +22,9 @@
         else displayPlaybackDatesFormat(lang, dmy))
 }
 
-@main("Break - About the care you provide", Some(breakForm)) {
+    @defining(lang) { implicit language =>
+
+    @main("Break - About the care you provide", Some(breakForm)) {
 
     @form(action = controllers.s4_care_you_provide.routes.G11Break.submit) {
         <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
@@ -73,4 +73,5 @@
         window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_location_other")", maxChars: 60});
     })
 </script>
+}
 }

@@ -193,7 +193,7 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s4CareYouProvide() = {
+  def s4CareYouProvide(hours35:Boolean) = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
     claim.AboutTheCareYouProvideTitlePersonCareFor = "Mr"
@@ -229,9 +229,16 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvidePersonActsAs = "Guardian"
     claim.AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor = "Mary Jane Watson"
     // More About The Care
-    claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
-    claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "Yes"
-    claim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson = "03/04/2013"
+    if (hours35) {
+      claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
+      claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "Yes"
+      claim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson = "03/04/2013"
+    }else {
+      claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "No"
+      claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "No"
+    }
+
+
     claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
     // One Who Pays Personal Details
     claim.AboutTheCareYouProvideOrganisationPaysYou = "Valtech"
@@ -276,7 +283,7 @@ object ClaimScenarioFactory {
   }
 
   def s4CareYouProvideWithNoBreaksInCare() = {
-    val claim = s4CareYouProvide()
+    val claim = s4CareYouProvide(true)
 
     claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
 
@@ -284,13 +291,13 @@ object ClaimScenarioFactory {
   }
 
   def s4CareYouProvideWithBreaksInCare() = {
-    val claim = s4CareYouProvide()
+    val claim = s4CareYouProvide(true)
 
     claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
-    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "Home"
+    claim.AboutTheCareYouProvideBreakStartDate_1 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "Hospital"
     claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "Hospital"
-    claim.AboutTheCareYouProvideBreakStartDate_1 = "12/12/2006"
-    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "no"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "Yes"
 
     claim
   }
@@ -316,7 +323,7 @@ object ClaimScenarioFactory {
 
 
   def s5TimeSpentAbroad() = {
-    val claim = s4CareYouProvide()
+    val claim = s4CareYouProvide(true)
     // Normal Residence And Current Location
     claim.TimeSpentAbroadDoYouNormallyLiveintheUk = "No"
     claim.TimeSpentAbroadWhereDoYouNormallyLive = "Spain"

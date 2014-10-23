@@ -71,13 +71,13 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
     .verifying("expected.hasWorkFinished", validHasWorkFinished _)
   )
 
-  def present = claiming { implicit circs => implicit request => implicit lang =>
+  def present = claiming {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesEmploymentChange) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g9_employmentChange(form.fill(CircumstancesEmploymentChange)))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g9_employmentChange(form.fill(CircumstancesEmploymentChange))(lang))
     }
   }
 
-  def submit = claiming { implicit circs => implicit request => implicit lang =>
+  def submit = claiming {implicit circs =>  implicit request =>  lang =>
     def next(employmentChange: CircumstancesEmploymentChange):(QuestionGroup.Identifier,Call) = employmentChange.typeOfWork.answer match {
       case `employed` => {
         employmentChange.hasWorkStartedYet.answer match {
@@ -111,7 +111,7 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
           .replaceError("typeOfWork","expected.selfEmploymentTypeOfWork", FormError("typeOfWork.selfEmployedTypeOfWork", "error.required"))
           .replaceError("typeOfWork","expected.selfEmploymentTotalIncome", FormError("typeOfWork.selfEmployedTotalIncome", "error.required"))
           .replaceError("", "expected.hasWorkFinished", FormError("hasWorkFinishedYet.answer", "error.required"))
-        BadRequest(views.html.circs.s2_report_changes.g9_employmentChange(updatedFormWithErrors))
+        BadRequest(views.html.circs.s2_report_changes.g9_employmentChange(updatedFormWithErrors)(lang))
       },
       employmentChange => {
         val optSections = Stack(CircumstancesStartedAndFinishedEmployment, CircumstancesStartedEmploymentAndOngoing, CircumstancesEmploymentNotStarted, CircumstancesEmploymentChange)

@@ -111,9 +111,10 @@ POST          /care-you-provide/their-contact-details                     contro
 GET           /care-you-provide/more-about-the-care                       controllers.s4_care_you_provide.G7MoreAboutTheCare.present
 POST          /care-you-provide/more-about-the-care                       controllers.s4_care_you_provide.G7MoreAboutTheCare.submit
 
-GET           /care-you-provide/breaks-in-care                            controllers.s4_care_you_provide.G10BreaksInCare.present
-POST          /care-you-provide/breaks-in-care                            controllers.s4_care_you_provide.G10BreaksInCare.submit
-DELETE        /care-you-provide/breaks-in-care/:id                        controllers.s4_care_you_provide.G10BreaksInCare.delete(id: String)
+GET           /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.present
+POST          /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.submit
+POST          /care-you-provide/delete-break-in-care                         controllers.s4_care_you_provide.G10BreaksInCare.delete
+
 
 GET           /care-you-provide/breaks/:id                                controllers.s4_care_you_provide.G11Break.break(id: String)
 GET           /care-you-provide/break                                     controllers.s4_care_you_provide.G11Break.present

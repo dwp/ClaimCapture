@@ -64,11 +64,11 @@ class G3Declaration extends Controller with CachedClaim with Navigable
   )(Declaration.apply)(Declaration.unapply)
     .verifying(nameOrOrganisation,Declaration.validateNameOrOrganisation _))
 
-  def present:Action[AnyContent] = claimingWithCheck { implicit claim => implicit request => implicit lang =>
-    track(Declaration) { implicit claim => Ok(views.html.s12_consent_and_declaration.g3_declaration(form.fill(Declaration))) }
+  def present:Action[AnyContent] = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+    track(Declaration) { implicit claim => Ok(views.html.s12_consent_and_declaration.g3_declaration(form.fill(Declaration))(lang)) }
   }
 
-  def submit:Action[AnyContent] = claiming { implicit claim => implicit request => implicit lang =>
+  def submit:Action[AnyContent] = claiming { implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
@@ -78,7 +78,7 @@ class G3Declaration extends Controller with CachedClaim with Navigable
           .replaceError(gettingInformationFromAnyEmployer,Mappings.required,
                         FormError(gettingInformationFromAnyEmployer.concat(".why"), Mappings.errorRequired))
           .replaceError("tellUsWhyEmployer", FormError("tellUsWhyEmployer.whyPerson", Mappings.errorRequired))
-        BadRequest(views.html.s12_consent_and_declaration.g3_declaration(updatedFormWithErrors))
+        BadRequest(views.html.s12_consent_and_declaration.g3_declaration(updatedFormWithErrors)(lang))
       },
       declaration => {
         val updatedClaim = copyInstance(claim.update(declaration))

@@ -58,30 +58,30 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
     .verifying("whoPaysYou.required", validateWhoPays _)
   )
 
-  def validateWhoPays(aboutOtherMoney: AboutOtherMoney) = {
+  private def validateWhoPays(aboutOtherMoney: AboutOtherMoney) = {
     aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
       case `yes` => aboutOtherMoney.whoPaysYou.isDefined
       case _ => true
     }
   }
 
-  def validateHowMuch(aboutOtherMoney: AboutOtherMoney) = {
+  private def validateHowMuch(aboutOtherMoney: AboutOtherMoney) = {
     aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
       case `yes` => aboutOtherMoney.howMuch.isDefined
       case _ => true
     }
   }
 
-  def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(YourPartnerPersonalDetails) match {
+  private def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(YourPartnerPersonalDetails) match {
     case Some(p: YourPartnerPersonalDetails) => p.hadPartnerSinceClaimDate == yes
     case _ => false
   }
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
-    track(AboutOtherMoney) { implicit claim => Ok(views.html.s9_other_money.g1_aboutOtherMoney(form.fill(AboutOtherMoney), hadPartnerSinceClaimDate)) }
+  def present = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+    track(AboutOtherMoney) { implicit claim => Ok(views.html.s9_other_money.g1_aboutOtherMoney(form.fill(AboutOtherMoney), hadPartnerSinceClaimDate)(lang)) }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val claimDate: String = claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)
@@ -101,7 +101,7 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
           .replaceError("otherStatutoryPay","otherPayHowMuchRequired", FormError("otherStatutoryPay.howMuch", "error.required"))
           .replaceError("otherStatutoryPay","otherPayEmployerNameRequired", FormError("otherStatutoryPay.employersName", "error.required"))
 
-        BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate))
+        BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate)(lang))
       },
       f => claim.update(f) -> Redirect(controllers.s11_pay_details.routes.G1HowWePayYou.present))
   } withPreview()

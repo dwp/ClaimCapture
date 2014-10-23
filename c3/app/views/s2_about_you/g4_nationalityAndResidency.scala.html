@@ -1,4 +1,4 @@
-@(nationalityAndResidencyForm: Form[models.domain.NationalityAndResidency])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(nationalityAndResidencyForm: Form[models.domain.NationalityAndResidency])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -12,6 +12,7 @@
 @import models.domain.NationalityAndResidency
 @import app.MaritalStatus._
 
+@defining(lang) { implicit language =>
 @main(Messages("s2.g4") + " - " + Messages("s2.longName")) {
     @errorsSummary(nationalityAndResidencyForm)
 
@@ -78,4 +79,5 @@
                         "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Living_with_partner").id)");
     });
 </script>
+}
 }

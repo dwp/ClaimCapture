@@ -53,15 +53,15 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
     .verifying("nationality.required", YourPartnerPersonalDetails.validateNationalityIfPresent(_, claim))
   )
 
-  def present:Action[AnyContent] = claimingWithCheck { implicit claim => implicit request => implicit lang =>
-    presentConditionally(yourPartnerPersonalDetails)
+  def present:Action[AnyContent] = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
+    presentConditionally(yourPartnerPersonalDetails(lang),lang)
   }
 
-  def yourPartnerPersonalDetails(implicit claim: Claim, request: Request[AnyContent], lang:Lang): ClaimResult = {
-    track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))) }
+  private def yourPartnerPersonalDetails(lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))(lang)) }
   }
 
-  def submit:Action[AnyContent] = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit:Action[AnyContent] = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -72,7 +72,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
           .replaceError("", "separated.fromPartner.required", FormError("separated.fromPartner", errorRequired))
           .replaceError("", "isPartnerPersonYouCareFor.required", FormError("isPartnerPersonYouCareFor", errorRequired))
           .replaceError("", "nationality.required", FormError("nationality", errorRequired))
-        BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrorsUpdate))
+        BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrorsUpdate)(lang))
       },
       f => claim.update(f) -> Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
     )

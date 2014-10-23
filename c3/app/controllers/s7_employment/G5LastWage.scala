@@ -37,11 +37,11 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def present(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
-    track(LastWage) { implicit claim => Ok(views.html.s7_employment.g5_lastWage(form.fillWithJobID(LastWage, jobID))) }
+  def present(jobID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+    track(LastWage) { implicit claim => Ok(views.html.s7_employment.g5_lastWage(form.fillWithJobID(LastWage, jobID))(lang)) }
   }
 
-  def submit = claimingWithCheckInJob { jobID => implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheckInJob { jobID => implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val form = formWithErrors
@@ -52,7 +52,7 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
           .replaceError("", "employerOwesYouMoney.required", FormError("employerOwesYouMoney", "error.required", Seq(labelForEmployment(claim, lang, "employerOwesYouMoney", jobID))))
           .replaceError("whenGetPaid", "error.required", FormError("whenGetPaid", "error.required", Seq(labelForEmployment(claim, lang, "whenGetPaid", jobID))))
           .replaceError("sameAmountEachTime", "error.required", FormError("sameAmountEachTime", "error.required", Seq(labelForEmployment(claim, lang, "sameAmountEachTime", jobID))))
-        BadRequest(views.html.s7_employment.g5_lastWage(form))
+        BadRequest(views.html.s7_employment.g5_lastWage(form)(lang))
       },
       lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G8PensionAndExpenses.present(jobID)))
   }

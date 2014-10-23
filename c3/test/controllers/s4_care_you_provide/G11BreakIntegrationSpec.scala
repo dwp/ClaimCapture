@@ -31,8 +31,8 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       next
       titleMustEqual("Break - About the care you provide")
 
-      click("#start_day option[value='1']")
-      click("#start_month option[value='1']")
+      fill("#start_day").`with`("1")
+      fill("#start_month").`with`("1")
 
       click("#whereYou_location option[value='Hospital']")
       click("#wherePerson_location option[value='Hospital']")

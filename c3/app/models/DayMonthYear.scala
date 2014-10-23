@@ -108,6 +108,10 @@ object DayMonthYearComparator extends Ordering[Option[DayMonthYear]]{
 object DayMonthYear {
   import scala.language.implicitConversions
 
+  implicit def dateTimeOrdering:Ordering[DayMonthYear]= new Ordering[DayMonthYear]{
+    override def compare(x: DayMonthYear, y: DayMonthYear): Int = DayMonthYearComparator.compare(Some(x),Some(y))
+  }
+
   implicit def dateTimeToDayMonthYear(dt: DateTime) = apply(dt)
 
   def apply() = new DayMonthYear(Some(1), Some(1), Some(1970))

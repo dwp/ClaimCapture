@@ -1,10 +1,9 @@
-@(currentForm: Form[models.domain.AboutSelfEmployment])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.AboutSelfEmployment])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
@@ -12,6 +11,7 @@
 
 
 @import play.api.i18n.{MMessages => Messages}
+@defining(lang) { implicit language =>
 @main(Messages("s8.g1") + " - " + Messages("s8.longName"), Some(currentForm)) {
 
 
@@ -55,4 +55,5 @@
         @ga.stagePrompt()
     });
 </script>
+}
 }

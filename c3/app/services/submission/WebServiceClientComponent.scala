@@ -6,10 +6,12 @@ import java.util.concurrent.TimeoutException
 import app.ConfigProperties
 import models.domain.Claim
 import play.api.i18n.Lang
-import play.api.libs.ws
-import play.api.libs.ws.{Response, WS}
+import play.api.libs.ws.ning.NingWSResponse
+import play.api.libs.ws.{WSResponse, WS}
 import play.api.{Logger, http}
+import play.api.Play.current
 import xml.ValidXMLBuilder
+
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -19,7 +21,7 @@ trait WebServiceClientComponent {
   val webServiceClient: WebServiceClient
 
   class WebServiceClient {
-    def submitClaim(claim: Claim, txnId: String): Future[ws.Response] = {
+    def submitClaim(claim: Claim, txnId: String): Future[WSResponse] = {
       Logger.info (s"Entered on submitClaim for : ${claim.key} : transactionId [$txnId].")
       val claimSubmission = ValidXMLBuilder ().xml (claim, txnId)
       Logger.info ("Created xml")
@@ -51,7 +53,7 @@ trait WebServiceClientComponent {
 
 object UnavailableResponse {
 
-  def apply(): Response = new Response (null) {
+  def apply(): WSResponse = new NingWSResponse (null) {
 
     override def status: Int = http.Status.SERVICE_UNAVAILABLE
 

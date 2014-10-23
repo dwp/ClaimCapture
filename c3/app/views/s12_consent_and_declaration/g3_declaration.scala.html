@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(currentForm: Form[models.domain.Declaration])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
@@ -10,6 +10,7 @@
 @import models.domain.AboutOtherMoney
 @import utils.helpers.CarersTemplate._
 
+@defining(lang) { implicit language =>
 @main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm)) {
 
     @form(action = controllers.s12_consent_and_declaration.routes.G3Declaration.submit) {
@@ -102,4 +103,5 @@
 
 </script>
 <script type="text/javascript">$($("#js").val("true"));</script>
+}
 }

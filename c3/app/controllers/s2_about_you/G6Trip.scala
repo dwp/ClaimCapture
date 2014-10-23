@@ -26,14 +26,14 @@ object G6Trip extends Controller with CachedClaim {
 
   val fiftyTwoWeeksLabel = "s2.g5"
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
-    Ok(views.html.s2_about_you.g6_trip(form, fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
+  def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
+    Ok(views.html.s2_about_you.g6_trip(form, fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present())(lang))
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        BadRequest(views.html.s2_about_you.g6_trip(formWithErrors, fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
+        BadRequest(views.html.s2_about_you.g6_trip(formWithErrors, fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present())(lang))
       },
       trip => {
         val updatedTrips = if (trips.fiftyTwoWeeksTrips.size >= 6) trips else trips.update(trip.as[FiftyTwoWeeksTrip])
@@ -42,10 +42,10 @@ object G6Trip extends Controller with CachedClaim {
       })
   }
 
-  def trip(id: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def trip(id: String) = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     claim.questionGroup(Trips) match {
       case Some(ts: Trips) => ts.fiftyTwoWeeksTrips.find(_.id == id) match {
-        case Some(t: Trip) => Ok(views.html.s2_about_you.g6_trip(form.fill(t), fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present()))
+        case Some(t: Trip) => Ok(views.html.s2_about_you.g6_trip(form.fill(t), fiftyTwoWeeksLabel, routes.G6Trip.submit(), routes.G5AbroadForMoreThan52Weeks.present())(lang))
         case _ => Redirect(routes.G1YourDetails.present())
       }
 
@@ -53,7 +53,7 @@ object G6Trip extends Controller with CachedClaim {
     }
   }
 
-  def delete(id: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def delete(id: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
     import play.api.libs.json.Json
     import language.postfixOps
 

@@ -8,6 +8,8 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
   "Care you provide" should {
     """navigate to Education""" in new WithBrowser with BrowserMatchers {
+      pending("Needs to be upgraded to PageObject.")
+
       Formulate.claimDate(browser)
 
       Formulate.theirPersonalDetails(browser)
@@ -31,6 +33,8 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
 
     """navigate to Self Employment""" in new WithBrowser with BrowserMatchers {
+      pending("Needs to be upgraded to PageObject.")
+
       Formulate.claimDate(browser)
 
       Formulate.nationalityAndResidency(browser)
@@ -59,6 +63,8 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
     }
 
     """navigate to Other Money""" in new WithBrowser with BrowserMatchers {
+      pending("Needs to be upgraded to PageObject.")
+
       Formulate.claimDate(browser)
 
       Formulate.nationalityAndResidency(browser)

@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.MoreAboutTheCare])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.MoreAboutTheCare])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import views.html.helper._
 @import views.html.helper.dates._
@@ -10,13 +10,15 @@
 @import scala.language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
-@displayDateForLabel = @{
+    @displayDateForLabel = @{
     claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
         displayPlaybackDatesFormat(lang,dmy)
     )
 }
 
-@main(Messages("s4.g4") + " - " + Messages("s4.longName"), Some(currentForm)) {
+    @defining(lang) { implicit language =>
+
+    @main(Messages("s4.g4") + " - " + Messages("s4.longName"), Some(currentForm)) {
 
 
 
@@ -57,4 +59,5 @@
                           "@CarersCrypto.encryptAES("beforeClaimCaring_date_year")");
     });
 </script>
+}
 }

@@ -18,16 +18,16 @@ object CarersAllowance extends Controller with CachedClaim with Navigable {
   )(ProceedAnyway.apply)(ProceedAnyway.unapply)
     .verifying("error.required", mandatoryChecks _))
 
-  def approve = claiming {implicit claim => implicit request => implicit lang =>
-    track(LivesInGB) { implicit claim => Ok(views.html.s1_carers_allowance.g6_approve(form.fill(ProceedAnyway))) }
+  def approve = claiming {implicit claim =>  implicit request =>  lang =>
+    track(LivesInGB) { implicit claim => Ok(views.html.s1_carers_allowance.g6_approve(form.fill(ProceedAnyway))(lang)) }
   }
 
-  def approveSubmit = claiming {implicit claim => implicit request => implicit lang =>
+  def approveSubmit = claiming {implicit claim =>  implicit request =>  lang =>
     Logger.info("Approve submit, request:"+request.body)
     form.bindEncrypted.fold(
       formWithErrors => {
         Logger.info("Form with errors: "+formWithErrors)
-        BadRequest(views.html.s1_carers_allowance.g6_approve(formWithErrors))
+        BadRequest(views.html.s1_carers_allowance.g6_approve(formWithErrors)(lang))
       },
       f => {
         if (!f.jsEnabled) {

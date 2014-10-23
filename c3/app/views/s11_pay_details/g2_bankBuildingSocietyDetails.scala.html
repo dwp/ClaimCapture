@@ -1,46 +1,46 @@
-@(currentForm: Form[models.domain.BankBuildingSocietyDetails])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(currentForm: Form[models.domain.BankBuildingSocietyDetails])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
 @import controllers.s11_pay_details._
 @import app.WhoseNameAccount._
 @import models.domain.BankBuildingSocietyDetails
 @import play.api.i18n.{MMessages => Messages}
 @import play.api.i18n.Lang
 
-@main(Messages("s10.g2") + " - " + Messages("s10.longName"), Some(currentForm)) {
+@defining(lang) { implicit language =>
+    @main(Messages("s10.g2") + " - " + Messages("s10.longName"), Some(currentForm)) {
 
-    
-    @form(action = controllers.s11_pay_details.routes.G2BankBuildingSocietyDetails.submit) {
-        @DwpCSRFFormHelper.formField
 
-        <div class="form-wrap">
-	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("s10.g2"))</legend>
-	
-	            <ul>
-	                @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
+        @form(action = controllers.s11_pay_details.routes.G2BankBuildingSocietyDetails.submit) {
+            @DwpCSRFFormHelper.formField
 
-	                @carersInputText(currentForm("bankFullName"))
-	
-	                @sortCode(currentForm("sortCode"))
-	
-	                @carersInputText(currentForm("accountNumber"), 'maxLength -> "10")
-	
-	                @carersInputText(currentForm("rollOrReferenceNumber"), 'maxLength -> "18")
-	            </ul>
-	        </fieldset>
-	
-	        <nav class="form-steps">
-	            <ul>
-					<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
-	            </ul>
-	        </nav>
-        </div>
+            <div class="form-wrap">
+                <fieldset class="form-elements">
+                    <legend>@Html(Messages("s10.g2"))</legend>
+
+                    <ul>
+                        @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
+
+                        @carersInputText(currentForm("bankFullName"))
+
+                        @sortCode(currentForm("sortCode"))
+
+                        @carersInputText(currentForm("accountNumber"), 'maxLength -> "10")
+
+                        @carersInputText(currentForm("rollOrReferenceNumber"), 'maxLength -> "18")
+                    </ul>
+                </fieldset>
+
+                <nav class="form-steps">
+                    <ul>
+                        <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
+                    </ul>
+                </nav>
+            </div>
+        }
     }
 }

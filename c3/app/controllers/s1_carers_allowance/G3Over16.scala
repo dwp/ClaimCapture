@@ -15,14 +15,14 @@ object G3Over16 extends Controller with CachedClaim with Navigable {
     "over16.answer" -> nonEmptyText.verifying(validYesNo)
   )(Over16.apply)(Over16.unapply))
 
-  def present = claiming { implicit claim => implicit request => implicit lang =>
-    track(Over16) { implicit claim => Ok(views.html.s1_carers_allowance.g3_over16(form.fill(Over16))) }
+  def present = claiming {implicit claim =>  implicit request =>  lang =>
+    track(Over16) { implicit claim => Ok(views.html.s1_carers_allowance.g3_over16(form.fill(Over16))(lang)) }
   }
 
-  def submit = claiming { implicit claim => implicit request => implicit lang =>
+  def submit = claiming {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        BadRequest(views.html.s1_carers_allowance.g3_over16(formWithErrors))
+        BadRequest(views.html.s1_carers_allowance.g3_over16(formWithErrors)(lang))
       },
       f => claim.update(f) -> Redirect(routes.G4LivesInGB.present()))
   }

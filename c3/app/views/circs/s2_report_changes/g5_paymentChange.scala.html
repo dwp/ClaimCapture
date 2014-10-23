@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.CircumstancesPaymentChange])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(currentForm: Form[models.domain.CircumstancesPaymentChange])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -13,7 +13,8 @@
 @import app.PaymentFrequency._
 @import app.WhoseNameAccount._
 @import play.api.i18n.{MMessages => Messages}
-    
+
+@defining(lang) { implicit language =>
 @main(Messages("c2.g5") + " - " + Messages("c2.name")) {
     @errorsSummary(currentForm)
 
@@ -24,11 +25,11 @@
 	        <fieldset class="form-elements"  data-journey="carers-allowance:report-change:payment">
 	            <legend>@Html(Messages("c2.g5"))</legend>
                 <p class="security-message">@Html(Messages("c2.payment.helper"))</p>
-	
+
 	            <ul class="coc-layout">
 	                @yesNoRadioGroup(currentForm("currentlyPaidIntoBank.answer"),
 	                    '_label -> Messages("currentlyPaidIntoBank.label"))
-	
+
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        carersInputText(currentForm("currentlyPaidIntoBank.text1"),
@@ -37,7 +38,7 @@
 	                    ),
 	                    'id -> "currentlyPaidIntoBankWrap1"
 	                )
-	
+
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        carersInputText(currentForm("currentlyPaidIntoBank.text2"),
@@ -50,25 +51,25 @@
 	        </fieldset>
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("c2.g5.newPaymentDetails"))</legend>
-	
+
 	            <ul class="coc-layout">
 	                @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
 
 	                @carersInputText(currentForm("bankFullName"))
-	
+
 	                @sortCode(currentForm("sortCode"))
-	
+
 	                @carersInputText(currentForm("accountNumber"), 'maxLength -> "10")
-	
+
 	                @carersInputText(currentForm("rollOrReferenceNumber"), 'maxLength -> "18")
-	
+
 	                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect"), EveryWeek -> Messages("label.everyWeek"), FourWeekly -> Messages("label.fourWeekly")))
-	
+
 	                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
 	            </ul>
-	
+
 	        </fieldset>
-	
+
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
@@ -92,4 +93,5 @@ window.initEvents("@CarersCrypto.encryptAES("currentlyPaidIntoBank_answer_yes")"
 @ga.stagePrompt()
 });
 </script>
+}
 }
