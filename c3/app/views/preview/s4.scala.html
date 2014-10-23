@@ -44,7 +44,7 @@
         }
         @fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`)
     }
-    <dt>@Html(Messages("address"))</dt><dd>@address.lineOne@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @theirContactDetails.postcode.getOrElse("")</dd>
+    <dt>@Html(Messages("address"))</dt><dd>@{address.lineOne}@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @theirContactDetails.postcode.getOrElse("")</dd>
     <dt>@Html(Messages("relationship"))</dt><dd>@theirPersonalDetails.relationship</dd>
     <dt>@Html(Messages("spent35HoursCaring"))</dt><dd>@{Html(Messages("label."+abouTheCare.spent35HoursCaring))}</dd>
     <dt>@Html(Messages("anyBreaks"))</dt><dd>@{Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) Messages("breaks.details",breaks.breaks.length) else "")}</dd>

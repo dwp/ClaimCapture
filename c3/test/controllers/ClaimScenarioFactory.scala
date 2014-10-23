@@ -170,7 +170,7 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerDateofBirth = "12/07/1990"
     claim.AboutYourPartnerHaveYouSeparatedfromYourPartner = "Yes"
     // Person you care for
-    claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
+    claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
     claim.AboutYourPartnerHadPartnerSinceClaimDate = "Yes"
     claim
   }

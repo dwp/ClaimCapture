@@ -2,11 +2,10 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
+import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
-import utils.pageobjects.s6_education.G1YourCourseDetailsPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s4_care_you_provide.{G2TheirContactDetailsPage, G1TheirPersonalDetailsPage}
 
@@ -27,7 +26,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser with PageObjects {
       val theirPersonalDetailsPage = G1TheirPersonalDetailsPage(context)
-      val claim = ClaimScenarioFactory.s4CareYouProvide()
+      val claim = ClaimScenarioFactory.s4CareYouProvide(hours35 = false)
       theirPersonalDetailsPage goToThePage()
       theirPersonalDetailsPage fillPageWith claim
       val contactDetailsPage = theirPersonalDetailsPage submitPage()
@@ -60,6 +59,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
 
       val partnerPage = G1YourPartnerPersonalDetailsPage(context)
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
+      partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
       partnerPage goToThePage()
       partnerPage fillPageWith partnerData
       val theirPersonalDetailsPage =  partnerPage submitPage()
@@ -84,6 +84,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
 
       val partnerPage = G1YourPartnerPersonalDetailsPage(context)
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
+      partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
       partnerPage goToThePage()
       partnerPage fillPageWith partnerData
       val theirPersonalDetailsPage =  partnerPage submitPage()
@@ -153,7 +154,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     partnerPage submitPage()
 
     val theirPersonalDetailsPage = G1TheirPersonalDetailsPage(context)
-    val claim = ClaimScenarioFactory.s4CareYouProvide()
+    val claim = ClaimScenarioFactory.s4CareYouProvide(hours35 = false)
     theirPersonalDetailsPage goToThePage()
     theirPersonalDetailsPage fillPageWith claim
     theirPersonalDetailsPage submitPage()

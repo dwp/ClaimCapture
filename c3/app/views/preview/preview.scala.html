@@ -1,57 +1,60 @@
-@(previewForm:Form[models.domain.PreviewModel])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(previewForm:Form[models.domain.PreviewModel])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import views.html.helper._
 @import views.html.helper.base._
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersTemplate._
+@import scala.language.postfixOps
 @import utils.csrf.DwpCSRFFormHelper
 
-@common.govMain(Messages("preview.title")) {
+@defining(lang) { implicit language =>
+    @common.govMain(Messages("preview.title")) {
 
-    <div class="carers-allowance clearfix">
+        <div class="carers-allowance clearfix">
 
-        @common.protoType()
+            @common.protoType()
 
-        @common.feedback()
-
-
-        <article>
-
-            <nav class="back-nav">
-                <a id="backButton" href="@controllers.preview.routes.Preview.back">@Html(Messages("form.back"))</a>
-            </nav>
-
-            <h1>@Html(Messages("preview.summary"))</h1>
+            @common.feedback()
 
 
-            @errorsSummary(previewForm)
+            <article>
 
-
-            <section class="review">
-                @s2()
-                @s3()
-                @s4()
-                @s6()
-                @s7()
-                @s9()
-            </section>
-
-            @helper.form(action = controllers.preview.routes.Preview.submit) {
-                @DwpCSRFFormHelper.formField
-                <fieldset class="form-elements">
-                    <ul>
-                        @carersInputText(previewForm("email"))
-                    </ul>
-                </fieldset>
-                <nav class="form-steps">
-                    <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+                <nav class="back-nav">
+                    <a id="backButton" href="@controllers.preview.routes.Preview.back">@Html(Messages("form.back"))</a>
                 </nav>
-            }
-        </article>
-        @common.leftcol()
-    </div>
+
+                <h1>@Html(Messages("preview.summary"))</h1>
 
 
+                @errorsSummary(previewForm)
+
+
+                <section class="review">
+                    @s2()
+                    @s3()
+                    @s4()
+                    @s6()
+                    @s7()
+                    @s9()
+                </section>
+
+                @helper.form(action = controllers.preview.routes.Preview.submit) {
+                    @DwpCSRFFormHelper.formField
+                    <fieldset class="form-elements">
+                        <ul>
+                            @carersInputText(previewForm("email"))
+                        </ul>
+                    </fieldset>
+                    <nav class="form-steps">
+                        <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+                    </nav>
+                }
+            </article>
+            @common.leftcol()
+        </div>
+
+
+    }
 }
 
 
