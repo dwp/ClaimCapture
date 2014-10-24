@@ -35,5 +35,5 @@ object G7MoreAboutTheCare extends Controller with CachedClaim with Navigable {
       },
       moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(routes.G10BreaksInCare.present())
     )
-  }
+  } withPreview()
 }

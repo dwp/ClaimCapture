@@ -137,6 +137,13 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       verifyPreviewData(context, "care_you_provide_dob", "02 March, 1990", modifiedData, "02 April, 1991")
     }
 
+    "Modify relationship from preview page" in new WithBrowser with PageObjects{
+      val modifiedData = new TestData
+      modifiedData.AboutTheCareYouProvideWhatTheirRelationshipToYou = "wife"
+
+      verifyPreviewData(context, "care_you_provide_relationship", "Father", modifiedData, "wife")
+    }
+
   } section("integration", models.domain.CareYouProvide.id)
 
   def goToPreviewPage(context:PageObjectsContext):Page = {
