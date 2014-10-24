@@ -63,7 +63,11 @@ trait CachedClaim {
   def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid,claim.transactionId)(claim.navigation) with FullClaim
 
   private def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
-    r.session.get(cacheKey).getOrElse("") -> getProperty("cache.expiry", 3600)  //.getOrElse(randomUUID.toString)
+    r.session.get(cacheKey).getOrElse({
+      // Log an error if session empty or with no cacheKey entry so we no it is not a cache but a cookie issue.
+      Logger.error("Did not receive Session information. Probably  a cookie issue.")
+      ""
+    }) -> getProperty("cache.expiry", 3600)  //.getOrElse(randomUUID.toString)
   }
 
   def refererAndHost(r: Request[AnyContent]): (String, String) = {
@@ -280,7 +284,7 @@ trait CachedClaim {
       .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
   }
 
-  def bestLang()(implicit request: Request[AnyContent]) = {
+  private def bestLang()(implicit request: Request[AnyContent]) = {
     val implementedLangs = getProperty("application.langs", defaultLang)
 
     val listOfPossibleLangs = request.acceptLanguages.flatMap(aL => implementedLangs.split(",").toList.filter(iL => iL == aL.code))
