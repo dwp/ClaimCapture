@@ -24,7 +24,6 @@
 	            @defining(currentForm("over16.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
 	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 	                    <p>@Html(Messages("s1.g3.help1"))</p>
-	                    <p>@Html(Messages("s1.g3.help2"))</p>
 	                </div>
 	            }
 	        </fieldset>

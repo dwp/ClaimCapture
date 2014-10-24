@@ -55,7 +55,7 @@
                         inputDef = Seq(
                             titleSelect(currentForm("title")),
 
-                            carersInputText(currentForm("firstName"), 'helperAbove -> Messages("their.name.helper"), 'maxLength -> 17),
+                            carersInputText(currentForm("firstName"), 'maxLength -> 17),
 
                             carersInputText(currentForm("middleName"), 'maxLength -> 17),
 
@@ -63,7 +63,7 @@
 
                             carersInputText(currentForm("otherNames"), 'maxLength -> 35),
 
-                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove -> Messages("nationalInsuranceNumber.helper"), 'helperBelow -> Messages("nationalInsuranceNumber.helper2")),
+                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove -> Messages("nationalInsuranceNumber.helper")),
 
                             dateOfBirth(currentForm("dateOfBirth")),
 

@@ -45,12 +45,14 @@
                         <p>@Html(Messages("s11.g7.refresh1"))</p>
                         <p>@Html(Messages(if(isClaim) "s11.g7.refresh2" else "s11.g7.refresh2.c"))</p>
                     </div>
-           
+
+                    <nav class="form-steps">
+                        <button type="submit" name="action" value="next" class="button secondary">@Html(Messages("s11.g7.refresh"))</button>
+                    </nav>
+                    
                 </section>
                 
-                <nav class="form-steps">
-                	<button type="submit" name="action" value="next" class="button secondary">@Html(Messages("s11.g7.refresh"))</button>
-                </nav>
+
                 
             </article> 
             
