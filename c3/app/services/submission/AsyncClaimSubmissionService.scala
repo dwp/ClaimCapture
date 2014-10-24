@@ -22,7 +22,7 @@ with WebServiceClientComponent
 case class DuplicateClaimException(msg:String) extends Exception(msg)
 
 /**
-* This service relies on [[play.api.libs.ws.WS]] to submit a claim and then it processes the asynchronous response.
+* This service relies WS to submit a claim and then it processes the asynchronous response.
 * The response is stored into the transaction database.
 * This service uses a submission cache to detect resubmission of a claim already submitted successfully (duplicate claims).
 */

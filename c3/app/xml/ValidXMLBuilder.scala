@@ -8,7 +8,6 @@ import scala.xml.NodeSeq
 /**
  * Validates the XML built by an underlying XML builder, by default [[xml.DWPBody]].
  * Return the XML if valid, otherwise throws a RuntimeException.
- * Used by [[controllers.submission.WebServiceSubmitter]]
  * @author Jorge Migueis
  */
 class ValidXMLBuilder(underlying:XMLBuilder)  extends XMLBuilder {

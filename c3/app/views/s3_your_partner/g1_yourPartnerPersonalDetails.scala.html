@@ -18,7 +18,7 @@
     @showHideNationality(implicit lang: Lang) = @{
         // show nationality if not British and married or living with a partner
         if(YourPartnerPersonalDetails.shouldNationalityVisible(claim)) {
-            carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35, 'helperAbove -> Messages("partner.nationality.helper"), 'helperBelow -> Messages("partner.nationality.helper2"), 'ignoreOptional -> true)
+            carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35, 'helperBelow -> Messages("partner.nationality.helper2"), 'ignoreOptional -> true)
         } else {
             Html("")
         }
