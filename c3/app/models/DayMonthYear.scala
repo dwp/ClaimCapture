@@ -18,12 +18,16 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
 
   def `dd`: String = format("dd")
 
+  def `d`: String = format("d")
+
   def `M`: String = format("M")
 
   def `dd M, yyyy` = s"${this.`dd`} ${this.`M`}, ${this.`yyyy`}"
 
 
   def `dd M yyyy` = s"${this.`dd`} ${this.`M`} ${this.`yyyy`}"
+
+  def `d M yyyy` = s"${this.`d`} ${this.`M`} ${this.`yyyy`}"
   /**
   * Convert a DayMonthYear object to a string with 'month' in local language. See "conf/headingAndTitle.<local>.properties" files
   */

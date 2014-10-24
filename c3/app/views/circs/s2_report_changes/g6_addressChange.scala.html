@@ -41,7 +41,7 @@
 	                @yesNoRadioGroup(addressForm("stillCaring.answer"))
 	
 	                @otherDetailPlaceHolder(
-	                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring")("date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 31 days).`dd M yyyy`))
+	                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring")("date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 31 days).`d M yyyy`))
 	                    ),
 	                    'id -> "stillCaringDate"
 	                )

@@ -15,7 +15,7 @@
     }
     val year = (today - yearsToSubtract years).year.get
     val endDate = DayMonthYear(4,4,year)
-    args ++ Seq('helperAbove -> Messages("dateExample.helper", endDate.`dd M yyyy`))
+    args ++ Seq('helperAbove -> Messages("dateExample.helper", endDate.`d M yyyy`))
 }
 
 @inputDayMonthYear(field, argsWithSpecificArgs: _*)
