@@ -16,7 +16,7 @@ import play.api.http.HeaderNames._
 import models.domain._
 import controllers.routes
 import play.api.i18n.Lang
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 import models.domain.Claim
 import ExecutionContext.Implicits.global
 import models.view.CachedClaim.ClaimResult
@@ -63,20 +63,20 @@ trait CachedClaim {
   def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid,claim.transactionId)(claim.navigation) with FullClaim
 
   private def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
-    r.session.get(cacheKey).getOrElse({
-      // Log an error if session empty or with no cacheKey entry so we no it is not a cache but a cookie issue.
-      Logger.error("Did not receive Session information. Probably  a cookie issue.")
-      ""
-    }) -> getProperty("cache.expiry", 3600)  //.getOrElse(randomUUID.toString)
+    r.session.get(cacheKey).getOrElse("") -> getProperty("cache.expiry", 3600)  //.getOrElse(randomUUID.toString)
   }
 
-  def refererAndHost(r: Request[AnyContent]): (String, String) = {
+  private def refererAndHost(r: Request[AnyContent]): (String, String) = {
     r.headers.get("Referer").getOrElse("No Referer in header") -> r.headers.get("Host").getOrElse("No Host in header")
   }
 
   def fromCache(request: Request[AnyContent]): Option[Claim] = {
     val (key, _) = keyAndExpiration(request)
-    if (key.isEmpty) None else Cache.getAs[Claim](key)
+    if (key.isEmpty) {
+      // Log an error if session empty or with no cacheKey entry so we no it is not a cache but a cookie issue.
+      Logger.error("Did not receive Session information. Probably a cookie issue.")
+      None
+    } else Cache.getAs[Claim](key)
   }
 
   def recordMeasurements() = {
@@ -182,38 +182,6 @@ trait CachedClaim {
     }
   }
 
-  def submitting(f: (Claim) => Request[AnyContent] => Lang => Future[Result]) = Action.async {
-    request => {
-      val (referer, host) = refererAndHost(request)
-      implicit val r = request
-
-      def doSubmit() = {
-        fromCache(request) match {
-          case Some(claim) =>
-            Logger.debug(s"submitting - ${claim.key} ${claim.uuid}")
-            val (key, _) = keyAndExpiration(request)
-            if (key != claim.uuid) Logger.error(s"submitting - Claim uuid ${claim.uuid} does not match cache key $key")
-            val lang = claim.lang.getOrElse(bestLang)
-            f(copyInstance(claim))(request)(lang).map(res => res.withSession(claim.key -> key))
-          case None =>
-            Logger.warn(s"Cache for $cacheKey - ${keyAndExpiration(request)._1} timeout")
-            Future(Redirect(timeoutPage))
-        }
-      }
-
-      if (sameHostCheck) {
-        doSubmit()
-      } else {
-        if (getProperty("enforceRedirect", default = true)) {
-          Logger.warn(s"HTTP Referrer : $referer. Conf Referrer : $startPage. HTTP Host : $host")
-          Future(MovedPermanently(startPage))
-        } else {
-          doSubmit()
-        }
-      }.map(res => res)
-    }
-  }
-
   def ending(f: Claim => Request[AnyContent] => Lang => Result): Action[AnyContent] = Action {
     request => {
       implicit val r = request
@@ -274,7 +242,7 @@ trait CachedClaim {
     }
   }
 
-  def redirect: Boolean = {
+  private def redirect: Boolean = {
     getProperty("enforceRedirect", default = true)
   }
 
