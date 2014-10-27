@@ -6,7 +6,7 @@ import play.api.libs.ws.WSResponse
 import scala.concurrent.ExecutionContext
 import play.api.{http, Logger}
 import controllers.submission._
-import services.{SubmissionCacheService, EncryptionService, ClaimTransactionComponent}
+import services.{SubmissionCacheService, ClaimTransactionComponent}
 import ExecutionContext.Implicits.global
 import ClaimSubmissionService._
 import models.domain.Claim
@@ -26,7 +26,7 @@ case class DuplicateClaimException(msg:String) extends Exception(msg)
 * The response is stored into the transaction database.
 * This service uses a submission cache to detect resubmission of a claim already submitted successfully (duplicate claims).
 */
-trait AsyncClaimSubmissionService extends SubmissionCacheService with EncryptionService {
+trait AsyncClaimSubmissionService extends SubmissionCacheService {
 
   this: ClaimTransactionComponent with WebServiceClientComponent =>
 
@@ -68,7 +68,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService with Encryption
     if (checkEnabled) {
       getFromCache(claim) match {
         case Some(x) =>
-          Logger.error(s"Status ${INTERNAL_ERROR}. Already in cache, should not be submitting again! Duplicate claim submission. ${claim.key} ${claim.uuid} fingerprint: ${encrypt(x)} transactionId [${claim.transactionId.get}]")
+          Logger.error(s"Status ${INTERNAL_ERROR}. Already in cache, should not be submitting again! Duplicate claim submission. ${claim.key} ${claim.uuid} transactionId [${claim.transactionId.get}]")
           claimTransaction.updateStatus(claim.transactionId.get, INTERNAL_ERROR, claimType(claim))
 
         // this gets logged by the actor
