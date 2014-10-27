@@ -248,7 +248,7 @@ trait CachedClaim {
 
   private def withHeaders(result: Result): Result = {
     result
-      .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+      .withHeaders(CACHE_CONTROL -> "must-revalidate,no-cache,no-store")
       .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
   }
 
