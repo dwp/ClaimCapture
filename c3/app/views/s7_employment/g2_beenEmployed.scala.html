@@ -2,6 +2,7 @@
 
 @import scala.language.postfixOps
 @import views.html.helper._
+@import views.html.helper.base._
 @import utils.csrf.DwpCSRFFormHelper
 @import utils.helpers.CarersCrypto
 @import models.domain._
@@ -58,18 +59,22 @@
 			  </ul>
 			  
         </div>
-        
-        
-        
-        
 
-        <div class="prompt breaks-prompt">
-            <p class="normalMsg">@Html(Messages("deleteEmploymentMessage"))</p>
-            <p class="warningMsg">@Html(Messages("deleteOneEmploymentMessage"))</p>
-            <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(Messages("no.delete"))">
-            <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(Messages("yes.delete"))">
-            <span>&#33;</span>
-        </div>
+
+
+
+
+        @form(action = controllers.s7_employment.routes.Employment.delete){
+            @DwpCSRFFormHelper.formField
+            @carersInputHidden(controllers.s7_employment.Employment.deleteForm("deleteId"))
+            <div class="prompt breaks-prompt">
+                <p class="normalMsg">@Html(Messages("deleteEmploymentMessage"))</p>
+                <p class="warningMsg">@Html(Messages("deleteOneEmploymentMessage"))</p>
+                <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(Messages("no.delete"))">
+                <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(Messages("yes.delete"))">
+                <span>&#33;</span>
+            </div>
+        }
     </fieldset>
     
 

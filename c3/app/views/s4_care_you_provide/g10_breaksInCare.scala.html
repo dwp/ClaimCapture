@@ -91,7 +91,6 @@ else OtherMoney.name
         @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.delete){
             @DwpCSRFFormHelper.formField
             @carersInputHidden(G10BreaksInCare.deleteForm("deleteId"))
-            <input type="hidden" id="deleteId" style="display:none"/>
             <div class="prompt breaks-prompt">
                 <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
                 <input type="button" name="no" class="button row secondary" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
