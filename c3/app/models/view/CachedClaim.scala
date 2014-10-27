@@ -104,7 +104,7 @@ trait CachedClaim {
         Logger.info(s"New ${claim.key} ${claim.uuid} cached. Token ${token}")
         // Cookies need to be changed BEFORE session, session is within cookies.
         // Added C3Version for full Zero downtime
-        result.withCookies(r.cookies.toSeq.filterNot( _.name == C3VERSION) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withNewSession.withSession((claim.key -> claim.uuid) ,(DwpCSRF.TokenName -> token))
+        result.withCookies(r.cookies.toSeq.filterNot( _.name == C3VERSION) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withSession((claim.key -> claim.uuid) ,(DwpCSRF.TokenName -> token))
       }
       else {
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
