@@ -16,7 +16,7 @@ import utils.helpers.CarersLanguageHelper
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfNotFound = CSRFCreationFilter.createIfNotFound )) with Injector with CarersLanguageHelper with C3MonitorRegistration {
+object Global extends WithFilters(MonitorFilter, DwpCSRFFilter()) with Injector with CarersLanguageHelper with C3MonitorRegistration {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
