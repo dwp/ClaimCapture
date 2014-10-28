@@ -69,7 +69,7 @@
 
                             showHideNationality,
 
-                            yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", displayDateForLabel)),
+                            yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label"), 'helperAbove -> Messages("separated_fromPartner.helper",displayDateForLabel)),
 
                             yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
                         ),

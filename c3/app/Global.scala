@@ -74,14 +74,4 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter()) with Injector 
   }
 }
 
-object CSRFCreationFilter {
-
-  /**
-  * We do not want to generate CSRF here for C3. It will be handled by [[models.view.CachedClaim.newClaim]].
-  * And it adds security that the process needs to start from the first pages we have defined for Claim and Change of Circumstances.
-  */
-  def createIfNotFound(request:RequestHeader): Boolean = false
-}
-
-
 

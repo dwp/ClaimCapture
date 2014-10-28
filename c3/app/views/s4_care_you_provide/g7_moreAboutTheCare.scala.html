@@ -35,7 +35,7 @@
 	                                 '_label -> Messages("spent35HoursCaringBeforeClaim.label", displayDateForLabel))
 	
 	                @otherDetailPlaceHolder(
-	                    inputDef = Seq(inputDayMonthYear(currentForm("beforeClaimCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 years).`dd M yyyy`))),
+	                    inputDef = Seq(inputDayMonthYear(currentForm("beforeClaimCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 years).`d M yyyy`))),
 	                    'id -> "careStartDateWrap"
 	                )
 	            </ul>

@@ -31,8 +31,8 @@ object CachedClaim {
 }
 
 /**
-* The Unique ID use to identified a claim/circs in the cache is a UUID, stored in the claim/circs and set in the request session (cookie).
-*/
+ * The Unique ID use to identified a claim/circs in the cache is a UUID, stored in the claim/circs and set in the request session (cookie).
+ */
 trait CachedClaim {
 
   type JobID = String
@@ -92,7 +92,7 @@ trait CachedClaim {
    */
   def newClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
-       implicit val r = request
+      implicit val r = request
 
       recordMeasurements()
 
@@ -147,9 +147,9 @@ trait CachedClaim {
       originCheck(
         fromCache(request) match {
           case Some(claim) if !Play.isTest && (
-                    !claim.questionGroup[ClaimDate].isDefined ||
-                        claim.questionGroup[ClaimDate].isDefined &&
-                        claim.questionGroup[ClaimDate].get.dateOfClaim == null) =>
+            !claim.questionGroup[ClaimDate].isDefined ||
+              claim.questionGroup[ClaimDate].isDefined &&
+                claim.questionGroup[ClaimDate].get.dateOfClaim == null) =>
             Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date")
             Redirect(timeoutPage)
           case Some(claim) =>
@@ -183,11 +183,13 @@ trait CachedClaim {
     request => {
       implicit val r = request
       implicit val cl = new Claim()
+      val csrfCookieName = getProperty("csrf.cookie.name","")
+      val csrfSecure = getProperty("csrf.cookie.secure",false)
       fromCache(request) match {
         case Some(claim) =>
           val lang = claim.lang.getOrElse(bestLang)
-          originCheck(f(claim)(request)(lang)).withNewSession
-        case _ => originCheck(f(cl)(request)(bestLang)).withNewSession
+          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure= csrfSecure), DiscardingCookie(C3VERSION)).withNewSession
+        case _ => originCheck(f(cl)(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure= csrfSecure), DiscardingCookie(C3VERSION)).withNewSession
       }
 
     }
