@@ -21,7 +21,7 @@ class G1BenefitsSpec extends Specification with Tags {
       TimeUnit.MILLISECONDS.sleep(100)
 
       val result2 = G1Benefits.present(request)
-      header(CACHE_CONTROL, result2) must beSome("no-cache, no-store")
+      header(CACHE_CONTROL, result2) must beSome("must-revalidate,no-cache,no-store")
       val claim2 = getClaimFromCache(result2)
       claim1.created mustNotEqual claim2.created
       claim1.uuid mustNotEqual claim2.uuid
