@@ -92,10 +92,6 @@ trait CachedClaim {
    */
   def newClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
-//      // Need to overwrite CSRF and Sessions because this could be an user that has an old cookie with CSRF and session
-//      val token = DwpCSRF.SignedTokenProvider.generateToken
-//      val tokenName = getProperty("csrf.cookie.name","")
-//      implicit val r = Request[AnyContent](request.copy(tags = request.tags.filterNot(_._1 == tokenName) + (tokenName -> token)), request.body )
        implicit val r = request
 
       recordMeasurements()
@@ -105,11 +101,9 @@ trait CachedClaim {
         val result = withHeaders(action(claim, r, bestLang)(f))
         Logger.info(s"New ${claim.key} ${claim.uuid} cached.")// Token ${token}")
         // Cookies need to be changed BEFORE session, session is within cookies.
-        def tofilter(theCookie: Cookie): Boolean = { theCookie.name == C3VERSION } //||  theCookie.name ==  tokenName}
+        def tofilter(theCookie: Cookie): Boolean = { theCookie.name == C3VERSION }
         // Added C3Version for full Zero downtime
-        result.withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(C3VERSION, C3VERSION_VALUE) /*:+ Cookie(tokenName, token)*/: _*).withSession((claim.key -> claim.uuid))
-//        result
-        //,(DwpCSRF.TokenName -> token))
+        result.withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withSession((claim.key -> claim.uuid))
       }
       else {
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
@@ -117,10 +111,6 @@ trait CachedClaim {
         val claim = Cache.getAs[Claim](key).getOrElse(throw new RuntimeException("I expected a claim in the cache!"))
         val result = originCheck(action(claim, r, claim.lang.getOrElse(bestLang))(f))
         result
-        // Cookies need to be changed BEFORE session, session is within cookies.
-        // Added C3Version for full Zero downtime
-//       result.withCookies(r.cookies.toSeq.filterNot( _.name == tokenName) :+ Cookie(tokenName, token): _*)
-         //.withSession(r.session - (DwpCSRF.TokenName) + (DwpCSRF.TokenName -> token))
       }
     }
   }
