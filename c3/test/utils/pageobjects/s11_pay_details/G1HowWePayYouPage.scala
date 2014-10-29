@@ -10,7 +10,7 @@ import utils.pageobjects._
  */
 class G1HowWePayYouPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1HowWePayYouPage.url, G1HowWePayYouPage.title) {
   declareRadioList("#likeToPay", "HowWePayYouHowWouldYouLikeToGetPaid")
-  declareSelect("#paymentFrequency", "HowWePayYouHowOftenDoYouWantToGetPaid")
+  declareRadioList("#paymentFrequency", "HowWePayYouHowOftenDoYouWantToGetPaid")
 }
 
 /**

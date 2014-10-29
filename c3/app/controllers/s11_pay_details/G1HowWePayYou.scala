@@ -14,7 +14,7 @@ import PayDetails._
 object G1HowWePayYou extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "likeToPay" -> carersNonEmptyText(maxLength = 60),
-    "paymentFrequency" -> carersNonEmptyText(maxLength = 15)
+    "paymentFrequency" -> carersNonEmptyText(maxLength = 20)
   )(HowWePayYou.apply)(HowWePayYou.unapply))
 
   def present = claimingWithCheck { implicit claim =>  implicit request =>  lang =>

@@ -12,7 +12,7 @@ final class G5PaymentChangePage(ctx:PageObjectsContext) extends CircumstancesPag
   declareSortCode("#sortCode", "CircumstancesPaymentChangeSortCode")
   declareInput("#accountNumber", "CircumstancesPaymentChangeAccountNumber")
   declareInput("#rollOrReferenceNumber", "CircumstancesPaymentChangeRollOrReferenceNumber")
-  declareSelect("#paymentFrequency", "CircumstancesPaymentChangePaymentFrequency")
+  declareRadioList("#paymentFrequency", "CircumstancesPaymentChangePaymentFrequency")
   declareInput("#moreAboutChanges", "CircumstancesPaymentChangeCaringMoreAboutChanges")
 }
 

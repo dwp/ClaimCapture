@@ -78,7 +78,7 @@ Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,Greggs
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,this is a very large address line$$&another absurd large address line%&
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,PR45 6YH
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,UK bank or building society account
-How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Weekly
+How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Every week
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,I've got a rather large name you know $&
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,I don't actually remember the bank's name, i used to go to this bank a lot but they stole from me so
 How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,090126
