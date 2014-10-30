@@ -10,7 +10,7 @@
 @defining(lang) { implicit language =>
     @main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName")) {
 
-        <p class="intro-info">@Html(Messages("dateOfClaimHelp")) <a href="/claim-help#1" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date")>@Html(Messages("dateOfClaimHelp.link"))</a></p>
+        <p class="intro-info">@Html(Messages("dateOfClaimHelp")) <a href="/claim-help#1" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date")>@Html(Messages("dateOfClaimHelp.link"))</a>.</p>
 
         @errorsSummary(claimDateForm)
 
