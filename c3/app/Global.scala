@@ -69,8 +69,11 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter()) with Injector 
 
   override def onError(request: RequestHeader, ex: Throwable) = {
     Logger.error(ex.getMessage)
+    val csrfCookieName = getProperty("csrf.cookie.name","csrf")
+    val csrfSecure = getProperty("csrf.cookie.secure",false)
+    val C3VERSION = "C3Version"
     val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
-    Future(Ok(views.html.common.error(startUrl)(Request(request, AnyContentAsEmpty),lang(request))))
+    Future(Ok(views.html.common.error(startUrl)(Request(request, AnyContentAsEmpty),lang(request))).discardingCookies(DiscardingCookie(csrfCookieName, secure= csrfSecure), DiscardingCookie(C3VERSION)).withNewSession)
   }
 }
 
