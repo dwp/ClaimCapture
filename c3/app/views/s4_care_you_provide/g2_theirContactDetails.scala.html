@@ -22,7 +22,7 @@
                     <ul>
                         @inputAddress(currentForm("address"))
 
-                        @carersInputText(currentForm("postcode"), 'class -> "postcode", 'ignoreOptional -> true)
+                        @carersInputText(currentForm("postcode"), 'class -> "postcode",'maxLength -> 8, 'ignoreOptional -> true)
                     </ul>
                 </fieldset>
 

@@ -28,7 +28,7 @@
 	            <ul>
 	                @inputAddress(addressForm("previousAddress"))
 	
-	                @carersInputText(addressForm("previousPostcode"), 'class -> "postcode")
+	                @carersInputText(addressForm("previousPostcode"),'maxLength -> 8, 'class -> "postcode")
 	            </ul>
 	
 	        </fieldset>
@@ -48,7 +48,7 @@
 	
 	                @inputAddress(addressForm("newAddress"))
 	
-	                @carersInputText(addressForm("newPostcode"), 'class -> "postcode")
+	                @carersInputText(addressForm("newPostcode"),'maxLength -> 8, 'class -> "postcode")
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(yesNoRadioGroup(addressForm("caredForChangedAddress.answer"), 'ignoreOptional -> true)
@@ -66,7 +66,7 @@
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        inputAddress(addressForm("sameAddress.theirNewAddress")),
-	                        carersInputText(addressForm("sameAddress.theirNewPostcode"), 'class -> "postcode")
+	                        carersInputText(addressForm("sameAddress.theirNewPostcode"),'maxLength -> 8, 'class -> "postcode")
 	                    ),
 	                    'id -> "sameAddressData"
 	                )
