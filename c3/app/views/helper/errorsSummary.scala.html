@@ -12,7 +12,11 @@
             @for(error <- form.errors) {
                 <li>
                     <a href="#@CarersCrypto.encryptAES(error.key.replace(".","_"))">
-                        @Html(Messages(error.key, error.args: _*)) - @Html(Messages(error.message, error.args: _*))
+                        @if(Messages(s"${error.key}.${error.message}") == s"${error.key}.${error.message}") {
+                            @Html(Messages(error.key, error.args: _*)) - @Html(Messages(error.message, error.args: _*))
+                        }else{
+                            @Html(Messages(s"${error.key}.${error.message}", error.args: _*))
+                        }
                     </a>
                 </li>
             }
