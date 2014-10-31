@@ -75,7 +75,7 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             inputAddress(typeOfWork("employerNameAndAddress"), 'ignoreOptional -> true),
-                            carersInputText(typeOfWork("employerPostcode"), 'class -> "postcode"),
+                            carersInputText(typeOfWork("employerPostcode"), 'maxLength -> 8, 'class -> "postcode"),
                             carersInputText(typeOfWork("employerContactNumber"), 'maxLength -> 15),
                             carersInputText(typeOfWork("employerPayroll"), 'maxLength -> 15)
                         ),
