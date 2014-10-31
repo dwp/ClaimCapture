@@ -1,18 +1,21 @@
-@(currentForm: Form[models.domain.Benefits])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.Benefits])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
+@import helper._
 
-@main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm)) {
+@defining(lang) { implicit language =>
+@main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm),false) {
 
 
 
     @form(action = controllers.s1_carers_allowance.routes.G1Benefits.submit) {
 
-			
+                @DwpCSRFFormHelper.formField
 	
 			
 		        <fieldset class="form-elements form-eligibility">
@@ -48,7 +51,6 @@
 		                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 		                    <p>@Html(Messages("s1.g1.help11"))</p>
 		                    <p>@Html(Messages("s1.g1.help12"))</p>
-		                    <span>!</span>
 		                 </div>
 		            }
 		        </fieldset>
@@ -71,4 +73,4 @@
     });
     </script>
 }
-
+}

@@ -1,4 +1,4 @@
-@()(implicit lang: Lang, request:play.api.mvc.Request[AnyContent])
+@()(implicit request: Request[AnyContent], lang: Lang)
 
 @import play.api.i18n.{MMessages => Messages}
 
@@ -6,14 +6,13 @@
 	<section id="help">
 		<h2>@Html(Messages("leftcol.title"))</h2>
         @if((!request.uri.startsWith("/claim-help"))) {
-            <p><a href="/claim-help" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a></p>
+            <p><a href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a></p>
         }
 		<h3>@Html(Messages("leftcol.helpline"))</h3>
 		<p>@Html(Messages("leftcol.helplinecontent.1"))</p>
         <p class="grouped">@Html(Messages("leftcol.helplinecontent.2"))</p>
         <p>@Html(Messages("leftcol.helplinecontent.3"))</p>
-        <p>@Html(Messages("leftcol.helplinecontent.4"))<a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>@Messages("leftcol.callcharges")</a></p>
-        <p><a href="/claim-help#help" @views.html.ga.trackClickEvent(linkName = "Technical Help - Left Column")>@Html(Messages("leftcol.techhelp"))</a></p>
+        <p>@Html(Messages("leftcol.helplinecontent.4")) <a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>@Messages("leftcol.callcharges")</a></p>
 
 	</section>
 

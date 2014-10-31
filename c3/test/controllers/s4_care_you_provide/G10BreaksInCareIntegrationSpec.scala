@@ -2,91 +2,76 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{WithBrowserHelper, BrowserMatchers, Formulate}
-import utils.pageobjects.s4_care_you_provide.G10BreaksInCarePage
+import controllers.{ClaimScenarioFactory, WithBrowserHelper, BrowserMatchers, Formulate}
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.{TestData, PageObjects}
+import utils.pageobjects.s4_care_you_provide.{G11BreakPage, G1TheirPersonalDetailsPage, G10BreaksInCarePage}
 
 class G10BreaksInCareIntegrationSpec extends Specification with Tags {
   "Breaks from care" should {
-    "present" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual(G10BreaksInCarePage.title)
+    "present" in new WithBrowser with PageObjects {
+      G10BreaksInCarePage(context) goToThePage() must beAnInstanceOf[G10BreaksInCarePage]
     }
 
-    """present "completed" when no more breaks are required""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-      goTo("/care-you-provide/breaks-in-care")
-      browser.click("#answer_no")
-      next
-      titleMustEqual("Details of the person you care for - About the care you provide")
-    }
+    """present "Their personal details" when no more breaks are required""" in new WithBrowser with PageObjects {
+      val breaksInCare = G10BreaksInCarePage(context) goToThePage()
+      val data = new TestData
+      data.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
 
-    "go back to contact details" in new WithBrowser {
-      pending("Once 'Contact details' are done, this example must be written")
+      val next = breaksInCare fillPageWith data submitPage()
+      next must beAnInstanceOf[G1TheirPersonalDetailsPage]
     }
     
-    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-      Formulate.claimDate(browser)
-      Formulate.theirPersonalDetails(browser)
-      Formulate.theirContactDetails(browser)
-      Formulate.moreAboutTheCare(browser)
-      goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual(G10BreaksInCarePage.title)
-      
-      browser.find("ul[class=group] li p").getText mustEqual "* Have you had any breaks in caring since 03/10/1949?"
+    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects{
+      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvide(true),G10BreaksInCarePage.title)
+
+      breaksInCare.source() contains "Have you had any breaks from caring for this person since 10 April 2014?" should beTrue
+
     }
     
-    "display dynamic question text if user answered that they did NOT care for this person for 35 hours or more each week before your claim date" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-      Formulate.claimDate(browser)
-      Formulate.theirPersonalDetails(browser)
-      Formulate.theirContactDetails(browser)
-      Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
-      goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual(G10BreaksInCarePage.title)
-      
-      browser.find("ul[class=group] li p").getText mustEqual "* Have you had any breaks in caring since 03/04/1950?"
+    "display dynamic question text if user answered that they did NOT care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects{
+      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvide(false),G10BreaksInCarePage.title)
+
+      breaksInCare.source() contains "Have you had any breaks from caring for this person since 10 October 2014?" should beTrue
     }
 
-    """not record the "yes/no" answer upon starting to add a new break but "cancel".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-      browser.goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual(G10BreaksInCarePage.title)
+    """not record the "yes/no" answer upon starting to add a new break but "cancel".""" in new WithBrowser with PageObjects {
+      val breaksInCare = G10BreaksInCarePage(context) goToThePage()
+      val data = new TestData
+      data.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
 
-      browser.click("#answer_yes")
-      next
-      titleMustEqual("Break - About the care you provide")
+      val next = breaksInCare fillPageWith data submitPage()
+      next must beAnInstanceOf[G11BreakPage]
 
-      back
-      titleMustEqual(G10BreaksInCarePage.title)
-      browser.findFirst("#answer_yes").isSelected should beFalse
-      browser.findFirst("#answer_no").isSelected should beFalse
+      val back = next.goBack()
+
+      back must beAnInstanceOf[G10BreaksInCarePage]
+
+      back.isElemSelected("#answer_yes") should beFalse
+      back.isElemSelected("#answer_no") should beFalse
     }
 
-    """allow a new break to be added but not record the "yes/no" answer""" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
-      goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual(G10BreaksInCarePage.title)
+    """allow a new break to be added but not record the "yes/no" answer and test dynamic date is the break's (as it's older than claimdate)""" in new WithBrowser with PageObjects {
+      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(),G10BreaksInCarePage.title,upToIteration = 2)
 
-      browser.click("#answer_yes")
-      next
-      titleMustEqual("Break - About the care you provide")
-
-      break()
-      next
-      titleMustEqual(G10BreaksInCarePage.title)
-
-      browser.findFirst("#answer_yes").isSelected should beFalse
-      browser.findFirst("#answer_no").isSelected should beFalse
+      breaksInCare.source() contains "Have you had any more breaks from caring for this person since 10 January 1999?" should beTrue
+      breaksInCare.isElemSelected("#answer_yes") should beFalse
+      breaksInCare.isElemSelected("#answer_no") should beFalse
     }
 
-    """remember "no more breaks" upon stating "no more breaks" and returning to "breaks in care".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-      goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual(G10BreaksInCarePage.title)
+    """remember "no more breaks" upon stating "no more breaks" and returning to "breaks in care".""" in new WithBrowser with PageObjects {
+      val breaksInCare = G10BreaksInCarePage(context) goToThePage()
+      val data = new TestData
+      data.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
 
-      browser.click("#answer_no")
-      next
-      titleMustEqual("Details of the person you care for - About the care you provide")
+      val next = breaksInCare fillPageWith data submitPage()
+      next must beAnInstanceOf[G1TheirPersonalDetailsPage]
 
-      back
-      titleMustEqual(G10BreaksInCarePage.title)
-      browser.findFirst("#answer_yes").isSelected should beFalse
-      browser.findFirst("#answer_no").isSelected should beTrue
+      val back = next.goBack()
+      back must beAnInstanceOf[G10BreaksInCarePage]
+
+      back.isElemSelected("#answer_yes") should beFalse
+      back.isElemSelected("#answer_no") should beTrue
     }
   } section("integration", models.domain.CareYouProvide.id)
 }

@@ -1,6 +1,6 @@
 import sbt._
 import sbt.Keys._
-import play.Project._
+import play.Play.autoImport._
 import net.litola.SassPlugin
 import de.johoop.jacoco4sbt.JacocoPlugin._
 
@@ -14,32 +14,31 @@ object ApplicationBuild extends Build {
     jdbc,
     cache,
     anorm,
-    "org.specs2"         %% "specs2"              % "2.3.6" % "test" withSources() withJavadoc(),
+    ws,
+    "org.specs2"         %% "specs2"              % "2.3.13" % "test" withSources() withJavadoc(),
     "org.mockito"         % "mockito-all"         % "1.9.5" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka"  %% "akka-testkit"        % "2.2.3" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka"  %% "akka-agent"          % "2.2.3" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka"  %% "akka-actor"          % "2.2.3" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka"  %% "akka-remote"         % "2.2.3" % "test" withSources() withJavadoc(),
-    "com.dwp.carers"     %% "xmlcommons"          % "3.0.2",
-    "com.dwp.carers"     %%  "wscommons"          % "1.0",
+    "com.typesafe.akka"  %% "akka-testkit"        % "2.3.6" % "test" withSources() withJavadoc(),
+    "com.typesafe.akka"  %% "akka-agent"          % "2.3.6" % "test" withSources() withJavadoc(),
+    "com.typesafe.akka"  %% "akka-actor"          % "2.3.6" % "test" withSources() withJavadoc(),
+    "com.typesafe.akka"  %% "akka-remote"         % "2.3.6" % "test" withSources() withJavadoc(),
+    "com.dwp.carers"     %% "xmlcommons"          % "4.0.0",
+    "com.dwp.carers"     %%  "wscommons"          % "2.0",
     "postgresql"          % "postgresql"          % "9.1-901.jdbc4",
     "com.h2database"      % "h2"                  % "1.3.174",
     "me.moocar"           % "logback-gelf"        % "0.9.6p2",
     "com.github.rjeschke" % "txtmark"             % "0.10",
     "org.jacoco"          % "org.jacoco.core"     % "0.7.0.201403182114",
     "org.jacoco"          % "org.jacoco.report"   % "0.7.0.201403182114",
-    "com.dwp"            %% "play2-multimessages" % "2.2.1",
+    "com.dwp"            %% "play2-multimessages" % "2.3.5",
     "com.typesafe"       %% "play-plugins-mailer" % "2.2.0",
     "com.github.mumoshu" %% "play2-memcached"     % "0.4.0",
-    "com.codahale.metrics" % "metrics-healthchecks" % "3.0.1",
     "com.google.guava"    % "guava"               % "14.0",
-    "org.jasypt"          % "jasypt"              % "1.9.2",
-    "com.kenshoo"        %% "metrics-play"        % "0.1.4"
+    "org.jasypt"          % "jasypt"              % "1.9.2"
   )
 
   var sO: Seq[Def.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))
 
-  var sV: Seq[Def.Setting[_]] = Seq(scalaVersion := "2.10.3")
+  var sV: Seq[Def.Setting[_]] = Seq(scalaVersion := "2.10.4")
 
   var sR: Seq[Def.Setting[_]] = Seq(
     resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
@@ -70,7 +69,11 @@ object ApplicationBuild extends Build {
 
   var keyStoreOptions: Seq[Def.Setting[_]] =  Seq(javaOptions in Test += ("-Dcarers.keystore=" + keyStore))
 
-  var appSettings: Seq[Def.Setting[_]] =  SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions
+  var vS: Seq[Def.Setting[_]] = Seq(version := appVersion, libraryDependencies ++= appDependencies)
 
-  val main = play.Project(appName, appVersion, appDependencies, settings = play.Project.playScalaSettings ++ jacoco.settings).settings(appSettings: _*)
+  var appSettings: Seq[Def.Setting[_]] =  sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS
+
+  val main = Project(appName, file(".")).enablePlugins(play.PlayScala, net.litola.SassPlugin).settings(appSettings: _*)
+
+//  val main = play.Project(appName, appVersion, appDependencies, settings = play.Project.playScalaSettings ++ jacoco.settings).settings(appSettings: _*)
 }

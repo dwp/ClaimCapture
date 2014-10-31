@@ -35,10 +35,6 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       titleMustEqual(G1YourPartnerPersonalDetailsPage.title)
     }
 
-    "contain the completed forms" in new WithBrowser {
-      Formulate.theirPersonalDetails(browser)
-      browser.find("div[class=completed] ul li").size() mustEqual 1
-    }
     
     "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
@@ -54,5 +50,26 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       findMustEqualValue("#firstName","John")
       findMustEqualValue("#surname", "Appleseed")
     }
+
+    "fields must not be visible if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
+
+      titleMustEqual("Details of the person you care for - About the care you provide")
+      findMustEqualSize("#careYouProvideWrap", 1)
+      browser.find("#careYouProvideWrap").getAttribute("style") shouldEqual "display: none;"
+    }
+
+    "fields must be visible if user answered no to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourPartnerPersonalDetailsPartnerPersonYouCareForNo(browser)
+
+      titleMustEqual("Details of the person you care for - About the care you provide")
+      findMustEqualSize("#careYouProvideWrap", 1)
+      browser.find("#careYouProvideWrap").getAttribute("style") shouldEqual null
+    }
+
   } section("integration", models.domain.CareYouProvide.id)
 }

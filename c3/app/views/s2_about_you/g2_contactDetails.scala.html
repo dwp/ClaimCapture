@@ -1,44 +1,46 @@
-@(contactDetailsForm: Form[models.domain.ContactDetails])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(contactDetailsForm: Form[models.domain.ContactDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.base._
 @import play.api.i18n.{MMessages => Messages}
 
-@main(Messages("s2.g2") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ContactDetails)) {
-    @errorsSummary(contactDetailsForm)
+@defining(lang) { implicit language =>
+    @main(Messages("s2.g2") + " - " + Messages("s2.longName")) {
+        @errorsSummary(contactDetailsForm)
+
+        @form(action = controllers.s2_about_you.routes.G2ContactDetails.submit) {
+
+            @DwpCSRFFormHelper.formField
+            <fieldset class="form-elements">
+                <legend>@Html(Messages("s2.g2"))</legend>
+
+                <ul>
+                    @inputAddress(contactDetailsForm("address"))
+
+                    @carersInputText(contactDetailsForm("postcode"), 'class -> "postcode", 'ignoreOptional -> true)
+                </ul>
+            </fieldset>
+
+            <fieldset class="form-elements">
+                <legend>@Html(Messages("s2.g2.howcontactyou"))</legend>
+
+                <ul>
+                    @carersInputText(contactDetailsForm("howWeContactYou"), 'maxLength -> 35, 'helperAbove -> Messages("furtherInfoContact.helper"))
+
+                    @carersCheckBox(contactDetailsForm("contactYouByTextphone"))
+                </ul>
+            </fieldset>
 
 
-    @form(action = controllers.s2_about_you.routes.G2ContactDetails.submit) {
-        
-	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("s2.g2"))</legend>
-	
-	            <ul>
-	                @inputAddress(contactDetailsForm("address"))
-	
-	                @carersInputText(contactDetailsForm("postcode"), 'class -> "postcode", 'ignoreOptional -> true)
-	            </ul>
-	        </fieldset>
-	        
-	        <fieldset class="form-elements">
-	        	<legend>@Html(Messages("s2.g2.howcontactyou"))</legend>
-	        	
-	        	<ul>
-                    @carersInputText(contactDetailsForm("howWeContactYou"),'maxLength -> 35,'helperAbove -> Messages("furtherInfoContact.helper"))
-
-	                @yesNoRadioGroup(contactDetailsForm("contactYouByTextphone"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
-				</ul>
-	        </fieldset>
-	        
-	
-	        <nav class="form-steps">
-	        	<ul>
-	        		<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
-	        	</ul>
-	        </nav>
+            <nav class="form-steps">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                </ul>
+            </nav>
+        }
     }
 }

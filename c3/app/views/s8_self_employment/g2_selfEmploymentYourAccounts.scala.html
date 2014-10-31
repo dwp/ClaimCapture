@@ -1,30 +1,34 @@
-@(currentForm: Form[models.domain.SelfEmploymentYourAccounts])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.SelfEmploymentYourAccounts])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dates._
+@import utils.csrf.DwpCSRFFormHelper
 @import utils.helpers.PastPresentLabelHelper.labelForSelfEmployment
+@import scala.language.postfixOps
+
 
 @import play.api.i18n.{MMessages => Messages}
-@main(Messages("s8.g2") + " - " + Messages("s8.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.SelfEmploymentYourAccounts)) {
+@defining(lang) { implicit language =>
+@main(Messages("s8.g2") + " - " + Messages("s8.longName"), Some(currentForm)) {
 
 
 
     @form(action = controllers.s8_self_employment.routes.G2SelfEmploymentYourAccounts.submit) {
 
+        @DwpCSRFFormHelper.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s8.g2"))</legend>
 	
 	            <ul>
 	
-	                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"), 'helperAbove -> Messages("dateOfBirth.helper"))
+	                @tradingStartDate(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"))
 	
-	                @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"), 'helperAbove -> Messages("dateOfBirth.helper"))
+	                @tradingEndDate(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"))
 	
 	                @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
 	
@@ -38,7 +42,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>
@@ -50,4 +53,5 @@
         window.initEvents("@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_yes")", "@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_no")");
     });
 </script>
+}
 }

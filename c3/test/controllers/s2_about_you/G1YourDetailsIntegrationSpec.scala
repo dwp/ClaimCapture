@@ -6,6 +6,7 @@ import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s1_carers_allowance.G6ApprovePage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.PageObjects
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 
 class G1YourDetailsIntegrationSpec extends Specification with Tags {
   "Your Details" should {
@@ -26,11 +27,16 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{
 			val page =  G1YourDetailsPage(context)
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 7
+      page.submitPage().listErrors.size mustEqual 6
     }
 
     "Accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
-			val page =  G1YourDetailsPage(context)
+      val claimDatePage = G1ClaimDatePage(context)
+      claimDatePage goToThePage()
+      val claimDate = ClaimScenarioFactory.s12ClaimDate()
+      claimDatePage fillPageWith claimDate
+
+			val page =  claimDatePage submitPage()
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim

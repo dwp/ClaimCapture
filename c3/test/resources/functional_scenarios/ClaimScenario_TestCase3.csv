@@ -9,8 +9,7 @@ About You,Your Details,Middle name,AboutYouMiddleName,Middle
 About You,Your Details,Surname or family name,AboutYouSurname,CaseThree
 About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,Smithson
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,JB486278C
-About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1931
-About You,Your Details,Do you get state Pension?,AboutYouDoYouGetStatePension,No
+About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1950
 About You,Your contact details,Address,AboutYouAddress,3 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
 About You,Your contact details,How we contact you,HowWeContactYou,01772 888901
@@ -48,7 +47,7 @@ About Your Partner,Partner/Spouse details,Surname or family name,AboutYourPartne
 About Your Partner,Partner/Spouse details,All other surnames or family names they have been used or have been known by,AboutYourPartnerOtherNames,Dixon
 About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,BA234567A
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,28/09/1937
-About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,British
+About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,no
 About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,yes
 About Your Partner,Person you care for,Have you lived with a partner at any time since your claim date?,AboutYourPartnerHadPartnerSinceClaimDate,yes

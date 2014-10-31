@@ -25,31 +25,35 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
     "liveAtSameAddressCareYouProvide" -> nonEmptyText.verifying(validYesNo)
   )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     val isPartnerPersonYouCareFor = YourPartner.visible &&
                                     claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse("") == "yes")
 
     val currentForm = if (isPartnerPersonYouCareFor) {
       claim.questionGroup(YourPartnerPersonalDetails) match {
         case Some(t: YourPartnerPersonalDetails) =>
-          form.fill(TheirPersonalDetails(title = t.title.getOrElse(""),
+          val theirPersonalDetails =  claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
+          form.fill(TheirPersonalDetails( relationship = theirPersonalDetails.relationship,
+                                          title = t.title.getOrElse(""),
                                          firstName = t.firstName.getOrElse(""),
                                          middleName = t.middleName,
                                          surname = t.surname.getOrElse(""),
                                          nationalInsuranceNumber = t.nationalInsuranceNumber,
-                                         dateOfBirth = t.dateOfBirth.getOrElse(DayMonthYear(None,None,None)))) // Pre-populate form with values from YourPartnerPersonalDetails
+                                         dateOfBirth = t.dateOfBirth.getOrElse(DayMonthYear(None,None,None)),
+                                         armedForcesPayment = theirPersonalDetails.armedForcesPayment,
+                                         liveAtSameAddressCareYouProvide = theirPersonalDetails.liveAtSameAddressCareYouProvide)) // Pre-populate form with values from YourPartnerPersonalDetails
         case _ => form // Blank form (user can only get here if they skip sections by manually typing URL).
       }
     } else {
       form.fill(TheirPersonalDetails)
     }
 
-    track(TheirPersonalDetails) { implicit claim => Ok(views.html.s4_care_you_provide.g1_theirPersonalDetails(currentForm)) }
+    track(TheirPersonalDetails) { implicit claim => Ok(views.html.s4_care_you_provide.g1_theirPersonalDetails(currentForm)(lang)) }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g1_theirPersonalDetails(formWithErrors)),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g1_theirPersonalDetails(formWithErrors)(lang)),
       theirPersonalDetails => claim.update(theirPersonalDetails) -> Redirect(routes.G2TheirContactDetails.present()))
   }
 }

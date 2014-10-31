@@ -4,9 +4,8 @@ import app.ConfigProperties
 import com.codahale.metrics.health.HealthCheck
 import com.codahale.metrics.health.HealthCheck.Result
 import play.Configuration
-import play.api.http
 import play.api.http.Status
-import play.api.libs.ws.Response
+import play.api.libs.ws.WSResponse
 import utils.HttpUtils.HttpMethodWrapper
 
 import scala.concurrent.duration._
@@ -25,7 +24,7 @@ class ClaimReceivedConnectionCheck extends HealthCheck {
     val submissionServerEndpoint: String =
       Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "ping"
 
-    submissionServerEndpoint get { response: Response =>
+    submissionServerEndpoint get { response: WSResponse =>
       response.status match {
         case Status.OK =>
           Result.healthy

@@ -1,8 +1,9 @@
 package utils
 
 import app.ConfigProperties._
+import play.api.libs.ws.ning.NingWSResponse
 import scala.reflect._
-import controllers.s11_consent_and_declaration.G4Declaration
+import controllers.s12_consent_and_declaration.G3Declaration
 import play.api.mvc.{AnyContent, Request}
 import models.view.CachedClaim._
 import controllers.submission.XmlSubmitter
@@ -12,7 +13,7 @@ import play.api.{http, Logger}
 import services.submission.AsyncClaimSubmissionComponent
 import scala.language.existentials
 import scala.concurrent.{ExecutionContext, Future}
-import play.api.libs.ws.Response
+import play.api.libs.ws.WSResponse
 import ExecutionContext.Implicits.global
 import monitoring.{ProdHealthMonitor, ClaimTransactionCheck}
 import monitor.HealthMonitor
@@ -27,7 +28,7 @@ trait Injector {
 
     def xmlPrintControllers: Map[Class[_], Any] = {
       Map(
-        bind[G4Declaration](new G4Declaration {
+        bind[G3Declaration](new G3Declaration {
           override def submission(claim: Claim, request: Request[AnyContent], jsEnabled: Boolean): ClaimResult = XmlSubmitter.submission(claim, request)
 
           override val claimTransaction = new StubClaimTransaction
@@ -40,9 +41,9 @@ trait Injector {
         bind[AsyncClaimSubmissionComponent](new AsyncClaimSubmissionComponent {
           override val claimTransaction = new StubClaimTransaction
           override val webServiceClient: WebServiceClient = new WebServiceClient {
-            override def submitClaim(claim: Claim, txnId: String): Future[Response] = {
+            override def submitClaim(claim: Claim, txnId: String): Future[WSResponse] = {
               val resp =
-                new Response(null) {
+                new NingWSResponse(null) {
                   override def status: Int = http.Status.OK
                   override lazy val body: String =
                     <Response>
@@ -62,7 +63,7 @@ trait Injector {
 
     def stubDBControllers: Map[Class[_], Any] = {
       Map(
-        bind[G4Declaration](new G4Declaration {
+        bind[G3Declaration](new G3Declaration {
           override val claimTransaction = new StubClaimTransaction
         }),
         bind[G1Declaration](new G1Declaration {
@@ -86,7 +87,7 @@ trait Injector {
       stubDBControllers
     }
     else {
-      Map(bind[G4Declaration](new G4Declaration),
+      Map(bind[G3Declaration](new G3Declaration),
         bind[G1Declaration](new G1Declaration),
         bind[AsyncClaimSubmissionComponent](new AsyncClaimSubmissionComponent),
         bind[ClaimTransactionCheck](new ClaimTransactionCheck),

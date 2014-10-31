@@ -4,7 +4,7 @@ import app.XMLValues._
 import models.SortCode
 
 object PayDetails extends Section.Identifier {
-  val id = "s10"
+  val id = "s11"
 }
 
 case class HowWePayYou(likeToBePaid: String = "", paymentFrequency: String = "") extends QuestionGroup(HowWePayYou)
@@ -14,7 +14,6 @@ object HowWePayYou extends QuestionGroup.Identifier {
 }
 
 case class BankBuildingSocietyDetails(accountHolderName: String = "",
-                                      whoseNameIsTheAccountIn: String = "",
                                       bankFullName: String = "",
                                       sortCode: SortCode = SortCode("","",""),
                                       accountNumber: String = "",

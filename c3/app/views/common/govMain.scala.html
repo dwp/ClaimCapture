@@ -1,4 +1,4 @@
-@(title: String)(content: Html)(implicit footerCategories: Html = Html.empty, lang: Lang, request:play.api.mvc.Request[AnyContent])
+@(title: String)(content: Html)(implicit footerCategories: Html = Html(""), lang: Lang, request:play.api.mvc.Request[AnyContent])
 
 @import play.api.Play
 @import play.api.Play.current

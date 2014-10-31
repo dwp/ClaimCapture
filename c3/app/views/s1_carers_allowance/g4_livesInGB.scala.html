@@ -1,48 +1,51 @@
-@(currentForm: Form[models.domain.LivesInGB])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.LivesInGB])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.s1_carers_allowance.main
 @import play.api.i18n.{MMessages => Messages}
-@main(Messages("s1.g4") + " - " + Messages("s1.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.LivesInGB)) {
+@defining(lang) { implicit language =>
+    @main(Messages("s1.g4") + " - " + Messages("s1.longName"), Some(currentForm)) {
 
 
-    @form(action = controllers.s1_carers_allowance.routes.G4LivesInGB.submit) {
-	        <fieldset class="form-elements form-eligibility">
-	            <legend>@Html(Messages("s1.g4"))</legend>
-	
-	            <p>@Html(Messages("s1.g4.help1"))</p>
-	
-	            <div class="info">
-	            <p>@Html(Messages("s1.g4.help2"))</p>
-	            <p>@Html(Messages("s1.g4.help3"))</p>
-	            </div>
-	            
+        @form(action = controllers.s1_carers_allowance.routes.G4LivesInGB.submit) {
+            @DwpCSRFFormHelper.formField
+            <fieldset class="form-elements form-eligibility">
+                <legend>@Html(Messages("s1.g4"))</legend>
 
-	            @yesNoRadioGroup(currentForm("livesInGB.answer"), '_label -> Messages ("livesInGB.answer"), '_showLabel -> false,'track -> true,'allowance -> true, 'trackLabel -> "livesInGB.answer")
+                <p>@Html(Messages("s1.g4.help1"))</p>
 
-	                
-	            @defining(currentForm("livesInGB.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
-	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
-	                    <p>@Html(Messages("s1.g4.help4"))</p>
-	                    <p>@Html(Messages("s1.g4.help5"))</p>
-	                    <span>!</span>
-	                </div>
-	            }
-	        </fieldset>
-	
-	        <nav class="form-steps">
-	            <ul>
-	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
-	            </ul>
-	        </nav>
+                <div class="info">
+                    <p>@Html(Messages("s1.g4.help2"))</p>
+                    <p>@Html(Messages("s1.g4.help3"))</p>
+                </div>
+
+
+                @yesNoRadioGroup(currentForm("livesInGB.answer"), '_label -> Messages("livesInGB.answer"), '_showLabel -> false, 'track -> true, 'allowance -> true, 'trackLabel -> "livesInGB.answer")
+
+
+                @defining(currentForm("livesInGB.answer").value.getOrElse("don't know") match { case "no" =>
+                    "block" case _ => "none" }) { styleDisplay =>
+                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display : @styleDisplay ;">
+                    <p>@Html(Messages("s1.g4.help4"))</p>
+                    <p>@Html(Messages("s1.g4.help5"))</p>
+                </div>
+                }
+            </fieldset>
+
+            <nav class="form-steps">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                </ul>
+             </nav>
+        }
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
+
+        <script type="text/javascript">
+            $(function () {
+            window.initEvents("@CarersCrypto.encryptAES("livesInGB_answer_yes")", "@CarersCrypto.encryptAES("livesInGB_answer_no")");
+            });
+        </script>
     }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
-
-<script type="text/javascript">
-    $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("livesInGB_answer_yes")", "@CarersCrypto.encryptAES("livesInGB_answer_no")");
-    });
-</script>
 }

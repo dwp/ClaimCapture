@@ -1,17 +1,20 @@
-@(declarationForm: Form[models.domain.CircumstancesDeclaration])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(declarationForm: Form[models.domain.CircumstancesDeclaration])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
 @import models.domain._
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
 
+@defining(lang) { implicit language =>
 @main(Messages("c3.g1") + " - " + Messages("c3.name")) {
     @errorsSummary(declarationForm)
 
     @form(action = controllers.circs.s3_consent_and_declaration.routes.G1Declaration.submit) {
         <input type="hidden" id="js" name="jsEnabled" value="false">
+        @DwpCSRFFormHelper.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("c3.g2"))</legend>
@@ -67,7 +70,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("s3.g1.submit"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>
@@ -86,3 +88,4 @@ window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
                    "@CarersCrypto.encryptAES("nameOrOrganisation")");
 })
 </script>
+}

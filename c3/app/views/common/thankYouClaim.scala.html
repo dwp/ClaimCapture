@@ -1,15 +1,17 @@
-@()(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
 @import play.api.i18n._
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
 @import app.ConfigProperties._
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 @employment = @{claim.questionGroup[Employment].getOrElse(Employment())}
 @isEmployment = @{employment.beenEmployedSince6MonthsBeforeClaim == "yes"}
 @isSelfEmployment = @{employment.beenSelfEmployedSince1WeekBeforeClaim == "yes"}
 @isEmploymentOrSelfEmployment = @{isEmployment || isSelfEmployment}
-@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.`dd/MM/yyyy`}
+@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim}
+@displayDateForLabel = @{displayPlaybackDatesFormat(lang,claimDate)}
 
 @common.govMain(Messages("thankyou")) {
 
@@ -45,7 +47,7 @@
                             <section>
                                 <h2 id="employment">@Html(Messages("s11.g5.help3"))</h2>
                                 <ul>
-                                    <li>@{Messages("s11.g5.help4")} @claimDate</li>
+                                    <li>@{Messages("s11.g5.help4")} @displayDateForLabel</li>
                                     <li>@Html(Messages("s11.g5.help5"))</li>
                                     <li>@Html(Messages("s11.g5.help6"))</li>
                                 </ul>

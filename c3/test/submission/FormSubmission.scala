@@ -5,5 +5,5 @@ import scala.concurrent.Future
 import models.domain.Claim
 
 trait FormSubmission {
-  def submitClaim(claim: Claim, txnId:String): Future[ws.Response]
+  def submitClaim(claim: Claim, txnId:String): Future[ws.WSResponse]
 }

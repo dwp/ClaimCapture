@@ -1,4 +1,4 @@
-@(nationalityAndResidencyForm: Form[models.domain.NationalityAndResidency])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(nationalityAndResidencyForm: Form[models.domain.NationalityAndResidency])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,15 +7,18 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
 @import models.domain.NationalityAndResidency
 @import app.MaritalStatus._
 
-@main(Messages("s2.g4") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.NationalityAndResidency)) {
+@defining(lang) { implicit language =>
+@main(Messages("s2.g4") + " - " + Messages("s2.longName")) {
     @errorsSummary(nationalityAndResidencyForm)
 
 
     @form(action = controllers.s2_about_you.routes.G4NationalityAndResidency.submit) {
+            @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g4"))</legend>
 	
@@ -55,7 +58,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
     }
@@ -77,4 +79,5 @@
                         "@CarersCrypto.encryptAES(nationalityAndResidencyForm("maritalStatus")("Living_with_partner").id)");
     });
 </script>
+}
 }

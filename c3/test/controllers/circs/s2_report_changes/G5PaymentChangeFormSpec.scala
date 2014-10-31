@@ -30,7 +30,6 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
            "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
            "currentPaymentMethod" -> currentPaymentMethod,
            "accountHolderName" -> accountHolderName,
-           "whoseNameIsTheAccountIn" -> whoseNameIsTheAccountIn,
            "bankFullName" -> bankFullName,
            "sortCode.sort1" -> sortCode1,
            "sortCode.sort2" -> sortCode2,
@@ -49,7 +48,6 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
            f.currentlyPaidIntoBank.text1.get must equalTo(nameOfCurrentBank)
            f.currentlyPaidIntoBank.text2.get must equalTo(currentPaymentMethod)
            f.accountHolderName must equalTo(accountHolderName)
-           f.whoseNameIsTheAccountIn must equalTo(whoseNameIsTheAccountIn)
            f.bankFullName must equalTo(bankFullName)
            f.sortCode must equalTo(sortCode)
            f.accountNumber must equalTo(accountNumber)
@@ -67,7 +65,7 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
          )
        ).fold(
            formWithErrors => {
-             formWithErrors.errors.length must equalTo(10)
+             formWithErrors.errors.length must equalTo(9)
              formWithErrors.errors(0).message must equalTo("error.required")
              formWithErrors.errors(1).message must equalTo("error.required")
              formWithErrors.errors(2).message must equalTo("error.required")
@@ -77,7 +75,6 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
              formWithErrors.errors(6).message must equalTo("error.required")
              formWithErrors.errors(7).message must equalTo("error.required")
              formWithErrors.errors(8).message must equalTo("error.required")
-             formWithErrors.errors(9).message must equalTo("error.required")
            },
            f => "This mapping should not happen." must equalTo("Valid")
          )
@@ -90,7 +87,7 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
          )
        ).fold(
            formWithErrors => {
-             formWithErrors.errors.length must equalTo(10)
+             formWithErrors.errors.length must equalTo(9)
              formWithErrors.errors(0).message must equalTo("required")
              formWithErrors.errors(1).message must equalTo("error.required")
              formWithErrors.errors(2).message must equalTo("error.required")
@@ -100,7 +97,6 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
              formWithErrors.errors(6).message must equalTo("error.required")
              formWithErrors.errors(7).message must equalTo("error.required")
              formWithErrors.errors(8).message must equalTo("error.required")
-             formWithErrors.errors(9).message must equalTo("error.required")
            },
            f => "This mapping should not happen." must equalTo("Valid")
          )
@@ -113,7 +109,7 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
          )
        ).fold(
            formWithErrors => {
-             formWithErrors.errors.length must equalTo(10)
+             formWithErrors.errors.length must equalTo(9)
              formWithErrors.errors(0).message must equalTo("required")
              formWithErrors.errors(1).message must equalTo("error.required")
              formWithErrors.errors(2).message must equalTo("error.required")
@@ -123,7 +119,6 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
              formWithErrors.errors(6).message must equalTo("error.required")
              formWithErrors.errors(7).message must equalTo("error.required")
              formWithErrors.errors(8).message must equalTo("error.required")
-             formWithErrors.errors(9).message must equalTo("error.required")
            },
            f => "This mapping should not happen." must equalTo("Valid")
          )

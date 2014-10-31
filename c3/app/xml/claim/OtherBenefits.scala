@@ -21,9 +21,6 @@ object OtherBenefits extends XMLComponent {
 
 
     <OtherBenefits>
-      <ClaimantBenefits>
-        {question(<StatePension/>,"receiveStatePension",yourDetails.receiveStatePension)}
-      </ClaimantBenefits>
       {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label", statutorySickPay.answer)}
       {otherMoneySPPXml(statutorySickPay)}
       {question(<OtherMoneySP/>,"otherPay.label",otherStatutoryPayOption.answer)}
@@ -35,7 +32,7 @@ object OtherBenefits extends XMLComponent {
               <Payment>
                 {questionCurrency(<Payment/>,"howMuch.label", aboutOtherMoney.howMuch)}
                 {if(aboutOtherMoney.howOften.isDefined){
-                  {questionOther(<Frequency/>,"howOftenPension", aboutOtherMoney.howOften.get.frequency, aboutOtherMoney.howOften.get.other)}
+                  {questionOther(<Frequency/>,"howOften", aboutOtherMoney.howOften.get.frequency, aboutOtherMoney.howOften.get.other)}
                 }}
               </Payment>
               {question(<Name/>,"whoPaysYou.label", aboutOtherMoney.whoPaysYou)}

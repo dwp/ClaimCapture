@@ -33,21 +33,19 @@ class G1Declaration extends Controller with CachedChangeOfCircs with Navigable
     .verifying("nameOrOrganisation", CircumstancesDeclaration.validateNameOrOrganisation _)
   )
 
-  def present = claiming {
-    implicit circs => implicit request => implicit lang =>
+  def present = claiming { implicit circs =>  implicit request =>  lang =>
       track(CircumstancesOtherInfo) {
-        implicit circs => Ok(views.html.circs.s3_consent_and_declaration.g1_declaration(form.fill(CircumstancesDeclaration)))
+        implicit circs => Ok(views.html.circs.s3_consent_and_declaration.g1_declaration(form.fill(CircumstancesDeclaration))(lang)(circs,request))
       }
   }
 
-  def submit: Action[AnyContent] = claiming {
-    implicit circs => implicit request => implicit lang =>
+  def submit: Action[AnyContent] = claiming { implicit circs =>  implicit request =>  lang =>
       form.bindEncrypted.fold(
         formWithErrors => {
           val formWithErrorsUpdate = formWithErrors
             .replaceError("", "obtainInfoWhy", FormError("obtainInfoWhy", "error.required"))
             .replaceError("", "nameOrOrganisation", FormError("nameOrOrganisation", "error.required"))
-          BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(formWithErrorsUpdate))
+          BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(formWithErrorsUpdate)(lang)(circs,request))
         },
         f => {
           val updatedCircs = copyInstance(circs.update(f))

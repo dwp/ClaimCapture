@@ -1,17 +1,19 @@
 package submission
 
+import play.api.libs.ws.WSResponse
+import play.api.libs.ws.ning.NingWSResponse
+
 import scala.concurrent.{ExecutionContext, Future}
-import play.api.libs.ws.Response
 import ExecutionContext.Implicits.global
 import play.api.{Logger, http}
 import models.domain.Claim
 
 class MockWebServiceClient extends FormSubmission {
 
-  def submitClaim(claim: Claim, txnId:String): Future[Response] = {
+  def submitClaim(claim: Claim, txnId:String): Future[WSResponse] = {
     Logger.info(s"Claim submitting mock transactionId : ${ txnId}")
     val resp =
-      new Response(null) {
+      new NingWSResponse(null) {
         override def status: Int = http.Status.OK
         override lazy val body: String =
           getBodyString(txnId)

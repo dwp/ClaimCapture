@@ -16,6 +16,7 @@ GET           /internal-claim-notes/:languageCode                             co
 
 # claim pack notes accessed externally
 GET           /claim-help                                                 controllers.ClaimHelp.notes
+GET           /cofc-help                                                 controllers.CofcHelp.notes
 
 GET           /change-language/:chosenLanguage                            controllers.Language.change(chosenLanguage: String)
 
@@ -111,7 +112,7 @@ POST          /care-you-provide/more-about-the-care                           co
 
 GET           /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.present
 POST          /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.submit
-DELETE        /care-you-provide/breaks-in-care/:id                            controllers.s4_care_you_provide.G10BreaksInCare.delete(id: String)
+POST          /care-you-provide/delete-break-in-care                         controllers.s4_care_you_provide.G10BreaksInCare.delete
 
 GET           /care-you-provide/breaks/:id                                    controllers.s4_care_you_provide.G11Break.break(id: String)
 GET           /care-you-provide/break                                         controllers.s4_care_you_provide.G11Break.present
@@ -164,27 +165,28 @@ POST          /other-money/about-other-money                                  co
 
 # Pay details
 ###############
-GET           /pay-details/how-we-pay-you                                     controllers.s10_pay_details.G1HowWePayYou.present
-POST          /pay-details/how-we-pay-you                                     controllers.s10_pay_details.G1HowWePayYou.submit
+GET           /pay-details/how-we-pay-you                                     controllers.s11_pay_details.G1HowWePayYou.present
+POST          /pay-details/how-we-pay-you                                     controllers.s11_pay_details.G1HowWePayYou.submit
 
-GET           /pay-details/bank-building-society-details                      controllers.s10_pay_details.G2BankBuildingSocietyDetails.present
-POST          /pay-details/bank-building-society-details                      controllers.s10_pay_details.G2BankBuildingSocietyDetails.submit
+GET           /pay-details/bank-building-society-details                      controllers.s11_pay_details.G2BankBuildingSocietyDetails.present
+POST          /pay-details/bank-building-society-details                      controllers.s11_pay_details.G2BankBuildingSocietyDetails.submit
+
+# Information
+###############
+
+GET           /information/additional-info                                    controllers.s10_information.G1AdditionalInfo.present
+POST          /information/additional-info                                    controllers.s10_information.G1AdditionalInfo.submit
 
 # Consent and declaration
 ###############
-GET           /consent-and-declaration/additional-info                        controllers.s11_consent_and_declaration.G1AdditionalInfo.present
-POST          /consent-and-declaration/additional-info                        controllers.s11_consent_and_declaration.G1AdditionalInfo.submit
 
-GET           /consent-and-declaration/consent                                controllers.s11_consent_and_declaration.G2Consent.present
-POST          /consent-and-declaration/consent                                controllers.s11_consent_and_declaration.G2Consent.submit
+GET           /consent-and-declaration/disclaimer                             controllers.s12_consent_and_declaration.G2Disclaimer.present
+POST          /consent-and-declaration/disclaimer                             controllers.s12_consent_and_declaration.G2Disclaimer.submit
 
-GET           /consent-and-declaration/disclaimer                             controllers.s11_consent_and_declaration.G3Disclaimer.present
-POST          /consent-and-declaration/disclaimer                             controllers.s11_consent_and_declaration.G3Disclaimer.submit
+GET           /consent-and-declaration/declaration                            @controllers.s12_consent_and_declaration.G3Declaration.present
+POST          /consent-and-declaration/declaration                            @controllers.s12_consent_and_declaration.G3Declaration.submit
 
-GET           /consent-and-declaration/declaration                            @controllers.s11_consent_and_declaration.G4Declaration.present
-POST          /consent-and-declaration/declaration                            @controllers.s11_consent_and_declaration.G4Declaration.submit
-
-GET           /consent-and-declaration/error                                  controllers.s11_consent_and_declaration.G6Error.present
+GET           /consent-and-declaration/error                                  controllers.s12_consent_and_declaration.G4Error.present
 
 # Circumstances
 GET           /circumstances/identification/about-you                         controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present

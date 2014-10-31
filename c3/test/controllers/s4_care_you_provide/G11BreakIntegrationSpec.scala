@@ -31,8 +31,8 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       next
       titleMustEqual("Break - About the care you provide")
 
-      click("#start_day option[value='1']")
-      click("#start_month option[value='1']")
+      fill("#start_day").`with`("1")
+      fill("#start_month").`with`("1")
 
       click("#whereYou_location option[value='Hospital']")
       click("#wherePerson_location option[value='Hospital']")
@@ -178,13 +178,13 @@ trait BreakFiller {
             whereYouLocation: String = Home,
             wherePersonLocation: String = Hospital,
             medicalDuringBreak: Boolean = false) = {
-    browser.click(s"#start_day option[value='${start.day.get}']")
-    browser.click(s"#start_month option[value='${start.month.get}']")
-    browser.fill("#start_year") `with` s"${start.year.get}"
+    browser.fill(s"#start_day") `with` start.day.get.toString
+    browser.fill(s"#start_month") `with` start.month.get.toString
+    browser.fill("#start_year") `with` start.year.get.toString
 
-    browser.click(s"#end_day option[value='${end.day.get}']")
-    browser.click(s"#end_month option[value='${end.month.get}']")
-    browser.fill("#end_year") `with` s"${end.year.get}"
+    browser.fill(s"#end_day") `with` end.day.get.toString
+    browser.fill(s"#end_month") `with` end.month.get.toString
+    browser.fill("#end_year") `with` end.year.get.toString
 
     browser.click(s"#whereYou_location option[value='$whereYouLocation']")
     browser.click(s"#wherePerson_location option[value='$wherePersonLocation']")

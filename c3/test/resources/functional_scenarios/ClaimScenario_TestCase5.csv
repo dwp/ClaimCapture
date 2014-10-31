@@ -9,7 +9,6 @@ About You,Your Details,Surname or family name,AboutYouSurname,CaseFive
 About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,Donaldson
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,XB486248C
 About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1981
-About You,Your Details,Do you get state Pension?,AboutYouDoYouGetStatePension,No
 About You,Your contact details,Address,AboutYouAddress,5 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
 About You,Your contact details,How we contact you,HowWeContactYou,01772 888901
@@ -61,7 +60,7 @@ About Your Partner,Partner/Spouse details,Surname or family name,AboutYourPartne
 About Your Partner,Partner/Spouse details,All other surnames or family names they have been used or have been known by,AboutYourPartnerOtherNames,
 About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,TA234567A
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,28/09/1977
-About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,Spanish
+About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,Yes
 About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,No
 About Your Partner,Person you care for,Have you lived with a partner at any time since your claim date?,AboutYourPartnerHadPartnerSinceClaimDate,Yes
@@ -208,7 +207,6 @@ Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcod
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,UK bank or building society account
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Four-Weekly
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Mr Test Casefive
-How we pay you,Bank/Building society details,Whose name or names is the account in?,WhoseNameOrNamesIsTheAccountIn,Both you and your partner
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,Givemecash Bank
 How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,090120
 How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,12345678

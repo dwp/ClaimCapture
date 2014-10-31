@@ -1,7 +1,8 @@
-@(breaksInCareSummaryForm: Form[models.domain.CircumstancesBreaksInCareSummary], breaksInCare: models.domain.CircumstancesBreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(breaksInCareSummaryForm: Form[models.domain.CircumstancesBreaksInCareSummary], breaksInCare: models.domain.CircumstancesBreaksInCare)(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 @import common._
 @import views.html.helper.dates._
 @import views.html.helper._
@@ -11,6 +12,8 @@
 @import views.html.circs.s2_report_changes.main
 @import play.api.i18n.{MMessages => Messages}
 @import app.CircsBreaksWhereabouts._
+
+@defining(lang) { implicit language =>
 
 @main(Messages("c2.g8") + " - " + Messages("c2.name")) {
     @errorsSummary(breaksInCareSummaryForm)
@@ -60,11 +63,12 @@
                     </tr>
                 </tbody>
             </table> -->
-            
-            
-            
-            
-             <div class="data-table">
+
+
+
+            @DwpCSRFFormHelper.formField
+
+            <div class="data-table">
 				 
 				 <h2>@Messages("c2.g7")</h2>
 
@@ -133,7 +137,6 @@
             <nav class="form-steps">
                 <ul>
                 	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-                	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
         </div>
@@ -163,4 +166,5 @@ window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
                           "@CarersCrypto.encryptAES("additionalBreaks_text")");
     });
 </script>
+}
 }

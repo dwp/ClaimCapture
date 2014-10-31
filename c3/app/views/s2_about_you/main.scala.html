@@ -1,4 +1,4 @@
-@(title: String, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(title: String, backCall:Option[Call] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
 @import utils.helpers.CarersTemplate.fieldConstructor
 @import models.domain._
@@ -16,27 +16,12 @@
 
         <article>
 
+            <nav class="back-nav">
+                <a id="backButton" href="@{if (backCall.isDefined) backCall.get else claim.navigation.previous}">@Html(Messages("form.back"))</a>
+            </nav>
+
             @sectionTitle(AboutYou)
             <h1>@Html(Messages("s2.longName"))</h1>
-
-            @if(completedQuestionGroups.size > 0) {
-                <div class="completed">
-                    <ul aria-label="@Html(Messages("completedQuestions"))">
-                        @for(completedQuestionGroup <- completedQuestionGroups;if completedQuestionGroup.identifier != Trips) {
-                            <li>
-                                @if(completedQuestionGroup.identifier == ClaimDate) {
-                                    <h3>@Html(Messages(completedQuestionGroup.identifier.id, claim.dateOfClaim.get.`dd/MM/yyyy`))</h3>
-                                    <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Html(Messages("change.this.help"))">@Html(Messages("change.this"))</a>
-                                } else {
-                                    <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
-                                    <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Html(Messages("change.these.help"))">@Html(Messages("change.these"))</a>
-                                }
-                            </li>
-                        }
-                    </ul>
-                </div>
-            }
-
 			
             @content
 

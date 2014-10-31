@@ -15,15 +15,18 @@
 
 <ul class="inline year" id="@CarersCrypto.encryptAES(id)">
     <li>
-        @carersSelect(field("day"), options = Seq("" -> Messages("datePlaceholder.day")) ++ ((1 to 31) map(v => (v toString) -> (if (v < 10) "0" + v else (v toString)))).asInstanceOf[Seq[(String, String)]])
+        <label>@Messages("datePlaceholder.day")</label>
+        @carersInputTel(field("day"), 'maxLength -> 2 ,'ignoreLabel -> true)
+    </li>
+
+    <li class="month">
+        <label>@Messages("datePlaceholder.month")</label>
+        @carersInputTel(field("month"), 'maxLength -> 2,'ignoreLabel -> true)
     </li>
 
     <li>
-        @carersSelect(field("month"), options = Seq("" -> Messages("datePlaceholder.month")) ++ ((0 to 11) map(v => ((v+1) toString) -> Messages("datePlaceholder." + java.text.DateFormatSymbols.getInstance().getMonths()(v)))).asInstanceOf[Seq[(String, String)]])
-    </li>
-
-    <li>
-        @carersInputTel(field("year"), 'maxLength -> 4)
+        <label>@Messages("datePlaceholder.year.label")</label>
+        @carersInputTel(field("year"), 'maxLength -> 4,'ignoreLabel -> true)
     </li>
 </ul>
 

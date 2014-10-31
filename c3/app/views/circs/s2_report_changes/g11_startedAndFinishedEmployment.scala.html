@@ -1,7 +1,8 @@
-@(startedAndFinishedEmployment: Form[models.domain.CircumstancesStartedAndFinishedEmployment])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(startedAndFinishedEmployment: Form[models.domain.CircumstancesStartedAndFinishedEmployment])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.dropdowns._
@@ -25,10 +26,12 @@
 @employerOwesYouMoneyInfo = @{startedAndFinishedEmployment("employerOwesYouMoneyInfo")}
 @moreAboutChanges = @{startedAndFinishedEmployment("moreAboutChanges")}
 
+@defining(lang) { implicit language =>
 @main(Messages("c2.g11") + " - " + Messages("c2.name")) {
     @errorsSummary(startedAndFinishedEmployment)
 
     @form(action = controllers.circs.s2_report_changes.routes.G11StartedAndFinishedEmployment.submit) {
+        @DwpCSRFFormHelper.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("c2.g11"))</legend>
@@ -40,8 +43,9 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersShortInputText(howMuchPaid,
-                                '_label -> {if(beenPaidYet.value == Some("yes")) "howMuchPaid.have" else "howMuchPaid.have.expect"}
+                            carersCurrency(howMuchPaid,
+                                '_label -> {if(beenPaidYet.value == Some("yes")) "howMuchPaid.have" else "howMuchPaid.have.expect"},
+                                'maxLength -> 12
                             ),
                             dateTimePickerWithDynamicLabel(dateLastPaid,
                                 'dynamicDateDays -> 7,
@@ -145,7 +149,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>
@@ -248,4 +251,5 @@ $(function(){
 
 });
 </script>
+}
 }

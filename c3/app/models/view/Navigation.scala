@@ -8,7 +8,7 @@ import models.view.CachedClaim.ClaimResult
 trait Navigable {
   this: CachedClaim =>
 
-  def track[T](t: T)(f: => Claim => Result)(implicit claim: Claim, request: Request[AnyContent], classTag: ClassTag[T]): ClaimResult = {
+  def track[T](t: T)(f: => Claim => Result)( implicit claim: Claim, request: Request[AnyContent], classTag: ClassTag[T]): ClaimResult = {
     val updatedNavigation = claim.navigation.track(t)(request.uri)
     val updatedClaim = claim.copy(claim.key, claim.sections)(updatedNavigation)
 

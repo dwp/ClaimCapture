@@ -194,14 +194,14 @@ object EmploymentChange {
         change.beenPaid match {
           case "yes" => {
             var buff = NodeSeq.Empty
-            buff = buff ++ {question(<HowMuchPaid/>, "howMuchPaid.have", change.howMuchPaid)}
+            buff = buff ++ {question(<HowMuchPaid/>, "howMuchPaid.have", currencyAmount(change.howMuchPaid))}
             buff = buff ++ {question(<PaymentDate/>, "dateLastPaid", change.dateLastPaid)}
             buff = buff ++ {question(<WhatWasIncluded/>, "whatWasIncluded", change.whatWasIncluded)}
             buff
           }
           case "no" => {
             var buff = NodeSeq.Empty
-            buff = buff ++ {question(<HowMuchPaid/>, "howMuchPaid.have.expect", change.howMuchPaid)}
+            buff = buff ++ {question(<HowMuchPaid/>, "howMuchPaid.have.expect", currencyAmount(change.howMuchPaid))}
             buff = buff ++ {question(<PaymentDate/>, "dateLastPaid.expect", change.dateLastPaid)}
             buff = buff ++ {question(<WhatWasIncluded/>, "whatWasIncluded.expect", change.whatWasIncluded)}
             buff
@@ -270,7 +270,7 @@ object EmploymentChange {
         change.beenPaid match {
           case "yes" => {
             var buff = NodeSeq.Empty
-            buff = buff ++  {question(<HowMuchPaid/>, "howMuchPaid.will", change.howMuchPaid)}
+            buff = buff ++  {question(<HowMuchPaid/>, "howMuchPaid.will", currencyAmount(change.howMuchPaid))}
             buff = buff ++ {question(<PaymentDate/>, "whenExpectedToBePaidDate", change.whenExpectedToBePaidDate)}
             if (change.howOften.frequency.size > 0){
               buff = buff ++

@@ -16,7 +16,6 @@ final class G1YourDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1Y
   declareInput("#otherNames", "AboutYouOtherNames")
   declareNino("#nationalInsuranceNumber","AboutYouNINO")
   declareDate("#dateOfBirth", "AboutYouDateOfBirth")
-  declareYesNo("#receiveStatePension", "AboutYouDoYouGetStatePension")
 }
 
 /**

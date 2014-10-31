@@ -8,7 +8,7 @@ import models.{DayMonthYear, NationalInsuranceNumber}
 import org.specs2.mock.Mockito
 import org.specs2.mutable.{Specification, Tags}
 import play.api.http
-import play.api.libs.ws.Response
+import play.api.libs.ws.WSResponse
 import play.api.test.FakeApplication
 import services.{TransactionStatus, _}
 
@@ -33,7 +33,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
                                                                                                       with WebServiceClientComponent {
       import scala.concurrent.ExecutionContext.Implicits.global
       val webServiceClient = mock[WebServiceClient]
-      val response = mock[Response]
+      val response = mock[WSResponse]
       response.status returns status
       response.body returns resultXml(result,correlationID,messageClass,errorCode,pollEndpoint).buildString(stripComments = false)
 

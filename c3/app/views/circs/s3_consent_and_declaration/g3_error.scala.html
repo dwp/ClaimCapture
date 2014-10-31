@@ -1,25 +1,27 @@
-@()(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@()(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import play.api.i18n.{MMessages => Messages}
-@main(Messages("tryChangeAgain")) {
-    <div id="wrapper" class="carers-allowance">
-        <div class="carers-container">
-            <section class="error-statement">
+@defining(lang) { implicit language =>
+    @main(Messages("tryChangeAgain"), None, false) {
+        <div id="wrapper" class="carers-allowance">
+            <div class="carers-container">
+                <section class="error-statement">
 
-                <header>
-                    <h1>@Html(Messages("c3.g3.help1"))</h1>
-                </header>
+                    <header>
+                        <h1>@Html(Messages("c3.g3.help1"))</h1>
+                    </header>
 
-                <p>@Html(Messages("c3.g3.help1"))</p>
+                    <p>@Html(Messages("c3.g3.help1"))</p>
 
-                <nav class="form-steps">
-                    <ul>
-                    	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("button.backToClaim"))</a></li>
-                    </ul>
-                </nav>
+                    <nav class="form-steps">
+                        <ul>
+                            <li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("button.backToClaim"))</a></li>
+                        </ul>
+                    </nav>
 
-           </section>
+                </section>
 
+            </div>
         </div>
-    </div>
+    }
 }

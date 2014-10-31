@@ -1,14 +1,16 @@
-@(breakForm: Form[models.domain.Break])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(breakForm: Form[models.domain.Break])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
 @import models.domain.MoreAboutTheCare
 @import views.html.helper._
 @import views.html.helper.dates._
 @import app.Whereabouts._
 @import play.api.i18n.{MMessages => Messages}
+@import scala.language.postfixOps
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
-    import language.postfixOps
 
     val spent35HoursCaringBeforeClaim = claim.questionGroup(MoreAboutTheCare) match {
         case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim.answer == "yes"
@@ -16,15 +18,18 @@
     }
 
     claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-        if (spent35HoursCaringBeforeClaim) (dmy - 6 months).`dd/MM/yyyy`
-        else dmy.`dd/MM/yyyy`)
+        if (spent35HoursCaringBeforeClaim) displayPlaybackDatesFormat(lang, dmy - 6 months)
+        else displayPlaybackDatesFormat(lang, dmy))
 }
 
-@main("Break - About the care you provide", Some(breakForm)) {
+    @defining(lang) { implicit language =>
+
+    @main("Break - About the care you provide", Some(breakForm)) {
 
     @form(action = controllers.s4_care_you_provide.routes.G11Break.submit) {
         <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
+        @DwpCSRFFormHelper.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s4.g11.help1")) @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
@@ -43,9 +48,9 @@
 	                             '_label -> Messages("wherePerson.location"), 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 	                             
 	            
-	                @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
+	                @inputDayMonthYearHM(breakForm("start"), 'helperAbove  -> Messages("dateExample.helper", (DayMonthYear.today - 34 days).`dd M yyyy`))
 	
-	                @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
+	                @inputDayMonthYearHM(breakForm("end"), 'helperAbove  -> Messages("dateExample.helper", (DayMonthYear.today - 27 days).`dd M yyyy`))
 	    
 	
 	                @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))
@@ -55,7 +60,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>
@@ -69,4 +73,5 @@
         window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_location_other")", maxChars: 60});
     })
 </script>
+}
 }

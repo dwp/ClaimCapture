@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit
 import org.specs2.specification.Scope
 import org.openqa.selenium.TimeoutException
 import org.fluentlenium.core.Fluent
+import play.api.Logger
 import scala.util.Try
 
 /**
@@ -142,9 +143,9 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
    */
   final def runClaimWith(theClaim: TestData, upToPageWithTitle: String, upToIteration: Int = 1, throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION, trace: Boolean = false): Page = {
     if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be (re)submitted." + this.toString)
+    if (trace) Logger("PageObject").debug("this.pageTitle" + " @ " + url + " : Iteration " + iteration)
     if (pageTitle == upToPageWithTitle && iteration == upToIteration) this
     else {
-      if (trace) println(this.pageTitle + " @ " + url + " : Iteration " + iteration)
       this fillPageWith theClaim
       submitPage(throwException, waitForPage, waitDuration) runClaimWith(theClaim, upToPageWithTitle, upToIteration, throwException, waitForPage, waitDuration, trace)
     }
@@ -170,7 +171,9 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
       }
     }
     catch {
-      case e: Exception => throw new PageObjectException("Could not submit page [" + this.pageTitle + "] because " + e.getMessage, exception = e)
+      case e: Exception =>
+        Logger("PageObject").error(getPageSource())
+        throw new PageObjectException("Could not submit page [" + this.pageTitle + "] because " + e.getMessage, exception = e)
     }
   }
 
@@ -190,6 +193,10 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
     ctx.browser.find(location, index).click
     val title = getPageTitle(null, waitForPage, waitDuration)
     createPageWithTitle(title, iteration)
+  }
+
+  def isElemSelected(cssSelector:String) = {
+    ctx.browser.findFirst(cssSelector).isSelected
   }
 
 

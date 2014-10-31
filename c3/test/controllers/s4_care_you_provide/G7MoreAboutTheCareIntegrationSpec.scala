@@ -23,7 +23,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       browser.goTo("/care-you-provide/more-about-the-care")
       browser.click("#spent35HoursCaring_yes")
       browser.click("#beforeClaimCaring_answer_yes")
-      browser.click("#hasSomeonePaidYou_yes")
+//      browser.click("#hasSomeonePaidYou_yes")
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
@@ -34,10 +34,6 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       titleMustEqual("Contact details of the person you care for - About the care you provide")
     }
 
-    "contain the completed forms" in new WithBrowser {
-      Formulate.moreAboutTheCare(browser)
-      browser.find("div[class=completed] ul li").size() mustEqual 1
-    }
 
     "start to care for the person to be displayed when back button is clicked" in new WithBrowser {
       Formulate.moreAboutTheCare(browser)

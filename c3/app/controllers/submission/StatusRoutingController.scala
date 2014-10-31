@@ -42,12 +42,12 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
 
   val claimTransaction = new ClaimTransaction
 
-  def present = claiming{ implicit claim => implicit request => implicit lang =>
+  def present = claiming{ implicit claim =>  implicit request =>  lang =>
     Logger.debug(s"Showing async submitting ${claim.key} ${claim.uuid}")
     Ok(views.html.common.asyncSubmitting())
   }
 
-  def submit = claiming { implicit claim => implicit request => implicit lang =>
+  def submit = claiming { implicit claim =>  implicit request =>  lang =>
     import StatusRoutingController._
 
     val transactionStatus = claimTransaction.getTransactionStatusById(claim.transactionId.getOrElse(""))
@@ -65,14 +65,14 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
   }
 
 
-  def error = claiming { implicit claim => implicit request => implicit lang =>
+  def error = claiming { implicit claim =>  implicit request =>  lang =>
     Ok(views.html.common.error(startPage))
   }
 
-  def errorRetry = claiming { implicit claim => implicit request => implicit lang =>
+  def errorRetry = claiming { implicit claim =>  implicit request =>  lang =>
 
     if (claimType(claim) == FULL_CLAIM){
-      Ok(views.html.common.error_retry(controllers.s11_consent_and_declaration.routes.G4Declaration.present.url))
+      Ok(views.html.common.error_retry(controllers.s12_consent_and_declaration.routes.G3Declaration.present.url))
     }else{
       Ok(views.html.common.error_retry(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present.url))
     }

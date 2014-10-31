@@ -12,7 +12,7 @@ final class G2ContactDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, 
   declareAddress("#address", "AboutYouAddress")
   declareInput("#postcode", "AboutYouPostcode")
   declareInput("#howWeContactYou", "HowWeContactYou")
-  declareYesNo("#contactYouByTextphone", "AboutYouContactYouByTextphone")
+  declareCheck("#contactYouByTextphone", "AboutYouContactYouByTextphone")
 }
 
 /**

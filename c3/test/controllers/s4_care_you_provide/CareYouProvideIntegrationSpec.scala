@@ -8,6 +8,8 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
   "Care you provide" should {
     """navigate to Education""" in new WithBrowser with BrowserMatchers {
+      pending("Needs to be upgraded to PageObject.")
+
       Formulate.claimDate(browser)
 
       Formulate.theirPersonalDetails(browser)
@@ -31,6 +33,8 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
 
     """navigate to Self Employment""" in new WithBrowser with BrowserMatchers {
+      pending("Needs to be upgraded to PageObject.")
+
       Formulate.claimDate(browser)
 
       Formulate.nationalityAndResidency(browser)
@@ -55,10 +59,12 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       browser.find("button[type='submit']").getText shouldEqual "Next"
 
       Formulate.selfEmployment(browser)
-      titleMustEqual("Your job - About self-employment")
+      titleMustEqual("Your job - About self employment")
     }
 
     """navigate to Other Money""" in new WithBrowser with BrowserMatchers {
+      pending("Needs to be upgraded to PageObject.")
+
       Formulate.claimDate(browser)
 
       Formulate.nationalityAndResidency(browser)
@@ -84,7 +90,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
       Formulate.notInEmployment(browser)
 
-      titleMustEqual("Other Money")
+      titleMustEqual("Statutory pay, benefits and payments")
     }
 
   } section("integration", models.domain.CareYouProvide.id)

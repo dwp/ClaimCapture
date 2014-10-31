@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(title: String, currentForm: Option[Form[_]] = None, showBack:Boolean = true, changing:Boolean=false)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import models.domain._
@@ -13,27 +13,15 @@
 
         <article class="eligible">
 
+            @if(showBack){
+                <nav class="back-nav">
+                    <a id="backButton" href="@{claim.navigation.previous}@{if (changing)"?changing=true"}">@Html(Messages("form.back"))</a>
+                </nav>
+            }
+
             <h1>@Html(Messages("s1.longName"))</h1>
 
-            @if(completedQuestionGroups.size > 0) {
-                <div class="completed">
-                    <ul>
-                        @for(completedQuestionGroup <- completedQuestionGroups) {
-                            <li>
-                                @if(completedQuestionGroup.identifier == Benefits) {
-                                    <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
-                                    <p>@Html(Messages("%s1".format(completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation)))</p>
-                                    <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Html(Messages("change.this.help"))">@Html(Messages("change.this"))</a>
-                                } else {
-                                    <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
-                                    <p>@Html(Messages(completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation))</p>
-                                    <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Html(Messages("change.this.help"))">@Html(Messages("change.this"))</a>
-                                }
-                            </li>
-                        }
-                    </ul>
-                </div>
-            }
+
 
 
             @if(currentForm.isDefined) {

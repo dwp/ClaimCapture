@@ -28,26 +28,26 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
   )(AboutSelfEmployment.apply)(AboutSelfEmployment.unapply)
     .verifying("whenDidTheJobFinish.error.required", validateWhenDidTheJobFinish _))
 
-  def validateWhenDidTheJobFinish(f: AboutSelfEmployment) = f.areYouSelfEmployedNow match {
+  private def validateWhenDidTheJobFinish(f: AboutSelfEmployment) = f.areYouSelfEmployedNow match {
     case `no` => f.whenDidTheJobFinish.isDefined
     case _ => true
   }
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
-    presentConditionally(aboutSelfEmployment)
+  def present = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+    presentConditionally(aboutSelfEmployment(lang), lang)
   }
 
-  def aboutSelfEmployment(implicit claim: Claim, request: Request[AnyContent], lang: Lang): ClaimResult = {
+  private def aboutSelfEmployment(lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     track(AboutSelfEmployment) {
-      implicit claim => Ok(views.html.s8_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment)))
+      implicit claim => Ok(views.html.s8_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment))(lang))
     }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("", "whenDidTheJobFinish.error.required", FormError("whenDidTheJobFinish", "error.required"))
-        BadRequest(views.html.s8_self_employment.g1_aboutSelfEmployment(formWithErrorsUpdate))},
+        BadRequest(views.html.s8_self_employment.g1_aboutSelfEmployment(formWithErrorsUpdate)(lang))},
       f => claim.update(f) -> Redirect(routes.G2SelfEmploymentYourAccounts.present()))
   }
 }

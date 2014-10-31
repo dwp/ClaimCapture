@@ -11,7 +11,7 @@ final class G2SelfEmploymentYourAccountsPage(ctx:PageObjectsContext) extends Cla
 }
 
 object G2SelfEmploymentYourAccountsPage {
-  val title = "Your accounts - About self-employment".toLowerCase
+  val title = "Your accounts - About self employment".toLowerCase
   val url = "/self-employment/your-accounts"
 
   def apply(ctx:PageObjectsContext) = new G2SelfEmploymentYourAccountsPage(ctx)

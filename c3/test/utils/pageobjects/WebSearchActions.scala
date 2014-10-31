@@ -30,8 +30,8 @@ trait WebSearchActions {
   }
 
   def readDate(elementCssSelector: String): Option[String] = {
-    val day = readSelect(elementCssSelector + "_day")
-    val month = readSelect(elementCssSelector + "_month")
+    val day = readInput(elementCssSelector + "_day")
+    val month = readInput(elementCssSelector + "_month")
     val year = readInput(elementCssSelector + "_year")
     if (day.isDefined && month.isDefined && year.isDefined) Some(leftPadWithZero(2, day.get) + "/" + leftPadWithZero(2, month.get) + "/" + year.get)
     else None
@@ -129,16 +129,6 @@ trait WebSearchActions {
     val completed = ctx.browser.find(location).get(index).getText
     completed.contains(name) && completed.contains(value)
   }
-
-  def hasSectionsBeenCompleted(location: String = "div[class=completed] ul li") = this hasListOfElements location
-
-  def numberSectionsCompleted(location: String = "div[class=completed] ul li") = this sizeLitOfElements location
-
-  /**
-   * Provides the list of completed sections displayed in a page. If there is no completed section then returns an empty list.
-   * @return The list of completed sections.
-   */
-  def listCompletedForms = findTarget("div[class=completed] ul li")
 
   // Table
   def hasTableEntriesChangeable(location: String = "input[value='Change']") = this hasListOfElements location

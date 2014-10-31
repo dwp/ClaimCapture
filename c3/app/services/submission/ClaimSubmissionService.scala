@@ -9,7 +9,7 @@ import models.view.{CachedChangeOfCircs, CachedClaim}
 import play.api.Logger
 import play.api.i18n.Lang
 import play.api.mvc.Results.Redirect
-import play.api.mvc.{AnyContent, Request, SimpleResult}
+import play.api.mvc.{Result, AnyContent, Request}
 import play.mvc.Http
 import services.ClaimTransactionComponent
 import services.async.AsyncActors
@@ -43,7 +43,7 @@ trait ClaimSubmissionService {
     transId
   }
 
-  def respondWithSuccess(claim: Claim, txnId: String, request: Request[AnyContent]): SimpleResult = {
+  def respondWithSuccess(claim: Claim, txnId: String, request: Request[AnyContent]): Result = {
     Logger.info(s"Successful submission : ${claim.key}  ${claim.uuid} transactionId [$txnId]")
     claim.key match {
       case CachedClaim.key =>

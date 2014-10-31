@@ -8,7 +8,7 @@ class EnhancedFieldElements(f:FieldElements) {
 
   def carersErrors(): Seq[String] = {
     (f.args.get('_error) match {
-      case Some(Some(play.api.data.FormError(_, message, args))) => Some(Seq(play.api.i18n.MMessages(message, args: _*)(f.lang)))
+      case Some(Some(play.api.data.FormError(_, messages, args))) => Some(Seq(play.api.i18n.MMessages(messages, args: _*)(f.lang)))
       case _ => None
     }).getOrElse {
       if (f.args.get('_showErrors) match {

@@ -1,0 +1,32 @@
+@(title: String, currentForm: Option[Form[_]] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+
+@import models.domain.Information
+@import helper._
+@import play.api.i18n.{MMessages => Messages}
+@import views.html.common._
+@common.govMain(title) {
+	
+    <div class="carers-allowance clearfix">
+
+        @common.protoType()
+
+        <article>
+
+            <nav class="back-nav">
+                <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
+            </nav>
+
+            @sectionTitle(Information)
+            <h1>@Html(Messages("s10_2.g1"))</h1>
+
+            @if(currentForm.isDefined){
+                @errorsSummary(currentForm.get)
+            }
+
+            @content
+        </article>
+        
+         @common.leftcol()
+        
+    </div>
+}

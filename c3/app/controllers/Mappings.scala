@@ -21,6 +21,8 @@ import models.MultiLineAddress
 import models.PeriodFromTo
 import play.api.i18n.Lang
 
+import scala.util.matching.Regex
+
 object Mappings {
   object Name {
     val maxLength = 35
@@ -34,13 +36,24 @@ object Mappings {
 
   val two = 2
 
+  val four = 4
+
+  val seventeen = 17
+
   val hundred = 100
+
+  val threeHundred = 300
+
+  val twoThousand = 2000
 
   val yes = "yes"
 
   val no = "no"
 
   val dontknow = "dontknow"
+
+  val errorRequired = "error.required"
+  val required = "required"
 
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
     "day" -> optional(text),
@@ -285,19 +298,21 @@ object Mappings {
   def validCurrencyRequired: Constraint[String] = Constraint[String]("constraint.currency") { decimal =>
     val decimalPattern = """^\£?[0-9]{1,12}(\.[0-9]{1,2})?$""".r
 
-    if(decimal != null && !decimal.isEmpty()) {
-      decimalPattern.pattern.matcher(decimal).matches match {
-        case true => Valid
-        case false => Invalid(ValidationError("decimal.invalid"))
-      }
-    } else {
-      Valid
-    }
+    validCurrencyWithPattern(decimalPattern, decimal)
   }
 
   def validCurrency5Required: Constraint[String] = Constraint[String]("constraint.currency") { decimal =>
     val decimalPattern = """^\£?[0-9]{1,5}(\.[0-9]{1,2})?$""".r
 
+    validCurrencyWithPattern(decimalPattern, decimal)
+  }
+
+  def validCurrency8Required: Constraint[String] = Constraint[String]("constraint.currency") { decimal =>
+    val decimalPattern = """^\£?[0-9]{1,8}(\.[0-9]{1,2})?$""".r
+    validCurrencyWithPattern(decimalPattern, decimal)
+  }
+
+  private def validCurrencyWithPattern(decimalPattern:Regex, decimal: String):ValidationResult = {
     if(decimal != null && !decimal.isEmpty()) {
       decimalPattern.pattern.matcher(decimal).matches match {
         case true => Valid

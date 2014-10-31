@@ -1,7 +1,8 @@
-@(selfEmployment: Form[models.domain.CircumstancesSelfEmployment])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(selfEmployment: Form[models.domain.CircumstancesSelfEmployment])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.dropdowns._
@@ -10,13 +11,17 @@
 @import controllers.Mappings._
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
+@import scala.language.postfixOps
+
+@defining(lang) { implicit language =>
 
 @main(Messages("c2.g2") + " - " + Messages("c2.name")) {
     @errorsSummary(selfEmployment)
 
     @form(action = controllers.circs.s2_report_changes.routes.G2SelfEmployment.submit) {
+        @DwpCSRFFormHelper.formField
         <div class="form-wrap">
-	        <fieldset class="form-elements">
+	        <fieldset class="form-elements" data-journey="carers-allowance:report-change:self-employment">
 	            <legend>@Html(Messages("c2.g2"))</legend>
 	
 	            <ul class="coc-layout">
@@ -24,7 +29,7 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        inputDayMonthYear(selfEmployment("stillCaring.date"))
+	                        inputDayMonthYear(selfEmployment("stillCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 31 days).`dd M yyyy`))
 	                    ),
 	                    'id -> "stillCaringWrap"
 	                )
@@ -44,7 +49,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>
@@ -61,6 +65,8 @@ $(function(){
 window.initEvents("@CarersCrypto.encryptAES("stillCaring_answer_yes")",
 "@CarersCrypto.encryptAES("stillCaring_answer_no")",
 "@CarersCrypto.encryptAES("stillCaring.date")");
+@ga.stagePrompt()
 });
 </script>
+}
 }

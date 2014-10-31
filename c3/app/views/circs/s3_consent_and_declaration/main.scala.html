@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(title: String, currentForm: Option[Form[_]] = None, showBack:Boolean = true)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang:Lang)
 
 @import helper._
 @import play.api.i18n.{MMessages => Messages}
@@ -9,24 +9,17 @@
 
         @common.protoType()
 
-        @common.feedback()
-
         <article>
-        
-        <h1>@Html(Messages("c3.g1"))</h1>
 
-            @if(completedQuestionGroups.size > 0) {
-                <div class="completed">
-                    <ul>
-                        @for((completedQuestionGroup, call) <- completedQuestionGroups) {
-                        <li>
-                            <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
-                            <a href="@call">@Html(Messages("change.these"))</a>
-                        </li>
-                        }
-                    </ul>
-                </div>
+            @if(showBack){
+                <nav class="back-nav">
+                    <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
+                </nav>
             }
+
+            <h1>@Html(Messages("c3.g1"))</h1>
+
+
 
             @if(currentForm.isDefined) {
                 @errorsSummary(currentForm.get)
@@ -35,7 +28,7 @@
             @content
         </article>
         
-        @common.leftcol()
+        @common.leftcolCofc()
         
     </div>
 }

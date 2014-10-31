@@ -1,21 +1,22 @@
-import app.ConfigProperties._
 import java.net.InetAddress
+
+import app.ConfigProperties._
 import monitor.MonitorFilter
 import monitoring._
 import org.slf4j.MDC
 import play.api._
 import play.api.mvc.Results._
 import play.api.mvc._
-import play.api.mvc.SimpleResult
-import scala.concurrent.{ExecutionContext, Future}
-import ExecutionContext.Implicits.global
 import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.Injector
+import utils.csrf.{DwpCSRFFilter}
 import utils.helpers.CarersLanguageHelper
-import play.api.GlobalSettings
 
-object Global extends WithFilters(MonitorFilter) with Injector with CarersLanguageHelper with C3MonitorRegistration with GlobalSettings {
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ExecutionContext, Future}
+
+object Global extends WithFilters(MonitorFilter, DwpCSRFFilter()) with Injector with CarersLanguageHelper with C3MonitorRegistration {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
@@ -42,25 +43,6 @@ object Global extends WithFilters(MonitorFilter) with Injector with CarersLangua
     Logger.info(s"c3 property include.analytics is ${getProperty("include.analytics", "Not defined")}") // used for operations, do not remove
   }
 
-  override def onStop(app: Application) {
-    super.onStop(app)
-    Logger.info("c3 Stopped") // used for operations, do not remove
-  }
-
-  // 404 - page not found error http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
-  override def onHandlerNotFound(requestHeader: RequestHeader): Future[SimpleResult] = {
-    implicit val request = Request(requestHeader, AnyContentAsEmpty)
-    Future(NotFound(views.html.common.onHandlerNotFound()))
-  }
-
-  override def getControllerInstance[A](controllerClass: Class[A]): A = resolve(controllerClass)
-
-  override def onError(request: RequestHeader, ex: Throwable) = {
-    Logger.error(ex.getMessage)
-    val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
-    Future(Ok(views.html.common.error(startUrl)(lang(request), Request(request, AnyContentAsEmpty))))
-  }
-
   def actorSystems() {
     EmailActors
     AsyncActors
@@ -71,4 +53,28 @@ object Global extends WithFilters(MonitorFilter) with Injector with CarersLangua
     val check = getProperty(checkLabel, default = true)
     Logger.info(s"$checkLabel = $check")
   }
+
+  override def onStop(app: Application) {
+    super.onStop(app)
+    Logger.info("c3 Stopped") // used for operations, do not remove
+  }
+
+  // 404 - page not found error http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
+  override def onHandlerNotFound(requestHeader: RequestHeader): Future[Result] = {
+    implicit val request = Request(requestHeader, AnyContentAsEmpty)
+    Future(NotFound(views.html.common.onHandlerNotFound()))
+  }
+
+  override def getControllerInstance[A](controllerClass: Class[A]): A = resolve(controllerClass)
+
+  override def onError(request: RequestHeader, ex: Throwable) = {
+    Logger.error(ex.getMessage)
+    val csrfCookieName = getProperty("csrf.cookie.name","csrf")
+    val csrfSecure = getProperty("csrf.cookie.secure",false)
+    val C3VERSION = "C3Version"
+    val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
+    Future(Ok(views.html.common.error(startUrl)(Request(request, AnyContentAsEmpty),lang(request))).discardingCookies(DiscardingCookie(csrfCookieName, secure= csrfSecure), DiscardingCookie(C3VERSION)).withNewSession)
+  }
 }
+
+

@@ -29,7 +29,7 @@ object Employment extends Controller with CachedClaim  with Navigable{
     case _ => Jobs()
   }
 
-  def delete(jobID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def delete(jobID: String) = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     import play.api.libs.json.Json
 
     val updatedJobs = jobs.delete(jobID)

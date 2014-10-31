@@ -27,26 +27,9 @@ $ ->
 
             $("input[name='yes']").on "click", ->
                 disableConfirmation()
-
-                $.ajax
-                    type: "DELETE"
-                    url: "/care-you-provide/breaks-in-care/" + li.attr("id")
-
-                    success: (data) ->
-                        $("label[for='answer']").text(data.answer)
-                        enable()
-
-                        $("#breaks .breaks-prompt").slideUp()
-
-                        if li.closest("ul").children().length is 1
-                            $("#breaks").wrapInner("<div />").children().slideUp -> li.remove()
-                        else
-                            li.find("dd").wrapInner "<div>"
-                            li.find("dd div:not(:last)").slideUp()
-                            li.find("dd div:last").slideUp -> li.remove()
-
-                    error: ->
-                        location.reload(true)
+                id = li.attr("id")
+                $("#deleteId").val(id)
+                $(this).parents("form").submit()
 
 enableConfirmation = ->
     $("#breaks .breaks-prompt input[type='button']").removeAttr("disabled").removeClass("disabled")

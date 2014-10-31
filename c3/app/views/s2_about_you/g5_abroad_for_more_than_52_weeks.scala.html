@@ -1,4 +1,4 @@
-@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks], trips: models.domain.Trips)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks], trips: models.domain.Trips)(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 @import scala.xml.NodeSeq
 
 @import scala.language.postfixOps
@@ -6,10 +6,12 @@
 @import models.domain.Trips
 @import models.DayMonthYear
 @import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.s2_about_you.main
 @import play.api.i18n.{MMessages => Messages}
 
-@main(Messages("s2.g5") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.AbroadForMoreThan52Weeks)) {
+@defining(lang) { implicit language =>
+@main(Messages("s2.g5") + " - " + Messages("s2.longName")) {
 @errorsSummary(AbroadForMoreThan52WeeksForm)
 
     <fieldset id="trips" class="form-elements results-detail">
@@ -39,10 +41,10 @@
                         }}</h3>
 					  	
 					  	<dl>
-						  	<dt>@Html(Messages("where")):</dt>
+						  	<dt>@Html(Messages("where"))</dt>
 						  	<dd>@trip.where</dd>
 						  	
-						  	<dt>@Html(Messages("why")):</dt>
+						  	<dt>@Html(Messages("why"))</dt>
 						  	<dd>@{trip.why match {
                             case Some(reasonForBeingThere) => reasonForBeingThere.reason match {
                                     case Some (reason) =>
@@ -85,7 +87,8 @@
 
 
     @form(action = controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.submit) {
-    
+
+            @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g5"))</legend>
 	
@@ -109,7 +112,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
 
@@ -120,4 +122,5 @@ $(function () {
 window.initEvents("@CarersCrypto.encryptAES("anyTrips_yes")", "@CarersCrypto.encryptAES("anyTrips_no")");
 });
 </script>
+}
 }

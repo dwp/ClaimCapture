@@ -4,7 +4,7 @@ import controllers.Mappings._
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.Controller
+import play.api.mvc.{AnyContent, Request, Controller}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain._
@@ -16,15 +16,15 @@ object G1Benefits extends Controller with CachedClaim with Navigable {
     "benefits.answer" -> nonEmptyText.verifying(validYesNo)
   )(Benefits.apply)(Benefits.unapply))
 
-  def present = newClaim { implicit claim => implicit request => implicit lang =>
+  def present = newClaim {implicit claim =>  implicit request =>  lang =>
     Logger.info(s"Starting new $cacheKey - ${claim.uuid}")
-    track(Benefits) { implicit claim => Ok(views.html.s1_carers_allowance.g1_benefits(form.fill(Benefits))) }
+    track(Benefits) { implicit claim => Ok(views.html.s1_carers_allowance.g1_benefits(form.fill(Benefits))(lang)) }
   }
 
-  def submit = claiming {implicit claim => implicit request => implicit lang =>
+  def submit = claiming {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrors))
+        BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrors)(lang))
       },
       f => claim.update(f) -> Redirect(routes.G2Hours.present()))
   }

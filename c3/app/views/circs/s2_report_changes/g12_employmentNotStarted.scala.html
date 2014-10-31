@@ -1,7 +1,8 @@
-@(employmentNotStarted: Form[models.domain.CircumstancesEmploymentNotStarted])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(employmentNotStarted: Form[models.domain.CircumstancesEmploymentNotStarted])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.dropdowns._
@@ -21,10 +22,13 @@
 @doCareCostsForThisWork = @{employmentNotStarted("doCareCostsForThisWork")}
 @moreAboutChanges = @{employmentNotStarted("moreAboutChanges")}
 
-@main(Messages("c2.g12") + " - " + Messages("c2.name")) {
+    @defining(lang) { implicit language =>
+
+    @main(Messages("c2.g12") + " - " + Messages("c2.name")) {
     @errorsSummary(employmentNotStarted)
 
     @form(action = controllers.circs.s2_report_changes.routes.G12EmploymentNotStarted.submit) {
+        @DwpCSRFFormHelper.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("c2.g12"))</legend>
@@ -34,11 +38,12 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersShortInputText(howMuchPaid,
+                    carersCurrency(howMuchPaid,
                                 '_label -> "howMuchPaid.will",
+                                'maxLength -> 12,
                                 'ignoreOptional -> true),
                             dateTimePickerWithDynamicLabel(whenExpectedToBePaidDate,
-                                'dynamicDateDays-> -31),
+                                'dynamicDateDays-> -7),
                             paymentFrequencySelect(howOften,
                                 'id -> "howOften",
                                 'displayDontKnowYet -> true,
@@ -104,7 +109,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>
@@ -176,4 +180,5 @@ $(function(){
     window.areaCounter({selector: "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:300});
 });
 </script>
+}
 }

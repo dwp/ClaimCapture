@@ -1,11 +1,10 @@
-@(currentForm: Form[models.domain.PensionAndExpenses])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.PensionAndExpenses])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 @import controllers.s7_employment.Employment.completedQuestionGroups
 @import controllers.s7_employment.JobID
@@ -17,9 +16,12 @@
     claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).employerName + " - "
 }
 
-@main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PensionAndExpenses, JobID(currentForm)), Some(employerName)) {
+    @defining(lang) { implicit language =>
+
+    @main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PensionAndExpenses, JobID(currentForm)), Some(employerName)) {
 
     @form(action = controllers.s7_employment.routes.G8PensionAndExpenses.submit()) {
+        @DwpCSRFFormHelper.formField
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <div class="form-wrap">
@@ -64,7 +66,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>
@@ -87,4 +88,5 @@
     window.areaCounter({selector: "@CarersCrypto.encryptAES("payPensionScheme_text")",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES("haveExpensesForJob_text")",maxChars:300});
 </script>
+}
 }

@@ -35,8 +35,8 @@ trait WebFillActions {
   def fillDate(elementCssSelector: String, value: String) = if (null != value) {
     val date = DateTime.parse(value, DateTimeFormat.forPattern("dd/MM/yyyy"))
     val day = date.dayOfMonth().getAsText
-    fillSelect(elementCssSelector + "_day", day)
-    fillSelect(elementCssSelector + "_month", date.monthOfYear().getAsString)
+    fillInput(elementCssSelector + "_day", day)
+    fillInput(elementCssSelector + "_month", date.monthOfYear().getAsString)
     fillInput(elementCssSelector + "_year", date.year().getAsText)
   }
 

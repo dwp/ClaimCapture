@@ -1,9 +1,10 @@
-@(currentForm: Form[models.domain.ProceedAnyway])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.ProceedAnyway])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 @import helper.base._
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
 @import models.domain._
 @import play.api.Play
 @import play.api.Play.current
@@ -32,7 +33,9 @@
     completedQuestionGroups.length == 4 && completedQuestionGroups.forall(_.asInstanceOf[Boolean])
 }
 
-@main("Can you get Carer's Allowance?", None, claim.completedQuestionGroups(models.domain.CarersAllowance)) {
+@defining(lang) { implicit language =>
+
+@main("Can you get Carer's Allowance?", None) {
     @if(approved) {
         <section class="prompt e-prompt">
             <h2>@Html(Messages("s1.g6.green.help1"))</h2>
@@ -70,6 +73,7 @@
     }
 
     @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit) {
+        @DwpCSRFFormHelper.formField
         @carersInputHidden(currentForm("allowedToContinue"),
             'hiddenValue -> approved)
         @carersInputHidden(currentForm("jsEnabled"),
@@ -78,7 +82,6 @@
             <nav class="form-steps">
                 <ul>
                     <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Elibigility - Yes - Continue")>@Html(Messages("form.continue.step"))</button></li>
-                    <li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
         } else {
@@ -92,8 +95,7 @@
             </fieldset>
             <nav class="form-steps">
                 <ul>
-                    <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button" onclick="analyticsCallback()">@Html(Messages("form.continue.step"))</button></div></li>
-                    <li><div id="backButtonWrap"><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+                    <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button" onmousedown="analyticsCallback()">@Html(Messages("form.continue.step"))</button></div></li>
                 </ul>
             </nav>
         }
@@ -121,4 +123,5 @@
     "@CarersCrypto.encryptAES(currentForm("answer")("no").id)");
     });
 </script>
+}
 }

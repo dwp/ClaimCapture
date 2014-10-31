@@ -1,0 +1,34 @@
+@(title: String, currentForm: Option[Form[_]] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+
+@import models.domain.ConsentAndDeclaration
+@import helper._
+@import play.api.i18n.{MMessages => Messages}
+@import views.html.common._
+@common.govMain(title) {
+	
+    <div class="carers-allowance clearfix">
+
+        @common.protoType()
+
+        @progressBar(ConsentAndDeclaration)
+
+        <article>
+
+            <nav class="back-nav">
+                <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
+            </nav>
+
+            <h1>@Html(Messages("s11.longName"))</h1>
+
+
+            @if(currentForm.isDefined){
+                @errorsSummary(currentForm.get)
+            }
+
+            @content
+        </article>
+        
+         @common.leftcol()
+        
+    </div>
+}

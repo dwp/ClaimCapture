@@ -1,7 +1,8 @@
-@(employmentChange: Form[models.domain.CircumstancesEmploymentChange])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent])
+@(employmentChange: Form[models.domain.CircumstancesEmploymentChange])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.dropdowns._
@@ -15,13 +16,16 @@
 @hasWorkStartedYet = @{employmentChange("hasWorkStartedYet")}
 @hasWorkFinishedYet = @{employmentChange("hasWorkFinishedYet")}
 @typeOfWork = @{employmentChange("typeOfWork")}
-    
-@main(Messages("c2.g9") + " - " + Messages("c2.name")) {
+
+    @defining(lang) { implicit language =>
+
+    @main(Messages("c2.g9") + " - " + Messages("c2.name")) {
     @errorsSummary(employmentChange)
 
     @form(action = controllers.circs.s2_report_changes.routes.G9EmploymentChange.submit) {
+        @DwpCSRFFormHelper.formField
         <div class="form-wrap">
-	        <fieldset class="form-elements">
+	        <fieldset class="form-elements" data-journey="carers-allowance:report-change:employment">
 	            <legend>@Html(Messages("c2.g9"))</legend>
 	
 	            <ul>
@@ -92,7 +96,6 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-	            	<li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>
@@ -111,6 +114,8 @@ window.stillCaring("@CarersCrypto.encryptAES(employmentChange("stillCaring")("an
 "@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("day").id)",
 "@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("month").id)",
 "@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("year").id)");
+        @ga.stagePrompt()
+
 });
 
 $(function(){
@@ -154,4 +159,5 @@ window.typeOfWork("@CarersCrypto.encryptAES(typeOfWork("answer")("employed").id)
 });
 
 </script>
+}
 }

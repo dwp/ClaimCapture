@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Hours])(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(currentForm: Form[models.domain.Hours])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -6,13 +6,19 @@
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 @import play.api.i18n.{MMessages => Messages}
-@main(Messages("s1.g2") + " - " + Messages("s1.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Hours)) {
+
+@defining(lang) { implicit language =>
+@main(Messages("s1.g2") + " - " + Messages("s1.longName"), Some(currentForm),changing = true) {
 
 
     @form(action = controllers.s1_carers_allowance.routes.G2Hours.submit) {
-	        <fieldset class="form-elements form-eligibility">
+
+            @DwpCSRFFormHelper.formField
+
+            <fieldset class="form-elements form-eligibility">
 	            <legend>@Html(Messages("s1.g2"))</legend>
 	
 	            <p>@Html(Messages("s1.g2.help1"))</p>
@@ -25,7 +31,6 @@
 	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 	                    <p>@Html(Messages("s1.g2.help2"))</p>
 	                    <p>@Html(Messages("s1.g2.help3"))</p>
-	                    <span>!</span>
 	                </div>
 	            }
 	        </fieldset>
@@ -33,7 +38,6 @@
 	        <nav class="form-steps">
 	        	<ul>
 			   		<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-			   		<li><a id="backButton" href="@{claim.navigation.previous}@{if (claim.navigation.previous.uri.endsWith("?changing=true")) "" else "?changing=true"}">@Html(Messages("form.back"))</a></li>
 	        	</ul>
 	        </nav>
     }
@@ -44,4 +48,5 @@
         window.initEvents("@CarersCrypto.encryptAES("hours_answer_yes")", "@CarersCrypto.encryptAES("hours_answer_no")");
     });
 </script>
+}
 }

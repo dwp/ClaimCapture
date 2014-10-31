@@ -17,7 +17,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
 
       goTo("/employment/been-employed")
       back
-      titleMustEqual("Your job - About self-employment")
+      titleMustEqual("Your job - About self employment")
     }
 
     """be bypassed and go onto "other money" having indicated that "employment" is not required.""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with NotEmployedSinceClaimDate {
@@ -25,27 +25,25 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
 
       goTo("/employment/been-employed")
 
-      titleMustEqual("Other Money")
+      titleMustEqual("Statutory pay, benefits and payments")
     }
 
     """progress to next section i.e. "self employed".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate{
       beginClaim()
 
       next
-      titleMustEqual("Your job - About self-employment")
+      titleMustEqual("Your job - About self employment")
     }
 
     "start employment entry" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim()
 
       goTo("/employment/been-employed")
-      click("#beenEmployed_yes")
-      next
       titleMustEqual("Employer Details - Employment History")
     }
 
     "show 1 error upon submitting no mandatory data" in new WithBrowser with EmployedHistoryPage {
-      val historyPage = goToHistoryPage
+      val historyPage = goToHistoryPage(ClaimScenarioFactory.s7EmploymentMinimal())
       historyPage must beAnInstanceOf[G2BeenEmployedPage]
       historyPage submitPage()
 
@@ -64,7 +62,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
 
     """remember "employment" upon stating "employment" and returning""" in new WithBrowser with EmployedHistoryPage {
       val employmentData = ClaimScenarioFactory.s7EmploymentMinimal()
-      var historyPage = goToHistoryPage
+      var historyPage = goToHistoryPage(ClaimScenarioFactory.s7EmploymentMinimal())
       historyPage must beAnInstanceOf[G2BeenEmployedPage]
       employmentData.EmploymentHaveYouBeenEmployedAtAnyTime_1 = "No"
       historyPage fillPageWith employmentData
@@ -77,10 +75,16 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
 
     """have job data after filling a job""" in new WithBrowser with EmployedHistoryPage {
       val employmentData = ClaimScenarioFactory.s7EmploymentMinimal()
-      var historyPage = goToHistoryPage
+      var historyPage = goToHistoryPage(ClaimScenarioFactory.s7EmploymentMinimal())
       historyPage must beAnInstanceOf[G2BeenEmployedPage]
       historyPage.source().contains(("Tesco's")) mustEqual true
       historyPage.source().contains(("01/01/2013")) mustEqual true
+    }
+
+    """Display start date with text "Before" when start date is before claim date""" in new WithBrowser with EmployedHistoryPage {
+      var historyPage = goToHistoryPage(ClaimScenarioFactory.s7EmploymentBeforeClamDateYes())
+      historyPage must beAnInstanceOf[G2BeenEmployedPage]
+      historyPage.source().contains(("Before 03/04/2014")) mustEqual true // This is one month before claim date
     }
 
   } section("integration", models.domain.Employed.id)
@@ -89,14 +93,13 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
 trait EmployedHistoryPage extends G1ClaimDatePageContext {
   this: WithBrowser[_] =>
 
-  def goToHistoryPage = {
+  def goToHistoryPage(employmentData:TestData) = {
     val claim = new TestData
     claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     page goToThePage()
     page fillPageWith claim
     page submitPage()
 
-    val employmentData = ClaimScenarioFactory.s7EmploymentMinimal()
     employmentData.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     employmentData.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
     val employmentPage = page goToPage new G1EmploymentPage(PageObjectsContext(browser))
