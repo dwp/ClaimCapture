@@ -26,8 +26,7 @@
 
     claim.dateOfClaim.fold("{NO CLAIM DATE}") { dmy =>
       val date = getCorrectDate(dmy, spent35HoursCaringBeforeClaim)
-      val sorted = breaksInCare.breaks.map(_.start).sorted
-      displayPlaybackDatesFormat (lang, sorted.find(_.isBefore(date)).getOrElse(date))
+      displayPlaybackDatesFormat (lang, date)
     }
 }
 
