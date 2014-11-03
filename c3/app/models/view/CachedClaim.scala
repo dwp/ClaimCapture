@@ -101,9 +101,9 @@ trait CachedClaim {
         val result = withHeaders(action(claim, r, bestLang)(f))
         Logger.info(s"New ${claim.key} ${claim.uuid} cached.")// Token ${token}")
         // Cookies need to be changed BEFORE session, session is within cookies.
-        def tofilter(theCookie: Cookie): Boolean = { theCookie.name == C3VERSION }
+        def tofilter(theCookie: Cookie): Boolean = { theCookie.name == C3VERSION || theCookie.name == getProperty("session.cookieName","PLAY_SESSION")}
         // Added C3Version for full Zero downtime
-        result.withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withNewSession.withSession((claim.key -> claim.uuid))
+        result.withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withSession((claim.key -> claim.uuid))
       }
       else {
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
