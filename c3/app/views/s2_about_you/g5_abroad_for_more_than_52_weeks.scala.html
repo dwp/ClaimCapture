@@ -2,6 +2,8 @@
 @import scala.xml.NodeSeq
 
 @import scala.language.postfixOps
+
+@import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import models.domain.Trips
 @import models.DayMonthYear
@@ -9,6 +11,7 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.s2_about_you.main
 @import play.api.i18n.{MMessages => Messages}
+@import views.html.helper.base._
 
 @defining(lang) { implicit language =>
 @main(Messages("s2.g5") + " - " + Messages("s2.longName")) {
@@ -99,6 +102,13 @@
 	                    '_label -> Messages(label),
 	                    'helperAbove -> Messages("52Weeks.helper")
 	                )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(carersInputTextArea(AbroadForMoreThan52WeeksForm("tripDetails"),
+                            'textAreaHelper->Html(Messages("3000charsLeft")), 'maxLength->3000)
+                        ),
+                        'id -> "tripDetailsWrapper"
+                    )
 	            }
 	            </ul>
 	
@@ -116,10 +126,16 @@
 	        </nav>
 
     }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/trips.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/tripDetails.js")'></script>
 <script type="text/javascript">
+$(function(){
+    window.areaCounter({selector:"@CarersCrypto.encryptAES("tripDetails")",maxChars:3000});
+})
 $(function () {
-window.initEvents("@CarersCrypto.encryptAES("anyTrips_yes")", "@CarersCrypto.encryptAES("anyTrips_no")");
+window.initEvents("@CarersCrypto.encryptAES("anyTrips_yes")",
+                  "@CarersCrypto.encryptAES("anyTrips_no")",
+                  "@CarersCrypto.encryptAES("tripDetails")");
 });
 </script>
 }

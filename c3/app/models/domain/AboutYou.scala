@@ -77,7 +77,7 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   def validateHadPartner(nationalityAndResidency: NationalityAndResidency) = nationalityAndResidency.maritalStatus == "p"
 }
 
-case class AbroadForMoreThan52Weeks(anyTrips: String = "") extends QuestionGroup(AbroadForMoreThan52Weeks)
+case class AbroadForMoreThan52Weeks(anyTrips: String = "", tripDetails:Option[String] = None) extends QuestionGroup(AbroadForMoreThan52Weeks)
 
 object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier  {
   val id = s"${AboutYou.id}.g5"
