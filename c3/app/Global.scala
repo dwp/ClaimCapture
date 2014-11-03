@@ -72,7 +72,11 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter()) with Injector 
     val csrfCookieName = getProperty("csrf.cookie.name","csrf")
     val csrfSecure = getProperty("csrf.cookie.secure",false)
     val C3VERSION = "C3Version"
-    val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
+    val pattern = """.*circumstances.*""".r
+    val startUrl: String =  request.headers.get("Referer").getOrElse("Unknown") match {
+      case pattern(_*) => controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.present().url
+      case _ => controllers.s1_carers_allowance.routes.G1Benefits.present().url
+    }
     Future(Ok(views.html.common.error(startUrl)(Request(request, AnyContentAsEmpty),lang(request))).discardingCookies(DiscardingCookie(csrfCookieName, secure= csrfSecure), DiscardingCookie(C3VERSION)).withNewSession)
   }
 }
