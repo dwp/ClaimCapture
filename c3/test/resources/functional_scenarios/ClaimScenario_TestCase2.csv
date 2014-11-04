@@ -19,6 +19,7 @@ About You,Nationality and where you live,"Do you normally live in England, Scotl
 About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,
 About You,Nationality and where you live,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,Yes
+About You,When you went abroad for more than 52 weeks,"Tell us about this time away.Include the dates you left and returned and details of where you've been.",AboutYouTripDetails_1,Trip 1 to London, Trip 2 to Scotland
 About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB_1,31/05/2011
 About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB_1,01/06/2012
 About You,Details of trips abroad for more than 52 weeks,Which country did you go to?,WhereDidYouGo_1,Some country I went to that i don't

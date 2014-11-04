@@ -123,6 +123,6 @@ class G6TripIntegrationSpec extends Specification with Tags {
       val tripPage = page submitPage(waitForPage = true)
       tripPage must beAnInstanceOf[G6TripPage]
       tripPage goBack() must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
-    }
+    }.pendingUntilFixed("Please activate this test if reverted back to include G6Trip page")
   } section ("integration", models.domain.AboutYou.id)
 }

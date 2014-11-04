@@ -30,11 +30,28 @@ class G5AbroadForMoreThan52WeeksSpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
+    """enforce answer when "Time outside of England, Scotland or Wales" is "yes" """ in new WithApplication with Claiming{
+      val request = FakeRequest().withFormUrlEncodedBody("anyTrips" -> "yes")
+
+      val result = G5AbroadForMoreThan52Weeks.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
     """accept "yes" to "Time outside of England, Scotland or Wales".""" in new WithApplication with Claiming {
       val request = FakeRequest().withFormUrlEncodedBody("anyTrips" -> "yes")
 
       val result = G5AbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result) must beSome(tripsPage)
+    }.pendingUntilFixed("Please activate this test if reverted back to include G6Trip page")
+
+    /**
+     * Remove this test if reverted back to include G6Trip page
+     */
+    """accept "yes" to "Time outside of England, Scotland or Wales".""" in new WithApplication with Claiming {
+      val request = FakeRequest().withFormUrlEncodedBody("anyTrips" -> "yes", "tripDetails" -> "Trip1 to London")
+
+      val result = G5AbroadForMoreThan52Weeks.submit(request)
+      redirectLocation(result) must beSome(eeaPage)
     }
 
     """accept "no" to "Time outside of England, Scotland or Wales".""" in new WithApplication with Claiming {
@@ -51,7 +68,7 @@ class G5AbroadForMoreThan52WeeksSpec extends Specification with Tags {
       val requestNoTrips = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("anyTrips" -> "no")
       val resultNoTrips = G5AbroadForMoreThan52Weeks.submit(requestNoTrips)
       redirectLocation(resultNoTrips) must beSome(eeaPage)
-    }
+    }.pendingUntilFixed("Please activate this test if reverted back to include G6Trip page")
 
     "go to trips page having now provided less than 5 trips and answering 'yes' to Time outside of England, Scotland or Wales" in new WithApplication with Claiming {
       val result1 = createTrip( "123451")
@@ -64,7 +81,7 @@ class G5AbroadForMoreThan52WeeksSpec extends Specification with Tags {
       val result = G5AbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result) must beSome(tripsPage)
 
-    }
+    }.pendingUntilFixed("Please activate this test if reverted back to include G6Trip page")
 
     "stay on Time outside of England, Scotland or Wales page having now provided 5 trips and answering 'yes' to Time outside of England, Scotland or Wales" in new WithApplication with Claiming {
       val result1 = createTrip( "123451")
@@ -77,7 +94,7 @@ class G5AbroadForMoreThan52WeeksSpec extends Specification with Tags {
       val result = G5AbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result) must beSome(timeAbroadPage)
 
-    }
+    }.pendingUntilFixed("Please activate this test if reverted back to include G6Trip page")
 
     "go to Other EEA state or switzerland page deleting existing trip and answering 'no' to Time outside of England, Scotland or Wales" in new WithApplication with Claiming {
       val result1 = createTrip("12345")
@@ -89,7 +106,7 @@ class G5AbroadForMoreThan52WeeksSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("anyTrips" -> "no")
       val result2 = G5AbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result2) must beSome(eeaPage)
-    }
+    }.pendingUntilFixed("Please activate this test if reverted back to include G6Trip page")
 
     def verifyTrips (key: String, noOfTrips:Int) = {
       import play.api.Play.current

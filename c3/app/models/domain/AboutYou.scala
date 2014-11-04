@@ -3,6 +3,7 @@ package models.domain
 import models.{ReasonForBeingThere, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
 import models.yesNo.{YesNo, YesNoWithText}
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
+import controllers.Mappings.yes
 
 object AboutYou extends Section.Identifier {
   val id = "s3"
@@ -81,6 +82,14 @@ case class AbroadForMoreThan52Weeks(anyTrips: String = "", tripDetails:Option[St
 
 object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier  {
   val id = s"${AboutYou.id}.g5"
+
+  def requiredTripDetails: Constraint[AbroadForMoreThan52Weeks] = Constraint[AbroadForMoreThan52Weeks]("constraint.tripdetails") { abroadForMoreThan52Weeks =>
+    abroadForMoreThan52Weeks.anyTrips match {
+      case `yes` if !abroadForMoreThan52Weeks.tripDetails.isDefined => Invalid(ValidationError("tripdetails.required"))
+      case _ => Valid
+    }
+  }
+
 }
 
 case class Trips(fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips) {

@@ -13,6 +13,7 @@ object Residency extends XMLComponent{
 
     val tripsOption = claim.questionGroup[Trips]
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
+    val timeOutsideGBLastThreeYears = claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())
 
     <Residency>
       {question(<Nationality/>, "nationality", nationalityAndResidency.nationality)}
@@ -29,7 +30,10 @@ object Residency extends XMLComponent{
         case _ => NodeSeq.Empty
       }}
 
-      {periodAbroadLastYear(tripsOption, claim)}
+      <!-- {periodAbroadLastYear(tripsOption, claim)} -->
+      {question(<TimeOutsideGBLast3Years/>, "52Weeks.label", timeOutsideGBLastThreeYears.anyTrips)}
+      {question(<TripsDetails/>, "tripDetails", timeOutsideGBLastThreeYears.tripDetails)}
+
 
     </Residency>
   }
