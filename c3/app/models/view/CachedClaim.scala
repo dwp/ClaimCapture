@@ -85,7 +85,7 @@ trait CachedClaim {
 
 
   protected val C3VERSION = "C3Version"
-  protected val C3VERSION_VALUE = "0.2"
+  protected val C3VERSION_VALUE = "0.3"
 
   /**
    * Called when starting a new claim. Overwrites CSRF token and Version in case user had old cookies.
@@ -97,9 +97,13 @@ trait CachedClaim {
       recordMeasurements()
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
+        // Delete any old data to avoid somebody getting access to session left by somebody else
+        val (key, _) = keyAndExpiration(request)
+        if (!key.isEmpty) Cache.remove(key)
+        // Start with new claim
         val claim = newInstance()
         val result = withHeaders(action(claim, r, bestLang)(f))
-        Logger.info(s"New ${claim.key} ${claim.uuid} cached.")// Token ${token}")
+        Logger.info(s"New ${claim.key} ${claim.uuid} cached.")
         // Cookies need to be changed BEFORE session, session is within cookies.
         def tofilter(theCookie: Cookie): Boolean = { theCookie.name == C3VERSION || theCookie.name == getProperty("session.cookieName","PLAY_SESSION")}
         // Added C3Version for full Zero downtime
