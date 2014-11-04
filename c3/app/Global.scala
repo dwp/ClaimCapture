@@ -77,7 +77,7 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter()) with Injector 
       case pattern(_*) => controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.present().url
       case _ => controllers.s1_carers_allowance.routes.G1Benefits.present().url
     }
-    Future(Ok(views.html.common.error(startUrl)(Request(request, AnyContentAsEmpty),lang(request))).discardingCookies(DiscardingCookie(csrfCookieName, secure= csrfSecure), DiscardingCookie(C3VERSION)).withNewSession)
+    Future(Ok(views.html.common.error(startUrl)(Request(request, AnyContentAsEmpty),lang(request))).discardingCookies(DiscardingCookie(csrfCookieName),DiscardingCookie(csrfCookieName,secure=true),DiscardingCookie(C3VERSION)).withNewSession)
   }
 }
 
