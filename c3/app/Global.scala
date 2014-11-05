@@ -73,11 +73,12 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter()) with Injector 
     val csrfSecure = getProperty("csrf.cookie.secure",false)
     val C3VERSION = "C3Version"
     val pattern = """.*circumstances.*""".r
-    val startUrl: String =  request.headers.get("Referer").getOrElse("Unknown") match {
-      case pattern(_*) => controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.present().url
-      case _ => controllers.s1_carers_allowance.routes.G1Benefits.present().url
+    // We redirect and do not stay in same URL to update Google Analytics
+    // We delete our cookies to ensure we restart anew
+    request.headers.get("Referer").getOrElse("Unknown") match {
+      case pattern(_*) => Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName),DiscardingCookie(csrfCookieName,secure=true),DiscardingCookie(C3VERSION)).withNewSession) //controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.present().url
+      case _ => Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName),DiscardingCookie(csrfCookieName,secure=true),DiscardingCookie(C3VERSION)).withNewSession)
     }
-    Future(Ok(views.html.common.error(startUrl)(Request(request, AnyContentAsEmpty),lang(request))).discardingCookies(DiscardingCookie(csrfCookieName),DiscardingCookie(csrfCookieName,secure=true),DiscardingCookie(C3VERSION)).withNewSession)
   }
 }
 
