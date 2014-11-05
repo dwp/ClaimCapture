@@ -82,7 +82,6 @@ class G3Declaration extends Controller with CachedClaim with Navigable
       },
       declaration => {
         val updatedClaim = copyInstance(claim.update(declaration))
-        Logger.debug(updatedClaim.getClass.toString) // class models.view.CachedClaim$$anon$2
         checkForBot(updatedClaim, request)
         submission(updatedClaim, request, declaration.jsEnabled)
       })

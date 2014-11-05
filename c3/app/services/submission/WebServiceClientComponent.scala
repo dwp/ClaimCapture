@@ -24,7 +24,7 @@ trait WebServiceClientComponent {
     def submitClaim(claim: Claim, txnId: String): Future[WSResponse] = {
       Logger.info (s"Entered on submitClaim for : ${claim.key} : transactionId [$txnId].")
       val claimSubmission = ValidXMLBuilder ().xml (claim, txnId)
-      Logger.info ("Created xml")
+      Logger.debug ("Created xml")
       val submissionServerEndpoint = ConfigProperties.getProperty ("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submission"
       Logger.info (s"Submission Server : $submissionServerEndpoint")
       val result = WS.url (submissionServerEndpoint)

@@ -85,7 +85,7 @@ trait CachedClaim {
 
 
   protected val C3VERSION = "C3Version"
-  protected val C3VERSION_VALUE = "0.2"
+  protected val C3VERSION_VALUE = "0.3"
 
   /**
    * Called when starting a new claim. Overwrites CSRF token and Version in case user had old cookies.
@@ -97,11 +97,15 @@ trait CachedClaim {
       recordMeasurements()
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
+        // Delete any old data to avoid somebody getting access to session left by somebody else
+        val (key, _) = keyAndExpiration(request)
+        if (!key.isEmpty) Cache.remove(key)
+        // Start with new claim
         val claim = newInstance()
         val result = withHeaders(action(claim, r, bestLang)(f))
-        Logger.info(s"New ${claim.key} ${claim.uuid} cached.")// Token ${token}")
+        Logger.info(s"New ${claim.key} ${claim.uuid} cached.")
         // Cookies need to be changed BEFORE session, session is within cookies.
-        def tofilter(theCookie: Cookie): Boolean = { theCookie.name == C3VERSION }
+        def tofilter(theCookie: Cookie): Boolean = { theCookie.name == C3VERSION || theCookie.name == getProperty("session.cookieName","PLAY_SESSION")}
         // Added C3Version for full Zero downtime
         result.withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withSession((claim.key -> claim.uuid))
       }
@@ -188,8 +192,9 @@ trait CachedClaim {
       fromCache(request) match {
         case Some(claim) =>
           val lang = claim.lang.getOrElse(bestLang)
-          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure= csrfSecure), DiscardingCookie(C3VERSION)).withNewSession
-        case _ => originCheck(f(cl)(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure= csrfSecure), DiscardingCookie(C3VERSION)).withNewSession
+          // Normally DiscardingCookie(csrfCookieName, secure= csrfSecure) should be enough, but sometimes with HTTPS it creates another non secure version!
+          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure= true), DiscardingCookie(csrfCookieName), DiscardingCookie(C3VERSION)).withNewSession
+        case _ => originCheck(f(cl)(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure= true), DiscardingCookie(csrfCookieName), DiscardingCookie(C3VERSION)).withNewSession
       }
 
     }
