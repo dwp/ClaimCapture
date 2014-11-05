@@ -342,7 +342,7 @@ object Formulate {
     val courseTitle = "Law"
     val nameOfSchoolCollegeOrUniversity = "University"
     val nameOfMainTeacherOrTutor = "Mr Whiskers"
-    val courseContactNumber = "12345"
+    val courseContactNumber = "12345678"
 
     browser.goTo("/education/your-course-details")
     browser.click("#beenInEducationSinceClaimDate_yes")
