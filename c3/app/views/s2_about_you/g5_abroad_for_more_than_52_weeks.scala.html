@@ -1,112 +1,48 @@
-@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks], trips: models.domain.Trips)(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
-@import scala.xml.NodeSeq
+@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import scala.language.postfixOps
+
+@import utils.helpers.CarersTemplate._
 @import views.html.helper._
-@import models.domain.Trips
-@import models.DayMonthYear
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.s2_about_you.main
 @import play.api.i18n.{MMessages => Messages}
+@import views.html.helper.base._
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+
+@displayDateForLabel = @{
+    claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy))
+}
 
 @defining(lang) { implicit language =>
 @main(Messages("s2.g5") + " - " + Messages("s2.longName")) {
 @errorsSummary(AbroadForMoreThan52WeeksForm)
-
-    <fieldset id="trips" class="form-elements results-detail">
-        <legend>@Html(Messages("52Weeks.summaryTable.label"))</legend>
-
-        
-        
-        <div class="data-table">
-        
-
-			  <ul class="trip-data">
-			  
-			  	@for((trip,currentIteration) <- trips.fiftyTwoWeeksTrips.zipWithIndex) {
-			  
-				  	<li id="@trip.id" class="@trip.id">
-				  	
-					  	<h3>@{trip.start match {
-                            case Some(dayMonthYear) => dayMonthYear.`dd/MM/yyyy`
-                            case _ =>
-                        }}
-                        <span>
-                            @{if (trip.end.nonEmpty) Messages("to")}
-                        </span>
-                        @{trip.end match {
-                            case Some(dayMonthYear) => dayMonthYear.`dd/MM/yyyy`
-                            case _ =>
-                        }}</h3>
-					  	
-					  	<dl>
-						  	<dt>@Html(Messages("where"))</dt>
-						  	<dd>@trip.where</dd>
-						  	
-						  	<dt>@Html(Messages("why"))</dt>
-						  	<dd>@{trip.why match {
-                            case Some(reasonForBeingThere) => reasonForBeingThere.reason match {
-                                    case Some (reason) =>
-                                        if (reasonForBeingThere.other.isDefined) Messages("other") + " " + reasonForBeingThere.other.get else Messages("reasonForBeingThere." + reason)
-                                    case _ =>
-                                }
-                            case _ =>
-                        }}</dd>
-					  	</dl>
-					  	
-						<div class="actions">
-							<input id="iteration-@{currentIteration + 1}-change" name="changerow" type="button" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))">
-                    <input id="iteration-@{currentIteration + 1}-delete" name="deleterow" type="button" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))">
-						</div>
-					
-				  	</li>
-				  	
-				  	}
-				  
-				
-			  </ul>
-			  
-        </div>
-        
-
-        <div class="prompt table-helper">
-        	<p>@Html(Messages("s2.g5.help1"))</p>
-        </div>
-        
-        <div class="prompt breaks-prompt">
-            <p>@Html(Messages("s2.g5.help2"))</p>
-            <input id="selected-row-do-not-delete" name="no" type="button" class="button row secondary" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
-            <input id="selected-row-delete" name="yes" type="button" class="button row warning" value="@Html(Messages("yes.delete"))" aria-label="@Html(Messages("yes.delete.label"))">
-            <span>&#33;</span>
-        </div>
-    </fieldset>
-    
-    
-
-
 
     @form(action = controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.submit) {
 
             @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s2.g5"))</legend>
-	
+
 	            <ul class="group">
-	            @defining(if(trips.fiftyTwoWeeksTrips == Nil || trips.fiftyTwoWeeksTrips.isEmpty) {"52Weeks.label"} else {"52Weeks.more.label"}) { label =>
-	                @yesNoRadioGroup(AbroadForMoreThan52WeeksForm(
-	                    "anyTrips"),
-	                    '_label -> Messages(label),
-	                    'helperAbove -> Messages("52Weeks.helper")
-	                )
-	            }
+
+                    @yesNoRadioGroup(AbroadForMoreThan52WeeksForm(
+                        "anyTrips"),
+                        '_label -> Messages("52Weeks.label"),
+                        'helperAbove -> Messages("52Weeks.helper")
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(carersInputTextArea(AbroadForMoreThan52WeeksForm("tripDetails"),
+                            'textAreaHelper->Html(Messages("3000charsLeft")), 'maxLength->3000)
+                        ),
+                        'id -> "tripDetailsWrapper"
+                    )
+
 	            </ul>
-	
-	            <div id="warningMessageWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
-	                <p>@Html(Messages("s2.g5.warning"))</p>
-	                <span>!</span>
-	            </div>
-	
+
 	        </fieldset>
 	
 	        <nav class="form-steps">
@@ -116,10 +52,16 @@
 	        </nav>
 
     }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/trips.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/tripDetails.js")'></script>
 <script type="text/javascript">
+$(function(){
+    window.areaCounter({selector:"@CarersCrypto.encryptAES("tripDetails")",maxChars:3000});
+})
 $(function () {
-window.initEvents("@CarersCrypto.encryptAES("anyTrips_yes")", "@CarersCrypto.encryptAES("anyTrips_no")");
+window.initEvents("@CarersCrypto.encryptAES("anyTrips_yes")",
+                  "@CarersCrypto.encryptAES("anyTrips_no")",
+                  "@CarersCrypto.encryptAES("tripDetails")");
 });
 </script>
 }

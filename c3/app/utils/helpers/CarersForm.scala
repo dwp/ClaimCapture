@@ -25,7 +25,7 @@ object CarersForm {
           case (s, (key, values)) =>
             val cKey = Try(CarersCrypto.decryptAES(key)) match {
               case Success(k) =>
-                Logger.trace(s"Field decryption: $key -> $k")
+                Logger.trace(s"Field decryption: $key")
                 k
               case Failure(_) => key
             }
