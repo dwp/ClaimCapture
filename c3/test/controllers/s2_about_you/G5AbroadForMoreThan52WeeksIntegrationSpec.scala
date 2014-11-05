@@ -23,16 +23,6 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       nextPage must beAnInstanceOf[G7OtherEEAStateOrSwitzerlandPage]
     }
 
-    """present "completed" when no more 52 week trips are required""" in new WithBrowser with PageObjects{
-			val page =  G5AbroadForMoreThan52WeeksPage(context)
-      val claim = ClaimScenarioFactory abroadForMoreThan52WeeksConfirmationNo()
-      page goToThePage()
-
-      page fillPageWith claim
-      val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[G7OtherEEAStateOrSwitzerlandPage]
-    }
-
     """go back to "Nationality and Residency".""" in new WithBrowser with PageObjects{
 			val page =  G4NationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory yourNationalityAndResidencyResident()

@@ -92,45 +92,6 @@ object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier  {
 
 }
 
-case class Trips(fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips) {
-  def update(trip: FiftyTwoWeeksTrip): Trips = {
-    val updated = fiftyTwoWeeksTrips map { t => if (t.id == trip.id) trip else t }
-    if (updated.contains(trip)) Trips(updated) else Trips(fiftyTwoWeeksTrips :+ trip)
-  }
-
-  def +(trip: FiftyTwoWeeksTrip): Trips = update(trip)
-
-  def delete(tripID: String): Trips = Trips(fiftyTwoWeeksTrips.filterNot(_.id == tripID))
-
-  def -(tripID: String): Trips = delete(tripID)
-}
-
-object Trips extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g6"
-}
-
-case class Trip(id: String, where: String, start: Option[DayMonthYear] = None, end: Option[DayMonthYear] = None, why: Option[ReasonForBeingThere], personWithYou: String) extends FiftyTwoWeeksTrip {
-  def as[T >: Trip]: T = asInstanceOf[T]
-}
-
-sealed trait TripPeriod {
-  val id: String
-
-  val where: String
-
-  val start: Option[DayMonthYear]
-
-  val end: Option[DayMonthYear]
-
-  val why: Option[ReasonForBeingThere]
-
-  val personWithYou: String
-}
-
-trait FiftyTwoWeeksTrip extends TripPeriod {
-  this: Trip =>
-}
-
 case class OtherEEAStateOrSwitzerland(benefitsFromEEA: String = "", workingForEEA: String = "") extends QuestionGroup(OtherEEAStateOrSwitzerland)
 
 object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {

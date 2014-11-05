@@ -85,12 +85,6 @@ POST          /about-you/nationality-and-residency                            co
 GET           /about-you/abroad-for-more-than-52-weeks                        controllers.s2_about_you.G5AbroadForMoreThan52Weeks.present
 POST          /about-you/abroad-for-more-than-52-weeks                        controllers.s2_about_you.G5AbroadForMoreThan52Weeks.submit
 
-GET           /about-you/trip/52-weeks                                        controllers.s2_about_you.G6Trip.present
-POST          /about-you/trip/52-weeks                                        controllers.s2_about_you.G6Trip.submit
-
-GET           /about-you/trip/:id                                             controllers.s2_about_you.G6Trip.trip(id: String)
-DELETE        /about-you/trip/:id                                             controllers.s2_about_you.G6Trip.delete(id: String)
-
 GET           /about-you/other-eea-state-or-switzerland                       controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.present
 POST          /about-you/other-eea-state-or-switzerland                       controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.submit
 
