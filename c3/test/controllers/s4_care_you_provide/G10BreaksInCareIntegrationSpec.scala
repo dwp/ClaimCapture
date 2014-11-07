@@ -51,10 +51,9 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       back.isElemSelected("#answer_no") should beFalse
     }
 
-    """allow a new break to be added but not record the "yes/no" answer and test dynamic date is the break's (as it's older than claimdate)""" in new WithBrowser with PageObjects {
+    """allow a new break to be added but not record the "yes/no" answer""" in new WithBrowser with PageObjects {
       val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(),G10BreaksInCarePage.title,upToIteration = 2)
 
-      breaksInCare.source() contains "Have you had any more breaks from caring for this person since 10 January 1999?" should beTrue
       breaksInCare.isElemSelected("#answer_yes") should beFalse
       breaksInCare.isElemSelected("#answer_no") should beFalse
     }

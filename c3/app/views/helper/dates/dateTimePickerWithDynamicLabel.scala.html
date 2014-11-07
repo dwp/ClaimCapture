@@ -15,14 +15,14 @@
   }
   val date = (DayMonthYear.today - dynamicDateDays days)
   val month = date.`M`
-  val specificArgs = args ++ Seq('helperAbove -> (Messages("dynamicDate.helper2", date.`dd`, month, date.`yyyy`)))
+  val specificArgs = args ++ Seq('helperAbove -> (Messages("dynamicDate.helper2", date.`d`, month, date.`yyyy`)))
 
   args.find(_._1=='dynamicDateDaysAlternative).isDefined match {
     case true => {
       val dynamicDateDaysAlternative: Int = args.find(_._1=='dynamicDateDaysAlternative).get._2.toString.toInt
       val alternativeDate = (DayMonthYear.today - dynamicDateDaysAlternative days)
       val alternativeMonth = alternativeDate.`M` //Html(Messages("dynamicDatePlaceholder." + alternativeDate.`M`))
-        specificArgs ++ Seq('helperAlternativeAbove -> (Messages("dynamicDate.helper2", alternativeDate.`dd`, alternativeMonth, alternativeDate.`yyyy`)))
+        specificArgs ++ Seq('helperAlternativeAbove -> (Messages("dynamicDate.helper2", alternativeDate.`d`, alternativeMonth, alternativeDate.`yyyy`)))
     }
     case false => specificArgs
   }

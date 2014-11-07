@@ -90,25 +90,18 @@ main {
 		   	}
 
 		   	
-		   	dl {
+		   	.benefits {
 		   		margin: 1.2em 0 0 0;
-		   		padding: .2em 0 0 1em;
+		   		padding: .4em 0 0 1em;
 		   		font-size: 19px;
 		   		border-left: 5px solid #dee0e2;
 
 			   	
-			   	dt {
-				   	font-weight: 600;
-				   	display: block;
-				   	margin-top: 1.4em;
+			   	p {
+				   	margin-top: 1em;
 				   	&:first-child {
 					   	margin: 0;
 				   	}
-			   	}
-			   	
-			   	dd {
-				   	margin: 0;
-				   	display: block;
 			   	}
 			   	
 		   	}

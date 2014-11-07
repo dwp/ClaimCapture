@@ -27,7 +27,7 @@ object G5PaymentChange extends Controller with CachedChangeOfCircs with Navigabl
     "sortCode" -> (sortCode verifying requiredSortCode),
     "accountNumber" -> carersNonEmptyText(minLength = 6, maxLength = 10),
     "rollOrReferenceNumber" -> carersText(maxLength = 18),
-    "paymentFrequency" -> carersNonEmptyText(maxLength = 15),
+    "paymentFrequency" -> carersNonEmptyText(maxLength = 20),
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )
   (CircumstancesPaymentChange.apply)(CircumstancesPaymentChange.unapply))

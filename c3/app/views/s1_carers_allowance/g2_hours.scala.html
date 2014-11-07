@@ -30,7 +30,6 @@
 	            @defining(currentForm("hours.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
 	                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 	                    <p>@Html(Messages("s1.g2.help2"))</p>
-	                    <p>@Html(Messages("s1.g2.help3"))</p>
 	                </div>
 	            }
 	        </fieldset>

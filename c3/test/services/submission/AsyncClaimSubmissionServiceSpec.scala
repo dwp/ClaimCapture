@@ -15,7 +15,7 @@ import services.{TransactionStatus, _}
 import scala.concurrent.Future
 
 
-class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Tags with CachedClaim with EncryptionService {
+class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Tags with CachedClaim {
 
   def resultXml(result: String, correlationID: String, messageClass:String, errorCode: String, pollEndpoint: String) = {
     <response>

@@ -12,7 +12,7 @@ Existing payment details - Change in circumstances,New payment details,Full name
 Existing payment details - Change in circumstances,New payment details,Sort code,CircumstancesPaymentChangeSortCode,112233
 Existing payment details - Change in circumstances,New payment details,Account number,CircumstancesPaymentChangeAccountNumber,1234567890
 Existing payment details - Change in circumstances,New payment details,Building society roll or reference number,CircumstancesPaymentChangeRollOrReferenceNumber,
-Existing payment details - Change in circumstances,New payment details,How often do you want to get paid?,CircumstancesPaymentChangePaymentFrequency,Weekly
+Existing payment details - Change in circumstances,New payment details,How often do you want to get paid?,CircumstancesPaymentChangePaymentFrequency,Every week
 Existing payment details - Change in circumstances,New payment details,Tell us more about your changes,CircumstancesPaymentChangeCaringMoreAboutChanges,
 Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,By Post
 Declaration - consent and declaration,Declaration,"Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,Yes

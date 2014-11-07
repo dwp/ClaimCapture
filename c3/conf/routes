@@ -131,7 +131,7 @@ POST          /employment/employment                                          co
 GET           /employment/been-employed                                       controllers.s7_employment.G2BeenEmployed.present
 POST          /employment/been-employed                                       controllers.s7_employment.G2BeenEmployed.submit
 
-DELETE        /employment/job/:jobID                                          controllers.s7_employment.Employment.delete(jobID: String)
+POST          /employment/delete-job                                   controllers.s7_employment.Employment.delete
 
 GET           /employment/job/:jobID                                          controllers.s7_employment.G3JobDetails.job(jobID: String)
 

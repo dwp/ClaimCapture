@@ -26,8 +26,7 @@
 
     claim.dateOfClaim.fold("{NO CLAIM DATE}") { dmy =>
       val date = getCorrectDate(dmy, spent35HoursCaringBeforeClaim)
-      val sorted = breaksInCare.breaks.map(_.start).sorted
-      displayPlaybackDatesFormat (lang, sorted.find(_.isBefore(date)).getOrElse(date))
+      displayPlaybackDatesFormat (lang, date)
     }
 }
 
@@ -91,7 +90,6 @@ else OtherMoney.name
         @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.delete){
             @DwpCSRFFormHelper.formField
             @carersInputHidden(G10BreaksInCare.deleteForm("deleteId"))
-            <input type="hidden" id="deleteId" style="display:none"/>
             <div class="prompt breaks-prompt">
                 <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
                 <input type="button" name="no" class="button row secondary" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
@@ -117,7 +115,7 @@ else OtherMoney.name
 	                    <li>@Html(Messages("s4.g5.help4"))</li>
 	                </ul>
 
-                    <p>@Html(Messages("s4.g5.help2")) <a href="/claim-help#4" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Breaks from Caring")>@Html(Messages("s4.g5.help2.link"))</a></p>
+                    <p>@Html(Messages("s4.g5.help2")) <a href="/claim-help#4" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Breaks from Caring")>@Html(Messages("s4.g5.help2.link"))</a>.</p>
                 </div>
 	
 	            <ul>

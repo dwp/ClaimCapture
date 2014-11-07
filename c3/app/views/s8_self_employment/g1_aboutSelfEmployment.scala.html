@@ -26,11 +26,11 @@
 	            <ul>
 	                @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"))
 	
-	                @inputDayMonthYear(currentForm("whenDidYouStartThisJob"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 year).`dd M yyyy`))
+	                @inputDayMonthYear(currentForm("whenDidYouStartThisJob"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 year).`d M yyyy`))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-                            inputDayMonthYear(currentForm("whenDidTheJobFinish"),'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 6 months).`dd M yyyy`)),
+                            inputDayMonthYear(currentForm("whenDidTheJobFinish"),'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 6 months).`d M yyyy`)),
                             yesNoRadioGroup(currentForm("haveYouCeasedTrading"))
 	                    ),
 	                    'id -> "selfEmployedNoWrap"

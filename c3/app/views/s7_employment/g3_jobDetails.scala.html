@@ -31,7 +31,7 @@
 
                     @inputAddress(currentForm("address"))
 
-                    @carersInputText(currentForm("postcode"), 'class -> "postcode")
+                    @carersInputText(currentForm("postcode"), 'maxLength -> 8, 'class -> "postcode")
                 </ul>
 
                 <ul>
@@ -42,7 +42,7 @@
                     )
 
                     @otherDetailPlaceHolder(
-                        inputDef = Seq(inputDayMonthYear(currentForm("jobStartDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`dd M yyyy`)))),
+                        inputDef = Seq(inputDayMonthYear(currentForm("jobStartDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`d M yyyy`)))),
                         'id -> "jobStartDateWrapper")
                 </ul>
 
@@ -51,8 +51,8 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-                            inputDayMonthYear(currentForm("lastWorkDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`dd M yyyy`))),
-                            inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`dd M yyyy`))),
+                            inputDayMonthYear(currentForm("lastWorkDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`))),
+                            inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`))),
                             carersShortInputText(currentForm("hoursPerWeek"),
                             '_label -> labelForEmployment(claim, lang, "hoursPerWeek", JobID(currentForm)), 'maxlength -> 2)),
 	                    'id -> "lastWorkData")
