@@ -9,6 +9,7 @@
 		padding-top: 2em;
 		margin-top: 2em;
 	}
+	
 	h1 {
 		color: #ccc;
 		font-size: 30px;
@@ -41,10 +42,6 @@
 		
 	}
 	
-	&.notes-col {
-
-	}
-	
 	&.no-employment {
 		   	   float: right;
 		   	   width: 68%;
@@ -68,8 +65,8 @@
 			   }
 	   	   }
 	
-	
 }
+
 
 
 article {
@@ -91,11 +88,9 @@ article {
 	   }
 	   
 	   &.error-statement {
-
 			p {
 				margin: 2em 0 0 0;
-				}	
-			
+			}	
    	   }
 
 
@@ -255,8 +250,6 @@ article {
 		   list-style: none;	 
 	   }
 	   
-	   
-	  
-	   
+	     
 	   
    }
