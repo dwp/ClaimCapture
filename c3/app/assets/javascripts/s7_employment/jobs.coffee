@@ -1,4 +1,4 @@
-$ ->
+window.initSummary = (deleteId) ->
     $("#jobs").hide() if $("ul.trip-data").children().length is 0
 
     $(".breaks-prompt").hide()
@@ -32,7 +32,7 @@ $ ->
                 $("input[id='yesDeleteButton']").on "click", ->
                     disableConfirmation()
                     id = li.attr("id")
-                    $("#deleteId").val(id)
+                    $("#"+deleteId).val(id)
                     $(this).parents("form").submit()
         }
 

@@ -1,4 +1,4 @@
-$ ->
+window.initSummary = (deleteId) ->
     $("#breaks").hide() if $("ul.break-data").children().length is 0
 
     $(".breaks-prompt").hide()
@@ -28,7 +28,7 @@ $ ->
             $("input[name='yes']").on "click", ->
                 disableConfirmation()
                 id = li.attr("id")
-                $("#deleteId").val(id)
+                $("#"+deleteId).val(id)
                 $(this).parents("form").submit()
 
 enableConfirmation = ->
