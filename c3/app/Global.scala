@@ -76,8 +76,8 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfNotFound 
     // We redirect and do not stay in same URL to update Google Analytics
     // We delete our cookies to ensure we restart anew
     request.headers.get("Referer").getOrElse("Unknown") match {
-      case pattern(_*) => Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName),DiscardingCookie(csrfCookieName,secure=true),DiscardingCookie(C3VERSION)).withNewSession) //controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.present().url
-      case _ => Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName),DiscardingCookie(csrfCookieName,secure=true),DiscardingCookie(C3VERSION)).withNewSession)
+      case pattern(_*) => Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=false),DiscardingCookie(csrfCookieName,secure=true),DiscardingCookie(C3VERSION)).withNewSession) //controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.present().url
+      case _ => Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=false),DiscardingCookie(csrfCookieName,secure=true),DiscardingCookie(C3VERSION)).withNewSession)
     }
   }
 }

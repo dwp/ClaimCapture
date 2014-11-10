@@ -188,13 +188,12 @@ trait CachedClaim {
       implicit val r = request
       implicit val cl = new Claim()
       val csrfCookieName = getProperty("csrf.cookie.name","")
-      val csrfSecure = getProperty("csrf.cookie.secure",false)
       fromCache(request) match {
         case Some(claim) =>
           val lang = claim.lang.getOrElse(bestLang)
           // Normally DiscardingCookie(csrfCookieName, secure= csrfSecure) should be enough, but sometimes with HTTPS it creates another non secure version!
-          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure= true), DiscardingCookie(csrfCookieName), DiscardingCookie(C3VERSION)).withNewSession
-        case _ => originCheck(f(cl)(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure= true), DiscardingCookie(csrfCookieName), DiscardingCookie(C3VERSION)).withNewSession
+          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure= true), DiscardingCookie(csrfCookieName,secure=false), DiscardingCookie(C3VERSION)).withNewSession
+        case _ => originCheck(f(cl)(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure= true), DiscardingCookie(csrfCookieName,secure=false), DiscardingCookie(C3VERSION)).withNewSession
       }
 
     }
