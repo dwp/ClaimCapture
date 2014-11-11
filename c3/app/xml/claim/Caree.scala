@@ -1,8 +1,10 @@
 package xml.claim
 
+import controllers.Mappings
 import models.domain._
 import xml.XMLComponent
 import xml.XMLHelper._
+import scala.language.postfixOps
 
 import scala.xml.NodeSeq
 
@@ -37,7 +39,12 @@ object Caree extends XMLComponent {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     def breaksInCareLabel (label:String, answer:Boolean) = {
-      question(<BreaksSinceClaim/>, label, answer, claim.dateOfClaim.get.`dd/MM/yyyy`)
+      val date = claim.questionGroup[MoreAboutTheCare] match {
+        case Some(moreAboutTheCare) if moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == Mappings.yes =>  claim.dateOfClaim.get - 6 months
+        case _ => claim.dateOfClaim.get
+      }
+
+      question(<BreaksSinceClaim/>, label, answer, date.`dd/MM/yyyy`)
     }
 
     val xmlNoBreaks = {

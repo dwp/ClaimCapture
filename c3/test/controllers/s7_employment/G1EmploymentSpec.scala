@@ -24,7 +24,7 @@ class G1EmploymentSpec extends Specification with Tags {
     }
 
     "issue an 'error' when deleting a non-existing job" in new WithApplication with Claiming {
-      val result = Employment.delete("nonExistingJobID")(FakeRequest().withSession(CachedClaim.key -> claimKey))
+      val result = Employment.delete(FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("deleteId" -> "nonExistingJobID"))
       status(result) shouldEqual BAD_REQUEST
     }
   } section("unit", models.domain.Employed.id)

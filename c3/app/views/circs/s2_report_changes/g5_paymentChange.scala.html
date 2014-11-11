@@ -63,7 +63,9 @@
 
 	                @carersInputText(currentForm("rollOrReferenceNumber"), 'maxLength -> "18")
 
-	                @carersSelect(currentForm("paymentFrequency"), Seq("" -> Messages("pleaseSelect"), EveryWeek -> Messages("label.everyWeek"), FourWeekly -> Messages("label.fourWeekly")))
+	                @listRadioGroup(currentForm("paymentFrequency"),
+                                    'items -> Seq(EveryWeek -> Messages("label.everyWeek"), FourWeekly -> Messages("label.fourWeekly"), ThirteenWeekly -> Messages("label.thirteenWeekly")),
+                                    '_nestedFieldSet -> true)
 
 	                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
 	            </ul>

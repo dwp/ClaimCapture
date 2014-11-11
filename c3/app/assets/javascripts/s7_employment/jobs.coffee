@@ -1,4 +1,4 @@
-$ ->
+window.initSummary = (deleteId) ->
     $("#jobs").hide() if $("ul.trip-data").children().length is 0
 
     $(".breaks-prompt").hide()
@@ -31,26 +31,9 @@ $ ->
 
                 $("input[id='yesDeleteButton']").on "click", ->
                     disableConfirmation()
-
-                    $.ajax
-                        type: "DELETE"
-                        url: "/employment/job/" + li.attr("id")
-
-                        success: (data) ->
-                            $("label[for='answer']").text(data.answer)
-                            enable()
-
-                            $("#jobs .breaks-prompt").slideUp()
-
-                            if li.closest("ul").children().length is 1
-                                $("#jobs").wrapInner("<div />").children().slideUp -> li.remove()
-                            else
-                                li.find("dd").wrapInner "<div>"
-                                li.find("dd div:not(:last)").slideUp()
-                                li.find("dd div:last").slideUp -> li.remove()
-
-                        error: ->
-                            location.reload(true)
+                    id = li.attr("id")
+                    $("#"+deleteId).val(id)
+                    $(this).parents("form").submit()
         }
 
 dynamicMessage = ->

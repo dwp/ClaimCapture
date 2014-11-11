@@ -16,7 +16,7 @@ import play.api.http.HeaderNames._
 import models.domain._
 import controllers.routes
 import play.api.i18n.Lang
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 import models.domain.Claim
 import ExecutionContext.Implicits.global
 import models.view.CachedClaim.ClaimResult
@@ -31,8 +31,8 @@ object CachedClaim {
 }
 
 /**
-* The Unique ID use to identified a claim/circs in the cache is a UUID, stored in the claim/circs and set in the request session (cookie).
-*/
+ * The Unique ID use to identified a claim/circs in the cache is a UUID, stored in the claim/circs and set in the request session (cookie).
+ */
 trait CachedClaim {
 
   type JobID = String
@@ -66,13 +66,17 @@ trait CachedClaim {
     r.session.get(cacheKey).getOrElse("") -> getProperty("cache.expiry", 3600)  //.getOrElse(randomUUID.toString)
   }
 
-  def refererAndHost(r: Request[AnyContent]): (String, String) = {
+  private def refererAndHost(r: Request[AnyContent]): (String, String) = {
     r.headers.get("Referer").getOrElse("No Referer in header") -> r.headers.get("Host").getOrElse("No Host in header")
   }
 
   def fromCache(request: Request[AnyContent]): Option[Claim] = {
     val (key, _) = keyAndExpiration(request)
-    if (key.isEmpty) None else Cache.getAs[Claim](key)
+    if (key.isEmpty) {
+      // Log an error if session empty or with no cacheKey entry so we no it is not a cache but a cookie issue.
+      Logger.error("Did not receive Session information. Probably a cookie issue.")
+      None
+    } else Cache.getAs[Claim](key)
   }
 
   def recordMeasurements() = {
@@ -81,35 +85,36 @@ trait CachedClaim {
 
 
   protected val C3VERSION = "C3Version"
-  protected val C3VERSION_VALUE = "0.2"
+  protected val C3VERSION_VALUE = "0.4"
 
   /**
    * Called when starting a new claim. Overwrites CSRF token and Version in case user had old cookies.
    */
   def newClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
-      // Need to overwrite CSRF and Sessions because this could be an user that has an old cookie with CSRF and session
-      val token = DwpCSRF.SignedTokenProvider.generateToken
-      implicit val r = Request[AnyContent](request.copy(tags = request.tags.filterNot(_._1 == DwpCSRF.Token.RequestTag) + (DwpCSRF.Token.RequestTag -> token)), request.body )
+      implicit val r = request
 
       recordMeasurements()
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
+        // Delete any old data to avoid somebody getting access to session left by somebody else
+        val (key, _) = keyAndExpiration(request)
+        if (!key.isEmpty) Cache.remove(key)
+        // Start with new claim
         val claim = newInstance()
         val result = withHeaders(action(claim, r, bestLang)(f))
-        Logger.info(s"New ${claim.key} ${claim.uuid} cached. Token ${token}")
+        Logger.info(s"New ${claim.key} ${claim.uuid} cached.")
         // Cookies need to be changed BEFORE session, session is within cookies.
+        def tofilter(theCookie: Cookie): Boolean = { theCookie.name == C3VERSION || theCookie.name == getProperty("session.cookieName","PLAY_SESSION")}
         // Added C3Version for full Zero downtime
-        result.withCookies(r.cookies.toSeq.filterNot( _.name == C3VERSION) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withSession((claim.key -> claim.uuid) ,(DwpCSRF.TokenName -> token))
+        result.withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withSession((claim.key -> claim.uuid))
       }
       else {
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
         Logger.info(s"Changing $cacheKey - $key")
         val claim = Cache.getAs[Claim](key).getOrElse(throw new RuntimeException("I expected a claim in the cache!"))
         val result = originCheck(action(claim, r, claim.lang.getOrElse(bestLang))(f))
-        // Cookies need to be changed BEFORE session, session is within cookies.
-        // Added C3Version for full Zero downtime
-        result.withCookies(r.cookies.toSeq.filterNot( _.name == C3VERSION) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withSession(r.session - (DwpCSRF.TokenName) + (DwpCSRF.TokenName -> token))
+        result
       }
     }
   }
@@ -175,9 +180,9 @@ trait CachedClaim {
       originCheck(
         fromCache(request) match {
           case Some(claim) if !Play.isTest && (
-                    !claim.questionGroup[ClaimDate].isDefined ||
-                        claim.questionGroup[ClaimDate].isDefined &&
-                        claim.questionGroup[ClaimDate].get.dateOfClaim == null) =>
+            !claim.questionGroup[ClaimDate].isDefined ||
+              claim.questionGroup[ClaimDate].isDefined &&
+                claim.questionGroup[ClaimDate].get.dateOfClaim == null) =>
             Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date")
             Redirect(timeoutPage)
           case Some(claim) =>
@@ -207,47 +212,18 @@ trait CachedClaim {
     }
   }
 
-  def submitting(f: (Claim) => Request[AnyContent] => Lang => Future[Result]) = Action.async {
-    request => {
-      val (referer, host) = refererAndHost(request)
-      implicit val r = request
-
-      def doSubmit() = {
-        fromCache(request) match {
-          case Some(claim) =>
-            Logger.debug(s"submitting - ${claim.key} ${claim.uuid}")
-            val (key, _) = keyAndExpiration(request)
-            if (key != claim.uuid) Logger.error(s"submitting - Claim uuid ${claim.uuid} does not match cache key $key")
-            val lang = claim.lang.getOrElse(bestLang)
-            f(copyInstance(claim))(request)(lang).map(res => res.withSession(claim.key -> key))
-          case None =>
-            Logger.warn(s"Cache for $cacheKey - ${keyAndExpiration(request)._1} timeout")
-            Future(Redirect(timeoutPage))
-        }
-      }
-
-      if (sameHostCheck) {
-        doSubmit()
-      } else {
-        if (getProperty("enforceRedirect", default = true)) {
-          Logger.warn(s"HTTP Referrer : $referer. Conf Referrer : $startPage. HTTP Host : $host")
-          Future(MovedPermanently(startPage))
-        } else {
-          doSubmit()
-        }
-      }.map(res => res)
-    }
-  }
-
   def ending(f: Claim => Request[AnyContent] => Lang => Result): Action[AnyContent] = Action {
     request => {
       implicit val r = request
       implicit val cl = new Claim()
+      val csrfCookieName = getProperty("csrf.cookie.name","")
+      val csrfSecure = getProperty("csrf.cookie.secure",false)
       fromCache(request) match {
         case Some(claim) =>
           val lang = claim.lang.getOrElse(bestLang)
-          originCheck(f(claim)(request)(lang)).withNewSession
-        case _ => originCheck(f(cl)(request)(bestLang)).withNewSession
+          // Normally DiscardingCookie(csrfCookieName, secure= csrfSecure) should be enough, but sometimes with HTTPS it creates another non secure version!
+          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure= true), DiscardingCookie(csrfCookieName), DiscardingCookie(C3VERSION)).withNewSession
+        case _ => originCheck(f(cl)(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure= true), DiscardingCookie(csrfCookieName), DiscardingCookie(C3VERSION)).withNewSession
       }
 
     }
@@ -299,17 +275,17 @@ trait CachedClaim {
     }
   }
 
-  def redirect: Boolean = {
+  private def redirect: Boolean = {
     getProperty("enforceRedirect", default = true)
   }
 
   private def withHeaders(result: Result): Result = {
     result
-      .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+      .withHeaders(CACHE_CONTROL -> "must-revalidate,no-cache,no-store")
       .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
   }
 
-  def bestLang()(implicit request: Request[AnyContent]) = {
+  private def bestLang()(implicit request: Request[AnyContent]) = {
     val implementedLangs = getProperty("application.langs", defaultLang)
 
     val listOfPossibleLangs = request.acceptLanguages.flatMap(aL => implementedLangs.split(",").toList.filter(iL => iL == aL.code))

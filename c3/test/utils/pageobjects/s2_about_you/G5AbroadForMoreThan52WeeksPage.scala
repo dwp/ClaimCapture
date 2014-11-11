@@ -5,6 +5,7 @@ import utils.pageobjects._
 
 class G5AbroadForMoreThan52WeeksPage (ctx:PageObjectsContext, iteration:Int) extends ClaimPage(ctx, G5AbroadForMoreThan52WeeksPage.url, G5AbroadForMoreThan52WeeksPage.title,iteration) {
   declareYesNo("#anyTrips", "AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_" + iteration)
+  declareInput("#tripDetails", "AboutYouTripDetails_" + iteration)
 }
 
 /**

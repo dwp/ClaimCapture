@@ -36,8 +36,9 @@ package object app {
   }
 
   object PaymentFrequency {
-    val EveryWeek = "Weekly"
-    val FourWeekly = "Four-Weekly"
+    val EveryWeek = "Every week"
+    val FourWeekly = "Every four weeks"
+    val ThirteenWeekly = "Every thirteen weeks"
   }
 
   object PensionPaymentFrequency {

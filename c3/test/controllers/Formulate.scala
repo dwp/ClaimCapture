@@ -3,6 +3,7 @@ package controllers
 import play.api.test.TestBrowser
 import java.util.concurrent.TimeUnit
 import app.AccountStatus
+import app.PaymentFrequency
 
 object Formulate {
   val partnerAddress = "Partner Address"
@@ -266,7 +267,7 @@ object Formulate {
   def howWePayYou(browser: TestBrowser) = {
     browser.goTo("/pay-details/how-we-pay-you")
     browser.click("#likeToPay_" + AccountStatus.BankBuildingAccount.replace(' ','_'))
-    browser.click("#paymentFrequency option[value='Four-Weekly']")
+    browser.click("#paymentFrequency_"+PaymentFrequency.FourWeekly.replace(' ','_'))
     browser.submit("button[type='submit']")
   }
 
@@ -341,7 +342,7 @@ object Formulate {
     val courseTitle = "Law"
     val nameOfSchoolCollegeOrUniversity = "University"
     val nameOfMainTeacherOrTutor = "Mr Whiskers"
-    val courseContactNumber = "12345"
+    val courseContactNumber = "12345678"
 
     browser.goTo("/education/your-course-details")
     browser.click("#beenInEducationSinceClaimDate_yes")

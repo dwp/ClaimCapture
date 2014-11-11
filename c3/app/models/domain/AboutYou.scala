@@ -3,6 +3,7 @@ package models.domain
 import models.{ReasonForBeingThere, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
 import models.yesNo.{YesNo, YesNoWithText}
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
+import controllers.Mappings.yes
 
 object AboutYou extends Section.Identifier {
   val id = "s3"
@@ -77,49 +78,18 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   def validateHadPartner(nationalityAndResidency: NationalityAndResidency) = nationalityAndResidency.maritalStatus == "p"
 }
 
-case class AbroadForMoreThan52Weeks(anyTrips: String = "") extends QuestionGroup(AbroadForMoreThan52Weeks)
+case class AbroadForMoreThan52Weeks(anyTrips: String = "", tripDetails:Option[String] = None) extends QuestionGroup(AbroadForMoreThan52Weeks)
 
 object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier  {
   val id = s"${AboutYou.id}.g5"
-}
 
-case class Trips(fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips) {
-  def update(trip: FiftyTwoWeeksTrip): Trips = {
-    val updated = fiftyTwoWeeksTrips map { t => if (t.id == trip.id) trip else t }
-    if (updated.contains(trip)) Trips(updated) else Trips(fiftyTwoWeeksTrips :+ trip)
+  def requiredTripDetails: Constraint[AbroadForMoreThan52Weeks] = Constraint[AbroadForMoreThan52Weeks]("constraint.tripdetails") { abroadForMoreThan52Weeks =>
+    abroadForMoreThan52Weeks.anyTrips match {
+      case `yes` if !abroadForMoreThan52Weeks.tripDetails.isDefined => Invalid(ValidationError("tripdetails.required"))
+      case _ => Valid
+    }
   }
 
-  def +(trip: FiftyTwoWeeksTrip): Trips = update(trip)
-
-  def delete(tripID: String): Trips = Trips(fiftyTwoWeeksTrips.filterNot(_.id == tripID))
-
-  def -(tripID: String): Trips = delete(tripID)
-}
-
-object Trips extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g6"
-}
-
-case class Trip(id: String, where: String, start: Option[DayMonthYear] = None, end: Option[DayMonthYear] = None, why: Option[ReasonForBeingThere], personWithYou: String) extends FiftyTwoWeeksTrip {
-  def as[T >: Trip]: T = asInstanceOf[T]
-}
-
-sealed trait TripPeriod {
-  val id: String
-
-  val where: String
-
-  val start: Option[DayMonthYear]
-
-  val end: Option[DayMonthYear]
-
-  val why: Option[ReasonForBeingThere]
-
-  val personWithYou: String
-}
-
-trait FiftyTwoWeeksTrip extends TripPeriod {
-  this: Trip =>
 }
 
 case class OtherEEAStateOrSwitzerland(benefitsFromEEA: String = "", workingForEEA: String = "") extends QuestionGroup(OtherEEAStateOrSwitzerland)

@@ -56,6 +56,7 @@ object ClaimScenarioFactory {
   def abroadForMoreThan52WeeksConfirmationYes() = {
     val claim = new TestData
     claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "Yes"
+    claim.AboutYouTripDetails_1 = "Trip 1 to London"
 
     claim
   }

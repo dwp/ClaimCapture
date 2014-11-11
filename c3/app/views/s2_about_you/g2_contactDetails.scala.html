@@ -21,7 +21,7 @@
                 <ul>
                     @inputAddress(contactDetailsForm("address"))
 
-                    @carersInputText(contactDetailsForm("postcode"), 'class -> "postcode", 'ignoreOptional -> true)
+                    @carersInputText(contactDetailsForm("postcode"), 'class -> "postcode", 'maxLength -> 8, 'ignoreOptional -> true)
 
                     @carersInputText(contactDetailsForm("howWeContactYou"), 'maxLength -> 35, 'helperAbove -> Messages("furtherInfoContact.helper"))
 

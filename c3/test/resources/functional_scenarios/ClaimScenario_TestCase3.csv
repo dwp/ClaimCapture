@@ -20,24 +20,7 @@ About You,Nationality and where you live,Which country do you normally live in?,
 About You,Nationality and where you live,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,
 Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,01/01/2010
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,Yes
-About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB_1,31/05/2012
-About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB_1,01/06/2012
-About You,Details of trips abroad for more than 52 weeks,Which country did you go to?,WhereDidYouGo_1,Bangor
-About You,Details of trips abroad for more than 52 weeks,Reason for being there?,WhyDidYou_1,Holiday
-About You,Details of trips abroad for more than 52 weeks,Was the person you care for with you?,PersonWithYou_1,no
-About You,Details of trips abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_2,Yes
-About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB_2,04/06/2012
-About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB_2,08/06/2012
-About You,Details of trips abroad for more than 52 weeks,Which country did you go to?,WhereDidYouGo_2,Spain
-About You,Details of trips abroad for more than 52 weeks,Reason for being there?,WhyDidYou_2,Holiday
-About You,Details of trips abroad for more than 52 weeks,Was the person you care for with you?,PersonWithYou_2,no
-About You,Details of trips abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_3,Yes
-About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB_3,14/06/2012
-About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB_3,18/06/2012
-About You,Details of trips abroad for more than 52 weeks,Which country did you go to?,WhereDidYouGo_3,USA
-About You,Details of trips abroad for more than 52 weeks,Reason for being there?,WhyDidYou_3,Holiday
-About You,Details of trips abroad for more than 52 weeks,Was the person you care for with you?,PersonWithYou_3,no
-About You,Details of trips abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_4,No
+About You,When you went abroad for more than 52 weeks,"Tell us about this time away.Include the dates you left and returned and details of where you've been.",AboutYouTripDetails_1,Trip 1 to London
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,No
 About You,Other European Economic Area (EEA) states or Switzerland,"Do you or anyone in your family work or pay insurance in any of these countries?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,No
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,Mrs
@@ -190,7 +173,7 @@ Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,A real
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,1012 Preston  Road&Preston&Lancashure
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,PR45 6YH
 How we pay you,How would you like to get paid?,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,You don't have an account but intend to open one
-How we pay you,How would you like to get paid?,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Four-Weekly
+How we pay you,How would you like to get paid?,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Every four weeks
 Consent & Declaration,Additional information,Please tell us anything else you think we should know about your claim.,ConsentDeclarationTellUsAnythingElseAnswerAboutClaim,No
 Consent & Declaration,Additional information,Please tell us anything else you think we should know about your claim.,ConsentDeclarationTellUsAnythingElseTextAboutClaim,
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,No

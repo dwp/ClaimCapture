@@ -16,7 +16,7 @@ import utils.helpers.CarersLanguageHelper
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfNotFound = CSRFCreationFilter.createIfNotFound )) with Injector with CarersLanguageHelper with C3MonitorRegistration {
+object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfNotFound = CSRFCreationFilter.createIfNotFound)) with Injector with CarersLanguageHelper with C3MonitorRegistration {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
@@ -69,19 +69,27 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfNotFound 
 
   override def onError(request: RequestHeader, ex: Throwable) = {
     Logger.error(ex.getMessage)
-    val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
-    Future(Ok(views.html.common.error(startUrl)(Request(request, AnyContentAsEmpty),lang(request))))
+    val csrfCookieName = getProperty("csrf.cookie.name","csrf")
+    val csrfSecure = getProperty("csrf.cookie.secure",false)
+    val C3VERSION = "C3Version"
+    val pattern = """.*circumstances.*""".r
+    // We redirect and do not stay in same URL to update Google Analytics
+    // We delete our cookies to ensure we restart anew
+    request.headers.get("Referer").getOrElse("Unknown") match {
+      case pattern(_*) => Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName),DiscardingCookie(csrfCookieName,secure=true),DiscardingCookie(C3VERSION)).withNewSession) //controllers.circs.s1_identification.routes.G1ReportAChangeInYourCircumstances.present().url
+      case _ => Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName),DiscardingCookie(csrfCookieName,secure=true),DiscardingCookie(C3VERSION)).withNewSession)
+    }
   }
 }
+
 
 object CSRFCreationFilter {
 
   /**
-  * We do not want to generate CSRF here for C3. It will be handled by [[models.view.CachedClaim.newClaim]].
-  * And it adds security that the process needs to start from the first pages we have defined for Claim and Change of Circumstances.
-  */
-  def createIfNotFound(request:RequestHeader): Boolean = false
+   * We do not want to generate CSRF on error page and thank you, where we want to clean cookies.
+   */
+  def createIfNotFound(request:RequestHeader): Boolean = {
+    request.method == "GET" && (request.accepts("text/html") || request.accepts("application/xml+xhtml")) &&
+      (!request.toString.matches(".*assets.*") && !request.toString.matches(".*error.*") && !request.toString.matches(".*thankyou.*") && !request.toString.matches(".*timeout.*"))
+  }
 }
-
-
-

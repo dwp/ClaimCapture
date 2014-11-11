@@ -253,7 +253,7 @@ object Mappings {
   }
 
   def validPhoneNumber: Constraint[String] = Constraint[String]("constraint.phoneNumber") { phoneNumber =>
-    val phoneNumberPattern = """[0-9 \-]{1,20}""".r
+    val phoneNumberPattern = """[0-9 \-]{7,20}""".r
 
     phoneNumberPattern.pattern.matcher(phoneNumber).matches match {
       case true => Valid
@@ -268,7 +268,7 @@ object Mappings {
    */
 
   def validPhoneNumberRequired: Constraint[String] = Constraint[String]("constraint.phoneNumber") { phoneNumber =>
-    val phoneNumberPattern = """[0-9 \-]{1,20}""".r
+    val phoneNumberPattern = """[0-9 \-]{7,20}""".r
 
     if (null != phoneNumber && !phoneNumber.isEmpty){
         phoneNumberPattern.pattern.matcher(phoneNumber).matches match {

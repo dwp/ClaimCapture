@@ -104,7 +104,7 @@ class G3JobDetailsSpec extends Specification with Tags {
         case Some(js: Jobs) => js.size shouldEqual 1
       }
 
-      Employment.delete("1")(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result)))
+      Employment.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result)).withFormUrlEncodedBody("deleteId" -> "1"))
 
       getClaimFromCache(result).questionGroup(Jobs) must beLike {
         case Some(js: Jobs) => js.size shouldEqual 0

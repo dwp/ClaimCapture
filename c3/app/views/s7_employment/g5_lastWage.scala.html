@@ -25,7 +25,7 @@
 
     @defining(lang) { implicit language =>
 
-    @main(Messages("s7.g5") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.LastWage, JobID(currentForm)), Some(employerName)) {
+    @main(Messages("s7.g5") + " - " + Messages("s7.longName"), Some(currentForm), Some(employerName)) {
 
 	@form(action = controllers.s7_employment.routes.G5LastWage.submit()) {
         @DwpCSRFFormHelper.formField
@@ -43,7 +43,7 @@
                         '_label -> labelForEmployment(claim, lang, "whenGetPaid", JobID(currentForm)),
                         'helperAbove -> Messages("whenGetPaid.helper"))
 
-	                @inputDayMonthYear(currentForm("lastPaidDate"), 'helperAbove -> Messages("dateExample.helper",claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`dd M yyyy`)))
+	                @inputDayMonthYear(currentForm("lastPaidDate"), 'helperAbove -> Messages("dateExample.helper",claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`d M yyyy`)))
 
 	                @carersCurrency(currentForm("grossPay"), 'maxLength -> 12)
 	

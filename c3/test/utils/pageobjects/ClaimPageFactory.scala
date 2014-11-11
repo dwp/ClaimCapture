@@ -59,7 +59,6 @@ object ClaimPageFactory extends PageFactory {
       m.orElse[String,Page]{
         IterableNode(Abroad,ctx)(iteration =>{
           case G5AbroadForMoreThan52WeeksPage.title => G5AbroadForMoreThan52WeeksPage (ctx, iteration)
-          case G6TripPage.title => G6TripPage (ctx, iteration)
         })
       }.orElse[String,Page]{
         case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (ctx)

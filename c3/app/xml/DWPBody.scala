@@ -6,6 +6,7 @@ import java.util.Date
 import com.dwp.carers.s2.xml.signing.XmlSignatureFactory
 import controllers.submission.xmlValidator
 import models.domain.Claim
+import play.api.i18n.Lang
 
 import scala.xml.{Elem, NodeSeq, XML}
 
@@ -20,10 +21,15 @@ import scala.xml.{Elem, NodeSeq, XML}
       signDwpClaim(<DWPBody xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation={xmlValidator(claim).getSchemaLocation}>
-    <Version>0.2</Version>
+    <Version>0.4</Version>
     <DWPCATransaction id={transactionId}>
       <TransactionId>{transactionId}</TransactionId>
       <DateTimeGenerated>{new SimpleDateFormat("dd-MM-YYYY HH:mm").format(new Date())}</DateTimeGenerated>
+      <LanguageUsed>{claim.lang.getOrElse(Lang("en")).code match {
+        case "en" => "English"
+        case "cy" => "Welsh"
+        case _ => "Unknown"
+      } }</LanguageUsed>
       {coreXml(claim)}
       </DWPCATransaction>
     </DWPBody>,transactionId)
