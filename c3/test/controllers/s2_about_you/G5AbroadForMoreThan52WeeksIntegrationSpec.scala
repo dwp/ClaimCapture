@@ -91,25 +91,13 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
       previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "No"
-      val contactDetails = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val abroadForMoreThan52WeeksPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
 
-      contactDetails must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
-      val modifiedData = new TestData
-      modifiedData.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "Yes"
+      abroadForMoreThan52WeeksPage must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
 
-      contactDetails fillPageWith modifiedData
-      val trips = contactDetails submitPage()
+      abroadForMoreThan52WeeksPage fillPageWith ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationYes()
 
-      trips must beAnInstanceOf[G6TripPage]
-      val tripsData = ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
-
-      trips.fillPageWith(tripsData)
-      val modifiedAbroad = trips submitPage()
-
-      val newData = new TestData
-      newData.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_2 = "No"
-      modifiedAbroad.fillPageWith(newData)
-      val previewModifiedPage = modifiedAbroad submitPage()
+      val previewModifiedPage = abroadForMoreThan52WeeksPage submitPage()
 
       previewModifiedPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "Yes"
 

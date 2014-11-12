@@ -35,5 +35,5 @@ object G5AbroadForMoreThan52Weeks extends Controller with CachedClaim with Navig
       abroadForMoreThan52Weeks => claim.update(abroadForMoreThan52Weeks) -> Redirect(routes.G7OtherEEAStateOrSwitzerland.present())
     )
 
-  } withPreviewConditionally((abroad:AbroadForMoreThan52Weeks) => abroad.anyTrips == Mappings.no)
+  } withPreview()
 }

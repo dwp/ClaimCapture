@@ -25,7 +25,7 @@
     }
 }
 @otherEEA = @{claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())}
-@trips = @{claim.questionGroup[Trips].getOrElse(Trips())}
+@abroadForMoreThan52Weeks = @{claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())}
 @maritalStatus = @{
 nationalityAndResidency.maritalStatus match {
         case Some(Married) => Messages("maritalStatus.married")
@@ -58,7 +58,7 @@ nationalityAndResidency.maritalStatus match {
     }
     @fieldWithLink("about_you_claimDate", "dateOfClaim.simple", claimDate.dateOfClaim.`dd month, yyyy`)
     @fieldWithLink("about_you_nationality", "yourNationality", nationality)
-    @fieldWithLink("about_you_abroad", "timeOutsideGB", Messages("label."+(if (trips.fiftyTwoWeeksTrips.size > 0) "yes" else "no")))
+    @fieldWithLink("about_you_abroad", "timeOutsideGB", Messages("label."+abroadForMoreThan52Weeks.anyTrips.toLowerCase))
     @fieldWithLink("about_you_benefitsFromEEA", "benefitsFromEEA", Messages("label."+otherEEA.benefitsFromEEA))
     @fieldWithLink("about_you_workingForEEA", "workingForEEA", Messages("label."+otherEEA.workingForEEA))
 </dl>
