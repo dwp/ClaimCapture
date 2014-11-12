@@ -189,11 +189,12 @@ trait CachedClaim {
       implicit val cl = new Claim()
       val csrfCookieName = getProperty("csrf.cookie.name","csrf")
       val csrfSecure = getProperty("csrf.cookie.secure",getProperty("session.secure",false))
+      val theDomain = Play.current.configuration.getString("session.domain")
       fromCache(request) match {
         case Some(claim) =>
           val lang = claim.lang.getOrElse(bestLang)
-          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure),DiscardingCookie(C3VERSION)).withNewSession
-        case _ => originCheck(f(cl)(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure), DiscardingCookie(C3VERSION)).withNewSession
+          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession
+        case _ => originCheck(f(cl)(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(C3VERSION)).withNewSession
       }
 
     }
