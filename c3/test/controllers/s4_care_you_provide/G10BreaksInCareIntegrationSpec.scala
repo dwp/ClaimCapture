@@ -73,7 +73,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       back.isElemSelected("#answer_yes") should beFalse
       back.isElemSelected("#answer_no") should beTrue
     }
-
+    /*
     "Modify 'breaks in care' answer from preview page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "care_you_provide_anyBreaks"
@@ -96,7 +96,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "Yes"
-    }
+    }*/
 
   } section("integration", models.domain.CareYouProvide.id)
 
