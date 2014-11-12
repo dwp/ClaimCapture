@@ -12,8 +12,12 @@ import models.yesNo.{DeleteId, YesNo}
 import models.DayMonthYear._
 import scala.language.postfixOps
 import play.api.i18n.Lang
+import controllers.Mappings
 
 object G10BreaksInCare extends Controller with CachedClaim with Navigable {
+
+  var breaksAnswer = YesNo(yes)
+
   val form = Form(mapping(
     "answer" -> nonEmptyText.verifying(validYesNo)
   )(YesNo.apply)(YesNo.unapply))
@@ -51,8 +55,11 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
           if (sixMonth) (dmy - 6 months).`dd/MM/yyyy` else dmy.`dd/MM/yyyy`))))
         BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrorsUpdate, breaksInCare)(lang))
       },
-      hasBreaks => claim.update(breaksInCare) -> next(hasBreaks))
-  }
+      hasBreaks => {
+        breaksAnswer = hasBreaks
+        claim.update(breaksInCare) -> next(hasBreaks)
+      })
+  } withPreviewConditionally((breaksInCare:BreaksInCare) => breaksAnswer.answer == Mappings.no)
 
   private def redirect(implicit claim: Claim, lang: Lang) = {
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1TheirPersonalDetails.present())
