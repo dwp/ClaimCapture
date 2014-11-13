@@ -87,15 +87,18 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       breaksInCarePage fillPageWith ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare()
       val breakPage = breaksInCarePage submitPage()
-      breakPage fillPageWith ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare()
+      breakPage must beAnInstanceOf[G11BreakPage]
 
+      breakPage fillPageWith ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare()
       val breaksInCarePageModified = breakPage submitPage()
-      breaksInCarePageModified fillPageWith ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCare()
+      val testData = new TestData
+      testData.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+      breaksInCarePageModified fillPageWith testData
 
       val previewPageModified = breaksInCarePageModified submitPage()
 
       previewPageModified must beAnInstanceOf[PreviewPage]
-      answerText(previewPageModified) mustEqual "Yes"
+      answerText(previewPageModified) mustEqual "Yes- Details provided for 1 break(s)"
     }
 
   } section("integration", models.domain.CareYouProvide.id)

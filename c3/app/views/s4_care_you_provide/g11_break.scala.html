@@ -1,4 +1,4 @@
-@(breakForm: Form[models.domain.Break])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
+@(breakForm: Form[models.domain.Break], backCall:Call)(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
@@ -24,7 +24,7 @@
 
     @defining(lang) { implicit language =>
 
-    @main("Break - About the care you provide", Some(breakForm)) {
+    @main("Break - About the care you provide", Some(breakForm), Some(backCall)) {
 
     @form(action = controllers.s4_care_you_provide.routes.G11Break.submit) {
         <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
