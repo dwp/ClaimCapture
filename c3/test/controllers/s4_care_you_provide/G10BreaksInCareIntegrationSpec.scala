@@ -92,13 +92,44 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       breakPage fillPageWith ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare()
       val breaksInCarePageModified = breakPage submitPage()
       val testData = new TestData
-      testData.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+      testData.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_2 = "no"
       breaksInCarePageModified fillPageWith testData
 
       val previewPageModified = breaksInCarePageModified submitPage()
-
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "Yes- Details provided for 1 break(s)"
+    }
+
+    "Modify 'breaks in care', back button should take you back to the preview page" in new WithBrowser with PageObjects{
+      val previewPage = goToPreviewPage(context)
+      val id = "care_you_provide_anyBreaks"
+      val answerText = PreviewTestUtils.answerText(s"$id", _:Page)
+
+      answerText(previewPage) mustEqual "No"
+
+      val breaksInCarePage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+
+      breaksInCarePage must beAnInstanceOf[G10BreaksInCarePage]
+
+      val previewPageModified = breaksInCarePage goBack()
+      previewPageModified must beAnInstanceOf[PreviewPage]
+    }
+
+    "Modify 'breaks in care', back button on the break page should take you back to breaks in care page" in new WithBrowser with PageObjects{
+      val previewPage = goToPreviewPage(context)
+      val id = "care_you_provide_anyBreaks"
+      val answerText = PreviewTestUtils.answerText(s"$id", _:Page)
+
+      answerText(previewPage) mustEqual "No"
+
+      val breaksInCarePage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+
+      breaksInCarePage must beAnInstanceOf[G10BreaksInCarePage]
+
+      breaksInCarePage fillPageWith ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare()
+      val breakPage = breaksInCarePage submitPage()
+      breakPage must beAnInstanceOf[G11BreakPage]
+      breakPage goBack() must beAnInstanceOf[G10BreaksInCarePage]
     }
 
   } section("integration", models.domain.CareYouProvide.id)
