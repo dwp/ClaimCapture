@@ -15,7 +15,7 @@ final class G5LastWagePage(ctx:PageObjectsContext, iteration:Int) extends ClaimP
 }
 
 object G5LastWagePage {
-  val title = "Your wages - Employment History".toLowerCase
+  val title = "Your pay - Employment History".toLowerCase
 
   val url  = "/employment/last-wage/:jobID"
 
