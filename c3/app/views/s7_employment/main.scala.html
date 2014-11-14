@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil, employerName: Option[String] = None)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
+@(title: String, currentForm: Option[Form[_]] = None, employerName: Option[String] = None)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang)
 
 @import models.domain.Employed
 @import helper._
@@ -11,7 +11,6 @@
 
         @common.protoType()
 
-        @progressBar(Employed)
 
         <article>
 
@@ -26,19 +25,6 @@
             }
             @if(!employerName.isDefined || employerName.isEmpty){
                 <h1>@Html(Messages("s7.main.help1"))</h1>
-            }
-
-            @if(completedQuestionGroups.size > 0) {
-                <div class="completed">
-                    <ul aria-label="@Html(Messages("completedQuestions"))">
-                        @for(completedQuestionGroup <- completedQuestionGroups) {
-                            <li>
-                                <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)" aria-label="@Html(Messages("change.these.help"))">@Html(Messages("change.these"))</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
             }
 
             @if(currentForm.isDefined) {

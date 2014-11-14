@@ -25,7 +25,7 @@
 
     @defining(lang) { implicit language =>
 
-    @main(Messages("s7.g5") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.LastWage, JobID(currentForm)), Some(employerName)) {
+    @main(Messages("s7.g5") + " - " + Messages("s7.longName"), Some(currentForm), Some(employerName)) {
 
 	@form(action = controllers.s7_employment.routes.G5LastWage.submit()) {
         @DwpCSRFFormHelper.formField

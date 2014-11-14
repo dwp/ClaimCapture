@@ -17,8 +17,6 @@ main {
 
 @import 'header';
 
-@import 'feedback';
-
 
 .carers-allowance {
    border-top: 10px solid $mainstream-brand;
@@ -36,18 +34,15 @@ main {
 
 @import 'prototype';
 	   
-@import 'progress'; 
  
 @import 'article';
     
-@import 'completed'; 
    
 @import 'validation-summary';
      
 
 /* form wrap */
 .form-wrap {
-
 		@media screen and (max-width: 860px) {
 			margin-right: 0;
 		}
@@ -228,7 +223,6 @@ main {
 				
 				
 				.employment-info {
-
 	   
 	   			   p {
 		   			   color: #0b0c0c;
@@ -421,27 +415,7 @@ main {
 				   }
 			   }
 			   
-			   &.date-picker {
-				   input[type="tel"] {
-					   cursor: pointer;
-					   position: relative;
-					   &:before {
-						   content: "\f073";
-						   font-size: 16px;
-						   position: absolute;
-						   top: 5px;
-						   right: 6px;
-						   font-family: 'FontAwesome';
-						   font-weight: normal;
-						   font-style: normal;
-						   text-decoration: inherit;
-						   -webkit-font-smoothing: antialiased;
-					   }
-					   .ie7 & {
-						   background: url('../images/date.png') 97% center no-repeat;
-					   }
-				   }
-			   }
+			   
 			   
 			   &.currency {
 			   	   position: relative;
@@ -597,16 +571,7 @@ main {
 					.ie7 &, .ie8 & {
 						padding: 0.2em 0 0.4em 0.4em;
 					}
-					&.datepicker {
-						cursor: pointer;
-						background: #fff url('images/calendar-icon.png') 97% 50% no-repeat;
-						position: relative;
-						z-index: 20;
-						.ie7 & {
-							cursor: auto;
-							background: #fff;
-						}
-					}
+					
 			   }
 			   input[type="radio"] {
 				   width: auto;
@@ -803,8 +768,7 @@ main {
 					   background: #fef7f7;
 					   padding: .7em;
 					   border-left: 3px solid #df3034;
-				   }
-				   
+				   }			   
 			 }
 
 
@@ -1014,14 +978,7 @@ main {
 /* Declaration specific */
 @import 'declaration'; 	   
 	   
-	   
-/* Table base styles */	   
-@import 'tables';	   
-	     
-	     
-	     
-	     
-	     
+
 }
  
    
@@ -1152,9 +1109,6 @@ main {
 /* Footer */
 @import 'footer';
 
-
-/* Assitive tech accessibility */
-@import 'assistive';
 
 /* Form review */
 @import 'review';

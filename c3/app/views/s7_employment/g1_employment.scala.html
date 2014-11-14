@@ -21,7 +21,7 @@
 
         @defining(lang) { implicit language =>
 
-        @main(Messages("s7.g1") + "  " + Messages("s7.longName"), Some(employmentForm)) {
+@main(Messages("s7.g1") + "  " + Messages("s7.longName"), Some(employmentForm)) {
     @form(action = controllers.s7_employment.routes.G1Employment.submit) {
         @DwpCSRFFormHelper.formField
         <div class="form-wrap">

@@ -19,7 +19,7 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> carersNonEmptyText,
     "employerName"-> carersNonEmptyText(maxLength = 60),
-    "phoneNumber" -> nonEmptyText(minLength = 7).verifying(validPhoneNumberRequired),
+    "phoneNumber" -> nonEmptyText.verifying(validPhoneNumberRequired),
     "address" -> address.verifying(requiredAddress),
     "postcode" -> optional(text verifying validPostcode),
     "startJobBeforeClaimDate" -> nonEmptyText.verifying(validYesNo),
