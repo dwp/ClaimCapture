@@ -85,7 +85,7 @@ trait CachedClaim {
 
 
   protected val C3VERSION = "C3Version"
-  protected val C3VERSION_VALUE = "0.4"
+  protected val C3VERSION_VALUE = "0.41"
 
   /**
    * Called when starting a new claim. Overwrites CSRF token and Version in case user had old cookies.
