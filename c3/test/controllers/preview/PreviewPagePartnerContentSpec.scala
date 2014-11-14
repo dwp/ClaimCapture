@@ -39,7 +39,10 @@ class PreviewPagePartnerContentSpec extends Specification with Tags {
       page goToThePage()
       val source = page.source()
 
-      source must not contain "About your partner/spouse"
+      source must contain ("About your partner")
+      source must contain ("Have you lived with a partner at any time since your claim date?")
+      source must contain ("No")
+
       source must not contain "Mrs Cloe Scott Smith"
       source must not contain "AB 12 34 56 A"
       source must not contain "12 July, 1990"

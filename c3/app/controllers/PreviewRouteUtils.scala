@@ -62,4 +62,15 @@ object PreviewRouteUtils {
     routesMap
   }
 
+  def yourPartner = {
+    val g1YourPartnerPersonalDetailsRoute = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present.toString
+
+    val partnerDetailsList = Seq("partner_hadPartner", "partner_name", "partner_nino",
+      "partner_dateOfBirth", "partner_nationality", "partner_seperated", "partner_isPersonCareFor")
+
+    val routesMap = Map(partnerDetailsList map {id => (id, g1YourPartnerPersonalDetailsRoute)} : _*)
+
+    routesMap
+  }
+
 }
