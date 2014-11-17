@@ -16,7 +16,7 @@ import utils.helpers.CarersLanguageHelper
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfNotFound = CSRFCreationFilter.createIfNotFound)) with Injector with CarersLanguageHelper with C3MonitorRegistration {
+object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfFound = CSRFCreationFilter.createIfFound, createIfNotFound = CSRFCreationFilter.createIfNotFound)) with Injector with CarersLanguageHelper with C3MonitorRegistration {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
@@ -92,5 +92,12 @@ object CSRFCreationFilter {
   def createIfNotFound(request:RequestHeader): Boolean = {
     request.method == "GET" && (request.accepts("text/html") || request.accepts("application/xml+xhtml")) &&
       (!request.toString.matches(".*assets.*") && !request.toString.matches(".*error.*") && !request.toString.matches(".*thankyou.*") && !request.toString.matches(".*timeout.*"))
+  }
+
+  /**
+   * We do not want to generate CSRF on error page and thank you, where we want to clean cookies.
+   */
+  def createIfFound(request:RequestHeader): Boolean = {
+    request.toString.matches(".*circumstances.identification.*") || request.toString.matches(".*allowance.benefits.*")
   }
 }
