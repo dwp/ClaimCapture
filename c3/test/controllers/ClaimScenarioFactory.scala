@@ -194,6 +194,23 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s3YourPartnerNotThePersonYouCareForWithBritishNationality() = {
+    val claim = s2AboutYouWithTimeOutside()
+    // Partner personal details
+    claim.AboutYourPartnerHadPartnerSinceClaimDate = "Yes"
+    claim.AboutYourPartnerTitle = "Mrs"
+    claim.AboutYourPartnerFirstName = "Cloe"
+    claim.AboutYourPartnerMiddleName = "Scott"
+    claim.AboutYourPartnerSurname = "Smith"
+    claim.AboutYourPartnerOtherNames = "Doe"
+    claim.AboutYourPartnerNINO = "AB123456A"
+    claim.AboutYourPartnerDateofBirth = "12/07/1990"
+    claim.AboutYourPartnerHaveYouSeparatedfromYourPartner = "Yes"
+    // Person you care for
+    claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
+    claim
+  }
+
   def s4CareYouProvide(hours35:Boolean) = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
