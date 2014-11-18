@@ -26,7 +26,7 @@ object CarersAllowance extends Controller with CachedClaim with Navigable {
     Logger.info(s"Approve submit ${claim.uuid}")
     form.bindEncrypted.fold(
       formWithErrors => {
-        Logger.info("Form with errors: "+formWithErrors)
+        Logger.info(s"${claim.key} ${claim.uuid} Form with errors: ${formWithErrors}")
         BadRequest(views.html.s1_carers_allowance.g6_approve(formWithErrors)(lang))
       },
       f => {

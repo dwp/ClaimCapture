@@ -4,7 +4,6 @@ import models.domain._
 import xml.XMLHelper._
 import xml.XMLComponent
 import controllers.Mappings
-import play.api.Logger
 
 object Claimant extends XMLComponent {
   def xml(claim: Claim) = {
