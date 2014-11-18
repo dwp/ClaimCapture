@@ -30,9 +30,6 @@
 
     if(items.size > 0){
         text = text +" "+Messages("including")+" "+items(0)
-        if(items.size > 1){
-            text = text +" "+Messages("and")+" "+items(1)
-        }
     }
     text
 }
@@ -42,9 +39,6 @@
 
     if(items.size > 0){
         text = text +", "+Messages("including")+" "+items(0)
-        if(items.size > 1){
-            text = text +", "+Messages("and")+" "+items(1)
-        }
     }
     text
 }
@@ -54,7 +48,7 @@
     <dt><a id="employed_beenEmployed" href="@controllers.s7_employment.routes.G1Employment.present().url">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
     <dd>@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}</dd>
     @if(jobs.isDefined && jobs.get.jobs.size > 0){
-        <dt>Employment</dt>
+        <dt><a id="employed_jobs" href="@controllers.s7_employment.routes.G2BeenEmployed.present().url">@Messages("jobs")</a></dt>
         <dd>
             <ul>
             @for(job <- jobs.get.jobs){
@@ -65,5 +59,8 @@
     }
     <dt><a id="selfEmployed_beenEmployed" href="@controllers.s7_employment.routes.G1Employment.present().url">@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
         <dd>@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}</dd>
-    <dt>@{Messages("natureOfYourBusiness")}</dt><dd>@{aboutSelfEmployment.natureOfYourBusiness}</dd>
+    @if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
+        <dt>@{Messages("natureOfYourBusiness")}</dt><dd>@{aboutSelfEmployment.natureOfYourBusiness}</dd>
+    }
+
 </dl>

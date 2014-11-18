@@ -132,12 +132,13 @@ trait CachedClaim {
       }
     }
 
+    // If the curried function returns true, this action will be redirected to preview if we have been there previously
+    // The data feeded to the curried function is the current submitted value of the claim, and the previously saved claim the moment we visited preview page.
     def withPreviewConditionally[T <: QuestionGroup](t:((Option[T],T)) => Boolean)(implicit classTag:ClassTag[T]):Action[AnyContent] = Action.async(action.parser){ request =>
 
       def getParams[E <: T](claim:Claim)(implicit classTag:ClassTag[E]):(Option[E],E) = {
-        claim.previouslySavedClaim.map(_.questionGroup(classTag.runtimeClass).get.asInstanceOf[E]) -> claim.questionGroup(classTag.runtimeClass).get.asInstanceOf[E]
+        claim.previouslySavedClaim.map(_.questionGroup(classTag.runtimeClass).getOrElse(None)).asInstanceOf[Option[E]] -> claim.questionGroup(classTag.runtimeClass).get.asInstanceOf[E]
       }
-
 
       action(request).map{ result =>
         result.header.status -> fromCache(request) match {
