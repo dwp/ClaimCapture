@@ -23,6 +23,7 @@ import models.view.CachedClaim.ClaimResult
 import monitoring.Histograms
 import scala.util.Try
 import net.sf.ehcache.CacheManager
+import ExecutionContext.Implicits.global
 
 object CachedClaim {
   val missingRefererConfig = "Referer not set in config"
@@ -60,7 +61,7 @@ trait CachedClaim {
 
   def newInstance(newuuid:String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid) with FullClaim
 
-  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid,claim.transactionId)(claim.navigation) with FullClaim
+  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid, claim.transactionId, claim.previouslySavedClaim)(claim.navigation) with FullClaim
 
   private def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
     r.session.get(cacheKey).getOrElse("") -> getProperty("cache.expiry", 3600)  //.getOrElse(randomUUID.toString)
@@ -122,7 +123,6 @@ trait CachedClaim {
   implicit def actionWrapper(action:Action[AnyContent]) = new {
 
     def withPreview():Action[AnyContent] = Action.async(action.parser){ request =>
-      import ExecutionContext.Implicits.global
 
       action(request).map{ result =>
         result.header.status -> fromCache(request) match {
@@ -132,13 +132,16 @@ trait CachedClaim {
       }
     }
 
-    def withPreviewConditionally[T <: QuestionGroup](t:(T) => Boolean)(implicit classTag:ClassTag[T]):Action[AnyContent] = Action.async(action.parser){ request =>
-      import ExecutionContext.Implicits.global
+    def withPreviewConditionally[T <: QuestionGroup](t:((Option[T],T)) => Boolean)(implicit classTag:ClassTag[T]):Action[AnyContent] = Action.async(action.parser){ request =>
+
+      def getParams[E <: T](claim:Claim)(implicit classTag:ClassTag[E]):(Option[E],E) = {
+        claim.previouslySavedClaim.map(_.questionGroup(classTag.runtimeClass).get.asInstanceOf[E]) -> claim.questionGroup(classTag.runtimeClass).get.asInstanceOf[E]
+      }
 
 
       action(request).map{ result =>
         result.header.status -> fromCache(request) match {
-          case (play.api.http.Status.SEE_OTHER,Some(claim)) if claim.navigation.beenInPreview && t(claim.questionGroup(classTag.runtimeClass).get.asInstanceOf[T])=> Redirect(controllers.preview.routes.Preview.present)
+          case (play.api.http.Status.SEE_OTHER,Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim))=> Redirect(controllers.preview.routes.Preview.present)
           case _ => result
         }
       }
@@ -244,13 +247,10 @@ trait CachedClaim {
     if (!key.isEmpty && key != claim.uuid) Logger.warn(s"action - Claim uuid ${claim.uuid} does not match cache key $key. Can happen if action new claim and user reuses session. Will disregard session key and use uuid.")
 
     f(claim)(request)(lang) match {
-      case Left(r: Result) => {
-        r
-      }
-      case Right((c: Claim, r: Result)) => {
+      case Left(r: Result) => r
+      case Right((c: Claim, r: Result)) =>
         Cache.set(claim.uuid, c, expiration)
         r
-      }
     }
   }
 

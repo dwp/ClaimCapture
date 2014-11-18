@@ -1,5 +1,7 @@
 package controllers.s8_self_employment
 
+import controllers.Mappings
+
 import language.reflectiveCalls
 import play.api.data.Forms._
 import play.api.mvc.Controller
@@ -8,6 +10,7 @@ import play.api.mvc.AnyContent
 import play.api.data.Form
 import controllers.Mappings._
 import models.domain.SelfEmploymentYourAccounts
+import models.domain.{Employment => Emp}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import SelfEmployment._
@@ -19,8 +22,6 @@ import models.domain.Claim
 import scala.Some
 import play.api.i18n.Lang
 import models.view.CachedClaim.ClaimResult
-
-
 object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "whatWasOrIsYourTradingYearFrom" -> optional(dayMonthYear.verifying(validDateOnly)),
@@ -58,5 +59,5 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Nav
         BadRequest(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(formWithErrorsUpdate)(lang))
       },
       f => claim.update(f) -> Redirect(routes.G4SelfEmploymentPensionsAndExpenses.present()))
-  }
+  }.withPreviewConditionally[Emp](emp => emp._2.beenEmployedSince6MonthsBeforeClaim == Mappings.no)
 }

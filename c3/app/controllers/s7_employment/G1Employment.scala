@@ -9,6 +9,7 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 import models.domain.{Employment => Emp, Employed, SelfEmployment, ClaimDate}
 import scala.language.postfixOps
+import controllers.Mappings._
 
 object G1Employment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -35,12 +36,32 @@ object G1Employment extends Controller with CachedClaim with Navigable {
               FormError("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label",
                 "error.required",
                 Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
-          BadRequest(views.html.s7_employment.g1_employment(formWithErrorsUpdate)(lang))}
-        ,employment => {
+          BadRequest(views.html.s7_employment.g1_employment(formWithErrorsUpdate)(lang))
+        },employment => {
           val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, Employed)
                                   .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, SelfEmployment)
           updatedClaim.update(employment) -> Redirect(controllers.s8_self_employment.routes.G1AboutSelfEmployment.present())
         }
       )
-    }
+    }.withPreviewConditionally[Emp](checkGoPreview)
+
+
+  private def checkGoPreview(t:(Option[Emp],Emp)):Boolean = {
+    val previousEmp = t._1
+    val actualEmp = t._2
+
+    lazy val employmentHasChanged = previousEmp.get.beenEmployedSince6MonthsBeforeClaim != actualEmp.beenEmployedSince6MonthsBeforeClaim
+    lazy val selfEmploymentHasChanged = previousEmp.get.beenEmployedSince6MonthsBeforeClaim != actualEmp.beenEmployedSince6MonthsBeforeClaim
+
+    //We want to go back to preview from Employment guard questions page if
+    // both answers haven't changed or if one hasn't changed and the changed one is 'no' or both answers are no, or
+    previousEmp.isDefined && (
+      (
+        !employmentHasChanged && !selfEmploymentHasChanged
+      ) ||
+      (previousEmp.get.beenEmployedSince6MonthsBeforeClaim == yes && actualEmp.beenEmployedSince6MonthsBeforeClaim == no && ! selfEmploymentHasChanged)  ||
+      (previousEmp.get.beenSelfEmployedSince1WeekBeforeClaim == yes && actualEmp.beenSelfEmployedSince1WeekBeforeClaim == no && ! employmentHasChanged)
+    ) ||  (actualEmp.beenEmployedSince6MonthsBeforeClaim == no && actualEmp.beenSelfEmployedSince1WeekBeforeClaim == no)
+
+  }
 }

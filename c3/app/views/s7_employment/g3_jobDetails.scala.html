@@ -8,12 +8,11 @@
 @import utils.helpers.CarersCrypto
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
-@import controllers.s7_employment.Employment.completedQuestionGroups
 @import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
 
 @defining(lang) { implicit language =>
-@main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm), Some(Messages("s7.g3"))) {
+@main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm), Some(Messages("s7.g3")),ignorePreview = true) {
 
     @form(action = controllers.s7_employment.routes.G3JobDetails.submit()) {
         @DwpCSRFFormHelper.formField

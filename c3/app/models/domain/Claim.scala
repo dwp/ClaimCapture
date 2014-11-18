@@ -14,7 +14,7 @@ import scala.reflect.ClassTag
 * and is shown in the printable form of the claim (see rendering service and casa).
 */
 case class Claim(key: String = CachedClaim.key, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None,
-                 uuid: String = "", transactionId: Option[String] = None)(implicit val navigation: Navigation = Navigation()) extends Claimable {
+                 uuid: String = "", transactionId: Option[String] = None, previouslySavedClaim: Option[Claim] = None)(implicit val navigation: Navigation = Navigation()) extends Claimable {
   def section(sectionIdentifier: Section.Identifier): Section = {
     sections.find(s => s.identifier == sectionIdentifier) match {
       case Some(s: Section) => s

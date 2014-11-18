@@ -55,7 +55,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
         BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrorsUpdate, breaksInCare)(lang))
       },
       hasBreaks => claim.update(hasBreaks) -> next(hasBreaks.answer))
-  }.withPreviewConditionally[BreaksInCareSummary](breaksInCareSummary => breaksInCareSummary.answer == Mappings.no)
+  }.withPreviewConditionally[BreaksInCareSummary](breaksInCareSummary => breaksInCareSummary._2.answer == Mappings.no)
 
   private def redirect(implicit claim: Claim, lang: Lang) = {
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1TheirPersonalDetails.present())

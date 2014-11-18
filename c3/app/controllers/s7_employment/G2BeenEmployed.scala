@@ -1,5 +1,6 @@
 package controllers.s7_employment
 
+import controllers.Mappings
 import models.view.{Navigable, CachedClaim}
 import play.api.mvc._
 import play.api.data.{FormError, Form}
@@ -57,7 +58,7 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
         BadRequest(views.html.s7_employment.g2_beenEmployed(formWithErrorsUpdate)(lang))
       },
       beenEmployed => clearUnfinishedJobs.update(beenEmployed) -> next(beenEmployed))
-  }
+  }.withPreviewConditionally[BeenEmployed](beenEmp => beenEmp._2.beenEmployed == Mappings.no)
 
   private def clearUnfinishedJobs(implicit claim: Claim) = {
     val jobs = claim.questionGroup[Jobs].getOrElse(Jobs())

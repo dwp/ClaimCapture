@@ -1,11 +1,13 @@
 package controllers.s8_self_employment
 
+import play.api.Logger
 import play.api.mvc._
 import models.view.CachedClaim
 import models.domain._
 import models.view.Navigable
 import play.api.i18n.Lang
 import models.view.CachedClaim.ClaimResult
+import controllers.Mappings._
 
 object SelfEmployment extends Controller with CachedClaim with Navigable {
   def completed = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
@@ -17,7 +19,21 @@ object SelfEmployment extends Controller with CachedClaim with Navigable {
   }
 
   def presentConditionally(c: => ClaimResult, lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    if (models.domain.SelfEmployment.visible) c
+    val beenInPreview = claim.previouslySavedClaim.isDefined
+    val emp = claim.questionGroup[Employment].get
+    //Lazy because they are going to be lazily evaluated on usage only if we've been in preview.
+    lazy val previousEmp = claim.previouslySavedClaim.get.questionGroup[Employment]
+    lazy val previousSEValue = previousEmp.get.beenSelfEmployedSince1WeekBeforeClaim
+    val SEValue = emp.beenSelfEmployedSince1WeekBeforeClaim
+
+    Logger.info("previouslySavedClaim:"+claim.previouslySavedClaim)
+    if(beenInPreview){
+      Logger.info("SEValue:"+SEValue)
+      Logger.info("previousSEValue:"+previousSEValue)
+    }
+
+
+    if (models.domain.SelfEmployment.visible && (!beenInPreview || beenInPreview && SEValue == yes && previousSEValue == no)) c
     else redirect(lang)
   }
 
