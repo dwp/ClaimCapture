@@ -8,7 +8,6 @@ import models.view.CachedClaim
 import utils.helpers.CarersForm.formBinding
 import models.view.Navigable
 import controllers.CarersForms.{carersNonEmptyText, carersText}
-import play.api.Logger
 import controllers.submission.AsyncSubmissionController
 import monitoring.ClaimBotChecking
 import services.submission.ClaimSubmissionService
