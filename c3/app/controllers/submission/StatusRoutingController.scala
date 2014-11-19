@@ -52,7 +52,7 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
 
     val transactionStatus = claimTransaction.getTransactionStatusById(claim.transactionId.getOrElse(""))
 
-    Logger.info(s"Checking transaction status: ${transactionStatus}")
+    Logger.info(s"Checking transaction status: ${transactionStatus} for ${claim.key} ${claim.uuid}")
     transactionStatus match {
 
       case Some(ts) if ts.status == SUCCESS   || ts.status == ACKNOWLEDGED          => Redirect(redirectThankYou)

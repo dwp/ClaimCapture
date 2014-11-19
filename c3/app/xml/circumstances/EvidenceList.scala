@@ -4,10 +4,7 @@ import controllers.Mappings
 import models.domain._
 import app.XMLValues._
 import models.domain.Claim
-import play.api.Logger
 import scala.xml.NodeSeq
-import xml.XMLHelper._
-import models.MultiLineAddress
 import play.api.i18n.{MMessages => Messages}
 
 object EvidenceList {
@@ -96,11 +93,11 @@ object EvidenceList {
 
     val show =
       if (ongoingEmploymentOption.isDefined)
-        ongoingEmploymentOption.get.payIntoPension.answer == "yes"
+        ongoingEmploymentOption.get.payIntoPension.answer == yes
       else if (finishedEmploymentOption.isDefined)
-        finishedEmploymentOption.get.payIntoPension.answer == "yes"
+        finishedEmploymentOption.get.payIntoPension.answer == yes
       else if (futureEmploymentOption.isDefined)
-        futureEmploymentOption.get.payIntoPension.answer == "yes"
+        futureEmploymentOption.get.payIntoPension.answer == yes
       else false
 
     show match {

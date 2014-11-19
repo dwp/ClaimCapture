@@ -18,7 +18,7 @@ object DWPCAClaim extends XMLComponent {
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
     val havePartner = yourPartnerPersonalDetails.hadPartnerSinceClaimDate
 
-    Logger.info(s"Build DWPCAClaim for : ${claim.key} ${claim.uuid}.")
+    Logger.info(s"Build XML DWPCAClaim for : ${claim.key} ${claim.uuid}.")
 
     <DWPCAClaim>
       {question(<DateOfClaim/>, "dateOfClaim",claim.dateOfClaim)}

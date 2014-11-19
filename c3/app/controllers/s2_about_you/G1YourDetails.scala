@@ -25,7 +25,7 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
   )(YourDetails.apply)(YourDetails.unapply))
 
   def present = claiming {implicit claim =>  implicit request =>  lang =>
-    Logger.info(s"Start your details ${claim.uuid}")
+    Logger.info(s"Start your details ${claim.key} ${claim.uuid}")
     track(YourDetails) { implicit claim => Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails))(lang)) }
   }
 
