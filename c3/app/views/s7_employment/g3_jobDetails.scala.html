@@ -11,6 +11,7 @@
 @import controllers.s7_employment.Employment.completedQuestionGroups
 @import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 @defining(lang) { implicit language =>
 @main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm), Some(Messages("s7.g3"))) {
@@ -37,7 +38,7 @@
                 <ul>
 
                     @yesNoRadioGroup(currentForm("startJobBeforeClaimDate"),
-                        '_label -> Messages("startJobBeforeClaimDate", claim.dateOfClaim.fold("")(dmy => (dmy - 1 months).`dd month yyyy`)),
+                        '_label -> Messages("startJobBeforeClaimDate", claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang,dmy - 1 months))),
                         'helperAbove -> Messages("startJobBeforeClaimDate.helper")
                     )
 

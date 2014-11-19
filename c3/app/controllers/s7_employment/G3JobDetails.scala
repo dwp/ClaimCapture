@@ -14,6 +14,7 @@ import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
 import scala.Some
 import scala.language.postfixOps
+import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 object G3JobDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -53,7 +54,7 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
           .replaceError("", "lastWorkDate.required", FormError("lastWorkDate", "error.required", Seq(labelForEmployment(claim, lang, "lastWorkDate", jobID))))
           .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(labelForEmployment(claim, lang, "hoursPerWeek", jobID))))
           .replaceError("", "jobStartDate.required", FormError("jobStartDate", "error.required"))
-          .replaceError("startJobBeforeClaimDate", "error.required", FormError("startJobBeforeClaimDate", "error.required",Seq(claim.dateOfClaim.fold("")(dmy => (dmy - 1 months).`dd month yyyy`))))
+          .replaceError("startJobBeforeClaimDate", "error.required", FormError("startJobBeforeClaimDate", "error.required",Seq(claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang,dmy - 1 months)))))
         BadRequest(views.html.s7_employment.g3_jobDetails(form)(lang))
       },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G5LastWage.present(jobID)))
   }

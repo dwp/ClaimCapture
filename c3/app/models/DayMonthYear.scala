@@ -38,6 +38,8 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
    */
   def `dd month yyyy`(implicit lang: play.api.i18n.Lang): String =  s"${this.`dd`} ${Messages("dynamicDatePlaceholder." + this.`M`)} ${this.`yyyy`}"
 
+  def `d month yyyy`(implicit lang: play.api.i18n.Lang): String =  s"${this.`d`} ${Messages("dynamicDatePlaceholder." + this.`M`)} ${this.`yyyy`}"
+
   def `yyyy-MM-dd'T'HH:mm:00`: String = format("yyyy-MM-dd'T'HH:mm:00")
 
   def `dd-MM-yyyy HH:mm`: String = format("dd-MM-yyyy HH:mm")
