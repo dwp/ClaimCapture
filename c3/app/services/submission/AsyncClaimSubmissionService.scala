@@ -43,7 +43,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService {
       )
     } catch {
       case e:Exception =>
-        Logger.error(s"Global error while submitting ${claim.key}. INTERNAL_SERVER_ERROR [$INTERNAL_ERROR] transactionId [$txnID].", e)
+        Logger.error(s"Global error while submitting ${claim.key} ${claim.uuid}. INTERNAL_SERVER_ERROR [$INTERNAL_ERROR] transactionId [$txnID].", e)
         updateTransactionAndCache(txnID, INTERNAL_ERROR, claim)
         Counters.incrementSubmissionErrorStatus(INTERNAL_ERROR)
     }

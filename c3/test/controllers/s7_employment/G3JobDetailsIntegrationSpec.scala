@@ -21,7 +21,7 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
 
       browser.submit("button[type='submit']")
 
-      titleMustEqual("Your wages - Employment History")
+      titleMustEqual("Your pay - Employment History")
     }
 
     "accept all data" in new WithBrowser with EmploymentFiller {
@@ -75,7 +75,7 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
 
       browser.submit("button[type='submit']")
 
-      titleMustEqual("Your wages - Employment History")
+      titleMustEqual("Your pay - Employment History")
     }
   }
 }
