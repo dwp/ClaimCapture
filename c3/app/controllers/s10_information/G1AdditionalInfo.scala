@@ -11,6 +11,7 @@ import models.view.Navigable
 import controllers.CarersForms._
 import controllers.Mappings._
 import models.yesNo.YesNoWithText
+import app.ConfigProperties._
 
 object G1AdditionalInfo extends Controller with CachedClaim with Navigable {
 
@@ -33,6 +34,14 @@ object G1AdditionalInfo extends Controller with CachedClaim with Navigable {
   def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s10_information.g1_additionalInfo(formWithErrors)(lang)),
-      additionalInfo => claim.update(additionalInfo) -> Redirect(controllers.preview.routes.Preview.present()))
+      additionalInfo => claim.update(additionalInfo) -> redirect())
+  }
+
+  private def redirect() = {
+    if (getProperty("preview.enabled",default = false)){
+      Redirect(controllers.preview.routes.Preview.present())
+    }else{
+      Redirect(controllers.s12_consent_and_declaration.routes.G2Disclaimer.present())
+    }
   }
 }

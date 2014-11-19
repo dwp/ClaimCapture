@@ -21,6 +21,7 @@ trait Navigable {
     val updatedNavigation = claim.navigation.track(t,beenInPreview )(request.uri)
     val updatedClaim = claim.copy(claim.key, claim.sections, previouslySavedClaim = if(beenInPreview) Some(claim) else claim.previouslySavedClaim)(updatedNavigation)
 
+    Logger.info("Updated navigation:"+updatedNavigation)
     updatedClaim -> f(updatedClaim)
   }
 
