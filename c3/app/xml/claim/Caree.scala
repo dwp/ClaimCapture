@@ -5,8 +5,10 @@ import models.domain._
 import xml.XMLComponent
 import xml.XMLHelper._
 import scala.language.postfixOps
+import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 import scala.xml.NodeSeq
+import play.api.i18n.Lang
 
 object Caree extends XMLComponent {
 
@@ -26,7 +28,7 @@ object Caree extends XMLComponent {
       {question(<RelationToClaimant/>,"relationship", theirPersonalDetails.relationship)}
       {question(<Cared35Hours/>,"hours.answer", moreAboutTheCare.spent35HoursCaring)}
       {careBreak(claim)}
-      {question(<Cared35HoursBefore/>,"beforeClaimCaring.answer", moreAboutTheCare.spent35HoursCaringBeforeClaim.answer)}
+      {question(<Cared35HoursBefore/>,"spent35HoursCaringBeforeClaim.label", moreAboutTheCare.spent35HoursCaringBeforeClaim.answer, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => displayPlaybackDatesFormat(Lang("en"),dmy)))}
       {if(moreAboutTheCare.spent35HoursCaringBeforeClaim.date.isDefined){
         {question(<DateStartCaring/>,"beforeClaimCaring_date", moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}
       }}
@@ -44,7 +46,7 @@ object Caree extends XMLComponent {
         case _ => claim.dateOfClaim.get
       }
 
-      question(<BreaksSinceClaim/>, label, answer, date.`dd/MM/yyyy`)
+      question(<BreaksSinceClaim/>, label, answer, displayPlaybackDatesFormat(Lang("en"),date))
     }
 
     val xmlNoBreaks = {

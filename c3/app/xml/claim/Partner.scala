@@ -6,6 +6,8 @@ import app.XMLValues._
 import xml.XMLHelper._
 import models.domain.Claim
 import xml.XMLComponent
+import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+import play.api.i18n.Lang
 
 object Partner extends XMLComponent {
 
@@ -24,7 +26,7 @@ object Partner extends XMLComponent {
         {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber",encrypt(yourPartnerPersonalDetails.nationalInsuranceNumber))}
         {question(<NationalityPartner/>, "partner.nationality", yourPartnerPersonalDetails.nationality)}
         <RelationshipStatus>
-          {question(<SeparatedFromPartner/>, "separated_fromPartner.label", yourPartnerPersonalDetails.separatedFromPartner, claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
+          {question(<SeparatedFromPartner/>, "separated_fromPartner.label", yourPartnerPersonalDetails.separatedFromPartner, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => displayPlaybackDatesFormat(Lang("en"), dmy)))}
         </RelationshipStatus>
         {question(<IsCaree/>, "isPartnerPersonYouCareFor", personYouCareFor.isPartnerPersonYouCareFor)}
       </Partner>
