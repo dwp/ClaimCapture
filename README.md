@@ -13,3 +13,4 @@ ClaimCapture
 * change terminal working directory into the stream-web folder in the git repository you checked out.
 * type 'play run' and hit return to start the application
 * Navigate to http://localhost:9000/ to view the website
+* Test
