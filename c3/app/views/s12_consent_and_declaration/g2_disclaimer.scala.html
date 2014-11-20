@@ -5,6 +5,10 @@
 @import views.html.helper._
 @import play.api.i18n.{MMessages => Messages}
 
+@content = @{
+    claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName + " " + m.middleName.getOrElse("") + (if(m.middleName.isDefined) " " else "") + m.surname)
+}
+
 @defining(lang) { implicit language =>
     @main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm)) {
 
@@ -17,14 +21,18 @@
                     <legend>@Html(Messages("s11.g3"))</legend>
 
                     <div class="declaration">
-                    @for(i <- 1 to 7) {
-                        <p>
-                        @defining(claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName + " " + m.middleName.getOrElse("") + (if(m.middleName.isDefined) " " else "") + m.surname)) { str =>
-
-                            @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]", s"<b>$str</b>"))
+                        @for(i <- 1 to 2) {
+                            <p>
+                                @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]", s"<b>$content</b>"))
+                            </p>
                         }
-                        </p>
-                    }
+                        <ul>
+                            @for(i <- 3 to 7) {
+                                <li>
+                                    @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]", s"<b>$content</b>"))
+                                </li>
+                            }
+                        </ul>
                     </div>
 
                     @declareCheckPlaceholder(currentForm("read"))
