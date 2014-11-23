@@ -1,81 +1,73 @@
 package controllers.s7_employment
 
+import utils.pageobjects.PageObjects
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s7_employment.{G2BeenEmployedPage, G1EmploymentPage, G5LastWagePage, G3JobDetailsPage}
+
 import language.reflectiveCalls
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers}
+import controllers.ClaimScenarioFactory._
 
 class G3JobDetailsIntegrationSpec extends Specification with Tags {
   "Your job" should {
-    "present" in new WithBrowser with WithBrowserHelper {
-      goTo("/employment/job-details/dummyJobID").title shouldEqual "Employer details - Employment History"
+    "present" in new WithBrowser with PageObjects {
+
+      val page = G3JobDetailsPage(context) goToThePage()
+
+      page must beAnInstanceOf[G3JobDetailsPage]
     }
 
-    "accept only mandatory data" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-      browser.goTo(s"/employment/job-details/dummyJobID")
-      browser.fill("#employerName") `with` "Toys r not Us"
-      browser.fill("#phoneNumber") `with` "12345678"
-      browser.fill("#address_lineOne") `with` "Street Test 1"
-      browser.click("#startJobBeforeClaimDate_yes")
-      browser.click("#finishedThisJob_no")
+    "accept only mandatory data" in new WithBrowser with PageObjects {
+      val page = G3JobDetailsPage(context) goToThePage()
 
-      browser.submit("button[type='submit']")
+      page fillPageWith s7MandatoryJobDetails()
 
-      titleMustEqual("Your pay - Employment History")
+      val lastWage = page.submitPage()
+
+      lastWage must beAnInstanceOf[G5LastWagePage]
     }
 
-    "accept all data" in new WithBrowser with EmploymentFiller {
-      jobDetails("dummyJobID")
+    "accept all data" in new WithBrowser with PageObjects {
+
+      val page = G3JobDetailsPage(context) goToThePage()
+
+      page fillPageWith s7Employment()
+
+      val lastWage = page.submitPage()
+
+      lastWage must beAnInstanceOf[G5LastWagePage]
     }
 
-    """go back to "employment history".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
-      beginClaim()
-      back
-      titleMustEqual("Employment Employment History")
+    """go back to "employment history".""" in new WithBrowser with PageObjects{
+      val claimDate = new G1ClaimDatePage(context) goToThePage()
+      claimDate.fillPageWith(s7EmployedNotSelfEmployed())
+      claimDate.submitPage()
+
+      val employment = new G1EmploymentPage(claimDate.ctx) goToThePage()
+      employment.fillPageWith(s7EmployedNotSelfEmployed())
+      val jobDetails = employment.submitPage()
+
+
+      jobDetails must beAnInstanceOf[G3JobDetailsPage]
+      jobDetails.goBack() must beAnInstanceOf[G1EmploymentPage]
     }
 
-    "kick off a job, but not complete it and it should not be shown in the employment overview list " in new WithBrowser with WithBrowserHelper with EmployedSinceClaimDate with EmploymentFiller {
-      beginClaim()
+    "hours a week must be visible when clicked back" in new WithBrowser with PageObjects{
+      val page = G3JobDetailsPage(context) goToThePage()
 
-      jobDetails("dummyJobID1")
-      goTo("/employment/been-employed")
-      back
-      $("#jobs table tbody tr").size() shouldEqual 0
-    }
+      page fillPageWith s7Employment()
 
-    "hours a week must be visible when clicked back" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmploymentFiller{
-      jobDetails("dummyJobID")
-      back
-      findMustEqualSize("#hoursPerWeek", 1)
+      val lastWage = page.submitPage()
+
+      lastWage must beAnInstanceOf[G5LastWagePage]
+      val yourDetails = lastWage.goBack()
+
+      yourDetails.ctx.browser.find("#hoursPerWeek").size mustEqual 1
+
     }
 
   } section("integration", models.domain.Employed.id)
 
-  trait EmploymentFiller extends BrowserMatchers {
-    this: WithBrowser[_] =>
-
-    def jobDetails(jobID: String) = {
-      browser.goTo(s"/employment/job-details/$jobID")
-
-      browser.fill("#employerName") `with` "Toys r not Us"
-      browser.fill("#phoneNumber") `with` "12345678"
-      browser.fill("#address_lineOne") `with` "Street Test 1"
-      browser.click("#startJobBeforeClaimDate_no")
-      browser.fill("#jobStartDate_day") `with` "1"
-      browser.fill("#jobStartDate_month") `with` "1"
-      browser.fill("#jobStartDate_year") `with` "2000"
-      browser.click("#finishedThisJob_yes")
-      browser.fill("#lastWorkDate_day") `with` "1"
-      browser.fill("#lastWorkDate_month") `with` "1"
-      browser.fill("#lastWorkDate_year") `with` "2005"
-      browser.fill("#p45LeavingDate_day") `with` "1"
-      browser.fill("#p45LeavingDate_month") `with` "1"
-      browser.fill("#p45LeavingDate_year") `with` "2005"
-      browser.fill("#hoursPerWeek") `with` "75"
-
-      browser.submit("button[type='submit']")
-
-      titleMustEqual("Your pay - Employment History")
-    }
-  }
 }

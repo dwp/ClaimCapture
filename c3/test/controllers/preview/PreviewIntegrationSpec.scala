@@ -19,6 +19,7 @@ class PreviewIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to Additional Info page" in new WithBrowser with PageObjects{
+
       val additionalInfoPage = G1AdditionalInfoPage(context)
       val additionalInfoData = ClaimScenarioFactory.s11ConsentAndDeclaration
       additionalInfoPage goToThePage ()

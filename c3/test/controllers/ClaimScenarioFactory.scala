@@ -390,6 +390,54 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s7SelfEmployedAndEmployed() = {
+    val claim = s12ClaimDate()
+
+    // Employment
+    claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim
+  }
+
+  def s7SelfEmployedNotEmployed() = {
+    val claim = s12ClaimDate()
+
+    // Employment
+    claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claim
+  }
+
+  def s7EmployedNotSelfEmployed() = {
+    val claim = s12ClaimDate()
+
+    // Employment
+    claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim
+  }
+
+  def s7NotEmployedNorSelfEmployed() = {
+    val claim = s12ClaimDate()
+
+    // Employment
+    claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claim
+  }
+
+  def s7MandatoryJobDetails() = {
+    val claim = new TestData
+
+    claim.EmploymentEmployerName_1 = "Toys r not Us"
+    claim.EmploymentEmployerPhoneNumber_1 = "12345678"
+    claim.EmploymentEmployerAddress_1 = "Street Test 1"
+    claim.EmploymentDidYouStartThisJobBeforeClaimDate_1 = "Yes"
+    claim.EmploymentHaveYouFinishedThisJob_1 = "No"
+
+    claim
+  }
+
 
   def s7EmploymentMinimal() = {
     val claim = new TestData
