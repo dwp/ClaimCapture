@@ -6,6 +6,9 @@ import models.domain.{YourPartnerPersonalDetails, YourCourseDetails, Claim}
 import xml.XMLHelper._
 import xml._
 import scala.language.postfixOps
+import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+import models.DayMonthYear
+import play.api.i18n.Lang
 
 object DWPCAClaim extends XMLComponent {
 
@@ -18,6 +21,7 @@ object DWPCAClaim extends XMLComponent {
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
     val havePartner = yourPartnerPersonalDetails.hadPartnerSinceClaimDate
 
+
     Logger.info(s"Build XML DWPCAClaim for : ${claim.key} ${claim.uuid}.")
 
     <DWPCAClaim>
@@ -27,9 +31,9 @@ object DWPCAClaim extends XMLComponent {
       {Residency.xml(claim)}
       {question(<CourseOfEducation/>, "beenInEducationSinceClaimDate.label",courseDetails.beenInEducationSinceClaimDate, claimDate)}
       {FullTimeEducation.xml(claim)}
-      {question(<SelfEmployed/>, "beenSelfEmployedSince1WeekBeforeClaim.label",employment.beenSelfEmployedSince1WeekBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 1 week}")(dmy => (dmy - 1 week).`dd/MM/yyyy`),claimDate)}
+      {question(<SelfEmployed/>, "beenSelfEmployedSince1WeekBeforeClaim.label",employment.beenSelfEmployedSince1WeekBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 1 week}")(dmy => displayClaimDate(dmy - 1 week)),claimDate)}
       {SelfEmployment.xml(claim)}
-      {question(<Employed/>,"aboutYou_beenEmployedSince6MonthsBeforeClaim.label",employment.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => (dmy - 6 months).`dd/MM/yyyy`), claimDate)}
+      {question(<Employed/>,"aboutYou_beenEmployedSince6MonthsBeforeClaim.label",employment.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayClaimDate(dmy - 6 months)), claimDate)}
       {Employment.xml(claim)}
       {question(<HavePartner/>,"haveLivedWithPartnerSinceClaimDate.label",havePartner,claimDate)}
       {Partner.xml(claim)}
@@ -48,4 +52,9 @@ object DWPCAClaim extends XMLComponent {
     </DWPCAClaim>
 
   }
+
+  def displayClaimDate (date:DayMonthYear) = {
+     displayPlaybackDatesFormat(Lang("en"), date)
+  }
+
 }

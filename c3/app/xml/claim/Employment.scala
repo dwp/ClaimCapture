@@ -6,6 +6,7 @@ import xml.XMLHelper._
 import models.{DayMonthYear, PaymentFrequency}
 import scala.language.postfixOps
 import play.api.i18n.Lang
+import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 import scala.xml.{Elem, NodeSeq}
 
@@ -43,7 +44,7 @@ object Employment extends XMLComponent{
 
     <Employer>
       {question(<CurrentlyEmployed/>,"finishedThisJob",jobDetails.finishedThisJob)}
-      {question(<DidJobStartBeforeClaimDate/>, "startJobBeforeClaimDate", jobDetails.startJobBeforeClaimDate, claim.dateOfClaim.fold("")(dmy => (dmy - 1 months).`dd month yyyy`(Lang("en"))))}
+      {question(<DidJobStartBeforeClaimDate/>, "startJobBeforeClaimDate", jobDetails.startJobBeforeClaimDate, claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(Lang("en"),dmy - 1 months)))}
       {question(<DateJobStarted/>, "jobStartDate", jobDetails.jobStartDate)}
       {if(jobDetails.lastWorkDate.isDefined){
         {question(<DateJobEnded/>, "lastWorkDate",jobDetails.lastWorkDate)}
