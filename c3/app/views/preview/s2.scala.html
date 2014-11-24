@@ -2,6 +2,9 @@
 
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
+@import app.MaritalStatus._
+@import helper._
+
 
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
     @nino = @{
@@ -12,35 +15,50 @@
 @contactDetails = @{claim.questionGroup[ContactDetails].getOrElse(ContactDetails())}
 @address = @{contactDetails.address}
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
-@nationalityAndResidency = @{claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))}
+@nationalityAndResidency = @{
+    claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
+}
+@nationality = @{
+    nationalityAndResidency.actualnationality match {
+        case Some(n) => n
+        case _ => nationalityAndResidency.nationality
+    }
+}
 @otherEEA = @{claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())}
 @abroadForMoreThan52Weeks = @{claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())}
 @maritalStatus = @{
 nationalityAndResidency.maritalStatus match {
-        case Some(ms) if (ms == "m") => Messages("maritalStatus.married")
-        case Some(ms) if (ms == "s") => Messages("maritalStatus.single")
-        case Some(ms) if (ms == "d") => Messages("maritalStatus.divorced")
-        case Some(ms) if (ms == "w") => Messages("maritalStatus.widowed")
-        case Some(ms) if (ms == "n") => Messages("maritalStatus.separated")
-        case Some(ms) if (ms == "p") => Messages("maritalStatus.livingWithPartner")
+        case Some(Married) => Messages("maritalStatus.married")
+        case Some(Single) => Messages("maritalStatus.single")
+        case Some(Divorced) => Messages("maritalStatus.divorced")
+        case Some(Widowed) => Messages("maritalStatus.widowed")
+        case Some(Separated) => Messages("maritalStatus.separated")
+        case Some(Partner) => Messages("maritalStatus.livingWithPartner")
         case _ => ""
     }
 }
+@middleName = @{yourDetails.middleName.map(_+" ").getOrElse("")}
+@titleNames = @{
+    s"${Html(Messages("titleSelect."+yourDetails.title.toLowerCase))} ${yourDetails.firstName} ${middleName}${yourDetails.surname}"
+}
 
+@addressPostcode = @{
+    s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${contactDetails.postcode.getOrElse("")}"
+}
 
-<h2>@Html(Messages("s2.progressbar.name"))</h2>
+<h2>@Html(Messages("aboutYou.title"))</h2>
 <dl>
-    <dt>@Html(Messages("name"))</dt><dd>@{Messages("titleSelect."+yourDetails.title)} @yourDetails.firstName @yourDetails.middleName @yourDetails.surname</dd>
-    <dt>@Html(Messages("nationalInsuranceNumber"))</dt><dd>@nino</dd>
-    <dt>@Html(Messages("dateOfBirth"))</dt><dd>@{yourDetails.dateOfBirth.`dd month, yyyy`}</dd>
-    <dt>@Html(Messages("address"))</dt><dd>@{address.lineOne}@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @contactDetails.postcode.getOrElse("")</dd>
-    <dt>@Html(Messages("howWeContactYou"))</dt><dd>@contactDetails.howWeContactYou</dd>
-    <dt>@Html(Messages("dateOfClaim.simple"))</dt><dd>@{claimDate.dateOfClaim.`dd month, yyyy`}</dd>
-    <dt>@Html(Messages("yourNationality"))</dt><dd>@{nationalityAndResidency.nationality}</dd>
-    <dt>@Html(Messages("nationality.label"))</dt><dd>@{Messages("label."+nationalityAndResidency.nationality)}</dd>
-    <dt>@Html(Messages("timeOutsideGB"))</dt><dd>@{Messages("label."+abroadForMoreThan52Weeks.anyTrips.toLowerCase)}</dd>
-    <dt>@Html(Messages("benefitsFromEEA"))</dt><dd>@{Messages("label."+otherEEA.benefitsFromEEA)}</dd>
-    <dt>@Html(Messages("workingForEEA"))</dt><dd>@{Messages("label."+otherEEA.workingForEEA)}</dd>
-    <dt>@Html(Messages("maritalStatusNQ"))</dt><dd>@{maritalStatus}</dd>
-
+    @fieldWithLink("about_you_full_name", "name", titleNames)
+    @fieldWithLink("about_you_nino", "nationalInsuranceNumber", nino)
+    @fieldWithLink("about_you_dob", "dateOfBirth", yourDetails.dateOfBirth.`dd month, yyyy`)
+    @fieldWithLink("about_you_address", "address", addressPostcode)
+    @fieldWithLink("about_you_contact", "howWeContactYou", contactDetails.howWeContactYou)
+    @if(nationalityAndResidency.maritalStatus.isDefined){
+        @fieldWithLink("about_you_marital_status", "maritalStatusNQ", maritalStatus)
+    }
+    @fieldWithLink("about_you_claimDate", "dateOfClaim.simple", claimDate.dateOfClaim.`dd month, yyyy`)
+    @fieldWithLink("about_you_nationality", "yourNationality", nationality)
+    @fieldWithLink("about_you_abroad", "timeOutsideGB", Messages("label."+abroadForMoreThan52Weeks.anyTrips.toLowerCase))
+    @fieldWithLink("about_you_benefitsFromEEA", "benefitsFromEEA", Messages("label."+otherEEA.benefitsFromEEA))
+    @fieldWithLink("about_you_workingForEEA", "workingForEEA", Messages("label."+otherEEA.workingForEEA))
 </dl>

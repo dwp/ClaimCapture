@@ -2,9 +2,12 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.ClaimScenarioFactory
+import controllers.{ClaimScenarioFactory,PreviewTestUtils}
 import utils.pageobjects.s2_about_you.{G5AbroadForMoreThan52WeeksPage, G4NationalityAndResidencyPage}
-import utils.pageobjects.PageObjects
+import utils.pageobjects._
+import utils.pageobjects.preview.PreviewPage
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import app.MaritalStatus
 
 class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
   sequential
@@ -72,5 +75,62 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
       browser.find("#resideInUK_text").size() mustEqual 1
     }
 
+    "Modify marital status from preview page" in new WithBrowser with PageObjects{
+      val previewPage = goToPreviewPage(context)
+      val id = "about_you_marital_status"
+      val answerText = PreviewTestUtils.answerText(id, _:Page)
+
+      answerText(previewPage) mustEqual MaritalStatus.Single
+      val nationalityPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+
+      nationalityPage must beAnInstanceOf[G4NationalityAndResidencyPage]
+      val modifiedData = new TestData
+      modifiedData.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = MaritalStatus.Married
+
+      nationalityPage fillPageWith modifiedData
+      val previewPageModified = nationalityPage submitPage()
+
+      previewPageModified must beAnInstanceOf[PreviewPage]
+      answerText(previewPageModified) mustEqual MaritalStatus.Married
+    }
+
+    "Modify nationality from preview page" in new WithBrowser with PageObjects{
+      val previewPage = goToPreviewPage(context)
+      val id = "about_you_nationality"
+      val answerText = PreviewTestUtils.answerText(id, _:Page)
+
+      answerText(previewPage) mustEqual "French"
+      val nationalityPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+
+      nationalityPage must beAnInstanceOf[G4NationalityAndResidencyPage]
+      val modifiedData = new TestData
+      modifiedData.AboutYouNationalityAndResidencyNationality = "British"
+
+      nationalityPage fillPageWith modifiedData
+      val previewPageModified = nationalityPage submitPage()
+
+      previewPageModified must beAnInstanceOf[PreviewPage]
+      answerText(previewPageModified) mustEqual "British"
+    }
+
+
   } section("integration", models.domain.AboutYou.id)
+
+  def goToPreviewPage(context:PageObjectsContext):Page = {
+    val claimDatePage = G1ClaimDatePage(context)
+    claimDatePage goToThePage()
+    val claimDate = ClaimScenarioFactory.s12ClaimDate()
+    claimDatePage fillPageWith claimDate
+    claimDatePage submitPage()
+
+    val nationalityPage = G4NationalityAndResidencyPage(context)
+    val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
+    nationalityPage goToThePage()
+    nationalityPage fillPageWith claim
+    nationalityPage submitPage()
+
+    val previewPage = PreviewPage(context)
+    previewPage goToThePage()
+  }
+
 }

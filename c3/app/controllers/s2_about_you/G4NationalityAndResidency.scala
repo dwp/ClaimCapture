@@ -44,5 +44,5 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
         BadRequest(views.html.s2_about_you.g4_nationalityAndResidency(formWithErrorsUpdate)(lang))
       },
       nationalityAndResidency => claim.update(nationalityAndResidency) -> Redirect(routes.G5AbroadForMoreThan52Weeks.present()))
-  }
+  } withPreview()
 }

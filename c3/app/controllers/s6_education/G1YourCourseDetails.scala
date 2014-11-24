@@ -58,5 +58,5 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
         BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrorsUpdate)(lang))
       },
       yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(controllers.s7_employment.routes.G1Employment.present()))
-  }
+  } withPreview()
 }

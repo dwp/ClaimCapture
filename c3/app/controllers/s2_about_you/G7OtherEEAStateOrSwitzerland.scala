@@ -25,5 +25,5 @@ object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim with Nav
       formWithErrors => BadRequest(views.html.s2_about_you.g7_otherEEAStateOrSwitzerland(formWithErrors)(lang)),
       benefitsFromEEA => claim.update(benefitsFromEEA) -> Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
     )
-  }
+  } withPreview()
 }

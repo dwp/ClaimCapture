@@ -5,6 +5,7 @@ import org.openqa.selenium.By
 import scala.collection.mutable
 import utils.helpers.StringPadding._
 import org.fluentlenium.core.filter.FilterConstructor._
+import org.fluentlenium.core.Fluent
 
 /**
  * Search operations on the web elements composing a page.
@@ -115,6 +116,14 @@ trait WebSearchActions {
     val headingLocation = "h2[id='"+id+"']"
     this checkElement headingLocation
     ctx.browser.find(headingLocation).getText
+  }
+
+  def visible (elementCssSelector: String):Boolean = {
+    val element = ctx.browser.find(elementCssSelector)
+    element.isEmpty match {
+      case true => false
+      case false => element.getAttribute("style") != "display: none;"
+    }
   }
 
   //====================================================================================================================

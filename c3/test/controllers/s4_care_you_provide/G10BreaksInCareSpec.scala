@@ -45,7 +45,8 @@ class G10BreaksInCareSpec extends Specification with Tags {
 
       val claim = Cache.getAs[Claim](extractCacheKey(result)).get
 
-      claim.questionGroup(BreaksInCare) should beLike { case Some(b: BreaksInCare) => b.breaks shouldEqual Nil }
+      val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+      breaksInCare.breaks must beEmpty
     }
 
     "complete upon indicating that there are no more breaks having now provided one break" in new WithApplication with Claiming {

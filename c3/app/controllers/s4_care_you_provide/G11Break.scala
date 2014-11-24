@@ -23,8 +23,10 @@ object G11Break extends Controller with CachedClaim {
     "medicalDuringBreak" -> carersNonEmptyText
   )(Break.apply)(Break.unapply))
 
+  val backCall = routes.G10BreaksInCare.present()
+
   def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
-    Ok(views.html.s4_care_you_provide.g11_break(form)(lang))
+    Ok(views.html.s4_care_you_provide.g11_break(form,backCall)(lang))
   }
 
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
@@ -36,7 +38,7 @@ object G11Break extends Controller with CachedClaim {
         .replaceError("start.date","error.required", FormError("start","error.required", Seq("This field is required")))
         .replaceError("whereYou.location.other","error.maxLength",FormError("whereYou","error.maxLength"))
         .replaceError("wherePerson.location.other","error.maxLength",FormError("wherePerson","error.maxLength"))
-        BadRequest(views.html.s4_care_you_provide.g11_break(fwe)(lang))
+        BadRequest(views.html.s4_care_you_provide.g11_break(fwe,backCall)(lang))
       },
       break => {
         val updatedBreaksInCare = if (breaksInCare.breaks.size >= 10) breaksInCare else breaksInCare.update(break)
@@ -48,7 +50,7 @@ object G11Break extends Controller with CachedClaim {
  def break(id: String) = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     claim.questionGroup(BreaksInCare) match {
       case Some(b: BreaksInCare) => b.breaks.find(_.id == id) match {
-        case Some(b: Break) => Ok(views.html.s4_care_you_provide.g11_break(form.fill(b))(lang))
+        case Some(b: Break) => Ok(views.html.s4_care_you_provide.g11_break(form.fill(b),backCall)(lang))
         case _ => Redirect(routes.G10BreaksInCare.present())
       }
 

@@ -9,6 +9,7 @@ import models.view.Navigable
 import utils.helpers.CarersForm._
 import models.view.CachedClaim
 import controllers.CarersForms._
+import controllers.Mappings
 
 
 object G5AbroadForMoreThan52Weeks extends Controller with CachedClaim with Navigable {
@@ -34,5 +35,5 @@ object G5AbroadForMoreThan52Weeks extends Controller with CachedClaim with Navig
       abroadForMoreThan52Weeks => claim.update(abroadForMoreThan52Weeks) -> Redirect(routes.G7OtherEEAStateOrSwitzerland.present())
     )
 
-  }
+  } withPreview()
 }

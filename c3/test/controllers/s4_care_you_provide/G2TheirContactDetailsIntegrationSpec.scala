@@ -2,58 +2,119 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, Formulate}
+import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
+import utils.pageobjects._
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s4_care_you_provide.{G7MoreAboutTheCarePage, G1TheirPersonalDetailsPage, G2TheirContactDetailsPage}
+import utils.pageobjects.preview.PreviewPage
+import utils.pageobjects.s2_about_you.G2ContactDetailsPage
 
 class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
 
   "Their Contact Details" should {
-    "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/care-you-provide/their-contact-details")
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
+    "be presented" in new WithBrowser with PageObjects {
+      val page = G2TheirContactDetailsPage(context)
+      page goToThePage()
+      page.pageTitle mustEqual "Contact details of the person you care for - About the care you provide".toLowerCase
     }
 
-    "contain errors on empty submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/care-you-provide/their-contact-details")
-      browser.submit("button[type='submit']")
-      findMustEqualSize("div[class=validation-summary] ol li", 1)
+    "contain errors on empty submission" in new WithBrowser with PageObjects {
+      val page = G2TheirContactDetailsPage(context)
+      page goToThePage()
+      page submitPage()
+
+      page.listErrors.size mustEqual 1
     }
 
-    "be prepopulated if they live at same address" in new WithBrowser with BrowserMatchers {
-      Formulate.yourContactDetails(browser)
-      Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
-      browser.find("#address_lineOne").getValue mustEqual "My Address"
-      browser.find("#postcode").getValue mustEqual "SE1 6EH"
+    "be prepopulated if they live at same address" in new WithBrowser with PageObjects {
+      val thierContactDetailsPage = goToTheirContactDetailsPage(context, ClaimScenarioFactory.s4CareYouProvide(hours35 = true))
+
+      thierContactDetailsPage must beAnInstanceOf[G2TheirContactDetailsPage]
+
+      val addressLineOne = thierContactDetailsPage readInput("#address_lineOne")
+      val postCode = thierContactDetailsPage readInput("#postcode")
+      addressLineOne.get mustEqual "101 Clifton Street"
+      postCode.get mustEqual "FY1 2RW"
     }
 
-    "be blank if they live at different address" in new WithBrowser with BrowserMatchers {
-      Formulate.yourContactDetails(browser)
-      Formulate.theirPersonalDetailsNotLiveAtSameAddress(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
-      browser.find("#address_lineOne").getValue mustEqual ""
-      browser.find("#postcode").getValue mustEqual ""
+    "be blank if they live at different address" in new WithBrowser with PageObjects {
+
+      val theirPersonalData = ClaimScenarioFactory.s4CareYouProvide(hours35 = true)
+      theirPersonalData.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "No"
+
+      val thierContactDetailsPage = goToTheirContactDetailsPage(context, theirPersonalData)
+      thierContactDetailsPage must beAnInstanceOf[G2TheirContactDetailsPage]
+
+      val addressLineOne = thierContactDetailsPage readInput("#address_lineOne")
+      val postCode = thierContactDetailsPage readInput("#postcode")
+      addressLineOne.get mustEqual ""
+      postCode.get mustEqual ""
     }
 
-    "be blank if they live at same address but did not enter one" in new WithBrowser with BrowserMatchers {
-      Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
-
-      browser.find("#address_lineOne").getValue mustEqual ""
-      browser.find("#postcode").getValue mustEqual ""
+    "navigate back to Their Personal Details" in new WithBrowser with PageObjects {
+      val thierContactDetailsPage = goToTheirContactDetailsPage(context, ClaimScenarioFactory.s4CareYouProvide(hours35 = true))
+      thierContactDetailsPage must beAnInstanceOf[G2TheirContactDetailsPage]
+      thierContactDetailsPage goBack() must beAnInstanceOf[G1TheirPersonalDetailsPage]
     }
 
-    "navigate back to Their Personal Details" in new WithBrowser with BrowserMatchers {
-      Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
-
-      browser.goTo("/care-you-provide/their-contact-details")
-      browser.click("#backButton")
-      titleMustEqual("Details of the person you care for - About the care you provide")
+    "navigate to next page on valid submission" in new WithBrowser with PageObjects {
+      val thierContactDetailsPage = goToTheirContactDetailsPage(context, ClaimScenarioFactory.s4CareYouProvide(hours35 = true))
+      thierContactDetailsPage fillPageWith ClaimScenarioFactory.s4CareYouProvide(hours35 = true)
+      thierContactDetailsPage submitPage() must beAnInstanceOf[G7MoreAboutTheCarePage]
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
-      Formulate.theirContactDetails(browser)
-      titleMustEqual("More about the care you provide - About the care you provide")
+    "Modify address from preview page" in new WithBrowser with PageObjects{
+      val modifiedData = new TestData
+      modifiedData.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street&Line 3"
+      modifiedData.AboutTheCareYouProvidePostcodePersonCareFor = "BB6 2AD"
+
+      verifyPreviewData(context, "care_you_provide_address", "123 Colne Street, Line 2 BB9 2AD", modifiedData, "123 Colne Street, Line 3 BB6 2AD")
     }
+
   } section("integration", models.domain.CareYouProvide.id)
+
+  def goToTheirContactDetailsPage (context:PageObjectsContext, testData:TestData) = {
+    val yourContactDetailsPage = G2ContactDetailsPage(context)
+    yourContactDetailsPage goToThePage()
+    yourContactDetailsPage fillPageWith ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
+    yourContactDetailsPage submitPage()
+
+    val theirPersonalDetailsPage = G1TheirPersonalDetailsPage(context)
+    theirPersonalDetailsPage goToThePage()
+    theirPersonalDetailsPage fillPageWith testData
+    theirPersonalDetailsPage submitPage()
+  }
+
+  def goToPreviewPage(context:PageObjectsContext):Page = {
+    val claimDatePage = G1ClaimDatePage(context)
+    claimDatePage goToThePage()
+    val claimDate = ClaimScenarioFactory.s12ClaimDate()
+    claimDatePage fillPageWith claimDate
+    claimDatePage submitPage()
+
+    val thierContactDetailsPage = G2TheirContactDetailsPage(context)
+    thierContactDetailsPage goToThePage()
+    thierContactDetailsPage fillPageWith ClaimScenarioFactory.s4CareYouProvide(hours35 = true)
+    thierContactDetailsPage submitPage()
+
+    val previewPage = PreviewPage(context)
+    previewPage goToThePage()
+  }
+
+  def verifyPreviewData(context:PageObjectsContext, id:String, initialData:String, modifiedTestData:TestData, modifiedData:String) = {
+    val previewPage = goToPreviewPage(context)
+    val answerText = PreviewTestUtils.answerText(id, _:Page)
+
+    answerText(previewPage) mustEqual initialData
+    val theirContactDetailsPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+
+    theirContactDetailsPage must beAnInstanceOf[G2TheirContactDetailsPage]
+
+    theirContactDetailsPage fillPageWith modifiedTestData
+    val previewPageModified = theirContactDetailsPage submitPage()
+
+    previewPageModified must beAnInstanceOf[PreviewPage]
+    answerText(previewPageModified) mustEqual modifiedData
+  }
+
 }

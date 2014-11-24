@@ -1,4 +1,5 @@
-@(yesNoForm: Form[models.yesNo.YesNo], breaksInCare: models.domain.BreaksInCare)(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+@(yesNoForm: Form[models.domain.BreaksInCareSummary], breaksInCare: models.domain.BreaksInCare)(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+
 @import controllers.s4_care_you_provide.G10BreaksInCare
 
 @import views.html.helper.base._

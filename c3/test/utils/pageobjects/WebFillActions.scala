@@ -14,7 +14,7 @@ import utils.helpers.StringPadding._
 trait WebFillActions {
   this: { val ctx: PageObjectsContext } =>
 
-  private def click(elementCssSelector: String) = {
+  def click(elementCssSelector: String) = {
     if (ctx.browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
     ctx.browser.click(elementCssSelector)
   }

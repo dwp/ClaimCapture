@@ -6,22 +6,25 @@ import play.api.i18n.{MMessages => Messages}
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
-import models.domain.{QuestionGroup, Claim, MoreAboutTheCare, BreaksInCare}
+import models.domain._
 import models.view.{Navigable, CachedClaim}
-import models.yesNo.{DeleteId, YesNo}
-import models.DayMonthYear._
 import scala.language.postfixOps
 import play.api.i18n.Lang
+import controllers.Mappings
+import models.domain.Claim
+import models.yesNo.DeleteId
+import scala.Some
 
 object G10BreaksInCare extends Controller with CachedClaim with Navigable {
+
   val form = Form(mapping(
     "answer" -> nonEmptyText.verifying(validYesNo)
-  )(YesNo.apply)(YesNo.unapply))
+  )(BreaksInCareSummary.apply)(BreaksInCareSummary.unapply))
 
   def fillForm(implicit request:Request[_],claim:Claim)= {
     request.headers.get("referer") match {
       case Some(referer) if referer endsWith routes.G11Break.present().url => form
-      case _ if claim.questionGroup[BreaksInCare].isDefined => form.fill(YesNo(no))
+      case _ if claim.questionGroup[BreaksInCareSummary].isDefined => form.fill(BreaksInCareSummary(no))
       case _ => form
     }
   }
@@ -35,7 +38,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     import controllers.Mappings.yes
 
-    def next(hasBreaks: YesNo) = hasBreaks.answer match {
+    def next(hasBreaks:String) = hasBreaks match {
       case `yes` if breaksInCare.breaks.size < 10 => Redirect(routes.G11Break.present())
       case `yes` => Redirect(routes.G10BreaksInCare.present())
       case _ => redirect(claim, lang)
@@ -51,8 +54,8 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
           if (sixMonth) (dmy - 6 months).`dd/MM/yyyy` else dmy.`dd/MM/yyyy`))))
         BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrorsUpdate, breaksInCare)(lang))
       },
-      hasBreaks => claim.update(breaksInCare) -> next(hasBreaks))
-  }
+      hasBreaks => claim.update(hasBreaks) -> next(hasBreaks.answer))
+  }.withPreviewConditionally[BreaksInCareSummary](breaksInCareSummary => breaksInCareSummary._2.answer == Mappings.no)
 
   private def redirect(implicit claim: Claim, lang: Lang) = {
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1TheirPersonalDetails.present())
