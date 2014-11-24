@@ -21,7 +21,7 @@ object Employment extends XMLComponent{
 
       <Employment>
 
-        {for (job <- jobsQG) yield {
+        {for ((job, index) <- jobsQG.zipWithIndex) yield {
             val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
             val lastWage = job.questionGroup[LastWage].getOrElse(LastWage("", PaymentFrequency(),"",DayMonthYear(),"", None, "", None))
 
@@ -31,8 +31,9 @@ object Employment extends XMLComponent{
               {question(<OweMoney/>, "employerOwesYouMoney",lastWage.employerOwesYouMoney)}
               {pensionExpensesXml(job,claim)}
               {jobExpensesXml(job, claim)}
+              {anyMoreJobs(index == jobsQG.jobs.length -1, claim)}
             </JobDetails>
-      }}
+        }}
       </Employment>
     } else {
       NodeSeq.Empty
@@ -97,5 +98,9 @@ object Employment extends XMLComponent{
     } else {
       question(<PaidForJobExpenses/>,"haveExpensesForJob.answer",aboutExpenses.haveExpensesForJob.answer,questionLabelEmployment(claim, "haveExpensesForJob.answer", job.jobID))
     }
+  }
+
+  private def anyMoreJobs(isLast:Boolean, claim:Claim):NodeSeq = {
+    question(<OtherEmployment/>, "beenEmployedSince6MonthsBeforeClaim.label", !isLast , claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(Lang("en"), dmy - 6 months)))
   }
 }
