@@ -76,6 +76,6 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
       },
       f => claim.update(f) -> Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
     )
-  }
+  }.withPreview()
 }
 

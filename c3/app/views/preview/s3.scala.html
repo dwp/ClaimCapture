@@ -1,25 +1,34 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 @import models.domain.YourPartnerPersonalDetails
 @import play.api.i18n.{MMessages => Messages}
+@import helper._
 
-@partner = @{claim.questionGroup[YourPartnerPersonalDetails]}
+@yourPartner = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
 @ninoNumber(ni:NationalInsuranceNumber) = @{
     s"${ni.ni1.get.toUpperCase} ${ni.ni2.get} ${ni.ni3.get} ${ni.ni4.get} ${ni.ni5.get.toUpperCase}"
 }
-@if(partner.isDefined){
-    @defining(partner.get){ yourPartner =>
-        <h2>@Html(Messages("partnerSpouse"))</h2>
-        <dl>
-            <dt>@Html(Messages("name"))</dt><dd>@{Messages("titleSelect."+yourPartner.title)} @yourPartner.firstName @yourPartner.middleName @yourPartner.surname</dd>
-
-            @if(yourPartner.nationalInsuranceNumber.isDefined){
-                @defining(yourPartner.nationalInsuranceNumber.get){ nino =>
-                    <dt>@Html(Messages("nationalInsuranceNumber"))</dt><dd>@ninoNumber(nino)</dd>
-                }
-            }
-            <dt>@Html(Messages("dateOfBirth"))</dt><dd>@{yourPartner.dateOfBirth.getOrElse(DayMonthYear(None,None,None)).`dd month, yyyy`}</dd>
-            <dt>@Html(Messages("separated.fromPartner"))</dt><dd>@{Messages("label."+yourPartner.separatedFromPartner)}</dd>
-        </dl>
-
-    }
+@middleName = @{yourPartner.middleName.map(_+" ").getOrElse("")}
+@titleNames = @{
+    s"${Html(Messages("titleSelect."+yourPartner.title.getOrElse("").toLowerCase))} ${yourPartner.firstName.get} ${middleName}${yourPartner.surname.get}"
 }
+
+
+<h2>@Html(Messages("s3.longName"))</h2>
+<dl>
+    @fieldWithLink("partner_hadPartner", "haveLivedWithPartnerSinceClaimDate.label", Messages("label."+yourPartner.hadPartnerSinceClaimDate))
+
+    @if(yourPartner.hadPartnerSinceClaimDate.toLowerCase == "yes"){
+        @fieldWithLink("partner_name", "name", titleNames)
+        @if(yourPartner.nationalInsuranceNumber.isDefined){
+            @defining(yourPartner.nationalInsuranceNumber.get){ nino =>
+                @fieldWithLink("partner_nino", "nationalInsuranceNumber", ninoNumber(nino))
+            }
+        }
+        @fieldWithLink("partner_dateOfBirth", "dateOfBirth", yourPartner.dateOfBirth.getOrElse(DayMonthYear(None,None,None)).`dd month, yyyy`)
+        @if(yourPartner.nationality.isDefined){
+            @fieldWithLink("partner_nationality", "partner.nationality", yourPartner.nationality.get)
+        }
+        @fieldWithLink("partner_seperated", "separated.fromPartner", Messages("label."+yourPartner.separatedFromPartner.get.toLowerCase))
+        @fieldWithLink("partner_isPersonCareFor", "isPartnerPersonYouCareFor", Messages("label."+yourPartner.isPartnerPersonYouCareFor.get.toLowerCase))
+    }
+</dl>

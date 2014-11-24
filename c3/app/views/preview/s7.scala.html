@@ -5,6 +5,7 @@
 
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @emp = @{claim.questionGroup[Employment].getOrElse(Employment())}
+@aboutSelfEmployment = @{claim.questionGroup[AboutSelfEmployment].getOrElse(AboutSelfEmployment())}
 @jobs = @{claim.questionGroup[Jobs]}
 @sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}
 @oneWeekBeforeDate(date:DayMonthYear) = @{date - 1 weeks}
@@ -29,9 +30,6 @@
 
     if(items.size > 0){
         text = text +" "+Messages("including")+" "+items(0)
-        if(items.size > 1){
-            text = text +" "+Messages("and")+" "+items(1)
-        }
     }
     text
 }
@@ -41,19 +39,16 @@
 
     if(items.size > 0){
         text = text +", "+Messages("including")+" "+items(0)
-        if(items.size > 1){
-            text = text +", "+Messages("and")+" "+items(1)
-        }
     }
     text
 }
 
-<h2>@Html(Messages("s7.progressbar.name"))</h2>
+<h2>@Html(Messages("employment.title"))</h2>
 <dl>
-    <dt> @{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</dt>
+    <dt><a id="employed_beenEmployed" href="@controllers.s7_employment.routes.G1Employment.present().url">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
     <dd>@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}</dd>
     @if(jobs.isDefined && jobs.get.jobs.size > 0){
-        <dt>Employment</dt>
+        <dt><a id="employed_jobs" href="@controllers.s7_employment.routes.G2BeenEmployed.present().url">@Messages("jobs")</a></dt>
         <dd>
             <ul>
             @for(job <- jobs.get.jobs){
@@ -62,6 +57,10 @@
             </ul>
         </dd>
     }
-    <dt>@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</dt>
-    <dd>@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}</dd>
+    <dt><a id="selfEmployed_beenEmployed" href="@controllers.s7_employment.routes.G1Employment.present().url">@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
+        <dd>@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}</dd>
+    @if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
+        <dt>@{Messages("natureOfYourBusiness")}</dt><dd>@{aboutSelfEmployment.natureOfYourBusiness}</dd>
+    }
+
 </dl>

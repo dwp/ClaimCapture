@@ -23,6 +23,7 @@ import models.view.CachedClaim.ClaimResult
 import monitoring.Histograms
 import scala.util.Try
 import net.sf.ehcache.CacheManager
+import ExecutionContext.Implicits.global
 
 object CachedClaim {
   val missingRefererConfig = "Referer not set in config"
@@ -60,7 +61,7 @@ trait CachedClaim {
 
   def newInstance(newuuid:String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid) with FullClaim
 
-  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid,claim.transactionId)(claim.navigation) with FullClaim
+  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid, claim.transactionId, claim.previouslySavedClaim)(claim.navigation) with FullClaim
 
   private def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
     r.session.get(cacheKey).getOrElse("") -> getProperty("cache.expiry", 3600)  //.getOrElse(randomUUID.toString)
@@ -85,7 +86,7 @@ trait CachedClaim {
 
 
   protected val C3VERSION = "C3Version"
-  protected val C3VERSION_VALUE = "0.5"
+  protected val C3VERSION_VALUE = "0.51"
 
   /**
    * Called when starting a new claim. Overwrites CSRF token and Version in case user had old cookies.
@@ -118,6 +119,38 @@ trait CachedClaim {
       }
     }
   }
+
+  implicit def actionWrapper(action:Action[AnyContent]) = new {
+
+    def withPreview():Action[AnyContent] = Action.async(action.parser){ request =>
+
+      action(request).map{ result =>
+        result.header.status -> fromCache(request) match {
+          case (play.api.http.Status.SEE_OTHER,Some(claim)) if claim.navigation.beenInPreview => Redirect(controllers.preview.routes.Preview.present)
+          case _ => result
+        }
+      }
+    }
+
+    // If the curried function returns true, this action will be redirected to preview if we have been there previously
+    // The data feeded to the curried function is the current submitted value of the claim, and the previously saved claim the moment we visited preview page.
+    def withPreviewConditionally[T <: QuestionGroup](t:((Option[T],T)) => Boolean)(implicit classTag:ClassTag[T]):Action[AnyContent] = Action.async(action.parser){ request =>
+
+      def getParams[E <: T](claim:Claim)(implicit classTag:ClassTag[E]):(Option[E],E) = {
+        claim.previouslySavedClaim.map(_.questionGroup(classTag.runtimeClass).getOrElse(None)).asInstanceOf[Option[E]] -> claim.questionGroup(classTag.runtimeClass).get.asInstanceOf[E]
+      }
+
+      action(request).map{ result =>
+        result.header.status -> fromCache(request) match {
+          case (play.api.http.Status.SEE_OTHER,Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim))=> Redirect(controllers.preview.routes.Preview.present)
+          case _ => result
+        }
+      }
+    }
+
+
+  }
+
 
   def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
@@ -215,13 +248,10 @@ trait CachedClaim {
     if (!key.isEmpty && key != claim.uuid) Logger.warn(s"action - Claim uuid ${claim.uuid} does not match cache key $key. Can happen if action new claim and user reuses session. Will disregard session key and use uuid.")
 
     f(claim)(request)(lang) match {
-      case Left(r: Result) => {
-        r
-      }
-      case Right((c: Claim, r: Result)) => {
+      case Left(r: Result) => r
+      case Right((c: Claim, r: Result)) =>
         Cache.set(claim.uuid, c, expiration)
         r
-      }
     }
   }
 

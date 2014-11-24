@@ -27,6 +27,7 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.additionalInfo(browser)
+      browser.submit("button[type='submit']")
       titleMustEqual("Disclaimer - Consent and Declaration")
     }
 
@@ -59,7 +60,7 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
 
-      val g2 = page submitPage()
+      val g2 = page submitPage() submitPage()
       
       g2 must beAnInstanceOf[G2DisclaimerPage]
     }

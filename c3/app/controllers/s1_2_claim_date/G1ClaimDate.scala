@@ -22,5 +22,5 @@ object G1ClaimDate extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s1_2_claim_date.g1_claimDate(formWithErrors)(lang)),
       claimDate => claim.update(claimDate) -> Redirect("/about-you/your-details"))
-  }
+  } withPreview()
 }

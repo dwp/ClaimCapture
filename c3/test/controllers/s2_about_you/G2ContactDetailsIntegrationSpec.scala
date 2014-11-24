@@ -3,9 +3,11 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
+import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s2_about_you._
-import utils.pageobjects.PageObjects
+import utils.pageobjects.{TestData, ClaimPageFactory, PageObjects}
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import org.openqa.selenium.By
 
 class G2ContactDetailsIntegrationSpec extends Specification with Tags {
   "Contact Details" should {
@@ -87,6 +89,62 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
       val contactDetailsPage = page submitPage(waitForPage = true)
       val completedPage = contactDetailsPage goBack ()
       completedPage must beAnInstanceOf[G1YourDetailsPage]
+    }
+
+
+    "Modify address from preview page" in new WithBrowser with PageObjects{
+
+      val page =  G2ContactDetailsPage(context)
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+
+      val id = "about_you_address"
+      val previewPage = PreviewPage(context)
+      previewPage goToThePage()
+      previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "101 Clifton Street, Blackpool FY1 2RW"
+      val contactDetails = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+
+      contactDetails must beAnInstanceOf[G2ContactDetailsPage]
+      val modifiedData = new TestData
+      modifiedData.AboutYouAddress = "10 someplace&Wherever"
+      modifiedData.AboutYouPostcode = "M4 4TJ"
+
+      contactDetails fillPageWith modifiedData
+      val previewPageModified = contactDetails submitPage()
+
+      previewPageModified must beAnInstanceOf[PreviewPage]
+      previewPageModified.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "10 someplace, Wherever M4 4TJ"
+
+    }
+
+    "Modify contact number from preview page" in new WithBrowser with PageObjects{
+
+      val page =  G2ContactDetailsPage(context)
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+
+      val id = "about_you_contact"
+      val previewPage = PreviewPage(context)
+      previewPage goToThePage()
+      previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "01772 888901"
+      val contactDetails = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+
+      contactDetails must beAnInstanceOf[G2ContactDetailsPage]
+      val modifiedData = new TestData
+      modifiedData.HowWeContactYou = "0123456789"
+
+      contactDetails fillPageWith modifiedData
+      val previewPageModified = contactDetails submitPage()
+
+      previewPageModified must beAnInstanceOf[PreviewPage]
+      previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "0123456789"
+
     }
   } section("integration", models.domain.AboutYou.id)
 }

@@ -2,19 +2,21 @@
 @import models.domain._
 
 @import play.api.i18n.{MMessages => Messages}
+@import helper._
+
 
 @yourCourseDetails = @{claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())}
 
 <h2>@Html(Messages("s6.progressbar.name"))</h2>
 <dl>
-    <dt>@Html(Messages("beenInEducationSinceClaimDate"))</dt><dd>@{Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate)}</dd>
+    @fieldWithLink("education_beenInEducationSinceClaimDate", "beenInEducationSinceClaimDate", Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase))
         @if(yourCourseDetails.beenInEducationSinceClaimDate == "yes"){
-            <dt>@Html(Messages("courseTitle"))</dt><dd>@{yourCourseDetails.title}</dd>
-            <dt>@Html(Messages("nameOfSchoolCollegeOrUniversity"))</dt><dd>@{yourCourseDetails.nameOfSchoolCollegeOrUniversity}</dd>
-            <dt>@Html(Messages("nameOfMainTeacherOrTutor"))</dt><dd>@{yourCourseDetails.nameOfMainTeacherOrTutor}</dd>
+            @fieldWithLink("education_courseTitle", "courseTitle", yourCourseDetails.title.get)
+            @fieldWithLink("education_nameOfSchool", "nameOfSchoolCollegeOrUniversity", yourCourseDetails.nameOfSchoolCollegeOrUniversity.get)
+            @fieldWithLink("education_nameOfTutor", "nameOfMainTeacherOrTutor", yourCourseDetails.nameOfMainTeacherOrTutor.get)
             @if(yourCourseDetails.courseContactNumber.isDefined){
-              <dt>@Html(Messages("courseContactNumber"))</dt><dd>@{yourCourseDetails.courseContactNumber.get}</dd>
+              @fieldWithLink("education_contactNumber", "courseContactNumber", yourCourseDetails.courseContactNumber.get)
             }
-            <dt>@Html(Messages("startEndDates"))</dt><dd>@{yourCourseDetails.startDate.get.`dd month, yyyy`} - @{yourCourseDetails.expectedEndDate.get.`dd month, yyyy`}</dd>
+            @fieldWithLink("education_startEndDates", "startEndDates", {yourCourseDetails.startDate.get.`dd month, yyyy`}.concat(" - ").concat(yourCourseDetails.expectedEndDate.get.`dd month, yyyy`))
         }
 </dl>

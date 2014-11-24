@@ -1,11 +1,14 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@import models.domain.YourPartnerPersonalDetails
 @import models.domain.BreaksInCare
 @import models.domain.MoreAboutTheCare
 @import models.domain.TheirContactDetails
 
 @import models.domain.TheirPersonalDetails
 @import play.api.i18n.{MMessages => Messages}
+@import helper._
 
+@yourPartner = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
 @abouTheCare = @{claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())}
 @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
 @theirContactDetails = @{claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())}
@@ -15,17 +18,43 @@
     s"${ni.ni1.get.toUpperCase} ${ni.ni2.get} ${ni.ni3.get} ${ni.ni4.get} ${ni.ni5.get.toUpperCase}"
 }
 
+@showHidePartnerDetails = @{
+    yourPartner.hadPartnerSinceClaimDate == "no" ||
+            (yourPartner.isPartnerPersonYouCareFor.isDefined &&
+                    yourPartner.isPartnerPersonYouCareFor.get.toLowerCase == "no")
+}
+
+@partnerTitleName = @{
+    if (showHidePartnerDetails){
+        val title = Html(Messages("titleSelect."+theirPersonalDetails.title.toLowerCase))
+        s"$title ${theirPersonalDetails.firstName} ${theirPersonalDetails.middleName.map(_+" ").getOrElse("")}${theirPersonalDetails.surname}"
+    } else {
+        ""
+    }
+}
+
+@addressLine = @{
+    s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${theirContactDetails.postcode.getOrElse("")}"
+}
+
+@breaksAnswer = @{
+    Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) Messages("breaks.details",breaks.breaks.length) else "")
+}
+
+
 <h2>@Html(Messages("careYouProvide"))</h2>
 <dl>
-    <dt>@Html(Messages("name"))</dt><dd>@{Html(Messages("titleSelect."+theirPersonalDetails.title))} @theirPersonalDetails.firstName @theirPersonalDetails.middleName @theirPersonalDetails.surname</dd>
-    @if(theirPersonalDetails.nationalInsuranceNumber.isDefined){
-        @defining(theirPersonalDetails.nationalInsuranceNumber.get){ nino =>
-            <dt>@Html(Messages("nationalInsuranceNumber"))</dt><dd>@ninoNumber(nino)</dd>
+    @if(showHidePartnerDetails){
+        @fieldWithLink("care_you_provide_name", "name", partnerTitleName)
+        @if(theirPersonalDetails.nationalInsuranceNumber.isDefined){
+            @defining(theirPersonalDetails.nationalInsuranceNumber.get){ nino =>
+                @fieldWithLink("care_you_provide_nino", "nationalInsuranceNumber", ninoNumber(nino))
+            }
         }
+        @fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`)
     }
-    <dt>@Html(Messages("dateOfBirth"))</dt><dd>@{theirPersonalDetails.dateOfBirth.`dd month, yyyy`}</dd>
-    <dt>@Html(Messages("address"))</dt><dd>@{address.lineOne}@{address.lineTwo.fold("")(", "+_)}@{address.lineThree.fold("")(", "+_)} @theirContactDetails.postcode.getOrElse("")</dd>
-    <dt>@Html(Messages("relationship"))</dt><dd>@{Html(Messages("relationship."+theirPersonalDetails.relationship))}</dd>
-    <dt>@Html(Messages("spent35HoursCaring"))</dt><dd>@{Html(Messages("label."+abouTheCare.spent35HoursCaring))}</dd>
-    <dt>@Html(Messages("anyBreaks"))</dt><dd>@{Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) Messages("breaks.details",breaks.breaks.length) else "")}</dd>
+    @fieldWithLink("care_you_provide_address", "address", addressLine)
+    @fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship)
+    @fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(Messages("label."+abouTheCare.spent35HoursCaring))}")
+    @fieldWithLink("care_you_provide_anyBreaks", "anyBreaks", Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) Messages("breaks.details",breaks.breaks.length) else ""))
 </dl>

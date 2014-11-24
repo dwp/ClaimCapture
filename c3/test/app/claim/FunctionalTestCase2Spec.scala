@@ -1,6 +1,7 @@
 package app.claim
 
 import play.api.test.WithBrowser
+import utils.pageobjects.preview.PreviewTestableData
 import utils.pageobjects.s1_carers_allowance.{G1BenefitsPage, G1BenefitsPageContext}
 import utils.pageobjects._
 import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusinessValidation}
@@ -20,16 +21,44 @@ class FunctionalTestCase2Spec extends FunctionalTestCommon  {
 
       val page = G1BenefitsPage(context)
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase2.csv")
-      page goToThePage()
-      val lastPage = page runClaimWith(claim, XmlPage.title)
-
-      lastPage match {
-        case p: XmlPage => {
-          val validator: XMLBusinessValidation = new XMLClaimBusinessValidation
-          validateAndPrintErrors(p, claim, validator) should beTrue
-        }
-        case p: Page => println(p.source()); failure("bad")
-      }
+      test(page, claim, buildPreviewUseData)
     }
   } section ("functional","claim")
+
+  private def buildPreviewUseData = {
+
+    PreviewTestableData()   +
+      "AboutYouTitle"       + "AboutYouFirstName" + "AboutYouMiddleName" + "AboutYouSurname" +
+      ninoConversion("AboutYouNINO") +
+      dateConversion("AboutYouDateOfBirth") +
+      dateConversion("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart") +
+      addressConversion("AboutYouAddress") + "AboutYouPostcode" +
+      "AboutYouNationalityAndResidencyNationality" +
+      "AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1" +
+      "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA" +
+      "AboutYourPartnerTitle"       + "AboutYourPartnerFirstName" + "AboutYourPartnerFirstName" + "AboutYourPartnerSurname" +
+      ninoConversion("AboutYourPartnerNINO") +
+      dateConversion("AboutYourPartnerDateofBirth") +
+      "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA" +
+      "AboutTheCareYouProvideWhatTheirRelationshipToYou" +
+      "AboutTheCareYouProvideTitlePersonCareFor"       + "AboutTheCareYouProvideFirstNamePersonCareFor" + "AboutTheCareYouProvideMiddleNamePersonCareFor" + "AboutTheCareYouProvideSurnamePersonCareFor" +
+      dateConversion("AboutTheCareYouProvideDateofBirthPersonYouCareFor") +
+      addressConversion("AboutTheCareYouProvideAddressPersonCareFor") + "AboutTheCareYouProvidePostcodePersonCareFor" +
+      "AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment" +
+      "AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek" +
+      "AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1" +
+      "EducationHaveYouBeenOnACourseOfEducation" +
+      "EducationCourseTitle" +
+      "EducationNameofSchool" +
+      "EducationNameOfMainTeacherOrTutor" +
+      "EducationPhoneNumber" +
+      dateConversion("EducationWhenDidYouStartTheCourse") +
+      dateConversion("EducationWhenDoYouExpectTheCourseToEnd") +
+      "EmploymentHaveYouBeenEmployedAtAnyTime_0" +
+      "EmploymentHaveYouBeenSelfEmployedAtAnyTime" +
+      "OtherMoneyAnyPaymentsSinceClaimDate" +
+      "OtherMoneyHaveYouSSPSinceClaim" +
+      "OtherMoneyHaveYouSMPSinceClaim"
+
+  }
 }

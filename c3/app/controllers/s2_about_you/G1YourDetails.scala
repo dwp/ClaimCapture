@@ -37,7 +37,7 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
           val updatedClaim = claim.showHideSection(payDetailsVisible, PayDetails)
           updatedClaim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present())
       })
-  }
+  } withPreview()
 
   def showPayDetails(claim:Claim, yourDetails:YourDetails):Boolean = {
     claim.dateOfClaim match {

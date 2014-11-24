@@ -1,6 +1,7 @@
 package controllers.s2_about_you
 
 import language.reflectiveCalls
+import language.implicitConversions
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
@@ -10,6 +11,7 @@ import utils.helpers.CarersForm._
 import models.domain._
 import controllers.CarersForms._
 import play.api.Logger
+import CachedClaim._
 
 object G2ContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -27,5 +29,5 @@ object G2ContactDetails extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g2_contactDetails(formWithErrors)(lang)),
       contactDetails =>{claim.update(contactDetails) -> Redirect(routes.G4NationalityAndResidency.present())})
-  }
+  } withPreview()
 }

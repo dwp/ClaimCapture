@@ -194,6 +194,23 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s3YourPartnerNotThePersonYouCareForWithBritishNationality() = {
+    val claim = s2AboutYouWithTimeOutside()
+    // Partner personal details
+    claim.AboutYourPartnerHadPartnerSinceClaimDate = "Yes"
+    claim.AboutYourPartnerTitle = "Mrs"
+    claim.AboutYourPartnerFirstName = "Cloe"
+    claim.AboutYourPartnerMiddleName = "Scott"
+    claim.AboutYourPartnerSurname = "Smith"
+    claim.AboutYourPartnerOtherNames = "Doe"
+    claim.AboutYourPartnerNINO = "AB123456A"
+    claim.AboutYourPartnerDateofBirth = "12/07/1990"
+    claim.AboutYourPartnerHaveYouSeparatedfromYourPartner = "Yes"
+    // Person you care for
+    claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
+    claim
+  }
+
   def s4CareYouProvide(hours35:Boolean) = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
@@ -252,6 +269,34 @@ object ClaimScenarioFactory {
     // Contact Details Of Paying Person
     claim.AboutTheCareYouProvideAddressPersonPaysYou = "123 Cleverme Street & Genius"
     claim.AboutTheCareYouProvidePostcodePersonPaysYou = "GN1 2DA"
+    claim
+  }
+
+  def s4CareYouProvideWithNoPersonalDetails() = {
+    val claim = new TestData
+    // Their Personal Details
+    claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
+    // Their Contact Details
+    claim.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street&Line 2"
+    claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"
+    claim.AboutTheCareYouProvidePhoneNumberPersonYouCare = "07922 222 222"
+    // More About The Person
+    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
+    claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
+    claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
+    // More About The Care
+    claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
+    claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "Yes"
+    claim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson = "03/04/2013"
+    claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
+
+    // Breaks in care
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "Home"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "Hospital"
+    claim.AboutTheCareYouProvideBreakStartDate_1 = "12/12/2006"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "no"
+
     claim
   }
 
@@ -342,6 +387,54 @@ object ClaimScenarioFactory {
     claim.HowWePayYouFullNameOfBankorBuildingSociety = "Carers Bank"
     claim.HowWePayYouSortCode = "090126"
     claim.HowWePayYouAccountNumber = "12345678"
+    claim
+  }
+
+  def s7SelfEmployedAndEmployed() = {
+    val claim = s12ClaimDate()
+
+    // Employment
+    claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim
+  }
+
+  def s7SelfEmployedNotEmployed() = {
+    val claim = s12ClaimDate()
+
+    // Employment
+    claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claim
+  }
+
+  def s7EmployedNotSelfEmployed() = {
+    val claim = s12ClaimDate()
+
+    // Employment
+    claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim
+  }
+
+  def s7NotEmployedNorSelfEmployed() = {
+    val claim = s12ClaimDate()
+
+    // Employment
+    claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claim
+  }
+
+  def s7MandatoryJobDetails() = {
+    val claim = new TestData
+
+    claim.EmploymentEmployerName_1 = "Toys r not Us"
+    claim.EmploymentEmployerPhoneNumber_1 = "12345678"
+    claim.EmploymentEmployerAddress_1 = "Street Test 1"
+    claim.EmploymentDidYouStartThisJobBeforeClaimDate_1 = "Yes"
+    claim.EmploymentHaveYouFinishedThisJob_1 = "No"
+
     claim
   }
 
@@ -482,7 +575,7 @@ object ClaimScenarioFactory {
     claim.OtherMoneySSPEmployerName = "Burger King"
     // G1 Other Statutory Pay
     claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
-    claim.OtherMoneySMPHowMuch = "123"
+    claim.OtherMOneySMPHowMuch = "123"
     claim.OtherMoneySMPEmployerName = "Employers Name"
 
     claim

@@ -3,8 +3,9 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
+import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s2_about_you._
-import utils.pageobjects.PageObjects
+import utils.pageobjects.{TestData, ClaimPageFactory, PageObjects}
 
 class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
   "Abroad for more that 52 weeks" should {
@@ -76,6 +77,32 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       backPage.ctx.browser.findFirst("#anyTrips_no").isSelected should beFalse
       backPage.ctx.browser.findFirst("#tripDetails").isDisplayed should beTrue
     }
+
+    "Modify time outside from preview page" in new WithBrowser with PageObjects{
+
+      val page =  G5AbroadForMoreThan52WeeksPage(context)
+      val claim = ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationNo()
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+
+      val id = "about_you_abroad"
+      val previewPage = PreviewPage(context)
+      previewPage goToThePage()
+      previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "No"
+      val abroadForMoreThan52WeeksPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+
+      abroadForMoreThan52WeeksPage must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
+
+      abroadForMoreThan52WeeksPage fillPageWith ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationYes()
+
+      val previewModifiedPage = abroadForMoreThan52WeeksPage submitPage()
+
+      previewModifiedPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "Yes"
+
+    }
+
 
   } section("integration", models.domain.AboutYou.id)
 }

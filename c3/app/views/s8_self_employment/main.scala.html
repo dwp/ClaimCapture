@@ -1,10 +1,18 @@
-@(title: String, currentForm: Option[Form[_]] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(title: String, currentForm: Option[Form[_]] = None, ignorePreview:Boolean = false)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 @import models.domain.Employed
 
 @import models.domain.SelfEmployment
 @import helper._
 @import play.api.i18n.{MMessages => Messages}
 @import views.html.common._
+
+@previous = @{
+    if(ignorePreview){
+        claim.navigation.previousIgnorePreview
+    }else{
+        claim.navigation.previous
+    }
+}
 
 @common.govMain(title) {
 	
@@ -15,7 +23,7 @@
         <article>
 
             <nav class="back-nav">
-                <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
+                <a id="backButton" href="@previous">@Html(Messages("form.back"))</a>
             </nav>
             @sectionTitle(SelfEmployment)
             <h1>@Html(Messages("s8.longName"))</h1>
