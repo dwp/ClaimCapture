@@ -75,7 +75,7 @@ trait CachedClaim {
     val (key, _) = keyAndExpiration(request)
     if (key.isEmpty) {
       // Log an error if session empty or with no cacheKey entry so we know it is not a cache but a cookie issue.
-      Logger.error("Did not receive Session information. Probably a cookie issue.")
+      Logger.error(s"Did not receive Session information for ${cacheKey} for url path ${request.path}. Probably a cookie issue: ${request.cookies.filterNot( _.name.startsWith("_"))}.")
       None
     } else Cache.getAs[Claim](key)
   }
@@ -86,7 +86,7 @@ trait CachedClaim {
 
 
   protected val C3VERSION = "C3Version"
-  protected val C3VERSION_VALUE = "0.51"
+  protected val C3VERSION_VALUE = "0.52"
 
   /**
    * Called when starting a new claim. Overwrites CSRF token and Version in case user had old cookies.
