@@ -4,7 +4,7 @@ import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import models.view.{CachedChangeOfCircs, Navigable, CachedClaim}
+import models.view.{CachedChangeOfCircs, Navigable}
 import models.domain.CircumstancesStoppedCaring
 import utils.helpers.CarersForm._
 import controllers.Mappings._
