@@ -20,7 +20,8 @@ object Caree extends XMLComponent {
 
     <Caree>
       {question(<Surname/>, "surname", encrypt(theirPersonalDetails.surname))}
-      {question(<OtherNames/>, "firstName", theirPersonalDetails.firstName+" "+ theirPersonalDetails.middleName.getOrElse(""))}
+      {question(<OtherNames/>, "firstName", theirPersonalDetails.firstName)}
+      {question(<MiddleNames/>, "middleName", theirPersonalDetails.middleName)}
       {question(<Title/>, "title", theirPersonalDetails.title)}
       {question(<DateOfBirth/>, "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`)}
       {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", encrypt(theirPersonalDetails.nationalInsuranceNumber.getOrElse("")))}
