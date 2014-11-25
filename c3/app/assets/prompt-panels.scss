@@ -74,6 +74,7 @@
 		   border: 3px solid #df3034;
 		   position: relative;
 		   display: none;
+		   padding: 1em;
 		   .ie7 & {
 			   overflow: hidden;
 		   }
@@ -84,6 +85,9 @@
 		   }
 		   span {
 			   display: none;
+		   }
+		   input {
+			   margin-right: 5px;
 		   }
 	   }
 	   &.breaks-error-prompt {
