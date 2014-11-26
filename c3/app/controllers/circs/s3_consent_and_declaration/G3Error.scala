@@ -1,7 +1,7 @@
 package controllers.circs.s3_consent_and_declaration
 
 import play.api.mvc.Controller
-import models.view.{CachedChangeOfCircs, CachedClaim, Navigable}
+import models.view.{CachedChangeOfCircs, Navigable}
 
 object G3Error extends Controller with CachedChangeOfCircs with Navigable {
   def present = claiming {implicit circs =>  implicit request =>  lang =>
