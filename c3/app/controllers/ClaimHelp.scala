@@ -18,7 +18,7 @@ object Help {
 object ClaimHelp extends Controller with CachedClaim with Navigable {
 
   def notes() = claiming {implicit claim =>  implicit request =>  lang =>
-    Help.buildResponse(views.html.claimHelp.claimHelpNotes())
+    Help.buildResponse(views.html.claimHelp.claimHelpNotes(lang))
   }
 
 }
@@ -26,7 +26,7 @@ object ClaimHelp extends Controller with CachedClaim with Navigable {
 object CofcHelp extends Controller with CachedChangeOfCircs with Navigable {
 
   def notes() = claiming {implicit claim =>  implicit request =>  lang =>
-    Help.buildResponse(views.html.claimHelp.claimHelpNotes())
+    Help.buildResponse(views.html.claimHelp.claimHelpNotes(lang))
   }
 
 }
