@@ -24,7 +24,7 @@ object ClaimEnding extends Controller with CachedClaim {
       if (preview.email.isDefined) EmailServices.sendEmail to preview.email.get
     }
 
-    Ok(views.html.common.thankYouClaim())
+    Ok(views.html.common.thankYouClaim(lang))
   }
 
 }

@@ -14,7 +14,7 @@ object CircsEnding extends Controller with CachedChangeOfCircs {
   }
 
   def thankyou = ending {implicit claim =>  implicit request =>  lang =>
-    Ok(views.html.common.thankYouCircs())
+    Ok(views.html.common.thankYouCircs(lang))
   }
 
 }
