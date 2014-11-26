@@ -40,11 +40,13 @@
 
                 @helper.form(action = controllers.preview.routes.Preview.submit) {
                     @DwpCSRFFormHelper.formField
+                    @* -- New user story has to be raised for this
                     <fieldset class="form-elements">
                         <ul>
                             @carersInputText(previewForm("email"))
                         </ul>
                     </fieldset>
+                    *@
                     <nav class="form-steps">
                         <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
                     </nav>
