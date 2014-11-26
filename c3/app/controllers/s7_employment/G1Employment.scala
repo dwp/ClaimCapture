@@ -49,7 +49,7 @@ object G1Employment extends Controller with CachedClaim with Navigable {
 
           val deletedSelfEmployment = if(employment.beenSelfEmployedSince1WeekBeforeClaim == no){
             deletedEmployment.delete(AboutSelfEmployment).delete(SelfEmploymentYourAccounts).delete(SelfEmploymentPensionsAndExpenses)
-          }else updatedClaim
+          }else deletedEmployment
 
           deletedSelfEmployment.update(employment) -> Redirect(controllers.s8_self_employment.routes.G1AboutSelfEmployment.present())
         }
