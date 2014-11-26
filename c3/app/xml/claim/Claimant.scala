@@ -13,7 +13,8 @@ object Claimant extends XMLComponent {
 
     <Claimant>
       {question(<Surname/>, "surname", encrypt(yourDetails.surname))}
-      {question(<OtherNames/>, "firstName", yourDetails.firstName+" "+yourDetails.middleName.getOrElse(""))}
+      {question(<OtherNames/>, "firstName", yourDetails.firstName)}
+      {question(<MiddleNames/>, "middleName", yourDetails.middleName)}
       {question(<OtherSurnames/>,"otherNames", yourDetails.otherSurnames.getOrElse(""))}
       {question(<Title/>, "title", yourDetails.title)}
       {question(<DateOfBirth/>,"dateOfBirth", yourDetails.dateOfBirth)}
