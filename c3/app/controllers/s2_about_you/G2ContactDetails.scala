@@ -1,5 +1,7 @@
 package controllers.s2_about_you
 
+import controllers.s4_care_you_provide.G2TheirContactDetails
+
 import language.reflectiveCalls
 import language.implicitConversions
 import play.api.data.Form
@@ -28,6 +30,18 @@ object G2ContactDetails extends Controller with CachedClaim with Navigable {
   def submit = claiming {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g2_contactDetails(formWithErrors)(lang)),
-      contactDetails =>{claim.update(contactDetails) -> Redirect(routes.G4NationalityAndResidency.present())})
+      contactDetails =>{
+        val liveAtSameAddress = claim.questionGroup[TheirPersonalDetails].exists(_.liveAtSameAddressCareYouProvide == yes)
+
+        val updatedClaim = if (liveAtSameAddress) {
+          val theirContactDetailsForm =
+            G2TheirContactDetails.form.fill(TheirContactDetails(address = contactDetails.address, postcode = contactDetails.postcode))
+          claim.update(theirContactDetailsForm.fold(p => TheirContactDetails(),p => p))
+        }else{
+          claim
+        }
+
+        updatedClaim.update(contactDetails) -> Redirect(routes.G4NationalityAndResidency.present())
+      })
   } withPreview()
 }

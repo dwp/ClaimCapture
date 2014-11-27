@@ -8,6 +8,7 @@
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
 
+@livesSameAddress = @{claim.questionGroup[TheirPersonalDetails].exists(_.liveAtSameAddressCareYouProvide == Mappings.yes)}
 @yourPartner = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
 @abouTheCare = @{claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())}
 @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
@@ -53,7 +54,9 @@
         }
         @fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`)
     }
-    @fieldWithLink("care_you_provide_address", "address", addressLine)
+
+    @fieldWithLink("care_you_provide_address", "address", addressLine, disableLink = livesSameAddress)
+
     @fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship)
     @fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(Messages("label."+abouTheCare.spent35HoursCaring))}")
     @fieldWithLink("care_you_provide_anyBreaks", "anyBreaks", Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) Messages("breaks.details",breaks.breaks.length) else ""))

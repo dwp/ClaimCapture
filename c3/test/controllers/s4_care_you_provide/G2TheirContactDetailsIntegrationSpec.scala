@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
-import utils.pageobjects.s4_care_you_provide.{G7MoreAboutTheCarePage, G1TheirPersonalDetailsPage, G2TheirContactDetailsPage}
+import utils.pageobjects.s4_care_you_provide.{G10BreaksInCarePage, G7MoreAboutTheCarePage, G1TheirPersonalDetailsPage, G2TheirContactDetailsPage}
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s2_about_you.G2ContactDetailsPage
 
@@ -26,15 +26,10 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       page.listErrors.size mustEqual 1
     }
 
-    "be prepopulated if they live at same address" in new WithBrowser with PageObjects {
-      val thierContactDetailsPage = goToTheirContactDetailsPage(context, ClaimScenarioFactory.s4CareYouProvide(hours35 = true))
+    "be jumped if they live at same address" in new WithBrowser with PageObjects {
+      val thierContactDetailsPage = goToTheirContactDetailsPage(context, ClaimScenarioFactory.s4CareYouProvide(hours35 = true,liveSameAddress = true))
 
-      thierContactDetailsPage must beAnInstanceOf[G2TheirContactDetailsPage]
-
-      val addressLineOne = thierContactDetailsPage readInput("#address_lineOne")
-      val postCode = thierContactDetailsPage readInput("#postcode")
-      addressLineOne.get mustEqual "101 Clifton Street"
-      postCode.get mustEqual "FY1 2RW"
+      thierContactDetailsPage must beAnInstanceOf[G7MoreAboutTheCarePage]
     }
 
     "be blank if they live at different address" in new WithBrowser with PageObjects {
@@ -52,15 +47,15 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to Their Personal Details" in new WithBrowser with PageObjects {
-      val thierContactDetailsPage = goToTheirContactDetailsPage(context, ClaimScenarioFactory.s4CareYouProvide(hours35 = true))
-      thierContactDetailsPage must beAnInstanceOf[G2TheirContactDetailsPage]
+      val thierContactDetailsPage = goToTheirContactDetailsPage(context, ClaimScenarioFactory.s4CareYouProvide(hours35 = true,liveSameAddress = true))
+      thierContactDetailsPage must beAnInstanceOf[G7MoreAboutTheCarePage]
       thierContactDetailsPage goBack() must beAnInstanceOf[G1TheirPersonalDetailsPage]
     }
 
     "navigate to next page on valid submission" in new WithBrowser with PageObjects {
-      val thierContactDetailsPage = goToTheirContactDetailsPage(context, ClaimScenarioFactory.s4CareYouProvide(hours35 = true))
+      val thierContactDetailsPage = goToTheirContactDetailsPage(context, ClaimScenarioFactory.s4CareYouProvide(hours35 = true,liveSameAddress = true))
       thierContactDetailsPage fillPageWith ClaimScenarioFactory.s4CareYouProvide(hours35 = true)
-      thierContactDetailsPage submitPage() must beAnInstanceOf[G7MoreAboutTheCarePage]
+      thierContactDetailsPage submitPage() must beAnInstanceOf[G10BreaksInCarePage]
     }
 
     "Modify address from preview page" in new WithBrowser with PageObjects{

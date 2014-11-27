@@ -54,6 +54,20 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g1_theirPersonalDetails(formWithErrors)(lang)),
-      theirPersonalDetails => claim.update(theirPersonalDetails) -> Redirect(routes.G2TheirContactDetails.present()))
+      theirPersonalDetails => {
+        val liveAtSameAddress = theirPersonalDetails.liveAtSameAddressCareYouProvide == yes
+
+        val updatedClaim = if (liveAtSameAddress) {
+          val theirContactDetailsForm = claim.questionGroup[ContactDetails].map { cd =>
+            G2TheirContactDetails.form.fill(TheirContactDetails(address = cd.address, postcode = cd.postcode))
+          }.getOrElse(form)
+
+          claim.update(theirContactDetailsForm.fold(p => TheirContactDetails(),p => p))
+        }else{
+          claim
+        }
+
+        updatedClaim.update(theirPersonalDetails) -> Redirect(routes.G2TheirContactDetails.present())
+      })
   } withPreview()
 }

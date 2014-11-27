@@ -211,7 +211,7 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s4CareYouProvide(hours35:Boolean) = {
+  def s4CareYouProvide(hours35:Boolean,liveSameAddress:Boolean = false) = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
     claim.AboutTheCareYouProvideTitlePersonCareFor = "Mr"
@@ -220,7 +220,13 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideSurnamePersonCareFor = "Wilson"
     claim.AboutTheCareYouProvideNINOPersonCareFor = "AA123456A"
     claim.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/03/1990"
-    claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
+    if (liveSameAddress){
+      claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
+
+    }else{
+      claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "No"
+
+    }
     // Their Contact Details
     claim.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street&Line 2"
     claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"
@@ -275,7 +281,7 @@ object ClaimScenarioFactory {
   def s4CareYouProvideWithNoPersonalDetails() = {
     val claim = new TestData
     // Their Personal Details
-    claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
+    claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "No"
     // Their Contact Details
     claim.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street&Line 2"
     claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"

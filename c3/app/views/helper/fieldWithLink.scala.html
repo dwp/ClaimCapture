@@ -1,4 +1,4 @@
-@(id:String, name:String, value:String)(implicit lang: Lang)
+@(id:String, name:String, value:String,disableLink:Boolean = false)(implicit lang: Lang)
 
 @import play.api.i18n.{MMessages => Messages}
 @import controllers.PreviewRouteUtils._
@@ -13,6 +13,12 @@
     Html(Messages(name))
 }
 
-<dt><a id="@id" href="@{routesMap(id)}">@label</a></dt><dd>@value</dd>
+<dt>
+    @if(!disableLink){
+        <a id="@id" @if(!disableLink){href="@{routesMap(id)}"}>@label</a>
+    }else{
+        <p id="@id">@label</p>
+    }
+</dt><dd>@value</dd>
 
 

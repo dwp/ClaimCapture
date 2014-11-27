@@ -17,17 +17,15 @@ object G2TheirContactDetails extends Controller with CachedClaim with Navigable 
   def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     val liveAtSameAddress = claim.questionGroup[TheirPersonalDetails].exists(_.liveAtSameAddressCareYouProvide == yes)
 
-    val theirContactDetailsForm = if (liveAtSameAddress) {
-      claim.questionGroup[ContactDetails].map { cd =>
-        form.fill(TheirContactDetails(address = cd.address, postcode = cd.postcode))
-      }.getOrElse(form)
+    if (liveAtSameAddress) {
+      Redirect(routes.G7MoreAboutTheCare.present())
     } else {
-      claim.questionGroup[TheirContactDetails].map {
+      val theirContactDetailsForm = claim.questionGroup[TheirContactDetails].map {
         form.fill
       }.getOrElse(form)
-    }
 
-    track(TheirContactDetails) { implicit claim => Ok(views.html.s4_care_you_provide.g2_theirContactDetails(theirContactDetailsForm)(lang)) }
+      track(TheirContactDetails) { implicit claim => Ok(views.html.s4_care_you_provide.g2_theirContactDetails(theirContactDetailsForm)(lang)) }
+    }
   }
 
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
