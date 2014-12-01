@@ -38,6 +38,8 @@ object Mappings {
 
   val four = 4
 
+  val five = 5
+
   val seventeen = 17
 
   val hundred = 100

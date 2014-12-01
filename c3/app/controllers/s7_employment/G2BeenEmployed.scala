@@ -45,7 +45,7 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
     import controllers.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
-      case `yes` if jobs.size < 2 => Redirect(routes.G3JobDetails.present(JobID(form)))
+      case `yes` if jobs.size < Mappings.five => Redirect(routes.G3JobDetails.present(JobID(form)))
       case `yes` => Redirect(routes.G2BeenEmployed.present())
       case _ => Redirect(controllers.s9_other_money.routes.G1AboutOtherMoney.present())
     }
