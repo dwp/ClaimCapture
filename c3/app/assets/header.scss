@@ -47,28 +47,12 @@ header {
 				color: #fff;
 				font-size: 24px;
 				line-height: 1em;
-				top: 4px;
+				top: 7px;
 				position: relative;
 				@media screen and (max-width: 700px) {
 					font-size: 18px;
 				}
-				strong {
-					top: 2px;
-					position: relative;
-				}
-				span {
-					width: auto;
-					margin-left: .3em;
-					letter-spacing: 0.14em;
-					font-weight: 700;
-					font-size: 16px;
-					text-transform: uppercase;
-					padding: 5px 6px 3px 6px;
-					position: relative;
-					@media screen and (max-width: 700px) {
-						font-size: 14px;
-					}
-				}
+
 			}
 			
 			
