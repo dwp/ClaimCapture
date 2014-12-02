@@ -26,8 +26,8 @@ object EvidenceList {
   }
 
   def showBreaksInCareMessages(circs: Claim) = {
-    var breaksIncare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
-    var outputRequired = breaksIncare.expectStartCaring.answer match {
+    val breaksIncare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
+    val outputRequired = breaksIncare.expectStartCaring.answer match {
       case Some(n) => n match {
         case Mappings.yes => if(!breaksIncare.expectStartCaring.expectStartCaringDate.isDefined) true else false
         case Mappings.dontknow => true
@@ -37,12 +37,11 @@ object EvidenceList {
     }
 
     outputRequired match {
-      case true => {
+      case true =>
         <Evidence>
           {title(Messages("circs.thankyou.breakmessage.title"))}
-          {content(Messages("circs.thankyou.breakmessage.content"))}
+          {content(Messages("circs.thankyou.breakmessage.content.nohtml"))}
         </Evidence>
-      }
       case _ => NodeSeq.Empty
     }
   }
