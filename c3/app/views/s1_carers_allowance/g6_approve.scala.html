@@ -81,6 +81,7 @@
             <nav class="form-steps">
                 <ul>
                     <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Elibigility - Yes - Continue")>@Html(Messages("form.continue.step"))</button></li>
+                    <li><a id="backButton" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
         } else {
@@ -95,6 +96,7 @@
             <nav class="form-steps">
                 <ul>
                     <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button" onmousedown="analyticsCallback()">@Html(Messages("form.continue.step"))</button></div></li>
+                    <li><a id="backButton" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
         }

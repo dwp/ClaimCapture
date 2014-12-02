@@ -32,7 +32,8 @@
             <nav class="form-steps">
                 <ul>
                     <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-                </ul>
+                    <li><a id="backButton" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+                    </ul>
              </nav>
         }
         <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
