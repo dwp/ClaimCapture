@@ -29,7 +29,7 @@ class G3Declaration extends Controller with CachedClaim with Navigable
   val gettingInformationFromAnyEmployer = "gettingInformationFromAnyEmployer"
 
 
-  def validateEmpRequired(input: OptYesNoWithText)(implicit request: Request[AnyContent]): Boolean = {
+  private def validateEmpRequired(input: OptYesNoWithText)(implicit request: Request[AnyContent]): Boolean = {
     fromCache(request) match {
       case Some(claim) if claim.questionGroup[Emp].getOrElse(Emp()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
         claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).statutorySickPay.answer == `yes` ||

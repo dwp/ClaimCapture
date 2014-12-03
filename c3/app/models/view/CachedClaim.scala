@@ -2,7 +2,6 @@ package models.view
 
 import app.ConfigProperties._
 import java.util.UUID._
-import utils.csrf.DwpCSRF
 
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
@@ -18,7 +17,6 @@ import controllers.routes
 import play.api.i18n.Lang
 import scala.concurrent.ExecutionContext
 import models.domain.Claim
-import ExecutionContext.Implicits.global
 import models.view.CachedClaim.ClaimResult
 import monitoring.Histograms
 import scala.util.Try
@@ -40,13 +38,20 @@ trait CachedClaim {
 
   val cacheKey = CachedClaim.key
 
+  // Common pages
   val startPage: String = getProperty("claim.start.page", "/allowance/benefits")
-
   val timeoutPage = routes.ClaimEnding.timeout()
-
   val errorPage = routes.ClaimEnding.error()
 
   val defaultLang = "en"
+
+  // CSRF Cookie management
+  protected val csrfCookieName = getProperty("csrf.cookie.name","csrf")
+  protected val csrfSecure = getProperty("csrf.cookie.secure",getProperty("session.secure",false))
+
+  // Versioning
+  protected val C3VERSION = "C3Version"
+  protected val C3VERSION_VALUE = "2.6.1"
 
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
     def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = claim.questionGroup(qi) match {
@@ -64,7 +69,7 @@ trait CachedClaim {
   def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid, claim.transactionId, claim.previouslySavedClaim)(claim.navigation) with FullClaim
 
   private def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
-    r.session.get(cacheKey).getOrElse("") -> getProperty("cache.expiry", 3600)  //.getOrElse(randomUUID.toString)
+    r.session.get(cacheKey).getOrElse("") -> getProperty("cache.expiry", 3600)
   }
 
   private def refererAndHost(r: Request[AnyContent]): (String, String) = {
@@ -85,8 +90,7 @@ trait CachedClaim {
   }
 
 
-  protected val C3VERSION = "C3Version"
-  protected val C3VERSION_VALUE = "2.6"
+
 
   /**
    * Called when starting a new claim. Overwrites CSRF token and Version in case user had old cookies.
@@ -103,12 +107,11 @@ trait CachedClaim {
         if (!key.isEmpty) Cache.remove(key)
         // Start with new claim
         val claim = newInstance()
-        val result = withHeaders(action(claim, r, bestLang)(f))
         Logger.info(s"New ${claim.key} ${claim.uuid} cached.")
         // Cookies need to be changed BEFORE session, session is within cookies.
         def tofilter(theCookie: Cookie): Boolean = { theCookie.name == C3VERSION || theCookie.name == getProperty("session.cookieName","PLAY_SESSION")}
         // Added C3Version for full Zero downtime
-        result.withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withSession((claim.key -> claim.uuid))
+        withHeaders(action(claim, r, bestLang)(f)).withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withSession((claim.key -> claim.uuid))
       }
       else {
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
@@ -147,8 +150,6 @@ trait CachedClaim {
         }
       }
     }
-
-
   }
 
 
@@ -158,22 +159,10 @@ trait CachedClaim {
       originCheck(
         fromCache(request) match {
           case Some(claim) =>
-            Logger.debug(s"claiming - ${claim.key} ${claim.uuid}")
-            val lang = claim.lang.getOrElse(bestLang)
-            action(copyInstance(claim), request, lang)(f)
+            claimingWithClaim(f, request, claim)
 
           case None =>
-            if (Play.isTest) {
-              Logger.debug(s"claiming - None and test")
-              val (_, expiration) = keyAndExpiration(request)
-              val claim = newInstance()
-              Cache.set(claim.uuid, claim, expiration) // place an empty claim in the cache to satisfy tests
-              // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
-              action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
-            } else {
-              Logger.warn(s"Cache $cacheKey - ${keyAndExpiration(request)._1} timeout")
-              Redirect(timeoutPage)
-            }
+            claimingWithoutClaim(f, request)
         })
     }
   }
@@ -188,48 +177,73 @@ trait CachedClaim {
               claim.questionGroup[ClaimDate].isDefined &&
                 claim.questionGroup[ClaimDate].get.dateOfClaim == null) =>
             Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date")
-            Redirect(timeoutPage)
+            Redirect(errorPage)
+
           case Some(claim) =>
-            Logger.debug(s"claimingWithCheck - ${claim.key} ${claim.uuid}")
-            val key = keyAndExpiration(request)._1
-            if (key != claim.uuid) Logger.error(s"claimingWithCheck - Claim uuid ${claim.uuid} does not match cache key $key.")
-            val lang = claim.lang.getOrElse(bestLang)
-            if (Play.isTest) {
-              // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
-              action (copyInstance (claim), request, lang)(f).withSession(claim.key -> claim.uuid)
-            } else {
-              // We do not need to add claim uuid in session since done by first step of process (newClaim).
-              action (copyInstance (claim), request, lang)(f)
-            }
+            claimingWithClaim(f, request, claim)
           case None =>
-            if (Play.isTest) {
-              Logger.debug(s"claimingWithCheck - None and test")
-              val (_, expiration) = keyAndExpiration(request)
-              val claim = newInstance()
-              Cache.set(claim.uuid, claim, expiration) // place an empty claim in the cache to satisfy tests
-              action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
-            } else {
-              Logger.warn(s"$cacheKey - ${keyAndExpiration(request)._1} timeout")
-              Redirect(timeoutPage)
-            }
+            claimingWithoutClaim(f, request)
         })
     }
   }
 
+  protected def claimingWithClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent], claim: Claim): Result = {
+    Logger.debug(s"claimingWithClaim - ${claim.key} ${claim.uuid}")
+    implicit val r = request
+    val key = keyAndExpiration(request)._1
+    if (key != claim.uuid) Logger.error(s"claimingWithClaim - Claim uuid ${claim.uuid} does not match cache key $key.")
+    val lang = claim.lang.getOrElse(bestLang)
+    if (Play.isTest) {
+      // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
+      action(copyInstance(claim), request, lang)(f).withSession(claim.key -> claim.uuid)
+    } else {
+      // We do not need to add claim uuid in session since done by first step of process (newClaim).
+      action(copyInstance(claim), request, lang)(f)
+    }
+  }
+
+  protected def claimingWithoutClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent]): Result = {
+    if (Play.isTest) {
+      Logger.debug(s"claimingWithoutClaim - None and test")
+      implicit val r = request
+      val (_, expiration) = keyAndExpiration(request)
+      val claim = newInstance()
+      Cache.set(claim.uuid, claim, expiration) // place an empty claim in the cache to satisfy tests
+      // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
+      action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
+    } else {
+      val uuid = keyAndExpiration(request)._1
+      if (uuid.isEmpty) {
+        Redirect(errorPage)
+      } else {
+        Logger.warn(s"$cacheKey - ${uuid} timeout")
+        Redirect(timeoutPage)
+      }
+    }
+  }
+
+
+
   def ending(f: Claim => Request[AnyContent] => Lang => Result): Action[AnyContent] = Action {
     request => {
       implicit val r = request
-      implicit val cl = new Claim()
-      val csrfCookieName = getProperty("csrf.cookie.name","csrf")
-      val csrfSecure = getProperty("csrf.cookie.secure",getProperty("session.secure",false))
       val theDomain = Play.current.configuration.getString("session.domain")
+
       fromCache(request) match {
         case Some(claim) =>
           val lang = claim.lang.getOrElse(bestLang)
           originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession
-        case _ => originCheck(f(cl)(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(C3VERSION)).withNewSession
+        case _ => originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(C3VERSION)).withNewSession
       }
+    }
+  }
 
+  def endingOnError(f: Claim => Request[AnyContent] => Lang => Result): Action[AnyContent] = Action {
+    request => {
+      implicit val r = request
+      val theDomain = Play.current.configuration.getString("session.domain")
+
+      originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(C3VERSION)).withNewSession
     }
   }
 
