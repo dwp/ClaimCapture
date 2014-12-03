@@ -40,7 +40,7 @@
         <li>
             @{/* printing the id needs replacement of spaces for underscores because browsers don't like spaces */}
             <label for="@CarersCrypto.encryptAES(id+"_"+replaceCharacters(v._1))" onmousedown="@gaTrack(id,v)">
-            <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+replaceCharacters(v._1))" name="@CarersCrypto.encryptAES(field.name)" onmousedown="@gaTrack(id,v)"  value="@v._1" @(if(value == Some(v._1)) "checked" else "") @{toHtmlArgs(addOtherValue(v._1,htmlArgs)).toString}/>
+            <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+replaceCharacters(v._1))" name="@CarersCrypto.encryptAES(field.name)" onmousedown="@gaTrack(id,v)"  value="@v._1" @(if(value == Some(v._1)) "checked" else "") @{toHtmlArgs(addOtherValue(v._1,htmlArgs))}/>
             <span>@{s"${v._2}"}</span></label>
         </li>
     }

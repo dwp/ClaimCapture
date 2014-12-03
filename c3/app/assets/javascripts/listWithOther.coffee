@@ -1,7 +1,7 @@
 $ ->
 
   $("input[class='listWithOther otherValue']").each ->
-    $(this).closest("ul").next().hide() if ($(this).prop("checked"))
+    $(this).closest("ul").next().hide() if not ($(this).prop("checked"))
 
   $("input[class='listWithOther otherValue']").change ->
       $(this).closest("ul").next().slideDown()
