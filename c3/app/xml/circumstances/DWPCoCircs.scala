@@ -15,10 +15,10 @@ object DWPCoCircs {
       {CircsBreaksInCare.xml(circs)}
       {StoppedCaring.xml(circs)}
       {AddressChange.xml(circs)}
-      {PaymentChange.xml(circs)}
       {SelfEmployment.xml(circs)}
-      {OtherChanges.xml(circs)}
+      {PaymentChange.xml(circs)}
       {EmploymentChange.xml(circs)}
+      {OtherChanges.xml(circs)}
       {Declaration.xml(circs)}
       {EvidenceList.buildXml(circs)}
       {Consents.xml(circs)}

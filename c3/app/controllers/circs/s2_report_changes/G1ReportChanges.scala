@@ -41,7 +41,8 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
     import controllers.circs.s2_report_changes.{routes => routes}
 
     // for qs groups under this section, if it is not reportedChange - delete
-    val optSections = Stack(CircumstancesSelfEmployment,CircumstancesOtherInfo,CircumstancesStoppedCaring,CircumstancesPaymentChange, CircumstancesAddressChange)
+    val optSections = Stack(CircumstancesSelfEmployment,CircumstancesOtherInfo,CircumstancesStoppedCaring,
+      CircumstancesPaymentChange, CircumstancesAddressChange, CircumstancesBreaksInCare, CircumstancesEmploymentChange)
 
     val selectedQG:(QuestionGroup.Identifier,Call) = {
       f.reportChanges match {
