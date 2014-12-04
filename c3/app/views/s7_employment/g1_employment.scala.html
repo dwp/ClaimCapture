@@ -47,6 +47,7 @@
 	        <nav class="form-steps">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
         </div>
