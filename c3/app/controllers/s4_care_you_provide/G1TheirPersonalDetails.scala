@@ -64,7 +64,11 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
 
           claim.update(theirContactDetailsForm.fold(p => TheirContactDetails(),p => p))
         }else{
-          claim
+          //If we are changing to "do they live same addres? No" when it was yes before, we will remove the personal contact details.
+          if (claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails()).liveAtSameAddressCareYouProvide == yes)
+            claim.delete(TheirContactDetails)
+          else
+            claim
         }
 
         updatedClaim.update(theirPersonalDetails) -> Redirect(routes.G2TheirContactDetails.present())
