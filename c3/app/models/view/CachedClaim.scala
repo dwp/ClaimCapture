@@ -158,8 +158,6 @@ trait CachedClaim {
 
   def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
-      Logger.debug(s"claiming ${cacheKey} for url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot( _.name.startsWith("_"))}.")
-
       implicit val r = request
       originCheck(
         fromCache(request) match {
@@ -172,8 +170,6 @@ trait CachedClaim {
 
   def claimingWithCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
-      Logger.debug(s"claimingWithCheck ${cacheKey} for url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot( _.name.startsWith("_"))}.")
-
       implicit val r = request
       originCheck(
         fromCache(request) match {
@@ -201,8 +197,6 @@ trait CachedClaim {
   }
 
   private def claimingWithoutClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent]): Result = {
-    Logger.debug(s"claimingWithoutClaim ${cacheKey} for url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot( _.name.startsWith("_"))}.")
-
     if (Play.isTest) {
       implicit val r = request
       val claim = newInstance()
