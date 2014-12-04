@@ -21,16 +21,10 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
     "answer" -> nonEmptyText.verifying(validYesNo)
   )(BreaksInCareSummary.apply)(BreaksInCareSummary.unapply))
 
-  def fillForm(implicit request:Request[_],claim:Claim)= {
-    request.headers.get("referer") match {
-      case Some(referer) if referer endsWith routes.G11Break.present().url => form
-      case _ if claim.questionGroup[BreaksInCareSummary].isDefined => form.fill(BreaksInCareSummary(no))
-      case _ => form
-    }
-  }
+
   def present = claimingWithCheck { implicit claim => implicit request =>  lang =>
 
-    track(BreaksInCare) { implicit claim => Ok(views.html.s4_care_you_provide.g10_breaksInCare(fillForm, breaksInCare)(lang)) }
+    track(BreaksInCare) { implicit claim => Ok(views.html.s4_care_you_provide.g10_breaksInCare(form, breaksInCare)(lang)) }
   }
 
   def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
@@ -73,10 +67,10 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
   def delete = claimingWithCheck { implicit claim => implicit request =>  lang =>
 
     deleteForm.bindEncrypted.fold(
-      errors    =>  BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(fillForm, breaksInCare)(lang)),
+      errors    =>  BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(form, breaksInCare)(lang)),
       deleteForm=>  {
         val updatedBreaks = breaksInCare.delete(deleteForm.id)
-        if (updatedBreaks.breaks == breaksInCare.breaks) BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(fillForm, breaksInCare)(lang))
+        if (updatedBreaks.breaks == breaksInCare.breaks) BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(form, breaksInCare)(lang))
         else claim.update(updatedBreaks) -> Redirect(controllers.s4_care_you_provide.routes.G10BreaksInCare.present)
       }
     )
