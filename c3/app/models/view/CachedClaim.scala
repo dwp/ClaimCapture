@@ -27,6 +27,9 @@ object CachedClaim {
   val missingRefererConfig = "Referer not set in config"
   val key = "claim"
   type ClaimResult = (Claim, Result)
+  // Versioning
+  val C3VERSION = "C3Version"
+  val C3VERSION_VALUE = "2.6.1"
 }
 
 /**
@@ -43,21 +46,16 @@ trait CachedClaim {
   val timeoutPage = routes.ClaimEnding.timeout()
   val errorPage = routes.ClaimEnding.error()
 
-  val defaultLang = "en"
+  private val defaultLang = "en"
 
   // CSRF Cookie management
   protected val csrfCookieName = getProperty("csrf.cookie.name","csrf")
   protected val csrfSecure = getProperty("csrf.cookie.secure",getProperty("session.secure",false))
 
-  // Versioning
-  protected val C3VERSION = "C3Version"
-  protected val C3VERSION_VALUE = "2.6.1"
-
-  // Cookie cookie
-  protected val COOKIE_SEEN = "seen_cookie_message"
-
   // Expiration value
-  val  expiration = getProperty("cache.expiry", 3600)
+  private val  expiration = getProperty("cache.expiry", 3600)
+
+  private lazy val redirectEnforced = getProperty("enforceRedirect", default = true)
 
 
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
@@ -71,7 +69,7 @@ trait CachedClaim {
 
   implicit def claimAndResultToRight(claimingResult: ClaimResult) = Right(claimingResult)
 
-  def newInstance(newuuid:String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid) with FullClaim
+  protected def newInstance(newuuid:String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid) with FullClaim
 
   def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid, claim.transactionId, claim.previouslySavedClaim)(claim.navigation) with FullClaim
 
@@ -83,21 +81,19 @@ trait CachedClaim {
     r.headers.get("Referer").getOrElse("No Referer in header") -> r.headers.get("Host").getOrElse("No Host in header")
   }
 
+  /**
+   * Tries to get the claim of change of circs from the cache.
+   * @param request the http request that has the session with uuid of claim which is the key used by cache.
+   * @return None if could not find claim/CoCs. Some(claim) is could find it.
+   */
   def fromCache(request: Request[AnyContent]): Option[Claim] = {
-    val (key, _) = keyAndExpiration(request)
+    val key = keyAndExpiration(request)._1
     if (key.isEmpty) {
       // Log an error if session empty or with no cacheKey entry so we know it is not a cache but a cookie issue.
       Logger.error(s"Did not receive Session information for a ${cacheKey} for url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot( _.name.startsWith("_"))}.")
       None
     } else Cache.getAs[Claim](key)
   }
-
-  def recordMeasurements() = {
-    Histograms.recordCacheSize(Try(CacheManager.getInstance().getCache("play").getKeysWithExpiryCheck.size()).getOrElse(0))
-  }
-
-
-
 
   /**
    * Called when starting a new claim. Overwrites CSRF token and Version in case user had old cookies.
@@ -110,15 +106,15 @@ trait CachedClaim {
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         // Delete any old data to avoid somebody getting access to session left by somebody else
-        val (key, _) = keyAndExpiration(request)
+        val key = keyAndExpiration(request)._1
         if (!key.isEmpty) Cache.remove(key)
         // Start with new claim
         val claim = newInstance()
         Logger.info(s"New ${claim.key} ${claim.uuid} cached.")
         // Cookies need to be changed BEFORE session, session is within cookies.
-        def tofilter(theCookie: Cookie): Boolean = { theCookie.name == C3VERSION || theCookie.name == getProperty("session.cookieName","PLAY_SESSION")}
+        def tofilter(theCookie: Cookie): Boolean = { theCookie.name == CachedClaim.C3VERSION || theCookie.name == getProperty("session.cookieName","PLAY_SESSION")}
         // Added C3Version for full Zero downtime
-        withHeaders(action(claim, r, bestLang)(f)).withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(C3VERSION, C3VERSION_VALUE): _*).withSession((claim.key -> claim.uuid))
+        withHeaders(action(claim, r, bestLang)(f)).withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(CachedClaim.C3VERSION, CachedClaim.C3VERSION_VALUE): _*).withSession((claim.key -> claim.uuid))
       }
       else {
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
@@ -167,11 +163,9 @@ trait CachedClaim {
       implicit val r = request
       originCheck(
         fromCache(request) match {
-          case Some(claim) =>
-            claimingWithClaim(f, request, claim)
+          case Some(claim) =>  claimingWithClaim(f, request, claim)
 
-          case None =>
-            claimingWithoutClaim(f, request)
+          case None => claimingWithoutClaim(f, request)
         })
     }
   }
@@ -184,41 +178,33 @@ trait CachedClaim {
       originCheck(
         fromCache(request) match {
           case Some(claim) if !Play.isTest && (
-            !claim.questionGroup[ClaimDate].isDefined ||
-              claim.questionGroup[ClaimDate].isDefined &&
-                claim.questionGroup[ClaimDate].get.dateOfClaim == null) =>
-            Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date")
-            Redirect(errorPage)
+            !claim.questionGroup[ClaimDate].isDefined
+            || claim.questionGroup[ClaimDate].isDefined
+            && claim.questionGroup[ClaimDate].get.dateOfClaim == null) =>
+              Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date")
+              Redirect(errorPage)
 
-          case Some(claim) =>
-            claimingWithClaim(f, request, claim)
-          case None =>
-            claimingWithoutClaim(f, request)
+          case Some(claim) =>  claimingWithClaim(f, request, claim)
+
+          case None =>  claimingWithoutClaim(f, request)
         })
     }
   }
 
-  protected def claimingWithClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent], claim: Claim): Result = {
+  private def claimingWithClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent], claim: Claim): Result = {
     Logger.debug(s"claimingWithClaim - ${claim.key} ${claim.uuid}")
     implicit val r = request
     val key = keyAndExpiration(request)._1
     if (key != claim.uuid) Logger.error(s"claimingWithClaim - Claim uuid ${claim.uuid} does not match cache key $key.")
     val lang = claim.lang.getOrElse(bestLang)
-    if (Play.isTest) {
-      // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
-      action(copyInstance(claim), request, lang)(f).withSession(claim.key -> claim.uuid)
-    } else {
-      // We do not need to add claim uuid in session since done by first step of process (newClaim).
-      action(copyInstance(claim), request, lang)(f)
-    }
+    action(copyInstance(claim), request, lang)(f).withSession(claim.key -> claim.uuid)
   }
 
-  protected def claimingWithoutClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent]): Result = {
+  private def claimingWithoutClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent]): Result = {
     Logger.debug(s"claimingWithoutClaim ${cacheKey} for url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot( _.name.startsWith("_"))}.")
 
     if (Play.isTest) {
       implicit val r = request
-//      val (_, expiration) = keyAndExpiration(request)
       val claim = newInstance()
       Cache.set(claim.uuid, claim, expiration) // place an empty claim in the cache to satisfy tests
       // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
@@ -245,8 +231,8 @@ trait CachedClaim {
       fromCache(request) match {
         case Some(claim) =>
           val lang = claim.lang.getOrElse(bestLang)
-          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION), DiscardingCookie(COOKIE_SEEN)).withNewSession
-        case _ => originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(C3VERSION), DiscardingCookie(COOKIE_SEEN)).withNewSession
+          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain),DiscardingCookie(CachedClaim.C3VERSION)).withNewSession
+        case _ => originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(CachedClaim.C3VERSION)).withNewSession
       }
     }
   }
@@ -256,7 +242,7 @@ trait CachedClaim {
       implicit val r = request
       val theDomain = Play.current.configuration.getString("session.domain")
 
-      originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(C3VERSION)).withNewSession
+      originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(CachedClaim.C3VERSION)).withNewSession
     }
   }
 
@@ -282,29 +268,21 @@ trait CachedClaim {
     }
   }
 
-  private def sameHostCheck()(implicit request: Request[AnyContent]) = {
-    val (referer, host) = refererAndHost(request)
-    referer.contains(host)
-  }
-
   private def originCheck(action: => Result)(implicit request: Request[AnyContent]) = {
     val (referer, host) = refererAndHost(request)
+    val sameHostCheck = referer.contains(host)
 
-    Logger.info(s"Redirect $redirect $sameHostCheck")
+    Logger.info(s"Redirect $redirectEnforced. Same host $sameHostCheck")
     if (sameHostCheck) {
       withHeaders(action)
     } else {
-      if (redirect) {
+      if (redirectEnforced) {
         Logger.warn(s"HTTP Referrer : $referer. Conf Referrer : $startPage. HTTP Host : $host")
         MovedPermanently(startPage)
       } else {
         withHeaders(action)
       }
     }
-  }
-
-  private def redirect: Boolean = {
-    getProperty("enforceRedirect", default = true)
   }
 
   private def withHeaders(result: Result): Result = {
@@ -315,12 +293,15 @@ trait CachedClaim {
 
   private def bestLang()(implicit request: Request[AnyContent]) = {
     val implementedLangs = getProperty("application.langs", defaultLang)
-
     val listOfPossibleLangs = request.acceptLanguages.flatMap(aL => implementedLangs.split(",").toList.filter(iL => iL == aL.code))
 
     if (listOfPossibleLangs.size > 0)
       Lang(listOfPossibleLangs.head)
     else
       Lang(defaultLang)
+  }
+
+  private def recordMeasurements() = {
+    Histograms.recordCacheSize(Try(CacheManager.getInstance().getCache("play").getKeysWithExpiryCheck.size()).getOrElse(0))
   }
 }
