@@ -59,7 +59,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       breaksInCare.isElemSelected("#answer_no") should beFalse
     }
 
-    """remember "no more breaks" upon stating "no more breaks" and returning to "breaks in care".""" in new WithBrowser with PageObjects {
+    """ask again the question even going back""" in new WithBrowser with PageObjects {
       val breaksInCare = G10BreaksInCarePage(context) goToThePage()
       val data = new TestData
       data.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
@@ -71,7 +71,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       back must beAnInstanceOf[G10BreaksInCarePage]
 
       back.isElemSelected("#answer_yes") should beFalse
-      back.isElemSelected("#answer_no") should beTrue
+      back.isElemSelected("#answer_no") should beFalse
     }
 
     "Modify 'breaks in care' answer from preview page" in new WithBrowser with PageObjects{
