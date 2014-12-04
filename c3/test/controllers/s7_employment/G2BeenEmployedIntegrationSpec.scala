@@ -83,7 +83,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       employment.goBack() must beAnInstanceOf[G1YourCourseDetailsPage]
     }
 
-    """remember "employment" upon stating "employment" and returning""" in new WithBrowser with EmployedHistoryPage {
+    """not remember been employed question as it has to be answered every time""" in new WithBrowser with EmployedHistoryPage {
       val employmentData = ClaimScenarioFactory.s7EmploymentMinimal()
       var historyPage = goToHistoryPage(ClaimScenarioFactory.s7EmploymentMinimal())
       historyPage must beAnInstanceOf[G2BeenEmployedPage]
@@ -93,7 +93,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
 
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
       historyPage = nextPage goBack()
-      historyPage.readYesNo("#beenEmployed") mustEqual Some("no")
+      historyPage.readYesNo("#beenEmployed") mustEqual None
     }
 
     """have job data after filling a job""" in new WithBrowser with EmployedHistoryPage {
