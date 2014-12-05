@@ -21,6 +21,9 @@ import models.PeriodFromTo
 
 
 import scala.util.matching.Regex
+import play.api.data.{FormError, Form, Mapping}
+import play.api.mvc.Request
+
 
 object Mappings {
   object Name {
@@ -424,6 +427,19 @@ object Mappings {
       case true => Valid
       case false => Invalid(ValidationError("error.restricted.characters"))
     }
+  }
+
+  /**
+   * Use this method to manage error codes for sort code and call this from the controller
+   * @param formWithErrors
+   * @return
+   */
+  def manageErrorsSortCode[T](formWithErrors:Form[T])(implicit request: Request[_]) = {
+    import utils.helpers.CarersForm._
+    val newErrorSortCode = FormError("sortCode", errorRestrictedCharacters)
+    formWithErrors.replaceError("sortCode.sort1",newErrorSortCode)
+      .replaceError("sortCode.sort2",newErrorSortCode)
+      .replaceError("sortCode.sort3",newErrorSortCode)
   }
 
 }

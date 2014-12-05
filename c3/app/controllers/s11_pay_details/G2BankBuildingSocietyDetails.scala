@@ -43,13 +43,9 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
   }
 
   def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    val newErrorSortCode = FormError("sortCode", errorRestrictedCharacters)
     form.bindEncrypted.fold(
       formWithErrors => {
-        val updatedFormWithErrors = formWithErrors
-          .replaceError("sortCode.sort1",newErrorSortCode)
-          .replaceError("sortCode.sort2",newErrorSortCode)
-          .replaceError("sortCode.sort3",newErrorSortCode)
+        val updatedFormWithErrors = manageErrorsSortCode(formWithErrors)
         BadRequest(views.html.s11_pay_details.g2_bankBuildingSocietyDetails(updatedFormWithErrors)(lang))
       },
       howWePayYou => claim.update(howWePayYou) -> redirectPath)
