@@ -225,6 +225,8 @@ trait CachedClaim {
       fromCache(request) match {
         case Some(claim) =>
           val lang = claim.lang.getOrElse(bestLang)
+          // reaching end of process - thank you page so we delete claim for security reasons and free memory
+          Cache.remove(claim.uuid)
           originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain),DiscardingCookie(CachedClaim.C3VERSION)).withNewSession
         case _ => originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(CachedClaim.C3VERSION)).withNewSession
       }
