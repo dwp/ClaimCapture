@@ -1,7 +1,6 @@
 package controllers
 
 import scala.util.Try
-import play.api.data.Mapping
 import play.api.data.Forms._
 import play.api.data.validation._
 import org.joda.time.DateTime
@@ -19,7 +18,7 @@ import models.PensionPaymentFrequency
 import scala.util.Success
 import models.MultiLineAddress
 import models.PeriodFromTo
-import play.api.i18n.Lang
+
 
 import scala.util.matching.Regex
 
@@ -55,7 +54,12 @@ object Mappings {
   val dontknow = "dontknow"
 
   val errorRequired = "error.required"
+
   val required = "required"
+
+  val errorRestrictedCharacters = "error.restricted.characters"
+
+
 
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
     "day" -> optional(text),

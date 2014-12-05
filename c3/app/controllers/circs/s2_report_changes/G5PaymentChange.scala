@@ -2,7 +2,7 @@ package controllers.circs.s2_report_changes
 
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import models.domain.CircumstancesPaymentChange
 import utils.helpers.CarersForm._
@@ -39,8 +39,15 @@ object G5PaymentChange extends Controller with CachedChangeOfCircs with Navigabl
   }
 
   def submit = claiming {implicit circs =>  implicit request =>  lang =>
+    val newErrorSortCode = FormError("sortCode", errorRestrictedCharacters)
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.circs.s2_report_changes.g5_paymentChange(formWithErrors)(lang)),
+      formWithErrors => {
+        val updatedFormWithErrors = formWithErrors
+        .replaceError("sortCode.sort1",newErrorSortCode)
+        .replaceError("sortCode.sort2",newErrorSortCode)
+        .replaceError("sortCode.sort3",newErrorSortCode)
+        BadRequest(views.html.circs.s2_report_changes.g5_paymentChange(updatedFormWithErrors)(lang))
+      },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )
   }
