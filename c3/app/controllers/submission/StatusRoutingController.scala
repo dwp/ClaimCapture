@@ -65,7 +65,7 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
   }
 
 
-  def error = claiming { implicit claim =>  implicit request =>  lang =>
+  def error = ending { implicit claim =>  implicit request =>  lang =>
     Ok(views.html.common.error(startPage))
   }
 
