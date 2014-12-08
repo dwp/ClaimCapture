@@ -1,7 +1,6 @@
 package controllers
 
 import scala.util.Try
-import play.api.data.Mapping
 import play.api.data.Forms._
 import play.api.data.validation._
 import org.joda.time.DateTime
@@ -19,9 +18,12 @@ import models.PensionPaymentFrequency
 import scala.util.Success
 import models.MultiLineAddress
 import models.PeriodFromTo
-import play.api.i18n.Lang
+
 
 import scala.util.matching.Regex
+import play.api.data.{FormError, Form, Mapping}
+import play.api.mvc.Request
+
 
 object Mappings {
   object Name {
@@ -55,7 +57,12 @@ object Mappings {
   val dontknow = "dontknow"
 
   val errorRequired = "error.required"
+
   val required = "required"
+
+  val errorRestrictedCharacters = "error.restricted.characters"
+
+
 
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
     "day" -> optional(text),
@@ -420,6 +427,28 @@ object Mappings {
       case true => Valid
       case false => Invalid(ValidationError("error.restricted.characters"))
     }
+  }
+
+  /**
+   * Use this method to manage error codes for sort code and call this from the controller
+   * @param formWithErrors
+   * @return
+   */
+  def manageErrorsSortCode[T](formWithErrors:Form[T])(implicit request: Request[_]) = {
+    import utils.helpers.CarersForm._
+    val newErrorSortCode = FormError("sortCode", errorRestrictedCharacters)
+    val updatedFormErrors = formWithErrors.errors.flatMap { fe =>
+      if (fe.key.startsWith(newErrorSortCode.key.concat("."))) {
+          Some(newErrorSortCode)
+      } else {
+        Some(fe)
+      }
+    }
+    formWithErrors.copy(errors = updatedFormErrors.foldLeft(Seq[FormError]()) { (z, fe) =>
+      if (fe.key == newErrorSortCode.key) {
+        if (!z.contains(newErrorSortCode)) z :+ fe else z
+      } else z :+ fe
+    })
   }
 
 }

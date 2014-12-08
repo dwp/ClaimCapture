@@ -2,7 +2,7 @@ package controllers.s11_pay_details
 
 import language.reflectiveCalls
 import play.api.mvc.{AnyContent, Request, Controller}
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
 import models.domain._
@@ -44,7 +44,10 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
 
   def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s11_pay_details.g2_bankBuildingSocietyDetails(formWithErrors)(lang)),
+      formWithErrors => {
+        val updatedFormWithErrors = manageErrorsSortCode(formWithErrors)
+        BadRequest(views.html.s11_pay_details.g2_bankBuildingSocietyDetails(updatedFormWithErrors)(lang))
+      },
       howWePayYou => claim.update(howWePayYou) -> redirectPath)
   }
 }
