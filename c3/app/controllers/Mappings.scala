@@ -437,9 +437,18 @@ object Mappings {
   def manageErrorsSortCode[T](formWithErrors:Form[T])(implicit request: Request[_]) = {
     import utils.helpers.CarersForm._
     val newErrorSortCode = FormError("sortCode", errorRestrictedCharacters)
-    formWithErrors.replaceError("sortCode.sort1",newErrorSortCode)
-      .replaceError("sortCode.sort2",newErrorSortCode)
-      .replaceError("sortCode.sort3",newErrorSortCode)
+    val updatedFormErrors = formWithErrors.errors.flatMap { fe =>
+      if (fe.key.startsWith(newErrorSortCode.key.concat("."))) {
+          Some(newErrorSortCode)
+      } else {
+        Some(fe)
+      }
+    }
+    formWithErrors.copy(errors = updatedFormErrors.foldLeft(Seq[FormError]()) { (z, fe) =>
+      if (fe.key == newErrorSortCode.key) {
+        if (!z.contains(newErrorSortCode)) z :+ fe else z
+      } else z :+ fe
+    })
   }
 
 }
