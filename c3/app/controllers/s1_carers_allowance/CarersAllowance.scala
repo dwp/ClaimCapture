@@ -36,7 +36,7 @@ object CarersAllowance extends Controller with CachedClaim with Navigable {
 
         f.answer match {
           case true => claim.update(f) -> Redirect(controllers.s1_2_claim_date.routes.G1ClaimDate.present())
-          case _ => claim.update(f) -> Redirect("http://www.gov.uk/done/apply-carers-allowance")
+          case _ => claim.update(f) -> Redirect("https://www.gov.uk/done/apply-carers-allowance")
         }
       }
     )
