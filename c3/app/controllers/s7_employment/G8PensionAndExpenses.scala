@@ -47,8 +47,10 @@ object G8PensionAndExpenses extends Controller with CachedClaim with Navigable {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("payPensionScheme","payPensionScheme.text.required",FormError("payPensionScheme.text","error.required", Seq(labelForEmployment(claim, lang, "payPensionScheme.text", jobID))))
           .replaceError("payPensionScheme","payPensionScheme.text..maxLength",FormError("payPensionScheme.text","error.maxLength", Seq(labelForEmployment(claim, lang, "payPensionScheme.text", jobID))))
+          .replaceError("payPensionScheme.text",errorRestrictedCharacters,FormError("payPensionScheme.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "payPensionScheme.text", jobID))))
           .replaceError("haveExpensesForJob","haveExpensesForJob.text.required",FormError("haveExpensesForJob.text","error.required", Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", jobID))))
           .replaceError("haveExpensesForJob","haveExpensesForJob.text..maxLength",FormError("haveExpensesForJob.text","error.maxLength", Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", jobID))))
+          .replaceError("haveExpensesForJob.text",errorRestrictedCharacters,FormError("haveExpensesForJob.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", jobID))))
 
           BadRequest(views.html.s7_employment.g8_pensionAndExpenses(formWithErrorsUpdate)(lang))
       },
