@@ -1,15 +1,16 @@
-window.initEvents = (answerY, answerN) ->
+window.initEvents = (answerY, answerN, tellUsText) ->
 
   if not $("#"+answerN).prop 'checked'
-    hideSelfEmployedIncomeWrap()
+    hideSelfEmployedIncomeWrap(tellUsText)
 
   $("#" + answerY).on "click", ->
-    hideSelfEmployedIncomeWrap()
+    hideSelfEmployedIncomeWrap(tellUsText)
 
   $("#" + answerN).on "click", ->
     showSelfEmployedIncomeWrap()
 
-hideSelfEmployedIncomeWrap = ->
+hideSelfEmployedIncomeWrap = (tellUsText) ->
+  $("#"+tellUsText).val("")
   $("#selfEmployedIncomeWrap").slideUp 0
 
 showSelfEmployedIncomeWrap = ->
