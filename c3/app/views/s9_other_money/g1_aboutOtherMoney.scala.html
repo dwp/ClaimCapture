@@ -30,7 +30,7 @@
 		            @otherDetailPlaceHolder(
 	                     inputDef = Seq(
 	                        carersInputText(currentForm("whoPaysYou"), 'maxLength -> Mappings.Name.maxLength, '_label -> Messages("whoPaysYou.label")),
-	                        carersCurrency(currentForm("howMuch"), 'maxLength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
+	                        carersCurrency(currentForm("howMuch"), 'maxLength -> Mappings.twelve, '_label -> Messages("howMuch.label")),
 	                        paymentFrequencySelect(currentForm("howOften"),
 	                           'id -> "howOften",
 	                           'visibleOn -> "yes",
@@ -47,7 +47,7 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersCurrency(currentForm("statutorySickPay.howMuch"), 'maxLength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
+                            carersCurrency(currentForm("statutorySickPay.howMuch"), 'maxLength -> Mappings.twelve, '_label -> Messages("howMuch.label")),
                             paymentFrequencySelect(currentForm("statutorySickPay.howOften"),
                                 'id -> "howOftenStatutorySickPay",
                                 'visibleOn -> "yes",
@@ -68,7 +68,7 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersCurrency(currentForm("otherStatutoryPay.howMuch"), 'maxLength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
+                            carersCurrency(currentForm("otherStatutoryPay.howMuch"), 'maxLength -> Mappings.twelve, '_label -> Messages("howMuch.label")),
                             paymentFrequencySelect(currentForm("otherStatutoryPay.howOften"),
                                 'id -> "howOftenOtherStatutoryPay",
                                 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
