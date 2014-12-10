@@ -60,20 +60,20 @@
                             inputDef = Seq(
                                 carersCurrency(howMuchPaid,
                                     '_label -> {
-                                        if(beenPaidYet.value == "yes")"howMuchPaid" else "howMuchPaid.expect"
+                                        if(beenPaidYet.value == Some("yes"))"howMuchPaid" else "howMuchPaid.expect"
                                     },
                                     'maxLength -> 12
                                 ),
                                 dateTimePickerWithDynamicLabel(whatDatePaid,
                                     '_label -> {
-                                        if(beenPaidYet.value == "yes")"whatDatePaid" else "whatDatePaid.expect"
+                                        if(beenPaidYet.value == Some("yes"))"whatDatePaid" else "whatDatePaid.expect"
                                     },
                                     'dynamicDateDays -> 31),
                                 paymentFrequencySelect(howOften,
                                     'id -> "howOften",
                                     'visibleOn -> "yes",
                                     '_label -> {
-                                        if(beenPaidYet.value == "yes")"circs.howOften" else "circs.howOften.expect"
+                                        if(beenPaidYet.value == Some("yes"))"circs.howOften" else "circs.howOften.expect"
                                     },
                                     'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60
                                 )

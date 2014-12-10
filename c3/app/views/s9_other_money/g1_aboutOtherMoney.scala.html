@@ -35,8 +35,7 @@
 	                           'id -> "howOften",
 	                           'visibleOn -> "yes",
 	                           '_label -> Messages("howOften"),
-	                           'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
-	                           'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+	                           'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60
 	                           )
 	                     ),
 	                       'id -> "otherPayWrap",
@@ -52,8 +51,7 @@
                                 'id -> "howOftenStatutorySickPay",
                                 'visibleOn -> "yes",
                                 '_label -> Messages("howOften"),
-                                'textAreaHelper -> "60 characters left", 'maxLength -> 60,
-                                'display -> {if(currentForm("statutorySickPay.howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+                                'textAreaHelper -> "60 characters left", 'maxLength -> 60
                             ),
                             carersInputText(currentForm("statutorySickPay.employersName"), '_label -> Messages("employersName"),'maxLength -> Mappings.sixty),
                             inputAddress(currentForm("statutorySickPay.employersAddress"), '_label -> Messages("employersAddress")),
@@ -73,8 +71,7 @@
                                 'id -> "howOftenOtherStatutoryPay",
                                 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
                                 '_label -> Messages("howOften"),
-                                'visibleOn -> "yes",
-                                'display -> {if(currentForm("otherStatutoryPay.howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+                                'visibleOn -> "yes"
                             ),
                             carersInputText(currentForm("otherStatutoryPay.employersName"), '_label -> Messages("employersName"), 'maxLength -> Mappings.sixty),
                             inputAddress(currentForm("otherStatutoryPay.employersAddress"), '_label -> Messages("employersAddress")),
