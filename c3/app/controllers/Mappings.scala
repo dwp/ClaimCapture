@@ -64,6 +64,8 @@ object Mappings {
 
   val errorRestrictedCharacters = "error.restricted.characters"
 
+  val newErrorSortCode = FormError("sortCode", errorRestrictedCharacters)
+
 
 
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
@@ -432,13 +434,14 @@ object Mappings {
   }
 
   /**
-   * Use this method to manage error codes for sort code and call this from the controller
+   * Use this method to manage error codes for sort code for special characters and call this from the controller
+   *
+   *
    * @param formWithErrors
    * @return
    */
-  def manageErrorsSortCode[T](formWithErrors:Form[T])(implicit request: Request[_]) = {
+  def manageErrorsSortCode[T](formWithErrors:Form[T])(implicit request: Request[_]):Form[T] = {
     import utils.helpers.CarersForm._
-    val newErrorSortCode = FormError("sortCode", errorRestrictedCharacters)
     val updatedFormErrors = formWithErrors.errors.flatMap { fe =>
       if (fe.key.startsWith(newErrorSortCode.key.concat("."))) {
           Some(newErrorSortCode)
@@ -446,7 +449,19 @@ object Mappings {
         Some(fe)
       }
     }
-    formWithErrors.copy(errors = updatedFormErrors.foldLeft(Seq[FormError]()) { (z, fe) =>
+    formWithErrors.copy(errors = updatedFormErrors)
+  }
+
+  /**
+   * Use this method to display only one error message for the sort code for special characters and also to ignore
+   * group by functionality for the keys as provided by the utils.helpers.CarersForm.replaceError method
+   * @param formWithErrors
+   * @param request
+   * @tparam T
+   * @return
+   */
+  def ignoreGroupByForSortCode[T](formWithErrors:Form[T])(implicit request: Request[_]):Form[T] = {
+    formWithErrors.copy(errors = formWithErrors.errors.foldLeft(Seq[FormError]()) { (z, fe) =>
       if (fe.key == newErrorSortCode.key) {
         if (!z.contains(newErrorSortCode)) z :+ fe else z
       } else z :+ fe
