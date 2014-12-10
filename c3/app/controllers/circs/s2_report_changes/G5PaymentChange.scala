@@ -42,7 +42,8 @@ object G5PaymentChange extends Controller with CachedChangeOfCircs with Navigabl
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = manageErrorsSortCode(formWithErrors)
-        BadRequest(views.html.circs.s2_report_changes.g5_paymentChange(updatedFormWithErrors)(lang))
+        val afterIgnoreGroupBy = ignoreGroupByForSortCode(updatedFormWithErrors)
+        BadRequest(views.html.circs.s2_report_changes.g5_paymentChange(afterIgnoreGroupBy)(lang))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )
