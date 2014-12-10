@@ -34,10 +34,12 @@ object G11Break extends Controller with CachedClaim {
       formWithErrors => {
         val fwe = formWithErrors
         .replaceError("whereYou.location", "error.required", FormError("whereYou","error.required",Seq("This is field required")))
-        .replaceError("wherePerson.location", "error.required", FormError("wherePerson","error.required",Seq("This field is required")))
-        .replaceError("start.date","error.required", FormError("start","error.required", Seq("This field is required")))
         .replaceError("whereYou.location.other","error.maxLength",FormError("whereYou","error.maxLength"))
+        .replaceError("whereYou.location.other",errorRestrictedCharacters,FormError("whereYou",errorRestrictedCharacters))
+        .replaceError("wherePerson.location", "error.required", FormError("wherePerson","error.required",Seq("This field is required")))
         .replaceError("wherePerson.location.other","error.maxLength",FormError("wherePerson","error.maxLength"))
+        .replaceError("wherePerson.location.other",errorRestrictedCharacters,FormError("wherePerson",errorRestrictedCharacters))
+        .replaceError("start.date","error.required", FormError("start","error.required", Seq("This field is required")))
         BadRequest(views.html.s4_care_you_provide.g11_break(fwe,backCall)(lang))
       },
       break => {
