@@ -46,7 +46,8 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = manageErrorsSortCode(formWithErrors)
-        BadRequest(views.html.s11_pay_details.g2_bankBuildingSocietyDetails(updatedFormWithErrors)(lang))
+        val afterIgnoreGroupBy = ignoreGroupByForSortCode(updatedFormWithErrors)
+        BadRequest(views.html.s11_pay_details.g2_bankBuildingSocietyDetails(afterIgnoreGroupBy)(lang))
       },
       howWePayYou => claim.update(howWePayYou) -> redirectPath)
   }

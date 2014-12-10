@@ -49,8 +49,8 @@ trait CachedClaim {
   private val defaultLang = "en"
 
   // CSRF Cookie management
-  protected val csrfCookieName = getProperty("csrf.cookie.name","csrf")
-  protected val csrfSecure = getProperty("csrf.cookie.secure",getProperty("session.secure",false))
+  protected val csrfCookieName = getProperty("csrf.cookie.name", "csrf")
+  protected val csrfSecure = getProperty("csrf.cookie.secure", getProperty("session.secure",default = false))
 
   // Expiration value
   private val  expiration = getProperty("cache.expiry", 3600)
@@ -90,7 +90,7 @@ trait CachedClaim {
     val key = keyAndExpiration(request)._1
     if (key.isEmpty) {
       // Log an error if session empty or with no cacheKey entry so we know it is not a cache but a cookie issue.
-      Logger.error(s"Did not receive Session information for a ${cacheKey} for url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot( _.name.startsWith("_"))}.")
+      Logger.error(s"Did not receive Session information for a $cacheKey for url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot( _.name.startsWith("_"))}.")
       None
     } else Cache.getAs[Claim](key)
   }
@@ -114,7 +114,7 @@ trait CachedClaim {
         // Cookies need to be changed BEFORE session, session is within cookies.
         def tofilter(theCookie: Cookie): Boolean = { theCookie.name == CachedClaim.C3VERSION || theCookie.name == getProperty("session.cookieName","PLAY_SESSION")}
         // Added C3Version for full Zero downtime
-        withHeaders(action(claim, r, bestLang)(f)).withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(CachedClaim.C3VERSION, CachedClaim.C3VERSION_VALUE): _*).withSession((claim.key -> claim.uuid))
+        withHeaders(action(claim, r, bestLang)(f)).withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(CachedClaim.C3VERSION, CachedClaim.C3VERSION_VALUE): _*).withSession(claim.key -> claim.uuid)
       }
       else {
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
@@ -130,9 +130,9 @@ trait CachedClaim {
 
     def withPreview():Action[AnyContent] = Action.async(action.parser){ request =>
       Logger.debug("actionWrapper")
-      action(request).map{ result =>
+      action(request).map { result =>
         result.header.status -> fromCache(request) match {
-          case (play.api.http.Status.SEE_OTHER,Some(claim)) if claim.navigation.beenInPreview => Redirect(controllers.preview.routes.Preview.present)
+          case (play.api.http.Status.SEE_OTHER,Some(claim)) if claim.navigation.beenInPreview => Redirect(controllers.preview.routes.Preview.present())
           case _ => result
         }
       }
@@ -148,7 +148,7 @@ trait CachedClaim {
 
       action(request).map{ result =>
         result.header.status -> fromCache(request) match {
-          case (play.api.http.Status.SEE_OTHER,Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim))=> Redirect(controllers.preview.routes.Preview.present)
+          case (play.api.http.Status.SEE_OTHER,Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim))=> Redirect(controllers.preview.routes.Preview.present())
           case _ => result
         }
       }
@@ -205,11 +205,11 @@ trait CachedClaim {
       action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
     } else {
       val uuid = keyAndExpiration(request)._1
-      Logger.debug(s"claimingWithoutClaim - uuid ${uuid}")
+      Logger.debug(s"claimingWithoutClaim - uuid $uuid")
       if (uuid.isEmpty) {
         Redirect(errorPage)
       } else {
-        Logger.warn(s"$cacheKey - ${uuid} timeout")
+        Logger.warn(s"$cacheKey - $uuid timeout")
         Redirect(timeoutPage)
       }
     }
@@ -244,12 +244,12 @@ trait CachedClaim {
 
   def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = Action.async {
     request =>
-      claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
+      claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).getOrElse("jobID", Seq("Missing JobID at request"))(0)))(request)
   }
 
   def claimingWithCheckInJob(f: (JobID) => Claim => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = Action.async {
     request =>
-      claimingWithCheck(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
+      claimingWithCheck(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).getOrElse("jobID", Seq("Missing JobID at request"))(0)))(request)
   }
 
   private def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {
@@ -282,9 +282,7 @@ trait CachedClaim {
   }
 
   private def withHeaders(result: Result): Result = {
-    result
-      .withHeaders(CACHE_CONTROL -> "must-revalidate,no-cache,no-store")
-      .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
+    result.withHeaders(CACHE_CONTROL -> "must-revalidate,no-cache,no-store","X-Frame-Options" -> "SAMEORIGIN")
   }
 
   private def bestLang()(implicit request: Request[AnyContent]) = {
