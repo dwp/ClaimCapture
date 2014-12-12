@@ -7,14 +7,12 @@
 
 @views.html.helper.base.carersSelect(field(id), options, args ++ Seq('class -> "selectWithOther"): _*)
 
-@defining((args.toMap.get('display).map(_.toString).getOrElse("yes") == args.toMap.get('visibleOn).map(_.toString).getOrElse("yes")) match { case true => "block" case _ => "none" }) { styleDisplay =>
 
-    <ul @{Html(args.toMap.get('id).map(p => s"""id="${p}_wrap" """).getOrElse(""))} style="display: @styleDisplay;">
-        <li  class="extra-text@{if(field.hasErrors)" validation" else ""}" >
-            @carersInputTextArea(field(id)("other"), (Seq('placeholder -> Messages("ifOtherPleaseSpecify"), 'ignoreLabel -> false) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id)):_*)
-            @if(args.find(_._1 == 'textAreaHelper).isDefined) {
-                <p class="helper right">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
-            }
-        </li>
-    </ul>
-}
+<ul @{Html(args.toMap.get('id).map(p => s"""id="${p}_wrap" """).getOrElse(""))}>
+    <li class="extra-text@{if(field.hasErrors)" validation" else ""}" >
+        @carersInputTextArea(field(id)("other"), Seq('placeholder -> Messages("ifOtherPleaseSpecify"), 'ignoreLabel -> false) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id):_*)
+        @if(args.exists(_._1 == 'textAreaHelper)) {
+            <p class="helper right">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
+        }
+    </li>
+</ul>

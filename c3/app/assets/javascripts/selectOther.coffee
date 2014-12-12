@@ -1,10 +1,15 @@
 $ ->
     $("select[class=selectWithOther] option:selected").each ->
-        $(this).parent().next().slideUp(0) if ($(this).val().toLowerCase() != "other")
+      otherTextArea = $(this).parent().next()
+
+      if $(this).val().toLowerCase() == "other"
+        otherTextArea.slideDown(0)
+      else
+        otherTextArea.slideUp(0)
 
     $("select[class=selectWithOther]").change ->
         if $(this).val().toLowerCase() is "other"
             $(this).next().slideDown(0)
         else
-            textArea = $(this).parent().next().find("textarea")
+            textArea = $(this).parent().find("textarea")
             $(this).next().slideUp {duration:0,complete:-> textArea.val("")}
