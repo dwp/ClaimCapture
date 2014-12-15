@@ -16,8 +16,8 @@ object PaymentChange {
         <PaymentChange>
           <PaidIntoAccountDetails>
             {question(<PaidIntoAccount/>,"currentlyPaidIntoBank.label", circsPaymentChange.currentlyPaidIntoBank.answer)}
-            {question(<BankName/>,"currentlyPaidIntoBank.text1.label", circsPaymentChange.currentlyPaidIntoBank.text1)}
-            {question(<MethodOfPayment/>,"currentlyPaidIntoBank.text2.label", circsPaymentChange.currentlyPaidIntoBank.text2)}
+            {question(<BankName/>,"currentlyPaidIntoBank.text1", circsPaymentChange.currentlyPaidIntoBank.text1)}
+            {question(<MethodOfPayment/>,"currentlyPaidIntoBank.text2", circsPaymentChange.currentlyPaidIntoBank.text2)}
           </PaidIntoAccountDetails>
           {account(circs)}
           {question(<PaymentFrequency/>,"paymentFrequency", circsPaymentChange.paymentFrequency)}
