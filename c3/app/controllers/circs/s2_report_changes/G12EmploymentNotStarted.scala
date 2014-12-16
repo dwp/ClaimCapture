@@ -85,7 +85,8 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
 
   private def validateUsuallyPaidSameAmount(input: CircumstancesEmploymentNotStarted): Boolean = input.beenPaid match {
     case `yes` => input.howOften.frequency match{
-      case app.PensionPaymentFrequency.Other => true
+      case app.StatutoryPaymentFrequency.Other => true
+      case app.StatutoryPaymentFrequency.DontKnowYet => true
       case _ if input.howOften.frequency.size > 0 => input.usuallyPaidSameAmount.isDefined
       case _ => true
     }

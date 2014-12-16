@@ -101,6 +101,6 @@ object Employment extends XMLComponent{
   }
 
   private def anyMoreJobs(isLast:Boolean, claim:Claim):NodeSeq = {
-    question(<OtherEmployment/>, "beenEmployedSince6MonthsBeforeClaim.label", !isLast , claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(Lang("en"), dmy - 6 months)))
+    question(<OtherEmployment/>, "beenEmployed", !isLast , claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(Lang("en"), dmy - 6 months)))
   }
 }

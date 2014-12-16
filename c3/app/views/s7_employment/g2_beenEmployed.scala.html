@@ -88,7 +88,7 @@
 	
 	            <ul>
 	                @yesNoRadioGroup(currentForm("beenEmployed"),
-                        '_label -> Messages("beenEmployedSince6MonthsBeforeClaim.label", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(lang, dmy - 6 months))),
+                        '_label -> Messages("beenEmployed", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(lang, dmy - 6 months))),
                         'helperAbove -> Messages("beenEmployedSince6MonthsBeforeClaim.label.helper"))
 	            </ul>
 	        </fieldset>
