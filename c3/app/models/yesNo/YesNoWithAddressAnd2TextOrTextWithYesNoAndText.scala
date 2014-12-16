@@ -1,6 +1,6 @@
 package models.yesNo
 
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.MultiLineAddress
 
 case class YesNoWithAddressAnd2TextOrTextWithYesNoAndText(answer: String = "", address: Option[MultiLineAddress] = None, postCode: Option[String] = None, text1a: Option[String] = None, text1b: Option[String] = None, text2a: Option[String] = None, answer2: Option[String] = None, text2b: Option[String] = None)

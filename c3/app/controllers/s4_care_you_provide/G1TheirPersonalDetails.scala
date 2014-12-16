@@ -4,7 +4,7 @@ import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import models.domain._

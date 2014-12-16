@@ -1,7 +1,7 @@
 package models.yesNo
 
 
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.{PaymentFrequency, MultiLineAddress}
 
 

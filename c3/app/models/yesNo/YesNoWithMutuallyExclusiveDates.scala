@@ -1,7 +1,7 @@
 package models.yesNo
 
 import models.DayMonthYear
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 
 case class YesNoWithMutuallyExclusiveDates(answer: String, date1: Option[DayMonthYear] = None, date2: Option[DayMonthYear] = None)
 

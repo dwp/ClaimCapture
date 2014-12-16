@@ -7,7 +7,8 @@ import play.api.data.Forms._
 import controllers.CarersForms._
 import models.view.CachedClaim
 import models.domain.{YourPartnerPersonalDetails, AboutOtherMoney, Claim}
-import controllers.Mappings._
+import controllers.mappings.Mappings._
+import controllers.mappings.AddressMappings._
 import utils.helpers.CarersForm._
 import models.view.Navigable
 import play.api.data.FormError

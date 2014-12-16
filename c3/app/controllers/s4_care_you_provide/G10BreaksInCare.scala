@@ -5,12 +5,12 @@ import play.api.data.{FormError, Form}
 import play.api.i18n.{MMessages => Messages}
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.domain._
 import models.view.{Navigable, CachedClaim}
 import scala.language.postfixOps
 import play.api.i18n.Lang
-import controllers.Mappings
+import controllers.mappings.Mappings
 import models.domain.Claim
 import models.yesNo.DeleteId
 import scala.Some
@@ -30,7 +30,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
   def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
-    import controllers.Mappings.yes
+    import controllers.mappings.Mappings.yes
 
     def next(hasBreaks:String) = hasBreaks match {
       case `yes` if breaksInCare.breaks.size < 10 => Redirect(routes.G11Break.present())

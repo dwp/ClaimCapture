@@ -4,7 +4,7 @@ import models.view.{CachedClaim, Navigable}
 import play.api.mvc.Controller
 import controllers.CarersForms._
 import play.api.data.Forms._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import play.api.data.{FormError, Form}
 import models.domain.NationalityAndResidency
 import utils.helpers.CarersForm._

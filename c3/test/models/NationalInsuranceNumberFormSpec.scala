@@ -2,7 +2,7 @@ package models
 
 import org.specs2.mutable.Specification
 import play.api.data.Form
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 
 class NationalInsuranceNumberFormSpec extends Specification {
   def createNationalInsuranceNumberForm(ni1: String, ni2: String, ni3: String, ni4: String, ni5: String) = Form("nationalInsuranceNumber" -> nino.verifying(validNino)).bind(Map(

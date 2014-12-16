@@ -4,7 +4,8 @@ import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.mvc.Controller
-import controllers.Mappings._
+import controllers.mappings.Mappings._
+import controllers.mappings.AddressMappings._
 import models.view.{CachedChangeOfCircs, Navigable}
 import utils.helpers.CarersForm._
 import models.domain._

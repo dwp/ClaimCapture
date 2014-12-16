@@ -1,6 +1,6 @@
 package models.yesNo
 
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 
 case class YesNoWithText(answer: String = "", text: Option[String] = None)
 

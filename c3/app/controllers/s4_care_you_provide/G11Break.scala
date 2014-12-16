@@ -3,7 +3,7 @@ package controllers.s4_care_you_provide
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import utils.helpers.CarersForm._
 import models.domain.BreaksInCare
 import models.view.CachedClaim

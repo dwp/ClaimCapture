@@ -3,7 +3,7 @@ package controllers.circs.s2_report_changes
 import models.domain.CircumstancesStartedAndFinishedEmployment
 import play.api.data.{Form, FormError}
 import play.api.data.Forms._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import controllers.CarersForms._
 import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithText

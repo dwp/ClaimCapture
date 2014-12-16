@@ -7,7 +7,7 @@ import play.api.data.Forms._
 import models.domain.{CircumstancesSelfEmployment, CircumstancesOtherInfo}
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.yesNo.{YesNoWithDate, YesNoWithText}
 
 object G2SelfEmployment extends Controller with CachedChangeOfCircs with Navigable {

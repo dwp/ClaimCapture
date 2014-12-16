@@ -6,14 +6,14 @@ import scala.language.postfixOps
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.yesNo.{YesNoWithDateAndQs, RadioWithText, YesNoWithDateTimeAndText, YesNoDontKnowWithDates}
 import models.domain.{CircumstancesAddressChange, CircumstancesBreaksInCare}
 import controllers.CarersForms._
 import play.api.data.FormError
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
-import controllers.Mappings
+import controllers.mappings.Mappings
 
 /**
  * Created by neddakaltcheva on 3/20/14.

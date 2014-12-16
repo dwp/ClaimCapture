@@ -6,7 +6,7 @@ import scala.language.postfixOps
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.yesNo.YesNoWithText
 import models.domain.{CircumstancesBreaksInCareSummary,CircumstancesBreaksInCare}
 import controllers.CarersForms._

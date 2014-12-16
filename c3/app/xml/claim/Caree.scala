@@ -1,6 +1,6 @@
 package xml.claim
 
-import controllers.Mappings
+import controllers.mappings.Mappings
 import models.domain._
 import xml.XMLComponent
 import xml.XMLHelper._

@@ -1,7 +1,7 @@
 package utils.helpers
 
 import models.domain._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import play.api.i18n.{MMessages => Messages, Lang}
 
 case class PastPresentLabelHelper(implicit claim: Claim, lang:Lang)

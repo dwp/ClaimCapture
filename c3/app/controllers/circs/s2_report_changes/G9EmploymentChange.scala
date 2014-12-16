@@ -6,7 +6,8 @@ import play.api.data.Form
 import play.api.data.Forms._
 import models.domain._
 import utils.helpers.CarersForm._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
+import controllers.mappings.AddressMappings._
 import models.yesNo._
 import play.api.data.validation.{Invalid, Valid, Constraint}
 import controllers.CarersForms._

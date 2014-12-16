@@ -7,7 +7,7 @@ import play.api.data.Forms._
 import models.domain.CircumstancesPaymentChange
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.yesNo.YesNoWith2Text
 
 object G5PaymentChange extends Controller with CachedChangeOfCircs with Navigable {

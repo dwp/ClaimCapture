@@ -1,6 +1,6 @@
 package controllers.s7_employment
 
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import controllers.s4_care_you_provide.G10BreaksInCare._
 import models.yesNo.{YesNo, DeleteId}
 import play.api.data.Forms._

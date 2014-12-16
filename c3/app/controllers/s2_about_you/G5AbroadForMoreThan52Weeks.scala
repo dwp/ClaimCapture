@@ -3,13 +3,13 @@ package controllers.s2_about_you
 import play.api.mvc.Controller
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.domain.AbroadForMoreThan52Weeks
 import models.view.Navigable
 import utils.helpers.CarersForm._
 import models.view.CachedClaim
 import controllers.CarersForms._
-import controllers.Mappings
+import controllers.mappings.Mappings
 
 
 object G5AbroadForMoreThan52Weeks extends Controller with CachedClaim with Navigable {

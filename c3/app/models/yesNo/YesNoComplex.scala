@@ -3,7 +3,7 @@ package models.yesNo
 /**
  * Created by neddakaltcheva on 2/14/14.
  */
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 
 case class YesNoComplex(answer: String = "", address: YesNoWithAddress = YesNoWithAddress(None, None, None))
 

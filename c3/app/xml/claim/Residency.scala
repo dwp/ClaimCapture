@@ -5,7 +5,7 @@ import scala.xml.NodeSeq
 import xml.XMLHelper._
 import xml.XMLComponent
 import models.domain.Claim
-import controllers.Mappings
+import controllers.mappings.Mappings
 
 object Residency extends XMLComponent{
 

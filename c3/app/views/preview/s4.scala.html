@@ -8,7 +8,7 @@
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
 
-@livesSameAddress = @{claim.questionGroup[TheirPersonalDetails].exists(_.liveAtSameAddressCareYouProvide == Mappings.yes)}
+@livesSameAddress = @{claim.questionGroup[TheirPersonalDetails].exists(_.liveAtSameAddressCareYouProvide == mappings.Mappings.yes)}
 @yourPartner = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
 @abouTheCare = @{claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())}
 @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}

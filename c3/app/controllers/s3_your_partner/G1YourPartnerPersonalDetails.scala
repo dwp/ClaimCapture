@@ -7,17 +7,17 @@ import play.api.data.Forms.nonEmptyText
 import play.api.data.Forms.text
 import play.api.data.Forms.optional
 import play.api.mvc.{Request, AnyContent, Controller, Action}
-import controllers.Mappings.four
-import controllers.Mappings.seventeen
-import controllers.Mappings.errorRequired
-import controllers.Mappings.Name
-import controllers.Mappings.Name.maxLength
-import controllers.Mappings.nino
-import controllers.Mappings.validNino
-import controllers.Mappings.validDate
-import controllers.Mappings.validYesNo
-import controllers.Mappings.dayMonthYear
-import controllers.Mappings.validNationality
+import controllers.mappings.Mappings.four
+import controllers.mappings.Mappings.seventeen
+import controllers.mappings.Mappings.errorRequired
+import controllers.mappings.Mappings.Name
+import controllers.mappings.Mappings.Name.maxLength
+import controllers.mappings.Mappings.nino
+import controllers.mappings.Mappings.validNino
+import controllers.mappings.Mappings.validDate
+import controllers.mappings.Mappings.validYesNo
+import controllers.mappings.Mappings.dayMonthYear
+import controllers.mappings.Mappings.validNationality
 import models.domain.YourPartnerPersonalDetails
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm.formBinding
@@ -27,7 +27,7 @@ import controllers.CarersForms.carersText
 import models.domain.Claim
 import play.api.i18n.Lang
 import models.view.CachedClaim.ClaimResult
-import controllers.Mappings
+import controllers.mappings.Mappings
 
 object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {
 

@@ -3,7 +3,7 @@ package models.domain
 import models.{ReasonForBeingThere, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
 import models.yesNo.{YesNo, YesNoWithText}
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
-import controllers.Mappings.yes
+import controllers.mappings.Mappings.yes
 
 object AboutYou extends Section.Identifier {
   val id = "s3"

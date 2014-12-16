@@ -1,6 +1,6 @@
 package models.yesNo
 
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 
 case class YesNoWithDropDownAndText(answer: Option[String], dropDownValue: Option[String], text: Option[String])
 

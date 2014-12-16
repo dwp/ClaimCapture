@@ -9,7 +9,7 @@ import models.domain.PensionAndExpenses
 import utils.helpers.CarersForm._
 import Employment._
 import utils.helpers.PastPresentLabelHelper._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import play.api.data.FormError
 import controllers.CarersForms._
 import models.yesNo.YesNoWithText

@@ -1,6 +1,6 @@
 package controllers.s8_self_employment
 
-import controllers.Mappings
+import controllers.mappings.Mappings
 
 import language.reflectiveCalls
 import play.api.data.Forms._
@@ -8,7 +8,7 @@ import play.api.mvc.Controller
 import play.api.mvc.Request
 import play.api.mvc.AnyContent
 import play.api.data.Form
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.domain.SelfEmploymentYourAccounts
 import models.domain.{Employment => Emp}
 import models.view.CachedClaim

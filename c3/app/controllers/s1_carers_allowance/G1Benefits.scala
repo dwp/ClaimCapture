@@ -1,6 +1,6 @@
 package controllers.s1_carers_allowance
 
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._

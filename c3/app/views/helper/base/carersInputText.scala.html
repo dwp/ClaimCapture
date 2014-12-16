@@ -8,7 +8,7 @@
 
 @input(field, args.filter(a => a._1 == 'maxLength || a._1 == 'autocomplete || a._1 == 'class) ++
               Seq('autocomplete -> "off") ++
-              (args.find(_._1 == 'maxLength) match{ case Some(_) => Seq() case _ => Seq('maxLength -> Mappings.sixty)}):_* ) { (id, name, value, htmlArgs) =>
+              (args.find(_._1 == 'maxLength) match{ case Some(_) => Seq() case _ => Seq('maxLength -> mappings.Mappings.sixty)}):_* ) { (id, name, value, htmlArgs) =>
 
     @carersLabel(field, args: _*)
 

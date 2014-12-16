@@ -4,7 +4,7 @@ import models.domain.CircumstancesStartedEmploymentAndOngoing
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.{Form, FormError}
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.CarersForms._

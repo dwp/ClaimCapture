@@ -7,7 +7,7 @@ import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 import controllers.circs.s2_report_changes
 import app.ReportChange._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import app.ReportChange.AdditionalInfo
 import app.ReportChange.SelfEmployment
 import models.domain.Claim

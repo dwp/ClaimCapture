@@ -9,7 +9,7 @@ import models.domain._
 import utils.helpers.CarersForm._
 import models.view.Navigable
 import controllers.CarersForms._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.yesNo.YesNoWithText
 import app.ConfigProperties._
 

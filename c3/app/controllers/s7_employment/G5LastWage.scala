@@ -7,11 +7,11 @@ import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
 import models.domain._
 import utils.helpers.CarersForm._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import Employment._
 import controllers.CarersForms._
 import utils.helpers.PastPresentLabelHelper._
-import controllers.Mappings
+import controllers.mappings.Mappings
 import play.api.data.FormError
 import models.domain.Claim
 

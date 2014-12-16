@@ -1,7 +1,7 @@
 package models.domain
 
 import models.{PensionPaymentFrequency, DayMonthYear}
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.PensionPaymentFrequency
 import models.yesNo.YesNoWithText
 

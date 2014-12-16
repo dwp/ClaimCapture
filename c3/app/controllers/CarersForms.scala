@@ -3,7 +3,7 @@ package controllers
 import play.api.data.Forms._
 import play.api.data.Mapping
 import play.api.data.validation.Constraints
-import controllers.Mappings._
+import mappings.Mappings._
 
 object CarersForms  {
 

@@ -26,7 +26,7 @@
                     <legend>@Html(Messages("s4.g1"))</legend>
 
                     <ul>
-                        @carersInputText(currentForm("relationship"), 'helperAbove -> Messages("relationship.helper"), 'maxLength -> Mappings.thirtyfive)
+                        @carersInputText(currentForm("relationship"), 'helperAbove -> Messages("relationship.helper"), 'maxLength -> mappings.Mappings.thirtyfive)
 
                         @simpleDetailPlaceHolder(
                             inputDef = Seq(
@@ -36,7 +36,7 @@
 
                                 carersInputText(currentForm("middleName"), 'maxLength -> 17),
 
-                                carersInputText(currentForm("surname"), 'maxLength -> Mappings.thirtyfive),
+                                carersInputText(currentForm("surname"), 'maxLength -> mappings.Mappings.thirtyfive),
 
                                 nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove -> Messages("nationalInsuranceNumber.helper")), 
 

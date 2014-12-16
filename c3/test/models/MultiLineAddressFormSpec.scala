@@ -2,7 +2,8 @@ package models
 
 import org.specs2.mutable.Specification
 import play.api.data.Form
-import controllers.Mappings._
+import controllers.mappings.Mappings._
+import controllers.mappings.AddressMappings._
 
 class MultiLineAddressFormSpec extends Specification {
 

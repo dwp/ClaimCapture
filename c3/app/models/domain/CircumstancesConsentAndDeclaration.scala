@@ -1,6 +1,6 @@
 package models.domain
 
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import scala.Some
 
 case object CircumstancesConsentAndDeclaration extends Section.Identifier {

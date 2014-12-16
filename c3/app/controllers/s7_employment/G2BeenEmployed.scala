@@ -1,13 +1,13 @@
 package controllers.s7_employment
 
-import controllers.Mappings
+import controllers.mappings.Mappings
 import models.view.{Navigable, CachedClaim}
 import play.api.mvc._
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import models.domain.{Employment => Emp, Jobs, BeenEmployed}
 import utils.helpers.CarersForm._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import controllers.s7_employment.Employment.jobs
 import models.domain.Claim
 import scala.reflect.ClassTag
@@ -42,7 +42,7 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
   }
 
   def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    import controllers.Mappings.yes
+    import controllers.mappings.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
       case `yes` if jobs.size < Mappings.five => Redirect(routes.G3JobDetails.present(JobID(form)))

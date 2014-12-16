@@ -6,7 +6,7 @@ import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
 import models.domain.{Employment => EmploymentDomain}
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.view.CachedClaim
 
 class G2BeenEmployedSpec extends Specification with Tags {

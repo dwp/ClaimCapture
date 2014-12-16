@@ -1,7 +1,7 @@
 package models.domain
 
 import models._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 
 object Education extends Section.Identifier {
   val id = "s6"

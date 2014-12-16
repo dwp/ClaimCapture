@@ -7,7 +7,7 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain.Over16
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.view.Navigable
 
 object G3Over16 extends Controller with CachedClaim with Navigable {

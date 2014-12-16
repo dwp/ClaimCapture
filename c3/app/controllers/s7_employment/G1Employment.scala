@@ -8,10 +8,10 @@ import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.domain.{Employment => Emp, _}
 import scala.language.postfixOps
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 
 object G1Employment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

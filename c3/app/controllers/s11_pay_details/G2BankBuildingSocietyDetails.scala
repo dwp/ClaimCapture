@@ -7,7 +7,7 @@ import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
 import models.domain._
 import utils.helpers.CarersForm._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import controllers.s11_pay_details.PayDetails._
 import app.AccountStatus
 import controllers.CarersForms._

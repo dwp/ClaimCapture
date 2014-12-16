@@ -2,7 +2,7 @@ package models.domain
 
 import app.MaritalStatus
 import models.{DayMonthYear, NationalInsuranceNumber}
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.NationalInsuranceNumber
 
 object YourPartner extends Section.Identifier {

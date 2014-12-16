@@ -3,7 +3,7 @@ package models
 import org.specs2.mutable.Specification
 import play.api.data.{Forms, FormError, Form}
 import play.api.data.Forms._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 
 class DecimalNumberFormSpec extends Specification {
   "Decimal Number" should {

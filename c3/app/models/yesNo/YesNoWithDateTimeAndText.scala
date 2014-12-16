@@ -1,7 +1,7 @@
 package models.yesNo
 
 import models.DayMonthYear
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 
 /**
  * Created by neddakaltcheva on 3/20/14.

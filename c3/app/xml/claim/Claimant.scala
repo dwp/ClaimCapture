@@ -3,7 +3,7 @@ package xml.claim
 import models.domain._
 import xml.XMLHelper._
 import xml.XMLComponent
-import controllers.Mappings
+import controllers.mappings.Mappings
 
 object Claimant extends XMLComponent {
   def xml(claim: Claim) = {

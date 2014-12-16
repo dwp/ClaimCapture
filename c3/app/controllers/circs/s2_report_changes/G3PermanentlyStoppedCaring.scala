@@ -7,7 +7,7 @@ import play.api.data.Forms._
 import models.view.{CachedChangeOfCircs, Navigable}
 import models.domain.CircumstancesStoppedCaring
 import utils.helpers.CarersForm._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import controllers.CarersForms._
 
 object G3PermanentlyStoppedCaring extends Controller with CachedChangeOfCircs with Navigable {

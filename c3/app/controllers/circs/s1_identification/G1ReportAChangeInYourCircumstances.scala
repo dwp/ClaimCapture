@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.domain.CircumstancesReportChange
 import utils.helpers.CarersForm._
 import controllers.CarersForms._

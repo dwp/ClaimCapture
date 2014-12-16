@@ -7,12 +7,12 @@ import play.api.data.Forms._
 import models.SortCode
 import models.SortCode
 import models.MultiLineAddress
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.SortCode
 import models.MultiLineAddress
 import models._
-import controllers.Mappings.yes
-import controllers.Mappings.no
+import controllers.mappings.Mappings.yes
+import controllers.mappings.Mappings.no
 
 case object CircumstancesReportChanges extends Section.Identifier {
   val id = "c2"

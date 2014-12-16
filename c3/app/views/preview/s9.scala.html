@@ -8,21 +8,21 @@
 @anyPaymentsSinceClaimDate = @{
     var paymentsAnswer = Messages("label."+aboutOtherMoney.anyPaymentsSinceClaimDate.answer)
     aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
-        case Mappings.yes => paymentsAnswer.concat(" - ").concat(Messages("detailsProvided.simple"))
+        case mappings.Mappings.yes => paymentsAnswer.concat(" - ").concat(Messages("detailsProvided.simple"))
         case _ => paymentsAnswer
     }
 }
 @statutoryPay = @{
     var statutoryPay = Messages("label."+aboutOtherMoney.statutorySickPay.answer)
     aboutOtherMoney.statutorySickPay.answer match {
-        case Mappings.yes => statutoryPay.concat(" - ").concat(Messages("detailsProvided.simple"))
+        case mappings.Mappings.yes => statutoryPay.concat(" - ").concat(Messages("detailsProvided.simple"))
         case _ => statutoryPay
     }
 }
 @otherStatutoryPay = @{
     var otherStatutoryPay = Messages("label."+aboutOtherMoney.otherStatutoryPay.answer)
     aboutOtherMoney.otherStatutoryPay.answer match {
-        case Mappings.yes => otherStatutoryPay.concat(" - ").concat(Messages("detailsProvided.simple"))
+        case mappings.Mappings.yes => otherStatutoryPay.concat(" - ").concat(Messages("detailsProvided.simple"))
         case _ => otherStatutoryPay
     }
 }

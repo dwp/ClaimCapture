@@ -6,7 +6,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import models.view.CachedClaim
 import models.domain.OtherEEAStateOrSwitzerland
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import utils.helpers.CarersForm._
 import models.view.Navigable
 

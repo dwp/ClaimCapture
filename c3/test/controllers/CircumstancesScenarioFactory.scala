@@ -99,10 +99,10 @@ object CircumstancesScenarioFactory {
     claim.BreaksInCareStartTime = "10 am"
     claim.BreaksInCareWhereWasThePersonYouCareFor = CircsBreaksWhereabouts.Hospital
     claim.BreaksInCareWhereWereYou = CircsBreaksWhereabouts.Holiday
-    claim.BreaksInCareEnded = Mappings.yes
+    claim.BreaksInCareEnded = mappings.Mappings.yes
     claim.BreaksInCareEndDate = "01/01/2004"
     claim.BreaksInCareEndTime = "10 am"
-    claim.BreaksInCareMedicalCareDuringBreak = Mappings.yes
+    claim.BreaksInCareMedicalCareDuringBreak = mappings.Mappings.yes
 
     claim
   }
@@ -148,9 +148,9 @@ object CircumstancesScenarioFactory {
     claim.BreaksInCareStartTime = "10 am"
     claim.BreaksInCareWhereWasThePersonYouCareFor = CircsBreaksWhereabouts.Hospital
     claim.BreaksInCareWhereWereYou = CircsBreaksWhereabouts.Holiday
-    claim.BreaksInCareEnded = Mappings.no
-    claim.BreaksInCareExpectToStartCaringAgain = Mappings.yes
-    claim.BreaksInCareMedicalCareDuringBreak = Mappings.yes
+    claim.BreaksInCareEnded = mappings.Mappings.no
+    claim.BreaksInCareExpectToStartCaringAgain = mappings.Mappings.yes
+    claim.BreaksInCareMedicalCareDuringBreak = mappings.Mappings.yes
 
     claim
   }
@@ -162,10 +162,10 @@ object CircumstancesScenarioFactory {
     claim.BreaksInCareStartTime = "10 am"
     claim.BreaksInCareWhereWasThePersonYouCareFor = CircsBreaksWhereabouts.Hospital
     claim.BreaksInCareWhereWereYou = CircsBreaksWhereabouts.Holiday
-    claim.BreaksInCareEnded = Mappings.no
-    claim.BreaksInCareExpectToStartCaringAgain = Mappings.no
+    claim.BreaksInCareEnded = mappings.Mappings.no
+    claim.BreaksInCareExpectToStartCaringAgain = mappings.Mappings.no
     claim.BreaksInCareExpectToStartCaringPermanentEndDate = "01/01/2002"
-    claim.BreaksInCareMedicalCareDuringBreak = Mappings.yes
+    claim.BreaksInCareMedicalCareDuringBreak = mappings.Mappings.yes
 
     claim
   }

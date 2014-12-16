@@ -7,7 +7,8 @@ import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
 import models.domain.{Jobs, JobDetails}
 import utils.helpers.CarersForm._
-import controllers.Mappings._
+import controllers.mappings.Mappings._
+import controllers.mappings.AddressMappings._
 import Employment._
 import controllers.CarersForms._
 import utils.helpers.PastPresentLabelHelper._

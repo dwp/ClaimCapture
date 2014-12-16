@@ -1,6 +1,6 @@
 package xml.circumstances
 
-import controllers.Mappings
+import controllers.mappings.Mappings
 import models.domain._
 import app.XMLValues._
 import models.domain.Claim

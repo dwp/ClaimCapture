@@ -1,28 +1,16 @@
-package controllers
+package controllers.mappings
 
-import scala.util.Try
-import play.api.data.Forms._
-import play.api.data.validation._
+import controllers.CarersForms._
+import models.{MultiLineAddress, NationalInsuranceNumber, PaymentFrequency, PensionPaymentFrequency, PeriodFromTo, SortCode, Whereabouts, _}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import models._
-import controllers.CarersForms._
-import models.SortCode
-import models.PaymentFrequency
-import scala.util.Failure
-import models.NationalInsuranceNumber
-import scala.Some
-import play.api.data.validation.ValidationError
-import models.Whereabouts
-import models.PensionPaymentFrequency
-import scala.util.Success
-import models.MultiLineAddress
-import models.PeriodFromTo
-
-
-import scala.util.matching.Regex
-import play.api.data.{FormError, Form, Mapping}
+import play.api.data.Forms._
+import play.api.data.validation.{ValidationError, _}
+import play.api.data.{Form, FormError, Mapping}
 import play.api.mvc.Request
+
+import scala.util.{Failure, Success, Try}
+import scala.util.matching.Regex
 
 
 object Mappings {
@@ -81,10 +69,6 @@ object Mappings {
     "from" -> dayMonthYear.verifying(validDate),
     "to" -> dayMonthYear.verifying(validDate))(PeriodFromTo.apply)(PeriodFromTo.unapply)
 
-  val address: Mapping[MultiLineAddress] = mapping(
-    "lineOne" -> optional(carersText(maxLength = 35)),
-    "lineTwo" -> optional(carersText(maxLength = 35)),
-    "lineThree" -> optional(carersText(maxLength = 35)))(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> carersNonEmptyText(maxLength = 35),
@@ -147,15 +131,6 @@ object Mappings {
     dayMonthYear(if (datePatterns.isEmpty) List(datePatternDefault, "dd/MM/yyyy") else datePatterns.toList)
   }
 
-  def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
-    if (a.lineOne.isEmpty) Invalid(ValidationError("error.required")) else Valid
-  }
-
-  def requiredAddressWithTwoLines: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
-    if(a.lineOne.isEmpty) Invalid(ValidationError("error.required"))
-    else if ((!a.lineOne.isEmpty) && (a.lineTwo.isEmpty)) Invalid(ValidationError("error.addressLines.required"))
-    else Valid
-  }
 
   def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required") {
     case SortCode(s1, s2, s3) =>
@@ -441,7 +416,6 @@ object Mappings {
    * @return
    */
   def manageErrorsSortCode[T](formWithErrors:Form[T])(implicit request: Request[_]):Form[T] = {
-    import utils.helpers.CarersForm._
     val updatedFormErrors = formWithErrors.errors.flatMap { fe =>
       if (fe.key.startsWith(newErrorSortCode.key.concat("."))) {
           Some(newErrorSortCode)

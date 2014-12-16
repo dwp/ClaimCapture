@@ -3,7 +3,7 @@ package models.domain
 import models._
 import play.api.i18n.{MMessages => Messages}
 import scala.reflect.ClassTag
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.PaymentFrequency
 import scala.Some
 import models.MultiLineAddress

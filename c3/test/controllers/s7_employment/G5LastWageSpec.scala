@@ -7,7 +7,7 @@ import models.domain._
 import play.api.cache.Cache
 import models.domain.Claim
 import models.view.CachedClaim
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.domain.Claim
 import scala.Some
 import play.api.data.Forms._

@@ -1,7 +1,7 @@
 package models
 
 import yesNo.YesNoWithDate
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 
 case class LivingInUK(answer: String = "",
                       date: Option[DayMonthYear] = None,

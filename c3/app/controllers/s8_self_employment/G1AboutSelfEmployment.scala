@@ -6,7 +6,7 @@ import play.api.data.Forms._
 import play.api.mvc.Controller
 import play.api.mvc.Request
 import play.api.mvc.AnyContent
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 import models.domain.AboutSelfEmployment
 import models.view.CachedClaim
 import utils.helpers.CarersForm._

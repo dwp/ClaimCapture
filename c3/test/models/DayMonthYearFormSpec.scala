@@ -2,7 +2,7 @@ package models
 
 import play.api.data.Form
 import org.specs2.mutable.Specification
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 
 class DayMonthYearFormSpec extends Specification {
   "DayMonthYear Validation" should {

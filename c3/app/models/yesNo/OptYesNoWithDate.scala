@@ -1,7 +1,7 @@
 package models.yesNo
 
 import models.DayMonthYear
-import controllers.Mappings._
+import controllers.mappings.Mappings._
 
 case class OptYesNoWithDate(answer: Option[String], date: Option[DayMonthYear])
 

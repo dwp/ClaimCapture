@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import app.CircsBreaksWhereabouts
 import scala.Predef._
 import models.DayMonthYear
-import controllers.Mappings
+import controllers.mappings.Mappings
 import models.yesNo.{YesNoDontKnowWithDates, YesNoWithDateTimeAndText, RadioWithText}
 
 
