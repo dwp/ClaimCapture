@@ -131,7 +131,6 @@ window.beenPaidYet = (ctx) ->
     S("beenPaidYetWrap").slideUp 0, -> hideBeenPaidYetWrapOnN(ctx,false)
     S("usuallyPaidSameAmountWrap").slideUp 0
     S("monthlyPayDayWrap").slideUp 0
-    S("howOften_wrap").slideUp(0)
 
   S(ctx.beenPaidYetY).on "click", onBeenPaidYetY(ctx,true)
   S(ctx.beenPaidYetN).on "click", onBeenPaidYetN(ctx,true)

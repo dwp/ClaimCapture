@@ -65,11 +65,12 @@ window.beenPaidYet = (beenPaidYetY, beenPaidYetN) ->
     S("usuallyPaidSameAmountWrap").slideUp 0
 
 window.usuallyPaidSameAmount = (o) ->
+  if val(o.howOftenFrequency) is o.dontknowKey and visible "usuallyPaidSameAmountWrap"
+    hideUsuallyPaidSameAmountWrap(o)
+
   S(o.howOftenFrequency).change ->
     if visible "usuallyPaidSameAmountWrap"
-      S("usuallyPaidSameAmountWrap").slideUp 0, ->
-        S(o.usuallyPaidSameAmountY).prop('checked', false)
-        S(o.usuallyPaidSameAmountN).prop('checked', false)
+      hideUsuallyPaidSameAmountWrap(o)
 
     if not (val(o.howOftenFrequency)is o.defaultValue or val(o.howOftenFrequency) is "" or val(o.howOftenFrequency) is o.dontknowKey)
       textToUse = switch(val o.howOftenFrequency)
@@ -83,6 +84,11 @@ window.usuallyPaidSameAmount = (o) ->
       S(o.usuallyPaidSameAmountY).prop('checked', false)
       S(o.usuallyPaidSameAmountN).prop('checked', false)
       S("usuallyPaidSameAmountWrap").slideDown 0
+
+hideUsuallyPaidSameAmountWrap = (o) ->
+  S("usuallyPaidSameAmountWrap").slideUp 0, ->
+    S(o.usuallyPaidSameAmountY).prop('checked', false)
+    S(o.usuallyPaidSameAmountN).prop('checked', false)
 
 window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
   if not checked payIntoPensionY
