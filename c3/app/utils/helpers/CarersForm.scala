@@ -7,7 +7,7 @@ import scala.util.{Failure, Success, Try}
 import play.api.Logger
 
 object CarersForm {
-  implicit def formBinding[T](form: Form[T])(implicit request: Request[_]) = new FormCryptBind[T](form)
+  implicit def formBinding[T](form: Form[T])(implicit request: Request[_]):FormCryptBind[T] = new FormCryptBind[T](form)
 
   class FormCryptBind[T](form: Form[T])(implicit request: Request[_]) {
     def bindEncrypted: Form[T] = {

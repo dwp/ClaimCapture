@@ -1,6 +1,6 @@
 package controllers.circs.s2_report_changes
 
-import models.domain.{CircumstancesStartedAndFinishedEmployment, CircumstancesEmploymentNotStarted}
+import models.domain.CircumstancesEmploymentNotStarted
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.{Form, FormError}
@@ -8,9 +8,7 @@ import controllers.mappings.Mappings._
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
-import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
-import models.yesNo.{YesNoWithText, YesNo}
-import models.PensionPaymentFrequency
+import models.yesNo.YesNoWithText
 
 object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with Navigable {
   val payIntoPension =

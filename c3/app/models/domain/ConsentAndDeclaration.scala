@@ -20,7 +20,7 @@ object Declaration extends QuestionGroup.Identifier {
 
   def validateNameOrOrganisation(declaration: Declaration) = {
     declaration.someoneElse match {
-      case Some(s) => !declaration.nameOrOrganisation.isEmpty
+      case Some(s) => declaration.nameOrOrganisation.nonEmpty
       case _ => true
     }
   }

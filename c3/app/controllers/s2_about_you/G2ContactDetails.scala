@@ -13,8 +13,6 @@ import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import models.domain._
 import controllers.CarersForms._
-import play.api.Logger
-import CachedClaim._
 
 object G2ContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

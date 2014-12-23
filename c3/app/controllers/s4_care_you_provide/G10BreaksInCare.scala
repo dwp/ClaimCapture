@@ -1,6 +1,6 @@
 package controllers.s4_care_you_provide
 
-import play.api.mvc.{Request, Controller}
+import play.api.mvc.Controller
 import play.api.data.{FormError, Form}
 import play.api.i18n.{MMessages => Messages}
 import play.api.data.Forms._
@@ -13,7 +13,6 @@ import play.api.i18n.Lang
 import controllers.mappings.Mappings
 import models.domain.Claim
 import models.yesNo.DeleteId
-import scala.Some
 
 object G10BreaksInCare extends Controller with CachedClaim with Navigable {
 

@@ -4,7 +4,7 @@ import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
-import models.domain.{CircumstancesSelfEmployment, CircumstancesOtherInfo}
+import models.domain.CircumstancesSelfEmployment
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import controllers.mappings.Mappings._

@@ -1,6 +1,5 @@
 package models.domain
 
-import app.XMLValues._
 import models.SortCode
 
 object PayDetails extends Section.Identifier {

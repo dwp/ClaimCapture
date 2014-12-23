@@ -2,7 +2,7 @@ package controllers.circs.s2_report_changes
 
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import models.domain.CircumstancesPaymentChange
 import utils.helpers.CarersForm._

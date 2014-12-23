@@ -8,8 +8,7 @@ import controllers.mappings.Mappings._
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
-import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
-import models.yesNo.{YesNoWithText, YesNo}
+import models.yesNo.YesNoWithText
 
 object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCircs with Navigable {
   val payIntoPension =

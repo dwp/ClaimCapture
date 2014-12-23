@@ -8,7 +8,6 @@ import play.api.data.Forms._
 import play.api.Logger
 import controllers.mappings.Mappings._
 import utils.helpers.CarersForm._
-import scala.Some
 
 object CarersAllowance extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -26,7 +25,7 @@ object CarersAllowance extends Controller with CachedClaim with Navigable {
     Logger.info(s"Approve submit ${claim.uuid}")
     form.bindEncrypted.fold(
       formWithErrors => {
-        Logger.info(s"${claim.key} ${claim.uuid} Form with errors: ${formWithErrors}")
+        Logger.info(s"${claim.key} ${claim.uuid} Form with errors: $formWithErrors")
         BadRequest(views.html.s1_carers_allowance.g6_approve(formWithErrors)(lang))
       },
       f => {
@@ -45,7 +44,7 @@ object CarersAllowance extends Controller with CachedClaim with Navigable {
   def mandatoryChecks(proceedAnyway: ProceedAnyway) = {
     proceedAnyway.allowedToContinue match {
       case true => true
-      case false if (proceedAnyway.answerYesNo.isDefined) => true
+      case false if proceedAnyway.answerYesNo.isDefined => true
       case _ => false
     }
   }

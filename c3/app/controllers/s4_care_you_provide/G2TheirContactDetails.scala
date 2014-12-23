@@ -7,7 +7,7 @@ import controllers.mappings.Mappings._
 import controllers.mappings.AddressMappings._
 import utils.helpers.CarersForm._
 import models.view.{Navigable, CachedClaim}
-import models.domain.{TheirPersonalDetails, ContactDetails, TheirContactDetails}
+import models.domain.{TheirPersonalDetails, TheirContactDetails}
 
 object G2TheirContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

@@ -12,10 +12,8 @@ case class YesNoWithDateTimeAndText(answer: String = "", date: Option[DayMonthYe
 object YesNoWithDateTimeAndText {
 
   def validateOnYes (input: YesNoWithDateTimeAndText) : Boolean = input.answer match {
-    case `yes` => {
-      input.date.isDefined
-      input.time.isDefined
-    }
+    case `yes` => input.date.isDefined && input.time.isDefined
+
     case `no` => true
   }
 }

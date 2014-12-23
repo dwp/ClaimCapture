@@ -1,7 +1,7 @@
 package models.domain
 
-import models.{ReasonForBeingThere, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
-import models.yesNo.{YesNo, YesNoWithText}
+import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
+import models.yesNo.YesNoWithText
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
 import controllers.mappings.Mappings.yes
 
@@ -44,13 +44,11 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   val british = "British"
   val anothercountry = "Another Country"
 
-  def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { answer =>
+  def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") {
     // Nationality is a radio list with two possible values, British and Another Country
-    answer match {
-      case `british` => Valid
-      case `anothercountry` => Valid
-      case _ => Invalid(ValidationError("nationality.invalid"))
-    }
+    case `british` => Valid
+    case `anothercountry` => Valid
+    case _ => Invalid(ValidationError("nationality.invalid"))
   }
 
   def actualNationalityRequired: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.actualnationality") { nationalityAndResidency =>
@@ -75,7 +73,7 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
     else Valid
   }
 
-  def validateHadPartner(nationalityAndResidency: NationalityAndResidency) = nationalityAndResidency.maritalStatus == "p"
+  def validateHadPartner(nationalityAndResidency: NationalityAndResidency) = nationalityAndResidency.maritalStatus.getOrElse("") == "p"
 }
 
 case class AbroadForMoreThan52Weeks(anyTrips: String = "", tripDetails:Option[String] = None) extends QuestionGroup(AbroadForMoreThan52Weeks)

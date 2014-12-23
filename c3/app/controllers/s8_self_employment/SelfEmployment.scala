@@ -1,6 +1,5 @@
 package controllers.s8_self_employment
 
-import play.api.Logger
 import play.api.mvc._
 import models.view.CachedClaim
 import models.domain._

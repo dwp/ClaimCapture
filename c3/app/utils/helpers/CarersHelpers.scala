@@ -22,5 +22,5 @@ class EnhancedFieldElements(f:FieldElements) {
 }
 
 object CarersHelpers {
-  implicit def enhanceFieldElements(f:FieldElements) = new EnhancedFieldElements(f)
+  implicit def enhanceFieldElements(f:FieldElements):EnhancedFieldElements = new EnhancedFieldElements(f)
 }

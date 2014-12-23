@@ -13,7 +13,6 @@ import Employment._
 import controllers.CarersForms._
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
-import scala.Some
 import scala.language.postfixOps
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 

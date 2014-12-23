@@ -1,7 +1,7 @@
 package controllers.mappings
 
 import controllers.CarersForms._
-import models.{MultiLineAddress, NationalInsuranceNumber, PaymentFrequency, PensionPaymentFrequency, PeriodFromTo, SortCode, Whereabouts, _}
+import models.{NationalInsuranceNumber, PaymentFrequency, PensionPaymentFrequency, PeriodFromTo, SortCode, Whereabouts, _}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.data.Forms._
@@ -106,7 +106,7 @@ object Mappings {
     "hour" -> optional(number(min = 0, max = 24)),
     "minutes" -> optional(number(min = 0, max = 60))
   )((dmy, h, m) => (h, m) match {
-      case (Some(h), Some(m)) => dmy.withTime(h, m)
+      case (Some(h1), Some(m1)) => dmy.withTime(h1, m1)
       case _ => dmy
     }
    )((dmy: DayMonthYear) => Some((dmy, dmy.hour, dmy.minutes)))
@@ -153,7 +153,7 @@ object Mappings {
     case ReasonForBeingThere(why, other) =>
       why match {
         case Some(reason) =>
-          if (reason == app.ReasonForBeingThere.Other.toLowerCase() && !other.isDefined) Invalid(ValidationError("error.required")) else Valid
+          if (reason == app.ReasonForBeingThere.Other.toLowerCase && !other.isDefined) Invalid(ValidationError("error.required")) else Valid
         case _ => Valid
       }
   }
@@ -217,18 +217,14 @@ object Mappings {
     }
   }
 
-  def filledInNino: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.required") { nino =>
-    nino match {
-      case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => Valid
-      case _ => Invalid(ValidationError("error.required"))
-    }
+  def filledInNino: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.required") {
+    case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => Valid
+    case _ => Invalid(ValidationError("error.required"))
   }
 
-  def validNino: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.nino") { nino =>
-    nino match {
-      case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => ninoValidation(nino)
-      case _ => Invalid(ValidationError("error.nationalInsuranceNumber"))
-    }
+  def validNino: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.nino") {
+    case nino@NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => ninoValidation(nino)
+    case _ => Invalid(ValidationError("error.nationalInsuranceNumber"))
   }
 
   def validPostcode: Constraint[String] = Constraint[String]("constraint.postcode") { postcode =>
@@ -273,7 +269,7 @@ object Mappings {
   def validDecimalNumberRequired: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
     val decimalPattern = """^[0-9]{1,12}(\.[0-9]{1,2})?$""".r
 
-    if(decimal != null && !decimal.isEmpty()) {
+    if(decimal != null && !decimal.isEmpty) {
       decimalPattern.pattern.matcher(decimal).matches match {
         case true => Valid
         case false => Invalid(ValidationError("decimal.invalid"))
@@ -301,7 +297,7 @@ object Mappings {
   }
 
   private def validCurrencyWithPattern(decimalPattern:Regex, decimal: String):ValidationResult = {
-    if(decimal != null && !decimal.isEmpty()) {
+    if(decimal != null && !decimal.isEmpty) {
       decimalPattern.pattern.matcher(decimal).matches match {
         case true => Valid
         case false => Invalid(ValidationError("decimal.invalid"))
@@ -330,21 +326,17 @@ object Mappings {
     }
   }
 
-  def validYesNo: Constraint[String] = Constraint[String]("constraint.yesNo") { answer =>
-    answer match {
-      case `yes` => Valid
-      case `no` => Valid
-      case _ => Invalid(ValidationError("yesNo.invalid"))
-    }
+  def validYesNo: Constraint[String] = Constraint[String]("constraint.yesNo") {
+    case `yes` => Valid
+    case `no` => Valid
+    case _ => Invalid(ValidationError("yesNo.invalid"))
   }
 
-  def validYesNoDontKnow: Constraint[String] = Constraint[String]("constraint.yesNoDontKnow") { answer =>
-    answer match {
-      case `yes` => Valid
-      case `no` => Valid
-      case `dontknow` => Valid
-      case _ => Invalid(ValidationError("yesNo.invalid"))
-    }
+  def validYesNoDontKnow: Constraint[String] = Constraint[String]("constraint.yesNoDontKnow") {
+    case `yes` => Valid
+    case `no` => Valid
+    case `dontknow` => Valid
+    case _ => Invalid(ValidationError("yesNo.invalid"))
   }
 
   def paymentFrequencyValidation(pf: PaymentFrequency): ValidationResult = Try(new PaymentFrequency(pf.frequency, pf.other)) match {
@@ -358,8 +350,7 @@ object Mappings {
   }
 
   def pensionPaymentFrequencyValidation(pf: PensionPaymentFrequency): ValidationResult = Try(new PensionPaymentFrequency(pf.frequency, pf.other)) match {
-    case Success(p: PensionPaymentFrequency) if p.frequency.toLowerCase == "other" && p.other.isEmpty => {
-      Invalid(ValidationError("error.paymentFrequency"))}
+    case Success(p: PensionPaymentFrequency) if p.frequency.toLowerCase == "other" && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
     case Success(p: PensionPaymentFrequency) => Valid
     case Failure(_) => Invalid(ValidationError("error.invalid"))
   }
@@ -410,10 +401,6 @@ object Mappings {
 
   /**
    * Use this method to manage error codes for sort code for special characters and call this from the controller
-   *
-   *
-   * @param formWithErrors
-   * @return
    */
   def manageErrorsSortCode[T](formWithErrors:Form[T])(implicit request: Request[_]):Form[T] = {
     val updatedFormErrors = formWithErrors.errors.flatMap { fe =>
@@ -429,10 +416,6 @@ object Mappings {
   /**
    * Use this method to display only one error message for the sort code for special characters and also to ignore
    * group by functionality for the keys as provided by the utils.helpers.CarersForm.replaceError method
-   * @param formWithErrors
-   * @param request
-   * @tparam T
-   * @return
    */
   def ignoreGroupByForSortCode[T](formWithErrors:Form[T])(implicit request: Request[_]):Form[T] = {
     formWithErrors.copy(errors = formWithErrors.errors.foldLeft(Seq[FormError]()) { (z, fe) =>

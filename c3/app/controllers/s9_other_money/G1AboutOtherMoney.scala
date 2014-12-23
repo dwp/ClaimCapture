@@ -12,7 +12,6 @@ import controllers.mappings.AddressMappings._
 import utils.helpers.CarersForm._
 import models.view.Navigable
 import play.api.data.FormError
-import scala.Some
 import models.yesNo.{YesNo, YesNoWithEmployerAndMoney}
 import play.api.i18n.{MMessages => Messages}
 
@@ -104,6 +103,6 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
 
         BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate)(lang))
       },
-      f => claim.update(f) -> Redirect(controllers.s11_pay_details.routes.G1HowWePayYou.present))
+      f => claim.update(f) -> Redirect(controllers.s11_pay_details.routes.G1HowWePayYou.present()))
   } withPreview()
 }

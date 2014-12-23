@@ -7,11 +7,8 @@ import play.api.data.Forms.nonEmptyText
 import play.api.data.Forms.text
 import play.api.data.Forms.optional
 import play.api.mvc.{Request, AnyContent, Controller, Action}
-import controllers.mappings.Mappings.four
-import controllers.mappings.Mappings.seventeen
 import controllers.mappings.Mappings.errorRequired
 import controllers.mappings.Mappings.Name
-import controllers.mappings.Mappings.Name.maxLength
 import controllers.mappings.Mappings.nino
 import controllers.mappings.Mappings.validNino
 import controllers.mappings.Mappings.validDate

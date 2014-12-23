@@ -1,8 +1,6 @@
 package models.domain
 
-import models.{PensionPaymentFrequency, DayMonthYear}
-import controllers.mappings.Mappings._
-import models.PensionPaymentFrequency
+import models.DayMonthYear
 import models.yesNo.YesNoWithText
 
 case object SelfEmployment extends Section.Identifier {

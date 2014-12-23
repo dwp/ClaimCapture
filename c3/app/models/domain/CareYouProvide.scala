@@ -4,7 +4,7 @@ import models._
 import models.Whereabouts
 import models.MultiLineAddress
 import models.NationalInsuranceNumber
-import models.yesNo.{YesNo, YesNoWithDate}
+import models.yesNo.YesNoWithDate
 
 case object CareYouProvide extends Section.Identifier {
   val id = "s5"
@@ -45,7 +45,7 @@ case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksI
 
   def delete(breakID: String) = BreaksInCare(breaks.filterNot(_.id == breakID))
 
-  def hasBreaks = !breaks.isEmpty
+  def hasBreaks = breaks.nonEmpty
 }
 
 case object BreaksInCare extends QuestionGroup.Identifier {

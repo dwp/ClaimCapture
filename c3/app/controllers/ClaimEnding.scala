@@ -19,7 +19,7 @@ object ClaimEnding extends Controller with CachedClaim {
 
   def thankyou = ending {implicit claim =>  implicit request =>  lang =>
 
-    if (getProperty("mailer.enabled",false)){
+    if (getProperty("mailer.enabled",default=false)){
       val preview = claim.questionGroup[PreviewModel].getOrElse(PreviewModel())
       if (preview.email.isDefined) EmailServices.sendEmail to preview.email.get
     }

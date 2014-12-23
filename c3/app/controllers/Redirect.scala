@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.{Controller, Action}
-import play.api.i18n.Lang
 import utils.helpers.CarersLanguageHelper
 
 trait RedirectController extends CarersLanguageHelper {

@@ -2,7 +2,6 @@ package monitoring
 
 import app.ConfigProperties._
 import models.domain.{CircumstancesDeclaration, Claimable, Claim}
-import scala.Some
 import play.api.Logger
 
 trait ChangeBotChecking extends BotChecking {

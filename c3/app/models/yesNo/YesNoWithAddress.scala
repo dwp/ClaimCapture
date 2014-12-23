@@ -12,5 +12,5 @@ object YesNoWithAddress {
     case _ => true
   }
 
-  def validateAnswerNotEmpty(input: YesNoWithAddress): Boolean = !input.answer.isEmpty
+  def validateAnswerNotEmpty(input: YesNoWithAddress): Boolean = input.answer.nonEmpty
 }

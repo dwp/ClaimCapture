@@ -2,7 +2,7 @@ package controllers.s11_pay_details
 
 import language.reflectiveCalls
 import play.api.mvc.{AnyContent, Request, Controller}
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
 import models.domain._
@@ -12,11 +12,8 @@ import controllers.s11_pay_details.PayDetails._
 import app.AccountStatus
 import controllers.CarersForms._
 import models.domain.Claim
-import scala.Some
 import play.api.i18n.Lang
 import models.view.CachedClaim.ClaimResult
-
-import scala.reflect.ClassTag
 
 object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

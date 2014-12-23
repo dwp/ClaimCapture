@@ -3,7 +3,6 @@ package monitoring
 import app.ConfigProperties._
 import models.domain.Claimable
 import models.domain.Claim
-import scala.Some
 import play.api.Logger
 
 trait BotChecking {

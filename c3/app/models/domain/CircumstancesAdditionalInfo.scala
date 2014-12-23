@@ -2,17 +2,11 @@ package models.domain
 
 import app.XMLValues._
 import models.yesNo._
-import models.{MultiLineAddress, SortCode, DayMonthYear}
-import play.api.data.Forms._
-import models.SortCode
-import models.SortCode
-import models.MultiLineAddress
-import controllers.mappings.Mappings._
+import models.DayMonthYear
 import models.SortCode
 import models.MultiLineAddress
 import models._
-import controllers.mappings.Mappings.yes
-import controllers.mappings.Mappings.no
+
 
 case object CircumstancesReportChanges extends Section.Identifier {
   val id = "c2"

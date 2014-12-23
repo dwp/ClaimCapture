@@ -9,7 +9,6 @@ import models.view.Navigable
 import utils.helpers.CarersForm._
 import models.view.CachedClaim
 import controllers.CarersForms._
-import controllers.mappings.Mappings
 
 
 object G5AbroadForMoreThan52Weeks extends Controller with CachedClaim with Navigable {

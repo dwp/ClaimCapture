@@ -10,9 +10,6 @@ import controllers.mappings.Mappings._
 import models.yesNo.YesNoWithText
 import models.domain.{CircumstancesBreaksInCareSummary,CircumstancesBreaksInCare}
 import controllers.CarersForms._
-import play.api.data.FormError
-import utils.helpers.PastPresentLabelHelper._
-import play.api.data.FormError
 
 object G8BreaksInCareSummary extends Controller with CachedChangeOfCircs with Navigable {
    val additionalBreaksMapping =

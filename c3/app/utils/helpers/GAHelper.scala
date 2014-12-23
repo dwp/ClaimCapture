@@ -6,7 +6,7 @@ import play.api.Play.current
 object GAHelper {
 
   private def addOpt(s:Option[String]):String = s match{
-    case Some(s) if s.nonEmpty => ",\""+s+"\""
+    case Some(opt) if opt.nonEmpty => ",\""+opt+"\""
     case _ => ""
   }
 

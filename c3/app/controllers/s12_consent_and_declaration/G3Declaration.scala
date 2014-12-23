@@ -13,10 +13,9 @@ import monitoring.ClaimBotChecking
 import services.submission.ClaimSubmissionService
 import services.ClaimTransactionComponent
 import models.yesNo.{YesNoWithText, OptYesNoWithText}
-import scala.Some
 import models.domain.{AboutOtherMoney, Employment => Emp, Declaration}
 import controllers.mappings.Mappings
-import controllers.mappings.Mappings.{yes, threeHundred, sixty}
+import controllers.mappings.Mappings.yes
 
 class G3Declaration extends Controller with CachedClaim with Navigable
        with AsyncSubmissionController

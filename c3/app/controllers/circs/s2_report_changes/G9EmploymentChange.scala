@@ -1,6 +1,6 @@
 package controllers.circs.s2_report_changes
 
-import play.api.mvc.{Call, Controller}
+import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.Form
 import play.api.data.Forms._
@@ -11,8 +11,6 @@ import controllers.mappings.AddressMappings._
 import models.yesNo._
 import play.api.data.validation.{Invalid, Valid, Constraint}
 import controllers.CarersForms._
-import play.api.data.FormError
-import play.api.data.validation.ValidationError
 import play.api.data.FormError
 import play.api.data.validation.ValidationError
 import play.api.mvc.Call

@@ -14,14 +14,14 @@ object Language extends Controller {
   def change(chosenLanguage: String) = Action {
     implicit request => {
       fromCache(request) match {
-        case Some(claim) => {
+        case Some(claim) =>
           val (key, expiration) = keyAndExpiration(request)
           Cache.set(key, Claim(claim.key, claim.sections, claim.created, Some(Lang(chosenLanguage)), claim.uuid), expiration)
           Redirect(redirectUrl(request))
-        }
-        case None => {
+
+        case None =>
           Redirect(routes.ClaimEnding.timeout())
-        }
+
       }
     }
   }

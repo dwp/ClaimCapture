@@ -20,8 +20,6 @@ object OptYesNoWithDate {
   /**
    * we are using this function in scenarios where the answer is yes and the field to be validated
    * is not visible based on some other condition
-   * @param input
-   * @return
    */
   def doNotValidateOnYes(input: OptYesNoWithDate): Boolean = input.answer match {
     case _ => true

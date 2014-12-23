@@ -5,7 +5,6 @@ import play.api.i18n.{MMessages => Messages}
 import scala.reflect.ClassTag
 import controllers.mappings.Mappings._
 import models.PaymentFrequency
-import scala.Some
 import models.MultiLineAddress
 import models.yesNo.YesNoWithText
 

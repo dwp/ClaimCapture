@@ -2,7 +2,6 @@ package controllers
 
 import app.ConfigProperties._
 import play.api.mvc._
-import services.EmailServices
 
 object Application extends Controller {
   def index = Action {

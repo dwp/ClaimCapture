@@ -7,12 +7,9 @@ import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.mappings.Mappings._
-import models.yesNo.{YesNoWithDateAndQs, RadioWithText, YesNoWithDateTimeAndText, YesNoDontKnowWithDates}
-import models.domain.{CircumstancesAddressChange, CircumstancesBreaksInCare}
+import models.yesNo.{ RadioWithText, YesNoWithDateTimeAndText, YesNoDontKnowWithDates}
+import models.domain.CircumstancesBreaksInCare
 import controllers.CarersForms._
-import play.api.data.FormError
-import utils.helpers.PastPresentLabelHelper._
-import play.api.data.FormError
 import controllers.mappings.Mappings
 
 /**

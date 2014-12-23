@@ -19,11 +19,4 @@ object YesNoWithMutuallyExclusiveDates {
       case `no` => input.date2.isDefined
     }
   }
-//
-//  def validateYesNoOnYes(input: YesNoWithMutuallyExclusiveDates) : Boolean = {
-//    input.answer match {
-//      case `yes` => input.yesNoDate.answer.isDefined
-//      case `no` => true
-//    }
-//  }
 }

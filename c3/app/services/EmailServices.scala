@@ -1,6 +1,5 @@
 package services
 
-import play.api.templates.Html
 import scala.language.existentials
 import services.mail.{EmailActors, SendEmail}
 

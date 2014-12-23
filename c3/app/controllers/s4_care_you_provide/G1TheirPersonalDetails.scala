@@ -9,7 +9,6 @@ import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import models.domain._
 import controllers.CarersForms._
-import scala.Some
 import models.DayMonthYear
 
 object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable {

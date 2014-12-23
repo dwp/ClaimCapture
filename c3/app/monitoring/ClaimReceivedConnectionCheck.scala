@@ -18,7 +18,7 @@ import scala.language.{implicitConversions, postfixOps}
  */
 class ClaimReceivedConnectionCheck extends HealthCheck {
 
-  implicit def stringGetWrapper(s:String) = new HttpMethodWrapper(s,ConfigProperties.getProperty("cr.timeout",60000).milliseconds)
+  implicit def stringGetWrapper(s:String):HttpMethodWrapper = new HttpMethodWrapper(s,ConfigProperties.getProperty("cr.timeout",60000).milliseconds)
 
   override def check(): Result = {
     val submissionServerEndpoint: String =

@@ -33,8 +33,8 @@ object StatusRoutingController {
   }
 
   def redirectTimeout(implicit claim: Claim):Call = {
-    if (claimType(claim) == FULL_CLAIM) controllers.routes.ClaimEnding.timeout
-    else controllers.routes.CircsEnding.timeout
+    if (claimType(claim) == FULL_CLAIM) controllers.routes.ClaimEnding.timeout()
+    else controllers.routes.CircsEnding.timeout()
   }
 }
 
@@ -52,7 +52,7 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
 
     val transactionStatus = claimTransaction.getTransactionStatusById(claim.transactionId.getOrElse(""))
 
-    Logger.info(s"Checking transaction status: ${transactionStatus} for ${claim.key} ${claim.uuid}")
+    Logger.info(s"Checking transaction status: $transactionStatus for ${claim.key} ${claim.uuid}")
     transactionStatus match {
 
       case Some(ts) if ts.status == SUCCESS   || ts.status == ACKNOWLEDGED          => Redirect(redirectThankYou)
@@ -72,9 +72,9 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
   def errorRetry = claiming { implicit claim =>  implicit request =>  lang =>
 
     if (claimType(claim) == FULL_CLAIM){
-      Ok(views.html.common.error_retry(controllers.s12_consent_and_declaration.routes.G3Declaration.present.url))
+      Ok(views.html.common.error_retry(controllers.s12_consent_and_declaration.routes.G3Declaration.present().url))
     }else{
-      Ok(views.html.common.error_retry(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present.url))
+      Ok(views.html.common.error_retry(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present().url))
     }
   }
 }

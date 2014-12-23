@@ -1,6 +1,6 @@
 package controllers.preview
 
-import play.api.mvc.{Call, EssentialFilter, Controller}
+import play.api.mvc.Controller
 import models.view.{Navigable, CachedClaim}
 import models.domain.PreviewModel
 import play.api.data.Form

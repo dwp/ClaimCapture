@@ -1,7 +1,6 @@
 package models.domain
 
 import controllers.mappings.Mappings._
-import scala.Some
 
 case object CircumstancesConsentAndDeclaration extends Section.Identifier {
   val id = "c3"
@@ -25,7 +24,7 @@ object CircumstancesDeclaration extends QuestionGroup.Identifier {
 
   def validateNameOrOrganisation(circumstancesDeclaration: CircumstancesDeclaration) = {
     circumstancesDeclaration.circsSomeOneElse match {
-      case Some(s) => !circumstancesDeclaration.nameOrOrganisation.isEmpty
+      case Some(s) => circumstancesDeclaration.nameOrOrganisation.nonEmpty
       case _ => true
     }
   }

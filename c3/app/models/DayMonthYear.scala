@@ -85,10 +85,10 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
   private def pad(i: Option[Int]): String = i.fold("")(i => if (i < 10) s"0$i" else s"$i")
 
   private def adjust(f: DateTime => DateTime) = Try(new DateTime(year.get, month.get, day.get, 0, 0)) match {
-    case Success(dt: DateTime) => {
+    case Success(dt: DateTime) =>
       val newDateTime = f(dt)
       DayMonthYear(Some(newDateTime.dayOfMonth().get), Some(newDateTime.monthOfYear().get), Some(newDateTime.year().get), hour, minutes)
-    }
+
     case Failure(_) => this
   }
 
@@ -118,7 +118,7 @@ object DayMonthYear {
     override def compare(x: DayMonthYear, y: DayMonthYear): Int = DayMonthYearComparator.compare(Some(x),Some(y))
   }
 
-  implicit def dateTimeToDayMonthYear(dt: DateTime) = apply(dt)
+  implicit def dateTimeToDayMonthYear(dt: DateTime):DayMonthYear = apply(dt)
 
   def apply() = new DayMonthYear(Some(1), Some(1), Some(1970))
 

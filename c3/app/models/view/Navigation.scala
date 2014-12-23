@@ -1,8 +1,7 @@
 package models.view
 
-import play.api.Logger
 import play.api.mvc.{Request, Result, AnyContent}
-import models.domain.{PreviewModel, Claim}
+import models.domain.Claim
 import scala.reflect.ClassTag
 import models.view.CachedClaim.ClaimResult
 
@@ -52,7 +51,7 @@ case class Navigation(routes: List[Route[_]] = List(), beenInPreview:Boolean = f
   }
 
   def previous: Route[_] = {
-    if (beenInPreview) Route(controllers.preview.routes.Preview.present.url)
+    if (beenInPreview) Route(controllers.preview.routes.Preview.present().url)
     else previousIgnorePreview
 
   }

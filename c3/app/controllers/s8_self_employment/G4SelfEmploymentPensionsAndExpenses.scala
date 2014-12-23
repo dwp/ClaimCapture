@@ -7,14 +7,13 @@ import play.api.mvc.Controller
 import play.api.mvc.Request
 import play.api.mvc.AnyContent
 import controllers.mappings.Mappings._
-import models.domain.{PensionAndExpenses, SelfEmploymentPensionsAndExpenses, Claim}
+import models.domain.{SelfEmploymentPensionsAndExpenses, Claim}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment._
 import utils.helpers.PastPresentLabelHelper._
 import models.view.Navigable
 import play.api.i18n.Lang
-import play.api.data.FormError
 import models.view.CachedClaim.ClaimResult
 import controllers.CarersForms._
 import play.api.data.FormError

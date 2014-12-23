@@ -10,11 +10,11 @@ import play.api.mvc._
 import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.Injector
-import utils.csrf.{DwpCSRFFilter}
+import utils.csrf.DwpCSRFFilter
 import utils.helpers.CarersLanguageHelper
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfFound = CSRFCreationFilter.createIfFound, createIfNotFound = CSRFCreationFilter.createIfNotFound)) with Injector with CarersLanguageHelper with C3MonitorRegistration {
 
@@ -28,7 +28,7 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfFound = C
     val secret: String = getProperty("application.secret", "secret")
     val secretDefault: String = getProperty("secret.default", "don't Match")
 
-    duplicateClaimCheckEnabled
+    duplicateClaimCheckEnabled()
 
     if (secret.equals(secretDefault)) {
       Logger.warn("application.secret is using default value")
@@ -70,7 +70,7 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfFound = C
   override def onError(request: RequestHeader, ex: Throwable) = {
     Logger.error(ex.getMessage)
     val csrfCookieName = getProperty("csrf.cookie.name","csrf")
-    val csrfSecure = getProperty("csrf.cookie.secure",getProperty("session.secure",false))
+    val csrfSecure = getProperty("csrf.cookie.secure",getProperty("session.secure",default=false))
     val theDomain = Play.current.configuration.getString("session.domain")
     val C3VERSION = "C3Version"
     val pattern = """.*circumstances.*""".r
@@ -91,13 +91,13 @@ object CSRFCreationFilter {
    */
   def createIfNotFound(request:RequestHeader): Boolean = {
     request.method == "GET" && (request.accepts("text/html") || request.accepts("application/xml+xhtml")) &&
-      (!request.toString.matches(".*assets.*") && !request.toString.matches(".*error.*") && !request.toString.matches(".*thankyou.*") && !request.toString.matches(".*timeout.*"))
+      (!request.toString().matches(".*assets.*") && !request.toString().matches(".*error.*") && !request.toString().matches(".*thankyou.*") && !request.toString().matches(".*timeout.*"))
   }
 
   /**
    * We do not want to generate CSRF on error page and thank you, where we want to clean cookies.
    */
   def createIfFound(request:RequestHeader): Boolean = {
-    request.toString.matches(".*circumstances.identification.*") || request.toString.matches(".*allowance.benefits.*")
+    request.toString().matches(".*circumstances.identification.*") || request.toString().matches(".*allowance.benefits.*")
   }
 }

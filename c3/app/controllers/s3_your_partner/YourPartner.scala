@@ -1,6 +1,6 @@
 package controllers.s3_your_partner
 
-import play.api.mvc.{Request, AnyContent, Controller, Action}
+import play.api.mvc.{Request, AnyContent, Controller}
 import models.view.CachedClaim
 import models.view.Navigable
 import models.domain.Claim

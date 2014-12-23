@@ -1,8 +1,7 @@
 package controllers.s7_employment
 
-import controllers.mappings.Mappings._
-import controllers.s4_care_you_provide.G10BreaksInCare._
-import models.yesNo.{YesNo, DeleteId}
+
+import models.yesNo.DeleteId
 import play.api.data.Forms._
 
 import scala.language.implicitConversions
@@ -59,8 +58,8 @@ object Employment extends Controller with CachedClaim  with Navigable{
       deleteForm=>  {
         val updatedJobs = jobs.delete(deleteForm.id)
         if (updatedJobs.jobs == jobs.jobs) BadRequest(views.html.s7_employment.g2_beenEmployed(fillForm)(lang))
-        else claim.update(updatedJobs) -> (if(updatedJobs.jobs.size == 0 ) Redirect(controllers.s7_employment.routes.G1Employment.present)
-                                          else Redirect(controllers.s7_employment.routes.G2BeenEmployed.present))
+        else claim.update(updatedJobs) -> (if(updatedJobs.jobs.size == 0 ) Redirect(controllers.s7_employment.routes.G1Employment.present())
+                                          else Redirect(controllers.s7_employment.routes.G2BeenEmployed.present()))
       }
     )
   }
