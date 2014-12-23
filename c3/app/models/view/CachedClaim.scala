@@ -65,9 +65,9 @@ trait CachedClaim {
     }
   }
 
-  implicit def defaultResultToLeft(result: Result) = Left(result)
+  implicit def defaultResultToLeft(result: Result):Left[play.api.mvc.Result,(models.domain.Claim, play.api.mvc.Result)] = Left(result)
 
-  implicit def claimAndResultToRight(claimingResult: ClaimResult) = Right(claimingResult)
+  implicit def claimAndResultToRight(claimingResult: ClaimResult):Right[play.api.mvc.Result,(models.domain.Claim, play.api.mvc.Result)] = Right(claimingResult)
 
   protected def newInstance(newuuid:String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid) with FullClaim
 
