@@ -24,7 +24,7 @@ import scala.xml.{Elem, NodeSeq, XML}
     <Version>0.5</Version>
     <DWPCATransaction id={transactionId}>
       <TransactionId>{transactionId}</TransactionId>
-      <DateTimeGenerated>{new SimpleDateFormat("dd-MM-YYYY HH:mm").format(new Date())}</DateTimeGenerated>
+      <DateTimeGenerated>{new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date())}</DateTimeGenerated>
       <LanguageUsed>{claim.lang.getOrElse(Lang("en")).code match {
         case "en" => "English"
         case "cy" => "Welsh"
