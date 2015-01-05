@@ -47,9 +47,11 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
   def submit = claiming {implicit circs =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
+        println("G10StartedEmploymentAndOnGoing: "+formWithErrors.errors)
         val formWithErrorsUpdate = formWithErrors
           .replaceError("howOften.frequency","error.required",FormError("howOften","error.required"))
           .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
+          .replaceError("howOften.frequency.other","error.restricted.characters",FormError("howOften","error.restricted.characters"))
           .replaceError("", "expected.monthlyPayDay",FormError("monthlyPayDay","error.required"))
           .replaceError("doYouPayIntoPension","doYouPayIntoPension.text.required",FormError("doYouPayIntoPension.whatFor","error.required"))
           .replaceError("doCareCostsForThisWork","doCareCostsForThisWork.text.required",FormError("doCareCostsForThisWork.whatCosts","error.required"))

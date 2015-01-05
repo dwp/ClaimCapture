@@ -18,9 +18,6 @@ S = (selector) -> $("##{selector}")
 
 window.fixErrorMessages = (o) ->
 
-  currentText = vssText(o.howOften)
-  vssText(o.howOften, o.howOftenNText + subString(currentText, o.howOftenText, currentText))
-
   if checked o.beenPaidYetN
     currentText = vssText(o.howMuchPaid)
     vssText(o.howMuchPaid,o.howMuchPaidNText + subString(currentText, o.howMuchPaidYText, currentText))
@@ -107,7 +104,8 @@ hideBeenPaid = (ctx,reset,hideFunction) ->
   S("usuallyPaidSameAmountWrap").slideUp 0
   S("monthlyPayDayWrap").slideUp 0
   S("beenPaidYetWrap").slideDown 0
-  S("howOften_wrap").slideUp(0, -> (val ctx.howOftenFrequencyOther, "") if reset)
+  if not (val(ctx.howOften) is "Other")
+    S("howOften_wrap").slideUp(0, -> (val ctx.howOftenFrequencyOther, "") if reset)
 
 onBeenPaidYetY = (ctx,reset) -> #Double -> because it's a function returning a function, which the jQuqery .on function will receive.
   ->                      #The first function exists so the returned function has the "context" variable in scope
