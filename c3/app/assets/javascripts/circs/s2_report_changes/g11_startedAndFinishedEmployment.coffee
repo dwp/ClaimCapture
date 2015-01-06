@@ -82,7 +82,7 @@ onBeenPaidYetY = (ctx,reset) ->
 onBeenPaidYetN = (ctx,reset) ->
   ->
     S("beenPaidYetWrap").slideUp 0, ->
-      label(howMuchPaid).text(ctx.howMuchPaidNText)
+      label(ctx.howMuchPaid).text(ctx.howMuchPaidNText)
       S(ctx.howMuchPaid).val("") if reset
       legend(ctx.dateLastPaid).html(ctx.dateLastPaidNText)
       S(ctx.dateLastPaidDay).val("") if reset
