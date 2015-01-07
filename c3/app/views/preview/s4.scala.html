@@ -16,7 +16,7 @@
 @address = @{theirContactDetails.address}
 @breaks = @{claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())}
 @ninoNumber(ni:NationalInsuranceNumber) = @{
-    s"${ni.ni1.get.toUpperCase} ${ni.ni2.get} ${ni.ni3.get} ${ni.ni4.get} ${ni.ni5.get.toUpperCase}"
+    ni.stringify
 }
 
 @showHidePartnerDetails = @{

@@ -8,9 +8,8 @@
 
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
     @nino = @{
-        val ni = yourDetails.nationalInsuranceNumber
-        if (ni.ni1.isDefined) s"${ni.ni1.get.toUpperCase} ${ni.ni2.get} ${ni.ni3.get} ${ni.ni4.get} ${ni.ni5.get.toUpperCase}"
-        else ""
+        val ni = yourDetails.nationalInsuranceNumber.stringify
+        ni
     }
 @contactDetails = @{claim.questionGroup[ContactDetails].getOrElse(ContactDetails())}
 @address = @{contactDetails.address}

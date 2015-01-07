@@ -17,6 +17,8 @@ import scala.concurrent.Future
 
 class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Tags with CachedClaim {
 
+  val ni = "AB123456D"
+
   def resultXml(result: String, correlationID: String, messageClass:String, errorCode: String, pollEndpoint: String) = {
     <response>
       <result>{result}</result>
@@ -45,7 +47,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
     val claim = new Claim(transactionId = Some(transactionId), uuid=randomUUID.toString)
 
     // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
-    val det = new YourDetails("", "",None, surname,None, NationalInsuranceNumber(Some("AB"),Some("12"),Some("34"),Some("56"),Some("D")), DayMonthYear(Some(1), Some(1), Some(1969)))
+    val det = new YourDetails("", "",None, surname,None, NationalInsuranceNumber(Some(ni)), DayMonthYear(Some(1), Some(1), Some(1969)))
 
     val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 
@@ -59,7 +61,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
     val claim = new Claim("change-of-circs",transactionId = Some(transactionId), uuid=randomUUID.toString)
 
     // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
-    val det = new CircumstancesReportChange(true, fullname, NationalInsuranceNumber(Some("AB"),Some("12"),Some("34"),Some("56"),Some("D")), DayMonthYear(Some(1), Some(1), Some(1967)), "", "")
+    val det = new CircumstancesReportChange(true, fullname, NationalInsuranceNumber(Some(ni)), DayMonthYear(Some(1), Some(1), Some(1967)), "", "")
 
     val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 

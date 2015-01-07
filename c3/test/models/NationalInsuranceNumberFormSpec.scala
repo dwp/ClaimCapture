@@ -2,28 +2,20 @@ package models
 
 import org.specs2.mutable.Specification
 import play.api.data.Form
-import controllers.mappings.Mappings._
+import controllers.mappings.NINOMappings._
 
 class NationalInsuranceNumberFormSpec extends Specification {
-  def createNationalInsuranceNumberForm(ni1: String, ni2: String, ni3: String, ni4: String, ni5: String) = Form("nationalInsuranceNumber" -> nino.verifying(validNino)).bind(Map(
-    "nationalInsuranceNumber.ni1" -> ni1,
-    "nationalInsuranceNumber.ni2" -> ni2,
-    "nationalInsuranceNumber.ni3" -> ni3,
-    "nationalInsuranceNumber.ni4" -> ni4,
-    "nationalInsuranceNumber.ni5" -> ni5))
+  def createNationalInsuranceNumberForm(ni1: String) = Form("nationalInsuranceNumber" -> nino.verifying(validNino)).bind(Map(
+    "nationalInsuranceNumber.ni1" -> ni1))
 
   "NI validation" should {
     "not complain about a valid NI" in {
-      createNationalInsuranceNumberForm(ni1 = "JW", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = "C").fold(
+      createNationalInsuranceNumberForm(ni1 = "JW123456C").fold(
       formWithErrors => {
         "The mapping should not fail." must equalTo("Error")
       }, {
         number =>
-          number.ni1 must equalTo(Some("JW"))
-          number.ni2 must equalTo(Some("12"))
-          number.ni3 must equalTo(Some("34"))
-          number.ni4 must equalTo(Some("56"))
-          number.ni5 must equalTo(Some("C"))
+          number.ni1 must equalTo(Some("JW123456C"))
       })
     }
     /*
