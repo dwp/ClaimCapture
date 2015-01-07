@@ -83,7 +83,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("National Insurance number - A National insurance number must be in the format VO 12 34 56 D")
+        errors(0) must contain("National Insurance number - A National insurance number must be in the format VO123456D")
       }
 
       "missing dateOfBirth field" in new WithBrowser with PageObjects {
