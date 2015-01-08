@@ -9,8 +9,7 @@ import play.api.data.Forms.optional
 import play.api.mvc.{Request, AnyContent, Controller, Action}
 import controllers.mappings.Mappings.errorRequired
 import controllers.mappings.Mappings.Name
-import controllers.mappings.Mappings.nino
-import controllers.mappings.Mappings.validNino
+import controllers.mappings.NINOMappings._
 import controllers.mappings.Mappings.validDate
 import controllers.mappings.Mappings.validYesNo
 import controllers.mappings.Mappings.dayMonthYear

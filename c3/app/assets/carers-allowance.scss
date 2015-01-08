@@ -363,16 +363,7 @@ main {
 					   	padding-left: 0;
 				   }
 				   
-				   @media screen and (max-width: 640px) {
-					   .ni-number {
-						   li {
-							   margin-left: .25em;
-							   &:first-child {
-								   margin: 0;
-							   }
-						   }
-					   }
-				   }
+				   
 				   
 			   }
 			   
@@ -566,8 +557,12 @@ main {
 					.ie & {
 						width: 283px;
 					}
-					&.postcode {
+					&.postcode, &.ni-number {
 						text-transform: uppercase;
+						width: 180px;
+						@media screen and (max-width: 700px) {
+							width: 96%;
+							}
 					}
 					.ie7 &, .ie8 & {
 						padding: 0.2em 0 0.4em 0.4em;
@@ -933,41 +928,7 @@ main {
 			   }
 		   }
 
-		   
-		   
-		   
-		   /* list display - national insurance number */
-		   &.ni-number {
-		   	   li {
-			   	   margin-left: .5em;
-				   &:first-child {
-					   margin-left: 0;
-				   }
-				   .ie7 & {
-					   margin-left: 0.15em;
-				   }
-				   @media screen and (max-width: 640px) {
-					   margin-left: .35em;
-				   }
-		   	   }
-		   	   label {
-			   	   position: absolute;
-			   	   left: -9999px;
-		   	   }
-			   input, input[type="text"], input[type="tel"] {
-				   width: 44px!important;
-				   text-transform: uppercase;
-				   .ie7 & {
-					   width: 43px;
-				   }
-				   &.single {
-					   width: 27px!important;
-				   }
-				   @media screen and (max-width: 750px) {
-				   		width: 42px;
-				   }
-			   }
-		   }
+
 	   }
 
 	

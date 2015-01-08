@@ -36,6 +36,7 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(carersInputTextArea(AbroadForMoreThan52WeeksForm("tripDetails"),
+                            'helperAbove -> Messages("tripDetails.helper"),
                             'textAreaHelper->Html(Messages("3000charsLeft")), 'maxLength->3000)
                         ),
                         'id -> "tripDetailsWrapper"

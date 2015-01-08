@@ -175,7 +175,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       val modifiedData = new TestData
       modifiedData.AboutYourPartnerNINO = "AB123456D"
 
-      verifyPreviewData(context, "partner_nino", "AB 12 34 56 A", modifiedData, "AB 12 34 56 D")
+      verifyPreviewData(context, "partner_nino", "AB123456A", modifiedData, "AB123456D")
     }
 
     "Modify 'partner date of birth' from preview page" in new WithBrowser with PageObjects{

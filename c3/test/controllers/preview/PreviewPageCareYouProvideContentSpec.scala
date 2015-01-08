@@ -27,7 +27,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
 
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
-      source must contain("AA 12 34 56 A")
+      source must contain("AA123456A")
       source must contain("02 March, 1990")
       source must contain("123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")
@@ -64,7 +64,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
 
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
-      source must contain("AA 12 34 56 A")
+      source must contain("AA123456A")
       source must contain("02 March, 1990")
       source must contain("123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")

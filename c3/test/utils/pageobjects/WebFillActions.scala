@@ -58,13 +58,7 @@ trait WebFillActions {
   }
 
   def fillNino(elementCssSelector: String, value: String) = if (null != value) {
-    val extractor = """(.{2})(.{2})(.{2})(.{2})(.)""".r
-    val extractor(n1, n2, n3, n4, n5) = value
-    fillInput(elementCssSelector + "_ni1", n1)
-    fillInput(elementCssSelector + "_ni2", n2)
-    fillInput(elementCssSelector + "_ni3", n3)
-    fillInput(elementCssSelector + "_ni4", n4)
-    fillInput(elementCssSelector + "_ni5", n5)
+    fillInput(elementCssSelector + "_nino", value)
   }
 
   def fillRadioList(listName: String, value: String, sep: String = "_"): Unit = if (null != value) {

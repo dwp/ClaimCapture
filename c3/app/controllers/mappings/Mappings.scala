@@ -200,32 +200,7 @@ object Mappings {
     case dmy@DayMonthYear(_, _, _, _, _) => dateTimeValidation(dmy)
   }
 
-  def nino: Mapping[NationalInsuranceNumber] = mapping(
-    "ni1" -> optional(text),
-    "ni2" -> optional(text),
-    "ni3" -> optional(text),
-    "ni4" -> optional(text),
-    "ni5" -> optional(text))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
 
-  private def ninoValidation(nino: NationalInsuranceNumber): ValidationResult = {
-    val ninoPattern = """[A-CEGHJ-PR-TW-Z]{2}[0-9]{6}[ABCD]""".r
-    val ninoConcatenated = nino.ni1.get + nino.ni2.get + nino.ni3.get + nino.ni4.get + nino.ni5.get
-
-    ninoPattern.pattern.matcher(ninoConcatenated.toUpperCase).matches match {
-      case true => Valid
-      case false => Invalid(ValidationError("error.nationalInsuranceNumber"))
-    }
-  }
-
-  def filledInNino: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.required") {
-    case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => Valid
-    case _ => Invalid(ValidationError("error.required"))
-  }
-
-  def validNino: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.nino") {
-    case nino@NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => ninoValidation(nino)
-    case _ => Invalid(ValidationError("error.nationalInsuranceNumber"))
-  }
 
   def validPostcode: Constraint[String] = Constraint[String]("constraint.postcode") { postcode =>
     val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) ?[0-9][A-Z]{2})$""".r

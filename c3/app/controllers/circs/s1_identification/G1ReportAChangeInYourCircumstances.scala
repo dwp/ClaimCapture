@@ -10,6 +10,7 @@ import models.domain.CircumstancesReportChange
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import play.api.Logger
+import controllers.mappings.NINOMappings._
 
 object G1ReportAChangeInYourCircumstances extends Controller with CachedChangeOfCircs with Navigable {
 

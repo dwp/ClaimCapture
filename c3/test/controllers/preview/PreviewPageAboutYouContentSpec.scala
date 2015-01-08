@@ -18,7 +18,7 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       source must contain("Name")
       source must contain("Mr John middlename Appleseed")
       source must contain("National Insurance number")
-      source must contain("AB 12 34 56 C")
+      source must contain("AB123456C")
       source must contain("Date of birth")
       source must contain("03 April, 1950")
       source must contain("Address")
