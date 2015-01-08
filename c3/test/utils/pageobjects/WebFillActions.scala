@@ -58,7 +58,7 @@ trait WebFillActions {
   }
 
   def fillNino(elementCssSelector: String, value: String) = if (null != value) {
-    fillInput(elementCssSelector + "_ni1", value)
+    fillInput(elementCssSelector + "_nino", value)
   }
 
   def fillRadioList(listName: String, value: String, sep: String = "_"): Unit = if (null != value) {

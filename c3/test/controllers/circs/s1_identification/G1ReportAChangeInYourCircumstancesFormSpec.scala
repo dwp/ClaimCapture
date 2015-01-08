@@ -8,7 +8,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
   "Change of circumstances - About You Form" should {
 
     val fullName = "Mr John Joe Smith"
-    val ni1 = "AB123456C"
+    val nino = "AB123456C"
     val dateOfBirthDay = 5
     val dateOfBirthMonth = 12
     val dateOfBirthYear = 1990
@@ -19,7 +19,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       G1ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
-          "nationalInsuranceNumber.ni1" -> ni1,
+          "nationalInsuranceNumber.nino" -> nino,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
@@ -38,7 +38,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       G1ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
-          "nationalInsuranceNumber.ni1" -> ni1,
+          "nationalInsuranceNumber.nino" -> nino,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
@@ -57,7 +57,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       G1ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> "John >",
-          "nationalInsuranceNumber.ni1" -> ni1,
+          "nationalInsuranceNumber.nino" -> nino,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
@@ -91,7 +91,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       G1ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
-          "nationalInsuranceNumber.ni1" -> "INVALID",
+          "nationalInsuranceNumber.nino" -> "INVALID",
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
@@ -109,7 +109,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       G1ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
-          "nationalInsuranceNumber.ni1" -> ni1.toString,
+          "nationalInsuranceNumber.nino" -> nino.toString,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> "12345",

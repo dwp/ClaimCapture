@@ -11,7 +11,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
     val middleName = "Mc"
     val surname = "Doe"
     val otherNames = "Duck"
-    val ni1 = "AB123456C"
+    val nino = "AB123456C"
     val nationality = "British"
     val dateOfBirthDay = 5
     val dateOfBirthMonth = 12
@@ -25,7 +25,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "middleName" -> middleName,
           "surname" -> surname,
           "otherNames" -> otherNames,
-          "nationalInsuranceNumber.ni1" -> ni1,
+          "nationalInsuranceNumber.nino" -> nino,
           "nationality" -> nationality,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
@@ -39,7 +39,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
             f.middleName must equalTo(Some(middleName))
             f.surname must equalTo(surname)
             f.otherSurnames must equalTo(Some(otherNames))
-            f.nationalInsuranceNumber must equalTo(NationalInsuranceNumber(Some(ni1)))
+            f.nationalInsuranceNumber must equalTo(NationalInsuranceNumber(Some(nino)))
             f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
           })
     }
@@ -51,7 +51,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "middleName" -> "HARACTERS,CHARACTE",
           "surname" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "otherNames" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
-          "nationalInsuranceNumber.ni1" -> ni1,
+          "nationalInsuranceNumber.nino" -> nino,
           "nationality" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
@@ -74,7 +74,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "middleName" -> "<>",
           "surname" -> "éugene",
           "otherNames" -> "∫kkk",
-          "nationalInsuranceNumber.ni1" -> ni1,
+          "nationalInsuranceNumber.nino" -> nino,
           "nationality" -> "€",
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
@@ -112,7 +112,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "middleName" -> middleName,
           "surname" -> surname,
           "otherNames" -> otherNames,
-          "nationalInsuranceNumber.ni1" -> "INVALID",
+          "nationalInsuranceNumber.nino" -> "INVALID",
           "nationality" -> nationality,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
@@ -132,7 +132,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "middleName" -> middleName,
           "surname" -> surname,
           "otherNames" -> otherNames,
-          "nationalInsuranceNumber.ni1" -> ni1.toString,
+          "nationalInsuranceNumber.nino" -> nino.toString,
           "nationality" -> nationality,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,

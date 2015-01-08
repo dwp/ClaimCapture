@@ -12,7 +12,7 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
   "Circumstances - About You - Controller" should {
 
     val fullName = "Mr John Smith"
-    val ni1 = "AB123456C"
+    val nino = "AB123456C"
     val dateOfBirthDay = 5
     val dateOfBirthMonth = 12
     val dateOfBirthYear = 1990
@@ -21,7 +21,7 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
 
     val aboutYouInput = Seq(
       "fullName" -> fullName,
-      "nationalInsuranceNumber.ni1" -> ni1.toString,
+      "nationalInsuranceNumber.nino" -> nino.toString,
       "dateOfBirth.day" -> dateOfBirthDay.toString,
       "dateOfBirth.month" -> dateOfBirthMonth.toString,
       "dateOfBirth.year" -> dateOfBirthYear.toString,
@@ -48,7 +48,7 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
       section.questionGroup(CircumstancesReportChange) must beLike {
         case Some(f: CircumstancesReportChange) => {
           f.fullName must equalTo(fullName)
-          f.nationalInsuranceNumber must equalTo(NationalInsuranceNumber(Some(ni1)))
+          f.nationalInsuranceNumber must equalTo(NationalInsuranceNumber(Some(nino)))
           f.dateOfBirth must equalTo(DayMonthYear(dateOfBirthDay, dateOfBirthMonth, dateOfBirthYear))
         }
       }

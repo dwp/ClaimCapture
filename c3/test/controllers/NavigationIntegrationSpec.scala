@@ -44,7 +44,7 @@ trait DataFiller {
     click("#title option[value='Mr']")
     fill("#firstName") `with` "Scooby"
     fill("#surname") `with` "Doo"
-    fill("#nationalInsuranceNumber_ni1") `with` "AB123456C"
+    fill("#nationalInsuranceNumber_nino") `with` "AB123456C"
     fill("#dateOfBirth_day") `with` "3"
     fill("#dateOfBirth_month") `with` "4"
     fill("#dateOfBirth_year") `with` "2001"

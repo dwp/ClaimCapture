@@ -2,9 +2,9 @@
 
 @import views.html.helper.base.carersInputText
 @import utils.helpers.EmptyTemplate._
-@import views.html.helper.NInumberConstraintRequired
+@import views.html.helper.strippedHtmlConstraintRequired
 @import play.api.i18n.{MMessages => Messages}
 
-@NInumberConstraintRequired(field, args: _*)
-@carersInputText(field("ni1"), 'maxLength -> 9, 'ignoreLabel -> true, 'class -> "ni-number")
+@strippedHtmlConstraintRequired(field, args: _*)
+@carersInputText(field("nino"), 'maxLength -> 9, 'ignoreLabel -> true, 'class -> "ni-number")
 

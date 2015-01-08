@@ -44,7 +44,7 @@ trait WebSearchActions {
   }
 
   def readNino(elementCssSelector: String): Option[String] = {
-    val n1 = readInput(elementCssSelector + "_ni1")
+    val n1 = readInput(elementCssSelector + "_nino")
     if (n1.isDefined) Some(n1.get)
     else None
   }

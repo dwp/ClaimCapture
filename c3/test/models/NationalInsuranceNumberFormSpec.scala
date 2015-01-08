@@ -6,7 +6,7 @@ import controllers.mappings.NINOMappings._
 
 class NationalInsuranceNumberFormSpec extends Specification {
   def createNationalInsuranceNumberForm(ni1: String) = Form("nationalInsuranceNumber" -> nino.verifying(validNino)).bind(Map(
-    "nationalInsuranceNumber.ni1" -> ni1))
+    "nationalInsuranceNumber.nino" -> ni1))
 
   "NI validation" should {
     "not complain about a valid NI" in {
@@ -15,7 +15,7 @@ class NationalInsuranceNumberFormSpec extends Specification {
         "The mapping should not fail." must equalTo("Error")
       }, {
         number =>
-          number.ni1 must equalTo(Some("JW123456C"))
+          number.nino must equalTo(Some("JW123456C"))
       })
     }
     /*

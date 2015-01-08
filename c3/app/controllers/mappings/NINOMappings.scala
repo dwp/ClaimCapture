@@ -11,13 +11,13 @@ import play.api.data.validation.ValidationError
 object NINOMappings {
 
   def nino: Mapping[NationalInsuranceNumber] = mapping(
-    "ni1" -> optional(text)
+    "nino" -> optional(text)
   )(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
 
   private def ninoValidation(nino: NationalInsuranceNumber): ValidationResult = {
     val ninoPattern = """[A-CEGHJ-PR-TW-Z]{2}[0-9]{6}[ABCD]""".r
 
-    ninoPattern.pattern.matcher(nino.ni1.get.toUpperCase).matches match {
+    ninoPattern.pattern.matcher(nino.nino.get.toUpperCase).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.nationalInsuranceNumber"))
     }

@@ -7,10 +7,7 @@
 
 
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
-    @nino = @{
-        val ni = yourDetails.nationalInsuranceNumber.stringify
-        ni
-    }
+@nino = @{yourDetails.nationalInsuranceNumber.stringify}
 @contactDetails = @{claim.questionGroup[ContactDetails].getOrElse(ContactDetails())}
 @address = @{contactDetails.address}
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
