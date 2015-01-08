@@ -66,3 +66,17 @@ window.initEvents = (beenEmployed) ->
   # we are returning a function here to assign it to 'conditionRequired' and which will be executed in trackSubmit.scala.html.
   return ->
     $("input[name=" + beenEmployed+"]:checked").val() == "no"
+
+
+window.displayWarning = (answer_yes, answer_no) ->
+  if ($("#" + answer_yes).is ":checked") && $("ul.trip-data").children().length is 5
+    $("#maxEmpWarningWrap").slideDown()
+    $("#maxEmpWarningWrap").css('display', "block")
+
+  $("#" + answer_yes).on "click", ->
+    if $("ul.trip-data").children().length is 5
+      $("#maxEmpWarningWrap").slideDown()
+      $("#maxEmpWarningWrap").css('display', "block")
+
+  $("#" + answer_no).on "click", ->
+    $("#maxEmpWarningWrap").slideUp()
