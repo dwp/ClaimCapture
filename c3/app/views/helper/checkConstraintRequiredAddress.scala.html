@@ -1,0 +1,12 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
+
+@import views.html.helper.base.carersInputText
+@import utils.helpers.EmptyTemplate._
+@import views.html.helper.base.{carersLabel,carersLabelText}
+@import play.api.i18n.{MMessages => Messages}
+
+@showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
+
+@if(showLabel) {
+ <legend>@Html(Messages("address"))</legend>
+}
