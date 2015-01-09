@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 
 
 class DWPBodySpec extends Specification with Tags {
-  val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
+  val nationalInsuranceNr = NationalInsuranceNumber(Some("VO123456D"))
 
 
 

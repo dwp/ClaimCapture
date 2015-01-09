@@ -12,6 +12,7 @@ import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import play.api.Logger
 import scala.language.postfixOps
+import controllers.mappings.NINOMappings._
 
 object G1YourDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

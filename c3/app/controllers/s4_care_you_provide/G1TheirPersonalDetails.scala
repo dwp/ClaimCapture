@@ -10,6 +10,7 @@ import utils.helpers.CarersForm._
 import models.domain._
 import controllers.CarersForms._
 import models.DayMonthYear
+import controllers.mappings.NINOMappings._
 
 object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

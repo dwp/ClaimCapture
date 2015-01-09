@@ -76,7 +76,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
       val id = "about_you_nino"
       val answerText = textFromXPath(id, _:Page)
 
-      answerText(previewPage) mustEqual "AB 12 34 56 C"
+      answerText(previewPage) mustEqual "AB123456C"
       val aboutYou = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
 
       aboutYou must beAnInstanceOf[G1YourDetailsPage]
@@ -87,7 +87,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
       val previewPageModified = aboutYou submitPage()
 
       previewPageModified must beAnInstanceOf[PreviewPage]
-      answerText(previewPageModified) mustEqual "AB 12 34 56 D"
+      answerText(previewPageModified) mustEqual "AB123456D"
     }
 
     "Modify date of birth from preview page" in new WithBrowser with PageObjects{

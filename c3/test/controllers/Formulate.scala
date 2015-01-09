@@ -15,11 +15,7 @@ object Formulate {
     browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
-    browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
-    browser.fill("#nationalInsuranceNumber_ni2") `with` "12"
-    browser.fill("#nationalInsuranceNumber_ni3") `with` "34"
-    browser.fill("#nationalInsuranceNumber_ni4") `with` "56"
-    browser.fill("#nationalInsuranceNumber_ni5") `with` "C"
+    browser.fill("#nationalInsuranceNumber_nino") `with` "AB123456C" // Pattern AB123456C
     browser.fill("#dateOfBirth_day") `with` "3"
     browser.fill("#dateOfBirth_month") `with` "4"
     browser.fill("#dateOfBirth_year") `with` "1950"
@@ -33,7 +29,7 @@ object Formulate {
     browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
-    browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
+    browser.fill("#nationalInsuranceNumber_nino") `with` "AB" // Pattern AB123456C
     browser.fill("#nationalInsuranceNumber_ni2") `with` "12"
     browser.fill("#nationalInsuranceNumber_ni3") `with` "34"
     browser.fill("#nationalInsuranceNumber_ni4") `with` "56"
@@ -146,7 +142,7 @@ object Formulate {
     browser.fill("#middleName") `with` "Dave"
     browser.fill("#surname") `with` "Appleseed"
     browser.fill("#otherNames") `with` "Roberts"
-    browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
+    browser.fill("#nationalInsuranceNumber_nino") `with` "AB" // Pattern AB123456C
     browser.fill("#nationalInsuranceNumber_ni2") `with` "12"
     browser.fill("#nationalInsuranceNumber_ni3") `with` "34"
     browser.fill("#nationalInsuranceNumber_ni4") `with` "56"
@@ -168,11 +164,7 @@ object Formulate {
     browser.fill("#middleName") `with` "Dave"
     browser.fill("#surname") `with` "Appleseed"
     browser.fill("#otherNames") `with` "Roberts"
-    browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
-    browser.fill("#nationalInsuranceNumber_ni2") `with` "12"
-    browser.fill("#nationalInsuranceNumber_ni3") `with` "34"
-    browser.fill("#nationalInsuranceNumber_ni4") `with` "56"
-    browser.fill("#nationalInsuranceNumber_ni5") `with` "C"
+    browser.fill("#nationalInsuranceNumber_nino") `with` "AB123456C" // Pattern AB123456C
     browser.fill("#dateOfBirth_day") `with` "3"
     browser.fill("#dateOfBirth_month") `with` "4"
     browser.fill("#dateOfBirth_year") `with` "1950"

@@ -22,7 +22,7 @@ class PreviewPagePartnerContentSpec extends Specification with Tags {
       source must contain("Name")
       source must contain("Mrs Cloe Scott Smith")
       source must contain("National Insurance number")
-      source must contain("AB 12 34 56 A")
+      source must contain("AB123456A")
       source must contain("Date of birth")
       source must contain("12 July, 1990")
       source must contain("Have you separated since your claim date?")
@@ -44,7 +44,7 @@ class PreviewPagePartnerContentSpec extends Specification with Tags {
       source must contain ("No")
 
       source must not contain "Mrs Cloe Scott Smith"
-      source must not contain "AB 12 34 56 A"
+      source must not contain "AB123456A"
       source must not contain "12 July, 1990"
       source must not contain "Have you separated since your claim date?"
     }

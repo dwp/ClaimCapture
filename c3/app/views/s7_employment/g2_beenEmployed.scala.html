@@ -91,6 +91,12 @@
                         '_label -> Messages("beenEmployed", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(lang, dmy - 6 months))),
                         'helperAbove -> Messages("beenEmployedSince6MonthsBeforeClaim.label.helper"))
 	            </ul>
+
+                <div id="maxEmpWarningWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
+                    <p>@Html(Messages("s7.g2.help2"))</p>
+                    <span>!</span>
+                </div>
+
 	        </fieldset>
 	
 	        <nav class="form-steps">
@@ -107,6 +113,7 @@
         window.initSummary("@CarersCrypto.encryptAES("deleteId")");
         conditionRequired = window.initEvents("@CarersCrypto.encryptAES("beenEmployed")");
         @ga.stagePrompt()
+        window.displayWarning("@CarersCrypto.encryptAES("beenEmployed_yes")", "@CarersCrypto.encryptAES("beenEmployed_no")");
     })
 </script>
 }
