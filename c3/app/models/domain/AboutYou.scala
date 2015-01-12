@@ -13,7 +13,6 @@ case class YourDetails(title: String = "",
                        firstName: String = "",
                        middleName: Option[String] = None,
                        surname: String = "",
-                       otherSurnames: Option[String] = None,
                        nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(None),
                        dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)) extends QuestionGroup(YourDetails) {
 
