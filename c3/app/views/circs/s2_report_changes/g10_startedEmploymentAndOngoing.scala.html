@@ -68,7 +68,9 @@
                                     '_label -> {
                                         if(beenPaidYet.value == Some("yes"))"whatDatePaid" else "whatDatePaid.expect"
                                     },
-                                    'dynamicDateDays -> 31),
+                                    'dynamicDateDays -> 31,
+                                    'dynamicDateDaysAlternative -> -7
+                                ),
                                 paymentFrequencySelect(howOften,
                                     'id -> "howOften",
                                     'visibleOn -> "yes",

@@ -75,6 +75,7 @@ hideBeenPaidYetWrapOnY = (o,reset) ->
   legend(o.usuallyPaidSameAmount).html(textToUse)
   checked(o.usuallyPaidSameAmountY, false) if reset
   checked(o.usuallyPaidSameAmountN, false) if reset
+  datePaidContextualHelp(o,true)
 
 hideBeenPaidYetWrapOnN = (o,reset) ->
   label(o.howMuchPaid).text(o.howMuchPaidNText)
@@ -97,7 +98,15 @@ hideBeenPaidYetWrapOnN = (o,reset) ->
   legend(o.usuallyPaidSameAmount).html(textToUse)
   checked(o.usuallyPaidSameAmountY, false) if reset
   checked(o.usuallyPaidSameAmountN, false) if reset
+  datePaidContextualHelp(o,false)
 
+datePaidContextualHelp = (o,beenPaidYet) ->
+  if (beenPaidYet)
+      S(o.whatDatePaid + "_defaultDateContextualHelp").css('display', "block")
+      S(o.whatDatePaid + "_alternativeDateContextualHelp").css('display', "none")
+  else
+    S(o.whatDatePaid + "_defaultDateContextualHelp").css('display', "none")
+    S(o.whatDatePaid + "_alternativeDateContextualHelp").css('display', "block")
 
 hideBeenPaid = (ctx,reset,hideFunction) ->
   S("beenPaidYetWrap").slideUp 0, -> hideFunction(ctx,reset)
