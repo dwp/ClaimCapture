@@ -15,7 +15,6 @@ object Claimant extends XMLComponent {
       {question(<Surname/>, "surname", encrypt(yourDetails.surname))}
       {question(<OtherNames/>, "firstName", yourDetails.firstName)}
       {question(<MiddleNames/>, "middleName", yourDetails.middleName)}
-      {question(<OtherSurnames/>,"otherNames", yourDetails.otherSurnames.getOrElse(""))}
       {question(<Title/>, "title", yourDetails.title)}
       {question(<DateOfBirth/>,"dateOfBirth", yourDetails.dateOfBirth)}
       {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", encrypt(yourDetails.nationalInsuranceNumber))}
