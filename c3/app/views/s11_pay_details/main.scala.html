@@ -17,8 +17,8 @@
                 <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
             </nav>
 
-            @sectionTitle(PayDetails)
-            <h1>@Html(Messages("s10.longName"))</h1>
+            
+            <h1>@sectionTitle(PayDetails)@Html(Messages("s10.longName"))</h1>
 
 
             @if(currentForm.isDefined) {
