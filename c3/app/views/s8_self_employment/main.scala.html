@@ -25,8 +25,8 @@
             <nav class="back-nav">
                 <a id="backButton" href="@previous">@Html(Messages("form.back"))</a>
             </nav>
-            @sectionTitle(SelfEmployment)
-            <h1>@Html(Messages("s8.longName"))</h1>
+            
+            <h1>@sectionTitle(SelfEmployment)@Html(Messages("s8.longName"))</h1>
 
             @if(currentForm.isDefined) {
                 @errorsSummary(currentForm.get)

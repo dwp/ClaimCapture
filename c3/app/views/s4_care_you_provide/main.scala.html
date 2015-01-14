@@ -19,8 +19,8 @@
                 <a id="backButton" href="@{if (backCall.isDefined) backCall.get else claim.navigation.previous}">@Html(Messages("form.back"))</a>
             </nav>
 
-            @sectionTitle(CareYouProvide)
-            <h1>@Html(Messages("s4.longName"))</h1>
+            
+            <h1>@sectionTitle(CareYouProvide)@Html(Messages("s4.longName"))</h1>
 
             @if(currentForm.isDefined) {
                 @errorsSummary(currentForm.get)
