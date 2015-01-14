@@ -25,13 +25,13 @@
                 <a id="backButton" href="@previous">@Html(Messages("form.back"))</a>
             </nav>
 
-            @sectionTitle(Employed)
+            
 
             @if(employerName.isDefined && !employerName.isEmpty) {
-                <h1>@employerName </h1>
+                <h1>@sectionTitle(Employed)@employerName </h1>
             }
             @if(!employerName.isDefined || employerName.isEmpty){
-                <h1>@Html(Messages("s7.main.help1"))</h1>
+                <h1>@sectionTitle(Employed)@Html(Messages("s7.main.help1"))</h1>
             }
 
             @if(currentForm.isDefined) {
