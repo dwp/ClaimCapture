@@ -10,7 +10,6 @@ class G1YourDetailsFormSpec extends Specification with Tags {
     val firstName = "John"
     val middleName = "Mc"
     val surname = "Doe"
-    val otherNames = "Duck"
     val nino = "AB123456C"
     val nationality = "British"
     val dateOfBirthDay = 5
@@ -24,7 +23,6 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "firstName" -> firstName,
           "middleName" -> middleName,
           "surname" -> surname,
-          "otherNames" -> otherNames,
           "nationalInsuranceNumber.nino" -> nino,
           "nationality" -> nationality,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
@@ -38,7 +36,6 @@ class G1YourDetailsFormSpec extends Specification with Tags {
             f.firstName must equalTo(firstName)
             f.middleName must equalTo(Some(middleName))
             f.surname must equalTo(surname)
-            f.otherSurnames must equalTo(Some(otherNames))
             f.nationalInsuranceNumber must equalTo(NationalInsuranceNumber(Some(nino)))
             f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
           })
@@ -50,7 +47,6 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "firstName" -> "HARACTERS,CHARACTE",
           "middleName" -> "HARACTERS,CHARACTE",
           "surname" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
-          "otherNames" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "nationalInsuranceNumber.nino" -> nino,
           "nationality" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "dateOfBirth.day" -> dateOfBirthDay.toString,
@@ -58,11 +54,10 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "alwaysLivedUK" -> alwaysLivedUK)).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(4)
+            formWithErrors.errors.length must equalTo(3)
             formWithErrors.errors(0).message must equalTo("error.maxLength")
             formWithErrors.errors(1).message must equalTo("error.maxLength")
             formWithErrors.errors(2).message must equalTo("error.maxLength")
-            formWithErrors.errors(3).message must equalTo("error.maxLength")
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -73,7 +68,6 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "firstName" -> "kk>",
           "middleName" -> "<>",
           "surname" -> "éugene",
-          "otherNames" -> "∫kkk",
           "nationalInsuranceNumber.nino" -> nino,
           "nationality" -> "€",
           "dateOfBirth.day" -> dateOfBirthDay.toString,
@@ -81,11 +75,10 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "alwaysLivedUK" -> alwaysLivedUK)).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(4)
+            formWithErrors.errors.length must equalTo(3)
             formWithErrors.errors(0).message must equalTo("error.restricted.characters")
             formWithErrors.errors(1).message must equalTo("error.restricted.characters")
             formWithErrors.errors(2).message must equalTo("error.restricted.characters")
-            formWithErrors.errors(3).message must equalTo("error.restricted.characters")
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -111,7 +104,6 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "firstName" -> firstName,
           "middleName" -> middleName,
           "surname" -> surname,
-          "otherNames" -> otherNames,
           "nationalInsuranceNumber.nino" -> "INVALID",
           "nationality" -> nationality,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
@@ -131,7 +123,6 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "firstName" -> firstName,
           "middleName" -> middleName,
           "surname" -> surname,
-          "otherNames" -> otherNames,
           "nationalInsuranceNumber.nino" -> nino.toString,
           "nationality" -> nationality,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
