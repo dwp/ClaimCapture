@@ -21,6 +21,9 @@
                 <ul>
                 @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 3 months).`d M yyyy`))
                 </ul>
+                
+                
+                </div>
 
                 <nav class="form-steps">
                     <ul>
@@ -28,7 +31,7 @@
                         <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                     </ul>
                 </nav>
-            </div>
+            
         }
     }
 }
