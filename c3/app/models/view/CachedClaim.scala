@@ -90,7 +90,7 @@ trait CachedClaim {
     val key = keyAndExpiration(request)._1
     if (key.isEmpty) {
       // Log an error if session empty or with no cacheKey entry so we know it is not a cache but a cookie issue.
-      Logger.error(s"Did not receive Session information for a $cacheKey for url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot( _.name.startsWith("_"))}.")
+      Logger.error(s"Did not receive Session information for a $cacheKey for ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot( _.name.startsWith("_"))}.")
       None
     } else Cache.getAs[Claim](key)
   }

@@ -45,7 +45,7 @@
 
 	                @inputDayMonthYear(currentForm("lastPaidDate"), 'helperAbove -> Messages("dateExample.helper",claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`d M yyyy`)))
 
-	                @carersCurrency(currentForm("grossPay"), 'maxLength -> 12)
+	                @carersCurrency(currentForm("grossPay"), 'maxLength -> 12, 'helperAbove -> Messages("grossPay.helper"))
 	
 	                @carersInputText(currentForm("payInclusions"), 'maxLength -> 60,'helperAbove -> Messages("payInclusions.helper"))
 

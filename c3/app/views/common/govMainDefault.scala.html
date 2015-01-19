@@ -90,18 +90,16 @@
 
         <header role="banner" id="global-header">
 	      <div class="wrapper clearfix">
-	            <a href="https://www.gov.uk" title="@Html(Messages("logo.help"))" target="govlink" class="crown">
-                    <img src="@routes.Assets.at("images/crown.png")" alt="GOV.UK" width="35" height="31">
-                    GOV.UK
-                </a>
-		  <section>
-	          <h1>@Html(Messages("siteHeader"))</h1>
-		       <nav>
-		          	<a class="help" href="#help" @views.html.ga.trackClickEvent(linkName = "Help and Feedback expansion")>@Html(Messages("helpAndFeedback"))</a>
-	          </nav>
-          </section>
+	      
+		      <a href="https://www.gov.uk" title="@Html(Messages("logo.help"))" target="govlink" class="crown">GOV.UK</a>
+			  
+			  <section>
+		          <h1>@Html(Messages("siteHeader"))</h1>
+			       <nav>
+			          	<a class="help" href="#help" @views.html.ga.trackClickEvent(linkName = "Help and Feedback expansion")>@Html(Messages("helpAndFeedback"))</a>
+		          </nav>
+	          </section>
 
-	          
 	      </div>
 	    </header>
 	    <!--end header-->
