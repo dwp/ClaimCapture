@@ -4,11 +4,13 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import models.domain.MoreAboutTheCare
 @import views.html.helper._
+@import views.html.helper.base._
 @import views.html.helper.dates._
 @import app.Whereabouts._
 @import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import utils.helpers.CarersTemplate._
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
 
@@ -39,7 +41,11 @@
 				
 	            <ul>
 
-                    @inputDayMonthYearHM(breakForm("start"), 'helperAbove  -> Messages("dateExample.helper", (DayMonthYear.today - 34 days).`d M yyyy`))
+                    @dateTimePickerWithDynamicLabel(breakForm("start"), 'dynamicDateDays-> 34)
+
+                    @carersShortInputText(breakForm("startTime"),
+                    'helperAbove-> Html(Messages("breaksInCareStartTime.helper")),
+                    'maxLength -> 10)
 
                     @whereabouts(breakForm("wherePerson"),
                         Seq(""-> Messages("pleaseSelect"), Home -> Messages("whereabouts.home"), Hospital -> Messages("whereabouts.hospital"), RespiteCare -> Messages("whereabouts.respitecare"), CareHome -> Messages("whereabouts.carehome"), NursingHome -> Messages("whereabouts.nursinghome"), Other -> Messages("other")),
@@ -49,9 +55,12 @@
 	                             Seq("" -> Messages("pleaseSelect"), Home -> Messages("whereabouts.home"), Hospital -> Messages("whereabouts.hospital"), Holiday -> Messages("whereabouts.holiday"), RespiteCare -> Messages("whereabouts.respitecare"), Other -> Messages("other")),
 	                             '_label -> Messages("whereYou.location"), 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 
-	                @inputDayMonthYearHM(breakForm("end"), 'helperAbove  -> Messages("dateExample.helper", (DayMonthYear.today - 27 days).`d M yyyy`))
-	    
-	
+	                @dateTimePickerWithDynamicLabel(breakForm("end"), 'dynamicDateDays -> 27)
+
+                    @carersShortInputText(breakForm("endTime"),
+                    'helperAbove-> Html(Messages("breakEnded.endTime.helper")),
+                    'maxLength -> 10)
+
 	                @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))
 	            </ul>
 	        </fieldset>
