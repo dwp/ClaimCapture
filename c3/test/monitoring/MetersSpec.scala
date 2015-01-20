@@ -14,7 +14,7 @@ class MetersSpec extends Specification {
     "must measure com.kenshoo.play.metrics.MetricsFilter.200" in new WithBrowser with PageObjects {
       val page = G1BenefitsPage(context)
       page goToThePage()
-      val count = MetricsRegistry.default.meter("com.kenshoo.play.metrics.MetricsFilter.200").getCount
+      val count = MetricsRegistry.defaultRegistry.meter("com.kenshoo.play.metrics.MetricsFilter.200").getCount
       count mustEqual 3
     }
   } section "unit"

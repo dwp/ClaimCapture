@@ -7,7 +7,7 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 object ApplicationBuild extends Build {
   val appName         = "c3"
 
-  val appVersion      = "2.9-SNAPSHOT"
+  val appVersion      = "2.10-SNAPSHOT"
 
   val appDependencies = Seq(
     // Add your project dependencies here,
@@ -15,14 +15,12 @@ object ApplicationBuild extends Build {
     cache,
     anorm,
     ws,
-    "org.specs2"         %% "specs2"              % "2.4.15" % "test" withSources() withJavadoc(),
     "org.mockito"         % "mockito-all"         % "1.10.19" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-testkit"        % "2.3.7" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-agent"          % "2.3.7" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka"  %% "akka-actor"          % "2.3.7" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-remote"         % "2.3.7" % "test" withSources() withJavadoc(),
-    "com.dwp.carers"     %% "xmlcommons"          % "4.2.5",
-    "com.dwp.carers"     %%  "wscommons"          % "2.1",
+    "com.dwp.carers"     %% "xmlcommons"          % "4.3",
+    "com.dwp.carers"     %%  "wscommons"          % "2.2",
     "org.postgresql"     % "postgresql"           % "9.3-1102-jdbc41",
     "com.h2database"      % "h2"                  % "1.4.185"  % "test",
     "me.moocar"           % "logback-gelf"        % "0.12",
@@ -41,8 +39,7 @@ object ApplicationBuild extends Build {
   var sR: Seq[Def.Setting[_]] = Seq(
     resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
-    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
-	resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases")
+    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases")
 
   var sTest: Seq[Def.Setting[_]] = Seq()
 
@@ -70,7 +67,7 @@ object ApplicationBuild extends Build {
 
   var vS: Seq[Def.Setting[_]] = Seq(version := appVersion, libraryDependencies ++= appDependencies)
 
-  var appSettings: Seq[Def.Setting[_]] =  sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS
+  var appSettings: Seq[Def.Setting[_]] =  sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
 
   val main = Project(appName, file(".")).enablePlugins(play.PlayScala, net.litola.SassPlugin).settings(appSettings: _*)
 }

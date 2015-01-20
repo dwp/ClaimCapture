@@ -10,3 +10,5 @@ addSbtPlugin("de.johoop" % "jacoco4sbt" % "2.1.6")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-coffeescript" % "1.0.0")
 
+addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.7.4")
+
