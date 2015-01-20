@@ -39,6 +39,10 @@ else if (SelfEmployment.visible) SelfEmployment.name
 else OtherMoney.name
 }
 
+@displayReason(reasonList:Seq[(String,Html)], answer:String) = @{
+    reasonList.find(p => p._1 == answer).get._2
+}
+
 @defining(lang) { implicit language =>
 @main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(yesNoForm)) {
     <fieldset id="breaks" class="form-elements results-detail">
@@ -63,13 +67,17 @@ else OtherMoney.name
 					  	<dl>
 						  	<dt>@Html(Messages("breaks.whereYou.label"))</dt>
 						  	<dd>@break.whereYou.answer.isEmpty match {
-                                case false => {whereWereYouList.find(p => p._1.replaceAll(" ", "").toLowerCase == break.whereYou.answer.replaceAll(" ","").toLowerCase).get._2 }
+                                case false => {
+                                    @displayReason(whereWereYouList,break.whereYou.answer)
+                                }
                                 case true => {}
                             }</dd>
 						  	
 						  	<dt>@Html(Messages("wherePerson"))</dt>
 						  	<dd>@break.wherePerson.answer.isEmpty match {
-                                case false => { @Html(Messages("whereabouts." + break.wherePerson.answer.replaceAll(" ","").toLowerCase)) }
+                                case false => {
+                                    @displayReason(whereWasThePersonList,break.wherePerson.answer)
+                                }
                                 case true => {}
                             }</dd>
 						  	

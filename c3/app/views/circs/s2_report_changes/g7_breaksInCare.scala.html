@@ -11,23 +11,6 @@
 @import app.CircsBreaksWhereabouts._
 
 
-@circsWhereWasThePersonList(implicit lang: Lang) = @{
-    Seq(
-        Hospital -> Html(Messages("circsBreaks.inhospital")),
-        RespiteCare -> Html(Messages("circsBreaks.inrespitecare")),
-        Holiday -> Html(Messages("circsBreaks.onholiday")),
-        Home -> Html(Messages("circsBreaks.athome")),
-        SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
-}
-
-@circsWhereWereList(implicit lang: Lang) = @{
-    Seq(
-        Home -> Html(Messages("circsBreaks.athome")),
-        Holiday -> Html(Messages("circsBreaks.onholiday")),
-        Hospital -> Html(Messages("circsBreaks.inhospital")),
-        SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
-}
-
     @defining(lang) { implicit language =>
 
 @main(Messages("c2.g7") + " - " + Messages("c2.name")) {
@@ -52,7 +35,7 @@
                         'maxLength -> 10)
 
                     @listRadioGroupWithOther(breaksForm("wherePersonBreaksInCare"),
-                        'items -> circsWhereWasThePersonList,
+                        'items -> whereWasThePersonList,
                         'wrapperName -> "wherePersonBreaksInCareWrap",
                         'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
                         '_nestedFieldSet -> true,
@@ -61,7 +44,7 @@
                     )
 
                     @listRadioGroupWithOther(breaksForm("whereYouBreaksInCare"),
-                        'items -> circsWhereWereList,
+                        'items -> whereWereYouList,
                         'wrapperName -> "whereYouBreaksInCareWrap",
                         'helperAbove-> Messages("whereYouBreaksInCare.helper"),
                         '_nestedFieldSet -> true,
