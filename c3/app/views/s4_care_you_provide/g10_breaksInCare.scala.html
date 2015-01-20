@@ -40,7 +40,7 @@ else OtherMoney.name
 }
 
 @displayReason(reasonList:Seq[(String,Html)], answer:String) = @{
-    reasonList.find(p => p._1 == answer).get._2
+    reasonList.find(p => p._1 == answer).getOrElse(("", Html("")))._2
 }
 
 @defining(lang) { implicit language =>

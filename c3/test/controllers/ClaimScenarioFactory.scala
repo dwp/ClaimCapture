@@ -298,8 +298,8 @@ object ClaimScenarioFactory {
 
     // Breaks in care
     claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
-    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "Home"
-    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "Hospital"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "At home"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
     claim.AboutTheCareYouProvideBreakStartDate_1 = "12/12/2006"
     claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "no"
 
@@ -319,8 +319,8 @@ object ClaimScenarioFactory {
 
     claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
     claim.AboutTheCareYouProvideBreakStartDate_1 = "10/01/1999"
-    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "Hospital"
-    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "Hospital"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
     claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "Yes"
 
     claim

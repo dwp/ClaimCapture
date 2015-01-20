@@ -6,7 +6,7 @@ import controllers.{WithBrowserHelper, BrowserMatchers, Formulate}
 import models.DayMonthYear
 import java.util.concurrent.TimeUnit
 import utils.pageobjects.s4_care_you_provide.{G11BreakPage, G10BreaksInCarePage}
-import app.Whereabouts._
+import app.CircsBreaksWhereabouts._
 
 class G11BreakIntegrationSpec extends Specification with Tags {
   "Break" should {
@@ -34,8 +34,8 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       fill("#start_day").`with`("1")
       fill("#start_month").`with`("1")
 
-      click("#whereYou_location option[value='Hospital']")
-      click("#wherePerson_location option[value='Hospital']")
+      click("#whereYou_answer_In_hospital")
+      click("#wherePerson_answer_In_hospital")
 
       next
       titleMustEqual("Break - About the care you provide")
@@ -165,7 +165,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       goTo("/care-you-provide/break")
       titleMustEqual("Break - About the care you provide")
 
-      text("#wherePerson_location option").asScala should containAllOf(List("Please select", "Home", "Hospital", "Respite Care", "Care Home", "Nursing Home", "Other"))
+      text("#wherePerson_answer li").asScala should containAllOf(List(Home, Hospital, Holiday, RespiteCare, SomewhereElse).map(e => e.toLowerCase))
     }
   } section("integration", models.domain.CareYouProvide.id)
 }
@@ -175,8 +175,8 @@ trait BreakFiller {
 
   def break(start: DayMonthYear = DayMonthYear(1, 1, 2001),
             end: DayMonthYear = DayMonthYear(1, 1, 2001),
-            whereYouLocation: String = Home,
-            wherePersonLocation: String = Hospital,
+            whereYouLocation: String = Home.replace(" ","_"),
+            wherePersonLocation: String = Hospital.replace(" ","_"),
             medicalDuringBreak: Boolean = false) = {
     browser.fill(s"#start_day") `with` start.day.get.toString
     browser.fill(s"#start_month") `with` start.month.get.toString
@@ -186,8 +186,8 @@ trait BreakFiller {
     browser.fill(s"#end_month") `with` end.month.get.toString
     browser.fill("#end_year") `with` end.year.get.toString
 
-    browser.click(s"#whereYou_location option[value='$whereYouLocation']")
-    browser.click(s"#wherePerson_location option[value='$wherePersonLocation']")
+    browser.click(s"#whereYou_answer_$whereYouLocation")
+    browser.click(s"#wherePerson_answer_$wherePersonLocation")
 
     browser.click(s"""#medicalDuringBreak_${if (medicalDuringBreak) "yes" else "no"}""")
   }
