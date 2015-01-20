@@ -1,4 +1,6 @@
+import play.api.i18n.{MMessages => Messages, Lang}
 import play.api.Play
+import play.twirl.api.Html
 import scala.util.{Success, Try}
 
 package object app {
@@ -33,6 +35,24 @@ package object app {
     val Holiday = "On holiday"
     val RespiteCare = "In respite care"
     val SomewhereElse = "Somewhere else"
+
+    def whereWasThePersonList(implicit lang: Lang) = {
+      Seq(
+        Hospital -> Html(Messages("circsBreaks.inhospital")),
+        RespiteCare -> Html(Messages("circsBreaks.inrespitecare")),
+        Holiday -> Html(Messages("circsBreaks.onholiday")),
+        Home -> Html(Messages("circsBreaks.athome")),
+        SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
+    }
+
+    def whereWereYouList(implicit lang: Lang) = {
+      Seq(
+        Home -> Html(Messages("circsBreaks.athome")),
+        Holiday -> Html(Messages("circsBreaks.onholiday")),
+        Hospital -> Html(Messages("circsBreaks.inhospital")),
+        SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
+    }
+
   }
 
   object PaymentFrequency {

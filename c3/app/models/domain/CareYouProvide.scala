@@ -4,7 +4,7 @@ import models._
 import models.Whereabouts
 import models.MultiLineAddress
 import models.NationalInsuranceNumber
-import models.yesNo.YesNoWithDate
+import models.yesNo.{RadioWithText, YesNoWithDate}
 
 case object CareYouProvide extends Section.Identifier {
   val id = "s5"
@@ -54,7 +54,7 @@ case object BreaksInCare extends QuestionGroup.Identifier {
 
 case class Break(id: String = "",
                  start: DayMonthYear = DayMonthYear(None, None, None), end: Option[DayMonthYear] = None,
-                 whereYou: Whereabouts = Whereabouts(), wherePerson: Whereabouts=Whereabouts(),
+                 whereYou:RadioWithText = RadioWithText("", None), wherePerson: RadioWithText = RadioWithText("", None),
                  medicalDuringBreak: String = "")
 
 case class BreaksInCareSummary(answer: String = "") extends QuestionGroup(BreaksInCareSummary)
