@@ -7,7 +7,7 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 object ApplicationBuild extends Build {
   val appName         = "c3"
 
-  val appVersion      = "2.8-SNAPSHOT"
+  val appVersion      = "2.9-SNAPSHOT"
 
   val appDependencies = Seq(
     // Add your project dependencies here,
@@ -15,8 +15,8 @@ object ApplicationBuild extends Build {
     cache,
     anorm,
     ws,
-    "org.specs2"         %% "specs2"              % "2.3.13" % "test" withSources() withJavadoc(),
-    "org.mockito"         % "mockito-all"         % "1.10.8" % "test" withSources() withJavadoc(),
+    "org.specs2"         %% "specs2"              % "2.4.15" % "test" withSources() withJavadoc(),
+    "org.mockito"         % "mockito-all"         % "1.10.19" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-testkit"        % "2.3.7" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-agent"          % "2.3.7" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-actor"          % "2.3.7" % "test" withSources() withJavadoc(),
@@ -24,7 +24,7 @@ object ApplicationBuild extends Build {
     "com.dwp.carers"     %% "xmlcommons"          % "4.2.5",
     "com.dwp.carers"     %%  "wscommons"          % "2.1",
     "org.postgresql"     % "postgresql"           % "9.3-1102-jdbc41",
-    "com.h2database"      % "h2"                  % "1.4.182"  % "test",
+    "com.h2database"      % "h2"                  % "1.4.185"  % "test",
     "me.moocar"           % "logback-gelf"        % "0.12",
     "com.github.rjeschke" % "txtmark"             % "0.11",
     "org.jacoco"          % "org.jacoco.core"     % "0.7.2.201409121644"  % "test",
@@ -41,7 +41,8 @@ object ApplicationBuild extends Build {
   var sR: Seq[Def.Setting[_]] = Seq(
     resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
-    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases")
+    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
+	resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases")
 
   var sTest: Seq[Def.Setting[_]] = Seq()
 
