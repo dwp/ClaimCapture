@@ -11,7 +11,7 @@ class HistogramsSpec extends Specification {
     "must measure play-cache-size" in new WithBrowser with PageObjects {
       val page = G1BenefitsPage(context)
       page goToThePage()
-      val count = MetricsRegistry.default.histogram("c3-cache-size").getCount
+      val count = MetricsRegistry.defaultRegistry.histogram("c3-cache-size").getCount
       count mustEqual 1
     }
   } section "unit"
