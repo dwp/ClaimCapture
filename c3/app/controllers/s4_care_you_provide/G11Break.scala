@@ -11,17 +11,22 @@ import play.api.data.FormError
 import models.domain.Break
 import G10BreaksInCare.breaksInCare
 import controllers.CarersForms._
+import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
 
 
 object G11Break extends Controller with CachedClaim {
   val form = Form(mapping(
     "breakID" -> carersNonEmptyText,
-    "start" -> (dayMonthYear verifying validDateTime),
-    "end" -> optional(dayMonthYear verifying validDateTimeOnly),
+    "start" -> (dayMonthYear verifying validDate),
+    "startTime" -> optional(carersText),
+    "end" -> optional(dayMonthYear verifying validDateOnly),
+    "endTime" -> optional(carersText),
     "whereYou" -> whereabouts.verifying(requiredWhereabouts),
     "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
     "medicalDuringBreak" -> carersNonEmptyText
-  )(Break.apply)(Break.unapply))
+  )(Break.apply)(Break.unapply)
+    .verifying("endDate.required", BreaksInCare.endDateRequired _)
+  )
 
   val backCall = routes.G10BreaksInCare.present()
 
@@ -40,6 +45,7 @@ object G11Break extends Controller with CachedClaim {
         .replaceError("wherePerson.location.other","error.maxLength",FormError("wherePerson","error.maxLength"))
         .replaceError("wherePerson.location.other",errorRestrictedCharacters,FormError("wherePerson",errorRestrictedCharacters))
         .replaceError("start.date","error.required", FormError("start","error.required", Seq("This field is required")))
+        .replaceError("", "endDate.required", FormError("end", "error.required"))
         BadRequest(views.html.s4_care_you_provide.g11_break(fwe,backCall)(lang))
       },
       break => {
