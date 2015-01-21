@@ -50,10 +50,19 @@ case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksI
 
 case object BreaksInCare extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g5"
+
+  def endDateRequired(input: Break): Boolean = input.endTime match {
+    case Some(e) => input.end.isDefined
+    case _ => true
+  }
+
 }
 
 case class Break(id: String = "",
-                 start: DayMonthYear = DayMonthYear(None, None, None), end: Option[DayMonthYear] = None,
+                 start: DayMonthYear = DayMonthYear(None, None, None),
+                 startTime:Option[String] = None,
+                 end: Option[DayMonthYear] = None,
+                 endTime:Option[String] = None,
                  whereYou:RadioWithText = RadioWithText("", None), wherePerson: RadioWithText = RadioWithText("", None),
                  medicalDuringBreak: String = "")
 
@@ -62,3 +71,4 @@ case class BreaksInCareSummary(answer: String = "") extends QuestionGroup(Breaks
 case object BreaksInCareSummary extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g6"
 }
+

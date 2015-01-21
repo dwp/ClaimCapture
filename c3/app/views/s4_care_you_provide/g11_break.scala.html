@@ -4,11 +4,13 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import models.domain.MoreAboutTheCare
 @import views.html.helper._
+@import views.html.helper.base._
 @import views.html.helper.dates._
 @import app.Whereabouts._
 @import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import utils.helpers.CarersTemplate._
 @import app.CircsBreaksWhereabouts._
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
@@ -22,8 +24,6 @@
         if (spent35HoursCaringBeforeClaim) displayPlaybackDatesFormat(lang, dmy - 6 months)
         else displayPlaybackDatesFormat(lang, dmy))
 }
-
-
 
     @defining(lang) { implicit language =>
 
@@ -42,7 +42,11 @@
 				
 	            <ul>
 
-                    @inputDayMonthYearHM(breakForm("start"), 'helperAbove  -> Messages("dateExample.helper", (DayMonthYear.today - 34 days).`d M yyyy`))
+                    @dateTimePickerWithDynamicLabel(breakForm("start"), 'dynamicDateDays-> 34)
+
+                    @carersShortInputText(breakForm("startTime"),
+                    'helperAbove-> Html(Messages("breaksInCareStartTime.helper")),
+                    'maxLength -> 10)
 
                     @listRadioGroupWithOther(breakForm("wherePerson"),
                         'items -> whereWasThePersonList,
@@ -61,9 +65,12 @@
                         'maxLength -> 60,
                         'otherValue -> SomewhereElse)
 
-	                @inputDayMonthYearHM(breakForm("end"), 'helperAbove  -> Messages("dateExample.helper", (DayMonthYear.today - 27 days).`d M yyyy`))
-	    
-	
+	                @dateTimePickerWithDynamicLabel(breakForm("end"), 'dynamicDateDays -> 27)
+
+                    @carersShortInputText(breakForm("endTime"),
+                    'helperAbove-> Html(Messages("breakEnded.endTime.helper")),
+                    'maxLength -> 10)
+
 	                @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))
 	            </ul>
 	        </fieldset>

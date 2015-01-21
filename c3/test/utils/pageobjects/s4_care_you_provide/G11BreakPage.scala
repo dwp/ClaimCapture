@@ -6,8 +6,8 @@ import utils.pageobjects._
 final class G11BreakPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G11BreakPage.url, G11BreakPage.title, iteration) {
   declareDate("#start", "AboutTheCareYouProvideBreakStartDate_" + iteration)
   declareDate("#end", "AboutTheCareYouProvideBreakEndDate_" + iteration)
-  declareTime("#start", "AboutTheCareYouProvideBreakStartTime_" + iteration)
-  declareTime("#end", "AboutTheCareYouProvideBreakEndTime_" + iteration)
+  declareInput("#startTime", "AboutTheCareYouProvideBreakStartTime_" + iteration)
+  declareInput("#endTime", "AboutTheCareYouProvideBreakEndTime_" + iteration)
   declareRadioList("#whereYou_answer", "AboutTheCareYouProvideWhereWereYouDuringTheBreak_" + iteration)
   declareInput("#whereYou_text", "AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_" + iteration)
   declareRadioList("#wherePerson_answer", "AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_" + iteration)
