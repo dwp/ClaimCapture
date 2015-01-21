@@ -101,6 +101,12 @@ object Employment extends XMLComponent{
   }
 
   private def anyMoreJobs(isLast:Boolean, claim:Claim):NodeSeq = {
-    question(<OtherEmployment/>, "beenEmployed", !isLast , claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(Lang("en"), dmy - 6 months)))
+    //For all the added jobs, if there are more the user has to have answered Yes, however the last case
+    //might the user has answered Yes or No but as there's a limit of 5 jobs they can't add anymore.
+    val answer =
+      if (!isLast) true
+      else claim.questionGroup[BeenEmployed].exists(_.beenEmployed == "yes")
+
+    question(<OtherEmployment/>, "beenEmployed", answer , claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(Lang("en"), dmy - 6 months)))
   }
 }
