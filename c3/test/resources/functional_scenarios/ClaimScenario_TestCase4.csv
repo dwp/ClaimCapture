@@ -52,8 +52,8 @@ About the care you provide,About the breaks from care,Break start date?,AboutThe
 About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_1,10:00
 About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_1,17/08/2010
 About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_1,17:45
-About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_1,Home
-About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1,Hospital
+About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_1,At home
+About the care you provide,About the breaks from care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1,In hospital
 About the care you provide,About the breaks from care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1,Yes
 About the care you provide,About the breaks from care,Have you had any more breaks from care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_2,No
 About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_2,

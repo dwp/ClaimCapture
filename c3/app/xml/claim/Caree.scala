@@ -86,8 +86,8 @@ object Caree extends XMLComponent {
           case None => NodeSeq.Empty
         }}
         {question(<MedicalCare/>,"medicalDuringBreak", break.medicalDuringBreak)}
-        {questionOther(<ReasonClaimant/>,"whereYou", break.whereYou.location, break.whereYou.other)}
-        {questionOther(<ReasonCaree/>,"wherePerson", break.wherePerson.location, break.wherePerson.other)}
+        {questionOther(<ReasonClaimant/>,"whereYou", break.whereYou.answer, break.whereYou.text)}
+        {questionOther(<ReasonCaree/>,"wherePerson", break.wherePerson.answer, break.wherePerson.text)}
       </CareBreak>
     }} ++ xmlNoBreaks
   }

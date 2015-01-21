@@ -12,6 +12,7 @@
 @import language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 @import scala.language.postfixOps
+@import app.CircsBreaksWhereabouts._
 
 @getCorrectDate(dmy:DayMonthYear,spent35HoursCaringBeforeClaim:Boolean) = @{
     if (spent35HoursCaringBeforeClaim) dmy - 6 months
@@ -38,6 +39,10 @@ else if (SelfEmployment.visible) SelfEmployment.name
 else OtherMoney.name
 }
 
+@displayReason(reasonList:Seq[(String,Html)], answer:String) = @{
+    reasonList.find(p => p._1 == answer).getOrElse(("", Html("")))._2
+}
+
 @defining(lang) { implicit language =>
 @main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(yesNoForm)) {
     <fieldset id="breaks" class="form-elements results-detail">
@@ -61,14 +66,18 @@ else OtherMoney.name
 					  	
 					  	<dl>
 						  	<dt>@Html(Messages("breaks.whereYou.label"))</dt>
-						  	<dd>@break.whereYou.location.isEmpty match {
-                                case false => { @Html(Messages("whereabouts." + break.whereYou.location.replaceAll(" ","").toLowerCase)) }
+						  	<dd>@break.whereYou.answer.isEmpty match {
+                                case false => {
+                                    @displayReason(whereWereYouList,break.whereYou.answer)
+                                }
                                 case true => {}
                             }</dd>
 						  	
 						  	<dt>@Html(Messages("wherePerson"))</dt>
-						  	<dd>@break.wherePerson.location.isEmpty match {
-                                case false => { @Html(Messages("whereabouts." + break.wherePerson.location.replaceAll(" ","").toLowerCase)) }
+						  	<dd>@break.wherePerson.answer.isEmpty match {
+                                case false => {
+                                    @displayReason(whereWasThePersonList,break.wherePerson.answer)
+                                }
                                 case true => {}
                             }</dd>
 						  	

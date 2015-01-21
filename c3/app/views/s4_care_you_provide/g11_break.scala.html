@@ -11,6 +11,7 @@
 @import scala.language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 @import utils.helpers.CarersTemplate._
+@import app.CircsBreaksWhereabouts._
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
 
@@ -47,13 +48,22 @@
                     'helperAbove-> Html(Messages("breaksInCareStartTime.helper")),
                     'maxLength -> 10)
 
-                    @whereabouts(breakForm("wherePerson"),
-                        Seq(""-> Messages("pleaseSelect"), Home -> Messages("whereabouts.home"), Hospital -> Messages("whereabouts.hospital"), RespiteCare -> Messages("whereabouts.respitecare"), CareHome -> Messages("whereabouts.carehome"), NursingHome -> Messages("whereabouts.nursinghome"), Other -> Messages("other")),
-                        '_label -> Messages("wherePerson.location"), 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
-	            
-	            	@whereabouts(breakForm("whereYou"),
-	                             Seq("" -> Messages("pleaseSelect"), Home -> Messages("whereabouts.home"), Hospital -> Messages("whereabouts.hospital"), Holiday -> Messages("whereabouts.holiday"), RespiteCare -> Messages("whereabouts.respitecare"), Other -> Messages("other")),
-	                             '_label -> Messages("whereYou.location"), 'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+                    @listRadioGroupWithOther(breakForm("wherePerson"),
+                        'items -> whereWasThePersonList,
+                        'wrapperName -> "wherePersonBreaksInCareWrap",
+                        'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
+                        '_nestedFieldSet -> true,
+                        'maxLength -> 60,
+                        'otherValue -> SomewhereElse
+                    )
+
+                    @listRadioGroupWithOther(breakForm("whereYou"),
+                        'items -> whereWereYouList,
+                        'wrapperName -> "whereYouBreaksInCareWrap",
+                        'helperAbove-> Messages("whereYouBreaksInCare.helper"),
+                        '_nestedFieldSet -> true,
+                        'maxLength -> 60,
+                        'otherValue -> SomewhereElse)
 
 	                @dateTimePickerWithDynamicLabel(breakForm("end"), 'dynamicDateDays -> 27)
 
@@ -73,13 +83,13 @@
 	        </nav>
         </div>
     }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 <script type="text/javascript">
     $(function(){
-        window.areaCounter({selector: "@CarersCrypto.encryptAES("whereYou_location_other")", maxChars: 60});
-        window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_location_other")", maxChars: 60});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("whereYou_text")", maxChars: 60});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_text")", maxChars: 60});
     })
 </script>
 }

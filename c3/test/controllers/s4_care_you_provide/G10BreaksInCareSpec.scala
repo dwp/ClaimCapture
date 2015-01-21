@@ -56,8 +56,8 @@ class G10BreaksInCareSpec extends Specification with Tags {
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
+        "whereYou.answer" -> "Holiday",
+        "wherePerson.answer" -> "Holiday",
         "medicalDuringBreak" -> "no")
 
       val result1 = G11Break.submit(request1)
@@ -80,8 +80,8 @@ class G10BreaksInCareSpec extends Specification with Tags {
           "start.day" -> "1",
           "start.month" -> "1",
           "start.year" -> "2001",
-          "whereYou.location" -> "Holiday",
-          "wherePerson.location" -> "Holiday",
+          "whereYou.answer" -> "Holiday",
+          "wherePerson.answer" -> "Holiday",
           "medicalDuringBreak" -> "no")
       val result1 = G11Break.submit(request1)
       redirectLocation(result1) should beSome("/care-you-provide/breaks-in-care")
@@ -93,8 +93,8 @@ class G10BreaksInCareSpec extends Specification with Tags {
           "start.day" -> "1",
           "start.month" -> "1",
           "start.year" -> "2001",
-          "whereYou.location" -> "Holiday",
-          "wherePerson.location" -> "Holiday",
+          "whereYou.answer" -> "Holiday",
+          "wherePerson.answer" -> "Holiday",
           "medicalDuringBreak" -> "no")
 
         val result = G11Break.submit(request)
@@ -111,8 +111,8 @@ class G10BreaksInCareSpec extends Specification with Tags {
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
+        "whereYou.answer" -> "Holiday",
+        "wherePerson.answer" -> "Holiday",
         "medicalDuringBreak" -> "no")
 
       val result2 = G11Break.submit(request2)
@@ -132,8 +132,8 @@ class G10BreaksInCareSpec extends Specification with Tags {
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
+        "whereYou.answer" -> "Holiday",
+        "wherePerson.answer" -> "Holiday",
         "medicalDuringBreak" -> "no")
 
       val result = G11Break.submit(request)
@@ -157,8 +157,8 @@ class G10BreaksInCareSpec extends Specification with Tags {
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
+        "whereYou.answer" -> "Holiday",
+        "wherePerson.answer" -> "Holiday",
         "medicalDuringBreak" -> "no")
 
       val result1 = G11Break.submit(request)
