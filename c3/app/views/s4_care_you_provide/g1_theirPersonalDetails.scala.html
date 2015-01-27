@@ -9,9 +9,14 @@
 @import play.api.i18n.{MMessages => Messages}
 @import models.domain.YourPartnerPersonalDetails
 @import utils.helpers.CarersCrypto
+@import controllers.mappings.Mappings._
 
     @isPartnerPersonYouCareFor = @{
         claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse("") == "yes")
+    }
+
+    @relationshipHelper() = @{
+        "relationship.helper" + (if(claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse(`no`) == `yes`)) ".partner" else "")
     }
 
 
@@ -26,7 +31,7 @@
                     <legend>@Html(Messages("s4.g1"))</legend>
 
                     <ul>
-                        @carersInputText(currentForm("relationship"), 'helperAbove -> Messages("relationship.helper"), 'maxLength -> mappings.Mappings.thirtyfive)
+                        @carersInputText(currentForm("relationship"), 'helperAbove -> Messages(relationshipHelper()), 'maxLength -> mappings.Mappings.thirtyfive)
 
                         @simpleDetailPlaceHolder(
                             inputDef = Seq(

@@ -52,10 +52,10 @@
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
                             inputDayMonthYear(currentForm("lastWorkDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`))),
-                            inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`))),
-                            carersShortInputText(currentForm("hoursPerWeek"),
-                            '_label -> labelForEmployment(claim, lang, "hoursPerWeek", JobID(currentForm)), 'maxlength -> 2)),
+                            inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`)))),
 	                    'id -> "lastWorkData")
+
+                    @carersShortInputText(currentForm("hoursPerWeek"),'_label -> labelForEmployment(claim, lang, "hoursPerWeek", JobID(currentForm)), 'maxlength -> 2)
 	            </ul>
 	        </fieldset>
 	
@@ -80,8 +80,7 @@
                   "@CarersCrypto.encryptAES("lastWorkDate_year")",
                   "@CarersCrypto.encryptAES("p45LeavingDate_day")",
                   "@CarersCrypto.encryptAES("p45LeavingDate_month")",
-                  "@CarersCrypto.encryptAES("p45LeavingDate_year")",
-                  "@CarersCrypto.encryptAES("hoursPerWeek")"],
+                  "@CarersCrypto.encryptAES("p45LeavingDate_year")"],
     startJobBeforeClaimDateY:"@CarersCrypto.encryptAES("startJobBeforeClaimDate_yes")",
     startJobBeforeClaimDateN:"@CarersCrypto.encryptAES("startJobBeforeClaimDate_no")",
     jobStartDate:["@CarersCrypto.encryptAES("jobStartDate_day")",
