@@ -14,7 +14,7 @@
             <p>@Html(Messages("unrecoverable.error.help1"))</p>
 
             <p><button  id="TryJs" type="submit" name="action" value="next" class="button"  @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="history.back()" aria-label="@Html(Messages("try.claim.help"))" style="display:none;">@Html(Messages("try.claim"))</button>
-               <button id="Try" type="submit" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="location.href='@{request.headers.get("Referer").getOrElse(s"$url")}'" aria-label="@Html(Messages("try.claim.help"))">@Html(Messages("try.claim"))</button>
+               <button id="Try" type="submit" name="action" value="next" class="button" onClick="location.href='@{request.headers.get("Referer").getOrElse(s"$url")}'" aria-label="@Html(Messages("try.claim.help"))">@Html(Messages("try.claim"))</button>
                or
                <a @views.html.ga.trackClickEvent(linkName = "Chose start again") href="@url">@Html(Messages("restart.claim"))</a></p>
 

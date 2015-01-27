@@ -29,7 +29,7 @@ object CachedClaim {
   type ClaimResult = (Claim, Result)
   // Versioning
   val C3VERSION = "C3Version"
-  val C3VERSION_VALUE = "2.9"
+  val C3VERSION_VALUE = "2.9.1"
 }
 
 /**
@@ -236,9 +236,8 @@ trait CachedClaim {
   def endingOnError(f: Claim => Request[AnyContent] => Lang => Result): Action[AnyContent] = Action {
     request => {
       implicit val r = request
-      val theDomain = Session.domain
-
-      originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(CachedClaim.C3VERSION)).withNewSession
+//      val theDomain = Session.domain
+      originCheck(f(Claim())(request)(bestLang))
     }
   }
 
