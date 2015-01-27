@@ -236,9 +236,7 @@ trait CachedClaim {
   def endingOnError(f: Claim => Request[AnyContent] => Lang => Result): Action[AnyContent] = Action {
     request => {
       implicit val r = request
-      val theDomain = Session.domain
-
-      originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(CachedClaim.C3VERSION)).withNewSession
+      originCheck(f(Claim())(request)(bestLang))
     }
   }
 
