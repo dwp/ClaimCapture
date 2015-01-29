@@ -26,6 +26,13 @@ object PastPresentLabelHelper {
     case _ => false
   }
 
+  def labelForEmployment(finishedThisJob:String, lang: Lang, labelKey: String) = {
+    Messages(finishedThisJob == yes match {
+      case true => labelKey + ".past"
+      case false => labelKey + ".present"
+    })
+  }
+
   def labelForEmployment(implicit claim: Claim, lang: Lang, labelKey: String, jobID: String) = {
     Messages(isTheJobFinished(claim, jobID) match {
       case true => labelKey + ".present"
