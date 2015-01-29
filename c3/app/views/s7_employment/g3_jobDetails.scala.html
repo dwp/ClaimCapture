@@ -85,7 +85,8 @@
     startJobBeforeClaimDateN:"@CarersCrypto.encryptAES("startJobBeforeClaimDate_no")",
     jobStartDate:["@CarersCrypto.encryptAES("jobStartDate_day")",
                   "@CarersCrypto.encryptAES("jobStartDate_month")",
-                  "@CarersCrypto.encryptAES("jobStartDate_year")"]
+                  "@CarersCrypto.encryptAES("jobStartDate_year")"],
+    hoursPerWeek:{id:"@CarersCrypto.encryptAES("hoursPerWeek")",present:"@Messages("hoursPerWeek.present")",past:"@Messages("hoursPerWeek.past")"}
     });
     });
     </script>

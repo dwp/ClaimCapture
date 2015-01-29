@@ -51,8 +51,8 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors =>{
         val form = formWithErrors
-          .replaceError("", "lastWorkDate.required", FormError("lastWorkDate", "error.required", Seq(labelForEmployment(claim, lang, "lastWorkDate", jobID))))
-          .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(labelForEmployment(claim, lang, "hoursPerWeek", jobID))))
+          .replaceError("", "lastWorkDate.required", FormError("lastWorkDate", "error.required", Seq(labelForEmployment(formWithErrors("finishedThisJob").value.getOrElse(""), lang, "lastWorkDate"))))
+          .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(labelForEmployment(formWithErrors("finishedThisJob").value.getOrElse(""), lang, "hoursPerWeek"))))
           .replaceError("", "jobStartDate.required", FormError("jobStartDate", "error.required"))
           .replaceError("startJobBeforeClaimDate", "error.required", FormError("startJobBeforeClaimDate", "error.required",Seq(claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang,dmy - 1 months)))))
         BadRequest(views.html.s7_employment.g3_jobDetails(form)(lang))
