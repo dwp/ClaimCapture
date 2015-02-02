@@ -9,6 +9,9 @@ subString = (str,start,end) -> str.substring(start.length,end.length)
 visible = (selector) -> $("##{selector}").is(":visible")
 legend = (selector)-> $("##{selector}").parent().find("legend")
 label = (selector) -> $("label[for='#{selector}']")
+labelText = (selector,text) ->
+  labelChildren = label(selector).children()
+  label(selector).text(text).append(labelChildren)
 S = (selector) -> $("##{selector}")
 
 
@@ -55,15 +58,15 @@ window.fixErrorMessages = (o) ->
 
 
 hideBeenPaidYetWrapOnY = (o,reset) ->
-  label(o.howMuchPaid).text(o.howMuchPaidYText)
+  labelText(o.howMuchPaid,o.howMuchPaidYText)
   val(o.howMuchPaid,"") if reset
   legend(o.whatDatePaid).html(o.whatDatePaidYText)
   val(o.whatDatePaidDay,"") if reset
   val(o.whatDatePaidMonth,"") if reset
   val(o.whatDatePaidYear,"") if reset
-  label(o.howOften).text(o.howOftenYText)
+  labelText(o.howOften,o.howOftenYText)
   val(o.howOften,"") if reset
-  label(o.monthlyPayDay).text(o.monthlyPayDayYText)
+  labelText(o.monthlyPayDay,o.monthlyPayDayYText)
   val(o.monthlyPayDay,"") if reset
   textToUse = switch (val(o.howOften))
     when "Weekly" then o.usuallyPaidSameAmountWeeklyText
@@ -78,15 +81,15 @@ hideBeenPaidYetWrapOnY = (o,reset) ->
   datePaidContextualHelp(o,true)
 
 hideBeenPaidYetWrapOnN = (o,reset) ->
-  label(o.howMuchPaid).text(o.howMuchPaidNText)
+  labelText(o.howMuchPaid,o.howMuchPaidNText)
   val(o.howMuchPaid,"") if reset
   legend(o.whatDatePaid).html(o.whatDatePaidNText)
   val(o.whatDatePaidDay,"") if reset
   val(o.whatDatePaidMonth,"") if reset
   val(o.whatDatePaidYear,"") if reset
-  label(o.howOften).text(o.howOftenNText)
+  labelText(o.howOften,o.howOftenNText)
   val(o.howOften,"") if reset
-  label(o.monthlyPayDay).text(o.monthlyPayDayNText)
+  labelText(o.monthlyPayDay,o.monthlyPayDayNText)
   val(o.monthlyPayDay,"") if reset
   textToUse = switch (val(o.howOften))
     when "Weekly" then o.usuallyPaidSameAmountWeeklyTextExpected
