@@ -6,11 +6,11 @@ window.initEvents = (additionalBreaksY, additionalBreaksN, text) ->
   showAdditionalBreaksWrap = () ->
     $("#additionalBreaksWrap").slideDown 0
 
+  if $("#" + additionalBreaksY).prop('checked')
+    showAdditionalBreaksWrap()
+
   if not $("#" + additionalBreaksY).prop('checked')
     hideAdditionalBreaksWrap(text)
-
-  if not $("#" + additionalBreaksN).prop('checked')
-    showAdditionalBreaksWrap()
 
   $("#" + additionalBreaksY).on "click", ->
     showAdditionalBreaksWrap()
