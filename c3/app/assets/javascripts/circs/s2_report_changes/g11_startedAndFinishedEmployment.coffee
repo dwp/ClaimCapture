@@ -9,6 +9,9 @@ subString = (str,start,end) -> str.substring(start.length,end.length)
 visible = (selector) -> $("##{selector}").is(":visible")
 legend = (selector)-> $("##{selector}").parent().find("legend")
 label = (selector) -> $("label[for='#{selector}']")
+labelText = (selector,text) ->
+  labelChildren = label(selector).children()
+  label(selector).text(text).append(labelChildren)
 exists = (elem) -> elem? and elem.length > 0
 S = (selector) -> $("##{selector}")
 
@@ -67,7 +70,7 @@ window.fixErrorMessages = (o) ->
 onBeenPaidYetY = (ctx,reset) ->
   ->
     S("beenPaidYetWrap").slideUp 0, ->
-      label(ctx.howMuchPaid).text(ctx.howMuchPaidYText)
+      labelText(ctx.howMuchPaid,ctx.howMuchPaidYText)
       S(ctx.howMuchPaid).val("") if reset
       legend(ctx.dateLastPaid).html(ctx.dateLastPaidYText)
       S(ctx.dateLastPaidDay).val("") if reset
@@ -75,14 +78,14 @@ onBeenPaidYetY = (ctx,reset) ->
       S(ctx.dateLastPaidYear).val("") if reset
       S(ctx.dateLastPaid + "_defaultDateContextualHelp").css('display', "block")
       S(ctx.dateLastPaid + "_alternativeDateContextualHelp").css('display', "none")
-      label(ctx.whatWasIncluded).text(ctx.whatWasIncludedYText)
+      labelText(ctx.whatWasIncluded,ctx.whatWasIncludedYText)
       S(ctx.whatWasIncluded).val("") if reset
     S("beenPaidYetWrap").slideDown 0
 
 onBeenPaidYetN = (ctx,reset) ->
   ->
     S("beenPaidYetWrap").slideUp 0, ->
-      label(ctx.howMuchPaid).text(ctx.howMuchPaidNText)
+      labelText(ctx.howMuchPaid,ctx.howMuchPaidNText)
       S(ctx.howMuchPaid).val("") if reset
       legend(ctx.dateLastPaid).html(ctx.dateLastPaidNText)
       S(ctx.dateLastPaidDay).val("") if reset
@@ -90,7 +93,7 @@ onBeenPaidYetN = (ctx,reset) ->
       S(ctx.dateLastPaidYear).val("") if reset
       S(ctx.dateLastPaid + "_defaultDateContextualHelp").css('display', "none")
       S(ctx.dateLastPaid + "_alternativeDateContextualHelp").css('display', "block")
-      label(ctx.whatWasIncluded).text(ctx.whatWasIncludedNText)
+      labelText(ctx.whatWasIncluded,ctx.whatWasIncludedNText)
       S(ctx.whatWasIncluded).val("") if reset
     S("beenPaidYetWrap").slideDown 0
 

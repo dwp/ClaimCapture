@@ -9,6 +9,9 @@ subString = (str,start,end) -> str.substring(start.length,end.length)
 visible = (selector) -> $("##{selector}").is(":visible")
 legend = (selector)-> $("##{selector}").parent().find("legend")
 label = (selector) -> $("label[for='#{selector}']")
+labelText = (selector,text) ->
+  labelChildren = label(selector).children()
+  label(selector).text(text).append(labelChildren)
 exists = (elem) -> elem? and elem.length > 0
 S = (selector) -> $("##{selector}")
 
