@@ -34,7 +34,7 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
     "breakEnded" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
       "endDate" -> optional(dayMonthYear verifying validDateOnly),
-      "endTime" -> optional(text)
+      "endTime" -> optional(carersText)
     )(YesNoWithDateTimeAndText.apply)(YesNoWithDateTimeAndText.unapply)
     .verifying("endDate", validateBreakEndedEndDate _)
 
@@ -48,7 +48,7 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
 
   val form = Form(mapping(
     "breaksInCareStartDate" -> dayMonthYear.verifying(validDate),
-    "breaksInCareStartTime" -> optional(text),
+    "breaksInCareStartTime" -> optional(carersText),
     whereWasPersonMapping,
     whereWereYouMapping,
     breakEndedMapping,
