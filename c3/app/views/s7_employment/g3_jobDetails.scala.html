@@ -6,7 +6,7 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-@import controllers.s7_employment.JobID
+@import controllers.s7_employment.IterationID
 @import utils.helpers.PastPresentLabelHelper._
 @import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
@@ -17,7 +17,7 @@
 
     @form(action = controllers.s7_employment.routes.G3JobDetails.submit()) {
         @DwpCSRFFormHelper.formField
-        <input type="hidden" name="jobID" value="@JobID(currentForm)">
+        <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
 
         <div class="form-wrap">
             <fieldset class="form-elements" data-journey="carers-allowance:page:employment">
@@ -55,7 +55,7 @@
                             inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`)))),
 	                    'id -> "lastWorkData")
 
-                    @carersShortInputText(currentForm("hoursPerWeek"),'_label -> labelForEmployment(claim, lang, "hoursPerWeek", JobID(currentForm)), 'maxlength -> 2)
+                    @carersShortInputText(currentForm("hoursPerWeek"),'_label -> labelForEmployment(claim, lang, "hoursPerWeek", IterationID(currentForm)), 'maxlength -> 2)
 	            </ul>
 	        </fieldset>
 	

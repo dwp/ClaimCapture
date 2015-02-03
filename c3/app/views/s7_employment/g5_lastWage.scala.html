@@ -8,19 +8,19 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import controllers.s7_employment.Employment.completedQuestionGroups
-@import controllers.s7_employment.JobID
+@import controllers.s7_employment.IterationID
 @import utils.helpers.PastPresentLabelHelper._
-@import models.domain.{Job, Jobs}
+@import models.domain.{Iteration, Jobs}
 @import play.api.i18n.{MMessages => Messages}
 @import controllers.mappings.Mappings._
 @import scala.language.postfixOps
 
 @employerName = @{
-    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).employerName + " - "
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).employerName + " - "
 }
 
 @finishedThisJob = @{
-    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).finishedThisJob
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).finishedThisJob
 }
 
     @defining(lang) { implicit language =>
@@ -29,18 +29,18 @@
 
 	@form(action = controllers.s7_employment.routes.G5LastWage.submit()) {
         @DwpCSRFFormHelper.formField
-        <input type="hidden" name="jobID" value="@JobID(currentForm)">
+        <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
 
         <div class="form-wrap">
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s7.g5"))</legend>
                 <ul>
                     @paymentFrequencySelect(currentForm("oftenGetPaid"),
-                        '_label -> labelForEmployment(claim, lang, "oftenGetPaidFrequency", JobID(currentForm)),
+                        '_label -> labelForEmployment(claim, lang, "oftenGetPaidFrequency", IterationID(currentForm)),
                         'id -> "oftenGetPaid",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
 
                     @carersInputText(currentForm("whenGetPaid"),
-                        '_label -> labelForEmployment(claim, lang, "whenGetPaid", JobID(currentForm)),
+                        '_label -> labelForEmployment(claim, lang, "whenGetPaid", IterationID(currentForm)),
                         'helperAbove -> Messages("whenGetPaid.helper"))
 
 	                @inputDayMonthYear(currentForm("lastPaidDate"), 'helperAbove -> Messages("dateExample.helper",claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`d M yyyy`)))
@@ -49,7 +49,7 @@
 	
 	                @carersInputText(currentForm("payInclusions"), 'maxLength -> 60,'helperAbove -> Messages("payInclusions.helper"))
 
-                    @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> labelForEmployment(claim, lang, "sameAmountEachTime", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
+                    @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> labelForEmployment(claim, lang, "sameAmountEachTime", IterationID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", IterationID(currentForm)))
 
                     @if(finishedThisJob == `yes`){
                         @yesNoRadioGroup(currentForm("employerOwesYouMoney"), 'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no")))

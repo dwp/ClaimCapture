@@ -15,7 +15,7 @@ class G11BreakSpec extends Specification with Tags {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = G11Break.present(request)
+      val result = G11Break.present("")(request)
       status(result) mustEqual OK
     }
 
@@ -29,7 +29,7 @@ class G11BreakSpec extends Specification with Tags {
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
-        "breakID" -> breakId1,
+        "iterationID" -> breakId1,
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
@@ -44,7 +44,7 @@ class G11BreakSpec extends Specification with Tags {
     "reject when submitted with other selected but missing other data" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
-        "breakID" -> breakId1,
+        "iterationID" -> breakId1,
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
@@ -61,7 +61,7 @@ class G11BreakSpec extends Specification with Tags {
     "redirect to the next page after a valid submission with other selected" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
-        "breakID" -> breakId1,
+        "iterationID" -> breakId1,
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
@@ -78,7 +78,7 @@ class G11BreakSpec extends Specification with Tags {
     "add 2 breaks" in new WithApplication with Claiming {
       val request1 = FakeRequest()
         .withFormUrlEncodedBody(
-        "breakID" -> breakId1,
+        "iterationID" -> breakId1,
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
@@ -90,7 +90,7 @@ class G11BreakSpec extends Specification with Tags {
 
       val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
         .withFormUrlEncodedBody(
-        "breakID" -> "2",
+        "iterationID" -> "2",
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
@@ -108,7 +108,7 @@ class G11BreakSpec extends Specification with Tags {
     "update existing break" in new WithApplication with Claiming {
       val requestNew = FakeRequest()
         .withFormUrlEncodedBody(
-        "breakID" -> breakId1,
+        "iterationID" -> breakId1,
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
@@ -122,7 +122,7 @@ class G11BreakSpec extends Specification with Tags {
 
       val requestUpdate = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
         .withFormUrlEncodedBody(
-        "breakID" -> breakId1,
+        "iterationID" -> breakId1,
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> yearUpdate.toString,

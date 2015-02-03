@@ -39,14 +39,14 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
       val f:Claim => Result = { implicit claim => Ok(views.html.s7_employment.g2_beenEmployed(form)(lang))}
       Right(trackBackToBeginningOfEmploymentSection(BeenEmployed)(f)(claim, request,ClassTag[BeenEmployed.type](BeenEmployed.getClass)) )
     }
-    else Left(Redirect(routes.G3JobDetails.present(JobID(form))))
+    else Left(Redirect(routes.G3JobDetails.present(IterationID(form))))
   }
 
   def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
     import controllers.mappings.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
-      case `yes` if jobs.size < Mappings.five => Redirect(routes.G3JobDetails.present(JobID(form)))
+      case `yes` if jobs.size < Mappings.five => Redirect(routes.G3JobDetails.present(IterationID(form)))
       case _ => Redirect(controllers.s9_other_money.routes.G1AboutOtherMoney.present())
     }
 

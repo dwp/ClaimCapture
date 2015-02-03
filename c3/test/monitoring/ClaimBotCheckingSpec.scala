@@ -22,9 +22,9 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
     .update(Over16("no")))
 
 
-  private def createJob(jobId: String, questionGroup: QuestionGroup with Job.Identifier): Job = {
+  private def createJob(jobId: String, questionGroup: QuestionGroup with Iteration.Identifier): Iteration = {
     val jobDetails = JobDetails(jobId)
-    val job = Job(jobId).update(jobDetails).update(questionGroup)
+    val job = Iteration(jobId).update(jobDetails).update(questionGroup)
     job
   }
 

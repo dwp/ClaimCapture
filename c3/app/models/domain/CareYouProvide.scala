@@ -38,12 +38,12 @@ case object MoreAboutTheCare extends QuestionGroup.Identifier {
 
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare) {
   def update(break: Break) = {
-    val updated = breaks map { b => if (b.id == break.id) break else b }
+    val updated = breaks map { b => if (b.iterationID == break.iterationID) break else b }
 
     if (updated.contains(break)) BreaksInCare(updated) else BreaksInCare(breaks :+ break)
   }
 
-  def delete(breakID: String) = BreaksInCare(breaks.filterNot(_.id == breakID))
+  def delete(iterationID: String) = BreaksInCare(breaks.filterNot(_.iterationID == iterationID))
 
   def hasBreaks = breaks.nonEmpty
 }
@@ -58,13 +58,13 @@ case object BreaksInCare extends QuestionGroup.Identifier {
 
 }
 
-case class Break(id: String = "",
+case class Break(iterationID: String = "",
                  start: DayMonthYear = DayMonthYear(None, None, None),
                  startTime:Option[String] = None,
                  end: Option[DayMonthYear] = None,
                  endTime:Option[String] = None,
                  whereYou:RadioWithText = RadioWithText("", None), wherePerson: RadioWithText = RadioWithText("", None),
-                 medicalDuringBreak: String = "")
+                 medicalDuringBreak: String = "") extends Iteration.Identifier
 
 case class BreaksInCareSummary(answer: String = "") extends QuestionGroup(BreaksInCareSummary)
 

@@ -7,13 +7,13 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import controllers.s7_employment.Employment.completedQuestionGroups
-@import controllers.s7_employment.JobID
+@import controllers.s7_employment.IterationID
 @import utils.helpers.PastPresentLabelHelper._
 @import play.api.i18n.{MMessages => Messages}
-@import models.domain.{Job, Jobs}
+@import models.domain.{Iteration, Jobs}
 
 @employerName = @{
-    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == JobID(currentForm)).getOrElse(Job("", List())).employerName + " - "
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).employerName + " - "
 }
 
     @defining(lang) { implicit language =>
@@ -22,7 +22,7 @@
 
     @form(action = controllers.s7_employment.routes.G8PensionAndExpenses.submit()) {
         @DwpCSRFFormHelper.formField
-        <input type="hidden" name="jobID" value="@JobID(currentForm)">
+        <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
 
         <div class="form-wrap">
 	        <fieldset class="form-elements">
@@ -30,14 +30,14 @@
 	
 	            <ul>
                     @yesNoRadioGroup(currentForm("payPensionScheme")("answer"),
-                        '_label -> labelForEmployment(claim, lang, "payPensionScheme.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
+                        '_label -> labelForEmployment(claim, lang, "payPensionScheme.answer", IterationID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", IterationID(currentForm)))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputTextArea(currentForm("payPensionScheme")("text"),
-                                '_label -> labelForEmployment(claim, lang, "payPensionScheme.text", JobID(currentForm)),
+                                '_label -> labelForEmployment(claim, lang, "payPensionScheme.text", IterationID(currentForm)),
                                 'helper -> Html(Messages("300charsLeft")),
-                                'helperAbove -> Html(labelForEmployment(claim, lang, "payPensionScheme.text.helper", JobID(currentForm))),
+                                'helperAbove -> Html(labelForEmployment(claim, lang, "payPensionScheme.text.helper", IterationID(currentForm))),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
@@ -45,13 +45,13 @@
                     )
 
                     @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"),
-                        'helperAbove -> Html(labelForEmployment(claim, lang, "haveExpensesForJob.answer.helper", JobID(currentForm))),
-                        '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", JobID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", JobID(currentForm)))
+                        'helperAbove -> Html(labelForEmployment(claim, lang, "haveExpensesForJob.answer.helper", IterationID(currentForm))),
+                        '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", IterationID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", IterationID(currentForm)))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputTextArea(currentForm("haveExpensesForJob")("text"),
-                                '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.text", JobID(currentForm)),
+                                '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.text", IterationID(currentForm)),
                                 'helper -> Html(Messages("300charsLeft")),
                                 'helperAbove -> Html(Messages("haveExpensesForJob.text.helper")),
                                 'ignoreOptional -> true,

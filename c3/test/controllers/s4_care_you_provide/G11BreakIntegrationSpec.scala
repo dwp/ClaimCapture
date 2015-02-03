@@ -11,7 +11,7 @@ import app.CircsBreaksWhereabouts._
 class G11BreakIntegrationSpec extends Specification with Tags {
   "Break" should {
     "be presented" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
-      goTo("/care-you-provide/break")
+      goTo("/care-you-provide/breaks/fakeID")
       titleMustEqual("Break - About the care you provide")
     }
 
@@ -162,7 +162,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       import scala.collection.JavaConverters._
       Formulate.theirPersonalDetails(browser)
 
-      goTo("/care-you-provide/break")
+      goTo("/care-you-provide/breaks/fakeID")
       titleMustEqual("Break - About the care you provide")
 
       text("#wherePerson_answer li").asScala should containAllOf(List(Home, Hospital, Holiday, RespiteCare, SomewhereElse).map(e => e.toLowerCase))

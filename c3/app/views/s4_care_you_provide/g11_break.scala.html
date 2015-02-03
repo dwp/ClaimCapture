@@ -12,6 +12,7 @@
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 @import utils.helpers.CarersTemplate._
 @import app.CircsBreaksWhereabouts._
+@import controllers.s7_employment.IterationID
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
 
@@ -30,7 +31,7 @@
     @main("Break - About the care you provide", Some(breakForm), Some(backCall)) {
 
     @form(action = controllers.s4_care_you_provide.routes.G11Break.submit) {
-        <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
+        <input type="hidden" name="iterationID" value="@IterationID(breakForm)">
 
         @DwpCSRFFormHelper.formField
         <div class="form-wrap">

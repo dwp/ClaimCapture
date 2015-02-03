@@ -7,7 +7,7 @@ import play.api.Logger
 trait ClaimBotChecking extends BotChecking {
 
 
-  private def verifyAboutExpenses(job: Job): Boolean = {
+  private def verifyAboutExpenses(job: Iteration): Boolean = {
     job.questionGroup[PensionAndExpenses] match {
       case Some(q) =>
         if(q.payPensionScheme.answer == "no") {
@@ -83,7 +83,7 @@ trait ClaimBotChecking extends BotChecking {
       checkEmploymentCriteria(verifyAboutExpenses)
     }
 
-    def checkEmploymentCriteria(executeFunction: (Job) => Boolean): Boolean = {
+    def checkEmploymentCriteria(executeFunction: (Iteration) => Boolean): Boolean = {
       claim.questionGroup[Jobs].map {
         jobs =>
           for (job <- jobs) {

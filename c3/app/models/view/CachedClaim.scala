@@ -37,7 +37,7 @@ object CachedClaim {
  */
 trait CachedClaim {
 
-  type JobID = String
+  type IterationID = String
 
   val cacheKey = CachedClaim.key
 
@@ -240,14 +240,9 @@ trait CachedClaim {
     }
   }
 
-  def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = Action.async {
+  def claimingWithCheckInIteration(f: (IterationID) => Claim => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = Action.async {
     request =>
-      claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).getOrElse("jobID", Seq("Missing JobID at request"))(0)))(request)
-  }
-
-  def claimingWithCheckInJob(f: (JobID) => Claim => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = Action.async {
-    request =>
-      claimingWithCheck(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).getOrElse("jobID", Seq("Missing JobID at request"))(0)))(request)
+      claimingWithCheck(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).getOrElse("iterationID", Seq("Missing IterationID at request"))(0)))(request)
   }
 
   private def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {

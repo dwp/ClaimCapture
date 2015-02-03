@@ -14,29 +14,29 @@ class BreaksInCareSpec extends Specification with Mockito {
 
     "give zero breaks upon deleting the only break" in {
       val break = mock[Break]
-      break.id returns "breakID"
+      break.iterationID returns "breakID"
 
       val breaksInCare = BreaksInCare().update(break)
       breaksInCare.breaks.size mustEqual 1
 
-      val updatedBreaksInCare = breaksInCare delete break.id
+      val updatedBreaksInCare = breaksInCare delete break.iterationID
       updatedBreaksInCare.breaks.size mustEqual 0
     }
 
     "give 2 breaks upon deleting 2nd out of 3 breaks" in {
       val break1 = mock[Break]
-      break1.id returns "break1ID"
+      break1.iterationID returns "break1ID"
 
       val break2 = mock[Break]
-      break2.id returns "break2ID"
+      break2.iterationID returns "break2ID"
 
       val break3 = mock[Break]
-      break3.id returns "break3ID"
+      break3.iterationID returns "break3ID"
 
       val breaksInCare = BreaksInCare().update(break1).update(break2).update(break3)
       breaksInCare.breaks.size mustEqual 3
 
-      val updatedBreaksInCare = breaksInCare delete break2.id
+      val updatedBreaksInCare = breaksInCare delete break2.iterationID
       updatedBreaksInCare.breaks.size mustEqual 2
     }
   }

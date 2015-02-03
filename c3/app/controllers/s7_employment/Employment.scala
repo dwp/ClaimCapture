@@ -15,17 +15,17 @@ import models.domain._
 
 object Employment extends Controller with CachedClaim  with Navigable{
   implicit def jobFormFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
-    def fillWithJobID(qi: QuestionGroup.Identifier, jobID: String)(implicit claim: Claim): Form[Q] = {
-      claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == jobID).getOrElse(Job("", List())).find(_.identifier.id == qi.id) match {
+    def fillWithJobID(qi: QuestionGroup.Identifier, iterationID: String)(implicit claim: Claim): Form[Q] = {
+      claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == iterationID).getOrElse(Iteration("", List())).find(_.identifier.id == qi.id) match {
         case Some(q: Q) => form.fill(q)
         case _ => form
       }
     }
   }
 
-  def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier, jobID: String)(implicit claim: Claim): List[QuestionGroup] = {
+  def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier, iterationID: String)(implicit claim: Claim): List[QuestionGroup] = {
     (for { jobs <- claim.questionGroup[Jobs]
-           job <- jobs.find(_.jobID == jobID) }
+           job <- jobs.find(_.iterationID == iterationID) }
       yield job.questionGroups.filter(_.identifier.index < questionGroupIdentifier.index)).getOrElse(Nil)
   }
 

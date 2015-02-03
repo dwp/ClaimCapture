@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.domain.{Job, Jobs, JobDetails, Claim, Claiming}
+import models.domain.{Iteration, Jobs, JobDetails, Claim, Claiming}
 import models.view.CachedClaim
 
 class G3JobDetailsSpec extends Specification with Tags {
@@ -23,7 +23,7 @@ class G3JobDetailsSpec extends Specification with Tags {
 
     """submit only mandatory data to a "new employment".""" in new WithApplication with Claiming {
       val request = FakeRequest().withFormUrlEncodedBody(
-        "jobID" -> "1",
+        "iterationID" -> "1",
         "employerName" -> "Toys r not us",
         "phoneNumber" -> "12345678",
         "address.lineOne" -> "Street Test 1",
@@ -42,8 +42,8 @@ class G3JobDetailsSpec extends Specification with Tags {
         case Some(js: Jobs) => {
           js.size shouldEqual 1
 
-          js.find(_.jobID == "1") must beLike {
-            case Some(j: Job) => j.questionGroups.head.asInstanceOf[JobDetails].employerName shouldEqual "Toys r not us"
+          js.find(_.iterationID == "1") must beLike {
+            case Some(j: Iteration) => j.questionGroups.head.asInstanceOf[JobDetails].employerName shouldEqual "Toys r not us"
           }
         }
       }
@@ -51,7 +51,7 @@ class G3JobDetailsSpec extends Specification with Tags {
 
     """submit all data to a "new employment".""" in new WithApplication with Claiming {
       val request = FakeRequest().withFormUrlEncodedBody(
-        "jobID" -> "1",
+        "iterationID" -> "1",
         "employerName" -> "Toys r not us",
         "phoneNumber" -> "12345678",
         "address.lineOne" -> "Street Test 1",
@@ -77,7 +77,7 @@ class G3JobDetailsSpec extends Specification with Tags {
 
     """submit all data to a "new employment" and then delete it.""" in new WithApplication with Claiming {
       val request = FakeRequest().withFormUrlEncodedBody(
-        "jobID" -> "1",
+        "iterationID" -> "1",
         "employerName" -> "Toys r not us",
         "phoneNumber" -> "12345678",
         "address.lineOne" -> "Street Test 1",

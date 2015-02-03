@@ -18,7 +18,7 @@ import models.domain.Claim
 
 object G5LastWage extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
-    "jobID" -> nonEmptyText,
+    "iterationID" -> nonEmptyText,
     "oftenGetPaid" -> (mandatoryPaymentFrequency verifying validPaymentFrequencyOnly),
     "whenGetPaid" -> carersNonEmptyText(maxLength = Mappings.sixty),
     "lastPaidDate" -> dayMonthYear.verifying(validDate),
@@ -31,31 +31,31 @@ object G5LastWage extends Controller with CachedClaim with Navigable {
   )
 
   def validateEmployerOweMoney(implicit claim: Claim, input: LastWage): Boolean = {
-    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == input.jobID).getOrElse(Job("", List())).finishedThisJob match {
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == input.iterationID).getOrElse(Iteration("", List())).finishedThisJob match {
       case `yes` => input.employerOwesYouMoney.isDefined
       case _ => true
     }
   }
 
-  def present(jobID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    track(LastWage) { implicit claim => Ok(views.html.s7_employment.g5_lastWage(form.fillWithJobID(LastWage, jobID))(lang)) }
+  def present(iterationID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+    track(LastWage) { implicit claim => Ok(views.html.s7_employment.g5_lastWage(form.fillWithJobID(LastWage, iterationID))(lang)) }
   }
 
-  def submit = claimingWithCheckInJob { jobID => implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheckInIteration { iterationID => implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val form = formWithErrors
           .replaceError("oftenGetPaid.frequency.other","error.maxLength",FormError("oftenGetPaid","error.maxLength"))
           .replaceError("oftenGetPaid.frequency","error.required",FormError("oftenGetPaid","error.required"))
           .replaceError("oftenGetPaid.frequency.other",errorRestrictedCharacters,FormError("oftenGetPaid",errorRestrictedCharacters))
-          .replaceError("whenGetPaid", "error.required", FormError("whenGetPaid", "error.required", Seq(labelForEmployment(claim, lang, "whenGetPaid", jobID))))
-          .replaceError("whenGetPaid", errorRestrictedCharacters, FormError("whenGetPaid", errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "whenGetPaid", jobID))))
-          .replaceError("lastPaidDate", "error.required", FormError("lastPaidDate", "error.required", Seq(labelForEmployment(claim, lang, "lastPaidDate", jobID))))
-          .replaceError("grossPay", "error.required", FormError("grossPay", "error.required", Seq(labelForEmployment(claim, lang, "grossPay", jobID))))
-          .replaceError("", "employerOwesYouMoney.required", FormError("employerOwesYouMoney", "error.required", Seq(labelForEmployment(claim, lang, "employerOwesYouMoney", jobID))))
-          .replaceError("sameAmountEachTime", "error.required", FormError("sameAmountEachTime", "error.required", Seq(labelForEmployment(claim, lang, "sameAmountEachTime", jobID))))
+          .replaceError("whenGetPaid", "error.required", FormError("whenGetPaid", "error.required", Seq(labelForEmployment(claim, lang, "whenGetPaid", iterationID))))
+          .replaceError("whenGetPaid", errorRestrictedCharacters, FormError("whenGetPaid", errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "whenGetPaid", iterationID))))
+          .replaceError("lastPaidDate", "error.required", FormError("lastPaidDate", "error.required", Seq(labelForEmployment(claim, lang, "lastPaidDate", iterationID))))
+          .replaceError("grossPay", "error.required", FormError("grossPay", "error.required", Seq(labelForEmployment(claim, lang, "grossPay", iterationID))))
+          .replaceError("", "employerOwesYouMoney.required", FormError("employerOwesYouMoney", "error.required", Seq(labelForEmployment(claim, lang, "employerOwesYouMoney", iterationID))))
+          .replaceError("sameAmountEachTime", "error.required", FormError("sameAmountEachTime", "error.required", Seq(labelForEmployment(claim, lang, "sameAmountEachTime", iterationID))))
         BadRequest(views.html.s7_employment.g5_lastWage(form)(lang))
       },
-      lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G8PensionAndExpenses.present(jobID)))
+      lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G8PensionAndExpenses.present(iterationID)))
   }
 }

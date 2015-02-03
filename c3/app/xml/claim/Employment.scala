@@ -40,7 +40,7 @@ object Employment extends XMLComponent{
     }
   }
 
-  private def employerXml(job: Job, claim: Claim): Elem = {
+  private def employerXml(job: Iteration, claim: Claim): Elem = {
     val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
 
     <Employer>
@@ -62,41 +62,41 @@ object Employment extends XMLComponent{
   private def payXml(jobDetails: JobDetails, lastWage: LastWage, claim: Claim): Elem = {
     val oftenPaid = lastWage.oftenGetPaid
     <Pay>
-      {question(<WeeklyHoursWorked/>, "hoursPerWeek", jobDetails.hoursPerWeek, questionLabelEmployment(claim, "hoursPerWeek", jobDetails.jobID))}
+      {question(<WeeklyHoursWorked/>, "hoursPerWeek", jobDetails.hoursPerWeek, questionLabelEmployment(claim, "hoursPerWeek", jobDetails.iterationID))}
       {question(<DateLastPaid/>, "lastPaidDate", lastWage.lastPaidDate)}
       {questionCurrency(<GrossPayment/>, "grossPay",Some(lastWage.grossPay))}
       {question(<IncludedInWage/>, "payInclusions", lastWage.payInclusions)}
-      {questionOther(<PayFrequency/>,"oftenGetPaidFrequency",oftenPaid.frequency,oftenPaid.other, questionLabelEmployment(claim, "oftenGetPaidFrequency", jobDetails.jobID))}
-      {question(<UsualPayDay/>, "whenGetPaid", lastWage.whenGetPaid, questionLabelEmployment(claim, "whenGetPaid", jobDetails.jobID))}
-      {question(<ConstantEarnings/>,"sameAmountEachTime",lastWage.sameAmountEachTime,questionLabelEmployment(claim, "sameAmountEachTime", jobDetails.jobID))}
+      {questionOther(<PayFrequency/>,"oftenGetPaidFrequency",oftenPaid.frequency,oftenPaid.other, questionLabelEmployment(claim, "oftenGetPaidFrequency", jobDetails.iterationID))}
+      {question(<UsualPayDay/>, "whenGetPaid", lastWage.whenGetPaid, questionLabelEmployment(claim, "whenGetPaid", jobDetails.iterationID))}
+      {question(<ConstantEarnings/>,"sameAmountEachTime",lastWage.sameAmountEachTime,questionLabelEmployment(claim, "sameAmountEachTime", jobDetails.iterationID))}
     </Pay>
   }
 
-  private def pensionExpensesXml(job:Job, claim:Claim): NodeSeq = {
+  private def pensionExpensesXml(job:Iteration, claim:Claim): NodeSeq = {
     val aboutExpenses: PensionAndExpenses = job.questionGroup[PensionAndExpenses].getOrElse(PensionAndExpenses())
     val showXml = aboutExpenses.payPensionScheme.answer.toLowerCase == "yes"
 
     if (showXml) {
-      question(<PaidForPension/>,"payPensionScheme.answer",aboutExpenses.payPensionScheme.answer,questionLabelEmployment(claim, "payPensionScheme.answer", job.jobID)) ++
+      question(<PaidForPension/>,"payPensionScheme.answer",aboutExpenses.payPensionScheme.answer,questionLabelEmployment(claim, "payPensionScheme.answer", job.iterationID)) ++
       {<PensionExpenses>
-        {question(<Expense/>,"payPensionScheme.text",aboutExpenses.payPensionScheme.text,questionLabelEmployment(claim, "payPensionScheme.text", job.jobID))}
+        {question(<Expense/>,"payPensionScheme.text",aboutExpenses.payPensionScheme.text,questionLabelEmployment(claim, "payPensionScheme.text", job.iterationID))}
       </PensionExpenses>}
     } else {
-      question(<PaidForPension/>,"payPensionScheme.answer",aboutExpenses.payPensionScheme.answer,questionLabelEmployment(claim, "payPensionScheme.answer", job.jobID))
+      question(<PaidForPension/>,"payPensionScheme.answer",aboutExpenses.payPensionScheme.answer,questionLabelEmployment(claim, "payPensionScheme.answer", job.iterationID))
     }
   }
 
-  private def jobExpensesXml(job: Job, claim:Claim):NodeSeq = {
+  private def jobExpensesXml(job: Iteration, claim:Claim):NodeSeq = {
     val aboutExpenses: PensionAndExpenses = job.questionGroup[PensionAndExpenses].getOrElse(PensionAndExpenses())
     val showXml = aboutExpenses.haveExpensesForJob.answer.toLowerCase == "yes"
 
     if (showXml) {
-        question(<PaidForJobExpenses/>,"haveExpensesForJob.answer",aboutExpenses.haveExpensesForJob.answer,questionLabelEmployment(claim, "haveExpensesForJob.answer", job.jobID)) ++
+        question(<PaidForJobExpenses/>,"haveExpensesForJob.answer",aboutExpenses.haveExpensesForJob.answer,questionLabelEmployment(claim, "haveExpensesForJob.answer", job.iterationID)) ++
         <JobExpenses>
-          {question(<Expense/>,"haveExpensesForJob.text",aboutExpenses.haveExpensesForJob.text,questionLabelEmployment(claim, "haveExpensesForJob.text", job.jobID))}
+          {question(<Expense/>,"haveExpensesForJob.text",aboutExpenses.haveExpensesForJob.text,questionLabelEmployment(claim, "haveExpensesForJob.text", job.iterationID))}
         </JobExpenses>
     } else {
-      question(<PaidForJobExpenses/>,"haveExpensesForJob.answer",aboutExpenses.haveExpensesForJob.answer,questionLabelEmployment(claim, "haveExpensesForJob.answer", job.jobID))
+      question(<PaidForJobExpenses/>,"haveExpensesForJob.answer",aboutExpenses.haveExpensesForJob.answer,questionLabelEmployment(claim, "haveExpensesForJob.answer", job.iterationID))
     }
   }
 
