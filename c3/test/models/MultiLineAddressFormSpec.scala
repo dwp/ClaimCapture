@@ -39,6 +39,13 @@ class MultiLineAddressFormSpec extends Specification {
       )
     }
 
+    "reject if lineTwo is empty" in {
+      Form("address" -> address.verifying(requiredAddress)).bind(Map("address.lineOne" -> "lineOne", "address.lineTwo" -> "", "address.lineThree" -> "")).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.addressLines.required"),
+        address => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
     "have a maxLength constraint for lineOne" in {
       Form("address" -> address.verifying(requiredAddress)).bind(
         Map("address.lineOne" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS")

@@ -158,5 +158,61 @@ class G6AddressChangeFormSpec extends Specification with Tags {
         )
     }
 
+    "reject if second line of address is empty for previous address" in {
+      G6AddressChange.form.bind(
+        Map(
+          "previousAddress.lineOne" -> addressLineOne,
+          "previousAddress.lineTwo" -> "",
+          "previousAddress.lineThree" -> addressLineThree,
+          "previousPostcode" -> postCode,
+          "stillCaring.answer" -> yes,
+          "stillCaring.date.day" -> stillCaringDateDay.toString,
+          "stillCaring.date.month" -> stillCaringDateMonth.toString,
+          "stillCaring.date.year" -> stillCaringDateYear.toString,
+          "newAddress.lineOne" -> addressLineOne,
+          "newAddress.lineTwo" -> addressLineTwo,
+          "newAddress.lineThree" -> addressLineThree,
+          "newPostcode" -> postCode,
+          "caredForChangedAddress.answer" -> yes,
+          "sameAddress.answer" -> yes,
+          "moreAboutChanges" -> "No more changes"
+        )
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors(0).message must equalTo("error.addressLines.required")
+        },
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
+    "reject if second line of address is empty for new address" in {
+      G6AddressChange.form.bind(
+        Map(
+          "previousAddress.lineOne" -> addressLineOne,
+          "previousAddress.lineTwo" -> addressLineTwo,
+          "previousAddress.lineThree" -> addressLineThree,
+          "previousPostcode" -> postCode,
+          "stillCaring.answer" -> yes,
+          "stillCaring.date.day" -> stillCaringDateDay.toString,
+          "stillCaring.date.month" -> stillCaringDateMonth.toString,
+          "stillCaring.date.year" -> stillCaringDateYear.toString,
+          "newAddress.lineOne" -> addressLineOne,
+          "newAddress.lineTwo" -> "",
+          "newAddress.lineThree" -> addressLineThree,
+          "newPostcode" -> postCode,
+          "caredForChangedAddress.answer" -> yes,
+          "sameAddress.answer" -> yes,
+          "moreAboutChanges" -> "No more changes"
+        )
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors(0).message must equalTo("error.addressLines.required")
+        },
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
   } section("unit", models.domain.CircumstancesAddressChange.id)
 }

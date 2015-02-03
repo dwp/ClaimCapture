@@ -112,7 +112,7 @@ object ClaimScenarioFactory {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
     // Your contact details
-    claim.AboutYouAddress = "An address"
+    claim.AboutYouAddress = "An address&Preston"
     claim.AboutYouPostcode = "SE1 6EH"
     claim.HowWeContactYou = "01253 111 111"
     // Claim date
@@ -142,7 +142,7 @@ object ClaimScenarioFactory {
     claim.AboutYouDateOfBirth = "12/07/1970"
 
     // Your contact details
-    claim.AboutYouAddress = "An address"
+    claim.AboutYouAddress = "An address&Preston"
     claim.AboutYouPostcode = "SE1 6EH"
     claim.HowWeContactYou = "07111 111 111"
     claim.AboutYouContactYouByTextphone = "No"
@@ -242,7 +242,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideNINOPreviousCarer = "BB123456B"
     claim.AboutTheCareYouProvideDateofBirthPreviousCarer = "02/06/1985"
     // Previous Carer Contact Details
-    claim.AboutTheCareYouProvideAddressPreviousCarer = "123 Conway Road& Preston"
+    claim.AboutTheCareYouProvideAddressPreviousCarer = "123 Conway Road&Preston"
     claim.AboutTheCareYouProvidePostcodePreviousCarer = "BB9 1AB"
     claim.AboutTheCareYouProvidePhoneNumberPreviousCarer = "02933 333 333"
     claim.AboutTheCareYouProvideMobileNumberPreviousCarer = "07933 333 333"
@@ -273,7 +273,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek = "£120"
     claim.AboutTheCareYouProvideWhenDidThePaymentsStart = "29/04/2013"
     // Contact Details Of Paying Person
-    claim.AboutTheCareYouProvideAddressPersonPaysYou = "123 Cleverme Street & Genius"
+    claim.AboutTheCareYouProvideAddressPersonPaysYou = "123 Cleverme Street&Genius"
     claim.AboutTheCareYouProvidePostcodePersonPaysYou = "GN1 2DA"
     claim
   }
@@ -437,7 +437,7 @@ object ClaimScenarioFactory {
 
     claim.EmploymentEmployerName_1 = "Toys r not Us"
     claim.EmploymentEmployerPhoneNumber_1 = "12345678"
-    claim.EmploymentEmployerAddress_1 = "Street Test 1"
+    claim.EmploymentEmployerAddress_1 = "Street Test 1&Street Test 2"
     claim.EmploymentDidYouStartThisJobBeforeClaimDate_1 = "Yes"
     claim.EmploymentHaveYouFinishedThisJob_1 = "No"
 
