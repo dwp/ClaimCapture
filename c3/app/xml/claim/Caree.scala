@@ -16,7 +16,6 @@ object Caree extends XMLComponent {
     val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
     val theirContactDetails = claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-    val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     <Caree>
       {question(<Surname/>, "surname", encrypt(theirPersonalDetails.surname))}
@@ -50,12 +49,13 @@ object Caree extends XMLComponent {
       question(<BreaksSinceClaim/>, label, answer, displayPlaybackDatesFormat(Lang("en"),date))
     }
 
+    val lastValue = claim.questionGroup[BreaksInCareSummary].getOrElse(BreaksInCareSummary()).answer == Mappings.yes
     val xmlNoBreaks = {
       <CareBreak>
         {if (breaksInCare.breaks.size > 0){
-          {breaksInCareLabel("answer.more.label", false)}
+          {breaksInCareLabel("answer.more.label", lastValue)}
         } else {
-          {breaksInCareLabel("answer.label", false)}
+          {breaksInCareLabel("answer.label", lastValue)}
         }}
       </CareBreak>
     }

@@ -33,7 +33,6 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
 
     def next(hasBreaks:String) = hasBreaks match {
       case `yes` if breaksInCare.breaks.size < 10 => Redirect(routes.G11Break.present())
-      case `yes` => Redirect(routes.G10BreaksInCare.present())
       case _ => redirect(claim, lang)
     }
 
@@ -52,7 +51,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
 
   private def redirect(implicit claim: Claim, lang: Lang) = {
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1TheirPersonalDetails.present())
-    else Redirect("/education/your-course-details")
+    else Redirect(controllers.s6_education.routes.G1YourCourseDetails.present)
   }
 
   private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
