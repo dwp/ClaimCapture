@@ -10,6 +10,7 @@ import play.api.test.{FakeRequest, WithApplication}
 class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
 
   val theirContactDetailsInput = Seq("address.lineOne" -> "123 Street",
+    "address.lineTwo" -> "Preston",
     "postcode" -> "PR2 8AE")
 
   "Their Contact Details - Controller" should {

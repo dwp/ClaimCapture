@@ -143,6 +143,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "iterationID" -> iterationID,
           "employerName" -> employerName,
           "address.lineOne" -> addressLine,
+          "address.lineTwo" -> addressLineTwo,
           "phoneNumber" -> phoneNumber,
           "finishedThisJob" -> no)
       ).fold(
@@ -158,6 +159,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "employerName" -> employerName,
           "phoneNumber" -> phoneNumber,
           "address.lineOne" -> addressLine,
+          "address.lineTwo" -> addressLineTwo,
           "startJobBeforeClaimDate" -> no,
           "finishedThisJob" -> no)
       ).fold(
@@ -176,6 +178,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "employerName" -> employerName,
           "phoneNumber" -> phoneNumber,
           "address.lineOne" -> addressLine,
+          "address.lineTwo" -> addressLineTwo,
           "startJobBeforeClaimDate" -> no,
           "jobStartDate.day" -> day,
           "jobStartDate.month" -> month,
@@ -221,6 +224,44 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "finishedThisJob" -> no)
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
+    "reject if address first line is empty" in {
+      G3JobDetails.form.bind(
+        Map(
+          "jobID" -> jobId,
+          "employerName" -> employerName,
+          "phoneNumber" -> "AB126789",
+          "address.lineOne" -> "",
+          "address.lineTwo" -> "lineTwo",
+          "startJobBeforeClaimDate" -> no,
+          "jobStartDate.day" -> day,
+          "jobStartDate.month" -> month,
+          "jobStartDate.year" -> year1,
+          "finishedThisJob" -> no)
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
+    "reject if address second line is empty" in {
+      G3JobDetails.form.bind(
+        Map(
+          "jobID" -> jobId,
+          "employerName" -> employerName,
+          "phoneNumber" -> "12345678",
+          "address.lineOne" -> "lineOne",
+          "address.lineTwo" -> "",
+          "startJobBeforeClaimDate" -> no,
+          "jobStartDate.day" -> day,
+          "jobStartDate.month" -> month,
+          "jobStartDate.year" -> year1,
+          "finishedThisJob" -> no)
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.addressLines.required"),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }

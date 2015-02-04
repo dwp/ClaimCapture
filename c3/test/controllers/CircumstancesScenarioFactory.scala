@@ -176,11 +176,11 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
     claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeStillCaring = "yes"
-    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane&2 new address lane"
     claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeCaredForChangedAddress = "yes"
     claim.CircumstancesAddressChangeSameAddress = "no"
-    claim.CircumstancesAddressChangeSameAddressTheirAddress ="1 test lane"
+    claim.CircumstancesAddressChangeSameAddressTheirAddress ="1 test lane&2 test lane"
     claim.CircumstancesAddressChangeSameAddressTheirPostcode ="PR1A4JQ"
     claim.CircumstancesAddressChangeMoreAboutChanges ="Additional info about changes"
 
@@ -194,7 +194,7 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeStillCaring = "no"
     claim.CircumstancesAddressChangeFinishedStillCaringDate = "03/04/2013"
-    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane&2 new address lane"
     claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeMoreAboutChanges ="Additional info about changes"
 
@@ -207,7 +207,7 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
     claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeStillCaring = "yes"
-    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane&2 new address lane"
     claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
 
     claim
@@ -219,7 +219,7 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
     claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeStillCaring = "no"
-    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane&2 new address lane"
     claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
 
     claim
@@ -252,7 +252,7 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesAddressChangePreviousAddress = "1 test lane&2 test lane"
     claim.CircumstancesAddressChangePreviousPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeStillCaring = "yes"
-    claim.CircumstancesAddressChangeNewAddress = "1 new address lane"
+    claim.CircumstancesAddressChangeNewAddress = "1 new address lane&2 new address lane"
     claim.CircumstancesAddressChangeNewPostcode = "PR1A4JQ"
     claim.CircumstancesAddressChangeCaredForChangedAddress = "yes"
 

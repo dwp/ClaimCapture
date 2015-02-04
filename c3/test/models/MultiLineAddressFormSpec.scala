@@ -16,10 +16,12 @@ class MultiLineAddressFormSpec extends Specification {
       )
     }
 
-    "accept single lineOne" in {
-      Form("address" -> address.verifying(requiredAddress)).bind(Map("address.lineOne" -> "line1", "address.lineTwo" -> "", "address.lineThree" -> "")).fold(
+    "accept two address lines" in {
+      Form("address" -> address.verifying(requiredAddress)).bind(Map("address.lineOne" -> "line1", "address.lineTwo" -> "line2", "address.lineThree" -> "")).fold(
         formWithErrors => "The mapping should not fail." must equalTo("Error"),
-        address => address must equalTo(MultiLineAddress(Some("line1")))
+        address => {
+            address must equalTo(MultiLineAddress(Some("line1"), Some("line2")))
+          }
       )
     }
 
@@ -33,6 +35,13 @@ class MultiLineAddressFormSpec extends Specification {
     "reject single lineThree" in {
       Form("address" -> address.verifying(requiredAddress)).bind(Map("address.lineOne" -> "", "address.lineTwo" -> "", "address.lineThree" -> "line3")).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        address => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
+    "reject if lineTwo is empty" in {
+      Form("address" -> address.verifying(requiredAddress)).bind(Map("address.lineOne" -> "lineOne", "address.lineTwo" -> "", "address.lineThree" -> "")).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.addressLines.required"),
         address => "This mapping should not happen." must equalTo("Valid")
       )
     }

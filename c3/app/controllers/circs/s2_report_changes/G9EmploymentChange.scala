@@ -49,7 +49,7 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
   val typeOfWork =
     "typeOfWork" -> mapping(
       "answer" -> nonEmptyText.verifying(validTypeOfWork),
-      "employerNameAndAddress" -> optional(address.verifying(requiredAddressWithTwoLines)),
+      "employerNameAndAddress" -> optional(address.verifying(requiredAddress)),
       "employerPostcode" -> optional(carersText verifying validPostcode),
       "employerContactNumber" -> optional(carersText(maxLength = 15)),
       "employerPayroll" -> optional(carersText(maxLength = 15)),

@@ -48,6 +48,7 @@ class G5LastWageSpec extends Specification with Tags {
         "employerName" -> "Toys r not us",
         "phoneNumber" -> "12345678",
         "address.lineOne" -> "Street Test 1",
+        "address.lineTwo" -> "Street Test 2",
         "startJobBeforeClaimDate" -> "yes",
         "finishedThisJob" -> "no"))
 
