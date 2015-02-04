@@ -4,6 +4,7 @@ import scala.language.reflectiveCalls
 import org.specs2.mutable.Specification
 import controllers.s7_employment.Employment.jobFormFiller
 import models.MultiLineAddress
+import controllers.Iteration.{Identifier => IterationID}
 
 class EmploymentSpec extends Specification {
   "Job" should {
@@ -42,79 +43,6 @@ class EmploymentSpec extends Specification {
       updatedJobs.size shouldEqual 1
     }
 
-//    "add new question group in existing job" in new Claiming {
-//      val jobDetails = mockQuestionGroup[JobDetails](JobDetails)
-//      val job1 = Job("1").update(jobDetails)
-//
-//      val jobs = new Jobs(job1 :: Job("2") :: Nil)
-//
-//      val employerContactDetails = EmployerContactDetails("1", MultiLineAddress(), None, Some("111"))
-//      val updatedJob1 = job1.update(employerContactDetails)
-//      updatedJob1.questionGroups.size shouldEqual 2
-//
-//      val updatedJobs = jobs.update(updatedJob1)
-//      updatedJobs.size shouldEqual 2
-//      updatedJobs.find(_.jobID == "1") must beLike { case Some(Job("1", qgs, false)) => qgs.size shouldEqual 2 }
-//    }
-//
-//    "update existing question group in existing job" in new Claiming {
-//      val jobDetails = mockQuestionGroup[JobDetails](JobDetails)
-//      val employerContactDetails = EmployerContactDetails("1", MultiLineAddress(), None, Some("111"))
-//      val job1 = Job("1").update(jobDetails).update(employerContactDetails)
-//
-//      val jobs = new Jobs(job1 :: Job("2") :: Nil)
-//
-//      val updatedJob1 = job1.update(EmployerContactDetails("1", MultiLineAddress(), None, Some("222")))
-//      updatedJob1.questionGroups.size shouldEqual 2
-//
-//      val updatedJobs = jobs.update(updatedJob1)
-//      updatedJobs.size shouldEqual 2
-//
-//      updatedJobs.find(_.jobID == "1") must beLike {
-//        case Some(Job("1", qgs, false)) => qgs.find(_.isInstanceOf[EmployerContactDetails]) must beLike {
-//          case Some(e: EmployerContactDetails) => e.phoneNumber must beSome("222")
-//        }
-//      }
-//    }
-//
-//    """be directly updated with an existing question group in an existing job""" in new Claiming {
-//      val jobDetails = mockQuestionGroup[JobDetails](JobDetails)
-//      val employerContactDetails = EmployerContactDetails("1", MultiLineAddress(), None, Some("111"))
-//      val job1 = Job("1").update(jobDetails).update(employerContactDetails)
-//
-//      val jobs = new Jobs(job1 :: Job("2") :: Nil)
-//
-//      val updatedJobs = jobs.update(EmployerContactDetails("1", MultiLineAddress(), None, Some("222")))
-//      updatedJobs.size shouldEqual 2
-//
-//      updatedJobs.find(_.jobID == "1") must beLike {
-//        case Some(Job("1", qgs, false)) => qgs.find(_.isInstanceOf[EmployerContactDetails]) must beLike {
-//          case Some(e: EmployerContactDetails) => e.phoneNumber must beSome("222")
-//        }
-//      }
-//    }
-//
-//    "fill existing form" in new Claiming {
-//      val jobDetails = mockQuestionGroup[JobDetails](JobDetails)
-//      val job1 = Job("1").update(jobDetails)
-//
-//      val jobs = new Jobs(job1 :: Job("2") :: Nil)
-//
-//      val employerContactDetails = EmployerContactDetails("1", MultiLineAddress(), None, Some("111"))
-//      val updatedJob1 = job1.update(employerContactDetails)
-//      updatedJob1.questionGroups.size shouldEqual 2
-//
-//      val updatedJobs = jobs.update(updatedJob1)
-//      updatedJobs.size shouldEqual 2
-//      updatedJobs.find(_.jobID == "1") must beLike { case Some(Job("1", qgs, false)) => qgs.size shouldEqual 2 }
-//
-//      val claim = Claim().update(updatedJobs)
-//
-//      val form = G4EmployerContactDetails.form.fillWithJobID(EmployerContactDetails, "1")(claim)
-//      form.value.isDefined should beTrue
-//      val address = new MultiLineAddress()
-//      form.value.get must beLike { case EmployerContactDetails(jid,address, None, Some(v)) => jid shouldEqual "1" and(v shouldEqual "111") }
-//    }
   }
 
   "Claim" should {
@@ -137,7 +65,7 @@ class EmploymentSpec extends Specification {
         case js: Jobs => js.jobs.find(_.iterationID == "2").collect {
           case j: Iteration => j.questionGroups.find(_.isInstanceOf[JobDetails])
         }
-      }.flatten.flatten must beLike { case Some(jd: JobDetails with Iteration.Identifier) => jd.employerName shouldEqual "Toys r not us" }
+      }.flatten.flatten must beLike { case Some(jd: JobDetails with IterationID) => jd.employerName shouldEqual "Toys r not us" }
     }
   }
 }

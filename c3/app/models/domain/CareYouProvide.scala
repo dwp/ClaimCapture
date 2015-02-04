@@ -5,6 +5,7 @@ import models.Whereabouts
 import models.MultiLineAddress
 import models.NationalInsuranceNumber
 import models.yesNo.{RadioWithText, YesNoWithDate}
+import controllers.Iteration.{Identifier => IterationID}
 
 case object CareYouProvide extends Section.Identifier {
   val id = "s5"
@@ -64,7 +65,7 @@ case class Break(iterationID: String = "",
                  end: Option[DayMonthYear] = None,
                  endTime:Option[String] = None,
                  whereYou:RadioWithText = RadioWithText("", None), wherePerson: RadioWithText = RadioWithText("", None),
-                 medicalDuringBreak: String = "") extends Iteration.Identifier
+                 medicalDuringBreak: String = "") extends IterationID
 
 case class BreaksInCareSummary(answer: String = "") extends QuestionGroup(BreaksInCareSummary)
 

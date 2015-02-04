@@ -1,8 +1,9 @@
-package controllers.s7_employment
+package controllers
 
 import java.util.UUID._
-import play.api.mvc.Request
+
 import models.domain.Claim
+import play.api.mvc.Request
 
 object IterationID {
   def apply(form: play.api.data.Form[_])(implicit claim: Claim, request: Request[_]): String = {
@@ -18,5 +19,11 @@ object IterationID {
         case _ => randomUUID.toString
       }
     }.getOrElse(randomUUID.toString))
+  }
+}
+
+object Iteration {
+  trait Identifier {
+    val iterationID: String
   }
 }

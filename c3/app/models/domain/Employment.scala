@@ -7,6 +7,7 @@ import controllers.mappings.Mappings._
 import models.PaymentFrequency
 import models.MultiLineAddress
 import models.yesNo.YesNoWithText
+import controllers.Iteration.{Identifier => IterationID}
 
 object Employed extends Section.Identifier {
   val id = "s7"
@@ -31,7 +32,7 @@ case class Jobs(jobs: List[Iteration] = Nil) extends QuestionGroup(Jobs) with It
     if (updated.contains(job)) Jobs(updated) else Jobs(jobs :+ job)
   }
 
-  def update(questionGroup: QuestionGroup with Iteration.Identifier): Jobs = jobs.find(_.iterationID == questionGroup.iterationID) match {
+  def update(questionGroup: QuestionGroup with IterationID): Jobs = jobs.find(_.iterationID == questionGroup.iterationID) match {
     case Some(job: Iteration) => update(job.update(questionGroup))
     case _ => update(Iteration(questionGroup.iterationID, questionGroup :: Nil))
   }
@@ -52,7 +53,7 @@ case class Jobs(jobs: List[Iteration] = Nil) extends QuestionGroup(Jobs) with It
 
   def job(iterationID: String): Option[Iteration] = jobs.find(_.iterationID == iterationID)
 
-  def questionGroup(questionGroup: QuestionGroup with Iteration.Identifier): Option[QuestionGroup] = job(questionGroup.iterationID) match {
+  def questionGroup(questionGroup: QuestionGroup with IterationID): Option[QuestionGroup] = job(questionGroup.iterationID) match {
     case Some(j: Iteration) => j(questionGroup)
     case _ => None
   }
@@ -69,14 +70,14 @@ object Jobs extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g99"
 }
 
-case class Iteration(iterationID: String="", questionGroups: List[QuestionGroup with Iteration.Identifier] = Nil, completed:Boolean=false) extends Iteration.Identifier with Iterable[QuestionGroup with Iteration.Identifier] {
+case class Iteration(iterationID: String="", questionGroups: List[QuestionGroup with IterationID] = Nil, completed:Boolean=false) extends IterationID with Iterable[QuestionGroup with IterationID] {
   def employerName = jobDetails(_.employerName)
 
   def jobStartDate = jobDetailsDate(_.jobStartDate.getOrElse(DayMonthYear(None,None,None)))
 
   def finishedThisJob = jobDetails(_.finishedThisJob)
 
-  def update(questionGroup: QuestionGroup with Iteration.Identifier): Iteration = {
+  def update(questionGroup: QuestionGroup with IterationID): Iteration = {
     val updated = questionGroups map { qg => if (qg.identifier == questionGroup.identifier) questionGroup else qg }
     if (updated.contains(questionGroup)) copy(questionGroups = updated) else copy(questionGroups = questionGroups :+ questionGroup)
   }
@@ -106,13 +107,7 @@ case class Iteration(iterationID: String="", questionGroups: List[QuestionGroup 
 
   def apply(questionGroup: QuestionGroup.Identifier): Option[QuestionGroup] = questionGroups.find(_.identifier.id == questionGroup.id)
 
-  override def iterator: Iterator[QuestionGroup with Iteration.Identifier] = questionGroups.iterator
-}
-
-object Iteration {
-  trait Identifier {
-    val iterationID: String
-  }
+  override def iterator: Iterator[QuestionGroup with IterationID] = questionGroups.iterator
 }
 
 case class JobDetails(iterationID: String = "",
@@ -125,7 +120,7 @@ case class JobDetails(iterationID: String = "",
                       finishedThisJob: String = "",
                       lastWorkDate:Option[DayMonthYear] = None,
                       p45LeavingDate:Option[DayMonthYear] = None,
-                      hoursPerWeek: Option[String] = None) extends QuestionGroup(JobDetails) with Iteration.Identifier {
+                      hoursPerWeek: Option[String] = None) extends QuestionGroup(JobDetails) with IterationID {
   override val definition = Messages(identifier.id, employerName)
 }
 
@@ -157,7 +152,7 @@ case class LastWage(iterationID: String = "",
                     grossPay: String = "",
                     payInclusions: Option[String] = None,
                     sameAmountEachTime: String = "",
-                    employerOwesYouMoney: Option[String] = None) extends QuestionGroup(LastWage) with Iteration.Identifier
+                    employerOwesYouMoney: Option[String] = None) extends QuestionGroup(LastWage) with IterationID
 
 
 object LastWage extends QuestionGroup.Identifier {
@@ -172,7 +167,7 @@ object LastWage extends QuestionGroup.Identifier {
 case class PensionAndExpenses(iterationID: String = "",
                          payPensionScheme: YesNoWithText = YesNoWithText("", None),
                          haveExpensesForJob: YesNoWithText = YesNoWithText("", None)
-                        ) extends QuestionGroup(PensionAndExpenses) with Iteration.Identifier
+                        ) extends QuestionGroup(PensionAndExpenses) with IterationID
 
 object PensionAndExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g4"
