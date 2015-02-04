@@ -231,7 +231,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "reject if address first line is empty" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "employerName" -> employerName,
           "phoneNumber" -> "AB126789",
           "address.lineOne" -> "",
@@ -250,7 +250,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "reject if address second line is empty" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "employerName" -> employerName,
           "phoneNumber" -> "12345678",
           "address.lineOne" -> "lineOne",
