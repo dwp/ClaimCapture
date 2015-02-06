@@ -27,7 +27,7 @@ class G5LastWageSpec extends Specification with Tags {
 
     """require "job ID" and "grossPay".""" in new WithApplication with Claiming {
       val request = FakeRequest()
-        .withFormUrlEncodedBody("jobID" -> "1",
+        .withFormUrlEncodedBody("iterationID" -> "1",
           "oftenGetPaid.frequency" -> "Weekly",
           "whenGetPaid" -> "Mondays",
           "lastPaidDate.day" -> "1",
@@ -44,7 +44,7 @@ class G5LastWageSpec extends Specification with Tags {
     """be added to a (current) job""" in new WithApplication with Claiming {
       val result1 = G3JobDetails.submit(FakeRequest()
         withFormUrlEncodedBody(
-        "jobID" -> "1",
+        "iterationID" -> "1",
         "employerName" -> "Toys r not us",
         "phoneNumber" -> "12345678",
         "address.lineOne" -> "Street Test 1",
@@ -53,7 +53,7 @@ class G5LastWageSpec extends Specification with Tags {
         "finishedThisJob" -> "no"))
 
       val result2 = G5LastWage.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
-        .withFormUrlEncodedBody("jobID" -> "1",
+        .withFormUrlEncodedBody("iterationID" -> "1",
           "oftenGetPaid.frequency" -> "Weekly",
           "whenGetPaid" -> "Mondays",
           "lastPaidDate.day" -> "1",
@@ -71,7 +71,7 @@ class G5LastWageSpec extends Specification with Tags {
         case Some(js: Jobs) => {
           js.size shouldEqual 1
 
-          js.find(_.jobID == "1") must beLike { case Some(j: Job) => j.questionGroups.size shouldEqual 2 }
+          js.find(_.iterationID == "1") must beLike { case Some(j: Iteration) => j.questionGroups.size shouldEqual 2 }
         }
       }
     }

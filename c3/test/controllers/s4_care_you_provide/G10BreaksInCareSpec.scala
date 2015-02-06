@@ -27,7 +27,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
       val request = FakeRequest().withFormUrlEncodedBody("answer" -> "yes")
 
       val result = G10BreaksInCare.submit(request)
-      redirectLocation(result) should beSome("/care-you-provide/break")
+      redirectLocation(result).get must contain("/care-you-provide/breaks/")
     }
 
     """accept "no" to "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
@@ -52,7 +52,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
     "complete upon indicating that there are no more breaks having now provided one break" in new WithApplication with Claiming {
       val request1 = FakeRequest()
         .withFormUrlEncodedBody(
-        "breakID" -> "newID",
+        "iterationID" -> "newID",
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
@@ -76,7 +76,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
     "allow no more than 10 breaks" in new WithApplication with Claiming {
       val request1 = FakeRequest()
         .withFormUrlEncodedBody(
-          "breakID" -> 1.toString,
+          "iterationID" -> 1.toString,
           "start.day" -> "1",
           "start.month" -> "1",
           "start.year" -> "2001",
@@ -89,7 +89,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
       for (i <- 2 to 10) {
         val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
           .withFormUrlEncodedBody(
-          "breakID" -> i.toString,
+          "iterationID" -> i.toString,
           "start.day" -> "1",
           "start.month" -> "1",
           "start.year" -> "2001",
@@ -107,7 +107,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
 
       val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
         .withFormUrlEncodedBody(
-        "breakID" -> "999",
+        "iterationID" -> "999",
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
@@ -124,11 +124,11 @@ class G10BreaksInCareSpec extends Specification with Tags {
     }
 
     "have no breaks upon deleting a break" in new WithApplication with Claiming {
-      val breakID = "1"
+      val instanceID = "1"
 
       val request = FakeRequest()
         .withFormUrlEncodedBody(
-        "breakID" -> breakID,
+        "iterationID" -> instanceID,
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
@@ -138,7 +138,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
 
       val result = G11Break.submit(request)
 
-      G10BreaksInCare.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result)).withFormUrlEncodedBody("deleteId"->breakID))
+      G10BreaksInCare.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result)).withFormUrlEncodedBody("deleteId"->instanceID))
 
       getClaimFromCache(result).questionGroup(BreaksInCare) should beLike {
         case Some(b: BreaksInCare) => b.breaks.size shouldEqual 0
@@ -153,7 +153,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
     "issue an 'error' when deleting a non-existing break when there are existing breaks" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
-        "breakID" -> "1",
+        "iterationID" -> "1",
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",

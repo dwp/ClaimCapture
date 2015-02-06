@@ -8,18 +8,18 @@ import models.view.CachedClaim
 import scala.Some
 
 class G8PensionAndExpensesSpec extends Specification with Tags {
-  val jobID = "Dummy job ID"
+  val iterationID = "Dummy job ID"
 
   "Pension and expenses" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-      val result = G8PensionAndExpenses.present(jobID)(request)
+      val result = G8PensionAndExpenses.present(iterationID)(request)
       status(result) mustEqual OK
     }
 
     "require all mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> jobID)
+        .withFormUrlEncodedBody("iterationID" -> iterationID)
 
       val result = G8PensionAndExpenses.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -27,7 +27,7 @@ class G8PensionAndExpensesSpec extends Specification with Tags {
 
     "accept all mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(
-        "jobID" -> jobID,
+        "iterationID" -> iterationID,
         "payPensionScheme.answer" -> "yes",
         "haveExpensesForJob.answer" -> "yes",
         "payPensionScheme.text" -> "some pension expense",
@@ -40,7 +40,7 @@ class G8PensionAndExpensesSpec extends Specification with Tags {
     "be added to a current job" in new WithApplication with Claiming {
       val result1 = G3JobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         withFormUrlEncodedBody(
-        "jobID" -> jobID,
+        "iterationID" -> iterationID,
         "employerName" -> "Toys r not us",
         "phoneNumber" -> "12345678",
         "address.lineOne" -> "Street Test 1",
@@ -51,7 +51,7 @@ class G8PensionAndExpensesSpec extends Specification with Tags {
 
       val result = G8PensionAndExpenses.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         withFormUrlEncodedBody(
-        "jobID" -> jobID,
+        "iterationID" -> iterationID,
         "payPensionScheme.answer" -> "no",
         "haveExpensesForJob.answer" -> "no"))
 
@@ -64,7 +64,7 @@ class G8PensionAndExpensesSpec extends Specification with Tags {
           js.size shouldEqual 1
 
           //TODO: check whether we need to be at qs 2 or 1
-          js.find(_.jobID == jobID) must beLike { case Some(j: Job) => j.questionGroups.size shouldEqual 1 }
+          js.find(_.iterationID == iterationID) must beLike { case Some(j: Iteration) => j.questionGroups.size shouldEqual 1 }
         }
       }
     }

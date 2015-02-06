@@ -18,7 +18,7 @@ import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 object G3JobDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "jobID" -> carersNonEmptyText,
+    "iterationID" -> carersNonEmptyText,
     "employerName"-> carersNonEmptyText(maxLength = 60),
     "phoneNumber" -> nonEmptyText.verifying(validPhoneNumberRequired),
     "address" -> address.verifying(requiredAddress),
@@ -34,20 +34,20 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
     .verifying("jobStartDate.required", JobDetails.validateJobStartDate _)
   )
 
-  def job(jobID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+  def job(iterationID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
     claim.questionGroup(Jobs) match {
-      case Some(js: Jobs) if js.job(jobID).isDefined =>
-        track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g3_jobDetails(form.fillWithJobID(JobDetails, jobID))(lang)) }
+      case Some(js: Jobs) if js.job(iterationID).isDefined =>
+        track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g3_jobDetails(form.fillWithJobID(JobDetails, iterationID))(lang)) }
       case _ =>
         Redirect(routes.G2BeenEmployed.present())
     }
   }
 
-  def present(jobID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g3_jobDetails(form.fillWithJobID(JobDetails, jobID))(lang)) }
+  def present(iterationID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+    track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g3_jobDetails(form.fillWithJobID(JobDetails, iterationID))(lang)) }
   }
 
-  def submit = claimingWithCheckInJob { jobID => implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheckInIteration { iterationID => implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors =>{
         val form = formWithErrors
@@ -56,6 +56,6 @@ object G3JobDetails extends Controller with CachedClaim with Navigable {
           .replaceError("", "jobStartDate.required", FormError("jobStartDate", "error.required"))
           .replaceError("startJobBeforeClaimDate", "error.required", FormError("startJobBeforeClaimDate", "error.required",Seq(claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang,dmy - 1 months)))))
         BadRequest(views.html.s7_employment.g3_jobDetails(form)(lang))
-      },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G5LastWage.present(jobID)))
+      },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G5LastWage.present(iterationID)))
   }
 }

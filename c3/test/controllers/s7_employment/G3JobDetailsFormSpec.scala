@@ -5,7 +5,7 @@ import models.DayMonthYear
 
 class G3JobDetailsFormSpec extends Specification with Tags {
   "Employer Details - Employment History Form" should {
-    val jobId = "1"
+    val iterationID = "1"
     val yes = "yes"
     val no = "no"
     val addressLine = "test 1 rd"
@@ -23,7 +23,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "map data into case class" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "employerName" -> employerName,
           "phoneNumber" -> phoneNumber,
           "address.lineOne" -> addressLine,
@@ -46,7 +46,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.jobID must equalTo(jobId)
+          f.iterationID must equalTo(iterationID)
           f.employerName must equalTo(employerName)
           f.phoneNumber must equalTo(phoneNumber)
           f.address.lineOne must equalTo(Some(addressLine))
@@ -92,7 +92,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "reject if employerName is not filled" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "address.lineOne" -> addressLine,
           "startJobBeforeClaimDate" -> no,
           "jobStartDate.day" -> day,
@@ -108,7 +108,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "reject if address is not filled" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "employerName" -> employerName,
           "startJobBeforeClaimDate" -> no,
           "jobStartDate.day" -> day,
@@ -124,7 +124,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "reject if finishedThisJob is not filled" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "employerName" -> employerName,
           "address.lineOne" -> addressLine,
           "startJobBeforeClaimDate" -> no,
@@ -140,7 +140,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "reject if startJobBeforeClaimDate is not filled" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "employerName" -> employerName,
           "address.lineOne" -> addressLine,
           "address.lineTwo" -> addressLineTwo,
@@ -155,7 +155,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "have 1 expanded mandatory fields if startJobBeforeClaimDate is no" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "employerName" -> employerName,
           "phoneNumber" -> phoneNumber,
           "address.lineOne" -> addressLine,
@@ -174,7 +174,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "have 1 expanded mandatory fields if finishedThisJob is yes" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "employerName" -> employerName,
           "phoneNumber" -> phoneNumber,
           "address.lineOne" -> addressLine,
@@ -196,7 +196,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "reject if phoneNumber is not filled" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "employerName" -> employerName,
           "address.lineOne" -> addressLine,
           "startJobBeforeClaimDate" -> no,
@@ -213,7 +213,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "reject if phoneNumber is not valid" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "employerName" -> employerName,
           "phoneNumber" -> "AB126789*",
           "address.lineOne" -> addressLine,
@@ -231,7 +231,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "reject if address first line is empty" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "employerName" -> employerName,
           "phoneNumber" -> "AB126789",
           "address.lineOne" -> "",
@@ -250,7 +250,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
     "reject if address second line is empty" in {
       G3JobDetails.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> iterationID,
           "employerName" -> employerName,
           "phoneNumber" -> "12345678",
           "address.lineOne" -> "lineOne",

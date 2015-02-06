@@ -33,7 +33,7 @@ object G11Break extends Controller with CachedClaim {
       .verifying("whereYou.text.required", RadioWithText.validateOnOther _)
 
   val form = Form(mapping(
-    "breakID" -> carersNonEmptyText,
+    "iterationID" -> carersNonEmptyText,
     "start" -> (dayMonthYear verifying validDate),
     "startTime" -> optional(carersText),
     "end" -> optional(dayMonthYear verifying validDateOnly),
@@ -46,10 +46,6 @@ object G11Break extends Controller with CachedClaim {
   )
 
   val backCall = routes.G10BreaksInCare.present()
-
-  def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
-    Ok(views.html.s4_care_you_provide.g11_break(form,backCall)(lang))
-  }
 
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
@@ -72,14 +68,9 @@ object G11Break extends Controller with CachedClaim {
   }
 
 
- def break(id: String) = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
-    claim.questionGroup(BreaksInCare) match {
-      case Some(b: BreaksInCare) => b.breaks.find(_.id == id) match {
-        case Some(b: Break) => Ok(views.html.s4_care_you_provide.g11_break(form.fill(b),backCall)(lang))
-        case _ => Redirect(routes.G10BreaksInCare.present())
-      }
+ def present(iterationID: String) = claimingWithCheck{ implicit claim =>  implicit request =>  lang =>
+   val break = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(Break())
 
-      case _ => Redirect(routes.G10BreaksInCare.present())
-    }
+    Ok(views.html.s4_care_you_provide.g11_break(form.fill(break),backCall)(lang))
   }
 }

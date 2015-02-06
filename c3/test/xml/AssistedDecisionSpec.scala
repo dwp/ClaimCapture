@@ -39,13 +39,13 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Create an assisted decision section if employment with £100.01 a week and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val lastWage = LastWage(jobID = "12",
+      val lastWage = LastWage(iterationID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job = Job("12", List(lastWage))
+      val job = Iteration("12", List(lastWage))
       val jobs = Jobs(List(job))
       val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
@@ -56,13 +56,13 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Create an assisted decision section if employment with £200.02 a fortnight and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val lastWage = LastWage(jobID = "12",
+      val lastWage = LastWage(iterationID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job = Job("12", List(lastWage))
+      val job = Iteration("12", List(lastWage))
       val jobs = Jobs(List(job))
       val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
@@ -73,13 +73,13 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Create an assisted decision section if employment with £400.04 every 4 weeks and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val lastWage = LastWage(jobID = "12",
+      val lastWage = LastWage(iterationID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job = Job("12", List(lastWage))
+      val job = Iteration("12", List(lastWage))
       val jobs = Jobs(List(job))
       val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
@@ -90,13 +90,13 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Create an assisted decision section if employment with £433.38 a month and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val lastWage = LastWage(jobID = "12",
+      val lastWage = LastWage(iterationID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job = Job("12", List(lastWage))
+      val job = Iteration("12", List(lastWage))
       val jobs = Jobs(List(job))
       val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
@@ -107,21 +107,21 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Create an assisted decision section if employment with 2 jobs one £50 a week and one 200.04 four-weekly and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val lastWage1 = LastWage(jobID = "12",
+      val lastWage1 = LastWage(iterationID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job1 = Job("12", List(lastWage1))
+      val job1 = Iteration("12", List(lastWage1))
 
-      val lastWage2 = LastWage(jobID = "13",
+      val lastWage2 = LastWage(iterationID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job2 = Job("13", List(lastWage2))
+      val job2 = Iteration("13", List(lastWage2))
 
       val jobs = Jobs(List(job1, job2))
       val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
@@ -133,21 +133,21 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Create an assisted decision section if employment with 2 jobs one £100.01 a week and one 200.04 with no frequency." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val lastWage1 = LastWage(jobID = "12",
+      val lastWage1 = LastWage(iterationID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job1 = Job("12", List(lastWage1))
+      val job1 = Iteration("12", List(lastWage1))
 
-      val lastWage2 = LastWage(jobID = "13",
+      val lastWage2 = LastWage(iterationID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job2 = Job("13", List(lastWage2))
+      val job2 = Iteration("13", List(lastWage2))
 
       val jobs = Jobs(List(job1, job2))
       val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
@@ -159,22 +159,22 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Not create an assisted decision section if employment with 2 jobs one £50 a week and one 200.04 four-weekly and job 2 has an expense." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val lastWage1 = LastWage(jobID = "12",
+      val lastWage1 = LastWage(iterationID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job1 = Job("12", List(lastWage1))
+      val job1 = Iteration("12", List(lastWage1))
 
-      val lastWage2 = LastWage(jobID = "13",
+      val lastWage2 = LastWage(iterationID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val expense2 = PensionAndExpenses(jobID = "13", YesNoWithText("yes", Some("some pension expenses")), YesNoWithText("yes", Some("some job expenses")))
-      val job2 = Job("13", List(lastWage2, expense2))
+      val expense2 = PensionAndExpenses(iterationID = "13", YesNoWithText("yes", Some("some pension expenses")), YesNoWithText("yes", Some("some job expenses")))
+      val job2 = Iteration("13", List(lastWage2, expense2))
 
       val jobs = Jobs(List(job1, job2))
       val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
@@ -185,20 +185,20 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Not create an assisted decision section if employment with 2 jobs one £50 a week and one 100.04 four-weekly." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val lastWage1 = LastWage(jobID = "12",
+      val lastWage1 = LastWage(iterationID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job1 = Job("12", List(lastWage1))
-      val lastWage2 = LastWage(jobID = "13",
+      val job1 = Iteration("12", List(lastWage1))
+      val lastWage2 = LastWage(iterationID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job2 = Job("13", List(lastWage2))
+      val job2 = Iteration("13", List(lastWage2))
 
       val jobs = Jobs(List(job1, job2))
       val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
@@ -209,21 +209,21 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Create an assisted decision section if employment with 2 jobs one £100.01 a week and one 22.13 with not same amount each time." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val lastWage1 = LastWage(jobID = "12",
+      val lastWage1 = LastWage(iterationID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job1 = Job("12", List(lastWage1))
+      val job1 = Iteration("12", List(lastWage1))
 
-      val lastWage2 = LastWage(jobID = "13",
+      val lastWage2 = LastWage(iterationID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job2 = Job("13", List(lastWage2))
+      val job2 = Iteration("13", List(lastWage2))
 
       val jobs = Jobs(List(job1, job2))
       val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
@@ -235,21 +235,21 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Not create an assisted decision section if employment with 2 jobs one £100.01 a week and one 22.13 both with not same amount each time." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val lastWage1 = LastWage(jobID = "12",
+      val lastWage1 = LastWage(iterationID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job1 = Job("12", List(lastWage1))
+      val job1 = Iteration("12", List(lastWage1))
 
-      val lastWage2 = LastWage(jobID = "13",
+      val lastWage2 = LastWage(iterationID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job2 = Job("13", List(lastWage2))
+      val job2 = Iteration("13", List(lastWage2))
 
       val jobs = Jobs(List(job1, job2))
       val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
@@ -260,20 +260,20 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Create an assisted decision section only for caring hours if care less than 35 hours and employment with 2 jobs one £100.01 a week and one 200.04." in {
       val moreAboutTheCare = MoreAboutTheCare("no")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val lastWage1 = LastWage(jobID = "12",
+      val lastWage1 = LastWage(iterationID = "12",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job1 = Job("12", List(lastWage1))
-      val lastWage2 = LastWage(jobID = "13",
+      val job1 = Iteration("12", List(lastWage1))
+      val lastWage2 = LastWage(iterationID = "13",
         oftenGetPaid = PaymentFrequency("Weekly"),
         whenGetPaid = whenGetPaid,
         lastPaidDate = DayMonthYear(),
         grossPay = "100.01",
         employerOwesYouMoney = employerOwesYouMoney)
-      val job2 = Job("13", List(lastWage2))
+      val job2 = Iteration("13", List(lastWage2))
 
       val jobs = Jobs(List(job1, job2))
       val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)

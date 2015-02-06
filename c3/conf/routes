@@ -111,8 +111,7 @@ GET           /care-you-provide/breaks-in-care                                co
 POST          /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.submit
 POST          /care-you-provide/delete-break-in-care                         controllers.s4_care_you_provide.G10BreaksInCare.delete
 
-GET           /care-you-provide/breaks/:id                                    controllers.s4_care_you_provide.G11Break.break(id: String)
-GET           /care-you-provide/break                                         controllers.s4_care_you_provide.G11Break.present
+GET           /care-you-provide/breaks/:id                                    controllers.s4_care_you_provide.G11Break.present(id: String)
 POST          /care-you-provide/break                                         controllers.s4_care_you_provide.G11Break.submit
 
 # Education
@@ -128,17 +127,17 @@ POST          /employment/employment                                          co
 GET           /employment/been-employed                                       controllers.s7_employment.G2BeenEmployed.present
 POST          /employment/been-employed                                       controllers.s7_employment.G2BeenEmployed.submit
 
-POST          /employment/delete-job                                   controllers.s7_employment.Employment.delete
+POST          /employment/delete-job                                          controllers.s7_employment.Employment.delete
 
-GET           /employment/job/:jobID                                          controllers.s7_employment.G3JobDetails.job(jobID: String)
+GET           /employment/job/:id                                             controllers.s7_employment.G3JobDetails.job(id: String)
 
-GET           /employment/job-details/:jobID                                  controllers.s7_employment.G3JobDetails.present(jobID: String)
+GET           /employment/job-details/:id                                     controllers.s7_employment.G3JobDetails.present(id: String)
 POST          /employment/job-details                                         controllers.s7_employment.G3JobDetails.submit
 
-GET           /employment/last-wage/:jobID                                    controllers.s7_employment.G5LastWage.present(jobID: String)
+GET           /employment/last-wage/:id                                       controllers.s7_employment.G5LastWage.present(id: String)
 POST          /employment/last-wage                                           controllers.s7_employment.G5LastWage.submit
 
-GET           /employment/about-expenses/:jobID                               controllers.s7_employment.G8PensionAndExpenses.present(jobID: String)
+GET           /employment/about-expenses/:id                                  controllers.s7_employment.G8PensionAndExpenses.present(id: String)
 POST          /employment/about-expenses                                      controllers.s7_employment.G8PensionAndExpenses.submit
 
 # Self-employment

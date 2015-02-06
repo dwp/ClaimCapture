@@ -14,14 +14,14 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     "map data into case class" in {
       G8PensionAndExpenses.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> jobId,
           "payPensionScheme.answer" -> no,
           "haveExpensesForJob.answer" -> no
           )
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.jobID must equalTo(jobId)
+          f.iterationID must equalTo(jobId)
           f.payPensionScheme.answer must equalTo(no)
           f.haveExpensesForJob.answer must equalTo(no)
         }
@@ -46,7 +46,7 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     "reject if haveExpensesForJob is not filled" in {
       G8PensionAndExpenses.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> jobId,
           "payPensionScheme.answer" -> no)
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
@@ -57,7 +57,7 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     "reject if payPensionScheme is not filled" in {
       G8PensionAndExpenses.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> jobId,
           "haveExpensesForJob.answer" -> no)
       ).fold(
           formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
@@ -68,7 +68,7 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     "have 1 expanded mandatory field if payPensionScheme is yes" in {
       G8PensionAndExpenses.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> jobId,
           "haveExpensesForJob.answer" -> no,
           "payPensionScheme.answer" -> yes)
       ).fold(
@@ -84,7 +84,7 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     "have 1 expanded mandatory field if haveExpensesForJob is yes" in {
       G8PensionAndExpenses.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> jobId,
           "haveExpensesForJob.answer" -> yes,
           "payPensionScheme.answer" -> no)
       ).fold(
@@ -100,7 +100,7 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     "reject too many characters in text fields" in {
       G8PensionAndExpenses.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> jobId,
           "payPensionScheme.answer" -> yes,
           "haveExpensesForJob.answer" -> yes,
           "payPensionScheme.text" -> overThreeHundredChars,
@@ -117,7 +117,7 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
     "reject special characters in text fields" in {
       G8PensionAndExpenses.form.bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> jobId,
           "payPensionScheme.answer" -> yes,
           "haveExpensesForJob.answer" -> yes,
           "payPensionScheme.text" -> "<>",

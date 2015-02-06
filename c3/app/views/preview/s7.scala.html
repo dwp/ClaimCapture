@@ -9,7 +9,7 @@
 @jobs = @{claim.questionGroup[Jobs]}
 @sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}
 @oneWeekBeforeDate(date:DayMonthYear) = @{date - 1 weeks}
-@employmentItems(job:Job) = @{
+@employmentItems(job:Iteration) = @{
     val aboutExpenses = job.questionGroup[PensionAndExpenses].get
     var elems = Seq.empty[String]
     if(aboutExpenses.haveExpensesForJob.answer == "yes" || aboutExpenses.payPensionScheme.answer == "yes")
@@ -33,7 +33,7 @@
     }
     text
 }
-@employmentSummary(job:Job) = @{
+@employmentSummary(job:Iteration) = @{
     var text = Messages("detailsProvided",job.questionGroup[JobDetails].get.employerName)
     val items = employmentItems(job)
 

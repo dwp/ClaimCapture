@@ -21,7 +21,7 @@ class G5LastWageFormSpec extends Specification with Tags{
     "map data to form" in {
       G5LastWage.form(models.domain.Claim()).bind(
         Map(
-          "jobID" -> jobId,
+          "iterationID" -> jobId,
           "oftenGetPaid.frequency" -> oftenGetPaid,
           "whenGetPaid" -> whenGetPaid,
           "lastPaidDate.day" -> day,
@@ -51,7 +51,7 @@ class G5LastWageFormSpec extends Specification with Tags{
     "have 5 mandatory fields" in {
       G5LastWage.form(models.domain.Claim()).bind(
       Map(
-        "jobID" -> jobId)
+        "iterationID" -> jobId)
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(5)

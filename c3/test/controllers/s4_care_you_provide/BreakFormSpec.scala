@@ -26,7 +26,7 @@ class BreakFormSpec extends Specification with Tags {
     "map all mandatory data into case class" in {
       val b: Break = G11Break.form.bind(data - "end.date" - "end.hour" - "end.minutes").get
 
-      b.id shouldEqual "id1"
+      b.iterationID shouldEqual "id1"
       b.start shouldEqual DayMonthYear(1, 1, 2001).withTime(14, 55)
       b.end should beNone
       b.whereYou shouldEqual Whereabouts("Holiday")
@@ -37,7 +37,7 @@ class BreakFormSpec extends Specification with Tags {
     "map all data into case class" in {
       val b: Break = G11Break.form.bind(data).get
 
-      b.id shouldEqual "id1"
+      b.iterationID shouldEqual "id1"
       b.start shouldEqual DayMonthYear(1, 1, 2001).withTime(14, 55)
       b.end should beSome(DayMonthYear(25, 2, 2001).withTime(9, 0))
       b.whereYou shouldEqual Whereabouts("Holiday")
@@ -67,7 +67,7 @@ class BreakFormSpec extends Specification with Tags {
     "contain start date formatted as dd/mm/yyyy" in {
       val b: Break = G11Break.form.bind(data - "end.date" - "end.hour" - "end.minutes" + ("start.date" -> "1/02/1999")).get
 
-      b.id shouldEqual "id1"
+      b.iterationID shouldEqual "id1"
       b.start shouldEqual DayMonthYear(1, 2, 1999).withTime(14, 55)
       b.end should beNone
       b.whereYou shouldEqual Whereabouts("Holiday")

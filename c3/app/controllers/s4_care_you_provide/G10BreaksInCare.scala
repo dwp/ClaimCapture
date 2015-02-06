@@ -1,5 +1,6 @@
 package controllers.s4_care_you_provide
 
+import controllers.IterationID
 import play.api.mvc.Controller
 import play.api.data.{FormError, Form}
 import play.api.i18n.{MMessages => Messages}
@@ -32,7 +33,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
     import controllers.mappings.Mappings.yes
 
     def next(hasBreaks:String) = hasBreaks match {
-      case `yes` if breaksInCare.breaks.size < 10 => Redirect(routes.G11Break.present())
+      case `yes` if breaksInCare.breaks.size < 10 => Redirect(routes.G11Break.present(IterationID(form)))
       case _ => redirect(claim, lang)
     }
 

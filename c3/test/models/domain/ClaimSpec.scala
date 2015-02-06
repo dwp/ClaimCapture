@@ -112,9 +112,9 @@ class ClaimSpec extends Specification {
     }
 
     "iterate over jobs" in {
-      val job1 = Job("job 1").update(JobDetails("job 1"))
+      val job1 = Iteration("job 1").update(JobDetails("job 1"))
 
-      val job2 = Job("job 2").update(JobDetails("job 2"))
+      val job2 = Iteration("job 2").update(JobDetails("job 2"))
 
       val jobs = new Jobs(job1 :: job2 :: Nil)
 
@@ -122,7 +122,7 @@ class ClaimSpec extends Specification {
 
       val js = claim.questionGroup[Jobs] map { jobs =>
         for (job <- jobs) yield {
-          job.jobID
+          job.iterationID
         }
       }
 
@@ -134,7 +134,7 @@ class ClaimSpec extends Specification {
 
       val js = claim.questionGroup[Jobs] map { jobs =>
         for (job <- jobs) yield {
-          job.jobID
+          job.iterationID
         }
       }
 

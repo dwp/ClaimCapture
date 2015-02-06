@@ -31,30 +31,30 @@ object G8PensionAndExpenses extends Controller with CachedClaim with Navigable {
       .verifying("haveExpensesForJob.text.required", YesNoWithText.validateOnYes _)
 
   val form = Form(mapping(
-    "jobID" -> nonEmptyText,
+    "iterationID" -> nonEmptyText,
     payPensionScheme,
     haveExpensesForJob
   )(PensionAndExpenses.apply)(PensionAndExpenses.unapply))
 
 
-  def present(jobID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    track(PensionAndExpenses) { implicit claim => Ok(views.html.s7_employment.g8_pensionAndExpenses(form.fillWithJobID(PensionAndExpenses, jobID))(lang)) }
+  def present(iterationID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+    track(PensionAndExpenses) { implicit claim => Ok(views.html.s7_employment.g8_pensionAndExpenses(form.fillWithJobID(PensionAndExpenses, iterationID))(lang)) }
   }
 
-  def submit = claimingWithCheckInJob { jobID => implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheckInIteration { iterationID => implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("payPensionScheme","payPensionScheme.text.required",FormError("payPensionScheme.text","error.required", Seq(labelForEmployment(claim, lang, "payPensionScheme.text", jobID))))
-          .replaceError("payPensionScheme","payPensionScheme.text..maxLength",FormError("payPensionScheme.text","error.maxLength", Seq(labelForEmployment(claim, lang, "payPensionScheme.text", jobID))))
-          .replaceError("payPensionScheme.text",errorRestrictedCharacters,FormError("payPensionScheme.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "payPensionScheme.text", jobID))))
-          .replaceError("haveExpensesForJob","haveExpensesForJob.text.required",FormError("haveExpensesForJob.text","error.required", Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", jobID))))
-          .replaceError("haveExpensesForJob","haveExpensesForJob.text..maxLength",FormError("haveExpensesForJob.text","error.maxLength", Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", jobID))))
-          .replaceError("haveExpensesForJob.text",errorRestrictedCharacters,FormError("haveExpensesForJob.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", jobID))))
+          .replaceError("payPensionScheme","payPensionScheme.text.required",FormError("payPensionScheme.text","error.required", Seq(labelForEmployment(claim, lang, "payPensionScheme.text", iterationID))))
+          .replaceError("payPensionScheme","payPensionScheme.text..maxLength",FormError("payPensionScheme.text","error.maxLength", Seq(labelForEmployment(claim, lang, "payPensionScheme.text", iterationID))))
+          .replaceError("payPensionScheme.text",errorRestrictedCharacters,FormError("payPensionScheme.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "payPensionScheme.text", iterationID))))
+          .replaceError("haveExpensesForJob","haveExpensesForJob.text.required",FormError("haveExpensesForJob.text","error.required", Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", iterationID))))
+          .replaceError("haveExpensesForJob","haveExpensesForJob.text..maxLength",FormError("haveExpensesForJob.text","error.maxLength", Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", iterationID))))
+          .replaceError("haveExpensesForJob.text",errorRestrictedCharacters,FormError("haveExpensesForJob.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", iterationID))))
 
           BadRequest(views.html.s7_employment.g8_pensionAndExpenses(formWithErrorsUpdate)(lang))
       },
-      aboutExpenses => claim.update(jobs.update(aboutExpenses).completeJob(jobID)) -> Redirect(routes.G2BeenEmployed.present()))
+      aboutExpenses => claim.update(jobs.update(aboutExpenses).completeJob(iterationID)) -> Redirect(routes.G2BeenEmployed.present()))
 
   }
 }
