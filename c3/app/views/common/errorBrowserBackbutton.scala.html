@@ -16,7 +16,7 @@
 
             <nav class="form-steps">
                 <ul>
-                    <li><button type="submit" name="action" value="next" class="button" onClick="location.href = ' @url '" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("restart.claim"))</button></li>
+                    <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="location.href = ' @url '" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("restart.claim"))</button></li>
                     <li><a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("feedbacklink.claim"))</a></li>
                 </ul>
             </nav>
