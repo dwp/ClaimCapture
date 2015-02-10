@@ -3,18 +3,13 @@
 @import play.api.i18n.{MMessages => Messages}
 
 <aside class="left-col" role="complementary" aria-labelledby="helpcontent">
-	<section id="help">
-		<h2 id="helpcontent">@Html(Messages("leftcol.title"))</h2>
-        @if((!request.uri.startsWith("/cofc-help"))) {
-            <p><a href="/cofc-help" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a></p>
-        }
-		<h2>@Html(Messages("leftcol.title"))</h2>
-		<h3>@Html(Messages("leftcol.helpline"))</h3>
-		<p>@Html(Messages("leftcol.helplinecontent.1"))</p>
+    <section id="help">
+        <h2>@Html(Messages("leftcol.title"))</h2>
+        <h3>@Html(Messages("leftcol.helpline"))</h3>
+        <p>@Html(Messages("leftcol.helplinecontent.1"))</p>
         <p class="grouped">@Html(Messages("leftcol.helplinecontent.2"))</p>
         <p>@Html(Messages("leftcol.helplinecontent.3"))</p>
         <p>@Html(Messages("leftcol.helplinecontent.4")) <a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>@Messages("leftcol.callcharges")</a></p>
 
-	</section>
-
+    </section>
 </aside>
