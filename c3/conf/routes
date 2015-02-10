@@ -33,7 +33,9 @@ GET           /circs-error-retry                                              co
 
 # Unrecoverable error
 GET           /error                                                          controllers.ClaimEnding.error
+GET           /claim-error-browser-backbutton                                 controllers.ClaimEnding.errorBrowserBackbutton
 GET           /circs-error                                                    controllers.CircsEnding.error
+GET           /circs-error-browser-backbutton                                 controllers.CircsEnding.errorBrowserBackbutton
 
 # Claim submission
 GET           /async-submitting                                               controllers.submission.ClaimStatusRoutingController.present

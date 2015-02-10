@@ -13,6 +13,10 @@ object CircsEnding extends Controller with CachedChangeOfCircs {
     Ok(views.html.common.error(startPage))
   }
 
+  def errorBrowserBackbutton = endingOnError {implicit claim =>  implicit request =>  lang =>
+    Ok(views.html.common.errorBrowserBackbutton(startPage))
+  }
+
   def thankyou = ending {implicit claim =>  implicit request =>  lang =>
     Ok(views.html.common.thankYouCircs(lang))
   }

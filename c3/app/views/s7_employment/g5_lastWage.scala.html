@@ -47,7 +47,7 @@
 
 	                @carersCurrency(currentForm("grossPay"), 'maxLength -> 12, 'helperAbove -> Messages("grossPay.helper"))
 	
-	                @carersInputText(currentForm("payInclusions"), 'maxLength -> 60,'helperAbove -> Messages("payInclusions.helper"))
+	                @carersInputTextArea(currentForm("payInclusions"), 'maxLength -> 300,'helperAbove -> Messages("payInclusions.helper"), 'textAreaHelper -> Html(Messages("300charsLeft")))
 
                     @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> labelForEmployment(claim, lang, "sameAmountEachTime", IterationID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", IterationID(currentForm)))
 
@@ -71,7 +71,7 @@
 
 <script type="text/javascript">
 $(function(){
-    window.areaCounter({selector:"@CarersCrypto.encryptAES("payInclusions")",maxChars:60});
+    window.areaCounter({selector:"@CarersCrypto.encryptAES("payInclusions")",maxChars:300});
     window.areaCounter({selector:"@CarersCrypto.encryptAES("oftenGetPaid_frequency_other")",maxChars:60});
 })
 </script>

@@ -22,13 +22,14 @@ Employment - Change in circumstances,Employment,Payroll or employee number,Circu
 Employment - Change in circumstances,Employment,Have you been paid yet?,CircumstancesEmploymentChangeBeenPaidYet,yes
 Employment - Change in circumstances,Employment,How much were you last paid?,CircumstancesEmploymentChangeHowMuchPaid,100
 Finished Employment - Change in circumstances,Employment,What date did you receive your last pay?,CircumstancesEmploymentChangeWhatDatePaid,20/01/2014
-Finished Employment - Change in circumstances,Employment,What was included in this pay?,CircumstancesEmploymentChangeWhatWasIncluded,Overtime
+Finished Employment - Change in circumstances,Employment,What was included in this pay?,CircumstancesEmploymentChangeWhatWasIncluded,Overtime with lots of pay and lots of other benefits like free dinnerOvertime with lots of pay and lots of other benefits like free dinnerOvertime with lots of pay and lots of other benefits like free dinnerOvertime with lots of pay and lots of other benefits like free dinner and drinks and moviesss
 Finished Employment - Change in circumstances,Employment,How often are you paid?,CircumstancesEmploymentChangeHowOftenFrequency,other
 Finished Employment - Change in circumstances,Employment,How often - other,CircumstancesEmploymentChangeHowOftenFrequencyOther,Other text here
 Finished Employment - Change in circumstances,Employment,What day or date of the month will you be paid?,CircumstancesEmploymentChangeMonthlyPayDay,
 Finished Employment - Change in circumstances,Employment,Did you usually get the same amount each week?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,yes
 Finished Employment - Change in circumstances,Employment,Other,CircumstancesEmploymentChangeHowOftenFrequencyOther,
-Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoney,no
+Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoney,yes
+Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoneyInfo,Overtime with lots of pay and lots of other benefits like free dinnerOvertime with lots of pay and lots of other benefits like free dinnerOvertime with lots of pay and lots of other benefits like free dinnerOvertime with lots of pay and lots of other benefits like free dinner and drinks and moviesss
 Finished Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,no
 Finished Employment - Change in circumstances,Employment,"Tell us what this is for, how much and how often",CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor,
 Finished Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,no
