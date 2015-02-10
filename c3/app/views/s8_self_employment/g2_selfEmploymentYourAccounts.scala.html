@@ -20,7 +20,7 @@
     @form(action = controllers.s8_self_employment.routes.G2SelfEmploymentYourAccounts.submit) {
 
         @DwpCSRFFormHelper.formField
-        <div class="form-wrap">
+
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s8.g2"))</legend>
 	
@@ -44,13 +44,13 @@
 	            </ul>
 	        </fieldset>
 	
-	        <nav class="form-steps">
+	        <nav class="form-steps" role="navigation">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
                     <li><a id="backButtonBottom" href="@{claim.navigation.previousIgnorePreview}">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
-        </div>
+
     }
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s8_self_employment/g2_selfEmploymentYourAccounts.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>

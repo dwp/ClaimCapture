@@ -31,7 +31,7 @@
         @DwpCSRFFormHelper.formField
         <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
 
-        <div class="form-wrap">
+
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s7.g5"))</legend>
                 <ul>
@@ -57,13 +57,13 @@
                 </ul>
 	        </fieldset>
 	
-	        <nav class="form-steps">
+	        <nav class="form-steps" role="navigation">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
                     <li><a id="backButtonBottom" href="@{claim.navigation.previousIgnorePreview}">@Html(Messages("form.back"))</a></li>
                 </ul>
 	        </nav>
-        </div>
+
     }
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 

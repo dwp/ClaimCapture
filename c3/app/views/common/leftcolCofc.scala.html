@@ -2,9 +2,9 @@
 
 @import play.api.i18n.{MMessages => Messages}
 
-<aside class="left-col">
+<aside class="left-col" role="complementary" aria-labelledby="helpcontent">
 	<section id="help">
-		<h2>@Html(Messages("leftcol.title"))</h2>
+		<h2 id="helpcontent">@Html(Messages("leftcol.title"))</h2>
         @if((!request.uri.startsWith("/cofc-help"))) {
             <p><a href="/cofc-help" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a></p>
         }

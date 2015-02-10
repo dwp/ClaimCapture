@@ -19,7 +19,7 @@
     @form(action = controllers.s8_self_employment.routes.G1AboutSelfEmployment.submit) {
 
         @DwpCSRFFormHelper.formField
-        <div class="form-wrap">
+
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:self-employment">
 	            <legend>@Html(Messages("s8.g1"))</legend>
 	
@@ -40,13 +40,13 @@
 	            </ul>
 	        </fieldset>
 	
-	        <nav class="form-steps">
+	        <nav class="form-steps" role="navigation">
 	            <ul>
 					<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
                     <li><a id="backButtonBottom" href="@{claim.navigation.previousIgnorePreview}">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
-        </div>
+
     }
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s8_self_employment/g1_aboutSelfEmployment.js")'></script>
 

@@ -24,7 +24,7 @@
 @main(Messages("s7.g1") + "  " + Messages("s7.longName"), Some(employmentForm)) {
     @form(action = controllers.s7_employment.routes.G1Employment.submit) {
         @DwpCSRFFormHelper.formField
-        <div class="form-wrap">
+  
 	        <fieldset class="form-elements">
 	            <legend class="legend-hidden">@Html(Messages("s7.g1"))</legend>
 
@@ -44,13 +44,13 @@
 	            </ul>
 	        </fieldset>
 	    
-	        <nav class="form-steps">
+	        <nav class="form-steps" role="navigation">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button></li>
                     <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
-        </div>
+   
     }
 <script type="text/javascript">
     $(function(){
