@@ -37,8 +37,8 @@
 
 @main("Can you get Carer's Allowance?", None) {
     @if(approved) {
-        <section class="prompt e-prompt">
-            <h2>@Html(Messages("s1.g6.green.help1"))</h2>
+        <section class="prompt e-prompt" aria-labelledby="heading1">
+            <h2 id="heading1">@Html(Messages("s1.g6.green.help1"))</h2>
             <div>
 	            <ul>
 		            <li>@Html(Messages("s1.g6.green.help2"))</li>
@@ -48,8 +48,8 @@
             </div>
         </section>
     } else {
-        <section class="prompt e-prompt">
-            <h2>@Html(Messages("s1.g6.red.help1"))</h2>
+        <section class="prompt e-prompt" aria-labelledby="heading2">
+            <h2 id="heading2">@Html(Messages("s1.g6.red.help1"))</h2>
             <div>
 	            <p>@Html(Messages("s1.g6.red.helper"))</p>
 	            <ul>
@@ -78,7 +78,7 @@
         @carersInputHidden(currentForm("jsEnabled"),
             'hiddenValue -> "false")
         @if(approved) {
-            <nav class="form-steps">
+            <nav class="form-steps" role="navigation">
                 <ul>
                     <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Elibigility - Yes - Continue")>@Html(Messages("form.continue.step"))</button></li>
                     <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
@@ -93,7 +93,7 @@
                         '_showLabel -> false)
                 </ul>
             </fieldset>
-            <nav class="form-steps">
+            <nav class="form-steps" role="navigation">
                 <ul>
                     <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button" onmousedown="analyticsCallback()">@Html(Messages("form.continue.step"))</button></div></li>
                     <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
@@ -126,3 +126,4 @@
 </script>
 }
 }
+

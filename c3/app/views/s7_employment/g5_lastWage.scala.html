@@ -31,7 +31,7 @@
         @DwpCSRFFormHelper.formField
         <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
 
-        <div class="form-wrap">
+
 	        <fieldset class="form-elements">
 	            <legend>@Html(Messages("s7.g5"))</legend>
                 <ul>
@@ -47,7 +47,7 @@
 
 	                @carersCurrency(currentForm("grossPay"), 'maxLength -> 12, 'helperAbove -> Messages("grossPay.helper"))
 	
-	                @carersInputText(currentForm("payInclusions"), 'maxLength -> 60,'helperAbove -> Messages("payInclusions.helper"))
+	                @carersInputTextArea(currentForm("payInclusions"), 'maxLength -> 300,'helperAbove -> Messages("payInclusions.helper"), 'textAreaHelper -> Html(Messages("300charsLeft")))
 
                     @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> labelForEmployment(claim, lang, "sameAmountEachTime", IterationID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", IterationID(currentForm)))
 
@@ -57,13 +57,13 @@
                 </ul>
 	        </fieldset>
 	
-	        <nav class="form-steps">
+	        <nav class="form-steps" role="navigation">
 	            <ul>
 	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
                     <li><a id="backButtonBottom" href="@{claim.navigation.previousIgnorePreview}">@Html(Messages("form.back"))</a></li>
                 </ul>
 	        </nav>
-        </div>
+
     }
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
@@ -71,7 +71,7 @@
 
 <script type="text/javascript">
 $(function(){
-    window.areaCounter({selector:"@CarersCrypto.encryptAES("payInclusions")",maxChars:60});
+    window.areaCounter({selector:"@CarersCrypto.encryptAES("payInclusions")",maxChars:300});
     window.areaCounter({selector:"@CarersCrypto.encryptAES("oftenGetPaid_frequency_other")",maxChars:60});
 })
 </script>
