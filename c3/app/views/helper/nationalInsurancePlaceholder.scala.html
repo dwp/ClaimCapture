@@ -5,6 +5,6 @@
 @import views.html.helper.strippedHtmlConstraintRequired
 @import play.api.i18n.{MMessages => Messages}
 
-@strippedHtmlConstraintRequired(field, args: _*)
+@strippedHtmlConstraintRequired(field("nino"), args: _*)
 @carersInputText(field("nino"), 'maxLength -> 9, 'ignoreLabel -> true, 'class -> "ni-number")
 
