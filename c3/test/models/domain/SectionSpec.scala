@@ -49,7 +49,7 @@ class SectionSpec extends Specification {
       val updatedSection = section.update(Benefits("yes"))
       val questionGroupOption: Option[QuestionGroup] = updatedSection.questionGroup(Benefits)
 
-      questionGroupOption must beLike { case Some(p: Benefits) => p.answer must beTrue }
+      questionGroupOption must beLike { case Some(p: Benefits) => p.benefitsAnswer must beTrue }
     }
 
     "return the preceding question groups" in new Claiming {

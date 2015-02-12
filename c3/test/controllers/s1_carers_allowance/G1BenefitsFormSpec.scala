@@ -12,7 +12,7 @@ class G1BenefitsFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.answerYesNo must equalTo("yes")
+          f.benefitsAnswer must equalTo("yes")
         }
       )
     }

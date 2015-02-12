@@ -13,7 +13,7 @@ import play.api.Logger
 
 object G1Benefits extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "benefits.answer" -> nonEmptyText.verifying(validYesNo)
+    "benefitsAnswer" -> nonEmptyText
   )(Benefits.apply)(Benefits.unapply))
 
   def present = newClaim {implicit claim =>  implicit request =>  lang =>

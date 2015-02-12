@@ -7,6 +7,18 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
+@import models.domain.Benefits
+
+
+@benefitsList = @{
+    Seq(Benefits.pip -> Messages("s1.g1.help2"),
+        Benefits.dla -> Messages("s1.g1.help4"),
+        Benefits.aa -> Messages("s1.g1.help6"),
+        Benefits.caa -> Messages("s1.g1.help7"),
+        Benefits.afip -> Messages("s1.g1.help10"),
+        Benefits.noneOfTheBenefits -> Messages("s1.g1.help12")
+    )
+}
 
 @defining(lang) { implicit language =>
 @main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm),false) {
@@ -21,20 +33,12 @@
 		        <fieldset class="form-elements form-eligibility">
 		            <legend>@Html(Messages("s1.g1"))</legend>
 
-		          		           
-		            <div class="benefits" data-journey="carers-allowance:page:eligibility">
-		
-			            <p>@Html(Messages("s1.g1.help2"))</p>					
-			            <p>@Html(Messages("s1.g1.help4"))</p>
-			            <p>@Html(Messages("s1.g1.help6"))</p>
-			            <p>@Html(Messages("s1.g1.help7"))</p>
-						<p>@Html(Messages("s1.g1.help10"))</p>
+                    @listRadioGroup(currentForm("benefitsAnswer"),
+                        'items -> benefitsList,
+                        '_showLabel -> false,
+                        'trackLabel -> "s1.g1"
+                    )
 
-		            </div>
-		            
-	                @yesNoRadioGroup(currentForm("benefits.answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'allowance -> true,'trackLabel -> "benefits.answer")
-
-		            
 		            @defining(currentForm("benefits.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
 		                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 		                    <p>@Html(Messages("s1.g1.help11"))</p>

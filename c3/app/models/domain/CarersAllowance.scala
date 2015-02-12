@@ -4,9 +4,9 @@ case object CarersAllowance extends Section.Identifier {
   val id = "s1"
 }
 
-case class Benefits(answerYesNo: String = "") extends QuestionGroup(Benefits) with BooleanConfirmation
+case class Benefits(benefitsAnswer: String = "") extends QuestionGroup(Benefits) with BooleanConfirmation
 {
-  val answer: Boolean = answerYesNo match {
+  val answer: Boolean = benefitsAnswer match {
     case "yes" => true
     case _ => false
   }
@@ -14,6 +14,13 @@ case class Benefits(answerYesNo: String = "") extends QuestionGroup(Benefits) wi
 
 object Benefits extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g1"
+
+  val pip = "Personal Independence Payment (PIP) daily living component."
+  val dla = "Disability Living Allowance (DLA) - middle or highest care rate."
+  val aa = "Attendance Allowance (AA)."
+  val caa = "Constant Attendance Allowance (CAA) at or above the normal maximum rate with an Industrial Injuries Disablement Benefit, or basic (full day) rate with a War Disablement Pension."
+  val afip = "Armed Forces Independence Payment (AFIP)."
+  val noneOfTheBenefits = "None of the benefits"
 }
 
 case class Hours(answerYesNo: String = "") extends QuestionGroup(Hours) with BooleanConfirmation {
