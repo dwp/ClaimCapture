@@ -42,7 +42,7 @@ import scala.xml.{Elem, NodeSeq, XML}
    * @return  XML signed
    */
   private def signDwpClaim(dwpClaim: Elem,transactionId: String): Elem = {
-    val signatory = XmlSignatureFactory.buildDsaSha1Generator()
+    val signatory = XmlSignatureFactory.buildRsaSha1Generator()
     val xmlStringSigned = signatory.sign(dwpClaim.buildString(stripComments = true),s"$transactionId")
     XML.loadString(xmlStringSigned)
   }
