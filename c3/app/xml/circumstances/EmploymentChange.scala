@@ -154,19 +154,19 @@ object EmploymentChange {
         }
       }
 
-      {question(<PayIntoPension/>, "willYouPayIntoPension", change.payIntoPension.answer)}
+      {question(<PayIntoPension/>, "doYouPayIntoPension", change.payIntoPension.answer)}
 
       {
         change.payIntoPension.answer match {
-          case "yes" => {question(<PayIntoPensionWhatFor/>, "willYouPayIntoPension.whatFor", change.payIntoPension.text)}
+          case "yes" => {question(<PayIntoPensionWhatFor/>, "doYouPayIntoPension.whatFor", change.payIntoPension.text)}
           case _ => NodeSeq.Empty
         }
       }
 
-      {question(<CareCostsForThisWork/>, "willCareCostsForThisWork", change.careCostsForThisWork.answer)}
+      {question(<CareCostsForThisWork/>, "doCareCostsForThisWork", change.careCostsForThisWork.answer)}
       {
         change.careCostsForThisWork.answer match {
-          case "yes" => {question(<CareCostsForThisWorkWhatCosts/>, "willCareCostsForThisWork.whatCosts", change.careCostsForThisWork.text)}
+          case "yes" => {question(<CareCostsForThisWorkWhatCosts/>, "doCareCostsForThisWork.whatCosts", change.careCostsForThisWork.text)}
           case _ => NodeSeq.Empty
         }
       }
@@ -230,19 +230,19 @@ object EmploymentChange {
         }
       }
 
-      {question(<PayIntoPension/>, "willYouPayIntoPension", change.payIntoPension.answer)}
+      {question(<PayIntoPension/>, "didYouPayIntoPension", change.payIntoPension.answer)}
 
       {
         change.payIntoPension.answer match {
-          case "yes" => {question(<PayIntoPensionWhatFor/>, "willYouPayIntoPension.whatFor", change.payIntoPension.text)}
+          case "yes" => {question(<PayIntoPensionWhatFor/>, "didYouPayIntoPension.whatFor", change.payIntoPension.text)}
           case _ => NodeSeq.Empty
         }
       }
 
-      {question(<CareCostsForThisWork/>, "willCareCostsForThisWork", change.careCostsForThisWork.answer)}
+      {question(<CareCostsForThisWork/>, "didCareCostsForThisWork", change.careCostsForThisWork.answer)}
       {
         change.careCostsForThisWork.answer match {
-          case "yes" => {question(<CareCostsForThisWorkWhatCosts/>, "willCareCostsForThisWork.whatCosts", change.careCostsForThisWork.text)}
+          case "yes" => {question(<CareCostsForThisWorkWhatCosts/>, "didCareCostsForThisWork.whatCosts", change.careCostsForThisWork.text)}
           case _ => NodeSeq.Empty
         }
       }
