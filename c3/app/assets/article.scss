@@ -121,15 +121,7 @@ article {
 	   	   		margin-top: 0;
 	   	   		clear: both;
 	   	   	   h1 {
-		   	   	   color: #fff;
-		   	   	   margin-right: 0;
-		   	   	   margin-bottom: 0;
-		   	   	   padding-right: 0;
-		   	   	   span {
-			   	   	   display: inline-block;
-			   	   	   background: url('images/white-tick.png') 0 6px no-repeat;
-			   	   	   padding-left: 44px;
-		   	   	   }
+		   	   	   color: #fff;		   	   	   
 	   	   	   }
 	   	   	   h2 {
 		   	   	   color: #fff;
@@ -143,6 +135,10 @@ article {
 	   	   	   text-align: center;
 		   	   background: #28a197;
 		   	   padding: 2em 1em;
+		   	   @media screen and (max-width: 700px) {
+			   	   text-align: left;
+		   	   }
+
 	   	   }
 	   	   
 	   	   

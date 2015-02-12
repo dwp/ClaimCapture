@@ -59,21 +59,27 @@
 
             <article class="finish-statement">
 
-                <div class="app-complete">
-                    <h1><span>@Html(Messages("circs.thankyou"))</span></h1>
+                <section class="app-complete">
+                    <h1>@Html(Messages("circs.thankyou"))</h1>
                     <p>@Html(Messages("circs.received"))</p>
-                </div>
-                    <div class="send-info">
+                </section>
+                
+                <div class="finish-mobile">@Html(Messages("circs.feedback.link"))</div>
+                
+            </article>
+                
+                <aside class="left-col right-panel no-employment">
+         
                         @if(showBreaksInCareMessages){
-                            <section class="finish-next">
-                                <h3 id="breaksInCareMessageTitle">@Html(Messages("circs.thankyou.breakmessage.title"))</h3>
+                            <section>
+                                <h2 id="breaksInCareMessageTitle">@Html(Messages("circs.thankyou.breakmessage.title"))</h2>
                                 <p>@Html(Messages("circs.thankyou.breakmessage.content"))</p>
                             </section>
                         }
 
                         @if(showEmployment1Messages){
-                            <section class="finish-next">
-                                <h3 id="employment1MessageTitle">@Html(Messages("circs.thankyou.employment1message.title"))</h3>
+                            <section>
+                                <h2 id="employment1MessageTitle">@Html(Messages("circs.thankyou.employment1message.title"))</h2>
                                 <p>@Html(Messages("circs.thankyou.employment1message1.content"))</p>
                                 <ul>
                                     <li>@Html(Messages("circs.thankyou.employment1message2.content"))</li>
@@ -83,7 +89,7 @@
                                 </ul>
                             </section>
                             <section class="address">
-                                <h3 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment1message.address.title"))</h3>
+                                <h2 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment1message.address.title"))</h2>
                                 <span>@Html(Messages("circs.thankyou.employment1message1.address"))</span>
                                 <span>@Html(Messages("circs.thankyou.employment1message2.address"))</span>
                                 <span>@Html(Messages("circs.thankyou.employment1message3.address"))</span>
@@ -93,7 +99,7 @@
 
                         @if(showEmployment2Messages){
                             <section class="finish-next">
-                                <h3 id="employment2MessageTitle">@Html(Messages("circs.thankyou.employment2message.title"))</h3>
+                                <h2 id="employment2MessageTitle">@Html(Messages("circs.thankyou.employment2message.title"))</h2>
                                 <ul>
                                     <li>@Html(Messages("circs.thankyou.employment2message1.content"))</li>
                                     <li>@Html(Messages("circs.thankyou.employment2message2.content"))</li>
@@ -104,7 +110,7 @@
                                 </ul>
                             </section>
                             <section class="address">
-                                <h3 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment2message.address.title"))</h3>
+                                <h2 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment2message.address.title"))</h2>
                                 <span>@Html(Messages("circs.thankyou.employment2message1.address"))</span>
                                 <span>@Html(Messages("circs.thankyou.employment2message2.address"))</span>
                                 <span>@Html(Messages("circs.thankyou.employment2message3.address"))</span>
@@ -112,24 +118,26 @@
                             </section>
                         }
 
-                        <section class="finish-next">
-                            <h3>@Html(Messages("next"))</h3>
+                        <section>
+                            <h2>@Html(Messages("next"))</h2>
                             <ul>
                                 <li>@Html(Messages("circs.next.1"))</li>
                                 <li>@Html(Messages("next.last"))</li>
                             </ul>
                         </section>
                         <section>
-                            <h3>@Html(Messages("change.head"))</h3>
+                            <h2>@Html(Messages("change.head"))</h2>
                             <p>@Html(Messages("change.link"))</p>
                         </section>
-                    </div>
-                    <section>
-                    <p class="finish">@Html(Messages("circs.feedback.link"))</p>
-                    </section>
+              
+
+                    <div class="finish-button">@Html(Messages("circs.feedback.link"))</div>
+                    
+                </aside>
 
 
-            </article>
+
+     
             @if(getProperty("display.transid",false)){
                 <input type="hidden" name="transId" id="transId" value="@{circs.transactionId.getOrElse("NO_TRANS_ID")}"/>
             }
