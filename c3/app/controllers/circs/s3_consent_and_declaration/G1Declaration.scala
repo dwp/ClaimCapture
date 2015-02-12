@@ -34,7 +34,7 @@ class G1Declaration extends Controller with CachedChangeOfCircs with Navigable
   )
 
   def present = claiming { implicit circs =>  implicit request =>  lang =>
-      track(CircumstancesOtherInfo) {
+      track(CircumstancesDeclaration) {
         implicit circs => Ok(views.html.circs.s3_consent_and_declaration.g1_declaration(form.fill(CircumstancesDeclaration))(lang)(circs,request))
       }
   }

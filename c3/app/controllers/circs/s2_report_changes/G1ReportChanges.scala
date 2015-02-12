@@ -18,7 +18,7 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
     "reportChanges" -> carersNonEmptyText(maxLength = 20)
   )(ReportChanges.apply)(ReportChanges.unapply))
 
-  def present = claiming {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheckCircs {implicit circs =>  implicit request =>  lang =>
     track(ReportChanges) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g1_reportChanges(form.fill(ReportChanges))(lang))
     }

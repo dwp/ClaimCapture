@@ -2,9 +2,9 @@
 
 @import play.api.i18n.{MMessages => Messages}
 
-<aside class="left-col notes-col">
-	<section id="help">
-		<h2>@Html(Messages("leftcol.title"))</h2>
+<aside class="left-col notes-col" role="complementary">
+	<section id="help" aria-labelledby="helpcontent">
+		<h2 id="helpcontent">@Html(Messages("leftcol.title"))</h2>
         <p><a href="/">@Html(Messages("form.back.to.app"))</a></p>
 		<h3>@Html(Messages("leftcol.helpline"))</h3>
 		<p>@Html(Messages("leftcol.helplinecontent.1"))</p>
