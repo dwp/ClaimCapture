@@ -33,13 +33,13 @@
 		        <fieldset class="form-elements form-eligibility">
 		            <legend>@Html(Messages("s1.g1"))</legend>
 
-                    @listRadioGroup(currentForm("benefitsAnswer"),
+                    @standaloneListRadioGroup(currentForm("benefitsAnswer"),
                         'items -> benefitsList,
-                        '_showLabel -> false,
+                        'helperAbove -> "s1.g1.help13",
                         'trackLabel -> "s1.g1"
                     )
 
-		            @defining(currentForm("benefits.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+		            @defining(currentForm("benefitsAnswer").value.getOrElse("don't know") match { case Benefits.noneOfTheBenefits => "block" case _ => "none" }) { styleDisplay =>
 		                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 		                    <p>@Html(Messages("s1.g1.help11"))</p>
 		                 </div>
@@ -59,7 +59,7 @@
 
     <script type="text/javascript">
     $(function () {
-    window.initEvents("@CarersCrypto.encryptAES("benefits_answer_yes")", "@CarersCrypto.encryptAES("benefits_answer_no")");
+    window.initEvents("@CarersCrypto.encryptAES("benefitsAnswer_NOB")");
         @ga.stagePrompt()
     });
     </script>

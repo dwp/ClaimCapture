@@ -1,0 +1,13 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang)
+
+@import helper.base._
+@import utils.helpers.CarersCrypto
+@import views.html.helper.checkConstraintRequired
+@import play.api.i18n.{MMessages => Messages}
+
+@if(args.find(_._1=='helperAbove).isDefined){
+    <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
+}
+<ul class="radio radio-stack" id="@CarersCrypto.encryptAES(field.id)">
+    @carersRadio(field, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(utils.helpers.EmptyTemplate.fieldConstructor,lang,request)
+</ul>
