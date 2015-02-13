@@ -9,8 +9,8 @@ import play.api.test.{FakeRequest, WithApplication}
 
 class G1BenefitsSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Controller" should {
-    val answerYesNo = "yes"
-    val benefitsInput = Seq("benefits.answer" -> answerYesNo)
+    val benefitsAnswer = Benefits.aa
+    val benefitsInput = Seq("benefitsAnswer" -> benefitsAnswer)
 
     "start with a new Claim" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -36,7 +36,7 @@ class G1BenefitsSpec extends Specification with Tags {
 
     "missing mandatory field" in new WithApplication with Claiming {
       val request = FakeRequest()
-        .withFormUrlEncodedBody("benefits.answer" -> "")
+        .withFormUrlEncodedBody("benefitsAnswer" -> "")
 
       val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -50,7 +50,7 @@ class G1BenefitsSpec extends Specification with Tags {
       status(result) mustEqual SEE_OTHER
     }
 
-    "add submitted form to the cached claim when answered 'yes'" in new WithApplication with Claiming {
+    "add submitted form to the cached claim when user selects 'AA'" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(benefitsInput: _*)
 
@@ -59,21 +59,77 @@ class G1BenefitsSpec extends Specification with Tags {
       val section: Section = claim.section(models.domain.CarersAllowance)
       section.questionGroup(Benefits) must beLike {
         case Some(f: Benefits) => {
-          f.benefitsAnswer must equalTo(answerYesNo)
+          f.benefitsAnswer must equalTo(benefitsAnswer)
         }
       }
     }
 
-    "add submitted form to the cached claim when answered 'no'" in new WithApplication with Claiming {
+    "add submitted form to the cached claim when user selects 'PIP'" in new WithApplication with Claiming {
       val request = FakeRequest()
-        .withFormUrlEncodedBody("benefits.answer" -> "no")
+        .withFormUrlEncodedBody("benefitsAnswer" -> Benefits.pip)
 
       val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.CarersAllowance)
       section.questionGroup(Benefits) must beLike {
         case Some(f: Benefits) => {
-          f.benefitsAnswer must equalTo("no")
+          f.benefitsAnswer must equalTo("PIP")
+        }
+      }
+    }
+
+    "add submitted form to the cached claim when user selects 'DLA'" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody("benefitsAnswer" -> Benefits.dla)
+
+      val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
+      val claim = getClaimFromCache(result)
+      val section: Section = claim.section(models.domain.CarersAllowance)
+      section.questionGroup(Benefits) must beLike {
+        case Some(f: Benefits) => {
+          f.benefitsAnswer must equalTo("DLA")
+        }
+      }
+    }
+
+    "add submitted form to the cached claim when user selects 'CAA'" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody("benefitsAnswer" -> Benefits.caa)
+
+      val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
+      val claim = getClaimFromCache(result)
+      val section: Section = claim.section(models.domain.CarersAllowance)
+      section.questionGroup(Benefits) must beLike {
+        case Some(f: Benefits) => {
+          f.benefitsAnswer must equalTo("CAA")
+        }
+      }
+    }
+
+    "add submitted form to the cached claim when user selects 'AFIP'" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody("benefitsAnswer" -> Benefits.afip)
+
+      val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
+      val claim = getClaimFromCache(result)
+      val section: Section = claim.section(models.domain.CarersAllowance)
+      section.questionGroup(Benefits) must beLike {
+        case Some(f: Benefits) => {
+          f.benefitsAnswer must equalTo("AFIP")
+        }
+      }
+    }
+
+    "add submitted form to the cached claim when user selects 'none of the benefits'" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody("benefitsAnswer" -> Benefits.noneOfTheBenefits)
+
+      val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
+      val claim = getClaimFromCache(result)
+      val section: Section = claim.section(models.domain.CarersAllowance)
+      section.questionGroup(Benefits) must beLike {
+        case Some(f: Benefits) => {
+          f.benefitsAnswer must equalTo("NOB")
         }
       }
     }

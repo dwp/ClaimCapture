@@ -10,7 +10,7 @@
 @import models.domain.Benefits
 
 
-@benefitsList = @{
+@benefitsList(implicit language:Lang) = @{
     Seq(Benefits.pip -> Messages("s1.g1.help2"),
         Benefits.dla -> Messages("s1.g1.help4"),
         Benefits.aa -> Messages("s1.g1.help6"),
@@ -36,7 +36,8 @@
                     @standaloneListRadioGroup(currentForm("benefitsAnswer"),
                         'items -> benefitsList,
                         'helperAbove -> "s1.g1.help13",
-                        'trackLabel -> "s1.g1"
+                        'track -> true,
+                        'trackLabel -> Messages("s1.g1")
                     )
 
 		            @defining(currentForm("benefitsAnswer").value.getOrElse("don't know") match { case Benefits.noneOfTheBenefits => "block" case _ => "none" }) { styleDisplay =>
@@ -55,11 +56,11 @@
 
     }
 
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoBenefitsMessage.js")'></script>
 
     <script type="text/javascript">
     $(function () {
-    window.initEvents("@CarersCrypto.encryptAES("benefitsAnswer_NOB")");
+        window.initEvents("@CarersCrypto.encryptAES(currentForm("benefitsAnswer").id)", "@Benefits.noneOfTheBenefits");
         @ga.stagePrompt()
     });
     </script>

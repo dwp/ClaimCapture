@@ -1,9 +1,10 @@
 package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
-import utils.pageobjects.{PageObjects, TestData}
+import play.api.test.{TestBrowser, WithBrowser}
+import utils.pageobjects.{PageObjectsContext, PageObjects, TestData}
 import utils.pageobjects.s1_carers_allowance.{G1BenefitsPage, G2HoursPage}
+import models.domain.Benefits
 
 class G1BenefitsIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {
@@ -29,33 +30,54 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
     "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
 		  val page = G1BenefitsPage(context)
       val claim = new TestData
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
+      claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "AA"
       page goToThePage()
       page fillPageWith claim
       page submitPage()
     }
 
-    "warn if answer no to person get one of benefits" in new WithBrowser with PageObjects {
-      skipped("Only breaking on CI")
+    "warn if answer is 'none of the benefits' to person get one of benefits" in new WithBrowser with PageObjects {
 		  val page = G1BenefitsPage(context)
       val claim = new TestData
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
+      claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "NOB"
       page goToThePage()
       page fillPageWith claim
-      page.listDisplayedPromptMessages.size mustEqual 1
+      page visible("#answerNoMessageWrap") must beTrue
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with PageObjects {
-		  val page = G1BenefitsPage(context)
-      val claim = new TestData
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
-      page goToThePage()
-      page fillPageWith claim
-      page.listDisplayedPromptMessages.size mustEqual 0
-
-      val nextPage = page submitPage()
-
-      nextPage must beAnInstanceOf[G2HoursPage]
+    "navigate to next page on valid submission with 'PIP' selected " in new WithBrowser with PageObjects {
+		   verifyAnswerMessageAndSubmit(Benefits.pip, context)
     }
+
+    "navigate to next page on valid submission with 'DLA' selected " in new WithBrowser with PageObjects {
+      verifyAnswerMessageAndSubmit(Benefits.dla, context)
+    }
+
+    "navigate to next page on valid submission with 'AA' selected " in new WithBrowser with PageObjects {
+      verifyAnswerMessageAndSubmit(Benefits.aa, context)
+    }
+
+    "navigate to next page on valid submission with 'CAA' selected " in new WithBrowser with PageObjects {
+      verifyAnswerMessageAndSubmit(Benefits.caa, context)
+    }
+
+    "navigate to next page on valid submission with 'AFIP' selected " in new WithBrowser with PageObjects {
+      verifyAnswerMessageAndSubmit(Benefits.afip, context)
+    }
+
   } section("integration", models.domain.CarersAllowance.id)
+
+  private def verifyAnswerMessageAndSubmit(benefitAnswer:String, context:PageObjectsContext) = {
+    val page = G1BenefitsPage(context)
+    val claim = new TestData
+    claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = benefitAnswer
+    page goToThePage()
+    page fillPageWith claim
+
+    page visible("#answerNoMessageWrap") must beFalse
+
+    val nextPage = page submitPage()
+
+    nextPage must beAnInstanceOf[G2HoursPage]
+  }
 }

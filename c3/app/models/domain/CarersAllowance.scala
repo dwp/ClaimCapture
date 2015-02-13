@@ -7,8 +7,8 @@ case object CarersAllowance extends Section.Identifier {
 case class Benefits(benefitsAnswer: String = "") extends QuestionGroup(Benefits) with BooleanConfirmation
 {
   val answer: Boolean = benefitsAnswer match {
-    case "yes" => true
-    case _ => false
+    case Benefits.noneOfTheBenefits => false
+    case _ => true
   }
 }
 

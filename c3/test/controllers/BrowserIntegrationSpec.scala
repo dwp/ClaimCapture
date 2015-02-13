@@ -11,7 +11,7 @@ class BrowserIntegrationSpec extends Specification with Tags {
     "not cache pages" in new WithBrowser with PageObjects {
       val page = G1BenefitsPage(context)
       val claim = new TestData
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
+      claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "PIP"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
@@ -24,7 +24,7 @@ class BrowserIntegrationSpec extends Specification with Tags {
       val backToS1G1 = approvalPage goBack() goBack() goBack() goBack()
 
       println(backToS1G1.source())
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
+      claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "NOB"
 
       backToS1G1 fillPageWith claim
       val s1g2SecondTime = backToS1G1 submitPage()

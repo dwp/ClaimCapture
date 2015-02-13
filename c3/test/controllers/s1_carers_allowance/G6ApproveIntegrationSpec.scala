@@ -23,7 +23,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
     "be approved" in new WithBrowser with PageObjects{
 			val page =  G1BenefitsPage(context)
       val claim = new TestData
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
+      claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "AA"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
@@ -49,7 +49,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
     "be declined" in new WithBrowser with PageObjects{pending
 			val page =  G1BenefitsPage(context)
       val claim = new TestData
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
+      claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "DLA"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
@@ -68,7 +68,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
     "navigate to next section" in new WithBrowser with PageObjects{pending
 			val page =  G1BenefitsPage(context)
       val claim = new TestData
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
+      claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "CAA"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
