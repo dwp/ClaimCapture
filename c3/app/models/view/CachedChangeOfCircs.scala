@@ -19,7 +19,7 @@ trait CachedChangeOfCircs extends CachedClaim {
 
   override val timeoutPage = routes.CircsEnding.timeout()
 
-  override val errorPage = routes.CircsEnding.error()
+  override val errorCookiePage = routes.CircsEnding.errorCookie()
 
   override def newInstance(newuuid:String = randomUUID.toString): Claim = new Claim(cacheKey,uuid = newuuid) with ChangeOfCircs
 

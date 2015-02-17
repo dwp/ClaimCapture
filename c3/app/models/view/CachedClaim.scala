@@ -44,7 +44,7 @@ trait CachedClaim {
   // Common pages
   val startPage: String = getProperty("claim.start.page", "/allowance/benefits")
   val timeoutPage = routes.ClaimEnding.timeout()
-  val errorPage = routes.ClaimEnding.error()
+  val errorCookiePage = routes.ClaimEnding.errorCookie()
   val errorPageBrowserBackButtonCircs = routes.CircsEnding.errorBrowserBackbutton()
   val errorPageBrowserBackButton = routes.ClaimEnding.errorBrowserBackbutton()
 
@@ -237,7 +237,7 @@ trait CachedClaim {
       val uuid = keyAndExpiration(request)._1
       Logger.debug(s"claimingWithoutClaim - uuid $uuid")
       if (uuid.isEmpty) {
-        Redirect(errorPage)
+        Redirect(errorCookiePage)
       } else {
         Logger.warn(s"$cacheKey - $uuid timeout")
         Redirect(timeoutPage)

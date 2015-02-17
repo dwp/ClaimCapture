@@ -1,0 +1,31 @@
+@(url:String)(implicit request: Request[AnyContent], lang: Lang)
+@import play.api.i18n.{MMessages => Messages}
+
+@common.govMain(Messages("unrecoverable.error")) {
+
+    <div class="carers-allowance clearfix">
+
+        @common.protoType()
+
+
+        <article class="error-statement">
+
+            <h1>@Html(Messages("unrecoverable.error.cookie"))</h1>
+            <p>@Html(Messages("unrecoverable.error.cookie.help1"))</p>
+
+            <p><button  id="TryJs" type="submit" name="action" value="next" class="button"  @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="history.back()" aria-label="@Html(Messages("try.claim.help"))" style="display:none;">@Html(Messages("try.claim"))</button>
+               <button id="Try" type="submit" name="action" value="next" class="button" onClick="location.href='@{request.headers.get("Referer").getOrElse(s"$url")}'" aria-label="@Html(Messages("try.claim.help"))">@Html(Messages("try.claim"))</button>
+            </p>
+
+            <nav class="form-steps">
+                <ul>
+                    <li><a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("feedbacklink.claim"))</a></li>
+                </ul>
+            </nav>
+        </article>
+
+         @common.leftcol()
+
+    </div>
+    <script type="text/javascript">$ ( $ ( "#Try" ).hide()); $ ( $ ( "#TryJs" ).show());</script>
+}

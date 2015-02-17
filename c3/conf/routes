@@ -3,229 +3,231 @@
 # ~~~~
 
 # Home page
-GET           /                                                               controllers.Application.index
+GET         /                                                           controllers.Application.index
 
 # Health checks
-GET         /report/metrics                                                   com.kenshoo.play.metrics.MetricsController.metrics
-GET         /report/health                                                    controllers.HealthController.healthReport
+GET         /report/metrics                                             com.kenshoo.play.metrics.MetricsController.metrics
+GET         /report/health                                              controllers.HealthController.healthReport
 
 # claim pack notes accessed externally
-GET           /claim-notes                                                    controllers.ClaimNotes.notes
+GET         /claim-notes                                                controllers.ClaimNotes.notes
 # claim pack notes accessed internally (with claim lang)
-GET           /internal-claim-notes/:languageCode                             controllers.ClaimNotes.internalNotes(languageCode: String)
+GET         /internal-claim-notes/:languageCode                         controllers.ClaimNotes.internalNotes(languageCode: String)
 
 # claim pack notes accessed externally
-GET           /claim-help                                                     controllers.ClaimHelp.notes
-GET           /cofc-help                                                      controllers.CofcHelp.notes
+GET         /claim-help                                                 controllers.ClaimHelp.notes
+GET         /cofc-help                                                  controllers.CofcHelp.notes
 
-GET           /change-language/:chosenLanguage                                controllers.Language.change(chosenLanguage: String)
+GET         /change-language/:chosenLanguage                            controllers.Language.change(chosenLanguage: String)
 
-GET           /preview                                                        controllers.preview.Preview.present
-GET           /preview-back                                                   controllers.preview.Preview.back
-POST          /preview                                                        controllers.preview.Preview.submit
+GET         /preview                                                    controllers.preview.Preview.present
+GET         /preview-back                                               controllers.preview.Preview.back
+POST        /preview                                                    controllers.preview.Preview.submit
 
 # Cache Timeout
-GET           /timeout                                                        controllers.ClaimEnding.timeout
-GET           /circs-timeout                                                  controllers.CircsEnding.timeout
+GET         /timeout                                                    controllers.ClaimEnding.timeout
+GET         /circs-timeout                                              controllers.CircsEnding.timeout
 
-GET           /error-retry                                                    controllers.submission.ClaimStatusRoutingController.errorRetry
-GET           /circs-error-retry                                              controllers.submission.CofCStatusRoutingController.errorRetry
+GET         /error-retry                                                controllers.submission.ClaimStatusRoutingController.errorRetry
+GET         /circs-error-retry                                          controllers.submission.CofCStatusRoutingController.errorRetry
 
 # Unrecoverable error
-GET           /error                                                          controllers.ClaimEnding.error
-GET           /claim-error-browser-backbutton                                 controllers.ClaimEnding.errorBrowserBackbutton
-GET           /circs-error                                                    controllers.CircsEnding.error
-GET           /circs-error-browser-backbutton                                 controllers.CircsEnding.errorBrowserBackbutton
+GET         /error                                                      controllers.ClaimEnding.error
+GET         /claim-error-browser-backbutton                             controllers.ClaimEnding.errorBrowserBackbutton
+GET         /claim-error-cookie-retry                                   controllers.ClaimEnding.errorCookie
+GET         /circs-error                                                controllers.CircsEnding.error
+GET         /circs-error-browser-backbutton                             controllers.CircsEnding.errorBrowserBackbutton
+GET         /circs-error-cookie-retry                                   controllers.CircsEnding.errorCookie
 
 # Claim submission
-GET           /async-submitting                                               controllers.submission.ClaimStatusRoutingController.present
-POST          /async-submitting                                               controllers.submission.ClaimStatusRoutingController.submit
-GET           /async-error                                                    controllers.submission.ClaimStatusRoutingController.error
-GET           /circs-async-submitting                                         controllers.submission.CofCStatusRoutingController.present
-POST          /circs-async-submitting                                         controllers.submission.CofCStatusRoutingController.submit
-GET           /circs-async-error                                              controllers.submission.CofCStatusRoutingController.error
+GET         /async-submitting                                           controllers.submission.ClaimStatusRoutingController.present
+POST        /async-submitting                                           controllers.submission.ClaimStatusRoutingController.submit
+GET         /async-error                                                controllers.submission.ClaimStatusRoutingController.error
+GET         /circs-async-submitting                                     controllers.submission.CofCStatusRoutingController.present
+POST        /circs-async-submitting                                     controllers.submission.CofCStatusRoutingController.submit
+GET         /circs-async-error                                          controllers.submission.CofCStatusRoutingController.error
 
 # Thank you
-GET           /thankyou/apply-carers                                          controllers.ClaimEnding.thankyou
-GET           /thankyou/change-carers                                         controllers.CircsEnding.thankyou
+GET         /thankyou/apply-carers                                      controllers.ClaimEnding.thankyou
+GET         /thankyou/change-carers                                     controllers.CircsEnding.thankyou
 
 # Map static resources from the /public folder to the /assets URL path
-GET           /assets/*file                                                   controllers.Assets.at(path="/public", file)
+GET         /assets/*file                                               controllers.Assets.at(path="/public", file)
 
 #Section 1 - Carer's Allowance
 ###############
-GET           /allowance/benefits                                             controllers.s1_carers_allowance.G1Benefits.present
-POST          /allowance/benefits                                             controllers.s1_carers_allowance.G1Benefits.submit
+GET         /allowance/benefits                                         controllers.s1_carers_allowance.G1Benefits.present
+POST        /allowance/benefits                                         controllers.s1_carers_allowance.G1Benefits.submit
 
-GET           /allowance/hours                                                controllers.s1_carers_allowance.G2Hours.present
-POST          /allowance/hours                                                controllers.s1_carers_allowance.G2Hours.submit
+GET         /allowance/hours                                            controllers.s1_carers_allowance.G2Hours.present
+POST        /allowance/hours                                            controllers.s1_carers_allowance.G2Hours.submit
 
-GET           /allowance/over-16                                              controllers.s1_carers_allowance.G3Over16.present
-POST          /allowance/over-16                                              controllers.s1_carers_allowance.G3Over16.submit
+GET         /allowance/over-16                                          controllers.s1_carers_allowance.G3Over16.present
+POST        /allowance/over-16                                          controllers.s1_carers_allowance.G3Over16.submit
 
-GET           /allowance/lives-in-gb                                          controllers.s1_carers_allowance.G4LivesInGB.present
-POST          /allowance/lives-in-gb                                          controllers.s1_carers_allowance.G4LivesInGB.submit
+GET         /allowance/lives-in-gb                                      controllers.s1_carers_allowance.G4LivesInGB.present
+POST        /allowance/lives-in-gb                                      controllers.s1_carers_allowance.G4LivesInGB.submit
 
-GET           /allowance/approve                                              controllers.s1_carers_allowance.CarersAllowance.approve
-POST          /allowance/approve                                              controllers.s1_carers_allowance.CarersAllowance.approveSubmit
+GET         /allowance/approve                                          controllers.s1_carers_allowance.CarersAllowance.approve
+POST        /allowance/approve                                          controllers.s1_carers_allowance.CarersAllowance.approveSubmit
 
 #Section 1.5
 ###############
-GET           /your-claim-date/claim-date                                     controllers.s1_2_claim_date.G1ClaimDate.present
-POST          /your-claim-date/claim-date                                     controllers.s1_2_claim_date.G1ClaimDate.submit
+GET         /your-claim-date/claim-date                                 controllers.s1_2_claim_date.G1ClaimDate.present
+POST        /your-claim-date/claim-date                                 controllers.s1_2_claim_date.G1ClaimDate.submit
 
 #Section 2
 ###############
-GET           /about-you/your-details                                         controllers.s2_about_you.G1YourDetails.present
-POST          /about-you/your-details                                         controllers.s2_about_you.G1YourDetails.submit
+GET         /about-you/your-details                                     controllers.s2_about_you.G1YourDetails.present
+POST        /about-you/your-details                                     controllers.s2_about_you.G1YourDetails.submit
 
-GET           /about-you/contact-details                                      controllers.s2_about_you.G2ContactDetails.present
-POST          /about-you/contact-details                                      controllers.s2_about_you.G2ContactDetails.submit
+GET         /about-you/contact-details                                  controllers.s2_about_you.G2ContactDetails.present
+POST        /about-you/contact-details                                  controllers.s2_about_you.G2ContactDetails.submit
 
-GET           /about-you/nationality-and-residency                            controllers.s2_about_you.G4NationalityAndResidency.present
-POST          /about-you/nationality-and-residency                            controllers.s2_about_you.G4NationalityAndResidency.submit
+GET         /about-you/nationality-and-residency                        controllers.s2_about_you.G4NationalityAndResidency.present
+POST        /about-you/nationality-and-residency                        controllers.s2_about_you.G4NationalityAndResidency.submit
 
-GET           /about-you/abroad-for-more-than-52-weeks                        controllers.s2_about_you.G5AbroadForMoreThan52Weeks.present
-POST          /about-you/abroad-for-more-than-52-weeks                        controllers.s2_about_you.G5AbroadForMoreThan52Weeks.submit
+GET         /about-you/abroad-for-more-than-52-weeks                    controllers.s2_about_you.G5AbroadForMoreThan52Weeks.present
+POST        /about-you/abroad-for-more-than-52-weeks                    controllers.s2_about_you.G5AbroadForMoreThan52Weeks.submit
 
-GET           /about-you/other-eea-state-or-switzerland                       controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.present
-POST          /about-you/other-eea-state-or-switzerland                       controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.submit
+GET         /about-you/other-eea-state-or-switzerland                   controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.present
+POST        /about-you/other-eea-state-or-switzerland                   controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.submit
 
 # Your partner
 ###############
-GET           /your-partner/personal-details                                  controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
-POST          /your-partner/personal-details                                  controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
+GET         /your-partner/personal-details                              controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
+POST        /your-partner/personal-details                              controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
 
 # Care you provide
 ###############
-GET           /care-you-provide/their-personal-details                        controllers.s4_care_you_provide.G1TheirPersonalDetails.present
-POST          /care-you-provide/their-personal-details                        controllers.s4_care_you_provide.G1TheirPersonalDetails.submit
+GET         /care-you-provide/their-personal-details                    controllers.s4_care_you_provide.G1TheirPersonalDetails.present
+POST        /care-you-provide/their-personal-details                    controllers.s4_care_you_provide.G1TheirPersonalDetails.submit
 
-GET           /care-you-provide/their-contact-details                         controllers.s4_care_you_provide.G2TheirContactDetails.present
-POST          /care-you-provide/their-contact-details                         controllers.s4_care_you_provide.G2TheirContactDetails.submit
+GET         /care-you-provide/their-contact-details                     controllers.s4_care_you_provide.G2TheirContactDetails.present
+POST        /care-you-provide/their-contact-details                     controllers.s4_care_you_provide.G2TheirContactDetails.submit
 
-GET           /care-you-provide/more-about-the-care                           controllers.s4_care_you_provide.G7MoreAboutTheCare.present
-POST          /care-you-provide/more-about-the-care                           controllers.s4_care_you_provide.G7MoreAboutTheCare.submit
+GET         /care-you-provide/more-about-the-care                       controllers.s4_care_you_provide.G7MoreAboutTheCare.present
+POST        /care-you-provide/more-about-the-care                       controllers.s4_care_you_provide.G7MoreAboutTheCare.submit
 
-GET           /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.present
-POST          /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.submit
-POST          /care-you-provide/delete-break-in-care                         controllers.s4_care_you_provide.G10BreaksInCare.delete
+GET         /care-you-provide/breaks-in-care                            controllers.s4_care_you_provide.G10BreaksInCare.present
+POST        /care-you-provide/breaks-in-care                            controllers.s4_care_you_provide.G10BreaksInCare.submit
+POST        /care-you-provide/delete-break-in-care                      controllers.s4_care_you_provide.G10BreaksInCare.delete
 
-GET           /care-you-provide/breaks/:id                                    controllers.s4_care_you_provide.G11Break.present(id: String)
-POST          /care-you-provide/break                                         controllers.s4_care_you_provide.G11Break.submit
+GET         /care-you-provide/breaks/:id                                controllers.s4_care_you_provide.G11Break.present(id: String)
+POST        /care-you-provide/break                                     controllers.s4_care_you_provide.G11Break.submit
 
 # Education
 ###############
-GET           /education/your-course-details                                  controllers.s6_education.G1YourCourseDetails.present
-POST          /education/your-course-details                                  controllers.s6_education.G1YourCourseDetails.submit
+GET         /education/your-course-details                              controllers.s6_education.G1YourCourseDetails.present
+POST        /education/your-course-details                              controllers.s6_education.G1YourCourseDetails.submit
 
 # Employment
 ###############
-GET           /employment/employment                                          controllers.s7_employment.G1Employment.present
-POST          /employment/employment                                          controllers.s7_employment.G1Employment.submit
+GET         /employment/employment                                      controllers.s7_employment.G1Employment.present
+POST        /employment/employment                                      controllers.s7_employment.G1Employment.submit
 
-GET           /employment/been-employed                                       controllers.s7_employment.G2BeenEmployed.present
-POST          /employment/been-employed                                       controllers.s7_employment.G2BeenEmployed.submit
+GET         /employment/been-employed                                   controllers.s7_employment.G2BeenEmployed.present
+POST        /employment/been-employed                                   controllers.s7_employment.G2BeenEmployed.submit
 
-POST          /employment/delete-job                                          controllers.s7_employment.Employment.delete
+POST        /employment/delete-job                                      controllers.s7_employment.Employment.delete
 
-GET           /employment/job/:id                                             controllers.s7_employment.G3JobDetails.job(id: String)
+GET         /employment/job/:id                                         controllers.s7_employment.G3JobDetails.job(id: String)
 
-GET           /employment/job-details/:id                                     controllers.s7_employment.G3JobDetails.present(id: String)
-POST          /employment/job-details                                         controllers.s7_employment.G3JobDetails.submit
+GET         /employment/job-details/:id                                 controllers.s7_employment.G3JobDetails.present(id: String)
+POST        /employment/job-details                                     controllers.s7_employment.G3JobDetails.submit
 
-GET           /employment/last-wage/:id                                       controllers.s7_employment.G5LastWage.present(id: String)
-POST          /employment/last-wage                                           controllers.s7_employment.G5LastWage.submit
+GET         /employment/last-wage/:id                                   controllers.s7_employment.G5LastWage.present(id: String)
+POST        /employment/last-wage                                       controllers.s7_employment.G5LastWage.submit
 
-GET           /employment/about-expenses/:id                                  controllers.s7_employment.G8PensionAndExpenses.present(id: String)
-POST          /employment/about-expenses                                      controllers.s7_employment.G8PensionAndExpenses.submit
+GET         /employment/about-expenses/:id                              controllers.s7_employment.G8PensionAndExpenses.present(id: String)
+POST        /employment/about-expenses                                  controllers.s7_employment.G8PensionAndExpenses.submit
 
 # Self-employment
 ###############
-GET           /self-employment/about-self-employment                          controllers.s8_self_employment.G1AboutSelfEmployment.present
-POST          /self-employment/about-self-employment                          controllers.s8_self_employment.G1AboutSelfEmployment.submit
+GET         /self-employment/about-self-employment                      controllers.s8_self_employment.G1AboutSelfEmployment.present
+POST        /self-employment/about-self-employment                      controllers.s8_self_employment.G1AboutSelfEmployment.submit
 
-GET           /self-employment/your-accounts                                  controllers.s8_self_employment.G2SelfEmploymentYourAccounts.present
-POST          /self-employment/your-accounts                                  controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit
+GET         /self-employment/your-accounts                              controllers.s8_self_employment.G2SelfEmploymentYourAccounts.present
+POST        /self-employment/your-accounts                              controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit
 
-GET           /self-employment/pensions-and-expenses                          controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.present
-POST          /self-employment/pensions-and-expenses                          controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit
+GET         /self-employment/pensions-and-expenses                      controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.present
+POST        /self-employment/pensions-and-expenses                      controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit
 
-GET           /self-employment/completed                                      controllers.s8_self_employment.SelfEmployment.completed
-POST          /self-employment/completed                                      controllers.s8_self_employment.SelfEmployment.completedSubmit
+GET         /self-employment/completed                                  controllers.s8_self_employment.SelfEmployment.completed
+POST        /self-employment/completed                                  controllers.s8_self_employment.SelfEmployment.completedSubmit
 
 # Other money
 ###############
-GET           /other-money/about-other-money                                  controllers.s9_other_money.G1AboutOtherMoney.present
-POST          /other-money/about-other-money                                  controllers.s9_other_money.G1AboutOtherMoney.submit
+GET         /other-money/about-other-money                              controllers.s9_other_money.G1AboutOtherMoney.present
+POST        /other-money/about-other-money                              controllers.s9_other_money.G1AboutOtherMoney.submit
 
 # Pay details
 ###############
-GET           /pay-details/how-we-pay-you                                     controllers.s11_pay_details.G1HowWePayYou.present
-POST          /pay-details/how-we-pay-you                                     controllers.s11_pay_details.G1HowWePayYou.submit
+GET         /pay-details/how-we-pay-you                                 controllers.s11_pay_details.G1HowWePayYou.present
+POST        /pay-details/how-we-pay-you                                 controllers.s11_pay_details.G1HowWePayYou.submit
 
-GET           /pay-details/bank-building-society-details                      controllers.s11_pay_details.G2BankBuildingSocietyDetails.present
-POST          /pay-details/bank-building-society-details                      controllers.s11_pay_details.G2BankBuildingSocietyDetails.submit
+GET         /pay-details/bank-building-society-details                  controllers.s11_pay_details.G2BankBuildingSocietyDetails.present
+POST        /pay-details/bank-building-society-details                  controllers.s11_pay_details.G2BankBuildingSocietyDetails.submit
 
 # Information
 ###############
 
-GET           /information/additional-info                                    controllers.s10_information.G1AdditionalInfo.present
-POST          /information/additional-info                                    controllers.s10_information.G1AdditionalInfo.submit
+GET         /information/additional-info                                controllers.s10_information.G1AdditionalInfo.present
+POST        /information/additional-info                                controllers.s10_information.G1AdditionalInfo.submit
 
 # Consent and declaration
 ###############
 
-GET           /consent-and-declaration/disclaimer                             controllers.s12_consent_and_declaration.G2Disclaimer.present
-POST          /consent-and-declaration/disclaimer                             controllers.s12_consent_and_declaration.G2Disclaimer.submit
+GET         /consent-and-declaration/disclaimer                         controllers.s12_consent_and_declaration.G2Disclaimer.present
+POST        /consent-and-declaration/disclaimer                         controllers.s12_consent_and_declaration.G2Disclaimer.submit
 
-GET           /consent-and-declaration/declaration                            @controllers.s12_consent_and_declaration.G3Declaration.present
-POST          /consent-and-declaration/declaration                            @controllers.s12_consent_and_declaration.G3Declaration.submit
+GET         /consent-and-declaration/declaration        @controllers.s12_consent_and_declaration.G3Declaration.present
+POST        /consent-and-declaration/declaration        @controllers.s12_consent_and_declaration.G3Declaration.submit
 
-GET           /consent-and-declaration/error                                  controllers.s12_consent_and_declaration.G4Error.present
+GET         /consent-and-declaration/error                              controllers.s12_consent_and_declaration.G4Error.present
 
 # Circumstances
-GET           /circumstances/identification/about-you                         controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present
-POST          /circumstances/identification/about-you                         controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit
+GET         /circumstances/identification/about-you                     controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present
+POST        /circumstances/identification/about-you                     controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit
 
-GET           /circumstances/report-changes/selection                         controllers.circs.s2_report_changes.G1ReportChanges.present
-POST          /circumstances/report-changes/selection                         controllers.circs.s2_report_changes.G1ReportChanges.submit
+GET         /circumstances/report-changes/selection                     controllers.circs.s2_report_changes.G1ReportChanges.present
+POST        /circumstances/report-changes/selection                     controllers.circs.s2_report_changes.G1ReportChanges.submit
 
-GET           /circumstances/report-changes/self-employment                   controllers.circs.s2_report_changes.G2SelfEmployment.present
-POST          /circumstances/report-changes/self-employment                   controllers.circs.s2_report_changes.G2SelfEmployment.submit
+GET         /circumstances/report-changes/self-employment               controllers.circs.s2_report_changes.G2SelfEmployment.present
+POST        /circumstances/report-changes/self-employment               controllers.circs.s2_report_changes.G2SelfEmployment.submit
 
-GET           /circumstances/report-changes/address-change                    controllers.circs.s2_report_changes.G6AddressChange.present
-POST          /circumstances/report-changes/address-change                    controllers.circs.s2_report_changes.G6AddressChange.submit
+GET         /circumstances/report-changes/address-change                controllers.circs.s2_report_changes.G6AddressChange.present
+POST        /circumstances/report-changes/address-change                controllers.circs.s2_report_changes.G6AddressChange.submit
 
-GET           /circumstances/report-changes/stopped-caring                    controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.present
-POST          /circumstances/report-changes/stopped-caring                    controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.submit
+GET         /circumstances/report-changes/stopped-caring                controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.present
+POST        /circumstances/report-changes/stopped-caring                controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.submit
 
-GET           /circumstances/report-changes/payment-change                    controllers.circs.s2_report_changes.G5PaymentChange.present
-POST          /circumstances/report-changes/payment-change                    controllers.circs.s2_report_changes.G5PaymentChange.submit
+GET         /circumstances/report-changes/payment-change                controllers.circs.s2_report_changes.G5PaymentChange.present
+POST        /circumstances/report-changes/payment-change                controllers.circs.s2_report_changes.G5PaymentChange.submit
 
-GET           /circumstances/report-changes/other-change                      controllers.circs.s2_report_changes.G4OtherChangeInfo.present
-POST          /circumstances/report-changes/other-change                      controllers.circs.s2_report_changes.G4OtherChangeInfo.submit
+GET         /circumstances/report-changes/other-change                  controllers.circs.s2_report_changes.G4OtherChangeInfo.present
+POST        /circumstances/report-changes/other-change                  controllers.circs.s2_report_changes.G4OtherChangeInfo.submit
 
-GET           /circumstances/report-changes/breaks-in-care                    controllers.circs.s2_report_changes.G7BreaksInCare.present
-POST          /circumstances/report-changes/breaks-in-care                    controllers.circs.s2_report_changes.G7BreaksInCare.submit
+GET         /circumstances/report-changes/breaks-in-care                controllers.circs.s2_report_changes.G7BreaksInCare.present
+POST        /circumstances/report-changes/breaks-in-care                controllers.circs.s2_report_changes.G7BreaksInCare.submit
 
-GET           /circumstances/report-changes/breaks-in-care-summary            controllers.circs.s2_report_changes.G8BreaksInCareSummary.present
-POST          /circumstances/report-changes/breaks-in-care-summary            controllers.circs.s2_report_changes.G8BreaksInCareSummary.submit
+GET         /circumstances/report-changes/breaks-in-care-summary        controllers.circs.s2_report_changes.G8BreaksInCareSummary.present
+POST        /circumstances/report-changes/breaks-in-care-summary        controllers.circs.s2_report_changes.G8BreaksInCareSummary.submit
 
-GET           /circumstances/report-changes/employment-change                 controllers.circs.s2_report_changes.G9EmploymentChange.present
-POST          /circumstances/report-changes/employment-change                 controllers.circs.s2_report_changes.G9EmploymentChange.submit
+GET         /circumstances/report-changes/employment-change             controllers.circs.s2_report_changes.G9EmploymentChange.present
+POST        /circumstances/report-changes/employment-change             controllers.circs.s2_report_changes.G9EmploymentChange.submit
 
-GET           /circumstances/report-changes/employment-ongoing          controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.present
-POST          /circumstances/report-changes/employment-ongoing          controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.submit
+GET         /circumstances/report-changes/employment-ongoing            controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.present
+POST        /circumstances/report-changes/employment-ongoing            controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.submit
 
-GET           /circumstances/report-changes/employment-finished         controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.present
-POST          /circumstances/report-changes/employment-finished         controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.submit
+GET         /circumstances/report-changes/employment-finished           controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.present
+POST        /circumstances/report-changes/employment-finished           controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.submit
 
-GET           /circumstances/report-changes/future-employment           controllers.circs.s2_report_changes.G12EmploymentNotStarted.present
-POST          /circumstances/report-changes/future-employment           controllers.circs.s2_report_changes.G12EmploymentNotStarted.submit
+GET         /circumstances/report-changes/future-employment             controllers.circs.s2_report_changes.G12EmploymentNotStarted.present
+POST        /circumstances/report-changes/future-employment             controllers.circs.s2_report_changes.G12EmploymentNotStarted.submit
 
-GET           /circumstances/consent-and-declaration/declaration              @controllers.circs.s3_consent_and_declaration.G1Declaration.present
-POST          /circumstances/consent-and-declaration/declaration              @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
+GET         /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.present
+POST        /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
-GET           /circumstances/consent-and-declaration/error                    controllers.circs.s3_consent_and_declaration.G3Error.present
+GET         /circumstances/consent-and-declaration/error                controllers.circs.s3_consent_and_declaration.G3Error.present
 
