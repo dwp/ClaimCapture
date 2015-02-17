@@ -116,7 +116,7 @@ trait CachedClaim {
         // Cookies need to be changed BEFORE session, session is within cookies.
         def tofilter(theCookie: Cookie): Boolean = { theCookie.name == CachedClaim.C3VERSION || theCookie.name == getProperty("session.cookieName","PLAY_SESSION")}
         // Added C3Version for full Zero downtime
-        withHeaders(action(claim, r, bestLang)(f)).withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(CachedClaim.C3VERSION, CachedClaim.C3VERSION_VALUE): _*).withSession(claim.key -> claim.uuid)
+        withHeaders(action(claim, r, bestLang)(f)).withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(CachedClaim.C3VERSION, CachedClaim.C3VERSION_VALUE): _*).withSession(claim.key -> claim.uuid).discardingCookies(DiscardingCookie("application-finished"))
       }
       else {
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
@@ -159,15 +159,20 @@ trait CachedClaim {
 
 
   def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
-    request => {
-      implicit val r = request
-      originCheck(
-        fromCache(request) match {
+    implicit request => {
+      val (referer, _) = refererAndHost(request)
 
-          case Some(claim) =>  claimingWithClaim(f, request, claim)
+      enforceBackButtonRedirection(request,
+        originCheck(
+          fromCache(request) match {
 
-          case None => claimingWithoutClaim(f, request)
-        })
+            case Some(claim) =>  claimingWithClaim(f, request, claim)
+
+            case None => claimingWithoutClaim(f, request)
+          }
+        )
+      )
+
     }
   }
 
@@ -257,8 +262,12 @@ trait CachedClaim {
           val lang = claim.lang.getOrElse(bestLang)
           // reaching end of process - thank you page so we delete claim for security reasons and free memory
           Cache.remove(claim.uuid)
-          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain),DiscardingCookie(CachedClaim.C3VERSION)).withNewSession
-        case _ => originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(CachedClaim.C3VERSION)).withNewSession
+          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain),DiscardingCookie(CachedClaim.C3VERSION)).withNewSession.withCookies(Cookie("application-finished","true"))
+        case _ => {
+          enforceBackButtonRedirection(request,
+            originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(CachedClaim.C3VERSION)).withNewSession.withCookies(Cookie("application-finished","true"))
+          )
+        }
       }
     }
   }
@@ -285,6 +294,20 @@ trait CachedClaim {
         Cache.set(claim.uuid, c, expiration)
         r
     }
+  }
+
+  private def enforceBackButtonRedirection(request:Request[AnyContent],otherwise: =>Result):Result = {
+
+
+    val enforce = request.cookies.exists{
+      case Cookie("application-finished","true",_,_,_,_,_) => true
+      case _ => false
+    }
+
+
+    if (enforce) Redirect(controllers.routes.Application.backButtonPage)
+    else otherwise
+
   }
 
   private def originCheck(action: => Result)(implicit request: Request[AnyContent]) = {

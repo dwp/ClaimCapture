@@ -1,0 +1,29 @@
+@()(implicit request: Request[AnyContent], lang: Lang)
+@import play.api.i18n.{MMessages => Messages}
+
+@common.govMain(Messages("changesHaveBeenSent")) {
+
+    <div class="carers-allowance clearfix">
+
+        @common.protoType()
+
+
+        <article class="error-statement">
+
+            <h1>@Html(Messages("changesHaveBeenSent"))</h1>
+            <p>@Html(Messages("changesHaveBeenSent.message"))</p>
+
+
+            <nav class="form-steps">
+                <ul>
+                    <li><a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("changesHaveBeenSent.return"))</a></li>
+                    <li><a href="https://www.gov.uk/support/cookies" target="_blank">@Html(Messages("unrecoverable.cookie.link"))</a></li>
+                </ul>
+            </nav>
+        </article>
+
+        @common.leftcol()
+
+    </div>
+    <script type="text/javascript">$ ( $ ( "#Try" ).hide()); $ ( $ ( "#TryJs" ).show());</script>
+}

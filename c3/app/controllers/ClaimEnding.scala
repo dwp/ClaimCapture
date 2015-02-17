@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.mvc.Controller
+import play.api.mvc.{Cookie, Controller}
 import models.view.CachedClaim
 import app.ConfigProperties._
 //import services.mail.{SendEmail, EmailActors}
