@@ -53,9 +53,9 @@
                                 '_label -> {if(beenPaidYet.value == Some("yes")) "dateLastPaid" else "dateLastPaid.expect"}
                             ),
                             carersInputTextArea(whatWasIncluded,
-                                'helper -> Html(Messages("60charsLeft")),
+                                'textAreaHelper -> Html(Messages("300charsLeft")),
                                 'helperAbove -> {if(beenPaidYet.value == Some("yes")) Html(Messages("whatWasIncluded.help")) else Html(Messages("whatWasIncluded.help.expect"))},
-                                'maxLength -> 60,
+                                'maxLength -> 300,
                                 '_label -> {if(beenPaidYet.value == Some("yes")) "whatWasIncluded" else "whatWasIncluded.expect"}
                             )
                         ),
@@ -95,8 +95,8 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputTextArea(employerOwesYouMoneyInfo,
-                                'helper -> Html(Messages("60charsLeft")),
-                                'maxLength -> 60,
+                                'textAreaHelper -> Html(Messages("300charsLeft")),
+                                'maxLength -> 300,
                                 'ignoreOptional -> true)
                         ),
                         'id -> "employerOwesYouMoneyHelpWrap"
@@ -243,12 +243,12 @@ $(function(){
             "@CarersCrypto.encryptAES(doCareCostsForThisWork("answer")("no").id)",
             "@CarersCrypto.encryptAES(doCareCostsForThisWork("whatCosts").id)");
 
-    window.areaCounter({selector: "@CarersCrypto.encryptAES(whatWasIncluded.id)",maxChars:60});
+    window.areaCounter({selector: "@CarersCrypto.encryptAES(whatWasIncluded.id)",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(howOftenFrequency("other").id)",maxChars:60});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(doYouPayIntoPension("whatFor").id)",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(doCareCostsForThisWork("whatCosts").id)",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:300});
-    window.areaCounter({selector: "@CarersCrypto.encryptAES(employerOwesYouMoneyInfo.id)",maxChars:60});
+    window.areaCounter({selector: "@CarersCrypto.encryptAES(employerOwesYouMoneyInfo.id)",maxChars:300});
 
 });
 </script>

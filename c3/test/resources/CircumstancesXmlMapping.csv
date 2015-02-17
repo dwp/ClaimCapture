@@ -66,7 +66,7 @@ Employment - Change in circumstances,Employment,Do you pay into a pension and/or
 Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,
 Employment - Change in circumstances,Employment,Tell us what the cost is for, how much, how often and who to,CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
 Finished Employment - Change in circumstances,Employment,What date did you receive your last pay?,CircumstancesEmploymentChangeWhatDatePaid,
-Finished Employment - Change in circumstances,Employment,What was included in this pay?,CircumstancesEmploymentChangeWhatWasIncluded,
+Finished Employment - Change in circumstances,Employment,What was included in this pay?,CircumstancesEmploymentChangeWhatWasIncluded,DWPCAChangeOfCircumstances>EmploymentChange>StartedEmploymentAndFinished>WhatWasIncluded>Answer
 Finished Employment - Change in circumstances,Employment,How often are you paid?,CircumstancesEmploymentChangeHowOftenFrequency,
 Finished Employment - Change in circumstances,Employment,What day or date of the month will you be paid?,CircumstancesEmploymentChangeMonthlyPayDay,
 Finished Employment - Change in circumstances,Employment,Do you usually get the same amount each week?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,

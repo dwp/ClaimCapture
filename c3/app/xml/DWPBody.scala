@@ -21,7 +21,7 @@ import scala.xml.{Elem, NodeSeq, XML}
       signDwpClaim(<DWPBody xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation={xmlValidator(claim).getSchemaLocation}>
-    <Version>0.7</Version>
+    <Version>0.8</Version>
     <DWPCATransaction id={transactionId}>
       <TransactionId>{transactionId}</TransactionId>
       <DateTimeGenerated>{new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date())}</DateTimeGenerated>
@@ -42,7 +42,7 @@ import scala.xml.{Elem, NodeSeq, XML}
    * @return  XML signed
    */
   private def signDwpClaim(dwpClaim: Elem,transactionId: String): Elem = {
-    val signatory = XmlSignatureFactory.buildDsaSha1Generator()
+    val signatory = XmlSignatureFactory.buildRsaSha1Generator()
     val xmlStringSigned = signatory.sign(dwpClaim.buildString(stripComments = true),s"$transactionId")
     XML.loadString(xmlStringSigned)
   }

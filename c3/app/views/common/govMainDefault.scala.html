@@ -93,8 +93,8 @@
 	      
 		      <a href="https://www.gov.uk" title="@Html(Messages("logo.help"))" target="govlink" class="crown">GOV.UK</a>
 			  
-			  <section>
-		          <h1>@Html(Messages("siteHeader"))</h1>
+			  <section aria-labelledby="title">
+		          <h1 id="title">@Html(Messages("siteHeader"))</h1>
 			       <nav>
 			          	<a class="help" href="#help" @views.html.ga.trackClickEvent(linkName = "Help and Feedback expansion")>@Html(Messages("helpAndFeedback"))</a>
 		          </nav>

@@ -5,6 +5,18 @@
 @import views.html.helper.strippedHtmlConstraintRequired
 @import play.api.i18n.{MMessages => Messages}
 
-@strippedHtmlConstraintRequired(field, args: _*)
+    @ninoField = @{
+    //Workaround based on NiNo old multi-mapping, the hability on showing the (optional) label and the need to have the same id
+    //We want to keep the multi-mapping focus because we don't know if this is going back to the old one, also the app relies
+    //on the NationalInsuranceNumber case class, which would be removed if we removed the multi-mapping.
+        val f = field("nino")
+        if(field.constraints.exists(_._1 == "constraint.required")){
+            f.copy(constraints = f.constraints :+ ("constraint.required" -> Seq()))
+        }else{
+            f
+        }
+    }
+
+@strippedHtmlConstraintRequired(ninoField, args: _*)
 @carersInputText(field("nino"), 'maxLength -> 9, 'ignoreLabel -> true, 'class -> "ni-number")
 

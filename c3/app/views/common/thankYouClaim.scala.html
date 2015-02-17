@@ -24,11 +24,14 @@
 
             <article class="finish-statement">
 
+
                 <section class="app-complete">
-                    <h1><span>@Html(Messages("thankyou"))</span></h1>
+                    <h1>@Html(Messages("thankyou"))</h1>
                     <p>@Html(Messages("claim.received"))</p>
                     <p class="nino-title">@Html(Messages("claim.recieved2"))</p>
                 </section>
+                
+                <div class="finish-mobile">@Html(Messages("claim.feedback.link"))</div>
 
 
                 @if(isEmploymentOrSelfEmployment){
@@ -98,10 +101,8 @@
                         <h2>@Html(Messages("change.head"))</h2>
                         <p>@Html(Messages("change.link"))</p>
                     </section>
-
-                    <section>
-                        <p class="finish">@Html(Messages("claim.feedback.link"))</p>
-                    </section>
+                    
+                    <div class="finish-button">@Html(Messages("claim.feedback.link"))</div>
 
                 </aside>
                 <!-- / right panel -->

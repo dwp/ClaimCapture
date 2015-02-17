@@ -29,7 +29,7 @@ object CachedClaim {
   type ClaimResult = (Claim, Result)
   // Versioning
   val C3VERSION = "C3Version"
-  val C3VERSION_VALUE = "2.10"
+  val C3VERSION_VALUE = "2.11"
 }
 
 /**
@@ -45,6 +45,8 @@ trait CachedClaim {
   val startPage: String = getProperty("claim.start.page", "/allowance/benefits")
   val timeoutPage = routes.ClaimEnding.timeout()
   val errorPage = routes.ClaimEnding.error()
+  val errorPageBrowserBackButtonCircs = routes.CircsEnding.errorBrowserBackbutton()
+  val errorPageBrowserBackButton = routes.ClaimEnding.errorBrowserBackbutton()
 
   private val defaultLang = "en"
 
@@ -161,6 +163,7 @@ trait CachedClaim {
       implicit val r = request
       originCheck(
         fromCache(request) match {
+
           case Some(claim) =>  claimingWithClaim(f, request, claim)
 
           case None => claimingWithoutClaim(f, request)
@@ -168,23 +171,50 @@ trait CachedClaim {
     }
   }
 
-  def claimingWithCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
+  /**
+   * Here we are checking the mandatory fields for Circs : full name and nino on the about you page and
+   * for claim : firstName, lastName and nino of the claimant. This check is done to ensure that the
+   * mandatory fields are always present when we submit the claim or circs. An error page is displayed
+   * if the mandatory fields are missing. We found the mandatory fields missing when the user uses the
+   * browser's back and forward buttons instead of the ones provided by the application.
+   * @param f
+   * @return
+   */
+  def claimingWithCheckCircs(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult])= claimingWithDataCheck(isMandatoryFieldsMissingCircs, errorPageBrowserBackButtonCircs)(f)
+  def claimingWithCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = claimingWithDataCheck(ifMandatoryFieldsMissing, errorPageBrowserBackButton)(f)
+
+  private def claimingWithDataCheck(isNotValid: Claim => Boolean, browserErrorPage: play.api.mvc.Call)  (f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
       implicit val r = request
       originCheck(
         fromCache(request) match {
-          case Some(claim) if !Play.isTest && (
-            !claim.questionGroup[ClaimDate].isDefined
-            || claim.questionGroup[ClaimDate].isDefined
-            && claim.questionGroup[ClaimDate].get.dateOfClaim == null) =>
-              Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date")
-              Redirect(errorPage)
+          case Some(claim) if !Play.isTest && isNotValid(claim) =>
+            Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date and claimant details")
+            Redirect(browserErrorPage)
 
           case Some(claim) =>  claimingWithClaim(f, request, claim)
 
           case None =>  claimingWithoutClaim(f, request)
         })
     }
+  }
+  private def ifMandatoryFieldsMissing (claim:Claim):Boolean = {
+    ((!claim.questionGroup[ClaimDate].isDefined
+    || claim.questionGroup[ClaimDate].isDefined
+    && claim.questionGroup[ClaimDate].get.dateOfClaim == null)
+    || 
+    (!claim.questionGroup[YourDetails].isDefined
+      || (claim.questionGroup[YourDetails].isDefined
+        && (claim.questionGroup[YourDetails].get.firstName.isEmpty
+        || claim.questionGroup[YourDetails].get.surname.isEmpty
+        || claim.questionGroup[YourDetails].get.nationalInsuranceNumber.nino.isEmpty))))
+  }
+
+  private def isMandatoryFieldsMissingCircs(claim:Claim):Boolean = {
+    (!claim.questionGroup[CircumstancesReportChange].isDefined
+       || (claim.questionGroup[CircumstancesReportChange].isDefined
+          && (claim.questionGroup[CircumstancesReportChange].get.fullName.isEmpty
+              || claim.questionGroup[CircumstancesReportChange].get.nationalInsuranceNumber.nino.isEmpty)))
   }
 
   private def claimingWithClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent], claim: Claim): Result = {

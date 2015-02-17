@@ -78,7 +78,7 @@ Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY8 
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,24/12/2010
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,600
-Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,"Everything including christmas bonus !!?"s
+Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,"Everything including christmas bonus !!? and other benefits like sick leave, earned leave and child vouchers and Everything including christmas bonus !!? and other benefits like sick leave, earned leave and child vouchers and Everything including christmas bonus !!? and other benefits like sick leav"s
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_1,No
 Employment,Additional details on your last wage,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_1,Four-Weekly
 Employment,Additional details on your last wage,Other,EmploymentAddtionalWageOther_1,
