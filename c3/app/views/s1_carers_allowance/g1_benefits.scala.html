@@ -7,6 +7,7 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
+@import app.ConfigProperties._
 
 @defining(lang) { implicit language =>
 @main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm),false) {
@@ -55,9 +56,10 @@
 
     <script type="text/javascript">
     $(function () {
-    window.initEvents("@CarersCrypto.encryptAES("benefits_answer_yes")", "@CarersCrypto.encryptAES("benefits_answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("benefits_answer_yes")", "@CarersCrypto.encryptAES("benefits_answer_no")");
+        trackEvent("times", "claim - eligibility")
         @ga.stagePrompt()
-    });
+        });
     </script>
 }
 }
