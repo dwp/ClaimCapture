@@ -6,6 +6,8 @@
 @import views.html.helper.dates._
 @import scala.language.postfixOps
 @import play.api.i18n.{MMessages => Messages}
+@import play.api.Play
+@import play.api.Play.current
 
 @defining(lang) { implicit language =>
     @main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName")) {
@@ -35,7 +37,9 @@
         }
         <script type="text/javascript">
         $(function () {
-            trackEvent("times", "claim - start")
+            @if(!Play.isTest) {
+                trackEvent ( "times", "claim - start" )
+            }
         });
         </script>
     }

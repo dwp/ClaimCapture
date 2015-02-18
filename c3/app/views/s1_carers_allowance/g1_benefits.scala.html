@@ -1,65 +1,66 @@
-@(currentForm: Form[models.domain.Benefits])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.Benefits])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 
-@import utils.helpers.EmptyTemplate._
-@import views.html.helper._
+@import play.api.Play
+@import play.api.Play.current
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
-@import helper._
-@import app.ConfigProperties._
+@import views.html.helper._
 
 @defining(lang) { implicit language =>
-@main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm),false) {
+    @main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm), false) {
 
 
+        @form(action = controllers.s1_carers_allowance.routes.G1Benefits.submit) {
 
-    @form(action = controllers.s1_carers_allowance.routes.G1Benefits.submit) {
-
-                @DwpCSRFFormHelper.formField
-	
-			
-		        <fieldset class="form-elements form-eligibility">
-		            <legend>@Html(Messages("s1.g1"))</legend>
-
-		          		           
-		            <div class="benefits" data-journey="carers-allowance:page:eligibility">
-		
-			            <p>@Html(Messages("s1.g1.help2"))</p>					
-			            <p>@Html(Messages("s1.g1.help4"))</p>
-			            <p>@Html(Messages("s1.g1.help6"))</p>
-			            <p>@Html(Messages("s1.g1.help7"))</p>
-						<p>@Html(Messages("s1.g1.help10"))</p>
-
-		            </div>
-		            
-	                @yesNoRadioGroup(currentForm("benefits.answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'allowance -> true,'trackLabel -> "benefits.answer")
-
-		            
-		            @defining(currentForm("benefits.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
-		                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
-		                    <p>@Html(Messages("s1.g1.help11"))</p>
-		                 </div>
-		            }
-		        </fieldset>
+            @DwpCSRFFormHelper.formField
 
 
-		        <nav class="form-steps" role="navigation">
-		            <ul>
-		            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-		            </ul>
-		        </nav>
+            <fieldset class="form-elements form-eligibility">
+                <legend>@Html(Messages("s1.g1"))</legend>
+
+
+                <div class="benefits" data-journey="carers-allowance:page:eligibility">
+
+                    <p>@Html(Messages("s1.g1.help2"))</p>
+                    <p>@Html(Messages("s1.g1.help4"))</p>
+                    <p>@Html(Messages("s1.g1.help6"))</p>
+                    <p>@Html(Messages("s1.g1.help7"))</p>
+                    <p>@Html(Messages("s1.g1.help10"))</p>
+
+                </div>
+
+                @yesNoRadioGroup(currentForm("benefits.answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")), '_label -> Messages("benefits.answer"), '_showLabel -> false, 'track -> true, 'allowance -> true, 'trackLabel -> "benefits.answer")
+
+
+                @defining(currentForm("benefits.answer").value.getOrElse("don't know") match { case "no" =>
+                    "block" case _ => "none" }) { styleDisplay =>
+                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display : @styleDisplay ;">
+                    <p>@Html(Messages("s1.g1.help11"))</p>
+                </div>
+                }
+            </fieldset>
+
+
+            <nav class="form-steps" role="navigation">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next")) </button></li>
+                </ul>
+                    </nav>
+                    }
+
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
+
+        <script type="text/javascript">
+            $(function () {
+            window.initEvents("@CarersCrypto.encryptAES("benefits_answer_yes")", "@CarersCrypto.encryptAES("benefits_answer_no")");
+            @if(!Play.isTest) {
+            trackEvent("times", "claim - eligibility");
+        }
+            @ga.stagePrompt()});
+        </script>
 
     }
 
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
-
-    <script type="text/javascript">
-    $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("benefits_answer_yes")", "@CarersCrypto.encryptAES("benefits_answer_no")");
-        trackEvent("times", "claim - eligibility")
-        @ga.stagePrompt()
-        });
-    </script>
-}
 }

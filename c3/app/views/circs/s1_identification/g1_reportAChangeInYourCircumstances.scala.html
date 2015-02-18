@@ -1,13 +1,13 @@
-@(reportAChangeForm: Form[models.domain.CircumstancesReportChange])(lang: Lang)(implicit claim: models.domain.Claim, request:Request[AnyContent])
+@(reportAChangeForm: Form[models.domain.CircumstancesReportChange])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
-@import helper._
+@import play.api.Play
+@import play.api.Play.current
+@import play.api.i18n.{MMessages => Messages}
 @import utils.csrf.DwpCSRFFormHelper
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._
-@import controllers.mappings.Mappings._
-@import play.api.i18n.{MMessages => Messages}
 
 @defining(lang) { implicit language =>
     @main(Messages("c1") + " - " + Messages("c2.longName"), Some(reportAChangeForm), claim.completedQuestionGroups(models.domain.CircumstancesReportChange)) {
@@ -52,7 +52,9 @@
         <script type="text/javascript">$ ( $ ( "#js" ).val ( "true" ) ) ;</script>
         <script type="text/javascript">
         $ ( function ( ) {
-            trackEvent("times", "circs - start")
+            @if(!Play.isTest) {
+                trackEvent ( "times", "circs - start" )
+            }
             @ga.stagePrompt()
         } )
         </script>
