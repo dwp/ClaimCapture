@@ -44,8 +44,8 @@ trait CachedClaim {
   // Common pages
   val startPage: String = getProperty("claim.start.page", "/allowance/benefits")
   val timeoutPage = routes.ClaimEnding.timeout()
-  val errorPage = routes.ClaimEnding.error()
-  val errorPageBrowserBackButtonCircs = routes.CircsEnding.errorBrowserBackbutton()
+  val errorPageCookie = routes.ClaimEnding.errorCookie()
+  val errorPage = routes.ClaimEnding.error()  
   val errorPageBrowserBackButton = routes.ClaimEnding.errorBrowserBackbutton()
 
   private val defaultLang = "en"
@@ -172,6 +172,42 @@ trait CachedClaim {
   }
 
   /**
+   * Here we are displaying an error page at the start of the application (after the first page) if the cookies are disabled when the user
+   * is applying for a claim
+   * @param f
+   * @return
+   */
+  def claimingWithCookie(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
+    implicit request => {     
+      originCheck(
+        fromCache(request) match {
+
+          case Some(claim) =>  claimingWithClaim(f, request, claim)
+
+          case None if Play.isTest => claimingWithoutClaim(f, request)
+
+          case None  => Redirect(errorPageCookie)
+        })
+    }
+  }
+
+ protected def claimingWithCondition(isNotValid: Claim => Boolean, noClaimInCache: =>Result)  (f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult])(implicit request: Request[AnyContent]) = {
+   originCheck(
+     fromCache(request) match {
+       case Some(claim) if !Play.isTest && isNotValid(claim) =>
+         Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date and claimant details")
+         Redirect(errorPageBrowserBackButton)
+
+       case Some(claim) =>  claimingWithClaim(f, request, claim)
+
+       case None if Play.isTest => claimingWithoutClaim(f, request)
+
+       case None =>  noClaimInCache
+     })
+
+ }
+
+  /**
    * Here we are checking the mandatory fields for Circs : full name and nino on the about you page and
    * for claim : firstName, lastName and nino of the claimant. This check is done to ensure that the
    * mandatory fields are always present when we submit the claim or circs. An error page is displayed
@@ -180,41 +216,22 @@ trait CachedClaim {
    * @param f
    * @return
    */
-  def claimingWithCheckCircs(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult])= claimingWithDataCheck(isMandatoryFieldsMissingCircs, errorPageBrowserBackButtonCircs)(f)
-  def claimingWithCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = claimingWithDataCheck(ifMandatoryFieldsMissing, errorPageBrowserBackButton)(f)
+  def claimingWithCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = claimingWithDataCheck(ifMandatoryFieldsMissing)(f)
 
-  private def claimingWithDataCheck(isNotValid: Claim => Boolean, browserErrorPage: play.api.mvc.Call)  (f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
-    request => {
-      implicit val r = request
-      originCheck(
-        fromCache(request) match {
-          case Some(claim) if !Play.isTest && isNotValid(claim) =>
-            Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date and claimant details")
-            Redirect(browserErrorPage)
-
-          case Some(claim) =>  claimingWithClaim(f, request, claim)
-
-          case None =>  claimingWithoutClaim(f, request)
-        })
-    }
+  protected def claimingWithDataCheck(isNotValid: Claim => Boolean)  (f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
+    implicit request =>
+      claimingWithCondition(isNotValid,claimingWithoutClaim(f,request))(f)
   }
   private def ifMandatoryFieldsMissing (claim:Claim):Boolean = {
     ((!claim.questionGroup[ClaimDate].isDefined
-    || claim.questionGroup[ClaimDate].isDefined
-    && claim.questionGroup[ClaimDate].get.dateOfClaim == null)
-    || 
-    (!claim.questionGroup[YourDetails].isDefined
-      || (claim.questionGroup[YourDetails].isDefined
+      || claim.questionGroup[ClaimDate].isDefined
+      && claim.questionGroup[ClaimDate].get.dateOfClaim == null)
+      ||
+      (!claim.questionGroup[YourDetails].isDefined
+        || (claim.questionGroup[YourDetails].isDefined
         && (claim.questionGroup[YourDetails].get.firstName.isEmpty
         || claim.questionGroup[YourDetails].get.surname.isEmpty
         || claim.questionGroup[YourDetails].get.nationalInsuranceNumber.nino.isEmpty))))
-  }
-
-  private def isMandatoryFieldsMissingCircs(claim:Claim):Boolean = {
-    (!claim.questionGroup[CircumstancesReportChange].isDefined
-       || (claim.questionGroup[CircumstancesReportChange].isDefined
-          && (claim.questionGroup[CircumstancesReportChange].get.fullName.isEmpty
-              || claim.questionGroup[CircumstancesReportChange].get.nationalInsuranceNumber.nino.isEmpty)))
   }
 
   private def claimingWithClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent], claim: Claim): Result = {
