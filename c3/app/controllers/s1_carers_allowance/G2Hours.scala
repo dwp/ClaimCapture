@@ -15,7 +15,7 @@ object G2Hours extends Controller with CachedClaim with Navigable {
     "hours.answer" -> nonEmptyText.verifying(validYesNo)
   )(Hours.apply)(Hours.unapply))
 
-  def present = claiming {implicit claim =>  implicit request =>  lang =>
+  def present = claimingWithCookie {implicit claim =>  implicit request =>  lang =>
     track(Hours) { implicit claim => Ok(views.html.s1_carers_allowance.g2_hours(form.fill(Hours))(lang)) }
   }
 
