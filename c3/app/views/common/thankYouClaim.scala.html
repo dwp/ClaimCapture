@@ -1,17 +1,30 @@
 @(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
-@import play.api.i18n._
-@import models.domain._
-@import play.api.i18n.{MMessages => Messages}
 @import app.ConfigProperties._
+@import models.domain._
+@import play.api.i18n.{MMessages => Messages, _}
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import play.api.Play
+@import play.api.Play.current
 
-@employment = @{claim.questionGroup[Employment].getOrElse(Employment())}
-@isEmployment = @{employment.beenEmployedSince6MonthsBeforeClaim == "yes"}
-@isSelfEmployment = @{employment.beenSelfEmployedSince1WeekBeforeClaim == "yes"}
-@isEmploymentOrSelfEmployment = @{isEmployment || isSelfEmployment}
-@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim}
-@displayDateForLabel = @{displayPlaybackDatesFormat(lang,claimDate)}
+@employment = @{
+    claim.questionGroup[Employment].getOrElse(Employment())
+}
+@isEmployment = @{
+    employment.beenEmployedSince6MonthsBeforeClaim == "yes"
+}
+@isSelfEmployment = @{
+    employment.beenSelfEmployedSince1WeekBeforeClaim == "yes"
+}
+@isEmploymentOrSelfEmployment = @{
+    isEmployment || isSelfEmployment
+}
+@claimDate = @{
+    claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim
+}
+@displayDateForLabel = @{
+    displayPlaybackDatesFormat(lang, claimDate)
+}
 
 @defining(lang) { implicit language =>
     @common.govMain(Messages("thankyou")) {
@@ -30,13 +43,13 @@
                     <p>@Html(Messages("claim.received"))</p>
                     <p class="nino-title">@Html(Messages("claim.recieved2"))</p>
                 </section>
-                
+
                 <div class="finish-mobile">@Html(Messages("claim.feedback.link"))</div>
 
 
-                @if(isEmploymentOrSelfEmployment){
+                @if(isEmploymentOrSelfEmployment) {
 
-                <div class="finish-info">
+                    <div class="finish-info">
 
 
                         <section>
@@ -45,19 +58,21 @@
                             <p>@Html(Messages("documents.sendingDocs.text"))</p>
                         </section>
 
-                    <div class="send-info">
+                        <div class="send-info">
 
-                            @if(isEmployment){
+                            @if(isEmployment) {
                                 <section>
                                     <h2 id="employment">@Html(Messages("s11.g5.help3"))</h2>
                                     <ul>
-                                        <li>@{Messages("s11.g5.help4")} @displayDateForLabel</li>
+                                        <li>@{
+                                            Messages("s11.g5.help4")
+                                        } @displayDateForLabel</li>
                                         <li>@Html(Messages("s11.g5.help5"))</li>
                                         <li>@Html(Messages("s11.g5.help6"))</li>
                                     </ul>
                                 </section>
                             }
-                            @if(isSelfEmployment){
+                            @if(isSelfEmployment) {
                                 <section>
                                     <h2 id="selfEmployment">@Html(Messages("s11.g5.help7"))</h2>
                                     <ul>
@@ -75,46 +90,53 @@
                                 <p>@Html(Messages("s11.g5.help15"))</p>
                             </section>
 
+                        </div>
+
+
                     </div>
-
-
-                </div>
                 }
 
-                </article>
+            </article>
 
                 <!-- left-panel -->
 
-                <aside class="left-col right-panel @{if(!isEmploymentOrSelfEmployment)"no-employment"}">
+            <aside class="left-col right-panel @{
+                if(!isEmploymentOrSelfEmployment) "no-employment"
+            }">
 
-                    <section>
-                        <h2>@Html(Messages("next"))</h2>
-                        <ul>
-                            <li>@Html(Messages("claim.next.1"))</li>
-                            <li>@Html(Messages("claim.next.2"))</li>
-                            <li>@Html(Messages("claim.next.3"))</li>
-                            <li>@Html(Messages("next.last"))</li>
-                        </ul>
-                    </section>
+                <section>
+                    <h2>@Html(Messages("next"))</h2>
+                    <ul>
+                        <li>@Html(Messages("claim.next.1"))</li>
+                        <li>@Html(Messages("claim.next.2"))</li>
+                        <li>@Html(Messages("claim.next.3"))</li>
+                        <li>@Html(Messages("next.last"))</li>
+                    </ul>
+                </section>
 
-                    <section>
-                        <h2>@Html(Messages("change.head"))</h2>
-                        <p>@Html(Messages("change.link"))</p>
-                    </section>
-                    
-                    <div class="finish-button">@Html(Messages("claim.feedback.link"))</div>
+                <section>
+                    <h2>@Html(Messages("change.head"))</h2>
+                    <p>@Html(Messages("change.link"))</p>
+                </section>
 
-                </aside>
+                <div class="finish-button">@Html(Messages("claim.feedback.link"))</div>
+
+            </aside>
                 <!-- / right panel -->
 
-            @if(getProperty("display.transid",false)){
-                <input type="hidden" name="transId" id="transId" value="@{claim.transactionId.getOrElse("NO_TRANS_ID")}"/>
+            @if(getProperty("display.transid", false)) {
+                <input type="hidden" name="transId" id="transId" value="@{
+                    claim.transactionId.getOrElse("NO_TRANS_ID")
+                }"/>
             }
         </div>
     }
 }
 <script type="text/javascript">
-$(function(){
+$ ( function ( ) {
+    @if(!Play.isTest) {
+        trackEvent ( "times", "claim - end" )
+    }
     @ga.stagePrompt()
-})
+} )
 </script>
