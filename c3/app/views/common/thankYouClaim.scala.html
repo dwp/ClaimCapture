@@ -135,7 +135,14 @@
 <script type="text/javascript">
 $ ( function ( ) {
     @if(!Play.isTest) {
-        trackEvent ( "times", "claim - end" )
+        trackEvent ( "times", "claim - end" );
+        var eligibility = getCookie('claimeligibility');
+        var start = getCookie('claimstart');
+        var now = new Date().getTime();
+        var durationFromEligibility = now - eligibility;
+        var durationFromStart = now - start;
+        trackTiming('TimeToCompletion','Claim from eligibility', durationFromEligibility);
+        trackTiming('TimeToCompletion','Claim from start', durationFromStart);
     }
     @ga.stagePrompt()
 } )
