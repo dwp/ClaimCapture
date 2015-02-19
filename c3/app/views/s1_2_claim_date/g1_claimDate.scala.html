@@ -39,6 +39,7 @@
         $(function () {
             @if(!Play.isTest) {
                 trackEvent ( "times", "claim - start" )
+                setCookie("claimstart", new Date().getTime());
             }
         });
         </script>

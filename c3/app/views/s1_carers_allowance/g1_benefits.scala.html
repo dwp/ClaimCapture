@@ -57,8 +57,10 @@
             window.initEvents("@CarersCrypto.encryptAES("benefits_answer_yes")", "@CarersCrypto.encryptAES("benefits_answer_no")");
             @if(!Play.isTest) {
             trackEvent("times", "claim - eligibility");
-        }
+            setCookie("claimeligibility",new Date().getTime());
+            }
             @ga.stagePrompt()});
+
         </script>
 
     }
