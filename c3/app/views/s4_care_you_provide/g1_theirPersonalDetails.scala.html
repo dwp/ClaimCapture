@@ -44,7 +44,8 @@
                                 carersInputText(currentForm("surname"), 'maxLength -> mappings.Mappings.thirtyfive),
 
                                 nationalInsuranceNumber(currentForm("nationalInsuranceNumber"),
-                                                                    'helperAbove -> Messages("nationalInsuranceNumber.helper"),
+																	'helperAbove -> Messages("mandatory.nationalInsuranceNumber.helper"),
+                                                                    'helperBelow -> Messages("nationalInsuranceNumber.helper.careYouProvide"),
                                                                     'ignoreOptional -> true),
 
                                 dateOfBirth(currentForm("dateOfBirth"))

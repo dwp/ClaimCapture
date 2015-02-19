@@ -1,26 +1,22 @@
 @(lang: Lang)(implicit circs: models.domain.Claim, request: Request[AnyContent])
 
 
-@import models.domain.CircumstancesBreaksInCare
-@import models.domain.CircumstancesEmploymentChange
-@import models.domain.CircumstancesStartedEmploymentAndOngoing
-@import models.domain.CircumstancesStartedAndFinishedEmployment
-@import models.domain.CircumstancesEmploymentNotStarted
-
-@import play.api.i18n._
-@import play.api.i18n.{MMessages => Messages}
 @import app.ConfigProperties._
+@import models.domain.{CircumstancesBreaksInCare, CircumstancesEmploymentNotStarted, CircumstancesStartedAndFinishedEmployment, CircumstancesStartedEmploymentAndOngoing}
+@import play.api.Play
+@import play.api.Play.current
+@import play.api.i18n.{MMessages => Messages, _}
 
 @showBreaksInCareMessages = @{
     var breaksIncare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
     breaksIncare.expectStartCaring.answer match {
-            case Some(n) => n match {
-                case mappings.Mappings.yes => if(!breaksIncare.expectStartCaring.expectStartCaringDate.isDefined) true else false
-                case mappings.Mappings.dontknow => true
-                case _ => false
-            }
+        case Some(n) => n match {
+            case mappings.Mappings.yes => if(!breaksIncare.expectStartCaring.expectStartCaringDate.isDefined) true else false
+            case mappings.Mappings.dontknow => true
             case _ => false
         }
+        case _ => false
+    }
 }
 
 @showEmployment1Messages = @{
@@ -37,13 +33,13 @@
     lazy val futureEmploymentOption = circs.questionGroup[CircumstancesEmploymentNotStarted]
 
     val show =
-        if (ongoingEmploymentOption.isDefined)
+        if(ongoingEmploymentOption.isDefined)
             ongoingEmploymentOption.get.payIntoPension.answer == "yes"
-        else if (finishedEmploymentOption.isDefined)
+        else if(finishedEmploymentOption.isDefined)
             finishedEmploymentOption.get.payIntoPension.answer == "yes"
-        else if (futureEmploymentOption.isDefined)
-            futureEmploymentOption.get.payIntoPension.answer == "yes"
-        else false
+        else if(futureEmploymentOption.isDefined)
+                futureEmploymentOption.get.payIntoPension.answer == "yes"
+            else false
 
     show
 }
@@ -59,85 +55,101 @@
 
             <article class="finish-statement">
 
-                <div class="app-complete">
-                    <h1><span>@Html(Messages("circs.thankyou"))</span></h1>
+                <section class="app-complete">
+                    <h1>@Html(Messages("circs.thankyou"))</h1>
                     <p>@Html(Messages("circs.received"))</p>
-                </div>
-                    <div class="send-info">
-                        @if(showBreaksInCareMessages){
-                            <section class="finish-next">
-                                <h3 id="breaksInCareMessageTitle">@Html(Messages("circs.thankyou.breakmessage.title"))</h3>
-                                <p>@Html(Messages("circs.thankyou.breakmessage.content"))</p>
-                            </section>
-                        }
+                </section>
 
-                        @if(showEmployment1Messages){
-                            <section class="finish-next">
-                                <h3 id="employment1MessageTitle">@Html(Messages("circs.thankyou.employment1message.title"))</h3>
-                                <p>@Html(Messages("circs.thankyou.employment1message1.content"))</p>
-                                <ul>
-                                    <li>@Html(Messages("circs.thankyou.employment1message2.content"))</li>
-                                    @if(showEmploymentPensionMessage) {
-                                        <li>@Html(Messages("circs.thankyou.employment1message3.content"))</li>
-                                    }
-                                </ul>
-                            </section>
-                            <section class="address">
-                                <h3 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment1message.address.title"))</h3>
-                                <span>@Html(Messages("circs.thankyou.employment1message1.address"))</span>
-                                <span>@Html(Messages("circs.thankyou.employment1message2.address"))</span>
-                                <span>@Html(Messages("circs.thankyou.employment1message3.address"))</span>
-                                <span>@Html(Messages("circs.thankyou.employment1message4.address"))</span>
-                            </section>
-                        }
-
-                        @if(showEmployment2Messages){
-                            <section class="finish-next">
-                                <h3 id="employment2MessageTitle">@Html(Messages("circs.thankyou.employment2message.title"))</h3>
-                                <ul>
-                                    <li>@Html(Messages("circs.thankyou.employment2message1.content"))</li>
-                                    <li>@Html(Messages("circs.thankyou.employment2message2.content"))</li>
-                                    <li>@Html(Messages("circs.thankyou.employment2message3.content"))</li>
-                                    @if(showEmploymentPensionMessage) {
-                                        <li>@Html(Messages("circs.thankyou.employment2message4.content"))</li>
-                                    }
-                                </ul>
-                            </section>
-                            <section class="address">
-                                <h3 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment2message.address.title"))</h3>
-                                <span>@Html(Messages("circs.thankyou.employment2message1.address"))</span>
-                                <span>@Html(Messages("circs.thankyou.employment2message2.address"))</span>
-                                <span>@Html(Messages("circs.thankyou.employment2message3.address"))</span>
-                                <span>@Html(Messages("circs.thankyou.employment2message4.address"))</span>
-                            </section>
-                        }
-
-                        <section class="finish-next">
-                            <h3>@Html(Messages("next"))</h3>
-                            <ul>
-                                <li>@Html(Messages("circs.next.1"))</li>
-                                <li>@Html(Messages("next.last"))</li>
-                            </ul>
-                        </section>
-                        <section>
-                            <h3>@Html(Messages("change.head"))</h3>
-                            <p>@Html(Messages("change.link"))</p>
-                        </section>
-                    </div>
-                    <section>
-                    <p class="finish">@Html(Messages("circs.feedback.link"))</p>
-                    </section>
-
+                <div class="finish-mobile">@Html(Messages("circs.feedback.link"))</div>
 
             </article>
-            @if(getProperty("display.transid",false)){
-                <input type="hidden" name="transId" id="transId" value="@{circs.transactionId.getOrElse("NO_TRANS_ID")}"/>
+
+            <aside class="left-col right-panel no-employment">
+
+                @if(showBreaksInCareMessages) {
+                    <section>
+                        <h2 id="breaksInCareMessageTitle">@Html(Messages("circs.thankyou.breakmessage.title"))</h2>
+                        <p>@Html(Messages("circs.thankyou.breakmessage.content"))</p>
+                    </section>
+                }
+
+                @if(showEmployment1Messages) {
+                    <section>
+                        <h2 id="employment1MessageTitle">@Html(Messages("circs.thankyou.employment1message.title"))</h2>
+                        <p>@Html(Messages("circs.thankyou.employment1message1.content"))</p>
+                        <ul>
+                            <li>@Html(Messages("circs.thankyou.employment1message2.content"))</li>
+                            @if(showEmploymentPensionMessage) {
+                                <li>@Html(Messages("circs.thankyou.employment1message3.content"))</li>
+                            }
+                        </ul>
+                    </section>
+                    <section class="address">
+                        <h2 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment1message.address.title"))</h2>
+                        <span>@Html(Messages("circs.thankyou.employment1message1.address"))</span>
+                        <span>@Html(Messages("circs.thankyou.employment1message2.address"))</span>
+                        <span>@Html(Messages("circs.thankyou.employment1message3.address"))</span>
+                        <span>@Html(Messages("circs.thankyou.employment1message4.address"))</span>
+                    </section>
+                }
+
+                @if(showEmployment2Messages) {
+                    <section class="finish-next">
+                        <h2 id="employment2MessageTitle">@Html(Messages("circs.thankyou.employment2message.title"))</h2>
+                        <ul>
+                            <li>@Html(Messages("circs.thankyou.employment2message1.content"))</li>
+                            <li>@Html(Messages("circs.thankyou.employment2message2.content"))</li>
+                            <li>@Html(Messages("circs.thankyou.employment2message3.content"))</li>
+                            @if(showEmploymentPensionMessage) {
+                                <li>@Html(Messages("circs.thankyou.employment2message4.content"))</li>
+                            }
+                        </ul>
+                    </section>
+                    <section class="address">
+                        <h2 id="employment1MessageAddressTitle">@Html(Messages("circs.thankyou.employment2message.address.title"))</h2>
+                        <span>@Html(Messages("circs.thankyou.employment2message1.address"))</span>
+                        <span>@Html(Messages("circs.thankyou.employment2message2.address"))</span>
+                        <span>@Html(Messages("circs.thankyou.employment2message3.address"))</span>
+                        <span>@Html(Messages("circs.thankyou.employment2message4.address"))</span>
+                    </section>
+                }
+
+                <section>
+                    <h2>@Html(Messages("next"))</h2>
+                    <ul>
+                        <li>@Html(Messages("circs.next.1"))</li>
+                        <li>@Html(Messages("next.last"))</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>@Html(Messages("change.head"))</h2>
+                    <p>@Html(Messages("change.link"))</p>
+                </section>
+
+
+                <div class="finish-button">@Html(Messages("circs.feedback.link"))</div>
+
+            </aside>
+
+
+
+
+            @if(getProperty("display.transid", false)) {
+                <input type="hidden" name="transId" id="transId" value="@{
+                    circs.transactionId.getOrElse("NO_TRANS_ID")
+                }"/>
             }
         </div>
     }
 }
 <script type="text/javascript">
-    $(function(){
-        @ga.stagePrompt()
-    })
+$ ( function ( ) {
+    @if(!Play.isTest) {
+        trackEvent ("times", "circs - end");
+        var start = getCookie("circsstart");
+        var now = new Date( ).getTime();
+        var durationFromStart = now - start;
+        trackTiming('TimeToCompletion','circs from start', durationFromStart);
+    @ga.stagePrompt()
+}} )
 </script>
