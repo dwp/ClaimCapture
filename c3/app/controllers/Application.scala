@@ -8,7 +8,7 @@ object Application extends Controller {
     MovedPermanently(getProperty("gov.uk.start.page", "https://www.gov.uk/apply-carers-allowance"))
   }
 
-  def backButtonPage = Action {
-    Ok("")
+  def backButtonPage = Action { implicit request =>
+    Ok(views.html.common.backButton())
   }
 }

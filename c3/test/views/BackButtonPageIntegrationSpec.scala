@@ -13,6 +13,9 @@ class BackButtonPageIntegrationSpec extends Specification with Tags {
       browser goTo "/allowance/benefits"
       browser title() mustEqual "Does the person you care for get one of these benefits? - Can you get Carer's Allowance?"
 
+      browser goTo "/allowance/hours"
+      browser title() mustEqual "Do you spend 35 hours or more each week caring for the person you care for? - Can you get Carer's Allowance?"
+
       browser goTo "/thankyou/apply-carers"
       browser title() mustEqual "Application complete"
 
