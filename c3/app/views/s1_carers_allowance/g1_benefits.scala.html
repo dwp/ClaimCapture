@@ -1,12 +1,25 @@
 @(currentForm: Form[models.domain.Benefits])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
-
+@import play.api.Play
+@import play.api.Play.current
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
+@import models.domain.Benefits
+
+
+@benefitsList(implicit language:Lang) = @{
+    Seq(Benefits.pip -> Messages("s1.g1.help2"),
+        Benefits.dla -> Messages("s1.g1.help4"),
+        Benefits.aa -> Messages("s1.g1.help6"),
+        Benefits.caa -> Messages("s1.g1.help7"),
+        Benefits.afip -> Messages("s1.g1.help10"),
+        Benefits.noneOfTheBenefits -> Messages("s1.g1.help12")
+    )
+}
 
 @defining(lang) { implicit language =>
 @main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm),false) {
@@ -21,21 +34,14 @@
 		        <fieldset class="form-elements form-eligibility">
 		            <legend>@Html(Messages("s1.g1"))</legend>
 
-		          		           
-		            <div class="benefits" data-journey="carers-allowance:page:eligibility">
-		
-			            <p>@Html(Messages("s1.g1.help2"))</p>					
-			            <p>@Html(Messages("s1.g1.help4"))</p>
-			            <p>@Html(Messages("s1.g1.help6"))</p>
-			            <p>@Html(Messages("s1.g1.help7"))</p>
-						<p>@Html(Messages("s1.g1.help10"))</p>
+                    @standaloneListRadioGroup(currentForm("benefitsAnswer"),
+                        'items -> benefitsList,
+                        'helperAbove -> "s1.g1.help13",
+                        'track -> true,
+                        'trackLabel -> Messages("s1.g1")
+                    )
 
-		            </div>
-		            
-	                @yesNoRadioGroup(currentForm("benefits.answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")),  '_label -> Messages ("benefits.answer"), '_showLabel -> false, 'track -> true, 'allowance -> true,'trackLabel -> "benefits.answer")
-
-		            
-		            @defining(currentForm("benefits.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+		            @defining(currentForm("benefitsAnswer").value.getOrElse("don't know") match { case Benefits.noneOfTheBenefits => "block" case _ => "none" }) { styleDisplay =>
 		                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
 		                    <p>@Html(Messages("s1.g1.help11"))</p>
 		                 </div>
@@ -51,11 +57,15 @@
 
     }
 
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoBenefitsMessage.js")'></script>
 
     <script type="text/javascript">
     $(function () {
-    window.initEvents("@CarersCrypto.encryptAES("benefits_answer_yes")", "@CarersCrypto.encryptAES("benefits_answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES(currentForm("benefitsAnswer").id)", "@Benefits.noneOfTheBenefits");
+        @if(!Play.isTest) {
+            trackEvent("times", "claim - eligibility");
+            setCookie("claimeligibility",new Date().getTime());
+        }
         @ga.stagePrompt()
     });
     </script>

@@ -17,6 +17,10 @@ object ClaimEnding extends Controller with CachedClaim {
     Ok(views.html.common.error(startPage)(request,lang))
   }
 
+  def errorCookie = endingOnError {implicit claim =>  implicit request =>  lang =>
+    Ok(views.html.common.error_cookie_retry(startPage)(request,lang))
+  }
+
   def errorBrowserBackbutton = endingOnError {implicit claim =>  implicit request =>  lang =>
     Ok(views.html.common.errorBrowserBackbutton(startPage))
   }

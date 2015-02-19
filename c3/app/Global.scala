@@ -74,9 +74,14 @@ object Global extends WithFilters(MonitorFilter, DwpCSRFFilter(createIfFound = C
     val theDomain = Play.current.configuration.getString("session.domain")
     val C3VERSION = "C3Version"
     val pattern = """.*circumstances.*""".r
-    // We redirect and do not stay in same URL to update Google Analytics
-    // We delete our cookies to ensure we restart anew
+    val cookiesAbsent = request.cookies.isEmpty
+
     request.headers.get("Referer").getOrElse("Unknown") match {
+      // we redirect to the error page with specific cookie error message if cookies are disabled.
+      case pattern(_*) if cookiesAbsent  => Future(Redirect(controllers.routes.CircsEnding.errorCookie()))
+      case _  if cookiesAbsent => Future(Redirect(controllers.routes.ClaimEnding.errorCookie()))
+      // We redirect and do not stay in same URL to update Google Analytics
+      // We delete our cookies to ensure we restart anew
       case pattern(_*) => Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession)
       case _ => Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession)
     }

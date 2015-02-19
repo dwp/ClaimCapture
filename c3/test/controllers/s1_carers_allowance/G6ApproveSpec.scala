@@ -14,7 +14,7 @@ class G6ApproveSpec extends Specification with Tags {
     "acknowledge that the carer is eligible for allowance" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
-      val claim = Claim().update(Benefits(answerYesNo = "yes"))
+      val claim = Claim().update(Benefits(benefitsAnswer = "yes"))
         .update(Hours(answerYesNo = "yes"))
         .update(Over16(answerYesNo = "yes"))
         .update(LivesInGB(answerYesNo = "yes"))
@@ -28,7 +28,7 @@ class G6ApproveSpec extends Specification with Tags {
     "note that the carer is not eligible for allowance" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
-      val claim = Claim().update(Benefits(answerYesNo = "yes"))
+      val claim = Claim().update(Benefits(benefitsAnswer = "yes"))
         .update(Hours(answerYesNo = "yes"))
         .update(Over16(answerYesNo = "no"))
         .update(LivesInGB(answerYesNo = "yes"))
