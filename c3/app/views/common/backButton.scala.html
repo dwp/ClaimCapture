@@ -11,18 +11,25 @@
         <article class="error-statement">
 
             <h1>@Html(Messages("changesHaveBeenSent"))</h1>
+            <h2>@Html(Messages("changesHaveBeenSent")(Lang("cy")))</h2>
             <p>@Html(Messages("changesHaveBeenSent.message"))</p>
+            <p>@Html(Messages("changesHaveBeenSent.message")(Lang("cy")))</p>
 
 
-            <nav class="form-steps">
-                <ul>
-                    <li><a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("changesHaveBeenSent.return"))</a></li>
-                    <li><a href="https://www.gov.uk/support/cookies" target="_blank">@Html(Messages("unrecoverable.cookie.link"))</a></li>
-                </ul>
-            </nav>
+
         </article>
 
-        @common.leftcol()
+        <aside class="left-col right-panel no-employment">
+
+            <div class="finish-button">
+                <a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank" class="button">@Html(Messages("changesHaveBeenSent.return"))</a>
+            </div>
+            <p>
+                <a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("changesHaveBeenSent.return")(Lang("cy")))</a>
+            </p>
+        </aside>
+
+
 
     </div>
 }

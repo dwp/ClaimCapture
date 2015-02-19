@@ -201,18 +201,21 @@ trait CachedClaim {
   }
 
  protected def claimingWithCondition(isNotValid: Claim => Boolean, noClaimInCache: =>Result)  (f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult])(implicit request: Request[AnyContent]) = {
-   originCheck(
-     fromCache(request) match {
-       case Some(claim) if !Play.isTest && isNotValid(claim) =>
-         Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date and claimant details")
-         Redirect(errorPageBrowserBackButton)
+   enforceAlreadyFinishedRedirection(request,
+     originCheck(
+       fromCache(request) match {
+         case Some(claim) if !Play.isTest && isNotValid(claim) =>
+           Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date and claimant details")
+           Redirect(errorPageBrowserBackButton)
 
-       case Some(claim) =>  claimingWithClaim(f, request, claim)
+         case Some(claim) =>  claimingWithClaim(f, request, claim)
 
-       case None if Play.isTest => claimingWithoutClaim(f, request)
+         case None if Play.isTest => claimingWithoutClaim(f, request)
 
-       case None =>  noClaimInCache
-     })
+         case None =>  noClaimInCache
+       }
+     )
+   )
 
  }
 
