@@ -116,9 +116,11 @@ trait CachedClaim {
         // Cookies need to be changed BEFORE session, session is within cookies.
         def tofilter(theCookie: Cookie): Boolean = { theCookie.name == CachedClaim.C3VERSION || theCookie.name == getProperty("session.cookieName","PLAY_SESSION")}
         // Added C3Version for full Zero downtime
-        withHeaders(action(claim, r, bestLang)(f)).withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(CachedClaim.C3VERSION, CachedClaim.C3VERSION_VALUE): _*).withSession(claim.key -> claim.uuid)
-      }
-      else {
+        withHeaders(action(claim, r, bestLang)(f))
+          .withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(CachedClaim.C3VERSION, CachedClaim.C3VERSION_VALUE): _*)
+          .withSession(claim.key -> claim.uuid)
+          .discardingCookies(DiscardingCookie("application-finished"))
+      } else {
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
         Logger.info(s"Changing $cacheKey - $key")
         val claim = Cache.getAs[Claim](key).getOrElse(throw new RuntimeException("I expected a claim in the cache!"))
@@ -159,15 +161,20 @@ trait CachedClaim {
 
 
   def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
-    request => {
-      implicit val r = request
-      originCheck(
-        fromCache(request) match {
+    implicit request => {
+      val (referer, _) = refererAndHost(request)
 
-          case Some(claim) =>  claimingWithClaim(f, request, claim)
+      enforceAlreadyFinishedRedirection(request,
+        originCheck(
+          fromCache(request) match {
 
-          case None => claimingWithoutClaim(f, request)
-        })
+            case Some(claim) =>  claimingWithClaim(f, request, claim)
+
+            case None => claimingWithoutClaim(f, request)
+          }
+        )
+      )
+
     }
   }
 
@@ -178,32 +185,37 @@ trait CachedClaim {
    * @return
    */
   def claimingWithCookie(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
-    implicit request => {     
-      originCheck(
-        fromCache(request) match {
-
-          case Some(claim) =>  claimingWithClaim(f, request, claim)
-
-          case None if Play.isTest => claimingWithoutClaim(f, request)
-
-          case None  => Redirect(errorPageCookie)
-        })
+    implicit request => {
+      enforceAlreadyFinishedRedirection(request,
+        originCheck(
+          fromCache(request) match {
+  
+            case Some(claim) =>  claimingWithClaim(f, request, claim)
+  
+            case None if Play.isTest => claimingWithoutClaim(f, request)
+  
+            case None  => Redirect(errorPageCookie)
+          })
+      )
     }
   }
 
  protected def claimingWithCondition(isNotValid: Claim => Boolean, noClaimInCache: =>Result)  (f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult])(implicit request: Request[AnyContent]) = {
-   originCheck(
-     fromCache(request) match {
-       case Some(claim) if !Play.isTest && isNotValid(claim) =>
-         Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date and claimant details")
-         Redirect(errorPageBrowserBackButton)
+   enforceAlreadyFinishedRedirection(request,
+     originCheck(
+       fromCache(request) match {
+         case Some(claim) if !Play.isTest && isNotValid(claim) =>
+           Logger.error(s"$cacheKey - cache: ${keyAndExpiration(request)._1} lost the claim date and claimant details")
+           Redirect(errorPageBrowserBackButton)
 
-       case Some(claim) =>  claimingWithClaim(f, request, claim)
+         case Some(claim) =>  claimingWithClaim(f, request, claim)
 
-       case None if Play.isTest => claimingWithoutClaim(f, request)
+         case None if Play.isTest => claimingWithoutClaim(f, request)
 
-       case None =>  noClaimInCache
-     })
+         case None =>  noClaimInCache
+       }
+     )
+   )
 
  }
 
@@ -223,15 +235,17 @@ trait CachedClaim {
       claimingWithCondition(isNotValid,claimingWithoutClaim(f,request))(f)
   }
   private def ifMandatoryFieldsMissing (claim:Claim):Boolean = {
-    ((!claim.questionGroup[ClaimDate].isDefined
-      || claim.questionGroup[ClaimDate].isDefined
-      && claim.questionGroup[ClaimDate].get.dateOfClaim == null)
-      ||
-      (!claim.questionGroup[YourDetails].isDefined
-        || (claim.questionGroup[YourDetails].isDefined
-        && (claim.questionGroup[YourDetails].get.firstName.isEmpty
-        || claim.questionGroup[YourDetails].get.surname.isEmpty
-        || claim.questionGroup[YourDetails].get.nationalInsuranceNumber.nino.isEmpty))))
+    (claim.questionGroup[ClaimDate] match {
+      case Some(null) => true
+      case None => true
+      case _ => false
+
+    }) ||
+    (claim.questionGroup[YourDetails] match {
+      case None => true
+      case Some(YourDetails(_,firstName,_,surname,nino,_)) if firstName.isEmpty || surname.isEmpty || nino.nino.isEmpty => true
+      case _ => false
+    })
   }
 
   private def claimingWithClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent], claim: Claim): Result = {
@@ -274,8 +288,12 @@ trait CachedClaim {
           val lang = claim.lang.getOrElse(bestLang)
           // reaching end of process - thank you page so we delete claim for security reasons and free memory
           Cache.remove(claim.uuid)
-          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain),DiscardingCookie(CachedClaim.C3VERSION)).withNewSession
-        case _ => originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(CachedClaim.C3VERSION)).withNewSession
+          originCheck(f(claim)(request)(lang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain),DiscardingCookie(CachedClaim.C3VERSION)).withNewSession.withCookies(Cookie("application-finished","true"))
+        case _ => {
+          enforceAlreadyFinishedRedirection(request,
+            originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain=theDomain), DiscardingCookie(CachedClaim.C3VERSION)).withNewSession.withCookies(Cookie("application-finished","true"))
+          )
+        }
       }
     }
   }
@@ -302,6 +320,16 @@ trait CachedClaim {
         Cache.set(claim.uuid, c, expiration)
         r
     }
+  }
+
+  private def enforceAlreadyFinishedRedirection(request:Request[AnyContent],otherwise: =>Result):Result = {
+
+    if (request.cookies.exists{
+      case Cookie("application-finished","true",_,_,_,_,_) => println("Found cookie! Redirecting");true
+      case _ => false
+    }) Redirect(controllers.routes.Application.backButtonPage)
+    else otherwise
+
   }
 
   private def originCheck(action: => Result)(implicit request: Request[AnyContent]) = {
