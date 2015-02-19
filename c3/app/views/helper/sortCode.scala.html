@@ -3,11 +3,15 @@
 @import views.html.helper._
 @import utils.helpers.CarersTemplate._
 
+@sortCodeWithArguments(field: play.api.data.Field) = @{
+    sortCodePlaceholder(field, args: _*)
+}
+
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
     @checkConstraintRequired(field)
     <ul class="inline sort-code">
-            @sortCodePlaceholder(field("sort1"))
-            @sortCodePlaceholder(field("sort2"))
-            @sortCodePlaceholder(field("sort3"))
+            @sortCodeWithArguments(field("sort1"))
+            @sortCodeWithArguments(field("sort2"))
+            @sortCodeWithArguments(field("sort3"))
     </ul>
 }

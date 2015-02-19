@@ -1,9 +1,9 @@
-@(field: play.api.data.Field)
+@(field: play.api.data.Field, args: (Symbol, Any)*)
 
 @import utils.helpers.CarersCrypto
 @import views.html.helper.base._
 @import utils.helpers.EmptyTemplate._
 
 <li>
-    @carersInputTel(field,'maxLength -> mappings.Mappings.two)
+    @carersInputTel(field, (args.filter(a => a._1 == 'ignoreOptional) ++ Seq('maxLength -> mappings.Mappings.two)): _*)
 </li>
