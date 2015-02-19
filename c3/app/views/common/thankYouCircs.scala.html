@@ -145,13 +145,11 @@
 <script type="text/javascript">
 $ ( function ( ) {
     @if(!Play.isTest) {
-        trackEvent ( "times", "circs - end" )
+        trackEvent ("times", "circs - end");
         var start = getCookie("circsstart");
         var now = new Date( ).getTime();
         var durationFromStart = now - start;
-        trackTiming("TimeToCompletion","circs from start", durationFromStart);
-
-
+        trackTiming('TimeToCompletion','circs from start', durationFromStart);
     @ga.stagePrompt()
 }} )
 </script>

@@ -140,9 +140,7 @@ $ ( function ( ) {
         var start = getCookie('claimstart');
         var now = new Date().getTime();
         var durationFromEligibility = now - eligibility;
-        console.log(durationFromEligibility);
         var durationFromStart = now - start;
-        console.log(durationFromStart);
         trackTiming('TimeToCompletion','Claim from eligibility', durationFromEligibility);
         trackTiming('TimeToCompletion','Claim from start', durationFromStart);
     }

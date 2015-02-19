@@ -147,7 +147,6 @@ function setCookie(c_name,value)
 function trackTiming(category,variable,timemeasured){
     if (0 < timemeasured)
     {
-        console.log("Sending timing");
         _gaq.push(['_trackTiming',category,variable,timemeasured]);
     }
 }
