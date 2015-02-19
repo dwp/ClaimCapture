@@ -12,7 +12,7 @@
 @defining(lang) { implicit language =>
     @main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName")) {
 
-        <p class="intro-info">@Html(Messages("dateOfClaimHelp")) <a href="/claim-help#1" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date")>@Html(Messages("dateOfClaimHelp.link"))</a>.</p>
+        <p class="intro-info">@Html(Messages("dateOfClaimHelp")) <a href="/claim-help#1" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date")>@Html(Messages("dateOfClaimHelp.link"))</a> @Html(Messages("dateOfClaimHelp2")).</p>
 
         @errorsSummary(claimDateForm)
 
@@ -21,7 +21,7 @@
             <div class="form-elements">
 
                 <ul>
-                @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 3 months).`d M yyyy`))
+                @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 3 months).`d M yyyy`), 'helperBelow -> Messages("dateClaimExample.helperBelow"))
                 </ul>
                 
                 
@@ -39,6 +39,7 @@
         $(function () {
             @if(!Play.isTest) {
                 trackEvent ( "times", "claim - start" )
+                setCookie("claimstart", new Date().getTime());
             }
         });
         </script>

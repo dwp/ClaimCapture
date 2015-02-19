@@ -4,16 +4,23 @@ case object CarersAllowance extends Section.Identifier {
   val id = "s1"
 }
 
-case class Benefits(answerYesNo: String = "") extends QuestionGroup(Benefits) with BooleanConfirmation
+case class Benefits(benefitsAnswer: String = "") extends QuestionGroup(Benefits) with BooleanConfirmation
 {
-  val answer: Boolean = answerYesNo match {
-    case "yes" => true
-    case _ => false
+  val answer: Boolean = benefitsAnswer match {
+    case Benefits.noneOfTheBenefits => false
+    case _ => true
   }
 }
 
 object Benefits extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g1"
+
+  val pip = "PIP"
+  val dla = "DLA"
+  val aa = "AA"
+  val caa = "CAA"
+  val afip = "AFIP"
+  val noneOfTheBenefits = "NOB" // None of the benefits
 }
 
 case class Hours(answerYesNo: String = "") extends QuestionGroup(Hours) with BooleanConfirmation {

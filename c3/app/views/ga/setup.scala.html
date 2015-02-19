@@ -8,9 +8,11 @@ _gaq.push(['_setAccount', '@getProperty("analytics.accountTag","UA-43115970-1")'
 _gaq.push(['_gat._anonymizeIp']);
 _gaq.push(['_trackPageview']);
 _gaq.push(['_setSessionCookieTimeout', @getProperty("ga.timeout",3600000)]);
-@if(play.api.Play.isDev(play.api.Play.current)){
-    _gaq.push(['_setDomainName', 'none']);
-}
+_gaq.push(['_setSiteSpeedSampleRate', @getProperty("ga.speedsamplerate",100)]);
+
+    @if(play.api.Play.isDev(play.api.Play.current)){
+        _gaq.push(['_setDomainName', 'none']);
+    }
 
 
 (function() {
