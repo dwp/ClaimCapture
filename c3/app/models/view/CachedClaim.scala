@@ -184,7 +184,9 @@ trait CachedClaim {
 
           case Some(claim) =>  claimingWithClaim(f, request, claim)
 
-          case None => Redirect(errorPageCookie)
+          case None if Play.isTest => claimingWithoutClaim(f, request)
+
+          case None  => Redirect(errorPageCookie)
         })
     }
   }
@@ -197,6 +199,8 @@ trait CachedClaim {
          Redirect(errorPageBrowserBackButton)
 
        case Some(claim) =>  claimingWithClaim(f, request, claim)
+
+       case None if Play.isTest => claimingWithoutClaim(f, request)
 
        case None =>  noClaimInCache
      })
