@@ -21,7 +21,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       theirDetailsPage goToThePage()
       val submittedPage = theirDetailsPage submitPage()
       submittedPage must beAnInstanceOf[G1TheirPersonalDetailsPage]
-      submittedPage.listErrors.size mustEqual 7
+      submittedPage.listErrors.size mustEqual 6
     }
 
     "navigate to next page on valid submission" in new WithBrowser with PageObjects {

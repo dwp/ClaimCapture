@@ -21,7 +21,6 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
-    "armedForcesPayment" -> nonEmptyText.verifying(validYesNo),
     "liveAtSameAddressCareYouProvide" -> nonEmptyText.verifying(validYesNo)
   )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
@@ -40,7 +39,6 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
                                          surname = t.surname.getOrElse(""),
                                          nationalInsuranceNumber = t.nationalInsuranceNumber,
                                          dateOfBirth = t.dateOfBirth.getOrElse(DayMonthYear(None,None,None)),
-                                         armedForcesPayment = theirPersonalDetails.armedForcesPayment,
                                          liveAtSameAddressCareYouProvide = theirPersonalDetails.liveAtSameAddressCareYouProvide)) // Pre-populate form with values from YourPartnerPersonalDetails
         case _ => form // Blank form (user can only get here if they skip sections by manually typing URL).
       }
