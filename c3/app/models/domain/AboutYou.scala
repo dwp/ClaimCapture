@@ -1,5 +1,6 @@
 package models.domain
 
+import controllers.mappings.Mappings
 import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
 import models.yesNo.YesNoWithText
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
@@ -26,10 +27,22 @@ object YourDetails extends QuestionGroup.Identifier {
 case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
                           postcode: Option[String] = None,
                           howWeContactYou: String = "",
-                          contactYouByTextphone: Option[String] = None) extends QuestionGroup(ContactDetails)
+                          contactYouByTextphone: Option[String] = None,
+                          wantsContactEmail:String = "",
+                          email:Option[String] = None,
+                          emailConfirmation:Option[String] = None) extends QuestionGroup(ContactDetails)
 
 object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
+
+  def emailConfirmation(contactDetails:ContactDetails) = {
+    contactDetails.email == contactDetails.emailConfirmation
+  }
+
+  def emailRequired(contactDetails:ContactDetails) = {
+    if (contactDetails.wantsContactEmail == Mappings.yes) contactDetails.email.nonEmpty
+    else true
+  }
 }
 
 case class NationalityAndResidency(nationality: String,

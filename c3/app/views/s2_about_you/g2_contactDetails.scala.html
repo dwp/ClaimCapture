@@ -4,6 +4,7 @@
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.common._
+@import utils.helpers.CarersCrypto
 @import views.html.helper._
 @import views.html.helper.base._
 @import play.api.i18n.{MMessages => Messages}
@@ -26,6 +27,16 @@
                     @carersInputText(contactDetailsForm("howWeContactYou"), 'maxLength -> 35, 'helperAbove -> Messages("furtherInfoContact.helper"))
 
                     @carersCheckBox(contactDetailsForm("contactYouByTextphone"))
+
+                    @yesNoRadioGroup(contactDetailsForm("wantsEmailContact"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputText(contactDetailsForm("mail"), 'ignoreOptional -> true, 'maxLength -> 254),
+                            carersInputText(contactDetailsForm("mailConfirmation"), 'ignoreOptional -> true, 'maxLength -> 254)
+                        ),
+                        'id -> "emailWrap"
+                    )
                 </ul>
             </fieldset>
 
@@ -37,5 +48,17 @@
                 </ul>
             </nav>
         }
+
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/g2_contactDetails.js")'></script>
+
+        <script type="text/javascript">
+        $(function(){
+            window.initEvents(
+            "@CarersCrypto.encryptAES("wantsEmailContact_yes")",
+            "@CarersCrypto.encryptAES("wantsEmailContact_no")",
+            "@CarersCrypto.encryptAES("mail")",
+            "@CarersCrypto.encryptAES("mailConfirmation")")
+        });
+        </script>
     }
 }
