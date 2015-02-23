@@ -29,7 +29,7 @@ object CachedClaim {
   type ClaimResult = (Claim, Result)
   // Versioning
   val C3VERSION = "C3Version"
-  val C3VERSION_VALUE = "2.11"
+  val C3VERSION_VALUE = "2.12"
 }
 
 /**
