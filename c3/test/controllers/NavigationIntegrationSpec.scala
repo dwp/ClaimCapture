@@ -55,6 +55,7 @@ trait DataFiller {
     fill("#address_lineTwo") `with` "My Address line 2"
     fill("#postcode") `with` "SE1 6EH"
     fill("#howWeContactYou") `with` "01772 888901"
+    click("#wantsEmailContact_no")
     fluent
   }
 }

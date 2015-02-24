@@ -25,6 +25,16 @@
 	                  'maxLength -> 35,
 	                  'helperAbove -> Messages("furtherInfoContact.helper")
 	                )
+
+                    @yesNoRadioGroup(declarationForm("wantsEmailContact"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputText(declarationForm("mail"), 'ignoreOptional -> true, 'maxLength -> 254),
+                            carersInputText(declarationForm("mailConfirmation"), 'ignoreOptional -> true, 'maxLength -> 254)
+                        ),
+                        'id -> "emailWrap"
+                    )
 	            </ul>
 	            
 	        </fieldset>
@@ -79,14 +89,22 @@
 <script type="text/javascript">$($("#js").val("true"));</script>
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s3_consent_and_declaration/g1_declaration.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/email.js")'></script>
 
 <script type="text/javascript">
-$(function() {
-window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
-                   "@CarersCrypto.encryptAES("obtainInfoAgreement_no")",
-                   "@CarersCrypto.encryptAES("obtainInfoWhy")",
-                   "@CarersCrypto.encryptAES("circsSomeOneElse")",
-                   "@CarersCrypto.encryptAES("nameOrOrganisation")");
-})
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
+                           "@CarersCrypto.encryptAES("obtainInfoAgreement_no")",
+                           "@CarersCrypto.encryptAES("obtainInfoWhy")",
+                           "@CarersCrypto.encryptAES("circsSomeOneElse")",
+                           "@CarersCrypto.encryptAES("nameOrOrganisation")");
+        window.emailInit("@CarersCrypto.encryptAES("wantsEmailContact_yes")",
+                         "@CarersCrypto.encryptAES("wantsEmailContact_no")",
+                         "@CarersCrypto.encryptAES("mail")",
+                         "@CarersCrypto.encryptAES("mailConfirmation")");
+
+    });
 </script>
+
+
 }

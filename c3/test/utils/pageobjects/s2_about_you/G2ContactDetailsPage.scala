@@ -13,6 +13,9 @@ final class G2ContactDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, 
   declareInput("#postcode", "AboutYouPostcode")
   declareInput("#howWeContactYou", "HowWeContactYou")
   declareCheck("#contactYouByTextphone", "AboutYouContactYouByTextphone")
+  declareYesNo("#wantsEmailContact","AboutYouWantsEmailContact")
+  declareInput("#mail","AboutYouMail")
+  declareInput("#mailConfirmation","AboutYouMailConfirmation")
 }
 
 /**

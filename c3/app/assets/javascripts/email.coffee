@@ -1,18 +1,18 @@
-window.initEvents = (wantsEmailContactY, wantsEmailContactN, email, emailConfirmation) ->
+window.emailInit = (wantsEmailContactY, wantsEmailContactN, email, emailConfirmation) ->
 
   if not $("#" + wantsEmailContactY).prop('checked')
-    hide(email, emailConfirmation)
+    hideEmail(email, emailConfirmation)
 
   $("#" + wantsEmailContactY).on "click", ->
-    show()
+    showEmail()
 
   $("#" + wantsEmailContactN).on "click", ->
-    hide(email, emailConfirmation)
+    hideEmail(email, emailConfirmation)
 
-show = ->
+showEmail = ->
   $("#emailWrap").slideDown 0
 
-hide = (email, emailConfirmation) ->
+hideEmail = (email, emailConfirmation) ->
   $("#emailWrap").slideUp 0, ->
     $("#" + email).val("")
     $("#" + emailConfirmation).val("")

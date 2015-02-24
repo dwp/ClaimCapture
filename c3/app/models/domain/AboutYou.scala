@@ -28,21 +28,12 @@ case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
                           postcode: Option[String] = None,
                           howWeContactYou: String = "",
                           contactYouByTextphone: Option[String] = None,
-                          wantsContactEmail:String = "",
-                          email:Option[String] = None,
-                          emailConfirmation:Option[String] = None) extends QuestionGroup(ContactDetails)
+                          override val wantsContactEmail:String = "",
+                          override val email:Option[String] = None,
+                          override val emailConfirmation:Option[String] = None) extends QuestionGroup(ContactDetails) with EMail
 
 object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
-
-  def emailConfirmation(contactDetails:ContactDetails) = {
-    contactDetails.email == contactDetails.emailConfirmation
-  }
-
-  def emailRequired(contactDetails:ContactDetails) = {
-    if (contactDetails.wantsContactEmail == Mappings.yes) contactDetails.email.nonEmpty
-    else true
-  }
 }
 
 case class NationalityAndResidency(nationality: String,

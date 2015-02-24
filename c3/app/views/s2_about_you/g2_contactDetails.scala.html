@@ -49,11 +49,11 @@
             </nav>
         }
 
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/g2_contactDetails.js")'></script>
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/email.js")'></script>
 
         <script type="text/javascript">
         $(function(){
-            window.initEvents(
+            window.emailInit(
             "@CarersCrypto.encryptAES("wantsEmailContact_yes")",
             "@CarersCrypto.encryptAES("wantsEmailContact_no")",
             "@CarersCrypto.encryptAES("mail")",
