@@ -22,12 +22,13 @@ object G2ContactDetails extends Controller with CachedClaim with Navigable {
     "postcode" -> optional(text verifying validPostcode),
     "howWeContactYou" -> carersNonEmptyText(maxLength = 35),
     "contactYouByTextphone" -> optional(text(maxLength = 4)),
-    "wantsEmailContact" -> carersNonEmptyText.verifying(validYesNo),
+    "wantsEmailContact" -> optional(carersNonEmptyText.verifying(validYesNo)),
     "mail" -> optional(email.verifying(Constraints.maxLength(254))),
     "mailConfirmation" -> optional(text(maxLength = 254))
   )(ContactDetails.apply)(ContactDetails.unapply)
     .verifying("error.email.match", emailConfirmation _)
-    .verifying("error.required", emailRequired _)
+    .verifying("error.email.required", emailRequired _)
+    .verifying("error.wants.required", wantsEmailRequired _)
   )
 
   def present = claiming {implicit claim =>  implicit request =>  lang =>
@@ -38,7 +39,8 @@ object G2ContactDetails extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedForm = formWithErrors.replaceError("","error.email.match",FormError("mailConfirmation","error.email.match"))
-                                        .replaceError("","error.required",FormError("mail","error.required"))
+                                        .replaceError("","error.email.required",FormError("mail","error.required"))
+                                        .replaceError("","error.wants.required",FormError("wantsEmailContact","error.required"))
         BadRequest(views.html.s2_about_you.g2_contactDetails(updatedForm)(lang))
       },
       contactDetails =>{

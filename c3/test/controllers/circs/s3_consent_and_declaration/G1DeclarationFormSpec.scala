@@ -63,18 +63,6 @@ class G1DeclarationFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject form if wants email contact not filled " in {
-      G1Declaration.form.bind(
-        Map("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation)
-      ).fold(
-          formWithErrors => {
-            formWithErrors.errors.length must equalTo(1)
-            formWithErrors.errors(0).key must equalTo("wantsEmailContact")
-            formWithErrors.errors(0).message must equalTo("error.required")
-          },
-          f => "This mapping should not happen." must equalTo("Valid"))
-    }
-
   } section("unit", models.domain.CircumstancesConsentAndDeclaration.id)
 
 }

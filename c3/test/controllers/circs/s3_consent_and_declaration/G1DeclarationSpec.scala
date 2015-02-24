@@ -52,7 +52,7 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
           f.confirm must equalTo(confirm)
           f.circsSomeOneElse must equalTo(Some(someOneElse))
           f.nameOrOrganisation must equalTo(Some(nameOrOrganisation))
-          f.wantsContactEmail must equalTo(wantsEmailContact)
+          f.wantsContactEmail must beSome(wantsEmailContact)
       }
     }
 

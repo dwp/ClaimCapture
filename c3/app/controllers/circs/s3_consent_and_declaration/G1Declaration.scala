@@ -31,14 +31,16 @@ class G1Declaration extends Controller with CachedChangeOfCircs with Navigable
     "confirm" -> carersNonEmptyText,
     "circsSomeOneElse" -> optional(carersText),
     "nameOrOrganisation" -> optional(carersNonEmptyText(maxLength = 60)),
-    "wantsEmailContact" -> carersNonEmptyText.verifying(validYesNo),
+    "wantsEmailContact" -> optional(carersNonEmptyText.verifying(validYesNo)),
     "mail" -> optional(email.verifying(Constraints.maxLength(254))),
     "mailConfirmation" -> optional(text(maxLength = 254))
   )(CircumstancesDeclaration.apply)(CircumstancesDeclaration.unapply)
     .verifying("obtainInfoWhy", CircumstancesDeclaration.validateWhy _)
     .verifying("nameOrOrganisation", CircumstancesDeclaration.validateNameOrOrganisation _)
     .verifying("error.email.match", emailConfirmation _)
-    .verifying("error.required", emailRequired _)
+    .verifying("error.email.required", emailRequired _)
+    .verifying("error.wants.required", wantsEmailRequired _)
+
   )
 
   def present = claiming { implicit circs =>  implicit request =>  lang =>
@@ -54,7 +56,8 @@ class G1Declaration extends Controller with CachedChangeOfCircs with Navigable
             .replaceError("", "obtainInfoWhy", FormError("obtainInfoWhy", "error.required"))
             .replaceError("", "nameOrOrganisation", FormError("nameOrOrganisation", "error.required"))
             .replaceError("","error.email.match",FormError("mailConfirmation","error.email.match"))
-            .replaceError("","error.required",FormError("mail","error.required"))
+            .replaceError("","error.email.required",FormError("mail","error.required"))
+            .replaceError("","error.wants.required",FormError("wantsEmailContact","error.required"))
           BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(formWithErrorsUpdate)(lang)(circs,request))
         },
         f => {

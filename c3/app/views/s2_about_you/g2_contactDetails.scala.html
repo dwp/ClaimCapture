@@ -8,6 +8,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import play.api.i18n.{MMessages => Messages}
+@import app.ConfigProperties._
 
 @defining(lang) { implicit language =>
     @main(Messages("s2.g2") + " - " + Messages("s2.longName")) {
@@ -28,15 +29,17 @@
 
                     @carersCheckBox(contactDetailsForm("contactYouByTextphone"))
 
-                    @yesNoRadioGroup(contactDetailsForm("wantsEmailContact"))
+                    @if(getProperty("email.frontend",false)) {
+                        @yesNoRadioGroup(contactDetailsForm("wantsEmailContact"))
 
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(
-                            carersInputText(contactDetailsForm("mail"), 'ignoreOptional -> true, 'maxLength -> 254),
-                            carersInputText(contactDetailsForm("mailConfirmation"), 'ignoreOptional -> true, 'maxLength -> 254)
-                        ),
-                        'id -> "emailWrap"
-                    )
+                        @otherDetailPlaceHolder(
+                            inputDef = Seq(
+                                carersInputText(contactDetailsForm("mail"), 'ignoreOptional -> true, 'maxLength -> 254),
+                                carersInputText(contactDetailsForm("mailConfirmation"), 'ignoreOptional -> true, 'maxLength -> 254)
+                            ),
+                            'id -> "emailWrap"
+                        )
+                    }
                 </ul>
             </fieldset>
 
@@ -49,16 +52,18 @@
             </nav>
         }
 
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/email.js")'></script>
+        @if(getProperty("email.frontend",false)){
+            <script type="text/javascript" src='@routes.Assets.at("javascripts/email.js")'></script>
 
-        <script type="text/javascript">
-        $(function(){
-            window.emailInit(
-            "@CarersCrypto.encryptAES("wantsEmailContact_yes")",
-            "@CarersCrypto.encryptAES("wantsEmailContact_no")",
-            "@CarersCrypto.encryptAES("mail")",
-            "@CarersCrypto.encryptAES("mailConfirmation")")
-        });
-        </script>
+            <script type="text/javascript">
+            $(function(){
+                window.emailInit(
+                "@CarersCrypto.encryptAES("wantsEmailContact_yes")",
+                "@CarersCrypto.encryptAES("wantsEmailContact_no")",
+                "@CarersCrypto.encryptAES("mail")",
+                "@CarersCrypto.encryptAES("mailConfirmation")")
+            });
+            </script>
+        }
     }
 }

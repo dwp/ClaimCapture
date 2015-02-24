@@ -28,7 +28,7 @@ case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
                           postcode: Option[String] = None,
                           howWeContactYou: String = "",
                           contactYouByTextphone: Option[String] = None,
-                          override val wantsContactEmail:String = "",
+                          override val wantsContactEmail:Option[String] = None,
                           override val email:Option[String] = None,
                           override val emailConfirmation:Option[String] = None) extends QuestionGroup(ContactDetails) with EMail
 

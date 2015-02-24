@@ -145,8 +145,8 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         page fillPageWith claim
 
         val errors = page.submitPage().listErrors
-        errors.size mustEqual 1
-        errors(0) must contain("Do you want an email when we receive your application? - This field is required")
+        errors.size mustEqual 2
+
       }
 
       "not have name or organisation field with optional text" in new WithBrowser with PageObjects{

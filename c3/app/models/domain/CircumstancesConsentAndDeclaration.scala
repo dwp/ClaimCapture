@@ -13,7 +13,7 @@ case class CircumstancesDeclaration(jsEnabled: Boolean = false,
                                     confirm: String = "",
                                     circsSomeOneElse: Option[String] = None,
                                     nameOrOrganisation: Option[String] = None,
-                                    override val wantsContactEmail:String = "",
+                                    override val wantsContactEmail:Option[String] = None,
                                     override val email:Option[String] = None,
                                     override val emailConfirmation:Option[String] = None) extends QuestionGroup(CircumstancesDeclaration) with EMail
 
