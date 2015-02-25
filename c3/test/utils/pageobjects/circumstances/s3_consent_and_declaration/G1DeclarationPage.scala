@@ -10,6 +10,9 @@ final class G1DeclarationPage (ctx:PageObjectsContext) extends CircumstancesPage
   declareCheck("#confirm","CircumstancesDeclarationConfirmation")
   declareCheck("#circsSomeOneElse","CircumstancesSomeOneElseConfirmation")
   declareInput("#nameOrOrganisation","NameOrOrganisation")
+  declareYesNo("#wantsEmailContact","CircumstancesDeclarationWantsEmailContact")
+  declareInput("#mail","CircumstancesDeclarationMail")
+  declareInput("#mailConfirmation","CircumstancesDeclarationMailConfirmation")
 }
 
 object G1DeclarationPage {

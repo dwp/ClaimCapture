@@ -1,4 +1,4 @@
-Can you get Carers Allowance?,What benefit does the person you care for get?,What benefit does the person you care for get?,CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet,
+Can you get Carers Allowance?,What benefit does the person you care for get?,What benefit does the person you care for get?,CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet,DWPCAClaim>QualifyingBenefit>Answer
 Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you care for?,Do you spend 35 hours or more each week caring for the person you care for?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,
 Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,
@@ -12,7 +12,9 @@ About You,Your Details,Date of birth,AboutYouDateOfBirth,Claimant>DateOfBirth>An
 About You,Your contact details,Address,AboutYouAddress,Claimant>Address>Answer>Line
 About You,Your contact details,Postcode,AboutYouPostcode,Claimant>Address>Answer>PostCode
 About You,Your contact details,How we contact you,HowWeContactYou,Claimant>DayTimePhoneNumber>Answer
-About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouTextPhone,Claimant>TextPhoneContact>Answer
+About You,Your contact details,Wants email contact,AboutYouWantsEmailContact,
+About You,Your contact details,Please enter your email,AboutYouMail,
+About You,Your contact details,Please confirm your email,AboutYouMailConfirmation,
 Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,DWPCAClaim>DateOfClaim>Answer
 About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,Residency>Nationality>Answer
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,Residency>ActualNationality>Answer
@@ -50,7 +52,6 @@ About the care you provide,Details of the person you care for,Do they live at th
 About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,Caree>Address>Answer>Line
 About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,Caree>Address>Answer>PostCode
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Caree>RelationToClaimant>Answer
-About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,Caree>ArmedForcesIndependencePayment>Answer
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Caree>Cared35Hours>Answer
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date ?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,Caree>Cared35HoursBefore>Answer
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,Caree>DateStartCaring>Answer

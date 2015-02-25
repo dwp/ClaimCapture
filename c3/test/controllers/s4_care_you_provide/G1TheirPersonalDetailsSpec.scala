@@ -38,7 +38,6 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
           t.firstName mustEqual "John"
           t.surname mustEqual "Doo"
           t.dateOfBirth mustEqual DayMonthYear(Some(5), Some(12), Some(1990), None, None)
-          t.armedForcesPayment mustEqual "yes"
           t.liveAtSameAddressCareYouProvide mustEqual "yes"
         }
       }

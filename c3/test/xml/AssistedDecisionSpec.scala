@@ -302,25 +302,6 @@ class AssistedDecisionSpec extends Specification with Tags {
       (xml \\ "AssistedDecisions").length mustEqual 0
     }
 
-    "Create an assisted decision section if AFIP is yes" in {
-      val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val moreAboutThePerson = TheirPersonalDetails(armedForcesPayment = "yes")
-      val claim = Claim().update(moreAboutTheCare).update(moreAboutThePerson).update(residency)
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Person receives Armed Forces Independence Payment.")
-      (xml \\ "RecommendedDecision").text must contain ("Transfer to Armed Forces Independent Payments team.")
-    }
-
-    "Not create an assisted decision section if AFIP is no" in {
-      val moreAboutTheCare = MoreAboutTheCare("yes")
-      val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val moreAboutThePerson = TheirPersonalDetails(armedForcesPayment = "no")
-      val claim = Claim().update(moreAboutTheCare).update(moreAboutThePerson).update(residency)
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "AssistedDecisions").length mustEqual 0
-    }
-
     "Create an assisted decision section if date of claim > 3 months and 1 day" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))

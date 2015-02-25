@@ -11,6 +11,7 @@ About You,Your Details,Date of birth,AboutYouDateOfBirth,28/09/1976
 About You,Your contact details,Address,AboutYouAddress,2 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,pr1 2th
 About You,Your contact details,How we contact you,HowWeContactYou,01772 888901
+About You,Your contact details,Wants email contact,AboutYouWantsEmailContact,No
 Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,22/03/2013
 About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,British
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,
@@ -39,7 +40,6 @@ About the care you provide,Details of the person you care for,Middle name,AboutT
 About the care you provide,Details of the person you care for,Surname or family name,AboutTheCareYouProvideSurnamePersonCareFor,For
 About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,JA789871C
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,12/09/1923
-About the care you provide,Details of the person you care for,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,No
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,No
 About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,12 Preston Road&Preston&Lancashire
 About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,pr1 2th

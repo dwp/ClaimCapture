@@ -33,6 +33,7 @@ object ClaimScenarioFactory {
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
     claim.AboutYouPostcode = "FY1 2RW"
     claim.HowWeContactYou = "01772 888901"
+    claim.AboutYouWantsEmailContact = "No"
     claim
   }
 
@@ -115,6 +116,7 @@ object ClaimScenarioFactory {
     claim.AboutYouAddress = "An address&Preston"
     claim.AboutYouPostcode = "SE1 6EH"
     claim.HowWeContactYou = "01253 111 111"
+    claim.AboutYouWantsEmailContact = "No"
     // Claim date
     //claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // Nationality and Residency
@@ -233,7 +235,6 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvidePhoneNumberPersonYouCare = "07922 222 222"
     // More About The Person
     claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
-    claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
     claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
     // Previous Carer Personal Details
     claim.AboutTheCareYouProvideFirstNamePreviousCarer = "Peter"
@@ -288,7 +289,6 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvidePhoneNumberPersonYouCare = "07922 222 222"
     // More About The Person
     claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
-    claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
     claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
     // More About The Care
     claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"

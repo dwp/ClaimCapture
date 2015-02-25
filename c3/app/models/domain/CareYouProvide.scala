@@ -18,7 +18,6 @@ case class TheirPersonalDetails(relationship: String = "",
                                 surname: String = "",
                                 nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
                                 dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
-                                armedForcesPayment: String = "",
                                 liveAtSameAddressCareYouProvide: String = "") extends QuestionGroup(TheirPersonalDetails)
 
 case object TheirPersonalDetails extends QuestionGroup.Identifier {

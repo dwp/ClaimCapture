@@ -33,7 +33,6 @@ object Caree extends XMLComponent {
         {question(<DateStartCaring/>,"beforeClaimCaring_date", moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}
       }}
       {question(<LiveSameAddress/>,"liveAtSameAddressCareYouProvide", theirPersonalDetails.liveAtSameAddressCareYouProvide)}
-      {question(<ArmedForcesIndependencePayment/>,"armedForcesPayment", theirPersonalDetails.armedForcesPayment)}
     </Caree>
   }
 

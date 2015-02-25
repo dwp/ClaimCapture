@@ -44,7 +44,6 @@ class FunctionalTestCase3Spec extends FunctionalTestCommon {
       "AboutTheCareYouProvideTitlePersonCareFor"       + "AboutTheCareYouProvideFirstNamePersonCareFor" + "AboutTheCareYouProvideMiddleNamePersonCareFor" + "AboutTheCareYouProvideSurnamePersonCareFor" +
       dateConversion("AboutTheCareYouProvideDateofBirthPersonYouCareFor") +
       addressConversion("AboutTheCareYouProvideAddressPersonCareFor") + "AboutTheCareYouProvidePostcodePersonCareFor" +
-      "AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment" +
       "AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek" +
       "AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1" +
       "EducationHaveYouBeenOnACourseOfEducation" +
