@@ -12,7 +12,9 @@ About You,Your Details,Date of birth,AboutYouDateOfBirth,Claimant>DateOfBirth>An
 About You,Your contact details,Address,AboutYouAddress,Claimant>Address>Answer>Line
 About You,Your contact details,Postcode,AboutYouPostcode,Claimant>Address>Answer>PostCode
 About You,Your contact details,How we contact you,HowWeContactYou,Claimant>DayTimePhoneNumber>Answer
-About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouTextPhone,Claimant>TextPhoneContact>Answer
+About You,Your contact details,Wants email contact,AboutYouWantsEmailContact,
+About You,Your contact details,Please enter your email,AboutYouMail,
+About You,Your contact details,Please confirm your email,AboutYouMailConfirmation,
 Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,DWPCAClaim>DateOfClaim>Answer
 About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,Residency>Nationality>Answer
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,Residency>ActualNationality>Answer
