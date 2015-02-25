@@ -30,9 +30,17 @@ object G8PensionAndExpenses extends Controller with CachedClaim with Navigable {
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("haveExpensesForJob.text.required", YesNoWithText.validateOnYes _)
 
+  val payForThings =
+    "payForThings" -> mapping (
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "text" -> optional(carersTextWithPound(minLength=1, maxLength = 300))
+    )(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("payForThings.text.required", YesNoWithText.validateOnYes _)
+
   val form = Form(mapping(
     "iterationID" -> nonEmptyText,
     payPensionScheme,
+    payForThings,
     haveExpensesForJob
   )(PensionAndExpenses.apply)(PensionAndExpenses.unapply))
 
@@ -46,8 +54,11 @@ object G8PensionAndExpenses extends Controller with CachedClaim with Navigable {
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("payPensionScheme","payPensionScheme.text.required",FormError("payPensionScheme.text","error.required", Seq(labelForEmployment(claim, lang, "payPensionScheme.text", iterationID))))
-          .replaceError("payPensionScheme","payPensionScheme.text..maxLength",FormError("payPensionScheme.text","error.maxLength", Seq(labelForEmployment(claim, lang, "payPensionScheme.text", iterationID))))
+          .replaceError("payPensionScheme","payPensionScheme.text.maxLength",FormError("payPensionScheme.text","error.maxLength", Seq(labelForEmployment(claim, lang, "payPensionScheme.text", iterationID))))
           .replaceError("payPensionScheme.text",errorRestrictedCharacters,FormError("payPensionScheme.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "payPensionScheme.text", iterationID))))
+          .replaceError("payForThings","payForThings.text.required",FormError("payForThings.text","error.required", Seq(labelForEmployment(claim, lang, "payForThings.text", iterationID))))
+          .replaceError("payForThings","payForThings.text.maxLength",FormError("payForThings.text","error.maxLength", Seq(labelForEmployment(claim, lang, "payForThings.text", iterationID))))
+          .replaceError("payForThings.text",errorRestrictedCharacters,FormError("payForThings.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "payForThings.text", iterationID))))
           .replaceError("haveExpensesForJob","haveExpensesForJob.text.required",FormError("haveExpensesForJob.text","error.required", Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", iterationID))))
           .replaceError("haveExpensesForJob","haveExpensesForJob.text..maxLength",FormError("haveExpensesForJob.text","error.maxLength", Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", iterationID))))
           .replaceError("haveExpensesForJob.text",errorRestrictedCharacters,FormError("haveExpensesForJob.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", iterationID))))
