@@ -11,6 +11,7 @@ About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1960
 About You,Your contact details,Address,AboutYouAddress,6 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,pr1 2th
 About You,Your contact details,How we contact you,HowWeContactYou,0771 5419899
+About You,Your contact details,Wants email contact,AboutYouWantsEmailContact,No
 About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,British
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,
 About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Yes

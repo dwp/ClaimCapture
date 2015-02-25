@@ -325,7 +325,7 @@ trait CachedClaim {
   private def enforceAlreadyFinishedRedirection(request:Request[AnyContent],otherwise: =>Result):Result = {
 
     if (request.cookies.exists{
-      case Cookie("application-finished","true",_,_,_,_,_) => println("Found cookie! Redirecting");true
+      case Cookie("application-finished","true",_,_,_,_,_) => true
       case _ => false
     }) Redirect(controllers.routes.Application.backButtonPage)
     else otherwise
