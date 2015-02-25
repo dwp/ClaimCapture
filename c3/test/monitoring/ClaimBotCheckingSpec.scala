@@ -62,6 +62,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       val aboutExpenses = PensionAndExpenses(
         "12345",
         YesNoWithText("no",None),
+        YesNoWithText("no",None),
         YesNoWithText("no",Some("Some expenses"))
        )
 
@@ -71,9 +72,38 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beTrue
     }
 
+    "return true given PensionAndExpenses pay for things honey pot filled (pay for things entered)" in {
+      val aboutExpenses = PensionAndExpenses(
+        "12345",
+        YesNoWithText("no",None),
+        YesNoWithText("no",Some("Some expenses")),
+        YesNoWithText("no",None)
+      )
+
+      val jobs = new Jobs().update(createJob("12345", aboutExpenses))
+      val claim = Claim().update(jobs)
+
+      controller.honeyPot(claim) should beTrue
+    }
+
+    "return false given PensionAndExpenses pay for things honey pot not filled (pay for things not entered)" in {
+      val aboutExpenses = PensionAndExpenses(
+        "12345",
+        YesNoWithText("no",None),
+        YesNoWithText("no",None),
+        YesNoWithText("no",None)
+      )
+
+      val jobs = new Jobs().update(createJob("12345", aboutExpenses))
+      val claim = Claim().update(jobs)
+
+      controller.honeyPot(claim) should beFalse
+    }
+
     "returns false given PensionAndExpenses pension expenses honeyPot filled (pension expenses entered)" in {
       val aboutExpenses = PensionAndExpenses(
         "12345",
+        YesNoWithText("no",None),
         YesNoWithText("no",None),
         YesNoWithText("yes",Some("Some expenses"))
       )
@@ -87,11 +117,13 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       val aboutExpenses1 = PensionAndExpenses(
         "12345",
         YesNoWithText("no",None),
+        YesNoWithText("no",None),
         YesNoWithText("yes",Some("Some expenses"))
       )
 
       val aboutExpenses2 = PensionAndExpenses(
         "12345",
+        YesNoWithText("no",None),
         YesNoWithText("no",None),
         YesNoWithText("yes",Some("Some other expenses"))
       )
@@ -106,6 +138,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       val aboutExpenses = PensionAndExpenses(
         "12345",
         YesNoWithText("no",Some("Some expenses")),
+        YesNoWithText("no",None),
         YesNoWithText("no")
       )
       val jobs = new Jobs().update(createJob("12345", aboutExpenses))
@@ -118,6 +151,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       val aboutExpenses = PensionAndExpenses(
         "12345",
         YesNoWithText("yes",Some("Some expenses")),
+        YesNoWithText("no",None),
         YesNoWithText("no")
       )
       val jobs = new Jobs().update(createJob("12345", aboutExpenses))
@@ -130,12 +164,14 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       val aboutExpenses1 = PensionAndExpenses(
         "",
         YesNoWithText("yes",Some("Some expenses")),
+        YesNoWithText("no",None),
         YesNoWithText("no")
       )
 
       val aboutExpenses2 = PensionAndExpenses(
         "",
         YesNoWithText("yes",Some("Some other expenses")),
+        YesNoWithText("no",None),
         YesNoWithText("no")
       )
 

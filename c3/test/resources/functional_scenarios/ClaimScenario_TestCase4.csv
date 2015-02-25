@@ -157,6 +157,7 @@ Employment,Additional details on your last wage,Other,EmploymentAddtionalWageOth
 Employment,Additional details on your last wage,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_1,two weeks ago
 Employment,Additional details on your last wage,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1,
 Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?,EmploymentDoYouPayForPensionExpenses_1,No
+Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay for things you need to do your job?,EmploymentDoYouPayForThingsToDoJob_1,No
 Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] have any care costs because of this work?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1,Yes
 Employment,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",EmploymentPensionExpenses_1,
 Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to", EmploymentWhatAreNecessaryJobExpenses_1,Some job expenses paying 200 a week for xyz
