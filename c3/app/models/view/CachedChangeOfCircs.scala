@@ -36,10 +36,11 @@ trait CachedChangeOfCircs extends CachedClaim {
   def claimingWithCheckCircs(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = claimingWithDataCheck(isMandatoryFieldsMissingCircs)(f)
 
   private def isMandatoryFieldsMissingCircs(claim:Claim):Boolean = {
-    (!claim.questionGroup[CircumstancesReportChange].isDefined
-      || (claim.questionGroup[CircumstancesReportChange].isDefined
-      && (claim.questionGroup[CircumstancesReportChange].get.fullName.isEmpty
-      || claim.questionGroup[CircumstancesReportChange].get.nationalInsuranceNumber.nino.isEmpty)))
+    claim.questionGroup[CircumstancesReportChange] match {
+      case None => true
+      case Some(CircumstancesReportChange(_,fullname,nino,_,_,_)) if fullname.isEmpty || nino.nino.isEmpty => true
+      case _ => false
+    }
   }
 
 

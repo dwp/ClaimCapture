@@ -1,0 +1,27 @@
+@()(implicit request: Request[AnyContent])
+@import play.api.i18n.{MMessages => Messages}
+
+@common.govMain(Messages("changesHaveBeenSent")) {
+
+    <div class="carers-allowance clearfix">
+
+        @common.protoType()
+
+
+        <article class="multi-language">
+
+            <h1>@Html(Messages("changesHaveBeenSent"))</h1>
+            <p>@Html(Messages("changesHaveBeenSent.message"))</p>
+            <p><a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank" class="button">@Html(Messages("changesHaveBeenSent.return"))</a></p>
+            
+            <h2>@Html(Messages("changesHaveBeenSent")(Lang("cy")))</h2>
+            <p>@Html(Messages("changesHaveBeenSent.message")(Lang("cy")))</p>
+            <p><a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("changesHaveBeenSent.return")(Lang("cy")))</a></p>
+
+            
+       </article>
+
+
+
+    </div>
+}

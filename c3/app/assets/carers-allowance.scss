@@ -788,7 +788,7 @@ main {
 		   &.inline {
 			   li {
 				   display: inline;
-				   margin: 0 0 0 1.2em;
+				   margin: 0 0 0 1em;
 				   &:first-child {margin-left: 0;}
 				   label {
 					   padding-left: 0.25em;
@@ -849,7 +849,7 @@ main {
 		   /* list display - date format layout */   
 		   &.year {
 			   li {
-			   	   margin-left: .5em;
+			   	   margin-left: 1em;
 			   	   display: inline-block;
 			   	   
 			   	   .ie7 & {
@@ -892,7 +892,7 @@ main {
 		     /* sort code */
 			 &.sort-code {
 			 	   li {
-				 	   margin-left: .5em;
+				 	   margin-left: 1em;
 				 	   &:first-child {
 					   margin-left: 0;
 					   }
@@ -902,7 +902,7 @@ main {
 				 	   left: -9999px;
 			 	   }
                    input, input[type="tel"], input[type="text"] {
-					   width: 70px!important;
+					   width: 46px!important;
 				   }
 			   }  
 		   

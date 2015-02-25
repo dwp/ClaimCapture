@@ -27,7 +27,8 @@
 
                         @carersInputText(currentForm("bankFullName"))
 
-                        @sortCode(currentForm("sortCode"))
+                        @* 'ignoreOptional -> true is for ignoring <em> optional </em> tag on label for the individual sort code fields *@
+                        @sortCode(currentForm("sortCode"), 'ignoreOptional -> true)
 
                         @carersInputText(currentForm("accountNumber"), 'maxLength -> "10")
 
