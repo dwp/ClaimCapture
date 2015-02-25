@@ -18,7 +18,6 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.day" -> "3",
           "dateOfBirth.month" -> "4",
           "dateOfBirth.year" -> "1980",
-          "armedForcesPayment" -> "yes",
           "liveAtSameAddressCareYouProvide" -> "yes"
         )
       ).fold(
@@ -30,7 +29,6 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
           theirPersonalDetails.middleName must equalTo(Some("Mc"))
           theirPersonalDetails.surname must equalTo("Donald")
           theirPersonalDetails.dateOfBirth must equalTo(DayMonthYear(Some(3), Some(4), Some(1980), None, None))
-          theirPersonalDetails.armedForcesPayment must equalTo("yes")
           theirPersonalDetails.liveAtSameAddressCareYouProvide must equalTo("yes")
         }
       )
@@ -47,7 +45,6 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.day" -> "1",
           "dateOfBirth.month" -> "1",
           "dateOfBirth.year" -> "1980",
-          "armedForcesPayment" -> "yes",
           "liveAtSameAddressCareYouProvide" -> "yes"
         )
       ).fold(
@@ -65,14 +62,13 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
         Map("middleName" -> "middle optional")
       ).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(7)
+          formWithErrors.errors.length must equalTo(6)
           formWithErrors.errors(0).message must equalTo("error.required")
           formWithErrors.errors(1).message must equalTo("error.required")
           formWithErrors.errors(2).message must equalTo("error.required")
           formWithErrors.errors(3).message must equalTo("error.required")
           formWithErrors.errors(4).message must equalTo("error.required")
           formWithErrors.errors(5).message must equalTo("error.required")
-          formWithErrors.errors(6).message must equalTo("error.required")
         },
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
       )
@@ -89,7 +85,6 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.day" -> "3",
           "dateOfBirth.month" -> "4",
           "dateOfBirth.year" -> "1980",
-          "armedForcesPayment" -> "yes",
           "liveAtSameAddressCareYouProvide" -> "yes"
         )
       ).fold(formWithErrors => {

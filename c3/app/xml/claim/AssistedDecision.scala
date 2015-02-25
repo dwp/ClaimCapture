@@ -3,7 +3,7 @@ package xml.claim
 import app.StatutoryPaymentFrequency
 import models.domain._
 import models.PaymentFrequency
-import scala.xml.NodeSeq
+import scala.xml.{Node, NodeSeq}
 import org.joda.time.DateTime
 import scala.Some
 import xml.XMLComponent
@@ -23,7 +23,7 @@ object AssistedDecision extends XMLComponent {
     //    var assisted = caringHours(claim)
     //    if (assisted.length == 0 ) {
     //      assisted ++= employmentGrossPay(claim)
-    var assisted = getAFIP(claim)
+    var assisted = NodeSeq.Empty
     assisted ++= noEEABenefits(claim)
     assisted ++= noEEAWork(claim)
     assisted ++= nationalityCheck(claim)
@@ -88,12 +88,6 @@ object AssistedDecision extends XMLComponent {
       if (dob.isAfter(sixteenYearsAgo)) decisionElement(s"Customer Date of Birth ${yourDetails.dateOfBirth.`dd/MM/yyyy`} is < 16 years old.","Potential disallowance, but need to check advisory additional notes.")
       else NodeSeq.Empty
     } else NodeSeq.Empty
-  }
-
-  private def getAFIP(claim: Claim): NodeSeq = {
-    val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
-    if (theirPersonalDetails.armedForcesPayment.toLowerCase == "yes") decisionElement("Person receives Armed Forces Independence Payment.","Transfer to Armed Forces Independent Payments team.")
-    else NodeSeq.Empty
   }
 
   private def dateOfClaim(claim: Claim): NodeSeq = {

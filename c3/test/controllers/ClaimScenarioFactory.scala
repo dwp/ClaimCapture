@@ -235,7 +235,6 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvidePhoneNumberPersonYouCare = "07922 222 222"
     // More About The Person
     claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
-    claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
     claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
     // Previous Carer Personal Details
     claim.AboutTheCareYouProvideFirstNamePreviousCarer = "Peter"
@@ -290,7 +289,6 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvidePhoneNumberPersonYouCare = "07922 222 222"
     // More About The Person
     claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
-    claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
     claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
     // More About The Care
     claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"

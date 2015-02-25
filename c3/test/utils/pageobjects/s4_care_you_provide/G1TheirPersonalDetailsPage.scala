@@ -16,7 +16,6 @@ final class G1TheirPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPag
   declareInput("#surname", "AboutTheCareYouProvideSurnamePersonCareFor")
   declareNino("#nationalInsuranceNumber", "AboutTheCareYouProvideNINOPersonCareFor")
   declareDate("#dateOfBirth", "AboutTheCareYouProvideDateofBirthPersonYouCareFor")
-  declareYesNo("#armedForcesPayment", "AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment")
   declareYesNo("#liveAtSameAddressCareYouProvide", "AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou")
 }
 

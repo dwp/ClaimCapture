@@ -44,16 +44,13 @@
                                 carersInputText(currentForm("surname"), 'maxLength -> mappings.Mappings.thirtyfive),
 
                                 nationalInsuranceNumber(currentForm("nationalInsuranceNumber"),
-																	'helperAbove -> Messages("mandatory.nationalInsuranceNumber.helper"),
-                                                                    'helperBelow -> Messages("nationalInsuranceNumber.helper.careYouProvide"),
+                                                                    'helperAbove -> Messages("nationalInsuranceNumber.helper.careYouProvide"),
                                                                     'ignoreOptional -> true),
 
                                 dateOfBirth(currentForm("dateOfBirth"))
                             ),
                             'id -> "careYouProvideWrap"
                         )
-
-                        @yesNoRadioGroup(currentForm("armedForcesPayment"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
 
                         @yesNoRadioGroup(currentForm("liveAtSameAddressCareYouProvide"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
                     </ul>

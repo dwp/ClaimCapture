@@ -16,7 +16,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
   val controller = new ClaimBotChecking {}
 
   var claim = copyInstance(new Claim()
-    .update(Benefits("no"))
+    .update(Benefits(Benefits.pip))
     .update(Hours("no"))
     .update(LivesInGB("no"))
     .update(Over16("no")))
