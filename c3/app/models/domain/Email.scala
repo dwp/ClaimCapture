@@ -18,7 +18,7 @@ object EMail{
   }
 
   def emailRequired[T <: EMail](emailData:T) = {
-    if (emailData.wantsContactEmail == Mappings.yes) emailData.email.nonEmpty
+    if (emailData.wantsContactEmail.getOrElse(Mappings.no) == Mappings.yes) emailData.email.nonEmpty
     else true
   }
 
