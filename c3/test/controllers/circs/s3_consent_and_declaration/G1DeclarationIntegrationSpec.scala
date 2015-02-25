@@ -16,6 +16,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
     val obtainInfoWhy = "Cause I want"
     val confirm = "yes"
     val someOneElse = "Yes"
+    val wantsEmailContact = "No"
 
     "be presented" in new WithBrowser with PageObjects{
 			val page =  G1DeclarationPage(context)
@@ -55,6 +56,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationWhy = obtainInfoWhy
         claim.CircumstancesDeclarationConfirmation = confirm
+        claim.CircumstancesDeclarationWantsEmailContact = wantsEmailContact
 
         page goToThePage()
         page fillPageWith claim
@@ -71,6 +73,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationWhy = obtainInfoWhy
         claim.CircumstancesDeclarationConfirmation = confirm
+        claim.CircumstancesDeclarationWantsEmailContact = wantsEmailContact
 
         page goToThePage()
         page fillPageWith claim
@@ -86,6 +89,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationConfirmation = confirm
+        claim.CircumstancesDeclarationWantsEmailContact = wantsEmailContact
 
         page goToThePage()
         page fillPageWith claim
@@ -103,6 +107,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         claim.CircumstancesDeclarationWhyNot = obtainInfoWhy
         claim.CircumstancesDeclarationConfirmation = confirm
         claim.CircumstancesSomeOneElseConfirmation = someOneElse
+        claim.CircumstancesDeclarationWantsEmailContact = wantsEmailContact
 
         page goToThePage()
         page fillPageWith claim
@@ -113,11 +118,12 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       }
 
       "missing confirm field" in new WithBrowser with PageObjects{
-			val page =  G1DeclarationPage(context)
+        val page =  G1DeclarationPage(context)
         val claim = new TestData
         claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationWhy = obtainInfoWhy
+        claim.CircumstancesDeclarationWantsEmailContact = wantsEmailContact
 
         page goToThePage()
         page fillPageWith claim
@@ -125,6 +131,22 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
         errors(0) must contain("Please tick this box to confirm that you understand and make the declarations above. - This field is required")
+      }
+
+      "missing wants email contact field" in new WithBrowser with PageObjects{
+        val page =  G1DeclarationPage(context)
+        val claim = new TestData
+        claim.FurtherInfoContact = byPost
+        claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
+        claim.CircumstancesDeclarationWhy = obtainInfoWhy
+        claim.CircumstancesDeclarationConfirmation = confirm
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 2
+
       }
 
       "not have name or organisation field with optional text" in new WithBrowser with PageObjects{

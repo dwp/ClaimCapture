@@ -12,7 +12,10 @@ case class CircumstancesDeclaration(jsEnabled: Boolean = false,
                                     obtainInfoWhy: Option[String] = Some(""),
                                     confirm: String = "",
                                     circsSomeOneElse: Option[String] = None,
-                                    nameOrOrganisation: Option[String] = None) extends QuestionGroup(CircumstancesDeclaration)
+                                    nameOrOrganisation: Option[String] = None,
+                                    override val wantsContactEmail:Option[String] = None,
+                                    override val email:Option[String] = None,
+                                    override val emailConfirmation:Option[String] = None) extends QuestionGroup(CircumstancesDeclaration) with EMail
 
 object CircumstancesDeclaration extends QuestionGroup.Identifier {
   val id = s"${CircumstancesConsentAndDeclaration.id}.g1"
