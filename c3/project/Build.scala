@@ -29,7 +29,7 @@ object ApplicationBuild extends Build {
     "org.jacoco"          % "org.jacoco.report"   % "0.7.2.201409121644"  % "test",
     "com.dwp"            %% "play2-multimessages" % "2.3.5",
     "com.typesafe"       %% "play-plugins-mailer" % "2.2.0",
-    "com.github.mumoshu" %% "play2-memcached"     % "0.6.0"
+    "com.dwp.carers"     %% "play2-resilient-memcached"     % "1.0"
   )
 
   var sO: Seq[Def.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))
