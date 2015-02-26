@@ -39,7 +39,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
     "warn if answer is 'none of the benefits' to person get one of benefits" in new WithBrowser with PageObjects {
 		  val page = G1BenefitsPage(context)
       val claim = new TestData
-      claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "NOB"
+      claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "NONE"
       page goToThePage()
       page fillPageWith claim
       page visible("#answerNoMessageWrap") must beTrue
