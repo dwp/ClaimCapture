@@ -21,7 +21,7 @@
             <div class="form-elements">
 
                 <ul>
-                @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 3 months).`d M yyyy`), 'helperBelow -> Messages("dateClaimExample.helperBelow"))
+                @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateClaimExample.helperAbove", (DayMonthYear.today - 3 months).`d M yyyy`))
                 </ul>
                 
                 

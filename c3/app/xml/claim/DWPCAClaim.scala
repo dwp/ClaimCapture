@@ -2,7 +2,7 @@ package xml.claim
 
 import app.XMLValues._
 import play.api.Logger
-import models.domain.{YourPartnerPersonalDetails, YourCourseDetails, Claim}
+import models.domain.{Benefits, YourPartnerPersonalDetails, YourCourseDetails, Claim}
 import xml.XMLHelper._
 import xml._
 import scala.language.postfixOps
@@ -20,12 +20,14 @@ object DWPCAClaim extends XMLComponent {
     val claimDate = claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
     val havePartner = yourPartnerPersonalDetails.hadPartnerSinceClaimDate
+    val qualifyingBenefit = claim.questionGroup[Benefits].getOrElse(Benefits())
 
 
     Logger.info(s"Build XML DWPCAClaim for : ${claim.key} ${claim.uuid}.")
 
     <DWPCAClaim>
       {question(<DateOfClaim/>, "dateOfClaim",claim.dateOfClaim)}
+      {question(<QualifyingBenefit/>, "benefitsAnswer",qualifyingBenefit.benefitsAnswer)}
       {Claimant.xml(claim)}
       {Caree.xml(claim)}
       {Residency.xml(claim)}
