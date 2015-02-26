@@ -45,7 +45,7 @@ trait CachedClaim {
   val startPage: String = getProperty("claim.start.page", "/allowance/benefits")
   val timeoutPage = routes.ClaimEnding.timeout()
   val errorPageCookie = routes.ClaimEnding.errorCookie()
-  val errorPage = routes.ClaimEnding.error()  
+  val errorPage = routes.ClaimEnding.error()
   val errorPageBrowserBackButton = routes.ClaimEnding.errorBrowserBackbutton()
 
   private val defaultLang = "en"
@@ -189,11 +189,11 @@ trait CachedClaim {
       enforceAlreadyFinishedRedirection(request,
         originCheck(
           fromCache(request) match {
-  
+
             case Some(claim) =>  claimingWithClaim(f, request, claim)
-  
+
             case None if Play.isTest => claimingWithoutClaim(f, request)
-  
+
             case None  => Redirect(errorPageCookie)
           })
       )
