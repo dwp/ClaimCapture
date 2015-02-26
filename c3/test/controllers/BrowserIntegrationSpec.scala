@@ -24,7 +24,7 @@ class BrowserIntegrationSpec extends Specification with Tags {
       val backToS1G1 = approvalPage goBack() goBack() goBack() goBack()
 
       println(backToS1G1.source())
-      claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "NOB"
+      claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "NONE"
 
       backToS1G1 fillPageWith claim
       val s1g2SecondTime = backToS1G1 submitPage()

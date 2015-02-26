@@ -129,7 +129,7 @@ class G1BenefitsSpec extends Specification with Tags {
       val section: Section = claim.section(models.domain.CarersAllowance)
       section.questionGroup(Benefits) must beLike {
         case Some(f: Benefits) => {
-          f.benefitsAnswer must equalTo("NOB")
+          f.benefitsAnswer must equalTo("NONE")
         }
       }
     }
