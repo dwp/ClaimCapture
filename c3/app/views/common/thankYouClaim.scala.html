@@ -26,6 +26,10 @@
     displayPlaybackDatesFormat(lang, claimDate)
 }
 
+@isEmail = @{
+    getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail.nonEmpty
+}
+
 @defining(lang) { implicit language =>
     @common.govMain(Messages("thankyou")) {
 
@@ -107,6 +111,9 @@
                 <section>
                     <h2>@Html(Messages("next"))</h2>
                     <ul>
+                        @if(isEmail){
+                            <li>@Html(Messages("email.claim.thankYou"))</li>
+                        }
                         <li>@Html(Messages("claim.next.1"))</li>
                         <li>@Html(Messages("claim.next.2"))</li>
                         <li>@Html(Messages("claim.next.3"))</li>

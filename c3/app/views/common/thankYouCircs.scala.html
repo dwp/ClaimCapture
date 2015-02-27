@@ -1,4 +1,5 @@
 @(lang: Lang)(implicit circs: models.domain.Claim, request: Request[AnyContent])
+@import models.domain.CircumstancesDeclaration
 
 
 @import app.ConfigProperties._
@@ -42,6 +43,10 @@
             else false
 
     show
+}
+
+@isEmail = @{
+    getProperty("email.frontend",false) && circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration()).wantsContactEmail.nonEmpty
 }
 
 @defining(lang) { implicit language =>
@@ -117,6 +122,9 @@
                 <section>
                     <h2>@Html(Messages("next"))</h2>
                     <ul>
+                        @if(isEmail){
+                            <li>@Html(Messages("email.circs.thankYou"))</li>
+                        }
                         <li>@Html(Messages("circs.next.1"))</li>
                         <li>@Html(Messages("next.last"))</li>
                     </ul>
