@@ -114,7 +114,7 @@ Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY4 
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,12345678901234567890
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,01/01/2013
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,12345.99
-Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,"Well, there was included some % of all the money they owed m"
+Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,"Well, there was included some;any of all the money they owed m"
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_1,No
 Employment,Additional details on your last wage,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_1,Four-Weekly
 Employment,Additional details on your last wage,Other,EmploymentAddtionalWageOther_1,
