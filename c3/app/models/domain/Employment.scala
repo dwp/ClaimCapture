@@ -166,6 +166,7 @@ object LastWage extends QuestionGroup.Identifier {
 
 case class PensionAndExpenses(iterationID: String = "",
                          payPensionScheme: YesNoWithText = YesNoWithText("", None),
+                         payForThings: YesNoWithText = YesNoWithText("", None),
                          haveExpensesForJob: YesNoWithText = YesNoWithText("", None)
                         ) extends QuestionGroup(PensionAndExpenses) with IterationID
 

@@ -122,6 +122,8 @@ Employment,Additional details on your last wage,When [[past=did you]] [[present=
 Employment,Additional details on your last wage,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1,No
 Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?,EmploymentDoYouPayForPensionExpenses_1,Yes
 Employment,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",EmploymentPensionExpenses_1,Some pension expenses paying 200 a week for xyz
+Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay for things you need to do your job?,EmploymentDoYouPayForThingsToDoJob_1,Yes
+Employment,Pension and expenses,"Give details of what you [[present=need]] [[past=needed]]  to buy, why you [[present=need]] [[past=needed]] it and how much it [[present=costs.]] [[past=cost.]]",EmploymentPayForThings_1,Some expenses to do my job
 Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] have any care costs because of this work?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1,Yes
 Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",EmploymentWhatAreNecessaryJobExpenses_1,Some job expenses paying 200 a week for xyz
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouBeenEmployedAtAnyTime_1,Yes
@@ -146,6 +148,8 @@ Employment,Additional wage details,When [[past=did you]] [[present=do you]] get 
 Employment,Additional wage details,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_2,Yes
 Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?,EmploymentDoYouPayForPensionExpenses_2,Yes
 Employment,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",EmploymentPensionExpenses_2,Some pension expenses paying 200 a week for xyz
+Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay for things you need to do your job?,EmploymentDoYouPayForThingsToDoJob_2,Yes
+Employment,Pension and expenses,"Give details of what you [[present=need]] [[past=needed]]  to buy, why you [[present=need]] [[past=needed]] it and how much it [[present=costs.]] [[past=cost.]]",EmploymentPayForThings_2,Some expenses to do my job
 Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] have any care costs because of this work?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_2,Yes
 Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",EmploymentWhatAreNecessaryJobExpenses_2,Some job expenses paying 200 a week for xyz
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouBeenEmployedAtAnyTime_2,No

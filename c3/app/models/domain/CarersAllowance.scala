@@ -20,7 +20,7 @@ object Benefits extends QuestionGroup.Identifier {
   val aa = "AA"
   val caa = "CAA"
   val afip = "AFIP"
-  val noneOfTheBenefits = "NOB" // None of the benefits
+  val noneOfTheBenefits = "NONE" // None of the benefits
 }
 
 case class Hours(answerYesNo: String = "") extends QuestionGroup(Hours) with BooleanConfirmation {
