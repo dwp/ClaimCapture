@@ -353,9 +353,7 @@ object Mappings {
   }
 
   def restrictedStringText: Constraint[String] = Constraint[String]("constraint.restrictedStringText") { restrictedString =>
-    // This is the same allowable characters as per the xml schema with some characters removed
-    // The removed characters are : £()@<>
-    val restrictedStringPattern = """^[A-Za-z0-9\s~!"#$%&'\*\+,\-\./:;=\?\[\\\]_\{\}\^]*$""".r
+    val restrictedStringPattern = """^[A-Za-zÀ-ú\s~0-9\(\)&€\"\'!\-_:;@/\?]*$""".r
 
     restrictedStringPattern.pattern.matcher(restrictedString).matches match {
       case true => Valid
@@ -366,7 +364,7 @@ object Mappings {
   def restrictedStringTextWithPound: Constraint[String] = Constraint[String]("constraint.restrictedStringText") { restrictedString =>
     // This is the same allowable characters as per the xml schema with some characters removed
     // The removed characters are : ()@<>
-    val restrictedStringPattern = """^[A-Za-z0-9\s~!"#$%&£'\*\+,\-\./:;=\?\[\\\]_\{\}\^]*$""".r
+    val restrictedStringPattern = """^[A-Za-zÀ-ú\s~0-9\(\)&£€\"\'!\-_:;@/\?]*$""".r
 
     restrictedStringPattern.pattern.matcher(restrictedString).matches match {
       case true => Valid
