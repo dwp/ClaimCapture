@@ -30,8 +30,8 @@ object Employment extends XMLComponent{
               {payXml(jobDetails, lastWage, claim)}
               {question(<OweMoney/>, "employerOwesYouMoney",lastWage.employerOwesYouMoney)}
               {pensionExpensesXml(job,claim)}
-              {jobExpensesXml(job, claim)}
               {payForThingsXml(job, claim)}
+              {jobExpensesXml(job, claim)}
               {anyMoreJobs(index == jobsQG.jobs.length -1, claim)}
             </JobDetails>
         }}
