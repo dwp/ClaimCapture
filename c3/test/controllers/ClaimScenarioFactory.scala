@@ -470,6 +470,8 @@ object ClaimScenarioFactory {
     claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_1 = "06/05/2013"
     claim.EmploymentWhenWillYouGetMoneyOwed_1 = "08/08/2013"
     claim.EmploymentDoYouPayForPensionExpenses_1 = "no"
+    claim.EmploymentDoYouPayForThingsToDoJob_1 = "yes"
+    claim.EmploymentPayForThings_1 = "some expenses to do the job"
     claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "yes"
     claim.EmploymentWhatAreNecessaryJobExpenses_1 = "some job expenses in the amount of 200 to xyz"
 
@@ -503,6 +505,7 @@ object ClaimScenarioFactory {
     claim.EmploymentWhenWillYouGetMoneyOwed_1 = "08/08/2013"
     claim.EmploymentDoYouPayForPensionExpenses_1 = "yes"
     claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "yes"
+    claim.EmploymentDoYouPayForThingsToDoJob_1 = "no"
     claim.EmploymentPensionExpenses_1 = "some pension expenses in the amount of 200 to xyz"
     claim.EmploymentWhatAreNecessaryJobExpenses_1 = "some job expenses in the amount of 200 to xyz"
 
@@ -534,6 +537,8 @@ object ClaimScenarioFactory {
     claim.EmploymentWhenWillYouGetMoneyOwed_1 = "08/08/2013"
     claim.EmploymentDoYouPayForPensionExpenses_1 = "yes"
     claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "yes"
+    claim.EmploymentDoYouPayForThingsToDoJob_1 = "yes"
+    claim.EmploymentPayForThings_1 = "some expenses to do the job"
     claim.EmploymentPensionExpenses_1 = "some pension expenses in the amount of 200 to xyz"
     claim.EmploymentWhatAreNecessaryJobExpenses_1 = "some job expenses in the amount of 200 to xyz"
 
@@ -563,6 +568,8 @@ object ClaimScenarioFactory {
     claim.EmploymentWhenWillYouGetMoneyOwed_1 = "08/08/2013"
     claim.EmploymentDoYouPayForPensionExpenses_1 = "yes"
     claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "yes"
+    claim.EmploymentDoYouPayForThingsToDoJob_1 = "yes"
+    claim.EmploymentPayForThings_1 = "some expenses to do the job"
     claim.EmploymentPensionExpenses_1 = "some pension expenses in the amount of 200 to xyz"
     claim.EmploymentWhatAreNecessaryJobExpenses_1 = "some job expenses in the amount of 200 to xyz"
 

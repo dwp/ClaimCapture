@@ -51,9 +51,11 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim w
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
+          .replaceError("payPensionScheme.answer","error.required",FormError("payPensionScheme.answer","error.required", Seq(labelForSelfEmployment(claim, lang, "payPensionScheme.answer"))))
           .replaceError("payPensionScheme","payPensionScheme.text.required",FormError("payPensionScheme.text","error.required", Seq(labelForSelfEmployment(claim, lang, "payPensionScheme.text"))))
           .replaceError("payPensionScheme","payPensionScheme.text.maxLength",FormError("payPensionScheme.text","error.maxLength", Seq(labelForSelfEmployment(claim, lang, "payPensionScheme.text"))))
           .replaceError("payPensionScheme.text",errorRestrictedCharacters,FormError("payPensionScheme.text",errorRestrictedCharacters, Seq(labelForSelfEmployment(claim, lang, "payPensionScheme.text"))))
+          .replaceError("haveExpensesForJob.answer","error.required",FormError("haveExpensesForJob.answer","error.required", Seq(labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer"))))
           .replaceError("haveExpensesForJob","haveExpensesForJob.text.required",FormError("haveExpensesForJob.text","error.required", Seq(labelForSelfEmployment(claim, lang, "haveExpensesForJob.text"))))
           .replaceError("haveExpensesForJob","haveExpensesForJob.text.maxLength",FormError("haveExpensesForJob.text","error.maxLength", Seq(labelForSelfEmployment(claim, lang, "haveExpensesForJob.text"))))
           .replaceError("haveExpensesForJob.text",errorRestrictedCharacters,FormError("haveExpensesForJob.text",errorRestrictedCharacters, Seq(labelForSelfEmployment(claim, lang, "haveExpensesForJob.text"))))

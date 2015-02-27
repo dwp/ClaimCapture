@@ -30,8 +30,7 @@
                         inputDef = Seq(
                             carersInputTextArea(currentForm("payPensionScheme")("text"),
                                 '_label -> labelForSelfEmployment(claim, lang, "payPensionScheme.text"),
-                                'helper -> Html(Messages("300charsLeft")),
-                                'helperAbove -> Html(labelForSelfEmployment(claim, lang, "payPensionScheme.text.helper")),
+                                'textAreaHelper -> Html(Messages("300charsLeft")),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
@@ -39,14 +38,17 @@
                         'display -> currentForm("payPensionScheme")("answer").value.getOrElse("no")
                     )
 
-                    @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"), '_label -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer"), valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"))
+                    @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"),
+                        '_label -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer"),
+                        'helperBelow -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer.helper"),
+                        valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputTextArea(currentForm("haveExpensesForJob")("text"),
                                 '_label -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.text"),
-                                'helper -> Html(Messages("300charsLeft")),
-                                'helperAbove -> Html(Messages("haveExpensesForJob.text.helper")),
+                                'textAreaHelper -> Html(Messages("300charsLeft")),
+                                'helperAbove -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.text.helper"),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
@@ -65,24 +67,24 @@
 	        </nav>
 
     }
-}
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s7_employment/g8_pensionAndExpenses.js")'></script>
-<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s8_self_employment/g4_selfEmploymentPensionsAndExpenses.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
-<script type="text/javascript">
-    $(function(){
-        window.initEvents(
-            "@CarersCrypto.encryptAES("payPensionScheme_answer_yes")",
-            "@CarersCrypto.encryptAES("payPensionScheme_answer_no")",
-            "@CarersCrypto.encryptAES("payPensionScheme_text")",
-            "@CarersCrypto.encryptAES("haveExpensesForJob_answer_yes")",
-            "@CarersCrypto.encryptAES("haveExpensesForJob_answer_no")",
-            "@CarersCrypto.encryptAES("haveExpensesForJob_text")"
-        );
-    });
+    <script type="text/javascript">
+        $(function(){
+            window.initEvents(
+                "@CarersCrypto.encryptAES("payPensionScheme_answer_yes")",
+                "@CarersCrypto.encryptAES("payPensionScheme_answer_no")",
+                "@CarersCrypto.encryptAES("payPensionScheme_text")",
+                "@CarersCrypto.encryptAES("haveExpensesForJob_answer_yes")",
+                "@CarersCrypto.encryptAES("haveExpensesForJob_answer_no")",
+                "@CarersCrypto.encryptAES("haveExpensesForJob_text")"
+            );
+        });
 
-    window.areaCounter({selector: "@CarersCrypto.encryptAES("payPensionScheme_text")",maxChars:300});
-    window.areaCounter({selector: "@CarersCrypto.encryptAES("haveExpensesForJob_text")",maxChars:300});
-</script>
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("payPensionScheme_text")",maxChars:300});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("haveExpensesForJob_text")",maxChars:300});
+    </script>
+    }
 }

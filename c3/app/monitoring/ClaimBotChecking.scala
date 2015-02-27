@@ -16,6 +16,12 @@ trait ClaimBotChecking extends BotChecking {
             case _ => false
           }
         }
+        if(q.payForThings.answer == "no") {
+          q.payForThings.text match {
+            case Some(f) => return true; // Bot given field pay for things was not visible.
+            case _ => false
+          }
+        }
         if(q.haveExpensesForJob.answer == "no") {
           q.haveExpensesForJob.text match {
             case Some(f) => return true; // Bot given field whatExpensesForJob was not visible.

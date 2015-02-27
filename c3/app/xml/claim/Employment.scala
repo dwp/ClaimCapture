@@ -30,6 +30,7 @@ object Employment extends XMLComponent{
               {payXml(jobDetails, lastWage, claim)}
               {question(<OweMoney/>, "employerOwesYouMoney",lastWage.employerOwesYouMoney)}
               {pensionExpensesXml(job,claim)}
+              {payForThingsXml(job, claim)}
               {jobExpensesXml(job, claim)}
               {anyMoreJobs(index == jobsQG.jobs.length -1, claim)}
             </JobDetails>
@@ -97,6 +98,20 @@ object Employment extends XMLComponent{
         </JobExpenses>
     } else {
       question(<PaidForJobExpenses/>,"haveExpensesForJob.answer",aboutExpenses.haveExpensesForJob.answer,questionLabelEmployment(claim, "haveExpensesForJob.answer", job.iterationID))
+    }
+  }
+
+  private def payForThingsXml(job: Iteration, claim:Claim):NodeSeq = {
+    val aboutExpenses: PensionAndExpenses = job.questionGroup[PensionAndExpenses].getOrElse(PensionAndExpenses())
+    val showXml = aboutExpenses.payForThings.answer.toLowerCase == "yes"
+
+    if (showXml) {
+      question(<PaidForThingsToDoJob/>,"payForThings.answer",aboutExpenses.payForThings.answer,questionLabelEmployment(claim, "payForThings.answer", job.iterationID)) ++
+        <ExpensesToDoJob>
+          {question(<Expense/>,"payForThings.text",aboutExpenses.payForThings.text,questionLabelEmployment(claim, "payForThings.text", job.iterationID))}
+        </ExpensesToDoJob>
+    } else {
+      question(<PaidForThingsToDoJob/>,"payForThings.answer",aboutExpenses.payForThings.answer,questionLabelEmployment(claim, "payForThings.answer", job.iterationID))
     }
   }
 
