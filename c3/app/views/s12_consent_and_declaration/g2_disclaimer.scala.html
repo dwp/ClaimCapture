@@ -13,7 +13,7 @@
     @main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm)) {
 
 
-        @form(action = controllers.s12_consent_and_declaration.routes.G2Disclaimer.submit) {
+        @form(action = controllers.s12_consent_and_declaration.routes.G2Disclaimer.submit, 'role -> "form") {
             @DwpCSRFFormHelper.formField
 
                 <fieldset class="form-elements">

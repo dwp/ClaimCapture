@@ -14,7 +14,7 @@
 @main(Messages("s1.g3") + " - " + Messages("s1.longName"), Some(currentForm)) {
 
 
-    @form(action = controllers.s1_carers_allowance.routes.G3Over16.submit) {
+    @form(action = controllers.s1_carers_allowance.routes.G3Over16.submit, 'role -> "form") {
             @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements form-eligibility over16">
 	            <legend>@Html(Messages("s1.g3"))</legend>

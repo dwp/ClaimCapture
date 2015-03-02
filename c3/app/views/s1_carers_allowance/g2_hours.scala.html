@@ -14,7 +14,7 @@
 @main(Messages("s1.g2") + " - " + Messages("s1.longName"), Some(currentForm),changing = true) {
 
 
-    @form(action = controllers.s1_carers_allowance.routes.G2Hours.submit) {
+    @form(action = controllers.s1_carers_allowance.routes.G2Hours.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
 

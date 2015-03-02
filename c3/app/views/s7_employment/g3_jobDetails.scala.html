@@ -15,7 +15,7 @@
 @defining(lang) { implicit language =>
 @main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm), Some(Messages("s7.g3")),ignorePreview = true) {
 
-    @form(action = controllers.s7_employment.routes.G3JobDetails.submit()) {
+    @form(action = controllers.s7_employment.routes.G3JobDetails.submit(), 'role -> "form") {
         @DwpCSRFFormHelper.formField
         <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
 
