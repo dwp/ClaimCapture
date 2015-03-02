@@ -13,7 +13,7 @@
 @import models.domain.{Iteration, Jobs}
 
 @employerName = @{
-    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).employerName + " - "
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).employerName
 }
 
     @defining(lang) { implicit language =>

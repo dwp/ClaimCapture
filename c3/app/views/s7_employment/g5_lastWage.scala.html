@@ -16,7 +16,7 @@
 @import scala.language.postfixOps
 
 @employerName = @{
-    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).employerName + " - "
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).employerName
 }
 
 @finishedThisJob = @{
