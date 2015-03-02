@@ -8,7 +8,7 @@
 @defining(lang) { implicit language =>
     @main(Messages("s2.g7") + " - " + Messages("s2.longName")) {
 
-        @form(action = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.submit) {
+        @form(action = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
             <fieldset class="form-elements">

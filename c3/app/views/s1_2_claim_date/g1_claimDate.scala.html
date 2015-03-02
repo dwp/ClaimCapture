@@ -16,7 +16,7 @@
 
         @errorsSummary(claimDateForm)
 
-        @form(action = controllers.s1_2_claim_date.routes.G1ClaimDate.submit) {
+        @form(action = controllers.s1_2_claim_date.routes.G1ClaimDate.submit, 'role -> "form") {
             @DwpCSRFFormHelper.formField
             <div class="form-elements">
 
