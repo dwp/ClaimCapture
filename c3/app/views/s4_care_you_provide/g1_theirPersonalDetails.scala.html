@@ -31,7 +31,6 @@
                     <legend>@Html(Messages("s4.g1"))</legend>
 
                     <ul>
-                        @carersInputText(currentForm("relationship"), 'helperAbove -> Messages(relationshipHelper()), 'maxLength -> mappings.Mappings.thirtyfive)
 
                         @simpleDetailPlaceHolder(
                             inputDef = Seq(
@@ -52,6 +51,8 @@
                             'id -> "careYouProvideWrap"
                         )
 
+                        @carersInputText(currentForm("relationship"), 'helperAbove -> Messages(relationshipHelper()), 'maxLength -> mappings.Mappings.thirtyfive)
+                        
                         @yesNoRadioGroup(currentForm("liveAtSameAddressCareYouProvide"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
                     </ul>
                 </fieldset>

@@ -1,4 +1,4 @@
 500:play.api.i18n.MultipleMessagesPlugin
 600:com.typesafe.plugin.CommonsMailerPlugin
-700:com.github.mumoshu.play2.memcached.MemcachedPlugin
+700:com.dwp.carers.play2.resilientmemcached.ResilientMemcachedPlugin
 800:com.kenshoo.play.metrics.MetricsPlugin

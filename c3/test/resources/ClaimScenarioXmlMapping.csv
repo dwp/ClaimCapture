@@ -94,6 +94,8 @@ Employment,Additional details on your last wage,When [[past=did you]] [[present=
 Employment,Additional details on your last wage,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney,Employment>JobDetails>OweMoney>Answer
 Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?,EmploymentDoYouPayForPensionExpenses,Employment>JobDetails>PaidForPension>Answer
 Employment,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",EmploymentPensionExpenses,Employment>JobDetails>PensionExpenses>Expense>Answer
+Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay for things you need to do your job?,EmploymentDoYouPayForThingsToDoJob,Employment>JobDetails>PaidForThingsToDoJob>Answer
+Employment,Pension and expenses,"Give details of what you [[present=need]] [[past=needed]]  to buy, why you [[present=need]] [[past=needed]] it and how much it [[present=costs.]] [[past=cost.]]",EmploymentPayForThings,Employment>JobDetails>ExpensesToDoJob>Expense>Answer
 Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] have any care costs because of this work?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob,Employment>JobDetails>PaidForJobExpenses>Answer
 Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",EmploymentWhatAreNecessaryJobExpenses,Employment>JobDetails>JobExpenses>Expense>Answer
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouHadAnotherJobatAnyTimeSinceClaim6Months,

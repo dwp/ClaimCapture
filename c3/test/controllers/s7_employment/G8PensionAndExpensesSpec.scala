@@ -29,8 +29,10 @@ class G8PensionAndExpensesSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(
         "iterationID" -> iterationID,
         "payPensionScheme.answer" -> "yes",
+        "payForThings.answer" -> "yes",
         "haveExpensesForJob.answer" -> "yes",
         "payPensionScheme.text" -> "some pension expense",
+        "payForThings.text" -> "some expenses to do the job",
         "haveExpensesForJob.text" -> "some job expense"
       )
       val result = G8PensionAndExpenses.submit(request)
@@ -53,6 +55,7 @@ class G8PensionAndExpensesSpec extends Specification with Tags {
         withFormUrlEncodedBody(
         "iterationID" -> iterationID,
         "payPensionScheme.answer" -> "no",
+        "payForThings.answer" -> "no",
         "haveExpensesForJob.answer" -> "no"))
 
       status(result) mustEqual SEE_OTHER

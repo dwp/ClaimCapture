@@ -17,7 +17,7 @@ class ClaimSpec extends Specification {
 
       val section = updatedClaim.section(sectionIdentifier)
       section.identifier mustEqual sectionIdentifier
-      section.questionGroup(Benefits) must beLike { case Some(p: Benefits) => p.benefitsAnswer must beEqualTo("NOB") }
+      section.questionGroup(Benefits) must beLike { case Some(p: Benefits) => p.benefitsAnswer must beEqualTo("NONE") }
     }
 
     "contain the sectionId with the question group after updating" in {
@@ -99,7 +99,7 @@ class ClaimSpec extends Specification {
     }
 
     """contain "question group" in first entry of "question groups".""" in {
-      claim.questionGroup[Benefits] should beSome(Benefits(benefitsAnswer = "NOB"))
+      claim.questionGroup[Benefits] should beSome(Benefits(benefitsAnswer = "NONE"))
     }
 
     """contain "question group" in second entry of "question groups".""" in {
