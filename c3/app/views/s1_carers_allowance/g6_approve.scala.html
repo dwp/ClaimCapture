@@ -71,7 +71,7 @@
         </section>
     }
 
-    @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit) {
+    @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
         @carersInputHidden(currentForm("allowedToContinue"),
             'hiddenValue -> approved)

@@ -97,7 +97,7 @@ else OtherMoney.name
 				 </ul>
 				 
         	 </div>
-        @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.delete){
+        @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.delete, 'role -> "form"){
             @DwpCSRFFormHelper.formField
             @carersInputHidden(G10BreaksInCare.deleteForm("deleteId"))
             <div class="prompt breaks-prompt">
@@ -111,7 +111,7 @@ else OtherMoney.name
     
 
 
-    @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit) {
+    @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
       
 	        <fieldset class="form-elements">

@@ -16,7 +16,7 @@
 @defining(lang) { implicit language =>
 @main(Messages("s10.g1") + " - " + Messages("s10.longName"), Some(currentForm)) {
 
-    @form(action = controllers.s11_pay_details.routes.G1HowWePayYou.submit) {
+    @form(action = controllers.s11_pay_details.routes.G1HowWePayYou.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
 
     <p class="intro-info">@Html(Messages("howWePayYou.help")) <a href="/claim-help#6" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - How We Pay You")>@Html(Messages("howWePayYou.help.link"))</a>.</p>

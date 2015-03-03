@@ -15,7 +15,7 @@
     @main(Messages("s10.g2") + " - " + Messages("s10.longName"), Some(currentForm)) {
 
 
-        @form(action = controllers.s11_pay_details.routes.G2BankBuildingSocietyDetails.submit) {
+        @form(action = controllers.s11_pay_details.routes.G2BankBuildingSocietyDetails.submit, 'role -> "form") {
             @DwpCSRFFormHelper.formField
 
   

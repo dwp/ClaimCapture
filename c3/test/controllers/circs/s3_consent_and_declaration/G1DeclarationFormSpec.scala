@@ -31,7 +31,7 @@ class G1DeclarationFormSpec extends Specification with Tags {
 
     "reject special characters in text fields" in {
       G1Declaration.form.bind(
-        Map("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> "whyé", "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation,"wantsEmailContact" -> wantsEmailContact)
+        Map("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> "whyé[]", "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation,"wantsEmailContact" -> wantsEmailContact)
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
