@@ -20,7 +20,7 @@
 
     @main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), Some(employerName),ignorePreview = true) {
 
-    @form(action = controllers.s7_employment.routes.G8PensionAndExpenses.submit()) {
+    @form(action = controllers.s7_employment.routes.G8PensionAndExpenses.submit(), 'role -> "form") {
         @DwpCSRFFormHelper.formField
         <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
 
