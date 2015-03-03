@@ -80,7 +80,7 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
           "relationship" -> "father",
           "title" -> "Mr",
           "firstName" -> "Fir>name;",
-          "middleName" -> "Mcƒ",
+          "middleName" -> "Mc{",
           "surname" -> "Surname<",
           "dateOfBirth.day" -> "3",
           "dateOfBirth.month" -> "4",
