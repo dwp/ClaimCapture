@@ -218,7 +218,7 @@ How we pay you,Bank/Building society details,Name of account holder,HowWePayYouN
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,Lloyds
 How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,090123
 How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,12345678
-How we pay you,Bank/Building society details,Building society roll or reference number,HowWePayYouBuildingSocietyRollOrReferenceNumber,1.23E+12
+How we pay you,Bank/Building society details,Building society roll or reference number,HowWePayYouBuildingSocietyRollOrReferenceNumber,13234
 How we pay you,International bank account details,Name of account holder,HowWePayYouNameOfAccountHolder,
 How we pay you,International bank account details,Full name of bank,HowWePayYouFullNameofBank,
 How we pay you,International bank account details,Bank Identification Code (BIC),HowWePayYouBankIdentificationCode,

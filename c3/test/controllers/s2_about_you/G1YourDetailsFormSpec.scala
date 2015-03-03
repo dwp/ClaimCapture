@@ -67,7 +67,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
         Map("title" -> title,
           "firstName" -> "kk>",
           "middleName" -> "<>",
-          "surname" -> "éugene",
+          "surname" -> "éugene[]",
           "nationalInsuranceNumber.nino" -> nino,
           "nationality" -> "€",
           "dateOfBirth.day" -> dateOfBirthDay.toString,
