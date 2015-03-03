@@ -154,7 +154,7 @@
 $ ( function ( ) {
     @if(!Play.isTest) {
         trackEvent ("times", "circs - end");
-        var start = getCookie("circsstart");
+        var start = getCookie("circsstarts");
         var now = new Date( ).getTime();
         var durationFromStart = now - start;
         trackTiming('TimeToCompletion','circs from start', durationFromStart);
