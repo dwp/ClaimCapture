@@ -33,7 +33,7 @@
     @main(Messages("s3.g1") + " - " + Messages("s3.longName"), Some(currentForm)) {
 
 
-        @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit) {
+        @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
             <p class="intro-info">@Html(partnerHelpWithLink).</p>

@@ -20,7 +20,7 @@
 
     @main(Messages("s6.g1") + " - " + Messages("s6.longName"), Some(currentForm)) {
 
-        @form(action = controllers.s6_education.routes.G1YourCourseDetails.submit) {
+        @form(action = controllers.s6_education.routes.G1YourCourseDetails.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
                 <fieldset class="form-elements" data-journey="carers-allowance:page:education">

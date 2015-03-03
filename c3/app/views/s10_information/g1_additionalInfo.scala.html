@@ -12,7 +12,7 @@
 
 @defining(lang) { implicit language =>
 @main(Messages("s10_2.g1") + " - " + Messages("s10_2.longName"), Some(currentForm)) {
-    @form(action = controllers.s10_information.routes.G1AdditionalInfo.submit) {
+    @form(action = controllers.s10_information.routes.G1AdditionalInfo.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
 
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:consent-and-declaration">

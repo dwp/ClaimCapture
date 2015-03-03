@@ -13,7 +13,7 @@
 @defining(lang) { implicit language =>
 @main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm)) {
 
-    @form(action = controllers.s12_consent_and_declaration.routes.G3Declaration.submit) {
+    @form(action = controllers.s12_consent_and_declaration.routes.G3Declaration.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
 
        <input type="hidden" id="js" name="jsEnabled" value="false">

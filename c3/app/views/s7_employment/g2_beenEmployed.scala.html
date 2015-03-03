@@ -64,7 +64,7 @@
 
 
 
-        @form(action = controllers.s7_employment.routes.Employment.delete){
+        @form(action = controllers.s7_employment.routes.Employment.delete, 'role -> "form"){
             @DwpCSRFFormHelper.formField
             @carersInputHidden(controllers.s7_employment.Employment.deleteForm("deleteId"))
             <div class="prompt breaks-prompt">
@@ -79,7 +79,7 @@
     
 
 
-    @form(action = controllers.s7_employment.routes.G2BeenEmployed.submit()){
+    @form(action = controllers.s7_employment.routes.G2BeenEmployed.submit(), 'role -> "form"){
         @DwpCSRFFormHelper.formField
 
 
