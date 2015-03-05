@@ -26,7 +26,7 @@ About Your Partner,Person you care for,Have you lived with a partner at any time
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,Mrs
 About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,I have a real nam
 About Your Partner,Partner/Spouse details,Middle name,AboutYourPartnerMiddleName,I have real mid
-About Your Partner,Partner/Spouse details,Surname or family name,AboutYourPartnerSurname,Caseone filling some chars to test$
+About Your Partner,Partner/Spouse details,Surname or family name,AboutYourPartnerSurname,Caseone filling some chars to test
 About Your Partner,Partner/Spouse details,All other surnames or family names they have been used or have been known by,AboutYourPartnerOtherNames,"This is my alt name, i have several"
 About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,JA234567B
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,28/09/1977
@@ -69,11 +69,11 @@ Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP),
 Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,145
 Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,Monthly
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,Greggs Bakers
-Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,this is a very large address line$$&another absurd large address line%&
+Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,this is a very large address line&another absurd large addressâ line&
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,PR45 6YH
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,UK bank or building society account
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Every week
-How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,I've got a rather large name you know $&
+How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,I've got a rather large name you know &
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,I don't actually remember the bank's name, i used to go to this bank a lot but they stole from me so
 How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,090126
 How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,1234567890

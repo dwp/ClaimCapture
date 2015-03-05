@@ -13,14 +13,14 @@
 @import models.domain.{Iteration, Jobs}
 
 @employerName = @{
-    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).employerName + " - "
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).employerName
 }
 
     @defining(lang) { implicit language =>
 
     @main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), Some(employerName),ignorePreview = true) {
 
-    @form(action = controllers.s7_employment.routes.G8PensionAndExpenses.submit()) {
+    @form(action = controllers.s7_employment.routes.G8PensionAndExpenses.submit(), 'role -> "form") {
         @DwpCSRFFormHelper.formField
         <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
 
@@ -30,7 +30,7 @@
 	            <ul>
                     @yesNoRadioGroup(currentForm("payPensionScheme")("answer"),
                         '_label -> labelForEmployment(claim, lang, "payPensionScheme.answer", IterationID(currentForm)),
-                        valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", IterationID(currentForm)))
+                        valuesForEmployment(claim, lang, "label.yes3", "label.no", "label.yes", "label.no", IterationID(currentForm)))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
@@ -46,7 +46,7 @@
                     @yesNoRadioGroup(currentForm("payForThings")("answer"),
                         '_label -> labelForEmployment(claim, lang, "payForThings.answer", IterationID(currentForm)),
                         'helperAbove -> Html(labelForEmployment(claim, lang, "payForThings.answer.helper", IterationID(currentForm))),
-                        valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", IterationID(currentForm)))
+                        valuesForEmployment(claim, lang, "label.yes3", "label.no", "label.yes", "label.no", IterationID(currentForm)))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
@@ -61,7 +61,7 @@
 
                     @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"),
                         'helperAbove -> Html(labelForEmployment(claim, lang, "haveExpensesForJob.answer.helper", IterationID(currentForm))),
-                        '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", IterationID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", IterationID(currentForm)))
+                        '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", IterationID(currentForm)), valuesForEmployment(claim, lang, "label.yes2", "label.no", "label.yes", "label.no", IterationID(currentForm)))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(

@@ -401,7 +401,7 @@ main {
 			   &.currency {
 			   	   position: relative;
 				   input[type="text"], input[type="tel"] {
-					   width: 154px!important;
+					   width: 154px!important; /* Low IE issues */
 					   position: relative;
 					   @media screen and (max-width: 500px) {
 						   width: 152px;
@@ -576,14 +576,12 @@ main {
 			   }
 			   textarea {
 				   height: 6em;
-				   width: 566px;
-				   background: #fff;
+				   width: 96%;
 				   
 				   &.textarea-reduced {
 					   height: 3em;
 				   }
-				   
-				   @media screen and (max-width: 620px) {width: 96%;}
+
 			   }
 			   select {
 				   padding: 2px;
@@ -614,8 +612,6 @@ main {
 		   }
 		   
 
-
-      
 
 		  &.partner-group {
 				   li {
@@ -736,7 +732,7 @@ main {
 						   }
 						   label {
 							   display: inline-block;
-							   @media screen and (max-width: 480px) {
+							   @media screen and (max-width: 700px) {
 								   display: block;
 							   }
 							   
@@ -866,22 +862,23 @@ main {
 				   }
 				   
 				   input {
-					   width: 66px!important;
+					   width: 66px!important; /* Low IE issues */
 					   background: #fff;
 				   }
 				   
 				    &:first-child {
 					   margin-left: 0;
 					   input {
-						   width: 46px!important;
+						   width: 46px!important; /* Low IE issues */
 					   }
 				   }
 				   
 				   &.month {
 					   input {
-						   width: 46px!important;
+						   width: 46px!important; /* Low IE issues */
 					   }
 				   }
+				   
 				   
 			   }
 		   }
@@ -902,7 +899,7 @@ main {
 				 	   left: -9999px;
 			 	   }
                    input, input[type="tel"], input[type="text"] {
-					   width: 46px!important;
+					   width: 46px!important; /* Low IE issues */
 				   }
 			   }  
 		   
@@ -973,7 +970,7 @@ main {
 	
 	h2 {
 		font-weight: 600;
-		font-size: 24px!important;
+		font-size: 24px;
 	}
 	
 	h3 {
@@ -981,13 +978,13 @@ main {
 	}
 	
 	ul {
-		margin-top: 1em!important;
+		margin-top: 1em;
 	}
 	
 	li {
 		border-bottom: 1px solid #bfc1c3;
-		padding: 1.5em 0!important;
-		margin: 0!important;
+		padding: 1.5em 0;
+		margin: 0;
 		&:first-child {
 			border-top: 1px solid #bfc1c3;
 		}

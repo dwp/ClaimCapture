@@ -19,8 +19,12 @@
     <div class="carers-allowance clearfix">
 
         @common.protoType()
+        
+        @common.helperMobile()
+        
+        @common.leftcol()
 
-        <article role="form">
+        <article>
 
             <nav class="back-nav" role="navigation">
                 <a id="backButton" href="@previous">@Html(Messages("form.back"))</a>
@@ -35,7 +39,6 @@
             @content
         </article>
         
-         @common.leftcol()
         
     </div>
 }

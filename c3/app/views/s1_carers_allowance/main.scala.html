@@ -7,11 +7,16 @@
 @common.govMain(title) {
 
     <div class="carers-allowance clearfix">
+    
 
         @common.protoType()
+        
+        @common.helperMobile()
+        
+        @common.leftcol()
          
 
-        <article class="eligible" role="form">
+        <article class="eligible">
 
             @if(showBack){
                 <nav class="back-nav" role="navigation">
@@ -32,7 +37,6 @@
 
         </article>
         
-        @common.leftcol()
         
     </div>
 }
