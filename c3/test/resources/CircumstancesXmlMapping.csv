@@ -62,7 +62,9 @@ Employment - Change in circumstances,Employment,How often are you paid?,Circumst
 Employment - Change in circumstances,Employment,What day or date of the month will you be paid?,CircumstancesEmploymentChangeMonthlyPayDay,
 Employment - Change in circumstances,Employment,Do you usually get the same amount each time?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,
 Employment - Change in circumstances,Employment,Other,CircumstancesEmploymentChangeHowOftenFrequencyOther,
-Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,
+Employment - Change in circumstances,Employment,Do you pay into a pension?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,
+Employment - Change in circumstances,Employment,Do you pay for things you need to do your job?,CircumstancesEmploymentChangeDoYouPayForThingsAnswer,DWPCAChangeOfCircumstances>EmploymentChange>StartedEmploymentAndOngoing>PaidForThingsToDoJob>Answer
+Employment - Change in circumstances,Employment,"Give details of what you need to buy, why you need it and how much it costs",CircumstancesEmploymentChangeDoYouPayForThingsWhatFor,DWPCAChangeOfCircumstances>EmploymentChange>StartedEmploymentAndOngoing>PaidForThingsWhatFor>Answer
 Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,
 Employment - Change in circumstances,Employment,Tell us what the cost is for, how much, how often and who to,CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
 Finished Employment - Change in circumstances,Employment,What date did you receive your last pay?,CircumstancesEmploymentChangeWhatDatePaid,

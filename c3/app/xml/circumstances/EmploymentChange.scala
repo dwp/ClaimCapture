@@ -5,6 +5,7 @@ import xml.XMLHelper._
 
 import scala.xml.NodeSeq
 import play.api.i18n.{MMessages => Messages}
+import controllers.mappings.Mappings
 
 
 object EmploymentChange {
@@ -159,6 +160,14 @@ object EmploymentChange {
       {
         change.payIntoPension.answer match {
           case "yes" => {question(<PayIntoPensionWhatFor/>, "doYouPayIntoPension.whatFor", change.payIntoPension.text)}
+          case _ => NodeSeq.Empty
+        }
+      }
+
+      {question(<PaidForThingsToDoJob/>, "doYouPayForThings", change.doYouPayForThings.answer)}
+      {
+        change.doYouPayForThings.answer match {
+          case Mappings.yes => {question(<PaidForThingsWhatFor/>, "doYouPayForThings.whatFor", change.doYouPayForThings.text)}
           case _ => NodeSeq.Empty
         }
       }

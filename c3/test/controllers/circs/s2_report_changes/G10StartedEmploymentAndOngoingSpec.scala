@@ -20,6 +20,7 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
   val other = "other"
   val otherText = "some other text"
   val doYouPayIntoPensionText = "pension text"
+  val doYouPayForThingsText = "Some expenses to do the job"
   val doCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
 
@@ -32,6 +33,7 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
     "howOften.frequency" -> weekly,
     "usuallyPaidSameAmount" -> no,
     "doYouPayIntoPension.answer" -> no,
+    "doYouPayForThings.answer" -> no,
     "doCareCostsForThisWork.answer" -> no
   )
 
@@ -45,6 +47,7 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
     "monthlyPayDay" -> monthlyPayDay,
     "usuallyPaidSameAmount" -> no,
     "doYouPayIntoPension.answer" -> no,
+    "doYouPayForThings.answer" -> no,
     "doCareCostsForThisWork.answer" -> no
   )
 
@@ -59,6 +62,8 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
     "usuallyPaidSameAmount" -> yes,
     "doYouPayIntoPension.answer" -> yes,
     "doYouPayIntoPension.whatFor" -> doYouPayIntoPensionText,
+    "doYouPayForThings.answer" -> yes,
+    "doYouPayForThings.whatFor" -> doYouPayForThingsText,
     "doCareCostsForThisWork.answer" -> yes,
     "doCareCostsForThisWork.whatCosts" -> doCareCostsForThisWorkText,
     "moreAboutChanges" -> moreInfo

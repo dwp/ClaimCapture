@@ -13,6 +13,8 @@ final class G10StartedEmploymentAndOngoingPage(ctx:PageObjectsContext) extends C
   declareYesNo("#usuallyPaidSameAmount", "CircumstancesEmploymentChangeUsuallyPaidSameAmount")
   declareYesNo("#doYouPayIntoPension_answer", "CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer")
   declareInput("#doYouPayIntoPension_whatFor", "CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor")
+  declareYesNo("#doYouPayForThings_answer", "CircumstancesEmploymentChangeDoYouPayForThingsAnswer")
+  declareInput("#doYouPayForThings_whatFor", "CircumstancesEmploymentChangeDoYouPayForThingsWhatFor")
   declareYesNo("#doCareCostsForThisWork_answer", "CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer")
   declareInput("#doCareCostsForThisWork_whatCosts", "CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts")
   declareInput("#moreAboutChanges", "CircumstancesEmploymentChangeMoreAboutChanges")
