@@ -7,6 +7,10 @@
     <div class="carers-allowance clearfix">
 
         @common.protoType()
+        
+        @common.helperMobile()
+        
+        @common.leftcol()
 
 
 
@@ -20,8 +24,6 @@
                 <button type="submit" name="action" value="next" class="button secondary" onClick="location.href = ' @url '" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("retry.button"))</button>
             </nav>
         </article>
-
-        @common.leftcol()
         
     </div>
 }
