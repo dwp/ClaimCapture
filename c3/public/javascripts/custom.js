@@ -145,7 +145,7 @@ function setCookie(c_name,value)
 }
 
 function trackTiming(category,variable,timemeasured){
-    if (0 < timemeasured)
+    if (0 < timemeasured && timemeasured <  36000000)
     {
         _gaq.push(['_trackTiming',category,variable,timemeasured]);
     }
