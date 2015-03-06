@@ -1,73 +1,3 @@
-.left-col {
-	float: left;
-	width: 26%;
-	margin-top: 3em;
-	@media screen and (max-width: 700px) {
-		float: none;
-		width: auto;
-		border-top: 5px solid #005ea5;
-		padding-top: 2em;
-		margin-top: 2em;
-	}
-	
-	h1 {
-		color: #ccc;
-		font-size: 30px;
-		margin-bottom: 1em;
-	}
-	
-	h3 {
-		margin: 2.2em 0 .5em 0;
-	}
-	
-	a {
-		display: inline-block;
-	}
-	
-	p {
-		margin: .75em 0 0 0;
-		&.grouped {
-			margin-top: 0;
-		}
-	}
-	
-	ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		
-		li {
-			margin: 10px 0 0 0;
-		}
-		
-	}
-	
-	&.no-employment {
-		   	   float: right;
-		   	   width: 68%;
-		   	   clear: both;
-		   	   margin-top: 2em;
-		   	   
-		   	   li, p {
-			   	   font-size: 19px;
-		   	   }
-		   	   
-		   	   li {
-			   	   list-style: disc;
-			   	   margin-left: 1.2em;
-		   	   }
-		   	   
-		   	    @media screen and (max-width: 700px) {
-				   float: none;
-				   width: auto;
-				   padding-top: 2em;
-				   margin-top: 2em;
-			   }
-	   	   }
-	
-}
-
-
 
 article {
 	   background: #fff;
@@ -94,7 +24,46 @@ article {
    	   }
 
 
-   	   &.finish-statement {
+   	   
+   	   
+   	   &.multi-language {
+	   	   p {
+		   	   margin-top: 1em;
+	   	   }
+	   	   h2 {
+		   	   margin-top: 2em;
+	   	   }
+   	   }
+   	   
+   	   
+   	   
+   	   
+   
+   	   
+   	   
+   	   	   /* section header */		   	
+		   h1 {
+			   font-size: 36px;
+			   font-weight: 700;
+			   line-height: 1.2em;
+			   @media screen and (max-width: 600px) {
+				   font-size: 30px;
+			   }
+			   
+			   .section-progress {
+			   	   font-size: 24px;
+			   	   font-weight: 300;
+			   	   color: #6f777b;
+			   	   margin-bottom: 4px;
+			   	   display: block;
+			   	   line-height: 1.4em;
+		   	   }
+			   
+		   }
+
+
+		
+		&.finish-statement {
 
 	   	   section {
 		   	   margin-top: 2em;
@@ -150,84 +119,6 @@ article {
 	   	  
 	   	   
    	   }
-   	   
-   	   &.multi-language {
-	   	   p {
-		   	   margin-top: 1em;
-	   	   }
-	   	   h2 {
-		   	   margin-top: 2em;
-	   	   }
-   	   }
-   	   
-   	   
-   	   
-   	   
-   
-   	   
-   	   
-   	   	   /* section header */		   	
-		   h1 {
-			   font-size: 36px;
-			   font-weight: 700;
-			   line-height: 1.2em;
-			   @media screen and (max-width: 600px) {
-				   font-size: 30px;
-			   }
-			   
-			   .section-progress {
-			   	   font-size: 24px;
-			   	   font-weight: 300;
-			   	   color: #6f777b;
-			   	   margin-bottom: 4px;
-			   	   display: block;
-			   	   line-height: 1.4em;
-		   	   }
-			   
-		   }
-
-	  
-   	   
-   	   
-   	   
-   	   &.response {
-			section {
-				margin: 2.5em 0;
-				background-image: url('images/response-trio-xl.png');
-				background-position: 0 0;
-				background-repeat: no-repeat;
-				padding: 0 0 0 8em;
-				min-height: 100px;
-				@media screen and (max-width: 500px) {
-					padding: 7em 0 0 0;
-					background-position: center 0;
-				}
-				h2 {
-					font-size: 24px;
-					line-height: 1.3em;
-					padding-top: .3em;
-				}
-				p {
-					margin-top: .25em;
-				}
-				&.earnings {
-					background-position: 0 -756px;
-					@media screen and (max-width: 500px) {
-						background-position: center -756px;
-					}
-				}
-				&.education {
-					background-position: 0 -1500px;
-					@media screen and (max-width: 500px) {
-						background-position: center -1500px;
-					}
-				}
-			}
-			
-			.ie7 & {
-				zoom: 1;
-			}
-		}
 	   
 	   
 	   p {
@@ -264,3 +155,106 @@ article {
 	     
 	   
    }
+   
+   
+   /* Mobile NAv */
+   
+   .helper-mobile {
+	display: none;
+	@media screen and (max-width: 700px) {
+		display: block;
+		border-bottom: 1px solid #bfc1c3;
+	}
+	
+	a {
+		display: block;
+		background-image: url('images/mobile-nav.png');
+		background-position: right 22px;
+		background-repeat: no-repeat;
+		font-size: 17px;
+		color: #2e3191;
+		text-decoration: none;
+		font-weight: 300;
+		padding: 1em 0;
+		line-height: 1em;
+		cursor: pointer;
+		&.open-helper {
+			background-position: right -25px;
+		}
+	}
+
+}
+
+.left-col {
+	float: left;
+	width: 26%;
+	margin-top: 3em;
+	@media screen and (max-width: 700px) {
+		float: none;
+		width: auto;
+		margin-top: 2em;
+		border-bottom: 1px solid #bfc1c3;
+		padding-bottom: 2em;
+		display: none;
+	}
+	@media screen and (min-width: 700px) {
+		display: block!important;/* Specifically used for browser resize - non js method */
+	}
+	
+	h1 {
+		color: #ccc;
+		font-size: 30px;
+		margin-bottom: 1em;
+	}
+	
+	h3 {
+		margin: 2.2em 0 .5em 0;
+	}
+	
+	a {
+		display: inline-block;
+	}
+	
+	p {
+		margin: .75em 0 0 0;
+		&.grouped {
+			margin-top: 0;
+		}
+	}
+	
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		
+		li {
+			margin: 10px 0 0 0;
+		}
+		
+	}
+	
+	&.no-employment {
+		   	   float: right;
+		   	   width: 68%;
+		   	   clear: both;
+		   	   margin-top: 2em;
+		   	   display: block;
+		   	   
+		   	   li, p {
+			   	   font-size: 19px;
+		   	   }
+		   	   
+		   	   li {
+			   	   list-style: disc;
+			   	   margin-left: 1.2em;
+		   	   }
+		   	   
+		   	    @media screen and (max-width: 700px) {
+				   float: none;
+				   width: auto;
+				   padding-top: 2em;
+				   margin-top: 2em;
+			   }
+	   	   }
+	
+}
