@@ -20,11 +20,11 @@ class PreviewPageEmploymentContentSpec extends Specification with Tags {
       val source = page.source()
 
       source must contain("Employment and Self Employment")
-      source must contain("Have you been employed at any time since 10/04/2014")
+      source must contain("Have you been employed at any time since 10/04/2016")
       source must contain("Yes")
       source must contain("Employment")
       source must contain("Details provided for Tesco's, including expenses")
-      source must contain("Have you been self employed at any time since 03/10/2014")
+      source must contain("Have you been self employed at any time since 03/10/2016")
       source must contain("Yes - Details provided including expenses")
       source must contain("Type of work or business?")
       source must contain("Some type of business")

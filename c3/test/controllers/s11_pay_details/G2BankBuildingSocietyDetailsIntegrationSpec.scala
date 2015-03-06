@@ -49,7 +49,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       nextPage.submitPage() must beAnInstanceOf[G1AdditionalInfoPage]
     }
 
-    "be hidden when age is past 62 years at the claim date" in new WithBrowser with PageObjects{
+    "be hidden when age is past 65 years at the claim date" in new WithBrowser with PageObjects{
       val claimDatePage = G1ClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
@@ -62,7 +62,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       nextPage.submitPage() must beAnInstanceOf[G1AdditionalInfoPage]
     }
 
-    "show bank page when claimant is 62 years or less at the claim date" in new WithBrowser with PageObjects{
+    "show bank page when claimant is less than 65 years at the claim date" in new WithBrowser with PageObjects{
 
       val claimDatePage = G1ClaimDatePage(context)
       claimDatePage goToThePage()
@@ -75,7 +75,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
 
       val nextPage = goToBankBuildingSocietyPage(context,page)
 
-      nextPage.submitPage() must beAnInstanceOf[G1AdditionalInfoPage]
+      nextPage.submitPage() must beAnInstanceOf[G2BankBuildingSocietyDetailsPage]
     }
 
     def goToBankBuildingSocietyPage(context:PageObjectsContext, aboutYouPage:Page):Page = {

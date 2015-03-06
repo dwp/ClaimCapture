@@ -6,13 +6,13 @@ import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.mappings.Mappings._
 import models.domain._
-import models.DayMonthYearComparator.compare
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import play.api.Logger
 import scala.language.postfixOps
 import controllers.mappings.NINOMappings._
+import app.ConfigProperties._
 
 object G1YourDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -41,7 +41,7 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
 
   def showPayDetails(claim:Claim, yourDetails:YourDetails):Boolean = {
     claim.dateOfClaim match {
-      case Some(dmy) => compare(Some(dmy.withTime(0,0) - 62 years),Some(yourDetails.dateOfBirth.withTime(0,0))) < 0
+      case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < getProperty("age.hide.paydetails",60)
       case _ => false
     }
   }

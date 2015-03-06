@@ -26,7 +26,7 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       source must contain("Contact phone or mobile number")
       source must contain("01772 888901")
       source must contain("Your claim date")
-      source must contain("10 October, 2014")
+      source must contain("10 October, 2016")
       source must contain("Your nationality")
       source must contain("British")
       source must contain("Time outside of England, Scotland or Wales")

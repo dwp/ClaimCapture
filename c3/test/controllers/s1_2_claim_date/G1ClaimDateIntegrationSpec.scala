@@ -29,18 +29,18 @@ class G1ClaimDateIntegrationSpec extends Specification with Tags {
       val id = "about_you_claimDate"
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
-      answerText(previewPage) mustEqual "10 October, 2014"
+      answerText(previewPage) mustEqual "10 October, 2016"
       val claimDatePage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
 
       claimDatePage must beAnInstanceOf[G1ClaimDatePage]
       val modifiedData = new TestData
-      modifiedData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "11/10/2014"
+      modifiedData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "11/10/2016"
 
       claimDatePage fillPageWith modifiedData
       val previewPageModified = claimDatePage submitPage()
 
       previewPageModified must beAnInstanceOf[PreviewPage]
-      answerText(previewPageModified) mustEqual "11 October, 2014"
+      answerText(previewPageModified) mustEqual "11 October, 2016"
     }
 
   } section("unit", models.domain.YourClaimDate.id)
