@@ -17,7 +17,7 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
   val other = "other"
   val otherText = "some other text"
   val employerOwesYouMoneyInfo = "kick back for keeping my mouth shut"
-  val doYouPayIntoPensionText = "pension text"
+  val didYouPayIntoPensionText = "pension text"
   val doCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
 
@@ -34,7 +34,7 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
           "howOften.frequency" -> weekly,
           "usuallyPaidSameAmount" -> no,
           "employerOwesYouMoney" -> no,
-          "doYouPayIntoPension.answer" -> no,
+          "didYouPayIntoPension.answer" -> no,
           "doCareCostsForThisWork.answer" -> no
         )
       ).fold(
@@ -67,7 +67,7 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
           "monthlyPayDay" -> monthlyPayDay,
           "usuallyPaidSameAmount" -> no,
           "employerOwesYouMoney" -> no,
-          "doYouPayIntoPension.answer" -> no,
+          "didYouPayIntoPension.answer" -> no,
           "doCareCostsForThisWork.answer" -> no
         )
       ).fold(
@@ -102,8 +102,8 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
           "usuallyPaidSameAmount" -> yes,
           "employerOwesYouMoney" -> yes,
           "employerOwesYouMoneyInfo" -> employerOwesYouMoneyInfo,
-          "doYouPayIntoPension.answer" -> yes,
-          "doYouPayIntoPension.whatFor" -> doYouPayIntoPensionText,
+          "didYouPayIntoPension.answer" -> yes,
+          "didYouPayIntoPension.whatFor" -> didYouPayIntoPensionText,
           "doCareCostsForThisWork.answer" -> yes,
           "doCareCostsForThisWork.whatCosts" -> doCareCostsForThisWorkText,
           "moreAboutChanges" -> moreInfo
@@ -122,7 +122,7 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
             f.employerOwesYouMoney must equalTo(yes)
             f.employerOwesYouMoneyInfo.get must equalTo(employerOwesYouMoneyInfo)
             f.payIntoPension.answer must equalTo(yes)
-            f.payIntoPension.text.get must equalTo(doYouPayIntoPensionText)
+            f.payIntoPension.text.get must equalTo(didYouPayIntoPensionText)
             f.careCostsForThisWork.answer must equalTo(yes)
             f.careCostsForThisWork.text.get must equalTo(doCareCostsForThisWorkText)
             f.moreAboutChanges.get must equalTo(moreInfo)

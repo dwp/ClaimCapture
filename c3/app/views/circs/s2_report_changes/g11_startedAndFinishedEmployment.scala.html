@@ -20,7 +20,7 @@
 @howOftenFrequency = @{startedAndFinishedEmployment("howOften")("frequency")}
 @usuallyPaidSameAmount = @{startedAndFinishedEmployment("usuallyPaidSameAmount")}
 @monthlyPayDay = @{startedAndFinishedEmployment("monthlyPayDay")}
-@doYouPayIntoPension = @{startedAndFinishedEmployment("doYouPayIntoPension")}
+@didYouPayIntoPension = @{startedAndFinishedEmployment("didYouPayIntoPension")}
 @doCareCostsForThisWork = @{startedAndFinishedEmployment("doCareCostsForThisWork")}
 @employerOwesYouMoney = @{startedAndFinishedEmployment("employerOwesYouMoney")}
 @employerOwesYouMoneyInfo = @{startedAndFinishedEmployment("employerOwesYouMoneyInfo")}
@@ -107,7 +107,7 @@
                 <legend>@Html(Messages("c2.g9.pensionsAndExpenses"))</legend>
 
                 <ul>
-                    @yesNoRadioGroup(doYouPayIntoPension("answer"),
+                    @yesNoRadioGroup(didYouPayIntoPension("answer"),
                         '_label -> "didYouPayIntoPension",
                         'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no"))
                     )
@@ -115,10 +115,9 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersInputTextArea(doYouPayIntoPension("whatFor"),
-                                'helper -> Html(Messages("300charsLeft")),
+                            carersInputTextArea(didYouPayIntoPension("whatFor"),
+                                'textAreaHelper -> Html(Messages("300charsLeft")),
                                 '_label -> "didYouPayIntoPension.whatFor",
-                                'helperAbove -> Html(Messages("didYouPayIntoPension.whatFor.help")),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
@@ -189,8 +188,7 @@ $(function(){
             usuallyPaidSameAmountFourWeekText:"@Html(Messages("usuallyPaidSameAmount.did.time"))",
             usuallyPaidSameAmountMonthText:"@Html(Messages("usuallyPaidSameAmount.did.month"))",
             usuallyPaidSameAmountOtherText:"@Html(Messages("usuallyPaidSameAmount.did.time"))",
-            doYouPayIntoPensionAnswer:"@CarersCrypto.encryptAES(doYouPayIntoPension("answer").id)",
-            doYouPayIntoPensionText:"@Html(Messages("doYouPayIntoPension"))",
+            didYouPayIntoPensionAnswer:"@CarersCrypto.encryptAES(didYouPayIntoPension("answer").id)",
             didYouPayIntoPensionText:"@Html(Messages("didYouPayIntoPension"))",
             doCareCostsForThisWorkAnswer:"@CarersCrypto.encryptAES(doCareCostsForThisWork("answer").id)",
             doCareCostsForThisWorkText:"@Html(Messages("doCareCostsForThisWork"))",
@@ -235,9 +233,9 @@ $(function(){
             "@CarersCrypto.encryptAES(employerOwesYouMoney("no").id)"
     );
 
-    window.whatFor("@CarersCrypto.encryptAES(doYouPayIntoPension("answer")("yes").id)",
-            "@CarersCrypto.encryptAES(doYouPayIntoPension("answer")("no").id)",
-            "@CarersCrypto.encryptAES(doYouPayIntoPension("whatFor").id)");
+    window.whatFor("@CarersCrypto.encryptAES(didYouPayIntoPension("answer")("yes").id)",
+            "@CarersCrypto.encryptAES(didYouPayIntoPension("answer")("no").id)",
+            "@CarersCrypto.encryptAES(didYouPayIntoPension("whatFor").id)");
 
     window.whatCosts("@CarersCrypto.encryptAES(doCareCostsForThisWork("answer")("yes").id)",
             "@CarersCrypto.encryptAES(doCareCostsForThisWork("answer")("no").id)",
@@ -245,7 +243,7 @@ $(function(){
 
     window.areaCounter({selector: "@CarersCrypto.encryptAES(whatWasIncluded.id)",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(howOftenFrequency("other").id)",maxChars:60});
-    window.areaCounter({selector: "@CarersCrypto.encryptAES(doYouPayIntoPension("whatFor").id)",maxChars:300});
+    window.areaCounter({selector: "@CarersCrypto.encryptAES(didYouPayIntoPension("whatFor").id)",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(doCareCostsForThisWork("whatCosts").id)",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(employerOwesYouMoneyInfo.id)",maxChars:300});

@@ -30,8 +30,8 @@ Finished Employment - Change in circumstances,Employment,Did you usually get the
 Finished Employment - Change in circumstances,Employment,Other,CircumstancesEmploymentChangeHowOftenFrequencyOther,
 Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoney,yes
 Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoneyInfo,Overtime with lots of pay and lots of other benefits like free dinnerOvertime with lots of pay and lots of other benefits like free dinnerOvertime with lots of pay and lots of other benefits like free dinnerOvertime with lots of pay and lots of other benefits like free dinner and drinks and moviesss
-Finished Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,no
-Finished Employment - Change in circumstances,Employment,"Tell us what this is for, how much and how often",CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor,
+Finished Employment - Change in circumstances,Employment,Did you pay into a pension?,CircumstancesEmploymentChangeDidYouPayIntoPensionAnswer,no
+Finished Employment - Change in circumstances,Employment,"Give details of each pension you paid into, including how much and how often you paid into them.",CircumstancesEmploymentChangeDidYouPayIntoPensionWhatFor,
 Finished Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,no
 Finished Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
 Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,By Post

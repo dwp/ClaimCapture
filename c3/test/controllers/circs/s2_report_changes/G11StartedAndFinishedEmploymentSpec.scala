@@ -21,7 +21,7 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
   val other = "other"
   val otherText = "some other text"
   val employerOwesYouMoneyInfo = "kick back for keeping my mouth shut"
-  val doYouPayIntoPensionText = "pension text"
+  val didYouPayIntoPensionText = "pension text"
   val doCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
 
@@ -35,7 +35,7 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
     "howOften.frequency" -> weekly,
     "usuallyPaidSameAmount" -> no,
     "employerOwesYouMoney" -> no,
-    "doYouPayIntoPension.answer" -> no,
+    "didYouPayIntoPension.answer" -> no,
     "doCareCostsForThisWork.answer" -> no
   )
 
@@ -50,7 +50,7 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
     "monthlyPayDay" -> monthlyPayDay,
     "usuallyPaidSameAmount" -> no,
     "employerOwesYouMoney" -> no,
-    "doYouPayIntoPension.answer" -> no,
+    "didYouPayIntoPension.answer" -> no,
     "doCareCostsForThisWork.answer" -> no
   )
 
@@ -66,8 +66,8 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
     "usuallyPaidSameAmount" -> yes,
     "employerOwesYouMoney" -> yes,
     "employerOwesYouMoneyInfo" -> employerOwesYouMoneyInfo,
-    "doYouPayIntoPension.answer" -> yes,
-    "doYouPayIntoPension.whatFor" -> doYouPayIntoPensionText,
+    "didYouPayIntoPension.answer" -> yes,
+    "didYouPayIntoPension.whatFor" -> didYouPayIntoPensionText,
     "doCareCostsForThisWork.answer" -> yes,
     "doCareCostsForThisWork.whatCosts" -> doCareCostsForThisWorkText,
     "moreAboutChanges" -> moreInfo

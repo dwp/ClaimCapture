@@ -74,8 +74,8 @@ Finished Employment - Change in circumstances,Employment,What day or date of the
 Finished Employment - Change in circumstances,Employment,Do you usually get the same amount each week?,CircumstancesEmploymentChangeUsuallyPaidSameAmount,
 Finished Employment - Change in circumstances,Employment,Other,CircumstancesEmploymentChangeHowOftenFrequencyOther,
 Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoney,
-Finished Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,
-Finished Employment - Change in circumstances,Employment,"Tell us what this is for, how much and how often",CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor,
+Finished Employment - Change in circumstances,Employment,Did you pay into a pension?,CircumstancesEmploymentChangeDidYouPayIntoPensionAnswer,
+Finished Employment - Change in circumstances,Employment,"Give details of each pension you paid into, including how much and how often you paid into them.",CircumstancesEmploymentChangeDidYouPayIntoPensionWhatFor,
 Finished Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,
 Finished Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
 Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges>Answer

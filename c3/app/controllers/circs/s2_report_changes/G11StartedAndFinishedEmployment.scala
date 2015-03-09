@@ -12,11 +12,11 @@ import models.view.{Navigable, CachedChangeOfCircs}
 
 object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCircs with Navigable {
   val payIntoPension =
-    "doYouPayIntoPension" -> mapping (
+    "didYouPayIntoPension" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
       "whatFor" -> optional(carersNonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("doYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
+      .verifying("didYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
 
   val careCostsForThisWork =
     "doCareCostsForThisWork" -> mapping (
@@ -57,7 +57,7 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
           .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
           .replaceError("", "expected.monthlyPayDay",FormError("monthlyPayDay","error.required"))
           .replaceError("", "expected.employerOwesYouMoneyInfo",FormError("employerOwesYouMoneyInfo","error.required"))
-          .replaceError("doYouPayIntoPension","doYouPayIntoPension.text.required",FormError("doYouPayIntoPension.whatFor","error.required"))
+          .replaceError("didYouPayIntoPension","didYouPayIntoPension.text.required",FormError("didYouPayIntoPension.whatFor","error.required"))
           .replaceError("doCareCostsForThisWork","doCareCostsForThisWork.text.required",FormError("doCareCostsForThisWork.whatCosts","error.required"))
 
         BadRequest(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(formWithErrorsUpdate)(lang))
