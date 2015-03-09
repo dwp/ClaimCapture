@@ -18,12 +18,19 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("didYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
 
+  val payForThings =
+    "didYouPayForThings" -> mapping (
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "whatFor" -> optional(carersTextWithPound(minLength=1, maxLength = 300))
+    )(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("didYouPayForThings.text.required", YesNoWithText.validateOnYes _)
+
   val careCostsForThisWork =
-    "doCareCostsForThisWork" -> mapping (
+    "didCareCostsForThisWork" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
       "whatCosts" -> optional(carersNonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("doCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
+      .verifying("didCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
 
   val form = Form(mapping(
     "beenPaidYet" -> nonEmptyText.verifying(validYesNo),
@@ -36,6 +43,7 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
     "employerOwesYouMoney" -> nonEmptyText.verifying(validYesNo),
     "employerOwesYouMoneyInfo" -> optional(carersText(maxLength = 300)),
     payIntoPension,
+    payForThings,
     careCostsForThisWork,
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesStartedAndFinishedEmployment.apply)(CircumstancesStartedAndFinishedEmployment.unapply)
@@ -58,7 +66,8 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
           .replaceError("", "expected.monthlyPayDay",FormError("monthlyPayDay","error.required"))
           .replaceError("", "expected.employerOwesYouMoneyInfo",FormError("employerOwesYouMoneyInfo","error.required"))
           .replaceError("didYouPayIntoPension","didYouPayIntoPension.text.required",FormError("didYouPayIntoPension.whatFor","error.required"))
-          .replaceError("doCareCostsForThisWork","doCareCostsForThisWork.text.required",FormError("doCareCostsForThisWork.whatCosts","error.required"))
+          .replaceError("didYouPayForThings","didYouPayForThings.text.required",FormError("didYouPayForThings.whatFor","error.required"))
+          .replaceError("didCareCostsForThisWork","didCareCostsForThisWork.text.required",FormError("didCareCostsForThisWork.whatCosts","error.required"))
 
         BadRequest(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(formWithErrorsUpdate)(lang))
       },

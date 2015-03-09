@@ -248,6 +248,15 @@ object EmploymentChange {
         }
       }
 
+      {question(<PaidForThingsToDoJob/>, "didYouPayForThings", change.didYouPayForThings.answer)}
+
+      {
+        change.didYouPayForThings.answer match {
+          case Mappings.yes => {question(<PaidForThingsWhatFor/>, "didYouPayForThings.whatFor", change.didYouPayForThings.text)}
+          case _ => NodeSeq.Empty
+        }
+      }
+
       {question(<CareCostsForThisWork/>, "didCareCostsForThisWork", change.careCostsForThisWork.answer)}
       {
         change.careCostsForThisWork.answer match {

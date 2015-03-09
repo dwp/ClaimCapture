@@ -22,7 +22,8 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
   val otherText = "some other text"
   val employerOwesYouMoneyInfo = "kick back for keeping my mouth shut"
   val didYouPayIntoPensionText = "pension text"
-  val doCareCostsForThisWorkText = "care text"
+  val didYouPayForThingsText = "Some things neeeded to do the job"
+  val didCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
 
   val validFinishedWeeklyPaymentEmployment = Seq(
@@ -36,7 +37,8 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
     "usuallyPaidSameAmount" -> no,
     "employerOwesYouMoney" -> no,
     "didYouPayIntoPension.answer" -> no,
-    "doCareCostsForThisWork.answer" -> no
+    "didYouPayForThings.answer" -> no,
+    "didCareCostsForThisWork.answer" -> no
   )
 
   val validFinishedMonthlyPaymentEmployment = Seq(
@@ -51,7 +53,8 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
     "usuallyPaidSameAmount" -> no,
     "employerOwesYouMoney" -> no,
     "didYouPayIntoPension.answer" -> no,
-    "doCareCostsForThisWork.answer" -> no
+    "didYouPayForThings.answer" -> no,
+    "didCareCostsForThisWork.answer" -> no
   )
 
   val validFinishedOtherPaymentEmployment = Seq(
@@ -68,8 +71,10 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
     "employerOwesYouMoneyInfo" -> employerOwesYouMoneyInfo,
     "didYouPayIntoPension.answer" -> yes,
     "didYouPayIntoPension.whatFor" -> didYouPayIntoPensionText,
-    "doCareCostsForThisWork.answer" -> yes,
-    "doCareCostsForThisWork.whatCosts" -> doCareCostsForThisWorkText,
+    "didYouPayForThings.answer" -> yes,
+    "didYouPayForThings.whatFor" -> didYouPayForThingsText,
+    "didCareCostsForThisWork.answer" -> yes,
+    "didCareCostsForThisWork.whatCosts" -> didCareCostsForThisWorkText,
     "moreAboutChanges" -> moreInfo
   )
 

@@ -18,7 +18,8 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
   val otherText = "some other text"
   val employerOwesYouMoneyInfo = "kick back for keeping my mouth shut"
   val didYouPayIntoPensionText = "pension text"
-  val doCareCostsForThisWorkText = "care text"
+  val didYouPayForThingsText = "Some things needed to do the job"
+  val didCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
 
   "Report an Employment change in your circumstances where the employment is finished - Employment Form" should {
@@ -35,7 +36,8 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
           "usuallyPaidSameAmount" -> no,
           "employerOwesYouMoney" -> no,
           "didYouPayIntoPension.answer" -> no,
-          "doCareCostsForThisWork.answer" -> no
+          "didYouPayForThings.answer" -> no,
+          "didCareCostsForThisWork.answer" -> no
         )
       ).fold(
           formWithErrors => {
@@ -49,6 +51,7 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
             f.usuallyPaidSameAmount must equalTo(no)
             f.employerOwesYouMoney must equalTo(no)
             f.payIntoPension.answer must equalTo(no)
+            f.didYouPayForThings.answer must equalTo(no)
             f.careCostsForThisWork.answer must equalTo(no)
           }
         )
@@ -68,7 +71,8 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
           "usuallyPaidSameAmount" -> no,
           "employerOwesYouMoney" -> no,
           "didYouPayIntoPension.answer" -> no,
-          "doCareCostsForThisWork.answer" -> no
+          "didYouPayForThings.answer" -> no,
+          "didCareCostsForThisWork.answer" -> no
         )
       ).fold(
           formWithErrors => {
@@ -83,6 +87,7 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
             f.usuallyPaidSameAmount must equalTo(no)
             f.employerOwesYouMoney must equalTo(no)
             f.payIntoPension.answer must equalTo(no)
+            f.didYouPayForThings.answer must equalTo(no)
             f.careCostsForThisWork.answer must equalTo(no)
           }
         )
@@ -104,8 +109,10 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
           "employerOwesYouMoneyInfo" -> employerOwesYouMoneyInfo,
           "didYouPayIntoPension.answer" -> yes,
           "didYouPayIntoPension.whatFor" -> didYouPayIntoPensionText,
-          "doCareCostsForThisWork.answer" -> yes,
-          "doCareCostsForThisWork.whatCosts" -> doCareCostsForThisWorkText,
+          "didYouPayForThings.answer" -> yes,
+          "didYouPayForThings.whatFor" -> didYouPayForThingsText,
+          "didCareCostsForThisWork.answer" -> yes,
+          "didCareCostsForThisWork.whatCosts" -> didCareCostsForThisWorkText,
           "moreAboutChanges" -> moreInfo
         )
       ).fold(
@@ -123,8 +130,10 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
             f.employerOwesYouMoneyInfo.get must equalTo(employerOwesYouMoneyInfo)
             f.payIntoPension.answer must equalTo(yes)
             f.payIntoPension.text.get must equalTo(didYouPayIntoPensionText)
+            f.didYouPayForThings.answer must equalTo(yes)
+            f.didYouPayForThings.text.get must equalTo(didYouPayForThingsText)
             f.careCostsForThisWork.answer must equalTo(yes)
-            f.careCostsForThisWork.text.get must equalTo(doCareCostsForThisWorkText)
+            f.careCostsForThisWork.text.get must equalTo(didCareCostsForThisWorkText)
             f.moreAboutChanges.get must equalTo(moreInfo)
           }
         )

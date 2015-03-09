@@ -125,6 +125,7 @@ case class CircumstancesStartedAndFinishedEmployment(beenPaid: String,
                                                      employerOwesYouMoney: String,
                                                      employerOwesYouMoneyInfo: Option[String] = None,
                                                      payIntoPension: YesNoWithText = YesNoWithText("", None),
+                                                     didYouPayForThings: YesNoWithText = YesNoWithText("", None),
                                                      careCostsForThisWork: YesNoWithText = YesNoWithText("", None),
                                                      moreAboutChanges: Option[String] = None)
   extends QuestionGroup(CircumstancesStartedAndFinishedEmployment)

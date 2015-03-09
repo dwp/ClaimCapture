@@ -76,6 +76,8 @@ Finished Employment - Change in circumstances,Employment,Other,CircumstancesEmpl
 Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoney,
 Finished Employment - Change in circumstances,Employment,Did you pay into a pension?,CircumstancesEmploymentChangeDidYouPayIntoPensionAnswer,
 Finished Employment - Change in circumstances,Employment,"Give details of each pension you paid into, including how much and how often you paid into them.",CircumstancesEmploymentChangeDidYouPayIntoPensionWhatFor,
+Finished Employment - Change in circumstances,Employment,Did you pay for things you needed to do your job?,CircumstancesEmploymentChangeDidYouPayForThingsAnswer,DWPCAChangeOfCircumstances>EmploymentChange>StartedEmploymentAndFinished>PaidForThingsToDoJob>Answer
+Finished Employment - Change in circumstances,Employment,"Give details of what you needed to buy, why you needed it and how much it cost.",CircumstancesEmploymentChangeDidYouPayForThingsWhatFor,DWPCAChangeOfCircumstances>EmploymentChange>StartedEmploymentAndFinished>PaidForThingsWhatFor>Answer
 Finished Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,
 Finished Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
 Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges>Answer
