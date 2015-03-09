@@ -1,0 +1,84 @@
+@(currentForm: Form[models.domain.Eligibility])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper.dates._
+@import play.api.i18n.{MMessages => Messages}
+
+@defining(lang) { implicit language =>
+    @main(Messages("s1.progressbar.name") + " - " + Messages("s1.longName"), Some(currentForm),changing = true) {
+
+
+        @form(action = controllers.s1_carers_allowance.routes.G2Eligibility.submit, 'role -> "form") {
+
+            @DwpCSRFFormHelper.formField
+
+            <fieldset class="form-elements form-eligibility">
+                <legend>@Html(Messages("s1.g2"))</legend>
+
+                <p>@Html(Messages("s1.g2.help1"))</p>
+
+                @yesNoRadioGroup(currentForm("hours.answer"), '_label -> Messages("hours.answer"), '_showLabel -> false,'track -> true, 'allowance -> true,'trackLabel -> "hours.answer")
+
+                @defining(currentForm("hours.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+                    <div id="answerNoMessageWrapHours" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
+                        <p>@Html(Messages("s1.g2.help2"))</p>
+                    </div>
+                }
+            </fieldset>
+
+            <fieldset class="form-elements form-eligibility">
+                <legend>@Html(Messages("s1.g3"))</legend>
+
+
+                @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("over16.answer"), '_showLabel -> false,'track -> true,'allowance -> true, 'trackLabel -> "over16.answer")
+
+                @defining(currentForm("over16.answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+                    <div id="answerNoMessageWrapOver16" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
+                        <p>@Html(Messages("s1.g3.help1"))</p>
+                    </div>
+                }
+            </fieldset>
+
+            <fieldset class="form-elements form-eligibility">
+
+
+                <legend>@Html(Messages("s1.g4"))</legend>
+
+                <p>@Html(Messages("s1.g4.help1"))</p>
+
+                @yesNoRadioGroup(currentForm("livesInGB.answer"), '_label -> Messages("livesInGB.answer"), '_showLabel -> false, 'track -> true, 'allowance -> true, 'trackLabel -> "livesInGB.answer")
+
+
+                @defining(currentForm("livesInGB.answer").value.getOrElse("don't know") match { case "no" =>
+                    "block" case _ => "none" }) { styleDisplay =>
+                        <div id="answerNoMessageWrapLivesInGB" class="prompt breaks-prompt eligibility-prompt" style="display : @styleDisplay ;">
+                            <p>@Html(Messages("s1.g4.help4"))</p>
+                            <p>@Html(Messages("s1.g4.help5"))</p>
+                        </div>
+                }
+            </fieldset>
+
+            <nav class="form-steps" role="navigation">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}?changing=true">@Html(Messages("form.back"))</a></li>
+                </ul>
+            </nav>
+        }
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
+
+        <script type="text/javascript">
+            $(function () {
+            window.initEvents("answerNoMessageWrapHours","@CarersCrypto.encryptAES("hours_answer_yes")", "@CarersCrypto.encryptAES("hours_answer_no")");
+            window.initEvents("answerNoMessageWrapOver16","@CarersCrypto.encryptAES("over16_answer_yes")", "@CarersCrypto.encryptAES("over16_answer_no")");
+            window.initEvents("answerNoMessageWrapLivesInGB","@CarersCrypto.encryptAES("livesInGB_answer_yes")", "@CarersCrypto.encryptAES("livesInGB_answer_no")");
+            });
+        </script>
+    }
+}

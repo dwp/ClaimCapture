@@ -2,23 +2,27 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 
-class G2HoursFormSpec extends Specification with Tags {
-  "Carer's Allowance - Hours - Form" should {
-    val answerYesNo = "yes"
-      
+class G2EligibilityFormSpec extends Specification with Tags {
+  "Carer's Allowance - Elegibility - Form" should {
+    val answerHours = "yes"
+    val answerOver16 = "no"
+    val answerLivesInGB = "no"
+
     "map data into case class" in {
-      G2Hours.form.bind(
-        Map("hours.answer" -> answerYesNo)
+      G2Eligibility.form.bind(
+        Map("hours.answer" -> answerHours, "over16.answer" -> answerOver16, "livesInGB.answer" -> answerLivesInGB)
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.answerYesNo must equalTo("yes")
+          f.hours must equalTo(answerHours)
+          f.over16 must equalTo(answerOver16)
+          f.livesInGB must equalTo(answerLivesInGB)
         }
       )
     }
 
     "reject if mandatory field is not filled" in {
-      G2Hours.form.bind(
+      G2Eligibility.form.bind(
         Map("hours.answer" -> "")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),

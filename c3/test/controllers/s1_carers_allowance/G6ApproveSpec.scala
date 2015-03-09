@@ -15,9 +15,7 @@ class G6ApproveSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val claim = Claim().update(Benefits(benefitsAnswer = "yes"))
-        .update(Hours(answerYesNo = "yes"))
-        .update(Over16(answerYesNo = "yes"))
-        .update(LivesInGB(answerYesNo = "yes"))
+        .update(Eligibility(hours = "yes", over16 = "yes", livesInGB = "yes"))
 
       Cache.set(claimKey, claim)
 
@@ -29,9 +27,7 @@ class G6ApproveSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val claim = Claim().update(Benefits(benefitsAnswer = "yes"))
-        .update(Hours(answerYesNo = "yes"))
-        .update(Over16(answerYesNo = "no"))
-        .update(LivesInGB(answerYesNo = "yes"))
+        .update(Eligibility(hours = "yes", over16 = "no", livesInGB = "yes"))
 
       Cache.set(claimKey, claim)
 

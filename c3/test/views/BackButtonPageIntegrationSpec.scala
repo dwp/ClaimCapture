@@ -6,7 +6,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
 import utils.pageobjects.circumstances.s2_report_changes.G1ReportChangesPage
-import utils.pageobjects.s1_carers_allowance.{G2HoursPage, G1BenefitsPage}
+import utils.pageobjects.s1_carers_allowance.{G2EligibilityPage, G1BenefitsPage}
 import scala.collection.JavaConversions._
 
 
@@ -16,7 +16,7 @@ class BackButtonPageIntegrationSpec extends Specification with Tags {
     "show if browser back button clicked in claim Thank You page" in new WithBrowser with PageObjects{
 
       val benefits = new G1BenefitsPage(context).goToThePage()
-      val hours = new G2HoursPage(context).goToThePage()
+      val hours = new G2EligibilityPage(context).goToThePage()
 
       browser goTo "/thankyou/apply-carers"
       browser title() mustEqual "Application complete"
