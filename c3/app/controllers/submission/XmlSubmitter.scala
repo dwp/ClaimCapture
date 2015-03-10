@@ -1,10 +1,10 @@
 package controllers.submission
 
 import app.ConfigProperties._
+import models.view.ClaimHandling.ClaimResult
 import play.api.mvc.Results.Ok
 import play.api.mvc.{AnyContent, Request}
 import xml.DWPBody
-import models.view.CachedClaim._
 import models.domain.Claim
 import play.api.Logger
 

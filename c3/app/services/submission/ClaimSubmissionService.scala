@@ -4,8 +4,8 @@ import app.ReportChange._
 import app.XMLValues.NotAsked
 import controllers.submission.{StatusRoutingController, claimType}
 import models.domain.{CircumstancesDeclaration, Claim, ReportChanges}
-import models.view.CachedClaim.ClaimResult
-import models.view.{CachedChangeOfCircs, CachedClaim}
+import models.view.ClaimHandling.ClaimResult
+import models.view.{ClaimHandling, CachedChangeOfCircs, CachedClaim}
 import play.api.Logger
 import play.api.i18n.Lang
 import play.api.mvc.Results.Redirect
@@ -16,7 +16,7 @@ import services.async.AsyncActors
 
 trait ClaimSubmissionService {
 
-  this: ClaimTransactionComponent with CachedClaim =>
+  this: ClaimTransactionComponent with ClaimHandling =>
 
   private val JS_ENABLED = 1
   private val JS_DISABLED = 0

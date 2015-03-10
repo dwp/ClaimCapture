@@ -20,7 +20,7 @@ import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
 import models.domain.Claim
 import play.api.i18n.Lang
-import models.view.CachedClaim.ClaimResult
+import models.view.ClaimHandling.ClaimResult
 
 object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
