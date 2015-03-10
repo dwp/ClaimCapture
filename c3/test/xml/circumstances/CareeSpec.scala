@@ -2,7 +2,7 @@ package xml.circumstances
 
 import javax.xml.bind.DatatypeConverter
 
-import com.dwp.carers.security.encryption.EncryptorAES
+import gov.dwp.carers.security.encryption.EncryptorAES
 import models.domain.{CircumstancesReportChange, Claim}
 import org.specs2.mutable.{Specification, Tags}
 

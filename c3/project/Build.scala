@@ -19,15 +19,15 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka"  %% "akka-testkit"        % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-agent"          % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-remote"         % "2.3.9" % "test" withSources() withJavadoc(),
-    "com.dwp.carers"     %% "xmlcommons"          % "5.0",
-    "com.dwp.carers"     %%  "wscommons"          % "2.3",
+    "gov.dwp.carers"     %% "xmlcommons"          % "5.0",
+    "gov.dwp.carers"     %%  "wscommons"          % "2.3",
     "org.postgresql"     % "postgresql"           % "9.3-1103-jdbc41",
     "com.h2database"      % "h2"                  % "1.4.185"  % "test",
     "me.moocar"           % "logback-gelf"        % "0.12",
     "com.github.rjeschke" % "txtmark"             % "0.11",
     "org.jacoco"          % "org.jacoco.core"     % "0.7.2.201409121644"  % "test",
     "org.jacoco"          % "org.jacoco.report"   % "0.7.2.201409121644"  % "test",
-    "com.dwp"            %% "play2-multimessages" % "2.3.5",
+    "gov.dwp"            %% "play2-multimessages" % "2.3.5",
     "com.typesafe"       %% "play-plugins-mailer" % "2.2.0",
     "gov.dwp.carers"     %% "play2-resilient-memcached"     % "1.1"
   )

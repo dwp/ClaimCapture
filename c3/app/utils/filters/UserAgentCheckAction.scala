@@ -1,7 +1,7 @@
 package utils.filters
 
 import app.ConfigProperties._
-import com.dwp.exceptions.DwpRuntimeException
+import gov.dwp.exceptions.DwpRuntimeException
 import models.view.{CachedChangeOfCircs, CachedClaim}
 import play.api.Logger
 import play.api.cache.Cache

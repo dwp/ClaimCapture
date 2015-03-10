@@ -2,7 +2,7 @@ package controllers.submission
 
 import org.specs2.mutable.Specification
 import models.domain.{ChangeOfCircs, FullClaim, Claim}
-import com.dwp.carers.s2.xml.validation.{CocFutureXmlValidatorImpl, CaFutureXmlValidatorImpl}
+import gov.dwp.carers.xml.validation.{CocFutureXmlValidatorImpl, CaFutureXmlValidatorImpl}
 
 class SubmissionSpec extends Specification {
   "Submission" should {

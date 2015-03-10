@@ -3,7 +3,7 @@ package xml
 import java.text.SimpleDateFormat
 import java.util.Date
 
-import com.dwp.carers.s2.xml.signing.XmlSignatureFactory
+import gov.dwp.carers.xml.signing.XmlSignatureFactory
 import controllers.submission.xmlValidator
 import models.domain.Claim
 import play.api.i18n.Lang
