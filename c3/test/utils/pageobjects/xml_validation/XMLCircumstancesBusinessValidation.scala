@@ -2,8 +2,8 @@ package utils.pageobjects.xml_validation
 
 import javax.xml.bind.DatatypeConverter
 
-import com.dwp.carers.security.encryption.EncryptorAES
-import com.dwp.exceptions.DwpRuntimeException
+import gov.dwp.carers.security.encryption.EncryptorAES
+import gov.dwp.exceptions.DwpRuntimeException
 import utils.pageobjects.xml_validation.XMLValidationNode._
 
 import scala.xml.{Node, Elem}
