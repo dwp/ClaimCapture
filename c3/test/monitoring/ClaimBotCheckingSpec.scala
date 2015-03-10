@@ -17,9 +17,8 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
 
   var claim = copyInstance(new Claim()
     .update(Benefits(Benefits.pip))
-    .update(Hours("no"))
-    .update(LivesInGB("no"))
-    .update(Over16("no")))
+    .update(Eligibility("no","no","no"))
+  )
 
 
   private def createJob(jobId: String, questionGroup: QuestionGroup with controllers.Iteration.Identifier): Iteration = {

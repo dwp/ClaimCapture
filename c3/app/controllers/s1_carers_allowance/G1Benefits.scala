@@ -26,6 +26,6 @@ object G1Benefits extends Controller with CachedClaim with Navigable {
       formWithErrors => {
         BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrors)(lang))
       },
-      f => claim.update(f) -> Redirect(routes.G2Hours.present()))
+      f => claim.update(f) -> Redirect(routes.G2Eligibility.present()))
   }
 }

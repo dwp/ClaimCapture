@@ -1,7 +1,7 @@
-window.initEvents = (answer_yes, answer_no) ->
+window.initEvents = (id,answer_yes, answer_no) ->
   $("#" + answer_yes).on "click", ->
-    $("#answerNoMessageWrap").hide()
+    $("#"+id).hide()
 
   $("#" + answer_no).on "click", ->
-    $("#answerNoMessageWrap").show()
-    $("#answerNoMessageWrap").css('display', "block")
+    $("#"+id).show()
+    $("#"+id).css('display', "block")
