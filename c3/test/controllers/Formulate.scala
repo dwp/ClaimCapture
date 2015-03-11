@@ -16,8 +16,8 @@ object Formulate {
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.fill("#nationalInsuranceNumber_nino") `with` "AB123456C" // Pattern AB123456C
-    browser.fill("#dateOfBirth_day") `with` "3"
-    browser.fill("#dateOfBirth_month") `with` "4"
+    browser.fill("#dateOfBirth_day") `with` "1"
+    browser.fill("#dateOfBirth_month") `with` "1"
     browser.fill("#dateOfBirth_year") `with` "1950"
     //browser.fill("#nationality") `with` "English"
     //browser.click("#alwaysLivedUK_yes")
@@ -94,7 +94,7 @@ object Formulate {
     browser.goTo("/your-claim-date/claim-date")
     browser.fill("#dateOfClaim_day") `with` "1"
     browser.fill("#dateOfClaim_month") `with` "1"
-    browser.fill("#dateOfClaim_year") `with` "2014"
+    browser.fill("#dateOfClaim_year") `with` "2015"
     browser.submit("button[type='submit']")
   }
 

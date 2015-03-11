@@ -61,6 +61,15 @@ $('.helper-more').click(function(){
      	$( ".feedback-container" ).toggle();
      });
      
+     // Mobile specific - Nav
+     $('.helper-mobile a').click(function(){
+     	$( ".left-col" ).slideToggle(0);
+     	$(this).toggleClass("open-helper")
+     	return true;
+     });
+     
+
+     
      
      // Non JS message 
      $(".js-message").css("display", "none");
@@ -145,7 +154,7 @@ function setCookie(c_name,value)
 }
 
 function trackTiming(category,variable,timemeasured){
-    if (0 < timemeasured)
+    if (0 < timemeasured && timemeasured <  36000000)
     {
         _gaq.push(['_trackTiming',category,variable,timemeasured]);
     }

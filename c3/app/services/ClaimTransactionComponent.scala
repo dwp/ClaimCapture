@@ -1,6 +1,6 @@
 package services
 
-import com.dwp.exceptions.DwpRuntimeException
+import gov.dwp.exceptions.DwpRuntimeException
 import play.api.db.DB
 import play.api.Play.current
 import anorm._

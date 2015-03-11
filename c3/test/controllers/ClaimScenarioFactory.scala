@@ -17,7 +17,7 @@ object ClaimScenarioFactory {
   def s12ClaimDate() = {
     val claim = new TestData
     // Claim date
-    claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "10/10/2014"
+    claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "10/10/2016"
     claim
   }
 

@@ -96,6 +96,18 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
     case Success(dt: DateTime) => DateTimeFormat.forPattern(pattern).print(dt)
     case Failure(_) => ""
   }
+
+  def yearsDiffWith(dmy:DayMonthYear) = {
+    Try(new DateTime(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0), hour.getOrElse(0), minutes.getOrElse(0))) match {
+      case Success(dt: DateTime) =>
+        Try(new DateTime(dmy.year.getOrElse(0), dmy.month.getOrElse(0), dmy.day.getOrElse(0), dmy.hour.getOrElse(0), dmy.minutes.getOrElse(0))) match {
+          case Success(dt2: DateTime) =>
+            Math.abs(new org.joda.time.Period(dt, dt2).getYears)
+          case _ => 0
+        }
+      case _ => 0
+    }
+  }
 }
 
 object DayMonthYearComparator extends Ordering[Option[DayMonthYear]]{
