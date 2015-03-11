@@ -23,6 +23,7 @@ object ClaimHandling {
   // Versioning
   val C3VERSION = "C3Version"
   val C3VERSION_VALUE = "2.13"
+  val applicationFinished = "application-finished"
 
 }
 
@@ -31,6 +32,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
   protected def claimNotValid(claim: Claim): Boolean
   protected def newInstance(newuuid: String = randomUUID.toString): Claim
   protected def copyInstance(claim: Claim): Claim
+
 
   //============================================================================================================
   //         NEW CLAIM
@@ -60,7 +62,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
         withHeaders(action(claim, r, bestLang)(f))
           .withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE): _*)
           .withSession(claim.key -> claim.uuid)
-          .discardingCookies(DiscardingCookie("application-finished"))
+          .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished))
       } else {
         Logger.debug("New claim with changing true.")
         if (key.isEmpty) Redirect(errorPageCookie)
@@ -150,10 +152,12 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
         case Some(claim) =>
           // reaching end of process - thank you page so we delete claim for security reasons and free memory
           removeFromCache(claim.uuid)
-          originCheck(f(claim)(request)(getLang(claim))).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(ClaimHandling.C3VERSION)).withNewSession.withCookies(Cookie("application-finished", "true"))
+          originCheck(f(claim)(request)(getLang(claim))).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain),
+            DiscardingCookie(ClaimHandling.C3VERSION)).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
         case _ =>
           enforceAlreadyFinishedRedirection(request,
-            originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(ClaimHandling.C3VERSION)).withNewSession.withCookies(Cookie("application-finished", "true"))
+            originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain),
+              DiscardingCookie(ClaimHandling.C3VERSION)).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
           )
       }
     }
@@ -170,13 +174,14 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
   //         UTILITY FUNCTIONS
   //============================================================================================================
 
-  private def enforceAlreadyFinishedRedirection(request: Request[AnyContent], otherwise: => Result): Result =
+  private def enforceAlreadyFinishedRedirection(request: Request[AnyContent], otherwise: => Result): Result = {
+    Logger.debug(s"Enforce. ${request.cookies.mkString}")
     if (request.cookies.exists {
-      case Cookie("application-finished", "true", _, _, _, _, _) => true
+      case Cookie(applicationFinished, "true", _, _, _, _, _) => true
       case _ => false
     }) Redirect(controllers.routes.Application.backButtonPage())
     else otherwise
-
+  }
   protected def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {
     val key = keyFrom(request)
     if (!key.isEmpty && key != claim.uuid) Logger.warn(s"action - Claim uuid ${claim.uuid} does not match cache key $key. Can happen if action new claim and user reuses session. Will disregard session key and use uuid.")
