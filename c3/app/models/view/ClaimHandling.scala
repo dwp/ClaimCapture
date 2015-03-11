@@ -149,7 +149,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
       fromCache(request) match {
         case Some(claim) =>
           // reaching end of process - thank you page so we delete claim for security reasons and free memory
-          Cache.remove(claim.uuid)
+          removeFromCache(claim.uuid)
           originCheck(f(claim)(request)(getLang(claim))).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(ClaimHandling.C3VERSION)).withNewSession.withCookies(Cookie("application-finished", "true"))
         case _ =>
           enforceAlreadyFinishedRedirection(request,

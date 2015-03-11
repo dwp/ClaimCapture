@@ -38,6 +38,9 @@ trait CacheHandling {
 
   def saveInCache(key:String, claim:Claim) = Cache.set(claim.uuid, claim, CacheHandling.expiration)
 
+  def removeFromCache(key:String) = Cache.remove(key)
+
+
   protected def recordMeasurements() = {
     Histograms.recordCacheSize(Try(CacheManager.getInstance().getCache("play").getKeysWithExpiryCheck.size()).getOrElse(0))
   }
