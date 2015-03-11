@@ -15,14 +15,6 @@ trait CacheHandling {
 
   def cacheKey: String
 
-  // Expiration value
-  val expiration = getProperty("cache.expiry", 3600)
-
-  def keyAndExpirationFrom(r: Request[AnyContent]): (String, Int) = {
-    keyFrom(r) -> expiration
-  }
-  
-
   def keyFrom(request: Request[AnyContent]): String = request.session.get(cacheKey).getOrElse("")
 
   /**
@@ -44,7 +36,14 @@ trait CacheHandling {
       Cache.getAs[Claim](key)
   }
 
+  def saveInCache(key:String, claim:Claim) = Cache.set(claim.uuid, claim, CacheHandling.expiration)
+
   protected def recordMeasurements() = {
     Histograms.recordCacheSize(Try(CacheManager.getInstance().getCache("play").getKeysWithExpiryCheck.size()).getOrElse(0))
   }
+}
+
+object CacheHandling {
+  // Expiration value
+  lazy val expiration = getProperty("cache.expiry", 3600)
 }

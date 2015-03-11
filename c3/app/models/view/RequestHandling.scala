@@ -9,13 +9,9 @@ import play.api.mvc.{Result, AnyContent, Request, Call}
 trait RequestHandling {
 
   def startPage: String
-
   def timeoutPage: Call
-
   def errorPageCookie: Call
-
   def errorPage: Call
-
   def errorPageBrowserBackButton: Call
 
   // CSRF Cookie management
@@ -25,13 +21,8 @@ trait RequestHandling {
   protected val defaultLang = "en"
   protected lazy val redirectEnforced = getProperty("enforceRedirect", default = true)
 
-
-  protected def refererAndHost(r: Request[AnyContent]): (String, String) = {
-    r.headers.get("Referer").getOrElse("No Referer in header") -> r.headers.get("Host").getOrElse("No Host in header")
-  }
-
   protected def originCheck(action: => Result)(implicit request: Request[AnyContent]) = {
-    val (referer, host) = refererAndHost(request)
+    val (referer, host) = request.headers.get("Referer").getOrElse("No Referer in header") -> request.headers.get("Host").getOrElse("No Host in header")
     val sameHostCheck = referer.contains(host)
 
     Logger.info(s"Redirect $redirectEnforced. Same host $sameHostCheck")

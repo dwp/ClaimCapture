@@ -27,7 +27,8 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
    *         Otherwise it throws an exception to stop processing of the request by the application.
    */
   def apply(request: RequestHeader) = {
-    lazy val key = getKeyFromSession(request)
+    val key = getKeyFromSession(request)
+//    if (key.isEmpty) throw new DwpRuntimeException(s"Session does not contain key. User Agent cannot be checked. For ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}")
 
     request match {
 
@@ -51,6 +52,8 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
               Logger.debug(s"UserAgent $userAgent is equal to expected $ua.")
             case _ => // No claim in cache. Nothing to do. user will get an error because no claim exists. No security risk.
           }
+        } else {
+            throw new DwpRuntimeException(s"Session does not contain key. Cannot check User Agent. For ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}")
         }
 
       case _ if removeIf(request) =>
@@ -76,7 +79,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
  */
 object UserAgentCheckAction {
 
-  def defaultCheckIf(header: RequestHeader): Boolean = RequestSelector.toBeChecked(header)
+  def defaultCheckIf(header: RequestHeader): Boolean = !RequestSelector.startPage(header) && RequestSelector.toBeChecked(header)
 
   def defaultSetIf(header: RequestHeader): Boolean = header.method == "POST" && RequestSelector.startPage(header)
 

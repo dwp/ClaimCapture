@@ -20,12 +20,15 @@ import scala.reflect.ClassTag
 
 object ClaimHandling {
   type ClaimResult = (Claim, Result)
+  // Versioning
+  val C3VERSION = "C3Version"
+  val C3VERSION_VALUE = "2.13"
 
 }
 
 trait ClaimHandling extends RequestHandling with CacheHandling {
 
-  protected def fieldsCheck(claim: Claim): Boolean
+  protected def claimNotValid(claim: Claim): Boolean
   protected def newInstance(newuuid: String = randomUUID.toString): Claim
   protected def copyInstance(claim: Claim): Claim
 
@@ -51,14 +54,15 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
         Logger.info(s"New ${claim.key} ${claim.uuid} cached.")
         // Cookies need to be changed BEFORE session, session is within cookies.
         def tofilter(theCookie: Cookie): Boolean = {
-          theCookie.name == CachedClaim.C3VERSION || theCookie.name == getProperty("session.cookieName", "PLAY_SESSION")
+          theCookie.name == ClaimHandling.C3VERSION || theCookie.name == getProperty("session.cookieName", "PLAY_SESSION")
         }
         // Added C3Version for full Zero downtime
         withHeaders(action(claim, r, bestLang)(f))
-          .withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(CachedClaim.C3VERSION, CachedClaim.C3VERSION_VALUE): _*)
+          .withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE): _*)
           .withSession(claim.key -> claim.uuid)
           .discardingCookies(DiscardingCookie("application-finished"))
       } else {
+        Logger.debug("New claim with changing true.")
         if (key.isEmpty) Redirect(errorPageCookie)
         else {
           Logger.info(s"Changing $cacheKey - $key")
@@ -80,39 +84,11 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
    * if the mandatory fields are missing. We found the mandatory fields missing when the user uses the
    * browser's back and forward buttons instead of the ones provided by the application.
    */
-  def claimingWithCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult])(checkCookie:Boolean = false) = claimingWithConditions(f, isNotValidClaim = fieldsCheck, cookieCheck = checkCookie)
+  def claimingWithCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult],checkCookie:Boolean = false) = claimingWithConditions(f, cookieCheck = checkCookie, isNotValidClaim = claimNotValid)
 
-  def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult])(checkCookie:Boolean = false): Action[AnyContent] = claimingWithConditions(f, cookieCheck = checkCookie)
+  def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult],checkCookie:Boolean = false): Action[AnyContent] = claimingWithConditions(f, cookieCheck = checkCookie)
 
-//  /**
-//   * Here we are displaying an error page at the start of the application (after the first page) if the cookies are disabled when the user
-//   * is applying for a claim
-//   */
-//  def claimingWithCookie(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = claimingWithConditions(f, cookieCheck = true)
-
-//  private def claiming(cookieCheck: Boolean, f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
-//    implicit request => {
-//      enforceAlreadyFinishedRedirection(request,
-//        originCheck(
-//          fromCache(request) match {
-//
-//            case Some(claim) => claimingWithClaim(f, request, claim)
-//
-//            case None if cookieCheck && !Play.isTest => Redirect(errorPageCookie)
-//
-//            case None => claimingWithoutClaim(f, request)
-//          }
-//        )
-//      )
-//    }
-//  }
-
-  //  protected def claimingWithDataCheck(isNotValid: Claim => Boolean)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
-  //    implicit request =>
-  //      claimingWithCondition(isNotValid, claimingWithoutClaim(f, request))(f)
-  //  }
-
-  private def claimingWithConditions(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult], isNotValidClaim: Claim => Boolean = noClaimValidation, cookieCheck: Boolean = false): Action[AnyContent] = Action {
+  private def claimingWithConditions(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult], cookieCheck: Boolean, isNotValidClaim: Claim => Boolean = noClaimValidation): Action[AnyContent] = Action {
     implicit request =>
       enforceAlreadyFinishedRedirection(request,
         originCheck(
@@ -134,7 +110,6 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
 
   private def noClaimValidation(claim: Claim) = false
 
-
   private def claimingWithClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent], claim: Claim): Result = {
     Logger.debug(s"claimingWithClaim - ${claim.key} ${claim.uuid}")
     implicit val r = request
@@ -147,7 +122,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
     if (Play.isTest) {
       implicit val r = request
       val claim = newInstance()
-      Cache.set(claim.uuid, claim, expiration) // place an empty claim in the cache to satisfy tests
+      saveInCache(claim.uuid, claim) // place an empty claim in the cache to satisfy tests
       // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
       action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
     } else {
@@ -175,10 +150,10 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
         case Some(claim) =>
           // reaching end of process - thank you page so we delete claim for security reasons and free memory
           Cache.remove(claim.uuid)
-          originCheck(f(claim)(request)(getLang(claim))).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(CachedClaim.C3VERSION)).withNewSession.withCookies(Cookie("application-finished", "true"))
+          originCheck(f(claim)(request)(getLang(claim))).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(ClaimHandling.C3VERSION)).withNewSession.withCookies(Cookie("application-finished", "true"))
         case _ =>
           enforceAlreadyFinishedRedirection(request,
-            originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(CachedClaim.C3VERSION)).withNewSession.withCookies(Cookie("application-finished", "true"))
+            originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(ClaimHandling.C3VERSION)).withNewSession.withCookies(Cookie("application-finished", "true"))
           )
       }
     }
@@ -202,22 +177,17 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
     }) Redirect(controllers.routes.Application.backButtonPage())
     else otherwise
 
-
-
-
-
   protected def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {
-    val (key, expiration) = keyAndExpirationFrom(request)
+    val key = keyFrom(request)
     if (!key.isEmpty && key != claim.uuid) Logger.warn(s"action - Claim uuid ${claim.uuid} does not match cache key $key. Can happen if action new claim and user reuses session. Will disregard session key and use uuid.")
 
     f(claim)(request)(lang) match {
       case Left(r: Result) => r
       case Right((c: Claim, r: Result)) =>
-        Cache.set(claim.uuid, c, expiration)
+        saveInCache(claim.uuid, c)
         r
     }
   }
-
 
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
     def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = claim.questionGroup(qi) match {

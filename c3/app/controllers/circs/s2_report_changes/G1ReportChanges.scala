@@ -21,7 +21,7 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
   def present = claimingWithCheck ({implicit circs =>  implicit request =>  lang =>
     track(ReportChanges) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g1_reportChanges(form.fill(ReportChanges))(lang))
-    }})(checkCookie=true)
+    }},checkCookie=true)
 
 
   def submit = claiming {implicit circs =>  implicit request =>  lang =>
