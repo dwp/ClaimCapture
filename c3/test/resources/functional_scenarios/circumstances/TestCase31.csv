@@ -28,6 +28,8 @@ Employment - Change in circumstances,Employment,Do you usually get the same amou
 Employment - Change in circumstances,Employment,How often are you paid other,CircumstancesEmploymentChangeHowOftenFrequencyOther,
 Employment - Change in circumstances,Employment,Do you pay into a pension and/or have any work related expenses?,CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer,yes
 Employment - Change in circumstances,Employment,"Tell us what this is for, how much and how often",CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor,a
+Employment - Change in circumstances,Employment,Do you pay for things you need to do your job?,CircumstancesEmploymentChangeDoYouPayForThingsAnswer,yes
+Employment - Change in circumstances,Employment,"Give details of what you need to buy, why you need it and how much it costs",CircumstancesEmploymentChangeDoYouPayForThingsWhatFor,Some expenses to do the job
 Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,yes
 Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,b
 Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,By Post

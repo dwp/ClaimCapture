@@ -21,8 +21,9 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
   val other = "other"
   val otherText = "some other text"
   val employerOwesYouMoneyInfo = "kick back for keeping my mouth shut"
-  val doYouPayIntoPensionText = "pension text"
-  val doCareCostsForThisWorkText = "care text"
+  val didYouPayIntoPensionText = "pension text"
+  val didYouPayForThingsText = "Some things neeeded to do the job"
+  val didCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
 
   val validFinishedWeeklyPaymentEmployment = Seq(
@@ -35,8 +36,9 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
     "howOften.frequency" -> weekly,
     "usuallyPaidSameAmount" -> no,
     "employerOwesYouMoney" -> no,
-    "doYouPayIntoPension.answer" -> no,
-    "doCareCostsForThisWork.answer" -> no
+    "didYouPayIntoPension.answer" -> no,
+    "didYouPayForThings.answer" -> no,
+    "didCareCostsForThisWork.answer" -> no
   )
 
   val validFinishedMonthlyPaymentEmployment = Seq(
@@ -50,8 +52,9 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
     "monthlyPayDay" -> monthlyPayDay,
     "usuallyPaidSameAmount" -> no,
     "employerOwesYouMoney" -> no,
-    "doYouPayIntoPension.answer" -> no,
-    "doCareCostsForThisWork.answer" -> no
+    "didYouPayIntoPension.answer" -> no,
+    "didYouPayForThings.answer" -> no,
+    "didCareCostsForThisWork.answer" -> no
   )
 
   val validFinishedOtherPaymentEmployment = Seq(
@@ -66,10 +69,12 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
     "usuallyPaidSameAmount" -> yes,
     "employerOwesYouMoney" -> yes,
     "employerOwesYouMoneyInfo" -> employerOwesYouMoneyInfo,
-    "doYouPayIntoPension.answer" -> yes,
-    "doYouPayIntoPension.whatFor" -> doYouPayIntoPensionText,
-    "doCareCostsForThisWork.answer" -> yes,
-    "doCareCostsForThisWork.whatCosts" -> doCareCostsForThisWorkText,
+    "didYouPayIntoPension.answer" -> yes,
+    "didYouPayIntoPension.whatFor" -> didYouPayIntoPensionText,
+    "didYouPayForThings.answer" -> yes,
+    "didYouPayForThings.whatFor" -> didYouPayForThingsText,
+    "didCareCostsForThisWork.answer" -> yes,
+    "didCareCostsForThisWork.whatCosts" -> didCareCostsForThisWorkText,
     "moreAboutChanges" -> moreInfo
   )
 

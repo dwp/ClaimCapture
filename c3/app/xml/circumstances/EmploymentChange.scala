@@ -5,6 +5,8 @@ import xml.XMLHelper._
 
 import scala.xml.NodeSeq
 import play.api.i18n.{MMessages => Messages}
+import controllers.mappings.Mappings
+import models.yesNo.YesNoWithText
 
 
 object EmploymentChange {
@@ -163,6 +165,8 @@ object EmploymentChange {
         }
       }
 
+      {payForThings(change.doYouPayForThings, "doYouPayForThings")}
+
       {question(<CareCostsForThisWork/>, "doCareCostsForThisWork", change.careCostsForThisWork.answer)}
       {
         change.careCostsForThisWork.answer match {
@@ -239,6 +243,8 @@ object EmploymentChange {
         }
       }
 
+      {payForThings(change.didYouPayForThings, "didYouPayForThings")}
+
       {question(<CareCostsForThisWork/>, "didCareCostsForThisWork", change.careCostsForThisWork.answer)}
       {
         change.careCostsForThisWork.answer match {
@@ -310,6 +316,8 @@ object EmploymentChange {
         }
       }
 
+      {payForThings(change.willYouPayForThings, "willYouPayForThings")}
+
       {question(<CareCostsForThisWork/>, "willCareCostsForThisWork", change.careCostsForThisWork.answer)}
       {
         change.careCostsForThisWork.answer match {
@@ -327,4 +335,15 @@ object EmploymentChange {
 
     </NotStartedEmployment>
   }
+
+  def payForThings (payForThings:YesNoWithText, label:String) = {
+    {question(<PaidForThingsToDoJob/>, label, payForThings.answer)} ++
+    {
+      payForThings.answer match {
+        case Mappings.yes => {question(<PaidForThingsWhatFor/>, s"$label.whatFor", payForThings.text)}
+        case _ => NodeSeq.Empty
+      }
+    }
+  }
+
 }

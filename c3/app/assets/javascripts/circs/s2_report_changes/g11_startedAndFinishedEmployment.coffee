@@ -55,17 +55,6 @@ window.fixErrorMessages = (o) ->
     existingErrorHowOften = subString(currentTextHowOften,o.howOftenText,currentTextHowOften)
     pathHowOften.text(o.howOftenCircsText + existingErrorHowOften)
 
-  pathDoYouPayIntoPensionAnswer = vss(o.doYouPayIntoPensionAnswer)
-  if exists pathDoYouPayIntoPensionAnswer
-    currentTextDoYouPayIntoPensionAnswer = pathDoYouPayIntoPensionAnswer.text().trim()
-    existingErrorDoYouPayIntoPensionAnswer = subString(currentTextDoYouPayIntoPensionAnswer,o.doYouPayIntoPensionText,currentTextDoYouPayIntoPensionAnswer)
-    pathDoYouPayIntoPensionAnswer.text(o.didYouPayIntoPensionText + existingErrorDoYouPayIntoPensionAnswer)
-
-  pathDoCareCostsForThisWorkAnswer = vss(o.doCareCostsForThisWorkAnswer)
-  if exists pathDoCareCostsForThisWorkAnswer
-    currentTextDoCareCostsForThisWorkAnswer = pathDoCareCostsForThisWorkAnswer.text().trim()
-    existingErrorDoCareCostsForThisWorkAnswer = subString(currentTextDoCareCostsForThisWorkAnswer,o.doCareCostsForThisWorkText,currentTextDoCareCostsForThisWorkAnswer)
-    pathDoCareCostsForThisWorkAnswer.text(o.didCareCostsForThisWorkText + existingErrorDoCareCostsForThisWorkAnswer)
 
 onBeenPaidYetY = (ctx,reset) ->
   ->
@@ -158,9 +147,22 @@ window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
   S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp 0, -> S(whatFor).val("")
 
 
+#
+# Pay For things
+#
+
+window.whatThings = (payForThingsY, payForThingsN, whatThings) ->
+  if not checked(payForThingsY)
+    S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
+  S(payForThingsY).on "click", -> S("whatThingsWrap").slideDown 0
+
+  S(payForThingsN).on "click", -> S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
+
+
 window.whatCosts = (careCostsForThisWorkY, careCostsForThisWorkN, whatCosts) ->
   if not checked(careCostsForThisWorkY)
     S("whatCostsWrap").slideUp 0
 
   S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown 0
   S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp 0, -> S(whatCosts).val("")
+
