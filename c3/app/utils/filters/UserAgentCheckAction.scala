@@ -3,7 +3,7 @@ package utils.filters
 import app.ConfigProperties._
 import gov.dwp.exceptions.DwpRuntimeException
 import models.view.{CachedChangeOfCircs, CachedClaim}
-import play.api.Logger
+import play.api.{Play, Logger}
 import play.api.cache.Cache
 import play.api.mvc.{EssentialAction, RequestHeader}
 import play.api.Play.current
@@ -27,8 +27,8 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
    *         Otherwise it throws an exception to stop processing of the request by the application.
    */
   def apply(request: RequestHeader) = {
+
     val key = getKeyFromSession(request)
-//    if (key.isEmpty) throw new DwpRuntimeException(s"Session does not contain key. User Agent cannot be checked. For ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}")
 
     request match {
 
@@ -53,6 +53,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
             case _ => // No claim in cache. Nothing to do. user will get an error because no claim exists. No security risk.
           }
         } else {
+         if  (!Play.isTest)
             throw new DwpRuntimeException(s"Session does not contain key. Cannot check User Agent. For ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}")
         }
 
