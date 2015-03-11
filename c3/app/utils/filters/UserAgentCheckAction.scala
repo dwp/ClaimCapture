@@ -49,7 +49,6 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
               if (ua != userAgent) {
                 throw new DwpRuntimeException(s"UserAgent check failed. $userAgent is different from expected $ua.")
               }
-              Logger.debug(s"UserAgent $userAgent is equal to expected $ua.")
             case _ if (Cache.get(key).isDefined) => Logger.error("Lost User Agent from cache while claim still in cache? Should never happen.")
             case _ =>
             // No claim in cache. Nothing to do. user will get an error because no claim exists. No security risk.

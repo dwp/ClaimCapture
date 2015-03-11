@@ -180,7 +180,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
       case _ => false
     }) Redirect(controllers.routes.Application.backButtonPage())
     else otherwise
-  
+
   protected def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {
     val key = keyFrom(request)
     if (!key.isEmpty && key != claim.uuid) Logger.warn(s"action - Claim uuid ${claim.uuid} does not match cache key $key. Can happen if action new claim and user reuses session. Will disregard session key and use uuid.")
