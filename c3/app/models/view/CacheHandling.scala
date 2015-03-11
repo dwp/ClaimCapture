@@ -16,11 +16,14 @@ trait CacheHandling {
   def cacheKey: String
 
   // Expiration value
-  protected val expiration = getProperty("cache.expiry", 3600)
+  val expiration = getProperty("cache.expiry", 3600)
 
-  protected def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
-    r.session.get(cacheKey).getOrElse("") -> expiration
+  def keyAndExpirationFrom(r: Request[AnyContent]): (String, Int) = {
+    keyFrom(r) -> expiration
   }
+  
+
+  def keyFrom(request: Request[AnyContent]): String = request.session.get(cacheKey).getOrElse("")
 
   /**
    * Tries to get the claim of change of circs from the cache.
@@ -28,14 +31,17 @@ trait CacheHandling {
    * @return None if could not find claim/CoCs. Some(claim) is could find it.
    */
   def fromCache(request: Request[AnyContent]): Option[Claim] = {
-    val key = keyAndExpiration(request)._1
+    val key = keyFrom(request)
     if (key.isEmpty) {
-      // Log an error if session empty or with no cacheKey entry so we know it is not a cache but a cookie issue.
-      Logger.error(s"Did not receive Session information for a $cacheKey for ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot(_.name.startsWith("_"))}.")
-      None
-    } else {
+    // Log an error if session empty or with no cacheKey entry so we know it is not a cache but a cookie issue.
+    Logger.warn(s"Did not receive Session information for a $cacheKey for ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot(_.name.startsWith("_"))}.")
+    None
+    } else
+    fromCache(key)
+  }
+
+  def fromCache(key:String):Option[Claim] = {
       Cache.getAs[Claim](key)
-    }
   }
 
   protected def recordMeasurements() = {

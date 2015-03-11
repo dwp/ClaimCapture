@@ -34,8 +34,6 @@ trait CachedChangeOfCircs extends ClaimHandling {
 
   override def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang,claim.uuid,claim.transactionId)(claim.navigation) with ChangeOfCircs
 
-//  def claimingWithCheckCircs(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = claimingWithDataCheck(fieldsCheck)(f)
-
   override protected def fieldsCheck(claim:Claim):Boolean = {
     claim.questionGroup[CircumstancesReportChange] match {
       case None => true
@@ -44,15 +42,15 @@ trait CachedChangeOfCircs extends ClaimHandling {
     }
   }
 
-
-  /**
-   * Here we are displaying an error page at the start of the application (after the first page) if the cookies are disabled and checking
-   * for the mandatory fields if the user is using browser back and forward buttons
-   * @param f
-   * @return
-   */
-  def claimingCircsWithMandatoryFieldAndCookieCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
-    implicit request =>
-      claimingWithCondition(fieldsCheck,Redirect(errorPageCookie))(f)
-  }
+//
+//  /**
+//   * Here we are displaying an error page at the start of the application (after the first page) if the cookies are disabled and checking
+//   * for the mandatory fields if the user is using browser back and forward buttons
+//   * @param f
+//   * @return
+//   */
+//  def claimingCircsWithMandatoryFieldAndCookieCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
+//    implicit request =>
+//      claimingWithCondition(fieldsCheck,Redirect(errorPageCookie))(f)
+//  }
 }
