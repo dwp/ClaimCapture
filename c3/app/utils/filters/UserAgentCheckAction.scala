@@ -45,14 +45,13 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
           Logger.debug(s"UserAgentCheckAction check for key ${key}_UA")
           Cache.getAs[String](key + "_UA") match {
             case Some(ua) =>
-              Logger.debug(s"UserAgentCheckAction check for key ${key}_UA found UA")
               val userAgent = request.headers.get("User-Agent").getOrElse("")
               if (ua != userAgent) {
                 throw new DwpRuntimeException(s"UserAgent check failed. $userAgent is different from expected $ua.")
               }
               Logger.debug(s"UserAgent $userAgent is equal to expected $ua.")
             case _ if (Cache.get(key).isDefined) => Logger.error("Lost User Agent from cache while claim still in cache? Should never happen.")
-            case _ => Logger.debug(s"UserAgentCheckAction check for key ${key}_UA did not find UA")
+            case _ =>
             // No claim in cache. Nothing to do. user will get an error because no claim exists. No security risk.
           }
         } else {
@@ -66,7 +65,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
           Cache.remove(key + "_UA")
         }
 
-      case _ => Logger.debug(s"UserAgentCheckAction other. For ${request.method} url path ${request.path} ")// Nothing to do really. A request we are not interested in, e.g. access to public assets.
+      case _ => // Nothing to do really. A request we are not interested in, e.g. access to public assets.
     }
     // Call next filter's action in the chain.
     next(request)
