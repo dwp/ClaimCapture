@@ -6,6 +6,7 @@ import xml.XMLHelper._
 import scala.xml.NodeSeq
 import play.api.i18n.{MMessages => Messages}
 import controllers.mappings.Mappings
+import models.yesNo.YesNoWithText
 
 
 object EmploymentChange {
@@ -164,13 +165,7 @@ object EmploymentChange {
         }
       }
 
-      {question(<PaidForThingsToDoJob/>, "doYouPayForThings", change.doYouPayForThings.answer)}
-      {
-        change.doYouPayForThings.answer match {
-          case Mappings.yes => {question(<PaidForThingsWhatFor/>, "doYouPayForThings.whatFor", change.doYouPayForThings.text)}
-          case _ => NodeSeq.Empty
-        }
-      }
+      {payForThings(change.doYouPayForThings, "doYouPayForThings")}
 
       {question(<CareCostsForThisWork/>, "doCareCostsForThisWork", change.careCostsForThisWork.answer)}
       {
@@ -248,14 +243,7 @@ object EmploymentChange {
         }
       }
 
-      {question(<PaidForThingsToDoJob/>, "didYouPayForThings", change.didYouPayForThings.answer)}
-
-      {
-        change.didYouPayForThings.answer match {
-          case Mappings.yes => {question(<PaidForThingsWhatFor/>, "didYouPayForThings.whatFor", change.didYouPayForThings.text)}
-          case _ => NodeSeq.Empty
-        }
-      }
+      {payForThings(change.didYouPayForThings, "didYouPayForThings")}
 
       {question(<CareCostsForThisWork/>, "didCareCostsForThisWork", change.careCostsForThisWork.answer)}
       {
@@ -328,6 +316,8 @@ object EmploymentChange {
         }
       }
 
+      {payForThings(change.willYouPayForThings, "willYouPayForThings")}
+
       {question(<CareCostsForThisWork/>, "willCareCostsForThisWork", change.careCostsForThisWork.answer)}
       {
         change.careCostsForThisWork.answer match {
@@ -345,4 +335,15 @@ object EmploymentChange {
 
     </NotStartedEmployment>
   }
+
+  def payForThings (payForThings:YesNoWithText, label:String) = {
+    {question(<PaidForThingsToDoJob/>, label, payForThings.answer)} ++
+    {
+      payForThings.answer match {
+        case Mappings.yes => {question(<PaidForThingsWhatFor/>, s"$label.whatFor", payForThings.text)}
+        case _ => NodeSeq.Empty
+      }
+    }
+  }
+
 }

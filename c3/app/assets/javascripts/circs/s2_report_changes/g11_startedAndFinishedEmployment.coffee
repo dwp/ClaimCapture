@@ -55,17 +55,6 @@ window.fixErrorMessages = (o) ->
     existingErrorHowOften = subString(currentTextHowOften,o.howOftenText,currentTextHowOften)
     pathHowOften.text(o.howOftenCircsText + existingErrorHowOften)
 
-  pathDoYouPayIntoPensionAnswer = vss(o.doYouPayIntoPensionAnswer)
-  if exists pathDoYouPayIntoPensionAnswer
-    currentTextDoYouPayIntoPensionAnswer = pathDoYouPayIntoPensionAnswer.text().trim()
-    existingErrorDoYouPayIntoPensionAnswer = subString(currentTextDoYouPayIntoPensionAnswer,o.doYouPayIntoPensionText,currentTextDoYouPayIntoPensionAnswer)
-    pathDoYouPayIntoPensionAnswer.text(o.didYouPayIntoPensionText + existingErrorDoYouPayIntoPensionAnswer)
-
-  pathDoCareCostsForThisWorkAnswer = vss(o.doCareCostsForThisWorkAnswer)
-  if exists pathDoCareCostsForThisWorkAnswer
-    currentTextDoCareCostsForThisWorkAnswer = pathDoCareCostsForThisWorkAnswer.text().trim()
-    existingErrorDoCareCostsForThisWorkAnswer = subString(currentTextDoCareCostsForThisWorkAnswer,o.doCareCostsForThisWorkText,currentTextDoCareCostsForThisWorkAnswer)
-    pathDoCareCostsForThisWorkAnswer.text(o.didCareCostsForThisWorkText + existingErrorDoCareCostsForThisWorkAnswer)
 
 onBeenPaidYetY = (ctx,reset) ->
   ->

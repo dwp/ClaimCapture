@@ -140,6 +140,7 @@ case class CircumstancesEmploymentNotStarted(beenPaid: String,
                                              howOften: PaymentFrequency,
                                              usuallyPaidSameAmount: Option[String],
                                              payIntoPension: YesNoWithText = YesNoWithText("", None),
+                                             willYouPayForThings: YesNoWithText = YesNoWithText("", None),
                                              careCostsForThisWork: YesNoWithText = YesNoWithText("", None),
                                              moreAboutChanges: Option[String] = None)
   extends QuestionGroup(CircumstancesEmploymentNotStarted)

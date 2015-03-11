@@ -26,6 +26,7 @@ object CircumstancesPageFactory extends PageFactory {
       case G9EmploymentChangePage.title => G9EmploymentChangePage (ctx)
       case G10StartedEmploymentAndOngoingPage.title => G10StartedEmploymentAndOngoingPage (ctx)
       case G11StartedAndFinishedEmploymentPage.title => G11StartedAndFinishedEmploymentPage (ctx)
+      case G12EmploymentNotStartedPage.title => G12EmploymentNotStartedPage (ctx)
       case G1DeclarationPage.title => G1DeclarationPage (ctx)
       case _ => new UnknownPage(title, ctx)
     }
