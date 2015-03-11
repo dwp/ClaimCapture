@@ -16,10 +16,10 @@ window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCa
     hidePermanentBreakDate()
 
   if isMondayOrFriday(breakStartDate)
-    $("#" + breakStartTime).slideUp 0
+    hideTime(breakStartTime)
 
   if isMondayOrFriday(breakEndedDate)
-    $("#" + breakEndedTime).slideUp 0
+    hideTime(breakEndedTime)
 
   $("#" + breakEndedY).on "click", ->
     showBreakEndedDate()
@@ -43,16 +43,16 @@ window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCa
     hideExpectStartCaringDate()
     hidePermanentBreakDate()
 
-  dateOnClick(breakStartDate,(id)->
+  dateOnChange(breakStartDate,(id)->
     isIt = isMondayOrFriday(id)
-    $("#" + breakStartTime).slideUp 0 if isIt
-    $("#" + breakStartTime).slideDown 0 if !isIt
+    hideTime(breakStartTime) if isIt
+    showTime(breakStartTime) if !isIt
   )
 
-  dateOnClick(breakEndedDate,(id)->
+  dateOnChange(breakEndedDate,(id)->
     isIt = isMondayOrFriday(id)
-    $("#" + breakEndedTime).slideUp 0 if isIt
-    $("#" + breakEndedTime).slideDown 0 if !isIt
+    hideTime(breakEndedTime) if isIt
+    showTime(breakEndedTime) if !isIt
   )
 
 getDate = (id) ->
@@ -72,10 +72,15 @@ isMondayOrFriday = (id) ->
   date = getDate(id)
   date != undefined and (date.getDay() == 1 or date.getDay() == 5)
 
-dateOnClick = (id,f) ->
-  $("#"+id+" li input").on "click", ->
+dateOnChange = (id,f) ->
+  $("#"+id+" li input").on "change paste keyup", ->
     f(id)
 
+hideTime = (id) ->
+  $("#"+id).parent("li").slideUp 0
+
+showTime = (id) ->
+  $("#"+id).parent("li").slideDown 0
 
 hideBreakEndedDate = () ->
   $("#breakEndedDateTime").slideUp 0
