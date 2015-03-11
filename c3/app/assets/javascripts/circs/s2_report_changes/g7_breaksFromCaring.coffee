@@ -1,4 +1,4 @@
-window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCaringN, expectStartCaringDontKnow) ->
+window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCaringN, expectStartCaringDontKnow, breakStartDate, breakStartTime, breakEndedDate,breakEndedTime) ->
   if not $("#" + breakEndedY).prop("checked")
     hideBreakEndedDate()
 
@@ -14,6 +14,12 @@ window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCa
 
   if not $("#" + expectStartCaringN).prop("checked")
     hidePermanentBreakDate()
+
+  if isMondayOrFriday(breakStartDate)
+    $("#" + breakStartTime).slideUp 0
+
+  if isMondayOrFriday(breakEndedDate)
+    $("#" + breakEndedTime).slideUp 0
 
   $("#" + breakEndedY).on "click", ->
     showBreakEndedDate()
@@ -36,6 +42,40 @@ window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCa
   $("#" + expectStartCaringDontKnow).on "click", ->
     hideExpectStartCaringDate()
     hidePermanentBreakDate()
+
+  dateOnClick(breakStartDate,(id)->
+    isIt = isMondayOrFriday(id)
+    $("#" + breakStartTime).slideUp 0 if isIt
+    $("#" + breakStartTime).slideDown 0 if !isIt
+  )
+
+  dateOnClick(breakEndedDate,(id)->
+    isIt = isMondayOrFriday(id)
+    $("#" + breakEndedTime).slideUp 0 if isIt
+    $("#" + breakEndedTime).slideDown 0 if !isIt
+  )
+
+getDate = (id) ->
+  values = $("#"+id+" li input").map( ->
+    $(this).val()
+  )
+  m = parseInt(values[1],10)
+  d = parseInt(values[0],10)
+  y = parseInt(values[2],10)
+  date = new Date(y,m-1,d)
+  if date.getFullYear() == y and date.getMonth() + 1 == m and date.getDate() == d
+    date
+  else
+    undefined
+
+isMondayOrFriday = (id) ->
+  date = getDate(id)
+  date != undefined and (date.getDay() == 1 or date.getDay() == 5)
+
+dateOnClick = (id,f) ->
+  $("#"+id+" li input").on "click", ->
+    f(id)
+
 
 hideBreakEndedDate = () ->
   $("#breakEndedDateTime").slideUp 0

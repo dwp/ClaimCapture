@@ -103,21 +103,24 @@
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 <script type="text/javascript">
-$(function(){
-window.areaCounter({selector:"@CarersCrypto.encryptAES("wherePersonBreaksInCare_text")",maxChars:60});
-window.areaCounter({selector:"@CarersCrypto.encryptAES("whereYouBreaksInCare_text")",maxChars:60});
-window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
-})
+    $(function(){
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("wherePersonBreaksInCare_text")",maxChars:60});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("whereYouBreaksInCare_text")",maxChars:60});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
 
-$(function(){
-window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
-"@CarersCrypto.encryptAES("breakEnded_answer_no")",
-"@CarersCrypto.encryptAES("expectStartCaring_answer_yes")",
-"@CarersCrypto.encryptAES("expectStartCaring_answer_no")",
-"@CarersCrypto.encryptAES("expectStartCaring_answer_dontknow")"
-);
-    @ga.stagePrompt()
-});
+        window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
+        "@CarersCrypto.encryptAES("breakEnded_answer_no")",
+        "@CarersCrypto.encryptAES("expectStartCaring_answer_yes")",
+        "@CarersCrypto.encryptAES("expectStartCaring_answer_no")",
+        "@CarersCrypto.encryptAES("expectStartCaring_answer_dontknow")",
+        "@CarersCrypto.encryptAES("breaksInCareStartDate")",
+        "@CarersCrypto.encryptAES("breaksInCareStartTime")",
+        "@CarersCrypto.encryptAES("breakEnded.endDate")",
+        "@CarersCrypto.encryptAES("breakEnded.endTime")"
+        );
+
+        @ga.stagePrompt()
+    });
 
 </script>
 }
