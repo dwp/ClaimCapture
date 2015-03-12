@@ -29,3 +29,7 @@ object CurrencyTemplate {
 object DatepickerTemplate {
   implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.datepickerTemplate.f)
 }
+
+object EligibilityTemplate {
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.eligibilityTemplate.f)
+}

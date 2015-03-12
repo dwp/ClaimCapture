@@ -14,7 +14,7 @@ import models.domain.Claim
 import scala.reflect.ClassTag
 import play.api.i18n.Lang
 import scala.language.postfixOps
-import models.view.CachedClaim.ClaimResult
+import models.view.ClaimHandling.ClaimResult
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 object G2BeenEmployed extends Controller with CachedClaim with Navigable {

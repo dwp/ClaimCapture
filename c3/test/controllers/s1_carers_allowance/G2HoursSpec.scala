@@ -5,15 +5,18 @@ import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest, WithApplication}
 
-class G2HoursSpec extends Specification with Tags {
+class G2EligibilitySpec extends Specification with Tags {
   "Carer's Allowance - Hours - Controller" should {
-    val answerYesNo = "yes"
-    val hoursInput = Seq("hours.answer" -> answerYesNo)
+    val answerHours = "yes"
+    val answerOver16 = "no"
+    val answerLivesInGB = "no"
+
+    val eligibilityInput = Seq("hours.answer" -> answerHours, "over16.answer" -> answerOver16, "livesInGB.answer" -> answerLivesInGB)
 
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = controllers.s1_carers_allowance.G2Hours.present(request)
+      val result = controllers.s1_carers_allowance.G2Eligibility.present(request)
       status(result) mustEqual OK
     }
 
@@ -21,43 +24,44 @@ class G2HoursSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody("hours.answer" -> "")
 
-      val result = controllers.s1_carers_allowance.G2Hours.submit(request)
+      val result = controllers.s1_carers_allowance.G2Eligibility.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest()
-        .withFormUrlEncodedBody(hoursInput: _*)
+        .withFormUrlEncodedBody(eligibilityInput: _*)
 
-      val result = controllers.s1_carers_allowance.G2Hours.submit(request)
+      val result = controllers.s1_carers_allowance.G2Eligibility.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     "add submitted form to the cached claim when answered 'yes'" in new WithApplication with Claiming {
-      val request = FakeRequest()
-        .withFormUrlEncodedBody(hoursInput: _*)
+      val request = FakeRequest().withFormUrlEncodedBody(eligibilityInput: _*)
 
-      val result = controllers.s1_carers_allowance.G2Hours.submit(request)
+      val result = controllers.s1_carers_allowance.G2Eligibility.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.CarersAllowance)
-      section.questionGroup(Hours) must beLike {
-        case Some(f: Hours) => {
-          f.answerYesNo must equalTo(answerYesNo)
-        }
+      section.questionGroup(Eligibility) must beLike {
+        case Some(f: Eligibility) =>
+          f.hours must equalTo(answerHours)
+          f.over16 must equalTo(answerOver16)
+          f.livesInGB must equalTo(answerLivesInGB)
+
       }
     }
 
     "add submitted form to the cached claim when answered 'no'" in new WithApplication with Claiming {
       val request = FakeRequest()
-        .withFormUrlEncodedBody("hours.answer" -> "no")
+        .withFormUrlEncodedBody("hours.answer" -> "no","over16.answer" -> "no", "livesInGB.answer" -> "no")
 
-      val result = controllers.s1_carers_allowance.G2Hours.submit(request)
+      val result = controllers.s1_carers_allowance.G2Eligibility.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.CarersAllowance)
-      section.questionGroup(Hours) must beLike {
-        case Some(f: Hours) => {
-          f.answerYesNo must equalTo("no")
-        }
+      section.questionGroup(Eligibility) must beLike {
+        case Some(f: Eligibility) =>
+          f.hours must equalTo("no")
+
       }
     }
   } section("unit", models.domain.CarersAllowance.id)

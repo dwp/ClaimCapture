@@ -10,10 +10,12 @@ class G12EmploymentNotStartedPage(ctx:PageObjectsContext) extends CircumstancesP
   declareSelect("#howOften_frequency", "CircumstancesEmploymentChangeHowOftenFrequency")
   declareInput("#howOften_frequency_other", "CircumstancesEmploymentChangeHowOftenFrequencyOther")
   declareYesNo("#usuallyPaidSameAmount", "CircumstancesEmploymentChangeUsuallyPaidSameAmount")
-  declareYesNo("#doYouPayIntoPension_answer", "CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer")
-  declareInput("#doYouPayIntoPension_whatFor", "CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor")
-  declareYesNo("#doCareCostsForThisWork_answer", "CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer")
-  declareInput("#doCareCostsForThisWork_whatCosts", "CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts")
+  declareYesNo("#willYouPayIntoPension_answer", "CircumstancesEmploymentChangeWillYouPayIntoPensionAnswer")
+  declareInput("#willYouPayIntoPension_whatFor", "CircumstancesEmploymentChangeWillYouPayIntoPensionWhatFor")
+  declareYesNo("#willYouPayForThings_answer", "CircumstancesEmploymentChangeWillYouPayForThingsAnswer")
+  declareInput("#willYouPayForThings_whatFor", "CircumstancesEmploymentChangeWillYouPayForThingsWhatFor")
+  declareYesNo("#willCareCostsForThisWork_answer", "CircumstancesEmploymentChangeWillCareCostsForThisWorkAnswer")
+  declareInput("#willCareCostsForThisWork_whatCosts", "CircumstancesEmploymentChangeWillCareCostsForThisWorkWhatCosts")
   declareInput("#moreAboutChanges", "CircumstancesEmploymentChangeMoreAboutChanges")
 }
 

@@ -26,7 +26,7 @@ final class G1AboutOtherMoneyPage(ctx:PageObjectsContext) extends ClaimPage(ctx,
 }
 
 object G1AboutOtherMoneyPage {
-  val title = "Statutory pay, benefits and payments".toLowerCase
+  val title = "Other Payments".toLowerCase
 
   val url  = "/other-money/about-other-money"
 

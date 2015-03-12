@@ -69,13 +69,14 @@ object Global extends WithFilters(MonitorFilter,UserAgentCheckFilter(),DwpCSRFFi
   override def getControllerInstance[A](controllerClass: Class[A]): A = resolve(controllerClass)
 
   override def onError(request: RequestHeader, ex: Throwable) = {
-    Logger.error(ex.getMessage)
     val csrfCookieName = getProperty("csrf.cookie.name","csrf")
     val csrfSecure = getProperty("csrf.cookie.secure",getProperty("session.secure",default=false))
     val theDomain = Play.current.configuration.getString("session.domain")
     val C3VERSION = "C3Version"
     val pattern = """.*circumstances.*""".r
     val cookiesAbsent = request.cookies.isEmpty
+
+    Logger.error(s"${ex.getMessage}. Cookies empty $cookiesAbsent")
 
     request.headers.get("Referer").getOrElse("Unknown") match {
       // we redirect to the error page with specific cookie error message if cookies are disabled.

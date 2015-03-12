@@ -14,7 +14,7 @@ import controllers.s8_self_employment.SelfEmployment._
 import utils.helpers.PastPresentLabelHelper._
 import models.view.Navigable
 import play.api.i18n.Lang
-import models.view.CachedClaim.ClaimResult
+import models.view.ClaimHandling.ClaimResult
 import controllers.CarersForms._
 import play.api.data.FormError
 import models.yesNo.YesNoWithText

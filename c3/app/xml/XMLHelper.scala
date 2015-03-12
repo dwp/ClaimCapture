@@ -3,7 +3,7 @@ package xml
 import javax.xml.bind.DatatypeConverter
 
 import app.XMLValues._
-import com.dwp.carers.security.encryption.EncryptorAES
+import gov.dwp.carers.security.encryption.EncryptorAES
 import models._
 import models.domain.Claim
 import play.api.i18n.{Lang, MMessages => Messages}

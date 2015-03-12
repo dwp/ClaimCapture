@@ -1,7 +1,7 @@
 package controllers
 
 import models.domain.{ChangeOfCircs, FullClaim, Claim}
-import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
+import gov.dwp.carers.xml.validation.XmlValidatorFactory
 import xml.circumstances.DWPCoCircs
 import xml.claim.DWPCAClaim
 

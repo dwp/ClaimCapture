@@ -36,7 +36,7 @@ object G1ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
       }
   }
 
-  def submit = claiming { implicit circs =>  implicit request =>  lang =>
+  def submit = claiming ({ implicit circs =>  implicit request =>  lang =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.circs.s1_identification.g1_reportAChangeInYourCircumstances(formWithErrors)(lang)),
         f => circs.update(f) -> {
@@ -46,5 +46,5 @@ object G1ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
           Redirect(controllers.circs.s2_report_changes.routes.G1ReportChanges.present())
         }
       )
-  }
+  },checkCookie=true)
 }
