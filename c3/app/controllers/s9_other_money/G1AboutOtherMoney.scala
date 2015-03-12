@@ -28,7 +28,7 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
       "howMuch" -> optional(nonEmptyText verifying validCurrency8Required),
       "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
-      "employersAddress" -> optional(address),
+      "employersAddress" -> optional(address.verifying(requiredAddress)),
       "employersPostcode" -> optional(text verifying validPostcode)
     )(YesNoWithEmployerAndMoney.apply)(YesNoWithEmployerAndMoney.unapply)
       .verifying("statEmployerNameRequired", YesNoWithEmployerAndMoney.validateEmployerNameOnYes _)
@@ -40,7 +40,7 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
       "howMuch" -> optional(nonEmptyText verifying validCurrency8Required),
       "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
-      "employersAddress" -> optional(address),
+      "employersAddress" -> optional(address.verifying(requiredAddress)),
       "employersPostcode" -> optional(text verifying validPostcode)
     )(YesNoWithEmployerAndMoney.apply)(YesNoWithEmployerAndMoney.unapply)
       .verifying("otherPayEmployerNameRequired", YesNoWithEmployerAndMoney.validateEmployerNameOnYes _)
