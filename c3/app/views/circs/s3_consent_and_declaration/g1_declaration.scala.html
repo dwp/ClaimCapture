@@ -28,7 +28,7 @@
 	                )
 
                     @if(getProperty("email.frontend",false)) {
-                        @yesNoRadioGroup(declarationForm("wantsEmailContact"))
+                        @yesNoRadioGroup(declarationForm("wantsEmailContactCircs"))
 
                         @otherDetailPlaceHolder(
                             inputDef = Seq(
@@ -109,8 +109,8 @@
         <script type="text/javascript" src='@routes.Assets.at("javascripts/email.js")'></script>
         <script type="text/javascript">
             $(function() {
-                window.emailInit("@CarersCrypto.encryptAES("wantsEmailContact_yes")",
-                                 "@CarersCrypto.encryptAES("wantsEmailContact_no")",
+                window.emailInit("@CarersCrypto.encryptAES("wantsEmailContactCircs_yes")",
+                                 "@CarersCrypto.encryptAES("wantsEmailContactCircs_no")",
                                  "@CarersCrypto.encryptAES("mail")",
                                  "@CarersCrypto.encryptAES("mailConfirmation")");
             });

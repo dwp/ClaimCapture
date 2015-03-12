@@ -31,7 +31,7 @@ class G1Declaration extends Controller with CachedChangeOfCircs with Navigable
     "confirm" -> carersNonEmptyText,
     "circsSomeOneElse" -> optional(carersText),
     "nameOrOrganisation" -> optional(carersNonEmptyText(maxLength = 60)),
-    "wantsEmailContact" -> optional(carersNonEmptyText.verifying(validYesNo)),
+    "wantsEmailContactCircs" -> optional(carersNonEmptyText.verifying(validYesNo)),
     "mail" -> optional(email.verifying(Constraints.maxLength(254))),
     "mailConfirmation" -> optional(text(maxLength = 254))
   )(CircumstancesDeclaration.apply)(CircumstancesDeclaration.unapply)
@@ -57,7 +57,7 @@ class G1Declaration extends Controller with CachedChangeOfCircs with Navigable
             .replaceError("", "nameOrOrganisation", FormError("nameOrOrganisation", "error.required"))
             .replaceError("","error.email.match",FormError("mailConfirmation","error.email.match"))
             .replaceError("","error.email.required",FormError("mail","error.required"))
-            .replaceError("","error.wants.required",FormError("wantsEmailContact","error.required"))
+            .replaceError("","error.wants.required",FormError("wantsEmailContactCircs","error.required"))
           BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(formWithErrorsUpdate)(lang)(circs,request))
         },
         f => {
