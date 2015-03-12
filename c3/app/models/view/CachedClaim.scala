@@ -30,9 +30,9 @@ trait CachedClaim extends ClaimHandling {
   override lazy val errorPage = routes.ClaimEnding.error()
   override lazy val errorPageBrowserBackButton = routes.ClaimEnding.errorBrowserBackbutton()
 
-  protected def newInstance(newuuid: String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid) with FullClaim
+  override protected def newInstance(newuuid: String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid) with FullClaim
 
-  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid, claim.transactionId, claim.previouslySavedClaim)(claim.navigation) with FullClaim
+  override protected def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid, claim.transactionId, claim.previouslySavedClaim)(claim.navigation) with FullClaim
 
   override protected def claimNotValid(claim: Claim): Boolean = {
     (claim.questionGroup[ClaimDate] match {
