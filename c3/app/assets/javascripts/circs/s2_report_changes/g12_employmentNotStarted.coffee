@@ -31,16 +31,7 @@ window.fixErrorMessages = (o) ->
     when "Monthly" then o.usuallyPaidSameAmountMonthText
     else o.usuallyPaidSameAmountOtherText
   vssText(o.usuallyPaidSameAmount,textToUse + existingError)
-  pathDoYouPayIntoPensionAnswer = vss(o.doYouPayIntoPensionAnswer)
-  if exists pathDoYouPayIntoPensionAnswer
-    currentTextDoYouPayIntoPensionAnswer = pathDoYouPayIntoPensionAnswer.text().trim()
-    existingErrorDoYouPayIntoPensionAnswer = subString(currentTextDoYouPayIntoPensionAnswer,o.doYouPayIntoPensionText,currentTextDoYouPayIntoPensionAnswer)
-    pathDoYouPayIntoPensionAnswer.text(o.willYouPayIntoPensionText + existingErrorDoYouPayIntoPensionAnswer)
-  pathDoCareCostsForThisWorkAnswer = vss(o.doCareCostsForThisWorkAnswer)
-  if exists pathDoCareCostsForThisWorkAnswer
-    currentTextDoCareCostsForThisWorkAnswer = pathDoCareCostsForThisWorkAnswer.text().trim()
-    existingErrorDoCareCostsForThisWorkAnswer = subString(currentTextDoCareCostsForThisWorkAnswer,o.doCareCostsForThisWorkText,currentTextDoCareCostsForThisWorkAnswer)
-    pathDoCareCostsForThisWorkAnswer.text(o.willCareCostsForThisWorkText + existingErrorDoCareCostsForThisWorkAnswer)
+
   pathHowOften = vss(o.howOften)
   if exists pathHowOften
     currentTextHowOften = pathHowOften.text().trim()
@@ -100,6 +91,18 @@ window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
   S(payIntoPensionY).on "click", -> S("whatForWrap").slideDown 0
 
   S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp 0, -> S(whatFor).val("")
+
+#
+# Pay For things
+#
+
+window.whatThings = (payForThingsY, payForThingsN, whatThings) ->
+  if not checked(payForThingsY)
+    S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
+  S(payForThingsY).on "click", -> S("whatThingsWrap").slideDown 0
+
+  S(payForThingsN).on "click", -> S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
+
 
 window.whatCosts = (careCostsForThisWorkY, careCostsForThisWorkN, whatCosts) ->
   if not checked careCostsForThisWorkY

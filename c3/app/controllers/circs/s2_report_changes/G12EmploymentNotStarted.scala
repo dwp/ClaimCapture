@@ -12,18 +12,25 @@ import models.yesNo.YesNoWithText
 
 object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with Navigable {
   val payIntoPension =
-    "doYouPayIntoPension" -> mapping (
+    "willYouPayIntoPension" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
       "whatFor" -> optional(nonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("doYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
+      .verifying("willYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
+
+  val payForThings =
+    "willYouPayForThings" -> mapping (
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "whatFor" -> optional(carersTextWithPound(minLength=1, maxLength = 300))
+    )(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("willYouPayForThings.text.required", YesNoWithText.validateOnYes _)
 
   val careCostsForThisWork =
-    "doCareCostsForThisWork" -> mapping (
+    "willCareCostsForThisWork" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
       "whatCosts" -> optional(nonEmptyText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("doCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
+      .verifying("willCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
 
   val form = Form(mapping(
     "beenPaidYet" -> nonEmptyText.verifying(validYesNo),
@@ -32,6 +39,7 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
     "howOften" -> paymentFrequency.verifying(validPaymentFrequencyOnly),
     "usuallyPaidSameAmount" -> optional(text.verifying(validYesNo)),
     payIntoPension,
+    payForThings,
     careCostsForThisWork,
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesEmploymentNotStarted.apply)(CircumstancesEmploymentNotStarted.unapply)
@@ -53,8 +61,9 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
         val formWithErrorsUpdate = formWithErrors
           .replaceError("howOften.frequency","error.required",FormError("howOften","error.required"))
           .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
-          .replaceError("doYouPayIntoPension","doYouPayIntoPension.text.required",FormError("doYouPayIntoPension.whatFor","error.required"))
-          .replaceError("doCareCostsForThisWork","doCareCostsForThisWork.text.required",FormError("doCareCostsForThisWork.whatCosts","error.required"))
+          .replaceError("willYouPayIntoPension","willYouPayIntoPension.text.required",FormError("willYouPayIntoPension.whatFor","error.required"))
+          .replaceError("willYouPayForThings","willYouPayForThings.text.required",FormError("willYouPayForThings.whatFor","error.required"))
+          .replaceError("willCareCostsForThisWork","willCareCostsForThisWork.text.required",FormError("willCareCostsForThisWork.whatCosts","error.required"))
           .replaceError("", "expected.howMuchPaid",FormError("howMuchPaid","error.required"))
           .replaceError("", "expected.whenExpectedToBePaidDate",FormError("whenExpectedToBePaidDate","error.required"))
           .replaceError("", "expected.howOften",FormError("howOften","error.required"))

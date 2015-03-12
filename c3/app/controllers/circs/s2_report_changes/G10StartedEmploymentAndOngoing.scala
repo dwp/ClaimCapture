@@ -18,6 +18,13 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("doYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
 
+  val payForThings =
+    "doYouPayForThings" -> mapping (
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "whatFor" -> optional(carersTextWithPound(minLength=1, maxLength = 300))
+    )(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("doYouPayForThings.text.required", YesNoWithText.validateOnYes _)
+
   val careCostsForThisWork =
     "doCareCostsForThisWork" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -33,6 +40,7 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
     "monthlyPayDay" -> optional(carersText(maxLength = 35)),
     "usuallyPaidSameAmount" -> nonEmptyText.verifying(validYesNo),
     payIntoPension,
+    payForThings,
     careCostsForThisWork,
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesStartedEmploymentAndOngoing.apply)(CircumstancesStartedEmploymentAndOngoing.unapply)
@@ -53,6 +61,7 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
           .replaceError("howOften.frequency.other","error.restricted.characters",FormError("howOften","error.restricted.characters"))
           .replaceError("", "expected.monthlyPayDay",FormError("monthlyPayDay","error.required"))
           .replaceError("doYouPayIntoPension","doYouPayIntoPension.text.required",FormError("doYouPayIntoPension.whatFor","error.required"))
+          .replaceError("doYouPayForThings","doYouPayForThings.text.required",FormError("doYouPayForThings.whatFor","error.required"))
           .replaceError("doCareCostsForThisWork","doCareCostsForThisWork.text.required",FormError("doCareCostsForThisWork.whatCosts","error.required"))
 
         BadRequest(views.html.circs.s2_report_changes.g10_startedEmploymentAndOngoing(formWithErrorsUpdate)(lang))

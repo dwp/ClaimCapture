@@ -16,7 +16,7 @@ import controllers.CarersForms._
 import play.api.data.FormError
 import models.domain.Claim
 import play.api.i18n.Lang
-import models.view.CachedClaim.ClaimResult
+import models.view.ClaimHandling.ClaimResult
 
 object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

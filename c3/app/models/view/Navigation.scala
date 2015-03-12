@@ -3,10 +3,10 @@ package models.view
 import play.api.mvc.{Request, Result, AnyContent}
 import models.domain.Claim
 import scala.reflect.ClassTag
-import models.view.CachedClaim.ClaimResult
+import models.view.ClaimHandling.ClaimResult
 
 trait Navigable {
-  this: CachedClaim =>
+  this: ClaimHandling =>
 
   def resetPreviewState(f: => Claim => Result)(implicit claim: Claim):ClaimResult = {
 

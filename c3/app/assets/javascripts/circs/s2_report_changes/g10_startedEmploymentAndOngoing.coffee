@@ -202,6 +202,19 @@ window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
 
   S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp 0, -> val(whatFor,"")
 
+
+#
+# Pay For things
+#
+
+window.whatThings = (payForThingsY, payForThingsN, whatThings) ->
+  if not checked(payForThingsY)
+    S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
+  S(payForThingsY).on "click", -> S("whatThingsWrap").slideDown 0
+
+  S(payForThingsN).on "click", -> S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
+
+
 #
 # What Costs function
 #
