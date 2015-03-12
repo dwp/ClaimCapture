@@ -15,10 +15,10 @@ window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCa
   if not $("#" + expectStartCaringN).prop("checked")
     hidePermanentBreakDate()
 
-  if isMondayOrFriday(breakStartDate)
+  if isNotMondayOrFriday(breakStartDate)
     hideTime(breakStartTime)
 
-  if isMondayOrFriday(breakEndedDate)
+  if isNotMondayOrFriday(breakEndedDate)
     hideTime(breakEndedTime)
 
   $("#" + breakEndedY).on "click", ->
@@ -44,15 +44,15 @@ window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCa
     hidePermanentBreakDate()
 
   dateOnChange(breakStartDate,(id)->
-    isIt = isMondayOrFriday(id)
+    isIt = isNotMondayOrFriday(id)
     hideTime(breakStartTime) if isIt
-    showTime(breakStartTime) if !isIt
+    showTime(breakStartTime) if not isIt
   )
 
   dateOnChange(breakEndedDate,(id)->
-    isIt = isMondayOrFriday(id)
+    isIt = isNotMondayOrFriday(id)
     hideTime(breakEndedTime) if isIt
-    showTime(breakEndedTime) if !isIt
+    showTime(breakEndedTime) if not isIt
   )
 
 getDate = (id) ->
@@ -68,9 +68,9 @@ getDate = (id) ->
   else
     undefined
 
-isMondayOrFriday = (id) ->
+isNotMondayOrFriday = (id) ->
   date = getDate(id)
-  date != undefined and (date.getDay() == 1 or date.getDay() == 5)
+  not (date != undefined and (date.getDay() == 1 or date.getDay() == 5))
 
 dateOnChange = (id,f) ->
   $("#"+id+" li input").on "change paste keyup", ->

@@ -96,12 +96,10 @@ object CircumstancesScenarioFactory {
     val claim = reportBreakFromCaring
 
     claim.BreaksInCareStartDate = "03/04/2002"
-    claim.BreaksInCareStartTime = "10 am"
     claim.BreaksInCareWhereWasThePersonYouCareFor = CircsBreaksWhereabouts.Hospital
     claim.BreaksInCareWhereWereYou = CircsBreaksWhereabouts.Holiday
     claim.BreaksInCareEnded = mappings.Mappings.yes
     claim.BreaksInCareEndDate = "01/01/2004"
-    claim.BreaksInCareEndTime = "10 am"
     claim.BreaksInCareMedicalCareDuringBreak = mappings.Mappings.yes
 
     claim
@@ -145,7 +143,6 @@ object CircumstancesScenarioFactory {
     val claim = reportBreakFromCaring
 
     claim.BreaksInCareStartDate = "03/04/2002"
-    claim.BreaksInCareStartTime = "10 am"
     claim.BreaksInCareWhereWasThePersonYouCareFor = CircsBreaksWhereabouts.Hospital
     claim.BreaksInCareWhereWereYou = CircsBreaksWhereabouts.Holiday
     claim.BreaksInCareEnded = mappings.Mappings.no
@@ -158,7 +155,7 @@ object CircumstancesScenarioFactory {
   def reportBreakFromCaringBreaksInCareEndedNoAndExpectToStartCaringNo = {
     val claim = reportBreakFromCaring
 
-    claim.BreaksInCareStartDate = "03/04/2002"
+    claim.BreaksInCareStartDate = "05/04/2002"
     claim.BreaksInCareStartTime = "10 am"
     claim.BreaksInCareWhereWasThePersonYouCareFor = CircsBreaksWhereabouts.Hospital
     claim.BreaksInCareWhereWereYou = CircsBreaksWhereabouts.Holiday
