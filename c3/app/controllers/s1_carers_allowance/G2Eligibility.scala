@@ -17,9 +17,10 @@ object G2Eligibility extends Controller with CachedClaim with Navigable {
     "livesInGB.answer" -> nonEmptyText.verifying(validYesNo)
   )(Eligibility.apply)(Eligibility.unapply))
 
-  def present = claimingWithCookie {implicit claim =>  implicit request =>  lang =>
-    track(Eligibility) { implicit claim => Ok(views.html.s1_carers_allowance.g2_eligibility(form.fill(Eligibility))(lang)) }
-  }
+  def present = claiming ({implicit claim =>  implicit request =>  lang =>
+    track(Eligibility) {
+      implicit claim => Ok(views.html.s1_carers_allowance.g2_eligibility(form.fill(Eligibility))(lang))
+    }},checkCookie=true)
 
   def submit = claiming {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(

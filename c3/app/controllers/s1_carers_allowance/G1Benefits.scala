@@ -21,11 +21,11 @@ object G1Benefits extends Controller with CachedClaim with Navigable {
     track(Benefits) { implicit claim => Ok(views.html.s1_carers_allowance.g1_benefits(form.fill(Benefits))(lang)) }
   }
 
-  def submit = claiming {implicit claim =>  implicit request =>  lang =>
+  def submit = claiming ({implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrors)(lang))
       },
       f => claim.update(f) -> Redirect(routes.G2Eligibility.present()))
-  }
+  }, checkCookie=true)
 }

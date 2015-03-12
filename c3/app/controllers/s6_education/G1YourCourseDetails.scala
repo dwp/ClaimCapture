@@ -8,7 +8,7 @@ import models.view.{Navigable, CachedClaim}
 import models.domain.YourCourseDetails
 import utils.helpers.CarersForm._
 import controllers.mappings.Mappings._
-import models.view.CachedClaim.ClaimResult
+import models.view.ClaimHandling.ClaimResult
 import play.api.data.FormError
 import models.domain.Claim
 import controllers.CarersForms._

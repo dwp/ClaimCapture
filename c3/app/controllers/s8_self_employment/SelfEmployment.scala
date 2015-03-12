@@ -5,7 +5,7 @@ import models.view.CachedClaim
 import models.domain._
 import models.view.Navigable
 import play.api.i18n.Lang
-import models.view.CachedClaim.ClaimResult
+import models.view.ClaimHandling.ClaimResult
 import controllers.mappings.Mappings._
 
 object SelfEmployment extends Controller with CachedClaim with Navigable {
