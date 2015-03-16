@@ -25,7 +25,7 @@ object NINOMappings {
 
   def filledInNino: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.required") {
     case NationalInsuranceNumber(Some(_)) => Valid
-    case _ => Invalid(ValidationError("error.required"))
+    case _ => Invalid(ValidationError(Mappings.errorRequired))
   }
 
   def validNino: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.nino") {

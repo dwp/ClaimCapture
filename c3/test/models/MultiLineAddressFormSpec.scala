@@ -1,5 +1,6 @@
 package models
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.Specification
 import play.api.data.Form
 import controllers.mappings.Mappings._
@@ -11,7 +12,7 @@ class MultiLineAddressFormSpec extends Specification {
 
     "reject empty input" in {
       Form("address" -> address.verifying(requiredAddress)).bind(Map("address.lineOne" -> "", "address.lineTwo" -> "", "address.lineThree" -> "")).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
         address => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -27,14 +28,14 @@ class MultiLineAddressFormSpec extends Specification {
 
     "reject single lineTwo" in {
       Form("address" -> address.verifying(requiredAddress)).bind(Map("address.lineOne" -> "", "address.lineTwo" -> "line2", "address.lineThree" -> "")).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
         address => "This mapping should not happen." must equalTo("Valid")
       )
     }
 
     "reject single lineThree" in {
       Form("address" -> address.verifying(requiredAddress)).bind(Map("address.lineOne" -> "", "address.lineTwo" -> "", "address.lineThree" -> "line3")).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
         address => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -50,7 +51,7 @@ class MultiLineAddressFormSpec extends Specification {
       Form("address" -> address.verifying(requiredAddress)).bind(
         Map("address.lineOne" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS")
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.maxLength"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.maxLengthError),
         address => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -59,7 +60,7 @@ class MultiLineAddressFormSpec extends Specification {
       Form("address" -> address.verifying(requiredAddress)).bind(
         Map("address.lineOne" -> "somevalue","address.lineTwo" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS")
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.maxLength"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.maxLengthError),
         address => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -68,7 +69,7 @@ class MultiLineAddressFormSpec extends Specification {
       Form("address" -> address.verifying(requiredAddress)).bind(
         Map("address.lineOne" -> "somevalue","address.lineThree" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS")
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.maxLength"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.maxLengthError),
         address => "This mapping should not happen." must equalTo("Valid")
       )
     }

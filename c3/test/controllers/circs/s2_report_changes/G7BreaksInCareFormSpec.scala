@@ -214,7 +214,7 @@ class G7BreaksInCareFormSpec extends Specification with Tags {
         )
       ).fold(
         formWithErrors => {
-          formWithErrors.errors.head.message must equalTo("error.invalid")
+          formWithErrors.errors.head.message must equalTo(Mappings.errorInvalid)
           formWithErrors.errors.size must equalTo(4)
         },
         form => "This mapping should not happen." must equalTo("Valid")

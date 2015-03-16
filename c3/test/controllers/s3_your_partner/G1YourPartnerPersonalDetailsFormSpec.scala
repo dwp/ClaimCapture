@@ -1,5 +1,6 @@
 package controllers.s3_your_partner
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{ Tags, Specification }
 import models.{ NationalInsuranceNumber, DayMonthYear }
 import scala.Some
@@ -66,10 +67,10 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(5)
-            formWithErrors.errors(0).message must equalTo("error.maxLength")
-            formWithErrors.errors(1).message must equalTo("error.maxLength")
-            formWithErrors.errors(2).message must equalTo("error.maxLength")
-            formWithErrors.errors(3).message must equalTo("error.maxLength")
+            formWithErrors.errors(0).message must equalTo(Mappings.maxLengthError)
+            formWithErrors.errors(1).message must equalTo(Mappings.maxLengthError)
+            formWithErrors.errors(2).message must equalTo(Mappings.maxLengthError)
+            formWithErrors.errors(3).message must equalTo(Mappings.maxLengthError)
             formWithErrors.errors(4).message must equalTo("error.nationality")
           },
           theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
@@ -137,7 +138,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => {
-            formWithErrors.errors.head.message must equalTo("error.invalid")
+            formWithErrors.errors.head.message must equalTo(Mappings.errorInvalid)
             formWithErrors.errors.length must equalTo(1)
           },
           f => "This mapping should not happen." must equalTo("Valid"))
@@ -234,7 +235,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "firstName" -> "MyNa>me",
           "middleName" -> "middleNam©e",
           "surname" -> ";My Surn˙h∫ame;",
-          "otherNames" -> "other>Names",
+          "otherNames" -> "other@Names",
           "nationalInsuranceNumber.nino" -> nino.toString,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
@@ -245,7 +246,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "hadPartnerSinceClaimDate" -> "yes")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(4)
-          formWithErrors.errors.head.message must equalTo("error.restricted.characters")
+          formWithErrors.errors.head.message must equalTo(Mappings.errorRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }

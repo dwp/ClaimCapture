@@ -39,8 +39,8 @@ object G2ContactDetails extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedForm = formWithErrors.replaceError("","error.email.match",FormError("mailConfirmation","error.email.match"))
-                                        .replaceError("","error.email.required",FormError("mail","error.required"))
-                                        .replaceError("","error.wants.required",FormError("wantsEmailContact","error.required"))
+                                        .replaceError("","error.email.required",FormError("mail",errorRequired))
+                                        .replaceError("","error.wants.required",FormError("wantsEmailContact",errorRequired))
         BadRequest(views.html.s2_about_you.g2_contactDetails(updatedForm)(lang))
       },
       contactDetails =>{
