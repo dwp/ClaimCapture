@@ -148,7 +148,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
       implicit val r = request
       val theDomain = Session.domain
 
-      fromCache(request) match {
+      fromCache(request, required = false) match {
         case Some(claim) =>
           // reaching end of process - thank you page so we delete claim for security reasons and free memory
           removeFromCache(claim.uuid)
@@ -156,7 +156,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
             DiscardingCookie(ClaimHandling.C3VERSION)).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
         case _ =>
           enforceAlreadyFinishedRedirection(request,
-            originCheck(f(Claim())(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain),
+            originCheck(f(Claim(cacheKey))(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain),
               DiscardingCookie(ClaimHandling.C3VERSION)).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
           )
       }
@@ -166,7 +166,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
   def endingOnError(f: Claim => Request[AnyContent] => Lang => Result): Action[AnyContent] = Action {
     request => {
       implicit val r = request
-      originCheck(f(Claim())(request)(bestLang))
+      originCheck(f(Claim(cacheKey))(request)(bestLang))
     }
   }
 

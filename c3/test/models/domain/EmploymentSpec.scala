@@ -1,5 +1,7 @@
 package models.domain
 
+import models.view.CachedClaim
+
 import scala.language.reflectiveCalls
 import org.specs2.mutable.Specification
 import controllers.s7_employment.Employment.jobFormFiller
@@ -48,7 +50,7 @@ class EmploymentSpec extends Specification {
   "Claim" should {
     "iterate over 2 jobs" in {
       val jobs = Jobs().update(Iteration("1")).update(Iteration("2"))
-      val claim = Claim().update(jobs)
+      val claim = Claim(CachedClaim.key).update(jobs)
 
       claim.questionGroup(Jobs) must beLike { case Some(js: Jobs) => js.size shouldEqual 2 }
     }
@@ -59,7 +61,7 @@ class EmploymentSpec extends Specification {
       jobDetails.employerName returns "Toys r not us"
 
       val jobs = Jobs().update(Iteration("1")).update(Iteration("2").update(jobDetails))
-      val claim = Claim().update(jobs)
+      val claim = Claim(CachedClaim.key).update(jobs)
 
       claim.questionGroup(Jobs).collect {
         case js: Jobs => js.jobs.find(_.iterationID == "2").collect {

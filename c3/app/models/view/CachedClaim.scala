@@ -4,7 +4,7 @@ import java.util.UUID._
 
 import app.ConfigProperties._
 import controllers.routes
-import models.domain.{YourDetails, ClaimDate, FullClaim, Claim}
+import models.domain.{YourDetails, ClaimDate, Claim}
 import models.view.ClaimHandling.ClaimResult
 import play.api.i18n.Lang
 import play.api.mvc._
@@ -30,9 +30,9 @@ trait CachedClaim extends ClaimHandling {
   override lazy val errorPage = routes.ClaimEnding.error()
   override lazy val errorPageBrowserBackButton = routes.ClaimEnding.errorBrowserBackbutton()
 
-  override protected def newInstance(newuuid: String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid) with FullClaim
+  override protected def newInstance(newuuid: String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid)
 
-  override protected def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid, claim.transactionId, claim.previouslySavedClaim)(claim.navigation) with FullClaim
+  override protected def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid, claim.transactionId, claim.previouslySavedClaim)(claim.navigation)
 
   override protected def claimNotValid(claim: Claim): Boolean = {
     (claim.questionGroup[ClaimDate] match {

@@ -1,21 +1,21 @@
 @(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
-@import models.domain.{Claim,FullClaim,ChangeOfCircs}
+@import models.view.CachedClaim
 @import views.html.helper._
 @import play.api.i18n.{MMessages => Messages}
 @import utils.csrf.DwpCSRFFormHelper
 
 @submitCall = @{
-    claim match {
-        case _: Claim with FullClaim => controllers.submission.routes.ClaimStatusRoutingController.submit
-        case _: Claim with ChangeOfCircs => controllers.submission.routes.CofCStatusRoutingController.submit
+    claim.key match {
+        case CachedClaim.key => controllers.submission.routes.ClaimStatusRoutingController.submit
+        case _ => controllers.submission.routes.CofCStatusRoutingController.submit
     }
 }
 
 @isClaim = @{
-    claim match {
-        case _: Claim with FullClaim => true
-        case _: Claim with ChangeOfCircs => false
+    claim.key match {
+        case CachedClaim.key => true
+        case _ => false
     }
 }
 
