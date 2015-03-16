@@ -176,7 +176,9 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
 
   private def enforceAlreadyFinishedRedirection(request: Request[AnyContent], otherwise: => Result): Result =
     if (request.cookies.exists {
-      case Cookie(applicationFinished, "true", _, _, _, _, _) => true
+      case Cookie(applicationFinished, "true", _, _, _, _, _) =>
+        Logger.info("User already completed claim. Redirection to back button page.")
+        true
       case _ => false
     }) Redirect(controllers.routes.Application.backButtonPage())
     else otherwise
