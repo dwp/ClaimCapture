@@ -13,7 +13,7 @@ import scala.reflect.ClassTag
 * generated only when submitting a claim. The transaction Id is then used to track the claim in all the other services and apps composing CAOL
 * and is shown in the printable form of the claim (see rendering service and casa).
 */
-case class Claim(key: String = CachedClaim.key, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None,
+case class Claim(key: String, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None,
                  uuid: String = "", transactionId: Option[String] = None, previouslySavedClaim: Option[Claim] = None)(implicit val navigation: Navigation = Navigation()) extends Claimable {
   def section(sectionIdentifier: Section.Identifier): Section = {
     sections.find(s => s.identifier == sectionIdentifier) match {

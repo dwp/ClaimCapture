@@ -20,7 +20,7 @@ class StatusRoutingControllerSpec extends Specification with Tags {
       override val claimTransaction = new ClaimTransaction
     }
     "Handle case Thank You on successful submission" in new WithApplicationAndDB with Claiming {
-      Cache.set(claimKey,new Claim(transactionId = Some(transId)))
+      Cache.set(claimKey,new Claim(CachedClaim.key,transactionId = Some(transId)))
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       // create id with status success in db, to mock that a successful submit took place
@@ -42,7 +42,7 @@ class StatusRoutingControllerSpec extends Specification with Tags {
     }
 
     "Handled service unavailable" in new WithApplicationAndDB with Claiming{
-      Cache.set(claimKey,new Claim(transactionId = Some(transId)))
+      Cache.set(claimKey,new Claim(CachedClaim.key,transactionId = Some(transId)))
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       DBTests.createId(transId)
@@ -56,7 +56,7 @@ class StatusRoutingControllerSpec extends Specification with Tags {
     }
 
     "Handled not yet submitted (retry)" in new WithApplicationAndDB with Claiming {
-      Cache.set(claimKey,new Claim(transactionId = Some(transId)))
+      Cache.set(claimKey,new Claim(CachedClaim.key,transactionId = Some(transId)))
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       DBTests.createId(transId)
@@ -71,7 +71,7 @@ class StatusRoutingControllerSpec extends Specification with Tags {
     }
 
     "Handle error case on failed submission" in new WithApplicationAndDB with Claiming {
-      Cache.set(claimKey,new Claim(transactionId = Some(transId)))
+      Cache.set(claimKey,new Claim(CachedClaim.key,transactionId = Some(transId)))
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       DBTests.createId(transId)
