@@ -51,14 +51,14 @@ object G11Break extends Controller with CachedClaim {
     form.bindEncrypted.fold(
       formWithErrors => {
         val fwe = formWithErrors
-        .replaceError("whereYou.answer", "error.required", FormError("whereYou","error.required",Seq("This field is required")))
-        .replaceError("whereYou","whereYou.text.required",FormError("whereYou.text","error.required"))
+        .replaceError("whereYou.answer", Mappings.errorRequired, FormError("whereYou",Mappings.errorRequired,Seq("This field is required")))
+        .replaceError("whereYou","whereYou.text.required",FormError("whereYou.text",Mappings.errorRequired))
         .replaceError("whereYou.text",errorRestrictedCharacters,FormError("whereYou",errorRestrictedCharacters))
-        .replaceError("wherePerson.answer", "error.required", FormError("wherePerson","error.required",Seq("This field is required")))
-        .replaceError("wherePerson","wherePerson.text.required",FormError("wherePerson.text","error.required"))
+        .replaceError("wherePerson.answer", Mappings.errorRequired, FormError("wherePerson",Mappings.errorRequired,Seq("This field is required")))
+        .replaceError("wherePerson","wherePerson.text.required",FormError("wherePerson.text",Mappings.errorRequired))
         .replaceError("wherePerson.text",errorRestrictedCharacters,FormError("wherePerson",errorRestrictedCharacters))
-        .replaceError("start.date","error.required", FormError("start","error.required", Seq("This field is required")))
-        .replaceError("", "endDate.required", FormError("end", "error.required"))
+        .replaceError("start.date",Mappings.errorRequired, FormError("start",Mappings.errorRequired, Seq("This field is required")))
+        .replaceError("", "endDate.required", FormError("end", Mappings.errorRequired))
         BadRequest(views.html.s4_care_you_provide.g11_break(fwe,backCall)(lang))
       },
       break => {

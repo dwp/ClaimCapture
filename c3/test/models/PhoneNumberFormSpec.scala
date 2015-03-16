@@ -40,7 +40,7 @@ class PhoneNumberFormSpec extends Specification {
       val validPhoneNumber = "abcdefgh"
 
       createPhoneNumberForm(validPhoneNumber).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(errorInvalid),
         phoneNumber => "The mapping should not happen." must equalTo("Error")
       )
     }

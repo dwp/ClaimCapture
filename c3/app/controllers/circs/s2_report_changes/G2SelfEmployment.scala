@@ -35,7 +35,7 @@ object G2SelfEmployment extends Controller with CachedChangeOfCircs with Navigab
   def submit = claiming {implicit circs =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val updatedFormWithErrors = formWithErrors.replaceError("stillCaring","dateRequired", FormError("stillCaring.date", "error.required"))
+        val updatedFormWithErrors = formWithErrors.replaceError("stillCaring","dateRequired", FormError("stillCaring.date", errorRequired))
         BadRequest(views.html.circs.s2_report_changes.g2_selfEmployment(updatedFormWithErrors)(lang))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())

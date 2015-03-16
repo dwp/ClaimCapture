@@ -46,7 +46,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
   def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val formWithErrorsUpdate = formWithErrors.replaceError("", "whenDidTheJobFinish.error.required", FormError("whenDidTheJobFinish", "error.required"))
+        val formWithErrorsUpdate = formWithErrors.replaceError("", "whenDidTheJobFinish.error.required", FormError("whenDidTheJobFinish", errorRequired))
         BadRequest(views.html.s8_self_employment.g1_aboutSelfEmployment(formWithErrorsUpdate)(lang))},
       f => claim.update(f) -> Redirect(routes.G2SelfEmploymentYourAccounts.present()))
   }

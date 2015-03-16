@@ -13,8 +13,8 @@ object CarersForms  {
   def carersText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     text(minLength, maxLength) verifying restrictedStringText
 
-  def carersTextWithPound(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
-    text(minLength, maxLength) verifying restrictedStringTextWithPound
+//  def carersTextWithPound(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+//    text(minLength, maxLength) verifying restrictedStringTextWithPound
 
   val carersNonEmptyText: Mapping[String] =
     text verifying Constraints.nonEmpty verifying restrictedStringText

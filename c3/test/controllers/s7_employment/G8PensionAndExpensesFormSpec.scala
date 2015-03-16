@@ -1,5 +1,6 @@
 package controllers.s7_employment
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 
 class G8PensionAndExpensesFormSpec extends Specification with Tags {
@@ -37,9 +38,9 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
       ).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(3)
-            formWithErrors.errors(0).message must equalTo("error.required")
-            formWithErrors.errors(1).message must equalTo("error.required")
-            formWithErrors.errors(2).message must equalTo("error.required")
+            formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
@@ -52,7 +53,7 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
           "payPensionScheme.answer" -> no,
           "payForThings.answer" -> no)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -64,7 +65,7 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
           "payForThings.answer" -> no,
           "haveExpensesForJob.answer" -> no)
       ).fold(
-          formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+          formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
           f => "This mapping should not happen." must equalTo("Valid")
         )
     }
@@ -76,7 +77,7 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
           "payPensionScheme.answer" -> no,
           "haveExpensesForJob.answer" -> no)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -145,9 +146,9 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
       ).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(3)
-            formWithErrors.errors(0).message must equalTo("error.maxLength")
-            formWithErrors.errors(1).message must equalTo("error.maxLength")
-            formWithErrors.errors(2).message must equalTo("error.maxLength")
+            formWithErrors.errors(0).message must equalTo(Mappings.maxLengthError)
+            formWithErrors.errors(1).message must equalTo(Mappings.maxLengthError)
+            formWithErrors.errors(2).message must equalTo(Mappings.maxLengthError)
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -166,9 +167,9 @@ class G8PensionAndExpensesFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(3)
-          formWithErrors.errors(0).message must equalTo("error.restricted.characters")
-          formWithErrors.errors(1).message must equalTo("error.restricted.characters")
-          formWithErrors.errors(2).message must equalTo("error.restricted.characters")
+          formWithErrors.errors(0).message must equalTo(Mappings.errorRestrictedCharacters)
+          formWithErrors.errors(1).message must equalTo(Mappings.errorRestrictedCharacters)
+          formWithErrors.errors(2).message must equalTo(Mappings.errorRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid")
       )
