@@ -24,6 +24,7 @@ object Mappings {
   val five = 5
   val seventeen = 17
   val twelve = 12
+  val twenty = 20
   val threeHundred = 300
   val yes = "yes"
   val no = "no"
