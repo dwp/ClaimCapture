@@ -1,7 +1,7 @@
 package models.domain
 
 import models.DayMonthYear
-import models.view.{CachedClaim, Navigation}
+import models.view.Navigation
 import play.api.i18n.Lang
 
 import scala.language.postfixOps
@@ -14,7 +14,7 @@ import scala.reflect.ClassTag
 * and is shown in the printable form of the claim (see rendering service and casa).
 */
 case class Claim(key: String, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None,
-                 uuid: String = "", transactionId: Option[String] = None, previouslySavedClaim: Option[Claim] = None)(implicit val navigation: Navigation = Navigation()) extends Claimable {
+                 uuid: String = "", transactionId: Option[String] = None, previouslySavedClaim: Option[Claim] = None)(implicit val navigation: Navigation = Navigation()) {
   def section(sectionIdentifier: Section.Identifier): Section = {
     sections.find(s => s.identifier == sectionIdentifier) match {
       case Some(s: Section) => s

@@ -5,19 +5,17 @@ import models._
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.data.Forms._
-import play.api.data.validation.{ValidationError, _}
+import play.api.data.validation._
 import play.api.data.{Form, FormError, Mapping}
 import play.api.mvc.Request
 
 import scala.util.{Failure, Success, Try}
 import scala.util.matching.Regex
 
-
 object Mappings {
   object Name {
     val maxLength = 35
   }
-
 
   val sixty = 60
   val thirtyfive = 35
@@ -38,6 +36,7 @@ object Mappings {
   val errorInvalid = "error.invalid"
   val maxLengthError = "error.maxLength"
   val invalidYesNo: String = "yesNo.invalid"
+  val invalidPostcode: String = "error.postcode"
 
   private val newErrorSortCode = FormError("sortCode", errorRestrictedCharacters)
   private val constraintRequired: String = "constraint.required"
@@ -134,35 +133,28 @@ object Mappings {
 
     postcodePattern.pattern.matcher(postcode).matches match {
       case true => Valid
-      case false => Invalid(ValidationError("error.postcode"))
+      case false => Invalid(ValidationError(invalidPostcode))
     }
   }
 
   def validPhoneNumber: Constraint[String] = Constraint[String]("constraint.phoneNumber") { phoneNumber =>
-    val phoneNumberPattern = """[0-9 \-]{7,20}""".r
-
-    phoneNumberPattern.pattern.matcher(phoneNumber).matches match {
-      case true => Valid
-      case false => Invalid(ValidationError(errorInvalid))
-    }
+    validPhoneNumberPattern(phoneNumber)
   }
 
   /**
    * Use this method to validate phone number when it is not empty. This was created for fields which are mandatory and have to validate for
    * a valid phone number because the mandatory fields have their validation for empty fields.
-   * @return
    */
-
   def validPhoneNumberRequired: Constraint[String] = Constraint[String]("constraint.phoneNumber") { phoneNumber =>
-    val phoneNumberPattern = """[0-9 \-]{7,20}""".r
+    if (null != phoneNumber && !phoneNumber.isEmpty) validPhoneNumberPattern(phoneNumber)
+    else Valid
+  }
 
-    if (null != phoneNumber && !phoneNumber.isEmpty){
-        phoneNumberPattern.pattern.matcher(phoneNumber).matches match {
-        case true => Valid
-        case false => Invalid(ValidationError(errorInvalid))
-      }
-    } else {
-      Valid
+  private def validPhoneNumberPattern(phoneNumber: String) = {
+    val phoneNumberPattern = """[0-9 \-]{7,20}""".r
+    phoneNumberPattern.pattern.matcher(phoneNumber).matches match {
+      case true => Valid
+      case false => Invalid(ValidationError(errorInvalid))
     }
   }
 
@@ -170,7 +162,6 @@ object Mappings {
     val decimalPattern = """^\£?[0-9]{1,8}(\.[0-9]{1,2})?$""".r
     validCurrencyWithPattern(decimalPattern, decimal)
   }
-
 
   private def validCurrencyWithPattern(decimalPattern:Regex, decimal: String):ValidationResult = {
     if(decimal != null && !decimal.isEmpty) {
@@ -215,14 +206,18 @@ object Mappings {
     case _ => Invalid(ValidationError(invalidYesNo))
   }
 
-  private def paymentFrequencyValidation(pf: PaymentFrequency): ValidationResult = Try(new PaymentFrequency(pf.frequency, pf.other)) match {
-    case Success(p: PaymentFrequency) if p.frequency == app.PensionPaymentFrequency.Other && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
-    case Success(p: PaymentFrequency) => Valid
-    case Failure(_) => Invalid(ValidationError(errorInvalid))
-  }
+//  private def paymentFrequencyValidation(pf: PaymentFrequency): ValidationResult = Try(new PaymentFrequency(pf.frequency, pf.other)) match {
+//    case Success(p: PaymentFrequency) if p.frequency == app.PensionPaymentFrequency.Other && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
+//    case Success(p: PaymentFrequency) => Valid
+//    case Failure(_) => Invalid(ValidationError(errorInvalid))
+//  }
 
-  def validPaymentFrequencyOnly: Constraint[PaymentFrequency] = Constraint[PaymentFrequency]("constraint.validatePaymentFrequency") {
-    pf => paymentFrequencyValidation(pf)
+  def validPaymentFrequencyOnly: Constraint[PaymentFrequency] = Constraint[PaymentFrequency]("constraint.validatePaymentFrequency") { pf =>
+    Try(new PaymentFrequency(pf.frequency, pf.other)) match {
+      case Success(p: PaymentFrequency) if p.frequency == app.PensionPaymentFrequency.Other && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
+      case Success(p: PaymentFrequency) => Valid
+      case Failure(_) => Invalid(ValidationError(errorInvalid))
+    }
   }
 
   def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { nationality =>
