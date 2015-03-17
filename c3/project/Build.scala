@@ -28,7 +28,7 @@ object ApplicationBuild extends Build {
     "org.jacoco"          % "org.jacoco.core"     % "0.7.2.201409121644"  % "test",
     "org.jacoco"          % "org.jacoco.report"   % "0.7.2.201409121644"  % "test",
     "gov.dwp"            %% "play2-multimessages" % "2.3.5",
-    "com.typesafe"       %% "play-plugins-mailer" % "2.2.0",
+    "nl.rhinofly"        %% "play-mailer"         % "3.0.0",
     "gov.dwp.carers"     %% "play2-resilient-memcached"     % "1.1"
   )
 
@@ -39,7 +39,9 @@ object ApplicationBuild extends Build {
   var sR: Seq[Def.Setting[_]] = Seq(
     resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
-    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases")
+    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
+    resolvers += "Rhinofly Internal Release Repository" at "http://maven-repository.rhinofly.net:8081/artifactory/libs-release-local")
+
 
   var sTest: Seq[Def.Setting[_]] = Seq()
 

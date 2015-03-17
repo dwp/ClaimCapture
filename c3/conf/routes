@@ -24,6 +24,8 @@ GET         /preview                                                    controll
 GET         /preview-back                                               controllers.preview.Preview.back
 POST        /preview                                                    controllers.preview.Preview.submit
 
+GET         /mailTest                                                   controllers.MailTest.send
+
 # Cache Timeout
 GET         /timeout                                                    controllers.ClaimEnding.timeout
 GET         /circs-timeout                                              controllers.CircsEnding.timeout

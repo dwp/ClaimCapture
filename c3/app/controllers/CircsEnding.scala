@@ -1,7 +1,10 @@
 package controllers
 
+import app.ConfigProperties._
+import models.domain.{CircumstancesDeclaration, ContactDetails}
 import play.api.mvc.Controller
 import models.view.CachedChangeOfCircs
+import services.EmailServices
 
 object CircsEnding extends Controller with CachedChangeOfCircs {
 
@@ -22,6 +25,11 @@ object CircsEnding extends Controller with CachedChangeOfCircs {
   }
 
   def thankyou = ending {implicit claim =>  implicit request =>  lang =>
+
+    if (getProperty("mailer.enabled",default=false)){
+      val declaration = claim.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration())
+      if (declaration.email.isDefined) EmailServices.sendEmail to declaration.email.get
+    }
     Ok(views.html.common.thankYouCircs(lang))
   }
 
