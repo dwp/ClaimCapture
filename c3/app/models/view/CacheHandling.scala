@@ -22,23 +22,26 @@ trait CacheHandling {
    * @param request the http request that has the session with uuid of claim which is the key used by cache.
    * @return None if could not find claim/CoCs. Some(claim) is could find it.
    */
-  def fromCache(request: Request[AnyContent]): Option[Claim] = {
+  def fromCache(request: Request[AnyContent], required: Boolean = true): Option[Claim] = {
     val key = keyFrom(request)
     if (key.isEmpty) {
-    // Log an error if session empty or with no cacheKey entry so we know it is not a cache but a cookie issue.
-    Logger.warn(s"Did not receive Session information for a $cacheKey for ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot(_.name.startsWith("_"))}.")
-    None
-    } else
-    fromCache(key)
+      if (required) {
+        // Log an error if session empty or with no cacheKey entry so we know it is not a cache but a cookie issue.
+        Logger.error(s"Did not receive Session information for a $cacheKey for ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot(_.name.startsWith("_"))}.")
+      }
+      None
+    } else {
+      fromCache(key)
+    }
   }
 
-  def fromCache(key:String):Option[Claim] = {
-      Cache.getAs[Claim](key)
+  def fromCache(key: String): Option[Claim] = {
+    Cache.getAs[Claim](key)
   }
 
-  def saveInCache(key:String, claim:Claim) = Cache.set(claim.uuid, claim, CacheHandling.expiration)
+  def saveInCache(key: String, claim: Claim) = Cache.set(claim.uuid, claim, CacheHandling.expiration)
 
-  def removeFromCache(key:String) = Cache.remove(key)
+  def removeFromCache(key: String) = Cache.remove(key)
 
 
   protected def recordMeasurements() = {

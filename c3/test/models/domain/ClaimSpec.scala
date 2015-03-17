@@ -1,14 +1,15 @@
 package models.domain
 
+import models.view.CachedClaim
 import org.specs2.mutable.Specification
 
 class ClaimSpec extends Specification {
-  val claim: Claim = Claim().update(Benefits(Benefits.noneOfTheBenefits))
+  val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits))
     .update(Eligibility("no","no","no"))
 
   "Claim" should {
     "contain the sectionId with the question group after adding" in {
-      val claim = Claim()
+      val claim = Claim(CachedClaim.key)
       val questionGroup = Benefits(benefitsAnswer = Benefits.noneOfTheBenefits)
       val updatedClaim = claim.update(questionGroup)
       val sectionIdentifier = Section.sectionIdentifier(questionGroup)
@@ -19,7 +20,7 @@ class ClaimSpec extends Specification {
     }
 
     "contain the sectionId with the question group after updating" in {
-      val claim = Claim()
+      val claim = Claim(CachedClaim.key)
       val trueQuestionGroup = Benefits(benefitsAnswer = Benefits.aa)
       val falseQuestionGroup = Benefits(benefitsAnswer = Benefits.noneOfTheBenefits)
 
@@ -51,12 +52,12 @@ class ClaimSpec extends Specification {
     }
 
     "be able hide a section" in {
-      val updatedDigitalForm = Claim().hideSection(YourPartner)
+      val updatedDigitalForm = Claim(CachedClaim.key).hideSection(YourPartner)
       YourPartner.visible(updatedDigitalForm) must beFalse
     }
 
     "be able show a section" in {
-      val updatedDigitalForm = Claim().showSection(YourPartner)
+      val updatedDigitalForm = Claim(CachedClaim.key).showSection(YourPartner)
       YourPartner.visible(updatedDigitalForm) must beTrue
     }
 
@@ -105,7 +106,7 @@ class ClaimSpec extends Specification {
 
       val jobs = new Jobs(job1 :: job2 :: Nil)
 
-      val claim = Claim().update(jobs)
+      val claim = Claim(CachedClaim.key).update(jobs)
 
       val js = claim.questionGroup[Jobs] map { jobs =>
         for (job <- jobs) yield {
@@ -117,7 +118,7 @@ class ClaimSpec extends Specification {
     }
 
     "iterate over no jobs" in {
-      val claim = Claim()
+      val claim = Claim(CachedClaim.key)
 
       val js = claim.questionGroup[Jobs] map { jobs =>
         for (job <- jobs) yield {
@@ -129,7 +130,7 @@ class ClaimSpec extends Specification {
     }
 
     "give empty list" in {
-      Claim().questionGroup(models.domain.BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg)) should containAllOf(List())
+      Claim(CachedClaim.key).questionGroup(models.domain.BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg)) should containAllOf(List())
     }
   }
 }

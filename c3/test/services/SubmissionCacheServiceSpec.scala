@@ -34,7 +34,7 @@ class SubmissionCacheServiceSpec extends Specification with Tags with Submission
     } //.pendingUntilFixed("Need to find a good way of the tweaking the config property for the timeout in the tests")
 
     def getClaim(surname: String, newuuid:String): Claim = {
-      var claim = new Claim(transactionId = Some("1234567"), uuid=newuuid)
+      var claim = new Claim(CachedClaim.key, transactionId = Some("1234567"), uuid=newuuid)
 
       // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
       val det = new YourDetails("", "",None, surname,NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
@@ -45,7 +45,7 @@ class SubmissionCacheServiceSpec extends Specification with Tags with Submission
       claim = claim + contact
       claim = claim + claimDate
 
-      claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid,claim.transactionId)(claim.navigation) with FullClaim
+      claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid,claim.transactionId)(claim.navigation)
       claim
     }
 

@@ -21,7 +21,7 @@ final class G2BankBuildingSocietyDetailsPage (ctx:PageObjectsContext) extends Cl
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G2BankBuildingSocietyDetailsPage {
-  val title = "Bank/Building society details - Pay details".toLowerCase
+  val title = "Bank or building society details - Pay details".toLowerCase
 
   val url  = "/pay-details/bank-building-society-details"
 
