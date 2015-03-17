@@ -28,13 +28,13 @@ object G1Employment extends Controller with CachedClaim with Navigable {
       form.bindEncrypted.fold(
         formWithErrors => {
           val formWithErrorsUpdate = formWithErrors
-            .replaceError("beenEmployedSince6MonthsBeforeClaim", "error.required",
+            .replaceError("beenEmployedSince6MonthsBeforeClaim", errorRequired,
               FormError("aboutYou_beenEmployedSince6MonthsBeforeClaim.label",
-                "error.required",
+                errorRequired,
                 Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
-            .replaceError("beenSelfEmployedSince1WeekBeforeClaim", "error.required",
+            .replaceError("beenSelfEmployedSince1WeekBeforeClaim", errorRequired,
               FormError("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label",
-                "error.required",
+                errorRequired,
                 Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
           BadRequest(views.html.s7_employment.g1_employment(formWithErrorsUpdate)(lang))
         },employment => {

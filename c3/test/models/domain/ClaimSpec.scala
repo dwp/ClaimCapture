@@ -1,16 +1,15 @@
 package models.domain
 
+import models.view.CachedClaim
 import org.specs2.mutable.Specification
 
 class ClaimSpec extends Specification {
-  val claim: Claim = Claim().update(Benefits(Benefits.noneOfTheBenefits))
-    .update(Hours("no"))
-    .update(LivesInGB("no"))
-    .update(Over16("no"))
+  val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits))
+    .update(Eligibility("no","no","no"))
 
   "Claim" should {
     "contain the sectionId with the question group after adding" in {
-      val claim = Claim()
+      val claim = Claim(CachedClaim.key)
       val questionGroup = Benefits(benefitsAnswer = Benefits.noneOfTheBenefits)
       val updatedClaim = claim.update(questionGroup)
       val sectionIdentifier = Section.sectionIdentifier(questionGroup)
@@ -21,7 +20,7 @@ class ClaimSpec extends Specification {
     }
 
     "contain the sectionId with the question group after updating" in {
-      val claim = Claim()
+      val claim = Claim(CachedClaim.key)
       val trueQuestionGroup = Benefits(benefitsAnswer = Benefits.aa)
       val falseQuestionGroup = Benefits(benefitsAnswer = Benefits.noneOfTheBenefits)
 
@@ -40,25 +39,25 @@ class ClaimSpec extends Specification {
     }
 
     "return the correct question group" in {
-      claim.questionGroup(LivesInGB) must beLike { case Some(qg: QuestionGroup) => qg.identifier mustEqual LivesInGB }
+      claim.questionGroup(Eligibility) must beLike { case Some(qg: QuestionGroup) => qg.identifier mustEqual Eligibility }
     }
 
     "delete a question group from section" in {
-      claim.completedQuestionGroups(CarersAllowance).size mustEqual 4
+      claim.completedQuestionGroups(CarersAllowance).size mustEqual 2
 
-      val updatedClaim = claim.delete(LivesInGB)
-      updatedClaim.questionGroup(LivesInGB) must beNone
-      updatedClaim.completedQuestionGroups(CarersAllowance).size mustEqual 3
-      claim.completedQuestionGroups(CarersAllowance).size mustEqual 4
+      val updatedClaim = claim.delete(Eligibility)
+      updatedClaim.questionGroup(Eligibility) must beNone
+      updatedClaim.completedQuestionGroups(CarersAllowance).size mustEqual 1
+      claim.completedQuestionGroups(CarersAllowance).size mustEqual 2
     }
 
     "be able hide a section" in {
-      val updatedDigitalForm = Claim().hideSection(YourPartner)
+      val updatedDigitalForm = Claim(CachedClaim.key).hideSection(YourPartner)
       YourPartner.visible(updatedDigitalForm) must beFalse
     }
 
     "be able show a section" in {
-      val updatedDigitalForm = Claim().showSection(YourPartner)
+      val updatedDigitalForm = Claim(CachedClaim.key).showSection(YourPartner)
       YourPartner.visible(updatedDigitalForm) must beTrue
     }
 
@@ -83,17 +82,6 @@ class ClaimSpec extends Specification {
       updatedDigitalForm.previousSection(YourPartner).identifier mustEqual CarersAllowance
     }
 
-    /*
-    TODO Can these commented out examples be updated to the refactored claim/navigation?
-    "be able to go to next visible section" in {
-      claim.nextSection(CarersAllowance).identifier mustEqual AboutYou
-    }
-
-    "be able to go to next visible section when section in between is hidden" in {
-      val updatedClaim = claim.hideSection(AboutYou)
-      updatedClaim.nextSection(CarersAllowance).identifier mustEqual YourPartner
-    }*/
-
     """not contain "question group" when not actually providing which "question group" is desired.""" in {
       claim.questionGroup should beNone
     }
@@ -103,12 +91,12 @@ class ClaimSpec extends Specification {
     }
 
     """contain "question group" in second entry of "question groups".""" in {
-      claim.questionGroup[Hours] should beSome(Hours(answerYesNo = "no"))
+      claim.questionGroup[Eligibility] should beSome(Eligibility("no", "no", "no"))
     }
 
     """not contain "question group".""" in {
-      val updatedDigitalForm = claim.delete(Over16)
-      updatedDigitalForm.questionGroup[Over16] should beNone
+      val updatedDigitalForm = claim.delete(Eligibility)
+      updatedDigitalForm.questionGroup[Eligibility] should beNone
     }
 
     "iterate over jobs" in {
@@ -118,7 +106,7 @@ class ClaimSpec extends Specification {
 
       val jobs = new Jobs(job1 :: job2 :: Nil)
 
-      val claim = Claim().update(jobs)
+      val claim = Claim(CachedClaim.key).update(jobs)
 
       val js = claim.questionGroup[Jobs] map { jobs =>
         for (job <- jobs) yield {
@@ -130,7 +118,7 @@ class ClaimSpec extends Specification {
     }
 
     "iterate over no jobs" in {
-      val claim = Claim()
+      val claim = Claim(CachedClaim.key)
 
       val js = claim.questionGroup[Jobs] map { jobs =>
         for (job <- jobs) yield {
@@ -142,7 +130,7 @@ class ClaimSpec extends Specification {
     }
 
     "give empty list" in {
-      Claim().questionGroup(models.domain.BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg)) should containAllOf(List())
+      Claim(CachedClaim.key).questionGroup(models.domain.BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg)) should containAllOf(List())
     }
   }
 }

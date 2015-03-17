@@ -1,7 +1,7 @@
 package models.domain
 
 import org.specs2.mutable.Specification
-import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
+import gov.dwp.carers.xml.validation.XmlValidatorFactory
 import controllers.submission.XmlSubmitter
 
 class ClaimXMLAcceptanceSpec extends Specification {

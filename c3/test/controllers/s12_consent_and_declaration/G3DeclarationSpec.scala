@@ -21,6 +21,7 @@ class G3DeclarationSpec extends Specification with MockInjector with Tags {
     "statutorySickPay.howOften.frequency.other" -> "Other Freq",
     "statutorySickPay.employersName" -> "Tesco",
     "statutorySickPay.employersAddress.lineOne" -> "Address line 1",
+    "statutorySickPay.employersAddress.lineTwo" -> "Address line 2",
     "otherStatutoryPay.answer" -> "no"
   )
 

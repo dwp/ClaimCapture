@@ -19,7 +19,7 @@ class PreviewPageOtherMoneyContentSpec extends Specification with Tags {
       page goToThePage()
       val source = page.source()
 
-      source must contain("Statutory pay, benefits and payments")
+      source must contain("Other Payments")
       source must contain("Have you received any payments for the person you care for or any other person since your claim date?")
       source must contain("Yes - Details provided")
       source must contain("Have you had any Statutory Sick Pay")

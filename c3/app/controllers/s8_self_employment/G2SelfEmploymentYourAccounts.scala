@@ -20,7 +20,7 @@ import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
 import models.domain.Claim
 import play.api.i18n.Lang
-import models.view.CachedClaim.ClaimResult
+import models.view.ClaimHandling.ClaimResult
 
 object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -51,7 +51,7 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Nav
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("","required", FormError("tellUsWhyAndWhenTheChangeHappened", "error.required"))
+          .replaceError("","required", FormError("tellUsWhyAndWhenTheChangeHappened", Mappings.errorRequired))
           .replaceError("whatWasOrIsYourTradingYearFrom","error.invalid", FormError("whatWasOrIsYourTradingYearFrom", "error.invalid", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"))))
           .replaceError("whatWasOrIsYourTradingYearFrom.year","error.number", FormError("whatWasOrIsYourTradingYearFrom.year", "error.number", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom.year"))))
           .replaceError("whatWasOrIsYourTradingYearTo","error.invalid", FormError("whatWasOrIsYourTradingYearTo", "error.invalid", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"))))

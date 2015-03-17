@@ -1,5 +1,6 @@
 package controllers.s4_care_you_provide
 
+import controllers.mappings.Mappings
 import play.api.data.{FormError, Form}
 import org.specs2.mutable.{Tags, Specification}
 import models.{DayMonthYear, Whereabouts}
@@ -56,7 +57,7 @@ class BreakFormSpec extends Specification with Tags {
       skipped("Contraints no longer working after changing required fields from '*' to adding '(optional)' on optional fields")
 
       val form: Form[Break] = G11Break.form.bind(data - "start.date")
-      form.errors should contain(FormError("start", "error.required"))
+      form.errors should contain(FormError("start", Mappings.errorRequired))
     }.pendingUntilFixed("Only used for new date picker")
 
     "reject badly formatted start date" in {
@@ -80,7 +81,7 @@ class BreakFormSpec extends Specification with Tags {
 
     "reject too long first name" in {
       val form: Form[PreviousCarerPersonalDetails] = G4PreviousCarerPersonalDetails.form.bind(data + ("firstName" -> `36Characters`))
-      form.errors should contain(FormError("firstName", "error.maxLength", Array(35)))
+      form.errors should contain(FormError("firstName", Mappings.maxLengthError, Array(35)))
     }
 
     "reject invalid national insurance number" in {
@@ -95,7 +96,7 @@ class BreakFormSpec extends Specification with Tags {
 
     "reject invalid date that has year higher than maximum allowed" in {
       val form: Form[PreviousCarerPersonalDetails] = G4PreviousCarerPersonalDetails.form.bind(data + ("dateOfBirth.year" -> "12345"))
-      form.errors should contain(FormError("dateOfBirth", "error.invalid"))
+      form.errors should contain(FormError("dateOfBirth", Mappings.errorInvalid))
     }*/
   } section("unit", models.domain.CareYouProvide.id)
 }

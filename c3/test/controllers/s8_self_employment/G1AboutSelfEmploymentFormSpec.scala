@@ -1,5 +1,6 @@
 package controllers.s8_self_employment
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 
@@ -55,7 +56,7 @@ class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
           "whenDidYouStartThisJob.month" -> whenDidYouStartThisJob_month.toString,
           "whenDidYouStartThisJob.year" -> whenDidYouStartThisJob_year.toString)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -67,7 +68,7 @@ class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
           "whenDidYouStartThisJob.month" -> whenDidYouStartThisJob_month.toString,
           "whenDidYouStartThisJob.year" -> whenDidYouStartThisJob_year.toString)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }

@@ -8,7 +8,7 @@ import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
-import models.domain.{CircumstancesDeclaration, CircumstancesOtherInfo}
+import models.domain.CircumstancesDeclaration
 import controllers.CarersForms._
 import controllers.submission.AsyncSubmissionController
 import monitoring.ChangeBotChecking
@@ -31,7 +31,7 @@ class G1Declaration extends Controller with CachedChangeOfCircs with Navigable
     "confirm" -> carersNonEmptyText,
     "circsSomeOneElse" -> optional(carersText),
     "nameOrOrganisation" -> optional(carersNonEmptyText(maxLength = 60)),
-    "wantsEmailContact" -> optional(carersNonEmptyText.verifying(validYesNo)),
+    "wantsEmailContactCircs" -> optional(carersNonEmptyText.verifying(validYesNo)),
     "mail" -> optional(email.verifying(Constraints.maxLength(254))),
     "mailConfirmation" -> optional(text(maxLength = 254))
   )(CircumstancesDeclaration.apply)(CircumstancesDeclaration.unapply)
@@ -53,11 +53,11 @@ class G1Declaration extends Controller with CachedChangeOfCircs with Navigable
       form.bindEncrypted.fold(
         formWithErrors => {
           val formWithErrorsUpdate = formWithErrors
-            .replaceError("", "obtainInfoWhy", FormError("obtainInfoWhy", "error.required"))
-            .replaceError("", "nameOrOrganisation", FormError("nameOrOrganisation", "error.required"))
+            .replaceError("", "obtainInfoWhy", FormError("obtainInfoWhy", errorRequired))
+            .replaceError("", "nameOrOrganisation", FormError("nameOrOrganisation", errorRequired))
             .replaceError("","error.email.match",FormError("mailConfirmation","error.email.match"))
-            .replaceError("","error.email.required",FormError("mail","error.required"))
-            .replaceError("","error.wants.required",FormError("wantsEmailContact","error.required"))
+            .replaceError("","error.email.required",FormError("mail",errorRequired))
+            .replaceError("","error.wants.required",FormError("wantsEmailContactCircs",errorRequired))
           BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(formWithErrorsUpdate)(lang)(circs,request))
         },
         f => {

@@ -1,5 +1,6 @@
 package controllers.s1_carers_allowance
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 import models.domain.Benefits
 
@@ -22,7 +23,7 @@ class G1BenefitsFormSpec extends Specification with Tags {
       G1Benefits.form.bind(
         Map("benefitsAnswer" -> "")
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }

@@ -58,7 +58,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
 
       approvePage match {
         case p: G6ApprovePage => {
-          p.ctx.previousPage.get must beAnInstanceOf[G4LivesInGBPage]
+          p.ctx.previousPage.get must beAnInstanceOf[G2EligibilityPage]
           p.isNotApproved must beTrue
         }
         case _ => ko(notRightPage)

@@ -1,12 +1,12 @@
 package monitoring
 
 import app.ConfigProperties._
-import models.domain.{CircumstancesDeclaration, Claimable, Claim}
+import models.domain.{CircumstancesDeclaration, Claim}
 import play.api.Logger
 
 trait ChangeBotChecking extends BotChecking {
 
-  def checkTimeToCompleteAllSections(circs: Claim with Claimable, currentTime: Long = System.currentTimeMillis()) = {
+  def checkTimeToCompleteAllSections(circs: Claim, currentTime: Long = System.currentTimeMillis()) = {
     val sectionExpectedTimes = Map[String, Long](
       "c1" -> getProperty("speed.c1",5000L),
       "c2" -> getProperty("speed.c2",5000L),

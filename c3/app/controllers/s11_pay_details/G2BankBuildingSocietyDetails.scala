@@ -13,7 +13,7 @@ import app.AccountStatus
 import controllers.CarersForms._
 import models.domain.Claim
 import play.api.i18n.Lang
-import models.view.CachedClaim.ClaimResult
+import models.view.ClaimHandling.ClaimResult
 
 object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

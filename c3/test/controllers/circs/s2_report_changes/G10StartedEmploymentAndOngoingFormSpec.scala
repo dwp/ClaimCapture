@@ -16,6 +16,7 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
   val other = "other"
   val otherText = "some other text"
   val doYouPayIntoPensionText = "pension text"
+  val doYouPayForThingsText = "Some expenses to do the job"
   val doCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
 
@@ -31,6 +32,7 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
           "howOften.frequency" -> weekly,
           "usuallyPaidSameAmount" -> no,
           "doYouPayIntoPension.answer" -> no,
+          "doYouPayForThings.answer" -> no,
           "doCareCostsForThisWork.answer" -> no
         )
       ).fold(
@@ -44,6 +46,7 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
             f.howOften.frequency must equalTo(weekly)
             f.usuallyPaidSameAmount must equalTo(no)
             f.payIntoPension.answer must equalTo(no)
+            f.doYouPayForThings.answer must equalTo(no)
             f.careCostsForThisWork.answer must equalTo(no)
           }
         )
@@ -62,6 +65,8 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
           "usuallyPaidSameAmount" -> yes,
           "doYouPayIntoPension.answer" -> yes,
           "doYouPayIntoPension.whatFor" -> doYouPayIntoPensionText,
+          "doYouPayForThings.answer" -> yes,
+          "doYouPayForThings.whatFor" -> doYouPayForThingsText,
           "doCareCostsForThisWork.answer" -> yes,
           "doCareCostsForThisWork.whatCosts" -> doCareCostsForThisWorkText,
           "moreAboutChanges" -> moreInfo
@@ -79,6 +84,8 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
             f.usuallyPaidSameAmount must equalTo(yes)
             f.payIntoPension.answer must equalTo(yes)
             f.payIntoPension.text.get must equalTo(doYouPayIntoPensionText)
+            f.doYouPayForThings.answer must equalTo(yes)
+            f.doYouPayForThings.text.get must equalTo(doYouPayForThingsText)
             f.careCostsForThisWork.answer must equalTo(yes)
             f.careCostsForThisWork.text.get must equalTo(doCareCostsForThisWorkText)
             f.moreAboutChanges.get must equalTo(moreInfo)
@@ -98,6 +105,7 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
           "monthlyPayDay" -> monthlyPayDay,
           "usuallyPaidSameAmount" -> no,
           "doYouPayIntoPension.answer" -> no,
+          "doYouPayForThings.answer" -> no,
           "doCareCostsForThisWork.answer" -> no
         )
       ).fold(
@@ -112,6 +120,7 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
             f.monthlyPayDay.get must equalTo(monthlyPayDay)
             f.usuallyPaidSameAmount must equalTo(no)
             f.payIntoPension.answer must equalTo(no)
+            f.doYouPayForThings.answer must equalTo(no)
             f.careCostsForThisWork.answer must equalTo(no)
           }
         )

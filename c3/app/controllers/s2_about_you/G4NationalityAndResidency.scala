@@ -38,9 +38,9 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("", "actualnationality.required", FormError("actualnationality", "error.required"))
-          .replaceError("", "maritalstatus.required", FormError("maritalStatus", "error.required"))
-          .replaceError("resideInUK", "error.text.required", FormError("resideInUK.text", "error.required"))
+          .replaceError("", "actualnationality.required", FormError("actualnationality", errorRequired))
+          .replaceError("", "maritalstatus.required", FormError("maritalStatus", errorRequired))
+          .replaceError("resideInUK", "error.text.required", FormError("resideInUK.text", errorRequired))
         BadRequest(views.html.s2_about_you.g4_nationalityAndResidency(formWithErrorsUpdate)(lang))
       },
       nationalityAndResidency => claim.update(nationalityAndResidency) -> Redirect(routes.G5AbroadForMoreThan52Weeks.present()))

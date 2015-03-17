@@ -8,7 +8,7 @@ import models.view.{Navigable, CachedClaim}
 import models.domain.YourCourseDetails
 import utils.helpers.CarersForm._
 import controllers.mappings.Mappings._
-import models.view.CachedClaim.ClaimResult
+import models.view.ClaimHandling.ClaimResult
 import play.api.data.FormError
 import models.domain.Claim
 import controllers.CarersForms._
@@ -49,12 +49,12 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("beenInEducationSinceClaimDate", "error.required", FormError("beenInEducationSinceClaimDate", "error.required"))
-          .replaceError("", "courseTitle.required", FormError("courseTitle", "error.required"))
-          .replaceError("", "nameOfSchoolCollegeOrUniversity.required", FormError("nameOfSchoolCollegeOrUniversity", "error.required"))
-          .replaceError("", "nameOfMainTeacherOrTutor.required", FormError("nameOfMainTeacherOrTutor", "error.required"))
-          .replaceError("", "startDate.required", FormError("startDate", "error.required"))
-          .replaceError("", "expectedEndDate.required", FormError("expectedEndDate", "error.required"))
+          .replaceError("beenInEducationSinceClaimDate", errorRequired, FormError("beenInEducationSinceClaimDate", errorRequired))
+          .replaceError("", "courseTitle.required", FormError("courseTitle", errorRequired))
+          .replaceError("", "nameOfSchoolCollegeOrUniversity.required", FormError("nameOfSchoolCollegeOrUniversity", errorRequired))
+          .replaceError("", "nameOfMainTeacherOrTutor.required", FormError("nameOfMainTeacherOrTutor", errorRequired))
+          .replaceError("", "startDate.required", FormError("startDate", errorRequired))
+          .replaceError("", "expectedEndDate.required", FormError("expectedEndDate", errorRequired))
         BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrorsUpdate)(lang))
       },
       yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(controllers.s7_employment.routes.G1Employment.present()))

@@ -1,5 +1,6 @@
 package xml
 
+import models.view.CachedClaim
 import org.specs2.mutable.{Tags, Specification}
 import models.domain.{Claim, CircumstancesDeclaration}
 import xml.circumstances.Declaration
@@ -12,7 +13,7 @@ class ConsentAndDeclarationSpec extends Specification with Tags {
     val confirmation: String = "yes"
 
     "generate xml" in {
-      val claim = Claim().update(CircumstancesDeclaration(obtainInfoAgreement = infoAgreement,obtainInfoWhy = Some("Because I don't want"), confirm = confirmation))
+      val claim = Claim(CachedClaim.key).update(CircumstancesDeclaration(obtainInfoAgreement = infoAgreement,obtainInfoWhy = Some("Because I don't want"), confirm = confirmation))
       val xml = Declaration.xml(claim)
 
       (xml \\ "Declaration" \\ "TextLine").theSeq(6).text must(contain(infoAgreement))

@@ -1,12 +1,12 @@
 package services.mail
 
+import akka.actor.SupervisorStrategy._
+import akka.actor.{OneForOneStrategy, _}
+import play.api.Logger
+import play.modules.mailer._
+
 import scala.concurrent.duration._
 import scala.language.postfixOps
-import akka.actor._
-import akka.actor.SupervisorStrategy._
-import play.api.Play.current
-import play.api.Logger
-import akka.actor.OneForOneStrategy
 
 object EmailActorsCreators {
 
@@ -24,7 +24,7 @@ class EmailManagerActor(emailSendingCreator:Props) extends Actor {
   }
 
   override def receive: Actor.Receive = {
-    case email:SendEmail => this.context.actorOf(emailSendingCreator) ! email
+    case email:Email => this.context.actorOf(emailSendingCreator) ! email
   }
 }
 
@@ -32,20 +32,22 @@ class EmailSenderActor extends Actor {
 
 
   override def receive: Actor.Receive = {
-    case e:SendEmail =>
+    case e:Email =>
       sendEmail(e)
       self ! PoisonPill
   }
-  def sendEmail(mail:SendEmail) = {
-    import app.ConfigProperties._
-    mailerPluginApi.setFrom(getProperty("mailer.from","noreply@carersallowance.service.gov.uk"))
+  def sendEmail(mail:Email) = {
+
+    Logger.debug(s"EmailManagerActor sending email $mail")
+    mailerPluginApi.sendEmail(mail)
+
+      /*.setFrom(getProperty("mailer.from","noreply@carersallowance.service.gov.uk"))
       .setRecipient(mail.to:_*)
       .setSubject(mail.subject)
-      .sendHtml(mail.body)
+      .sendHtml(mail.body)*/
   }
 
   def mailerPluginApi = {
-    import com.typesafe.plugin._
-    use[MailerPlugin].email
+    Mailer
   }
 }

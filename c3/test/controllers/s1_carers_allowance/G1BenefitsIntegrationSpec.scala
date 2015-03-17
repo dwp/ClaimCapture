@@ -1,10 +1,10 @@
 package controllers.s1_carers_allowance
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{TestBrowser, WithBrowser}
-import utils.pageobjects.{PageObjectsContext, PageObjects, TestData}
-import utils.pageobjects.s1_carers_allowance.{G1BenefitsPage, G2HoursPage}
 import models.domain.Benefits
+import org.specs2.mutable.{Specification, Tags}
+import play.api.test.WithBrowser
+import utils.pageobjects.s1_carers_allowance.{G2EligibilityPage, G1BenefitsPage}
+import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
 
 class G1BenefitsIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {
@@ -78,6 +78,6 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
 
     val nextPage = page submitPage()
 
-    nextPage must beAnInstanceOf[G2HoursPage]
+    nextPage must beAnInstanceOf[G2EligibilityPage]
   }
 }

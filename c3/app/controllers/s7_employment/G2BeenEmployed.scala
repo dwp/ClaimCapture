@@ -14,7 +14,7 @@ import models.domain.Claim
 import scala.reflect.ClassTag
 import play.api.i18n.Lang
 import scala.language.postfixOps
-import models.view.CachedClaim.ClaimResult
+import models.view.ClaimHandling.ClaimResult
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 object G2BeenEmployed extends Controller with CachedClaim with Navigable {
@@ -54,7 +54,7 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("beenEmployed", "error.required", FormError("beenEmployed", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+          .replaceError("beenEmployed", Mappings.errorRequired, FormError("beenEmployed", Mappings.errorRequired,Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
           displayPlaybackDatesFormat(lang, dmy - 6 months)))))
         BadRequest(views.html.s7_employment.g2_beenEmployed(formWithErrorsUpdate)(lang))
       },

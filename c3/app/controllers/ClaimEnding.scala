@@ -5,7 +5,7 @@ import models.view.CachedClaim
 import app.ConfigProperties._
 //import services.mail.{SendEmail, EmailActors}
 import services.EmailServices
-import models.domain.PreviewModel
+import models.domain.{ContactDetails, PreviewModel}
 
 object ClaimEnding extends Controller with CachedClaim {
 
@@ -28,8 +28,8 @@ object ClaimEnding extends Controller with CachedClaim {
   def thankyou = ending {implicit claim =>  implicit request =>  lang =>
 
     if (getProperty("mailer.enabled",default=false)){
-      val preview = claim.questionGroup[PreviewModel].getOrElse(PreviewModel())
-      if (preview.email.isDefined) EmailServices.sendEmail to preview.email.get
+      val contactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
+      if (contactDetails.email.isDefined) EmailServices.sendEmail to contactDetails.email.get
     }
 
     Ok(views.html.common.thankYouClaim(lang))

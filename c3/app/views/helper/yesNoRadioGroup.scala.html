@@ -8,14 +8,12 @@
     args.find(t => t._1 == 'allowance).getOrElse('allowance -> false)._2.asInstanceOf[Boolean]
 }
 
-@fieldConstructor = @{ if(isAllowance) utils.helpers.EmptyTemplate.fieldConstructor else utils.helpers.CarersTemplate.fieldConstructor}
+@fieldConstructor = @{ if(isAllowance) utils.helpers.EligibilityTemplate.fieldConstructor else utils.helpers.CarersTemplate.fieldConstructor}
 
 @values = @{args.find(t => t._1 == 'values).getOrElse('values->defaultValues).asInstanceOf[(Symbol,Seq[(String, String)])]._2}
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
-    @if(isAllowance){
-        @allowanceYesNoPlaceholder(field, values, args.filter(d => d._1 != 'label && d._1 != 'values && d._1 != 'allowance):_*)
-    }else{
-        @yesNoPlaceholder(field, values, args.filter(d => d._1 != 'label && d._1 != 'values && d._1 != 'allowance):_*)
-    }
+
+    @yesNoPlaceholder(field, values, args.filter(d => d._1 != 'label && d._1 != 'values && d._1 != 'allowance):_*)
+
 }(fieldConstructor,lang)

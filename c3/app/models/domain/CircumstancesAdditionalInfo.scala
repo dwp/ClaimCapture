@@ -106,6 +106,7 @@ case class CircumstancesStartedEmploymentAndOngoing(beenPaid: String,
                                                     monthlyPayDay: Option[String],
                                                     usuallyPaidSameAmount: String,
                                                     payIntoPension: YesNoWithText = YesNoWithText("", None),
+                                                    doYouPayForThings: YesNoWithText = YesNoWithText("", None),
                                                     careCostsForThisWork: YesNoWithText = YesNoWithText("", None),
                                                     moreAboutChanges: Option[String] = None)
   extends QuestionGroup(CircumstancesStartedEmploymentAndOngoing)
@@ -124,6 +125,7 @@ case class CircumstancesStartedAndFinishedEmployment(beenPaid: String,
                                                      employerOwesYouMoney: String,
                                                      employerOwesYouMoneyInfo: Option[String] = None,
                                                      payIntoPension: YesNoWithText = YesNoWithText("", None),
+                                                     didYouPayForThings: YesNoWithText = YesNoWithText("", None),
                                                      careCostsForThisWork: YesNoWithText = YesNoWithText("", None),
                                                      moreAboutChanges: Option[String] = None)
   extends QuestionGroup(CircumstancesStartedAndFinishedEmployment)
@@ -138,6 +140,7 @@ case class CircumstancesEmploymentNotStarted(beenPaid: String,
                                              howOften: PaymentFrequency,
                                              usuallyPaidSameAmount: Option[String],
                                              payIntoPension: YesNoWithText = YesNoWithText("", None),
+                                             willYouPayForThings: YesNoWithText = YesNoWithText("", None),
                                              careCostsForThisWork: YesNoWithText = YesNoWithText("", None),
                                              moreAboutChanges: Option[String] = None)
   extends QuestionGroup(CircumstancesEmploymentNotStarted)

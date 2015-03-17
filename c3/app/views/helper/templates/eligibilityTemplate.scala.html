@@ -1,0 +1,31 @@
+@(elements: helper.FieldElements)
+
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.CarersHelpers._
+@import utils.helpers._
+
+<li @if(elements.hasErrors) { class="validation" }>
+
+    @if(elements.hasErrors) {
+        <p class="error">@elements.carersErrors.mkString(", ")</p>
+    }
+
+    @if(elements.args.contains('prompt)) {
+        <div class="prompt helper-prompt">@Html(Messages(elements.args.get('prompt).get.toString))</div>
+    }
+
+    @elements.input
+
+    @if(elements.args.contains('warningMessage)){
+        @defining(elements.field.value.getOrElse("") match { case "no" => "block" case _ => "none" }){ styleDisplay =>
+            <div id="warning@elements.id" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
+                @for(elem <- elements.args.get('warningMessage).get.asInstanceOf[Seq[String]]) {
+                    <p>@Html(elem)</p>
+                }
+            </div>
+        }
+
+
+    }
+
+</li>

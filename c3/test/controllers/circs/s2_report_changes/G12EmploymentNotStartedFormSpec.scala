@@ -15,8 +15,8 @@ class G12EmploymentNotStartedFormSpec extends Specification with Tags {
   val monthlyPayDay = "2nd Thursday every month"
   val other = "other"
   val otherText = "some other text"
-  val doYouPayIntoPensionText = "pension text"
-  val doCareCostsForThisWorkText = "care text"
+  val willYouPayIntoPensionText = "pension text"
+  val willYouPayForThingsText = "Some things needed to do the job"
   val moreInfo = "more information"
 
   "Report an Employment change in your circumstances where employment has not started - Employment Form" should {
@@ -30,8 +30,9 @@ class G12EmploymentNotStartedFormSpec extends Specification with Tags {
           "whenExpectedToBePaidDate.year" -> whenExpectedToBePaidDateYear.toString,
           "howOften.frequency" -> weekly,
           "usuallyPaidSameAmount" -> no,
-          "doYouPayIntoPension.answer" -> no,
-          "doCareCostsForThisWork.answer" -> no
+          "willYouPayIntoPension.answer" -> no,
+          "willYouPayForThings.answer" -> no,
+          "willCareCostsForThisWork.answer" -> no
         )
       ).fold(
           formWithErrors => {
@@ -44,6 +45,7 @@ class G12EmploymentNotStartedFormSpec extends Specification with Tags {
             f.howOften.frequency must equalTo(weekly)
             f.usuallyPaidSameAmount.get must equalTo(no)
             f.payIntoPension.answer must equalTo(no)
+            f.willYouPayForThings.answer must equalTo(no)
             f.careCostsForThisWork.answer must equalTo(no)
           }
         )

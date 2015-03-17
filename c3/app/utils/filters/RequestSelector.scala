@@ -14,7 +14,7 @@ object RequestSelector {
    */
   def toBeChecked(request:RequestHeader) = {
     val headerString = request.path
-    !headerString.matches(".*assets.*") && !endPage(request) && !headerString.matches(".*error.*")
+    !headerString.matches(".*assets.*") && !endPage(request) && !headerString.matches(".*error.*") && !headerString.matches(".*back-button.*") && !headerString.matches("/report/.*")
   }
 
   /**
@@ -24,7 +24,7 @@ object RequestSelector {
    */
   def startPage(request:RequestHeader) = {
     val headerString = request.path
-    headerString.matches(".*circumstances.identification.*") || headerString.matches(".*allowance.benefits.*")
+    headerString.matches(".*circumstances.identification.*") || headerString.matches(".*allowance.benefits.*") || headerString.matches(".*change-language.*")
   }
 
   /**

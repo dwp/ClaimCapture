@@ -22,7 +22,7 @@ import controllers.CarersForms.carersNonEmptyText
 import controllers.CarersForms.carersText
 import models.domain.Claim
 import play.api.i18n.Lang
-import models.view.CachedClaim.ClaimResult
+import models.view.ClaimHandling.ClaimResult
 import controllers.mappings.Mappings
 
 object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {

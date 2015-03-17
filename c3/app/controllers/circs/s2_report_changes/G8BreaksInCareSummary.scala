@@ -34,7 +34,7 @@ object G8BreaksInCareSummary extends Controller with CachedChangeOfCircs with Na
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("additionalBreaks", "additionalBreaks.text.required", FormError("additionalBreaks.text", "error.required"))
+          .replaceError("additionalBreaks", "additionalBreaks.text.required", FormError("additionalBreaks.text", errorRequired))
         BadRequest(views.html.circs.s2_report_changes.g8_breaksInCareSummary(formWithErrorsUpdate, circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()))(lang))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())

@@ -2,8 +2,9 @@ package xml.circumstances
 
 import javax.xml.bind.DatatypeConverter
 
-import com.dwp.carers.security.encryption.EncryptorAES
+import gov.dwp.carers.security.encryption.EncryptorAES
 import models.domain.{CircumstancesReportChange, Claim}
+import models.view.CachedChangeOfCircs
 import org.specs2.mutable.{Specification, Tags}
 
 /**
@@ -17,7 +18,7 @@ class CareeSpec extends Specification with Tags {
 
   "Careree" should {
     "generate Careree xml from a given circumstances" in {
-      val claim = Claim().update(yourDetails)
+      val claim = Claim(CachedChangeOfCircs.key).update(yourDetails)
       val xml = Caree.xml(claim)
 
       (new  EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary((xml \\ "CareeDetails" \\ "FullName" \\ "Answer").text)) shouldEqual yourDetails.theirFullName

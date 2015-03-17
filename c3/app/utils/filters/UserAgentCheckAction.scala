@@ -1,11 +1,11 @@
 package utils.filters
 
 import app.ConfigProperties._
-import com.dwp.exceptions.DwpRuntimeException
-import models.view.{CachedChangeOfCircs, CachedClaim}
-import play.api.Logger
+import gov.dwp.exceptions.DwpRuntimeException
+import models.view.{ClaimHandling, CachedChangeOfCircs, CachedClaim}
+import play.api.{Play, Logger}
 import play.api.cache.Cache
-import play.api.mvc.{EssentialAction, RequestHeader}
+import play.api.mvc.{Cookie, EssentialAction, RequestHeader}
 import play.api.Play.current
 
 /**
@@ -27,7 +27,8 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
    *         Otherwise it throws an exception to stop processing of the request by the application.
    */
   def apply(request: RequestHeader) = {
-    lazy val key = getKeyFromSession(request)
+
+    val key = getKeyFromSession(request)
 
     request match {
 
@@ -48,9 +49,13 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
               if (ua != userAgent) {
                 throw new DwpRuntimeException(s"UserAgent check failed. $userAgent is different from expected $ua.")
               }
-              Logger.debug(s"UserAgent $userAgent is equal to expected $ua.")
-            case _ => // No claim in cache. Nothing to do. user will get an error because no claim exists. No security risk.
+            case _ if (Cache.get(key).isDefined) => Logger.error("Lost User Agent from cache while claim still in cache? Should never happen.")
+            case _ =>
+            // No claim in cache. Nothing to do. user will get an error because no claim exists. No security risk.
           }
+        } else {
+          if (!Play.isTest)
+            throw new DwpRuntimeException(s"Session does not contain key. Cannot check User Agent. For ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}")
         }
 
       case _ if removeIf(request) =>
@@ -68,7 +73,6 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
   private def getKeyFromSession(header: RequestHeader) = {
     header.session.get(CachedClaim.key).getOrElse(header.session.get(CachedChangeOfCircs.key).getOrElse(""))
   }
-
 }
 
 /**
@@ -76,7 +80,12 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
  */
 object UserAgentCheckAction {
 
-  def defaultCheckIf(header: RequestHeader): Boolean = RequestSelector.toBeChecked(header)
+  def defaultCheckIf(header: RequestHeader): Boolean = (!RequestSelector.startPage(header)
+    && RequestSelector.toBeChecked(header)
+    && (header.cookies.get(ClaimHandling.applicationFinished) match {
+    case Some(c) => c.value == "false"
+    case _ => true
+  }))
 
   def defaultSetIf(header: RequestHeader): Boolean = header.method == "POST" && RequestSelector.startPage(header)
 
