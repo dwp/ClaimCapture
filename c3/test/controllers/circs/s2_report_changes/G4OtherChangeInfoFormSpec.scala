@@ -1,5 +1,6 @@
 package controllers.circs.s2_report_changes
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 
 class G4OtherChangeInfoFormSpec extends Specification with Tags {
@@ -22,7 +23,7 @@ class G4OtherChangeInfoFormSpec extends Specification with Tags {
         Map("changeInCircs" -> "")
       ).fold(
         formWithErrors => {
-          formWithErrors.errors(0).message must equalTo("error.required")
+          formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
         },
         f => "This mapping should not happen." must equalTo("Valid")
       )
@@ -34,7 +35,7 @@ class G4OtherChangeInfoFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
-          formWithErrors.errors(0).message must equalTo("error.restricted.characters")
+          formWithErrors.errors(0).message must equalTo(Mappings.errorRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }

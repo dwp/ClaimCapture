@@ -3,11 +3,11 @@ package services.submission
 import java.util.UUID._
 
 import models.domain.{Claim, _}
-import models.view.CachedClaim
+import models.view.{CachedChangeOfCircs, CachedClaim}
 import models.{DayMonthYear, NationalInsuranceNumber}
 import org.specs2.mock.Mockito
 import org.specs2.mutable.{Specification, Tags}
-import play.api.http
+import play.api.{Logger, http}
 import play.api.libs.ws.WSResponse
 import play.api.test.FakeApplication
 import services.{TransactionStatus, _}
@@ -44,7 +44,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
   }
 
   def getClaim(surname: String): Claim = {
-    val claim = new Claim(transactionId = Some(transactionId), uuid=randomUUID.toString)
+    val claim = new Claim(CachedClaim.key, transactionId = Some(transactionId), uuid=randomUUID.toString)
 
     // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
     val det = new YourDetails("", "",None, surname,NationalInsuranceNumber(Some(ni)), DayMonthYear(Some(1), Some(1), Some(1969)))
@@ -52,13 +52,13 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
     val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 
     claim + det + claimDate match {
-      case c:Claim => new Claim(c.key, c.sections, c.created, c.lang, c.uuid, c.transactionId)(c.navigation) with FullClaim
+      case c:Claim => new Claim(c.key, c.sections, c.created, c.lang, c.uuid, c.transactionId)(c.navigation)
     }
 
   }
 
   def getCofc(fullname: String): Claim = {
-    val claim = new Claim("change-of-circs",transactionId = Some(transactionId), uuid=randomUUID.toString)
+    val claim = new Claim(CachedChangeOfCircs.key,transactionId = Some(transactionId), uuid=randomUUID.toString)
 
     // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
     val det = new CircumstancesReportChange(true, fullname, NationalInsuranceNumber(Some(ni)), DayMonthYear(Some(1), Some(1), Some(1967)), "", "")
@@ -66,7 +66,9 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
     val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 
     claim + det + claimDate match {
-      case c:Claim => new Claim(c.key, c.sections, c.created, c.lang, c.uuid, c.transactionId)(c.navigation) with FullClaim
+      case c:Claim =>
+        Logger.info(s"getCofc ${c.key}")
+        new Claim(c.key, c.sections, c.created, c.lang, c.uuid, c.transactionId)(c.navigation)
     }
   }
 
@@ -77,7 +79,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
       val service = asyncService(http.Status.BAD_REQUEST,transactionId)
 
-      val claim = new Claim(transactionId = Some(transactionId)) with FullClaim
+      val claim = new Claim(CachedClaim.key,transactionId = Some(transactionId))
 
       serviceSubmission(service, claim)
 
@@ -109,7 +111,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SUCCESS,1,Some(0),None,Some("en")))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SUCCESS,2,Some(0),None,Some("en")))
 
     }
 
@@ -140,7 +142,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       Thread.sleep(1500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,1,Some(0),None,Some("en")))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,2,Some(0),None,Some("en")))
 
     }
 

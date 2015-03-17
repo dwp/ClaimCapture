@@ -80,12 +80,20 @@ object Global extends WithFilters(MonitorFilter,DwpCSRFFilter(createIfFound = CS
 
     request.headers.get("Referer").getOrElse("Unknown") match {
       // we redirect to the error page with specific cookie error message if cookies are disabled.
-      case pattern(_*) if cookiesAbsent  => Future(Redirect(controllers.routes.CircsEnding.errorCookie()))
-      case _  if cookiesAbsent => Future(Redirect(controllers.routes.ClaimEnding.errorCookie()))
+      case pattern(_*) if cookiesAbsent  =>
+        Logger.warn("Redirecting to Error cookie page for a change-of-circs.")
+        Future(Redirect(controllers.routes.CircsEnding.errorCookie()))
+      case _  if cookiesAbsent =>
+        Logger.warn("Redirecting to Error cookie page for a claim.")
+        Future(Redirect(controllers.routes.ClaimEnding.errorCookie()))
       // We redirect and do not stay in same URL to update Google Analytics
       // We delete our cookies to ensure we restart anew
-      case pattern(_*) => Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession)
-      case _ => Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession)
+      case pattern(_*) =>
+        Logger.warn("Redirecting to Error page for a change-of-circs.")
+        Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession)
+      case _ =>
+        Logger.warn("Redirecting to Error page for a claim.")
+        Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession)
     }
   }
 }

@@ -16,7 +16,7 @@ object AddressMappings {
   )(MultiLineAddress.apply)(MultiLineAddress.unapply).verifying(basicValidations)
 
   def requiredAddress = Constraint[MultiLineAddress]("constraint.required") { a =>
-    if(invalidateSpaces(a.lineOne).isEmpty) Invalid(ValidationError("error.required"))
+    if(invalidateSpaces(a.lineOne).isEmpty) Invalid(ValidationError(Mappings.errorRequired))
     else if (invalidateSpaces(a.lineTwo).isEmpty) Invalid(ValidationError("error.addressLines.required"))
     else Valid
   }

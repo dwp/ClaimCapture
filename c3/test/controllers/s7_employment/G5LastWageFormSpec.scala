@@ -1,5 +1,7 @@
 package controllers.s7_employment
 
+import controllers.mappings.Mappings
+import models.view.CachedClaim
 import org.specs2.mutable.{Tags, Specification}
 import app.StatutoryPaymentFrequency
 import models.{PaymentFrequency, DayMonthYear}
@@ -19,7 +21,7 @@ class G5LastWageFormSpec extends Specification with Tags{
     val whenGetPaid = "Monday"
 
     "map data to form" in {
-      G5LastWage.form(models.domain.Claim()).bind(
+      G5LastWage.form(models.domain.Claim(CachedClaim.key)).bind(
         Map(
           "iterationID" -> jobId,
           "oftenGetPaid.frequency" -> oftenGetPaid,
@@ -49,17 +51,17 @@ class G5LastWageFormSpec extends Specification with Tags{
     }
 
     "have 5 mandatory fields" in {
-      G5LastWage.form(models.domain.Claim()).bind(
+      G5LastWage.form(models.domain.Claim(CachedClaim.key)).bind(
       Map(
         "iterationID" -> jobId)
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(5)
-          formWithErrors.errors(0).message must equalTo("error.required")
-          formWithErrors.errors(1).message must equalTo("error.required")
-          formWithErrors.errors(2).message must equalTo("error.required")
-          formWithErrors.errors(3).message must equalTo("error.required")
-          formWithErrors.errors(4).message must equalTo("error.required")
+          formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
         },
         f => "This mapping should not happen." must equalTo("Valid")
       )

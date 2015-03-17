@@ -7,7 +7,7 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 object ApplicationBuild extends Build {
   val appName         = "c3"
 
-  val appVersion      = "2.13-SNAPSHOT"
+  val appVersion      = "2.14-SNAPSHOT"
 
   val appDependencies = Seq(
     // Add your project dependencies here,
@@ -19,14 +19,14 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka"  %% "akka-testkit"        % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-agent"          % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-remote"         % "2.3.9" % "test" withSources() withJavadoc(),
-    "gov.dwp.carers"     %% "xmlcommons"          % "5.1",
+    "gov.dwp.carers"     %% "xmlcommons"          % "5.1.1",
     "gov.dwp.carers"     %%  "wscommons"          % "2.3",
     "org.postgresql"     % "postgresql"           % "9.3-1103-jdbc41",
-    "com.h2database"      % "h2"                  % "1.4.185"  % "test",
+    "com.h2database"      % "h2"                  % "1.4.186"  % "test",
     "me.moocar"           % "logback-gelf"        % "0.12",
     "com.github.rjeschke" % "txtmark"             % "0.11",
-    "org.jacoco"          % "org.jacoco.core"     % "0.7.2.201409121644"  % "test",
-    "org.jacoco"          % "org.jacoco.report"   % "0.7.2.201409121644"  % "test",
+    "org.jacoco"          % "org.jacoco.core"     % "0.7.4.201502262128"  % "test",
+    "org.jacoco"          % "org.jacoco.report"   % "0.7.4.201502262128"  % "test",
     "gov.dwp"            %% "play2-multimessages" % "2.3.5",
     "nl.rhinofly"        %% "play-mailer"         % "3.0.0",
     "gov.dwp.carers"     %% "play2-resilient-memcached"     % "1.1"

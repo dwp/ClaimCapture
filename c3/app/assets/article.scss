@@ -46,8 +46,8 @@ article {
 			   font-size: 36px;
 			   font-weight: 700;
 			   line-height: 1.2em;
-			   @media screen and (max-width: 600px) {
-				   font-size: 30px;
+			   @media screen and (max-width: 700px) {
+				   font-size: 24px;
 			   }
 			   
 			   .section-progress {
@@ -57,6 +57,9 @@ article {
 			   	   margin-bottom: 4px;
 			   	   display: block;
 			   	   line-height: 1.4em;
+			   	   @media screen and (max-width: 700px) {
+				   	   font-size: 20px;
+			   	   }
 		   	   }
 			   
 		   }
@@ -207,8 +210,16 @@ article {
 		margin-bottom: 1em;
 	}
 	
+	h2 {
+		font-size: 24px;
+		@media screen and (max-width: 700px) {
+			font-size: 19px;
+		}
+	}
+	
 	h3 {
 		margin: 2.2em 0 .5em 0;
+		font-size: 19px;
 	}
 	
 	a {

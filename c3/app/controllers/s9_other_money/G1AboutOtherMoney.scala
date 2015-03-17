@@ -1,5 +1,7 @@
 package controllers.s9_other_money
 
+import controllers.mappings.Mappings
+
 import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
@@ -28,7 +30,7 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
       "howMuch" -> optional(nonEmptyText verifying validCurrency8Required),
       "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
-      "employersAddress" -> optional(address),
+      "employersAddress" -> optional(address.verifying(requiredAddress)),
       "employersPostcode" -> optional(text verifying validPostcode)
     )(YesNoWithEmployerAndMoney.apply)(YesNoWithEmployerAndMoney.unapply)
       .verifying("statEmployerNameRequired", YesNoWithEmployerAndMoney.validateEmployerNameOnYes _)
@@ -40,7 +42,7 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
       "howMuch" -> optional(nonEmptyText verifying validCurrency8Required),
       "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
-      "employersAddress" -> optional(address),
+      "employersAddress" -> optional(address.verifying(requiredAddress)),
       "employersPostcode" -> optional(text verifying validPostcode)
     )(YesNoWithEmployerAndMoney.apply)(YesNoWithEmployerAndMoney.unapply)
       .verifying("otherPayEmployerNameRequired", YesNoWithEmployerAndMoney.validateEmployerNameOnYes _)
@@ -89,17 +91,17 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
         val anyPaymentsErrorParams = Seq(claimDate)
 
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("yourBenefits.answer","error.required", FormError("yourBenefits.answer","error.required",yourBenefitsAnswerErrorParams))
-          .replaceError("anyPaymentsSinceClaimDate.answer","error.required", FormError("anyPaymentsSinceClaimDate.answer","error.required",anyPaymentsErrorParams))
-          .replaceError("", "whoPaysYou.required", FormError("whoPaysYou", "error.required"))
-          .replaceError("", "howMuch.required", FormError("howMuch", "error.required"))
-          .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
-          .replaceError("statutorySickPay.answer","error.required", FormError("statutorySickPay.answer","error.required"))
-          .replaceError("otherStatutoryPay.answer","error.required", FormError("otherStatutoryPay.answer","error.required"))
-          .replaceError("statutorySickPay","statHowMuchRequired", FormError("statutorySickPay.howMuch", "error.required"))
-          .replaceError("statutorySickPay","statEmployerNameRequired", FormError("statutorySickPay.employersName", "error.required"))
-          .replaceError("otherStatutoryPay","otherPayHowMuchRequired", FormError("otherStatutoryPay.howMuch", "error.required"))
-          .replaceError("otherStatutoryPay","otherPayEmployerNameRequired", FormError("otherStatutoryPay.employersName", "error.required"))
+          .replaceError("yourBenefits.answer",Mappings.errorRequired, FormError("yourBenefits.answer",Mappings.errorRequired,yourBenefitsAnswerErrorParams))
+          .replaceError("anyPaymentsSinceClaimDate.answer",Mappings.errorRequired, FormError("anyPaymentsSinceClaimDate.answer",Mappings.errorRequired,anyPaymentsErrorParams))
+          .replaceError("", "whoPaysYou.required", FormError("whoPaysYou", Mappings.errorRequired))
+          .replaceError("", "howMuch.required", FormError("howMuch", Mappings.errorRequired))
+          .replaceError("howOften.frequency.other",Mappings.maxLengthError,FormError("howOften",Mappings.maxLengthError))
+          .replaceError("statutorySickPay.answer",Mappings.errorRequired, FormError("statutorySickPay.answer",Mappings.errorRequired))
+          .replaceError("otherStatutoryPay.answer",Mappings.errorRequired, FormError("otherStatutoryPay.answer",Mappings.errorRequired))
+          .replaceError("statutorySickPay","statHowMuchRequired", FormError("statutorySickPay.howMuch", Mappings.errorRequired))
+          .replaceError("statutorySickPay","statEmployerNameRequired", FormError("statutorySickPay.employersName", Mappings.errorRequired))
+          .replaceError("otherStatutoryPay","otherPayHowMuchRequired", FormError("otherStatutoryPay.howMuch", Mappings.errorRequired))
+          .replaceError("otherStatutoryPay","otherPayEmployerNameRequired", FormError("otherStatutoryPay.employersName", Mappings.errorRequired))
 
         BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate)(lang))
       },
