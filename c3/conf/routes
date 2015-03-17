@@ -8,6 +8,8 @@ GET         /                                                           controll
 # Health checks
 GET         /report/metrics                                             com.kenshoo.play.metrics.MetricsController.metrics
 GET         /report/health                                              controllers.HealthController.healthReport
+GET         /report/ping                                                controllers.HealthController.ping
+
 
 # claim pack notes accessed externally
 GET         /claim-notes                                                controllers.ClaimNotes.notes

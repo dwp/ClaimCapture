@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s9_other_money._
-import utils.pageobjects.s11_pay_details.G1HowWePayYouPage
+import utils.pageobjects.s11_pay_details.{G2BankBuildingSocietyDetailsPage, G1HowWePayYouPage}
 import utils.pageobjects.s10_information.G1AdditionalInfoPage
 import utils.pageobjects.{PageObjects, PageObjectsContext}
 
@@ -37,7 +37,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.howWePayYou(browser)
-      titleMustEqual("Bank/Building society details - Pay details")
+      titleMustEqual(G2BankBuildingSocietyDetailsPage.title)
     }
 
     /**

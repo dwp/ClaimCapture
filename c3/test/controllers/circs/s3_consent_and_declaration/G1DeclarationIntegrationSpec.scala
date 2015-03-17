@@ -166,6 +166,21 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         page jsCheckEnabled() must beTrue
       }
 
+      "'Please tell us why not' field should not be visible when answered 'yes' to obtainInfoAgreement" in new WithBrowser with PageObjects{
+        val page =  G1DeclarationPage(context)
+        val claim = new TestData
+        claim.FurtherInfoContact = byPost
+        claim.CircumstancesDeclarationInfoAgreement = "yes"
+        claim.CircumstancesDeclarationWantsEmailContact = wantsEmailContact
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Please tick this box to confirm that you understand and make the declarations above. - This field is required")
+        page visible("#why") must beFalse
+      }
 
     }
   } section("integration", models.domain.CircumstancesConsentAndDeclaration.id)
