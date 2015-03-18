@@ -1,7 +1,7 @@
+import com.typesafe.sbt.web.SbtWeb
 import sbt._
 import sbt.Keys._
 import play.Play.autoImport._
-import net.litola.SassPlugin
 import de.johoop.jacoco4sbt.JacocoPlugin._
 
 object ApplicationBuild extends Build {
@@ -39,7 +39,8 @@ object ApplicationBuild extends Build {
   var sR: Seq[Def.Setting[_]] = Seq(
     resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
-    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases")
+    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
+    resolvers += "GitHub repository" at "http://shaggyyeti.github.io/releases/sbt-sass")
 
   var sTest: Seq[Def.Setting[_]] = Seq()
 
@@ -69,5 +70,5 @@ object ApplicationBuild extends Build {
 
   var appSettings: Seq[Def.Setting[_]] =  sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
 
-  val main = Project(appName, file(".")).enablePlugins(play.PlayScala, net.litola.SassPlugin).settings(appSettings: _*)
+  val main = Project(appName, file(".")).enablePlugins(play.PlayScala,SbtWeb).settings(appSettings: _*)
 }
