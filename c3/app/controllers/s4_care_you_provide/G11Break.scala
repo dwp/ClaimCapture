@@ -3,7 +3,6 @@ package controllers.s4_care_you_provide
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import controllers.mappings.Mappings._
 import utils.helpers.CarersForm._
 import models.domain.BreaksInCare
 import models.view.CachedClaim
@@ -11,8 +10,7 @@ import play.api.data.FormError
 import models.domain.Break
 import G10BreaksInCare.breaksInCare
 import controllers.CarersForms._
-import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
-import controllers.mappings.Mappings
+import controllers.mappings.Mappings._
 import models.yesNo.RadioWithText
 
 
@@ -21,14 +19,14 @@ object G11Break extends Controller with CachedClaim {
   val whereWasPersonMapping =
     "wherePerson" -> mapping(
       "answer" -> carersNonEmptyText,
-      "text" -> optional(carersText(maxLength = Mappings.sixty))
+      "text" -> optional(carersText(maxLength = sixty))
     )(RadioWithText.apply)(RadioWithText.unapply)
       .verifying("wherePerson.text.required", RadioWithText.validateOnOther _)
 
   val whereWereYouMapping =
     "whereYou" -> mapping(
       "answer" -> carersNonEmptyText,
-      "text" -> optional(carersText(maxLength = Mappings.sixty))
+      "text" -> optional(carersText(maxLength = sixty))
     )(RadioWithText.apply)(RadioWithText.unapply)
       .verifying("whereYou.text.required", RadioWithText.validateOnOther _)
 
@@ -51,14 +49,14 @@ object G11Break extends Controller with CachedClaim {
     form.bindEncrypted.fold(
       formWithErrors => {
         val fwe = formWithErrors
-        .replaceError("whereYou.answer", Mappings.errorRequired, FormError("whereYou",Mappings.errorRequired,Seq("This field is required")))
-        .replaceError("whereYou","whereYou.text.required",FormError("whereYou.text",Mappings.errorRequired))
+        .replaceError("whereYou.answer", errorRequired, FormError("whereYou",errorRequired,Seq("This field is required")))
+        .replaceError("whereYou","whereYou.text.required",FormError("whereYou.text",errorRequired))
         .replaceError("whereYou.text",errorRestrictedCharacters,FormError("whereYou",errorRestrictedCharacters))
-        .replaceError("wherePerson.answer", Mappings.errorRequired, FormError("wherePerson",Mappings.errorRequired,Seq("This field is required")))
-        .replaceError("wherePerson","wherePerson.text.required",FormError("wherePerson.text",Mappings.errorRequired))
+        .replaceError("wherePerson.answer", errorRequired, FormError("wherePerson",errorRequired,Seq("This field is required")))
+        .replaceError("wherePerson","wherePerson.text.required",FormError("wherePerson.text",errorRequired))
         .replaceError("wherePerson.text",errorRestrictedCharacters,FormError("wherePerson",errorRestrictedCharacters))
-        .replaceError("start.date",Mappings.errorRequired, FormError("start",Mappings.errorRequired, Seq("This field is required")))
-        .replaceError("", "endDate.required", FormError("end", Mappings.errorRequired))
+        .replaceError("start.date",errorRequired, FormError("start",errorRequired, Seq("This field is required")))
+        .replaceError("", "endDate.required", FormError("end", errorRequired))
         BadRequest(views.html.s4_care_you_provide.g11_break(fwe,backCall)(lang))
       },
       break => {

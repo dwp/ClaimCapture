@@ -26,13 +26,6 @@ class SubmissionCacheServiceSpec extends Specification with Tags with Submission
       getFromCache(getClaim("test","aksdhfkj143x3")) must beEmpty
     }
 
-    "test that the cache times out after a specified period of time" in new WithApplication {
-      skipped("Time dependent. Takes too long.")
-      storeInCache(getClaim("test","akspngjkj143"))
-      Thread.sleep(60000)
-      getFromCache(getClaim("test","akspngjkj143")) must beEmpty
-    } //.pendingUntilFixed("Need to find a good way of the tweaking the config property for the timeout in the tests")
-
     def getClaim(surname: String, newuuid:String): Claim = {
       var claim = new Claim(CachedClaim.key, transactionId = Some("1234567"), uuid=newuuid)
 
