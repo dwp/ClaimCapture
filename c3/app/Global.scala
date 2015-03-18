@@ -11,7 +11,7 @@ import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.Injector
 import utils.csrf.DwpCSRFFilter
-import utils.filters.{CSRFCreation, UserAgentCheckFilter}
+import utils.filters.{UserAgentCheckException, CSRFCreation, UserAgentCheckFilter}
 import utils.helpers.CarersLanguageHelper
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -76,7 +76,7 @@ object Global extends WithFilters(MonitorFilter,UserAgentCheckFilter(),DwpCSRFFi
     val pattern = """.*circumstances.*""".r
     val cookiesAbsent = request.cookies.isEmpty
 
-    Logger.error(s"${ex.getMessage}. Cookies empty $cookiesAbsent")
+    Logger.error(s"${ex.toString}. Cookies empty $cookiesAbsent")
 
     request.headers.get("Referer").getOrElse("Unknown") match {
       // we redirect to the error page with specific cookie error message if cookies are disabled.
@@ -84,8 +84,18 @@ object Global extends WithFilters(MonitorFilter,UserAgentCheckFilter(),DwpCSRFFi
       case _  if cookiesAbsent => Future(Redirect(controllers.routes.ClaimEnding.errorCookie()))
       // We redirect and do not stay in same URL to update Google Analytics
       // We delete our cookies to ensure we restart anew
-      case pattern(_*) => Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession)
-      case _ => Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession)
+      case pattern(_*) =>
+        if (ex.getMessage.contains("UserAgentCheck")) Future(Redirect(controllers.routes.CircsEnding.error()))
+        else {
+            Logger.warn("Delete cookies")
+            Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(C3VERSION)).withNewSession)
+        }
+      case _ =>
+        if (ex.getMessage.contains("UserAgentCheck")) Future(Redirect(controllers.routes.ClaimEnding.error()))
+        else {
+          Logger.warn("Delete cookies")
+          Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(C3VERSION)).withNewSession)
+        }
     }
   }
 }
