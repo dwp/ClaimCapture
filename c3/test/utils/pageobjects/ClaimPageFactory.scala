@@ -1,8 +1,5 @@
 package utils.pageobjects
 
-import org.fluentlenium.core.Fluent
-import play.api.test.TestBrowser
-
 import scala.language.dynamics
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
@@ -37,7 +34,7 @@ object ClaimPageFactory extends PageFactory {
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
     if (null == title) { val xmlPage =XmlPage (ctx)
-      if (xmlPage.source().contains("xmlns")) xmlPage
+      if (xmlPage.source.contains("xmlns")) xmlPage
       else new UnknownPage("", ctx)
     }
     else {

@@ -23,7 +23,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       fillCareProvideSection(context,partnerClaim = partnerData)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source
 
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
@@ -44,7 +44,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       fillCareProvideSection(context,partnerClaim = partnerData, careYouProvideData)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source
 
       source must contain("About the person you care for")
       source must contain("123 Colne Street, Line 2 BB9 2AD")
@@ -60,7 +60,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       fillCareProvideSection(context,partnerClaim = partnerData)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source
 
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
@@ -107,7 +107,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       fillCareProvideSection(context,partnerClaim = partnerData, careYouProvideData)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source
 
       source must contain("About the person you care for")
       source must contain("101 Clifton Street, Blackpool FY1 2RW")
@@ -126,7 +126,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val preview = carerAddressPage.submitPage()
 
       preview must beAnInstanceOf[PreviewPage]
-      val newSource = preview.source()
+      val newSource = preview.source
 
       newSource must contain("Something totally different, Manchester FY1 2RW")
       newSource must not(contain("101 Clifton Street, Blackpool FY1 2RW"))

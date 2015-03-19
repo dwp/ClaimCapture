@@ -9,8 +9,6 @@ import scala.util.Try
 
 /**
  * Super-class of all the PageObject pattern compliant classes representing an application page.
- * @author Jorge Migueis
- *         Date: 08/07/2013
  */
 abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: String, pageTitle: String, iteration: Int = 1) extends Object with FormFields with WebSearchActions with WebFillActions {
 
@@ -177,7 +175,7 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
   def submitPage(throwException: Boolean = false, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
     if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be submitted. " + this.toString)
     try {
-      this.pageSource = getPageSource() // cache page source so can always look back at html as it was when submitting.
+      this.pageSource = getPageSource // cache page source so can always look back at html as it was when submitting.
       val fluent = ctx.browser.submit("button[type='submit']")
       if (errorsInPage(throwException)) this
       else {
@@ -187,7 +185,7 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
     }
     catch {
       case e: Exception =>
-        Logger("PageObject").error(getPageSource())
+        Logger("PageObject").error(getPageSource)
         throw new PageObjectException("Could not submit page [" + this.pageTitle + "] because " + e.getMessage, exception = e)
     }
   }
@@ -219,7 +217,7 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
    * Returns html code of the page.
    * @return source code of the page encapsulated in a String
    */
-  def source() = if (this.pageLeftOrSubmitted) this.pageSource else getPageSource()
+  def source = if (this.pageLeftOrSubmitted) this.pageSource else getPageSource
 
 
   def jsCheckEnabled() = source.contains("jsEnabled") && source.contains("#js")
@@ -313,7 +311,7 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
   }
 
   private def goToUrl(page: Page, throwException: Boolean, waitForPage: Boolean, waitDuration: Int) = {
-    if (!this.pageLeftOrSubmitted) this.pageSource = getPageSource()
+    if (!this.pageLeftOrSubmitted) this.pageSource = getPageSource
     val fluent = ctx.browser.goTo(page.url)
     val title = getPageTitle(fluent, waitForPage, waitDuration)
     if (title.toLowerCase != page.pageTitle.toLowerCase) {
@@ -323,14 +321,14 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
   }
 
   protected def errorsInPage(throwException: Boolean) = {
-    if (!this.listErrors.isEmpty) {
+    if (this.listErrors.nonEmpty) {
       if (throwException) throw new PageObjectException("Page " + this.getClass + " \"" + pageTitle + "\" Submit failed with errors: ", this.listErrors)
       true
     }
     else false
   }
 
-  private def getPageSource() = try {
+  private def getPageSource = try {
     ctx.browser.pageSource()
   }
   catch {
@@ -372,14 +370,14 @@ final class UnknownPage(pageTitle: String, context:PageObjectsContext) extends P
    * @param theClaim   Data to use to fill page
    */
   override def fillPageWith(theClaim: TestData): Page =
-    throw new PageObjectException("Cannot fill an unknown page [" + pageTitle + "] Previous page was [" + ctx.previousPage.getOrElse(this).pageTitle + "]. Page content is" + source())
+    throw new PageObjectException(s"Cannot fill an unknown page [$pageTitle] Previous page was [${ctx.previousPage.getOrElse(this).pageTitle}]. Page content is $source")
 
   /**
    * Throws a PageObjectException.
    * @param theClaim   Claim to populate.
    */
   override def populateClaim(theClaim: TestData): Page =
-    throw new PageObjectException("Cannot populate a claim from an unknown page [" + pageTitle + "] Previous page was [" + ctx.previousPage.getOrElse(this).pageTitle + "]. Page content is" + source())
+    throw new PageObjectException(s"Cannot populate a claim from an unknown page [$pageTitle] Previous page was [${ctx.previousPage.getOrElse(this).pageTitle}]. Page content is $source")
 }
 
 object Page {

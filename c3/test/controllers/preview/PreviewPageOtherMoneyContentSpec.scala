@@ -17,7 +17,7 @@ class PreviewPageOtherMoneyContentSpec extends Specification with Tags {
       fillOtherMoneySection(context)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source().toLowerCase
+      val source = page.source.toLowerCase
 
       source must contain("other payments")
       source must contain("Have you received any payments for the person you care for or any other person since your claim date?".toLowerCase)

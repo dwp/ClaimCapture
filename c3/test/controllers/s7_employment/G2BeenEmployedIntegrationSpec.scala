@@ -100,14 +100,14 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       val employmentData = ClaimScenarioFactory.s7EmploymentMinimal()
       var historyPage = goToHistoryPage(ClaimScenarioFactory.s7EmploymentMinimal())
       historyPage must beAnInstanceOf[G2BeenEmployedPage]
-      historyPage.source() must contain("Tesco's")
-      historyPage.source() must contain("01/01/2013")
+      historyPage.source must contain("Tesco's")
+      historyPage.source must contain("01/01/2013")
     }
 
     """Display start date with text "Before" when start date is before claim date""" in new WithBrowser with EmployedHistoryPage {
       var historyPage = goToHistoryPage(ClaimScenarioFactory.s7EmploymentBeforeClamDateYes())
       historyPage must beAnInstanceOf[G2BeenEmployedPage]
-      historyPage.source() must contain("Before 03/04/2014") // This is one month before claim date
+      historyPage.source must contain("Before 03/04/2014") // This is one month before claim date
     }
 
   } section("integration", models.domain.Employed.id)

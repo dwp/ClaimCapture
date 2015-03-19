@@ -4,10 +4,8 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.common.ErrorPage
 import utils.pageobjects.{PageObjects, TestData}
-import utils.pageobjects.s2_about_you.G1YourDetailsPage
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
-import play.api.Logger
 
 class G6ApproveIntegrationSpec extends Specification with Tags {
   "Approve" should {
@@ -39,10 +37,10 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       val approvePage = livingGBPage submitPage()
 
       approvePage match {
-        case p: G6ApprovePage => {
+        case p: G6ApprovePage =>
           p.ctx.previousPage must beSome(livingGBPage)
           p.isApproved must beTrue
-        }
+
         case _ => ko(notRightPage)
       }
     }
@@ -58,10 +56,10 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       val approvePage = page runClaimWith (claim, G6ApprovePage.title)
 
       approvePage match {
-        case p: G6ApprovePage => {
+        case p: G6ApprovePage =>
           p.ctx.previousPage.get must beAnInstanceOf[G2EligibilityPage]
           p.isNotApproved must beTrue
-        }
+
         case _ => ko(notRightPage)
       }
     }
@@ -90,9 +88,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       errorPage goToThePage()
       val tryPage = errorPage.clickLinkOrButton("button[type='submit']")
       tryPage match {
-        case p: G6ApprovePage => {
-          ok("Error try again worked.")
-        }
+        case p: G6ApprovePage =>  ok("Error try again worked.")
         case _ => ko(notRightPage)
       }
     }
