@@ -14,4 +14,3 @@ ClaimCapture
 * type 'play run' and hit return to start the application
 * Navigate to http://localhost:9000/ to view the website
 * Test
-
