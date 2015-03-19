@@ -39,8 +39,7 @@ object ApplicationBuild extends Build {
   var sR: Seq[Def.Setting[_]] = Seq(
     resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
-    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
-    resolvers += "GitHub repository" at "http://shaggyyeti.github.io/releases/sbt-sass")
+    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases")
 
   var sTest: Seq[Def.Setting[_]] = Seq()
 
