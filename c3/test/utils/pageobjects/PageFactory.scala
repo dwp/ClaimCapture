@@ -12,8 +12,8 @@ import play.api.test.TestBrowser
 trait PageFactory {
   def buildPageFromTitle(title: String,ctx:PageObjectsContext):Page
 
-  def buildPageFromFluent(fluent: Fluent): Page = {
-    buildPageFromTitle(fluent.title(),PageObjectsContext(TestBrowser(fluent.getDriver,Some(fluent.title))))
-  }
+//  def buildPageFromFluent(fluent: Fluent): Page = {
+//    buildPageFromTitle(fluent.title(),PageObjectsContext(TestBrowser(fluent.getDriver,Some(fluent.title))))
+//  }
 
 }

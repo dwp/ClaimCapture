@@ -10,7 +10,7 @@ final class PreviewPage(ctx:PageObjectsContext) extends ClaimPage(ctx, PreviewPa
   def validateXmlWith(claim: TestData, validator: XMLBusinessValidation) = {
 
     Tuple2(
-      validator.validateXMLClaim(claim, source(), throwException = false),
+      validator.validateXMLClaim(claim, source, throwException = false),
       validator.warnings
     )
   }

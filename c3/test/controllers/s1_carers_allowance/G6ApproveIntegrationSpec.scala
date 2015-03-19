@@ -2,11 +2,10 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
+import utils.pageobjects.common.ErrorPage
 import utils.pageobjects.{PageObjects, TestData}
-import utils.pageobjects.s2_about_you.G1YourDetailsPage
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
-import play.api.Logger
 
 class G6ApproveIntegrationSpec extends Specification with Tags {
   "Approve" should {
@@ -38,10 +37,10 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       val approvePage = livingGBPage submitPage()
 
       approvePage match {
-        case p: G6ApprovePage => {
+        case p: G6ApprovePage =>
           p.ctx.previousPage must beSome(livingGBPage)
           p.isApproved must beTrue
-        }
+
         case _ => ko(notRightPage)
       }
     }
@@ -57,10 +56,10 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       val approvePage = page runClaimWith (claim, G6ApprovePage.title)
 
       approvePage match {
-        case p: G6ApprovePage => {
+        case p: G6ApprovePage =>
           p.ctx.previousPage.get must beAnInstanceOf[G2EligibilityPage]
           p.isNotApproved must beTrue
-        }
+
         case _ => ko(notRightPage)
       }
     }
@@ -76,6 +75,23 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       page runClaimWith (claim, G1ClaimDatePage.title)
     }
 
+    "If go to error page after this page. Retry allows to come back to this page" in new WithBrowser with PageObjects{
+      val page =  G1BenefitsPage(context)
+      val claim = new TestData
+      claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "AA"
+      claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
+      claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
+      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
+      page goToThePage()
+      page runClaimWith (claim, G6ApprovePage.title)
+      val errorPage = ErrorPage(context)
+      errorPage goToThePage()
+      val tryPage = errorPage.clickLinkOrButton("button[type='submit']")
+      tryPage match {
+        case p: G6ApprovePage =>  ok("Error try again worked.")
+        case _ => ko(notRightPage)
+      }
+    }
 
 
   } section("integration", models.domain.CarersAllowance.id)

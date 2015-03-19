@@ -29,7 +29,7 @@ class FunctionalTestCase14Spec extends FunctionalTestCommon {
           val validator: XMLBusinessValidation = new XMLCircumstancesBusinessValidation
           validateAndPrintErrors(p, circs, validator) should beTrue
         }
-        case p: Page => println(p.source())
+        case p: Page => println(p.source)
       }
     }
 

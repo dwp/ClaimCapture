@@ -23,7 +23,7 @@ class FunctionalTestCase30Spec extends FunctionalTestCommon {
           val validator: XMLBusinessValidation = new XMLCircumstancesBusinessValidation
           validateAndPrintErrors(p, circs, validator) should beTrue
         }
-        case p: Page => println(p.source())
+        case p: Page => println(p.source)
       }
 
       // This test has evidence list items, make sure they appear

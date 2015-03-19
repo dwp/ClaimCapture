@@ -80,7 +80,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "Yes - Details provided"
-      val otherMoneyPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val otherMoneyPage = previewPage.clickLinkOrButton(s"#$id")
 
       otherMoneyPage must beAnInstanceOf[G1AboutOtherMoneyPage]
       val modifiedData = new TestData
@@ -99,7 +99,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "Yes - Details provided"
-      val otherMoneyPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val otherMoneyPage = previewPage.clickLinkOrButton(s"#$id")
 
       otherMoneyPage must beAnInstanceOf[G1AboutOtherMoneyPage]
       val modifiedData = new TestData
@@ -118,7 +118,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "Yes - Details provided"
-      val otherMoneyPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val otherMoneyPage = previewPage.clickLinkOrButton(s"#$id")
 
       otherMoneyPage must beAnInstanceOf[G1AboutOtherMoneyPage]
       val modifiedData = new TestData
