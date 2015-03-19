@@ -46,17 +46,7 @@ case class Jobs(jobs: List[Iteration] = Nil) extends QuestionGroup(Jobs) with It
 
   def delete(iterationID: String): Jobs = Jobs(jobs.filterNot(_.iterationID == iterationID))
 
-  def delete(iterationID: String, questionGroup: QuestionGroup.Identifier): Jobs = jobs.find(_.iterationID == iterationID) match {
-    case Some(job: Iteration) => update(Iteration(iterationID,job.questionGroups.filterNot(_.identifier.id == questionGroup.id)))
-    case _ => this
-  }
-
   def job(iterationID: String): Option[Iteration] = jobs.find(_.iterationID == iterationID)
-
-  def questionGroup(questionGroup: QuestionGroup with IterationID): Option[QuestionGroup] = job(questionGroup.iterationID) match {
-    case Some(j: Iteration) => j(questionGroup)
-    case _ => None
-  }
 
   def questionGroup(iterationID: String, questionGroup: QuestionGroup.Identifier): Option[QuestionGroup] = job(iterationID) match {
     case Some(j: Iteration) => j(questionGroup)
@@ -103,8 +93,6 @@ case class Iteration(iterationID: String="", questionGroups: List[QuestionGroup 
     }
   }
 
-  def apply(questionGroup: QuestionGroup): Option[QuestionGroup] = questionGroups.find(_.identifier == questionGroup.identifier)
-
   def apply(questionGroup: QuestionGroup.Identifier): Option[QuestionGroup] = questionGroups.find(_.identifier.id == questionGroup.id)
 
   override def iterator: Iterator[QuestionGroup with IterationID] = questionGroups.iterator
@@ -132,16 +120,10 @@ object JobDetails extends QuestionGroup.Identifier {
     case `no` => true
   }
 
-  def validateHoursPerWeek(input: JobDetails):Boolean = input.finishedThisJob match {
-    case `yes` => input.hoursPerWeek.isDefined
-    case `no` => true
-  }
-
   def validateJobStartDate(input: JobDetails):Boolean = input.startJobBeforeClaimDate match {
     case `yes` => true
     case `no` => input.jobStartDate.isDefined
   }
-
 
 }
 
@@ -157,11 +139,6 @@ case class LastWage(iterationID: String = "",
 
 object LastWage extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g3"
-
-  def validateOftenGetPaid(input: LastWage): Boolean = input.oftenGetPaid match {
-    case payment if payment.frequency == "other" => payment.other.isDefined
-    case _ => true
-  }
 }
 
 case class PensionAndExpenses(iterationID: String = "",
@@ -172,8 +149,4 @@ case class PensionAndExpenses(iterationID: String = "",
 
 object PensionAndExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g4"
-}
-
-object JobCompletion extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g14"
 }

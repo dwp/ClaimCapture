@@ -15,7 +15,7 @@ object CarersAllowance extends Controller with CachedClaim with Navigable {
     "answer" -> optional(nonEmptyText.verifying(validYesNo)),
     "jsEnabled" -> boolean
   )(ProceedAnyway.apply)(ProceedAnyway.unapply)
-    .verifying("error.required", mandatoryChecks _))
+    .verifying(errorRequired, mandatoryChecks _))
 
   def approve = claiming {implicit claim =>  implicit request =>  lang =>
     track(Eligibility) { implicit claim => Ok(views.html.s1_carers_allowance.g6_approve(form.fill(ProceedAnyway))(lang)) }

@@ -1,5 +1,6 @@
 package controllers.s6_education
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 import scala.Some
@@ -52,7 +53,7 @@ class G1YourCourseDetailsFormSpec extends Specification with Tags {
       ).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
-            formWithErrors.errors(0).message must equalTo("error.required")
+            formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
@@ -87,9 +88,9 @@ class G1YourCourseDetailsFormSpec extends Specification with Tags {
         ).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(3)
-            formWithErrors.errors(0).message must equalTo("error.maxLength")
-            formWithErrors.errors(1).message must equalTo("error.maxLength")
-            formWithErrors.errors(2).message must equalTo("error.maxLength")
+            formWithErrors.errors(0).message must equalTo(Mappings.maxLengthError)
+            formWithErrors.errors(1).message must equalTo(Mappings.maxLengthError)
+            formWithErrors.errors(2).message must equalTo(Mappings.maxLengthError)
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -107,8 +108,8 @@ class G1YourCourseDetailsFormSpec extends Specification with Tags {
         )).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(2)
-            formWithErrors.errors(0).message must equalTo("error.invalid")
-            formWithErrors.errors(0).message must equalTo("error.invalid")
+            formWithErrors.errors(0).message must equalTo(Mappings.errorInvalid)
+            formWithErrors.errors(0).message must equalTo(Mappings.errorInvalid)
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }

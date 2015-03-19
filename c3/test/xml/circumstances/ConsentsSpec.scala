@@ -1,5 +1,6 @@
 package xml.circumstances
 
+import models.view.CachedChangeOfCircs
 import org.specs2.mutable.{Tags, Specification}
 import models.domain.{Claim, CircumstancesDeclaration}
 
@@ -11,7 +12,7 @@ class ConsentsSpec  extends Specification with Tags {
 
     "Generate a valid consent with no Why element if not Why was provided" in {
       val declaration = new CircumstancesDeclaration(obtainInfoAgreement= "Yes",obtainInfoWhy = None)
-      val circs = Claim().update(declaration)
+      val circs = Claim(CachedChangeOfCircs.key).update(declaration)
       val xml = Consents.xml(circs)
       (xml \\ "Consents" \ "Consent").length mustEqual 1
       (xml \\ "Consents"  \ "Consent" \ "Answer").text mustEqual declaration.obtainInfoAgreement
@@ -21,7 +22,7 @@ class ConsentsSpec  extends Specification with Tags {
 
     "Generate a valid consent with  Why element if  Why was provided" in {
       val declaration = new CircumstancesDeclaration(obtainInfoAgreement= "No",obtainInfoWhy = Some("Because"))
-      val circs = Claim().update(declaration)
+      val circs = Claim(CachedChangeOfCircs.key).update(declaration)
       val xml = Consents.xml(circs)
       (xml \\ "Consents" \ "Consent").length mustEqual 1
       (xml \\ "Consents"  \ "Consent" \ "Answer").text mustEqual declaration.obtainInfoAgreement

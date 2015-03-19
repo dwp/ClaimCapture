@@ -14,10 +14,11 @@ import utils.helpers.StringPadding._
 trait WebFillActions {
   this: { val ctx: PageObjectsContext } =>
 
-  def click(elementCssSelector: String) = {
+  protected def clickElement(elementCssSelector: String) = {
     if (ctx.browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
     ctx.browser.click(elementCssSelector)
   }
+  
 
   def fillAddress(elementCssSelector: String, value: String) = if (null != value) {
 
@@ -29,7 +30,7 @@ trait WebFillActions {
   }
 
   def fillCheck(elementCssSelector: String, value: String) = if (null != value) {
-    if ("yes" == value.toLowerCase) click(elementCssSelector)
+    if ("yes" == value.toLowerCase) clickElement(elementCssSelector)
   }
 
   def fillDate(elementCssSelector: String, value: String) = if (null != value) {
@@ -63,7 +64,7 @@ trait WebFillActions {
 
   def fillRadioList(listName: String, value: String, sep: String = "_"): Unit = if (null != value) {
     try {
-      click(listName + sep + value.replace(" ","_").replace("'",""))
+      clickElement(listName + sep + value.replace(" ","_").replace("'",""))
     }
     catch {
       case e: Exception => throw new PageObjectException("Could not fillRadioList " + listName + " with value " + value, exception = e)
@@ -110,14 +111,14 @@ trait WebFillActions {
   }
 
   def fillYesNo(elementCssSelector: String, value: String, sep: String = "_") = if (null != value && value.nonEmpty) try {
-    click(elementCssSelector + sep + value.toLowerCase)
+    clickElement(elementCssSelector + sep + value.toLowerCase)
   }
   catch {
     case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
   }
 
   def fillYesNoDontknow(elementCssSelector: String, value: String, sep: String = "_") = if (null != value && value.nonEmpty) try {
-    click(elementCssSelector + sep + value.toLowerCase)
+    clickElement(elementCssSelector + sep + value.toLowerCase)
   }
   catch {
     case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)

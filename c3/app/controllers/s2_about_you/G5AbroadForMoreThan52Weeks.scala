@@ -28,7 +28,7 @@ object G5AbroadForMoreThan52Weeks extends Controller with CachedClaim with Navig
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("", "tripdetails.required", FormError("tripDetails", "error.required"))
+          .replaceError("", "tripdetails.required", FormError("tripDetails", errorRequired))
         BadRequest(views.html.s2_about_you.g5_abroad_for_more_than_52_weeks(formWithErrorsUpdate)(lang))
       },
       abroadForMoreThan52Weeks => claim.update(abroadForMoreThan52Weeks) -> Redirect(routes.G7OtherEEAStateOrSwitzerland.present())

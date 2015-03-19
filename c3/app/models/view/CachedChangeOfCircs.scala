@@ -4,7 +4,7 @@ import java.util.UUID._
 
 import app.ConfigProperties._
 import controllers.routes
-import models.domain.{ChangeOfCircs, CircumstancesReportChange, Claim}
+import models.domain.{CircumstancesReportChange, Claim}
 
 object CachedChangeOfCircs {
   val key = "change-of-circs"
@@ -20,9 +20,9 @@ trait CachedChangeOfCircs extends ClaimHandling {
   override lazy val errorPage = routes.CircsEnding.error()
   override lazy val errorPageBrowserBackButton = routes.CircsEnding.errorBrowserBackbutton()
 
-  override def newInstance(newuuid:String = randomUUID.toString): Claim = new Claim(cacheKey,uuid = newuuid) with ChangeOfCircs
+  override def newInstance(newuuid:String = randomUUID.toString): Claim = new Claim(cacheKey,uuid = newuuid)
 
-  override def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang,claim.uuid,claim.transactionId)(claim.navigation) with ChangeOfCircs
+  override def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang,claim.uuid,claim.transactionId)(claim.navigation)
 
   override protected def claimNotValid(claim:Claim):Boolean = {
     claim.questionGroup[CircumstancesReportChange] match {

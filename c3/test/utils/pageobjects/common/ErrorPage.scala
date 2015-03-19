@@ -3,10 +3,7 @@ package utils.pageobjects.common
 import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects._
 
-/**
- * TODO write description
- * @author Jorge Migueis
- */
+
 final class ErrorPage(ctx: PageObjectsContext) extends ClaimPage(ctx, ErrorPage.url, ErrorPage.title){
 
   /**
@@ -26,7 +23,7 @@ final class ErrorPage(ctx: PageObjectsContext) extends ClaimPage(ctx, ErrorPage.
 
 
 object ErrorPage {
-  val title = "An unrecoverable error has occurred".toLowerCase
+  val title = "Sorry, there has been a problem.".toLowerCase
 
   val url = "/error"
 

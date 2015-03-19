@@ -59,7 +59,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
 
       answerText(previewPage) mustEqual "No"
 
-      val moreAboutTheCarePage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val moreAboutTheCarePage = previewPage.clickLinkOrButton(s"#$id")
 
       moreAboutTheCarePage must beAnInstanceOf[G7MoreAboutTheCarePage]
 

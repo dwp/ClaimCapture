@@ -1,5 +1,6 @@
 package controllers.circs.s3_consent_and_declaration
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 
 class G1DeclarationFormSpec extends Specification with Tags {
@@ -35,7 +36,7 @@ class G1DeclarationFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
-          formWithErrors.errors(0).message must equalTo("error.restricted.characters")
+          formWithErrors.errors(0).message must equalTo(Mappings.errorRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -58,7 +59,7 @@ class G1DeclarationFormSpec extends Specification with Tags {
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
             formWithErrors.errors(0).key must equalTo("furtherInfoContact")
-            formWithErrors.errors(0).message must equalTo("error.required")
+            formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }

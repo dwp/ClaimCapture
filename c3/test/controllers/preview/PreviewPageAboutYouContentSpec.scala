@@ -14,7 +14,7 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       fillAboutYouTheCarerSection(context)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source
       source must contain("Name")
       source must contain("Mr John middlename Appleseed")
       source must contain("National Insurance number")
@@ -48,7 +48,7 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       fillAboutYouTheCarerSection(context, claim)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source
       source must not contain "British"
       source must contain("French")
       source must contain("Marital status")

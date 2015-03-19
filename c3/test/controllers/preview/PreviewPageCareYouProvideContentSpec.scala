@@ -23,7 +23,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       fillCareProvideSection(context,partnerClaim = partnerData)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source
 
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
@@ -44,7 +44,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       fillCareProvideSection(context,partnerClaim = partnerData, careYouProvideData)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source
 
       source must contain("About the person you care for")
       source must contain("123 Colne Street, Line 2 BB9 2AD")
@@ -60,7 +60,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       fillCareProvideSection(context,partnerClaim = partnerData)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source
 
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
@@ -107,15 +107,15 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       fillCareProvideSection(context,partnerClaim = partnerData, careYouProvideData)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source
 
       source must contain("About the person you care for")
       source must contain("101 Clifton Street, Blackpool FY1 2RW")
       source must contain("Father")
       source must contain("Yes- Details provided for 1 break(s)")
 
-      val carerAddress = page.click("#about_you_address")
-      val carerAddressPage = ClaimPageFactory.buildPageFromFluent(carerAddress)
+      val carerAddressPage = page.clickLinkOrButton("#about_you_address")
+//      val carerAddressPage = previewPage.clickLinkOrButton(s"#$id")carerAddress)
 
       carerAddressPage must beAnInstanceOf[G2ContactDetailsPage]
 
@@ -126,7 +126,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val preview = carerAddressPage.submitPage()
 
       preview must beAnInstanceOf[PreviewPage]
-      val newSource = preview.source()
+      val newSource = preview.source
 
       newSource must contain("Something totally different, Manchester FY1 2RW")
       newSource must not(contain("101 Clifton Street, Blackpool FY1 2RW"))

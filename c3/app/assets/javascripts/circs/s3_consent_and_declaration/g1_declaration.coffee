@@ -29,7 +29,7 @@ window.initEvents = (infoAgreementY, infoAgreementN, why, check, input) ->
   if not $("#" + infoAgreementN).prop('checked')
     hideWhyWrap(why)
 
-  if $("#" + infoAgreementY).prop('checked')
+  if $("#" + infoAgreementN).prop('checked')
     showWhyWrap()
 
   $("#" + infoAgreementY).on "click", ->

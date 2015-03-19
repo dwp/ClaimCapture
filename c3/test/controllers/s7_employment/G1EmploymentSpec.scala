@@ -16,7 +16,7 @@ class G1EmploymentSpec extends Specification with Tags {
       val job = Iteration(jobID).update(jobDetails)
       val jobs = new Jobs().update(job)
 
-      val claim = Claim().update(jobs)
+      val claim = Claim(CachedClaim.key).update(jobs)
       Cache.set(claimKey, claim)
 
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
