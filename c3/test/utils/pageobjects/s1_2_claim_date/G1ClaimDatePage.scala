@@ -3,6 +3,8 @@ package utils.pageobjects.s1_2_claim_date
 import play.api.test.WithBrowser
 import utils.pageobjects._
 
+
+
 /**
  * PageObject for page s2_about_you g1_claimDate.
  * @author Jorge Migueis

@@ -114,8 +114,8 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       source must contain("Father")
       source must contain("Yes- Details provided for 1 break(s)")
 
-      val carerAddress = page.click("#about_you_address")
-      val carerAddressPage = ClaimPageFactory.buildPageFromFluent(carerAddress)
+      val carerAddressPage = page.clickLinkOrButton("#about_you_address")
+//      val carerAddressPage = previewPage.clickLinkOrButton(s"#$id")carerAddress)
 
       carerAddressPage must beAnInstanceOf[G2ContactDetailsPage]
 

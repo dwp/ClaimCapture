@@ -81,7 +81,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       answerText(previewPage) mustEqual "No"
 
-      val breaksInCarePage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val breaksInCarePage = previewPage.clickLinkOrButton(s"#$id")
 
       breaksInCarePage must beAnInstanceOf[G10BreaksInCarePage]
 
@@ -107,7 +107,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       answerText(previewPage) mustEqual "No"
 
-      val breaksInCarePage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val breaksInCarePage = previewPage.clickLinkOrButton(s"#$id")
 
       breaksInCarePage must beAnInstanceOf[G10BreaksInCarePage]
 
@@ -122,7 +122,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       answerText(previewPage) mustEqual "No"
 
-      val breaksInCarePage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val breaksInCarePage = previewPage.clickLinkOrButton(s"#$id")
 
       breaksInCarePage must beAnInstanceOf[G10BreaksInCarePage]
 

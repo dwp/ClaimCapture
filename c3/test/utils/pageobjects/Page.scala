@@ -41,6 +41,7 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
    * @param page target page
    * @param throwException Should the page throw an exception if landed on different page? By default yes.
    * @param waitForPage Does the test need add extra time to wait every time it goes a page? By default set to true.
+   * @param waitDuration Duration of the wait in seconds.
    * @return Page object presenting the page. It could be different from target page if landed on different page and specified no exception to be thrown.
    */
   def goToPage(page: Page, throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
@@ -52,10 +53,24 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
   /**
    * Click on back/previous button of the page (not of the browser)
    * @param waitForPage Does the test need add extra time to wait every time it goes back to a page? By default set to true.
+   * @param waitDuration Duration of the wait in seconds.
    * @return Page object representing the html page the UI went back to.
    */
   def goBack(waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
     val fluent = ctx.browser.click("#backButton")
+    val title = getPageTitle(fluent, waitForPage, waitDuration)
+    createPageWithTitle(title, iteration)
+  }
+
+  /**
+  * Click on button or linked specified of the page (not of the browser)
+  * @param elementCssSelector css selector to find button or link to click.
+  * @param waitForPage Does the test need add extra time to wait every time it clicks on button or link? By default set to true.
+  * @param waitDuration Duration of the wait in seconds.
+  * @return Page object representing the html page the UI went back to.
+  */
+  def clickLinkOrButton(elementCssSelector: String, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION): Page = {
+    val fluent = clickElement(elementCssSelector)
     val title = getPageTitle(fluent, waitForPage, waitDuration)
     createPageWithTitle(title, iteration)
   }
@@ -291,7 +306,7 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
     if (waitForPage && htmlTitle != null && htmlTitle.isEmpty) waitForNewTitle(waitDuration) else htmlTitle
   }
 
-  private def createPageWithTitle(title: String, newIterationNumber: Int) = {
+  protected def createPageWithTitle(title: String, newIterationNumber: Int) = {
     this.pageLeftOrSubmitted = true
     val context = PageObjectsContext(ctx.browser,ctx.iterationManager,Some(this))
     pageFactory buildPageFromTitle(title, context)

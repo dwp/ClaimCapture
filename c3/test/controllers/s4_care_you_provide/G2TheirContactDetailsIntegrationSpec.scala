@@ -101,7 +101,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
     val answerText = PreviewTestUtils.answerText(id, _:Page)
 
     answerText(previewPage) mustEqual initialData
-    val theirContactDetailsPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+    val theirContactDetailsPage = previewPage.clickLinkOrButton(s"#$id")
 
     theirContactDetailsPage must beAnInstanceOf[G2TheirContactDetailsPage]
 
