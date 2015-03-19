@@ -81,7 +81,7 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual MaritalStatus.Single
-      val nationalityPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val nationalityPage = previewPage.clickLinkOrButton(s"#$id")
 
       nationalityPage must beAnInstanceOf[G4NationalityAndResidencyPage]
       val modifiedData = new TestData
@@ -100,7 +100,7 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "French"
-      val nationalityPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val nationalityPage = previewPage.clickLinkOrButton(s"#$id")
 
       nationalityPage must beAnInstanceOf[G4NationalityAndResidencyPage]
       val modifiedData = new TestData

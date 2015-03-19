@@ -1,5 +1,6 @@
 package controllers
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 import language.reflectiveCalls
 import play.api.data.Forms._
@@ -44,8 +45,8 @@ class CarersFormsSpec extends Specification with Tags {
         Map("v1" -> ">itle",
           "v2" -> "kjhkhjhjhkjmr`")).fold(
         formWithErrors => {
-          formWithErrors.errors(0).message must equalTo("error.restricted.characters")
-          formWithErrors.errors(1).message must equalTo("error.restricted.characters")
+          formWithErrors.errors(0).message must equalTo(Mappings.errorRestrictedCharacters)
+          formWithErrors.errors(1).message must equalTo(Mappings.errorRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }

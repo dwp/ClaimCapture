@@ -65,66 +65,6 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       $("#breaks .data-table ul li").size() shouldEqual 2
     }
 
-    "show zero breaks after creating one and then deleting" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
-      skipped("HTMLUnit not handling dynamics/jquery")
-
-      goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual(G10BreaksInCarePage.title)
-
-      click("#answer_yes")
-      next
-      titleMustEqual("Break - About the care you provide")
-
-      break()
-      next
-      titleMustEqual(G10BreaksInCarePage.title)
-      $("ul li").size mustEqual 1
-
-      click("input[value='Delete']")
-      await().atMost(10, TimeUnit.SECONDS).until(".breaks-prompt").areDisplayed
-      click("input[value='Yes']")
-
-      await().atMost(10, TimeUnit.SECONDS).until("ul li").hasSize(0)
-    }
-
-    "show two breaks after creating three and then deleting one" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
-      skipped("HTMLUnit not handling dynamics/jquery")
-
-      goTo("/care-you-provide/breaks-in-care")
-
-      click("#answer_yes")
-      next
-      titleMustEqual("Break - About the care you provide")
-
-      break()
-      next
-      titleMustEqual(G10BreaksInCarePage.title)
-
-      click("#answer_yes")
-      next
-      titleMustEqual("Break - About the care you provide")
-
-      break()
-      next
-      titleMustEqual(G10BreaksInCarePage.title)
-
-      click("#answer_yes")
-      next
-      titleMustEqual("Break - About the care you provide")
-
-      break()
-      next
-      titleMustEqual(G10BreaksInCarePage.title)
-
-      $("ul li").size() mustEqual 3
-
-      findFirst("ul li input[value='Delete']").click()
-      await().atMost(30, TimeUnit.SECONDS).until(".breaks-prompt").areDisplayed
-      click("input[value='Yes']")
-
-      await().atMost(30, TimeUnit.SECONDS).until("ul li").hasSize(2)
-    }
-
     "add two breaks and edit the second's start year" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo("/care-you-provide/breaks-in-care")
       titleMustEqual(G10BreaksInCarePage.title)

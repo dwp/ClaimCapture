@@ -21,7 +21,7 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
   val payForThings =
     "willYouPayForThings" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatFor" -> optional(carersTextWithPound(minLength=1, maxLength = 300))
+      "whatFor" -> optional(carersText(minLength=1, maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("willYouPayForThings.text.required", YesNoWithText.validateOnYes _)
 
@@ -59,15 +59,15 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("howOften.frequency","error.required",FormError("howOften","error.required"))
-          .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
-          .replaceError("willYouPayIntoPension","willYouPayIntoPension.text.required",FormError("willYouPayIntoPension.whatFor","error.required"))
-          .replaceError("willYouPayForThings","willYouPayForThings.text.required",FormError("willYouPayForThings.whatFor","error.required"))
-          .replaceError("willCareCostsForThisWork","willCareCostsForThisWork.text.required",FormError("willCareCostsForThisWork.whatCosts","error.required"))
-          .replaceError("", "expected.howMuchPaid",FormError("howMuchPaid","error.required"))
-          .replaceError("", "expected.whenExpectedToBePaidDate",FormError("whenExpectedToBePaidDate","error.required"))
-          .replaceError("", "expected.howOften",FormError("howOften","error.required"))
-          .replaceError("", "expected.usuallyPaidSameAmount",FormError("usuallyPaidSameAmount","error.required"))
+          .replaceError("howOften.frequency",errorRequired,FormError("howOften",errorRequired))
+          .replaceError("howOften.frequency.other",maxLengthError,FormError("howOften",maxLengthError))
+          .replaceError("willYouPayIntoPension","willYouPayIntoPension.text.required",FormError("willYouPayIntoPension.whatFor",errorRequired))
+          .replaceError("willYouPayForThings","willYouPayForThings.text.required",FormError("willYouPayForThings.whatFor",errorRequired))
+          .replaceError("willCareCostsForThisWork","willCareCostsForThisWork.text.required",FormError("willCareCostsForThisWork.whatCosts",errorRequired))
+          .replaceError("", "expected.howMuchPaid",FormError("howMuchPaid",errorRequired))
+          .replaceError("", "expected.whenExpectedToBePaidDate",FormError("whenExpectedToBePaidDate",errorRequired))
+          .replaceError("", "expected.howOften",FormError("howOften",errorRequired))
+          .replaceError("", "expected.usuallyPaidSameAmount",FormError("usuallyPaidSameAmount",errorRequired))
 
         BadRequest(views.html.circs.s2_report_changes.g12_employmentNotStarted(formWithErrorsUpdate)(lang))
       },

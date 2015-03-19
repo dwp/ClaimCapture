@@ -1,5 +1,6 @@
 package controllers.circs.s2_report_changes
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 import app.ReportChange._
 
@@ -37,7 +38,7 @@ class G1ReportChangesFormSpec extends Specification with Tags {
          Map("reportChanges" -> "")
        ).fold(
            formWithErrors => {
-             formWithErrors.errors(0).message must equalTo("error.required")
+             formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
            },
            f => "This mapping should not happen." must equalTo("Valid")
          )

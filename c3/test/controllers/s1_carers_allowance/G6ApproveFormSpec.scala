@@ -1,6 +1,7 @@
 package controllers.s1_carers_allowance
 
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 
 class G6ApproveFormSpec extends Specification with Tags {
@@ -46,7 +47,7 @@ class G6ApproveFormSpec extends Specification with Tags {
           "answer" -> ""
         )
       ).fold(
-          formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+          formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
           f => "This mapping should not happen." must equalTo("Valid")
         )
     }

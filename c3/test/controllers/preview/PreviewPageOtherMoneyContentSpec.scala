@@ -17,15 +17,15 @@ class PreviewPageOtherMoneyContentSpec extends Specification with Tags {
       fillOtherMoneySection(context)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source.toLowerCase
 
-      source must contain("Other Payments")
-      source must contain("Have you received any payments for the person you care for or any other person since your claim date?")
-      source must contain("Yes - Details provided")
-      source must contain("Have you had any Statutory Sick Pay")
-      source must contain("Yes - Details provided")
-      source must contain("Have you had any SMP, SPP or SAP since your claim date")
-      source must contain("Yes - Details provided")
+      source must contain("other payments")
+      source must contain("Have you received any payments for the person you care for or any other person since your claim date?".toLowerCase)
+      source must contain("Yes - Details provided".toLowerCase)
+      source must contain("Have you had any Statutory Sick Pay".toLowerCase)
+      source must contain("Yes - Details provided".toLowerCase)
+      source must contain("Have you had any SMP, SPP or SAP since your claim date".toLowerCase)
+      source must contain("Yes - Details provided".toLowerCase)
     }
   } section "preview"
 

@@ -105,7 +105,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
       previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "101 Clifton Street, Blackpool FY1 2RW"
-      val contactDetails = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val contactDetails = previewPage.clickLinkOrButton(s"#$id")
 
       contactDetails must beAnInstanceOf[G2ContactDetailsPage]
       val modifiedData = new TestData
@@ -133,7 +133,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
       previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "01772 888901"
-      val contactDetails = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val contactDetails = previewPage.clickLinkOrButton(s"#$id")
 
       contactDetails must beAnInstanceOf[G2ContactDetailsPage]
       val modifiedData = new TestData

@@ -1,5 +1,6 @@
 package controllers.s1_2_claim_date
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 
@@ -30,7 +31,7 @@ class G1ClaimDateFormSpec  extends Specification with Tags {
         Map("" -> "")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
-            formWithErrors.errors(0).message must equalTo("error.required")
+            formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
           },
           theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -42,7 +43,7 @@ class G1ClaimDateFormSpec  extends Specification with Tags {
           "dateOfClaim.month" -> claimDateMonth.toString,
           "dateOfClaim.year" -> "12345")).fold(
           formWithErrors => {
-            formWithErrors.errors.head.message must equalTo("error.invalid")
+            formWithErrors.errors.head.message must equalTo(Mappings.errorInvalid)
             formWithErrors.errors.length must equalTo(1)
           },
           f => "This mapping should not happen." must equalTo("Valid"))

@@ -152,7 +152,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
     val answerText = PreviewTestUtils.answerText(id, _:Page)
 
     answerText(previewPage) mustEqual initialData
-    val educationPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+    val educationPage = previewPage.clickLinkOrButton(s"#$id")
 
     educationPage must beAnInstanceOf[G1YourCourseDetailsPage]
 

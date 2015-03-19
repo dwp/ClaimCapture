@@ -1,5 +1,6 @@
 package controllers.s7_employment
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 
@@ -78,12 +79,12 @@ class G3JobDetailsFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(6)
-          formWithErrors.errors(0).message must equalTo("error.required")
-          formWithErrors.errors(1).message must equalTo("error.required")
-          formWithErrors.errors(2).message must equalTo("error.required")
-          formWithErrors.errors(3).message must equalTo("error.required")
-          formWithErrors.errors(4).message must equalTo("error.required")
-          formWithErrors.errors(5).message must equalTo("error.required")
+          formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
         },
         f => "This mapping should not happen." must equalTo("Valid")
       )
@@ -100,7 +101,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "jobStartDate.year" -> year1,
           "finishedThisJob" -> no)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -116,7 +117,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "jobStartDate.year" -> year1,
           "finishedThisJob" -> no)
       ).fold(
-          formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+          formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
           f => "This mapping should not happen." must equalTo("Valid")
         )
     }
@@ -132,7 +133,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "jobStartDate.month" -> month,
           "jobStartDate.year" -> year1)
       ).fold(
-          formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+          formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
           f => "This mapping should not happen." must equalTo("Valid")
         )
     }
@@ -147,7 +148,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "phoneNumber" -> phoneNumber,
           "finishedThisJob" -> no)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -205,7 +206,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "jobStartDate.year" -> year1,
           "finishedThisJob" -> no)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -223,7 +224,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "jobStartDate.year" -> year1,
           "finishedThisJob" -> no)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorInvalid),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -242,7 +243,7 @@ class G3JobDetailsFormSpec extends Specification with Tags {
           "jobStartDate.year" -> year1,
           "finishedThisJob" -> no)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorInvalid),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }

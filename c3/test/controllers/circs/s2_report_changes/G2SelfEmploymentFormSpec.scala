@@ -1,5 +1,6 @@
 package controllers.circs.s2_report_changes
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 
@@ -46,10 +47,10 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
         Map("moreAboutChanges" -> moreAboutChanges)
       ).fold(
           formWithErrors => {
-            formWithErrors.errors(0).message must equalTo("error.required")
-            formWithErrors.errors(1).message must equalTo("error.required")
-            formWithErrors.errors(2).message must equalTo("error.required")
-            formWithErrors.errors(3).message must equalTo("error.required")
+            formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
@@ -64,9 +65,9 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
       ).fold(
           formWithErrors => {
             formWithErrors.errors(0).message must equalTo("dateRequired")
-            formWithErrors.errors(1).message must equalTo("error.required")
-            formWithErrors.errors(2).message must equalTo("error.required")
-            formWithErrors.errors(3).message must equalTo("error.required")
+            formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
@@ -80,9 +81,9 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
         )
       ).fold(
           formWithErrors => {
-            formWithErrors.errors(0).message must equalTo("error.required")
-            formWithErrors.errors(1).message must equalTo("error.required")
-            formWithErrors.errors(2).message must equalTo("error.required")
+            formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
@@ -105,7 +106,7 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
-          formWithErrors.errors(0).message must equalTo("error.restricted.characters")
+          formWithErrors.errors(0).message must equalTo(Mappings.errorRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid")
       )
@@ -128,7 +129,7 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
       ).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
-            formWithErrors.errors.head.message must equalTo("error.invalid")
+            formWithErrors.errors.head.message must equalTo(Mappings.errorInvalid)
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
@@ -148,7 +149,7 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
       ).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
-            formWithErrors.errors.head.message must equalTo("error.invalid")
+            formWithErrors.errors.head.message must equalTo(Mappings.errorInvalid)
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )

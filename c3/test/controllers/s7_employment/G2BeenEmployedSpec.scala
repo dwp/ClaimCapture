@@ -12,7 +12,7 @@ import models.view.CachedClaim
 class G2BeenEmployedSpec extends Specification with Tags {
   "Been Employed" should {
     "first present job details" in new WithApplication with Claiming {
-      val claim = Claim()
+      val claim = Claim(CachedClaim.key)
         .update(ClaimDate())
         .update(EmploymentDomain(beenEmployedSince6MonthsBeforeClaim = yes))
 

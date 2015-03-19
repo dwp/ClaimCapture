@@ -8,6 +8,8 @@ import play.api.cache.Cache
 import play.api.mvc.{Cookie, EssentialAction, RequestHeader}
 import play.api.Play.current
 
+case class UserAgentCheckException(message:String) extends DwpRuntimeException(message)
+
 /**
  * Action used by security [[utils.filters.UserAgentCheckFilter]] to check User Agent in request matches User Agent used to start claim/cofcs.
  * @param next The next action that will be called if user agent check is successful.
@@ -37,7 +39,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
           Logger.debug(s"UserAgentCheckAction set for key ${key}_UA")
           Cache.set(key + "_UA", request.headers.get("User-Agent").getOrElse(""), getProperty("cache.expiry", 3600) * 10)
         } else {
-          throw new DwpRuntimeException("Session does not contain key. Cannot save User Agent.")
+          throw UserAgentCheckException("Session does not contain key. Cannot save User Agent.")
         }
 
       case _ if checkIf(request) =>
@@ -47,7 +49,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
             case Some(ua) =>
               val userAgent = request.headers.get("User-Agent").getOrElse("")
               if (ua != userAgent) {
-                throw new DwpRuntimeException(s"UserAgent check failed. $userAgent is different from expected $ua.")
+                throw UserAgentCheckException(s"UserAgent check failed. $userAgent is different from expected $ua.")
               }
             case _ if (Cache.get(key).isDefined) => Logger.error("Lost User Agent from cache while claim still in cache? Should never happen.")
             case _ =>
@@ -55,7 +57,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
           }
         } else {
           if (!Play.isTest)
-            throw new DwpRuntimeException(s"Session does not contain key. Cannot check User Agent. For ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}")
+            throw UserAgentCheckException(s"Session does not contain key. Cannot check User Agent. For ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}")
         }
 
       case _ if removeIf(request) =>
@@ -90,4 +92,5 @@ object UserAgentCheckAction {
   def defaultSetIf(header: RequestHeader): Boolean = header.method == "POST" && RequestSelector.startPage(header)
 
   def defautRemoveIf(header: RequestHeader): Boolean = RequestSelector.endPage(header)
+
 }

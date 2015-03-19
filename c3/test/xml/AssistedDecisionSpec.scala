@@ -1,6 +1,7 @@
 package xml
 
 import models.domain._
+import models.view.CachedClaim
 import org.specs2.mutable.{Tags, Specification}
 import app.StatutoryPaymentFrequency
 import models.DayMonthYear
@@ -22,7 +23,7 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Create an assisted decision section if care less than 35 hours" in {
       val moreAboutTheCare = MoreAboutTheCare("no")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val claim = Claim().update(moreAboutTheCare).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain ("Do not spend 35 hours or more each week caring.")
       (xml \\ "RecommendedDecision").text must contain ("Potential disallowance, but need to check advisory additional notes.")
@@ -31,7 +32,7 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Not create an assisted decision section if care more than 35 hours" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val claim = Claim().update(moreAboutTheCare).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0
     }
@@ -47,7 +48,7 @@ class AssistedDecisionSpec extends Specification with Tags {
         employerOwesYouMoney = employerOwesYouMoney)
       val job = Iteration("12", List(lastWage))
       val jobs = Jobs(List(job))
-      val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain ("Total weekly gross pay 100.01 > £100.")
       (xml \\ "RecommendedDecision").text must contain ("Potential disallowance, but need to check advisory additional notes.")
@@ -64,7 +65,7 @@ class AssistedDecisionSpec extends Specification with Tags {
         employerOwesYouMoney = employerOwesYouMoney)
       val job = Iteration("12", List(lastWage))
       val jobs = Jobs(List(job))
-      val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Total weekly gross pay 100.01 > £100.")
       (xml \\ "RecommendedDecision").text must contain ("Potential disallowance, but need to check advisory additional notes.")
@@ -81,7 +82,7 @@ class AssistedDecisionSpec extends Specification with Tags {
         employerOwesYouMoney = employerOwesYouMoney)
       val job = Iteration("12", List(lastWage))
       val jobs = Jobs(List(job))
-      val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Total weekly gross pay 100.01 > £100.")
       (xml \\ "RecommendedDecision").text must contain ("Potential disallowance, but need to check advisory additional notes.")
@@ -98,7 +99,7 @@ class AssistedDecisionSpec extends Specification with Tags {
         employerOwesYouMoney = employerOwesYouMoney)
       val job = Iteration("12", List(lastWage))
       val jobs = Jobs(List(job))
-      val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain ("Total weekly gross pay 100.01 > £100.")
       (xml \\ "RecommendedDecision").text must contain ("Potential disallowance, but need to check advisory additional notes.")
@@ -124,7 +125,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val job2 = Iteration("13", List(lastWage2))
 
       val jobs = Jobs(List(job1, job2))
-      val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Total weekly gross pay 100.01 > £100.")
       (xml \\ "RecommendedDecision").text must contain ("Potential disallowance, but need to check advisory additional notes.")
@@ -150,7 +151,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val job2 = Iteration("13", List(lastWage2))
 
       val jobs = Jobs(List(job1, job2))
-      val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Total weekly gross pay 100.01 > £100.")
       (xml \\ "RecommendedDecision").text must contain ("Potential disallowance, but need to check advisory additional notes.")
@@ -177,7 +178,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val job2 = Iteration("13", List(lastWage2, expense2))
 
       val jobs = Jobs(List(job1, job2))
-      val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0
     }
@@ -201,7 +202,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val job2 = Iteration("13", List(lastWage2))
 
       val jobs = Jobs(List(job1, job2))
-      val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0
     }
@@ -226,7 +227,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val job2 = Iteration("13", List(lastWage2))
 
       val jobs = Jobs(List(job1, job2))
-      val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Total weekly gross pay 100.01 > £100.")
       (xml \\ "RecommendedDecision").text must contain ("Potential disallowance, but need to check advisory additional notes.")
@@ -252,7 +253,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val job2 = Iteration("13", List(lastWage2))
 
       val jobs = Jobs(List(job1, job2))
-      val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0
     }
@@ -276,7 +277,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val job2 = Iteration("13", List(lastWage2))
 
       val jobs = Jobs(List(job1, job2))
-      val claim = Claim().update(moreAboutTheCare).update(jobs).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(jobs).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must not contain "Total weekly gross pay"
       (xml \\ "Reason").text must contain("Do not spend 35 hours or more each week caring.")
@@ -287,7 +288,7 @@ class AssistedDecisionSpec extends Specification with Tags {
             val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val now = DateTime.now()
       val details = YourDetails(dateOfBirth = DayMonthYear(now.minusYears(16).plusDays(1)))
-      val claim = Claim().update(moreAboutTheCare).update(details).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(details).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Customer Date of Birth")
     }.pendingUntilFixed("Postponed by busines")
@@ -297,7 +298,7 @@ class AssistedDecisionSpec extends Specification with Tags {
             val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val now = DateTime.now()
       val details = YourDetails(dateOfBirth = DayMonthYear(now.minusYears(16).minusDays(1)))
-      val claim = Claim().update(moreAboutTheCare).update(details).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(details).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0
     }
@@ -307,7 +308,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val now = DateTime.now()
       val details = ClaimDate(DayMonthYear(now.plusMonths(3).plusDays(2)))
-      val claim = Claim().update(moreAboutTheCare).update(details).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(details).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Date of Claim too far in the future. Potential disallowance.")
     }.pendingUntilFixed("Postponed by busines")
@@ -317,7 +318,7 @@ class AssistedDecisionSpec extends Specification with Tags {
             val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val now = DateTime.now()
       val details = ClaimDate(DayMonthYear(now.plusMonths(3)))
-      val claim = Claim().update(moreAboutTheCare).update(details).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(details).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must not contain "Date of Claim too far in the future. Potential disallowance."
     }
@@ -326,7 +327,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
             val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromEEA = "yes")
-      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Claimant or partner dependent on EEA pensions or benefits.")
       (xml \\ "RecommendedDecision").text must contain ("Transfer to Exportability team.")
@@ -336,7 +337,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
             val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromEEA = "no")
-      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0
     }
@@ -345,7 +346,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val moreAboutTheCare = MoreAboutTheCare("yes")
             val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForEEA = "no")
-      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0
     }
@@ -355,7 +356,7 @@ class AssistedDecisionSpec extends Specification with Tags {
             val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val now = DateTime.now()
       val details = ClaimDate(DayMonthYear(now.plusMonths(3).plusDays(2)))
-      val claim = Claim().update(moreAboutTheCare).update(details).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(details).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Date of Claim too far in the future.")
       (xml \\ "RecommendedDecision").text must contain ("Potential disallowance.")
@@ -366,14 +367,14 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
       val now = DateTime.now()
       val details = ClaimDate(DayMonthYear(now.plusMonths(3)))
-      val claim = Claim().update(moreAboutTheCare).update(details).update(residency)
+      val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(details).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0
     }
 
     "Create an assisted decision section if person is not British" in {
       val residency = NationalityAndResidency(nationality = "Another Country", actualnationality=Some("French"), resideInUK = YesNoWithText("yes", None))
-      val claim = Claim().update(residency)
+      val claim = Claim(CachedClaim.key).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Person is not British.")
       (xml \\ "RecommendedDecision").text must contain ("Transfer to Exportability team.")
@@ -381,7 +382,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if person does not normally live in England, Scotland or Wales" in {
       val residency = NationalityAndResidency(nationality = "British", resideInUK=YesNoWithText("no", Some("France")))
-      val claim = Claim().update(residency)
+      val claim = Claim(CachedClaim.key).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Person does not normally live in England, Scotland or Wales.")
       (xml \\ "RecommendedDecision").text must contain ("Transfer to Exportability team.")
@@ -389,7 +390,7 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Not create an assisted decision section if person normally lives in England, Scotland or Wales" in {
       val residency = NationalityAndResidency(nationality = "British", resideInUK = YesNoWithText("yes", None))
-      val claim = Claim().update(residency)
+      val claim = Claim(CachedClaim.key).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0
     }

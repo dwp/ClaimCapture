@@ -1,5 +1,6 @@
 package controllers.s4_care_you_provide
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{ Tags, Specification }
 
 class G2TheirContactDetailsFormSpec extends Specification with Tags {
@@ -25,7 +26,7 @@ class G2TheirContactDetailsFormSpec extends Specification with Tags {
     "have a mandatory address" in {
       G2TheirContactDetails.form.bind(
         Map("address.lineOne" -> "", "address.lineTwo" -> "", "address.lineThree" -> "", "postcode" -> "")).fold(
-          formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+          formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
           theirContactDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 

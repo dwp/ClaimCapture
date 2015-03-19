@@ -30,7 +30,7 @@ class G1ClaimDateIntegrationSpec extends Specification with Tags {
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "10 October, 2016"
-      val claimDatePage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val claimDatePage = previewPage.clickLinkOrButton(s"#$id")
 
       claimDatePage must beAnInstanceOf[G1ClaimDatePage]
       val modifiedData = new TestData
