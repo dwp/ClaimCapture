@@ -690,7 +690,6 @@ main {
 			   
 		    }
 		   
-		   
 			&.radio-stack {
 				li {
 					margin: 4px 0 0 0;
@@ -836,7 +835,7 @@ main {
 		}
 
 		   
-		/* sort code */
+		// sort code 
 		&.sort-code {
 			li {
 				margin-left: 1em;
@@ -857,7 +856,7 @@ main {
 		// list display - inline with labels stripped
 		&.label-strip {
 			li {
-			//margin-left: .5em;
+			margin-left: .5em;
 				&:first-child {
 					margin-left: 0;
 				}
@@ -868,14 +867,13 @@ main {
 			}
 		}
 
-
-	   }
+	}
 	   
-/* Information panel   */
+// Information panel
 @import 'info-panel';	   
 	   
 	      
-/* Declaration specific */
+// Declaration specific
 @import 'declaration'; 	   
 	   
 
@@ -907,9 +905,6 @@ main {
 .content-panel {
 	margin-top: 2em;
 }
-
-
-
 
 .data-table {
 
