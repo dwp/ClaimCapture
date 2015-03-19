@@ -11,7 +11,7 @@ import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.Injector
 import utils.csrf.DwpCSRFFilter
-import utils.filters.{CSRFCreation, UserAgentCheckFilter}
+import utils.filters.{UserAgentCheckException, CSRFCreation, UserAgentCheckFilter}
 import utils.helpers.CarersLanguageHelper
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -90,10 +90,18 @@ object Global extends WithFilters(MonitorFilter,UserAgentCheckFilter(),DwpCSRFFi
       // We delete our cookies to ensure we restart anew
       case pattern(_*) =>
         Logger.warn("Redirecting to Error page for a change-of-circs.")
-        Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession)
+        if (ex.getMessage.contains("UserAgentCheck")) Future(Redirect(controllers.routes.CircsEnding.error()))
+        else {
+            Logger.warn("Delete cookies")
+            Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(C3VERSION)).withNewSession)
+        }
       case _ =>
         Logger.warn("Redirecting to Error page for a claim.")
-        Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession)
+        if (ex.getMessage.contains("UserAgentCheck")) Future(Redirect(controllers.routes.ClaimEnding.error()))
+        else {
+          Logger.warn("Delete cookies")
+          Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(C3VERSION)).withNewSession)
+        }
     }
   }
 }
