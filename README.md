@@ -15,5 +15,3 @@ ClaimCapture
 * Navigate to http://localhost:9000/ to view the website
 * Test
 
-
-
