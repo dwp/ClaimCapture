@@ -11,13 +11,13 @@ import services.async.AsyncActors
 import services.mail.EmailActors
 import utils.Injector
 import utils.csrf.DwpCSRFFilter
-import utils.filters.{CSRFCreation, UserAgentCheckFilter}
+import utils.filters.{UserAgentCheckException, CSRFCreation, UserAgentCheckFilter}
 import utils.helpers.CarersLanguageHelper
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object Global extends WithFilters(MonitorFilter,UserAgentCheckFilter(),DwpCSRFFilter(createIfFound = CSRFCreation.createIfFound, createIfNotFound = CSRFCreation.createIfNotFound)) with Injector with CarersLanguageHelper with C3MonitorRegistration {
+object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRFFilter(createIfFound = CSRFCreation.createIfFound, createIfNotFound = CSRFCreation.createIfNotFound)) with Injector with CarersLanguageHelper with C3MonitorRegistration {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
@@ -69,31 +69,41 @@ object Global extends WithFilters(MonitorFilter,UserAgentCheckFilter(),DwpCSRFFi
   override def getControllerInstance[A](controllerClass: Class[A]): A = resolve(controllerClass)
 
   override def onError(request: RequestHeader, ex: Throwable) = {
-    val csrfCookieName = getProperty("csrf.cookie.name","csrf")
-    val csrfSecure = getProperty("csrf.cookie.secure",getProperty("session.secure",default=false))
+    val csrfCookieName = getProperty("csrf.cookie.name", "csrf")
+    val csrfSecure = getProperty("csrf.cookie.secure", getProperty("session.secure", default = false))
     val theDomain = Play.current.configuration.getString("session.domain")
     val C3VERSION = "C3Version"
     val pattern = """.*circumstances.*""".r
     val cookiesAbsent = request.cookies.isEmpty
 
-    Logger.error(s"${ex.getMessage}. Cookies empty $cookiesAbsent")
+    Logger.error(s"${ex.getCause}. Cookies empty $cookiesAbsent")
 
     request.headers.get("Referer").getOrElse("Unknown") match {
       // we redirect to the error page with specific cookie error message if cookies are disabled.
-      case pattern(_*) if cookiesAbsent  =>
+      case pattern(_*) if cookiesAbsent =>
         Logger.warn("Redirecting to Error cookie page for a change-of-circs.")
         Future(Redirect(controllers.routes.CircsEnding.errorCookie()))
-      case _  if cookiesAbsent =>
+      case _ if cookiesAbsent =>
         Logger.warn("Redirecting to Error cookie page for a claim.")
         Future(Redirect(controllers.routes.ClaimEnding.errorCookie()))
       // We redirect and do not stay in same URL to update Google Analytics
       // We delete our cookies to ensure we restart anew
       case pattern(_*) =>
         Logger.warn("Redirecting to Error page for a change-of-circs.")
-        Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession)
+        ex.getCause match {
+          case e: UserAgentCheckException => Future(Redirect(controllers.routes.CircsEnding.error()))
+          case _ =>
+            Logger.warn("Delete cookies")
+            Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(C3VERSION)).withNewSession)
+        }
       case _ =>
         Logger.warn("Redirecting to Error page for a claim.")
-        Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName,secure=csrfSecure, domain=theDomain),DiscardingCookie(C3VERSION)).withNewSession)
+        ex.getCause match {
+          case e: UserAgentCheckException => Future(Redirect(controllers.routes.ClaimEnding.error()))
+          case _ =>
+            Logger.warn("Delete cookies")
+            Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(C3VERSION)).withNewSession)
+        }
     }
   }
 }
