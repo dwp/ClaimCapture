@@ -20,7 +20,6 @@ main {
 	}
 }
 
-
 .carers-allowance {
  
 	@import 'prototype';
@@ -28,6 +27,20 @@ main {
 	@import 'article';    
 	   
 	@import 'validation-summary';
+
+	@import 'info-panel';	   
+		   
+	@import 'declaration'; 	 
+
+	@import 'prompt-panels';
+	   
+	@import 'nav-button';
+
+	@import 'submission';
+
+	@import 'finish';
+
+	@import 'right-panel';
 
     border-top: 10px solid $mainstream-brand;
     background: #fff;
@@ -41,865 +54,787 @@ main {
 
     @media screen and (max-width: 500px) {
 	    padding-bottom: 3em;
-    } 
+	} 
 
-.form-elements {
+	.form-elements {
 
-	margin: 50px 0 1em 0;
-
-	@media screen and (max-width: 500px) {
-		margin-top: 30px;
-	}
-
-    // Eligibility section
-    &.form-eligibility {
-		
-		legend {
-   			color: inherit;
+		@media screen and (max-width: 500px) {
+			margin-top: 30px;
 		}
-	    
-	    li.validation {
-   	    	margin-top: 1em;
-	    }
-	    
-	   .helper-message {
-	   		padding: 0;
-	   		margin: 0;
-		   	.ie7 & {
-			   	margin-top: 0;
-		   	}
-   		}
-	   	.radio {
-		   	margin-top: 1.5em;
-	   	}
 
-	   	.benefits {
-	   		margin: 1.2em 0 0 0;
-	   		padding: .4em 0 0 1em;
-	   		font-size: 19px;
-	   		border-left: 5px solid #dee0e2;
-		   	p {
-			   	margin-top: 1em;
-			   	&:first-child {
-				   	margin: 0;
+	    // Eligibility section
+	    &.form-eligibility {
+			legend {
+	   			color: inherit;
+			}
+		   	.benefits {
+		   		padding: .4em 0 0 1em;
+		   		font-size: 19px;
+		   		border-left: 5px solid #dee0e2;
+			   	p {
+				   	margin-top: 1em;
+				   	&:first-child {
+					   	margin: 0;
+				   	}
 			   	}
 		   	}
-	   	}
-
-	}
-    
-    &.over16 {
-	    .radio {
-   	    	margin-top: 0;
+		}
+	   	    	    
+	    &.results-detail {
+		    position: relative;
 	    }
-    }
-    
-    
-    &.nested-fieldset {
-	    margin-top: 1em;
-    }
-   	    	    
-    &.results-detail {
-	    margin-right: 0;
-	    padding-left: 0;
-	    position: relative;
-	    legend {
-	   	    padding-bottom: 1.5em;
-	   	}
-	    @media screen and (max-width: 750px) {
-    		margin-right: 0;
-    	}
-    }
-    
-   legend {
+	    
+	   legend {
 
-	   font-weight: 600; 
-	   font-size: 24px;
-	   padding: 0 0 1em 0;
-	   position: relative;
-	   line-height: 1.2em;
-	   color: #0b0c0c;
-	   display: table;// ie
+		    font-weight: 600; 
+		    font-size: 24px;
+		    position: relative;
+		    line-height: 1.2em;
+		    color: #0b0c0c;
+		    display: table; // ie
 
-	   @media screen and (max-width: 700px) {
-   	   		font-size: 20px;
-	   }
-
-	   .ie7 & {
-	   	   margin-left: -10px;
-	   }
-
-		span {
-			background: #000;
-			display: block;
-			border-radius: 100px;
-			width: 30px;
-			height: 22px;
-			color: #fff;
-			font-size: 15px;
-			text-align: center;
-			padding-top: 8px;
-			line-height: 1em;
-			position: absolute;
-			top: 1px; 
-			left: 1px;
-		}
-
-   	    &.nestedLabel {
-	   	   	font-size: 19px;
-			font-weight: 600;
-			color: #000;
-			padding-bottom: .5em;
-   	    }
-	   	   
-		&.legend-hidden {
-			font-size: 0;
-			text-indent: -9999px;
-			padding-bottom: 0;
-			line-height: .1em;
-			margin: 0;
-		}
-	   	   
-   	}
-
-	h2, 
-	p.title {
-		font-size: 19px;
-		font-weight: 600;
-		line-height: 1.4em;
-		padding-top: 1em;
-		&:first-child {
-			padding-top: 0;
-		}
-	}
-
-	.help-statement {
-		h3 {
-			font-weight: 100;
-		}
-		p {
-			padding: 0 0 0 .8em;
-			margin: 1em 0 2em 0;
-			border-left: 5px solid #dee0e2;
-		}
-	}
-
-
-    // Nested fieldset
-   	   
-    .question-group {
-
-		margin-top: 0;
-		margin-bottom: 0;
-
-		legend {
-			font-size: 19px;
-			font-weight: 600;
-			color: #000;
-			padding-bottom: .34em;
-			em {
-			   display: inline;
-			   font-size: 18px;
-			   margin-right: 4px;
-			   font-style: normal;
-			}
-		}
-
-		ul {
-			li {
-				padding-top: 0;
-			}
-		}  	
-		
-		.employment-info {
-
-			p {
-				color: #0b0c0c;
-				font-size: 19px;
-				padding-top: .5em;
-				margin: 0 0 1em 0;
-				&:first-child {
-					margin: 0;
-				}
-			}
-
-		    ul {
-			    list-style: disc;
-			    padding: .5em 0 1em 1.4em;
-			    margin: 0;
-			    li {
-				    font-size: 19px;
-				    padding: 0;
-				    margin: .8em 0 0 0;
-				    color: #171819;
-				    line-height: 1.2em;
-				    position: relative;
-				    display: list-item;				   
-				    &:first-child {
-					    margin: 0;
-				    }
-			    }
+		    @media screen and (max-width: 700px) {
+	   	   		font-size: 20px;
 		    }
 
-	    }
-	   
-	}
-
-	// Form list start
-	ul {
-
-		margin-top: 0;
-		zoom: 1;
-		   
-		&.extra-group {
-			border-left: 5px solid #dee0e2;
-			padding-left: .8em;
-			margin-top: 1em;
-			.validation {
-				margin-left: -1.08em;
-			}
-		}		   
-		   
-		li {
-			display: block;
-			margin-top: 18px;
-			padding: .8em 0;
-			position: relative;
-			&.extra-detail {
-				padding: 0;
-				margin-bottom: -.8em;
-			}
-
-			&.other-detail {
-				margin: 0;
-				padding-top: 0;
-				.ie7 & {
-					zoom: 1;
-				}
-				.strip {
-					position: absolute;
-					left: -9999px;
-				}
-			}
-			   
-			&.extra-text {
-				label {
-					position: absolute;
-					left: -9999px;
-				}
-			}
-			   
-			&.c-help {
-				padding-top: 0;
-				margin-top: 0;
-			}
-			   
-			&.radioGroupLabel {
-				p {
-					font-weight: 600;
-					padding-top: 1em;
-				}
-			}
-
-			// In form validation styling
-			&.validation {
-
-				background: #fef7f7;
-				padding: .7em;
-				border-left: 3px solid #df3034;
-				position: relative;
-				overflow: hidden;
-				margin-left: -0.7em;
-
-				.ie6 & {
-					zoom: 1;
-				}
-
-				@media screen and (max-width: 640px) {
-					padding-top: 1em;
-					padding-bottom: 1em;
-					width: auto;
-					margin-left: -.9em;
-				} 
-
-				.error {
-					color: #de3134;
-					font-weight: 300;
-					font-size: 17px;
-					padding-bottom: .6em;
-					.ie6 & {
-					   background: transparent;
-					}
-				}
-
-				.inline-stack {
-					border-left: none;
-					padding-left: 0;
-				}
-			}
-
-			// Form check			   
-			&.form-check {
-				margin-top: 0;
-				padding-top: 0;
-				label {
-					display: inline-block;
-					padding-left: 5px;
-					color: #666;
-				}
-				input {
-					display: inline-block;
-					vertical-align: top;
-					margin-top: 5px;
-					&:checked + label {
-						color: #000;
-					}
-				}
-			}
-			   
-			&.date-time {
-				padding-top: 0;
-				padding-bottom: 0;
-			}
-			  
-			&.short-field {
-				input[type="text"], input[type="tel"] {
-					width: 130px;
-					@media screen and (max-width: 500px) {
-						width: 128px;
-					}
-				}
-			}
-
-			&.currency {
-				position: relative;
-				input[type="text"], input[type="tel"] {
-					width: 154px!important; /* Low IE issues */
-					position: relative;
-					@media screen and (max-width: 500px) {
-						width: 152px;
-					}
-				}
-			}
-
-			&.checkbox-single {
-				padding-top: 0;
-				margin: 0;
-				overflow: hidden;
-				label {
-					float: left;
-					font-weight: 100;
-					width: 86%;
-				}
-				input {
-					float: left;
-					margin: 5px 10px 0 0;
-					padding: 0;
-				}
-			}
-
-			&.validation {
-				&:before {
-					left: 18px;
-					bottom: 19px;
-				}
-			}
-			   
-			.helper {
-				font-size: 19px;
-				margin-top: .5em;
-				font-weight: 300;
-				color: #666;
-				&.above {
-					margin-top: 0;
-					padding-bottom: .5em;
-				}
-			}
-
-			.helper-show {
-				font-size: 19px;
-				font-weight: 300;
-				color: #666;
-				margin-top: -2px;
-				padding: 0;
-			}
-			   
-			.specific-help {
-				display: none;
-				.ie7 & {
-					display: block;
-				}
-			}
-
-			.helper-more {
-				cursor: pointer;
-				font-size: 19px;
-				margin: .6em 0 0 0;
-				font-weight: 500;
-				overflow: hidden;
+			span {
+				background: #000;
+				display: block;
+				border-radius: 100px;
+				width: 30px;
+				height: 22px;
+				color: #fff;
+				font-size: 15px;
+				text-align: center;
+				padding-top: 8px;
 				line-height: 1em;
-				padding: .5em .7em .45em .7em;
+				position: absolute;
+				top: 1px; 
+				left: 1px;
+			}
+
+	   	    &.nestedLabel {
+		   	   	font-size: 19px;
+				font-weight: 600;
+				color: #000;
+				padding-bottom: .5em;
+	   	    }
+		   	   
+			&.legend-hidden {
+				font-size: 0;
+				text-indent: -9999px;
+				padding-bottom: 0;
+				line-height: .1em;
+				margin: 0;
+			}
+		   	   
+	   	}
+
+		h2, 
+		p.title {
+			font-size: 19px;
+			font-weight: 600;
+			line-height: 1.4em;
+			padding-top: 1em;
+			&:first-child {
+				padding-top: 0;
+			}
+		}
+
+		.help-statement {
+			h3 {
+				font-weight: 100;
+			}
+			p {
+				padding: 0 0 0 .8em;
 				border-left: 5px solid #dee0e2;
-				color: #005ea5;
-				text-decoration: underline;
-				&:hover {
-					color: #2e8aca;
-					text-decoration: none;
+			}
+		}
+
+
+	    // Nested fieldset
+	   	   
+	    .question-group {
+
+			legend {
+				font-size: 19px;
+				font-weight: 600;
+				color: #000;
+				em {
+				   display: inline;
+				   font-size: 18px;
+				   margin-right: 4px;
+				   font-style: normal;
 				}
 			}
 
-			.helper-info {
-				padding: 1em 1em 0 .8em;
-				background: #fff;
-				border-left: 5px solid #dee0e2;
-				h3 {
-					font-size: 19px;
+			ul {
+				li {
+					padding-top: 0;
 				}
+			}  	
+			
+			.employment-info {
+
 				p {
+					color: #0b0c0c;
 					font-size: 19px;
-					margin-top: 1em;
-					color: #515151;
-					line-height: 1.4em;
+					padding-top: .5em;
+					margin: 0 0 1em 0;
 					&:first-child {
 						margin: 0;
 					}
-					em, i {
-						font-size: 17px;
-						margin: 0;
-						font-style: italic;
+				}
+
+			    ul {
+				    list-style: disc;
+				    padding: .5em 0 1em 1.4em;
+				    margin: 0;
+				    li {
+					    font-size: 19px;
+					    padding: 0;
+					    margin: .8em 0 0 0;
+					    color: #171819;
+					    line-height: 1.2em;
+					    position: relative;
+					    display: list-item;				   
+					    &:first-child {
+						    margin: 0;
+					    }
+				    }
+			    }
+
+		    }
+		   
+		}
+
+		// Form list start
+		ul {
+
+			margin-top: 0;
+			zoom: 1;
+			   
+			&.extra-group {
+				border-left: 5px solid #dee0e2;
+				padding-left: .8em;
+				margin-top: 1em;
+				.validation {
+					margin-left: -1.08em;
+				}
+			}		   
+			   
+			li {
+				display: block;
+				margin-top: 18px;
+				padding: .8em 0;
+				position: relative;
+				&.extra-detail {
+					padding: 0;
+					margin-bottom: -.8em;
+				}
+
+				&.other-detail {
+					margin: 0;
+					padding-top: 0;
+					.ie7 & {
+						zoom: 1;
+					}
+					.strip {
+						position: absolute;
+						left: -9999px;
 					}
 				}
-				a {
+				   
+				&.extra-text {
+					label {
+						position: absolute;
+						left: -9999px;
+					}
+				}
+				   
+				&.c-help {
+					padding-top: 0;
+					margin-top: 0;
+				}
+				   
+				&.radioGroupLabel {
+					p {
+						font-weight: 600;
+						padding-top: 1em;
+					}
+				}
+
+				// In form validation styling
+				&.validation {
+
+					background: #fef7f7;
+					padding: .7em;
+					border-left: 3px solid #df3034;
+					position: relative;
+					overflow: hidden;
+					margin-left: -0.7em;
+
+					.ie6 & {
+						zoom: 1;
+					}
+
+					@media screen and (max-width: 640px) {
+						padding-top: 1em;
+						padding-bottom: 1em;
+						width: auto;
+						margin-left: -.9em;
+					} 
+
+					.error {
+						color: #de3134;
+						font-weight: 300;
+						font-size: 17px;
+						padding-bottom: .6em;
+						.ie6 & {
+						   background: transparent;
+						}
+					}
+
+					.inline-stack {
+						border-left: none;
+						padding-left: 0;
+					}
+				}
+
+				// Form check			   
+				&.form-check {
+					margin-top: 0;
+					padding-top: 0;
+					label {
+						display: inline-block;
+						padding-left: 5px;
+						color: #666;
+					}
+					input {
+						display: inline-block;
+						vertical-align: top;
+						margin-top: 5px;
+						&:checked + label {
+							color: #000;
+						}
+					}
+				}
+				   
+				&.date-time {
+					padding-top: 0;
+					padding-bottom: 0;
+				}
+				  
+				&.short-field {
+					input[type="text"], input[type="tel"] {
+						width: 130px;
+						@media screen and (max-width: 500px) {
+							width: 128px;
+						}
+					}
+				}
+
+				&.currency {
+					position: relative;
+					input[type="text"], input[type="tel"] {
+						width: 154px!important; /* Low IE issues */
+						position: relative;
+						@media screen and (max-width: 500px) {
+							width: 152px;
+						}
+					}
+				}
+
+				&.checkbox-single {
+					padding-top: 0;
+					margin: 0;
+					overflow: hidden;
+					label {
+						float: left;
+						font-weight: 100;
+						width: 86%;
+					}
+					input {
+						float: left;
+						margin: 5px 10px 0 0;
+						padding: 0;
+					}
+				}
+
+				&.validation {
+					&:before {
+						left: 18px;
+						bottom: 19px;
+					}
+				}
+				   
+				.helper {
+					font-size: 19px;
+					margin-top: .5em;
+					font-weight: 300;
+					color: #666;
+					&.above {
+						margin-top: 0;
+						padding-bottom: .5em;
+					}
+				}
+
+				.helper-show {
+					font-size: 19px;
+					font-weight: 300;
+					color: #666;
+					margin-top: -2px;
+					padding: 0;
+				}
+				   
+				.specific-help {
+					display: none;
+					.ie7 & {
+						display: block;
+					}
+				}
+
+				.helper-more {
+					cursor: pointer;
+					font-size: 19px;
+					margin: .6em 0 0 0;
+					font-weight: 500;
+					overflow: hidden;
+					line-height: 1em;
+					padding: .5em .7em .45em .7em;
+					border-left: 5px solid #dee0e2;
 					color: #005ea5;
 					text-decoration: underline;
 					&:hover {
 						color: #2e8aca;
+						text-decoration: none;
 					}
 				}
-				ul {
-					li {
-						margin: 0;
-						padding: .65em 0;
-						font-size: 17px;
-						border-top: 1px dotted #e8e8e8;
-						color: #626262;
+
+				.helper-info {
+					padding: 1em 1em 0 .8em;
+					background: #fff;
+					border-left: 5px solid #dee0e2;
+					h3 {
+						font-size: 19px;
+					}
+					p {
+						font-size: 19px;
+						margin-top: 1em;
+						color: #515151;
+						line-height: 1.4em;
 						&:first-child {
-							border: 0;
+							margin: 0;
+						}
+						em, i {
+							font-size: 17px;
+							margin: 0;
+							font-style: italic;
 						}
 					}
-				}
-			}
-
-			label, 
-			.sub {
-				display: block;
-				font-size: 19px;
-				font-weight: 600;
-				line-height: 1.3em;
-				padding-bottom: .3em;
-				@media screen and (max-width: 600px) {
-					line-height: 1.2em;
-				}
-				em {
-					display: inline;
-					font-size: 18px;
-					margin-right: 4px;
-					font-style: normal;
-				}
-			}
-			  
-			input[type="text"], 
-			input[type="number"], 
-			input[type="tel"], 
-			textarea {
-				background: $white;
-				border: 1px solid $grey-2;
-				font-size: 19px;
-				line-height: 1.31579;
-				font-weight: 400;
-				text-transform: none;
-				padding: 0.25em 0 0.1em 0.4em;
-				width: 340px;
-				@media screen and (max-width: 700px) {
-					width: 96%;
-				}
-				.ie & {
-					width: 283px;
-				}
-				&.ni-number {
-					text-transform: uppercase;
-				}
-				&.postcode {
-					text-transform: uppercase;
-					width: 180px;
-					@media screen and (max-width: 700px) {
-						width: 96%;
-					}
-				}
-				.ie7 &, 
-				.ie8 & {
-					padding: 0.2em 0 0.4em 0.4em;
-				}
-			}
-
-			input[type="radio"] {
-				width: auto;
-				vertical-align: top;
-				&[type=radio]:checked + label {
-					color: #0b0c0c;
-				}
-				.ie7 & {
-					margin-top: 0;
-				}
-				.ie8 & {
-					margin-top: 1px;
-				}
-			}
-
-			textarea {
-				height: 6em;
-				width: 96%;
-				&.textarea-reduced {
-					height: 3em;
-				}
-			}
-
-			select {
-				padding: 2px;
-				min-width: 150px;
-				max-width: 293px;
-				position: relative;
-				font-size: 13px;
-				height: 30px;
-				top: 2px;
-				background: #fafafa;
-				border: 1px solid #bfc1c3;
-				.ie & {
-					height: auto;
-					padding: 5px;
-				}
-				.ie8 & {
-					min-width: 0;
-				}
-			}
-
-		    .warning-text {
-			    color: #df3034;
-		    }
-
-			.stacked {
-				margin: 0;
-				padding: 0;
-				font-size: 16px;
-			}
-
-		}
-		  
-		&.partner-group {
-			li {
-				margin-top: 10px;
-			}
-		} 
-
-		// radio list - includes hit areas */
-		&.radio {
-
-   		    margin-top: 5px;	
-
-		    li {
-			    position: relative;
-			    display: inline-block;
-			    margin: 0 0 0 5px;
-			    padding: 0;
-			   
-			    .ie7 & {
-				    float: left;
-				    margin-left: 10px;
-				    display: block;
-			    }
-			   
-			    &:first-child {
-				    margin-left: 0;
-			    }
-
-				input[type="radio"] {
-					position: absolute;
-					top: 50%;
-					left: 14px;
-					margin-top: -6px;
-					.ie & {
-						margin-top: -9px;
-					}
-					.ie7 &, 
-					.ie8 & {
-						left: 10px;
-					}
-					.ie6 & {
-						position: relative;
-						top: auto;
-						left: auto;
-						display: inline;
-					}
-					&:focus {
-						outline: 0;
-						border: 0;
-					}
-				}
-
-
-			    label {
-				    display: block;
-				    position: relative;
-				    line-height: normal;
-				    padding: 0;
-				    span {
-					    background: #eee;
-					    padding: 12px 22px 8px 40px;
-					    font-size: 19px;
-					    cursor: pointer;
-					    border: 3px solid #eee;
-					    font-weight: 400;
-					    display: block;
-					    .ie7 &, 
-					    .ie8 & {
-						    padding-left: 34px;
-					    }
-					    &:hover {
-						    background: #ccc;
-						    border-color: #ccc;
-					    }
-				   }
-				    &.focus {
-					    span {
-						    border-color: #ffbf47;
-						    background: #fff;
-					    }
-				    }
-				    .ie6 & {
-					    display: inline;
-					    padding-left: 0;
-					    background: transparent;
-				    }
-			    }
-			   
-			    input[type="radio"]:checked + span {
-				    background: #fff;
-				    border: 3px solid #000;
-				    font-weight: 500;
-			    }
-			   
-		    }
-		   
-			&.radio-stack {
-				li {
-					margin: 4px 0 0 0;
-					display: block;
-					.ie7 & {
-						float: none;
-					}
-					&:first-child {
-						margin-top: 0;
-					}
-					label {
-						display: inline-block;
-						@media screen and (max-width: 700px) {
-							display: block;
+					a {
+						color: #005ea5;
+						text-decoration: underline;
+						&:hover {
+							color: #2e8aca;
 						}
-						span {
-							padding: 12px 20px 10px 40px;
-							.ie7 &, 
-							.ie8 & {
-								padding-left: 34px;
+					}
+					ul {
+						li {
+							margin: 0;
+							padding: .65em 0;
+							font-size: 17px;
+							border-top: 1px dotted #e8e8e8;
+							color: #626262;
+							&:first-child {
+								border: 0;
 							}
 						}
 					}
 				}
-			}
 
-			&.benefits-validation {
-				background: #fef7f7;
-				padding: .7em;
-				border-left: 3px solid #df3034;
-			}
-
-		}
-			 
-		// Address stack
-		&.address-stack {
-			label {
-				position: absolute;
-				left: -9999px;
-			}
-			li {
-				margin-top: .4em;
-				padding: 0 0 0 0;
-				&:first-child {
-					margin: 0;
-				}
-			}
-		}
-
-		// List display - fully inline with label
-		&.inline {
-			li {
-				display: inline;
-				margin: 0 0 0 1em;
-				&:first-child {
-					margin-left: 0;
-				}
-				label {
-					padding-left: 0.25em;
-					display: inline-block;
-					line-height: 1.2em;
-					font-size: 17px;
-					color: #555;
-					&:hover {
-						color: #0b0c0c;
+				label, 
+				.sub {
+					display: block;
+					font-size: 19px;
+					font-weight: 600;
+					line-height: 1.3em;
+					padding-bottom: .3em;
+					@media screen and (max-width: 600px) {
+						line-height: 1.2em;
+					}
+					em {
+						display: inline;
+						font-size: 18px;
+						margin-right: 4px;
+						font-style: normal;
 					}
 				}
-				select {
-					top: -3px;
+				  
+				input[type="text"], 
+				input[type="number"], 
+				input[type="tel"], 
+				textarea {
+					background: $white;
+					border: 1px solid $grey-2;
+					font-size: 19px;
+					line-height: 1.31579;
+					font-weight: 400;
+					text-transform: none;
+					padding: 0.25em 0 0.1em 0.4em;
+					width: 340px;
+					@media screen and (max-width: 700px) {
+						width: 96%;
+					}
+					.ie & {
+						width: 283px;
+					}
+					&.ni-number {
+						text-transform: uppercase;
+					}
+					&.postcode {
+						text-transform: uppercase;
+						width: 180px;
+						@media screen and (max-width: 700px) {
+							width: 96%;
+						}
+					}
+					.ie7 &, 
+					.ie8 & {
+						padding: 0.2em 0 0.4em 0.4em;
+					}
 				}
-			}
-		}	
 
-		   // list display - stacked list with label inline 	   
-		&.inline-stack {
-			border-left: 5px solid #eee;
-			padding-left: .5em;
-			margin-bottom: .75em;
-			li {
-				display: block;
-				margin: 0;
-				padding: .4em 0;
-					input {
+				input[type="radio"] {
 					width: auto;
 					vertical-align: top;
-					margin-top: .38rem;
-					.ie & {
+					&[type=radio]:checked + label {
+						color: #0b0c0c;
+					}
+					.ie7 & {
 						margin-top: 0;
 					}
-					&[type=checkbox]:checked + label, 
-					&[type=radio]:checked + label {
-						color: #000;
+					.ie8 & {
+						margin-top: 1px;
 					}
 				}
-				label {
-					width: auto;
-					max-width: 90%;
-					margin-left: .25em;
-					line-height: 1.2em;
-					padding: 0;
-					font-size: 17px;
-					color: #555;
-					cursor: pointer;
+
+				textarea {
+					height: 6em;
+					width: 96%;
+					&.textarea-reduced {
+						height: 3em;
+					}
+				}
+
+				select {
+					padding: 2px;
+					min-width: 150px;
+					max-width: 293px;
+					position: relative;
+					font-size: 13px;
+					height: 30px;
+					top: 2px;
+					background: #fafafa;
+					border: 1px solid #bfc1c3;
 					.ie & {
-						width: 90%;
+						height: auto;
+						padding: 5px;
+					}
+					.ie8 & {
+						min-width: 0;
+					}
+				}
+
+			    .warning-text {
+				    color: #df3034;
+			    }
+
+				.stacked {
+					margin: 0;
+					padding: 0;
+					font-size: 16px;
+				}
+
+			}
+			  
+			&.partner-group {
+				li {
+					margin-top: 10px;
+				}
+			} 
+
+			// radio list - includes hit areas */
+			&.radio {
+
+	   		    margin-top: 5px;	
+
+			    li {
+				    position: relative;
+				    display: inline-block;
+				    margin: 0 0 0 5px;
+				    padding: 0;
+				   
+				    .ie7 & {
+					    float: left;
+					    margin-left: 10px;
+					    display: block;
+				    }
+				   
+				    &:first-child {
+					    margin-left: 0;
+				    }
+
+					input[type="radio"] {
+						position: absolute;
+						top: 50%;
+						left: 14px;
+						margin-top: -6px;
+						.ie & {
+							margin-top: -9px;
+						}
+						.ie7 &, 
+						.ie8 & {
+							left: 10px;
+						}
+						.ie6 & {
+							position: relative;
+							top: auto;
+							left: auto;
+							display: inline;
+						}
+						&:focus {
+							outline: 0;
+							border: 0;
+						}
+					}
+
+
+				    label {
+					    display: block;
+					    position: relative;
+					    line-height: normal;
+					    padding: 0;
+					    span {
+						    background: #eee;
+						    padding: 12px 22px 8px 40px;
+						    font-size: 19px;
+						    cursor: pointer;
+						    border: 3px solid #eee;
+						    font-weight: 400;
+						    display: block;
+						    .ie7 &, 
+						    .ie8 & {
+							    padding-left: 34px;
+						    }
+						    &:hover {
+							    background: #ccc;
+							    border-color: #ccc;
+						    }
+					   }
+					    &.focus {
+						    span {
+							    border-color: #ffbf47;
+							    background: #fff;
+						    }
+					    }
+					    .ie6 & {
+						    display: inline;
+						    padding-left: 0;
+						    background: transparent;
+					    }
+				    }
+				   
+				    input[type="radio"]:checked + span {
+					    background: #fff;
+					    border: 3px solid #000;
+					    font-weight: 500;
+				    }
+				   
+			    }
+			   
+				&.radio-stack {
+					li {
+						margin: 4px 0 0 0;
+						display: block;
+						.ie7 & {
+							float: none;
+						}
+						&:first-child {
+							margin-top: 0;
+						}
+						label {
+							display: inline-block;
+							@media screen and (max-width: 700px) {
+								display: block;
+							}
+							span {
+								padding: 12px 20px 10px 40px;
+								.ie7 &, 
+								.ie8 & {
+									padding-left: 34px;
+								}
+							}
+						}
+					}
+				}
+
+				&.benefits-validation {
+					background: #fef7f7;
+					padding: .7em;
+					border-left: 3px solid #df3034;
+				}
+
+			}
+				 
+			// Address stack
+			&.address-stack {
+				label {
+					position: absolute;
+					left: -9999px;
+				}
+				li {
+					margin-top: .4em;
+					padding: 0 0 0 0;
+					&:first-child {
+						margin: 0;
 					}
 				}
 			}
-		}	
 
-		// List display - date format layout  
-		&.year {
-			li {
-				margin-left: 1em;
-				display: inline-block;
-				.ie7 & {
-					float: left;
-					width: auto;
+			// List display - fully inline with label
+			&.inline {
+				li {
+					display: inline;
+					margin: 0 0 0 1em;
+					&:first-child {
+						margin-left: 0;
+					}
+					label {
+						padding-left: 0.25em;
+						display: inline-block;
+						line-height: 1.2em;
+						font-size: 17px;
+						color: #555;
+						&:hover {
+							color: #0b0c0c;
+						}
+					}
+					select {
+						top: -3px;
+					}
+				}
+			}	
+
+			   // list display - stacked list with label inline 	   
+			&.inline-stack {
+				border-left: 5px solid #eee;
+				padding-left: .5em;
+				margin-bottom: .75em;
+				li {
+					display: block;
+					margin: 0;
+					padding: .4em 0;
+						input {
+						width: auto;
+						vertical-align: top;
+						margin-top: .38rem;
+						.ie & {
+							margin-top: 0;
+						}
+						&[type=checkbox]:checked + label, 
+						&[type=radio]:checked + label {
+							color: #000;
+						}
+					}
+					label {
+						width: auto;
+						max-width: 90%;
+						margin-left: .25em;
+						line-height: 1.2em;
+						padding: 0;
+						font-size: 17px;
+						color: #555;
+						cursor: pointer;
+						.ie & {
+							width: 90%;
+						}
+					}
+				}
+			}	
+
+			// List display - date format layout  
+			&.year {
+				li {
+					margin-left: 1em;
+					display: inline-block;
+					.ie7 & {
+						float: left;
+						width: auto;
+					}
+					label {
+						display: block;
+						font-weight: 300;
+						padding-left: 0;
+						font-size: 19px;
+						color: #0b0c0c;
+					}
+					input {
+						width: 66px !important; // Low IE issues
+						background: #fff;
+					}
+					&:first-child {
+						margin-left: 0;
+						input {
+							width: 46px !important; // Low IE issues
+						}
+					}
+					&.month {
+						input {
+							width: 46px !important; // Low IE issues
+						}
+					}
+				}
+			}
+
+			   
+			// sort code 
+			&.sort-code {
+				li {
+					margin-left: 1em;
+					&:first-child {
+						margin-left: 0;
+					}
 				}
 				label {
-					display: block;
-					font-weight: 300;
-					padding-left: 0;
-					font-size: 19px;
-					color: #0b0c0c;
+					position: absolute;
+					left: -9999px;
 				}
-				input {
-					width: 66px !important; // Low IE issues
-					background: #fff;
+				input, input[type="tel"], 
+				input[type="text"] {
+					width: 46px!important; // Low IE issues
 				}
-				&:first-child {
-					margin-left: 0;
-					input {
-						width: 46px !important; // Low IE issues
+			}  
+			   
+			// list display - inline with labels stripped
+			&.label-strip {
+				li {
+				margin-left: .5em;
+					&:first-child {
+						margin-left: 0;
 					}
 				}
-				&.month {
-					input {
-						width: 46px !important; // Low IE issues
-					}
+				label {
+					position: absolute;
+					left: -9999px;
 				}
 			}
-		}
 
-		   
-		// sort code 
-		&.sort-code {
-			li {
-				margin-left: 1em;
-				&:first-child {
-					margin-left: 0;
-				}
-			}
-			label {
-				position: absolute;
-				left: -9999px;
-			}
-			input, input[type="tel"], 
-			input[type="text"] {
-				width: 46px!important; // Low IE issues
-			}
-		}  
-		   
-		// list display - inline with labels stripped
-		&.label-strip {
-			li {
-			margin-left: .5em;
-				&:first-child {
-					margin-left: 0;
-				}
-			}
-			label {
-				position: absolute;
-				left: -9999px;
-			}
-		}
-
-	}
-	   
-// Information panel
-@import 'info-panel';	   
-	   
-	      
-// Declaration specific
-@import 'declaration'; 	   
-	   
-
-}
- 
-   
-/* Prompt panels */ 
-@import 'prompt-panels';
-   
-   
-/* Navigation & Button styles */   
-@import 'nav-button';
-
-	
-/* Submission information */   
-@import 'submission';
-
-
-/* Finish page */
-@import 'finish';
-
-
-/* Right col (Finish page)  */
-@import 'right-panel';
-		
-}
+		} // end ul  
+		 
+	} // end.form-elements
+			
+} // end .carers-allowance 
 
 
 .content-panel {
@@ -991,38 +926,27 @@ main {
 			}
 		}
 	}
-}
 
+} // end .data-table
 
-
-
-
-/* Claim notes */
 @import 'claimnotes';
 
-
-/* Footer */
 @import 'footer';
 
-
-/* Form review */
 @import 'review';
 
-/* Include & Overrides */
 @import 'includes';
 
 .js-message {
-   padding: 1em 0;
-   border-bottom: 1px solid #bfc1c3;
-
-   h2 {
-	   font-size: 16px;
-   }
-   
-   p {
-	   font-size: 16px;
-	   margin: 0;
-   }
+	padding: 1em 0;
+	border-bottom: 1px solid #bfc1c3;
+	h2 {
+		font-size: 16px;
+	}
+	p {
+		font-size: 16px;
+		margin: 0;
+	}
 } 
 
 
