@@ -1,38 +1,39 @@
-/* button panel */
+// button panel
 
 	.back-nav {
 		position: relative;
-		padding-bottom: 5px;
-      a {
-        font-size: 19px;
-      }
+		margin-bottom: 15px;
+		a {
+			font-size: 19px;
+		}
 	}
 
 
    .form-steps {
-	   margin-top: 3em;
-	   clear: both;
-	   @media screen and (max-width: 500px) {padding-left: 0;}
-	   p {
-		   padding-bottom: 1em;
-		   clear: both;
+	    clear: both;
+	    @media screen and (max-width: 500px) {
+		    padding-left: 0;
+		}
+	    p {
+		    padding-bottom: 1em;
+		    clear: both;
+	    }
+	    a {
+		    font-weight: 500;
+		    font-size: 19px;
 	   }
-	   a {
-		   font-weight: 500;
-		   font-size: 19px;
-	   }
-	   ul {
-		   li {
-			   margin: 1.8em 0 0 0;
-			   &:first-child {
-				   margin: 0;
-			   }
-		   }
-	   }
-   }
+	    ul {
+		    li {
+			    margin: 1.8em 0 0 0;
+			    &:first-child {
+				    margin: 0;
+			    }
+		    }
+	    }
+    }
  
    
-   /* button styling */
+   // button styling
    .button {
 		   font-size: 19px;
 		   line-height: 1em;
