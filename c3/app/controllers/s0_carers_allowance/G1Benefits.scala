@@ -1,4 +1,4 @@
-package controllers.s1_carers_allowance
+package controllers.s0_carers_allowance
 
 import controllers.mappings.Mappings._
 import language.reflectiveCalls
@@ -18,13 +18,13 @@ object G1Benefits extends Controller with CachedClaim with Navigable {
 
   def present = newClaim {implicit claim =>  implicit request =>  lang =>
     Logger.info(s"Starting new $cacheKey - ${claim.uuid}")
-    track(Benefits) { implicit claim => Ok(views.html.s1_carers_allowance.g1_benefits(form.fill(Benefits))(lang)) }
+    track(Benefits) { implicit claim => Ok(views.html.s0_carers_allowance.g1_benefits(form.fill(Benefits))(lang)) }
   }
 
   def submit = claiming ({implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrors)(lang))
+        BadRequest(views.html.s0_carers_allowance.g1_benefits(formWithErrors)(lang))
       },
       f => claim.update(f) -> Redirect(routes.G2Eligibility.present()))
   }, checkCookie=true)

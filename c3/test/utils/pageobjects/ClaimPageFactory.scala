@@ -39,12 +39,12 @@ object ClaimPageFactory extends PageFactory {
     }
     else {
       val m:PartialFunction[String,Page] = {
-        // S1
+        // s0
         case G1BenefitsPage.title => G1BenefitsPage (ctx)
         case G2EligibilityPage.title => G2EligibilityPage (ctx)
         case G5CarersResponsePage.title => G5CarersResponsePage (ctx)
         case G6ApprovePage.title => G6ApprovePage (ctx)
-        //S1.5
+        //s0.5
         case G1ClaimDatePage.title => G1ClaimDatePage (ctx)
         // S2
         case G1YourDetailsPage.title => G1YourDetailsPage (ctx)

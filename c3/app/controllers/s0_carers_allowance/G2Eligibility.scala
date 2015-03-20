@@ -1,4 +1,4 @@
-package controllers.s1_carers_allowance
+package controllers.s0_carers_allowance
 
 import language.reflectiveCalls
 import play.api.data.Form
@@ -19,13 +19,13 @@ object G2Eligibility extends Controller with CachedClaim with Navigable {
 
   def present = claiming ({implicit claim =>  implicit request =>  lang =>
     track(Eligibility) {
-      implicit claim => Ok(views.html.s1_carers_allowance.g2_eligibility(form.fill(Eligibility))(lang))
+      implicit claim => Ok(views.html.s0_carers_allowance.g2_eligibility(form.fill(Eligibility))(lang))
     }},checkCookie=true)
 
   def submit = claiming {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        BadRequest(views.html.s1_carers_allowance.g2_eligibility(formWithErrors)(lang))
+        BadRequest(views.html.s0_carers_allowance.g2_eligibility(formWithErrors)(lang))
       },
       f => claim.update(f) -> Redirect(routes.CarersAllowance.approve()))
   }

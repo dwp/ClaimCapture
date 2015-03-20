@@ -10,19 +10,19 @@
 @import play.api.i18n.{MMessages => Messages}
 
 @defining(lang) { implicit language =>
-    @main(Messages("s1.progressbar.name") + " - " + Messages("s1.longName"), Some(currentForm),changing = true) {
+    @main(Messages("s0.progressbar.name") + " - " + Messages("s0.longName"), Some(currentForm),changing = true) {
 
 
-        @form(action = controllers.s1_carers_allowance.routes.G2Eligibility.submit, 'role -> "form") {
+        @form(action = controllers.s0_carers_allowance.routes.G2Eligibility.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
 
             <fieldset class="form-elements form-eligibility">
 
                 <ul>
-                    @yesNoRadioGroup(currentForm("hours.answer"), '_label -> Messages("s1.g2"), 'allowance -> true, 'helperAbove -> Messages("s1.g2.help1"), 'warningMessage -> Seq(Messages("s1.g2.help2")) ,'track -> true,'trackLabel -> "hours.answer")
-                    @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("s1.g3"), 'allowance -> true, 'warningMessage -> Seq(Messages("s1.g3.help1")), 'track -> true, 'trackLabel -> "over16.answer")
-                    @yesNoRadioGroup(currentForm("livesInGB.answer"), '_label -> Messages("s1.g4"), 'allowance -> true, 'helperAbove -> Messages("s1.g4.help1"), 'warningMessage ->Seq(Messages("s1.g4.help4"),Messages("s1.g4.help5")), 'track -> true, 'trackLabel -> "livesInGB.answer")
+                    @yesNoRadioGroup(currentForm("hours.answer"), '_label -> Messages("s0.g2"), 'allowance -> true, 'helperAbove -> Messages("s0.g2.help1"), 'warningMessage -> Seq(Messages("s0.g2.help2")) ,'track -> true,'trackLabel -> "hours.answer")
+                    @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("s0.g3"), 'allowance -> true, 'warningMessage -> Seq(Messages("s0.g3.help1")), 'track -> true, 'trackLabel -> "over16.answer")
+                    @yesNoRadioGroup(currentForm("livesInGB.answer"), '_label -> Messages("s0.g4"), 'allowance -> true, 'helperAbove -> Messages("s0.g4.help1"), 'warningMessage ->Seq(Messages("s0.g4.help4"),Messages("s0.g4.help5")), 'track -> true, 'trackLabel -> "livesInGB.answer")
 
                 </ul>
             </fieldset>
@@ -34,7 +34,7 @@
                 </ul>
             </nav>
         }
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s0_carers_allowance/answerNoMessage.js")'></script>
 
         <script type="text/javascript">
             $(function () {

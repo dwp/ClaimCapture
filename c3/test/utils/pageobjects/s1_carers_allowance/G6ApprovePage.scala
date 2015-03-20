@@ -6,7 +6,7 @@ import org.fluentlenium.core.domain.{FluentWebElement, FluentList}
 import play.api.Logger
 
 /**
- * PageObject pattern associated to S1 carers allowance G5 approve page.
+ * PageObject pattern associated to s0 carers allowance G5 approve page.
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */

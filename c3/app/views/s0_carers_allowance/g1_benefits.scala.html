@@ -12,38 +12,38 @@
 
 
 @benefitsList(implicit language:Lang) = @{
-    Seq(Benefits.pip -> Messages("s1.g1.help2"),
-        Benefits.dla -> Messages("s1.g1.help4"),
-        Benefits.aa -> Messages("s1.g1.help6"),
-        Benefits.caa -> Messages("s1.g1.help7"),
-        Benefits.afip -> Messages("s1.g1.help10"),
-        Benefits.noneOfTheBenefits -> Messages("s1.g1.help12")
+    Seq(Benefits.pip -> Messages("s0.g1.help2"),
+        Benefits.dla -> Messages("s0.g1.help4"),
+        Benefits.aa -> Messages("s0.g1.help6"),
+        Benefits.caa -> Messages("s0.g1.help7"),
+        Benefits.afip -> Messages("s0.g1.help10"),
+        Benefits.noneOfTheBenefits -> Messages("s0.g1.help12")
     )
 }
 
 @defining(lang) { implicit language =>
-@main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm),false) {
+@main(Messages("s0.g1") + " - " + Messages("s0.longName"), Some(currentForm),false) {
 
 
 
-    @form(action = controllers.s1_carers_allowance.routes.G1Benefits.submit, 'role -> "form") {
+    @form(action = controllers.s0_carers_allowance.routes.G1Benefits.submit, 'role -> "form") {
 
                 @DwpCSRFFormHelper.formField
 	
 			
 		        <fieldset class="form-elements form-eligibility">
-		            <legend>@Html(Messages("s1.g1"))</legend>
+		            <legend>@Html(Messages("s0.g1"))</legend>
 
                     @standaloneListRadioGroup(currentForm("benefitsAnswer"),
                         'items -> benefitsList,
-                        'helperAbove -> "s1.g1.help13",
+                        'helperAbove -> "s0.g1.help13",
                         'track -> true,
-                        'trackLabel -> Messages("s1.g1")
+                        'trackLabel -> Messages("s0.g1")
                     )
 
 		            @defining(currentForm("benefitsAnswer").value.getOrElse("don't know") match { case Benefits.noneOfTheBenefits => "block" case _ => "none" }) { styleDisplay =>
 		                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
-		                    <p>@Html(Messages("s1.g1.help11"))</p>
+		                    <p>@Html(Messages("s0.g1.help11"))</p>
 		                 </div>
 		            }
 		        </fieldset>
@@ -57,7 +57,7 @@
 
     }
 
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoBenefitsMessage.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s0_carers_allowance/answerNoBenefitsMessage.js")'></script>
 
     <script type="text/javascript">
     $(function () {

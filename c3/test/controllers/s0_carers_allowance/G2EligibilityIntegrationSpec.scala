@@ -1,4 +1,4 @@
-package controllers.s1_carers_allowance
+package controllers.s0_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser

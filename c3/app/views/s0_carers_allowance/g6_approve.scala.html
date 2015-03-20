@@ -39,39 +39,39 @@
 @main("Can you get Carer's Allowance?", None) {
     @if(approved) {
         <section class="prompt e-prompt" aria-labelledby="heading1">
-            <h2 id="heading1">@Html(Messages("s1.g6.green.help1"))</h2>
+            <h2 id="heading1">@Html(Messages("s0.g6.green.help1"))</h2>
             <div>
 	            <ul>
-		            <li>@Html(Messages("s1.g6.green.help2"))</li>
-		            <li>@Html(Messages("s1.g6.green.help3"))</li>
+		            <li>@Html(Messages("s0.g6.green.help2"))</li>
+		            <li>@Html(Messages("s0.g6.green.help3"))</li>
 	            </ul>
             </div>
         </section>
     } else {
         <section class="prompt e-prompt" aria-labelledby="heading2">
-            <h2 id="heading2">@Html(Messages("s1.g6.red.help1"))</h2>
+            <h2 id="heading2">@Html(Messages("s0.g6.red.help1"))</h2>
             <div>
-	            <p>@Html(Messages("s1.g6.red.helper"))</p>
+	            <p>@Html(Messages("s0.g6.red.helper"))</p>
 	            <ul>
 	            	@if(!benefitsAnswer) {
-	                    <li>@Html(Messages("s1.g6.red.benefits"))</li>
+	                    <li>@Html(Messages("s0.g6.red.benefits"))</li>
 	                }
 	                @if(!hoursAnswer) {
-	                    <li>@Html(Messages("s1.g6.red.hours"))</li>
+	                    <li>@Html(Messages("s0.g6.red.hours"))</li>
 	                }
 	                @if(!over16Answer) {
-	                    <li>@Html(Messages("s1.g6.red.over16"))</li>
+	                    <li>@Html(Messages("s0.g6.red.over16"))</li>
 	                }
 	                @if(!livesInGBAnswer) {
-	                    <li>@Html(Messages("s1.g6.red.liveInGB"))</li>
+	                    <li>@Html(Messages("s0.g6.red.liveInGB"))</li>
 	                }
 	            </ul>
-	            <!-- <p>@Html(Messages("s1.g6.green.help.moreinfo")) <a href="/claim-notes" target="_blank">@Html(Messages("s1.g6.green.help.moreinfo.link"))</a>@Html(Messages("s1.g6.green.help.moreinfo.end"))</p> -->
+	            <!-- <p>@Html(Messages("s0.g6.green.help.moreinfo")) <a href="/claim-notes" target="_blank">@Html(Messages("s0.g6.green.help.moreinfo.link"))</a>@Html(Messages("s0.g6.green.help.moreinfo.end"))</p> -->
             </div>
         </section>
     }
 
-    @form(action = controllers.s1_carers_allowance.routes.CarersAllowance.approveSubmit, 'role -> "form") {
+    @form(action = controllers.s0_carers_allowance.routes.CarersAllowance.approveSubmit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
         @carersInputHidden(currentForm("allowedToContinue"),
             'hiddenValue -> approved)
@@ -111,7 +111,7 @@
     }
 </script>
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/g6_approve.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s0_carers_allowance/g6_approve.js")'></script>
 
 <script type="text/javascript">
     $(function(){

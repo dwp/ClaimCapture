@@ -35,7 +35,7 @@ trait ClaimBotChecking extends BotChecking {
 
   def checkTimeToCompleteAllSections(claim: Claim, currentTime: Long) = {
     val sectionExpectedTimes = Map[String, Long](
-      "s1" -> getProperty("speed.s1", 5000L),
+      "s0" -> getProperty("speed.s0", 5000L),
       "s2" -> getProperty("speed.s2", 5000L),
       "s3" -> getProperty("speed.s3", 5000L),
       "s4" -> getProperty("speed.s4", 5000L),
