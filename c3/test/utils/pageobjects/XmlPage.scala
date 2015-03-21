@@ -1,6 +1,6 @@
 package utils.pageobjects
 
-import play.api.test.{WithBrowser, TestBrowser}
+import play.api.test.WithBrowser
 import utils.pageobjects.xml_validation.XMLBusinessValidation
 
 /**
@@ -8,7 +8,7 @@ import utils.pageobjects.xml_validation.XMLBusinessValidation
  * @author Jorge Migueis
  *         Date: 02/08/2013
  */
-class XmlPage (ctx: PageObjectsContext, url: String = XmlPage.url, title: String = XmlPage.title) extends Page(null,ctx, url, title) {
+class XmlPage (ctx: PageObjectsContext, url: String = XmlPage.url) extends Page(null,ctx, url) {
 
    pageSource = ctx.browser.pageSource()
 
@@ -25,14 +25,14 @@ class XmlPage (ctx: PageObjectsContext, url: String = XmlPage.url, title: String
    * @param throwException Specify whether should throw an exception if a page displays errors. By default set to false.
    * @return next Page or same page if errors detected and did not ask for exception.
    */
-  override def submitPage(throwException: Boolean = false, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) = throw new PageObjectException("Cannot submit the XML test page: " + pageTitle)
+  override def submitPage(throwException: Boolean = false, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) = throw new PageObjectException(s"Cannot submit the XML test page: $url")
 
   /**
    * Throws a PageObjectException.
    * @param theClaim   Data to use to fill page
    */
   override def fillPageWith(theClaim: TestData): Page = {
-    throw new PageObjectException("Cannot fill the XML test page [" + pageTitle +"] Previous page was [" + ctx.previousPage.getOrElse(this).pageTitle + "]" )
+    throw new PageObjectException(s"Cannot fill the XML test page [$url] Previous page was [${ctx.previousPage.getOrElse(this).url}]" )
   }
 }
 
@@ -42,7 +42,6 @@ class XmlPage (ctx: PageObjectsContext, url: String = XmlPage.url, title: String
  * It is used by PageFactory object defined in Page.scala
  */
 object XmlPage {
-  val title = null
   val url = "/submit" // or circumstancesSubmit
   def apply(ctx: PageObjectsContext) = new XmlPage(ctx)
 }

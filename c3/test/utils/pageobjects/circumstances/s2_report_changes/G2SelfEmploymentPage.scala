@@ -3,7 +3,7 @@ package utils.pageobjects.circumstances.s2_report_changes
 import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
 import play.api.test.WithBrowser
 
-final class G2SelfEmploymentPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G2SelfEmploymentPage.url, G2SelfEmploymentPage.title) {
+final class G2SelfEmploymentPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G2SelfEmploymentPage.url) {
   declareYesNo("#stillCaring_answer", "CircumstancesSelfEmploymentStillCaring")
   declareDate("#stillCaring_date", "CircumstancesSelfEmploymentFinishedStillCaringDate")
   declareDate("#whenThisSelfEmploymentStarted", "CircumstancesSelfEmploymentWhenThisStarted")
@@ -17,8 +17,6 @@ final class G2SelfEmploymentPage(ctx:PageObjectsContext) extends CircumstancesPa
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G2SelfEmploymentPage {
-  val title = "About Your Self-Employment - Change in circumstances".toLowerCase
-
   val url  = "/circumstances/report-changes/self-employment"
 
   def apply(ctx:PageObjectsContext) = new G2SelfEmploymentPage(ctx)

@@ -3,7 +3,7 @@ package utils.pageobjects.s7_employment
 import play.api.test.WithBrowser
 import utils.pageobjects._
 
-final class G5LastWagePage(ctx:PageObjectsContext, iteration:Int) extends ClaimPage(ctx, G5LastWagePage.url.replace(":jobID",iteration.toString), G5LastWagePage.title,iteration) {
+final class G5LastWagePage(ctx:PageObjectsContext, iteration:Int) extends ClaimPage(ctx, s"${G5LastWagePage.url}/${iteration.toString}",iteration) {
   declareSelect("#oftenGetPaid_frequency","EmploymentAddtionalWageHowOftenAreYouPaid_" + iteration)
   declareInput("#oftenGetPaid_frequency_other","EmploymentAddtionalWageOther_" + iteration)
   declareInput("#whenGetPaid","EmploymentAddtionalWageWhenDoYouGetPaid_" + iteration)
@@ -15,9 +15,7 @@ final class G5LastWagePage(ctx:PageObjectsContext, iteration:Int) extends ClaimP
 }
 
 object G5LastWagePage {
-  val title = "Your pay - Employment History".toLowerCase
-
-  val url  = "/employment/last-wage/:jobID"
+  val url  = "/employment/last-wage"
 
   def apply(ctx:PageObjectsContext, iteration:Int=1) = new G5LastWagePage(ctx,iteration)
 }

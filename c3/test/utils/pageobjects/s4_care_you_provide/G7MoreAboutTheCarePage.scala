@@ -8,7 +8,7 @@ import utils.pageobjects._
  * @author Saqib Kayani
  *         Date: 29/07/2013
  */
-final class G7MoreAboutTheCarePage (ctx:PageObjectsContext) extends ClaimPage(ctx, G7MoreAboutTheCarePage.url, G7MoreAboutTheCarePage.title) {
+final class G7MoreAboutTheCarePage (ctx:PageObjectsContext) extends ClaimPage(ctx, G7MoreAboutTheCarePage.url) {
   declareYesNo("#spent35HoursCaring", "AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek")
   declareYesNo("#beforeClaimCaring_answer", "AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours")
   declareDate("#beforeClaimCaring_date", "AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson")
@@ -19,8 +19,6 @@ final class G7MoreAboutTheCarePage (ctx:PageObjectsContext) extends ClaimPage(ct
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G7MoreAboutTheCarePage {
-  val title = "More about the care you provide - About the care you provide".toLowerCase
-
   val url  = "/care-you-provide/more-about-the-care"
 
   def apply(ctx:PageObjectsContext) = new G7MoreAboutTheCarePage(ctx)

@@ -8,7 +8,7 @@ import utils.pageobjects._
  * @author Jorge Migueis
  *         Date: 05/08/2013
  */
-class G3DeclarationPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G3DeclarationPage.url, G3DeclarationPage.title) {
+class G3DeclarationPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G3DeclarationPage.url) {
   declareYesNo("#gettingInformationFromAnyEmployer_informationFromEmployer", "ConsentDeclarationGettingInformationFromAnyEmployer")
   declareInput("#gettingInformationFromAnyEmployer_why", "ConsentDeclarationTellUsWhyEmployer")
   declareYesNo("#tellUsWhyEmployer_informationFromPerson","ConsentDeclarationGettingInformationFromAnyOther")
@@ -23,8 +23,6 @@ class G3DeclarationPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G3Declar
  * It is used by PageFactory object defined in Page.scala
  */
 object G3DeclarationPage {
-  val title = "Declaration - Consent and Declaration".toLowerCase
-
   val url = "/consent-and-declaration/declaration"
 
   def apply(ctx:PageObjectsContext) = new G3DeclarationPage(ctx)

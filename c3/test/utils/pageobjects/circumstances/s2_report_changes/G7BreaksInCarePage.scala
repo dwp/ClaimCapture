@@ -7,7 +7,7 @@ import play.api.test.WithBrowser
  * Created by neddakaltcheva on 3/20/14.
  */
 
-final class G7BreaksInCarePage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G7BreaksInCarePage.url, G7BreaksInCarePage.title) {
+final class G7BreaksInCarePage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G7BreaksInCarePage.url) {
     declareDate("#breaksInCareStartDate", "BreaksInCareStartDate")
     declareInput("#breaksInCareStartTime", "BreaksInCareStartTime")
     declareRadioList("#wherePersonBreaksInCare_answer", "BreaksInCareWhereWasThePersonYouCareFor")
@@ -29,8 +29,6 @@ final class G7BreaksInCarePage(ctx:PageObjectsContext) extends CircumstancesPage
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G7BreaksInCarePage {
-  val title = "Breaks from caring - change in circumstances".toLowerCase
-
   val url  = "/circumstances/report-changes/breaks-in-care"
 
   def apply(ctx:PageObjectsContext) = new G7BreaksInCarePage(ctx)

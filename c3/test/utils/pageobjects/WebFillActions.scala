@@ -114,7 +114,7 @@ trait WebFillActions {
     clickElement(elementCssSelector + sep + value.toLowerCase)
   }
   catch {
-    case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
+    case e: Exception => throw new PageObjectException(s"Could not fill $elementCssSelector with value $value", exception = e)
   }
 
   def fillYesNoDontknow(elementCssSelector: String, value: String, sep: String = "_") = if (null != value && value.nonEmpty) try {

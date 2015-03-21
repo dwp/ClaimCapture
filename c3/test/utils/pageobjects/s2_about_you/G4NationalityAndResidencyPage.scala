@@ -3,7 +3,7 @@ package utils.pageobjects.s2_about_you
 import play.api.test.WithBrowser
 import utils.pageobjects._
 
-final class G4NationalityAndResidencyPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G4NationalityAndResidencyPage.url, G4NationalityAndResidencyPage.title) {
+final class G4NationalityAndResidencyPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G4NationalityAndResidencyPage.url) {
   declareRadioList("#nationality", "AboutYouNationalityAndResidencyNationality")
   declareInput("#actualnationality", "AboutYouNationalityAndResidencyActualNationality")
   declareYesNo("#resideInUK_answer", "AboutYouNationalityAndResidencyResideInUK")
@@ -12,8 +12,6 @@ final class G4NationalityAndResidencyPage(ctx:PageObjectsContext) extends ClaimP
 }
 
 object G4NationalityAndResidencyPage {
-  val title = ("Nationality and where you live - About you - the carer").toLowerCase()
-
   val url = "/about-you/nationality-and-residency"
 
   def apply(ctx:PageObjectsContext) = new G4NationalityAndResidencyPage(ctx)

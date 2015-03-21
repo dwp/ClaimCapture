@@ -28,7 +28,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       page goToThePage()
 
       val claim = CircumstancesScenarioFactory.declaration
-      val otherChangeInfoPage = page runClaimWith (claim, G1DeclarationPage.title)
+      val otherChangeInfoPage = page runClaimWith (claim, G1DeclarationPage.url)
 
       otherChangeInfoPage must beAnInstanceOf[G1DeclarationPage]
 
@@ -163,7 +163,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       "page contains JS enabled check" in new WithBrowser with PageObjects {
         val page = G1DeclarationPage(context)
         page goToThePage()
-        page jsCheckEnabled() must beTrue
+        page.jsCheckEnabled must beTrue
       }
 
       "'Please tell us why not' field should not be visible when answered 'yes' to obtainInfoAgreement" in new WithBrowser with PageObjects{

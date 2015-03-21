@@ -13,22 +13,22 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
 
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
+      urlMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("More about the care you provide - About the care you provide")
+      urlMustEqual("More about the care you provide - About the care you provide")
 
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
-      titleMustEqual("More about the care you provide - About the care you provide")
+      urlMustEqual("More about the care you provide - About the care you provide")
 
       browser.goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual("Breaks from care - About the care you provide")
+      urlMustEqual("Breaks from care - About the care you provide")
       browser.click("#answer_no")
 
       browser.find("button[type='submit']").getText shouldEqual "Next"
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Your course details - Education")
+      urlMustEqual("Your course details - Education")
     }
 
 
@@ -38,28 +38,28 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
 
       Formulate.nationalityAndResidency(browser)
-      titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
+      urlMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
 
       Formulate.otherEEAStateOrSwitzerland(browser)
-      titleMustEqual("Partner details - About your partner")
+      urlMustEqual("Partner details - About your partner")
 
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
+      urlMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("More about the care you provide - About the care you provide")
+      urlMustEqual("More about the care you provide - About the care you provide")
 
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
-      titleMustEqual("More about the care you provide - About the care you provide")
+      urlMustEqual("More about the care you provide - About the care you provide")
 
       browser.goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual("Breaks from care - About the care you provide")
+      urlMustEqual("Breaks from care - About the care you provide")
       browser.click("#answer_no")
 
       browser.find("button[type='submit']").getText shouldEqual "Next"
 
       Formulate.selfEmployment(browser)
-      titleMustEqual("Your job - About self employment")
+      urlMustEqual("Your job - About self employment")
     }
 
     """navigate to Other Money""" in new WithBrowser with BrowserMatchers {
@@ -68,29 +68,29 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
 
       Formulate.nationalityAndResidency(browser)
-      titleMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
+      urlMustEqual("Time outside of England, Scotland or Wales - About you - the carer")
 
       Formulate.otherEEAStateOrSwitzerland(browser)
-      titleMustEqual("Partner details - About your partner")
+      urlMustEqual("Partner details - About your partner")
 
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
+      urlMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("More about the care you provide - About the care you provide")
+      urlMustEqual("More about the care you provide - About the care you provide")
 
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
-      titleMustEqual("More about the care you provide - About the care you provide")
+      urlMustEqual("More about the care you provide - About the care you provide")
 
       browser.goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual("Breaks from care - About the care you provide")
+      urlMustEqual("Breaks from care - About the care you provide")
       browser.click("#answer_no")
 
       browser.find("button[type='submit']").getText shouldEqual "Next"
 
       Formulate.notInEmployment(browser)
 
-      titleMustEqual("Statutory pay, benefits and payments")
+      urlMustEqual("Statutory pay, benefits and payments")
     }
 
   } section("integration", models.domain.CareYouProvide.id)
