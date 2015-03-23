@@ -8,15 +8,13 @@ import utils.pageobjects._
  * @author Saqib Kayani
  *         Date: 24/07/2013
  */
-final class G5YourPartnerCompletedPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G5YourPartnerCompletedPage.url, G5YourPartnerCompletedPage.title)
+final class G5YourPartnerCompletedPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G5YourPartnerCompletedPage.url)
 
 /**
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
 object G5YourPartnerCompletedPage {
-  val title = "Completion - About your partner/spouse".toLowerCase
-
   val url  = "/your-partner/completed"
 
   def apply(ctx:PageObjectsContext) = new G5YourPartnerCompletedPage(ctx)

@@ -4,25 +4,27 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.Formulate
 import controllers.BrowserMatchers
+import utils.pageobjects.PageObjects
+import utils.pageobjects.s10_information.G1AdditionalInfoPage
+import utils.pageobjects.s12_consent_and_declaration.{G3DeclarationPage, G2DisclaimerPage}
 
 class G2DisclaimerIntegrationSpec extends Specification with Tags {
   "Disclaimer" should {
-    "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/consent-and-declaration/disclaimer")
-      titleMustEqual("Disclaimer - Consent and Declaration")
+    "be presented" in new WithBrowser with PageObjects {
+      val page = G2DisclaimerPage(context)
+      page goToThePage()
     }
 
-    "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/consent-and-declaration/disclaimer")
-      titleMustEqual("Disclaimer - Consent and Declaration")
-      browser.submit("button[type='submit']")
-
-      findMustEqualSize("div[class=validation-summary] ol li", 1)
+    "contain errors on invalid submission" in new WithBrowser with PageObjects {
+      val page = G2DisclaimerPage(context)
+      page goToThePage()
+      val samePage = page submitPage()
+      samePage.listErrors.nonEmpty must beTrue
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.disclaimer(browser)
-      titleMustEqual("Declaration - Consent and Declaration")
+      urlMustEqual(G3DeclarationPage.url)
     }
 
     "navigate back to additional information" in new WithBrowser with BrowserMatchers {
@@ -30,7 +32,7 @@ class G2DisclaimerIntegrationSpec extends Specification with Tags {
       Formulate.employment(browser)
       Formulate.additionalInfo(browser)
       browser.click("#backButton")
-      titleMustEqual("Additional information - Information")
+      urlMustEqual(G1AdditionalInfoPage.url)
     }
 
   } section("integration", models.domain.ConsentAndDeclaration.id)

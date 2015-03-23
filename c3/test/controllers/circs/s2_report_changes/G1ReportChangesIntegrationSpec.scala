@@ -25,7 +25,7 @@ class G1ReportChangesIntegrationSpec extends Specification with Tags {
        page fillPageWith(claim)
        val completedPage = page submitPage()
 
-       val reportChangesPage = completedPage runClaimWith (claim, G1ReportChangesPage.title)
+       val reportChangesPage = completedPage runClaimWith (claim, G1ReportChangesPage.url)
 
        reportChangesPage must beAnInstanceOf[G1ReportChangesPage]
 

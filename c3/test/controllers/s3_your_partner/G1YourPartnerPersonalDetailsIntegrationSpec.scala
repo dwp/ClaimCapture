@@ -17,7 +17,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     "be presented" in new WithBrowser with PageObjects {
       val page = G1YourPartnerPersonalDetailsPage(context)
       page goToThePage()
-      page.pageTitle mustEqual "Partner details - About your partner".toLowerCase()
+      page.url mustEqual G1YourPartnerPersonalDetailsPage.url
     }
 
     "contain error on invalid submission" in new WithBrowser with PageObjects {
@@ -158,7 +158,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
        val id = "partner_hadPartner"
        val previewPage = goToPreviewPage(context)
 
-       val partnerDetailsPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+       val partnerDetailsPage = previewPage.clickLinkOrButton(s"#$id")
        partnerDetailsPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
        partnerDetailsPage goBack() must beAnInstanceOf[PreviewPage]
     }
@@ -236,7 +236,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     val answerText = PreviewTestUtils.answerText(id, _:Page)
 
     answerText(previewPage) mustEqual initialData
-    val partnerPersonalDetailsPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+    val partnerPersonalDetailsPage = previewPage.clickLinkOrButton(s"#$id")
 
     partnerPersonalDetailsPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
 

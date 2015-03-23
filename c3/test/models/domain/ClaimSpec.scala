@@ -2,8 +2,9 @@ package models.domain
 
 import models.view.CachedClaim
 import org.specs2.mutable.Specification
+import org.specs2.specification.Tags
 
-class ClaimSpec extends Specification {
+class ClaimSpec extends Specification with Tags {
   val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits))
     .update(Eligibility("no","no","no"))
 
@@ -94,10 +95,21 @@ class ClaimSpec extends Specification {
       claim.questionGroup[Eligibility] should beSome(Eligibility("no", "no", "no"))
     }
 
-    """not contain "question group".""" in {
-      val updatedDigitalForm = claim.delete(Eligibility)
+    """be able to remove question group with -. not contain "question group".""" in {
+      val updatedDigitalForm = claim - Eligibility
       updatedDigitalForm.questionGroup[Eligibility] should beNone
     }
+
+    "be able to add section using +" in  {
+      object Foo extends QuestionGroup.Identifier {
+        val id = "f10"
+      }
+      case class Foo(nothing:String) extends QuestionGroup(Foo) {}
+
+      val claimWithNewSection = claim + new Foo("foo")
+      claimWithNewSection.questionGroup[Foo] should beSome[QuestionGroup]
+    }
+
 
     "iterate over jobs" in {
       val job1 = Iteration("job 1").update(JobDetails("job 1"))
@@ -132,5 +144,5 @@ class ClaimSpec extends Specification {
     "give empty list" in {
       Claim(CachedClaim.key).questionGroup(models.domain.BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg)) should containAllOf(List())
     }
-  }
+  } section "unit"
 }

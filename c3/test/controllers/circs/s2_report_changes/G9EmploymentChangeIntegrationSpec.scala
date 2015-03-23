@@ -22,7 +22,7 @@ class G9EmploymentChangeIntegrationSpec extends Specification with Tags {
       page fillPageWith(claim)
       val completedPage = page submitPage()
 
-      val employmentChangePage = completedPage runClaimWith(claim, G9EmploymentChangePage.title)
+      val employmentChangePage = completedPage runClaimWith(claim, G9EmploymentChangePage.url)
 
       employmentChangePage must beAnInstanceOf[G9EmploymentChangePage]
 

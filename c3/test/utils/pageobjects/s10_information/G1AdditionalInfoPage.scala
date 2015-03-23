@@ -8,7 +8,7 @@ import utils.pageobjects._
  * @author Jorge Migueis
  *         Date: 02/08/2013
  */
-class G1AdditionalInfoPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1AdditionalInfoPage.url, G1AdditionalInfoPage.title) {
+class G1AdditionalInfoPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1AdditionalInfoPage.url) {
   declareYesNo("#welshCommunication", "ConsentDeclarationCommunicationWelsh")
   declareYesNo("#anythingElse_answer", "ConsentDeclarationTellUsAnythingElseAnswerAboutClaim")
   declareInput("#anythingElse_text", "ConsentDeclarationTellUsAnythingElseTextAboutClaim")
@@ -19,8 +19,6 @@ class G1AdditionalInfoPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1Add
  * It is used by PageFactory object defined in Page.scala
  */
 object G1AdditionalInfoPage {
-  val title = "Additional information - Information".toLowerCase
-
   val url = "/information/additional-info"
 
   def apply(ctx:PageObjectsContext,previousPage: Option[Page] = None) = new G1AdditionalInfoPage(ctx)

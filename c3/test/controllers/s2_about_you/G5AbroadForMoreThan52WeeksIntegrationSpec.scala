@@ -91,7 +91,7 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
       previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "No"
-      val abroadForMoreThan52WeeksPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val abroadForMoreThan52WeeksPage = previewPage.clickLinkOrButton(s"#$id")
 
       abroadForMoreThan52WeeksPage must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
 

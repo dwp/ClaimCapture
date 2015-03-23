@@ -1,7 +1,7 @@
+import com.typesafe.sbt.web.SbtWeb
 import sbt._
 import sbt.Keys._
 import play.Play.autoImport._
-import net.litola.SassPlugin
 import de.johoop.jacoco4sbt.JacocoPlugin._
 
 object ApplicationBuild extends Build {
@@ -71,5 +71,5 @@ object ApplicationBuild extends Build {
 
   var appSettings: Seq[Def.Setting[_]] =  sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
 
-  val main = Project(appName, file(".")).enablePlugins(play.PlayScala, net.litola.SassPlugin).settings(appSettings: _*)
+  val main = Project(appName, file(".")).enablePlugins(play.PlayScala,SbtWeb).settings(appSettings: _*)
 }

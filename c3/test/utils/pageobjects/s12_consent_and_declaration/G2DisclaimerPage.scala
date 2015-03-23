@@ -8,7 +8,7 @@ import utils.pageobjects._
  * @author Jorge Migueis
  *         Date: 05/08/2013
  */
-class G2DisclaimerPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G2DisclaimerPage.url, G2DisclaimerPage.title) {
+class G2DisclaimerPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G2DisclaimerPage.url) {
   declareCheck("#read", "ConsentDeclarationDisclaimerTextAndTickBox")
 }
 
@@ -17,8 +17,6 @@ class G2DisclaimerPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G2Disclai
  * It is used by PageFactory object defined in Page.scala
  */
 object G2DisclaimerPage {
-  val title = "Disclaimer - Consent and Declaration".toLowerCase
-
   val url = "/consent-and-declaration/disclaimer"
 
   def apply(ctx:PageObjectsContext) = new G2DisclaimerPage(ctx)

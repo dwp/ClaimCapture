@@ -1,8 +1,5 @@
 package utils.pageobjects
 
-import org.fluentlenium.core.Fluent
-import play.api.test.TestBrowser
-
 import scala.language.dynamics
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
@@ -18,7 +15,8 @@ import utils.pageobjects.s12_consent_and_declaration._
 import utils.pageobjects.IterationManager._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
-import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
+
+//import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
 
 
 /**
@@ -30,84 +28,81 @@ import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
 object ClaimPageFactory extends PageFactory {
 
 
+  def buildPageFromUrl(url: String, ctx: PageObjectsContext): Page = buildPageFromUrImpl(url, ctx)
 
-
-  def buildPageFromTitle(title: String,ctx:PageObjectsContext) = {
-
+  private def buildPageFromUrImpl(url: String, ctx: PageObjectsContext, previousUrl: String = ""): Page = {
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
-    if (null == title) { val xmlPage =XmlPage (ctx)
-      if (xmlPage.source().contains("xmlns")) xmlPage
-      else new UnknownPage("", ctx)
+    val m: PartialFunction[String, Page] = {
+      // S1
+      case G1BenefitsPage.url => G1BenefitsPage(ctx)
+      case G2EligibilityPage.url => G2EligibilityPage(ctx)
+      case G5CarersResponsePage.url => G5CarersResponsePage(ctx)
+      case G6ApprovePage.url => G6ApprovePage(ctx)
+      //S1.5
+      case G1ClaimDatePage.url => G1ClaimDatePage(ctx)
+      // S2
+      case G1YourDetailsPage.url => G1YourDetailsPage(ctx)
+      case G2ContactDetailsPage.url => G2ContactDetailsPage(ctx)
+      case G4NationalityAndResidencyPage.url => G4NationalityAndResidencyPage(ctx)
     }
-    else {
-      val m:PartialFunction[String,Page] = {
-        // S1
-        case G1BenefitsPage.title => G1BenefitsPage (ctx)
-        case G2EligibilityPage.title => G2EligibilityPage (ctx)
-        case G5CarersResponsePage.title => G5CarersResponsePage (ctx)
-        case G6ApprovePage.title => G6ApprovePage (ctx)
-        //S1.5
-        case G1ClaimDatePage.title => G1ClaimDatePage (ctx)
-        // S2
-        case G1YourDetailsPage.title => G1YourDetailsPage (ctx)
-        case G2ContactDetailsPage.title => G2ContactDetailsPage (ctx)
-        case G4NationalityAndResidencyPage.title => G4NationalityAndResidencyPage (ctx)
-      }
-      m.orElse[String,Page]{
-        IterableNode(Abroad,ctx)(iteration =>{
-          case G5AbroadForMoreThan52WeeksPage.title => G5AbroadForMoreThan52WeeksPage (ctx, iteration)
-        })
-      }.orElse[String,Page]{
-        case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage (ctx)
-        // S3
-        case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage (ctx)
-        // S4
-        case G1TheirPersonalDetailsPage.title => G1TheirPersonalDetailsPage (ctx)
-        case G2TheirContactDetailsPage.title => G2TheirContactDetailsPage (ctx)
-        case G7MoreAboutTheCarePage.title => G7MoreAboutTheCarePage (ctx)
-      }.orElse[String,Page]{
-        IterableNode(Breaks,ctx)(iteration =>{
-          case G10BreaksInCarePage.title => G10BreaksInCarePage (ctx, iteration)
-          case G11BreakPage.title => G11BreakPage (ctx, iteration)
-        })
-      }.orElse[String,Page]{
-        //S6
-        case G1YourCourseDetailsPage.title => G1YourCourseDetailsPage (ctx)
-        // S7 - guard question(s)
-        case G1EmploymentPage.title => G1EmploymentPage (ctx)
-      }.orElse[String,Page]{
-        IterableNode(Employment,ctx)(iteration =>{
-          // S7
-          case G2BeenEmployedPage.title => G2BeenEmployedPage (ctx,iteration)
-          case G3JobDetailsPage.title => G3JobDetailsPage (ctx,iteration)
-          case G5LastWagePage.title => G5LastWagePage (ctx,iteration)
-          case G8PensionAndExpensesPage.title => G8PensionAndExpensesPage(ctx,iteration)
-        })
-      }.orElse[String,Page]{
-        // S8
-        case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage (ctx)
-         // S9
-        case G1HowWePayYouPage.title => G1HowWePayYouPage (ctx)
-        case G2BankBuildingSocietyDetailsPage.title => G2BankBuildingSocietyDetailsPage (ctx)
-        // S9
-        case G1AboutSelfEmploymentPage.title => G1AboutSelfEmploymentPage (ctx)
-        case G2SelfEmploymentYourAccountsPage.title => G2SelfEmploymentYourAccountsPage (ctx)
-        case G4SelfEmploymentPensionsAndExpensesPage.title => G4SelfEmploymentPensionsAndExpensesPage (ctx)
-        case PreviewPage.title => PreviewPage(ctx)
-        // S10
-        case G1AdditionalInfoPage.title => G1AdditionalInfoPage (ctx)
-        case G2DisclaimerPage.title => G2DisclaimerPage (ctx)
-        case G3DeclarationPage.title => G3DeclarationPage (ctx)
-        // Catch pages not covered by framework
-        case _ => new UnknownPage(title, ctx)
-      }(title.toLowerCase)
-    }
+    m.orElse[String, Page] {
+      IterableNode(Abroad, ctx)(iteration => {
+        case G5AbroadForMoreThan52WeeksPage.url => G5AbroadForMoreThan52WeeksPage(ctx, iteration)
+      })
+    }.orElse[String, Page] {
+      case G7OtherEEAStateOrSwitzerlandPage.url => G7OtherEEAStateOrSwitzerlandPage(ctx)
+      // S3
+      case G1YourPartnerPersonalDetailsPage.url => G1YourPartnerPersonalDetailsPage(ctx)
+      // S4
+      case G1TheirPersonalDetailsPage.url => G1TheirPersonalDetailsPage(ctx)
+      case G2TheirContactDetailsPage.url => G2TheirContactDetailsPage(ctx)
+      case G7MoreAboutTheCarePage.url => G7MoreAboutTheCarePage(ctx)
+    }.orElse[String, Page] {
+      IterableNode(Breaks, ctx)(iteration => {
+        case G10BreaksInCarePage.url => G10BreaksInCarePage(ctx, iteration)
+        case G11BreakPage.url => G11BreakPage(ctx, iteration)
+      })
+    }.orElse[String, Page] {
+      //S6
+      case G1YourCourseDetailsPage.url => G1YourCourseDetailsPage(ctx)
+      // S7 - guard question(s)
+      case G1EmploymentPage.url => G1EmploymentPage(ctx)
+    }.orElse[String, Page] {
+      IterableNode(Employment, ctx)(iteration => {
+        // S7
+        case G2BeenEmployedPage.url => G2BeenEmployedPage(ctx, iteration)
+        case G3JobDetailsPage.url => G3JobDetailsPage(ctx, iteration)
+        case G5LastWagePage.url => G5LastWagePage(ctx, iteration)
+        case G8PensionAndExpensesPage.url => G8PensionAndExpensesPage(ctx, iteration)
+      })
+    }.orElse[String, Page] {
+      // S8
+      case G1AboutOtherMoneyPage.url => G1AboutOtherMoneyPage(ctx)
+      // S9
+      case G1HowWePayYouPage.url => G1HowWePayYouPage(ctx)
+      case G2BankBuildingSocietyDetailsPage.url => G2BankBuildingSocietyDetailsPage(ctx)
+      // S9
+      case G1AboutSelfEmploymentPage.url => G1AboutSelfEmploymentPage(ctx)
+      case G2SelfEmploymentYourAccountsPage.url => G2SelfEmploymentYourAccountsPage(ctx)
+      case G4SelfEmploymentPensionsAndExpensesPage.url => G4SelfEmploymentPensionsAndExpensesPage(ctx)
+      case PreviewPage.url => PreviewPage(ctx)
+      // S10
+      case G1AdditionalInfoPage.url => G1AdditionalInfoPage(ctx)
+      case G2DisclaimerPage.url => G2DisclaimerPage(ctx)
+      case G3DeclarationPage.url =>
+        if (ctx.browser.pageSource() contains "DWPBody") XmlPage(ctx)
+        else G3DeclarationPage(ctx)
+      // Catch pages not covered by framework
+      case _ =>
+        if (previousUrl.isEmpty) buildPageFromUrImpl(url.replaceFirst("/[^/]*$", ""), ctx, url)
+        else new UnknownPage(previousUrl, ctx)
+    }(url.replaceFirst("\\?.*$", ""))
   }
 }
 
 object IterableNode {
-  def apply[A,B](section:String,ctx:PageObjectsContext)(func:Int => PartialFunction[A,B]):PartialFunction[A,B] = {
+  def apply[A, B](section: String, ctx: PageObjectsContext)(func: Int => PartialFunction[A, B]): PartialFunction[A, B] = {
     func(ctx.iterationManager(section))
   }
 }
