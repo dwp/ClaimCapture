@@ -6,6 +6,8 @@ import org.openqa.selenium.{By, TimeoutException}
 import org.fluentlenium.core.Fluent
 import play.api.Logger
 import scala.util.Try
+import collection.JavaConversions._
+
 
 /**
  * Super-class of all the PageObject pattern compliant classes representing an application page.
@@ -68,9 +70,14 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
   * @return Page object representing the html page the UI went back to.
   */
   def clickLinkOrButton(elementCssSelector: String, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION): Page = {
+    val handles1 = ctx.browser.webDriver.getWindowHandles
     val fluent = clickElement(elementCssSelector)
-    val theUrl = getPageWithUrl(fluent,waitForPage, waitDuration)
-    createPageWithUrl(theUrl, iteration)
+    val handles2 = ctx.browser.webDriver.getWindowHandles
+    handles2.removeAll(handles1)
+    val newUrl = if (handles2.size > 0) {
+      ctx.browser.webDriver.switchTo().window(handles2.head).getCurrentUrl.replaceFirst("http://[^/]*","")
+    } else  getPageWithUrl(fluent,waitForPage, waitDuration)
+    createPageWithUrl(newUrl, iteration)
   }
 
   private def getUrlFromBrowser = ctx.browser.url
