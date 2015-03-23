@@ -5,11 +5,10 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s2_about_you.G1YourDetailsPageContext
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s11_pay_details.G1HowWePayYouPageContext
-import utils.pageobjects.s1_disclaimer.G1DisclaimerPagePageContext
 import utils.pageobjects.{Page, PageObjectsContext, PageObjects, TestData}
 import app._
 import play.api.i18n.Messages
-import utils.pageobjects.s1_2_claim_date.{G1ClaimDatePageContext, G1ClaimDatePage}
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 
 class WebSearchSpec extends Specification with Tags{
   "Web Search Actions " should {

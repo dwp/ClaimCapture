@@ -40,7 +40,7 @@
 
                 <nav class="form-steps" role="navigation">
                     <ul>
-                        <li><button type="submit" name="read" value="true" class="button">@Html(Messages("disclaimer.form.next"))</button></li>
+                        <li><button type="submit" name="read" value="true" class="button" @views.html.ga.trackClickEvent(linkName = "Disclaimer - I understand - start my application")>@Html(Messages("disclaimer.form.next"))</button></li>
                         <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                     </ul>
                 </nav>

@@ -9,7 +9,6 @@ import utils.pageobjects._
  *         Date: 05/08/2013
  */
 class G1DisclaimerPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1DisclaimerPage.url, G1DisclaimerPage.title) {
-  declareInput("#read", "DisclaimerUnderstandAndAgree")
 }
 
 /**

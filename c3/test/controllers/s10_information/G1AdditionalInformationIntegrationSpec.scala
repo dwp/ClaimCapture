@@ -2,13 +2,10 @@ package controllers.s10_information
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.Formulate
-import controllers.BrowserMatchers
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s10_information.G1AdditionalInfoPage
 import utils.pageobjects.s11_pay_details.G2BankBuildingSocietyDetailsPage
-import utils.pageobjects.s1_disclaimer.G1DisclaimerPage
 import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
 import utils.pageobjects.preview.PreviewPage
 

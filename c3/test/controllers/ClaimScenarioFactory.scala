@@ -690,11 +690,4 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s1Disclaimer = {
-    val claim = new TestData
-    claim.DisclaimerUnderstandAndAgree = "yes"
-
-    claim
-  }
-
 }

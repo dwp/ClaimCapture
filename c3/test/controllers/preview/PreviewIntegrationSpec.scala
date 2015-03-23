@@ -6,10 +6,7 @@ import utils.pageobjects.PageObjects
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s10_information.G1AdditionalInfoPage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s1_disclaimer.G1DisclaimerPage
-import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.s11_pay_details.G1HowWePayYouPage
-import controllers.s12_consent_and_declaration.G3Declaration
 import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
 
 

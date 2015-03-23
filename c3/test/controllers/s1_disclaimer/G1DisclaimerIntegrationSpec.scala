@@ -15,16 +15,8 @@ class G1DisclaimerIntegrationSpec extends Specification with Tags {
       page goToThePage()
     }
 
-    "contain errors on invalid submission" in new WithBrowser with PageObjects {
-      val page = G1DisclaimerPage(context) goToThePage ()
-      val disclaimerPage = page submitPage()
-
-      disclaimerPage.listErrors.size mustEqual 1
-    }
-
     "navigate to next page on valid submission" in new WithBrowser with PageObjects {
       val disclaimerPage = G1DisclaimerPage(context) goToThePage()
-      disclaimerPage fillPageWith ClaimScenarioFactory.s1Disclaimer
       val claimDatePage = disclaimerPage submitPage()
 
       claimDatePage must beAnInstanceOf[G1ClaimDatePage]
