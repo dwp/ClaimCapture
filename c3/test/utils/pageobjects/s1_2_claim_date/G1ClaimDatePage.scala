@@ -10,7 +10,7 @@ import utils.pageobjects._
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
-final class G1ClaimDatePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1ClaimDatePage.url, G1ClaimDatePage.title) {
+final class G1ClaimDatePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1ClaimDatePage.url) {
   declareDate("#dateOfClaim", "ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart")
 }
 
@@ -19,8 +19,6 @@ final class G1ClaimDatePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1Cla
  * It is used by PageFactory object defined in Page.scala
  */
 object G1ClaimDatePage {
-  val title = "Claim date - When do you want Carer's Allowance to start?".toLowerCase
-
   val url  = "/your-claim-date/claim-date"
 
   def apply(ctx:PageObjectsContext) = new G1ClaimDatePage(ctx)

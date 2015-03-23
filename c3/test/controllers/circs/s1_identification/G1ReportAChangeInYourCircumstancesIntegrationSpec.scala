@@ -137,7 +137,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
       "page contains JS enabled check" in new WithBrowser with PageObjects {
         val page = G1ReportAChangeInYourCircumstancesPage(context)
         page goToThePage()
-        page jsCheckEnabled() must beTrue
+        page.jsCheckEnabled must beTrue
       }
 
     }

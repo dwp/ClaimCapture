@@ -10,7 +10,7 @@ class ThankYouCircsIntegrationSpec extends Specification with Tags {
   "Change Thank You" should {
     "present 'Thank You' page" in new WithBrowser with BrowserMatchers {
       browser.goTo("/thankyou/change-carers")
-      titleMustEqual("Change complete")
+      urlMustEqual("/thankyou/change-carers")
     }
 
     "display breaks in care message" in new WithBrowser with PageObjects{

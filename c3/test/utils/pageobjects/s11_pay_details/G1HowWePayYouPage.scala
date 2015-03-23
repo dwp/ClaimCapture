@@ -8,7 +8,7 @@ import utils.pageobjects._
  * @author Jorge Migueis
  *         Date: 18/07/2013
  */
-class G1HowWePayYouPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1HowWePayYouPage.url, G1HowWePayYouPage.title) {
+class G1HowWePayYouPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1HowWePayYouPage.url) {
   declareRadioList("#likeToPay", "HowWePayYouHowWouldYouLikeToGetPaid")
   declareRadioList("#paymentFrequency", "HowWePayYouHowOftenDoYouWantToGetPaid")
 }
@@ -19,8 +19,6 @@ class G1HowWePayYouPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1HowWePa
  * efined in Page.scala
  */
 object G1HowWePayYouPage {
-  val title = "How would you like to get paid? - Pay details".toLowerCase
-
   val url  = "/pay-details/how-we-pay-you"
 
   def apply(ctx:PageObjectsContext) = new G1HowWePayYouPage(ctx)

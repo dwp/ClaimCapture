@@ -22,10 +22,6 @@ object CurrencyTemplate {
   implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.shortFieldCurrencyTemplate.f)
 }
 
-object DatepickerTemplate {
-  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.datepickerTemplate.f)
-}
-
 object EligibilityTemplate {
   implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.eligibilityTemplate.f)
 }

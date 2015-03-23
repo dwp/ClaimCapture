@@ -17,7 +17,7 @@ class FunctionalTestCase36Spec extends FunctionalTestCommon {
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase36.csv")
       page goToThePage()
 
-      val lastPage = page runClaimWith(circs, XmlPage.title)
+      val lastPage = page runClaimWith(circs)
 
       lastPage match {
         case p: XmlPage => {

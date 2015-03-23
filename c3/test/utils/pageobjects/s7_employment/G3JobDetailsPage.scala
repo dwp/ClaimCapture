@@ -3,7 +3,7 @@ package utils.pageobjects.s7_employment
 import play.api.test.WithBrowser
 import utils.pageobjects._
 
-final class G3JobDetailsPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G3JobDetailsPage.url.replace(":jobID", iteration.toString), G3JobDetailsPage.title, iteration) {
+final class G3JobDetailsPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, s"${G3JobDetailsPage.url}/${iteration.toString}", iteration) {
   declareInput("#employerName", "EmploymentEmployerName_" + iteration)
   declareInput("#phoneNumber","EmploymentEmployerPhoneNumber_" + iteration)
   declareAddress("#address", "EmploymentEmployerAddress_" + iteration)
@@ -17,9 +17,7 @@ final class G3JobDetailsPage(ctx:PageObjectsContext, iteration: Int) extends Cla
 }
 
 object G3JobDetailsPage {
-  val title = "Employer Details - Employment History".toLowerCase
-
-  val url  = "/employment/job-details/:jobID"
+  val url  = "/employment/job-details"
 
   def apply(ctx:PageObjectsContext, iteration:Int=1) = new G3JobDetailsPage(ctx, iteration)
 }

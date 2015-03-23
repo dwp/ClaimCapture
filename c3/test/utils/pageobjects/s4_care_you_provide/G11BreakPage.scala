@@ -3,7 +3,7 @@ package utils.pageobjects.s4_care_you_provide
 import play.api.test.WithBrowser
 import utils.pageobjects._
 
-final class G11BreakPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G11BreakPage.url, G11BreakPage.title, iteration) {
+final class G11BreakPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G11BreakPage.url, iteration) {
   declareDate("#start", "AboutTheCareYouProvideBreakStartDate_" + iteration)
   declareDate("#end", "AboutTheCareYouProvideBreakEndDate_" + iteration)
   declareInput("#startTime", "AboutTheCareYouProvideBreakStartTime_" + iteration)
@@ -29,9 +29,7 @@ final class G11BreakPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPa
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G11BreakPage {
-  val title = "Break - About the care you provide".toLowerCase
-
-  val url  = "/care-you-provide/break"
+  val url  = "/care-you-provide/breaks"
 
   def apply(ctx:PageObjectsContext, iteration:Int=1) = new G11BreakPage(ctx,iteration)
 }

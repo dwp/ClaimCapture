@@ -3,7 +3,7 @@ package utils.pageobjects.circumstances.s1_about_you
 import play.api.test.WithBrowser
 import utils.pageobjects.{PageObjectsContext, CircumstancesPage, PageContext}
 
-final class G1ReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G1ReportAChangeInYourCircumstancesPage.url, G1ReportAChangeInYourCircumstancesPage.title) {
+final class G1ReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G1ReportAChangeInYourCircumstancesPage.url) {
   declareInput("#fullName","CircumstancesAboutYouFullName")
   declareNino("#nationalInsuranceNumber","CircumstancesAboutYouNationalInsuranceNumber")
   declareDate("#dateOfBirth", "CircumstancesAboutYouDateOfBirth")
@@ -16,9 +16,6 @@ final class G1ReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) exten
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1ReportAChangeInYourCircumstancesPage {
-  val title = "Report a change in your circumstances - Change in circumstances".toLowerCase
-
-//  val url  = "/circumstances/identification/report-a-change-in-your-circumstances"
   val url  = "/circumstances/identification/about-you"
 
   def apply(ctx:PageObjectsContext) = new G1ReportAChangeInYourCircumstancesPage(ctx)

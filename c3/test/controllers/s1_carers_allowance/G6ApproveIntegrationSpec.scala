@@ -12,7 +12,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  G6ApprovePage(context)
       page goToThePage()
-      page jsCheckEnabled() must beTrue
+      page.jsCheckEnabled must beTrue
     }
   } section("integration",models.domain.CarersAllowance.id)
 
@@ -53,7 +53,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
       page goToThePage()
-      val approvePage = page runClaimWith (claim, G6ApprovePage.title)
+      val approvePage = page runClaimWith (claim, G6ApprovePage.url)
 
       approvePage match {
         case p: G6ApprovePage =>
@@ -72,7 +72,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
       page goToThePage()
-      page runClaimWith (claim, G1ClaimDatePage.title)
+      page runClaimWith (claim, G1ClaimDatePage.url)
     }
 
     "If go to error page after this page. Retry allows to come back to this page" in new WithBrowser with PageObjects{
@@ -83,7 +83,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
       page goToThePage()
-      page runClaimWith (claim, G6ApprovePage.title)
+      page runClaimWith (claim, G6ApprovePage.url)
       val errorPage = ErrorPage(context)
       errorPage goToThePage()
       val tryPage = errorPage.clickLinkOrButton("button[type='submit']")

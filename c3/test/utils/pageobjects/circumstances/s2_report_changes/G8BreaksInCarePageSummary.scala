@@ -6,7 +6,7 @@ import play.api.test.WithBrowser
 /**
  * Created by mhunter on 26/03/14.
  */
-final class G8BreaksInCareSummaryPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G8BreaksInCareSummaryPage.url, G8BreaksInCareSummaryPage.title) {
+final class G8BreaksInCareSummaryPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G8BreaksInCareSummaryPage.url) {
   declareYesNo("#additionalBreaks_answer", "BreaksInCareSummaryAdditionalBreaks")
   declareInput("#additionalBreaks_text", "BreaksInCareSummaryAdditionalBreaksInfo")
 }
@@ -16,8 +16,6 @@ final class G8BreaksInCareSummaryPage(ctx:PageObjectsContext) extends Circumstan
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G8BreaksInCareSummaryPage {
-  val title = "Breaks from caring summary - change in circumstances".toLowerCase
-
   val url  = "/circumstances/report-changes/breaks-in-care-summary"
 
   def apply(ctx:PageObjectsContext) = new G8BreaksInCareSummaryPage(ctx)
