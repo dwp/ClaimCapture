@@ -3,7 +3,7 @@ Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for
 Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,
 Can you get Carers Allowance?,Do you still want to continue?,Do you still want to continue?,CanYouGetCarersAllowanceApproveAnswer,
-Disclaimer,Disclaimer,Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits.,DisclaimerTextAndTickBox,DWPCAClaim>Disclaimer
+Disclaimer,Disclaimer,Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits.,DisclaimerUnderstandAndAgree,DWPCAClaim>Disclaimer
 About You,Your Details,Title,AboutYouTitle,Claimant>Title>Answer
 About You,Your Details,First name,AboutYouFirstName,Claimant>OtherNames>Answer
 About You,Your Details,Middle name,AboutYouMiddleName,Claimant>MiddleNames>Answer

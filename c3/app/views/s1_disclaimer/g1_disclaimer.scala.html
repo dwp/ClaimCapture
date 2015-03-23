@@ -17,29 +17,30 @@
             @DwpCSRFFormHelper.formField
 
                 <fieldset class="form-elements">
-                    <legend>@Html(Messages("s1.g1"))</legend>
 
                     <div class="declaration">
-                        @for(i <- 1 to 2) {
-                            <p>
-                                @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]", s"<b>$content</b>"))
-                            </p>
-                        }
+                        <p>
+                            @Html(Messages("disclaimer.1"))
+                        </p>
                         <ul>
-                            @for(i <- 3 to 7) {
+                            @for(i <- 2 to 6) {
                                 <li>
                                     @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]", s"<b>$content</b>"))
                                 </li>
                             }
                         </ul>
+                        @for(i <- 7 to 9) {
+                            <p>
+                                @Html(Messages(s"disclaimer.$i"))
+                            </p>
+                        }
                     </div>
 
-                    @declareCheckPlaceholder(currentForm("read"))
                 </fieldset>
 
                 <nav class="form-steps" role="navigation">
                     <ul>
-                        <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                        <li><button type="submit" name="read" value="true" class="button">@Html(Messages("disclaimer.form.next"))</button></li>
                         <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                     </ul>
                 </nav>

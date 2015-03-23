@@ -53,17 +53,6 @@ class WebSearchSpec extends Specification with Tags{
       val sortCode = bankPage readSortCode("#sortCode")
       sortCode.get mustEqual claim.HowWePayYouSortCode
     }
-
-    "be able to read Check box" in new WithBrowser with G1DisclaimerPagePageContext {
-      val claim = new TestData
-      claim.DisclaimerTextAndTickBox = "yes"
-      page goToThePage()
-      val checked = page.readCheck("#read")
-      assert(!checked.isDefined)
-      page fillPageWith claim
-      val checked2 = page.readCheck("#read")
-      checked2.get mustEqual "yes"
-    }
   } section "integration"
 
   "A page with Web Search Actions " should {
