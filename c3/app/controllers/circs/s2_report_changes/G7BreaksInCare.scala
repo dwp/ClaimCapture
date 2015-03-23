@@ -93,13 +93,13 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
-          .replaceError("wherePersonBreaksInCare.answer","error.required",FormError("wherePersonBreaksInCare","error.required"))
-          .replaceError("whereYouBreaksInCare.answer","error.required",FormError("whereYouBreaksInCare","error.required"))
-          .replaceError("breakEnded","endDate", FormError("breakEnded.endDate", "error.required"))
-          .replaceError("","expectStartCaring", FormError("expectStartCaring.answer", "error.required"))
-          .replaceError("expectStartCaring","permanentBreakDate", FormError("expectStartCaring.permanentBreakDate", "error.required"))
-          .replaceError("wherePersonBreaksInCare","wherePersonBreaksInCare.text.required", FormError("wherePersonBreaksInCare.text", "error.required"))
-          .replaceError("whereYouBreaksInCare","whereYouBreaksInCare.text.required", FormError("whereYouBreaksInCare.text", "error.required"))
+          .replaceError("wherePersonBreaksInCare.answer",Mappings.errorRequired,FormError("wherePersonBreaksInCare",Mappings.errorRequired))
+          .replaceError("whereYouBreaksInCare.answer",Mappings.errorRequired,FormError("whereYouBreaksInCare",Mappings.errorRequired))
+          .replaceError("breakEnded","endDate", FormError("breakEnded.endDate", Mappings.errorRequired))
+          .replaceError("","expectStartCaring", FormError("expectStartCaring.answer", Mappings.errorRequired))
+          .replaceError("expectStartCaring","permanentBreakDate", FormError("expectStartCaring.permanentBreakDate", Mappings.errorRequired))
+          .replaceError("wherePersonBreaksInCare","wherePersonBreaksInCare.text.required", FormError("wherePersonBreaksInCare.text", Mappings.errorRequired))
+          .replaceError("whereYouBreaksInCare","whereYouBreaksInCare.text.required", FormError("whereYouBreaksInCare.text", Mappings.errorRequired))
         BadRequest(views.html.circs.s2_report_changes.g7_breaksInCare(updatedFormWithErrors)(lang))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s2_report_changes.routes.G8BreaksInCareSummary.present())

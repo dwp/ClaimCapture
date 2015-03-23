@@ -4,24 +4,25 @@ import play.api.mvc.{Controller, Action, AnyContent, Request}
 import java.util.UUID._
 import play.api.cache.Cache
 import models.domain.Claim
-import models.view.CachedClaim
-import models.view.CachedChangeOfCircs
+import models.view.{CacheHandling, CachedClaim, CachedChangeOfCircs}
 import play.api.i18n.Lang
 import play.api.Play.current
-import app.ConfigProperties._
 
 object Language extends Controller {
   def change(chosenLanguage: String) = Action {
     implicit request => {
+
       fromCache(request) match {
         case Some(claim) =>
           val (key, expiration) = keyAndExpiration(request)
           Cache.set(key, Claim(claim.key, claim.sections, claim.created, Some(Lang(chosenLanguage)), claim.uuid), expiration)
           Redirect(redirectUrl(request))
 
+          // language can be changed only on first page. So if we do not get session info this means cookies are disabled.
         case None =>
-          Redirect(routes.ClaimEnding.timeout())
-
+          val (referer, host) = refererAndHost(request)
+          if (referer.contains("/circumstances/")) Redirect(routes.CircsEnding.errorCookie())
+          else Redirect(routes.ClaimEnding.errorCookie())
       }
     }
   }
@@ -32,7 +33,7 @@ object Language extends Controller {
       CachedChangeOfCircs.key
     else
       CachedClaim.key
-    request.session.get(sessionKey).getOrElse(randomUUID.toString) ->  getProperty("cache.expiry", 3600)
+    request.session.get(sessionKey).getOrElse(randomUUID.toString) ->  CacheHandling.expiration
   }
 
   def fromCache(request:Request[AnyContent]): Option[Claim] = {

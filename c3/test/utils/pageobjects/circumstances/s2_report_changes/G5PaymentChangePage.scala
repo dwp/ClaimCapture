@@ -3,7 +3,7 @@ package utils.pageobjects.circumstances.s2_report_changes
 import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
 import play.api.test.WithBrowser
 
-final class G5PaymentChangePage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G5PaymentChangePage.url, G5PaymentChangePage.title) {
+final class G5PaymentChangePage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G5PaymentChangePage.url) {
   declareYesNo("#currentlyPaidIntoBank_answer", "CircumstancesPaymentChangeCurrentlyPaidIntoBank")
   declareInput("#currentlyPaidIntoBank_text1", "CircumstancesPaymentChangeNameOfCurrentBank")
   declareInput("#currentlyPaidIntoBank_text2", "CircumstancesPaymentCurrentPaymentMethod")
@@ -21,8 +21,6 @@ final class G5PaymentChangePage(ctx:PageObjectsContext) extends CircumstancesPag
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G5PaymentChangePage {
-  val title = "Existing payment details - Change in circumstances".toLowerCase
-
   val url  = "/circumstances/report-changes/payment-change"
 
   def apply(ctx:PageObjectsContext) = new G5PaymentChangePage(ctx)

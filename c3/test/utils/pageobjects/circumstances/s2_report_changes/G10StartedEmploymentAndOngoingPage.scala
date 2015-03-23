@@ -3,7 +3,7 @@ package utils.pageobjects.circumstances.s2_report_changes
 import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
 import play.api.test.WithBrowser
 
-final class G10StartedEmploymentAndOngoingPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G10StartedEmploymentAndOngoingPage.url, G10StartedEmploymentAndOngoingPage.title) {
+final class G10StartedEmploymentAndOngoingPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G10StartedEmploymentAndOngoingPage.url) {
   declareYesNo("#beenPaidYet", "CircumstancesEmploymentChangeBeenPaidYet")
   declareInput("#howMuchPaid", "CircumstancesEmploymentChangeHowMuchPaid")
   declareDate("#whatDatePaid", "CircumstancesEmploymentChangeWhatDatePaid")
@@ -13,6 +13,8 @@ final class G10StartedEmploymentAndOngoingPage(ctx:PageObjectsContext) extends C
   declareYesNo("#usuallyPaidSameAmount", "CircumstancesEmploymentChangeUsuallyPaidSameAmount")
   declareYesNo("#doYouPayIntoPension_answer", "CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer")
   declareInput("#doYouPayIntoPension_whatFor", "CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor")
+  declareYesNo("#doYouPayForThings_answer", "CircumstancesEmploymentChangeDoYouPayForThingsAnswer")
+  declareInput("#doYouPayForThings_whatFor", "CircumstancesEmploymentChangeDoYouPayForThingsWhatFor")
   declareYesNo("#doCareCostsForThisWork_answer", "CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer")
   declareInput("#doCareCostsForThisWork_whatCosts", "CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts")
   declareInput("#moreAboutChanges", "CircumstancesEmploymentChangeMoreAboutChanges")
@@ -23,8 +25,6 @@ final class G10StartedEmploymentAndOngoingPage(ctx:PageObjectsContext) extends C
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G10StartedEmploymentAndOngoingPage {
-  val title = "Employment - Change in circumstances".toLowerCase
-
   val url  = "/circumstances/report-changes/employment-ongoing"
 
   def apply(ctx:PageObjectsContext) = new G10StartedEmploymentAndOngoingPage(ctx)

@@ -10,15 +10,15 @@ trait BrowserMatchers extends MustMatchers {
 
   val duration = Try(System.getProperty("waitSeconds", "30").toInt).getOrElse(30)
 
-  def titleMustEqual(title: String) = {
+  def urlMustEqual(url: String) = {
     browser.waitUntil[Boolean](duration, TimeUnit.SECONDS) {
-      browser.title.toLowerCase mustEqual title.toLowerCase
+      (browser.url == url || browser.url.replaceFirst("/[^/]*$","") == url) must beTrue
     }
   }
 
-  def titleMustNotEqual(title: String) = {
+  def urlMustNotEqual(url: String) = {
     browser.waitUntil[Boolean](duration, TimeUnit.SECONDS) {
-      browser.title.toLowerCase mustNotEqual title.toLowerCase
+      browser.url mustNotEqual url
     }
   }
     

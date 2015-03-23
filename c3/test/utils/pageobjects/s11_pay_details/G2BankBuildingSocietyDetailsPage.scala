@@ -8,7 +8,7 @@ import utils.pageobjects._
  * @author Saqib Kayani
  *         Date: 01/08/2013
  */
-final class G2BankBuildingSocietyDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G2BankBuildingSocietyDetailsPage.url, G2BankBuildingSocietyDetailsPage.title) {
+final class G2BankBuildingSocietyDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G2BankBuildingSocietyDetailsPage.url) {
   declareInput("#accountHolderName", "HowWePayYouNameOfAccountHolder")
   declareInput("#bankFullName", "HowWePayYouFullNameOfBankorBuildingSociety")
   declareSortCode("#sortCode", "HowWePayYouSortCode")
@@ -21,8 +21,6 @@ final class G2BankBuildingSocietyDetailsPage (ctx:PageObjectsContext) extends Cl
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G2BankBuildingSocietyDetailsPage {
-  val title = "Bank/Building society details - Pay details".toLowerCase
-
   val url  = "/pay-details/bank-building-society-details"
 
   def apply(ctx:PageObjectsContext) = new G2BankBuildingSocietyDetailsPage(ctx)

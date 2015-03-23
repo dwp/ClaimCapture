@@ -1,13 +1,13 @@
+import com.typesafe.sbt.web.SbtWeb
 import sbt._
 import sbt.Keys._
 import play.Play.autoImport._
-import net.litola.SassPlugin
 import de.johoop.jacoco4sbt.JacocoPlugin._
 
 object ApplicationBuild extends Build {
   val appName         = "c3"
 
-  val appVersion      = "2.13-SNAPSHOT"
+  val appVersion      = "2.14-SNAPSHOT"
 
   val appDependencies = Seq(
     // Add your project dependencies here,
@@ -19,17 +19,17 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka"  %% "akka-testkit"        % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-agent"          % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-remote"         % "2.3.9" % "test" withSources() withJavadoc(),
-    "com.dwp.carers"     %% "xmlcommons"          % "5.0",
-    "com.dwp.carers"     %%  "wscommons"          % "2.3",
+    "gov.dwp.carers"     %% "xmlcommons"          % "5.1.1",
+    "gov.dwp.carers"     %%  "wscommons"          % "2.3",
     "org.postgresql"     % "postgresql"           % "9.3-1103-jdbc41",
-    "com.h2database"      % "h2"                  % "1.4.185"  % "test",
+    "com.h2database"      % "h2"                  % "1.4.186"  % "test",
     "me.moocar"           % "logback-gelf"        % "0.12",
     "com.github.rjeschke" % "txtmark"             % "0.11",
-    "org.jacoco"          % "org.jacoco.core"     % "0.7.2.201409121644"  % "test",
-    "org.jacoco"          % "org.jacoco.report"   % "0.7.2.201409121644"  % "test",
-    "com.dwp"            %% "play2-multimessages" % "2.3.5",
+    "org.jacoco"          % "org.jacoco.core"     % "0.7.4.201502262128"  % "test",
+    "org.jacoco"          % "org.jacoco.report"   % "0.7.4.201502262128"  % "test",
+    "gov.dwp"            %% "play2-multimessages" % "2.3.5",
     "com.typesafe"       %% "play-plugins-mailer" % "2.2.0",
-    "com.dwp.carers"     %% "play2-resilient-memcached"     % "1.0"
+    "gov.dwp.carers"     %% "play2-resilient-memcached"     % "1.1"
   )
 
   var sO: Seq[Def.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))
@@ -39,7 +39,7 @@ object ApplicationBuild extends Build {
   var sR: Seq[Def.Setting[_]] = Seq(
     resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
-    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases")
+    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases/")
 
   var sTest: Seq[Def.Setting[_]] = Seq()
 
@@ -69,5 +69,5 @@ object ApplicationBuild extends Build {
 
   var appSettings: Seq[Def.Setting[_]] =  sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
 
-  val main = Project(appName, file(".")).enablePlugins(play.PlayScala, net.litola.SassPlugin).settings(appSettings: _*)
+  val main = Project(appName, file(".")).enablePlugins(play.PlayScala,SbtWeb).settings(appSettings: _*)
 }

@@ -21,15 +21,14 @@ class BrowserIntegrationSpec extends Specification with Tags {
       val s1g3 = s1g2 fillPageWith claim submitPage()
       val s1g4 = s1g3 fillPageWith claim submitPage()
       val approvalPage = s1g4 fillPageWith claim submitPage()
-      val backToS1G1 = approvalPage goBack() goBack() goBack() goBack()
+      val backToS1G1 = approvalPage goBack() goBack()
 
-      println(backToS1G1.source())
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "NONE"
 
       backToS1G1 fillPageWith claim
       val s1g2SecondTime = backToS1G1 submitPage()
 
-      s1g2SecondTime.getClass mustEqual classOf[G2HoursPage]
+      s1g2SecondTime.getClass mustEqual classOf[G6ApprovePage]
     }
   } section "integration"
 }

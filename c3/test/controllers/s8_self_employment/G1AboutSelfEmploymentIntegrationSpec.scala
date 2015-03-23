@@ -21,7 +21,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
       val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed()
       page goToThePage()
 
-      val contactDetailsPage = page runClaimWith(claim, G1EmploymentPage.title, waitForPage = true, trace = true)
+      val contactDetailsPage = page runClaimWith(claim, G1EmploymentPage.url, waitForPage = true, trace = true)
       contactDetailsPage fillPageWith(claim)
 
       val nextPage = contactDetailsPage submitPage()

@@ -19,8 +19,9 @@ class G12EmploymentNotStartedSpec extends Specification with Tags {
   val monthlyPayDay = "2nd Thursday every month"
   val other = "other"
   val otherText = "some other text"
-  val doYouPayIntoPensionText = "pension text"
-  val doCareCostsForThisWorkText = "care text"
+  val willYouPayIntoPensionText = "pension text"
+  val willYouPayForThingsText = "Some things needed to do the job"
+  val willCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
 
   "Report an Employment change in your circumstances where employment has not started - Employment Controller" should {
@@ -32,8 +33,9 @@ class G12EmploymentNotStartedSpec extends Specification with Tags {
       "whenExpectedToBePaidDate.year" -> whenExpectedToBePaidDateYear.toString,
       "howOften.frequency" -> weekly,
       "usuallyPaidSameAmount" -> no,
-      "doYouPayIntoPension.answer" -> no,
-      "doCareCostsForThisWork.answer" -> no
+      "willYouPayIntoPension.answer" -> no,
+      "willYouPayForThings.answer" -> no,
+      "willCareCostsForThisWork.answer" -> no
     )
 
     val validMonthlyPaymentEmployment = Seq(
@@ -45,8 +47,9 @@ class G12EmploymentNotStartedSpec extends Specification with Tags {
       "howOften.frequency" -> monthly,
       "monthlyPayDay" -> monthlyPayDay,
       "usuallyPaidSameAmount" -> no,
-      "doYouPayIntoPension.answer" -> no,
-      "doCareCostsForThisWork.answer" -> no
+      "willYouPayIntoPension.answer" -> no,
+      "willYouPayForThings.answer" -> no,
+      "willCareCostsForThisWork.answer" -> no
     )
 
     val validOtherPaymentEmployment = Seq(
@@ -58,10 +61,12 @@ class G12EmploymentNotStartedSpec extends Specification with Tags {
       "howOften.frequency" -> other,
       "howOften.frequency.other" -> otherText,
       "usuallyPaidSameAmount" -> yes,
-      "doYouPayIntoPension.answer" -> yes,
-      "doYouPayIntoPension.whatFor" -> doYouPayIntoPensionText,
-      "doCareCostsForThisWork.answer" -> yes,
-      "doCareCostsForThisWork.whatCosts" -> doCareCostsForThisWorkText,
+      "willYouPayIntoPension.answer" -> yes,
+      "willYouPayIntoPension.whatFor" -> willYouPayIntoPensionText,
+      "willYouPayForThings.answer" -> yes,
+      "willYouPayForThings.whatFor" -> willYouPayForThingsText,
+      "willCareCostsForThisWork.answer" -> yes,
+      "willCareCostsForThisWork.whatCosts" -> willCareCostsForThisWorkText,
       "moreAboutChanges" -> moreInfo
     )
 

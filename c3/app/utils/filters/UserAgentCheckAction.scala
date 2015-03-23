@@ -1,12 +1,14 @@
 package utils.filters
 
 import app.ConfigProperties._
-import com.dwp.exceptions.DwpRuntimeException
-import models.view.{CachedChangeOfCircs, CachedClaim}
-import play.api.Logger
+import gov.dwp.exceptions.DwpRuntimeException
+import models.view.{ClaimHandling, CachedChangeOfCircs, CachedClaim}
+import play.api.{Play, Logger}
 import play.api.cache.Cache
-import play.api.mvc.{EssentialAction, RequestHeader}
+import play.api.mvc.{Cookie, EssentialAction, RequestHeader}
 import play.api.Play.current
+
+case class UserAgentCheckException(message:String) extends DwpRuntimeException(message)
 
 /**
  * Action used by security [[utils.filters.UserAgentCheckFilter]] to check User Agent in request matches User Agent used to start claim/cofcs.
@@ -27,7 +29,8 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
    *         Otherwise it throws an exception to stop processing of the request by the application.
    */
   def apply(request: RequestHeader) = {
-    lazy val key = getKeyFromSession(request)
+
+    val key = getKeyFromSession(request)
 
     request match {
 
@@ -36,7 +39,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
           Logger.debug(s"UserAgentCheckAction set for key ${key}_UA")
           Cache.set(key + "_UA", request.headers.get("User-Agent").getOrElse(""), getProperty("cache.expiry", 3600) * 10)
         } else {
-          throw new DwpRuntimeException("Session does not contain key. Cannot save User Agent.")
+          throw UserAgentCheckException("Session does not contain key. Cannot save User Agent.")
         }
 
       case _ if checkIf(request) =>
@@ -46,11 +49,15 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
             case Some(ua) =>
               val userAgent = request.headers.get("User-Agent").getOrElse("")
               if (ua != userAgent) {
-                throw new DwpRuntimeException(s"UserAgent check failed. $userAgent is different from expected $ua.")
+                throw UserAgentCheckException(s"UserAgent check failed. $userAgent is different from expected $ua.")
               }
-              Logger.debug(s"UserAgent $userAgent is equal to expected $ua.")
-            case _ => // No claim in cache. Nothing to do. user will get an error because no claim exists. No security risk.
+            case _ if (Cache.get(key).isDefined) => Logger.error("Lost User Agent from cache while claim still in cache? Should never happen.")
+            case _ =>
+            // No claim in cache. Nothing to do. user will get an error because no claim exists. No security risk.
           }
+        } else {
+          if (!Play.isTest)
+            throw UserAgentCheckException(s"Session does not contain key. Cannot check User Agent. For ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}")
         }
 
       case _ if removeIf(request) =>
@@ -68,7 +75,6 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
   private def getKeyFromSession(header: RequestHeader) = {
     header.session.get(CachedClaim.key).getOrElse(header.session.get(CachedChangeOfCircs.key).getOrElse(""))
   }
-
 }
 
 /**
@@ -76,9 +82,15 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
  */
 object UserAgentCheckAction {
 
-  def defaultCheckIf(header: RequestHeader): Boolean = RequestSelector.toBeChecked(header)
+  def defaultCheckIf(header: RequestHeader): Boolean = (!RequestSelector.startPage(header)
+    && RequestSelector.toBeChecked(header)
+    && (header.cookies.get(ClaimHandling.applicationFinished) match {
+    case Some(c) => c.value == "false"
+    case _ => true
+  }))
 
   def defaultSetIf(header: RequestHeader): Boolean = header.method == "POST" && RequestSelector.startPage(header)
 
   def defautRemoveIf(header: RequestHeader): Boolean = RequestSelector.endPage(header)
+
 }

@@ -13,13 +13,13 @@ import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tags {
   "Bank building society details" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/pay-details/bank-building-society-details")
-      titleMustEqual("Bank/Building society details - Pay details")
+      browser.goTo(G2BankBuildingSocietyDetailsPage.url)
+      urlMustEqual(G2BankBuildingSocietyDetailsPage.url)
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/pay-details/bank-building-society-details")
-      titleMustEqual("Bank/Building society details - Pay details")
+      browser.goTo(G2BankBuildingSocietyDetailsPage.url)
+      urlMustEqual(G2BankBuildingSocietyDetailsPage.url)
       browser.submit("button[type='submit']")
 
       findMustEqualSize("div[class=validation-summary] ol li", 5)
@@ -27,11 +27,11 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
 
     "navigate back to Pay details - Pay Details" in new WithBrowser with BrowserMatchers {
       Formulate.howWePayYou(browser)
-      titleMustEqual("Bank/Building society details - Pay details")
+      urlMustEqual(G2BankBuildingSocietyDetailsPage.url)
 
-      browser.goTo("/pay-details/bank-building-society-details")
+      browser.goTo(G2BankBuildingSocietyDetailsPage.url)
       browser.click("#backButton")
-      titleMustEqual("How would you like to get paid? - Pay details")
+      urlMustEqual(G1HowWePayYouPage.url)
     }
 
     "navigate to 'Consent And Declaration'" in new WithBrowser with PageObjects{

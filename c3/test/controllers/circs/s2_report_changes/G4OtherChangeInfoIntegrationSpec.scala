@@ -22,7 +22,7 @@ class G4OtherChangeInfoIntegrationSpec extends Specification with Tags {
       page goToThePage()
 
       val claim = CircumstancesScenarioFactory.reportChangesOtherChangeInfo
-      val otherChangeInfoPage = page runClaimWith (claim, G4OtherChangeInfoPage.title)
+      val otherChangeInfoPage = page runClaimWith (claim, G4OtherChangeInfoPage.url)
 
       otherChangeInfoPage must beAnInstanceOf[G4OtherChangeInfoPage]
 

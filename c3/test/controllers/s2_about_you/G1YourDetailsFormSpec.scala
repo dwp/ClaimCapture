@@ -1,5 +1,6 @@
 package controllers.s2_about_you
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{ Tags, Specification }
 import models.DayMonthYear
 import models.NationalInsuranceNumber
@@ -55,9 +56,9 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "alwaysLivedUK" -> alwaysLivedUK)).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(3)
-            formWithErrors.errors(0).message must equalTo("error.maxLength")
-            formWithErrors.errors(1).message must equalTo("error.maxLength")
-            formWithErrors.errors(2).message must equalTo("error.maxLength")
+            formWithErrors.errors(0).message must equalTo(Mappings.maxLengthError)
+            formWithErrors.errors(1).message must equalTo(Mappings.maxLengthError)
+            formWithErrors.errors(2).message must equalTo(Mappings.maxLengthError)
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -65,7 +66,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
     "reject special characters in text fields" in {
       G1YourDetails.form.bind(
         Map("title" -> title,
-          "firstName" -> "kk>",
+          "firstName" -> "kk~",
           "middleName" -> "<>",
           "surname" -> "éugene[]",
           "nationalInsuranceNumber.nino" -> nino,
@@ -76,9 +77,9 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "alwaysLivedUK" -> alwaysLivedUK)).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(3)
-            formWithErrors.errors(0).message must equalTo("error.restricted.characters")
-            formWithErrors.errors(1).message must equalTo("error.restricted.characters")
-            formWithErrors.errors(2).message must equalTo("error.restricted.characters")
+            formWithErrors.errors(0).message must equalTo(Mappings.errorRestrictedCharacters)
+            formWithErrors.errors(1).message must equalTo(Mappings.errorRestrictedCharacters)
+            formWithErrors.errors(2).message must equalTo(Mappings.errorRestrictedCharacters)
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -88,12 +89,12 @@ class G1YourDetailsFormSpec extends Specification with Tags {
         Map("middleName" -> "middle optional")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(6)
-            formWithErrors.errors(0).message must equalTo("error.required")
-            formWithErrors.errors(1).message must equalTo("error.required")
-            formWithErrors.errors(2).message must equalTo("error.required")
-            formWithErrors.errors(3).message must equalTo("error.required")
+            formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
             formWithErrors.errors(4).message must equalTo("error.nationalInsuranceNumber")
-            formWithErrors.errors(5).message must equalTo("error.required")
+            formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -131,7 +132,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "alwaysLivedUK" -> alwaysLivedUK)).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
-            formWithErrors.errors.head.message must equalTo("error.invalid")
+            formWithErrors.errors.head.message must equalTo(Mappings.errorInvalid)
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }

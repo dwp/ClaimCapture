@@ -99,17 +99,17 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
-          .replaceError("stillCaring","dateRequired", FormError("stillCaring.date", "error.required"))
-          .replaceError("hasWorkStartedYet","expected.yesDateValue", FormError("hasWorkStartedYet.dateWhenStarted", "error.required"))
-          .replaceError("hasWorkStartedYet","expected.yesYesNoValue", FormError("hasWorkFinishedYet.answer", "error.required"))
-          .replaceError("hasWorkFinishedYet","expected.yesValue", FormError("hasWorkFinishedYet.dateWhenFinished", "error.required"))
-          .replaceError("hasWorkStartedYet","expected.noDateValue", FormError("hasWorkStartedYet.dateWhenWillItStart", "error.required"))
-          .replaceError("typeOfWork","expected.employerNameAndAddress1", FormError("typeOfWork.employerNameAndAddress", "error.required"))
+          .replaceError("stillCaring","dateRequired", FormError("stillCaring.date", errorRequired))
+          .replaceError("hasWorkStartedYet","expected.yesDateValue", FormError("hasWorkStartedYet.dateWhenStarted", errorRequired))
+          .replaceError("hasWorkStartedYet","expected.yesYesNoValue", FormError("hasWorkFinishedYet.answer", errorRequired))
+          .replaceError("hasWorkFinishedYet","expected.yesValue", FormError("hasWorkFinishedYet.dateWhenFinished", errorRequired))
+          .replaceError("hasWorkStartedYet","expected.noDateValue", FormError("hasWorkStartedYet.dateWhenWillItStart", errorRequired))
+          .replaceError("typeOfWork","expected.employerNameAndAddress1", FormError("typeOfWork.employerNameAndAddress", errorRequired))
           .replaceError("typeOfWork","expected.employerNameAndAddress2", FormError("typeOfWork.employerNameAndAddress", "nameAndAddress.required"))
-          .replaceError("typeOfWork","expected.employerPostCode", FormError("typeOfWork.employerPostcode", "error.required"))
-          .replaceError("typeOfWork","expected.selfEmploymentTypeOfWork", FormError("typeOfWork.selfEmployedTypeOfWork", "error.required"))
-          .replaceError("typeOfWork","expected.selfEmploymentTotalIncome", FormError("typeOfWork.selfEmployedTotalIncome", "error.required"))
-          .replaceError("", "expected.hasWorkFinished", FormError("hasWorkFinishedYet.answer", "error.required"))
+          .replaceError("typeOfWork","expected.employerPostCode", FormError("typeOfWork.employerPostcode", errorRequired))
+          .replaceError("typeOfWork","expected.selfEmploymentTypeOfWork", FormError("typeOfWork.selfEmployedTypeOfWork", errorRequired))
+          .replaceError("typeOfWork","expected.selfEmploymentTotalIncome", FormError("typeOfWork.selfEmployedTotalIncome", errorRequired))
+          .replaceError("", "expected.hasWorkFinished", FormError("hasWorkFinishedYet.answer", errorRequired))
         BadRequest(views.html.circs.s2_report_changes.g9_employmentChange(updatedFormWithErrors)(lang))
       },
       employmentChange => {

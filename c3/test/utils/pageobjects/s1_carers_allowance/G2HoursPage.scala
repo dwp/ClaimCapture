@@ -3,20 +3,20 @@ package utils.pageobjects.s1_carers_allowance
 import play.api.test.WithBrowser
 import utils.pageobjects._
 
-final class G2HoursPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G2HoursPage.url, G2HoursPage.title) {
+final class G2EligibilityPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G2EligibilityPage.url) {
   declareYesNo("#hours_answer", "CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring")
+  declareYesNo("#over16_answer", "CanYouGetCarersAllowanceAreYouAged16OrOver")
+  declareYesNo("#livesInGB_answer", "CanYouGetCarersAllowanceDoYouNormallyLiveinGb")
 }
 
-object G2HoursPage {
-  val title = "Do you spend 35 hours or more each week caring for the person you care for? - Can you get Carer's Allowance?".toLowerCase
+object G2EligibilityPage {
+  val url = "/allowance/eligibility"
 
-  val url = "/allowance/hours"
-
-  def apply(ctx:PageObjectsContext) = new G2HoursPage(ctx)
+  def apply(ctx:PageObjectsContext) = new G2EligibilityPage(ctx)
 }
 
-trait G2HoursPageContext extends PageContext {
+trait G2EligibilityPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2HoursPage (PageObjectsContext(browser))
+  val page = G2EligibilityPage(PageObjectsContext(browser))
 }

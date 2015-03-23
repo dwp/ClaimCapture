@@ -1,13 +1,12 @@
 package monitoring
 
 import app.ConfigProperties._
-import models.domain.Claimable
 import models.domain.Claim
 import play.api.Logger
 
 trait BotChecking {
 
-  def checkTimeToCompleteAllSections(claimOrCircs: Claim with Claimable, currentTime: Long): Boolean
+  def checkTimeToCompleteAllSections(claimOrCircs: Claim, currentTime: Long): Boolean
 
   def honeyPot(claim: Claim): Boolean
 
@@ -23,7 +22,7 @@ trait BotChecking {
     checkForBotHoneyPot && honeyPot(claimOrCircs)
   }
 
-  def evaluateTimeToCompleteAllSections(claim: Claim with Claimable, currentTime: Long = System.currentTimeMillis(), sectionExpectedTimes: Map[String, Long]) = {
+  def evaluateTimeToCompleteAllSections(claim: Claim, currentTime: Long = System.currentTimeMillis(), sectionExpectedTimes: Map[String, Long]) = {
 
     val expectedMinTimeToCompleteAllSections: Long = claim.sections.map(s => {
       sectionExpectedTimes.get(s.identifier.id) match {

@@ -1,5 +1,6 @@
 package controllers.circs.s1_identification
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 
 
@@ -46,9 +47,9 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "theirRelationshipToYou" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(3)
-          formWithErrors.errors(0).message must equalTo("error.maxLength")
-          formWithErrors.errors(1).message must equalTo("error.maxLength")
-          formWithErrors.errors(2).message must equalTo("error.maxLength")
+          formWithErrors.errors(0).message must equalTo(Mappings.maxLengthError)
+          formWithErrors.errors(1).message must equalTo(Mappings.maxLengthError)
+          formWithErrors.errors(2).message must equalTo(Mappings.maxLengthError)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -65,9 +66,9 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "theirRelationshipToYou" -> "Wife >")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(3)
-          formWithErrors.errors(0).message must equalTo("error.restricted.characters")
-          formWithErrors.errors(1).message must equalTo("error.restricted.characters")
-          formWithErrors.errors(2).message must equalTo("error.restricted.characters")
+          formWithErrors.errors(0).message must equalTo(Mappings.errorRestrictedCharacters)
+          formWithErrors.errors(1).message must equalTo(Mappings.errorRestrictedCharacters)
+          formWithErrors.errors(2).message must equalTo(Mappings.errorRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -77,12 +78,12 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
         Map("fullName" -> "")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(6)
-          formWithErrors.errors(0).message must equalTo("error.required")
-          formWithErrors.errors(1).message must equalTo("error.required")
+          formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
           formWithErrors.errors(2).message must equalTo("error.nationalInsuranceNumber")
-          formWithErrors.errors(3).message must equalTo("error.required")
-          formWithErrors.errors(4).message must equalTo("error.required")
-          formWithErrors.errors(5).message must equalTo("error.required")
+          formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -118,7 +119,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
         )).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
-          formWithErrors.errors.head.message must equalTo("error.invalid")
+          formWithErrors.errors.head.message must equalTo(Mappings.errorInvalid)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }

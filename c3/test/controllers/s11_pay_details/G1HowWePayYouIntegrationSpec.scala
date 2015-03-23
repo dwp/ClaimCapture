@@ -1,18 +1,19 @@
 package controllers.s11_pay_details
 
 import org.specs2.mutable.{Tags, Specification}
+import play.api.Logger
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s9_other_money._
-import utils.pageobjects.s11_pay_details.G1HowWePayYouPage
+import utils.pageobjects.s11_pay_details.{G2BankBuildingSocietyDetailsPage, G1HowWePayYouPage}
 import utils.pageobjects.s10_information.G1AdditionalInfoPage
 import utils.pageobjects.{PageObjects, PageObjectsContext}
 
 class G1HowWePayYouIntegrationSpec extends Specification with Tags {
   "Pay details" should {
-    "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("How would you like to get paid? - Pay details")
+    "be presented" in new WithBrowser with PageObjects {
+      val page =  G1AboutOtherMoneyPage(context)
+      page goToThePage()
     }
 
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
@@ -21,23 +22,21 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       Formulate.nationalityAndResidency(browser)
       Formulate.otherEEAStateOrSwitzerland(browser)
 
-      browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("Additional information - Information")
+      browser.goTo(G1HowWePayYouPage.url)
+      urlMustEqual(G1AdditionalInfoPage.url)
     }
 
-    "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("How would you like to get paid? - Pay details")
-
-      browser.submit("button[type='submit']")
-      titleMustEqual("How would you like to get paid? - Pay details")
-
-      findMustEqualSize("div[class=validation-summary] ol li", 2)
+    "contain errors on invalid submission" in new WithBrowser with PageObjects  {
+      val page =  G1AboutOtherMoneyPage(context)
+      page goToThePage()
+      val samePage = page.submitPage()
+      Logger.info(samePage.toString)
+      samePage.listErrors.nonEmpty must beTrue
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.howWePayYou(browser)
-      titleMustEqual("Bank/Building society details - Pay details")
+      urlMustEqual(G2BankBuildingSocietyDetailsPage.url)
     }
 
     /**

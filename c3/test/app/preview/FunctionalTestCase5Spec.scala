@@ -19,7 +19,7 @@ class FunctionalTestCase5Spec extends FunctionalTestCommon {
       val page = G1BenefitsPage(context)
       implicit val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase5.csv")
       page goToThePage()
-      val lastPage = page runClaimWith(claim, PreviewPage.title)
+      val lastPage = page runClaimWith(claim, PreviewPage.url)
 
       val toFindData = Data.build(
         "Name"              displays ("AboutYouTitle","AboutYouFirstName","AboutYouMiddleName","AboutYouSurname"),

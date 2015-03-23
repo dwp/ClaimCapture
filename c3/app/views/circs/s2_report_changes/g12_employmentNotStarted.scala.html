@@ -18,8 +18,9 @@
 @howOften = @{employmentNotStarted("howOften")}
 @howOftenFrequency = @{employmentNotStarted("howOften")("frequency")}
 @usuallyPaidSameAmount = @{employmentNotStarted("usuallyPaidSameAmount")}
-@doYouPayIntoPension = @{employmentNotStarted("doYouPayIntoPension")}
-@doCareCostsForThisWork = @{employmentNotStarted("doCareCostsForThisWork")}
+@willYouPayIntoPension = @{employmentNotStarted("willYouPayIntoPension")}
+@willYouPayForThings = @{employmentNotStarted("willYouPayForThings")}
+@willCareCostsForThisWork = @{employmentNotStarted("willCareCostsForThisWork")}
 @moreAboutChanges = @{employmentNotStarted("moreAboutChanges")}
 
     @defining(lang) { implicit language =>
@@ -68,34 +69,49 @@
                 <legend>@Html(Messages("c2.g9.pensionsAndExpenses"))</legend>
 
                 <ul>
-                    @yesNoRadioGroup(doYouPayIntoPension("answer"),
+                    @yesNoRadioGroup(willYouPayIntoPension("answer"),
                         '_label -> "willYouPayIntoPension",
                         'values -> Seq("yes" -> Messages("label.yes8"), "no" -> Messages("label.no"))
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersInputTextArea(doYouPayIntoPension("whatFor"),
-                                'helper -> Html(Messages("300charsLeft")),
+                            carersInputTextArea(willYouPayIntoPension("whatFor"),
+                                'textAreaHelper -> Html(Messages("300charsLeft")),
                                 '_label -> "willYouPayIntoPension.whatFor",
-                                'helperAbove -> Html(Messages("doYouPayIntoPension.whatFor.help")),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
                         'id -> "whatForWrap"
                     )
 
-                    @yesNoRadioGroup(doCareCostsForThisWork("answer"),
+                    @yesNoRadioGroup(willYouPayForThings("answer"),
+                        '_label -> "willYouPayForThings",
+                        'helperAbove -> Html(Messages("payForThings.answer.helper.future"))
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(willYouPayForThings("whatFor"),
+                                'textAreaHelper -> Html(Messages("300charsLeft")),
+                                'ignoreOptional -> true,
+                                'maxLength -> 300)
+                        ),
+                        'id -> "whatThingsWrap"
+                    )
+
+                    @yesNoRadioGroup(willCareCostsForThisWork("answer"),
                         '_label -> "willCareCostsForThisWork",
+                        'helperAbove -> Html(Messages("haveExpensesForJob.answer.helper.past")),
                         'values -> Seq("yes" -> Messages("label.yes7"), "no" -> Messages("label.no"))
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersInputTextArea(doCareCostsForThisWork("whatCosts"),
-                                'helper -> Html(Messages("300charsLeft")),
+                            carersInputTextArea(willCareCostsForThisWork("whatCosts"),
+                                'textAreaHelper -> Html(Messages("300charsLeft")),
                                 '_label -> "willCareCostsForThisWork.whatCosts",
-                                'helperAbove -> Html(Messages("doCareCostsForThisWork.whatCosts.help")),
+                                'helperAbove -> Html(Messages("willCareCostsForThisWork.whatCosts.help")),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
@@ -140,13 +156,7 @@ $(function(){
             usuallyPaidSameAmountFortnightText:"@Html(Messages("usuallyPaidSameAmount.will.fortnight"))",
             usuallyPaidSameAmountFourWeekText:"@Html(Messages("usuallyPaidSameAmount.will.time"))",
             usuallyPaidSameAmountMonthText:"@Html(Messages("usuallyPaidSameAmount.will.month"))",
-            usuallyPaidSameAmountOtherText:"@Html(Messages("usuallyPaidSameAmount.will.time"))",
-            doYouPayIntoPensionAnswer:"@CarersCrypto.encryptAES(doYouPayIntoPension("answer").id)",
-            doYouPayIntoPensionText:"@Html(Messages("doYouPayIntoPension"))",
-            willYouPayIntoPensionText:"@Html(Messages("willYouPayIntoPension"))",
-            doCareCostsForThisWorkAnswer:"@CarersCrypto.encryptAES(doCareCostsForThisWork("answer").id)",
-            doCareCostsForThisWorkText:"@Html(Messages("doCareCostsForThisWork"))",
-            willCareCostsForThisWorkText:"@Html(Messages("willCareCostsForThisWork"))"
+            usuallyPaidSameAmountOtherText:"@Html(Messages("usuallyPaidSameAmount.will.time"))"
     });
 
     window.beenPaidYet("@CarersCrypto.encryptAES(beenPaidYet("yes").id)",
@@ -167,17 +177,22 @@ $(function(){
             usuallyPaidSameAmountOtherText:"@Html(Messages("usuallyPaidSameAmount.will.other"))"
     });
 
-    window.whatFor("@CarersCrypto.encryptAES(doYouPayIntoPension("answer")("yes").id)",
-                   "@CarersCrypto.encryptAES(doYouPayIntoPension("answer")("no").id)",
-                   "@CarersCrypto.encryptAES(doYouPayIntoPension("whatFor").id)");
+    window.whatFor("@CarersCrypto.encryptAES(willYouPayIntoPension("answer")("yes").id)",
+                   "@CarersCrypto.encryptAES(willYouPayIntoPension("answer")("no").id)",
+                   "@CarersCrypto.encryptAES(willYouPayIntoPension("whatFor").id)");
 
-    window.whatCosts("@CarersCrypto.encryptAES(doCareCostsForThisWork("answer")("yes").id)",
-                     "@CarersCrypto.encryptAES(doCareCostsForThisWork("answer")("no").id)",
-                     "@CarersCrypto.encryptAES(doCareCostsForThisWork("whatCosts").id)");
+    window.whatThings ( "@CarersCrypto.encryptAES(willYouPayForThings("answer")("yes").id)",
+                        "@CarersCrypto.encryptAES(willYouPayForThings("answer")("no").id)",
+                        "@CarersCrypto.encryptAES(willYouPayForThings("whatFor").id)");
+
+    window.whatCosts("@CarersCrypto.encryptAES(willCareCostsForThisWork("answer")("yes").id)",
+                     "@CarersCrypto.encryptAES(willCareCostsForThisWork("answer")("no").id)",
+                     "@CarersCrypto.encryptAES(willCareCostsForThisWork("whatCosts").id)");
 
     window.areaCounter({selector: "@CarersCrypto.encryptAES(howOftenFrequency("other").id)",maxChars:60});
-    window.areaCounter({selector: "@CarersCrypto.encryptAES(doYouPayIntoPension("whatFor").id)",maxChars:300});
-    window.areaCounter({selector: "@CarersCrypto.encryptAES(doCareCostsForThisWork("whatCosts").id)",maxChars:300});
+    window.areaCounter({selector: "@CarersCrypto.encryptAES(willYouPayIntoPension("whatFor").id)",maxChars:300});
+    window.areaCounter({selector: "@CarersCrypto.encryptAES(willYouPayForThings("whatFor").id)",maxChars:300});
+    window.areaCounter({selector: "@CarersCrypto.encryptAES(willCareCostsForThisWork("whatCosts").id)",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:300});
 });
 </script>

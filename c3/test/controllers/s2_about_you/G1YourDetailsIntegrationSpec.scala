@@ -55,7 +55,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
 
       val previewPage = goToPreviewPage(context)
       answerText(previewPage) mustEqual "Mr John Appleseed"
-      val aboutYou = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val aboutYou = previewPage.clickLinkOrButton(s"#$id")
 
       aboutYou must beAnInstanceOf[G1YourDetailsPage]
       val modifiedData = new TestData
@@ -77,7 +77,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
       val answerText = textFromXPath(id, _:Page)
 
       answerText(previewPage) mustEqual "AB123456C"
-      val aboutYou = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val aboutYou = previewPage.clickLinkOrButton(s"#$id")
 
       aboutYou must beAnInstanceOf[G1YourDetailsPage]
       val modifiedData = new TestData
@@ -96,7 +96,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
       val answerText = textFromXPath(id, _:Page)
 
       answerText(previewPage) mustEqual "03 April, 1950"
-      val aboutYou = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val aboutYou = previewPage.clickLinkOrButton(s"#$id")
 
       aboutYou must beAnInstanceOf[G1YourDetailsPage]
       val modifiedData = new TestData

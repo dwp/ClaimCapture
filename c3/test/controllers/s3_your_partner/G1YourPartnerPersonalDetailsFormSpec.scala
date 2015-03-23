@@ -1,5 +1,7 @@
 package controllers.s3_your_partner
 
+import controllers.mappings.Mappings
+import models.view.CachedClaim
 import org.specs2.mutable.{ Tags, Specification }
 import models.{ NationalInsuranceNumber, DayMonthYear }
 import scala.Some
@@ -20,7 +22,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
 
   "Your Partner Personal Details Form" should {
     "map data into case class when partner answer is yes" in {
-      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -51,7 +53,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject too many characters in text fields" in {
-      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
@@ -66,17 +68,17 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(5)
-            formWithErrors.errors(0).message must equalTo("error.maxLength")
-            formWithErrors.errors(1).message must equalTo("error.maxLength")
-            formWithErrors.errors(2).message must equalTo("error.maxLength")
-            formWithErrors.errors(3).message must equalTo("error.maxLength")
+            formWithErrors.errors(0).message must equalTo(Mappings.maxLengthError)
+            formWithErrors.errors(1).message must equalTo(Mappings.maxLengthError)
+            formWithErrors.errors(2).message must equalTo(Mappings.maxLengthError)
+            formWithErrors.errors(3).message must equalTo(Mappings.maxLengthError)
             formWithErrors.errors(4).message must equalTo("error.nationality")
           },
           theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "have 6 mandatory fields" in {
-      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("hadPartnerSinceClaimDate" -> "yes","middleName" -> "middle optional")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(6)
@@ -91,7 +93,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject form when partner question not answered" in {
-      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("hadPartnerSinceClaimDate" -> "")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(2) // error.required and yesNo.invalid
@@ -100,7 +102,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject invalid national insurance number" in {
-      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -122,7 +124,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject invalid date" in {
-      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -137,14 +139,14 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => {
-            formWithErrors.errors.head.message must equalTo("error.invalid")
+            formWithErrors.errors.head.message must equalTo(Mappings.errorInvalid)
             formWithErrors.errors.length must equalTo(1)
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject form without partnerispersonyoucarefor" in {
-      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -164,7 +166,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "accept nationality with space character, uppercase and lowercase" in {
-      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -185,7 +187,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject invalid nationality with numbers" in {
-      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -207,7 +209,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject invalid nationality with special characters" in {
-      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -229,12 +231,12 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
     }
 
     "reject special characters" in {
-      G1YourPartnerPersonalDetails.form(models.domain.Claim()).bind(
+      G1YourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> "MyNa>me",
           "middleName" -> "middleNam©e",
           "surname" -> ";My Surn˙h∫ame;",
-          "otherNames" -> "other>Names",
+          "otherNames" -> "other@Names",
           "nationalInsuranceNumber.nino" -> nino.toString,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
@@ -245,7 +247,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "hadPartnerSinceClaimDate" -> "yes")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(4)
-          formWithErrors.errors.head.message must equalTo("error.restricted.characters")
+          formWithErrors.errors.head.message must equalTo(Mappings.errorRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }

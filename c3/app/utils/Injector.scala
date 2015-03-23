@@ -1,11 +1,11 @@
 package utils
 
 import app.ConfigProperties._
+import models.view.ClaimHandling.ClaimResult
 import play.api.libs.ws.ning.NingWSResponse
 import scala.reflect._
 import controllers.s12_consent_and_declaration.G3Declaration
 import play.api.mvc.{AnyContent, Request}
-import models.view.CachedClaim._
 import controllers.submission.XmlSubmitter
 import controllers.circs.s3_consent_and_declaration.G1Declaration
 import models.domain.Claim

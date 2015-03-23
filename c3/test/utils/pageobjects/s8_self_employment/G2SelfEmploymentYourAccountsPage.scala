@@ -3,7 +3,7 @@ package utils.pageobjects.s8_self_employment
 import play.api.test.WithBrowser
 import utils.pageobjects._
 
-final class G2SelfEmploymentYourAccountsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G2SelfEmploymentYourAccountsPage.url, G2SelfEmploymentYourAccountsPage.title) {
+final class G2SelfEmploymentYourAccountsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G2SelfEmploymentYourAccountsPage.url) {
   declareDate("#whatWasOrIsYourTradingYearFrom", "SelfEmployedWhatWasIsYourTradingYearfrom")
   declareDate("#whatWasOrIsYourTradingYearTo", "SelfEmployedWhatWasIsYourTradingYearIs")
   declareYesNo("#areIncomeOutgoingsProfitSimilarToTrading", "SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent")
@@ -11,7 +11,6 @@ final class G2SelfEmploymentYourAccountsPage(ctx:PageObjectsContext) extends Cla
 }
 
 object G2SelfEmploymentYourAccountsPage {
-  val title = "Your accounts - About self employment".toLowerCase
   val url = "/self-employment/your-accounts"
 
   def apply(ctx:PageObjectsContext) = new G2SelfEmploymentYourAccountsPage(ctx)

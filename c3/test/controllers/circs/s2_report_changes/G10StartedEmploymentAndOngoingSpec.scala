@@ -1,11 +1,14 @@
 package controllers.circs.s2_report_changes
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, FakeApplication, WithApplication}
+import play.api.i18n.Messages
+import play.api.test.{FakeRequest, WithApplication}
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 import play.api.test.FakeApplication
+import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 
 class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
   val yes = "yes"
@@ -20,6 +23,7 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
   val other = "other"
   val otherText = "some other text"
   val doYouPayIntoPensionText = "pension text"
+  val doYouPayForThingsText = "Some expenses to do the job"
   val doCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
 
@@ -32,6 +36,7 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
     "howOften.frequency" -> weekly,
     "usuallyPaidSameAmount" -> no,
     "doYouPayIntoPension.answer" -> no,
+    "doYouPayForThings.answer" -> no,
     "doCareCostsForThisWork.answer" -> no
   )
 
@@ -45,6 +50,7 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
     "monthlyPayDay" -> monthlyPayDay,
     "usuallyPaidSameAmount" -> no,
     "doYouPayIntoPension.answer" -> no,
+    "doYouPayForThings.answer" -> no,
     "doCareCostsForThisWork.answer" -> no
   )
 
@@ -59,8 +65,19 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
     "usuallyPaidSameAmount" -> yes,
     "doYouPayIntoPension.answer" -> yes,
     "doYouPayIntoPension.whatFor" -> doYouPayIntoPensionText,
+    "doYouPayForThings.answer" -> yes,
+    "doYouPayForThings.whatFor" -> doYouPayForThingsText,
     "doCareCostsForThisWork.answer" -> yes,
     "doCareCostsForThisWork.whatCosts" -> doCareCostsForThisWorkText,
+    "moreAboutChanges" -> moreInfo
+  )
+
+  val invalidOngoingOtherPaymentEmployment = Seq(
+    "beenPaidYet" -> no,
+    "howMuchPaid" -> amountPaid,
+    "whatDatePaid.month" -> whatDatePaidMonth.toString,
+    "whatDatePaid.year" -> whatDatePaidYear.toString,
+    "usuallyPaidSameAmount" -> yes,
     "moreAboutChanges" -> moreInfo
   )
 
@@ -77,7 +94,7 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
         .withFormUrlEncodedBody(validOngoingWeeklyPaymentEmployment: _*)
 
       val result = G10StartedEmploymentAndOngoing.submit(request)
-      redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+      redirectLocation(result) must beSome(G1DeclarationPage.url)
     }
 
     "redirect to the next page after valid submission of monthly on going employment" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
@@ -85,7 +102,7 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
         .withFormUrlEncodedBody(validOngoingMonthlyPaymentEmployment: _*)
 
       val result = G10StartedEmploymentAndOngoing.submit(request)
-      redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+      redirectLocation(result) must beSome(G1DeclarationPage.url)
     }
 
     "redirect to the next page after valid submission of other on going employment" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
@@ -93,7 +110,15 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
         .withFormUrlEncodedBody(validOngoingOtherPaymentEmployment: _*)
 
       val result = G10StartedEmploymentAndOngoing.submit(request)
-      redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+      redirectLocation(result) must beSome(G1DeclarationPage.url)
+    }
+
+    "raise errors and stay same page if mandatory fields missing" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+        .withFormUrlEncodedBody(invalidOngoingOtherPaymentEmployment: _*)
+
+      val result = G10StartedEmploymentAndOngoing.submit(request)
+      contentAsString(result) must contain(Messages(Mappings.errorRequired))
     }
   } section("unit", models.domain.CircumstancesReportChanges.id)
 }

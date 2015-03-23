@@ -24,7 +24,7 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
     "confirm" -> confirm,
     "circsSomeOneElse" -> someOneElse,
     "nameOrOrganisation" -> nameOrOrganisation,
-    "wantsEmailContact" -> wantsEmailContact)
+    "wantsEmailContactCircs" -> wantsEmailContact)
   val declartionInputWithoutSomeOne = Seq("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> "")
 
   val G1Declaration = resolve(classOf[G1Declaration])

@@ -28,7 +28,7 @@
 	                )
 
                     @if(getProperty("email.frontend",false)) {
-                        @yesNoRadioGroup(declarationForm("wantsEmailContact"))
+                        @yesNoRadioGroup(declarationForm("wantsEmailContactCircs"))
 
                         @otherDetailPlaceHolder(
                             inputDef = Seq(
@@ -73,7 +73,7 @@
 	                @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 300, 'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
+	                        carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 300, 'textAreaHelper -> Html(Messages("300charsLeft")))),
 	                    'id -> "why"
                     )
 	
@@ -92,6 +92,7 @@
 <script type="text/javascript">$($("#js").val("true"));</script>
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s3_consent_and_declaration/g1_declaration.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 
 <script type="text/javascript">
@@ -102,6 +103,8 @@
                            "@CarersCrypto.encryptAES("circsSomeOneElse")",
                            "@CarersCrypto.encryptAES("nameOrOrganisation")");
 
+        window.areaCounter ( { selector : "@CarersCrypto.encryptAES("obtainInfoWhy")",maxChars:300});
+
     });
 </script>
 
@@ -109,8 +112,8 @@
         <script type="text/javascript" src='@routes.Assets.at("javascripts/email.js")'></script>
         <script type="text/javascript">
             $(function() {
-                window.emailInit("@CarersCrypto.encryptAES("wantsEmailContact_yes")",
-                                 "@CarersCrypto.encryptAES("wantsEmailContact_no")",
+                window.emailInit("@CarersCrypto.encryptAES("wantsEmailContactCircs_yes")",
+                                 "@CarersCrypto.encryptAES("wantsEmailContactCircs_no")",
                                  "@CarersCrypto.encryptAES("mail")",
                                  "@CarersCrypto.encryptAES("mailConfirmation")");
             });

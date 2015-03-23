@@ -8,6 +8,8 @@ GET         /                                                           controll
 # Health checks
 GET         /report/metrics                                             com.kenshoo.play.metrics.MetricsController.metrics
 GET         /report/health                                              controllers.HealthController.healthReport
+GET         /report/ping                                                controllers.HealthController.ping
+
 
 # claim pack notes accessed externally
 GET         /claim-notes                                                controllers.ClaimNotes.notes
@@ -51,7 +53,7 @@ GET         /circs-async-error                                          controll
 GET         /thankyou/apply-carers                                      controllers.ClaimEnding.thankyou
 GET         /thankyou/change-carers                                     controllers.CircsEnding.thankyou
 
-GET           /back-button-page                                               controllers.Application.backButtonPage
+GET         /back-button-page                                           controllers.Application.backButtonPage
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                               controllers.Assets.at(path="/public", file)
@@ -61,14 +63,8 @@ GET         /assets/*file                                               controll
 GET         /allowance/benefits                                         controllers.s1_carers_allowance.G1Benefits.present
 POST        /allowance/benefits                                         controllers.s1_carers_allowance.G1Benefits.submit
 
-GET         /allowance/hours                                            controllers.s1_carers_allowance.G2Hours.present
-POST        /allowance/hours                                            controllers.s1_carers_allowance.G2Hours.submit
-
-GET         /allowance/over-16                                          controllers.s1_carers_allowance.G3Over16.present
-POST        /allowance/over-16                                          controllers.s1_carers_allowance.G3Over16.submit
-
-GET         /allowance/lives-in-gb                                      controllers.s1_carers_allowance.G4LivesInGB.present
-POST        /allowance/lives-in-gb                                      controllers.s1_carers_allowance.G4LivesInGB.submit
+GET         /allowance/eligibility                                      controllers.s1_carers_allowance.G2Eligibility.present
+POST        /allowance/eligibility                                      controllers.s1_carers_allowance.G2Eligibility.submit
 
 GET         /allowance/approve                                          controllers.s1_carers_allowance.CarersAllowance.approve
 POST        /allowance/approve                                          controllers.s1_carers_allowance.CarersAllowance.approveSubmit
@@ -116,7 +112,7 @@ POST        /care-you-provide/breaks-in-care                            controll
 POST        /care-you-provide/delete-break-in-care                      controllers.s4_care_you_provide.G10BreaksInCare.delete
 
 GET         /care-you-provide/breaks/:id                                controllers.s4_care_you_provide.G11Break.present(id: String)
-POST        /care-you-provide/break                                     controllers.s4_care_you_provide.G11Break.submit
+POST        /care-you-provide/breaks                                    controllers.s4_care_you_provide.G11Break.submit
 
 # Education
 ###############
@@ -183,8 +179,8 @@ POST        /information/additional-info                                controll
 GET         /consent-and-declaration/disclaimer                         controllers.s12_consent_and_declaration.G2Disclaimer.present
 POST        /consent-and-declaration/disclaimer                         controllers.s12_consent_and_declaration.G2Disclaimer.submit
 
-GET         /consent-and-declaration/declaration        @controllers.s12_consent_and_declaration.G3Declaration.present
-POST        /consent-and-declaration/declaration        @controllers.s12_consent_and_declaration.G3Declaration.submit
+GET         /consent-and-declaration/declaration                        @controllers.s12_consent_and_declaration.G3Declaration.present
+POST        /consent-and-declaration/declaration                        @controllers.s12_consent_and_declaration.G3Declaration.submit
 
 GET         /consent-and-declaration/error                              controllers.s12_consent_and_declaration.G4Error.present
 
@@ -228,8 +224,8 @@ POST        /circumstances/report-changes/employment-finished           controll
 GET         /circumstances/report-changes/future-employment             controllers.circs.s2_report_changes.G12EmploymentNotStarted.present
 POST        /circumstances/report-changes/future-employment             controllers.circs.s2_report_changes.G12EmploymentNotStarted.submit
 
-GET         /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.present
-POST        /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
+GET         /circumstances/consent-and-declaration/declaration          @controllers.circs.s3_consent_and_declaration.G1Declaration.present
+POST        /circumstances/consent-and-declaration/declaration          @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
 GET         /circumstances/consent-and-declaration/error                controllers.circs.s3_consent_and_declaration.G3Error.present
 

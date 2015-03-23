@@ -8,7 +8,7 @@ import utils.pageobjects._
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
-final class G2ContactDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G2ContactDetailsPage.url, G2ContactDetailsPage.title) {
+final class G2ContactDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G2ContactDetailsPage.url) {
   declareAddress("#address", "AboutYouAddress")
   declareInput("#postcode", "AboutYouPostcode")
   declareInput("#howWeContactYou", "HowWeContactYou")
@@ -23,8 +23,6 @@ final class G2ContactDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, 
  * It is used by PageFactory object defined in Page.scala
  */
 object G2ContactDetailsPage {
-  val title = "Your contact details - About you - the carer".toLowerCase
-
   val url = "/about-you/contact-details"
 
   def apply(ctx:PageObjectsContext) = new G2ContactDetailsPage(ctx)

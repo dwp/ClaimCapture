@@ -1,5 +1,6 @@
 package controllers.circs.s2_report_changes
 
+import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 import models.SortCode
 
@@ -66,15 +67,15 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
        ).fold(
            formWithErrors => {
              formWithErrors.errors.length must equalTo(9)
-             formWithErrors.errors(0).message must equalTo("error.required")
-             formWithErrors.errors(1).message must equalTo("error.required")
-             formWithErrors.errors(2).message must equalTo("error.required")
-             formWithErrors.errors(3).message must equalTo("error.required")
-             formWithErrors.errors(4).message must equalTo("error.required")
-             formWithErrors.errors(5).message must equalTo("error.required")
-             formWithErrors.errors(6).message must equalTo("error.required")
-             formWithErrors.errors(7).message must equalTo("error.required")
-             formWithErrors.errors(8).message must equalTo("error.required")
+             formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(6).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(7).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(8).message must equalTo(Mappings.errorRequired)
            },
            f => "This mapping should not happen." must equalTo("Valid")
          )
@@ -89,14 +90,14 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
            formWithErrors => {
              formWithErrors.errors.length must equalTo(9)
              formWithErrors.errors(0).message must equalTo("required")
-             formWithErrors.errors(1).message must equalTo("error.required")
-             formWithErrors.errors(2).message must equalTo("error.required")
-             formWithErrors.errors(3).message must equalTo("error.required")
-             formWithErrors.errors(4).message must equalTo("error.required")
-             formWithErrors.errors(5).message must equalTo("error.required")
-             formWithErrors.errors(6).message must equalTo("error.required")
-             formWithErrors.errors(7).message must equalTo("error.required")
-             formWithErrors.errors(8).message must equalTo("error.required")
+             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(6).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(7).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(8).message must equalTo(Mappings.errorRequired)
            },
            f => "This mapping should not happen." must equalTo("Valid")
          )
@@ -111,14 +112,14 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
            formWithErrors => {
              formWithErrors.errors.length must equalTo(9)
              formWithErrors.errors(0).message must equalTo("required")
-             formWithErrors.errors(1).message must equalTo("error.required")
-             formWithErrors.errors(2).message must equalTo("error.required")
-             formWithErrors.errors(3).message must equalTo("error.required")
-             formWithErrors.errors(4).message must equalTo("error.required")
-             formWithErrors.errors(5).message must equalTo("error.required")
-             formWithErrors.errors(6).message must equalTo("error.required")
-             formWithErrors.errors(7).message must equalTo("error.required")
-             formWithErrors.errors(8).message must equalTo("error.required")
+             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(6).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(7).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors(8).message must equalTo(Mappings.errorRequired)
            },
            f => "This mapping should not happen." must equalTo("Valid")
          )

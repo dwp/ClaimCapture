@@ -82,10 +82,10 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
-          .replaceError("stillCaring","dateRequired", FormError("stillCaring.date", "error.required"))
-          .replaceError("","sameAddress.answer", FormError("sameAddress.answer", "error.required"))
-          .replaceError("","sameAddress.theirNewAddress", FormError("sameAddress.theirNewAddress", "error.required"))
-          .replaceError("","caredForChangedAddress.answer", FormError("caredForChangedAddress.answer", "error.required"))
+          .replaceError("stillCaring","dateRequired", FormError("stillCaring.date", errorRequired))
+          .replaceError("","sameAddress.answer", FormError("sameAddress.answer", errorRequired))
+          .replaceError("","sameAddress.theirNewAddress", FormError("sameAddress.theirNewAddress", errorRequired))
+          .replaceError("","caredForChangedAddress.answer", FormError("caredForChangedAddress.answer", errorRequired))
         BadRequest(views.html.circs.s2_report_changes.g6_addressChange(updatedFormWithErrors)(lang))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())

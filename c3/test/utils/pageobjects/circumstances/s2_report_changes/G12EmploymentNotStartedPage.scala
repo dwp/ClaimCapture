@@ -3,17 +3,19 @@ package utils.pageobjects.circumstances.s2_report_changes
 import utils.pageobjects.{CircumstancesPage, PageContext, PageObjectsContext}
 import play.api.test.WithBrowser
 
-class G12EmploymentNotStartedPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G12EmploymentNotStartedPage.url, G12EmploymentNotStartedPage.title) {
+class G12EmploymentNotStartedPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G12EmploymentNotStartedPage.url) {
   declareYesNo("#beenPaidYet", "CircumstancesEmploymentChangeBeenPaidYet")
   declareInput("#howMuchPaid", "CircumstancesEmploymentChangeHowMuchPaid")
   declareDate("#whenExpectedToBePaidDate", "CircumstancesEmploymentChangeWhatDatePaid")
   declareSelect("#howOften_frequency", "CircumstancesEmploymentChangeHowOftenFrequency")
   declareInput("#howOften_frequency_other", "CircumstancesEmploymentChangeHowOftenFrequencyOther")
   declareYesNo("#usuallyPaidSameAmount", "CircumstancesEmploymentChangeUsuallyPaidSameAmount")
-  declareYesNo("#doYouPayIntoPension_answer", "CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer")
-  declareInput("#doYouPayIntoPension_whatFor", "CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor")
-  declareYesNo("#doCareCostsForThisWork_answer", "CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer")
-  declareInput("#doCareCostsForThisWork_whatCosts", "CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts")
+  declareYesNo("#willYouPayIntoPension_answer", "CircumstancesEmploymentChangeWillYouPayIntoPensionAnswer")
+  declareInput("#willYouPayIntoPension_whatFor", "CircumstancesEmploymentChangeWillYouPayIntoPensionWhatFor")
+  declareYesNo("#willYouPayForThings_answer", "CircumstancesEmploymentChangeWillYouPayForThingsAnswer")
+  declareInput("#willYouPayForThings_whatFor", "CircumstancesEmploymentChangeWillYouPayForThingsWhatFor")
+  declareYesNo("#willCareCostsForThisWork_answer", "CircumstancesEmploymentChangeWillCareCostsForThisWorkAnswer")
+  declareInput("#willCareCostsForThisWork_whatCosts", "CircumstancesEmploymentChangeWillCareCostsForThisWorkWhatCosts")
   declareInput("#moreAboutChanges", "CircumstancesEmploymentChangeMoreAboutChanges")
 }
 
@@ -22,8 +24,6 @@ class G12EmploymentNotStartedPage(ctx:PageObjectsContext) extends CircumstancesP
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G12EmploymentNotStartedPage {
-  val title = "Future Employment - Change in circumstances".toLowerCase
-
   val url  = "/circumstances/report-changes/future-employment"
 
   def apply(ctx:PageObjectsContext) = new G12EmploymentNotStartedPage(ctx)

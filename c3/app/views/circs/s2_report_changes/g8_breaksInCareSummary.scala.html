@@ -21,50 +21,6 @@
     @form(action = controllers.circs.s2_report_changes.routes.G8BreaksInCareSummary.submit) {
 
         <fieldset id="breaks" class="form-elements results-detail">
-           <!--  <table>
-                <fieldset class="form-elements">
-                    <legend>@Messages("c2.g7")</legend>
-                </fieldset>
-
-                <thead>
-                    <tr>
-                        <th>@Html(Messages("breakPeriod"))</th>
-                        <th class="desc">@Html(Messages("wherePersonBreaksInCare.answer"))</th>
-                        <th class="desc">@Html(Messages("whereYouBreaksInCare.answer"))</th>
-                        <th class="desc">@Html(Messages("medicalTreatment"))</th>
-                        <th>@Html(Messages("change"))</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>
-                            @{breaksInCare.breaksInCareStartDate.`dd/MM/yyyy`}
-                            @{if(breaksInCare.breaksInCareStartTime.isDefined) Html(Messages("at")) }
-                            @{if(breaksInCare.breaksInCareStartTime.isDefined) breaksInCare.breaksInCareStartTime }
-                        <span>
-                            @{if(breaksInCare.breakEnded.answer == "yes") Html(Messages("to"))}
-                        </span>
-                            @{if(breaksInCare.breakEnded.answer == "yes") breaksInCare.breakEnded.date.get.`dd/MM/yyyy`}
-                            @{if(breaksInCare.breakEnded.time.isDefined) Html(Messages("at")) }
-                            @{if(breaksInCare.breakEnded.time.isDefined) breaksInCare.breakEnded.time }
-                        </td>
-
-                        <td class="desc">
-                        @Html(Messages("circsBreaks." + breaksInCare.wherePersonBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))
-                        </td>
-
-                        <td class="desc">
-                            @Html(Messages("circsBreaks." + breaksInCare.whereYouBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))
-                        </td>
-
-                        <td class="desc">@if("yes" == breaksInCare.medicalCareDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</td>
-                        <td><a id="changeButton" href="@controllers.circs.s2_report_changes.routes.G7BreaksInCare.present" class="button row secondary" aria-label="@Html(Messages("change.button"))">@Html(Messages("change"))</a></td>
-                    </tr>
-                </tbody>
-            </table> -->
-
-
 
             @DwpCSRFFormHelper.formField
 
