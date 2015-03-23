@@ -29,7 +29,7 @@ class FunctionalTestCase5Spec extends FunctionalTestCommon {
         "Your claim date"   displays DateTransformer("AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart"),
         "What is your nationality?"  displays "AboutYouNationalityAndResidencyNationality",
         "Enter you nationality"  displays "AboutYouNationalityAndResidencyNationality",
-        "Marital status"  displays MaritalTransformer("AboutYouWhatIsYourMaritalOrCivilPartnershipStatus"),
+        "Marital status"  displays "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus",
         "Time outside of England, Scotland or Wales"          displays AnyYesTransformer("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime"),
         "Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries?"          displays "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA",
         "Do you or anyone in your family work or pay insurance in any of these countries?" displays "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA",

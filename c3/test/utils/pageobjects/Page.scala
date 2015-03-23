@@ -56,7 +56,6 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
    */
   def goBack(waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
     val fluent = ctx.browser.click("#backButton")
-//    val title = getPageTitle(fluent, waitForPage, waitDuration)
     val theUrl = getPageWithUrl(fluent,waitForPage, waitDuration)
     createPageWithUrl(theUrl, iteration)
   }
@@ -70,7 +69,6 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
   */
   def clickLinkOrButton(elementCssSelector: String, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION): Page = {
     val fluent = clickElement(elementCssSelector)
-//    val title = getPageTitle(fluent, waitForPage, waitDuration)
     val theUrl = getPageWithUrl(fluent,waitForPage, waitDuration)
     createPageWithUrl(theUrl, iteration)
   }
@@ -183,7 +181,6 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
       if (errorsInPage(throwException)) this
       else {
         val theUrl = getPageWithUrl(fluent,waitForPage, waitDuration)
-        //        val title = getPageTitle(fluent, waitForPage, waitDuration)
         createPageWithUrl(theUrl, if (!resetIteration) getNewIterationNumber else 1)
       }
     }
@@ -207,7 +204,6 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
 
   def goToPageFromIterationsTableAtIndex(index: Int, location: String = "input[value='Change']", waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
     ctx.browser.find(location, index).click
-//    val title = getPageTitle(null, waitForPage, waitDuration)
     val theUrl = getPageWithUrl(null,waitForPage, waitDuration)
     createPageWithUrl(theUrl, iteration)
   }

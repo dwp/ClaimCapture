@@ -30,14 +30,6 @@ case class AnyYesTransformer(id:String)(implicit claim:TestData) extends Transfo
   }
 }
 
-case class MaritalTransformer(id:String)(implicit claim:TestData) extends Transformer{
-  val rels = Map("m" -> "Married or civil partner","s" -> "Single","d" -> "Divorced or civil partnership dissolved","w" -> "Widowed or surviving civil partner","n" -> "Separated","p" -> "Living with partner")
-
-  override def transform():String = {
-    rels(claim.selectDynamic(id))
-  }
-}
-
 case class PaymentTransformer(id:String)(implicit claim:TestData) extends Transformer{
   val rels = Map("bankBuildingAccount" -> "UK bank or building society account","appliedForAccount" -> "You don't have an account but intend to open one")
 

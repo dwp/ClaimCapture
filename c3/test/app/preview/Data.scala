@@ -16,8 +16,8 @@ case class Data(toReviewData:Seq[(String,Seq[Object])]){
         val elems = context.browser.webDriver.findElements(By.xpath( s"""//dt[contains(.,"${t._1}")]/following-sibling::dd[1]""")).asScala
 
         if(trace) {
-          Logger.debug("")
-          Logger.debug(s"Checking for ${t._1} and found ${elems.size} elems")
+          Logger("PageObject").debug("")
+          Logger("PageObject").debug(s"Checking for ${t._1} and found ${elems.size} elems")
         }
 
         elems.foreach {
@@ -40,7 +40,7 @@ case class Data(toReviewData:Seq[(String,Seq[Object])]){
         }
 
         if (!matchesAny){
-          Logger.error(s"${t._1} does not match its value")
+          Logger("PageObject").error(s"${t._1} does not match its value ${t._2}")
           return false
         }
 
