@@ -12,10 +12,10 @@ final class G6ApprovePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G6Appro
   declareYesNo("#answer", "CanYouGetCarersAllowanceApproveAnswer")
 
   def isApproved = {
-    ctx.browser.find(".prompt.e-prompt h2").getText.indexOf("not") == -1
+    ctx.browser.find("#allowedToContinue").getValue == "true"
   }
 
-  def isNotApproved =  ctx.browser.find(".prompt.e-prompt h2").getText.indexOf("not") > -1
+  def isNotApproved = !isApproved
 }
 
 /**
