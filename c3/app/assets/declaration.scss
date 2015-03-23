@@ -94,21 +94,24 @@ article {
 		    	}
 		    }
 	    }
-	   
+	    
 	   .dec {
-	   		margin-bottom: 30px;
-	   	   ul {
-		   	   margin: 2em 2.5em 0 1.3em;
-		   	   list-style: disc;
-			   li {
-				   line-height: 1.4em;
-				   padding: 0;
-				   margin: 1.4em 0 0 0;
-				   font-size: 19px;
-				   display: list-item !important;
-				   &:first-child {
-					   margin-top: 1em;
-				   }
-			   }
-		   }
-	   }
+	   		margin-bottom: 30px; 
+	   		h3 {
+	   			margin-bottom: 15px;
+	   		}
+	   	    ul {
+		   	    margin: 2em 2.5em 0 1.3em;
+		   	    list-style: disc;
+			    li {
+				    line-height: 1.4em;
+				    padding: 0;
+				    margin: 1.4em 0 0 0;
+				    font-size: 19px;
+				    display: list-item !important;
+				    &:first-child {
+					    margin-top: 1em;
+				    }
+			    }
+		    }
+	    }

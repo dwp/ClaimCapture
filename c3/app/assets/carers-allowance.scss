@@ -21,11 +21,11 @@ main {
 
 .carers-allowance {
  
-	@import 'prototype'; 
+	@import 'prototype';
 		   
 	@import 'article';    
 	   
-	@import 'validation-summary'; 
+	@import 'validation-summary';
 
 	@import 'info-panel';
 		   
@@ -84,6 +84,13 @@ main {
 				   	}
 			   	}
 		   	}
+		}
+
+		ul,
+		fieldset {
+			& + .prompt {
+				margin-top: $base-margin;
+			}
 		}
 	   	    	    
 	    &.results-detail {
@@ -239,9 +246,9 @@ main {
 
 				display: block;
 				position: relative;
-				margin-bottom: $base-margin-l;
-				&:last-child {
-					margin-bottom: 0;
+				margin-top: $base-margin-l;
+				&:first-child {
+					margin-top: 0;
 				}
 
 				&.extra-detail {
@@ -371,7 +378,7 @@ main {
 
 				&.checkbox-single {
 					padding-top: 0;
-					margin-top: -10px;
+					margin-top: 10px;
 					margin-bottom: $base-margin-l;
 					overflow: hidden;
 					label {
@@ -477,6 +484,7 @@ main {
 						}
 					}
 				}
+
 
 				label, 
 				.sub {
@@ -584,12 +592,6 @@ main {
 				}
 
 			}
-			  
-			&.partner-group {
-				li {
-					margin-top: 10px;
-				}
-			} 
 
 			// radio list - includes hit areas */
 			&.radio {	
@@ -605,6 +607,7 @@ main {
 				    position: relative;
 				    display: inline-block;
 				    padding: 0;
+				    margin-top: 0;
 				   
 				    .ie7 & {
 					    float: left;
@@ -724,7 +727,7 @@ main {
 				}
 				li {
 					padding: 0 0 0 0;
-					margin-bottom: 5px;
+					margin-top: 5px;
 				}
 			}
 
