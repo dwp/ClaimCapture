@@ -6,18 +6,18 @@
 @import play.api.i18n.{MMessages => Messages}
 
 @content = @{
-    claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName + " " + m.middleName.getOrElse("") + (if(m.middleName.isDefined) " " else "") + m.surname)
+    claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName + " " + m.middleName.getOrElse("../../../public") + (if(m.middleName.isDefined) " " else "../../../public") + m.surname)
 }
 
 @defining(lang) { implicit language =>
-    @main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm)) {
+    @main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm)) {
 
 
-        @form(action = controllers.s12_consent_and_declaration.routes.G2Disclaimer.submit, 'role -> "form") {
+        @form(action = controllers.s1_disclaimer.routes.G1Disclaimer.submit, 'role -> "form") {
             @DwpCSRFFormHelper.formField
 
                 <fieldset class="form-elements">
-                    <legend>@Html(Messages("s11.g3"))</legend>
+                    <legend>@Html(Messages("s1.g1"))</legend>
 
                     <div class="declaration">
                         @for(i <- 1 to 2) {

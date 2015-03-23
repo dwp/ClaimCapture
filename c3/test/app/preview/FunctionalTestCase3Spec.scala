@@ -1,7 +1,7 @@
 package app.preview
 
 import play.api.test.WithBrowser
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
+import utils.pageobjects.s0_carers_allowance.G1BenefitsPage
 import utils.pageobjects._
 import app.FunctionalTestCommon
 import utils.pageobjects.preview.PreviewPage

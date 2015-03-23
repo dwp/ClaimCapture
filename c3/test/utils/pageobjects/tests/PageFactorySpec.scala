@@ -2,7 +2,7 @@ package utils.pageobjects.tests
 
 import org.specs2.mutable.Specification
 import utils.pageobjects.{PageObjectsContext, CircumstancesPageFactory, UnknownPage, ClaimPageFactory}
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
+import utils.pageobjects.s0_carers_allowance.G1BenefitsPage
 import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
 import com.sun.corba.se.impl.oa.poa.POACurrent
 

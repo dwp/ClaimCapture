@@ -2,32 +2,36 @@ package controllers.s12_consent_and_declaration
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, Formulate}
+import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.{TestData, PageObjects}
 import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
+import utils.pageobjects.preview.PreviewPage
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s7_employment.G1EmploymentPage
 
 class G3DeclarationIntegrationSpec extends Specification with Tags {
   "Declaration" should {
-    "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/consent-and-declaration/declaration")
-      titleMustEqual("Declaration - Consent and Declaration")
+    "be presented" in new WithBrowser with PageObjects {
+      val page = G3DeclarationPage(context)
+      page goToThePage()
     }
 
-    "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/consent-and-declaration/declaration")
-      titleMustEqual("Declaration - Consent and Declaration")
+    "contain errors on invalid submission" in new WithBrowser with PageObjects {
+      val page = G3DeclarationPage(context)
+      page goToThePage()
 
-      browser.submit("button[type='submit']")
-      titleMustEqual("Declaration - Consent and Declaration")
-      findMustEqualSize("div[class=validation-summary] ol li", 2)
+      val declarationPage = page submitPage()
+      declarationPage.listErrors.size mustEqual 2
     }
 
-    "navigate back to Disclaimer" in new WithBrowser with BrowserMatchers {
-      Formulate.disclaimer(browser)
-      titleMustEqual("Declaration - Consent and Declaration")
+    "navigate back to Preview page" in new WithBrowser with PageObjects {
+      val page =  PreviewPage(context)
+      page goToThePage()
+      val declarationPage = page submitPage()
 
-      browser.click("#backButton")
-      titleMustEqual("Disclaimer - Consent and Declaration")
+      val previewPage = declarationPage goBack()
+
+      previewPage must beAnInstanceOf[PreviewPage]
     }
 
     "not have name or G3DeclarationPage field with optional text" in new WithBrowser with PageObjects{
@@ -47,15 +51,20 @@ class G3DeclarationIntegrationSpec extends Specification with Tags {
       page jsCheckEnabled() must beTrue
     }
 
-    "contain errors on invalid submission with employment" in new WithBrowser with BrowserMatchers {
-      Formulate.claimDate(browser)
-      Formulate.employment(browser)
-      browser.goTo("/consent-and-declaration/declaration")
-      titleMustEqual("Declaration - Consent and Declaration")
+    "contain errors on invalid submission with employment" in new WithBrowser with PageObjects {
+      val claim = ClaimScenarioFactory.s7SelfEmployedAndEmployed
+      val claimDatePage = G1ClaimDatePage(context) goToThePage()
+      claimDatePage fillPageWith claim
+      claimDatePage submitPage()
 
-      browser.submit("button[type='submit']")
-      titleMustEqual("Declaration - Consent and Declaration")
-      findMustEqualSize("div[class=validation-summary] ol li", 3)
+      val employmentPage = G1EmploymentPage(context) goToThePage()
+      employmentPage fillPageWith claim
+      employmentPage submitPage()
+
+      val page = G3DeclarationPage(context) goToThePage()
+      page submitPage()
+
+      page.listErrors.size mustEqual 3
     }
   } section("integration", models.domain.ConsentAndDeclaration.id)
 }

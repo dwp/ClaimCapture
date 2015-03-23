@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 import play.api.test.WithBrowser
 import utils.pageobjects.{Page, PageObjects, TestData}
-import utils.pageobjects.s1_carers_allowance._
+import utils.pageobjects.s0_carers_allowance._
 
 class BrowserIntegrationSpec extends Specification with Tags {
   "Browser" should {

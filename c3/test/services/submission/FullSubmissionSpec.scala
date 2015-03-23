@@ -3,7 +3,7 @@ package services.submission
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeApplication, WithBrowser}
 import utils.pageobjects.TestData
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
+import utils.pageobjects.s0_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPageContext
 import scala.language.existentials
 

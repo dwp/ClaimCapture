@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.common.ErrorPage
 import utils.pageobjects.{PageObjects, TestData}
-import utils.pageobjects.s1_carers_allowance._
+import utils.pageobjects.s0_carers_allowance._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 
 class G6ApproveIntegrationSpec extends Specification with Tags {

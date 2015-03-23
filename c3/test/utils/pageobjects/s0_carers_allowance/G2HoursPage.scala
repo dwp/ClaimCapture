@@ -1,4 +1,4 @@
-package utils.pageobjects.s1_carers_allowance
+package utils.pageobjects.s0_carers_allowance
 
 import play.api.test.WithBrowser
 import utils.pageobjects._

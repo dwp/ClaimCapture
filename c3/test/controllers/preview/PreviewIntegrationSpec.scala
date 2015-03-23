@@ -6,9 +6,11 @@ import utils.pageobjects.PageObjects
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s10_information.G1AdditionalInfoPage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s12_consent_and_declaration.G2DisclaimerPage
+import utils.pageobjects.s1_disclaimer.G1DisclaimerPage
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.s11_pay_details.G1HowWePayYouPage
+import controllers.s12_consent_and_declaration.G3Declaration
+import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
 
 
 class PreviewIntegrationSpec extends Specification with Tags {
@@ -29,11 +31,11 @@ class PreviewIntegrationSpec extends Specification with Tags {
       previewPage goBack() must beAnInstanceOf[G1AdditionalInfoPage]
     }
 
-    "navigate to Disclaimer page" in new WithBrowser with PageObjects {
+    "navigate to Declaration page" in new WithBrowser with PageObjects {
        val previewPage = PreviewPage(context)
        previewPage goToThePage()
-       val disclaimerPage = previewPage submitPage()
-       disclaimerPage must beAnInstanceOf[G2DisclaimerPage]
+       val declarationPage = previewPage submitPage()
+      declarationPage must beAnInstanceOf[G3DeclarationPage]
     }
 
     "navigate back to preview page clicking next" in new WithBrowser with PageObjects {

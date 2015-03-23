@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s2_about_you.G1YourDetailsPageContext
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s11_pay_details.G1HowWePayYouPageContext
-import utils.pageobjects.s12_consent_and_declaration.G2DisclaimerPageContext
+import utils.pageobjects.s1_disclaimer.G1DisclaimerPagePageContext
 import utils.pageobjects.{Page, PageObjectsContext, PageObjects, TestData}
 import app._
 import play.api.i18n.Messages
@@ -54,9 +54,9 @@ class WebSearchSpec extends Specification with Tags{
       sortCode.get mustEqual claim.HowWePayYouSortCode
     }
 
-    "be able to read Check box" in new WithBrowser with G2DisclaimerPageContext {
+    "be able to read Check box" in new WithBrowser with G1DisclaimerPagePageContext {
       val claim = new TestData
-      claim.ConsentDeclarationDisclaimerTextAndTickBox = "yes"
+      claim.DisclaimerTextAndTickBox = "yes"
       page goToThePage()
       val checked = page.readCheck("#read")
       assert(!checked.isDefined)

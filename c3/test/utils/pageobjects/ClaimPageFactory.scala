@@ -1,7 +1,7 @@
 package utils.pageobjects
 
 import scala.language.dynamics
-import utils.pageobjects.s1_carers_allowance._
+import utils.pageobjects.s0_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s4_care_you_provide._
@@ -16,6 +16,7 @@ import utils.pageobjects.IterationManager._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
+import utils.pageobjects.s1_disclaimer.G1DisclaimerPage
 
 
 /**
@@ -94,7 +95,7 @@ object ClaimPageFactory extends PageFactory {
         case PreviewPage.title => PreviewPage(ctx)
         // S10
         case G1AdditionalInfoPage.title => G1AdditionalInfoPage (ctx)
-        case G2DisclaimerPage.title => G2DisclaimerPage (ctx)
+        case G1DisclaimerPage.title => G1DisclaimerPage (ctx)
         case G3DeclarationPage.title => G3DeclarationPage (ctx)
         // Catch pages not covered by framework
         case _ => new UnknownPage(title, ctx)
