@@ -54,12 +54,12 @@ case class NumDetailsProvidedTransformer(id:String)(implicit claim:TestData) ext
 
 case class EmploymentDetailsTransformer(id:String,n:Int)(implicit claim:TestData) extends Transformer{
   val employerName = id
-  val expenses = Seq("EmploymentDoYouPayforAnythingNecessaryToDoYourJob","EmploymentDoYouPayAnyoneLookAfterYourChild","EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor")
-  val pension = Seq("EmploymentDoYouPayTowardsanOccupationalPensionScheme","EmploymentDoYouPayTowardsAPersonalPension")
+  val expenses = Seq("EmploymentDoYouPayForThingsToDoJob","EmploymentDoYouPayforAnythingNecessaryToDoYourJob")
+  val pension = Seq("EmploymentDoYouPayForPensionExpenses")
   override def transform():String = {
 
-    val anyExpenses = anyYes(expenses(0)+"_"+n,expenses(1)+"_"+n,expenses(2)+"_"+n)
-    val anyPension = anyYes(pension(0)+"_"+n,pension(1)+"_"+n)
+    val anyExpenses = anyYes(expenses(0)+"_"+n,expenses(1)+"_"+n)
+    val anyPension = anyYes(pension(0)+"_"+n)
     val details = s"Details provided for ${claim.selectDynamic(employerName+"_"+n).toLowerCase}"
 
     if (anyExpenses && !anyPension) details+", including expenses"
