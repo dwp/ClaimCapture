@@ -15,24 +15,17 @@ object  Disclaimer extends XMLComponent{
     <Disclaimer>
       <DisclaimerStatement>
         <Title>This is my claim for Carer's Allowance.</Title>
-        <Content>{Messages("disclaimer.1").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
+        <Content>{Messages("disclaimer.1")}</Content>
         <Content>{Messages("disclaimer.2")}</Content>
-        <Content>{Messages("disclaimer.3").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
-        <Content>{Messages("disclaimer.4").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
-        <Content>{Messages("disclaimer.5").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
-        <Content>{Messages("disclaimer.6").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
-        <Content>{Messages("disclaimer.7").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
+        <Content>{Messages("disclaimer.3")}</Content>
+        <Content>{Messages("disclaimer.4")}</Content>
+        <Content>{Messages("disclaimer.5")}</Content>
+        <Content>{Messages("disclaimer.6")}</Content>
+        <Content>{Messages("disclaimer.7", "", "")}</Content>
+        <Content>{Messages("disclaimer.8", "", "")}</Content>
+        <Content>{Messages("disclaimer.9", "", "")}</Content>
       </DisclaimerStatement>
       {question(<DisclaimerQuestion/>,"read", disclaimer.read)}
     </Disclaimer>
-  }
-
-  def fullName(claim: Claim) = {
-    val personalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
-
-    personalDetails.middleName match {
-      case Some(middleName) => personalDetails.firstName + " " + middleName + " " + personalDetails.surname
-      case _ => personalDetails.firstName + " " + personalDetails.surname
-    }
   }
 }
