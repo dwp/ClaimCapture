@@ -5,7 +5,7 @@ import play.api.test.{TestBrowser, WithBrowser}
 import utils.pageobjects.common.ClaimHelpPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s2_about_you._
-import utils.pageobjects.s1_carers_allowance.G6ApprovePage
+import utils.pageobjects.s0_carers_allowance.G6ApprovePage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage

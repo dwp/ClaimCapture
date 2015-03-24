@@ -6,8 +6,10 @@ import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
 import utils.pageobjects.common.ClaimNotesPage
 import utils.pageobjects.{TestData, PageObjects}
-import utils.pageobjects.s12_consent_and_declaration.{G2DisclaimerPage, G3DeclarationPage}
+import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
+import utils.pageobjects.s1_disclaimer.G1DisclaimerPage
 import collection.JavaConversions._
+import utils.pageobjects.preview.PreviewPage
 
 class G3DeclarationIntegrationSpec extends Specification with Tags {
   "Declaration" should {
@@ -33,12 +35,14 @@ class G3DeclarationIntegrationSpec extends Specification with Tags {
       findMustEqualSize("div[class=validation-summary] ol li", 2)
     }
 
-    "navigate back to Disclaimer" in new WithBrowser with BrowserMatchers {
-      Formulate.disclaimer(browser)
-      urlMustEqual(G3DeclarationPage.url)
+    "navigate back to Preview page" in new WithBrowser with PageObjects {
+      val page =  PreviewPage(context)
+      page goToThePage()
+      val declarationPage = page submitPage()
 
-      browser.click("#backButton")
-      urlMustEqual(G2DisclaimerPage.url)
+      val previewPage = declarationPage goBack()
+
+      previewPage must beAnInstanceOf[PreviewPage]
     }
 
     "not have name or G3DeclarationPage field with optional text" in new WithBrowser with PageObjects{

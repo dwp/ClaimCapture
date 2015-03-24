@@ -1,7 +1,7 @@
 package models.domain
 
 case object CarersAllowance extends Section.Identifier {
-  val id = "s1"
+  val id = "s0"
 }
 
 case class Benefits(benefitsAnswer: String = "") extends QuestionGroup(Benefits) with BooleanConfirmation
