@@ -49,7 +49,6 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
       employment.fillPageWith(s7EmployedNotSelfEmployed())
       val jobDetails = employment.submitPage()
 
-
       jobDetails must beAnInstanceOf[G3JobDetailsPage]
       jobDetails.goBack() must beAnInstanceOf[G1EmploymentPage]
     }

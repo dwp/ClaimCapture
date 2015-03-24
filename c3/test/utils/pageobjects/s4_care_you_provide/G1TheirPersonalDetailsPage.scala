@@ -8,7 +8,7 @@ import utils.pageobjects._
  * @author Saqib Kayani
  *         Date: 25/07/2013
  */
-final class G1TheirPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1TheirPersonalDetailsPage.url, G1TheirPersonalDetailsPage.title) {
+final class G1TheirPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1TheirPersonalDetailsPage.url) {
   declareInput("#relationship","AboutTheCareYouProvideWhatTheirRelationshipToYou")
   declareSelect("#title", "AboutTheCareYouProvideTitlePersonCareFor")
   declareInput("#firstName","AboutTheCareYouProvideFirstNamePersonCareFor")
@@ -24,8 +24,6 @@ final class G1TheirPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPag
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1TheirPersonalDetailsPage {
-  val title = "Details of the person you care for - About the care you provide".toLowerCase
-
   val url  = "/care-you-provide/their-personal-details"
 
   def apply(ctx:PageObjectsContext) = new G1TheirPersonalDetailsPage(ctx)

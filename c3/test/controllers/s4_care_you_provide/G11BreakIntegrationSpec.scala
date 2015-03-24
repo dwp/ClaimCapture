@@ -1,35 +1,38 @@
 package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
+import play.api.Logger
 import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers, Formulate}
 import models.DayMonthYear
 import java.util.concurrent.TimeUnit
 import utils.pageobjects.s4_care_you_provide.{G11BreakPage, G10BreaksInCarePage}
 import app.CircsBreaksWhereabouts._
+import utils.pageobjects.s6_education.G1YourCourseDetailsPage
 
 class G11BreakIntegrationSpec extends Specification with Tags {
   "Break" should {
     "be presented" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
-      goTo("/care-you-provide/breaks/fakeID")
-      titleMustEqual("Break - About the care you provide")
+      goTo(G10BreaksInCarePage.url)
+      urlMustEqual(G10BreaksInCarePage.url)
     }
 
     """present "completed" when no more breaks are required""" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual(G10BreaksInCarePage.title)
+      goTo(G10BreaksInCarePage.url)
+      urlMustEqual(G10BreaksInCarePage.url)
 
       click("#answer_no")
       next
-      titleMustEqual("Your course details - Education")
+      urlMustEqual(G1YourCourseDetailsPage.url)
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start date" and "medical" """ in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
-      goTo("/care-you-provide/breaks-in-care")
+      goTo(G10BreaksInCarePage.url)
       click("#answer_yes")
       next
-      titleMustEqual("Break - About the care you provide")
+      Logger.info("spec" + browser.url)
+      urlMustEqual(G11BreakPage.url)
 
       fill("#start_day").`with`("1")
       fill("#start_month").`with`("1")
@@ -38,61 +41,62 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       click("#wherePerson_answer_In_hospital")
 
       next
-      titleMustEqual("Break - About the care you provide")
+      Logger.info("spec" + browser.url)
+      urlMustEqual(G11BreakPage.url)
       findAll("div[class=validation-summary] ol li").size shouldEqual 2
     }
 
     """show 2 breaks in "break table" upon providing 2 breaks""" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
-      goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual(G10BreaksInCarePage.title)
+      goTo(G10BreaksInCarePage.url)
+      urlMustEqual(G10BreaksInCarePage.url)
 
       click("#answer_yes")
       next
-      titleMustEqual("Break - About the care you provide")
+      urlMustEqual(G11BreakPage.url)
 
       break()
       next
-      titleMustEqual(G10BreaksInCarePage.title)
+      urlMustEqual(G10BreaksInCarePage.url)
 
       click("#answer_yes")
       next
-      titleMustEqual("Break - About the care you provide")
+      urlMustEqual(G11BreakPage.url)
 
       break()
       next
-      titleMustEqual(G10BreaksInCarePage.title)
+      urlMustEqual(G10BreaksInCarePage.url)
 
       $("#breaks .data-table ul li").size() shouldEqual 2
     }
 
     "add two breaks and edit the second's start year" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
-      goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual(G10BreaksInCarePage.title)
+      goTo(G10BreaksInCarePage.url)
+      urlMustEqual(G10BreaksInCarePage.url)
 
       click("#answer_yes")
       next
-      titleMustEqual("Break - About the care you provide")
+      urlMustEqual(G11BreakPage.url)
 
       break()
       next
-      titleMustEqual(G10BreaksInCarePage.title)
+      urlMustEqual(G10BreaksInCarePage.url)
 
       click("#answer_yes")
       next
-      titleMustEqual("Break - About the care you provide")
+      urlMustEqual(G11BreakPage.url)
 
       break()
       next
-      titleMustEqual(G10BreaksInCarePage.title)
+      urlMustEqual(G10BreaksInCarePage.url)
 
       findFirst("input[value='Change']").click()
 
-      titleMustEqual(G11BreakPage.title)
+      urlMustEqual(G11BreakPage.url)
       $("#start_year").getValue mustEqual 2001.toString
 
       fill("#start_year") `with` "1999"
       next
-      titleMustEqual(G10BreaksInCarePage.title)
+      urlMustEqual(G10BreaksInCarePage.url)
 
       $("ul li").size() mustEqual 2
       $("ul").findFirst("li").findFirst("h3").getText shouldEqual "01/01/1999 to 01/01/2001"
@@ -102,8 +106,8 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       import scala.collection.JavaConverters._
       Formulate.theirPersonalDetails(browser)
 
-      goTo("/care-you-provide/breaks/fakeID")
-      titleMustEqual("Break - About the care you provide")
+      goTo(s"${G11BreakPage.url}/1")
+      urlMustEqual(G11BreakPage.url)
 
       text("#wherePerson_answer li").asScala should containAllOf(List(Home, Hospital, Holiday, RespiteCare, SomewhereElse).map(e => e.toLowerCase))
     }

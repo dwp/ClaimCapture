@@ -15,17 +15,17 @@ class PageFactorySpec extends Specification {
 
   "The PageFactory" should {
     "Return an UnknownPage if it does not recognise title" in  new MockPageContext {
-      val newPage = ClaimPageFactory buildPageFromTitle("Not a known title",PageObjectsContext(browser))
+      val newPage = ClaimPageFactory buildPageFromUrl("/unknown",PageObjectsContext(browser))
       newPage must beAnInstanceOf[UnknownPage]
     }  
     
     "Return a BenefitPage if provided Benefits page title" in new MockPageContext {
-      val newPage = ClaimPageFactory buildPageFromTitle(G1BenefitsPage.title,PageObjectsContext(browser))
+      val newPage = ClaimPageFactory buildPageFromUrl(G1BenefitsPage.url,PageObjectsContext(browser))
       newPage must beAnInstanceOf[G1BenefitsPage]
     }
 
     "Return an AboutYouPage if provided AboutYouPage page title" in new MockPageContext {
-      val newPage = CircumstancesPageFactory buildPageFromTitle(G1ReportAChangeInYourCircumstancesPage.title,PageObjectsContext(browser))
+      val newPage = CircumstancesPageFactory buildPageFromUrl(G1ReportAChangeInYourCircumstancesPage.url,PageObjectsContext(browser))
       newPage must beAnInstanceOf[G1ReportAChangeInYourCircumstancesPage]
     }
   }

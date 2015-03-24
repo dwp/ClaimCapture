@@ -17,7 +17,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     "be presented" in new WithBrowser with PageObjects {
       val page = G1YourPartnerPersonalDetailsPage(context)
       page goToThePage()
-      page.pageTitle mustEqual "Partner details - About your partner".toLowerCase()
+      page.url mustEqual G1YourPartnerPersonalDetailsPage.url
     }
 
     "contain error on invalid submission" in new WithBrowser with PageObjects {

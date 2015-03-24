@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
-import utils.pageobjects.s4_care_you_provide.{G10BreaksInCarePage, G7MoreAboutTheCarePage, G1TheirPersonalDetailsPage, G2TheirContactDetailsPage}
+import utils.pageobjects.s4_care_you_provide._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s2_about_you.G2ContactDetailsPage
 
@@ -15,7 +15,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
     "be presented" in new WithBrowser with PageObjects {
       val page = G2TheirContactDetailsPage(context)
       page goToThePage()
-      page.pageTitle mustEqual "Contact details of the person you care for - About the care you provide".toLowerCase
+      page.url mustEqual G2TheirContactDetailsPage.url
     }
 
     "contain errors on empty submission" in new WithBrowser with PageObjects {

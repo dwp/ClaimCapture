@@ -12,13 +12,13 @@ GET         /report/ping                                                controll
 
 
 # claim pack notes accessed externally
-GET         /claim-notes                                                controllers.ClaimNotes.notes
+#GET         /claim-notes                                                controllers.ClaimNotes.notes
 # claim pack notes accessed internally (with claim lang)
 GET         /internal-claim-notes/:languageCode                         controllers.ClaimNotes.internalNotes(languageCode: String)
 
 # claim pack notes accessed externally
 GET         /claim-help                                                 controllers.ClaimHelp.notes
-GET         /cofc-help                                                  controllers.CofcHelp.notes
+#GET         /cofc-help                                                  controllers.CofcHelp.notes
 
 GET         /change-language/:chosenLanguage                            controllers.Language.change(chosenLanguage: String)
 
@@ -117,7 +117,7 @@ POST        /care-you-provide/breaks-in-care                            controll
 POST        /care-you-provide/delete-break-in-care                      controllers.s4_care_you_provide.G10BreaksInCare.delete
 
 GET         /care-you-provide/breaks/:id                                controllers.s4_care_you_provide.G11Break.present(id: String)
-POST        /care-you-provide/break                                     controllers.s4_care_you_provide.G11Break.submit
+POST        /care-you-provide/breaks                                    controllers.s4_care_you_provide.G11Break.submit
 
 # Education
 ###############

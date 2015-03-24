@@ -2,9 +2,9 @@ package controllers.s1_2_claim_date
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{ClaimScenarioFactory, PreviewTestUtils, Formulate, BrowserMatchers}
+import controllers.{ClaimScenarioFactory, PreviewTestUtils}
 import utils.pageobjects._
-import utils.pageobjects.s2_about_you.G4NationalityAndResidencyPage
+import utils.pageobjects.s2_about_you.G1YourDetailsPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 
@@ -12,16 +12,17 @@ class G1ClaimDateIntegrationSpec extends Specification with Tags {
 
   "Your claim date" should {
 
-    "be presented " in new WithBrowser with BrowserMatchers {
-      browser.goTo("/your-claim-date/claim-date")
-      titleMustEqual("Claim date - When do you want Carer's Allowance to start?")
+    "be presented " in new WithBrowser with PageObjects {
+      val claimDatePage = G1ClaimDatePage(context)
+      claimDatePage goToThePage()
     }
 
-    "navigate to next section" in new WithBrowser with BrowserMatchers {
-      Formulate.claimDate(browser)
-
-      browser.goTo("/about-you/your-details")
-      titleMustEqual("Your details - About you - the carer")
+    "navigate to next section" in new WithBrowser with PageObjects {
+      val claimDatePage = G1ClaimDatePage(context)
+      claimDatePage goToThePage()
+      val claim = ClaimScenarioFactory.s12ClaimDate()
+      claimDatePage fillPageWith claim
+      val page = claimDatePage submitPage() goToPage(G1YourDetailsPage(context))
     }
 
     "Modify claim date from preview page" in new WithBrowser with PageObjects{

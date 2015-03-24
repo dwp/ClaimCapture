@@ -17,14 +17,14 @@ class FullSubmissionSpec extends Specification with MockInjector with Tags {
       txnId = "GOOD_SUBMIT"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, "Async Submitting", waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, "/async-submitting", waitForPage = true, waitDuration = 500, trace = false)
     }
 
     "Successfully run circs submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1ReportAChangeInYourCircumstancesPageContext {
       txnId = "GOOD_SUBMIT"
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(circs, "Async Submitting", waitForPage = true, waitDuration = 500, trace = true)
+      val lastPage = page runClaimWith(circs, "/circs-async-submitting", waitForPage = true, waitDuration = 500, trace = true)
     }
   } section "functional"
 }

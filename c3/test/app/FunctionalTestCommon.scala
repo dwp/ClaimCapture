@@ -55,7 +55,7 @@ abstract class FunctionalTestCommon extends Specification with Tags {
   def test(page:Page,claim:TestData,testableData:PreviewTestableData) = {
 
     page goToThePage()
-    val previewPage = page runClaimWith(claim, PreviewPage.title,trace=true)
+    val previewPage = page runClaimWith(claim, PreviewPage.url,trace=true)
 
     previewPage match {
       case p: PreviewPage =>
@@ -65,7 +65,7 @@ abstract class FunctionalTestCommon extends Specification with Tags {
       case p: Page => println(p.source)
     }
 
-    val lastPage = previewPage runClaimWith(claim, XmlPage.title,trace=true)
+    val lastPage = previewPage runClaimWith(claim, trace=true)
 
     lastPage match {
       case p: XmlPage => {
