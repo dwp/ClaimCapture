@@ -15,10 +15,10 @@ object ClaimNotes extends Controller {
       buildResponse(t)
   }
 
-  def notes() = Action {
-    val t = views.html.claimNotes.main()
-    buildResponse(t)
-  }
+//  def notes() = Action {
+//    val t = views.html.claimNotes.main()
+//    buildResponse(t)
+//  }
 
   private def buildResponse(t: Html): Result = {
     val string = t.body

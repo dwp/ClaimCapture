@@ -1,6 +1,7 @@
 package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
+import play.api.Logger
 import play.api.test.WithBrowser
 import utils.pageobjects.common.ErrorPage
 import utils.pageobjects.{PageObjects, TestData}
@@ -45,7 +46,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "be declined" in new WithBrowser with PageObjects{pending
+    "be declined" in new WithBrowser with PageObjects{
 			val page =  G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "DLA"
@@ -64,7 +65,7 @@ class G6ApproveIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "navigate to next section" in new WithBrowser with PageObjects{pending
+    "navigate to next section" in new WithBrowser with PageObjects{
 			val page =  G1BenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "CAA"
