@@ -1,4 +1,4 @@
-package utils.pageobjects.s1_carers_allowance
+package utils.pageobjects.s0_carers_allowance
 
 import play.api.test.WithBrowser
 import utils.pageobjects._
@@ -6,7 +6,7 @@ import org.fluentlenium.core.domain.{FluentWebElement, FluentList}
 import play.api.Logger
 
 /**
- * PageObject pattern associated to S1 carers allowance G5 approve page.
+ * PageObject pattern associated to S0 carers allowance G5 approve page.
  */
 final class G6ApprovePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G6ApprovePage.url) {
   declareYesNo("#answer", "CanYouGetCarersAllowanceApproveAnswer")

@@ -2,7 +2,8 @@ package utils.pageobjects
 
 
 import scala.language.dynamics
-import utils.pageobjects.s1_carers_allowance._
+import utils.pageobjects.s0_carers_allowance._
+import utils.pageobjects.s1_disclaimer._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s4_care_you_provide._
@@ -88,7 +89,7 @@ object ClaimPageFactory extends PageFactory {
       case PreviewPage.url => PreviewPage(ctx)
       // S10
       case G1AdditionalInfoPage.url => G1AdditionalInfoPage(ctx)
-      case G2DisclaimerPage.url => G2DisclaimerPage(ctx)
+      case G1DisclaimerPage.url => G1DisclaimerPage(ctx)
       case G3DeclarationPage.url =>
         if (ctx.browser.pageSource() contains "DWPBody") XmlPage(ctx)
         else G3DeclarationPage(ctx)

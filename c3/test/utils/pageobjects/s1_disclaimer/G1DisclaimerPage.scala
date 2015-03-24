@@ -6,7 +6,7 @@ import utils.pageobjects._
 /**
  * Page Object for S1 G1 disclaimer.
  */
-class G1DisclaimerPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1DisclaimerPage.url, G1DisclaimerPage.title) {
+class G1DisclaimerPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1DisclaimerPage.url) {
   // This page does not contain any input elements. This page contains a button and the value is passed to the model when
   // the button is clicked.
 }
@@ -16,8 +16,6 @@ class G1DisclaimerPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1Disclai
  * It is used by PageFactory object defined in Page.scala
  */
 object G1DisclaimerPage {
-  val title = "Disclaimer - Before you start".toLowerCase
-
   val url = "/disclaimer/disclaimer"
 
   def apply(ctx:PageObjectsContext) = new G1DisclaimerPage(ctx)
