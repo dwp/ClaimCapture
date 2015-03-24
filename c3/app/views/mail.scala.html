@@ -1,0 +1,168 @@
+@(claim:models.domain.Claim, isClaim:Boolean,isEmployment:Boolean)(implicit lang:Lang)
+
+@import scala.io._
+@import models.domain._
+@import play.api.i18n.{MMessages => Messages}
+
+@claimType = @{if (isClaim)"claim" else "cofc"}
+@claimDate = @{
+    claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.`dd month yyyy`
+}
+@isCofcFinishedEmployment = @{
+    claim.questionGroup[CircumstancesStartedAndFinishedEmployment].exists(_ =>true)
+}
+
+<!DOCTYPE html>
+<!--[if IE 7]>         <html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>         <html class="ie ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <title>GOV.UK</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <style>
+
+            html, body, button, input, table, td, th {
+                font-family: Arial, sans-serif;
+            }
+
+            .header {
+                background: black;
+                padding: 10px;
+                font-weight: bold;
+            }
+
+            .logo img,
+            .logo a {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            .logo img {
+                width: 35px;
+                height: 31px;
+                margin-top: -1px;
+                margin-right: 5px;
+            }
+
+            .logo a {
+                font-size: 30px;
+                color: white;
+                text-decoration: none;
+            }
+
+        </style>
+
+    </head>
+
+    <body class="email-template">
+
+
+        <div class="header">
+
+            <div class="wrapper logo">
+                <font face="arial, sans-serif">
+                    <img width="35" height="31" src="https://assets.digital.cabinet-office.gov.uk/static/gov.uk_logotype_crown-c09acb07e4d1d5d558f5a0bc53e9e36d.png"/>
+                    <a href="https://www.gov.uk" title="GOV.UK" class="crown" style="font-size: 30px; color: white; text-decoration: none;">GOV.UK</a>
+                </font>
+            </div>
+
+        </div>
+
+        <div class="main">
+
+            <div class="article">
+
+                <font face="arial, sans-serif">
+
+                    <h1>@Messages(s"mail.$claimType.title")</h1>
+
+                    <p>@Messages(s"mail.$claimType.successful")</p>
+
+                    <div class="section">
+                        <h2>@Messages("mail.next.title")</h2>
+                        @if(isEmployment) {
+                            <p>@Messages("mail.next.send1")</p>
+                            <ul>
+                                @if(isClaim){
+                                    <li>@Messages("mail.claim.next.send2",claimDate)</li>
+                                    <li>@Messages("mail.claim.next.send3",claimDate)</li>
+                                    <li>@Messages("mail.claim.next.send4")</li>
+                                }else{
+                                    <li>@Messages("mail.cofc.next.send2")</li>
+                                    @if(isCofcFinishedEmployment){
+                                        <li>@Messages("mail.cofc.next.send3")</li>
+                                    }
+                                }
+
+                            </ul>
+                            <p>@Messages("mail.next.send5")</p>
+                            <div class="address">
+                                <span><b>@Messages("mail.next.send6")</b></span>
+                                <span>@Messages("mail.next.send7")</span>
+                                <span>@Messages("mail.next.send8")</span>
+                                <span>@Messages("mail.next.send9")</span>
+                            </div>
+
+
+                        }
+                        @if(isClaim){
+                            @if(isEmployment){
+                                <p>@Messages("mail.claim.next.line1.alt")</p>
+                            }else{
+                                <p>@Messages("mail.claim.next.line1")</p>
+                            }
+                        }
+                        @if(isEmployment){
+                            <p>@Messages("mail.next.line2")</p>
+                        }else{
+                            <p>@Messages("mail.next.line")</p>
+                        }
+                    </div>
+
+                    <div class="section">
+                        <h2>@Messages("mail.next.line3")</h2>
+                        <p>@Messages("mail.next.line4")</p>
+                        <p><b>@Messages("mail.next.line5")</b></p>
+                        <p>@Messages("mail.next.line6")</p>
+
+                        <ol>
+                            <li>@Html(Messages("mail.next.line7"))</li>
+                            <li>@Messages("mail.next.line8")
+                                <div class="address">
+                                    <span><b>@Messages("mail.next.line9")</b></span><br />
+                                    <span> @Messages("mail.next.line10")</span><br />
+                                    <span> @Messages("mail.next.line11")</span><br />
+                                    <span>@Messages("mail.next.line12")</span><br />
+                                    <span> @Messages("mail.next.line13")</span><br />
+                                    <span>@Messages("mail.next.line14")</span><br />
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="section">
+                        <h2>@Messages("mail.disclaimer.title")</h2>
+                        <p>@Messages("mail.disclaimer.line1")</p>
+                        <p>@Messages("mail.disclaimer.line2")</p>
+                        <p>@Messages("mail.disclaimer.line3")</p>
+                        <ul>
+                            <li>@Messages("mail.disclaimer.line4")</li>
+                            <li>@Html(Messages("mail.disclaimer.line5"))</li>
+                        </ul>
+                    </div>
+
+                </font>
+
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p><b>@Messages("mail.donotreply")</b></p>
+        </div>
+
+    </body>
+
+</html>

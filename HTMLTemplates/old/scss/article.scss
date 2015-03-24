@@ -1,0 +1,215 @@
+.left-col {
+	float: left;
+	width: 23%;
+	margin-top: 2.8em;
+	@media screen and (max-width: 700px) {
+		float: none;
+		width: auto;
+		border-top: 10px solid #005ea5;
+		padding-top: 2.5em;
+	}
+	h1 {
+		color: #ccc;
+		font-size: 30px;
+		margin-bottom: 1em;
+	}
+	
+	h3 {
+		margin: 2em 0 .5em 0;
+	}
+	
+	a {
+		display: inline-block;
+	}
+	
+	p {
+		margin: 0;
+	}
+	
+	ul {
+		list-style: none;
+		margin: 0;
+	}
+	
+	
+}
+
+
+article {
+	   background: #fff;
+	   position: relative;
+	   padding: 2.5em 0 0 0;
+	   float: right;
+	   width: 68%;
+	   @media screen and (max-width: 700px) {
+		   float: none;
+		   width: auto;
+	   }
+	   
+	   &.eligible {
+		   .validation-summary {
+			   margin-left: 0;
+		   }
+	   }
+	   
+	   &.error-statement {
+
+			p {
+				margin: 2em 40% 0 0;
+				@media screen and (max-width: 700px)
+				{margin-right: 0;}
+			}
+	
+			
+   	   }
+
+
+   	   &.finish-statement {
+
+	   	   section {
+		   	   margin-top: 2em;
+		   	   &.finish-next {
+			   	   margin-top: 1.4em;
+			   	   margin-right: 1em;
+			   	   @media screen and (max-width: 640px) {
+				   	   margin-right: 0;
+			   	   }
+		   	   }
+		   	   li {
+			   	   font-size: 17px;
+			   	   margin-top: .7em!important;
+		   	   }
+		   	   p {
+		   	   	   font-size: 17px;
+			   	   margin-top: .5em;
+		   	   }
+		   	   
+	   	   }
+	   	   
+	   	   .app-complete {
+	   	   		margin-top: 0;
+	   	   		clear: both;
+	   	   	   h1 {
+		   	   	   color: #fff;
+		   	   	   margin-right: 0;
+		   	   	   margin-bottom: 0;
+		   	   	   padding-right: 0;
+		   	   	   span {
+			   	   	   display: inline-block;
+			   	   	   background: url('images/white-tick.png') 0 6px no-repeat;
+			   	   	   padding-left: 44px;
+		   	   	   }
+	   	   	   }
+	   	   	   h2 {
+		   	   	   color: #fff;
+	   	   	   }
+	   	   	   p {
+		   	   	   color: #fff;
+		   	   	   &.nino-title {
+			   	   	   margin-top: 1em;
+		   	   	   }
+	   	   	   }
+	   	   	   text-align: center;
+		   	   background: #28a197;
+		   	   padding: 2em 1em;
+	   	   }
+	   	   
+	   	   
+	   	   
+	   	   .send-info {
+		   	   margin: 2em 0 0 0;
+	   	   }
+	   	   
+   	   }
+   	   
+   	   
+   	   	   /* section header */		   	
+		   h1 {
+			   font-size: 36px;
+			   font-weight: 700;
+			   line-height: 1.2em;
+			   @media screen and (max-width: 600px) {
+				   font-size: 30px;
+			   }
+		   }
+
+	  
+   	   
+   	   
+   	   
+   	   &.response {
+			section {
+				margin: 2.5em 0;
+				background-image: url('images/response-trio-xl.png');
+				background-position: 0 0;
+				background-repeat: no-repeat;
+				padding: 0 0 0 8em;
+				min-height: 100px;
+				@media screen and (max-width: 500px) {
+					padding: 7em 0 0 0;
+					background-position: center 0;
+				}
+				h2 {
+					font-size: 24px;
+					line-height: 1.3em;
+					padding-top: .3em;
+				}
+				p {
+					margin-top: .25em;
+				}
+				&.earnings {
+					background-position: 0 -756px;
+					@media screen and (max-width: 500px) {
+						background-position: center -756px;
+					}
+				}
+				&.education {
+					background-position: 0 -1500px;
+					@media screen and (max-width: 500px) {
+						background-position: center -1500px;
+					}
+				}
+			}
+			
+			.ie7 & {
+				zoom: 1;
+			}
+		}
+	   
+	   
+	   p {
+		   margin: 0;
+		   font-size: 19px;
+		   font-weight: 400;
+		   line-height: 1.4em;
+		   &.mandatory {
+		   		margin-top: 1.6em;
+		   		font-size: 16px;
+					em {
+						font-style: normal;
+						font-size: 19px;
+					}
+			}
+			&.security-message {
+				margin-bottom: 1em;
+				font-size: 16px;
+				strong {
+					font-weight: 600;
+					text-decoration: underline;
+				}
+			}
+			&.intro-info {
+				margin-top: 1em;
+			}
+	   }
+	   ul {
+		   margin: 0;
+		   padding: 0;
+		   list-style: none;	 
+	   }
+	   
+	   
+	  
+	   
+	   
+   }

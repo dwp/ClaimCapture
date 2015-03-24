@@ -4,39 +4,22 @@
 @import 'gds-colours';
 
 
-@font-face {
-  font-family: 'FontAwesome';
-  src: url('fonts/fontawesome-webfont.eot?v=3.2.1');
-  src: url('fonts/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'),
-  url('fonts/fontawesome-webfont.woff?v=3.2.1') format('woff'),
-  url('fonts/fontawesome-webfont.ttf?v=3.2.1') format('truetype'),
-  url('fonts/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.js-message {
-   padding: 1em 0;
-   margin: 0 auto;
-   max-width: 960px;
-   } 
-
 
 main {
 	background: #fff;
 	display: block;
-	padding: 0 .7em;
+	padding: 0 1.9em;
+	@media screen and (max-width: 640px) {
+		padding: 0 .9em;
+	}
 }
 
 
 @import 'header';
 
-@import 'feedback ';
-
 
 .carers-allowance {
    border-top: 10px solid $mainstream-brand;
-   border-bottom: 10px solid $mainstream-brand;
    background: #fff;
    padding: 0 0 4em 0;
    margin: 0 auto;
@@ -44,31 +27,26 @@ main {
    .ie6 & {
 	   width: 960px;
    }
+   @media screen and (max-width: 500px) {
+	   padding-bottom: 3em;
+   }
     
 
 @import 'prototype';
 	   
-@import 'progress'; 
- 
-@import 'article';
-    
-@import 'completed'; 
+@import 'article';    
    
 @import 'validation-summary';
      
-
-/* form wrap */
-.form-wrap {
-
-		@media screen and (max-width: 860px) {
-			margin-right: 0;
-		}
-	}
-
    
 /* form elements */
 .form-elements {
 	margin: 50px 0 1em 0;
+
+	
+	@media screen and (max-width: 500px) {
+		margin-top: 30px;
+	}
 
    	    
    	    /* Eligibility section */
@@ -83,13 +61,43 @@ main {
 	   	    }
 	   	    
 	   	   .helper-message {
-			   	margin: 0 0 1em 0;
+			   	padding: 0;
+			   	margin: 0;
+			   	
+			   	.ie7 & {
+				   	margin-top: 0;
+			   	}
 		   	}
 		   	
 		   	.radio {
 			   	margin-top: 1.5em;
+
 		   	}
 
+		   	
+		   	.benefits {
+		   		margin: 1.2em 0 0 0;
+		   		padding: .4em 0 0 1em;
+		   		font-size: 19px;
+		   		border-left: 5px solid #dee0e2;
+
+			   	
+			   	p {
+				   	margin-top: 1em;
+				   	&:first-child {
+					   	margin: 0;
+				   	}
+			   	}
+			   	
+		   	}
+		   	
+
+   	    }
+   	    
+   	    &.over16 {
+	   	    .radio {
+		   	    margin-top: 0;
+	   	    }
    	    }
    	    
    	    
@@ -105,10 +113,10 @@ main {
 	   	    position: relative;
 	   	    legend {
 		   	    padding-bottom: 1.5em;
-		   		}
+		   	}
 	   	    @media screen and (max-width: 750px) {
-	   	    	margin-right: 0;
-	   	    	}
+   	    		margin-right: 0;
+   	    	}
    	    }
    	    
    	   legend {
@@ -121,7 +129,8 @@ main {
 	   	   display: table;
 	   	   .ie7 & {
 		   	   margin-left: -10px;
-		   	   }
+		   }
+
 	   	   span {
 		   	   background: #000;
 		   	   display: block;
@@ -143,6 +152,15 @@ main {
 				color: #000;
 				padding-bottom: .5em;
 	   	   }
+	   	   
+	   	   &.legend-hidden {
+		   	   font-size: 0;
+		   	   text-indent: -9999px;
+		   	   padding-bottom: 0;
+		   	   line-height: .1em;
+		   	   margin: 0;
+	   	   }
+	   	   
    	   }
    	   
    	   h2, p.title {
@@ -154,13 +172,22 @@ main {
 		   	   padding-top: 0;
 	   	   }
    	   }
-   	   
-   	   
-   	   
-   	   
-   	   
-   	   
-   	   /* Nested fieldset */
+
+      .help-statement {
+
+        h3 {
+          font-weight: 100;
+        }
+
+        p {
+          padding: 0 0 0 .8em;
+          margin: 1em 0 2em 0;
+          border-left: 5px solid #dee0e2;
+        }
+      }
+
+
+    /* Nested fieldset */
    	   
    	   .question-group {
 			margin-top: 0;
@@ -175,20 +202,20 @@ main {
 				   font-size: 18px;
 				   margin-right: 4px;
 				   font-style: normal;
-				   }
 				}
+			}
+			
 				ul {
 					li {
 						padding-top: 0;
-						}
+					}
 				}  	
 				
 				
 				.employment-info {
-
 	   
 	   			   p {
-		   			   color: #6f777b;
+		   			   color: #0b0c0c;
 		   			   font-size: 19px;
 		   			   padding-top: .5em;
 		   			   margin: 0 0 1em 0;
@@ -199,28 +226,17 @@ main {
 
 				   ul {
 					   list-style: disc;
-					   padding: 1.2em 0 1.5em 0;
+					   padding: .5em 0 1em 1.4em;
 					   margin: 0;
 
 					   li {
 						   font-size: 19px;
-						   padding: 0 0 0 1em;
+						   padding: 0;
 						   margin: .8em 0 0 0;
-						   color: #6f777b;
+						   color: #171819;
 						   line-height: 1.2em;
 						   position: relative;
-						   &:before {
-							   content: "";
-							   position: absolute;
-							   width: 6px;
-							   height: 6px;
-							   background: #000;
-							   border-radius: 500px;
-							   top: 50%;
-							   left:0;
-							   margin-top: -3px;
-						   }
-						   
+						   display: list-item;				   
 						   &:first-child {
 							   margin: 0;
 						   }
@@ -228,7 +244,7 @@ main {
 				   
 				   }
 			   }
-				
+			   
 		}
 		
 	
@@ -248,6 +264,7 @@ main {
 				   margin-left: -1.08em;
 			   }
 		   }
+
 		   
 		   &.circs-group {
 			   margin-top: 1em;
@@ -259,9 +276,12 @@ main {
 			   margin-top: 18px;
 			   padding: .8em 0;
 			   position: relative;
-			   .ie & {
-				   margin-top: 4px;
+			   
+			   &.extra-detail {
+				   padding: 0;
+				   margin-bottom: -.8em;
 			   }
+
 			   
 			   &.other-detail {
 				   margin: 0;
@@ -270,6 +290,13 @@ main {
 					   zoom: 1;
 				   }
 				   .strip {
+					   position: absolute;
+					   left: -9999px;
+				   }
+			   }
+			   
+			   &.extra-text {
+				   label {
 					   position: absolute;
 					   left: -9999px;
 				   }
@@ -288,7 +315,7 @@ main {
 			   }
 			   
 			 
-			  
+			 
 			   
 			   
 			   /* In form validation styling */
@@ -305,15 +332,16 @@ main {
 			       
 
 			       @media screen and (max-width: 640px) {
-			       			padding-top: 1em;
-			       			padding-bottom: 1em;
-			       			width: auto;
+		       			padding-top: 1em;
+		       			padding-bottom: 1em;
+		       			width: auto;
+		       			margin-left: -.9em;
 			       	} 
 			       	
 			       .error {
 				       color: #de3134;
 				       font-weight: 300;
-				       font-size: 16px;
+				       font-size: 17px;
 				       padding-bottom: .6em;
 				       .ie6 & {
 					       background: transparent;
@@ -323,7 +351,10 @@ main {
 			       .inline-stack {
 					   	border-left: none;
 					   	padding-left: 0;
-					   	}
+				   }
+				   
+				   
+				   
 			   }
 			   
 			   
@@ -365,38 +396,34 @@ main {
 				   }
 			   }
 			   
-			   &.date-picker {
-				   input[type="tel"] {
-					   cursor: pointer;
-					   position: relative;
-					   &:before {
-						   content: "\f073";
-						   font-size: 16px;
-						   position: absolute;
-						   top: 5px;
-						   right: 6px;
-						   font-family: 'FontAwesome';
-						   font-weight: normal;
-						   font-style: normal;
-						   text-decoration: inherit;
-						   -webkit-font-smoothing: antialiased;
-					   }
-					   .ie7 & {
-						   background: url('../images/date.png') 97% center no-repeat;
-					   }
-				   }
-			   }
+			   
 			   
 			   &.currency {
 			   	   position: relative;
 				   input[type="text"], input[type="tel"] {
-					   width: 118px;
+					   width: 154px!important; /* Low IE issues */
 					   position: relative;
 					   @media screen and (max-width: 500px) {
-						   width: 116px;
+						   width: 152px;
 					   }
 				   }
 			   }
+
+               &.checkbox-single {
+                 padding-top: 0;
+                 margin: 0;
+                 overflow: hidden;
+                 label {
+                   float: left;
+                   font-weight: 100;
+                   width: 86%;
+                 }
+                 input {
+                   float: left;
+                   margin: 5px 10px 0 0;
+                   padding: 0;
+                 }
+               }
 			   
 			   &.validation {
 				   &:before {
@@ -516,26 +543,25 @@ main {
 					text-transform: none;
 					padding: 0.25em 0 0.1em 0.4em;
 					width: 340px;
-					@media screen and (max-width: 500px) {width: 96%;}
+					@media screen and (max-width: 700px) {width: 96%;}
 					.ie & {
 						width: 283px;
 					}
+					&.ni-number {
+						text-transform: uppercase;
+					}
 					&.postcode {
 						text-transform: uppercase;
+						width: 180px;
+						@media screen and (max-width: 700px) {
+							width: 96%;
+							}
 					}
 					.ie7 &, .ie8 & {
 						padding: 0.2em 0 0.4em 0.4em;
 					}
-					&.datepicker {
-						cursor: pointer;
-						background: #fff url('images/calendar-icon.png') 97% 50% no-repeat;
-						position: relative;
-						z-index: 20;
-						.ie7 & {
-							cursor: auto;
-							background: #fff;
-						}
-					}
+					
+					
 			   }
 			   input[type="radio"] {
 				   width: auto;
@@ -550,14 +576,12 @@ main {
 			   }
 			   textarea {
 				   height: 6em;
-				   width: 566px;
-				   background: #fff;
+				   width: 96%;
 				   
 				   &.textarea-reduced {
 					   height: 3em;
 				   }
-				   
-				   @media screen and (max-width: 620px) {width: 96%;}
+
 			   }
 			   select {
 				   padding: 2px;
@@ -568,7 +592,7 @@ main {
 				   height: 30px;
 				   top: 2px;
 				   background: #fafafa;
-				   border: 1px solid #a2a2a2;
+				   border: 1px solid #bfc1c3;
 				   .ie & {
 					   height: auto;
 					   padding: 5px;
@@ -588,34 +612,49 @@ main {
 		   }
 		   
 
+
+		  &.partner-group {
+				   li {
+					   margin-top: 10px;
+				   }
+			   } 
+
 		  
 		   
 		   /* radio list - includes hit areas */
 		   &.radio {
-		   		   margin-top: 3px;	
-		   		   overflow: hidden;
+		   		   margin-top: 5px;	
+	
 				   li {
 					   position: relative;
-					   float: left;
-					   margin: 0 0 0 2px;
+					   display: inline-block;
+					   margin: 0 0 0 5px;
 					   padding: 0;
+					   
+					   .ie7 & {
+						   float: left;
+						   margin-left: 10px;
+						   display: block;
+					   }
+					   
 					   &:first-child {
 						   margin-left: 0;
 					   }
+					   
 					   input[type="radio"] {
 						   position: absolute;
-						   top: 13px;
-						   left: -9914px;
-						   margin: 0;
-						   cursor: pointer;
-						   line-height: 1em;
-
+						   top: 50%;
+						   left: 14px;
+						   margin-top: -6px;
 						   
-						   .ie8 &, .ie7 & {
-							   top: 10px;
-							   left: 10px;
+						   
+						   .ie & {
+							  margin-top: -9px;
 						   }
 						   
+						   .ie7 &, .ie8 & {
+							   left: 10px;
+						   }
 
 						   .ie6 & {
 							   position: relative;
@@ -623,25 +662,44 @@ main {
 							   left: auto;
 							   display: inline;
 						   }
+						   
+						   &:focus {
+							   outline: 0;
+							   border: 0;
+						   }
 
 					   }
 					   
 					   label {
 						   display: block;
-						   background: #eee;
-						   padding: 12px 28px 10px 28px;
-						   font-size: 19px;
-						   cursor: pointer;
-						   line-height: 1em;
-						   border: 2px solid #fff;
-						   font-weight: 400;
+						   position: relative;
+						   line-height: normal;
+						   padding: 0;
 						   
-						   &:hover {
-							   background: #ccc;
+						   span {
+							   background: #eee;
+							   padding: 12px 22px 8px 40px;
+							   font-size: 19px;
+							   cursor: pointer;
+							   border: 3px solid #eee;
+							   font-weight: 400;
+							   display: block;
+							   
+							   .ie7 &, .ie8 & {
+								   padding-left: 34px;
+							   }
+							   
+							   &:hover {
+								   background: #ccc;
+								   border-color: #ccc;
+							   }
 						   }
 						   
-						   .ie8 &, .ie7 & {
-							   padding-left: 34px;
+						   &.focus {
+							   span {
+								   border-color: #ffbf47;
+								   background: #fff;
+							   }
 						   }
 						   
 						   .ie6 & {
@@ -651,38 +709,52 @@ main {
 						   }
 					   }
 					   
-					   input[type="radio"]:checked + label {
+					   input[type="radio"]:checked + span {
 						   background: #fff;
-						   -webkit-transition: all 150ms ease-in;
-						   -moz-transition: all 150ms ease-in;
-						   -ms-transition: all 150ms ease-in;
-						   -o-transition: all 150ms ease-in;
-						   transition: all 150ms ease-in;
-						   border: 2px solid #000;
+						   border: 3px solid #000;
 						   font-weight: 500;
 					   }
+					   
 				   }
+				   
+				   
 				   &.radio-stack {
 					   li {
-						   float: none;
 						   margin: 4px 0 0 0;
+						   display: block;
+						   
+						   .ie7 & {
+							   float: none;
+						   }
+						   
 						   &:first-child {
 							   margin-top: 0;
 						   }
 						   label {
 							   display: inline-block;
-							   padding: 14px 16px 12px 16px;
-							   @media screen and (max-width: 480px) {
+							   @media screen and (max-width: 700px) {
 								   display: block;
 							   }
+							   
+							   
+							   
+							   span {
+								    padding: 12px 20px 10px 40px;
+								    .ie7 &, .ie8 & {
+									   padding-left: 34px;
+								   }
+							   }
+							   
 						   }
 					   }
 				   }
+				   
+				   
 				   &.benefits-validation {
 					   background: #fef7f7;
 					   padding: .7em;
 					   border-left: 3px solid #df3034;
-				   }
+				   }			   
 			 }
 
 
@@ -712,7 +784,7 @@ main {
 		   &.inline {
 			   li {
 				   display: inline;
-				   margin: 0 0 0 1.2em;
+				   margin: 0 0 0 1em;
 				   &:first-child {margin-left: 0;}
 				   label {
 					   padding-left: 0.25em;
@@ -773,38 +845,41 @@ main {
 		   /* list display - date format layout */   
 		   &.year {
 			   li {
-			   	   margin-left: .5em;
-				   &:first-child {
-					   margin-left: 0;
-				   }
+			   	   margin-left: 1em;
+			   	   display: inline-block;
+			   	   
+			   	   .ie7 & {
+				   	   float: left;
+				   	   width: auto;
+			   	   }
+			   	   
 			   	   label {
-				   position: absolute;
-				   left: -9999px;
+				   	   display: block;
+				   	   font-weight: 300;
+				   	   padding-left: 0;
+				   	   font-size: 19px;
+				   	   color: #0b0c0c;
 				   }
-				   select {
-				   	  margin: 0;
-					   min-width: 86px;
-					   top: -2px;
-					   @media screen and (max-width: 500px) {width: auto; min-width: 10px;}
-					   .ie & {
-						   width: 86px;
-						   top: 2px;
-					   }
-				   }
+				   
 				   input {
-					   width: 76px;
+					   width: 66px!important; /* Low IE issues */
 					   background: #fff;
-					   position: relative;
-					   .ie9 & {
-						   top: 3px;
-					   }
-					   .ie8 &, .ie7 & {
-					   	   top: 3px;
-						   width: 60px;
-						   font-size: 14px;
-						   padding: 5px 8px;
+				   }
+				   
+				    &:first-child {
+					   margin-left: 0;
+					   input {
+						   width: 46px!important; /* Low IE issues */
 					   }
 				   }
+				   
+				   &.month {
+					   input {
+						   width: 46px!important; /* Low IE issues */
+					   }
+				   }
+				   
+				   
 			   }
 		   }
 
@@ -814,7 +889,7 @@ main {
 		     /* sort code */
 			 &.sort-code {
 			 	   li {
-				 	   margin-left: .5em;
+				 	   margin-left: 1em;
 				 	   &:first-child {
 					   margin-left: 0;
 					   }
@@ -823,8 +898,8 @@ main {
 				 	   position: absolute;
 				 	   left: -9999px;
 			 	   }
-                   input[type="tel"],input[type="text"] {
-					   width: 81px;
+                   input, input[type="tel"], input[type="text"] {
+					   width: 46px!important; /* Low IE issues */
 				   }
 			   }  
 		   
@@ -844,43 +919,9 @@ main {
 			   }
 		   }
 
-		   
-		   
-		   
-		   /* list display - national insurance number */
-		   &.ni-number {
-		   	   li {
-			   	   margin-left: .5em;
-				   &:first-child {
-					   margin-left: 0;
-				   }
-				   .ie7 & {
-					   margin-left: 0.15em;
-				   }
-		   	   }
-		   	   label {
-			   	   position: absolute;
-			   	   left: -9999px;
-		   	   }
-			   input[type="text"], input[type="tel"] {
-				   width: 44px;
-				   text-transform: uppercase;
-				   .ie7 & {
-					   width: 43px;
-				   }
-				   &.single {
-					   width: 27px;
-				   }
-				   @media screen and (max-width: 750px) {
-				   		width: 42px;
-				   }
-			   }
-		   }
-		   
+
 	   }
 
-	
-	
 	
 	   
 /* Information panel   */
@@ -890,14 +931,7 @@ main {
 /* Declaration specific */
 @import 'declaration'; 	   
 	   
-	   
-/* Table base styles */	   
-@import 'tables';	   
-	     
-	     
-	     
-	     
-	     
+
 }
  
    
@@ -928,27 +962,106 @@ main {
 }
 
 
-.coc-layout {
-  li {
-    label {
-      padding-right: 12em;
-      @media screen and (max-width: 760px) {
-        padding-right: 0;
-      }
-    }
-  }
+
+
+.data-table {
+
+	margin-bottom: 2em;
+	
+	h2 {
+		font-weight: 600;
+		font-size: 24px;
+	}
+	
+	h3 {
+		font-size: 17px;
+	}
+	
+	ul {
+		margin-top: 1em;
+	}
+	
+	li {
+		border-bottom: 1px solid #bfc1c3;
+		padding: 1.5em 0;
+		margin: 0;
+		&:first-child {
+			border-top: 1px solid #bfc1c3;
+		}
+	}
+	
+	dl {
+		overflow: hidden;
+		margin: 6px 0 0 0;
+	}
+	
+	dt {
+		display: inline-block;
+		width: 46%;
+		padding: .4em 0;
+		vertical-align: top;
+		line-height: 1.25em;
+		font-size: 17px;
+		
+		.ie7 & {
+			float: left;
+		}
+	}
+	
+	dd {
+		display: inline-block;
+		width: 49%;
+		margin: 0;
+		padding: .4em 0 .4em 4%;
+		vertical-align: top;
+		line-height: 1.25em;
+		font-size: 17px;
+		&:first-child {
+			padding-top: 0;
+		}
+		
+		.ie7 & {
+			float: left;
+		}
+	}
+	
+	.actions {
+		overflow: hidden;
+		margin-top: 1em;
+		input {
+			float: right;
+			width: auto;
+			background: none;
+			padding: 0;
+			border: 0;
+			font-size: 17px;
+			color: #005ea5;
+			text-decoration: underline;
+			cursor: pointer;
+			text-align: right;
+			&:hover {
+				color: #2e8aca;
+				text-decoration: none;
+			}
+			&:first-child {
+				float: left;
+				text-align: left;
+			}
+		}
+	}
 }
 
 
 
 
 
+/* Claim notes */
+@import 'claimnotes';
+
+
 /* Footer */
 @import 'footer';
 
-
-/* Assitive tech accessibility */
-@import 'assistive';
 
 /* Form review */
 @import 'review';
@@ -956,7 +1069,25 @@ main {
 /* Include & Overrides */
 @import 'includes';
 
+.js-message {
+   padding: 1em 0;
+   border-bottom: 1px solid #bfc1c3;
+
+   h2 {
+	   font-size: 16px;
+   }
+   
+   p {
+	   font-size: 16px;
+	   margin: 0;
+   }
+} 
+
+/* Email Template */
+@import 'emailtemplate';
 
 
+
+  
 
 
