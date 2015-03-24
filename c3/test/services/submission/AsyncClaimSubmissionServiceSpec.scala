@@ -115,7 +115,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
     }
 
-    "do not submit a duplicate claim" in new WithApplicationAndDB {
+    "do not submit a duplicate claim" in new WithApplicationAndDB(Map("mailer.enabled"->"false")) {
       val service = asyncService(http.Status.OK,transactionId)
       val claim = getClaim("test")
 
@@ -130,7 +130,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
 
     }
 
-    "do not submit a duplicate change of circs" in new WithApplicationAndDB {
+    "do not submit a duplicate change of circs" in new WithApplicationAndDB(Map("mailer.enabled"->"false")) {
 
       val service = asyncService(http.Status.OK,transactionId)
       val claim = getCofc("test")

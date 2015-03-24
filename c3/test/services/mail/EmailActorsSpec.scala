@@ -1,14 +1,13 @@
 package services.mail
 
-import org.specs2.mutable.{Tags, Specification}
 import akka.actor._
+import org.specs2.mock.Mockito
+import org.specs2.mutable.{Specification, Tags}
 import play.api.Logger
 import play.modules.mailer._
-import services.mail.EmailWrapper
 import specs2.akka.AkkaTestkitSpecs2Support
-import org.specs2.mock.Mockito
 
-import scala.util.{Success, Failure}
+import scala.util.{Failure, Success}
 
 
 class EmailActorsSpec extends Specification with Tags with Mockito{
@@ -41,7 +40,7 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
       val s = "my subject"
       val r = Seq("recipient1","recipient2")
       val email = Email(s,EmailAddress(null,""),"",b,recipients = r.map(r => Recipient(RecipientType.TO,EmailAddress(null,r))),replyTo = None)
-      emailManager ! EmailWrapper("",email  )
+      emailManager ! EmailWrapper("",email)
 
       Thread.sleep(1000)
 
@@ -53,7 +52,9 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
       synchronized{EmailSenderTestable.preStartCalls = 0}
       synchronized{EmailSenderTestable.preRestartCalls = 0}
 
-      val mail = mock[Email]
+      val mail = mock[EmailWrapper]
+      mail.transactionId returns ""
+      mail.email returns mock[Email]
       val mailerMock = mock[Mailer]
       val retries = 5
       val time = 2
@@ -72,13 +73,13 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
       there was atMost(retries+1)(mailerMock).sendEmail(any[Email])
 
     }
-  }
+  } section "unit"
 
 }
 
 class SimpleSenderTestable extends Actor {
   override def receive: Actor.Receive = {
-    case email:Email => SimpleSenderTestable.sendEmailsReceived += 1
+    case email:EmailWrapper => SimpleSenderTestable.sendEmailsReceived += 1
   }
 
 
@@ -108,6 +109,9 @@ class EmailSenderTestable(mailPlugin:Mailer) extends EmailSenderActor{
   override def preStart() = {
     synchronized{ EmailSenderTestable.preStartCalls += 1 }
   }
+
+  override val claimTransaction = new StubClaimTransaction
+
 }
 
 object EmailSenderTestable{
@@ -116,6 +120,7 @@ object EmailSenderTestable{
 }
 
 class EmailManagerTestable(emailSendingCreator:Props,retries:Int = 5, retriesTimeSpan:Int = 60) extends EmailManagerActor(emailSendingCreator,retries,retriesTimeSpan) {
+
 
 }
 

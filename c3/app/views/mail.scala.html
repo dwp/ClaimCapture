@@ -110,18 +110,14 @@
                         @if(isClaim){
                             @if(isEmployment){
                                 <p>@Messages("mail.claim.next.line1.alt")</p>
-                                <p>@Messages("mail.claim.next.line2.alt")</p>
                             }else{
                                 <p>@Messages("mail.claim.next.line1")</p>
-                                <p>@Messages("mail.claim.next.line2")</p>
                             }
+                        }
+                        @if(isEmployment){
+                            <p>@Messages("mail.next.line2")</p>
                         }else{
-                            @if(isEmployment){
-                                <p>@Messages("mail.cofc.next.line1.alt")</p>
-                            }else{
-                                <p>@Messages("mail.cofc.next.line1")</p>
-
-                            }
+                            <p>@Messages("mail.next.line")</p>
                         }
                     </div>
 

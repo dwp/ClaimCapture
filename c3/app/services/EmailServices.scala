@@ -38,7 +38,7 @@ object EmailServices {
         val isWelsh = welsh == Mappings.yes
         implicit val lang = if(isWelsh) Lang("cy") else Lang("en")
 
-        CadsEmail.send(subject = Messages("subject.claim"),body = views.html.mail(claim,isClaim = true,isEmployment(claim)).body,email)
+        CadsEmail.send(claim.transactionId.getOrElse(""),subject = Messages("subject.claim"),body = views.html.mail(claim,isClaim = true,isEmployment(claim)).body,email)
       case _ =>
     }
   }
@@ -49,7 +49,7 @@ object EmailServices {
 
         implicit val lang = language
 
-        CadsEmail.send(subject = Messages("subject.cofc"),body = views.html.mail(claim,isClaim = false,isEmployment(claim)).body,email)
+        CadsEmail.send(claim.transactionId.getOrElse(""), subject = Messages("subject.cofc"),body = views.html.mail(claim,isClaim = false,isEmployment(claim)).body,email)
       case _ =>
     }
   }

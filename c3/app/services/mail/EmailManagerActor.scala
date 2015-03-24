@@ -66,5 +66,5 @@ class EmailSenderActor extends Actor with ClaimTransactionComponent{
     Mailer
   }
 
-  override val claimTransaction = new ClaimTransaction
+  val claimTransaction = new ClaimTransaction
 }
