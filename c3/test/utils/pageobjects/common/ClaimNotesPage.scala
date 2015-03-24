@@ -1,6 +1,5 @@
 package utils.pageobjects.common
 
-import play.api.test.WithBrowser
 import utils.pageobjects._
 
 object ClaimNotesPage {
@@ -25,11 +24,3 @@ final class ClaimNotesPage(ctx: PageObjectsContext) extends ClaimPage(ctx, Claim
   override def populateClaim(theClaim: TestData): Page =
     throw new PageObjectException(s"Reached ClaimNotes page [$url], the previous page was [${ctx.previousPage.getOrElse(this).url}]. This page cannot populate a claim. Check test.")
 }
-
-
-trait ClaimNotesPageContext extends PageContext {
-  this: WithBrowser[_] =>
-
-  val page = ClaimNotesPage (PageObjectsContext(browser))
-}
-
