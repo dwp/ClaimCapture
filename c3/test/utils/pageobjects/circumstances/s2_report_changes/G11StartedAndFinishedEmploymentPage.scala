@@ -1,12 +1,9 @@
 package utils.pageobjects.circumstances.s2_report_changes
 
-import utils.pageobjects.CircumstancesPage
-import utils.pageobjects.PageContext
-import utils.pageobjects.PageObjectsContext
 import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
 import play.api.test.WithBrowser
 
-final class G11StartedAndFinishedEmploymentPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G11StartedAndFinishedEmploymentPage.url, G11StartedAndFinishedEmploymentPage.title) {
+final class G11StartedAndFinishedEmploymentPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G11StartedAndFinishedEmploymentPage.url) {
   declareYesNo("#beenPaidYet", "CircumstancesEmploymentChangeBeenPaidYet")
   declareInput("#howMuchPaid", "CircumstancesEmploymentChangeHowMuchPaid")
   declareDate("#dateLastPaid", "CircumstancesEmploymentChangeWhatDatePaid")
@@ -31,8 +28,6 @@ final class G11StartedAndFinishedEmploymentPage(ctx:PageObjectsContext) extends 
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G11StartedAndFinishedEmploymentPage {
-  val title = "Finished Employment - Change in circumstances".toLowerCase
-
   val url  = "/circumstances/report-changes/employment-finished"
 
   def apply(ctx:PageObjectsContext) = new G11StartedAndFinishedEmploymentPage(ctx)

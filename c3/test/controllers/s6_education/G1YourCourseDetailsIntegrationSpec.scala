@@ -63,9 +63,9 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
 
       val educationPage = G1YourCourseDetailsPage(context)
       educationPage goToThePage()
-      educationPage.pageTitle mustEqual "Your course details - Education".toLowerCase
+      educationPage.url mustEqual G1YourCourseDetailsPage.url
       val previousPage = educationPage goBack()
-      previousPage.pageTitle mustNotEqual "Your course details - Education".toLowerCase
+      previousPage.url mustNotEqual G1YourCourseDetailsPage.url
 
     }
 
@@ -152,7 +152,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
     val answerText = PreviewTestUtils.answerText(id, _:Page)
 
     answerText(previewPage) mustEqual initialData
-    val educationPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+    val educationPage = previewPage.clickLinkOrButton(s"#$id")
 
     educationPage must beAnInstanceOf[G1YourCourseDetailsPage]
 

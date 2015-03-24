@@ -58,7 +58,7 @@ class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tag
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "Yes"
-      val otherBenefitsPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val otherBenefitsPage = previewPage.clickLinkOrButton(s"#$id")
 
       otherBenefitsPage must beAnInstanceOf[G7OtherEEAStateOrSwitzerlandPage]
       val modifiedData = new TestData
@@ -77,7 +77,7 @@ class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tag
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "Yes"
-      val otherBenefitsPage = ClaimPageFactory.buildPageFromFluent(previewPage.click(s"#$id"))
+      val otherBenefitsPage = previewPage.clickLinkOrButton(s"#$id")
 
       otherBenefitsPage must beAnInstanceOf[G7OtherEEAStateOrSwitzerlandPage]
       val modifiedData = new TestData

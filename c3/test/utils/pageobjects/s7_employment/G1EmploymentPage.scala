@@ -1,9 +1,9 @@
 package utils.pageobjects.s7_employment
 
-import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageObjectsContext, ClaimPage, Page, PageContext}
+import play.api.test.WithBrowser
+import utils.pageobjects.{PageObjectsContext, ClaimPage, PageContext}
 
-final class G1EmploymentPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1EmploymentPage.url, G1EmploymentPage.title) {
+final class G1EmploymentPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1EmploymentPage.url) {
   declareYesNo("#beenEmployedSince6MonthsBeforeClaim", "EmploymentHaveYouBeenEmployedAtAnyTime_0")
   declareYesNo("#beenSelfEmployedSince1WeekBeforeClaim", "EmploymentHaveYouBeenSelfEmployedAtAnyTime")
 }
@@ -13,8 +13,6 @@ final class G1EmploymentPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1Em
  * It is used by PageFactory object defined in Page.scala
  */
 object G1EmploymentPage {
-  val title = "Employment Employment History".toLowerCase
-
   val url  = "/employment/employment"
 
   def apply(ctx:PageObjectsContext) = new G1EmploymentPage(ctx)

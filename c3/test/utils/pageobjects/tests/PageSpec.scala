@@ -2,8 +2,6 @@ package utils.pageobjects.tests
 
 import org.specs2.mutable.Specification
 import utils.pageobjects._
-import scala.Some
-
 
 /**
  * Basic unit test of Page.
@@ -37,7 +35,7 @@ class PageSpec extends Specification {
 
     "allow running claim" in new MockPageContext {
       page goToThePage()
-      page runClaimWith (new TestData, MockPage.title)
+      page runClaimWith (new TestData, MockPage.url)
       there was one(browser).submit("button[type='submit']")
       there was one(browser).find("div[class=validation-summary] ol li")
     }
@@ -47,10 +45,10 @@ class PageSpec extends Specification {
     }
 
     "be able to provide full path of pages used to reach the current page." in new MockPageContext {
-      val page2 = new MockPage(PageObjectsContext(browser,IterationManager(),Some(page)),"Page 2")
-      val page3 = new MockPage(PageObjectsContext(browser,IterationManager(),Some(page2)),"Page 3")
-      page3.fullPagePath mustEqual "Page 3 < Page 2 < Mock Page"
+      val page2 = new MockPage(PageObjectsContext(browser,IterationManager(),Some(page)))
+      val page3 = new MockPage(PageObjectsContext(browser,IterationManager(),Some(page2)))
+      page3.fullPagePath mustEqual s"${MockPage.url} < ${MockPage.url} < ${MockPage.url}"
     }
 
-    }
+  }
 }

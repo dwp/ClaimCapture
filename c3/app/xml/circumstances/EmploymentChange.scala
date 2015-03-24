@@ -276,7 +276,7 @@ object EmploymentChange {
         change.beenPaid match {
           case "yes" => {
             var buff = NodeSeq.Empty
-            buff = buff ++  {question(<HowMuchPaid/>, "howMuchPaid.will", currencyAmount(change.howMuchPaid))}
+            buff = buff ++  {question(<HowMuchPaid/>, "howMuchPaid.will", Some(currencyAmount(change.howMuchPaid.getOrElse(""))))}
             buff = buff ++ {question(<PaymentDate/>, "whenExpectedToBePaidDate", change.whenExpectedToBePaidDate)}
             if (change.howOften.frequency.size > 0){
               buff = buff ++

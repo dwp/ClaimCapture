@@ -37,14 +37,14 @@ abstract class FunctionalTestCommon extends Specification with Tags {
     if (errors.nonEmpty) {
       println("Number of errors: " + errors.size)
       println("[Error] " + errors.mkString("\n\n[Error] "))
-      println(p.source())
+      println(p.source)
     }
 
     if (warnings.nonEmpty) {
       println("Number of warnings: " + warnings.size)
       println("[Warning] " + warnings.mkString("\n[Warning] "))
     }
-    //    println(page.source())
+    //    println(page.source)
     errors.isEmpty
   }
 
@@ -55,24 +55,24 @@ abstract class FunctionalTestCommon extends Specification with Tags {
   def test(page:Page,claim:TestData,testableData:PreviewTestableData) = {
 
     page goToThePage()
-    val previewPage = page runClaimWith(claim, PreviewPage.title,trace=true)
+    val previewPage = page runClaimWith(claim, PreviewPage.url,trace=true)
 
     previewPage match {
       case p: PreviewPage =>
         val validator = new PreviewBusinessValidation(testableData)
         validateAndPrintErrors(p,claim,validator) should beTrue
 
-      case p: Page => println(p.source())
+      case p: Page => println(p.source)
     }
 
-    val lastPage = previewPage runClaimWith(claim, XmlPage.title,trace=true)
+    val lastPage = previewPage runClaimWith(claim, trace=true)
 
     lastPage match {
       case p: XmlPage => {
         val validator: XMLBusinessValidation = new XMLClaimBusinessValidation
         validateAndPrintErrors(p, claim, validator) should beTrue
       }
-      case p: Page => println(p.source())
+      case p: Page => println(p.source)
     }
 
   }

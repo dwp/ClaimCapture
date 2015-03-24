@@ -6,7 +6,7 @@ import play.api.test.WithBrowser
 /**
  * Created by neddakaltcheva on 2/14/14.
  */
-final class G6AddressChangePage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G6AddressChangePage.url, G6AddressChangePage.title) {
+final class G6AddressChangePage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G6AddressChangePage.url) {
   declareAddress("#previousAddress", "CircumstancesAddressChangePreviousAddress")
   declareInput("#previousPostcode", "CircumstancesAddressChangePreviousPostcode")
   declareYesNo("#stillCaring_answer", "CircumstancesAddressChangeStillCaring")
@@ -25,8 +25,6 @@ final class G6AddressChangePage(ctx:PageObjectsContext) extends CircumstancesPag
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G6AddressChangePage {
-  val title = "Change of address - change in circumstances".toLowerCase
-
   val url  = "/circumstances/report-changes/address-change"
 
   def apply(ctx:PageObjectsContext) = new G6AddressChangePage(ctx)

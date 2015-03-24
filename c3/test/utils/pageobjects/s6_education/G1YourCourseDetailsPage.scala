@@ -8,7 +8,7 @@ import utils.pageobjects._
  * @author Jorge Migueis
  *         Date: 06/08/2013
  */
-class G1YourCourseDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1YourCourseDetailsPage.url, G1YourCourseDetailsPage.title) {
+class G1YourCourseDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1YourCourseDetailsPage.url) {
   declareYesNo("#beenInEducationSinceClaimDate", "EducationHaveYouBeenOnACourseOfEducation")
   declareInput("#courseTitle","EducationCourseTitle")
   declareInput("#nameOfSchoolCollegeOrUniversity","EducationNameofSchool")
@@ -23,8 +23,6 @@ class G1YourCourseDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1YourCourseDetailsPage {
-  val title = "Your course details - Education".toLowerCase
-
   val url  = "/education/your-course-details"
 
   def apply(ctx:PageObjectsContext) = new G1YourCourseDetailsPage(ctx)

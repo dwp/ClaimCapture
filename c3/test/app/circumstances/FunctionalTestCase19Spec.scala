@@ -22,14 +22,14 @@ class FunctionalTestCase19Spec extends FunctionalTestCommon {
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase19.csv")
       page goToThePage()
 
-      val lastPage = page runClaimWith(circs, XmlPage.title)
+      val lastPage = page runClaimWith(circs)
 
       lastPage match {
         case p: XmlPage => {
           val validator: XMLBusinessValidation = new XMLCircumstancesBusinessValidation
           validateAndPrintErrors(p, circs, validator) should beTrue
         }
-        case p: Page => println(p.source())
+        case p: Page => println(p.source)
       }
     }
 

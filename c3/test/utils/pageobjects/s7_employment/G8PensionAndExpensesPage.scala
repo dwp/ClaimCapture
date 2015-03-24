@@ -3,7 +3,7 @@ package utils.pageobjects.s7_employment
 import play.api.test.WithBrowser
 import utils.pageobjects._
 
-final class G8PensionAndExpensesPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G8PensionAndExpensesPage.url.replace(":jobID", iteration.toString), G8PensionAndExpensesPage.title, iteration) {
+final class G8PensionAndExpensesPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, s"${G8PensionAndExpensesPage.url}/${iteration.toString}", iteration) {
   declareYesNo("#payPensionScheme_answer", "EmploymentDoYouPayForPensionExpenses_" + iteration)
   declareInput("#payPensionScheme_text", "EmploymentPensionExpenses_" + iteration)
   declareYesNo("#payForThings_answer", "EmploymentDoYouPayForThingsToDoJob_" + iteration)
@@ -13,9 +13,7 @@ final class G8PensionAndExpensesPage(ctx:PageObjectsContext, iteration: Int) ext
 }
 
 object G8PensionAndExpensesPage {
-  val title = "Pension and expenses - Employment History".toLowerCase
-
-  val url  = "/employment/about-expenses/:jobID"
+  val url  = "/employment/about-expenses"
 
   def apply(ctx:PageObjectsContext, iteration: Int= 1) = new G8PensionAndExpensesPage(ctx,iteration)
 }

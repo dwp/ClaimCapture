@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.{Result, Controller, Results}
-import play.api.test.Helpers._
 import play.api.test.{WithApplication, FakeRequest, PlaySpecification}
 import scala.concurrent.Future
 

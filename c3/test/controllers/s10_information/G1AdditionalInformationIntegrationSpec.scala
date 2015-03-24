@@ -13,13 +13,13 @@ import utils.pageobjects.s12_consent_and_declaration.G2DisclaimerPage
 class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
   "Additional information" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/information/additional-info")
-      titleMustEqual("Additional information - Information")
+      browser.goTo(G1AdditionalInfoPage.url)
+      urlMustEqual(G1AdditionalInfoPage.url)
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/information/additional-info")
-      titleMustEqual("Additional information - Information")
+      browser.goTo(G1AdditionalInfoPage.url)
+      urlMustEqual(G1AdditionalInfoPage.url)
       browser.submit("button[type='submit']")
 
       findMustEqualSize("div[class=validation-summary] ol li", 2)
@@ -28,7 +28,7 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.additionalInfo(browser)
       browser.submit("button[type='submit']")
-      titleMustEqual("Disclaimer - Consent and Declaration")
+      urlMustEqual(G2DisclaimerPage.url)
     }
 
     "be presented" in new WithBrowser with PageObjects{

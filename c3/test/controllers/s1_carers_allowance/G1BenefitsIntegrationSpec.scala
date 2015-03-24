@@ -16,7 +16,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
     "contain a link to gov.uk" in new WithBrowser with PageObjects {
 		  val page = G1BenefitsPage(context)
       page goToThePage ()
-      page source() must contain("https://www.gov.uk")
+      page.source must contain("https://www.gov.uk")
     }
 
     "contain errors on invalid submission" in new WithBrowser with PageObjects {

@@ -16,11 +16,4 @@ object YesNoWithText {
     case `no` => input.text.isDefined
   }
 
-  /**
-   * we are using this function in scenarios where the answer is yes and the field to be validated
-   * is not visible based on some other condition
-   */
-  def doNotValidateOnYes(input: YesNoWithText): Boolean = input.answer match {
-    case _ => true
-  }
 }

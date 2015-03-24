@@ -16,7 +16,7 @@ class PreviewPagePartnerContentSpec extends Specification with Tags {
       fillPartnerSection(context)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source
 
       source must contain("About your partner")
       source must contain("Name")
@@ -37,7 +37,7 @@ class PreviewPagePartnerContentSpec extends Specification with Tags {
       fillPartnerSection(context, partnerData)
       val page =  PreviewPage(context)
       page goToThePage()
-      val source = page.source()
+      val source = page.source
 
       source must contain ("About your partner")
       source must contain ("Have you lived with a partner at any time since your claim date?")

@@ -23,15 +23,12 @@ class G5PaymentChangeIntegrationSpec extends Specification with Tags {
        val claim = CircumstancesScenarioFactory.paymentChangesChangeInfo
        page fillPageWith(claim)
        val completedPage = page submitPage()
-       println("*** 1: " + completedPage.pageTitle)
 
-       val reportChangesPage = completedPage runClaimWith (claim, G5PaymentChangePage.title)
-       println("*** 2: " + reportChangesPage.pageTitle)
+       val reportChangesPage = completedPage runClaimWith (claim, G5PaymentChangePage.url)
 
        reportChangesPage must beAnInstanceOf[G5PaymentChangePage]
 
        val prevPage = reportChangesPage.goBack()
-       println("*** 3: " + prevPage.pageTitle)
        prevPage must beAnInstanceOf[G1ReportChangesPage]
      }
 

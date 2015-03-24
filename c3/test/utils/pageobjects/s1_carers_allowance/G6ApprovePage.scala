@@ -7,17 +7,15 @@ import play.api.Logger
 
 /**
  * PageObject pattern associated to S1 carers allowance G5 approve page.
- * @author Jorge Migueis
- *         Date: 10/07/2013
  */
-final class G6ApprovePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G6ApprovePage.url, G6ApprovePage.title) {
+final class G6ApprovePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G6ApprovePage.url) {
   declareYesNo("#answer", "CanYouGetCarersAllowanceApproveAnswer")
 
   def isApproved = {
-    ctx.browser.find(".prompt.e-prompt h2").getText.indexOf("not") == -1
+    ctx.browser.find("#allowedToContinue").getValue == "true"
   }
 
-  def isNotApproved =  ctx.browser.find(".prompt.e-prompt h2").getText.indexOf("not") > -1
+  def isNotApproved = !isApproved
 }
 
 /**
@@ -25,8 +23,6 @@ final class G6ApprovePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G6Appro
  * It is used by PageFactory object defined in Page.scala
  */
 object G6ApprovePage {
-  val title = "Can you get Carer's Allowance?".toLowerCase
-
   val url = "/allowance/approve"
 
   def apply(ctx:PageObjectsContext) = new G6ApprovePage(ctx)

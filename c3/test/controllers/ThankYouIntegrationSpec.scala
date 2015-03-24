@@ -7,7 +7,7 @@ class ThankYouIntegrationSpec extends Specification with Tags {
   "Thank You" should {
     "present 'Thank You' page" in new WithBrowser with BrowserMatchers {
       browser.goTo("/thankyou/apply-carers")
-      titleMustEqual("Application complete")
+      urlMustEqual("/thankyou/apply-carers")
     }
 
     "show employment and self employment messages" in new WithBrowser with BrowserMatchers {
@@ -15,7 +15,7 @@ class ThankYouIntegrationSpec extends Specification with Tags {
       Formulate.employment(browser)
 
       browser.goTo("/thankyou/apply-carers")
-      titleMustEqual("Application complete")
+      urlMustEqual("/thankyou/apply-carers")
 
       browser.find("employment").getText mustEqual "Your Employment documents"
       browser.find("selfEmployment").getText mustEqual "Your Self-employed documents"
@@ -26,7 +26,7 @@ class ThankYouIntegrationSpec extends Specification with Tags {
       Formulate.justEmployment(browser)
 
       browser.goTo("/thankyou/apply-carers")
-      titleMustEqual("Application complete")
+      urlMustEqual("/thankyou/apply-carers")
 
       browser.find("#employment").getText shouldEqual "Your Employment documents"
       browser.find("#selfEmployment").size() shouldEqual 0
@@ -37,7 +37,7 @@ class ThankYouIntegrationSpec extends Specification with Tags {
       Formulate.justSelfEmployment(browser)
 
       browser.goTo("/thankyou/apply-carers")
-      titleMustEqual("Application complete")
+      urlMustEqual("/thankyou/apply-carers")
 
       browser.find("#employment").size() shouldEqual 0
       browser.find("#selfEmployment").getText shouldEqual "Your Self-employed documents"
@@ -45,7 +45,7 @@ class ThankYouIntegrationSpec extends Specification with Tags {
 
     "don't show employment messages" in new WithBrowser with BrowserMatchers {
       browser.goTo("/thankyou/apply-carers")
-      titleMustEqual("Application complete")
+      urlMustEqual("/thankyou/apply-carers")
 
       browser.find("#employment").size() shouldEqual 0
       browser.find("#selfEmployment").size() shouldEqual 0
