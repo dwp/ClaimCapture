@@ -50,24 +50,22 @@
     } else {
         <section class="prompt e-prompt" aria-labelledby="heading2">
             <h2 id="heading2">@Html(Messages("s1.g6.red.help1"))</h2>
-            <div>
-	            <p>@Html(Messages("s1.g6.red.helper"))</p>
-	            <ul>
-	            	@if(!benefitsAnswer) {
-	                    <li>@Html(Messages("s1.g6.red.benefits"))</li>
-	                }
-	                @if(!hoursAnswer) {
-	                    <li>@Html(Messages("s1.g6.red.hours"))</li>
-	                }
-	                @if(!over16Answer) {
-	                    <li>@Html(Messages("s1.g6.red.over16"))</li>
-	                }
-	                @if(!livesInGBAnswer) {
-	                    <li>@Html(Messages("s1.g6.red.liveInGB"))</li>
-	                }
-	            </ul>
-	            <!-- <p>@Html(Messages("s1.g6.green.help.moreinfo")) <a href="/claim-notes" target="_blank">@Html(Messages("s1.g6.green.help.moreinfo.link"))</a>@Html(Messages("s1.g6.green.help.moreinfo.end"))</p> -->
-            </div>
+            <p>@Html(Messages("s1.g6.red.helper"))</p>
+            <ul>
+            	@if(!benefitsAnswer) {
+                    <li>@Html(Messages("s1.g6.red.benefits"))</li>
+                }
+                @if(!hoursAnswer) {
+                    <li>@Html(Messages("s1.g6.red.hours"))</li>
+                }
+                @if(!over16Answer) {
+                    <li>@Html(Messages("s1.g6.red.over16"))</li>
+                }
+                @if(!livesInGBAnswer) {
+                    <li>@Html(Messages("s1.g6.red.liveInGB"))</li>
+                }
+            </ul>
+            <!-- <p>@Html(Messages("s1.g6.green.help.moreinfo")) <a href="/claim-notes" target="_blank">@Html(Messages("s1.g6.green.help.moreinfo.link"))</a>@Html(Messages("s1.g6.green.help.moreinfo.end"))</p> -->
         </section>
     }
 

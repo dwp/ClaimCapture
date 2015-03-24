@@ -1,7 +1,7 @@
  // Prompt panel
    .prompt {
 	   padding: 0;
-	   margin-bottom: 30px;
+	   //margin-bottom: 30px;
 	   p {
 		   margin-top: .25em;
 		   &:first-child {
@@ -162,45 +162,45 @@
 		   }
 	   }
 	   
-	   &.e-prompt {
-		   margin: 2em 0 1em 0;
-		   border: 0;
-		   background: #fff;
-		   padding: 0;
-		   .ie7 & {
-			   zoom: 1;
-		   }
-		   h2 {
-			   font-size: 24px;
-			   @media screen and (max-width: 700px) {
-				   font-size: 20px;
-			   }
-		   }
-		   div {
-			   padding: 1em 0 0 0;
-		   }
-		   p {
-			   font-size: 19px;
-			   margin-top: 1em;
-			   &:first-child {
-				   margin: .5em 0 1em 0;
-			   }
-			   &.intro {
-			   font-weight: 600;
-			   }
-		   }
-		   ul {
-
-			   list-style: disc;
-			   padding: 0 0 0 1.25em;
-			   li {
-				   display: list-item;
-				   padding: 0;
-				   margin: .5em 0 0 0;
-				   font-size: 19px;
-			   }
-		   }
-	   }
+	    &.e-prompt {
+		    margin-bottom: 30px;
+		    border: 0;
+		    background: #fff;
+		    padding: 0;
+		    .ie7 & {
+			    zoom: 1;
+		    }
+		    h2 {
+			    font-size: 24px;
+			    @media screen and (max-width: 700px) {
+				    font-size: 20px;
+			    }
+		    }
+		    div {
+			    padding: 1em 0 0 0;
+		    }
+		    p {
+			    font-size: 19px;
+			    margin-top: 1em;
+			    &:first-child {
+				    margin: .5em 0 1em 0;
+			    }
+			    &.intro {
+			   		font-weight: 600;
+			    }
+		    }
+		    ul {
+			    list-style: disc;
+			    padding: 0 0 0 1.25em;
+			    li {
+				    display: list-item;
+				    padding: 0;
+				    margin: .5em 0 0 0;
+				    font-size: 19px;
+				    line-height: 1.4em;
+			    }
+		    }
+	    }
 	   
 	   &.entitlement-error {
 	   	   h2 {
