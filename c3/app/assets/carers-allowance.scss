@@ -1,5 +1,5 @@
-// Config
 
+// Config
 $base-margin     : 15px;
 $base-margin-l   : 30px;
 $base-margin-xl  : 50px;
@@ -13,9 +13,9 @@ $base-margin-xl  : 50px;
 main {
 	background: white;
 	display: block;
-	padding: 0 30px;
+	padding: 0 $base-margin-l;
 	@media screen and (max-width: 640px) {
-		padding: 0 15px;
+		padding: 0 $base-margin;
 	}
 }
 
@@ -59,28 +59,6 @@ main {
 		legend {
 			margin-bottom: $base-margin-l;
 			padding-left: 0; 
-		}
-
-		@media screen and (max-width: 500px) {
-			margin-top: 30px;
-		}
-
-	    // Eligibility section
-	    &.form-eligibility {
-			legend {
-	   			color: inherit;
-			}
-		   	.benefits {
-		   		padding: .4em 0 0 1em;
-		   		font-size: 19px;
-		   		border-left: 5px solid #dee0e2;
-			   	p {
-				   	margin-top: 1em;
-				   	&:first-child {
-					   	margin: 0;
-				   	}
-			   	}
-		   	}
 		}
 
 		ul,
@@ -166,7 +144,7 @@ main {
 
 	    .nested-fieldset {
 	    	legend {
-	    		margin-bottom: 5px;
+	    		margin-bottom: 15px;
 	    	}
 	    }
 	   	   
@@ -192,7 +170,6 @@ main {
 			}  	
 			
 			.employment-info {
-
 				p {
 					color: #0b0c0c;
 					font-size: 19px;
@@ -202,7 +179,6 @@ main {
 						margin: 0;
 					}
 				}
-
 			    ul {
 				    list-style: disc;
 				    padding: .5em 0 1em 1.4em;
@@ -220,7 +196,6 @@ main {
 					    }
 				    }
 			    }
-
 		    }
 		   
 		}
@@ -245,17 +220,18 @@ main {
 				display: block;
 				position: relative;
 				margin-top: $base-margin-l;
+
+				&:first-child[style*="display: none"] + li,
 				&:first-child {
 					margin-top: 0;
 				}
 
-				&.extra-detail {
-					padding: 0;
-				}
-
-				&.other-detail {
-					margin-bottom: $base-margin-l;
+				&.other-detail { 
+					margin-top: $base-margin-l;
 					padding-top: 0;
+					&:first-child {
+						margin-top: 0;
+					}
 					.ie7 & {
 						zoom: 1;
 					}
@@ -263,10 +239,7 @@ main {
 						position: absolute;
 						left: -9999px;
 					}
-					&:last-child {
-						margin-bottom: 0;
-					}
-				}
+				} 
 				   
 				&.extra-text {
 					label {
@@ -474,6 +447,7 @@ main {
 					display: block;
 					font-size: 19px;
 					font-weight: 600;
+					margin-bottom: 15px;
 					@media screen and (max-width: 600px) {
 						line-height: 1.2em;
 					}
@@ -483,10 +457,6 @@ main {
 						margin-right: 4px;
 						font-style: normal;
 					}
-				}
-
-				label {
-					margin-bottom: 15px;
 				}
 				  
 				input[type="text"], 
