@@ -1,6 +1,5 @@
 package utils.pageobjects.common
 
-import play.api.test.WithBrowser
 import utils.pageobjects._
 
 
@@ -25,11 +24,4 @@ final class ErrorPage(ctx: PageObjectsContext) extends ClaimPage(ctx, ErrorPage.
    */
   override def populateClaim(theClaim: TestData): Page =
     throw new PageObjectException(s"Reached Error page [$url], the previous page was [${ctx.previousPage.getOrElse(this).url}]. This page cannot populate a claim. Check test.")
-}
-
-
-trait ErrorPageContext extends PageContext {
-  this: WithBrowser[_] =>
-
-  val page = ErrorPage (PageObjectsContext(browser))
 }
