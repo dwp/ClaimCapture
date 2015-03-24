@@ -4,11 +4,11 @@ import play.api.test.WithBrowser
 import utils.pageobjects._
 
 /**
- * Page Object for S10 G3 disclaimer.
- * @author Jorge Migueis
- *         Date: 05/08/2013
+ * Page Object for S1 G1 disclaimer.
  */
 class G1DisclaimerPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1DisclaimerPage.url, G1DisclaimerPage.title) {
+  // This page does not contain any input elements. This page contains a button and the value is passed to the model when
+  // the button is clicked.
 }
 
 /**
