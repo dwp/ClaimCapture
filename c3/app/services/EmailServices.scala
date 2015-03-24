@@ -4,6 +4,7 @@ import app.ConfigProperties._
 import controllers.mappings.Mappings
 import models.domain._
 import models.view.CachedClaim
+import play.api.Logger
 import play.api.i18n.Lang
 import services.mail.{EmailWrapper, EmailActors}
 
@@ -16,7 +17,7 @@ object CadsEmail {
     //EmailAddress object uses javax.mail.internet.InternetAddress behind scenes. On parameters EmailAddress("Peter","peter@gmail.com") will generate "Peter <peter@gmail.com>" on the email sending message
     //As we don't want to send emails, I tried "","email@email.com" but that produces " <email@email.com>", so we have to send null in the first parameter so the email on the output is just what we are sending.
     val recipients = r.map(to => Recipient(RecipientType.TO,EmailAddress(null,to)))
-
+    Logger.debug(s"Sending email for transactionID:$transactionID")
     EmailActors.manager ! EmailWrapper(transactionID,Email(subject = subject,from = EmailAddress(null,getProperty("mailer.from","noreply@lab.3cbeta.co.uk")),text = "",htmlText = body,None,recipients))
   }
 }
