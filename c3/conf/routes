@@ -12,7 +12,7 @@ GET         /report/ping                                                controll
 
 
 # claim pack notes accessed externally
-GET         /claim-notes                                                controllers.ClaimNotes.notes
+#GET         /claim-notes                                                controllers.ClaimNotes.notes
 # claim pack notes accessed internally (with claim lang)
 GET         /internal-claim-notes/:languageCode                         controllers.ClaimNotes.internalNotes(languageCode: String)
 

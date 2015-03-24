@@ -1,16 +1,27 @@
 package controllers.s12_consent_and_declaration
 
 import org.specs2.mutable.{Tags, Specification}
+import play.api.Logger
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
+import utils.pageobjects.common.ClaimNotesPage
 import utils.pageobjects.{TestData, PageObjects}
 import utils.pageobjects.s12_consent_and_declaration.{G2DisclaimerPage, G3DeclarationPage}
+import collection.JavaConversions._
 
 class G3DeclarationIntegrationSpec extends Specification with Tags {
   "Declaration" should {
-    "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo(G3DeclarationPage.url)
-      urlMustEqual(G3DeclarationPage.url)
+    "be presented" in new WithBrowser with BrowserMatchers with PageObjects {
+      val page =  G3DeclarationPage(context)
+      page goToThePage()
+    }
+
+    "Display claim notes when click on claim notes link" in new WithBrowser with PageObjects {
+      val page =  G3DeclarationPage(context)
+      page goToThePage()
+      val handles1 = context.browser.webDriver.getWindowHandles
+      val claimNotesPage = page.clickLinkOrButton("#claimnotes")
+      claimNotesPage must beAnInstanceOf[ClaimNotesPage]
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {

@@ -1,5 +1,6 @@
 package utils.pageobjects
 
+
 import scala.language.dynamics
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
@@ -15,9 +16,7 @@ import utils.pageobjects.s12_consent_and_declaration._
 import utils.pageobjects.IterationManager._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
-
-//import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
-
+import utils.pageobjects.common._
 
 /**
  * Factory used by Page to create from an html page the right page object.
@@ -93,6 +92,8 @@ object ClaimPageFactory extends PageFactory {
       case G3DeclarationPage.url =>
         if (ctx.browser.pageSource() contains "DWPBody") XmlPage(ctx)
         else G3DeclarationPage(ctx)
+      case ClaimNotesPage.url => ClaimNotesPage(ctx)
+      case ClaimHelpPage.url => ClaimHelpPage(ctx)
       // Catch pages not covered by framework
       case _ =>
         if (previousUrl.isEmpty) buildPageFromUrImpl(url.replaceFirst("/[^/]*$", ""), ctx, url)

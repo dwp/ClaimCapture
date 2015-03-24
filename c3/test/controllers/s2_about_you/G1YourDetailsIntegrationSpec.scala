@@ -2,6 +2,7 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{TestBrowser, WithBrowser}
+import utils.pageobjects.common.ClaimHelpPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s1_carers_allowance.G6ApprovePage
@@ -16,9 +17,16 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
       page goToThePage()
     }
 
+    "give access to help page" in new WithBrowser with PageObjects{
+      val page =  G1YourDetailsPage(context)
+      page goToThePage()
+      val helpPage = page.clickLinkOrButton("#helppage")
+      helpPage.isInstanceOf[ClaimHelpPage] must beTrue
+    }
+
     "navigate back to approve page" in new WithBrowser with PageObjects{
 			val page =  G1YourDetailsPage(context)
-      browser goTo "/allowance/approve"
+      browser goTo G6ApprovePage.url
 
       page goToThePage()
       val backPage = page goBack()
