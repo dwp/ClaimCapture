@@ -1,0 +1,62 @@
+.claim-notes {
+	
+	section {
+		margin: 3em 0 0 0;
+		
+		h2 {
+			border-bottom: 1px solid #bfc1c3;
+			padding-bottom: 5px;
+			margin-bottom: 1em;
+		}
+		
+		h3 {
+			font-size: 19px;
+			font-weight: 600;
+			margin-top: 1.5em;
+		}
+		
+		ol {
+			list-style: decimal;
+			margin: 1.5em 0 0 1.4em;
+			padding: 0;
+			
+			li {
+				font-size: 19px;
+			}
+			
+		}
+		
+		ul {
+			margin: 1.5em 0 0 1.4em;
+			padding: 0;
+			list-style: disc;
+			
+			li {
+				font-size: 19px;
+				
+			}
+			
+		}
+		
+		
+		p {
+			margin-top: 1.5em;
+			&:first-child {
+				margin: 0;
+			}
+		}
+		
+		nav {
+			margin: 1.5em 0 0 0;
+			a {
+				font-size: 19px;
+			}
+			&.first {
+				margin-top: 0;
+			}
+		}
+		
+		
+	}
+	
+}

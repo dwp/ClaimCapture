@@ -1,0 +1,28 @@
+.feedback-container {
+	border: 10px solid #005ea5;
+	border-top: 0;
+	background: #fff;
+	padding: 1.5em;
+	@media screen and (max-width: 500px) {
+		padding: 1em;
+	}
+	p {
+		margin: 0;
+		padding-top: 1em;
+		font-size: 19px;
+	}
+	.feed-close {
+		margin-top: 1em;
+		display: inline-block;
+		cursor: pointer;
+		font-weight: 600;
+		display: none;
+		&:before {
+			content: "\00d7";
+			font-size: 26px;
+			top: 3px;
+			position: relative;
+			margin-right: 4px;
+		}
+	}
+}

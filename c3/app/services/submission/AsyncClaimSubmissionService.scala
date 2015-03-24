@@ -1,12 +1,14 @@
 package services.submission
 
+import app.ConfigProperties._
+import models.view.CachedClaim
 import monitoring.{Counters}
 import play.api.libs.ws.WSResponse
 
 import scala.concurrent.ExecutionContext
 import play.api.{http, Logger}
 import controllers.submission._
-import services.{SubmissionCacheService, ClaimTransactionComponent}
+import services.{EmailServices, SubmissionCacheService, ClaimTransactionComponent}
 import ExecutionContext.Implicits.global
 import ClaimSubmissionService._
 import models.domain.Claim
@@ -103,6 +105,11 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService {
   private def ok(claim: Claim, txnID: String, response: WSResponse) = {
     Logger.info(s"Successful submission  [${SUCCESS}] - response status ${response.status} for : ${claim.key}  transactionId [$txnID].")
     claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
+
+    //We send email after we update status and we verify that the submission has been successful
+    if (getProperty("mailer.enabled",default=false)) {
+      EmailServices.sendEmail(claim)
+    }
   }
 }
 
