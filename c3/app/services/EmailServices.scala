@@ -40,18 +40,17 @@ object EmailServices {
         implicit val lang = if(isWelsh) Lang("cy") else Lang("en")
 
         CadsEmail.send(claim.transactionId.getOrElse(""),subject = Messages("subject.claim"),body = views.html.mail(claim,isClaim = true,isEmployment(claim)).body,email)
-      case _ =>
+      case _ => Logger.error("Can't send claim email, email not pressent")
     }
   }
 
   private def sendCofcEmail(claim:Claim) = {
     claim.questionGroup[CircumstancesDeclaration].get.email -> claim.lang match {
-      case (Some(email),Some(language)) =>
-
-        implicit val lang = language
+      case (Some(email),language) =>
+        implicit val lang = language.getOrElse(Lang("en"))
 
         CadsEmail.send(claim.transactionId.getOrElse(""), subject = Messages("subject.cofc"),body = views.html.mail(claim,isClaim = false,isEmployment(claim)).body,email)
-      case _ =>
+      case _ => Logger.error("Can't send changes email, email not present")
     }
   }
 
