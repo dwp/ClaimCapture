@@ -1,6 +1,7 @@
 package services.mail
 
 import akka.actor.ActorSystem
+import app.ConfigProperties._
 
 
 object EmailActors {

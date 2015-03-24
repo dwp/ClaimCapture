@@ -4,4 +4,5 @@
  <include file="dbchangelog_001.sql"/>
  <include file="dbchangelog_002.sql"/>
  <include file="dbchangelog_003.sql"/>
+ <include file="dbchangelog_004.sql"/>
 </databaseChangeLog>

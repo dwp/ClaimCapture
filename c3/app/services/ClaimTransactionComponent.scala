@@ -69,6 +69,17 @@ trait ClaimTransactionComponent {
         ).on("status" -> statusCode, "type" -> claimType, "transactionId" -> id).executeUpdate()
     }
 
+    def updateEmailStatus(id: String, statusCode: Int): Unit = DB.withConnection("carers") {
+      implicit connection =>
+
+        SQL(
+          """
+          UPDATE transactionstatus set email={status}
+          WHERE transaction_id={transactionId};
+          """
+        ).on("status" -> statusCode, "transactionId" -> id).executeUpdate()
+    }
+
 
     val transactionStatusParser = {
       get[String]("transaction_id") ~

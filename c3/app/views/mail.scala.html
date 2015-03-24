@@ -11,9 +11,7 @@
 @isCofcFinishedEmployment = @{
     claim.questionGroup[CircumstancesStartedAndFinishedEmployment].exists(_ =>true)
 }
-@allowance = @{
-    (Source fromURL (getClass getResource "/public/carers-allowance.min.css") getLines()).mkString("\n")
-}
+
 <!DOCTYPE html>
 <!--[if IE 7]>         <html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8]>         <html class="ie ie8" lang="en"> <![endif]-->
