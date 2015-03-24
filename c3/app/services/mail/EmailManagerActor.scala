@@ -25,12 +25,12 @@ object EmailActorsCreators {
 class EmailManagerActor(emailSendingCreator:Props, retries:Int, retriesTimeSpan:Int) extends Actor {
 
   override def supervisorStrategy = OneForOneStrategy(maxNrOfRetries = retries, withinTimeRange = retriesTimeSpan seconds){
-    case e:Exception =>
-      Logger.error("Could not send email.", e)
-      Restart
     case e:PSQLException =>
       Logger.error("DB Error while updating email status.",e)
       Stop
+    case e:Exception =>
+      Logger.error("Could not send email.", e)
+      Restart
   }
 
   override def receive: Actor.Receive = {
