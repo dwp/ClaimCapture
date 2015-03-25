@@ -83,6 +83,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
 object UserAgentCheckAction {
 
   def defaultCheckIf(header: RequestHeader): Boolean = (!RequestSelector.startPage(header)
+    && !RequestSelector.channelShiftPage(header)
     && RequestSelector.toBeChecked(header)
     && (header.cookies.get(ClaimHandling.applicationFinished) match {
     case Some(c) => c.value == "false"

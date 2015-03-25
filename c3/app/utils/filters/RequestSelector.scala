@@ -28,6 +28,16 @@ object RequestSelector {
   }
 
   /**
+   * Is this a Channel shift related page
+   * @param request Request to parse
+   * @return true if request corresponds to a channel shift redirection.
+   */
+  def channelShiftPage(request:RequestHeader) = {
+    val headerString = request.path
+    headerString.matches(".*CS2015.*")
+  }
+
+  /**
    * Is this an end page of the system?
    * @param request Request to parse.
    * @return true if request corresponds to an end page, false otherwise.
