@@ -10,8 +10,6 @@ import utils.pageobjects._
  */
 final class G7MoreAboutTheCarePage (ctx:PageObjectsContext) extends ClaimPage(ctx, G7MoreAboutTheCarePage.url) {
   declareYesNo("#spent35HoursCaring", "AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek")
-  declareYesNo("#beforeClaimCaring_answer", "AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours")
-  declareDate("#beforeClaimCaring_date", "AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson")
 }
 
 /**

@@ -40,18 +40,18 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(Claim(CachedClaim.key)) should beFalse
     }
 
-    "returns false given MoreAboutTheCare answered yes and honeyPot filled" in {
-      val claim = Claim(CachedClaim.key).update(MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "yes", date = Some(DayMonthYear()))))
+    "returns false given spent35HoursCaringBeforeClaim answered yes and honeyPot filled" in {
+      val claim = Claim(CachedClaim.key).update(ClaimDate(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "yes", date = Some(DayMonthYear()))))
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given MoreAboutTheCare answered no and honeyPot not filled" in {
-      val claim = Claim(CachedClaim.key).update(MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "no", date = None)))
+    "returns false given spent35HoursCaringBeforeClaim answered no and honeyPot not filled" in {
+      val claim = Claim(CachedClaim.key).update(ClaimDate(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "no", date = None)))
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given MoreAboutTheCare answered no and honeyPot filled" in {
-      val claim = Claim(CachedClaim.key).update(MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "no", date = Some(DayMonthYear()))))
+    "returns true given spent35HoursCaringBeforeClaim answered no and honeyPot filled" in {
+      val claim = Claim(CachedClaim.key).update(ClaimDate(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "no", date = Some(DayMonthYear()))))
       controller.honeyPot(claim) should beTrue
     }
 

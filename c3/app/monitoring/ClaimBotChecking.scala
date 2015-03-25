@@ -57,7 +57,7 @@ trait ClaimBotChecking extends BotChecking {
 
   def honeyPot(claim: Claim): Boolean = {
     def checkMoreAboutTheCare: Boolean = {
-      claim.questionGroup[MoreAboutTheCare] match {
+      claim.questionGroup[ClaimDate] match {
         case Some(q) =>
           q.spent35HoursCaringBeforeClaim.answer == "no" && q.spent35HoursCaringBeforeClaim.date.isDefined // Bot given field spent35HoursCaringBeforeClaim.date was not visible.
 

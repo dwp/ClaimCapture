@@ -39,8 +39,8 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
 
     form.bindEncrypted.fold(
       formWithErrors => {
-        val sixMonth = claim.questionGroup(MoreAboutTheCare) match {
-          case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim.answer.toLowerCase == "yes"
+        val sixMonth = claim.questionGroup(ClaimDate) match {
+          case Some(m: ClaimDate) => m.spent35HoursCaringBeforeClaim.answer.toLowerCase == "yes"
           case _ => false
         }
         val formWithErrorsUpdate = formWithErrors.replaceError("answer", FormError("answer.label", Mappings.errorRequired,Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>

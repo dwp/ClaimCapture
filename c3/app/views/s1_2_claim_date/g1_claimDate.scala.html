@@ -2,12 +2,21 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
+@import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 @import scala.language.postfixOps
 @import play.api.i18n.{MMessages => Messages}
 @import play.api.Play
 @import play.api.Play.current
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+
+@displayDateForLabel = @{
+    claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+        displayPlaybackDatesFormat(lang,dmy)
+    )
+}
 
 @defining(lang) { implicit language =>
     @main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName")) {
@@ -21,11 +30,18 @@
             <div class="form-elements">
 
                 <ul>
-                @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateClaimExample.helperAbove", (DayMonthYear.today - 3 months).`d M yyyy`))
+                    @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateClaimExample.helperAbove", (DayMonthYear.today - 3 months).`d M yyyy`))
+
+                    @yesNoRadioGroup(claimDateForm("beforeClaimCaring.answer"),'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")),
+                        '_label -> Messages("spent35HoursCaringBeforeClaim.label"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(inputDayMonthYear(claimDateForm("beforeClaimCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 years).`d M yyyy`))),
+                        'id -> "careStartDateWrap"
+                    )
                 </ul>
-                
-                
-                </div>
+
+            </div>
 
                 <nav class="form-steps" role="navigation">
                     <ul>
@@ -35,13 +51,26 @@
                 </nav>
             
         }
+
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_2_claim_date/g1_claimDate.js")'></script>
+
         <script type="text/javascript">
-        $(function () {
-            @if(!Play.isTest) {
-                trackEvent ( "times", "claim - start" )
-                setCookie("claimstart", new Date().getTime());
-            }
-        });
+            $(function () {
+                @if(!Play.isTest) {
+                    trackEvent ( "times", "claim - start" )
+                    setCookie("claimstart", new Date().getTime());
+                }
+            });
+
+            $(function() {
+            window.initEvents("@CarersCrypto.encryptAES("beforeClaimCaring_answer_yes")",
+            "@CarersCrypto.encryptAES("beforeClaimCaring_answer_no")",
+            "@CarersCrypto.encryptAES("beforeClaimCaring_date_day")",
+            "@CarersCrypto.encryptAES("beforeClaimCaring_date_month")",
+            "@CarersCrypto.encryptAES("beforeClaimCaring_date_year")");
+            });
+
         </script>
     }
 }
+

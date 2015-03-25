@@ -95,6 +95,7 @@ object Formulate {
     browser.fill("#dateOfClaim_day") `with` "1"
     browser.fill("#dateOfClaim_month") `with` "1"
     browser.fill("#dateOfClaim_year") `with` "2015"
+    browser.click("#beforeClaimCaring_answer_no")
     browser.submit("button[type='submit']")
   }
 
