@@ -67,8 +67,8 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
 
       Thread.sleep(4000)
 
-      EmailSenderTestable.preStartCalls mustEqual retries +1 //starts first time plus retries times
-      EmailSenderTestable.preRestartCalls mustEqual retries
+      EmailSenderTestable.preStartCalls must beGreaterThan(retries)
+      EmailSenderTestable.preRestartCalls must beGreaterThan(retries-1)
 
       there was atMost(retries+1)(mailerMock).sendEmail(any[Email])
 
@@ -101,8 +101,6 @@ class EmailSenderTestable(mailPlugin:Mailer) extends EmailSenderActor{
     super.preRestart(reason, message)
     Logger.info(s"Restarting because of $reason with $message")
     synchronized{ EmailSenderTestable.preRestartCalls += 1 }
-
-
   }
 
 

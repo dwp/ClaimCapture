@@ -2,6 +2,7 @@ package services.mail
 
 import akka.actor.SupervisorStrategy._
 import akka.actor.{OneForOneStrategy, _}
+import org.postgresql.util.PSQLException
 import play.api.Logger
 import play.modules.mailer._
 import services.ClaimTransactionComponent
@@ -24,6 +25,9 @@ object EmailActorsCreators {
 class EmailManagerActor(emailSendingCreator:Props, retries:Int, retriesTimeSpan:Int) extends Actor {
 
   override def supervisorStrategy = OneForOneStrategy(maxNrOfRetries = retries, withinTimeRange = retriesTimeSpan seconds){
+    case e:PSQLException =>
+      Logger.error("DB Error while updating email status.",e)
+      Stop
     case e:Exception =>
       Logger.error("Could not send email.", e)
       Restart

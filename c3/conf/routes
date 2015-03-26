@@ -10,7 +10,8 @@ GET         /report/metrics                                             com.kens
 GET         /report/health                                              controllers.HealthController.healthReport
 GET         /report/ping                                                controllers.HealthController.ping
 
-
+#Channel Shift url
+GET         /CS2015                                                     controllers.ChannelShiftController.redirect
 # claim pack notes accessed externally
 #GET         /claim-notes                                                controllers.ClaimNotes.notes
 # claim pack notes accessed internally (with claim lang)
@@ -181,8 +182,8 @@ POST        /information/additional-info                                controll
 # Consent and declaration
 ###############
 
-GET         /consent-and-declaration/declaration        @controllers.s12_consent_and_declaration.G3Declaration.present
-POST        /consent-and-declaration/declaration        @controllers.s12_consent_and_declaration.G3Declaration.submit
+GET         /consent-and-declaration/declaration                        @controllers.s12_consent_and_declaration.G3Declaration.present
+POST        /consent-and-declaration/declaration                        @controllers.s12_consent_and_declaration.G3Declaration.submit
 
 GET         /consent-and-declaration/error                              controllers.s12_consent_and_declaration.G4Error.present
 
@@ -226,8 +227,8 @@ POST        /circumstances/report-changes/employment-finished           controll
 GET         /circumstances/report-changes/future-employment             controllers.circs.s2_report_changes.G12EmploymentNotStarted.present
 POST        /circumstances/report-changes/future-employment             controllers.circs.s2_report_changes.G12EmploymentNotStarted.submit
 
-GET         /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.present
-POST        /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
+GET         /circumstances/consent-and-declaration/declaration          @controllers.circs.s3_consent_and_declaration.G1Declaration.present
+POST        /circumstances/consent-and-declaration/declaration          @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
 GET         /circumstances/consent-and-declaration/error                controllers.circs.s3_consent_and_declaration.G3Error.present
 
