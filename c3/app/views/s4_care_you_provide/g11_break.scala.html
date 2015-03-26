@@ -2,7 +2,7 @@
 
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import models.domain.MoreAboutTheCare
+@import models.domain.ClaimDate
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._
@@ -16,8 +16,8 @@
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
 
-    val spent35HoursCaringBeforeClaim = claim.questionGroup(MoreAboutTheCare) match {
-        case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim.answer == "yes"
+    val spent35HoursCaringBeforeClaim = claim.questionGroup(ClaimDate) match {
+        case Some(m: ClaimDate) => m.spent35HoursCaringBeforeClaim.answer == "yes"
         case _ => false
     }
 
