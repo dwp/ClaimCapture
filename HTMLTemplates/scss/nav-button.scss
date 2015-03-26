@@ -1,4 +1,14 @@
 /* button panel */
+
+	.back-nav {
+		position: relative;
+		padding-bottom: 5px;
+      a {
+        font-size: 19px;
+      }
+	}
+
+
    .form-steps {
 	   margin-top: 3em;
 	   clear: both;
@@ -10,11 +20,6 @@
 	   a {
 		   font-weight: 500;
 		   font-size: 19px;
-		   .ie7 & {
-			   width: auto;
-			   display: block;
-			   padding: .4em 1em;
-		   }
 	   }
 	   ul {
 		   li {
@@ -39,8 +44,8 @@
 		   -webkit-appearance: none;
 		   display: inline-block;
 		   margin: 0;
-		   background: #006435;
-		   font-weight: 500;
+		   background: #10813e;
+		   font-weight: 100;
 		   text-decoration: none;
 		   top: 0;
 		   position: relative;	
@@ -66,7 +71,7 @@
 			   padding: .4em 1em;
 		   }
 		   &:hover {
-			   background: #004b27;
+			   background: #0b6831;
 		   }
 		   &:active {	
 		   	   top: 3px;

@@ -5,11 +5,10 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s2_about_you.G1YourDetailsPageContext
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s11_pay_details.G1HowWePayYouPageContext
-import utils.pageobjects.s12_consent_and_declaration.G2DisclaimerPageContext
 import utils.pageobjects.{Page, PageObjectsContext, PageObjects, TestData}
 import app._
 import play.api.i18n.Messages
-import utils.pageobjects.s1_2_claim_date.{G1ClaimDatePageContext, G1ClaimDatePage}
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 
 class WebSearchSpec extends Specification with Tags{
   "Web Search Actions " should {
@@ -52,17 +51,6 @@ class WebSearchSpec extends Specification with Tags{
       bankPage fillPageWith claim
       val sortCode = bankPage readSortCode("#sortCode")
       sortCode.get mustEqual claim.HowWePayYouSortCode
-    }
-
-    "be able to read Check box" in new WithBrowser with G2DisclaimerPageContext {
-      val claim = new TestData
-      claim.ConsentDeclarationDisclaimerTextAndTickBox = "yes"
-      page goToThePage()
-      val checked = page.readCheck("#read")
-      assert(!checked.isDefined)
-      page fillPageWith claim
-      val checked2 = page.readCheck("#read")
-      checked2.get mustEqual "yes"
     }
   } section "integration"
 

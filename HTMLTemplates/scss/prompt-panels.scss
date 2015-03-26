@@ -1,7 +1,6 @@
  /* prompt panel */
    .prompt {
-	   background: #d5e8f3;
-	   padding: 1.4em 1em;
+	   padding: 0;
 	   margin: 1em 0 0 0;
 	   p {
 		   margin-top: .25em;
@@ -12,6 +11,10 @@
 	   &.error {
 		   background: #f2f2f2;
 	   }
+	   h2 {
+		   font-size: 22px;
+		   line-height: 1.3em;
+	   }
 	   &.submitting {
 	   	   position: relative;
 	   	    @media screen and (max-width: 660px) {
@@ -19,7 +22,7 @@
 	   	    }
 		   p {
 			   margin: .5em 0 0 0;
-			   font-weight: 600;
+			   font-weight: 100;
 			   font-size: 19px;
 			   &:first-child {
 				   margin: 0;
@@ -52,7 +55,8 @@
 	   }
 	   
 	   &.entitlement {
-		   background: #fff; border: 1px solid #a2a2a2;
+		   background: #fff;
+		   border: 1px solid #bfc1c3;
 		   margin-top: 1.5em;
 		   p {
 			   font-weight: 600;
@@ -65,38 +69,25 @@
 		   border: 3px solid #df3034;
 	   }
 	  
-	   &.breaks-prompt {
+	   &.breaks-prompt { 
 		   background: #fef7f7;
 		   border: 3px solid #df3034;
 		   position: relative;
 		   display: none;
+		   padding: 1em;
 		   .ie7 & {
 			   overflow: hidden;
 		   }
 		   p {
-			   padding-right: 5em;
+
 			   margin-bottom: .35em;
 			   @media screen and (max-width: 500px) {line-height: 1.2em;}
 		   }
 		   span {
-			   position: absolute;
-			   top: 50%; 
-			   right: 16px;
-			   width: 36px;
-			   height: 36px;
-			   margin-top: -18px;
-			   border-radius: 100px;
-			   background: #990c1a;
-			   color: #fff;
-			   text-align: center;
-			   font-size: 26px;
-			   font-weight: 700;
-			    @media screen and (max-width: 660px) {
-			    	width: 50px;
-			    	height: 50px;
-			    	margin-top: -25px;
-			    	font-size: 38px;
-			    }
+			   display: none;
+		   }
+		   input {
+			   margin-right: 5px;
 		   }
 	   }
 	   &.breaks-error-prompt {
@@ -104,8 +95,9 @@
 	   }
 	   &.table-helper {
 		   margin: 1em 0 0 0;
-		   border: 1px dotted #bfc1c3;
+		   border: 1px solid #bfc1c3;
 		   background: #f8f8f8;
+		   padding: 1em;
 		   @media screen and (max-width: 640px) {
 			   margin-right: 0;
 		   }
@@ -115,6 +107,7 @@
 	   }
 	   &.eligibility-prompt {
 		   margin-left: 0;
+		   padding: 1.5em 1.2em;
 		   p {
 			   font-size: 19px;
 			   margin: .75em 0 0 0;
@@ -134,13 +127,15 @@
 	   }
 	   &.question-prompt {
 		   margin: .5em 0 0 0;
-		   border: 1px solid #a2a2a2;
+		   border: 1px solid #bfc1c3;
 		   background: #fff;
 		   }
+		   
 	   &.helper-prompt {
 		   margin: .5em 0 1em 0;
-		   border: 1px solid #a2a2a2;
 		   background: #fff;
+		   border-left: 5px solid #dee0e2;
+		   padding: .2em 0 0 .8em;
 		   .ie7 & {
 			   zoom: 1;
 		   }
@@ -166,4 +161,84 @@
 			   }
 		   }
 	   }
+	   
+	   &.e-prompt {
+		   margin: 2em 0 1em 0;
+		   border: 0;
+		   background: #fff;
+		   padding: 0;
+		   .ie7 & {
+			   zoom: 1;
+		   }
+		   h2 {
+			   font-size: 24px;
+		   }
+		   div {
+			   padding: 1em 0 0 0;
+		   }
+		   p {
+			   font-size: 19px;
+			   margin-top: 1em;
+			   &:first-child {
+				   margin: .5em 0 1em 0;
+			   }
+			   &.intro {
+			   font-weight: 600;
+			   }
+		   }
+		   ul {
+
+			   list-style: disc;
+			   padding: 0 0 0 1.25em;
+			   li {
+				   display: list-item;
+				   padding: 0;
+				   margin: .5em 0 0 0;
+				   font-size: 19px;
+			   }
+		   }
+	   }
+	   
+	   &.entitlement-error {
+	   	   h2 {
+	   	   	   margin-top: 2em;
+			   background: #fef7f7;
+			   border: 3px solid #df3034;	   
+	   	   }
+	   }
+	   
+	   &.nested-prompt {
+		   margin: 1em 0 2em 0;
+		   padding: 0;
+		   border: 0;
+		   background: #fff;
+		   .ie7 & {
+			   zoom: 1;
+		   }
+		   p {
+			   font-size: 19px;
+			   margin-top: 1em;
+			   &:first-child {
+				   margin: 0;
+			   }
+			   &.intro {
+			   font-weight: 600;
+			   }
+		   }
+		   ul {
+			   margin: 1em 0 0 1.4em;
+			   list-style: disc;
+			   li {
+				   display: list-item;
+				   padding: 0;
+				   margin: 0;
+				   font-size: 19px;
+			   }
+		   }
+	   }
+	   
+	   &.partner-linked {
+		   margin-bottom: 0;
+	   }
+	   
    }

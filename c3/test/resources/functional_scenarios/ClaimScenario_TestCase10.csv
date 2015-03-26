@@ -2,6 +2,7 @@ Can you get Carers Allowance?,Does the person you care for get one of these bene
 Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you care for?,Do you spend 35 hours or more each week caring for the person you care for?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,Yes
 Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,Yes
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,Yes
+Disclaimer,Disclaimer,I agree,DisclaimerUnderstandAndAgree,Yes
 About You,Your Details,Title,AboutYouTitle,Miss
 About You,Your Details,First name,AboutYouFirstName,Test
 About You,Your Details,Middle name,AboutYouMiddleName,
@@ -158,7 +159,6 @@ Consent & Declaration,Consent & Declaration,Do you agree to us getting informati
 Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclarationTellUsWhyEmployer,
 Consent & Declaration,Consent & Declaration,Do you agree to us getting information from any other person or organisation you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyOther,Yes
 Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclarationTellUsWhyOther,
-Consent & Declaration,Consent & Declaration,Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits.,ConsentDeclarationDisclaimerTextAndTickBox,Yes
 Consent & Declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,ConsentDeclarationDeclarationTickBox,Yes
 Consent & Declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",ConsentDeclarationSomeoneElseTickBox,Yes
 Consent & Declaration,Declaration,Your name and/or organisation.,ConsentDeclarationNameOrOrganisation,Some Org

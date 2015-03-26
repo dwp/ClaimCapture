@@ -41,7 +41,7 @@ object G1AdditionalInfo extends Controller with CachedClaim with Navigable {
     if (getProperty("preview.enabled",default = false)){
       Redirect(controllers.preview.routes.Preview.present())
     }else{
-      Redirect(controllers.s12_consent_and_declaration.routes.G2Disclaimer.present())
+      Redirect(controllers.s12_consent_and_declaration.routes.G3Declaration.present())
     }
   }
 }

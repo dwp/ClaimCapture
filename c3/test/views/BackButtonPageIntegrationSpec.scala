@@ -6,7 +6,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
 import utils.pageobjects.circumstances.s2_report_changes.G1ReportChangesPage
-import utils.pageobjects.s1_carers_allowance.{G2EligibilityPage, G1BenefitsPage}
+import utils.pageobjects.s0_carers_allowance.{G2EligibilityPage, G1BenefitsPage}
 import scala.collection.JavaConversions._
 
 

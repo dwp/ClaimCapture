@@ -1,8 +1,10 @@
 
 // Config
+$base-margin-s   : 10px;
 $base-margin     : 15px;
-$base-margin-l   : 30px;
-$base-margin-xl  : 50px;
+$base-margin-m   : 30px;
+$base-margin-l   : 45px;
+$base-margin-xl  : 60px;
 
 // GDS Color Palette
 @import 'gds-colours';
@@ -17,8 +19,8 @@ main {
 	@media screen and (max-width: 640px) {
 		padding: 0 $base-margin;
 	}
-}
-
+} 
+ 
 .carers-allowance {
  
 	@import 'prototype';
@@ -40,7 +42,7 @@ main {
 	@import 'finish';
 
 	@import 'right-panel';
-
+ 
     width: 960px;
     max-width: 95%; 
     margin: 0 auto;
@@ -51,16 +53,35 @@ main {
     @media screen and (max-width: 500px) {
 	    padding-bottom: 3em;
 	} 
-
+ 
 	.form-elements { 
  
 		margin-bottom: $base-margin-xl;
+	    
+	    &.results-detail {
+		    position: relative;
+	    }
 
-		legend {
+	    // CONTEXTUAL SPACING
+	    // The below code gives spacing to specific elements based on their context,
+	    // removing the need to assign the spacing to each individual instance
+
+	    // top level legend
+		> legend {
 			margin-bottom: $base-margin-l;
-			padding-left: 0; 
+			// reduce the gap if there is intro paragraph/helper
+			+ .intro-info,
+			+ .helper.above {
+				margin-top: -$base-margin-m;
+			}
 		}
 
+		// top level helper
+		> .helper.above {
+			margin-bottom: $base-margin;
+		}
+
+		// adjacent prompts/extra-groups
 		ul,
 		fieldset {
 			& + .prompt,
@@ -68,15 +89,23 @@ main {
 				margin-top: $base-margin;
 			}
 		}
-	   	    	    
-	    &.results-detail {
-		    position: relative;
-	    }
+
+		// top level menu
+		> ul {
+			// adjacent top-level meuns
+			+ ul {
+				margin-top: $base-margin-l;
+			}
+		}
 	    
+	    //GENERAL STYLES
+	    
+	    // all legends 
 	    legend {
 
 		    font-weight: 600; 
 		    font-size: 24px;
+		    padding-left: 0;
 		    position: relative;
 		    line-height: 1.2em;
 		    color: #0b0c0c;
@@ -118,8 +147,9 @@ main {
 		   	   
 	   	}
 
+	   	// secondary titles
 		h2, 
-		p.title {
+		.title { 
 			font-size: 19px;
 			font-weight: 600;
 			line-height: 1.4em;
@@ -129,94 +159,19 @@ main {
 			}
 		} 
 
-		.help-statement {
-			h3 {
-				font-weight: 100;
-				margin-bottom: $base-margin-l;
-			}
-			p {
-				padding: 0 0 0 .8em;
-				border-left: 5px solid #dee0e2;
-			}
-		}
-
-	    // Nested fieldset
-
+	    // nested fieldset
 	    .nested-fieldset {
 	    	legend {
-	    		margin-bottom: 15px;
+	    		margin-bottom: $base-margin;
 	    	}
 	    }
-	   	   
-	    .question-group {
-
-			legend {
-				font-size: 19px;
-				margin-bottom: 15px;
-				font-weight: 600;
-				color: #000;
-				em {
-				   display: inline;
-				   font-size: 18px;
-				   margin-right: 4px;
-				   font-style: normal;
-				}
-			}
-
-			ul {
-				li {
-					padding-top: 0;
-				}
-			}  	
-			
-			.employment-info {
-				p {
-					color: #0b0c0c;
-					font-size: 19px;
-					padding-top: .5em;
-					margin: 0 0 1em 0;
-					&:first-child {
-						margin: 0;
-					}
-				}
-			    ul {
-				    list-style: disc;
-				    padding: .5em 0 1em 1.4em;
-				    margin: 0;
-				    li {
-					    font-size: 19px;
-					    padding: 0;
-					    margin: .8em 0 0 0;
-					    color: #171819;
-					    line-height: 1.2em;
-					    position: relative;
-					    display: list-item;				   
-					    &:first-child {
-						    margin: 0;
-					    }
-				    }
-			    }
-		    }
-		   
-		}
-
-		// Form list start
+ 
+		// form list start
 		ul {
 
 			margin-top: 0;
 			zoom: 1;
 			line-height: 1.3;
-			   
-			&.extra-group {
-				border-left: 4px solid #dee0e2;
-				padding-left: .8em;
-				.validation {
-					margin-left: -17px;
-					.validation {
-						margin-left: -19px;
-					}
-				}
-			}		   
 			   
 			li {
 
@@ -230,7 +185,7 @@ main {
 				}
 
 				&.other-detail { 
-					margin-top: $base-margin-l;
+					margin-top: $base-margin-m;
 					padding-top: 0;
 					&:first-child {
 						margin-top: 0;
@@ -242,18 +197,13 @@ main {
 						position: absolute;
 						left: -9999px;
 					}
-				} 
+				}
 				   
 				&.extra-text {
 					label {
 						position: absolute;
 						left: -9999px;
 					}
-				}
-				   
-				&.c-help {
-					padding-top: 0;
-					margin-top: 0;
 				}
 				   
 				&.radioGroupLabel {
@@ -309,11 +259,6 @@ main {
 						}
 					}
 				}
-				   
-				&.date-time {
-					padding-top: 0;
-					padding-bottom: 0;
-				}
 				  
 				&.short-field {
 					input[type="text"], 
@@ -329,7 +274,7 @@ main {
 					position: relative;
 					input[type="text"], 
 					input[type="tel"] {
-						width: 154px!important; // Low IE issues
+						width: 154px!important; // low IE issues
 						position: relative;
 						@media screen and (max-width: 500px) {
 							width: 152px;
@@ -354,51 +299,6 @@ main {
 					&:before {
 						left: 18px;
 						bottom: 19px;
-					}
-				}
-				   
-				.helper {
-					font-size: 19px;
-					margin-top: 5px;
-					color: #666;
-					&.above {
-						margin-top: 0;
-						margin-bottom: 5px;
-					}
-					&:last-child {
-						margin-bottom: 0;
-					}
-				}
-
-				.helper-show {
-					font-size: 19px;
-					font-weight: 300;
-					color: #666;
-					margin-top: -2px;
-					padding: 0;
-				}
-				   
-				.specific-help {
-					display: none;
-					.ie7 & {
-						display: block;
-					}
-				} 
-
-				.helper-more {
-					cursor: pointer;
-					font-size: 19px;
-					margin: .6em 0 0 0;
-					font-weight: 500;
-					overflow: hidden;
-					line-height: 1em;
-					padding: .5em .7em .45em .7em;
-					border-left: 5px solid #dee0e2;
-					color: #005ea5;
-					text-decoration: underline;
-					&:hover {
-						color: #2e8aca;
-						text-decoration: none;
 					}
 				}
 
@@ -443,7 +343,6 @@ main {
 						}
 					}
 				}
-
 
 				label, 
 				.sub {
@@ -783,55 +682,157 @@ main {
 						}
 					}
 				}
-			}
-
-			   
-			// sort code 
-			&.sort-code {
-				li {
-					margin-left: 1em;
-					&:first-child {
-						margin-left: 0;
-					}
-				}
-				label {
-					position: absolute;
-					left: -9999px;
-				}
-				input, input[type="tel"], 
-				input[type="text"] {
-					width: 46px!important; // Low IE issues
-				}
 			}  
-			   
-			// list display - inline with labels stripped
-			&.label-strip {
-				li {
-				margin-left: .5em;
-					&:first-child {
-						margin-left: 0;
-					}
-				}
-				label {
-					position: absolute;
-					left: -9999px;
-				}
-			}
 
 		} // end ul  
 		 
 	} // end.form-elements
 
+	.extra-group {
+		border-left: 4px solid #dee0e2;
+		padding-left: .8em;
+		.validation {
+			margin-left: -17px;
+			.validation {
+				margin-left: -19px;
+			}
+		}
+	}	
+
 	fieldset {
 		margin-left: 0;
 	}
-			
+   	   
+    .question-group {
+		legend {
+			font-size: 19px;
+			margin-bottom: $base-margin;
+			font-weight: 600;
+			color: #000;
+			em {
+			   display: inline;
+			   font-size: 18px;
+			   margin-right: 4px;
+			   font-style: normal;
+			}
+		}
+		.employment-info {
+			margin-bottom: $base-margin;
+		    ul {
+			    list-style: disc;
+			    margin: $base-margin 0;
+			    padding-left: 2rem;
+			    li {
+				    font-size: 19px;
+				    position: relative;
+				    display: list-item;	
+				    margin-top: $base-margin !important;
+				    &:first-child {
+				    	margin-top: 0 !important;
+				    }
+			    }
+		    }
+	    }  
+	}
+		   
+	.helper {
+		font-size: 19px;
+		margin-top: 5px;
+		color: #666;
+		&.above {
+			margin-top: 0;
+			margin-bottom: 5px;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.helper-more {
+		cursor: pointer;
+		font-size: 19px;
+		margin: .6em 0 0 0;
+		font-weight: 500;
+		overflow: hidden;
+		line-height: 1em;
+		padding: .5em .7em .45em .7em;
+		border-left: 5px solid #dee0e2;
+		color: #005ea5;
+		text-decoration: underline;
+		&:hover {
+			color: #2e8aca;
+			text-decoration: none;
+		}
+	}
+
+	.helper-show {
+		font-size: 19px;
+		font-weight: 300;
+		color: #666;
+		margin-top: -2px;
+		padding: 0;
+	}
+	   
+	.specific-help {
+		display: none;
+		.ie7 & {
+			display: block;
+		}
+	} 
+
+	.help-statement {
+		margin-bottom: $base-margin-l;
+		&:last-child {
+			margin-bottom: 0;
+		}
+		h3 {
+			font-weight: 100;
+			margin-bottom: $base-margin-l;
+		}
+		p {
+			padding: 0 0 0 .8em;
+			border-left: 5px solid #dee0e2;
+		}
+	}
+
+	// sort code 
+	.sort-code {
+		li {
+			margin-left: 1em;
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+		label {
+			position: absolute;
+			left: -9999px;
+		}
+		input, 
+		input[type="tel"], 
+		input[type="text"] {
+			width: 46px!important; // Low IE issues
+		}
+	}
+	   
+	// list display - inline with labels stripped
+	.label-strip {
+		li {
+		margin-left: .5em;
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+		label {
+			position: absolute;
+			left: -9999px;
+		}
+	}
+
+	.content-panel {
+		margin-top: 2em;
+	}		
+
 } // end .carers-allowance 
-
-
-.content-panel {
-	margin-top: 2em;
-}
 
 .data-table {
 	
@@ -938,10 +939,3 @@ main {
 		margin: 0;
 	}
 } 
-
-
-
-
-  
-
-

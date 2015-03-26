@@ -5,7 +5,7 @@ import org.joda.time.format.DateTimeFormat
 import play.api.test.WithBrowser
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewTestableData
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
+import utils.pageobjects.s0_carers_allowance.G1BenefitsPage
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.

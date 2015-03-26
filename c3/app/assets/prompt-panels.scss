@@ -1,3 +1,9 @@
+
+// Config
+$base-margin     : 15px;
+$base-margin-l   : 45px;
+$base-margin-xl  : 60px; 
+
  // Prompt panel
    .prompt {
 	   padding: 0;
@@ -131,10 +137,10 @@
 		   }
 		   
 	   &.helper-prompt {
-		   margin: .5em 0 1em 0;
 		   background: #fff;
 		   border-left: 5px solid #dee0e2;
-		   padding: .2em 0 0 .8em;
+		   margin-bottom: $base-margin-l;
+		   padding-left: $base-margin;
 		   .ie7 & {
 			   zoom: 1;
 		   }
@@ -162,7 +168,7 @@
 	   }
 	   
 	    &.e-prompt {
-		    margin-bottom: 30px;
+		    margin-bottom: 45px;
 		    border: 0;
 		    background: #fff;
 		    padding: 0;
@@ -201,42 +207,42 @@
 		    }
 	    }
 	   
-	   &.entitlement-error {
-	   	   h2 {
-	   	   	   margin-top: 2em;
-			   background: #fef7f7;
-			   border: 3px solid #df3034;	   
-	   	   }
-	   }
+	    &.entitlement-error {
+	   	    h2 {
+	   	   	    margin-top: 2em;
+			    background: #fef7f7;
+			    border: 3px solid #df3034;	   
+	   	    }
+	    }
 	   
-	   &.nested-prompt {
-		   margin-bottom: 30px;
-		   padding: 0;
-		   border: 0;
-		   background: #fff;
-		   .ie7 & {
-			   zoom: 1;
-		   }
-		   p {
-			   font-size: 19px;
-			   margin-top: 1em;
-			   &:first-child {
-				   margin: 0;
-			   }
-			   &.intro {
-			   font-weight: 600;
-			   }
-		   }
-		   ul {
-			   margin: 1em 0 0 1.4em;
-			   list-style: disc;
-			   li {
-				   display: list-item;
-				   padding: 0;
-				   margin: 0;
-				   font-size: 19px;
-			   }
-		   }
-	   }
+	    &.nested-prompt {
+		    margin-bottom: $base-margin-l;
+		    border: 0;
+		    background: #fff;
+		    .ie7 & {
+			    zoom: 1;
+		    }
+		    p {
+			    font-size: 19px;
+			    margin-top: 1em;
+			    &:first-child {
+				    margin: 0;
+			    }
+			    &.intro {
+			    	font-weight: 600;
+			    }
+		    }
+		    ul {
+			    list-style: disc;
+		   		padding-left: 2rem;
+		   		margin: $base-margin 0;
+			    li {
+				    display: list-item;
+				    padding: 0;
+				    margin: 0;
+				    font-size: 19px;
+			    }
+		    }
+	    }
 	   
    }

@@ -3,7 +3,7 @@ package monitoring
 import org.specs2.mutable.Specification
 import play.api.test.{FakeApplication, WithBrowser}
 import utils.pageobjects.PageObjects
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
+import utils.pageobjects.s0_carers_allowance.G1BenefitsPage
 import services.submission.{TestHealthMonitor, MockInjector}
 import monitor.HealthMonitor
 

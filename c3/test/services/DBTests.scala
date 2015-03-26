@@ -48,7 +48,7 @@ object DBTests {
   }
 }
 
-class WithApplicationAndDB extends WithApplication(app = FakeApplication(additionalConfiguration = inMemoryDatabase("carers",options=Map("MODE" -> "PostgreSQL","DB_CLOSE_DELAY"->"-1")))) with Around{
+class WithApplicationAndDB(config:Map[String,String]=Map.empty[String,String]) extends WithApplication(app = FakeApplication(additionalConfiguration = config ++ inMemoryDatabase("carers",options=Map("MODE" -> "PostgreSQL","DB_CLOSE_DELAY"->"-1")))) with Around{
 
   override def around[T](t: => T)(implicit evidence$1: AsResult[T]): Result = {
     DBTests.prepareDDL

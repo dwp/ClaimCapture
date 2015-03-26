@@ -10,7 +10,8 @@ GET         /report/metrics                                             com.kens
 GET         /report/health                                              controllers.HealthController.healthReport
 GET         /report/ping                                                controllers.HealthController.ping
 
-
+#Channel Shift url
+GET         /CS2015                                                     controllers.ChannelShiftController.redirect
 # claim pack notes accessed externally
 #GET         /claim-notes                                                controllers.ClaimNotes.notes
 # claim pack notes accessed internally (with claim lang)
@@ -18,7 +19,7 @@ GET         /internal-claim-notes/:languageCode                         controll
 
 # claim pack notes accessed externally
 GET         /claim-help                                                 controllers.ClaimHelp.notes
-GET         /cofc-help                                                  controllers.CofcHelp.notes
+#GET         /cofc-help                                                  controllers.CofcHelp.notes
 
 GET         /change-language/:chosenLanguage                            controllers.Language.change(chosenLanguage: String)
 
@@ -58,16 +59,21 @@ GET         /back-button-page                                           controll
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                               controllers.Assets.at(path="/public", file)
 
-#Section 1 - Carer's Allowance
+#Section 0 - Carer's Allowance
 ###############
-GET         /allowance/benefits                                         controllers.s1_carers_allowance.G1Benefits.present
-POST        /allowance/benefits                                         controllers.s1_carers_allowance.G1Benefits.submit
+GET         /allowance/benefits                                         controllers.s0_carers_allowance.G1Benefits.present
+POST        /allowance/benefits                                         controllers.s0_carers_allowance.G1Benefits.submit
 
-GET         /allowance/eligibility                                      controllers.s1_carers_allowance.G2Eligibility.present
-POST        /allowance/eligibility                                      controllers.s1_carers_allowance.G2Eligibility.submit
+GET         /allowance/eligibility                                      controllers.s0_carers_allowance.G2Eligibility.present
+POST        /allowance/eligibility                                      controllers.s0_carers_allowance.G2Eligibility.submit
 
-GET         /allowance/approve                                          controllers.s1_carers_allowance.CarersAllowance.approve
-POST        /allowance/approve                                          controllers.s1_carers_allowance.CarersAllowance.approveSubmit
+GET         /allowance/approve                                          controllers.s0_carers_allowance.CarersAllowance.approve
+POST        /allowance/approve                                          controllers.s0_carers_allowance.CarersAllowance.approveSubmit
+
+#Section 1 - Disclaimer
+###############
+GET         /disclaimer/disclaimer                                      controllers.s1_disclaimer.G1Disclaimer.present
+POST        /disclaimer/disclaimer                                      controllers.s1_disclaimer.G1Disclaimer.submit
 
 #Section 1.5
 ###############
@@ -175,9 +181,6 @@ POST        /information/additional-info                                controll
 
 # Consent and declaration
 ###############
-
-GET         /consent-and-declaration/disclaimer                         controllers.s12_consent_and_declaration.G2Disclaimer.present
-POST        /consent-and-declaration/disclaimer                         controllers.s12_consent_and_declaration.G2Disclaimer.submit
 
 GET         /consent-and-declaration/declaration                        @controllers.s12_consent_and_declaration.G3Declaration.present
 POST        /consent-and-declaration/declaration                        @controllers.s12_consent_and_declaration.G3Declaration.submit

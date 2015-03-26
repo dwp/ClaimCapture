@@ -276,8 +276,7 @@ object Formulate {
   }
 
   def disclaimer(browser: TestBrowser) = {
-    browser.goTo("/consent-and-declaration/disclaimer")
-    browser.click("#read")
+    browser.goTo("/disclaimer/disclaimer")
     browser.submit("button[type='submit']")
   }
 
