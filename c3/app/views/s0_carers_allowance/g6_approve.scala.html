@@ -75,8 +75,9 @@
         @DwpCSRFFormHelper.formField
         @carersInputHidden(currentForm("allowedToContinue"),
             'hiddenValue -> approved)
-        @carersInputHidden(currentForm("jsEnabled"),
-            'hiddenValue -> "false")
+
+        <input type="hidden" id="js" name="jsEnabled" value="false">
+
         @if(approved) {
             <nav class="form-steps" role="navigation">
                 <ul>
@@ -101,7 +102,7 @@
             </nav>
         }
     }
-<script type="text/javascript">$($("#jsEnabled").val("true"));</script>
+<script type="text/javascript">$($("#js").val("true"));</script>
 <script type="text/javascript">
     function analyticsCallback() {
         var linkName = "Eligilibility - " + document.getElementById("actionButtonId" ).innerHTML
