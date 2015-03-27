@@ -17,6 +17,8 @@ About You,Your contact details,Wants email contact,AboutYouWantsEmailContact,
 About You,Your contact details,Please enter your email,AboutYouMail,
 About You,Your contact details,Please confirm your email,AboutYouMailConfirmation,
 Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,DWPCAClaim>DateOfClaim>Answer
+Claim Date,Your claim date,Were you caring for the person for more than 35 hours a week before this date?,ClaimDateDidYouCareForThisPersonfor35Hours,Claimant>Cared35HoursBefore>Answer
+Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,Claimant>DateStartCaring>Answer
 About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,Residency>Nationality>Answer
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,Residency>ActualNationality>Answer
 About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Residency>NormallyLiveInGB>Answer
@@ -54,8 +56,6 @@ About the care you provide,Contact details of the person you care for,Address,Ab
 About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,Caree>Address>Answer>PostCode
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Caree>RelationToClaimant>Answer
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Caree>Cared35Hours>Answer
-About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date ?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,Caree>Cared35HoursBefore>Answer
-About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,Caree>DateStartCaring>Answer
 About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare,CareBreak>BreaksSinceClaim>Answer
 About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,CareBreak>BreaksBeforeClaim>Answer
 About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate,CareBreak>StartDate>Answer

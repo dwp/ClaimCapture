@@ -21,17 +21,6 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       val page = G7MoreAboutTheCarePage(context)
       page goToThePage()
       page submitPage()
-      page.listErrors.size mustEqual 2
-    }
-
-    "contains errors for optional mandatory data" in new WithBrowser with PageObjects {
-      val page = G7MoreAboutTheCarePage(context)
-      page goToThePage()
-      val claim = new TestData
-      claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
-      claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "Yes"
-      page fillPageWith claim
-      page submitPage()
       page.listErrors.size mustEqual 1
     }
 
@@ -41,15 +30,6 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       theirContactDetailsPage fillPageWith ClaimScenarioFactory.s4CareYouProvide(hours35 = true)
       val moreAboutTheCarePage = theirContactDetailsPage submitPage()
       moreAboutTheCarePage goBack() must beAnInstanceOf[G2TheirContactDetailsPage]
-    }
-
-
-    "start to care for the person to be displayed when back button is clicked" in new WithBrowser with PageObjects {
-      val page = G7MoreAboutTheCarePage(context)
-      page goToThePage()
-      page fillPageWith ClaimScenarioFactory.s4CareYouProvide(hours35 = true)
-      val nextPage = page submitPage ()
-      nextPage goBack () visible("#beforeClaimCaring_date_year") must beTrue
     }
 
     "Modify 'spent 35 hours caring' answer from preview page" in new WithBrowser with PageObjects{

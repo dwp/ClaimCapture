@@ -7,6 +7,7 @@ import utils.pageobjects._
 import utils.pageobjects.s2_about_you.G1YourDetailsPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s4_care_you_provide.G7MoreAboutTheCarePage
 
 class G1ClaimDateIntegrationSpec extends Specification with Tags {
 
@@ -20,9 +21,31 @@ class G1ClaimDateIntegrationSpec extends Specification with Tags {
     "navigate to next section" in new WithBrowser with PageObjects {
       val claimDatePage = G1ClaimDatePage(context)
       claimDatePage goToThePage()
-      val claim = ClaimScenarioFactory.s12ClaimDate()
+      val claim = ClaimScenarioFactory.s12ClaimDateSpent35HoursYes()
       claimDatePage fillPageWith claim
       val page = claimDatePage submitPage() goToPage(G1YourDetailsPage(context))
+    }
+
+    "contains errors for optional mandatory data" in new WithBrowser with PageObjects {
+      val page = G1ClaimDatePage(context)
+      page goToThePage()
+      val claim = new TestData
+      claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "10/10/2016"
+      claim.ClaimDateDidYouCareForThisPersonfor35Hours = "Yes"
+      page fillPageWith claim
+      page submitPage()
+      page.listErrors.size mustEqual 1
+    }
+
+    "start to care for the person to be displayed when back button is clicked" in new WithBrowser with PageObjects {
+      val claimDatePage = G1ClaimDatePage(context)
+      claimDatePage goToThePage()
+      val claim = ClaimScenarioFactory.s12ClaimDateSpent35HoursYes()
+      claimDatePage fillPageWith claim
+      val nextPage = claimDatePage submitPage()
+      val claimDatePageSecondTime = nextPage goBack ()
+      claimDatePageSecondTime must beAnInstanceOf[G1ClaimDatePage]
+      claimDatePageSecondTime visible("#beforeClaimCaring_date_year") must beTrue
     }
 
     "Modify claim date from preview page" in new WithBrowser with PageObjects{
@@ -49,7 +72,7 @@ class G1ClaimDateIntegrationSpec extends Specification with Tags {
   def goToPreviewPage(context:PageObjectsContext):Page = {
     val claimDatePage = G1ClaimDatePage(context)
     claimDatePage goToThePage()
-    val claimDate = ClaimScenarioFactory.s12ClaimDate()
+    val claimDate = ClaimScenarioFactory.s12ClaimDateSpent35HoursYes()
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 

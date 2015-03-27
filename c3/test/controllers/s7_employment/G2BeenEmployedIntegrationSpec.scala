@@ -107,7 +107,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
     """Display start date with text "Before" when start date is before claim date""" in new WithBrowser with EmployedHistoryPage {
       var historyPage = goToHistoryPage(ClaimScenarioFactory.s7EmploymentBeforeClamDateYes())
       historyPage must beAnInstanceOf[G2BeenEmployedPage]
-      historyPage.source must contain("Before 03/04/2014") // This is one month before claim date
+      historyPage.source must contain("Before 10/09/2016") // This is one month before claim date
     }
 
   } section("integration", models.domain.Employed.id)
@@ -117,8 +117,7 @@ trait EmployedHistoryPage extends G1ClaimDatePageContext {
   this: WithBrowser[_] =>
 
   def goToHistoryPage(employmentData:TestData) = {
-    val claim = new TestData
-    claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
+    val claim = ClaimScenarioFactory.s12ClaimDate()
     page goToThePage()
     page fillPageWith claim
     page submitPage()

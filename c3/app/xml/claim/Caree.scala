@@ -28,10 +28,6 @@ object Caree extends XMLComponent {
       {question(<RelationToClaimant/>,"relationship", theirPersonalDetails.relationship)}
       {question(<Cared35Hours/>,"hours.answer", moreAboutTheCare.spent35HoursCaring)}
       {careBreak(claim)}
-      {question(<Cared35HoursBefore/>,"spent35HoursCaringBeforeClaim.label", moreAboutTheCare.spent35HoursCaringBeforeClaim.answer, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => displayPlaybackDatesFormat(Lang("en"),dmy)))}
-      {if(moreAboutTheCare.spent35HoursCaringBeforeClaim.date.isDefined){
-        {question(<DateStartCaring/>,"beforeClaimCaring_date", moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}
-      }}
       {question(<LiveSameAddress/>,"liveAtSameAddressCareYouProvide", theirPersonalDetails.liveAtSameAddressCareYouProvide)}
     </Caree>
   }
@@ -40,8 +36,8 @@ object Caree extends XMLComponent {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     def breaksInCareLabel (label:String, answer:Boolean) = {
-      val date = claim.questionGroup[MoreAboutTheCare] match {
-        case Some(moreAboutTheCare) if moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == Mappings.yes =>  claim.dateOfClaim.get - 6 months
+      val date = claim.questionGroup[ClaimDate] match {
+        case Some(claimDate) if claimDate.spent35HoursCaringBeforeClaim.answer == Mappings.yes =>  claim.dateOfClaim.get - 6 months
         case _ => claim.dateOfClaim.get
       }
 

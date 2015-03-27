@@ -18,6 +18,18 @@ object ClaimScenarioFactory {
     val claim = new TestData
     // Claim date
     claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "10/10/2016"
+    claim.ClaimDateDidYouCareForThisPersonfor35Hours = "No"
+
+    claim
+  }
+
+  def s12ClaimDateSpent35HoursYes() = {
+    val claim = new TestData
+    // Claim date
+    claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "10/10/2016"
+    claim.ClaimDateDidYouCareForThisPersonfor35Hours = "Yes"
+    claim.ClaimDateWhenDidYouStartToCareForThisPerson = "03/04/2013"
+
     claim
   }
 
@@ -256,11 +268,10 @@ object ClaimScenarioFactory {
     // More About The Care
     if (hours35) {
       claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
-      claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "Yes"
-      claim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson = "03/04/2013"
+      claim.ClaimDateDidYouCareForThisPersonfor35Hours = "Yes"
+      claim.ClaimDateWhenDidYouStartToCareForThisPerson = "03/04/2013"
     }else {
       claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "No"
-      claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "No"
     }
 
 
@@ -292,8 +303,6 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
     // More About The Care
     claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
-    claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "Yes"
-    claim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson = "03/04/2013"
     claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
 
     // Breaks in care
