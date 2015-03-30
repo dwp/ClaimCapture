@@ -8,7 +8,7 @@ $base-margin-xl  : 60px;
 
 // GDS Color Palette
 @import 'gds-colours';
-
+ 
 // App Header
 @import 'header';
 
@@ -145,6 +145,13 @@ main {
 				margin: 0;
 			}
 		   	   
+	   	}
+
+	   	.pseudo-label {
+			display: block;
+			font-size: 19px;
+			font-weight: 600;
+			margin-bottom: $base-margin;
 	   	}
 
 	   	// secondary titles
