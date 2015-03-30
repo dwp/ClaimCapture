@@ -29,7 +29,7 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
   }
 
   private def redirect(lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] =
-    Left(Redirect(controllers.s9_other_money.routes.G1AboutOtherMoney.present()))
+    Left(Redirect(controllers.s7_employment.routes.G9EmploymentAdditionalInfo.present()))
 
   def present = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
       presentConditionally(beenEmployed(lang),lang)
