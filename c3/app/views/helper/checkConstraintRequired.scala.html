@@ -8,9 +8,9 @@
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
 
 @if(showLabel) {
-  <p class="sub">
+  <fieldset><legend class="pseudo-label">
     @carersLabelText(field,args:_*)
-  </p>
+  </legend></fieldset>
   @if(args.find(_._1=='helperAbove).isDefined){
     <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
   }
