@@ -44,7 +44,13 @@
 				   &:hover {
 					   color: #444;
 				   }
-				   @media screen and (max-width: 760px) {position: relative; right: auto; top: auto; margin-top: 1em; display: inline-block;}
+				   @media screen and (max-width: 760px) {
+				   	position: relative; 
+				   	right: auto; 
+				   	top: auto; 
+				   	margin-top: 1em; 
+				   	display: inline-block;
+				   }
 			   }
 		   }
 	   }
