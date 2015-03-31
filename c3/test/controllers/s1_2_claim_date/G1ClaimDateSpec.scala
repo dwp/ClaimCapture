@@ -6,6 +6,9 @@ import models.{DayMonthYear, domain}
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest, WithApplication}
+import models.yesNo.YesNoWithDate
+import controllers.mappings.Mappings._
+import scala.Some
 
 class G1ClaimDateSpec extends Specification with Tags {
 
@@ -13,10 +16,24 @@ class G1ClaimDateSpec extends Specification with Tags {
   val claimDateMonth = 1
   val claimDateYear = 2014
 
+  val spent35HoursCaringBeforeClaimYes = YesNoWithDate(yes, Some(DayMonthYear(Some(claimDateDay), Some(claimDateMonth), Some(claimDateYear), None, None)))
+  val spent35HoursCaringBeforeClaimYesWithNoDate = YesNoWithDate(yes, None)
+  val spent35HoursCaringBeforeClaimNo = YesNoWithDate(no, None)
+
   val claimDateInput = Seq(
     "dateOfClaim.day" -> claimDateDay.toString,
     "dateOfClaim.month" -> claimDateMonth.toString,
-    "dateOfClaim.year" -> claimDateYear.toString)
+    "dateOfClaim.year" -> claimDateYear.toString,
+    "beforeClaimCaring.answer" -> spent35HoursCaringBeforeClaimYes.answer,
+    "beforeClaimCaring.date.day" -> claimDateDay.toString,
+    "beforeClaimCaring.date.month" -> claimDateMonth.toString,
+    "beforeClaimCaring.date.year" -> claimDateYear.toString)
+
+  val claimDateInputSpent35HoursBeforeClaimNo = Seq(
+    "dateOfClaim.day" -> claimDateDay.toString,
+    "dateOfClaim.month" -> claimDateMonth.toString,
+    "dateOfClaim.year" -> claimDateYear.toString,
+    "beforeClaimCaring.answer" -> spent35HoursCaringBeforeClaimNo.answer)
 
   "Your claim date" should {
 
@@ -38,6 +55,22 @@ class G1ClaimDateSpec extends Specification with Tags {
       section.questionGroup(ClaimDate) must beLike {
         case Some(f: ClaimDate) =>
           f.dateOfClaim must equalTo(DayMonthYear(Some(claimDateDay), Some(claimDateMonth), Some(claimDateYear)))
+          f.spent35HoursCaringBeforeClaim must equalTo(spent35HoursCaringBeforeClaimYes)
+      }
+    }
+
+    "add submitted form to the cached claim when spent 35 hours before claim is no" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(claimDateInputSpent35HoursBeforeClaimNo: _*)
+
+      val result = G1ClaimDate.submit(request)
+      val claim = getClaimFromCache(result)
+      val section: Section = claim.section(domain.YourClaimDate)
+
+      section.questionGroup(ClaimDate) must beLike {
+        case Some(f: ClaimDate) =>
+          f.dateOfClaim must equalTo(DayMonthYear(Some(claimDateDay), Some(claimDateMonth), Some(claimDateYear)))
+          f.spent35HoursCaringBeforeClaim must equalTo(spent35HoursCaringBeforeClaimNo)
       }
     }
 

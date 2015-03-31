@@ -11,16 +11,9 @@ import models.domain.MoreAboutTheCare
 import models.yesNo.YesNoWithDate
 
 object G7MoreAboutTheCare extends Controller with CachedClaim with Navigable {
-  val careMapping =
-    "beforeClaimCaring" -> mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo),
-      "date" -> optional(dayMonthYear.verifying(validDate))
-    )(YesNoWithDate.apply)(YesNoWithDate.unapply)
-      .verifying("required", YesNoWithDate.validate _)
 
   val form = Form(mapping(
-    "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo),
-    careMapping
+    "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo)
   )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply))
 
   def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
@@ -30,8 +23,7 @@ object G7MoreAboutTheCare extends Controller with CachedClaim with Navigable {
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val formWithErrorsUpdate = formWithErrors.replaceError("beforeClaimCaring", FormError("beforeClaimCaring.date", errorRequired))
-        BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(formWithErrors)(lang))
       },
       moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(routes.G10BreaksInCare.present())
     )

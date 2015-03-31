@@ -12,6 +12,8 @@ import utils.pageobjects._
  */
 final class G1ClaimDatePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1ClaimDatePage.url) {
   declareDate("#dateOfClaim", "ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart")
+  declareYesNo("#beforeClaimCaring_answer", "ClaimDateDidYouCareForThisPersonfor35Hours")
+  declareDate("#beforeClaimCaring_date", "ClaimDateWhenDidYouStartToCareForThisPerson")
 }
 
 /**

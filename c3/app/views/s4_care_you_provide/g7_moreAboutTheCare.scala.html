@@ -8,15 +8,9 @@
 @import models.domain.MoreAboutTheCare
 @import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
-@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
-    @displayDateForLabel = @{
-    claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-        displayPlaybackDatesFormat(lang,dmy)
-    )
-}
 
-    @defining(lang) { implicit language =>
+@defining(lang) { implicit language =>
 
     @main(Messages("s4.g4") + " - " + Messages("s4.longName"), Some(currentForm)) {
 
@@ -29,14 +23,6 @@
 	
 	            <ul>
 	                @yesNoRadioGroup(currentForm("spent35HoursCaring"))
-	
-	                @yesNoRadioGroup(currentForm("beforeClaimCaring.answer"),'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")),
-	                                 '_label -> Messages("spent35HoursCaringBeforeClaim.label", displayDateForLabel))
-	
-	                @otherDetailPlaceHolder(
-	                    inputDef = Seq(inputDayMonthYear(currentForm("beforeClaimCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 years).`d M yyyy`))),
-	                    'id -> "careStartDateWrap"
-	                )
 	            </ul>
 	        </fieldset>
 	
@@ -47,16 +33,5 @@
 	            </ul>
 	        </nav>
     }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g4_moreAboutTheCare.js")'></script>
-
-<script type="text/javascript">
-    $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("beforeClaimCaring_answer_yes")",
-                          "@CarersCrypto.encryptAES("beforeClaimCaring_answer_no")",
-                          "@CarersCrypto.encryptAES("beforeClaimCaring_date_day")",
-                          "@CarersCrypto.encryptAES("beforeClaimCaring_date_month")",
-                          "@CarersCrypto.encryptAES("beforeClaimCaring_date_year")");
-    });
-</script>
 }
 }
