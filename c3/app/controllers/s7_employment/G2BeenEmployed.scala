@@ -28,8 +28,20 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
     }.getOrElse(redirect(lang))
   }
 
-  private def redirect(lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] =
-    Left(Redirect(controllers.s7_employment.routes.G9EmploymentAdditionalInfo.present()))
+  /**
+   * Redirect to about other money when self employment and employment is answered no else
+   * redirect to employment additional info page.
+   *
+   * @param lang
+   * @param claim
+   * @param request
+   * @return
+   */
+  private def redirect(lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] = {
+    claim.questionGroup[Emp].collect {
+      case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == no && e.beenSelfEmployedSince1WeekBeforeClaim == no => Left(Redirect(controllers.s9_other_money.routes.G1AboutOtherMoney.present()))
+    }.getOrElse(Left(Redirect(controllers.s7_employment.routes.G9EmploymentAdditionalInfo.present())))
+  }
 
   def present = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
       presentConditionally(beenEmployed(lang),lang)
@@ -48,7 +60,7 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
       case `yes` if jobs.size < Mappings.five => Redirect(routes.G3JobDetails.present(IterationID(form)))
-      case _ => Redirect(controllers.s9_other_money.routes.G1AboutOtherMoney.present())
+      case _ => Redirect(controllers.s7_employment.routes.G9EmploymentAdditionalInfo.present())
     }
 
     form.bindEncrypted.fold(

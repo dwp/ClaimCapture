@@ -163,6 +163,8 @@ Employment,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] f
 Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to", EmploymentWhatAreNecessaryJobExpenses_1,
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouBeenEmployedAtAnyTime_1,No
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed_1,No
+Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,Yes
+Employment,Employment,Do you want to add anything about your work?,EmploymentAdditionalInfo,I want to tell more about my job
 Other Money,Benefits and payments,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
 Other Money,Benefits and payments,Benefits and payments: Who pays you?,OtherMoneyWhoPaysYou,
 Other Money,Benefits and payments,Benefits and payments: How much?,OtherMoneyHowMuch,
