@@ -2,13 +2,14 @@ package xml.claim
 
 import app.XMLValues._
 import play.api.Logger
-import models.domain.{Benefits, YourPartnerPersonalDetails, YourCourseDetails, Claim}
+import models.domain._
 import xml.XMLHelper._
 import xml._
 import scala.language.postfixOps
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 import models.DayMonthYear
 import play.api.i18n.Lang
+import models.domain.Claim
 
 object DWPCAClaim extends XMLComponent {
 
@@ -21,6 +22,7 @@ object DWPCAClaim extends XMLComponent {
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
     val havePartner = yourPartnerPersonalDetails.hadPartnerSinceClaimDate
     val qualifyingBenefit = claim.questionGroup[Benefits].getOrElse(Benefits())
+    val empAdditionalInfo = claim.questionGroup[EmploymentAdditionalInfo].getOrElse(EmploymentAdditionalInfo())
 
 
     Logger.info(s"Build XML DWPCAClaim for : ${claim.key} ${claim.uuid}.")
@@ -37,6 +39,7 @@ object DWPCAClaim extends XMLComponent {
       {SelfEmployment.xml(claim)}
       {question(<Employed/>,"aboutYou_beenEmployedSince6MonthsBeforeClaim.label",employment.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayClaimDate(dmy - 6 months)), claimDate)}
       {Employment.xml(claim)}
+      {if(!empAdditionalInfo.empAdditionalInfo.answer.isEmpty) questionOther(<EmploymentAdditionalInfo/>, "empAdditionalInfo.answer", empAdditionalInfo.empAdditionalInfo.answer, empAdditionalInfo.empAdditionalInfo.text)}
       {question(<HavePartner/>,"haveLivedWithPartnerSinceClaimDate.label",havePartner,claimDate)}
       {Partner.xml(claim)}
       {OtherBenefits.xml(claim)}
