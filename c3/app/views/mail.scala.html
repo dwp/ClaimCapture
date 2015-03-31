@@ -1,12 +1,27 @@
 @(claim:models.domain.Claim, isClaim:Boolean,isEmployment:Boolean)(implicit lang:Lang)
+@import controllers.circs.s2_report_changes.G9EmploymentChange
 
 @import scala.io._
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
+@import controllers.mappings.Mappings
 
 @claimType = @{if (isClaim)"claim" else "cofc"}
 @claimDate = @{
     claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.`dd month yyyy`
+}
+@isClaimSelfEmployment = @{
+    claim.questionGroup[Employment] match {
+        case Some(employment) => employment.beenSelfEmployedSince1WeekBeforeClaim == Mappings.yes
+        case _ => false
+    }
+}
+
+@isCofcSelfEmployment = @{
+    claim.questionGroup[CircumstancesEmploymentChange] match {
+        case Some(ec) if ec.typeOfWork.answer == G9EmploymentChange.selfemployed => true
+        case _ => false
+    }
 }
 @isCofcFinishedEmployment = @{
     claim.questionGroup[CircumstancesStartedAndFinishedEmployment].exists(_ =>true)
@@ -81,17 +96,24 @@
 
                     <div class="section">
                         <h2>@Messages("mail.next.title")</h2>
-                        @if(isEmployment) {
+                        @if(isEmployment && !isCofcSelfEmployment) {
                             <p>@Messages("mail.next.send1")</p>
                             <ul>
                                 @if(isClaim){
-                                    <li>@Messages("mail.claim.next.send2",claimDate)</li>
-                                    <li>@Messages("mail.claim.next.send3",claimDate)</li>
-                                    <li>@Messages("mail.claim.next.send4")</li>
+                                    @if(isClaimSelfEmployment){
+                                        <li>@Messages("mail.claim.next.se.send")</li>
+                                        <li>@Messages("mail.claim.next.send4")</li>
+                                    }else {
+                                        <li>@Messages("mail.claim.next.send2", claimDate)</li>
+                                        <li>@Messages("mail.claim.next.send3", claimDate)</li>
+                                        <li>@Messages("mail.claim.next.send4")</li>
+                                    }
                                 }else{
-                                    <li>@Messages("mail.cofc.next.send2")</li>
-                                    @if(isCofcFinishedEmployment){
-                                        <li>@Messages("mail.cofc.next.send3")</li>
+                                    @if(!isCofcSelfEmployment){
+                                        <li>@Messages("mail.cofc.next.send2")</li>
+                                        @if(isCofcFinishedEmployment) {
+                                            <li>@Messages("mail.cofc.next.send3")</li>
+                                        }
                                     }
                                 }
 
@@ -113,7 +135,7 @@
                                 <p>@Messages("mail.claim.next.line1")</p>
                             }
                         }
-                        @if(isEmployment){
+                        @if(isEmployment&& !isCofcSelfEmployment){
                             <p>@Messages("mail.next.line2")</p>
                         }else{
                             <p>@Messages("mail.next.line")</p>
