@@ -8,7 +8,7 @@ import scala.language.postfixOps
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 import scala.xml.NodeSeq
-import play.api.i18n.Lang
+import play.api.i18n.{MMessages, Lang}
 
 object Caree extends XMLComponent {
 
@@ -78,7 +78,8 @@ object Caree extends XMLComponent {
               case _ => question(<EndDate/>,"end", break.end.get.`dd-MM-yyyy`)
             }
           }
-          case None => NodeSeq.Empty
+          case None if break.doNotKnowEndDate.isDefined => question(<EndDate/>,"end", MMessages("doNotKnowEndDate"))
+          case _ => NodeSeq.Empty
         }}
         {question(<MedicalCare/>,"medicalDuringBreak", break.medicalDuringBreak)}
         {questionOther(<ReasonClaimant/>,"whereYou", break.whereYou.answer, break.whereYou.text)}
