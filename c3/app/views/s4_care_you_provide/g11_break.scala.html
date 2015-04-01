@@ -1,4 +1,6 @@
 @(breakForm: Form[models.domain.Break], backCall:Call)(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
+@import utils.helpers.CheckboxTemplate
+@import utils.helpers.CarersTemplate
 
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
@@ -66,7 +68,8 @@
                         'maxLength -> 60,
                         'otherValue -> SomewhereElse)
 
-	                @dateTimePickerWithDynamicLabel(breakForm("end"), 'dynamicDateDays -> 27)
+	                @dateTimePickerWithDynamicLabel(breakForm("end"), 'dynamicDateDays -> 27, 'helperAbove -> Messages("end.date.helper"), 'ignoreOptional->true)
+                    @carersDeclareCheck(breakForm("doNotKnowEndDate"))(CheckboxTemplate.fieldConstructor,lang)
 
                     @carersShortInputText(breakForm("endTime"),
                     'helperAbove-> Html(Messages("breakEnded.endTime.helper")),

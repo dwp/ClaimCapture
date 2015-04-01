@@ -52,7 +52,12 @@ case object BreaksInCare extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g5"
 
   def endDateRequired(input: Break): Boolean = input.endTime match {
-    case Some(e) => input.end.isDefined
+    case Some(e) if input.doNotKnowEndDate.isEmpty => input.end.isDefined
+    case _ => true
+  }
+
+  def doNotKnowEndDateRequired(input: Break): Boolean = input.end match {
+    case None => input.doNotKnowEndDate.isDefined
     case _ => true
   }
 
@@ -62,6 +67,7 @@ case class Break(iterationID: String = "",
                  start: DayMonthYear = DayMonthYear(None, None, None),
                  startTime:Option[String] = None,
                  end: Option[DayMonthYear] = None,
+                 doNotKnowEndDate: Option[String] = None,
                  endTime:Option[String] = None,
                  whereYou:RadioWithText = RadioWithText("", None), wherePerson: RadioWithText = RadioWithText("", None),
                  medicalDuringBreak: String = "") extends IterationID
