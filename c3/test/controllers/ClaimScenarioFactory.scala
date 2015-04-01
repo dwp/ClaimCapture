@@ -665,6 +665,13 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s7EmploymentAdditionalInfo = {
+    val claim = new TestData
+    claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "yes"
+    claim.EmploymentAdditionalInfo = "I do not have more information"
+    claim
+  }
+
   def s9SelfEmploymentChildCareExpenses = {
     val claim = s9SelfEmploymentPensionsAndExpenses
 

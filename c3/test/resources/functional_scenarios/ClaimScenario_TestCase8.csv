@@ -201,6 +201,8 @@ Self Employed,Pension and expenses,[[past=Did you]] [[present=Do you]] pay into 
 Self Employed,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",SelfEmploymentPensionExpenses,some pension expenses
 Self Employed,Pension and expenses,[[past=Did you]] [[present=Do you]] have any care costs because of this work?,SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob,Yes
 Self Employed,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",SelfEmploymentWhatAreNecessaryJobExpenses,some job expenses
+Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,Yes
+Employment,Employment,Do you want to add anything about your work?,EmploymentAdditionalInfo,I want to tell more about my job
 Other Money,Benefits and payments,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
 Other Money,Benefits and payments,Benefits and payments: Who pays you?,OtherMoneyWhoPaysYou,
 Other Money,Benefits and payments,Benefits and payments: How much?,OtherMoneyHowMuch,

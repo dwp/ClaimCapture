@@ -6,6 +6,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s8_self_employment._
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
+import utils.pageobjects.s7_employment.G9EmploymentAdditionalInfoPage
 
 class G4PensionAndExpensesIntegrationSpec extends Specification with Tags {
   "Self Employment Pension And Expenses" should {
@@ -30,7 +31,7 @@ class G4PensionAndExpensesIntegrationSpec extends Specification with Tags {
 
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
+      nextPage must beAnInstanceOf[G9EmploymentAdditionalInfoPage]
     }
 
     "be able to navigate back to a completed form" in new WithBrowser  with PageObjects{
