@@ -1,5 +1,6 @@
 @(lang: Lang)(implicit circs: models.domain.Claim, request: Request[AnyContent])
 @import models.domain.CircumstancesDeclaration
+@import controllers.mappings.Mappings
 
 
 @import app.ConfigProperties._
@@ -46,7 +47,7 @@
 }
 
 @isEmail = @{
-    getProperty("email.frontend",false) && circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration()).wantsContactEmail.nonEmpty
+    getProperty("email.frontend",false) && circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration()).wantsContactEmail.getOrElse("") == Mappings.yes
 }
 
 @defining(lang) { implicit language =>
