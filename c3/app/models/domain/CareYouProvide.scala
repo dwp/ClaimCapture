@@ -56,6 +56,10 @@ case object BreaksInCare extends QuestionGroup.Identifier {
     case _ => true
   }
 
+  def endDateBothDataCheck(input: Break): Boolean = input.end -> input.doNotKnowEndDate match {
+    case (Some(_),Some(_)) => false
+    case _ => true
+  }
   def doNotKnowEndDateRequired(input: Break): Boolean = input.end match {
     case None => input.doNotKnowEndDate.isDefined
     case _ => true

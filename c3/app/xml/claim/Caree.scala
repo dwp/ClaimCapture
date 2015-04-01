@@ -78,7 +78,10 @@ object Caree extends XMLComponent {
               case _ => question(<EndDate/>,"end", break.end.get.`dd-MM-yyyy`)
             }
           }
-          case None if break.doNotKnowEndDate.isDefined => question(<EndDate/>,"end", MMessages("doNotKnowEndDate"))
+          case _ => NodeSeq.Empty
+        }}
+        {break.doNotKnowEndDate match {
+          case Some(v) => question(<EndDateDoNotKnow/>,"end",MMessages("doNotKnowEndDate"))
           case _ => NodeSeq.Empty
         }}
         {question(<MedicalCare/>,"medicalDuringBreak", break.medicalDuringBreak)}
