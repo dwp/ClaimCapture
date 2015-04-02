@@ -93,5 +93,22 @@ class G9EmploymentAdditionalInfoFormSpec extends Specification with Tags{
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
+
+    "map into case class when 3000 characters entered" in {
+      val text = maxCharactersString.toString // this will be 3000 characters
+      G9EmploymentAdditionalInfo.form.bind(
+        Map(
+          "empAdditionalInfo.answer" -> additionalInfoYes.answer,
+          "empAdditionalInfo.text" -> text
+        )
+      ).fold(
+        formWithErrors => "This mapping should not happen." must equalTo("Error"),
+        f => {
+          f.empAdditionalInfo.answer mustEqual additionalInfoYes.answer
+          f.empAdditionalInfo.text mustEqual Some(text)
+        }
+      )
+    }
+
   }
 }
