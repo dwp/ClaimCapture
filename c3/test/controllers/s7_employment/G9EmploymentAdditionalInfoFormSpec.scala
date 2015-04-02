@@ -14,8 +14,8 @@ class G9EmploymentAdditionalInfoFormSpec extends Specification with Tags{
   val textValue = "1234567890"
 
   def maxCharactersString = {
-    var result = ""
-    for (i <- 1 to 300) result += s"$textValue"
+    var result = new StringBuffer()
+    for (i <- 1 to 300) result.append(textValue)
     result
   }
 
@@ -86,7 +86,7 @@ class G9EmploymentAdditionalInfoFormSpec extends Specification with Tags{
       G9EmploymentAdditionalInfo.form.bind(
         Map(
           "empAdditionalInfo.answer" -> additionalInfoYes.answer,
-          "empAdditionalInfo.text" -> maxCharactersString.concat(" ") // this will be 3001 characters
+          "empAdditionalInfo.text" -> maxCharactersString.append(" ").toString // this will be 3001 characters
         )
       ).fold(
         formWithErrors => formWithErrors.errors.length mustEqual 1,
