@@ -35,12 +35,15 @@ object G11Break extends Controller with CachedClaim {
     "start" -> (dayMonthYear verifying validDate),
     "startTime" -> optional(carersText),
     "end" -> optional(dayMonthYear verifying validDateOnly),
+    "doNotKnowEndDate" -> optional(carersText),
     "endTime" -> optional(carersText),
     whereWereYouMapping,
     whereWasPersonMapping,
     "medicalDuringBreak" -> carersNonEmptyText
   )(Break.apply)(Break.unapply)
     .verifying("endDate.required", BreaksInCare.endDateRequired _)
+    .verifying("endDate.both", BreaksInCare.endDateBothDataCheck _)
+    .verifying("doNotKnowEndDate.required", BreaksInCare.doNotKnowEndDateRequired _)
   )
 
   val backCall = routes.G10BreaksInCare.present()
@@ -57,6 +60,8 @@ object G11Break extends Controller with CachedClaim {
         .replaceError("wherePerson.text",errorRestrictedCharacters,FormError("wherePerson",errorRestrictedCharacters))
         .replaceError("start.date",errorRequired, FormError("start",errorRequired, Seq("This field is required")))
         .replaceError("", "endDate.required", FormError("end", errorRequired))
+        .replaceError("", "doNotKnowEndDate.required", FormError("doNotKnowEndDate", errorRequired))
+        .replaceError("", "endDate.both", FormError("end", "error.endDate.both"))
         BadRequest(views.html.s4_care_you_provide.g11_break(fwe,backCall)(lang))
       },
       break => {

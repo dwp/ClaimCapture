@@ -311,6 +311,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
     claim.AboutTheCareYouProvideBreakStartDate_1 = "12/12/2006"
     claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "no"
+    claim.AboutTheCareYouProvideDoNotKnowEndDate_1 = "Yes"
 
     claim
   }
@@ -331,6 +332,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "In hospital"
     claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
     claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "Yes"
+    claim.AboutTheCareYouProvideDoNotKnowEndDate_1 = "Yes"
 
     claim
   }
