@@ -91,7 +91,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       historyPage fillPageWith employmentData
       val nextPage = historyPage submitPage()
 
-      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
+      nextPage must beAnInstanceOf[G9EmploymentAdditionalInfoPage]
       historyPage = nextPage goBack()
       historyPage.readYesNo("#beenEmployed") mustEqual None
     }

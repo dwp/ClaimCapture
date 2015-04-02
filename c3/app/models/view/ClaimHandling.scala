@@ -22,7 +22,7 @@ object ClaimHandling {
   type ClaimResult = (Claim, Result)
   // Versioning
   val C3VERSION = "C3Version"
-  val C3VERSION_VALUE = "2.14"
+  val C3VERSION_VALUE = "2.16"
   val applicationFinished = "application-finished"
 
 }
@@ -113,7 +113,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
   private def noClaimValidation(claim: Claim) = false
 
   private def claimingWithClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent], claim: Claim): Result = {
-    Logger.debug(s"claimingWithClaim - ${claim.key} ${claim.uuid}")
+    Logger.debug(s"claimingWithClaim - ${claim.key} ${claim.uuid} - url ${request.path}")
     implicit val r = request
     val key = keyFrom(request)
     if (key != claim.uuid) Logger.error(s"claimingWithClaim - Claim uuid ${claim.uuid} does not match cache key $key.")
@@ -129,7 +129,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
       action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
     } else {
       val uuid = keyFrom(request)
-      Logger.debug(s"claimingWithoutClaim - uuid $uuid")
+      Logger.debug(s"claimingWithoutClaim - uuid $uuid - url ${request.path}")
       if (uuid.isEmpty) {
         Redirect(errorPage)
       } else {

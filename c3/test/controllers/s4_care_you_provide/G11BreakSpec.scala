@@ -35,7 +35,8 @@ class G11BreakSpec extends Specification with Tags {
         "start.year" -> "2001",
         "whereYou.answer" -> Holiday,
         "wherePerson.answer" -> Holiday,
-        "medicalDuringBreak" -> "no")
+        "medicalDuringBreak" -> "no",
+        "doNotKnowEndDate" -> "yes")
 
       val result = G11Break.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -69,7 +70,8 @@ class G11BreakSpec extends Specification with Tags {
         "whereYou.text" -> "Outer space",
         "wherePerson.answer" -> SomewhereElse,
         "wherePerson.text" -> "Underwater",
-        "medicalDuringBreak" -> "no")
+        "medicalDuringBreak" -> "no",
+        "doNotKnowEndDate" -> "yes")
 
       val result = G11Break.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -84,7 +86,8 @@ class G11BreakSpec extends Specification with Tags {
         "start.year" -> "2001",
         "whereYou.answer" -> Holiday,
         "wherePerson.answer" -> Holiday,
-        "medicalDuringBreak" -> "no")
+        "medicalDuringBreak" -> "no",
+        "doNotKnowEndDate" -> "yes")
 
       val result = G11Break.submit(request1)
 
@@ -96,7 +99,8 @@ class G11BreakSpec extends Specification with Tags {
         "start.year" -> "2001",
         "whereYou.answer" -> Holiday,
         "wherePerson.answer" -> Holiday,
-        "medicalDuringBreak" -> "no")
+        "medicalDuringBreak" -> "no",
+        "doNotKnowEndDate" -> "yes")
 
       G11Break.submit(request2)
 
@@ -114,7 +118,8 @@ class G11BreakSpec extends Specification with Tags {
         "start.year" -> "2001",
         "whereYou.answer" -> Holiday,
         "wherePerson.answer" -> Holiday,
-        "medicalDuringBreak" -> "no")
+        "medicalDuringBreak" -> "no",
+        "doNotKnowEndDate" -> "yes")
 
       val result = G11Break.submit(requestNew)
 
@@ -128,7 +133,8 @@ class G11BreakSpec extends Specification with Tags {
         "start.year" -> yearUpdate.toString,
         "whereYou.answer" -> Holiday,
         "wherePerson.answer" -> Holiday,
-        "medicalDuringBreak" -> "no")
+        "medicalDuringBreak" -> "no",
+        "doNotKnowEndDate" -> "yes")
 
       G11Break.submit(requestUpdate)
 

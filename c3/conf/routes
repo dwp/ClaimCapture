@@ -146,6 +146,9 @@ POST        /employment/last-wage                                       controll
 GET         /employment/about-expenses/:id                              controllers.s7_employment.G8PensionAndExpenses.present(id: String)
 POST        /employment/about-expenses                                  controllers.s7_employment.G8PensionAndExpenses.submit
 
+GET         /employment/additional-info                                 controllers.s7_employment.G9EmploymentAdditionalInfo.present
+POST        /employment/additional-info                                 controllers.s7_employment.G9EmploymentAdditionalInfo.submit
+
 # Self-employment
 ###############
 GET         /self-employment/about-self-employment                      controllers.s8_self_employment.G1AboutSelfEmployment.present
@@ -182,8 +185,8 @@ POST        /information/additional-info                                controll
 # Consent and declaration
 ###############
 
-GET         /consent-and-declaration/declaration                        @controllers.s12_consent_and_declaration.G3Declaration.present
-POST        /consent-and-declaration/declaration                        @controllers.s12_consent_and_declaration.G3Declaration.submit
+GET         /consent-and-declaration/declaration        @controllers.s12_consent_and_declaration.G3Declaration.present
+POST        /consent-and-declaration/declaration        @controllers.s12_consent_and_declaration.G3Declaration.submit
 
 GET         /consent-and-declaration/error                              controllers.s12_consent_and_declaration.G4Error.present
 
@@ -227,8 +230,8 @@ POST        /circumstances/report-changes/employment-finished           controll
 GET         /circumstances/report-changes/future-employment             controllers.circs.s2_report_changes.G12EmploymentNotStarted.present
 POST        /circumstances/report-changes/future-employment             controllers.circs.s2_report_changes.G12EmploymentNotStarted.submit
 
-GET         /circumstances/consent-and-declaration/declaration          @controllers.circs.s3_consent_and_declaration.G1Declaration.present
-POST        /circumstances/consent-and-declaration/declaration          @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
+GET         /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.present
+POST        /circumstances/consent-and-declaration/declaration        @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
 
 GET         /circumstances/consent-and-declaration/error                controllers.circs.s3_consent_and_declaration.G3Error.present
 

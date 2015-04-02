@@ -150,3 +150,9 @@ case class PensionAndExpenses(iterationID: String = "",
 object PensionAndExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g4"
 }
+
+case class EmploymentAdditionalInfo(empAdditionalInfo: YesNoWithText = YesNoWithText(answer = "", text = None)) extends QuestionGroup(EmploymentAdditionalInfo)
+
+object EmploymentAdditionalInfo extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g5"
+}
