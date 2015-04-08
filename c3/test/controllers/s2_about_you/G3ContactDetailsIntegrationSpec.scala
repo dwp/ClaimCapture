@@ -9,15 +9,15 @@ import utils.pageobjects.{TestData, ClaimPageFactory, PageObjects}
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 import org.openqa.selenium.By
 
-class G2ContactDetailsIntegrationSpec extends Specification with Tags {
+class G3ContactDetailsIntegrationSpec extends Specification with Tags {
   "Contact Details" should {
     "be presented" in new WithBrowser with PageObjects{
-			val page =  G2ContactDetailsPage(context)
+			val page =  G3ContactDetailsPage(context)
       page goToThePage()
     }
 
     "contain error if address not filled in" in new WithBrowser with PageObjects{
-      val page =  G2ContactDetailsPage(context)
+      val page =  G3ContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.AboutYouAddress = ""
       page goToThePage()
@@ -30,7 +30,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "contain error if 'Contact phone or mobile number' not filled in" in new WithBrowser with PageObjects{
-      val page =  G2ContactDetailsPage(context)
+      val page =  G3ContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.HowWeContactYou = ""
       page goToThePage()
@@ -42,7 +42,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "valid submission if 'Contact phone or mobile number' is filled in with number" in new WithBrowser with PageObjects{
-      val page =  G2ContactDetailsPage(context)
+      val page =  G3ContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
@@ -53,7 +53,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "valid submission if 'Contact phone or mobile number' is filled in with text" in new WithBrowser with PageObjects{
-      val page =  G2ContactDetailsPage(context)
+      val page =  G3ContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.HowWeContactYou = "I do not have contact number"
       page goToThePage()
@@ -66,7 +66,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
 
     
     "navigate to next page on valid submission" in new WithBrowser with PageObjects{
-			val page =  G2ContactDetailsPage(context)
+			val page =  G3ContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
@@ -94,7 +94,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
 
     "Modify address from preview page" in new WithBrowser with PageObjects{
 
-      val page =  G2ContactDetailsPage(context)
+      val page =  G3ContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
@@ -107,7 +107,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
       previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "101 Clifton Street, Blackpool FY1 2RW"
       val contactDetails = previewPage.clickLinkOrButton(s"#$id")
 
-      contactDetails must beAnInstanceOf[G2ContactDetailsPage]
+      contactDetails must beAnInstanceOf[G3ContactDetailsPage]
       val modifiedData = new TestData
       modifiedData.AboutYouAddress = "10 someplace&Wherever"
       modifiedData.AboutYouPostcode = "M4 4TJ"
@@ -122,7 +122,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
 
     "Modify contact number from preview page" in new WithBrowser with PageObjects{
 
-      val page =  G2ContactDetailsPage(context)
+      val page =  G3ContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
@@ -135,7 +135,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
       previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "01772 888901"
       val contactDetails = previewPage.clickLinkOrButton(s"#$id")
 
-      contactDetails must beAnInstanceOf[G2ContactDetailsPage]
+      contactDetails must beAnInstanceOf[G3ContactDetailsPage]
       val modifiedData = new TestData
       modifiedData.HowWeContactYou = "0123456789"
 

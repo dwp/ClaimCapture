@@ -56,6 +56,13 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def maritalStatus() = {
+    val claim = new TestData
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+
+    claim
+  }
+
   def yourNationalityAndResidencyNonResident() = {
     val claim = new TestData
     claim.AboutYouNationalityAndResidencyNationality = "Another Country"
@@ -124,6 +131,10 @@ object ClaimScenarioFactory {
   def s2AboutYouWithTimeOutside() = {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
+
+    // Marital Status
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+
     // Your contact details
     claim.AboutYouAddress = "An address&Preston"
     claim.AboutYouPostcode = "SE1 6EH"

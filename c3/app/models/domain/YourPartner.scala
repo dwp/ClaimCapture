@@ -1,6 +1,5 @@
 package models.domain
 
-import app.MaritalStatus
 import models.DayMonthYear
 import controllers.mappings.Mappings._
 import models.NationalInsuranceNumber
@@ -60,11 +59,13 @@ object YourPartnerPersonalDetails extends QuestionGroup.Identifier  {
   }
 
   def shouldNationalityVisible(claim:Claim):Boolean = {
+    import app.{MaritalStatus => MS}
      claim.questionGroup[NationalityAndResidency] match {
        case Some(n) => n.nationality match {
          case NationalityAndResidency.anothercountry =>
-           val maritalStatus = n.maritalStatus.get
-           maritalStatus == MaritalStatus.Married || maritalStatus == MaritalStatus.Partner
+           
+           val maritalStatus = claim.questionGroup[MaritalStatus].getOrElse(MaritalStatus()).maritalStatus
+           maritalStatus == MS.Married || maritalStatus == MS.Partner
 
          case _ => false
        }

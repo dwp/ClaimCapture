@@ -16,7 +16,7 @@ import models.domain._
 import controllers.CarersForms._
 import EMail._
 
-object G2ContactDetails extends Controller with CachedClaim with Navigable {
+object G3ContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "address" -> address.verifying(requiredAddress),
     "postcode" -> optional(text verifying validPostcode),
@@ -32,7 +32,7 @@ object G2ContactDetails extends Controller with CachedClaim with Navigable {
   )
 
   def present = claiming {implicit claim =>  implicit request =>  lang =>
-    track(ContactDetails) { implicit claim => Ok(views.html.s2_about_you.g2_contactDetails(form.fill(ContactDetails))(lang)) }
+    track(ContactDetails) { implicit claim => Ok(views.html.s2_about_you.g3_contactDetails(form.fill(ContactDetails))(lang)) }
   }
 
   def submit = claiming {implicit claim =>  implicit request =>  lang =>
@@ -41,7 +41,7 @@ object G2ContactDetails extends Controller with CachedClaim with Navigable {
         val updatedForm = formWithErrors.replaceError("","error.email.match",FormError("mailConfirmation","error.email.match"))
                                         .replaceError("","error.email.required",FormError("mail",errorRequired))
                                         .replaceError("","error.wants.required",FormError("wantsEmailContact",errorRequired))
-        BadRequest(views.html.s2_about_you.g2_contactDetails(updatedForm)(lang))
+        BadRequest(views.html.s2_about_you.g3_contactDetails(updatedForm)(lang))
       },
       contactDetails =>{
         val liveAtSameAddress = claim.questionGroup[TheirPersonalDetails].exists(_.liveAtSameAddressCareYouProvide == yes)

@@ -9,6 +9,7 @@ About You,Your Details,Middle name,AboutYouMiddleName,Middle
 About You,Your Details,Surname or family name,AboutYouSurname,CaseTwo
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,ja486278a
 About You,Your Details,Date of birth,AboutYouDateOfBirth,28/09/1976
+About You,Your marital status,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Separated
 About You,Your contact details,Address,AboutYouAddress,2 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,pr1 2th
 About You,Your contact details,How we contact you,HowWeContactYou,01772 888901
@@ -20,7 +21,6 @@ About You,Nationality and where you live,What is your nationality?,AboutYouNatio
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,
 About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Yes
 About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,
-About You,Nationality and where you live,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,Yes
 About You,When you went abroad for more than 52 weeks,"Tell us about this time away.Include the dates you left and returned and details of where you've been.",AboutYouTripDetails_1,Trip 1 to London, Trip 2 to Scotland
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,Yes

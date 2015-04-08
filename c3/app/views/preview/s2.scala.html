@@ -14,6 +14,9 @@
 @nationalityAndResidency = @{
     claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
 }
+@maritalStatusQG = @{
+    claim.questionGroup[MaritalStatus].getOrElse(MaritalStatus())
+}
 @nationality = @{
     nationalityAndResidency.actualnationality match {
         case Some(n) => n
@@ -23,13 +26,13 @@
 @otherEEA = @{claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())}
 @abroadForMoreThan52Weeks = @{claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())}
 @maritalStatus = @{
-nationalityAndResidency.maritalStatus match {
-        case Some(Married) => Messages("maritalStatus.married")
-        case Some(Single) => Messages("maritalStatus.single")
-        case Some(Divorced) => Messages("maritalStatus.divorced")
-        case Some(Widowed) => Messages("maritalStatus.widowed")
-        case Some(Separated) => Messages("maritalStatus.separated")
-        case Some(Partner) => Messages("maritalStatus.livingWithPartner")
+    maritalStatusQG.maritalStatus match {
+        case Married => Messages("maritalStatus.married")
+        case Single => Messages("maritalStatus.single")
+        case Divorced => Messages("maritalStatus.divorced")
+        case Widowed => Messages("maritalStatus.widowed")
+        case Separated => Messages("maritalStatus.separated")
+        case Partner => Messages("maritalStatus.livingWithPartner")
         case _ => ""
     }
 }
@@ -49,9 +52,7 @@ nationalityAndResidency.maritalStatus match {
     @fieldWithLink("about_you_dob", "dateOfBirth", yourDetails.dateOfBirth.`dd month, yyyy`)
     @fieldWithLink("about_you_address", "address", addressPostcode)
     @fieldWithLink("about_you_contact", "howWeContactYou", contactDetails.howWeContactYou)
-    @if(nationalityAndResidency.maritalStatus.isDefined){
-        @fieldWithLink("about_you_marital_status", "maritalStatusNQ", maritalStatus)
-    }
+    @fieldWithLink("about_you_marital_status", "maritalStatusNQ", maritalStatus)
     @fieldWithLink("about_you_claimDate", "dateOfClaim.simple", claimDate.dateOfClaim.`dd month, yyyy`)
     @fieldWithLink("about_you_nationality", "yourNationality", nationality)
     @fieldWithLink("about_you_abroad", "timeOutsideGB", Messages("label."+abroadForMoreThan52Weeks.anyTrips.toLowerCase))

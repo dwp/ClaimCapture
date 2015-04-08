@@ -43,7 +43,8 @@ object ClaimPageFactory extends PageFactory {
       case G1ClaimDatePage.url => G1ClaimDatePage(ctx)
       // S2
       case G1YourDetailsPage.url => G1YourDetailsPage(ctx)
-      case G2ContactDetailsPage.url => G2ContactDetailsPage(ctx)
+      case G2MaritalStatusPage.url => G2MaritalStatusPage(ctx)
+      case G3ContactDetailsPage.url => G3ContactDetailsPage(ctx)
       case G4NationalityAndResidencyPage.url => G4NationalityAndResidencyPage(ctx)
     }
     m.orElse[String, Page] {
