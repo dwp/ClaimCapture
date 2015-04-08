@@ -46,6 +46,8 @@ object ClaimScenarioFactory {
     claim.AboutYouPostcode = "FY1 2RW"
     claim.HowWeContactYou = "01772 888901"
     claim.AboutYouWantsEmailContact = "No"
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+
     claim
   }
 

@@ -146,7 +146,10 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
     claim.AboutYouMiddleName = "careyouprovidemiddlename"
     aboutYouPage goToThePage()
     aboutYouPage fillPageWith claim
-    val contactDetails = aboutYouPage submitPage()
+    val maritalStatusPage = aboutYouPage submitPage()
+    maritalStatusPage fillPageWith claim
+    val contactDetails = maritalStatusPage submitPage()
+
     contactDetails fillPageWith claim
     contactDetails submitPage()
 
