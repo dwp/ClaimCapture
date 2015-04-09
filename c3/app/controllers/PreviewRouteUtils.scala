@@ -5,16 +5,17 @@ object PreviewRouteUtils {
 
   def yourDetailsRoute = {
     val g1YourDetailsRoute = controllers.s2_about_you.routes.G1YourDetails.present.toString
-    val g2ContactDetailsRoute = controllers.s2_about_you.routes.G2ContactDetails.present.toString
+    val g2MaritalStatusRoute = controllers.s2_about_you.routes.G2MaritalStatus.present.toString
+    val g3ContactDetailsRoute = controllers.s2_about_you.routes.G3ContactDetails.present.toString
     val g4NationalityRoute = controllers.s2_about_you.routes.G4NationalityAndResidency.present.toString
     val g7OtherEEARoute = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.present.toString
 
     val routesMap = Map("about_you_full_name" -> g1YourDetailsRoute,
                         "about_you_nino" -> g1YourDetailsRoute,
                         "about_you_dob" -> g1YourDetailsRoute,
-                        "about_you_address" -> g2ContactDetailsRoute,
-                        "about_you_contact" -> g2ContactDetailsRoute,
-                        "about_you_marital_status" -> g4NationalityRoute,
+                        "about_you_address" -> g3ContactDetailsRoute,
+                        "about_you_contact" -> g3ContactDetailsRoute,
+                        "about_you_marital_status" -> g2MaritalStatusRoute,
                         "about_you_claimDate" -> controllers.s1_2_claim_date.routes.G1ClaimDate.present.toString,
                         "about_you_nationality" -> g4NationalityRoute,
                         "about_you_abroad" -> controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.present.toString,

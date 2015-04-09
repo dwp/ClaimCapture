@@ -1,12 +1,12 @@
-window.initEvents = (nationlityBritish, nationalityAnotherCountry, nationalResidency, resideInUKY, resideInUKN, resideInUKText, maritalStatusMarried, maritalStatusSingle, maritalStatusDivorced, maritalStatusWidowed, maritalStatusSeparated, maritalStatusLiving) ->
+window.initEvents = (nationlityBritish, nationalityAnotherCountry, nationalResidency, resideInUKY, resideInUKN, resideInUKText) ->
   if not $("#" + nationalityAnotherCountry).prop('checked')
-    hideNationalityWrap(nationalResidency, maritalStatusMarried, maritalStatusSingle, maritalStatusDivorced, maritalStatusWidowed, maritalStatusSeparated, maritalStatusLiving)
+    hideNationalityWrap(nationalResidency)
 
   $("#" + nationalityAnotherCountry).on "click", ->
     showNationalityWrap()
 
   $("#" + nationlityBritish).on "click", ->
-    hideNationalityWrap(nationalResidency, maritalStatusMarried, maritalStatusSingle, maritalStatusDivorced, maritalStatusWidowed, maritalStatusSeparated, maritalStatusLiving)
+    hideNationalityWrap(nationalResidency)
 
   if not $("#" + resideInUKN).prop('checked')
     hideResidencyWrap(resideInUKText)
@@ -18,15 +18,10 @@ window.initEvents = (nationlityBritish, nationalityAnotherCountry, nationalResid
     hideResidencyWrap(resideInUKText)
 
 
-hideNationalityWrap = (nationalResidency, maritalStatusMarried, maritalStatusSingle, maritalStatusDivorced, maritalStatusWidowed, maritalStatusSeparated, maritalStatusLiving) ->
+hideNationalityWrap = (nationalResidency) ->
   $("#nationalityWrap").slideUp 0, ->
     $("#" + nationalResidency).val("")
-    $("#" + maritalStatusMarried).prop('checked', false)
-    $("#" + maritalStatusSingle).prop('checked', false)
-    $("#" + maritalStatusDivorced).prop('checked', false)
-    $("#" + maritalStatusWidowed).prop('checked', false)
-    $("#" + maritalStatusSeparated).prop('checked', false)
-    $("#" + maritalStatusLiving).prop('checked', false)
+
 
 showNationalityWrap = ->
   $("#nationalityWrap").slideDown 0
