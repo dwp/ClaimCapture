@@ -14,6 +14,7 @@ import play.api.i18n.Lang
 import controllers.mappings.Mappings
 import models.domain.Claim
 import models.yesNo.DeleteId
+import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 object G10BreaksInCare extends Controller with CachedClaim with Navigable {
 
@@ -39,16 +40,23 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
 
     form.bindEncrypted.fold(
       formWithErrors => {
-        val sixMonth = claim.questionGroup(ClaimDate) match {
-          case Some(m: ClaimDate) => m.spent35HoursCaringBeforeClaim.answer.toLowerCase == "yes"
-          case _ => false
-        }
-        val formWithErrorsUpdate = formWithErrors.replaceError("answer", FormError("answer.label", Mappings.errorRequired,Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-          if (sixMonth) (dmy - 6 months).`dd/MM/yyyy` else dmy.`dd/MM/yyyy`))))
+        val formWithErrorsUpdate = formWithErrors.replaceError("answer", Mappings.errorRequired, errorMessage)
         BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrorsUpdate, breaksInCare)(lang))
       },
       hasBreaks => claim.update(hasBreaks) -> next(hasBreaks.answer))
   }.withPreviewConditionally[BreaksInCareSummary](breaksInCareSummary => breaksInCareSummary._2.answer == Mappings.no)
+
+  private def errorMessage (implicit claim: Claim, lang: Lang) = {
+    val sixMonth = claim.questionGroup(ClaimDate) match {
+      case Some(m: ClaimDate) => m.spent35HoursCaringBeforeClaim.answer.toLowerCase == "yes"
+      case _ => false
+    }
+    val breaksLabel = if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}
+    val messageLabel = Messages(breaksLabel, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+      if (sixMonth) displayPlaybackDatesFormat (lang, dmy - 6 months) else displayPlaybackDatesFormat (lang, dmy)))
+
+    FormError("answer", Mappings.errorRequired,Seq(messageLabel))
+  }
 
   private def redirect(implicit claim: Claim, lang: Lang) = {
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1TheirPersonalDetails.present())
