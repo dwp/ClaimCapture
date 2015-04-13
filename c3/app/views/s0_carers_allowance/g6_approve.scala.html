@@ -11,7 +11,7 @@
 @import play.api.Play.current
 
 @benefitsAnswer = @{
-    claim.questionGroup[Benefits].getOrElse(Benefits()).asInstanceOf[BooleanConfirmation].answer
+    claim.questionGroup[Benefits].getOrElse(Benefits()).answer
 }
 
 @hoursAnswer = @{
@@ -31,7 +31,7 @@
 }
 
 @approved = @{
-    completedQuestionGroups.length == 4 && completedQuestionGroups.forall(_.asInstanceOf[Boolean])
+    completedQuestionGroups.forall(b => b)
 }
 
 @defining(lang) { implicit language =>
