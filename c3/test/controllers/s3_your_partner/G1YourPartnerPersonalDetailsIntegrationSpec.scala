@@ -30,6 +30,13 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
 
     "contain errors 'when have you lived with a partner is yes' on invalid submission" in new WithBrowser with PageObjects {
 
+      val nationalityPage =  G4NationalityAndResidencyPage(context)
+      val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
+      claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = MaritalStatus.Married
+      nationalityPage goToThePage()
+      nationalityPage fillPageWith claim
+      nationalityPage submitPage()
+
       val maritalStatus = G2MaritalStatusPage(context)
       maritalStatus goToThePage()
       maritalStatus fillPageWith claim
@@ -46,6 +53,13 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     }
 
     "navigate to next page on valid submission" in new WithBrowser with PageObjects {
+
+      val nationalityPage =  G4NationalityAndResidencyPage(context)
+      val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
+      claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = MaritalStatus.Married
+      nationalityPage goToThePage()
+      nationalityPage fillPageWith claim
+      nationalityPage submitPage()
 
       val maritalStatus = G2MaritalStatusPage(context)
       maritalStatus goToThePage()
