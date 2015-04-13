@@ -184,6 +184,7 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerNINO = "AB123456A"
     claim.AboutYourPartnerDateofBirth = "12/07/1990"
     claim.AboutYourPartnerHaveYouSeparatedfromYourPartner = "Yes"
+    claim.AboutYourPartnerNationality = "British"
     // Person you care for
     claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
     claim.AboutYourPartnerHadPartnerSinceClaimDate = "Yes"
@@ -219,6 +220,7 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerOtherNames = "Doe"
     claim.AboutYourPartnerNINO = "AB123456A"
     claim.AboutYourPartnerDateofBirth = "12/07/1990"
+    claim.AboutYourPartnerNationality = "British"
     claim.AboutYourPartnerHaveYouSeparatedfromYourPartner = "Yes"
     // Person you care for
     claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"

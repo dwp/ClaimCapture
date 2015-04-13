@@ -54,22 +54,9 @@ object YourPartnerPersonalDetails extends QuestionGroup.Identifier  {
     case `no` => true
   }
 
-  def validateNationalityIfPresent(input: YourPartnerPersonalDetails, claim:Claim): Boolean = input.hadPartnerSinceClaimDate == yes && shouldNationalityVisible(claim) match {
+  def validateNationalityIfPresent(input: YourPartnerPersonalDetails): Boolean = input.hadPartnerSinceClaimDate == yes match {
     case true => input.nationality.isDefined
     case false => true
-  }
-
-  def shouldNationalityVisible(claim:Claim):Boolean = {
-     claim.questionGroup[NationalityAndResidency] match {
-       case Some(n) => n.nationality match {
-         case NationalityAndResidency.anothercountry =>
-           val maritalStatus = n.maritalStatus.get
-           maritalStatus == MaritalStatus.Married || maritalStatus == MaritalStatus.Partner
-
-         case _ => false
-       }
-       case _ => false // it is optional on the form
-     }
   }
 
 }
