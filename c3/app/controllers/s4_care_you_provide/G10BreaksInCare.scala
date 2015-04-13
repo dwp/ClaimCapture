@@ -51,7 +51,8 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
       case Some(m: ClaimDate) => m.spent35HoursCaringBeforeClaim.answer.toLowerCase == "yes"
       case _ => false
     }
-    val breaksLabel = if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}
+    val breaksAdded = breaksInCare.breaks
+    val breaksLabel = if(breaksAdded == Nil || breaksAdded.isEmpty) {"answer.label"} else {"answer.more.label"}
     val messageLabel = Messages(breaksLabel, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
       if (sixMonth) displayPlaybackDatesFormat (lang, dmy - 6 months) else displayPlaybackDatesFormat (lang, dmy)))
 
