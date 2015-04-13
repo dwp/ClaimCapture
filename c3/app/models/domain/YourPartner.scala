@@ -1,6 +1,5 @@
 package models.domain
 
-import app.MaritalStatus
 import models.DayMonthYear
 import controllers.mappings.Mappings._
 import models.NationalInsuranceNumber

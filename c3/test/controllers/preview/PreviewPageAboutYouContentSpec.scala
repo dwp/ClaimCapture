@@ -35,7 +35,6 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       source must contain("Yes")
       source must contain("Do you or anyone in your family work or pay insurance in any of these countries?")
       source must contain("Yes")
-      source must not contain "Marital status"
     }
 
     "display about you - the carer data with nationality another country" in new WithBrowser with PageObjects{
@@ -67,7 +66,10 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
     aboutYouPage goToThePage()
     aboutYouPage fillPageWith claim
 
-    val contactDetailsPage = aboutYouPage submitPage()
+    val maritalStatus = aboutYouPage submitPage()
+    maritalStatus fillPageWith claim
+
+    val contactDetailsPage = maritalStatus submitPage()
     contactDetailsPage fillPageWith claim
 
     val addressPage = contactDetailsPage submitPage()

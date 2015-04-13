@@ -8,7 +8,7 @@ import utils.pageobjects._
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
-final class G2ContactDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G2ContactDetailsPage.url) {
+final class G3ContactDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G3ContactDetailsPage.url) {
   declareAddress("#address", "AboutYouAddress")
   declareInput("#postcode", "AboutYouPostcode")
   declareInput("#howWeContactYou", "HowWeContactYou")
@@ -22,15 +22,15 @@ final class G2ContactDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, 
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object G2ContactDetailsPage {
+object G3ContactDetailsPage {
   val url = "/about-you/contact-details"
 
-  def apply(ctx:PageObjectsContext) = new G2ContactDetailsPage(ctx)
+  def apply(ctx:PageObjectsContext) = new G3ContactDetailsPage(ctx)
 }
 
 /** The context for Specs tests */
-trait G2ContactDetailsPageContext extends PageContext {
+trait G3ContactDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2ContactDetailsPage (PageObjectsContext(browser))
+  val page = G3ContactDetailsPage (PageObjectsContext(browser))
 }

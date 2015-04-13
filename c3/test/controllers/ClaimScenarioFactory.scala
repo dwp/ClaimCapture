@@ -46,6 +46,8 @@ object ClaimScenarioFactory {
     claim.AboutYouPostcode = "FY1 2RW"
     claim.HowWeContactYou = "01772 888901"
     claim.AboutYouWantsEmailContact = "No"
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+
     claim
   }
 
@@ -53,6 +55,13 @@ object ClaimScenarioFactory {
     val claim = new TestData
     claim.AboutYouNationalityAndResidencyNationality = "British"
     claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
+    claim
+  }
+
+  def maritalStatus() = {
+    val claim = new TestData
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+
     claim
   }
 
@@ -124,6 +133,10 @@ object ClaimScenarioFactory {
   def s2AboutYouWithTimeOutside() = {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
+
+    // Marital Status
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+
     // Your contact details
     claim.AboutYouAddress = "An address&Preston"
     claim.AboutYouPostcode = "SE1 6EH"

@@ -35,7 +35,7 @@ class XmlHelperSpec extends Specification with Tags {
       XMLHelper.questionOther(<Test/>,"s7.g2", "Other", Some("Maybe")).toString shouldEqual "<Test><QuestionLabel>"+employedQuestion+"</QuestionLabel><Other>Maybe</Other><Answer>Other</Answer></Test>"
     }
     "when question has why option" in new WithApplication{
-      XMLHelper.questionWhy(<Test/>,"s7.g2", "No", Some("Maybe"),"obtainInfoWhy" ).toString shouldEqual "<Test><QuestionLabel>"+employedQuestion+"</QuestionLabel><Answer>No</Answer><Why><QuestionLabel>Please tell us why not</QuestionLabel><Answer>Maybe</Answer></Why></Test>"
+      XMLHelper.questionWhy(<Test/>,"s7.g2", "No", Some("Maybe"),"obtainInfoWhy" ).toString shouldEqual "<Test><QuestionLabel>"+employedQuestion+"</QuestionLabel><Answer>No</Answer><Why><QuestionLabel>Tell us why not</QuestionLabel><Answer>Maybe</Answer></Why></Test>"
     }
 
     "when question is about currency" in new WithApplication{
