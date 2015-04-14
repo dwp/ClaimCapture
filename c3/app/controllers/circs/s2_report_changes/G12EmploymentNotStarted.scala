@@ -14,7 +14,7 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
   val payIntoPension =
     "willYouPayIntoPension" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatFor" -> optional(nonEmptyText(maxLength = 300))
+      "whatFor" -> optional(carersText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("willYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
 
@@ -28,7 +28,7 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
   val careCostsForThisWork =
     "willCareCostsForThisWork" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatCosts" -> optional(nonEmptyText(maxLength = 300))
+      "whatCosts" -> optional(carersText(maxLength = 300))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("willCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
 
