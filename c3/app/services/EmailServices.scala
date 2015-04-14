@@ -34,23 +34,25 @@ object EmailServices {
   }
 
   private def sendClaimEmail(claim:Claim) = {
-    claim.questionGroup[ContactDetails].get.email -> claim.questionGroup[AdditionalInfo].get.welshCommunication match {
-      case (Some(email),welsh) =>
-        val isWelsh = welsh == Mappings.yes
+    claim.questionGroup[ContactDetails] -> claim.questionGroup[AdditionalInfo] match {
+      case (Some(contactDetails),Some(additionalInfo)) if contactDetails.email.isDefined =>
+        val isWelsh = additionalInfo.welshCommunication == Mappings.yes
         implicit val lang = if(isWelsh) Lang("cy") else Lang("en")
 
-        CadsEmail.send(claim.transactionId.getOrElse(""),subject = Messages("subject.claim"),body = views.html.mail(claim,isClaim = true,isEmployment(claim)).body,email)
-      case _ => Logger.error("Can't send claim email, email not pressent")
+        CadsEmail.send(claim.transactionId.getOrElse(""),subject = Messages("subject.claim"),body = views.html.mail(claim,isClaim = true,isEmployment(claim)).body,contactDetails.email.get)
+      case (Some(contactDetails),Some(additionalInfo)) if contactDetails.email.isEmpty => //We do nothing in this case, they have selected not to send email
+      case _ => Logger.error(s"Can't send claim email, email not present for transactionId[${claim.transactionId.getOrElse("id not present")}]")
     }
   }
 
   private def sendCofcEmail(claim:Claim) = {
-    claim.questionGroup[CircumstancesDeclaration].get.email -> claim.lang match {
-      case (Some(email),language) =>
+    claim.questionGroup[CircumstancesDeclaration] -> claim.lang match {
+      case (Some(circumstancesDecl),language) if circumstancesDecl.email.isDefined =>
         implicit val lang = language.getOrElse(Lang("en"))
 
-        CadsEmail.send(claim.transactionId.getOrElse(""), subject = Messages("subject.cofc"),body = views.html.mail(claim,isClaim = false,isEmployment(claim)).body,email)
-      case _ => Logger.error("Can't send changes email, email not present")
+        CadsEmail.send(claim.transactionId.getOrElse(""), subject = Messages("subject.cofc"),body = views.html.mail(claim,isClaim = false,isEmployment(claim)).body,circumstancesDecl.email.get)
+      case (Some(circumstancesDecl),language) if circumstancesDecl.email.isEmpty => //We do nothing in this case, they have selected not to send email
+      case _ => Logger.error(s"Can't send changes email, email not present for transactionId[${claim.transactionId.getOrElse("id not present")}]")
     }
   }
 
