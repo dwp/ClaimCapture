@@ -77,17 +77,18 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "have 6 mandatory fields" in {
+    "have 7 mandatory fields" in {
       G1YourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("hadPartnerSinceClaimDate" -> "yes","middleName" -> "middle optional")).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(6)
+            formWithErrors.errors.length must equalTo(7)
             formWithErrors.errors(0).message must equalTo("title.required")
             formWithErrors.errors(1).message must equalTo("firstName.required")
             formWithErrors.errors(2).message must equalTo("surname.required")
             formWithErrors.errors(3).message must equalTo("dateOfBirth.required")
             formWithErrors.errors(4).message must equalTo("separated.fromPartner.required")
             formWithErrors.errors(5).message must equalTo("isPartnerPersonYouCareFor.required")
+            formWithErrors.errors(6).message must equalTo("nationality.required")
           },
           theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
