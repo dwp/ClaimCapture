@@ -14,8 +14,8 @@ object RequestSelector {
    */
   def toBeChecked(request:RequestHeader) = {
     val headerString = request.path
-    !headerString.matches(".*assets.*") && !headerString.matches(".*images.*") && !endPage(request) && !headerString.matches(".*error.*") &&
-      !headerString.matches(".*back-button.*") && !headerString.matches("/report/.*") && !headerString.matches("/favicon.ico")
+    headerString != "/" && !headerString.matches(".*assets.*") && !headerString.matches(".*images.*") && !endPage(request) &&
+      !headerString.matches(".*error.*") && !headerString.matches(".*back-button.*") && !headerString.matches("/report/.*") && !headerString.matches("/favicon.ico")
   }
 
   /**
