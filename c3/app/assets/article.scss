@@ -7,19 +7,7 @@ $base-margin-l   : 45px;
 $base-margin-xl  : 60px;
 
 article {
-
-	background: #fff;
-	position: relative;
-	margin-top: $base-margin-xl;
-	float: right;
-	width: 68%;
-
-	@media screen and (max-width: 700px) {
-		float: none;
-		width: auto;
-		padding-top: 1.8em;
-	}
-
+	
 	&.eligible {
 		.validation-summary {
 			margin-left: 0;

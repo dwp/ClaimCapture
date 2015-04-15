@@ -20,7 +20,7 @@ main {
 		padding: 0 $base-margin;
 	}
 } 
- 
+
 .carers-allowance {
  
 	@import 'prototype';
@@ -43,17 +43,8 @@ main {
 
 	@import 'right-panel';
  
-    width: 960px;
-    max-width: 95%; 
-    margin: 0 auto;
     border-top: 10px solid $mainstream-brand;
-    background: #fff;
-    padding-bottom: 65px;
 
-    @media screen and (max-width: 500px) {
-	    padding-bottom: 3em;
-	} 
- 
 	.form-elements { 
  
 		margin-bottom: $base-margin-xl;
@@ -99,7 +90,7 @@ main {
 		}
 	    
 	    //GENERAL STYLES
-	    
+	     
 	    // all legends 
 	    legend {
 
