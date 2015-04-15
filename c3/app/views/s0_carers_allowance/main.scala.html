@@ -13,30 +13,31 @@
         
         @common.helperMobile()
         
-        @common.leftcol()
-         
+        <div class="grid-row">
 
-        <article class="eligible">
+            @common.leftcol()
+             
+            <article class="column-three-quarters eligible">
 
-            @if(showBack){
-                <nav class="back-nav" role="navigation">
-                    <a id="backButton" href="@{claim.navigation.previous}@{if (changing)"?changing=true"}">@Html(Messages("form.back"))</a>
-                </nav>
-            }
+                @if(showBack){
+                    <nav class="back-nav" role="navigation">
+                        <a id="backButton" href="@{claim.navigation.previous}@{if (changing)"?changing=true"}">@Html(Messages("form.back"))</a>
+                    </nav>
+                }
 
-            <h1>@Html(Messages("s0.longName"))</h1>
+                <h1>@Html(Messages("s0.longName"))</h1>
 
+                @if(currentForm.isDefined) {
+                    @errorsSummary(currentForm.get)
+                }
 
+                @content
 
+            </article>
 
-            @if(currentForm.isDefined) {
-                @errorsSummary(currentForm.get)
-            }
-
-            @content
-
-        </article>
+        </div>
         
         
     </div>
+
 }

@@ -13,22 +13,25 @@
         @common.protoType()
         
         @common.helperMobile()
-        
-        @common.leftcol()
 
-        <article>
-
-            <nav class="back-nav" role="navigation">
-                <a id="backButton" href="@{if (backCall.isDefined) backCall.get else claim.navigation.previous}">@Html(Messages("form.back"))</a>
-            </nav>
-
+        <div class="grid-row">
             
-            <h1>@sectionTitle(AboutYou)@Html(Messages("s2.longName"))</h1>
-			
-            @content
+            @common.leftcol()
 
-        </article>
-       
+            <article class="column-three-quarters">
+
+                <nav class="back-nav" role="navigation">
+                    <a id="backButton" href="@{if (backCall.isDefined) backCall.get else claim.navigation.previous}">@Html(Messages("form.back"))</a>
+                </nav>
+
+                
+                <h1>@sectionTitle(AboutYou)@Html(Messages("s2.longName"))</h1>
+    			
+                @content
+
+            </article>
+
+        </div>       
         
     </div>
 

@@ -14,22 +14,23 @@
         
         @common.helperMobile()
         
-        @common.leftcol()
+        <div class="grid-row">
 
+            @common.leftcol()
 
-        <article>
+            <article class="column-three-quarters">
 
-            <nav class="back-nav" role="navigation">
-                <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
-            </nav>
+                <nav class="back-nav" role="navigation">
+                    <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
+                </nav>
 
-            
-            <h1>@sectionTitle(YourClaimDate)@Html(Messages("s1_2.longName"))</h1>
-			
-            @content
+                <h1>@sectionTitle(YourClaimDate)@Html(Messages("s1_2.longName"))</h1>
+    			
+                @content
 
-        </article>
+            </article>
         
+        </div>
         
     </div>
 

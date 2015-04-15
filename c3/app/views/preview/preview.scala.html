@@ -14,44 +14,47 @@
 
             @common.protoType()
 
-            <article>
+            <div class="grid-row">
 
-                <nav class="back-nav">
-                    <a id="backButton" href="@controllers.preview.routes.Preview.back">@Html(Messages("form.back"))</a>
-                </nav>
+                @common.leftcol()
 
-                <h1>@Html(Messages("preview.summary"))</h1>
+                <article class="column-three-quarters">
 
-
-                @errorsSummary(previewForm)
-
-
-                <section class="review">
-                    @s2()
-                    @s3()
-                    @s4()
-                    @s6()
-                    @s7()
-                    @s9()
-                </section>
-
-                @helper.form(action = controllers.preview.routes.Preview.submit) {
-                    @DwpCSRFFormHelper.formField
-                    @* -- New user story has to be raised for this
-                    <fieldset class="form-elements">
-                        <ul>
-                            @carersInputText(previewForm("email"))
-                        </ul>
-                    </fieldset>
-                    *@
-                    <nav class="form-steps">
-                        <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+                    <nav class="back-nav">
+                        <a id="backButton" href="@controllers.preview.routes.Preview.back">@Html(Messages("form.back"))</a>
                     </nav>
-                }
-            </article>
-            @common.leftcol()
-        </div>
 
+                    <h1>@Html(Messages("preview.summary"))</h1>
+
+                    @errorsSummary(previewForm)
+
+                    <section class="review">
+                        @s2()
+                        @s3()
+                        @s4()
+                        @s6()
+                        @s7()
+                        @s9()
+                    </section>
+
+                    @helper.form(action = controllers.preview.routes.Preview.submit) {
+                        @DwpCSRFFormHelper.formField
+                        @* -- New user story has to be raised for this
+                        <fieldset class="form-elements">
+                            <ul>
+                                @carersInputText(previewForm("email"))
+                            </ul>
+                        </fieldset>
+                        *@
+                        <nav class="form-steps">
+                            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+                        </nav>
+                    }
+                </article>
+
+            </div>
+
+        </div>
 
     }
 }

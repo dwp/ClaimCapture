@@ -10,20 +10,23 @@
         
         @common.helperMobile()
         
-        @common.leftcol()
+        <div class="grid-row">
+            
+            @common.leftcol()
 
+            <article class="column-three-quarters error-statement">
 
+                <h1>@Html(Messages("error.retry"))</h1>
 
-        <article class="error-statement">
+                <p>@Html(Messages("retry.message"))</p>
 
-            <h1>@Html(Messages("error.retry"))</h1>
+                <nav class="form-steps">
+                    <button type="submit" name="action" value="next" class="button secondary" onClick="location.href = ' @url '" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("retry.button"))</button>
+                </nav>
 
-            <p>@Html(Messages("retry.message"))</p>
+            </article>
 
-            <nav class="form-steps">
-                <button type="submit" name="action" value="next" class="button secondary" onClick="location.href = ' @url '" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("retry.button"))</button>
-            </nav>
-        </article>
+        </div>
         
     </div>
 }

@@ -10,28 +10,30 @@
         @common.protoType()
         
         @common.helperMobile()
+
+        <div class="grid-row">
+            
+            @common.leftcolCofc()
+
+            <article class="column-three-quarters">
+
+                @if(showBack){
+                    <nav class="back-nav">
+                        <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
+                    </nav>
+                }
+
+                <h1>@Html(Messages("c3.g1"))</h1>
+
+                @if(currentForm.isDefined) {
+                    @errorsSummary(currentForm.get)
+                }
+
+                @content
+                
+            </article>
         
-        @common.leftcolCofc()
-
-        <article>
-
-            @if(showBack){
-                <nav class="back-nav">
-                    <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
-                </nav>
-            }
-
-            <h1>@Html(Messages("c3.g1"))</h1>
-
-
-
-            @if(currentForm.isDefined) {
-                @errorsSummary(currentForm.get)
-            }
-
-            @content
-        </article>
-        
+        </div>
         
     </div>
 }

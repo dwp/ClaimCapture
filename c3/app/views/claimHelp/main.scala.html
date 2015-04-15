@@ -11,20 +11,23 @@
 
         @common.protoType()
 
-        <article>
-            
+        <div class="grid-row">
 
-            <h1>@Html(Messages("claimHelp.legend"))</h1>
-            
-            <div class="claim-notes">
+            @common.leftcol()
 
-            @content
-            
-            </div>
+            <article class="column-three-quarters">
+                
+                <h1>@Html(Messages("claimHelp.legend"))</h1>
+                
+                <div class="claim-notes">
 
-        </article>
+                @content
+                
+                </div>
 
-        @common.leftcol()
+            </article>
+
+        </div>
 
     </div>
 

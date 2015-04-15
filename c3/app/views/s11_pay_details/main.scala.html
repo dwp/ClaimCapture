@@ -7,31 +7,37 @@
 @import views.html.common._
 
 @common.govMain(title) {
+
     <div class="carers-allowance clearfix">
     
     	@common.protoType()
     	
     	@common.helperMobile()
-    	
-    	@common.leftcol()
 
-        <article>
+        <div class="grid-row">
+        	
+        	@common.leftcol()
 
-            <nav class="back-nav" role="navigation">
-                <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
-            </nav>
+            <article class="column-three-quarters">
 
-            
-            <h1>@sectionTitle(PayDetails)@Html(Messages("s10.longName"))</h1>
+                <nav class="back-nav" role="navigation">
+                    <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
+                </nav>
+
+                
+                <h1>@sectionTitle(PayDetails)@Html(Messages("s10.longName"))</h1>
 
 
-            @if(currentForm.isDefined) {
-                @errorsSummary(currentForm.get)
-            }
+                @if(currentForm.isDefined) {
+                    @errorsSummary(currentForm.get)
+                }
 
-            @content
-        </article>
-     
+                @content
+
+            </article>
+
+        </div>
         
     </div>
+    
 }

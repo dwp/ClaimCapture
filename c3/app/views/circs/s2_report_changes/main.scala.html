@@ -11,23 +11,27 @@
     
     @common.helperMobile()
     
-	@common.leftcolCofc()
+    <div class="grid-row">
 
-    <article>
+    	@common.leftcolCofc()
 
-        <nav class="back-nav">
-            <a id="backButton" href="@{claim.navigation.previous}@{if (changing)"?changing=true"}">@Html(Messages("form.back"))</a>
-        </nav>
+        <article class="column-three-quarters">
 
-        <h1>@Html(Messages("c2c.longName"))</h1>
+            <nav class="back-nav">
+                <a id="backButton" href="@{claim.navigation.previous}@{if (changing)"?changing=true"}">@Html(Messages("form.back"))</a>
+            </nav>
 
-        @if(currentForm.isDefined) {
-            @errorsSummary(currentForm.get)
-        }
+            <h1>@Html(Messages("c2c.longName"))</h1>
 
-        @content
-    </article>
+            @if(currentForm.isDefined) {
+                @errorsSummary(currentForm.get)
+            }
+
+            @content
+
+        </article>
    
+    </div>
     
 </div>
 }

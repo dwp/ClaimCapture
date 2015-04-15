@@ -12,26 +12,30 @@
         @common.protoType()
         
         @common.helperMobile()
-        
-        @common.leftcol()
 
-        <article>
-
-            <nav class="back-nav" role="navigation">
-                <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
-            </nav>
-
+        <div class="grid-row">
             
-            <h1>@sectionTitle(OtherMoney)@Html(Messages("s9.longName"))</h1>
+            @common.leftcol()
+
+            <article class="column-three-quarters">
+
+                <nav class="back-nav" role="navigation">
+                    <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
+                </nav>
+
+                
+                <h1>@sectionTitle(OtherMoney)@Html(Messages("s9.longName"))</h1>
 
 
-            @if(currentForm.isDefined){
-                @errorsSummary(currentForm.get)
-            }
+                @if(currentForm.isDefined){
+                    @errorsSummary(currentForm.get)
+                }
 
-            @content
-        </article>
-        
+                @content
+                
+            </article>
+
+        </div>        
         
     </div>
 }

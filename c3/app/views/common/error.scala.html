@@ -9,23 +9,26 @@
         
         @common.helperMobile()
         
-        @common.leftcol()
+        <div class="grid-row">
 
+            @common.leftcol()
 
-        <article class="error-statement">
+            <article class="column-three-quarters error-statement">
 
-            <h1>@Html(Messages("unrecoverable.error.cookie"))</h1>
-            <p>@Html(Messages("unrecoverable.error.cookie.help2"))</p>
+                <h1>@Html(Messages("unrecoverable.error.cookie"))</h1>
+                <p>@Html(Messages("unrecoverable.error.cookie.help2"))</p>
 
-            <p><button  id="TryJs" type="submit" name="action" value="next" class="button"  @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="history.back()" aria-label="@Html(Messages("try.claim.help"))" style="display:none;">@Html(Messages("try.claim"))</button>
-               <a id="Try" class="button" href="@{request.headers.get("Referer").getOrElse(s"$url")}" aria-label="@Html(Messages("try.claim.help"))">@Html(Messages("try.claim"))</a></p>
-            <p>@Html(Messages("unrecoverable.error.cookie.if")) <a @views.html.ga.trackClickEvent(linkName = "Chose start again") href="@url">@Html(Messages("unrecoverable.error.cookie.restart"))</a></p>
-            <nav class="form-steps">
-                <ul>
-                    <li><a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("feedbacklink.claim"))</a></li>
-                </ul>
-            </nav>
-        </article>
+                <p><button  id="TryJs" type="submit" name="action" value="next" class="button"  @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="history.back()" aria-label="@Html(Messages("try.claim.help"))" style="display:none;">@Html(Messages("try.claim"))</button>
+                   <a id="Try" class="button" href="@{request.headers.get("Referer").getOrElse(s"$url")}" aria-label="@Html(Messages("try.claim.help"))">@Html(Messages("try.claim"))</a></p>
+                <p>@Html(Messages("unrecoverable.error.cookie.if")) <a @views.html.ga.trackClickEvent(linkName = "Chose start again") href="@url">@Html(Messages("unrecoverable.error.cookie.restart"))</a></p>
+                <nav class="form-steps">
+                    <ul>
+                        <li><a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("feedbacklink.claim"))</a></li>
+                    </ul>
+                </nav>
+            </article>
+
+        </div>
 
     </div>
     <script type="text/javascript">$ ( $ ( "#Try" ).hide()); $ ( $ ( "#TryJs" ).show());</script>

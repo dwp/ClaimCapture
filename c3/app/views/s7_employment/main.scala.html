@@ -19,32 +19,33 @@
         @common.protoType()
         
         @common.helperMobile()
-        
-        @common.leftcol()
 
-
-        <article>
-
-            <nav class="back-nav" role="navigation">
-                <a id="backButton" href="@previous">@Html(Messages("form.back"))</a>
-            </nav>
-
+        <div class="grid-row">
             
+            @common.leftcol()
 
-            @if(employerName.isDefined && !employerName.isEmpty) {
-                <h1>@sectionTitle(Employed)@employerName </h1>
-            }
-            @if(!employerName.isDefined || employerName.isEmpty){
-                <h1>@sectionTitle(Employed)@Html(Messages("s7.main.help1"))</h1>
-            }
+            <article class="column-three-quarters">
 
-            @if(currentForm.isDefined) {
-                @errorsSummary(currentForm.get)
-            }
+                <nav class="back-nav" role="navigation">
+                    <a id="backButton" href="@previous">@Html(Messages("form.back"))</a>
+                </nav>
 
-            @content
-        </article>
+                @if(employerName.isDefined && !employerName.isEmpty) {
+                    <h1>@sectionTitle(Employed)@employerName </h1>
+                }
+                @if(!employerName.isDefined || employerName.isEmpty){
+                    <h1>@sectionTitle(Employed)@Html(Messages("s7.main.help1"))</h1>
+                }
+
+                @if(currentForm.isDefined) {
+                    @errorsSummary(currentForm.get)
+                }
+
+                @content
+
+            </article>
+
+        </div>
        
-        
     </div>
 }

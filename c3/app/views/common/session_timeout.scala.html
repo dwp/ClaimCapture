@@ -9,26 +9,26 @@
         @common.protoType()
         
 		@common.helperMobile()
-		
-		@common.leftcol()
 
+        <div class="grid-row">
 
-        <article class="error-statement">
+    		@common.leftcol()
 
-            <h1>@Html(Messages("session.timeout"))</h1>
-            <p>@Html(Messages("timeout.text"))</p>
+            <article class="column-three-quarters error-statement">
 
-            <nav class="form-steps">
-            	<ul>
-            		<li><a href="@url" class="button" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("restart.claim"))</a></li>
-            		<li><a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("feedbacklink.claim"))</a></li>
-            	</ul>
-            </nav>
-            
+                <h1>@Html(Messages("session.timeout"))</h1>
+                <p>@Html(Messages("timeout.text"))</p>
 
-            
-            
-        </article>
+                <nav class="form-steps">
+                	<ul>
+                		<li><a href="@url" class="button" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("restart.claim"))</a></li>
+                		<li><a href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("feedbacklink.claim"))</a></li>
+                	</ul>
+                </nav>
+        
+            </article>
+
+        </div>
         
         
     </div>

@@ -21,24 +21,27 @@
         @common.protoType()
         
         @common.helperMobile()
+
+        <div class="grid-row">
         
-        @common.leftcol()
+            @common.leftcol()
 
-        <article>
+            <article class="column-three-quarters">
 
-            <nav class="back-nav" role="navigation">
-                <a id="backButton" href="@previous">@Html(Messages("form.back"))</a>
-            </nav>
-            
-            <h1>@sectionTitle(SelfEmployment)@Html(Messages("s8.longName"))</h1>
+                <nav class="back-nav" role="navigation">
+                    <a id="backButton" href="@previous">@Html(Messages("form.back"))</a>
+                </nav>
+                
+                <h1>@sectionTitle(SelfEmployment)@Html(Messages("s8.longName"))</h1>
 
-            @if(currentForm.isDefined) {
-                @errorsSummary(currentForm.get)
-            }
+                @if(currentForm.isDefined) {
+                    @errorsSummary(currentForm.get)
+                }
 
-            @content
-        </article>
-        
+                @content
+            </article>
+
+        </div>        
         
     </div>
 }

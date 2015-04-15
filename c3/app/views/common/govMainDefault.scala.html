@@ -3,20 +3,24 @@
 @import play.api.i18n.{MMessages => Messages}
 @import app.ConfigProperties._
 
-
 <!DOCTYPE html>
+
     <!--[if IE 6]>         <html class="ie ie6" lang="en"> <![endif]-->
     <!--[if IE 7]>         <html class="ie ie7" lang="en"> <![endif]-->
     <!--[if IE 8]>         <html class="ie ie8" lang="en"> <![endif]-->
     <!--[if IE 9]>         <html class="ie ie9" lang="en"> <![endif]-->
     <!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
     <head>
+
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
         <title>@title</title>
 
-
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("carers-allowance.min.css")">
+
+        <!-- new GDS toolkit stylesheet -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("styles/app.min.css")">
 
         <!--[if gt IE 8]><!--> <link href="@routes.Assets.at("stylesheets/header-footer-only.css")" media="screen" rel="stylesheet" type="text/css"> <!--<![endif]-->
         <!--[if IE 6]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie6.css")" media="screen" rel="stylesheet" type="text/css"><![endif]-->
@@ -24,8 +28,6 @@
         <!--[if IE 8]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie8.css")" media="screen" rel="stylesheet" type="text/css"><![endif]-->
 
         <link href="@routes.Assets.at("stylesheets/print.css")" media="print" rel="stylesheet" type="text/css">
-
-
 
         <!--[if IE 8]>
         <script type="text/javascript">
@@ -64,36 +66,30 @@
         <script src="@routes.Assets.at("javascripts/stageprompt-2.0.1.js")" type="text/javascript"></script>
         <script defer="defer" src="@routes.Assets.at("javascripts/gov/header-footer-only.js")" type="text/javascript"></script>
 
-
 		<script src='@routes.Assets.at("javascripts/plugins.min.js")'></script>
         <script src='@routes.Assets.at("javascripts/custom.js")'></script>
         
-
         <!--[if (lt IE 9) & (!IEMobile)]>
         <script src="@routes.Assets.at("javascripts/respond.min.js")"></script>
         <![endif]-->
+
     </head>
 
     <body>
-        <script type="text/javascript">document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
-        
+
+        <script type="text/javascript">
+            document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
+        </script>
         
         <a href="#main" class="visuallyhidden">@Html(Messages("skipToMainContent"))</a>
         	
-        
-       
-        
-
-        <header role="banner" id="global-header">
-	      <div class="wrapper clearfix">
-	      
-		      <a href="https://www.gov.uk" title="@Html(Messages("logo.help"))" target="govlink" class="crown">GOV.UK</a>
-			  
-
-		          <h1 id="title">@Html(Messages("siteHeader"))</h1>
-
-	      </div>
+        <header role="banner" class="global-header" id="global-header">
+            <div class="wrapper clearfix">
+                <a href="https://www.gov.uk" title="@Html(Messages("logo.help"))" target="govlink" class="crown">GOV.UK</a>
+                <h1 class="heading-medium" id="title">@Html(Messages("siteHeader"))</h1>
+            </div>
 	    </header>
+
 	    <!--end header-->
 
         <div id="global-cookie-message">
@@ -105,47 +101,40 @@
         </div>
 
         <main role="main" id="main">
-           @content
+            @content
         </main>
 
-        <footer>
-	      <div class="container clearfix">
-	
-			  <div>
-			  	  <nav class="language">
-			  	  	 @if(getProperty("galluogi.cymraeg", default = true)) {
-                        @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
-                            @if(lang.language == "cy") {
-                                <a id="lang-en" href="/change-language/en" aria-label="@Html(Messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Html(Messages("english"))</a>
-                            } else {
-                                <a id="lang-cy" href="/change-language/cy" aria-label="@Html(Messages("welsh.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Html(Messages("welsh"))</a>
+        <footer class="global-footer" id="global-footer">
+            <div class="container clearfix">
+                <div>
+                    <nav class="footer-nav language">
+                        @if(getProperty("galluogi.cymraeg", default = true)) {
+                            @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
+                                @if(lang.language == "cy") {
+                                    <a id="lang-en" href="/change-language/en" aria-label="@Html(Messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Html(Messages("english"))</a>
+                                } else {
+                                    <a id="lang-cy" href="/change-language/cy" aria-label="@Html(Messages("welsh.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Html(Messages("welsh"))</a>
+                                }
                             }
                         }
-                    }
-
-                      <a id="privacy" target="privacyLink" href="https://www.gov.uk/government/organisations/department-for-work-pensions/about/personal-information-charter" @views.html.ga.trackClickEvent(linkName = "Privacy")>@Messages("privacyLink")</a>
-			  	  </nav>
-			  	  <p>@Html(Messages("madePreston"))</p>
-				  <p class="ogl">@Html(Messages("openGovLicensea")) <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="openGovLink" @views.html.ga.trackClickEvent(linkName = "Open Government Licence")>@Html(Messages("openGovLicenseb"))</a>@Html(Messages("openGovLicensec"))</p>
-			  </div>
-			 
-			  <div class="fr">
-				  <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm" target="crownLink" @views.html.ga.trackClickEvent(linkName = "Crown Copyright")>&copy; @Html(Messages("crownCopyright"))</a>
-			  </div>
-	
-	      </div>
+                        <a id="privacy" target="privacyLink" href="https://www.gov.uk/government/organisations/department-for-work-pensions/about/personal-information-charter" @views.html.ga.trackClickEvent(linkName = "Privacy")>@Messages("privacyLink")</a>
+                    </nav>
+                    <p>@Html(Messages("madePreston"))</p>
+                    <p class="ogl">@Html(Messages("openGovLicensea")) <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="openGovLink" @views.html.ga.trackClickEvent(linkName = "Open Government Licence")>@Html(Messages("openGovLicenseb"))</a>@Html(Messages("openGovLicensec"))</p>
+                </div>
+                <div class="fr">
+                    <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm" target="crownLink" @views.html.ga.trackClickEvent(linkName = "Crown Copyright")>&copy; @Html(Messages("crownCopyright"))</a>
+                </div>
+            </div>
 	    </footer>
 	    <!--/ footer -->
 	    
-	   
-	    
-
         <div id="global-app-error" class="app-error hidden"></div>
         
-         
-
         @if(play.Configuration.root().getBoolean("include.analytics", true)) {
             @views.html.ga.setup()
         }
+
     </body>
+
 </html>
