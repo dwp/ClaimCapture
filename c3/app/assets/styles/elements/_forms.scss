@@ -1,0 +1,310 @@
+
+// Forms
+// ==========================================================================
+
+// Fieldset is used to group more than one .form-group
+fieldset {
+    width: 100%;
+    @extend %contain-floats;
+}
+
+// Form group is used to wrap label and input pairs
+.form-group {
+    float: left;
+    width: 100%;
+    @extend %contain-floats;
+    margin-bottom: $gutter-half;
+    @include media(tablet) {
+        margin-bottom: $gutter;
+    }
+}
+
+.form-group-related {
+    margin-bottom: 10px;
+    @include media(tablet) {
+        margin-bottom: 20px;
+    }
+}
+
+.form-group-compound {
+    margin-bottom: 10px;
+}
+
+// Form title
+.form-title {
+    margin-bottom: $gutter;
+    @include media(tablet) {
+        margin-bottom: ($gutter*1.5);
+    }
+}
+
+// Labels
+
+// Form labels, or for legends styled to look like labels
+.form-label,
+.form-label-bold {
+    display: block;
+    color: $text-colour;
+}
+
+.form-label {
+    @include core-19;
+    margin-bottom: 5px;
+}
+
+.form-label-bold {
+    @include bold-24;
+    margin-bottom: 0;
+    .form-hint {
+        @include core-19;
+    }
+}
+
+// Used for paragraphs in-between form elements
+.form-block {
+    float: left;
+    width: 100%;
+    @extend %contain-floats;
+}
+
+// Hints
+
+// Form hints & examples are light grey and sit above a form control
+.form-hint {
+    display: block;
+    color: $secondary-text-colour;
+    margin-bottom: 5px;
+    @include media (tablet) {
+        margin-top: 8px;
+    }
+}
+
+// Form controls
+
+// By default, form controls are 50% width for desktop,
+// and 100% width for mobile
+.form-control {
+    @include core-19;
+    width: 100%;
+    @include box-sizing(border-box);
+    padding: 4px;
+    background-color: $white;
+    border: 1px solid $border-colour;
+    // Disable webkit appearance and remove rounded corners
+    -webkit-appearance: none;
+    border-radius: 0;
+    @include media(tablet) {
+        width: 50%;
+    }
+}
+
+// Form control widths
+.form-control-3-4 {
+    width: 100%;
+    @include media(tablet) {
+        width: 75%;
+    }
+}
+
+.form-control-1-2 {
+    width: 100%;
+    @include media(tablet) {
+        width: 50%;
+    }
+}
+
+.form-control-1-4 {
+    width: 25%;
+}
+
+.form-control-1-8 {
+    width: 12.5%;
+}
+
+// Radio buttons
+.form-radio {
+    display: block;
+    margin: 10px 0;
+}
+.form-radio input {
+    vertical-align: middle;
+    margin: -4px 5px 0 0;
+}
+
+// Checkboxes
+.form-checkbox {
+    display: block;
+    margin: $gutter-half 0;
+}
+
+.form-checkbox input {
+    vertical-align: middle;
+    margin: -2px 5px 0 0;
+}
+
+// Buttons
+.form .button {
+    @include media(mobile) {
+        width: 100%;
+    }
+}
+
+// Validation summary box
+
+.validation-summary {
+    border: 3px solid $error-colour;
+    padding: $gutter-half $gutter;
+    margin-bottom: $gutter;
+    @include ie-lte(6) {
+        zoom: 1;
+    }
+}
+
+.validation-summary ul {
+    margin-top: 10px;
+}
+
+.validation-summary li,
+.validation-summary p {
+    @include core-16;
+}
+
+.validation-summary p {
+    margin-top: $gutter-half;
+    margin-bottom: 5px;
+}
+
+.validation-summary a {
+    color: $error-colour;
+    @include ie-lte(6) {
+        color: $error-colour !important;
+    }
+}
+
+.validation-summary .heading-small {
+    margin-top: $gutter-half;
+}
+
+// Validation error message box
+// .validation-error {
+//   clear: both;
+//   @extend %contain-floats;
+//   border-left: 3px solid $error-colour;
+//   padding: $gutter- $gutter;
+//   margin-bottom: $gutter-half;
+//   margin-left: -($gutter);
+// }
+
+// .validation-error .form-group {
+//   margin-bottom: 20px;
+// }
+
+// .validation-error p {
+//   margin-bottom: 10px;
+// }
+
+// Validation message
+.validation-message {
+    display: block;
+    @include core-16;
+    color: $error-colour;
+}
+
+// Date pattern
+
+// Hide the 'spinner' for webkit
+// and also for Firefox
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0
+}
+
+input[type=number] {
+    -moz-appearance: textfield
+}
+
+.form-date {
+    .form-group {
+        float: left;
+        width: 50px;
+        margin-right: 20px;
+        margin-bottom: 0;
+        clear: none;
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+        }
+    }
+    .form-group-year {
+        width: 70px;
+    }
+}
+
+// Large hit area
+// Radio buttons & checkboxes
+
+// By default, block labels stack vertically
+.block-label {
+
+    display: block;
+    float: none;
+    clear: left;
+    position: relative;
+
+    background: $panel-colour;
+    border: 1px solid $panel-colour;
+    padding: (18px $gutter $gutter-half $gutter*1.5);
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    cursor: pointer; // Encourage clicking on block labels
+
+    @include media(tablet) {
+        float: left;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        // width: 25%; - Test : check that text within labels will wrap
+    }
+
+    // Absolutely position inputs within label, to allow text to wrap
+    input {
+        position: absolute;
+        top: 18px;
+        left: $gutter-half;
+        cursor: pointer;
+    }
+
+    // Change border on hover
+    &:hover {
+        border-color: $black;
+    }
+
+}
+
+// To stack horizontally, use .inline on parent, to sit block labels next to each other
+.inline .block-label {
+    clear: none;
+    margin-right: $gutter-half;
+}
+
+// Selected and focused states
+
+// Add selected state
+.js-enabled label.selected {
+    background: $white;
+    border-color: $black;
+}
+
+// Add focus to block labels
+.js-enabled label.focused {
+    outline: 3px solid $yellow;
+}
+
+// Remove focus from radio/checkboxes
+.js-enabled .focused input:focus {
+    outline: none;
+}

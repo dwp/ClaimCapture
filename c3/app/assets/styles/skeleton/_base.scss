@@ -1,0 +1,34 @@
+
+// Base
+// ================================================================
+
+//-----------------------------------------------------------------
+// Config
+//-----------------------------------------------------------------
+
+$base-margin-s   : 10px;
+$base-margin     : 15px;
+$base-margin-m   : 30px;
+$base-margin-l   : 45px;
+$base-margin-xl  : 60px;
+
+//-----------------------------------------------------------------
+// Content
+//-----------------------------------------------------------------
+
+body {
+    background: $white;
+}
+
+#main {
+    @extend %site-width-container;
+    @extend %contain-floats;
+    padding-bottom: $gutter;
+    @include media(desktop) {
+        padding-bottom: $gutter*3;
+    }
+}
+
+.grid-row {
+    padding-top: $base-margin-xl;
+}
