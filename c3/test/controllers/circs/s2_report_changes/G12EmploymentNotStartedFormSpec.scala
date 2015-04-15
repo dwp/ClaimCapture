@@ -36,7 +36,6 @@ class G12EmploymentNotStartedFormSpec extends Specification with Tags {
         )
       ).fold(
           formWithErrors => {
-            println(formWithErrors)
             "This mapping should not happen." must equalTo("Error")
           },
           f => {
@@ -49,6 +48,33 @@ class G12EmploymentNotStartedFormSpec extends Specification with Tags {
             f.careCostsForThisWork.answer must equalTo(no)
           }
         )
+    }
+
+    "should fail for special characters" in {
+      G12EmploymentNotStarted.form.bind(
+        Map(
+          "beenPaidYet" -> yes,
+          "howMuchPaid" -> amountPaid,
+          "whenExpectedToBePaidDate.day" -> whenExpectedToBePaidDateDay.toString,
+          "whenExpectedToBePaidDate.month" -> whenExpectedToBePaidDateMonth.toString,
+          "whenExpectedToBePaidDate.year" -> whenExpectedToBePaidDateYear.toString,
+          "howOften.frequency" -> weekly,
+          "usuallyPaidSameAmount" -> no,
+          "willYouPayIntoPension.answer" -> yes,
+          "willYouPayIntoPension.whatFor" -> willYouPayIntoPensionText.concat("%"),
+          "willYouPayForThings.answer" -> yes,
+          "willYouPayForThings.whatFor" -> willYouPayForThingsText.concat("%"),
+          "willCareCostsForThisWork.answer" -> yes,
+          "willCareCostsForThisWork.whatCosts" -> "1% of the money earned"
+        )
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.size mustEqual 3
+        },
+        f => {
+          "This mapping should not happen." must equalTo("Error")
+        }
+      )
     }
 
   } section("unit", models.domain.CircumstancesSelfEmployment.id)

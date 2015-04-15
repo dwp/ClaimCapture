@@ -11,15 +11,6 @@
 @import models.domain.YourPartnerPersonalDetails
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
-    @showHideNationality(implicit lang: Lang) = @{
-        // show nationality if not British and married or living with a partner
-        if(YourPartnerPersonalDetails.shouldNationalityVisible(claim)) {
-            carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35, 'helperBelow -> Messages("partner.nationality.helper2"), 'ignoreOptional -> true)
-        } else {
-            Html("")
-        }
-    }
-
     @displayDateForLabel = @{
         claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy))
     }
@@ -63,7 +54,7 @@
 
                             dateOfBirth(currentForm("dateOfBirth")),
 
-                            showHideNationality,
+                            carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35, 'helperBelow -> Messages("partner.nationality.helper2"), 'ignoreOptional->true),
 
                             yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label"), 'helperAbove -> Messages("separated_fromPartner.helper",displayDateForLabel)),
 
