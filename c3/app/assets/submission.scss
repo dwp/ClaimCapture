@@ -1,8 +1,10 @@
 .send-info {
-		margin: 2em 0 0 0;
+		margin: 2em 0;
 		padding: 1.5em;
 		border: 1px solid #bfc1c3;
-
+		h2 {
+			margin-bottom: 1rem;
+		}
 		section {
 			margin-top: 2em;
 			&:first-child {
@@ -17,12 +19,13 @@
 				}
 			ul {
 				margin-top: .35em;
+				padding-left: 20px;
+				list-style: disc; 
 				li {
 					color: #555;
-					padding: 0 0 2px 24px;
+					padding: 0;
 					line-height: 1.6em;
 					font-size: 19px;
-					background: url('images/tick.png') 0 7px no-repeat;
 				}
 			}
 			&.address {
