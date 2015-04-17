@@ -75,45 +75,48 @@
                         <p>@Html(Messages("circs.next.1"))</p>
                     </section>
 
-                    <div class="send-info">
+                    @if(showBreaksInCareMessages || showEmployment1Messages || showEmployment2Messages){
+                        <div class="send-info">
 
-                        <h2>@Html(Messages("required.docs"))</h2>
+                            <h2>@Html(Messages("required.docs"))</h2>
 
-                        <p>@Html(Messages("thankyou.send"))</p>
+                            <p>@Html(Messages("thankyou.send"))</p>
 
-                        <section>
-                            <ul>
-                                @if(showBreaksInCareMessages) {
-                                    <li>@Html(Messages("circs.thankyou.breakmessage.content"))</li>
-                                }
-
-                                @if(showEmployment1Messages) {
-                                    <li>@Html(Messages("circs.thankyou.employment1message2.content"))</li>
-                                    @if(showEmploymentPensionMessage) {
-                                        <li>@Html(Messages("circs.thankyou.employment1message3.content"))</li>
+                            <section>
+                                <ul>
+                                    @if(showBreaksInCareMessages) {
+                                        <li>@Html(Messages("circs.thankyou.breakmessage.content"))</li>
                                     }
-                                }
 
-                                @if(showEmployment2Messages) {
-                                    <li>@Html(Messages("circs.thankyou.employment2message2.content"))</li>
-                                    <li>@Html(Messages("circs.thankyou.employment2message3.content"))</li>
-                                    @if(showEmploymentPensionMessage) {
-                                        <li>@Html(Messages("circs.thankyou.employment2message4.content"))</li>
+                                    @if(showEmployment1Messages) {
+                                        <li>@Html(Messages("circs.thankyou.employment1message2.content"))</li>
+                                        @if(showEmploymentPensionMessage) {
+                                            <li>@Html(Messages("circs.thankyou.employment1message3.content"))</li>
+                                        }
                                     }
-                                }
-                            </ul>
-                        </section>
 
-                        <section class="address">
-                            <p>@Html(Messages("address.send"))</p>
-                            <span><b>@Html(Messages("address.title"))</b></span>
-                            <span>@Html(Messages("s11.g5.help11"))</span>
-                            <span>@Html(Messages("s11.g5.help12"))</span>
-                            <span>@Html(Messages("s11.g5.help13"))</span>
-                            <span>@Html(Messages("s11.g5.help14"))</span>
-                            <p>@Html(Messages("address.details"))</p>
+                                    @if(showEmployment2Messages) {
+                                        <li>@Html(Messages("circs.thankyou.employment2message2.content"))</li>
+                                        <li>@Html(Messages("circs.thankyou.employment2message3.content"))</li>
+                                        @if(showEmploymentPensionMessage) {
+                                            <li>@Html(Messages("circs.thankyou.employment2message4.content"))</li>
+                                        }
+                                    }
+                                </ul>
+                            </section>
+                            
 
-                    </div>
+                            <section class="address">
+                                <p>@Html(Messages("address.send"))</p>
+                                <span><b>@Html(Messages("address.title"))</b></span>
+                                <span>@Html(Messages("s11.g5.help11"))</span>
+                                <span>@Html(Messages("s11.g5.help12"))</span>
+                                <span>@Html(Messages("s11.g5.help13"))</span>
+                                <span>@Html(Messages("s11.g5.help14"))</span>
+                                <p>@Html(Messages("address.details"))</p>
+
+                        </div>
+                    }
 
                 </div>
 
