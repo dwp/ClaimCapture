@@ -77,7 +77,7 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
     val pattern = """.*circumstances.*""".r
     val cookiesAbsent = request.cookies.isEmpty
 
-    Logger.error(s"${ex.getCause}. Cookies empty $cookiesAbsent")
+    Logger.debug(s"${ex.getCause.toString}. Cookies empty $cookiesAbsent")
 
     request.headers.get("Referer").getOrElse("Unknown") match {
       // we redirect to the error page with specific cookie error message if cookies are disabled.

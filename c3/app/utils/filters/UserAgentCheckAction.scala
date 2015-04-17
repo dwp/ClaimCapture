@@ -37,7 +37,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
       case _ if setIf(request) =>
         if (key.nonEmpty) {
           Logger.debug(s"UserAgentCheckAction set for key ${key}_UA")
-          Cache.set(key + "_UA", request.headers.get("User-Agent").getOrElse(""), getProperty("cache.expiry", 3600) * 15)
+          Cache.set(key + "_UA", request.headers.get("User-Agent").getOrElse(""), getProperty("cache.expiry", 3600) * 20)
         } else {
           throw UserAgentCheckException("Session does not contain key. Cannot save User Agent.")
         }
@@ -57,7 +57,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
           }
         } else {
           if (!Play.isTest)
-            throw UserAgentCheckException(s"Session does not contain key. Cannot check User Agent. For ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}")
+            throw UserAgentCheckException(s"Session does not contain key. Cannot check User Agent. For ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Cookies present ${request.cookies.isEmpty}")
         }
 
       case _ if removeIf(request) =>
