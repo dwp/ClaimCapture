@@ -75,25 +75,6 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
       browser.find("#resideInUK_text").size() mustEqual 1
     }
 
-    "Modify marital status from preview page" in new WithBrowser with PageObjects{
-      val previewPage = goToPreviewPage(context)
-      val id = "about_you_marital_status"
-      val answerText = PreviewTestUtils.answerText(id, _:Page)
-
-      answerText(previewPage) mustEqual MaritalStatus.Single
-      val nationalityPage = previewPage.clickLinkOrButton(s"#$id")
-
-      nationalityPage must beAnInstanceOf[G4NationalityAndResidencyPage]
-      val modifiedData = new TestData
-      modifiedData.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = MaritalStatus.Married
-
-      nationalityPage fillPageWith modifiedData
-      val previewPageModified = nationalityPage submitPage()
-
-      previewPageModified must beAnInstanceOf[PreviewPage]
-      answerText(previewPageModified) mustEqual MaritalStatus.Married
-    }
-
     "Modify nationality from preview page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "about_you_nationality"

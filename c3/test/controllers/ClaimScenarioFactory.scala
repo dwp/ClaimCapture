@@ -46,6 +46,8 @@ object ClaimScenarioFactory {
     claim.AboutYouPostcode = "FY1 2RW"
     claim.HowWeContactYou = "01772 888901"
     claim.AboutYouWantsEmailContact = "No"
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+
     claim
   }
 
@@ -53,6 +55,13 @@ object ClaimScenarioFactory {
     val claim = new TestData
     claim.AboutYouNationalityAndResidencyNationality = "British"
     claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
+    claim
+  }
+
+  def maritalStatus() = {
+    val claim = new TestData
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+
     claim
   }
 
@@ -124,6 +133,10 @@ object ClaimScenarioFactory {
   def s2AboutYouWithTimeOutside() = {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
+
+    // Marital Status
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+
     // Your contact details
     claim.AboutYouAddress = "An address&Preston"
     claim.AboutYouPostcode = "SE1 6EH"
@@ -184,6 +197,7 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerNINO = "AB123456A"
     claim.AboutYourPartnerDateofBirth = "12/07/1990"
     claim.AboutYourPartnerHaveYouSeparatedfromYourPartner = "Yes"
+    claim.AboutYourPartnerNationality = "British"
     // Person you care for
     claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
     claim.AboutYourPartnerHadPartnerSinceClaimDate = "Yes"
@@ -219,6 +233,7 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerOtherNames = "Doe"
     claim.AboutYourPartnerNINO = "AB123456A"
     claim.AboutYourPartnerDateofBirth = "12/07/1990"
+    claim.AboutYourPartnerNationality = "British"
     claim.AboutYourPartnerHaveYouSeparatedfromYourPartner = "Yes"
     // Person you care for
     claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
@@ -311,6 +326,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
     claim.AboutTheCareYouProvideBreakStartDate_1 = "12/12/2006"
     claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "no"
+    claim.AboutTheCareYouProvideDoNotKnowEndDate_1 = "Yes"
 
     claim
   }
@@ -331,6 +347,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "In hospital"
     claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
     claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "Yes"
+    claim.AboutTheCareYouProvideDoNotKnowEndDate_1 = "Yes"
 
     claim
   }
@@ -660,6 +677,13 @@ object ClaimScenarioFactory {
     claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
 
+    claim
+  }
+
+  def s7EmploymentAdditionalInfo = {
+    val claim = new TestData
+    claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "yes"
+    claim.EmploymentAdditionalInfo = "I do not have more information"
     claim
   }
 

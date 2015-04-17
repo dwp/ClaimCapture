@@ -13,6 +13,7 @@ object Claimant extends XMLComponent {
     val contactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
     val claimDateDetails = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+    val maritalStatus = claim.questionGroup[MaritalStatus].getOrElse(MaritalStatus())
 
     <Claimant>
       {question(<Surname/>, "surname", encrypt(yourDetails.surname))}
@@ -27,7 +28,7 @@ object Claimant extends XMLComponent {
       {if(claimDateDetails.spent35HoursCaringBeforeClaim.date.isDefined){
         {question(<DateStartCaring/>,"beforeClaimCaring_date", claimDateDetails.spent35HoursCaringBeforeClaim.date)}
       }}
-      {question(<MaritalStatus/>, "maritalStatus", nationalityAndResidency.maritalStatus)}
+      {question(<MaritalStatus/>, "maritalStatus", maritalStatus.maritalStatus)}
       {question(<TextPhoneContact/>,"contactYouByTextphone", textPhone(contactDetails))}
     </Claimant>
   }

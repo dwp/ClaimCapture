@@ -24,6 +24,12 @@ object YourDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g1"
 }
 
+case class MaritalStatus(maritalStatus: String = "") extends QuestionGroup(MaritalStatus)
+
+object MaritalStatus extends QuestionGroup.Identifier {
+  val id = s"${AboutYou.id}.g2"
+}
+
 case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
                           postcode: Option[String] = None,
                           howWeContactYou: String = "",
@@ -33,13 +39,12 @@ case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
                           override val emailConfirmation:Option[String] = None) extends QuestionGroup(ContactDetails) with EMail
 
 object ContactDetails extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g2"
+  val id = s"${AboutYou.id}.g3"
 }
 
 case class NationalityAndResidency(nationality: String,
                                    actualnationality: Option[String] = None,
-                                   resideInUK: YesNoWithText = YesNoWithText("", None),
-                                   maritalStatus: Option[String] = None) extends QuestionGroup(NationalityAndResidency)
+                                   resideInUK: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(NationalityAndResidency)
 
 object NationalityAndResidency extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
@@ -64,19 +69,6 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
     }
     else Valid
   }
-
-  def maritalStatusRequired: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.actualnationality") { nationalityAndResidency =>
-    // if the Nationality is Another Country the user must provide their National Residency
-    if (nationalityAndResidency.nationality == anothercountry) {
-      nationalityAndResidency.maritalStatus match {
-        case Some(maritalStatus) => Valid
-        case _ => Invalid(ValidationError("maritalstatus.required"))
-      }
-    }
-    else Valid
-  }
-
-  def validateHadPartner(nationalityAndResidency: NationalityAndResidency) = nationalityAndResidency.maritalStatus.getOrElse("") == "p"
 }
 
 case class AbroadForMoreThan52Weeks(anyTrips: String = "", tripDetails:Option[String] = None) extends QuestionGroup(AbroadForMoreThan52Weeks)

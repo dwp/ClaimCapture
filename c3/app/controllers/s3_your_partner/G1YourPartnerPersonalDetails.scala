@@ -46,7 +46,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
     .verifying("dateOfBirth.required", YourPartnerPersonalDetails.validateDateOfBirth _)
     .verifying("separated.fromPartner.required", YourPartnerPersonalDetails.validateSeperatedFromPartner _)
     .verifying("isPartnerPersonYouCareFor.required", YourPartnerPersonalDetails.validatePartnerPersonYoucareFor _)
-    .verifying("nationality.required", YourPartnerPersonalDetails.validateNationalityIfPresent(_, claim))
+    .verifying("nationality.required", YourPartnerPersonalDetails.validateNationalityIfPresent _)
   )
 
   def present:Action[AnyContent] = claimingWithCheck {implicit claim =>  implicit request =>  lang =>

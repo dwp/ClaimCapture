@@ -29,13 +29,17 @@ object CarersAllowance extends Controller with CachedClaim with Navigable {
         BadRequest(views.html.s0_carers_allowance.g6_approve(formWithErrors)(lang))
       },
       f => {
-        if (!f.jsEnabled) {
-          Logger.info(s"No JS - Start ${claim.key} ${claim.uuid} User-Agent : ${request.headers.get("User-Agent").orNull}")
-        }
-
         f.answer match {
-          case true => claim.update(f) -> Redirect(controllers.s1_disclaimer.routes.G1Disclaimer.present())
-          case _ => claim.update(f) -> Redirect("https://www.gov.uk/done/apply-carers-allowance")
+          case true =>
+            if (!f.jsEnabled) {
+              Logger.info(s"No JS - Start ${claim.key} ${claim.uuid} User-Agent : ${request.headers.get("User-Agent").orNull}")
+            }
+            claim.update(f) -> Redirect(controllers.s1_disclaimer.routes.G1Disclaimer.present())
+          case _ =>
+            if (!f.jsEnabled) {
+              Logger.info(s"No JS - Stop ${claim.key} ${claim.uuid} User-Agent : ${request.headers.get("User-Agent").orNull}")
+            }
+            claim.update(f) -> Redirect("https://www.gov.uk/done/apply-carers-allowance")
         }
       }
     )

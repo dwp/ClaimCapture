@@ -85,8 +85,11 @@ POST        /your-claim-date/claim-date                                 controll
 GET         /about-you/your-details                                     controllers.s2_about_you.G1YourDetails.present
 POST        /about-you/your-details                                     controllers.s2_about_you.G1YourDetails.submit
 
-GET         /about-you/contact-details                                  controllers.s2_about_you.G2ContactDetails.present
-POST        /about-you/contact-details                                  controllers.s2_about_you.G2ContactDetails.submit
+GET         /about-you/marital-status                                   controllers.s2_about_you.G2MaritalStatus.present
+POST        /about-you/marital-status                                   controllers.s2_about_you.G2MaritalStatus.submit
+
+GET         /about-you/contact-details                                  controllers.s2_about_you.G3ContactDetails.present
+POST        /about-you/contact-details                                  controllers.s2_about_you.G3ContactDetails.submit
 
 GET         /about-you/nationality-and-residency                        controllers.s2_about_you.G4NationalityAndResidency.present
 POST        /about-you/nationality-and-residency                        controllers.s2_about_you.G4NationalityAndResidency.submit
@@ -145,6 +148,9 @@ POST        /employment/last-wage                                       controll
 
 GET         /employment/about-expenses/:id                              controllers.s7_employment.G8PensionAndExpenses.present(id: String)
 POST        /employment/about-expenses                                  controllers.s7_employment.G8PensionAndExpenses.submit
+
+GET         /employment/additional-info                                 controllers.s7_employment.G9EmploymentAdditionalInfo.present
+POST        /employment/additional-info                                 controllers.s7_employment.G9EmploymentAdditionalInfo.submit
 
 # Self-employment
 ###############

@@ -9,6 +9,7 @@ About You,Your Details,Middle name,AboutYouMiddleName,Middle
 About You,Your Details,Surname or family name,AboutYouSurname,CaseFive
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,XB486248C
 About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1981
+About You,Your marital status,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Single
 About You,Your contact details,Address,AboutYouAddress,5 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
 About You,Your contact details,How we contact you,HowWeContactYou,01772 888901
@@ -17,7 +18,6 @@ About You,Nationality and where you live,What is your nationality?,AboutYouNatio
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,
 About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Yes
 About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,
-About You,Nationality and where you live,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,
 Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,10/02/2013
 Claim Date,Your claim date,Were you caring for the person for more than 35 hours a week before this date?,ClaimDateDidYouCareForThisPersonfor35Hours,Yes
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,01/05/2012
@@ -32,7 +32,7 @@ About Your Partner,Partner/Spouse details,Surname or family name,AboutYourPartne
 About Your Partner,Partner/Spouse details,All other surnames or family names they have been used or have been known by,AboutYourPartnerOtherNames,
 About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,TA234567A
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,28/09/1977
-About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,
+About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,French
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,Yes
 About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,No
 About Your Partner,Person you care for,Have you lived with a partner at any time since your claim date?,AboutYourPartnerHadPartnerSinceClaimDate,Yes
@@ -72,6 +72,7 @@ About the care you provide,About the breaks from care,Have you had any more brea
 About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_3,20/02/2010
 About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_3,12:15
 About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_3,
+About the care you provide,About the breaks from care,Do not know end date,AboutTheCareYouProvideDoNotKnowEndDate_3, Yes
 About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_3,
 About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_3,In hospital
 About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_3,
@@ -82,6 +83,7 @@ About the care you provide,About the breaks from care,Have you had any more brea
 About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_4,20/03/2010
 About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_4,
 About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_4,
+About the care you provide,About the breaks from care,Do not know end date,AboutTheCareYouProvideDoNotKnowEndDate_4, Yes
 About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_4,
 About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_4,On holiday
 About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_4,

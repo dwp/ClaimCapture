@@ -6,7 +6,7 @@ import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
 import play.api.test.{WithBrowser, FakeRequest, WithApplication}
 import controllers.{Formulate, BrowserMatchers}
-import controllers.s2_about_you.G4NationalityAndResidency
+import controllers.s2_about_you.{G2MaritalStatus, G4NationalityAndResidency}
 import models.view.CachedClaim
 
 class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
@@ -128,12 +128,20 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
     }
 
     "nationality should be mandatory when carer is not british and married or living with partner" in new WithApplication with Claiming {
-      val result1 = G4NationalityAndResidency.submit(FakeRequest()
+
+      val maritalResult = G2MaritalStatus.submit(FakeRequest()
         withFormUrlEncodedBody(
+        "maritalStatus" -> "Married or civil partner"
+        ))
+
+      status(maritalResult) mustEqual SEE_OTHER
+
+      val result1 = G4NationalityAndResidency.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(maritalResult))
+        .withFormUrlEncodedBody(
         "nationality" -> "Another Country",
         "actualnationality" -> "French",
-        "resideInUK.answer" -> "yes",
-        "maritalStatus" -> "Married or civil partner"))
+        "resideInUK.answer" -> "yes")
+      )
 
        val result2 = G1YourPartnerPersonalDetails.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
                      .withFormUrlEncodedBody(checkForNationalityInput:_*))

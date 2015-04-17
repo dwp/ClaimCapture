@@ -25,3 +25,7 @@ object CurrencyTemplate {
 object EligibilityTemplate {
   implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.eligibilityTemplate.f)
 }
+
+object CheckboxTemplate {
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.checkboxTemplate.f)
+}

@@ -21,12 +21,9 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
   val form = Form(mapping(
     "nationality" -> nonEmptyText.verifying(NationalityAndResidency.validNationality),
     "actualnationality" -> optional(carersNonEmptyText(maxLength = 35)),
-    resideInUKMapping,
-    "maritalStatus" -> optional(carersNonEmptyText)
+    resideInUKMapping
   )(NationalityAndResidency.apply)(NationalityAndResidency.unapply)
-    .verifying(NationalityAndResidency.actualNationalityRequired)
-    .verifying(NationalityAndResidency.maritalStatusRequired)
-  )
+    .verifying(NationalityAndResidency.actualNationalityRequired))
 
   def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     track(NationalityAndResidency) { implicit claim =>
@@ -39,7 +36,6 @@ object G4NationalityAndResidency extends Controller with CachedClaim with Naviga
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("", "actualnationality.required", FormError("actualnationality", errorRequired))
-          .replaceError("", "maritalstatus.required", FormError("maritalStatus", errorRequired))
           .replaceError("resideInUK", "error.text.required", FormError("resideInUK.text", errorRequired))
         BadRequest(views.html.s2_about_you.g4_nationalityAndResidency(formWithErrorsUpdate)(lang))
       },

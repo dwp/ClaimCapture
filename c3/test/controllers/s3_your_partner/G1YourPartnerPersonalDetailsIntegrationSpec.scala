@@ -8,7 +8,7 @@ import utils.pageobjects._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s2_about_you.{G7OtherEEAStateOrSwitzerlandPage, G4NationalityAndResidencyPage}
+import utils.pageobjects.s2_about_you.{G2MaritalStatusPage, G7OtherEEAStateOrSwitzerlandPage, G4NationalityAndResidencyPage}
 import app.MaritalStatus
 
 class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags {
@@ -29,12 +29,18 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     }
 
     "contain errors 'when have you lived with a partner is yes' on invalid submission" in new WithBrowser with PageObjects {
+
       val nationalityPage =  G4NationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
       claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = MaritalStatus.Married
       nationalityPage goToThePage()
       nationalityPage fillPageWith claim
       nationalityPage submitPage()
+
+      val maritalStatus = G2MaritalStatusPage(context)
+      maritalStatus goToThePage()
+      maritalStatus fillPageWith claim
+      maritalStatus submitPage()
 
       val partnerPage = G1YourPartnerPersonalDetailsPage(context)
       val partnerData = new TestData
@@ -47,12 +53,18 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     }
 
     "navigate to next page on valid submission" in new WithBrowser with PageObjects {
+
       val nationalityPage =  G4NationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
       claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = MaritalStatus.Married
       nationalityPage goToThePage()
       nationalityPage fillPageWith claim
       nationalityPage submitPage()
+
+      val maritalStatus = G2MaritalStatusPage(context)
+      maritalStatus goToThePage()
+      maritalStatus fillPageWith claim
+      maritalStatus submitPage()
 
       val partnerPage = G1YourPartnerPersonalDetailsPage(context)
       partnerPage goToThePage ()
@@ -95,56 +107,6 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
 
       theirPersonaDetailsPage must beAnInstanceOf[G1TheirPersonalDetailsPage]
       theirPersonaDetailsPage goBack() must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
-    }
-
-    "nationality should not be visible when the carer is British" in new WithBrowser with PageObjects {
-      val nationalityPage =  G4NationalityAndResidencyPage(context)
-      val claim = ClaimScenarioFactory.yourNationalityAndResidencyResident
-      nationalityPage goToThePage()
-      nationalityPage fillPageWith claim
-      nationalityPage submitPage()
-
-      val partnerPage = G1YourPartnerPersonalDetailsPage(context)
-      partnerPage goToThePage ()
-      partnerPage visible("#nationality") must beFalse
-    }
-
-    "nationality should be visible when the carer is not british and married" in new WithBrowser with PageObjects {
-      val nationalityPage =  G4NationalityAndResidencyPage(context)
-      val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
-      claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = MaritalStatus.Married
-      nationalityPage goToThePage()
-      nationalityPage fillPageWith claim
-      nationalityPage submitPage()
-
-      val partnerPage = G1YourPartnerPersonalDetailsPage(context)
-      partnerPage goToThePage ()
-      partnerPage visible("#nationality") must beTrue
-    }
-
-    "nationality should be visible when the carer is not british and Living with partner" in new WithBrowser with PageObjects {
-      val nationalityPage =  G4NationalityAndResidencyPage(context)
-      val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
-      claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = MaritalStatus.Partner
-      nationalityPage goToThePage()
-      nationalityPage fillPageWith claim
-      nationalityPage submitPage()
-
-      val partnerPage = G1YourPartnerPersonalDetailsPage(context)
-      partnerPage goToThePage ()
-      partnerPage visible("#nationality") must beTrue
-    }
-
-    "nationality should not be visible when the carer is not british and neither married or living with partner" in new WithBrowser with PageObjects {
-      val nationalityPage =  G4NationalityAndResidencyPage(context)
-      val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
-      nationalityPage goToThePage()
-      nationalityPage fillPageWith claim
-      nationalityPage submitPage()
-
-      val partnerPage = G1YourPartnerPersonalDetailsPage(context)
-      partnerPage goToThePage ()
-      partnerPage visible("#nationality") must beFalse
     }
 
     "Modify 'had a partner since claim date' from preview page" in new WithBrowser with PageObjects{
@@ -215,9 +177,16 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
+    val maritalStatusPage = G2MaritalStatusPage(context)
+    maritalStatusPage goToThePage()
+    val maritalData = new TestData
+    maritalData.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = app.MaritalStatus.Married
+    maritalStatusPage fillPageWith maritalData
+    maritalStatusPage.submitPage()
+
     val nationalityPage =  G4NationalityAndResidencyPage(context)
     val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
-    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = app.MaritalStatus.Married
+
     nationalityPage goToThePage()
     nationalityPage fillPageWith claim
     nationalityPage submitPage()

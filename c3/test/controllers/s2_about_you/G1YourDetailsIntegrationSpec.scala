@@ -52,7 +52,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
 
       val g2 = page submitPage()
       
-      g2 must beAnInstanceOf[G2ContactDetailsPage]
+      g2 must beAnInstanceOf[G2MaritalStatusPage]
     }
 
     "Modify title, name, middlename and last name from preview page" in new WithBrowser with PageObjects{

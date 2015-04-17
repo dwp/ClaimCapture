@@ -10,6 +10,7 @@ About You,Your Details,Middle name,AboutYouMiddleName,Claimant>MiddleNames>Answe
 About You,Your Details,Last name,AboutYouSurname,Claimant>Surname>Answer
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,Claimant>NationalInsuranceNumber>Answer
 About You,Your Details,Date of birth,AboutYouDateOfBirth,Claimant>DateOfBirth>Answer
+About You,Your marital status,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Claimant>MaritalStatus>Answer
 About You,Your contact details,Address,AboutYouAddress,Claimant>Address>Answer>Line
 About You,Your contact details,Postcode,AboutYouPostcode,Claimant>Address>Answer>PostCode
 About You,Your contact details,How we contact you,HowWeContactYou,Claimant>DayTimePhoneNumber>Answer
@@ -23,7 +24,6 @@ About You,Nationality and where you live,What is your nationality?,AboutYouNatio
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,Residency>ActualNationality>Answer
 About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Residency>NormallyLiveInGB>Answer
 About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,Residency>CountryNormallyLive>Answer
-About You,Nationality and where you live,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Claimant>MaritalStatus>Answer
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,Residency>PeriodAbroad>TimeOutsideGBLast3Years>Answer
 About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB,Residency>PeriodAbroad>Period>DateFrom>Answer
 About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB,Residency>PeriodAbroad>Period>DateTo>Answer
@@ -100,6 +100,8 @@ Employment,Pension and expenses,"Give details of what you [[present=need]] [[pas
 Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] have any care costs because of this work?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob,Employment>JobDetails>PaidForJobExpenses>Answer
 Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",EmploymentWhatAreNecessaryJobExpenses,Employment>JobDetails>JobExpenses>Expense>Answer
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouHadAnotherJobatAnyTimeSinceClaim6Months,
+Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,DWPCAClaim>EmploymentAdditionalInfo>Answer
+Employment,Employment,Do you want to add anything about your work?Other,EmploymentAdditionalInfo,DWPCAClaim>EmploymentAdditionalInfo>Other
 Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,SelfEmployment>SelfEmployedNow>Answer
 Self Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,SelfEmployment>RecentJobDetails>DateStarted>Answer|SelfEmployment>CurrentJobDetails>DateStarted>Answer
 Self Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,SelfEmployment>RecentJobDetails>DateEnded>Answer

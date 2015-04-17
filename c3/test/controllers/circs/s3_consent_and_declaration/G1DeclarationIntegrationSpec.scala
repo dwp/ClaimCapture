@@ -96,7 +96,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Please tell us why not - This field is required")
+        errors(0) must contain("Tell us why not - This field is required")
       }
 
       "given circsSomeOneElse checked and missing name or organisation field" in new WithBrowser with PageObjects{

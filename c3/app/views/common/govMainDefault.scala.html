@@ -22,6 +22,8 @@
         <!--[if IE 6]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie6.css")" media="screen" rel="stylesheet" type="text/css"><![endif]-->
         <!--[if IE 7]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie7.css")" media="screen" rel="stylesheet" type="text/css"><![endif]-->
         <!--[if IE 8]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie8.css")" media="screen" rel="stylesheet" type="text/css"><![endif]-->
+        <!-- To prevent call to /browserconfig.xml from IE11 and higher. We do not use notifications. -->
+        <meta name="msapplication-config" content="none" />
 
         <link href="@routes.Assets.at("stylesheets/print.css")" media="print" rel="stylesheet" type="text/css">
 
@@ -49,6 +51,7 @@
         <![endif]-->
 
         <link rel="shortcut icon" href="@routes.Assets.at("images/favicon-447e4ac1ab790342660eacfe3dcce264.ico")" type="image/x-icon">
+        <link rel="icon"  href="@routes.Assets.at("images/favicon-447e4ac1ab790342660eacfe3dcce264.ico")" type="image/x-icon">
 
         <!-- For third-generation iPad with high-resolution Retina display: -->
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="@routes.Assets.at("images/apple-touch-icon-144x144-4e306e01c31e237722b82b7aa7130082.png")">
