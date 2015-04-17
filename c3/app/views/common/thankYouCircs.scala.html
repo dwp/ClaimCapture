@@ -75,7 +75,9 @@
                         @if(showBreaksInCareMessages) {
                             <p>@Html(Messages("circs.thankyou.breakmessage.content"))</p>
                         }
-                        <p>@Html(Messages("circs.next.1"))</p>
+                        @if(showEmployment1Messages || showEmployment2Messages){
+                            <p>@Html(Messages("circs.next.1"))</p>
+                        }
                     </section>
 
                     @if(showEmployment1Messages || showEmployment2Messages){
