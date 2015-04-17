@@ -72,10 +72,13 @@
                         @if(isEmail){
                             <p>@Html(Messages("email.circs.thankYou"))</p>
                         }
+                        @if(showBreaksInCareMessages) {
+                            <p>@Html(Messages("circs.thankyou.breakmessage.content"))</p>
+                        }
                         <p>@Html(Messages("circs.next.1"))</p>
                     </section>
 
-                    @if(showBreaksInCareMessages || showEmployment1Messages || showEmployment2Messages){
+                    @if(showEmployment1Messages || showEmployment2Messages){
                         <div class="send-info">
 
                             <h2>@Html(Messages("required.docs"))</h2>
@@ -84,10 +87,6 @@
 
                             <section>
                                 <ul>
-                                    @if(showBreaksInCareMessages) {
-                                        <li>@Html(Messages("circs.thankyou.breakmessage.content"))</li>
-                                    }
-
                                     @if(showEmployment1Messages) {
                                         <li>@Html(Messages("circs.thankyou.employment1message2.content"))</li>
                                         @if(showEmploymentPensionMessage) {
