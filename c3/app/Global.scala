@@ -5,6 +5,7 @@ import monitor.MonitorFilter
 import monitoring._
 import org.slf4j.MDC
 import play.api._
+import play.api.http.HeaderNames._
 import play.api.mvc.Results._
 import play.api.mvc._
 import services.async.AsyncActors
@@ -76,7 +77,7 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
     val pattern = """.*circumstances.*""".r
     val cookiesAbsent = request.cookies.isEmpty
 
-    Logger.error(s"${ex.getCause}. Cookies empty $cookiesAbsent")
+    Logger.debug(s"${ex.getCause.toString}. Cookies empty $cookiesAbsent")
 
     request.headers.get("Referer").getOrElse("Unknown") match {
       // we redirect to the error page with specific cookie error message if cookies are disabled.
@@ -91,19 +92,25 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
       case pattern(_*) =>
         Logger.warn("Redirecting to Error page for a change-of-circs.")
         ex.getCause match {
-          case e: UserAgentCheckException => Future(Redirect(controllers.routes.CircsEnding.error()))
+          case e: UserAgentCheckException => Future(withHeaders(Redirect(controllers.routes.CircsEnding.error())))
           case _ =>
             Logger.warn("Delete cookies")
-            Future(Redirect(controllers.routes.CircsEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(C3VERSION)).withNewSession)
+            Future(withHeaders(Redirect(controllers.routes.CircsEnding.error()))
+              .discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(C3VERSION)).withNewSession)
         }
       case _ =>
         Logger.warn("Redirecting to Error page for a claim.")
         ex.getCause match {
-          case e: UserAgentCheckException => Future(Redirect(controllers.routes.ClaimEnding.error()))
+          case e: UserAgentCheckException => Future(withHeaders(Redirect(controllers.routes.ClaimEnding.error())))
           case _ =>
             Logger.warn("Delete cookies")
-            Future(Redirect(controllers.routes.ClaimEnding.error()).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(C3VERSION)).withNewSession)
+            Future(withHeaders(Redirect(controllers.routes.ClaimEnding.error()))
+              .discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(C3VERSION)).withNewSession)
         }
     }
+  }
+
+  private def withHeaders(result: Result): Result = {
+    result.withHeaders(CACHE_CONTROL -> "must-revalidate,no-cache,no-store", "X-Frame-Options" -> "SAMEORIGIN")
   }
 }
