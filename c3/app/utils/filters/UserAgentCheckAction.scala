@@ -31,13 +31,14 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
   def apply(request: RequestHeader) = {
 
     val key = getKeyFromSession(request)
+    val averageLastPageDepth = getProperty("lastpatge.depth", 25)
 
     request match {
 
       case _ if setIf(request) =>
         if (key.nonEmpty) {
           Logger.debug(s"UserAgentCheckAction set for key ${key}_UA")
-          Cache.set(key + "_UA", request.headers.get("User-Agent").getOrElse(""), getProperty("cache.expiry", 3600) * 20)
+          Cache.set(key + "_UA", request.headers.get("User-Agent").getOrElse(""), getProperty("cache.expiry", 3600) * averageLastPageDepth)
         } else {
           throw UserAgentCheckException("Session does not contain key. Cannot save User Agent.")
         }
@@ -51,7 +52,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
               if (ua != userAgent) {
                 throw UserAgentCheckException(s"UserAgent check failed. $userAgent is different from expected $ua.")
               }
-            case _ if (Cache.get(key).isDefined) => Logger.error("Lost User Agent from cache while claim still in cache? Should never happen.")
+            case _ if (Cache.get(key).isDefined) => Logger.error(s"Lost User Agent from cache while claim still in cache? Should never happen. key $key" )
             case _ =>
             // No claim in cache. Nothing to do. user will get an error because no claim exists. No security risk.
           }
