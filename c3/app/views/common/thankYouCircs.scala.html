@@ -77,6 +77,9 @@
                         }
                         @if(showEmployment1Messages || showEmployment2Messages){
                             <p>@Html(Messages("circs.next.1"))</p>
+                        } else {
+                            <p>@Html(Messages("circs.next.nodocuments.1"))</p>
+                            <p>@Html(Messages("circs.next.nodocuments.2")) <a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.another.change.short"))</a></p>
                         }
                     </section>
 
@@ -117,11 +120,12 @@
                                 <p>@Html(Messages("address.details"))</p>
 
                         </div>
+                        <p><a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.another.change"))</a></p>
                     }
 
                 </div>
 
-                <p><a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.another.change"))</a></p>
+
 
                 <div class="finish-button">@Html(Messages("claim.feedback.link"))</div>
 

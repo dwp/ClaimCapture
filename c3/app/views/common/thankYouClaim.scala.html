@@ -47,7 +47,6 @@
 
                 <div class="finish-mobile">@Html(Messages("claim.feedback.link"))</div>
 
-                @if(isEmploymentOrSelfEmployment) {
 
                     <div class="finish-info">
 
@@ -56,9 +55,14 @@
                             @if(isEmail){
                                 <p>@Html(Messages("email.claim.thankYou"))</p>
                             }
-                            <p>@Html(Messages("claim.next.main"))</p>
+                            @if(isEmploymentOrSelfEmployment) {
+                                <p>@Html(Messages("claim.next.main"))</p>
+                            } else {
+                                <p>@Html(Messages("claim.next.nodocuments.1"))</p>
+                            }
                         </section>
 
+                        @if(isEmploymentOrSelfEmployment) {
                         <div class="send-info">
 
                             <h2>@Html(Messages("required.docs"))</h2>
@@ -92,12 +96,11 @@
                             </section>
 
                         </div>
+                        }
 
                     </div>
 
-                    <p><a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.change"))</a></p>
-
-                }
+                <p><a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.change"))</a></p>
 
                 <div class="finish-button">@Html(Messages("claim.feedback.link"))</div>
 
