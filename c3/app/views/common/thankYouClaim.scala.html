@@ -63,39 +63,39 @@
                         </section>
 
                         @if(isEmploymentOrSelfEmployment) {
-                        <div class="send-info">
 
-                            <h2>@Html(Messages("required.docs"))</h2>
+                            <div class="send-info">
 
-                            <p>@Html(Messages("thankyou.send"))</p>
+                                <h2>@Html(Messages("required.docs"))</h2>
 
-                            <section>
-                                <ul>
-                                    @if(isEmployment) {
-                                        <li>@{
-                                            Messages("s11.g5.help4")
-                                        } @displayDateForLabel</li>
-                                        <li id="employment" >@Html(Messages("s11.g5.help5"))</li>
-                                        <li>@Html(Messages("s11.g5.help6"))</li>
-                                    }
-                                    @if(isSelfEmployment) {
-                                        <li id="selfEmployment">@Html(Messages("s11.g5.help8"))</li>
-                                        <li>@Html(Messages("s11.g5.help9"))</li>
-                                    }
-                                </ul>
-                            </section>
+                                <p>@Html(Messages("thankyou.send"))</p>
 
-                            <section class="address">
-                                <p>@Html(Messages("address.send"))</p>
-                                <span><b>@Html(Messages("address.title"))</b></span>
-                                <span>@Html(Messages("s11.g5.help11"))</span>
-                                <span>@Html(Messages("s11.g5.help12"))</span>
-                                <span>@Html(Messages("s11.g5.help13"))</span>
-                                <span>@Html(Messages("s11.g5.help14"))</span>
-                                <p>@Html(Messages("address.details"))</p>
-                            </section>
+                                <section>
+                                    <ul>
+                                        @if(isEmployment) {
+                                            <li>@Html(Messages("s11.g5.help4", displayDateForLabel))</li>
+                                            <li id="employment" >@Html(Messages("s11.g5.help5"))</li>
+                                            <li>@Html(Messages("s11.g5.help6"))</li>
+                                        }
+                                        @if(isSelfEmployment) {
+                                            <li id="selfEmployment">@Html(Messages("s11.g5.help8"))</li>
+                                            <li>@Html(Messages("s11.g5.help9"))</li>
+                                        }
+                                    </ul>
+                                </section>
 
-                        </div>
+                                <section class="address">
+                                    <p>@Html(Messages("address.send"))</p>
+                                    <span><b>@Html(Messages("address.title"))</b></span>
+                                    <span>@Html(Messages("s11.g5.help11"))</span>
+                                    <span>@Html(Messages("s11.g5.help12"))</span>
+                                    <span>@Html(Messages("s11.g5.help13"))</span>
+                                    <span>@Html(Messages("s11.g5.help14"))</span>
+                                    <p>@Html(Messages("address.details"))</p>
+                                </section>
+
+                            </div>
+
                         }
 
                     </div>
