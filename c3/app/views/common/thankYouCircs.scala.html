@@ -73,7 +73,7 @@
                             <p>@Html(Messages("email.circs.thankYou"))</p>
                         }
                         @if(showBreaksInCareMessages) {
-                            <p>@Html(Messages("circs.thankyou.breakmessage.content"))</p>
+                            <p id="breaksInCareMessageTitle">@Html(Messages("circs.thankyou.breakmessage.content"))</p>
                         }
                         @if(showEmployment1Messages || showEmployment2Messages){
                             <p>@Html(Messages("circs.next.1"))</p>
@@ -93,14 +93,14 @@
                             <section>
                                 <ul>
                                     @if(showEmployment1Messages) {
-                                        <li>@Html(Messages("circs.thankyou.employment1message2.content"))</li>
+                                        <li id="employment1MessageTitle">@Html(Messages("circs.thankyou.employment1message2.content"))</li>
                                         @if(showEmploymentPensionMessage) {
                                             <li>@Html(Messages("circs.thankyou.employment1message3.content"))</li>
                                         }
                                     }
 
                                     @if(showEmployment2Messages) {
-                                        <li>@Html(Messages("circs.thankyou.employment2message2.content"))</li>
+                                        <li id="employment2MessageTitle">@Html(Messages("circs.thankyou.employment2message2.content"))</li>
                                         <li>@Html(Messages("circs.thankyou.employment2message3.content"))</li>
                                         @if(showEmploymentPensionMessage) {
                                             <li>@Html(Messages("circs.thankyou.employment2message4.content"))</li>
@@ -111,7 +111,7 @@
                             
 
                             <section class="address">
-                                <p>@Html(Messages("address.send"))</p>
+                                <p id="employment1MessageAddressTitle">@Html(Messages("address.send"))</p>
                                 <span><b>@Html(Messages("address.title"))</b></span>
                                 <span>@Html(Messages("s11.g5.help11"))</span>
                                 <span>@Html(Messages("s11.g5.help12"))</span>

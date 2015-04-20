@@ -21,7 +21,7 @@ class ThankYouCircsIntegrationSpec extends Specification with Tags {
       page submitPage()
 
       browser.goTo("/thankyou/change-carers")
-      browser.find("#breaksInCareMessageTitle").getText must beEqualTo("What you need to do now")
+      browser.find("#breaksInCareMessageTitle").getText.nonEmpty must beTrue
     }
 
     "should not display breaks in care message when breaks in care has ended" in new WithBrowser with PageObjects{
