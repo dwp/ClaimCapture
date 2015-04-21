@@ -28,7 +28,7 @@ class ThankYouIntegrationSpec extends Specification with Tags {
       browser.goTo("/thankyou/apply-carers")
       urlMustEqual("/thankyou/apply-carers")
 
-      browser.find("#employment").getText shouldEqual "Your Employment documents"
+      browser.find("#employment").getText.nonEmpty must beTrue
       browser.find("#selfEmployment").size() shouldEqual 0
     }
 
@@ -40,7 +40,7 @@ class ThankYouIntegrationSpec extends Specification with Tags {
       urlMustEqual("/thankyou/apply-carers")
 
       browser.find("#employment").size() shouldEqual 0
-      browser.find("#selfEmployment").getText shouldEqual "Your Self-employed documents"
+      browser.find("#selfEmployment").getText.nonEmpty must beTrue
     }
 
     "don't show employment messages" in new WithBrowser with BrowserMatchers {

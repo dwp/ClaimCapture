@@ -8,7 +8,7 @@ $base-margin-xl  : 60px;
 
 article {
 
-	background: #fff;
+	background: #fff; 
 	position: relative;
 	margin-top: $base-margin-xl;
 	float: right;
@@ -74,7 +74,8 @@ article {
 			margin-top: 0;
 			clear: both;
 			h1 {
-				color: #fff;		   	   	   
+				color: #fff;	
+				margin-bottom: 0;	   	   	   
 			}
 			h2 {
 				color: #fff;
@@ -82,7 +83,7 @@ article {
 			p {
 				color: #fff;
 				&.nino-title {
-				margin-top: 1em;
+				margin-top: 1.5rem;
 				}
 			}
 			text-align: center;
@@ -91,10 +92,6 @@ article {
 			@media screen and (max-width: 700px) {
 				text-align: left;
 			}
-		}
-
-		.send-info {
-			margin: 2em 0 0 0;
 		}
 
 	} // end &.finish-statement
@@ -210,28 +207,6 @@ article {
 		li {
 			margin: 10px 0 0 0;
 		}
-	}
-	
-	&.no-employment {
-		float: right;
-		width: 68%;
-		clear: both;
-		margin-top: 2em;
-		display: block;   	   
-		li, 
-		p {
-			font-size: 19px;
-		}
-   	    li {
-	   	    list-style: disc;
-	   	    margin-left: 1.2em;
-   	    }   	   
-   	    @media screen and (max-width: 700px) {
-		    float: none;
-		    width: auto;
-		    padding-top: 2em;
-		    margin-top: 2em;
-	    }
 	}
 	
 } // .left-col 

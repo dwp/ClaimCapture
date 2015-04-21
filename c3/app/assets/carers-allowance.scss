@@ -12,7 +12,7 @@ $base-margin-xl  : 60px;
 // App Header
 @import 'header';
 
-main {
+main { 
 	background: white;
 	display: block;
 	padding: 0 $base-margin-l;
@@ -21,6 +21,7 @@ main {
 	}
 } 
  
+
 .carers-allowance {
  
 	@import 'prototype';
