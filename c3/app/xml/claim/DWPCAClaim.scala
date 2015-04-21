@@ -25,7 +25,7 @@ object DWPCAClaim extends XMLComponent {
     val empAdditionalInfo = claim.questionGroup[EmploymentAdditionalInfo].getOrElse(EmploymentAdditionalInfo())
 
 
-    Logger.info(s"Build XML DWPCAClaim for : ${claim.key} ${claim.uuid}.")
+    Logger.info(s"Build XML for: ${claim.key} ${claim.uuid}.")
 
     <DWPCAClaim>
       {question(<DateOfClaim/>, "dateOfClaim",claim.dateOfClaim)}

@@ -17,7 +17,7 @@ object G1Benefits extends Controller with CachedClaim with Navigable {
   )(Benefits.apply)(Benefits.unapply))
 
   def present = newClaim {implicit claim =>  implicit request =>  lang =>
-    Logger.info(s"Starting new $cacheKey - ${claim.uuid}")
+    Logger.debug(s"Starting new $cacheKey - ${claim.uuid}")
     track(Benefits) { implicit claim => Ok(views.html.s0_carers_allowance.g1_benefits(form.fill(Benefits))(lang)) }
   }
 

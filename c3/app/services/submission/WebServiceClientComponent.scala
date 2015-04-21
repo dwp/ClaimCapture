@@ -26,7 +26,7 @@ trait WebServiceClientComponent {
       val claimSubmission = ValidXMLBuilder ().xml (claim, txnId)
       Logger.debug ("Created xml")
       val submissionServerEndpoint = ConfigProperties.getProperty ("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submission"
-      Logger.info (s"Submission Server : $submissionServerEndpoint")
+      Logger.debug (s"Submission Server : $submissionServerEndpoint")
       val result = WS.url (submissionServerEndpoint)
         .withRequestTimeout (ConfigProperties.getProperty ("cr.timeout", 60000)) // wait 1 minute
         .withHeaders (("Content-Type", "application/xml"))
