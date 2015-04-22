@@ -153,6 +153,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
 
       fromCache(request, required = false) match {
         case Some(claim) =>
+          Logger.info(s"ending - ${claim.key} ${claim.uuid} - ${request.method} url ${request.path}")
           // reaching end of process - thank you page so we delete claim for security reasons and free memory
           removeFromCache(claim.uuid)
           originCheck(f(claim)(request)(getLang(claim))).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain),
