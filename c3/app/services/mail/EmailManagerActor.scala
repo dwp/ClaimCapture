@@ -59,9 +59,10 @@ class EmailSenderActor extends Actor with ClaimTransactionComponent{
     mailerPluginApi.sendEmail(mail.email) match {
       case Success(s) =>
         claimTransaction.updateEmailStatus(mail.transactionId,EmailActorsCreators.SUCCESS)
-        Logger.debug("Email sent successfully")
+        Logger.info(s"Email sent successfully for transactionId [${mail.transactionId}]")
       case Failure(e) =>
         claimTransaction.updateEmailStatus(mail.transactionId,EmailActorsCreators.ERROR)
+        Logger.error(s"Could not send email for transactionId [${mail.transactionId}]. ${e.getMessage}")
         throw e
     }
   }

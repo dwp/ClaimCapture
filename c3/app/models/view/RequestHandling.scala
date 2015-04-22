@@ -25,12 +25,12 @@ trait RequestHandling {
     val (referer, host) = request.headers.get("Referer").getOrElse("No Referer in header") -> request.headers.get("Host").getOrElse("No Host in header")
     val sameHostCheck = referer.contains(host)
 
-    Logger.info(s"Redirect $redirectEnforced. Same host $sameHostCheck")
+    Logger.debug(s"Redirect $redirectEnforced. Same host $sameHostCheck")
     if (sameHostCheck) {
       withHeaders(action)
     } else {
       if (redirectEnforced) {
-        Logger.warn(s"HTTP Referrer : $referer. Conf Referrer : $startPage. HTTP Host : $host")
+        Logger.warn(s"Redirect enforced. HTTP Referrer : $referer. Conf Referrer : $startPage. HTTP Host : $host")
         MovedPermanently(startPage)
       } else {
         withHeaders(action)

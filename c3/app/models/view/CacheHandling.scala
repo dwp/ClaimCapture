@@ -35,9 +35,7 @@ trait CacheHandling {
     }
   }
 
-  def fromCache(key: String): Option[Claim] = {
-    Cache.getAs[Claim](key)
-  }
+  def fromCache(key: String): Option[Claim] = Cache.getAs[Claim](key)
 
   def saveInCache(key: String, claim: Claim) = Cache.set(claim.uuid, claim, CacheHandling.expiration)
 

@@ -42,7 +42,7 @@ class ClaimEndingSpec extends PlaySpecification with Results {
     "return ok thank you page if thankyou()" in new WithApplication {
       val result: Future[Result] = ClaimEnding.thankyou.apply(FakeRequest())
       val bodyText: String = contentAsString(result)
-      bodyText must contain("Application complete")
+      bodyText must contain("been sent")
       status(result) mustEqual OK
     }
 

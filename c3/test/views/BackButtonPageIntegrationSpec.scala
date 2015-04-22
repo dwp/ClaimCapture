@@ -19,7 +19,7 @@ class BackButtonPageIntegrationSpec extends Specification with Tags {
       val hours = new G2EligibilityPage(context).goToThePage()
 
       browser goTo "/thankyou/apply-carers"
-      browser title() mustEqual "Application complete"
+      browser url() mustEqual "/thankyou/apply-carers"
 
       browser.getCookies.toSet.exists(cookie => cookie.getName == "application-finished" && cookie.getValue == "true") must beTrue
 
@@ -34,7 +34,7 @@ class BackButtonPageIntegrationSpec extends Specification with Tags {
       val report = new G1ReportChangesPage(context).goToThePage()
 
       browser goTo "/thankyou/change-carers"
-      browser title() mustEqual "Change complete"
+      browser url() mustEqual "/thankyou/change-carers"
 
       browser.getCookies.toSet.exists(cookie => cookie.getName == "application-finished" && cookie.getValue == "true") must beTrue
 
