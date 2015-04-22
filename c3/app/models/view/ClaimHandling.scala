@@ -8,6 +8,7 @@ import models.domain.{Claim, QuestionGroup}
 import models.view.ClaimHandling.ClaimResult
 import play.api.cache.Cache
 import play.api.data.Form
+import play.api.http.HttpVerbs
 import play.api.i18n.Lang
 import play.api.mvc.Results._
 import play.api.mvc._
@@ -113,7 +114,9 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
   private def noClaimValidation(claim: Claim) = false
 
   private def claimingWithClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent], claim: Claim): Result = {
-    Logger.info(s"claimingWithClaim - ${claim.key} ${claim.uuid} - url ${request.path}")
+    // We log just to be able to invstigate issues with claims/circs and see path taken by customer. Do not need to log all GETs and POSTs in production (INFO).
+    if (request.method == HttpVerbs.GET) Logger.info(s"claimingWithClaim - ${claim.key} ${claim.uuid} - GET url ${request.path}")
+    else Logger.debug(s"claimingWithClaim - ${claim.key} ${claim.uuid} - ${request.method} url ${request.path}")
     implicit val r = request
     val key = keyFrom(request)
     if (key != claim.uuid) Logger.error(s"claimingWithClaim - Claim uuid ${claim.uuid} does not match cache key $key.")
@@ -129,7 +132,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
       action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
     } else {
       val uuid = keyFrom(request)
-      Logger.info(s"claimingWithoutClaim - uuid $uuid - url ${request.path}")
+      Logger.info(s"claimingWithoutClaim - uuid $uuid - ${request.method} url ${request.path}")
       if (uuid.isEmpty) {
         Redirect(errorPage)
       } else {
