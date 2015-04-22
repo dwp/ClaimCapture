@@ -94,7 +94,7 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
         ex.getCause match {
           case e: UserAgentCheckException => Future(withHeaders(Redirect(controllers.routes.CircsEnding.error())))
           case _ =>
-            Logger.warn("Delete cookies")
+            Logger.warn("Change of Circs error and delete cookies")
             Future(withHeaders(Redirect(controllers.routes.CircsEnding.error()))
               .discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(C3VERSION)).withNewSession)
         }
@@ -103,7 +103,7 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
         ex.getCause match {
           case e: UserAgentCheckException => Future(withHeaders(Redirect(controllers.routes.ClaimEnding.error())))
           case _ =>
-            Logger.warn("Delete cookies")
+            Logger.warn("Claim error and delete cookies")
             Future(withHeaders(Redirect(controllers.routes.ClaimEnding.error()))
               .discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain), DiscardingCookie(C3VERSION)).withNewSession)
         }

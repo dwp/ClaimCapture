@@ -22,7 +22,7 @@ object CarersAllowance extends Controller with CachedClaim with Navigable {
   }
 
   def approveSubmit = claiming {implicit claim =>  implicit request =>  lang =>
-    Logger.info(s"Approve submit ${claim.uuid}")
+    Logger.debug(s"Approve submit ${claim.uuid}")
     form.bindEncrypted.fold(
       formWithErrors => {
         Logger.info(s"${claim.key} ${claim.uuid} Form with errors: $formWithErrors")
