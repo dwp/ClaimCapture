@@ -3,6 +3,7 @@ package utils.filters
 import app.ConfigProperties._
 import gov.dwp.exceptions.DwpRuntimeException
 import models.view.{ClaimHandling, CachedChangeOfCircs, CachedClaim}
+import play.api.http.HttpVerbs
 import play.api.{Play, Logger}
 import play.api.cache.Cache
 import play.api.mvc.{Cookie, EssentialAction, RequestHeader}
@@ -31,14 +32,13 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
   def apply(request: RequestHeader) = {
 
     val key = getKeyFromSession(request)
-    val averageLastPageDepth = getProperty("lastpatge.depth", 25)
 
     request match {
 
       case _ if setIf(request) =>
         if (key.nonEmpty) {
           Logger.debug(s"UserAgentCheckAction set for key ${key}_UA")
-          Cache.set(key + "_UA", request.headers.get("User-Agent").getOrElse(""), getProperty("cache.expiry", 3600) * averageLastPageDepth)
+          Cache.set(key + "_UA", request.headers.get("User-Agent").getOrElse(""), getProperty("cache.expiry", 3600) + 100)
         } else {
           throw UserAgentCheckException("Session does not contain key. Cannot save User Agent.")
         }
@@ -52,7 +52,12 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
               if (ua != userAgent) {
                 throw UserAgentCheckException(s"UserAgent check failed. $userAgent is different from expected $ua.")
               }
+              // to update expiration time and avoid issues when restarting caches.
+              if (request.method == HttpVerbs.GET) Cache.set(key + "_UA", request.headers.get("User-Agent").getOrElse(""), getProperty("cache.expiry", 3600)+100)
+
+
             case _ if (Cache.get(key).isDefined) => Logger.error(s"Lost User Agent from cache while claim still in cache? Should never happen. key $key" )
+
             case _ =>
             // No claim in cache. Nothing to do. user will get an error because no claim exists. No security risk.
           }
@@ -91,7 +96,7 @@ object UserAgentCheckAction {
     case _ => true
   }))
 
-  def defaultSetIf(header: RequestHeader): Boolean = header.method == "POST" && RequestSelector.startPage(header)
+  def defaultSetIf(header: RequestHeader): Boolean = header.method ==  HttpVerbs.POST && RequestSelector.startPage(header)
 
   def defautRemoveIf(header: RequestHeader): Boolean = RequestSelector.endPage(header)
 

@@ -127,7 +127,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
     if (Play.isTest) {
       implicit val r = request
       val claim = newInstance()
-      saveInCache(claim.uuid, claim) // place an empty claim in the cache to satisfy tests
+      saveInCache(claim) // place an empty claim in the cache to satisfy tests
       // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
       action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
     } else {
@@ -194,7 +194,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
     f(claim)(request)(lang) match {
       case Left(r: Result) => r
       case Right((c: Claim, r: Result)) =>
-        saveInCache(claim.uuid, c)
+        saveInCache(c)
         r
     }
   }
