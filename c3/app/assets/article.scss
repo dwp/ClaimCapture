@@ -120,11 +120,6 @@ article {
    
 // Mobile NAv 
 .helper-mobile {
-	display: none;
-	@media screen and (max-width: 700px) {
-		display: block;
-		border-bottom: 1px solid #bfc1c3;
-	}
 	a {
 		display: block;
 		background-image: url('images/mobile-nav.png');
@@ -137,9 +132,9 @@ article {
 		padding: 1em 0;
 		line-height: 1em;
 		cursor: pointer;
-		&.open-helper {
-			background-position: right -25px;
-		}
+	}
+	&.open-helper a {
+		background-position: right -25px;
 	}
 }
 
