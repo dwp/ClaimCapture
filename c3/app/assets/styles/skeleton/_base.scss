@@ -25,10 +25,13 @@ body {
     @extend %contain-floats;
     padding-bottom: $gutter;
     @include media(desktop) {
-        padding-bottom: $gutter*3;
+        padding-bottom: ($gutter * 3);
     }
 }
 
-.grid-row {
-    padding-top: $base-margin-xl;
+.main-content {
+    margin-top: $base-margin-m;
+    @include media(desktop) {
+        margin-top: 0;
+    }
 }
