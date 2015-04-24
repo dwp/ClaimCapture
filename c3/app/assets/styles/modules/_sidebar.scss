@@ -3,7 +3,13 @@
 // ================================================================
 
 .sidebar {
+    // hide by default on lowest resolution
+    display: none;
+    @include media(desktop) {
+        // force show on desktops
+        display: block;
+    }
     .heading-medium {
         margin-top: 0;
     }
-} 
+}
