@@ -51,22 +51,19 @@ $('.helper-more').click(function(){
   }
   );
 
-
-
-
     
-	// Help & Feedback container
-     $(".feedback-container").css("display", "none");
-     $('.feedback, .feed-close').click(function(){
-     	$( ".feedback-container" ).toggle();
-     });
+// Help & Feedback container
+ $(".feedback-container").css("display", "none");
+ $('.feedback, .feed-close').click(function(){
+ 	$( ".feedback-container" ).toggle();
+ });
      
-     // Mobile specific - Nav
-     $('.helper-mobile a').click(function(){
-     	$( ".left-col" ).slideToggle(0);
-     	$(this).toggleClass("open-helper")
-     	return true;
-     });
+ // Mobile specific - Nav
+ $('#helper-toggle').click(function(){
+ 	$("#sidebar").toggle();
+ 	$(this).toggleClass("open-helper");
+ 	return true;
+ });
      
 
      
