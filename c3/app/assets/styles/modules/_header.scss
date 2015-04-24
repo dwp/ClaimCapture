@@ -3,8 +3,10 @@
 // ================================================================
 
 .global-header {
-    // remove margin on heading
+    padding: $base-margin-s 0;
+    // remove spacing on heading
     .heading-medium {
         margin: 0;
+        padding: 0;
     }
 }

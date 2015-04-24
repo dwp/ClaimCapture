@@ -15,10 +15,6 @@ $base-margin-xl  : 60px;
 main {
 	background: white;
 	display: block;
-	padding: 0 $base-margin-l;
-	@media screen and (max-width: 640px) {
-		padding: 0 $base-margin;
-	}
 } 
 
 .carers-allowance {

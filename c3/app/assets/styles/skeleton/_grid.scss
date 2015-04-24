@@ -37,12 +37,9 @@ $site-width: 960px;
 
 %site-width-container {
     max-width: $site-width;
-    margin: 0 $gutter-half;
+    margin: 0 $gutter;
     @include ie-lte(8) {
         width: $site-width;
-    }
-    @include media(tablet) {
-        margin: 0 $gutter;
     }
     @include media($min-width: ($site-width + $gutter * 2)){
         margin: 0 auto;

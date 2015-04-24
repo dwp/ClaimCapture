@@ -4,6 +4,10 @@
 
 .helper-mobile {   
     border-bottom: 1px solid $border-colour;
+    // hide on desktops
+    @include media(desktop) {
+        display: none;
+    }
     &.open-helper {
         border-bottom: none;
     }
@@ -11,7 +15,7 @@
 
 #help {
     // mobile spacing
-    padding: $base-margin 0 $base-margin-m;
+    padding: $base-margin 0 $base-margin;
     margin-bottom: $base-margin-l; 
     border-bottom: 1px solid $border-colour;
     // remove mobile spacing for desktops

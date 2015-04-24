@@ -20,12 +20,16 @@ body {
     background: $white;
 }
 
-#main {
+.container,
+.wrapper {
     @extend %site-width-container;
     @extend %contain-floats;
-    padding-bottom: $gutter;
+}
+
+.main-grid {
+    padding-bottom: $base-margin-l;
     @include media(desktop) {
-        padding-bottom: ($gutter * 3);
+        padding: $base-margin-xl 0;
     }
 }
 
