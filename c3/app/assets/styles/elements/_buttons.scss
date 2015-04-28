@@ -151,6 +151,18 @@
     margin: 0 $gutter-half $gutter-half 0;
     padding: em(10) em(15) em(5) em(15);
     vertical-align: top;
+    &.warning {
+        background: $mellow-red;
+        &:hover {
+            background: $red;
+        }
+    }
+    &.secondary {
+        background: $grey-2;
+        &:hover {
+            background: $grey-1;
+        }
+    }
 }
 
 // Fix unwanted button padding in Firefox
