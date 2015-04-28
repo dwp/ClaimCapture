@@ -63,7 +63,8 @@ article {
 			margin-top: 0;
 			clear: both;
 			h1 {
-				color: #fff;		   	   	   
+				color: #fff;
+				margin-bottom: 0;		   	   	   
 			}
 			h2 {
 				color: #fff;
@@ -80,10 +81,6 @@ article {
 			@media screen and (max-width: 700px) {
 				text-align: left;
 			}
-		}
-
-		.send-info {
-			margin: 2em 0 0 0;
 		}
 
 	} // end &.finish-statement

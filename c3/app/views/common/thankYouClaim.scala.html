@@ -38,102 +38,101 @@
 
             @common.protoType()
 
-            <article class="finish-statement">
+            <div class="grid-row main-grid">
+
+                <aside class="column-quarter sidebar @{
+                    if(!isEmploymentOrSelfEmployment) "no-employment"
+                }" id="sidebar" role="complementary" aria-labelledby="helpcontent">
+                    <section class="font-xsmall" id="help" aria-labelledby="helpcontent">
+                        <h2 class="heading-medium" id="helpcontent">@Html(Messages("leftcol.title"))</h2>
+                        @if((!request.uri.startsWith("/claim-help"))) {
+                            <p><a id="helppage" href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a></p>
+                        }
+                        <h3 class="heading-small">@Html(Messages("leftcol.helpline"))</h3>
+                        <p>@Html(Messages("leftcol.helplinecontent.1"))</p>
+                        <p class="grouped">@Html(Messages("leftcol.helplinecontent.2"))</p>
+                        <p>@Html(Messages("leftcol.helplinecontent.3"))</p>
+                        <p>@Html(Messages("leftcol.helplinecontent.4"))</p>
+                        <p><a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>@Messages("leftcol.callcharges")</a></p>
+                    </section>
+                </aside>
+
+                <article class="column-three-quarters main-content finish-statement">
+
+                    <section class="app-complete">
+                        <h1>@Html(Messages("thankyou"))</h1>
+                        <p class="nino-title">@Html(Messages("claim.recieved2"))</p>
+                    </section>
+
+                    <div class="finish-mobile">@Html(Messages("claim.feedback.link"))</div>
 
 
-                <section class="app-complete">
-                    <h1>@Html(Messages("thankyou"))</h1>
-                    <p>@Html(Messages("claim.received"))</p>
-                    <p class="nino-title">@Html(Messages("claim.recieved2"))</p>
-                </section>
+                        <div class="finish-info">
 
-                <div class="finish-mobile">@Html(Messages("claim.feedback.link"))</div>
-
-
-                @if(isEmploymentOrSelfEmployment) {
-
-                    <div class="finish-info">
-
-
-                        <section>
-                            <h1>@Html(Messages("documents.title"))</h1>
-                            <h3>@Html(Messages("documents.sendingDocs.title"))</h3>
-                            <p>@Html(Messages("documents.sendingDocs.text"))</p>
-                        </section>
-
-                        <div class="send-info">
-
-                            @if(isEmployment) {
-                                <section>
-                                    <h2 id="employment">@Html(Messages("s11.g5.help3"))</h2>
-                                    <ul>
-                                        <li>@{
-                                            Messages("s11.g5.help4")
-                                        } @displayDateForLabel</li>
-                                        <li>@Html(Messages("s11.g5.help5"))</li>
-                                        <li>@Html(Messages("s11.g5.help6"))</li>
-                                    </ul>
-                                </section>
-                            }
-                            @if(isSelfEmployment) {
-                                <section>
-                                    <h2 id="selfEmployment">@Html(Messages("s11.g5.help7"))</h2>
-                                    <ul>
-                                        <li>@Html(Messages("s11.g5.help8"))</li>
-                                        <li>@Html(Messages("s11.g5.help9"))</li>
-                                    </ul>
-                                </section>
-                            }
-                            <section class="address">
-                                <h2>@Html(Messages("s11.g5.help10"))</h2>
-                                <span>@Html(Messages("s11.g5.help11"))</span>
-                                <span>@Html(Messages("s11.g5.help12"))</span>
-                                <span>@Html(Messages("s11.g5.help13"))</span>
-                                <span>@Html(Messages("s11.g5.help14"))</span>
-                                <p>@Html(Messages("s11.g5.help15"))</p>
+                            <section>
+                                <h2 class="heading-medium">@Html(Messages("next"))</h2>
+                                @if(isEmail){
+                                    <p>@Html(Messages("email.claim.thankYou"))</p>
+                                }
+                                @if(isEmploymentOrSelfEmployment) {
+                                    <p>@Html(Messages("claim.next.main"))</p>
+                                } else {
+                                    <p>@Html(Messages("claim.next.nodocuments.1"))</p>
+                                }
                             </section>
+
+                            @if(isEmploymentOrSelfEmployment) {
+
+                                <div class="send-info">
+
+                                    <h2 class="heading-medium">@Html(Messages("required.docs"))</h2>
+
+                                    <p>@Html(Messages("thankyou.send"))</p>
+
+                                    <section>
+                                        <ul>
+                                            @if(isEmployment) {
+                                                <li>@Html(Messages("s11.g5.help4", displayDateForLabel))</li>
+                                                <li id="employment" >@Html(Messages("s11.g5.help5"))</li>
+                                                <li>@Html(Messages("s11.g5.help6"))</li>
+                                            }
+                                            @if(isSelfEmployment) {
+                                                <li id="selfEmployment">@Html(Messages("s11.g5.help8"))</li>
+                                                <li>@Html(Messages("s11.g5.help9"))</li>
+                                            }
+                                        </ul>
+                                    </section>
+
+                                    <section class="address">
+                                        <p>@Html(Messages("address.send"))</p>
+                                        <span><b>@Html(Messages("address.title"))</b></span>
+                                        <span>@Html(Messages("s11.g5.help11"))</span>
+                                        <span>@Html(Messages("s11.g5.help12"))</span>
+                                        <span>@Html(Messages("s11.g5.help13"))</span>
+                                        <span>@Html(Messages("s11.g5.help14"))</span>
+                                        <p>@Html(Messages("address.details"))</p>
+                                    </section>
+
+                                </div>
+
+                            }
 
                         </div>
 
-                    </div>
-                }
+                    <p><a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.change"))</a></p>
 
-            </article>
+                    <div class="finish-button">@Html(Messages("claim.feedback.link"))</div>
 
-            <!-- left-panel -->
+                </article>
 
-            <aside class="left-col right-panel @{
-                if(!isEmploymentOrSelfEmployment) "no-employment"
-            }">
-
-                <section>
-                    <h2>@Html(Messages("next"))</h2>
-                    <ul>
-                        @if(isEmail){
-                            <li>@Html(Messages("email.claim.thankYou"))</li>
-                        }
-                        <li>@Html(Messages("claim.next.1"))</li>
-                        <li>@Html(Messages("claim.next.2"))</li>
-                        <li>@Html(Messages("claim.next.3"))</li>
-                        <li>@Html(Messages("next.last"))</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>@Html(Messages("change.head"))</h2>
-                    <p>@Html(Messages("change.link"))</p>
-                </section>
-
-                <div class="finish-button">@Html(Messages("claim.feedback.link"))</div>
-
-            </aside>
-                <!-- / right panel -->
+            </div>
 
             @if(getProperty("display.transid", false)) {
                 <input type="hidden" name="transId" id="transId" value="@{
                     claim.transactionId.getOrElse("NO_TRANS_ID")
                 }"/>
             }
+
         </div>
     }
 }
