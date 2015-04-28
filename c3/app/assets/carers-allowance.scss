@@ -563,6 +563,7 @@ main {
 					}
 				}
 
+
 				&.benefits-validation {
 					background: #fef7f7;
 					padding: .7em;
@@ -684,7 +685,7 @@ main {
 
 	.extra-group {
 		border-left: 4px solid #dee0e2;
-		padding-left: .8em;
+		padding-left: .8em !important;
 		.validation {
 			margin-left: -17px;
 			.validation {
