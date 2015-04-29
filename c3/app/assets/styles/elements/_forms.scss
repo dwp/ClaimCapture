@@ -285,6 +285,16 @@ input[type=number] {
 
 }
 
+// Add sufficient vertical spacing to the Next/Back buttons
+.form-steps {
+    li {
+        margin-top: $base-margin-m;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+}
+
 // To stack horizontally, use .inline on parent, to sit block labels next to each other
 .inline .block-label {
     clear: none;
