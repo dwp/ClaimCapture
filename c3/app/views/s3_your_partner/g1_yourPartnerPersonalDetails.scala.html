@@ -26,7 +26,7 @@
             <p class="intro-info">@Html(Messages("s3.g1.help"))</p>
 
             <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
-                <legend>@Html(Messages("haveLivedWithPartnerSinceClaimDate.label"))</legend>
+                <legend>@Html(Messages("hadPartnerSinceClaimDate"))</legend>
                 <div class="prompt nested-prompt partner-linked">
                     <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help1", displayDateForLabel))</p>
                     <ul>
@@ -35,8 +35,7 @@
                     </ul>
                 </div>
                 <ul class="partner-group">
-                    @yesNoRadioGroup(currentForm("hadPartnerSinceClaimDate"),
-                        '_label -> Messages("haveLivedWithPartnerSinceClaimDate.label"), '_showLabel -> false)
+                    @yesNoRadioGroup(currentForm("hadPartnerSinceClaimDate"),'_showLabel -> false)
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(

@@ -28,9 +28,6 @@ object ChannelShiftParams {
 }
 object ChannelShiftController extends ChannelShift(ChannelShiftParams())
 
-/**
- * Created by valtechuk on 25/03/2015.
- */
 class ChannelShift(params:Map[String,String]) extends Controller{
 
   def redirect = Action{ request =>
@@ -66,8 +63,8 @@ class ChannelShift(params:Map[String,String]) extends Controller{
 
   protected def writeData(cox:HttpURLConnection, postData:Array[Byte]) = {
     Try(cox.getOutputStream().write(postData)) match {
-      case Failure(e) => Logger.error("Error writing in the URL Connection",e)
-      case _ => Logger.debug("Written in URL Connection")
+      case Failure(e) => Logger.error("Error writing data to Google Analytics web service. ",e)
+      case _ => Logger.debug("Written to Google Analytics URL Connection")
     }
   }
 
