@@ -1,5 +1,6 @@
 package utils.filters
 
+import play.api.http.HttpVerbs
 import play.api.mvc.RequestHeader
 
 
@@ -9,7 +10,7 @@ object CSRFCreation {
    * We may need to generate a new token on a Get request for pages that need to be checked.
    */
   def createIfNotFound(request:RequestHeader): Boolean = {
-    request.method == "GET" && (request.accepts("text/html") || request.accepts("application/xml+xhtml")) && RequestSelector.toBeChecked(request)
+    request.method == HttpVerbs.GET && (request.accepts("text/html") || request.accepts("application/xml+xhtml")) && RequestSelector.toBeChecked(request)
   }
 
   /**

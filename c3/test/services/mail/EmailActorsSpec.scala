@@ -19,7 +19,7 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
       synchronized{SimpleSenderTestable.preStartCalls = 0}
       synchronized{SimpleSenderTestable.sendEmailsReceived = 0}
 
-      val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props[SimpleSenderTestable],5,60))
+      val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props[SimpleSenderTestable]))
 
       emailManager ! mock[EmailWrapper]
 
@@ -34,7 +34,7 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
       val mailerMock = mock[Mailer]
       mailerMock.sendEmail(any[Email]) returns Success(Unit)
 
-      val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[EmailSenderTestable],mailerMock),5,60))
+      val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[EmailSenderTestable],mailerMock)))
 
       val b = "Body content"
       val s = "my subject"
@@ -49,28 +49,27 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
     }
 
     "restart the email actor because of failures" in new AkkaTestkitSpecs2Support() {
-      synchronized{EmailSenderTestable.preStartCalls = 0}
-      synchronized{EmailSenderTestable.preRestartCalls = 0}
+      synchronized{EmailSenderTestable.sendEmail = 0}
 
       val mail = mock[EmailWrapper]
-      mail.transactionId returns ""
+      mail.transactionId returns "TEST1234"
       mail.email returns mock[Email]
       val mailerMock = mock[Mailer]
-      val retries = 5
-      val time = 2
 
       mailerMock.sendEmail(any[Email]).returns(Failure(new Exception("Test exception")))
 
-      val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[EmailSenderTestable],mailerMock),retries,time))
+      val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[EmailSenderTestable],mailerMock)))
 
       emailManager ! mail
 
-      Thread.sleep(4000)
+      Thread.sleep(6000)
 
-      EmailSenderTestable.preStartCalls must beGreaterThan(retries)
-      EmailSenderTestable.preRestartCalls must beGreaterThan(retries-1)
+      EmailSenderTestable.synchronized{
+        EmailSenderTestable.sendEmail mustEqual 2
+      }
 
-      there was atMost(retries+1)(mailerMock).sendEmail(any[Email])
+      there was atMost(2)(mailerMock).sendEmail(any[Email])
+
 
     }
   } section "unit"
@@ -93,19 +92,22 @@ object SimpleSenderTestable {
   var sendEmailsReceived = 0
 }
 
-class EmailSenderTestable(mailPlugin:Mailer) extends EmailSenderActor{
+class EmailSenderTestable(mailPlugin:Mailer) extends EmailSenderActor(5){
 
   override def mailerPluginApi: Mailer = mailPlugin
 
-  override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
-    super.preRestart(reason, message)
-    Logger.info(s"Restarting because of $reason with $message")
-    synchronized{ EmailSenderTestable.preRestartCalls += 1 }
+
+  override protected def sendEmail(mail: EmailWrapper): Unit = {
+
+    EmailSenderTestable.synchronized{
+      EmailSenderTestable.sendEmail += 1
+      Logger.info("sendEmail called "+EmailSenderTestable.sendEmail+" times")
+    }
+    super.sendEmail(mail)
   }
 
-
-  override def preStart() = {
-    synchronized{ EmailSenderTestable.preStartCalls += 1 }
+  override def postStop(): Unit = {
+    Logger.info("Stopped actor")
   }
 
   override val claimTransaction = new StubClaimTransaction
@@ -113,11 +115,10 @@ class EmailSenderTestable(mailPlugin:Mailer) extends EmailSenderActor{
 }
 
 object EmailSenderTestable{
-  var preStartCalls = 0
-  var preRestartCalls = 0
+  var sendEmail = 0
 }
 
-class EmailManagerTestable(emailSendingCreator:Props,retries:Int = 5, retriesTimeSpan:Int = 60) extends EmailManagerActor(emailSendingCreator,retries,retriesTimeSpan) {
+class EmailManagerTestable(emailSendingCreator:Props) extends EmailManagerActor(emailSendingCreator) {
 
 
 }
