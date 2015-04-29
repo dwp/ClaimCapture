@@ -6,6 +6,30 @@ $base-margin-m   : 30px;
 $base-margin-l   : 45px;
 $base-margin-xl  : 60px;
 
+
+	// section header	   	
+h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: $base-margin-xl;
+    line-height: 1;
+    .section-progress {
+   	    font-size: 24px;
+   	    font-weight: 300;
+   	    color: #6f777b;
+   	    margin-bottom: 4px;
+   	    display: block;
+   	    line-height: 1.4em;
+   	    @media screen and (max-width: 700px) {
+	   	    font-size: 20px;
+   	    }
+	    }
+    @media screen and (max-width: 700px) {
+	    font-size: 24px;
+	    margin-bottom: $base-margin-l;
+    }   
+}
+
 article {
 	
 	&.eligible {
