@@ -15,7 +15,7 @@
 
 <h2>@Html(Messages("s3.longName"))</h2>
 <dl>
-    @fieldWithLink("partner_hadPartner", "haveLivedWithPartnerSinceClaimDate.label", Messages("label."+yourPartner.hadPartnerSinceClaimDate))
+    @fieldWithLink("partner_hadPartner", "hadPartnerSinceClaimDate", Messages("label."+yourPartner.hadPartnerSinceClaimDate))
 
     @if(yourPartner.hadPartnerSinceClaimDate.toLowerCase == "yes"){
         @fieldWithLink("partner_name", "name", titleNames)
