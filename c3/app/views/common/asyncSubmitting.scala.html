@@ -26,32 +26,36 @@
 
              <div class="carers-allowance clearfix">
 
-                <article>
+                <article class="grid-row main-grid">
+      
+                    <div class="column-three-quarters main-content">
 
-                    <section id="jswrapper" hidden="true" class="carers-container">
+                        <section id="jswrapper" hidden="true" class="carers-container">
 
-                        <h1>@Html(Messages(if(isClaim)"s11.g7.help1" else "s11.g7.help1.c"))<span id="dots"></span></h1>
+                            <h1>@Html(Messages(if(isClaim)"s11.g7.help1" else "s11.g7.help1.c"))<span id="dots"></span></h1>
 
-                        <div class="prompt submitting">
-                            <p>@Html(Messages(if(isClaim)"s11.g7.help2" else "s11.g7.help2.c"))</p>
-                            <p>@Html(Messages("s11.g7.help3"))</p>
-                        </div>
+                            <div class="prompt submitting">
+                                <p>@Html(Messages(if(isClaim)"s11.g7.help2" else "s11.g7.help2.c"))</p>
+                                <p>@Html(Messages("s11.g7.help3"))</p>
+                            </div>
 
-                    </section>
+                        </section>
 
-                    <section id="refresh">
+                        <section id="refresh">
 
-                        <h1>@Html(Messages("s11.g7.help1"))<span id="dots"></span></h1>
-                        <div class="prompt submitting">
-                            <p>@Html(Messages("s11.g7.refresh1"))</p>
-                            <p>@Html(Messages(if(isClaim) "s11.g7.refresh2" else "s11.g7.refresh2.c"))</p>
-                        </div>
+                            <h1>@Html(Messages("s11.g7.help1"))<span id="dots"></span></h1>
+                            <div class="prompt submitting">
+                                <p>@Html(Messages("s11.g7.refresh1"))</p>
+                                <p>@Html(Messages(if(isClaim) "s11.g7.refresh2" else "s11.g7.refresh2.c"))</p>
+                            </div>
 
-                        <nav class="form-steps">
-                            <button type="submit" name="action" value="next" class="button secondary">@Html(Messages("s11.g7.refresh"))</button>
-                        </nav>
+                            <nav class="form-steps">
+                                <button type="submit" name="action" value="next" class="button secondary">@Html(Messages("s11.g7.refresh"))</button>
+                            </nav>
 
-                    </section>
+                        </section>
+
+                    </div>
 
                 </article>
 
