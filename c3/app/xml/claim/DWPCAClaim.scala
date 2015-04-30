@@ -40,7 +40,7 @@ object DWPCAClaim extends XMLComponent {
       {question(<Employed/>,"aboutYou_beenEmployedSince6MonthsBeforeClaim.label",employment.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayClaimDate(dmy - 6 months)), claimDate)}
       {Employment.xml(claim)}
       {if(!empAdditionalInfo.empAdditionalInfo.answer.isEmpty) questionOther(<EmploymentAdditionalInfo/>, "empAdditionalInfo.answer", empAdditionalInfo.empAdditionalInfo.answer, empAdditionalInfo.empAdditionalInfo.text)}
-      {question(<HavePartner/>,"haveLivedWithPartnerSinceClaimDate.label",havePartner,claimDate)}
+      {question(<HavePartner/>,"hadPartnerSinceClaimDate",havePartner,claimDate)}
       {Partner.xml(claim)}
       {OtherBenefits.xml(claim)}
       {Payment.xml(claim)}
