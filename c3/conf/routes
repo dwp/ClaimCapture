@@ -12,6 +12,8 @@ GET         /report/ping                                                controll
 
 #Channel Shift url
 GET         /CS2015                                                     controllers.ChannelShiftController.redirect
+GET         /cs2015                                                     controllers.ChannelShiftController.redirect
+
 # claim pack notes accessed externally
 #GET         /claim-notes                                                controllers.ClaimNotes.notes
 # claim pack notes accessed internally (with claim lang)
