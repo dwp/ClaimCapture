@@ -174,17 +174,18 @@
 
     // Warning Button
     &.warning {
-        background: $mellow-red;
+        background: $red;
         &:hover {
-            background: $red;
+            background: darken($red, 8%);
         }
     }
 
     // Secondary Button
     &.secondary {
-        background: $grey-2;
+        background: $grey-3;
+        color: $text-colour;
         &:hover {
-            background: $grey-1;
+            background: darken($grey-3, 8%);
         }
     }
 
