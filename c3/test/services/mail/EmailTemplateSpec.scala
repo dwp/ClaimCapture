@@ -1,13 +1,15 @@
 package services.mail
 
 import models.DayMonthYear
-import models.domain.{ClaimDate, Claim}
+import models.domain.{Employment, ClaimDate, Claim}
 import models.view.CachedClaim
 import org.specs2.mutable.{Tags, Specification}
 import play.api.i18n.Lang
 import play.api.i18n.{MMessages => Messages}
 import play.api.test.WithApplication
-import play.twirl.api.{HtmlFormat, Html}
+import play.twirl.api.{HtmlFormat}
+import controllers.mappings.Mappings
+
 
 
 /**
@@ -35,14 +37,16 @@ class EmailTemplateSpec extends Specification with Tags {
       renderedEmail must not contain escapeMessage("mail.cofc.successful")
     }
 
-    "Display claim employment email" in new WithApplication(){
-      val claim = Claim(CachedClaim.key).+(ClaimDate(DayMonthYear()))
+    "Display claim employment and self employment email" in new WithApplication(){
+      val jobs= Employment(Mappings.yes,Mappings.yes)
+      val claim = Claim(CachedClaim.key).+(ClaimDate(DayMonthYear())).update(jobs)
 
       implicit val lang = Lang("en")
       val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = true).body
 
       renderedEmail.size must beGreaterThan(0)
 
+      renderedEmail must contain(escapeMessage("mail.claim.next.se.send"))
 
       renderedEmail must contain(escapeMessage("mail.claim.title"))
       renderedEmail must contain(escapeMessage("mail.claim.successful"))
