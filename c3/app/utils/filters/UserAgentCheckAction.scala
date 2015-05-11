@@ -57,7 +57,8 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
               if (request.method == HttpVerbs.GET) Cache.set(UAKey, request.headers.get("User-Agent").getOrElse(""), CacheHandling.expiration+100)
 
 
-            case None if (Cache.get(key).isDefined) => Logger.error(s"Lost User Agent from cache while claim still in cache? Should never happen. key $UAKey" )
+            case None if (Cache.get(key).isDefined) =>
+              Logger.warn(s"Lost User Agent from cache while claim still in cache? For ${request.method} url path ${request.path} and key $UAKey" )
 
             case _ =>
             // No claim in cache. Nothing to do. user will get an error because no claim exists. No security risk.
