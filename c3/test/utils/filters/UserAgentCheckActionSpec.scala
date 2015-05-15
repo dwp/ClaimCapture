@@ -10,9 +10,7 @@ import play.mvc.Http.HeaderNames
 
 
 class UserAgentCheckActionSpec extends Specification {
-
-  private val agent = "A test agent"
-
+  import UserAgentCheckActionSpec._
 
   "User Agent Action/Filter" should {
     "not check start page, but should extract User Agent and store it if POST" in new WithApplication {
@@ -43,6 +41,12 @@ class UserAgentCheckActionSpec extends Specification {
       exerciseFilterFor(keyValue,"GET",  "/assets/images/crown.png", UserAgentCheckAction.defaultCheckIf,expectSuccess=false)
     }
 
+    "not check channel shift pages" in new WithApplication {
+      val keyValue = "moisdyighfgsdyf"
+      exerciseFilterFor(keyValue,"GET",  "/CS2015", UserAgentCheckAction.defaultCheckIf,expectSuccess=false)
+      exerciseFilterFor(keyValue,"GET",  "/cs2015", UserAgentCheckAction.defaultCheckIf,expectSuccess=false)
+    }
+
     "remove User Agent from cache when reaches an end page" in new WithApplication {
       val keyValue = "aoisdyfiuasdyf"
       exerciseFilterFor(keyValue,"GET",  "/timeout", UserAgentCheckAction.defautRemoveIf,expectSuccess=true)
@@ -55,8 +59,13 @@ class UserAgentCheckActionSpec extends Specification {
 
   }
 
-  private def exerciseFilterFor(keyValue:String, method:String, path:String, operation:(RequestHeader) => Boolean,
-                                expectSuccess:Boolean, presetCache: Boolean = true)(implicit app: FakeApplication) = {
+}
+
+object UserAgentCheckActionSpec extends Specification{
+  private val agent = "A test agent"
+
+  def exerciseFilterFor(keyValue:String, method:String, path:String, operation:(RequestHeader) => Boolean,
+                        expectSuccess:Boolean, presetCache: Boolean = true)(implicit app: FakeApplication) = {
     Cache.remove(keyValue + "_UA")
     if (presetCache) Cache.set(keyValue + "_UA", agent)
     val request = FakeRequest(method = method, path = path)
@@ -69,7 +78,6 @@ class UserAgentCheckActionSpec extends Specification {
     action(request)
     mockNextAction.called must beTrue
   }
-
 }
 
 class MockAction extends EssentialAction {
