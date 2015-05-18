@@ -22,9 +22,11 @@ Made in Preston by Department for Work & Pensions
 // Elements
 //-----------------------------------------------------------------
 
+@import "elements/accordions";
 @import "elements/buttons";
 @import "elements/forms";
 @import "elements/lists";
+@import "elements/prompts";
 @import "elements/tables";
 @import "elements/typography";
 
@@ -32,8 +34,11 @@ Made in Preston by Department for Work & Pensions
 // Modules
 //-----------------------------------------------------------------
 
-@import "modules/header";
-@import "modules/helper"; 
+@import "modules/finish-banner";
 @import "modules/footer";
+@import "modules/get-help"; 
+@import "modules/header";
 @import "modules/phase-banner";
+@import "modules/prototype-banner";
 @import "modules/sidebar"; 
+@import "modules/thankyou-box"; 
