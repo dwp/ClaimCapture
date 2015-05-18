@@ -8,10 +8,12 @@
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
 
 @if(showLabel) {
-  <fieldset><legend class="pseudo-label">
-    @carersLabelText(field,args:_*)
-  </legend></fieldset>
-  @if(args.find(_._1=='helperAbove).isDefined){
-    <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
-  }
+    <fieldset>
+        <legend class="form-label-bold">
+            @carersLabelText(field,args:_*)
+        </legend>
+    </fieldset>
+    @if(args.find(_._1=='helperAbove).isDefined){
+        <p class="form-hint">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
+    }
 }

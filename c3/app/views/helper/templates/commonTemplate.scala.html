@@ -3,7 +3,7 @@
 @import utils.helpers.CarersHelpers._
 
 @if(elements.hasErrors) {
-    <p class="error">@elements.carersErrors.mkString(", ")</p>
+    <p class="validation-message">@elements.carersErrors.mkString(", ")</p>
 }
 
 @if(elements.args.contains('prompt)) {
@@ -17,5 +17,5 @@
 }
 
 @if(elements.args.contains('helperBelow)) {
-    <p class="helper">@Html(elements.args.get('helperBelow).get.toString)</p>
+    <p class="form-hint">@Html(elements.args.get('helperBelow).get.toString)</p>
 }

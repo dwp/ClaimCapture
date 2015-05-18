@@ -24,9 +24,12 @@
 
     @form(action = controllers.circs.s2_report_changes.routes.G9EmploymentChange.submit) {
         @DwpCSRFFormHelper.formField
+
         <div class="form-wrap">
+
 	        <fieldset class="form-elements" data-journey="carers-allowance:report-change:employment">
-	            <legend>@Html(Messages("c2.g9"))</legend>
+
+	            <legend class="heading medium form-label-bold">@Html(Messages("c2.g9"))</legend>
 	
 	            <ul>
 	                @yesNoRadioGroup(stillCaring("answer"))
@@ -91,6 +94,7 @@
                         'id -> "typeOfWorkSelfEmployedWrap"
                     )
 	            </ul>
+                
 	        </fieldset>
 	
 	        <nav class="form-steps">
@@ -99,66 +103,71 @@
                     <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
+
         </div>
+
     }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g9_employmentChange.js")'></script>
-<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
-<script type="text/javascript">
-$(function(){
-window.areaCounter({selector:"@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)",maxChars:300});
-})
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g9_employmentChange.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
-$(function(){
-window.stillCaring("@CarersCrypto.encryptAES(employmentChange("stillCaring")("answer")("yes").id)",
-"@CarersCrypto.encryptAES(employmentChange("stillCaring")("answer")("no").id)",
-"@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("day").id)",
-"@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("month").id)",
-"@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("year").id)");
-        @ga.stagePrompt()
+    <script type="text/javascript">
 
-});
+        $(function(){
+        window.areaCounter({selector:"@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)",maxChars:300});
+        })
 
-$(function(){
-window.hasWorkStartedYet("@CarersCrypto.encryptAES(hasWorkStartedYet("answer")("yes").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("answer")("no").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenStarted")("day").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenStarted")("month").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenStarted")("year").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenWillItStart")("day").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenWillItStart")("month").id)",
-"@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenWillItStart")("year").id)",
-"@CarersCrypto.encryptAES(hasWorkFinishedYet("answer")("yes").id)",
-"@CarersCrypto.encryptAES(hasWorkFinishedYet("answer")("no").id)",
-"@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("day").id)",
-"@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("month").id)",
-"@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("year").id)");
-});
+        $(function(){
+        window.stillCaring("@CarersCrypto.encryptAES(employmentChange("stillCaring")("answer")("yes").id)",
+        "@CarersCrypto.encryptAES(employmentChange("stillCaring")("answer")("no").id)",
+        "@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("day").id)",
+        "@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("month").id)",
+        "@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("year").id)");
+                @ga.stagePrompt()
 
-$(function(){
-window.hasWorkFinishedYet("@CarersCrypto.encryptAES(hasWorkFinishedYet("answer")("yes").id)",
-"@CarersCrypto.encryptAES(hasWorkFinishedYet("answer")("no").id)",
-"@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("day").id)",
-"@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("month").id)",
-"@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("year").id)");
-});
+        });
 
-$(function(){
-window.typeOfWork("@CarersCrypto.encryptAES(typeOfWork("answer")("employed").id)",
-"@CarersCrypto.encryptAES(typeOfWork("answer")("self-employed").id)",
-"@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineOne").id)",
-"@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineTwo").id)",
-"@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineThree").id)",
-"@CarersCrypto.encryptAES(typeOfWork("employerPostcode").id)",
-"@CarersCrypto.encryptAES(typeOfWork("employerContactNumber").id)",
-"@CarersCrypto.encryptAES(typeOfWork("employerPayroll").id)",
-"@CarersCrypto.encryptAES(typeOfWork("selfEmployedTypeOfWork").id)",
-"@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("yes").id)",
-"@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("no").id)",
-"@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("dontknow").id)",
-"@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)");
-});
+        $(function(){
+        window.hasWorkStartedYet("@CarersCrypto.encryptAES(hasWorkStartedYet("answer")("yes").id)",
+        "@CarersCrypto.encryptAES(hasWorkStartedYet("answer")("no").id)",
+        "@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenStarted")("day").id)",
+        "@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenStarted")("month").id)",
+        "@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenStarted")("year").id)",
+        "@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenWillItStart")("day").id)",
+        "@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenWillItStart")("month").id)",
+        "@CarersCrypto.encryptAES(hasWorkStartedYet("dateWhenWillItStart")("year").id)",
+        "@CarersCrypto.encryptAES(hasWorkFinishedYet("answer")("yes").id)",
+        "@CarersCrypto.encryptAES(hasWorkFinishedYet("answer")("no").id)",
+        "@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("day").id)",
+        "@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("month").id)",
+        "@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("year").id)");
+        });
 
-</script>
+        $(function(){
+        window.hasWorkFinishedYet("@CarersCrypto.encryptAES(hasWorkFinishedYet("answer")("yes").id)",
+        "@CarersCrypto.encryptAES(hasWorkFinishedYet("answer")("no").id)",
+        "@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("day").id)",
+        "@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("month").id)",
+        "@CarersCrypto.encryptAES(hasWorkFinishedYet("dateWhenFinished")("year").id)");
+        });
+
+        $(function(){
+        window.typeOfWork("@CarersCrypto.encryptAES(typeOfWork("answer")("employed").id)",
+        "@CarersCrypto.encryptAES(typeOfWork("answer")("self-employed").id)",
+        "@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineOne").id)",
+        "@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineTwo").id)",
+        "@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineThree").id)",
+        "@CarersCrypto.encryptAES(typeOfWork("employerPostcode").id)",
+        "@CarersCrypto.encryptAES(typeOfWork("employerContactNumber").id)",
+        "@CarersCrypto.encryptAES(typeOfWork("employerPayroll").id)",
+        "@CarersCrypto.encryptAES(typeOfWork("selfEmployedTypeOfWork").id)",
+        "@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("yes").id)",
+        "@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("no").id)",
+        "@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("dontknow").id)",
+        "@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)");
+        });
+
+    </script>
+
 }
 }

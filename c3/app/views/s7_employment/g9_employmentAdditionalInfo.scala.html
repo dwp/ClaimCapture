@@ -16,7 +16,9 @@
             @DwpCSRFFormHelper.formField
 
             <fieldset class="form-elements">
-                <legend class="legend-hidden">@Html(Messages("s7.g9"))</legend>
+
+                <legend class="visuallyhidden">@Html(Messages("s7.g9"))</legend>
+
                 <ul>
 
                     @yesNoRadioGroup(employmentAdditionalInfoForm("empAdditionalInfo")("answer"))
@@ -32,6 +34,7 @@
                         'id -> "additionalInfoWrap"
                     )
                 </ul>
+
             </fieldset>
 
             <nav class="form-steps" role="navigation">
@@ -47,13 +50,13 @@
         <script type="text/javascript" src='@routes.Assets.at("javascripts/s7_employment/g9_employmentAdditionalInfo.js")'></script>
 
         <script type="text/javascript">
-        $(function(){
-        @ga.stagePrompt()
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("empAdditionalInfo_text")",maxChars:3000});
-        window.initEvents("@CarersCrypto.encryptAES("empAdditionalInfo_answer_yes")",
-        "@CarersCrypto.encryptAES("empAdditionalInfo_answer_no")",
-        "@CarersCrypto.encryptAES("empAdditionalInfo_text")");
-        });
+            $(function(){
+                @ga.stagePrompt()
+                window.areaCounter({selector:"@CarersCrypto.encryptAES("empAdditionalInfo_text")",maxChars:3000});
+                window.initEvents("@CarersCrypto.encryptAES("empAdditionalInfo_answer_yes")",
+                "@CarersCrypto.encryptAES("empAdditionalInfo_answer_no")",
+                "@CarersCrypto.encryptAES("empAdditionalInfo_text")");
+            });
         </script>
 
     }

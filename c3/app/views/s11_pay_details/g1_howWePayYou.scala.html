@@ -19,14 +19,13 @@
     @form(action = controllers.s11_pay_details.routes.G1HowWePayYou.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
 
-    <p class="intro-info">@Html(Messages("howWePayYou.help")) <a href="/claim-help#5" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - How We Pay You")>@Html(Messages("howWePayYou.help.link"))</a>.</p>
+    <p>@Html(Messages("howWePayYou.help")) <a href="/claim-help#5" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - How We Pay You")>@Html(Messages("howWePayYou.help.link"))</a>.</p>
     	
 
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:pay-details">
 	        
-	        	<legend class="legend-hidden">Pay details</legend>
+	        	<legend class="visuallyhidden">Pay details</legend>
 	        
-
 	            <ul>
 	                @listRadioGroup(currentForm("likeToPay"),
                                     'items -> Seq(BankBuildingAccount -> Messages("label.bankBuildingAccount") , AppliedForAccount -> Messages("label.appliedForAccount")),
@@ -36,6 +35,7 @@
                                     'items -> Seq(EveryWeek -> Messages("label.everyWeek"), FourWeekly -> Messages("label.fourWeekly"), ThirteenWeekly -> Messages("label.thirteenWeekly")),
                                     '_nestedFieldSet -> true)
 	            </ul>
+                
 	        </fieldset>
 	
 	        <nav class="form-steps" role="navigation">

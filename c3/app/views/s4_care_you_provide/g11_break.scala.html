@@ -33,15 +33,19 @@
     @main("Break - About the care you provide", Some(breakForm), Some(backCall)) {
 
     @form(action = controllers.s4_care_you_provide.routes.G11Break.submit, 'role -> "form") {
+
         <input type="hidden" name="iterationID" value="@IterationID(breakForm)">
 
         @DwpCSRFFormHelper.formField
 
 	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("s4.g11.help1")) @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
+
+	            <legend class="heading-medium form-label-bold">@Html(Messages("s4.g11.help1")) @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
 	
-				<div class="prompt helper-prompt"><p>@Html(Messages("s4.g11.help2"))</p>
-				<p>@Html(Messages("s4.g11.help3"))</p></div>
+				<div class="prompt helper-prompt">
+                    <p>@Html(Messages("s4.g11.help2"))</p>
+    				<p>@Html(Messages("s4.g11.help3"))</p>
+                </div>
 				
 	            <ul>
 
@@ -76,7 +80,9 @@
                     'maxLength -> 10)
 
 	                @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))
+
 	            </ul>
+
 	        </fieldset>
 	
 	        <nav class="form-steps" role="navigation">
@@ -87,14 +93,16 @@
 	        </nav>
  
     }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
-<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
-<script type="text/javascript">
-    $(function(){
-        window.areaCounter({selector: "@CarersCrypto.encryptAES("whereYou_text")", maxChars: 60});
-        window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_text")", maxChars: 60});
-    })
-</script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+    <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector: "@CarersCrypto.encryptAES("whereYou_text")", maxChars: 60});
+            window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_text")", maxChars: 60});
+        })
+    </script>
+
 }
 }

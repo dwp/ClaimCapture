@@ -17,8 +17,10 @@
 
         @form(action = controllers.s2_about_you.routes.G1YourDetails.submit, 'role -> "form") {
             @DwpCSRFFormHelper.formField
+
             <fieldset class="form-elements" data-journey="carers-allowance:page:about-you">
-                <legend>@Html(Messages("s2.g1"))</legend>
+
+                <legend class="heading-medium form-label-bold">@Html(Messages("s2.g1"))</legend>
 
                 <ul>
                     @titleSelect(yourDetailsForm("title"))
@@ -34,6 +36,7 @@
                     @dateOfBirth(yourDetailsForm("dateOfBirth"))
 
                 </ul>
+
             </fieldset>
 
             <nav class="form-steps" role="navigation">
@@ -42,11 +45,14 @@
                     <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
+            
         }
+
         <script type="text/javascript">
-        $ ( function ( ) {
-            @ga.stagePrompt()
-        } )
+            $ ( function ( ) {
+                @ga.stagePrompt()
+            } )
         </script>
+
     }
 }

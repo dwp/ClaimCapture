@@ -25,7 +25,8 @@
         <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
 
 	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("s7.g8"))</legend>
+
+	            <legend class="form-label-bold heading-medium">@Html(Messages("s7.g8"))</legend>
 	
 	            <ul>
                     @yesNoRadioGroup(currentForm("payPensionScheme")("answer"),
@@ -86,27 +87,27 @@
 	        </nav>
 
     }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s7_employment/g8_pensionAndExpenses.js")'></script>
-<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s7_employment/g8_pensionAndExpenses.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
-<script type="text/javascript">
-    $(function(){
-        window.initEvents(
-            "@CarersCrypto.encryptAES("payPensionScheme_answer_yes")",
-            "@CarersCrypto.encryptAES("payPensionScheme_answer_no")",
-            "@CarersCrypto.encryptAES("payPensionScheme_text")",
-            "@CarersCrypto.encryptAES("payForThings_answer_yes")",
-            "@CarersCrypto.encryptAES("payForThings_answer_no")",
-            "@CarersCrypto.encryptAES("payForThings_text")",
-            "@CarersCrypto.encryptAES("haveExpensesForJob_answer_yes")",
-            "@CarersCrypto.encryptAES("haveExpensesForJob_answer_no")",
-            "@CarersCrypto.encryptAES("haveExpensesForJob_text")"
-        );
-    });
+    <script type="text/javascript">
+        $(function(){
+            window.initEvents(
+                "@CarersCrypto.encryptAES("payPensionScheme_answer_yes")",
+                "@CarersCrypto.encryptAES("payPensionScheme_answer_no")",
+                "@CarersCrypto.encryptAES("payPensionScheme_text")",
+                "@CarersCrypto.encryptAES("payForThings_answer_yes")",
+                "@CarersCrypto.encryptAES("payForThings_answer_no")",
+                "@CarersCrypto.encryptAES("payForThings_text")",
+                "@CarersCrypto.encryptAES("haveExpensesForJob_answer_yes")",
+                "@CarersCrypto.encryptAES("haveExpensesForJob_answer_no")",
+                "@CarersCrypto.encryptAES("haveExpensesForJob_text")"
+            );
+        });
 
-    window.areaCounter({selector: "@CarersCrypto.encryptAES("payPensionScheme_text")",maxChars:300});
-    window.areaCounter({selector: "@CarersCrypto.encryptAES("payForThings_text")",maxChars:300});
-    window.areaCounter({selector: "@CarersCrypto.encryptAES("haveExpensesForJob_text")",maxChars:300});
-</script>
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("payPensionScheme_text")",maxChars:300});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("payForThings_text")",maxChars:300});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("haveExpensesForJob_text")",maxChars:300});
+    </script>
 }
 }

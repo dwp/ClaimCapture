@@ -24,8 +24,7 @@
                     <a id="backButton" href="@{if (backCall.isDefined) backCall.get else claim.navigation.previous}">@Html(Messages("form.back"))</a>
                 </nav>
 
-                
-                <h1>@sectionTitle(AboutYou)@Html(Messages("s2.longName"))</h1>
+                <h1 class="form-title heading-large">@sectionTitle(AboutYou)@Html(Messages("s2.longName"))</h1>
     			
                 @content
 

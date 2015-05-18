@@ -28,32 +28,32 @@
 
     @form(action = controllers.s0_carers_allowance.routes.G1Benefits.submit, 'role -> "form") {
 
-                @DwpCSRFFormHelper.formField
+        @DwpCSRFFormHelper.formField
 	
-			
-		        <fieldset class="form-elements form-eligibility">
-		            <legend>@Html(Messages("s0.g1"))</legend>
+        <fieldset class="form-elements form-eligibility">
 
-                    @standaloneListRadioGroup(currentForm("benefitsAnswer"),
-                        'items -> benefitsList,
-                        'helperAbove -> "s0.g1.help13",
-                        'track -> true,
-                        'trackLabel -> Messages("s0.g1")
-                    )
+            <legend class="form-label-bold">@Html(Messages("s0.g1"))</legend>
 
-		            @defining(currentForm("benefitsAnswer").value.getOrElse("don't know") match { case Benefits.noneOfTheBenefits => "block" case _ => "none" }) { styleDisplay =>
-		                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
-		                    <p>@Html(Messages("s0.g1.help11"))</p>
-		                 </div>
-		            }
-		        </fieldset>
+            @standaloneListRadioGroup(currentForm("benefitsAnswer"),
+                'items -> benefitsList,
+                'helperAbove -> "s0.g1.help13",
+                'track -> true,
+                'trackLabel -> Messages("s0.g1")
+            )
 
+            @defining(currentForm("benefitsAnswer").value.getOrElse("don't know") match { case Benefits.noneOfTheBenefits => "block" case _ => "none" }) { styleDisplay =>
+                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
+                    <p>@Html(Messages("s0.g1.help11"))</p>
+                 </div>
+            }
 
-		        <nav class="form-steps" role="navigation">
-		            <ul>
-		            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-		            </ul>
-		        </nav>
+        </fieldset>
+
+        <nav class="form-steps" role="navigation">
+            <ul>
+            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+            </ul>
+        </nav>
 
     }
 

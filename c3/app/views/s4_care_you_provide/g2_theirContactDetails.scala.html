@@ -17,13 +17,15 @@
             @DwpCSRFFormHelper.formField
 
                 <fieldset class="form-elements">
-                    <legend>@Html(Messages("s4.g2"))</legend>
+
+                    <legend class="heading-medium form-label-bold">@Html(Messages("s4.g2"))</legend>
 
                     <ul>
                         @inputAddress(currentForm("address"))
 
                         @carersInputText(currentForm("postcode"), 'class -> "postcode",'maxLength -> 8, 'ignoreOptional -> true)
                     </ul>
+
                 </fieldset>
 
                 <nav class="form-steps" role="navigation">

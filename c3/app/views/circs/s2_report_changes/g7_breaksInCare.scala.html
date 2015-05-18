@@ -18,15 +18,18 @@
 
     @form(action = controllers.circs.s2_report_changes.routes.G7BreaksInCare.submit) {
         @DwpCSRFFormHelper.formField
+
         <div class="form-wrap">
+        
             <fieldset class="form-elements" data-journey="carers-allowance:report-change:breaks-in-care">
 
-                <legend>@Messages("c2.g7")</legend>
+                <legend class="form-label-bold heading-medium">@Messages("c2.g7")</legend>
+
+                <p>@Html(Messages("circsBreaksMessage"))</p>
+
+                @sliderHelp(Messages("circsBreaksHelp.label"),Messages("circsBreaksHelp.closeLabel"),Html(Messages("circsBreaksHelp")))
 
                 <ul>
-                   <li><p>@Html(Messages("circsBreaksMessage"))</p></li>
-
-                    @sliderHelp(Messages("circsBreaksHelp.label"),Messages("circsBreaksHelp.closeLabel"),Html(Messages("circsBreaksHelp")))
 
                     @dateTimePickerWithDynamicLabel(breaksForm("breaksInCareStartDate"), 'dynamicDateDays-> 34)
 
@@ -97,31 +100,34 @@
                 </ul>
             </nav>
         </div>
+
     }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g7_breaksFromCaring.js")'></script>
-<script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
-<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
-<script type="text/javascript">
-    $(function(){
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("wherePersonBreaksInCare_text")",maxChars:60});
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("whereYouBreaksInCare_text")",maxChars:60});
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g7_breaksFromCaring.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
-        window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
-        "@CarersCrypto.encryptAES("breakEnded_answer_no")",
-        "@CarersCrypto.encryptAES("expectStartCaring_answer_yes")",
-        "@CarersCrypto.encryptAES("expectStartCaring_answer_no")",
-        "@CarersCrypto.encryptAES("expectStartCaring_answer_dontknow")",
-        "@CarersCrypto.encryptAES("breaksInCareStartDate")",
-        "@CarersCrypto.encryptAES("breaksInCareStartTime")",
-        "@CarersCrypto.encryptAES("breakEnded_endDate")",
-        "@CarersCrypto.encryptAES("breakEnded_endTime")"
-        );
+    <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("wherePersonBreaksInCare_text")",maxChars:60});
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("whereYouBreaksInCare_text")",maxChars:60});
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
 
-        @ga.stagePrompt()
-    });
+            window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
+            "@CarersCrypto.encryptAES("breakEnded_answer_no")",
+            "@CarersCrypto.encryptAES("expectStartCaring_answer_yes")",
+            "@CarersCrypto.encryptAES("expectStartCaring_answer_no")",
+            "@CarersCrypto.encryptAES("expectStartCaring_answer_dontknow")",
+            "@CarersCrypto.encryptAES("breaksInCareStartDate")",
+            "@CarersCrypto.encryptAES("breaksInCareStartTime")",
+            "@CarersCrypto.encryptAES("breakEnded_endDate")",
+            "@CarersCrypto.encryptAES("breakEnded_endTime")"
+            );
 
-</script>
+            @ga.stagePrompt()
+        });
+
+    </script>
+
 }
 }

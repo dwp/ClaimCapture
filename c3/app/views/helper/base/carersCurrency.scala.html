@@ -1,19 +1,19 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
 
     @import helper._
-@import utils.helpers._
+    @import utils.helpers._
     @import views.html.helper.base._
     @import play.api.i18n.{MMessages => Messages}
 
-
     @implicitField = @{ CurrencyTemplate.fieldConstructor}
 
-
     @input(field, args ++
-            Seq('autocomplete -> "off") ++
-            (args.find(_._1 == 'maxLength) match{ case Some(_) => Seq() case _ => Seq('maxLength -> mappings.Mappings.seventeen)}):_* ) { (id, name, value, htmlArgs) =>
+    
+        Seq('autocomplete -> "off") ++
+        (args.find(_._1 == 'maxLength) match{ case Some(_) => Seq() case _ => Seq('maxLength -> mappings.Mappings.seventeen)}):_* ) { (id, name, value, htmlArgs) =>
 
         @carersLabel(field,args:_*)
 
-        <input type="tel" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" title="@Html(Messages("currency.invalid"))" value="@value" @toHtmlArgs(htmlArgs)>
+        <input type="tel" class="form-control" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" title="@Html(Messages("currency.invalid"))" value="@value" @toHtmlArgs(htmlArgs)>
+
     }

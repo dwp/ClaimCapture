@@ -16,11 +16,14 @@
             @DwpCSRFFormHelper.formField
 
             <input type="hidden" id="js" name="jsEnabled" value="false">
-            <div class="form-wrap">
-                <fieldset class="form-elements" data-journey="carers-allowance:report-change:identification">
-                    <legend>@Html(Messages("c1.yourDetails"))</legend>
 
-                    <p class="intro-info">@Html(Messages("c1.helper"))</p>
+            <div class="form-wrap">
+
+                <fieldset class="form-elements" data-journey="carers-allowance:report-change:identification">
+
+                    <legend class="form-label-bold heading-medium">@Html(Messages("c1.yourDetails"))</legend>
+
+                    <p>@Html(Messages("c1.helper"))</p>
 
                     <ul>
                         @carersInputText(reportAChangeForm("fullName"), 'maxLength -> 35)
@@ -30,16 +33,18 @@
                         @dateOfBirth(reportAChangeForm("dateOfBirth"))
                     </ul>
 
-
                 </fieldset>
 
                 <fieldset class="form-elements">
-                    <legend>@Html(Messages("c1.personYouAreCaringFor"))</legend>
+
+                    <legend class="form-label-bold heading-medium">@Html(Messages("c1.personYouAreCaringFor"))</legend>
+
                     <ul>
                         @carersInputText(reportAChangeForm("theirFullName"), 'maxLength -> 35)
 
                         @carersInputText(reportAChangeForm("theirRelationshipToYou"), 'helperAbove -> Messages("theirRelationshipToYou.helper"), 'maxLength -> 35)
                     </ul>
+
                 </fieldset>
 
                 <nav class="form-steps">
@@ -47,17 +52,22 @@
                         <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
                     </ul>
                 </nav>
+
             </div>
+
         }
+
         <script type="text/javascript">$ ( $ ( "#js" ).val ( "true" ) ) ;</script>
+
         <script type="text/javascript">
-        $ ( function ( ) {
-            @if(!Play.isTest) {
-                trackEvent ( "times", "circs - start" )
-                setCookie("circsstarts",new Date().getTime());
-        }
-            @ga.stagePrompt()
-        } )
+            $ ( function ( ) {
+                @if(!Play.isTest) {
+                    trackEvent ( "times", "circs - start" )
+                    setCookie("circsstarts",new Date().getTime());
+                }
+                @ga.stagePrompt()
+            } )
         </script>
+
     }
 }

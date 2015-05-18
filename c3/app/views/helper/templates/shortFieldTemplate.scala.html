@@ -4,12 +4,13 @@
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersHelpers._
 
-@if(elements.hasErrors){ <li class="short-field validation"> } else { <li class="short-field"> }
+@if(elements.hasErrors){ <li class="form-group short-field validation"> } else { <li class="form-group short-field"> }
 
     @if(elements.hasErrors){
         <p class="error">@elements.carersErrors.mkString(", ")</p>
     }
-       @if(elements.args.contains('prompt)){
+    
+    @if(elements.args.contains('prompt)){
         <div class="prompt helper-prompt">@Html(Messages(elements.args.get('prompt).get.toString))</div>
     }
 
@@ -22,4 +23,5 @@
     @if(elements.args.contains('helperBelow)) {
         <p class="helper">@Html(elements.args.get('helperBelow).get.toString)</p>
     }
+    
 </li>

@@ -21,7 +21,7 @@
                 <a id="backButton" href="@{claim.navigation.previous}@{if (changing)"?changing=true"}">@Html(Messages("form.back"))</a>
             </nav>
 
-            <h1>@Html(Messages("c2c.longName"))</h1>
+            <h1 class="form-title heading-large">@Html(Messages("c2c.longName"))</h1>
 
             @if(currentForm.isDefined) {
                 @errorsSummary(currentForm.get)

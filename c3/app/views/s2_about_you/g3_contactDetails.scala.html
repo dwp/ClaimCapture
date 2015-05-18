@@ -17,8 +17,10 @@
         @form(action = controllers.s2_about_you.routes.G3ContactDetails.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
+
             <fieldset class="form-elements">
-                <legend>@Html(Messages("s2.g3"))</legend>
+
+                <legend class="form-group-bold heading-medium">@Html(Messages("s2.g3"))</legend>
 
                 <ul>
                     @inputAddress(contactDetailsForm("address"))
@@ -41,6 +43,7 @@
                         )
                     }
                 </ul>
+
             </fieldset>
 
 
@@ -50,20 +53,22 @@
                     <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
+
         }
 
         @if(getProperty("email.frontend",false)){
             <script type="text/javascript" src='@routes.Assets.at("javascripts/email.js")'></script>
 
             <script type="text/javascript">
-            $(function(){
-                window.emailInit(
-                "@CarersCrypto.encryptAES("wantsEmailContact_yes")",
-                "@CarersCrypto.encryptAES("wantsEmailContact_no")",
-                "@CarersCrypto.encryptAES("mail")",
-                "@CarersCrypto.encryptAES("mailConfirmation")")
-            });
+                $(function(){
+                    window.emailInit(
+                    "@CarersCrypto.encryptAES("wantsEmailContact_yes")",
+                    "@CarersCrypto.encryptAES("wantsEmailContact_no")",
+                    "@CarersCrypto.encryptAES("mail")",
+                    "@CarersCrypto.encryptAES("mailConfirmation")")
+                });
             </script>
         }
+        
     }
 }

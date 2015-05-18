@@ -15,26 +15,19 @@
                 <fieldset class="form-elements">
 
                     <div class="declaration">
-                        <p>
-                            @Html(Messages("disclaimer.1"))
-                        </p>
-                        <ul>
+                    
+                        <p>@Html(Messages("disclaimer.1"))</p>
+
+                        <ul class="list-bullet">
                             @for(i <- 2 to 6) {
-                                <li>
-                                    @Html(Messages(s"disclaimer.${i}"))
-                                </li>
+                                <li>@Html(Messages(s"disclaimer.${i}"))</li>
                             }
                         </ul>
 
-                        <p>
-                            @Html(Messages("disclaimer.7", """<a href="https://www.gov.uk/find-your-local-council" target="_blank">""", "</a>"))
-                        </p>
-                        <p>
-                            @Html(Messages("disclaimer.8", """<a href="https://www.gov.uk/carers-allowance/what-youll-get" target="_blank">""", "</a>"))
-                        </p>
-                        <p>
-                            @Html(Messages("disclaimer.9", "<b>", "</b>"))
-                        </p>
+                        <p>@Html(Messages("disclaimer.7", """<a href="https://www.gov.uk/find-your-local-council" target="_blank">""", "</a>"))</p>
+                        <p>@Html(Messages("disclaimer.8", """<a href="https://www.gov.uk/carers-allowance/what-youll-get" target="_blank">""", "</a>"))</p>
+                        <p>@Html(Messages("disclaimer.9", "<b>", "</b>"))</p>
+
                     </div>
 
                 </fieldset>

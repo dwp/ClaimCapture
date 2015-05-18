@@ -1,6 +1,6 @@
 @(inputDef: Seq[Html], args: (Symbol, Any)*)
 
-<ul id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}" class="other-detail extra-group">
+<ul id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}">
     @for(html <- inputDef) {
         @html
     }

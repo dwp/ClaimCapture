@@ -15,7 +15,8 @@
 
             <article class="column-three-quarters main-content error-statement">
 
-                <h1>@Html(Messages("unrecoverable.error.cookie"))</h1>
+                <h1 class="form-title heading-large">@Html(Messages("unrecoverable.error.cookie"))</h1>
+                
                 <p>@Html(Messages("unrecoverable.error.cookie.help2"))</p>
 
                 <p><button  id="TryJs" type="submit" name="action" value="next" class="button"  @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="history.back()" aria-label="@Html(Messages("try.claim.help"))" style="display:none;">@Html(Messages("try.claim"))</button>

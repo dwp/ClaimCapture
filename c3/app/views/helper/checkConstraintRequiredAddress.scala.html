@@ -8,5 +8,5 @@
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
 
 @if(showLabel) {
- <legend>@Html(Messages("address"))</legend>
+    <legend class="form-label-bold">@Html(Messages("address"))</legend>
 }

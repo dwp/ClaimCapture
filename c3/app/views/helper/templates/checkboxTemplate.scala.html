@@ -2,8 +2,6 @@
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersHelpers._
 
-<li class="checkbox-single @if(elements.hasErrors){validation}">
-
-@elements.input
-
+<li class="form-group checkbox-single @if(elements.hasErrors){validation}">
+    @elements.input
 </li>
