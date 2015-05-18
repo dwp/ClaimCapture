@@ -16,9 +16,18 @@ $base-margin-xl  : 60px;
 // Content
 //-----------------------------------------------------------------
 
+.carers-allowance {
+    border-top: 10px solid $mainstream-brand;   
+}
+
 body {
     background: $white;
 }
+
+main {
+    background: $white;
+    display: block; 
+} 
 
 .container,
 .wrapper {
@@ -40,6 +49,21 @@ body {
     }
 }
 
-.back-nav {
-    margin-bottom: $base-margin;
+// Vertical Rhythm
+p, ul, li,
+[class*="heading-"] {
+    @include vertical-rhythm();
 }
+
+// JS message
+.js-message {
+    padding: 1em 0;
+    border-bottom: 1px solid #bfc1c3;
+    h2 {
+        font-size: 16px;
+    }
+    p {
+        font-size: 16px;
+        margin: 0;
+    }
+} 

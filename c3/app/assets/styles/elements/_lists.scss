@@ -2,10 +2,17 @@
 // Lists
 // ================================================================
 
+// basic reset
 ul,
 ol {
     list-style-type: none;
     padding: 0;
+}
+
+// remove default list-style
+li {
+    display: block;
+    position: relative;
 }
 
 // Bulleted lists
@@ -32,4 +39,5 @@ ol {
 .list-bullet li,
 .list-number li {
     margin-bottom: 5px;
+    display: list-item;
 }

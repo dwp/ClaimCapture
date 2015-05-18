@@ -105,13 +105,26 @@ main {
     }
 }
 
+[class*="heading-"] {
+    .section-progress {
+        font-size: 2rem;
+        font-weight: 300;
+        display: block;
+        color: $secondary-text-colour;
+    }
+}
+
+// Reduce top margin if preceeded by back-nav
+.back-nav + [class*="heading-"] {
+    margin-top: $gutter-half;
+}
+
 // Text
 p {
     margin-top: em(5, 16);
-    margin-bottom: em(20, 16);
+    margin-bottom: $gutter-half;
     @include media(tablet) {
-        margin-top: em(5);
-        margin-bottom: em(20);
+        margin-bottom: $gutter;
     }
 }
 

@@ -1,6 +1,36 @@
 
 // Forms
-// ==========================================================================
+// ================================================================
+
+//-----------------------------------------------------------------
+// Layout
+//-----------------------------------------------------------------
+
+// Main form elements wrapper
+.form-elements {
+    margin-bottom: ($gutter * 1.5);
+}
+
+// Form steps (Next/Back)
+.form-steps {
+    list-style: none;
+    li {
+        margin-top: $gutter;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+}
+
+// Form title
+[class*="heading-"] {
+    &.form-title {
+        margin-bottom: $gutter;
+        @include media(tablet) {
+            margin-bottom: ($gutter * 1.5);
+        }
+    }
+}
 
 // Fieldset is used to group more than one .form-group
 fieldset {
@@ -8,15 +38,41 @@ fieldset {
     @extend %contain-floats;
 }
 
+textarea {
+    height: 6em;
+    width: 96%;
+    &.textarea-reduced {
+        height: 3em;
+    }
+}
+
+// Contain floated form-gorup list-items
+ul { 
+    @extend %contain-floats;
+}
+
+//-----------------------------------------------------------------
+// Form Groups/Elements
+//-----------------------------------------------------------------
+
 // Form group is used to wrap label and input pairs
 .form-group {
     float: left;
+    display: block;
+    position: relative;
     width: 100%;
     @extend %contain-floats;
     margin-bottom: $gutter-half;
     @include media(tablet) {
         margin-bottom: $gutter;
     }
+    @include box-sizing(border-box);
+}
+
+// Extra group is hidden by default
+.extra-group {
+    border-left: 4px solid $border-colour;
+    padding-left: $gutter-half;
 }
 
 .form-group-related {
@@ -30,21 +86,31 @@ fieldset {
     margin-bottom: 10px;
 }
 
-// Form title
-.form-title {
-    margin-bottom: $gutter;
-    @include media(tablet) {
-        margin-bottom: ($gutter * 1.5);
+.extra-group {
+    @extend %contain-floats;
+}
+
+.short-field {
+    input[type="text"], 
+    input[type="tel"] {
+        width: 128px;
     }
 }
 
 // Labels
+
+label {
+    cursor: pointer; // Encourage clicking on labels
+}
 
 // Form labels, or for legends styled to look like labels
 .form-label,
 .form-label-bold {
     display: block;
     color: $text-colour;
+    .form-group & {
+        font-size: 19px;
+    }
 }
 
 .form-label {
@@ -57,6 +123,13 @@ fieldset {
     margin-bottom: 0;
     .form-hint {
         @include core-19;
+    }
+}
+
+// Hide labels from view but keep for accessibility
+.hide-labels {
+    label {
+        @extend .visuallyhidden;
     }
 }
 
@@ -87,7 +160,7 @@ fieldset {
     @include core-19;
     width: 100%;
     @include box-sizing(border-box);
-    padding: 4px;
+    padding: 4px 6px;
     background-color: $white;
     border: 1px solid $border-colour;
     // Disable webkit appearance and remove rounded corners
@@ -149,67 +222,6 @@ fieldset {
     }
 }
 
-// Validation summary box
-
-.validation-summary {
-    border: 3px solid $error-colour;
-    padding: $gutter-half $gutter;
-    margin-bottom: $gutter;
-    @include ie-lte(6) {
-        zoom: 1;
-    }
-}
-
-.validation-summary ul {
-    margin-top: 10px;
-}
-
-.validation-summary li,
-.validation-summary p {
-    @include core-16;
-}
-
-.validation-summary p {
-    margin-top: $gutter-half;
-    margin-bottom: 5px;
-}
-
-.validation-summary a {
-    color: $error-colour;
-    @include ie-lte(6) {
-        color: $error-colour !important;
-    }
-}
-
-.validation-summary .heading-small {
-    margin-top: $gutter-half;
-}
-
-// Validation error message box
-// .validation-error {
-//   clear: both;
-//   @extend %contain-floats;
-//   border-left: 3px solid $error-colour;
-//   padding: $gutter- $gutter;
-//   margin-bottom: $gutter-half;
-//   margin-left: -($gutter);
-// }
-
-// .validation-error .form-group {
-//   margin-bottom: 20px;
-// }
-
-// .validation-error p {
-//   margin-bottom: 10px;
-// }
-
-// Validation message
-.validation-message {
-    display: block;
-    @include core-16;
-    color: $error-colour;
-}
-
 // Date pattern
 
 // Hide the 'spinner' for webkit
@@ -254,13 +266,11 @@ input[type=number] {
     float: none;
     clear: left;
     position: relative;
-
     background: $panel-colour;
     border: 1px solid $panel-colour;
     padding: (18px $gutter $gutter-half ($gutter * 1.5));
     margin-top: 10px;
     margin-bottom: 10px;
-
     cursor: pointer; // Encourage clicking on block labels
 
     @include media(tablet) {
@@ -285,14 +295,15 @@ input[type=number] {
 
 }
 
-// Add sufficient vertical spacing to the Next/Back buttons
-.form-steps {
-    li {
-        margin-top: $base-margin-m;
-        &:first-child {
-            margin-top: 0;
-        }
-    }
+// Select Dropdowns
+
+select {
+    min-width: 150px;
+    max-width: 295px;
+    height: 36px;
+    background: $white;
+    border: 1px solid $grey-2;
+    @include core-16;
 }
 
 // To stack horizontally, use .inline on parent, to sit block labels next to each other
@@ -301,20 +312,111 @@ input[type=number] {
     margin-right: $gutter-half;
 }
 
-// Selected and focused states
+//-----------------------------------------------------------------
+// Validation/Error Boxes
+//-----------------------------------------------------------------
 
-// Add selected state
-.js-enabled label.selected {
-    background: $white;
-    border-color: $black;
+.validation-summary {
+    background-color: $error-background;
+    border: 3px solid $error-colour;
+    padding: $gutter-half;
+    margin-bottom: $gutter;
+    @include ie-lte(6) {
+        zoom: 1;
+    }
+    &.form-checkbox,
+    &.form-radio {
+        padding: 0;
+        .block-label {
+            background-color: $error-background;
+            margin: 0;
+            border: none !important;
+            outline: 0;
+        }
+    }
+    &:hover {
+        border-color: $error-colour;
+    }
+    ul,
+    ol {
+        margin-top: 10px;
+        padding-left: 1em;
+        list-style: disc;
+    }
+    li,
+    p {
+        @include core-16;    
+    }
+    li {
+        a {
+            text-decoration: none;
+            color: $error-colour;
+            @include ie-lte(6) {
+                color: $error-colour !important;
+            }
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    p {
+        margin-top: $gutter-half;
+        margin-bottom: 5px;
+        @include vertical-rhythm();       
+    }
+    .heading-small {
+        margin-top: $gutter-half;
+    }
+    .form-group & {
+        margin-top: 10px;
+        margin-bottom: 0;
+    }
 }
 
-// Add focus to block labels
-.js-enabled label.focused {
-    outline: 3px solid $yellow;
+// Validation error message box
+.validation-error {
+    background-color: $error-background;
+    clear: both;
+    @extend %contain-floats;
+    border-left: 3px solid $error-colour;
+    padding: $gutter-half;
+    margin-bottom: $gutter-half;
+    p {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .form-group {
+        margin-bottom: 20px;        
+    }
 }
 
-// Remove focus from radio/checkboxes
-.js-enabled .focused input:focus {
-    outline: none;
+// Validation message
+.validation-message {
+    display: block;
+    @include core-16;
+    color: $error-colour;
+}
+
+//-----------------------------------------------------------------
+// Selected/Focused States
+//-----------------------------------------------------------------
+
+.js-enabled {
+
+    // Add selected state
+    label.selected {
+        background: $white;
+        border-color: $black;
+    }
+
+    // Add focus to block labels
+    label.focused {
+        outline: 3px solid $yellow;
+    }
+
+    // Remove focus from radio/checkboxes
+    .focused input:focus {
+        outline: none;
+    }
+
 }
