@@ -2,7 +2,7 @@ package utils.filters
 
 import app.ConfigProperties._
 import gov.dwp.exceptions.DwpRuntimeException
-import models.view.{ClaimHandling, CachedChangeOfCircs, CachedClaim}
+import models.view.{CacheHandling, ClaimHandling, CachedChangeOfCircs, CachedClaim}
 import play.api.http.HttpVerbs
 import play.api.{Play, Logger}
 import play.api.cache.Cache
@@ -32,31 +32,33 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
   def apply(request: RequestHeader) = {
 
     val key = getKeyFromSession(request)
+    val UAKey = s"${key}_UA"
 
     request match {
 
       case _ if setIf(request) =>
         if (key.nonEmpty) {
-          Logger.debug(s"UserAgentCheckAction set for key ${key}_UA")
-          Cache.set(key + "_UA", request.headers.get("User-Agent").getOrElse(""), getProperty("cache.expiry", 3600) + 100)
+          Logger.debug(s"UserAgentCheckAction set for key ${UAKey}")
+          Cache.set(UAKey, request.headers.get("User-Agent").getOrElse(""), CacheHandling.expiration + 100)
         } else {
           throw UserAgentCheckException("Session does not contain key. Cannot save User Agent.")
         }
 
       case _ if checkIf(request) =>
         if (key.nonEmpty) {
-          Logger.debug(s"UserAgentCheckAction check for key ${key}_UA")
-          Cache.getAs[String](key + "_UA") match {
+          Logger.debug(s"UserAgentCheckAction check for key ${UAKey}")
+          Cache.getAs[String](UAKey) match {
             case Some(ua) =>
               val userAgent = request.headers.get("User-Agent").getOrElse("")
               if (ua != userAgent) {
                 throw UserAgentCheckException(s"UserAgent check failed. $userAgent is different from expected $ua.")
               }
               // to update expiration time and avoid issues when restarting caches.
-              if (request.method == HttpVerbs.GET) Cache.set(key + "_UA", request.headers.get("User-Agent").getOrElse(""), getProperty("cache.expiry", 3600)+100)
+              if (request.method == HttpVerbs.GET) Cache.set(UAKey, request.headers.get("User-Agent").getOrElse(""), CacheHandling.expiration+100)
 
 
-            case _ if (Cache.get(key).isDefined) => Logger.error(s"Lost User Agent from cache while claim still in cache? Should never happen. key $key" )
+            case None if (Cache.get(key).isDefined) =>
+              Logger.warn(s"Lost User Agent from cache while claim still in cache? For ${request.method} url path ${request.path} and key $UAKey" )
 
             case _ =>
             // No claim in cache. Nothing to do. user will get an error because no claim exists. No security risk.
@@ -68,8 +70,8 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
 
       case _ if removeIf(request) =>
         if (key.nonEmpty) {
-          Logger.debug(s"UserAgentCheckAction remove for key ${key}_UA")
-          Cache.remove(key + "_UA")
+          Logger.debug(s"UserAgentCheckAction remove for key ${UAKey}")
+          Cache.remove(UAKey)
         }
 
       case _ => // Nothing to do really. A request we are not interested in, e.g. access to public assets.

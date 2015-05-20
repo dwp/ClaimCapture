@@ -35,7 +35,7 @@ object RequestSelector {
    */
   def channelShiftPage(request:RequestHeader) = {
     val headerString = request.path
-    headerString.matches(".*CS2015.*")
+    headerString.matches(".*CS2015.*") || headerString.matches(".cs2015.*")
   }
 
   /**
