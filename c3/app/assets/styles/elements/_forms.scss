@@ -34,15 +34,20 @@
 
 // Fieldset is used to group more than one .form-group
 fieldset {
+    margin: 0;
     width: 100%;
     @extend %contain-floats;
 }
 
 textarea {
     height: 6em;
-    width: 96%;
+    display: block;
     &.textarea-reduced {
         height: 3em;
+    }
+    &, 
+    &.form-control {
+        width: 96%;
     }
 }
 
@@ -61,18 +66,20 @@ ul {
     display: block;
     position: relative;
     width: 100%;
-    @extend %contain-floats;
     margin-bottom: $gutter-half;
+    @extend %contain-floats;
+    @include box-sizing(border-box);
+    @include vertical-rhythm;
     @include media(tablet) {
         margin-bottom: $gutter;
     }
-    @include box-sizing(border-box);
 }
 
-// Extra group is hidden by default
+// Extra group is used to highlight groups hidden by default
 .extra-group {
-    border-left: 4px solid $border-colour;
+    border-left: 3px solid $border-colour;
     padding-left: $gutter-half;
+    @extend %contain-floats;
 }
 
 .form-group-related {
@@ -84,10 +91,7 @@ ul {
 
 .form-group-compound {
     margin-bottom: 10px;
-}
-
-.extra-group {
-    @extend %contain-floats;
+    @include vertical-rhythm;
 }
 
 .short-field {
@@ -276,7 +280,7 @@ input[type=number] {
     @include media(tablet) {
         float: left;
         margin-top: 5px;
-        margin-bottom: 5px;
+        margin-bottom: 0;
         // width: 25%; - Test : check that text within labels will wrap
     }
 
@@ -364,9 +368,6 @@ select {
         margin-bottom: 5px;
         @include vertical-rhythm();       
     }
-    .heading-small {
-        margin-top: $gutter-half;
-    }
     .form-group & {
         margin-top: 10px;
         margin-bottom: 0;
@@ -380,13 +381,9 @@ select {
     @extend %contain-floats;
     border-left: 3px solid $error-colour;
     padding: $gutter-half;
-    margin-bottom: $gutter-half;
-    p {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    .form-group {
-        margin-bottom: 20px;        
+    // when nested inside extra-group
+    .extra-group & {
+        margin-left: -($gutter-half + 3px);
     }
 }
 
@@ -395,6 +392,7 @@ select {
     display: block;
     @include core-16;
     color: $error-colour;
+    margin-bottom: $gutter-half;
 }
 
 //-----------------------------------------------------------------
