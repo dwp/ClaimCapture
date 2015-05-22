@@ -51,18 +51,13 @@ textarea {
     }
 }
 
-// Contain floated form-gorup list-items
-ul { 
-    @extend %contain-floats;
-}
-
 //-----------------------------------------------------------------
 // Form Groups/Elements
 //-----------------------------------------------------------------
 
 // Form group is used to wrap label and input pairs
 .form-group {
-    float: left;
+    //float: left;
     display: block;
     position: relative;
     width: 100%;
