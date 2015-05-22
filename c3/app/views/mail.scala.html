@@ -5,6 +5,7 @@
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
 @import controllers.mappings.Mappings
+@import app.ConfigProperties._
 
 @claimType = @{if (isClaim)"claim" else "cofc"}
 @claimDate = @{
@@ -190,6 +191,7 @@
 
         <div class="footer">
             <p><b>@Messages("mail.donotreply")</b></p>
+            <p style="font-size:80%;color:#BFC1C3;">@getProperty("xml.schema.version", "No schema version found")</p>
         </div>
 
     </body>
