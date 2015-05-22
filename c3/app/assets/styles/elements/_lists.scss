@@ -34,6 +34,7 @@ li {
 .list-number {
     margin-top: 5px;
     margin-bottom: 20px;
+    @include vertical-rhythm;
 }
 
 .list-bullet li,

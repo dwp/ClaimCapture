@@ -15,7 +15,6 @@
 //
 // which gives a min-height to the inline-block elements.
 
-
 @mixin inline-block($min-height: "") {
 
     display: -moz-inline-stack;

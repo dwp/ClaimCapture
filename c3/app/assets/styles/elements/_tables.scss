@@ -33,16 +33,13 @@ table td.numeric {
 }
 
 // Data Table
-.data-table {
+
+.break-data,
+.trip-data {
+    border-bottom: 1px solid $grey-3;
+}
     
-    li {
-        border-bottom: 1px solid #bfc1c3;
-        padding: 1.5em 0;
-        margin: 0;
-        &:first-child {
-            border-top: 1px solid #bfc1c3;
-        }
-    }
+.data-table {
     
     dl {
         overflow: hidden;
@@ -55,7 +52,6 @@ table td.numeric {
         padding: .4em 0;
         vertical-align: top;
         line-height: 1.25em;
-        font-size: 17px;
     }
     
     dd {
@@ -65,29 +61,24 @@ table td.numeric {
         padding: .4em 0 .4em 4%;
         vertical-align: top;
         line-height: 1.25em;
-        font-size: 17px;
-        &:first-child {
-            padding-top: 0;
-        }
     }
     
     .actions {
         overflow: hidden;
-        margin-top: 1em;
+        margin: 1em 0;
         input {
             float: right;
+            font-size: 16px;
             width: auto;
             background: none;
             padding: 0;
             border: 0;
-            font-size: 17px;
-            color: #005ea5;
+            color: $link-colour;
             text-decoration: underline;
             cursor: pointer;
             text-align: right;
             &:hover {
-                color: #2e8aca;
-                text-decoration: none;
+                color: $link-hover-colour;
             }
             &:first-child {
                 float: left;
@@ -100,14 +91,7 @@ table td.numeric {
 
 // Summary Review
 .review {
-    padding-bottom: 3em;
-    .intro {
-        margin-top: 1.6em;
-        padding-right: 18em;
-        @media screen and (max-width: 800px) {
-            padding-right: 0;
-        }
-    }
+    padding-bottom: $gutter-half;
     dl {
         overflow: hidden;
         border-bottom: 1px solid #ccc;
