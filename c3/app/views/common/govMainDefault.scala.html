@@ -17,13 +17,16 @@
 
         <title>@title</title>
 
-        <!-- new GDS toolkit stylesheet -->
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("styles/app.min.css")">
-
-        <!--[if gt IE 8]><!--> <link href="@routes.Assets.at("stylesheets/header-footer-only.css")" media="screen" rel="stylesheet" type="text/css"> <!--<![endif]-->
+        <!--[if gt IE 8]><!-->
+        <link href="@routes.Assets.at("stylesheets/header-footer-only.css")" media="screen" rel="stylesheet" type="text/css">
+        <!--<![endif]-->
         <!--[if IE 6]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie6.css")" media="screen" rel="stylesheet" type="text/css"><![endif]-->
         <!--[if IE 7]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie7.css")" media="screen" rel="stylesheet" type="text/css"><![endif]-->
         <!--[if IE 8]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie8.css")" media="screen" rel="stylesheet" type="text/css"><![endif]-->
+        
+        <!-- GDS toolkit stylesheet -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("styles/app.min.css")">
+
         <!-- To prevent call to /browserconfig.xml from IE11 and higher. We do not use notifications. -->
         <meta name="msapplication-config" content="none" />
 

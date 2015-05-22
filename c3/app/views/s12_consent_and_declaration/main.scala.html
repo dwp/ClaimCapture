@@ -24,12 +24,12 @@
 
                 <h1 class="form-title heading-large">@Html(Messages("s11.longName"))</h1>
 
-
                 @if(currentForm.isDefined){
                     @errorsSummary(currentForm.get)
                 }
 
                 @content
+                
             </article>
 
         </div>            

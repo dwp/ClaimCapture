@@ -11,7 +11,7 @@
     <li class="extra-text@{if(field.hasErrors)" validation" else ""}" >
         @carersInputTextArea(field(id)("other"), Seq('placeholder -> Messages("ifOtherPleaseSpecify"), 'ignoreLabel -> false) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id):_*)
         @if(args.exists(_._1 == 'textAreaHelper)) {
-            <p class="helper right">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
+            <p class="form-hint">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
         }
     </li>
 </ul>

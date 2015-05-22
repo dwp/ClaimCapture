@@ -54,108 +54,114 @@ else OtherMoney.name
 
             <ul class="break-data">
 
-            @for(break <- breaksInCare.breaks) {
+                @for(break <- breaksInCare.breaks) {
 
-                <li id="@break.iterationID" class="@break.iterationID">
+                    <li id="@break.iterationID" class="@break.iterationID">
+                    	
+                      	<h3 class="heading-small">
+                            @{break.start.`dd/MM/yyyy`}
+                            <span>
+                            @{if(break.end.isDefined) Messages("to")}
+                            </span>
+                            @{break.end.fold("")(_.`dd/MM/yyyy`)}
+                        </h3>
+                      	
+                      	<dl>
+
+                    	  	<dt>@Html(Messages("breaks.whereYou.label"))</dt>
+
+                    	  	<dd>
+                                @break.whereYou.answer.isEmpty match {
+                                    case false => {
+                                        @displayReason(whereWereYouList,break.whereYou.answer)
+                                    }
+                                    case true => {}
+                                }
+                            </dd>
+                    	  	
+                    	  	<dt>@Html(Messages("wherePerson"))</dt>
+
+                    	  	<dd>
+                                @break.wherePerson.answer.isEmpty match {
+                                    case false => {
+                                        @displayReason(whereWasThePersonList,break.wherePerson.answer)
+                                    }
+                                    case true => {}
+                                }
+                            </dd>
+                    	  	
+                    	  	<dt>@Html(Messages("medicalTreatment"))</dt>
+                            
+                    	  	<dd>@if("yes" == break.medicalDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</dd>
+
+                      	</dl>
+                      	
+                    	<div class="actions">
+                    		<input type="button" name="changerow" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))">
+                        	<input type="button" name="deleterow" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))">
+                    	</div>
+
+                	</li>
                 	
-                  	<h3>
-                        @{break.start.`dd/MM/yyyy`}
-                        <span>
-                        @{if(break.end.isDefined) Messages("to")}
-                        </span>
-                        @{break.end.fold("")(_.`dd/MM/yyyy`)}
-                     </h3>
-                  	
-                  	<dl>
-                	  	<dt>@Html(Messages("breaks.whereYou.label"))</dt>
-                	  	<dd>@break.whereYou.answer.isEmpty match {
-                            case false => {
-                                @displayReason(whereWereYouList,break.whereYou.answer)
-                            }
-                            case true => {}
-                        }</dd>
-                	  	
-                	  	<dt>@Html(Messages("wherePerson"))</dt>
-                	  	<dd>@break.wherePerson.answer.isEmpty match {
-                            case false => {
-                                @displayReason(whereWasThePersonList,break.wherePerson.answer)
-                            }
-                            case true => {}
-                        }</dd>
-                	  	
-                	  	<dt>@Html(Messages("medicalTreatment"))</dt>
-                	  	<dd>@if("yes" == break.medicalDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</dd>
-                  	</dl>
-                  	
-                	<div class="actions">
-                		<input type="button" name="changerow" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))">
-                    	<input type="button" name="deleterow" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))">
-                	</div>
+                }
 
-            	</li>
-            	
-            	}
+                <div class="prompt breaks-prompt validation-summary">
+                    @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.delete, 'role -> "form"){
+                        <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
+                        @DwpCSRFFormHelper.formField
+                        @carersInputHidden(G10BreaksInCare.deleteForm("deleteId"))
+                        <input id="noDelete" type="button" name="no" class="button secondary" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
+                        <input id="yesDelete" type="button" name="yes" class="button warning" value="@Html(Messages("yes.delete"))" aria-label="@Html(Messages("yes.delete.label"))">
+                        <span>&#33;</span>   
+                    }
+                </div>
             	
             </ul>
 				 
         </div>
 
-        @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.delete, 'role -> "form"){
-            @DwpCSRFFormHelper.formField
-            @carersInputHidden(G10BreaksInCare.deleteForm("deleteId"))
-
-            <div class="prompt breaks-prompt validation-summary">
-                <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
-                <input id="noDelete" type="button" name="no" class="button secondary" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
-                <input id="yesDelete" type="button" name="yes" class="button warning" value="@Html(Messages("yes.delete"))" aria-label="@Html(Messages("yes.delete.label"))">
-                <span>&#33;</span>
-            </div>
-            
-        }
-
     </fieldset>
-    
-
 
     @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit, 'role -> "form") {
+    
         @DwpCSRFFormHelper.formField
       
-	        <fieldset class="form-elements">
+        <fieldset class="form-elements">
 
-	            <legend class="heading-medium form-class-bold">@Html(Messages("s4.g5"))</legend>
-	            
-	            <div class="prompt nested-prompt">
+            <legend class="heading-medium form-class-bold">@Html(Messages("s4.g5"))</legend>
+            
+            <div class="prompt nested-prompt">
 
-	                <p>@Html(Messages("s4.g5.help1"))</p>
-	
-	                <ul>
-	                    <li>@Html(Messages("s4.g5.help3"))</li>
-	                    <li>@Html(Messages("s4.g5.help4"))</li>
-	                </ul>
+                <p>@Html(Messages("s4.g5.help1"))</p>
 
-                    <p>@Html(Messages("s4.g5.help2")) <a href="/claim-help#3" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Breaks from Caring")>@Html(Messages("s4.g5.help2.link"))</a>.</p>
+                <ul class="list-bullet">
+                    <li>@Html(Messages("s4.g5.help3"))</li>
+                    <li>@Html(Messages("s4.g5.help4"))</li>
+                </ul>
 
-                </div>
-	
-	            <ul>
-	                @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
-	                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim))
-	                }
-	            </ul>
-	
-	            <div id="warningMessageWrap" class="prompt validation-summary" style="display: none;">
-	                <p>@Html(Messages("s4.g5.help5"))</p>
-	                <span>!</span>
-	            </div>
-	
-	        </fieldset>
-	
-	        <nav class="form-steps" role="navigation">
-	            <ul>
-	            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
-                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
-	            </ul>
-	        </nav>
+                <p>@Html(Messages("s4.g5.help2")) <a href="/claim-help#3" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Breaks from Caring")>@Html(Messages("s4.g5.help2.link"))</a>.</p>
+
+            </div>
+
+            <ul>
+                @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
+                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim))
+                }
+            </ul>
+
+            <div id="warningMessageWrap" class="prompt validation-summary" style="display: none;">
+                <p>@Html(Messages("s4.g5.help5"))</p>
+                <span>!</span>
+            </div>
+
+        </fieldset>
+
+        <nav class="form-steps" role="navigation">
+            <ul>
+            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
+                <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+            </ul>
+        </nav>
  
     }
 

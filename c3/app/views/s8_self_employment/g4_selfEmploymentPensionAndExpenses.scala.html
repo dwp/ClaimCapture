@@ -17,54 +17,56 @@
 
     @form(action = controllers.s8_self_employment.routes.G4SelfEmploymentPensionsAndExpenses.submit, 'role -> "form") {
 
-        @DwpCSRFFormHelper.formField
+    @DwpCSRFFormHelper.formField
 
-	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("s7.g8"))</legend>
-	
-	            <ul>
-                    @yesNoRadioGroup(currentForm("payPensionScheme")("answer"),
-                        '_label -> labelForSelfEmployment(claim, lang, "payPensionScheme.answer"), valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"))
+        <fieldset class="form-elements">
 
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(
-                            carersInputTextArea(currentForm("payPensionScheme")("text"),
-                                '_label -> labelForSelfEmployment(claim, lang, "payPensionScheme.text"),
-                                'textAreaHelper -> Html(Messages("300charsLeft")),
-                                'ignoreOptional -> true,
-                                'maxLength -> 300)
-                        ),
-                        'id -> "pensionExpenses",
-                        'display -> currentForm("payPensionScheme")("answer").value.getOrElse("no")
-                    )
+            <legend class="heading-medium form-label-bold">@Html(Messages("s7.g8"))</legend>
 
-                    @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"),
-                        '_label -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer"),
-                        'helperAbove -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer.helper"),
-                        valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"))
+            <ul>
+                @yesNoRadioGroup(currentForm("payPensionScheme")("answer"),
+                    '_label -> labelForSelfEmployment(claim, lang, "payPensionScheme.answer"), valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"))
 
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(
-                            carersInputTextArea(currentForm("haveExpensesForJob")("text"),
-                                '_label -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.text"),
-                                'textAreaHelper -> Html(Messages("300charsLeft")),
-                                'helperAbove -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.text.helper"),
-                                'ignoreOptional -> true,
-                                'maxLength -> 300)
-                        ),
-                        'id -> "jobExpenses",
-                        'display -> currentForm("haveExpensesForJob")("answer").value.getOrElse("no")
-                    )
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputTextArea(currentForm("payPensionScheme")("text"),
+                            '_label -> labelForSelfEmployment(claim, lang, "payPensionScheme.text"),
+                            'textAreaHelper -> Html(Messages("300charsLeft")),
+                            'ignoreOptional -> true,
+                            'maxLength -> 300)
+                    ),
+                    'id -> "pensionExpenses",
+                    'display -> currentForm("payPensionScheme")("answer").value.getOrElse("no")
+                )
 
-	            </ul>
-	        </fieldset>
-	
-	        <nav class="form-steps" role="navigation">
-	            <ul>
-	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-                    <li><a id="backButtonBottom" href="@{claim.navigation.previousIgnorePreview}">@Html(Messages("form.back"))</a></li>
-	            </ul>
-	        </nav>
+                @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"),
+                    '_label -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer"),
+                    'helperAbove -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer.helper"),
+                    valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputTextArea(currentForm("haveExpensesForJob")("text"),
+                            '_label -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.text"),
+                            'textAreaHelper -> Html(Messages("300charsLeft")),
+                            'helperAbove -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.text.helper"),
+                            'ignoreOptional -> true,
+                            'maxLength -> 300)
+                    ),
+                    'id -> "jobExpenses",
+                    'display -> currentForm("haveExpensesForJob")("answer").value.getOrElse("no")
+                )
+
+            </ul>
+
+        </fieldset>
+
+        <nav class="form-steps" role="navigation">
+            <ul>
+            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                <li><a id="backButtonBottom" href="@{claim.navigation.previousIgnorePreview}">@Html(Messages("form.back"))</a></li>
+            </ul>
+        </nav>
 
     }
 
