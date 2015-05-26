@@ -27,10 +27,10 @@
                         </ul>
 
                         <p>
-                            @Html(Messages("disclaimer.7", """<a href="https://www.gov.uk/find-your-local-council" target="_blank">""", "</a>"))
+                            @Html(Messages("disclaimer.7", s"""<a href="https://www.gov.uk/find-your-local-council" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - Find your local council")}>""", "</a>"))
                         </p>
                         <p>
-                            @Html(Messages("disclaimer.8", """<a href="https://www.gov.uk/carers-allowance/what-youll-get" target="_blank">""", "</a>"))
+                            @Html(Messages("disclaimer.8", s"""<a href="https://www.gov.uk/carers-allowance/what-youll-get" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - How it affects benefits")}>""", "</a>"))
                         </p>
                         <p>
                             @Html(Messages("disclaimer.9", "<b>", "</b>"))
