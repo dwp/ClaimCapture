@@ -1,3 +1,4 @@
+@import controllers.circs.s1_start_of_process.G1ReportChanges
 @(reportChangesForm: Form[models.domain.ReportChanges])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import helper._
@@ -25,7 +26,7 @@
     @main(Messages("c2.g1") + " - " + Messages("c2.name"), changing = true) {
         @errorsSummary(reportChangesForm)
 
-        @form(action = controllers.circs.s2_report_changes.routes.G1ReportChanges.submit) {
+        @form(action = controllers.circs.s1_start_of_process.routes.G1ReportChanges.submit) {
             @DwpCSRFFormHelper.formField
             <div class="form-wrap">
                 <fieldset class="form-elements">

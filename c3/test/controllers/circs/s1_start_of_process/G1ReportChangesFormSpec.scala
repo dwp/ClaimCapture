@@ -1,8 +1,9 @@
-package controllers.circs.s2_report_changes
+package controllers.circs.s1_start_of_process
 
-import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
 import app.ReportChange._
+import G1ReportChanges
+import controllers.mappings.Mappings
+import org.specs2.mutable.{Specification, Tags}
 
 class G1ReportChangesFormSpec extends Specification with Tags {
    "Report a change in your circumstances - Change in circumstances" should {

@@ -1,18 +1,15 @@
-package controllers.circs.s2_report_changes
+package controllers.circs.s1_start_of_process
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeApplication, FakeRequest, WithApplication}
+import app.ReportChange.{AdditionalInfo, SelfEmployment, _}
+import controllers.circs.{s1_start_of_process, s2_report_changes}
+import G1ReportChanges
+import controllers.mappings.Mappings._
 import models.domain._
 import models.view.CachedChangeOfCircs
+import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import controllers.circs.s2_report_changes
-import app.ReportChange._
-import controllers.mappings.Mappings._
-import app.ReportChange.AdditionalInfo
-import app.ReportChange.SelfEmployment
-import models.domain.Claim
-import app.ReportChange
-import play.api.cache.Cache
+import play.api.test.{FakeApplication, FakeRequest, WithApplication}
+import s2_report_changes._
 
 class G1ReportChangesSpec extends Specification with Tags {
 
@@ -70,7 +67,7 @@ class G1ReportChangesSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validAdditionalDetailsReportChangesFormInput: _*)
 
-      val result = s2_report_changes.G1ReportChanges.submit(request)
+      val result = s1_start_of_process.G1ReportChanges.submit(request)
       redirectLocation(result) must beSome("/circumstances/report-changes/other-change")
     }
 
@@ -78,7 +75,7 @@ class G1ReportChangesSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validSelfEmploymentReportChangesFormInput: _*)
 
-      val result = s2_report_changes.G1ReportChanges.submit(request)
+      val result = s1_start_of_process.G1ReportChanges.submit(request)
       redirectLocation(result) must beSome("/circumstances/report-changes/self-employment")
     }
 
@@ -86,7 +83,7 @@ class G1ReportChangesSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validStoppedCaringReportChangesFormInput: _*)
 
-      val result = s2_report_changes.G1ReportChanges.submit(request)
+      val result = s1_start_of_process.G1ReportChanges.submit(request)
       redirectLocation(result) must beSome("/circumstances/report-changes/stopped-caring")
     }
 
@@ -94,7 +91,7 @@ class G1ReportChangesSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validAddressChangeFormInput: _*)
 
-      val result = s2_report_changes.G1ReportChanges.submit(request)
+      val result = s1_start_of_process.G1ReportChanges.submit(request)
       redirectLocation(result) must beSome("/circumstances/report-changes/address-change")
     }
 
@@ -102,7 +99,7 @@ class G1ReportChangesSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validPaymentChangeFormInput: _*)
 
-      val result = s2_report_changes.G1ReportChanges.submit(request)
+      val result = s1_start_of_process.G1ReportChanges.submit(request)
       redirectLocation(result) must beSome("/circumstances/report-changes/payment-change")
     }
 
@@ -110,7 +107,7 @@ class G1ReportChangesSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validBreakFromCaringFormInput: _*)
 
-      val result = s2_report_changes.G1ReportChanges.submit(request)
+      val result = s1_start_of_process.G1ReportChanges.submit(request)
       redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
     }
 
@@ -124,7 +121,7 @@ class G1ReportChangesSpec extends Specification with Tags {
       val request1 = FakeRequest().withSession(CachedChangeOfCircs.key -> extractCacheKey(result,CachedChangeOfCircs.key))
         .withFormUrlEncodedBody(validAdditionalDetailsReportChangesFormInput: _*)
 
-      val result1 = s2_report_changes.G1ReportChanges.submit(request1)
+      val result1 = s1_start_of_process.G1ReportChanges.submit(request1)
       redirectLocation(result1) must beSome("/circumstances/report-changes/other-change")
 
       val claimFromCache = getClaimFromCache(result,CachedChangeOfCircs.key)

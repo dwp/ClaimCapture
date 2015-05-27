@@ -1,4 +1,6 @@
-package controllers.circs.s1_identification
+package controllers.circs.s1_start_of_process
+
+import controllers.circs.s1_start_of_process.G1ReportChanges
 
 import language.reflectiveCalls
 import play.api.data.Form
@@ -12,7 +14,7 @@ import controllers.CarersForms._
 import play.api.Logger
 import controllers.mappings.NINOMappings._
 
-object G1ReportAChangeInYourCircumstances extends Controller with CachedChangeOfCircs with Navigable {
+object G2ReportAChangeInYourCircumstances extends Controller with CachedChangeOfCircs with Navigable {
 
   val fullName = "fullName"
   val nationalInsuranceNumber = "nationalInsuranceNumber"
@@ -43,7 +45,7 @@ object G1ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
           if (!f.jsEnabled) {
             Logger.info(s"No JS - Start ${circs.key} ${circs.uuid} User-Agent : ${request.headers.get("User-Agent").orNull}")
           }
-          Redirect(controllers.circs.s2_report_changes.routes.G1ReportChanges.present())
+          Redirect(controllers.circs.s1_start_of_process.routes.G1ReportChanges.present())
         }
       )
   },checkCookie=true)

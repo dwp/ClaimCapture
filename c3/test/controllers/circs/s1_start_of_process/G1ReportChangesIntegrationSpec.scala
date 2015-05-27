@@ -1,12 +1,11 @@
-package controllers.circs.s2_report_changes
+package controllers.circs.s1_start_of_process
 
-import play.api.test.{FakeApplication, WithBrowser}
-import utils.pageobjects.circumstances.s2_report_changes._
 import controllers.CircumstancesScenarioFactory
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable.{Specification, Tags}
+import play.api.test.{FakeApplication, WithBrowser}
 import utils.pageobjects.PageObjects
-import utils.pageobjects.circumstances.s2_report_changes.G4OtherChangeInfoPage
 import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
+import utils.pageobjects.circumstances.s2_report_changes.{G4OtherChangeInfoPage, _}
 
 class G1ReportChangesIntegrationSpec extends Specification with Tags {
 

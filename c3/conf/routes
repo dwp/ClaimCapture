@@ -196,11 +196,11 @@ POST        /consent-and-declaration/declaration                        @control
 GET         /consent-and-declaration/error                              controllers.s12_consent_and_declaration.G4Error.present
 
 # Circumstances
-GET         /circumstances/identification/about-you                     controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present
-POST        /circumstances/identification/about-you                     controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit
+POST        /circumstances/report-changes/selection                     controllers.circs.s1_start_of_process.G1ReportChanges.submit
+GET         /circumstances/report-changes/selection                     controllers.circs.s1_start_of_process.G1ReportChanges.present
 
-GET         /circumstances/report-changes/selection                     controllers.circs.s2_report_changes.G1ReportChanges.present
-POST        /circumstances/report-changes/selection                     controllers.circs.s2_report_changes.G1ReportChanges.submit
+GET         /circumstances/identification/about-you                     controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.present
+POST        /circumstances/identification/about-you                     controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.submit
 
 GET         /circumstances/report-changes/self-employment               controllers.circs.s2_report_changes.G2SelfEmployment.present
 POST        /circumstances/report-changes/self-employment               controllers.circs.s2_report_changes.G2SelfEmployment.submit

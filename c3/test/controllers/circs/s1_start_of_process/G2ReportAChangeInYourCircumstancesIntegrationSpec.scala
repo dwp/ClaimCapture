@@ -1,4 +1,4 @@
-package controllers.circs.s1_identification
+package controllers.circs.s1_start_of_process
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
@@ -7,7 +7,7 @@ import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.{PageObjects, TestData}
 
 
-class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification with Tags {
+class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification with Tags {
 
   "About You" should {
     val fullName = "Mr John Joe Smith"

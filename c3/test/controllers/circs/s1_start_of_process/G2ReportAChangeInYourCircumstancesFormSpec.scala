@@ -1,10 +1,10 @@
-package controllers.circs.s1_identification
+package controllers.circs.s1_start_of_process
 
 import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 
 
-class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags {
+class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags {
 
   "Change of circumstances - About You Form" should {
 
@@ -17,7 +17,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     val theirRelationshipToYou = "Wife"
 
     "map data into case class" in {
-      G1ReportAChangeInYourCircumstances.form.bind(
+      G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> nino,
@@ -36,7 +36,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     }
 
     "reject too many characters in text fields" in {
-      G1ReportAChangeInYourCircumstances.form.bind(
+      G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "nationalInsuranceNumber.nino" -> nino,
@@ -55,7 +55,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     }
 
     "reject special characters in text fields" in {
-      G1ReportAChangeInYourCircumstances.form.bind(
+      G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> "John >",
           "nationalInsuranceNumber.nino" -> nino,
@@ -74,7 +74,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     }
 
     "have 5 mandatory fields (plus invalid Nino)" in {
-      G1ReportAChangeInYourCircumstances.form.bind(
+      G2ReportAChangeInYourCircumstances.form.bind(
         Map("fullName" -> "")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(6)
@@ -89,7 +89,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     }
 
     "reject invalid national insurance number" in {
-      G1ReportAChangeInYourCircumstances.form.bind(
+      G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> "INVALID",
@@ -107,7 +107,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     }
 
     "reject invalid date" in {
-      G1ReportAChangeInYourCircumstances.form.bind(
+      G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> nino.toString,

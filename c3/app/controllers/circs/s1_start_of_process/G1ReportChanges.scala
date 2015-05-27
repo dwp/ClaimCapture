@@ -1,16 +1,17 @@
-package controllers.circs.s2_report_changes
+package controllers.circs.s1_start_of_process
 
-import play.api.mvc.{Call, Controller}
-import models.view.{Navigable, CachedChangeOfCircs}
+import app.{ReportChange => r}
+import controllers.CarersForms._
+import models.domain._
+import models.view.{CachedChangeOfCircs, Navigable}
 import play.api.data.Form
 import play.api.data.Forms._
-import controllers.CarersForms._
-import scala.language.postfixOps
+import play.api.mvc.{Call, Controller}
 import utils.helpers.CarersForm._
-import app.{ReportChange => r}
-import models.domain._
-import scala.collection.immutable.Stack
+
 import scala.annotation.tailrec
+import scala.collection.immutable.Stack
+import scala.language.postfixOps
 
 object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigable {
 
@@ -38,7 +39,7 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
   }
 
   private def updateCircs(f:ReportChanges, circs:Claim) = {
-    import controllers.circs.s2_report_changes.{routes => routes}
+    import controllers.circs.s2_report_changes.routes
 
     // for qs groups under this section, if it is not reportedChange - delete
     val optSections = Stack(CircumstancesSelfEmployment,CircumstancesOtherInfo,CircumstancesStoppedCaring,
