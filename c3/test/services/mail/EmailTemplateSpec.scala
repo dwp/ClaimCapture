@@ -6,7 +6,7 @@ import models.view.CachedClaim
 import org.specs2.mutable.{Tags, Specification}
 import play.api.i18n.Lang
 import play.api.i18n.{MMessages => Messages}
-import play.api.test.WithApplication
+import play.api.test.{FakeApplication, WithApplication}
 import play.twirl.api.{HtmlFormat}
 import controllers.mappings.Mappings
 
@@ -19,6 +19,14 @@ class EmailTemplateSpec extends Specification with Tags {
 
   def escapeMessage(id:String,param:String="") = HtmlFormat.escape(Messages(id,param)).toString
   "Email template" should {
+
+    val xmlSchemaVersionNumber = "some value"
+    "Display XML schema version number" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("xml.schema.version" -> xmlSchemaVersionNumber))){
+      val claim = Claim(CachedClaim.key)
+      implicit val lang = Lang("en")
+      val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = false).body
+      renderedEmail must contain(xmlSchemaVersionNumber)
+    }
 
     "Display claim email" in new WithApplication(){
       val claim = Claim(CachedClaim.key)

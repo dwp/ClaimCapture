@@ -1,5 +1,7 @@
 package xml
 
+import app.ConfigProperties._
+
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -21,7 +23,7 @@ import scala.xml.{Elem, NodeSeq, XML}
       signDwpClaim(<DWPBody xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation={xmlValidator(claim).getSchemaLocation}>
-    <Version>0.12</Version>
+    <Version>{getProperty("xml.schema.version", "No schema version found")}</Version>
     <DWPCATransaction id={transactionId}>
       <TransactionId>{transactionId}</TransactionId>
       <DateTimeGenerated>{new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date())}</DateTimeGenerated>
