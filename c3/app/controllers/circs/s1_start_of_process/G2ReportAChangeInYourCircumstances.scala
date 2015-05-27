@@ -31,16 +31,15 @@ object G2ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
     theirRelationshipToYou -> carersNonEmptyText(maxLength = 35)
   )(CircumstancesReportChange.apply)(CircumstancesReportChange.unapply))
 
-  def present = newClaim { implicit circs =>  implicit request =>  lang =>
-      Logger.info(s"Starting new $cacheKey - ${circs.uuid}")
+  def present = claiming ({ implicit circs =>  implicit request =>  lang =>
       track(CircumstancesReportChange) {
-        implicit circs => Ok(views.html.circs.s1_identification.g1_reportAChangeInYourCircumstances(form.fill(CircumstancesReportChange))(lang))
+        implicit circs => Ok(views.html.circs.s1_start_of_process.g2_reportAChangeInYourCircumstances(form.fill(CircumstancesReportChange))(lang))
       }
-  }
+  },checkCookie=true)
 
   def submit = claiming ({ implicit circs =>  implicit request =>  lang =>
       form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.circs.s1_identification.g1_reportAChangeInYourCircumstances(formWithErrors)(lang)),
+        formWithErrors => BadRequest(views.html.circs.s1_start_of_process.g2_reportAChangeInYourCircumstances(formWithErrors)(lang)),
         f => circs.update(f) -> {
           if (!f.jsEnabled) {
             Logger.info(s"No JS - Start ${circs.key} ${circs.uuid} User-Agent : ${request.headers.get("User-Agent").orNull}")

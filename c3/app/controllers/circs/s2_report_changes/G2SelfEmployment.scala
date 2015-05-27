@@ -26,7 +26,7 @@ object G2SelfEmployment extends Controller with CachedChangeOfCircs with Navigab
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesSelfEmployment.apply)(CircumstancesSelfEmployment.unapply))
 
-  def present = claiming {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesSelfEmployment) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g2_selfEmployment(form.fill(CircumstancesSelfEmployment))(lang))
     }

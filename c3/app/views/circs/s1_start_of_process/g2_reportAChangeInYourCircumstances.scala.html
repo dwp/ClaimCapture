@@ -10,7 +10,7 @@
 @import views.html.helper.dates._
 
 @defining(lang) { implicit language =>
-    @main(Messages("c1") + " - " + Messages("c2.longName"), Some(reportAChangeForm), claim.completedQuestionGroups(models.domain.CircumstancesReportChange)) {
+    @main(Messages("c1") + " - " + Messages("c2.longName"), Some(reportAChangeForm), back = true) {
 
         @form(action = controllers.circs.s1_start_of_process.routes.G2ReportAChangeInYourCircumstances.submit) {
             @DwpCSRFFormHelper.formField
@@ -45,6 +45,7 @@
                 <nav class="form-steps">
                     <ul>
                         <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                        <li><a id="backButtonBottom" href="@{claim.navigation.previous}?changing=true">@Html(Messages("form.back"))</a></li>
                     </ul>
                 </nav>
             </div>

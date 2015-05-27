@@ -83,7 +83,7 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
     }
   }
 
-  def present = claiming {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesBreaksInCare) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g7_breaksInCare(form.fill(CircumstancesBreaksInCare))(lang))
     }

@@ -70,7 +70,7 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
     .verifying("expected.hasWorkFinished", validHasWorkFinished _)
   )
 
-  def present = claiming {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesEmploymentChange) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g9_employmentChange(form.fill(CircumstancesEmploymentChange))(lang))
     }
