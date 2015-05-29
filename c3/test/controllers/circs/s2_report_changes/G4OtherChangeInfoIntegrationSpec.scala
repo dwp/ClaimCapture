@@ -1,6 +1,7 @@
 package controllers.circs.s2_report_changes
 
 import play.api.test.WithBrowser
+import utils.pageobjects.circumstances.s1_start_of_process.{G2ReportAChangeInYourCircumstancesPage, G1ReportChangesPage}
 import utils.pageobjects.circumstances.s2_report_changes._
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable.{Tags, Specification}
@@ -28,7 +29,7 @@ class G4OtherChangeInfoIntegrationSpec extends Specification with Tags {
 
       val prevPage = otherChangeInfoPage.goBack()
 
-      prevPage must beAnInstanceOf[G1ReportChangesPage]
+      prevPage must beAnInstanceOf[G2ReportAChangeInYourCircumstancesPage]
     }
 
     "navigate to next page" in new WithBrowser with PageObjects{

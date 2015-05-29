@@ -1,11 +1,10 @@
 package app.circumstances
 
-import play.api.test.WithBrowser
-
-import utils.pageobjects.{PageObjects, XmlPage, TestData, Page}
-import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
-import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
+import play.api.test.WithBrowser
+import utils.pageobjects.circumstances.s1_start_of_process.G1ReportChangesPage
+import utils.pageobjects.xml_validation.{XMLBusinessValidation, XMLCircumstancesBusinessValidation}
+import utils.pageobjects.{Page, PageObjects, TestData, XmlPage}
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.
@@ -18,7 +17,7 @@ class FunctionalTestCase10Spec extends FunctionalTestCommon {
   "The application Circumstances" should {
     "Successfully run absolute Circumstances Test Case 10" in new WithBrowser with PageObjects {
 
-      val page = G1ReportAChangeInYourCircumstancesPage(context)
+      val page = G1ReportChangesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase10.csv")
       page goToThePage()
 

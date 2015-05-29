@@ -1,6 +1,7 @@
 package controllers.circs.s2_report_changes
 
 import play.api.test.WithBrowser
+import utils.pageobjects.circumstances.s1_start_of_process.{G2ReportAChangeInYourCircumstancesPage, G1ReportChangesPage}
 import utils.pageobjects.circumstances.s2_report_changes._
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable.{Tags, Specification}
@@ -29,7 +30,8 @@ class G5PaymentChangeIntegrationSpec extends Specification with Tags {
        reportChangesPage must beAnInstanceOf[G5PaymentChangePage]
 
        val prevPage = reportChangesPage.goBack()
-       prevPage must beAnInstanceOf[G1ReportChangesPage]
+       prevPage must beAnInstanceOf[G2ReportAChangeInYourCircumstancesPage]
+
      }
 
      "navigate to next page when 'yes' is selected for currently paid into bank selected" in new WithBrowser with PageObjects{

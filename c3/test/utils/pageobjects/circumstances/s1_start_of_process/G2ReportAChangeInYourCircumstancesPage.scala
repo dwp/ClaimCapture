@@ -1,9 +1,9 @@
-package utils.pageobjects.circumstances.s1_about_you
+package utils.pageobjects.circumstances.s1_start_of_process
 
 import play.api.test.WithBrowser
 import utils.pageobjects.{PageObjectsContext, CircumstancesPage, PageContext}
 
-final class G1ReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G1ReportAChangeInYourCircumstancesPage.url) {
+final class G2ReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G2ReportAChangeInYourCircumstancesPage.url) {
   declareInput("#fullName","CircumstancesAboutYouFullName")
   declareNino("#nationalInsuranceNumber","CircumstancesAboutYouNationalInsuranceNumber")
   declareDate("#dateOfBirth", "CircumstancesAboutYouDateOfBirth")
@@ -15,15 +15,15 @@ final class G1ReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) exten
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in PageFactory.scala
  */
-object G1ReportAChangeInYourCircumstancesPage {
+object G2ReportAChangeInYourCircumstancesPage {
   val url  = "/circumstances/identification/about-you"
 
-  def apply(ctx:PageObjectsContext) = new G1ReportAChangeInYourCircumstancesPage(ctx)
+  def apply(ctx:PageObjectsContext) = new G2ReportAChangeInYourCircumstancesPage(ctx)
 }
 
 /** The context for Specs tests */
-trait G1ReportAChangeInYourCircumstancesPageContext extends PageContext {
+trait G2ReportAChangeInYourCircumstancesPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1ReportAChangeInYourCircumstancesPage(PageObjectsContext(browser))
+  val page = G2ReportAChangeInYourCircumstancesPage(PageObjectsContext(browser))
 }

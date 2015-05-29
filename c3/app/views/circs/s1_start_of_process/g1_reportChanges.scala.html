@@ -28,6 +28,8 @@
 
         @form(action = controllers.circs.s1_start_of_process.routes.G1ReportChanges.submit) {
             @DwpCSRFFormHelper.formField
+
+            @helper.jsEnabled()
             <div class="form-wrap">
                 <fieldset class="form-elements">
                     <legend>@Html(Messages("reportChanges"))</legend>

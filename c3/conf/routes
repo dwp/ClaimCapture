@@ -196,8 +196,8 @@ POST        /consent-and-declaration/declaration                        @control
 GET         /consent-and-declaration/error                              controllers.s12_consent_and_declaration.G4Error.present
 
 # Circumstances
-POST        /circumstances/report-changes/selection                     controllers.circs.s1_start_of_process.G1ReportChanges.submit
 GET         /circumstances/report-changes/selection                     controllers.circs.s1_start_of_process.G1ReportChanges.present
+POST        /circumstances/report-changes/selection                     controllers.circs.s1_start_of_process.G1ReportChanges.submit
 
 GET         /circumstances/identification/about-you                     controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.present
 POST        /circumstances/identification/about-you                     controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.submit

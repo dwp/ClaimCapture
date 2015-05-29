@@ -1,5 +1,6 @@
 package utils.pageobjects.circumstances.s2_report_changes
 
+import utils.pageobjects.circumstances.s1_start_of_process.G1ReportChangesPage
 import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
 import play.api.test.WithBrowser
 

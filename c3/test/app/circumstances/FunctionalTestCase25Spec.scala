@@ -2,9 +2,9 @@ package app.circumstances
 
 import app.FunctionalTestCommon
 import play.api.test.WithBrowser
-import utils.pageobjects.{Page, XmlPage, TestData, PageObjects}
-import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
-import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
+import utils.pageobjects.circumstances.s1_start_of_process.G1ReportChangesPage
+import utils.pageobjects.xml_validation.{XMLBusinessValidation, XMLCircumstancesBusinessValidation}
+import utils.pageobjects.{Page, PageObjects, TestData, XmlPage}
 
 /**
  * Created by neddakaltcheva on 4/14/14.
@@ -15,7 +15,7 @@ class FunctionalTestCase25Spec  extends FunctionalTestCommon {
   "The application Circumstances" should {
     "Successfully run absolute Circumstances Test Case 25 for change of address" in new WithBrowser with PageObjects {
 
-      val page = G1ReportAChangeInYourCircumstancesPage(context)
+      val page = G1ReportChangesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase25.csv")
       page goToThePage()
 
