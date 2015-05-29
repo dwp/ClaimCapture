@@ -3,7 +3,8 @@ package controllers.s0_carers_allowance
 import models.domain._
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
+import utils.WithApplication
 
 class G2EligibilitySpec extends Specification with Tags {
   "Carer's Allowance - Hours - Controller" should {

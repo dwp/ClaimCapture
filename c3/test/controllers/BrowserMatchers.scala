@@ -1,7 +1,7 @@
 package controllers
 
 import java.util.concurrent.TimeUnit
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import org.specs2.matcher.MustMatchers
 import scala.util.Try
 

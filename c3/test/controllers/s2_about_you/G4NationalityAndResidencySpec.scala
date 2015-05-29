@@ -1,10 +1,11 @@
 package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import models.domain.Claiming
 import models.view.CachedClaim
 import play.api.test.Helpers._
+import utils.WithApplication
 
 class G4NationalityAndResidencySpec extends Specification with Tags {
 

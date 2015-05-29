@@ -1,7 +1,7 @@
 package controllers.s10_information
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.BrowserMatchers
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.PageObjects

@@ -1,6 +1,6 @@
 package app.circumstances
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 
 import utils.pageobjects.{PageObjects, XmlPage, TestData, Page}
 import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}

@@ -1,6 +1,6 @@
 package controllers.circs.s3_consent_and_declaration
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable.{Tags, Specification}
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage

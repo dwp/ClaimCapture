@@ -1,7 +1,7 @@
 package controllers.circs.s1_identification
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.{PageObjects, TestData}

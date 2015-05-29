@@ -1,7 +1,7 @@
 package controllers.s7_employment
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.{PageObjectsContext, TestData, PageObjects}
 import utils.pageobjects.s7_employment.{G2BeenEmployedPage, G8PensionAndExpensesPage, G1EmploymentPage, G9EmploymentAdditionalInfoPage}
 import utils.pageobjects.s8_self_employment.G4SelfEmploymentPensionsAndExpensesPage

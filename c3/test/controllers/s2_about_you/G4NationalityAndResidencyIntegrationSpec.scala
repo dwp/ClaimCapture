@@ -1,7 +1,7 @@
 package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.{ClaimScenarioFactory,PreviewTestUtils}
 import utils.pageobjects.s2_about_you.{G5AbroadForMoreThan52WeeksPage, G4NationalityAndResidencyPage}
 import utils.pageobjects._

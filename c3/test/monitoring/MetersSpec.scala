@@ -1,7 +1,7 @@
 package monitoring
 
 import org.specs2.mutable.Specification
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s0_carers_allowance.G1BenefitsPage
 import com.kenshoo.play.metrics.MetricsRegistry

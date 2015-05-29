@@ -2,7 +2,7 @@ package controllers
 
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.{Page, PageObjects, TestData}
 import utils.pageobjects.s0_carers_allowance._
 

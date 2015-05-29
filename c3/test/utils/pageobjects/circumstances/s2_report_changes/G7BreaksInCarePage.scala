@@ -1,7 +1,7 @@
 package utils.pageobjects.circumstances.s2_report_changes
 
 import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 
 /**
  * Created by neddakaltcheva on 3/20/14.

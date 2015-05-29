@@ -1,8 +1,7 @@
 package views
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithApplication
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
 import utils.pageobjects.circumstances.s2_report_changes.G1ReportChangesPage

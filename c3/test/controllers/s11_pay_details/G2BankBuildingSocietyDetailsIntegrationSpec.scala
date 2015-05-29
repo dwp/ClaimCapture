@@ -1,7 +1,7 @@
 package controllers.s11_pay_details
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s11_pay_details.{G1HowWePayYouPage, G2BankBuildingSocietyDetailsPage}
 import utils.pageobjects.s2_about_you._

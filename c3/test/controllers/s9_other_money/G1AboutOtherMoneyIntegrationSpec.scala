@@ -2,7 +2,7 @@ package controllers.s9_other_money
 
 import org.specs2.mutable.{ Tags, Specification }
 import controllers.{PreviewTestUtils, BrowserMatchers, Formulate, ClaimScenarioFactory}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects._
 import utils.pageobjects.s11_pay_details.G1HowWePayYouPage

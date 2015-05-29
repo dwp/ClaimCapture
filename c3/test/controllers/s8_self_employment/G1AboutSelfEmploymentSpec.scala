@@ -4,7 +4,8 @@ import models.DayMonthYear
 import models.domain._
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
+import utils.WithApplication
 
 class G1AboutSelfEmploymentSpec extends Specification with Tags {
 

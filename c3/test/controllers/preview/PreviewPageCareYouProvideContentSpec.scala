@@ -2,7 +2,7 @@ package controllers.preview
 
 import org.openqa.selenium.By
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.s2_about_you.G3ContactDetailsPage
 import utils.pageobjects.{ClaimPageFactory, TestData, PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage

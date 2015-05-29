@@ -1,6 +1,6 @@
 package utils.pageobjects.s7_employment
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 final class G3JobDetailsPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, s"${G3JobDetailsPage.url}/${iteration.toString}", iteration) {

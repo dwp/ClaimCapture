@@ -1,13 +1,14 @@
 package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import play.api.cache.Cache
 import models.domain._
 import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Claim
 import models.view.CachedClaim
+import utils.WithApplication
 
 class G1TheirPersonalDetailsSpec extends Specification with Tags {
 

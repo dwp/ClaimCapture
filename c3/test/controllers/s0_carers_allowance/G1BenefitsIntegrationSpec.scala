@@ -2,7 +2,7 @@ package controllers.s0_carers_allowance
 
 import models.domain.Benefits
 import org.specs2.mutable.{Specification, Tags}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.s0_carers_allowance.{G2EligibilityPage, G1BenefitsPage}
 import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
 

@@ -1,7 +1,7 @@
 package monitoring
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 
 
 

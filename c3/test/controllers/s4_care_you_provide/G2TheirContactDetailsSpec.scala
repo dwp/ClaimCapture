@@ -5,7 +5,8 @@ import models.domain.{Claiming, Section, TheirContactDetails}
 import org.specs2.mock.Mockito
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
+import utils.WithApplication
 
 class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
 

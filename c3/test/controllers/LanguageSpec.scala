@@ -1,7 +1,7 @@
 package controllers
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithApplication
+import utils.WithApplication
 import play.api.test.FakeRequest
 import models.view.{CachedClaim, CachedChangeOfCircs}
 import models.domain.{Claim, MockForm}

@@ -1,7 +1,8 @@
 package utils.filters
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{PlaySpecification, WithBrowser}
+import play.api.test.{PlaySpecification}
+import utils.WithBrowser
 
 
 class ChannelShiftIntegrationSpec extends PlaySpecification with Tags {
