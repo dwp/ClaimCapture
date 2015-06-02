@@ -32,8 +32,8 @@ li {
 
 .list-bullet,
 .list-number {
-    margin-top: 5px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     @include vertical-rhythm;
 }
 
@@ -41,4 +41,7 @@ li {
 .list-number li {
     margin-bottom: 5px;
     display: list-item;
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
