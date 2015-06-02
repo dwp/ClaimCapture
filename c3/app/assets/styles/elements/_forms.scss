@@ -45,10 +45,6 @@ textarea {
     &.textarea-reduced {
         height: 3em;
     }
-    &, 
-    &.form-control {
-        width: 96%;
-    }
 }
 
 //-----------------------------------------------------------------
@@ -61,12 +57,12 @@ textarea {
     display: block;
     position: relative;
     width: 100%;
-    margin-bottom: $gutter-half;
+    margin-bottom: $gutter;
     @extend %contain-floats;
     @include box-sizing(border-box);
     @include vertical-rhythm;
     @include media(tablet) {
-        margin-bottom: $gutter;
+        //margin-bottom: $gutter;
     }
 }
 
@@ -107,8 +103,12 @@ label {
 .form-label-bold {
     display: block;
     color: $text-colour;
+    margin-bottom: 5px;
     .form-group & {
-        font-size: 19px;
+        @include bold-19;
+    }
+    em {
+        font-style: normal;
     }
 }
 
@@ -119,7 +119,6 @@ label {
 
 .form-label-bold {
     @include bold-24;
-    margin-bottom: 0;
     .form-hint {
         @include core-19;
     }
@@ -147,6 +146,9 @@ label {
     color: $secondary-text-colour;
     margin-bottom: 5px;
     @include media (tablet) {
+        margin-top: 0;
+    }
+    .form-control + & {
         margin-top: 8px;
     }
 }
@@ -269,13 +271,13 @@ input[type=number] {
     border: 1px solid $panel-colour;
     padding: (18px $gutter $gutter-half ($gutter * 1.5));
     margin-top: 10px;
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
     cursor: pointer; // Encourage clicking on block labels
 
     @include media(tablet) {
         float: left;
-        margin-top: 5px;
-        margin-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 8px;
         // width: 25%; - Test : check that text within labels will wrap
     }
 
@@ -290,6 +292,11 @@ input[type=number] {
     // Change border on hover
     &:hover {
         border-color: $black;
+    }
+
+    // Remove top margin on top element
+    :first-child > & {
+        margin-top: 0;
     }
 
 }
@@ -308,7 +315,9 @@ select {
 // To stack horizontally, use .inline on parent, to sit block labels next to each other
 .inline .block-label {
     clear: none;
-    margin-right: $gutter-half;
+    @include media(tablet) {
+        margin-right: $gutter-half;
+    }
 }
 
 //-----------------------------------------------------------------
