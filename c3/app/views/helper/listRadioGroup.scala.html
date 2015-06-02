@@ -7,7 +7,7 @@
 @nestedFieldSet = @{ args.toMap.get('_nestedFieldSet).getOrElse(false) == true }
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
-    @if(nestedFieldSet) {<fieldset class="nested-fieldset">}
+    @if(nestedFieldSet) {<fieldset>}
     @radioListPlaceholder(field, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(request,lang,utils.helpers.EmptyTemplate.fieldConstructor)
     @if(nestedFieldSet) {</fieldset>}
 }
