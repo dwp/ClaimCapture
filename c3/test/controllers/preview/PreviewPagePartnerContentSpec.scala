@@ -50,7 +50,7 @@ class PreviewPagePartnerContentSpec extends Specification with Tags {
     }
   } section "preview"
 
-  def fillPartnerSection(context:PageObjectsContext, partnerClaim:TestData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty) = {
+  def fillPartnerSection(context:PageObjectsContext, partnerClaim:TestData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()) = {
     val claimDatePage = G1ClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()

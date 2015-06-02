@@ -17,7 +17,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
   "Preview Page" should {
     "display Care you provide data - when partner is not the person you care for" in new WithBrowser with PageObjects{
 
-      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty
+      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
 
       fillCareProvideSection(context,partnerClaim = partnerData)
@@ -36,7 +36,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
 
     "display Care you provide data - when partner is the person you care for" in new WithBrowser with PageObjects{
 
-      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty
+      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
 
       val careYouProvideData = ClaimScenarioFactory.s4CareYouProvideWithNoPersonalDetails
@@ -72,7 +72,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
     }
 
     "display Care you provide data without link on caree address" in new WithBrowser with PageObjects{
-      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty
+      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
 
 
@@ -97,7 +97,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
     }
 
     "update caree address if modifying carer address when answered caree lives same address" in new WithBrowser with PageObjects {
-      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty
+      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
 
       val careYouProvideData = ClaimScenarioFactory.s4CareYouProvideWithNoPersonalDetails
@@ -134,7 +134,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
     }
   }section "preview"
 
-  def fillCareProvideSection(context:PageObjectsContext, partnerClaim:TestData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty,
+  def fillCareProvideSection(context:PageObjectsContext, partnerClaim:TestData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty(),
                              careYouProvideData:TestData = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare) = {
     val claimDatePage = G1ClaimDatePage(context)
     claimDatePage goToThePage()

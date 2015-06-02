@@ -1,6 +1,8 @@
 package controllers.s4_care_you_provide
 
+import models.DayMonthYear
 import org.specs2.mutable.{Tags, Specification}
+import play.api.Logger
 import play.api.test.WithBrowser
 import controllers._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
@@ -26,12 +28,13 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
     "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects{
       val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvide(true),G10BreaksInCarePage.url)
 
-      breaksInCare.source contains "Have you had any breaks from caring for this person since 10 April 2016?" should beTrue
-
+      breaksInCare.source contains "Have you had any breaks from caring for this person since 3 October 2012?" should beTrue
     }
-    
+
     "display dynamic question text if user answered that they did NOT care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects{
       val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvide(false),G10BreaksInCarePage.url)
+
+      Logger.info(breaksInCare.source)
 
       breaksInCare.source contains "Have you had any breaks from caring for this person since 10 October 2016?" should beTrue
     }
