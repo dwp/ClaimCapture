@@ -6,13 +6,15 @@
 
     <section class="font-xsmall" id="help">
 
-    	<h2 class="heading-medium" id="helpcontent">@Html(Messages("leftcol.title"))</h2>
+    	<h2 class="heading-medium compound" id="helpcontent">@Html(Messages("leftcol.title"))</h2>
 
         @if((!request.uri.startsWith("/claim-help"))) {
-            <p><a id="helppage" href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a></p>
+            <p class="compound">
+                <a id="helppage" href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a>
+            </p>
         }
 
-    	<h3 class="heading-small">@Html(Messages("leftcol.helpline"))</h3>
+    	<h3 class="heading-small compound">@Html(Messages("leftcol.helpline"))</h3>
 
     	<p class="compound">@Html(Messages("leftcol.helplinecontent.1"))</p>
         <p class="compound">@Html(Messages("leftcol.helplinecontent.2"))</p>
