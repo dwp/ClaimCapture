@@ -1,16 +1,17 @@
-@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit handler: helper.FieldConstructor, lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: Lang)
 
 @import helper._
+@import play.api.templates.PlayMagic._
 @import utils.helpers._
 @import views.html.helper.base.carersLabel
 @import play.api.i18n.{MMessages => Messages}
 
-@input(field, args.filter(a => a._1 == 'maxLength || a._1 == 'class):_*) { (id, name, value, htmlArgs) =>
+    @input(field, args.filter(a => a._1 == 'maxLength || a._1 == 'class): _*) { (id, name, value, htmlArgs) =>
 
-    @carersLabel(field,args:_*)
+        @carersLabel(field, args: _*)
 
     <textarea id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>@value</textarea>
-    @if(args.find(_._1 == 'textAreaHelper).isDefined) {
-        <p class="helper right">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
+        @args.find(_._1 == 'textAreaHelper).fold(Html("")) { helper =>
+            <p class="helper right">@Html(helper._2.toString)</p>
+        }
     }
-}
