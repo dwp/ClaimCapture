@@ -24,39 +24,33 @@
 
                 <p>@Html(Messages("s7.g3.helper"))</p>
 
-	            <ul>
-	                @carersInputText(currentForm("employerName"), 'maxLength -> mappings.Mappings.sixty)
+                @carersInputText(currentForm("employerName"), 'maxLength -> mappings.Mappings.sixty)
 
-                    @carersInputTel(currentForm("phoneNumber"), 'maxLength -> mappings.Mappings.twenty)
+                @carersInputTel(currentForm("phoneNumber"), 'maxLength -> mappings.Mappings.twenty)
 
-                    @inputAddress(currentForm("address"))
+                @inputAddress(currentForm("address"))
 
-                    @carersInputText(currentForm("postcode"), 'maxLength -> 8, 'class -> "postcode")
-                </ul>
+                @carersInputText(currentForm("postcode"), 'maxLength -> 8, 'class -> "postcode")
 
-                <ul>
+                @yesNoRadioGroup(currentForm("startJobBeforeClaimDate"),
+                    '_label -> Messages("startJobBeforeClaimDate", claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang,dmy - 1 months))),
+                    'helperAbove -> Messages("startJobBeforeClaimDate.helper")
+                )
 
-                    @yesNoRadioGroup(currentForm("startJobBeforeClaimDate"),
-                        '_label -> Messages("startJobBeforeClaimDate", claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang,dmy - 1 months))),
-                        'helperAbove -> Messages("startJobBeforeClaimDate.helper")
-                    )
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(inputDayMonthYear(currentForm("jobStartDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`d M yyyy`)))),
+                    'id -> "jobStartDateWrapper")
 
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(inputDayMonthYear(currentForm("jobStartDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`d M yyyy`)))),
-                        'id -> "jobStartDateWrapper")
-                </ul>
+                @yesNoRadioGroup(currentForm("finishedThisJob"))
 
-                <ul>
-	                @yesNoRadioGroup(currentForm("finishedThisJob"))
-	
-	                @otherDetailPlaceHolder(
-	                    inputDef = Seq(
-                            inputDayMonthYear(currentForm("lastWorkDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`))),
-                            inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`)))),
-	                    'id -> "lastWorkData")
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        inputDayMonthYear(currentForm("lastWorkDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`))),
+                        inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`)))),
+                    'id -> "lastWorkData")
 
-                    @carersShortInputTel(currentForm("hoursPerWeek"),'_label -> labelForEmployment(claim, lang, "hoursPerWeek", IterationID(currentForm)), 'maxLength -> 2)
-	            </ul>
+                @carersShortInputTel(currentForm("hoursPerWeek"),'_label -> labelForEmployment(claim, lang, "hoursPerWeek", IterationID(currentForm)), 'maxLength -> 2)
+
 	        </fieldset>
 	
 	        <nav class="form-steps" role="navigation">
