@@ -43,53 +43,63 @@ getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOr
         <aside class="column-quarter sidebar @{ 
         if(!isEmploymentOrSelfEmployment) "no-employment" 
         }" id="sidebar" role="complementary" aria-labelledby="helpcontent">
+
             <section class="font-xsmall" id="help">
-                <h2 class="heading-medium">@Html(Messages("leftcol.title"))</h2>
+
+                <h2 class="heading-medium compound">@Html(Messages("leftcol.title"))</h2>
+
                 @if((!request.uri.startsWith("/claim-help"))) {
-                    <p><a id="helppage" href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a></p>
+                    <p class="compound">
+                        <a id="helppage" href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a>
+                    </p>
                 }
-                <h3 class="heading-small">@Html(Messages("leftcol.helpline"))</h3>
-                <p>@Html(Messages("leftcol.helplinecontent.1"))</p>
-                <p class="grouped">@Html(Messages("leftcol.helplinecontent.2"))</p>
-                <p>@Html(Messages("leftcol.helplinecontent.3"))</p>
-                <p>@Html(Messages("leftcol.helplinecontent.4"))</p>
-                <p><a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>@Messages("leftcol.callcharges")</a></p>
+
+                <h3 class="heading-small compound">@Html(Messages("leftcol.helpline"))</h3>
+
+                <p class="compound">@Html(Messages("leftcol.helplinecontent.1"))</p>
+                <p class="compound">@Html(Messages("leftcol.helplinecontent.2"))</p>
+                <p class="compound">@Html(Messages("leftcol.helplinecontent.3"))</p>
+                <p class="compound">@Html(Messages("leftcol.helplinecontent.4"))</p>
+
+                <p>
+                    <a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>@Messages("leftcol.callcharges")</a>
+                </p>
+
             </section>
+
         </aside>
 
         <article class="column-three-quarters main-content finish-statement">
 
             <section class="app-complete">
-                <h1 class="form-title heading-large">@Html(Messages("thankyou"))</h1>
+                <h1 class="form-title heading-large compound">@Html(Messages("thankyou"))</h1>
                 <p class="nino-title">@Html(Messages("claim.recieved2"))</p>
             </section>
 
-            <div class="finish-mobile">@Html(Messages("claim.feedback.link"))</div>
+            <p class="hide-desktops">@Html(Messages("claim.feedback.link"))</p>
 
             <div class="finish-info">
 
-                <section>
-                    <h2 class="heading-medium">@Html(Messages("next"))</h2>
-                    @if(isEmail){
-                        <p>@Html(Messages("email.claim.thankYou"))</p>
-                    }
-                    @if(isEmploymentOrSelfEmployment) {
-                        <p>@Html(Messages("claim.next.main"))</p>
-                    } else {
-                        <p>@Html(Messages("claim.next.nodocuments.1"))</p>
-                    }
-                </section>
+                <h2 class="heading-medium">@Html(Messages("next"))</h2>
+
+                @if(isEmail){
+                    <p>@Html(Messages("email.claim.thankYou"))</p>
+                }
+                @if(isEmploymentOrSelfEmployment) {
+                    <p>@Html(Messages("claim.next.main"))</p>
+                } else {
+                    <p>@Html(Messages("claim.next.nodocuments.1"))</p>
+                }
 
                 @if(isEmploymentOrSelfEmployment) {
 
-                <div class="send-info">
+                    <div class="send-info">
 
-                    <h2 class="heading-medium">@Html(Messages("required.docs"))</h2>
+                        <h2 class="heading-medium">@Html(Messages("required.docs"))</h2>
 
-                    <p>@Html(Messages("thankyou.send"))</p>
+                        <p>@Html(Messages("thankyou.send"))</p>
 
-                    <section>
-                        <ul>
+                        <ul class="list-bullet">
                             @if(isEmployment) {
                             <li>@Html(Messages("s11.g5.help4", displayDateForLabel))</li>
                             <li id="employment" >@Html(Messages("s11.g5.help5"))</li>
@@ -100,23 +110,26 @@ getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOr
                             <li>@Html(Messages("s11.g5.help9"))</li>
                             }
                         </ul>
-                    </section>
 
-                    <section class="address">
                         <p>@Html(Messages("address.send"))</p>
-                        <span><b>@Html(Messages("address.title"))</b></span>
-                        <span>@Html(Messages("s11.g5.help11"))</span>
-                        <span>@Html(Messages("s11.g5.help12"))</span>
-                        <span>@Html(Messages("s11.g5.help13"))</span>
-                        <span>@Html(Messages("s11.g5.help14"))</span>
-                        <p>@Html(Messages("address.details"))</p>
-                    </section>
 
-                </div>
+                        <p>
+                            <span><b>@Html(Messages("address.title"))</b></span><br />
+                            <span>@Html(Messages("s11.g5.help11"))</span><br />
+                            <span>@Html(Messages("s11.g5.help12"))</span><br />
+                            <span>@Html(Messages("s11.g5.help13"))</span><br />
+                            <span>@Html(Messages("s11.g5.help14"))</span>
+                        </p>
+
+                        <p>@Html(Messages("address.details"))</p>
+
+                    </div>
 
                 }
 
             </div>
+
+            <br />
 
             <p><a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.change"))</a></p>
 

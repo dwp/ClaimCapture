@@ -60,14 +60,24 @@ getProperty("email.frontend",false) && circs.questionGroup[CircumstancesDeclarat
     <div class="grid-row main-grid">
 
         <aside class="column-quarter sidebar" id="sidebar" role="complementary" aria-labelledby="helpcontent">
+
             <section class="font-xsmall" id="help">
-                <h2 class="heading-medium">@Html(Messages("leftcol.title"))</h2>
-                <h3 class="heading-small">@Html(Messages("leftcol.helpline"))</h3>
-                <p>@Html(Messages("leftcol.helplinecontent.1"))</p>
-                <p class="grouped">@Html(Messages("leftcol.helplinecontent.2"))</p>
-                <p>@Html(Messages("leftcol.helplinecontent.3"))</p>
-                <p>@Html(Messages("leftcol.helplinecontent.4")) <a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>@Messages("leftcol.callcharges")</a></p>
+
+                <h2 class="heading-medium compound">@Html(Messages("leftcol.title"))</h2>
+
+                <h3 class="heading-small compound">@Html(Messages("leftcol.helpline"))</h3>
+
+                <p class="compound">@Html(Messages("leftcol.helplinecontent.1"))</p>
+                <p class="compound">@Html(Messages("leftcol.helplinecontent.2"))</p>
+                <p class="compound">@Html(Messages("leftcol.helplinecontent.3"))</p>
+                <p class="compound">@Html(Messages("leftcol.helplinecontent.4"))</p>
+
+                <p>
+                    <a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>@Messages("leftcol.callcharges")</a>
+                </p>
+
             </section>
+
         </aside>
 
         <article class="column-three-quarters main-content finish-statement">
@@ -76,25 +86,24 @@ getProperty("email.frontend",false) && circs.questionGroup[CircumstancesDeclarat
                 <h1 class="form-title heading-large">@Html(Messages("circs.thankyou"))</h1>
             </section>
 
-            <div class="finish-mobile">@Html(Messages("circs.feedback.link"))</div>
+            <p class="hide-desktops">@Html(Messages("circs.feedback.link"))</p>
 
             <div class="finish-info">
 
-                <section>
-                    <h2 class="heading-medium">@Html(Messages("next"))</h2>
-                    @if(isEmail){
-                        <p>@Html(Messages("email.circs.thankYou"))</p>
-                    }
-                    @if(showBreaksInCareMessages) {
-                        <p id="breaksInCareMessageTitle">@Html(Messages("circs.thankyou.breakmessage.content"))</p>
-                    }
-                    @if(showEmployment1Messages || showEmployment2Messages){
-                        <p>@Html(Messages("circs.next.1"))</p>
-                    } else {
-                        <p>@Html(Messages("circs.next.nodocuments.1"))</p>
-                        <p>@Html(Messages("circs.next.nodocuments.2")) <a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.another.change.short"))</a></p>
-                    }
-                </section>
+                <h2 class="heading-medium">@Html(Messages("next"))</h2>
+
+                @if(isEmail){
+                    <p>@Html(Messages("email.circs.thankYou"))</p>
+                }
+                @if(showBreaksInCareMessages) {
+                    <p id="breaksInCareMessageTitle">@Html(Messages("circs.thankyou.breakmessage.content"))</p>
+                }
+                @if(showEmployment1Messages || showEmployment2Messages){
+                    <p>@Html(Messages("circs.next.1"))</p>
+                } else {
+                    <p>@Html(Messages("circs.next.nodocuments.1"))</p>
+                    <p>@Html(Messages("circs.next.nodocuments.2")) <a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.another.change.short"))</a></p>
+                }
 
                 @if(showEmployment1Messages || showEmployment2Messages) {
 
@@ -104,43 +113,43 @@ getProperty("email.frontend",false) && circs.questionGroup[CircumstancesDeclarat
 
                         <p>@Html(Messages("thankyou.send"))</p>
 
-                        <section>
-                            <ul>
-                                @if(showEmployment1Messages) {
-                                    <li id="employment1MessageTitle">@Html(Messages("circs.thankyou.employment1message2.content"))</li>
-                                    @if(showEmploymentPensionMessage) {
-                                        <li>@Html(Messages("circs.thankyou.employment1message3.content"))</li>
-                                    }
+                        <ul class="list-bullet">
+                            @if(showEmployment1Messages) {
+                                <li id="employment1MessageTitle">@Html(Messages("circs.thankyou.employment1message2.content"))</li>
+                                @if(showEmploymentPensionMessage) {
+                                    <li>@Html(Messages("circs.thankyou.employment1message3.content"))</li>
                                 }
-                                @if(showEmployment2Messages) {
-                                    <li id="employment2MessageTitle">@Html(Messages("circs.thankyou.employment2message2.content"))</li>
-                                    <li>@Html(Messages("circs.thankyou.employment2message3.content"))</li>
-                                    @if(showEmploymentPensionMessage) {
-                                        <li>@Html(Messages("circs.thankyou.employment2message4.content"))</li>
-                                    }
+                            }
+                            @if(showEmployment2Messages) {
+                                <li id="employment2MessageTitle">@Html(Messages("circs.thankyou.employment2message2.content"))</li>
+                                <li>@Html(Messages("circs.thankyou.employment2message3.content"))</li>
+                                @if(showEmploymentPensionMessage) {
+                                    <li>@Html(Messages("circs.thankyou.employment2message4.content"))</li>
                                 }
-                            </ul>
-                        </section>
+                            }
+                        </ul>
 
-                        <section class="address">
-                            <p id="employment1MessageAddressTitle">@Html(Messages("address.send"))</p>
-                            <span><b>@Html(Messages("address.title"))</b></span>
-                            <span>@Html(Messages("s11.g5.help11"))</span>
-                            <span>@Html(Messages("s11.g5.help12"))</span>
-                            <span>@Html(Messages("s11.g5.help13"))</span>
+                        <p id="employment1MessageAddressTitle">@Html(Messages("address.send"))</p>
+
+                        <p>
+                            <span><b>@Html(Messages("address.title"))</b></span><br />
+                            <span>@Html(Messages("s11.g5.help11"))</span><br />
+                            <span>@Html(Messages("s11.g5.help12"))</span><br />
+                            <span>@Html(Messages("s11.g5.help13"))</span><br />
                             <span>@Html(Messages("s11.g5.help14"))</span>
-                            <p>@Html(Messages("address.details"))</p>
-                        </section>
+                        </p>
+
+                        <p>@Html(Messages("address.details"))</p>
 
                     </div>
-
-                    <br />
-
-                    <p><a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.another.change"))</a></p>
 
                 }
 
             </div>
+
+            <br />
+
+            <p><a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.another.change"))</a></p>
 
             <div class="finish-button">@Html(Messages("claim.feedback.link"))</div>
 
