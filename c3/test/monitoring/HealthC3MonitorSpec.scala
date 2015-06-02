@@ -1,7 +1,6 @@
 package monitoring
 
 import org.specs2.mutable.Specification
-import play.api.test.FakeApplication
 import utils.{LightFakeApplication, WithBrowser}
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s0_carers_allowance.G1BenefitsPage

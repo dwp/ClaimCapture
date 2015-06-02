@@ -1,6 +1,6 @@
 package controllers
 
-import utils.WithBrowser
+import play.api.test.WithBrowser
 import org.fluentlenium.core.filter.Filter
 import org.fluentlenium.core.Fluent
 

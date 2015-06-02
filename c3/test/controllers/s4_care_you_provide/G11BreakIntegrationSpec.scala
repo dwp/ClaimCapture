@@ -2,22 +2,23 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.Logger
-import utils.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers, Formulate}
 import models.DayMonthYear
 import java.util.concurrent.TimeUnit
+import play.api.test.WithBrowser
 import utils.pageobjects.s4_care_you_provide.{G11BreakPage, G10BreaksInCarePage}
 import app.CircsBreaksWhereabouts._
 import utils.pageobjects.s6_education.G1YourCourseDetailsPage
+import utils.WithJsBrowser
 
 class G11BreakIntegrationSpec extends Specification with Tags {
   "Break" should {
-    "be presented" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
+    "be presented" in new WithJsBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo(G10BreaksInCarePage.url)
       urlMustEqual(G10BreaksInCarePage.url)
     }
 
-    """present "completed" when no more breaks are required""" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
+    """present "completed" when no more breaks are required""" in new WithJsBrowser  with BreakFiller with WithBrowserHelper with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
       goTo(G10BreaksInCarePage.url)
       urlMustEqual(G10BreaksInCarePage.url)
@@ -27,7 +28,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       urlMustEqual(G1YourCourseDetailsPage.url)
     }
 
-    """give 2 errors when missing 2 mandatory fields of data - missing "start date" and "medical" """ in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
+    """give 2 errors when missing 2 mandatory fields of data - missing "start date" and "medical" """ in new WithJsBrowser  with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo(G10BreaksInCarePage.url)
       click("#answer_yes")
       next
@@ -46,7 +47,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       findAll("div[class=validation-summary] ol li").size shouldEqual 2
     }
 
-    """show 2 breaks in "break table" upon providing 2 breaks""" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
+    """show 2 breaks in "break table" upon providing 2 breaks""" in new WithJsBrowser  with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo(G10BreaksInCarePage.url)
       urlMustEqual(G10BreaksInCarePage.url)
 
@@ -69,7 +70,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       $("#breaks .data-table ul li").size() shouldEqual 2
     }
 
-    "add two breaks and edit the second's start year" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
+    "add two breaks and edit the second's start year" in new WithJsBrowser  with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo(G10BreaksInCarePage.url)
       urlMustEqual(G10BreaksInCarePage.url)
 
@@ -102,7 +103,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       $("ul").findFirst("li").findFirst("h3").getText shouldEqual "01/01/1999 to 01/01/2001"
     }
 
-    """show "all options" for "Where was the person you care for during the break?".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
+    """show "all options" for "Where was the person you care for during the break?".""" in new WithJsBrowser  with WithBrowserHelper with BrowserMatchers {
       import scala.collection.JavaConverters._
       Formulate.theirPersonalDetails(browser)
 

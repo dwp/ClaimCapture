@@ -1,13 +1,14 @@
 package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
-import utils.WithBrowser
+import utils.{WebDriverHelper, WithBrowser}
 import controllers.{ClaimScenarioFactory,PreviewTestUtils}
 import utils.pageobjects.s2_about_you.{G5AbroadForMoreThan52WeeksPage, G4NationalityAndResidencyPage}
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 import app.MaritalStatus
+import utils.WithJsBrowser
 
 class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
   sequential
@@ -17,12 +18,12 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
   val errorDiv = "div[class=validation-summary] ol li"
 
   "Nationality and Residency" should {
-    "be presented" in new WithBrowser with PageObjects{
+    "be presented" in new WithJsBrowser  with PageObjects{
 			val page =  G4NationalityAndResidencyPage(context)
       page goToThePage()
     }
 
-    "contain errors on invalid submission" in new WithBrowser with PageObjects{
+    "contain errors on invalid submission" in new WithJsBrowser  with PageObjects{
 			val page =  G4NationalityAndResidencyPage(context)
       page goToThePage()
       val nextPage = page submitPage()
@@ -30,7 +31,7 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G4NationalityAndResidencyPage]
     }
 
-    "navigate to next page on valid resident submission" in new WithBrowser with PageObjects{
+    "navigate to next page on valid resident submission" in new WithJsBrowser  with PageObjects{
 			val page =  G4NationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyResident
       page goToThePage()
@@ -41,7 +42,7 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
     }
 
-    "navigate to next page on valid non resident submission" in new WithBrowser with PageObjects{
+    "navigate to next page on valid non resident submission" in new WithJsBrowser  with PageObjects{
 			val page =  G4NationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
       page goToThePage()
@@ -52,7 +53,7 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G5AbroadForMoreThan52WeeksPage]
     }
 
-    "contain errors on invalid non resident submission" in new WithBrowser with PageObjects{
+    "contain errors on invalid non resident submission" in new WithJsBrowser  with PageObjects{
 			val page =  G4NationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
       claim.AboutYouNationalityAndResidencyActualNationality = ""
@@ -64,7 +65,7 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G4NationalityAndResidencyPage]
     }
 
-    "country normally live in visible when clicked back" in new WithBrowser with PageObjects{
+    "country normally live in visible when clicked back" in new WithJsBrowser  with PageObjects{
       val page =  G4NationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
       page goToThePage()
@@ -75,7 +76,7 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
       browser.find("#resideInUK_text").size() mustEqual 1
     }
 
-    "Modify nationality from preview page" in new WithBrowser with PageObjects{
+    "Modify nationality from preview page" in new WithJsBrowser  with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "about_you_nationality"
       val answerText = PreviewTestUtils.answerText(id, _:Page)

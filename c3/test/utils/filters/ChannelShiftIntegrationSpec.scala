@@ -19,5 +19,5 @@ class ChannelShiftIntegrationSpec extends PlaySpecification with Tags {
 
       browser.url() mustEqual "https://www.gov.uk/carers-allowance"
     }
-  }
+  } section "slow"
 }

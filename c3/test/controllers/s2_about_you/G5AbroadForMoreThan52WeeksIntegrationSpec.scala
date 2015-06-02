@@ -1,20 +1,21 @@
 package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
-import utils.WithBrowser
+import utils.{WebDriverHelper, WithBrowser}
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.{TestData, ClaimPageFactory, PageObjects}
+import utils.WithJsBrowser
 
 class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
   "Abroad for more that 52 weeks" should {
-    "present" in new WithBrowser with PageObjects{
+    "present" in new WithJsBrowser  with PageObjects{
 			val page =  G5AbroadForMoreThan52WeeksPage(context)
       page goToThePage()
     }
 
-    "provide for trip entry" in new WithBrowser with PageObjects{
+    "provide for trip entry" in new WithJsBrowser  with PageObjects{
 			val page =  G5AbroadForMoreThan52WeeksPage(context)
       val claim = ClaimScenarioFactory abroadForMoreThan52WeeksConfirmationYes()
       page goToThePage()
@@ -24,7 +25,7 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       nextPage must beAnInstanceOf[G7OtherEEAStateOrSwitzerlandPage]
     }
 
-    """go back to "Nationality and Residency".""" in new WithBrowser with PageObjects{
+    """go back to "Nationality and Residency".""" in new WithJsBrowser  with PageObjects{
 			val page =  G4NationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory yourNationalityAndResidencyResident()
       page goToThePage()
@@ -37,7 +38,7 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       backPage must beAnInstanceOf[G4NationalityAndResidencyPage]
     }
 
-    """remember "no more 52 weeks trips" upon stating "52 weeks trips" and returning""" in new WithBrowser with PageObjects{
+    """remember "no more 52 weeks trips" upon stating "52 weeks trips" and returning""" in new WithJsBrowser  with PageObjects{
 			val page =  G5AbroadForMoreThan52WeeksPage(context)
       val claim = ClaimScenarioFactory abroadForMoreThan52WeeksConfirmationNo()
       page goToThePage()
@@ -53,7 +54,7 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       backPage.ctx.browser.findFirst("#anyTrips_no").isSelected should beTrue
     }
 
-    "Trip details must not be visible when time abroad page is displayed" in new WithBrowser with PageObjects{
+    "Trip details must not be visible when time abroad page is displayed" in new WithJsBrowser  with PageObjects{
       val page =  G5AbroadForMoreThan52WeeksPage(context)
       page goToThePage()
       page.ctx.browser.findFirst("#anyTrips_yes").isSelected should beFalse
@@ -61,7 +62,7 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       page.ctx.browser.findFirst("#tripDetails").isDisplayed should beFalse
     }
 
-    "Trip details must be visible when returning back to the time abroad page" in new WithBrowser with PageObjects{
+    "Trip details must be visible when returning back to the time abroad page" in new WithJsBrowser  with PageObjects{
       val page =  G5AbroadForMoreThan52WeeksPage(context)
       val claim = ClaimScenarioFactory abroadForMoreThan52WeeksConfirmationYes()
       page goToThePage()
@@ -78,7 +79,7 @@ class G5AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       backPage.ctx.browser.findFirst("#tripDetails").isDisplayed should beTrue
     }
 
-    "Modify time outside from preview page" in new WithBrowser with PageObjects{
+    "Modify time outside from preview page" in new WithJsBrowser  with PageObjects{
 
       val page =  G5AbroadForMoreThan52WeeksPage(context)
       val claim = ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationNo()

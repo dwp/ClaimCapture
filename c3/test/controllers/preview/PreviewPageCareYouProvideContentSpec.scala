@@ -10,12 +10,12 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects.s4_care_you_provide.G1TheirPersonalDetailsPage
-
+import utils.WithJsBrowser
 
 class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
 
   "Preview Page" should {
-    "display Care you provide data - when partner is not the person you care for" in new WithBrowser with PageObjects{
+    "display Care you provide data - when partner is not the person you care for" in new WithJsBrowser  with PageObjects{
 
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
@@ -34,7 +34,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       source must contain("Yes- Details provided for 1 break(s)")
     }
 
-    "display Care you provide data - when partner is the person you care for" in new WithBrowser with PageObjects{
+    "display Care you provide data - when partner is the person you care for" in new WithJsBrowser  with PageObjects{
 
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
@@ -52,7 +52,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       source must contain("Yes- Details provided for 1 break(s)")
     }
 
-    "display Care you provide data - when no partner" in new WithBrowser with PageObjects{
+    "display Care you provide data - when no partner" in new WithJsBrowser  with PageObjects{
 
       val partnerData = new TestData
       partnerData.AboutYourPartnerHadPartnerSinceClaimDate = "No"
@@ -71,7 +71,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       source must contain("Yes- Details provided for 1 break(s)")
     }
 
-    "display Care you provide data without link on caree address" in new WithBrowser with PageObjects{
+    "display Care you provide data without link on caree address" in new WithJsBrowser  with PageObjects{
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
 
@@ -86,7 +86,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       page.ctx.browser.webDriver.findElement(By.id("care_you_provide_address")).getTagName mustEqual "p"
     }
 
-    "display Care you provide data with link on caree address" in  new WithBrowser with PageObjects{
+    "display Care you provide data with link on caree address" in  new WithJsBrowser  with PageObjects{
       val partnerData = new TestData
       partnerData.AboutYourPartnerHadPartnerSinceClaimDate = "No"
 
@@ -96,7 +96,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       page.ctx.browser.webDriver.findElement(By.id("care_you_provide_address")).getTagName mustEqual "a"
     }
 
-    "update caree address if modifying carer address when answered caree lives same address" in new WithBrowser with PageObjects {
+    "update caree address if modifying carer address when answered caree lives same address" in new WithJsBrowser  with PageObjects {
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
 
