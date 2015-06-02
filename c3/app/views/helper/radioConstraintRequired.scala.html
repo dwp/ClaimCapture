@@ -10,24 +10,22 @@
 
 @if(showLabel) {
 
-    <legend class="form-label-bold @if(nestedFieldSet) {nestedLabel}">
+    <legend class="form-label-bold @if(nestedFieldSet) {}">
         @carersLabelText(field,args:_*)
     </legend>
 
     @if(args.find(_._1=='bullets).isDefined){
-        <div class="employment-info">
-            @if(args.find(_._1=='helperAbove).isDefined){
-                <p class="form-hint">@Html(Messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
+        @if(args.find(_._1=='helperAbove).isDefined){
+            <p class="form-hint">@Html(Messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
+        }
+        <ul class="list-bullet">
+            @for(bullet <- args.find(_._1=='bullets).getOrElse('bullets->Seq.empty[String])._2.asInstanceOf[Seq[String]]) {
+                <li> @Html(Messages(bullet))</li>
             }
-            <ul class="list-bullet">
-                @for(bullet <- args.find(_._1=='bullets).getOrElse('bullets->Seq.empty[String])._2.asInstanceOf[Seq[String]]) {
-                    <li> @Html(Messages(bullet))</li>
-                }
-            </ul>
-            @if(args.find(_._1=='paragraph).isDefined){
-                <p>@Html(Messages(args.find(_._1=='paragraph).getOrElse('paragraph->"")._2.toString()))</p>
-            }
-        </div>
+        </ul>
+        @if(args.find(_._1=='paragraph).isDefined){
+            <p>@Html(Messages(args.find(_._1=='paragraph).getOrElse('paragraph->"")._2.toString()))</p>
+        }
     } else {
         @if(args.find(_._1=='helperAbove).isDefined){
             <p class="form-hint">@Html(Messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
