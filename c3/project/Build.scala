@@ -7,7 +7,7 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 object ApplicationBuild extends Build {
   val appName         = "c3"
 
-  val appVersion      = "2.19-SNAPSHOT"
+  val appVersion      = "2.19.1-SNAPSHOT"
 
   val appDependencies = Seq(
     // Add your project dependencies here,
@@ -29,7 +29,11 @@ object ApplicationBuild extends Build {
     "org.jacoco"          % "org.jacoco.report"   % "0.7.4.201502262128"  % "test",
     "gov.dwp"            %% "play2-multimessages" % "2.3.5",
     "nl.rhinofly"        %% "play-mailer"         % "3.0.0",
-    "gov.dwp.carers"     %% "play2-resilient-memcached"     % "1.1"
+    "gov.dwp.carers"     %% "play2-resilient-memcached"     % "1.1",
+    "net.sourceforge.htmlunit" % "htmlunit" % "2.16" % "test",
+    "org.seleniumhq.selenium" % "selenium-java" % "2.45.0" % "test",
+    "org.apache.httpcomponents" % "httpclient" % "4.4.1" ,
+    "commons-io" % "commons-io" % "2.4"
   )
 
   var sO: Seq[Def.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))

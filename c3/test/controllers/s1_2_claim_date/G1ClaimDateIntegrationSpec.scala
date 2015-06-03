@@ -1,7 +1,7 @@
 package controllers.s1_2_claim_date
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, PreviewTestUtils}
 import utils.pageobjects._
 import utils.pageobjects.s2_about_you.G1YourDetailsPage

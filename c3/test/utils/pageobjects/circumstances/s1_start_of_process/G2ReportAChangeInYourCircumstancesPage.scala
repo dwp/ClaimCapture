@@ -1,6 +1,6 @@
 package utils.pageobjects.circumstances.s1_start_of_process
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.{PageObjectsContext, CircumstancesPage, PageContext}
 
 final class G2ReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G2ReportAChangeInYourCircumstancesPage.url) {

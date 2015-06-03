@@ -5,9 +5,10 @@ import models.view.CachedClaim
 import models.{DayMonthYear, domain}
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import models.yesNo.YesNoWithDate
 import controllers.mappings.Mappings._
+import utils.WithApplication
 import scala.Some
 
 class G1ClaimDateSpec extends Specification with Tags {

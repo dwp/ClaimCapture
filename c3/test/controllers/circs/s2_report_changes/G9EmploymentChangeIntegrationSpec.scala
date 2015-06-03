@@ -1,7 +1,7 @@
 package controllers.circs.s2_report_changes
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{WithBrowser, FakeApplication}
+import utils.{WithBrowser, LightFakeApplication}
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s1_start_of_process.{G2ReportAChangeInYourCircumstancesPage, G1ReportChangesPage}
 import utils.pageobjects.circumstances.s2_report_changes.G9EmploymentChangePage
@@ -10,12 +10,12 @@ import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationP
 
 class G9EmploymentChangeIntegrationSpec extends Specification with Tags {
   "Report a change in your circumstance - Employment" should {
-    "be presented" in new WithBrowser(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "be presented" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
       val page = G9EmploymentChangePage(context)
       page goToThePage()
     }
 
-    "navigate to the previous page" in new WithBrowser(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "navigate to the previous page" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
       val page = G1ReportChangesPage(context)
       page goToThePage()
 
@@ -32,7 +32,7 @@ class G9EmploymentChangeIntegrationSpec extends Specification with Tags {
       prevPage must beAnInstanceOf[G2ReportAChangeInYourCircumstancesPage]
     }
 
-    "navigate to next page when not caring and not yet started self-employment details added" in new WithBrowser(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "navigate to next page when not caring and not yet started self-employment details added" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
       val page = G9EmploymentChangePage(context)
       page goToThePage()
 
@@ -43,7 +43,7 @@ class G9EmploymentChangeIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G1DeclarationPage]
     }
 
-    "navigate to next page when caring and self-employment started details added" in new WithBrowser(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "navigate to next page when caring and self-employment started details added" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
       val page = G9EmploymentChangePage(context)
       page goToThePage()
 

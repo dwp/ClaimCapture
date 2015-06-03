@@ -1,10 +1,10 @@
 package app.circumstances
 
 import app.FunctionalTestCommon
-import play.api.test.WithBrowser
-import utils.pageobjects.circumstances.s1_start_of_process.G1ReportChangesPage
-import utils.pageobjects.xml_validation.{XMLBusinessValidation, XMLCircumstancesBusinessValidation}
-import utils.pageobjects.{Page, PageObjects, TestData, XmlPage}
+import utils.WithBrowser
+import utils.pageobjects.{Page, XmlPage, TestData, PageObjects}
+import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
+import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
 
 /**
  * Created by neddakaltcheva on 4/14/14.

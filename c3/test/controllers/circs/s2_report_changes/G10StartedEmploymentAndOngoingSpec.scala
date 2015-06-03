@@ -3,12 +3,13 @@ package controllers.circs.s2_report_changes
 import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 import play.api.i18n.Messages
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.{FakeRequest}
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 import play.api.test.FakeApplication
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
+import utils.{LightFakeApplication, WithApplication}
 
 class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
   val yes = "yes"
@@ -82,7 +83,7 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
   )
 
   "Report an Employment change in your circumstances where the employment is ongoing - Employment - Controller" should {
-    "present 'CoC Ongoing Employment Change'" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+    "present 'CoC Ongoing Employment Change'" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
       val result = G10StartedEmploymentAndOngoing.present(request)
@@ -97,7 +98,7 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
       redirectLocation(result) must beSome(G1DeclarationPage.url)
     }
 
-    "redirect to the next page after valid submission of monthly on going employment" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+    "redirect to the next page after valid submission of monthly on going employment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validOngoingMonthlyPaymentEmployment: _*)
 
@@ -105,7 +106,7 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
       redirectLocation(result) must beSome(G1DeclarationPage.url)
     }
 
-    "redirect to the next page after valid submission of other on going employment" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+    "redirect to the next page after valid submission of other on going employment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validOngoingOtherPaymentEmployment: _*)
 
@@ -113,7 +114,7 @@ class G10StartedEmploymentAndOngoingSpec extends Specification with Tags {
       redirectLocation(result) must beSome(G1DeclarationPage.url)
     }
 
-    "raise errors and stay same page if mandatory fields missing" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+    "raise errors and stay same page if mandatory fields missing" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(invalidOngoingOtherPaymentEmployment: _*)
 

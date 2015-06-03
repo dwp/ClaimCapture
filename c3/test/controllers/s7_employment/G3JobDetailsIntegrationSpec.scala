@@ -6,7 +6,7 @@ import utils.pageobjects.s7_employment.{G2BeenEmployedPage, G1EmploymentPage, G5
 
 import language.reflectiveCalls
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers}
 import controllers.ClaimScenarioFactory._
 

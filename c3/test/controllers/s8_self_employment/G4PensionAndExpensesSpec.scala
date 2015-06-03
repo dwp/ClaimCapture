@@ -1,11 +1,12 @@
 package controllers.s8_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain._
 import models.view.CachedClaim
 import scala.Some
+import utils.WithApplication
 
 class G4PensionAndExpensesSpec extends Specification with Tags {
 

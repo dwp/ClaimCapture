@@ -45,7 +45,7 @@ class ChannelShiftSpec extends Specification with Tags with Mockito{
       }
 
     }
-  }section "unit"
+  }section ("unit", "slow")
 }
 
 class ChannelShiftTestable(params:Map[String,String],url:URLWrapper) extends ChannelShift(params) {

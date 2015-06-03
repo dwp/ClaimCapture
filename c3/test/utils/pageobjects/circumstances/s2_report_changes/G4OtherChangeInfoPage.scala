@@ -1,6 +1,6 @@
 package utils.pageobjects.circumstances.s2_report_changes
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 final class G4OtherChangeInfoPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G4OtherChangeInfoPage.url) {

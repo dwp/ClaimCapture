@@ -1,7 +1,8 @@
 package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{TestBrowser, WithBrowser}
+import play.api.test.{TestBrowser}
+import utils.WithBrowser
 import utils.pageobjects.common.ClaimHelpPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s2_about_you._

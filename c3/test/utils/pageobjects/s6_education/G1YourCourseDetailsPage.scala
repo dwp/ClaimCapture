@@ -1,6 +1,6 @@
 package utils.pageobjects.s6_education
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 /**

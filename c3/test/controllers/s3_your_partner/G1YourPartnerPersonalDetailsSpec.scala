@@ -4,10 +4,11 @@ import models.domain._
 import models.{DayMonthYear, NationalInsuranceNumber, domain}
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import play.api.test.{WithBrowser, FakeRequest, WithApplication}
+import play.api.test.{ FakeRequest}
 import controllers.{Formulate, BrowserMatchers}
 import controllers.s2_about_you.{G2MaritalStatus, G4NationalityAndResidency}
 import models.view.CachedClaim
+import utils.WithApplication
 
 class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
   val title = "Mr"

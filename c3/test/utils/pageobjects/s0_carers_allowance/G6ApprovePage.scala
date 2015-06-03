@@ -1,6 +1,6 @@
 package utils.pageobjects.s0_carers_allowance
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 import org.fluentlenium.core.domain.{FluentWebElement, FluentList}
 import play.api.Logger

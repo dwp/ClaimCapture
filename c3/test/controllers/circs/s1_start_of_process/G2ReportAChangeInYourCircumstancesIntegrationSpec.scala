@@ -1,8 +1,8 @@
 package controllers.circs.s1_start_of_process
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeApplication, WithBrowser}
-import utils.pageobjects.circumstances.s1_start_of_process.{G1ReportChangesPage, G2ReportAChangeInYourCircumstancesPage, G2ReportAChangeInYourCircumstancesPage$}
+import utils.WithBrowser
+import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.s2_report_changes.{G7BreaksInCarePage, G3PermanentlyStoppedCaringPage, G2SelfEmploymentPage, G4OtherChangeInfoPage}
 import utils.pageobjects.{PageObjects, TestData}

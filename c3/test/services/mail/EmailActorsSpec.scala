@@ -72,7 +72,7 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
 
 
     }
-  } section "unit"
+  } section ("unit","slow")
 
 }
 

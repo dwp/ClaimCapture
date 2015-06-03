@@ -2,7 +2,7 @@ package utils.pageobjects.preview
 
 import utils.pageobjects.xml_validation.XMLBusinessValidation
 import utils.pageobjects.{TestData, PageContext, ClaimPage, PageObjectsContext}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 
 
 final class PreviewPage(ctx:PageObjectsContext) extends ClaimPage(ctx, PreviewPage.url) {
