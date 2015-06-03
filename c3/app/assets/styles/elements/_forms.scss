@@ -45,6 +45,9 @@ textarea {
     &.textarea-reduced {
         height: 3em;
     }
+    &.form-control {
+        width: 100%;
+    }
 }
 
 //-----------------------------------------------------------------

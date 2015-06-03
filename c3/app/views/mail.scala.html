@@ -94,6 +94,8 @@
 
             <font face="arial, sans-serif">
 
+                <br />
+
                 <h1 class="form-title heading-large">@Messages(s"mail.$claimType.title")</h1>
 
                 <p>@Messages(s"mail.$claimType.successful")</p>
@@ -170,7 +172,7 @@
                                 <span> @Messages("mail.next.line11")</span><br />
                                 <span>@Messages("mail.next.line12")</span><br />
                                 <span> @Messages("mail.next.line13")</span><br />
-                                <span>@Messages("mail.next.line14")</span><br />
+                                <span>@Messages("mail.next.line14")</span>
                             </div>
                         </li>
                     </ol>
@@ -199,7 +201,7 @@
         <div class="footer">
             <p><b>@Messages("mail.donotreply")</b></p>
             <br />
-            <p style="font-size:80%; color:#BFC1C3;">@getProperty("xml.schema.version", "No schema version found")</p>
+            <p style="font-size: 16px; color: #BFC1C3;">@getProperty("xml.schema.version", "No schema version found")</p>
         </div>
 
     </body>
