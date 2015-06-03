@@ -7,7 +7,8 @@ import models.domain._
 import models.view.CachedChangeOfCircs
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import play.api.test.{FakeApplication, FakeRequest, WithApplication}
+import utils.WithApplication
+import play.api.test.{FakeRequest}
 import s2_report_changes._
 
 class G1ReportChangesSpec extends Specification with Tags {

@@ -5,7 +5,7 @@ import play.api.test.FakeApplication
 import utils.pageobjects.{PageObjects, XmlPage, TestData, Page}
 import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
-import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
+import utils.pageobjects.circumstances.s1_start_of_process.G1ReportChangesPage
 import utils.{LightFakeApplication, WithBrowser}
 
 class FunctionalTestCase4Spec extends FunctionalTestCommon {
