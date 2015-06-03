@@ -1,6 +1,6 @@
 package utils.pageobjects.s8_self_employment
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 final class G4SelfEmploymentPensionsAndExpensesPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G4SelfEmploymentPensionsAndExpensesPage.url) {

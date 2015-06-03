@@ -1,7 +1,7 @@
 package utils.pageobjects.circumstances.s2_report_changes
 
 import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 
 final class G9EmploymentChangePage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G9EmploymentChangePage.url) {
   declareYesNo("#stillCaring_answer", "CircumstancesEmploymentChangeStillCaring")

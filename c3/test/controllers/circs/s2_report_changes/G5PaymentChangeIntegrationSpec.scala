@@ -1,6 +1,6 @@
 package controllers.circs.s2_report_changes
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.circumstances.s2_report_changes._
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable.{Tags, Specification}

@@ -2,7 +2,7 @@ package controllers.s11_pay_details
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.Logger
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s11_pay_details.{G2BankBuildingSocietyDetailsPage, G1HowWePayYouPage}

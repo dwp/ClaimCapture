@@ -190,7 +190,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,Some(0),None,Some("en")))
 
     }
-  } section "unit"
+  } section ("unit", "slow")
 
 
   def serviceSubmission(service: AsyncClaimSubmissionService with ClaimTransactionComponent, claim: Claim)(implicit app: FakeApplication) {

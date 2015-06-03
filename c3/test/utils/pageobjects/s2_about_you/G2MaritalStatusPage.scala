@@ -1,6 +1,6 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 final class G2MaritalStatusPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G2MaritalStatusPage.url) {

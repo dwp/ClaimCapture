@@ -1,12 +1,13 @@
 package controllers.circs.s3_consent_and_declaration
 
-import play.api.test.WithBrowser
+import utils.WithJsBrowser
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable.{Tags, Specification}
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.circumstances.s2_report_changes.G4OtherChangeInfoPage
 import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
+
 
 class G1DeclarationIntegrationSpec extends Specification with Tags {
 
@@ -18,12 +19,12 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
     val someOneElse = "Yes"
     val wantsEmailContact = "No"
 
-    "be presented" in new WithBrowser with PageObjects{
+    "be presented" in new WithJsBrowser  with PageObjects{
 			val page =  G1DeclarationPage(context)
       page goToThePage()
     }
 
-    "navigate to previous page" in new WithBrowser with PageObjects{
+    "navigate to previous page" in new WithJsBrowser  with PageObjects{
 			val page =  G4OtherChangeInfoPage(context)
       page goToThePage()
 
@@ -37,7 +38,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       prevPage must beAnInstanceOf[G4OtherChangeInfoPage]
     }
 
-    "navigate to next page" in new WithBrowser with PageObjects{
+    "navigate to next page" in new WithJsBrowser  with PageObjects{
 			val page =  G1DeclarationPage(context)
 
       val claim = CircumstancesScenarioFactory.otherChangeInfo
@@ -49,7 +50,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
     }
 
     "contain errors on invalid submission" in {
-      "missing furtherInfoContact field" in new WithBrowser with PageObjects{
+      "missing furtherInfoContact field" in new WithJsBrowser  with PageObjects{
         val page =  G1DeclarationPage(context)
         val claim = new TestData
 
@@ -66,7 +67,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         errors(0) must contain("Contact phone or mobile number - This field is required")
       }
 
-      "missing obtainInfoAgreement field" in new WithBrowser with PageObjects{
+      "missing obtainInfoAgreement field" in new WithJsBrowser  with PageObjects{
         val page =  G1DeclarationPage(context)
         val claim = new TestData
 
@@ -83,7 +84,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         errors(0) must contain("Do you agree to us obtaining information from any other persons or organisations you may have told us about? - This field is required")
       }
 
-      "given obtainInfoAgreement is set to 'no' missing obtainInfoWhy field" in new WithBrowser with PageObjects{
+      "given obtainInfoAgreement is set to 'no' missing obtainInfoWhy field" in new WithJsBrowser  with PageObjects{
 			val page =  G1DeclarationPage(context)
         val claim = new TestData
         claim.FurtherInfoContact = byPost
@@ -99,7 +100,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         errors(0) must contain("Tell us why not - This field is required")
       }
 
-      "given circsSomeOneElse checked and missing name or organisation field" in new WithBrowser with PageObjects{
+      "given circsSomeOneElse checked and missing name or organisation field" in new WithJsBrowser  with PageObjects{
         val page =  G1DeclarationPage(context)
         val claim = new TestData
         claim.FurtherInfoContact = byPost
@@ -117,7 +118,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         errors(0) must contain("Your name and/or organisation - This field is required")
       }
 
-      "missing confirm field" in new WithBrowser with PageObjects{
+      "missing confirm field" in new WithJsBrowser  with PageObjects{
         val page =  G1DeclarationPage(context)
         val claim = new TestData
         claim.FurtherInfoContact = byPost
@@ -133,7 +134,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         errors(0) must contain("Please tick this box to confirm that you understand and make the declarations above. - This field is required")
       }
 
-      "missing wants email contact field" in new WithBrowser with PageObjects{
+      "missing wants email contact field" in new WithJsBrowser  with PageObjects{
         val page =  G1DeclarationPage(context)
         val claim = new TestData
         claim.FurtherInfoContact = byPost
@@ -149,7 +150,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
       }
 
-      "not have name or organisation field with optional text" in new WithBrowser with PageObjects{
+      "not have name or organisation field with optional text" in new WithJsBrowser  with PageObjects{
         val page =  G1DeclarationPage(context)
         val claim = new TestData
         claim.CircumstancesSomeOneElseConfirmation = someOneElse
@@ -160,13 +161,13 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         page.readLabel("nameOrOrganisation") mustEqual("Your name and/or organisation")
       }
 
-      "page contains JS enabled check" in new WithBrowser with PageObjects {
+      "page contains JS enabled check" in new WithJsBrowser  with PageObjects {
         val page = G1DeclarationPage(context)
         page goToThePage()
         page.jsCheckEnabled must beTrue
       }
 
-      "'Please tell us why not' field should not be visible when answered 'yes' to obtainInfoAgreement" in new WithBrowser with PageObjects{
+      "'Please tell us why not' field should not be visible when answered 'yes' to obtainInfoAgreement" in new WithJsBrowser  with PageObjects{
         val page =  G1DeclarationPage(context)
         val claim = new TestData
         claim.FurtherInfoContact = byPost

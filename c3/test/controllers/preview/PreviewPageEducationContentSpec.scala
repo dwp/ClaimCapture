@@ -1,7 +1,7 @@
 package controllers.preview
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.{TestData, PageObjectsContext, PageObjects}
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.preview.PreviewPage

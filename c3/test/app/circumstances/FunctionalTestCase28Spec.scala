@@ -1,7 +1,7 @@
 package app.circumstances
 
 import app.FunctionalTestCommon
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.{Page, XmlPage, TestData, PageObjects}
 import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
 import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}

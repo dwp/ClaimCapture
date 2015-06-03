@@ -1,7 +1,7 @@
 package controllers.circs.s2_report_changes
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeApplication, FakeRequest, WithApplication}
+import play.api.test.{FakeApplication, FakeRequest}
 import models.domain._
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
@@ -13,6 +13,7 @@ import app.ReportChange.SelfEmployment
 import models.domain.Claim
 import app.ReportChange
 import play.api.cache.Cache
+import utils.{LightFakeApplication, WithApplication}
 
 class G1ReportChangesSpec extends Specification with Tags {
 
@@ -114,7 +115,7 @@ class G1ReportChangesSpec extends Specification with Tags {
       redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
     }
 
-    "claim should only contain 'other changes' and 'employment change' must be discarded" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+    "claim should only contain 'other changes' and 'employment change' must be discarded" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
 
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validCaringAndOngoingSelfEmploymentStartedFormInput: _*)

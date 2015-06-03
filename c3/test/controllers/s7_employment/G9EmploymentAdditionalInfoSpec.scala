@@ -1,10 +1,11 @@
 package controllers.s7_employment
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import models.domain.Claiming
 import play.api.test.Helpers._
 import models.view.CachedClaim
+import utils.WithApplication
 
 
 class G9EmploymentAdditionalInfoSpec extends Specification with Tags{

@@ -1,6 +1,6 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 /**

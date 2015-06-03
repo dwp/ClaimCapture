@@ -1,11 +1,12 @@
 package controllers.circs.s2_report_changes
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 import controllers.circs.s2_report_changes
+import utils.WithApplication
 
 /**
  * Created by neddakaltcheva on 2/14/14.

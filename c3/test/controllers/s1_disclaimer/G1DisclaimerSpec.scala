@@ -1,10 +1,11 @@
 package controllers.s1_disclaimer
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain.Claiming
 import models.view.CachedClaim
+import utils.WithApplication
 
 class G1DisclaimerSpec extends Specification with Tags {
   "Disclaimer" should {

@@ -1,7 +1,7 @@
 package utils.pageobjects.circumstances.s2_report_changes
 
 import utils.pageobjects.{CircumstancesPage, PageContext, PageObjectsContext}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 
 class G12EmploymentNotStartedPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G12EmploymentNotStartedPage.url) {
   declareYesNo("#beenPaidYet", "CircumstancesEmploymentChangeBeenPaidYet")

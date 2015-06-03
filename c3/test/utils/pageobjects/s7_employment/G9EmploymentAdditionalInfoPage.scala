@@ -1,7 +1,7 @@
 package utils.pageobjects.s7_employment
 
 import utils.pageobjects.{PageContext, ClaimPage, PageObjectsContext}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 
 
 final class G9EmploymentAdditionalInfoPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G9EmploymentAdditionalInfoPage.url) {

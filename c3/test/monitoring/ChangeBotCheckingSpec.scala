@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 import models.domain.{CircumstancesDeclaration, Claim}
 import models.view.{CachedClaim, CachedChangeOfCircs}
 import org.specs2.mock.Mockito
-import play.api.test.{WithApplication, WithBrowser}
+import utils.{WithApplication, WithBrowser}
 
 class ChangeBotCheckingSpec extends Specification with Mockito with CachedChangeOfCircs {
 

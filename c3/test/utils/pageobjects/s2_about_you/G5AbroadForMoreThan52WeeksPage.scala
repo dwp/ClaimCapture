@@ -1,6 +1,6 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 class G5AbroadForMoreThan52WeeksPage (ctx:PageObjectsContext, iteration:Int) extends ClaimPage(ctx, G5AbroadForMoreThan52WeeksPage.url,iteration) {
