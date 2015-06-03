@@ -2,8 +2,8 @@ package controllers.s4_care_you_provide
 
 import models.DayMonthYear
 import org.specs2.mutable.{Tags, Specification}
+import utils.WithBrowser
 import play.api.Logger
-import play.api.test.WithBrowser
 import controllers._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 import utils.pageobjects._

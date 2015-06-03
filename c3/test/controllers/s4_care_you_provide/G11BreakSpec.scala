@@ -1,12 +1,13 @@
 package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain.{Claiming, BreaksInCare, Claim}
 import models.view.CachedClaim
 import app.CircsBreaksWhereabouts._
+import utils.WithApplication
 
 class G11BreakSpec extends Specification with Tags {
   "Break" should {

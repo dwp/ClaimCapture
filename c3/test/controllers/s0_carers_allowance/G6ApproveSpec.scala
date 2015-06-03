@@ -1,13 +1,14 @@
 package controllers.s0_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{WithApplication, FakeRequest}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain._
 import controllers.s0_carers_allowance
 import models.domain.Claim
 import models.view.CachedClaim
+import utils.WithApplication
 
 class G6ApproveSpec extends Specification with Tags {
   """Can you get Carer's Allowance""" should {

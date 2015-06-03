@@ -2,8 +2,9 @@ package controllers.s7_employment
 
 import controllers.ClaimScenarioFactory
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeApplication, WithBrowser}
+import play.api.test.FakeApplication
 import controllers.ClaimScenarioFactory._
+import utils.WithBrowser
 import utils.pageobjects._
 import utils.pageobjects.s6_education.G1YourCourseDetailsPage
 import utils.pageobjects.s7_employment._

@@ -1,6 +1,6 @@
 package utils.pageobjects.s4_care_you_provide
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 final class G10BreaksInCarePage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G10BreaksInCarePage.url, iteration) {

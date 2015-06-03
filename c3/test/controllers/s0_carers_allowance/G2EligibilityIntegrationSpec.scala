@@ -1,7 +1,7 @@
 package controllers.s0_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s0_carers_allowance._
 

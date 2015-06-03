@@ -1,22 +1,23 @@
 package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.{WebDriverHelper, WithBrowser}
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s4_care_you_provide.{G2TheirContactDetailsPage, G1TheirPersonalDetailsPage}
+import utils.WithJsBrowser
 
 class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Their Personal Details" should {
-    "be presented" in new WithBrowser with PageObjects {
+    "be presented" in new WithJsBrowser  with PageObjects {
       val page = G1TheirPersonalDetailsPage(context)
       page goToThePage()
     }
 
-    "contain errors on invalid submission" in new WithBrowser with PageObjects {
+    "contain errors on invalid submission" in new WithJsBrowser  with PageObjects {
       val theirDetailsPage = G1TheirPersonalDetailsPage(context)
       theirDetailsPage goToThePage()
       val submittedPage = theirDetailsPage submitPage()
@@ -24,7 +25,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       submittedPage.listErrors.size mustEqual 6
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with PageObjects {
+    "navigate to next page on valid submission" in new WithJsBrowser  with PageObjects {
       val theirPersonalDetailsPage = G1TheirPersonalDetailsPage(context)
       val claim = ClaimScenarioFactory.s4CareYouProvide(hours35 = false)
       theirPersonalDetailsPage goToThePage()
@@ -33,7 +34,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       contactDetailsPage must beAnInstanceOf[G2TheirContactDetailsPage]
     }
 
-    """navigate back to "Partner details - About your partner" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser with PageObjects {
+    """navigate back to "Partner details - About your partner" when they have had a partner/spouse at any time since the claim date""" in new WithJsBrowser  with PageObjects {
       val claimDatePage = G1ClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
@@ -50,7 +51,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     }
 
     
-    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with PageObjects {
+    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithJsBrowser  with PageObjects {
       val claimDatePage = G1ClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
@@ -75,7 +76,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       dateOfBirth.get mustEqual "12/07/1990"
     }
 
-    "fields must not be visible if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with PageObjects {
+    "fields must not be visible if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithJsBrowser  with PageObjects {
       val claimDatePage = G1ClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
@@ -94,7 +95,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       theirPersonalDetailsPage visible("#careYouProvideWrap") must beFalse
     }
 
-    "fields must be visible if user answered no to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with PageObjects {
+    "fields must be visible if user answered no to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithJsBrowser  with PageObjects {
       val claimDatePage = G1ClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
@@ -113,7 +114,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       theirPersonalDetailsPage visible("#careYouProvideWrap") must beTrue
     }
 
-    "Modify name from preview page" in new WithBrowser with PageObjects{
+    "Modify name from preview page" in new WithJsBrowser  with PageObjects{
       val modifiedData = new TestData
       modifiedData.AboutTheCareYouProvideTitlePersonCareFor = "Mrs"
       modifiedData.AboutTheCareYouProvideFirstNamePersonCareFor = "Jane"
@@ -123,21 +124,21 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       verifyPreviewData(context, "care_you_provide_name", "Mr Tom Potter Wilson", modifiedData, "Mrs Jane Doe Antony")
     }
 
-    "Modify nino from preview page" in new WithBrowser with PageObjects{
+    "Modify nino from preview page" in new WithJsBrowser  with PageObjects{
       val modifiedData = new TestData
       modifiedData.AboutTheCareYouProvideNINOPersonCareFor = "AB123456D"
 
       verifyPreviewData(context, "care_you_provide_nino", "AA123456A", modifiedData, "AB123456D")
     }
 
-    "Modify date of birth from preview page" in new WithBrowser with PageObjects{
+    "Modify date of birth from preview page" in new WithJsBrowser  with PageObjects{
       val modifiedData = new TestData
       modifiedData.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/04/1991"
 
       verifyPreviewData(context, "care_you_provide_dob", "02 March, 1990", modifiedData, "02 April, 1991")
     }
 
-    "Modify relationship from preview page" in new WithBrowser with PageObjects{
+    "Modify relationship from preview page" in new WithJsBrowser  with PageObjects{
       val modifiedData = new TestData
       modifiedData.AboutTheCareYouProvideWhatTheirRelationshipToYou = "wife"
 

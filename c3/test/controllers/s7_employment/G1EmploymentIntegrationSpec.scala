@@ -1,7 +1,7 @@
 package controllers.s7_employment
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.{Formulate, BrowserMatchers}
 
 class G1EmploymentIntegrationSpec extends Specification with Tags {
