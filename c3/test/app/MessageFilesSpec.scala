@@ -1,7 +1,6 @@
 package app
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithApplication
 import play.Logger
 import play.api.i18n.Messages
 

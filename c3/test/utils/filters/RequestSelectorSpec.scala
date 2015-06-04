@@ -1,7 +1,8 @@
 package utils.filters
 
 import org.specs2.mutable.Specification
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
+import utils.WithApplication
 
 
 class RequestSelectorSpec extends Specification {

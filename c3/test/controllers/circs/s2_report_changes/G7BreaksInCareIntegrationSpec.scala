@@ -1,7 +1,7 @@
 package controllers.circs.s2_report_changes
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s2_report_changes.{G7BreaksInCarePage,G8BreaksInCareSummaryPage}
 import controllers.CircumstancesScenarioFactory

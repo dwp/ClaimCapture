@@ -1,6 +1,6 @@
 package utils.pageobjects.circumstances.s3_consent_and_declaration
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 final class G1DeclarationPage (ctx:PageObjectsContext) extends CircumstancesPage(ctx, G1DeclarationPage.url){

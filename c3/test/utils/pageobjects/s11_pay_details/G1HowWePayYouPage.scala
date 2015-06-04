@@ -1,6 +1,6 @@
 package utils.pageobjects.s11_pay_details
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 /**

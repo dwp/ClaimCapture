@@ -4,7 +4,7 @@ import models.{DayMonthYear, MultiLineAddress, NationalInsuranceNumber}
 import models.domain.{Claim, _}
 import models.view.CachedClaim
 import org.specs2.mutable.{Specification, Tags}
-import play.api.test.WithApplication
+import utils.WithApplication
 
 class SubmissionCacheServiceSpec extends Specification with Tags with SubmissionCacheService with CachedClaim {
 

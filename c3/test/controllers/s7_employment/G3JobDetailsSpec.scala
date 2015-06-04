@@ -1,11 +1,12 @@
 package controllers.s7_employment
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain.{Iteration, Jobs, JobDetails, Claim, Claiming}
 import models.view.CachedClaim
+import utils.WithApplication
 
 class G3JobDetailsSpec extends Specification with Tags {
   "Your job" should {

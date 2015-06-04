@@ -8,7 +8,7 @@ import models.domain.Claiming
 import play.api.test.FakeRequest
 import play.api.test.Helpers.OK
 import play.api.test.Helpers.status
-import play.api.test.WithApplication
+import utils.WithApplication
 import akka.util.Timeout
 import java.util.concurrent.TimeUnit
 

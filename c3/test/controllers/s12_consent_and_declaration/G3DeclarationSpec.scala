@@ -1,13 +1,14 @@
 package controllers.s12_consent_and_declaration
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain.{Declaration, Claiming}
 import models.view.CachedClaim
 import services.submission.MockInjector
 import controllers.s9_other_money.{G1AboutOtherMoney, G1AboutOtherMoneySpec}
 import controllers.s7_employment.G3JobDetails
+import utils.WithApplication
 
 class G3DeclarationSpec extends Specification with MockInjector with Tags {
 

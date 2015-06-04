@@ -1,7 +1,7 @@
 package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s4_care_you_provide.{G10BreaksInCarePage, G1TheirPersonalDetailsPage}

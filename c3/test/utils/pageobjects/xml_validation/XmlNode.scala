@@ -1,8 +1,12 @@
 package utils.pageobjects.xml_validation
 
+import java.io.IOException
+import java.security.{GeneralSecurityException, KeyStore, Key}
 import javax.xml.bind.DatatypeConverter
 
+import gov.dwp.carers.security.PasswordManager
 import gov.dwp.carers.security.encryption.EncryptorAES
+import gov.dwp.carers.security.keystore.KeyStoreLoaderJCEKS
 import gov.dwp.exceptions.DwpRuntimeException
 
 import scala.xml.{Node, Elem}
@@ -62,7 +66,7 @@ class XmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml, pat
     val nodeName = node.mkString
     val value = {
       try {
-        prepareElement((new EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary(node.text.trim)))
+        prepareElement(ClaimValue.encryptorAES.decrypt(DatatypeConverter.parseBase64Binary(node.text.trim)))
       } catch {
         case e: DwpRuntimeException => prepareElement(node.text);
       }
@@ -91,6 +95,16 @@ class XmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml, pat
 class ClaimValue(attribute: String, value: String, question: String) extends TestDatumValue(attribute, value, question) {}
 
 object ClaimValue {
+  var key: Option[Key] = None
+
+  lazy val encryptorAES = new EncryptorAES{
+    override def  getKey:Key =  key.getOrElse{
+      val keyStore = new KeyStoreLoaderJCEKS().loadKeyStore
+      val keyPassword: String = PasswordManager.getKeyStoreSecretEntryPassword
+      key = Some(keyStore.getKey("caoldata", keyPassword.toCharArray))
+      key.get
+    }
+  }
 
   private def prepareQuestion(question: String) = question.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 

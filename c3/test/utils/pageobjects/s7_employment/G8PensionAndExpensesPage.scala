@@ -1,6 +1,6 @@
 package utils.pageobjects.s7_employment
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 final class G8PensionAndExpensesPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, s"${G8PensionAndExpensesPage.url}/${iteration.toString}", iteration) {

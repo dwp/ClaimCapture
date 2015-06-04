@@ -4,8 +4,9 @@ import models.domain._
 import models.view.CachedChangeOfCircs
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import play.api.test.{FakeApplication, FakeRequest, WithApplication}
+import play.api.test.{FakeApplication, FakeRequest}
 import services.submission.MockInjector
+import utils.{WithApplication, LightFakeApplication}
 
 class G1DeclarationSpec extends Specification with MockInjector with Tags {
 
@@ -31,14 +32,14 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
 
   "Circumstances - OtherChangeInfo - Controller" should {
 
-    "present 'Other Change Information' " in new WithApplication(app = FakeApplication(withGlobal = Some(global))) with MockForm {
+    "present 'Other Change Information' " in new WithApplication(app = LightFakeApplication(withGlobal = Some(global))) with MockForm {
       val request = FakeRequest()
 
       val result = G1Declaration.present(request)
       status(result) mustEqual OK
     }
 
-    "add submitted form to the cached claim" in new WithApplication(app = FakeApplication(withGlobal = Some(global))) with MockForm {
+    "add submitted form to the cached claim" in new WithApplication(app = LightFakeApplication(withGlobal = Some(global))) with MockForm {
       val request = FakeRequest()
         .withFormUrlEncodedBody(declarationInput: _*)
 
@@ -56,7 +57,7 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
       }
     }
 
-    "redirect to the next page after a valid submission" in new WithApplication(app = FakeApplication(withGlobal = Some(global))) with MockForm {
+    "redirect to the next page after a valid submission" in new WithApplication(app = LightFakeApplication(withGlobal = Some(global))) with MockForm {
       val request = FakeRequest()
         .withFormUrlEncodedBody(declarationInput: _*)
 

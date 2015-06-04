@@ -1,7 +1,7 @@
 package controllers.s6_education
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects._
 import utils.pageobjects.s6_education.G1YourCourseDetailsPage

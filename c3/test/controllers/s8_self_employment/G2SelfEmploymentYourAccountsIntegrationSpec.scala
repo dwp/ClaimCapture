@@ -1,7 +1,7 @@
 package controllers.s8_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.s8_self_employment.{G2SelfEmploymentYourAccountsPage, G2SelfEmploymentYourAccountsPageContext}
 import utils.pageobjects.{PageObjects, TestData}
 import controllers.{Formulate, ClaimScenarioFactory}

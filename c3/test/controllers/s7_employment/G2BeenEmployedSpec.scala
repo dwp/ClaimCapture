@@ -1,13 +1,14 @@
 package controllers.s7_employment
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
 import models.domain.{Employment => EmploymentDomain}
 import controllers.mappings.Mappings._
 import models.view.CachedClaim
+import utils.WithApplication
 
 class G2BeenEmployedSpec extends Specification with Tags {
   "Been Employed" should {

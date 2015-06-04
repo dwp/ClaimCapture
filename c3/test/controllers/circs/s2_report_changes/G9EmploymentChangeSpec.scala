@@ -1,12 +1,13 @@
 package controllers.circs.s2_report_changes
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeApplication, FakeRequest, WithApplication}
+import play.api.test.{FakeApplication, FakeRequest}
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 import app.ReportChange._
 import play.api.test.FakeApplication
+import utils.{WithApplication, LightFakeApplication}
 
 class G9EmploymentChangeSpec extends Specification with Tags {
   val yes = "yes"
@@ -60,14 +61,14 @@ class G9EmploymentChangeSpec extends Specification with Tags {
   )
 
  "Report a change in your circumstances - Employment - Controller" should {
-   "present 'CoC Employment Changes'" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+   "present 'CoC Employment Changes'" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
      val result = G9EmploymentChange.present(request)
      status(result) mustEqual OK
    }
 
-   "redirect to the next page after a valid not caring and self-employment not yet started details submission" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+   "redirect to the next page after a valid not caring and self-employment not yet started details submission" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
        .withFormUrlEncodedBody(validNotCaringSelfEmploymentNotYetStartedFormInput: _*)
 
@@ -75,7 +76,7 @@ class G9EmploymentChangeSpec extends Specification with Tags {
      redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
    }
 
-   "redirect to the next page after a valid caring and self-employment not yet started details submission" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+   "redirect to the next page after a valid caring and self-employment not yet started details submission" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
        .withFormUrlEncodedBody(validCaringSelfEmploymentNotYetStartedFormInput: _*)
 
@@ -83,7 +84,7 @@ class G9EmploymentChangeSpec extends Specification with Tags {
      redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
    }
 
-   "redirect to the next page after a valid caring and ongoing self-employment started details submission" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+   "redirect to the next page after a valid caring and ongoing self-employment started details submission" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
        .withFormUrlEncodedBody(validCaringAndOngoingSelfEmploymentStartedFormInput: _*)
 

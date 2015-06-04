@@ -1,7 +1,8 @@
 package utils.pageobjects.circumstances.s2_report_changes
 
+import utils.pageobjects.circumstances.s1_start_of_process.G1ReportChangesPage
 import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 
 final class G2SelfEmploymentPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G2SelfEmploymentPage.url) {
   declareYesNo("#stillCaring_answer", "CircumstancesSelfEmploymentStillCaring")

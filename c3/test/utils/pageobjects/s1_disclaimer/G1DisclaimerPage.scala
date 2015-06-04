@@ -1,6 +1,6 @@
 package utils.pageobjects.s1_disclaimer
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 /**
