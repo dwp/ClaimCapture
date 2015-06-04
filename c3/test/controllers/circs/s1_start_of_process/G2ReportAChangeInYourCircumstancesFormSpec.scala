@@ -1,10 +1,21 @@
-package controllers.circs.s1_identification
+package controllers.circs.s1_start_of_process
 
+import app.ReportChange
+import app.ReportChange.AdditionalInfo
+import app.ReportChange.SelfEmployment
+import controllers.circs.s1_start_of_process
+import controllers.circs.s2_report_changes.G9EmploymentChange
 import controllers.mappings.Mappings
+import models.domain._
+import models.view.CachedChangeOfCircs
 import org.specs2.mutable.{Tags, Specification}
+import play.api.cache.Cache
+import play.api.test.Helpers._
+import play.api.test.{FakeApplication, FakeRequest, WithApplication}
+import Mappings._
 
 
-class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags {
+class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags {
 
   "Change of circumstances - About You Form" should {
 
@@ -17,7 +28,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     val theirRelationshipToYou = "Wife"
 
     "map data into case class" in {
-      G1ReportAChangeInYourCircumstances.form.bind(
+      G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> nino,
@@ -36,7 +47,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     }
 
     "reject too many characters in text fields" in {
-      G1ReportAChangeInYourCircumstances.form.bind(
+      G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "nationalInsuranceNumber.nino" -> nino,
@@ -55,7 +66,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     }
 
     "reject special characters in text fields" in {
-      G1ReportAChangeInYourCircumstances.form.bind(
+      G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> "John >",
           "nationalInsuranceNumber.nino" -> nino,
@@ -74,7 +85,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     }
 
     "have 5 mandatory fields (plus invalid Nino)" in {
-      G1ReportAChangeInYourCircumstances.form.bind(
+      G2ReportAChangeInYourCircumstances.form.bind(
         Map("fullName" -> "")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(6)
@@ -89,7 +100,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     }
 
     "reject invalid national insurance number" in {
-      G1ReportAChangeInYourCircumstances.form.bind(
+      G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> "INVALID",
@@ -107,7 +118,7 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     }
 
     "reject invalid date" in {
-      G1ReportAChangeInYourCircumstances.form.bind(
+      G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> nino.toString,
@@ -123,5 +134,100 @@ class G1ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
+
+    val startDateDay = 1
+    val startDateMonth = 12
+    val startDateYear = 2012
+    val selfEmployed = "self-employed"
+    val selfEmployedTypeOfWork = "IT Consultant"
+
+    val validCaringAndOngoingSelfEmploymentStartedFormInput = Seq(
+      "stillCaring.answer" -> yes,
+      "hasWorkStartedYet.answer" -> yes,
+      "hasWorkStartedYet.dateWhenStarted.day" -> startDateDay.toString,
+      "hasWorkStartedYet.dateWhenStarted.month" -> startDateMonth.toString,
+      "hasWorkStartedYet.dateWhenStarted.year" -> startDateYear.toString,
+      "hasWorkFinishedYet.answer" -> no,
+      "typeOfWork.answer" -> selfEmployed,
+      "typeOfWork.selfEmployedTypeOfWork" -> selfEmployedTypeOfWork,
+      "typeOfWork.selfEmployedTotalIncome" -> dontknow
+    )
+
+    def g2FakeRequest(claimKey:String) = {
+      FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey).withFormUrlEncodedBody(
+        "fullName" -> fullName,
+        "nationalInsuranceNumber.nino" -> nino,
+        "dateOfBirth.day" -> dateOfBirthDay.toString,
+        "dateOfBirth.month" -> dateOfBirthMonth.toString,
+        "dateOfBirth.year" -> dateOfBirthYear.toString,
+        "theirFullName" -> theirFullName,
+        "theirRelationshipToYou" -> theirRelationshipToYou
+      )
+    }
+
+    "Controller flow " should {
+      "redirect to the next page after a valid additional info submission" in new WithApplication with MockForm {
+        val claim = Claim(claimKey)
+
+        Cache.set(claimKey,claim.update(ReportChanges(false,ReportChange.AdditionalInfo.name)))
+
+        val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+
+        redirectLocation(result) must beSome("/circumstances/report-changes/other-change")
+      }
+
+      "redirect to the next page after a valid self employment submission" in new WithApplication with MockForm {
+        val claim = Claim(claimKey)
+
+        Cache.set(claimKey,claim.update(ReportChanges(false,ReportChange.SelfEmployment.name)))
+
+        val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+
+        redirectLocation(result) must beSome("/circumstances/report-changes/self-employment")
+      }
+
+      "redirect to the next page after a valid stopped caring submission" in new WithApplication with MockForm {
+        val claim = Claim(claimKey)
+
+        Cache.set(claimKey,claim.update(ReportChanges(false,ReportChange.StoppedCaring.name)))
+
+        val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+
+        redirectLocation(result) must beSome("/circumstances/report-changes/stopped-caring")
+      }
+
+      "redirect to the next page after a valid address change submission" in new WithApplication with MockForm {
+        val claim = Claim(claimKey)
+
+        Cache.set(claimKey,claim.update(ReportChanges(false,ReportChange.AddressChange.name)))
+
+        val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+
+        redirectLocation(result) must beSome("/circumstances/report-changes/address-change")
+      }
+
+      "redirect to the next page after a valid payment change submission" in new WithApplication with MockForm {
+        val claim = Claim(claimKey)
+
+        Cache.set(claimKey,claim.update(ReportChanges(false,ReportChange.PaymentChange.name)))
+
+        val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+
+        redirectLocation(result) must beSome("/circumstances/report-changes/payment-change")
+      }
+
+      "redirect to the next page after a valid break from caring submission" in new WithApplication with MockForm {
+        val claim = Claim(claimKey)
+
+        Cache.set(claimKey,claim.update(ReportChanges(false,ReportChange.BreakFromCaring.name)))
+
+        val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+
+        redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
+      }
+
+    }
+
+
   } section ("unit", models.domain.CircumstancesIdentification.id)
 }

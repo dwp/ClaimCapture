@@ -1,4 +1,4 @@
-package controllers.circs.s1_identification
+package controllers.circs.s1_start_of_process
 
 import models.domain._
 import models.view.CachedChangeOfCircs
@@ -8,7 +8,7 @@ import play.api.test.Helpers._
 import play.api.test.{FakeRequest}
 import utils.WithApplication
 
-class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
+class G2ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
 
   "Circumstances - About You - Controller" should {
 
@@ -35,7 +35,7 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
     "present 'Circumstances About You' " in new WithApplication with MockForm {
       val request = FakeRequest()
 
-      val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present(request)
+      val result = controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.present(request)
       status(result) mustEqual OK
     }
 
@@ -43,7 +43,7 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
       val request = FakeRequest()
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
-      val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit(request)
+      val result = controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.submit(request)
       val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
       val section: Section = claim.section(models.domain.CircumstancesIdentification)
       section.questionGroup(CircumstancesReportChange) must beLike {
@@ -59,7 +59,7 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
       val request = FakeRequest()
         .withFormUrlEncodedBody("firstName" -> "")
 
-      val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit(request)
+      val result = controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -67,14 +67,14 @@ class G1ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
       val request = FakeRequest()
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
-      val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.submit(request)
+      val result = controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     "when present called Lang should not be set on Claim" in new WithApplication with MockForm {
       val request = FakeRequest().withHeaders(REFERER -> "http://localhost:9000/circumstances/identification/about-you")
 
-      val result = controllers.circs.s1_identification.G1ReportAChangeInYourCircumstances.present(request)
+      val result = controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.present(request)
       val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
       claim.lang mustEqual None
     }

@@ -72,7 +72,7 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
     }
   }
 
-  def present = claiming {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesAddressChange) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g6_addressChange(form.fill(CircumstancesAddressChange))(lang))
     }

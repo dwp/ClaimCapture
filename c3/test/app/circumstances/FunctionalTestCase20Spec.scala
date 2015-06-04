@@ -5,7 +5,10 @@ import utils.WithBrowser
 import utils.pageobjects.{PageObjects, XmlPage, TestData, Page}
 import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
-import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
+
+import utils.pageobjects.circumstances.s1_start_of_process.G1ReportChangesPage
+import utils.pageobjects.xml_validation.{XMLBusinessValidation, XMLCircumstancesBusinessValidation}
+import utils.pageobjects.{Page, PageObjects, TestData, XmlPage}
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.
@@ -18,7 +21,7 @@ class FunctionalTestCase20Spec extends FunctionalTestCommon {
   "The application Circumstances" should {
     "Successfully run absolute Circumstances Test Case 20" in new WithBrowser with PageObjects {
 
-      val page = G1ReportAChangeInYourCircumstancesPage(context)
+      val page = G1ReportChangesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase20.csv")
       page goToThePage()
 

@@ -6,7 +6,7 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.circumstances.s2_report_changes.G4OtherChangeInfoPage
-import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
+import utils.pageobjects.circumstances.s1_start_of_process.G2ReportAChangeInYourCircumstancesPage$
 
 
 class G1DeclarationIntegrationSpec extends Specification with Tags {

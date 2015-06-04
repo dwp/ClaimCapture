@@ -1,4 +1,4 @@
-package utils.pageobjects.circumstances.s2_report_changes
+package utils.pageobjects.circumstances.s1_start_of_process
 
 import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
 import utils.WithBrowser
