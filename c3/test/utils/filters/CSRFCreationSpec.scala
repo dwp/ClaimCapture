@@ -1,8 +1,9 @@
 package utils.filters
 
 import org.specs2.mutable.Specification
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import play.mvc.Http.HeaderNames
+import utils.WithApplication
 
 class CSRFCreationSpec extends Specification {
 

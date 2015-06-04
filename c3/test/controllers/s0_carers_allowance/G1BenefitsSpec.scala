@@ -5,7 +5,8 @@ import java.util.concurrent.TimeUnit
 import models.domain._
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
+import utils.WithApplication
 
 class G1BenefitsSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Controller" should {

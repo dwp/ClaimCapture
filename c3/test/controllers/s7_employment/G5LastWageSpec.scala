@@ -1,7 +1,7 @@
 package controllers.s7_employment
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
@@ -9,6 +9,7 @@ import models.domain.Claim
 import models.view.CachedClaim
 import controllers.mappings.Mappings._
 import models.domain.Claim
+import utils.WithApplication
 import scala.Some
 import play.api.data.Forms._
 import models.domain.Claim

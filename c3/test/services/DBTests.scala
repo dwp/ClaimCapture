@@ -7,6 +7,7 @@ import play.api.test.Helpers._
 import play.api.test.FakeApplication
 import org.specs2.mutable.Around
 import org.specs2.execute.{Result, AsResult}
+import utils.LightFakeApplication
 
 
 object DBTests {
@@ -48,7 +49,7 @@ object DBTests {
   }
 }
 
-class WithApplicationAndDB(config:Map[String,String]=Map.empty[String,String]) extends WithApplication(app = FakeApplication(additionalConfiguration = config ++ inMemoryDatabase("carers",options=Map("MODE" -> "PostgreSQL","DB_CLOSE_DELAY"->"-1")))) with Around{
+class WithApplicationAndDB(config:Map[String,String]=Map.empty[String,String]) extends WithApplication(app = LightFakeApplication(additionalConfiguration = config ++ inMemoryDatabase("carers",options=Map("MODE" -> "PostgreSQL","DB_CLOSE_DELAY"->"-1")))) with Around{
 
   override def around[T](t: => T)(implicit evidence$1: AsResult[T]): Result = {
     DBTests.prepareDDL

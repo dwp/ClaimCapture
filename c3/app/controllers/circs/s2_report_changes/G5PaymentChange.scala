@@ -1,14 +1,14 @@
 package controllers.circs.s2_report_changes
 
-import play.api.mvc.Controller
-import models.view.{Navigable, CachedChangeOfCircs}
-import play.api.data.Form
-import play.api.data.Forms._
-import models.domain.CircumstancesPaymentChange
-import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
+import models.domain.CircumstancesPaymentChange
+import models.view.{CachedChangeOfCircs, Navigable}
 import models.yesNo.YesNoWith2Text
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.mvc.Controller
+import utils.helpers.CarersForm._
 
 object G5PaymentChange extends Controller with CachedChangeOfCircs with Navigable {
   val currentlyPaidIntoBankMapping =
@@ -32,7 +32,7 @@ object G5PaymentChange extends Controller with CachedChangeOfCircs with Navigabl
   )
   (CircumstancesPaymentChange.apply)(CircumstancesPaymentChange.unapply))
 
-  def present = claiming {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesPaymentChange) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g5_paymentChange(form.fill(CircumstancesPaymentChange))(lang))
     }

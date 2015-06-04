@@ -1,7 +1,7 @@
 package controllers.s3_your_partner
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects.s4_care_you_provide.G1TheirPersonalDetailsPage
 import utils.pageobjects._

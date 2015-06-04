@@ -1,7 +1,7 @@
 package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage

@@ -3,7 +3,7 @@ package controllers.s2_about_you
 import app.MaritalStatus
 import controllers.{ClaimScenarioFactory, PreviewTestUtils}
 import org.specs2.mutable.{Specification, Tags}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage

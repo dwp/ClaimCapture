@@ -1,6 +1,6 @@
 package utils.pageobjects.s4_care_you_provide
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 /**

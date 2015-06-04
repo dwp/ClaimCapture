@@ -4,7 +4,7 @@ import javax.xml.bind.DatatypeConverter
 
 import gov.dwp.carers.security.encryption.EncryptorAES
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithApplication
+import utils.WithApplication
 
 class XmlHelperSpec extends Specification with Tags {
 

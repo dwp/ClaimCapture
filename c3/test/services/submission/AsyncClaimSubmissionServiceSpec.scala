@@ -61,7 +61,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
     val claim = new Claim(CachedChangeOfCircs.key,transactionId = Some(transactionId), uuid=randomUUID.toString)
 
     // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
-    val det = new CircumstancesReportChange(true, fullname, NationalInsuranceNumber(Some(ni)), DayMonthYear(Some(1), Some(1), Some(1967)), "", "")
+    val det = new CircumstancesReportChange(fullname, NationalInsuranceNumber(Some(ni)), DayMonthYear(Some(1), Some(1), Some(1967)), "", "")
 
     val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 
@@ -190,7 +190,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,Some(0),None,Some("en")))
 
     }
-  } section "unit"
+  } section ("unit", "slow")
 
 
   def serviceSubmission(service: AsyncClaimSubmissionService with ClaimTransactionComponent, claim: Claim)(implicit app: FakeApplication) {

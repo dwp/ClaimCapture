@@ -5,8 +5,9 @@ import org.specs2.mutable.Specification
 import play.api.cache.Cache
 import play.api.libs.iteratee.Iteratee
 import play.api.mvc.{Result, RequestHeader, EssentialAction}
-import play.api.test.{FakeApplication, FakeRequest, WithApplication}
+import play.api.test.{FakeApplication, FakeRequest}
 import play.mvc.Http.HeaderNames
+import utils.WithApplication
 
 
 class UserAgentCheckActionSpec extends Specification {

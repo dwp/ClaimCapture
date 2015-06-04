@@ -1,13 +1,14 @@
-package controllers.circs.s1_identification
+package controllers.circs.s1_start_of_process
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
-import utils.pageobjects.circumstances.s1_about_you.G1ReportAChangeInYourCircumstancesPage
+import utils.{LightFakeApplication, WithBrowser}
 import controllers.CircumstancesScenarioFactory
+import utils.pageobjects.circumstances.s1_start_of_process.{G1ReportChangesPage, G2ReportAChangeInYourCircumstancesPage}
+import utils.pageobjects.circumstances.s2_report_changes.{G7BreaksInCarePage, G3PermanentlyStoppedCaringPage, G2SelfEmploymentPage, G4OtherChangeInfoPage}
 import utils.pageobjects.{PageObjects, TestData}
 
 
-class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification with Tags {
+class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification with Tags {
 
   "About You" should {
     val fullName = "Mr John Joe Smith"
@@ -17,18 +18,31 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
     val theirRelationshipToYou = "Wife"
 
     "be presented" in new WithBrowser with PageObjects {
-      val page = G1ReportAChangeInYourCircumstancesPage(context)
+      val page = G2ReportAChangeInYourCircumstancesPage(context)
       page goToThePage()
     }
 
+    "navigate to previous page" in new WithBrowser with PageObjects{
+      val page =  G1ReportChangesPage(context)
+      val claim = CircumstancesScenarioFactory.reportChangesStoppedCaring
+      page goToThePage()
+      page fillPageWith claim
+
+      val reportAChange = page submitPage()
+
+      reportAChange must beAnInstanceOf[G2ReportAChangeInYourCircumstancesPage]
+
+      reportAChange.goBack() must beAnInstanceOf[G1ReportChangesPage]
+    }
+
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects {
-      val page = G1ReportAChangeInYourCircumstancesPage(context)
+      val page = G2ReportAChangeInYourCircumstancesPage(context)
       page goToThePage()
       page.submitPage().listErrors.size mustEqual 6
     }
 
     "Accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
-      val page = G1ReportAChangeInYourCircumstancesPage(context)
+      val page = G2ReportAChangeInYourCircumstancesPage(context)
       val claim = CircumstancesScenarioFactory.aboutDetails
       page goToThePage()
       page fillPageWith claim
@@ -38,7 +52,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
     "contain errors on invalid submission" in {
       "missing fullName field" in new WithBrowser with PageObjects {
-        val page = G1ReportAChangeInYourCircumstancesPage(context)
+        val page = G2ReportAChangeInYourCircumstancesPage(context)
         val claim = new TestData
         claim.CircumstancesAboutYouNationalInsuranceNumber = nino
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
@@ -54,7 +68,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
       }
 
       "missing nino field" in new WithBrowser with PageObjects {
-        val page = G1ReportAChangeInYourCircumstancesPage(context)
+        val page = G2ReportAChangeInYourCircumstancesPage(context)
         val claim = new TestData
         claim.CircumstancesAboutYouFullName = fullName
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
@@ -70,7 +84,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
       }
 
       "invalid nino containing numbers" in new WithBrowser with PageObjects {
-        val page = G1ReportAChangeInYourCircumstancesPage(context)
+        val page = G2ReportAChangeInYourCircumstancesPage(context)
         val claim = new TestData
         claim.CircumstancesAboutYouFullName = fullName
         claim.CircumstancesAboutYouNationalInsuranceNumber = "11abcdef1"
@@ -87,7 +101,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
       }
 
       "missing dateOfBirth field" in new WithBrowser with PageObjects {
-        val page = G1ReportAChangeInYourCircumstancesPage(context)
+        val page = G2ReportAChangeInYourCircumstancesPage(context)
         val claim = new TestData
         claim.CircumstancesAboutYouFullName = fullName
         claim.CircumstancesAboutYouNationalInsuranceNumber = nino
@@ -103,7 +117,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
       }
 
       "missing theirFullName field" in new WithBrowser with PageObjects {
-        val page = G1ReportAChangeInYourCircumstancesPage(context)
+        val page = G2ReportAChangeInYourCircumstancesPage(context)
         val claim = new TestData
         claim.CircumstancesAboutYouFullName = fullName
         claim.CircumstancesAboutYouNationalInsuranceNumber = nino
@@ -119,7 +133,7 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
       }
 
       "missing fullName field" in new WithBrowser with PageObjects {
-        val page = G1ReportAChangeInYourCircumstancesPage(context)
+        val page = G2ReportAChangeInYourCircumstancesPage(context)
         val claim = new TestData
         claim.CircumstancesAboutYouFullName = fullName
         claim.CircumstancesAboutYouNationalInsuranceNumber = nino
@@ -134,10 +148,56 @@ class G1ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         errors(0) must contain("Their relationship to you - This field is required")
       }
 
-      "page contains JS enabled check" in new WithBrowser with PageObjects {
-        val page = G1ReportAChangeInYourCircumstancesPage(context)
+      "navigate to next page when addition info selected" in new WithBrowser with PageObjects{
+        val page =  G1ReportChangesPage(context)
+        val claim = CircumstancesScenarioFactory.reportChangesOtherChangeInfo
         page goToThePage()
-        page.jsCheckEnabled must beTrue
+        page fillPageWith claim
+
+        val nextPage = page submitPage ()
+        nextPage must beAnInstanceOf[G2ReportAChangeInYourCircumstancesPage]
+        nextPage fillPageWith claim
+        val lastPage = nextPage submitPage ()
+        lastPage must beAnInstanceOf[G4OtherChangeInfoPage]
+      }
+
+      "navigate to next page when self employment selected" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "false"))) with PageObjects{
+        val page =  G1ReportChangesPage(context)
+        val claim = CircumstancesScenarioFactory.reportChangesSelfEmployment
+        page goToThePage()
+        page fillPageWith claim
+
+        val nextPage = page submitPage ()
+        nextPage must beAnInstanceOf[G2ReportAChangeInYourCircumstancesPage]
+        nextPage fillPageWith claim
+        val lastPage = nextPage submitPage ()
+        lastPage must beAnInstanceOf[G2SelfEmploymentPage]
+      }
+
+      "navigate to next page when stopped caring selected" in new WithBrowser with PageObjects{
+        val page =  G1ReportChangesPage(context)
+        val claim = CircumstancesScenarioFactory.reportChangesStoppedCaring
+        page goToThePage()
+        page fillPageWith claim
+
+        val nextPage = page submitPage ()
+        nextPage must beAnInstanceOf[G2ReportAChangeInYourCircumstancesPage]
+        nextPage fillPageWith claim
+        val lastPage = nextPage submitPage ()
+        lastPage must beAnInstanceOf[G3PermanentlyStoppedCaringPage]
+      }
+
+      "navigate to next page when break from caring selected" in new WithBrowser with PageObjects{
+        val page =  G1ReportChangesPage(context)
+        val claim = CircumstancesScenarioFactory.reportBreakFromCaring
+        page goToThePage()
+        page fillPageWith claim
+
+        val nextPage = page submitPage ()
+        nextPage must beAnInstanceOf[G2ReportAChangeInYourCircumstancesPage]
+        nextPage fillPageWith claim
+        val lastPage = nextPage submitPage ()
+        lastPage must beAnInstanceOf[G7BreaksInCarePage]
       }
 
     }

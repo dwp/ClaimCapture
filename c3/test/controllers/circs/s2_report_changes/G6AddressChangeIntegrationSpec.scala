@@ -1,6 +1,6 @@
 package controllers.circs.s2_report_changes
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s2_report_changes.G6AddressChangePage
 import controllers.CircumstancesScenarioFactory

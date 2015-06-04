@@ -1,7 +1,7 @@
 package controllers.s1_disclaimer
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, Formulate, BrowserMatchers}
 import utils.pageobjects.s0_carers_allowance.G6ApprovePage
 import utils.pageobjects.PageObjects

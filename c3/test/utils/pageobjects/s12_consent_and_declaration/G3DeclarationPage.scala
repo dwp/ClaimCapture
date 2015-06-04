@@ -1,6 +1,6 @@
 package utils.pageobjects.s12_consent_and_declaration
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 /**

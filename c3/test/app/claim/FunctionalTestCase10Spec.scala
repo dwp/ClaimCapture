@@ -1,6 +1,6 @@
 package app.claim
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.preview.PreviewTestableData
 import utils.pageobjects.s0_carers_allowance.{G1BenefitsPage, G1BenefitsPageContext}
 import utils.pageobjects._

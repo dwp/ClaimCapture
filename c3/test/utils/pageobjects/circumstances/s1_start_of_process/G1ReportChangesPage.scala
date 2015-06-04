@@ -1,7 +1,7 @@
-package utils.pageobjects.circumstances.s2_report_changes
+package utils.pageobjects.circumstances.s1_start_of_process
 
 import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 
 final class G1ReportChangesPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G1ReportChangesPage.url) {
   declareRadioList("#reportChanges", "CircumstancesReportChanges")

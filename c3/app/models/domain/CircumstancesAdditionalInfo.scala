@@ -12,12 +12,6 @@ case object CircumstancesReportChanges extends Section.Identifier {
   val id = "c2"
 }
 
-case class ReportChanges(reportChanges: String = NotAsked) extends QuestionGroup(ReportChanges)
-
-object ReportChanges extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g1"
-}
-
 case class CircumstancesSelfEmployment(stillCaring: YesNoWithDate = YesNoWithDate("", None),
                                        whenThisSelfEmploymentStarted: DayMonthYear = DayMonthYear(),
                                        typeOfBusiness: String = "",

@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.i18n.Lang
-import play.api.test.WithApplication
+import utils.WithApplication
 import scala.util.Try
 
 class DayMonthYearSpec extends Specification {

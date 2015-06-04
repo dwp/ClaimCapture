@@ -26,10 +26,11 @@
         case _ => false
     }
 
-    claim.dateOfClaim.fold("{NO CLAIM DATE}") { dmy =>
-      val date = getCorrectDate(dmy, spent35HoursCaringBeforeClaim)
-      displayPlaybackDatesFormat (lang, date)
-    }
+    val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+    val dmy = claimDateQG.spent35HoursCaringBeforeClaim.date.getOrElse(claimDateQG.dateOfClaim)
+    val date = getCorrectDate(dmy, spent35HoursCaringBeforeClaim)
+    displayPlaybackDatesFormat (lang, date)
+
 }
 
 @nextSection = @{

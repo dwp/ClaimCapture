@@ -1,6 +1,6 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 final class G4NationalityAndResidencyPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G4NationalityAndResidencyPage.url) {

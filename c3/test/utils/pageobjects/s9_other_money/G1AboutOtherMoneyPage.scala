@@ -1,6 +1,6 @@
 package utils.pageobjects.s9_other_money
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects._
 
 final class G1AboutOtherMoneyPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1AboutOtherMoneyPage.url) {

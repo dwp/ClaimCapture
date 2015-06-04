@@ -9,7 +9,7 @@ import models.DayMonthYear
 import models.domain.Claim
 import scala.Some
 import models.MultiLineAddress
-import play.api.test.WithBrowser
+import utils.WithBrowser
 
 class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
 

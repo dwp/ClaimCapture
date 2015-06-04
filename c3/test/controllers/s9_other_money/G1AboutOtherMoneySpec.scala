@@ -4,7 +4,8 @@ import models.domain._
 import models.{MultiLineAddress, PaymentFrequency, domain}
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.Helpers._
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
+import utils.WithApplication
 
 class G1AboutOtherMoneySpec extends Specification with Tags {
   "Benefits and payments - Controller" should {
