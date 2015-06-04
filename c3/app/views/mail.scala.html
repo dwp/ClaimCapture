@@ -18,6 +18,13 @@
     }
 }
 
+@isClaimEmployment = @{
+    claim.questionGroup[Employment] match {
+        case Some(employment) => employment.beenEmployedSince6MonthsBeforeClaim == Mappings.yes
+        case _ => false
+    }
+}
+
 @isCofcSelfEmployment = @{
     claim.questionGroup[CircumstancesEmploymentChange] match {
         case Some(ec) if ec.typeOfWork.answer == G9EmploymentChange.selfemployed => true
@@ -110,10 +117,11 @@
 
                         <ul>
                             @if(isClaim){
-                                @if(isClaimSelfEmployment){
+                                @if(isClaimSelfEmployment) {
                                     <li>@Messages("mail.claim.next.se.send")</li>
-                                    <li>@Messages("mail.claim.next.send4")</li>
-                                }else {
+                                    @if(!isClaimEmployment) {<li>@Messages("mail.claim.next.send4")</li>}
+                                }
+                                @if(isClaimEmployment) {
                                     <li>@Messages("mail.claim.next.send2", claimDate)</li>
                                     <li>@Messages("mail.claim.next.send3", claimDate)</li>
                                     <li>@Messages("mail.claim.next.send4")</li>
