@@ -9,6 +9,7 @@ import utils.pageobjects._
 final class G7OtherEEAStateOrSwitzerlandPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G7OtherEEAStateOrSwitzerlandPage.url) {
   declareYesNo("#benefitsFromEEA","OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA")
   declareYesNo("#workingForEEA","OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA")
+  declareInput("#workingForEEADetails", "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEADetails")
 }
 
 object G7OtherEEAStateOrSwitzerlandPage {

@@ -126,6 +126,18 @@ object ClaimScenarioFactory {
     // G7 EEA state or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "yes"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "yes"
+    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEADetails = "details details details details "
+
+    claim
+  }
+
+  def otherEuropeanEconomicAreaWithDetails() = {
+    val claim = new TestData
+
+    // G7 EEA state or Switzerland
+    claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "yes"
+    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "yes"
+    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEADetails = "details details details details "
 
     claim
   }

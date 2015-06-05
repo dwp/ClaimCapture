@@ -1,9 +1,9 @@
 package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
-import utils.WithBrowser
+import utils.{WithJsBrowser, WithBrowser}
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
-import utils.pageobjects.s2_about_you.{G4NationalityAndResidencyPage, G7OtherEEAStateOrSwitzerlandPage}
+import utils.pageobjects.s2_about_you.G7OtherEEAStateOrSwitzerlandPage
 import utils.pageobjects._
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
@@ -88,6 +88,34 @@ class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tag
 
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "No"
+    }
+
+
+    "Working For EEA Details must not be visible when time abroad page is displayed" in new WithJsBrowser  with PageObjects{
+      val page =  G7OtherEEAStateOrSwitzerlandPage(context)
+      page goToThePage()
+      page.ctx.browser.findFirst("#workingForEEA_yes").isSelected should beFalse
+      page.ctx.browser.findFirst("#workingForEEA_no").isSelected should beFalse
+      page.ctx.browser.findFirst("#workingForEEADetails").isDisplayed should beFalse
+    }
+
+    "Working For EEA Details must be visible when returning back to the time abroad page" in new WithJsBrowser  with PageObjects{
+      val page =  G7OtherEEAStateOrSwitzerlandPage(context)
+
+      val claim = ClaimScenarioFactory otherEuropeanEconomicAreaWithDetails()
+
+      page goToThePage()
+
+      page fillPageWith claim
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
+
+      val backPage = nextPage goBack()
+      backPage must beAnInstanceOf[G7OtherEEAStateOrSwitzerlandPage]
+
+      backPage.ctx.browser.findFirst("#workingForEEA_yes").isSelected should beTrue
+      backPage.ctx.browser.findFirst("#workingForEEA_no").isSelected should beFalse
+      backPage.ctx.browser.findFirst("#workingForEEADetails").isDisplayed should beTrue
     }
 
   } section("integration", models.domain.AboutYou.id)
