@@ -28,7 +28,9 @@
                 <ul>
 
                     @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromEEA"),
-                        'helperAbove -> Messages("benefitsFromEEA.helperAbove"))
+                        'helperAbove -> Messages("benefitsFromEEA.helperAbove"),
+                        'track -> true,
+                        'trackLabel -> "benefitsFromEEA")
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("benefitsFromEEADetails"),
