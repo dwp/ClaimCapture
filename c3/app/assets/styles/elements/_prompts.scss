@@ -1,0 +1,54 @@
+.prompt {
+
+    margin-bottom: $gutter;
+
+    &.submitting {
+        position: relative;
+        @media screen and (max-width: 660px) {
+            padding-right: 4em;
+        }
+        p {
+            margin: .5em 0 0 0;
+            font-weight: 100;
+            font-size: 19px;
+            &:first-child {
+                margin: 0;
+            }
+            @media screen and (max-width: 660px) {
+                margin-top: 1em;
+            }
+        } 
+        span {
+            position: absolute;
+            top: 1.4em; 
+            right: .8em;
+            width: 36px;
+            height: 36px;
+            margin-top: -18px;
+            border-radius: 100px;
+            background: #008bc2;
+            color: #fff;
+            text-align: center;
+            font-size: 26px;
+            font-weight: 700;
+            @media screen and (max-width: 660px) {
+                width: 50px;
+                height: 50px;
+                font-size: 38px;
+                top: 1em;
+                right: .5em;
+            }
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+   
+}
+
+.helper-prompt {
+    @extend .prompt;
+    border-left: 4px solid $border-colour;
+    padding-left: $gutter-half;
+}

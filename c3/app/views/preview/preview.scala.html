@@ -24,7 +24,7 @@
                         <a id="backButton" href="@controllers.preview.routes.Preview.back">@Html(Messages("form.back"))</a>
                     </nav>
 
-                    <h1>@Html(Messages("preview.summary"))</h1>
+                    <h1 class="form-title heading-large">@Html(Messages("preview.summary"))</h1>
 
                     @errorsSummary(previewForm)
 
@@ -50,6 +50,7 @@
                             <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
                         </nav>
                     }
+                    
                 </article>
 
             </div>

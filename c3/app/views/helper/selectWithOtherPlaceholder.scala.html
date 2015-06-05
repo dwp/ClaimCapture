@@ -7,12 +7,11 @@
 
 @views.html.helper.base.carersSelect(field(id), options, args ++ Seq('class -> "selectWithOther"): _*)
 
-
 <ul @{Html(args.toMap.get('id).map(p => s"""id="${p}_wrap" """).getOrElse(""))}>
-    <li class="extra-text@{if(field.hasErrors)" validation" else ""}" >
+    <li class="form-group@{if(field.hasErrors)" validation" else ""}" >
         @carersInputTextArea(field(id)("other"), Seq('placeholder -> Messages("ifOtherPleaseSpecify"), 'ignoreLabel -> false) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id):_*)
         @if(args.exists(_._1 == 'textAreaHelper)) {
-            <p class="helper right">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
+            <p class="form-hint countdown">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
         }
     </li>
 </ul>

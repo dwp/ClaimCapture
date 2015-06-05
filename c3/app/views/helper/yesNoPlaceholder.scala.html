@@ -13,12 +13,12 @@
 }
 <fieldset class="question-group">
 
-@boltonClass = @{ args.toMap.get('_boltonClass).getOrElse("") }
+    @boltonClass = @{ args.toMap.get('_boltonClass).getOrElse("") }
 
-@radioConstraintRequired(field, args:_*)
+    @radioConstraintRequired(field, args:_*)
 
-<ul class="radio @{boltonClass}" id="@CarersCrypto.encryptAES(field.id)">
-    @carersRadio(field, options, args:_*)
-</ul>
+    <ul class="inline @{boltonClass}" id="@CarersCrypto.encryptAES(field.id)">
+        @carersRadio(field, options, args:_*)
+    </ul>
 
 </fieldset>

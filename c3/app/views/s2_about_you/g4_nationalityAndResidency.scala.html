@@ -19,8 +19,10 @@
 
     @form(action = controllers.s2_about_you.routes.G4NationalityAndResidency.submit, 'role -> "form") {
             @DwpCSRFFormHelper.formField
+
 	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("s2.g4"))</legend>
+
+	            <legend class="heading-medium form-label-bold">@Html(Messages("s2.g4"))</legend>
 	
 	            <ul>
 	                @listRadioGroup(nationalityAndResidencyForm("nationality"),
@@ -58,18 +60,20 @@
                     <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
-    }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/g4_nationalityAndResidency.js")'></script>
 
-<script type="text/javascript">
-    $(function(){
-        window.initEvents("@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)",
-                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("Another_Country").id)",
-                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("actualnationality").id)",
-                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("yes").id)",
-                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("no").id)",
-                        "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("text").id)");
-    });
-</script>
+    }
+
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/g4_nationalityAndResidency.js")'></script>
+    <script type="text/javascript">
+        $(function(){
+            window.initEvents("@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)",
+                            "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("Another_Country").id)",
+                            "@CarersCrypto.encryptAES(nationalityAndResidencyForm("actualnationality").id)",
+                            "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("yes").id)",
+                            "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("no").id)",
+                            "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("text").id)");
+        });
+    </script>
+    
 }
 }

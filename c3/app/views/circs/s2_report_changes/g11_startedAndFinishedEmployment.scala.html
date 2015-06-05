@@ -35,7 +35,8 @@
         @DwpCSRFFormHelper.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("c2.g11"))</legend>
+            
+	            <legend class="heading-medium form-label-bold">@Html(Messages("c2.g11"))</legend>
 	
 	            <ul>
                     @yesNoRadioGroup(beenPaidYet,
@@ -103,9 +104,8 @@
                         'id -> "employerOwesYouMoneyHelpWrap"
                     )
                 </ul>
-            </fieldset>
-            <fieldset class="form-elements">
-                <legend>@Html(Messages("c2.g9.pensionsAndExpenses"))</legend>
+                
+                <legend class="heading-medium form-label-bold">@Html(Messages("c2.g9.pensionsAndExpenses"))</legend>
 
                 <ul>
                     @yesNoRadioGroup(didYouPayIntoPension("answer"),

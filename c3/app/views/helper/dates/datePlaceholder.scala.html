@@ -11,28 +11,25 @@
 
 <fieldset class="question-group">
 
-@dateConstraintRequired(field, id, args:_*) <!-- datePlaceholder -->
+    @dateConstraintRequired(field, id, args:_*) <!-- datePlaceholder -->
 
-@dayField = @{field("day")}
-@monthField = @{field("month")}
-@yearField = @{field("year")}
+    @dayField = @{field("day")}
+    @monthField = @{field("month")}
+    @yearField = @{field("year")}
 
-
-<ul class="inline year" id="@CarersCrypto.encryptAES(id)">
-    <li>
-        <label for="@CarersCrypto.encryptAES(dayField.id)">@Messages("datePlaceholder.day")</label>
-        @carersInputTel(dayField, 'maxLength -> 2 ,'ignoreLabel -> true)
-    </li>
-
-    <li class="month">
-        <label for="@CarersCrypto.encryptAES(monthField.id)">@Messages("datePlaceholder.month")</label>
-        @carersInputTel(monthField, 'maxLength -> 2,'ignoreLabel -> true)
-    </li>
-
-    <li>
-        <label for="@CarersCrypto.encryptAES(yearField.id)">@Messages("datePlaceholder.year.label")</label>
-        @carersInputTel(yearField, 'maxLength -> 4,'ignoreLabel -> true)
-    </li>
-</ul>
+    <ul class="form-date" id="@CarersCrypto.encryptAES(id)">
+        <li class="form-group">
+            <label for="@CarersCrypto.encryptAES(dayField.id)">@Messages("datePlaceholder.day")</label>
+            @carersInputTel(dayField, 'maxLength -> 2 ,'ignoreLabel -> true)
+        </li>
+        <li class="form-group month">
+            <label for="@CarersCrypto.encryptAES(monthField.id)">@Messages("datePlaceholder.month")</label>
+            @carersInputTel(monthField, 'maxLength -> 2,'ignoreLabel -> true)
+        </li>
+        <li class="form-group form-group-year">
+            <label for="@CarersCrypto.encryptAES(yearField.id)">@Messages("datePlaceholder.year.label")</label>
+            @carersInputTel(yearField, 'maxLength -> 4,'ignoreLabel -> true)
+        </li>
+    </ul>
 
 </fieldset>

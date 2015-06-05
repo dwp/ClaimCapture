@@ -6,8 +6,8 @@
 @import play.api.i18n.{MMessages => Messages}
 
 @if(args.find(_._1=='helperAbove).isDefined){
-    <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
+    <p class="form-hint">@Html(Messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
 }
-<ul class="radio radio-stack @if(field.hasErrors) {benefits-validation}" id="@CarersCrypto.encryptAES(field.id)">
+<ul class="form-group form-group-compound @if(field.hasErrors) {benefits-validation}" id="@CarersCrypto.encryptAES(field.id)">
     @carersRadio(field, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(utils.helpers.EmptyTemplate.fieldConstructor,lang,request)
 </ul>

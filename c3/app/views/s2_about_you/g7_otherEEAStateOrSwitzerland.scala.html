@@ -16,14 +16,14 @@
         @form(action = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
+
             <fieldset class="form-elements">
-                <legend>@Html(Messages("s2.g7"))</legend>
 
-                <div class="help-statement">
-                    <h3>@Html(Messages("eeaCountryHelp.label"))</h3>
+                <legend class="heading-medium form-label-bold">@Html(Messages("s2.g7"))</legend>
 
-                    <p class="help-info">@Html(Messages("eeaCountryHelp"))</p>
-                </div>
+                <p>@Html(Messages("eeaCountryHelp.label"))</p>
+
+                <p class="prompt helper-prompt">@Html(Messages("eeaCountryHelp"))</p>
 
                 <ul>
 
@@ -41,6 +41,7 @@
                     @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForEEA"))
 
                 </ul>
+
             </fieldset>
 
             <nav class="form-steps" role="navigation">

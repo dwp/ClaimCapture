@@ -1,12 +1,13 @@
 package controllers.s11_pay_details
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain.Claiming
 import app.AccountStatus
 import models.view.CachedClaim
 import play.api.i18n.Messages
+import utils.WithApplication
 
 class G2BankBuildingSocietyDetailsSpec extends Specification with Tags {
   "Bank building society details" should {

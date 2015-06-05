@@ -5,10 +5,9 @@
 
 @if(form.hasErrors) {
     <div class="validation-summary">
-        <h2>@Html(Messages("error.title"))</h2>
+        <h2 class="heading-small">@Html(Messages("error.title"))</h2>
         <p>@Html(Messages("error.label"))</p>
-
-        <ol>
+        <ol class="list-bullet">
             @for(error <- form.errors) {
                 <li>
                     <a href="#@CarersCrypto.encryptAES(error.key.replace(".","_"))">

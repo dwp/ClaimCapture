@@ -2,7 +2,7 @@ package controllers.s12_consent_and_declaration
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.Logger
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
 import utils.pageobjects.common.ClaimNotesPage
 import utils.pageobjects.{TestData, PageObjects}

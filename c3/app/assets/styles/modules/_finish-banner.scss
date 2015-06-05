@@ -1,0 +1,21 @@
+
+// Finish Banner
+// ================================================================
+
+.app-complete {
+    clear: both;
+    text-align: center;
+    background: #28a197;
+    padding: 2em 1em;
+    margin-top: 0;
+    margin-bottom: $gutter;
+    &, h1, h2 {
+        color: #fff;                   
+    }
+    .nino-title {
+        margin-top: 1em;
+    }
+    @media screen and (max-width: 700§px) {
+        text-align: left;
+    }
+}

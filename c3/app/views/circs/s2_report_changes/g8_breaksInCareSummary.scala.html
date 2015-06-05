@@ -26,18 +26,19 @@
 
             <div class="data-table">
 				 
-				 <h2>@Messages("c2.g7")</h2>
+				 <h2 class="heading-medium">@Messages("c2.g7")</h2>
 
 				 <ul class="break-data">
 
         			<li>
 				  	
-					  	<h3>@{breaksInCare.breaksInCareStartDate.`dd/MM/yyyy`}
+					  	<h3 class="heading-small">
+                            @{breaksInCare.breaksInCareStartDate.`dd/MM/yyyy`}
                             @{if(breaksInCare.breaksInCareStartTime.isDefined) Html(Messages("at")) }
                             @{if(breaksInCare.breaksInCareStartTime.isDefined) breaksInCare.breaksInCareStartTime }
-                        <span>
-                            @{if(breaksInCare.breakEnded.answer == "yes") Html(Messages("to"))}
-                        </span>
+                            <span>
+                                @{if(breaksInCare.breakEnded.answer == "yes") Html(Messages("to"))}
+                            </span>
                             @{if(breaksInCare.breakEnded.answer == "yes") breaksInCare.breakEnded.date.get.`dd/MM/yyyy`}
                             @{if(breaksInCare.breakEnded.time.isDefined) Html(Messages("at")) }
                             @{if(breaksInCare.breakEnded.time.isDefined) breaksInCare.breakEnded.time }
@@ -60,8 +61,6 @@
 					
 				  	</li>
 				  	
-				  	
-				  	
 				 </ul>
 				 
         	 </div>
@@ -69,8 +68,10 @@
        </fieldset>
 
         <div class="form-wrap">
+
             <fieldset class="form-elements">
-                <legend>@Messages("c2.g8")</legend>
+
+                <legend class="form-label-bold heading-medium">@Messages("c2.g8")</legend>
 
                 <ul>
                     @yesNoRadioGroup(breaksInCareSummaryForm("additionalBreaks.answer"),
@@ -88,6 +89,7 @@
 	                    'id -> "additionalBreaksWrap"
 	                )
                 </ul>
+
             </fieldset>
 
             <nav class="form-steps">
@@ -96,32 +98,36 @@
                     <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
+
         </div>
+        
     }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g8_breaksFromCaringSummary.js")'></script>
-<script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
-<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
-<script type="text/javascript">
-$(function(){
-window.areaCounter({selector:"@CarersCrypto.encryptAES("additionalBreaks_text")",maxChars:300});
-})
-$(function(){
-window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
-"@CarersCrypto.encryptAES("breakEnded_answer_no")",
-"@CarersCrypto.encryptAES("expectStartCaring_answer_yes")",
-"@CarersCrypto.encryptAES("expectStartCaring_answer_no")",
-"@CarersCrypto.encryptAES("expectStartCaring_answer_dontknow")"
-);
-});
-</script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g8_breaksFromCaringSummary.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
-<script type="text/javascript">
-    $(function(){
-        window.initEvents("@CarersCrypto.encryptAES("additionalBreaks_answer_yes")",
-                          "@CarersCrypto.encryptAES("additionalBreaks_answer_no")",
-                          "@CarersCrypto.encryptAES("additionalBreaks_text")");
-    });
-</script>
+    <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("additionalBreaks_text")",maxChars:300});
+        })
+        $(function(){
+            window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
+            "@CarersCrypto.encryptAES("breakEnded_answer_no")",
+            "@CarersCrypto.encryptAES("expectStartCaring_answer_yes")",
+            "@CarersCrypto.encryptAES("expectStartCaring_answer_no")",
+            "@CarersCrypto.encryptAES("expectStartCaring_answer_dontknow")"
+            );
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function(){
+            window.initEvents("@CarersCrypto.encryptAES("additionalBreaks_answer_yes")",
+                              "@CarersCrypto.encryptAES("additionalBreaks_answer_no")",
+                              "@CarersCrypto.encryptAES("additionalBreaks_text")");
+        });
+    </script>
+
 }
 }

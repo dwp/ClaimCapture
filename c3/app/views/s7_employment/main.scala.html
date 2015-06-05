@@ -31,10 +31,10 @@
                 </nav>
 
                 @if(employerName.isDefined && !employerName.isEmpty) {
-                    <h1>@sectionTitle(Employed)@employerName </h1>
+                    <h1 class="form-title heading-large">@sectionTitle(Employed)@employerName </h1>
                 }
                 @if(!employerName.isDefined || employerName.isEmpty){
-                    <h1>@sectionTitle(Employed)@Html(Messages("s7.main.help1"))</h1>
+                    <h1 class="form-title heading-large">@sectionTitle(Employed)@Html(Messages("s7.main.help1"))</h1>
                 }
 
                 @if(currentForm.isDefined) {

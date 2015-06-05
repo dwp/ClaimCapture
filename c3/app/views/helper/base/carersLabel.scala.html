@@ -7,11 +7,11 @@
 }
 
 @if(ignoreLabel){
-    <label for="@CarersCrypto.encryptAES(field.id)">
+    <label class="form-label-bold" for="@CarersCrypto.encryptAES(field.id)">
         @{Space.*}
         @carersLabelText(field,args:_*)
     </label>
     @if(args.find(_._1=='helperAbove).isDefined){
-      <p class="helper above">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
+      <p class="form-hint">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
     }
 }

@@ -22,10 +22,8 @@
                 <nav class="back-nav" role="navigation">
                     <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
                 </nav>
-
                 
-                <h1>@sectionTitle(OtherMoney)@Html(Messages("s9.longName"))</h1>
-
+                <h1 class="form-title heading-large">@sectionTitle(OtherMoney)@Html(Messages("s9.longName"))</h1>
 
                 @if(currentForm.isDefined){
                     @errorsSummary(currentForm.get)

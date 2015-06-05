@@ -45,7 +45,8 @@
     s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${contactDetails.postcode.getOrElse("")}"
 }
 
-<h2>@Html(Messages("aboutYou.title"))</h2>
+<h2 class="heading-medium">@Html(Messages("aboutYou.title"))</h2>
+
 <dl>
     @fieldWithLink("about_you_full_name", "name", titleNames)
     @fieldWithLink("about_you_nino", "nationalInsuranceNumber", nino)

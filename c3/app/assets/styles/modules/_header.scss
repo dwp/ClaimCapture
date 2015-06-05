@@ -10,3 +10,55 @@
         padding: 0;
     }
 }
+
+header {
+    div {
+        margin: 0 auto;
+        .crown {
+            text-rendering: optimizeLegibility;
+            font-size: 30px;
+            color: #fff;
+            font-weight: bold;
+            line-height: 1em;
+            text-decoration: none;
+            float: left;
+            padding: 4px 0 1px 41px;
+            border-bottom: 1px solid transparent;
+            position: relative;
+            background-image: url('/assets/images/crown.png');
+            background-size: 35px 31px;
+            background-position: 0 2px;
+            background-repeat: no-repeat;
+            img {
+                height: 31px;
+                width: 35px;
+                position: absolute;
+                top: 2px;
+                left: 0;
+                border: 0;
+                margin-right: 1px;
+            }
+            &:hover {
+                border-bottom: 1px solid #fff;
+            }
+        }
+
+            h1 {
+                color: #fff;
+                font-size: 24px;
+                line-height: 1em;
+                top: 5px;
+                position: relative;
+                float: right;
+                width: 68%;
+                @media screen and (max-width: 700px) {
+                    font-size: 18px;
+                    float: none;
+                    clear: both;
+                    width: auto;
+                    padding-bottom: 10px;
+                }
+            
+        }
+    }
+}

@@ -43,7 +43,7 @@
     text
 }
 
-<h2>@Html(Messages("employment.title"))</h2>
+<h2 class="heading-medium">@Html(Messages("employment.title"))</h2>
 <dl>
     <dt><a id="employed_beenEmployed" href="@controllers.s7_employment.routes.G1Employment.present().url">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
     <dd>@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}</dd>

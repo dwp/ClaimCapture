@@ -2,10 +2,10 @@
 
 @(inputDef: Seq[Html], args: (Symbol, Any)*)
 
-<li id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}" class="extra-detail">
+<li class="form-group" id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}">
     <ul>
-    @for(html <- inputDef) {
-        @html
-    }
+        @for(html <- inputDef) {
+            @html
+        }
     </ul>
 </li>

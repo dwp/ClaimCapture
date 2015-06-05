@@ -1,7 +1,7 @@
 package utils.pageobjects.circumstances.s2_report_changes
 
 import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
-import play.api.test.WithBrowser
+import utils.WithBrowser
 
 final class G5PaymentChangePage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G5PaymentChangePage.url) {
   declareYesNo("#currentlyPaidIntoBank_answer", "CircumstancesPaymentChangeCurrentlyPaidIntoBank")

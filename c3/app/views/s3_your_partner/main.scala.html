@@ -23,8 +23,7 @@
                     <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
                 </nav>
                 
-                <h1>@sectionTitle(YourPartner)@Html(Messages("s3.help1"))</h1>
-
+                <h1 class="form-title heading-large">@sectionTitle(YourPartner)@Html(Messages("s3.help1"))</h1>
 
                 @if(currentForm.isDefined) {
                     @errorsSummary(currentForm.get)

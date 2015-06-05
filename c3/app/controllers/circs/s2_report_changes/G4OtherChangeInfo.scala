@@ -1,12 +1,12 @@
 package controllers.circs.s2_report_changes
 
-import play.api.mvc.Controller
-import models.view.{Navigable, CachedChangeOfCircs}
+import controllers.CarersForms._
+import models.domain.CircumstancesOtherInfo
+import models.view.{CachedChangeOfCircs, Navigable}
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.CircumstancesOtherInfo
+import play.api.mvc.Controller
 import utils.helpers.CarersForm._
-import controllers.CarersForms._
 
 object G4OtherChangeInfo extends Controller with CachedChangeOfCircs with Navigable {
 
@@ -16,7 +16,7 @@ object G4OtherChangeInfo extends Controller with CachedChangeOfCircs with Naviga
     change -> carersNonEmptyText(maxLength = 2000)
   )(CircumstancesOtherInfo.apply)(CircumstancesOtherInfo.unapply))
 
-  def present = claiming {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesOtherInfo) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g4_otherChangeInfo(form.fill(CircumstancesOtherInfo))(lang))
     }

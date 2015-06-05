@@ -1,6 +1,6 @@
 executeEvent = (selector, maxChars) ->
     elem = $(selector)
-    helper = elem.parent().find(".right")
+    helper = elem.parent().find(".countdown")
     text = helper.html()
     num = maxChars - elem.val().length
     if ((text != undefined) && (text.length > 0))

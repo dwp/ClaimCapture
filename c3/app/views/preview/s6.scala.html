@@ -7,7 +7,7 @@
 
 @yourCourseDetails = @{claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())}
 
-<h2>@Html(Messages("s6.progressbar.name"))</h2>
+<h2 class="heading-medium">@Html(Messages("s6.progressbar.name"))</h2>
 <dl>
     @fieldWithLink("education_beenInEducationSinceClaimDate", "beenInEducationSinceClaimDate", Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase))
         @if(yourCourseDetails.beenInEducationSinceClaimDate == "yes"){

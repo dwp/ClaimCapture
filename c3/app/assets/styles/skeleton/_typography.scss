@@ -4,7 +4,6 @@
 
 //  GOV.UK font stacks, referred to in typography.scss
 
-
 //  Font stack weirdness
 //
 //  To ensure embedded fonts fall back to appropriate
@@ -49,6 +48,18 @@ $Print-reset: sans-serif;
 
 // Typographic Mixins
 // ================================================================
+
+// Mixin for retina images
+@mixin device-pixel-ratio($ratio: 2) {
+    @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
+    only screen and (min--moz-device-pixel-ratio: $ratio),
+    only screen and ( -o-min-device-pixel-ratio: #{($ratio*10)}/10),
+    only screen and ( min-device-pixel-ratio: $ratio),
+    only screen and ( min-resolution: #{($ratio*96)}dpi),
+    only screen and ( min-resolution: #{$ratio}dppx) {
+        @content;
+    }
+}
 
 //  ANATOMY OF A TYPE STYLE
 //  -----------------------
@@ -314,10 +325,10 @@ $is-print: false !default;
 
 @mixin external-link-default {
     &:after {
-        background-image: file-url("external-links/external-link.png");
+        background-image: url("../img/external-link.png");
         background-repeat: no-repeat;
         @include device-pixel-ratio() {
-            background-image: file-url("external-links/external-link-24x24.png");
+            background-image: url("../img/external-link-24x24.png");
             background-size: 12px 400px;
         }
     }
@@ -325,10 +336,10 @@ $is-print: false !default;
 
 @mixin external-link-heading {
     &:after {
-        background-image: file-url("external-links/external-link-black-12x12.png");
+        background-image: url("../img/external-link-black-12x12.png");
         background-repeat: no-repeat;
         @include device-pixel-ratio() {
-            background-image: file-url("external-links/external-link-black-24x24.png");
+            background-image: url("../img/external-link-black-24x24.png");
             background-size: 12px 400px;
         }
     }

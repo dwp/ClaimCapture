@@ -1,14 +1,15 @@
 package controllers.circs.s2_report_changes
 
-import language.reflectiveCalls
-import play.api.mvc.Controller
+import controllers.CarersForms._
+import controllers.mappings.Mappings._
+import models.domain.CircumstancesStoppedCaring
+import models.view.{CachedChangeOfCircs, Navigable}
 import play.api.data.Form
 import play.api.data.Forms._
-import models.view.{CachedChangeOfCircs, Navigable}
-import models.domain.CircumstancesStoppedCaring
+import play.api.mvc.Controller
 import utils.helpers.CarersForm._
-import controllers.mappings.Mappings._
-import controllers.CarersForms._
+
+import scala.language.reflectiveCalls
 
 object G3PermanentlyStoppedCaring extends Controller with CachedChangeOfCircs with Navigable {
   val form = Form(mapping(
@@ -16,7 +17,7 @@ object G3PermanentlyStoppedCaring extends Controller with CachedChangeOfCircs wi
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesStoppedCaring.apply)(CircumstancesStoppedCaring.unapply))
 
-  def present = claiming {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit circs =>  implicit request =>  lang =>
     track(CircumstancesStoppedCaring) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g3_permanently_stopped_caring(form.fill(CircumstancesStoppedCaring))(lang))
     }

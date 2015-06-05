@@ -2,9 +2,7 @@
 // Helpers
 // ================================================================
 
-//-----------------------------------------------------------------
 // Shims
-//-----------------------------------------------------------------
 
 // From: https://blog.mozilla.org/webdev/2009/02/20/cross-browser-inline-block/
 
@@ -14,7 +12,6 @@
 // @include inline-block("250px")
 //
 // which gives a min-height to the inline-block elements.
-
 
 @mixin inline-block($min-height: "") {
 
@@ -91,4 +88,22 @@
 // Hide, only when JavaScript is enabled
 .js-enabled .js-hidden {
     display: none;
+}
+
+// Vertical Rhythm
+@mixin vertical-rhythm() {
+    &:first-child {
+        margin-top: 0;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+// Responsive Visibility
+
+.hide-desktops {
+    @include media(tablet) {
+        display: none;
+    }
 }

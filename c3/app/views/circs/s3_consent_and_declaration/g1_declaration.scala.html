@@ -14,11 +14,16 @@
     @errorsSummary(declarationForm)
 
     @form(action = controllers.circs.s3_consent_and_declaration.routes.G1Declaration.submit) {
+
         <input type="hidden" id="js" name="jsEnabled" value="false">
+
         @DwpCSRFFormHelper.formField
+
         <div class="form-wrap">
+
 	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("c3.g2"))</legend>
+
+	            <legend class="form-label-bold heading-medium">@Html(Messages("c3.g2"))</legend>
 	
 	            <ul>
 	                @carersInputText(
@@ -42,13 +47,13 @@
 	            
 	        </fieldset>
 	
-	<fieldset class="form-elements">
-	            <legend>@Html(Messages("c3.g1"))</legend>
+	       <fieldset class="form-elements">
+
+	            <legend class="form-label-bold heading-medium">@Html(Messages("c3.g1"))</legend>
 	
 	            <section class="dec">
-	                <h3>@Html(Messages("declaration.title"))</h3>
-	
-	                <ul>
+	                <h3 class="heading-small">@Html(Messages("declaration.title"))</h3>
+	                <ul class="list-bullet">
                         <li>@Html(Messages("circs.declaration.1a")) <a id="claimnotes" href="/internal-claim-notes/@lang.code" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>@Html(Messages("circs.declaration.1b"))</a> @Html(Messages("circs.declaration.1c"))</li>
                         <li>@Html(Messages("circs.declaration.2"))</li>
                         <li>@Html(Messages("circs.declaration.3"))</li>
@@ -56,8 +61,9 @@
 	                </ul>
 	            </section>
 	
-	
-	            @declareCheckPlaceholder(declarationForm("circsSomeOneElse"))
+                <div class="block-checkbox">
+	               @declareCheckPlaceholder(declarationForm("circsSomeOneElse"))
+                </div>
 	
 	            <ul>
 	                @otherDetailPlaceHolder(
@@ -67,7 +73,9 @@
 	                )
 	            </ul>
 	
-	            @declareCheckPlaceholder(declarationForm("confirm"))
+                <div class="block-checkbox">
+	               @declareCheckPlaceholder(declarationForm("confirm"))
+                </div>
 	
 	            <ul class="circs-group">
 	                @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
@@ -76,8 +84,8 @@
 	                        carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 300, 'textAreaHelper -> Html(Messages("300charsLeft")))),
 	                    'id -> "why"
                     )
-	
 	            </ul>
+                
 	        </fieldset>
 	
 	        <nav class="form-steps">
@@ -86,14 +94,15 @@
                     <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
+
         </div>
+
     }
 }
-<script type="text/javascript">$($("#js").val("true"));</script>
 
+<script type="text/javascript">$($("#js").val("true"));</script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s3_consent_and_declaration/g1_declaration.js")'></script>
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
-
 
 <script type="text/javascript">
     $(function() {
@@ -108,17 +117,16 @@
     });
 </script>
 
-    @if(getProperty("email.frontend",false)) {
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/email.js")'></script>
-        <script type="text/javascript">
-            $(function() {
-                window.emailInit("@CarersCrypto.encryptAES("wantsEmailContactCircs_yes")",
-                                 "@CarersCrypto.encryptAES("wantsEmailContactCircs_no")",
-                                 "@CarersCrypto.encryptAES("mail")",
-                                 "@CarersCrypto.encryptAES("mailConfirmation")");
-            });
-        </script>
-    }
-
+@if(getProperty("email.frontend",false)) {
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/email.js")'></script>
+    <script type="text/javascript">
+        $(function() {
+            window.emailInit("@CarersCrypto.encryptAES("wantsEmailContactCircs_yes")",
+                             "@CarersCrypto.encryptAES("wantsEmailContactCircs_no")",
+                             "@CarersCrypto.encryptAES("mail")",
+                             "@CarersCrypto.encryptAES("mailConfirmation")");
+        });
+    </script>
+}
 
 }

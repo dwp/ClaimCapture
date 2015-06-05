@@ -19,7 +19,6 @@
         "relationship.helper" + (if(claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse(`no`) == `yes`)) ".partner" else "")
     }
 
-
     @defining(lang) { implicit language =>
     @main(Messages("s4.g1") + " - " + Messages("s4.longName"), Some(currentForm)) {
 
@@ -28,7 +27,8 @@
             @DwpCSRFFormHelper.formField
 
                 <fieldset class="form-elements" data-journey="carers-allowance:page:care-you-provide">
-                    <legend>@Html(Messages("s4.g1"))</legend>
+
+                    <legend class="heading-medium form-label-bold">@Html(Messages("s4.g1"))</legend>
 
                     <ul>
 
@@ -54,7 +54,9 @@
                         @carersInputText(currentForm("relationship"), 'helperAbove -> Messages(relationshipHelper()), 'maxLength -> mappings.Mappings.thirtyfive)
                         
                         @yesNoRadioGroup(currentForm("liveAtSameAddressCareYouProvide"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
+
                     </ul>
+                    
                 </fieldset>
 
                 <nav class="form-steps" role="navigation">
@@ -67,14 +69,14 @@
         }
 
         <script type="text/javascript">
-        $ ( function ( ) {
-            @ga.stagePrompt()
-        } )
-        $ ( function ( ) {
-        window.showOrHideCareYouProvideDetails ( {
-        showOrHideDetails : @isPartnerPersonYouCareFor
-        } ) ;
-        } )
+            $ ( function ( ) {
+                @ga.stagePrompt()
+            } )
+            $ ( function ( ) {
+                window.showOrHideCareYouProvideDetails ( {
+                showOrHideDetails : @isPartnerPersonYouCareFor
+                } ) ;
+            } )
         </script>
 
         <script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g1_theirPersonalDetails.js")'></script>

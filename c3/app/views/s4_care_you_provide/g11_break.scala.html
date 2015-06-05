@@ -28,73 +28,81 @@
         else displayPlaybackDatesFormat(lang, dmy))
 }
 
-    @defining(lang) { implicit language =>
+@defining(lang) { implicit language =>
 
-    @main("Break - About the care you provide", Some(breakForm), Some(backCall)) {
+@main("Break - About the care you provide", Some(breakForm), Some(backCall)) {
 
-    @form(action = controllers.s4_care_you_provide.routes.G11Break.submit, 'role -> "form") {
-        <input type="hidden" name="iterationID" value="@IterationID(breakForm)">
+@form(action = controllers.s4_care_you_provide.routes.G11Break.submit, 'role -> "form") {
 
-        @DwpCSRFFormHelper.formField
+    <input type="hidden" name="iterationID" value="@IterationID(breakForm)">
 
-	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("s4.g11.help1")) @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
-	
-				<div class="prompt helper-prompt"><p>@Html(Messages("s4.g11.help2"))</p>
-				<p>@Html(Messages("s4.g11.help3"))</p></div>
-				
-	            <ul>
+    @DwpCSRFFormHelper.formField
 
-                    @dateTimePickerWithDynamicLabel(breakForm("start"), 'dynamicDateDays-> 34)
+        <fieldset class="form-elements">
 
-                    @carersShortInputText(breakForm("startTime"),
-                    'helperAbove-> Html(Messages("breaksInCareStartTime.helper")),
-                    'maxLength -> 10)
+            <legend class="heading-medium form-label-bold">@Html(Messages("s4.g11.help1")) @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
 
-                    @listRadioGroupWithOther(breakForm("wherePerson"),
-                        'items -> whereWasThePersonList,
-                        'wrapperName -> "wherePersonBreaksInCareWrap",
-                        'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
-                        '_nestedFieldSet -> true,
-                        'maxLength -> 60,
-                        'otherValue -> SomewhereElse
-                    )
+			<div class="prompt helper-prompt">
+                <p>@Html(Messages("s4.g11.help2"))</p>
+				<p>@Html(Messages("s4.g11.help3"))</p>
+            </div>
+			
+            <ul>
 
-                    @listRadioGroupWithOther(breakForm("whereYou"),
-                        'items -> whereWereYouList,
-                        'wrapperName -> "whereYouBreaksInCareWrap",
-                        'helperAbove-> Messages("whereYouBreaksInCare.helper"),
-                        '_nestedFieldSet -> true,
-                        'maxLength -> 60,
-                        'otherValue -> SomewhereElse)
+                @dateTimePickerWithDynamicLabel(breakForm("start"), 'dynamicDateDays-> 34)
 
-	                @dateTimePickerWithDynamicLabel(breakForm("end"), 'dynamicDateDays -> 27, 'helperAbove -> Messages("end.date.helper"), 'ignoreOptional->true)
-                    @carersDeclareCheck(breakForm("doNotKnowEndDate"))(CheckboxTemplate.fieldConstructor,lang)
+                @carersShortInputText(breakForm("startTime"),
+                'helperAbove-> Html(Messages("breaksInCareStartTime.helper")),
+                'maxLength -> 10)
 
-                    @carersShortInputText(breakForm("endTime"),
-                    'helperAbove-> Html(Messages("breakEnded.endTime.helper")),
-                    'maxLength -> 10)
+                @listRadioGroupWithOther(breakForm("wherePerson"),
+                    'items -> whereWasThePersonList,
+                    'wrapperName -> "wherePersonBreaksInCareWrap",
+                    'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
+                    '_nestedFieldSet -> true,
+                    'maxLength -> 60,
+                    'otherValue -> SomewhereElse
+                )
 
-	                @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))
-	            </ul>
-	        </fieldset>
-	
-	        <nav class="form-steps" role="navigation">
-	            <ul>
-	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-                    <li><a id="backButtonBottom" href="@{backCall}">@Html(Messages("form.back"))</a></li>
-	            </ul>
-	        </nav>
- 
+                @listRadioGroupWithOther(breakForm("whereYou"),
+                    'items -> whereWereYouList,
+                    'wrapperName -> "whereYouBreaksInCareWrap",
+                    'helperAbove-> Messages("whereYouBreaksInCare.helper"),
+                    '_nestedFieldSet -> true,
+                    'maxLength -> 60,
+                    'otherValue -> SomewhereElse)
+
+                @dateTimePickerWithDynamicLabel(breakForm("end"), 'dynamicDateDays -> 27, 'helperAbove -> Messages("end.date.helper"), 'ignoreOptional->true)
+                @carersDeclareCheck(breakForm("doNotKnowEndDate"))(CheckboxTemplate.fieldConstructor,lang)
+
+                @carersShortInputText(breakForm("endTime"),
+                'helperAbove-> Html(Messages("breakEnded.endTime.helper")),
+                'maxLength -> 10)
+
+                @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))
+
+            </ul>
+
+        </fieldset>
+
+        <nav class="form-steps" role="navigation">
+            <ul>
+            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                <li><a id="backButtonBottom" href="@{backCall}">@Html(Messages("form.back"))</a></li>
+            </ul>
+        </nav>
+
     }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
-<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
-<script type="text/javascript">
-    $(function(){
-        window.areaCounter({selector: "@CarersCrypto.encryptAES("whereYou_text")", maxChars: 60});
-        window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_text")", maxChars: 60});
-    })
-</script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+    <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector: "@CarersCrypto.encryptAES("whereYou_text")", maxChars: 60});
+            window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_text")", maxChars: 60});
+        })
+    </script>
+
 }
 }

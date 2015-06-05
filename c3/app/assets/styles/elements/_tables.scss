@@ -31,3 +31,99 @@ table td.numeric {
     @include core-16($tabular-numbers: true);
     text-align: right;
 }
+
+// Data Table
+
+.break-data,
+.trip-data {
+    border-bottom: 1px solid $grey-3;
+}
+    
+.data-table {
+    
+    dl {
+        overflow: hidden;
+        margin: 6px 0 0 0;
+    }
+    
+    dt {
+        display: inline-block;
+        width: 46%;
+        padding: .4em 0;
+        vertical-align: top;
+        line-height: 1.25em;
+    }
+    
+    dd {
+        display: inline-block;
+        width: 49%;
+        margin: 0;
+        padding: .4em 0 .4em 4%;
+        vertical-align: top;
+        line-height: 1.25em;
+    }
+    
+    .actions {
+        overflow: hidden;
+        margin: 1em 0;
+        input {
+            float: right;
+            font-size: 16px;
+            width: auto;
+            background: none;
+            padding: 0;
+            border: 0;
+            color: $link-colour;
+            text-decoration: underline;
+            cursor: pointer;
+            text-align: right;
+            &:hover {
+                color: $link-hover-colour;
+            }
+            &:first-child {
+                float: left;
+                text-align: left;
+            }
+        }
+    }
+
+} // end .data-table
+
+// Summary Review
+.review {
+    padding-bottom: $gutter-half;
+    dl {
+        overflow: hidden;
+        border-bottom: 1px solid #ccc;
+        dt, dd {
+            display: inline-block;
+            width: 27%;
+            margin: 0;
+            padding: 8px 0 6px 0;
+            border-top: 1px solid #ccc;
+            font-size: 18px;
+            vertical-align: top;
+            line-height: 1.2em;
+            @media screen and (max-width: 640px) {
+                float: none;
+                display: block;
+                width: 100%;
+                font-weight: 800;
+                padding: 8px 0 0 0;
+            }
+        }
+        dd {
+            width: 68%;
+            padding-left: 5%;
+            margin-left: -4px;
+            @media screen and (max-width: 640px) {
+                width: 100%;
+                font-weight: 300;
+                border-top: none;
+                padding: 0 0 6px 0;
+                padding-left: 0;
+                margin-left: 0;
+            }
+        }
+    }
+}

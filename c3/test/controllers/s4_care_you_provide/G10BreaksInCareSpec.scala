@@ -5,7 +5,8 @@ import models.view.CachedClaim
 import org.specs2.mutable.{Specification, Tags}
 import play.api.cache.Cache
 import play.api.test.Helpers._
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
+import utils.WithApplication
 
 class G10BreaksInCareSpec extends Specification with Tags {
   "Breaks from care" should {

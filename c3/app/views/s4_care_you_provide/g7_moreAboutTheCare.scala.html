@@ -9,21 +9,22 @@
 @import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
 
-
 @defining(lang) { implicit language =>
 
     @main(Messages("s4.g4") + " - " + Messages("s4.longName"), Some(currentForm)) {
 
+        @form(action = controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.submit, 'role -> "form") {
 
+            @DwpCSRFFormHelper.formField
 
-    @form(action = controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.submit, 'role -> "form") {
-        @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements">
-	            <legend>@Html(Messages("s4.g4"))</legend>
+
+	            <legend class="heading-medium form-label-blod">@Html(Messages("s4.g4"))</legend>
 	
 	            <ul>
 	                @yesNoRadioGroup(currentForm("spent35HoursCaring"))
 	            </ul>
+
 	        </fieldset>
 	
 	        <nav class="form-steps" role="navigation">
@@ -32,6 +33,9 @@
                     <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
+
+        }
+
     }
-}
+
 }

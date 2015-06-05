@@ -8,21 +8,12 @@
 
 <fieldset class="question-group">
 
-@checkConstraintRequiredAddress(field,args: _*)
+	@checkConstraintRequiredAddress(field,args: _*)
 
-
-	<ul class="address-stack">
-	    <li>
-	        @carersInputText(field("lineOne"),'maxLength -> 35, 'ignoreOptional ->true)
-	    </li>
-	
-	    <li>
-	        @carersInputText(field("lineTwo"),'maxLength -> 35, 'ignoreOptional ->true)
-	    </li>
-	
-	    <li>
-	        @carersInputText(field("lineThree"),'maxLength -> 35, 'ignoreOptional ->true)
-	    </li>
+	<ul class="hide-labels">
+	    <li class="form-group-compound">@carersInputText(field("lineOne"),'maxLength -> 35, 'ignoreOptional ->true)</li>
+	    <li class="form-group-compound">@carersInputText(field("lineTwo"),'maxLength -> 35, 'ignoreOptional ->true)</li>
+	    <li class="form-group-compound">@carersInputText(field("lineThree"),'maxLength -> 35, 'ignoreOptional ->true)</li>
 	</ul>
 
 </fieldset>

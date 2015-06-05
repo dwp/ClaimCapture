@@ -1,11 +1,13 @@
 package controllers.circs.s2_report_changes
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, FakeApplication, WithApplication}
+import play.api.test.{FakeRequest, FakeApplication}
 import models.domain.MockForm
+import utils.{LightFakeApplication, WithApplication}
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 import play.api.test.FakeApplication
+import utils.WithBrowser
 
 class G12EmploymentNotStartedSpec extends Specification with Tags {
   val yes = "yes"
@@ -71,14 +73,14 @@ class G12EmploymentNotStartedSpec extends Specification with Tags {
     )
 
     "Report an Employment change in your circumstances where the employment is ongoing - Employment - Controller" should {
-      "present 'CoC Future Employment Change'" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+      "present 'CoC Future Employment Change'" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
         val result = G12EmploymentNotStarted.present(request)
         status(result) mustEqual OK
       }
 
-      "redirect to the next page after valid submission of employment with expected weekly payment" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+      "redirect to the next page after valid submission of employment with expected weekly payment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
           .withFormUrlEncodedBody(validWeeklyPaymentEmployment: _*)
 
@@ -86,7 +88,7 @@ class G12EmploymentNotStartedSpec extends Specification with Tags {
         redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
       }
 
-      "redirect to the next page after valid submission of employment with expected monthly payment" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+      "redirect to the next page after valid submission of employment with expected monthly payment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
           .withFormUrlEncodedBody(validMonthlyPaymentEmployment: _*)
 
@@ -94,7 +96,7 @@ class G12EmploymentNotStartedSpec extends Specification with Tags {
         redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
       }
 
-      "redirect to the next page after valid submission of employment with expected other payment" in new WithApplication(app = FakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+      "redirect to the next page after valid submission of employment with expected other payment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
           .withFormUrlEncodedBody(validOtherPaymentEmployment: _*)
 

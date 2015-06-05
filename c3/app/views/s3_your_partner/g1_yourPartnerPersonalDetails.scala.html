@@ -23,18 +23,26 @@
         @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
-            <p class="intro-info">@Html(Messages("s3.g1.help"))</p>
+
+            <p>@Html(Messages("s3.g1.help"))</p>
 
             <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
-                <legend>@Html(Messages("hadPartnerSinceClaimDate"))</legend>
-                <div class="prompt nested-prompt partner-linked">
+
+                <legend class="heading-medium form-label-bold">@Html(Messages("hadPartnerSinceClaimDate"))</legend>
+
+                <div class="prompt">
+
                     <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help1", displayDateForLabel))</p>
-                    <ul>
+
+                    <ul class="list-bullet">
                         <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help2"))</li>
                         <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help3"))</li>
                     </ul>
+                    
                 </div>
+
                 <ul class="partner-group">
+
                     @yesNoRadioGroup(currentForm("hadPartnerSinceClaimDate"),'_showLabel -> false)
 
                     @otherDetailPlaceHolder(
@@ -61,7 +69,9 @@
                         ),
                         'id -> "partnerDetailsWrap"
                     )
+
                 </ul>
+
             </fieldset>
 
             <nav class="form-steps" role="navigation">
@@ -70,34 +80,38 @@
                     <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
                 </ul>
             </nav>
+
         }
+
         <script type="text/javascript" src='@routes.Assets.at("javascripts/s3_your_partner/g1_yourPartnerPersonalDetails.js")'></script>
 
         <script type="text/javascript">
-        $ ( function ( ) {
-            @ga.stagePrompt()
-        } )
 
-        $ ( function ( ) {
-        window.initEvents ( "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
-        "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
-        "@CarersCrypto.encryptAES("title")",
-        "@CarersCrypto.encryptAES("firstName")",
-        "@CarersCrypto.encryptAES("middleName")",
-        "@CarersCrypto.encryptAES("surname")",
-        "@CarersCrypto.encryptAES("otherNames")",
-        "@CarersCrypto.encryptAES("nationalInsuranceNumber_nino")",
-        "@CarersCrypto.encryptAES("dateOfBirth_day")",
-        "@CarersCrypto.encryptAES("dateOfBirth_month")",
-        "@CarersCrypto.encryptAES("dateOfBirth_year")",
-        "@CarersCrypto.encryptAES("nationality")",
-        "@CarersCrypto.encryptAES("separated_fromPartner_yes")",
-        "@CarersCrypto.encryptAES("separated_fromPartner_no")",
-        "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
-        "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")"
-        ) ;
-        } )
+            $ ( function ( ) {
+                @ga.stagePrompt()
+            } )
+
+            $ ( function ( ) {
+                window.initEvents ( "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
+                "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
+                "@CarersCrypto.encryptAES("title")",
+                "@CarersCrypto.encryptAES("firstName")",
+                "@CarersCrypto.encryptAES("middleName")",
+                "@CarersCrypto.encryptAES("surname")",
+                "@CarersCrypto.encryptAES("otherNames")",
+                "@CarersCrypto.encryptAES("nationalInsuranceNumber_nino")",
+                "@CarersCrypto.encryptAES("dateOfBirth_day")",
+                "@CarersCrypto.encryptAES("dateOfBirth_month")",
+                "@CarersCrypto.encryptAES("dateOfBirth_year")",
+                "@CarersCrypto.encryptAES("nationality")",
+                "@CarersCrypto.encryptAES("separated_fromPartner_yes")",
+                "@CarersCrypto.encryptAES("separated_fromPartner_no")",
+                "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
+                "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")"
+                ) ;
+            } )
 
         </script>
+        
     }
 }

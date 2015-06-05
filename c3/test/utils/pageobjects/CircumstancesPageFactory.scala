@@ -1,6 +1,6 @@
 package utils.pageobjects
 
-import utils.pageobjects.circumstances.s1_about_you._
+import utils.pageobjects.circumstances.s1_start_of_process._
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 import utils.pageobjects.circumstances.s2_report_changes._
 
@@ -10,7 +10,7 @@ object CircumstancesPageFactory extends PageFactory {
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
     url.replaceFirst("\\?.*$","") match {
-      case G1ReportAChangeInYourCircumstancesPage.url => G1ReportAChangeInYourCircumstancesPage (ctx)
+      case G2ReportAChangeInYourCircumstancesPage.url => G2ReportAChangeInYourCircumstancesPage (ctx)
       case G1ReportChangesPage.url => G1ReportChangesPage (ctx)
       case G2SelfEmploymentPage.url => G2SelfEmploymentPage (ctx)
       case G3PermanentlyStoppedCaringPage.url => G3PermanentlyStoppedCaringPage (ctx)

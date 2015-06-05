@@ -1,6 +1,6 @@
 package utils.pageobjects
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import utils.pageobjects.xml_validation.XMLBusinessValidation
 
 /**

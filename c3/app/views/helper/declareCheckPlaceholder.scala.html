@@ -3,5 +3,6 @@
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper.base._
 
-
-    <div class="group declare @if(field.hasErrors) { dec-validation }">@carersDeclareCheck(field,args:_*)</div>
+<div class="form-checkbox @if(field.hasErrors) { validation-summary }">
+    @carersDeclareCheck(field,args:_*)
+</div>

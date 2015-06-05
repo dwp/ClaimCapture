@@ -3,12 +3,24 @@
 @import play.api.i18n.{MMessages => Messages}
 
 <aside class="column-quarter sidebar" id="sidebar" role="complementary" aria-labelledby="helpcontent">
+
     <section class="font-xsmall" id="help">
-        <h2 class="heading-medium">@Html(Messages("leftcol.title"))</h2>
-        <h3 class="heading-small">@Html(Messages("leftcol.helpline"))</h3>
-        <p>@Html(Messages("leftcol.helplinecontent.1"))</p>
-        <p class="grouped">@Html(Messages("leftcol.helplinecontent.2"))</p>
-        <p>@Html(Messages("leftcol.helplinecontent.3"))</p>
-        <p>@Html(Messages("leftcol.helplinecontent.4")) <a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>@Messages("leftcol.callcharges")</a></p> 
+
+        <h2 class="heading-medium compound">@Html(Messages("leftcol.title"))</h2>
+
+        <h3 class="heading-small compound">@Html(Messages("leftcol.helpline"))</h3>
+
+        <p class="compound">@Html(Messages("leftcol.helplinecontent.1"))</p>
+        <p class="compound">@Html(Messages("leftcol.helplinecontent.2"))</p>
+        <p class="compound">@Html(Messages("leftcol.helplinecontent.3"))</p>
+        <p class="compound">@Html(Messages("leftcol.helplinecontent.4"))</p>
+
+        <p>
+            <a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>
+                @Messages("leftcol.callcharges")
+            </a>
+        </p> 
+
     </section>
+
 </aside>

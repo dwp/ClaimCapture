@@ -1,0 +1,25 @@
+
+// Helper Accordions
+// ================================================================
+         
+.accordion {
+    margin-bottom: $gutter;
+}
+
+.helper-more {
+    color: $link-colour;
+    text-decoration: underline;
+    cursor: pointer; // encourage clicking
+    &:hover {
+        color: $link-hover-colour;
+    }
+}
+
+.helper-info {
+    color: $secondary-text-colour;
+    margin-top: $gutter-half;
+}
+
+.helper-show {
+
+}

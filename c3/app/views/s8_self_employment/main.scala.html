@@ -32,7 +32,7 @@
                     <a id="backButton" href="@previous">@Html(Messages("form.back"))</a>
                 </nav>
                 
-                <h1>@sectionTitle(SelfEmployment)@Html(Messages("s8.longName"))</h1>
+                <h1 class="form-title heading-large">@sectionTitle(SelfEmployment)@Html(Messages("s8.longName"))</h1>
 
                 @if(currentForm.isDefined) {
                     @errorsSummary(currentForm.get)

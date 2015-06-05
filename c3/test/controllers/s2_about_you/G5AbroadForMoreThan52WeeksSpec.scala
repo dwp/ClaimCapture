@@ -1,12 +1,13 @@
 package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain._
 import models.view.CachedClaim
 import play.api.cache.Cache
 import models.domain.Claim
+import utils.WithApplication
 import scala.Some
 
 class G5AbroadForMoreThan52WeeksSpec extends Specification with Tags {

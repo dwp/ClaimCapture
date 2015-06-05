@@ -1,0 +1,46 @@
+
+// Helper
+// ================================================================
+
+.helper-mobile {
+    a {
+        display: block;
+        background-image: url('images/mobile-nav.png');
+        background-position: right 22px;
+        background-repeat: no-repeat;
+        font-size: 17px;
+        color: #2e3191;
+        text-decoration: none;
+        font-weight: 300;
+        padding: 1em 0;
+        line-height: 1em;
+        cursor: pointer;
+    }
+    &.open-helper a {
+        background-position: right -25px;
+    }
+}
+
+.helper-mobile {   
+    border-bottom: 1px solid $border-colour;
+    // hide on desktops
+    @include media(desktop) {
+        display: none;
+    }
+    &.open-helper {
+        border-bottom: none;
+    }
+}
+
+#help {
+    // mobile spacing
+    padding: $base-margin 0 $base-margin;
+    margin-bottom: $base-margin-l; 
+    border-bottom: 1px solid $border-colour;
+    // remove mobile spacing for desktops
+    @include media(desktop) {
+        padding: 0;
+        margin-bottom: 0;
+        border-bottom: none;
+    }
+}

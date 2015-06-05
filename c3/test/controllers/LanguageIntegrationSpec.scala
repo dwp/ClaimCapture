@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.test.WithBrowser
+import utils.WithBrowser
 import org.specs2.mutable.{Tags, Specification}
 
 class LanguageIntegrationSpec extends Specification with Tags {

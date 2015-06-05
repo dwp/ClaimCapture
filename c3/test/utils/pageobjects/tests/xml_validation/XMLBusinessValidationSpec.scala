@@ -26,7 +26,7 @@ class XMLBusinessValidationSpec extends Specification {
   "The XML Business Validation class" should {
     "be able to parse a claim and raise exception with list errors if content xml differs from claim object" in {
       val validator = new XMLClaimBusinessValidation
-      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       val xml = Source.fromURL(getClass getResource "/unit_tests/Claim.xml").mkString
 
       val errors = validator.validateXMLClaim(claim, xml, throwException = false)
@@ -35,7 +35,7 @@ class XMLBusinessValidationSpec extends Specification {
 
     "be able to parse a claim from a file and check XML content is valid" in {
       val validator = new XMLClaimBusinessValidation
-      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       val xml = Source.fromURL(getClass getResource "/unit_tests/ClaimMickey.xml").mkString
 
       val errors = validator.validateXMLClaim(claim, xml, throwException = false)

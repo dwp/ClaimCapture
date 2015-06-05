@@ -20,7 +20,8 @@
 
   
                 <fieldset class="form-elements">
-                    <legend>@Html(Messages("s10.g2"))</legend>
+
+                    <legend class="form-label-bold heading-medium">@Html(Messages("s10.g2"))</legend>
 
                     <ul>
                         @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
@@ -34,6 +35,7 @@
 
                         @carersInputText(currentForm("rollOrReferenceNumber"), 'maxLength -> "18")
                     </ul>
+
                 </fieldset>
 
                 <nav class="form-steps" role="navigation">

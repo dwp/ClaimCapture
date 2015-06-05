@@ -16,15 +16,21 @@
 @defining(lang) { implicit language =>
 
 @main(Messages("c2.g2") + " - " + Messages("c2.name")) {
+
     @errorsSummary(selfEmployment)
 
     @form(action = controllers.circs.s2_report_changes.routes.G2SelfEmployment.submit) {
+
         @DwpCSRFFormHelper.formField
+
         <div class="form-wrap">
+
 	        <fieldset class="form-elements" data-journey="carers-allowance:report-change:self-employment">
-	            <legend>@Html(Messages("c2.g2"))</legend>
+	        
+	            <legend class="heading-medium form-label-bold">@Html(Messages("c2.g2"))</legend>
 	
 	            <ul class="coc-layout">
+
 	                @yesNoRadioGroup(selfEmployment("stillCaring.answer"))
 	
 	                @otherDetailPlaceHolder(
@@ -43,7 +49,9 @@
 	                    'values -> Seq("yes" -> Messages("label.yes7"), "no" -> Messages("label.no"), "dontknow" -> Messages("label.dontknow")))
 	
 	                @carersInputTextArea(selfEmployment("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+
 	            </ul>
+
 	        </fieldset>
 	
 	        <nav class="form-steps">
@@ -52,22 +60,28 @@
                     <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
 	            </ul>
 	        </nav>
+
         </div>
+
     }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g2_selfEmployment.js")'></script>
-<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
-<script type="text/javascript">
-$(function(){
-window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
-})
+	<script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s2_report_changes/g2_selfEmployment.js")'></script>
+	<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
-$(function(){
-window.initEvents("@CarersCrypto.encryptAES("stillCaring_answer_yes")",
-"@CarersCrypto.encryptAES("stillCaring_answer_no")",
-"@CarersCrypto.encryptAES("stillCaring.date")");
-@ga.stagePrompt()
-});
-</script>
+	<script type="text/javascript">
+
+		$(function(){
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+		})
+
+		$(function(){
+			window.initEvents("@CarersCrypto.encryptAES("stillCaring_answer_yes")",
+			"@CarersCrypto.encryptAES("stillCaring_answer_no")",
+			"@CarersCrypto.encryptAES("stillCaring.date")");
+			@ga.stagePrompt()
+		});
+
+	</script>
+
 }
 }

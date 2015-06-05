@@ -1,8 +1,8 @@
 package controllers
 
 import play.api.mvc.{Result, Controller, Results}
-import play.api.test.{FakeRequest, WithApplication, PlaySpecification}
-
+import play.api.test.{FakeRequest, PlaySpecification}
+import utils.WithApplication
 import scala.concurrent.Future
 
 
