@@ -43,6 +43,7 @@ object OtherBenefits extends XMLComponent {
         }}
       <EEA>
         {question(<EEAReceivePensionsBenefits/>,"benefitsFromEEA", otherEEAState.benefitsFromEEA)}
+        {question(<EEAReceivePensionsBenefitsDetails/>,"benefitsFromEEADetails", otherEEAState.benefitsFromEEADetails)}
         {question(<EEAWorkingInsurance/>,"workingForEEA", otherEEAState.workingForEEA)}
       </EEA>
     </OtherBenefits>
