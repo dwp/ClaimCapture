@@ -16,7 +16,7 @@ object ChannelShiftParams {
   def apply() = {
     Map(
       "v" -> "1",
-      "tid" -> getProperty("analytics.accountTag","UA-43115970-1"),
+      "tid" -> getProperty("analytics.accountTag","UA-57523228-1"),
       "cid" -> randomUUID().toString(),
       "t" -> "event",
       "dh" -> getProperty("analytics.host","localhost"),
@@ -54,12 +54,12 @@ class ChannelShift(params:Map[String,String]) extends Controller{
     writeData(cox,postData)
     //Need to request something from the response to actually initiate the request-response
     val response = cox.getInputStream.available()
-    Logger.debug(s"Response available from GA:$response")
+    Logger.debug(s"Response available from GA:$response content:\n${Source.fromInputStream(cox.getInputStream).mkString}")
 
 
   }
 
-  protected def getUrl() = URLWrapper("http://www.google-analytics.com/collect")
+  protected def getUrl() = URLWrapper("https://www.google-analytics.com/collect")
 
   protected def writeData(cox:HttpURLConnection, postData:Array[Byte]) = {
     Try(cox.getOutputStream().write(postData)) match {
