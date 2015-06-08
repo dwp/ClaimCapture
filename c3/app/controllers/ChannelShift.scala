@@ -54,8 +54,7 @@ class ChannelShift(params:Map[String,String]) extends Controller{
     writeData(cox,postData)
     //Need to request something from the response to actually initiate the request-response
     val response = cox.getInputStream.available()
-    Logger.debug(s"Response available from GA:$response content:\n${Source.fromInputStream(cox.getInputStream).mkString}")
-
+    Logger.debug(s"Response available from GA:$response")
 
   }
 
