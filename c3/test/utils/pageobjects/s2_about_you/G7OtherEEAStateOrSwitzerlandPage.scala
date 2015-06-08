@@ -10,6 +10,7 @@ final class G7OtherEEAStateOrSwitzerlandPage (ctx:PageObjectsContext) extends Cl
   declareYesNo("#benefitsFromEEA","OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA")
   declareInput("#benefitsFromEEADetails", "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEADetails")
   declareYesNo("#workingForEEA","OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA")
+  declareInput("#workingForEEADetails", "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEADetails")
 }
 
 object G7OtherEEAStateOrSwitzerlandPage {
