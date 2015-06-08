@@ -2,7 +2,7 @@ isChecked = (selector)  ->  $("##{selector}").prop('checked')
 val = (selector,text) -> if text? then $("##{selector}").val(text) else $("##{selector}").val()
 S = (selector) -> $("##{selector}")
 
-window.initEvents = (answer_yes, answer_no, benefitsFromEEADetails) ->
+window.initEventsFromEEA = (answer_yes, answer_no, benefitsFromEEADetails) ->
 
   if not isChecked(answer_yes)
     hideBenefitsFromEEADetailsWrapper(benefitsFromEEADetails)

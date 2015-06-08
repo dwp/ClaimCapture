@@ -102,7 +102,7 @@ class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tag
     "Working For EEA Details must be visible when returning back to the time abroad page" in new WithJsBrowser  with PageObjects{
       val page =  G7OtherEEAStateOrSwitzerlandPage(context)
 
-      val claim = ClaimScenarioFactory otherEuropeanEconomicAreaWithDetails()
+      val claim = ClaimScenarioFactory otherEuropeanEconomicArea()
 
       page goToThePage()
 

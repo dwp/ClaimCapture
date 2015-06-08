@@ -21,6 +21,7 @@ object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim with Nav
     "workingForEEA" -> nonEmptyText.verifying(validYesNo),
     "workingForEEADetails" -> optional(carersNonEmptyText(maxLength = 3000))
   )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply)
+    .verifying(OtherEEAStateOrSwitzerland.requiredBenefitsFromEEADetails)
     .verifying(OtherEEAStateOrSwitzerland.requiredWorkingForEEADetails)
   )
 

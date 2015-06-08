@@ -1,11 +1,9 @@
 @(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import scala.language.postfixOps
-@import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import views.html.s2_about_you.main
 @import play.api.i18n.{MMessages => Messages}
 @import views.html.helper.base._
 @import utils.helpers.CarersTemplate._
@@ -42,15 +40,15 @@
                         'id -> "benefitsFromEEADetailsWrapper"
                     )
 
-                    @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForEEA"))
                     @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForEEA"),
-                        'helperAbove -> Messages("workingForEEA.helper")
-                    )
+                        'helperAbove -> Messages("workingForEEA.helper"),
+                        'track -> true,
+                        'trackLabel -> "workingForEEA")
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("workingForEEADetails"),
-                                'helperAbove -> Messages("workingForEEADetails.helper"),
-                                'textAreaHelper->Html(Messages("3000charsLeft")), 'maxLength->3000)
+                            'helperAbove -> Messages("workingForEEADetails.helper"),
+                            'textAreaHelper->Html(Messages("3000charsLeft")), 'maxLength->3000)
                         ),
                         'id -> "workingForEEADetailsWrapper"
                     )
@@ -75,24 +73,23 @@
             window.areaCounter({selector:"@CarersCrypto.encryptAES("benefitsFromEEADetails")",maxChars:3000});
         })
         $(function () {
-        window.initEvents("@CarersCrypto.encryptAES("benefitsFromEEA_yes")",
+        window.initEventsFromEEA("@CarersCrypto.encryptAES("benefitsFromEEA_yes")",
                           "@CarersCrypto.encryptAES("benefitsFromEEA_no")",
                           "@CarersCrypto.encryptAES("benefitsFromEEADetails")");
         });
         </script>
 
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
         <script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/g7_workingForEEA.js")'></script>
         <script type="text/javascript">
-$(function(){
-    window.areaCounter({selector:"@CarersCrypto.encryptAES("workingForEEADetails")",maxChars:3000});
-})
-$(function () {
-window.initEvents("@CarersCrypto.encryptAES("workingForEEA_yes")",
-                  "@CarersCrypto.encryptAES("workingForEEA_no")",
-                  "@CarersCrypto.encryptAES("workingForEEADetails")");
-});
-</script>
+        $(function(){
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("workingForEEADetails")",maxChars:3000});
+        })
+        $(function () {
+        window.initEventsForEEA("@CarersCrypto.encryptAES("workingForEEA_yes")",
+                          "@CarersCrypto.encryptAES("workingForEEA_no")",
+                          "@CarersCrypto.encryptAES("workingForEEADetails")");
+        });
+        </script>
     }
 
 }
