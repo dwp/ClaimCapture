@@ -2,19 +2,24 @@ package controllers.s2_about_you
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import models.view.CachedClaim
 import models.domain.OtherEEAStateOrSwitzerland
 import controllers.mappings.Mappings._
 import utils.helpers.CarersForm._
 import models.view.Navigable
+import controllers.CarersForms._
+import play.api.i18n.{MMessages => Messages}
 
 object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "benefitsFromEEA" -> nonEmptyText.verifying(validYesNo),
+    "benefitsFromEEADetails" -> optional(carersNonEmptyText(maxLength = 3000)),
     "workingForEEA" -> nonEmptyText.verifying(validYesNo)
-  )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply))
+  )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply)
+    .verifying(OtherEEAStateOrSwitzerland.requiredBenefitsFromEEADetails)
+  )
 
   def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     track(OtherEEAStateOrSwitzerland) { implicit claim => Ok(views.html.s2_about_you.g7_otherEEAStateOrSwitzerland(form.fill(OtherEEAStateOrSwitzerland))(lang)) }
@@ -22,7 +27,11 @@ object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim with Nav
 
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g7_otherEEAStateOrSwitzerland(formWithErrors)(lang)),
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("", "benefitsfromeeadetails.required", FormError("benefitsFromEEADetails", Messages("error.benefitsFromEEADetails.notFilled")))
+        BadRequest(views.html.s2_about_you.g7_otherEEAStateOrSwitzerland(formWithErrorsUpdate)(lang))
+      },
       benefitsFromEEA => claim.update(benefitsFromEEA) -> Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
     )
   } withPreview()

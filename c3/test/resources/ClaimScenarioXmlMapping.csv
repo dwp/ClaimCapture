@@ -33,6 +33,7 @@ About You,Details of trips abroad for more than 52 weeks,Reason for being there?
 About You,Details of trips abroad for more than 52 weeks,Was the person you care for with you?,PersonWithYou,Residency>PeriodAbroad>CareePresent>Answer
 About You,Details of trips abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,Residency>PeriodAbroad>TimeOutsideGBLast3Years>Answer
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,OtherBenefits>EEA>EEAReceivePensionsBenefits>Answer
+About You,Other European Economic Area (EEA) states or Switzerland,"Give details",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEADetails,OtherBenefits>EEA>EEAReceivePensionsBenefitsDetails>Answer
 About You,Other European Economic Area (EEA) states or Switzerland,"Do you or anyone in your family work or pay insurance in any of these countries?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,OtherBenefits>EEA>EEAWorkingInsurance>Answer
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,Partner>Title>Answer
 About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,Partner>OtherNames>Answer
