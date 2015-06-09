@@ -27,7 +27,7 @@ class FunctionalTestCase4Spec extends FunctionalTestCommon {
         "Your claim date"   displays DateTransformer("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart"),
         "Your nationality"  displays "AboutYouNationalityAndResidencyNationality",
         "Time outside of England, Scotland or Wales"          displays AnyYesTransformer("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime"),
-        "Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries?"          displays "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA",
+        "Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries since your claim date?"          displays "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA",
         "Have you or your close family worked or paid national insurance in any of these countries since your claim date?" displays "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA",
         "Name"            displays ("AboutTheCareYouProvideTitlePersonCareFor","AboutTheCareYouProvideFirstNamePersonCareFor","AboutTheCareYouProvideMiddleNamePersonCareFor","AboutTheCareYouProvideSurnamePersonCareFor"),
         "Date of birth"   displays DateTransformer("AboutTheCareYouProvideDateofBirthPersonYouCareFor"),

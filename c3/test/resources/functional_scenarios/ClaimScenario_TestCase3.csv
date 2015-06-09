@@ -24,7 +24,7 @@ Claim Date,Your claim date,Were you caring for the person for more than 35 hours
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,Yes
 About You,When you went abroad for more than 52 weeks,"Tell us about this time away.Include the dates you left and returned and details of where you've been.",AboutYouTripDetails_1,Trip 1 to London
-About You,Other European Economic Area (EEA) states or Switzerland,"Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,No
+About You,Other European Economic Area (EEA) states or Switzerland,"Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,No
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you or your close family worked or paid national insurance in any of these countries since your claim date?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,No
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,Mrs
 About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,Test
