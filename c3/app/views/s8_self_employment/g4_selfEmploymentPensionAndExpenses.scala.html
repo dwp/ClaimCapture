@@ -21,8 +21,6 @@
 
         <fieldset class="form-elements">
 
-            <legend class="heading-medium form-label-bold">@Html(Messages("s7.g8"))</legend>
-
             <ul>
                 @yesNoRadioGroup(currentForm("payPensionScheme")("answer"),
                     '_label -> labelForSelfEmployment(claim, lang, "payPensionScheme.answer"), valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"))
