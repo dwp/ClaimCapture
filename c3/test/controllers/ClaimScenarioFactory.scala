@@ -125,7 +125,9 @@ object ClaimScenarioFactory {
 
     // G7 EEA state or Switzerland
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "yes"
+    claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEADetails = "I have a pension in Spain."
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "yes"
+    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEADetails = "details details details details "
 
     claim
   }

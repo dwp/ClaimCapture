@@ -77,9 +77,16 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
     val pattern = """.*circumstances.*""".r
     val cookiesAbsent = request.cookies.isEmpty
 
-    Logger.error(s"${ex.getCause.toString}. Cookies empty $cookiesAbsent")
+    val referer = request.headers.get("Referer")
 
-    request.headers.get("Referer").getOrElse("Unknown") match {
+    val url = referer match {
+      case Some(r) => r
+      case _ => request.path
+    }
+
+    Logger.error(s"${ex.getCause.toString}. Origin path: ${request.path} Referer: $referer Cookies empty $cookiesAbsent")
+
+    url match {
       // we redirect to the error page with specific cookie error message if cookies are disabled.
       case pattern(_*) if cookiesAbsent =>
         Logger.warn("Redirecting to Error cookie page for a change-of-circs.")
