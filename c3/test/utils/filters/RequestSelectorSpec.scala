@@ -20,10 +20,10 @@ class RequestSelectorSpec extends Specification {
       RequestSelector.toBeChecked(request) must beFalse
     }
 
-    "mark allowance benefits and circumstances indentification pages as start page" in new WithApplication {
+    "mark allowance benefits and circumstances selection pages as start page" in new WithApplication {
       val request = FakeRequest(method="GET",path="/allowance/benefits")
       RequestSelector.startPage(request) must beTrue
-      val request2 = FakeRequest(method="GET",path="/circumstances/identification/about-you")
+      val request2 = FakeRequest(method="GET",path="/circumstances/report-changes/selection")
       RequestSelector.startPage(request2) must beTrue
     }
 
