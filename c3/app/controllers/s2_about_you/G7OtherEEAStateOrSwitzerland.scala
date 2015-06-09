@@ -33,7 +33,7 @@ object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim with Nav
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("", "benefitsfromeeadetails.required", FormError("benefitsFromEEADetails", Messages("error.benefitsFromEEADetails.notFilled")))
+          .replaceError("", "benefitsfromeeadetails.required", FormError("benefitsFromEEADetails", "error.benefitsFromEEADetails.notFilled"))
           .replaceError("", "workingForEEADetails.required", FormError("workingForEEADetails", "error.workingForEEADetails.required"))
         BadRequest(views.html.s2_about_you.g7_otherEEAStateOrSwitzerland(formWithErrorsUpdate)(lang))
       },
