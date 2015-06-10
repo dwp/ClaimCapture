@@ -99,6 +99,14 @@ class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tag
       page.ctx.browser.findFirst("#workingForEEADetails").isDisplayed should beFalse
     }
 
+    "Benefits from EEA Details must not be visible when time abroad page is displayed" in new WithJsBrowser  with PageObjects{
+      val page =  G7OtherEEAStateOrSwitzerlandPage(context)
+      page goToThePage()
+      page.ctx.browser.findFirst("#benefitsFromEEA_yes").isSelected should beFalse
+      page.ctx.browser.findFirst("#benefitsFromEEA_no").isSelected should beFalse
+      page.ctx.browser.findFirst("#benefitsFromEEADetails").isDisplayed should beFalse
+    }
+
     "Working For EEA Details must be visible when returning back to the time abroad page" in new WithJsBrowser  with PageObjects{
       val page =  G7OtherEEAStateOrSwitzerlandPage(context)
 
@@ -116,6 +124,25 @@ class G7OtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tag
       backPage.ctx.browser.findFirst("#workingForEEA_yes").isSelected should beTrue
       backPage.ctx.browser.findFirst("#workingForEEA_no").isSelected should beFalse
       backPage.ctx.browser.findFirst("#workingForEEADetails").isDisplayed should beTrue
+    }
+
+    "Benefits from EEA Details must be visible when returning back to the time abroad page" in new WithJsBrowser  with PageObjects{
+      val page =  G7OtherEEAStateOrSwitzerlandPage(context)
+
+      val claim = ClaimScenarioFactory otherEuropeanEconomicArea()
+
+      page goToThePage()
+
+      page fillPageWith claim
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
+
+      val backPage = nextPage goBack()
+      backPage must beAnInstanceOf[G7OtherEEAStateOrSwitzerlandPage]
+
+      backPage.ctx.browser.findFirst("#benefitsFromEEA_yes").isSelected should beTrue
+      backPage.ctx.browser.findFirst("#benefitsFromEEA_no").isSelected should beFalse
+      backPage.ctx.browser.findFirst("#benefitsFromEEADetails").isDisplayed should beTrue
     }
 
   } section("integration", models.domain.AboutYou.id)
