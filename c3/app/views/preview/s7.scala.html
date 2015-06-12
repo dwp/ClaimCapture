@@ -43,24 +43,59 @@
     text
 }
 
-<h2 class="heading-medium">@Html(Messages("employment.title"))</h2>
-<dl>
-    <dt><a id="employed_beenEmployed" href="@controllers.s7_employment.routes.G1Employment.present().url">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
-    <dd>@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}</dd>
-    @if(jobs.isDefined && jobs.get.jobs.size > 0){
-        <dt><a id="employed_jobs" href="@controllers.s7_employment.routes.G2BeenEmployed.present().url">@Messages("jobs")</a></dt>
-        <dd>
+<tr>
+	<th colspan="3"><h2 class="heading-medium">@Html(Messages("employment.title"))</h2></th>
+</tr>
+
+<tr>
+    <td class="review-label">
+		<a id="employed_beenEmployed" href="@controllers.s7_employment.routes.G1Employment.present().url">
+			@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}
+		</a>
+	</td>
+    <td class="review-value">
+		@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}
+	</td>
+	<td class="review-action">
+		<a class="button secondary">Change this</a>
+	</td>
+</tr>
+
+@if(jobs.isDefined && jobs.get.jobs.size > 0){
+	<tr>
+        <td class="review-label">
+			<a id="employed_jobs" href="@controllers.s7_employment.routes.G2BeenEmployed.present().url">@Messages("jobs")</a>
+		</td>
+        <td class="review-value">
             <ul>
             @for(job <- jobs.get.jobs){
                 <li>@employmentSummary(job)</li>
             }
             </ul>
-        </dd>
-    }
-    <dt><a id="selfEmployed_beenEmployed" href="@controllers.s7_employment.routes.G1Employment.present().url">@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
-        <dd>@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}</dd>
-    @if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
-        <dt>@{Messages("natureOfYourBusiness")}</dt><dd>@{aboutSelfEmployment.natureOfYourBusiness}</dd>
-    }
+        </td>
+		<td class="review-action">
+			<a class="button secondary">Change this</a>
+		</td>
+	</tr>
+ }
+ 
+ <tr>
+    <td class="review-label">
+		<a id="selfEmployed_beenEmployed" href="@controllers.s7_employment.routes.G1Employment.present().url">
+			@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}
+		</a>
+	</td>
+    <td class="review-value">
+		@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}
+	</td>
+	<td class="review-action">
+		<a class="button secondary">Change this</a>
+	</td>
+</tr>
 
-</dl>
+@if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
+	<tr>
+        <td class="review-label">@{Messages("natureOfYourBusiness")}</td>
+		<td class="review-value">@{aboutSelfEmployment.natureOfYourBusiness}</td>
+	</tr>
+}

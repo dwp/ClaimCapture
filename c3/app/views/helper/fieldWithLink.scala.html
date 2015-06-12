@@ -12,13 +12,20 @@
 @label = @{
     Html(Messages(name))
 }
-
-<dt>
-    @if(!disableLink){
-        <a id="@id" @if(!disableLink){href="@{routesMap(id)}"}>@label</a>
-    }else{
-        <p id="@id">@label</p>
-    }
-</dt><dd>@value</dd>
+<tr class="review-change">
+	<td class="review-label">
+	    @if(!disableLink){
+	        <a id="@id" @if(!disableLink){href="@{routesMap(id)}"}>@label</a>
+	    }else{
+	        <p id="@id">@label</p>
+	    }
+	</td>
+	<td class="review-value">
+		@value
+	</td>
+	<td class="review-action">
+		<a class="button secondary" href="@{routesMap(id)}">Change this</a>
+	</td>
+</tr>
 
 

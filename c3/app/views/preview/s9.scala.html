@@ -27,10 +27,10 @@
     }
 }
 
+<tr>
+	<th colspan="3"><h2 class="heading-medium">@Html(Messages("s9.longName"))</h2></th>
+</tr>
 
-<h2 class="heading-medium">@Html(Messages("s9.longName"))</h2>
-<dl>
-    @fieldWithLink("other_money_anyPaymentsSinceClaimDate", "anyPaymentsSinceClaimDate.answer", anyPaymentsSinceClaimDate)
-    @fieldWithLink("other_money_statutoryPay", "statutoryPay.simple", statutoryPay)
-    @fieldWithLink("other_money_otherStatutoryPay", "smpSppSap.simple", otherStatutoryPay)
-</dl>
+@fieldWithLink("other_money_anyPaymentsSinceClaimDate", "anyPaymentsSinceClaimDate.answer", anyPaymentsSinceClaimDate)
+@fieldWithLink("other_money_statutoryPay", "statutoryPay.simple", statutoryPay)
+@fieldWithLink("other_money_otherStatutoryPay", "smpSppSap.simple", otherStatutoryPay)

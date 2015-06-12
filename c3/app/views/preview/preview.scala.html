@@ -16,9 +16,7 @@
 
             <div class="grid-row main-grid">
 
-                @common.leftcol()
-
-                <article class="column-three-quarters main-content">
+                <article class="column-full-width main-content">
 
                     <nav class="back-nav">
                         <a id="backButton" href="@controllers.preview.routes.Preview.back">@Html(Messages("form.back"))</a>
@@ -28,14 +26,24 @@
 
                     @errorsSummary(previewForm)
 
-                    <section class="review">
+                    <table class="review">
                         @s2()
+                    </table>
+                    <table class="review">
                         @s3()
+                    </table>
+                    <table class="review">
                         @s4()
+                    </table>
+                    <table class="review">
                         @s6()
+                    </table>
+                    <table class="review">
                         @s7()
+                    </table>
+                    <table class="review">
                         @s9()
-                    </section>
+                    </table>
 
                     @helper.form(action = controllers.preview.routes.Preview.submit) {
                         @DwpCSRFFormHelper.formField
