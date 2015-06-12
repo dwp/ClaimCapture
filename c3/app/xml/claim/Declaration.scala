@@ -19,7 +19,7 @@ object  Declaration extends XMLComponent {
         <Content>{Messages("declaration.warning")}</Content>
       </DeclarationStatement>
       {question(<DeclarationQuestion/>,"someoneElse", declaration.someoneElse)}
-      {question(<DeclarationQuestion/>,"confirm", declaration.read)}
+      {question(<DeclarationQuestion/>,"confirm", "yesByDefaultAsCheckboxWasRemoved")}
       {question(<DeclarationNameOrg/>,"nameOrOrganisation", declaration.nameOrOrganisation)}
     </Declaration>
   }
