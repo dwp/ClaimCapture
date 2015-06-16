@@ -61,7 +61,7 @@
         $(function () {
             window.initEvents("@CarersCrypto.encryptAES(currentForm("benefitsAnswer").id)", "@Benefits.noneOfTheBenefits");
             @if(!Play.isTest) {
-                trackEvent("times", "claim - eligibility");
+                trackEvent("times", "claim - eligibility", undefined, undefined, true);
                 setCookie("claimeligibility",new Date().getTime());
             }
             @ga.stagePrompt()

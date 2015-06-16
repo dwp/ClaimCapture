@@ -21,7 +21,7 @@ class CSRFCreationSpec extends Specification {
     "identifies start pages as pages where token has to be created." in new WithApplication {
       val request = FakeRequest(method = "GET", path = "/allowance/benefits")
       CSRFCreation.createIfFound(request) must beTrue
-      val request2 = FakeRequest(method = "GET", path = "/circumstances/identification/about-you")
+      val request2 = FakeRequest(method = "GET", path = "/circumstances/report-changes/selection")
       CSRFCreation.createIfFound(request2) must beTrue
     }
 

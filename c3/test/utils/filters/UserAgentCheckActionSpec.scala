@@ -18,7 +18,7 @@ class UserAgentCheckActionSpec extends Specification {
       val keyValue = "startuasdyf"
       exerciseFilterFor(keyValue,"POST",  "/allowance/benefits", UserAgentCheckAction.defaultSetIf,expectSuccess=true, presetCache=false)
       Cache.getAs[String](keyValue + "_UA").get mustEqual agent
-      exerciseFilterFor(keyValue,"POST",  "/circumstances/identification/about-you", UserAgentCheckAction.defaultSetIf,expectSuccess=true, presetCache=false)
+      exerciseFilterFor(keyValue,"POST",  "/circumstances/report-changes/selection", UserAgentCheckAction.defaultSetIf,expectSuccess=true, presetCache=false)
       Cache.getAs[String](keyValue + "_UA").get mustEqual agent
       exerciseFilterFor(keyValue,"POST",  "/change-language/cy", UserAgentCheckAction.defaultSetIf,expectSuccess=true, presetCache=false)
       Cache.getAs[String](keyValue + "_UA").get mustEqual agent
