@@ -42,10 +42,6 @@
 			   )
 		   </ul>
 
-		</fieldset>
-
-		<fieldset class="form-elements">
-
 			<section class="dec">
 				<p>@Messages("declaration.openingParagraph")</p>
 				<ul class="list-bullet">
@@ -53,14 +49,16 @@
 					<li>@Messages("declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@Messages("declaration.2b")</a> @Messages("declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@Messages("declaration.2d")</a></li>
 					<li>@Messages("declaration.3a") <a id="claimnotes" target="_blank" href="/internal-claim-notes/@lang.code">@Messages("declaration.3b")</a> @Messages("declaration.3c")</li>
 				</ul>
-				<p>@Messages("declaration.warning")</p>
+				<p class="warning-text">
+					@Messages("declaration.warning")
+				</p>
 			</section>
 
 			<div class="block-checkbox">
 				@declareCheckPlaceholder(currentForm("someoneElse"))
 			</div>
 
-			 <ul class="form-elements">
+			 <ul>
 				 @otherDetailPlaceHolder(
 					inputDef = Seq(carersInputText(currentForm("nameOrOrganisation"))(utils.helpers.CarersTemplate.fieldConstructor,lang)),
 					'id -> "nameOrOrgWrapper",
