@@ -90,8 +90,12 @@ table td.numeric {
 } // end .data-table
 
 // Summary Review
+.summary-review {
+	margin-bottom: $gutter;	
+}
+
 .review {
-    margin-bottom: ($gutter * 2);
+    margin-bottom: $gutter;
 	.review-label {
 		width: 45%;
 	}

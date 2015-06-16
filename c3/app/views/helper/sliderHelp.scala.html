@@ -17,8 +17,10 @@
 }
 
 <div class="helper-prompt accordion">
-    <div class="helper-more" data-initial="@label" data-close="@closeLabel" onmousedown="if($(this).text().trim() === '@label'){ @addTracking(label) } else { @addTracking(closeLabel) }"> 
+    <div class="accordion-title" data-initial="@label" data-close="@closeLabel" onmousedown="if($(this).text().trim() === '@label'){ @addTracking(label) } else { @addTracking(closeLabel) }"> 
         @label
     </div>
-    <div class="helper-info"> <p>@content</p></div>
+    <div class="accordion-content"> 
+		<p>@content</p>
+	</div>
 </div>

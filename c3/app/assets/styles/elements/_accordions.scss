@@ -6,16 +6,27 @@
     margin-bottom: $gutter;
 }
 
-.helper-more {
+.accordion-title {
     color: $link-colour;
     text-decoration: underline;
     cursor: pointer; // encourage clicking
+	margin: 0 !important;
+	padding: 2.25rem 0;
+	border-bottom: 1px solid $grey-2;
+	background-image: url('/assets/images/mobile-nav.png');
+	background-repeat: no-repeat;
+	background-position: right 35px;
     &:hover {
         color: $link-hover-colour;
     }
+	&.accordion-open {
+		background-position: right -15px;	
+	}
 }
 
-.helper-info {
+.accordion-content {
     color: $secondary-text-colour;
-    margin-top: $gutter-half;
+	&:last-child {
+		margin-bottom: ($gutter * 2);
+	}
 }

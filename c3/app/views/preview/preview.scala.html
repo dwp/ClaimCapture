@@ -26,24 +26,14 @@
 
                     @errorsSummary(previewForm)
 
-                    <table class="review">
-                        @s2()
-                    </table>
-                    <table class="review">
-                        @s3()
-                    </table>
-                    <table class="review">
-                        @s4()
-                    </table>
-                    <table class="review">
-                        @s6()
-                    </table>
-                    <table class="review">
-                        @s7()
-                    </table>
-                    <table class="review">
-                        @s9()
-                    </table>
+					<div class="summary-review">
+	                    @s2()
+	                    @s3()
+	                    @s4()
+	                    @s6()
+	                    @s7()
+	                    @s9()
+					</div>
 
                     @helper.form(action = controllers.preview.routes.Preview.submit) {
                         @DwpCSRFFormHelper.formField

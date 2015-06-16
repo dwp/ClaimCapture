@@ -27,10 +27,12 @@
     }
 }
 
-<tr>
-	<th colspan="3"><h2 class="heading-medium">@Html(Messages("s9.longName"))</h2></th>
-</tr>
+<h2 class="heading-medium accordion-title">@Html(Messages("s9.longName"))</h2>
 
-@fieldWithLink("other_money_anyPaymentsSinceClaimDate", "anyPaymentsSinceClaimDate.answer", anyPaymentsSinceClaimDate)
-@fieldWithLink("other_money_statutoryPay", "statutoryPay.simple", statutoryPay)
-@fieldWithLink("other_money_otherStatutoryPay", "smpSppSap.simple", otherStatutoryPay)
+<div class="accordion-content open">
+	<table class="review">
+		@fieldWithLink("other_money_anyPaymentsSinceClaimDate", "anyPaymentsSinceClaimDate.answer", anyPaymentsSinceClaimDate)
+		@fieldWithLink("other_money_statutoryPay", "statutoryPay.simple", statutoryPay)
+		@fieldWithLink("other_money_otherStatutoryPay", "smpSppSap.simple", otherStatutoryPay)
+	</table>
+</div>

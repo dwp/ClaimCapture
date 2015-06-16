@@ -42,22 +42,21 @@ header {
                 border-bottom: 1px solid #fff;
             }
         }
-
-            h1 {
-                color: #fff;
-                font-size: 24px;
-                line-height: 1em;
-                top: 5px;
-                position: relative;
-                float: right;
-                width: 68%;
-                @media screen and (max-width: 700px) {
-                    font-size: 18px;
-                    float: none;
-                    clear: both;
-                    width: auto;
-                    padding-bottom: 10px;
-                }
+        h1 {
+            color: #fff;
+            font-size: 24px;
+            line-height: 1em;
+            top: 5px;
+            position: relative;
+            float: right;
+            width: 68%;
+            @media screen and (max-width: 700px) {
+                font-size: 18px;
+                float: none;
+                clear: both;
+                width: auto;
+                padding-bottom: 10px;
+            }
             
         }
     }
