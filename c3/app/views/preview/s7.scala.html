@@ -55,7 +55,7 @@
 				@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}
 			</td>
 			<td class="review-action">
-				<a class="button secondary">Change this</a>
+				<a class="button secondary">@Html(Messages("preview.change"))</a>
 			</td>
 		</tr>
 		
@@ -72,7 +72,7 @@
 		            </ul>
 		        </td>
 				<td class="review-action">
-					<a class="button secondary">Change this</a>
+					<a class="button secondary">@Html(Messages("preview.change"))</a>
 				</td>
 			</tr>
 		 }
@@ -85,7 +85,7 @@
 				@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}
 			</td>
 			<td class="review-action">
-				<a class="button secondary">Change this</a>
+				<a class="button secondary">@Html(Messages("preview.change"))</a>
 			</td>
 		</tr>
 		
