@@ -1,6 +1,6 @@
 package app.preview
 
-import utils.WithBrowser
+import utils.WithJsBrowser
 import utils.pageobjects.s0_carers_allowance.G1BenefitsPage
 import utils.pageobjects._
 import app.FunctionalTestCommon
@@ -12,7 +12,7 @@ class FunctionalTestCase4Spec extends FunctionalTestCommon {
 
   "The application Claim" should {
 
-    "Successfully run absolute Claim Test Case 4" in new WithBrowser with PageObjects {
+    "Successfully run absolute Claim Test Case 4" in new WithJsBrowser with PageObjects {
       import Data.displaying
 
       val page = G1BenefitsPage(context)

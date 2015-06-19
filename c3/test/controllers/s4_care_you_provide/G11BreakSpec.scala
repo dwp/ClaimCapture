@@ -23,7 +23,7 @@ class G11BreakSpec extends Specification with Tags {
       status(result) mustEqual OK
     }
 
-    "US1170 - Break in care start time and end time by default should not be displayed" in new WithJsBrowser with PageObjects {
+    "Break in care start time and end time by default should not be displayed" in new WithJsBrowser with PageObjects {
       val breaksInCare = G10BreaksInCarePage(context) goToThePage()
       val data = new TestData
       data.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
@@ -32,38 +32,22 @@ class G11BreakSpec extends Specification with Tags {
       next.ctx.browser.findFirst("#startTime").isDisplayed should beFalse
     }
 
-    "US1170 - Break in care start/end time should only be displayed if start/end date is Monday or Friday" in new WithJsBrowser with PageObjects {
+    "Break in care start/end time should only be displayed if start/end date is Monday or Friday" in new WithJsBrowser with PageObjects {
       val breaksInCare = G10BreaksInCarePage(context) goToThePage()
       val data = new TestData
       data.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
       val next = breaksInCare fillPageWith data submitPage()
 
-      val monday = DayMonthYear(1, 6, 2015)
-      val friday = DayMonthYear(5, 6, 2015)
       val sunday = DayMonthYear(7, 6, 2015)
 
-      def fillWithDate(startOrEnd: String, day: DayMonthYear): Unit ={
-        next.ctx.browser.fill("#"+startOrEnd+"_day") `with` day.day.get.toString
-        next.ctx.browser.fill("#"+startOrEnd+"_month") `with` day.month.get.toString
-        next.ctx.browser.fill("#"+startOrEnd+"_year") `with` day.year.get.toString
-      }
-
-      fillWithDate("start", monday)
-      next.ctx.browser.findFirst("#startTime").isDisplayed should beTrue
-
-      fillWithDate("start", friday)
-      next.ctx.browser.findFirst("#startTime").isDisplayed should beTrue
-
-      fillWithDate("start", sunday)
+      next.ctx.browser.fill("#start_day") `with` sunday.day.get.toString
+      next.ctx.browser.fill("#start_month") `with` sunday.month.get.toString
+      next.ctx.browser.fill("#start_year") `with` sunday.year.get.toString
       next.ctx.browser.findFirst("#startTime").isDisplayed should beFalse
 
-      fillWithDate("end", monday)
-      next.ctx.browser.findFirst("#endTime").isDisplayed should beTrue
-
-      fillWithDate("end", friday)
-      next.ctx.browser.findFirst("#endTime").isDisplayed should beTrue
-
-      fillWithDate("end", sunday)
+      next.ctx.browser.fill("#end_day") `with` sunday.day.get.toString
+      next.ctx.browser.fill("#end_month") `with` sunday.month.get.toString
+      next.ctx.browser.fill("#end_year") `with` sunday.year.get.toString
       next.ctx.browser.findFirst("#endTime").isDisplayed should beFalse
     }
 
