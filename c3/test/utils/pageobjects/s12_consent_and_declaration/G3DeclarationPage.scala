@@ -15,7 +15,6 @@ class G3DeclarationPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G3Declar
   declareInput("#tellUsWhyEmployer_whyPerson","ConsentDeclarationTellUsWhyOther")
   declareCheck("#someoneElse","ConsentDeclarationSomeoneElseTickBox")
   declareInput("#nameOrOrganisation","ConsentDeclarationNameOrOrganisation")
-  declareCheck("#confirm","ConsentDeclarationDeclarationTickBox")
 }
 
 /**

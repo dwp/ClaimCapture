@@ -183,3 +183,19 @@ code {
     border: 1px solid $border-colour;
     padding: 3px 7px;
 }
+
+// Warning text
+.warning-text {
+	position: relative;
+	padding-left: 50px;
+	&:before {
+		content: "";
+		position: absolute;
+		top: 3px;
+		left: 0;
+		background-image:  url('../images/icon-important.png');
+		background-size: cover;
+		height: 35px;
+		width: 35px;	
+	}
+}

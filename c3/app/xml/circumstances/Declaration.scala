@@ -11,11 +11,11 @@ object  Declaration {
 
     <Declaration>
       <DeclarationStatement>
-        <Title>{Messages("declaration.title")}</Title>
-        <Content>{Messages("declaration.1.pdf")}</Content>
-        <Content>{Messages("declaration.2")}</Content>
-        <Content>{Messages("declaration.3")}</Content>
-        <Content>{Messages("declaration.4")}</Content>
+        <Title>{Messages("circs.declaration.title")}</Title>
+        <Content>{Messages("circs.declaration.1.pdf")}</Content>
+        <Content>{Messages("circs.declaration.2")}</Content>
+        <Content>{Messages("circs.declaration.3")}</Content>
+        <Content>{Messages("circs.declaration.4")}</Content>
       </DeclarationStatement>
       {question(<DeclarationQuestion/>,"circsSomeOneElse", declaration.circsSomeOneElse)}
       {question(<DeclarationQuestion/>,"confirm", declaration.confirm)}

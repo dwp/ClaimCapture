@@ -193,7 +193,6 @@ Consent & Declaration,Consent & Declaration,Do you agree to us getting informati
 Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclarationTellUsWhyEmployer,
 Consent & Declaration,Consent & Declaration,Do you agree to us getting information from any other person or organisation you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyOther,Yes
 Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclarationTellUsWhyOther,
-Consent & Declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,ConsentDeclarationDeclarationTickBox,Yes
 Consent & Declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",ConsentDeclarationSomeoneElseTickBox,Yes
 Consent & Declaration,Declaration,Your name and/or organisation.,ConsentDeclarationNameOrOrganisation,Some Org
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,no

@@ -43,7 +43,7 @@ class G3DeclarationSpec extends Specification with MockInjector with Tags {
 
     """failed filling nameOrOrganisation""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-                                 .withFormUrlEncodedBody("confirm" -> "checked","someoneElse" -> "checked")
+                                 .withFormUrlEncodedBody("someoneElse" -> "checked")
 
       val result = g3Declaration.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -55,8 +55,7 @@ class G3DeclarationSpec extends Specification with MockInjector with Tags {
 
       val result2 = g3Declaration.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
                     .withFormUrlEncodedBody("tellUsWhyEmployer.informationFromPerson" -> "no",
-                                            "tellUsWhyEmployer.whyPerson" -> "reason",
-                                            "confirm" -> "checked"))
+                                            "tellUsWhyEmployer.whyPerson" -> "reason"))
 
       status(result2) mustEqual BAD_REQUEST
     }
@@ -67,8 +66,7 @@ class G3DeclarationSpec extends Specification with MockInjector with Tags {
 
       val result2 = g3Declaration.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
                     .withFormUrlEncodedBody("gettingInformationFromAnyEmployer.informationFromEmployer" -> "no",
-                                            "gettingInformationFromAnyEmployer.why" -> "reason",
-                                            "confirm" -> "checked"))
+                                            "gettingInformationFromAnyEmployer.why" -> "reason"))
 
       status(result2) mustEqual BAD_REQUEST
     }
@@ -76,8 +74,7 @@ class G3DeclarationSpec extends Specification with MockInjector with Tags {
     """accept answers without someoneElse""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
                                  .withFormUrlEncodedBody("tellUsWhyEmployer.informationFromPerson" -> "no",
-                                                         "tellUsWhyEmployer.whyPerson" -> "reason",
-                                                         "confirm" -> "checked")
+                                                         "tellUsWhyEmployer.whyPerson" -> "reason")
 
       val result = g3Declaration.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -93,7 +90,7 @@ class G3DeclarationSpec extends Specification with MockInjector with Tags {
                                                          "gettingInformationFromAnyEmployer.why" -> "reason",
                                                          "tellUsWhyEmployer.informationFromPerson" -> "no",
                                                          "tellUsWhyEmployer.whyPerson" -> "reason",
-                                                         "confirm" -> "checked","nameOrOrganisation"->"SomeOrg",
+                                                         "nameOrOrganisation"->"SomeOrg",
                                                           "someoneElse" -> "checked")
 
       val result = g3Declaration.submit(request)
@@ -107,7 +104,6 @@ class G3DeclarationSpec extends Specification with MockInjector with Tags {
           f.informationFromPerson.answer must equalTo("no")
           f.informationFromPerson.text must equalTo(Some("reason"))
           f.nameOrOrganisation must equalTo(Some("SomeOrg"))
-          f.read must equalTo("checked")
           f.someoneElse.get must equalTo("checked")
       }
       redirectLocation(result) must beSome("/async-submitting")
@@ -120,7 +116,7 @@ class G3DeclarationSpec extends Specification with MockInjector with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
                                  .withFormUrlEncodedBody("gettingInformationFromAnyEmployer.informationFromEmployer" -> "yes",
                                                          "tellUsWhyEmployer.informationFromPerson" -> "yes",
-                                                         "confirm" -> "checked","nameOrOrganisation"->"SomeOrg",
+                                                         "nameOrOrganisation"->"SomeOrg",
                                                           "someoneElse" -> "checked")
 
       val result = g3Declaration.submit(request)
