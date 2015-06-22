@@ -20,8 +20,6 @@
 
 		<fieldset class="form-elements">
 
-		   <legend class="heading-medium form-label-bold">@Html(Messages("s11.g2"))</legend>
-
 		   <ul class="group">
 
 			   @if(claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
@@ -44,40 +42,27 @@
 			   )
 		   </ul>
 
-		</fieldset>
-
-		<fieldset class="form-elements">
-
-			<legend class="heading-medium form-label-bold">@Html(Messages("s11.g4"))</legend>
-
-			<section class="dec">
-
-				<h3 class="heading-small">@Html(Messages("declaration.title"))</h3>
-
-				<ul class="list-bullet">
-					<li>@Html(Messages("declaration.1a")) <a id="claimnotes" href="/internal-claim-notes/@lang.code" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>@Html(Messages("declaration.1b"))</a> @Html(Messages("declaration.1c"))</li>
-					<li>@Html(Messages("declaration.2"))</li>
-					<li>@Html(Messages("declaration.3"))</li>
-					<li>@Html(Messages("declaration.4"))</li>
-				</ul>
-
-			</section>
+			<p>@Messages("declaration.openingParagraph")</p>
+			<ul class="list-bullet">
+				<li>@Messages("declaration.1")</li>
+				<li>@Messages("declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@Messages("declaration.2b")</a> @Messages("declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@Messages("declaration.2d")</a></li>
+				<li>@Messages("declaration.3a") <a id="claimnotes" target="_blank" href="/internal-claim-notes/@lang.code">@Messages("declaration.3b")</a> @Messages("declaration.3c")</li>
+			</ul>
+			<p class="warning-text">
+				@Messages("declaration.warning")
+			</p>
 
 			<div class="block-checkbox">
 				@declareCheckPlaceholder(currentForm("someoneElse"))
 			</div>
 
-			 <ul class="form-elements">
+			 <ul>
 				 @otherDetailPlaceHolder(
 					inputDef = Seq(carersInputText(currentForm("nameOrOrganisation"))(utils.helpers.CarersTemplate.fieldConstructor,lang)),
 					'id -> "nameOrOrgWrapper",
 					'display -> currentForm("someoneElse").value.map(p => p match{ case "true" => "yes" case _ => p}).getOrElse("no")
 				 )
 			 </ul>
-			 
-			<div class="block-checkbox">
-				@declareCheckPlaceholder(currentForm("confirm"),'secondary->true)
-			</div>
 			 
 		</fieldset>
 

@@ -85,9 +85,29 @@ object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier  {
 
 }
 
-case class OtherEEAStateOrSwitzerland(benefitsFromEEA: String = "", workingForEEA: String = "") extends QuestionGroup(OtherEEAStateOrSwitzerland)
+case class OtherEEAStateOrSwitzerland(
+                                       benefitsFromEEA: String = "",
+                                       benefitsFromEEADetails: Option[String] = None,
+                                       workingForEEA: String = "",
+                                       workingForEEADetails:Option[String] = None) extends QuestionGroup(OtherEEAStateOrSwitzerland)
 
 object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g7"
+
+  def requiredBenefitsFromEEADetails: Constraint[OtherEEAStateOrSwitzerland] = Constraint[OtherEEAStateOrSwitzerland]("constraint.benefitsfromeeadetails") { otherEEAStateOrSwitzerland =>
+    otherEEAStateOrSwitzerland.benefitsFromEEA match {
+      case `yes` if !otherEEAStateOrSwitzerland.benefitsFromEEADetails.isDefined => Invalid(ValidationError("benefitsfromeeadetails.required"))
+      case _ => Valid
+    }
+  }
+
+  def requiredWorkingForEEADetails: Constraint[OtherEEAStateOrSwitzerland] = Constraint[OtherEEAStateOrSwitzerland]("constraint.workingForEEADetails") { otherEEAStateOrSwitzerland =>
+    otherEEAStateOrSwitzerland.workingForEEA match {
+      case `yes` if !otherEEAStateOrSwitzerland.workingForEEADetails.isDefined => Invalid(ValidationError("workingForEEADetails.required"))
+      case _ => Valid
+    }
+  }
+
+
 }
 

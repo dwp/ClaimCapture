@@ -22,8 +22,8 @@ Claim Date,Your claim date,When do you want your Carer's Allowance claim to star
 Claim Date,Your claim date,Were you caring for the person for more than 35 hours a week before this date?,ClaimDateDidYouCareForThisPersonfor35Hours,Yes
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,01/05/2010
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,No
-About You,Other European Economic Area (EEA) states or Switzerland,"Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,No
-About You,Other European Economic Area (EEA) states or Switzerland,"Do you or anyone in your family work or pay insurance in any of these countries?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,No
+About You,Other European Economic Area (EEA) states or Switzerland,"Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,No
+About You,Other European Economic Area (EEA) states or Switzerland,"Have you or your close family worked or paid national insurance in any of these countries since your claim date?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,No
 About Your Partner,Person you care for,Have you lived with a partner at any time since your claim date?,AboutYourPartnerHadPartnerSinceClaimDate,No
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,
 About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,
@@ -233,7 +233,6 @@ Consent & Declaration,Consent & Declaration,Do you agree to us getting informati
 Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclarationTellUsWhyEmployer,"I fell out with tem..,,34"
 Consent & Declaration,Consent & Declaration,Do you agree to us getting information from any other person or organisation you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyOther,no
 Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclarationTellUsWhyOther,"I fell out with them 34!!"
-Consent & Declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,ConsentDeclarationDeclarationTickBox,Yes
 Consent & Declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",ConsentDeclarationSomeoneElseTickBox,Yes
 Consent & Declaration,Declaration,Your name and/or organisation.,ConsentDeclarationNameOrOrganisation,Some Org
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,

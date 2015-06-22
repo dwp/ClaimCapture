@@ -32,7 +32,7 @@ class G3DeclarationIntegrationSpec extends Specification with Tags {
 
       browser.submit("button[type='submit']")
       urlMustEqual(G3DeclarationPage.url)
-      findMustEqualSize("div[class=validation-summary] ol li", 2)
+      findMustEqualSize("div[class=validation-summary] ol li", 1)
     }
 
     "navigate back to Preview page" in new WithBrowser with PageObjects {
@@ -70,7 +70,7 @@ class G3DeclarationIntegrationSpec extends Specification with Tags {
 
       browser.submit("button[type='submit']")
       urlMustEqual(G3DeclarationPage.url)
-      findMustEqualSize("div[class=validation-summary] ol li", 3)
+      findMustEqualSize("div[class=validation-summary] ol li", 2)
     }
   } section("integration", models.domain.ConsentAndDeclaration.id)
 }
