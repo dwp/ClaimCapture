@@ -13,7 +13,6 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
   val byPost = "By Post"
   val infoAgreement = "yes"
   val why = "Cause i want"
-  val confirm = "yes"
   val someOneElse = "checked"
   val nameOrOrganisation = "Tesco"
   val wantsEmailContact = "no"
@@ -22,11 +21,10 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
     "furtherInfoContact" -> byPost,
     "obtainInfoAgreement" -> infoAgreement,
     "obtainInfoWhy" -> why,
-    "confirm" -> confirm,
     "circsSomeOneElse" -> someOneElse,
     "nameOrOrganisation" -> nameOrOrganisation,
     "wantsEmailContactCircs" -> wantsEmailContact)
-  val declartionInputWithoutSomeOne = Seq("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> "")
+  val declartionInputWithoutSomeOne = Seq("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "circsSomeOneElse" -> "")
 
   val G1Declaration = resolve(classOf[G1Declaration])
 
@@ -50,7 +48,6 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
         case Some(f: CircumstancesDeclaration) =>
           f.obtainInfoAgreement must equalTo(infoAgreement)
           f.obtainInfoWhy.get must equalTo(why)
-          f.confirm must equalTo(confirm)
           f.circsSomeOneElse must equalTo(Some(someOneElse))
           f.nameOrOrganisation must equalTo(Some(nameOrOrganisation))
           f.wantsContactEmail must beSome(wantsEmailContact)

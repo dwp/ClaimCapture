@@ -11,14 +11,14 @@ object  Declaration {
 
     <Declaration>
       <DeclarationStatement>
-        <Title>{Messages("circs.declaration.title")}</Title>
-        <Content>{Messages("circs.declaration.1.pdf")}</Content>
-        <Content>{Messages("circs.declaration.2")}</Content>
-        <Content>{Messages("circs.declaration.3")}</Content>
-        <Content>{Messages("circs.declaration.4")}</Content>
+        <Content>{Messages("circs.declaration.openingParagraph")}</Content>
+        <Content>{Messages("circs.declaration.1")}</Content>
+        <Content>{Messages("circs.declaration.2.pdf")}</Content>
+        <Content>{Messages("circs.declaration.3.pdf")}</Content>
+        <Content>{Messages("circs.declaration.warning")}</Content>
       </DeclarationStatement>
       {question(<DeclarationQuestion/>,"circsSomeOneElse", declaration.circsSomeOneElse)}
-      {question(<DeclarationQuestion/>,"confirm", declaration.confirm)}
+      {question(<DeclarationQuestion/>,"agreement", "Yes")}
       {question(<DeclarationNameOrg/>,"nameOrOrganisation", declaration.nameOrOrganisation)}
     </Declaration>
   }

@@ -15,7 +15,6 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
     val byPost = "By Post"
     val obtainInfoAgreement = "no"
     val obtainInfoWhy = "Cause I want"
-    val confirm = "yes"
     val someOneElse = "Yes"
     val wantsEmailContact = "No"
 
@@ -56,7 +55,6 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationWhy = obtainInfoWhy
-        claim.CircumstancesDeclarationConfirmation = confirm
         claim.CircumstancesDeclarationWantsEmailContact = wantsEmailContact
 
         page goToThePage()
@@ -73,7 +71,6 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationWhy = obtainInfoWhy
-        claim.CircumstancesDeclarationConfirmation = confirm
         claim.CircumstancesDeclarationWantsEmailContact = wantsEmailContact
 
         page goToThePage()
@@ -89,7 +86,6 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         val claim = new TestData
         claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
-        claim.CircumstancesDeclarationConfirmation = confirm
         claim.CircumstancesDeclarationWantsEmailContact = wantsEmailContact
 
         page goToThePage()
@@ -106,7 +102,6 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationWhyNot = obtainInfoWhy
-        claim.CircumstancesDeclarationConfirmation = confirm
         claim.CircumstancesSomeOneElseConfirmation = someOneElse
         claim.CircumstancesDeclarationWantsEmailContact = wantsEmailContact
 
@@ -118,29 +113,12 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         errors(0) must contain("Your name and/or organisation - This field is required")
       }
 
-      "missing confirm field" in new WithJsBrowser  with PageObjects{
-        val page =  G1DeclarationPage(context)
-        val claim = new TestData
-        claim.FurtherInfoContact = byPost
-        claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
-        claim.CircumstancesDeclarationWhy = obtainInfoWhy
-        claim.CircumstancesDeclarationWantsEmailContact = wantsEmailContact
-
-        page goToThePage()
-        page fillPageWith claim
-
-        val errors = page.submitPage().listErrors
-        errors.size mustEqual 1
-        errors(0) must contain("Please tick this box to confirm that you understand and make the declarations above. - This field is required")
-      }
-
       "missing wants email contact field" in new WithJsBrowser  with PageObjects{
         val page =  G1DeclarationPage(context)
         val claim = new TestData
         claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationInfoAgreement = obtainInfoAgreement
         claim.CircumstancesDeclarationWhy = obtainInfoWhy
-        claim.CircumstancesDeclarationConfirmation = confirm
 
         page goToThePage()
         page fillPageWith claim
@@ -170,7 +148,6 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       "'Please tell us why not' field should not be visible when answered 'yes' to obtainInfoAgreement" in new WithJsBrowser  with PageObjects{
         val page =  G1DeclarationPage(context)
         val claim = new TestData
-        claim.FurtherInfoContact = byPost
         claim.CircumstancesDeclarationInfoAgreement = "yes"
         claim.CircumstancesDeclarationWantsEmailContact = wantsEmailContact
 
@@ -179,8 +156,8 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Please tick this box to confirm that you understand and make the declarations above. - This field is required")
-        page visible("#why") must beFalse
+        errors(0) must contain("Contact phone or mobile number - This field is required")
+        page.ctx.browser.findFirst("#obtainInfoWhy").isDisplayed should beFalse
       }
 
     }

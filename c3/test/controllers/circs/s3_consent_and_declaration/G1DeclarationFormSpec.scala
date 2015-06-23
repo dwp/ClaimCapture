@@ -7,7 +7,6 @@ class G1DeclarationFormSpec extends Specification with Tags {
   val byPost = "By Post"
   val infoAgreement = "yes"
   val why = "Cause i want"
-  val confirm = "yes"
   val someOneElse = "yes"
   val nameOrOrganisation = "Tesco"
   val wantsEmailContact = "no"
@@ -17,13 +16,12 @@ class G1DeclarationFormSpec extends Specification with Tags {
   "Change of circumstances - Declaration Form" should {
     "map data into case class" in {
       G1Declaration.form.bind(
-        Map("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation,"wantsEmailContact" -> wantsEmailContact)
+        Map("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation,"wantsEmailContact" -> wantsEmailContact)
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
           f.obtainInfoAgreement must equalTo(infoAgreement)
           f.obtainInfoWhy.get must equalTo(why)
-          f.confirm must equalTo(confirm)
           f.circsSomeOneElse must equalTo(Some(someOneElse))
           f.nameOrOrganisation must equalTo(Some(nameOrOrganisation))
         }
@@ -32,7 +30,7 @@ class G1DeclarationFormSpec extends Specification with Tags {
 
     "reject special characters in text fields" in {
       G1Declaration.form.bind(
-        Map("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> "whyé[]", "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation,"wantsEmailContact" -> wantsEmailContact)
+        Map("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> "whyé[]", "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation,"wantsEmailContact" -> wantsEmailContact)
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
@@ -43,7 +41,7 @@ class G1DeclarationFormSpec extends Specification with Tags {
 
     "reject form if name of organisation not filled " in {
       G1Declaration.form.bind(
-        Map("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> "","wantsEmailContact" -> wantsEmailContact)
+        Map("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> "","wantsEmailContact" -> wantsEmailContact)
       ).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
@@ -54,7 +52,7 @@ class G1DeclarationFormSpec extends Specification with Tags {
 
     "reject form if name of further information contact not filled " in {
       G1Declaration.form.bind(
-        Map("furtherInfoContact" -> "", "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "confirm" -> confirm, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation,"wantsEmailContact" -> wantsEmailContact)
+        Map("furtherInfoContact" -> "", "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation,"wantsEmailContact" -> wantsEmailContact)
       ).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)

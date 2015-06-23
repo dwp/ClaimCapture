@@ -92,7 +92,6 @@ Consent and declaration,Declaration,Do you agree to us obtaining information fro
 Consent & Declaration,Consent & Declaration,Please tell us why not,CircumstancesDeclarationWhyNot,DWPCAChangeOfCircumstances>Consents>Consent>Why>Answer
 Consent and declaration,Declaration,"Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,DWPCAChangeOfCircumstances>Declaration
 Consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,DWPCAChangeOfCircumstances>Declaration>DeclarationNameOrg>Answer
-Consent and declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above.,CircumstancesDeclarationConfirmation,DWPCAChangeOfCircumstances>Declaration
 Consent and declaration,Declaration,Wants email contact,CircumstancesDeclarationWantsEmailContact,
 Consent and declaration,Declaration,Please enter your email,CircumstancesDeclarationMail,
 Consent and declaration,Declaration,Please confirm your email,CircumstancesDeclarationMailConfirmation,
