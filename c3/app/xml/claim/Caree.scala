@@ -1,6 +1,7 @@
 package xml.claim
 
 import controllers.mappings.Mappings
+import models.DayMonthYear
 import models.domain._
 import xml.XMLComponent
 import xml.XMLHelper._
@@ -36,12 +37,10 @@ object Caree extends XMLComponent {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     def breaksInCareLabel (label:String, answer:Boolean) = {
-      val date = claim.questionGroup[ClaimDate] match {
-        case Some(claimDate) if claimDate.spent35HoursCaringBeforeClaim.answer == Mappings.yes =>  claim.dateOfClaim.get - 6 months
-        case _ => claim.dateOfClaim.get
-      }
 
-      question(<BreaksSinceClaim/>, label, answer, displayPlaybackDatesFormat(Lang("en"),date))
+      val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+      question(<BreaksSinceClaim/>, label, answer, claimDateQG.dateWeRequireBreakInCareInformationFrom)
+
     }
 
     val lastValue = claim.questionGroup[BreaksInCareSummary].getOrElse(BreaksInCareSummary()).answer == Mappings.yes

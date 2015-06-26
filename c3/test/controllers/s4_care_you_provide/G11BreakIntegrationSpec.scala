@@ -2,10 +2,12 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.Logger
-import controllers.{WithBrowserHelper, BrowserMatchers, Formulate}
+import controllers.{ClaimScenarioFactory, WithBrowserHelper, BrowserMatchers, Formulate}
 import models.DayMonthYear
 import java.util.concurrent.TimeUnit
 import play.api.test.WithBrowser
+import utils.pageobjects.PageObjects
+import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
 import utils.pageobjects.s4_care_you_provide.{G11BreakPage, G10BreaksInCarePage}
 import app.CircsBreaksWhereabouts._
 import utils.pageobjects.s6_education.G1YourCourseDetailsPage
@@ -26,6 +28,25 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       click("#answer_no")
       next
       urlMustEqual(G1YourCourseDetailsPage.url)
+    }
+
+    "display dynamic question text if user answered that they did NOT care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects{
+      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(false),G11BreakPage.url)
+      breaksInCare.source contains "About the break from care since 10 October 2016" should beTrue
+    }
+
+    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (within 6 months)" in new WithBrowser with PageObjects{
+      val claim = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)
+      claim.ClaimDateWhenDidYouStartToCareForThisPerson = "10/08/2016"
+      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(claim,G11BreakPage.url)
+      breaksInCare.source contains "About the break from care since 10 August 2016" should beTrue
+    }
+
+    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (more than 6 months)" in new WithBrowser with PageObjects{
+      val claim = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)
+      claim.ClaimDateWhenDidYouStartToCareForThisPerson = "10/02/2016"
+      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(claim,G11BreakPage.url)
+      breaksInCare.source contains "About the break from care since 10 April 2016" should beTrue
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start date" and "medical" """ in new WithJsBrowser  with BreakFiller with WithBrowserHelper with BrowserMatchers {

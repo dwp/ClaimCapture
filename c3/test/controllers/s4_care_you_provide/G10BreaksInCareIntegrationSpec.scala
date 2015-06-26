@@ -24,12 +24,6 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       val next = breaksInCare fillPageWith data submitPage()
       next must beAnInstanceOf[G1TheirPersonalDetailsPage]
     }
-    
-    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects{
-      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvide(true),G10BreaksInCarePage.url)
-
-      breaksInCare.source contains "Have you had any breaks from caring for this person since 3 October 2012?" should beTrue
-    }
 
     "display dynamic question text if user answered that they did NOT care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects{
       val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvide(false),G10BreaksInCarePage.url)
@@ -37,6 +31,20 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       Logger.info(breaksInCare.source)
 
       breaksInCare.source contains "Have you had any breaks from caring for this person since 10 October 2016?" should beTrue
+    }
+
+    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (within 6 months)" in new WithBrowser with PageObjects{
+      val claim = ClaimScenarioFactory.s4CareYouProvide(true)
+      claim.ClaimDateWhenDidYouStartToCareForThisPerson = "10/08/2016"
+      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(claim,G10BreaksInCarePage.url)
+      breaksInCare.source contains "Have you had any breaks from caring for this person since 10 August 2016?" should beTrue
+    }
+
+    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (more than 6 months)" in new WithBrowser with PageObjects{
+      val claim = ClaimScenarioFactory.s4CareYouProvide(true)
+      claim.ClaimDateWhenDidYouStartToCareForThisPerson = "10/02/2016"
+      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(claim,G10BreaksInCarePage.url)
+      breaksInCare.source contains "Have you had any breaks from caring for this person since 10 April 2016?" should beTrue
     }
 
     """not record the "yes/no" answer upon starting to add a new break but "cancel".""" in new WithBrowser with PageObjects {
@@ -56,7 +64,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
     }
 
     """allow a new break to be added but not record the "yes/no" answer""" in new WithBrowser with PageObjects {
-      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(),G10BreaksInCarePage.url,upToIteration = 2)
+      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true),G10BreaksInCarePage.url,upToIteration = 2)
 
       breaksInCare.isElemSelected("#answer_yes") should beFalse
       breaksInCare.isElemSelected("#answer_no") should beFalse
@@ -88,11 +96,11 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       breaksInCarePage must beAnInstanceOf[G10BreaksInCarePage]
 
-      breaksInCarePage fillPageWith ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare()
+      breaksInCarePage fillPageWith ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)
       val breakPage = breaksInCarePage submitPage()
       breakPage must beAnInstanceOf[G11BreakPage]
 
-      breakPage fillPageWith ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare()
+      breakPage fillPageWith ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)
       val breaksInCarePageModified = breakPage submitPage()
       val testData = new TestData
       testData.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_2 = "no"
@@ -129,7 +137,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       breaksInCarePage must beAnInstanceOf[G10BreaksInCarePage]
 
-      breaksInCarePage fillPageWith ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare()
+      breaksInCarePage fillPageWith ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)
       val breakPage = breaksInCarePage submitPage()
       breakPage must beAnInstanceOf[G11BreakPage]
       breakPage goBack() must beAnInstanceOf[G10BreaksInCarePage]
