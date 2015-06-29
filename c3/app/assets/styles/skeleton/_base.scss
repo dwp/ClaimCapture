@@ -175,13 +175,11 @@ a:active {
 }
 
 a[rel="external"] {
-    @include external-link-default;
-    @include external-link-16;
+    @include external-link;
 }
 
 .external-link {
-    @include external-link-12-no-hover;
-    @include external-link-heading;
+    @include external-link;
 }
 
 // JS message
