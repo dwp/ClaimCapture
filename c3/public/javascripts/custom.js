@@ -7,34 +7,15 @@ if (IE11) {
 	$('html').addClass('ie11');
 }
 
-
-// Chris' datepicker
-function datepicker(dateFieldId) {
-    return $(dateFieldId).datepicker({
-        dateFormat: 'dd/mm/yy',
-        showButtonPanel: true,
-        closeText: 'Clear',
-        onClose: function (dateText, inst) {
-            if ($(window.event.srcElement).hasClass('ui-datepicker-close'))
-            {
-                document.getElementById(this.id).value = '';
-            }
-        }
-    });
-}
-
 $(function() {
 
-    // view more / view less
-    $(".helper-info").css("display", "none");
-
-    $('.helper-more').click(function(){
+    // Accordion
+    $(".accordion-content:not(.open)").css("display", "none");
+    $('.accordion-title').click(function(){
        var labelText = $(this).text() === $(this).attr('data-close')? $(this).attr('data-initial') : $(this).attr('data-close');
-
-        $(this).toggleClass("helper-less")
-        $(this).next(".helper-info").slideToggle();
+        $(this).toggleClass("accordion-open");
+        $(this).next(".accordion-content").slideToggle();
         $(this).text(labelText);
-
     });    
 
     // Add the "focus" value to class attribute 

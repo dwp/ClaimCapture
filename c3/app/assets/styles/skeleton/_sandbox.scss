@@ -36,3 +36,15 @@
 #whyPersonWrapper {
 	margin-bottom: $gutter;
 }
+
+// Accordions nested within prompts
+
+.helper-prompt {
+	.accordion-title {
+		border-bottom: 0;
+		padding: 0;
+	}
+	.accordion-content {
+		margin-top: 1rem;
+	}
+}
