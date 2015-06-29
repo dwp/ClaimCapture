@@ -28,7 +28,6 @@ class G1Declaration extends Controller with CachedChangeOfCircs with Navigable
     "furtherInfoContact" -> carersNonEmptyText(maxLength = 35),
     "obtainInfoAgreement" -> carersNonEmptyText,
     "obtainInfoWhy" -> optional(carersNonEmptyText(maxLength = 300)),
-    "confirm" -> carersNonEmptyText,
     "circsSomeOneElse" -> optional(carersText),
     "nameOrOrganisation" -> optional(carersNonEmptyText(maxLength = 60)),
     "wantsEmailContactCircs" -> optional(carersNonEmptyText.verifying(validYesNo)),

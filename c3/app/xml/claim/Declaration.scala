@@ -12,14 +12,14 @@ object  Declaration extends XMLComponent {
 
     <Declaration>
       <DeclarationStatement>
-        <Title>{Messages("declaration.title")}</Title>
-        <Content>{Messages("declaration.1.pdf")}</Content>
-        <Content>{Messages("declaration.2")}</Content>
-        <Content>{Messages("declaration.3")}</Content>
-        <Content>{Messages("declaration.4")}</Content>
+        <Content>{Messages("declaration.openingParagraph")}</Content>
+        <Content>{Messages("declaration.1")}</Content>
+        <Content>{Messages("declaration.2.pdf")}</Content>
+        <Content>{Messages("declaration.3.pdf")}</Content>
+        <Content>{Messages("declaration.warning")}</Content>
       </DeclarationStatement>
       {question(<DeclarationQuestion/>,"someoneElse", declaration.someoneElse)}
-      {question(<DeclarationQuestion/>,"confirm", declaration.read)}
+      {question(<DeclarationQuestion/>,"agreement", "Yes")}
       {question(<DeclarationNameOrg/>,"nameOrOrganisation", declaration.nameOrOrganisation)}
     </Declaration>
   }

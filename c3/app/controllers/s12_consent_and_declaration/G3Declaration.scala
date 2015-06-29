@@ -55,7 +55,6 @@ class G3Declaration extends Controller with CachedClaim with Navigable
   def form(implicit request: Request[AnyContent]):Form[Declaration] = Form(mapping(
      informationFromEmployerMapping,
      informationFromPersonMapping,
-    "confirm" -> carersNonEmptyText,
     nameOrOrganisation -> optional(carersNonEmptyText(maxLength = Mappings.sixty)),
     "someoneElse" -> optional(carersText),
     "jsEnabled" -> boolean

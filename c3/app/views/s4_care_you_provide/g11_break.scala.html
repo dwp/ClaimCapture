@@ -91,11 +91,19 @@
 
     <script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
     <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g11_breakDates.js")'></script>
 
     <script type="text/javascript">
         $(function(){
             window.areaCounter({selector: "@CarersCrypto.encryptAES("whereYou_text")", maxChars: 60});
             window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_text")", maxChars: 60});
+
+            window.initEvents("@CarersCrypto.encryptAES("start")",
+            "@CarersCrypto.encryptAES("end")",
+            "@CarersCrypto.encryptAES("startTime")",
+            "@CarersCrypto.encryptAES("endTime")",
+            "@CarersCrypto.encryptAES("doNotKnowEndDate")"
+            );
         })
     </script>
 

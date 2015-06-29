@@ -1,5 +1,6 @@
 package controllers.s4_care_you_provide
 
+import models.DayMonthYear
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -7,7 +8,9 @@ import play.api.cache.Cache
 import models.domain.{Claiming, BreaksInCare, Claim}
 import models.view.CachedClaim
 import app.CircsBreaksWhereabouts._
-import utils.WithApplication
+import utils.pageobjects.{TestData, PageObjects}
+import utils.pageobjects.s4_care_you_provide.{G10BreaksInCarePage, G11BreakPage}
+import utils.{WithJsBrowser, WithApplication}
 
 class G11BreakSpec extends Specification with Tags {
   "Break" should {
@@ -18,6 +21,34 @@ class G11BreakSpec extends Specification with Tags {
 
       val result = G11Break.present("")(request)
       status(result) mustEqual OK
+    }
+
+    "Break in care start time and end time by default should not be displayed" in new WithJsBrowser with PageObjects {
+      val breaksInCare = G10BreaksInCarePage(context) goToThePage()
+      val data = new TestData
+      data.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
+
+      val next = breaksInCare fillPageWith data submitPage()
+      next.ctx.browser.findFirst("#startTime").isDisplayed should beFalse
+    }
+
+    "Break in care start/end time should only be displayed if start/end date is Monday or Friday" in new WithJsBrowser with PageObjects {
+      val breaksInCare = G10BreaksInCarePage(context) goToThePage()
+      val data = new TestData
+      data.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
+      val next = breaksInCare fillPageWith data submitPage()
+
+      val sunday = DayMonthYear(7, 6, 2015)
+
+      next.ctx.browser.fill("#start_day") `with` sunday.day.get.toString
+      next.ctx.browser.fill("#start_month") `with` sunday.month.get.toString
+      next.ctx.browser.fill("#start_year") `with` sunday.year.get.toString
+      next.ctx.browser.findFirst("#startTime").isDisplayed should beFalse
+
+      next.ctx.browser.fill("#end_day") `with` sunday.day.get.toString
+      next.ctx.browser.fill("#end_month") `with` sunday.month.get.toString
+      next.ctx.browser.fill("#end_year") `with` sunday.year.get.toString
+      next.ctx.browser.findFirst("#endTime").isDisplayed should beFalse
     }
 
     "reject when submitted with missing mandatory data" in new WithApplication with Claiming {

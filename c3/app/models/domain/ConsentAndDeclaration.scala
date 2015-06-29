@@ -7,7 +7,7 @@ object ConsentAndDeclaration extends Section.Identifier {
 }
 
 case class Declaration(informationFromEmployer: OptYesNoWithText = OptYesNoWithText(answer = Some(""), text = None), informationFromPerson: YesNoWithText = YesNoWithText(answer="", text = None),
-                       read: String = "", nameOrOrganisation:Option[String] = None, someoneElse: Option[String] = None, jsEnabled: Boolean = false) extends QuestionGroup(Declaration)
+                       nameOrOrganisation:Option[String] = None, someoneElse: Option[String] = None, jsEnabled: Boolean = false) extends QuestionGroup(Declaration)
 
 object Declaration extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g4"

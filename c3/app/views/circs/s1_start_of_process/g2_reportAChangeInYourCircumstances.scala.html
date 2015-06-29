@@ -56,15 +56,5 @@
 
         }
 
-        <script type="text/javascript">
-            $ ( function ( ) {
-                @if(!Play.isTest) {
-                    trackEvent ( "times", "circs - start" )
-                    setCookie("circsstarts",new Date().getTime());
-                }
-                @ga.stagePrompt()
-            } )
-        </script>
-
     }
 }

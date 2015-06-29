@@ -1,6 +1,6 @@
 package app.claim
 
-import utils.WithBrowser
+import utils.WithJsBrowser
 import utils.pageobjects.preview.PreviewTestableData
 import utils.pageobjects.s0_carers_allowance.{G1BenefitsPage, G1BenefitsPageContext}
 import utils.pageobjects._
@@ -17,7 +17,7 @@ class FunctionalTestCase10Spec extends FunctionalTestCommon {
 
   "The application " should {
 
-    "Successfully run absolute Test Case 10 " in new WithBrowser with PageObjects {
+    "Successfully run absolute Test Case 10 " in new WithJsBrowser with PageObjects {
 
       val page = G1BenefitsPage(context)
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase10.csv")
