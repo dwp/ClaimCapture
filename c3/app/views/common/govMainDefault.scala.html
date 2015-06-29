@@ -78,6 +78,10 @@
         <script src="@routes.Assets.at("javascripts/respond.min.js")"></script>
         <![endif]-->
 
+        @if(play.Configuration.root().getBoolean("include.analytics", true)) {
+            @views.html.ga.setup()
+        }
+
     </head>
 
     <body>
@@ -135,10 +139,6 @@
 	    <!--/ footer -->
 	    
         <div id="global-app-error" class="app-error hidden"></div>
-        
-        @if(play.Configuration.root().getBoolean("include.analytics", true)) {
-            @views.html.ga.setup()
-        }
 
     </body>
 

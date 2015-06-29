@@ -1,24 +1,18 @@
 @()(implicit lang: Lang)
 @import app.ConfigProperties._
 
-<script type="text/javascript">
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', '@getProperty("analytics.accountTag","UA-43115970-1")']);
-_gaq.push(['_gat._anonymizeIp']);
-_gaq.push(['_trackPageview']);
-_gaq.push(['_setSessionCookieTimeout', @getProperty("ga.timeout",3600000)]);
-_gaq.push(['_setSiteSpeedSampleRate', @getProperty("ga.speedsamplerate",100)]);
+ga('create', '@getProperty("analytics.accountTag","UA-57523228-1")', {
+  @if(play.api.Play.isDev(play.api.Play.current)){ 'cookieDomain': 'none', }
+  'siteSpeedSampleRate': '@getProperty("ga.speedsamplerate",100)'
 
-    @if(play.api.Play.isDev(play.api.Play.current)){
-        _gaq.push(['_setDomainName', 'none']);
-    }
-
-
-(function() {
-var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-ga.src = 'https://ssl.google-analytics.com/ga.js';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-
+});
+ga('send', 'pageview');
+ga('set', 'anonymizeIp', true);
+ga('set', 'nonInteraction', true);
 </script>
