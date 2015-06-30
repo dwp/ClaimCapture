@@ -114,7 +114,7 @@
                 <div>
                     <nav class="footer-nav language">
                         @if(getProperty("galluogi.cymraeg", default = true)) {
-                            @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/identification/about-you"))) {
+                            @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/report-changes/selection"))) {
                                 @if(lang.language == "cy") {
                                     <a id="lang-en" href="/change-language/en" aria-label="@Html(Messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Html(Messages("english"))</a>
                                 } else {
