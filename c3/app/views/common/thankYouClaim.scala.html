@@ -50,7 +50,7 @@ getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOr
 
                 @if((!request.uri.startsWith("/claim-help"))) {
                     <p class="compound">
-                        <a id="helppage" href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a>
+                        <a id="helppage" rel="external" href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a>
                     </p>
                 }
 
