@@ -1,8 +1,9 @@
 package services.mail
 
 import models.DayMonthYear
-import models.domain.{Employment, ClaimDate, Claim}
+import models.domain._
 import models.view.CachedClaim
+import models.yesNo.YesNoWithText
 import org.specs2.mutable.{Tags, Specification}
 import play.api.i18n.Lang
 import play.api.i18n.{MMessages => Messages}
@@ -65,6 +66,35 @@ class EmailTemplateSpec extends Specification with Tags {
       renderedEmail must contain(escapeMessage("mail.next.send1"))
       renderedEmail must contain(escapeMessage("mail.claim.next.send2",DayMonthYear().`dd month yyyy`))
 
+      renderedEmail must not contain escapeMessage("mail.claim.next.send4")
+      renderedEmail must not contain escapeMessage("mail.next.line")
+
+      renderedEmail must not contain escapeMessage("mail.cofc.title")
+      renderedEmail must not contain escapeMessage("mail.cofc.successful")
+    }
+
+    "Ask for pension documents if paying into pension" in new WithApplication(){
+      val employment= Employment(Mappings.yes,Mappings.yes)
+      val pensionAndExpenses = PensionAndExpenses("", YesNoWithText(Mappings.yes, Some("blah blah blah")),
+        YesNoWithText("", None), YesNoWithText("", None))
+      val jobs = Jobs(List(Iteration("1", List(pensionAndExpenses))))
+      val claim = Claim(CachedClaim.key).+(ClaimDate(DayMonthYear())).update(employment).update(jobs)
+
+      implicit val lang = Lang("en")
+      val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = true).body
+
+      renderedEmail.size must beGreaterThan(0)
+
+      renderedEmail must contain(escapeMessage("mail.claim.next.se.send"))
+
+      renderedEmail must contain(escapeMessage("mail.claim.title"))
+      renderedEmail must contain(escapeMessage("mail.claim.successful"))
+      renderedEmail must contain(escapeMessage("mail.claim.next.line1.alt"))
+      renderedEmail must contain(escapeMessage("mail.next.line2"))
+      renderedEmail must contain(escapeMessage("mail.next.send1"))
+      renderedEmail must contain(escapeMessage("mail.claim.next.send4"))
+      renderedEmail must contain(escapeMessage("mail.claim.next.send2",DayMonthYear().`dd month yyyy`))
+
       renderedEmail must not contain escapeMessage("mail.next.line")
 
       renderedEmail must not contain escapeMessage("mail.cofc.title")
@@ -85,6 +115,7 @@ class EmailTemplateSpec extends Specification with Tags {
 
       renderedEmail must contain(escapeMessage("mail.next.send1"))
       renderedEmail must contain(escapeMessage("mail.next.line2"))
+      renderedEmail must contain(escapeMessage("mail.cofc.next.send4"))
 
       renderedEmail must not contain escapeMessage("mail.claim.next.send2")
       renderedEmail must not contain escapeMessage("mail.next.line")

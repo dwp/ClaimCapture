@@ -3,6 +3,7 @@ package xml.claim
 import models.domain._
 import app.XMLValues._
 import models.domain.Claim
+import models.domain.ClaimUtils
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 import models.MultiLineAddress
@@ -22,8 +23,9 @@ object EvidenceList {
     val selfEmployed = employment.beenSelfEmployedSince1WeekBeforeClaim.toLowerCase == yes
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
 
-    val evidenceEmployedStatements = Seq(Messages("evidence.employed.statement2", stringify(claimDate.dateOfClaim)), "s11.g5.help5", "s11.g5.help6")
-    val evidenceSelfEmployedStatements = Seq("s11.g5.help8", "s11.g5.help9")
+    val evidenceEmployedStatements = Seq(Messages("evidence.employed.statement2", stringify(claimDate.dateOfClaim)), "s11.g5.help5")
+    val evidenceSelfEmployedStatements = Seq("s11.g5.help8")
+    val evidencePensionStatements = Seq("s11.g5.help6")
     val commonHeaders = Seq("documents.title", "documents.sendingDocs.title", "documents.sendingDocs.text")
 
     val alwaysPrint = true
@@ -32,9 +34,9 @@ object EvidenceList {
 
     if (employed || selfEmployed) nodes ++= recepientAddress("s11.g5.help10") ++  evidenceTitle(commonHeaders)
 
-
-    nodes ++= evidenceSection(employed, "s11.g5.help3", evidenceEmployedStatements)
-    nodes ++= evidenceSection(selfEmployed, "s11.g5.help7", evidenceSelfEmployedStatements)
+    nodes ++= evidenceSection(employed, "s11.g5.help3a", evidenceEmployedStatements)
+    nodes ++= evidenceSection(selfEmployed, "s11.g5.help3b", evidenceSelfEmployedStatements)
+    nodes ++= evidenceSection(ClaimUtils.pensionStatementsRequired(claim), "s11.g5.help3c", evidencePensionStatements)
     nodes ++= evidenceSection(alwaysPrint, "", Seq("evidence.statement7"))
 
     nodes

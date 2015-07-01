@@ -11,6 +11,7 @@
 @claimDate = @{
     claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.`dd month yyyy`
 }
+
 @isClaimSelfEmployment = @{
     claim.questionGroup[Employment] match {
         case Some(employment) => employment.beenSelfEmployedSince1WeekBeforeClaim == Mappings.yes
@@ -119,19 +120,19 @@
                             @if(isClaim){
                                 @if(isClaimSelfEmployment) {
                                     <li>@Messages("mail.claim.next.se.send")</li>
-                                    @if(!isClaimEmployment) {<li>@Messages("mail.claim.next.send4")</li>}
                                 }
                                 @if(isClaimEmployment) {
                                     <li>@Messages("mail.claim.next.send2", claimDate)</li>
                                     <li>@Messages("mail.claim.next.send3", claimDate)</li>
-                                    <li>@Messages("mail.claim.next.send4")</li>
                                 }
+                                @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Messages("mail.claim.next.send4")</li>}
                             }else{
                                 @if(!isCofcSelfEmployment){
                                     <li>@Messages("mail.cofc.next.send2")</li>
                                     @if(isCofcFinishedEmployment) {
                                         <li>@Messages("mail.cofc.next.send3")</li>
                                     }
+                                    <li>@Messages("mail.cofc.next.send4")</li>
                                 }
                             }
                         </ul>
