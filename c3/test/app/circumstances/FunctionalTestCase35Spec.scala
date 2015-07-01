@@ -6,13 +6,13 @@ import utils.LightFakeApplication
 import utils.pageobjects.{Page, XmlPage, TestData, PageObjects}
 import utils.pageobjects.circumstances.s1_start_of_process.G1ReportChangesPage
 import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
-import utils.WithBrowser
+import utils.WithJsBrowser
 
 class FunctionalTestCase35Spec extends FunctionalTestCommon {
   isolated
 
   "The application Circumstances" should {
-    "Successfully run Circumstances Test Case 35 for started and finished employment" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "Successfully run Circumstances Test Case 35 for started and finished employment" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
 
       val page = G1ReportChangesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase35.csv")

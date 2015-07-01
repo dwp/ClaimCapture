@@ -14,22 +14,10 @@
 @import scala.language.postfixOps
 @import app.CircsBreaksWhereabouts._
 
-@getCorrectDate(dmy:DayMonthYear,spent35HoursCaringBeforeClaim:Boolean) = @{
-    if (spent35HoursCaringBeforeClaim) dmy - 6 months
-    else dmy
-}
-
-@dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
-
-    val spent35HoursCaringBeforeClaim = claim.questionGroup(ClaimDate) match {
-        case Some(m: ClaimDate) => m.spent35HoursCaringBeforeClaim.answer == "yes"
-        case _ => false
-    }
+@dateWeRequireBreakInCareInformationFrom() = @{
 
     val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-    val dmy = claimDateQG.spent35HoursCaringBeforeClaim.date.getOrElse(claimDateQG.dateOfClaim)
-    val date = getCorrectDate(dmy, spent35HoursCaringBeforeClaim)
-    displayPlaybackDatesFormat (lang, date)
+    claimDateQG.dateWeRequireBreakInCareInformationFrom
 
 }
 
@@ -146,7 +134,7 @@ else OtherMoney.name
 
             <ul>
                 @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
-                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim))
+                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateWeRequireBreakInCareInformationFrom))
                 }
             </ul>
 

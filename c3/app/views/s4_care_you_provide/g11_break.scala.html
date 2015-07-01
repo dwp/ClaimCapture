@@ -16,16 +16,11 @@
 @import app.CircsBreaksWhereabouts._
 @import controllers.IterationID
 
-@dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
+@dateWeRequireBreakInCareInformationFrom() = @{
 
-    val spent35HoursCaringBeforeClaim = claim.questionGroup(ClaimDate) match {
-        case Some(m: ClaimDate) => m.spent35HoursCaringBeforeClaim.answer == "yes"
-        case _ => false
-    }
+    val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+    claimDateQG.dateWeRequireBreakInCareInformationFrom
 
-    claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-        if (spent35HoursCaringBeforeClaim) displayPlaybackDatesFormat(lang, dmy - 6 months)
-        else displayPlaybackDatesFormat(lang, dmy))
 }
 
 @defining(lang) { implicit language =>
@@ -40,7 +35,7 @@
 
         <fieldset class="form-elements">
 
-            <legend class="heading-medium form-label-bold">@Html(Messages("s4.g11.help1")) @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
+            <legend class="heading-medium form-label-bold">@Html(Messages("s4.g11.help1")) @dateWeRequireBreakInCareInformationFrom</legend>
 			
             <ul>
 
@@ -91,11 +86,19 @@
 
     <script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
     <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g11_breakDates.js")'></script>
 
     <script type="text/javascript">
         $(function(){
             window.areaCounter({selector: "@CarersCrypto.encryptAES("whereYou_text")", maxChars: 60});
             window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_text")", maxChars: 60});
+
+            window.initEvents("@CarersCrypto.encryptAES("start")",
+            "@CarersCrypto.encryptAES("end")",
+            "@CarersCrypto.encryptAES("startTime")",
+            "@CarersCrypto.encryptAES("endTime")",
+            "@CarersCrypto.encryptAES("doNotKnowEndDate")"
+            );
         })
     </script>
 

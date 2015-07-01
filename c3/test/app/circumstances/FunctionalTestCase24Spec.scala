@@ -1,7 +1,7 @@
 package app.circumstances
 
 import app.FunctionalTestCommon
-import utils.WithBrowser
+import utils.WithJsBrowser
 import utils.pageobjects.{Page, XmlPage, TestData, PageObjects}
 import utils.pageobjects.circumstances.s1_start_of_process.G1ReportChangesPage
 import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
@@ -11,7 +11,7 @@ class FunctionalTestCase24Spec extends FunctionalTestCommon {
   isolated
 
   "The application Circumstances" should {
-    "Successfully run absolute Circumstances Test Case 24 for Break from caring" in new WithBrowser with PageObjects {
+    "Successfully run absolute Circumstances Test Case 24 for Break from caring" in new WithJsBrowser with PageObjects {
 
       val page = G1ReportChangesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase24.csv")

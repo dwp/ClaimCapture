@@ -13,6 +13,8 @@
 @import utils.helpers.CarersCrypto
 @import app.ReportChange._
 @import play.api.i18n.{MMessages => Messages}
+@import play.api.Play
+@import play.api.Play.current
 @import app.ConfigProperties._
 
 
@@ -59,5 +61,14 @@
             </div>
 
         }
+        <script type="text/javascript">
+            $ ( function ( ) {
+                @if(!Play.isTest) {
+                    trackEvent ("times", "circs - start", undefined, undefined, true)
+                    setCookie("circsstarts",new Date().getTime());
+                }
+                @ga.stagePrompt()
+            } )
+        </script>
     }
 }
