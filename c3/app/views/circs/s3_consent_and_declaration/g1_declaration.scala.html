@@ -54,7 +54,7 @@
 	            <section class="dec">
 	                <h3 class="heading-small">@Html(Messages("circs.declaration.title"))</h3>
 	                <ul class="list-bullet">
-                        <li>@Html(Messages("circs.declaration.1a")) <a id="claimnotes" href="/internal-claim-notes/@lang.code" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>@Html(Messages("circs.declaration.1b"))</a> @Html(Messages("circs.declaration.1c"))</li>
+                        <li>@Html(Messages("circs.declaration.1a")) <a id="claimnotes" rel="external" href="/internal-claim-notes/@lang.code" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes")>@Html(Messages("circs.declaration.1b"))</a> @Html(Messages("circs.declaration.1c"))</li>
                         <li>@Html(Messages("circs.declaration.2"))</li>
                         <li>@Html(Messages("circs.declaration.3"))</li>
                         <li>@Html(Messages("circs.declaration.4"))</li>
