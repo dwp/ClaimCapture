@@ -115,6 +115,7 @@ class EmailTemplateSpec extends Specification with Tags {
 
       renderedEmail must contain(escapeMessage("mail.next.send1"))
       renderedEmail must contain(escapeMessage("mail.next.line2"))
+      renderedEmail must contain(escapeMessage("mail.cofc.next.send4"))
 
       renderedEmail must not contain escapeMessage("mail.claim.next.send2")
       renderedEmail must not contain escapeMessage("mail.next.line")
