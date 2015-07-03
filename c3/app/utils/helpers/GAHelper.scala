@@ -12,7 +12,7 @@ object GAHelper {
 
   def trackEvent(category:String, action:String, label:Option[String]=None, value:Option[String]=None):String = {
     if (!Play.isTest) {
-      s"""trackEvent('$category','$action'${addOpt(label)}${addOpt(value)};""".toString
+      s"""trackEvent('$category','$action'${addOpt(label)}${addOpt(value)});""".toString
     } else {
       ""
     }

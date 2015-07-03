@@ -117,14 +117,14 @@ function trackEvent(category, action, label, value){
 function getConfigurationObject(category, action, label, value){
     var configurationObject = {};
     if (typeof category != 'undefined') configurationObject.eventCategory = category;
-    if (typeof action != 'undefined') configurationObject.eventAction = action
-    if (typeof label != 'undefined') configurationObject.eventLabel = label
-    if (typeof value != 'undefined') configurationObject.eventValue = value
+    if (typeof action != 'undefined') configurationObject.eventAction = action;
+    if (typeof label != 'undefined') configurationObject.eventLabel = label;
+    if (typeof value != 'undefined') configurationObject.eventValue = value;
     return configurationObject;
 }
 
 function trackVirtualPageView(category){
-    ga('send', 'pageview', category)
+    ga('send', 'pageview', category);
 }
 
 function getCookie(c_name) {
