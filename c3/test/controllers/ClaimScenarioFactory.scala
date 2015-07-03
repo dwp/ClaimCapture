@@ -341,8 +341,8 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s4CareYouProvideWithBreaksInCare() = {
-    val claim = s4CareYouProvide(true)
+  def s4CareYouProvideWithBreaksInCare(hours35: Boolean) = {
+    val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
 
     claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
     claim.AboutTheCareYouProvideBreakStartDate_1 = "10/01/1999"

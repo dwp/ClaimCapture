@@ -136,7 +136,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
   }section "preview"
 
   def fillCareProvideSection(context:PageObjectsContext, partnerClaim:TestData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty(),
-                             careYouProvideData:TestData = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare) = {
+                             careYouProvideData:TestData = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)) = {
     val claimDatePage = G1ClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()

@@ -264,83 +264,25 @@ $is-print: false !default;
 
 // External link styles for all font sizes
 
-// Private mixin for use solely by those below
-
-@mixin external-link-size($content, $top, $top-hover: top) {
+@mixin external-link {
     &:after {
-        content: $content;
-        background-position: right $top;
-    }
-    @if $top-hover == top {
-        $top-hover: $top;
-    }
-    &:hover:after {
-        background-position: right $top-hover;
-    }
-}
-
-@mixin external-link-12-no-hover {
-    @include external-link-size($content: "\A0\A0\A0\A0\A0\A0\A0\A0", $top: 0px);
-}
-
-@mixin external-link-12 {
-    @include external-link-size($content: "\A0\A0\A0\A0\A0\A0\A0\A0", $top: 0px, $top-hover: -388px);
-}
-
-@mixin external-link-13-no-hover {
-    @include external-link-size($content: "\A0\A0\A0\A0\A0", $top: 1px);
-}
-
-@mixin external-link-13 {
-    @include external-link-size($content: "\A0\A0\A0\A0\A0", $top: 1px, $top-hover: -387px);
-}
-
-@mixin external-link-14 {
-    @include external-link-size($content: "\A0\A0\A0\A0\A0", $top: 1px, $top-hover: -387px);
-}
-
-@mixin external-link-14-bold-no-hover {
-    @include external-link-size($content: "\A0\A0\A0\A0\A0\A0", $top: 2px);
-}
-
-@mixin external-link-16 {
-    @include external-link-size($content: "\A0\A0\A0\A0\A0", $top: 5px, $top-hover: -385px);
-}
-
-@mixin external-link-16-bold-no-hover {
-    @include external-link-size($content: "\A0\A0\A0\A0\A0\A0", $top: 5px);
-}
-
-@mixin external-link-19-no-hover {
-    @include external-link-size($content: "\A0\A0\A0\A0", $top: 6px);
-}
-
-@mixin external-link-19 {
-    @include external-link-size($content: "\A0\A0\A0\A0", $top: 6px, $top-hover: -382px);
-}
-
-@mixin external-link-19-bold-no-hover {
-    @include external-link-size($content: "\A0\A0\A0\A0\A0\A0", $top: 6px);
-}
-
-@mixin external-link-default {
-    &:after {
+        content: "";
+		height: 0.75em;
+		width: 0.75em;
+		display: inline-block;
+		margin-left: 0.25em;
         background-image: url("../images/external-link.png");
+        background-size: cover;
+        background-position: center top;
         background-repeat: no-repeat;
         @include device-pixel-ratio() {
             background-image: url("../images/external-link-24x24.png");
-            background-size: 12px 400px;
+            background-size: cover;
         }
     }
-}
-
-@mixin external-link-heading {
-    &:after {
-        background-image: url("../images/external-link-black-12x12.png");
-        background-repeat: no-repeat;
-        @include device-pixel-ratio() {
-            background-image: url("../images/external-link-black-24x24.png");
-            background-size: 12px 400px;
-        }
-    }
+	&:hover {
+		&:after {
+			background-position: center 100%;
+		}
+	}
 }
