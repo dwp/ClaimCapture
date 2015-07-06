@@ -7,22 +7,6 @@ if (IE11) {
 	$('html').addClass('ie11');
 }
 
-
-// Chris' datepicker
-function datepicker(dateFieldId) {
-    return $(dateFieldId).datepicker({
-        dateFormat: 'dd/mm/yy',
-        showButtonPanel: true,
-        closeText: 'Clear',
-        onClose: function (dateText, inst) {
-            if ($(window.event.srcElement).hasClass('ui-datepicker-close'))
-            {
-                document.getElementById(this.id).value = '';
-            }
-        }
-    });
-}
-
 $(function() {
 
     // view more / view less
