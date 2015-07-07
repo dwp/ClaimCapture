@@ -43,7 +43,7 @@ trait CachedClaim extends ClaimHandling {
     }) ||
       (claim.questionGroup[YourDetails] match {
         case None => true
-        case Some(YourDetails(_, firstName, _, surname, nino, _)) if firstName.isEmpty || surname.isEmpty || nino.nino.isEmpty => true
+        case Some(YourDetails(_, _, firstName, _, surname, nino, _)) if firstName.isEmpty || surname.isEmpty || nino.nino.isEmpty => true
         case _ => false
       })
   }

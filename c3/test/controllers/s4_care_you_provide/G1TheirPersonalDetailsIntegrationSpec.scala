@@ -66,7 +66,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       val theirPersonalDetailsPage =  partnerPage submitPage()
 
       theirPersonalDetailsPage must beAnInstanceOf[G1TheirPersonalDetailsPage]
-      val title = theirPersonalDetailsPage readSelect("#title")
+      val title = theirPersonalDetailsPage readRadio("#title")
       title.get mustEqual "Mrs"
       val firstName = theirPersonalDetailsPage readInput("#firstName")
       firstName.get mustEqual "Cloe"

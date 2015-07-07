@@ -9,6 +9,7 @@ object YourPartner extends Section.Identifier {
 }
 
 case class YourPartnerPersonalDetails(title: Option[String] = None,
+                                      titleOther:Option[String] = None,
                                       firstName: Option[String] = None,
                                       middleName: Option[String] = None,
                                       surname: Option[String] = None,
@@ -22,6 +23,13 @@ case class YourPartnerPersonalDetails(title: Option[String] = None,
 
 object YourPartnerPersonalDetails extends QuestionGroup.Identifier  {
   val id = s"${YourPartner.id}.g1"
+
+  def verifyTitleOther(form:YourPartnerPersonalDetails):Boolean = {
+    form.title match {
+      case Some("Other") => form.titleOther.isDefined
+      case _ => true
+    }
+  }
 
   def validateTitle(input: YourPartnerPersonalDetails): Boolean = input.hadPartnerSinceClaimDate match {
     case `yes` => input.title.isDefined
