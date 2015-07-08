@@ -51,7 +51,7 @@ class ChannelShift(params:Map[String,String]) extends Controller{
 
     // If user agent is not set with a valid value then data will not be sent:
     // https://developers.google.com/analytics/devguides/collection/protocol/v1/reference#using-post
-    cox.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:39.0) Gecko/20100101 Firefox/39.0")
+    cox.setRequestProperty("User-Agent", "Mozilla/5.0")
 
     cox.setRequestProperty( "Content-Length", Integer.toString( postData.length ))
     cox.setUseCaches( false )
