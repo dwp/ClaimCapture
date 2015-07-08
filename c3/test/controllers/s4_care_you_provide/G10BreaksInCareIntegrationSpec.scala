@@ -47,7 +47,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       breaksInCare.source contains "Have you had any breaks from caring for this person since 10 April 2016?" should beTrue
     }
 
-    """not record the "yes/no" answer upon starting to add a new break but "cancel".""" in new WithBrowser with PageObjects {
+    """record the "yes/no" answer upon starting to add a new break""" in new WithBrowser with PageObjects {
       val breaksInCare = G10BreaksInCarePage(context) goToThePage()
       val data = new TestData
       data.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
@@ -59,8 +59,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       back must beAnInstanceOf[G10BreaksInCarePage]
 
-      back.isElemSelected("#answer_yes") should beFalse
-      back.isElemSelected("#answer_no") should beFalse
+      back.readYesNo("#answer") mustNotEqual None
     }
 
     """allow a new break to be added but not record the "yes/no" answer""" in new WithBrowser with PageObjects {
@@ -68,21 +67,6 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       breaksInCare.isElemSelected("#answer_yes") should beFalse
       breaksInCare.isElemSelected("#answer_no") should beFalse
-    }
-
-    """ask again the question even going back""" in new WithBrowser with PageObjects {
-      val breaksInCare = G10BreaksInCarePage(context) goToThePage()
-      val data = new TestData
-      data.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
-
-      val next = breaksInCare fillPageWith data submitPage()
-      next must beAnInstanceOf[G1TheirPersonalDetailsPage]
-
-      val back = next.goBack()
-      back must beAnInstanceOf[G10BreaksInCarePage]
-
-      back.isElemSelected("#answer_yes") should beFalse
-      back.isElemSelected("#answer_no") should beFalse
     }
 
     "Modify 'breaks in care' answer from preview page" in new WithBrowser with PageObjects{
