@@ -28,19 +28,19 @@ window.initEvents =(o) ->
 
 
 showLastWorkData = ->
-  S("lastWorkData").slideDown 0
+  S("lastWorkData").slideDown(0).attr 'aria-hidden', 'false'
 
 hideLastWorkData = (o) ->
   reset(o.lastWorkData)
-  S("lastWorkData").slideUp 0
+  S("lastWorkData").slideUp(0).attr 'aria-hidden', 'true'
 
 
 showJobStartDateWrapper = ->
-  S("jobStartDateWrapper").slideDown 0
+  S("jobStartDateWrapper").slideDown(0).attr 'aria-hidden', 'false'
 
 hideJobStartDateWrapper = (o) ->
   reset(o.jobStartDate)
-  S("jobStartDateWrapper").slideUp 0
+  S("jobStartDateWrapper").slideUp(0).attr 'aria-hidden', 'true'
 
 reset = (resetList) ->
   (val(elem,"") for elem in resetList)

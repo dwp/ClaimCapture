@@ -54,7 +54,7 @@ hideOtherStatPayWrap = ->
   })
 
 showSickPayWrap = ->
-  $("#sickPayWrap").slideDown 0
+  $("#sickPayWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideSickPayWrap = ->
   $("#sickPayWrap").slideUp({duration:0,completed: ->

@@ -10,7 +10,7 @@ window.initEvents = (anythingElseY,anythingElseN,anythingElseText) ->
     hideAnythingElseWrapper(anythingElseText)
 
 showAnythingElseWrapper = ->
-  $("#additionalInfoWrap").slideDown 0
+  $("#additionalInfoWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideAnythingElseWrapper = (anythingElseText) ->
-  $("#additionalInfoWrap").slideUp 0, -> $("#"+anythingElseText).val("")
+  $("#additionalInfoWrap").slideUp(0).attr 'aria-hidden', 'true', -> $("#"+anythingElseText).val("")

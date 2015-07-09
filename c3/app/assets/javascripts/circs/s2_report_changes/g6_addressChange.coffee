@@ -41,32 +41,32 @@ window.initEvents = (stillCaringY, stillCaringN, dateStoppedCaring,
 
 
 hideStillCaringDate = (dateStoppedCaring) ->
-  $("#stillCaringDate").slideUp 0, ->
+  $("#stillCaringDate").slideUp(0).attr 'aria-hidden', 'true', ->
     $("#" + dateStoppedCaring).val("")
 
 showStillCaringDate = () ->
-  $("#stillCaringDate").slideDown 0
+  $("#stillCaringDate").slideDown(0).attr 'aria-hidden', 'false'
 
 hideStillCaringAddress = (caredForChangedAddressN, caredForChangedAddressY) ->
-  $("#stillCaringAddress").slideUp 0
+  $("#stillCaringAddress").slideUp(0).attr 'aria-hidden', 'true'
   $("#"+caredForChangedAddressN).attr("checked", false)
   $("#"+caredForChangedAddressY).attr("checked", false)
 
 showStillCaringAddress = () ->
-  $("#stillCaringAddress").slideDown 0
+  $("#stillCaringAddress").slideDown(0).attr 'aria-hidden', 'false'
 
 hideStillCaringSameAddress = (sameAddressY, sameAddressN) ->
-  $("#changedAddressSame").slideUp 0
+  $("#changedAddressSame").slideUp(0).attr 'aria-hidden', 'true'
   $("#"+sameAddressY).attr("checked", false)
   $("#"+sameAddressN).attr("checked", false)
 
 showStillCaringSameAddress = () ->
-  $("#changedAddressSame").slideDown 0
+  $("#changedAddressSame").slideDown(0).attr 'aria-hidden', 'false'
 
 hideStillCaringSameAddressData = (theirNewAddress, theirNewPostcode) ->
-  $("#sameAddressData").slideUp 0
+  $("#sameAddressData").slideUp(0).attr 'aria-hidden', 'true'
   $("#" + theirNewAddress).val("")
   $("#" + theirNewPostcode).val("")
 
 showStillCaringSameAddressData = () ->
-  $("#sameAddressData").slideDown 0
+  $("#sameAddressData").slideDown(0).attr 'aria-hidden', 'false'

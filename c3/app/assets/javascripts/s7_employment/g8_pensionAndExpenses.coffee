@@ -31,22 +31,22 @@ window.initEvents =(payPensionSchemeY, payPensionSchemeN, pensionExpenses,
 
 
 showPensionExpenses = ->
-  $("#pensionExpenses").slideDown 0
+  $("#pensionExpenses").slideDown(0).attr 'aria-hidden', 'false'
 
 hidePensionExpenses = (pensionExpenses) ->
-  $("#pensionExpenses").slideUp 0, ->
+  $("#pensionExpenses").slideUp(0).attr 'aria-hidden', 'true', ->
     $("#" + pensionExpenses).val("")
 
 showHaveExpensesForJob = ->
-  $("#jobExpenses").slideDown 0
+  $("#jobExpenses").slideDown(0).attr 'aria-hidden', 'false'
 
 hideExpensesForJob = (jobExpenses) ->
-  $("#jobExpenses").slideUp 0, ->
+  $("#jobExpenses").slideUp(0).attr 'aria-hidden', 'true', ->
     $("#" + jobExpenses).val("")
 
 showPayForThings = ->
-  $("#payForThings").slideDown 0
+  $("#payForThings").slideDown(0).attr 'aria-hidden', 'false'
 
 hidePayForThings = (payForThings) ->
-  $("#payForThings").slideUp 0, ->
+  $("#payForThings").slideUp(0).attr 'aria-hidden', 'true', ->
     $("#" + payForThings).val("")

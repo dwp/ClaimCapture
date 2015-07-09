@@ -4,5 +4,5 @@ careYouProvideWrap = "careYouProvideWrap"
 
 window.showOrHideCareYouProvideDetails = (o) ->
   if (o.showOrHideDetails)
-    S(careYouProvideWrap).slideUp 0
+    S(careYouProvideWrap).slideUp(0).attr 'aria-hidden', 'true'
 

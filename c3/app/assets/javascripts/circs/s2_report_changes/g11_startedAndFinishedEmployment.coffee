@@ -58,7 +58,7 @@ window.fixErrorMessages = (o) ->
 
 onBeenPaidYetY = (ctx,reset) ->
   ->
-    S("beenPaidYetWrap").slideUp 0, ->
+    S("beenPaidYetWrap").slideUp(0).attr 'aria-hidden', 'true', ->
       labelText(ctx.howMuchPaid,ctx.howMuchPaidYText)
       S(ctx.howMuchPaid).val("") if reset
       legend(ctx.dateLastPaid).html(ctx.dateLastPaidYText)
@@ -69,11 +69,11 @@ onBeenPaidYetY = (ctx,reset) ->
       S(ctx.dateLastPaid + "_alternativeDateContextualHelp").css('display', "none")
       labelText(ctx.whatWasIncluded,ctx.whatWasIncludedYText)
       S(ctx.whatWasIncluded).val("") if reset
-    S("beenPaidYetWrap").slideDown 0
+    S("beenPaidYetWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 onBeenPaidYetN = (ctx,reset) ->
   ->
-    S("beenPaidYetWrap").slideUp 0, ->
+    S("beenPaidYetWrap").slideUp(0).attr 'aria-hidden', 'true', ->
       labelText(ctx.howMuchPaid,ctx.howMuchPaidNText)
       S(ctx.howMuchPaid).val("") if reset
       legend(ctx.dateLastPaid).html(ctx.dateLastPaidNText)
@@ -84,7 +84,7 @@ onBeenPaidYetN = (ctx,reset) ->
       S(ctx.dateLastPaid + "_alternativeDateContextualHelp").css('display', "block")
       labelText(ctx.whatWasIncluded,ctx.whatWasIncludedNText)
       S(ctx.whatWasIncluded).val("") if reset
-    S("beenPaidYetWrap").slideDown 0
+    S("beenPaidYetWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 window.beenPaidYet = (o) ->
   if checked o.beenPaidYetY
@@ -92,7 +92,7 @@ window.beenPaidYet = (o) ->
   else if checked o.beenPaidYetN
     onBeenPaidYetN(o,false)()
   else
-    S("beenPaidYetWrap").slideUp 0
+    S("beenPaidYetWrap").slideUp(0).attr 'aria-hidden', 'true'
 
 
   S(o.beenPaidYetY).on "click", onBeenPaidYetY(o,true)
@@ -101,11 +101,11 @@ window.beenPaidYet = (o) ->
 onUsuallyPaidSameAmount = (o) ->
   ->
     if visible("usuallyPaidSameAmountWrap")
-      S("usuallyPaidSameAmountWrap").slideUp 0, ->
+      S("usuallyPaidSameAmountWrap").slideUp(0).attr 'aria-hidden', 'true', ->
         checked o.usuallyPaidSameAmountY,  false
         checked o.usuallyPaidSameAmountN,  false
 
-    S("monthlyPayDayWrap").slideUp 0, -> S(o.monthlyPayDay).val("") if visible("monthlyPayDayWrap")
+    S("monthlyPayDayWrap").slideUp(0).attr 'aria-hidden', 'true', -> S(o.monthlyPayDay).val("") if visible("monthlyPayDayWrap")
 
     if not (val(o.howOftenFrequency) is o.defaultValue or val(o.howOftenFrequency) is "")
 
@@ -125,26 +125,26 @@ onUsuallyPaidSameAmount = (o) ->
 
 window.usuallyPaidSameAmount = (o) ->
   if val(o.howOftenFrequency) is ""
-    S("monthlyPayDayWrap").slideUp 0
-    S("usuallyPaidSameAmountWrap").slideUp 0
+    S("monthlyPayDayWrap").slideUp(0).attr 'aria-hidden', 'true'
+    S("usuallyPaidSameAmountWrap").slideUp(0).attr 'aria-hidden', 'true'
 
   S(o.howOftenFrequency).change onUsuallyPaidSameAmount(o)
 
 
 window.employerOwesYouMoney = (usuallyPaidSameAmountY, usuallyPaidSameAmountN) ->
   if not checked(usuallyPaidSameAmountY)
-    S("employerOwesYouMoneyHelpWrap").slideUp 0
+    S("employerOwesYouMoneyHelpWrap").slideUp(0).attr 'aria-hidden', 'true'
 
-  S(usuallyPaidSameAmountY).on "click", -> S("employerOwesYouMoneyHelpWrap").slideDown 0 if checked usuallyPaidSameAmountY
-  S(usuallyPaidSameAmountN).on "click", -> S("employerOwesYouMoneyHelpWrap").slideUp 0 if not checked usuallyPaidSameAmountY
+  S(usuallyPaidSameAmountY).on "click", -> S("employerOwesYouMoneyHelpWrap").slideDown(0).attr 'aria-hidden', 'false' if checked usuallyPaidSameAmountY
+  S(usuallyPaidSameAmountN).on "click", -> S("employerOwesYouMoneyHelpWrap").slideUp(0).attr 'aria-hidden', 'true' if not checked usuallyPaidSameAmountY
 
 
 window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
   if not checked(payIntoPensionY)
-    S("whatForWrap").slideUp 0
+    S("whatForWrap").slideUp(0).attr 'aria-hidden', 'true'
 
-  S(payIntoPensionY).on "click", -> S("whatForWrap").slideDown 0
-  S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp 0, -> S(whatFor).val("")
+  S(payIntoPensionY).on "click", -> S("whatForWrap").slideDown(0).attr 'aria-hidden', 'false'
+  S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp(0).attr 'aria-hidden', 'true', -> S(whatFor).val("")
 
 
 #
@@ -153,16 +153,16 @@ window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
 
 window.whatThings = (payForThingsY, payForThingsN, whatThings) ->
   if not checked(payForThingsY)
-    S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
-  S(payForThingsY).on "click", -> S("whatThingsWrap").slideDown 0
+    S("whatThingsWrap").slideUp(0).attr 'aria-hidden', 'true', -> val(whatThings,"")
+  S(payForThingsY).on "click", -> S("whatThingsWrap").slideDown(0).attr 'aria-hidden', 'false'
 
-  S(payForThingsN).on "click", -> S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
+  S(payForThingsN).on "click", -> S("whatThingsWrap").slideUp(0).attr 'aria-hidden', 'true', -> val(whatThings,"")
 
 
 window.whatCosts = (careCostsForThisWorkY, careCostsForThisWorkN, whatCosts) ->
   if not checked(careCostsForThisWorkY)
-    S("whatCostsWrap").slideUp 0
+    S("whatCostsWrap").slideUp(0).attr 'aria-hidden', 'true'
 
-  S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown 0
-  S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp 0, -> S(whatCosts).val("")
+  S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown(0).attr 'aria-hidden', 'false'
+  S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp(0).attr 'aria-hidden', 'true', -> S(whatCosts).val("")
 

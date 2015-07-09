@@ -112,10 +112,10 @@ datePaidContextualHelp = (o,beenPaidYet) ->
     S(o.whatDatePaid + "_alternativeDateContextualHelp").css('display', "block")
 
 hideBeenPaid = (ctx,reset,hideFunction) ->
-  S("beenPaidYetWrap").slideUp 0, -> hideFunction(ctx,reset)
-  S("usuallyPaidSameAmountWrap").slideUp 0
-  S("monthlyPayDayWrap").slideUp 0
-  S("beenPaidYetWrap").slideDown 0
+  S("beenPaidYetWrap").slideUp(0).attr 'aria-hidden', 'true', -> hideFunction(ctx,reset)
+  S("usuallyPaidSameAmountWrap").slideUp(0).attr 'aria-hidden', 'true'
+  S("monthlyPayDayWrap").slideUp(0).attr 'aria-hidden', 'true'
+  S("beenPaidYetWrap").slideDown(0).attr 'aria-hidden', 'false'
   if not (val(ctx.howOften) is "Other")
     S("howOften_wrap").slideUp(0, -> (val ctx.howOftenFrequencyOther, "") if reset)
 
@@ -138,9 +138,9 @@ window.beenPaidYet = (ctx) ->
   else if checked(ctx.beenPaidYetN)
     onBeenPaidYetN(ctx,false)()
   else
-    S("beenPaidYetWrap").slideUp 0, -> hideBeenPaidYetWrapOnN(ctx,false)
-    S("usuallyPaidSameAmountWrap").slideUp 0
-    S("monthlyPayDayWrap").slideUp 0
+    S("beenPaidYetWrap").slideUp(0).attr 'aria-hidden', 'true', -> hideBeenPaidYetWrapOnN(ctx,false)
+    S("usuallyPaidSameAmountWrap").slideUp(0).attr 'aria-hidden', 'true'
+    S("monthlyPayDayWrap").slideUp(0).attr 'aria-hidden', 'true'
 
   S(ctx.beenPaidYetY).on "click", onBeenPaidYetY(ctx,true)
   S(ctx.beenPaidYetN).on "click", onBeenPaidYetN(ctx,true)
@@ -151,11 +151,11 @@ window.beenPaidYet = (ctx) ->
 onHowOftenFrequency = (ctx,reset) -> #Double -> because it's a function returning a function, which the jQuqery .on function will receive.
   ->                           #The first function exists so the returned function has the "context" variable in scope
     if visible("usuallyPaidSameAmountWrap")
-      S("usuallyPaidSameAmountWrap").slideUp 0, ->
+      S("usuallyPaidSameAmountWrap").slideUp(0).attr 'aria-hidden', 'true', ->
         checked(ctx.usuallyPaidSameAmountY,false) if reset
         checked(ctx.usuallyPaidSameAmountN,false) if reset
 
-    S("monthlyPayDayWrap").slideUp 0, -> val(ctx.monthlyPayDay,"") if visible("monthlyPayDayWrap") and reset
+    S("monthlyPayDayWrap").slideUp(0).attr 'aria-hidden', 'true', -> val(ctx.monthlyPayDay,"") if visible("monthlyPayDayWrap") and reset
 
     if not (val(ctx.howOftenFrequency) is ctx.defaultValue or val(ctx.howOftenFrequency) is "")
       if checked(ctx.beenPaidYetN)
@@ -197,10 +197,10 @@ window.payDay = (o) ->
 
 window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
   if not checked(payIntoPensionY)
-    S("whatForWrap").slideUp 0, -> val(whatFor,"")
-  S(payIntoPensionY).on "click", -> S("whatForWrap").slideDown 0
+    S("whatForWrap").slideUp(0).attr 'aria-hidden', 'true', -> val(whatFor,"")
+  S(payIntoPensionY).on "click", -> S("whatForWrap").slideDown(0).attr 'aria-hidden', 'false'
 
-  S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp 0, -> val(whatFor,"")
+  S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp(0).attr 'aria-hidden', 'true', -> val(whatFor,"")
 
 
 #
@@ -209,10 +209,10 @@ window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
 
 window.whatThings = (payForThingsY, payForThingsN, whatThings) ->
   if not checked(payForThingsY)
-    S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
-  S(payForThingsY).on "click", -> S("whatThingsWrap").slideDown 0
+    S("whatThingsWrap").slideUp(0).attr 'aria-hidden', 'true', -> val(whatThings,"")
+  S(payForThingsY).on "click", -> S("whatThingsWrap").slideDown(0).attr 'aria-hidden', 'false'
 
-  S(payForThingsN).on "click", -> S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
+  S(payForThingsN).on "click", -> S("whatThingsWrap").slideUp(0).attr 'aria-hidden', 'true', -> val(whatThings,"")
 
 
 #
@@ -220,8 +220,8 @@ window.whatThings = (payForThingsY, payForThingsN, whatThings) ->
 #
 window.whatCosts = (careCostsForThisWorkY, careCostsForThisWorkN, whatCosts) ->
   if not checked(careCostsForThisWorkY)
-    S("whatCostsWrap").slideUp 0, -> val(whatCosts,"")
+    S("whatCostsWrap").slideUp(0).attr 'aria-hidden', 'true', -> val(whatCosts,"")
 
-  S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown 0
+  S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown(0).attr 'aria-hidden', 'false'
 
-  S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp 0, -> val(whatCosts,"")
+  S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp(0).attr 'aria-hidden', 'true', -> val(whatCosts,"")

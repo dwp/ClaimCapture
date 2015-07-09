@@ -11,7 +11,7 @@ window.initEvents = (answerY, answerN) ->
 
 
 showSelfEmployedNoWrap = ->
-  $("#selfEmployedNoWrap").slideDown 0
+  $("#selfEmployedNoWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideSelfEmployedNoWrap = ->
-  $("#selfEmployedNoWrap").slideUp 0
+  $("#selfEmployedNoWrap").slideUp(0).attr 'aria-hidden', 'true'

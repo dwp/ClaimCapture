@@ -9,8 +9,8 @@ window.initEvents = (stillCaringY, stillCaringN, whenStoppedCaring) ->
     hideStillCaringWrap(whenStoppedCaring)
 
 hideStillCaringWrap = (whenStoppedCaring) ->
-  $("#residencyWrap").slideUp 0, ->
+  $("#residencyWrap").slideUp(0).attr 'aria-hidden', 'true', ->
   $("#" + whenStoppedCaring).val("")
 
 showStillCaringWrap = ->
-  $("#residencyWrap").slideDown 0
+  $("#residencyWrap").slideDown(0).attr 'aria-hidden', 'false'

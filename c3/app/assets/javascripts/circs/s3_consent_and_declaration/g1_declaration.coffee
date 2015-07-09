@@ -1,17 +1,17 @@
 window.initEvents = (infoAgreementY, infoAgreementN, why, check, input) ->
   hideWhyWrap = (why) ->
-    $("#why").slideUp 0, ->
+    $("#why").slideUp(0).attr 'aria-hidden', 'true', ->
       $("#" + why).val("")
 
   showWhyWrap = () ->
-    $("#why").slideDown 0
+    $("#why").slideDown(0).attr 'aria-hidden', 'false'
 
   hideOrgWrap = (input) ->
-    $("#nameOrOrganisationWrapper").slideUp 0, ->
+    $("#nameOrOrganisationWrapper").slideUp(0).attr 'aria-hidden', 'true', ->
       $("#" + input).val("")
 
   showOrgWrap = () ->
-    $("#nameOrOrganisationWrapper").slideDown 0
+    $("#nameOrOrganisationWrapper").slideDown(0).attr 'aria-hidden', 'false'
 
   selector = "#" + check
   if not $(selector).is(':checked')

@@ -31,19 +31,19 @@ window.initEvents = (o) ->
     showWhyPersonWrapper(o)
 
 hideNameOrgWrapper = (o) ->
-  S("nameOrOrgWrapper").slideUp 0, -> val(o.input, "")
+  S("nameOrOrgWrapper").slideUp(0).attr 'aria-hidden', 'true', -> val(o.input, "")
 
 showNameOrgWrapper = ->
-  S("nameOrOrgWrapper").slideDown 0
+  S("nameOrOrgWrapper").slideDown(0).attr 'aria-hidden', 'false'
 
 showWhyWrapper = (o) ->
-  S(o.whyWrapper).slideDown 0
+  S(o.whyWrapper).slideDown(0).attr 'aria-hidden', 'false'
 
 hideWhyWrapper = (o) ->
-  S(o.whyWrapper).slideUp 0, -> val(o.why, "")
+  S(o.whyWrapper).slideUp(0).attr 'aria-hidden', 'true', -> val(o.why, "")
 
 hideWhyPersonWrapper =  (o) ->
-  S(o.whyPersonWrapper).slideUp 0, -> val(o.whyPerson, "")
+  S(o.whyPersonWrapper).slideUp(0).attr 'aria-hidden', 'true', -> val(o.whyPerson, "")
 
 showWhyPersonWrapper = (o) ->
-  S(o.whyPersonWrapper).slideDown 0
+  S(o.whyPersonWrapper).slideDown(0).attr 'aria-hidden', 'false'

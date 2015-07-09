@@ -45,10 +45,10 @@ getDate = (id) ->
     undefined
 
 hideTime = (id) ->
-  $("#"+id).parent("li").slideUp 0
+  $("#"+id).parent("li").slideUp(0).attr 'aria-hidden', 'true'
 
 showTime = (id) ->
-  $("#"+id).parent("li").slideDown 0
+  $("#"+id).parent("li").slideDown(0).attr 'aria-hidden', 'false'
 
 dateOnChange = (id,f) ->
   $("#"+id+" li input").on "change paste keyup", ->
