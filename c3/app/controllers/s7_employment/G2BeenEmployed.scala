@@ -49,7 +49,7 @@ object G2BeenEmployed extends Controller with CachedClaim with Navigable {
 
   private def beenEmployed(lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] = {
     if(getCompletedJobs) {
-      val f:Claim => Result = { implicit claim => Ok(views.html.s7_employment.g2_beenEmployed(form)(lang))}
+      val f:Claim => Result = { implicit claim => Ok(views.html.s7_employment.g2_beenEmployed(form.fill(BeenEmployed))(lang))}
       Right(trackBackToBeginningOfEmploymentSection(BeenEmployed)(f)(claim, request,ClassTag[BeenEmployed.type](BeenEmployed.getClass)) )
     }
     else Left(Redirect(routes.G3JobDetails.present(IterationID(form))))

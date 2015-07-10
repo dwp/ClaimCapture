@@ -5,7 +5,7 @@ import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
-import models.domain.PensionAndExpenses
+import models.domain.{BeenEmployed, PensionAndExpenses}
 import utils.helpers.CarersForm._
 import Employment._
 import utils.helpers.PastPresentLabelHelper._
@@ -68,7 +68,9 @@ object G8PensionAndExpenses extends Controller with CachedClaim with Navigable {
 
           BadRequest(views.html.s7_employment.g8_pensionAndExpenses(formWithErrorsUpdate)(lang))
       },
-      aboutExpenses => claim.update(jobs.update(aboutExpenses).completeJob(iterationID)) -> Redirect(routes.G2BeenEmployed.present()))
+      // Must delete the BeenEmployed question group so it doesn't prepopulate the
+      // question 'Have you had any more employments...'
+      aboutExpenses => claim.update(jobs.update(aboutExpenses).completeJob(iterationID)).delete(BeenEmployed) -> Redirect(routes.G2BeenEmployed.present()))
 
   }
 }
