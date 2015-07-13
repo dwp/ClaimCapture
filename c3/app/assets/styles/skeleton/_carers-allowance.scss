@@ -1,0 +1,165 @@
+
+// Carer's Allowance
+// Styles specific to the carer's allowance services
+// ================================================================
+
+// Offset checkbox-single elements since they are placed outside
+// their parent and have too big of a gap above them.
+.checkbox-single {
+    margin-top: -20px;
+}
+
+// Class for styled block checkbox elements - ultimately move class
+// to the label itself 
+.block-checkbox label {
+    position: relative;
+    display: block;
+    background: $panel-colour;
+    border: 1px solid $panel-colour;
+    padding: 18px 18px 18px ($gutter * 1.25);
+    margin-top: 10px;
+    cursor: pointer; // Encourage clicking on block labels
+    input {
+        position: absolute;
+        left: 18px;
+        top: 22px;
+    }
+}
+
+//circumstances/report-changes/employment-finished
+#howOften_wrap {
+    margin-top: 30px;
+}
+
+// decleration page consent box
+#whyPersonWrapper {
+	margin-bottom: $gutter;
+}
+
+// Remove underline from crown footer 
+
+.crown {
+	text-decoration: none;
+}
+
+// From previous header-footer-only.css
+// ================================================================
+
+#global-browser-prompt, 
+.js-enabled #global-cookie-message {
+    display: none;
+}
+#global-browser-prompt, 
+#global-cookie-message, 
+.beta-notice {
+    padding: .5em 2em;
+}
+#global-browser-prompt p, 
+#global-cookie-message p, 
+.beta-notice p {
+    font-family: nta, Arial, sans-serif;
+    font-size: 19px;
+    font-size: 1.9rem;
+    line-height: 1.31579;
+    font-weight: 400;
+    text-transform: none;
+    margin: 0 auto;
+    max-width: 960px;
+}
+#global-browser-prompt, 
+#global-cookie-message {
+    background-color: #d5e8f3;
+}
+#global-browser-prompt p {
+    position: relative;
+    padding-right: 20px;
+    max-width: 940px;
+}
+#global-browser-prompt .dismiss {
+    background-image: url(https://assets.digital.cabinet-office.gov.uk/static/close-d05b62d4287151f959ffdcf2387898f7.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center right;
+    text-decoration: none;
+    height: 22px;
+    width: 10px;
+    text-indent: -9999px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+}
+.beta-notice {
+    background-color: #f47738;
+    color: #fff;
+}
+#global-breadcrumb {
+    background-color: #fff;
+    max-width: 1020px;
+    margin: 0 auto;
+    z-index: 50;
+}
+#global-breadcrumb nav {
+    border-top: 10px solid #2b8cc4;
+    max-width: 960px;
+    margin: 0 30px;
+    padding: .75em 0;
+}
+#global-breadcrumb nav ol {
+    margin: 0;
+    padding: 0;
+}
+#global-breadcrumb nav ol li {
+    font-family: nta, Arial, sans-serif;
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 1.25;
+    font-weight: 300;
+    text-transform: none;
+    background-image: url(https://assets.digital.cabinet-office.gov.uk/static/separator-73822610794bc3a64871f144d93d6526.png);
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+    float: left;
+    list-style: none;
+    margin-left: 0;
+    margin-right: .5em;
+    padding-right: 1em;
+}
+#global-breadcrumb nav ol li a {
+    color: #0b0c0c;
+}
+#global-breadcrumb nav ol li strong {
+    font-weight: 400;
+}
+#global-breadcrumb nav ol li:last-child {
+    background-image: none;
+    margin-right: 0;
+}
+@media only screen and (-webkit-min-device-pixel-ratio:2), only screen and (min--moz-device-pixel-ratio:2), only screen and (-o-min-device-pixel-ratio:20 / 10), only screen and (min-device-pixel-ratio:2), only screen and (min-resolution:192dpi), only screen and (min-resolution:2dppx) {
+    #global-breadcrumb nav ol li {
+	    background-image: url(https://assets.digital.cabinet-office.gov.uk/static/separator-2x-2ff66846b80b66edba8ce56d29daa935.png);
+	    background-size: 6px 11px;
+	}
+}
+@media (max-width:640px) {
+    #global-browser-prompt p, 
+	#global-cookie-message p, 
+	.beta-notice p {
+	    font-size: 1.6rem;
+	    line-height: 1.25;
+	}
+    #global-browser-prompt, 
+	#global-cookie-message, 
+	.beta-notice {
+    	padding: .5em 1em;
+	}
+    #global-breadcrumb {
+	    padding: 0 1em .75em;
+	}
+    #global-breadcrumb nav {
+	    margin: 0;
+	}
+    #global-breadcrumb nav ol li {
+	    font-size: 1.4rem;
+	    line-height: 1.14286;
+	}
+}

@@ -33,7 +33,7 @@ About You,Details of trips abroad for more than 52 weeks,Reason for being there?
 About You,Details of trips abroad for more than 52 weeks,Reason for being there?Other,WhyDidYouOther,Residency>PeriodAbroad>Reason>Other
 About You,Details of trips abroad for more than 52 weeks,Was the person you care for with you?,PersonWithYou,Residency>PeriodAbroad>CareePresent>Answer
 About You,Details of trips abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,Residency>PeriodAbroad>TimeOutsideGBLast3Years>Answer
-About You,Other European Economic Area (EEA) states or Switzerland,"Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,OtherBenefits>EEA>EEAReceivePensionsBenefits>Answer
+About You,Other European Economic Area (EEA) states or Switzerland,"Have you and your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,OtherBenefits>EEA>EEAReceivePensionsBenefits>Answer
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you or your close family worked or paid national insurance in any of these countries since your claim date?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,OtherBenefits>EEA>EEAWorkingInsurance>Answer
 About You,Other European Economic Area (EEA) states or Switzerland,"Give details",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEADetails,OtherBenefits>EEA>EEAReceivePensionsBenefitsDetails>Answer
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,Partner>Title>Answer
@@ -138,7 +138,7 @@ Other Money,Other Statutory Pay,Other Statutory Pay: How often other?,OtherMOney
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,OtherBenefits>OtherMoneySPDetails>Name>Answer
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,OtherBenefits>OtherMoneySPDetails>Address>Answer>Line
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,OtherBenefits>OtherMoneySPDetails>Address>Answer>PostCode
-Other Money,Other EEA State or Switzerland,"Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,OtherBenefits>EEA>EEAReceivePensionsBenefits>Answer
+Other Money,Other EEA State or Switzerland,"Have you and your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,OtherBenefits>EEA>EEAReceivePensionsBenefits>Answer
 Other Money,Other EEA State or Switzerland,"Do you or anyone in your family work or pay insurance in any of these countries?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,OtherBenefits>EEA>EEAWorkingInsurance>Answer
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,Payment>InitialAccountQuestion>Answer
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Payment>PaymentFrequency>Answer
