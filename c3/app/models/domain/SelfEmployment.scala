@@ -4,7 +4,7 @@ import models.DayMonthYear
 import models.yesNo.YesNoWithText
 
 case object SelfEmployment extends Section.Identifier {
-  val id = "s8"
+  val id = "s7"
 }
 
 case object AboutSelfEmployment extends QuestionGroup.Identifier {

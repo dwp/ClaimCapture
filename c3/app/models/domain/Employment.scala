@@ -10,7 +10,7 @@ import models.yesNo.YesNoWithText
 import controllers.Iteration.{Identifier => IterationID}
 
 object Employed extends Section.Identifier {
-  val id = "s7"
+  val id = "s8"
 }
 
 case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)
