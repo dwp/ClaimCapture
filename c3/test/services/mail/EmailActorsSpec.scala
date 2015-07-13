@@ -12,6 +12,8 @@ import scala.util.{Failure, Success}
 
 class EmailActorsSpec extends Specification with Tags with Mockito{
 
+  sequential
+
   "Email Manager" should {
 
     "start an email sending actor and receive email message" in new AkkaTestkitSpecs2Support {
@@ -31,8 +33,7 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
 
     "start an email sending actor" in new AkkaTestkitSpecs2Support() {
 
-      val mailerMock = mock[Mailer]
-      mailerMock.sendEmail(any[Email]) returns Success(Unit)
+      val mailerMock = successMailerMock
 
       val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[EmailSenderTestable],mailerMock)))
 
@@ -46,6 +47,25 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
 
       there was one(mailerMock).sendEmail(email)
 
+    }
+
+    "successfully manage 5 email sending actors" in new AkkaTestkitSpecs2Support {
+
+      val mailerMock = successMailerMock
+
+      val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[WaitingEmailSenderTestable],mailerMock)))
+
+      val b = "Body content"
+      val s = "my subject"
+      val r = Seq("recipient1","recipient2")
+      val email = Email(s,EmailAddress(null,""),"",b,recipients = r.map(r => Recipient(RecipientType.TO,EmailAddress(null,r))),replyTo = None)
+      for(i <- 1 to 5) {
+        emailManager ! EmailWrapper("", email)
+      }
+
+      Thread.sleep(5000)
+
+      there was atLeast(5)(mailerMock).sendEmail(email)
     }
 
     "restart the email actor because of failures" in new AkkaTestkitSpecs2Support() {
@@ -62,18 +82,24 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
 
       emailManager ! mail
 
-      Thread.sleep(6000)
+      Thread.sleep(5000)
 
+      //The retry only takes 5 seconds based on EmailSenderTestable, however sometimes the system shutdown takes
+      //more than expected and the retry executes 3 times
       EmailSenderTestable.synchronized{
-        EmailSenderTestable.sendEmail mustEqual 2
+        EmailSenderTestable.sendEmail must beLessThanOrEqualTo(3)
       }
 
-      there was atMost(2)(mailerMock).sendEmail(any[Email])
-
+      there was atMost(3)(mailerMock).sendEmail(any[Email])
 
     }
   } section ("unit","slow")
 
+  def successMailerMock: Mailer = {
+    val mailerMock = mock[Mailer]
+    mailerMock.sendEmail(any[Email]) returns Success(Unit)
+    mailerMock
+  }
 }
 
 class SimpleSenderTestable extends Actor {
@@ -114,6 +140,23 @@ class EmailSenderTestable(mailPlugin:Mailer) extends EmailSenderActor(5){
 
 }
 
+class WaitingEmailSenderTestable(mailPlugin:Mailer) extends EmailSenderActor(5){
+
+  override def mailerPluginApi: Mailer = mailPlugin
+
+  override protected def sendEmail(mail: EmailWrapper): Unit = {
+    Thread.sleep(1000)
+    super.sendEmail(mail)
+  }
+
+  override def postStop(): Unit = {
+    Logger.info("Stopped actor")
+  }
+
+  override val claimTransaction = new StubClaimTransaction
+
+}
+
 object EmailSenderTestable{
   var sendEmail = 0
 }
@@ -122,6 +165,7 @@ class EmailManagerTestable(emailSendingCreator:Props) extends EmailManagerActor(
 
 
 }
+
 
 object EmailManagerTestable {
   val preStartCalls = 0
