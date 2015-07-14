@@ -1,3 +1,4 @@
+@import utils.helpers.EmptyTemplate
 @(formObj: Form[_])(implicit request: Request[AnyContent], lang: Lang)
 
 @import helper._
@@ -5,17 +6,17 @@
 @import views.html.helper.base._
 @import play.api.i18n.{MMessages => Messages}
 
-<li>
-@radioListPlaceholder(formObj("title"),
-    options = options(
-        "Mr" -> Messages("titleSelect.mr"),
-        "Mrs" -> Messages("titleSelect.mrs"),
-        "Miss" -> Messages("titleSelect.miss"),
-        "Ms" -> Messages("titleSelect.ms"),
-        "Other"  -> Messages("other")),
-    '_label -> Messages("title")
-)
-</li>
+@helper.input(formObj("title")) { (id, name, value, htmlArgs) =>
+    @radioListPlaceholder(formObj("title"),
+        options = options(
+            "Mr" -> Messages("titleSelect.mr"),
+            "Mrs" -> Messages("titleSelect.mrs"),
+            "Miss" -> Messages("titleSelect.miss"),
+            "Ms" -> Messages("titleSelect.ms"),
+            "Other" -> Messages("other")),
+        '_label -> Messages("title")
+    )(request, lang, EmptyTemplate.fieldConstructor)
+}
 
 @otherDetailPlaceHolder(
     inputDef = Seq(
