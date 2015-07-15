@@ -5,6 +5,7 @@ Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,
 Can you get Carers Allowance?,Do you still want to continue?,Do you still want to continue?,CanYouGetCarersAllowanceApproveAnswer,
 Disclaimer,Disclaimer,I agree,DisclaimerUnderstandAndAgree,DWPCAClaim>Disclaimer
 About You,Your Details,Title,AboutYouTitle,Claimant>Title>Answer
+About You,Your Details,TitleOther,AboutYouTitleOther,Claimant>TitleOther>Answer
 About You,Your Details,First name,AboutYouFirstName,Claimant>OtherNames>Answer
 About You,Your Details,Middle name,AboutYouMiddleName,Claimant>MiddleNames>Answer
 About You,Your Details,Last name,AboutYouSurname,Claimant>Surname>Answer
@@ -36,6 +37,7 @@ About You,Other European Economic Area (EEA) states or Switzerland,"Have you and
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you or your close family worked or paid national insurance in any of these countries since your claim date?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,OtherBenefits>EEA>EEAWorkingInsurance>Answer
 About You,Other European Economic Area (EEA) states or Switzerland,"Give details",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEADetails,OtherBenefits>EEA>EEAReceivePensionsBenefitsDetails>Answer
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,Partner>Title>Answer
+About Your Partner,Partner/Spouse details,TitleOther,AboutYourPartnerTitleOther,Partner>TitleOther>Answer
 About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,Partner>OtherNames>Answer
 About Your Partner,Partner/Spouse details,Middle name,AboutYourPartnerMiddleName,Partner>MiddleNames>Answer
 About Your Partner,Partner/Spouse details,Last name,AboutYourPartnerSurname,Partner>Surname>Answer
@@ -47,6 +49,7 @@ About Your Partner,Partner/Spouse details,Have you separated from your partner/s
 About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,Partner>IsCaree>Answer
 About Your Partner,Person you care for,Have you lived with a partner at any time since your claim date?,AboutYourPartnerHadPartnerSinceClaimDate,DWPCAClaim>HavePartner>Answer
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Caree>Title>Answer
+About the care you provide,Details of the person you care for,TitleOther,AboutTheCareYouProvideTitleOtherPersonCareFor,Caree>TitleOther>Answer
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Caree>OtherNames>Answer
 About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,Caree>MiddleNames>Answer
 About the care you provide,Details of the person you care for,Last name,AboutTheCareYouProvideSurnamePersonCareFor,Caree>Surname>Answer

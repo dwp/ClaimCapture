@@ -1,7 +1,6 @@
 package utils
 
 import models.domain._
-import play.api.libs.json.JsArray
 
 object SectionsManager {
 
@@ -30,7 +29,6 @@ object SectionsManager {
   }
 
   def claimSectionsNum(implicit claim:Claim):Int = {
-    JsArray()
    filterByVisibility(claim).size
   }
 
