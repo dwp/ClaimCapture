@@ -1,17 +1,17 @@
-package controllers.s8_employment
+package controllers.s7_self_employment
 
-
-import language.reflectiveCalls
-import play.api.data.{FormError, Form}
-import play.api.data.Forms._
-import play.api.mvc.Controller
-import models.view.{Navigable, CachedClaim}
-import utils.helpers.CarersForm._
-import models.domain.{Employment => Emp, _}
-import scala.language.postfixOps
 import controllers.mappings.Mappings._
+import controllers.s8_employment.Employment
+import models.domain.{Employment => Emp, _}
+import models.view.{CachedClaim, Navigable}
+import play.api.data.Forms._
+import play.api.data.{Form, FormError}
+import play.api.mvc.Controller
+import utils.helpers.CarersForm._
 
-object G1Employment extends Controller with CachedClaim with Navigable {
+import scala.language.{postfixOps, reflectiveCalls}
+
+object G0Employment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
       "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText.verifying(validYesNo),
       "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText.verifying(validYesNo)
@@ -19,7 +19,7 @@ object G1Employment extends Controller with CachedClaim with Navigable {
 
     def present = claimingWithCheck {  implicit claim =>  implicit request =>  lang =>
       claim.questionGroup(ClaimDate) match {
-        case Some(n) => track(Employment) { implicit claim => Ok(views.html.s8_employment.g1_employment(form.fill(Emp))(lang)) }
+        case Some(n) => track(Employment) { implicit claim => Ok(views.html.s7_self_employment.g0_employment(form.fill(Emp))(lang)) }
         case _ => Redirect("/")
       }
     }
@@ -36,10 +36,10 @@ object G1Employment extends Controller with CachedClaim with Navigable {
               FormError("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label",
                 errorRequired,
                 Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
-          BadRequest(views.html.s8_employment.g1_employment(formWithErrorsUpdate)(lang))
+          BadRequest(views.html.s7_self_employment.g0_employment(formWithErrorsUpdate)(lang))
         },employment => {
-          val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, Employed)
-                                  .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, SelfEmployment)
+          val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, models.domain.Employed)
+                                  .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, models.domain.SelfEmployment)
 
           val deletedEmployment = if(employment.beenEmployedSince6MonthsBeforeClaim == no){
             updatedClaim.delete(BeenEmployed).delete(Jobs)

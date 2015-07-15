@@ -21,9 +21,9 @@
 
         @defining(lang) { implicit language =>
 
-@main(Messages("s7.g1") + "  " + Messages("s7.longName"), Some(employmentForm)) {
+@main(Messages("s7.g1") + " " + Messages("s7.longName"), Messages("s7.g1"), Some(employmentForm)) {
 
-    @form(action = controllers.s8_employment.routes.G1Employment.submit, 'role -> "form") {
+    @form(action = controllers.s7_self_employment.routes.G0Employment.submit, 'role -> "form") {
 
         @DwpCSRFFormHelper.formField
 

@@ -11,8 +11,8 @@ object SectionsManager {
     YourPartner,
     CareYouProvide,
     Education,
-    Employed,
     SelfEmployment,
+    Employed,
     OtherMoney,
     PayDetails,
     Information

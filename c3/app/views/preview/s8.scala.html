@@ -45,7 +45,7 @@
 
 <h2 class="heading-medium">@Html(Messages("employment.title"))</h2>
 <dl>
-    <dt><a id="employed_beenEmployed" href="@controllers.s8_employment.routes.G1Employment.present().url">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
+    <dt><a id="employed_beenEmployed" href="@controllers.s7_self_employment.routes.G0Employment.present().url">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
     <dd>@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}</dd>
     @if(jobs.isDefined && jobs.get.jobs.size > 0){
         <dt><a id="employed_jobs" href="@controllers.s8_employment.routes.G2BeenEmployed.present().url">@Messages("jobs")</a></dt>
@@ -57,7 +57,7 @@
             </ul>
         </dd>
     }
-    <dt><a id="selfEmployed_beenEmployed" href="@controllers.s8_employment.routes.G1Employment.present().url">@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
+    <dt><a id="selfEmployed_beenEmployed" href="@controllers.s7_self_employment.routes.G0Employment.present().url">@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
         <dd>@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}</dd>
     @if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
         <dt>@{Messages("natureOfYourBusiness")}</dt><dd>@{aboutSelfEmployment.natureOfYourBusiness}</dd>

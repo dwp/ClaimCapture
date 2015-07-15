@@ -13,7 +13,7 @@
 
 @import play.api.i18n.{MMessages => Messages}
 @defining(lang) { implicit language =>
-@main(Messages("s8.g2") + " - " + Messages("s8.longName"), Some(currentForm), ignorePreview = true) {
+@main(Messages("s8.g2") + " " + Messages("s8.longName"), Messages("s8.longName"), Some(currentForm), ignorePreview = true) {
 
     @form(action = controllers.s7_self_employment.routes.G2SelfEmploymentYourAccounts.submit, 'role -> "form") {
 

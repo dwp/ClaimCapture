@@ -13,12 +13,6 @@ object Employed extends Section.Identifier {
   val id = "s8"
 }
 
-case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)
-
-object Employment extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g0"
-}
-
 case class BeenEmployed(beenEmployed: String) extends QuestionGroup(BeenEmployed)
 
 object BeenEmployed extends QuestionGroup.Identifier {

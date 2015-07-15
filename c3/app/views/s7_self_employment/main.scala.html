@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None, ignorePreview:Boolean = false)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(title: String, heading: String, currentForm: Option[Form[_]] = None, ignorePreview:Boolean = false)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 @import models.domain.Employed
 
 @import models.domain.SelfEmployment
@@ -32,7 +32,7 @@
                     <a id="backButton" href="@previous">@Html(Messages("form.back"))</a>
                 </nav>
                 
-                <h1 class="form-title heading-large">@sectionTitle(SelfEmployment)@Html(Messages("s8.longName"))</h1>
+                <h1 class="form-title heading-large">@sectionTitle(SelfEmployment)@Html(Messages(heading))</h1>
 
                 @if(currentForm.isDefined) {
                     @errorsSummary(currentForm.get)

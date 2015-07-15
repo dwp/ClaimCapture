@@ -132,8 +132,8 @@ POST        /education/your-course-details                              controll
 
 # Employment
 ###############
-GET         /employment/employment                                      controllers.s8_employment.G1Employment.present
-POST        /employment/employment                                      controllers.s8_employment.G1Employment.submit
+GET         /employment/employment                                      controllers.s7_self_employment.G0Employment.present
+POST        /employment/employment                                      controllers.s7_self_employment.G0Employment.submit
 
 GET         /employment/been-employed                                   controllers.s8_employment.G2BeenEmployed.present
 POST        /employment/been-employed                                   controllers.s8_employment.G2BeenEmployed.submit

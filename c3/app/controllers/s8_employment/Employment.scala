@@ -58,7 +58,7 @@ object Employment extends Controller with CachedClaim  with Navigable{
       deleteForm=>  {
         val updatedJobs = jobs.delete(deleteForm.id)
         if (updatedJobs.jobs == jobs.jobs) BadRequest(views.html.s8_employment.g2_beenEmployed(fillForm)(lang))
-        else claim.update(updatedJobs) -> (if(updatedJobs.jobs.size == 0 ) Redirect(controllers.s8_employment.routes.G1Employment.present())
+        else claim.update(updatedJobs) -> (if(updatedJobs.jobs.size == 0 ) Redirect(controllers.s7_self_employment.routes.G0Employment.present())
                                           else Redirect(controllers.s8_employment.routes.G2BeenEmployed.present()))
       }
     )
