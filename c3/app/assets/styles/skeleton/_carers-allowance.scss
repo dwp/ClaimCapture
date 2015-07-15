@@ -37,9 +37,16 @@
 }
 
 // Remove underline from crown footer 
-
 .crown {
 	text-decoration: none;
+}
+
+// uppdercase the NINO
+input[id*="nino"],
+input[name*="nino"],
+input[id*="nationalInsurance"],
+input[name*="nationalInsurance"] {
+	text-transform: uppercase;
 }
 
 // From previous header-footer-only.css
