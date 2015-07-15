@@ -1,24 +1,26 @@
-@(field: Field)(implicit lang: Lang)
+@import utils.helpers.EmptyTemplate
+@(formObj: Form[_])(implicit request: Request[AnyContent], lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
 @import play.api.i18n.{MMessages => Messages}
 
-@{
-    carersSelect(field,
+@helper.input(formObj("title")) { (id, name, value, htmlArgs) =>
+    @radioListPlaceholder(formObj("title"),
         options = options(
-            "" -> Messages("titleSelect.pleaseSelect"),
             "Mr" -> Messages("titleSelect.mr"),
             "Mrs" -> Messages("titleSelect.mrs"),
             "Miss" -> Messages("titleSelect.miss"),
             "Ms" -> Messages("titleSelect.ms"),
-            "Dr"  -> Messages("titleSelect.dr"),
-            "Rev" -> Messages("titleSelect.rev"),
-            "Sir" -> Messages("titleSelect.sir"),
-            "Lord"-> Messages("titleSelect.lord"),
-            "Lady"-> Messages("titleSelect.lady"),
-            "Dame"-> Messages("titleSelect.dame")),
+            "Other" -> Messages("other")),
         '_label -> Messages("title")
-    )
+    )(request, lang, EmptyTemplate.fieldConstructor)
 }
+
+@otherDetailPlaceHolder(
+    inputDef = Seq(
+        carersInputText(formObj("titleOther"),'ignoreOptional -> true,'ignoreLabel -> true)
+    ),
+    'id -> "otherTitle"
+)

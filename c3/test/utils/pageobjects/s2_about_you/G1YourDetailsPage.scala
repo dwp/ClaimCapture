@@ -9,7 +9,8 @@ import utils.pageobjects._
  *         Date: 09/07/2013
  */
 final class G1YourDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1YourDetailsPage.url) {
-  declareSelect("#title", "AboutYouTitle")
+  declareRadioList("#title", "AboutYouTitle")
+  declareInput("#titleOther", "AboutYouTitleOther")
   declareInput("#firstName","AboutYouFirstName")
   declareInput("#middleName","AboutYouMiddleName")
   declareInput("#surname","AboutYouSurname")

@@ -1,5 +1,8 @@
 package utils.pageobjects
 
+import org.fluentlenium.core.filter.FilterConstructor
+import play.api.Logger
+
 import scala.collection.convert.Wrappers.JListWrapper
 import org.openqa.selenium.By
 import scala.collection.mutable
@@ -54,9 +57,23 @@ trait WebSearchActions {
     val select = ctx.browser.find(elementCssSelector, 0).getElement
     val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
     var value = ""
+
     for (option <- allOptions; if option.isSelected) {
       value = option.getAttribute("value")
     }
+    if (value.nonEmpty) Some(value) else None
+  }
+
+  def readRadio(elementCssSelector: String): Option[String] = {
+    import scala.collection.JavaConversions._
+    this checkElement elementCssSelector
+    val masterElem = ctx.browser.find(elementCssSelector,0)
+    val inputs = masterElem.find("input")
+    var value = ""
+    for(input <- inputs; if input.isSelected){
+      value = input.getValue
+    }
+
     if (value.nonEmpty) Some(value) else None
   }
 

@@ -135,7 +135,7 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
             case DATE_TO => assignToClaimAttribute(readDate(cssElem + "_to"))
             case INPUT | JSINPUT => assignToClaimAttribute(readInput(cssElem))
             case NINO => assignToClaimAttribute(readNino(cssElem))
-            case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
+            case RADIO_LIST => assignToClaimAttribute(readRadio(cssElem))
             case SELECT => assignToClaimAttribute(readSelect(cssElem))
             case SORTCODE => assignToClaimAttribute(readSortCode(cssElem))
             case TIME => assignToClaimAttribute(readTime(cssElem))

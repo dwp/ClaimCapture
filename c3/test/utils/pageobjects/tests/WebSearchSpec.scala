@@ -24,7 +24,7 @@ class WebSearchSpec extends Specification with Tags{
       yourDetailsPage fillPageWith claim
       val firstName = yourDetailsPage readInput("#firstName")
       firstName.get mustEqual claim.AboutYouFirstName
-      val title = yourDetailsPage readSelect("#title")
+      val title = yourDetailsPage readRadio("#title")
       title.get mustEqual claim.AboutYouTitle
       val nino  = yourDetailsPage readNino("#nationalInsuranceNumber")
       nino.get mustEqual claim.AboutYouNINO
@@ -77,6 +77,8 @@ class WebSearchSpec extends Specification with Tags{
       outsideUkPage fillPageWith claimSource
       outsideUkPage populateClaim claimRead
       claimRead.AboutYouFirstName  mustEqual claimSource.AboutYouFirstName
+      println(claimRead.AboutYouTitle)
+      println(claimSource.AboutYouTitle)
       claimRead.AboutYouTitle mustEqual claimSource.AboutYouTitle
       claimRead.AboutYouNINO mustEqual claimSource.AboutYouNINO
       claimRead.AboutYouAddress mustEqual claimSource.AboutYouAddress
