@@ -49,6 +49,11 @@ input[name*="nationalInsurance"] {
 	text-transform: uppercase;
 }
 
+// Add sufficient gap underneath third party consent field
+.third-party-decleration {
+	margin-bottom: $gutter;
+}
+
 // From previous header-footer-only.css
 // ================================================================
 
