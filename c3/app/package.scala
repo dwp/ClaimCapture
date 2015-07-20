@@ -160,5 +160,6 @@ package object app {
     val PaymentChange = 'paymentChange
     val AdditionalInfo = 'additionalInfo
     val BreakFromCaring = 'breakFromCaring
+    val BreakFromCaringYou = 'breakFromCaringYou
   }
 }

@@ -62,6 +62,7 @@ object G2ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
         case r.StoppedCaring.name =>  CircumstancesStoppedCaring  -> routes.G3PermanentlyStoppedCaring.present()
         case r.PaymentChange.name => CircumstancesPaymentChange  -> routes.G5PaymentChange.present()
         case r.BreakFromCaring.name => CircumstancesBreaksInCare  -> routes.G7BreaksInCare.present()
+        case r.BreakFromCaringYou.name => CircumstancesBreaksInCare  -> routes.G7BreaksInCare.present()
         case _ => CircumstancesOtherInfo      -> routes.G4OtherChangeInfo.present()
       }
     }
