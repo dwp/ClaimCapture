@@ -267,8 +267,8 @@ $is-print: false !default;
 @mixin external-link {
     &:after {
         content: "";
-		height: 0.75em;
-		width: 0.75em;
+		height: 0.72em;
+		width: 0.72em;
 		display: inline-block;
 		margin-left: 0.25em;
         background-image: url("../images/external-link.png");

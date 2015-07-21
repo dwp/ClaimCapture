@@ -24,8 +24,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
 
 
   def present = claimingWithCheck { implicit claim => implicit request =>  lang =>
-
-    track(BreaksInCare) { implicit claim => Ok(views.html.s4_care_you_provide.g10_breaksInCare(form, breaksInCare)(lang)) }
+    track(BreaksInCare) { implicit claim => Ok(views.html.s4_care_you_provide.g10_breaksInCare(form.fill(BreaksInCareSummary), breaksInCare)(lang)) }
   }
 
   def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())

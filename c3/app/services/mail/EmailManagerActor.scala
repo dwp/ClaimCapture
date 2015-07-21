@@ -9,7 +9,7 @@ import services.ClaimTransactionComponent
 
 import scala.concurrent.duration._
 import scala.language.postfixOps
-import scala.util.{Try, Failure, Success}
+import scala.util.{Random, Try, Failure, Success}
 import app.ConfigProperties._
 case class EmailWrapper(transactionId:String,email:Email)
 object EmailActorsCreators {
@@ -35,7 +35,7 @@ class EmailManagerActor(emailSendingCreator:Props) extends Actor {
 
   override def receive: Actor.Receive = {
     case email:EmailWrapper =>
-      this.context.actorOf(emailSendingCreator,"email-sender-actor") ! email
+      this.context.actorOf(emailSendingCreator,s"email-sender-actor-${Random.nextFloat()}") ! email
   }
 }
 
@@ -51,7 +51,7 @@ class EmailSenderActor(rescheduleTime:Int) extends Actor with ClaimTransactionCo
   private def rescheduleMail(mail:EmailWrapper) = {
     Logger.info(s"Rescheduling mail for transactionId [${mail.transactionId}] actorId [${context.self.path}]")
     //Sending implicit parameters explicitly for two reasons:
-    // 1. The execution context is better if it's the ActorSystem dispatcher execution context because it gets destroyed when the ActorSystem does
+    // 1. The execution context is better if it's the ActorSystem dispatcher's because it gets destroyed when the ActorSystem does
     // 2. Default actor context is self, which for a short lived Actor wasn't working well because it was making the Actor
     //    to stay alive as long as the scheduling is taking place. So the actor context has to be the parent, which is the long-lived actor.
     context.system.scheduler.scheduleOnce(rescheduleTime seconds,context.parent,mail)(context.system.dispatcher,context.parent)

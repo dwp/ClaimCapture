@@ -4,10 +4,9 @@ import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
-import models.domain.BreaksInCare
+import models.domain.{BreaksInCareSummary, BreaksInCare, Break}
 import models.view.CachedClaim
 import play.api.data.FormError
-import models.domain.Break
 import G10BreaksInCare.breaksInCare
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
@@ -66,7 +65,10 @@ object G11Break extends Controller with CachedClaim {
       },
       break => {
         val updatedBreaksInCare = if (breaksInCare.breaks.size >= 10) breaksInCare else breaksInCare.update(break)
-        claim.update(updatedBreaksInCare) -> Redirect(routes.G10BreaksInCare.present())
+
+        // Delete the answer to the question 'Have you had any breaks in care since...'
+        // Otherwise, it will prepopulate the answer when asked 'Have you had any more breaks in care since...'
+        claim.update(updatedBreaksInCare).delete(BreaksInCareSummary) -> Redirect(routes.G10BreaksInCare.present())
       })
   }
 

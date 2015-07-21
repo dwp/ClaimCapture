@@ -1,0 +1,82 @@
+@(currentForm: Form[models.domain.LastWage])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import controllers.s8_employment.Employment.completedQuestionGroups
+@import controllers.IterationID
+@import utils.helpers.PastPresentLabelHelper._
+@import models.domain.{Iteration, Jobs}
+@import play.api.i18n.{MMessages => Messages}
+@import controllers.mappings.Mappings._
+@import scala.language.postfixOps
+
+@employerName = @{
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).employerName
+}
+
+@finishedThisJob = @{
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).finishedThisJob
+}
+
+    @defining(lang) { implicit language =>
+
+    @main(Messages("s7.g5") + " - " + Messages("s7.longName"), Some(currentForm), Some(employerName),ignorePreview = true) {
+
+	@form(action = controllers.s8_employment.routes.G5LastWage.submit(), 'role -> "form") {
+
+        @DwpCSRFFormHelper.formField
+
+        <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
+
+        <fieldset class="form-elements">
+
+            <ul>
+                @paymentFrequencySelect(currentForm("oftenGetPaid"),
+                    '_label -> labelForEmployment(claim, lang, "oftenGetPaidFrequency", IterationID(currentForm)),
+                    'id -> "oftenGetPaid",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+
+                @carersInputText(currentForm("whenGetPaid"),
+                    '_label -> labelForEmployment(claim, lang, "whenGetPaid", IterationID(currentForm)),
+                    'helperAbove -> Messages("whenGetPaid.helper"))
+
+                @inputDayMonthYear(currentForm("lastPaidDate"), 'helperAbove -> Messages("dateExample.helper",claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`d M yyyy`)))
+
+                @carersCurrency(currentForm("grossPay"), 'maxLength -> 12, 'helperAbove -> Messages("grossPay.helper"))
+
+                @carersInputTextArea(currentForm("payInclusions"), 'maxLength -> 300,'helperAbove -> Messages("payInclusions.helper"), 'textAreaHelper -> Html(Messages("300charsLeft")))
+
+                @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> labelForEmployment(claim, lang, "sameAmountEachTime", IterationID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", IterationID(currentForm)))
+
+                @if(finishedThisJob == `yes`){
+                    @yesNoRadioGroup(currentForm("employerOwesYouMoney"), 'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no")))
+                }
+            </ul>
+            
+        </fieldset>
+
+        <nav class="form-steps" role="navigation">
+            <ul>
+            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                <li><a id="backButtonBottom" href="@{claim.navigation.previousIgnorePreview}">@Html(Messages("form.back"))</a></li>
+            </ul>
+        </nav>
+
+    }
+
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
+
+    <script type="text/javascript">
+    $(function(){
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("payInclusions")",maxChars:300});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("oftenGetPaid_frequency_other")",maxChars:60});
+    })
+    </script>
+
+}
+}

@@ -3,7 +3,8 @@ Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for
 Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,Yes
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,Yes
 Disclaimer,Disclaimer,I agree,DisclaimerUnderstandAndAgree,Yes
-About You,Your Details,Title,AboutYouTitle,rev
+About You,Your Details,Title,AboutYouTitle,Other
+About You,Your Details,Title,AboutYouTitleOther,rev
 About You,Your Details,First name,AboutYouFirstName,Test
 About You,Your Details,Middle name,AboutYouMiddleName,Middle
 About You,Your Details,Surname or family name,AboutYouSurname,CaseTwo
@@ -25,7 +26,7 @@ About You,When you went abroad for more than 52 weeks,"Have you been out of Engl
 About You,When you went abroad for more than 52 weeks,"Tell us about this time away.Include the dates you left and returned and details of where you've been.",AboutYouTripDetails_1,Trip 1 to London, Trip 2 to Scotland
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you or your close family worked or paid national insurance in any of these countries since your claim date?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,Yes
 About You,Other European Economic Area (EEA) states or Switzerland,"Give details",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEADetails,Details
-About You,Other European Economic Area (EEA) states or Switzerland,"Have you or anyone in your family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,Yes
+About You,Other European Economic Area (EEA) states or Switzerland,"Have you and your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,Yes
 About You,Other European Economic Area (EEA) states or Switzerland,"Give details",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEADetails, I receive a pension from Spain
 About Your Partner,Person you care for,Have you lived with a partner at any time since your claim date?,AboutYourPartnerHadPartnerSinceClaimDate,Yes
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,Mrs
