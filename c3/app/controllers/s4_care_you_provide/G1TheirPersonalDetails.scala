@@ -39,6 +39,7 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
           val theirPersonalDetails =  claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
           form.fill(TheirPersonalDetails( relationship = theirPersonalDetails.relationship,
                                           title = t.title.getOrElse(""),
+                                         titleOther = t.titleOther,
                                          firstName = t.firstName.getOrElse(""),
                                          middleName = t.middleName,
                                          surname = t.surname.getOrElse(""),
