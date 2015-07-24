@@ -32,6 +32,16 @@ class G11BreakSpec extends Specification with Tags {
       next.ctx.browser.findFirst("#startTime").isDisplayed should beFalse
     }
 
+    "Break in care end date by default should not be displayed" in new WithJsBrowser with PageObjects {
+      val breaksInCare = G10BreaksInCarePage(context) goToThePage()
+      val data = new TestData
+      data.AboutTheCareYouProvidehaveYouHadAnyMoreBreaksInCare_1 = "yes"
+      val next = breaksInCare fillPageWith data submitPage()
+      next.ctx.browser.findFirst("#end_day").isDisplayed should beFalse
+      next.ctx.browser.findFirst("#end_month").isDisplayed should beFalse
+      next.ctx.browser.findFirst("#end_year").isDisplayed should beFalse
+    }
+
     "Break in care start/end time should only be displayed if start/end date is Monday or Friday" in new WithJsBrowser with PageObjects {
       val breaksInCare = G10BreaksInCarePage(context) goToThePage()
       val data = new TestData
@@ -68,7 +78,7 @@ class G11BreakSpec extends Specification with Tags {
         "whereYou.answer" -> Holiday,
         "wherePerson.answer" -> Holiday,
         "medicalDuringBreak" -> "no",
-        "doNotKnowEndDate" -> "yes")
+        "hasBreakEnded" -> "no")
 
       val result = G11Break.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -103,7 +113,7 @@ class G11BreakSpec extends Specification with Tags {
         "wherePerson.answer" -> SomewhereElse,
         "wherePerson.text" -> "Underwater",
         "medicalDuringBreak" -> "no",
-        "doNotKnowEndDate" -> "yes")
+        "hasBreakEnded" -> "no")
 
       val result = G11Break.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -119,7 +129,7 @@ class G11BreakSpec extends Specification with Tags {
         "whereYou.answer" -> Holiday,
         "wherePerson.answer" -> Holiday,
         "medicalDuringBreak" -> "no",
-        "doNotKnowEndDate" -> "yes")
+        "hasBreakEnded" -> "no")
 
       val result = G11Break.submit(request1)
 
@@ -132,7 +142,7 @@ class G11BreakSpec extends Specification with Tags {
         "whereYou.answer" -> Holiday,
         "wherePerson.answer" -> Holiday,
         "medicalDuringBreak" -> "no",
-        "doNotKnowEndDate" -> "yes")
+        "hasBreakEnded" -> "no")
 
       G11Break.submit(request2)
 
@@ -151,7 +161,7 @@ class G11BreakSpec extends Specification with Tags {
         "whereYou.answer" -> Holiday,
         "wherePerson.answer" -> Holiday,
         "medicalDuringBreak" -> "no",
-        "doNotKnowEndDate" -> "yes")
+        "hasBreakEnded" -> "no")
 
       val result = G11Break.submit(requestNew)
 
@@ -166,7 +176,7 @@ class G11BreakSpec extends Specification with Tags {
         "whereYou.answer" -> Holiday,
         "wherePerson.answer" -> Holiday,
         "medicalDuringBreak" -> "no",
-        "doNotKnowEndDate" -> "yes")
+        "hasBreakEnded" -> "no")
 
       G11Break.submit(requestUpdate)
 

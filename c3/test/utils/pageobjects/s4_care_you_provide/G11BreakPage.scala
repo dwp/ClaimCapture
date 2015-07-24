@@ -13,7 +13,7 @@ final class G11BreakPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPa
   declareRadioList("#wherePerson_answer", "AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_" + iteration)
   declareInput("#wherePerson_text", "AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_" + iteration)
   declareYesNo("#medicalDuringBreak", "AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_" + iteration)
-  declareCheck("#doNotKnowEndDate","AboutTheCareYouProvideDoNotKnowEndDate_"+iteration)
+  declareCheck("#hasBreakEnded","AboutTheCareYouProvideHasBreakEnded_"+iteration)
 
   /**
    * Called by submitPage of Page. A new G10 will be built with an incremented iteration number.
