@@ -1,0 +1,111 @@
+@(currentForm: Form[models.domain.PensionAndExpenses])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper._
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
+@import controllers.s8_employment.Employment.completedQuestionGroups
+@import controllers.IterationID
+@import utils.helpers.PastPresentLabelHelper._
+@import play.api.i18n.{MMessages => Messages}
+@import models.domain.{Iteration, Jobs}
+
+@employerName = @{
+    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).employerName
+}
+
+    @defining(lang) { implicit language =>
+
+    @main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), Some(employerName),ignorePreview = true) {
+
+    @form(action = controllers.s8_employment.routes.G8PensionAndExpenses.submit(), 'role -> "form") {
+        @DwpCSRFFormHelper.formField
+        <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
+
+	        <fieldset class="form-elements">
+
+	            <ul>
+                    @yesNoRadioGroup(currentForm("payPensionScheme")("answer"),
+                        '_label -> labelForEmployment(claim, lang, "payPensionScheme.answer", IterationID(currentForm)),
+                        valuesForEmployment(claim, lang, "label.yes3", "label.no", "label.yes", "label.no", IterationID(currentForm)))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(currentForm("payPensionScheme")("text"),
+                                '_label -> labelForEmployment(claim, lang, "payPensionScheme.text", IterationID(currentForm)),
+                                'textAreaHelper -> Html(Messages("300charsLeft")),
+                                'ignoreOptional -> true,
+                                'maxLength -> 300)
+                        ),
+                        'id -> "pensionExpenses"
+                    )
+
+                    @yesNoRadioGroup(currentForm("payForThings")("answer"),
+                        '_label -> labelForEmployment(claim, lang, "payForThings.answer", IterationID(currentForm)),
+                        'helperAbove -> Html(labelForEmployment(claim, lang, "payForThings.answer.helper", IterationID(currentForm))),
+                        valuesForEmployment(claim, lang, "label.yes3", "label.no", "label.yes", "label.no", IterationID(currentForm)))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(currentForm("payForThings")("text"),
+                                '_label -> labelForEmployment(claim, lang, "payForThings.text", IterationID(currentForm)),
+                                'textAreaHelper -> Html(Messages("300charsLeft")),
+                                'ignoreOptional -> true,
+                                'maxLength -> 300)
+                        ),
+                        'id -> "payForThings"
+                    )
+
+                    @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"),
+                        'helperAbove -> Html(labelForEmployment(claim, lang, "haveExpensesForJob.answer.helper", IterationID(currentForm))),
+                        '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", IterationID(currentForm)), valuesForEmployment(claim, lang, "label.yes2", "label.no", "label.yes", "label.no", IterationID(currentForm)))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(currentForm("haveExpensesForJob")("text"),
+                                '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.text", IterationID(currentForm)),
+                                'textAreaHelper -> Html(Messages("300charsLeft")),
+                                'helperAbove -> labelForEmployment(claim, lang, "haveExpensesForJob.text.helper", IterationID(currentForm)),
+                                'ignoreOptional -> true,
+                                'maxLength -> 300)
+                        ),
+                        'id -> "jobExpenses"
+                    )
+
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps" role="navigation">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButtonBottom" href="@{claim.navigation.previousIgnorePreview}">@Html(Messages("form.back"))</a></li>
+                </ul>
+	        </nav>
+
+    }
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s8_employment/g8_pensionAndExpenses.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+    <script type="text/javascript">
+        $(function(){
+            window.initEvents(
+                "@CarersCrypto.encryptAES("payPensionScheme_answer_yes")",
+                "@CarersCrypto.encryptAES("payPensionScheme_answer_no")",
+                "@CarersCrypto.encryptAES("payPensionScheme_text")",
+                "@CarersCrypto.encryptAES("payForThings_answer_yes")",
+                "@CarersCrypto.encryptAES("payForThings_answer_no")",
+                "@CarersCrypto.encryptAES("payForThings_text")",
+                "@CarersCrypto.encryptAES("haveExpensesForJob_answer_yes")",
+                "@CarersCrypto.encryptAES("haveExpensesForJob_answer_no")",
+                "@CarersCrypto.encryptAES("haveExpensesForJob_text")"
+            );
+        });
+
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("payPensionScheme_text")",maxChars:300});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("payForThings_text")",maxChars:300});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("haveExpensesForJob_text")",maxChars:300});
+    </script>
+}
+}

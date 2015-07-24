@@ -10,9 +10,9 @@ object GAHelper {
     case _ => ""
   }
 
-  def trackEvent(category:String, action:String, label:Option[String]=None, value:Option[String]=None, noninteraction:Option[String]=None):String = {
+  def trackEvent(category:String, action:String, label:Option[String]=None, value:Option[String]=None):String = {
     if (!Play.isTest) {
-      s"""trackEvent('$category','$action'${addOpt(label)}${addOpt(value)}${addOpt(noninteraction)});""".toString
+      s"""trackEvent('$category','$action'${addOpt(label)}${addOpt(value)});""".toString
     } else {
       ""
     }

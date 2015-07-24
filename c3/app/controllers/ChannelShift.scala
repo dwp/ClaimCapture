@@ -11,6 +11,7 @@ import java.util.UUID._
 
 import scala.io.Source
 import scala.util.{Failure, Success, Try}
+import java.net.URLEncoder._
 
 object ChannelShiftParams {
   def apply() = {
@@ -18,10 +19,9 @@ object ChannelShiftParams {
       "v" -> "1",
       "tid" -> getProperty("analytics.accountTag","UA-57523228-1"),
       "cid" -> randomUUID().toString(),
-      "t" -> "event",
-      "dh" -> getProperty("analytics.host","localhost"),
-      "ec" -> "channelshift",
-      "ea" -> "card-referral"
+      "t" -> "pageview",
+      "dp" -> "/cs2015",
+      "dh" -> getProperty("analytics.host","localhost")
 
     )
   }
@@ -46,8 +46,13 @@ class ChannelShift(params:Map[String,String]) extends Controller{
     cox.setInstanceFollowRedirects( false )
     cox.setRequestMethod( "POST" )
 
-    val urlParameters  = params.map((t) => s"${t._1}=${t._2}").mkString("&")
-    val postData       = urlParameters.getBytes( Charset.forName( "UTF-8" ))
+    val urlParameters  = params.map((t) => s"""${t._1}=${encode(t._2, "UTF-8")}""").mkString("&")
+    val postData       = urlParameters.getBytes(Charset.forName( "UTF-8" ))
+
+    // If user agent is not set with a valid value then data will not be sent:
+    // https://developers.google.com/analytics/devguides/collection/protocol/v1/reference#using-post
+    cox.setRequestProperty("User-Agent", "Mozilla/5.0")
+
     cox.setRequestProperty( "Content-Length", Integer.toString( postData.length ))
     cox.setUseCaches( false )
 
@@ -58,7 +63,7 @@ class ChannelShift(params:Map[String,String]) extends Controller{
 
   }
 
-  protected def getUrl() = URLWrapper("https://www.google-analytics.com/collect")
+  protected def getUrl() = URLWrapper("https://ssl.google-analytics.com/collect")
 
   protected def writeData(cox:HttpURLConnection, postData:Array[Byte]) = {
     Try(cox.getOutputStream().write(postData)) match {

@@ -42,11 +42,13 @@
                     @listRadioGroupWithSubGroups(reportChangesForm("reportChanges"),
                         '_nestedFieldSet -> false,
                         '_showLabel -> false,
+                        'track -> true,
                         'items -> Seq(
-                            BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
                             StoppedCaring.name -> Messages("reportChanges.stoppedCaring"),
-                            AddressChange.name -> Messages("reportChanges.addressChange"),
                             employmentOption,
+                            BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
+                            BreakFromCaringYou.name -> Messages("reportChanges.breakFromCaringChangesYou"),
+                            AddressChange.name -> Messages("reportChanges.addressChange"),
                             PaymentChange.name -> Messages("reportChanges.paymentChange"),
                             AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")))
                             
@@ -64,7 +66,7 @@
         <script type="text/javascript">
             $ ( function ( ) {
                 @if(!Play.isTest) {
-                    trackEvent ("times", "circs - start", undefined, undefined, true)
+                    trackEvent ("times", "circs - start")
                     setCookie("circsstarts",new Date().getTime());
                 }
                 @ga.stagePrompt()

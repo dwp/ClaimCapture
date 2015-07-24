@@ -32,7 +32,7 @@
 
                         @simpleDetailPlaceHolder(
                             inputDef = Seq(
-                                titleSelect(currentForm("title")),
+                                titleSelect(currentForm),
 
                                 carersInputText(currentForm("firstName"), 'maxLength -> 17),
 
@@ -69,13 +69,16 @@
         <script type="text/javascript">
             $ ( function ( ) {
                 @ga.stagePrompt()
-            } )
-            $ ( function ( ) {
+
+
                 window.showOrHideCareYouProvideDetails ( {
                 showOrHideDetails : @isPartnerPersonYouCareFor
                 } ) ;
+                window.otherTitle('@CarersCrypto.encryptAES("title")');
             } )
         </script>
+
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/otherTitle.js")'></script>
 
         <script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g1_theirPersonalDetails.js")'></script>
 

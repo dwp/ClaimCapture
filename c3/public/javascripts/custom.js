@@ -91,17 +91,21 @@ function areCookiesEnabled(){
 
 }
 
-function trackEvent(category, action, label, value, noninteraction){
-    _gaq.push(['_trackEvent',category,action].concat(opt(label)).concat(opt(value)).concat(opt(noninteraction)));
+function trackEvent(category, action, label, value){
+    ga('send', 'event', getConfigurationObject(category, action, label, value));
+}
+
+function getConfigurationObject(category, action, label, value){
+    var configurationObject = {};
+    if (typeof category != 'undefined') configurationObject.eventCategory = category;
+    if (typeof action != 'undefined') configurationObject.eventAction = action;
+    if (typeof label != 'undefined') configurationObject.eventLabel = label;
+    if (typeof value != 'undefined') configurationObject.eventValue = value;
+    return configurationObject;
 }
 
 function trackVirtualPageView(category){
-    _gaq.push(['_trackPageview',category]);
-}
-
-function opt(v){
-    if (typeof v == 'undefined') return [];
-    else return[v];
+    ga('send', 'pageview', category);
 }
 
 function getCookie(c_name) {
@@ -121,9 +125,13 @@ function setCookie(c_name,value) {
     document.cookie=c_name + "=" + c_value;
 }
 
-function trackTiming(category,variable,timemeasured){
+function trackTiming(category, variable, timemeasured){
     if (0 < timemeasured && timemeasured <  36000000) {
-        _gaq.push(['_trackTiming',category,variable,timemeasured]);
+        ga('send', 'timing', {
+          'timingCategory': category,
+          'timingVar': variable,
+          'timingValue': timemeasured
+        });
     }
 }
 
@@ -244,7 +252,7 @@ $(document).ready(function() {
 
   // Use GOV.UK selection-buttons.js to set selected
   // and focused states for block labels
-  var $blockLabels = $(".block-label input[type='radio'], .block-label input[type='checkbox']");
+  var $blockLabels = $(".block-label input[type='radio'], .block-label input[type='checkbox'], .block-checkbox input[type='checkbox']");
   new GOVUK.SelectionButtons($blockLabels);
 
   // Details/summary polyfill

@@ -55,7 +55,7 @@
                 <ul class="list-bullet">
                     <li>@Messages("circs.declaration.1")</li>
                     <li>@Messages("circs.declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@Messages("circs.declaration.2b")</a> @Messages("circs.declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@Messages("circs.declaration.2d")</a></li>
-                    <li>@Messages("circs.declaration.3a") <a id="claimnotes" target="_blank" href="/internal-claim-notes/@lang.code">@Messages("circs.declaration.3b")</a> @Messages("circs.declaration.3c")</li>
+                    <li>@Messages("circs.declaration.3a") <a rel="external" id="claimnotes" target="_blank" href="/internal-claim-notes/@lang.code">@Messages("circs.declaration.3b")</a> @Messages("circs.declaration.3c")</li>
                 </ul>
                 <p class="warning-text">
                     @Messages("circs.declaration.warning")
@@ -65,7 +65,7 @@
 	               @declareCheckPlaceholder(declarationForm("circsSomeOneElse"))
                 </div>
 	
-	            <ul>
+	            <ul class="third-party-decleration">
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> mappings.Mappings.sixty)),

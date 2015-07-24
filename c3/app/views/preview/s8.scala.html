@@ -1,0 +1,99 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@import models.domain._
+@import scala.language.postfixOps
+@import play.api.i18n.{MMessages => Messages}
+
+@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
+@emp = @{claim.questionGroup[Employment].getOrElse(Employment())}
+@aboutSelfEmployment = @{claim.questionGroup[AboutSelfEmployment].getOrElse(AboutSelfEmployment())}
+@jobs = @{claim.questionGroup[Jobs]}
+@sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}
+@oneWeekBeforeDate(date:DayMonthYear) = @{date - 1 weeks}
+@employmentItems(job:Iteration) = @{
+    val aboutExpenses = job.questionGroup[PensionAndExpenses].get
+    var elems = Seq.empty[String]
+    if(aboutExpenses.haveExpensesForJob.answer == "yes" || aboutExpenses.payPensionScheme.answer == "yes")
+        elems = elems ++ Seq(Messages("expenses"))
+    elems
+}
+@selfEmploymentItems(claim:Claim) = @{
+    val pension = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())
+    var elems = Seq.empty[String]
+    if(pension.haveExpensesForJob.answer == "yes" || pension.payPensionScheme.answer == "yes")
+        elems = elems ++ Seq(Messages("expenses"))
+
+    elems
+}
+@selfEmploymentSummary(claim:Claim) = @{
+    var text = Messages("detailsProvided.simple")
+    val items = selfEmploymentItems(claim)
+
+    if(items.size > 0){
+        text = text +" "+Messages("including")+" "+items(0)
+    }
+    text
+}
+@employmentSummary(job:Iteration) = @{
+    var text = Messages("detailsProvided",job.questionGroup[JobDetails].get.employerName)
+    val items = employmentItems(job)
+
+    if(items.size > 0){
+        text = text +", "+Messages("including")+" "+items(0)
+    }
+    text
+}
+
+<h2 class="heading-medium accordion-title">@Html(Messages("employment.title"))</h2>
+
+<div class="accordion-content open">
+	<table class="review">
+		<tr>
+		    <td class="review-label">
+				<b>@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</b>
+			</td>
+		    <td class="review-value">
+				@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}
+			</td>
+			<td class="review-action">
+				<a class="button secondary">@Html(Messages("preview.change"))</a>
+			</td>
+		</tr>
+		
+		@if(jobs.isDefined && jobs.get.jobs.size > 0){
+			<tr>
+		        <td class="review-label">
+					<b>@Messages("jobs")</b>
+				</td>
+		        <td class="review-value">
+		            <ul>
+		            @for(job <- jobs.get.jobs){
+		                <li>@employmentSummary(job)</li>
+		            }
+		            </ul>
+		        </td>
+				<td class="review-action">
+					<a class="button secondary">@Html(Messages("preview.change"))</a>
+				</td>
+			</tr>
+		 }
+		 
+		 <tr>
+		    <td class="review-label">
+				<b>@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</b>
+			</td>
+		    <td class="review-value">
+				@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}
+			</td>
+			<td class="review-action">
+				<a class="button secondary">@Html(Messages("preview.change"))</a>
+			</td>
+		</tr>
+		
+		@if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
+			<tr>
+		        <td class="review-label">@{Messages("natureOfYourBusiness")}</td>
+				<td class="review-value">@{aboutSelfEmployment.natureOfYourBusiness}</td>
+			</tr>
+		}
+	</table>
+</div>

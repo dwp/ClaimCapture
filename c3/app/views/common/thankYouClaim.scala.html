@@ -7,28 +7,30 @@
 @import play.api.Play
 @import play.api.Play.current
 @import controllers.mappings.Mappings
+@import play.api.Logger
 
 @employment = @{
-claim.questionGroup[Employment].getOrElse(Employment())
+    claim.questionGroup[Employment].getOrElse(Employment())
 }
+
 @isEmployment = @{
-employment.beenEmployedSince6MonthsBeforeClaim == "yes"
+    employment.beenEmployedSince6MonthsBeforeClaim == "yes"
 }
 @isSelfEmployment = @{
-employment.beenSelfEmployedSince1WeekBeforeClaim == "yes"
+    employment.beenSelfEmployedSince1WeekBeforeClaim == "yes"
 }
 @isEmploymentOrSelfEmployment = @{
-isEmployment || isSelfEmployment
+    isEmployment || isSelfEmployment
 }
 @claimDate = @{
-claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim
+    claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim
 }
 @displayDateForLabel = @{
-displayPlaybackDatesFormat(lang, claimDate)
+    displayPlaybackDatesFormat(lang, claimDate)
 }
 
 @isEmail = @{
-getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail.getOrElse("") == Mappings.yes
+    getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail.getOrElse("") == Mappings.yes
 }
 
 @defining(lang) { implicit language =>
@@ -50,7 +52,7 @@ getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOr
 
                 @if((!request.uri.startsWith("/claim-help"))) {
                     <p class="compound">
-                        <a id="helppage" href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a>
+                        <a id="helppage" rel="external" href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(Messages("leftcol.guide"))</a>
                     </p>
                 }
 
@@ -62,7 +64,7 @@ getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOr
                 <p class="compound">@Html(Messages("leftcol.helplinecontent.4"))</p>
 
                 <p>
-                    <a href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>@Messages("leftcol.callcharges")</a>
+                    <a rel="external" href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>@Messages("leftcol.callcharges")</a>
                 </p>
 
             </section>
@@ -103,12 +105,11 @@ getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOr
                             @if(isEmployment) {
                             <li>@Html(Messages("s11.g5.help4", displayDateForLabel))</li>
                             <li id="employment" >@Html(Messages("s11.g5.help5"))</li>
-                            <li>@Html(Messages("s11.g5.help6"))</li>
                             }
                             @if(isSelfEmployment) {
                             <li id="selfEmployment">@Html(Messages("s11.g5.help8"))</li>
-                            <li>@Html(Messages("s11.g5.help9"))</li>
                             }
+                            @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Messages("s11.g5.help6")</li>}
                         </ul>
 
                         <p>@Html(Messages("address.send"))</p>
@@ -130,7 +131,7 @@ getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOr
 
             <br />
 
-            <p><a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.change"))</a></p>
+            <p><a rel="external" href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.change"))</a></p>
 
             <div class="finish-button">@Html(Messages("claim.feedback.link"))</div>
 

@@ -1,7 +1,9 @@
 package controllers.s4_care_you_provide
 
+import controllers.mappings.Mappings
+
 import language.reflectiveCalls
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.mappings.Mappings._
@@ -15,14 +17,17 @@ import controllers.mappings.NINOMappings._
 object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "relationship" -> carersNonEmptyText(maxLength = 35),
-    "title" -> carersNonEmptyText(maxLength = 4),
+    "title" -> carersNonEmptyText(maxLength = Mappings.five),
+    "titleOther" -> optional(carersText(maxLength = Mappings.twenty)),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
     "liveAtSameAddressCareYouProvide" -> nonEmptyText.verifying(validYesNo)
-  )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
+  )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply)
+    .verifying("titleOther.required",TheirPersonalDetails.verifyTitleOther _)
+  )
 
   def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     val isPartnerPersonYouCareFor = YourPartner.visible &&
@@ -34,6 +39,7 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
           val theirPersonalDetails =  claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
           form.fill(TheirPersonalDetails( relationship = theirPersonalDetails.relationship,
                                           title = t.title.getOrElse(""),
+                                         titleOther = t.titleOther,
                                          firstName = t.firstName.getOrElse(""),
                                          middleName = t.middleName,
                                          surname = t.surname.getOrElse(""),
@@ -51,7 +57,10 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
 
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g1_theirPersonalDetails(formWithErrors)(lang)),
+      formWithErrors => {
+        val updatedFormWithErrors = formWithErrors.replaceError("","titleOther.required",FormError("titleOther","constraint.required"))
+        BadRequest(views.html.s4_care_you_provide.g1_theirPersonalDetails(updatedFormWithErrors)(lang))
+      },
       theirPersonalDetails => {
         val liveAtSameAddress = theirPersonalDetails.liveAtSameAddressCareYouProvide == yes
 

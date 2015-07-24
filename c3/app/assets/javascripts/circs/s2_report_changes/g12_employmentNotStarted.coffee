@@ -47,12 +47,12 @@ window.fixErrorMessages = (o) ->
 
 window.beenPaidYet = (beenPaidYetY, beenPaidYetN) ->
   if checked beenPaidYetY
-    S("beenPaidYetWrap").slideDown 0
+    S("beenPaidYetWrap").slideDown(0).attr 'aria-hidden', 'false'
   else
     S("beenPaidYetWrap").slideUp 0
     S("usuallyPaidSameAmountWrap").slideUp 0
 
-  S(beenPaidYetY).on "click", -> S("beenPaidYetWrap").slideDown 0
+  S(beenPaidYetY).on "click", -> S("beenPaidYetWrap").slideDown(0).attr 'aria-hidden', 'false'
 
   S(beenPaidYetN).on "click", ->
     S("beenPaidYetWrap").slideUp 0
@@ -77,7 +77,7 @@ window.usuallyPaidSameAmount = (o) ->
 
       S(o.usuallyPaidSameAmountY).prop('checked', false)
       S(o.usuallyPaidSameAmountN).prop('checked', false)
-      S("usuallyPaidSameAmountWrap").slideDown 0
+      S("usuallyPaidSameAmountWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideUsuallyPaidSameAmountWrap = (o) ->
   S("usuallyPaidSameAmountWrap").slideUp 0, ->
@@ -88,7 +88,7 @@ window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
   if not checked payIntoPensionY
     S("whatForWrap").slideUp 0
 
-  S(payIntoPensionY).on "click", -> S("whatForWrap").slideDown 0
+  S(payIntoPensionY).on "click", -> S("whatForWrap").slideDown(0).attr 'aria-hidden', 'false'
 
   S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp 0, -> S(whatFor).val("")
 
@@ -99,7 +99,7 @@ window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
 window.whatThings = (payForThingsY, payForThingsN, whatThings) ->
   if not checked(payForThingsY)
     S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
-  S(payForThingsY).on "click", -> S("whatThingsWrap").slideDown 0
+  S(payForThingsY).on "click", -> S("whatThingsWrap").slideDown(0).attr 'aria-hidden', 'false'
 
   S(payForThingsN).on "click", -> S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
 
@@ -108,6 +108,6 @@ window.whatCosts = (careCostsForThisWorkY, careCostsForThisWorkN, whatCosts) ->
   if not checked careCostsForThisWorkY
     S("whatCostsWrap").slideUp 0
 
-  S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown 0
+  S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown(0).attr 'aria-hidden', 'false'
 
   S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp 0, -> S(whatCosts).val("")
