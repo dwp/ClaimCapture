@@ -431,28 +431,3 @@ $is-print: false !default;
         padding-bottom: 5px;
     }
 }
-
-// External link styles for all font sizes
-
-@mixin external-link {
-    &:after {
-        content: "";
-		height: 0.72em;
-		width: 0.72em;
-		display: inline-block;
-		margin-left: 0.25em;
-        background-image: url("../images/external-link.png");
-        background-size: cover;
-        background-position: center top;
-        background-repeat: no-repeat;
-        @include device-pixel-ratio() {
-            background-image: url("../images/external-link-24x24.png");
-            background-size: cover;
-        }
-    }
-	&:hover {
-		&:after {
-			background-position: center 100%;
-		}
-	}
-}

@@ -174,14 +174,6 @@ a:active {
     color: $link-active-colour;
 }
 
-a[rel="external"] {
-    @include external-link;
-}
-
-.external-link {
-    @include external-link;
-}
-
 // JS message
 .js-message {
     padding: 1em 0;
