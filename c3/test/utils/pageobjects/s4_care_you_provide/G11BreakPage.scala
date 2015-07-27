@@ -5,7 +5,8 @@ import utils.pageobjects._
 
 final class G11BreakPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, G11BreakPage.url, iteration) {
   declareDate("#start", "AboutTheCareYouProvideBreakStartDate_" + iteration)
-  declareDate("#end", "AboutTheCareYouProvideBreakEndDate_" + iteration)
+  declareYesNo("#hasBreakEnded_answer","AboutTheCareYouProvideHasBreakEnded_"+iteration)
+  declareDate("#hasBreakEnded_date", "AboutTheCareYouProvideBreakEndDate_" + iteration)
   declareInput("#startTime", "AboutTheCareYouProvideBreakStartTime_" + iteration)
   declareInput("#endTime", "AboutTheCareYouProvideBreakEndTime_" + iteration)
   declareRadioList("#whereYou_answer", "AboutTheCareYouProvideWhereWereYouDuringTheBreak_" + iteration)
@@ -13,7 +14,6 @@ final class G11BreakPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPa
   declareRadioList("#wherePerson_answer", "AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_" + iteration)
   declareInput("#wherePerson_text", "AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_" + iteration)
   declareYesNo("#medicalDuringBreak", "AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_" + iteration)
-  declareCheck("#hasBreakEnded","AboutTheCareYouProvideHasBreakEnded_"+iteration)
 
   /**
    * Called by submitPage of Page. A new G10 will be built with an incremented iteration number.

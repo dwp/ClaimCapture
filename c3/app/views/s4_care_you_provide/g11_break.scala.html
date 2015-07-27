@@ -62,12 +62,20 @@
                     'maxLength -> 60,
                     'otherValue -> SomewhereElse)
 
-                @dateTimePickerWithDynamicLabel(breakForm("end"), 'dynamicDateDays -> 27, 'helperAbove -> Messages("end.date.helper"), 'ignoreOptional->true)
-                @carersDeclareCheck(breakForm("doNotKnowEndDate"))(CheckboxTemplate.fieldConstructor,lang)
+                @yesNoRadioGroup(breakForm("hasBreakEnded.answer"),
+                    'values -> Seq("yes" -> Messages("label.yes9"), "no" -> Messages("label.no")),
+                    '_label -> Messages("hasBreakEnded")
+                )
 
-                @carersShortInputText(breakForm("endTime"),
-                'helperAbove-> Html(Messages("breakEnded.endTime.helper")),
-                'maxLength -> 10)
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        dateTimePickerWithDynamicLabel(breakForm("hasBreakEnded.date"), 'dynamicDateDays -> 27, 'ignoreOptional -> true),
+                        carersShortInputText(breakForm("endTime"),
+                            'helperAbove-> Html(Messages("breakEnded.endTime.helper")),
+                            'maxLength -> 10)
+                    ),
+                    'id -> "hasBreakEndedWrap"
+                )
 
                 @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))
 
@@ -93,13 +101,17 @@
             window.areaCounter({selector: "@CarersCrypto.encryptAES("whereYou_text")", maxChars: 60});
             window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_text")", maxChars: 60});
 
-            window.initEvents("@CarersCrypto.encryptAES("start")",
-            "@CarersCrypto.encryptAES("end")",
+            window.initEvents(
+            "@CarersCrypto.encryptAES("start")",
+            "@CarersCrypto.encryptAES("hasBreakEnded_date")",
             "@CarersCrypto.encryptAES("startTime")",
             "@CarersCrypto.encryptAES("endTime")",
-            "@CarersCrypto.encryptAES("doNotKnowEndDate")"
-            );
-        })
+            "@CarersCrypto.encryptAES("hasBreakEnded_answer_yes")",
+            "@CarersCrypto.encryptAES("hasBreakEnded_answer_no")",
+            "@CarersCrypto.encryptAES("hasBreakEnded_date_day")",
+            "@CarersCrypto.encryptAES("hasBreakEnded_date_month")",
+            "@CarersCrypto.encryptAES("hasBreakEnded_date_year")");
+        });
     </script>
 
 }

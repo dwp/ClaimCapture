@@ -64,6 +64,7 @@ About the care you provide,Breaks from Care,"Have you had any breaks from caring
 About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,CareBreak>BreaksBeforeClaim>Answer
 About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate,CareBreak>StartDate>Answer
 About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime,CareBreak>StartTime>Answer
+About the care you provide,About the breaks from care,Has this break ended?,AboutTheCareYouProvideHasBreakEnded,CareBreak>EndDateDoNotKnow>Answer
 About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate,CareBreak>EndDate>Answer
 About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime,CareBreak>EndTime>Answer
 About the care you provide,About the breaks from care,Where were you during the break?,AboutTheCareYouProvideWhereWereYouDuringTheBreak,Caree>CareBreak>ReasonClaimant>Answer

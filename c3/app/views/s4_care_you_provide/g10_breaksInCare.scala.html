@@ -50,9 +50,9 @@ else OtherMoney.name
                       	<h3 class="heading-small">
                             @{break.start.`dd/MM/yyyy`}
                             <span>
-                            @{if(break.end.isDefined) Messages("to")}
+                            @{if(break.hasBreakEnded.date.isDefined) Messages("to")}
                             </span>
-                            @{break.end.fold("")(_.`dd/MM/yyyy`)}
+                            @{break.hasBreakEnded.date.fold("")(_.`dd/MM/yyyy`)}
                         </h3>
                       	
                       	<dl>
