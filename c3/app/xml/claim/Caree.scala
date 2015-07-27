@@ -72,17 +72,17 @@ object Caree extends XMLComponent {
           case "yes" => {
             break.endTime match {
               case Some(e) => {
-                  question(<EndDateDoNotKnow/>,"hasBreakEnded",break.hasBreakEnded.answer) ++
+                  question(<EndDateDoNotKnow/>,"hasBreakEnded.answer",break.hasBreakEnded.answer) ++
                   question(<EndDate/>,"hasBreakEnded_date", break.hasBreakEnded.date.get.`dd-MM-yyyy`) ++
                   question(<EndTime/>, "endTime", e)
               }
               case _ => {
-                  question(<EndDateDoNotKnow/>, "hasBreakEnded", break.hasBreakEnded.answer) ++
+                  question(<EndDateDoNotKnow/>, "hasBreakEnded.answer", break.hasBreakEnded.answer) ++
                   question(<EndDate/>, "hasBreakEnded_date", break.hasBreakEnded.date.get.`dd-MM-yyyy`)
               }
             }
           }
-          case "no" => question(<EndDateDoNotKnow/>,"hasBreakEnded",break.hasBreakEnded.answer)
+          case "no" => question(<EndDateDoNotKnow/>,"hasBreakEnded.answer",break.hasBreakEnded.answer)
           case _ => NodeSeq.Empty
         }}
         {question(<MedicalCare/>,"medicalDuringBreak", break.medicalDuringBreak)}

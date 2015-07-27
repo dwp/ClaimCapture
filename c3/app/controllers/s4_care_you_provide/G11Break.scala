@@ -60,7 +60,7 @@ object G11Break extends Controller with CachedClaim {
         .replaceError("wherePerson","wherePerson.text.required",FormError("wherePerson.text",errorRequired))
         .replaceError("wherePerson.text",errorRestrictedCharacters,FormError("wherePerson",errorRestrictedCharacters))
         .replaceError("start.date",errorRequired, FormError("start",errorRequired, Seq("This field is required")))
-        .replaceError("hasBreakEnded.answer",errorRequired, FormError("hasBreakEnded",errorRequired, Seq("This field is required")))
+        .replaceError("hasBreakEnded.answer",errorRequired, FormError("hasBreakEnded.answer",errorRequired, Seq("This field is required")))
         .replaceError("hasBreakEnded.date",errorRequired, FormError("hasBreakEnded.date",errorRequired, Seq("This field is required")))
         BadRequest(views.html.s4_care_you_provide.g11_break(fwe,backCall)(lang))
       },
