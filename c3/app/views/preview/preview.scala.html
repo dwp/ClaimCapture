@@ -26,26 +26,20 @@
 
                     @errorsSummary(previewForm)
 
-					<div class="summary-review">
+					<div class="summary">
 	                    @s2()
 	                    @s3()
 	                    @s4()
 	                    @s6()
-	                    @s7()
+	                    @s8()
 	                    @s9()
 					</div>
 
                     @helper.form(action = controllers.preview.routes.Preview.submit) {
                         @DwpCSRFFormHelper.formField
-                        @* -- New user story has to be raised for this
-                        <fieldset class="form-elements">
-                            <ul>
-                                @carersInputText(previewForm("email"))
-                            </ul>
-                        </fieldset>
-                        *@
                         <nav class="form-steps">
                             <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+                            <button type="submit" name="action" value="next" class="button secondary button-print" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("button.print.summary"))</button>
                         </nav>
                     }
                     
