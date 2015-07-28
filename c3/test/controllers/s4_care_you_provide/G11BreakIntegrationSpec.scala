@@ -62,6 +62,8 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       click("#whereYou_answer_In_hospital")
       click("#wherePerson_answer_In_hospital")
 
+      click("#hasBreakEnded_answer_no")
+
       next
       Logger.info("spec" + browser.url)
       urlMustEqual(G11BreakPage.url)
@@ -148,9 +150,10 @@ trait BreakFiller {
     browser.fill(s"#start_month") `with` start.month.get.toString
     browser.fill("#start_year") `with` start.year.get.toString
 
-    browser.fill(s"#end_day") `with` end.day.get.toString
-    browser.fill(s"#end_month") `with` end.month.get.toString
-    browser.fill("#end_year") `with` end.year.get.toString
+    browser.click("#hasBreakEnded_answer_yes")
+    browser.fill(s"#hasBreakEnded_date_day") `with` end.day.get.toString
+    browser.fill(s"#hasBreakEnded_date_month") `with` end.month.get.toString
+    browser.fill("#hasBreakEnded_date_year") `with` end.year.get.toString
 
     browser.click(s"#whereYou_answer_$whereYouLocation")
     browser.click(s"#wherePerson_answer_$wherePersonLocation")

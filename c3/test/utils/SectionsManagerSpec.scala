@@ -19,7 +19,7 @@ class SectionsManagerSpec extends Specification with Tags {
 
       implicit val claim = Claim(CachedClaim.key)
       SectionsManager.currentSection(AboutYou) mustEqual 2
-      SectionsManager.currentSection(Employed) mustEqual 6
+      SectionsManager.currentSection(Employed) mustEqual 7
     }
 
     "Retrieve the correct section positions when there are hidden sections" in {
@@ -30,9 +30,9 @@ class SectionsManagerSpec extends Specification with Tags {
     }
 
     "Retrieve the correct section positions when there are hidden employment" in {
-      implicit val claim = Claim(CachedClaim.key).showHideSection(visible = false,Employed)
+      implicit val claim = Claim(CachedClaim.key).showHideSection(visible = false,SelfEmployment)
 
-      SectionsManager.currentSection(SelfEmployment) mustEqual 6
+      SectionsManager.currentSection(Employed) mustEqual 6
       SectionsManager.currentSection(PayDetails) mustEqual 8
     }
 

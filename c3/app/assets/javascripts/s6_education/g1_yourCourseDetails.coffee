@@ -17,12 +17,12 @@ window.initEvents = (educationY, educationN,
       expectedEndDateDay, expectedEndDateMonth, expectedEndDateYear)
 
 showEducationWrap = ->
-  $("#educationWrap").slideDown 0
+  $("#educationWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideEducationWrap = (courseTitle, nameOfSchoolCollegeOrUniversity,nameOfMainTeacherOrTutor,
   courseContactNumber,startDateDay, startDateMonth, startDateYear,
   expectedEndDateDay, expectedEndDateMonth, expectedEndDateYear) ->
-  $("#educationWrap").slideUp 0, ->
+  $("#educationWrap").slideUp(0).attr 'aria-hidden', 'true', ->
     $("#" + courseTitle).val("")
     $("#" + nameOfSchoolCollegeOrUniversity).val("")
     $("#" + nameOfMainTeacherOrTutor).val("")

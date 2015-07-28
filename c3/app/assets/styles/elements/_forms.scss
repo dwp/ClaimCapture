@@ -316,11 +316,16 @@ select {
 }
 
 // To stack horizontally, use .inline on parent, to sit block labels next to each other
-.inline .block-label {
-    clear: none;
-    @include media(tablet) {
-        margin-right: $gutter-half;
-    }
+.inline {
+	li {
+		display: inline-block;
+	}
+	.block-label {
+	    clear: none;
+	    @include media(tablet) {
+	        margin-right: $gutter-half;
+	    }
+	}
 }
 
 //-----------------------------------------------------------------

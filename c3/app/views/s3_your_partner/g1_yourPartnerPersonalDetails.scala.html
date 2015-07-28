@@ -47,7 +47,7 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            titleSelect(currentForm("title")),
+                            titleSelect(currentForm),
 
                             carersInputText(currentForm("firstName"), 'maxLength -> 17),
 
@@ -85,13 +85,14 @@
 
         <script type="text/javascript" src='@routes.Assets.at("javascripts/s3_your_partner/g1_yourPartnerPersonalDetails.js")'></script>
 
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/otherTitle.js")'></script>
+
         <script type="text/javascript">
 
             $ ( function ( ) {
                 @ga.stagePrompt()
-            } )
 
-            $ ( function ( ) {
+                window.otherTitle('@CarersCrypto.encryptAES("title")');
                 window.initEvents ( "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
                 "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
                 "@CarersCrypto.encryptAES("title")",

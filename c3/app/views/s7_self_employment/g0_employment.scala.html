@@ -1,0 +1,69 @@
+    @(employmentForm: Form[models.domain.Employment])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import scala.language.postfixOps
+@import helper._
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+@bulletsConstructor(label: String, maxBullets: Int) = @{
+    for(i<-1 to maxBullets) yield label+i
+}
+
+@bulletsSelfEmployed = @{
+    bulletsConstructor("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label.helper.l", 4)
+}
+
+@bulletsEmployed = @{
+    bulletsConstructor("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper.l", 7)
+}
+
+        @defining(lang) { implicit language =>
+
+@main(Messages("s7.g1") + " " + Messages("s7.longName"), Messages("s7.g1"), Some(employmentForm)) {
+
+    @form(action = controllers.s7_self_employment.routes.G0Employment.submit, 'role -> "form") {
+
+        @DwpCSRFFormHelper.formField
+
+        <fieldset class="form-elements">
+
+            <legend class="visuallyhidden">@Html(Messages("s7.g1"))</legend>
+
+            <ul>
+                @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
+                    '_label -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 1 week)),
+                    'helperAbove -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label.helper"),
+                    'bullets -> bulletsSelfEmployed)
+
+                @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
+                    '_label -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 6 months)),
+                    'helperAbove -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper"),
+                    'bullets -> bulletsEmployed,
+                    'paragraph -> "aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper.p")
+        
+            </ul>
+
+        </fieldset>
+	    
+        <nav class="form-steps" role="navigation">
+            <ul>
+            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button></li>
+                <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+            </ul>
+        </nav>
+   
+    }
+
+    <script type="text/javascript">
+        $(function(){
+            conditionRequired = function(){
+                return $("#"+"@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_no")").is(':checked');
+            };
+        })
+    </script>
+
+    }
+
+}

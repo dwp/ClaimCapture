@@ -10,6 +10,8 @@
 @import views.html.helper.dates._
 @import views.html.s2_about_you.main
 @import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.CarersCrypto
+
 
 @defining(lang) { implicit language =>
     @main(Messages("s2.g1") + " - " + Messages("s2.longName")) {
@@ -21,7 +23,7 @@
             <fieldset class="form-elements" data-journey="carers-allowance:page:about-you">
 
                 <ul>
-                    @titleSelect(yourDetailsForm("title"))
+                    @titleSelect(yourDetailsForm)
 
                     @carersInputText(yourDetailsForm("firstName"), 'maxLength -> 17)
 
@@ -48,9 +50,11 @@
 
         <script type="text/javascript">
             $ ( function ( ) {
-                @ga.stagePrompt()
+                @ga.stagePrompt();
+                window.otherTitle('@CarersCrypto.encryptAES("title")');
             } )
         </script>
 
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/otherTitle.js")'></script>
     }
 }

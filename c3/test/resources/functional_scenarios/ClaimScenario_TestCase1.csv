@@ -27,7 +27,8 @@ About You,Other European Economic Area (EEA) states or Switzerland,"Have you and
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you or your close family worked or paid national insurance in any of these countries since your claim date?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,No
 About Your Partner,Person you care for,Have you lived with a partner at any time since your claim date?,AboutYourPartnerHadPartnerSinceClaimDate,No
 About the care you provide,Details of the person you care for,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,partner
-About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,dame
+About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Other
+About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitleOtherPersonCareFor,dame
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,I have a real nam
 About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,I have a real mid
 About the care you provide,Details of the person you care for,Surname or family name,AboutTheCareYouProvideSurnamePersonCareFor,Caseone filling some chars to test

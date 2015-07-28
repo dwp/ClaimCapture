@@ -42,11 +42,12 @@
                     @listRadioGroupWithSubGroups(reportChangesForm("reportChanges"),
                         '_nestedFieldSet -> false,
                         '_showLabel -> false,
+                        'track -> true,
                         'items -> Seq(
                             StoppedCaring.name -> Messages("reportChanges.stoppedCaring"),
                             employmentOption,
                             BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
-                            BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChangesYou"),
+                            BreakFromCaringYou.name -> Messages("reportChanges.breakFromCaringChangesYou"),
                             AddressChange.name -> Messages("reportChanges.addressChange"),
                             PaymentChange.name -> Messages("reportChanges.paymentChange"),
                             AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")))

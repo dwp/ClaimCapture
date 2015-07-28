@@ -14,13 +14,12 @@ import controllers.mappings.Mappings.validDate
 import controllers.mappings.Mappings.validYesNo
 import controllers.mappings.Mappings.dayMonthYear
 import controllers.mappings.Mappings.validNationality
-import models.domain.YourPartnerPersonalDetails
+import models.domain.{YourDetails, YourPartnerPersonalDetails, Claim}
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm.formBinding
 import YourPartner.presentConditionally
 import controllers.CarersForms.carersNonEmptyText
 import controllers.CarersForms.carersText
-import models.domain.Claim
 import play.api.i18n.Lang
 import models.view.ClaimHandling.ClaimResult
 import controllers.mappings.Mappings
@@ -28,7 +27,8 @@ import controllers.mappings.Mappings
 object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {
 
   def form(implicit claim: Claim):Form[YourPartnerPersonalDetails] = Form(mapping(
-    "title" -> optional(carersNonEmptyText(maxLength = Mappings.four)),
+    "title" -> optional(carersNonEmptyText(maxLength = Mappings.five)),
+    "titleOther" -> optional(carersText(maxLength = Mappings.twenty)),
     "firstName" -> optional(carersNonEmptyText(maxLength = Mappings.seventeen)),
     "middleName" -> optional(carersText(maxLength = Mappings.seventeen)),
     "surname" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),
@@ -40,6 +40,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
     "isPartnerPersonYouCareFor" -> optional(nonEmptyText.verifying(validYesNo)),
     "hadPartnerSinceClaimDate" -> nonEmptyText.verifying(validYesNo)
   )(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply)
+    .verifying("titleOther.required",YourPartnerPersonalDetails.verifyTitleOther _)
     .verifying("title.required", YourPartnerPersonalDetails.validateTitle _)
     .verifying("firstName.required", YourPartnerPersonalDetails.validateFirstName _)
     .verifying("surname.required", YourPartnerPersonalDetails.validateSurName _)
@@ -61,6 +62,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
+          .replaceError("","titleOther.required",FormError("titleOther",errorRequired))
           .replaceError("", "title.required", FormError("title", errorRequired))
           .replaceError("", "firstName.required", FormError("firstName", errorRequired))
           .replaceError("", "surname.required", FormError("surname", errorRequired))

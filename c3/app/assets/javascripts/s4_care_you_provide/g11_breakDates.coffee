@@ -1,4 +1,6 @@
-window.initEvents = (breakStartDate, breakEndedDate, breakStartTime, breakEndedTime, doNotKnowEndDate) ->
+window.initEvents = (breakStartDate, breakEndedDate, breakStartTime, breakEndedTime,
+  hasBreakEndedYes, hasBreakEndedNo, day, month, year) ->
+
   if isNotMondayOrFriday(breakStartDate)
     hideTime(breakStartTime)
 
@@ -17,15 +19,14 @@ window.initEvents = (breakStartDate, breakEndedDate, breakStartTime, breakEndedT
     showTime(breakEndedTime) if not isIt
   )
 
-  onCheckDoNotKnowEndDate(doNotKnowEndDate, breakEndedDate,(doNotKnowEndDateId, breakEndedDateId)->
-    if document.getElementById(doNotKnowEndDateId).checked
-      hideTime(breakEndedTime)
-    else
-      if isNotMondayOrFriday(breakEndedDateId)
-        hideTime(breakEndedTime)
-      else
-        showTime(breakEndedTime)
-  )
+  if not $("#" + hasBreakEndedYes).prop('checked')
+      hideHasBreakEndedWrap(day, month, year)
+
+  $("#" + hasBreakEndedYes).on "click", ->
+    showHasBreakEndedWrap()
+
+  $("#" + hasBreakEndedNo).on "click", ->
+    hideHasBreakEndedWrap(day, month, year)
 
 isNotMondayOrFriday = (id) ->
   date = getDate(id)
@@ -45,15 +46,20 @@ getDate = (id) ->
     undefined
 
 hideTime = (id) ->
-  $("#"+id).parent("li").slideUp 0
+  $("#"+id).parent("li").slideUp(0).attr 'aria-hidden', 'true'
 
 showTime = (id) ->
-  $("#"+id).parent("li").slideDown 0
+  $("#"+id).parent("li").slideDown(0).attr 'aria-hidden', 'false'
 
 dateOnChange = (id,f) ->
   $("#"+id+" li input").on "change paste keyup", ->
     f(id)
 
-onCheckDoNotKnowEndDate = (doNotKnowEndDate, breakEndedDate, f) ->
-  $("#"+doNotKnowEndDate).on "click", ->
-    f(doNotKnowEndDate, breakEndedDate)
+showHasBreakEndedWrap = ->
+  $("#hasBreakEndedWrap").slideDown(0).attr 'aria-hidden', 'false'
+
+hideHasBreakEndedWrap = (day, month, year) ->
+    $("#hasBreakEndedWrap").slideUp(0).attr 'aria-hidden', 'true'
+    $("#" + day).val("")
+    $("#" + month).val("")
+    $("#" + year).val("")

@@ -11,8 +11,8 @@ object SectionsManager {
     YourPartner,
     CareYouProvide,
     Education,
-    Employed,
     SelfEmployment,
+    Employed,
     OtherMoney,
     PayDetails,
     Information
@@ -33,7 +33,7 @@ object SectionsManager {
   }
 
   def currentSection(s:Section.Identifier)(implicit claim:Claim):Int = {
-    filterByVisibility(claim).zipWithIndex.find(_._1 == s).getOrElse(AnyRef -> -1)._2 + 1
+    filterByVisibility(claim).zipWithIndex.find(_._1 == s).getOrElse(AnyRef -> claimSections.indexOf(s))._2 + 1
   }
 
 

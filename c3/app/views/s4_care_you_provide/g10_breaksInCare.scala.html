@@ -50,9 +50,9 @@ else OtherMoney.name
                       	<h3 class="heading-small">
                             @{break.start.`dd/MM/yyyy`}
                             <span>
-                            @{if(break.end.isDefined) Messages("to")}
+                            @{if(break.hasBreakEnded.date.isDefined) Messages("to")}
                             </span>
-                            @{break.end.fold("")(_.`dd/MM/yyyy`)}
+                            @{break.hasBreakEnded.date.fold("")(_.`dd/MM/yyyy`)}
                         </h3>
                       	
                       	<dl>
@@ -118,19 +118,21 @@ else OtherMoney.name
         <fieldset class="form-elements">
 
             <legend class="heading-medium form-class-bold">@Html(Messages("s4.g5"))</legend>
-            
-            <div class="prompt nested-prompt">
 
-                <p>@Html(Messages("s4.g5.help1"))</p>
+            @if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty){
+                <div class="prompt nested-prompt">
 
-                <ul class="list-bullet">
-                    <li>@Html(Messages("s4.g5.help3"))</li>
-                    <li>@Html(Messages("s4.g5.help4"))</li>
-                </ul>
+                    <p>@Html(Messages("s4.g5.help1"))</p>
 
-                <p>@Html(Messages("s4.g5.help2")) <a rel="external" href="/claim-help#3" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Breaks from Caring")>@Html(Messages("s4.g5.help2.link"))</a>.</p>
+                    <ul class="list-bullet">
+                        <li>@Html(Messages("s4.g5.help3"))</li>
+                        <li>@Html(Messages("s4.g5.help4"))</li>
+                    </ul>
 
-            </div>
+                    <p>@Html(Messages("s4.g5.help2")) <a rel="external" href="/claim-help#3" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Breaks from Caring")>@Html(Messages("s4.g5.help2.link"))</a>.</p>
+
+                </div>
+            }
 
             <ul>
                 @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>

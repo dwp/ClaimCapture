@@ -1,0 +1,90 @@
+@(currentForm: Form[models.domain.SelfEmploymentPensionsAndExpenses])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+@import utils.helpers.PastPresentLabelHelper.{labelForSelfEmployment, valuesForSelfEmployment}
+@import utils.csrf.DwpCSRFFormHelper
+@import play.api.i18n.{MMessages => Messages}
+@import models.domain.{Iteration, Jobs}
+
+@defining(lang) { implicit language =>
+@main(Messages("s8.g4") + " " + Messages("s8.longName"), Messages("s8.longName"), Some(currentForm), ignorePreview = true) {
+
+    @form(action = controllers.s7_self_employment.routes.G4SelfEmploymentPensionsAndExpenses.submit, 'role -> "form") {
+
+    @DwpCSRFFormHelper.formField
+
+        <fieldset class="form-elements">
+
+            <ul>
+                @yesNoRadioGroup(currentForm("payPensionScheme")("answer"),
+                    '_label -> labelForSelfEmployment(claim, lang, "payPensionScheme.answer"), valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputTextArea(currentForm("payPensionScheme")("text"),
+                            '_label -> labelForSelfEmployment(claim, lang, "payPensionScheme.text"),
+                            'textAreaHelper -> Html(Messages("300charsLeft")),
+                            'ignoreOptional -> true,
+                            'maxLength -> 300)
+                    ),
+                    'id -> "pensionExpenses",
+                    'display -> currentForm("payPensionScheme")("answer").value.getOrElse("no")
+                )
+
+                @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"),
+                    '_label -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer"),
+                    'helperAbove -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer.helper"),
+                    valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputTextArea(currentForm("haveExpensesForJob")("text"),
+                            '_label -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.text"),
+                            'textAreaHelper -> Html(Messages("300charsLeft")),
+                            'helperAbove -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.text.helper"),
+                            'ignoreOptional -> true,
+                            'maxLength -> 300)
+                    ),
+                    'id -> "jobExpenses",
+                    'display -> currentForm("haveExpensesForJob")("answer").value.getOrElse("no")
+                )
+
+            </ul>
+
+        </fieldset>
+
+        <nav class="form-steps" role="navigation">
+            <ul>
+            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                <li><a id="backButtonBottom" href="@{claim.navigation.previousIgnorePreview}">@Html(Messages("form.back"))</a></li>
+            </ul>
+        </nav>
+
+    }
+
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s7_self_employment/g4_selfEmploymentPensionsAndExpenses.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+    <script type="text/javascript">
+        $(function(){
+            window.initEvents(
+                "@CarersCrypto.encryptAES("payPensionScheme_answer_yes")",
+                "@CarersCrypto.encryptAES("payPensionScheme_answer_no")",
+                "@CarersCrypto.encryptAES("payPensionScheme_text")",
+                "@CarersCrypto.encryptAES("haveExpensesForJob_answer_yes")",
+                "@CarersCrypto.encryptAES("haveExpensesForJob_answer_no")",
+                "@CarersCrypto.encryptAES("haveExpensesForJob_text")"
+            );
+        });
+
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("payPensionScheme_text")",maxChars:300});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("haveExpensesForJob_text")",maxChars:300});
+    </script>
+    }
+}

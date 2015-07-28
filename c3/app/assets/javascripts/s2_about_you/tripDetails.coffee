@@ -15,7 +15,7 @@ window.initEvents = (answer_yes, answer_no, tripDetails) ->
 
 hideTripDetailsWrapper = (tripDetails) ->
   val(tripDetails,"")
-  S("tripDetailsWrapper").slideUp 0
+  S("tripDetailsWrapper").slideUp(0).attr 'aria-hidden', 'true'
 
 showTripDetailsWrapper = ->
-  S("tripDetailsWrapper").slideDown 0
+  S("tripDetailsWrapper").slideDown(0).attr 'aria-hidden', 'false'

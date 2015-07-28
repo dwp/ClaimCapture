@@ -23,6 +23,7 @@ object Caree extends XMLComponent {
       {question(<OtherNames/>, "firstName", theirPersonalDetails.firstName)}
       {question(<MiddleNames/>, "middleName", theirPersonalDetails.middleName)}
       {question(<Title/>, "title", theirPersonalDetails.title)}
+      {question(<TitleOther/>, "titleOther", theirPersonalDetails.titleOther)}
       {question(<DateOfBirth/>, "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`)}
       {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", encrypt(theirPersonalDetails.nationalInsuranceNumber.getOrElse("")))}
       {postalAddressStructure("address", theirContactDetails.address, encrypt(theirContactDetails.postcode.getOrElse("").toUpperCase))}
@@ -67,20 +68,21 @@ object Caree extends XMLComponent {
             case _ => question(<StartDate/>, "start", break.start.`dd-MM-yyyy`)
           }
         }
-        {break.end match {
-          case Some(n) => {
+        {break.hasBreakEnded.answer match {
+          case "yes" => {
             break.endTime match {
               case Some(e) => {
-                                question(<EndDate/>,"end", break.end.get.`dd-MM-yyyy`) ++
-                                question(<EndTime/>, "endTime", e)
-                              }
-              case _ => question(<EndDate/>,"end", break.end.get.`dd-MM-yyyy`)
+                  question(<EndDateDoNotKnow/>,"hasBreakEnded.answer",break.hasBreakEnded.answer) ++
+                  question(<EndDate/>,"hasBreakEnded_date", break.hasBreakEnded.date.get.`dd-MM-yyyy`) ++
+                  question(<EndTime/>, "endTime", e)
+              }
+              case _ => {
+                  question(<EndDateDoNotKnow/>, "hasBreakEnded.answer", break.hasBreakEnded.answer) ++
+                  question(<EndDate/>, "hasBreakEnded_date", break.hasBreakEnded.date.get.`dd-MM-yyyy`)
+              }
             }
           }
-          case _ => NodeSeq.Empty
-        }}
-        {break.doNotKnowEndDate match {
-          case Some(v) => question(<EndDateDoNotKnow/>,"end",MMessages("doNotKnowEndDate"))
+          case "no" => question(<EndDateDoNotKnow/>,"hasBreakEnded.answer",break.hasBreakEnded.answer)
           case _ => NodeSeq.Empty
         }}
         {question(<MedicalCare/>,"medicalDuringBreak", break.medicalDuringBreak)}

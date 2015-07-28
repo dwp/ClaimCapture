@@ -14,7 +14,7 @@ window.initEventsForEEA = (answer_yes, answer_no, workingForEEADetails) ->
 
 hideWorkingForEEADetailsWrapper = (workingDetails) ->
   val(workingDetails, "")
-  S("workingForEEADetailsWrapper").slideUp 0
+  S("workingForEEADetailsWrapper").slideUp(0).attr 'aria-hidden', 'true'
 
 showWorkingForEEADetailsWrapper = ->
-  S("workingForEEADetailsWrapper").slideDown 0
+  S("workingForEEADetailsWrapper").slideDown(0).attr 'aria-hidden', 'false'

@@ -77,33 +77,33 @@ dateOnChange = (id,f) ->
     f(id)
 
 hideTime = (id) ->
-  $("#"+id).parent("li").slideUp 0
+  $("#"+id).parent("li").slideUp(0).attr 'aria-hidden', 'true'
 
 showTime = (id) ->
-  $("#"+id).parent("li").slideDown 0
+  $("#"+id).parent("li").slideDown(0).attr 'aria-hidden', 'false'
 
 hideBreakEndedDate = () ->
-  $("#breakEndedDateTime").slideUp 0
+  $("#breakEndedDateTime").slideUp(0).attr 'aria-hidden', 'true'
 
 showBreakEndedDate = () ->
-  $("#breakEndedDateTime").slideDown 0
+  $("#breakEndedDateTime").slideDown(0).attr 'aria-hidden', 'false'
 
 hideExpectStartCaring = (expectStartCaringY, expectStartCaringN) ->
-  $("#expectStartCaring").slideUp 0
+  $("#expectStartCaring").slideUp(0).attr 'aria-hidden', 'true'
   $("#" + expectStartCaringY).attr("checked", false)
   $("#" + expectStartCaringN).attr("checked", false)
 
 showExpectStartCaring = () ->
-  $("#expectStartCaring").slideDown 0
+  $("#expectStartCaring").slideDown(0).attr 'aria-hidden', 'false'
 
 hidePermanentBreakDate = () ->
-  $("#permanentBreakDate").slideUp 0
+  $("#permanentBreakDate").slideUp(0).attr 'aria-hidden', 'true'
 
 showPermanentBreakDate = () ->
-  $("#permanentBreakDate").slideDown 0
+  $("#permanentBreakDate").slideDown(0).attr 'aria-hidden', 'false'
 
 hideExpectStartCaringDate = () ->
-  $("#expectStartCaringDate").slideUp 0
+  $("#expectStartCaringDate").slideUp(0).attr 'aria-hidden', 'true'
 
 showExpectStartCaringDate = () ->
-  $("#expectStartCaringDate").slideDown 0
+  $("#expectStartCaringDate").slideDown(0).attr 'aria-hidden', 'false'

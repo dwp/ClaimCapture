@@ -1,10 +1,10 @@
 window.initEvents = (additionalBreaksY, additionalBreaksN, text) ->
   hideAdditionalBreaksWrap = (text) ->
-    $("#additionalBreaksWrap").slideUp 0, ->
+    $("#additionalBreaksWrap").slideUp(0).attr 'aria-hidden', 'true', ->
       $("#" + text).val("")
 
   showAdditionalBreaksWrap = () ->
-    $("#additionalBreaksWrap").slideDown 0
+    $("#additionalBreaksWrap").slideDown(0).attr 'aria-hidden', 'false'
 
   if $("#" + additionalBreaksY).prop('checked')
     showAdditionalBreaksWrap()

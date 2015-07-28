@@ -226,6 +226,16 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
         redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
       }
 
+      "redirect to the next page after a valid break from caring submission because of you" in new WithApplication with MockForm {
+        val claim = Claim(claimKey)
+
+        Cache.set(claimKey,claim.update(ReportChanges(false,ReportChange.BreakFromCaringYou.name)))
+
+        val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+
+        redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
+      }
+
     }
 
 

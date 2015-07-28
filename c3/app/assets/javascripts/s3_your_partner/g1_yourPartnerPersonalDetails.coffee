@@ -15,12 +15,12 @@ window.initEvents = (hadPartnerY,hadPartnerN,title,firstName,middleName,lastName
       nationality,seperatedFromPartnerY,seperatedFromPartnerN,partnerClaimingForY,partnerClaimingForN)
 
 showPartnerDetailsWrap = ->
-    $("#partnerDetailsWrap").slideDown 0
+    $("#partnerDetailsWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hidePartnerDetailsWrap = (hadPartnerY,hadPartnerN,title,firstName,middleName,lastName,otherSurName,
 nino,dateOfBirthDay,dateOfBirthMonth,dateOfBirthYear,
 nationality,seperatedFromPartnerY,seperatedFromPartnerN,partnerClaimingForY,partnerClaimingForN) ->
-    $("#partnerDetailsWrap").slideUp 0, ->
+    $("#partnerDetailsWrap").slideUp(0).attr 'aria-hidden', 'true', ->
       $("#" + title).val("")
       $("#" + firstName).val("")
       $("#" + middleName).val("")

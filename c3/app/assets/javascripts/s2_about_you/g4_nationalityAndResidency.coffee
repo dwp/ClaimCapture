@@ -19,16 +19,19 @@ window.initEvents = (nationlityBritish, nationalityAnotherCountry, nationalResid
 
 
 hideNationalityWrap = (nationalResidency) ->
-  $("#nationalityWrap").slideUp 0, ->
+  emptyNationalResidency = ->
     $("#" + nationalResidency).val("")
 
+  $("#nationalityWrap").slideUp(0,emptyNationalResidency).attr 'aria-hidden', 'true'
 
 showNationalityWrap = ->
-  $("#nationalityWrap").slideDown 0
+  $("#nationalityWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideResidencyWrap = (resideInUKText) ->
-  $("#residencyWrap").slideUp 0, ->
-  $("#" + resideInUKText).val("")
+  emptyResideInUKText = ->
+    $("#" + resideInUKText).val("")
+
+  $("#residencyWrap").slideUp(0,emptyResideInUKText).attr 'aria-hidden', 'true'
 
 showResidencyWrap = ->
-  $("#residencyWrap").slideDown 0
+  $("#residencyWrap").slideDown(0).attr 'aria-hidden', 'false'

@@ -15,7 +15,7 @@ window.initEventsFromEEA = (answer_yes, answer_no, benefitsFromEEADetails) ->
 
 hideBenefitsFromEEADetailsWrapper = (benefitsFromEEADetails) ->
   val(benefitsFromEEADetails,"")
-  S("benefitsFromEEADetailsWrapper").slideUp 0
+  S("benefitsFromEEADetailsWrapper").slideUp(0).attr 'aria-hidden', 'true'
 
 showBenefitsFromEEADetailsWrapper = ->
-  S("benefitsFromEEADetailsWrapper").slideDown 0
+  S("benefitsFromEEADetailsWrapper").slideDown(0).attr 'aria-hidden', 'false'

@@ -11,10 +11,10 @@ window.initEvents = (spent35HoursCaringBeforeClaimY, spent35HoursCaringBeforeCla
 
 
 showCareStartDateWrap = ->
-  $("#careStartDateWrap").slideDown 0
+  $("#careStartDateWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideCareStartDateWrap = (day, month, year) ->
-    $("#careStartDateWrap").slideUp 0
+    $("#careStartDateWrap").slideUp(0).attr 'aria-hidden', 'true'
     $("#" + day).val("")
     $("#" + month).val("")
     $("#" + year).val("")

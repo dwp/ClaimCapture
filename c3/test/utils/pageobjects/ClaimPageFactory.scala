@@ -8,8 +8,8 @@ import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s4_care_you_provide._
 import utils.pageobjects.s6_education._
-import utils.pageobjects.s7_employment._
-import utils.pageobjects.s8_self_employment._
+import utils.pageobjects.s8_employment._
+import utils.pageobjects.s7_self_employment._
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s11_pay_details._
 import utils.pageobjects.s10_information._

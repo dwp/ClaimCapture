@@ -1,0 +1,121 @@
+@(currentForm: Form[models.domain.BeenEmployed])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+
+@import scala.language.postfixOps
+@import views.html.helper._
+@import views.html.helper.base._
+@import utils.csrf.DwpCSRFFormHelper
+@import utils.helpers.CarersCrypto
+@import models.domain._
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+
+@nextSection = @{ if (SelfEmployment.visible) SelfEmployment.name else OtherMoney.name }
+
+@defining(lang) { implicit language =>
+
+@main("Your employment history - " + Messages("s7.longName"), Some(currentForm)) {
+
+    <fieldset id="jobs" class="form-elements results-detail" data-journey="carers-allowance:page:employment">
+
+        <legend class="heading-medium form-label-bold">@Html(Messages("tableTitle"))</legend>
+
+        <div class="data-table">
+    
+			<ul class="trip-data">
+			  
+			  	@claim.questionGroup[Jobs].map { jobs =>
+                    @for(job <- jobs) {
+                        @if(job.completed) {
+			  
+        				  	<li id="@job.iterationID" class="@job.iterationID">
+        				  	
+        					  	<h3 class="heading-small">@job.employerName</h3>
+        					  	
+        					  	<dl>
+        						  	<dt>@Html(Messages("startDateTable")):</dt>
+        						  	<dd>@{
+                                            job.jobStartDate match{
+                                                case startDate@DayMonthYear(Some(_),Some(_),Some(_), None, None)   =>
+                                                    startDate.`dd/MM/yyyy`
+                                                case _ =>
+                                                    Html(Messages("startDateLabel", claim.dateOfClaim.fold("")(dmy => (dmy - 1 months).`dd/MM/yyyy`)))
+                                            }
+                                        }
+                                    </dd>
+        					  	</dl>
+        					  	
+        						<div class="actions">
+        							<input type="button" id="changeButton" value="@Html(Messages("change"))">
+        							<input type="button" id="deleteButton" value="@Html(Messages("delete"))">
+        						</div>
+        					
+        				  	</li>
+				  	
+                        }
+                    }
+                }
+
+                <div class="prompt breaks-prompt validation-summary">
+                    @form(action = controllers.s8_employment.routes.Employment.delete, 'role -> "form"){
+                        <p class="normalMsg">@Html(Messages("deleteEmploymentMessage"))</p>
+                        <p class="warningMsg">@Html(Messages("deleteOneEmploymentMessage"))</p>
+                        @DwpCSRFFormHelper.formField
+                        @carersInputHidden(controllers.s8_employment.Employment.deleteForm("deleteId"))
+                        <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(Messages("no.delete"))">
+                        <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(Messages("yes.delete"))">
+                    }
+                </div>
+				  	
+			</ul>
+		  
+        </div>
+
+    </fieldset>
+    
+    @form(action = controllers.s8_employment.routes.G2BeenEmployed.submit(), 'role -> "form"){
+
+        @DwpCSRFFormHelper.formField
+
+        <fieldset class="form-elements">
+
+            <legend class="heading-medium form-label-bold">@Html(Messages("s7.g2"))</legend>
+
+            <ul>
+                @yesNoRadioGroup(currentForm("beenEmployed"),
+                    '_label -> Messages("beenEmployed", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(lang, dmy - 6 months))),
+                    'helperAbove -> Messages("beenEmployedSince6MonthsBeforeClaim.label.helper"))
+            </ul>
+
+            <div id="maxEmpWarningWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
+                <p>@Html(Messages("s7.g2.help2"))</p>
+            </div>
+
+        </fieldset>
+
+        <nav class="form-steps" role="navigation">
+            <ul>
+            	<li>
+                    <button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(isOptional=true)>
+                        @Html(Messages("form.next"))
+                    </button>
+                </li>
+                <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+            </ul>
+        </nav>
+ 
+    }
+
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s8_employment/jobs.js")'></script>
+
+    <script type="text/javascript">
+        $(function(){
+            window.initSummary("@CarersCrypto.encryptAES("deleteId")");
+            conditionRequired = window.initEvents("@CarersCrypto.encryptAES("beenEmployed")");
+            @ga.stagePrompt()
+            window.displayWarning("@CarersCrypto.encryptAES("beenEmployed_yes")", "@CarersCrypto.encryptAES("beenEmployed_no")");
+        })
+    </script>
+
+}
+}
