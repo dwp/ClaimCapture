@@ -34,7 +34,7 @@ object G11Break extends Controller with CachedClaim {
       "answer" -> nonEmptyText.verifying(validYesNo),
       "date" -> optional(dayMonthYear.verifying(validDate))
     )(YesNoWithDate.apply)(YesNoWithDate.unapply)
-      .verifying("required", YesNoWithDate.validate _)
+      .verifying("hasBreakEnded.date.required", YesNoWithDate.validate _)
 
   val form = Form(mapping(
     "iterationID" -> carersNonEmptyText,
@@ -61,7 +61,7 @@ object G11Break extends Controller with CachedClaim {
         .replaceError("wherePerson.text",errorRestrictedCharacters,FormError("wherePerson",errorRestrictedCharacters))
         .replaceError("start.date",errorRequired, FormError("start",errorRequired, Seq("This field is required")))
         .replaceError("hasBreakEnded.answer",errorRequired, FormError("hasBreakEnded.answer",errorRequired, Seq("This field is required")))
-        .replaceError("hasBreakEnded.date",errorRequired, FormError("hasBreakEnded.date",errorRequired, Seq("This field is required")))
+        .replaceError("hasBreakEnded","hasBreakEnded.date.required", FormError("hasBreakEnded.date",errorRequired, Seq("This field is required")))
         BadRequest(views.html.s4_care_you_provide.g11_break(fwe,backCall)(lang))
       },
       break => {
