@@ -1,0 +1,29 @@
+
+// Forms
+// ================================================================
+
+// External link SVG icon
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('../icons/external-link/icomoon.eot?kht9ny');
+	src:url('../icons/external-link/icomoon.eot?#iefixkht9ny') format('embedded-opentype'),
+		url('../icons/external-link/icomoon.ttf?kht9ny') format('truetype'),
+		url('../icons/external-link/icomoon.woff?kht9ny') format('woff'),
+		url('../icons/external-link/icomoon.svg?kht9ny#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.icon-link-external,
+[rel="external"] {
+	&:after {
+		font-family: 'icomoon';
+		font-size: 0.8em;
+		padding-left: 0.4em;
+		position: relative;
+		top: 0.1em;
+		display: inline-block;
+		content: "\e600";
+	}
+}
