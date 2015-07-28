@@ -15,12 +15,12 @@
 	border-bottom: 1px solid $grey-2;
 	background-image: url('/assets/images/mobile-nav.png');
 	background-repeat: no-repeat;
-	background-position: right 35px;
+	background-position: right -0.65em;
     &:hover {
         color: $link-hover-colour;
     }
-	&.accordion-open {
-		background-position: right -15px;	
+	.accordion-open & {
+		background-position: right 1.4em;	
 	}
 }
 

@@ -10,10 +10,10 @@ if (IE11) {
 $(function() {
 
     // Accordion
-    $(".accordion-content:not(.open)").css("display", "none");
+    $(".accordion:not(.accordion-open) .accordion-content").css("display", "none");
     $('.accordion-title').click(function(){
-       var labelText = $(this).text() === $(this).attr('data-close')? $(this).attr('data-initial') : $(this).attr('data-close');
-        $(this).toggleClass("accordion-open");
+		var labelText = $(this).text() === $(this).attr('data-close')? $(this).attr('data-initial') : $(this).attr('data-close');
+		$(this).parent().toggleClass('accordion-open');
         $(this).next(".accordion-content").slideToggle();
         $(this).text(labelText);
     });    

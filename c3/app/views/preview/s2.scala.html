@@ -45,20 +45,24 @@
     s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${contactDetails.postcode.getOrElse("")}"
 }
 
-<h2 class="heading-medium accordion-title">@Html(Messages("aboutYou.title"))</h2>
+<div class="accordion accordion-open">
 
-<div class="accordion-content open">
-	<table class="review">
-		@fieldWithLink("about_you_full_name", "name", titleNames)
-		@fieldWithLink("about_you_nino", "nationalInsuranceNumber", nino)
-		@fieldWithLink("about_you_dob", "dateOfBirth", yourDetails.dateOfBirth.`dd month, yyyy`)
-		@fieldWithLink("about_you_address", "address", addressPostcode)
-		@fieldWithLink("about_you_contact", "howWeContactYou", contactDetails.howWeContactYou)
-		@fieldWithLink("about_you_marital_status", "maritalStatusNQ", maritalStatus)
-		@fieldWithLink("about_you_claimDate", "dateOfClaim.simple", claimDate.dateOfClaim.`dd month, yyyy`)
-		@fieldWithLink("about_you_nationality", "yourNationality", nationality)
-		@fieldWithLink("about_you_abroad", "timeOutsideGB", Messages("label."+abroadForMoreThan52Weeks.anyTrips.toLowerCase))
-		@fieldWithLink("about_you_benefitsFromEEA", "benefitsFromEEA", Messages("label."+otherEEA.benefitsFromEEA))
-		@fieldWithLink("about_you_workingForEEA", "workingForEEA", Messages("label."+otherEEA.workingForEEA))
-	</table>
+	<h2 class="heading-medium accordion-title">@Html(Messages("aboutYou.title"))</h2>
+	
+	<div class="accordion-content">
+		<table class="review">
+			@fieldWithLink("about_you_full_name", "name", titleNames)
+			@fieldWithLink("about_you_nino", "nationalInsuranceNumber", nino)
+			@fieldWithLink("about_you_dob", "dateOfBirth", yourDetails.dateOfBirth.`dd month, yyyy`)
+			@fieldWithLink("about_you_address", "address", addressPostcode)
+			@fieldWithLink("about_you_contact", "howWeContactYou", contactDetails.howWeContactYou)
+			@fieldWithLink("about_you_marital_status", "maritalStatusNQ", maritalStatus)
+			@fieldWithLink("about_you_claimDate", "dateOfClaim.simple", claimDate.dateOfClaim.`dd month, yyyy`)
+			@fieldWithLink("about_you_nationality", "yourNationality", nationality)
+			@fieldWithLink("about_you_abroad", "timeOutsideGB", Messages("label."+abroadForMoreThan52Weeks.anyTrips.toLowerCase))
+			@fieldWithLink("about_you_benefitsFromEEA", "benefitsFromEEA", Messages("label."+otherEEA.benefitsFromEEA))
+			@fieldWithLink("about_you_workingForEEA", "workingForEEA", Messages("label."+otherEEA.workingForEEA))
+		</table>
+	</div>
+
 </div>

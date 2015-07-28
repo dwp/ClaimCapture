@@ -41,23 +41,26 @@
 @breaksAnswer = @{
     Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) Messages("breaks.details",breaks.breaks.length) else "")
 }
+<div class="accordion accordion-open">
 
-<h2 class="heading-medium accordion-title">@Html(Messages("careYouProvide"))</h2>
+	<h2 class="heading-medium accordion-title">@Html(Messages("careYouProvide"))</h2>
+	
+	<div class="accordion-content">
+		<table class="review">
+			@if(showHidePartnerDetails){
+			    @fieldWithLink("care_you_provide_name", "name", partnerTitleName)
+			    @if(theirPersonalDetails.nationalInsuranceNumber.isDefined){
+			        @defining(theirPersonalDetails.nationalInsuranceNumber.get){ nino =>
+			            @fieldWithLink("care_you_provide_nino", "nationalInsuranceNumber", ninoNumber(nino))
+			        }
+			    }
+			    @fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`)
+			}
+			@fieldWithLink("care_you_provide_address", "address", addressLine, disableLink = livesSameAddress)
+			@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship)
+			@fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(Messages("label."+abouTheCare.spent35HoursCaring))}")
+			@fieldWithLink("care_you_provide_anyBreaks", "anyBreaks", Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) Messages("breaks.details",breaks.breaks.length) else ""))
+		</table>
+	</div>
 
-<div class="accordion-content open">
-	<table class="review">
-		@if(showHidePartnerDetails){
-		    @fieldWithLink("care_you_provide_name", "name", partnerTitleName)
-		    @if(theirPersonalDetails.nationalInsuranceNumber.isDefined){
-		        @defining(theirPersonalDetails.nationalInsuranceNumber.get){ nino =>
-		            @fieldWithLink("care_you_provide_nino", "nationalInsuranceNumber", ninoNumber(nino))
-		        }
-		    }
-		    @fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`)
-		}
-		@fieldWithLink("care_you_provide_address", "address", addressLine, disableLink = livesSameAddress)
-		@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship)
-		@fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(Messages("label."+abouTheCare.spent35HoursCaring))}")
-		@fieldWithLink("care_you_provide_anyBreaks", "anyBreaks", Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) Messages("breaks.details",breaks.breaks.length) else ""))
-	</table>
 </div>
