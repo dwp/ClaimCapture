@@ -7,6 +7,7 @@ import play.api.cache.Cache
 import play.api.test.Helpers._
 import play.api.test.FakeRequest
 import utils.WithApplication
+import play.api.data.Forms._
 
 class G10BreaksInCareSpec extends Specification with Tags {
   "Breaks from care" should {
@@ -60,7 +61,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
         "whereYou.answer" -> "Holiday",
         "wherePerson.answer" -> "Holiday",
         "medicalDuringBreak" -> "no",
-        "doNotKnowEndDate" -> "yes")
+        "hasBreakEnded.answer" -> "no")
 
       val result1 = G11Break.submit(request1)
       redirectLocation(result1) should beSome("/care-you-provide/breaks-in-care")
@@ -85,7 +86,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
           "whereYou.answer" -> "Holiday",
           "wherePerson.answer" -> "Holiday",
           "medicalDuringBreak" -> "no",
-          "doNotKnowEndDate" -> "yes")
+          "hasBreakEnded.answer" -> "no")
       val result1 = G11Break.submit(request1)
       redirectLocation(result1) should beSome("/care-you-provide/breaks-in-care")
 
@@ -99,7 +100,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
           "whereYou.answer" -> "Holiday",
           "wherePerson.answer" -> "Holiday",
           "medicalDuringBreak" -> "no",
-          "doNotKnowEndDate" -> "yes")
+          "hasBreakEnded.answer" -> "no")
 
         val result = G11Break.submit(request)
         redirectLocation(result) should beSome("/care-you-provide/breaks-in-care")
@@ -118,7 +119,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
         "whereYou.answer" -> "Holiday",
         "wherePerson.answer" -> "Holiday",
         "medicalDuringBreak" -> "no",
-        "doNotKnowEndDate" -> "yes")
+        "hasBreakEnded.answer" -> "no")
 
       val result2 = G11Break.submit(request2)
       redirectLocation(result2) should beSome("/care-you-provide/breaks-in-care")
@@ -140,7 +141,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
         "whereYou.answer" -> "Holiday",
         "wherePerson.answer" -> "Holiday",
         "medicalDuringBreak" -> "no",
-        "doNotKnowEndDate" -> "yes")
+        "hasBreakEnded.answer" -> "no")
 
       val result = G11Break.submit(request)
 

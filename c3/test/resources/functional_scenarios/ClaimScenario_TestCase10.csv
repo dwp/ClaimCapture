@@ -50,6 +50,7 @@ About the care you provide,Breaks from Care,"Have you had any breaks from caring
 About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,
 About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_1,18/01/2010
 About the care you provide,About the breaks from care,Break start time?,AboutTheCareYouProvideBreakStartTime_1,10:15
+About the care you provide,About the breaks from care,Has this break ended?,AboutTheCareYouProvideHasBreakEnded_1,yes
 About the care you provide,About the breaks from care,Break end date?,AboutTheCareYouProvideBreakEndDate_1,22/01/2010
 About the care you provide,About the breaks from care,Break end time?,AboutTheCareYouProvideBreakEndTime_1,17:45
 About the care you provide,About the breaks from care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_1,In hospital

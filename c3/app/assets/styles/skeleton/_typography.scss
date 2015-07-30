@@ -14,19 +14,10 @@
 //  than with the usual font-family.
 
 // New Transport Light
-
-$NTA-Light:
-  "nta", 
-  Arial,
-  sans-serif;
+$NTA-Light: "nta", Arial, sans-serif;
 
 // New Transport Light with Tabular
-
-$NTA-Light-Tabular:
-  "ntatabularnumbers",
-  "nta", 
-  Arial,
-  sans-serif;
+$NTA-Light-Tabular: "ntatabularnumbers", "nta", Arial, sans-serif;
 
 // Helvetica Regular
 
@@ -38,9 +29,7 @@ $NTA-Light-Tabular:
        local("Helvetica");
 }
 
-$Helvetica-Regular:
-  "GDS-Logo",
-  sans-serif;
+$Helvetica-Regular: "GDS-Logo", sans-serif;
 
 // Font reset for print
 
@@ -72,8 +61,19 @@ $Print-reset: sans-serif;
 
 $is-print: false !default;
 
-@mixin _core-font-generator($font-size: 19px, $font-size-640: 16px, $font-size-print: 14pt, $line-height: (25 / 19), $line-height-640: (20 / 16), $tabular-numbers: false, $font-weight: 400) {
-    @if $tabular-numbers == true {
+@mixin _core-font-generator(
+	$font-size: 19px, 
+	$font-size-640: 16px, 
+	$font-size-print: 14pt, 
+	$line-height: (25 / 19), 
+	$line-height-640: (20 / 16), 
+	$tabular-numbers: false, 
+	$font-weight: 400
+) {
+    line-height: $line-height;
+    font-weight: $font-weight;
+    text-transform: none;
+    @if $tabular-numbers {
         font-family: $NTA-Light-Tabular;
     } @else if $is-print {
         font-family: $Print-reset;
@@ -85,101 +85,271 @@ $is-print: false !default;
     } @else {
         font-size: $font-size-print;
     }
-    line-height: $line-height;
-    font-weight: $font-weight;
-    text-transform: none;
     @media (max-width: 640px) {
         font-size: $font-size-640;
         line-height: $line-height-640;
     }
 }
 
-@mixin core-80($line-height: (80 / 80), $line-height-640: (55 / 53), $tabular-numbers: false, $font-weight: 400) {
+@mixin core-80(
+	$line-height: (80 / 80), 
+	$line-height-640: (55 / 53), 
+	$tabular-numbers: false, 
+	$font-weight: 400
+) {
     $font-size: 80px;
     $font-size-640: 53px;
     $font-size-print: 28pt;
-    @include _core-font-generator($font-size, $font-size-640, $font-size-print, $line-height, $line-height-640, $tabular-numbers, $font-weight);
+    @include _core-font-generator(
+		$font-size, 
+		$font-size-640, 
+		$font-size-print, 
+		$line-height, 
+		$line-height-640, 
+		$tabular-numbers, 
+		$font-weight
+	);
 }
 
-@mixin core-48($line-height: (50 / 48), $line-height-640: (35 / 32), $tabular-numbers: false, $font-weight: 400) {
+@mixin core-48(
+	$line-height: (50 / 48), 
+	$line-height-640: (35 / 32), 
+	$tabular-numbers: false, 
+	$font-weight: 400
+) {
     $font-size: 48px;
     $font-size-640: 32px;
     $font-size-print: 18pt;
-    @include _core-font-generator($font-size, $font-size-640, $font-size-print, $line-height, $line-height-640, $tabular-numbers, $font-weight);
+    @include _core-font-generator(
+		$font-size, 
+		$font-size-640, 
+		$font-size-print, 
+		$line-height, 
+		$line-height-640, 
+		$tabular-numbers, 
+		$font-weight
+	);
 }
 
-@mixin core-36($line-height: (40 / 36), $line-height-640: (25 / 24), $tabular-numbers: false, $font-weight: 400) {
+@mixin core-36(
+	$line-height: (40 / 36), 
+	$line-height-640: (25 / 24), 
+	$tabular-numbers: false, 
+	$font-weight: 400
+) {
     $font-size: 36px;
     $font-size-640: 24px;
     $font-size-print: 18pt;
-    @include _core-font-generator($font-size, $font-size-640, $font-size-print, $line-height, $line-height-640, $tabular-numbers, $font-weight);
+    @include _core-font-generator(
+		$font-size, 
+		$font-size-640, 
+		$font-size-print, 
+		$line-height, 
+		$line-height-640, 
+		$tabular-numbers, 
+		$font-weight
+	);
 }
 
-@mixin core-27($line-height: (30 / 27), $line-height-640: (20 / 18), $tabular-numbers: false, $font-weight: 400) {
+@mixin core-27(
+	$line-height: (30 / 27), 
+	$line-height-640: (20 / 18), 
+	$tabular-numbers: false, 
+	$font-weight: 400) {
     $font-size: 27px;
     $font-size-640: 20px;
     $font-size-print: 16pt;
-    @include _core-font-generator($font-size, $font-size-640, $font-size-print, $line-height, $line-height-640, $tabular-numbers, $font-weight);
+    @include _core-font-generator(
+		$font-size, 
+		$font-size-640, 
+		$font-size-print, 
+		$line-height, 
+		$line-height-640, 
+		$tabular-numbers, 
+		$font-weight
+	);
 }
 
-@mixin core-24($line-height: (30 / 24), $line-height-640: (24 / 20), $tabular-numbers: false, $font-weight: 400) {
+@mixin core-24(
+	$line-height: (30 / 24), 
+	$line-height-640: (24 / 20), 
+	$tabular-numbers: false,
+	$font-weight: 400
+) {
     $font-size: 24px;
     $font-size-640: 18px;
     $font-size-print: 16pt;
-    @include _core-font-generator($font-size, $font-size-640, $font-size-print, $line-height, $line-height-640, $tabular-numbers, $font-weight);
+    @include _core-font-generator(
+		$font-size, 
+		$font-size-640, 
+		$font-size-print, 
+		$line-height, 
+		$line-height-640, 
+		$tabular-numbers, 
+		$font-weight
+	);
 }
 
-@mixin core-19($line-height: (25 / 19), $line-height-640: (20 / 16), $tabular-numbers: false, $font-weight: 400) {
+@mixin core-19(
+	$line-height: (25 / 19), 
+	$line-height-640: (20 / 16), 
+	$tabular-numbers: false, 
+	$font-weight: 400
+) {
     $font-size: 19px;
     $font-size-640: 16px;
     $font-size-print: 14pt;
-    @include _core-font-generator($font-size, $font-size-640, $font-size-print, $line-height, $line-height-640, $tabular-numbers, $font-weight);
+    @include _core-font-generator(
+		$font-size, 
+		$font-size-640, 
+		$font-size-print, 
+		$line-height, 
+		$line-height-640, 
+		$tabular-numbers, 
+		$font-weight
+	);
 }
 
-@mixin core-16($line-height: (20 / 16), $line-height-640: (16 / 14), $tabular-numbers: false, $font-weight: 400) {
+@mixin core-16(
+	$line-height: (20 / 16), 
+	$line-height-640: (16 / 14), 
+	$tabular-numbers: false, 
+	$font-weight: 400
+) {
     $font-size: 16px;
     $font-size-640: 14px;
     $font-size-print: 12pt;
-    @include _core-font-generator($font-size, $font-size-640, $font-size-print, $line-height, $line-height-640, $tabular-numbers, $font-weight);
+    @include _core-font-generator(
+		$font-size, 
+		$font-size-640, 
+		$font-size-print, 
+		$line-height, 
+		$line-height-640, 
+		$tabular-numbers, 
+		$font-weight
+	);
 }
 
-@mixin core-14($line-height: (20 / 14), $line-height-640: (15 / 12), $tabular-numbers: false, $font-weight: 400) {
+@mixin core-14(
+	$line-height: (20 / 14), 
+	$line-height-640: (15 / 12), 
+	$tabular-numbers: false, 
+	$font-weight: 400
+) {
     $font-size: 14px;
     $font-size-640: 12px;
     $font-size-print: 11pt;
-    @include _core-font-generator($font-size, $font-size-640, $font-size-print, $line-height, $line-height-640, $tabular-numbers, $font-weight);
+    @include _core-font-generator(
+		$font-size, 
+		$font-size-640, 
+		$font-size-print,
+		$line-height, 
+		$line-height-640, 
+		$tabular-numbers, 
+		$font-weight
+	);
 }
 
-@mixin bold-80($line-height: (80 / 80), $line-height-640: (55 / 53), $tabular-numbers: false) {
-    @include core-80($line-height, $line-height-640, $tabular-numbers: $tabular-numbers, $font-weight: 700);
+@mixin bold-80(
+	$line-height: (80 / 80), 
+	$line-height-640: (55 / 53), 
+	$tabular-numbers: false
+) {
+    @include core-80(
+		$line-height, 
+		$line-height-640, $tabular-numbers: $tabular-numbers, 
+		$font-weight: 700
+	);
 }
 
-@mixin bold-48($line-height: (50 / 48), $line-height-640: (35 / 32), $tabular-numbers: false) {
-    @include core-48($line-height, $line-height-640, $tabular-numbers: $tabular-numbers, $font-weight: 700);
+@mixin bold-48(
+	$line-height: (50 / 48), 
+	$line-height-640: (35 / 32), 
+	$tabular-numbers: false
+) {
+    @include core-48(
+		$line-height, 
+		$line-height-640, 
+		$tabular-numbers: $tabular-numbers, 
+		$font-weight: 700
+	);
 }
 
-@mixin bold-36($line-height: (40 / 36), $line-height-640: (25 / 24), $tabular-numbers: false) {
-    @include core-36($line-height, $line-height-640, $tabular-numbers: $tabular-numbers, $font-weight: 700);
+@mixin bold-36(
+	$line-height: (40 / 36), 
+	$line-height-640: (25 / 24), 
+	$tabular-numbers: false
+) {
+    @include core-36(
+		$line-height, 
+		$line-height-640, 
+		$tabular-numbers: $tabular-numbers, 
+		$font-weight: 700
+	);
 }
 
-@mixin bold-27($line-height: (30 / 27), $line-height-640: (20 / 18), $tabular-numbers: false) {
-    @include core-27($line-height, $line-height-640, $tabular-numbers: $tabular-numbers, $font-weight: 700);
+@mixin bold-27(
+	$line-height: (30 / 27), 
+	$line-height-640: (20 / 18), 
+	$tabular-numbers: false
+) {
+    @include core-27(
+		$line-height,
+		$line-height-640,
+		$tabular-numbers: $tabular-numbers,
+		$font-weight: 700
+	);
 }
 
-@mixin bold-24($line-height: (30 / 24), $line-height-640: (24 / 20), $tabular-numbers: false) {
-    @include core-24($line-height, $line-height-640, $tabular-numbers: $tabular-numbers, $font-weight: 700);
+@mixin bold-24(
+	$line-height: (30 / 24),
+	$line-height-640: (24 / 20),
+	$tabular-numbers: false
+) {
+    @include core-24(
+		$line-height,
+		$line-height-640, 
+		$tabular-numbers: $tabular-numbers,
+		$font-weight: 700
+	);
 }
 
-@mixin bold-19($line-height: (25 / 19), $line-height-640: (20 / 16), $tabular-numbers: false) {
-    @include core-19($line-height, $line-height-640, $tabular-numbers: $tabular-numbers, $font-weight: 700);
+@mixin bold-19(
+	$line-height: (25 / 19),
+	$line-height-640: (20 / 16),
+	$tabular-numbers: false
+) {
+    @include core-19(
+		$line-height,
+		$line-height-640,
+		$tabular-numbers: $tabular-numbers,
+		$font-weight: 700
+	);
 }
 
-@mixin bold-16($line-height: (20 / 16), $line-height-640: (16 / 14), $tabular-numbers: false) {
-    @include core-16($line-height, $line-height-640, $tabular-numbers: $tabular-numbers, $font-weight: 700);
+@mixin bold-16(
+	$line-height: (20 / 16),
+	$line-height-640: (16 / 14),
+	$tabular-numbers: false
+) {
+    @include core-16(
+		$line-height,
+		$line-height-640,
+		$tabular-numbers: $tabular-numbers,
+		$font-weight: 700
+	);
 }
 
-@mixin bold-14($line-height: (20 / 14), $line-height-640: (15 / 12), $tabular-numbers: false) {
-    @include core-14($line-height, $line-height-640, $tabular-numbers: $tabular-numbers, $font-weight: 700);
+@mixin bold-14(
+	$line-height: (20 / 14),
+	$line-height-640: (15 / 12),
+	$tabular-numbers: false) {
+    @include core-14(
+		$line-height,
+		$line-height-640,
+		$tabular-numbers: $tabular-numbers, 
+		$font-weight: 700
+	);
 }
 
 @mixin heading-80($tabular-numbers: false) {
@@ -260,29 +430,4 @@ $is-print: false !default;
         padding-top: 5px;
         padding-bottom: 5px;
     }
-}
-
-// External link styles for all font sizes
-
-@mixin external-link {
-    &:after {
-        content: "";
-		height: 0.72em;
-		width: 0.72em;
-		display: inline-block;
-		margin-left: 0.25em;
-        background-image: url("../images/external-link.png");
-        background-size: cover;
-        background-position: center top;
-        background-repeat: no-repeat;
-        @include device-pixel-ratio() {
-            background-image: url("../images/external-link-24x24.png");
-            background-size: cover;
-        }
-    }
-	&:hover {
-		&:after {
-			background-position: center 100%;
-		}
-	}
 }
