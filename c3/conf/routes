@@ -63,14 +63,14 @@ GET         /assets/*file                                               controll
 
 #Section 0 - Carer's Allowance
 ###############
-GET         /allowance/benefits                                         controllers.s0_carers_allowance.G1Benefits.present
-POST        /allowance/benefits                                         controllers.s0_carers_allowance.G1Benefits.submit
+GET         /allowance/benefits                                         controllers.s_eligibility.GBenefits.present
+POST        /allowance/benefits                                         controllers.s_eligibility.GBenefits.submit
 
-GET         /allowance/eligibility                                      controllers.s0_carers_allowance.G2Eligibility.present
-POST        /allowance/eligibility                                      controllers.s0_carers_allowance.G2Eligibility.submit
+GET         /allowance/eligibility                                      controllers.s_eligibility.GEligibility.present
+POST        /allowance/eligibility                                      controllers.s_eligibility.GEligibility.submit
 
-GET         /allowance/approve                                          controllers.s0_carers_allowance.CarersAllowance.approve
-POST        /allowance/approve                                          controllers.s0_carers_allowance.CarersAllowance.approveSubmit
+GET         /allowance/approve                                          controllers.s_eligibility.CarersAllowance.approve
+POST        /allowance/approve                                          controllers.s_eligibility.CarersAllowance.approveSubmit
 
 #Section 1 - Disclaimer
 ###############

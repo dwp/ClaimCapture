@@ -4,12 +4,12 @@ import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 import utils.WithBrowser
 import utils.pageobjects.{Page, PageObjects, TestData}
-import utils.pageobjects.s0_carers_allowance._
+import utils.pageobjects.s_eligibility._
 
 class BrowserIntegrationSpec extends Specification with Tags {
   "Browser" should {
     "not cache pages" in new WithBrowser with PageObjects {
-      val page = G1BenefitsPage(context)
+      val page = GBenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "PIP"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
@@ -29,7 +29,7 @@ class BrowserIntegrationSpec extends Specification with Tags {
       val eligibilityPageSecondTime = benefitsPage submitPage()
       val approvePageSecondTime = eligibilityPageSecondTime submitPage()
 
-      approvePageSecondTime.getClass mustEqual classOf[G6ApprovePage]
+      approvePageSecondTime.getClass mustEqual classOf[GApprovePage]
     }
   } section "integration"
 }

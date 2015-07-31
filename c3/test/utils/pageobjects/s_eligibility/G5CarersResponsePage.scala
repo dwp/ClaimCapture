@@ -1,4 +1,4 @@
-package utils.pageobjects.s0_carers_allowance
+package utils.pageobjects.s_eligibility
 
 import utils.WithBrowser
 import utils.pageobjects._

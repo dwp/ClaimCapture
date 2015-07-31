@@ -1,10 +1,10 @@
-package controllers.s0_carers_allowance
+package controllers.s_eligibility
 
 
 import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 
-class G6ApproveFormSpec extends Specification with Tags {
+class GApproveFormSpec extends Specification with Tags {
   "Carer's Allowance - Can you get Carer's Allowance - Form" should {
     val answerYes = "yes"
 

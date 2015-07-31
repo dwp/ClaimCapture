@@ -12,7 +12,7 @@
 @defining(lang) { implicit language =>
     @main(Messages("s0.progressbar.name") + " - " + Messages("s0.longName"), Some(currentForm),changing = true) {
 
-        @form(action = controllers.s0_carers_allowance.routes.G2Eligibility.submit, 'role -> "form") {
+        @form(action = controllers.s_eligibility.routes.GEligibility.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
 
@@ -33,7 +33,7 @@
 
         }
 
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/s0_carers_allowance/answerNoMessage.js")'></script>
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_eligibility/answerNoMessage.js")'></script>
 
         <script type="text/javascript">
             $(function () {

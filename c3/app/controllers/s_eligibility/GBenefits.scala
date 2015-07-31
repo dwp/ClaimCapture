@@ -1,4 +1,4 @@
-package controllers.s0_carers_allowance
+package controllers.s_eligibility
 
 import controllers.mappings.Mappings._
 import language.reflectiveCalls
@@ -11,21 +11,21 @@ import models.domain._
 import models.view.Navigable
 import play.api.Logger
 
-object G1Benefits extends Controller with CachedClaim with Navigable {
+object GBenefits extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "benefitsAnswer" -> nonEmptyText
   )(Benefits.apply)(Benefits.unapply))
 
   def present = newClaim {implicit claim =>  implicit request =>  lang =>
     Logger.debug(s"Starting new $cacheKey - ${claim.uuid}")
-    track(Benefits) { implicit claim => Ok(views.html.s0_carers_allowance.g1_benefits(form.fill(Benefits))(lang)) }
+    track(Benefits) { implicit claim => Ok(views.html.s_eligibility.g_benefits(form.fill(Benefits))(lang)) }
   }
 
   def submit = claiming ({implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        BadRequest(views.html.s0_carers_allowance.g1_benefits(formWithErrors)(lang))
+        BadRequest(views.html.s_eligibility.g_benefits(formWithErrors)(lang))
       },
-      f => claim.update(f) -> Redirect(routes.G2Eligibility.present()))
+      f => claim.update(f) -> Redirect(routes.GEligibility.present()))
   }, checkCookie=true)
 }

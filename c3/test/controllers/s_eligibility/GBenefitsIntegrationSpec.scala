@@ -1,27 +1,27 @@
-package controllers.s0_carers_allowance
+package controllers.s_eligibility
 
 import models.domain.Benefits
 import org.specs2.mutable.{Specification, Tags}
 import utils.WithBrowser
-import utils.pageobjects.s0_carers_allowance.{G2EligibilityPage, G1BenefitsPage}
+import utils.pageobjects.s_eligibility.{GEligibilityPage, GBenefitsPage}
 import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
 import utils.WithJsBrowser
 
-class G1BenefitsIntegrationSpec extends Specification with Tags {
+class GBenefitsIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {
     "be presented" in new WithJsBrowser  with PageObjects {
-		  val page = G1BenefitsPage(context)
+		  val page = GBenefitsPage(context)
       page goToThePage ()
     }
 
     "contain a link to gov.uk" in new WithJsBrowser  with PageObjects {
-		  val page = G1BenefitsPage(context)
+		  val page = GBenefitsPage(context)
       page goToThePage ()
       page.source must contain("https://www.gov.uk")
     }
 
     "contain errors on invalid submission" in new WithJsBrowser  with PageObjects {
-		  val page = G1BenefitsPage(context)
+		  val page = GBenefitsPage(context)
       val claim = new TestData
       page goToThePage()
       val pageWithErrors = page.submitPage()
@@ -29,7 +29,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
     }
     
     "accept submit if all mandatory fields are populated" in new WithJsBrowser  with PageObjects {
-		  val page = G1BenefitsPage(context)
+		  val page = GBenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "AA"
       page goToThePage()
@@ -38,7 +38,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
     }
 
     "warn if answer is 'none of the benefits' to person get one of benefits" in new WithJsBrowser  with PageObjects {
-		  val page = G1BenefitsPage(context)
+		  val page = GBenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "NONE"
       page goToThePage()
@@ -69,7 +69,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
   } section("integration", models.domain.CarersAllowance.id)
 
   private def verifyAnswerMessageAndSubmit(benefitAnswer:String, context:PageObjectsContext) = {
-    val page = G1BenefitsPage(context)
+    val page = GBenefitsPage(context)
     val claim = new TestData
     claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = benefitAnswer
     page goToThePage()
@@ -79,6 +79,6 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
 
     val nextPage = page submitPage()
 
-    nextPage must beAnInstanceOf[G2EligibilityPage]
+    nextPage must beAnInstanceOf[GEligibilityPage]
   }
 }

@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.{WebDriverHelper, WithBrowser}
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s1_start_of_process.{G2ReportAChangeInYourCircumstancesPage, G1ReportChangesPage}
-import utils.pageobjects.s0_carers_allowance.{G1BenefitsPage, G2EligibilityPage}
+import utils.pageobjects.s_eligibility.{GBenefitsPage, GEligibilityPage}
 
 import scala.collection.JavaConversions._
 import utils.WithJsBrowser
@@ -14,8 +14,8 @@ class BackButtonPageIntegrationSpec extends Specification with Tags {
   "Back button page" should {
     "show if browser back button clicked in claim Thank You page" in new WithJsBrowser  with PageObjects{
 
-      val benefits = new G1BenefitsPage(context).goToThePage()
-      val hours = new G2EligibilityPage(context).goToThePage()
+      val benefits = new GBenefitsPage(context).goToThePage()
+      val hours = new GEligibilityPage(context).goToThePage()
 
       browser goTo "/thankyou/apply-carers"
       browser url() mustEqual "/thankyou/apply-carers"

@@ -24,7 +24,7 @@
 @defining(lang) { implicit language =>
 @main(Messages("s0.g1") + " - " + Messages("s0.longName"), Some(currentForm),false) {
 
-    @form(action = controllers.s0_carers_allowance.routes.G1Benefits.submit, 'role -> "form") {
+    @form(action = controllers.s_eligibility.routes.GBenefits.submit, 'role -> "form") {
 
         @DwpCSRFFormHelper.formField
 	
@@ -55,7 +55,7 @@
 
     }
 
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/s0_carers_allowance/answerNoBenefitsMessage.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s_eligibility/answerNoBenefitsMessage.js")'></script>
 
     <script type="text/javascript">
         $(function () {

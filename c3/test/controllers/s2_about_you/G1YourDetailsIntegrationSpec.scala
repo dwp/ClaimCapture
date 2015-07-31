@@ -6,7 +6,7 @@ import utils.WithBrowser
 import utils.pageobjects.common.ClaimHelpPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s2_about_you._
-import utils.pageobjects.s0_carers_allowance.G6ApprovePage
+import utils.pageobjects.s_eligibility.GApprovePage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects._
 import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
@@ -27,11 +27,11 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
 
     "navigate back to approve page" in new WithBrowser with PageObjects{
 			val page =  G1YourDetailsPage(context)
-      browser goTo G6ApprovePage.url
+      browser goTo GApprovePage.url
 
       page goToThePage()
       val backPage = page goBack()
-      backPage must beAnInstanceOf[G6ApprovePage]
+      backPage must beAnInstanceOf[GApprovePage]
     }
 
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{

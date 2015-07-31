@@ -1,16 +1,16 @@
-package controllers.s0_carers_allowance
+package controllers.s_eligibility
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain._
-import controllers.s0_carers_allowance
+import controllers.s_eligibility
 import models.domain.Claim
 import models.view.CachedClaim
 import utils.WithApplication
 
-class G6ApproveSpec extends Specification with Tags {
+class GApproveSpec extends Specification with Tags {
   """Can you get Carer's Allowance""" should {
     "acknowledge that the carer is eligible for allowance" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
@@ -20,7 +20,7 @@ class G6ApproveSpec extends Specification with Tags {
 
       Cache.set(claimKey, claim)
 
-      val result = s0_carers_allowance.CarersAllowance.approve(request)
+      val result = s_eligibility.CarersAllowance.approve(request)
       contentAsString(result) must contain("section class=\"prompt e-prompt\"")
     }
 
@@ -32,7 +32,7 @@ class G6ApproveSpec extends Specification with Tags {
 
       Cache.set(claimKey, claim)
 
-      val result = s0_carers_allowance.CarersAllowance.approve(request)
+      val result = s_eligibility.CarersAllowance.approve(request)
 
       contentAsString(result) must contain("section class=\"prompt e-prompt\"")
     }

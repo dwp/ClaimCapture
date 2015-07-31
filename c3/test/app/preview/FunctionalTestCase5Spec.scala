@@ -1,7 +1,7 @@
 package app.preview
 
 import utils.WithJsBrowser
-import utils.pageobjects.s0_carers_allowance.G1BenefitsPage
+import utils.pageobjects.s_eligibility.GBenefitsPage
 import utils.pageobjects._
 import app.FunctionalTestCommon
 import utils.pageobjects.preview.PreviewPage
@@ -15,7 +15,7 @@ class FunctionalTestCase5Spec extends FunctionalTestCommon {
     "Successfully run absolute Claim Test Case 5" in new WithJsBrowser with PageObjects {
       import Data.displaying
 
-      val page = G1BenefitsPage(context)
+      val page = GBenefitsPage(context)
       implicit val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase5.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, PreviewPage.url)

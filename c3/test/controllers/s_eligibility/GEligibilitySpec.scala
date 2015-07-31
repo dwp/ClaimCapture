@@ -1,4 +1,4 @@
-package controllers.s0_carers_allowance
+package controllers.s_eligibility
 
 import models.domain._
 import org.specs2.mutable.{Specification, Tags}
@@ -6,7 +6,7 @@ import play.api.test.Helpers._
 import play.api.test.FakeRequest
 import utils.WithApplication
 
-class G2EligibilitySpec extends Specification with Tags {
+class GEligibilitySpec extends Specification with Tags {
   "Carer's Allowance - Hours - Controller" should {
     val answerHours = "yes"
     val answerOver16 = "no"
@@ -17,7 +17,7 @@ class G2EligibilitySpec extends Specification with Tags {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = controllers.s0_carers_allowance.G2Eligibility.present(request)
+      val result = controllers.s_eligibility.GEligibility.present(request)
       status(result) mustEqual OK
     }
 
@@ -25,7 +25,7 @@ class G2EligibilitySpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody("hours.answer" -> "")
 
-      val result = controllers.s0_carers_allowance.G2Eligibility.submit(request)
+      val result = controllers.s_eligibility.GEligibility.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -33,14 +33,14 @@ class G2EligibilitySpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody(eligibilityInput: _*)
 
-      val result = controllers.s0_carers_allowance.G2Eligibility.submit(request)
+      val result = controllers.s_eligibility.GEligibility.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     "add submitted form to the cached claim when answered 'yes'" in new WithApplication with Claiming {
       val request = FakeRequest().withFormUrlEncodedBody(eligibilityInput: _*)
 
-      val result = controllers.s0_carers_allowance.G2Eligibility.submit(request)
+      val result = controllers.s_eligibility.GEligibility.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.CarersAllowance)
       section.questionGroup(Eligibility) must beLike {
@@ -56,7 +56,7 @@ class G2EligibilitySpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody("hours.answer" -> "no","over16.answer" -> "no", "livesInGB.answer" -> "no")
 
-      val result = controllers.s0_carers_allowance.G2Eligibility.submit(request)
+      val result = controllers.s_eligibility.GEligibility.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.CarersAllowance)
       section.questionGroup(Eligibility) must beLike {

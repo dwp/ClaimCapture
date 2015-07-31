@@ -80,7 +80,7 @@
 
     }
 
-    @form(action = controllers.s0_carers_allowance.routes.CarersAllowance.approveSubmit, 'role -> "form") {
+    @form(action = controllers.s_eligibility.routes.CarersAllowance.approveSubmit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
         @carersInputHidden(currentForm("allowedToContinue"),
             'hiddenValue -> approved)
@@ -128,7 +128,7 @@
         }
     </script>
 
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/s0_carers_allowance/g6_approve.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s_eligibility/g_approve.js")'></script>
 
     <script type="text/javascript">
         $(function(){

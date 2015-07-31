@@ -1,20 +1,20 @@
-package controllers.s0_carers_allowance
+package controllers.s_eligibility
 
 import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import utils.pageobjects.{PageObjects, TestData}
-import utils.pageobjects.s0_carers_allowance._
+import utils.pageobjects.s_eligibility._
 
-class G2EligibilityIntegrationSpec extends Specification with Tags {
+class GEligibilityIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {
     "be presented" in new WithBrowser with PageObjects{
-			val page =  G2EligibilityPage(context)
+			val page =  GEligibilityPage(context)
       page goToThePage ()
     }
 
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with PageObjects{
-			val page =  G2EligibilityPage(context)
+			val page =  GEligibilityPage(context)
         val claim = new TestData
         claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = ""
         page goToThePage()
@@ -25,7 +25,7 @@ class G2EligibilityIntegrationSpec extends Specification with Tags {
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
-			val page =  G2EligibilityPage(context)
+			val page =  GEligibilityPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "yes"
@@ -36,7 +36,7 @@ class G2EligibilityIntegrationSpec extends Specification with Tags {
     }
     
     "navigate to next page on valid submission" in new WithBrowser with PageObjects{
-			val page =  G2EligibilityPage(context)
+			val page =  GEligibilityPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "yes"
@@ -46,7 +46,7 @@ class G2EligibilityIntegrationSpec extends Specification with Tags {
 
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G6ApprovePage]
+      nextPage must beAnInstanceOf[GApprovePage]
     }
 
   } section("integration", models.domain.CarersAllowance.id)

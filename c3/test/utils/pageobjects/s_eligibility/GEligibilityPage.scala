@@ -1,22 +1,22 @@
-package utils.pageobjects.s0_carers_allowance
+package utils.pageobjects.s_eligibility
 
 import utils.WithBrowser
 import utils.pageobjects._
 
-final class G2EligibilityPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G2EligibilityPage.url) {
+final class GEligibilityPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GEligibilityPage.url) {
   declareYesNo("#hours_answer", "CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring")
   declareYesNo("#over16_answer", "CanYouGetCarersAllowanceAreYouAged16OrOver")
   declareYesNo("#livesInGB_answer", "CanYouGetCarersAllowanceDoYouNormallyLiveinGb")
 }
 
-object G2EligibilityPage {
+object GEligibilityPage {
   val url = "/allowance/eligibility"
 
-  def apply(ctx:PageObjectsContext) = new G2EligibilityPage(ctx)
+  def apply(ctx:PageObjectsContext) = new GEligibilityPage(ctx)
 }
 
-trait G2EligibilityPageContext extends PageContext {
+trait GEligibilityPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2EligibilityPage(PageObjectsContext(browser))
+  val page = GEligibilityPage(PageObjectsContext(browser))
 }

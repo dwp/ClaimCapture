@@ -2,7 +2,7 @@ package utils.pageobjects
 
 
 import scala.language.dynamics
-import utils.pageobjects.s0_carers_allowance._
+import utils.pageobjects.s_eligibility._
 import utils.pageobjects.s1_disclaimer._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s3_your_partner._
@@ -35,10 +35,10 @@ object ClaimPageFactory extends PageFactory {
     // and there is no way to get that registration triggered automatically when test are loaded.
     val m: PartialFunction[String, Page] = {
       // S1
-      case G1BenefitsPage.url => G1BenefitsPage(ctx)
-      case G2EligibilityPage.url => G2EligibilityPage(ctx)
+      case GBenefitsPage.url => GBenefitsPage(ctx)
+      case GEligibilityPage.url => GEligibilityPage(ctx)
       case G5CarersResponsePage.url => G5CarersResponsePage(ctx)
-      case G6ApprovePage.url => G6ApprovePage(ctx)
+      case GApprovePage.url => GApprovePage(ctx)
       //S1.5
       case G1ClaimDatePage.url => G1ClaimDatePage(ctx)
       // S2

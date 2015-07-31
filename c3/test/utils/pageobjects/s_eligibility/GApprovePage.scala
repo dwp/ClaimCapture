@@ -1,4 +1,4 @@
-package utils.pageobjects.s0_carers_allowance
+package utils.pageobjects.s_eligibility
 
 import utils.WithBrowser
 import utils.pageobjects._
@@ -8,7 +8,7 @@ import play.api.Logger
 /**
  * PageObject pattern associated to S0 carers allowance G5 approve page.
  */
-final class G6ApprovePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G6ApprovePage.url) {
+final class GApprovePage(ctx:PageObjectsContext) extends ClaimPage(ctx, GApprovePage.url) {
   declareYesNo("#answer", "CanYouGetCarersAllowanceApproveAnswer")
 
   def isApproved = {
@@ -22,15 +22,15 @@ final class G6ApprovePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G6Appro
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object G6ApprovePage {
+object GApprovePage {
   val url = "/allowance/approve"
 
-  def apply(ctx:PageObjectsContext) = new G6ApprovePage(ctx)
+  def apply(ctx:PageObjectsContext) = new GApprovePage(ctx)
 }
 
 /** The context for Specs tests */
-trait G6ApprovePageContext extends PageContext {
+trait GApprovePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G6ApprovePage (PageObjectsContext(browser))
+  val page = GApprovePage (PageObjectsContext(browser))
 }

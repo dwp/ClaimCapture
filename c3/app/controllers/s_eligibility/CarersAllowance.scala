@@ -1,4 +1,4 @@
-package controllers.s0_carers_allowance
+package controllers.s_eligibility
 
 import play.api.mvc._
 import models.view._
@@ -18,7 +18,7 @@ object CarersAllowance extends Controller with CachedClaim with Navigable {
     .verifying(errorRequired, mandatoryChecks _))
 
   def approve = claiming {implicit claim =>  implicit request =>  lang =>
-    track(Eligibility) { implicit claim => Ok(views.html.s0_carers_allowance.g6_approve(form.fill(ProceedAnyway))(lang)) }
+    track(Eligibility) { implicit claim => Ok(views.html.s_eligibility.g_approve(form.fill(ProceedAnyway))(lang)) }
   }
 
   def approveSubmit = claiming {implicit claim =>  implicit request =>  lang =>
@@ -26,7 +26,7 @@ object CarersAllowance extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => {
         Logger.info(s"${claim.key} ${claim.uuid} Form with errors: $formWithErrors")
-        BadRequest(views.html.s0_carers_allowance.g6_approve(formWithErrors)(lang))
+        BadRequest(views.html.s_eligibility.g_approve(formWithErrors)(lang))
       },
       f => {
         f.answer match {
