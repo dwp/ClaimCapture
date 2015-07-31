@@ -125,7 +125,7 @@ function getCookie(c_name) {
 
 function setCookie(c_name,value) {
     var c_value=escape(value);
-    document.cookie=c_name + "=" + c_value;
+    document.cookie=c_name + "=" + c_value+";path=/";
 }
 
 function trackTiming(category, variable, timemeasured){
