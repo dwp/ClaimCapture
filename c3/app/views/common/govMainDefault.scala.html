@@ -23,7 +23,7 @@
         <!--[if IE 8]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie8.css")" media="screen" rel="stylesheet" type="text/css"><![endif]-->
         
         <!-- Carer's Allowance stylesheet -->
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("styles/app_t.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("styles/app_t.min.css")?@{models.view.ClaimHandling.C3VERSION_VALUE}">
 
         <!-- To prevent call to /browserconfig.xml from IE11 and higher. We do not use notifications. -->
         <meta name="msapplication-config" content="none" />
