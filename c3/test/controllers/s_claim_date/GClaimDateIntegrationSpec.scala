@@ -7,7 +7,7 @@ import utils.pageobjects._
 import utils.pageobjects.s_about_you.GYourDetailsPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s4_care_you_provide.G7MoreAboutTheCarePage
+import utils.pageobjects.s_care_you_provide.GMoreAboutTheCarePage
 
 class GClaimDateIntegrationSpec extends Specification with Tags {
 

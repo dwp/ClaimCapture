@@ -9,7 +9,7 @@ import utils.pageobjects.preview.PreviewPage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
-import utils.pageobjects.s4_care_you_provide.G1TheirPersonalDetailsPage
+import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
 import utils.WithJsBrowser
 
 
@@ -159,7 +159,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
     partnerPage fillPageWith partnerClaim
     partnerPage submitPage()
 
-    val careYouProvidePage = G1TheirPersonalDetailsPage(context)
+    val careYouProvidePage = GTheirPersonalDetailsPage(context)
     careYouProvidePage goToThePage()
     careYouProvidePage fillPageWith careYouProvideData
 

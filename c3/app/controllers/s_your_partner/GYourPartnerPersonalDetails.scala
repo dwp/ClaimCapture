@@ -72,7 +72,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
           .replaceError("", "nationality.required", FormError("nationality", errorRequired))
         BadRequest(views.html.s_your_partner.g_yourPartnerPersonalDetails(formWithErrorsUpdate)(lang))
       },
-      f => claim.update(f) -> Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+      f => claim.update(f) -> Redirect(controllers.s_care_you_provide.routes.GTheirPersonalDetails.present())
     )
   }.withPreview()
 }

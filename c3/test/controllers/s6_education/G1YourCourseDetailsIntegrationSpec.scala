@@ -7,7 +7,7 @@ import utils.pageobjects._
 import utils.pageobjects.s6_education.G1YourCourseDetailsPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s4_care_you_provide.G10BreaksInCarePage
+import utils.pageobjects.s_care_you_provide.GBreaksInCarePage
 import utils.pageobjects.s8_employment.{G1EmploymentPage, G2BeenEmployedPage}
 
 class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {

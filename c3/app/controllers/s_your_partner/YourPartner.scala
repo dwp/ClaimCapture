@@ -18,5 +18,5 @@ object YourPartner extends Controller with CachedClaim with Navigable {
   }
 
   private def redirect(lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
-    claim -> Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+    claim -> Redirect(controllers.s_care_you_provide.routes.GTheirPersonalDetails.present())
 }

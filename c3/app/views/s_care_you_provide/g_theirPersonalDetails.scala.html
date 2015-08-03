@@ -1,0 +1,86 @@
+@(currentForm: Form[models.domain.TheirPersonalDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import play.api.i18n.{MMessages => Messages}
+@import models.domain.YourPartnerPersonalDetails
+@import utils.helpers.CarersCrypto
+@import controllers.mappings.Mappings._
+
+    @isPartnerPersonYouCareFor = @{
+        claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse("") == "yes")
+    }
+
+    @relationshipHelper() = @{
+        "relationship.helper" + (if(claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse(`no`) == `yes`)) ".partner" else "")
+    }
+
+    @defining(lang) { implicit language =>
+    @main(Messages("s4.g1") + " - " + Messages("s4.longName"), Some(currentForm)) {
+
+        @form(action = controllers.s_care_you_provide.routes.GTheirPersonalDetails.submit, 'role -> "form") {
+
+            @DwpCSRFFormHelper.formField
+
+                <fieldset class="form-elements" data-journey="carers-allowance:page:care-you-provide">
+
+                    <ul>
+
+                        @simpleDetailPlaceHolder(
+                            inputDef = Seq(
+                                titleSelect(currentForm),
+
+                                carersInputText(currentForm("firstName"), 'maxLength -> 17),
+
+                                carersInputText(currentForm("middleName"), 'maxLength -> 17,'ignoreOptional->true),
+
+                                carersInputText(currentForm("surname"), 'maxLength -> mappings.Mappings.thirtyfive),
+
+                                nationalInsuranceNumber(currentForm("nationalInsuranceNumber"),
+                                                                    'helperAbove -> Messages("nationalInsuranceNumber.helper.careYouProvide"),
+                                                                    'ignoreOptional -> true),
+
+                                dateOfBirth(currentForm("dateOfBirth"))
+                            ),
+                            'id -> "careYouProvideWrap"
+                        )
+
+                        @carersInputText(currentForm("relationship"), 'helperAbove -> Messages(relationshipHelper()), 'maxLength -> mappings.Mappings.thirtyfive)
+                        
+                        @yesNoRadioGroup(currentForm("liveAtSameAddressCareYouProvide"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
+
+                    </ul>
+                    
+                </fieldset>
+
+                <nav class="form-steps" role="navigation">
+                    <ul>
+                        <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                        <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+                    </ul>
+                </nav>
+  
+        }
+
+        <script type="text/javascript">
+            $ ( function ( ) {
+                @ga.stagePrompt()
+
+
+                window.showOrHideCareYouProvideDetails ( {
+                showOrHideDetails : @isPartnerPersonYouCareFor
+                } ) ;
+                window.otherTitle('@CarersCrypto.encryptAES("title")');
+            } )
+        </script>
+
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/otherTitle.js")'></script>
+
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_care_you_provide/g_theirPersonalDetails.js")'></script>
+
+    }
+}

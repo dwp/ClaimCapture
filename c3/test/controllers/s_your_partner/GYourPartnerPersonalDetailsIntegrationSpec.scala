@@ -3,7 +3,7 @@ package controllers.s_your_partner
 import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
-import utils.pageobjects.s4_care_you_provide.G1TheirPersonalDetailsPage
+import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
 import utils.pageobjects._
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
@@ -71,7 +71,7 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags
       partnerPage fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor()
       val theirPersonaDetailsPage = partnerPage submitPage()
 
-      theirPersonaDetailsPage must beAnInstanceOf[G1TheirPersonalDetailsPage]
+      theirPersonaDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
 
     }
 
@@ -84,7 +84,7 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags
 
       val theirPersonaDetailsPage = partnerPage submitPage()
 
-      theirPersonaDetailsPage must beAnInstanceOf[G1TheirPersonalDetailsPage]
+      theirPersonaDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
 
     }
 
@@ -105,7 +105,7 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags
       partnerPage fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareForWithBritishNationality()
       val theirPersonaDetailsPage = partnerPage submitPage()
 
-      theirPersonaDetailsPage must beAnInstanceOf[G1TheirPersonalDetailsPage]
+      theirPersonaDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
       theirPersonaDetailsPage goBack() must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
     }
 

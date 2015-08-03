@@ -109,21 +109,21 @@ POST        /your-partner/personal-details                              controll
 
 # Care you provide
 ###############
-GET         /care-you-provide/their-personal-details                    controllers.s4_care_you_provide.G1TheirPersonalDetails.present
-POST        /care-you-provide/their-personal-details                    controllers.s4_care_you_provide.G1TheirPersonalDetails.submit
+GET         /care-you-provide/their-personal-details                    controllers.s_care_you_provide.GTheirPersonalDetails.present
+POST        /care-you-provide/their-personal-details                    controllers.s_care_you_provide.GTheirPersonalDetails.submit
 
-GET         /care-you-provide/their-contact-details                     controllers.s4_care_you_provide.G2TheirContactDetails.present
-POST        /care-you-provide/their-contact-details                     controllers.s4_care_you_provide.G2TheirContactDetails.submit
+GET         /care-you-provide/their-contact-details                     controllers.s_care_you_provide.GTheirContactDetails.present
+POST        /care-you-provide/their-contact-details                     controllers.s_care_you_provide.GTheirContactDetails.submit
 
-GET         /care-you-provide/more-about-the-care                       controllers.s4_care_you_provide.G7MoreAboutTheCare.present
-POST        /care-you-provide/more-about-the-care                       controllers.s4_care_you_provide.G7MoreAboutTheCare.submit
+GET         /care-you-provide/more-about-the-care                       controllers.s_care_you_provide.GMoreAboutTheCare.present
+POST        /care-you-provide/more-about-the-care                       controllers.s_care_you_provide.GMoreAboutTheCare.submit
 
-GET         /care-you-provide/breaks-in-care                            controllers.s4_care_you_provide.G10BreaksInCare.present
-POST        /care-you-provide/breaks-in-care                            controllers.s4_care_you_provide.G10BreaksInCare.submit
-POST        /care-you-provide/delete-break-in-care                      controllers.s4_care_you_provide.G10BreaksInCare.delete
+GET         /care-you-provide/breaks-in-care                            controllers.s_care_you_provide.GBreaksInCare.present
+POST        /care-you-provide/breaks-in-care                            controllers.s_care_you_provide.GBreaksInCare.submit
+POST        /care-you-provide/delete-break-in-care                      controllers.s_care_you_provide.GBreaksInCare.delete
 
-GET         /care-you-provide/breaks/:id                                controllers.s4_care_you_provide.G11Break.present(id: String)
-POST        /care-you-provide/breaks                                    controllers.s4_care_you_provide.G11Break.submit
+GET         /care-you-provide/breaks/:id                                controllers.s_care_you_provide.GBreak.present(id: String)
+POST        /care-you-provide/breaks                                    controllers.s_care_you_provide.GBreak.submit
 
 # Education
 ###############

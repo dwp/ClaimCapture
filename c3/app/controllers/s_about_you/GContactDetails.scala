@@ -1,6 +1,6 @@
 package controllers.s_about_you
 
-import controllers.s4_care_you_provide.G2TheirContactDetails
+import controllers.s_care_you_provide.GTheirContactDetails
 import play.api.data.validation.Constraints
 
 import language.reflectiveCalls
@@ -48,7 +48,7 @@ object GContactDetails extends Controller with CachedClaim with Navigable {
 
         val updatedClaim = if (liveAtSameAddress) {
           val theirContactDetailsForm =
-            G2TheirContactDetails.form.fill(TheirContactDetails(address = contactDetails.address, postcode = contactDetails.postcode))
+            GTheirContactDetails.form.fill(TheirContactDetails(address = contactDetails.address, postcode = contactDetails.postcode))
           claim.update(theirContactDetailsForm.fold(p => TheirContactDetails(),p => p))
         }else{
           claim

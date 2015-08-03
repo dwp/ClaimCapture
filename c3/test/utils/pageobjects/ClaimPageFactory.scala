@@ -6,7 +6,7 @@ import utils.pageobjects.s_eligibility._
 import utils.pageobjects.s_disclaimer._
 import utils.pageobjects.s_about_you._
 import utils.pageobjects.s_your_partner._
-import utils.pageobjects.s4_care_you_provide._
+import utils.pageobjects.s_care_you_provide._
 import utils.pageobjects.s6_education._
 import utils.pageobjects.s8_employment._
 import utils.pageobjects.s7_self_employment._
@@ -56,13 +56,13 @@ object ClaimPageFactory extends PageFactory {
       // S3
       case GYourPartnerPersonalDetailsPage.url => GYourPartnerPersonalDetailsPage(ctx)
       // S4
-      case G1TheirPersonalDetailsPage.url => G1TheirPersonalDetailsPage(ctx)
-      case G2TheirContactDetailsPage.url => G2TheirContactDetailsPage(ctx)
-      case G7MoreAboutTheCarePage.url => G7MoreAboutTheCarePage(ctx)
+      case GTheirPersonalDetailsPage.url => GTheirPersonalDetailsPage(ctx)
+      case GTheirContactDetailsPage.url => GTheirContactDetailsPage(ctx)
+      case GMoreAboutTheCarePage.url => GMoreAboutTheCarePage(ctx)
     }.orElse[String, Page] {
       IterableNode(Breaks, ctx)(iteration => {
-        case G10BreaksInCarePage.url => G10BreaksInCarePage(ctx, iteration)
-        case G11BreakPage.url => G11BreakPage(ctx, iteration)
+        case GBreaksInCarePage.url => GBreaksInCarePage(ctx, iteration)
+        case GBreakPage.url => GBreakPage(ctx, iteration)
       })
     }.orElse[String, Page] {
       //S6
