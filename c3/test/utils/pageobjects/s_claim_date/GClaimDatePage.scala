@@ -1,4 +1,4 @@
-package utils.pageobjects.s1_2_claim_date
+package utils.pageobjects.s_claim_date
 
 import utils.WithBrowser
 import utils.pageobjects._
@@ -6,11 +6,11 @@ import utils.pageobjects._
 
 
 /**
- * PageObject for page s2_about_you g1_claimDate.
+ * PageObject for page s_claim_date g_claimDate.
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
-final class G1ClaimDatePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1ClaimDatePage.url) {
+final class GClaimDatePage(ctx:PageObjectsContext) extends ClaimPage(ctx, GClaimDatePage.url) {
   declareDate("#dateOfClaim", "ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart")
   declareYesNo("#beforeClaimCaring_answer", "ClaimDateDidYouCareForThisPersonfor35Hours")
   declareDate("#beforeClaimCaring_date", "ClaimDateWhenDidYouStartToCareForThisPerson")
@@ -20,15 +20,15 @@ final class G1ClaimDatePage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1Cla
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object G1ClaimDatePage {
+object GClaimDatePage {
   val url  = "/your-claim-date/claim-date"
 
-  def apply(ctx:PageObjectsContext) = new G1ClaimDatePage(ctx)
+  def apply(ctx:PageObjectsContext) = new GClaimDatePage(ctx)
 }
 
 /** The context for Specs tests */
-trait G1ClaimDatePageContext extends PageContext {
+trait GClaimDatePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1ClaimDatePage (PageObjectsContext(browser))
+  val page = GClaimDatePage (PageObjectsContext(browser))
 }

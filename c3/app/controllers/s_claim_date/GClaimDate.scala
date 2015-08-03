@@ -1,4 +1,4 @@
-package controllers.s1_2_claim_date
+package controllers.s_claim_date
 
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
@@ -10,7 +10,7 @@ import utils.helpers.CarersForm._
 import models.domain._
 import models.yesNo.YesNoWithDate
 
-object G1ClaimDate extends Controller with CachedClaim with Navigable {
+object GClaimDate extends Controller with CachedClaim with Navigable {
 
   val careMapping =
     "beforeClaimCaring" -> mapping(
@@ -25,14 +25,14 @@ object G1ClaimDate extends Controller with CachedClaim with Navigable {
   )(ClaimDate.apply)(ClaimDate.unapply))
 
   def present = claiming {implicit claim =>  implicit request =>  lang =>
-    track(ClaimDate) { implicit claim => Ok(views.html.s1_2_claim_date.g1_claimDate(form.fill(ClaimDate))(lang)) }
+    track(ClaimDate) { implicit claim => Ok(views.html.s_claim_date.g_claimDate(form.fill(ClaimDate))(lang)) }
   }
 
   def submit = claiming { implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("beforeClaimCaring", FormError("beforeClaimCaring.date", errorRequired))
-        BadRequest(views.html.s1_2_claim_date.g1_claimDate(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.s_claim_date.g_claimDate(formWithErrorsUpdate)(lang))
       },
       claimDate => claim.update(claimDate) -> Redirect("/about-you/your-details"))
   } withPreview()

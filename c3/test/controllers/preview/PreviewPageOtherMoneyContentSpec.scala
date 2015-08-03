@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import utils.pageobjects.{PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 
@@ -30,7 +30,7 @@ class PreviewPageOtherMoneyContentSpec extends Specification with Tags {
   } section "preview"
 
   def fillOtherMoneySection (context:PageObjectsContext) = {
-    val claimDatePage = G1ClaimDatePage(context)
+    val claimDatePage = GClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()
     claimDatePage fillPageWith claimDate

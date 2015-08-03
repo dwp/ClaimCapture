@@ -10,13 +10,13 @@ import utils.pageobjects.s6_education.G1YourCourseDetailsPage
 import utils.pageobjects.s8_employment._
 import utils.pageobjects.s7_self_employment.G1AboutSelfEmploymentPage
 import scala.Some
-import utils.pageobjects.s1_2_claim_date.{G1ClaimDatePage, G1ClaimDatePageContext}
+import utils.pageobjects.s_claim_date.{GClaimDatePage, GClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 
 class G2BeenEmployedIntegrationSpec extends Specification with Tags {
   "Been Employed" should {
     "present, having indicated that the carer has been employed" in new WithBrowser with PageObjects {
-      val claimDate = new G1ClaimDatePage(context) goToThePage()
+      val claimDate = new GClaimDatePage(context) goToThePage()
       claimDate.fillPageWith(s7SelfEmployedAndEmployed())
       claimDate.submitPage()
 
@@ -28,7 +28,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
     }
 
     """be bypassed and go onto "other money" having indicated that "employment" is not required.""" in new WithBrowser with PageObjects {
-      val claimDate = new G1ClaimDatePage(context) goToThePage()
+      val claimDate = new GClaimDatePage(context) goToThePage()
       claimDate.fillPageWith(s7NotEmployedNorSelfEmployed())
       claimDate.submitPage()
 
@@ -41,7 +41,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
     }
 
     """progress to next section i.e. "self employed".""" in new WithBrowser with PageObjects{
-      val claimDate = new G1ClaimDatePage(context) goToThePage()
+      val claimDate = new GClaimDatePage(context) goToThePage()
       claimDate.fillPageWith(s7SelfEmployedAndEmployed())
       claimDate.submitPage()
 
@@ -54,7 +54,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
     }
 
     "start employment entry" in new WithBrowser with PageObjects {
-      val claimDate = new G1ClaimDatePage(context) goToThePage()
+      val claimDate = new GClaimDatePage(context) goToThePage()
       claimDate.fillPageWith(s7EmployedNotSelfEmployed())
       claimDate.submitPage()
 
@@ -75,7 +75,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
     }
 
     """go back to "education".""" in new WithBrowser with PageObjects {
-      val claimDate = new G1ClaimDatePage(context) goToThePage()
+      val claimDate = new GClaimDatePage(context) goToThePage()
       claimDate.fillPageWith(s7EmployedNotSelfEmployed())
       claimDate.submitPage()
 
@@ -114,7 +114,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
   } section("integration", models.domain.Employed.id)
 }
 
-trait EmployedHistoryPage extends G1ClaimDatePageContext {
+trait EmployedHistoryPage extends GClaimDatePageContext {
   this: WithBrowser[_] =>
 
   def goToHistoryPage(employmentData:TestData) = {

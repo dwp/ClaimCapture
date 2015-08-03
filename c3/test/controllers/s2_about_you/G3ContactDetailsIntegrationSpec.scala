@@ -6,7 +6,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.{TestData, ClaimPageFactory, PageObjects}
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import org.openqa.selenium.By
 
 class G3ContactDetailsIntegrationSpec extends Specification with Tags {
@@ -77,7 +77,7 @@ class G3ContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "be able to navigate back " in new WithBrowser  with PageObjects{
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
       claimDatePage fillPageWith claimDate

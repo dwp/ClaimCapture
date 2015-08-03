@@ -6,7 +6,7 @@ import controllers.{ClaimScenarioFactory,PreviewTestUtils}
 import utils.pageobjects.s2_about_you.{G5AbroadForMoreThan52WeeksPage, G4NationalityAndResidencyPage}
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import app.MaritalStatus
 import utils.WithJsBrowser
 
@@ -99,7 +99,7 @@ class G4NationalityAndResidencyIntegrationSpec extends Specification with Tags {
   } section("integration", models.domain.AboutYou.id)
 
   def goToPreviewPage(context:PageObjectsContext):Page = {
-    val claimDatePage = G1ClaimDatePage(context)
+    val claimDatePage = GClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()
     claimDatePage fillPageWith claimDate

@@ -5,7 +5,7 @@ import utils.WithBrowser
 import utils.pageobjects.{TestData, PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 
 
@@ -51,7 +51,7 @@ class PreviewPagePartnerContentSpec extends Specification with Tags {
   } section "preview"
 
   def fillPartnerSection(context:PageObjectsContext, partnerClaim:TestData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()) = {
-    val claimDatePage = G1ClaimDatePage(context)
+    val claimDatePage = GClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()
     claimDatePage fillPageWith claimDate

@@ -16,7 +16,7 @@ import utils.pageobjects.s10_information._
 import utils.pageobjects.s12_consent_and_declaration._
 import utils.pageobjects.IterationManager._
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.common._
 
 /**
@@ -40,7 +40,7 @@ object ClaimPageFactory extends PageFactory {
       case G5CarersResponsePage.url => G5CarersResponsePage(ctx)
       case GApprovePage.url => GApprovePage(ctx)
       //S1.5
-      case G1ClaimDatePage.url => G1ClaimDatePage(ctx)
+      case GClaimDatePage.url => GClaimDatePage(ctx)
       // S2
       case G1YourDetailsPage.url => G1YourDetailsPage(ctx)
       case G2MaritalStatusPage.url => G2MaritalStatusPage(ctx)

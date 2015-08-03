@@ -8,7 +8,7 @@ import utils.pageobjects.s11_pay_details.G1HowWePayYouPageContext
 import utils.pageobjects.{Page, PageObjectsContext, PageObjects, TestData}
 import app._
 import play.api.i18n.Messages
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 
 class WebSearchSpec extends Specification with Tags{
   "Web Search Actions " should {
@@ -87,7 +87,7 @@ class WebSearchSpec extends Specification with Tags{
   }section "integration"
 
   def fillClaimDate (context:PageObjectsContext):Page = {
-    val claimDatePage = G1ClaimDatePage (context)
+    val claimDatePage = GClaimDatePage (context)
     val claimDate = ClaimScenarioFactory s12ClaimDate()
 
     claimDatePage goToThePage()

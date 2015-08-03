@@ -6,7 +6,7 @@ import controllers.{ClaimScenarioFactory, Formulate, BrowserMatchers}
 import utils.pageobjects.s_eligibility.GApprovePage
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s1_disclaimer.G1DisclaimerPage
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 
 class G1DisclaimerIntegrationSpec extends Specification with Tags {
   "Disclaimer" should {
@@ -19,7 +19,7 @@ class G1DisclaimerIntegrationSpec extends Specification with Tags {
       val disclaimerPage = G1DisclaimerPage(context) goToThePage()
       val claimDatePage = disclaimerPage submitPage()
 
-      claimDatePage must beAnInstanceOf[G1ClaimDatePage]
+      claimDatePage must beAnInstanceOf[GClaimDatePage]
     }
 
     "navigate back to approve page" in new WithBrowser with PageObjects {

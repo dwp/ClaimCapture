@@ -5,7 +5,7 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import play.api.Logger
 import controllers._
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects._
 import utils.pageobjects.s4_care_you_provide.{G7MoreAboutTheCarePage, G11BreakPage, G1TheirPersonalDetailsPage, G10BreaksInCarePage}
 import utils.pageobjects.preview.PreviewPage
@@ -26,7 +26,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
     }
 
     "display dynamic question text if user answered that they did NOT care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects{
-      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvide(false),G10BreaksInCarePage.url)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvide(false),G10BreaksInCarePage.url)
 
       Logger.info(breaksInCare.source)
 
@@ -36,14 +36,14 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
     "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (within 6 months)" in new WithBrowser with PageObjects{
       val claim = ClaimScenarioFactory.s4CareYouProvide(true)
       claim.ClaimDateWhenDidYouStartToCareForThisPerson = "10/08/2016"
-      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(claim,G10BreaksInCarePage.url)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(claim,G10BreaksInCarePage.url)
       breaksInCare.source contains "Have you had any breaks from caring for this person since 10 August 2016?" should beTrue
     }
 
     "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (more than 6 months)" in new WithBrowser with PageObjects{
       val claim = ClaimScenarioFactory.s4CareYouProvide(true)
       claim.ClaimDateWhenDidYouStartToCareForThisPerson = "10/02/2016"
-      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(claim,G10BreaksInCarePage.url)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(claim,G10BreaksInCarePage.url)
       breaksInCare.source contains "Have you had any breaks from caring for this person since 10 April 2016?" should beTrue
     }
 
@@ -63,7 +63,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
     }
 
     """allow a new break to be added but not record the "yes/no" answer""" in new WithBrowser with PageObjects {
-      val breaksInCare = G1ClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true),G10BreaksInCarePage.url,upToIteration = 2)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true),G10BreaksInCarePage.url,upToIteration = 2)
 
       breaksInCare.isElemSelected("#answer_yes") should beFalse
       breaksInCare.isElemSelected("#answer_no") should beFalse
@@ -130,7 +130,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
   } section("integration", models.domain.CareYouProvide.id)
 
   def goToPreviewPage(context:PageObjectsContext):Page = {
-    val claimDatePage = G1ClaimDatePage(context)
+    val claimDatePage = GClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()
     claimDatePage fillPageWith claimDate

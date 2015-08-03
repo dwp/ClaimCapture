@@ -1,4 +1,4 @@
-package controllers.s1_2_claim_date
+package controllers.s_claim_date
 
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
@@ -6,7 +6,7 @@ import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 import models.yesNo.YesNoWithDate
 
-class G1ClaimDateFormSpec  extends Specification with Tags {
+class GClaimDateFormSpec  extends Specification with Tags {
 
   val claimDateDay = 1
   val claimDateMonth = 1
@@ -19,7 +19,7 @@ class G1ClaimDateFormSpec  extends Specification with Tags {
   "Claim Date Form" should {
 
     "map data into case class" in {
-      G1ClaimDate.form.bind(
+      GClaimDate.form.bind(
         Map(
           "dateOfClaim.day" -> claimDateDay.toString,
           "dateOfClaim.month" -> claimDateMonth.toString,
@@ -36,7 +36,7 @@ class G1ClaimDateFormSpec  extends Specification with Tags {
     }
 
     "map data into case class when spent35HoursCaringBeforeClaim is no" in {
-      G1ClaimDate.form.bind(
+      GClaimDate.form.bind(
         Map(
           "dateOfClaim.day" -> claimDateDay.toString,
           "dateOfClaim.month" -> claimDateMonth.toString,
@@ -50,7 +50,7 @@ class G1ClaimDateFormSpec  extends Specification with Tags {
     }
 
     "have 2 mandatory fields" in {
-      G1ClaimDate.form.bind(
+      GClaimDate.form.bind(
         Map("" -> "")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(2)
@@ -61,7 +61,7 @@ class G1ClaimDateFormSpec  extends Specification with Tags {
     }
 
     "have 1 mandatory field when spent35HoursCaringBeforeClaim is yes" in {
-      G1ClaimDate.form.bind(
+      GClaimDate.form.bind(
         Map(
           "dateOfClaim.day" -> claimDateDay.toString,
           "dateOfClaim.month" -> claimDateMonth.toString,
@@ -75,7 +75,7 @@ class G1ClaimDateFormSpec  extends Specification with Tags {
     }
 
     "reject invalid date" in {
-      G1ClaimDate.form.bind(
+      GClaimDate.form.bind(
         Map(
           "dateOfClaim.day" -> claimDateDay.toString,
           "dateOfClaim.month" -> claimDateMonth.toString,
@@ -89,7 +89,7 @@ class G1ClaimDateFormSpec  extends Specification with Tags {
     }
 
     "reject invalid date when spent35HoursCaringBeforeClaim is yes" in {
-      G1ClaimDate.form.bind(
+      GClaimDate.form.bind(
         Map(
           "dateOfClaim.day" -> claimDateDay.toString,
           "dateOfClaim.month" -> claimDateMonth.toString,

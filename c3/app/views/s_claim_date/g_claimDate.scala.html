@@ -25,7 +25,7 @@
 
         @errorsSummary(claimDateForm)
 
-        @form(action = controllers.s1_2_claim_date.routes.G1ClaimDate.submit, 'role -> "form") {
+        @form(action = controllers.s_claim_date.routes.GClaimDate.submit, 'role -> "form") {
             @DwpCSRFFormHelper.formField
             <div class="form-elements">
 
@@ -52,7 +52,7 @@
             
         }
 
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/s1_2_claim_date/g1_claimDate.js")'></script>
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_claim_date/g_claimDate.js")'></script>
 
         <script type="text/javascript">
             $(function () {

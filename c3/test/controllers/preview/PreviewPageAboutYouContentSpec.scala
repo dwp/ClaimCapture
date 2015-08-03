@@ -5,7 +5,7 @@ import utils.WithBrowser
 import utils.pageobjects.{TestData, PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s2_about_you.G7OtherEEAStateOrSwitzerlandPage
 
 class PreviewPageAboutYouContentSpec extends Specification with Tags {
@@ -56,7 +56,7 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
   } section "preview"
 
   def fillAboutYouTheCarerSection(context:PageObjectsContext, claim:TestData = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()) = {
-    val claimDatePage = G1ClaimDatePage(context)
+    val claimDatePage = GClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()
     claimDatePage fillPageWith claimDate

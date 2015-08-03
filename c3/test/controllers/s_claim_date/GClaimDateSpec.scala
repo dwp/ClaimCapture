@@ -1,4 +1,4 @@
-package controllers.s1_2_claim_date
+package controllers.s_claim_date
 
 import models.domain._
 import models.view.CachedClaim
@@ -11,7 +11,7 @@ import controllers.mappings.Mappings._
 import utils.WithApplication
 import scala.Some
 
-class G1ClaimDateSpec extends Specification with Tags {
+class GClaimDateSpec extends Specification with Tags {
 
   val claimDateDay = 1
   val claimDateMonth = 1
@@ -41,7 +41,7 @@ class G1ClaimDateSpec extends Specification with Tags {
     "present 'Your claim date' " in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = G1ClaimDate.present(request)
+      val result = GClaimDate.present(request)
       status(result) mustEqual OK
     }
 
@@ -49,7 +49,7 @@ class G1ClaimDateSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody(claimDateInput: _*)
 
-      val result = G1ClaimDate.submit(request)
+      val result = GClaimDate.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(domain.YourClaimDate)
 
@@ -64,7 +64,7 @@ class G1ClaimDateSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody(claimDateInputSpent35HoursBeforeClaimNo: _*)
 
-      val result = G1ClaimDate.submit(request)
+      val result = GClaimDate.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(domain.YourClaimDate)
 
@@ -79,7 +79,7 @@ class G1ClaimDateSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody("foo" -> "bar")
 
-      val result = G1ClaimDate.submit(request)
+      val result = GClaimDate.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -87,7 +87,7 @@ class G1ClaimDateSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody(claimDateInput: _*)
 
-      val result = G1ClaimDate.submit(request)
+      val result = GClaimDate.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 

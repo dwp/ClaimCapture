@@ -5,7 +5,7 @@ import utils.{WebDriverHelper, WithBrowser}
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects._
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s4_care_you_provide.{G2TheirContactDetailsPage, G1TheirPersonalDetailsPage}
 import utils.WithJsBrowser
@@ -35,7 +35,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     }
 
     """navigate back to "Partner details - About your partner" when they have had a partner/spouse at any time since the claim date""" in new WithJsBrowser  with PageObjects {
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
       claimDatePage fillPageWith claimDate
@@ -52,7 +52,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
 
     
     "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithJsBrowser  with PageObjects {
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
       claimDatePage fillPageWith claimDate
@@ -77,7 +77,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "fields must not be visible if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithJsBrowser  with PageObjects {
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
       claimDatePage fillPageWith claimDate
@@ -96,7 +96,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "fields must be visible if user answered no to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithJsBrowser  with PageObjects {
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
       claimDatePage fillPageWith claimDate
@@ -148,7 +148,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
   } section("integration", models.domain.CareYouProvide.id)
 
   def goToPreviewPage(context:PageObjectsContext):Page = {
-    val claimDatePage = G1ClaimDatePage(context)
+    val claimDatePage = GClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()
     claimDatePage fillPageWith claimDate

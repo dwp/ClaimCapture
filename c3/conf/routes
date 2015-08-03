@@ -79,8 +79,8 @@ POST        /disclaimer/disclaimer                                      controll
 
 #Section 1.5
 ###############
-GET         /your-claim-date/claim-date                                 controllers.s1_2_claim_date.G1ClaimDate.present
-POST        /your-claim-date/claim-date                                 controllers.s1_2_claim_date.G1ClaimDate.submit
+GET         /your-claim-date/claim-date                                 controllers.s_claim_date.GClaimDate.present
+POST        /your-claim-date/claim-date                                 controllers.s_claim_date.GClaimDate.submit
 
 #Section 2
 ###############

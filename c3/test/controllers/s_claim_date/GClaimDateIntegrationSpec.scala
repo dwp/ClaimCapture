@@ -1,4 +1,4 @@
-package controllers.s1_2_claim_date
+package controllers.s_claim_date
 
 import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
@@ -6,20 +6,20 @@ import controllers.{ClaimScenarioFactory, PreviewTestUtils}
 import utils.pageobjects._
 import utils.pageobjects.s2_about_you.G1YourDetailsPage
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s4_care_you_provide.G7MoreAboutTheCarePage
 
-class G1ClaimDateIntegrationSpec extends Specification with Tags {
+class GClaimDateIntegrationSpec extends Specification with Tags {
 
   "Your claim date" should {
 
     "be presented " in new WithBrowser with PageObjects {
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
     }
 
     "navigate to next section" in new WithBrowser with PageObjects {
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claim = ClaimScenarioFactory.s12ClaimDateSpent35HoursYes()
       claimDatePage fillPageWith claim
@@ -27,7 +27,7 @@ class G1ClaimDateIntegrationSpec extends Specification with Tags {
     }
 
     "contains errors for optional mandatory data" in new WithBrowser with PageObjects {
-      val page = G1ClaimDatePage(context)
+      val page = GClaimDatePage(context)
       page goToThePage()
       val claim = new TestData
       claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "10/10/2016"
@@ -38,13 +38,13 @@ class G1ClaimDateIntegrationSpec extends Specification with Tags {
     }
 
     "start to care for the person to be displayed when back button is clicked" in new WithBrowser with PageObjects {
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claim = ClaimScenarioFactory.s12ClaimDateSpent35HoursYes()
       claimDatePage fillPageWith claim
       val nextPage = claimDatePage submitPage()
       val claimDatePageSecondTime = nextPage goBack ()
-      claimDatePageSecondTime must beAnInstanceOf[G1ClaimDatePage]
+      claimDatePageSecondTime must beAnInstanceOf[GClaimDatePage]
       claimDatePageSecondTime visible("#beforeClaimCaring_date_year") must beTrue
     }
 
@@ -56,7 +56,7 @@ class G1ClaimDateIntegrationSpec extends Specification with Tags {
       answerText(previewPage) mustEqual "10 October, 2016"
       val claimDatePage = previewPage.clickLinkOrButton(s"#$id")
 
-      claimDatePage must beAnInstanceOf[G1ClaimDatePage]
+      claimDatePage must beAnInstanceOf[GClaimDatePage]
       val modifiedData = new TestData
       modifiedData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "11/10/2016"
 
@@ -70,7 +70,7 @@ class G1ClaimDateIntegrationSpec extends Specification with Tags {
   } section("unit", models.domain.YourClaimDate.id)
 
   def goToPreviewPage(context:PageObjectsContext):Page = {
-    val claimDatePage = G1ClaimDatePage(context)
+    val claimDatePage = GClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDateSpent35HoursYes()
     claimDatePage fillPageWith claimDate

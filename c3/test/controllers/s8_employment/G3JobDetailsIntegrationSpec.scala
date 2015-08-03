@@ -1,7 +1,7 @@
 package controllers.s8_employment
 
 import utils.pageobjects.PageObjects
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s8_employment.{G2BeenEmployedPage, G1EmploymentPage, G5LastWagePage, G3JobDetailsPage}
 
 import language.reflectiveCalls
@@ -41,7 +41,7 @@ class G3JobDetailsIntegrationSpec extends Specification with Tags {
     }
 
     """go back to "employment history".""" in new WithBrowser with PageObjects{
-      val claimDate = new G1ClaimDatePage(context) goToThePage()
+      val claimDate = new GClaimDatePage(context) goToThePage()
       claimDate.fillPageWith(s7EmployedNotSelfEmployed())
       claimDate.submitPage()
 

@@ -16,7 +16,7 @@ object PreviewRouteUtils {
                         "about_you_address" -> g3ContactDetailsRoute,
                         "about_you_contact" -> g3ContactDetailsRoute,
                         "about_you_marital_status" -> g2MaritalStatusRoute,
-                        "about_you_claimDate" -> controllers.s1_2_claim_date.routes.G1ClaimDate.present.toString,
+                        "about_you_claimDate" -> controllers.s_claim_date.routes.GClaimDate.present.toString,
                         "about_you_nationality" -> g4NationalityRoute,
                         "about_you_abroad" -> controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.present.toString,
                         "about_you_benefitsFromEEA" -> g7OtherEEARoute,

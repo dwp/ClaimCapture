@@ -20,6 +20,6 @@ object G1Disclaimer extends Controller with CachedClaim with Navigable {
   def submit = claiming { implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s1_disclaimer.g1_disclaimer(formWithErrors)(lang)),
-      disclaimer => claim.update(disclaimer) -> Redirect(controllers.s1_2_claim_date.routes.G1ClaimDate.present()))
+      disclaimer => claim.update(disclaimer) -> Redirect(controllers.s_claim_date.routes.GClaimDate.present()))
   }
 }

@@ -6,7 +6,7 @@ import utils.WithBrowser
 import utils.pageobjects.common.ErrorPage
 import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s_eligibility._
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 
 class GApproveIntegrationSpec extends Specification with Tags {
   "Approve" should {
@@ -73,7 +73,7 @@ class GApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
       page goToThePage()
-      page runClaimWith (claim, G1ClaimDatePage.url)
+      page runClaimWith (claim, GClaimDatePage.url)
     }
 
     "If go to error page after this page. Retry allows to come back to this page" in new WithBrowser with PageObjects{

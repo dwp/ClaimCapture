@@ -8,7 +8,7 @@ import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s10_information.G1AdditionalInfoPage
 import app.AccountStatus
 import utils.pageobjects.{TestData, Page, PageObjects, PageObjectsContext}
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 
 class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tags {
   "Bank building society details" should {
@@ -50,7 +50,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
     }
 
     "be hidden when age is past 65 years at the claim date" in new WithBrowser with PageObjects{
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
       claimDatePage fillPageWith claimDate
@@ -64,7 +64,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
 
     "show bank page when claimant is less than 65 years at the claim date" in new WithBrowser with PageObjects{
 
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = new TestData
       claimDate.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "10/10/2012"

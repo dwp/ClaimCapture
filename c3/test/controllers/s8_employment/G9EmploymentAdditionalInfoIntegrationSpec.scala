@@ -7,7 +7,7 @@ import utils.pageobjects.s8_employment.{G2BeenEmployedPage, G8PensionAndExpenses
 import utils.pageobjects.s7_self_employment.G4SelfEmploymentPensionsAndExpensesPage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory._
 
 
@@ -22,7 +22,7 @@ class G9EmploymentAdditionalInfoIntegrationSpec extends Specification with Tags 
 
       val claim = ClaimScenarioFactory.s7SelfEmployedNotEmployed()
 
-      val claimDatePage = G1ClaimDatePage(context) goToThePage()
+      val claimDatePage = GClaimDatePage(context) goToThePage()
       claimDatePage fillPageWith claim
       claimDatePage submitPage()
 
@@ -65,7 +65,7 @@ class G9EmploymentAdditionalInfoIntegrationSpec extends Specification with Tags 
     "should be presented when self employment is answered no and employment yes" in new WithBrowser with PageObjects{
       val claim = ClaimScenarioFactory.s7EmployedNotSelfEmployed()
 
-      val claimDatePage = G1ClaimDatePage(context) goToThePage()
+      val claimDatePage = GClaimDatePage(context) goToThePage()
       claimDatePage fillPageWith ClaimScenarioFactory.s12ClaimDate()
       claimDatePage submitPage()
 
@@ -137,7 +137,7 @@ class G9EmploymentAdditionalInfoIntegrationSpec extends Specification with Tags 
   private def goToBeenEmployedPage(context:PageObjectsContext) = {
     val claim = ClaimScenarioFactory.s7SelfEmployedAndEmployed()
 
-    val claimDatePage = G1ClaimDatePage(context) goToThePage()
+    val claimDatePage = GClaimDatePage(context) goToThePage()
     claimDatePage fillPageWith claim
     claimDatePage submitPage()
 

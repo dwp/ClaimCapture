@@ -4,13 +4,13 @@ import play.api.test.TestBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.PageObjectsContext
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 
 trait AboutYouAndYourPartner {
 
   def aboutYouAndPartner(browser: TestBrowser) = {
     val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
-    val pageClaimDate = new G1ClaimDatePage(PageObjectsContext(browser))
+    val pageClaimDate = new GClaimDatePage(PageObjectsContext(browser))
     pageClaimDate goToThePage()
     pageClaimDate fillPageWith claimDate
 

@@ -5,7 +5,7 @@ import utils.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects._
 import utils.pageobjects.s6_education.G1YourCourseDetailsPage
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s4_care_you_provide.G10BreaksInCarePage
 import utils.pageobjects.s8_employment.{G1EmploymentPage, G2BeenEmployedPage}
@@ -18,7 +18,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "contain errors on invalid submission" in new WithBrowser with PageObjects {
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
       claimDatePage fillPageWith claimDate
@@ -41,7 +41,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission with all fields filled in" in new WithBrowser with PageObjects {
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
       claimDatePage fillPageWith claimDate
@@ -55,7 +55,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
      }
 
     "navigate back" in new WithBrowser with PageObjects {
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
       claimDatePage fillPageWith claimDate
@@ -70,7 +70,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "Navigate back and Course title is displayed when Have you been on a course of education is yes" in new WithBrowser with PageObjects{
-      val claimDatePage = G1ClaimDatePage(context)
+      val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
       claimDatePage fillPageWith claimDate
@@ -131,7 +131,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
   } section("integration", models.domain.Education.id)
 
   def goToPreviewPage(context:PageObjectsContext):Page = {
-    val claimDatePage = G1ClaimDatePage(context)
+    val claimDatePage = GClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()
     claimDatePage fillPageWith claimDate
