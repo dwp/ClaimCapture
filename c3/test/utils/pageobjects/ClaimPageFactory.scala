@@ -8,7 +8,7 @@ import utils.pageobjects.s_about_you._
 import utils.pageobjects.s_your_partner._
 import utils.pageobjects.s_care_you_provide._
 import utils.pageobjects.s_education._
-import utils.pageobjects.s8_employment._
+import utils.pageobjects.s_employment._
 import utils.pageobjects.s_self_employment._
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s11_pay_details._
@@ -68,18 +68,18 @@ object ClaimPageFactory extends PageFactory {
       //S6
       case GYourCourseDetailsPage.url => GYourCourseDetailsPage(ctx)
       // S7 - guard question(s)
-      case G1EmploymentPage.url => G1EmploymentPage(ctx)
+      case GEmploymentPage.url => GEmploymentPage(ctx)
     }.orElse[String, Page] {
       IterableNode(Employment, ctx)(iteration => {
         // S7
-        case G2BeenEmployedPage.url => G2BeenEmployedPage(ctx, iteration)
-        case G3JobDetailsPage.url => G3JobDetailsPage(ctx, iteration)
-        case G5LastWagePage.url => G5LastWagePage(ctx, iteration)
-        case G8PensionAndExpensesPage.url => G8PensionAndExpensesPage(ctx, iteration)
+        case GBeenEmployedPage.url => GBeenEmployedPage(ctx, iteration)
+        case GJobDetailsPage.url => GJobDetailsPage(ctx, iteration)
+        case GLastWagePage.url => GLastWagePage(ctx, iteration)
+        case GPensionAndExpensesPage.url => GPensionAndExpensesPage(ctx, iteration)
       })
     }.orElse[String, Page] {
       // s7 - Used both by self employment and employment
-      case G9EmploymentAdditionalInfoPage.url => G9EmploymentAdditionalInfoPage(ctx)
+      case GEmploymentAdditionalInfoPage.url => GEmploymentAdditionalInfoPage(ctx)
       // S8
       case G1AboutOtherMoneyPage.url => G1AboutOtherMoneyPage(ctx)
       // S9

@@ -6,7 +6,7 @@ import utils.pageobjects.{PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s8_employment.G1EmploymentPage
+import utils.pageobjects.s_employment.GEmploymentPage
 
 
 class PreviewPageEmploymentContentSpec extends Specification with Tags {
@@ -42,7 +42,7 @@ class PreviewPageEmploymentContentSpec extends Specification with Tags {
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
-    val employmentPage = G1EmploymentPage(context)
+    val employmentPage = GEmploymentPage(context)
     employmentPage goToThePage ()
     employmentPage fillPageWith employmentData
 

@@ -6,7 +6,7 @@ import utils.pageobjects.s_self_employment.{GSelfEmploymentYourAccountsPage, GSe
 import utils.pageobjects.{PageObjects, TestData}
 import controllers.{Formulate, ClaimScenarioFactory}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
-import utils.pageobjects.s8_employment.G1EmploymentPage
+import utils.pageobjects.s_employment.GEmploymentPage
 import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
 class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags {
@@ -21,7 +21,7 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags
       val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed()
       page goToThePage()
 
-      val employmentHistoryPage = page runClaimWith(claim, G1EmploymentPage.url, waitForPage = true)
+      val employmentHistoryPage = page runClaimWith(claim, GEmploymentPage.url, waitForPage = true)
       employmentHistoryPage fillPageWith(claim)
 
       val nextPage = employmentHistoryPage submitPage()

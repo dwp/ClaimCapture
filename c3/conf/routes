@@ -135,24 +135,24 @@ POST        /education/your-course-details                              controll
 GET         /employment/employment                                      controllers.s_self_employment.GEmployment.present
 POST        /employment/employment                                      controllers.s_self_employment.GEmployment.submit
 
-GET         /employment/been-employed                                   controllers.s8_employment.G2BeenEmployed.present
-POST        /employment/been-employed                                   controllers.s8_employment.G2BeenEmployed.submit
+GET         /employment/been-employed                                   controllers.s_employment.GBeenEmployed.present
+POST        /employment/been-employed                                   controllers.s_employment.GBeenEmployed.submit
 
-POST        /employment/delete-job                                      controllers.s8_employment.Employment.delete
+POST        /employment/delete-job                                      controllers.s_employment.Employment.delete
 
-GET         /employment/job/:id                                         controllers.s8_employment.G3JobDetails.job(id: String)
+GET         /employment/job/:id                                         controllers.s_employment.GJobDetails.job(id: String)
 
-GET         /employment/job-details/:id                                 controllers.s8_employment.G3JobDetails.present(id: String)
-POST        /employment/job-details                                     controllers.s8_employment.G3JobDetails.submit
+GET         /employment/job-details/:id                                 controllers.s_employment.GJobDetails.present(id: String)
+POST        /employment/job-details                                     controllers.s_employment.GJobDetails.submit
 
-GET         /employment/last-wage/:id                                   controllers.s8_employment.G5LastWage.present(id: String)
-POST        /employment/last-wage                                       controllers.s8_employment.G5LastWage.submit
+GET         /employment/last-wage/:id                                   controllers.s_employment.GLastWage.present(id: String)
+POST        /employment/last-wage                                       controllers.s_employment.GLastWage.submit
 
-GET         /employment/about-expenses/:id                              controllers.s8_employment.G8PensionAndExpenses.present(id: String)
-POST        /employment/about-expenses                                  controllers.s8_employment.G8PensionAndExpenses.submit
+GET         /employment/about-expenses/:id                              controllers.s_employment.GPensionAndExpenses.present(id: String)
+POST        /employment/about-expenses                                  controllers.s_employment.GPensionAndExpenses.submit
 
-GET         /employment/additional-info                                 controllers.s8_employment.G9EmploymentAdditionalInfo.present
-POST        /employment/additional-info                                 controllers.s8_employment.G9EmploymentAdditionalInfo.submit
+GET         /employment/additional-info                                 controllers.s_employment.GEmploymentAdditionalInfo.present
+POST        /employment/additional-info                                 controllers.s_employment.GEmploymentAdditionalInfo.submit
 
 # Self-employment
 ###############

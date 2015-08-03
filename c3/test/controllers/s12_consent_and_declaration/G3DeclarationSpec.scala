@@ -7,7 +7,7 @@ import models.domain.{Declaration, Claiming}
 import models.view.CachedClaim
 import services.submission.MockInjector
 import controllers.s9_other_money.{G1AboutOtherMoney, G1AboutOtherMoneySpec}
-import controllers.s8_employment.G3JobDetails
+import controllers.s_employment.GJobDetails
 import utils.WithApplication
 
 class G3DeclarationSpec extends Specification with MockInjector with Tags {

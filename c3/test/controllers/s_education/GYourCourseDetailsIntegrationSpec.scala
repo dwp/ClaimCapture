@@ -8,7 +8,7 @@ import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_care_you_provide.GBreaksInCarePage
-import utils.pageobjects.s8_employment.{G1EmploymentPage, G2BeenEmployedPage}
+import utils.pageobjects.s_employment.{GEmploymentPage, GBeenEmployedPage}
 
 class GYourCourseDetailsIntegrationSpec extends Specification with Tags {
   "Your course details Page" should {
@@ -51,7 +51,7 @@ class GYourCourseDetailsIntegrationSpec extends Specification with Tags {
       val claim = ClaimScenarioFactory.s6Education()
       educationPage goToThePage()
       educationPage fillPageWith claim
-      educationPage submitPage() must beAnInstanceOf[G1EmploymentPage]
+      educationPage submitPage() must beAnInstanceOf[GEmploymentPage]
      }
 
     "navigate back" in new WithBrowser with PageObjects {

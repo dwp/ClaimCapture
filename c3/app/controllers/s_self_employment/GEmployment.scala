@@ -1,7 +1,7 @@
 package controllers.s_self_employment
 
 import controllers.mappings.Mappings._
-import controllers.s8_employment.Employment
+import controllers.s_employment.Employment
 import models.domain.{Employment => Emp, _}
 import models.view.{CachedClaim, Navigable}
 import play.api.data.Forms._

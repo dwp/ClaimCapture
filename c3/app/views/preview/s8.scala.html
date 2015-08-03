@@ -48,7 +48,7 @@
     <dt><a id="employed_beenEmployed" href="@controllers.s_self_employment.routes.GEmployment.present().url">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
     <dd>@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}</dd>
     @if(jobs.isDefined && jobs.get.jobs.size > 0){
-        <dt><a id="employed_jobs" href="@controllers.s8_employment.routes.G2BeenEmployed.present().url">@Messages("jobs")</a></dt>
+        <dt><a id="employed_jobs" href="@controllers.s_employment.routes.GBeenEmployed.present().url">@Messages("jobs")</a></dt>
         <dd>
             <ul>
             @for(job <- jobs.get.jobs){

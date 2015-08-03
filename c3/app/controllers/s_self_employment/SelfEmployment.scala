@@ -30,5 +30,5 @@ object SelfEmployment extends Controller with CachedClaim with Navigable {
   }
 
   private def redirect(lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
-    claim -> Redirect(controllers.s8_employment.routes.G2BeenEmployed.present())
+    claim -> Redirect(controllers.s_employment.routes.GBeenEmployed.present())
 }
