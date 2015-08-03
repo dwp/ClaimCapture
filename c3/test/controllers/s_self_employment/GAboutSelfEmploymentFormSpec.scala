@@ -1,10 +1,10 @@
-package controllers.s7_self_employment
+package controllers.s_self_employment
 
 import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 
-class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
+class GAboutSelfEmploymentFormSpec extends Specification with Tags {
   "About Self Employment - About Self Employment Form" should {
     val areYouSelfEmployedNow = "no"
     val whenDidYouStartThisJob_day = 11
@@ -17,7 +17,7 @@ class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
     val natureOfYourBusiness = "Consulting"
 
     "map data into case class" in {
-      G1AboutSelfEmployment.form.bind(
+      GAboutSelfEmployment.form.bind(
         Map("areYouSelfEmployedNow" -> areYouSelfEmployedNow,
           "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
           "whenDidYouStartThisJob.month" -> whenDidYouStartThisJob_month.toString,
@@ -50,7 +50,7 @@ class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
     }
 
     "reject if areYouSelfEmployedNow is not filled" in {
-      G1AboutSelfEmployment.form.bind(
+      GAboutSelfEmployment.form.bind(
         Map("areYouSelfEmployedNow" -> "no",
           "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
           "whenDidYouStartThisJob.month" -> whenDidYouStartThisJob_month.toString,
@@ -62,7 +62,7 @@ class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
     }
 
     "reject if areYouSelfEmployedNow answered no but whenDidTheJobFinish not filled in" in {
-      G1AboutSelfEmployment.form.bind(
+      GAboutSelfEmployment.form.bind(
         Map("areYouSelfEmployedNow" -> "no",
           "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
           "whenDidYouStartThisJob.month" -> whenDidYouStartThisJob_month.toString,
@@ -74,7 +74,7 @@ class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
     }
 
     "allow optional field to be left blank" in {
-      G1AboutSelfEmployment.form.bind(
+      GAboutSelfEmployment.form.bind(
         Map("areYouSelfEmployedNow" -> "no",
           "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
           "whenDidYouStartThisJob.month" -> whenDidYouStartThisJob_month.toString,

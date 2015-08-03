@@ -57,6 +57,6 @@ object GYourCourseDetails extends Controller with CachedClaim with Navigable {
           .replaceError("", "expectedEndDate.required", FormError("expectedEndDate", errorRequired))
         BadRequest(views.html.s_education.g_yourCourseDetails(formWithErrorsUpdate)(lang))
       },
-      yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(controllers.s7_self_employment.routes.G0Employment.present()))
+      yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(controllers.s_self_employment.routes.GEmployment.present()))
   } withPreview()
 }

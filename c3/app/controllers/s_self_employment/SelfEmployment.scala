@@ -1,4 +1,4 @@
-package controllers.s7_self_employment
+package controllers.s_self_employment
 
 import play.api.mvc._
 import models.view.CachedClaim

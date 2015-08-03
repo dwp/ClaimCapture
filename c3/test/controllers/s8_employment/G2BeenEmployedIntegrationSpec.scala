@@ -8,7 +8,7 @@ import utils.WithBrowser
 import utils.pageobjects._
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.pageobjects.s8_employment._
-import utils.pageobjects.s7_self_employment.G1AboutSelfEmploymentPage
+import utils.pageobjects.s_self_employment.GAboutSelfEmploymentPage
 import scala.Some
 import utils.pageobjects.s_claim_date.{GClaimDatePage, GClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
@@ -50,7 +50,7 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       val selfEmployment = employment.submitPage()
 
 
-      selfEmployment must beAnInstanceOf[G1AboutSelfEmploymentPage]
+      selfEmployment must beAnInstanceOf[GAboutSelfEmploymentPage]
     }
 
     "start employment entry" in new WithBrowser with PageObjects {

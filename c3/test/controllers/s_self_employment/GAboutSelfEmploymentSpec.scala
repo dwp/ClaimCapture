@@ -1,4 +1,4 @@
-package controllers.s7_self_employment
+package controllers.s_self_employment
 
 import models.DayMonthYear
 import models.domain._
@@ -7,7 +7,7 @@ import play.api.test.Helpers._
 import play.api.test.FakeRequest
 import utils.WithApplication
 
-class G1AboutSelfEmploymentSpec extends Specification with Tags {
+class GAboutSelfEmploymentSpec extends Specification with Tags {
 
   "Self Employment - About Self Employment - Controller" should {
     val areYouSelfEmployedNow = "no"
@@ -34,7 +34,7 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
     "present 'About Self Employment' " in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = controllers.s7_self_employment.G1AboutSelfEmployment.present(request)
+      val result = controllers.s_self_employment.GAboutSelfEmployment.present(request)
       status(result) mustEqual OK
     }
 
@@ -42,7 +42,7 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody(aboutSelfEmploymentInput: _*)
 
-      val result = controllers.s7_self_employment.G1AboutSelfEmployment.submit(request)
+      val result = controllers.s_self_employment.GAboutSelfEmployment.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.SelfEmployment)
       section.questionGroup(AboutSelfEmployment) must beLike {
@@ -70,7 +70,7 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody("areYouSelfEmployedNow" -> "")
 
-      val result = controllers.s7_self_employment.G1AboutSelfEmployment.submit(request)
+      val result = controllers.s_self_employment.GAboutSelfEmployment.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -81,7 +81,7 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
         "whenDidYouStartThisJob.month" -> startMonth.toString,
         "whenDidYouStartThisJob.year" -> startYear.toString)
 
-      val result = controllers.s7_self_employment.G1AboutSelfEmployment.submit(request)
+      val result = controllers.s_self_employment.GAboutSelfEmployment.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -89,7 +89,7 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody(aboutSelfEmploymentInput: _*)
 
-      val result = controllers.s7_self_employment.G1AboutSelfEmployment.submit(request)
+      val result = controllers.s_self_employment.GAboutSelfEmployment.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   } section("unit", models.domain.SelfEmployment.id)

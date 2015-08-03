@@ -1,4 +1,4 @@
-package controllers.s7_self_employment
+package controllers.s_self_employment
 
 import models.DayMonthYear
 import models.domain._
@@ -7,7 +7,7 @@ import play.api.test.Helpers._
 import play.api.test.FakeRequest
 import utils.WithApplication
 
-class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
+class GSelfEmploymentYourAccountsSpec extends Specification with Tags{
 
   "Self Employment - Your Accounts - Controller" should {
     val fromDay = 11
@@ -33,7 +33,7 @@ class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
     "present 'Self Employment Your Accounts' " in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = controllers.s7_self_employment.G2SelfEmploymentYourAccounts.present(request)
+      val result = controllers.s_self_employment.GSelfEmploymentYourAccounts.present(request)
       status(result) mustEqual OK
     }
 
@@ -41,7 +41,7 @@ class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
       val request = FakeRequest()
         .withFormUrlEncodedBody(selfEmploymentYourAccountsInput: _*)
 
-      val result = controllers.s7_self_employment.G2SelfEmploymentYourAccounts.submit(request)
+      val result = controllers.s_self_employment.GSelfEmploymentYourAccounts.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.SelfEmployment)
 
@@ -59,7 +59,7 @@ class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
       val request = FakeRequest()
         .withFormUrlEncodedBody(selfEmploymentYourAccountsInput: _*)
 
-      val result = controllers.s7_self_employment.G2SelfEmploymentYourAccounts.submit(request)
+      val result = controllers.s_self_employment.GSelfEmploymentYourAccounts.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   } section("unit", models.domain.SelfEmployment.id)

@@ -9,7 +9,7 @@ import utils.pageobjects.s_your_partner._
 import utils.pageobjects.s_care_you_provide._
 import utils.pageobjects.s_education._
 import utils.pageobjects.s8_employment._
-import utils.pageobjects.s7_self_employment._
+import utils.pageobjects.s_self_employment._
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s11_pay_details._
 import utils.pageobjects.s10_information._
@@ -86,9 +86,9 @@ object ClaimPageFactory extends PageFactory {
       case G1HowWePayYouPage.url => G1HowWePayYouPage(ctx)
       case G2BankBuildingSocietyDetailsPage.url => G2BankBuildingSocietyDetailsPage(ctx)
       // S9
-      case G1AboutSelfEmploymentPage.url => G1AboutSelfEmploymentPage(ctx)
-      case G2SelfEmploymentYourAccountsPage.url => G2SelfEmploymentYourAccountsPage(ctx)
-      case G4SelfEmploymentPensionsAndExpensesPage.url => G4SelfEmploymentPensionsAndExpensesPage(ctx)
+      case GAboutSelfEmploymentPage.url => GAboutSelfEmploymentPage(ctx)
+      case GSelfEmploymentYourAccountsPage.url => GSelfEmploymentYourAccountsPage(ctx)
+      case GSelfEmploymentPensionsAndExpensesPage.url => GSelfEmploymentPensionsAndExpensesPage(ctx)
       case PreviewPage.url => PreviewPage(ctx)
       // S10
       case G1AdditionalInfoPage.url => G1AdditionalInfoPage(ctx)

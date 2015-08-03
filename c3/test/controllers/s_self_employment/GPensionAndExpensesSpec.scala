@@ -1,4 +1,4 @@
-package controllers.s7_self_employment
+package controllers.s_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.FakeRequest
@@ -8,20 +8,20 @@ import models.view.CachedClaim
 import scala.Some
 import utils.WithApplication
 
-class G4PensionAndExpensesSpec extends Specification with Tags {
+class GPensionAndExpensesSpec extends Specification with Tags {
 
 
   "Pension and expenses" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-      val result = G4SelfEmploymentPensionsAndExpenses.present(request)
+      val result = GSelfEmploymentPensionsAndExpenses.present(request)
       status(result) mustEqual OK
     }
 
     "require all mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
-      val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
+      val result = GSelfEmploymentPensionsAndExpenses.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -32,7 +32,7 @@ class G4PensionAndExpensesSpec extends Specification with Tags {
         "payPensionScheme.text" -> "some pension expense",
         "haveExpensesForJob.text" -> "some job expense"
       )
-      val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
+      val result = GSelfEmploymentPensionsAndExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 

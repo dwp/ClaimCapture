@@ -8,7 +8,7 @@ import play.api.cache.Cache
 import models.domain.{Claim, Iteration, Jobs, JobDetails, Claiming}
 import utils.WithApplication
 
-class G1EmploymentSpec extends Specification with Tags {
+class GEmploymentSpec extends Specification with Tags {
   "Employment" should {
     "get first completed question group for a job" in new WithApplication with Claiming {
       val jobID = "dummyJobID"

@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import utils.pageobjects.{PageObjectsContext, TestData, PageObjects}
 import utils.pageobjects.s8_employment.{G2BeenEmployedPage, G8PensionAndExpensesPage, G1EmploymentPage, G9EmploymentAdditionalInfoPage}
-import utils.pageobjects.s7_self_employment.G4SelfEmploymentPensionsAndExpensesPage
+import utils.pageobjects.s_self_employment.GSelfEmploymentPensionsAndExpensesPage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
@@ -30,7 +30,7 @@ class G9EmploymentAdditionalInfoIntegrationSpec extends Specification with Tags 
       empPage fillPageWith claim
       empPage submitPage()
 
-      val page =  G4SelfEmploymentPensionsAndExpensesPage(context)
+      val page =  GSelfEmploymentPensionsAndExpensesPage(context)
       page goToThePage()
       page fillPageWith ClaimScenarioFactory.s9SelfEmployment
 
@@ -40,7 +40,7 @@ class G9EmploymentAdditionalInfoIntegrationSpec extends Specification with Tags 
     }
 
     "should present self employment pensions and expenses page when back is clicked" in new WithBrowser with PageObjects{
-      val page =  G4SelfEmploymentPensionsAndExpensesPage(context)
+      val page =  GSelfEmploymentPensionsAndExpensesPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
       page fillPageWith claim
@@ -50,7 +50,7 @@ class G9EmploymentAdditionalInfoIntegrationSpec extends Specification with Tags 
       nextPage must beAnInstanceOf[G9EmploymentAdditionalInfoPage]
 
       val pensionsAndExpensesPage = nextPage goBack()
-      pensionsAndExpensesPage must beAnInstanceOf[G4SelfEmploymentPensionsAndExpensesPage]
+      pensionsAndExpensesPage must beAnInstanceOf[GSelfEmploymentPensionsAndExpensesPage]
 
     }
 
@@ -145,7 +145,7 @@ class G9EmploymentAdditionalInfoIntegrationSpec extends Specification with Tags 
     empPage fillPageWith claim
     empPage submitPage()
 
-    val page =  G4SelfEmploymentPensionsAndExpensesPage(context)
+    val page =  GSelfEmploymentPensionsAndExpensesPage(context)
     page goToThePage()
     page fillPageWith ClaimScenarioFactory.s9SelfEmployment
 

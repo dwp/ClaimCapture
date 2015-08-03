@@ -1,4 +1,4 @@
-package controllers.s7_self_employment
+package controllers.s_self_employment
 
 import language.reflectiveCalls
 import play.api.data.Form
@@ -18,7 +18,7 @@ import models.domain.Claim
 import play.api.i18n.Lang
 import models.view.ClaimHandling.ClaimResult
 
-object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable {
+object GAboutSelfEmployment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "areYouSelfEmployedNow" -> nonEmptyText.verifying(validYesNo),
     "whenDidYouStartThisJob" -> dayMonthYear.verifying(validDate),
@@ -39,7 +39,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
 
   private def aboutSelfEmployment(lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     track(AboutSelfEmployment) {
-      implicit claim => Ok(views.html.s7_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment))(lang))
+      implicit claim => Ok(views.html.s_self_employment.g_aboutSelfEmployment(form.fill(AboutSelfEmployment))(lang))
     }
   }
 
@@ -47,7 +47,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("", "whenDidTheJobFinish.error.required", FormError("whenDidTheJobFinish", errorRequired))
-        BadRequest(views.html.s7_self_employment.g1_aboutSelfEmployment(formWithErrorsUpdate)(lang))},
-      f => claim.update(f) -> Redirect(routes.G2SelfEmploymentYourAccounts.present()))
+        BadRequest(views.html.s_self_employment.g_aboutSelfEmployment(formWithErrorsUpdate)(lang))},
+      f => claim.update(f) -> Redirect(routes.GSelfEmploymentYourAccounts.present()))
   }
 }

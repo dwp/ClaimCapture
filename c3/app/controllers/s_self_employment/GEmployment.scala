@@ -1,4 +1,4 @@
-package controllers.s7_self_employment
+package controllers.s_self_employment
 
 import controllers.mappings.Mappings._
 import controllers.s8_employment.Employment
@@ -11,7 +11,7 @@ import utils.helpers.CarersForm._
 
 import scala.language.{postfixOps, reflectiveCalls}
 
-object G0Employment extends Controller with CachedClaim with Navigable {
+object GEmployment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
       "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText.verifying(validYesNo),
       "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText.verifying(validYesNo)
@@ -19,7 +19,7 @@ object G0Employment extends Controller with CachedClaim with Navigable {
 
     def present = claimingWithCheck {  implicit claim =>  implicit request =>  lang =>
       claim.questionGroup(ClaimDate) match {
-        case Some(n) => track(Employment) { implicit claim => Ok(views.html.s7_self_employment.g0_employment(form.fill(Emp))(lang)) }
+        case Some(n) => track(Employment) { implicit claim => Ok(views.html.s_self_employment.g_employment(form.fill(Emp))(lang)) }
         case _ => Redirect("/")
       }
     }
@@ -36,7 +36,7 @@ object G0Employment extends Controller with CachedClaim with Navigable {
               FormError("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label",
                 errorRequired,
                 Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
-          BadRequest(views.html.s7_self_employment.g0_employment(formWithErrorsUpdate)(lang))
+          BadRequest(views.html.s_self_employment.g_employment(formWithErrorsUpdate)(lang))
         },employment => {
           val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, models.domain.Employed)
                                   .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, models.domain.SelfEmployment)
@@ -49,7 +49,7 @@ object G0Employment extends Controller with CachedClaim with Navigable {
             deletedEmployment.delete(AboutSelfEmployment).delete(SelfEmploymentYourAccounts).delete(SelfEmploymentPensionsAndExpenses)
           }else deletedEmployment
 
-          deletedSelfEmployment.update(employment) -> Redirect(controllers.s7_self_employment.routes.G1AboutSelfEmployment.present())
+          deletedSelfEmployment.update(employment) -> Redirect(controllers.s_self_employment.routes.GAboutSelfEmployment.present())
         }
       )
     }.withPreviewConditionally[Emp](checkGoPreview)

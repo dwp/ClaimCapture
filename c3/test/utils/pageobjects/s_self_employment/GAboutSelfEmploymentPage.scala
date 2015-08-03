@@ -1,9 +1,9 @@
-package utils.pageobjects.s7_self_employment
+package utils.pageobjects.s_self_employment
 
 import utils.WithBrowser
 import utils.pageobjects._
 
-final class G1AboutSelfEmploymentPage(ctx:PageObjectsContext) extends ClaimPage(ctx, G1AboutSelfEmploymentPage.url) {
+final class GAboutSelfEmploymentPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GAboutSelfEmploymentPage.url) {
   declareYesNo("#areYouSelfEmployedNow", "SelfEmployedAreYouSelfEmployedNow")
   declareDate("#whenDidYouStartThisJob", "SelfEmployedWhenDidYouStartThisJob")
   declareDate("#whenDidTheJobFinish", "SelfEmployedWhenDidTheJobFinish")
@@ -11,14 +11,14 @@ final class G1AboutSelfEmploymentPage(ctx:PageObjectsContext) extends ClaimPage(
   declareInput("#natureOfYourBusiness", "SelfEmployedNatureofYourBusiness")
 }
 
-object G1AboutSelfEmploymentPage {
+object GAboutSelfEmploymentPage {
   val url = "/self-employment/about-self-employment"
 
-  def apply(ctx:PageObjectsContext) = new G1AboutSelfEmploymentPage(ctx)
+  def apply(ctx:PageObjectsContext) = new GAboutSelfEmploymentPage(ctx)
 }
 
-trait G1AboutSelfEmploymentPageContext extends PageContext {
+trait GAboutSelfEmploymentPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1AboutSelfEmploymentPage (PageObjectsContext(browser))
+  val page = GAboutSelfEmploymentPage (PageObjectsContext(browser))
 }

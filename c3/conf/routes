@@ -132,8 +132,8 @@ POST        /education/your-course-details                              controll
 
 # Employment
 ###############
-GET         /employment/employment                                      controllers.s7_self_employment.G0Employment.present
-POST        /employment/employment                                      controllers.s7_self_employment.G0Employment.submit
+GET         /employment/employment                                      controllers.s_self_employment.GEmployment.present
+POST        /employment/employment                                      controllers.s_self_employment.GEmployment.submit
 
 GET         /employment/been-employed                                   controllers.s8_employment.G2BeenEmployed.present
 POST        /employment/been-employed                                   controllers.s8_employment.G2BeenEmployed.submit
@@ -156,17 +156,17 @@ POST        /employment/additional-info                                 controll
 
 # Self-employment
 ###############
-GET         /self-employment/about-self-employment                      controllers.s7_self_employment.G1AboutSelfEmployment.present
-POST        /self-employment/about-self-employment                      controllers.s7_self_employment.G1AboutSelfEmployment.submit
+GET         /self-employment/about-self-employment                      controllers.s_self_employment.GAboutSelfEmployment.present
+POST        /self-employment/about-self-employment                      controllers.s_self_employment.GAboutSelfEmployment.submit
 
-GET         /self-employment/your-accounts                              controllers.s7_self_employment.G2SelfEmploymentYourAccounts.present
-POST        /self-employment/your-accounts                              controllers.s7_self_employment.G2SelfEmploymentYourAccounts.submit
+GET         /self-employment/your-accounts                              controllers.s_self_employment.GSelfEmploymentYourAccounts.present
+POST        /self-employment/your-accounts                              controllers.s_self_employment.GSelfEmploymentYourAccounts.submit
 
-GET         /self-employment/pensions-and-expenses                      controllers.s7_self_employment.G4SelfEmploymentPensionsAndExpenses.present
-POST        /self-employment/pensions-and-expenses                      controllers.s7_self_employment.G4SelfEmploymentPensionsAndExpenses.submit
+GET         /self-employment/pensions-and-expenses                      controllers.s_self_employment.GSelfEmploymentPensionsAndExpenses.present
+POST        /self-employment/pensions-and-expenses                      controllers.s_self_employment.GSelfEmploymentPensionsAndExpenses.submit
 
-GET         /self-employment/completed                                  controllers.s7_self_employment.SelfEmployment.completed
-POST        /self-employment/completed                                  controllers.s7_self_employment.SelfEmployment.completedSubmit
+GET         /self-employment/completed                                  controllers.s_self_employment.SelfEmployment.completed
+POST        /self-employment/completed                                  controllers.s_self_employment.SelfEmployment.completedSubmit
 
 # Other money
 ###############

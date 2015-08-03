@@ -1,13 +1,13 @@
-package controllers.s7_self_employment
+package controllers.s_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 
-class G2SelfEmploymentYourAccountsFormSpec extends Specification with Tags {
+class GSelfEmploymentYourAccountsFormSpec extends Specification with Tags {
 
   "About Self Employment - Your Accounts" should {
 
     "map data into case class" in {
-      G2SelfEmploymentYourAccounts.form.bind(
+      GSelfEmploymentYourAccounts.form.bind(
         Map("whatWasOrIsYourTradingYearFrom.day" -> "11",
           "whatWasOrIsYourTradingYearFrom.month" -> "11",
           "whatWasOrIsYourTradingYearFrom.year" -> "2011",
@@ -25,7 +25,7 @@ class G2SelfEmploymentYourAccountsFormSpec extends Specification with Tags {
     }
 
     "reject if tellUsWhyAndWhenTheChangeHappened is not filled" in {
-      G2SelfEmploymentYourAccounts.form.bind(
+      GSelfEmploymentYourAccounts.form.bind(
         Map("areAccountsPreparedOnCashFlowBasis" -> "yes",
           "areIncomeOutgoingsProfitSimilarToTrading" -> "no")
       ).fold(

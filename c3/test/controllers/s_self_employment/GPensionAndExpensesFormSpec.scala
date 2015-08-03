@@ -1,9 +1,9 @@
-package controllers.s7_self_employment
+package controllers.s_self_employment
 
 import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 
-class G4PensionAndExpensesFormSpec extends Specification with Tags {
+class GPensionAndExpensesFormSpec extends Specification with Tags {
   "About Self Employment - Pension and Expenses Form" should {
 
     val yes = "yes"
@@ -13,7 +13,7 @@ class G4PensionAndExpensesFormSpec extends Specification with Tags {
     val overThreeHundredChars = "Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters"
 
     "map data into case class" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      GSelfEmploymentPensionsAndExpenses.form.bind(
         Map(
           "payPensionScheme.answer" -> no,
           "haveExpensesForJob.answer" -> no
@@ -28,7 +28,7 @@ class G4PensionAndExpensesFormSpec extends Specification with Tags {
     }
 
     "have 2 mandatory fields" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("payPensionScheme.text" -> pensionExpenses,
           "haveExpensesForJob.text" -> jobExpenses)
       ).fold(
@@ -42,7 +42,7 @@ class G4PensionAndExpensesFormSpec extends Specification with Tags {
     }
 
     "reject if haveExpensesForJob is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("payPensionScheme.answer" -> no)
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
@@ -51,7 +51,7 @@ class G4PensionAndExpensesFormSpec extends Specification with Tags {
     }
 
     "reject if payPensionScheme is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("haveExpensesForJob.answer" -> no)
       ).fold(
           formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
@@ -60,7 +60,7 @@ class G4PensionAndExpensesFormSpec extends Specification with Tags {
     }
 
     "have 1 expanded mandatory field if payPensionScheme is yes" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("haveExpensesForJob.answer" -> no,
           "payPensionScheme.answer" -> yes)
       ).fold(
@@ -74,7 +74,7 @@ class G4PensionAndExpensesFormSpec extends Specification with Tags {
     }
 
     "have 1 expanded mandatory field if haveExpensesForJob is yes" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("haveExpensesForJob.answer" -> yes,
           "payPensionScheme.answer" -> no)
       ).fold(
@@ -88,7 +88,7 @@ class G4PensionAndExpensesFormSpec extends Specification with Tags {
     }
 
     "reject too many characters in text fields" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("payPensionScheme.answer" -> yes,
           "haveExpensesForJob.answer" -> yes,
           "payPensionScheme.text" -> overThreeHundredChars,
@@ -103,7 +103,7 @@ class G4PensionAndExpensesFormSpec extends Specification with Tags {
     }
 
     "reject special characters in text fields" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("payPensionScheme.answer" -> yes,
           "haveExpensesForJob.answer" -> yes,
           "payPensionScheme.text" -> "<>",
