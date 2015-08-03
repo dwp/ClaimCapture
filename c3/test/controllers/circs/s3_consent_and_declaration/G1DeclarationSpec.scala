@@ -50,7 +50,6 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
           f.obtainInfoWhy.get must equalTo(why)
           f.circsSomeOneElse must equalTo(Some(someOneElse))
           f.nameOrOrganisation must equalTo(Some(nameOrOrganisation))
-          f.wantsContactEmail must beSome(wantsEmailContact)
       }
     }
 

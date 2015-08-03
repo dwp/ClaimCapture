@@ -17,6 +17,10 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
     val theirFullName = "Mrs Jane Smith"
     val theirRelationshipToYou = "Wife"
 
+    val byPost = "By Post"
+    val wantsEmailContact = "No"
+
+
     "be presented" in new WithBrowser with PageObjects {
       val page = G2ReportAChangeInYourCircumstancesPage(context)
       page goToThePage()
@@ -38,7 +42,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects {
       val page = G2ReportAChangeInYourCircumstancesPage(context)
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 6
+      page.submitPage().listErrors.size mustEqual 7
     }
 
     "Accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
@@ -58,6 +62,9 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
         claim.CircumstancesAboutYouTheirFullName = theirFullName
         claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
+        claim.FurtherInfoContact = "By Post"
+        claim.CircumstancesDeclarationWantsEmailContact = "no"
+
 
         page goToThePage()
         page fillPageWith claim
@@ -74,6 +81,8 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
         claim.CircumstancesAboutYouTheirFullName = theirFullName
         claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
+        claim.FurtherInfoContact = "By Post"
+        claim.CircumstancesDeclarationWantsEmailContact = "no"
 
         page goToThePage()
         page fillPageWith claim
@@ -91,6 +100,8 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
         claim.CircumstancesAboutYouTheirFullName = theirFullName
         claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
+        claim.FurtherInfoContact = "By Post"
+        claim.CircumstancesDeclarationWantsEmailContact = "no"
 
         page goToThePage()
         page fillPageWith claim
@@ -107,6 +118,8 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouNationalInsuranceNumber = nino
         claim.CircumstancesAboutYouTheirFullName = theirFullName
         claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
+        claim.FurtherInfoContact = "By Post"
+        claim.CircumstancesDeclarationWantsEmailContact = "no"
 
         page goToThePage()
         page fillPageWith claim
@@ -123,6 +136,8 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouNationalInsuranceNumber = nino
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
         claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
+        claim.FurtherInfoContact = "By Post"
+        claim.CircumstancesDeclarationWantsEmailContact = "no"
 
         page goToThePage()
         page fillPageWith claim
@@ -139,6 +154,8 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouNationalInsuranceNumber = nino
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
         claim.CircumstancesAboutYouTheirFullName = theirFullName
+        claim.FurtherInfoContact = "By Post"
+        claim.CircumstancesDeclarationWantsEmailContact = "no"
 
         page goToThePage()
         page fillPageWith claim
