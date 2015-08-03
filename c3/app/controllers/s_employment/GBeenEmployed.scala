@@ -39,7 +39,7 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable {
    */
   private def redirect(lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] = {
     claim.questionGroup[Emp].collect {
-      case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == no && e.beenSelfEmployedSince1WeekBeforeClaim == no => Left(Redirect(controllers.s9_other_money.routes.G1AboutOtherMoney.present()))
+      case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == no && e.beenSelfEmployedSince1WeekBeforeClaim == no => Left(Redirect(controllers.s_other_money.routes.GAboutOtherMoney.present()))
     }.getOrElse(Left(Redirect(controllers.s_employment.routes.GEmploymentAdditionalInfo.present())))
   }
 

@@ -36,7 +36,7 @@ object GEmploymentAdditionalInfo extends Controller with CachedClaim with Naviga
         .replaceError("empAdditionalInfo", "empAdditionalInfo.text.required", FormError("empAdditionalInfo.text", errorRequired))
         BadRequest(views.html.s_employment.g_employmentAdditionalInfo(formWithErrorsUpdate)(lang))
       },
-      employmentAdditionalInfo => claim.update(employmentAdditionalInfo) -> Redirect(controllers.s9_other_money.routes.G1AboutOtherMoney.present())
+      employmentAdditionalInfo => claim.update(employmentAdditionalInfo) -> Redirect(controllers.s_other_money.routes.GAboutOtherMoney.present())
     )
   }
 }

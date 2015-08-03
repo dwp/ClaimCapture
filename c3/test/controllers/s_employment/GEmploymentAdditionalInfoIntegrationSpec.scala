@@ -6,7 +6,7 @@ import utils.pageobjects.{PageObjectsContext, TestData, PageObjects}
 import utils.pageobjects.s_employment.{GBeenEmployedPage, GPensionAndExpensesPage, GEmploymentPage, GEmploymentAdditionalInfoPage}
 import utils.pageobjects.s_self_employment.GSelfEmploymentPensionsAndExpensesPage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
+import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory._
 
@@ -59,7 +59,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification with Tags {
       page fillPageWith ClaimScenarioFactory.s7EmploymentAdditionalInfo
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
+      nextPage must beAnInstanceOf[GAboutOtherMoneyPage]
     }
 
     "should be presented when self employment is answered no and employment yes" in new WithBrowser with PageObjects{
@@ -129,7 +129,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification with Tags {
 
       val otherMoneyPage = nextPage fillPageWith s7EmploymentAdditionalInfo submitPage()
 
-      otherMoneyPage must beAnInstanceOf[G1AboutOtherMoneyPage]
+      otherMoneyPage must beAnInstanceOf[GAboutOtherMoneyPage]
     }
 
   }

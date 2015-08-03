@@ -5,7 +5,7 @@ import utils.WithBrowser
 import utils.pageobjects.s_self_employment.{GSelfEmploymentYourAccountsPage, GSelfEmploymentYourAccountsPageContext}
 import utils.pageobjects.{PageObjects, TestData}
 import controllers.{Formulate, ClaimScenarioFactory}
-import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
+import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 import utils.pageobjects.s_employment.GEmploymentPage
 import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
@@ -25,7 +25,7 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags
       employmentHistoryPage fillPageWith(claim)
 
       val nextPage = employmentHistoryPage submitPage()
-      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
+      nextPage must beAnInstanceOf[GAboutOtherMoneyPage]
     }
 
     "contain errors on invalid submission" in {

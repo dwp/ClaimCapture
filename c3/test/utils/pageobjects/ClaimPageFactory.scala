@@ -10,10 +10,10 @@ import utils.pageobjects.s_care_you_provide._
 import utils.pageobjects.s_education._
 import utils.pageobjects.s_employment._
 import utils.pageobjects.s_self_employment._
-import utils.pageobjects.s9_other_money._
-import utils.pageobjects.s11_pay_details._
-import utils.pageobjects.s10_information._
-import utils.pageobjects.s12_consent_and_declaration._
+import utils.pageobjects.s_other_money._
+import utils.pageobjects.s_pay_details._
+import utils.pageobjects.s_information._
+import utils.pageobjects.s_consent_and_declaration._
 import utils.pageobjects.IterationManager._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
@@ -81,21 +81,21 @@ object ClaimPageFactory extends PageFactory {
       // s7 - Used both by self employment and employment
       case GEmploymentAdditionalInfoPage.url => GEmploymentAdditionalInfoPage(ctx)
       // S8
-      case G1AboutOtherMoneyPage.url => G1AboutOtherMoneyPage(ctx)
+      case GAboutOtherMoneyPage.url => GAboutOtherMoneyPage(ctx)
       // S9
-      case G1HowWePayYouPage.url => G1HowWePayYouPage(ctx)
-      case G2BankBuildingSocietyDetailsPage.url => G2BankBuildingSocietyDetailsPage(ctx)
+      case GHowWePayYouPage.url => GHowWePayYouPage(ctx)
+      case GBankBuildingSocietyDetailsPage.url => GBankBuildingSocietyDetailsPage(ctx)
       // S9
       case GAboutSelfEmploymentPage.url => GAboutSelfEmploymentPage(ctx)
       case GSelfEmploymentYourAccountsPage.url => GSelfEmploymentYourAccountsPage(ctx)
       case GSelfEmploymentPensionsAndExpensesPage.url => GSelfEmploymentPensionsAndExpensesPage(ctx)
       case PreviewPage.url => PreviewPage(ctx)
       // S10
-      case G1AdditionalInfoPage.url => G1AdditionalInfoPage(ctx)
+      case GAdditionalInfoPage.url => GAdditionalInfoPage(ctx)
       case GDisclaimerPage.url => GDisclaimerPage(ctx)
-      case G3DeclarationPage.url =>
+      case GDeclarationPage.url =>
         if (ctx.browser.pageSource() contains "DWPBody") XmlPage(ctx)
-        else G3DeclarationPage(ctx)
+        else GDeclarationPage(ctx)
       case ClaimNotesPage.url => ClaimNotesPage(ctx)
       case ClaimHelpPage.url => ClaimHelpPage(ctx)
       // Catch pages not covered by framework

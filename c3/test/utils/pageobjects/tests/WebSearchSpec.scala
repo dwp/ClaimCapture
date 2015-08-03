@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import utils.pageobjects.s_about_you.GYourDetailsPageContext
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s11_pay_details.G1HowWePayYouPageContext
+import utils.pageobjects.s_pay_details.GHowWePayYouPageContext
 import utils.pageobjects.{Page, PageObjectsContext, PageObjects, TestData}
 import app._
 import play.api.i18n.Messages
@@ -38,7 +38,7 @@ class WebSearchSpec extends Specification with Tags{
       postCode.get mustEqual claim.AboutYouPostcode
     }
 
-    "be able to read SortCode" in new WithBrowser with G1HowWePayYouPageContext {
+    "be able to read SortCode" in new WithBrowser with GHowWePayYouPageContext {
       val claim = new TestData
       claim.HowWePayYouHowWouldYouLikeToGetPaid = Messages(AccountStatus.BankBuildingAccount)
       claim.HowWePayYouHowOftenDoYouWantToGetPaid = Messages(PaymentFrequency.FourWeekly)

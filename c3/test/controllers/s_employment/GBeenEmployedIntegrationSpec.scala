@@ -11,7 +11,7 @@ import utils.pageobjects.s_employment._
 import utils.pageobjects.s_self_employment.GAboutSelfEmploymentPage
 import scala.Some
 import utils.pageobjects.s_claim_date.{GClaimDatePage, GClaimDatePageContext}
-import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
+import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 
 class GBeenEmployedIntegrationSpec extends Specification with Tags {
   "Been Employed" should {
@@ -37,7 +37,7 @@ class GBeenEmployedIntegrationSpec extends Specification with Tags {
       val otherMoney = employment.submitPage()
 
 
-      otherMoney must beAnInstanceOf[G1AboutOtherMoneyPage]
+      otherMoney must beAnInstanceOf[GAboutOtherMoneyPage]
     }
 
     """progress to next section i.e. "self employed".""" in new WithBrowser with PageObjects{

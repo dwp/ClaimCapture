@@ -5,7 +5,7 @@ import utils.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_self_employment._
 import utils.pageobjects.PageObjects
-import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
+import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 import utils.pageobjects.s_employment.GEmploymentAdditionalInfoPage
 
 class GPensionAndExpensesIntegrationSpec extends Specification with Tags {

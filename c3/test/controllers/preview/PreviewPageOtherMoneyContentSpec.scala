@@ -6,7 +6,7 @@ import utils.pageobjects.{PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
+import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 
 
 class PreviewPageOtherMoneyContentSpec extends Specification with Tags {
@@ -36,7 +36,7 @@ class PreviewPageOtherMoneyContentSpec extends Specification with Tags {
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
-    val otherMoneyPage = G1AboutOtherMoneyPage(context)
+    val otherMoneyPage = GAboutOtherMoneyPage(context)
     otherMoneyPage goToThePage ()
     otherMoneyPage fillPageWith ClaimScenarioFactory.s9otherMoney
     otherMoneyPage submitPage()

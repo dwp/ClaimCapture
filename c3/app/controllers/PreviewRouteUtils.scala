@@ -27,10 +27,10 @@ object PreviewRouteUtils {
   }
 
   def otherMoneyRoute = {
-    val g1AboutOtherMoneyRoute = controllers.s9_other_money.routes.G1AboutOtherMoney.present.toString
+    val gAboutOtherMoneyRoute = controllers.s_other_money.routes.GAboutOtherMoney.present.toString
     val idList = Seq("other_money_anyPaymentsSinceClaimDate", "other_money_statutoryPay", "other_money_otherStatutoryPay")
 
-    val routesMap = Map(idList map {id => (id, g1AboutOtherMoneyRoute)} : _*)
+    val routesMap = Map(idList map {id => (id, gAboutOtherMoneyRoute)} : _*)
 
     routesMap
   }

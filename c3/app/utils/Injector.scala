@@ -4,7 +4,7 @@ import app.ConfigProperties._
 import models.view.ClaimHandling.ClaimResult
 import play.api.libs.ws.ning.NingWSResponse
 import scala.reflect._
-import controllers.s12_consent_and_declaration.G3Declaration
+import controllers.s_consent_and_declaration.GDeclaration
 import play.api.mvc.{AnyContent, Request}
 import controllers.submission.XmlSubmitter
 import controllers.circs.s3_consent_and_declaration.G1Declaration
@@ -28,7 +28,7 @@ trait Injector {
 
     def xmlPrintControllers: Map[Class[_], Any] = {
       Map(
-        bind[G3Declaration](new G3Declaration {
+        bind[GDeclaration](new GDeclaration {
           override def submission(claim: Claim, request: Request[AnyContent], jsEnabled: Boolean): ClaimResult = XmlSubmitter.submission(claim, request)
 
           override val claimTransaction = new StubClaimTransaction
@@ -63,7 +63,7 @@ trait Injector {
 
     def stubDBControllers: Map[Class[_], Any] = {
       Map(
-        bind[G3Declaration](new G3Declaration {
+        bind[GDeclaration](new GDeclaration {
           override val claimTransaction = new StubClaimTransaction
         }),
         bind[G1Declaration](new G1Declaration {
@@ -87,7 +87,7 @@ trait Injector {
       stubDBControllers
     }
     else {
-      Map(bind[G3Declaration](new G3Declaration),
+      Map(bind[GDeclaration](new GDeclaration),
         bind[G1Declaration](new G1Declaration),
         bind[AsyncClaimSubmissionComponent](new AsyncClaimSubmissionComponent),
         bind[ClaimTransactionCheck](new ClaimTransactionCheck),
