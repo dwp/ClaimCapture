@@ -8,7 +8,7 @@ import utils.pageobjects.{ClaimPageFactory, TestData, PageObjectsContext, PageOb
 import utils.pageobjects.preview.PreviewPage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
+import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects.s4_care_you_provide.G1TheirPersonalDetailsPage
 import utils.WithJsBrowser
 
@@ -154,7 +154,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
     contactDetails fillPageWith claim
     contactDetails submitPage()
 
-    val partnerPage =  G1YourPartnerPersonalDetailsPage(context)
+    val partnerPage =  GYourPartnerPersonalDetailsPage(context)
     partnerPage goToThePage ()
     partnerPage fillPageWith partnerClaim
     partnerPage submitPage()

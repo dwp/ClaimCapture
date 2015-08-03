@@ -104,8 +104,8 @@ POST        /about-you/other-eea-state-or-switzerland                   controll
 
 # Your partner
 ###############
-GET         /your-partner/personal-details                              controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
-POST        /your-partner/personal-details                              controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
+GET         /your-partner/personal-details                              controllers.s_your_partner.GYourPartnerPersonalDetails.present
+POST        /your-partner/personal-details                              controllers.s_your_partner.GYourPartnerPersonalDetails.submit
 
 # Care you provide
 ###############

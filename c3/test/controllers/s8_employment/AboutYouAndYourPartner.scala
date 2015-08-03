@@ -3,7 +3,7 @@ package controllers.s8_employment
 import play.api.test.TestBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.PageObjectsContext
-import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
+import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 
 trait AboutYouAndYourPartner {
@@ -30,7 +30,7 @@ trait AboutYouAndYourPartner {
 
     val claimAboutYourPartner = ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
 
-    val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(PageObjectsContext(browser))
+    val pageAboutYourPartner = new GYourPartnerPersonalDetailsPage(PageObjectsContext(browser))
     pageAboutYourPartner goToThePage()
     pageAboutYourPartner fillPageWith claimAboutYourPartner
     pageAboutYourPartner.submitPage(throwException = true)

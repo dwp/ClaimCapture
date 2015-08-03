@@ -1,4 +1,4 @@
-package controllers.s3_your_partner
+package controllers.s_your_partner
 
 import play.api.mvc.{Request, AnyContent, Controller}
 import models.view.CachedClaim

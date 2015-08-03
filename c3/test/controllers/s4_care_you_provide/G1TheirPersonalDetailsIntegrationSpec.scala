@@ -3,7 +3,7 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import utils.{WebDriverHelper, WithBrowser}
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
-import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
+import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects._
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
@@ -41,13 +41,13 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       claimDatePage fillPageWith claimDate
       claimDatePage submitPage()
 
-      val partnerPage = G1YourPartnerPersonalDetailsPage(context)
+      val partnerPage = GYourPartnerPersonalDetailsPage(context)
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerPage goToThePage()
       partnerPage fillPageWith partnerData
       val theirPersonalDetailsPage =  partnerPage submitPage()
       theirPersonalDetailsPage must beAnInstanceOf[G1TheirPersonalDetailsPage]
-      theirPersonalDetailsPage goBack() must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
+      theirPersonalDetailsPage goBack() must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
     }
 
     
@@ -58,7 +58,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       claimDatePage fillPageWith claimDate
       claimDatePage submitPage()
 
-      val partnerPage = G1YourPartnerPersonalDetailsPage(context)
+      val partnerPage = GYourPartnerPersonalDetailsPage(context)
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
       partnerPage goToThePage()
@@ -83,7 +83,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       claimDatePage fillPageWith claimDate
       claimDatePage submitPage()
 
-      val partnerPage = G1YourPartnerPersonalDetailsPage(context)
+      val partnerPage = GYourPartnerPersonalDetailsPage(context)
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
       partnerPage goToThePage()
@@ -102,7 +102,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       claimDatePage fillPageWith claimDate
       claimDatePage submitPage()
 
-      val partnerPage = G1YourPartnerPersonalDetailsPage(context)
+      val partnerPage = GYourPartnerPersonalDetailsPage(context)
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
       partnerPage goToThePage()
@@ -154,7 +154,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
-    val partnerPage = G1YourPartnerPersonalDetailsPage(context)
+    val partnerPage = GYourPartnerPersonalDetailsPage(context)
     val partnerData = new TestData
     partnerData.AboutYourPartnerHadPartnerSinceClaimDate = "No"
     partnerPage goToThePage()

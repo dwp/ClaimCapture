@@ -5,7 +5,7 @@ import utils.{WithJsBrowser, WithBrowser}
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects.s_about_you.GOtherEEAStateOrSwitzerlandPage
 import utils.pageobjects._
-import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
+import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
 
@@ -38,7 +38,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags
 
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
+      nextPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
     }
 
     "navigate to next page on valid non resident submission" in new WithBrowser with PageObjects{
@@ -49,7 +49,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags
 
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
+      nextPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
     }
 
     "Modify benefits from EEA from preview page" in new WithBrowser with PageObjects{
@@ -116,7 +116,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags
 
       page fillPageWith claim
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
+      nextPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
 
       val backPage = nextPage goBack()
       backPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
@@ -135,7 +135,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags
 
       page fillPageWith claim
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
+      nextPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
 
       val backPage = nextPage goBack()
       backPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]

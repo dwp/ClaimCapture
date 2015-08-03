@@ -5,7 +5,7 @@ import scala.language.dynamics
 import utils.pageobjects.s_eligibility._
 import utils.pageobjects.s_disclaimer._
 import utils.pageobjects.s_about_you._
-import utils.pageobjects.s3_your_partner._
+import utils.pageobjects.s_your_partner._
 import utils.pageobjects.s4_care_you_provide._
 import utils.pageobjects.s6_education._
 import utils.pageobjects.s8_employment._
@@ -54,7 +54,7 @@ object ClaimPageFactory extends PageFactory {
     }.orElse[String, Page] {
       case GOtherEEAStateOrSwitzerlandPage.url => GOtherEEAStateOrSwitzerlandPage(ctx)
       // S3
-      case G1YourPartnerPersonalDetailsPage.url => G1YourPartnerPersonalDetailsPage(ctx)
+      case GYourPartnerPersonalDetailsPage.url => GYourPartnerPersonalDetailsPage(ctx)
       // S4
       case G1TheirPersonalDetailsPage.url => G1TheirPersonalDetailsPage(ctx)
       case G2TheirContactDetailsPage.url => G2TheirContactDetailsPage(ctx)

@@ -1,4 +1,4 @@
-package controllers.s3_your_partner
+package controllers.s_your_partner
 
 import models.domain._
 import models.{DayMonthYear, NationalInsuranceNumber, domain}
@@ -10,7 +10,7 @@ import controllers.s_about_you.{GMaritalStatus, GNationalityAndResidency}
 import models.view.CachedClaim
 import utils.WithApplication
 
-class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
+class GYourPartnerPersonalDetailsSpec extends Specification with Tags {
   val title = "Mr"
   val firstName = "John"
   val middleName = "Mc"
@@ -53,7 +53,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
     "present 'Your Partner Personal Details' " in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = G1YourPartnerPersonalDetails.present(request)
+      val result = GYourPartnerPersonalDetails.present(request)
       status(result) mustEqual OK
     }
     
@@ -61,7 +61,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
 
-      val result = G1YourPartnerPersonalDetails.submit(request)
+      val result = GYourPartnerPersonalDetails.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(domain.YourPartner)
 
@@ -84,7 +84,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "no")
 
-      val result = G1YourPartnerPersonalDetails.submit(request)
+      val result = GYourPartnerPersonalDetails.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(domain.YourPartner)
 
@@ -108,7 +108,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody("foo" -> "bar")
 
-      val result = G1YourPartnerPersonalDetails.submit(request)
+      val result = GYourPartnerPersonalDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
     
@@ -116,7 +116,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
 
-      val result = G1YourPartnerPersonalDetails.submit(request)
+      val result = GYourPartnerPersonalDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -124,7 +124,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "no")
 
-      val result = G1YourPartnerPersonalDetails.submit(request)
+      val result = GYourPartnerPersonalDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -144,7 +144,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
         "resideInUK.answer" -> "yes")
       )
 
-       val result2 = G1YourPartnerPersonalDetails.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
+       val result2 = GYourPartnerPersonalDetails.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
                      .withFormUrlEncodedBody(checkForNationalityInput:_*))
 
       status(result2) mustEqual BAD_REQUEST

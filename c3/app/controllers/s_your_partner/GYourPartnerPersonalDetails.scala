@@ -1,4 +1,4 @@
-package controllers.s3_your_partner
+package controllers.s_your_partner
 
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
@@ -24,7 +24,7 @@ import play.api.i18n.Lang
 import models.view.ClaimHandling.ClaimResult
 import controllers.mappings.Mappings
 
-object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {
+object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {
 
   def form(implicit claim: Claim):Form[YourPartnerPersonalDetails] = Form(mapping(
     "title" -> optional(carersNonEmptyText(maxLength = Mappings.five)),
@@ -55,7 +55,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
   }
 
   private def yourPartnerPersonalDetails(lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))(lang)) }
+    track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s_your_partner.g_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))(lang)) }
   }
 
   def submit:Action[AnyContent] = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
@@ -70,7 +70,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
           .replaceError("", "separated.fromPartner.required", FormError("separated.fromPartner", errorRequired))
           .replaceError("", "isPartnerPersonYouCareFor.required", FormError("isPartnerPersonYouCareFor", errorRequired))
           .replaceError("", "nationality.required", FormError("nationality", errorRequired))
-        BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.s_your_partner.g_yourPartnerPersonalDetails(formWithErrorsUpdate)(lang))
       },
       f => claim.update(f) -> Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
     )

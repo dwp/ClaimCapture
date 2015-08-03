@@ -1,4 +1,4 @@
-package controllers.s3_your_partner
+package controllers.s_your_partner
 
 import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
@@ -6,22 +6,22 @@ import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects.s4_care_you_provide.G1TheirPersonalDetailsPage
 import utils.pageobjects._
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
+import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_about_you.{GMaritalStatusPage, GOtherEEAStateOrSwitzerlandPage, GNationalityAndResidencyPage}
 import app.MaritalStatus
 
-class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags {
+class GYourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags {
 
   "Your Partner Personal Details" should {
     "be presented" in new WithBrowser with PageObjects {
-      val page = G1YourPartnerPersonalDetailsPage(context)
+      val page = GYourPartnerPersonalDetailsPage(context)
       page goToThePage()
-      page.url mustEqual G1YourPartnerPersonalDetailsPage.url
+      page.url mustEqual GYourPartnerPersonalDetailsPage.url
     }
 
     "contain error on invalid submission" in new WithBrowser with PageObjects {
-      val page = G1YourPartnerPersonalDetailsPage(context)
+      val page = GYourPartnerPersonalDetailsPage(context)
       page goToThePage()
       page submitPage()
 
@@ -42,7 +42,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       maritalStatus fillPageWith claim
       maritalStatus submitPage()
 
-      val partnerPage = G1YourPartnerPersonalDetailsPage(context)
+      val partnerPage = GYourPartnerPersonalDetailsPage(context)
       val partnerData = new TestData
       partnerData.AboutYourPartnerHadPartnerSinceClaimDate = "Yes"
       partnerPage goToThePage ()
@@ -66,7 +66,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       maritalStatus fillPageWith claim
       maritalStatus submitPage()
 
-      val partnerPage = G1YourPartnerPersonalDetailsPage(context)
+      val partnerPage = GYourPartnerPersonalDetailsPage(context)
       partnerPage goToThePage ()
       partnerPage fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor()
       val theirPersonaDetailsPage = partnerPage submitPage()
@@ -76,7 +76,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     }
 
     "navigate to next page 'when have you lived with a partner is no' on valid submission" in new WithBrowser with PageObjects {
-      val partnerPage = G1YourPartnerPersonalDetailsPage(context)
+      val partnerPage = GYourPartnerPersonalDetailsPage(context)
       partnerPage goToThePage ()
       val claim = new TestData
       claim.AboutYourPartnerHadPartnerSinceClaimDate = "No"
@@ -94,19 +94,19 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       paymentsAbroadPage fillPageWith ClaimScenarioFactory.otherEuropeanEconomicArea
       val partnerDetailsPage = paymentsAbroadPage submitPage()
 
-      partnerDetailsPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
+      partnerDetailsPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
 
       partnerDetailsPage goBack() must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
     }
 
     "navigate back to About your partner/spouse - Partner/Spouse details" in new WithBrowser with PageObjects {
-      val partnerPage = G1YourPartnerPersonalDetailsPage(context)
+      val partnerPage = GYourPartnerPersonalDetailsPage(context)
       partnerPage goToThePage ()
       partnerPage fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareForWithBritishNationality()
       val theirPersonaDetailsPage = partnerPage submitPage()
 
       theirPersonaDetailsPage must beAnInstanceOf[G1TheirPersonalDetailsPage]
-      theirPersonaDetailsPage goBack() must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
+      theirPersonaDetailsPage goBack() must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
     }
 
     "Modify 'had a partner since claim date' from preview page" in new WithBrowser with PageObjects{
@@ -121,7 +121,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
        val previewPage = goToPreviewPage(context)
 
        val partnerDetailsPage = previewPage.clickLinkOrButton(s"#$id")
-       partnerDetailsPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
+       partnerDetailsPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
        partnerDetailsPage goBack() must beAnInstanceOf[PreviewPage]
     }
 
@@ -191,7 +191,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     nationalityPage fillPageWith claim
     nationalityPage submitPage()
 
-    val partnerPage = G1YourPartnerPersonalDetailsPage(context)
+    val partnerPage = GYourPartnerPersonalDetailsPage(context)
     partnerPage goToThePage ()
     partnerPage fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor()
     partnerPage submitPage()
@@ -207,7 +207,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     answerText(previewPage) mustEqual initialData
     val partnerPersonalDetailsPage = previewPage.clickLinkOrButton(s"#$id")
 
-    partnerPersonalDetailsPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
+    partnerPersonalDetailsPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
 
     partnerPersonalDetailsPage fillPageWith modifiedTestData
     val previewPageModified = partnerPersonalDetailsPage submitPage()

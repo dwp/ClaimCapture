@@ -37,7 +37,7 @@ object GOtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navi
           .replaceError("", "workingForEEADetails.required", FormError("workingForEEADetails", "error.workingForEEADetails.required"))
         BadRequest(views.html.s_about_you.g_otherEEAStateOrSwitzerland(formWithErrorsUpdate)(lang))
       },
-      benefitsFromEEA => claim.update(benefitsFromEEA) -> Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
+      benefitsFromEEA => claim.update(benefitsFromEEA) -> Redirect(controllers.s_your_partner.routes.GYourPartnerPersonalDetails.present())
     )
   } withPreview()
 }

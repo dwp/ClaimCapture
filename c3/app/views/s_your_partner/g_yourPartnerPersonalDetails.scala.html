@@ -20,7 +20,7 @@
     @main(Messages("s3.g1") + " - " + Messages("s3.longName"), Some(currentForm)) {
 
 
-        @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit, 'role -> "form") {
+        @form(action = controllers.s_your_partner.routes.GYourPartnerPersonalDetails.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
 
@@ -83,7 +83,7 @@
 
         }
 
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/s3_your_partner/g1_yourPartnerPersonalDetails.js")'></script>
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_your_partner/g_yourPartnerPersonalDetails.js")'></script>
 
         <script type="text/javascript" src='@routes.Assets.at("javascripts/otherTitle.js")'></script>
 

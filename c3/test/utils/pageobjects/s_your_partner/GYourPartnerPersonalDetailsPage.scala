@@ -1,14 +1,14 @@
-package utils.pageobjects.s3_your_partner
+package utils.pageobjects.s_your_partner
 
 import utils.WithBrowser
 import utils.pageobjects._
 
 /**
- * PageObject for page s3_your_partner g1_yourPartnerPersonalDetails.
+ * PageObject for page s_your_partner g_yourPartnerPersonalDetails.
  * @author Jorge Migueis
  *         Date: 19/07/2013
  */
-final class G1YourPartnerPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1YourPartnerPersonalDetailsPage.url) {
+final class GYourPartnerPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, GYourPartnerPersonalDetailsPage.url) {
   declareYesNo("#hadPartnerSinceClaimDate", "AboutYourPartnerHadPartnerSinceClaimDate")
   declareRadioList("#title", "AboutYourPartnerTitle")
   declareInput("#titleOther", "AboutYourPartnerTitleOther")
@@ -28,15 +28,15 @@ final class G1YourPartnerPersonalDetailsPage (ctx:PageObjectsContext) extends Cl
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in PageFactory.scala
  */
-object G1YourPartnerPersonalDetailsPage {
+object GYourPartnerPersonalDetailsPage {
   val url  = "/your-partner/personal-details"
 
-  def apply(ctx:PageObjectsContext) = new G1YourPartnerPersonalDetailsPage(ctx)
+  def apply(ctx:PageObjectsContext) = new GYourPartnerPersonalDetailsPage(ctx)
 }
 
 /** The context for Specs tests */
-trait G1YourPartnerPersonalDetailsPageContext extends PageContext {
+trait GYourPartnerPersonalDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1YourPartnerPersonalDetailsPage (PageObjectsContext(browser))
+  val page = GYourPartnerPersonalDetailsPage (PageObjectsContext(browser))
 }
