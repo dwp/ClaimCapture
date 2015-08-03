@@ -106,7 +106,7 @@
  
     }
 
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/s8_employment/jobs.js")'></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s8_employment/jobs.js")></script>
 
     <script type="text/javascript">
         $(function(){

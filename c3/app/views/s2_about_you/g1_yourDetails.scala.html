@@ -55,6 +55,6 @@
             } )
         </script>
 
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/otherTitle.js")'></script>
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/otherTitle.js")></script>
     }
 }
