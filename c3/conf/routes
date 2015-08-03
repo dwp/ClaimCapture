@@ -74,8 +74,8 @@ POST        /allowance/approve                                          controll
 
 #Section 1 - Disclaimer
 ###############
-GET         /disclaimer/disclaimer                                      controllers.s1_disclaimer.G1Disclaimer.present
-POST        /disclaimer/disclaimer                                      controllers.s1_disclaimer.G1Disclaimer.submit
+GET         /disclaimer/disclaimer                                      controllers.s_disclaimer.GDisclaimer.present
+POST        /disclaimer/disclaimer                                      controllers.s_disclaimer.GDisclaimer.submit
 
 #Section 1.5
 ###############

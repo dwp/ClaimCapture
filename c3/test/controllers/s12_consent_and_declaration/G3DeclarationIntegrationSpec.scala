@@ -7,7 +7,7 @@ import controllers.{BrowserMatchers, Formulate}
 import utils.pageobjects.common.ClaimNotesPage
 import utils.pageobjects.{TestData, PageObjects}
 import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
-import utils.pageobjects.s1_disclaimer.G1DisclaimerPage
+import utils.pageobjects.s_disclaimer.GDisclaimerPage
 import collection.JavaConversions._
 import utils.pageobjects.preview.PreviewPage
 

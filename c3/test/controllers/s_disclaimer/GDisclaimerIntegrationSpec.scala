@@ -1,22 +1,22 @@
-package controllers.s1_disclaimer
+package controllers.s_disclaimer
 
 import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, Formulate, BrowserMatchers}
 import utils.pageobjects.s_eligibility.GApprovePage
 import utils.pageobjects.PageObjects
-import utils.pageobjects.s1_disclaimer.G1DisclaimerPage
+import utils.pageobjects.s_disclaimer.GDisclaimerPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 
-class G1DisclaimerIntegrationSpec extends Specification with Tags {
+class GDisclaimerIntegrationSpec extends Specification with Tags {
   "Disclaimer" should {
     "be presented" in new WithBrowser with PageObjects {
-      val page = G1DisclaimerPage(context)
+      val page = GDisclaimerPage(context)
       page goToThePage()
     }
 
     "navigate to next page on valid submission" in new WithBrowser with PageObjects {
-      val disclaimerPage = G1DisclaimerPage(context) goToThePage()
+      val disclaimerPage = GDisclaimerPage(context) goToThePage()
       val claimDatePage = disclaimerPage submitPage()
 
       claimDatePage must beAnInstanceOf[GClaimDatePage]

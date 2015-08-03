@@ -1,4 +1,4 @@
-package utils.pageobjects.s1_disclaimer
+package utils.pageobjects.s_disclaimer
 
 import utils.WithBrowser
 import utils.pageobjects._
@@ -6,7 +6,7 @@ import utils.pageobjects._
 /**
  * Page Object for S1 G1 disclaimer.
  */
-class G1DisclaimerPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1DisclaimerPage.url) {
+class GDisclaimerPage (ctx:PageObjectsContext) extends ClaimPage(ctx, GDisclaimerPage.url) {
   // This page does not contain any input elements. This page contains a button and the value is passed to the model when
   // the button is clicked.
 }
@@ -15,15 +15,15 @@ class G1DisclaimerPage (ctx:PageObjectsContext) extends ClaimPage(ctx, G1Disclai
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object G1DisclaimerPage {
+object GDisclaimerPage {
   val url = "/disclaimer/disclaimer"
 
-  def apply(ctx:PageObjectsContext) = new G1DisclaimerPage(ctx)
+  def apply(ctx:PageObjectsContext) = new GDisclaimerPage(ctx)
 }
 
 /** The context for Specs tests */
-trait G1DisclaimerPagePageContext extends PageContext {
+trait GDisclaimerPagePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1DisclaimerPage (PageObjectsContext(browser))
+  val page = GDisclaimerPage (PageObjectsContext(browser))
 }
