@@ -36,11 +36,11 @@ object PreviewRouteUtils {
   }
 
   def educationRoute = {
-    val g1YourCourseDetailsRoute = controllers.s6_education.routes.G1YourCourseDetails.present.toString
+    val gYourCourseDetailsRoute = controllers.s_education.routes.GYourCourseDetails.present.toString
     val idList = Seq("education_beenInEducationSinceClaimDate", "education_courseTitle", "education_nameOfSchool",
       "education_nameOfTutor", "education_contactNumber", "education_startEndDates")
 
-    val routesMap = Map(idList map {id => (id, g1YourCourseDetailsRoute)} : _*)
+    val routesMap = Map(idList map {id => (id, gYourCourseDetailsRoute)} : _*)
 
     routesMap
   }

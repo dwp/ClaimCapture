@@ -1,19 +1,19 @@
-package controllers.s6_education
+package controllers.s_education
 
 import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects._
-import utils.pageobjects.s6_education.G1YourCourseDetailsPage
+import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_care_you_provide.GBreaksInCarePage
 import utils.pageobjects.s8_employment.{G1EmploymentPage, G2BeenEmployedPage}
 
-class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
+class GYourCourseDetailsIntegrationSpec extends Specification with Tags {
   "Your course details Page" should {
     "be presented" in new WithBrowser with PageObjects {
-      val educationPage = G1YourCourseDetailsPage(context)
+      val educationPage = GYourCourseDetailsPage(context)
       educationPage goToThePage()
     }
 
@@ -24,7 +24,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       claimDatePage fillPageWith claimDate
       claimDatePage submitPage()
 
-      val educationPage = G1YourCourseDetailsPage(context)
+      val educationPage = GYourCourseDetailsPage(context)
       val claim = new TestData
       claim.EducationHaveYouBeenOnACourseOfEducation = "Yes"
       claim.EducationCourseTitle = "Course 101"
@@ -47,7 +47,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       claimDatePage fillPageWith claimDate
       claimDatePage submitPage()
 
-      val educationPage = G1YourCourseDetailsPage(context)
+      val educationPage = GYourCourseDetailsPage(context)
       val claim = ClaimScenarioFactory.s6Education()
       educationPage goToThePage()
       educationPage fillPageWith claim
@@ -61,11 +61,11 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       claimDatePage fillPageWith claimDate
       claimDatePage submitPage()
 
-      val educationPage = G1YourCourseDetailsPage(context)
+      val educationPage = GYourCourseDetailsPage(context)
       educationPage goToThePage()
-      educationPage.url mustEqual G1YourCourseDetailsPage.url
+      educationPage.url mustEqual GYourCourseDetailsPage.url
       val previousPage = educationPage goBack()
-      previousPage.url mustNotEqual G1YourCourseDetailsPage.url
+      previousPage.url mustNotEqual GYourCourseDetailsPage.url
 
     }
 
@@ -76,7 +76,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       claimDatePage fillPageWith claimDate
       claimDatePage submitPage()
 
-      val educationPage = G1YourCourseDetailsPage(context)
+      val educationPage = GYourCourseDetailsPage(context)
       val claim = ClaimScenarioFactory.s6Education()
       educationPage goToThePage()
       educationPage fillPageWith claim
@@ -137,7 +137,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
-    val educationPage = G1YourCourseDetailsPage(context)
+    val educationPage = GYourCourseDetailsPage(context)
     val claim = ClaimScenarioFactory.s6Education()
     educationPage goToThePage()
     educationPage fillPageWith claim
@@ -154,7 +154,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
     answerText(previewPage) mustEqual initialData
     val educationPage = previewPage.clickLinkOrButton(s"#$id")
 
-    educationPage must beAnInstanceOf[G1YourCourseDetailsPage]
+    educationPage must beAnInstanceOf[GYourCourseDetailsPage]
 
     educationPage fillPageWith modifiedTestData
     val previewPageModified = educationPage submitPage()

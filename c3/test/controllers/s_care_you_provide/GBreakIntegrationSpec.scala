@@ -10,7 +10,7 @@ import utils.pageobjects.PageObjects
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_care_you_provide.{GBreakPage, GBreaksInCarePage}
 import app.CircsBreaksWhereabouts._
-import utils.pageobjects.s6_education.G1YourCourseDetailsPage
+import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.WithJsBrowser
 
 class GBreakIntegrationSpec extends Specification with Tags {
@@ -27,7 +27,7 @@ class GBreakIntegrationSpec extends Specification with Tags {
 
       click("#answer_no")
       next
-      urlMustEqual(G1YourCourseDetailsPage.url)
+      urlMustEqual(GYourCourseDetailsPage.url)
     }
 
     "display dynamic question text if user answered that they did NOT care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects{

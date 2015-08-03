@@ -1,4 +1,4 @@
-package controllers.s6_education
+package controllers.s_education
 
 import language.reflectiveCalls
 import play.api.mvc.{AnyContent, Request, Controller}
@@ -14,7 +14,7 @@ import models.domain.Claim
 import controllers.CarersForms._
 
 
-object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
+object GYourCourseDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "beenInEducationSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
     "courseTitle" -> optional(carersNonEmptyText(maxLength = 50)),
@@ -33,7 +33,7 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
 
   def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     presentConditionally {
-      track(YourCourseDetails) { implicit claim => Ok(views.html.s6_education.g1_yourCourseDetails(form.fill(YourCourseDetails))(lang)) }
+      track(YourCourseDetails) { implicit claim => Ok(views.html.s_education.g_yourCourseDetails(form.fill(YourCourseDetails))(lang)) }
     }
   }
 
@@ -55,7 +55,7 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
           .replaceError("", "nameOfMainTeacherOrTutor.required", FormError("nameOfMainTeacherOrTutor", errorRequired))
           .replaceError("", "startDate.required", FormError("startDate", errorRequired))
           .replaceError("", "expectedEndDate.required", FormError("expectedEndDate", errorRequired))
-        BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.s_education.g_yourCourseDetails(formWithErrorsUpdate)(lang))
       },
       yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(controllers.s7_self_employment.routes.G0Employment.present()))
   } withPreview()

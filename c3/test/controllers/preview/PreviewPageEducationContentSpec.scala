@@ -6,7 +6,7 @@ import utils.pageobjects.{TestData, PageObjectsContext, PageObjects}
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s6_education.G1YourCourseDetailsPage
+import utils.pageobjects.s_education.GYourCourseDetailsPage
 
 
 class PreviewPageEducationContentSpec extends Specification with Tags {
@@ -55,7 +55,7 @@ class PreviewPageEducationContentSpec extends Specification with Tags {
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
-    val educationPage = G1YourCourseDetailsPage(context)
+    val educationPage = GYourCourseDetailsPage(context)
     educationPage goToThePage()
     educationPage fillPageWith educationData
     educationPage submitPage()

@@ -1,4 +1,4 @@
-package controllers.s6_education
+package controllers.s_education
 
 import models.domain._
 import models.{DayMonthYear, domain}
@@ -7,7 +7,7 @@ import play.api.test.Helpers._
 import play.api.test.FakeRequest
 import utils.WithApplication
 
-class G1YourCourseDetailsSpec extends Specification with Tags {
+class GYourCourseDetailsSpec extends Specification with Tags {
 
   val nameOfSchoolCollegeOrUniversity = "MIT"
   val nameOfMainTeacherOrTutor = "Albert Einstein"
@@ -32,7 +32,7 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
     "present 'Your course details'" in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = G1YourCourseDetails.present(request)
+      val result = GYourCourseDetails.present(request)
       status(result) mustEqual OK
     }
 
@@ -40,7 +40,7 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody(formInput: _*)
 
-      val result = controllers.s6_education.G1YourCourseDetails.submit(request)
+      val result = controllers.s_education.GYourCourseDetails.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(domain.Education)
 
@@ -61,7 +61,7 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody("finishedDate.day" -> "1")
 
-      val result = controllers.s6_education.G1YourCourseDetails.submit(request)
+      val result = controllers.s_education.GYourCourseDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -69,7 +69,7 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
       val request = FakeRequest()
         .withFormUrlEncodedBody(formInput: _*)
 
-      val result = controllers.s6_education.G1YourCourseDetails.submit(request)
+      val result = controllers.s_education.GYourCourseDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 

@@ -127,8 +127,8 @@ POST        /care-you-provide/breaks                                    controll
 
 # Education
 ###############
-GET         /education/your-course-details                              controllers.s6_education.G1YourCourseDetails.present
-POST        /education/your-course-details                              controllers.s6_education.G1YourCourseDetails.submit
+GET         /education/your-course-details                              controllers.s_education.GYourCourseDetails.present
+POST        /education/your-course-details                              controllers.s_education.GYourCourseDetails.submit
 
 # Employment
 ###############

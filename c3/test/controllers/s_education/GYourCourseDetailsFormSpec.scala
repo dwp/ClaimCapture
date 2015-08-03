@@ -1,11 +1,11 @@
-package controllers.s6_education
+package controllers.s_education
 
 import controllers.mappings.Mappings
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 import scala.Some
 
-class G1YourCourseDetailsFormSpec extends Specification with Tags {
+class GYourCourseDetailsFormSpec extends Specification with Tags {
 
   val overHundredChars = "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS"
   val nameOfSchoolCollegeOrUniversity = "MIT"
@@ -18,7 +18,7 @@ class G1YourCourseDetailsFormSpec extends Specification with Tags {
 
   "Your course details Form" should {
     "map data into case class" in {
-      G1YourCourseDetails.form.bind(
+      GYourCourseDetails.form.bind(
         Map(
           "beenInEducationSinceClaimDate" -> "yes",
           "courseTitle" -> title,
@@ -43,7 +43,7 @@ class G1YourCourseDetailsFormSpec extends Specification with Tags {
     }
 
     "have 1 mandatory field on initial load" in {
-      G1YourCourseDetails.form.bind(
+      GYourCourseDetails.form.bind(
         Map("courseTitle" -> title,
           "nameOfSchoolCollegeOrUniversity" -> nameOfSchoolCollegeOrUniversity,
           "nameOfMainTeacherOrTutor" -> nameOfMainTeacherOrTutor,
@@ -60,7 +60,7 @@ class G1YourCourseDetailsFormSpec extends Specification with Tags {
     }
 
     "have 5 mandatory fields if beenInEducationSinceClaimDate is yes" in {
-      G1YourCourseDetails.form.bind(
+      GYourCourseDetails.form.bind(
         Map("beenInEducationSinceClaimDate" -> "yes")
       ).fold(
           formWithErrors => {
@@ -76,7 +76,7 @@ class G1YourCourseDetailsFormSpec extends Specification with Tags {
     }
 
     "reject too many characters in text fields" in {
-      G1YourCourseDetails.form.bind(
+      GYourCourseDetails.form.bind(
         Map(
           "beenInEducationSinceClaimDate" -> "yes",
           "courseTitle" -> overHundredChars,
@@ -96,7 +96,7 @@ class G1YourCourseDetailsFormSpec extends Specification with Tags {
     }
 
     "reject invalid dates" in {
-      G1YourCourseDetails.form.bind(
+      GYourCourseDetails.form.bind(
         Map(
           "beenInEducationSinceClaimDate" -> "yes",
           "courseTitle" -> title,

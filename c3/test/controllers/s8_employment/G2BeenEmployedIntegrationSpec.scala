@@ -6,7 +6,7 @@ import play.api.test.FakeApplication
 import controllers.ClaimScenarioFactory._
 import utils.WithBrowser
 import utils.pageobjects._
-import utils.pageobjects.s6_education.G1YourCourseDetailsPage
+import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.pageobjects.s8_employment._
 import utils.pageobjects.s7_self_employment.G1AboutSelfEmploymentPage
 import scala.Some
@@ -79,9 +79,9 @@ class G2BeenEmployedIntegrationSpec extends Specification with Tags {
       claimDate.fillPageWith(s7EmployedNotSelfEmployed())
       claimDate.submitPage()
 
-      val education = new G1YourCourseDetailsPage(claimDate.ctx) goToThePage()
+      val education = new GYourCourseDetailsPage(claimDate.ctx) goToThePage()
       val employment = new G1EmploymentPage(education.ctx) goToThePage()
-      employment.goBack() must beAnInstanceOf[G1YourCourseDetailsPage]
+      employment.goBack() must beAnInstanceOf[GYourCourseDetailsPage]
     }
 
     """remember been employed question""" in new WithBrowser with EmployedHistoryPage {

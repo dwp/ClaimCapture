@@ -7,7 +7,7 @@ import utils.pageobjects.s_disclaimer._
 import utils.pageobjects.s_about_you._
 import utils.pageobjects.s_your_partner._
 import utils.pageobjects.s_care_you_provide._
-import utils.pageobjects.s6_education._
+import utils.pageobjects.s_education._
 import utils.pageobjects.s8_employment._
 import utils.pageobjects.s7_self_employment._
 import utils.pageobjects.s9_other_money._
@@ -66,7 +66,7 @@ object ClaimPageFactory extends PageFactory {
       })
     }.orElse[String, Page] {
       //S6
-      case G1YourCourseDetailsPage.url => G1YourCourseDetailsPage(ctx)
+      case GYourCourseDetailsPage.url => GYourCourseDetailsPage(ctx)
       // S7 - guard question(s)
       case G1EmploymentPage.url => G1EmploymentPage(ctx)
     }.orElse[String, Page] {

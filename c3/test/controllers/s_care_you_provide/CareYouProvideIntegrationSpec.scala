@@ -5,7 +5,7 @@ import utils.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s_care_you_provide.{GBreaksInCarePage, GTheirPersonalDetailsPage}
-import utils.pageobjects.s6_education.G1YourCourseDetailsPage
+import utils.pageobjects.s_education.GYourCourseDetailsPage
 
 class CareYouProvideIntegrationSpec extends Specification with Tags {
 
@@ -21,7 +21,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       page goToThePage()
       val breakPage = page runClaimWith(claim,GBreaksInCarePage.url)
       breakPage.fillYesNo("#answer","no")
-      breakPage.submitPage().url mustEqual G1YourCourseDetailsPage.url
+      breakPage.submitPage().url mustEqual GYourCourseDetailsPage.url
     }
 
   } section("integration", models.domain.CareYouProvide.id)

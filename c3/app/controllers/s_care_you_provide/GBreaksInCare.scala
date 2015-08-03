@@ -60,7 +60,7 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable {
 
   private def redirect(implicit claim: Claim, lang: Lang) = {
     if (completedQuestionGroups.isEmpty) Redirect(routes.GTheirPersonalDetails.present())
-    else Redirect(controllers.s6_education.routes.G1YourCourseDetails.present)
+    else Redirect(controllers.s_education.routes.GYourCourseDetails.present)
   }
 
   private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
