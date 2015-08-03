@@ -7,7 +7,7 @@ import utils.pageobjects._
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s4_care_you_provide._
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s2_about_you.G3ContactDetailsPage
+import utils.pageobjects.s_about_you.GContactDetailsPage
 
 class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
 
@@ -69,7 +69,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
   } section("integration", models.domain.CareYouProvide.id)
 
   def goToTheirContactDetailsPage (context:PageObjectsContext, testData:TestData) = {
-    val yourContactDetailsPage = G3ContactDetailsPage(context)
+    val yourContactDetailsPage = GContactDetailsPage(context)
     yourContactDetailsPage goToThePage()
     yourContactDetailsPage fillPageWith ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
     yourContactDetailsPage submitPage()

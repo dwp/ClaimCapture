@@ -6,7 +6,7 @@ import utils.pageobjects.{TestData, PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s2_about_you.G7OtherEEAStateOrSwitzerlandPage
+import utils.pageobjects.s_about_you.GOtherEEAStateOrSwitzerlandPage
 
 class PreviewPageAboutYouContentSpec extends Specification with Tags {
   "Preview Page" should {
@@ -90,7 +90,7 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
     timeOutsideUk fillPageWith ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationNo()
     timeOutsideUk submitPage()
 
-    val paymentFromAbroadPage = G7OtherEEAStateOrSwitzerlandPage(context)
+    val paymentFromAbroadPage = GOtherEEAStateOrSwitzerlandPage(context)
     paymentFromAbroadPage goToThePage ()
     paymentFromAbroadPage fillPageWith ClaimScenarioFactory.otherEuropeanEconomicArea()
 

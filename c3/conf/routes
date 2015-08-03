@@ -84,23 +84,23 @@ POST        /your-claim-date/claim-date                                 controll
 
 #Section 2
 ###############
-GET         /about-you/your-details                                     controllers.s2_about_you.G1YourDetails.present
-POST        /about-you/your-details                                     controllers.s2_about_you.G1YourDetails.submit
+GET         /about-you/your-details                                     controllers.s_about_you.GYourDetails.present
+POST        /about-you/your-details                                     controllers.s_about_you.GYourDetails.submit
 
-GET         /about-you/marital-status                                   controllers.s2_about_you.G2MaritalStatus.present
-POST        /about-you/marital-status                                   controllers.s2_about_you.G2MaritalStatus.submit
+GET         /about-you/marital-status                                   controllers.s_about_you.GMaritalStatus.present
+POST        /about-you/marital-status                                   controllers.s_about_you.GMaritalStatus.submit
 
-GET         /about-you/contact-details                                  controllers.s2_about_you.G3ContactDetails.present
-POST        /about-you/contact-details                                  controllers.s2_about_you.G3ContactDetails.submit
+GET         /about-you/contact-details                                  controllers.s_about_you.GContactDetails.present
+POST        /about-you/contact-details                                  controllers.s_about_you.GContactDetails.submit
 
-GET         /about-you/nationality-and-residency                        controllers.s2_about_you.G4NationalityAndResidency.present
-POST        /about-you/nationality-and-residency                        controllers.s2_about_you.G4NationalityAndResidency.submit
+GET         /about-you/nationality-and-residency                        controllers.s_about_you.GNationalityAndResidency.present
+POST        /about-you/nationality-and-residency                        controllers.s_about_you.GNationalityAndResidency.submit
 
-GET         /about-you/abroad-for-more-than-52-weeks                    controllers.s2_about_you.G5AbroadForMoreThan52Weeks.present
-POST        /about-you/abroad-for-more-than-52-weeks                    controllers.s2_about_you.G5AbroadForMoreThan52Weeks.submit
+GET         /about-you/abroad-for-more-than-52-weeks                    controllers.s_about_you.GAbroadForMoreThan52Weeks.present
+POST        /about-you/abroad-for-more-than-52-weeks                    controllers.s_about_you.GAbroadForMoreThan52Weeks.submit
 
-GET         /about-you/other-eea-state-or-switzerland                   controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.present
-POST        /about-you/other-eea-state-or-switzerland                   controllers.s2_about_you.G7OtherEEAStateOrSwitzerland.submit
+GET         /about-you/other-eea-state-or-switzerland                   controllers.s_about_you.GOtherEEAStateOrSwitzerland.present
+POST        /about-you/other-eea-state-or-switzerland                   controllers.s_about_you.GOtherEEAStateOrSwitzerland.submit
 
 # Your partner
 ###############

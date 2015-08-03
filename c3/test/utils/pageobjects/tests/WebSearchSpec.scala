@@ -2,7 +2,7 @@ package utils.pageobjects.tests
 
 import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
-import utils.pageobjects.s2_about_you.G1YourDetailsPageContext
+import utils.pageobjects.s_about_you.GYourDetailsPageContext
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s11_pay_details.G1HowWePayYouPageContext
 import utils.pageobjects.{Page, PageObjectsContext, PageObjects, TestData}
@@ -13,7 +13,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 class WebSearchSpec extends Specification with Tags{
   "Web Search Actions " should {
 
-    "be presented" in new WithBrowser with G1YourDetailsPageContext {
+    "be presented" in new WithBrowser with GYourDetailsPageContext {
       page goToThePage()
     }
 

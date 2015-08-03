@@ -4,7 +4,7 @@ package utils.pageobjects
 import scala.language.dynamics
 import utils.pageobjects.s_eligibility._
 import utils.pageobjects.s_disclaimer._
-import utils.pageobjects.s2_about_you._
+import utils.pageobjects.s_about_you._
 import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s4_care_you_provide._
 import utils.pageobjects.s6_education._
@@ -42,17 +42,17 @@ object ClaimPageFactory extends PageFactory {
       //S1.5
       case GClaimDatePage.url => GClaimDatePage(ctx)
       // S2
-      case G1YourDetailsPage.url => G1YourDetailsPage(ctx)
-      case G2MaritalStatusPage.url => G2MaritalStatusPage(ctx)
-      case G3ContactDetailsPage.url => G3ContactDetailsPage(ctx)
-      case G4NationalityAndResidencyPage.url => G4NationalityAndResidencyPage(ctx)
+      case GYourDetailsPage.url => GYourDetailsPage(ctx)
+      case GMaritalStatusPage.url => GMaritalStatusPage(ctx)
+      case GContactDetailsPage.url => GContactDetailsPage(ctx)
+      case GNationalityAndResidencyPage.url => GNationalityAndResidencyPage(ctx)
     }
     m.orElse[String, Page] {
       IterableNode(Abroad, ctx)(iteration => {
-        case G5AbroadForMoreThan52WeeksPage.url => G5AbroadForMoreThan52WeeksPage(ctx, iteration)
+        case GAbroadForMoreThan52WeeksPage.url => GAbroadForMoreThan52WeeksPage(ctx, iteration)
       })
     }.orElse[String, Page] {
-      case G7OtherEEAStateOrSwitzerlandPage.url => G7OtherEEAStateOrSwitzerlandPage(ctx)
+      case GOtherEEAStateOrSwitzerlandPage.url => GOtherEEAStateOrSwitzerlandPage(ctx)
       // S3
       case G1YourPartnerPersonalDetailsPage.url => G1YourPartnerPersonalDetailsPage(ctx)
       // S4

@@ -8,7 +8,7 @@ import utils.pageobjects._
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s2_about_you.{G2MaritalStatusPage, G7OtherEEAStateOrSwitzerlandPage, G4NationalityAndResidencyPage}
+import utils.pageobjects.s_about_you.{GMaritalStatusPage, GOtherEEAStateOrSwitzerlandPage, GNationalityAndResidencyPage}
 import app.MaritalStatus
 
 class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags {
@@ -30,14 +30,14 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
 
     "contain errors 'when have you lived with a partner is yes' on invalid submission" in new WithBrowser with PageObjects {
 
-      val nationalityPage =  G4NationalityAndResidencyPage(context)
+      val nationalityPage =  GNationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
       claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = MaritalStatus.Married
       nationalityPage goToThePage()
       nationalityPage fillPageWith claim
       nationalityPage submitPage()
 
-      val maritalStatus = G2MaritalStatusPage(context)
+      val maritalStatus = GMaritalStatusPage(context)
       maritalStatus goToThePage()
       maritalStatus fillPageWith claim
       maritalStatus submitPage()
@@ -54,14 +54,14 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
 
     "navigate to next page on valid submission" in new WithBrowser with PageObjects {
 
-      val nationalityPage =  G4NationalityAndResidencyPage(context)
+      val nationalityPage =  GNationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
       claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = MaritalStatus.Married
       nationalityPage goToThePage()
       nationalityPage fillPageWith claim
       nationalityPage submitPage()
 
-      val maritalStatus = G2MaritalStatusPage(context)
+      val maritalStatus = GMaritalStatusPage(context)
       maritalStatus goToThePage()
       maritalStatus fillPageWith claim
       maritalStatus submitPage()
@@ -89,14 +89,14 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     }
 
     "navigate back to 'Payments from abroad and working abroad' page " in new WithBrowser with PageObjects {
-      val paymentsAbroadPage = G7OtherEEAStateOrSwitzerlandPage(context)
+      val paymentsAbroadPage = GOtherEEAStateOrSwitzerlandPage(context)
       paymentsAbroadPage goToThePage()
       paymentsAbroadPage fillPageWith ClaimScenarioFactory.otherEuropeanEconomicArea
       val partnerDetailsPage = paymentsAbroadPage submitPage()
 
       partnerDetailsPage must beAnInstanceOf[G1YourPartnerPersonalDetailsPage]
 
-      partnerDetailsPage goBack() must beAnInstanceOf[G7OtherEEAStateOrSwitzerlandPage]
+      partnerDetailsPage goBack() must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
     }
 
     "navigate back to About your partner/spouse - Partner/Spouse details" in new WithBrowser with PageObjects {
@@ -177,14 +177,14 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
-    val maritalStatusPage = G2MaritalStatusPage(context)
+    val maritalStatusPage = GMaritalStatusPage(context)
     maritalStatusPage goToThePage()
     val maritalData = new TestData
     maritalData.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = app.MaritalStatus.Married
     maritalStatusPage fillPageWith maritalData
     maritalStatusPage.submitPage()
 
-    val nationalityPage =  G4NationalityAndResidencyPage(context)
+    val nationalityPage =  GNationalityAndResidencyPage(context)
     val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
 
     nationalityPage goToThePage()

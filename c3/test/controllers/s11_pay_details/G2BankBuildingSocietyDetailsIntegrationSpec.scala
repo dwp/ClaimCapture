@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s11_pay_details.{G1HowWePayYouPage, G2BankBuildingSocietyDetailsPage}
-import utils.pageobjects.s2_about_you._
+import utils.pageobjects.s_about_you._
 import utils.pageobjects.s10_information.G1AdditionalInfoPage
 import app.AccountStatus
 import utils.pageobjects.{TestData, Page, PageObjects, PageObjectsContext}
@@ -88,15 +88,15 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       page fillPageWith claim
       page submitPage ()
 
-      val nationalityAndResidencyPage = page goToPage new G4NationalityAndResidencyPage(context)
+      val nationalityAndResidencyPage = page goToPage new GNationalityAndResidencyPage(context)
       nationalityAndResidencyPage fillPageWith claim
       nationalityAndResidencyPage submitPage()
 
-      val timeOutSideUKPage = nationalityAndResidencyPage goToPage new G5AbroadForMoreThan52WeeksPage(context, iteration = 1)
+      val timeOutSideUKPage = nationalityAndResidencyPage goToPage new GAbroadForMoreThan52WeeksPage(context, iteration = 1)
       timeOutSideUKPage fillPageWith claim
       timeOutSideUKPage submitPage()
 
-      val eeaPage = timeOutSideUKPage goToPage new G7OtherEEAStateOrSwitzerlandPage(context)
+      val eeaPage = timeOutSideUKPage goToPage new GOtherEEAStateOrSwitzerlandPage(context)
       eeaPage fillPageWith claim
       eeaPage submitPage()
 

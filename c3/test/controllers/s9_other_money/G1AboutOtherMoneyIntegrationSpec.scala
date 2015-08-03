@@ -7,7 +7,7 @@ import utils.pageobjects.s9_other_money._
 import utils.pageobjects._
 import utils.pageobjects.s11_pay_details.G1HowWePayYouPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s2_about_you.G7OtherEEAStateOrSwitzerlandPage
+import utils.pageobjects.s_about_you.GOtherEEAStateOrSwitzerlandPage
 import utils.pageobjects.preview.PreviewPage
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {

@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, PreviewTestUtils}
 import utils.pageobjects._
-import utils.pageobjects.s2_about_you.G1YourDetailsPage
+import utils.pageobjects.s_about_you.GYourDetailsPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s4_care_you_provide.G7MoreAboutTheCarePage
@@ -23,7 +23,7 @@ class GClaimDateIntegrationSpec extends Specification with Tags {
       claimDatePage goToThePage()
       val claim = ClaimScenarioFactory.s12ClaimDateSpent35HoursYes()
       claimDatePage fillPageWith claim
-      val page = claimDatePage submitPage() goToPage(G1YourDetailsPage(context))
+      val page = claimDatePage submitPage() goToPage(GYourDetailsPage(context))
     }
 
     "contains errors for optional mandatory data" in new WithBrowser with PageObjects {

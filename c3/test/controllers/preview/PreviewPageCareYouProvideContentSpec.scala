@@ -3,7 +3,7 @@ package controllers.preview
 import org.openqa.selenium.By
 import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
-import utils.pageobjects.s2_about_you.G3ContactDetailsPage
+import utils.pageobjects.s_about_you.GContactDetailsPage
 import utils.pageobjects.{ClaimPageFactory, TestData, PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import controllers.ClaimScenarioFactory
@@ -118,7 +118,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val carerAddressPage = page.clickLinkOrButton("#about_you_address")
 //      val carerAddressPage = previewPage.clickLinkOrButton(s"#$id")carerAddress)
 
-      carerAddressPage must beAnInstanceOf[G3ContactDetailsPage]
+      carerAddressPage must beAnInstanceOf[GContactDetailsPage]
 
       val newAddress = new TestData
       newAddress.AboutYouAddress = "Something totally different&Manchester"

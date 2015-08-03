@@ -4,23 +4,23 @@ package controllers
 object PreviewRouteUtils {
 
   def yourDetailsRoute = {
-    val g1YourDetailsRoute = controllers.s2_about_you.routes.G1YourDetails.present.toString
-    val g2MaritalStatusRoute = controllers.s2_about_you.routes.G2MaritalStatus.present.toString
-    val g3ContactDetailsRoute = controllers.s2_about_you.routes.G3ContactDetails.present.toString
-    val g4NationalityRoute = controllers.s2_about_you.routes.G4NationalityAndResidency.present.toString
-    val g7OtherEEARoute = controllers.s2_about_you.routes.G7OtherEEAStateOrSwitzerland.present.toString
+    val gYourDetailsRoute = controllers.s_about_you.routes.GYourDetails.present.toString
+    val gMaritalStatusRoute = controllers.s_about_you.routes.GMaritalStatus.present.toString
+    val gContactDetailsRoute = controllers.s_about_you.routes.GContactDetails.present.toString
+    val gNationalityRoute = controllers.s_about_you.routes.GNationalityAndResidency.present.toString
+    val gOtherEEARoute = controllers.s_about_you.routes.GOtherEEAStateOrSwitzerland.present.toString
 
-    val routesMap = Map("about_you_full_name" -> g1YourDetailsRoute,
-                        "about_you_nino" -> g1YourDetailsRoute,
-                        "about_you_dob" -> g1YourDetailsRoute,
-                        "about_you_address" -> g3ContactDetailsRoute,
-                        "about_you_contact" -> g3ContactDetailsRoute,
-                        "about_you_marital_status" -> g2MaritalStatusRoute,
+    val routesMap = Map("about_you_full_name" -> gYourDetailsRoute,
+                        "about_you_nino" -> gYourDetailsRoute,
+                        "about_you_dob" -> gYourDetailsRoute,
+                        "about_you_address" -> gContactDetailsRoute,
+                        "about_you_contact" -> gContactDetailsRoute,
+                        "about_you_marital_status" -> gMaritalStatusRoute,
                         "about_you_claimDate" -> controllers.s_claim_date.routes.GClaimDate.present.toString,
-                        "about_you_nationality" -> g4NationalityRoute,
-                        "about_you_abroad" -> controllers.s2_about_you.routes.G5AbroadForMoreThan52Weeks.present.toString,
-                        "about_you_benefitsFromEEA" -> g7OtherEEARoute,
-                        "about_you_workingForEEA" -> g7OtherEEARoute)
+                        "about_you_nationality" -> gNationalityRoute,
+                        "about_you_abroad" -> controllers.s_about_you.routes.GAbroadForMoreThan52Weeks.present.toString,
+                        "about_you_benefitsFromEEA" -> gOtherEEARoute,
+                        "about_you_workingForEEA" -> gOtherEEARoute)
 
     routesMap
 
