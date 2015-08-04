@@ -4,10 +4,10 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import utils.pageobjects.PageObjects
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s10_information.G1AdditionalInfoPage
+import utils.pageobjects.s_information.GAdditionalInfoPage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s11_pay_details.G1HowWePayYouPage
-import utils.pageobjects.s12_consent_and_declaration.G3DeclarationPage
+import utils.pageobjects.s_pay_details.GHowWePayYouPage
+import utils.pageobjects.s_consent_and_declaration.GDeclarationPage
 
 
 class PreviewIntegrationSpec extends Specification with Tags {
@@ -19,48 +19,48 @@ class PreviewIntegrationSpec extends Specification with Tags {
 
     "navigate back to Additional Info page" in new WithBrowser with PageObjects{
 
-      val additionalInfoPage = G1AdditionalInfoPage(context)
+      val additionalInfoPage = GAdditionalInfoPage(context)
       val additionalInfoData = ClaimScenarioFactory.s11ConsentAndDeclaration
       additionalInfoPage goToThePage ()
       additionalInfoPage fillPageWith additionalInfoData
       val previewPage = additionalInfoPage submitPage()
       previewPage must beAnInstanceOf[PreviewPage]
-      previewPage goBack() must beAnInstanceOf[G1AdditionalInfoPage]
+      previewPage goBack() must beAnInstanceOf[GAdditionalInfoPage]
     }
 
     "navigate to Declaration page" in new WithBrowser with PageObjects {
        val previewPage = PreviewPage(context)
        previewPage goToThePage()
        val declarationPage = previewPage submitPage()
-      declarationPage must beAnInstanceOf[G3DeclarationPage]
+      declarationPage must beAnInstanceOf[GDeclarationPage]
     }
 
     "navigate back to preview page clicking next" in new WithBrowser with PageObjects {
-      val additionalInfoPage = G1AdditionalInfoPage(context)
+      val additionalInfoPage = GAdditionalInfoPage(context)
       val additionalInfoData = ClaimScenarioFactory.s11ConsentAndDeclaration
       additionalInfoPage goToThePage ()
       additionalInfoPage fillPageWith additionalInfoData
       val previewPage = additionalInfoPage submitPage()
       previewPage must beAnInstanceOf[PreviewPage]
       val additionalPage = previewPage goBack()
-      additionalPage must beAnInstanceOf[G1AdditionalInfoPage]
+      additionalPage must beAnInstanceOf[GAdditionalInfoPage]
       additionalPage submitPage () must beAnInstanceOf[PreviewPage]
     }
 
     "navigate back to how we pay you page" in new WithBrowser with PageObjects {
-      val howWePayYouPage = G1HowWePayYouPage(context)
+      val howWePayYouPage = GHowWePayYouPage(context)
       howWePayYouPage goToThePage()
       howWePayYouPage fillPageWith ClaimScenarioFactory.s6PayDetails
       howWePayYouPage submitPage()
-      val additionalInfoPage = G1AdditionalInfoPage(context)
+      val additionalInfoPage = GAdditionalInfoPage(context)
       val additionalInfoData = ClaimScenarioFactory.s11ConsentAndDeclaration
       additionalInfoPage goToThePage ()
       additionalInfoPage fillPageWith additionalInfoData
       val previewPage = additionalInfoPage submitPage()
       previewPage must beAnInstanceOf[PreviewPage]
       val additionalPage = previewPage goBack()
-      additionalPage must beAnInstanceOf[G1AdditionalInfoPage]
-      additionalPage goBack () must beAnInstanceOf[G1HowWePayYouPage]
+      additionalPage must beAnInstanceOf[GAdditionalInfoPage]
+      additionalPage goBack () must beAnInstanceOf[GHowWePayYouPage]
     }
 
   }section "preview"

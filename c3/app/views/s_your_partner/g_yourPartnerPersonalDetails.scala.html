@@ -1,0 +1,118 @@
+@(currentForm: Form[models.domain.YourPartnerPersonalDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers._
+@import play.api.i18n.{MMessages => Messages}
+@import models.domain.YourPartnerPersonalDetails
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+    @displayDateForLabel = @{
+        claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy))
+    }
+
+    @defining(lang) { implicit language =>
+
+    @main(Messages("s3.g1") + " - " + Messages("s3.longName"), Some(currentForm)) {
+
+
+        @form(action = controllers.s_your_partner.routes.GYourPartnerPersonalDetails.submit, 'role -> "form") {
+
+            @DwpCSRFFormHelper.formField
+
+            <p>@Html(Messages("s3.g1.help"))</p>
+
+            <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
+
+                <legend class="heading-medium form-label-bold">@Html(Messages("hadPartnerSinceClaimDate"))</legend>
+
+                <div class="prompt">
+
+                    <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help1", displayDateForLabel))</p>
+
+                    <ul class="list-bullet">
+                        <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help2"))</li>
+                        <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help3"))</li>
+                    </ul>
+                    
+                </div>
+
+                <ul class="partner-group">
+
+                    @yesNoRadioGroup(currentForm("hadPartnerSinceClaimDate"),'_showLabel -> false)
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            titleSelect(currentForm),
+
+                            carersInputText(currentForm("firstName"), 'maxLength -> 17),
+
+                            carersInputText(currentForm("middleName"), 'maxLength -> 17,'ignoreOptional->true),
+
+                            carersInputText(currentForm("surname"), 'maxLength -> 35),
+
+                            carersInputText(currentForm("otherNames"), 'maxLength -> 35),
+
+                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperAbove -> Messages("nationalInsuranceNumber.helper")),
+
+                            dateOfBirth(currentForm("dateOfBirth")),
+
+                            carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35, 'helperBelow -> Messages("partner.nationality.helper2"), 'ignoreOptional->true),
+
+                            yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label"), 'helperAbove -> Messages("separated_fromPartner.helper",displayDateForLabel)),
+
+                            yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
+                        ),
+                        'id -> "partnerDetailsWrap"
+                    )
+
+                </ul>
+
+            </fieldset>
+
+            <nav class="form-steps" role="navigation">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+                </ul>
+            </nav>
+
+        }
+
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_your_partner/g_yourPartnerPersonalDetails.js")'></script>
+
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/otherTitle.js")'></script>
+
+        <script type="text/javascript">
+
+            $ ( function ( ) {
+                @ga.stagePrompt()
+
+                window.otherTitle('@CarersCrypto.encryptAES("title")');
+                window.initEvents ( "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
+                "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
+                "@CarersCrypto.encryptAES("title")",
+                "@CarersCrypto.encryptAES("firstName")",
+                "@CarersCrypto.encryptAES("middleName")",
+                "@CarersCrypto.encryptAES("surname")",
+                "@CarersCrypto.encryptAES("otherNames")",
+                "@CarersCrypto.encryptAES("nationalInsuranceNumber_nino")",
+                "@CarersCrypto.encryptAES("dateOfBirth_day")",
+                "@CarersCrypto.encryptAES("dateOfBirth_month")",
+                "@CarersCrypto.encryptAES("dateOfBirth_year")",
+                "@CarersCrypto.encryptAES("nationality")",
+                "@CarersCrypto.encryptAES("separated_fromPartner_yes")",
+                "@CarersCrypto.encryptAES("separated_fromPartner_no")",
+                "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
+                "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")"
+                ) ;
+            } )
+
+        </script>
+        
+    }
+}

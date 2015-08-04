@@ -3,13 +3,13 @@ package controllers.preview
 import org.openqa.selenium.By
 import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
-import utils.pageobjects.s2_about_you.G3ContactDetailsPage
+import utils.pageobjects.s_about_you.GContactDetailsPage
 import utils.pageobjects.{ClaimPageFactory, TestData, PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
-import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
-import utils.pageobjects.s4_care_you_provide.G1TheirPersonalDetailsPage
+import utils.pageobjects.s_claim_date.GClaimDatePage
+import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
+import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
 import utils.WithJsBrowser
 
 
@@ -118,7 +118,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val carerAddressPage = page.clickLinkOrButton("#about_you_address")
 //      val carerAddressPage = previewPage.clickLinkOrButton(s"#$id")carerAddress)
 
-      carerAddressPage must beAnInstanceOf[G3ContactDetailsPage]
+      carerAddressPage must beAnInstanceOf[GContactDetailsPage]
 
       val newAddress = new TestData
       newAddress.AboutYouAddress = "Something totally different&Manchester"
@@ -137,7 +137,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
 
   def fillCareProvideSection(context:PageObjectsContext, partnerClaim:TestData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty(),
                              careYouProvideData:TestData = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)) = {
-    val claimDatePage = G1ClaimDatePage(context)
+    val claimDatePage = GClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()
     claimDatePage fillPageWith claimDate
@@ -154,12 +154,12 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
     contactDetails fillPageWith claim
     contactDetails submitPage()
 
-    val partnerPage =  G1YourPartnerPersonalDetailsPage(context)
+    val partnerPage =  GYourPartnerPersonalDetailsPage(context)
     partnerPage goToThePage ()
     partnerPage fillPageWith partnerClaim
     partnerPage submitPage()
 
-    val careYouProvidePage = G1TheirPersonalDetailsPage(context)
+    val careYouProvidePage = GTheirPersonalDetailsPage(context)
     careYouProvidePage goToThePage()
     careYouProvidePage fillPageWith careYouProvideData
 

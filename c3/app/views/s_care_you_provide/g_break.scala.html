@@ -1,0 +1,118 @@
+@(breakForm: Form[models.domain.Break], backCall:Call)(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
+@import utils.helpers.CheckboxTemplate
+@import utils.helpers.CarersTemplate
+
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import models.domain.ClaimDate
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import app.Whereabouts._
+@import play.api.i18n.{MMessages => Messages}
+@import scala.language.postfixOps
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import utils.helpers.CarersTemplate._
+@import app.CircsBreaksWhereabouts._
+@import controllers.IterationID
+
+@dateWeRequireBreakInCareInformationFrom() = @{
+
+    val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+    claimDateQG.dateWeRequireBreakInCareInformationFrom
+
+}
+
+@defining(lang) { implicit language =>
+
+@main("Break - About the care you provide", Some(breakForm), Some(backCall)) {
+
+@form(action = controllers.s_care_you_provide.routes.GBreak.submit, 'role -> "form") {
+
+    <input type="hidden" name="iterationID" value="@IterationID(breakForm)">
+
+    @DwpCSRFFormHelper.formField
+
+        <fieldset class="form-elements">
+
+            <legend class="heading-medium form-label-bold">@Html(Messages("s4.g11.help1")) @dateWeRequireBreakInCareInformationFrom</legend>
+			
+            <ul>
+
+                @dateTimePickerWithDynamicLabel(breakForm("start"), 'dynamicDateDays-> 34)
+
+                @carersShortInputText(breakForm("startTime"),
+                'helperAbove-> Html(Messages("breaksInCareStartTime.helper")),
+                'maxLength -> 10)
+
+                @listRadioGroupWithOther(breakForm("wherePerson"),
+                    'items -> whereWasThePersonList,
+                    'wrapperName -> "wherePersonBreaksInCareWrap",
+                    'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
+                    '_nestedFieldSet -> true,
+                    'maxLength -> 60,
+                    'otherValue -> SomewhereElse
+                )
+
+                @listRadioGroupWithOther(breakForm("whereYou"),
+                    'items -> whereWereYouList,
+                    'wrapperName -> "whereYouBreaksInCareWrap",
+                    'helperAbove-> Messages("whereYouBreaksInCare.helper"),
+                    '_nestedFieldSet -> true,
+                    'maxLength -> 60,
+                    'otherValue -> SomewhereElse)
+
+                @yesNoRadioGroup(breakForm("hasBreakEnded.answer"),
+                    'values -> Seq("yes" -> Messages("label.yes9"), "no" -> Messages("label.no")),
+                    '_label -> Messages("hasBreakEnded.answer")
+                )
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        dateTimePickerWithDynamicLabel(breakForm("hasBreakEnded.date"), 'dynamicDateDays -> 27, 'ignoreOptional -> true),
+                        carersShortInputText(breakForm("endTime"),
+                            'helperAbove-> Html(Messages("breakEnded.endTime.helper")),
+                            'maxLength -> 10)
+                    ),
+                    'id -> "hasBreakEndedWrap"
+                )
+
+                @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))
+
+            </ul>
+
+        </fieldset>
+
+        <nav class="form-steps" role="navigation">
+            <ul>
+            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                <li><a id="backButtonBottom" href="@{backCall}">@Html(Messages("form.back"))</a></li>
+            </ul>
+        </nav>
+
+    }
+
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/listWithOther.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s_care_you_provide/g_breakDates.js")'></script>
+
+    <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector: "@CarersCrypto.encryptAES("whereYou_text")", maxChars: 60});
+            window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_text")", maxChars: 60});
+
+            window.initEvents(
+            "@CarersCrypto.encryptAES("start")",
+            "@CarersCrypto.encryptAES("hasBreakEnded_date")",
+            "@CarersCrypto.encryptAES("startTime")",
+            "@CarersCrypto.encryptAES("endTime")",
+            "@CarersCrypto.encryptAES("hasBreakEnded_answer_yes")",
+            "@CarersCrypto.encryptAES("hasBreakEnded_answer_no")",
+            "@CarersCrypto.encryptAES("hasBreakEnded_date_day")",
+            "@CarersCrypto.encryptAES("hasBreakEnded_date_month")",
+            "@CarersCrypto.encryptAES("hasBreakEnded_date_year")");
+        });
+    </script>
+
+}
+}

@@ -11,7 +11,7 @@ class NavigationSpec extends Specification {
     }
 
     "track a route - from a given Call" in {
-      val navigation = Navigation().track(YourDetails)(controllers.s2_about_you.routes.G1YourDetails.present().url)
+      val navigation = Navigation().track(YourDetails)(controllers.s_about_you.routes.GYourDetails.present().url)
       navigation.current.uri shouldEqual "/about-you/your-details"
     }
 

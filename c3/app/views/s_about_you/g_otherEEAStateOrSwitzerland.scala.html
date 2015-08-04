@@ -1,0 +1,94 @@
+@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import scala.language.postfixOps
+@import views.html.helper._
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import play.api.i18n.{MMessages => Messages}
+@import views.html.helper.base._
+@import utils.helpers.CarersTemplate._
+@import views.html.s_about_you.main
+
+@defining(lang) { implicit language =>
+    @main(Messages("s2.g7") + " - " + Messages("s2.longName")) {
+        @errorsSummary(otherEEAStateOrSwitzerlandForm)
+
+        @form(action = controllers.s_about_you.routes.GOtherEEAStateOrSwitzerland.submit, 'role -> "form") {
+
+            @DwpCSRFFormHelper.formField
+
+            <fieldset class="form-elements">
+
+                <p>@Html(Messages("eeaCountryHelp.label"))</p>
+
+                <p class="prompt helper-prompt">@Html(Messages("eeaCountryHelp"))</p>
+
+                <ul>
+
+                    @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromEEA"),
+                        'helperAbove -> Messages("benefitsFromEEA.helperAbove"),
+                        'track -> true,
+                        'trackLabel -> "benefitsFromEEA")
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("benefitsFromEEADetails"),
+                            'helperAbove -> Messages("benefitsFromEEADetails.helperAbove"),
+                            'textAreaHelper->Html(Messages("3000charsLeft")), 'maxLength->3000)
+                        ),
+                        'id -> "benefitsFromEEADetailsWrapper"
+                    )
+
+                    @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForEEA"),
+                        'helperAbove -> Messages("workingForEEA.helper"),
+                        'track -> true,
+                        'trackLabel -> "workingForEEA")
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("workingForEEADetails"),
+                            'helperAbove -> Messages("workingForEEADetails.helper"),
+                            'textAreaHelper->Html(Messages("3000charsLeft")), 'maxLength->3000)
+                        ),
+                        'id -> "workingForEEADetailsWrapper"
+                    )
+
+
+                </ul>
+
+            </fieldset>
+
+            <nav class="form-steps" role="navigation">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+                </ul>
+            </nav>
+
+        }
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_about_you/benefitsFromEEADetails.js")'></script>
+        <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("benefitsFromEEADetails")",maxChars:3000});
+        })
+        $(function () {
+        window.initEventsFromEEA("@CarersCrypto.encryptAES("benefitsFromEEA_yes")",
+                          "@CarersCrypto.encryptAES("benefitsFromEEA_no")",
+                          "@CarersCrypto.encryptAES("benefitsFromEEADetails")");
+        });
+        </script>
+
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_about_you/g_workingForEEA.js")'></script>
+        <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("workingForEEADetails")",maxChars:3000});
+        })
+        $(function () {
+        window.initEventsForEEA("@CarersCrypto.encryptAES("workingForEEA_yes")",
+                          "@CarersCrypto.encryptAES("workingForEEA_no")",
+                          "@CarersCrypto.encryptAES("workingForEEADetails")");
+        });
+        </script>
+    }
+
+}
+

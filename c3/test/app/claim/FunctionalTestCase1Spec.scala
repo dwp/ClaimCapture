@@ -5,7 +5,7 @@ import org.joda.time.format.DateTimeFormat
 import utils.WithJsBrowser
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewTestableData
-import utils.pageobjects.s0_carers_allowance.G1BenefitsPage
+import utils.pageobjects.s_eligibility.GBenefitsPage
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.
@@ -18,7 +18,7 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
   "The application Claim" should {
     "Successfully run absolute Claim Test Case 1" in new WithJsBrowser with PageObjects {
 
-      val page = G1BenefitsPage(context)
+      val page = GBenefitsPage(context)
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       test(page, claim, buildPreviewUseData)
     }

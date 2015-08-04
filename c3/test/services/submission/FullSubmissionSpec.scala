@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.FakeApplication
 import utils.{LightFakeApplication, WithBrowser}
 import utils.pageobjects.TestData
-import utils.pageobjects.s0_carers_allowance.G1BenefitsPageContext
+import utils.pageobjects.s_eligibility.GBenefitsPageContext
 import utils.pageobjects.circumstances.s1_start_of_process.G2ReportAChangeInYourCircumstancesPageContext
 import scala.language.existentials
 
@@ -14,7 +14,7 @@ class FullSubmissionSpec extends Specification with MockInjector with Tags {
 
   "The application" should {
 
-    "Successfully run claim submission " in new WithBrowser(app = LightFakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+    "Successfully run claim submission " in new WithBrowser(app = LightFakeApplication(withGlobal = Some(global))) with GBenefitsPageContext {
       txnId = "GOOD_SUBMIT"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)

@@ -1,0 +1,91 @@
+@(currentForm: Form[models.domain.JobDetails])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+@import controllers.IterationID
+@import utils.helpers.PastPresentLabelHelper._
+@import play.api.i18n.{MMessages => Messages}
+@import scala.language.postfixOps
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+@defining(lang) { implicit language =>
+@main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm), Some(Messages("s7.g3")),ignorePreview = true) {
+
+    @form(action = controllers.s_employment.routes.GJobDetails.submit(), 'role -> "form") {
+        @DwpCSRFFormHelper.formField
+        <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
+
+
+            <fieldset class="form-elements" data-journey="carers-allowance:page:employment">
+
+                <p>@Html(Messages("s7.g3.helper"))</p>
+
+                @carersInputText(currentForm("employerName"), 'maxLength -> mappings.Mappings.sixty)
+
+                @carersInputTel(currentForm("phoneNumber"), 'maxLength -> mappings.Mappings.twenty)
+
+                @inputAddress(currentForm("address"))
+
+                @carersInputText(currentForm("postcode"), 'maxLength -> 8, 'class -> "postcode")
+
+                @yesNoRadioGroup(currentForm("startJobBeforeClaimDate"),
+                    '_label -> Messages("startJobBeforeClaimDate", claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang,dmy - 1 months))),
+                    'helperAbove -> Messages("startJobBeforeClaimDate.helper")
+                )
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(inputDayMonthYear(currentForm("jobStartDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`d M yyyy`)))),
+                    'id -> "jobStartDateWrapper")
+
+                @yesNoRadioGroup(currentForm("finishedThisJob"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        inputDayMonthYear(currentForm("lastWorkDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`))),
+                        inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`)))),
+                    'id -> "lastWorkData")
+
+                @carersShortInputTel(currentForm("hoursPerWeek"),'_label -> labelForEmployment(claim, lang, "hoursPerWeek", IterationID(currentForm)), 'maxLength -> 2)
+
+	        </fieldset>
+	
+	        <nav class="form-steps" role="navigation">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButtonBottom" href="@{claim.navigation.previousIgnorePreview}">@Html(Messages("form.back"))</a></li>
+                </ul>
+	        </nav>
+  
+    }
+
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s_employment/g_jobDetails.js")'></script>
+
+    <script type="text/javascript">
+    $(function(){
+    window.initEvents({
+    finishedThisJobY:"@CarersCrypto.encryptAES("finishedThisJob_yes")",
+    finishedThisJobN:"@CarersCrypto.encryptAES("finishedThisJob_no")",
+    lastWorkData:["@CarersCrypto.encryptAES("lastWorkDate_day")",
+                  "@CarersCrypto.encryptAES("lastWorkDate_month")",
+                  "@CarersCrypto.encryptAES("lastWorkDate_year")",
+                  "@CarersCrypto.encryptAES("p45LeavingDate_day")",
+                  "@CarersCrypto.encryptAES("p45LeavingDate_month")",
+                  "@CarersCrypto.encryptAES("p45LeavingDate_year")"],
+    startJobBeforeClaimDateY:"@CarersCrypto.encryptAES("startJobBeforeClaimDate_yes")",
+    startJobBeforeClaimDateN:"@CarersCrypto.encryptAES("startJobBeforeClaimDate_no")",
+    jobStartDate:["@CarersCrypto.encryptAES("jobStartDate_day")",
+                  "@CarersCrypto.encryptAES("jobStartDate_month")",
+                  "@CarersCrypto.encryptAES("jobStartDate_year")"],
+    hoursPerWeek:{id:"@CarersCrypto.encryptAES("hoursPerWeek")",present:"@Messages("hoursPerWeek.present")",past:"@Messages("hoursPerWeek.past")"}
+    });
+    });
+    </script>
+}
+}
+
+
+

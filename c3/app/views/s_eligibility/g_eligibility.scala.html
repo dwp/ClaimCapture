@@ -1,0 +1,47 @@
+@(currentForm: Form[models.domain.Eligibility])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import helper._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper.dates._
+@import play.api.i18n.{MMessages => Messages}
+
+@defining(lang) { implicit language =>
+    @main(Messages("s0.progressbar.name") + " - " + Messages("s0.longName"), Some(currentForm),changing = true) {
+
+        @form(action = controllers.s_eligibility.routes.GEligibility.submit, 'role -> "form") {
+
+            @DwpCSRFFormHelper.formField
+
+            <fieldset class="form-elements form-eligibility">
+                <ul>
+                    @yesNoRadioGroup(currentForm("hours.answer"), '_label -> Messages("s0.g2"), 'allowance -> true, 'helperAbove -> Messages("s0.g2.help1"), 'warningMessage -> Seq(Messages("s0.g2.help2")) ,'track -> true,'trackLabel -> "hours.answer")
+                    @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("s0.g3"), 'allowance -> true, 'warningMessage -> Seq(Messages("s0.g3.help1")), 'track -> true, 'trackLabel -> "over16.answer")
+                    @yesNoRadioGroup(currentForm("livesInGB.answer"), '_label -> Messages("s0.g4"), 'allowance -> true, 'helperAbove -> Messages("s0.g4.help1"), 'warningMessage ->Seq(Messages("s0.g4.help4"),Messages("s0.g4.help5")), 'track -> true, 'trackLabel -> "livesInGB.answer")
+                </ul>
+            </fieldset>
+
+            <nav class="form-steps" role="navigation">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}?changing=true">@Html(Messages("form.back"))</a></li>
+                </ul>
+            </nav>
+
+        }
+
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_eligibility/answerNoMessage.js")'></script>
+
+        <script type="text/javascript">
+            $(function () {
+            window.initEvents("warninghours_answer","@CarersCrypto.encryptAES("hours_answer_yes")", "@CarersCrypto.encryptAES("hours_answer_no")");
+            window.initEvents("warningover16_answer","@CarersCrypto.encryptAES("over16_answer_yes")", "@CarersCrypto.encryptAES("over16_answer_no")");
+            window.initEvents("warninglivesInGB_answer","@CarersCrypto.encryptAES("livesInGB_answer_yes")", "@CarersCrypto.encryptAES("livesInGB_answer_no")");
+            });
+        </script>
+
+    }
+}

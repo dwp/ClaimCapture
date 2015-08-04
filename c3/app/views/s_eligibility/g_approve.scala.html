@@ -1,0 +1,147 @@
+@(currentForm: Form[models.domain.ProceedAnyway])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@import controllers.mappings.Mappings
+
+@import helper._
+@import helper.base._
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import models.domain._
+@import play.api.Play
+@import play.api.Play.current
+
+@benefitsAnswer = @{
+    claim.questionGroup[Benefits].getOrElse(Benefits()).answer
+}
+
+@hoursAnswer = @{
+    claim.questionGroup[Eligibility].getOrElse(Eligibility()).hours == Mappings.yes
+}
+
+@over16Answer = @{
+    claim.questionGroup[Eligibility].getOrElse(Eligibility()).over16 == Mappings.yes
+}
+
+@livesInGBAnswer = @{
+    claim.questionGroup[Eligibility].getOrElse(Eligibility()).livesInGB == Mappings.yes
+}
+
+@completedQuestionGroups = @{
+    List(benefitsAnswer, hoursAnswer, over16Answer, livesInGBAnswer)
+}
+
+@approved = @{
+    completedQuestionGroups.forall(b => b)
+}
+
+@defining(lang) { implicit language =>
+
+@main("Can you get Carer's Allowance?", None) {
+    @if(approved) {
+
+        <section class="prompt e-prompt" aria-labelledby="heading1">
+            <h2 class="heading-medium" id="heading1">@Html(Messages("s0.g6.green.help1"))</h2>
+            <ul class="list-bullet">
+	            <li>@Html(Messages("s0.g6.green.help2"))</li>
+	            <li>@Html(Messages("s0.g6.green.help3"))</li>
+            </ul>
+        </section>
+
+        <section class="prompt e-prompt" aria-labelledby="headingDocumentation">
+            <h2 id="headingDocumentation" class="heading-medium">@Html(Messages("s0.g6.green.documentation1"))</h2>
+            <ul class="list-bullet">
+                <li>@Html(Messages("s0.g6.green.documentation2"))</li>
+                <li>@Html(Messages("s0.g6.green.documentation3"))</li>
+                <li>@Html(Messages("s0.g6.green.documentation4"))</li>
+                <li>@Html(Messages("s0.g6.green.documentation5"))</li>
+            </ul>
+        </section>
+
+    } else {
+
+        <section class="prompt e-prompt" aria-labelledby="heading2">
+            <h2 class="heading-medium" id="heading2">@Html(Messages("s0.g6.red.help1"))</h2>
+            <p>@Html(Messages("s0.g6.red.helper"))</p>
+            <ul class="list-bullet">
+            	@if(!benefitsAnswer) {
+                    <li>@Html(Messages("s0.g6.red.benefits"))</li>
+                }
+                @if(!hoursAnswer) {
+                    <li>@Html(Messages("s0.g6.red.hours"))</li>
+                }
+                @if(!over16Answer) {
+                    <li>@Html(Messages("s0.g6.red.over16"))</li>
+                }
+                @if(!livesInGBAnswer) {
+                    <li>@Html(Messages("s0.g6.red.liveInGB"))</li>
+                }
+            </ul>
+        </section>
+
+    }
+
+    @form(action = controllers.s_eligibility.routes.CarersAllowance.approveSubmit, 'role -> "form") {
+        @DwpCSRFFormHelper.formField
+        @carersInputHidden(currentForm("allowedToContinue"),
+            'hiddenValue -> approved)
+
+        <input type="hidden" id="js" name="jsEnabled" value="false">
+
+        @if(approved) {
+
+            <nav class="form-steps" role="navigation">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Elibigility - Yes - Continue")>@Html(Messages("form.continue.step"))</button></li>
+                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+                </ul>
+            </nav>
+
+        } else {
+
+            <fieldset class="form-elements">
+                <legend class="form-label-bold">@Messages("proceedAnyway.answer")</legend>
+                <p class="form-hint">@Messages("proceedAnyway.help")</p>
+                <ul>
+                    @yesNoRadioGroup(currentForm("answer"),
+                        '_showLabel -> false)
+                </ul>
+            </fieldset>
+
+            <nav class="form-steps" role="navigation">
+                <ul>
+                    <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button" onmousedown="analyticsCallback()">@Html(Messages("form.continue.step"))</button></div></li>
+                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+                </ul>
+            </nav>
+
+        }
+
+    }
+
+    <script type="text/javascript">$($("#js").val("true"));</script>
+    <script type="text/javascript">
+        function analyticsCallback() {
+            var linkName = "Eligilibility - " + document.getElementById("actionButtonId" ).innerHTML
+            @if(!Play.isTest){
+                trackEvent("/allowance/approve",linkName)
+            }
+        }
+    </script>
+
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s_eligibility/g_approve.js")'></script>
+
+    <script type="text/javascript">
+        $(function(){
+        window.initialButtonState("@CarersCrypto.encryptAES(currentForm("answer")("yes").id)",
+        "@CarersCrypto.encryptAES(currentForm("answer")("no").id)");
+        });
+
+        $(function(){
+        window.answer("@CarersCrypto.encryptAES(currentForm("answer")("yes").id)",
+        "@CarersCrypto.encryptAES(currentForm("answer")("no").id)");
+        });
+    </script>
+
+}
+}
+

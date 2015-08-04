@@ -1,0 +1,63 @@
+@(employmentAdditionalInfoForm: Form[models.domain.EmploymentAdditionalInfo])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import scala.language.postfixOps
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+@defining(lang) { implicit language =>
+
+    @main(Messages("s7.g9") + "  " + Messages("s7.longName"), Some(employmentAdditionalInfoForm)) {
+        @form(action = controllers.s_employment.routes.GEmploymentAdditionalInfo.submit, 'role -> "form") {
+            @DwpCSRFFormHelper.formField
+
+            <fieldset class="form-elements">
+
+                <legend class="visuallyhidden">@Html(Messages("s7.g9"))</legend>
+
+                <ul>
+
+                    @yesNoRadioGroup(employmentAdditionalInfoForm("empAdditionalInfo")("answer"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(employmentAdditionalInfoForm("empAdditionalInfo")("text"),
+                                'textAreaHelper -> Html(Messages("3000charsLeft")),
+                                'ignoreLabel -> true,
+                                'ignoreOptional -> true,
+                                'maxLength -> 3000)
+                        ),
+                        'id -> "additionalInfoWrap"
+                    )
+                </ul>
+
+            </fieldset>
+
+            <nav class="form-steps" role="navigation">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+                </ul>
+            </nav>
+
+        }
+
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_employment/g_employmentAdditionalInfo.js")'></script>
+
+        <script type="text/javascript">
+            $(function(){
+                @ga.stagePrompt()
+                window.areaCounter({selector:"@CarersCrypto.encryptAES("empAdditionalInfo_text")",maxChars:3000});
+                window.initEvents("@CarersCrypto.encryptAES("empAdditionalInfo_answer_yes")",
+                "@CarersCrypto.encryptAES("empAdditionalInfo_answer_no")",
+                "@CarersCrypto.encryptAES("empAdditionalInfo_text")");
+            });
+        </script>
+
+    }
+}

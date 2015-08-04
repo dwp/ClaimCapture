@@ -1,0 +1,67 @@
+@(currentForm: Form[models.domain.SelfEmploymentYourAccounts])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
+@import views.html.helper.dates._
+@import utils.csrf.DwpCSRFFormHelper
+@import utils.helpers.PastPresentLabelHelper.labelForSelfEmployment
+@import scala.language.postfixOps
+
+
+@import play.api.i18n.{MMessages => Messages}
+@defining(lang) { implicit language =>
+@main(Messages("s8.g2") + " " + Messages("s8.longName"), Messages("s8.longName"), Some(currentForm), ignorePreview = true) {
+
+    @form(action = controllers.s_self_employment.routes.GSelfEmploymentYourAccounts.submit, 'role -> "form") {
+
+    @DwpCSRFFormHelper.formField
+
+        <fieldset class="form-elements">
+
+            <ul>
+
+                @tradingStartDate(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"))
+
+                @tradingEndDate(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"))
+
+                @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyAndWhenTheChangeHappened"),
+                                   'ignoreOptional -> true,
+                                   'textAreaHelper -> Html(Messages("300charsLeft")),
+                                   'maxLength -> 300)
+                    ),
+                    'id -> "selfEmployedIncomeWrap"
+                )
+
+            </ul>
+            
+        </fieldset>
+
+        <nav class="form-steps" role="navigation">
+            <ul>
+            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                <li><a id="backButtonBottom" href="@{claim.navigation.previousIgnorePreview}">@Html(Messages("form.back"))</a></li>
+            </ul>
+        </nav>
+
+    }
+
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s_self_employment/g_selfEmploymentYourAccounts.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+    <script type="text/javascript">
+        $(function () {
+            window.initEvents("@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_yes")",
+                              "@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_no")",
+                              "@CarersCrypto.encryptAES("tellUsWhyAndWhenTheChangeHappened")");
+        });
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("tellUsWhyAndWhenTheChangeHappened")",maxChars:300});
+    </script>
+
+}
+}

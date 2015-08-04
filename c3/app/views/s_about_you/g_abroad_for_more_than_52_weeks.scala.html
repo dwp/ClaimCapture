@@ -1,0 +1,73 @@
+@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
+
+@import scala.language.postfixOps
+
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.s_about_you.main
+@import play.api.i18n.{MMessages => Messages}
+@import views.html.helper.base._
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+
+@displayDateForLabel = @{
+    claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy))
+}
+
+@defining(lang) { implicit language =>
+@main(Messages("s2.g5") + " - " + Messages("s2.longName")) {
+@errorsSummary(AbroadForMoreThan52WeeksForm)
+
+    @form(action = controllers.s_about_you.routes.GAbroadForMoreThan52Weeks.submit, 'role -> "form") {
+
+        @DwpCSRFFormHelper.formField
+
+        <fieldset class="form-elements">
+
+            <ul class="group">
+
+                @yesNoRadioGroup(AbroadForMoreThan52WeeksForm(
+                    "anyTrips"),
+                    '_label -> Messages("52Weeks.label"),
+                    'helperAbove -> Messages("52Weeks.helper")
+                )
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputTextArea(AbroadForMoreThan52WeeksForm("tripDetails"),
+                        'helperAbove -> Messages("tripDetails.helper"),
+                        'textAreaHelper->Html(Messages("3000charsLeft")), 'maxLength->3000)
+                    ),
+                    'id -> "tripDetailsWrapper"
+                )
+
+            </ul>
+
+        </fieldset>
+
+        <nav class="form-steps" role="navigation">
+            <ul>
+            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+            </ul>
+        </nav>
+
+    }
+
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/s_about_you/tripDetails.js")'></script>
+    
+    <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("tripDetails")",maxChars:3000});
+        })
+        $(function () {
+        window.initEvents("@CarersCrypto.encryptAES("anyTrips_yes")",
+                          "@CarersCrypto.encryptAES("anyTrips_no")",
+                          "@CarersCrypto.encryptAES("tripDetails")");
+        });
+    </script>
+
+}
+}
