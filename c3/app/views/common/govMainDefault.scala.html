@@ -18,23 +18,23 @@
         <title>@title</title>
 
 		<!-- Styles for old Internet Explorer Browsers -->
-        <!--[if IE 6]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie6.css")" media="screen" rel="stylesheet" type="text/css"><![endif]-->
-        <!--[if IE 7]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie7.css")" media="screen" rel="stylesheet" type="text/css"><![endif]-->
-        <!--[if IE 8]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie8.css")" media="screen" rel="stylesheet" type="text/css"><![endif]-->
+        <!--[if IE 6]><link @nonCachingHref("stylesheets/header-footer-only-ie6.css") media="screen" rel="stylesheet" type="text/css"><![endif]-->
+        <!--[if IE 7]><link @nonCachingHref("stylesheets/header-footer-only-ie7.css") media="screen" rel="stylesheet" type="text/css"><![endif]-->
+        <!--[if IE 8]><link @nonCachingHref("stylesheets/header-footer-only-ie8.css") media="screen" rel="stylesheet" type="text/css"><![endif]-->
         
         <!-- Carer's Allowance stylesheet -->
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("styles/app_t.min.css")">
+        <link rel="stylesheet" media="screen" @nonCachingHref("styles/app_t.min.css")/>
 
         <!-- To prevent call to /browserconfig.xml from IE11 and higher. We do not use notifications. -->
         <meta name="msapplication-config" content="none" />
 
-        <link href="@routes.Assets.at("stylesheets/print.css")" media="print" rel="stylesheet" type="text/css">
+        <link @nonCachingHref("stylesheets/print.css") media="print" rel="stylesheet" type="text/css">
 
         <!--[if IE 8]>
         <script type="text/javascript">
             (function(){if(window.opera){return;}
             setTimeout(function(){var a=document,g,b={families:(g=
-            ["nta"]),urls:["<link href="@routes.Assets.at("stylesheets/fonts-ie8.css")"]},
+            ["nta"]),urls:["<link @nonCachingHref("stylesheets/fonts-ie8.css")]},
             c="@routes.Assets.at("javascripts/webfont-debug.js")",d="script",
             e=a.createElement(d),f=a.getElementsByTagName(d)[0],h=g.length;WebFontConfig
             ={custom:b},e.src=c,f.parentNode.insertBefore(e,f);for(;h=h-1;a.documentElement
@@ -44,11 +44,11 @@
         <![endif]-->
 
         <!--[if gte IE 9]><!-->
-        <link href="@routes.Assets.at("stylesheets/fonts.css")" media="all" rel="stylesheet" type="text/css">
+        <link @nonCachingHref("stylesheets/fonts.css") media="all" rel="stylesheet" type="text/css">
         <!--<![endif]-->
 
         <!--[if lt IE 9]>
-        <script src="@routes.Assets.at("javascripts/ie.js")" type="text/javascript"></script>
+        <script @nonCachingSrc("javascripts/ie.js") type="text/javascript"></script>
         <![endif]-->
 
         <link rel="shortcut icon" href="@routes.Assets.at("images/favicon-447e4ac1ab790342660eacfe3dcce264.ico")" type="image/x-icon">
@@ -65,13 +65,13 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <script src="@routes.Assets.at("javascripts/jquery/jquery-1.9.1.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/stageprompt-2.0.1.js")" type="text/javascript"></script>
+        <script @nonCachingSrc("javascripts/jquery/jquery-1.9.1.js") type="text/javascript"></script>
+        <script @nonCachingSrc("javascripts/stageprompt-2.0.1.js") type="text/javascript"></script>
 
-        <script src='@routes.Assets.at("javascripts/custom.js")'></script>
+        <script @nonCachingSrc("javascripts/custom.js")></script>
         
         <!--[if (lt IE 9) & (!IEMobile)]>
-        <script src="@routes.Assets.at("javascripts/respond.min.js")"></script>
+        <script @nonCachingSrc("javascripts/respond.min.js")></script>
         <![endif]-->
 
         @if(play.Configuration.root().getBoolean("include.analytics", true)) {

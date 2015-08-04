@@ -52,7 +52,7 @@
             
         }
 
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_claim_date/g_claimDate.js")'></script>
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_claim_date/g_claimDate.js")></script>
 
         <script type="text/javascript">
             $(function () {

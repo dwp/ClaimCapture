@@ -64,8 +64,8 @@
             </nav>
 
         }
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_about_you/benefitsFromEEADetails.js")'></script>
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/benefitsFromEEADetails.js")></script>
         <script type="text/javascript">
         $(function(){
             window.areaCounter({selector:"@CarersCrypto.encryptAES("benefitsFromEEADetails")",maxChars:3000});
@@ -77,7 +77,7 @@
         });
         </script>
 
-        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_about_you/g_workingForEEA.js")'></script>
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/g_workingForEEA.js")></script>
         <script type="text/javascript">
         $(function(){
             window.areaCounter({selector:"@CarersCrypto.encryptAES("workingForEEADetails")",maxChars:3000});
