@@ -85,8 +85,8 @@
 	        </nav>
 
     }
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/s_employment/g_pensionAndExpenses.js")'></script>
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_employment/g_pensionAndExpenses.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
 
     <script type="text/javascript">
         $(function(){
