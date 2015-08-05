@@ -49,7 +49,7 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			<tr>
+			<tr class="review-change">
 			    <td class="review-label">
 					<b>@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</b>
 				</td>
@@ -62,7 +62,7 @@
 			</tr>
 			
 			@if(jobs.isDefined && jobs.get.jobs.size > 0){
-				<tr>
+				<tr class="review-change">
 			        <td class="review-label">
 						<b>@Messages("jobs")</b>
 					</td>
@@ -79,7 +79,7 @@
 				</tr>
 			 }
 			 
-			 <tr>
+			 <tr class="review-change">
 			    <td class="review-label">
 					<b>@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</b>
 				</td>
@@ -92,7 +92,7 @@
 			</tr>
 			
 			@if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
-				<tr>
+				<tr class="review-change">
 			        <td class="review-label">@{Messages("natureOfYourBusiness")}</td>
 					<td class="review-value">@{aboutSelfEmployment.natureOfYourBusiness}</td>
 				</tr>

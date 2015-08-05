@@ -12,15 +12,29 @@
     cursor: pointer; // encourage clicking
 	margin: 0 !important;
 	padding: 2.25rem 0;
+	padding-right: 16px; // to offset accordion arrow
 	border-bottom: 1px solid $grey-2;
-	background-image: url('/assets/images/mobile-nav.png');
-	background-repeat: no-repeat;
-	background-position: right -0.65em;
+	position: relative;
+	// Accordion Arrow
+	&:after {
+		content: "";
+		position: absolute;
+		right: 0;
+		height: 10px;
+		width: 1em;
+		top: 50%;
+		background-image: url('/assets/images/mobile-nav.png');
+		background-repeat: no-repeat;
+		background-position: top;
+		@include translate(0, -50%);
+	}
     &:hover {
         color: $link-hover-colour;
     }
 	.accordion-open & {
-		background-position: right 1.4em;	
+		&:after {
+			background-position: bottom;	
+		}
 	}
 }
 

@@ -109,14 +109,19 @@ table {
 	.review-value {
 		padding-left: $gutter;
 	}
+	.review-change {
+		@extend %contain-floats;
+	}
 	@include media(mobile) {
 		margin-top: $gutter;
-		td {
+		.review-label {
 			display: block;
 			width: 100%;
 		}
 		.review-value {
 			padding-left: 0;
+			line-height: 2;
+			width:100%;
 		}
 		.review-change {
 			margin-bottom: $gutter;
@@ -124,13 +129,6 @@ table {
 			width: 100%;
 			&:last-child {
 				margin-bottom: 0;
-			}
-		}
-		.review-action {
-			border-bottom: none;
-			.button {
-				display: block;
-				text-align: center;
 			}
 		}
 	}

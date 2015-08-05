@@ -21,6 +21,10 @@
                     <h1 class="form-title heading-large">@Html(Messages("preview.summary"))</h1>
 
                     @errorsSummary(previewForm)
+					
+					<p class="text">Check your answers before sending your application.</p>
+					
+					<p class="text helper-prompt">You can change your personal details if needed. If you need to change anything else you'll need to go back through your claim.</p>
 
 					<div class="summary">
 	                    @s2()
@@ -30,12 +34,17 @@
 	                    @s8()
 	                    @s9()
 					</div>
+					
+					<p>
+						<button type="submit" name="action" value="next" class="button secondary button-print" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("button.print.summary"))</button>
+					</p>
+					
+					<p class="text helper-prompt"><small>Printing won't send your application - you must press next to continue.</small></p>
 
                     @helper.form(action = controllers.preview.routes.Preview.submit) {
                         @DwpCSRFFormHelper.formField
                         <nav class="form-steps">
                             <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
-                            <button type="submit" name="action" value="next" class="button secondary button-print" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("button.print.summary"))</button>
                         </nav>
                     }
                     
@@ -48,5 +57,8 @@
     }
 }
 
-
+<!-- Add legal message to footer -->
+<script>
+	$("#privacy").after("<span>This is not an official document.</span>");
+</script>
 
