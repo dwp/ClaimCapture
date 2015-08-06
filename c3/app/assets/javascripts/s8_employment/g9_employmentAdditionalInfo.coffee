@@ -13,4 +13,6 @@ showAnythingElseWrapper = ->
   $("#additionalInfoWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideAnythingElseWrapper = (anythingElseText) ->
-  $("#additionalInfoWrap").slideUp(0).attr 'aria-hidden', 'true', -> $("#"+anythingElseText).val("")
+	emptyAnythingElseWrapper = ->
+   		$("#additionalInfoWrap textarea").val("")
+  $("#additionalInfoWrap").slideUp(0, emptyAnythingElseWrapper).attr 'aria-hidden', 'true', -> $("#"+anythingElseText).val("")

@@ -24,12 +24,14 @@ showPensionExpenses = ->
   $("#pensionExpenses").slideDown(0).attr 'aria-hidden', 'false'
 
 hidePensionExpenses = (pensionExpenses) ->
-  $("#pensionExpenses").slideUp(0).attr 'aria-hidden', 'true', ->
-    $("#" + pensionExpenses).val("")
+	emptyPensionExpenses = ->
+    	$("#" + pensionExpenses).val("")
+  $("#pensionExpenses").slideUp(0, emptyPensionExpenses).attr 'aria-hidden', 'true', ->
 
 showHaveExpensesForJob = ->
   $("#jobExpenses").slideDown(0).attr 'aria-hidden', 'false'
 
 hideExpensesForJob = (jobExpenses) ->
-  $("#jobExpenses").slideUp(0).attr 'aria-hidden', 'true', ->
-    $("#" + jobExpenses).val("")
+	emptyExpensesForJob = ->
+    	$("#" + jobExpenses).val("")
+  $("#jobExpenses").slideUp(0, emptyExpensesForJob).attr 'aria-hidden', 'true', ->

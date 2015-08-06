@@ -35,9 +35,6 @@ window.initEvents = (answerY, answerN, whoPaysYou, howMuch, howOften_frequency, 
     hideOtherStatPayWrap()
 
 
-
-
-
 showOtherStatPayWrap = ->
   $("#otherStatPayWrap").slideDown(0)
 
@@ -52,6 +49,7 @@ hideOtherStatPayWrap = ->
     $("#"+otherEmployersAddress_lineThree).val("")
     $("#"+otherEmployersPostcode).val("")
   })
+  $("#otherStatPayWrap input").val("")
 
 showSickPayWrap = ->
   $("#sickPayWrap").slideDown(0).attr 'aria-hidden', 'false'
@@ -67,6 +65,7 @@ hideSickPayWrap = ->
     $("#"+statEmployersAddress_lineThree).val("")
     $("#"+statEmployersPostcode).val("")
   })
+  $("#sickPayWrap input").val("")
 
 showOtherPayWrap = ->
   $("#otherPayWrap").slideDown(0)
@@ -78,3 +77,4 @@ hideOtherPayWrap = ->
     $("#"+howOften_frequency).val("")
     $("#"+howOften_frequency_other).val("")
   })
+  $("#otherPayWrap input").val("")
