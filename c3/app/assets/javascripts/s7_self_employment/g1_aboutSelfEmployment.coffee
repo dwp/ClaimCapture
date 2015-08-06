@@ -15,6 +15,6 @@ showSelfEmployedNoWrap = ->
 
 hideSelfEmployedNoWrap = ->
 	emptySelfEmployedNoWrap = ->
-	    $("#selfEmployedNoWrap input:not([type='radio']").val("")
+	    $("#selfEmployedNoWrap input").val("")
 	    $("#selfEmployedNoWrap input[type='radio']").prop("checked", false)
   $("#selfEmployedNoWrap").slideUp(0, emptySelfEmployedNoWrap).attr 'aria-hidden', 'true'
