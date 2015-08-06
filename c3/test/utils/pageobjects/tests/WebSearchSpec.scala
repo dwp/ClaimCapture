@@ -4,6 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import utils.pageobjects.s_about_you.GYourDetailsPageContext
 import controllers.ClaimScenarioFactory
+import utils.pageobjects.s_information.GAdditionalInfoPage
 import utils.pageobjects.s_pay_details.GHowWePayYouPageContext
 import utils.pageobjects.{Page, PageObjectsContext, PageObjects, TestData}
 import app._
@@ -40,7 +41,7 @@ class WebSearchSpec extends Specification with Tags{
 
     "be able to read SortCode" in new WithBrowser with GHowWePayYouPageContext {
       val claim = new TestData
-      claim.HowWePayYouHowWouldYouLikeToGetPaid = Messages(AccountStatus.BankBuildingAccount)
+      claim.HowWePayYouHowWouldYouLikeToGetPaid = "yes"
       claim.HowWePayYouHowOftenDoYouWantToGetPaid = Messages(PaymentFrequency.FourWeekly)
       claim.HowWePayYouNameOfAccountHolder = "Despicable me"
       claim.WhoseNameOrNamesIsTheAccountIn = "Your name"
@@ -49,10 +50,10 @@ class WebSearchSpec extends Specification with Tags{
       claim.HowWePayYouAccountNumber = "987234987"
       page goToThePage()
       page fillPageWith claim
-      val bankPage = page submitPage(throwException = true)
-      bankPage fillPageWith claim
-      val sortCode = bankPage readSortCode("#sortCode")
+      val sortCode = page readSortCode ("#bankDetails_sortCode")
       sortCode.get mustEqual claim.HowWePayYouSortCode
+      val bankPage: Page = page submitPage (throwException = true)
+      bankPage.url must_== GAdditionalInfoPage.url
     }
   } section "integration"
 

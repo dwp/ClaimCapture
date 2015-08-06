@@ -11,6 +11,13 @@ import utils.pageobjects._
 class GHowWePayYouPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GHowWePayYouPage.url) {
   declareRadioList("#likeToPay", "HowWePayYouHowWouldYouLikeToGetPaid")
   declareRadioList("#paymentFrequency", "HowWePayYouHowOftenDoYouWantToGetPaid")
+
+  declareInput("#bankDetails_accountHolderName", "HowWePayYouNameOfAccountHolder")
+  declareInput("#bankDetails_bankFullName", "HowWePayYouFullNameOfBankorBuildingSociety")
+  declareSortCode("#bankDetails_sortCode", "HowWePayYouSortCode")
+  declareInput("#bankDetails_accountNumber", "HowWePayYouAccountNumber")
+  declareInput("#bankDetails_rollOrReferenceNumber", "HowWePayYouBuildingSocietyRollOrReferenceNumber")
+
 }
 
 /**

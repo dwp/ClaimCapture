@@ -6,7 +6,6 @@ import controllers.BrowserMatchers
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s_information.GAdditionalInfoPage
-import utils.pageobjects.s_pay_details.GBankBuildingSocietyDetailsPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_consent_and_declaration.GDeclarationPage
 
@@ -33,24 +32,13 @@ class GAdditionalInformationIntegrationSpec extends Specification with Tags {
       previewPage must beAnInstanceOf[PreviewPage]
     }
 
-    "navigate back to Bank/Building society details - How we pay you" in new WithBrowser with PageObjects{
-			val page =  GBankBuildingSocietyDetailsPage(context)
-      val claim = ClaimScenarioFactory.s6BankBuildingSocietyDetails()
-      page goToThePage()
-      page fillPageWith claim
-      val consentDeclarationPage = page submitPage()
-      
-      val bankBuildingSocietyPage = consentDeclarationPage.goBack()
 
-      bankBuildingSocietyPage must beAnInstanceOf[GBankBuildingSocietyDetailsPage]
-    }
-    
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{
 			val page =  GAdditionalInfoPage(context)
       page goToThePage()
       page.submitPage().listErrors.size mustEqual 2
     }
-    
+
     "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
 			val page =  GAdditionalInfoPage(context)
       val claim = ClaimScenarioFactory.s11ConsentAndDeclaration
@@ -58,7 +46,7 @@ class GAdditionalInformationIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
 
       val g2 = page submitPage() submitPage()
-      
+
       g2 must beAnInstanceOf[GDeclarationPage]
     }
   } section("integration", models.domain.ConsentAndDeclaration.id)

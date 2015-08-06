@@ -178,9 +178,6 @@ POST        /other-money/about-other-money                              controll
 GET         /pay-details/how-we-pay-you                                 controllers.s_pay_details.GHowWePayYou.present
 POST        /pay-details/how-we-pay-you                                 controllers.s_pay_details.GHowWePayYou.submit
 
-GET         /pay-details/bank-building-society-details                  controllers.s_pay_details.GBankBuildingSocietyDetails.present
-POST        /pay-details/bank-building-society-details                  controllers.s_pay_details.GBankBuildingSocietyDetails.submit
-
 # Information
 ###############
 

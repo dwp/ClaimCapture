@@ -255,25 +255,22 @@ object Formulate {
   }
 
 
-
   def howWePayYou(browser: TestBrowser) = {
     browser.goTo("/pay-details/how-we-pay-you")
-    browser.click("#likeToPay_" + AccountStatus.BankBuildingAccount.replace(' ','_'))
+    browser.click("#likeToPay_yes")
+    bankBuildingSocietyDetails(browser)
     browser.click("#paymentFrequency_"+PaymentFrequency.FourWeekly.replace(' ','_'))
     browser.submit("button[type='submit']")
   }
 
   def bankBuildingSocietyDetails(browser: TestBrowser) = {
-    browser.goTo("/pay-details/bank-building-society-details")
-    browser.fill("#accountHolderName") `with` "holder name"
-    browser.click("#whoseNameIsTheAccountIn option[value='Your name']")
-    browser.fill("#bankFullName") `with` "bank name"
-    browser.fill("#sortCode_sort1") `with` "10"
-    browser.fill("#sortCode_sort2") `with` "11"
-    browser.fill("#sortCode_sort3") `with` "12"
-    browser.fill("#accountNumber") `with` "account"
-    browser.fill("#rollOrReferenceNumber") `with` "1234567"
-    browser.submit("button[type='submit']")
+    browser.fill("#bankDetails_accountHolderName") `with` "holder name"
+    browser.fill("#bankDetails_bankFullName") `with` "bank name"
+    browser.fill("#bankDetails_sortCode_sort1") `with` "10"
+    browser.fill("#bankDetails_sortCode_sort2") `with` "11"
+    browser.fill("#bankDetails_sortCode_sort3") `with` "12"
+    browser.fill("#bankDetails_accountNumber") `with` "123456"
+    browser.fill("#bankDetails_rollOrReferenceNumber") `with` "1234567"
   }
 
   def disclaimer(browser: TestBrowser) = {
