@@ -41,32 +41,36 @@ window.initEvents = (stillCaringY, stillCaringN, dateStoppedCaring,
 
 
 hideStillCaringDate = (dateStoppedCaring) ->
-  $("#stillCaringDate").slideUp(0).attr 'aria-hidden', 'true', ->
-    $("#" + dateStoppedCaring).val("")
+	emptyStillCaringDate = ->
+    	$("#" + dateStoppedCaring).val("")
+  $("#stillCaringDate").slideUp(0, emptyStillCaringDate).attr 'aria-hidden', 'true', ->
 
 showStillCaringDate = () ->
   $("#stillCaringDate").slideDown(0).attr 'aria-hidden', 'false'
 
 hideStillCaringAddress = (caredForChangedAddressN, caredForChangedAddressY) ->
-  $("#stillCaringAddress").slideUp(0).attr 'aria-hidden', 'true'
-  $("#"+caredForChangedAddressN).attr("checked", false)
-  $("#"+caredForChangedAddressY).attr("checked", false)
+	emptyStillCaringAddress = ->
+		$("#"+caredForChangedAddressN).attr("checked", false)
+		$("#"+caredForChangedAddressY).attr("checked", false)
+  $("#stillCaringAddress").slideUp(0, emptyStillCaringAddress).attr 'aria-hidden', 'true'
 
 showStillCaringAddress = () ->
   $("#stillCaringAddress").slideDown(0).attr 'aria-hidden', 'false'
 
 hideStillCaringSameAddress = (sameAddressY, sameAddressN) ->
-  $("#changedAddressSame").slideUp(0).attr 'aria-hidden', 'true'
-  $("#"+sameAddressY).attr("checked", false)
-  $("#"+sameAddressN).attr("checked", false)
+	emptyStillCaringSameAddres = ->
+		$("#"+sameAddressY).attr("checked", false)
+		$("#"+sameAddressN).attr("checked", false)
+	$("#changedAddressSame").slideUp(0, emptyStillCaringSameAddres).attr 'aria-hidden', 'true'
 
 showStillCaringSameAddress = () ->
   $("#changedAddressSame").slideDown(0).attr 'aria-hidden', 'false'
 
 hideStillCaringSameAddressData = (theirNewAddress, theirNewPostcode) ->
-  $("#sameAddressData").slideUp(0).attr 'aria-hidden', 'true'
-  $("#" + theirNewAddress).val("")
-  $("#" + theirNewPostcode).val("")
+	emptyStillCaringSameAddressData = ->
+		$("#" + theirNewAddress).val("")
+		$("#" + theirNewPostcode).val("")
+  $("#sameAddressData").slideUp(0, emptyStillCaringSameAddressData).attr 'aria-hidden', 'true'
 
 showStillCaringSameAddressData = () ->
   $("#sameAddressData").slideDown(0).attr 'aria-hidden', 'false'
