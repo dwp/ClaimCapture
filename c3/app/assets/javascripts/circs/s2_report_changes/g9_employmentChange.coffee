@@ -51,45 +51,62 @@ window.typeOfWork = (typeOfWorkEmployed, typeOfWorkSelfEmployed, employerNameAnd
     showTypeOfWorkSelfEmployedWrap()
 
 showStillCaringWrap = () ->
-  $("#stillCaringWrap").slideDown(0).attr 'aria-hidden', 'false'
+  $("#stillCaringWrap").slideDown 0
 
 hideStillCaringWrap = (whenStoppedCaringDay, whenStoppedCaringMonth, whenStoppedCaringYear) ->
-  $("#stillCaringWrap").slideUp(0).attr 'aria-hidden', 'true'
-  $("#stillCaringWrap input").val("")
+  $("#stillCaringWrap").slideUp 0, ->
+    $("#" + whenStoppedCaringDay).val("")
+    $("#" + whenStoppedCaringMonth).val("")
+    $("#" + whenStoppedCaringYear).val("")
 
 showHasWorkStartedYetWrap = () ->
-  $("#hasWorkStartedYetWrap").slideDown(0).attr 'aria-hidden', 'false'
+  $("#hasWorkStartedYetWrap").slideDown 0
 
 hideWorkNotStartedYetWrap = (dateWhenWillItStartDay, dateWhenWillItStartMonth, dateWhenWillItStartYear) ->
-  $("#workNotStartedYetWrap").slideUp(0).attr 'aria-hidden', 'true'
-  $("#workNotStartedYetWrap input").val("")
+  $("#workNotStartedYetWrap").slideUp 0, ->
+    $("#" + dateWhenWillItStartDay).val("")
+    $("#" + dateWhenWillItStartMonth).val("")
+    $("#" + dateWhenWillItStartYear).val("")
 
 showWorkNotStartedYetWrap = () ->
-  $("#workNotStartedYetWrap").slideDown(0).attr 'aria-hidden', 'false'
+  $("#workNotStartedYetWrap").slideDown 0
 
 hideHasWorkStartedYetWrap = (dateWhenStartedDay, dateWhenStartedMonth, dateWhenStartedYear, hasWorkFinishedYetYes, hasWorkFinishedYetNo) ->
-  $("#hasWorkStartedYetWrap").slideUp(0).attr 'aria-hidden', 'true'
-  $("#hasWorkStartedYetWrap input").val("")
-  $("#hasWorkStartedYetWrap [type='radio']").prop("checked", false)
+  $("#hasWorkStartedYetWrap").slideUp 0, ->
+    $("#" + dateWhenStartedDay).val("")
+    $("#" + dateWhenStartedMonth).val("")
+    $("#" + dateWhenStartedYear).val("")
+    $("#" + hasWorkFinishedYetYes).prop('checked', false)
+    $("#" + hasWorkFinishedYetNo).prop('checked', false)
 
 hideHasWorkFinishedYetWrap = (dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear) ->
-  $("#hasWorkFinishedYetWrap").slideUp(0).attr 'aria-hidden', 'true'
-  $("#hasWorkFinishedYetWrap input").val("")
+  $("#hasWorkFinishedYetWrap").slideUp 0, ->
+    $("#" + dateWhenFinishedDay).val("")
+    $("#" + dateWhenFinishedMonth).val("")
+    $("#" + dateWhenFinishedYear).val("")
 
 showHasWorkFinishedYetWrap = () ->
-  $("#hasWorkFinishedYetWrap").slideDown(0).attr 'aria-hidden', 'false'
+  $("#hasWorkFinishedYetWrap").slideDown 0
 
 hideTypeOfWorkEmployedWrap = (employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber) ->
-  $("#typeOfWorkEmployedWrap").slideUp(0).attr 'aria-hidden', 'true'
-  $("#typeOfWorkEmployedWrap input").val("")
+  $("#typeOfWorkEmployedWrap").slideUp 0, ->
+    $("#" + employerNameAndAddress1).val("")
+    $("#" + employerNameAndAddress2).val("")
+    $("#" + employerNameAndAddress3).val("")
+    $("#" + employerPostcode).val("")
+    $("#" + employerContactNumber).val("")
+    $("#" + employerPayrollNumber).val("")
 
 showTypeOfWorkEmployedWrap = () ->
-  $("#typeOfWorkEmployedWrap").slideDown(0).attr 'aria-hidden', 'false'
+  $("#typeOfWorkEmployedWrap").slideDown 0
 
 hideTypeOfWorkSelfEmployedWrap = (selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges) ->
-  $("#typeOfWorkSelfEmployedWrap").slideUp(0).attr 'aria-hidden', 'true'
-  $("#typeOfWorkSelfEmployedWrap input, #typeOfWorkSelfEmployedWrap textarea").val("")
-  $("#typeOfWorkSelfEmployedWrap [type='radio']").prop("checked", false)
+  $("#typeOfWorkSelfEmployedWrap").slideUp 0, ->
+    $("#" + selfEmployedTypeOfWork).val("")
+    $("#" + selfEmployedTotalIncomeYes).prop('checked', false)
+    $("#" + selfEmployedTotalIncomeNo).prop('checked', false)
+    $("#" + selfEmployedTotalIncomeDontKnow).prop('checked', false)
+    $("#" + selfEmployedMoreAboutChanges).val("")
 
 showTypeOfWorkSelfEmployedWrap = () ->
-  $("#typeOfWorkSelfEmployedWrap").slideDown(0).attr 'aria-hidden', 'false'
+  $("#typeOfWorkSelfEmployedWrap").slideDown 0
