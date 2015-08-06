@@ -41,36 +41,29 @@ window.initEvents = (stillCaringY, stillCaringN, dateStoppedCaring,
 
 
 hideStillCaringDate = (dateStoppedCaring) ->
-	emptyStillCaringDate = ->
-    	$("#" + dateStoppedCaring).val("")
-  $("#stillCaringDate").slideUp(0, emptyStillCaringDate).attr 'aria-hidden', 'true', ->
+  $("#stillCaringDate").slideUp 0
+  $("#stillCaringDate input").val("")
 
 showStillCaringDate = () ->
-  $("#stillCaringDate").slideDown(0).attr 'aria-hidden', 'false'
+  $("#stillCaringDate").slideDown 0
 
 hideStillCaringAddress = (caredForChangedAddressN, caredForChangedAddressY) ->
-	emptyStillCaringAddress = ->
-		$("#"+caredForChangedAddressN).attr("checked", false)
-		$("#"+caredForChangedAddressY).attr("checked", false)
-  $("#stillCaringAddress").slideUp(0, emptyStillCaringAddress).attr 'aria-hidden', 'true'
+  $("#stillCaringAddress").slideUp 0
+  $("#stillCaringAddress [type='radio']").attr("checked", false)
 
 showStillCaringAddress = () ->
-  $("#stillCaringAddress").slideDown(0).attr 'aria-hidden', 'false'
+  $("#stillCaringAddress").slideDown 0
 
 hideStillCaringSameAddress = (sameAddressY, sameAddressN) ->
-	emptyStillCaringSameAddres = ->
-		$("#"+sameAddressY).attr("checked", false)
-		$("#"+sameAddressN).attr("checked", false)
-	$("#changedAddressSame").slideUp(0, emptyStillCaringSameAddres).attr 'aria-hidden', 'true'
+  $("#changedAddressSame").slideUp 0
+  $("#changedAddressSame [type='radio']").attr("checked", false)
 
 showStillCaringSameAddress = () ->
-  $("#changedAddressSame").slideDown(0).attr 'aria-hidden', 'false'
+  $("#changedAddressSame").slideDown 0
 
 hideStillCaringSameAddressData = (theirNewAddress, theirNewPostcode) ->
-	emptyStillCaringSameAddressData = ->
-		$("#" + theirNewAddress).val("")
-		$("#" + theirNewPostcode).val("")
-  $("#sameAddressData").slideUp(0, emptyStillCaringSameAddressData).attr 'aria-hidden', 'true'
+  $("#sameAddressData").slideUp 0
+  $("#sameAddressData input").val("")
 
 showStillCaringSameAddressData = () ->
-  $("#sameAddressData").slideDown(0).attr 'aria-hidden', 'false'
+  $("#sameAddressData").slideDown 0
