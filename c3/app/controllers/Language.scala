@@ -16,7 +16,10 @@ object Language extends Controller {
         case Some(claim) =>
           val (key, expiration) = keyAndExpiration(request)
           Cache.set(key, Claim(claim.key, claim.sections, claim.created, Some(Lang(chosenLanguage)), claim.uuid), expiration)
-          Redirect(redirectUrl(request))
+          redirectUrl(request) match {
+            case Left(urlPath) => Redirect(urlPath)
+            case Right(url) => Redirect(url._1, url._2)
+          }
 
           // language can be changed only on first page. So if we do not get session info this means cookies are disabled.
         case None =>
@@ -41,13 +44,13 @@ object Language extends Controller {
     Cache.getAs[Claim](key)
   }
 
-  def redirectUrl(request: Request[AnyContent]): String = {
+  def redirectUrl(request: Request[AnyContent]) = {
     val (referer, host) = refererAndHost(request)
     val url = referer.substring(referer.indexOf(host) + host.length)
-    if ((url.contains("/allowance/benefits") || url.contains("/circumstances/identification/about-you")) && (!url.contains("?changing=true")))
-      url + "?changing=true"
+    if (url.contains("changing=true"))
+      Left(url)
     else
-      url
+      Right(url -> Map("changing" -> Seq("true")))
   }
 
   def refererAndHost(request: Request[AnyContent]) = {
