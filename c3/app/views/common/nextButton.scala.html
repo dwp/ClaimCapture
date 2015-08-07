@@ -1,0 +1,11 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+
+@import play.api.i18n.{MMessages => Messages, _}
+
+<button type="submit" name="action" value="next" class="button">
+    @if(claim.navigation.beenInPreview){
+        @Messages("form.returnToSummary")
+    } else {
+        @Messages("form.next")
+    }
+</button>
