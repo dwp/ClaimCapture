@@ -24,7 +24,7 @@ object Preview extends Controller with CachedClaim with Navigable {
   def submit = claimingWithCheck { implicit claim => implicit request => lang =>
     form.bindEncrypted.fold(
       errors => BadRequest(views.html.preview.preview(errors)(lang)),
-      data => claim.update(data) -> Redirect(controllers.s12_consent_and_declaration.routes.G3Declaration.present())
+      data => claim.update(data) -> Redirect(controllers.s_consent_and_declaration.routes.GDeclaration.present())
     )
   }
 }

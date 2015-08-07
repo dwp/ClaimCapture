@@ -1,0 +1,106 @@
+@(currentForm: Form[models.domain.Declaration])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
+
+@import views.html.helper._
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper.base._
+@import play.api.i18n.{MMessages => Messages}
+@import controllers.mappings.Mappings.yes
+@import models.domain.Employment
+@import models.domain.AboutOtherMoney
+@import utils.helpers.CarersTemplate._
+
+@defining(lang) { implicit language =>
+@main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm)) {
+
+	@form(action = controllers.s_consent_and_declaration.routes.GDeclaration.submit, 'role -> "form") {
+		@DwpCSRFFormHelper.formField
+
+	   <input type="hidden" id="js" name="jsEnabled" value="false">
+
+		<fieldset class="form-elements">
+
+		   <ul class="group">
+
+			   @if(claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
+					   claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).statutorySickPay.answer == `yes` ||
+					   claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).otherStatutoryPay.answer == `yes`){
+
+				   @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
+
+				   @otherDetailPlaceHolder(
+					   inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
+					   'id->"whyWrapper"
+				   )
+			   }
+
+			   @yesNoRadioGroup(currentForm("tellUsWhyEmployer.informationFromPerson"))
+
+			   @otherDetailPlaceHolder(
+				   inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyEmployer.whyPerson"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
+				   'id->"whyPersonWrapper"
+			   )
+		   </ul>
+
+			<p>@Messages("declaration.openingParagraph")</p>
+			<ul class="list-bullet">
+				<li>@Messages("declaration.1")</li>
+				<li>@Messages("declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@Messages("declaration.2b")</a> @Messages("declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@Messages("declaration.2d")</a></li>
+				<li>@Messages("declaration.3a") <a rel="external" id="claimnotes" target="_blank" href="/internal-claim-notes/@lang.code">@Messages("declaration.3b")</a> @Messages("declaration.3c")</li>
+			</ul>
+			<p class="warning-text">
+				@Messages("declaration.warning")
+			</p>
+
+			<div class="block-checkbox">
+				@declareCheckPlaceholder(currentForm("someoneElse"))
+			</div>
+
+			 <ul>
+				 @otherDetailPlaceHolder(
+					inputDef = Seq(carersInputText(currentForm("nameOrOrganisation"))(utils.helpers.CarersTemplate.fieldConstructor,lang)),
+					'id -> "nameOrOrgWrapper",
+					'display -> currentForm("someoneElse").value.map(p => p match{ case "true" => "yes" case _ => p}).getOrElse("no")
+				 )
+			 </ul>
+			 
+		</fieldset>
+
+		<nav class="form-steps" role="navigation">
+			<ul>
+				<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(true)>@Html(Messages("form.submitClaim"))</button></li>
+				<li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+			</ul>
+		</nav>
+
+	}
+
+	<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_consent_and_declaration/g_declaration.js")></script>
+	<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+
+	<script type="text/javascript">
+		$(function(){
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_why")",maxChars:300});
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("tellUsWhyEmployer_whyPerson")",maxChars:300});
+		})
+		$(function() {
+			window.initEvents({
+				informationFromEmployerY:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_informationFromEmployer_yes")",
+				informationFromEmployerN:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_informationFromEmployer_no")",
+				informationFromPersonY:"@CarersCrypto.encryptAES("tellUsWhyEmployer_informationFromPerson_yes")",
+				informationFromPersonN:"@CarersCrypto.encryptAES("tellUsWhyEmployer_informationFromPerson_no")",
+				why:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_why")",
+				whyWrapper:"whyWrapper",
+				whyPerson:"@CarersCrypto.encryptAES("tellUsWhyEmployer_whyPerson")",
+				whyPersonWrapper:"whyPersonWrapper",
+				check:"@CarersCrypto.encryptAES("someoneElse")",
+				input:"@CarersCrypto.encryptAES("nameOrOrganisation")"
+			});
+		});
+
+	</script>
+
+	<script type="text/javascript">$($("#js").val("true"));</script>
+
+}
+}

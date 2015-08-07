@@ -11,10 +11,49 @@ object EvidenceList {
 
   def buildXml(circs: Claim) = {
     <EvidenceList>
-      {showBreaksInCareMessages(circs)}
-      {showEmployment1Messages(circs)}
-      {showEmployment2Messages(circs)}
+      {evidence(circs)}
     </EvidenceList>
+  }
+
+  def evidence(circs:Claim):NodeSeq = {
+    import xml.claim.EvidenceList._
+
+    val isBreaksInCare = showBreaksInCareMessages(circs)
+    val isEmployment1 = circs.questionGroup[CircumstancesStartedEmploymentAndOngoing].isDefined
+    val isEmployment2 = circs.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined
+    val isEmail = circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration()).wantsContactEmail.getOrElse("") == Mappings.yes
+
+    var nodes = NodeSeq.Empty
+
+    if(isEmployment1 || isEmployment2){
+      nodes ++= recepientAddress("address.send")
+    }
+
+    nodes ++= evidenceTitle("next")
+
+    if (isEmail) nodes ++= evidenceTitle("email.circs.thankYou")
+
+    if(isBreaksInCare){
+      nodes ++= evidenceTitle("circs.thankyou.breakmessage.content")
+    }
+
+    if(isEmployment1 || isEmployment2){
+      nodes ++= evidenceTitle("circs.next.1")
+
+      val commonMessages = Seq("address.details")
+      val employment1Pension = showEmploymentPensionMessage(circs, "circs.thankyou.employment1message3.content")
+      val employment2Pension = showEmploymentPensionMessage(circs, "circs.thankyou.employment2message4.content")
+      val employment1 = emptySeqIfFalse(isEmployment1, Seq("circs.thankyou.employment1message2.content") ++ employment1Pension)
+      val employment2 = emptySeqIfFalse(isEmployment2, Seq("circs.thankyou.employment2message2.content", "circs.thankyou.employment2message3.content") ++ employment2Pension)
+
+      nodes ++= evidenceSection(true, "required.docs", Seq("thankyou.send") ++ employment1 ++ employment2 ++ commonMessages)
+
+    }else{
+      nodes ++= evidenceTitle("circs.next.nodocuments.1")
+      nodes ++= evidenceTitle(Messages("circs.next.nodocuments.2")+" "+Messages("thankyou.report.another.change.short"))
+    }
+
+    nodes
   }
 
   private def title(text: String): NodeSeq = {
@@ -36,56 +75,10 @@ object EvidenceList {
       case _ => false
     }
 
-    outputRequired match {
-      case true =>
-        <Evidence>
-          {title(Messages("circs.thankyou.breakmessage.title"))}
-          {content(Messages("circs.thankyou.breakmessage.content.nohtml"))}
-        </Evidence>
-      case _ => NodeSeq.Empty
-    }
+    outputRequired
   }
 
-  def showEmployment1Messages(circs: Claim) = {
-    circs.questionGroup[CircumstancesStartedEmploymentAndOngoing].isDefined match {
-      case true => {
-        <Evidence>
-          {title(Messages("circs.thankyou.employment1message.title"))}
-          {content(Messages("circs.thankyou.employment1message1.content"))}
-          {content(Messages("circs.thankyou.employment1message2.content"))}
-          {showEmploymentPensionMessage(circs)}
-          {content(Messages("circs.thankyou.employment1message.address.title"))}
-          {content(Messages("circs.thankyou.employment1message1.address"))}
-          {content(Messages("circs.thankyou.employment1message2.address"))}
-          {content(Messages("circs.thankyou.employment1message3.address"))}
-          {content(Messages("circs.thankyou.employment1message4.address"))}
-        </Evidence>
-      }
-      case _ => NodeSeq.Empty
-    }
-  }
-
-  def showEmployment2Messages(circs: Claim) = {
-    circs.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined match {
-      case true => {
-        <Evidence>
-          {title(Messages("circs.thankyou.employment2message.title"))}
-          {content(Messages("circs.thankyou.employment2message1.content"))}
-          {content(Messages("circs.thankyou.employment2message2.content"))}
-          {content(Messages("circs.thankyou.employment2message3.content"))}
-          {showEmploymentPensionMessage(circs)}
-          {content(Messages("circs.thankyou.employment2message.address.title"))}
-          {content(Messages("circs.thankyou.employment2message1.address"))}
-          {content(Messages("circs.thankyou.employment2message2.address"))}
-          {content(Messages("circs.thankyou.employment2message3.address"))}
-          {content(Messages("circs.thankyou.employment2message4.address"))}
-        </Evidence>
-      }
-      case _ => NodeSeq.Empty
-    }
-  }
-
-  def showEmploymentPensionMessage(circs: Claim) = {
+  def showEmploymentPensionMessage(circs: Claim,message:String) = {
     lazy val ongoingEmploymentOption = circs.questionGroup[CircumstancesStartedEmploymentAndOngoing]
     lazy val finishedEmploymentOption = circs.questionGroup[CircumstancesStartedAndFinishedEmployment]
     lazy val futureEmploymentOption = circs.questionGroup[CircumstancesEmploymentNotStarted]
@@ -100,8 +93,8 @@ object EvidenceList {
       else false
 
     show match {
-      case true => content(Messages("circs.thankyou.employment1message3.content"))
-      case _ => NodeSeq.Empty
+      case true => Seq(message)
+      case _ => Seq.empty[String]
     }
   }
 }

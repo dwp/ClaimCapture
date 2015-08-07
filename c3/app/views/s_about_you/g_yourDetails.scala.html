@@ -1,0 +1,60 @@
+@(yourDetailsForm: Form[models.domain.YourDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.common._
+@import views.html.helper._
+@import views.html.helper.dropdowns._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import views.html.s_about_you.main
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.CarersCrypto
+
+
+@defining(lang) { implicit language =>
+    @main(Messages("s2.g1") + " - " + Messages("s2.longName")) {
+        @errorsSummary(yourDetailsForm)
+
+        @form(action = controllers.s_about_you.routes.GYourDetails.submit, 'role -> "form") {
+            @DwpCSRFFormHelper.formField
+
+            <fieldset class="form-elements" data-journey="carers-allowance:page:about-you">
+
+                <ul>
+                    @titleSelect(yourDetailsForm)
+
+                    @carersInputText(yourDetailsForm("firstName"), 'maxLength -> 17)
+
+                    @carersInputText(yourDetailsForm("middleName"), 'maxLength -> 17,'ignoreOptional->true)
+
+                    @carersInputText(yourDetailsForm("surname"), 'maxLength -> 35)
+
+                    @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"), 'helperAbove -> Messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper2"))
+
+                    @dateOfBirth(yourDetailsForm("dateOfBirth"))
+
+                </ul>
+
+            </fieldset>
+
+            <nav class="form-steps" role="navigation">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+                </ul>
+            </nav>
+            
+        }
+
+        <script type="text/javascript">
+            $ ( function ( ) {
+                @ga.stagePrompt();
+                window.otherTitle('@CarersCrypto.encryptAES("title")');
+            } )
+        </script>
+
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/otherTitle.js")></script>
+    }
+}

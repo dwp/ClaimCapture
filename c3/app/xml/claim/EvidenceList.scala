@@ -1,10 +1,12 @@
 package xml.claim
 
+import controllers.mappings.Mappings
 import models.domain._
 import app.XMLValues._
 import models.domain.Claim
 import models.domain.ClaimUtils
-import scala.xml.NodeSeq
+import play.api.Logger
+import scala.xml.{Elem, NodeSeq}
 import xml.XMLHelper._
 import models.MultiLineAddress
 import play.api.i18n.{MMessages => Messages}
@@ -22,25 +24,39 @@ object EvidenceList {
     val employed = employment.beenEmployedSince6MonthsBeforeClaim.toLowerCase == yes
     val selfEmployed = employment.beenSelfEmployedSince1WeekBeforeClaim.toLowerCase == yes
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+    val isEmail = claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail.getOrElse("") == Mappings.yes
 
-    val evidenceEmployedStatements = Seq(Messages("evidence.employed.statement2", stringify(claimDate.dateOfClaim)), "s11.g5.help5")
+    val evidenceEmployedStatements = Seq(Messages("s11.g5.help4", stringify(claimDate.dateOfClaim)), "s11.g5.help5")
     val evidenceSelfEmployedStatements = Seq("s11.g5.help8")
     val evidencePensionStatements = Seq("s11.g5.help6")
-    val commonHeaders = Seq("documents.title", "documents.sendingDocs.title", "documents.sendingDocs.text")
-
-    val alwaysPrint = true
 
     var nodes = NodeSeq.Empty
+    if (employed || selfEmployed) {
+      nodes ++= recepientAddress("address.send")
+    }
 
-    if (employed || selfEmployed) nodes ++= recepientAddress("s11.g5.help10") ++  evidenceTitle(commonHeaders)
+    nodes ++= evidenceTitle("next")
 
-    nodes ++= evidenceSection(employed, "s11.g5.help3a", evidenceEmployedStatements)
-    nodes ++= evidenceSection(selfEmployed, "s11.g5.help3b", evidenceSelfEmployedStatements)
-    nodes ++= evidenceSection(ClaimUtils.pensionStatementsRequired(claim), "s11.g5.help3c", evidencePensionStatements)
-    nodes ++= evidenceSection(alwaysPrint, "", Seq("evidence.statement7"))
+    if (isEmail) nodes ++= evidenceTitle("email.claim.thankYou")
 
+    if (employed || selfEmployed) nodes ++= evidenceTitle("claim.next.main")
+    else nodes ++= evidenceTitle("claim.next.nodocuments.1")
+
+    if (employed || selfEmployed) {
+      val commonMessages = Seq("address.details")
+      val employment = emptySeqIfFalse(employed,evidenceEmployedStatements)
+      val selfEmployment = emptySeqIfFalse(selfEmployed,evidenceSelfEmployedStatements)
+      val pension = emptySeqIfFalse(ClaimUtils.pensionStatementsRequired(claim),evidencePensionStatements)
+      nodes ++= evidenceSection(true,"required.docs",Seq("thankyou.send")++employment++selfEmployment++pension++commonMessages)
+    }
     nodes
   }
+
+  def emptySeqIfFalse[T](statement:Boolean,seq:Seq[T]):Seq[T] =
+    statement match{
+      case true => seq
+      case false => Seq.empty[T]
+    }
 
   def  sectionEmpty(nodeSeq: NodeSeq) = {
     if (nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty
@@ -51,9 +67,13 @@ object EvidenceList {
    * @param titles
    * @return
    */
-  def evidenceTitle(titles: Seq[String]) = {
-      {titles map (t => <Evidence>{title(t)}</Evidence>)}
+  def evidenceTitle(titles: Seq[String]):NodeSeq = {
+    {titles map(evidenceTitle)}
   }
+
+  def evidenceTitle(titleValue: String):Elem =
+    {<Evidence>{title(titleValue)}</Evidence>}
+
 
 
   def evidenceSection (condition: Boolean, titleText: String, contents: Seq[String]): NodeSeq = {
@@ -76,8 +96,8 @@ object EvidenceList {
     <Content>{Messages(text)}</Content>
   }
 
-  private def recepientAddress(questionLabelCode: String):NodeSeq = {
-    val address = MultiLineAddress(Some(Messages("evidence.statement3")),Some(Messages("evidence.statement4")),Some(Messages("evidence.statement5")))
-    postalAddressStructureRecipientAddress(questionLabelCode, address, Some(Messages("evidence.statement6")))
+  def recepientAddress(questionLabelCode: String):NodeSeq = {
+    val address = MultiLineAddress(Some(Messages("s11.g5.help11")),Some(Messages("s11.g5.help12")),Some(Messages("s11.g5.help13")))
+    postalAddressStructureRecipientAddress(questionLabelCode, address, Some(Messages("s11.g5.help14")))
   }
 }

@@ -1,0 +1,39 @@
+@(currentForm: Form[models.domain.MoreAboutTheCare])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import views.html.helper._
+@import views.html.helper.dates._
+@import utils.helpers.CarersTemplate._
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import models.domain.MoreAboutTheCare
+@import play.api.i18n.{MMessages => Messages}
+@import scala.language.postfixOps
+
+@defining(lang) { implicit language =>
+
+    @main(Messages("s4.g4") + " - " + Messages("s4.longName"), Some(currentForm)) {
+
+        @form(action = controllers.s_care_you_provide.routes.GMoreAboutTheCare.submit, 'role -> "form") {
+
+            @DwpCSRFFormHelper.formField
+
+	        <fieldset class="form-elements">
+
+	            <ul>
+	                @yesNoRadioGroup(currentForm("spent35HoursCaring"))
+	            </ul>
+
+	        </fieldset>
+	
+	        <nav class="form-steps" role="navigation">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+
+        }
+
+    }
+
+}

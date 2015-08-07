@@ -4,7 +4,7 @@ import models.view.CachedClaim
 
 import scala.language.reflectiveCalls
 import org.specs2.mutable.Specification
-import controllers.s8_employment.Employment.jobFormFiller
+import controllers.s_employment.Employment.jobFormFiller
 import models.MultiLineAddress
 import controllers.Iteration.{Identifier => IterationID}
 

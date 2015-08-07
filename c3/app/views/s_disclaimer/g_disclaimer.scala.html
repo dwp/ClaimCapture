@@ -1,0 +1,50 @@
+@(currentForm: Form[models.domain.Disclaimer])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
+
+@import models.domain.TheirPersonalDetails
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper._
+@import play.api.i18n.{MMessages => Messages}
+
+@defining(lang) { implicit language =>
+    @main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm)) {
+
+
+        @form(action = controllers.s_disclaimer.routes.GDisclaimer.submit, 'role -> "form") {
+            @DwpCSRFFormHelper.formField
+
+                <fieldset class="form-elements">
+
+                    <div class="declaration">
+                    
+                        <p>@Html(Messages("disclaimer.1"))</p>
+
+                        <ul class="list-bullet">
+                            @for(i <- 2 to 6) {
+                                <li>@Html(Messages(s"disclaimer.${i}"))</li>
+                            }
+                        </ul>
+                        
+                        <p>
+                            @Html(Messages("disclaimer.7", s"""<a rel="external" href="https://www.gov.uk/find-your-local-council" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - Find your local council")}>""", "</a>"))
+                        </p>
+                        <p>
+                            @Html(Messages("disclaimer.8", s"""<a rel="external" href="https://www.gov.uk/carers-allowance/what-youll-get" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - How it affects benefits")}>""", "</a>"))
+                        </p>
+                        <p>
+                            @Html(Messages("disclaimer.9", "<b>", "</b>"))
+                        </p>
+                        
+                    </div>
+
+                </fieldset>
+
+                <nav class="form-steps" role="navigation">
+                    <ul>
+                        <li><button type="submit" name="read" value="yes" class="button" @views.html.ga.trackClickEvent(linkName = "Disclaimer - I agree - start my application")>@Html(Messages("disclaimer.form.next"))</button></li>
+                        <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+                    </ul>
+                </nav>
+
+        }
+    }
+}

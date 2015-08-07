@@ -1,0 +1,48 @@
+@(currentForm: Form[models.domain.BankBuildingSocietyDetails])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper._
+@import views.html.helper.base._
+@import controllers.s_pay_details._
+@import app.WhoseNameAccount._
+@import models.domain.BankBuildingSocietyDetails
+@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Lang
+
+@defining(lang) { implicit language =>
+    @main(Messages("s10.g2") + " - " + Messages("s10.longName"), Some(currentForm)) {
+
+
+        @form(action = controllers.s_pay_details.routes.GBankBuildingSocietyDetails.submit, 'role -> "form") {
+            @DwpCSRFFormHelper.formField
+
+  
+                <fieldset class="form-elements">
+
+                    <ul>
+                        @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
+
+                        @carersInputText(currentForm("bankFullName"))
+
+                        @* 'ignoreOptional -> true is for ignoring <em> optional </em> tag on label for the individual sort code fields *@
+                        @sortCode(currentForm("sortCode"), 'ignoreOptional -> true)
+
+                        @carersInputText(currentForm("accountNumber"), 'maxLength -> "10")
+
+                        @carersInputText(currentForm("rollOrReferenceNumber"), 'maxLength -> "18")
+                    </ul>
+
+                </fieldset>
+
+                <nav class="form-steps" role="navigation">
+                    <ul>
+                        <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit()>@Html(Messages("form.next"))</button></li>
+                        <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+                    </ul>
+                </nav>
+
+        }
+    }
+}
