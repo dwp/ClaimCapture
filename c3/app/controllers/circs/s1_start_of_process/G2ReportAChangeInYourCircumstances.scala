@@ -5,10 +5,12 @@ import controllers.CarersForms._
 import controllers.circs.s1_start_of_process.G1ReportChanges._
 import controllers.mappings.Mappings._
 import controllers.mappings.NINOMappings._
+import models.domain.EMail._
 import models.domain._
 import models.view.{CachedChangeOfCircs, Navigable}
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
+import play.api.data.validation.Constraints
 import play.api.mvc.{Call, Controller}
 import utils.helpers.CarersForm._
 
@@ -29,8 +31,19 @@ object G2ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
     nationalInsuranceNumber -> nino.verifying(filledInNino).verifying(validNino),
     dateOfBirth -> dayMonthYear.verifying(validDate),
     theirFullName -> carersNonEmptyText(maxLength = 35),
-    theirRelationshipToYou -> carersNonEmptyText(maxLength = 35)
-  )(CircumstancesReportChange.apply)(CircumstancesReportChange.unapply))
+    theirRelationshipToYou -> carersNonEmptyText(maxLength = 35),
+
+    "furtherInfoContact" -> carersNonEmptyText(maxLength = 35),
+    "wantsEmailContactCircs" -> optional(carersNonEmptyText.verifying(validYesNo)),
+    "mail" -> optional(email.verifying(Constraints.maxLength(254))),
+    "mailConfirmation" -> optional(text(maxLength = 254))
+
+  )(CircumstancesReportChange.apply)(CircumstancesReportChange.unapply)
+    .verifying("error.email.match", emailConfirmation _)
+    .verifying("error.email.required", emailRequired _)
+    .verifying("error.wants.required", wantsEmailRequired _)
+
+  )
 
   def present = claiming ({ implicit circs =>  implicit request =>  lang =>
       track(CircumstancesReportChange) {
@@ -40,7 +53,14 @@ object G2ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
 
   def submit = claiming ({ implicit circs =>  implicit request =>  lang =>
       form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.circs.s1_start_of_process.g2_reportAChangeInYourCircumstances(formWithErrors)(lang)),
+        formWithErrors => {
+          val formWithErrorsUpdate = formWithErrors
+            .replaceError("","error.email.match",FormError("mailConfirmation","error.email.match"))
+            .replaceError("","error.email.required",FormError("mail",errorRequired))
+            .replaceError("","error.wants.required",FormError("wantsEmailContactCircs",errorRequired))
+
+          BadRequest(views.html.circs.s1_start_of_process.g2_reportAChangeInYourCircumstances(formWithErrorsUpdate)(lang))
+        },
         f => circs.update(f) -> getReportChangesRedirect(circs)
       )
   },checkCookie=true)

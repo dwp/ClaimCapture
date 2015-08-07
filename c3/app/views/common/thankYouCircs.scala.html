@@ -1,5 +1,5 @@
 @(lang: Lang)(implicit circs: models.domain.Claim, request: Request[AnyContent])
-@import models.domain.CircumstancesDeclaration
+@import models.domain.CircumstancesReportChange
 @import controllers.mappings.Mappings
 
 
@@ -47,7 +47,7 @@ show
 }
 
 @isEmail = @{
-getProperty("email.frontend",false) && circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration()).wantsContactEmail.getOrElse("") == Mappings.yes
+getProperty("email.frontend",false) && circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange()).wantsContactEmail.getOrElse("") == Mappings.yes
 }
 
 @defining(lang) { implicit language =>
@@ -71,10 +71,7 @@ getProperty("email.frontend",false) && circs.questionGroup[CircumstancesDeclarat
                 <p class="compound">@Html(Messages("leftcol.helplinecontent.2"))</p>
                 <p class="compound">@Html(Messages("leftcol.helplinecontent.3"))</p>
                 <p class="compound">@Html(Messages("leftcol.helplinecontent.4"))</p>
-
-                <p>
-                    <a rel="external" href="https://www.gov.uk/call-charges" target="_blank" @views.html.ga.trackClickEvent(linkName = "Call charges")>@Messages("leftcol.callcharges")</a>
-                </p>
+                <p class="compound">@Messages("leftcol.callcharges")</p>
 
             </section>
 
