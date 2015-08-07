@@ -21,7 +21,7 @@ object EvidenceList {
     val isBreaksInCare = showBreaksInCareMessages(circs)
     val isEmployment1 = circs.questionGroup[CircumstancesStartedEmploymentAndOngoing].isDefined
     val isEmployment2 = circs.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined
-    val isEmail = circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration()).wantsContactEmail.getOrElse("") == Mappings.yes
+    val isEmail = circs.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail.getOrElse("") == Mappings.yes
 
     var nodes = NodeSeq.Empty
 
