@@ -26,6 +26,7 @@
                 <legend class="visuallyhidden">Pay details</legend>
 
                 <ul>
+					
                     @yesNoRadioGroup(currentForm("likeToPay"), '_label -> Messages("likeToPay"),  'track -> true)
 
                     @otherDetailPlaceHolder(
@@ -34,7 +35,7 @@
                             carersInputText(currentForm("bankDetails.bankFullName")),
                             sortCode(currentForm("bankDetails.sortCode"), 'ignoreOptional -> true),
                             carersInputText(currentForm("bankDetails.accountNumber"), 'maxLength -> "10"),
-                            sliderHelp(Messages("postOfficeTitle"),Messages("postOfficeTitle"),Html(Messages("postOfficeBody"))),
+                            sliderHelp(Messages("postOfficeTitle"),Messages("postOfficeTitle"),Html(Messages("postOfficeBody")), 'showMini->true),
                             carersInputText(currentForm("bankDetails.rollOrReferenceNumber"), 'maxLength -> "18")
                         ),
                         'id -> "bankDetailsWrapper"
