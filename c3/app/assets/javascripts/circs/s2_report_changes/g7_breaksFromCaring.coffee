@@ -84,6 +84,7 @@ showTime = (id) ->
 
 hideBreakEndedDate = () ->
   $("#breakEndedDateTime").slideUp(0).attr 'aria-hidden', 'true'
+  $("#breakEndedDateTime input").val("")
 
 showBreakEndedDate = () ->
   $("#breakEndedDateTime").slideDown(0).attr 'aria-hidden', 'false'
@@ -98,12 +99,14 @@ showExpectStartCaring = () ->
 
 hidePermanentBreakDate = () ->
   $("#permanentBreakDate").slideUp(0).attr 'aria-hidden', 'true'
+  $("#permanentBreakDate input").val("")
 
 showPermanentBreakDate = () ->
   $("#permanentBreakDate").slideDown(0).attr 'aria-hidden', 'false'
 
 hideExpectStartCaringDate = () ->
   $("#expectStartCaringDate").slideUp(0).attr 'aria-hidden', 'true'
+  $("#expectStartCaringDate input").val("")
 
 showExpectStartCaringDate = () ->
   $("#expectStartCaringDate").slideDown(0).attr 'aria-hidden', 'false'

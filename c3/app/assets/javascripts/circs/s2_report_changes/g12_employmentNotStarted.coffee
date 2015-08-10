@@ -57,6 +57,7 @@ window.beenPaidYet = (beenPaidYetY, beenPaidYetN) ->
   S(beenPaidYetN).on "click", ->
     S("beenPaidYetWrap").slideUp 0
     S("usuallyPaidSameAmountWrap").slideUp 0
+    $("#beenPaidYetWrap input").val("")
 
 window.usuallyPaidSameAmount = (o) ->
   if val(o.howOftenFrequency) is o.dontknowKey and visible "usuallyPaidSameAmountWrap"

@@ -11,4 +11,4 @@ hideShow = (title) ->
   if titleVal is 'Other'
     other.show()
   else
-    other.hide()
+    other.hide().find("input").val("");

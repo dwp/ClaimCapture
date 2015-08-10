@@ -15,3 +15,4 @@ showSelfEmployedNoWrap = ->
 
 hideSelfEmployedNoWrap = ->
   $("#selfEmployedNoWrap").slideUp(0).attr 'aria-hidden', 'true'
+
