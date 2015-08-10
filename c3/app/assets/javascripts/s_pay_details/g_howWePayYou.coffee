@@ -11,6 +11,7 @@ showBankDetails = () ->
 showNoBank = () ->
   hideElement "bankDetailsWrapper"
   showElement "noBankDetailsWrapper"
+  $("#bankDetailsWrapper input").val("")
 
 hideAll = () ->
   hideElement "bankDetailsWrapper"
