@@ -9,6 +9,10 @@ final class G2ReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) exten
   declareDate("#dateOfBirth", "CircumstancesAboutYouDateOfBirth")
   declareInput("#theirFullName","CircumstancesAboutYouTheirFullName")
   declareInput("#theirRelationshipToYou","CircumstancesAboutYouTheirRelationshipToYou")
+  declareInput("#furtherInfoContact","FurtherInfoContact")
+  declareYesNo("#wantsEmailContactCircs","CircumstancesDeclarationWantsEmailContact")
+  declareInput("#mail","CircumstancesDeclarationMail")
+  declareInput("#mailConfirmation","CircumstancesDeclarationMailConfirmation")
 }
 
 /**

@@ -27,7 +27,9 @@ class G2ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
       "dateOfBirth.month" -> dateOfBirthMonth.toString,
       "dateOfBirth.year" -> dateOfBirthYear.toString,
       "theirFullName" -> theirFullName,
-      "theirRelationshipToYou" -> theirRelationshipToYou
+      "theirRelationshipToYou" -> theirRelationshipToYou,
+      "furtherInfoContact"->"by post",
+      "wantsEmailContactCircs"->"no"
     )
 
     //CachedChangeOfCircs.key

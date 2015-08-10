@@ -114,7 +114,7 @@
 </script>
 
 @if(getProperty("email.frontend",false)) {
-    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/email.js")></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/email.js")'></script>
     <script type="text/javascript">
         $(function() {
             window.emailInit("@CarersCrypto.encryptAES("wantsEmailContactCircs_yes")",

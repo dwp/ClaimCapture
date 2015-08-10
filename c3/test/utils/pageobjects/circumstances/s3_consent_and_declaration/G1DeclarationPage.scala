@@ -4,15 +4,11 @@ import utils.WithBrowser
 import utils.pageobjects._
 
 final class G1DeclarationPage (ctx:PageObjectsContext) extends CircumstancesPage(ctx, G1DeclarationPage.url){
-  declareInput("#furtherInfoContact","FurtherInfoContact")
   declareYesNo("#obtainInfoAgreement","CircumstancesDeclarationInfoAgreement")
   declareInput("#obtainInfoWhy","CircumstancesDeclarationWhyNot")
   declareCheck("#confirm","CircumstancesDeclarationConfirmation")
   declareCheck("#circsSomeOneElse","CircumstancesSomeOneElseConfirmation")
   declareInput("#nameOrOrganisation","NameOrOrganisation")
-  declareYesNo("#wantsEmailContactCircs","CircumstancesDeclarationWantsEmailContact")
-  declareInput("#mail","CircumstancesDeclarationMail")
-  declareInput("#mailConfirmation","CircumstancesDeclarationMailConfirmation")
 }
 
 object G1DeclarationPage {

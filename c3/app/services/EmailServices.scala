@@ -46,11 +46,11 @@ object EmailServices {
   }
 
   private def sendCofcEmail(claim:Claim) = {
-    claim.questionGroup[CircumstancesDeclaration] -> claim.lang match {
-      case (Some(circumstancesDecl),language) if circumstancesDecl.email.isDefined =>
+    claim.questionGroup[CircumstancesReportChange] -> claim.lang match {
+      case (Some(circumstancesRepChange),language) if circumstancesRepChange.email.isDefined =>
         implicit val lang = language.getOrElse(Lang("en"))
 
-        CadsEmail.send(claim.transactionId.getOrElse(""), subject = Messages("subject.cofc"),body = views.html.mail(claim,isClaim = false,isEmployment(claim)).body,circumstancesDecl.email.get)
+        CadsEmail.send(claim.transactionId.getOrElse(""), subject = Messages("subject.cofc"),body = views.html.mail(claim,isClaim = false,isEmployment(claim)).body,circumstancesRepChange.email.get)
       case (Some(circumstancesDecl),language) if circumstancesDecl.email.isEmpty => //We do nothing in this case, they have selected not to send email
       case _ => Logger.error(s"Can't send changes email, email not present for transactionId[${claim.transactionId.getOrElse("id not present")}]")
     }
