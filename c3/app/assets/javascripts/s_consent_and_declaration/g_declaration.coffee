@@ -32,6 +32,7 @@ window.initEvents = (o) ->
 
 hideNameOrgWrapper = (o) ->
   S("nameOrOrgWrapper").slideUp(0).attr 'aria-hidden', 'true', -> val(o.input, "")
+  $("#nameOrOrgWrapper input").val("")
 
 showNameOrgWrapper = ->
   S("nameOrOrgWrapper").slideDown(0).attr 'aria-hidden', 'false'
@@ -41,9 +42,11 @@ showWhyWrapper = (o) ->
 
 hideWhyWrapper = (o) ->
   S(o.whyWrapper).slideUp(0).attr 'aria-hidden', 'true', -> val(o.why, "")
+  $("#whyWrapper textarea").val("")
 
 hideWhyPersonWrapper =  (o) ->
   S(o.whyPersonWrapper).slideUp(0).attr 'aria-hidden', 'true', -> val(o.whyPerson, "")
+  $("#whyPersonWrapper textarea").val("")
 
 showWhyPersonWrapper = (o) ->
   S(o.whyPersonWrapper).slideDown(0).attr 'aria-hidden', 'false'

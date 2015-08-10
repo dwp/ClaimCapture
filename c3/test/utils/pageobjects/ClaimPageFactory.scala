@@ -84,7 +84,6 @@ object ClaimPageFactory extends PageFactory {
       case GAboutOtherMoneyPage.url => GAboutOtherMoneyPage(ctx)
       // S9
       case GHowWePayYouPage.url => GHowWePayYouPage(ctx)
-      case GBankBuildingSocietyDetailsPage.url => GBankBuildingSocietyDetailsPage(ctx)
       // S9
       case GAboutSelfEmploymentPage.url => GAboutSelfEmploymentPage(ctx)
       case GSelfEmploymentYourAccountsPage.url => GSelfEmploymentYourAccountsPage(ctx)

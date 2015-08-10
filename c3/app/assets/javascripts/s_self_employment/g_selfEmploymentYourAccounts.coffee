@@ -10,8 +10,9 @@ window.initEvents = (answerY, answerN, tellUsText) ->
     showSelfEmployedIncomeWrap()
 
 hideSelfEmployedIncomeWrap = (tellUsText) ->
-  $("#"+tellUsText).val("")
-  $("#selfEmployedIncomeWrap").slideUp(0).attr 'aria-hidden', 'true'
+	emptySelfEmployedIncomeWrap = ->
+  		$("#"+tellUsText).val("")
+  $("#selfEmployedIncomeWrap").slideUp(0, emptySelfEmployedIncomeWrap).attr 'aria-hidden', 'true'
 
 showSelfEmployedIncomeWrap = ->
   $("#selfEmployedIncomeWrap").slideDown(0).attr 'aria-hidden', 'false'

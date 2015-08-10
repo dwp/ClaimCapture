@@ -13,7 +13,8 @@ showEmail = ->
   $("#emailWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideEmail = (email, emailConfirmation) ->
-  $("#emailWrap").slideUp(0).attr 'aria-hidden', 'true', ->
-    $("#" + email).val("")
-    $("#" + emailConfirmation).val("")
+	emptyEmail = ->
+	    $("#" + email).val("")
+	    $("#" + emailConfirmation).val("")
+  $("#emailWrap").slideUp(0, emptyEmail).attr 'aria-hidden', 'true', ->
 

@@ -1,7 +1,7 @@
 window.initEvents = (additionalBreaksY, additionalBreaksN, text) ->
   hideAdditionalBreaksWrap = (text) ->
     $("#additionalBreaksWrap").slideUp(0).attr 'aria-hidden', 'true', ->
-      $("#" + text).val("")
+    $("#additionalBreaksWrap textarea").val("")
 
   showAdditionalBreaksWrap = () ->
     $("#additionalBreaksWrap").slideDown(0).attr 'aria-hidden', 'false'

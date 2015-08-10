@@ -6,20 +6,43 @@
     margin-bottom: $gutter;
 }
 
-.helper-more {
+.accordion-title {
     color: $link-colour;
     text-decoration: underline;
     cursor: pointer; // encourage clicking
+	margin: 0 !important;
+	padding: 2.25rem 0;
+	padding-right: 16px; // to offset accordion arrow
+	border-bottom: 1px solid $grey-2;
+	position: relative;
+	// Accordion Arrow
+	&:after {
+		content: "";
+		position: absolute;
+		right: 0;
+		height: 10px;
+		width: 1em;
+		top: 50%;
+		background-image: url('/assets/images/mobile-nav.png');
+		background-repeat: no-repeat;
+		background-position: top;
+		@include translate(0, -50%);
+	}
     &:hover {
         color: $link-hover-colour;
     }
+	.accordion-open & {
+		&:after {
+			background-position: bottom;	
+		}
+	}
+	&.title-mini {
+		display: inline-block;
+		padding: 0.5rem 2em 0.5rem 0;
+		border-bottom: none;
+	}
 }
 
-.helper-info {
+.accordion-content {
     color: $secondary-text-colour;
-    margin-top: $gutter-half;
-}
-
-.helper-show {
-
 }

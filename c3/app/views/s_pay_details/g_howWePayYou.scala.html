@@ -1,58 +1,79 @@
-@(currentForm: Form[models.domain.HowWePayYou])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.HowWePayYou])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
-@import helper._
-@import utils.helpers.CarersTemplate._
+@import app.PaymentFrequency._
+@import play.api.i18n.{MMessages => Messages}
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
-@import models.domain.HowWePayYou
-@import app.AccountStatus._
-@import app.PaymentFrequency._
-@import utils.helpers.CarersCrypto
-@import play.api.i18n.{MMessages => Messages}
+@import views.html.s_pay_details._
+@import utils.helpers.CarersTemplate._
+@import utils.helpers._
 
 @defining(lang) { implicit language =>
-@main(Messages("s10.g1") + " - " + Messages("s10.longName"), Some(currentForm)) {
+    @main(Messages("s10.g1") + " - " + Messages("s10.longName"), Some(currentForm)) {
 
-    @form(action = controllers.s_pay_details.routes.GHowWePayYou.submit, 'role -> "form") {
-        @DwpCSRFFormHelper.formField
+        @form(action = controllers.s_pay_details.routes.GHowWePayYou.submit, 'role -> "form") {
+            @DwpCSRFFormHelper.formField
 
-    <p>@Html(Messages("howWePayYou.help")) <a href="/claim-help#5" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - How We Pay You")>@Html(Messages("howWePayYou.help.link"))</a>.</p>
-    	
+            <p>
+                @Html(Messages("howWePayYou.help.1"))
+                <br>
+                @Html(Messages("howWePayYou.help.2"))
+            </p>
 
-	        <fieldset class="form-elements" data-journey="carers-allowance:page:pay-details">
-	        
-	        	<legend class="visuallyhidden">Pay details</legend>
-	        
-	            <ul>
-	                @listRadioGroup(currentForm("likeToPay"),
-                                    'items -> Seq(BankBuildingAccount -> Messages("label.bankBuildingAccount") , AppliedForAccount -> Messages("label.appliedForAccount")),
-                                    '_nestedFieldSet -> true)
-	
-	                @listRadioGroup(currentForm("paymentFrequency"),
-                                    'items -> Seq(EveryWeek -> Messages("label.everyWeek"), FourWeekly -> Messages("label.fourWeekly"), ThirteenWeekly -> Messages("label.thirteenWeekly")),
-                                    '_nestedFieldSet -> true)
-	            </ul>
-                
-	        </fieldset>
-	
-	        <nav class="form-steps" role="navigation">
-	            <ul>
-	            	<li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(isOptional=true)>@Html(Messages("form.next"))</button></li>
+            <fieldset class="form-elements" data-journey="carers-allowance:page:pay-details">
+
+                <legend class="visuallyhidden">Pay details</legend>
+
+                <ul>
+					
+                    @yesNoRadioGroup(currentForm("likeToPay"), '_label -> Messages("likeToPay"),  'track -> true)
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputText(currentForm("bankDetails.accountHolderName"), 'maxLength -> "40"),
+                            carersInputText(currentForm("bankDetails.bankFullName")),
+                            sortCode(currentForm("bankDetails.sortCode"), 'ignoreOptional -> true),
+                            carersInputText(currentForm("bankDetails.accountNumber"), 'maxLength -> "10"),
+                            sliderHelp(Messages("postOfficeTitle"),Messages("postOfficeTitle"),Html(Messages("postOfficeBody")), 'showMini->true),
+                            carersInputText(currentForm("bankDetails.rollOrReferenceNumber"), 'maxLength -> "18")
+                        ),
+                        'id -> "bankDetailsWrapper"
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            labelOrId("noBankAccount")
+                        ),
+                        'id -> "noBankDetailsWrapper"
+                    )
+
+                    @listRadioGroup(currentForm("paymentFrequency"),
+                        'items -> Seq(EveryWeek -> Messages("label.everyWeek"), FourWeekly -> Messages("label.fourWeekly"), ThirteenWeekly -> Messages("label.thirteenWeekly")),
+                        '_nestedFieldSet -> true)
+
+                </ul>
+
+            </fieldset>
+
+            <nav class="form-steps" role="navigation">
+                <ul>
+                    <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(isOptional = true)>@Html(Messages("form.next"))</button></li>
                     <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
-	            </ul>
-	        </nav>
+                </ul>
+            </nav>
 
+        }
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/s_pay_details/g_howWePayYou.js")'></script>
+
+        <script type="text/javascript">
+                $(function(){
+                    @ga.stagePrompt()
+                    conditionRequired = window.initEvents('@utils.helpers.CarersCrypto.encryptAES("likeToPay")',
+                            "@CarersCrypto.encryptAES("likeToPay_yes")",
+                            "@CarersCrypto.encryptAES("likeToPay_no")"
+                            )
+                })
+            </script>
     }
-<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_pay_details/g_howWePayYou.js")></script>
-
-<script type="text/javascript">
-    $(function(){
-        @ga.stagePrompt()
-        conditionRequired = window.initEvents('@utils.helpers.CarersCrypto.encryptAES("likeToPay")')
-    })
-</script>
-}
 }

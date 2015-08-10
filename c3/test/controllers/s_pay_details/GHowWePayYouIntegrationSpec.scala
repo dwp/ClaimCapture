@@ -4,10 +4,12 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.Logger
 import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
+import utils.pageobjects.s_about_you.{GNationalityAndResidencyPage, GAbroadForMoreThan52WeeksPage, GOtherEEAStateOrSwitzerlandPage}
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_other_money._
-import utils.pageobjects.s_pay_details.{GBankBuildingSocietyDetailsPage, GHowWePayYouPage}
+import utils.pageobjects.s_pay_details.{ GHowWePayYouPage}
 import utils.pageobjects.s_information.GAdditionalInfoPage
-import utils.pageobjects.{PageObjects, PageObjectsContext}
+import utils.pageobjects.{Page, TestData, PageObjects, PageObjectsContext}
 
 class GHowWePayYouIntegrationSpec extends Specification with Tags {
   "Pay details" should {
@@ -36,7 +38,7 @@ class GHowWePayYouIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.howWePayYou(browser)
-      urlMustEqual(GBankBuildingSocietyDetailsPage.url)
+      urlMustEqual(GAdditionalInfoPage.url)
     }
 
     /**
@@ -68,6 +70,79 @@ class GHowWePayYouIntegrationSpec extends Specification with Tags {
 
       nextPage must beAnInstanceOf[GAdditionalInfoPage]
     }
+
+    "navigate to 'Consent And Declaration'" in new WithBrowser with PageObjects{
+      val page =  GHowWePayYouPage(context)
+      val claim = ClaimScenarioFactory.s6PayDetails()
+      claim.HowWePayYouHowWouldYouLikeToGetPaid = "yes"
+      page goToThePage ()
+      page fillPageWith claim
+
+      val bankBuildingSocietyDetailsPage = page submitPage()
+      val bankDetailsClaim = ClaimScenarioFactory.s6BankBuildingSocietyDetails()
+      bankBuildingSocietyDetailsPage fillPageWith bankDetailsClaim
+      val nextPage = bankBuildingSocietyDetailsPage submitPage()
+
+      nextPage.submitPage() must beAnInstanceOf[GAdditionalInfoPage]
+    }
+
+    "be hidden when age is past 65 years at the claim date" in new WithBrowser with PageObjects{
+      val claimDatePage = GClaimDatePage(context)
+      claimDatePage goToThePage()
+      val claimDate = ClaimScenarioFactory.s12ClaimDate()
+      claimDatePage fillPageWith claimDate
+
+      val page = claimDatePage submitPage()
+
+      val nextPage = goToHowWePayYouPage(context,page)
+
+      nextPage.submitPage() must beAnInstanceOf[GAdditionalInfoPage]
+    }
+
+    "show bank page when claimant is less than 65 years at the claim date" in new WithBrowser with PageObjects{
+
+      val claimDatePage = GClaimDatePage(context)
+      claimDatePage goToThePage()
+      val claimDate = new TestData
+      claimDate.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "10/10/2012"
+
+      claimDatePage fillPageWith claimDate
+
+      val page = claimDatePage submitPage()
+
+      val nextPage = goToHowWePayYouPage(context,page)
+
+      nextPage.submitPage() must beAnInstanceOf[GHowWePayYouPage]
+    }
+
+    def goToHowWePayYouPage(context:PageObjectsContext, aboutYouPage:Page):Page = {
+
+      val page = aboutYouPage
+      val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
+
+      page goToThePage()
+
+      page fillPageWith claim
+      page submitPage ()
+
+      val nationalityAndResidencyPage = page goToPage new GNationalityAndResidencyPage(context)
+      nationalityAndResidencyPage fillPageWith claim
+      nationalityAndResidencyPage submitPage()
+
+      val timeOutSideUKPage = nationalityAndResidencyPage goToPage new GAbroadForMoreThan52WeeksPage(context, iteration = 1)
+      timeOutSideUKPage fillPageWith claim
+      timeOutSideUKPage submitPage()
+
+      val eeaPage = timeOutSideUKPage goToPage new GOtherEEAStateOrSwitzerlandPage(context)
+      eeaPage fillPageWith claim
+      eeaPage submitPage()
+
+      val nextPage = eeaPage goToPage (new GHowWePayYouPage(context), throwException = false)
+
+      nextPage
+    }
+
+
 
   } section("integration", models.domain.PayDetails.id)
 }
