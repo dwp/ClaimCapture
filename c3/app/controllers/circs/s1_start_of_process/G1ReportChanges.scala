@@ -31,7 +31,7 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
   def submit = claiming {implicit circs =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s1_start_of_process.g1_reportChanges(formWithErrors)(lang)),
-      form => circs.update(form) -> {
+      (form: ReportChanges) => circs.update(form).clearSection(CircumstancesReportChanges, Option(List(CircumstancesReportChange, form.identifier)) ) -> {
         if (!form.jsEnabled) {
           Logger.info(s"No JS - Start ${circs.key} ${circs.uuid} User-Agent : ${request.headers.get("User-Agent").orNull}")
         }
