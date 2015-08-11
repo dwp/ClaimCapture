@@ -77,9 +77,13 @@ case class Claim(key: String, sections: List[Section] = List(), created: Long = 
     update(section(si).update(questionGroup))
   }
 
-  def clearSection(si: Identifier, keep: Option[List[QuestionGroup.Identifier]] = None): Claim = {
-    val currentSection: Section = section(si)
-    val updatedSection: Section = currentSection.copy(questionGroups = currentSection.questionGroups.filter(qg => keep.getOrElse(List()).contains(qg.identifier)))
+  /**
+   * removes all question groups except the specified ones
+   * @param keep - the sections to keep
+   */
+  def removeQuestionGroups(si: Section.Identifier, keep: Set[QuestionGroup.Identifier]): Claim = {
+    val currentSection = section(si)
+    val updatedSection = currentSection.copy(questionGroups = currentSection.questionGroups.filter(qg => keep.contains(qg.identifier)))
     update(updatedSection)
   }
 
