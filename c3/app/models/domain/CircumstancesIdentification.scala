@@ -16,7 +16,12 @@ case class CircumstancesReportChange(fullName: String = "",
                                      nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some("")),
                                      dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
                                      theirFullName: String = "",
-                                     theirRelationshipToYou: String = "") extends QuestionGroup(CircumstancesReportChange) {
+                                     theirRelationshipToYou: String = "",
+                                     furtherInfoContact: String = "",
+                                     override val wantsContactEmail:Option[String] = None,
+                                     override val email:Option[String] = None,
+                                     override val emailConfirmation:Option[String] = None
+                                      ) extends QuestionGroup(CircumstancesReportChange) with EMail{
 }
 
 object CircumstancesReportChange extends QuestionGroup.Identifier {

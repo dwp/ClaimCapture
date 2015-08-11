@@ -78,10 +78,10 @@ object Mappings {
     "hour" -> optional(number(min = 0, max = 24)),
     "minutes" -> optional(number(min = 0, max = 60))
   )((dmy, h, m) => (h, m) match {
-      case (Some(h1), Some(m1)) => dmy.withTime(h1, m1)
-      case _ => dmy
-    }
-   )((dmy: DayMonthYear) => Some((dmy, dmy.hour, dmy.minutes)))
+    case (Some(h1), Some(m1)) => dmy.withTime(h1, m1)
+    case _ => dmy
+  }
+    )((dmy: DayMonthYear) => Some((dmy, dmy.hour, dmy.minutes)))
 
   private def validDayMonthYear(datePatterns: String*) = (date: String) => Try(stringToDayMonthYear(datePatterns: _*)(date)).isSuccess
 
@@ -243,10 +243,10 @@ object Mappings {
   /**
    * Use this method to manage error codes for sort code for special characters and call this from the controller
    */
-  def manageErrorsSortCode[T](formWithErrors:Form[T])(implicit request: Request[_]):Form[T] = {
+  def manageErrorsSortCode[T](formWithErrors:Form[T], prefix: String = "")(implicit request: Request[_]):Form[T] = {
     val updatedFormErrors = formWithErrors.errors.flatMap { fe =>
-      if (fe.key.startsWith(newErrorSortCode.key.concat("."))) {
-          Some(newErrorSortCode)
+      if (fe.key.startsWith(s"${prefix}${newErrorSortCode.key}" )) {
+        Some(newErrorSortCode.copy(key = s"$prefix${newErrorSortCode.key}"))
       } else {
         Some(fe)
       }
@@ -258,10 +258,10 @@ object Mappings {
    * Use this method to display only one error message for the sort code for special characters and also to ignore
    * group by functionality for the keys as provided by the utils.helpers.CarersForm.replaceError method
    */
-  def ignoreGroupByForSortCode[T](formWithErrors:Form[T])(implicit request: Request[_]):Form[T] = {
-    formWithErrors.copy(errors = formWithErrors.errors.foldLeft(Seq[FormError]()) { (z, fe) =>
-      if (fe.key == newErrorSortCode.key) {
-        if (!z.contains(newErrorSortCode)) z :+ fe else z
+  def ignoreGroupByForSortCode[T](formWithErrors:Form[T], prefix: String = "")(implicit request: Request[_]):Form[T] = {
+    formWithErrors.copy(errors = formWithErrors.errors.foldLeft(Seq[FormError]()) { (z: Seq[FormError], fe: FormError) =>
+      if (fe.key == s"${prefix}${newErrorSortCode.key}") {
+        if (!z.contains(newErrorSortCode.copy(key = s"${prefix}${newErrorSortCode.key}"))) z :+ fe else z
       } else z :+ fe
     })
   }

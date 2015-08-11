@@ -12,13 +12,12 @@ import scala.Some
 object Claimant {
   def xml(circs :Claim): NodeSeq = {
     val reportChange = circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange())
-    val contactPreference = circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration())
 
     <ClaimantDetails>
       {question(<FullName/>, "fullName", encrypt(reportChange.fullName))}
       {question(<DateOfBirth/>,"dateOfBirth", reportChange.dateOfBirth)}
       {question(<NationalInsuranceNumber/>, "nationalInsuranceNumber", encrypt(reportChange.nationalInsuranceNumber))}
-      {question(<ContactPreference/>,"furtherInfoContact", contactPreference.furtherInfoContact)}
+      {question(<ContactPreference/>,"furtherInfoContact", reportChange.furtherInfoContact)}
     </ClaimantDetails>
   }
 }

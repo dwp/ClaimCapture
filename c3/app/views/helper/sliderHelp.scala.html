@@ -16,8 +16,14 @@
     else ""
 }
 
+@showMini() = @{
+    val parameter = args.find(_._1 == 'showMini).getOrElse('showMini->false)._2.asInstanceOf[Boolean]
+    if (parameter) "title-mini"
+    else ""
+}
+
 <div class="helper-prompt accordion">
-    <div class="accordion-title" data-initial="@label" data-close="@closeLabel" onmousedown="if($(this).text().trim() === '@label'){ @addTracking(label) } else { @addTracking(closeLabel) }"> 
+    <div class="helper-more accordion-title @showMini()" data-initial="@label" data-close="@closeLabel" onmousedown="if($(this).text().trim() === '@label'){ @addTracking(label) } else { @addTracking(closeLabel) }">
         @label
     </div>
     <div class="accordion-content"> 

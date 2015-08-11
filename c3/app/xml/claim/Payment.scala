@@ -1,6 +1,5 @@
 package xml.claim
 
-import app.AccountStatus
 import models.domain.{BankBuildingSocietyDetails, Claim, HowWePayYou}
 import play.api.i18n.Messages
 import xml.XMLComponent
@@ -11,23 +10,23 @@ import scala.xml.NodeSeq
 object Payment extends XMLComponent {
 
   def xml(claim: Claim) = {
-    val howWePayYou = claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou())
-    val showAccount = howWePayYou.likeToBePaid == Messages(AccountStatus.BankBuildingAccount)
+    val howWePayYou: HowWePayYou = claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou())
+    val showAccount = howWePayYou.likeToBePaid == "yes"
 
     claim.questionGroup[HowWePayYou] match {
       case Some(how) => {
         <Payment>
           {question(<PaymentFrequency/>,"paymentFrequency", how.paymentFrequency)}
           {question(<InitialAccountQuestion/>,"likeToPay", how.likeToBePaid)}
-          {if (showAccount) account(claim) else NodeSeq.Empty}
+          {if (showAccount) account(howWePayYou) else NodeSeq.Empty}
         </Payment>
       }
       case None => NodeSeq.Empty
     }
   }
 
-  def account(claim:Claim) = {
-    val bankBuildingSocietyDetails = claim.questionGroup[BankBuildingSocietyDetails].getOrElse(BankBuildingSocietyDetails())
+  def account(howWePayYou:HowWePayYou) = {
+    val bankBuildingSocietyDetails = howWePayYou.bankDetails.getOrElse(BankBuildingSocietyDetails())
 
     <Account>
       {question(<HolderName/>, "accountHolderName", encrypt(bankBuildingSocietyDetails.accountHolderName))}

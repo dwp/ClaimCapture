@@ -2,21 +2,21 @@ package utils.pageobjects
 
 
 import scala.language.dynamics
-import utils.pageobjects.s0_carers_allowance._
-import utils.pageobjects.s1_disclaimer._
-import utils.pageobjects.s2_about_you._
-import utils.pageobjects.s3_your_partner._
-import utils.pageobjects.s4_care_you_provide._
-import utils.pageobjects.s6_education._
-import utils.pageobjects.s8_employment._
-import utils.pageobjects.s7_self_employment._
-import utils.pageobjects.s9_other_money._
-import utils.pageobjects.s11_pay_details._
-import utils.pageobjects.s10_information._
-import utils.pageobjects.s12_consent_and_declaration._
+import utils.pageobjects.s_eligibility._
+import utils.pageobjects.s_disclaimer._
+import utils.pageobjects.s_about_you._
+import utils.pageobjects.s_your_partner._
+import utils.pageobjects.s_care_you_provide._
+import utils.pageobjects.s_education._
+import utils.pageobjects.s_employment._
+import utils.pageobjects.s_self_employment._
+import utils.pageobjects.s_other_money._
+import utils.pageobjects.s_pay_details._
+import utils.pageobjects.s_information._
+import utils.pageobjects.s_consent_and_declaration._
 import utils.pageobjects.IterationManager._
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.common._
 
 /**
@@ -35,67 +35,66 @@ object ClaimPageFactory extends PageFactory {
     // and there is no way to get that registration triggered automatically when test are loaded.
     val m: PartialFunction[String, Page] = {
       // S1
-      case G1BenefitsPage.url => G1BenefitsPage(ctx)
-      case G2EligibilityPage.url => G2EligibilityPage(ctx)
+      case GBenefitsPage.url => GBenefitsPage(ctx)
+      case GEligibilityPage.url => GEligibilityPage(ctx)
       case G5CarersResponsePage.url => G5CarersResponsePage(ctx)
-      case G6ApprovePage.url => G6ApprovePage(ctx)
+      case GApprovePage.url => GApprovePage(ctx)
       //S1.5
-      case G1ClaimDatePage.url => G1ClaimDatePage(ctx)
+      case GClaimDatePage.url => GClaimDatePage(ctx)
       // S2
-      case G1YourDetailsPage.url => G1YourDetailsPage(ctx)
-      case G2MaritalStatusPage.url => G2MaritalStatusPage(ctx)
-      case G3ContactDetailsPage.url => G3ContactDetailsPage(ctx)
-      case G4NationalityAndResidencyPage.url => G4NationalityAndResidencyPage(ctx)
+      case GYourDetailsPage.url => GYourDetailsPage(ctx)
+      case GMaritalStatusPage.url => GMaritalStatusPage(ctx)
+      case GContactDetailsPage.url => GContactDetailsPage(ctx)
+      case GNationalityAndResidencyPage.url => GNationalityAndResidencyPage(ctx)
     }
     m.orElse[String, Page] {
       IterableNode(Abroad, ctx)(iteration => {
-        case G5AbroadForMoreThan52WeeksPage.url => G5AbroadForMoreThan52WeeksPage(ctx, iteration)
+        case GAbroadForMoreThan52WeeksPage.url => GAbroadForMoreThan52WeeksPage(ctx, iteration)
       })
     }.orElse[String, Page] {
-      case G7OtherEEAStateOrSwitzerlandPage.url => G7OtherEEAStateOrSwitzerlandPage(ctx)
+      case GOtherEEAStateOrSwitzerlandPage.url => GOtherEEAStateOrSwitzerlandPage(ctx)
       // S3
-      case G1YourPartnerPersonalDetailsPage.url => G1YourPartnerPersonalDetailsPage(ctx)
+      case GYourPartnerPersonalDetailsPage.url => GYourPartnerPersonalDetailsPage(ctx)
       // S4
-      case G1TheirPersonalDetailsPage.url => G1TheirPersonalDetailsPage(ctx)
-      case G2TheirContactDetailsPage.url => G2TheirContactDetailsPage(ctx)
-      case G7MoreAboutTheCarePage.url => G7MoreAboutTheCarePage(ctx)
+      case GTheirPersonalDetailsPage.url => GTheirPersonalDetailsPage(ctx)
+      case GTheirContactDetailsPage.url => GTheirContactDetailsPage(ctx)
+      case GMoreAboutTheCarePage.url => GMoreAboutTheCarePage(ctx)
     }.orElse[String, Page] {
       IterableNode(Breaks, ctx)(iteration => {
-        case G10BreaksInCarePage.url => G10BreaksInCarePage(ctx, iteration)
-        case G11BreakPage.url => G11BreakPage(ctx, iteration)
+        case GBreaksInCarePage.url => GBreaksInCarePage(ctx, iteration)
+        case GBreakPage.url => GBreakPage(ctx, iteration)
       })
     }.orElse[String, Page] {
       //S6
-      case G1YourCourseDetailsPage.url => G1YourCourseDetailsPage(ctx)
+      case GYourCourseDetailsPage.url => GYourCourseDetailsPage(ctx)
       // S7 - guard question(s)
-      case G1EmploymentPage.url => G1EmploymentPage(ctx)
+      case GEmploymentPage.url => GEmploymentPage(ctx)
     }.orElse[String, Page] {
       IterableNode(Employment, ctx)(iteration => {
         // S7
-        case G2BeenEmployedPage.url => G2BeenEmployedPage(ctx, iteration)
-        case G3JobDetailsPage.url => G3JobDetailsPage(ctx, iteration)
-        case G5LastWagePage.url => G5LastWagePage(ctx, iteration)
-        case G8PensionAndExpensesPage.url => G8PensionAndExpensesPage(ctx, iteration)
+        case GBeenEmployedPage.url => GBeenEmployedPage(ctx, iteration)
+        case GJobDetailsPage.url => GJobDetailsPage(ctx, iteration)
+        case GLastWagePage.url => GLastWagePage(ctx, iteration)
+        case GPensionAndExpensesPage.url => GPensionAndExpensesPage(ctx, iteration)
       })
     }.orElse[String, Page] {
       // s7 - Used both by self employment and employment
-      case G9EmploymentAdditionalInfoPage.url => G9EmploymentAdditionalInfoPage(ctx)
+      case GEmploymentAdditionalInfoPage.url => GEmploymentAdditionalInfoPage(ctx)
       // S8
-      case G1AboutOtherMoneyPage.url => G1AboutOtherMoneyPage(ctx)
+      case GAboutOtherMoneyPage.url => GAboutOtherMoneyPage(ctx)
       // S9
-      case G1HowWePayYouPage.url => G1HowWePayYouPage(ctx)
-      case G2BankBuildingSocietyDetailsPage.url => G2BankBuildingSocietyDetailsPage(ctx)
+      case GHowWePayYouPage.url => GHowWePayYouPage(ctx)
       // S9
-      case G1AboutSelfEmploymentPage.url => G1AboutSelfEmploymentPage(ctx)
-      case G2SelfEmploymentYourAccountsPage.url => G2SelfEmploymentYourAccountsPage(ctx)
-      case G4SelfEmploymentPensionsAndExpensesPage.url => G4SelfEmploymentPensionsAndExpensesPage(ctx)
+      case GAboutSelfEmploymentPage.url => GAboutSelfEmploymentPage(ctx)
+      case GSelfEmploymentYourAccountsPage.url => GSelfEmploymentYourAccountsPage(ctx)
+      case GSelfEmploymentPensionsAndExpensesPage.url => GSelfEmploymentPensionsAndExpensesPage(ctx)
       case PreviewPage.url => PreviewPage(ctx)
       // S10
-      case G1AdditionalInfoPage.url => G1AdditionalInfoPage(ctx)
-      case G1DisclaimerPage.url => G1DisclaimerPage(ctx)
-      case G3DeclarationPage.url =>
+      case GAdditionalInfoPage.url => GAdditionalInfoPage(ctx)
+      case GDisclaimerPage.url => GDisclaimerPage(ctx)
+      case GDeclarationPage.url =>
         if (ctx.browser.pageSource() contains "DWPBody") XmlPage(ctx)
-        else G3DeclarationPage(ctx)
+        else GDeclarationPage(ctx)
       case ClaimNotesPage.url => ClaimNotesPage(ctx)
       case ClaimHelpPage.url => ClaimHelpPage(ctx)
       // Catch pages not covered by framework

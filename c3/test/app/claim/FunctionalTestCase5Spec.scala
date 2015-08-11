@@ -2,7 +2,7 @@ package app.claim
 
 import utils.WithJsBrowser
 import utils.pageobjects.preview.PreviewTestableData
-import utils.pageobjects.s0_carers_allowance.G1BenefitsPage
+import utils.pageobjects.s_eligibility.GBenefitsPage
 import utils.pageobjects._
 import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
@@ -19,7 +19,7 @@ class FunctionalTestCase5Spec extends FunctionalTestCommon {
 
     "Successfully run absolute Test Case 5 " in new WithJsBrowser with PageObjects {
 
-      val page = G1BenefitsPage(context)
+      val page = GBenefitsPage(context)
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase5.csv")
       test(page, claim, buildPreviewUseData)
     }

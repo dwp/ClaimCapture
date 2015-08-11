@@ -1,0 +1,138 @@
+@(currentForm: Form[models.domain.AboutOtherMoney], hadPartnerSinceClaimDate: Boolean)(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+
+@import play.api.i18n.{MMessages => Messages}
+
+@defining(lang) { implicit language =>
+@main(Messages("s9.longName"), Some(currentForm)) {
+
+
+
+    @form(action = controllers.s_other_money.routes.GAboutOtherMoney.submit, 'role -> "form") {
+
+        @DwpCSRFFormHelper.formField
+
+	        <fieldset class="form-elements" data-journey="carers-allowance:page:other-money">
+
+	            <ul>
+		            @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), 
+		              '_label -> Messages("anyPaymentsSinceClaimDate.answer"),
+		              'helperAbove -> Messages("anyPaymentsSinceClaimDate.helper")
+		            )
+	                
+		            @otherDetailPlaceHolder(
+	                     inputDef = Seq(
+	                        carersInputText(currentForm("whoPaysYou"), 'maxLength -> mappings.Mappings.Name.maxLength, '_label -> Messages("whoPaysYou.label")),
+	                        carersCurrency(currentForm("howMuch"), 'maxLength -> mappings.Mappings.twelve, '_label -> Messages("howMuch.label")),
+	                        paymentFrequencySelect(currentForm("howOften"),
+	                           'id -> "howOften",
+	                           'visibleOn -> "yes",
+	                           '_label -> Messages("howOften"),
+	                           'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60
+	                           )
+	                     ),
+	                       'id -> "otherPayWrap",
+	                       'display -> currentForm("anyPaymentsSinceClaimDate.answer").value.getOrElse("no")
+		             )
+
+                    @yesNoRadioGroup(currentForm("statutorySickPay.answer"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersCurrency(currentForm("statutorySickPay.howMuch"), 'maxLength -> mappings.Mappings.twelve, '_label -> Messages("howMuch.label")),
+                            paymentFrequencySelect(currentForm("statutorySickPay.howOften"),
+                                'id -> "howOftenStatutorySickPay",
+                                'visibleOn -> "yes",
+                                '_label -> Messages("howOften"),
+                                'textAreaHelper -> "60 characters left", 'maxLength -> 60
+                            ),
+                            carersInputText(currentForm("statutorySickPay.employersName"), '_label -> Messages("employersName"),'maxLength -> mappings.Mappings.sixty),
+                            inputAddress(currentForm("statutorySickPay.employersAddress"), '_label -> Messages("employersAddress")),
+                            carersInputText(currentForm("statutorySickPay.employersPostcode"), 'maxLength -> 8, '_label -> Messages("employersPostcode"), 'class -> "postcode")
+                        ),
+                        'id -> "sickPayWrap",
+                        'display -> currentForm("statutorySickPay.answer").value.getOrElse("no")
+                    )
+
+
+                    @yesNoRadioGroup(currentForm("otherStatutoryPay.answer"), '_label -> Messages("otherPay.label"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersCurrency(currentForm("otherStatutoryPay.howMuch"), 'maxLength -> mappings.Mappings.twelve, '_label -> Messages("howMuch.label")),
+                            paymentFrequencySelect(currentForm("otherStatutoryPay.howOften"),
+                                'id -> "howOftenOtherStatutoryPay",
+                                'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
+                                '_label -> Messages("howOften"),
+                                'visibleOn -> "yes"
+                            ),
+                            carersInputText(currentForm("otherStatutoryPay.employersName"), '_label -> Messages("employersName"), 'maxLength -> mappings.Mappings.sixty),
+                            inputAddress(currentForm("otherStatutoryPay.employersAddress"), '_label -> Messages("employersAddress")),
+                            carersInputText(currentForm("otherStatutoryPay.employersPostcode"),'maxLength -> 8, '_label -> Messages("employersPostcode"), 'class -> "postcode")
+                        ),
+                        'id -> "otherStatPayWrap",
+                        'display -> currentForm("otherStatutoryPay.answer").value.getOrElse("no")
+                    )
+	                
+	            </ul>
+	            
+	        </fieldset>
+
+	        <nav class="form-steps" role="navigation">
+	            <ul>
+	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+
+    }
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_other_money/g_aboutOtherMoney.js")></script>
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/selectOther.js")></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("anyPaymentsSinceClaimDate_answer_yes")",
+          "@CarersCrypto.encryptAES("anyPaymentsSinceClaimDate_answer_no")",
+          "@CarersCrypto.encryptAES("whoPaysYou")",
+          "@CarersCrypto.encryptAES("howMuch")",
+          "@CarersCrypto.encryptAES("howOften_frequency")",
+          "@CarersCrypto.encryptAES("howOften_frequency_other")",
+          "@CarersCrypto.encryptAES("statutorySickPay_answer_yes")",
+          "@CarersCrypto.encryptAES("statutorySickPay_answer_no")",
+          "@CarersCrypto.encryptAES("statutorySickPay_howMuch")",
+          "@CarersCrypto.encryptAES("statutorySickPay_howOften_frequency")",
+          "@CarersCrypto.encryptAES("statutorySickPay_howOften_frequency_other")",
+          "@CarersCrypto.encryptAES("statutorySickPay_employersName")",
+          "@CarersCrypto.encryptAES("statutorySickPay_employersAddress_lineOne")",
+          "@CarersCrypto.encryptAES("statutorySickPay_employersAddress_lineTwo")",
+          "@CarersCrypto.encryptAES("statutorySickPay_employersAddress_lineThree")",
+          "@CarersCrypto.encryptAES("statutorySickPay_employersPostcode")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_answer_yes")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_answer_no")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_howMuch")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_howOften_frequency")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_howOften_frequency_other")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_employersName")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_employersAddress_lineOne")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_employersAddress_lineTwo")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_employersAddress_lineThree")",
+          "@CarersCrypto.encryptAES("otherStatutoryPay_employersPostcode")"
+        );
+
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("howOften_frequency_other")",maxChars:60});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("statutorySickPay_howOften_frequency_other")",maxChars:60});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("otherStatutoryPay_howOften_frequency_other")",maxChars:60});
+
+        @ga.stagePrompt()
+    });
+</script>
+}
+}

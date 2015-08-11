@@ -8,6 +8,8 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._
+@import app.ConfigProperties._
+@import utils.helpers.CarersCrypto
 
 @defining(lang) { implicit language =>
     @main(Messages("c1") + " - " + Messages("c2.longName"), Some(reportAChangeForm), back = true) {
@@ -45,6 +47,33 @@
 
                 </fieldset>
 
+                <fieldset class="form-elements">
+
+                    <legend class="form-label-bold heading-medium">@Html(Messages("c3.g2"))</legend>
+
+                    <ul>
+                        @carersInputText(
+                            reportAChangeForm("furtherInfoContact"),
+                            'maxLength -> 35,
+                            'helperAbove -> Messages("furtherInfoContact.helper")
+                        )
+
+                        @if(getProperty("email.frontend",false)) {
+                            @yesNoRadioGroup(reportAChangeForm("wantsEmailContactCircs"))
+
+                            @otherDetailPlaceHolder(
+                                inputDef = Seq(
+                                    carersInputText(reportAChangeForm("mail"), 'ignoreOptional -> true, 'maxLength -> 254),
+                                    carersInputText(reportAChangeForm("mailConfirmation"), 'ignoreOptional -> true, 'maxLength -> 254)
+                                ),
+                                'id -> "emailWrap"
+                            )
+                        }
+                    </ul>
+
+                </fieldset>
+
+
                 <nav class="form-steps">
                     <ul>
                         <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
@@ -55,6 +84,18 @@
             </div>
 
         }
-
     }
+
+    @if(getProperty("email.frontend",false)) {
+        <script type="text/javascript" src='@routes.Assets.at("javascripts/email.js")'></script>
+        <script type="text/javascript">
+        $(function() {
+            window.emailInit("@CarersCrypto.encryptAES("wantsEmailContactCircs_yes")",
+                             "@CarersCrypto.encryptAES("wantsEmailContactCircs_no")",
+                             "@CarersCrypto.encryptAES("mail")",
+                             "@CarersCrypto.encryptAES("mailConfirmation")");
+        });
+    </script>
+    }
+
 }

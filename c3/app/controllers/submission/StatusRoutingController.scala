@@ -72,7 +72,7 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
   def errorRetry = claiming { implicit claim =>  implicit request =>  lang =>
 
     if (claimType(claim) == FULL_CLAIM){
-      Ok(views.html.common.error_retry(controllers.s12_consent_and_declaration.routes.G3Declaration.present().url))
+      Ok(views.html.common.error_retry(controllers.s_consent_and_declaration.routes.GDeclaration.present().url))
     }else{
       Ok(views.html.common.error_retry(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present().url))
     }

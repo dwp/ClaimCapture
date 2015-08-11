@@ -4,9 +4,9 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import utils.pageobjects.{PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s1_2_claim_date.G1ClaimDatePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s8_employment.G1EmploymentPage
+import utils.pageobjects.s_employment.GEmploymentPage
 
 
 class PreviewPageEmploymentContentSpec extends Specification with Tags {
@@ -36,13 +36,13 @@ class PreviewPageEmploymentContentSpec extends Specification with Tags {
     val employmentData = ClaimScenarioFactory.s7Employment()
     val selfEmploymentData = ClaimScenarioFactory.s9SelfEmployment
 
-    val claimDatePage = G1ClaimDatePage(context)
+    val claimDatePage = GClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
-    val employmentPage = G1EmploymentPage(context)
+    val employmentPage = GEmploymentPage(context)
     employmentPage goToThePage ()
     employmentPage fillPageWith employmentData
 

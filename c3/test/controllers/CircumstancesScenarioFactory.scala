@@ -17,6 +17,10 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesAboutYouDateOfBirth = "03/04/1950"
     claim.CircumstancesAboutYouTheirFullName = "Mrs Jane Smith"
     claim.CircumstancesAboutYouTheirRelationshipToYou = "Wife"
+
+    claim.FurtherInfoContact = "By Post"
+    claim.CircumstancesDeclarationWantsEmailContact = "no"
+
     claim
   }
 
@@ -37,6 +41,10 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesEmploymentChangeTypeOfWork = "self-employed"
     claim.CircumstancesEmploymentChangeSelfEmployedTypeOfWork = "IT Consultant"
     claim.CircumstancesEmploymentChangeSelfEmployedTotalIncome = "no"
+
+    claim.FurtherInfoContact = "By Post"
+    claim.CircumstancesDeclarationWantsEmailContact = "no"
+
 
     claim
   }

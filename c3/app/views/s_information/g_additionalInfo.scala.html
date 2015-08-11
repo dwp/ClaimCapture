@@ -1,0 +1,57 @@
+@(currentForm: Form[models.domain.AdditionalInfo])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+@import play.api.i18n.{MMessages => Messages}
+
+@defining(lang) { implicit language =>
+@main(Messages("s10_2.g1") + " - " + Messages("s10_2.longName"), Some(currentForm)) {
+    @form(action = controllers.s_information.routes.GAdditionalInfo.submit, 'role -> "form") {
+        @DwpCSRFFormHelper.formField
+
+	        <fieldset class="form-elements" data-journey="carers-allowance:page:consent-and-declaration">
+	
+	            <ul>
+	                @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helperAbove -> Messages("mustTellUs"))
+	
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),
+	                        'placeholder->Messages("anythingElse.please.specify"),'helper->Html(Messages("2000charsLeft")), 'maxLength -> 2000,
+	                        'ignoreOptional -> true)
+	                    ),
+	                    'id -> "anythingElseWrapper",
+	                    'display ->  { if (currentForm("anythingElse.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+	                )
+	
+	                @yesNoRadioGroup(currentForm("welshCommunication"))
+	            </ul>
+	        </fieldset>
+	
+	        <nav class="form-steps" role="navigation">
+	            <ul>
+					<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                    <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+	            </ul>
+	        </nav>
+
+    }
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_consent_and_declaration/g_additionalInfo.js")></script>
+
+<script type="text/javascript">
+    $(function(){
+        @ga.stagePrompt()
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse_text")",maxChars:2000});
+        window.initEvents("@CarersCrypto.encryptAES("anythingElse_answer_yes")",
+        "@CarersCrypto.encryptAES("anythingElse_answer_no")",
+        "@CarersCrypto.encryptAES("anythingElse_text")");
+    });
+</script>
+}
+}

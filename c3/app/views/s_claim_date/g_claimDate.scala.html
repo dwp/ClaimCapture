@@ -1,0 +1,76 @@
+@(claimDateForm: Form[models.domain.ClaimDate])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper.dates._
+@import scala.language.postfixOps
+@import play.api.i18n.{MMessages => Messages}
+@import play.api.Play
+@import play.api.Play.current
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+
+@displayDateForLabel = @{
+    claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+        displayPlaybackDatesFormat(lang,dmy)
+    )
+}
+
+@defining(lang) { implicit language =>
+    @main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName")) {
+
+        <p>@Html(Messages("dateOfClaimHelp")) <a rel="external" href="/claim-help#1" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date")>@Html(Messages("dateOfClaimHelp.link"))</a> @Html(Messages("dateOfClaimHelp2")).</p>
+
+        @errorsSummary(claimDateForm)
+
+        @form(action = controllers.s_claim_date.routes.GClaimDate.submit, 'role -> "form") {
+            @DwpCSRFFormHelper.formField
+            <div class="form-elements">
+
+                <ul>
+                    @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateClaimExample.helperAbove", (DayMonthYear.today - 3 months).`d M yyyy`))
+
+                    @yesNoRadioGroup(claimDateForm("beforeClaimCaring.answer"),'values -> Seq("yes" -> Messages("label.yes9"), "no" -> Messages("label.no")),
+                        '_label -> Messages("spent35HoursCaringBeforeClaim.label"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(inputDayMonthYear(claimDateForm("beforeClaimCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 years).`d M yyyy`))),
+                        'id -> "careStartDateWrap"
+                    )
+                </ul>
+
+            </div>
+
+                <nav class="form-steps" role="navigation">
+                    <ul>
+                        <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                        <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
+                    </ul>
+                </nav>
+            
+        }
+
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_claim_date/g_claimDate.js")></script>
+
+        <script type="text/javascript">
+            $(function () {
+                @if(!Play.isTest) {
+                    trackEvent ( "times", "claim - start" )
+                    setCookie("claimstart", new Date().getTime());
+                }
+            });
+
+            $(function() {
+            window.initEvents("@CarersCrypto.encryptAES("beforeClaimCaring_answer_yes")",
+            "@CarersCrypto.encryptAES("beforeClaimCaring_answer_no")",
+            "@CarersCrypto.encryptAES("beforeClaimCaring_date_day")",
+            "@CarersCrypto.encryptAES("beforeClaimCaring_date_month")",
+            "@CarersCrypto.encryptAES("beforeClaimCaring_date_year")");
+            });
+
+        </script>
+    }
+}
+

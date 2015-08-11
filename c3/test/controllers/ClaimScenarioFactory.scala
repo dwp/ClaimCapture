@@ -408,7 +408,7 @@ object ClaimScenarioFactory {
 
   def s6PayDetails() = {
     val claim = new TestData
-    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.AppliedForAccount
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = "no"
     claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek
     claim
   }
