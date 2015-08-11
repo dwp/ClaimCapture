@@ -56,8 +56,11 @@
 			    <td class="review-value">
 					@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}
 				</td>
-				<td class="review-action">
-					<a class="button secondary">@Html(Messages("preview.change"))</a>
+				<td class="review-action hide-print">
+					<a class="button secondary">
+						@Html(Messages("preview.change"))
+						<span class="visuallyhidden">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</span>
+					</a>
 				</td>
 			</tr>
 			
@@ -73,8 +76,11 @@
 			            }
 			            </ul>
 			        </td>
-					<td class="review-action">
-						<a class="button secondary">@Html(Messages("preview.change"))</a>
+					<td class="review-action hide-print">
+						<a class="button secondary">
+							@Html(Messages("preview.change"))
+							<span class="visuallyhidden">@Messages("jobs")</span>
+						</a>
 					</td>
 				</tr>
 			 }
@@ -86,8 +92,11 @@
 			    <td class="review-value">
 					@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}
 				</td>
-				<td class="review-action">
-					<a class="button secondary">@Html(Messages("preview.change"))</a>
+				<td class="review-action hide-print">
+					<a class="button secondary">
+						@Html(Messages("preview.change"))
+						<span class="visuallyhidden">@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</span>
+					</a>
 				</td>
 			</tr>
 			

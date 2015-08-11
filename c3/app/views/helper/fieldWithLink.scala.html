@@ -23,8 +23,11 @@
 	<td class="review-value">
 		@value
 	</td>
-	<td class="review-action">
-		<a class="button secondary" href="@{routesMap(id)}">@Html(Messages("preview.change"))</a>
+	<td class="review-action hide-print">
+		<a class="button secondary" href="@{routesMap(id)}">
+			@Html(Messages("preview.change"))
+			<span class="visuallyhidden">@label</span>
+		</a>
 	</td>
 </tr>
 
