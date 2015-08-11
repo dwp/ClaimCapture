@@ -1,6 +1,7 @@
 package models.domain
 
 import models.DayMonthYear
+import models.domain.Section.Identifier
 import models.view.Navigation
 import play.api.i18n.Lang
 
@@ -8,11 +9,11 @@ import scala.language.postfixOps
 import scala.reflect.ClassTag
 
 /**
-* Represents a Claim or Change of circumstances. Data is decomposed into sections that contain questions.
-* Each claim is identified uniquely by its statistically unique uuid. Transaction ID are also used to identify uniquely a claim, but are
-* generated only when submitting a claim. The transaction Id is then used to track the claim in all the other services and apps composing CAOL
-* and is shown in the printable form of the claim (see rendering service and casa).
-*/
+ * Represents a Claim or Change of circumstances. Data is decomposed into sections that contain questions.
+ * Each claim is identified uniquely by its statistically unique uuid. Transaction ID are also used to identify uniquely a claim, but are
+ * generated only when submitting a claim. The transaction Id is then used to track the claim in all the other services and apps composing CAOL
+ * and is shown in the printable form of the claim (see rendering service and casa).
+ */
 case class Claim(key: String, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None,
                  uuid: String = "", transactionId: Option[String] = None, previouslySavedClaim: Option[Claim] = None)(implicit val navigation: Navigation = Navigation()) {
   def section(sectionIdentifier: Section.Identifier): Section = {
@@ -36,7 +37,7 @@ case class Claim(key: String, sections: List[Section] = List(), created: Long = 
     section(si).questionGroup(questionGroupIdentifier)
   }
 
-  def questionGroup(clazz:Class[_]):Option[QuestionGroup] = {
+  def questionGroup(clazz: Class[_]): Option[QuestionGroup] = {
     sections.flatMap(_.questionGroups).find(_.getClass == clazz) match {
       case Some(q: QuestionGroup) => Some(q)
       case _ => None
@@ -76,6 +77,16 @@ case class Claim(key: String, sections: List[Section] = List(), created: Long = 
     update(section(si).update(questionGroup))
   }
 
+  /**
+   * removes all question groups except the specified ones
+   * @param keep - the sections to keep
+   */
+  def removeQuestionGroups(si: Section.Identifier, keep: Set[QuestionGroup.Identifier]): Claim = {
+    val currentSection = section(si)
+    val updatedSection = currentSection.copy(questionGroups = currentSection.questionGroups.filter(qg => keep.contains(qg.identifier)))
+    update(updatedSection)
+  }
+
   def +(questionGroup: QuestionGroup): Claim = update(questionGroup)
 
   def delete(questionGroupIdentifier: QuestionGroup.Identifier): Claim = {
@@ -103,8 +114,8 @@ case class Claim(key: String, sections: List[Section] = List(), created: Long = 
   }
 
   /**
-  * Used by submission cache to detect duplicated claims.
-  */
+   * Used by submission cache to detect duplicated claims.
+   */
   def getFingerprint: String = "f" + this.uuid
 
 }
