@@ -1,5 +1,7 @@
 package controllers.s_your_partner
 
+import models.DayMonthYear
+
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms.mapping
@@ -14,7 +16,7 @@ import controllers.mappings.Mappings.validDate
 import controllers.mappings.Mappings.validYesNo
 import controllers.mappings.Mappings.dayMonthYear
 import controllers.mappings.Mappings.validNationality
-import models.domain.{YourDetails, YourPartnerPersonalDetails, Claim}
+import models.domain.{TheirPersonalDetails, YourDetails, YourPartnerPersonalDetails, Claim}
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm.formBinding
 import YourPartner.presentConditionally
@@ -72,8 +74,28 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
           .replaceError("", "nationality.required", FormError("nationality", errorRequired))
         BadRequest(views.html.s_your_partner.g_yourPartnerPersonalDetails(formWithErrorsUpdate)(lang))
       },
-      f => claim.update(f) -> Redirect(controllers.s_care_you_provide.routes.GTheirPersonalDetails.present())
+      f => {
+        val preUpdatedClaim = clearTheirPersonalDetailsIfPartnerQuestionChanged(claim,f)
+
+        preUpdatedClaim.update(f) -> Redirect(controllers.s_care_you_provide.routes.GTheirPersonalDetails.present())
+      }
     )
   }.withPreview()
+
+  def clearTheirPersonalDetailsIfPartnerQuestionChanged(claim:Claim,formData:YourPartnerPersonalDetails) = {
+    claim.questionGroup[YourPartnerPersonalDetails] -> claim.questionGroup[TheirPersonalDetails] match {
+      case (Some(oldData),Some(theirPersonalDetails)) =>
+        oldData.isPartnerPersonYouCareFor -> formData.isPartnerPersonYouCareFor match {
+          case (Some(oldQuestion), Some(newQuestion)) if oldQuestion == "yes" && newQuestion == "no" =>
+
+            claim.update(theirPersonalDetails.copy(title = "",titleOther = None,firstName = "",middleName = None,surname = "",
+              nationalInsuranceNumber = None,dateOfBirth =DayMonthYear(None, None, None)))
+
+          case _ => claim
+        }
+      case _ => claim
+    }
+
+  }
 }
 
