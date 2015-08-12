@@ -73,13 +73,7 @@
 
                 </fieldset>
 
-
-                <nav class="form-steps">
-                    <ul>
-                        <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-                        <li><a id="backButtonBottom" href="@{claim.navigation.previous}?changing=true">@Html(Messages("form.back"))</a></li>
-                    </ul>
-                </nav>
+                @views.html.common.bottomNavigation( changing = true)
 
             </div>
 

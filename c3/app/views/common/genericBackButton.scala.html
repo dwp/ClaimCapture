@@ -1,0 +1,14 @@
+@(changing:Boolean=false, backCall:Option[Call] = None, previous: Option[models.view.Route[_]] = None)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+
+@import play.api.i18n.{MMessages => Messages, _}
+
+
+@link = @{
+    (previous, backCall) match{
+        case (Some(route), None)=> route.toString
+        case (None, Some(back))=> back.toString
+        case _ => claim.navigation.previous.toString
+    }
+}
+
+<a id="backButton" href="@{link}@{if (changing)"?changing=true"}">@Html(Messages("form.back"))</a>

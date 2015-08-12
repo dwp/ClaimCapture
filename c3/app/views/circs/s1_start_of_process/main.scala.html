@@ -17,11 +17,8 @@
 
             <article class="column-three-quarters main-content">
 
-                @if(back) {
-                    <nav class="back-nav">
-                        <a id="backButton" href="@{claim.navigation.previous}?changing=true">@Html(Messages("form.back"))</a>
-                    </nav>
-                }
+                @views.html.common.upperBackButton(showBack = back, changing = true)
+
 
                 <h1 class="form-title heading-large">@Html(Messages("c1"))</h1>
 

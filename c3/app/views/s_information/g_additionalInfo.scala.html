@@ -33,14 +33,10 @@
 	            </ul>
 	        </fieldset>
 	
-	        <nav class="form-steps" role="navigation">
-	            <ul>
-					<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-                    <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
-	            </ul>
-	        </nav>
+		@views.html.common.bottomNavigation()
 
-    }
+
+	}
 <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
 <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_consent_and_declaration/g_additionalInfo.js")></script>
 
