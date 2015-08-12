@@ -2,7 +2,7 @@ package controllers.s_eligibility
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.Logger
-import utils.WithBrowser
+import utils.{WithJsBrowser, WithBrowser}
 import utils.pageobjects.common.ErrorPage
 import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s_eligibility._
@@ -76,7 +76,7 @@ class GApproveIntegrationSpec extends Specification with Tags {
       page runClaimWith (claim, GClaimDatePage.url)
     }
 
-    "If go to error page after this page. Retry allows to come back to this page" in new WithBrowser with PageObjects{
+    "If go to error page after this page. Retry allows to come back to this page" in new WithJsBrowser with PageObjects{
       val page =  GBenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "AA"
@@ -87,7 +87,8 @@ class GApproveIntegrationSpec extends Specification with Tags {
       page runClaimWith (claim, GApprovePage.url)
       val errorPage = ErrorPage(context)
       errorPage goToThePage()
-      val tryPage = errorPage.clickLinkOrButton("button[type='submit']")
+      println(errorPage.ctx.browser.pageSource())
+      val tryPage = errorPage.clickLinkOrButton("#TryJs")
       tryPage match {
         case p: GApprovePage =>  ok("Error try again worked.")
         case _ => ko(notRightPage)
