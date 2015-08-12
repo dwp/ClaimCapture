@@ -7,16 +7,23 @@
 
 @yourCourseDetails = @{claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())}
 
-<h2 class="heading-medium">@Html(Messages("s6.progressbar.name"))</h2>
-<dl>
-    @fieldWithLink("education_beenInEducationSinceClaimDate", "beenInEducationSinceClaimDate", Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase))
-        @if(yourCourseDetails.beenInEducationSinceClaimDate == "yes"){
-            @fieldWithLink("education_courseTitle", "courseTitle", yourCourseDetails.title.get)
-            @fieldWithLink("education_nameOfSchool", "nameOfSchoolCollegeOrUniversity", yourCourseDetails.nameOfSchoolCollegeOrUniversity.get)
-            @fieldWithLink("education_nameOfTutor", "nameOfMainTeacherOrTutor", yourCourseDetails.nameOfMainTeacherOrTutor.get)
-            @if(yourCourseDetails.courseContactNumber.isDefined){
-              @fieldWithLink("education_contactNumber", "courseContactNumber", yourCourseDetails.courseContactNumber.get)
-            }
-            @fieldWithLink("education_startEndDates", "startEndDates", {yourCourseDetails.startDate.get.`dd month, yyyy`}.concat(" - ").concat(yourCourseDetails.expectedEndDate.get.`dd month, yyyy`))
-        }
-</dl>
+<div class="accordion accordion-open">
+
+	<h2 class="heading-medium accordion-title">@Html(Messages("s6.progressbar.name"))</h2>
+	
+	<div class="accordion-content">
+		<table class="review">
+			@fieldWithLink("education_beenInEducationSinceClaimDate", "beenInEducationSinceClaimDate", Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase))
+			@if(yourCourseDetails.beenInEducationSinceClaimDate == "yes"){
+			    @fieldWithLink("education_courseTitle", "courseTitle", yourCourseDetails.title.get)
+			    @fieldWithLink("education_nameOfSchool", "nameOfSchoolCollegeOrUniversity", yourCourseDetails.nameOfSchoolCollegeOrUniversity.get)
+			    @fieldWithLink("education_nameOfTutor", "nameOfMainTeacherOrTutor", yourCourseDetails.nameOfMainTeacherOrTutor.get)
+			    @if(yourCourseDetails.courseContactNumber.isDefined){
+			      @fieldWithLink("education_contactNumber", "courseContactNumber", yourCourseDetails.courseContactNumber.get)
+			    }
+			    @fieldWithLink("education_startEndDates", "startEndDates", {yourCourseDetails.startDate.get.`dd month, yyyy`}.concat(" - ").concat(yourCourseDetails.expectedEndDate.get.`dd month, yyyy`))
+			}
+		</table>
+	</div>
+
+</div>

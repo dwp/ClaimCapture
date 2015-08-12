@@ -43,24 +43,70 @@
     text
 }
 
-<h2 class="heading-medium">@Html(Messages("employment.title"))</h2>
-<dl>
-    <dt><a id="employed_beenEmployed" href="@controllers.s_self_employment.routes.GEmployment.present().url">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
-    <dd>@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}</dd>
-    @if(jobs.isDefined && jobs.get.jobs.size > 0){
-        <dt><a id="employed_jobs" href="@controllers.s_employment.routes.GBeenEmployed.present().url">@Messages("jobs")</a></dt>
-        <dd>
-            <ul>
-            @for(job <- jobs.get.jobs){
-                <li>@employmentSummary(job)</li>
-            }
-            </ul>
-        </dd>
-    }
-    <dt><a id="selfEmployed_beenEmployed" href="@controllers.s_self_employment.routes.GEmployment.present().url">@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</a></dt>
-        <dd>@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}</dd>
-    @if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
-        <dt>@{Messages("natureOfYourBusiness")}</dt><dd>@{aboutSelfEmployment.natureOfYourBusiness}</dd>
-    }
+<div class="accordion accordion-open">
 
-</dl>
+	<h2 class="heading-medium accordion-title">@Html(Messages("employment.title"))</h2>
+	
+	<div class="accordion-content">
+		<table class="review">
+			<tr class="review-change">
+			    <td class="review-label">
+					<b>@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</b>
+				</td>
+			    <td class="review-value">
+					@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}
+				</td>
+				<td class="review-action hide-print">
+					<a class="button secondary">
+						@Html(Messages("preview.change"))
+						<span class="visuallyhidden">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</span>
+					</a>
+				</td>
+			</tr>
+			
+			@if(jobs.isDefined && jobs.get.jobs.size > 0){
+				<tr class="review-change">
+			        <td class="review-label">
+						<b>@Messages("jobs")</b>
+					</td>
+			        <td class="review-value">
+			            <ul>
+			            @for(job <- jobs.get.jobs){
+			                <li>@employmentSummary(job)</li>
+			            }
+			            </ul>
+			        </td>
+					<td class="review-action hide-print">
+						<a class="button secondary">
+							@Html(Messages("preview.change"))
+							<span class="visuallyhidden">@Messages("jobs")</span>
+						</a>
+					</td>
+				</tr>
+			 }
+			 
+			 <tr class="review-change">
+			    <td class="review-label">
+					<b>@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</b>
+				</td>
+			    <td class="review-value">
+					@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}
+				</td>
+				<td class="review-action hide-print">
+					<a class="button secondary">
+						@Html(Messages("preview.change"))
+						<span class="visuallyhidden">@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</span>
+					</a>
+				</td>
+			</tr>
+			
+			@if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
+				<tr class="review-change">
+			        <td class="review-label">@{Messages("natureOfYourBusiness")}</td>
+					<td class="review-value">@{aboutSelfEmployment.natureOfYourBusiness}</td>
+				</tr>
+			}
+		</table>
+	</div>
+
+</div>

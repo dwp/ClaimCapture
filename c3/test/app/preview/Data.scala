@@ -13,7 +13,8 @@ case class Data(toReviewData:Seq[(String,Seq[Object])]){
       t =>
         import scala.collection.JavaConverters._
         var matchesAny = false
-        val elems = context.browser.webDriver.findElements(By.xpath( s"""//dt[contains(.,"${t._1}")]/following-sibling::dd[1]""")).asScala
+		val valueId = t._1 + "_value"
+        val elems = context.browser.webDriver.findElements(By.xpath( s"""//td[@id="${valueId}"]""")).asScala
 
         if(trace) {
           Logger("PageObject").debug("")

@@ -6,30 +6,27 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
-}
-
-table th,
-table td {
-    @include core-16;
-    padding: em(12, 16) em(20, 16) em(9, 16) 0;
-    text-align: left;
-    color: #0b0c0c;
-    border-bottom: 1px solid $border-colour;
-}
-
-table th {
-    font-weight: 700;
-}
-
-// Right align headings for numeric content
-table th.numeric {
-    text-align: right;
-}
-
-// Use tabular numbers for numeric table cells
-table td.numeric {
-    @include core-16($tabular-numbers: true);
-    text-align: right;
+	th, td {
+	    @include core-16;
+	    padding: em(12, 16) em(20, 16) em(9, 16) 0;
+	    text-align: left;
+	    color: #0b0c0c;
+	    border-bottom: 1px solid $border-colour;
+	}
+	th {
+    	font-weight: 700;
+		// Right align headings for numeric content
+		&.numeric {
+   			text-align: right;
+		}
+	}
+	td {
+		// Use tabular numbers for numeric table cells
+		&.numeric {
+		    @include core-16($tabular-numbers: true);
+		    text-align: right;
+		}
+	}
 }
 
 // Data Table
@@ -89,41 +86,50 @@ table td.numeric {
 
 } // end .data-table
 
-// Summary Review
+.summary {
+	.accordion:not(.accordion-open):not(:last-child) {
+		margin-bottom: 0;
+	}
+}
+
+.review-label {
+	width: 45%;
+}
+.review-action {
+	text-align: right;
+}
+	
 .review {
-    padding-bottom: $gutter-half;
-    dl {
-        overflow: hidden;
-        border-bottom: 1px solid #ccc;
-        dt, dd {
-            display: inline-block;
-            width: 27%;
-            margin: 0;
-            padding: 8px 0 6px 0;
-            border-top: 1px solid #ccc;
-            font-size: 18px;
-            vertical-align: top;
-            line-height: 1.2em;
-            @media screen and (max-width: 640px) {
-                float: none;
-                display: block;
-                width: 100%;
-                font-weight: 800;
-                padding: 8px 0 0 0;
-            }
-        }
-        dd {
-            width: 68%;
-            padding-left: 5%;
-            margin-left: -4px;
-            @media screen and (max-width: 640px) {
-                width: 100%;
-                font-weight: 300;
-                border-top: none;
-                padding: 0 0 6px 0;
-                padding-left: 0;
-                margin-left: 0;
-            }
-        }
+	th {
+		border-bottom: none;
+	}
+    td {
+		padding: 0.75em 0;
     }
+	.review-value {
+		padding-left: $gutter;
+	}
+	.review-change {
+		@extend %contain-floats;
+	}
+	@include media(mobile) {
+		margin-top: $gutter;
+		.review-label {
+			display: block;
+			width: 100%;
+		}
+		.review-value {
+			padding-left: 0;
+			line-height: 2;
+			width:100%;
+		}
+		.review-change {
+			margin-bottom: $gutter;
+			display: block;
+			width: 100%;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
 }

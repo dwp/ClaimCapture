@@ -152,3 +152,6 @@ $site-width: 960px;
 .column-three-quarters {
     @include grid-column( 3/4 );
 }
+.column-full-width {
+    @include grid-column( 1/1 );
+}

@@ -9,16 +9,28 @@
             PreviewRouteUtils.educationRoute ++ PreviewRouteUtils.careYouProvide ++ PreviewRouteUtils.yourPartner
 }
 
+@valueId = @{
+	id + "_value"
+}
+
 @label = @{
     Html(Messages(name))
 }
-
-<dt>
-    @if(!disableLink){
-        <a id="@id" @if(!disableLink){href="@{routesMap(id)}"}>@label</a>
-    }else{
-        <p id="@id">@label</p>
-    }
-</dt><dd>@value</dd>
+<tr class="review-change">
+	<td class="review-label">
+	    <b>@label</b>
+	</td>
+	<td id="@valueId" class="review-value">
+		@value
+	</td>
+	<td class="review-action hide-print">
+		@if(!disableLink) {
+			<a class="button secondary" id="@id" href="@{routesMap(id)}">
+				@Html(Messages("preview.change"))
+				<span class="visuallyhidden">@label</span>
+			</a>
+		}
+	</td>
+</tr>
 
 

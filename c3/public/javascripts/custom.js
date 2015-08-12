@@ -9,16 +9,13 @@ if (IE11) {
 
 $(function() {
 
-    // view more / view less
-    $(".helper-info").css("display", "none");
-
-    $('.helper-more').click(function(){
-       var labelText = $(this).text() === $(this).attr('data-close')? $(this).attr('data-initial') : $(this).attr('data-close');
-
-        $(this).toggleClass("helper-less")
-        $(this).next(".helper-info").slideToggle();
+    // Accordion
+    $(".accordion:not(.accordion-open) .accordion-content").css("display", "none");
+    $('.accordion-title').click(function(){
+		var labelText = $(this).text() === $(this).attr('data-close')? $(this).attr('data-initial') : $(this).attr('data-close');
+		$(this).parent().toggleClass('accordion-open');
+        $(this).next(".accordion-content").slideToggle();
         $(this).text(labelText);
-
     });    
 
     // Add the "focus" value to class attribute 

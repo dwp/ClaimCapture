@@ -16,36 +16,33 @@
 
             <div class="grid-row main-grid">
 
-                @common.leftcol()
-
-                <article class="column-three-quarters main-content">
-
-                    <nav class="back-nav">
-                        <a id="backButton" href="@controllers.preview.routes.Preview.back">@Html(Messages("form.back"))</a>
-                    </nav>
+                <article class="column-full-width main-content">
 
                     <h1 class="form-title heading-large">@Html(Messages("preview.summary"))</h1>
 
                     @errorsSummary(previewForm)
+					
+					<p class="text">Check your answers before sending your application.</p>
+					
+					<p class="text helper-prompt">You can change your personal details if needed. If you need to change anything else you'll need to go back through your claim.</p>
 
-                    <section class="review">
-                        @s2()
-                        @s3()
-                        @s4()
-                        @s6()
-                        @s8()
-                        @s9()
-                    </section>
+					<div class="summary">
+	                    @s2()
+	                    @s3()
+	                    @s4()
+	                    @s6()
+	                    @s8()
+	                    @s9()
+					</div>
+					
+					<p class="hide-print">
+						<button type="submit" name="action" value="next" class="button secondary button-print" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("button.print.summary"))</button>
+					</p>
+					
+					<p class="hide-print text helper-prompt"><small>Printing won't send your application - you must press next to continue.</small></p>
 
                     @helper.form(action = controllers.preview.routes.Preview.submit) {
                         @DwpCSRFFormHelper.formField
-                        @* -- New user story has to be raised for this
-                        <fieldset class="form-elements">
-                            <ul>
-                                @carersInputText(previewForm("email"))
-                            </ul>
-                        </fieldset>
-                        *@
                         <nav class="form-steps">
                             <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
                         </nav>
@@ -60,5 +57,6 @@
     }
 }
 
-
+<!-- Add legal message to footer -->
+<div class='print-only legal-disclaimer'>This isn't legal proof of your claim.</div>
 

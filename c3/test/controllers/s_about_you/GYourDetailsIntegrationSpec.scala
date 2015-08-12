@@ -138,6 +138,7 @@ class GYourDetailsIntegrationSpec extends Specification with Tags {
   }
 
   def textFromXPath(id:String,previewPage:Page):String = {
-    previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText
+  	val valueId = id + "_value"
+    previewPage.xpath(s"//td[@id='$valueId']").getText
   }
 }

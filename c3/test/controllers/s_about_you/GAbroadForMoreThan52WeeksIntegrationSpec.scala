@@ -89,9 +89,10 @@ class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage()
 
       val id = "about_you_abroad"
+	  val valueId = id + "_value"
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
-      previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "No"
+      previewPage.xpath(s"//td[@id='$valueId']").getText mustEqual "No"
       val abroadForMoreThan52WeeksPage = previewPage.clickLinkOrButton(s"#$id")
 
       abroadForMoreThan52WeeksPage must beAnInstanceOf[GAbroadForMoreThan52WeeksPage]
@@ -100,7 +101,7 @@ class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
 
       val previewModifiedPage = abroadForMoreThan52WeeksPage submitPage()
 
-      previewModifiedPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "Yes"
+      previewModifiedPage.xpath(s"//td[@id='$valueId']").getText mustEqual "Yes"
 
     }
 

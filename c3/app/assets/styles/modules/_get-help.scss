@@ -3,6 +3,17 @@
 // ================================================================
 
 .helper-mobile {
+    border-bottom: 1px solid $border-colour;
+    // hide on desktops
+    @include media(desktop) {
+        display: none;
+    } 
+    &.open-helper {   
+        border-bottom: none;
+		a {
+	        background-position: right -25px;
+	    }
+	}
     a {
         display: block;
         background-image: url('images/mobile-nav.png');
@@ -15,20 +26,6 @@
         padding: 1em 0;
         line-height: 1em;
         cursor: pointer;
-    }
-    &.open-helper a {
-        background-position: right -25px;
-    }
-}
-
-.helper-mobile {   
-    border-bottom: 1px solid $border-colour;
-    // hide on desktops
-    @include media(desktop) {
-        display: none;
-    }
-    &.open-helper {
-        border-bottom: none;
     }
 }
 
