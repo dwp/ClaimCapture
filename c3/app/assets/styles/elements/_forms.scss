@@ -173,6 +173,10 @@ label {
     @include media(tablet) {
         width: 50%;
     }
+	// Set focus outline color
+	&:focus {
+		outline: 3px solid $yellow;
+	}
 }
 
 // Form control widths

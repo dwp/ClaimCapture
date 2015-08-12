@@ -102,9 +102,10 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage()
 
       val id = "about_you_address"
+	  val valueId = id + "_value"
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
-      previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "101 Clifton Street, Blackpool FY1 2RW"
+      previewPage.xpath(s"//td[@id='$id']").getText mustEqual "101 Clifton Street, Blackpool FY1 2RW"
       val contactDetails = previewPage.clickLinkOrButton(s"#$id")
 
       contactDetails must beAnInstanceOf[GContactDetailsPage]
@@ -116,7 +117,7 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
       val previewPageModified = contactDetails submitPage()
 
       previewPageModified must beAnInstanceOf[PreviewPage]
-      previewPageModified.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "10 someplace, Wherever M4 4TJ"
+      previewPageModified.xpath(s"//td[@id='$valueId']").getText mustEqual "10 someplace, Wherever M4 4TJ"
 
     }
 
@@ -130,9 +131,10 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage()
 
       val id = "about_you_contact"
+	  val valueId = id + "_value"
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
-      previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "01772 888901"
+      previewPage.xpath(s"//td[@id='$valueId']").getText mustEqual "01772 888901"
       val contactDetails = previewPage.clickLinkOrButton(s"#$id")
 
       contactDetails must beAnInstanceOf[GContactDetailsPage]
@@ -143,7 +145,7 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
       val previewPageModified = contactDetails submitPage()
 
       previewPageModified must beAnInstanceOf[PreviewPage]
-      previewPage.xpath(s"//dt[./a[@id='$id']]/following-sibling::dd").getText mustEqual "0123456789"
+      previewPage.xpath(s"//td[@id='$valueId']").getText mustEqual "0123456789"
 
     }
   } section("integration", models.domain.AboutYou.id)

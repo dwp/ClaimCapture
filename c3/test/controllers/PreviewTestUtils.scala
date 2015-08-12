@@ -10,7 +10,8 @@ class PreviewTestUtils {
 object PreviewTestUtils {
 
   def answerText(questionId:String,previewPage:Page):String = {
-    previewPage.xpath(s"//dt[./a[@id='$questionId']]/following-sibling::dd").getText
+  	val answerId = questionId + "_value"
+    previewPage.xpath(s"//td[@id='$answerId']").getText
   }
 
   def apply() = new PreviewTestUtils()
