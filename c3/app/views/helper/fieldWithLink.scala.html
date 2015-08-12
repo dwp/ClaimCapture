@@ -2,35 +2,29 @@
 
 @import play.api.i18n.{MMessages => Messages}
 @import controllers.PreviewRouteUtils._
-
+@import utils.helpers.PreviewField._
 
 @routesMap = @{
     PreviewRouteUtils.yourDetailsRoute ++ PreviewRouteUtils.otherMoneyRoute ++
             PreviewRouteUtils.educationRoute ++ PreviewRouteUtils.careYouProvide ++ PreviewRouteUtils.yourPartner
 }
 
-@valueId = @{
-	id + "_value"
-}
-
 @label = @{
     Html(Messages(name))
 }
 <tr class="review-change">
-	<td class="review-label">
-	    <b>@label</b>
+	<td id="@getLabelId(id, false)" class="review-label">
+		<b>@label</b>
 	</td>
-	<td id="@valueId" class="review-value">
+	<td id="@getValueId(id, false)" class="review-value">
 		@value
 	</td>
-	<td class="review-action hide-print">
+	<td id="@getLinkContainerId(id, false)" class="review-action hide-print">
 		@if(!disableLink) {
-			<a class="button secondary" id="@id" href="@{routesMap(id)}">
-				@Html(Messages("preview.change"))
-				<span class="visuallyhidden">@label</span>
-			</a>
+		<a class="button secondary" id="@getLinkId(id, false)" href="@{routesMap(id)}">
+			@Html(Messages("preview.change"))
+			<span class="visuallyhidden">@label</span>
+		</a>
 		}
 	</td>
 </tr>
-
-
