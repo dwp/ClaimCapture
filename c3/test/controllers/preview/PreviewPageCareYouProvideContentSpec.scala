@@ -1,17 +1,15 @@
 package controllers.preview
 
-import org.openqa.selenium.By
 import org.specs2.mutable.{Tags, Specification}
-import utils.WithBrowser
 import utils.pageobjects.s_about_you.GContactDetailsPage
-import utils.pageobjects.{ClaimPageFactory, TestData, PageObjectsContext, PageObjects}
+import utils.pageobjects.{TestData, PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
 import utils.WithJsBrowser
-
+import utils.helpers.PreviewField._
 
 class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
 
@@ -84,7 +82,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val page =  PreviewPage(context)
       page goToThePage()
 
-      page.ctx.browser.webDriver.findElement(By.id("care_you_provide_address")).getTagName mustEqual "p"
+      page.ctx.browser.find(getLinkId("care_you_provide_address")).isEmpty must beTrue
     }
 
     "display Care you provide data with link on caree address" in  new WithJsBrowser  with PageObjects{
@@ -94,7 +92,8 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       fillCareProvideSection(context,partnerClaim = partnerData)
       val page =  PreviewPage(context)
       page goToThePage()
-      page.ctx.browser.webDriver.findElement(By.id("care_you_provide_address")).getTagName mustEqual "a"
+
+      page.ctx.browser.find(getLinkId("care_you_provide_address")).isEmpty must beFalse
     }
 
     "update caree address if modifying carer address when answered caree lives same address" in new WithJsBrowser with PageObjects {
@@ -115,8 +114,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       source must contain("Father")
       source must contain("Yes- Details provided for 1 break(s)")
 
-      val carerAddressPage = page.clickLinkOrButton("#about_you_address")
-//      val carerAddressPage = previewPage.clickLinkOrButton(s"#$id")carerAddress)
+      val carerAddressPage = page.clickLinkOrButton(getLinkId("about_you_address"))
 
       carerAddressPage must beAnInstanceOf[GContactDetailsPage]
 

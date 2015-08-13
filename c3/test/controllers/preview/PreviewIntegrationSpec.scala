@@ -10,7 +10,7 @@ import controllers.{BrowserMatchers, ClaimScenarioFactory}
 import utils.pageobjects.s_pay_details.GHowWePayYouPage
 import utils.pageobjects.s_consent_and_declaration.GDeclarationPage
 import play.api.i18n.{MMessages => Messages}
-
+import utils.helpers.PreviewField._
 
 class PreviewIntegrationSpec extends Specification with Tags {
   "Preview" should{
@@ -69,7 +69,7 @@ class PreviewIntegrationSpec extends Specification with Tags {
 
       val previewPage = PreviewPage(context) goToThePage()
       previewPage must beAnInstanceOf[PreviewPage]
-      browser.findFirst("#about_you_contact").click()
+      browser.findFirst(getLinkId("about_you_contact")).click()
       browser.findFirst("button[value='next']").getText mustEqual Messages("form.returnToSummary")
 
     }

@@ -4,7 +4,7 @@ import utils.pageobjects.{PageObjectsContext, TestData}
 import org.openqa.selenium.By
 import play.api.Logger
 import scala.language.implicitConversions
-
+import utils.helpers.PreviewField._
 
 case class Data(toReviewData:Seq[(String,Seq[Object])]){
 
@@ -13,8 +13,7 @@ case class Data(toReviewData:Seq[(String,Seq[Object])]){
       t =>
         import scala.collection.JavaConverters._
         var matchesAny = false
-		val valueId = t._1 + "_value"
-        val elems = context.browser.webDriver.findElements(By.xpath( s"""//td[@id="${valueId}"]""")).asScala
+        val elems = context.browser.webDriver.findElements(By.xpath( s"""//td[@class="review-label" and contains(.,"${t._1}")]/following-sibling::td[1]""")).asScala
 
         if(trace) {
           Logger("PageObject").debug("")
