@@ -1,6 +1,7 @@
 package controllers.s_care_you_provide
 
 import models.DayMonthYear
+import org.openqa.selenium.By
 import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import play.api.Logger
@@ -12,7 +13,7 @@ import utils.pageobjects.preview.PreviewPage
 
 class GBreaksInCareIntegrationSpec extends Specification with Tags {
   "Breaks from care" should {
-    "present" in new WithBrowser with PageObjects {
+    /*"present" in new WithBrowser with PageObjects {
       GBreaksInCarePage(context) goToThePage() must beAnInstanceOf[GBreaksInCarePage]
     }
 
@@ -67,8 +68,26 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
 
       breaksInCare.isElemSelected("#answer_yes") should beFalse
       breaksInCare.isElemSelected("#answer_no") should beFalse
-    }
+    }*/
 
+    "delete a break in care" in new WithBrowser with PageObjects {
+      import scala.collection.JavaConversions._
+
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true),GBreaksInCarePage.url,upToIteration = 2)
+
+      Logger.info(breaksInCare.ctx.browser.webDriver.findElement(By.className("break-data")).getText)
+
+      val list = breaksInCare.ctx.browser.$("input[name=changerow]")
+      Logger.info(list.toString())
+      val updated = breaksInCare.clickLinkOrButton(".break-data li input[name=deleterow]")
+      val refreshed = updated.clickLinkOrButton("#yesDelete")
+      refreshed.ctx.browser.webDriver.findElement(By.id("deleteId")).submit()
+
+
+      Logger.info(refreshed.ctx.browser.webDriver.findElement(By.className("break-data")).getText)
+
+    }
+/*
     "Modify 'breaks in care' answer from preview page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "care_you_provide_anyBreaks"
@@ -126,6 +145,7 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
       breakPage must beAnInstanceOf[GBreakPage]
       breakPage goBack() must beAnInstanceOf[GBreaksInCarePage]
     }
+    */
 
   } section("integration", models.domain.CareYouProvide.id)
 

@@ -1,6 +1,7 @@
 package controllers.s_care_you_provide
 
 import controllers.IterationID
+import play.api.Logger
 import play.api.mvc.Controller
 import play.api.data.{FormError, Form}
 import play.api.i18n.{MMessages => Messages}
@@ -73,6 +74,8 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable {
 
   def delete = claimingWithCheck { implicit claim => implicit request =>  lang =>
 
+
+    Logger.info(s"delete, params ${request.body.asFormUrlEncoded}")
     deleteForm.bindEncrypted.fold(
       errors    =>  BadRequest(views.html.s_care_you_provide.g_breaksInCare(form, breaksInCare)(lang)),
       deleteForm=>  {
