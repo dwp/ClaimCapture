@@ -9,6 +9,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_care_you_provide.{GTheirContactDetailsPage, GTheirPersonalDetailsPage}
 import utils.WithJsBrowser
+import utils.helpers.PreviewField._
 
 class GTheirPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Their Personal Details" should {
@@ -222,7 +223,7 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     val answerText = PreviewTestUtils.answerText(id, _:Page)
 
     answerText(previewPage) mustEqual initialData
-    val theirPersonalDetailsPage = previewPage.clickLinkOrButton(s"#$id")
+    val theirPersonalDetailsPage = previewPage.clickLinkOrButton(getLinkId(id))
 
     theirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
 

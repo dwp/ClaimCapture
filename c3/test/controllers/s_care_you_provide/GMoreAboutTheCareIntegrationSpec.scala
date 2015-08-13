@@ -7,6 +7,7 @@ import utils.pageobjects._
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_care_you_provide.{GMoreAboutTheCarePage, GTheirContactDetailsPage}
 import utils.pageobjects.preview.PreviewPage
+import utils.helpers.PreviewField._
 
 class GMoreAboutTheCareIntegrationSpec extends Specification with Tags {
   sequential
@@ -35,11 +36,11 @@ class GMoreAboutTheCareIntegrationSpec extends Specification with Tags {
     "Modify 'spent 35 hours caring' answer from preview page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "care_you_provide_spent35HoursCaring"
-      val answerText = PreviewTestUtils.answerText(s"$id", _:Page)
+      val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "No"
 
-      val moreAboutTheCarePage = previewPage.clickLinkOrButton(s"#$id")
+      val moreAboutTheCarePage = previewPage.clickLinkOrButton(getLinkId(id))
 
       moreAboutTheCarePage must beAnInstanceOf[GMoreAboutTheCarePage]
 

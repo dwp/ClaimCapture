@@ -8,6 +8,7 @@ import utils.pageobjects.s_about_you.GYourDetailsPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_care_you_provide.GMoreAboutTheCarePage
+import utils.helpers.PreviewField._
 
 class GClaimDateIntegrationSpec extends Specification with Tags {
 
@@ -54,7 +55,7 @@ class GClaimDateIntegrationSpec extends Specification with Tags {
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "10 October, 2016"
-      val claimDatePage = previewPage.clickLinkOrButton(s"#$id")
+      val claimDatePage = previewPage.clickLinkOrButton(getLinkId(id))
 
       claimDatePage must beAnInstanceOf[GClaimDatePage]
       val modifiedData = new TestData

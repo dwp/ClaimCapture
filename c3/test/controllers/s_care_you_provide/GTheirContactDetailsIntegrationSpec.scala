@@ -8,6 +8,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_care_you_provide._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_about_you.GContactDetailsPage
+import utils.helpers.PreviewField._
 
 class GTheirContactDetailsIntegrationSpec extends Specification with Tags {
 
@@ -101,7 +102,7 @@ class GTheirContactDetailsIntegrationSpec extends Specification with Tags {
     val answerText = PreviewTestUtils.answerText(id, _:Page)
 
     answerText(previewPage) mustEqual initialData
-    val theirContactDetailsPage = previewPage.clickLinkOrButton(s"#$id")
+    val theirContactDetailsPage = previewPage.clickLinkOrButton(getLinkId(id))
 
     theirContactDetailsPage must beAnInstanceOf[GTheirContactDetailsPage]
 

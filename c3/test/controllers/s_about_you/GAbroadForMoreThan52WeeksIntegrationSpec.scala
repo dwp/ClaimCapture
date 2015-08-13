@@ -2,11 +2,12 @@ package controllers.s_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import utils.{WebDriverHelper, WithBrowser}
-import controllers.ClaimScenarioFactory
+import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_about_you._
 import utils.pageobjects.{TestData, ClaimPageFactory, PageObjects}
 import utils.WithJsBrowser
+import utils.helpers.PreviewField._
 
 class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
   "Abroad for more that 52 weeks" should {
@@ -89,11 +90,10 @@ class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage()
 
       val id = "about_you_abroad"
-	  val valueId = id + "_value"
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
-      previewPage.xpath(s"//td[@id='$valueId']").getText mustEqual "No"
-      val abroadForMoreThan52WeeksPage = previewPage.clickLinkOrButton(s"#$id")
+      PreviewTestUtils.answerText(id, previewPage) mustEqual "No"
+      val abroadForMoreThan52WeeksPage = previewPage.clickLinkOrButton(getLinkId(id))
 
       abroadForMoreThan52WeeksPage must beAnInstanceOf[GAbroadForMoreThan52WeeksPage]
 
@@ -101,7 +101,7 @@ class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
 
       val previewModifiedPage = abroadForMoreThan52WeeksPage submitPage()
 
-      previewModifiedPage.xpath(s"//td[@id='$valueId']").getText mustEqual "Yes"
+      PreviewTestUtils.answerText(id, previewModifiedPage) mustEqual "Yes"
 
     }
 

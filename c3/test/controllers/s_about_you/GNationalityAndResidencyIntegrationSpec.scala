@@ -9,6 +9,7 @@ import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import app.MaritalStatus
 import utils.WithJsBrowser
+import utils.helpers.PreviewField._
 
 class GNationalityAndResidencyIntegrationSpec extends Specification with Tags {
   sequential
@@ -82,7 +83,7 @@ class GNationalityAndResidencyIntegrationSpec extends Specification with Tags {
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "French"
-      val nationalityPage = previewPage.clickLinkOrButton(s"#$id")
+      val nationalityPage = previewPage.clickLinkOrButton(getLinkId(id))
 
       nationalityPage must beAnInstanceOf[GNationalityAndResidencyPage]
       val modifiedData = new TestData

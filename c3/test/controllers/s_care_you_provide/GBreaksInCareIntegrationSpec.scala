@@ -9,6 +9,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects._
 import utils.pageobjects.s_care_you_provide.{GMoreAboutTheCarePage, GBreakPage, GTheirPersonalDetailsPage, GBreaksInCarePage}
 import utils.pageobjects.preview.PreviewPage
+import utils.helpers.PreviewField._
 
 class GBreaksInCareIntegrationSpec extends Specification with Tags {
   "Breaks from care" should {
@@ -72,11 +73,11 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
     "Modify 'breaks in care' answer from preview page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "care_you_provide_anyBreaks"
-      val answerText = PreviewTestUtils.answerText(s"$id", _:Page)
+      val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "No"
 
-      val breaksInCarePage = previewPage.clickLinkOrButton(s"#$id")
+      val breaksInCarePage = previewPage.clickLinkOrButton(getLinkId(id))
 
       breaksInCarePage must beAnInstanceOf[GBreaksInCarePage]
 
@@ -98,11 +99,11 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
     "Modify 'breaks in care', back button should take you back to the preview page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "care_you_provide_anyBreaks"
-      val answerText = PreviewTestUtils.answerText(s"$id", _:Page)
+      val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "No"
 
-      val breaksInCarePage = previewPage.clickLinkOrButton(s"#$id")
+      val breaksInCarePage = previewPage.clickLinkOrButton(getLinkId(id))
 
       breaksInCarePage must beAnInstanceOf[GBreaksInCarePage]
 
@@ -113,11 +114,11 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
     "Modify 'breaks in care', back button on the break page should take you back to breaks in care page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "care_you_provide_anyBreaks"
-      val answerText = PreviewTestUtils.answerText(s"$id", _:Page)
+      val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "No"
 
-      val breaksInCarePage = previewPage.clickLinkOrButton(s"#$id")
+      val breaksInCarePage = previewPage.clickLinkOrButton(getLinkId(id))
 
       breaksInCarePage must beAnInstanceOf[GBreaksInCarePage]
 

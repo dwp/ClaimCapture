@@ -10,6 +10,7 @@ import utils.pageobjects.s_consent_and_declaration.GDeclarationPage
 import utils.pageobjects.s_disclaimer.GDisclaimerPage
 import collection.JavaConversions._
 import utils.pageobjects.preview.PreviewPage
+import utils.helpers.PreviewField._
 
 class GDeclarationIntegrationSpec extends Specification with Tags {
   "Declaration" should {

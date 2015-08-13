@@ -8,6 +8,7 @@ import utils.pageobjects._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_about_you.{GContactDetailsPage, GMaritalStatusPage, GNationalityAndResidencyPage, GAbroadForMoreThan52WeeksPage}
+import utils.helpers.PreviewField._
 
 class GMaritalStatusIntegrationSpec extends Specification with Tags {
   sequential
@@ -43,7 +44,7 @@ class GMaritalStatusIntegrationSpec extends Specification with Tags {
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual MaritalStatus.Single
-      val maritalStatusPage = previewPage.clickLinkOrButton(s"#$id")
+      val maritalStatusPage = previewPage.clickLinkOrButton(getLinkId(id))
 
       maritalStatusPage must beAnInstanceOf[GMaritalStatusPage]
       val modifiedData = new TestData

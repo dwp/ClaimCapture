@@ -7,9 +7,10 @@ import utils.pageobjects.common.ClaimHelpPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_about_you._
 import utils.pageobjects.s_eligibility.GApprovePage
-import controllers.ClaimScenarioFactory
+import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects._
 import utils.pageobjects.s_claim_date.GClaimDatePage
+import utils.helpers.PreviewField._
 
 class GYourDetailsIntegrationSpec extends Specification with Tags {
   "Your Details" should {
@@ -60,11 +61,11 @@ class GYourDetailsIntegrationSpec extends Specification with Tags {
 
       val id = "about_you_full_name"
 
-      val answerText = textFromXPath(id, _:Page)
+      val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       val previewPage = goToPreviewPage(context)
       answerText(previewPage) mustEqual "Mr John Appleseed"
-      val aboutYou = previewPage.clickLinkOrButton(s"#$id")
+      val aboutYou = previewPage.clickLinkOrButton(getLinkId(id))
 
       aboutYou must beAnInstanceOf[GYourDetailsPage]
       val modifiedData = new TestData
@@ -83,10 +84,10 @@ class GYourDetailsIntegrationSpec extends Specification with Tags {
     "Modify national insurance number from preview page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "about_you_nino"
-      val answerText = textFromXPath(id, _:Page)
+      val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "AB123456C"
-      val aboutYou = previewPage.clickLinkOrButton(s"#$id")
+      val aboutYou = previewPage.clickLinkOrButton(getLinkId(id))
 
       aboutYou must beAnInstanceOf[GYourDetailsPage]
       val modifiedData = new TestData
@@ -102,10 +103,10 @@ class GYourDetailsIntegrationSpec extends Specification with Tags {
     "Modify date of birth from preview page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "about_you_dob"
-      val answerText = textFromXPath(id, _:Page)
+      val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "03 April, 1950"
-      val aboutYou = previewPage.clickLinkOrButton(s"#$id")
+      val aboutYou = previewPage.clickLinkOrButton(getLinkId(id))
 
       aboutYou must beAnInstanceOf[GYourDetailsPage]
       val modifiedData = new TestData
@@ -137,8 +138,4 @@ class GYourDetailsIntegrationSpec extends Specification with Tags {
     previewPage goToThePage()
   }
 
-  def textFromXPath(id:String,previewPage:Page):String = {
-  	val valueId = id + "_value"
-    previewPage.xpath(s"//td[@id='$valueId']").getText
-  }
 }

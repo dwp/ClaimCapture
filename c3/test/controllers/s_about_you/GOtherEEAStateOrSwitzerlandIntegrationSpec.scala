@@ -8,6 +8,7 @@ import utils.pageobjects._
 import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
+import utils.helpers.PreviewField._
 
 class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags {
   sequential
@@ -58,7 +59,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "Yes"
-      val otherBenefitsPage = previewPage.clickLinkOrButton(s"#$id")
+      val otherBenefitsPage = previewPage.clickLinkOrButton(getLinkId(id))
 
       otherBenefitsPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
       val modifiedData = new TestData
@@ -77,7 +78,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "Yes"
-      val otherBenefitsPage = previewPage.clickLinkOrButton(s"#$id")
+      val otherBenefitsPage = previewPage.clickLinkOrButton(getLinkId(id))
 
       otherBenefitsPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
       val modifiedData = new TestData

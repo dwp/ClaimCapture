@@ -9,6 +9,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_care_you_provide.GBreaksInCarePage
 import utils.pageobjects.s_employment.{GEmploymentPage, GBeenEmployedPage}
+import utils.helpers.PreviewField._
 
 class GYourCourseDetailsIntegrationSpec extends Specification with Tags {
   "Your course details Page" should {
@@ -152,7 +153,7 @@ class GYourCourseDetailsIntegrationSpec extends Specification with Tags {
     val answerText = PreviewTestUtils.answerText(id, _:Page)
 
     answerText(previewPage) mustEqual initialData
-    val educationPage = previewPage.clickLinkOrButton(s"#$id")
+    val educationPage = previewPage.clickLinkOrButton(getLinkId(id))
 
     educationPage must beAnInstanceOf[GYourCourseDetailsPage]
 

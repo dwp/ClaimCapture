@@ -10,6 +10,7 @@ import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_about_you.{GMaritalStatusPage, GOtherEEAStateOrSwitzerlandPage, GNationalityAndResidencyPage}
 import app.MaritalStatus
+import utils.helpers.PreviewField._
 
 class GYourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags {
 
@@ -120,7 +121,7 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags
        val id = "partner_hadPartner"
        val previewPage = goToPreviewPage(context)
 
-       val partnerDetailsPage = previewPage.clickLinkOrButton(s"#$id")
+       val partnerDetailsPage = previewPage.clickLinkOrButton(getLinkId(id))
        partnerDetailsPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
        partnerDetailsPage goBack() must beAnInstanceOf[PreviewPage]
     }
@@ -205,7 +206,7 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags
     val answerText = PreviewTestUtils.answerText(id, _:Page)
 
     answerText(previewPage) mustEqual initialData
-    val partnerPersonalDetailsPage = previewPage.clickLinkOrButton(s"#$id")
+    val partnerPersonalDetailsPage = previewPage.clickLinkOrButton(getLinkId(id))
 
     partnerPersonalDetailsPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
 

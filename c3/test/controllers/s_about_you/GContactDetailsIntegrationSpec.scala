@@ -2,12 +2,14 @@ package controllers.s_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
-import controllers.ClaimScenarioFactory
+import controllers.{PreviewTestUtils, ClaimScenarioFactory}
+import utils.pageobjects._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_about_you._
 import utils.pageobjects.{TestData, ClaimPageFactory, PageObjects}
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import org.openqa.selenium.By
+import utils.helpers.PreviewField._
 
 class GContactDetailsIntegrationSpec extends Specification with Tags {
   "Contact Details" should {
@@ -102,11 +104,13 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage()
 
       val id = "about_you_address"
-	  val valueId = id + "_value"
+
+      val answerText = PreviewTestUtils.answerText(id, _:Page)
+
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
-      previewPage.xpath(s"//td[@id='$id']").getText mustEqual "101 Clifton Street, Blackpool FY1 2RW"
-      val contactDetails = previewPage.clickLinkOrButton(s"#$id")
+      answerText(previewPage) mustEqual "101 Clifton Street, Blackpool FY1 2RW"
+      val contactDetails = previewPage.clickLinkOrButton(getLinkId(id))
 
       contactDetails must beAnInstanceOf[GContactDetailsPage]
       val modifiedData = new TestData
@@ -117,7 +121,7 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
       val previewPageModified = contactDetails submitPage()
 
       previewPageModified must beAnInstanceOf[PreviewPage]
-      previewPageModified.xpath(s"//td[@id='$valueId']").getText mustEqual "10 someplace, Wherever M4 4TJ"
+      answerText(previewPageModified) mustEqual "10 someplace, Wherever M4 4TJ"
 
     }
 
@@ -131,11 +135,13 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage()
 
       val id = "about_you_contact"
-	  val valueId = id + "_value"
+
+      val answerText = PreviewTestUtils.answerText(id, _:Page)
+
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
-      previewPage.xpath(s"//td[@id='$valueId']").getText mustEqual "01772 888901"
-      val contactDetails = previewPage.clickLinkOrButton(s"#$id")
+      answerText(previewPage) mustEqual "01772 888901"
+      val contactDetails = previewPage.clickLinkOrButton(getLinkId(id))
 
       contactDetails must beAnInstanceOf[GContactDetailsPage]
       val modifiedData = new TestData
@@ -145,7 +151,7 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
       val previewPageModified = contactDetails submitPage()
 
       previewPageModified must beAnInstanceOf[PreviewPage]
-      previewPage.xpath(s"//td[@id='$valueId']").getText mustEqual "0123456789"
+      answerText(previewPageModified) mustEqual "0123456789"
 
     }
   } section("integration", models.domain.AboutYou.id)

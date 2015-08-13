@@ -9,6 +9,7 @@ import utils.pageobjects.s_pay_details.GHowWePayYouPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_about_you.GOtherEEAStateOrSwitzerlandPage
 import utils.pageobjects.preview.PreviewPage
+import utils.helpers.PreviewField._
 
 class GAboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "Other Money" should {
@@ -80,7 +81,7 @@ class GAboutOtherMoneyIntegrationSpec extends Specification with Tags {
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "Yes - Details provided"
-      val otherMoneyPage = previewPage.clickLinkOrButton(s"#$id")
+      val otherMoneyPage = previewPage.clickLinkOrButton(getLinkId(id))
 
       otherMoneyPage must beAnInstanceOf[GAboutOtherMoneyPage]
       val modifiedData = new TestData
@@ -99,7 +100,7 @@ class GAboutOtherMoneyIntegrationSpec extends Specification with Tags {
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "Yes - Details provided"
-      val otherMoneyPage = previewPage.clickLinkOrButton(s"#$id")
+      val otherMoneyPage = previewPage.clickLinkOrButton(getLinkId(id))
 
       otherMoneyPage must beAnInstanceOf[GAboutOtherMoneyPage]
       val modifiedData = new TestData
@@ -118,7 +119,7 @@ class GAboutOtherMoneyIntegrationSpec extends Specification with Tags {
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
       answerText(previewPage) mustEqual "Yes - Details provided"
-      val otherMoneyPage = previewPage.clickLinkOrButton(s"#$id")
+      val otherMoneyPage = previewPage.clickLinkOrButton(getLinkId(id))
 
       otherMoneyPage must beAnInstanceOf[GAboutOtherMoneyPage]
       val modifiedData = new TestData
