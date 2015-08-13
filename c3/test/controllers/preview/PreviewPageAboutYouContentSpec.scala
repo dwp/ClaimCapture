@@ -40,7 +40,7 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
     "display about you - the carer data with nationality another country" in new WithBrowser with PageObjects{
 
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      claim.AboutYouNationalityAndResidencyNationality = "Another Country"
+      claim.AboutYouNationalityAndResidencyNationality = "Another nationality"
       claim.AboutYouNationalityAndResidencyActualNationality = "French"
       claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
 

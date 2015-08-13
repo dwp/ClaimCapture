@@ -373,7 +373,7 @@ class AssistedDecisionSpec extends Specification with Tags {
     }
 
     "Create an assisted decision section if person is not British" in {
-      val residency = NationalityAndResidency(nationality = "Another Country", actualnationality=Some("French"), resideInUK = YesNoWithText("yes", None))
+      val residency = NationalityAndResidency(nationality = "Another nationality", actualnationality=Some("French"), resideInUK = YesNoWithText("yes", None))
       val claim = Claim(CachedClaim.key).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Person is not British.")
