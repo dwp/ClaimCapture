@@ -1,7 +1,11 @@
-@(changing:Boolean=false, backCall:Option[Call] = None, previous: Option[models.view.Route[_]] = None)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(
+        changing:Boolean,
+        backCall:Option[Call] ,
+        previous: Option[models.view.Route[_]] ,
+        forceShowAfterPreview:Boolean
+        )(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
 @import play.api.i18n.{MMessages => Messages, _}
-
 
 @link = @{
     (previous, backCall) match{
@@ -11,4 +15,9 @@
     }
 }
 
-<a id="backButton" href="@{link}@{if (changing)"?changing=true"}">@Html(Messages("form.back"))</a>
+@*do not show the back button when returning from the preview*@
+@if(!claim.navigation.beenInPreview || forceShowAfterPreview){
+
+    <a id="backButton" href="@{link}@{if (changing)"?changing=true"}">@Html(Messages("form.back"))</a>
+
+}
