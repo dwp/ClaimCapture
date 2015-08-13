@@ -87,7 +87,6 @@ class GApproveIntegrationSpec extends Specification with Tags {
       page runClaimWith (claim, GApprovePage.url)
       val errorPage = ErrorPage(context)
       errorPage goToThePage()
-      println(errorPage.ctx.browser.pageSource())
       val tryPage = errorPage.clickLinkOrButton("#TryJs")
       tryPage match {
         case p: GApprovePage =>  ok("Error try again worked.")
