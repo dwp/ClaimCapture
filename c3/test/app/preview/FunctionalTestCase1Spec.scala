@@ -21,13 +21,14 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
       val lastPage = page runClaimWith(claim, PreviewPage.url)
       val toFindData = Data.build(
         "Name"              displays ("AboutYouTitle","AboutYouFirstName","AboutYouMiddleName","AboutYouSurname"),
-        "National Insurance number" displays "AboutYouNINO",
         "Date of birth"     displays DateTransformer("AboutYouDateOfBirth"),
         "Address"           displays (AddressTransformer("AboutYouAddress"),"AboutYouPostcode"),
+        "Do you want an email" displays ("AboutYouWantsEmailContact", "AboutYouMail"),
         "Your claim date"   displays DateTransformer("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart"),
         "Your nationality"  displays "AboutYouNationalityAndResidencyActualNationality",
+        "Do you normally live in England, Scotland or Wales?" displays "AboutYouNationalityAndResidencyResideInUK",
         "Marital status"  displays "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus",
-        "Time outside of England, Scotland or Wales"          displays AnyYesTransformer("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime"),
+        "Have you been away from England, Scotland or Wales"          displays AnyYesTransformer("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime"),
         "Have you or your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?"          displays "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA",
         "Have you or your close family worked or paid national insurance in any of these countries since your claim date?" displays "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA",
         "Name"            displays ("AboutTheCareYouProvideTitlePersonCareFor","AboutTheCareYouProvideFirstNamePersonCareFor","AboutTheCareYouProvideMiddleNamePersonCareFor","AboutTheCareYouProvideSurnamePersonCareFor"),

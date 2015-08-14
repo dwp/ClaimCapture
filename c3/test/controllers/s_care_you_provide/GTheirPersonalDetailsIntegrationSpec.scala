@@ -125,13 +125,6 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       verifyPreviewData(context, "care_you_provide_name", "Mr Tom Potter Wilson", modifiedData, "Mrs Jane Doe Antony")
     }
 
-    "Modify nino from preview page" in new WithJsBrowser  with PageObjects{
-      val modifiedData = new TestData
-      modifiedData.AboutTheCareYouProvideNINOPersonCareFor = "AB123456D"
-
-      verifyPreviewData(context, "care_you_provide_nino", "AA123456A", modifiedData, "AB123456D")
-    }
-
     "Modify date of birth from preview page" in new WithJsBrowser  with PageObjects{
       val modifiedData = new TestData
       modifiedData.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/04/1991"

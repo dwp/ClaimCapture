@@ -22,16 +22,15 @@ class FunctionalTestCase5Spec extends FunctionalTestCommon {
 
       val toFindData = Data.build(
         "Name"              displays ("AboutYouTitle","AboutYouFirstName","AboutYouMiddleName","AboutYouSurname"),
-        "National Insurance number" displays "AboutYouNINO",
         "Date of birth"     displays DateTransformer("AboutYouDateOfBirth"),
         "Address"           displays (AddressTransformer("AboutYouAddress"),"AboutYouPostcode"),
         "Your claim date"   displays DateTransformer("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart"),
         "Your nationality"  displays "AboutYouNationalityAndResidencyNationality",
-        "Time outside of England, Scotland or Wales"          displays AnyYesTransformer("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime"),
+        "Do you normally live in England, Scotland or Wales?" displays "AboutYouNationalityAndResidencyResideInUK",
+        "Have you been away from England, Scotland or Wales"          displays AnyYesTransformer("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime"),
         "Have you or your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?"          displays "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA",
         "Have you or your close family worked or paid national insurance in any of these countries since your claim date?" displays "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA",
         "Name"            displays ("AboutYourPartnerTitle","AboutYourPartnerFirstName","AboutYourPartnerMiddleName","AboutYourPartnerSurname"),
-        "National Insurance number" displays "AboutYourPartnerNINO",
         "Date of birth"   displays DateTransformer("AboutYourPartnerDateofBirth"),
         "Have you separated since your claim date?" displays "AboutYourPartnerHaveYouSeparatedfromYourPartner",
         "Name"            displays ("AboutTheCareYouProvideTitlePersonCareFor","AboutTheCareYouProvideFirstNamePersonCareFor","AboutTheCareYouProvideMiddleNamePersonCareFor","AboutTheCareYouProvideSurnamePersonCareFor"),

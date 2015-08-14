@@ -26,9 +26,8 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
 
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
-      source must contain("AA123456A")
       source must contain("02 March, 1990")
-      source must contain("123 Colne Street, Line 2 BB9 2AD")
+      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")
       source must contain("Yes- Details provided for 1 break(s)")
     }
@@ -46,7 +45,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val source = page.source
 
       source must contain("About the person you care for")
-      source must contain("123 Colne Street, Line 2 BB9 2AD")
+      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")
       source must contain("Yes- Details provided for 1 break(s)")
     }
@@ -63,37 +62,10 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
 
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
-      source must contain("AA123456A")
       source must contain("02 March, 1990")
-      source must contain("123 Colne Street, Line 2 BB9 2AD")
+      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")
       source must contain("Yes- Details provided for 1 break(s)")
-    }
-
-    "display Care you provide data without link on caree address" in new WithJsBrowser with PageObjects{
-      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
-      partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
-
-
-      val careYouProvideData = ClaimScenarioFactory.s4CareYouProvideWithNoPersonalDetails
-      careYouProvideData.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
-
-      fillCareProvideSection(context,partnerClaim = partnerData, careYouProvideData)
-      val page =  PreviewPage(context)
-      page goToThePage()
-
-      page.ctx.browser.find(getLinkId("care_you_provide_address")).isEmpty must beTrue
-    }
-
-    "display Care you provide data with link on caree address" in  new WithJsBrowser  with PageObjects{
-      val partnerData = new TestData
-      partnerData.AboutYourPartnerHadPartnerSinceClaimDate = "No"
-
-      fillCareProvideSection(context,partnerClaim = partnerData)
-      val page =  PreviewPage(context)
-      page goToThePage()
-
-      page.ctx.browser.find(getLinkId("care_you_provide_address")).isEmpty must beFalse
     }
 
     "update caree address if modifying carer address when answered caree lives same address" in new WithJsBrowser with PageObjects {
@@ -110,7 +82,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val source = page.source
 
       source must contain("About the person you care for")
-      source must contain("101 Clifton Street, Blackpool FY1 2RW")
+      source must contain("Yes")
       source must contain("Father")
       source must contain("Yes- Details provided for 1 break(s)")
 
@@ -128,7 +100,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val newSource = preview.source
 
       newSource must contain("Something totally different, Manchester FY1 2RW")
-      newSource must not(contain("101 Clifton Street, Blackpool FY1 2RW"))
+      newSource must not(contain("No - 101 Clifton Street, Blackpool FY1 2RW"))
 
     }
   }section "preview"

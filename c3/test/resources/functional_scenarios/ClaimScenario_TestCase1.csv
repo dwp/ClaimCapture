@@ -14,7 +14,9 @@ About You,Your contact details,Address,AboutYouAddress,this is a very large addr
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 1HB
 About You,Your contact details,How we contact you,HowWeContactYou,this is my nice way of contactingok
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,yes
-About You,Your contact details,Wants email contact,AboutYouWantsEmailContact,No
+About You,Your contact details,Wants email contact,AboutYouWantsEmailContact,Yes
+About You,Your contact details,Please enter your email,AboutYouMail,myname@website.com
+About You,Your contact details,Please confirm your email,AboutYouMailConfirmation,myname@website.com
 Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,21/07/2013
 Claim Date,Your claim date,Were you caring for the person for more than 35 hours a week before this date?,ClaimDateDidYouCareForThisPersonfor35Hours,Yes
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,21/01/2012

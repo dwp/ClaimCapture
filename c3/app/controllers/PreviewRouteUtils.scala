@@ -11,13 +11,14 @@ object PreviewRouteUtils {
     val gOtherEEARoute = controllers.s_about_you.routes.GOtherEEAStateOrSwitzerland.present.toString
 
     val routesMap = Map("about_you_full_name" -> gYourDetailsRoute,
-                        "about_you_nino" -> gYourDetailsRoute,
                         "about_you_dob" -> gYourDetailsRoute,
                         "about_you_address" -> gContactDetailsRoute,
                         "about_you_contact" -> gContactDetailsRoute,
+                        "about_you_email" -> gContactDetailsRoute,
                         "about_you_marital_status" -> gMaritalStatusRoute,
                         "about_you_claimDate" -> controllers.s_claim_date.routes.GClaimDate.present.toString,
                         "about_you_nationality" -> gNationalityRoute,
+                        "about_you_residence" -> gNationalityRoute,
                         "about_you_abroad" -> controllers.s_about_you.routes.GAbroadForMoreThan52Weeks.present.toString,
                         "about_you_benefitsFromEEA" -> gOtherEEARoute,
                         "about_you_workingForEEA" -> gOtherEEARoute)
@@ -51,7 +52,7 @@ object PreviewRouteUtils {
     val gMoreAboutTheCareRoute = controllers.s_care_you_provide.routes.GMoreAboutTheCare.present.toString
     val gBreaksInCareRoute = controllers.s_care_you_provide.routes.GBreaksInCare.present.toString
 
-    val personalDetailsList = Seq("care_you_provide_name", "care_you_provide_nino", "care_you_provide_dob", "care_you_provide_relationship")
+    val personalDetailsList = Seq("care_you_provide_name", "care_you_provide_dob", "care_you_provide_relationship")
     val contactDetailsList = Seq("care_you_provide_address")
     val moreAboutTheCareList = Seq("care_you_provide_spent35HoursCaring")
     val breaksInCareList = Seq("care_you_provide_anyBreaks")
@@ -66,7 +67,7 @@ object PreviewRouteUtils {
   def yourPartner = {
     val gYourPartnerPersonalDetailsRoute = controllers.s_your_partner.routes.GYourPartnerPersonalDetails.present.toString
 
-    val partnerDetailsList = Seq("partner_hadPartner", "partner_name", "partner_nino",
+    val partnerDetailsList = Seq("partner_hadPartner", "partner_name",
       "partner_dateOfBirth", "partner_nationality", "partner_seperated", "partner_isPersonCareFor")
 
     val routesMap = Map(partnerDetailsList map {id => (id, gYourPartnerPersonalDetailsRoute)} : _*)

@@ -17,8 +17,6 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       val source = page.source
       source must contain("Name")
       source must contain("Mr John middlename Appleseed")
-      source must contain("National Insurance number")
-      source must contain("AB123456C")
       source must contain("Date of birth")
       source must contain("03 April, 1950")
       source must contain("Address")
@@ -29,7 +27,7 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       source must contain("10 October, 2016")
       source must contain("Your nationality")
       source must contain("British")
-      source must contain("Time outside of England, Scotland or Wales")
+      source must contain("Do you normally live in England, Scotland or Wales?")
       source must contain("Yes")
       source must contain("Have you or your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?")
       source must contain("Yes")

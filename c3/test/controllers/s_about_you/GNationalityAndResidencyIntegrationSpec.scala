@@ -96,6 +96,24 @@ class GNationalityAndResidencyIntegrationSpec extends Specification with Tags {
       answerText(previewPageModified) mustEqual "British"
     }
 
+    "Modify Do you normally live in England, Scotland or Wales? from preview page" in new WithJsBrowser with PageObjects {
+      val previewPage = goToPreviewPage(context)
+      val id = "about_you_residence"
+      val answerText = PreviewTestUtils.answerText(id, _:Page)
+
+      answerText(previewPage) mustEqual "No - France"
+      val nationalityPage = previewPage.clickLinkOrButton(getLinkId(id))
+      nationalityPage must beAnInstanceOf[GNationalityAndResidencyPage]
+
+      val modifiedData = new TestData
+      modifiedData.AboutYouNationalityAndResidencyResideInUK = "Yes"
+      nationalityPage fillPageWith modifiedData
+      val previewPageModified = nationalityPage submitPage()
+
+      previewPageModified must beAnInstanceOf[PreviewPage]
+      answerText(previewPageModified) mustEqual "Yes"
+    }
+
 
   } section("integration", models.domain.AboutYou.id)
 

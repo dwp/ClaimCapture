@@ -64,7 +64,7 @@ class GTheirContactDetailsIntegrationSpec extends Specification with Tags {
       modifiedData.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street&Line 3"
       modifiedData.AboutTheCareYouProvidePostcodePersonCareFor = "BB6 2AD"
 
-      verifyPreviewData(context, "care_you_provide_address", "123 Colne Street, Line 2 BB9 2AD", modifiedData, "123 Colne Street, Line 3 BB6 2AD")
+      verifyPreviewData(context, "care_you_provide_address", "No - 123 Colne Street, Line 2 BB9 2AD", modifiedData, "No - 123 Colne Street, Line 3 BB6 2AD")
     }
 
   } section("integration", models.domain.CareYouProvide.id)
