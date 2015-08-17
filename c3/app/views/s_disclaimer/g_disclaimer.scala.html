@@ -38,12 +38,12 @@
 
                 </fieldset>
 
-                <nav class="form-steps" role="navigation">
-                    <ul>
-                        <li><button type="submit" name="read" value="yes" class="button" @views.html.ga.trackClickEvent(linkName = "Disclaimer - I agree - start my application")>@Html(Messages("disclaimer.form.next"))</button></li>
-                        <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
-                    </ul>
-                </nav>
+                @views.html.common.bottomNavigation(
+                    nextLabel = Some("disclaimer.form.next"),
+                    customTrack =Some(views.html.ga.trackClickEvent(linkName = "Disclaimer - I agree - start my application")),
+                    nextButtonName = "read",
+                    nextButtonValue = "yes"
+                )
 
         }
     }
