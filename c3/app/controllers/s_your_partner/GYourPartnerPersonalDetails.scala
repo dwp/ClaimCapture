@@ -1,6 +1,7 @@
 package controllers.s_your_partner
 
 import models.DayMonthYear
+import play.api.Logger
 
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
@@ -85,17 +86,31 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
   def clearTheirPersonalDetailsIfPartnerQuestionChanged(claim:Claim,formData:YourPartnerPersonalDetails) = {
     claim.questionGroup[YourPartnerPersonalDetails] -> claim.questionGroup[TheirPersonalDetails] match {
       case (Some(oldData),Some(theirPersonalDetails)) =>
-        oldData.isPartnerPersonYouCareFor -> formData.isPartnerPersonYouCareFor match {
-          case (Some(oldQuestion), Some(newQuestion)) if oldQuestion == "yes" && newQuestion == "no" =>
 
-            claim.update(theirPersonalDetails.copy(title = "",titleOther = None,firstName = "",middleName = None,surname = "",
-              nationalInsuranceNumber = None,dateOfBirth =DayMonthYear(None, None, None)))
+        val tupleData = (oldData.hadPartnerSinceClaimDate -> formData.hadPartnerSinceClaimDate) ->
+          (oldData.isPartnerPersonYouCareFor -> formData.isPartnerPersonYouCareFor)
+
+        Logger.info(tupleData.toString())
+         tupleData match {
+           case (("no","yes"),(None,Some("no"))) =>
+             //This case is when we change the partner question from no -> yes and we specify the DP is not our partner
+             //In this case we don't want to wipe the data
+             claim
+          case ((oldQ,newQ),_) if oldQ != newQ =>
+            wipeTheirPersonalDetailsData(claim,theirPersonalDetails)
+
+           case (_,(Some(oldQ), Some(newQ))) if oldQ != newQ =>
+             wipeTheirPersonalDetailsData(claim,theirPersonalDetails)
 
           case _ => claim
         }
       case _ => claim
     }
 
+  }
+
+  def wipeTheirPersonalDetailsData(claim:Claim,theirPersonalDetails:TheirPersonalDetails) = {
+    claim.delete(TheirPersonalDetails)
   }
 }
 
