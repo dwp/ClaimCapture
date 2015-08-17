@@ -23,7 +23,7 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       source must contain("101 Clifton Street, Blackpool FY1 2RW")
       source must contain("Contact phone or mobile number")
       source must contain("01772 888901")
-      source must contain("Your claim date")
+      source must contain("Claim date")
       source must contain("10 October, 2016")
       source must contain("Your nationality")
       source must contain("British")
