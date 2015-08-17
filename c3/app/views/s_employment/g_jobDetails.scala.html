@@ -53,13 +53,8 @@
 
 	        </fieldset>
 	
-	        <nav class="form-steps" role="navigation">
-	            <ul>
-	            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
-                    <li><a id="backButtonBottom" href="@{claim.navigation.previousIgnorePreview}">@Html(Messages("form.back"))</a></li>
-                </ul>
-	        </nav>
-  
+        @views.html.common.bottomNavigation(previous = Some(claim.navigation.previousIgnorePreview))
+
     }
 
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_employment/g_jobDetails.js")></script>

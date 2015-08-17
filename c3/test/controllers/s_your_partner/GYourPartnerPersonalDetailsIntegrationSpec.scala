@@ -122,7 +122,7 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags
 
        val partnerDetailsPage = previewPage.clickLinkOrButton(s"#$id")
        partnerDetailsPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
-       partnerDetailsPage goBack() must beAnInstanceOf[PreviewPage]
+       partnerDetailsPage submitPage() must beAnInstanceOf[PreviewPage]
     }
 
     "Modify 'partner name' from preview page" in new WithBrowser with PageObjects{

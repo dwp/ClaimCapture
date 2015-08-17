@@ -1,11 +1,13 @@
-@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(nextLabel: Option[String], nextButtonName:String ,nextButtonValue:String , trackSubmit:Boolean, customTrack:Option[Html])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
 @import play.api.i18n.{MMessages => Messages, _}
 
-<button type="submit" name="action" value="next" class="button">
-    @if(claim.navigation.beenInPreview){
-        @Messages("form.returnToSummary")
-    } else {
-        @Messages("form.next")
+@label = @{
+    nextLabel match {
+        case Some(l) => l
+        case _ if claim.navigation.beenInPreview => "form.returnToSummary"
+        case _ => "form.next"
     }
-</button>
+}
+
+<button type="submit" name="@{nextButtonName}" value="@{nextButtonValue}" class="button" @{if(trackSubmit) views.html.ga.trackSubmit()} @{customTrack.fold(Html(""))(t=>t)}>@Messages(label)</button>

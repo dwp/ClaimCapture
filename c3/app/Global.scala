@@ -73,6 +73,7 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
     val csrfCookieName = getProperty("csrf.cookie.name", "csrf")
     val csrfSecure = getProperty("csrf.cookie.secure", getProperty("session.secure", default = false))
     val theDomain = Play.current.configuration.getString("session.domain")
+    val domainRoot = getProperty("domainRoot","carersallowance.service.gov.uk")
     val C3VERSION = "C3Version"
     val pattern = """.*circumstances.*""".r
     val cookiesAbsent = request.cookies.isEmpty
@@ -80,7 +81,7 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
     val referer = request.headers.get("Referer")
 
     val url = referer match {
-      case Some(r) => r
+      case Some(r) if r.contains(domainRoot) => r
       case _ => request.path
     }
 

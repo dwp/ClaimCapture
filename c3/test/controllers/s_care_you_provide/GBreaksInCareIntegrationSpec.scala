@@ -111,7 +111,7 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
       answerText(previewPageModified) mustEqual "Yes- Details provided for 1 break(s)"
     }
 
-    "Modify 'breaks in care', back button should take you back to the preview page" in new WithBrowser with PageObjects{
+    "Modify 'breaks in care', submit button should take you back to the preview page and there should be no back button" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "care_you_provide_anyBreaks"
       val answerText = PreviewTestUtils.answerText(s"$id", _:Page)
@@ -122,11 +122,14 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
 
       breaksInCarePage must beAnInstanceOf[GBreaksInCarePage]
 
-      val previewPageModified = breaksInCarePage goBack()
+      //no more back button after returning from preview
+      breaksInCarePage.ctx.browser.find("nav> #backButton") .size() must_== 0
+
+      val previewPageModified = breaksInCarePage submitPage ()
       previewPageModified must beAnInstanceOf[PreviewPage]
     }
 
-    "Modify 'breaks in care', back button on the break page should take you back to breaks in care page" in new WithBrowser with PageObjects{
+    "Modify 'breaks in care', submit button on the break page should take you back to breaks in care page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "care_you_provide_anyBreaks"
       val answerText = PreviewTestUtils.answerText(s"$id", _:Page)
@@ -140,7 +143,7 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
       breaksInCarePage fillPageWith ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)
       val breakPage = breaksInCarePage submitPage()
       breakPage must beAnInstanceOf[GBreakPage]
-      breakPage goBack() must beAnInstanceOf[GBreaksInCarePage]
+      breakPage submitPage() must beAnInstanceOf[GBreakPage]
     }
 
 
