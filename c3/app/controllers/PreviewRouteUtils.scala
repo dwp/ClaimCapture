@@ -27,6 +27,19 @@ object PreviewRouteUtils {
 
   }
 
+
+  def employmentRoute = {
+    val employmentRoute = controllers.s_self_employment.routes.GEmployment.present.toString
+    val routesMap = Map(
+      "employment_been_employed_since" -> employmentRoute,
+      "employment_jobs" -> employmentRoute,
+      "self_employment_been_self_employed" -> employmentRoute,
+      "self_employment_nature_of_business" -> employmentRoute,
+      "employment_additional_info" -> employmentRoute
+    )
+    routesMap
+  }
+
   def otherMoneyRoute = {
     val gAboutOtherMoneyRoute = controllers.s_other_money.routes.GAboutOtherMoney.present.toString
     val idList = Seq("other_money_anyPaymentsSinceClaimDate", "other_money_statutoryPay", "other_money_otherStatutoryPay")
@@ -72,6 +85,15 @@ object PreviewRouteUtils {
 
     val routesMap = Map(partnerDetailsList map {id => (id, gYourPartnerPersonalDetailsRoute)} : _*)
 
+    routesMap
+  }
+
+  def additionalInfoRoute = {
+    val gAdditionalInfoRoute = controllers.s_information.routes.GAdditionalInfo.present.toString
+
+    val additionalInfoList = Seq("additional_info", "additional_info_welsh")
+
+    val routesMap = Map(additionalInfoList map {id => (id, gAdditionalInfoRoute)} : _*)
     routesMap
   }
 

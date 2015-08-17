@@ -1,0 +1,28 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+
+@import models.domain._
+@import play.api.i18n.{MMessages => Messages}
+@import controllers.mappings.Mappings._
+@import helper._
+
+@additionalInfo = @{claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())}
+@additionalInfoAnswer = @{
+    additionalInfo.anythingElse.answer match {
+        case `yes` => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
+        case _ => Messages("label.no")
+    }
+}
+@additionalInfoWelsh = @{Messages("label." + additionalInfo.welshCommunication)}
+
+<div class="accordion accordion-open">
+
+    <h2 class="heading-medium accordion-title">@Html(Messages("s10_2.g1"))</h2>
+
+    <div class="accordion-content">
+        <table class="review">
+            @fieldWithLink("additional_info" , "anythingElse.answer", additionalInfoAnswer)
+            @fieldWithLink("additional_info_welsh" , "welshCommunication", additionalInfoWelsh)
+        </table>
+    </div>
+
+</div>
