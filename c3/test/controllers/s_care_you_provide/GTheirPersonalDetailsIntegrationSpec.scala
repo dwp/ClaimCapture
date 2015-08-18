@@ -191,6 +191,53 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification with Tags {
 
     }
 
+    "data should be emptied if answered yes to did you have a partner then going back to answer no" in new WithJsBrowser  with PageObjects {
+      val claimDatePage = GClaimDatePage(context)
+      claimDatePage goToThePage()
+      val claimDate = ClaimScenarioFactory.s12ClaimDate()
+      claimDatePage fillPageWith claimDate
+      claimDatePage submitPage()
+
+      val partnerPage = GYourPartnerPersonalDetailsPage(context)
+      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
+      partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
+      partnerPage goToThePage()
+      partnerPage fillPageWith partnerData
+      val theirPersonalDetailsPage =  partnerPage submitPage()
+
+      theirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
+      val title = theirPersonalDetailsPage readRadio("#title")
+      title.get mustEqual "Mrs"
+      val firstName = theirPersonalDetailsPage readInput("#firstName")
+      firstName.get mustEqual "Cloe"
+      val surname = theirPersonalDetailsPage readInput("#surname")
+      surname.get mustEqual "Smith"
+      val dateOfBirth = theirPersonalDetailsPage readDate("#dateOfBirth")
+      dateOfBirth.get mustEqual "12/07/1990"
+
+      val newPartner = theirPersonalDetailsPage.goBack()
+      val newPartnerData = new TestData
+
+      newPartnerData.AboutYourPartnerHadPartnerSinceClaimDate = "No"
+
+      newPartner fillPageWith newPartnerData
+
+      val newTheirPersonalDetailsPage =  newPartner submitPage()
+      theirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
+
+      val title2 = theirPersonalDetailsPage readRadio("#title")
+      title2 must beNone
+      val firstName2 = theirPersonalDetailsPage readInput("#firstName")
+      firstName2.get mustEqual ""
+      val surname2 = theirPersonalDetailsPage readInput("#surname")
+      surname2.get mustEqual ""
+      val dateOfBirth2 = theirPersonalDetailsPage readDate("#dateOfBirth")
+      dateOfBirth2.get mustEqual "00/00/"
+
+
+
+    }
+
   } section("integration", models.domain.CareYouProvide.id)
 
   def goToPreviewPage(context:PageObjectsContext):Page = {

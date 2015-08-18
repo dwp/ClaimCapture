@@ -93,13 +93,9 @@ else OtherMoney.name
                 	</li>
 
                     <div class="prompt breaks-prompt validation-summary">
-                        @form(action = controllers.s_care_you_provide.routes.GBreaksInCare.delete, 'role -> "form"){
                             <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
-                            @DwpCSRFFormHelper.formField
-                            @carersInputHidden(GBreaksInCare.deleteForm("deleteId"))
                             <input id="noDelete" type="button" name="no" class="button secondary" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
                             <input id="yesDelete" type="button" name="yes" class="button warning" value="@Html(Messages("yes.delete"))" aria-label="@Html(Messages("yes.delete.label"))">
-                        }
                     </div>
                 	
                 }
@@ -110,6 +106,10 @@ else OtherMoney.name
         </div>
 
     </fieldset>
+    @form(action = controllers.s_care_you_provide.routes.GBreaksInCare.delete, 'role -> "form", 'id -> "deleteForm"){
+        @DwpCSRFFormHelper.formField
+        @carersInputHidden(GBreaksInCare.deleteForm("deleteId"))
+    }
 
     @form(action = controllers.s_care_you_provide.routes.GBreaksInCare.submit, 'role -> "form") {
     
