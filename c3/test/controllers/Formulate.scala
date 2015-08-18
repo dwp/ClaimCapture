@@ -58,7 +58,7 @@ object Formulate {
 
   def nationalityAndResidencyNotBritishMarried(browser: TestBrowser) = {
     browser.goTo("/about-you/nationality-and-residency")
-    browser.click("#nationality_Another_Country")
+    browser.click("#nationality_Another_Nationality")
     browser.fill("#actualnationality") `with` "French"
     browser.click("#maritalStatus_Married_or_civil_partner")
     browser.click("#resideInUK_answer_yes")
@@ -67,7 +67,7 @@ object Formulate {
 
   def nationalityAndResidencyNotBritishSingle(browser: TestBrowser) = {
     browser.goTo("/about-you/nationality-and-residency")
-    browser.click("#nationality_Another_Country")
+    browser.click("#nationality_Another_Nationality")
     browser.fill("#actualnationality") `with` "French"
     browser.click("#maritalStatus_Single")
     browser.click("#resideInUK_answer_yes")
@@ -76,7 +76,7 @@ object Formulate {
 
   def nationalityAndResidencyNotBritishWithPartner(browser: TestBrowser) = {
     browser.goTo("/about-you/nationality-and-residency")
-    browser.click("#nationality_Another_Country")
+    browser.click("#nationality_Another_Nationality")
     browser.fill("#actualnationality") `with` "French"
     browser.click("#maritalStatus_Living_with_partner")
     browser.click("#resideInUK_answer_yes")

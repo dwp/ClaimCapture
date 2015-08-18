@@ -10,10 +10,10 @@ import utils.WithApplication
 class GNationalityAndResidencySpec extends Specification with Tags {
 
   val inputBritish = Seq("nationality" -> "British", "resideInUK.answer" -> "yes")
-  val inputAnotherCountry = Seq("nationality" -> "Another Country", "actualnationality" -> "French", "resideInUK.answer" -> "yes", "maritalStatus" -> "Single")
+  val inputAnotherCountry = Seq("nationality" -> "Another nationality", "actualnationality" -> "French", "resideInUK.answer" -> "yes", "maritalStatus" -> "Single")
   val inputBritishResideOutside = Seq("nationality" -> "British", "resideInUK.answer" -> "no", "resideInUK.text" -> "Maldives")
-  val inputAnotherCountryResideOutside = Seq("nationality" -> "Another Country", "actualnationality" -> "French", "resideInUK.answer" -> "no", "resideInUK.text" -> "Maldives", "maritalStatus" -> "Single")
-  val inputAnotherCountryMissingData = Seq("nationality" -> "Another Country", "resideInUK.answer" -> "yes")
+  val inputAnotherCountryResideOutside = Seq("nationality" -> "Another nationality", "actualnationality" -> "French", "resideInUK.answer" -> "no", "resideInUK.text" -> "Maldives", "maritalStatus" -> "Single")
+  val inputAnotherCountryMissingData = Seq("nationality" -> "Another nationality", "resideInUK.answer" -> "yes")
   val inputAnotherCountryMissingData2 = Seq("nationality" -> "British", "resideInUK.answer" -> "no")
 
   "Your nationality and residency" should {
