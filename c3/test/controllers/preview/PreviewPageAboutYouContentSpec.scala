@@ -28,11 +28,11 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       source must contain("Your nationality")
       source must contain("British")
       source must contain("Do you normally live in England, Scotland or Wales?")
-      source must contain("Yes")
-      source must contain("Have you or your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?")
-      source must contain("Yes")
-      source must contain("Have you or your close family worked or paid national insurance in any of these countries since your claim date?")
-      source must contain("Yes")
+      source must contain("Yes - Details provided")
+      source must contain("Have you or anyone in your family claimed or been paid any benefits or pensions from an EEA country since your claim date?")
+      source must contain("Yes - Details provided")
+      source must contain("Have you or anyone in your family worked or paid national insurance in an EEA country since your claim date?")
+      source must contain("Yes - Details provided")
     }
 
     "display about you - the carer data with nationality another country" in new WithBrowser with PageObjects{

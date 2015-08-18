@@ -58,7 +58,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags
       val id = "about_you_benefitsFromEEA"
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
-      answerText(previewPage) mustEqual "Yes"
+      answerText(previewPage) mustEqual "Yes - Details provided"
       val otherBenefitsPage = previewPage.clickLinkOrButton(getLinkId(id))
 
       otherBenefitsPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
@@ -77,7 +77,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags
       val id = "about_you_workingForEEA"
       val answerText = PreviewTestUtils.answerText(id, _:Page)
 
-      answerText(previewPage) mustEqual "Yes"
+      answerText(previewPage) mustEqual "Yes - Details provided"
       val otherBenefitsPage = previewPage.clickLinkOrButton(getLinkId(id))
 
       otherBenefitsPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]

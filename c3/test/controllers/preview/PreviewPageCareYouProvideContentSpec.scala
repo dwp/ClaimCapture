@@ -29,7 +29,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       source must contain("02 March, 1990")
       source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")
-      source must contain("Yes- Details provided for 1 break(s)")
+      source must contain("Yes - Details provided for 1 break(s)")
     }
 
     "display Care you provide data - when partner is the person you care for" in new WithJsBrowser  with PageObjects{
@@ -47,7 +47,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       source must contain("About the person you care for")
       source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")
-      source must contain("Yes- Details provided for 1 break(s)")
+      source must contain("Yes - Details provided for 1 break(s)")
     }
 
     "display Care you provide data - when no partner" in new WithJsBrowser  with PageObjects{
@@ -65,7 +65,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       source must contain("02 March, 1990")
       source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")
-      source must contain("Yes- Details provided for 1 break(s)")
+      source must contain("Yes - Details provided for 1 break(s)")
     }
 
     "update caree address if modifying carer address when answered caree lives same address" in new WithJsBrowser with PageObjects {
@@ -84,7 +84,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       source must contain("About the person you care for")
       source must contain("Yes")
       source must contain("Father")
-      source must contain("Yes- Details provided for 1 break(s)")
+      source must contain("Yes - Details provided for 1 break(s)")
 
       val carerAddressPage = page.clickLinkOrButton(getLinkId("about_you_address"))
 

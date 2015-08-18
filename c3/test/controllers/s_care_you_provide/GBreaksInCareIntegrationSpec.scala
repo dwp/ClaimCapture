@@ -109,7 +109,7 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
 
       val previewPageModified = breaksInCarePageModified submitPage()
       previewPageModified must beAnInstanceOf[PreviewPage]
-      answerText(previewPageModified) mustEqual "Yes- Details provided for 1 break(s)"
+      answerText(previewPageModified) mustEqual "Yes - Details provided for 1 break(s)"
     }
 
     "Modify 'breaks in care', submit button should take you back to the preview page and there should be no back button" in new WithBrowser with PageObjects{

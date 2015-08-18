@@ -101,7 +101,7 @@ class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
 
       val previewModifiedPage = abroadForMoreThan52WeeksPage submitPage()
 
-      PreviewTestUtils.answerText(id, previewModifiedPage) mustEqual "Yes"
+      PreviewTestUtils.answerText(id, previewModifiedPage) mustEqual "Yes - Details provided"
 
     }
 

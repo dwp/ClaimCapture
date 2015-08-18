@@ -4,7 +4,7 @@
 @import play.api.i18n.{MMessages => Messages}
 @import app.MaritalStatus._
 @import helper._
-@import controllers.mappings.Mappings
+@import controllers.mappings.Mappings._
 
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
 @contactDetails = @{claim.questionGroup[ContactDetails].getOrElse(ContactDetails())}
@@ -12,8 +12,8 @@
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @email = @{
     contactDetails.wantsContactEmail match {
-        case Some(yesNo) if yesNo == Mappings.yes => Messages("label.yes") + " - " + contactDetails.email.getOrElse("")
-        case Some(yesNo) if yesNo == Mappings.no => Messages("label.no")
+        case Some(yesNo) if yesNo == yes => Messages("label.yes") + " - " + contactDetails.email.getOrElse("")
+        case Some(yesNo) if yesNo == no => Messages("label.no")
         case None => ""
     }
 }
@@ -31,7 +31,7 @@
 }
 @residence = @{
     nationalityAndResidency.resideInUK.answer match {
-        case answer if answer == Mappings.yes => Messages("label.yes")
+        case answer if answer == yes => Messages("label.yes")
         case _ => Messages("label.no") + " - " + nationalityAndResidency.resideInUK.text.getOrElse("")
     }
 }
@@ -56,6 +56,24 @@
 @addressPostcode = @{
     s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${contactDetails.postcode.getOrElse("")}"
 }
+@abroadValue = @{
+    abroadForMoreThan52Weeks.anyTrips match {
+        case `yes` => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
+        case _ => Messages("label.no")
+    }
+}
+@benefitsFromEEAValue = @{
+    otherEEA.benefitsFromEEA match {
+        case `yes` => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
+        case _ => Messages("label.no")
+    }
+}
+@workingForEEAValue = @{
+    otherEEA.workingForEEA match {
+        case `yes` => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
+        case _ => Messages("label.no")
+    }
+}
 
 <div class="accordion accordion-open">
 
@@ -72,9 +90,9 @@
             @fieldWithLink("about_you_email", "wantsEmailContact", email)
 			@fieldWithLink("about_you_nationality", "yourNationality", nationality)
             @fieldWithLink("about_you_residence", "resideInUK.label", residence)
-			@fieldWithLink("about_you_abroad", "52Weeks.label", Messages("label."+abroadForMoreThan52Weeks.anyTrips.toLowerCase))
-			@fieldWithLink("about_you_benefitsFromEEA", "benefitsFromEEA", Messages("label."+otherEEA.benefitsFromEEA))
-			@fieldWithLink("about_you_workingForEEA", "workingForEEA", Messages("label."+otherEEA.workingForEEA))
+			@fieldWithLink("about_you_abroad", "52Weeks.label", abroadValue)
+			@fieldWithLink("about_you_benefitsFromEEA", "preview.benefitsFromEEA", benefitsFromEEAValue)
+			@fieldWithLink("about_you_workingForEEA", "preview.workingForEEA", workingForEEAValue)
 		</table>
 	</div>
 
