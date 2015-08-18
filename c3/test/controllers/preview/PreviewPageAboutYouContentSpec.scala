@@ -29,9 +29,9 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       source must contain("British")
       source must contain("Do you normally live in England, Scotland or Wales?")
       source must contain("Yes - Details provided")
-      source must contain("Have you or anyone in your family claimed or been paid any benefits or pensions from an EEA country since your claim date?")
+      source must contain("Have you or anyone in your close family claimed or been paid any benefits or pensions from an EEA country since your claim date?")
       source must contain("Yes - Details provided")
-      source must contain("Have you or anyone in your family worked or paid national insurance in an EEA country since your claim date?")
+      source must contain("Have you or anyone in your close family worked or paid national insurance in an EEA country since your claim date?")
       source must contain("Yes - Details provided")
     }
 
