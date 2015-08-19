@@ -16,10 +16,7 @@ package object submission {
     case _ => DWPCoCircs.xml(claim)
   }
 
-  def xmlValidator(claim: Claim) = claim.key match {
-    case CachedClaim.key => XmlValidatorFactory.buildCaFutureValidator()
-    case _ => XmlValidatorFactory.buildCocFutureValidator()
-  }
+  def xmlValidator(claim: Claim) = XmlValidatorFactory.buildCaFutureValidator()
 
   def claimType(claim:Claim) = claim.key match {
     case CachedClaim.key => FULL_CLAIM

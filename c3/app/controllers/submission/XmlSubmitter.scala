@@ -19,7 +19,7 @@ object XmlSubmitter {
       validator.validate(fullXml.mkString) match {
         case true => claim -> Ok(fullXml)
         case false => claim -> {
-          Logger.debug(fullXml.mkString)
+          Logger.error(s"Failed validating claim: ${fullXml.mkString}")
           Ok("Failed validation")
         }
       }

@@ -4,6 +4,7 @@ import java.net.ConnectException
 import java.util.concurrent.TimeoutException
 
 import app.ConfigProperties
+import gov.dwp.carers.xml.validation.XmlValidatorFactory
 import models.domain.Claim
 import play.api.i18n.Lang
 import play.api.libs.ws.ning.NingWSResponse
@@ -15,6 +16,8 @@ import xml.ValidXMLBuilder
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import scala.util.{Failure, Success, Try}
+import app.ConfigProperties._
 
 trait WebServiceClientComponent {
 
@@ -25,9 +28,21 @@ trait WebServiceClientComponent {
       Logger.info (s"Entered on submitClaim for : ${claim.key} : transactionId [$txnId].")
       val claimSubmission = ValidXMLBuilder ().xml (claim, txnId)
       Logger.debug ("Created xml")
+
+      //validate xml before submitting
+      if(!Try(XmlValidatorFactory.buildCaFutureValidator().validate(claimSubmission.toString())).getOrElse(false)) {
+        Logger.error(s"Validation failed for  for transactionId [$txnId]")
+
+        if(getProperty("submit.fail.on.validation", default = true)){
+          throw new RuntimeException(s"Validation failed for  for transactionId [$txnId]")
+        }
+      }
+
+      Logger.debug ("Validated xml")
+
       val submissionServerEndpoint = ConfigProperties.getProperty ("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submission"
       Logger.debug (s"Submission Server : $submissionServerEndpoint")
-      val result = WS.url (submissionServerEndpoint)
+      WS.url (submissionServerEndpoint)
         .withRequestTimeout (ConfigProperties.getProperty ("cr.timeout", 60000)) // wait 1 minute
         .withHeaders (("Content-Type", "application/xml"))
         .withHeaders (("CarersClaimLang", claim.lang.getOrElse (new Lang ("en")).language))
@@ -45,7 +60,6 @@ trait WebServiceClientComponent {
           // submission failed - remove from cache
           UnavailableResponse ()
       }
-      result
     }
   }
 
