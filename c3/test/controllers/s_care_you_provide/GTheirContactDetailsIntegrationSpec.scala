@@ -59,14 +59,6 @@ class GTheirContactDetailsIntegrationSpec extends Specification with Tags {
       thierContactDetailsPage submitPage() must beAnInstanceOf[GBreaksInCarePage]
     }
 
-    "Modify address from preview page" in new WithBrowser with PageObjects{
-      val modifiedData = new TestData
-      modifiedData.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street&Line 3"
-      modifiedData.AboutTheCareYouProvidePostcodePersonCareFor = "BB6 2AD"
-
-      verifyPreviewData(context, "care_you_provide_address", "No - 123 Colne Street, Line 2 BB9 2AD", modifiedData, "No - 123 Colne Street, Line 3 BB6 2AD")
-    }
-
   } section("integration", models.domain.CareYouProvide.id)
 
   def goToTheirContactDetailsPage (context:PageObjectsContext, testData:TestData) = {
@@ -79,38 +71,6 @@ class GTheirContactDetailsIntegrationSpec extends Specification with Tags {
     theirPersonalDetailsPage goToThePage()
     theirPersonalDetailsPage fillPageWith testData
     theirPersonalDetailsPage submitPage()
-  }
-
-  def goToPreviewPage(context:PageObjectsContext):Page = {
-    val claimDatePage = GClaimDatePage(context)
-    claimDatePage goToThePage()
-    val claimDate = ClaimScenarioFactory.s12ClaimDate()
-    claimDatePage fillPageWith claimDate
-    claimDatePage submitPage()
-
-    val thierContactDetailsPage = GTheirContactDetailsPage(context)
-    thierContactDetailsPage goToThePage()
-    thierContactDetailsPage fillPageWith ClaimScenarioFactory.s4CareYouProvide(hours35 = true)
-    thierContactDetailsPage submitPage()
-
-    val previewPage = PreviewPage(context)
-    previewPage goToThePage()
-  }
-
-  def verifyPreviewData(context:PageObjectsContext, id:String, initialData:String, modifiedTestData:TestData, modifiedData:String) = {
-    val previewPage = goToPreviewPage(context)
-    val answerText = PreviewTestUtils.answerText(id, _:Page)
-
-    answerText(previewPage) mustEqual initialData
-    val theirContactDetailsPage = previewPage.clickLinkOrButton(getLinkId(id))
-
-    theirContactDetailsPage must beAnInstanceOf[GTheirContactDetailsPage]
-
-    theirContactDetailsPage fillPageWith modifiedTestData
-    val previewPageModified = theirContactDetailsPage submitPage()
-
-    previewPageModified must beAnInstanceOf[PreviewPage]
-    answerText(previewPageModified) mustEqual modifiedData
   }
 
 }

@@ -115,31 +115,6 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       theirPersonalDetailsPage visible("#careYouProvideWrap") must beTrue
     }
 
-    "Modify name from preview page" in new WithJsBrowser  with PageObjects{
-      val modifiedData = new TestData
-      modifiedData.AboutTheCareYouProvideTitlePersonCareFor = "Mrs"
-      modifiedData.AboutTheCareYouProvideFirstNamePersonCareFor = "Jane"
-      modifiedData.AboutTheCareYouProvideMiddleNamePersonCareFor = "Doe"
-      modifiedData.AboutTheCareYouProvideSurnamePersonCareFor = "Antony"
-
-      verifyPreviewData(context, "care_you_provide_name", "Mr Tom Potter Wilson", modifiedData, "Mrs Jane Doe Antony")
-    }
-
-    "Modify date of birth from preview page" in new WithJsBrowser  with PageObjects{
-      val modifiedData = new TestData
-      modifiedData.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/04/1991"
-
-      verifyPreviewData(context, "care_you_provide_dob", "02 March, 1990", modifiedData, "02 April, 1991")
-    }
-
-    "Modify relationship from preview page" in new WithJsBrowser  with PageObjects{
-      val modifiedData = new TestData
-      modifiedData.AboutTheCareYouProvideWhatTheirRelationshipToYou = "wife"
-
-      verifyPreviewData(context, "care_you_provide_relationship", "Father", modifiedData, "wife")
-    }
-
-
     "data should be emptied if answered yes to person you care for is partner then going back to answer no" in new WithJsBrowser  with PageObjects {
       val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
@@ -234,43 +209,4 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification with Tags {
 
   } section("integration", models.domain.CareYouProvide.id)
 
-  def goToPreviewPage(context:PageObjectsContext):Page = {
-    val claimDatePage = GClaimDatePage(context)
-    claimDatePage goToThePage()
-    val claimDate = ClaimScenarioFactory.s12ClaimDate()
-    claimDatePage fillPageWith claimDate
-    claimDatePage submitPage()
-
-    val partnerPage = GYourPartnerPersonalDetailsPage(context)
-    val partnerData = new TestData
-    partnerData.AboutYourPartnerHadPartnerSinceClaimDate = "No"
-    partnerPage goToThePage()
-    partnerPage fillPageWith partnerData
-    partnerPage submitPage()
-
-    val theirPersonalDetailsPage = GTheirPersonalDetailsPage(context)
-    val claim = ClaimScenarioFactory.s4CareYouProvide(hours35 = false)
-    theirPersonalDetailsPage goToThePage()
-    theirPersonalDetailsPage fillPageWith claim
-    theirPersonalDetailsPage submitPage()
-
-    val previewPage = PreviewPage(context)
-    previewPage goToThePage()
-  }
-
-  def verifyPreviewData(context:PageObjectsContext, id:String, initialData:String, modifiedTestData:TestData, modifiedData:String) = {
-    val previewPage = goToPreviewPage(context)
-    val answerText = PreviewTestUtils.answerText(id, _:Page)
-
-    answerText(previewPage) mustEqual initialData
-    val theirPersonalDetailsPage = previewPage.clickLinkOrButton(getLinkId(id))
-
-    theirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
-
-    theirPersonalDetailsPage fillPageWith modifiedTestData
-    val previewPageModified = theirPersonalDetailsPage submitPage()
-
-    previewPageModified must beAnInstanceOf[PreviewPage]
-    answerText(previewPageModified) mustEqual modifiedData
-  }
 }

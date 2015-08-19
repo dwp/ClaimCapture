@@ -15,13 +15,13 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("partner_hadPartner", "hadPartnerSinceClaimDate", Messages("label."+yourPartner.hadPartnerSinceClaimDate))
+			@fieldWithLink("partner_hadPartner", "hadPartnerSinceClaimDate", Messages("label."+yourPartner.hadPartnerSinceClaimDate), true)
 			@if(yourPartner.hadPartnerSinceClaimDate.toLowerCase == "yes"){
-			    @fieldWithLink("partner_name", "name", titleNames)
-			    @fieldWithLink("partner_dateOfBirth", "dateOfBirth", yourPartner.dateOfBirth.getOrElse(DayMonthYear(None,None,None)).`dd month, yyyy`)
-			    @fieldWithLink("partner_nationality", "partner.nationality", yourPartner.nationality.get)
-			    @fieldWithLink("partner_seperated", "separated.fromPartner", Messages("label."+yourPartner.separatedFromPartner.get.toLowerCase))
-			    @fieldWithLink("partner_isPersonCareFor", "isPartnerPersonYouCareFor", Messages("label."+yourPartner.isPartnerPersonYouCareFor.get.toLowerCase))
+			    @fieldWithLink("partner_name", "name", titleNames, true)
+			    @fieldWithLink("partner_dateOfBirth", "dateOfBirth", yourPartner.dateOfBirth.getOrElse(DayMonthYear(None,None,None)).`dd month, yyyy`, true)
+			    @fieldWithLink("partner_nationality", "partner.nationality", yourPartner.nationality.get, true)
+			    @fieldWithLink("partner_seperated", "separated.fromPartner", Messages("label."+yourPartner.separatedFromPartner.get.toLowerCase), true)
+			    @fieldWithLink("partner_isPersonCareFor", "isPartnerPersonYouCareFor", Messages("label."+yourPartner.isPartnerPersonYouCareFor.get.toLowerCase), true)
 			}
 		</table>
 	</div>
