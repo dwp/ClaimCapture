@@ -36,7 +36,7 @@
 					</div>
 					
 					<p class="hide-print">
-						<button type="button" name="action" value="next" class="button secondary button-print" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("button.print.summary"))</button>
+						<a href="javascript:window.print()" class="button secondary button-print" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("button.print.summary"))</a>
 					</p>
 					
 					<p class="hide-print text helper-prompt"><small>Printing won't send your application - you must press next to continue.</small></p>
@@ -58,5 +58,12 @@
 }
 
 <!-- Add legal message to footer -->
-<div class='print-only legal-disclaimer'>This isn't legal proof of your claim.</div>
+<section class="footer-print">
+	<h1 class='print-only legal-disclaimer'>This isn't legal proof of your claim.</h1>
+</section>
 
+<!-- Add watermark when printing
+<div class="print-only summary-watermark">
+	<img aria-hidden="true" src="/assets/images/reference-only.png" / >
+</div>
+ -->

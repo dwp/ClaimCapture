@@ -59,7 +59,7 @@
 				<td class="review-action hide-print">
 					<a class="button secondary">
 						@Html(Messages("preview.change"))
-						<span class="visuallyhidden">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</span>
+						<span class="visuallyhidden">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)} (optional)</span>
 					</a>
 				</td>
 			</tr>
@@ -79,7 +79,7 @@
 					<td class="review-action hide-print">
 						<a class="button secondary">
 							@Html(Messages("preview.change"))
-							<span class="visuallyhidden">@Messages("jobs")</span>
+							<span class="visuallyhidden">@Messages("jobs") (optional)</span>
 						</a>
 					</td>
 				</tr>
@@ -95,7 +95,7 @@
 				<td class="review-action hide-print">
 					<a class="button secondary">
 						@Html(Messages("preview.change"))
-						<span class="visuallyhidden">@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</span>
+						<span class="visuallyhidden">@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)} (optional)</span>
 					</a>
 				</td>
 			</tr>
