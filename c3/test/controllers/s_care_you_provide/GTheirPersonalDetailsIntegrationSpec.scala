@@ -125,13 +125,6 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       verifyPreviewData(context, "care_you_provide_name", "Mr Tom Potter Wilson", modifiedData, "Mrs Jane Doe Antony")
     }
 
-    "Modify nino from preview page" in new WithJsBrowser  with PageObjects{
-      val modifiedData = new TestData
-      modifiedData.AboutTheCareYouProvideNINOPersonCareFor = "AB123456D"
-
-      verifyPreviewData(context, "care_you_provide_nino", "AA123456A", modifiedData, "AB123456D")
-    }
-
     "Modify date of birth from preview page" in new WithJsBrowser  with PageObjects{
       val modifiedData = new TestData
       modifiedData.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/04/1991"
@@ -174,6 +167,53 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       val newPartner = theirPersonalDetailsPage.goBack()
       val newPartnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       newPartnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
+      newPartner fillPageWith newPartnerData
+
+      val newTheirPersonalDetailsPage =  newPartner submitPage()
+      theirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
+
+      val title2 = theirPersonalDetailsPage readRadio("#title")
+      title2 must beNone
+      val firstName2 = theirPersonalDetailsPage readInput("#firstName")
+      firstName2.get mustEqual ""
+      val surname2 = theirPersonalDetailsPage readInput("#surname")
+      surname2.get mustEqual ""
+      val dateOfBirth2 = theirPersonalDetailsPage readDate("#dateOfBirth")
+      dateOfBirth2.get mustEqual "00/00/"
+
+
+
+    }
+
+    "data should be emptied if answered yes to did you have a partner then going back to answer no" in new WithJsBrowser  with PageObjects {
+      val claimDatePage = GClaimDatePage(context)
+      claimDatePage goToThePage()
+      val claimDate = ClaimScenarioFactory.s12ClaimDate()
+      claimDatePage fillPageWith claimDate
+      claimDatePage submitPage()
+
+      val partnerPage = GYourPartnerPersonalDetailsPage(context)
+      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
+      partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
+      partnerPage goToThePage()
+      partnerPage fillPageWith partnerData
+      val theirPersonalDetailsPage =  partnerPage submitPage()
+
+      theirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
+      val title = theirPersonalDetailsPage readRadio("#title")
+      title.get mustEqual "Mrs"
+      val firstName = theirPersonalDetailsPage readInput("#firstName")
+      firstName.get mustEqual "Cloe"
+      val surname = theirPersonalDetailsPage readInput("#surname")
+      surname.get mustEqual "Smith"
+      val dateOfBirth = theirPersonalDetailsPage readDate("#dateOfBirth")
+      dateOfBirth.get mustEqual "12/07/1990"
+
+      val newPartner = theirPersonalDetailsPage.goBack()
+      val newPartnerData = new TestData
+
+      newPartnerData.AboutYourPartnerHadPartnerSinceClaimDate = "No"
+
       newPartner fillPageWith newPartnerData
 
       val newTheirPersonalDetailsPage =  newPartner submitPage()

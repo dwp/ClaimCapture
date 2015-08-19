@@ -28,10 +28,8 @@
 
             <article class="column-three-quarters main-content">
 
-                <nav class="back-nav" role="navigation">
-                    <a id="backButton" href="@previous">@Html(Messages("form.back"))</a>
-                </nav>
-                
+                @views.html.common.upperBackButton(previous = Some(previous))
+
                 <h1 class="form-title heading-large">@sectionTitle(SelfEmployment)@Html(Messages(heading))</h1>
 
                 @if(currentForm.isDefined) {

@@ -12,40 +12,19 @@ window.initSummary = (deleteId) ->
             event.preventDefault()
 
     $("ul").on "click", "input[name='deleterow']", ->
-        disable()
-        enableConfirmation()
+
 
         li = $(this).closest("li")
+        prompt = li.next()
+        prompt.slideDown ->
+            prompt.find("#noDelete").on "click", ->
+                prompt.slideUp()
 
-        $("#breaks .breaks-prompt").slideDown ->
-            $("input[name='no']").unbind "click"
-            $("input[name='yes']").unbind "click"
-
-            $("input[name='no']").on "click", ->
-                enable()
-                $("#breaks .breaks-prompt").slideUp()
-
-            $("input[name='yes']").on "click", ->
-                disableConfirmation()
+            prompt.find("#yesDelete").on "click", ->
                 id = li.attr("id")
                 $("#"+deleteId).val(id)
-                $(this).parents("form").submit()
+                $("#deleteForm").submit()
 
-enableConfirmation = ->
-    $("#breaks .breaks-prompt input[type='button']").removeAttr("disabled").removeClass("disabled")
-
-enable = ->
-    $("li input[type='button']").removeAttr("disabled").removeClass("disabled")
-    $("input[type='radio']").removeAttr("disabled", "true").removeClass("disabled")
-    $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
-
-disableConfirmation = ->
-    $("#breaks .breaks-prompt input[type='button']").attr("disabled", "true").addClass("disabled")
-
-disable = ->
-    $("li input[type='button']").attr("disabled", "true").addClass("disabled")
-    $("input[type='radio']").attr("disabled", "true").addClass("disabled")
-    $(".form-steps").children().attr("disabled", "true").addClass("disabled")
 
 window.initEvents = (answer_yes, answer_no) ->
   if ($("#" + answer_yes).is ":checked") && $("ul").children().length is 10

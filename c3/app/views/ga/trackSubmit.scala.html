@@ -14,8 +14,12 @@
     }
 }
 
-onmousedown="if(@isOptional && conditionRequired() || !@isOptional){@gaTrack()}"
 
-
+@onMouse =    @{if(!isOptional)
+        gaTrack()
+    else
+        Html(s"if( conditionRequired() ){$gaTrack}")
+    }
+@Html(s"onmousedown='${onMouse}'")
 
 

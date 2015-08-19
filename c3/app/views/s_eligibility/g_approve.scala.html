@@ -89,12 +89,11 @@
 
         @if(approved) {
 
-            <nav class="form-steps" role="navigation">
-                <ul>
-                    <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Elibigility - Yes - Continue")>@Html(Messages("form.continue.step"))</button></li>
-                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
-                </ul>
-            </nav>
+            @views.html.common.bottomNavigation(
+                nextLabel = Some("form.continue.step"),
+                customTrack =Some(views.html.ga.trackClickEvent(linkName = "Eligibility - Yes - Continue"))
+            )
+
 
         } else {
 

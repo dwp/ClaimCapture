@@ -21,19 +21,18 @@ class FunctionalTestCase3Spec extends FunctionalTestCommon {
       val lastPage = page runClaimWith(claim, PreviewPage.url)
       val toFindData = Data.build(
         "Name"              displays ("AboutYouTitle","AboutYouFirstName","AboutYouMiddleName","AboutYouSurname"),
-        "National Insurance number" displays "AboutYouNINO",
         "Date of birth"     displays DateTransformer("AboutYouDateOfBirth"),
         "Address"           displays (AddressTransformer("AboutYouAddress"),"AboutYouPostcode"),
-        "Your claim date"   displays DateTransformer("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart"),
+        "Claim date"   displays DateTransformer("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart"),
         "Your nationality"  displays "AboutYouNationalityAndResidencyNationality",
-        "Time outside of England, Scotland or Wales"          displays AnyYesTransformer("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime"),
-        "Have you or your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?"          displays "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA",
-        "Have you or your close family worked or paid national insurance in any of these countries since your claim date?" displays "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA",
+        "Do you normally live in England, Scotland or Wales?" displays "AboutYouNationalityAndResidencyResideInUK",
+        "Have you been away from England, Scotland or Wales"          displays AnyYesTransformer("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime"),
+        "Have you or anyone in your close family claimed or been paid any benefits or pensions from an EEA country since your claim date?"          displays "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA",
+        "Have you or anyone in your close family worked or paid national insurance in an EEA country since your claim date?" displays "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA",
         "Name"            displays ("AboutYourPartnerTitle","AboutYourPartnerFirstName","AboutYourPartnerMiddleName","AboutYourPartnerSurname"),
-        "National Insurance number" displays "AboutYourPartnerNINO",
         "Date of birth"   displays DateTransformer("AboutYourPartnerDateofBirth"),
         "Have you separated since your claim date?" displays "AboutYourPartnerHaveYouSeparatedfromYourPartner",
-        "Address"         displays (AddressTransformer("AboutTheCareYouProvideAddressPersonCareFor"),"AboutTheCareYouProvidePostcodePersonCareFor"),
+        "Do they live at the same address as you?"         displays "AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou",
         "What's their relationship to you?"                               displays "AboutTheCareYouProvideWhatTheirRelationshipToYou",
         "Do you spend 35 hours or more each week caring for this person?" displays "AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek",
         "Have you had any breaks in caring for this person"               displays (AnyYesTransformer("AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare"),NumDetailsProvidedTransformer("AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare")),
@@ -42,7 +41,7 @@ class FunctionalTestCase3Spec extends FunctionalTestCommon {
         "Have you been self employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",
         "Have you received any payments for the person you care for or any other person since your claim date?" displays "OtherMoneyAnyPaymentsSinceClaimDate",
         "Have you had any Statutory Sick Pay"                    displays "OtherMoneyHaveYouSSPSinceClaim",
-        "Have you had any SMP, SPP or SAP since your claim date" displays "OtherMoneyHaveYouSMPSinceClaim"
+        "Have you had any Statutory Maternity Pay, Statutory Paternity Pay or Statutory Adoption Pay" displays "OtherMoneyHaveYouSMPSinceClaim"
       )
 
       toFindData.assertReview(claim, context) must beTrue

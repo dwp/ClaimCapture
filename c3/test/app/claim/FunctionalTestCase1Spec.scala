@@ -29,15 +29,14 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
 
     PreviewTestableData()   +
       "AboutYouTitle"       + "AboutYouFirstName" + "AboutYouMiddleName" + "AboutYouSurname" +
-      ninoConversion("AboutYouNINO") +
       dateConversion("AboutYouDateOfBirth") +
       dateConversion("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart") +
       addressConversion("AboutYouAddress") + "AboutYouPostcode" +
+      "AboutYouWantsEmailContact" + "AboutYouMail" +
       "AboutYouNationalityAndResidencyActualNationality" +
       "AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1" +
       "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA" +
       "AboutYourPartnerTitle"       + "AboutYourPartnerFirstName" + "AboutYourPartnerFirstName" + "AboutYourPartnerSurname" +
-      ninoConversion("AboutYourPartnerNINO") +
       dateConversion("AboutYourPartnerDateofBirth") +
       "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA" +
       "AboutTheCareYouProvideWhatTheirRelationshipToYou" +

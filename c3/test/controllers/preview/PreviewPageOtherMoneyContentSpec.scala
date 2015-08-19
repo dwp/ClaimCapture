@@ -24,7 +24,7 @@ class PreviewPageOtherMoneyContentSpec extends Specification with Tags {
       source must contain("Yes - Details provided".toLowerCase)
       source must contain("Have you had any Statutory Sick Pay".toLowerCase)
       source must contain("Yes - Details provided".toLowerCase)
-      source must contain("Have you had any SMP, SPP or SAP since your claim date".toLowerCase)
+      source must contain("Have you had any Statutory Maternity Pay, Statutory Paternity Pay or Statutory Adoption Pay".toLowerCase)
       source must contain("Yes - Details provided".toLowerCase)
     }
   } section "preview"

@@ -56,12 +56,7 @@
 
             </fieldset>
 
-            <nav class="form-steps" role="navigation">
-                <ul>
-                    <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackSubmit(isOptional = true)>@Html(Messages("form.next"))</button></li>
-                    <li><a id="backButtonBottom" href="@claim.navigation.previous">@Html(Messages("form.back"))</a></li>
-                </ul>
-            </nav>
+            @views.html.common.bottomNavigation(customTrack =Some(views.html.ga.trackSubmit(isOptional=true)))
 
         }
         <script type="text/javascript" src='@routes.Assets.at("javascripts/s_pay_details/g_howWePayYou.js")'></script>

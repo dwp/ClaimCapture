@@ -19,11 +19,7 @@
              
             <article class="column-three-quarters main-content eligible">
 
-                @if(showBack){
-                    <nav class="back-nav" role="navigation">
-                        <a id="backButton" href="@{claim.navigation.previous}@{if (changing)"?changing=true"}">@Html(Messages("form.back"))</a>
-                    </nav>
-                }
+                @views.html.common.upperBackButton(showBack, changing )
 
                 <h1 class="form-title heading-large">@Html(Messages("s0.longName"))</h1>
 

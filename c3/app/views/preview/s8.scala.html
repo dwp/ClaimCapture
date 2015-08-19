@@ -2,11 +2,15 @@
 @import models.domain._
 @import scala.language.postfixOps
 @import play.api.i18n.{MMessages => Messages}
+@import helper._
+@import utils.helpers.PreviewField._
+@import controllers.mappings.Mappings._
 
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @emp = @{claim.questionGroup[Employment].getOrElse(Employment())}
 @aboutSelfEmployment = @{claim.questionGroup[AboutSelfEmployment].getOrElse(AboutSelfEmployment())}
 @jobs = @{claim.questionGroup[Jobs]}
+@additionalInfo = @{claim.questionGroup[EmploymentAdditionalInfo].getOrElse(EmploymentAdditionalInfo())}
 @sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}
 @oneWeekBeforeDate(date:DayMonthYear) = @{date - 1 weeks}
 @employmentItems(job:Iteration) = @{
@@ -33,6 +37,15 @@
     }
     text
 }
+@isSelfEmployed = @{emp.beenSelfEmployedSince1WeekBeforeClaim == yes}
+@isEmployed = @{emp.beenEmployedSince6MonthsBeforeClaim == yes}
+@seValue = @{
+	if(isSelfEmployed){
+		Messages("label.yes") + " - " + selfEmploymentSummary(claim)
+	} else {
+		Messages("label.no")
+	}
+}
 @employmentSummary(job:Iteration) = @{
     var text = Messages("detailsProvided",job.questionGroup[JobDetails].get.employerName)
     val items = employmentItems(job)
@@ -42,6 +55,12 @@
     }
     text
 }
+@additionalInfoValue = @{
+	additionalInfo.empAdditionalInfo.answer match {
+		case `yes` => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
+		case _ => Messages("label.no")
+	}
+}
 
 <div class="accordion accordion-open">
 
@@ -49,35 +68,23 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			<tr class="review-change">
-			    <td class="review-label">
-					<b>@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</b>
-				</td>
-			    <td class="review-value">
-					@{Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim)}
-				</td>
-				<td class="review-action hide-print">
-					<a class="button secondary">
-						@Html(Messages("preview.change"))
-						<span class="visuallyhidden">@{Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)} (optional)</span>
-					</a>
-				</td>
-			</tr>
-			
+			@fieldWithLink("employment_been_employed_since", Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`),Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim))
+
+			@jobsId = @{ "employment_jobs" }
 			@if(jobs.isDefined && jobs.get.jobs.size > 0){
 				<tr class="review-change">
-			        <td class="review-label">
+			        <td id="@getLabelId(jobsId, false)" class="review-label">
 						<b>@Messages("jobs")</b>
 					</td>
-			        <td class="review-value">
+			        <td id="@getValueId(jobsId, false)" class="review-value">
 			            <ul>
 			            @for(job <- jobs.get.jobs){
 			                <li>@employmentSummary(job)</li>
 			            }
 			            </ul>
 			        </td>
-					<td class="review-action hide-print">
-						<a class="button secondary">
+					<td id="@getLinkContainerId(jobsId, false)" class="review-action hide-print">
+						<a id="@getLinkId(jobsId, false)" class="button secondary">
 							@Html(Messages("preview.change"))
 							<span class="visuallyhidden">@Messages("jobs") (optional)</span>
 						</a>
@@ -99,12 +106,14 @@
 					</a>
 				</td>
 			</tr>
-			
+			}
+			@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`), seValue)
+
 			@if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
-				<tr class="review-change">
-			        <td class="review-label">@{Messages("natureOfYourBusiness")}</td>
-					<td class="review-value">@{aboutSelfEmployment.natureOfYourBusiness}</td>
-				</tr>
+				@fieldWithLink("self_employment_nature_of_business", Messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness)
+			}
+			@if(isSelfEmployed || isEmployed){
+				@fieldWithLink("employment_additional_info", Messages("empAdditionalInfo.text"), additionalInfoValue)
 			}
 		</table>
 	</div>

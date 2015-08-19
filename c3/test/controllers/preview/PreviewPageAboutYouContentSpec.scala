@@ -17,30 +17,28 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       val source = page.source
       source must contain("Name")
       source must contain("Mr John middlename Appleseed")
-      source must contain("National Insurance number")
-      source must contain("AB123456C")
       source must contain("Date of birth")
       source must contain("03 April, 1950")
       source must contain("Address")
       source must contain("101 Clifton Street, Blackpool FY1 2RW")
       source must contain("Contact phone or mobile number")
       source must contain("01772 888901")
-      source must contain("Your claim date")
+      source must contain("Claim date")
       source must contain("10 October, 2016")
       source must contain("Your nationality")
       source must contain("British")
-      source must contain("Time outside of England, Scotland or Wales")
-      source must contain("Yes")
-      source must contain("Have you or your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?")
-      source must contain("Yes")
-      source must contain("Have you or your close family worked or paid national insurance in any of these countries since your claim date?")
-      source must contain("Yes")
+      source must contain("Do you normally live in England, Scotland or Wales?")
+      source must contain("Yes - Details provided")
+      source must contain("Have you or anyone in your close family claimed or been paid any benefits or pensions from an EEA country since your claim date?")
+      source must contain("Yes - Details provided")
+      source must contain("Have you or anyone in your close family worked or paid national insurance in an EEA country since your claim date?")
+      source must contain("Yes - Details provided")
     }
 
     "display about you - the carer data with nationality another country" in new WithBrowser with PageObjects{
 
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      claim.AboutYouNationalityAndResidencyNationality = "Another Country"
+      claim.AboutYouNationalityAndResidencyNationality = "Another nationality"
       claim.AboutYouNationalityAndResidencyActualNationality = "French"
       claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
 

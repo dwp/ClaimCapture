@@ -18,9 +18,7 @@
 
             <article class="column-three-quarters main-content">
 
-                <nav class="back-nav" role="navigation">
-                    <a id="backButton" href="@claim.navigation.previous">@Html(Messages("form.back"))</a>
-                </nav>
+                @views.html.common.upperBackButton(forceShowAfterPreview = true)
 
                 <h1 class="form-title heading-large">@Html(Messages("s11.longName"))</h1>
 

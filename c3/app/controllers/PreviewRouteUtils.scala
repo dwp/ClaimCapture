@@ -11,19 +11,33 @@ object PreviewRouteUtils {
     val gOtherEEARoute = controllers.s_about_you.routes.GOtherEEAStateOrSwitzerland.present.toString
 
     val routesMap = Map("about_you_full_name" -> gYourDetailsRoute,
-                        "about_you_nino" -> gYourDetailsRoute,
                         "about_you_dob" -> gYourDetailsRoute,
                         "about_you_address" -> gContactDetailsRoute,
                         "about_you_contact" -> gContactDetailsRoute,
+                        "about_you_email" -> gContactDetailsRoute,
                         "about_you_marital_status" -> gMaritalStatusRoute,
                         "about_you_claimDate" -> controllers.s_claim_date.routes.GClaimDate.present.toString,
                         "about_you_nationality" -> gNationalityRoute,
+                        "about_you_residence" -> gNationalityRoute,
                         "about_you_abroad" -> controllers.s_about_you.routes.GAbroadForMoreThan52Weeks.present.toString,
                         "about_you_benefitsFromEEA" -> gOtherEEARoute,
                         "about_you_workingForEEA" -> gOtherEEARoute)
 
     routesMap
 
+  }
+
+
+  def employmentRoute = {
+    val employmentRoute = controllers.s_self_employment.routes.GEmployment.present.toString
+    val routesMap = Map(
+      "employment_been_employed_since" -> employmentRoute,
+      "employment_jobs" -> employmentRoute,
+      "self_employment_been_self_employed" -> employmentRoute,
+      "self_employment_nature_of_business" -> employmentRoute,
+      "employment_additional_info" -> employmentRoute
+    )
+    routesMap
   }
 
   def otherMoneyRoute = {
@@ -51,7 +65,7 @@ object PreviewRouteUtils {
     val gMoreAboutTheCareRoute = controllers.s_care_you_provide.routes.GMoreAboutTheCare.present.toString
     val gBreaksInCareRoute = controllers.s_care_you_provide.routes.GBreaksInCare.present.toString
 
-    val personalDetailsList = Seq("care_you_provide_name", "care_you_provide_nino", "care_you_provide_dob", "care_you_provide_relationship")
+    val personalDetailsList = Seq("care_you_provide_name", "care_you_provide_dob", "care_you_provide_relationship")
     val contactDetailsList = Seq("care_you_provide_address")
     val moreAboutTheCareList = Seq("care_you_provide_spent35HoursCaring")
     val breaksInCareList = Seq("care_you_provide_anyBreaks")
@@ -66,11 +80,20 @@ object PreviewRouteUtils {
   def yourPartner = {
     val gYourPartnerPersonalDetailsRoute = controllers.s_your_partner.routes.GYourPartnerPersonalDetails.present.toString
 
-    val partnerDetailsList = Seq("partner_hadPartner", "partner_name", "partner_nino",
+    val partnerDetailsList = Seq("partner_hadPartner", "partner_name",
       "partner_dateOfBirth", "partner_nationality", "partner_seperated", "partner_isPersonCareFor")
 
     val routesMap = Map(partnerDetailsList map {id => (id, gYourPartnerPersonalDetailsRoute)} : _*)
 
+    routesMap
+  }
+
+  def additionalInfoRoute = {
+    val gAdditionalInfoRoute = controllers.s_information.routes.GAdditionalInfo.present.toString
+
+    val additionalInfoList = Seq("additional_info", "additional_info_welsh")
+
+    val routesMap = Map(additionalInfoList map {id => (id, gAdditionalInfoRoute)} : _*)
     routesMap
   }
 

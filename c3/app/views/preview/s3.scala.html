@@ -4,9 +4,6 @@
 @import helper._
 
 @yourPartner = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
-@ninoNumber(ni:NationalInsuranceNumber) = @{
-    ni.stringify
-}
 @middleName = @{yourPartner.middleName.map(_+" ").getOrElse("")}
 @titleNames = @{
     s"${Html(Messages("titleSelect."+yourPartner.title.getOrElse("").toLowerCase))} ${yourPartner.firstName.get} ${middleName}${yourPartner.surname.get}"
@@ -21,11 +18,6 @@
 			@fieldWithLink("partner_hadPartner", "hadPartnerSinceClaimDate", Messages("label."+yourPartner.hadPartnerSinceClaimDate))
 			@if(yourPartner.hadPartnerSinceClaimDate.toLowerCase == "yes"){
 			    @fieldWithLink("partner_name", "name", titleNames)
-			    @if(yourPartner.nationalInsuranceNumber.isDefined){
-			        @defining(yourPartner.nationalInsuranceNumber.get){ nino =>
-			            @fieldWithLink("partner_nino", "nationalInsuranceNumber", ninoNumber(nino))
-			        }
-			    }
 			    @fieldWithLink("partner_dateOfBirth", "dateOfBirth", yourPartner.dateOfBirth.getOrElse(DayMonthYear(None,None,None)).`dd month, yyyy`)
 			    @fieldWithLink("partner_nationality", "partner.nationality", yourPartner.nationality.get)
 			    @fieldWithLink("partner_seperated", "separated.fromPartner", Messages("label."+yourPartner.separatedFromPartner.get.toLowerCase))

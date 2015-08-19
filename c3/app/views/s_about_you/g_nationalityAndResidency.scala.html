@@ -52,12 +52,7 @@
 	
 	        </fieldset>
 	
-	        <nav class="form-steps" role="navigation">
-	            <ul>
-	            	<li>@views.html.common.nextButton()</li>
-                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
-	            </ul>
-	        </nav>
+            @views.html.common.bottomNavigation()
 
     }
 
@@ -65,7 +60,7 @@
     <script type="text/javascript">
         $(function(){
             window.initEvents("@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)",
-                            "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("Another_Country").id)",
+                            "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("Another_nationality").id)",
                             "@CarersCrypto.encryptAES(nationalityAndResidencyForm("actualnationality").id)",
                             "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("yes").id)",
                             "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("no").id)",

@@ -57,11 +57,11 @@ class GYourDetailsIntegrationSpec extends Specification with Tags {
       g2 must beAnInstanceOf[GMaritalStatusPage]
     }
 
-    "Modify title, name, middlename and last name from preview page" in new WithBrowser with PageObjects{
+    "Modify title, name, middlename and last name from preview page" in new WithBrowser with PageObjects {
 
       val id = "about_you_full_name"
 
-      val answerText = PreviewTestUtils.answerText(id, _:Page)
+      val answerText = PreviewTestUtils.answerText(id, _: Page)
 
       val previewPage = goToPreviewPage(context)
       answerText(previewPage) mustEqual "Mr John Appleseed"
@@ -79,25 +79,6 @@ class GYourDetailsIntegrationSpec extends Specification with Tags {
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "Mrs Jane Pearson"
 
-    }
-
-    "Modify national insurance number from preview page" in new WithBrowser with PageObjects{
-      val previewPage = goToPreviewPage(context)
-      val id = "about_you_nino"
-      val answerText = PreviewTestUtils.answerText(id, _:Page)
-
-      answerText(previewPage) mustEqual "AB123456C"
-      val aboutYou = previewPage.clickLinkOrButton(getLinkId(id))
-
-      aboutYou must beAnInstanceOf[GYourDetailsPage]
-      val modifiedData = new TestData
-      modifiedData.AboutYouNINO = "AB123456D"
-
-      aboutYou fillPageWith modifiedData
-      val previewPageModified = aboutYou submitPage()
-
-      previewPageModified must beAnInstanceOf[PreviewPage]
-      answerText(previewPageModified) mustEqual "AB123456D"
     }
 
     "Modify date of birth from preview page" in new WithBrowser with PageObjects{

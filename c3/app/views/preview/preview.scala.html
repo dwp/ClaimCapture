@@ -18,6 +18,8 @@
 
                 <article class="column-full-width main-content">
 
+                    @views.html.common.upperBackButton(backCall = Some(controllers.preview.routes.Preview.back), forceShowAfterPreview = true)
+
                     <h1 class="form-title heading-large">@Html(Messages("preview.summary"))</h1>
 
                     @errorsSummary(previewForm)
@@ -33,6 +35,7 @@
 	                    @s6()
 	                    @s8()
 	                    @s9()
+                        @s_additional_info()
 					</div>
 					
 					<p class="hide-print">

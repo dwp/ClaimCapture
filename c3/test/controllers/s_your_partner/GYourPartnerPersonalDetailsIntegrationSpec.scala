@@ -123,7 +123,7 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags
 
        val partnerDetailsPage = previewPage.clickLinkOrButton(getLinkId(id))
        partnerDetailsPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
-       partnerDetailsPage goBack() must beAnInstanceOf[PreviewPage]
+       partnerDetailsPage submitPage() must beAnInstanceOf[PreviewPage]
     }
 
     "Modify 'partner name' from preview page" in new WithBrowser with PageObjects{
@@ -132,13 +132,6 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags
       modifiedData.AboutYourPartnerSurname = "John"
 
       verifyPreviewData(context, "partner_name", "Mrs Cloe Scott Smith", modifiedData, "Mr Cloe Scott John")
-    }
-
-    "Modify 'partner nino' from preview page" in new WithBrowser with PageObjects{
-      val modifiedData = new TestData
-      modifiedData.AboutYourPartnerNINO = "AB123456D"
-
-      verifyPreviewData(context, "partner_nino", "AB123456A", modifiedData, "AB123456D")
     }
 
     "Modify 'partner date of birth' from preview page" in new WithBrowser with PageObjects{

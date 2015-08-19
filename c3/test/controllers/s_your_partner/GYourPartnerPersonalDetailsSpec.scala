@@ -139,7 +139,7 @@ class GYourPartnerPersonalDetailsSpec extends Specification with Tags {
 
       val result1 = GNationalityAndResidency.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(maritalResult))
         .withFormUrlEncodedBody(
-        "nationality" -> "Another Country",
+        "nationality" -> "Another nationality",
         "actualnationality" -> "French",
         "resideInUK.answer" -> "yes")
       )

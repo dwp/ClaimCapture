@@ -1,17 +1,15 @@
 package controllers.preview
 
-import org.openqa.selenium.By
 import org.specs2.mutable.{Tags, Specification}
-import utils.WithBrowser
 import utils.pageobjects.s_about_you.GContactDetailsPage
-import utils.pageobjects.{ClaimPageFactory, TestData, PageObjectsContext, PageObjects}
+import utils.pageobjects.{TestData, PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
 import utils.WithJsBrowser
-
+import utils.helpers.PreviewField._
 
 class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
 
@@ -28,11 +26,10 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
 
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
-      source must contain("AA123456A")
       source must contain("02 March, 1990")
-      source must contain("123 Colne Street, Line 2 BB9 2AD")
+      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")
-      source must contain("Yes- Details provided for 1 break(s)")
+      source must contain("Yes - Details provided for 1 break(s)")
     }
 
     "display Care you provide data - when partner is the person you care for" in new WithJsBrowser  with PageObjects{
@@ -48,9 +45,9 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val source = page.source
 
       source must contain("About the person you care for")
-      source must contain("123 Colne Street, Line 2 BB9 2AD")
+      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")
-      source must contain("Yes- Details provided for 1 break(s)")
+      source must contain("Yes - Details provided for 1 break(s)")
     }
 
     "display Care you provide data - when no partner" in new WithJsBrowser  with PageObjects{
@@ -65,36 +62,10 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
 
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
-      source must contain("AA123456A")
       source must contain("02 March, 1990")
-      source must contain("123 Colne Street, Line 2 BB9 2AD")
+      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")
-      source must contain("Yes- Details provided for 1 break(s)")
-    }
-
-    "display Care you provide data without link on caree address" in new WithJsBrowser with PageObjects{
-      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
-      partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
-
-
-      val careYouProvideData = ClaimScenarioFactory.s4CareYouProvideWithNoPersonalDetails
-      careYouProvideData.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
-
-      fillCareProvideSection(context,partnerClaim = partnerData, careYouProvideData)
-      val page =  PreviewPage(context)
-      page goToThePage()
-
-      page.ctx.browser.webDriver.findElement(By.id("care_you_provide_address")).getTagName mustEqual "p"
-    }
-
-    "display Care you provide data with link on caree address" in  new WithJsBrowser  with PageObjects{
-      val partnerData = new TestData
-      partnerData.AboutYourPartnerHadPartnerSinceClaimDate = "No"
-
-      fillCareProvideSection(context,partnerClaim = partnerData)
-      val page =  PreviewPage(context)
-      page goToThePage()
-      page.ctx.browser.webDriver.findElement(By.id("care_you_provide_address")).getTagName mustEqual "a"
+      source must contain("Yes - Details provided for 1 break(s)")
     }
 
     "update caree address if modifying carer address when answered caree lives same address" in new WithJsBrowser with PageObjects {
@@ -111,12 +82,11 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val source = page.source
 
       source must contain("About the person you care for")
-      source must contain("101 Clifton Street, Blackpool FY1 2RW")
+      source must contain("Yes")
       source must contain("Father")
-      source must contain("Yes- Details provided for 1 break(s)")
+      source must contain("Yes - Details provided for 1 break(s)")
 
-      val carerAddressPage = page.clickLinkOrButton("#about_you_address")
-//      val carerAddressPage = previewPage.clickLinkOrButton(s"#$id")carerAddress)
+      val carerAddressPage = page.clickLinkOrButton(getLinkId("about_you_address"))
 
       carerAddressPage must beAnInstanceOf[GContactDetailsPage]
 
@@ -130,7 +100,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val newSource = preview.source
 
       newSource must contain("Something totally different, Manchester FY1 2RW")
-      newSource must not(contain("101 Clifton Street, Blackpool FY1 2RW"))
+      newSource must not(contain("No - 101 Clifton Street, Blackpool FY1 2RW"))
 
     }
   }section "preview"
