@@ -5,6 +5,26 @@ article {
 	width: 100%;
 }
 
+/* Set the body size to A4 and add watermark */
+body,
+.page-A4 {
+	padding: 30px; 
+	background-color: white; 
+	width: 21cm; 
+	min-height: 100%; 
+	margin-left: auto; 
+	margin-right: auto; 
+	background-image: url(../../assets/images/reference-watermark.png);
+	background-position: center top;
+	background-repeat: repeat-y;
+    background-size: 100%;
+	box-shadow: 0px 0px 30px rgba(50, 50, 50, 0.75);
+}
+
+*{
+	-webkit-print-color-adjust: exact;
+}
+
 /* Check your answers table */
 table.review .review-value {
 	width: 30%;
@@ -32,24 +52,4 @@ table.review .review-value {
 .legal-disclaimer {
 	text-align: center;
 	font-weight: bold;
-}
-
-/* Set the body size to A4 */
-body,
-.page-A4 {
-	padding: 30px; 
-	background-color: white; 
-	width: 21cm; 
-	min-height: 100%; 
-	margin-left: auto; 
-	margin-right: auto; 
-	background-image: url(../../assets/images/reference-watermark.png);
-	background-position: center top;
-	background-repeat: repeat-y;
-    background-size: 100%;
-	box-shadow: 0px 0px 30px rgba(50, 50, 50, 0.75);
-}
-
-*{
-	-webkit-print-color-adjust: exact;
 }
