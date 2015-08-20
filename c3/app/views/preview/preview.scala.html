@@ -71,3 +71,11 @@
 <section class="footer-print">
 	<h1 class='print-only legal-disclaimer'>@Html(Messages("preview.legalDisclaimer"))</h1>
 </section>
+
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/preview.js")></script>
+
+    <script type="text/javascript">
+        $(function(){
+            window.trackChange()
+        });
+    </script>
