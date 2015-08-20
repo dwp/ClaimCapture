@@ -1,3 +1,4 @@
+@import play.api.Play
 @(previewForm:Form[models.domain.PreviewModel])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 
 @import views.html.helper._
@@ -63,11 +64,13 @@
 <!-- Add legal message to footer -->
 <div class='print-only legal-disclaimer'>This isn't legal proof of your claim.</div>
 
-<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/preview.js")></script>
+@if(!Play.isTest(Play.current)) {
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/preview.js")></script>
 
     <script type="text/javascript">
         $(function(){
             window.trackChange()
         });
     </script>
+}
 
