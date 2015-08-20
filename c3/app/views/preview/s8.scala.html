@@ -68,8 +68,10 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("employment_been_employed_since", Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`),Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim))
+			@fieldWithLink("employment_been_employed_since", Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`),Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim), true)
 
+			@{/* Jobs do not use the fieldWithLink view. The fieldWithLink view accepts text
+					and this produces HTML (an unordered list) */}
 			@jobsId = @{ "employment_jobs" }
 			@if(jobs.isDefined && jobs.get.jobs.size > 0){
 				<tr class="review-change">
@@ -84,38 +86,18 @@
 			            </ul>
 			        </td>
 					<td id="@getLinkContainerId(jobsId, false)" class="review-action hide-print">
-						<a id="@getLinkId(jobsId, false)" class="button secondary">
-							@Html(Messages("preview.change"))
-							<span class="visuallyhidden">@Messages("jobs") (optional)</span>
-						</a>
+
 					</td>
 				</tr>
-			 }
-			 
-			 <tr class="review-change">
-			    <td class="review-label">
-					<b>@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)}</b>
-				</td>
-			    <td class="review-value">
-					@{Messages("label."+emp.beenSelfEmployedSince1WeekBeforeClaim)} @{if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes") "- "+selfEmploymentSummary(claim)}
-				</td>
-				<td class="review-action hide-print">
-					<a class="button secondary">
-						@Html(Messages("preview.change"))
-						<span class="visuallyhidden">@{Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`)} (optional)</span>
-					</a>
-				</td>
-			</tr>
-			
-			@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`), seValue)
+			}
+			@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`), seValue, true)
 
 			@if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
-				@fieldWithLink("self_employment_nature_of_business", Messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness)
+				@fieldWithLink("self_employment_nature_of_business", Messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness, true)
 			}
 			@if(isSelfEmployed || isEmployed){
-				@fieldWithLink("employment_additional_info", Messages("empAdditionalInfo.text"), additionalInfoValue)
+				@fieldWithLink("employment_additional_info", Messages("empAdditionalInfo.text"), additionalInfoValue, true)
 			}
-			
 		</table>
 	</div>
 

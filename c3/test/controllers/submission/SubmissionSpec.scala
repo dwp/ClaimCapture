@@ -12,7 +12,7 @@ class SubmissionSpec extends Specification {
     }
 
     "get COC XML validator for a given change of circs claim" in {
-      xmlValidator(new Claim(CachedChangeOfCircs.key)) should beAnInstanceOf[CocFutureXmlValidatorImpl]
+      xmlValidator(new Claim(CachedChangeOfCircs.key)) should beAnInstanceOf[CaFutureXmlValidatorImpl]
     }
   }
 }

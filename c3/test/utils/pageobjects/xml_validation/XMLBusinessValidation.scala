@@ -1,7 +1,9 @@
 package utils.pageobjects.xml_validation
 
+import gov.dwp.carers.xml.validation.XmlValidatorFactory
 import utils.pageobjects.{TestDatumValue, PageObjectException, FactoryFromFile, TestData}
-import scala.xml.{Elem, XML}
+import scala.util.{Success, Failure, Try}
+import scala.xml.{Utility, Elem, XML}
 import scala.collection.mutable
 import scala.language.postfixOps
 
@@ -39,42 +41,53 @@ abstract class XMLBusinessValidation() {
                        throwException: Boolean,
                        mappingFileName: String,
                        createXMLValidationNode: (Elem, Array[String]) => XMLValidationNode): List[String] = {
-    val mapping = XMLBusinessValidation.buildXmlMappingFromFile(mappingFileName) // Load the XML mapping
 
-    // Go through the attributes of the claim and check that there is a corresponding entry in the XML
-    claim.map.foreach {
-      case (attribute, value) =>
-        try {
-          val xPathNodesAndQuestion = mapping.get(attribute.split("_")(0))
+    //use the ingress validator first
+    Try(XmlValidatorFactory.buildCaFutureValidator().validate(Utility.trim(xml).toString())) match{
+      case Failure(e) ⇒
+        if (throwException) throw new PageObjectException("XML validation failed") else List("ingress xml validation error")
 
-          if (xPathNodesAndQuestion != None) {
-            val path = xPathNodesAndQuestion.get._1
-            val options = path.split("[|]")
+      case Success(false) ⇒
+        if (throwException) throw new PageObjectException("XML validation failed") else List("ingress xml validation error")
 
-            def validateNodeValue(options: Array[String]) {
-              val nodes = options(0).split(">")
-              val elementValue = createXMLValidationNode(xml,nodes)
-              if (!elementValue.isDefined) {
-                if (options.size > 1) validateNodeValue(options.drop(1))
-                else errors += attribute + " " + path + " XML element not found"
-              } else {
-                if (elementValue doesNotMatch objValue(attribute, value, xPathNodesAndQuestion.get._2)) {
-                  if (options.size > 1) validateNodeValue(options.drop(1))
-                  else errors += attribute + " " + path + elementValue.error
+      case Success(true) ⇒
+        val mapping = XMLBusinessValidation.buildXmlMappingFromFile(mappingFileName) // Load the XML mapping
+
+        // Go through the attributes of the claim and check that there is a corresponding entry in the XML
+        claim.map.foreach {
+          case (attribute, value) =>
+            try {
+              val xPathNodesAndQuestion = mapping.get(attribute.split("_")(0))
+
+              if (xPathNodesAndQuestion != None) {
+                val path = xPathNodesAndQuestion.get._1
+                val options = path.split("[|]")
+
+                def validateNodeValue(options: Array[String]) {
+                  val nodes = options(0).split(">")
+                  val elementValue = createXMLValidationNode(xml,nodes)
+                  if (!elementValue.isDefined) {
+                    if (options.size > 1) validateNodeValue(options.drop(1))
+                    else errors += attribute + " " + path + " XML element not found"
+                  } else {
+                    if (elementValue doesNotMatch objValue(attribute, value, xPathNodesAndQuestion.get._2)) {
+                      if (options.size > 1) validateNodeValue(options.drop(1))
+                      else errors += attribute + " " + path + elementValue.error
+                    }
+                  }
                 }
-              }
+
+                validateNodeValue(options)
+              } else  warnings += attribute + " does not have an XML path mapping defined."
             }
+            catch {
+              case e:Exception => errors += attribute + " " + value + " Error: " + e.getMessage
+            }
+        }
 
-            validateNodeValue(options)
-          } else  warnings += attribute + " does not have an XML path mapping defined."
-        }
-        catch {
-          case e:Exception => errors += attribute + " " + value + " Error: " + e.getMessage
-        }
+        if (errors.nonEmpty && throwException) throw new PageObjectException("XML validation failed", errors.toList)
+        errors.toList
     }
-
-    if (errors.nonEmpty && throwException) throw new PageObjectException("XML validation failed", errors.toList)
-    errors.toList
   }
 }
 
