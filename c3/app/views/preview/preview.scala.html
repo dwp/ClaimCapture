@@ -24,9 +24,9 @@
 
                     @errorsSummary(previewForm)
 					
-					<p class="text">Check your answers before sending your application.</p>
+					<p class="text">@Html(Messages("preview.info"))</p>
 					
-					<p class="text helper-prompt">You can change your personal details if needed. If you need to change anything else you'll need to go back through your claim.</p>
+					<p class="text helper-prompt">@Html(Messages("preview.helper"))</p>
 
 					<div class="summary">
 	                    @s2()
@@ -38,11 +38,18 @@
                         @s_additional_info()
 					</div>
 					
-					<p class="hide-print">
-						<a href="javascript:window.print()" class="button secondary button-print" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("button.print.summary"))</a>
+					<p class="hide-print hide-no-js">
+						<a href="javascript:window.print()" class="button secondary button-print" aria-label="@Html(Messages("form.next.help"))">
+							@Html(Messages("button.print.summary"))
+						</a>
 					</p>
 					
-					<p class="hide-print text helper-prompt"><small>Printing won't send your application - you must press next to continue.</small></p>
+					<p class="hide-print helper-prompt">
+						<small>
+							<span class="js-hidden">@Html(Messages("preview.print.noJs"))</span>
+							@Html(Messages("preview.print"))
+						</small>
+					</p>
 
                     @helper.form(action = controllers.preview.routes.Preview.submit) {
                         @DwpCSRFFormHelper.formField
@@ -62,11 +69,5 @@
 
 <!-- Add legal message to footer -->
 <section class="footer-print">
-	<h1 class='print-only legal-disclaimer'>This isn't legal proof of your claim.</h1>
+	<h1 class='print-only legal-disclaimer'>@Html(Messages("preview.legalDisclaimer"))</h1>
 </section>
-
-<!-- Add watermark when printing
-<div class="print-only summary-watermark">
-	<img aria-hidden="true" src="/assets/images/reference-only.png" / >
-</div>
- -->

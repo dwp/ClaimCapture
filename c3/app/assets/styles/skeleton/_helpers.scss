@@ -90,6 +90,13 @@
     display: none;
 }
 
+.hide-no-js {
+	display: none;
+	.js-enabled & {
+		display: block;
+	}
+}
+
 // Vertical Rhythm
 @mixin vertical-rhythm() {
     &:first-child {

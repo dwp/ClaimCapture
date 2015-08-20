@@ -106,7 +106,7 @@
 					</a>
 				</td>
 			</tr>
-			}
+			
 			@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`), seValue)
 
 			@if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
@@ -115,6 +115,7 @@
 			@if(isSelfEmployed || isEmployed){
 				@fieldWithLink("employment_additional_info", Messages("empAdditionalInfo.text"), additionalInfoValue)
 			}
+			
 		</table>
 	</div>
 
