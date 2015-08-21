@@ -25,10 +25,11 @@
         <!-- Carer's Allowance stylesheet -->
         <link rel="stylesheet" media="screen" @nonCachingHref("styles/app_t.min.css")/>
 
+        <!-- Print stylesheet -->
+        <link @nonCachingHref("stylesheets/print.css") media="print" rel="stylesheet" type="text/css">
+
         <!-- To prevent call to /browserconfig.xml from IE11 and higher. We do not use notifications. -->
         <meta name="msapplication-config" content="none" />
-
-        <link @nonCachingHref("stylesheets/print.css") media="print" rel="stylesheet" type="text/css">
 
         <!--[if IE 8]>
         <script type="text/javascript">
