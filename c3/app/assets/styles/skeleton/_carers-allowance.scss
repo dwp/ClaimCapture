@@ -54,6 +54,12 @@ input[name*="nationalInsurance"] {
 	margin-bottom: $gutter;
 }
 
+// Watermark
+
+.legal-watermark {
+	display: none;
+}
+
 // From previous header-footer-only.css
 // ================================================================
 
