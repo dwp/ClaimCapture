@@ -73,9 +73,14 @@
 	<h1 class='print-only legal-disclaimer'>@Html(Messages("preview.legalDisclaimer"))</h1>
 </section>
 
-<!-- All legal watermark when printing -->
+<!-- Add legal watermark when printing -->
 <div class="legal-watermark">
-	<img src="/assets/images/reference-watermark.png" alt="@Html(Messages("preview.legalDisclaimer"))" />
+	<img 
+		src="/assets/images/reference-watermark.png" 
+		height="0" width="0" 
+		style="visibility: hidden" 
+		alt="@Html(Messages("preview.legalDisclaimer"))" 
+	/>
 </div>
 
 @if(!Play.isTest(Play.current)) {
