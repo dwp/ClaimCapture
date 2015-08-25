@@ -5,7 +5,7 @@ import utils.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects._
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_care_you_provide.{GMoreAboutTheCarePage, GTheirContactDetailsPage}
+import utils.pageobjects.s_care_you_provide.{GTheirPersonalDetailsPage, GMoreAboutTheCarePage}
 import utils.pageobjects.preview.PreviewPage
 import utils.helpers.PreviewField._
 
@@ -26,11 +26,11 @@ class GMoreAboutTheCareIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back" in new WithBrowser with PageObjects {
-      val theirContactDetailsPage = GTheirContactDetailsPage(context)
-      theirContactDetailsPage goToThePage()
-      theirContactDetailsPage fillPageWith ClaimScenarioFactory.s4CareYouProvide(hours35 = true)
-      val moreAboutTheCarePage = theirContactDetailsPage submitPage()
-      moreAboutTheCarePage goBack() must beAnInstanceOf[GTheirContactDetailsPage]
+      val theirPersonalDetailsPage = GTheirPersonalDetailsPage(context)
+      theirPersonalDetailsPage goToThePage()
+      theirPersonalDetailsPage fillPageWith ClaimScenarioFactory.s4CareYouProvide(hours35 = true)
+      val moreAboutTheCarePage = theirPersonalDetailsPage submitPage()
+      moreAboutTheCarePage goBack() must beAnInstanceOf[GTheirPersonalDetailsPage]
     }
 
   } section ("integration", models.domain.CareYouProvide.id)

@@ -1,7 +1,7 @@
 package xml.claim
 
 import controllers.mappings.Mappings
-import models.DayMonthYear
+import models.{MultiLineAddress, DayMonthYear}
 import models.domain._
 import xml.XMLComponent
 import xml.XMLHelper._
@@ -15,7 +15,6 @@ object Caree extends XMLComponent {
 
   def xml(claim: Claim) = {
     val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
-    val theirContactDetails = claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
 
     <Caree>
@@ -26,11 +25,11 @@ object Caree extends XMLComponent {
       {question(<TitleOther/>, "titleOther", theirPersonalDetails.titleOther)}
       {question(<DateOfBirth/>, "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`)}
       {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", encrypt(theirPersonalDetails.nationalInsuranceNumber.getOrElse("")))}
-      {postalAddressStructure("address", theirContactDetails.address, encrypt(theirContactDetails.postcode.getOrElse("").toUpperCase))}
+      {postalAddressStructure("address", theirPersonalDetails.theirAddress.address.getOrElse(MultiLineAddress()), encrypt(theirPersonalDetails.theirAddress.postCode.getOrElse("").toUpperCase))}
       {question(<RelationToClaimant/>,"relationship", theirPersonalDetails.relationship)}
       {question(<Cared35Hours/>,"hours.answer", moreAboutTheCare.spent35HoursCaring)}
       {careBreak(claim)}
-      {question(<LiveSameAddress/>,"liveAtSameAddressCareYouProvide", theirPersonalDetails.liveAtSameAddressCareYouProvide)}
+      {question(<LiveSameAddress/>,"theirAddress.answer", theirPersonalDetails.theirAddress.answer)}
     </Caree>
   }
 

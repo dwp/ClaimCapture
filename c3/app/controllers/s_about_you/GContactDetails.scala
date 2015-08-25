@@ -1,6 +1,7 @@
 package controllers.s_about_you
 
-import controllers.s_care_you_provide.GTheirContactDetails
+import controllers.s_care_you_provide.{GTheirPersonalDetails}
+import models.yesNo.YesNoMandWithAddress
 import play.api.data.validation.Constraints
 
 import language.reflectiveCalls
@@ -43,17 +44,20 @@ object GContactDetails extends Controller with CachedClaim with Navigable {
                                         .replaceError("","error.wants.required",FormError("wantsEmailContact",errorRequired))
         BadRequest(views.html.s_about_you.g_contactDetails(updatedForm)(lang))
       },
-      contactDetails =>{
-        val liveAtSameAddress = claim.questionGroup[TheirPersonalDetails].exists(_.liveAtSameAddressCareYouProvide == yes)
+      (contactDetails: ContactDetails) =>{
+        val theirPersonalDetailsQG: Option[TheirPersonalDetails] =  claim.questionGroup[TheirPersonalDetails]
+        val liveAtSameAddress = theirPersonalDetailsQG.exists(_.theirAddress.answer == yes)
 
-        val updatedClaim = if (liveAtSameAddress) {
-          val theirContactDetailsForm =
-            GTheirContactDetails.form.fill(TheirContactDetails(address = contactDetails.address, postcode = contactDetails.postcode))
-          claim.update(theirContactDetailsForm.fold(p => TheirContactDetails(),p => p))
+        //if previously, during the journey the carer selected that the caree lives at the same address,
+        // and then he changes the address - update the caree address too
+        val updatedClaim:Claim = if (liveAtSameAddress) {
+          val addressForm: Form[YesNoMandWithAddress] =
+            Form(GTheirPersonalDetails.addressMapping).fill(YesNoMandWithAddress(address = Some(contactDetails.address), postCode = contactDetails.postcode))
+          val address:YesNoMandWithAddress = addressForm.fold(p => YesNoMandWithAddress(),p => p)
+          claim.update(theirPersonalDetailsQG.get.copy(theirAddress = address))
         }else{
           claim
         }
-
         updatedClaim.update(contactDetails) -> Redirect(routes.GNationalityAndResidency.present())
       })
   } withPreview()

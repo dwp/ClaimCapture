@@ -112,9 +112,6 @@ POST        /your-partner/personal-details                              controll
 GET         /care-you-provide/their-personal-details                    controllers.s_care_you_provide.GTheirPersonalDetails.present
 POST        /care-you-provide/their-personal-details                    controllers.s_care_you_provide.GTheirPersonalDetails.submit
 
-GET         /care-you-provide/their-contact-details                     controllers.s_care_you_provide.GTheirContactDetails.present
-POST        /care-you-provide/their-contact-details                     controllers.s_care_you_provide.GTheirContactDetails.submit
-
 GET         /care-you-provide/more-about-the-care                       controllers.s_care_you_provide.GMoreAboutTheCare.present
 POST        /care-you-provide/more-about-the-care                       controllers.s_care_you_provide.GMoreAboutTheCare.submit
 

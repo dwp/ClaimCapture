@@ -57,7 +57,6 @@ object ClaimPageFactory extends PageFactory {
       case GYourPartnerPersonalDetailsPage.url => GYourPartnerPersonalDetailsPage(ctx)
       // S4
       case GTheirPersonalDetailsPage.url => GTheirPersonalDetailsPage(ctx)
-      case GTheirContactDetailsPage.url => GTheirContactDetailsPage(ctx)
       case GMoreAboutTheCarePage.url => GMoreAboutTheCarePage(ctx)
     }.orElse[String, Page] {
       IterableNode(Breaks, ctx)(iteration => {

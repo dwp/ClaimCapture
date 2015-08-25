@@ -51,7 +51,16 @@
 
                         @carersInputText(currentForm("relationship"), 'helperAbove -> Messages(relationshipHelper()), 'maxLength -> mappings.Mappings.thirtyfive)
                         
-                        @yesNoRadioGroup(currentForm("liveAtSameAddressCareYouProvide"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
+                        @yesNoRadioGroup(currentForm("theirAddress.answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
+
+                        @otherDetailPlaceHolder(
+                            inputDef = Seq(
+                                inputAddress(currentForm("theirAddress.address"), '_label -> Messages("address")),
+                                carersInputText(currentForm("theirAddress.postCode"), 'class -> "postcode",'maxLength -> 8, 'ignoreOptional -> true, '_label -> Messages("postcode"))
+                            ),
+                            'id -> "addressWrapper"
+                        )
+
 
                     </ul>
                     
@@ -65,12 +74,13 @@
         <script type="text/javascript">
             $ ( function ( ) {
                 @ga.stagePrompt()
-
-
                 window.showOrHideCareYouProvideDetails ( {
                 showOrHideDetails : @isPartnerPersonYouCareFor
                 } ) ;
                 window.otherTitle('@CarersCrypto.encryptAES("title")');
+
+                window.initAddress("@CarersCrypto.encryptAES("theirAddress_answer_yes")",
+                  "@CarersCrypto.encryptAES("theirAddress_answer_no")");
             } )
         </script>
 

@@ -61,7 +61,6 @@ object PreviewRouteUtils {
 
   def careYouProvide = {
     val gTheirPersonalDetailsRoute = controllers.s_care_you_provide.routes.GTheirPersonalDetails.present.toString
-    val gTheirContactDetailsRoute = controllers.s_care_you_provide.routes.GTheirContactDetails.present.toString
     val gMoreAboutTheCareRoute = controllers.s_care_you_provide.routes.GMoreAboutTheCare.present.toString
     val gBreaksInCareRoute = controllers.s_care_you_provide.routes.GBreaksInCare.present.toString
 
@@ -71,7 +70,7 @@ object PreviewRouteUtils {
     val breaksInCareList = Seq("care_you_provide_anyBreaks")
 
     val routesMap = Map(personalDetailsList map {id => (id, gTheirPersonalDetailsRoute)} : _*) ++
-                    Map(contactDetailsList map{id => (id, gTheirContactDetailsRoute)} : _*) ++
+                    Map(contactDetailsList map{id => (id, gTheirPersonalDetailsRoute)} : _*) ++
                     Map(moreAboutTheCareList map{id => (id, gMoreAboutTheCareRoute)} : _*) ++
                     Map(breaksInCareList map{id => (id, gBreaksInCareRoute)} : _*)
     routesMap
