@@ -18,7 +18,6 @@
 		case _ => Messages("label.no") + " - " + getAddressLine(theirContactDetails.address)
 	}
 }
-@breaks = @{claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())}
 
 @showHidePartnerDetails = @{
     yourPartner.hadPartnerSinceClaimDate == "no" ||
@@ -39,9 +38,7 @@
     s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${theirContactDetails.postcode.getOrElse("")}"
 }
 
-@breaksAnswer = @{
-    Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) Messages("breaks.details",breaks.breaks.length) else "")
-}
+
 <div class="accordion accordion-open">
 
 	<h2 class="heading-medium accordion-title">@Html(Messages("s4.longName"))</h2>
@@ -55,7 +52,6 @@
 			@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship, true)
 			@fieldWithLink("care_you_provide_address", "liveAtSameAddressCareYouProvide", address, true)
 			@fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(Messages("label."+abouTheCare.spent35HoursCaring))}", true)
-			@fieldWithLink("care_you_provide_anyBreaks", "anyBreaks", Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) " " + Messages("breaks.details",breaks.breaks.length) else ""), true)
 		</table>
 	</div>
 

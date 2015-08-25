@@ -1,6 +1,6 @@
+@import controllers.s_breaks.GBreaksInCare
+@import controllers.s_breaks
 @(yesNoForm: Form[models.domain.BreaksInCareSummary], breaksInCare: models.domain.BreaksInCare)(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
-
-@import controllers.s_care_you_provide.GBreaksInCare
 
 @import views.html.helper.base._
 @import views.html.helper._
@@ -106,12 +106,12 @@ else OtherMoney.name
         </div>
 
     </fieldset>
-    @form(action = controllers.s_care_you_provide.routes.GBreaksInCare.delete, 'role -> "form", 'id -> "deleteForm"){
+    @form(action = controllers.s_breaks.routes.GBreaksInCare.delete, 'role -> "form", 'id -> "deleteForm"){
         @DwpCSRFFormHelper.formField
         @carersInputHidden(GBreaksInCare.deleteForm("deleteId"))
     }
 
-    @form(action = controllers.s_care_you_provide.routes.GBreaksInCare.submit, 'role -> "form") {
+    @form(action = controllers.s_breaks.routes.GBreaksInCare.submit, 'role -> "form") {
     
         @DwpCSRFFormHelper.formField
       
@@ -151,7 +151,7 @@ else OtherMoney.name
 
     }
 
-    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_care_you_provide/g_breaksInCare.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_breaks/g_breaksInCare.js")></script>
 
     <script type="text/javascript">
         $(function () {

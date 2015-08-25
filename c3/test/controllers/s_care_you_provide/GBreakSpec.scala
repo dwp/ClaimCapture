@@ -1,5 +1,6 @@
 package controllers.s_care_you_provide
 
+import controllers.s_breaks.GBreak
 import models.DayMonthYear
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.FakeRequest

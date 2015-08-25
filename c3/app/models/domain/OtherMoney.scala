@@ -4,7 +4,7 @@ import models._
 import models.yesNo.{YesNoWithEmployerAndMoney, YesNo}
 
 case object OtherMoney extends Section.Identifier {
-  val id = "s9"
+  val id = "s10"
 }
 
 case class AboutOtherMoney(anyPaymentsSinceClaimDate: YesNo = YesNo(""),

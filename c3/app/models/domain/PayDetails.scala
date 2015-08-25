@@ -3,7 +3,7 @@ package models.domain
 import models.SortCode
 
 object PayDetails extends Section.Identifier {
-  val id = "s11"
+  val id = "s13"
 }
 
 case class BankBuildingSocietyDetails(accountHolderName: String = "",

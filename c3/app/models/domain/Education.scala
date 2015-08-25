@@ -4,7 +4,7 @@ import models._
 import controllers.mappings.Mappings._
 
 object Education extends Section.Identifier {
-  val id = "s6"
+  val id = "s7"
 }
 
 case class YourCourseDetails(beenInEducationSinceClaimDate: String = "",

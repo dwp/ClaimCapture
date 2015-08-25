@@ -30,7 +30,7 @@ final class GBreakPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object GBreakPage {
-  val url  = "/care-you-provide/breaks"
+  val url  = "/breaks/break"
 
   def apply(ctx:PageObjectsContext, iteration:Int=1) = new GBreakPage(ctx,iteration)
 }
