@@ -4,7 +4,7 @@ import models.yesNo.YesNoWithText
 
 
 object Information extends Section.Identifier {
-  val id = "s10"
+  val id = "s11"
 }
 
 case class AdditionalInfo(anythingElse: YesNoWithText = YesNoWithText(answer = "", text = None), welshCommunication: String = "") extends QuestionGroup(AdditionalInfo)
