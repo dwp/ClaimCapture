@@ -252,10 +252,10 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideNINOPersonCareFor = "AA123456A"
     claim.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/03/1990"
     if (liveSameAddress){
-      claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
+      claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "yes"
 
     }else{
-      claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "No"
+      claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "no"
 
     }
     // Their Contact Details
@@ -310,7 +310,7 @@ object ClaimScenarioFactory {
   def s4CareYouProvideWithNoPersonalDetails() = {
     val claim = new TestData
     // Their Personal Details
-    claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "No"
+    claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "no"
     // Their Contact Details
     claim.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street&Line 2"
     claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"

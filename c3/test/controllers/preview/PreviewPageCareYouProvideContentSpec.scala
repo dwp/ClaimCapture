@@ -71,9 +71,10 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
 
-      val careYouProvideData = ClaimScenarioFactory.s4CareYouProvideWithNoPersonalDetails
-      careYouProvideData.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
-
+      val careYouProvideData = ClaimScenarioFactory.s4CareYouProvideWithNoPersonalDetails()
+      careYouProvideData.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "yes"
+      careYouProvideData - "AboutTheCareYouProvideAddressPersonCareFor"
+      careYouProvideData - "AboutTheCareYouProvidePostcodePersonCareFor"
 
       fillCareProvideSection(context,partnerClaim = partnerData, careYouProvideData)
       val page =  PreviewPage(context)
@@ -132,10 +133,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
     careYouProvidePage goToThePage()
     careYouProvidePage fillPageWith careYouProvideData
 
-    val thierContactDetailsPage = careYouProvidePage submitPage()
-    thierContactDetailsPage fillPageWith careYouProvideData
-
-    val moreAboutTheCarePage = thierContactDetailsPage submitPage()
+    val moreAboutTheCarePage = careYouProvidePage submitPage()
     moreAboutTheCarePage fillPageWith careYouProvideData
 
     val breaksIncarePage = moreAboutTheCarePage submitPage()

@@ -4,7 +4,7 @@ import models._
 import models.Whereabouts
 import models.MultiLineAddress
 import models.NationalInsuranceNumber
-import models.yesNo.{RadioWithText, YesNoWithDate}
+import models.yesNo.{YesNoMandWithAddress, RadioWithText, YesNoWithDate}
 import controllers.Iteration.{Identifier => IterationID}
 
 case object CareYouProvide extends Section.Identifier {
@@ -19,7 +19,8 @@ case class TheirPersonalDetails(relationship: String = "",
                                 surname: String = "",
                                 nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
                                 dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
-                                liveAtSameAddressCareYouProvide: String = "") extends QuestionGroup(TheirPersonalDetails)
+                                theirAddress: YesNoMandWithAddress = YesNoMandWithAddress()
+                                 ) extends QuestionGroup(TheirPersonalDetails)
 
 case object TheirPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g1"
@@ -30,14 +31,8 @@ case object TheirPersonalDetails extends QuestionGroup.Identifier {
       case _ => true
     }
   }
-
 }
 
-case class TheirContactDetails(address: MultiLineAddress = MultiLineAddress(), postcode: Option[String] = None) extends QuestionGroup(TheirContactDetails)
-
-case object TheirContactDetails extends QuestionGroup.Identifier {
-  val id = s"${CareYouProvide.id}.g2"
-}
 
 case class MoreAboutTheCare(spent35HoursCaring: String = "") extends QuestionGroup(MoreAboutTheCare)
 

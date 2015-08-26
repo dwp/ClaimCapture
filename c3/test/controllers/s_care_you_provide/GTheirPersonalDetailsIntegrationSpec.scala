@@ -7,7 +7,7 @@ import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects._
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s_care_you_provide.{GTheirContactDetailsPage, GTheirPersonalDetailsPage}
+import utils.pageobjects.s_care_you_provide.{GMoreAboutTheCarePage, GTheirPersonalDetailsPage}
 import utils.WithJsBrowser
 import utils.helpers.PreviewField._
 
@@ -31,8 +31,8 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       val claim = ClaimScenarioFactory.s4CareYouProvide(hours35 = false)
       theirPersonalDetailsPage goToThePage()
       theirPersonalDetailsPage fillPageWith claim
-      val contactDetailsPage = theirPersonalDetailsPage submitPage()
-      contactDetailsPage must beAnInstanceOf[GTheirContactDetailsPage]
+      val moreAboutCare = theirPersonalDetailsPage submitPage()
+      moreAboutCare must beAnInstanceOf[GMoreAboutTheCarePage]
     }
 
     """navigate back to "Partner details - About your partner" when they have had a partner/spouse at any time since the claim date""" in new WithJsBrowser  with PageObjects {

@@ -21,6 +21,10 @@ class TestData extends Dynamic {
   def updateDynamic(name: String)(value: String) {
     map += name -> value
   }
+
+  def -(name: String) {
+    map -= name
+  }
 }
 
 object TestData {
