@@ -4,10 +4,10 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects._
+import utils.pageobjects.s_breaks.GBreaksInCarePage
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s_care_you_provide.GBreaksInCarePage
 import utils.pageobjects.s_employment.{GEmploymentPage, GBeenEmployedPage}
 import utils.helpers.PreviewField._
 

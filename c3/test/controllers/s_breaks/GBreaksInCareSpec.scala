@@ -1,14 +1,12 @@
-package controllers.s_care_you_provide
+package controllers.s_breaks
 
-import controllers.s_breaks.{GBreaksInCare, GBreak}
 import models.domain.{BreaksInCare, Claim, Claiming}
 import models.view.CachedClaim
 import org.specs2.mutable.{Specification, Tags}
 import play.api.cache.Cache
-import play.api.test.Helpers._
 import play.api.test.FakeRequest
+import play.api.test.Helpers._
 import utils.WithApplication
-import play.api.data.Forms._
 
 class GBreaksInCareSpec extends Specification with Tags {
   "Breaks from care" should {

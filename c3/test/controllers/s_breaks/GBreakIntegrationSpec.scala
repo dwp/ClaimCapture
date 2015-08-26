@@ -1,17 +1,17 @@
-package controllers.s_care_you_provide
+package controllers.s_breaks
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.Logger
-import controllers.{ClaimScenarioFactory, WithBrowserHelper, BrowserMatchers, Formulate}
-import models.DayMonthYear
-import java.util.concurrent.TimeUnit
-import play.api.test.WithBrowser
-import utils.pageobjects.PageObjects
-import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_care_you_provide.{GBreakPage, GBreaksInCarePage}
 import app.CircsBreaksWhereabouts._
-import utils.pageobjects.s_education.GYourCourseDetailsPage
+import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate, WithBrowserHelper}
+import models.DayMonthYear
+import org.specs2.mutable.{Specification, Tags}
+import play.api.Logger
+import play.api.test.WithBrowser
 import utils.WithJsBrowser
+import utils.pageobjects.PageObjects
+import utils.pageobjects.s_breaks.{GBreaksInCarePage, GBreakPage}
+import utils.pageobjects.s_breaks.GBreaksInCarePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
+import utils.pageobjects.s_education.GYourCourseDetailsPage
 
 class GBreakIntegrationSpec extends Specification with Tags {
   "Break" should {

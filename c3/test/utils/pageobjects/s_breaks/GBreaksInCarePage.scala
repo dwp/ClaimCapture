@@ -1,4 +1,4 @@
-package utils.pageobjects.s_care_you_provide
+package utils.pageobjects.s_breaks
 
 import utils.WithBrowser
 import utils.pageobjects._

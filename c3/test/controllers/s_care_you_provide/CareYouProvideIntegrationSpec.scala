@@ -4,7 +4,8 @@ import org.specs2.mutable.{Tags, Specification}
 import utils.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.PageObjects
-import utils.pageobjects.s_care_you_provide.{GBreaksInCarePage, GTheirPersonalDetailsPage}
+import utils.pageobjects.s_breaks.GBreaksInCarePage
+import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 
 class CareYouProvideIntegrationSpec extends Specification with Tags {

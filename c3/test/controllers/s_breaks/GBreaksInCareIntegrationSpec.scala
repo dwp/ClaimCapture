@@ -1,18 +1,15 @@
-package controllers.s_care_you_provide
+package controllers.s_breaks
 
-import models.DayMonthYear
-import org.openqa.selenium.htmlunit.HtmlUnitDriver
-import org.openqa.selenium.{JavascriptExecutor, By}
-import org.specs2.mutable.{Tags, Specification}
-import utils.pageobjects.s_education.GYourCourseDetailsPage
-import utils.{WithJsBrowser, WithBrowser}
-import play.api.Logger
 import controllers._
-import utils.pageobjects.s_claim_date.GClaimDatePage
+import org.openqa.selenium.By
+import org.specs2.mutable.{Specification, Tags}
+import play.api.Logger
 import utils.pageobjects._
-import utils.pageobjects.s_care_you_provide.{GMoreAboutTheCarePage, GBreakPage, GTheirPersonalDetailsPage, GBreaksInCarePage}
-import utils.pageobjects.preview.PreviewPage
-import utils.helpers.PreviewField._
+import utils.pageobjects.s_breaks.{GBreaksInCarePage, GBreakPage}
+import utils.pageobjects.s_breaks.GBreaksInCarePage
+import utils.pageobjects.s_claim_date.GClaimDatePage
+import utils.pageobjects.s_education.GYourCourseDetailsPage
+import utils.{WithBrowser, WithJsBrowser}
 
 class GBreaksInCareIntegrationSpec extends Specification with Tags {
   "Breaks from care" should {

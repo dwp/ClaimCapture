@@ -1,17 +1,15 @@
-package controllers.s_care_you_provide
+package controllers.s_breaks
 
-import controllers.s_breaks.GBreak
+import app.CircsBreaksWhereabouts._
 import models.DayMonthYear
-import org.specs2.mutable.{Tags, Specification}
+import models.domain.{BreaksInCare, Claiming}
+import models.view.CachedClaim
+import org.specs2.mutable.{Specification, Tags}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.api.cache.Cache
-import models.domain.{Claiming, BreaksInCare, Claim}
-import models.view.CachedClaim
-import app.CircsBreaksWhereabouts._
-import utils.pageobjects.{TestData, PageObjects}
-import utils.pageobjects.s_care_you_provide.{GBreaksInCarePage, GBreakPage}
-import utils.{WithJsBrowser, WithApplication}
+import utils.pageobjects.s_breaks.GBreaksInCarePage
+import utils.pageobjects.{PageObjects, TestData}
+import utils.{WithApplication, WithJsBrowser}
 
 class GBreakSpec extends Specification with Tags {
   "Break" should {
