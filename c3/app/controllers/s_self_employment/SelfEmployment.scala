@@ -1,5 +1,6 @@
 package controllers.s_self_employment
 
+import play.api.Logger
 import play.api.mvc._
 import models.view.CachedClaim
 import models.domain._
@@ -24,8 +25,8 @@ object SelfEmployment extends Controller with CachedClaim with Navigable {
     lazy val previousEmp = claim.previouslySavedClaim.get.questionGroup[Employment]
     lazy val previousSEValue = previousEmp.get.beenSelfEmployedSince1WeekBeforeClaim
     val SEValue = emp.beenSelfEmployedSince1WeekBeforeClaim
-
-    if (models.domain.SelfEmployment.visible && (!beenInPreview || beenInPreview && SEValue == yes && previousSEValue == no)) c
+                                                 //This part of the condition has been removed due to review on user story about enabling changing employment/self-employment on check your answers
+    if (models.domain.SelfEmployment.visible ) c //&& (!beenInPreview || beenInPreview && SEValue == yes && previousSEValue == no)) c
     else redirect(lang)
   }
 
