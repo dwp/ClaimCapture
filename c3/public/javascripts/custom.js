@@ -18,6 +18,15 @@ $(function() {
         $(this).text(labelText);
     });    
 
+	// Close keyboard on date fields (mobile)
+	if (matchMedia('(max-width: 640px)').matches) {
+		$('.form-group-year input').on("keyup", function( event ){
+			if(this.value.length == this.getAttribute('maxlength')) {
+				$(this).blur();
+			}
+		});
+	}
+	
     // Add the "focus" value to class attribute 
     $('.block-label').focusin( function() {
         $(this).addClass('focus');
