@@ -37,9 +37,15 @@ case class Navigation(routes: List[Route[_]] = List(), beenInPreview:Boolean = f
 
 
   def resetPreviewState():Navigation = copy(beenInPreview = false)
-                                                                                                                                                                       //As all controllers are calling false, once we set it to true, we want to remain like that till we call resetPreviewState
-  def track[T](t: T,beenInPreviewParam:Boolean = false)(route: String)(implicit classTag: ClassTag[T]): Navigation = copy(routes.takeWhile(_.uri != route) :+ Route[T](route), if(!beenInPreview)beenInPreviewParam else beenInPreview)
-
+  //As all controllers are calling false, once we set it to true, we want to remain like that till we call resetPreviewState
+  def track[T](t: T,beenInPreviewParam:Boolean = false)(route: String)(implicit classTag: ClassTag[T]): Navigation = {
+    val beenPreviewParam = if(!beenInPreview)beenInPreviewParam else beenInPreview
+    if(beenInPreview){
+      this
+    }else {
+      copy(routes.takeWhile(_.uri != route) :+ Route[T](route), beenPreviewParam)
+    }
+  }
   def trackBackToBeginningOfSection[T](t: T)(route: String)(implicit classTag: ClassTag[T]): Navigation = copy(routes.takeWhile(_.uri != route) :+ Route[T](route))
 
   def current: Route[_] = if (routes.isEmpty) Route("") else routes.last
