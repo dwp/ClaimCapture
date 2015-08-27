@@ -51,7 +51,7 @@
 
                         @carersInputText(currentForm("relationship"), 'helperAbove -> Messages(relationshipHelper()), 'maxLength -> mappings.Mappings.thirtyfive)
                         
-                        @yesNoRadioGroup(currentForm("theirAddress.answer"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
+                        @yesNoRadioGroup(currentForm("theirAddress.answer"), 'track -> true, 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
 
                         @otherDetailPlaceHolder(
                             inputDef = Seq(
