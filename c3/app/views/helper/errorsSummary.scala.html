@@ -1,9 +1,19 @@
-@(form: Form[_])(implicit lang: Lang)
+@(form: Form[_])(implicit lang: Lang, request: Request[AnyContent])
 
 @import utils.helpers.CarersCrypto
 @import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.GAHelper._
+@import app.ConfigProperties._
 
-@if(form.hasErrors) {
+    @gaTrack(key: String, errorMessage: String)  = @{
+        if(getProperty("include.analytics", default = true) ){
+            trackEvent(request.path, "Error", Some(s"$key - $errorMessage"))
+        }else{
+            ""
+        }
+    }
+
+    @if(form.hasErrors) {
     <div class="validation-summary">
         <h2 class="heading-small">@Html(Messages("error.title"))</h2>
         <p>@Html(Messages("error.label"))</p>
@@ -17,5 +27,14 @@
             }
         </ol>
     </div>
+
+<script type="text/javascript">
+    $(function() {
+            @for(error <- form.errors) {
+                @Html(gaTrack(Messages(error.key, error.args: _*), Messages(error.message, error.args: _*)))
+            }
+    });
+</script>
+
 }
 
