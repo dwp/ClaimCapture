@@ -1,0 +1,92 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGBUS (0xa) at pc=0x000000010e246ac5, pid=16218, tid=9987
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_31-b13) (build 1.8.0_31-b13)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.31-b07 mixed mode bsd-amd64 compressed oops)
+# Problematic frame:
+# V  [libjvm.dylib+0x446ac5]  ObjArrayKlass::oop_push_contents(PSPromotionManager*, oopDesc*)+0x95
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007faefb80f800):  GCTaskThread [stack: 0x000000011eeed000,0x000000011efed000] [id=9987]
+
+siginfo: si_signo: 10 (SIGBUS), si_code: 2 (BUS_ADRERR), si_addr: 0x000000079cf5e4b8
+
+Registers:
+RAX=0x000000079cf5e4b8, RBX=0x00000007002ace74, RCX=0x0000000000000003, RDX=0x0000000000000000
+RSP=0x000000011efecc40, RBP=0x000000011efecc70, RSI=0x00000007002ace6d, RDI=0x00007faefd80ab40
+R8 =0x000000010e69e7d0, R9 =0x00000007002ab2f0, R10=0x00000007002ad2f0, R11=0xffffffff7b345320
+R12=0x000000000000005d, R13=0x000000010e5f2dd0, R14=0x00007faefd80ab40, R15=0x0000000000000080
+RIP=0x000000010e246ac5, EFLAGS=0x0000000000010206, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x000000011efecc40)
+0x000000011efecc40:   00007faefd80ab40 e600000000000001
+0x000000011efecc50:   00000007002accf0 00007faefd80ab01
+0x000000011efecc60:   00007faefd80ab40 000000010e6878e0
+0x000000011efecc70:   000000011efecce0 000000010e298822
+0x000000011efecc80:   00000007920467a4 0000000784f679d0
+0x000000011efecc90:   0000000792aefd48 0000000000001000
+0x000000011efecca0:   00000007002ab2f0 0000000000000400
+0x000000011efeccb0:   00000007002a27d5 00000007002acce5
+0x000000011efeccc0:   000000010e6955e6 00000007002acce5
+0x000000011efeccd0:   00000007002acce4 00007faefd80abd8
+0x000000011efecce0:   000000011efecd00 000000010e29894f
+0x000000011efeccf0:   00007faefd80ab40 00007faefd80aba0
+0x000000011efecd00:   000000011efecd60 000000010e297a7c
+0x000000011efecd10:   0000000000000009 0100000791dcfa01
+0x000000011efecd20:   00000007002acce5 000000011efecd78
+0x000000011efecd30:   0000000791dcfa00 0000000000000003
+0x000000011efecd40:   000000011efecd84 000000011efecd78
+0x000000011efecd50:   00007faefd351b70 00007faefd80ab40
+0x000000011efecd60:   000000011efecdb0 000000010e29b3ab
+0x000000011efecd70:   0000000000000003 0000000791dcfa01
+0x000000011efecd80:   1e2a1b721efecdb0 00007faefb80f800
+0x000000011efecd90:   0000000000000000 000000010e3d55f8
+0x000000011efecda0:   00007faefd351b70 0000000000000001
+0x000000011efecdb0:   000000011efece90 000000010e061e6d
+0x000000011efecdc0:   000000011efecdf0 00007faef9f09810
+0x000000011efecdd0:   00007faef9f09840 00007faef9f09850
+0x000000011efecde0:   00007faef9f09c28 00000000000003d8
+0x000000011efecdf0:   00007faefb80f800 00007faef9f09c30
+0x000000011efece00:   00007faef9f09c60 00007faef9f09c70
+0x000000011efece10:   00007faef9f09d48 00000000000000d8
+0x000000011efece20:   000000011efece30 0000000000000000
+0x000000011efece30:   00007faefb80f800 00007faef9f09c30 
+
+Instructions: (pc=0x000000010e246ac5)
+0x000000010e246aa5:   00 00 8b 03 48 8d 0d 28 7d 45 00 48 3b 01 72 e2
+0x000000010e246ab5:   48 85 db 74 dd 41 8b 4d 08 48 d3 e0 49 8b 55 00
+0x000000010e246ac5:   48 8b 34 10 48 83 e6 03 48 83 fe 03 75 b9 48 8b
+0x000000010e246ad5:   04 02 48 8d 35 bc 12 39 00 80 3e 00 74 11 48 89 
+
+Register to memory mapping:
+
+RAX=0x000000079cf5e4b8 is an unallocated location in the heap
+RBX=0x00000007002ace74 is pointing into object: 0x00000007002accf0
+[Lscala.collection.mutable.HashEntry; 
+ - klass: 'scala/collection/mutable/HashEntry'[]
+ - length: 128
+RCX=0x0000000000000003 is an unknown value
+RDX=0x0000000000000000 is an unknown value
+RSP=0x000000011efecc40 is an unknown value
+RBP=0x000000011efecc70 is an unknown value
+RSI=0x00000007002ace6d is pointing into object: 0x00000007002accf0
+[Lscala.collection.mutable.HashEntry; 
+ - klass: 'scala/collection/mutable/HashEntry'[]
+ - length: 128
+RDI=0x00007faefd80ab40 is an unknown value
+R8 =0x000000010e69e7d0: _ZN10PSScavenge26_young_generation_boundaryE+0 in /Library/Java/JavaVirtualMachines/jdk1.8.0_31.jdk/Contents/Home/jre/lib/server/libjvm.dylib at 0x000000010de00000
+R9 =0x00000007002ab2f0 is an oop
+[C 
+ - klass: {type array char}
+ - length: 126
+R10=
