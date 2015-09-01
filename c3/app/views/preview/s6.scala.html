@@ -13,13 +13,13 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("education_beenInEducationSinceClaimDate", "beenInEducationSinceClaimDate", Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase), true)
+			@fieldWithLink("education_beenInEducationSinceClaimDate", "beenInEducationSinceClaimDate", Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase))
 			@if(yourCourseDetails.beenInEducationSinceClaimDate == "yes"){
-			    @fieldWithLink("education_courseTitle", "courseTitle", yourCourseDetails.title.get, true)
-			    @fieldWithLink("education_nameOfSchool", "nameOfSchoolCollegeOrUniversity", yourCourseDetails.nameOfSchoolCollegeOrUniversity.get, true)
-			    @fieldWithLink("education_nameOfTutor", "nameOfMainTeacherOrTutor", yourCourseDetails.nameOfMainTeacherOrTutor.get, true)
-				@fieldWithLink("education_contactNumber", "courseContactNumber", yourCourseDetails.courseContactNumber.getOrElse(Messages("detailsNotProvided")), true)
-			    @fieldWithLink("education_startEndDates", "startEndDates", {yourCourseDetails.startDate.get.`dd month, yyyy`}.concat(" - ").concat(yourCourseDetails.expectedEndDate.get.`dd month, yyyy`), true)
+			    @fieldWithLink("education_courseTitle", "courseTitle", yourCourseDetails.title.get)
+			    @fieldWithLink("education_nameOfSchool", "nameOfSchoolCollegeOrUniversity", yourCourseDetails.nameOfSchoolCollegeOrUniversity.get)
+			    @fieldWithLink("education_nameOfTutor", "nameOfMainTeacherOrTutor", yourCourseDetails.nameOfMainTeacherOrTutor.get)
+				@fieldWithLink("education_contactNumber", "courseContactNumber", yourCourseDetails.courseContactNumber.getOrElse(Messages("detailsNotProvided")))
+			    @fieldWithLink("education_startEndDates", "startEndDates", {yourCourseDetails.startDate.get.`dd month, yyyy`}.concat(" - ").concat(yourCourseDetails.expectedEndDate.get.`dd month, yyyy`))
 			}
 		</table>
 	</div>
