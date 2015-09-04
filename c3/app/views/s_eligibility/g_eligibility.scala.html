@@ -8,6 +8,7 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 @import play.api.i18n.{MMessages => Messages}
+@import play.api.Play
 
 @defining(lang) { implicit language =>
     @main(Messages("s0.progressbar.name") + " - " + Messages("s0.longName"), Some(currentForm),changing = true) {
@@ -32,9 +33,21 @@
 
         <script type="text/javascript">
             $(function () {
-            window.initEvents("warninghours_answer","@CarersCrypto.encryptAES("hours_answer_yes")", "@CarersCrypto.encryptAES("hours_answer_no")");
-            window.initEvents("warningover16_answer","@CarersCrypto.encryptAES("over16_answer_yes")", "@CarersCrypto.encryptAES("over16_answer_no")");
-            window.initEvents("warninglivesInGB_answer","@CarersCrypto.encryptAES("livesInGB_answer_yes")", "@CarersCrypto.encryptAES("livesInGB_answer_no")");
+                window.initEvents("warninghours_answer","@CarersCrypto.encryptAES("hours_answer_yes")", "@CarersCrypto.encryptAES("hours_answer_no")");
+                window.initEvents("warningover16_answer","@CarersCrypto.encryptAES("over16_answer_yes")", "@CarersCrypto.encryptAES("over16_answer_no")");
+                window.initEvents("warninglivesInGB_answer","@CarersCrypto.encryptAES("livesInGB_answer_yes")", "@CarersCrypto.encryptAES("livesInGB_answer_no")");
+
+            @if(!Play.isTest(Play.current)){
+                var hoursId = '@CarersCrypto.encryptAES("hours_answer")';
+                var res = $('#'+hoursId).parents('li.form-group')
+                                        .find('.validation-summary a')
+                                        .click(
+                                            function(){
+                                                trackEvent('allowance/elegibility','carers-credit','clicked');
+                                            });
+            }
+
+
             });
         </script>
 
