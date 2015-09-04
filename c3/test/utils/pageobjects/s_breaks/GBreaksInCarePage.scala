@@ -1,4 +1,4 @@
-package utils.pageobjects.s_care_you_provide
+package utils.pageobjects.s_breaks
 
 import utils.WithBrowser
 import utils.pageobjects._
@@ -12,7 +12,7 @@ final class GBreaksInCarePage(ctx:PageObjectsContext, iteration: Int) extends Cl
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object GBreaksInCarePage {
-  val url  = "/care-you-provide/breaks-in-care"
+  val url  = "/breaks/breaks-in-care"
 
   def apply(ctx:PageObjectsContext, iteration:Int=1) = new GBreaksInCarePage(ctx,iteration)
 }

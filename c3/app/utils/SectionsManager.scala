@@ -10,6 +10,7 @@ object SectionsManager {
     AboutYou,
     YourPartner,
     CareYouProvide,
+    Breaks,
     Education,
     SelfEmployment,
     Employed,

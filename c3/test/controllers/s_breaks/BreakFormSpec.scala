@@ -1,10 +1,6 @@
-package controllers.s_care_you_provide
+package controllers.s_breaks
 
-import controllers.mappings.Mappings
-import play.api.data.{FormError, Form}
-import org.specs2.mutable.{Tags, Specification}
-import models.{DayMonthYear, Whereabouts}
-import models.domain.Break
+import org.specs2.mutable.{Specification, Tags}
 
 class BreakFormSpec extends Specification with Tags {
   val data = Map(

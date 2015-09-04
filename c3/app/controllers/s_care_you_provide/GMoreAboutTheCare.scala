@@ -1,5 +1,7 @@
 package controllers.s_care_you_provide
 
+import controllers.s_breaks.GBreaksInCare
+
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
@@ -25,7 +27,7 @@ object GMoreAboutTheCare extends Controller with CachedClaim with Navigable {
       formWithErrors => {
         BadRequest(views.html.s_care_you_provide.g_moreAboutTheCare(formWithErrors)(lang))
       },
-      moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(routes.GBreaksInCare.present())
+      moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(controllers.s_breaks.routes.GBreaksInCare.present())
     )
   } withPreview()
 }

@@ -5,7 +5,7 @@ window.initSummary = (deleteId) ->
 
     $("ul").on "click", "input[name='changerow']", ->
         li = $(this).closest("li")
-        window.location.href = "/care-you-provide/breaks/" + li.attr("id")
+        window.location.href = "/breaks/break/" + li.attr("id")
 
     $("#backButton").on "click", (event) ->
         if ($("#backButton").attr("disabled") == "disabled")

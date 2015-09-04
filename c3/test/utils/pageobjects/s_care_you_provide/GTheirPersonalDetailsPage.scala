@@ -17,7 +17,9 @@ final class GTheirPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPage
   declareInput("#surname", "AboutTheCareYouProvideSurnamePersonCareFor")
   declareNino("#nationalInsuranceNumber", "AboutTheCareYouProvideNINOPersonCareFor")
   declareDate("#dateOfBirth", "AboutTheCareYouProvideDateofBirthPersonYouCareFor")
-  declareYesNo("#liveAtSameAddressCareYouProvide", "AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou")
+  declareYesNo("#theirAddress_answer", "AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou")
+  declareAddress("#theirAddress_address", "AboutTheCareYouProvideAddressPersonCareFor")
+  declareInput("#theirAddress_postCode", "AboutTheCareYouProvidePostcodePersonCareFor")
 }
 
 /**

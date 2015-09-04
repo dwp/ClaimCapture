@@ -1,13 +1,12 @@
-package controllers.s_care_you_provide
+package controllers.s_breaks
 
 import models.domain.{BreaksInCare, Claim, Claiming}
 import models.view.CachedClaim
 import org.specs2.mutable.{Specification, Tags}
 import play.api.cache.Cache
-import play.api.test.Helpers._
 import play.api.test.FakeRequest
+import play.api.test.Helpers._
 import utils.WithApplication
-import play.api.data.Forms._
 
 class GBreaksInCareSpec extends Specification with Tags {
   "Breaks from care" should {
@@ -29,21 +28,21 @@ class GBreaksInCareSpec extends Specification with Tags {
       val request = FakeRequest().withFormUrlEncodedBody("answer" -> "yes")
 
       val result = GBreaksInCare.submit(request)
-      redirectLocation(result).get must contain("/care-you-provide/breaks/")
+      redirectLocation(result).get must contain("/breaks/break/")
     }
 
     """accept "no" to "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withFormUrlEncodedBody("answer" -> "no")
 
       val result = GBreaksInCare.submit(request)
-      redirectLocation(result) should beSome("/care-you-provide/their-personal-details")
+      redirectLocation(result) should beSome("/education/your-course-details")
     }
 
     "complete upon indicating that there are no more breaks having provided zero break details" in new WithApplication with Claiming {
       val request = FakeRequest().withFormUrlEncodedBody("answer" -> "no")
 
       val result = GBreaksInCare.submit(request)
-      redirectLocation(result) should beSome("/care-you-provide/their-personal-details")
+      redirectLocation(result) should beSome("/education/your-course-details")
 
       val claim = Cache.getAs[Claim](extractCacheKey(result)).get
 
@@ -64,7 +63,7 @@ class GBreaksInCareSpec extends Specification with Tags {
         "hasBreakEnded.answer" -> "no")
 
       val result1 = GBreak.submit(request1)
-      redirectLocation(result1) should beSome("/care-you-provide/breaks-in-care")
+      redirectLocation(result1) should beSome("/breaks/breaks-in-care")
 
       val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("answer" -> "no")
 
@@ -88,7 +87,7 @@ class GBreaksInCareSpec extends Specification with Tags {
           "medicalDuringBreak" -> "no",
           "hasBreakEnded.answer" -> "no")
       val result1 = GBreak.submit(request1)
-      redirectLocation(result1) should beSome("/care-you-provide/breaks-in-care")
+      redirectLocation(result1) should beSome("/breaks/breaks-in-care")
 
       for (i <- 2 to 10) {
         val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
@@ -103,7 +102,7 @@ class GBreaksInCareSpec extends Specification with Tags {
           "hasBreakEnded.answer" -> "no")
 
         val result = GBreak.submit(request)
-        redirectLocation(result) should beSome("/care-you-provide/breaks-in-care")
+        redirectLocation(result) should beSome("/breaks/breaks-in-care")
       }
 
       getClaimFromCache(result1).questionGroup(BreaksInCare) should beLike {
@@ -122,7 +121,7 @@ class GBreaksInCareSpec extends Specification with Tags {
         "hasBreakEnded.answer" -> "no")
 
       val result2 = GBreak.submit(request2)
-      redirectLocation(result2) should beSome("/care-you-provide/breaks-in-care")
+      redirectLocation(result2) should beSome("/breaks/breaks-in-care")
 
       getClaimFromCache(result2).questionGroup(BreaksInCare) should beLike {
         case Some(b: BreaksInCare) => b.breaks.size shouldEqual 10

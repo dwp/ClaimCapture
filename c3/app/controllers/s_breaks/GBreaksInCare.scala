@@ -1,21 +1,21 @@
-package controllers.s_care_you_provide
+package controllers.s_breaks
 
 import controllers.IterationID
-import play.api.Logger
-import play.api.mvc.Controller
-import play.api.data.{FormError, Form}
-import play.api.i18n.{MMessages => Messages}
-import play.api.data.Forms._
-import utils.helpers.CarersForm._
-import controllers.mappings.Mappings._
-import models.domain._
-import models.view.{Navigable, CachedClaim}
-import scala.language.postfixOps
-import play.api.i18n.Lang
 import controllers.mappings.Mappings
-import models.domain.Claim
+import controllers.mappings.Mappings._
+import controllers.s_breaks.{GBreak, GBreaksInCare}
+import models.domain.{Claim, _}
+import models.view.{CachedClaim, Navigable}
 import models.yesNo.DeleteId
+import play.api.Logger
+import play.api.data.Forms._
+import play.api.data.{Form, FormError}
+import play.api.i18n.{Lang, MMessages => Messages}
+import play.api.mvc.Controller
+import utils.helpers.CarersForm._
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+
+import scala.language.postfixOps
 
 object GBreaksInCare extends Controller with CachedClaim with Navigable {
 
@@ -25,7 +25,7 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable {
 
 
   def present = claimingWithCheck { implicit claim => implicit request =>  lang =>
-    track(BreaksInCare) { implicit claim => Ok(views.html.s_care_you_provide.g_breaksInCare(form.fill(BreaksInCareSummary), breaksInCare)(lang)) }
+    track(BreaksInCare) { implicit claim => Ok(views.html.s_breaks.g_breaksInCare(form.fill(BreaksInCareSummary), breaksInCare)(lang)) }
   }
 
   def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
@@ -34,14 +34,14 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable {
     import controllers.mappings.Mappings.yes
 
     def next(hasBreaks:String) = hasBreaks match {
-      case `yes` if breaksInCare.breaks.size < 10 => Redirect(routes.GBreak.present(IterationID(form)))
+      case `yes` if breaksInCare.breaks.size < 10 => Redirect(controllers.s_breaks.routes.GBreak.present(IterationID(form)))
       case _ => redirect(claim, lang)
     }
 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("answer", Mappings.errorRequired, errorMessage)
-        BadRequest(views.html.s_care_you_provide.g_breaksInCare(formWithErrorsUpdate, breaksInCare)(lang))
+        BadRequest(views.html.s_breaks.g_breaksInCare(formWithErrorsUpdate, breaksInCare)(lang))
       },
       hasBreaks => claim.update(hasBreaks) -> next(hasBreaks.answer))
   }.withPreviewConditionally[BreaksInCareSummary](breaksInCareSummary => breaksInCareSummary._2.answer == Mappings.no)
@@ -60,13 +60,9 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable {
   }
 
   private def redirect(implicit claim: Claim, lang: Lang) = {
-    if (completedQuestionGroups.isEmpty) Redirect(routes.GTheirPersonalDetails.present())
-    else Redirect(controllers.s_education.routes.GYourCourseDetails.present)
+    Redirect(controllers.s_education.routes.GYourCourseDetails.present)
   }
 
-  private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
-    claim.completedQuestionGroups(models.domain.CareYouProvide)
-  }
 
   val deleteForm = Form(mapping(
     "deleteId" -> nonEmptyText
@@ -77,11 +73,11 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable {
 
     Logger.info(s"delete, params ${request.body.asFormUrlEncoded}")
     deleteForm.bindEncrypted.fold(
-      errors    =>  BadRequest(views.html.s_care_you_provide.g_breaksInCare(form, breaksInCare)(lang)),
+      errors    =>  BadRequest(views.html.s_breaks.g_breaksInCare(form, breaksInCare)(lang)),
       deleteForm=>  {
         val updatedBreaks = breaksInCare.delete(deleteForm.id)
-        if (updatedBreaks.breaks == breaksInCare.breaks) BadRequest(views.html.s_care_you_provide.g_breaksInCare(form, breaksInCare)(lang))
-        else claim.update(updatedBreaks) -> Redirect(controllers.s_care_you_provide.routes.GBreaksInCare.present)
+        if (updatedBreaks.breaks == breaksInCare.breaks) BadRequest(views.html.s_breaks.g_breaksInCare(form, breaksInCare)(lang))
+        else claim.update(updatedBreaks) -> Redirect(routes.GBreaksInCare.present)
       }
     )
   }

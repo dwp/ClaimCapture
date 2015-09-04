@@ -1,3 +1,4 @@
+@import controllers.s_breaks.GBreak
 @(breakForm: Form[models.domain.Break], backCall:Call)(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
 @import utils.helpers.CheckboxTemplate
 @import utils.helpers.CarersTemplate
@@ -27,7 +28,7 @@
 
 @main("Break - About the care you provide", Some(breakForm), Some(backCall)) {
 
-@form(action = controllers.s_care_you_provide.routes.GBreak.submit, 'role -> "form") {
+@form(action = controllers.s_breaks.routes.GBreak.submit, 'role -> "form") {
 
     <input type="hidden" name="iterationID" value="@IterationID(breakForm)">
 
@@ -89,7 +90,7 @@
 
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/listWithOther.js")></script>
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
-    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_care_you_provide/g_breakDates.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_breaks/g_breakDates.js")></script>
 
     <script type="text/javascript">
         $(function(){

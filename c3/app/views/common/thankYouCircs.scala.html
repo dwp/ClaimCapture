@@ -99,7 +99,7 @@ getProperty("email.frontend",false) && circs.questionGroup[CircumstancesReportCh
                     <p>@Html(Messages("circs.next.1"))</p>
                 } else {
                     <p>@Html(Messages("circs.next.nodocuments.1"))</p>
-                    <p>@Html(Messages("circs.next.nodocuments.2")) <a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.another.change.short"))</a></p>
+                    <p>@Html(Messages("circs.next.nodocuments.2")) <a href="@Html(Messages("thankyou.report.change.url"))" rel="external" target="blank">@Html(Messages("thankyou.report.another.change.short"))</a>.</p>
                 }
 
                 @if(showEmployment1Messages || showEmployment2Messages) {
@@ -144,8 +144,6 @@ getProperty("email.frontend",false) && circs.questionGroup[CircumstancesReportCh
             </div>
 
             <br />
-
-            <p><a href="@Html(Messages("thankyou.report.change.url"))">@Html(Messages("thankyou.report.another.change"))</a></p>
 
             <div class="finish-button">@Html(Messages("circs.feedback.link"))</div>
 

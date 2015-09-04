@@ -28,14 +28,14 @@ object GEmployment extends Controller with CachedClaim with Navigable {
       form.bindEncrypted.fold(
         formWithErrors => {
           val formWithErrorsUpdate = formWithErrors
-            .replaceError("beenEmployedSince6MonthsBeforeClaim", errorRequired,
-              FormError("beenEmployedSince6MonthsBeforeClaim",
-                errorRequired,
-                Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
             .replaceError("beenSelfEmployedSince1WeekBeforeClaim", errorRequired,
               FormError("beenSelfEmployedSince1WeekBeforeClaim",
                 errorRequired,
                 Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 1 week).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
+            .replaceError("beenEmployedSince6MonthsBeforeClaim", errorRequired,
+              FormError("beenEmployedSince6MonthsBeforeClaim",
+                errorRequired,
+                Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
           BadRequest(views.html.s_self_employment.g_employment(formWithErrorsUpdate)(lang))
         },employment => {
           val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, models.domain.Employed)

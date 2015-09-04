@@ -1,16 +1,17 @@
-package controllers.s_care_you_provide
+package controllers.s_breaks
 
-import play.api.mvc.Controller
-import play.api.data.Form
-import play.api.data.Forms._
-import utils.helpers.CarersForm._
-import models.domain.{BreaksInCareSummary, BreaksInCare, Break}
-import models.view.CachedClaim
-import play.api.data.FormError
-import GBreaksInCare.breaksInCare
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
-import models.yesNo.{YesNoWithDate, RadioWithText}
+import controllers.s_breaks
+import controllers.s_breaks.GBreaksInCare.breaksInCare
+import controllers.s_care_you_provide.routes
+import models.domain.{Break, BreaksInCare, BreaksInCareSummary}
+import models.view.CachedClaim
+import models.yesNo.{RadioWithText, YesNoWithDate}
+import play.api.data.{Form, FormError}
+import play.api.data.Forms._
+import play.api.mvc.Controller
+import utils.helpers.CarersForm._
 
 
 object GBreak extends Controller with CachedClaim {
@@ -62,7 +63,7 @@ object GBreak extends Controller with CachedClaim {
         .replaceError("start.date",errorRequired, FormError("start",errorRequired, Seq("This field is required")))
         .replaceError("hasBreakEnded.answer",errorRequired, FormError("hasBreakEnded.answer",errorRequired, Seq("This field is required")))
         .replaceError("hasBreakEnded","hasBreakEnded.date.required", FormError("hasBreakEnded.date",errorRequired, Seq("This field is required")))
-        BadRequest(views.html.s_care_you_provide.g_break(fwe,backCall)(lang))
+        BadRequest(views.html.s_breaks.g_break(fwe,backCall)(lang))
       },
       break => {
         val updatedBreaksInCare = if (breaksInCare.breaks.size >= 10) breaksInCare else breaksInCare.update(break)
@@ -77,6 +78,6 @@ object GBreak extends Controller with CachedClaim {
  def present(iterationID: String) = claimingWithCheck{ implicit claim =>  implicit request =>  lang =>
    val break = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(Break())
 
-    Ok(views.html.s_care_you_provide.g_break(form.fill(break),backCall)(lang))
+    Ok(views.html.s_breaks.g_break(form.fill(break),backCall)(lang))
   }
 }
