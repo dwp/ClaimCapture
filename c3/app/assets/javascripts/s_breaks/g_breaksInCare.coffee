@@ -42,8 +42,12 @@ window.initEvents = (answer_yes, answer_no) ->
 
 
 window.updateNextLabel = (answer_yes,answer_no,textNext,textReturn) ->
+  button = $("button.button")
+  if $("#" + answer_yes).is ":checked"
+    button.text(textNext)
+
   $("#" + answer_yes).on "click", ->
-    $("button.button").text(textNext)
+    button.text(textNext)
 
   $("#" + answer_no).on "click", ->
-    $("button.button").text(textReturn)
+    button.text(textReturn)
