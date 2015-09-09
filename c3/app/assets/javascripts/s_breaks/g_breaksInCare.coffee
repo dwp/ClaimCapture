@@ -38,3 +38,16 @@ window.initEvents = (answer_yes, answer_no) ->
 
   $("#" + answer_no).on "click", ->
       $("#warningMessageWrap").slideUp()
+
+
+
+window.updateNextLabel = (answer_yes,answer_no,textNext,textReturn) ->
+  button = $("button.button")
+  if $("#" + answer_yes).is ":checked"
+    button.text(textNext)
+
+  $("#" + answer_yes).on "click", ->
+    button.text(textNext)
+
+  $("#" + answer_no).on "click", ->
+    button.text(textReturn)
