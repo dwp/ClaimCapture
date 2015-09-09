@@ -169,21 +169,17 @@
                     <h2>@Messages("mail.next.line3")</h2>
 
                     <p>@Messages("mail.next.line4")</p>
-                    <p><b>@Messages("mail.next.line5")</b></p>
+                    <p>@Html(Messages("mail.next.line5"))</p>
                     <p>@Messages("mail.next.line6")</p>
 
-                    <ol>
-                        <li>@Html(Messages("mail.next.line7"))</li>
-                        <li>@Messages("mail.next.line8")
-                            <div class="address">
-                                <span><b>@Messages("mail.next.line9")</b></span><br />
-                                <span> @Messages("mail.next.line10")</span><br />
-                                <span> @Messages("mail.next.line11")</span><br />
-                                <span>@Messages("mail.next.line12")</span><br />
-                                <span> @Messages("mail.next.line13")</span>
-                            </div>
-                        </li>
-                    </ol>
+                    <div class="address">
+                        <span>@Messages("mail.next.line9")</span><br />
+                        <span> @Messages("mail.next.line10")</span><br />
+                        <span> @Messages("mail.next.line11")</span><br />
+                        <span>@Messages("mail.next.line12")</span><br />
+                        <span> @Messages("mail.next.line13")</span>
+                    </div>
+                    <p><b>@Messages("mail.next.line14")</b></p>
 
                 </div>
 
@@ -191,14 +187,8 @@
 
                     <h2>@Messages("mail.disclaimer.title")</h2>
 
-                    <p>@Messages("mail.disclaimer.line1")</p>
                     <p>@Messages("mail.disclaimer.line2")</p>
                     <p>@Messages("mail.disclaimer.line3")</p>
-
-                    <ul>
-                        <li>@Messages("mail.disclaimer.line4")</li>
-                        <li>@Html(Messages("mail.disclaimer.line5"))</li>
-                    </ul>
 
                 </div>
 
