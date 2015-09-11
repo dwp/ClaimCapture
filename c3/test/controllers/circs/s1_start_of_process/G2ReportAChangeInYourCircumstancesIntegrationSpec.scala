@@ -71,7 +71,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Full name - This field is required")
+        errors(0) must contain("Full name - You must complete this section")
       }
 
       "missing nino field" in new WithBrowser with PageObjects {
@@ -89,7 +89,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 2
-        errors(0) must contain("National Insurance number - This field is required")
+        errors(0) must contain("National Insurance number - You must complete this section")
       }
 
       "invalid nino containing numbers" in new WithBrowser with PageObjects {
@@ -126,7 +126,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Date of birth - This field is required")
+        errors(0) must contain("Date of birth - You must complete this section")
       }
 
       "missing theirFullName field" in new WithBrowser with PageObjects {
@@ -144,7 +144,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Their full name - This field is required")
+        errors(0) must contain("Their full name - You must complete this section")
       }
 
       "missing fullName field" in new WithBrowser with PageObjects {
@@ -162,7 +162,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Their relationship to you - This field is required")
+        errors(0) must contain("Their relationship to you - You must complete this section")
       }
 
       "navigate to next page when addition info selected" in new WithBrowser with PageObjects{

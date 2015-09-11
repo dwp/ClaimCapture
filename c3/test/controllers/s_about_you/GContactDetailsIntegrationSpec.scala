@@ -40,7 +40,7 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
 
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
-      errors(0) must contain("Contact phone or mobile number - This field is required")
+      errors(0) must contain("Contact phone or mobile number - You must complete this section")
     }
 
     "valid submission if 'Contact phone or mobile number' is filled in with number" in new WithJsBrowser with PageObjects{
