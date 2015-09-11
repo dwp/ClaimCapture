@@ -44,7 +44,9 @@ object EmailServices {
         implicit val lang = if (isWelsh) Lang("cy") else Lang("en")
 
         CadsEmail.send(claim.transactionId.getOrElse(""), subject = claimEmailSubject(claim), body = views.html.mail(claim, isClaim = true, isEmployment(claim)).body, contactDetails.email.get)
-      case (Some(contactDetails), Some(additionalInfo)) if contactDetails.email.isEmpty => //We do nothing in this case, they have selected not to send email
+      case (Some(contactDetails), Some(additionalInfo)) if contactDetails.email.isEmpty =>
+        Logger.info(s"Not sending claim email because the user didn't input an address for transid: [${claim.transactionId.getOrElse("id not present")}]")
+      //We do nothing in this case, they have selected not to send email
       case _ => Logger.error(s"Can't send claim email, email not present for transactionId[${claim.transactionId.getOrElse("id not present")}]")
     }
   }
