@@ -20,7 +20,9 @@ import utils.LightFakeApplication
  */
 class EmailTemplateSpec extends Specification with Tags {
 
-  def escapeMessage(id:String,param:String="") = HtmlFormat.escape(Messages(id,param)).toString
+  def escapeMessage(id:String,param:String="") = Messages(id,param)
+//  def escapeMessage(id:String,param:String="") = HtmlFormat.escape(Messages(id,param)).toString
+
   "Email template" should {
 
     val xmlSchemaVersionNumber = "some value"
