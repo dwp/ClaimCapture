@@ -21,7 +21,7 @@
             @for(error <- form.errors) {
                 <li>
                     <a href="#@CarersCrypto.encryptAES(error.key.replace(".","_"))">
-                        @Html(Messages(error.key, error.args: _*)) - @Html(Messages(error.message, error.args: _*))
+                        @Html(Messages(error.key, error.args: _*)) - <span class="lower-case">@Html(Messages(error.message, error.args: _*))</span>
                     </a>
                 </li>
             }
