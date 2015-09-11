@@ -17,7 +17,7 @@ import controllers.CarersForms._
 object GYourCourseDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "beenInEducationSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
-    "courseTitle" -> optional(carersNonEmptyText(maxLength = 50)),
+    "courseTitle" -> optional(carersNonEmptyText(maxLength = 75)),
     "nameOfSchoolCollegeOrUniversity" -> optional(carersNonEmptyText(maxLength = sixty)),
     "nameOfMainTeacherOrTutor" -> optional(carersNonEmptyText(maxLength = sixty)),
     "courseContactNumber" -> optional(text verifying validPhoneNumber),

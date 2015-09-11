@@ -26,7 +26,7 @@
 
 @defining(lang) { implicit language =>
 
-@main("Break - About the care you provide", Some(breakForm), Some(backCall)) {
+@main("Break - About the care you provide", Some(breakForm), Some(backCall),true) {
 
 @form(action = controllers.s_breaks.routes.GBreak.submit, 'role -> "form") {
 
@@ -84,7 +84,7 @@
 
         </fieldset>
 
-        @views.html.common.bottomNavigation(backCall = Some(backCall))
+        @views.html.common.bottomNavigation(nextLabel = Some("form.next"), backCall = Some(backCall), forceShowAfterPreview = true)
 
     }
 

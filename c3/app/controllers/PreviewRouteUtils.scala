@@ -63,7 +63,7 @@ object PreviewRouteUtils {
 
   def breaks = {
 
-    val gBreaksInCareRoute = GBreaksInCare.present.toString
+    val gBreaksInCareRoute = controllers.s_breaks.routes.GBreaksInCare.present.toString
 
     val breaksInCareList = Seq("care_you_provide_anyBreaks")
 
