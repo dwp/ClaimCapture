@@ -104,91 +104,91 @@
 
                 <br />
 
-                <h1 class="form-title heading-large">@Messages(s"mail.$claimType.title")</h1>
+                <h1 class="form-title heading-large">@Html(Messages(s"mail.$claimType.title"))</h1>
 
-                <p>@Messages(s"mail.$claimType.successful")</p>
+                <p>@Html(Messages(s"mail.$claimType.successful"))</p>
 
                 <div class="section">
 
-                    <h2>@Messages("mail.next.title")</h2>
+                    <h2>@Html(Messages("mail.next.title"))</h2>
 
                     @if(isEmployment && !isCofcSelfEmployment) {
 
-                        <p>@Messages("mail.next.send1")</p>
+                        <p>@Html(Messages("mail.next.send1"))</p>
 
                         <ul>
                             @if(isClaim){
                                 @if(isClaimSelfEmployment) {
-                                    <li>@Messages("mail.claim.next.se.send")</li>
+                                    <li>@Html(Messages("mail.claim.next.se.send"))</li>
                                 }
                                 @if(isClaimEmployment) {
-                                    <li>@Messages("mail.claim.next.send2", claimDate)</li>
-                                    <li>@Messages("mail.claim.next.send3", claimDate)</li>
+                                    <li>@Html(Messages("mail.claim.next.send2", claimDate))</li>
+                                    <li>@Html(Messages("mail.claim.next.send3", claimDate))</li>
                                 }
-                                @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Messages("mail.claim.next.send4")</li>}
+                                @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Html(Messages("mail.claim.next.send4"))</li>}
                             }else{
                                 @if(!isCofcSelfEmployment){
-                                    <li>@Messages("mail.cofc.next.send2")</li>
+                                    <li>@Html(Messages("mail.cofc.next.send2"))</li>
                                     @if(isCofcFinishedEmployment) {
-                                        <li>@Messages("mail.cofc.next.send3")</li>
+                                        <li>@Html(Messages("mail.cofc.next.send3"))</li>
                                     }
-                                    <li>@Messages("mail.cofc.next.send4")</li>
+                                    <li>@Html(Messages("mail.cofc.next.send4"))</li>
                                 }
                             }
                         </ul>
 
-                        <p>@Messages("mail.next.send5")</p>
+                        <p>@Html(Messages("mail.next.send5"))</p>
 
                         <div class="address">
-                            <span><b>@Messages("mail.next.send6")</b></span><br />
-                            <span>@Messages("mail.next.send7")</span><br />
-                            <span>@Messages("mail.next.send8")</span><br />
-                            <span>@Messages("mail.next.send9")</span><br />
+                            <span><b>@Html(Messages("mail.next.send6"))</b></span><br />
+                            <span>@Html(Messages("mail.next.send7"))</span><br />
+                            <span>@Html(Messages("mail.next.send8"))</span><br />
+                            <span>@Html(Messages("mail.next.send9"))</span><br />
                         </div>
 
                     }
 
                     @if(isClaim){
                         @if(isEmployment){
-                            <p>@Messages("mail.claim.next.line1.alt")</p>
+                            <p>@Html(Messages("mail.claim.next.line1.alt"))</p>
                         }else{
-                            <p>@Messages("mail.claim.next.line1")</p>
+                            <p>@Html(Messages("mail.claim.next.line1"))</p>
                         }
                     }
 
                     @if(isEmployment&& !isCofcSelfEmployment){
-                        <p>@Messages("mail.next.line2")</p>
+                        <p>@Html(Messages("mail.next.line2"))</p>
                     } else{
-                        <p>@Messages("mail.next.line")</p>
+                        <p>@Html(Messages("mail.next.line"))</p>
                     }
 
                 </div>
 
                 <div class="section">
 
-                    <h2>@Messages("mail.next.line3")</h2>
+                    <h2>@Html(Messages("mail.next.line3"))</h2>
 
-                    <p>@Messages("mail.next.line4")</p>
+                    <p>@Html(Messages("mail.next.line4"))</p>
                     <p>@Html(Messages("mail.next.line5"))</p>
-                    <p>@Messages("mail.next.line6")</p>
+                    <p>@Html(Messages("mail.next.line6"))</p>
 
                     <div class="address">
-                        <span>@Messages("mail.next.line9")</span><br />
-                        <span> @Messages("mail.next.line10")</span><br />
-                        <span> @Messages("mail.next.line11")</span><br />
-                        <span>@Messages("mail.next.line12")</span><br />
-                        <span> @Messages("mail.next.line13")</span>
+                        <span>@Html(Messages("mail.next.line9"))</span><br />
+                        <span> @Html(Messages("mail.next.line10"))</span><br />
+                        <span> @Html(Messages("mail.next.line11"))</span><br />
+                        <span>@Html(Messages("mail.next.line12"))</span><br />
+                        <span> @Html(Messages("mail.next.line13"))</span>
                     </div>
-                    <p><b>@Messages("mail.next.line14")</b></p>
+                    <p><b>@Html(Messages("mail.next.line14"))</b></p>
 
                 </div>
 
                 <div class="section">
 
-                    <h2>@Messages("mail.disclaimer.title")</h2>
+                    <h2>@Html(Messages("mail.disclaimer.title"))</h2>
 
-                    <p>@Messages("mail.disclaimer.line2")</p>
-                    <p>@Messages("mail.disclaimer.line3")</p>
+                    <p>@Html(Messages("mail.disclaimer.line2"))</p>
+                    <p>@Html(Messages("mail.disclaimer.line3"))</p>
 
                 </div>
 
@@ -197,7 +197,7 @@
         </div><!-- main -->
 
         <div class="footer">
-            <p><b>@Messages("mail.donotreply")</b></p>
+            <p><b>@Html(Messages("mail.donotreply"))</b></p>
             <br />
             <p style="font-size: 16px; color: #BFC1C3;">@getProperty("xml.schema.version", "No schema version found")</p>
         </div>
