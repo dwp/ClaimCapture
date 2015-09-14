@@ -4,7 +4,7 @@
 @import utils.helpers.CarersHelpers._
 @import utils.helpers._
 
-<li class="form-group" @if(elements.hasErrors) { class="validation" }>
+<li class="form-group @if(elements.hasErrors) { validation-error }">
 
     @if(elements.hasErrors) {
         <p class="error">@elements.carersErrors.mkString(", ")</p>
