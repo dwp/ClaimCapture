@@ -15,6 +15,7 @@ final class G9EmploymentChangePage(ctx:PageObjectsContext) extends Circumstances
   declareInput("#typeOfWork_selfEmployedTypeOfWork", "CircumstancesEmploymentChangeSelfEmployedTypeOfWork")
   declareYesNoDontKnow("#typeOfWork_selfEmployedTotalIncome", "CircumstancesEmploymentChangeSelfEmployedTotalIncome")
   declareInput("#typeOfWork_selfEmployedMoreAboutChanges", "CircumstancesEmploymentChangeSelfEmployedMoreAboutChanges")
+  declareInput("#typeOfWork_employerName", "CircumstancesEmploymentChangeEmployerName")
   declareAddress("#typeOfWork_employerNameAndAddress", "CircumstancesEmploymentChangeEmployerNameAndAddress")
   declareInput("#typeOfWork_employerPostcode", "CircumstancesEmploymentChangeEmployerPostcode")
   declareInput("#typeOfWork_employerContactNumber", "CircumstancesEmploymentChangeEmployerContactNumber")

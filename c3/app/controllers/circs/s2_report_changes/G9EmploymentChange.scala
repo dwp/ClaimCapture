@@ -49,6 +49,7 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
   val typeOfWork =
     "typeOfWork" -> mapping(
       "answer" -> nonEmptyText.verifying(validTypeOfWork),
+      "employerName" -> optional(carersText(minLength = 2, maxLength = 60)),
       "employerNameAndAddress" -> optional(address.verifying(requiredAddress)),
       "employerPostcode" -> optional(carersText verifying validPostcode),
       "employerContactNumber" -> optional(carersText(maxLength = 15)),
@@ -57,6 +58,7 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
       "selfEmployedTotalIncome" -> optional(carersText.verifying(validYesNoDontKnow)),
       "selfEmployedMoreAboutChanges" -> optional(carersText(maxLength = 300))
     )(YesNoWithAddressAnd2TextOrTextWithYesNoAndText.apply)(YesNoWithAddressAnd2TextOrTextWithYesNoAndText.unapply)
+      .verifying("expected.employerName", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateNameOnSpecifiedAnswer(_, "employed"))
       .verifying("expected.employerNameAndAddress1", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateAddressOnSpecifiedAnswer(_, "employed"))
       .verifying("expected.selfEmploymentTypeOfWork", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateText2OnSpecifiedAnswer(_, "self-employed"))
       .verifying("expected.selfEmploymentTotalIncome", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateAnswer2OnSpecifiedAnswer(_, "self-employed"))
@@ -104,6 +106,7 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
           .replaceError("hasWorkStartedYet","expected.yesYesNoValue", FormError("hasWorkFinishedYet.answer", errorRequired))
           .replaceError("hasWorkFinishedYet","expected.yesValue", FormError("hasWorkFinishedYet.dateWhenFinished", errorRequired))
           .replaceError("hasWorkStartedYet","expected.noDateValue", FormError("hasWorkStartedYet.dateWhenWillItStart", errorRequired))
+          .replaceError("typeOfWork","expected.employerName", FormError("typeOfWork.employerName", errorRequired))
           .replaceError("typeOfWork","expected.employerNameAndAddress1", FormError("typeOfWork.employerNameAndAddress", errorRequired))
           .replaceError("typeOfWork","expected.employerNameAndAddress2", FormError("typeOfWork.employerNameAndAddress", "nameAndAddress.required"))
           .replaceError("typeOfWork","expected.employerPostCode", FormError("typeOfWork.employerPostcode", errorRequired))

@@ -70,13 +70,15 @@
                     )
 
                     @yesNoRadioGroup(typeOfWork("answer"),
-                        'values -> Seq("employed" -> Html(Messages("typeOfWork.employed")), "self-employed" -> Html(Messages("typeOfWork.selfemployed"))),
+                        'values -> Seq("employed" -> Messages("typeOfWork.employed"), "self-employed" -> Messages("typeOfWork.selfemployed")),
                         'helperAbove -> Html(Messages("typeOfWork.help")),
-                        '_boltonClass -> "radio-stack"
+                        '_boltonClass -> "radio-stack" ,
+                        'track -> true, 'trackLabel -> "typeOfWork"
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
+                            carersInputText(typeOfWork("employerName"), 'maxLength -> 60, 'minLength -> 2, 'ignoreOptional -> true),
                             inputAddress(typeOfWork("employerNameAndAddress"), 'ignoreOptional -> true),
                             carersInputText(typeOfWork("employerPostcode"), 'maxLength -> 8, 'class -> "postcode"),
                             carersInputText(typeOfWork("employerContactNumber"), 'maxLength -> 15),

@@ -92,6 +92,8 @@ object EmploymentChange {
 
   def startedEmploymentAndOngoingChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesStartedEmploymentAndOngoing): NodeSeq = {
     <StartedEmploymentAndOngoing>
+      {question(<EmployerName/>, "typeOfWork.employerName", circsEmploymentChange.typeOfWork.employerName)}
+
       {postalAddressStructureOpt("typeOfWork.employerNameAndAddress", circsEmploymentChange.typeOfWork.address, circsEmploymentChange.typeOfWork.postCode.getOrElse("").toUpperCase)}
 
       {question(<EmployerContactNumber/>, "typeOfWork.employerContactNumber", circsEmploymentChange.typeOfWork.text1a)}
@@ -186,6 +188,8 @@ object EmploymentChange {
 
   def startedAndFinishedEmploymentChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesStartedAndFinishedEmployment): NodeSeq = {
     <StartedEmploymentAndFinished>
+      {question(<EmployerName/>, "typeOfWork.employerName", circsEmploymentChange.typeOfWork.employerName)}
+
       {postalAddressStructureOpt("typeOfWork.employerNameAndAddress", circsEmploymentChange.typeOfWork.address, circsEmploymentChange.typeOfWork.postCode.getOrElse("").toUpperCase)}
 
       {question(<EmployerContactNumber/>, "typeOfWork.employerContactNumber", circsEmploymentChange.typeOfWork.text1a)}
@@ -264,6 +268,8 @@ object EmploymentChange {
 
   def employmentNotStartedChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesEmploymentNotStarted): NodeSeq = {
     <NotStartedEmployment>
+      {question(<EmployerName/>, "typeOfWork.employerName", circsEmploymentChange.typeOfWork.employerName)}
+
       {postalAddressStructureOpt("typeOfWork.employerNameAndAddress", circsEmploymentChange.typeOfWork.address, circsEmploymentChange.typeOfWork.postCode.getOrElse("").toUpperCase)}
 
       {question(<EmployerContactNumber/>, "typeOfWork.employerContactNumber", circsEmploymentChange.typeOfWork.text1a)}
