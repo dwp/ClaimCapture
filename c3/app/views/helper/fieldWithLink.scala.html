@@ -1,4 +1,6 @@
-@(id:String, name:String, value:String,disableLink:Boolean = false)(implicit lang: Lang)
+@import utils.helpers.CarersCrypto
+@import utils.helpers.CarersCrypto.encryptAES
+@(id:String, name:String, value:String,disableLink:Boolean = false, elementId:Option[String]=None)(implicit lang: Lang)
 
 @import play.api.i18n.{MMessages => Messages}
 @import controllers.PreviewRouteUtils._
@@ -22,7 +24,7 @@
 	</td>
 	<td id="@getLinkContainerId(id, false)" class="review-action hide-print">
 		@if(!disableLink) {
-		<a class="button secondary" id="@getLinkId(id, false)" href="@{routesMap(id)}">
+		<a class="button secondary" id="@getLinkId(id, false)" href="@{routesMap(id)}#@{elementId.fold("")(encryptAES)}">
 			@Html(Messages("preview.change"))
 			<span class="visuallyhidden">@label (optional)</span>
 		</a>
