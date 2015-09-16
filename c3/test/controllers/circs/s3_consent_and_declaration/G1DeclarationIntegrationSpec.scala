@@ -59,7 +59,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 //
 //        val errors = page.submitPage().listErrors
 //        errors.size mustEqual 1
-//        errors(0) must contain("Contact phone or mobile number - This field is required")
+//        errors(0) must contain("Contact phone or mobile number - You must complete this section")
 //      }
 
       "missing obtainInfoAgreement field" in new WithJsBrowser  with PageObjects{
@@ -73,7 +73,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Do you agree to us obtaining information from any other persons or organisations you may have told us about? - This field is required")
+        errors(0) must contain("Do you agree to us obtaining information from any other persons or organisations you may have told us about? - You must complete this section")
       }
 
       "given obtainInfoAgreement is set to 'no' missing obtainInfoWhy field" in new WithJsBrowser  with PageObjects{
@@ -86,7 +86,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Tell us why not - This field is required")
+        errors(0) must contain("Tell us why not - You must complete this section")
       }
 
       "given circsSomeOneElse checked and missing name or organisation field" in new WithJsBrowser  with PageObjects{
@@ -101,7 +101,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Your name and/or organisation - This field is required")
+        errors(0) must contain("Your name and/or organisation - You must complete this section")
       }
 //
 //      "missing wants email contact field" in new WithJsBrowser  with PageObjects{
@@ -146,7 +146,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
 //        errors.size mustEqual 1
-//        errors(0) must contain("Contact phone or mobile number - This field is required")
+//        errors(0) must contain("Contact phone or mobile number - You must complete this section")
         page.ctx.browser.findFirst("#obtainInfoWhy").isDisplayed should beFalse
       }
 */
