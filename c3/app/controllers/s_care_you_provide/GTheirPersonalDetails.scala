@@ -3,6 +3,7 @@ package controllers.s_care_you_provide
 import controllers.mappings.AddressMappings._
 import controllers.mappings.Mappings
 import models.yesNo.YesNoMandWithAddress
+import play.api.Logger
 
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
@@ -48,6 +49,8 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
   def present = claimingWithCheck { implicit claim => implicit request => lang =>
     val isPartnerPersonYouCareFor = YourPartner.visible &&
       claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse("") == "yes")
+
+    Logger.info(claim.navigation.toString)
 
     val currentForm = if (isPartnerPersonYouCareFor) {
       claim.questionGroup(YourPartnerPersonalDetails) match {

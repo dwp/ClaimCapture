@@ -13,7 +13,9 @@
     }
 }
 @additionalInfoWelsh = @{Messages("label." + additionalInfo.welshCommunication)}
-
+@disableChangeButton = @{
+    !app.ConfigProperties.getProperty("cyaToggleVisible",true)
+}
 <div class="accordion accordion-open">
 
     <h2 class="heading-medium accordion-title">@Html(Messages("s10_2.g1"))</h2>

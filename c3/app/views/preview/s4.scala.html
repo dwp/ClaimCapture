@@ -35,7 +35,9 @@
 @getAddressLine(address: MultiLineAddress) = @{
     s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${theirPersonalDetails.theirAddress.postCode.getOrElse("")}"
 }
-
+@disableChangeButton = @{
+	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
+}
 
 <div class="accordion accordion-open">
 
@@ -44,12 +46,12 @@
 	<div class="accordion-content">
 		<table class="review">
 			@if(showHidePartnerDetails){
-			    @fieldWithLink("care_you_provide_name", "name", partnerTitleName, true)
-			    @fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`, true)
+			    @fieldWithLink("care_you_provide_name", "name", partnerTitleName,disableLink = disableChangeButton)
+			    @fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`,disableLink = disableChangeButton)
 			}
-			@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship, true)
-			@fieldWithLink("care_you_provide_address", "theirAddress.answer", address, true)
-			@fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(Messages("label."+abouTheCare.spent35HoursCaring))}", true)
+			@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship,disableLink = disableChangeButton)
+			@fieldWithLink("care_you_provide_address", "theirAddress.answer", address,disableLink = disableChangeButton)
+			@fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(Messages("label."+abouTheCare.spent35HoursCaring))}",disableLink = disableChangeButton)
 		</table>
 	</div>
 

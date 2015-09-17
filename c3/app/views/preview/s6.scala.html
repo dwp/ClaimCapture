@@ -6,6 +6,9 @@
 
 
 @yourCourseDetails = @{claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())}
+@disableChangeButton = @{
+	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
+}
 
 <div class="accordion accordion-open">
 
