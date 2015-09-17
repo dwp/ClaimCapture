@@ -26,6 +26,9 @@
         case _ => otherStatutoryPay
     }
 }
+@disableChangeButton = @{
+    !app.ConfigProperties.getProperty("cyaToggleVisible",true)
+}
 
 <div class="accordion accordion-open">
 	
@@ -33,9 +36,9 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-            @fieldWithLink("other_money_anyPaymentsSinceClaimDate", "anyPaymentsSinceClaimDate.answer", anyPaymentsSinceClaimDate)
-            @fieldWithLink("other_money_statutoryPay", "haveYouHadAnyStatutorySickPay.label", statutoryPay)
-            @fieldWithLink("other_money_otherStatutoryPay", "otherPay.label", otherStatutoryPay)
+            @fieldWithLink("other_money_anyPaymentsSinceClaimDate", "anyPaymentsSinceClaimDate.answer", anyPaymentsSinceClaimDate,disableLink = disableChangeButton)
+            @fieldWithLink("other_money_statutoryPay", "haveYouHadAnyStatutorySickPay.label", statutoryPay,disableLink = disableChangeButton)
+            @fieldWithLink("other_money_otherStatutoryPay", "otherPay.label", otherStatutoryPay,disableLink = disableChangeButton)
 		</table>
 	</div>
 

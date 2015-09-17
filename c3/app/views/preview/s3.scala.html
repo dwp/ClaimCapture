@@ -8,20 +8,22 @@
 @titleNames = @{
     s"${Html(Messages("titleSelect."+yourPartner.title.getOrElse("").toLowerCase))} ${yourPartner.firstName.get} ${middleName}${yourPartner.surname.get}"
 }
-
+@disableChangeButton = @{
+	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
+}
 <div class="accordion accordion-open">
 
 	<h2 class="heading-medium accordion-title">@Html(Messages("s3.longName"))</h2>
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("partner_hadPartner", "hadPartnerSinceClaimDate", Messages("label."+yourPartner.hadPartnerSinceClaimDate) )
+			@fieldWithLink("partner_hadPartner", "hadPartnerSinceClaimDate", Messages("label."+yourPartner.hadPartnerSinceClaimDate),disableLink = disableChangeButton )
 			@if(yourPartner.hadPartnerSinceClaimDate.toLowerCase == "yes"){
-			    @fieldWithLink("partner_name", "name", titleNames )
-			    @fieldWithLink("partner_dateOfBirth", "dateOfBirth", yourPartner.dateOfBirth.getOrElse(DayMonthYear(None,None,None)).`dd month, yyyy`)
-			    @fieldWithLink("partner_nationality", "partner.nationality", yourPartner.nationality.get)
-			    @fieldWithLink("partner_seperated", "separated.fromPartner", Messages("label."+yourPartner.separatedFromPartner.get.toLowerCase))
-			    @fieldWithLink("partner_isPersonCareFor", "isPartnerPersonYouCareFor", Messages("label."+yourPartner.isPartnerPersonYouCareFor.get.toLowerCase))
+			    @fieldWithLink("partner_name", "name", titleNames ,disableLink = disableChangeButton)
+			    @fieldWithLink("partner_dateOfBirth", "dateOfBirth", yourPartner.dateOfBirth.getOrElse(DayMonthYear(None,None,None)).`dd month, yyyy`,disableLink = disableChangeButton)
+			    @fieldWithLink("partner_nationality", "partner.nationality", yourPartner.nationality.get,disableLink = disableChangeButton)
+			    @fieldWithLink("partner_seperated", "separated.fromPartner", Messages("label."+yourPartner.separatedFromPartner.get.toLowerCase),disableLink = disableChangeButton)
+			    @fieldWithLink("partner_isPersonCareFor", "isPartnerPersonYouCareFor", Messages("label."+yourPartner.isPartnerPersonYouCareFor.get.toLowerCase),disableLink = disableChangeButton)
 			}
 		</table>
 	</div>

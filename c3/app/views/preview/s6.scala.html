@@ -6,6 +6,9 @@
 
 
 @yourCourseDetails = @{claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())}
+@disableChangeButton = @{
+	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
+}
 
 <div class="accordion accordion-open">
 
@@ -13,13 +16,13 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("education_beenInEducationSinceClaimDate", "beenInEducationSinceClaimDate", Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase))
+			@fieldWithLink("education_beenInEducationSinceClaimDate", "beenInEducationSinceClaimDate", Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase),disableLink = disableChangeButton)
 			@if(yourCourseDetails.beenInEducationSinceClaimDate == "yes"){
-				@fieldWithLink("education_courseTitle", "courseTitle", yourCourseDetails.title.get)
-				@fieldWithLink("education_nameOfSchool", "nameOfSchoolCollegeOrUniversity", yourCourseDetails.nameOfSchoolCollegeOrUniversity.get)
-				@fieldWithLink("education_nameOfTutor", "nameOfMainTeacherOrTutor", yourCourseDetails.nameOfMainTeacherOrTutor.get)
-				@fieldWithLink("education_contactNumber", "courseContactNumber", yourCourseDetails.courseContactNumber.getOrElse(Messages("detailsNotProvided")))
-				@fieldWithLink("education_startEndDates", "startEndDates", {yourCourseDetails.startDate.get.`dd month, yyyy`}.concat(" - ").concat(yourCourseDetails.expectedEndDate.get.`dd month, yyyy`))
+				@fieldWithLink("education_courseTitle", "courseTitle", yourCourseDetails.title.get,disableLink = disableChangeButton)
+				@fieldWithLink("education_nameOfSchool", "nameOfSchoolCollegeOrUniversity", yourCourseDetails.nameOfSchoolCollegeOrUniversity.get,disableLink = disableChangeButton)
+				@fieldWithLink("education_nameOfTutor", "nameOfMainTeacherOrTutor", yourCourseDetails.nameOfMainTeacherOrTutor.get,disableLink = disableChangeButton)
+				@fieldWithLink("education_contactNumber", "courseContactNumber", yourCourseDetails.courseContactNumber.getOrElse(Messages("detailsNotProvided")),disableLink = disableChangeButton)
+				@fieldWithLink("education_startEndDates", "startEndDates", {yourCourseDetails.startDate.get.`dd month, yyyy`}.concat(" - ").concat(yourCourseDetails.expectedEndDate.get.`dd month, yyyy`),disableLink = disableChangeButton)
 			}
 		</table>
 	</div>
