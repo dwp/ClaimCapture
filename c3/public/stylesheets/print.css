@@ -21,7 +21,7 @@ article {
 }
 
 /* Set the body size to A4 */
-body {
+#main {
 	padding: 30px; 
 	background-color: white; 
 	width: 21cm; 
