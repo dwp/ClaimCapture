@@ -17,7 +17,7 @@ import controllers.mappings.Mappings.validDate
 import controllers.mappings.Mappings.validYesNo
 import controllers.mappings.Mappings.dayMonthYear
 import controllers.mappings.Mappings.validNationality
-import models.domain.{TheirPersonalDetails, YourDetails, YourPartnerPersonalDetails, Claim}
+import models.domain._
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm.formBinding
 import YourPartner.presentConditionally
@@ -81,7 +81,25 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
         preUpdatedClaim.update(f) -> Redirect(controllers.s_care_you_provide.routes.GTheirPersonalDetails.present())
       }
     )
-  }.withPreview()
+  }.withPreviewConditionally(goToPreviewCondition)
+
+  private def goToPreviewCondition(details: (Option[YourPartnerPersonalDetails],YourPartnerPersonalDetails)) = {
+    import Mappings._
+
+    val previewData = details._1
+    val formData = details._2
+    val matchingValue = previewData -> formData.isPartnerPersonYouCareFor
+    Logger.info(s"matching value $matchingValue")
+    matchingValue match {
+      case (Some(data),Some(isPartnerPerson))
+        if data.isPartnerPersonYouCareFor.nonEmpty && data.isPartnerPersonYouCareFor.get != isPartnerPerson => false
+      case (Some(data),None)
+        if data.isPartnerPersonYouCareFor.nonEmpty => false
+      case (Some(YourPartnerPersonalDetails(_,_,_,_,_,_,_,_,_,_,None,_)),Some(_)) => false
+
+      case _ => true
+    }
+  }
 
   def clearTheirPersonalDetailsIfPartnerQuestionChanged(claim:Claim,formData:YourPartnerPersonalDetails) = {
     claim.questionGroup[YourPartnerPersonalDetails] -> claim.questionGroup[TheirPersonalDetails] match {
@@ -90,7 +108,6 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
         val tupleData = (oldData.hadPartnerSinceClaimDate -> formData.hadPartnerSinceClaimDate) ->
           (oldData.isPartnerPersonYouCareFor -> formData.isPartnerPersonYouCareFor)
 
-        Logger.info(tupleData.toString())
          tupleData match {
            case (("no","yes"),(None,Some("no"))) =>
              //This case is when we change the partner question from no -> yes and we specify the DP is not our partner

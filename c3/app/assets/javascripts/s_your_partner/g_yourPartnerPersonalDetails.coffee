@@ -41,3 +41,35 @@ nationality,seperatedFromPartnerY,seperatedFromPartnerN,partnerClaimingForY,part
 
 showPartnerDetailsWrap = ->
 	$("#partnerDetailsWrap").slideDown(0).attr 'aria-hidden', 'false'
+
+window.updateNextLabel = (isPersonYouCareForY,isPersonYouCareForN,storedData,textNext,textSummary) ->
+
+	setButtonText(isPersonYouCareForY,isPersonYouCareForN,storedData,textNext,textSummary)
+
+	$("#"+isPersonYouCareForY).click ->
+		setButtonText(isPersonYouCareForY,isPersonYouCareForN,storedData,textNext,textSummary)
+
+	$("#"+isPersonYouCareForN).click ->
+		setButtonText(isPersonYouCareForY,isPersonYouCareForN,storedData,textNext,textSummary)
+
+
+setButtonText = (isPersonYouCareForY,isPersonYouCareForN,storedData,textNext,textSummary) ->
+	isPersonYouCareFor = $("#"+isPersonYouCareForY).is ':checked'
+	isPersonYouCareForNo = $("#"+isPersonYouCareForN).is ':checked'
+	isPersonNotSelected = !isPersonYouCareFor && !isPersonYouCareForNo
+	button = $("button.button")
+	if !isPersonNotSelected and storedData != undefined and storedData != isPersonYouCareFor
+		button.text(textNext)
+	else if !isPersonNotSelected and storedData == undefined
+		button.text(textNext)
+	else if isPersonNotSelected and storedData != undefined
+		button.text(textNext)
+	else
+		button.text(textSummary)
+
+
+#case (Some(data),Some(isPartnerPerson))
+#		if data.isPartnerPersonYouCareFor.nonEmpty && data.isPartnerPersonYouCareFor.get != isPartnerPerson => false
+#		case (Some(data),None)
+#		if data.isPartnerPersonYouCareFor.nonEmpty => false
+#		case (None,Some(_)) => false
