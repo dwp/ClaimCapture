@@ -2,12 +2,14 @@
 @import models.domain.YourPartnerPersonalDetails
 @import models.domain.BreaksInCare
 @import models.domain.MoreAboutTheCare
+@import models.domain.ClaimDate
 @import controllers.mappings.Mappings._
 @import models.domain.TheirPersonalDetails
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
 
 @breaks = @{claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())}
+@breaksFromDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateWeRequireBreakInCareInformationFrom}
 
 <div class="accordion accordion-open">
 
@@ -15,7 +17,7 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("care_you_provide_anyBreaks", "anyBreaks", Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) " " + Messages("breaks.details",breaks.breaks.length) else ""))
+			@fieldWithLink("care_you_provide_anyBreaks", Messages("answer.label", breaksFromDate), Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) " " + Messages("breaks.details",breaks.breaks.length) else ""))
 		</table>
 	</div>
 
