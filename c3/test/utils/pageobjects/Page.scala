@@ -77,7 +77,9 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
     val newUrl = if (handles2.size > 0) {
       ctx.browser.webDriver.switchTo().window(handles2.head).getCurrentUrl.replaceFirst("http://[^/]*","")
     } else  getPageWithUrl(fluent,waitForPage, waitDuration)
-    createPageWithUrl(newUrl, iteration)
+
+    //remove the anchor part from the url
+    createPageWithUrl(newUrl.split('#').head, iteration)
   }
 
   private def getUrlFromBrowser = ctx.browser.url

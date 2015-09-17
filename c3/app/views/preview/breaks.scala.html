@@ -10,6 +10,9 @@
 
 @breaks = @{claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())}
 @breaksFromDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateWeRequireBreakInCareInformationFrom}
+@disableChangeButton = @{
+	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
+}
 
 <div class="accordion accordion-open">
 
@@ -17,7 +20,7 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("care_you_provide_anyBreaks", Messages("answer.label", breaksFromDate), Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) " " + Messages("breaks.details",breaks.breaks.length) else ""))
+			@fieldWithLink("care_you_provide_anyBreaks", Messages("answer.label", breaksFromDate), Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) " " + Messages("breaks.details",breaks.breaks.length) else ""), disableChangeButton)
 		</table>
 	</div>
 

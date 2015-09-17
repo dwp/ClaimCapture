@@ -15,6 +15,21 @@
         claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy))
     }
 
+    @previewStoredFormData = @{
+        claim.previouslySavedClaim match {
+            case Some(c) =>
+                c.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
+            case _ => YourPartnerPersonalDetails()
+        }
+    }
+
+    @jsiFy[T](op:Option[T]) = @{
+        op match {
+            case Some(t) => Html(s""""${t.toString}"""")
+            case _ => "undefined"
+        }
+    }
+
     @defining(lang) { implicit language =>
 
     @main(Messages("s3.g1") + " - " + Messages("s3.longName"), Some(currentForm)) {
@@ -111,6 +126,10 @@
                 "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
                 "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")"
                 ) ;
+
+                @if(claim.navigation.beenInPreview){
+                window.updateNextLabel("@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")","@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")",@jsiFy(previewStoredFormData.isPartnerPersonYouCareFor),"@Messages("form.next")","@Messages("form.returnToSummary")");
+                }
             } )
 
         </script>

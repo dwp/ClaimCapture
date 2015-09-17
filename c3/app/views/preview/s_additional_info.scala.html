@@ -13,15 +13,17 @@
     }
 }
 @additionalInfoWelsh = @{Messages("label." + additionalInfo.welshCommunication)}
-
+@disableChangeButton = @{
+    !app.ConfigProperties.getProperty("cyaToggleVisible",true)
+}
 <div class="accordion accordion-open">
 
     <h2 class="heading-medium accordion-title">@Html(Messages("s10_2.g1"))</h2>
 
     <div class="accordion-content">
         <table class="review">
-            @fieldWithLink("additional_info" , "anythingElse.answer", additionalInfoAnswer)
-            @fieldWithLink("additional_info_welsh" , "welshCommunication", additionalInfoWelsh)
+            @fieldWithLink("additional_info" , "anythingElse.answer", additionalInfoAnswer, elementId = Some("anythingElse_answer"))
+            @fieldWithLink("additional_info_welsh" , "welshCommunication", additionalInfoWelsh, elementId = Some("welshCommunication"))
         </table>
     </div>
 

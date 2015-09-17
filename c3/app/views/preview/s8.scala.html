@@ -61,6 +61,9 @@
 		case _ => Messages("label.no")
 	}
 }
+@disableChangeButton = @{
+	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
+}
 
 <div class="accordion accordion-open">
 
