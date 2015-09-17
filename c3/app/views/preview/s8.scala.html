@@ -68,7 +68,7 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("employment_been_employed_since", Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`),Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim), true)
+			@fieldWithLink("employment_been_employed_since", Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`d month yyyy`),Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim), true)
 
 			@{/* Jobs do not use the fieldWithLink view. The fieldWithLink view accepts text
 					and this produces HTML (an unordered list) */}
@@ -90,7 +90,7 @@
 					</td>
 				</tr>
 			}
-			@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`dd/MM/yyyy`), seValue, true)
+			@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), seValue, true)
 
 			@if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
 				@fieldWithLink("self_employment_nature_of_business", Messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness, true)
