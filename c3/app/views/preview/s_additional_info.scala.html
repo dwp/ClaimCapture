@@ -20,8 +20,8 @@
 
     <div class="accordion-content">
         <table class="review">
-            @fieldWithLink("additional_info" , "anythingElse.answer", additionalInfoAnswer)
-            @fieldWithLink("additional_info_welsh" , "welshCommunication", additionalInfoWelsh)
+            @fieldWithLink("additional_info" , "anythingElse.answer", additionalInfoAnswer, elementId = Some("anythingElse_answer"))
+            @fieldWithLink("additional_info_welsh" , "welshCommunication", additionalInfoWelsh, elementId = Some("welshCommunication"))
         </table>
     </div>
 
