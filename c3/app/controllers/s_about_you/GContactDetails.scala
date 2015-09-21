@@ -2,6 +2,7 @@ package controllers.s_about_you
 
 import controllers.s_care_you_provide.{GTheirPersonalDetails}
 import models.yesNo.YesNoMandWithAddress
+import play.api.Logger
 import play.api.data.validation.Constraints
 
 import language.reflectiveCalls
@@ -45,6 +46,7 @@ object GContactDetails extends Controller with CachedClaim with Navigable {
         BadRequest(views.html.s_about_you.g_contactDetails(updatedForm)(lang))
       },
       (contactDetails: ContactDetails) =>{
+        Logger.info(contactDetails.toString)
         val theirPersonalDetailsQG: Option[TheirPersonalDetails] =  claim.questionGroup[TheirPersonalDetails]
         val liveAtSameAddress = theirPersonalDetailsQG.exists(_.theirAddress.answer == yes)
 
