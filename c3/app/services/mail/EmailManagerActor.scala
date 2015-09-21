@@ -49,7 +49,7 @@ class EmailSenderActor(rescheduleTime:Int) extends Actor with ClaimTransactionCo
   }
 
   private def rescheduleMail(mail:EmailWrapper) = {
-    Logger.info(s"Rescheduling mail for transactionId [${mail.transactionId}] actorId [${context.self.path}]")
+    Logger.info(s"Rescheduling mail for transactionId [${mail.transactionId}] actorId [${context.self.path}] in $rescheduleTime seconds")
     //Sending implicit parameters explicitly for two reasons:
     // 1. The execution context is better if it's the ActorSystem dispatcher's because it gets destroyed when the ActorSystem does
     // 2. Default actor context is self, which for a short lived Actor wasn't working well because it was making the Actor
