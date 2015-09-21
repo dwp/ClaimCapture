@@ -18,6 +18,8 @@ object Claimant {
       {question(<DateOfBirth/>,"dateOfBirth", reportChange.dateOfBirth)}
       {question(<NationalInsuranceNumber/>, "nationalInsuranceNumber", encrypt(reportChange.nationalInsuranceNumber))}
       {question(<ContactPreference/>,"furtherInfoContact", reportChange.furtherInfoContact)}
+      {question(<WantsContactEmail/>,"wantsEmailContact", reportChange.wantsContactEmail)}
+      {question(<Email/>,"mail", reportChange.email)}
     </ClaimantDetails>
   }
 }

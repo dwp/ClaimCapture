@@ -14,7 +14,11 @@ class ClaimantSpec extends Specification with Tags {
   val yourDetails = CircumstancesReportChange(
     fullName = "Mr Phil Joe Smith",
     nationalInsuranceNumber = nationalInsuranceNr,
-    dateOfBirth = DayMonthYear(1, 1, 1963))
+    dateOfBirth = DayMonthYear(1, 1, 1963),
+    wantsContactEmail = Some("Yes"),
+    email = Some("joe@smith.co.uk"),
+    emailConfirmation = Some("joe@smith.co.uk")
+  )
 
   "Claimant" should {
     "generate Claimant xml from a given circumstances" in {
@@ -23,6 +27,8 @@ class ClaimantSpec extends Specification with Tags {
 
       (new  EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary((xml \\ "ClaimantDetails" \\ "FullName" \\ "Answer").text)) shouldEqual yourDetails.fullName
       (xml \\ "ClaimantDetails" \\ "DateOfBirth" \\ "Answer").text shouldEqual yourDetails.dateOfBirth.`dd-MM-yyyy`
+      (xml \\ "ClaimantDetails" \\ "WantsContactEmail" \\ "Answer").text shouldEqual "Yes"
+      (xml \\ "ClaimantDetails" \\ "Email" \\ "Answer").text shouldEqual "joe@smith.co.uk"
       (new  EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary((xml \\ "ClaimantDetails" \\ "NationalInsuranceNumber" \\ "Answer").text)) shouldEqual nationalInsuranceNr.stringify
     }
   } section "unit"
