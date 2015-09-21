@@ -80,7 +80,6 @@ class EmailSenderActor(rescheduleTime:Int) extends Actor with ClaimTransactionCo
         claimTransaction.updateEmailStatus(mail.transactionId,EmailActorsCreators.ERROR)
         Logger.error(s"Could not send email for transactionId [${mail.transactionId}]. ${e.getMessage}",e)
         rescheduleMail(mail)
-        throw e
     }
   }
 
