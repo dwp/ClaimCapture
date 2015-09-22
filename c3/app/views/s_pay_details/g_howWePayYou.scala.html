@@ -34,7 +34,7 @@
                             carersInputText(currentForm("bankDetails.accountHolderName"), 'maxLength -> "40"),
                             carersInputText(currentForm("bankDetails.bankFullName")),
                             sortCode(currentForm("bankDetails.sortCode"), 'ignoreOptional -> true),
-                            carersInputText(currentForm("bankDetails.accountNumber"), 'maxLength -> "10"),
+                            carersInputTel(currentForm("bankDetails.accountNumber"), 'maxLength -> "10"),
                             sliderHelp(Messages("postOfficeTitle"),Messages("postOfficeTitle"),Html(Messages("postOfficeBody")), 'showMini->true),
                             carersInputText(currentForm("bankDetails.rollOrReferenceNumber"), 'maxLength -> "18")
                         ),
