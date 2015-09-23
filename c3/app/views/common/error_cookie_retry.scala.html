@@ -1,5 +1,6 @@
 @(url:String)(implicit request: Request[AnyContent], lang: Lang)
 @import play.api.i18n.{MMessages => Messages}
+@import controllers.Cookies._
 
 @common.govMain(Messages("unrecoverable.error")) {
 
@@ -17,7 +18,14 @@
 
                 <h1 class="form-title heading-large">@Html(Messages("unrecoverable.error.cookie"))</h1>
 
-                <p>@Html(Messages("unrecoverable.error.cookie.help1"))</p>
+                <p>
+                    @Messages("unrecoverable.error.cookie.help1")
+                    <a rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" target="_blank"
+                       @views.html.ga.trackClickEvent(linkName = "Cookies - from error page")>
+                        @Messages("unrecoverable.error.cookie.help1.anchorText")
+                    </a>
+                    @Messages("unrecoverable.error.cookie.help1.2")
+                </p>
 
                 <p>
                     <button  id="Try" type="submit" name="action" value="next" class="button"  @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="location.href='@url'" aria-label="@Html(Messages("try.claim.help"))" >@Html(Messages("try.claim"))</button>

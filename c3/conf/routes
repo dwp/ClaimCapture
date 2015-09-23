@@ -14,8 +14,11 @@ GET         /report/ping                                                controll
 GET         /CS2015                                                     controllers.ChannelShiftController.redirect
 GET         /cs2015                                                     controllers.ChannelShiftController.redirect
 
+# Cookies
+GET         /cookies/:languageCode                                      controllers.Cookies.page(languageCode: String)
+
 # claim pack notes accessed externally
-#GET         /claim-notes                                                controllers.ClaimNotes.notes
+#GET         /claim-notes                                               controllers.ClaimNotes.notes
 # claim pack notes accessed internally (with claim lang)
 GET         /internal-claim-notes/:languageCode                         controllers.ClaimNotes.internalNotes(languageCode: String)
 
