@@ -5,56 +5,87 @@
 @import views.html.common._
 
 @common.govMain(Messages("cookies.title")){
-    <h1>@Messages("cookies.heading")</h1>
-    <p>@Messages("cookies.weUseCookies")</p>
-    <p>@Messages("cookies.whatCookiesAreUsedFor")</p>
-    <ul>
-        <li>@Messages("cookies.whatCookiesAreUsedFor.understand")</li>
-        <li>@Messages("cookies.whatCookiesAreUsedFor.remember")</li>
-        <li>@Messages("cookies.whatCookiesAreUsedFor.security")</li>
-    </ul>
-    <p>@Messages("cookies.mustBeEnabled")</p>
-    <h2>@Messages("cookies.cookiesSwitchedOff.heading")</h2>
-    <p>@Messages("cookies.cookiesSwitchedOff.error")</p>
-    <p>
-        @Messages("cookies.cookiesSwitchedOff.turnOn")
-        <a href="@Messages("cookies.cookiesSwitchedOff.turnOn.url")">@Messages("cookies.cookiesSwitchedOff.turnOn.anchorText")</a>
-        @Messages("cookies.cookiesSwitchedOff.turnOn2")
-    </p>
-    <p>@Messages("cookies.cookiesSwitchedOff.settings")</p>
-    <ul>
-        <li><a href="@Messages("cookies.cookiesSwitchedOff.ie.url")">@Messages("cookies.cookiesSwitchedOff.ie.anchorText")</a></li>
-        <li><a href="@Messages("cookies.cookiesSwitchedOff.mozilla.url")">@Messages("cookies.cookiesSwitchedOff.mozilla.anchorText")</a></li>
-        <li><a href="@Messages("cookies.cookiesSwitchedOff.google.url")">@Messages("cookies.cookiesSwitchedOff.google.anchorText")</a></li>
-        <li><a href="@Messages("cookies.cookiesSwitchedOff.safari.url")">@Messages("cookies.cookiesSwitchedOff.safari.anchorText")</a>@Messages("cookies.cookiesSwitchedOff.safari.text")</li>
-    </ul>
-    <p>
-        @Messages("cookies.cookiesSwitchedOff.other.text")
-        <a href="@Messages("cookies.cookiesSwitchedOff.other.url")">@Messages("cookies.cookiesSwitchedOff.other.anchorText")</a>
-        @Messages("cookies.cookiesSwitchedOff.other.text2")
-    </p>
-    <h2>@Messages("cookies.cookiesWeUse.heading")</h2>
-    <h3>@Messages("cookies.cookiesWeUse.ga.heading")</h3>
-    <p>@Messages("cookies.cookiesWeUse.ga")</p>
-    <p>@Messages("cookies.cookiesWeUse.ga.collects")</p>
-    <ul>
-        <li>@Messages("cookies.cookiesWeUse.ga.pages")</li>
-        <li>@Messages("cookies.cookiesWeUse.ga.howLong")</li>
-        <li>@Messages("cookies.cookiesWeUse.ga.howYouGotHere")</li>
-    </ul>
-    <p>
-        @Messages("cookies.cookiesWeUse.ga.notSharing")
-        <a href="@Messages("cookies.cookiesWeUse.ga.url")">@Messages("cookies.cookiesWeUse.ga.anchorText")</a>@Messages("cookies.cookiesWeUse.ga.notSharing2")
-    </p>
-    <h3>@Messages("cookies.cookiesWeUse.session.heading")</h3>
-    <p>@Messages("cookies.cookiesWeUse.session.cookies")</p>
-    <p>@Messages("cookies.cookiesWeUse.session.automatic")</p>
-    <ul>
-        <li>@Messages("cookies.cookiesWeUse.session.areIdle")</li>
-        <li>@Messages("cookies.cookiesWeUse.session.close")</li>
-        <li>@Messages("cookies.cookiesWeUse.session.switchOff")</li>
-    </ul>
-    <h3>@Messages("cookies.cookiesWeUse.introductory.heading")</h3>
-    <p>@Messages("cookies.cookiesWeUse.introductory.popUp")</p>
-    <p>@Messages("cookies.cookiesWeUse.introductory.removed")</p>
+
+    <div class="carers-allowance clearfix">
+        
+        <div class="grid-row main-grid">
+                
+            <article class="column-full-width main-content">
+                
+                <h1 class="form-title heading-large">@Messages("cookies.heading")</h1>
+                
+                <p>@Messages("cookies.weUseCookies")</p>
+                <p>@Messages("cookies.whatCookiesAreUsedFor")</p>
+                
+                <ul class="list-bullet">
+                    <li>@Messages("cookies.whatCookiesAreUsedFor.understand")</li>
+                    <li>@Messages("cookies.whatCookiesAreUsedFor.remember")</li>
+                    <li>@Messages("cookies.whatCookiesAreUsedFor.security")</li>
+                </ul>
+                
+                <p>@Messages("cookies.mustBeEnabled")</p>
+                
+                <h2 class="heading-medium">@Messages("cookies.cookiesSwitchedOff.heading")</h2>
+                
+                <p>@Messages("cookies.cookiesSwitchedOff.error")</p>
+                <p>
+                    @Messages("cookies.cookiesSwitchedOff.turnOn")
+                    <a target="blank" rel="external" href="@Messages("cookies.cookiesSwitchedOff.turnOn.url")">@Messages("cookies.cookiesSwitchedOff.turnOn.anchorText")</a>
+                    @Messages("cookies.cookiesSwitchedOff.turnOn2")
+                </p>
+                <p>@Messages("cookies.cookiesSwitchedOff.settings")</p>
+                
+                <ul class="list-bullet">
+                    <li><a target="blank" rel="external" href="@Messages("cookies.cookiesSwitchedOff.ie.url")">@Messages("cookies.cookiesSwitchedOff.ie.anchorText")</a></li>
+                    <li><a target="blank" rel="external" href="@Messages("cookies.cookiesSwitchedOff.mozilla.url")">@Messages("cookies.cookiesSwitchedOff.mozilla.anchorText")</a></li>
+                    <li><a target="blank" rel="external" href="@Messages("cookies.cookiesSwitchedOff.google.url")">@Messages("cookies.cookiesSwitchedOff.google.anchorText")</a></li>
+                    <li><a target="blank" rel="external" href="@Messages("cookies.cookiesSwitchedOff.safari.url")">@Messages("cookies.cookiesSwitchedOff.safari.anchorText")</a>@Messages("cookies.cookiesSwitchedOff.safari.text")</li>
+                </ul>
+                
+                <p>
+                    @Messages("cookies.cookiesSwitchedOff.other.text")
+                    <a target="blank" rel="external" href="@Messages("cookies.cookiesSwitchedOff.other.url")">@Messages("cookies.cookiesSwitchedOff.other.anchorText")</a>
+                    @Messages("cookies.cookiesSwitchedOff.other.text2")
+                </p>
+                
+                <h2 class="heading-medium">@Messages("cookies.cookiesWeUse.heading")</h2>
+                
+                <h3 class="heading-small">@Messages("cookies.cookiesWeUse.ga.heading")</h3>
+                
+                <p>@Messages("cookies.cookiesWeUse.ga")</p>
+                <p>@Messages("cookies.cookiesWeUse.ga.collects")</p>
+                
+                <ul class="list-bullet">
+                    <li>@Messages("cookies.cookiesWeUse.ga.pages")</li>
+                    <li>@Messages("cookies.cookiesWeUse.ga.howLong")</li>
+                    <li>@Messages("cookies.cookiesWeUse.ga.howYouGotHere")</li>
+                </ul>
+                
+                <p>
+                    @Messages("cookies.cookiesWeUse.ga.notSharing")
+                    <a rel="external" target="blank" href="@Messages("cookies.cookiesWeUse.ga.url")">@Messages("cookies.cookiesWeUse.ga.anchorText")</a>@Messages("cookies.cookiesWeUse.ga.notSharing2")
+                </p>
+                
+                <h3 class="heading-medium">@Messages("cookies.cookiesWeUse.session.heading")</h3>
+                
+                <p>@Messages("cookies.cookiesWeUse.session.cookies")</p>
+                <p>@Messages("cookies.cookiesWeUse.session.automatic")</p>
+                
+                <ul class="list-bullet">
+                    <li>@Messages("cookies.cookiesWeUse.session.areIdle")</li>
+                    <li>@Messages("cookies.cookiesWeUse.session.close")</li>
+                    <li>@Messages("cookies.cookiesWeUse.session.switchOff")</li>
+                </ul>
+                
+                <h3 class="heading-medium">@Messages("cookies.cookiesWeUse.introductory.heading")</h3>
+                
+                <p>@Messages("cookies.cookiesWeUse.introductory.popUp")</p>
+                <p>@Messages("cookies.cookiesWeUse.introductory.removed")</p>
+            
+            </article>
+            
+        </div>
+        
+    </div>
+    
 }
