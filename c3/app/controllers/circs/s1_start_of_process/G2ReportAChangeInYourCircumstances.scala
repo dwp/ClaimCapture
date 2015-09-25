@@ -17,6 +17,7 @@ import utils.helpers.CarersForm._
 import scala.annotation.tailrec
 import scala.collection.immutable.Stack
 import scala.language.reflectiveCalls
+import scala.language.postfixOps
 
 object G2ReportAChangeInYourCircumstances extends Controller with CachedChangeOfCircs with Navigable {
 
