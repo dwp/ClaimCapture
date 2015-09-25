@@ -23,7 +23,7 @@ object ClaimHandling {
   type ClaimResult = (Claim, Result)
   // Versioning
   val C3VERSION = "C3Version"
-  val C3VERSION_VALUE = "2.27"
+  val C3VERSION_VALUE = "2.27.1"
   val applicationFinished = "application-finished"
 
 }
