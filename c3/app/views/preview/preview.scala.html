@@ -8,6 +8,9 @@
 @import scala.language.postfixOps
 @import utils.csrf.DwpCSRFFormHelper
 
+@toggle = @{
+	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
+}
 @defining(lang) { implicit language =>
     @common.govMain(Messages("preview.title")) {
 
@@ -26,7 +29,9 @@
                     @errorsSummary(previewForm)
 					
 					<p class="text">@Html(Messages("preview.info"))</p>
-
+					@if(toggle) {
+						<p class="text helper-prompt">@Html(Messages("preview.helper"))</p>
+					}
 					<div class="summary">
 	                    @s2()
 	                    @s3()
