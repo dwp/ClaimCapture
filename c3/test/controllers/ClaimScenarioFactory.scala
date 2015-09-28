@@ -124,6 +124,7 @@ object ClaimScenarioFactory {
     val claim = new TestData
 
     // G7 EEA state or Switzerland
+    claim.OtherMoneyOtherEEAGuardQuestion = "yes"
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "yes"
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEADetails = "I have a pension in Spain."
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "yes"
@@ -152,6 +153,7 @@ object ClaimScenarioFactory {
     claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
 
     // Other EEA State or Switzerland
+    claim.OtherMoneyOtherEEAGuardQuestion = "yes"
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
 
@@ -182,6 +184,7 @@ object ClaimScenarioFactory {
     // Abroad For More Than 52 Weeks
     claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
     // Other EEA State or Switzerland
+    claim.OtherMoneyOtherEEAGuardQuestion = "yes"
     claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "no"
     claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "no"
 

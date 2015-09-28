@@ -1,8 +1,9 @@
 package models.domain
 
 import controllers.mappings.Mappings
+import models.domain.OtherEEAStateOrSwitzerland.GQuestion
 import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
-import models.yesNo.YesNoWithText
+import models.yesNo.{YesNoWith2MandatoryFieldsOnYes, YesNoWith1MandatoryFieldOnYes, YesNoWithText}
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
 import controllers.mappings.Mappings.yes
 
@@ -24,7 +25,7 @@ case class YourDetails(title: String = "",
 object YourDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g1"
 
-  def verifyTitleOther(form:YourDetails):Boolean = {
+  def verifyTitleOther(form: YourDetails): Boolean = {
     form.title match {
       case "Other" => form.titleOther.isDefined
       case _ => true
@@ -42,9 +43,9 @@ case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
                           postcode: Option[String] = None,
                           howWeContactYou: String = "",
                           contactYouByTextphone: Option[String] = None,
-                          override val wantsContactEmail:Option[String] = None,
-                          override val email:Option[String] = None,
-                          override val emailConfirmation:Option[String] = None) extends QuestionGroup(ContactDetails) with EMail
+                          override val wantsContactEmail: Option[String] = None,
+                          override val email: Option[String] = None,
+                          override val emailConfirmation: Option[String] = None) extends QuestionGroup(ContactDetails) with EMail
 
 object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g3"
@@ -79,9 +80,9 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   }
 }
 
-case class AbroadForMoreThan52Weeks(anyTrips: String = "", tripDetails:Option[String] = None) extends QuestionGroup(AbroadForMoreThan52Weeks)
+case class AbroadForMoreThan52Weeks(anyTrips: String = "", tripDetails: Option[String] = None) extends QuestionGroup(AbroadForMoreThan52Weeks)
 
-object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier  {
+object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g5"
 
   def requiredTripDetails: Constraint[AbroadForMoreThan52Weeks] = Constraint[AbroadForMoreThan52Weeks]("constraint.tripdetails") { abroadForMoreThan52Weeks =>
@@ -93,29 +94,11 @@ object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier  {
 
 }
 
-case class OtherEEAStateOrSwitzerland(
-                                       benefitsFromEEA: String = "",
-                                       benefitsFromEEADetails: Option[String] = None,
-                                       workingForEEA: String = "",
-                                       workingForEEADetails:Option[String] = None) extends QuestionGroup(OtherEEAStateOrSwitzerland)
+case class OtherEEAStateOrSwitzerland(guardQuestion:GQuestion = YesNoWith2MandatoryFieldsOnYes()) extends QuestionGroup(OtherEEAStateOrSwitzerland)
 
 object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
+  type GQuestion = YesNoWith2MandatoryFieldsOnYes[YesNoWith1MandatoryFieldOnYes[String],YesNoWith1MandatoryFieldOnYes[String]]
+
   val id = s"${AboutYou.id}.g7"
-
-  def requiredBenefitsFromEEADetails: Constraint[OtherEEAStateOrSwitzerland] = Constraint[OtherEEAStateOrSwitzerland]("constraint.benefitsfromeeadetails") { otherEEAStateOrSwitzerland =>
-    otherEEAStateOrSwitzerland.benefitsFromEEA match {
-      case `yes` if !otherEEAStateOrSwitzerland.benefitsFromEEADetails.isDefined => Invalid(ValidationError("benefitsfromeeadetails.required"))
-      case _ => Valid
-    }
-  }
-
-  def requiredWorkingForEEADetails: Constraint[OtherEEAStateOrSwitzerland] = Constraint[OtherEEAStateOrSwitzerland]("constraint.workingForEEADetails") { otherEEAStateOrSwitzerland =>
-    otherEEAStateOrSwitzerland.workingForEEA match {
-      case `yes` if !otherEEAStateOrSwitzerland.workingForEEADetails.isDefined => Invalid(ValidationError("workingForEEADetails.required"))
-      case _ => Valid
-    }
-  }
-
-
 }
 

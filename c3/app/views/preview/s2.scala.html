@@ -1,6 +1,7 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
 @import models.domain._
+@import models.yesNo._
 @import play.api.i18n.{MMessages => Messages}
 @import app.MaritalStatus._
 @import helper._
@@ -63,14 +64,14 @@
     }
 }
 @benefitsFromEEAValue = @{
-    otherEEA.benefitsFromEEA match {
-        case `yes` => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
+    otherEEA.guardQuestion.field1 match {
+        case Some(YesNoWith1MandatoryFieldOnYes(`yes`, _)) => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
         case _ => Messages("label.no")
     }
 }
 @workingForEEAValue = @{
-    otherEEA.workingForEEA match {
-        case `yes` => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
+    otherEEA.guardQuestion.field2 match {
+        case Some(YesNoWith1MandatoryFieldOnYes(`yes`, _)) => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
         case _ => Messages("label.no")
     }
 }
