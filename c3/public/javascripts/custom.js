@@ -267,5 +267,12 @@ $(document).ready(function() {
   // Details/summary polyfill
   // See /javascripts/vendor/details.polyfill.js
 
+  // Cookie Banner
+  if(getCookie("seen_cookie_message") === undefined){
+    $("#global-cookie-message").show();
+    var d = new Date;
+    d.setTime(d.getTime() + 28 * 24 * 60 * 60 * 1e3);
+    setCookie("seen_cookie_message", "yes; expires=" + d.toGMTString());
+  }
 
 });

@@ -5,6 +5,7 @@ import models.DayMonthYear
 import models.yesNo.YesNoWithDate
 import play.api.i18n.Lang
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+import scala.language.postfixOps
 
 
 object YourClaimDate extends Section.Identifier {
