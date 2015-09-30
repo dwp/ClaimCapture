@@ -24,13 +24,13 @@ class ClaimEncryptionSpec extends Specification {
   val yourPartnerPersonalDetails = YourPartnerPersonalDetails(Some("Mrs"), None, Some("H"),
     None, Some("Dawg"), None, Some(NationalInsuranceNumber(Some("AA123456A"))),
     Some(DayMonthYear(1,1,1988)), Some("Cornish"), Some("yes"), Some("yes"), "yes")
+  val circumstancesPaymentChange = CircumstancesPaymentChange(YesNoWith2Text("blah", Some("blah"), None),
+    "H-dawg", "Barclays", SortCode("00", "00", "00"), "00000000", "", "Weekly", Some("blah"))
   val circumstancesAddressChange = CircumstancesAddressChange(MultiLineAddress(
     Some("123"), Some("Fake street"), None), Some("PL18 1AA"), YesNoWithDateAndQs("yes",
     Some(DayMonthYear(1,1,1988)), None), MultiLineAddress(Some("124"), Some("Fake street"), None),
     Some("PL18 1AB"), OptYesNoWithText(None, None), YesNoWithAddress(Some("No"),
       Some(MultiLineAddress(Some("121"), Some("Fake Street"), None)), None), None)
-  val circumstancesPaymentChange = CircumstancesPaymentChange(YesNoWith2Text("blah", Some("blah"), None),
-    "H-dawg", "Barclays", SortCode("00", "00", "00"), "00000000", "", "Weekly", Some("blah"))
 
   val claim = Claim(CachedClaim.key, List(
     Section(AboutYou, List(yourDetails, contactDetails)),
@@ -38,7 +38,7 @@ class ClaimEncryptionSpec extends Specification {
     Section(CircumstancesIdentification, List(circumstancesReportChange)),
     Section(PayDetails, List(howWePayYou)),
     Section(YourPartner, List(yourPartnerPersonalDetails)),
-    Section(CircumstancesReportChanges, List(circumstancesAddressChange, circumstancesPaymentChange))
+    Section(CircumstancesReportChanges, List(circumstancesPaymentChange, circumstancesAddressChange))
   ))
 
   "ClaimEncryption" should {
@@ -47,100 +47,110 @@ class ClaimEncryptionSpec extends Specification {
       val encryptedClaim = ClaimEncryption.encrypt(claim)
       claim mustNotEqual encryptedClaim
     }
-/*
+
     "Decrypt the Claim object" in {
       val encryptedClaim = ClaimEncryption.encrypt(claim)
       val decryptedClaim = ClaimEncryption.decrypt(encryptedClaim)
       claim mustNotEqual encryptedClaim
-      claim mustEqual decryptedClaim
+
+      // Claim object is not ordered so you cannot compare original claim with decrypted claim
+      // Individual question groups must be asserted
+      claim.questionGroup[YourDetails] mustEqual decryptedClaim.questionGroup[YourDetails]
+      claim.questionGroup[ContactDetails] mustEqual decryptedClaim.questionGroup[ContactDetails]
+      claim.questionGroup[TheirPersonalDetails] mustEqual decryptedClaim.questionGroup[TheirPersonalDetails]
+      claim.questionGroup[CircumstancesReportChange] mustEqual decryptedClaim.questionGroup[CircumstancesReportChange]
+      claim.questionGroup[HowWePayYou] mustEqual decryptedClaim.questionGroup[HowWePayYou]
+      claim.questionGroup[YourPartnerPersonalDetails] mustEqual decryptedClaim.questionGroup[YourPartnerPersonalDetails]
+      claim.questionGroup[CircumstancesAddressChange] mustEqual decryptedClaim.questionGroup[CircumstancesAddressChange]
+      claim.questionGroup[CircumstancesPaymentChange] mustEqual decryptedClaim.questionGroup[CircumstancesPaymentChange]
     }
-*/
+
     "Encrypt YourDetails question group" in {
-      val encryptedYourDetails = ClaimEncryption.encryptYourDetails(yourDetails)
-      yourDetails mustNotEqual encryptedYourDetails
+      val encryptedYourDetails = ClaimEncryption.encryptYourDetails(claim)
+      claim.questionGroup[YourDetails] mustNotEqual encryptedYourDetails.questionGroup[YourDetails]
     }
 
     "Decrypt YourDetails question group" in {
-      val encryptedYourDetails = ClaimEncryption.encryptYourDetails(yourDetails)
+      val encryptedYourDetails = ClaimEncryption.encryptYourDetails(claim)
       val decryptedYourDetails = ClaimEncryption.decryptYourDetails(encryptedYourDetails)
-      yourDetails mustEqual decryptedYourDetails
+      claim.questionGroup[YourDetails] mustEqual decryptedYourDetails.questionGroup[YourDetails]
     }
 
     "Encrypt ContactDetails question group" in {
-      val encryptedContactDetails = ClaimEncryption.encryptContactDetails(contactDetails)
-      contactDetails mustNotEqual encryptedContactDetails
+      val encryptedContactDetails = ClaimEncryption.encryptContactDetails(claim)
+      claim.questionGroup[ContactDetails] mustNotEqual encryptedContactDetails.questionGroup[ContactDetails]
     }
 
     "Decrypt ContactDetails question group" in {
-      val encryptedContactDetails = ClaimEncryption.encryptContactDetails(contactDetails)
+      val encryptedContactDetails = ClaimEncryption.encryptContactDetails(claim)
       val decryptedContactDetails = ClaimEncryption.decryptContactDetails(encryptedContactDetails)
-      contactDetails mustEqual decryptedContactDetails
+      claim.questionGroup[ContactDetails] mustEqual decryptedContactDetails.questionGroup[ContactDetails]
     }
 
     "Encrypt TheirPersonalDetails question group" in {
-      val encryptedTheirPersonalDetails = ClaimEncryption.encryptTheirPersonalDetails(theirPersonalDetails)
-      theirPersonalDetails mustNotEqual encryptedTheirPersonalDetails
+      val encryptedTheirPersonalDetails = ClaimEncryption.encryptTheirPersonalDetails(claim)
+      claim.questionGroup[TheirPersonalDetails] mustNotEqual encryptedTheirPersonalDetails.questionGroup[TheirPersonalDetails]
     }
 
     "Decrypt TheirPersonalDetails question group" in {
-      val encryptedTheirPersonalDetails = ClaimEncryption.encryptTheirPersonalDetails(theirPersonalDetails)
+      val encryptedTheirPersonalDetails = ClaimEncryption.encryptTheirPersonalDetails(claim)
       val decryptedTheirPersonalDetails = ClaimEncryption.decryptTheirPersonalDetails(encryptedTheirPersonalDetails)
-      theirPersonalDetails mustEqual decryptedTheirPersonalDetails
+      claim.questionGroup[TheirPersonalDetails] mustEqual decryptedTheirPersonalDetails.questionGroup[TheirPersonalDetails]
     }
 
     "Encrypt CircumstancesReportChange question group" in {
-      val encryptedData = ClaimEncryption.encryptCircumstancesReportChange(circumstancesReportChange)
-      circumstancesReportChange mustNotEqual encryptedData
+      val encryptedData = ClaimEncryption.encryptCircumstancesReportChange(claim)
+      claim.questionGroup[CircumstancesReportChange] mustNotEqual encryptedData.questionGroup[CircumstancesReportChange]
     }
 
     "Decrypt CircumstancesReportChange question group" in {
-      val encryptedData = ClaimEncryption.encryptCircumstancesReportChange(circumstancesReportChange)
+      val encryptedData = ClaimEncryption.encryptCircumstancesReportChange(claim)
       val decryptedData = ClaimEncryption.decryptCircumstancesReportChange(encryptedData)
-      circumstancesReportChange mustEqual decryptedData
+      claim.questionGroup[CircumstancesReportChange] mustEqual decryptedData.questionGroup[CircumstancesReportChange]
     }
 
     "Encrypt HowWePayYou question group" in {
-      val encryptedHowWePayYou = ClaimEncryption.encryptHowWePayYou(howWePayYou)
-      howWePayYou mustNotEqual encryptedHowWePayYou
+      val encryptedHowWePayYou = ClaimEncryption.encryptHowWePayYou(claim)
+      claim.questionGroup[HowWePayYou] mustNotEqual encryptedHowWePayYou.questionGroup[HowWePayYou]
     }
 
     "Decrypt HowWePayYou question group" in {
-      val encryptedHowWePayYou = ClaimEncryption.encryptHowWePayYou(howWePayYou)
+      val encryptedHowWePayYou = ClaimEncryption.encryptHowWePayYou(claim)
       val decryptedHowWePayYou = ClaimEncryption.decryptHowWePayYou(encryptedHowWePayYou)
-      howWePayYou mustEqual decryptedHowWePayYou
+      claim.questionGroup[HowWePayYou] mustEqual decryptedHowWePayYou.questionGroup[HowWePayYou]
     }
 
     "Encrypt YourPartnerPersonalDetails question group" in {
-      val encryptedYourPartnerPersonalDetails = ClaimEncryption.encryptYourPartnerPersonalDetails(yourPartnerPersonalDetails)
-      yourPartnerPersonalDetails mustNotEqual encryptedYourPartnerPersonalDetails
+      val encryptedYourPartnerPersonalDetails = ClaimEncryption.encryptYourPartnerPersonalDetails(claim)
+      claim.questionGroup[YourPartnerPersonalDetails] mustNotEqual encryptedYourPartnerPersonalDetails.questionGroup[YourPartnerPersonalDetails]
     }
 
     "Decrypt YourPartnerPersonalDetails question group" in {
-      val encryptedYourPartnerPersonalDetails = ClaimEncryption.encryptYourPartnerPersonalDetails(yourPartnerPersonalDetails)
+      val encryptedYourPartnerPersonalDetails = ClaimEncryption.encryptYourPartnerPersonalDetails(claim)
       val decryptedYourPartnerPersonalDetails = ClaimEncryption.decryptYourPartnerPersonalDetails(encryptedYourPartnerPersonalDetails)
-      yourPartnerPersonalDetails mustEqual decryptedYourPartnerPersonalDetails
+      claim.questionGroup[YourPartnerPersonalDetails] mustEqual decryptedYourPartnerPersonalDetails.questionGroup[YourPartnerPersonalDetails]
     }
 
     "Encrypt CircumstancesAddressChange question group" in {
-      val encryptedCircumstancesAddressChange = ClaimEncryption.encryptCircumstancesAddressChange(circumstancesAddressChange)
-      circumstancesAddressChange mustNotEqual encryptedCircumstancesAddressChange
+      val encryptedCircumstancesAddressChange = ClaimEncryption.encryptCircumstancesAddressChange(claim)
+      claim.questionGroup[CircumstancesAddressChange] mustNotEqual encryptedCircumstancesAddressChange.questionGroup[CircumstancesAddressChange]
     }
 
     "Decrypt CircumstancesAddressChange question group" in {
-      val encryptedCircumstancesAddressChange = ClaimEncryption.encryptCircumstancesAddressChange(circumstancesAddressChange)
+      val encryptedCircumstancesAddressChange = ClaimEncryption.encryptCircumstancesAddressChange(claim)
       val decryptedCircumstancesAddressChange = ClaimEncryption.decryptCircumstancesAddressChange(encryptedCircumstancesAddressChange)
-      circumstancesAddressChange mustEqual decryptedCircumstancesAddressChange
+      claim.questionGroup[CircumstancesAddressChange] mustEqual decryptedCircumstancesAddressChange.questionGroup[CircumstancesAddressChange]
     }
 
     "Encrypt CircumstancesPaymentChange question group" in {
-      val encryptedCircumstancesPaymentChange = ClaimEncryption.encryptCircumstancesPaymentChange(circumstancesPaymentChange)
-      circumstancesPaymentChange mustNotEqual encryptedCircumstancesPaymentChange
+      val encryptedCircumstancesPaymentChange = ClaimEncryption.encryptCircumstancesPaymentChange(claim)
+      claim.questionGroup[CircumstancesPaymentChange] mustNotEqual encryptedCircumstancesPaymentChange.questionGroup[CircumstancesPaymentChange]
     }
 
     "Decrypt CircumstancesPaymentChange guestion group" in {
-      val encryptedCircumstancesPaymentChange = ClaimEncryption.encryptCircumstancesPaymentChange(circumstancesPaymentChange)
+      val encryptedCircumstancesPaymentChange = ClaimEncryption.encryptCircumstancesPaymentChange(claim)
       val decryptedCircumstancesPaymentChange = ClaimEncryption.decryptCircumstancesPaymentChange(encryptedCircumstancesPaymentChange)
-      circumstancesPaymentChange mustEqual decryptedCircumstancesPaymentChange
+      claim.questionGroup[CircumstancesPaymentChange] mustEqual decryptedCircumstancesPaymentChange.questionGroup[CircumstancesPaymentChange]
     }
 
   }
