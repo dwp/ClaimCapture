@@ -6,10 +6,75 @@ import utils.C3Encryption._
 object ClaimEncryption {
 
   def encrypt(claim: Claim): Claim = {
-    val claimWithYourDetails = if (claim.questionGroup[YourDetails].isDefined) claim.update(encryptYourDetails(claim.questionGroup[YourDetails].get))
-      else claim
-    println(claimWithYourDetails)
-    claimWithYourDetails
+    val claimWithYourDetails = checkYourDetails(claim)
+    val claimWithContactDetails = checkContactDetails(claimWithYourDetails)
+    val claimWithTheirPersonalDetails = checkTheirPersonalDetails(claimWithContactDetails)
+    val claimWithCircumstancesReportChange = checkCircumstancesReportChange(claimWithTheirPersonalDetails)
+    val claimWithHowWePayYou = checkHowWePayYou(claimWithCircumstancesReportChange)
+    val claimWithYourPartnerPersonalDetails = checkYourPartnerPersonalDetails(claimWithHowWePayYou)
+    val claimWithCircumstancesAddressChange = checkCircumstancesAddressChange(claimWithYourPartnerPersonalDetails)
+    val claimWithCircumstancesPaymentChange = checkCircumstancesPaymentChange(claimWithCircumstancesAddressChange)
+    claimWithCircumstancesPaymentChange
+  }
+
+  def decrypt(claim: Claim): Claim = {
+    claim
+  }
+
+  def checkYourDetails(claim: Claim): Claim = {
+    if(claim.questionGroup[YourDetails].isDefined)
+      claim.update(encryptYourDetails(claim.questionGroup[YourDetails].get))
+    else
+      claim
+  }
+
+  def checkContactDetails(claim: Claim): Claim = {
+    if(claim.questionGroup[ContactDetails].isDefined)
+      claim.update(encryptContactDetails(claim.questionGroup[ContactDetails].get))
+    else
+      claim
+  }
+
+  def checkTheirPersonalDetails(claim: Claim): Claim = {
+    if(claim.questionGroup[TheirPersonalDetails].isDefined)
+      claim.update(encryptTheirPersonalDetails(claim.questionGroup[TheirPersonalDetails].get))
+    else
+      claim
+  }
+
+  def checkCircumstancesReportChange(claim: Claim): Claim = {
+    if(claim.questionGroup[CircumstancesReportChange].isDefined)
+      claim.update(encryptCircumstancesReportChange(claim.questionGroup[CircumstancesReportChange].get))
+    else
+      claim
+  }
+
+  def checkHowWePayYou(claim: Claim): Claim = {
+    if(claim.questionGroup[HowWePayYou].isDefined)
+      claim.update(encryptHowWePayYou(claim.questionGroup[HowWePayYou].get))
+    else
+      claim
+  }
+
+  def checkYourPartnerPersonalDetails(claim: Claim): Claim = {
+    if(claim.questionGroup[YourPartnerPersonalDetails].isDefined)
+      claim.update(encryptYourPartnerPersonalDetails(claim.questionGroup[YourPartnerPersonalDetails].get))
+    else
+      claim
+  }
+
+  def checkCircumstancesAddressChange(claim: Claim): Claim = {
+    if(claim.questionGroup[CircumstancesAddressChange].isDefined)
+      claim.update(encryptCircumstancesAddressChange(claim.questionGroup[CircumstancesAddressChange].get))
+    else
+      claim
+  }
+
+  def checkCircumstancesPaymentChange(claim: Claim): Claim = {
+    if(claim.questionGroup[CircumstancesPaymentChange].isDefined)
+      claim.update(encryptCircumstancesPaymentChange(claim.questionGroup[CircumstancesPaymentChange].get))
+    else
+      claim
   }
 
   def encryptYourDetails(yourDetails: YourDetails) = {

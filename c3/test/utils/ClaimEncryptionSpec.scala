@@ -47,7 +47,14 @@ class ClaimEncryptionSpec extends Specification {
       val encryptedClaim = ClaimEncryption.encrypt(claim)
       claim mustNotEqual encryptedClaim
     }
-
+/*
+    "Decrypt the Claim object" in {
+      val encryptedClaim = ClaimEncryption.encrypt(claim)
+      val decryptedClaim = ClaimEncryption.decrypt(encryptedClaim)
+      claim mustNotEqual encryptedClaim
+      claim mustEqual decryptedClaim
+    }
+*/
     "Encrypt YourDetails question group" in {
       val encryptedYourDetails = ClaimEncryption.encryptYourDetails(yourDetails)
       yourDetails mustNotEqual encryptedYourDetails
