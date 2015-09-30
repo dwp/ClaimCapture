@@ -2,12 +2,12 @@ package utils
 
 import javax.xml.bind.DatatypeConverter
 import gov.dwp.carers.security.encryption.EncryptorAES
-import models.yesNo.{YesNoWithAddress, YesNoMandWithAddress}
+import models.yesNo.{YesNoWith2Text, YesNoWithAddress, YesNoMandWithAddress}
 import models.{SortCode, NationalInsuranceNumber, MultiLineAddress}
 import models.domain._
 import play.api.Logger
 
-object Encryption {
+object C3Encryption {
 
   def encryptString(text: String): String = {
     try {
@@ -88,6 +88,14 @@ object Encryption {
     }
   }
 
+  def encryptYesNoWith2Text(yesNoWith2Text: YesNoWith2Text) = {
+    YesNoWith2Text(
+      encryptString(yesNoWith2Text.answer),
+      encryptOptionalString(yesNoWith2Text.text1),
+      encryptOptionalString(yesNoWith2Text.text2)
+    )
+  }
+
   def decryptString(text: String): String = {
     try {
       (new EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary(text))
@@ -166,6 +174,14 @@ object Encryption {
       )
       case None => None
     }
+  }
+
+  def decryptYesNoWith2Text(yesNoWith2Text: YesNoWith2Text) = {
+    YesNoWith2Text(
+      decryptString(yesNoWith2Text.answer),
+      decryptOptionalString(yesNoWith2Text.text1),
+      decryptOptionalString(yesNoWith2Text.text2)
+    )
   }
 
 }
