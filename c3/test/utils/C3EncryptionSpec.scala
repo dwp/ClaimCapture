@@ -2,7 +2,7 @@ package utils
 
 import models.yesNo.{YesNoWith2Text, YesNoWithAddress, YesNoMandWithAddress}
 import org.specs2.mutable.Specification
-import models.{SortCode, MultiLineAddress, NationalInsuranceNumber}
+import models.{DayMonthYear, SortCode, MultiLineAddress, NationalInsuranceNumber}
 import models.domain.BankBuildingSocietyDetails
 import utils.C3Encryption
 import javax.xml.bind.DatatypeConverter
@@ -23,6 +23,7 @@ class C3EncryptionSpec extends Specification {
   val optionalBankBuildingSoceityDetails = Some(BankBuildingSocietyDetails("blah", "blah", SortCode("00", "00", "00"),
     "blah", "blah"))
   val yesNoWith2Text = YesNoWith2Text("blah", Some("blah"), Some("blah"))
+  val optionalDayMonthYear = Some(DayMonthYear(1,2,2000))
 
   "C3Encryption" should {
 
@@ -145,6 +146,21 @@ class C3EncryptionSpec extends Specification {
       yesNoWithAddress.address.get.lineTwo mustEqual decryptedLineTwo
       yesNoWithAddress.address.get.lineThree mustEqual decryptedLineThree
       yesNoWithAddress.postCode mustEqual decryptedPostCode
+    }
+
+    "Encrypt Option[DayMonthYear] values" in {
+      // Tests for DayMonthYear are in models.DayMonthYearSpec
+      val encryptedOptionalDayMonthYear = C3Encryption.encryptOptionalDayMonthYear(optionalDayMonthYear)
+      val decryptedOptionalDayMonthYear = Some(encryptedOptionalDayMonthYear.get.decrypt)
+      optionalDayMonthYear mustNotEqual encryptedOptionalDayMonthYear
+      optionalDayMonthYear mustEqual decryptedOptionalDayMonthYear
+    }
+
+    "Decrypt Option[DayMonthYear] values" in {
+      // Tests for DayMonthYear are in models.DayMonthYearSpec
+      val encryptedOptionalDayMonthYear = C3Encryption.encryptOptionalDayMonthYear(optionalDayMonthYear)
+      val decryptedOptionalDayMonthYear = C3Encryption.decryptOptionalDayMonthYear(encryptedOptionalDayMonthYear)
+      optionalDayMonthYear mustEqual decryptedOptionalDayMonthYear
     }
 
     "Decrypt YesNoWithAddress values" in {

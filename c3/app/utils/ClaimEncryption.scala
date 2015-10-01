@@ -39,7 +39,7 @@ object ClaimEncryption {
           encryptOptionalString(yourDetails.middleName),
           encryptString(yourDetails.surname),
           encryptNationalInsuranceNumber(yourDetails.nationalInsuranceNumber),
-          yourDetails.dateOfBirth
+          encryptDayMonthYear(yourDetails.dateOfBirth)
         ))
       case _ => claim
     }
@@ -73,7 +73,7 @@ object ClaimEncryption {
           encryptOptionalString(theirPersonalDetails.middleName),
           encryptString(theirPersonalDetails.surname),
           encryptOptionalNationalInsuranceNumber(theirPersonalDetails.nationalInsuranceNumber),
-          theirPersonalDetails.dateOfBirth,
+          encryptDayMonthYear(theirPersonalDetails.dateOfBirth),
           encryptYesNoMandWithAddress(theirPersonalDetails.theirAddress)
         ))
       case _ => claim
@@ -86,7 +86,7 @@ object ClaimEncryption {
         claim.update(circumstancesReportChange.copy(
           encryptString(circumstancesReportChange.fullName),
           encryptNationalInsuranceNumber(circumstancesReportChange.nationalInsuranceNumber),
-          circumstancesReportChange.dateOfBirth,
+          encryptDayMonthYear(circumstancesReportChange.dateOfBirth),
           encryptString(circumstancesReportChange.theirFullName),
           encryptString(circumstancesReportChange.theirRelationshipToYou),
           encryptString(circumstancesReportChange.furtherInfoContact),
@@ -121,7 +121,7 @@ object ClaimEncryption {
           encryptOptionalString(yourPartnerPersonalDetails.surname),
           encryptOptionalString(yourPartnerPersonalDetails.otherSurnames),
           encryptOptionalNationalInsuranceNumber(yourPartnerPersonalDetails.nationalInsuranceNumber),
-          yourPartnerPersonalDetails.dateOfBirth,
+          encryptOptionalDayMonthYear(yourPartnerPersonalDetails.dateOfBirth),
           encryptOptionalString(yourPartnerPersonalDetails.nationality),
           encryptOptionalString(yourPartnerPersonalDetails.separatedFromPartner),
           encryptOptionalString(yourPartnerPersonalDetails.isPartnerPersonYouCareFor),
@@ -175,7 +175,7 @@ object ClaimEncryption {
           decryptOptionalString(yourDetails.middleName),
           decryptString(yourDetails.surname),
           decryptNationalInsuranceNumber(yourDetails.nationalInsuranceNumber),
-          yourDetails.dateOfBirth
+          decryptDayMonthYear(yourDetails.dateOfBirth)
         ))
       case _ => claim
     }
@@ -209,7 +209,7 @@ object ClaimEncryption {
           decryptOptionalString(theirPersonalDetails.middleName),
           decryptString(theirPersonalDetails.surname),
           decryptOptionalNationalInsuranceNumber(theirPersonalDetails.nationalInsuranceNumber),
-          theirPersonalDetails.dateOfBirth,
+          decryptDayMonthYear(theirPersonalDetails.dateOfBirth),
           decryptYesNoMandWithAddress(theirPersonalDetails.theirAddress)
         ))
       case _ => claim
@@ -222,7 +222,7 @@ object ClaimEncryption {
         claim.update(circumstancesReportChange.copy(
           decryptString(circumstancesReportChange.fullName),
           decryptNationalInsuranceNumber(circumstancesReportChange.nationalInsuranceNumber),
-          circumstancesReportChange.dateOfBirth,
+          decryptDayMonthYear(circumstancesReportChange.dateOfBirth),
           decryptString(circumstancesReportChange.theirFullName),
           decryptString(circumstancesReportChange.theirRelationshipToYou),
           decryptString(circumstancesReportChange.furtherInfoContact),
@@ -257,7 +257,7 @@ object ClaimEncryption {
           decryptOptionalString(yourPartnerPersonalDetails.surname),
           decryptOptionalString(yourPartnerPersonalDetails.otherSurnames),
           decryptOptionalNationalInsuranceNumber(yourPartnerPersonalDetails.nationalInsuranceNumber),
-          yourPartnerPersonalDetails.dateOfBirth,
+          decryptOptionalDayMonthYear(yourPartnerPersonalDetails.dateOfBirth),
           decryptOptionalString(yourPartnerPersonalDetails.nationality),
           decryptOptionalString(yourPartnerPersonalDetails.separatedFromPartner),
           decryptOptionalString(yourPartnerPersonalDetails.isPartnerPersonYouCareFor),

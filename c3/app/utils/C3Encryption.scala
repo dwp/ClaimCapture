@@ -3,7 +3,7 @@ package utils
 import javax.xml.bind.DatatypeConverter
 import gov.dwp.carers.security.encryption.EncryptorAES
 import models.yesNo.{YesNoWith2Text, YesNoWithAddress, YesNoMandWithAddress}
-import models.{SortCode, NationalInsuranceNumber, MultiLineAddress}
+import models.{DayMonthYear, SortCode, NationalInsuranceNumber, MultiLineAddress}
 import models.domain._
 import play.api.Logger
 
@@ -96,6 +96,17 @@ object C3Encryption {
     )
   }
 
+  def encryptDayMonthYear(dayMonthYear: DayMonthYear) = {
+    dayMonthYear.encrypt
+  }
+
+  def encryptOptionalDayMonthYear(dayMonthYear: Option[DayMonthYear]) = {
+    dayMonthYear match {
+      case Some(dmy) => Some(dmy.encrypt)
+      case None => None
+    }
+  }
+
   def decryptString(text: String): String = {
     try {
       (new EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary(text))
@@ -182,6 +193,17 @@ object C3Encryption {
       decryptOptionalString(yesNoWith2Text.text1),
       decryptOptionalString(yesNoWith2Text.text2)
     )
+  }
+
+  def decryptDayMonthYear(dayMonthYear: DayMonthYear) = {
+    dayMonthYear.decrypt
+  }
+
+  def decryptOptionalDayMonthYear(dayMonthYear: Option[DayMonthYear]) = {
+    dayMonthYear match {
+      case Some(dmy) => Some(dmy.decrypt)
+      case None => None
+    }
   }
 
 }

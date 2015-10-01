@@ -132,5 +132,22 @@ class DayMonthYearSpec extends Specification {
       dmy2.isEqualTo(dmy) should beFalse
     }
 
+    "Encrypt" in {
+      val dmy = DayMonthYear(23, 9, 2013)
+      val encryptedDmy = dmy.encrypt
+      encryptedDmy.day mustEqual None
+      encryptedDmy.month mustEqual None
+      encryptedDmy.year mustEqual None
+      encryptedDmy.hour mustEqual None
+      encryptedDmy.minutes mustEqual None
+    }
+
+    "Decrypt" in {
+      val dmy = DayMonthYear(23, 9, 2013)
+      val encryptedDmy = dmy.encrypt
+      val decryptedDmy = encryptedDmy.decrypt
+      dmy mustEqual decryptedDmy
+    }
+
   }
 }

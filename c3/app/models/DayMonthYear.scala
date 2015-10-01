@@ -4,10 +4,40 @@ import scala.util.{Failure, Success, Try}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.i18n.{MMessages => Messages}
-
+import utils.C3Encryption._
 
 case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
                         hour: Option[Int] = None, minutes: Option[Int] = None) {
+
+  var encryptedDate: Option[String] = None
+
+  def encrypt = {
+    val encryptedCopy = copy(None, None, None, None, None)
+    encryptedCopy.encryptedDate = encryptOptionalString(Some(this.`yyyy-MM-dd'T'HH:mm:00`))
+    encryptedCopy
+  }
+
+  def decrypt = {
+    val decryptedDate = decryptOptionalString(encryptedDate)
+    decryptedDate match {
+      case Some(dd) =>
+        val dateTime = DateTime.parse(dd)
+        val hourOfDay = dateTime.hourOfDay().get
+        val hours = hourOfDay match {
+          case 0 => None
+          case _ => Some(hourOfDay)
+        }
+        val minuteOfHour = dateTime.minuteOfHour().get
+        val minutes = minuteOfHour match {
+          case 0 => None
+          case _ => Some(minuteOfHour)
+        }
+        DayMonthYear(Some(dateTime.dayOfMonth().get), Some(dateTime.monthOfYear().get), Some(dateTime.year().get),
+          hours, minutes)
+      case _ => DayMonthYear()
+    }
+  }
+
   def withTime(hour: Int, minutes: Int) = copy(hour = Some(hour), minutes = Some(minutes))
 
   def `yyyy`: String = format("yyyy")
