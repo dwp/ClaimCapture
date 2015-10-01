@@ -6,11 +6,11 @@
 
 @font-face {
 	font-family: 'icomoon';
-	src:url('../icons/external-link/icomoon.eot?kht9ny');
-	src:url('../icons/external-link/icomoon.eot?#iefixkht9ny') format('embedded-opentype'),
-		url('../icons/external-link/icomoon.ttf?kht9ny') format('truetype'),
-		url('../icons/external-link/icomoon.woff?kht9ny') format('woff'),
-		url('../icons/external-link/icomoon.svg?kht9ny#icomoon') format('svg');
+	src: url('../icons/external-link/icomoon.eot?kht9ny');
+	src: url('../icons/external-link/icomoon.eot?#iefixkht9ny') format('embedded-opentype'),
+		 url('../icons/external-link/icomoon.ttf?kht9ny') format('truetype'),
+		 url('../icons/external-link/icomoon.woff?kht9ny') format('woff'),
+		 url('../icons/external-link/icomoon.svg?kht9ny#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -26,4 +26,12 @@
 		display: inline-block;
 		content: "\e600";
 	}
+}
+
+// Print Icon
+
+.print-icon {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 0.25em;
 }
