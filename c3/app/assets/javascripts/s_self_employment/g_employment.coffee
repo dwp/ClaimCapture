@@ -1,4 +1,4 @@
-window.updateNextLabel = (employment_yes,employment_no,selfEmployment_yes,selfEmployment_no,previousEmployed,previousSelfEmployed,textNext,textReturn) ->
+window.updateNextLabel = (employment_yes,employment_no,selfEmployment_yes,selfEmployment_no,previousEmployed,previousSelfEmployed,noJobs,textNext,textReturn) ->
   changeText = ->
     button = $("button.button")
     if goToPreview()
@@ -17,9 +17,9 @@ window.updateNextLabel = (employment_yes,employment_no,selfEmployment_yes,selfEm
     selfENotChangedAndEmploymentNo = bPreviousEmployed && !beenEmployed && !selfEmploymentHasChanged
     empNotChangedAndSENo = bPreviousSelfEmployed && !beenSelfEmployed && !employmentHasChanged
     bothAnswersAreNo = !beenEmployed && !beenSelfEmployed
+    doesNotHaveJobs = beenEmployed && noJobs
 
-    result = bothAnswersAreNo || bothHaveNotChanged || selfENotChangedAndEmploymentNo || empNotChangedAndSENo
-    result
+    if(doesNotHaveJobs) then false else bothAnswersAreNo || bothHaveNotChanged || selfENotChangedAndEmploymentNo || empNotChangedAndSENo || haveAtLeastAJob
 
   #Definitions end, starts execution
   changeText()

@@ -1,4 +1,3 @@
-@import models.domain.Employment
 @(employmentForm: Form[models.domain.Employment])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import scala.language.postfixOps
@@ -7,6 +6,8 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import models.domain.Employment
+@import models.domain.Jobs
 
 @bulletsConstructor(label: String, maxBullets: Int) = @{
     for(i<-1 to maxBullets) yield label+i
@@ -67,6 +68,7 @@
             window.updateNextLabel("@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_yes")","@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_no")"
                                   ,"@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_yes")","@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_no")"
                                   ,"@previousClaimEmployment.beenEmployedSince6MonthsBeforeClaim","@previousClaimEmployment.beenSelfEmployedSince1WeekBeforeClaim"
+                                  ,@claim.questionGroup[Jobs].getOrElse(Jobs()).size == 0
                                   ,"@Messages("form.next")","@Messages("form.returnToSummary")")
             }
         })
