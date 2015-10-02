@@ -1,4 +1,5 @@
-    @(employmentForm: Form[models.domain.Employment])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@import models.domain.Employment
+@(employmentForm: Form[models.domain.Employment])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import scala.language.postfixOps
 @import helper._
@@ -17,6 +18,10 @@
 
 @bulletsEmployed = @{
     bulletsConstructor("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper.l", 7)
+}
+
+@previousClaimEmployment = @{
+    claim.previouslySavedClaim.get.questionGroup[Employment].getOrElse(Employment())
 }
 
         @defining(lang) { implicit language =>
@@ -51,11 +56,19 @@
 
     }
 
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_self_employment/g_employment.js")></script>
+
     <script type="text/javascript">
         $(function(){
             conditionRequired = function(){
                 return $("#"+"@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_no")").is(':checked');
             };
+            @if(claim.navigation.beenInPreview){
+            window.updateNextLabel("@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_yes")","@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_no")"
+                                  ,"@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_yes")","@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_no")"
+                                  ,"@previousClaimEmployment.beenEmployedSince6MonthsBeforeClaim","@previousClaimEmployment.beenSelfEmployedSince1WeekBeforeClaim"
+                                  ,"@Messages("form.next")","@Messages("form.returnToSummary")")
+            }
         })
     </script>
 

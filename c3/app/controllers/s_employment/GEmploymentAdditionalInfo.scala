@@ -38,5 +38,5 @@ object GEmploymentAdditionalInfo extends Controller with CachedClaim with Naviga
       },
       employmentAdditionalInfo => claim.update(employmentAdditionalInfo) -> Redirect(controllers.s_other_money.routes.GAboutOtherMoney.present())
     )
-  }
+  } withPreview()
 }

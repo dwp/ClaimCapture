@@ -59,5 +59,5 @@ object GSelfEmploymentYourAccounts extends Controller with CachedClaim with Navi
         BadRequest(views.html.s_self_employment.g_selfEmploymentYourAccounts(formWithErrorsUpdate)(lang))
       },
       f => claim.update(f) -> Redirect(routes.GSelfEmploymentPensionsAndExpenses.present()))
-  }.withPreviewConditionally[Emp](emp => emp._2.beenEmployedSince6MonthsBeforeClaim == Mappings.no)
+  }
 }
