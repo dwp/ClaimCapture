@@ -32,6 +32,20 @@
 					@if(toggle) {
 						<p class="text helper-prompt">@Html(Messages("preview.helper"))</p>
 					}
+					
+					<p class="hide-print hide-no-js">
+						<a href="javascript:window.print()" aria-label="@Html(Messages("form.next.help"))">
+							<img class="print-icon" alt="@Html(Messages("button.print.summary"))" src="/assets/images/print-icon.png">@Html(Messages("button.print.summary"))
+						</a>
+					</p>
+					
+					<p class="hide-print helper-prompt">
+						<small>
+							<span class="js-hidden">@Html(Messages("preview.print.noJs"))</span>
+							@Html(Messages("preview.print"))
+						</small>
+					</p>
+					
 					<div class="summary">
 	                    @s2()
 	                    @s3()
@@ -42,19 +56,6 @@
 	                    @s9()
                         @s_additional_info()
 					</div>
-					
-					<p class="hide-print hide-no-js">
-						<a href="javascript:window.print()" class="button secondary button-print" aria-label="@Html(Messages("form.next.help"))">
-							@Html(Messages("button.print.summary"))
-						</a>
-					</p>
-					
-					<p class="hide-print helper-prompt">
-						<small>
-							<span class="js-hidden">@Html(Messages("preview.print.noJs"))</span>
-							@Html(Messages("preview.print"))
-						</small>
-					</p>
 
                     @helper.form(action = controllers.preview.routes.Preview.submit) {
                         @DwpCSRFFormHelper.formField
