@@ -15,7 +15,7 @@ object NINOMappings {
   )(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
 
   private def ninoValidation(nino: NationalInsuranceNumber): ValidationResult = {
-    val ninoPattern = """[A-CEGHJ-PR-TW-Z]{2}[0-9]{6}[ABCD]""".r
+    val ninoPattern = """(([A-CEHJ-MOPRSW-Y]{1}[A-CEGHJ-NPR-TW-Z]{1}[0-9]{6})|([G]{1}[ACEGHJ-NPR-TW-Z]{1}[0-9]{6})|([N]{1}[A-CEGHJL-NPR-TW-Z]{1}[0-9]{6})|([T]{1}[A-CEGHJ-MPR-TW-Z]{1}[0-9]{6})|([Z]{1}[A-CEGHJ-NPR-TW-Y]{1}[0-9]{6}))(([A-D ]{1})|([\S\s\d]{0,0}))""".r
 
     ninoPattern.pattern.matcher(nino.nino.get.toUpperCase).matches match {
       case true => Valid
