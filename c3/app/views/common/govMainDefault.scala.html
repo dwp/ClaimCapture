@@ -127,6 +127,9 @@
                         <a id="cookies" rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" @views.html.ga.trackClickEvent(linkName = "Cookies - from footer")>@Messages("cookies")</a>
 
                         <a id="privacy" rel="external" target="privacyLink" href="https://www.gov.uk/government/organisations/department-for-work-pensions/about/personal-information-charter" @views.html.ga.trackClickEvent(linkName = "Privacy")>@Messages("privacyLink")</a>
+                        
+                        <a id="claim-feedback" rel="external" target="_blank" href="https://www.gov.uk/done/apply-carers-allowance ">@Messages("footer.feedback.text")</a>
+                        
                     </nav>
                     <p>@Html(Messages("madePreston"))</p>
                     <p class="ogl">@Html(Messages("openGovLicensea")) <a rel="external" href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="openGovLink" @views.html.ga.trackClickEvent(linkName = "Open Government Licence")>@Html(Messages("openGovLicenseb"))</a>@Html(Messages("openGovLicensec"))</p>
