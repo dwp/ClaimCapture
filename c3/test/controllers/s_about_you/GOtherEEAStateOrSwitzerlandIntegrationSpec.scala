@@ -95,17 +95,17 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags
     "Working For EEA Details must not be visible when time abroad page is displayed" in new WithJsBrowser  with PageObjects{
       val page =  GOtherEEAStateOrSwitzerlandPage(context)
       page goToThePage()
-      page.ctx.browser.findFirst("#guardQuestion_field1_answer_yes").isDisplayed should beFalse
-      page.ctx.browser.findFirst("#guardQuestion_field1_answer_no").isDisplayed should beFalse
-      page.ctx.browser.findFirst("#guardQuestion_field1_field").isDisplayed should beFalse
+      page.ctx.browser.findFirst("#eeaGuardQuestion_benefitsFromEEADetails_answer_yes").isDisplayed should beFalse
+      page.ctx.browser.findFirst("#eeaGuardQuestion_benefitsFromEEADetails_answer_no").isDisplayed should beFalse
+      page.ctx.browser.findFirst("#eeaGuardQuestion_benefitsFromEEADetails_field").isDisplayed should beFalse
     }
 
     "Benefits from EEA Details must not be visible when time abroad page is displayed" in new WithJsBrowser  with PageObjects{
       val page =  GOtherEEAStateOrSwitzerlandPage(context)
       page goToThePage()
-      page.ctx.browser.findFirst("#guardQuestion_field2_answer_yes").isDisplayed should beFalse
-      page.ctx.browser.findFirst("#guardQuestion_field2_answer_no").isDisplayed should beFalse
-      page.ctx.browser.findFirst("#guardQuestion_field2_field").isDisplayed should beFalse
+      page.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_answer_yes").isDisplayed should beFalse
+      page.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_answer_no").isDisplayed should beFalse
+      page.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_field").isDisplayed should beFalse
     }
 
     "Working For EEA Details must be visible when returning back to the time abroad page" in new WithJsBrowser  with PageObjects{
@@ -122,9 +122,9 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags
       val backPage = nextPage goBack()
       backPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
 
-      backPage.ctx.browser.findFirst("#guardQuestion_field1_answer_yes").isSelected should beTrue
-      backPage.ctx.browser.findFirst("#guardQuestion_field1_answer_no").isSelected should beFalse
-      backPage.ctx.browser.findFirst("#guardQuestion_field1_field").isDisplayed should beTrue
+      backPage.ctx.browser.findFirst("#eeaGuardQuestion_benefitsFromEEADetails_answer_yes").isSelected should beTrue
+      backPage.ctx.browser.findFirst("#eeaGuardQuestion_benefitsFromEEADetails_answer_no").isSelected should beFalse
+      backPage.ctx.browser.findFirst("#eeaGuardQuestion_benefitsFromEEADetails_field").isDisplayed should beTrue
     }
 
     "Benefits from EEA Details must be visible when returning back to the time abroad page" in new WithJsBrowser  with PageObjects{
@@ -141,9 +141,9 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags
       val backPage = nextPage goBack()
       backPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
 
-      backPage.ctx.browser.findFirst("#guardQuestion_field2_answer_yes").isSelected should beTrue
-      backPage.ctx.browser.findFirst("#guardQuestion_field2_answer_no").isSelected should beFalse
-      backPage.ctx.browser.findFirst("#guardQuestion_field2_field").isDisplayed should beTrue
+      backPage.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_answer_yes").isSelected should beTrue
+      backPage.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_answer_no").isSelected should beFalse
+      backPage.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_field").isDisplayed should beTrue
     }
 
   } section("integration", models.domain.AboutYou.id)
