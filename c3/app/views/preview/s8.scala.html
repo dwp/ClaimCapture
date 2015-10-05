@@ -71,7 +71,7 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("employment_been_employed_since", Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`d month yyyy`),Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim), true)
+			@fieldWithLink("employment_been_employed_since", Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`d month yyyy`),Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim),disableLink = disableChangeButton)
 
 			@{/* Jobs do not use the fieldWithLink view. The fieldWithLink view accepts text
 					and this produces HTML (an unordered list) */}
@@ -89,17 +89,21 @@
 			            </ul>
 			        </td>
 					<td id="@getLinkContainerId(jobsId, false)" class="review-action hide-print">
-
+						@if(!disableChangeButton) {
+							<a class="button secondary" href="@controllers.s_employment.routes.GBeenEmployed.present">
+								@Html(Messages("preview.change"))
+							</a>
+						}
 					</td>
 				</tr>
 			}
-			@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), seValue, true)
+			@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), seValue,disableLink = disableChangeButton)
 
 			@if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
-				@fieldWithLink("self_employment_nature_of_business", Messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness, true)
+				@fieldWithLink("self_employment_nature_of_business", Messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness, disableLink = disableChangeButton)
 			}
 			@if(isSelfEmployed || isEmployed){
-				@fieldWithLink("employment_additional_info", Messages("empAdditionalInfo.text"), additionalInfoValue, true)
+				@fieldWithLink("employment_additional_info", Messages("empAdditionalInfo.text"), additionalInfoValue, disableLink = disableChangeButton)
 			}
 		</table>
 	</div>

@@ -9,7 +9,7 @@ import org.joda.time.DateTime
 import models.PaymentFrequency
 import models.domain.Claim
 import scala.Some
-import models.yesNo.{YesNo, YesNoWithText}
+import models.yesNo.{YesNoWith1MandatoryFieldOnYes, YesNoWith2MandatoryFieldsOnYes, YesNo, YesNoWithText}
 import xml.claim.AssistedDecision
 
 
@@ -326,7 +326,7 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Create an assisted decision section if EEA pension" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
             val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromEEA = "yes")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = "yes", field1=Some(YesNoWith1MandatoryFieldOnYes(answer="yes"))))
       val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Claimant or partner dependent on EEA pensions or benefits.")
@@ -336,7 +336,7 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Not create an assisted decision section if no EEA pension" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
             val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromEEA = "no")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = "yes", field1=Some(YesNoWith1MandatoryFieldOnYes(answer="no"))))
       val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0
@@ -345,7 +345,7 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Not create an assisted decision section if no EEA benefits claimed for" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
             val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
-      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForEEA = "no")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = "yes", field2=Some(YesNoWith1MandatoryFieldOnYes(answer="no"))))
       val claim = Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecisions").length mustEqual 0

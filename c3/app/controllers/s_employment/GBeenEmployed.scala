@@ -71,7 +71,7 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable {
         BadRequest(views.html.s_employment.g_beenEmployed(formWithErrorsUpdate)(lang))
       },
       beenEmployed => clearUnfinishedJobs.update(beenEmployed) -> next(beenEmployed))
-  }.withPreviewConditionally[BeenEmployed](beenEmp => beenEmp._2.beenEmployed == Mappings.no)
+  }
 
   private def clearUnfinishedJobs(implicit claim: Claim) = {
     val jobs = claim.questionGroup[Jobs].getOrElse(Jobs())

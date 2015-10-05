@@ -36,9 +36,9 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-            @fieldWithLink("other_money_anyPaymentsSinceClaimDate", "anyPaymentsSinceClaimDate.answer", anyPaymentsSinceClaimDate, elementId = Some("anyPaymentsSinceClaimDate_answer"))
-            @fieldWithLink("other_money_statutoryPay", "haveYouHadAnyStatutorySickPay.label", statutoryPay, elementId = Some("statutorySickPay_answer"))
-            @fieldWithLink("other_money_otherStatutoryPay", "otherPay.label", otherStatutoryPay, elementId = Some("otherStatutoryPay_answer"))
+            @fieldWithLink("other_money_anyPaymentsSinceClaimDate", "anyPaymentsSinceClaimDate.answer", anyPaymentsSinceClaimDate, elementId = Some("anyPaymentsSinceClaimDate_answer"), disableLink = disableChangeButton)
+            @fieldWithLink("other_money_statutoryPay", "haveYouHadAnyStatutorySickPay.label", statutoryPay, elementId = Some("statutorySickPay_answer"), disableLink = disableChangeButton)
+            @fieldWithLink("other_money_otherStatutoryPay", "otherPay.label", otherStatutoryPay, elementId = Some("otherStatutoryPay_answer"), disableLink = disableChangeButton)
 		</table>
 	</div>
 

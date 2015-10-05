@@ -112,13 +112,13 @@ object AssistedDecision extends XMLComponent {
 
   private def noEEABenefits(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.benefitsFromEEA.toLowerCase == "yes") decisionElement("Claimant or partner dependent on EEA pensions or benefits.", "Transfer to Exportability team.")
+    if (otherEEAStateOrSwitzerland.guardQuestion.field1.fold(false)(_.answer.toLowerCase == "yes")) decisionElement("Claimant or partner dependent on EEA pensions or benefits.", "Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
   private def noEEAWork(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.workingForEEA.toLowerCase == "yes") decisionElement("Claimant or partner dependent on EEA insurance or work.", "Transfer to Exportability team.")
+    if (otherEEAStateOrSwitzerland.guardQuestion.field2.fold(false)(_.answer.toLowerCase == "yes"))decisionElement("Claimant or partner dependent on EEA insurance or work.", "Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 

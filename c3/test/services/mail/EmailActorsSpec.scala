@@ -84,10 +84,9 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
 
       Thread.sleep(5000)
 
-      //The retry only takes 5 seconds based on EmailSenderTestable, however sometimes the system shutdown takes
-      //more than expected and the retry executes 3 times
+
       EmailSenderTestable.synchronized{
-        EmailSenderTestable.sendEmail must beLessThanOrEqualTo(3)
+        EmailSenderTestable.sendEmail must beLessThanOrEqualTo(1)
       }
 
       there was atMost(3)(mailerMock).sendEmail(any[Email])

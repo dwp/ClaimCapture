@@ -13,14 +13,13 @@
 @disableChangeButton = @{
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
 }
-
 <div class="accordion accordion-open">
 
 	<h2 class="heading-medium accordion-title">@Html(Messages("s4.5.longName"))</h2>
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("care_you_provide_anyBreaks", Messages("answer.label", breaksFromDate), Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) " " + Messages("breaks.details",breaks.breaks.length) else ""), disableChangeButton)
+			@fieldWithLink("care_you_provide_anyBreaks", Messages("answer.label", breaksFromDate), Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) " " + Messages("breaks.details",breaks.breaks.length) else ""), disableLink = disableChangeButton)
 		</table>
 	</div>
 

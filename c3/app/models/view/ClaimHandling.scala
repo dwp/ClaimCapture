@@ -23,7 +23,7 @@ object ClaimHandling {
   type ClaimResult = (Claim, Result)
   // Versioning
   val C3VERSION = "C3Version"
-  val C3VERSION_VALUE = "2.27"
+  val C3VERSION_VALUE = "2.27.1"
   val applicationFinished = "application-finished"
 
 }
@@ -224,7 +224,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
 
     // If the curried function returns true, this action will be redirected to preview if we have been there previously
     // The data feeded to the curried function is the current submitted value of the claim, and the previously saved claim the moment we visited preview page.
-    def withPreviewConditionally[T <: QuestionGroup](t: ((Option[T], T)) => Boolean)(implicit classTag: ClassTag[T]): Action[AnyContent] = Action.async(action.parser) { request =>
+    def withPreviewConditionally[T <: QuestionGroup](t: ((Option[T], T),(Option[Claim],Claim)) => Boolean)(implicit classTag: ClassTag[T]): Action[AnyContent] = Action.async(action.parser) { request =>
 
       def getParams[E <: T](claim: Claim)(implicit classTag: ClassTag[E]): (Option[E], E) = {
         claim.previouslySavedClaim.map(_.questionGroup(classTag.runtimeClass).getOrElse(None)).asInstanceOf[Option[E]] -> claim.questionGroup(classTag.runtimeClass).get.asInstanceOf[E]
@@ -232,7 +232,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
 
       action(request).map { result =>
         result.header.status -> fromCache(request) match {
-          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim)) => Redirect(controllers.preview.routes.Preview.present())
+          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim),claim.previouslySavedClaim->claim) => Redirect(controllers.preview.routes.Preview.present())
           case _ => result
         }
       }

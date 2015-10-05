@@ -32,7 +32,7 @@ object Claimant extends XMLComponent {
       {question(<MaritalStatus/>, "maritalStatus", maritalStatus.maritalStatus)}
       {question(<TextPhoneContact/>,"contactYouByTextphone", textPhone(contactDetails))}
       {question(<WantsContactEmail/>,"wantsEmailContact", contactDetails.wantsContactEmail)}
-      {question(<Email/>,"mail", contactDetails.email)}
+      {question(<Email/>,"mail.output", contactDetails.email)}
     </Claimant>
   }
 
