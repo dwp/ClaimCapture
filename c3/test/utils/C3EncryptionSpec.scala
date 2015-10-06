@@ -10,6 +10,7 @@ import gov.dwp.carers.security.encryption.EncryptorAES
 
 class C3EncryptionSpec extends Specification {
 
+  val string = "Barney"
   val optionalString = Some("Barney")
   val multiLineAddress = MultiLineAddress(Some("123"), Some("Fake Street"), None)
   val nationalInsuranceNumber = NationalInsuranceNumber(Some("AA123456A"))
@@ -26,6 +27,13 @@ class C3EncryptionSpec extends Specification {
   val optionalDayMonthYear = Some(DayMonthYear(1,2,2000))
 
   "C3Encryption" should {
+
+    "Not decrypt an already decrypted string" in {
+      val encryptedString = C3Encryption.encryptString(string)
+      val decryptedString = C3Encryption.decryptString(encryptedString)
+      val reDecryptedString = C3Encryption.decryptString(decryptedString)
+      decryptedString mustEqual reDecryptedString
+    }
 
     "Encrypt Option[String] values" in {
       val encryptedOptionalString = C3Encryption.encryptOptionalString(optionalString)

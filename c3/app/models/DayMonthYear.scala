@@ -12,15 +12,19 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
   var encryptedDate: Option[String] = None
 
   def encrypt = {
-    val encryptedCopy = copy(None, None, None, None, None)
-    encryptedCopy.encryptedDate = encryptOptionalString(Some(this.`yyyy-MM-dd'T'HH:mm:00`))
-    encryptedCopy
+    encryptedDate match {
+      case Some(date) => this // Do not encrypt if already encrypted
+      case _ =>
+        val encryptedCopy = copy(None, None, None, None, None)
+        encryptedCopy.encryptedDate = encryptOptionalString(Some(this.`yyyy-MM-dd'T'HH:mm:00`))
+        encryptedCopy
+    }
   }
 
   def decrypt = {
-    val decryptedDate = decryptOptionalString(encryptedDate)
-    decryptedDate match {
-      case Some(dd) =>
+    encryptedDate match {
+      case Some(date) if date.nonEmpty =>
+        val dd = decryptString(date)
         val dateTime = DateTime.parse(dd)
         val hourOfDay = dateTime.hourOfDay().get
         val hours = hourOfDay match {
@@ -32,9 +36,11 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
           case 0 => None
           case _ => Some(minuteOfHour)
         }
-        DayMonthYear(Some(dateTime.dayOfMonth().get), Some(dateTime.monthOfYear().get), Some(dateTime.year().get),
+        val decryptedCopy = copy(Some(dateTime.dayOfMonth().get), Some(dateTime.monthOfYear().get), Some(dateTime.year().get),
           hours, minutes)
-      case _ => DayMonthYear()
+        decryptedCopy.encryptedDate = None
+        decryptedCopy
+      case _ => this // Do not decrypt if already decrypted
     }
   }
 

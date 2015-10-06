@@ -46,6 +46,26 @@ class ClaimEncryptionSpec extends Specification {
     "Encrypt the Claim object" in {
       val encryptedClaim = ClaimEncryption.encrypt(claim)
       claim mustNotEqual encryptedClaim
+
+      // Claim object is not ordered so you cannot compare original claim with decrypted claim
+      // Individual question groups must be asserted
+      claim.questionGroup[YourDetails] mustNotEqual encryptedClaim.questionGroup[YourDetails]
+      claim.questionGroup[ContactDetails] mustNotEqual encryptedClaim.questionGroup[ContactDetails]
+      claim.questionGroup[TheirPersonalDetails] mustNotEqual encryptedClaim.questionGroup[TheirPersonalDetails]
+      claim.questionGroup[CircumstancesReportChange] mustNotEqual encryptedClaim.questionGroup[CircumstancesReportChange]
+      claim.questionGroup[HowWePayYou] mustNotEqual encryptedClaim.questionGroup[HowWePayYou]
+      claim.questionGroup[YourPartnerPersonalDetails] mustNotEqual encryptedClaim.questionGroup[YourPartnerPersonalDetails]
+      claim.questionGroup[CircumstancesAddressChange] mustNotEqual encryptedClaim.questionGroup[CircumstancesAddressChange]
+      claim.questionGroup[CircumstancesPaymentChange] mustNotEqual encryptedClaim.questionGroup[CircumstancesPaymentChange]
+
+      claim.questionGroup[YourDetails] mustEqual ClaimEncryption.decryptYourDetails(encryptedClaim).questionGroup[YourDetails]
+      claim.questionGroup[ContactDetails] mustEqual ClaimEncryption.decryptContactDetails(encryptedClaim).questionGroup[ContactDetails]
+      claim.questionGroup[TheirPersonalDetails] mustEqual ClaimEncryption.decryptTheirPersonalDetails(encryptedClaim).questionGroup[TheirPersonalDetails]
+      claim.questionGroup[CircumstancesReportChange] mustEqual ClaimEncryption.decryptCircumstancesReportChange(encryptedClaim).questionGroup[CircumstancesReportChange]
+      claim.questionGroup[HowWePayYou] mustEqual ClaimEncryption.decryptHowWePayYou(encryptedClaim).questionGroup[HowWePayYou]
+      claim.questionGroup[YourPartnerPersonalDetails] mustEqual ClaimEncryption.decryptYourPartnerPersonalDetails(encryptedClaim).questionGroup[YourPartnerPersonalDetails]
+      claim.questionGroup[CircumstancesAddressChange] mustEqual ClaimEncryption.decryptCircumstancesAddressChange(encryptedClaim).questionGroup[CircumstancesAddressChange]
+      claim.questionGroup[CircumstancesPaymentChange] mustEqual ClaimEncryption.decryptCircumstancesPaymentChange(encryptedClaim).questionGroup[CircumstancesPaymentChange]
     }
 
     "Decrypt the Claim object" in {
