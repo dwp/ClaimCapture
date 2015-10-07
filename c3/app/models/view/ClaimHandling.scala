@@ -33,6 +33,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
   protected def claimNotValid(claim: Claim): Boolean
   protected def newInstance(newuuid: String = randomUUID.toString): Claim
   protected def copyInstance(claim: Claim): Claim
+  protected def backButtonPage : Call
 
 
   //============================================================================================================
@@ -184,7 +185,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
         Logger.info("User already completed claim. Redirection to back button page.")
         true
       case _ => false
-    }) Redirect(controllers.routes.Application.backButtonPage())
+    }) Redirect(backButtonPage)
     else otherwise
 
   protected def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {
