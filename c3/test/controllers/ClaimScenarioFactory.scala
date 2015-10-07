@@ -647,6 +647,7 @@ object ClaimScenarioFactory {
     val claim = s9otherMoney
     // About self employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
+    claim.SelfEmployedDoYouKnowYourTradingYear = "no"
     claim.SelfEmployedWhenDidYouStartThisJob = "11/09/2001"
     claim.SelfEmployedWhenDidTheJobFinish = "07/07/2005"
     claim.SelfEmployedNatureofYourBusiness = "Some type of business"

@@ -27,7 +27,8 @@ case object SelfEmploymentYourAccounts extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g2"
 }
 
-case class SelfEmploymentYourAccounts(whatWasOrIsYourTradingYearFrom: Option[DayMonthYear] = None,
+case class SelfEmploymentYourAccounts(doYouKnowYourTradingYear: String = "",
+                                      whatWasOrIsYourTradingYearFrom: Option[DayMonthYear] = None,
                                       whatWasOrIsYourTradingYearTo: Option[DayMonthYear] = None,
                                       areIncomeOutgoingsProfitSimilarToTrading: Option[String] = None,
                                       tellUsWhyAndWhenTheChangeHappened: Option[String] = None) extends QuestionGroup(SelfEmploymentYourAccounts)

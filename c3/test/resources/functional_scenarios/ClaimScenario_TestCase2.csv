@@ -15,7 +15,7 @@ About You,Your contact details,Address,AboutYouAddress,2 Preston Road&Preston&La
 About You,Your contact details,Postcode,AboutYouPostcode,pr1 2th
 About You,Your contact details,How we contact you,HowWeContactYou,01772 888901
 About You,Your contact details,Wants email contact,AboutYouWantsEmailContact,No
-Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,22/03/2013
+Claim Date,Your claim date,"When do you want your Carer's Allowance claim to start?",ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,22/03/2013
 Claim Date,Your claim date,Were you caring for the person for more than 35 hours a week before this date?,ClaimDateDidYouCareForThisPersonfor35Hours,No
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,
 About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,British
@@ -39,8 +39,8 @@ About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYo
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,28/09/1977
 About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,French
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,No
-About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,No
-About the care you provide,Details of the person you care for,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Father
+About Your Partner,Person you care for,"Is your partner/spouse the person you are claiming Carer's Allowance for?",AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,No
+About the care you provide,Details of the person you care for,"What's their relationship to you?",AboutTheCareYouProvideWhatTheirRelationshipToYou,Father
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Mr
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Person
 About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,Cared
@@ -67,19 +67,19 @@ Other Money,Benefits and payments,Benefits and payments: How much?,OtherMoneyHow
 Other Money,Benefits and payments,Benefits and payments: How often?,OtherMoneyHowOften,
 Other Money,Benefits and payments,Benefits and payments: How often other?,OtherMoneyHowOftenOther,
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
-Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,
-Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,
-Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,
+Other Money,Statutory Sick Pay,"Employer's Name",OtherMoneySSPEmployerName,
+Other Money,Statutory Sick Pay,"Employer's Address",OtherMoneySSPEmployerAddress,
+Other Money,Statutory Sick Pay,"Employer's Postcode",OtherMoneyEmployerPostcode,
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,Yes
 Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,145
 Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,Monthly
-Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,Greggs Bakers
-Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,this is a very large address line&another absurd large addressâ line&
-Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,PR45 6YH
+Other Money,Other Statutory Pay,"Employer's Name",OtherMoneySMPEmployerName,Greggs Bakers
+Other Money,Other Statutory Pay,"Employer's Address",OtherMoneySMPEmployerAddress,this is a very large address line&another absurd large addressâ line&
+Other Money,Other Statutory Pay,"Employer's Postcode",OtherMoneySMPEmployerPostcode,PR45 6YH
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,yes
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Every week
-How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,I've got a rather large name you know &
-How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,I don't actually remember the bank's name, i used to go to this bank a lot but they stole from me so
+How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,"I've got a rather large name you know &"
+How we pay you,Bank/Building society details,Full name of bank or building society,HowWePayYouFullNameOfBankorBuildingSociety,I don't actually remember the bank's name, i used to go to this bank a lot but they stole from me so
 How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,090126
 How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,1234567890
 How we pay you,Bank/Building society details,Building society roll or reference number,HowWePayYouBuildingSocietyRollOrReferenceNumber,

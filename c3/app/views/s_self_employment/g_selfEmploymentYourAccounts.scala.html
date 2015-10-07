@@ -23,19 +23,23 @@
 
             <ul>
 
-                @tradingStartDate(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"))
-
-                @tradingEndDate(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"))
-
-                @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
+                @yesNoRadioGroup(currentForm("doYouKnowYourTradingYear"), 'track -> true)
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyAndWhenTheChangeHappened"),
-                                   'ignoreOptional -> true,
-                                   'textAreaHelper -> Html(Messages("300charsLeft")),
-                                   'maxLength -> 300)
+                    inputDef = Seq(
+                        tradingStartDate(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom")),
+                        tradingEndDate(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo")),
+                        yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no"))),
+                        otherDetailPlaceHolder(
+                            inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyAndWhenTheChangeHappened"),
+                                'ignoreOptional -> true,
+                                'textAreaHelper -> Html(Messages("300charsLeft")),
+                                'maxLength -> 300)
+                            ),
+                            'id -> "selfEmployedIncomeWrap"
+                        )
                     ),
-                    'id -> "selfEmployedIncomeWrap"
+                    'id -> "doYouKnowYourTradingYearIncomeWrap"
                 )
 
             </ul>
@@ -51,9 +55,14 @@
 
     <script type="text/javascript">
         $(function () {
-            window.initEvents("@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_yes")",
-                              "@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_no")",
-                              "@CarersCrypto.encryptAES("tellUsWhyAndWhenTheChangeHappened")");
+            @ga.stagePrompt()
+            window.initEvents({
+                doYouKnowYourTradingYearY:"@CarersCrypto.encryptAES("doYouKnowYourTradingYear_yes")",
+                doYouKnowYourTradingYearN:"@CarersCrypto.encryptAES("doYouKnowYourTradingYear_no")",
+                areIncomeOutgoingsProfitSimilarToTradingY:"@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_yes")",
+                areIncomeOutgoingsProfitSimilarToTradingN:"@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_no")",
+                tellUsWhyAndWhenTheChangeHappened:"@CarersCrypto.encryptAES("tellUsWhyAndWhenTheChangeHappened")"
+            });
         });
         window.areaCounter({selector: "@CarersCrypto.encryptAES("tellUsWhyAndWhenTheChangeHappened")",maxChars:300});
     </script>

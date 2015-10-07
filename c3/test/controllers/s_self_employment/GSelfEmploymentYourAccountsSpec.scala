@@ -49,7 +49,7 @@ class GSelfEmploymentYourAccountsSpec extends Specification with Tags{
 
       section.questionGroup(SelfEmploymentYourAccounts) must beLike {
         case Some(f: SelfEmploymentYourAccounts) => {
-          f.doYouKnowYourTradingYear must equalTo(Some(doYouKnowYourTradingYear)),
+          f.doYouKnowYourTradingYear must equalTo(doYouKnowYourTradingYear)
           f.whatWasOrIsYourTradingYearFrom must equalTo(Some(DayMonthYear(Some(fromDay), Some(fromMonth), Some(fromYear), None, None)))
           f.whatWasOrIsYourTradingYearTo must equalTo(Some(DayMonthYear(Some(toDay), Some(toMonth), Some(toYear), None, None)))
           f.areIncomeOutgoingsProfitSimilarToTrading must equalTo(Some(areIncomeOutgoingsProfitSimilarToTrading))

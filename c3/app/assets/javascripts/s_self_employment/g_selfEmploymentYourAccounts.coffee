@@ -1,18 +1,36 @@
-window.initEvents = (answerY, answerN, tellUsText) ->
+isChecked = (selector)  ->  $("##{selector}").prop('checked')
+val = (selector,text) -> if text? then $("##{selector}").val(text) else $("##{selector}").val()
+S = (selector) -> $("##{selector}")
 
-  if not $("#"+answerN).prop 'checked'
-    hideSelfEmployedIncomeWrap(tellUsText)
+window.initEvents = (o) ->
+  hideDoYouKnowYourTradingYearWrap = () ->
+    S("doYouKnowYourTradingYearIncomeWrap").slideUp(0).attr 'aria-hidden', 'true'
 
-  $("#" + answerY).on "click", ->
-    hideSelfEmployedIncomeWrap(tellUsText)
+  showDoYouKnowYourTradingYearWrap = () ->
+    S("doYouKnowYourTradingYearIncomeWrap").slideDown(0).attr 'aria-hidden', 'false'
 
-  $("#" + answerN).on "click", ->
+  if not isChecked(o.doYouKnowYourTradingYearY)
+    hideDoYouKnowYourTradingYearWrap()
+
+  S(o.doYouKnowYourTradingYearN).on "click", ->
+    hideDoYouKnowYourTradingYearWrap()
+
+  S(o.doYouKnowYourTradingYearY).on "click", ->
+    showDoYouKnowYourTradingYearWrap()
+
+  hideSelfEmployedIncomeWrap = (o) ->
+    emptySelfEmployedIncomeWrap = () -> S(o.tellUsWhyAndWhenTheChangeHappened).val("")
+    S("selfEmployedIncomeWrap").slideUp(0, emptySelfEmployedIncomeWrap).attr 'aria-hidden', 'true'
+
+  showSelfEmployedIncomeWrap = () ->
+    S("selfEmployedIncomeWrap").slideDown(0).attr 'aria-hidden', 'false'
+
+  if not isChecked(o.areIncomeOutgoingsProfitSimilarToTradingN)
+    hideSelfEmployedIncomeWrap(o)
+
+  S(o.areIncomeOutgoingsProfitSimilarToTradingY).on "click", ->
+    hideSelfEmployedIncomeWrap(o)
+
+  S(o.areIncomeOutgoingsProfitSimilarToTradingN).on "click", ->
     showSelfEmployedIncomeWrap()
 
-hideSelfEmployedIncomeWrap = (tellUsText) ->
-	emptySelfEmployedIncomeWrap = ->
-  		$("#"+tellUsText).val("")
-  $("#selfEmployedIncomeWrap").slideUp(0, emptySelfEmployedIncomeWrap).attr 'aria-hidden', 'true'
-
-showSelfEmployedIncomeWrap = ->
-  $("#selfEmployedIncomeWrap").slideDown(0).attr 'aria-hidden', 'false'
