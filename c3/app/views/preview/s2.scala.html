@@ -6,6 +6,8 @@
 @import app.MaritalStatus._
 @import helper._
 @import controllers.mappings.Mappings._
+@import controllers.mappings.Mappings
+
 
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
 @contactDetails = @{claim.questionGroup[ContactDetails].getOrElse(ContactDetails())}
@@ -63,6 +65,15 @@
         case _ => Messages("label.no")
     }
 }
+@showEEA = @{
+    otherEEA.guardQuestion.answer == `yes`
+}
+@eeaGuardQuestionValue = @{
+    otherEEA.guardQuestion.answer match {
+        case `yes` => Messages("label.yes")
+        case _ => Messages("label.no")
+    }
+}
 @benefitsFromEEAValue = @{
     otherEEA.guardQuestion.field1 match {
         case Some(YesNoWith1MandatoryFieldOnYes(`yes`, _)) => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
@@ -92,8 +103,11 @@
 			@fieldWithLink("about_you_nationality", "yourNationality", nationality, elementId = Some("nationality"))
             @fieldWithLink("about_you_residence", "resideInUK.label", residence, elementId = Some("resideInUK_answer"))
 			@fieldWithLink("about_you_abroad", "52Weeks.label", abroadValue, elementId = Some("anyTrips"))
-			@fieldWithLink("about_you_benefitsFromEEA", "preview.benefitsFromEEA", benefitsFromEEAValue, elementId = Some("benefitsFromEEA"))
-			@fieldWithLink("about_you_workingForEEA", "preview.workingForEEA", workingForEEAValue, elementId = Some("workingForEEA"))
+			@fieldWithLink("about_you_eeaGuardQuestion", "eeaGuardQuestion.answer", eeaGuardQuestionValue, elementId = Some("eeaGuardQuestion"))
+            @if(showEEA) {
+                @fieldWithLink("about_you_benefitsFromEEA", "preview.benefitsFromEEA", benefitsFromEEAValue, elementId = Some("eeaGuardQuestion_benefitsFromEEADetails_answer"))
+                @fieldWithLink("about_you_workingForEEA", "preview.workingForEEA", workingForEEAValue, elementId = Some("eeaGuardQuestion_workingForEEADetails_answer"))
+            }
 		</table>
 	</div>
 

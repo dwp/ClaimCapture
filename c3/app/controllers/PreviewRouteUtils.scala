@@ -22,6 +22,7 @@ object PreviewRouteUtils {
                         "about_you_nationality" -> gNationalityRoute,
                         "about_you_residence" -> gNationalityRoute,
                         "about_you_abroad" -> controllers.s_about_you.routes.GAbroadForMoreThan52Weeks.present.toString,
+                        "about_you_eeaGuardQuestion" -> gOtherEEARoute,
                         "about_you_benefitsFromEEA" -> gOtherEEARoute,
                         "about_you_workingForEEA" -> gOtherEEARoute)
 
@@ -32,12 +33,14 @@ object PreviewRouteUtils {
 
   def employmentRoute = {
     val employmentRoute = controllers.s_self_employment.routes.GEmployment.present.toString
+    val aboutSelfEmployment = controllers.s_self_employment.routes.GAboutSelfEmployment.present.toString
+    val additionalInfoRoute = controllers.s_employment.routes.GEmploymentAdditionalInfo.present.toString
     val routesMap = Map(
       "employment_been_employed_since" -> employmentRoute,
       "employment_jobs" -> employmentRoute,
       "self_employment_been_self_employed" -> employmentRoute,
-      "self_employment_nature_of_business" -> employmentRoute,
-      "employment_additional_info" -> employmentRoute
+      "self_employment_nature_of_business" -> aboutSelfEmployment,
+      "employment_additional_info" -> additionalInfoRoute
     )
     routesMap
   }

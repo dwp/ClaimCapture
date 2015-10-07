@@ -55,22 +55,28 @@ object GEmployment extends Controller with CachedClaim with Navigable {
     }.withPreviewConditionally[Emp](checkGoPreview)
 
 
-  private def checkGoPreview(t:(Option[Emp],Emp)):Boolean = {
+  private def checkGoPreview(t:(Option[Emp],Emp),c:(Option[Claim],Claim)):Boolean = {
     val previousEmp = t._1
-    val actualEmp = t._2
+    val currentEmp = t._2
+    val currentClaim = c._2
 
-    lazy val employmentHasChanged = previousEmp.get.beenEmployedSince6MonthsBeforeClaim != actualEmp.beenEmployedSince6MonthsBeforeClaim
-    lazy val selfEmploymentHasChanged = previousEmp.get.beenSelfEmployedSince1WeekBeforeClaim != actualEmp.beenSelfEmployedSince1WeekBeforeClaim
+    lazy val employmentHasChanged = previousEmp.get.beenEmployedSince6MonthsBeforeClaim != currentEmp.beenEmployedSince6MonthsBeforeClaim
+    lazy val selfEmploymentHasChanged = previousEmp.get.beenSelfEmployedSince1WeekBeforeClaim != currentEmp.beenSelfEmployedSince1WeekBeforeClaim
 
     lazy val bothHaveNotChanged = !employmentHasChanged && !selfEmploymentHasChanged
-    lazy val selfENotChangedAndEmploymentNo = previousEmp.get.beenEmployedSince6MonthsBeforeClaim == yes && actualEmp.beenEmployedSince6MonthsBeforeClaim == no && ! selfEmploymentHasChanged
-    lazy val empNotChangedAndSENo = previousEmp.get.beenSelfEmployedSince1WeekBeforeClaim == yes && actualEmp.beenSelfEmployedSince1WeekBeforeClaim == no && ! employmentHasChanged
-    val bothAnswersAreNo = actualEmp.beenEmployedSince6MonthsBeforeClaim == no && actualEmp.beenSelfEmployedSince1WeekBeforeClaim == no
+    lazy val selfENotChangedAndEmploymentNo = previousEmp.get.beenEmployedSince6MonthsBeforeClaim == yes && currentEmp.beenEmployedSince6MonthsBeforeClaim == no && ! selfEmploymentHasChanged
+    lazy val empNotChangedAndSENo = previousEmp.get.beenSelfEmployedSince1WeekBeforeClaim == yes && currentEmp.beenSelfEmployedSince1WeekBeforeClaim == no && ! employmentHasChanged
+    val bothAnswersAreNo = currentEmp.beenEmployedSince6MonthsBeforeClaim == no && currentEmp.beenSelfEmployedSince1WeekBeforeClaim == no
+    val doesNotHaveJobs = currentEmp.beenEmployedSince6MonthsBeforeClaim == yes && currentClaim.questionGroup[Jobs].getOrElse(Jobs()).isEmpty
+
+    if(doesNotHaveJobs){
+      false
+    }else{
+      previousEmp.isDefined && ( bothHaveNotChanged || selfENotChangedAndEmploymentNo || empNotChangedAndSENo) ||  bothAnswersAreNo
+    }
     //We want to go back to preview from Employment guard questions page if
     // both answers haven't changed or if one hasn't changed and the changed one is 'no' or both answers are no, or
-    val goToPreview = previousEmp.isDefined && ( bothHaveNotChanged || selfENotChangedAndEmploymentNo || empNotChangedAndSENo) ||  bothAnswersAreNo
 
-    goToPreview
 
   }
 }

@@ -83,7 +83,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     )
   }.withPreviewConditionally(goToPreviewCondition)
 
-  private def goToPreviewCondition(details: (Option[YourPartnerPersonalDetails],YourPartnerPersonalDetails)) = {
+  private def goToPreviewCondition(details: (Option[YourPartnerPersonalDetails],YourPartnerPersonalDetails),c: (Option[Claim],Claim)) = {
     import Mappings._
 
     val previewData = details._1

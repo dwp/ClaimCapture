@@ -44,7 +44,7 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable {
         BadRequest(views.html.s_breaks.g_breaksInCare(formWithErrorsUpdate, breaksInCare)(lang))
       },
       hasBreaks => claim.update(hasBreaks) -> next(hasBreaks.answer))
-  }.withPreviewConditionally[BreaksInCareSummary](breaksInCareSummary => breaksInCareSummary._2.answer == Mappings.no)
+  }.withPreviewConditionally[BreaksInCareSummary]((breaksInCareSummary,claims) => breaksInCareSummary._2.answer == Mappings.no)
 
   private def errorMessage (implicit claim: Claim, lang: Lang) = {
     val sixMonth = claim.questionGroup(ClaimDate) match {

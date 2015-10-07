@@ -20,8 +20,8 @@
             <fieldset class="form-elements">
 
                 <ul>
-                    @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("guardQuestion.answer"),
-                        'helperAbove -> Messages("guardQuestion.helperAbove"),
+                    @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.answer"),
+                        'helperAbove -> Messages("eeaGuardQuestion.helperAbove"),
                         'track -> true,
                         'trackLabel -> "guardQuestionEEA")
 
@@ -32,14 +32,14 @@
                             Html(Messages("eeaCountryHelp")),
                             Html("<p></p>"),
 
-                            yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("guardQuestion.field1.answer"),
+                            yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.benefitsFromEEADetails.answer"),
                                 'label -> "benefitsFromEEA",
                                 'helperAbove -> Messages("benefitsFromEEA.helperAbove"),
                                 'track -> true,
                                 'trackLabel -> "benefitsFromEEA"),
 
                             otherDetailPlaceHolder(
-                                inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("guardQuestion.field1.field"),
+                                inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.benefitsFromEEADetails.field"),
                                     'label -> "benefitsFromEEADetails",
                                     'helperAbove -> Messages("benefitsFromEEADetails.helperAbove"),
                                     'textAreaHelper -> Html(Messages("3000charsLeft")), 'maxLength -> 3000)
@@ -47,13 +47,13 @@
                                 'id -> "benefitsFromEEADetailsWrapper"
                             ),
 
-                            yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("guardQuestion.field2.answer"),
+                            yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.workingForEEADetails.answer"),
                                 'helperAbove -> Messages("workingForEEA.helper"),
                                 'track -> true,
                                 'trackLabel -> "workingForEEA"),
 
                             otherDetailPlaceHolder(
-                                inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("guardQuestion.field2.field"),
+                                inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.workingForEEADetails.field"),
                                     'helperAbove -> Messages("workingForEEADetails.helper"),
                                     'textAreaHelper -> Html(Messages("3000charsLeft")), 'maxLength -> 3000)
                                 ),
@@ -73,39 +73,28 @@
 
         }
         <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
-
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/benefitsFromEEADetails.js") ></script>
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/g_workingForEEA.js")></script>
         <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/guardQuestion.js") ></script>
         <script type="text/javascript">
         $(function () {
-        window.initEventsGuardQuestion("@CarersCrypto.encryptAES("guardQuestion_answer_yes")",
-                          "@CarersCrypto.encryptAES("guardQuestion_answer_no")");
-        });
-        </script>
+            window.initEventsGuardQuestion("@CarersCrypto.encryptAES("eeaGuardQuestion_answer_yes")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_answer_no")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_benefitsFromEEADetails_field")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_workingForEEADetails_field")");
 
-        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/benefitsFromEEADetails.js") ></script>
-        <script type="text/javascript">
-        $(function(){
             window.areaCounter({selector:"@CarersCrypto.encryptAES("benefitsFromEEADetails")",maxChars:3000});
-        })
-        $(function () {
-        window.initEventsFromEEA("@CarersCrypto.encryptAES("guardQuestion_field1_answer_yes")",
-                          "@CarersCrypto.encryptAES("guardQuestion_field1_answer_no")",
-                          "@CarersCrypto.encryptAES("guardQuestion_field1_field")");
-        });
-        </script>
-
-        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/g_workingForEEA.js")></script>
-        <script type="text/javascript">
-        $(function(){
             window.areaCounter({selector:"@CarersCrypto.encryptAES("workingForEEADetails")",maxChars:3000});
-        })
-        $(function () {
 
-        window.initEventsForEEA("@CarersCrypto.encryptAES("guardQuestion_field2_answer_yes")",
-                          "@CarersCrypto.encryptAES("guardQuestion_field2_answer_no")",
-                          "@CarersCrypto.encryptAES("guardQuestion_field2_field")");
+            window.initEventsFromEEA("@CarersCrypto.encryptAES("eeaGuardQuestion_benefitsFromEEADetails_answer_yes")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_benefitsFromEEADetails_answer_no")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_benefitsFromEEADetails_field")");
+            window.initEventsForEEA("@CarersCrypto.encryptAES("eeaGuardQuestion_workingForEEADetails_answer_yes")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_workingForEEADetails_answer_no")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_workingForEEADetails_field")");
         });
         </script>
+
     }
 
 }

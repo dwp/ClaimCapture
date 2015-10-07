@@ -1,5 +1,6 @@
 package models.view
 
+import play.api.Logger
 import play.api.mvc.{Request, Result, AnyContent}
 import models.domain.Claim
 import scala.reflect.ClassTag

@@ -35,10 +35,9 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
       "AboutYouWantsEmailContact" + "AboutYouMail" +
       "AboutYouNationalityAndResidencyActualNationality" +
       "AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1" +
-      "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA" +
+      "OtherMoneyOtherEEAGuardQuestion" +
       "AboutYourPartnerTitle"       + "AboutYourPartnerFirstName" + "AboutYourPartnerFirstName" + "AboutYourPartnerSurname" +
       dateConversion("AboutYourPartnerDateofBirth") +
-      "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA" +
       "AboutTheCareYouProvideWhatTheirRelationshipToYou" +
       "AboutTheCareYouProvideTitlePersonCareFor"       + "AboutTheCareYouProvideFirstNamePersonCareFor" + "AboutTheCareYouProvideMiddleNamePersonCareFor" + "AboutTheCareYouProvideSurnamePersonCareFor" +
       dateConversion("AboutTheCareYouProvideDateofBirthPersonYouCareFor") +
