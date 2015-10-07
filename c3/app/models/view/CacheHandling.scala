@@ -20,14 +20,14 @@ trait CacheHandling {
   def keyFrom(request: Request[AnyContent]): String = request.session.get(cacheKey).getOrElse("")
 
   def fromCache(request: Request[AnyContent], required: Boolean = true): Option[Claim] = {
-    fromCacheWithoutDecryption(request, required) match {
+    fromCacheUsingRequest(request, required) match {
       case Some(claim) => Some(ClaimEncryption.decrypt(claim))
       case _ => None
     }
   }
 
   /**
-   * This method should not be called directly, as it bypasses decryption of data
+   * This method should not be called directly from outside this trait, as it bypasses decryption of data
    *
    * @param key - UUID to identify Claim object uniquely
    * @return Claim object
@@ -39,7 +39,7 @@ trait CacheHandling {
    * @param request the http request that has the session with uuid of claim which is the key used by cache.
    * @return None if could not find claim/CoCs. Some(claim) is could find it.
    */
-  def fromCacheWithoutDecryption(request: Request[AnyContent], required: Boolean = true): Option[Claim] = {
+  def fromCacheUsingRequest(request: Request[AnyContent], required: Boolean = true): Option[Claim] = {
     val key = keyFrom(request)
     if (key.isEmpty) {
       if (required) {

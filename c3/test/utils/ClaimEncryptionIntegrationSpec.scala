@@ -51,7 +51,7 @@ class ClaimEncryptionIntegrationSpec extends Specification with CacheHandling {
       ), System.currentTimeMillis(), Some(Lang("en")), claimKey)
 
       saveInCache(claim)
-      val claimFromCache = fromCacheWithoutDecryption(request).get
+      val claimFromCache = fromCacheUsingRequest(request).get // Bypasses decryption
 
       // Claim object is not ordered so you cannot compare original claim with decrypted claim
       // Individual question groups must be asserted
@@ -74,7 +74,7 @@ class ClaimEncryptionIntegrationSpec extends Specification with CacheHandling {
       claim.questionGroup[CircumstancesPaymentChange] mustEqual ClaimEncryption.decryptCircumstancesPaymentChange(claimFromCache).questionGroup[CircumstancesPaymentChange]
     }
 
-    "Claim must be decrypted when retreiving from the cache" in new WithApplication with MockForm {
+    "Claim must be decrypted when getting it from the cache" in new WithApplication with MockForm {
       val request = FakeRequest().withSession(cacheKey -> claimKey)
       val claim = Claim(cacheKey, List(
         Section(AboutYou, List(yourDetails, contactDetails)),
