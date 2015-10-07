@@ -69,7 +69,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
         if (key.isEmpty) Redirect(errorPageCookie)
         else {
           Logger.info(s"Changing $cacheKey - $key")
-          val claim = fromCache(key).getOrElse(throw new DwpRuntimeException("I expected a claim in the cache since we are only changing request, e.g. chainging language.!"))
+          val claim = fromCache(request).getOrElse(throw new DwpRuntimeException("I expected a claim in the cache since we are only changing request, e.g. chainging language.!"))
           originCheck(action(claim, r, getLang(claim))(f))
         }
       }

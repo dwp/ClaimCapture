@@ -26,6 +26,12 @@ trait CacheHandling {
     }
   }
 
+  /**
+   * This method should not be called directly, as it bypasses decryption of data
+   *
+   * @param key - UUID to identify Claim object uniquely
+   * @return Claim object
+   */
   def fromCache(key: String): Option[Claim] = Cache.getAs[Claim](key)
 
   /**
