@@ -2,6 +2,7 @@
 
 @import views.html.helper.base.carersInputText
 @import utils.helpers.EmptyTemplate._
+@import utils.helpers.HtmlLabelHelper._
 @import views.html.helper.base.{carersLabel,carersLabelText}
 @import play.api.i18n.{MMessages => Messages}
 
@@ -10,7 +11,7 @@
 
 @if(showLabel) {
 
-    <legend class="form-label-bold @if(nestedFieldSet) {}">
+    <legend id="@generateLabelId(field.id)" class="form-label-bold @if(nestedFieldSet) {}">
         @carersLabelText(field,args:_*)
     </legend>
 

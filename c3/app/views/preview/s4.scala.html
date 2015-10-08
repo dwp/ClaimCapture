@@ -6,6 +6,7 @@
 @import models.domain.TheirPersonalDetails
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
+@import utils.helpers.HtmlLabelHelper._
 
 @yourPartner = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
 @abouTheCare = @{claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())}
@@ -46,12 +47,12 @@
 	<div class="accordion-content">
 		<table class="review">
 			@if(showHidePartnerDetails){
-			    @fieldWithLink("care_you_provide_name", "name", partnerTitleName,disableLink = disableChangeButton)
-			    @fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`,disableLink = disableChangeButton)
+			    @fieldWithLink("care_you_provide_name", "name", partnerTitleName,disableLink = disableChangeButton, elementId = Some(generateLabelId("firstName")))
+			    @fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`,disableLink = disableChangeButton, elementId = Some(generateLabelId("dateOfBirth")))
 			}
-			@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship,disableLink = disableChangeButton)
-			@fieldWithLink("care_you_provide_address", "theirAddress.answer", address,disableLink = disableChangeButton)
-			@fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(Messages("label."+abouTheCare.spent35HoursCaring))}",disableLink = disableChangeButton)
+			@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship,disableLink = disableChangeButton, elementId = Some(generateLabelId("relationship")))
+			@fieldWithLink("care_you_provide_address", "theirAddress.answer", address,disableLink = disableChangeButton, elementId = Some(generateLabelId("theirAddress_answer")))
+			@fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(Messages("label."+abouTheCare.spent35HoursCaring))}",disableLink = disableChangeButton, elementId = Some(generateLabelId("spent35HoursCaring")))
 		</table>
 	</div>
 

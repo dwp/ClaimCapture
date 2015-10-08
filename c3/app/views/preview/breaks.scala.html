@@ -7,6 +7,7 @@
 @import models.domain.TheirPersonalDetails
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
+@import utils.helpers.HtmlLabelHelper._
 
 @breaks = @{claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())}
 @breaksFromDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateWeRequireBreakInCareInformationFrom}
@@ -19,7 +20,7 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("care_you_provide_anyBreaks", Messages("answer.label", breaksFromDate), Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) " " + Messages("breaks.details",breaks.breaks.length) else ""), disableLink = disableChangeButton)
+			@fieldWithLink("care_you_provide_anyBreaks", Messages("answer.label", breaksFromDate), Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) " " + Messages("breaks.details",breaks.breaks.length) else ""), disableLink = disableChangeButton, elementId = Some(generateLabelId("answer")))
 		</table>
 	</div>
 

@@ -7,7 +7,7 @@
 }
 
 @if(ignoreLabel){
-    <label class="form-label-bold" for="@CarersCrypto.encryptAES(field.id)">
+    <label id="@HtmlLabelHelper.generateLabelId(field.id)" class="form-label-bold" for="@CarersCrypto.encryptAES(field.id)">
         @{Space.*}
         @carersLabelText(field,args:_*)
     </label>

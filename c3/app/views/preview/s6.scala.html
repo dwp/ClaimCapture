@@ -3,6 +3,7 @@
 
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
+@import utils.helpers.HtmlLabelHelper._
 
 
 @yourCourseDetails = @{claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())}
@@ -16,13 +17,13 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("education_beenInEducationSinceClaimDate", "beenInEducationSinceClaimDate", Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase), elementId = Some("beenInEducationSinceClaimDate"),disableLink = disableChangeButton)
+			@fieldWithLink("education_beenInEducationSinceClaimDate", "beenInEducationSinceClaimDate", Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase),disableLink = disableChangeButton, elementId = Some(generateLabelId("beenInEducationSinceClaimDate")))
 			@if(yourCourseDetails.beenInEducationSinceClaimDate == "yes"){
-				@fieldWithLink("education_courseTitle", "courseTitle", yourCourseDetails.title.get, elementId = Some("courseTitle"),disableLink = disableChangeButton)
-				@fieldWithLink("education_nameOfSchool", "nameOfSchoolCollegeOrUniversity", yourCourseDetails.nameOfSchoolCollegeOrUniversity.get, elementId = Some("nameOfSchoolCollegeOrUniversity"),disableLink = disableChangeButton)
-				@fieldWithLink("education_nameOfTutor", "nameOfMainTeacherOrTutor", yourCourseDetails.nameOfMainTeacherOrTutor.get, elementId = Some("nameOfMainTeacherOrTutor"),disableLink = disableChangeButton)
-				@fieldWithLink("education_contactNumber", "courseContactNumber", yourCourseDetails.courseContactNumber.getOrElse(Messages("detailsNotProvided")), elementId = Some("courseContactNumber"),disableLink = disableChangeButton)
-				@fieldWithLink("education_startEndDates", "startEndDates", {yourCourseDetails.startDate.get.`dd month, yyyy`}.concat(" - ").concat(yourCourseDetails.expectedEndDate.get.`dd month, yyyy`), elementId = Some("startDate"),disableLink = disableChangeButton)
+				@fieldWithLink("education_courseTitle", "courseTitle", yourCourseDetails.title.get, disableLink = disableChangeButton, elementId = Some(generateLabelId("courseTitle")))
+				@fieldWithLink("education_nameOfSchool", "nameOfSchoolCollegeOrUniversity", yourCourseDetails.nameOfSchoolCollegeOrUniversity.get,disableLink = disableChangeButton, elementId = Some(generateLabelId("nameOfSchoolCollegeOrUniversity")))
+				@fieldWithLink("education_nameOfTutor", "nameOfMainTeacherOrTutor", yourCourseDetails.nameOfMainTeacherOrTutor.get, disableLink = disableChangeButton, elementId = Some(generateLabelId("nameOfMainTeacherOrTutor")))
+				@fieldWithLink("education_contactNumber", "courseContactNumber", yourCourseDetails.courseContactNumber.getOrElse(Messages("detailsNotProvided")), disableLink = disableChangeButton, elementId = Some(generateLabelId("courseContactNumber")))
+				@fieldWithLink("education_startEndDates", "startEndDates", {yourCourseDetails.startDate.get.`dd month, yyyy`}.concat(" - ").concat(yourCourseDetails.expectedEndDate.get.`dd month, yyyy`),disableLink = disableChangeButton, elementId = Some(generateLabelId("startDate")))
 			}
 		</table>
 	</div>

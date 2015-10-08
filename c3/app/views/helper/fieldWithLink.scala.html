@@ -24,7 +24,7 @@
 	</td>
 	<td id="@getLinkContainerId(id, false)" class="review-action hide-print">
 		@if(!disableLink) {
-		<a class="button secondary" id="@getLinkId(id, false)" href="@{routesMap(id)}#@{elementId.fold("")(encryptAES)}">
+		<a class="button secondary" id="@getLinkId(id, false)" href="@{routesMap(id)}#@{elementId.getOrElse("")}">
 			@Html(Messages("preview.change"))
 			<span class="visuallyhidden">@label (optional)</span>
 		</a>

@@ -4,6 +4,7 @@
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
 @import utils.helpers.PreviewField._
+@import utils.helpers.HtmlLabelHelper._
 @import controllers.mappings.Mappings._
 
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
@@ -71,7 +72,7 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("employment_been_employed_since", Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`d month yyyy`),Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim),disableLink = disableChangeButton)
+			@fieldWithLink("employment_been_employed_since", Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`d month yyyy`),Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim),disableLink = disableChangeButton, elementId = Some(generateLabelId("beenEmployedSince6MonthsBeforeClaim")))
 
 			@{/* Jobs do not use the fieldWithLink view. The fieldWithLink view accepts text
 					and this produces HTML (an unordered list) */}
@@ -97,13 +98,13 @@
 					</td>
 				</tr>
 			}
-			@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), seValue,disableLink = disableChangeButton)
+			@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), seValue,disableLink = disableChangeButton, elementId = Some(generateLabelId("beenSelfEmployedSince1WeekBeforeClaim")))
 
 			@if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
-				@fieldWithLink("self_employment_nature_of_business", Messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness, disableLink = disableChangeButton)
+				@fieldWithLink("self_employment_nature_of_business", Messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness, disableLink = disableChangeButton, elementId = Some(generateLabelId("natureOfYourBusiness")))
 			}
 			@if(isSelfEmployed || isEmployed){
-				@fieldWithLink("employment_additional_info", Messages("empAdditionalInfo.text"), additionalInfoValue, disableLink = disableChangeButton)
+				@fieldWithLink("employment_additional_info", Messages("empAdditionalInfo.text"), additionalInfoValue, disableLink = disableChangeButton, elementId = Some(generateLabelId("empAdditionalInfo_answer")))
 			}
 		</table>
 	</div>
