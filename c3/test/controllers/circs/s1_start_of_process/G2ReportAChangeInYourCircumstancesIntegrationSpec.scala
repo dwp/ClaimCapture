@@ -1,7 +1,7 @@
 package controllers.circs.s1_start_of_process
 
 import org.specs2.mutable.{Tags, Specification}
-import utils.{LightFakeApplication, WithBrowser}
+import utils.{WithJsBrowser, LightFakeApplication, WithBrowser}
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.s1_start_of_process.{G1ReportChangesPage, G2ReportAChangeInYourCircumstancesPage}
 import utils.pageobjects.circumstances.s2_report_changes.{G7BreaksInCarePage, G3PermanentlyStoppedCaringPage, G2SelfEmploymentPage, G4OtherChangeInfoPage}
@@ -17,7 +17,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
     val theirFullName = "Mrs Jane Smith"
     val theirRelationshipToYou = "Wife"
 
-    val byPost = "By Post"
+    val byPost = "01254 123456"
     val wantsEmailContact = "No"
 
 
@@ -42,7 +42,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects {
       val page = G2ReportAChangeInYourCircumstancesPage(context)
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 7
+      page.submitPage().listErrors.size mustEqual 6
     }
 
     "Accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
@@ -62,7 +62,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
         claim.CircumstancesAboutYouTheirFullName = theirFullName
         claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
-        claim.FurtherInfoContact = "By Post"
+        claim.FurtherInfoContact = "01254 785678"
         claim.CircumstancesDeclarationWantsEmailContact = "no"
 
 
@@ -81,7 +81,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
         claim.CircumstancesAboutYouTheirFullName = theirFullName
         claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
-        claim.FurtherInfoContact = "By Post"
+        claim.FurtherInfoContact = "01254 785678"
         claim.CircumstancesDeclarationWantsEmailContact = "no"
 
         page goToThePage()
@@ -100,7 +100,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
         claim.CircumstancesAboutYouTheirFullName = theirFullName
         claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
-        claim.FurtherInfoContact = "By Post"
+        claim.FurtherInfoContact = "01254 785678"
         claim.CircumstancesDeclarationWantsEmailContact = "no"
 
         page goToThePage()
@@ -118,7 +118,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouNationalInsuranceNumber = nino
         claim.CircumstancesAboutYouTheirFullName = theirFullName
         claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
-        claim.FurtherInfoContact = "By Post"
+        claim.FurtherInfoContact = "01254 785678"
         claim.CircumstancesDeclarationWantsEmailContact = "no"
 
         page goToThePage()
@@ -136,7 +136,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouNationalInsuranceNumber = nino
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
         claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
-        claim.FurtherInfoContact = "By Post"
+        claim.FurtherInfoContact = "01254 785678"
         claim.CircumstancesDeclarationWantsEmailContact = "no"
 
         page goToThePage()
@@ -154,7 +154,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         claim.CircumstancesAboutYouNationalInsuranceNumber = nino
         claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
         claim.CircumstancesAboutYouTheirFullName = theirFullName
-        claim.FurtherInfoContact = "By Post"
+        claim.FurtherInfoContact = "01254 785678"
         claim.CircumstancesDeclarationWantsEmailContact = "no"
 
         page goToThePage()
@@ -215,6 +215,63 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         nextPage fillPageWith claim
         val lastPage = nextPage submitPage ()
         lastPage must beAnInstanceOf[G7BreaksInCarePage]
+      }
+
+      "valid submission if 'Contact phone or mobile number' not filled in" in new WithBrowser with PageObjects{
+        val page =  G2ReportAChangeInYourCircumstancesPage(context)
+        val claim = CircumstancesScenarioFactory.reportChangesOtherChangeInfo
+        claim.FurtherInfoContact = ""
+        page goToThePage()
+        page fillPageWith claim
+
+        val nextPage = page submitPage()
+        nextPage must beAnInstanceOf[G4OtherChangeInfoPage]
+      }
+
+      "valid submission if 'Contact phone or mobile number' is filled in with number" in new WithBrowser with PageObjects{
+        val page =  G2ReportAChangeInYourCircumstancesPage(context)
+        val claim = CircumstancesScenarioFactory.reportChangesOtherChangeInfo
+        page goToThePage()
+        page fillPageWith claim
+
+        val nextPage = page submitPage()
+        nextPage must beAnInstanceOf[G4OtherChangeInfoPage]
+      }
+
+      "contain error if 'Contact phone or mobile number' is filled in with text" in new WithBrowser with PageObjects{
+        val page =  G2ReportAChangeInYourCircumstancesPage(context)
+        val claim = CircumstancesScenarioFactory.reportBreakFromCaring
+        claim.FurtherInfoContact = "hjhjsddh"
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Contact phone or mobile number - Invalid value")
+      }
+
+      "contain error if 'Contact phone or mobile number' is field length less than min length" in new WithBrowser with PageObjects{
+        val page =  G2ReportAChangeInYourCircumstancesPage(context)
+        val claim = CircumstancesScenarioFactory.reportBreakFromCaring
+        claim.FurtherInfoContact = "012345"
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Contact phone or mobile number - Invalid value")
+      }
+
+      "contain error if 'Contact phone or mobile number' is field length greater than max length" in new WithBrowser with PageObjects{
+        val page =  G2ReportAChangeInYourCircumstancesPage(context)
+        val claim = CircumstancesScenarioFactory.reportBreakFromCaring
+        claim.FurtherInfoContact = "012345678901234567890"
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Contact phone or mobile number - Invalid value")
       }
 
     }

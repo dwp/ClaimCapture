@@ -143,7 +143,7 @@ object ClaimScenarioFactory {
     // Your contact details
     claim.AboutYouAddress = "An address&Preston"
     claim.AboutYouPostcode = "SE1 6EH"
-    claim.HowWeContactYou = "01253 111 111"
+    claim.HowWeContactYou = "01253111111"
     claim.AboutYouWantsEmailContact = "No"
     // Claim date
     //claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
@@ -175,9 +175,9 @@ object ClaimScenarioFactory {
     // Your contact details
     claim.AboutYouAddress = "An address&Preston"
     claim.AboutYouPostcode = "SE1 6EH"
-    claim.HowWeContactYou = "07111 111 111"
+    claim.HowWeContactYou = "07111111111"
     claim.AboutYouContactYouByTextphone = "No"
-    claim.AboutYouMobileNumber = "07111 111 111"
+    claim.AboutYouMobileNumber = "07111111111"
 
     // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"

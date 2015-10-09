@@ -27,7 +27,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
     val theirFullName = "Mrs Jane Smith"
     val theirRelationshipToYou = "Wife"
 
-    val byPost = "By Post"
+    val byTelephone = "01254897675"
     val wantsEmailContact = "no"
 
     "map data into case class" in {
@@ -40,7 +40,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
-          "furtherInfoContact" -> byPost,
+          "furtherInfoContact" -> byTelephone,
           "wantsEmailContact" -> wantsEmailContact
         )
       ).fold(
@@ -49,6 +49,26 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
             f.fullName must equalTo("Mr John Joe Smith")
           }
         )
+    }
+
+    "map data into case class no contact info" in {
+      G2ReportAChangeInYourCircumstances.form.bind(
+        Map(
+          "fullName" -> fullName,
+          "nationalInsuranceNumber.nino" -> nino,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "theirFullName" -> theirFullName,
+          "theirRelationshipToYou" -> theirRelationshipToYou,
+          "wantsEmailContact" -> wantsEmailContact
+        )
+      ).fold(
+        formWithErrors => "This mapping should not happen." must equalTo("Error"),
+        f => {
+          f.fullName must equalTo("Mr John Joe Smith")
+        }
+      )
     }
 
     "reject too many characters in text fields" in {
@@ -61,7 +81,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "theirFullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "theirRelationshipToYou" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
-          "furtherInfoContact" -> byPost,
+          "furtherInfoContact" -> byTelephone,
           "wantsEmailContact" -> wantsEmailContact
         )).fold(
           formWithErrors => {
@@ -71,6 +91,66 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
             formWithErrors.errors(2).message must equalTo(Mappings.maxLengthError)
           },
           f => "This mapping should not happen." must equalTo("Valid"))
+    }
+
+    "reject characters in contact number field" in {
+      G2ReportAChangeInYourCircumstances.form.bind(
+        Map(
+          "fullName" -> fullName,
+          "nationalInsuranceNumber.nino" -> nino,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "theirFullName" -> theirFullName,
+          "theirRelationshipToYou" -> theirRelationshipToYou,
+          "furtherInfoContact" -> "dhjahskdk",
+          "wantsEmailContact" -> wantsEmailContact
+        )).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors(0).message must equalTo(Mappings.errorInvalid)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
+
+    "reject too many digits in contact number field" in {
+      G2ReportAChangeInYourCircumstances.form.bind(
+        Map(
+          "fullName" -> fullName,
+          "nationalInsuranceNumber.nino" -> nino,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "theirFullName" -> theirFullName,
+          "theirRelationshipToYou" -> theirRelationshipToYou,
+          "furtherInfoContact" -> "012345678901234567890",
+          "wantsEmailContact" -> wantsEmailContact
+        )).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors(0).message must equalTo(Mappings.errorInvalid)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
+
+    "reject too few digits in contact number field" in {
+      G2ReportAChangeInYourCircumstances.form.bind(
+        Map(
+          "fullName" -> fullName,
+          "nationalInsuranceNumber.nino" -> nino,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "theirFullName" -> theirFullName,
+          "theirRelationshipToYou" -> theirRelationshipToYou,
+          "furtherInfoContact" -> "012345",
+          "wantsEmailContact" -> wantsEmailContact
+        )).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors(0).message must equalTo(Mappings.errorInvalid)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject special characters in text fields" in {
@@ -83,7 +163,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "theirFullName" -> "Jane >",
           "theirRelationshipToYou" -> "Wife >",
-          "furtherInfoContact" -> byPost,
+          "furtherInfoContact" -> byTelephone,
           "wantsEmailContact" -> wantsEmailContact
         )).fold(
           formWithErrors => {
@@ -99,14 +179,13 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       G2ReportAChangeInYourCircumstances.form.bind(
         Map("fullName" -> "")).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(7)
+            formWithErrors.errors.length must equalTo(6)
             formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
             formWithErrors.errors(2).message must equalTo("error.nationalInsuranceNumber")
             formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
             formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
             formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
-            formWithErrors.errors(6).message must equalTo(Mappings.errorRequired)
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -121,7 +200,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
-          "furtherInfoContact" -> byPost,
+          "furtherInfoContact" -> byTelephone,
           "wantsEmailContact" -> wantsEmailContact
         )).fold(
           formWithErrors => {
@@ -141,7 +220,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "dateOfBirth.year" -> "12345",
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
-          "furtherInfoContact" -> byPost,
+          "furtherInfoContact" -> byTelephone,
           "wantsEmailContact" -> wantsEmailContact
         )).fold(
           formWithErrors => {
@@ -167,7 +246,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       "typeOfWork.answer" -> selfEmployed,
       "typeOfWork.selfEmployedTypeOfWork" -> selfEmployedTypeOfWork,
       "typeOfWork.selfEmployedTotalIncome" -> dontknow,
-      "furtherInfoContact" -> byPost,
+      "furtherInfoContact" -> byTelephone,
       "wantsEmailContact" -> wantsEmailContact
     )
 
@@ -180,7 +259,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
         "dateOfBirth.year" -> dateOfBirthYear.toString,
         "theirFullName" -> theirFullName,
         "theirRelationshipToYou" -> theirRelationshipToYou,
-        "furtherInfoContact" -> byPost,
+        "furtherInfoContact" -> byTelephone,
         "wantsEmailContactCircs" -> wantsEmailContact
       )
     }

@@ -34,7 +34,7 @@ object G2ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
     theirFullName -> carersNonEmptyText(maxLength = 35),
     theirRelationshipToYou -> carersNonEmptyText(maxLength = 35),
 
-    "furtherInfoContact" -> carersNonEmptyText(maxLength = 35),
+    "furtherInfoContact" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired)),
     "wantsEmailContactCircs" -> optional(carersNonEmptyText.verifying(validYesNo)),
     "mail" -> optional(email.verifying(Constraints.maxLength(254))),
     "mailConfirmation" -> optional(text(maxLength = 254))

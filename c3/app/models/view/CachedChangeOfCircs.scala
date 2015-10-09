@@ -19,6 +19,7 @@ trait CachedChangeOfCircs extends ClaimHandling {
   override lazy val errorPageCookie = routes.CircsEnding.errorCookie()
   override lazy val errorPage = routes.CircsEnding.error()
   override lazy val errorPageBrowserBackButton = routes.CircsEnding.errorBrowserBackbutton()
+  override lazy val backButtonPage = controllers.routes.Application.backButtonCircsPage()
 
   override def newInstance(newuuid:String = randomUUID.toString): Claim = new Claim(cacheKey,uuid = newuuid)
 

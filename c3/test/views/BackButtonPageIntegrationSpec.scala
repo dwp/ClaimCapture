@@ -39,7 +39,7 @@ class BackButtonPageIntegrationSpec extends Specification with Tags {
 
       browser executeScript "window.history.back()"
 
-      browser url() mustEqual "/back-button-page"
+      browser url() mustEqual "/circs-back-button-page"
     }
   }
 

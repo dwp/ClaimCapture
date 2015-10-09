@@ -7,7 +7,7 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 object ApplicationBuild extends Build {
   val appName         = "c3"
 
-  val appVersion      = "2.27.2-SNAPSHOT"
+  val appVersion      = "2.29-SNAPSHOT"
 
   val appDependencies = Seq(
     // Add your project dependencies here,
