@@ -22,7 +22,7 @@ object GContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "address" -> address.verifying(requiredAddress),
     "postcode" -> optional(text verifying validPostcode),
-    "howWeContactYou" -> carersNonEmptyText(maxLength = 35),
+    "howWeContactYou" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired)),
     "contactYouByTextphone" -> optional(text(maxLength = 4)),
     "wantsEmailContact" -> optional(carersNonEmptyText.verifying(validYesNo)),
     "mail" -> optional(email.verifying(Constraints.maxLength(254))),

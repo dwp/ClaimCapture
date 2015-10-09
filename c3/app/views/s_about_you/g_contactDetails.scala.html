@@ -1,6 +1,7 @@
 @(contactDetailsForm: Form[models.domain.ContactDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
+@import play.api.Play
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.common._
@@ -25,7 +26,7 @@
 
                     @carersInputText(contactDetailsForm("postcode"), 'class -> "postcode", 'maxLength -> 8, 'ignoreOptional -> true)
 
-                    @carersInputText(contactDetailsForm("howWeContactYou"), 'maxLength -> 35, 'helperAbove -> Messages("furtherInfoContact.helper"))
+                    @carersInputTel(contactDetailsForm("howWeContactYou"),'ignoreOptional -> true, 'maxLength -> mappings.Mappings.twenty)
 
                     @carersCheckBox(contactDetailsForm("contactYouByTextphone"))
 
@@ -48,19 +49,26 @@
 
         }
 
-        @if(getProperty("email.frontend",false)){
+        @if(getProperty("email.frontend",false)) {
             <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/email.js")></script>
-
-            <script type="text/javascript">
-                $(function(){
-                    window.emailInit(
-                    "@CarersCrypto.encryptAES("wantsEmailContact_yes")",
-                    "@CarersCrypto.encryptAES("wantsEmailContact_no")",
-                    "@CarersCrypto.encryptAES("mail")",
-                    "@CarersCrypto.encryptAES("mailConfirmation")")
-                });
-            </script>
         }
-        
+        @if(!Play.isTest(Play.current) && getProperty("include.analytics",true)){
+            <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/trackInputOnEvent.js")></script>
+        }
+        <script type="text/javascript">
+            $(function(){
+                @if(getProperty("email.frontend",false)) {
+                    window.emailInit(
+                        "@CarersCrypto.encryptAES("wantsEmailContact_yes")",
+                        "@CarersCrypto.encryptAES("wantsEmailContact_no")",
+                        "@CarersCrypto.encryptAES("mail")",
+                        "@CarersCrypto.encryptAES("mailConfirmation")"
+                    )
+                }
+                @if(!Play.isTest(Play.current) && getProperty("include.analytics",true)){
+                    window.trackInputOnEventInit('/about-you/contact-details', 'howWeContactYou', "@CarersCrypto.encryptAES("howWeContactYou")", 'button');
+                }
+            });
+        </script>
     }
 }
