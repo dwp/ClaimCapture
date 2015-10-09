@@ -1,12 +1,8 @@
 valueEntered = (selector) -> if ($("##{selector}").val())!="" then "yes" else "no"
-window.trackInputOnEventInit = (path, label, trackChangesTo, whenEventTriggered) ->
+window.trackInputOnEventInit = (label, trackChangesTo, whenEventTriggered) ->
 
   if $("#" + trackChangesTo)
     $("." + whenEventTriggered).on "click", ->
-      trackChange(path, label, trackChangesTo);
-
-
-trackChange = (path, label, trackChangesTo) ->
-  trackEvent(path, label, valueEntered(trackChangesTo));
+      trackEvent(window.location.pathname, label, valueEntered(trackChangesTo))
 
 

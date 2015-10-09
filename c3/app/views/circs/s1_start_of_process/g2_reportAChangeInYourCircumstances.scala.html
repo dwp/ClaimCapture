@@ -90,7 +90,7 @@
                                      "@CarersCrypto.encryptAES("mailConfirmation")");
                 }
                 @if(!Play.isTest(Play.current) && getProperty("include.analytics",true)){
-                    window.trackInputOnEventInit('/circumstances/identification/about-you', 'furtherInfoContact', "@CarersCrypto.encryptAES("furtherInfoContact")", 'button');
+                    window.trackInputOnEventInit('furtherInfoContact', "@CarersCrypto.encryptAES("furtherInfoContact")", 'button');
                 }
             });
         </script>

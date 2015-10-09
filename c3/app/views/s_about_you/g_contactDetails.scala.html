@@ -66,7 +66,7 @@
                     )
                 }
                 @if(!Play.isTest(Play.current) && getProperty("include.analytics",true)){
-                    window.trackInputOnEventInit('/about-you/contact-details', 'howWeContactYou', "@CarersCrypto.encryptAES("howWeContactYou")", 'button');
+                    window.trackInputOnEventInit('howWeContactYou', "@CarersCrypto.encryptAES("howWeContactYou")", 'button');
                 }
             });
         </script>
