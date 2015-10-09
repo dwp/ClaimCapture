@@ -98,7 +98,7 @@
 			@fieldWithLink("about_you_dob", "dateOfBirth", yourDetails.dateOfBirth.`dd month, yyyy`, elementId = Some("dateOfBirth_day"))
             @fieldWithLink("about_you_marital_status", "maritalStatusNQ", maritalStatus, elementId = Some("maritalStatus"))
 			@fieldWithLink("about_you_address", "address", addressPostcode, elementId = Some("address_lineOne"))
-			@fieldWithLink("about_you_contact", "howWeContactYou", contactDetails.howWeContactYou, elementId = Some("howWeContactYou"))
+			@fieldWithLink("about_you_contact", "howWeContactYou", contactDetails.howWeContactYou.getOrElse("Not given"), elementId = Some("howWeContactYou"))
             @fieldWithLink("about_you_email", "wantsEmailContact", email, elementId = Some("wantsEmailContact"))
 			@fieldWithLink("about_you_nationality", "yourNationality", nationality, elementId = Some("nationality"))
             @fieldWithLink("about_you_residence", "resideInUK.label", residence, elementId = Some("resideInUK_answer"))

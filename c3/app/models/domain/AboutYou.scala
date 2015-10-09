@@ -41,7 +41,7 @@ object MaritalStatus extends QuestionGroup.Identifier {
 
 case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
                           postcode: Option[String] = None,
-                          howWeContactYou: String = "",
+                          howWeContactYou: Option[String] = None,
                           contactYouByTextphone: Option[String] = None,
                           override val wantsContactEmail: Option[String] = None,
                           override val email: Option[String] = None,
