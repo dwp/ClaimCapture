@@ -29,7 +29,7 @@
 				   @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
 
 				   @otherDetailPlaceHolder(
-					   inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
+					   inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("3000charsLeft")), 'maxLength -> 3000 )),
 					   'id->"whyWrapper"
 				   )
 			   }
@@ -37,7 +37,7 @@
 			   @yesNoRadioGroup(currentForm("tellUsWhyEmployer.informationFromPerson"))
 
 			   @otherDetailPlaceHolder(
-				   inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyEmployer.whyPerson"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("300charsLeft")), 'maxLength -> 300 )),
+				   inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyEmployer.whyPerson"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("3000charsLeft")), 'maxLength -> 3000 )),
 				   'id->"whyPersonWrapper"
 			   )
 		   </ul>
@@ -75,8 +75,8 @@
 
 	<script type="text/javascript">
 		$(function(){
-			window.areaCounter({selector:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_why")",maxChars:300});
-			window.areaCounter({selector:"@CarersCrypto.encryptAES("tellUsWhyEmployer_whyPerson")",maxChars:300});
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_why")",maxChars:3000});
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("tellUsWhyEmployer_whyPerson")",maxChars:3000});
 		})
 		$(function() {
 			window.initEvents({
