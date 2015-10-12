@@ -7,4 +7,4 @@ package models.view
  * See Language (controller) and LanguageSpec (tests) for example
  * usage.
  */
-class CacheHandlingWithCircs extends CacheHandling with CachedChangeOfCircs {}
+class CacheHandlingWithCircs extends CacheHandling with CachedChangeOfCircs

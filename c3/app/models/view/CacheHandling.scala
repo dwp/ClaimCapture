@@ -32,7 +32,7 @@ trait CacheHandling {
    * @param key - UUID to identify Claim object uniquely
    * @return Claim object
    */
-  def fromCache(key: String): Option[Claim] = Cache.getAs[Claim](key)
+  private def fromCache(key: String): Option[Claim] = Cache.getAs[Claim](key)
 
   /**
    * Tries to get the claim of change of circs from the cache.
