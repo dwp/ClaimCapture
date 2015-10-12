@@ -22,11 +22,15 @@
             (yourPartner.isPartnerPersonYouCareFor.isDefined &&
                     yourPartner.isPartnerPersonYouCareFor.get.toLowerCase == "no")
 }
-
+@titleValue = @{
+	theirPersonalDetails.title match {
+		case "Other" => theirPersonalDetails.titleOther.getOrElse("")
+		case _ => Messages("titleSelect." + theirPersonalDetails.title.toLowerCase)
+	}
+}
 @partnerTitleName = @{
     if (showHidePartnerDetails){
-        val title = Html(Messages("titleSelect."+theirPersonalDetails.title.toLowerCase))
-        s"$title ${theirPersonalDetails.firstName} ${theirPersonalDetails.middleName.map(_+" ").getOrElse("")}${theirPersonalDetails.surname}"
+        s"${titleValue} ${theirPersonalDetails.firstName} ${theirPersonalDetails.middleName.map(_+" ").getOrElse("")}${theirPersonalDetails.surname}"
     } else {
         ""
     }
