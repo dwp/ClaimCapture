@@ -41,7 +41,7 @@ object MaritalStatus extends QuestionGroup.Identifier {
 
 case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
                           postcode: Option[String] = None,
-                          howWeContactYou: String = "",
+                          howWeContactYou: Option[String] = None,
                           contactYouByTextphone: Option[String] = None,
                           override val wantsContactEmail: Option[String] = None,
                           override val email: Option[String] = None,
@@ -98,6 +98,29 @@ case class OtherEEAStateOrSwitzerland(guardQuestion:GQuestion = YesNoWith2Mandat
 
 object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
   type GQuestion = YesNoWith2MandatoryFieldsOnYes[YesNoWith1MandatoryFieldOnYes[String],YesNoWith1MandatoryFieldOnYes[String]]
+
+  def requiredBenefitsFromEEADetails: Constraint[GQuestion] = Constraint[GQuestion]("constraint.benefitsfromeeadetails") { qg =>
+    qg.answer match {
+      case `yes` =>
+        qg.field1 match {
+          case Some(YesNoWith1MandatoryFieldOnYes(`yes`,None)) => Invalid(ValidationError("benefitsfromeeadetails.required"))
+          case _ => Valid
+        }
+
+      case _ => Valid
+    }
+  }
+
+  def requiredWorkingForEEADetails: Constraint[GQuestion] = Constraint[GQuestion]("constraint.workingForEEADetails") { qg =>
+    qg.answer match {
+      case `yes` =>
+        qg.field2 match {
+          case Some(YesNoWith1MandatoryFieldOnYes(`yes`,None)) => Invalid(ValidationError("workingForEEADetails.required"))
+          case _ => Valid
+        }
+      case _ => Valid
+    }
+  }
 
   val id = s"${AboutYou.id}.g7"
 }

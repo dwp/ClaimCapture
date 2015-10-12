@@ -27,7 +27,7 @@ class GOtherEEAStateOrSwitzerlandSpec extends Specification with Tags {
 
     """be added to cached claim upon answering "no" to "benefits from other EEA state or Switzerland".""" in new WithApplication with Claiming {
       val request = FakeRequest()
-        .withFormUrlEncodedBody("guardQuestion.answer" -> "no")
+        .withFormUrlEncodedBody("eeaGuardQuestion.answer" -> "no")
 
       val result = GOtherEEAStateOrSwitzerland.submit(request)
 

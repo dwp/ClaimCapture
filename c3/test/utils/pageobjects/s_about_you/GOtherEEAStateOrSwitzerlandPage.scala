@@ -7,11 +7,11 @@ import utils.pageobjects._
  * PageObject pattern associated to S7 about you EEA pension and insurance.
  */
 final class GOtherEEAStateOrSwitzerlandPage (ctx:PageObjectsContext) extends ClaimPage(ctx, GOtherEEAStateOrSwitzerlandPage.url) {
-  declareYesNo("#guardQuestion_answer","OtherMoneyOtherEEAGuardQuestion")
-  declareYesNo("#guardQuestion_field1_answer","OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA")
-  declareInput("#guardQuestion_field1_field", "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEADetails")
-  declareYesNo("#guardQuestion_field2_answer","OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA")
-  declareInput("#guardQuestion_field2_field", "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEADetails")
+  declareYesNo("#eeaGuardQuestion_answer","OtherMoneyOtherEEAGuardQuestion")
+  declareYesNo("#eeaGuardQuestion_benefitsFromEEADetails_answer","OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA")
+  declareInput("#eeaGuardQuestion_benefitsFromEEADetails_field", "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEADetails")
+  declareYesNo("#eeaGuardQuestion_workingForEEADetails_answer","OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA")
+  declareInput("#eeaGuardQuestion_workingForEEADetails_field", "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEADetails")
 }
 
 object GOtherEEAStateOrSwitzerlandPage {

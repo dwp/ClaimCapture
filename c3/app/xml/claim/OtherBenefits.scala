@@ -42,7 +42,7 @@ object OtherBenefits extends XMLComponent {
           case _ => throw new RuntimeException("AnyPaymentsSinceClaimDate is either Yes Or No")
         }}
       <EEA>
-        {question(<EEAGuardQuestion/>,"guardQuestion_answer", otherEEAState.guardQuestion.answer)}
+        {question(<EEAGuardQuestion/>,"eeaGuardQuestion_answer", otherEEAState.guardQuestion.answer)}
         {question(<EEAReceivePensionsBenefits/>,"benefitsFromEEA", otherEEAState.guardQuestion.field1.fold("")(_.answer))}
         {question(<EEAReceivePensionsBenefitsDetails/>,"benefitsFromEEADetails", otherEEAState.guardQuestion.field1.fold(Option[String](""))(_.field))}
         {question(<EEAWorkingInsurance/>,"workingForEEA", otherEEAState.guardQuestion.field2.fold("")(_.answer))}

@@ -24,6 +24,7 @@ import models.view.ClaimHandling.ClaimResult
 
 object GSelfEmploymentYourAccounts extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
+    "doYouKnowYourTradingYear" -> carersNonEmptyText.verifying(validYesNo),
     "whatWasOrIsYourTradingYearFrom" -> optional(dayMonthYear.verifying(validDateOnly)),
     "whatWasOrIsYourTradingYearTo" -> optional(dayMonthYear.verifying(validDateOnly)),
     "areIncomeOutgoingsProfitSimilarToTrading" -> optional(text verifying validYesNo),

@@ -31,10 +31,11 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags
     "contain errors on invalid submission" in {
 
       "your accounts invalid date" in new WithBrowser with PageObjects{
-			val page =  GSelfEmploymentYourAccountsPage(context)
+			  val page =  GSelfEmploymentYourAccountsPage(context)
         val claim = new TestData
         claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "no"
         claim.SelfEmployedTellUsWhyandWhentheChangeHappened = "A Year back"
+        claim.SelfEmployedDoYouKnowYourTradingYear = "yes"
         claim.SelfEmployedWhatWasIsYourTradingYearfrom = "01/01/0000"
         page goToThePage()
         page fillPageWith claim
@@ -42,11 +43,23 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags
         pageWithErrors.listErrors.size mustEqual 1
         pageWithErrors.listErrors(0).contains("date")
       }
+
+      "your accounts do you know your trading year not set" in new WithBrowser with PageObjects{
+        val page =  GSelfEmploymentYourAccountsPage(context)
+        val claim = new TestData
+        claim.SelfEmployedDoYouKnowYourTradingYear = ""
+        page goToThePage()
+        page fillPageWith claim
+        val pageWithErrors = page.submitPage()
+        pageWithErrors.listErrors.size mustEqual 1
+        pageWithErrors.listErrors(0).contains("do you know your trading year")
+      }
     }
 
     "your accounts tell us what happened not required if incoming and outgoing are current " in new WithBrowser with PageObjects{
 			val page =  GSelfEmploymentYourAccountsPage(context)
       val claim = new TestData
+      claim.SelfEmployedDoYouKnowYourTradingYear = "yes"
       claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "yes"
       page goToThePage()
       page fillPageWith claim
@@ -57,6 +70,7 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags
     "your accounts contact your accountant is not required if there is no accountant " in new WithBrowser with PageObjects{
 			val page =  GSelfEmploymentYourAccountsPage(context)
       val claim = new TestData
+      claim.SelfEmployedDoYouKnowYourTradingYear = "yes"
       claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "yes"
       page goToThePage()
       page fillPageWith claim

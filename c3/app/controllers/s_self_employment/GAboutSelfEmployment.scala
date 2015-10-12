@@ -20,7 +20,7 @@ import models.view.ClaimHandling.ClaimResult
 
 object GAboutSelfEmployment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "areYouSelfEmployedNow" -> nonEmptyText.verifying(validYesNo),
+    "areYouSelfEmployedNow" -> carersNonEmptyText.verifying(validYesNo),
     "whenDidYouStartThisJob" -> dayMonthYear.verifying(validDate),
     "whenDidTheJobFinish" -> optional(dayMonthYear.verifying(validDate)),
     "haveYouCeasedTrading" -> optional(text.verifying(validYesNo)),

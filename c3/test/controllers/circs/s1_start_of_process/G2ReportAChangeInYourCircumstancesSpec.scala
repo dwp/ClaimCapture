@@ -1,6 +1,7 @@
-package controllers.circs.s1_start_of_process
+  package controllers.circs.s1_start_of_process
 
-import models.domain._
+  import controllers.mappings.Mappings
+  import models.domain._
 import models.view.CachedChangeOfCircs
 import models.{DayMonthYear, NationalInsuranceNumber}
 import org.specs2.mutable.{Specification, Tags}
@@ -28,7 +29,7 @@ class G2ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
       "dateOfBirth.year" -> dateOfBirthYear.toString,
       "theirFullName" -> theirFullName,
       "theirRelationshipToYou" -> theirRelationshipToYou,
-      "furtherInfoContact"->"by post",
+      "furtherInfoContact"->"01234567890",
       "wantsEmailContactCircs"->"no"
     )
 
@@ -71,6 +72,73 @@ class G2ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
 
       val result = controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.submit(request)
       status(result) mustEqual SEE_OTHER
+    }
+
+    """should be valid submission with no contact number supplied".""" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(
+          "fullName" -> fullName,
+          "nationalInsuranceNumber.nino" -> nino.toString,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "theirFullName" -> theirFullName,
+          "theirRelationshipToYou" -> theirRelationshipToYou,
+          "wantsEmailContactCircs"-> Mappings.no)
+
+      val result = controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.submit(request)
+      status(result) mustEqual SEE_OTHER
+    }
+
+    """return bad request with characters in contact number".""" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(
+          "fullName" -> fullName,
+          "nationalInsuranceNumber.nino" -> nino.toString,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "theirFullName" -> theirFullName,
+          "furtherInfoContact"->"dsdhjsdjs",
+          "theirRelationshipToYou" -> theirRelationshipToYou,
+          "wantsEmailContactCircs"-> Mappings.no)
+
+      val result = controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    """return bad request with less than minimum digits entered".""" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(
+          "fullName" -> fullName,
+          "nationalInsuranceNumber.nino" -> nino.toString,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "theirFullName" -> theirFullName,
+          "furtherInfoContact"->"012345",
+          "theirRelationshipToYou" -> theirRelationshipToYou,
+          "wantsEmailContactCircs"-> Mappings.no)
+
+      val result = controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    """return bad request with greater than maximum digits entered".""" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(
+          "fullName" -> fullName,
+          "nationalInsuranceNumber.nino" -> nino.toString,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "theirFullName" -> theirFullName,
+          "furtherInfoContact"->"012345678901234567890",
+          "theirRelationshipToYou" -> theirRelationshipToYou,
+          "wantsEmailContactCircs"-> Mappings.no)
+
+      val result = controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.submit(request)
+      status(result) mustEqual BAD_REQUEST
     }
 
     "when present called Lang should not be set on Claim" in new WithApplication with MockForm {

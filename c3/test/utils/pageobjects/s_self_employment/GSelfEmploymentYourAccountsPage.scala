@@ -4,6 +4,7 @@ import utils.WithBrowser
 import utils.pageobjects._
 
 final class GSelfEmploymentYourAccountsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GSelfEmploymentYourAccountsPage.url) {
+  declareYesNo("#doYouKnowYourTradingYear", "SelfEmployedDoYouKnowYourTradingYear")
   declareDate("#whatWasOrIsYourTradingYearFrom", "SelfEmployedWhatWasIsYourTradingYearfrom")
   declareDate("#whatWasOrIsYourTradingYearTo", "SelfEmployedWhatWasIsYourTradingYearIs")
   declareYesNo("#areIncomeOutgoingsProfitSimilarToTrading", "SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent")

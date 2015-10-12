@@ -29,7 +29,7 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
         "Do you normally live in England, Scotland or Wales?" displays "AboutYouNationalityAndResidencyResideInUK",
         "Marital status"  displays "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus",
         "Have you been away from England, Scotland or Wales"          displays AnyYesTransformer("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime"),
-        "Have you or anyone in your close family claimed or been paid any benefits or pensions from an EEA country since your claim date?"          displays "OtherMoneyOtherEEAGuardQuestion",
+        "Have you or any of your close family worked abroad or been paid benefits from outside the United Kingdom since your claim date?"          displays "OtherMoneyOtherEEAGuardQuestion",
         "Name"            displays ("AboutTheCareYouProvideTitlePersonCareFor","AboutTheCareYouProvideFirstNamePersonCareFor","AboutTheCareYouProvideMiddleNamePersonCareFor","AboutTheCareYouProvideSurnamePersonCareFor"),
         "Date of birth"   displays DateTransformer("AboutTheCareYouProvideDateofBirthPersonYouCareFor"),
         "What's their relationship to you?"                               displays "AboutTheCareYouProvideWhatTheirRelationshipToYou",

@@ -12,13 +12,13 @@ About You,Your Details,Date of birth,AboutYouDateOfBirth,28/09/1950
 About You,Your marital status,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Single
 About You,Your contact details,Address,AboutYouAddress,1 Preston Road&Preston
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 1HB
-About You,Your contact details,How we contact you,HowWeContactYou,I do not have a contact number
+About You,Your contact details,How we contact you,HowWeContactYou,
 About You,Your contact details,Wants email contact,AboutYouWantsEmailContact,No
 About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,British
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,
 About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Yes
 About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,
-Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,21/07/2013
+Claim Date,Your claim date,"When do you want your Carer's Allowance claim to start?",ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,21/07/2013
 Claim Date,Your claim date,Were you caring for the person for more than 35 hours a week before this date?,ClaimDateDidYouCareForThisPersonfor35Hours,Yes
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,21/01/2012
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,No
@@ -33,8 +33,8 @@ About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYo
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,
 About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,
-About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,
-About the care you provide,Details of the person you care for,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,"partner	"
+About Your Partner,Person you care for,"Is your partner/spouse the person you are claiming Carer's Allowance for?",AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,
+About the care you provide,Details of the person you care for,"What's their relationship to you?",AboutTheCareYouProvideWhatTheirRelationshipToYou,"partner	"
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,dame
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Test
 About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,
@@ -44,7 +44,7 @@ About the care you provide,Details of the person you care for,Date of birth,Abou
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,Yes
 About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,1 Preston Road&Preston
 About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,PR1 1HB
-About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,"Partner	"
+About the care you provide,Relationship and other claims,"What's their relationship to you?",AboutTheCareYouProvideWhatTheirRelationshipToYou,"Partner	"
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Yes
 About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,No
 Education,Your course details,Have you been on a course of education since your claim date:<ddmmyyyy>? ,EducationHaveYouBeenOnACourseOfEducation,No
@@ -62,9 +62,9 @@ Other Money,Benefits and payments,Benefits and payments: How much?,OtherMoneyHow
 Other Money,Benefits and payments,Benefits and payments: How often?,OtherMoneyHowOften,
 Other Money,Benefits and payments,Benefits and payments: How often other?,OtherMoneyHowOftenOther,
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
-Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,
-Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,
-Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,
+Other Money,Statutory Sick Pay,"Employer's Name",OtherMoneySSPEmployerName,
+Other Money,Statutory Sick Pay,"Employer's Address,OtherMoneySSPEmployerAddress,
+Other Money,Statutory Sick Pay,"Employer's Postcode,OtherMoneyEmployerPostcode,
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,No
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,

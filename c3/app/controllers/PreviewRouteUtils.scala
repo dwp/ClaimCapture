@@ -22,6 +22,7 @@ object PreviewRouteUtils {
                         "about_you_nationality" -> gNationalityRoute,
                         "about_you_residence" -> gNationalityRoute,
                         "about_you_abroad" -> controllers.s_about_you.routes.GAbroadForMoreThan52Weeks.present.toString,
+                        "about_you_eeaGuardQuestion" -> gOtherEEARoute,
                         "about_you_benefitsFromEEA" -> gOtherEEARoute,
                         "about_you_workingForEEA" -> gOtherEEARoute)
 
