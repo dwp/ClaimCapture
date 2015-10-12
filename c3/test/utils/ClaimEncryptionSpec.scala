@@ -5,20 +5,19 @@ import models.{SortCode, MultiLineAddress, DayMonthYear, NationalInsuranceNumber
 import models.domain._
 import models.view.CachedClaim
 import org.specs2.mutable.Specification
-import utils.ClaimEncryption
 
 class ClaimEncryptionSpec extends Specification {
 
   val yourDetails = YourDetails("Mr", None, "H", None, "Dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1, 1, 1986))
   val contactDetails = ContactDetails(MultiLineAddress(Some("123"), Some("Fake street"), None),
-    Some("PL18 1AA"), "by post", None, Some("Yes"), Some("blah@blah.com"), Some("blah@blah.com"))
+    Some("PL18 1AA"), Some("by post"), None, Some("Yes"), Some("blah@blah.com"), Some("blah@blah.com"))
   val theirPersonalDetails = TheirPersonalDetails("Wifey", "Mrs", None, "H", None, "Dawg",
     Some(NationalInsuranceNumber(Some("AA123456A"))), DayMonthYear(1,1,1988),
     YesNoMandWithAddress("No", Some(MultiLineAddress(Some("122"), Some("Fake street"),None)), None))
   val circumstancesReportChange = CircumstancesReportChange("H-dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1,1,1986),
-    "blah", "blah", "blah", Some("blah"), Some("blah@blah.com"), Some("blah@blah.com"))
+    "blah", "blah", Some("blah"), Some("blah"), Some("blah@blah.com"), Some("blah@blah.com"))
   val howWePayYou = HowWePayYou("Cold, hard cash", "Daily", Some(BankBuildingSocietyDetails(
     "H-dawg", "Barclays", SortCode("00", "00", "00"), "00000000", "")))
   val yourPartnerPersonalDetails = YourPartnerPersonalDetails(Some("Mrs"), None, Some("H"),

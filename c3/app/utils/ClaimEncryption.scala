@@ -51,7 +51,7 @@ object ClaimEncryption {
         claim.update(contactDetails.copy(
           encryptMultiLineAddress(contactDetails.address),
           encryptOptionalString(contactDetails.postcode),
-          encryptString(contactDetails.howWeContactYou),
+          encryptOptionalString(contactDetails.howWeContactYou),
           contactDetails.contactYouByTextphone,
           contactDetails.wantsContactEmail,
           encryptOptionalString(contactDetails.email),
@@ -89,7 +89,7 @@ object ClaimEncryption {
           encryptDayMonthYear(circumstancesReportChange.dateOfBirth),
           encryptString(circumstancesReportChange.theirFullName),
           encryptString(circumstancesReportChange.theirRelationshipToYou),
-          encryptString(circumstancesReportChange.furtherInfoContact),
+          encryptOptionalString(circumstancesReportChange.furtherInfoContact),
           encryptOptionalString(circumstancesReportChange.wantsContactEmail),
           encryptOptionalString(circumstancesReportChange.email),
           encryptOptionalString(circumstancesReportChange.emailConfirmation)
@@ -187,7 +187,7 @@ object ClaimEncryption {
         claim.update(contactDetails.copy(
           decryptMultiLineAddress(contactDetails.address),
           decryptOptionalString(contactDetails.postcode),
-          decryptString(contactDetails.howWeContactYou),
+          decryptOptionalString(contactDetails.howWeContactYou),
           contactDetails.contactYouByTextphone,
           contactDetails.wantsContactEmail,
           decryptOptionalString(contactDetails.email),
@@ -225,7 +225,7 @@ object ClaimEncryption {
           decryptDayMonthYear(circumstancesReportChange.dateOfBirth),
           decryptString(circumstancesReportChange.theirFullName),
           decryptString(circumstancesReportChange.theirRelationshipToYou),
-          decryptString(circumstancesReportChange.furtherInfoContact),
+          decryptOptionalString(circumstancesReportChange.furtherInfoContact),
           decryptOptionalString(circumstancesReportChange.wantsContactEmail),
           decryptOptionalString(circumstancesReportChange.email),
           decryptOptionalString(circumstancesReportChange.emailConfirmation)
