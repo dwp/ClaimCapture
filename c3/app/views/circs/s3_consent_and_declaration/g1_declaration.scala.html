@@ -26,8 +26,7 @@
                 <p>@Messages("circs.declaration.openingParagraph")</p>
                 <ul class="list-bullet">
                     <li>@Messages("circs.declaration.1")</li>
-                    <li>@Messages("circs.declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@Messages("circs.declaration.2b")</a> @Messages("circs.declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@Messages("circs.declaration.2d")</a></li>
-                    <li>@Messages("circs.declaration.3a") <a rel="external" id="claimnotes" target="_blank" href="/internal-claim-notes/@lang.code">@Messages("circs.declaration.3b")</a> @Messages("circs.declaration.3c")</li>
+                    <li>@Messages("circs.declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@Messages("circs.declaration.2b")</a> @Messages("circs.declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@Messages("circs.declaration.2d")</a></li>                   
                 </ul>
                 <p class="warning-text">
                     @Messages("circs.declaration.warning")
@@ -47,9 +46,9 @@
 	
 	            <ul class="circs-group">
 	                @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
-	                @otherDetailPlaceHolder(
+	                @otherDetailPlaceHolder( 
 	                    inputDef = Seq(
-	                        carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 300, 'textAreaHelper -> Html(Messages("300charsLeft")))),
+	                        carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 3000, 'textAreaHelper -> Html(Messages("3000charsLeft")))),
 	                    'id -> "why"
                     )
 	            </ul>
@@ -74,7 +73,7 @@
                            "@CarersCrypto.encryptAES("circsSomeOneElse")",
                            "@CarersCrypto.encryptAES("nameOrOrganisation")");
 
-        window.areaCounter ( { selector : '@CarersCrypto.encryptAES("obtainInfoWhy")',maxChars:300 });
+        window.areaCounter ( { selector : '@CarersCrypto.encryptAES("obtainInfoWhy")',maxChars:3000 });
 
     });
     </script>
