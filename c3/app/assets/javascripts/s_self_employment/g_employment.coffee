@@ -19,7 +19,7 @@ window.updateNextLabel = (employment_yes,employment_no,selfEmployment_yes,selfEm
     bothAnswersAreNo = !beenEmployed && !beenSelfEmployed
     doesNotHaveJobs = beenEmployed && noJobs
 
-    if(doesNotHaveJobs) then false else bothAnswersAreNo || bothHaveNotChanged || selfENotChangedAndEmploymentNo || empNotChangedAndSENo || haveAtLeastAJob
+    if(doesNotHaveJobs) then false else bothAnswersAreNo || bothHaveNotChanged || selfENotChangedAndEmploymentNo || empNotChangedAndSENo
 
   #Definitions end, starts execution
   changeText()
