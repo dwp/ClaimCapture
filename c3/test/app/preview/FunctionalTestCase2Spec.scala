@@ -20,7 +20,7 @@ class FunctionalTestCase2Spec extends FunctionalTestCommon {
       page goToThePage()
       val lastPage = page runClaimWith(claim, PreviewPage.url)
       val toFindData = Data.build(
-        "Name"              displays ("AboutYouTitle","AboutYouFirstName","AboutYouMiddleName","AboutYouSurname"),
+        "Name"              displays ("AboutYouTitleOther","AboutYouFirstName","AboutYouMiddleName","AboutYouSurname"),
         "Date of birth"     displays DateTransformer("AboutYouDateOfBirth"),
         "Address"           displays (AddressTransformer("AboutYouAddress"),"AboutYouPostcode"),
         "Claim date"   displays DateTransformer("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart"),

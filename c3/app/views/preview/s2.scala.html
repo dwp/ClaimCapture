@@ -52,8 +52,14 @@
     }
 }
 @middleName = @{yourDetails.middleName.map(_+" ").getOrElse("")}
+@titleValue = @{
+    yourDetails.title match {
+        case "Other" => yourDetails.titleOther.getOrElse("")
+        case _ => Messages("titleSelect."+yourDetails.title.toLowerCase)
+    }
+}
 @titleNames = @{
-    s"${Html(Messages("titleSelect."+yourDetails.title.toLowerCase))} ${yourDetails.firstName} ${middleName}${yourDetails.surname}"
+    s"${titleValue} ${yourDetails.firstName} ${middleName}${yourDetails.surname}"
 }
 
 @addressPostcode = @{

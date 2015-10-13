@@ -31,6 +31,48 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       source must contain("Father")
     }
 
+    "display Care you provide data - when partner is not the person you care for and your partner has a different title" in new WithJsBrowser  with PageObjects{
+
+      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
+      partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
+      partnerData.AboutYourPartnerTitle = "Other"
+      partnerData.AboutYourPartnerTitleOther = "Lady"
+
+      fillCareProvideSection(context,partnerClaim = partnerData)
+      val page =  PreviewPage(context)
+      page goToThePage()
+      val source = page.source
+
+      source must contain("Lady Cloe Scott Smith")
+      source must contain("About the person you care for")
+      source must contain("Mr Tom Potter Wilson")
+      source must contain("02 March, 1990")
+      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
+      source must contain("Father")
+    }
+
+    "display Care you provide data - when partner is not the person you care for and the person you care for has a different title" in new WithJsBrowser  with PageObjects{
+
+      val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
+      partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
+
+      val careYouProvideData = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)
+      careYouProvideData.AboutTheCareYouProvideTitlePersonCareFor = "Other"
+      careYouProvideData.AboutTheCareYouProvideTitleOtherPersonCareFor = "Lord"
+      
+      fillCareProvideSection(context,partnerClaim = partnerData, careYouProvideData)
+      val page =  PreviewPage(context)
+      page goToThePage()
+      val source = page.source
+
+      source must contain("Mrs Cloe Scott Smith")
+      source must contain("About the person you care for")
+      source must contain("Lord Tom Potter Wilson")
+      source must contain("02 March, 1990")
+      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
+      source must contain("Father")
+    }
+
     "display Care you provide data - when partner is the person you care for" in new WithJsBrowser  with PageObjects{
 
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
