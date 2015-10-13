@@ -2,7 +2,6 @@
 @import models.domain.YourPartnerPersonalDetails
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
-@import utils.helpers.HtmlLabelHelper._
 
 @yourPartner = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
 @middleName = @{yourPartner.middleName.map(_+" ").getOrElse("")}
@@ -18,13 +17,14 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-			@fieldWithLink("partner_hadPartner", "hadPartnerSinceClaimDate", Messages("label."+yourPartner.hadPartnerSinceClaimDate),disableLink = disableChangeButton, elementId = Some(generateLabelId("hadPartnerSinceClaimDate")))
+			@fieldWithLink("partner_hadPartner", "hadPartnerSinceClaimDate", Messages("label."+yourPartner.hadPartnerSinceClaimDate),disableLink = disableChangeButton, elementId = Some("hadPartnerSinceClaimDate"))
 			@if(yourPartner.hadPartnerSinceClaimDate.toLowerCase == "yes"){
-			    @fieldWithLink("partner_name", "name", titleNames ,disableLink = disableChangeButton, elementId = Some(generateLabelId("firstName")))
-			    @fieldWithLink("partner_dateOfBirth", "dateOfBirth", yourPartner.dateOfBirth.getOrElse(DayMonthYear(None,None,None)).`dd month, yyyy`,disableLink = disableChangeButton, elementId = Some(generateLabelId("dateOfBirth")))
-			    @fieldWithLink("partner_nationality", "partner.nationality", yourPartner.nationality.get,disableLink = disableChangeButton, elementId = Some(generateLabelId("nationality")))
-			    @fieldWithLink("partner_seperated", "separated.fromPartner", Messages("label."+yourPartner.separatedFromPartner.get.toLowerCase),disableLink = disableChangeButton, elementId = Some(generateLabelId("separated_fromPartner")))
-			    @fieldWithLink("partner_isPersonCareFor", "isPartnerPersonYouCareFor", Messages("label."+yourPartner.isPartnerPersonYouCareFor.get.toLowerCase),disableLink = disableChangeButton, elementId = Some(generateLabelId("isPartnerPersonYouCareFor")))
+			    @fieldWithLink("partner_name", "name", titleNames ,disableLink = disableChangeButton, elementId = Some("firstName"))
+			    @fieldWithLink("partner_dateOfBirth", "dateOfBirth", yourPartner.dateOfBirth.getOrElse(DayMonthYear(None,None,None)).`dd month, yyyy`,disableLink = disableChangeButton, elementId = Some("dateOfBirth"))
+				@{/** Nationality question anchors to dateOfBirth because javascript causes conflict with page height **/}
+			    @fieldWithLink("partner_nationality", "partner.nationality", yourPartner.nationality.get,disableLink = disableChangeButton, elementId = Some("dateOfBirth"))
+			    @fieldWithLink("partner_seperated", "separated.fromPartner", Messages("label."+yourPartner.separatedFromPartner.get.toLowerCase),disableLink = disableChangeButton, elementId = Some("separated_fromPartner"))
+			    @fieldWithLink("partner_isPersonCareFor", "isPartnerPersonYouCareFor", Messages("label."+yourPartner.isPartnerPersonYouCareFor.get.toLowerCase),disableLink = disableChangeButton, elementId = Some("isPartnerPersonYouCareFor"))
 			}
 		</table>
 	</div>

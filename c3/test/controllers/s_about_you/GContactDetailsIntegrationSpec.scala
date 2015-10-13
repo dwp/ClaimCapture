@@ -31,16 +31,16 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
 
     }
 
-    "contain error if 'Contact phone or mobile number' not filled in" in new WithJsBrowser with PageObjects{
+    "valid submission if 'Contact phone or mobile number' not filled in" in new WithJsBrowser with PageObjects{
       val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.HowWeContactYou = ""
       page goToThePage()
       page fillPageWith claim
 
-      val errors = page.submitPage().listErrors
-      errors.size mustEqual 1
-      errors(0) must contain("Contact phone or mobile number - You must complete this section")
+      val nextPage = page submitPage()
+
+      nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
     }
 
     "valid submission if 'Contact phone or mobile number' is filled in with number" in new WithJsBrowser with PageObjects{
@@ -54,19 +54,30 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
     }
 
-    "valid submission if 'Contact phone or mobile number' is filled in with text" in new WithJsBrowser with PageObjects{
+    "contain error if 'Contact phone or mobile number' is filled in with text" in new WithJsBrowser with PageObjects{
       val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.HowWeContactYou = "I do not have contact number"
       page goToThePage()
       page fillPageWith claim
 
-      val nextPage = page submitPage()
-
-      nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
+      val errors = page.submitPage().listErrors
+      errors.size mustEqual 1
+      errors(0) must contain("Contact phone or mobile number - Invalid value")
     }
 
-    
+    "contain error if 'Contact phone or mobile number' is field length less than min length" in new WithJsBrowser with PageObjects{
+      val page =  GContactDetailsPage(context)
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
+      claim.HowWeContactYou = "012345"
+      page goToThePage()
+      page fillPageWith claim
+
+      val errors = page.submitPage().listErrors
+      errors.size mustEqual 1
+      errors(0) must contain("Contact phone or mobile number - Invalid value")
+    }
+
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects{
 			val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()

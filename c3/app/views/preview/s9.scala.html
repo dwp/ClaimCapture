@@ -2,7 +2,6 @@
 @import models.domain._
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
-@import utils.helpers.HtmlLabelHelper._
 
 @partner = @{claim.questionGroup[YourPartnerPersonalDetails]}
 @aboutOtherMoney = @{claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())}
@@ -37,9 +36,9 @@
 	
 	<div class="accordion-content">
 		<table class="review">
-            @fieldWithLink("other_money_anyPaymentsSinceClaimDate", "anyPaymentsSinceClaimDate.answer", anyPaymentsSinceClaimDate, elementId = Some(generateLabelId("anyPaymentsSinceClaimDate_answer")), disableLink = disableChangeButton)
-            @fieldWithLink("other_money_statutoryPay", "haveYouHadAnyStatutorySickPay.label", statutoryPay, elementId = Some(generateLabelId("statutorySickPay_answer")), disableLink = disableChangeButton)
-            @fieldWithLink("other_money_otherStatutoryPay", "otherPay.label", otherStatutoryPay, elementId = Some(generateLabelId("otherStatutoryPay_answer")), disableLink = disableChangeButton)
+            @fieldWithLink("other_money_anyPaymentsSinceClaimDate", "anyPaymentsSinceClaimDate.answer", anyPaymentsSinceClaimDate, elementId = Some("anyPaymentsSinceClaimDate_answer"), disableLink = disableChangeButton)
+            @fieldWithLink("other_money_statutoryPay", "haveYouHadAnyStatutorySickPay.label", statutoryPay, elementId = Some("statutorySickPay_answer"), disableLink = disableChangeButton)
+            @fieldWithLink("other_money_otherStatutoryPay", "otherPay.label", otherStatutoryPay, elementId = Some("otherStatutoryPay_answer"), disableLink = disableChangeButton)
 		</table>
 	</div>
 

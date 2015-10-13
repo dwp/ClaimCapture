@@ -18,7 +18,7 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesAboutYouTheirFullName = "Mrs Jane Smith"
     claim.CircumstancesAboutYouTheirRelationshipToYou = "Wife"
 
-    claim.FurtherInfoContact = "By Post"
+    claim.FurtherInfoContact = "012345678"
     claim.CircumstancesDeclarationWantsEmailContact = "no"
 
     claim
@@ -42,7 +42,7 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesEmploymentChangeSelfEmployedTypeOfWork = "IT Consultant"
     claim.CircumstancesEmploymentChangeSelfEmployedTotalIncome = "no"
 
-    claim.FurtherInfoContact = "By Post"
+    claim.FurtherInfoContact = "0171123455"
     claim.CircumstancesDeclarationWantsEmailContact = "no"
 
 
@@ -296,7 +296,7 @@ object CircumstancesScenarioFactory {
 
   def declaration = {
     val claim = otherChangeInfo
-    claim.FurtherInfoContact = "By Post"
+    claim.FurtherInfoContact = "012347688"
     claim.CircumstancesDeclarationInfoAgreement = "yes"
     claim.CircumstancesDeclarationWhy = "Cause I want"
     claim.CircumstancesDeclarationConfirmation = "yes"

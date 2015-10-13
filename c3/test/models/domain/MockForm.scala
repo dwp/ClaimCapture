@@ -8,6 +8,7 @@ import org.specs2.specification.Scope
 import play.api.cache.Cache
 import play.api.test.Helpers._
 import play.api.Play.current
+import utils.ClaimEncryption
 
 import scala.reflect.ClassTag
 
@@ -32,5 +33,5 @@ trait MockForm extends Scope with Mockito {
 
   def extractCacheKey(result:scala.concurrent.Future[play.api.mvc.Result], sessionKey : String = CachedClaim.key) = session(result).get(sessionKey).get
 
-  def getClaimFromCache(result:scala.concurrent.Future[play.api.mvc.Result], sessionKey : String = CachedClaim.key) = Cache.getAs[Claim](extractCacheKey(result, sessionKey)).get
+  def getClaimFromCache(result:scala.concurrent.Future[play.api.mvc.Result], sessionKey : String = CachedClaim.key) = ClaimEncryption.decrypt(Cache.getAs[Claim](extractCacheKey(result, sessionKey)).get)
 }

@@ -5,6 +5,7 @@
 @import play.api.i18n.{MMessages => Messages}
 @import controllers.PreviewRouteUtils._
 @import utils.helpers.PreviewField._
+@import utils.helpers.HtmlLabelHelper._
 
 @routesMap = @{
     PreviewRouteUtils.yourDetailsRoute ++ PreviewRouteUtils.otherMoneyRoute ++
@@ -15,6 +16,13 @@
 @label = @{
     Html(Messages(name))
 }
+
+@elementLinkedToId = @{
+	elementId match {
+		case Some(id) => "#" + generateLabelId(id)
+		case None => ""
+	}
+}
 <tr class="review-change">
 	<td id="@getLabelId(id, false)" class="review-label">
 		<b>@label</b>
@@ -24,7 +32,7 @@
 	</td>
 	<td id="@getLinkContainerId(id, false)" class="review-action hide-print">
 		@if(!disableLink) {
-		<a class="button secondary" id="@getLinkId(id, false)" href="@{routesMap(id)}#@{elementId.getOrElse("")}">
+		<a class="button secondary" id="@getLinkId(id, false)" href="@{routesMap(id)}@{elementLinkedToId}">
 			@Html(Messages("preview.change"))
 			<span class="visuallyhidden">@label (optional)</span>
 		</a>

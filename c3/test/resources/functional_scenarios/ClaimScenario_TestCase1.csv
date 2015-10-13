@@ -12,12 +12,12 @@ About You,Your Details,Date of birth,AboutYouDateOfBirth,28/09/1945
 About You,Your marital status,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Single
 About You,Your contact details,Address,AboutYouAddress,this is a very large address lineok&another absurd large address lineok
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 1HB
-About You,Your contact details,How we contact you,HowWeContactYou,this is my nice way of contactingok
+About You,Your contact details,How we contact you,HowWeContactYou,
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,yes
 About You,Your contact details,Wants email contact,AboutYouWantsEmailContact,Yes
 About You,Your contact details,Please enter your email,AboutYouMail,myname@website.com
 About You,Your contact details,Please confirm your email,AboutYouMailConfirmation,myname@website.com
-Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,21/07/2013
+Claim Date,Your claim date,"When do you want your Carer's Allowance claim to start?",ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,21/07/2013
 Claim Date,Your claim date,Were you caring for the person for more than 35 hours a week before this date?,ClaimDateDidYouCareForThisPersonfor35Hours,Yes
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,21/01/2012
 About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,Another nationality
@@ -27,7 +27,7 @@ About You,Nationality and where you live,Which country do you normally live in?,
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,No
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you and your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherEEAGuardQuestion,No
 About Your Partner,Person you care for,Have you lived with a partner at any time since your claim date?,AboutYourPartnerHadPartnerSinceClaimDate,No
-About the care you provide,Details of the person you care for,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,partner
+About the care you provide,Details of the person you care for,"What's their relationship to you?",AboutTheCareYouProvideWhatTheirRelationshipToYou,partner
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Other
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitleOtherPersonCareFor,dame
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,I have a real nam
@@ -36,7 +36,7 @@ About the care you provide,Details of the person you care for,Surname or family 
 About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,12/09/1980
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,Yes
-About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Partner
+About the care you provide,Relationship and other claims,"What's their relationship to you?",AboutTheCareYouProvideWhatTheirRelationshipToYou,Partner
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Yes
 About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,No
 Education,Your course details,Have you been on a course of education since your claim date:<ddmmyyyy>? ,EducationHaveYouBeenOnACourseOfEducation,No

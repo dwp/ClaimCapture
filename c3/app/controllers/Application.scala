@@ -11,4 +11,8 @@ object Application extends Controller {
   def backButtonPage = Action { implicit request =>
     Ok(views.html.common.backButton())
   }
+
+  def backButtonCircsPage = Action { implicit request =>
+    Ok(views.html.common.backButton())
+  }
 }

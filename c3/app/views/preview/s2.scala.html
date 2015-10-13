@@ -7,7 +7,6 @@
 @import helper._
 @import controllers.mappings.Mappings._
 @import controllers.mappings.Mappings
-@import utils.helpers.HtmlLabelHelper._
 
 
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
@@ -95,19 +94,20 @@
 	<div class="accordion-content">
 		<table class="review">
             @fieldWithLink("about_you_claimDate", "dateOfClaim", claimDate.dateOfClaim.`dd month, yyyy`, true)
-			@fieldWithLink("about_you_full_name", "name", titleNames, elementId = Some(generateLabelId("firstName")))
-			@fieldWithLink("about_you_dob", "dateOfBirth", yourDetails.dateOfBirth.`dd month, yyyy`, elementId = Some(generateLabelId("dateOfBirth")))
-            @fieldWithLink("about_you_marital_status", "maritalStatusNQ", maritalStatus, elementId = Some(generateLabelId("maritalStatus")))
-			@fieldWithLink("about_you_address", "address", addressPostcode, elementId = Some(generateLabelId("address")))
-			@fieldWithLink("about_you_contact", "howWeContactYou", contactDetails.howWeContactYou, elementId = Some(generateLabelId("howWeContactYou")))
-            @fieldWithLink("about_you_email", "wantsEmailContact", email, elementId = Some(generateLabelId("wantsEmailContact")))
-			@fieldWithLink("about_you_nationality", "yourNationality", nationality, elementId = Some(generateLabelId("nationality")))
-            @fieldWithLink("about_you_residence", "resideInUK.label", residence, elementId = Some(generateLabelId("resideInUK_answer")))
-			@fieldWithLink("about_you_abroad", "52Weeks.label", abroadValue, elementId = Some(generateLabelId("anyTrips")))
-			@fieldWithLink("about_you_eeaGuardQuestion", "eeaGuardQuestion.answer", eeaGuardQuestionValue, elementId = Some(generateLabelId("eeaGuardQuestion_answer")))
+			@fieldWithLink("about_you_full_name", "name", titleNames, elementId = Some("firstName"))
+            @fieldWithLink("about_you_dob", "dateOfBirth", yourDetails.dateOfBirth.`dd month, yyyy`, elementId = Some("dateOfBirth"))
+            @fieldWithLink("about_you_marital_status", "maritalStatusNQ", maritalStatus, elementId = Some("maritalStatus"))
+            @fieldWithLink("about_you_address", "address", addressPostcode, elementId = Some("address"))
+            @fieldWithLink("about_you_contact", "howWeContactYou", contactDetails.howWeContactYou.getOrElse("Not given"), elementId = Some("howWeContactYou"))
+            @fieldWithLink("about_you_email", "wantsEmailContact", email, elementId = Some("wantsEmailContact"))
+            @{/** Link to nationality does not anchor to question as javascript causes conflict with page height **/}
+			@fieldWithLink("about_you_nationality", "yourNationality", nationality)
+            @fieldWithLink("about_you_residence", "resideInUK.label", residence, elementId = Some("resideInUK_answer"))
+			@fieldWithLink("about_you_abroad", "52Weeks.label", abroadValue, elementId = Some("anyTrips"))
+			@fieldWithLink("about_you_eeaGuardQuestion", "eeaGuardQuestion.answer", eeaGuardQuestionValue, elementId = Some("eeaGuardQuestion_answer"))
             @if(showEEA) {
-                @fieldWithLink("about_you_benefitsFromEEA", "preview.benefitsFromEEA", benefitsFromEEAValue, elementId = Some(generateLabelId("eeaGuardQuestion_benefitsFromEEADetails_answer")))
-                @fieldWithLink("about_you_workingForEEA", "preview.workingForEEA", workingForEEAValue, elementId = Some(generateLabelId("eeaGuardQuestion_workingForEEADetails_answer")))
+                @fieldWithLink("about_you_benefitsFromEEA", "preview.benefitsFromEEA", benefitsFromEEAValue, elementId = Some("eeaGuardQuestion_benefitsFromEEADetails_answer"))
+                @fieldWithLink("about_you_workingForEEA", "preview.workingForEEA", workingForEEAValue, elementId = Some("eeaGuardQuestion_workingForEEADetails_answer"))
             }
 		</table>
 	</div>
