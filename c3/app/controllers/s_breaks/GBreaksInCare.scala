@@ -3,7 +3,6 @@ package controllers.s_breaks
 import controllers.IterationID
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
-import controllers.s_breaks.{GBreak, GBreaksInCare}
 import models.domain.{Claim, _}
 import models.view.{CachedClaim, Navigable}
 import models.yesNo.DeleteId

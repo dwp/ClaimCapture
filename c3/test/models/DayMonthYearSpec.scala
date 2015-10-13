@@ -4,6 +4,7 @@ import org.specs2.mutable.Specification
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.i18n.Lang
+import utils.C3Encryption._
 import utils.WithApplication
 import scala.util.Try
 
@@ -130,6 +131,37 @@ class DayMonthYearSpec extends Specification {
       dmy.isEqualTo(dmy2) should beFalse
       dmy.isEqualTo(dmy) should beTrue
       dmy2.isEqualTo(dmy) should beFalse
+    }
+
+    "Encrypt" in {
+      val dmy = DayMonthYear(23, 9, 2013)
+      val encryptedDmy = dmy.encrypt
+      encryptedDmy.day mustEqual None
+      encryptedDmy.month mustEqual None
+      encryptedDmy.year mustEqual None
+      encryptedDmy.hour mustEqual None
+      encryptedDmy.minutes mustEqual None
+    }
+
+    "Not encrypt if already encrypted" in {
+      val dmy = DayMonthYear(23, 9, 2013)
+      val encryptedDmy = DayMonthYear(None, None, None, None, None)
+      encryptedDmy.encryptedDate = encryptOptionalString(Some(dmy.`yyyy-MM-dd'T'HH:mm:00`))
+      val reEncryptedDmy = encryptedDmy.encrypt
+      encryptedDmy.encryptedDate mustEqual reEncryptedDmy.encryptedDate
+    }
+
+    "Decrypt" in {
+      val dmy = DayMonthYear(23, 9, 2013)
+      val encryptedDmy = dmy.encrypt
+      val decryptedDmy = encryptedDmy.decrypt
+      dmy mustEqual decryptedDmy
+    }
+
+    "Not decrypt if already decrypted" in {
+      val dmy = DayMonthYear(23, 9, 2013)
+      val decryptedDmy = dmy.decrypt
+      dmy mustEqual decryptedDmy
     }
 
   }
