@@ -25,36 +25,15 @@ class GDeclaration extends Controller with CachedClaim with Navigable
   val claimTransaction = new ClaimTransaction
 
   val nameOrOrganisation = "nameOrOrganisation"
-  val gettingInformationFromAnyEmployer = "gettingInformationFromAnyEmployer"
-
-
-  private def validateEmpRequired(input: OptYesNoWithText)(implicit request: Request[AnyContent]): Boolean = {
-    fromCache(request) match {
-      case Some(claim) if claim.questionGroup[Emp].getOrElse(Emp()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
-        claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).statutorySickPay.answer == `yes` ||
-        claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).otherStatutoryPay.answer == `yes`=>
-        input.answer.isDefined
-      case _ => true
-    }
-  }
-
-  def informationFromEmployerMapping(implicit request: Request[AnyContent]):(String, Mapping[OptYesNoWithText]) =
-    gettingInformationFromAnyEmployer -> mapping(
-      "informationFromEmployer" -> optional(carersNonEmptyText),
-      "why" -> optional(carersNonEmptyText(maxLength = Mappings.threeHundred)))(OptYesNoWithText.apply)(OptYesNoWithText.unapply)
-      .verifying("employerRequired", validateEmpRequired _)
-      .verifying(Mappings.required, OptYesNoWithText.validateOnNo _)
-
 
   val informationFromPersonMapping =
-    "tellUsWhyEmployer" -> mapping(
+    "tellUsWhyFromAnyoneOnForm" -> mapping(
       "informationFromPerson" -> nonEmptyText,
-      "whyPerson" -> optional(carersNonEmptyText(maxLength = Mappings.threeHundred)))(YesNoWithText.apply)(YesNoWithText.unapply)
+      "whyPerson" -> optional(carersNonEmptyText(maxLength = 3000)))(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying(Mappings.required, YesNoWithText.validateOnNo _)
 
   def form(implicit request: Request[AnyContent]):Form[Declaration] = Form(mapping(
-     informationFromEmployerMapping,
-     informationFromPersonMapping,
+    informationFromPersonMapping,
     nameOrOrganisation -> optional(carersNonEmptyText(maxLength = Mappings.sixty)),
     "someoneElse" -> optional(carersText),
     "jsEnabled" -> boolean
@@ -70,11 +49,7 @@ class GDeclaration extends Controller with CachedClaim with Navigable
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
           .replaceError("",nameOrOrganisation, FormError(nameOrOrganisation, Mappings.errorRequired))
-          .replaceError(gettingInformationFromAnyEmployer,"employerRequired",
-                        FormError(gettingInformationFromAnyEmployer.concat(".informationFromEmployer"), Mappings.errorRequired))
-          .replaceError(gettingInformationFromAnyEmployer,Mappings.required,
-                        FormError(gettingInformationFromAnyEmployer.concat(".why"), Mappings.errorRequired))
-          .replaceError("tellUsWhyEmployer", FormError("tellUsWhyEmployer.whyPerson", Mappings.errorRequired))
+          .replaceError("tellUsWhyFromAnyoneOnForm", FormError("tellUsWhyFromAnyoneOnForm_whyPerson", Mappings.errorRequired))
         BadRequest(views.html.s_consent_and_declaration.g_declaration(updatedFormWithErrors)(lang))
       },
       declaration => {

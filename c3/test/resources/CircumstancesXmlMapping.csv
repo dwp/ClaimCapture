@@ -88,8 +88,8 @@ Future Employment - Change in circumstances,Employment,Will you have any care co
 Future Employment - Change in circumstances,Employment,"Give details of who you will pay and what it will cost. If you will pay a family member let us know their relationship to you and the person you care for.",CircumstancesEmploymentChangeWillCareCostsForThisWorkWhatCosts,DWPCAChangeOfCircumstances>EmploymentChange>NotStartedEmployment>CareCostsForThisWorkWhatCosts>Answer
 Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges>Answer
 Consent and declaration,Further Information,Contact phone or mobile number,FurtherInfoContact,DWPCAChangeOfCircumstances>ClaimantDetails>ContactPreference>Answer
-Consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have told us about?,CircumstancesDeclarationInfoAgreement,DWPCAChangeOfCircumstances>Consents>Consent>Answer
-Consent & Declaration,Consent & Declaration,Please tell us why not,CircumstancesDeclarationWhyNot,DWPCAChangeOfCircumstances>Consents>Consent>Why>Answer
+Consent and declaration,Declaration,Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?,CircumstancesDeclarationInfoAgreement,DWPCAChangeOfCircumstances>Consents>Consent>Answer
+Consent & Declaration,Consent & Declaration,List anyone you don't want to be contacted and say why.,CircumstancesDeclarationWhyNot,DWPCAChangeOfCircumstances>Consents>Consent>Why>Answer
 Consent and declaration,Declaration,"Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,DWPCAChangeOfCircumstances>Declaration
 Consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,DWPCAChangeOfCircumstances>Declaration>DeclarationNameOrg>Answer
 Consent and declaration,Declaration,Wants email contact,CircumstancesDeclarationWantsEmailContact,

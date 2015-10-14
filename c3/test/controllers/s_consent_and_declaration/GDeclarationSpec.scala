@@ -49,47 +49,22 @@ class GDeclarationSpec extends Specification with MockInjector with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
-    "failed to answer information from employer" in new WithApplication with Claiming {
-      val result1 = GAboutOtherMoney.submit(FakeRequest()
-        withFormUrlEncodedBody(formInputAboutOtherMoney: _*))
-
-      val result2 = gDeclaration.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
-                    .withFormUrlEncodedBody("tellUsWhyEmployer.informationFromPerson" -> "no",
-                                            "tellUsWhyEmployer.whyPerson" -> "reason"))
-
-      status(result2) mustEqual BAD_REQUEST
-    }
-
-    "faild to answer information from organisation" in new WithApplication with Claiming {
-      val result1 = GAboutOtherMoney.submit(FakeRequest()
-        withFormUrlEncodedBody(formInputAboutOtherMoney: _*))
-
-      val result2 = gDeclaration.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
-                    .withFormUrlEncodedBody("gettingInformationFromAnyEmployer.informationFromEmployer" -> "no",
-                                            "gettingInformationFromAnyEmployer.why" -> "reason"))
-
-      status(result2) mustEqual BAD_REQUEST
-    }
-
     """accept answers without someoneElse""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-                                 .withFormUrlEncodedBody("tellUsWhyEmployer.informationFromPerson" -> "no",
-                                                         "tellUsWhyEmployer.whyPerson" -> "reason")
+                                 .withFormUrlEncodedBody("tellUsWhyFromAnyoneOnForm.informationFromPerson" -> "no",
+                                                         "tellUsWhyFromAnyoneOnForm.whyPerson" -> "reason")
 
       val result = gDeclaration.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     """accept answers""" in new WithApplication with Claiming {
-
       val result1 = GAboutOtherMoney.submit(FakeRequest()
         withFormUrlEncodedBody(formInputAboutOtherMoney: _*))
 
       val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
-                                 .withFormUrlEncodedBody("gettingInformationFromAnyEmployer.informationFromEmployer" -> "no",
-                                                         "gettingInformationFromAnyEmployer.why" -> "reason",
-                                                         "tellUsWhyEmployer.informationFromPerson" -> "no",
-                                                         "tellUsWhyEmployer.whyPerson" -> "reason",
+                                 .withFormUrlEncodedBody("tellUsWhyFromAnyoneOnForm.informationFromPerson" -> "no",
+                                                         "tellUsWhyFromAnyoneOnForm.whyPerson" -> "reason",
                                                          "nameOrOrganisation"->"SomeOrg",
                                                           "someoneElse" -> "checked")
 
@@ -99,8 +74,6 @@ class GDeclarationSpec extends Specification with MockInjector with Tags {
 
       claim.questionGroup[Declaration] must beLike {
         case Some(f: Declaration) =>
-          f.informationFromEmployer.answer must equalTo(Some("no"))
-          f.informationFromEmployer.text must equalTo(Some("reason"))
           f.informationFromPerson.answer must equalTo("no")
           f.informationFromPerson.text must equalTo(Some("reason"))
           f.nameOrOrganisation must equalTo(Some("SomeOrg"))
@@ -114,8 +87,7 @@ class GDeclarationSpec extends Specification with MockInjector with Tags {
         withFormUrlEncodedBody(formInputAboutOtherMoney: _*))
 
       val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
-                                 .withFormUrlEncodedBody("gettingInformationFromAnyEmployer.informationFromEmployer" -> "yes",
-                                                         "tellUsWhyEmployer.informationFromPerson" -> "yes",
+                                 .withFormUrlEncodedBody("tellUsWhyFromAnyoneOnForm.informationFromPerson" -> "yes",
                                                          "nameOrOrganisation"->"SomeOrg",
                                                           "someoneElse" -> "checked")
 

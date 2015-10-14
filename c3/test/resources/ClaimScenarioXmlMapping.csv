@@ -152,9 +152,7 @@ How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNu
 How we pay you,Bank/Building society details,Building society roll or reference number,HowWePayYouBuildingSocietyRollOrReferenceNumber,Payment>Account>BuildingSocietyDetails>RollNumber>Answer
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,DWPCAClaim>OtherInformation>WelshCommunication>Answer
 Consent & Declaration,Additional information,Please tell us anything else you think we should know about your claim.,ConsentDeclarationTellUsAnythingElseAboutClaim,DWPCAClaim>OtherInformation>AdditionalInformation>Answer
-Consent & Declaration,Consent,Do you agree to us getting information from any current or previous employer you have told us about on this form?,ConsentDeclarationGettingInformationFromAnyEmployer,DWPCAClaim>Consents>Consent>Answer
-Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclarationTellUsWhyEmployer,DWPCAClaim>Consents>Consent>Why>Answer
 Consent & Declaration,Consent,Do you agree to us getting information from any other person or organisation you have told us about on this form?,ConsentDeclarationGettingInformationFromAnyOther,DWPCAClaim>Consents>Consent>Answer
-Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclarationTellUsWhyOther,DWPCAClaim>Consents>Consent>Why>Answer
+Consent & Declaration,Consent & Declaration,List anyone you don't want to be contacted and say why.,ConsentDeclarationTellUsWhyOther,DWPCAClaim>Consents>Consent>Why>Answer
 Consent & Declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",ConsentDeclarationSomeoneElseTickBox,DWPCAClaim>Declaration
 Consent & Declaration,Declaration,Your name and/or organisation. =,ConsentDeclarationNameOrOrganisation,DWPCAClaim>Declaration>DeclarationNameOrg>Answer

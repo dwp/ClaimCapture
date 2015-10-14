@@ -279,10 +279,8 @@ object Formulate {
 
   def declaration(browser: TestBrowser) = {
     browser.goTo("/consent-and-declaration/declaration")
-    browser.click("#gettingInformationFromAnyEmployer_informationFromEmployer_no")
-    browser.fill("#gettingInformationFromAnyEmployer_why") `with` "Foo"
-    browser.click("#tellUsWhyEmployer_informationFromPerson_no")
-    browser.fill("#tellUsWhyEmployer_whyPerson") `with` "Bar"
+    browser.click("#tellUsWhyFromAnyoneOnForm_informationFromPerson_no")
+    browser.fill("#tellUsWhyFromAnyoneOnForm_whyPerson") `with` "Bar"
     browser.click("#confirm")
     browser.click("#someoneElse")
     browser.fill("#nameOrOrganisation") `with` "SomeOrg"
@@ -291,8 +289,7 @@ object Formulate {
 
   def declarationWithConsentYes(browser: TestBrowser) = {
     browser.goTo("/consent-and-declaration/declaration")
-    browser.click("#gettingInformationFromAnyEmployer_informationFromEmployer_yes")
-    browser.click("#tellUsWhyEmployer_informationFromPerson_yes")
+    browser.click("#tellUsWhyFromAnyoneOnForm_informationFromPerson_yes")
     browser.click("#confirm")
     browser.click("#someoneElse")
     browser.fill("#nameOrOrganisation") `with` "SomeOrg"

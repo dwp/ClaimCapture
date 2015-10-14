@@ -62,16 +62,5 @@ class GDeclarationIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page.jsCheckEnabled must beTrue
     }
-
-    "contain errors on invalid submission with employment" in new WithBrowser with BrowserMatchers {
-      Formulate.claimDate(browser)
-      Formulate.employment(browser)
-      browser.goTo(GDeclarationPage.url)
-      urlMustEqual(GDeclarationPage.url)
-
-      browser.submit("button[type='submit']")
-      urlMustEqual(GDeclarationPage.url)
-      findMustEqualSize("div[class=validation-summary] ol li", 2)
-    }
   } section("integration", models.domain.ConsentAndDeclaration.id)
 }

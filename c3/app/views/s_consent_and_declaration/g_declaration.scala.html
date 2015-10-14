@@ -22,22 +22,10 @@
 
 		   <ul class="group">
 
-			   @if(claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes` ||
-					   claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).statutorySickPay.answer == `yes` ||
-					   claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney()).otherStatutoryPay.answer == `yes`){
-
-				   @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
-
-				   @otherDetailPlaceHolder(
-					   inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("3000charsLeft")), 'maxLength -> 3000 )),
-					   'id->"whyWrapper"
-				   )
-			   }
-
-			   @yesNoRadioGroup(currentForm("tellUsWhyEmployer.informationFromPerson"))
+			   @yesNoRadioGroup(currentForm("tellUsWhyFromAnyoneOnForm.informationFromPerson"))
 
 			   @otherDetailPlaceHolder(
-				   inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyEmployer.whyPerson"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("3000charsLeft")), 'maxLength -> 3000 )),
+				   inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyFromAnyoneOnForm.whyPerson"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("3000charsLeft")), 'maxLength -> 3000 )),
 				   'id->"whyPersonWrapper"
 			   )
 		   </ul>
@@ -75,18 +63,13 @@
 
 	<script type="text/javascript">
 		$(function(){
-			window.areaCounter({selector:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_why")",maxChars:3000});
-			window.areaCounter({selector:"@CarersCrypto.encryptAES("tellUsWhyEmployer_whyPerson")",maxChars:3000});
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("tellUsWhyFromAnyoneOnForm_whyPerson")",maxChars:3000});
 		})
 		$(function() {
 			window.initEvents({
-				informationFromEmployerY:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_informationFromEmployer_yes")",
-				informationFromEmployerN:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_informationFromEmployer_no")",
-				informationFromPersonY:"@CarersCrypto.encryptAES("tellUsWhyEmployer_informationFromPerson_yes")",
-				informationFromPersonN:"@CarersCrypto.encryptAES("tellUsWhyEmployer_informationFromPerson_no")",
-				why:"@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_why")",
-				whyWrapper:"whyWrapper",
-				whyPerson:"@CarersCrypto.encryptAES("tellUsWhyEmployer_whyPerson")",
+				informationFromPersonY:"@CarersCrypto.encryptAES("tellUsWhyFromAnyoneOnForm_informationFromPerson_yes")",
+				informationFromPersonN:"@CarersCrypto.encryptAES("tellUsWhyFromAnyoneOnForm_informationFromPerson_no")",
+				whyPerson:"@CarersCrypto.encryptAES("tellUsWhyFromAnyoneOnForm_whyPerson")",
 				whyPersonWrapper:"whyPersonWrapper",
 				check:"@CarersCrypto.encryptAES("someoneElse")",
 				input:"@CarersCrypto.encryptAES("nameOrOrganisation")"

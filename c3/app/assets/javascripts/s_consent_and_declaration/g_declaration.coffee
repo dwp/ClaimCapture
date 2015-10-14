@@ -12,17 +12,8 @@ window.initEvents = (o) ->
     else
       hideNameOrgWrapper(o)
 
-  if not S(o.informationFromEmployerN).prop 'checked'
-    hideWhyWrapper(o)
-
   if not S(o.informationFromPersonN).prop 'checked'
     hideWhyPersonWrapper(o)
-
-  S(o.informationFromEmployerY).on "click", ->
-    hideWhyWrapper(o)
-
-  S(o.informationFromEmployerN).on "click", ->
-    showWhyWrapper(o)
 
   S(o.informationFromPersonY).on "click", ->
     hideWhyPersonWrapper(o)
@@ -36,13 +27,6 @@ hideNameOrgWrapper = (o) ->
 
 showNameOrgWrapper = ->
   S("nameOrOrgWrapper").slideDown(0).attr 'aria-hidden', 'false'
-
-showWhyWrapper = (o) ->
-  S(o.whyWrapper).slideDown(0).attr 'aria-hidden', 'false'
-
-hideWhyWrapper = (o) ->
-  S(o.whyWrapper).slideUp(0).attr 'aria-hidden', 'true', -> val(o.why, "")
-  $("#whyWrapper textarea").val("")
 
 hideWhyPersonWrapper =  (o) ->
   S(o.whyPersonWrapper).slideUp(0).attr 'aria-hidden', 'true', -> val(o.whyPerson, "")

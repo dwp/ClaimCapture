@@ -73,7 +73,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Do you agree to us obtaining information from any other persons or organisations you may have told us about? - You must complete this section")
+        errors(0) must contain("Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form? - You must complete this section")
       }
 
       "given obtainInfoAgreement is set to 'no' missing obtainInfoWhy field" in new WithJsBrowser  with PageObjects{
@@ -86,7 +86,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Tell us why not - You must complete this section")
+        errors(0) must contain("List anyone you don't want to be contacted and say why. - You must complete this section")
       }
 
       "given circsSomeOneElse checked and missing name or organisation field" in new WithJsBrowser  with PageObjects{
@@ -135,7 +135,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         page.jsCheckEnabled must beTrue
       }
 
-/*      "'Please tell us why not' field should not be visible when answered 'yes' to obtainInfoAgreement" in new WithJsBrowser  with PageObjects{
+/*      "'Please List anyone you don't want to be contacted and say why.' field should not be visible when answered 'yes' to obtainInfoAgreement" in new WithJsBrowser  with PageObjects{
         val page =  G1DeclarationPage(context)
         val claim = new TestData
         claim.CircumstancesDeclarationInfoAgreement = "yes"
