@@ -23,7 +23,7 @@ object ClaimHandling {
   type ClaimResult = (Claim, Result)
   // Versioning
   val C3VERSION = "C3Version"
-  val C3VERSION_VALUE = "2.28"
+  val C3VERSION_VALUE = "2.29"
   val applicationFinished = "application-finished"
 
 }
@@ -33,6 +33,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
   protected def claimNotValid(claim: Claim): Boolean
   protected def newInstance(newuuid: String = randomUUID.toString): Claim
   protected def copyInstance(claim: Claim): Claim
+  protected def backButtonPage : Call
 
 
   //============================================================================================================
@@ -69,7 +70,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
         if (key.isEmpty) Redirect(errorPageCookie)
         else {
           Logger.info(s"Changing $cacheKey - $key")
-          val claim = fromCache(key).getOrElse(throw new DwpRuntimeException("I expected a claim in the cache since we are only changing request, e.g. chainging language.!"))
+          val claim = fromCache(request).getOrElse(throw new DwpRuntimeException("I expected a claim in the cache since we are only changing request, e.g. chainging language.!"))
           originCheck(action(claim, r, getLang(claim))(f))
         }
       }
@@ -184,7 +185,7 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
         Logger.info("User already completed claim. Redirection to back button page.")
         true
       case _ => false
-    }) Redirect(controllers.routes.Application.backButtonPage())
+    }) Redirect(backButtonPage)
     else otherwise
 
   protected def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {

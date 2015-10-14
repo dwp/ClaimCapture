@@ -18,7 +18,7 @@ About You,Nationality and where you live,What is your nationality?,AboutYouNatio
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,
 About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Yes
 About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,
-Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,10/02/2013
+Claim Date,Your claim date,"When do you want your Carer's Allowance claim to start?",ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,10/02/2013
 Claim Date,Your claim date,Were you caring for the person for more than 35 hours a week before this date?,ClaimDateDidYouCareForThisPersonfor35Hours,Yes
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,01/05/2012
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,Yes
@@ -33,9 +33,9 @@ About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYo
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,28/09/1977
 About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,French
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,Yes
-About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,No
+About Your Partner,Person you care for,"Is your partner/spouse the person you are claiming Carer's Allowance for?",AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,No
 About Your Partner,Person you care for,Have you lived with a partner at any time since your claim date?,AboutYourPartnerHadPartnerSinceClaimDate,Yes
-About the care you provide,Details of the person you care for,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Sister
+About the care you provide,Details of the person you care for,"What's their relationship to you?",AboutTheCareYouProvideWhatTheirRelationshipToYou,Sister
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Mrs
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Person
 About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,Cared
@@ -173,15 +173,15 @@ Other Money,Benefits and payments,Benefits and payments: How much?,OtherMoneyHow
 Other Money,Benefits and payments,Benefits and payments: How often?,OtherMoneyHowOften,
 Other Money,Benefits and payments,Benefits and payments: How often other?,OtherMoneyHowOftenOther,
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
-Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,
-Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,
-Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,
+Other Money,Statutory Sick Pay,"Employer's Name",OtherMoneySSPEmployerName,
+Other Money,Statutory Sick Pay,"Employer's Address",OtherMoneySSPEmployerAddress,
+Other Money,Statutory Sick Pay,"Employer's Postcode",OtherMoneyEmployerPostcode,
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,No
 Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,
 Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,
-Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,
-Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,
-Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,
+Other Money,Other Statutory Pay,"Employer's Name",OtherMoneySMPEmployerName,
+Other Money,Other Statutory Pay,"Employer's Address",OtherMoneySMPEmployerAddress,
+Other Money,Other Statutory Pay,"Employer's Postcode",OtherMoneySMPEmployerPostcode,
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,yes
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Every four weeks
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Mr Test Casefive

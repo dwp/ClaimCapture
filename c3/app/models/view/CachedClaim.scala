@@ -29,6 +29,7 @@ trait CachedClaim extends ClaimHandling {
   override lazy val errorPageCookie = routes.ClaimEnding.errorCookie()
   override lazy val errorPage = routes.ClaimEnding.error()
   override lazy val errorPageBrowserBackButton = routes.ClaimEnding.errorBrowserBackbutton()
+  override lazy val backButtonPage = controllers.routes.Application.backButtonPage()
 
   override protected def newInstance(newuuid: String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid)
 

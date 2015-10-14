@@ -1,12 +1,13 @@
 @(currentForm: Form[models.domain.YourPartnerPersonalDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
+@import utils.helpers._
 @import utils.helpers.CarersTemplate._
+@import utils.helpers.HtmlLabelHelper._
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
-@import utils.helpers._
 @import play.api.i18n.{MMessages => Messages}
 @import models.domain.YourPartnerPersonalDetails
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
@@ -41,7 +42,7 @@
 
             <p>@Html(Messages("s3.g1.help"))</p>
 
-            <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
+            <fieldset id="@generateLabelId("hadPartnerSinceClaimDate")" class="form-elements" data-journey="carers-allowance:page:your-partner">
 
                 <legend class="heading-medium form-label-bold">@Html(Messages("hadPartnerSinceClaimDate"))</legend>
 

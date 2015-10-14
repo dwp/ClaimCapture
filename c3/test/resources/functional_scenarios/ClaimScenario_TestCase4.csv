@@ -18,7 +18,7 @@ About You,Nationality and where you live,What is your nationality?,AboutYouNatio
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,
 About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Yes
 About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,
-Claim Date,Your claim date,When do you want your Carer's Allowance claim to start?,ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,05/01/2013
+Claim Date,Your claim date,"When do you want your Carer's Allowance claim to start?",ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,05/01/2013
 Claim Date,Your claim date,Were you caring for the person for more than 35 hours a week before this date?,ClaimDateDidYouCareForThisPersonfor35Hours,Yes
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,01/05/2010
 About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,No
@@ -33,9 +33,9 @@ About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYo
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,
 About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,
-About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,
+About Your Partner,Person you care for,"Is your partner/spouse the person you are claiming Carer's Allowance for?",AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,
 About Your Partner,Person you care for,Have you lived with a partner at any time since your claim date?,AboutYourPartnerHadPartnerSinceClaimDate,
-About the care you provide,Details of the person you care for,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Mother
+About the care you provide,Details of the person you care for,"What's their relationship to you?",AboutTheCareYouProvideWhatTheirRelationshipToYou,Mother
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Other
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitleOtherPersonCareFor,dame
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Cloe
@@ -149,30 +149,30 @@ Education,Your course details,When do you expect the course to end?,EducationWhe
 Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,yes
 Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,yes
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
-Employment,Your Job,Employers Name,EmploymentEmployerName_1,Tesco's Bank
+Employment,Your Job,Employers Name,EmploymentEmployerName_1,"Tesco's Bank"
 Employment,Your Job,Did you start this job before claim date <ddmmyyyy_1>?,EmploymentDidYouStartThisJobBeforeClaimDate_1,No
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,01/01/2013
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,No
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,
 Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_1,
-Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,
+Employment,Your Job,"How many hours a week [[past=did you]] [[present=do you]] normally work?",EmploymentHowManyHoursAWeekYouNormallyWork_1,
 Employment,Employers contact details,Address,EmploymentEmployerAddress_1,23 Yeadon Way&Blackpool&Lancashire
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY4 5TH
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,01253 667889
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,08/07/2013
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,340
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,All amounts due
-Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_1,No
-Employment,Additional details on your last wage,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_1,Other
+Employment,Your last wage,"[[past=Did you]] [[present=Do you]] get the same amount each time?",EmploymentDoYouGettheSameAmountEachTime_1,No
+Employment,Additional details on your last wage,"How often [[past=were you]] [[present=are you]] paid?",EmploymentAddtionalWageHowOftenAreYouPaid_1,Other
 Employment,Additional details on your last wage,Other,EmploymentAddtionalWageOther_1,Other Frequency
-Employment,Additional details on your last wage,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_1,two weeks ago
+Employment,Additional details on your last wage,"When [[past=did you]] [[present=do you]] get paid?",EmploymentAddtionalWageWhenDoYouGetPaid_1,two weeks ago
 Employment,Additional details on your last wage,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1,
-Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?,EmploymentDoYouPayForPensionExpenses_1,No
-Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay for things you need to do your job?,EmploymentDoYouPayForThingsToDoJob_1,No
-Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] have any care costs because of this work?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1,Yes
+Employment,Pension and expenses,"[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?",EmploymentDoYouPayForPensionExpenses_1,No
+Employment,Pension and expenses,"[[past=Did you]] [[present=Do you]] pay for things you need to do your job?",EmploymentDoYouPayForThingsToDoJob_1,No
+Employment,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any care costs because of this work?",EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1,Yes
 Employment,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",EmploymentPensionExpenses_1,
 Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to", EmploymentWhatAreNecessaryJobExpenses_1,Some job expenses paying 200 a week for xyz
-Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouBeenEmployedAtAnyTime_1,No
+Employment,About other employment history,"Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?",EmploymentHaveYouBeenEmployedAtAnyTime_1,No
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName_2,
 Employment,Your Job,Did you start this job before claim date <ddmmyyyy_1>?,EmploymentDidYouStartThisJobBeforeClaimDate_2,
@@ -180,35 +180,36 @@ Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJo
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_2,
 Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_2,
-Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_2,
+Employment,Your Job,"How many hours a week [[past=did you]] [[present=do you]] normally work?",EmploymentHowManyHoursAWeekYouNormallyWork_2,
 Employment,Employers contact details,Address,EmploymentEmployerAddress_2,
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_2,
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_2,
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_2,
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_2,
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_2,
-Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_2,
-Employment,Additional wage details,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_2,
+Employment,Your last wage,"[[past=Did you]] [[present=Do you]] get the same amount each time?",EmploymentDoYouGettheSameAmountEachTime_2,
+Employment,Additional wage details,"How often [[past=were you]] [[present=are you]] paid?",EmploymentAddtionalWageHowOftenAreYouPaid_2,
 Employment,Additional wage details,Other,EmploymentAddtionalWageOther_2,
-Employment,Additional wage details,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_2,
+Employment,Additional wage details,"When [[past=did you]] [[present=do you]] get paid?",EmploymentAddtionalWageWhenDoYouGetPaid_2,
 Employment,Additional wage details,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_2,
-Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?,EmploymentDoYouPayForPensionExpenses_2,
-Employment,Pension and expenses,[[past=Did you]] [[present=Do you]] have any care costs because of this work?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_2,
+Employment,Pension and expenses,"[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?",EmploymentDoYouPayForPensionExpenses_2,
+Employment,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any care costs because of this work?",EmploymentDoYouPayforAnythingNecessaryToDoYourJob_2,
 Employment,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",EmploymentPensionExpenses_2,
 Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to", EmploymentWhatAreNecessaryJobExpenses_2,
-Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouBeenEmployedAtAnyTime_2,
+Employment,About other employment history,"Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?",EmploymentHaveYouBeenEmployedAtAnyTime_2,
 Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,Yes
 Self Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,01/02/2010
 Self Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,
 Self Employed,Your job,Have you ceased trading?,SelfEmployedHaveYouCeasedTrading,
 Self Employed,Your job,Nature of your business,SelfEmployedNatureofYourBusiness,"Fruit and veg, delivery service"
-Self Employed,Your accounts,What was/is your trading year. From,SelfEmployedWhatWasIsYourTradingYearfrom,01/02/2012
-Self Employed,Your accounts,What was/is your trading year. Is,SelfEmployedWhatWasIsYourTradingYearIs,31/01/2013
+Self Employed,Your accounts,Do you know your trading year?,SelfEmployedDoYouKnowYourTradingYear,Yes
+Self Employed,Your accounts,Trading year start,SelfEmployedWhatWasIsYourTradingYearfrom,01/02/2012
+Self Employed,Your accounts,Trading year end,SelfEmployedWhatWasIsYourTradingYearIs,31/01/2013
 Self Employed,Your accounts,"Are the income, outgoings and profit in these accounts similar to your current level of trading?",SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent,No
 Self Employed,Your accounts,Please tell us why and when the change happened,SelfEmployedTellUsWhyandWhentheChangeHappened,"Depends on the seasons, and productivity of the fruit."
-Self Employed,Pension and expenses,[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?,SelfEmploymentDoYouPayForPensionExpenses,Yes
+Self Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?",SelfEmploymentDoYouPayForPensionExpenses,Yes
 Self Employed,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",SelfEmploymentPensionExpenses,some pension expenses
-Self Employed,Pension and expenses,[[past=Did you]] [[present=Do you]] have any care costs because of this work?,SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob,Yes
+Self Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any care costs because of this work?",SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob,Yes
 Self Employed,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",SelfEmploymentWhatAreNecessaryJobExpenses,some job expenses
 Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,No
 Employment,Employment,Do you want to add anything about your work?,EmploymentAdditionalInfo,
@@ -218,13 +219,13 @@ Other Money,Benefits and payments,Benefits and payments: How much?,OtherMoneyHow
 Other Money,Benefits and payments,Benefits and payments: How often?,OtherMoneyHowOften,
 Other Money,Benefits and payments,Benefits and payments: How often other?,OtherMoneyHowOftenOther,
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
-Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,
-Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,
-Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,
+Other Money,Statutory Sick Pay,"Employer's Name",OtherMoneySSPEmployerName,
+Other Money,Statutory Sick Pay,"Employer's Address",OtherMoneySSPEmployerAddress,
+Other Money,Statutory Sick Pay,"Employer's Postcode",OtherMoneyEmployerPostcode,
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,No
-Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,
-Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,
-Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,
+Other Money,Other Statutory Pay,"Employer's Name",OtherMoneySMPEmployerName,
+Other Money,Other Statutory Pay,"Employer's Address",OtherMoneySMPEmployerAddress,
+Other Money,Other Statutory Pay,"Employer's Postcode",OtherMoneySMPEmployerPostcode,
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,yes
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Every four weeks
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Mr Test Casefour

@@ -18,6 +18,7 @@ object SelfEmployment extends XMLComponent{
         <CurrentJobDetails>
           {question(<DateStarted/>, "whenDidYouStartThisJob", aboutSelfEmployment.whenDidYouStartThisJob)}
           {question(<NatureBusiness/>, "natureOfYourBusiness", aboutSelfEmployment.natureOfYourBusiness)}
+          {question(<DoYouKnowYourTradingYear/>, "doYouKnowYourTradingYear", yourAccounts.doYouKnowYourTradingYear)}
           <TradingYear>
             {question(<DateFrom/>, "whatWasOrIsYourTradingYearFrom", yourAccounts.whatWasOrIsYourTradingYearFrom, questionLabel(claim,"whatWasOrIsYourTradingYearFrom"))}
             {question(<DateTo/>, "whatWasOrIsYourTradingYearTo", yourAccounts.whatWasOrIsYourTradingYearTo, questionLabel(claim,"whatWasOrIsYourTradingYearTo"))}
@@ -29,6 +30,7 @@ object SelfEmployment extends XMLComponent{
         <RecentJobDetails>
           {question(<DateStarted/>, "whenDidYouStartThisJob", aboutSelfEmployment.whenDidYouStartThisJob)}
           {question(<NatureBusiness/>, "natureOfYourBusiness", aboutSelfEmployment.natureOfYourBusiness)}
+          {question(<DoYouKnowYourTradingYear/>, "doYouKnowYourTradingYear", yourAccounts.doYouKnowYourTradingYear)}
           <TradingYear>
             {question(<DateFrom/>, "whatWasOrIsYourTradingYearFrom", yourAccounts.whatWasOrIsYourTradingYearFrom, questionLabel(claim,"whatWasOrIsYourTradingYearFrom"))}
             {question(<DateTo/>, "whatWasOrIsYourTradingYearTo", yourAccounts.whatWasOrIsYourTradingYearTo, questionLabel(claim,"whatWasOrIsYourTradingYearTo"))}

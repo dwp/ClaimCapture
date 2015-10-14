@@ -22,11 +22,15 @@
             (yourPartner.isPartnerPersonYouCareFor.isDefined &&
                     yourPartner.isPartnerPersonYouCareFor.get.toLowerCase == "no")
 }
-
+@titleValue = @{
+	theirPersonalDetails.title match {
+		case "Other" => theirPersonalDetails.titleOther.getOrElse("")
+		case _ => Messages("titleSelect." + theirPersonalDetails.title.toLowerCase)
+	}
+}
 @partnerTitleName = @{
     if (showHidePartnerDetails){
-        val title = Html(Messages("titleSelect."+theirPersonalDetails.title.toLowerCase))
-        s"$title ${theirPersonalDetails.firstName} ${theirPersonalDetails.middleName.map(_+" ").getOrElse("")}${theirPersonalDetails.surname}"
+        s"${titleValue} ${theirPersonalDetails.firstName} ${theirPersonalDetails.middleName.map(_+" ").getOrElse("")}${theirPersonalDetails.surname}"
     } else {
         ""
     }
@@ -46,12 +50,13 @@
 	<div class="accordion-content">
 		<table class="review">
 			@if(showHidePartnerDetails){
-			    @fieldWithLink("care_you_provide_name", "name", partnerTitleName,disableLink = disableChangeButton)
-			    @fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`,disableLink = disableChangeButton)
+			    @fieldWithLink("care_you_provide_name", "name", partnerTitleName,disableLink = disableChangeButton, elementId = Some("firstName"))
+				@{/** dateOfBirth anchors to national insurance number because javascript causes conflict with page height **/}
+			    @fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`,disableLink = disableChangeButton, elementId = Some("nationalInsuranceNumber_nino"))
 			}
-			@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship,disableLink = disableChangeButton)
-			@fieldWithLink("care_you_provide_address", "theirAddress.answer", address,disableLink = disableChangeButton)
-			@fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(Messages("label."+abouTheCare.spent35HoursCaring))}",disableLink = disableChangeButton)
+			@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship,disableLink = disableChangeButton, elementId = Some("relationship"))
+			@fieldWithLink("care_you_provide_address", "theirAddress.answer", address,disableLink = disableChangeButton, elementId = Some("theirAddress_answer"))
+			@fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(Messages("label."+abouTheCare.spent35HoursCaring))}",disableLink = disableChangeButton, elementId = Some("spent35HoursCaring"))
 		</table>
 	</div>
 

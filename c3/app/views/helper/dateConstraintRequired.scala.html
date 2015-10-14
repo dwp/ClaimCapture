@@ -4,11 +4,12 @@
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper.base.{carersLabel,carersLabelText}
 @import utils.helpers.CarersCrypto
+@import utils.helpers.HtmlLabelHelper._
 
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
 
 @if(showLabel) {
-    <legend class="form-label-bold">
+    <legend id="@generateLabelId(id)" class="form-label-bold">
         @carersLabelText(field,args:_*)
     </legend>
     @if(args.find(_._1=='helperAbove).isDefined){
