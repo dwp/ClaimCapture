@@ -55,16 +55,21 @@
 
     <script type="text/javascript">
         $(function () {
-            @ga.stagePrompt()
             window.initEvents({
                 doYouKnowYourTradingYearY:"@CarersCrypto.encryptAES("doYouKnowYourTradingYear_yes")",
                 doYouKnowYourTradingYearN:"@CarersCrypto.encryptAES("doYouKnowYourTradingYear_no")",
-                areIncomeOutgoingsProfitSimilarToTradingY:"@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_yes")",
-                areIncomeOutgoingsProfitSimilarToTradingN:"@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_no")",
-                tellUsWhyAndWhenTheChangeHappened:"@CarersCrypto.encryptAES("tellUsWhyAndWhenTheChangeHappened")"
+                similarY:"@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_yes")",
+                similarN:"@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_no")",
+                change:"@CarersCrypto.encryptAES("tellUsWhyAndWhenTheChangeHappened")",
+                toDay:"@CarersCrypto.encryptAES("whatWasOrIsYourTradingYearTo_day")",
+                toMonth:"@CarersCrypto.encryptAES("whatWasOrIsYourTradingYearTo_month")",
+                toYear:"@CarersCrypto.encryptAES("whatWasOrIsYourTradingYearTo_year")",
+                fromDay:"@CarersCrypto.encryptAES("whatWasOrIsYourTradingYearFrom_day")",
+                fromMonth:"@CarersCrypto.encryptAES("whatWasOrIsYourTradingYearFrom_month")",
+                fromYear:"@CarersCrypto.encryptAES("whatWasOrIsYourTradingYearFrom_year")"
             });
+            window.areaCounter({selector: "@CarersCrypto.encryptAES("tellUsWhyAndWhenTheChangeHappened")",maxChars:300});
         });
-        window.areaCounter({selector: "@CarersCrypto.encryptAES("tellUsWhyAndWhenTheChangeHappened")",maxChars:300});
     </script>
 
 }
