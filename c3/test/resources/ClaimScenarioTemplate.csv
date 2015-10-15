@@ -276,7 +276,7 @@ Consent & Declaration,Additional information,Please tell us anything else you th
 Consent & Declaration,Additional information,Please tell us anything else you think we should know about your claim.,ConsentDeclarationTellUsAnythingElseTextAboutClaim,
 Consent & Declaration,Consent,Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?,ConsentDeclarationGettingInformationFromAnyOther,
 Consent & Declaration,Consent,List anyone you don't want to be contacted and say why.,ConsentDeclarationTellUsWhyOther,
-Disclaimer,Disclaimer,I agree,DisclaimerUnderstandAndAgree,
+Disclaimer,Disclaimer,I understand,DisclaimerUnderstandAndAgree,
 Consent & Declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",ConsentDeclarationSomeoneElseTickBox,
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,

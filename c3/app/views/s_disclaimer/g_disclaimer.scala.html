@@ -19,19 +19,17 @@
                         <p>@Html(Messages("disclaimer.1"))</p>
 
                         <ul class="list-bullet">
-                            @for(i <- 2 to 6) {
+                            @for(i <- 2 to 3) {
                                 <li>@Html(Messages(s"disclaimer.${i}"))</li>
                             }
+                            <li>@Html(Messages("disclaimer.4", s"""<a rel="external" href="https://www.gov.uk/find-your-local-council" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - Find your local council")}>""", "</a>"))</li>
                         </ul>
                         
                         <p>
-                            @Html(Messages("disclaimer.7", s"""<a rel="external" href="https://www.gov.uk/find-your-local-council" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - Find your local council")}>""", "</a>"))
+                            @Html(Messages("disclaimer.5", s"""<a rel="external" href="https://www.gov.uk/carers-allowance/what-youll-get" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - How it affects benefits")}>""", "</a>"))
                         </p>
                         <p>
-                            @Html(Messages("disclaimer.8", s"""<a rel="external" href="https://www.gov.uk/carers-allowance/what-youll-get" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - How it affects benefits")}>""", "</a>"))
-                        </p>
-                        <p>
-                            @Html(Messages("disclaimer.9", "<b>", "</b>"))
+                            @Html(Messages("disclaimer.6", "<b>", "</b>"))
                         </p>
                         
                     </div>
@@ -40,7 +38,7 @@
 
                 @views.html.common.bottomNavigation(
                     nextLabel = Some("disclaimer.form.next"),
-                    customTrack =Some(views.html.ga.trackClickEvent(linkName = "Disclaimer - I agree - start my application")),
+                    customTrack =Some(views.html.ga.trackClickEvent(linkName = "Disclaimer - I understand - start my application")),
                     nextButtonName = "read",
                     nextButtonValue = "yes"
                 )
