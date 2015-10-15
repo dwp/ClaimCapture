@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Disclaimer])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
+@(currentForm: Form[models.domain.Disclaimer])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
 
 @import models.domain.TheirPersonalDetails
 @import utils.csrf.DwpCSRFFormHelper

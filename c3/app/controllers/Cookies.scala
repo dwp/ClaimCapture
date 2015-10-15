@@ -7,7 +7,7 @@ object Cookies extends Controller {
 
   def page(languageCode: String) = Action { request =>
     val lang = Lang(languageCode)
-    Ok(views.html.cookies.cookies(lang, request))
+    Ok(views.html.cookies.cookies(lang, request,request.flash))
   }
 
 }

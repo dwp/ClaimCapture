@@ -1,4 +1,4 @@
-@(contactDetailsForm: Form[models.domain.ContactDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(contactDetailsForm: Form[models.domain.ContactDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
 
 @import helper._
 @import play.api.Play

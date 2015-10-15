@@ -19,7 +19,7 @@
 
 @elementLinkedToId = @{
 	elementId match {
-		case Some(id) => "#" + generateLabelId(id)
+		case Some(id) => "?hash=" + generateLabelId(id) //"#" + generateLabelId(id)
 		case None => ""
 	}
 }
@@ -32,7 +32,7 @@
 	</td>
 	<td id="@getLinkContainerId(id, false)" class="review-action hide-print">
 		@if(!disableLink) {
-		<a class="button secondary" id="@getLinkId(id, false)" href="@{routesMap(id)}@{elementLinkedToId}">
+		<a class="button secondary" id="@getLinkId(id, false)" href="@{controllers.preview.routes.Preview.redirect(id)}@{elementLinkedToId}">
 			@Html(Messages("preview.change"))
 			<span class="visuallyhidden">@label (optional)</span>
 		</a>

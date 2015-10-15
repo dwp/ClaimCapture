@@ -228,12 +228,12 @@ trait ClaimHandling extends RequestHandling with CacheHandling {
     def withPreviewConditionally[T <: QuestionGroup](t: ((Option[T], T),(Option[Claim],Claim)) => Boolean)(implicit classTag: ClassTag[T]): Action[AnyContent] = Action.async(action.parser) { request =>
 
       def getParams[E <: T](claim: Claim)(implicit classTag: ClassTag[E]): (Option[E], E) = {
-        claim.previouslySavedClaim.map(_.questionGroup(classTag.runtimeClass).getOrElse(None)).asInstanceOf[Option[E]] -> claim.questionGroup(classTag.runtimeClass).get.asInstanceOf[E]
+        claim.checkYAnswers.previouslySavedClaim.map(_.questionGroup(classTag.runtimeClass).getOrElse(None)).asInstanceOf[Option[E]] -> claim.questionGroup(classTag.runtimeClass).get.asInstanceOf[E]
       }
 
       action(request).map { result =>
         result.header.status -> fromCache(request) match {
-          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim),claim.previouslySavedClaim->claim) => Redirect(controllers.preview.routes.Preview.present())
+          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim),claim.checkYAnswers.previouslySavedClaim->claim) => Redirect(controllers.preview.routes.Preview.present())
           case _ => result
         }
       }

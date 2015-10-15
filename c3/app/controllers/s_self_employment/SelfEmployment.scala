@@ -19,10 +19,10 @@ object SelfEmployment extends Controller with CachedClaim with Navigable {
   }
 
   def presentConditionally(c: => ClaimResult, lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    val beenInPreview = claim.previouslySavedClaim.isDefined
+    val beenInPreview = claim.checkYAnswers.previouslySavedClaim.isDefined
     val emp = claim.questionGroup[Employment].getOrElse(Employment())
     //Lazy because they are going to be lazily evaluated on usage only if we've been in preview.
-    lazy val previousEmp = claim.previouslySavedClaim.get.questionGroup[Employment]
+    lazy val previousEmp = claim.checkYAnswers.previouslySavedClaim.get.questionGroup[Employment]
     lazy val previousSEValue = previousEmp.get.beenSelfEmployedSince1WeekBeforeClaim
     val SEValue = emp.beenSelfEmployedSince1WeekBeforeClaim
                                                  //This part of the condition has been removed due to review on user story about enabling changing employment/self-employment on check your answers

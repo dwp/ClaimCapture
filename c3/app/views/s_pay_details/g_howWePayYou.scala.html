@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.HowWePayYou])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
+@(currentForm: Form[models.domain.HowWePayYou])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
 
 @import app.PaymentFrequency._
 @import play.api.i18n.{MMessages => Messages}

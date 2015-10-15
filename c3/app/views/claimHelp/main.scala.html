@@ -1,4 +1,4 @@
-@(title: String)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(title: String)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash)
 
 @import utils.helpers.CarersTemplate.fieldConstructor
 @import models.domain._

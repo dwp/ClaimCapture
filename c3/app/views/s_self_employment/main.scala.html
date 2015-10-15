@@ -1,4 +1,4 @@
-@(title: String, heading: String, currentForm: Option[Form[_]] = None, ignorePreview:Boolean = false)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(title: String, heading: String, currentForm: Option[Form[_]] = None, ignorePreview:Boolean = false)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash)
 @import models.domain.Employed
 
 @import models.domain.SelfEmployment

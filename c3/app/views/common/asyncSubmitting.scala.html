@@ -1,4 +1,4 @@
-@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
+@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent],flash:Flash)
 
 @import models.view.CachedClaim
 @import views.html.helper._
@@ -61,7 +61,7 @@
 
             </div>
         }
-    }(views.html.common.submittingFooter(), lang, request)
+    }(views.html.common.submittingFooter(), lang, request,flash)
 }
 
 <script type="text/javascript">
