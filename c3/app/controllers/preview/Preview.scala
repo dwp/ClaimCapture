@@ -39,13 +39,15 @@ object Preview extends Controller with CachedClaim with Navigable {
       case _ => ""
     }
 
-    Logger.info(s"hash:$hashValue")
 
     val routesMap =     PreviewRouteUtils.yourDetailsRoute ++ PreviewRouteUtils.otherMoneyRoute ++
       PreviewRouteUtils.educationRoute ++ PreviewRouteUtils.careYouProvide ++ PreviewRouteUtils.breaks ++ PreviewRouteUtils.yourPartner ++
       PreviewRouteUtils.employmentRoute ++ PreviewRouteUtils.additionalInfoRoute
 
-    Redirect(routesMap(id)).flashing("hash"->hashValue)
+
+    val updatedClaim = claim.copy(checkYAnswers = claim.checkYAnswers.copy(cyaPointOfEntry = Some(routesMap(id))))(claim.navigation)
+
+    updatedClaim -> Redirect(routesMap(id)).flashing("hash"->hashValue)
   }
 
   /**
