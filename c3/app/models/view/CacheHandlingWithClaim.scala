@@ -7,4 +7,4 @@ package models.view
  * See Language (controller) and LanguageSpec (tests) for example
  * usage.
  */
-class CacheHandlingWithClaim extends CacheHandling with CachedClaim
+class CacheHandlingWithClaim extends EncryptedCacheHandling with CachedClaim

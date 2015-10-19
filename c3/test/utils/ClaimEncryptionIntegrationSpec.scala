@@ -1,6 +1,6 @@
 package utils
 
-import models.view.{CachedClaim, CacheHandling}
+import models.view.{EncryptedCacheHandling, CachedClaim}
 import models.yesNo._
 import models.{SortCode, MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 import models.domain._
@@ -38,7 +38,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
 
   "ClaimEncryption Integration Spec" should {
 
-    "Claim must be encrypted before entering the cache" in new WithApplication with MockForm with CacheHandling with CachedClaim {
+    "Claim must be encrypted before entering the cache" in new WithApplication with MockForm with EncryptedCacheHandling with CachedClaim {
 
       // Override fromCache so that it does not decrypt the Claim object when getting from the cache
       // This demonstrates Claim object was indeed encrypted when in the cache.
@@ -93,7 +93,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
       claim.questionGroup[CircumstancesPaymentChange] mustEqual ClaimEncryption.decryptCircumstancesPaymentChange(claimFromCache).questionGroup[CircumstancesPaymentChange]
     }
 
-    "Claim must be decrypted when getting it from the cache" in new WithApplication with MockForm with CacheHandling with CachedClaim {
+    "Claim must be decrypted when getting it from the cache" in new WithApplication with MockForm with EncryptedCacheHandling with CachedClaim {
       val request = FakeRequest().withSession(cacheKey -> claimKey)
       val claim = Claim(cacheKey, List(
         Section(AboutYou, List(yourDetails, contactDetails)),

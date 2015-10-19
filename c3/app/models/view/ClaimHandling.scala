@@ -28,7 +28,7 @@ object ClaimHandling {
 
 }
 
-trait ClaimHandling extends RequestHandling with CacheHandling {
+trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
   protected def claimNotValid(claim: Claim): Boolean
   protected def newInstance(newuuid: String = randomUUID.toString): Claim
