@@ -9,7 +9,6 @@ import play.api.cache.Cache
 import play.api.mvc.{AnyContent, Request}
 import play.api.Play.current
 import utils.ClaimEncryption
-import utils.ClaimEncryption._
 
 import scala.util.Try
 
@@ -21,7 +20,10 @@ trait CacheHandling {
 
   def fromCache(request: Request[AnyContent], required: Boolean = true): Option[Claim] = {
     fromCacheUsingRequest(request, required) match {
-      case Some(claim) => Some(ClaimEncryption.decrypt(claim))
+      case Some(claim) => getProperty("cacheEncryptionEnabled", false) match {
+        case true => Some(ClaimEncryption.decrypt(claim))
+        case false => Some(claim)
+      }
       case _ => None
     }
   }
@@ -52,9 +54,14 @@ trait CacheHandling {
     }
   }
 
-  def saveEncryptedClaimInCache(claim: Claim) = Cache.set(claim.uuid, claim, CacheHandling.expiration)
+  def save(claim: Claim) = Cache.set(claim.uuid, claim, CacheHandling.expiration)
 
-  def saveInCache(claim: Claim) = saveEncryptedClaimInCache(ClaimEncryption.encrypt(claim))
+  def saveInCache(claim: Claim) = {
+    getProperty("cacheEncryptionEnabled", false) match {
+      case true => save(ClaimEncryption.encrypt(claim))
+      case false => save(claim)
+    }
+  }
 
   def removeFromCache(key: String) = Cache.remove(key)
 
