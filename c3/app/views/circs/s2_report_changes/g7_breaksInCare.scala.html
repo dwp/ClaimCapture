@@ -1,4 +1,4 @@
-@(breaksForm: Form[models.domain.CircumstancesBreaksInCare])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent])
+@(breaksForm: Form[models.domain.CircumstancesBreaksInCare])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
 
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper

@@ -56,9 +56,10 @@ window.updateNextLabel = (isPersonYouCareForY,isPersonYouCareForN,storedData,tex
 setButtonText = (isPersonYouCareForY,isPersonYouCareForN,storedData,textNext,textSummary) ->
 	isPersonYouCareFor = $("#"+isPersonYouCareForY).is ':checked'
 	isPersonYouCareForNo = $("#"+isPersonYouCareForN).is ':checked'
+	personYouCareForValue = if isPersonYouCareFor then "yes" else "no"
 	isPersonNotSelected = !isPersonYouCareFor && !isPersonYouCareForNo
 	button = $("button.button")
-	if !isPersonNotSelected and storedData != undefined and storedData != isPersonYouCareFor
+	if !isPersonNotSelected and storedData != undefined and storedData != personYouCareForValue
 		button.text(textNext)
 	else if !isPersonNotSelected and storedData == undefined
 		button.text(textNext)

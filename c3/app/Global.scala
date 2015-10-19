@@ -64,6 +64,7 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
   // 404 - page not found error http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
   override def onHandlerNotFound(requestHeader: RequestHeader): Future[Result] = {
     implicit val request = Request(requestHeader, AnyContentAsEmpty)
+    implicit val flash = request.flash
     Future(NotFound(views.html.common.onHandlerNotFound()))
   }
 

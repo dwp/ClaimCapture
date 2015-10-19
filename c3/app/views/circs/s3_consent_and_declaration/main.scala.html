@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None, showBack:Boolean = true)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang:Lang)
+@(title: String, currentForm: Option[Form[_]] = None, showBack:Boolean = true)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang:Lang, flash:Flash)
 
 @import helper._
 @import play.api.i18n.{MMessages => Messages}

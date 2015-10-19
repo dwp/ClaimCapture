@@ -1,4 +1,4 @@
-@(declarationForm: Form[models.domain.CircumstancesDeclaration])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(declarationForm: Form[models.domain.CircumstancesDeclaration])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
 
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper

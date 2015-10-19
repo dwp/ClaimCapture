@@ -31,6 +31,7 @@ GET         /change-language/:chosenLanguage                            controll
 GET         /preview                                                    controllers.preview.Preview.present
 GET         /preview-back                                               controllers.preview.Preview.back
 POST        /preview                                                    controllers.preview.Preview.submit
+GET         /preview/redirect/:id                                       controllers.preview.Preview.redirect(id)
 
 # Cache Timeout
 GET         /timeout                                                    controllers.ClaimEnding.timeout

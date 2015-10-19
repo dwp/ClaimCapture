@@ -50,8 +50,6 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     val isPartnerPersonYouCareFor = YourPartner.visible &&
       claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse("") == "yes")
 
-    Logger.info(claim.navigation.toString)
-
     val currentForm = if (isPartnerPersonYouCareFor) {
       claim.questionGroup(YourPartnerPersonalDetails) match {
         case Some(t: YourPartnerPersonalDetails) =>

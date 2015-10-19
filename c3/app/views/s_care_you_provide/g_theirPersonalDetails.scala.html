@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.TheirPersonalDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.TheirPersonalDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
 
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
@@ -11,6 +11,24 @@
 @import utils.helpers.CarersCrypto
 @import controllers.mappings.Mappings._
 
+#BEEN@claim.navigation.beenInPreview
+#POE@claim.checkYAnswers.cyaPointOfEntry
+
+@showBackButtonAfterPreview = @{
+    claim.navigation.beenInPreview && (claim.checkYAnswers.cyaPointOfEntry match {
+        case Some(poe) => poe != controllers.s_care_you_provide.routes.GTheirPersonalDetails.present().url
+        case _ => false
+    })
+}
+
+@backCall = @{
+    //Back button templates on receiving None in the 'backCall' parameter work as default, this is just an overridal
+    showBackButtonAfterPreview match {
+        case true => Some(controllers.s_your_partner.routes.GYourPartnerPersonalDetails.present())
+        case false => None
+    }
+}
+
     @isPartnerPersonYouCareFor = @{
         claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse("") == "yes")
     }
@@ -20,7 +38,7 @@
     }
 
     @defining(lang) { implicit language =>
-    @main(Messages("s4.g1") + " - " + Messages("s4.longName"), Some(currentForm)) {
+    @main(Messages("s4.g1") + " - " + Messages("s4.longName"), Some(currentForm), backCall, showBackButtonAfterPreview) {
 
         @form(action = controllers.s_care_you_provide.routes.GTheirPersonalDetails.submit, 'role -> "form") {
 
@@ -66,9 +84,7 @@
                     
                 </fieldset>
 
-                @views.html.common.bottomNavigation()
-
-
+                @views.html.common.bottomNavigation(forceShowAfterPreview = showBackButtonAfterPreview,backCall = backCall)
         }
 
         <script type="text/javascript">

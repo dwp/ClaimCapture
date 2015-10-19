@@ -17,7 +17,7 @@ object CircsEnding extends Controller with CachedChangeOfCircs {
   }
 
   def errorCookie = endingOnError {implicit claim =>  implicit request =>  lang =>
-    Unauthorized(views.html.common.error_cookie_retry(startPage)(request,lang))
+    Unauthorized(views.html.common.error_cookie_retry(startPage)(request,lang,request.flash))
   }
 
   def errorBrowserBackbutton = endingOnError {implicit claim =>  implicit request =>  lang =>

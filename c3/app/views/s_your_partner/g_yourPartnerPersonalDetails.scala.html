@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.YourPartnerPersonalDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(currentForm: Form[models.domain.YourPartnerPersonalDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
 
 @import utils.helpers._
 @import utils.helpers.CarersTemplate._
@@ -17,7 +17,7 @@
     }
 
     @previewStoredFormData = @{
-        claim.previouslySavedClaim match {
+        claim.checkYAnswers.previouslySavedClaim match {
             case Some(c) =>
                 c.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
             case _ => YourPartnerPersonalDetails()

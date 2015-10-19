@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.LastWage])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent])
+@(currentForm: Form[models.domain.LastWage])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], flash:Flash)
 
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper

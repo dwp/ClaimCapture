@@ -1,4 +1,4 @@
-@(title: String)(content: Html)(implicit footerCategories: Html = Html(""), lang: Lang, request:play.api.mvc.Request[AnyContent])
+@(title: String)(content: Html)(implicit footerCategories: Html = Html(""), lang: Lang, request:play.api.mvc.Request[AnyContent],flash:Flash)
 
 @import play.api.i18n.{MMessages => Messages}
 @import app.ConfigProperties._
@@ -142,7 +142,13 @@
 	    <!--/ footer -->
 	    
         <div id="global-app-error" class="app-error hidden"></div>
-
+        @if(flash.get("hash").isDefined){
+        <script type="text/javascript">
+            $(function(){
+                window.location = '#'+'@{flash.get("hash").get}';
+            });
+        </script>
+        }
     </body>
 
 </html>

@@ -1,4 +1,4 @@
-@()(implicit request: Request[AnyContent])
+@()(implicit request: Request[AnyContent],flash:Flash)
 @import play.api.i18n.{MMessages => Messages}
 
 @common.govMain(Messages("changesHaveBeenSent")) {

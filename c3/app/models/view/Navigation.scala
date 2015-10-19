@@ -19,7 +19,8 @@ trait Navigable {
   def track[T](t: T,beenInPreview:Boolean=false)(f: => Claim => Result)(implicit claim: Claim, request: Request[AnyContent], classTag: ClassTag[T]): ClaimResult = {
 
     val updatedNavigation = claim.navigation.track(t,beenInPreview )(request.uri)
-    val updatedClaim = claim.copy(claim.key, claim.sections, previouslySavedClaim = if(beenInPreview) Some(claim) else claim.previouslySavedClaim)(updatedNavigation)
+    val checkYAnswers = if(beenInPreview) claim.checkYAnswers.copy(previouslySavedClaim = Some(claim)) else claim.checkYAnswers
+    val updatedClaim = claim.copy(claim.key, claim.sections, checkYAnswers = checkYAnswers)(updatedNavigation)
 
     updatedClaim -> f(updatedClaim)
   }

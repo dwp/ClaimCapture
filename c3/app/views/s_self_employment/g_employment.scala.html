@@ -1,4 +1,4 @@
-@(employmentForm: Form[models.domain.Employment])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(employmentForm: Form[models.domain.Employment])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
 
 @import scala.language.postfixOps
 @import helper._
@@ -22,7 +22,7 @@
 }
 
 @previousClaimEmployment = @{
-    claim.previouslySavedClaim.get.questionGroup[Employment].getOrElse(Employment())
+    claim.checkYAnswers.previouslySavedClaim.get.questionGroup[Employment].getOrElse(Employment())
 }
 
         @defining(lang) { implicit language =>

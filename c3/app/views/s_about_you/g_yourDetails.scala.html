@@ -1,4 +1,4 @@
-@(yourDetailsForm: Form[models.domain.YourDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent])
+@(yourDetailsForm: Form[models.domain.YourDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
 
 @import helper._
 @import utils.helpers.CarersTemplate._

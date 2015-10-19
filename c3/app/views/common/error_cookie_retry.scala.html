@@ -1,6 +1,5 @@
-@(url:String)(implicit request: Request[AnyContent], lang: Lang)
+@(url:String)(implicit request: Request[AnyContent], lang: Lang, flash:Flash)
 @import play.api.i18n.{MMessages => Messages}
-@import controllers.Cookies._
 
 @common.govMain(Messages("unrecoverable.error")) {
 
