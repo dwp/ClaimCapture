@@ -1,4 +1,4 @@
-package models.view
+package models.view.cache
 
 import app.ConfigProperties._
 import models.domain.Claim

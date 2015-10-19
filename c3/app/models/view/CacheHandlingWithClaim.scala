@@ -1,5 +1,7 @@
 package models.view
 
+import models.view.cache.EncryptedCacheHandling
+
 /**
  * Creates an object which has access to methods for saving to and getting
  * from the cache. The CachedClaim trait implements the cacheKey method required

@@ -1,6 +1,7 @@
 package utils
 
-import models.view.{EncryptedCacheHandling, CachedClaim}
+import models.view.CachedClaim
+import models.view.cache.EncryptedCacheHandling
 import models.yesNo._
 import models.{SortCode, MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 import models.domain._

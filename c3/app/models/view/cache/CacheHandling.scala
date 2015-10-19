@@ -1,4 +1,4 @@
-package models.view
+package models.view.cache
 
 import app.ConfigProperties._
 import models.domain.Claim
@@ -11,7 +11,7 @@ import play.api.mvc.{AnyContent, Request}
 
 import scala.util.Try
 
-trait CacheHandling {
+protected trait CacheHandling {
 
   def cacheKey: String
 
