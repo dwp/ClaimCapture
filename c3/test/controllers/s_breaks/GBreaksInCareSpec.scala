@@ -1,6 +1,6 @@
 package controllers.s_breaks
 
-import models.domain.{BreaksInCare, Claim, Claiming}
+import models.domain.{BreaksInCareSummary, BreaksInCare, Claim, Claiming}
 import models.view.CachedClaim
 import org.specs2.mutable.{Specification, Tags}
 import play.api.cache.Cache
@@ -171,6 +171,50 @@ class GBreaksInCareSpec extends Specification with Tags {
 
       val result = GBreaksInCare.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("deleteId"->"nonExistingBreakID"))
       status(result) shouldEqual BAD_REQUEST
+    }
+
+    "question reset afer deletion of break in care" in new WithApplication with Claiming {
+      val instanceID = "1"
+      val request1 = FakeRequest()
+        .withFormUrlEncodedBody(
+          "iterationID" -> instanceID,
+          "start.day" -> "1",
+          "start.month" -> "1",
+          "start.year" -> "2001",
+          "whereYou.answer" -> "Holiday",
+          "wherePerson.answer" -> "Holiday",
+          "medicalDuringBreak" -> "no",
+          "hasBreakEnded.answer" -> "no")
+      val result1 = GBreak.submit(request1)
+      redirectLocation(result1) should beSome("/breaks/breaks-in-care")
+
+      val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
+        .withFormUrlEncodedBody(
+          "iterationID" -> "2",
+          "start.day" -> "1",
+          "start.month" -> "1",
+          "start.year" -> "2001",
+          "whereYou.answer" -> "Holiday",
+          "wherePerson.answer" -> "Holiday",
+          "medicalDuringBreak" -> "no",
+          "hasBreakEnded.answer" -> "no")
+
+      val result = GBreak.submit(request)
+      redirectLocation(result) should beSome("/breaks/breaks-in-care")
+
+      val request3 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("answer" -> "no")
+
+      val result3 = GBreaksInCare.submit(request3)
+      redirectLocation(result3) should beSome("/education/your-course-details")
+
+      val claim = getClaimFromCache(result1)
+      claim.questionGroup(BreaksInCare) should beLike { case Some(b: BreaksInCare) => b.breaks.size shouldEqual 2 }
+      claim.questionGroup(BreaksInCareSummary) should beLike { case Some(b: BreaksInCareSummary) => b.answer shouldEqual "no" }
+
+      GBreaksInCare.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result)).withFormUrlEncodedBody("deleteId"->instanceID))
+      val claim1 = getClaimFromCache(result1)
+      claim1.questionGroup(BreaksInCare) should beLike { case Some(b: BreaksInCare) => b.breaks.size shouldEqual 1 }
+      claim1.questionGroup(BreaksInCareSummary) should beEmpty 
     }
   } section("unit", models.domain.CareYouProvide.id)
 }

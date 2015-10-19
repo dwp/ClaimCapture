@@ -3,7 +3,7 @@ package controllers.s_breaks
 import controllers.IterationID
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
-import models.domain.{Claim, _}
+import models.domain._
 import models.view.{CachedClaim, Navigable}
 import models.yesNo.DeleteId
 import play.api.Logger
@@ -62,7 +62,6 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable {
     Redirect(controllers.s_education.routes.GYourCourseDetails.present)
   }
 
-
   val deleteForm = Form(mapping(
     "deleteId" -> nonEmptyText
   )(DeleteId.apply)(DeleteId.unapply))
@@ -76,8 +75,9 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable {
       deleteForm=>  {
         val updatedBreaks = breaksInCare.delete(deleteForm.id)
         if (updatedBreaks.breaks == breaksInCare.breaks) BadRequest(views.html.s_breaks.g_breaksInCare(form, breaksInCare)(lang))
-        else claim.update(updatedBreaks) -> Redirect(routes.GBreaksInCare.present)
+        else claim.update(updatedBreaks).delete(BreaksInCareSummary) -> Redirect(routes.GBreaksInCare.present)
       }
     )
   }
+
 }
