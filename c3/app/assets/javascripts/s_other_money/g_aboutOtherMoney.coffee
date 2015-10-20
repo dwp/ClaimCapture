@@ -1,80 +1,76 @@
-window.initEvents = (answerY, answerN, whoPaysYou, howMuch, howOften_frequency, howOften_frequency_other,
-                     statSickPayY, statSickPayN,
-                     statHowMuch, statHowOften_frequency, statHowOften_frequency_other, statEmployersName,
-                     statEmployersAddress_lineOne, statEmployersAddress_lineTwo, statEmployersAddress_lineThree, statEmployersPostcode
-                     otherPayY, otherPayN,
-                     otherHowMuch, otherHowOften_frequency, otherHowOften_frequency_other, otherEmployersName,
-                     otherEmployersAddress_lineOne, otherEmployersAddress_lineTwo, otherEmployersAddress_lineThree, otherEmployersPostcode) ->
+window.initEvents = (o) ->
 
-  if not $("#" + answerY).prop 'checked'
-    hideOtherPayWrap()
+  if not $("#" + o.answerY).prop 'checked'
+    hideOtherPayWrap(o)
 
-  if not $("#" + statSickPayY).prop 'checked'
-    hideSickPayWrap()
+  if not $("#" + o.statSickPayY).prop 'checked'
+    hideSickPayWrap(o)
 
-  if not $("#" + otherPayY).prop 'checked'
-    hideOtherStatPayWrap()
+  if not $("#" + o.otherPayY).prop 'checked'
+    hideOtherStatPayWrap(o)
 
-
-  $("#" + answerY).on "click", ->
+  $("#" + o.answerY).on "click", ->
     showOtherPayWrap()
 
-  $("#" + answerN).on "click", ->
-    hideOtherPayWrap()
+  $("#" + o.answerN).on "click", ->
+    hideOtherPayWrap(o)
 
-  $("#" + statSickPayY).on "click", ->
+  $("#" + o.statSickPayY).on "click", ->
     showSickPayWrap()
 
-  $("#" + statSickPayN).on "click", ->
-    hideSickPayWrap()
+  $("#" + o.statSickPayN).on "click", ->
+    hideSickPayWrap(o)
 
-  $("#" + otherPayY).on "click", ->
+  $("#" + o.otherPayY).on "click", ->
     showOtherStatPayWrap()
 
-  $("#" + otherPayN).on "click", ->
-    hideOtherStatPayWrap()
+  $("#" + o.otherPayN).on "click", ->
+    hideOtherStatPayWrap(o)
 
 
 showOtherStatPayWrap = ->
-  $("#otherStatPayWrap").slideDown(0)
+  $("#otherStatPayWrap").slideDown(0).attr 'aria-hidden', 'false'
 
-hideOtherStatPayWrap = ->
-  $("#otherStatPayWrap").slideUp({duration:0,completed: ->
-    $("#"+otherHowMuch).val("")
-    $("#"+otherHowOften_frequency).val("")
-    $("#"+otherHowOften_frequency_other).val("")
-    $("#"+otherEmployersName).val("")
-    $("#"+otherEmployersAddress_lineOne).val("")
-    $("#"+otherEmployersAddress_lineTwo).val("")
-    $("#"+otherEmployersAddress_lineThree).val("")
-    $("#"+otherEmployersPostcode).val("")
-  })
+hideOtherStatPayWrap = (o) ->
+  emptyOtherStatPay = ->
+    $("#"+o.otherHowMuch).val("")
+    $("#"+o.otherHowOften_frequency).val("")
+    $("#"+o.otherHowOften_frequency_other).val("")
+    $("#"+o.otherEmployersName).val("")
+    $("#"+o.otherEmployersAddress_lineOne).val("")
+    $("#"+o.otherEmployersAddress_lineTwo).val("")
+    $("#"+o.otherEmployersAddress_lineThree).val("")
+    $("#"+o.otherEmployersPostcode).val("")
+
+  $("#otherStatPayWrap").slideUp(0, emptyOtherStatPay).attr 'aria-hidden', 'true'
   $("#otherStatPayWrap input").val("")
 
 showSickPayWrap = ->
   $("#sickPayWrap").slideDown(0).attr 'aria-hidden', 'false'
 
-hideSickPayWrap = ->
-  $("#sickPayWrap").slideUp({duration:0,completed: ->
-    $("#"+statHowMuch).val("")
-    $("#"+statHowOften_frequency).val("")
-    $("#"+statHowOften_frequency_other).val("")
-    $("#"+statEmployersName).val("")
-    $("#"+statEmployersAddress_lineOne).val("")
-    $("#"+statEmployersAddress_lineTwo).val("")
-    $("#"+statEmployersAddress_lineThree).val("")
-    $("#"+statEmployersPostcode).val("")
-  })
+hideSickPayWrap = (o) ->
+  emptyStatPay = ->
+    $("#" + o.statHowMuch).val("")
+    $("#" + o.statHowOften_frequency).val("")
+    $("#" + o.statHowOften_frequency_other).val("")
+    $("#" + o.statEmployersName).val("")
+    $("#" + o.statEmployersAddress_lineOne).val("")
+    $("#" + o.statEmployersAddress_lineTwo).val("")
+    $("#" + o.statEmployersAddress_lineThree).val("")
+    $("#" + o.statEmployersPostcode).val("")
+
+  $("#sickPayWrap").slideUp(0, emptyStatPay).attr 'aria-hidden', 'true'
   $("#sickPayWrap input").val("")
 
 showOtherPayWrap = ->
-  $("#otherPayWrap").slideDown(0)
+  $("#otherPayWrap").slideDown(0).attr 'aria-hidden', 'false'
 
-hideOtherPayWrap = ->
-  $("#otherPayWrap").slideUp({duration:0,completed: ->
-    $("#"+whoPaysYou).val("")
-    $("#"+howMuch).val("")
-    $("#"+howOften_frequency).val("")
-    $("#"+howOften_frequency_other).val("")
-  })
+hideOtherPayWrap = (o) ->
+  emptyOtherPay = ->
+    $("#" + o.howOften_frequency_other).val("")
+    $("#" + o.howOften_frequency).val("")
+    $("#" + o.whoPaysYou).val("")
+    $("#" + o.howMuch).val("")
+
+  $("#otherPayWrap").slideUp(0, emptyOtherPay).attr 'aria-hidden', 'true'
   $("#otherPayWrap input").val("")
