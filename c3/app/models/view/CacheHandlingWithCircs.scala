@@ -1,5 +1,7 @@
 package models.view
 
+import models.view.cache.EncryptedCacheHandling
+
 /**
  * Creates an object which has access to methods for saving to and getting
  * from the cache. The CachedChangeOfCircs trait implements the cacheKey method required
@@ -7,4 +9,4 @@ package models.view
  * See Language (controller) and LanguageSpec (tests) for example
  * usage.
  */
-class CacheHandlingWithCircs extends CacheHandling with CachedChangeOfCircs
+class CacheHandlingWithCircs extends EncryptedCacheHandling with CachedChangeOfCircs

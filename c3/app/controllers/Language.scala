@@ -2,9 +2,8 @@ package controllers
 
 import play.api.mvc.{Controller, Action, AnyContent, Request}
 import models.domain.Claim
-import models.view.{CacheHandling, CacheHandlingWithClaim, CacheHandlingWithCircs}
+import models.view.{CacheHandlingWithClaim, CacheHandlingWithCircs}
 import play.api.i18n.Lang
-import play.api.Play.current
 
 object Language extends Controller {
 

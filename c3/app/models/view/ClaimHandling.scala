@@ -6,6 +6,7 @@ import app.ConfigProperties._
 import gov.dwp.exceptions.DwpRuntimeException
 import models.domain.{Claim, QuestionGroup}
 import models.view.ClaimHandling.ClaimResult
+import models.view.cache.EncryptedCacheHandling
 import play.api.cache.Cache
 import play.api.data.Form
 import play.api.http.HttpVerbs
@@ -28,7 +29,7 @@ object ClaimHandling {
 
 }
 
-trait ClaimHandling extends RequestHandling with CacheHandling {
+trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
   protected def claimNotValid(claim: Claim): Boolean
   protected def newInstance(newuuid: String = randomUUID.toString): Claim

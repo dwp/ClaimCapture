@@ -1,45 +1,28 @@
-package models.view
+package models.view.cache
 
 import app.ConfigProperties._
 import models.domain.Claim
 import monitoring.Histograms
 import net.sf.ehcache.CacheManager
 import play.api.Logger
+import play.api.Play.current
 import play.api.cache.Cache
 import play.api.mvc.{AnyContent, Request}
-import play.api.Play.current
-import utils.ClaimEncryption
-import utils.ClaimEncryption._
 
 import scala.util.Try
 
-trait CacheHandling {
+protected trait CacheHandling {
 
   def cacheKey: String
 
   def keyFrom(request: Request[AnyContent]): String = request.session.get(cacheKey).getOrElse("")
-
-  def fromCache(request: Request[AnyContent], required: Boolean = true): Option[Claim] = {
-    fromCacheUsingRequest(request, required) match {
-      case Some(claim) => Some(ClaimEncryption.decrypt(claim))
-      case _ => None
-    }
-  }
-
-  /**
-   * This method should not be called directly from outside this trait, as it bypasses decryption of data
-   *
-   * @param key - UUID to identify Claim object uniquely
-   * @return Claim object
-   */
-  private def fromCache(key: String): Option[Claim] = Cache.getAs[Claim](key)
 
   /**
    * Tries to get the claim of change of circs from the cache.
    * @param request the http request that has the session with uuid of claim which is the key used by cache.
    * @return None if could not find claim/CoCs. Some(claim) is could find it.
    */
-  def fromCacheUsingRequest(request: Request[AnyContent], required: Boolean = true): Option[Claim] = {
+  def fromCache(request: Request[AnyContent], required: Boolean = true): Option[Claim] = {
     val key = keyFrom(request)
     if (key.isEmpty) {
       if (required) {
@@ -48,13 +31,11 @@ trait CacheHandling {
       }
       None
     } else {
-      fromCache(key)
+      Cache.getAs[Claim](key)
     }
   }
 
-  def saveEncryptedClaimInCache(claim: Claim) = Cache.set(claim.uuid, claim, CacheHandling.expiration)
-
-  def saveInCache(claim: Claim) = saveEncryptedClaimInCache(ClaimEncryption.encrypt(claim))
+  def saveInCache(claim: Claim) = Cache.set(claim.uuid, claim, CacheHandling.expiration)
 
   def removeFromCache(key: String) = Cache.remove(key)
 

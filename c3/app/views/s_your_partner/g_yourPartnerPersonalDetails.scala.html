@@ -129,7 +129,13 @@
                 ) ;
 
                 @if(claim.navigation.beenInPreview){
-                window.updateNextLabel("@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")","@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")",@jsiFy(previewStoredFormData.isPartnerPersonYouCareFor),"@Messages("form.next")","@Messages("form.returnToSummary")");
+                window.updateNextLabel({
+                isPersonYouCareForY:"@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
+                isPersonYouCareForN:"@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")",
+                storedData:@jsiFy(previewStoredFormData.isPartnerPersonYouCareFor),
+                textNext:"@Messages("form.next")",
+                textSummary:"@Messages("form.returnToSummary")",
+                hadPartnerN:"@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")"});
                 }
             } )
 

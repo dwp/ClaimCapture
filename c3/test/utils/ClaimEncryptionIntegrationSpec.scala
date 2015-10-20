@@ -1,18 +1,18 @@
 package utils
 
-import models.view.{CacheHandling, CachedClaim}
+import models.view.CachedClaim
+import models.view.cache.EncryptedCacheHandling
 import models.yesNo._
 import models.{SortCode, MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 import models.domain._
 import org.specs2.mutable.Specification
+import play.api.Logger
+import play.api.cache.Cache
 import play.api.i18n.Lang
 import play.api.test.FakeRequest
-import utils.WithApplication
-import play.api.cache.Cache
+import play.api.mvc.{AnyContent, Request}
 
-class ClaimEncryptionIntegrationSpec extends Specification with CacheHandling {
-
-  def cacheKey = CachedClaim.key
+class ClaimEncryptionIntegrationSpec extends Specification {
 
   val yourDetails = YourDetails("Mr", None, "H", None, "Dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1, 1, 1986))
@@ -39,7 +39,27 @@ class ClaimEncryptionIntegrationSpec extends Specification with CacheHandling {
 
   "ClaimEncryption Integration Spec" should {
 
-    "Claim must be encrypted before entering the cache" in new WithApplication with MockForm {
+    "Claim must be encrypted before entering the cache" in new WithApplication with MockForm with EncryptedCacheHandling with CachedClaim {
+
+      // Override fromCache so that it does not decrypt the Claim object when getting from the cache
+      // This demonstrates Claim object was indeed encrypted when in the cache.
+      override def fromCache(request: Request[AnyContent], required: Boolean = true): Option[Claim] = {
+        val key = keyFrom(request)
+        if (key.isEmpty) {
+          if (required) {
+            // Log an error if session empty or with no cacheKey entry so we know it is not a cache but a cookie issue.
+            Logger.error(s"Did not receive Session information for a $cacheKey for ${request.method} url path ${request.path} and agent ${request.headers.get("User-Agent").getOrElse("Unknown agent")}. Probably a cookie issue: ${request.cookies.filterNot(_.name.startsWith("_"))}.")
+          }
+          None
+        } else {
+          val claim = Cache.getAs[Claim](key) match {
+            case Some(c) => Some(c)
+            case _ => None
+          }
+          claim
+        }
+      }
+
       val request = FakeRequest().withSession(cacheKey -> claimKey)
       val claim = Claim(cacheKey, List(
         Section(AboutYou, List(yourDetails, contactDetails)),
@@ -51,7 +71,7 @@ class ClaimEncryptionIntegrationSpec extends Specification with CacheHandling {
       ), System.currentTimeMillis(), Some(Lang("en")), claimKey)
 
       saveInCache(claim)
-      val claimFromCache = fromCacheUsingRequest(request).get // Bypasses decryption
+      val claimFromCache = fromCache(request).get // Bypasses decryption
 
       // Claim object is not ordered so you cannot compare original claim with decrypted claim
       // Individual question groups must be asserted
@@ -74,7 +94,7 @@ class ClaimEncryptionIntegrationSpec extends Specification with CacheHandling {
       claim.questionGroup[CircumstancesPaymentChange] mustEqual ClaimEncryption.decryptCircumstancesPaymentChange(claimFromCache).questionGroup[CircumstancesPaymentChange]
     }
 
-    "Claim must be decrypted when getting it from the cache" in new WithApplication with MockForm {
+    "Claim must be decrypted when getting it from the cache" in new WithApplication with MockForm with EncryptedCacheHandling with CachedClaim {
       val request = FakeRequest().withSession(cacheKey -> claimKey)
       val claim = Claim(cacheKey, List(
         Section(AboutYou, List(yourDetails, contactDetails)),

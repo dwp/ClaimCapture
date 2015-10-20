@@ -42,35 +42,31 @@ nationality,seperatedFromPartnerY,seperatedFromPartnerN,partnerClaimingForY,part
 showPartnerDetailsWrap = ->
 	$("#partnerDetailsWrap").slideDown(0).attr 'aria-hidden', 'false'
 
-window.updateNextLabel = (isPersonYouCareForY,isPersonYouCareForN,storedData,textNext,textSummary) ->
+window.updateNextLabel = (o) ->
 
-	setButtonText(isPersonYouCareForY,isPersonYouCareForN,storedData,textNext,textSummary)
+	setButtonText(o)
 
-	$("#"+isPersonYouCareForY).click ->
-		setButtonText(isPersonYouCareForY,isPersonYouCareForN,storedData,textNext,textSummary)
+	$("#"+o.isPersonYouCareForY).click ->
+		setButtonText(o)
 
-	$("#"+isPersonYouCareForN).click ->
-		setButtonText(isPersonYouCareForY,isPersonYouCareForN,storedData,textNext,textSummary)
+	$("#"+o.isPersonYouCareForN).click ->
+		setButtonText(o)
+
+	$("#"+o.hadPartnerN).click ->
+		setButtonText(o)
 
 
-setButtonText = (isPersonYouCareForY,isPersonYouCareForN,storedData,textNext,textSummary) ->
-	isPersonYouCareFor = $("#"+isPersonYouCareForY).is ':checked'
-	isPersonYouCareForNo = $("#"+isPersonYouCareForN).is ':checked'
+setButtonText = (o) ->
+	isPersonYouCareFor = $("#"+o.isPersonYouCareForY).is ':checked'
+	isPersonYouCareForNo = $("#"+o.isPersonYouCareForN).is ':checked'
 	personYouCareForValue = if isPersonYouCareFor then "yes" else "no"
 	isPersonNotSelected = !isPersonYouCareFor && !isPersonYouCareForNo
 	button = $("button.button")
-	if !isPersonNotSelected and storedData != undefined and storedData != personYouCareForValue
-		button.text(textNext)
-	else if !isPersonNotSelected and storedData == undefined
-		button.text(textNext)
-	else if isPersonNotSelected and storedData != undefined
-		button.text(textNext)
+	if !isPersonNotSelected and o.storedData != undefined and o.storedData != personYouCareForValue
+		button.text(o.textNext)
+	else if !isPersonNotSelected and o.storedData == undefined
+		button.text(o.textNext)
+	else if isPersonNotSelected and o.storedData != undefined
+		button.text(o.textNext)
 	else
-		button.text(textSummary)
-
-
-#case (Some(data),Some(isPartnerPerson))
-#		if data.isPartnerPersonYouCareFor.nonEmpty && data.isPartnerPersonYouCareFor.get != isPartnerPerson => false
-#		case (Some(data),None)
-#		if data.isPartnerPersonYouCareFor.nonEmpty => false
-#		case (None,Some(_)) => false
+		button.text(o.textSummary)

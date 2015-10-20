@@ -2,7 +2,8 @@ package utils.filters
 
 import app.ConfigProperties._
 import gov.dwp.exceptions.DwpRuntimeException
-import models.view.{CacheHandling, ClaimHandling, CachedChangeOfCircs, CachedClaim}
+import models.view.cache.CacheHandling
+import models.view.{ClaimHandling, CachedChangeOfCircs, CachedClaim}
 import play.api.http.HttpVerbs
 import play.api.{Play, Logger}
 import play.api.cache.Cache
