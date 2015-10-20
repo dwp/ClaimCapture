@@ -1,0 +1,49 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@import models.domain._
+@import scala.language.postfixOps
+@import play.api.i18n.{MMessages => Messages}
+@import utils.helpers.PreviewField._
+
+@disableChangeButton = @{
+    !app.ConfigProperties.getProperty("cyaToggleVisible",true)
+}
+@employmentItems(job:Iteration) = @{
+    val aboutExpenses = job.questionGroup[PensionAndExpenses].get
+    var elems = Seq.empty[String]
+    if(aboutExpenses.haveExpensesForJob.answer == "yes" || aboutExpenses.payPensionScheme.answer == "yes")
+        elems = elems ++ Seq(Messages("expenses"))
+    elems
+}
+@employmentSummary(job:Iteration) = @{
+    var text = Messages("detailsProvided",job.questionGroup[JobDetails].get.employerName)
+    val items = employmentItems(job)
+
+    if(items.size > 0){
+        text = text +", "+Messages("including")+" "+items(0)
+    }
+    text
+}
+
+@jobs = @{claim.questionGroup[Jobs]}
+@jobsId = @{ "employment_jobs" }
+@if(jobs.isDefined && jobs.get.jobs.size > 0){
+    <tr class="review-change">
+        <td id="@getLabelId(jobsId, false)" class="review-label">
+            <b>@Messages("jobs")</b>
+        </td>
+        <td id="@getValueId(jobsId, false)" class="review-value">
+            <ul>
+            @for(job <- jobs.get.jobs) {
+                <li>@employmentSummary(job)</li>
+            }
+            </ul>
+        </td>
+        <td id="@getLinkContainerId(jobsId, false)" class="review-action hide-print">
+        @if(!disableChangeButton) {
+            <a class="button secondary" href="@controllers.s_employment.routes.GBeenEmployed.present">
+            @Html(Messages("preview.change"))
+            </a>
+        }
+        </td>
+    </tr>
+}
