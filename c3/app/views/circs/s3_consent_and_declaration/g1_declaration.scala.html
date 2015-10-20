@@ -39,7 +39,9 @@
 	            <ul class="third-party-decleration">
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> mappings.Mappings.sixty)),
+	                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> mappings.Mappings.sixty),
+                                            Html("<br/>"),
+                                            Html(Messages("carerTermsDesc"))),
 	                    'id -> "nameOrOrganisationWrapper"
 	                )
 	            </ul>

@@ -101,7 +101,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Your name and/or organisation - You must complete this section")
+        errors(0) must contain("Your name or organisation - You must complete this section")
       }
 //
 //      "missing wants email contact field" in new WithJsBrowser  with PageObjects{
@@ -126,7 +126,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
         page goToThePage()
         page fillPageWith claim
 
-        page.readLabel("nameOrOrganisation") mustEqual("Your name and/or organisation")
+        page.readLabel("nameOrOrganisation") mustEqual("Your name or organisation")
       }
 
       "page contains JS enabled check" in new WithJsBrowser  with PageObjects {

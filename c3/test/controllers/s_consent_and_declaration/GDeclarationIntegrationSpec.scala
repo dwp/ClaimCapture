@@ -54,7 +54,7 @@ class GDeclarationIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
 
-      page.readLabel("nameOrOrganisation") mustEqual("Your name and/or organisation")
+      page.readLabel("nameOrOrganisation") mustEqual("Your name or organisation")
     }
 
     "page contains JS enabled check" in new WithBrowser with PageObjects {
