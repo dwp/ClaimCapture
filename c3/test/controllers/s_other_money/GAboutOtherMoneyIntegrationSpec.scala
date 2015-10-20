@@ -1,15 +1,12 @@
 package controllers.s_other_money
 
 import org.specs2.mutable.{ Tags, Specification }
-import controllers.{PreviewTestUtils, BrowserMatchers, Formulate, ClaimScenarioFactory}
-import utils.WithBrowser
+import controllers.ClaimScenarioFactory
+import utils.{WithBrowser, WithJsBrowser}
 import utils.pageobjects.s_other_money._
 import utils.pageobjects._
 import utils.pageobjects.s_pay_details.GHowWePayYouPage
-import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_about_you.GOtherEEAStateOrSwitzerlandPage
-import utils.pageobjects.preview.PreviewPage
-import utils.helpers.PreviewField._
+
 
 class GAboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "Other Money" should {
@@ -72,6 +69,32 @@ class GAboutOtherMoneyIntegrationSpec extends Specification with Tags {
 
       errors.size mustEqual 3
       errors(0) must contain("How often?")
+    }
+
+    "howOften frequency of other with no other text entered then select no and be able to move to next page" in new WithJsBrowser with PageObjects {
+      val page = GAboutOtherMoneyPage(context)
+      val claim = new TestData
+      claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
+      claim.OtherMoneyWhoPaysYou = "The Man"
+      claim.OtherMoneyHowMuch = "34"
+      claim.OtherMoneyHowOften = "other"
+      page goToThePage ()
+      page fillPageWith claim
+
+      val submittedPage = page.submitPage()
+      val errors = submittedPage.listErrors
+
+      errors.size mustEqual 3
+      errors(0) must contain("How often?")
+
+      val claimAfterError = new TestData
+      claimAfterError.OtherMoneyAnyPaymentsSinceClaimDate = "no"
+      claimAfterError.OtherMoneyHaveYouSSPSinceClaim = "no"
+      claimAfterError.OtherMoneyHaveYouSMPSinceClaim = "no"
+
+      submittedPage fillPageWith claimAfterError
+      val differentPage = submittedPage submitPage()
+      differentPage must beAnInstanceOf[GHowWePayYouPage]
     }
 
   } section ("integration", models.domain.OtherMoney.id)
