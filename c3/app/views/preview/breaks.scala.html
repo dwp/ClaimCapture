@@ -1,10 +1,6 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
-@import models.domain.YourPartnerPersonalDetails
 @import models.domain.BreaksInCare
-@import models.domain.MoreAboutTheCare
 @import models.domain.ClaimDate
-@import controllers.mappings.Mappings._
-@import models.domain.TheirPersonalDetails
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
 
@@ -13,14 +9,9 @@
 @disableChangeButton = @{
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
 }
-<div class="accordion accordion-open">
 
-	<h2 class="heading-medium accordion-title">@Html(Messages("s4.5.longName"))</h2>
-	
-	<div class="accordion-content">
-		<table class="review">
-			@fieldWithLink("care_you_provide_anyBreaks", Messages("answer.label", breaksFromDate), Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) " " + Messages("breaks.details",breaks.breaks.length) else ""), disableLink = disableChangeButton, elementId = Some("answer"))
-		</table>
-	</div>
+@content = {
+	@fieldWithLink("care_you_provide_anyBreaks", Messages("answer.label", breaksFromDate), Html(Messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) " " + Messages("breaks.details",breaks.breaks.length) else ""), disableLink = disableChangeButton, elementId = Some("answer"))
+}
 
-</div>
+@accordion(label = Messages("s4.5.longName"), openLabel = "open-breaks-in-care", closeLabel = "close-breaks-in-care", content = content, 'track -> true)

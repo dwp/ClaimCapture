@@ -10,21 +10,16 @@
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
 }
 
-<div class="accordion accordion-open">
+@content = {
+	@fieldWithLink("education_beenInEducationSinceClaimDate", "beenInEducationSinceClaimDate", Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase),disableLink = disableChangeButton, elementId = Some("beenInEducationSinceClaimDate"))
+	@if(yourCourseDetails.beenInEducationSinceClaimDate == "yes"){
+		@fieldWithLink("education_courseTitle", "courseTitle", yourCourseDetails.title.get, disableLink = disableChangeButton, elementId = Some("courseTitle"))
+		@fieldWithLink("education_nameOfSchool", "nameOfSchoolCollegeOrUniversity", yourCourseDetails.nameOfSchoolCollegeOrUniversity.get,disableLink = disableChangeButton, elementId = Some("nameOfSchoolCollegeOrUniversity"))
+		@fieldWithLink("education_nameOfTutor", "nameOfMainTeacherOrTutor", yourCourseDetails.nameOfMainTeacherOrTutor.get, disableLink = disableChangeButton, elementId = Some("nameOfMainTeacherOrTutor"))
+		@fieldWithLink("education_contactNumber", "courseContactNumber", yourCourseDetails.courseContactNumber.getOrElse(Messages("detailsNotProvided")), disableLink = disableChangeButton, elementId = Some("courseContactNumber"))
+		@fieldWithLink("education_startEndDates", "startEndDates", {yourCourseDetails.startDate.get.`dd month, yyyy`}.concat(" - ").concat(yourCourseDetails.expectedEndDate.get.`dd month, yyyy`),disableLink = disableChangeButton, elementId = Some("startDate"))
+	}
+}
 
-	<h2 class="heading-medium accordion-title">@Html(Messages("s6.longName"))</h2>
-	
-	<div class="accordion-content">
-		<table class="review">
-			@fieldWithLink("education_beenInEducationSinceClaimDate", "beenInEducationSinceClaimDate", Messages("label."+yourCourseDetails.beenInEducationSinceClaimDate.toLowerCase),disableLink = disableChangeButton, elementId = Some("beenInEducationSinceClaimDate"))
-			@if(yourCourseDetails.beenInEducationSinceClaimDate == "yes"){
-				@fieldWithLink("education_courseTitle", "courseTitle", yourCourseDetails.title.get, disableLink = disableChangeButton, elementId = Some("courseTitle"))
-				@fieldWithLink("education_nameOfSchool", "nameOfSchoolCollegeOrUniversity", yourCourseDetails.nameOfSchoolCollegeOrUniversity.get,disableLink = disableChangeButton, elementId = Some("nameOfSchoolCollegeOrUniversity"))
-				@fieldWithLink("education_nameOfTutor", "nameOfMainTeacherOrTutor", yourCourseDetails.nameOfMainTeacherOrTutor.get, disableLink = disableChangeButton, elementId = Some("nameOfMainTeacherOrTutor"))
-				@fieldWithLink("education_contactNumber", "courseContactNumber", yourCourseDetails.courseContactNumber.getOrElse(Messages("detailsNotProvided")), disableLink = disableChangeButton, elementId = Some("courseContactNumber"))
-				@fieldWithLink("education_startEndDates", "startEndDates", {yourCourseDetails.startDate.get.`dd month, yyyy`}.concat(" - ").concat(yourCourseDetails.expectedEndDate.get.`dd month, yyyy`),disableLink = disableChangeButton, elementId = Some("startDate"))
-			}
-		</table>
-	</div>
+@accordion(label = Messages("s6.longName"), openLabel = "open-education", closeLabel = "close-education", content = content, 'track -> true)
 
-</div>
