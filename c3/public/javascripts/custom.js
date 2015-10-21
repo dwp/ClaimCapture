@@ -17,15 +17,6 @@ $(function() {
         $(this).next(".accordion-content").slideToggle();
         $(this).text(labelText);
     });    
-
-	// Close keyboard on date fields (mobile)
-	if (matchMedia('(max-width: 640px)').matches) {
-		$('.form-group-year input').on("keyup", function( event ){
-			if(this.value.length == this.getAttribute('maxlength')) {
-				$(this).blur();
-			}
-		});
-	}
 	
     // Add the "focus" value to class attribute 
     $('.block-label').focusin( function() {
@@ -53,9 +44,6 @@ $(function() {
     // Non JS message 
     $(".js-message").css("display", "none");
     $(".feed-close").css("display", "block");
-     
-    // Nino auto jump
-	//$('.ni-number input, .sort-code input, .year input').autotab_magic();
 
     // smooth scroll
     $('a[href^="#"]').bind('click.smoothscroll', function (e) {
