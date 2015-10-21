@@ -105,22 +105,22 @@
                         <ul>
                             @if(isClaim){
                                 @if(SelfEmployment.isSelfEmployed(claim)) {
-                                    <li>@Html(Messages("mail.claim.next.se.send"))</li>
+                                    <li>@Html(Messages("evidence.selfEmployment.accounts"))</li>
                                 }
                                 @if(Employed.isEmployed(claim)) {
-                                    <li>@Html(Messages("mail.claim.next.send2", claimDate))</li>
-                                    <li>@Html(Messages("mail.claim.next.send3", claimDate))</li>
+                                    <li>@Html(Messages("evidence.email.employment.mostRecentPayslipBefore", claimDate))</li>
+                                    <li>@Html(Messages("evidence.email.employment.anyPayslipsSince", claimDate))</li>
                                 }
-                                @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Html(Messages("mail.claim.next.send4"))</li>}
-                                @if(OtherMoney.receivesStatutorySickPay(claim)) {<li>@Html(Messages("mail.claim.next.send.ssp"))</li>}
-                                @if(OtherMoney.receivesOtherStatutoryPay(claim)) {<li>@Html(Messages("mail.claim.next.send.statutoryPayments"))</li>}
+                                @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Html(Messages("evidence.pensionStatements"))</li>}
+                                @if(OtherMoney.receivesStatutorySickPay(claim)) {<li>@Html(Messages("evidence.otherMoney.statutorySickPay"))</li>}
+                                @if(OtherMoney.receivesOtherStatutoryPay(claim)) {<li>@Html(Messages("evidence.otherMoney.otherStatutoryPay"))</li>}
                             }else{
                                 @if(!isCofcSelfEmployment){
-                                    <li>@Html(Messages("mail.cofc.next.send2"))</li>
+                                    <li>@Html(Messages("evidence.email.cofc.employment.anyPayslips"))</li>
                                     @if(isCofcFinishedEmployment) {
-                                        <li>@Html(Messages("mail.cofc.next.send3"))</li>
+                                        <li>@Html(Messages("evidence.email.cofc.employment.p45"))</li>
                                     }
-                                    <li>@Html(Messages("mail.cofc.next.send4"))</li>
+                                    <li>@Html(Messages("evidence.pensionStatements"))</li>
                                 }
                             }
                         </ul>

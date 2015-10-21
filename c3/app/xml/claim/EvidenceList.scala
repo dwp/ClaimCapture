@@ -26,9 +26,9 @@ object EvidenceList {
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
     val isEmail = claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail.getOrElse("") == Mappings.yes
 
-    val evidenceEmployedStatements = Seq(Messages("s11.g5.help4", stringify(claimDate.dateOfClaim)), "s11.g5.help5")
-    val evidenceSelfEmployedStatements = Seq("s11.g5.help8")
-    val evidencePensionStatements = Seq("s11.g5.help6")
+    val evidenceEmployedStatements = Seq(Messages("evidence.employment.lastPayslip", stringify(claimDate.dateOfClaim)), "evidence.employment.payslipsSinceClaimDate")
+    val evidenceSelfEmployedStatements = Seq("evidence.selfEmployment.accounts")
+    val evidencePensionStatements = Seq("evidence.pensionStatements")
 
     var nodes = NodeSeq.Empty
     if (employed || selfEmployed) {
@@ -47,7 +47,7 @@ object EvidenceList {
       val employment = emptySeqIfFalse(employed,evidenceEmployedStatements)
       val selfEmployment = emptySeqIfFalse(selfEmployed,evidenceSelfEmployedStatements)
       val pension = emptySeqIfFalse(ClaimUtils.pensionStatementsRequired(claim),evidencePensionStatements)
-      nodes ++= evidenceSection(true,"required.docs",Seq("thankyou.send")++employment++selfEmployment++pension++commonMessages)
+      nodes ++= evidenceSection(true,"evidence.required",Seq("thankyou.send")++employment++selfEmployment++pension++commonMessages)
     }
     nodes
   }

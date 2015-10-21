@@ -356,7 +356,6 @@ object Formulate {
 
   def aboutOtherMoneyInvalid(browser: TestBrowser) = {
     browser.goTo("/other-money/about-other-money")
-    browser.click("#yourBenefits_answer_no")
     browser.click("#anyPaymentsSinceClaimDate_answer_no")
     browser.fill("#statutorySickPay_answer_yes")
     browser.fill("#otherStatutoryPay_answer_no")
@@ -365,7 +364,6 @@ object Formulate {
 
   def statutorySickPay(browser: TestBrowser) = {
     browser.goTo("/other-money/about-other-money")
-    browser.click("#yourBenefits_answer_no")
     browser.click("#anyPaymentsSinceClaimDate_answer_no")
     browser.fill("#statutorySickPay_answer_yes")
     browser.fill("#otherStatutoryPay_answer_no")
@@ -374,9 +372,16 @@ object Formulate {
 
   def otherSickPay(browser: TestBrowser) = {
     browser.goTo("/other-money/about-other-money")
-    browser.click("#yourBenefits_answer_no")
     browser.click("#anyPaymentsSinceClaimDate_answer_no")
     browser.fill("#statutorySickPay_answer_no")
+    browser.fill("#otherStatutoryPay_answer_yes")
+    browser.submit("button[type='submit']")
+  }
+
+  def aboutOtherMoneyWithAllStatutoryPay(browser: TestBrowser) = {
+    browser.goTo("/other-money/about-other-money")
+    browser.click("#anyPaymentsSinceClaimDate_answer_no")
+    browser.fill("#statutorySickPay_answer_yes")
     browser.fill("#otherStatutoryPay_answer_yes")
     browser.submit("button[type='submit']")
   }
