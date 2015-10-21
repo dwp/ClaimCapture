@@ -3,23 +3,16 @@
 @import scala.language.postfixOps
 @import play.api.i18n.{MMessages => Messages}
 @import helper._
-@import utils.helpers.PreviewField._
 @import controllers.mappings.Mappings._
+@import views.html.preview.jobsPreview
 
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @emp = @{claim.questionGroup[Employment].getOrElse(Employment())}
 @aboutSelfEmployment = @{claim.questionGroup[AboutSelfEmployment].getOrElse(AboutSelfEmployment())}
-@jobs = @{claim.questionGroup[Jobs]}
 @additionalInfo = @{claim.questionGroup[EmploymentAdditionalInfo].getOrElse(EmploymentAdditionalInfo())}
 @sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}
 @oneWeekBeforeDate(date:DayMonthYear) = @{date - 1 weeks}
-@employmentItems(job:Iteration) = @{
-    val aboutExpenses = job.questionGroup[PensionAndExpenses].get
-    var elems = Seq.empty[String]
-    if(aboutExpenses.haveExpensesForJob.answer == "yes" || aboutExpenses.payPensionScheme.answer == "yes")
-        elems = elems ++ Seq(Messages("expenses"))
-    elems
-}
+
 @selfEmploymentItems(claim:Claim) = @{
     val pension = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())
     var elems = Seq.empty[String]
@@ -46,15 +39,7 @@
 		Messages("label.no")
 	}
 }
-@employmentSummary(job:Iteration) = @{
-    var text = Messages("detailsProvided",job.questionGroup[JobDetails].get.employerName)
-    val items = employmentItems(job)
 
-    if(items.size > 0){
-        text = text +", "+Messages("including")+" "+items(0)
-    }
-    text
-}
 @additionalInfoValue = @{
 	additionalInfo.empAdditionalInfo.answer match {
 		case `yes` => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
@@ -65,47 +50,18 @@
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
 }
 
-<div class="accordion accordion-open">
+@content = {
+	@fieldWithLink("employment_been_employed_since", Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`d month yyyy`),Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim),disableLink = disableChangeButton, elementId = Some("beenEmployedSince6MonthsBeforeClaim"))
+	@{/* Jobs do not use the fieldWithLink view. The fieldWithLink view accepts text and this produces HTML (an unordered list) */}
+	@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), seValue,disableLink = disableChangeButton, elementId = Some("beenSelfEmployedSince1WeekBeforeClaim"))
+	@jobsPreview()
+    @if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
+		@fieldWithLink("self_employment_nature_of_business", Messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness, disableLink = disableChangeButton, elementId = Some("natureOfYourBusiness"))
+	}
+	@if(isSelfEmployed || isEmployed){
+		@fieldWithLink("employment_additional_info", Messages("empAdditionalInfo.text"), additionalInfoValue, disableLink = disableChangeButton, elementId = Some("empAdditionalInfo_answer"))
+	}
+}
 
-	<h2 class="heading-medium accordion-title">@Html(Messages("employment.title"))</h2>
-	
-	<div class="accordion-content">
-		<table class="review">
-			@fieldWithLink("employment_been_employed_since", Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`d month yyyy`),Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim),disableLink = disableChangeButton, elementId = Some("beenEmployedSince6MonthsBeforeClaim"))
+@accordion(label = Messages("employment.title"), openLabel = "open-employments", closeLabel = "close-employments", content = content, 'track -> true)
 
-			@{/* Jobs do not use the fieldWithLink view. The fieldWithLink view accepts text
-					and this produces HTML (an unordered list) */}
-			@jobsId = @{ "employment_jobs" }
-			@if(jobs.isDefined && jobs.get.jobs.size > 0){
-				<tr class="review-change">
-			        <td id="@getLabelId(jobsId, false)" class="review-label">
-						<b>@Messages("jobs")</b>
-					</td>
-			        <td id="@getValueId(jobsId, false)" class="review-value">
-			            <ul>
-			            @for(job <- jobs.get.jobs){
-			                <li>@employmentSummary(job)</li>
-			            }
-			            </ul>
-			        </td>
-					<td id="@getLinkContainerId(jobsId, false)" class="review-action hide-print">
-						@if(!disableChangeButton) {
-							<a class="button secondary" href="@controllers.s_employment.routes.GBeenEmployed.present">
-								@Html(Messages("preview.change"))
-							</a>
-						}
-					</td>
-				</tr>
-			}
-			@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), seValue,disableLink = disableChangeButton, elementId = Some("beenSelfEmployedSince1WeekBeforeClaim"))
-
-			@if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
-				@fieldWithLink("self_employment_nature_of_business", Messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness, disableLink = disableChangeButton, elementId = Some("natureOfYourBusiness"))
-			}
-			@if(isSelfEmployed || isEmployed){
-				@fieldWithLink("employment_additional_info", Messages("empAdditionalInfo.text"), additionalInfoValue, disableLink = disableChangeButton, elementId = Some("empAdditionalInfo_answer"))
-			}
-		</table>
-	</div>
-
-</div>
