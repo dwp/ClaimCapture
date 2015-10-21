@@ -11,8 +11,8 @@ About Your Self-Employment - Change in circumstances,About Your Self-Employment,
 About Your Self-Employment - Change in circumstances,About Your Self-Employment,Will the total income into your business be more than £102 a week?,CircumstancesSelfEmploymentTotalOverWeeklyIncomeThreshold,yes
 About Your Self-Employment - Change in circumstances,About Your Self-Employment,Tell us more about your changes,CircumstancesSelfEmploymentCaringMoreAboutChanges,other info
 Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,07771 899899
-Declaration - consent and declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,Yes
-Declaration - consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,Mr Smith
+Declaration - consent and declaration,Declaration,"Select this box if you filled this form in for someone else.",CircumstancesSomeOneElseConfirmation,Yes
+Declaration - consent and declaration,Declaration,"Your name or organisation",NameOrOrganisation,Mr Smith
 Declaration - consent and declaration,Declaration,Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?,CircumstancesDeclarationInfoAgreement,No
 Declaration - consent and declaration,Declaration,List anyone you don't want to be contacted and say why.,CircumstancesDeclarationWhyNot,I don't want to
 Declaration - consent and declaration,Declaration,Wants email contact,CircumstancesDeclarationWantsEmailContact,No

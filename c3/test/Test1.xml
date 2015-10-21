@@ -306,9 +306,9 @@
                     <Content>declaration.3</Content>
                     <Content>declaration.4</Content>
                 </DeclarationStatement>
-                <DeclarationQuestion><QuestionLabel>Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.</QuestionLabel><Answer>Yes</Answer></DeclarationQuestion>
+                <DeclarationQuestion><QuestionLabel>Select this box if you filled this form in for someone else.</QuestionLabel><Answer>Yes</Answer></DeclarationQuestion>
                 <DeclarationQuestion><QuestionLabel>Please tick this box to confirm that you understand and make the declarations above.</QuestionLabel><Answer>Yes</Answer></DeclarationQuestion>
-                <DeclarationNameOrg><QuestionLabel>Your name and/or organisation</QuestionLabel><Answer>Some Org</Answer></DeclarationNameOrg>
+                <DeclarationNameOrg><QuestionLabel>Your name or organisation</QuestionLabel><Answer>Some Org</Answer></DeclarationNameOrg>
             </Declaration>
             <Disclaimer>
                 <DisclaimerStatement>

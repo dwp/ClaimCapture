@@ -90,8 +90,8 @@ Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherC
 Consent and declaration,Further Information,Contact phone or mobile number,FurtherInfoContact,DWPCAChangeOfCircumstances>ClaimantDetails>ContactPreference>Answer
 Consent and declaration,Declaration,Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?,CircumstancesDeclarationInfoAgreement,DWPCAChangeOfCircumstances>Consents>Consent>Answer
 Consent & Declaration,Consent & Declaration,List anyone you don't want to be contacted and say why.,CircumstancesDeclarationWhyNot,DWPCAChangeOfCircumstances>Consents>Consent>Why>Answer
-Consent and declaration,Declaration,"Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,DWPCAChangeOfCircumstances>Declaration
-Consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,DWPCAChangeOfCircumstances>Declaration>DeclarationNameOrg>Answer
+Consent and declaration,Declaration,"Select this box if you filled this form in for someone else.",CircumstancesSomeOneElseConfirmation,DWPCAChangeOfCircumstances>Declaration
+Consent and declaration,Declaration,"Your name or organisation",NameOrOrganisation,DWPCAChangeOfCircumstances>Declaration>DeclarationNameOrg>Answer
 Consent and declaration,Declaration,Wants email contact,CircumstancesDeclarationWantsEmailContact,
 Consent and declaration,Declaration,Please enter your email,CircumstancesDeclarationMail,
 Consent and declaration,Declaration,Please confirm your email,CircumstancesDeclarationMailConfirmation,
