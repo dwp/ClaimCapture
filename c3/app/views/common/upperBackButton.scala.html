@@ -1,7 +1,7 @@
-@(showBack:Boolean = true, changing:Boolean=false, backCall:Option[Call] = None, previous: Option[models.view.Route[_]] = None, forceShowAfterPreview:Boolean =false)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@(showBack:Boolean = true, changing:Boolean=false, backCall:Option[Call] = None, previous: Option[models.view.Route[_]] = None, forceShow:Boolean =false)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
 @if(showBack){
     <nav class="back-nav" role="navigation">
-        @views.html.common.genericBackButton(changing, backCall, previous, forceShowAfterPreview)
+        @views.html.common.genericBackButton(changing, backCall, previous, forceShow)
     </nav>
 }
