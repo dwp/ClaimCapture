@@ -3,7 +3,7 @@ package services.mail
 import models.DayMonthYear
 import models.domain._
 import models.view.CachedClaim
-import models.yesNo.YesNoWithText
+import models.yesNo.{YesNoWithEmployerAndMoney, YesNo, YesNoWithText}
 import org.specs2.mutable.{Tags, Specification}
 import play.api.i18n.Lang
 import play.api.i18n.{MMessages => Messages}
@@ -101,6 +101,25 @@ class EmailTemplateSpec extends Specification with Tags {
 
       renderedEmail must not contain escapeMessage("mail.cofc.title")
       renderedEmail must not contain escapeMessage("mail.cofc.successful")
+    }
+
+    "Ask for evidence if statutory payments are received" in new WithApplication {
+      val otherPayments = AboutOtherMoney(YesNo(""), None, None, None,
+        YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None),
+        YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None))
+      implicit val lang = Lang("en")
+
+      // Without statutory payments
+      val claim = Claim(CachedClaim.key).+(ClaimDate(DayMonthYear()))
+      val email = views.html.mail(claim,isClaim = true,isEmployment = true).body
+      email must not contain(escapeMessage("mail.claim.next.send.ssp"))
+      email must not contain(escapeMessage("mail.claim.next.send.statutoryPayments"))
+
+      // With statutory payments
+      val claimWithStatutoryPayments = claim.update(otherPayments)
+      val emailWithStatutoryPayments = views.html.mail(claimWithStatutoryPayments,isClaim = true,isEmployment = true).body
+      emailWithStatutoryPayments must contain(escapeMessage("mail.claim.next.send.ssp"))
+      emailWithStatutoryPayments must contain(escapeMessage("mail.claim.next.send.statutoryPayments"))
     }
 
     "Display cofc employment email" in new WithApplication(){

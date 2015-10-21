@@ -1,14 +1,35 @@
 package models.domain
 
+import controllers.mappings.Mappings
 import models.view.CachedClaim
-
 import scala.language.reflectiveCalls
 import org.specs2.mutable.Specification
 import controllers.s_employment.Employment.jobFormFiller
-import models.MultiLineAddress
 import controllers.Iteration.{Identifier => IterationID}
 
+
 class EmploymentSpec extends Specification {
+
+  "Employment" should {
+
+    val claimEmployed = Claim(CachedClaim.key, List(
+      Section(SelfEmployment, List(Employment(Mappings.no, Mappings.yes)))
+    ))
+    val claimNotEmployed = Claim(CachedClaim.key, List(
+      Section(SelfEmployment, List(Employment(Mappings.no, Mappings.no)))
+    ))
+    val claimWithNoEmploymentDetails = Claim(CachedClaim.key, List(
+      Section(SelfEmployment, List())
+    ))
+
+    "tell you whether the Claim object contains employment" in {
+      Employed.isEmployed(claimEmployed) mustEqual true
+      Employed.isEmployed(claimNotEmployed) mustEqual false
+      Employed.isEmployed(claimWithNoEmploymentDetails) mustEqual false
+    }
+
+  }
+
   "Job" should {
     "add 2 new question groups" in new Claiming {
       val job = Iteration("1")

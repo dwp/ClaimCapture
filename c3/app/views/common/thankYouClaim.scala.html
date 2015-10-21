@@ -9,15 +9,11 @@
 @import controllers.mappings.Mappings
 @import play.api.Logger
 
-@employment = @{
-    claim.questionGroup[Employment].getOrElse(Employment())
-}
-
 @isEmployment = @{
-    employment.beenEmployedSince6MonthsBeforeClaim == "yes"
+    Employed.isEmployed(claim)
 }
 @isSelfEmployment = @{
-    employment.beenSelfEmployedSince1WeekBeforeClaim == "yes"
+    SelfEmployment.isSelfEmployed(claim)
 }
 @isEmploymentOrSelfEmployment = @{
     isEmployment || isSelfEmployment

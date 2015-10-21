@@ -1,10 +1,18 @@
 package models.domain
 
+import controllers.mappings.Mappings
 import models.DayMonthYear
 import models.yesNo.YesNoWithText
 
 case object SelfEmployment extends Section.Identifier {
   val id = "s9"
+
+  def isSelfEmployed(claim: Claim): Boolean = {
+    claim.questionGroup[Employment] match {
+      case Some(employment) => employment.beenSelfEmployedSince1WeekBeforeClaim == Mappings.yes
+      case _ => false
+    }
+  }
 }
 
 case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)

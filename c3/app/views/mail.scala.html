@@ -12,20 +12,6 @@
     claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.`dd month yyyy`
 }
 
-@isClaimSelfEmployment = @{
-    claim.questionGroup[Employment] match {
-        case Some(employment) => employment.beenSelfEmployedSince1WeekBeforeClaim == Mappings.yes
-        case _ => false
-    }
-}
-
-@isClaimEmployment = @{
-    claim.questionGroup[Employment] match {
-        case Some(employment) => employment.beenEmployedSince6MonthsBeforeClaim == Mappings.yes
-        case _ => false
-    }
-}
-
 @isCofcSelfEmployment = @{
     claim.questionGroup[CircumstancesEmploymentChange] match {
         case Some(ec) if ec.typeOfWork.answer == G9EmploymentChange.selfemployed => true
@@ -118,14 +104,16 @@
 
                         <ul>
                             @if(isClaim){
-                                @if(isClaimSelfEmployment) {
+                                @if(SelfEmployment.isSelfEmployed(claim)) {
                                     <li>@Html(Messages("mail.claim.next.se.send"))</li>
                                 }
-                                @if(isClaimEmployment) {
+                                @if(Employed.isEmployed(claim)) {
                                     <li>@Html(Messages("mail.claim.next.send2", claimDate))</li>
                                     <li>@Html(Messages("mail.claim.next.send3", claimDate))</li>
                                 }
                                 @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Html(Messages("mail.claim.next.send4"))</li>}
+                                @if(OtherMoney.receivesStatutorySickPay(claim)) {<li>@Html(Messages("mail.claim.next.send.ssp"))</li>}
+                                @if(OtherMoney.receivesOtherStatutoryPay(claim)) {<li>@Html(Messages("mail.claim.next.send.statutoryPayments"))</li>}
                             }else{
                                 @if(!isCofcSelfEmployment){
                                     <li>@Html(Messages("mail.cofc.next.send2"))</li>
