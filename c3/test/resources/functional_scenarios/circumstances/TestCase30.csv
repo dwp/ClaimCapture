@@ -34,8 +34,8 @@ Employment - Change in circumstances,Employment,"Give details of what you need t
 Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,no
 Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
 Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,07771 899899
-Declaration - consent and declaration,Declaration,"Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,yes
-Declaration - consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,Mr Smith
+Declaration - consent and declaration,Declaration,"Select this box if you filled this form in for someone else.",CircumstancesSomeOneElseConfirmation,yes
+Declaration - consent and declaration,Declaration,"Your name or organisation",NameOrOrganisation,Mr Smith
 Declaration - consent and declaration,Declaration,Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?,CircumstancesDeclarationInfoAgreement,no
 Declaration - consent and declaration,Declaration,List anyone you don't want to be contacted and say why.,CircumstancesDeclarationWhyNot,I don't want to
 Declaration - consent and declaration,Declaration,Wants email contact,CircumstancesDeclarationWantsEmailContact,No
