@@ -7,8 +7,8 @@ Details of your change in circumstances - Change in circumstances,Details of you
 Permanently stopped caring - Change in circumstances,Permanently stopped caring,Tell us more about your changes,CircumstancesPermanentlyStoppedCaringMoreAboutChanges,123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
 Permanently stopped caring - Change in circumstances,Permanently stopped caring,What date did you permanently stop caring?,CircumstancesPermanentlyStoppedCaringStoppedCaringDate,31/12/2013
 Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,07771 899899
-Declaration - consent and declaration,Declaration,"Please tick this box if this change of circumstances form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.",CircumstancesSomeOneElseConfirmation,Yes
-Declaration - consent and declaration,Declaration,"Your name and/or organisation",NameOrOrganisation,Mr Smith
+Declaration - consent and declaration,Declaration,"Select this box if you filled this form in for someone else.",CircumstancesSomeOneElseConfirmation,Yes
+Declaration - consent and declaration,Declaration,"Your name or organisation",NameOrOrganisation,Mr Smith
 Declaration - consent and declaration,Declaration,Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?,CircumstancesDeclarationInfoAgreement,No
 Declaration - consent and declaration,Declaration,List anyone you don't want to be contacted and say why.,CircumstancesDeclarationWhyNot,I don't want to
 Declaration - consent and declaration,Declaration,Wants email contact,CircumstancesDeclarationWantsEmailContact,No
