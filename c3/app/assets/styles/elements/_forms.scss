@@ -179,6 +179,11 @@ label {
 	}
 }
 
+// For Nino Number to convert into uppercases visually.
+.ni-number {
+    text-transform: uppercase;
+}
+
 // Form control widths
 .form-control-3-4 {
     width: 100%;
