@@ -1,0 +1,26 @@
+@(label: String, openLabel: String, closeLabel: String, content: Html,args: (Symbol, Any)*)(implicit lang: play.api.i18n.Lang, request:play.api.mvc.Request[AnyContent])
+
+@import utils.helpers.GAHelper._
+@import app.ConfigProperties._
+
+@gaTrack(displayLabel:String) = @{
+    if (getProperty("include.analytics", true)) {
+        trackEvent(request.uri, displayLabel)
+    }
+}
+
+@addTracking(displayLabel:String) = @{
+    val tracking = args.find(_._1 == 'track).getOrElse('track->false)._2.asInstanceOf[Boolean]
+    if (tracking) gaTrack(displayLabel)
+    else ""
+}
+
+
+<div class="accordion accordion-open">
+    <h2 class="heading-medium accordion-title" accordion-track="@openLabel" onmousedown="if($(this).attr('accordion-track') === '@openLabel'){ @addTracking(closeLabel) $(this).attr('accordion-track', '@closeLabel'); } else { @addTracking(openLabel) $(this).attr('accordion-track', '@openLabel'); }">@label</h2>
+    <div class="accordion-content">
+        <table class="review">
+            @content
+        </table>
+    </div>
+</div>
