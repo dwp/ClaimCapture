@@ -11,9 +11,6 @@
 @import utils.helpers.CarersCrypto
 @import controllers.mappings.Mappings._
 
-#BEEN@claim.navigation.beenInPreview
-#POE@claim.checkYAnswers.cyaPointOfEntry
-
 @showBackButtonAfterPreview = @{
     claim.navigation.beenInPreview && (claim.checkYAnswers.cyaPointOfEntry match {
         case Some(poe) => poe != controllers.s_care_you_provide.routes.GTheirPersonalDetails.present().url
