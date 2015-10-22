@@ -1,6 +1,6 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
 
-@import views.html.helper.base.carersInputText
+@import views.html.helper.base.carersNINOInputText
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper.strippedHtmlConstraintRequired
 @import play.api.i18n.{MMessages => Messages}
@@ -18,5 +18,5 @@
     }
 
 @strippedHtmlConstraintRequired(ninoField, args: _*)
-@carersInputText(field("nino"), 'maxLength -> 9, 'ignoreLabel -> true, 'class -> "ni-number")
+@carersNINOInputText(field("nino"), 'maxLength -> 9, 'ignoreLabel -> true, 'class -> "ni-number")
 
