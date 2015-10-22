@@ -40,7 +40,7 @@
         </td>
         <td id="@getLinkContainerId(jobsId, false)" class="review-action hide-print">
         @if(!disableChangeButton) {
-            <a class="button secondary" href="@controllers.s_employment.routes.GBeenEmployed.present">
+            <a class="button secondary" href="@controllers.preview.routes.Preview.redirect(jobsId)">
             @Html(Messages("preview.change"))
             </a>
         }

@@ -26,9 +26,13 @@ trait Navigable {
   }
 
   def trackBackToBeginningOfEmploymentSection[T](t: T)(f: => Claim => Result)(implicit claim: Claim, request: Request[AnyContent], classTag: ClassTag[T]): ClaimResult = {
+    val updatedNavigationSec = if(claim.navigation.beenInPreview){
+      claim.navigation.copy(routesAfterPreview = claim.navigation.routesAfterPreview.takeWhile(r => r.uri == "/employment/employment" || !r.uri.contains("employment") )).track(t)(request.uri)
+    }else{
+      claim.navigation.copy(routes = claim.navigation.routes.takeWhile(r => r.uri == "/employment/employment" || !r.uri.contains("employment") )).track(t)(request.uri)
+    }
     // Similar to track but this removes all routes navigation entries up to /employment/employment.
     // Done so that when at the jobs summary page of employment, back can take you back to the initial guard questions page
-    val updatedNavigationSec = claim.navigation.copy(claim.navigation.routes.takeWhile(r => r.uri == "/employment/employment" || !r.uri.contains("employment") )).track(t)(request.uri)
     val updatedClaim = claim.copy(claim.key, claim.sections)(updatedNavigationSec)
 
     updatedClaim -> f(updatedClaim)
@@ -56,14 +60,6 @@ case class Navigation(routes: List[Route[_]] = List(), beenInPreview:Boolean = f
   }
 
   def current: Route[_] = if (routes.isEmpty) Route("") else routes.last
-
-  def previousIgnorePreview: Route[_] = {
-    val routesList = if(beenInPreview) routesAfterPreview else routes
-    if (routesList.size > 1) routesList.dropRight(1).last
-    else if (routesList.size == 1) current
-    else Route("")
-
-  }
 
   def previous: Route[_] = {
 

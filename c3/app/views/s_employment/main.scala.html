@@ -5,13 +5,7 @@
 @import play.api.i18n.{MMessages => Messages}
 @import views.html.common._
 
-@previous = @{
-    if(ignorePreview){
-        claim.navigation.previousIgnorePreview
-    }else{
-        claim.navigation.previous
-    }
-}
+
 @common.govMain(title) {
 	
     <div class="carers-allowance clearfix">
@@ -26,7 +20,7 @@
 
             <article class="column-three-quarters main-content">
 
-                @views.html.common.upperBackButton(previous = Some(previous))
+                @views.html.common.upperBackButton()
 
                 @if(employerName.isDefined && !employerName.isEmpty) {
                     <h1 class="form-title heading-large">@sectionTitle(Employed)@employerName </h1>

@@ -6,13 +6,7 @@
 @import play.api.i18n.{MMessages => Messages}
 @import views.html.common._
 
-@previous = @{
-    if(ignorePreview){
-        claim.navigation.previousIgnorePreview
-    }else{
-        claim.navigation.previous
-    }
-}
+
 
 @common.govMain(title) {
 	
@@ -28,7 +22,7 @@
 
             <article class="column-three-quarters main-content">
 
-                @views.html.common.upperBackButton(previous = Some(previous),forceShow = forceShow)
+                @views.html.common.upperBackButton(forceShow = forceShow)
 
                 <h1 class="form-title heading-large">@sectionTitle(SelfEmployment)@Html(Messages(heading))</h1>
 
