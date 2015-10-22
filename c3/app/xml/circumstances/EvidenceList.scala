@@ -46,7 +46,7 @@ object EvidenceList {
       val employment1 = emptySeqIfFalse(isEmployment1, Seq("circs.thankyou.employment1message2.content") ++ employment1Pension)
       val employment2 = emptySeqIfFalse(isEmployment2, Seq("circs.thankyou.employment2message2.content", "circs.thankyou.employment2message3.content") ++ employment2Pension)
 
-      nodes ++= evidenceSection(true, "required.docs", Seq("thankyou.send") ++ employment1 ++ employment2 ++ commonMessages)
+      nodes ++= evidenceSection(true, "evidence.required", Seq("thankyou.send") ++ employment1 ++ employment2 ++ commonMessages)
 
     }else{
       nodes ++= evidenceTitle("circs.next.nodocuments.1")

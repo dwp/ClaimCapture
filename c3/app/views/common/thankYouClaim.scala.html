@@ -9,18 +9,20 @@
 @import controllers.mappings.Mappings
 @import play.api.Logger
 
-@employment = @{
-    claim.questionGroup[Employment].getOrElse(Employment())
-}
-
 @isEmployment = @{
-    employment.beenEmployedSince6MonthsBeforeClaim == "yes"
+    Employed.isEmployed(claim)
 }
 @isSelfEmployment = @{
-    employment.beenSelfEmployedSince1WeekBeforeClaim == "yes"
+    SelfEmployment.isSelfEmployed(claim)
 }
-@isEmploymentOrSelfEmployment = @{
-    isEmployment || isSelfEmployment
+@hasStatutorySickPay = @{
+    OtherMoney.receivesStatutorySickPay(claim)
+}
+@hasOtherStatutoryPay = @{
+    OtherMoney.receivesOtherStatutoryPay(claim)
+}
+@evidenceRequired = @{
+    isEmployment || isSelfEmployment || hasStatutorySickPay || hasOtherStatutoryPay
 }
 @claimDate = @{
     claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim
@@ -43,7 +45,7 @@
     <div class="grid-row main-grid">
 
         <aside class="column-quarter sidebar @{ 
-        if(!isEmploymentOrSelfEmployment) "no-employment" 
+        if(!evidenceRequired) "no-employment"
         }" id="sidebar" role="complementary" aria-labelledby="helpcontent">
 
             <section class="font-xsmall" id="help">
@@ -84,29 +86,37 @@
                 @if(isEmail){
                     <p>@Html(Messages("email.claim.thankYou"))</p>
                 }
-                @if(isEmploymentOrSelfEmployment) {
+                @if(evidenceRequired) {
                     <p>@Html(Messages("claim.next.main"))</p>
                 } else {
                     <p>@Html(Messages("claim.next.nodocuments.1"))</p>
                 }
 
-                @if(isEmploymentOrSelfEmployment) {
+                @if(evidenceRequired) {
 
                     <div class="send-info">
 
-                        <h2 class="heading-medium">@Html(Messages("required.docs"))</h2>
+                        <h2 class="heading-medium">@Html(Messages("evidence.required"))</h2>
 
                         <p>@Html(Messages("thankyou.send"))</p>
 
                         <ul class="list-bullet">
                             @if(isEmployment) {
-                            <li>@Html(Messages("s11.g5.help4", displayDateForLabel))</li>
-                            <li id="employment" >@Html(Messages("s11.g5.help5"))</li>
+                                <li>@Html(Messages("evidence.employment.lastPayslip", displayDateForLabel))</li>
+                                <li id="employment" >@Html(Messages("evidence.employment.payslipsSinceClaimDate"))</li>
                             }
                             @if(isSelfEmployment) {
-                            <li id="selfEmployment">@Html(Messages("s11.g5.help8"))</li>
+                                <li id="selfEmployment">@Html(Messages("evidence.selfEmployment.accounts"))</li>
                             }
-                            @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Messages("s11.g5.help6")</li>}
+                            @if(ClaimUtils.pensionStatementsRequired(claim)) {
+                                <li>@Messages("evidence.pensionStatements")</li>
+                            }
+                            @if(hasStatutorySickPay) {
+                                <li>@Messages("evidence.otherMoney.statutorySickPay")</li>
+                            }
+                            @if(hasOtherStatutoryPay) {
+                                <li>@Messages("evidence.otherMoney.otherStatutoryPay")</li>
+                            }
                         </ul>
 
                         <p>@Html(Messages("address.send"))</p>

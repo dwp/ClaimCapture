@@ -1,5 +1,6 @@
 package models.domain
 
+import controllers.mappings.Mappings
 import models._
 import play.api.i18n.{MMessages => Messages}
 import scala.reflect.ClassTag
@@ -11,6 +12,13 @@ import controllers.Iteration.{Identifier => IterationID}
 
 object Employed extends Section.Identifier {
   val id = "s8"
+
+  def isEmployed(claim: Claim): Boolean = {
+    claim.questionGroup[Employment] match {
+      case Some(employment) => employment.beenEmployedSince6MonthsBeforeClaim == Mappings.yes
+      case _ => false
+    }
+  }
 }
 
 case class BeenEmployed(beenEmployed: String) extends QuestionGroup(BeenEmployed)

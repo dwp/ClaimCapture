@@ -20,18 +20,22 @@ object EvidenceList {
   }
 
   def evidence(claim: Claim): NodeSeq = {
-    val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment())
-    val employed = employment.beenEmployedSince6MonthsBeforeClaim.toLowerCase == yes
-    val selfEmployed = employment.beenSelfEmployedSince1WeekBeforeClaim.toLowerCase == yes
+    val employed = Employed.isEmployed(claim)
+    val selfEmployed = models.domain.SelfEmployment.isSelfEmployed(claim)
+    val receivesStatutorySickPay = OtherMoney.receivesStatutorySickPay(claim)
+    val receivesOtherStatutoryPay = OtherMoney.receivesOtherStatutoryPay(claim)
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
     val isEmail = claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail.getOrElse("") == Mappings.yes
+    val evidenceRequired = employed || selfEmployed || receivesStatutorySickPay || receivesOtherStatutoryPay
 
-    val evidenceEmployedStatements = Seq(Messages("s11.g5.help4", stringify(claimDate.dateOfClaim)), "s11.g5.help5")
-    val evidenceSelfEmployedStatements = Seq("s11.g5.help8")
-    val evidencePensionStatements = Seq("s11.g5.help6")
+    val evidenceEmployedStatements = Seq(Messages("evidence.employment.lastPayslip", stringify(claimDate.dateOfClaim)), "evidence.employment.payslipsSinceClaimDate")
+    val evidenceSelfEmployedStatements = Seq("evidence.selfEmployment.accounts")
+    val evidencePensionStatements = Seq("evidence.pensionStatements")
+    val evidenceStatutorySickPay = Seq("evidence.otherMoney.statutorySickPay")
+    val evidenceOtherStatutoryPay = Seq("evidence.otherMoney.otherStatutoryPay")
 
     var nodes = NodeSeq.Empty
-    if (employed || selfEmployed) {
+    if (evidenceRequired) {
       nodes ++= recepientAddress("address.send")
     }
 
@@ -39,15 +43,18 @@ object EvidenceList {
 
     if (isEmail) nodes ++= evidenceTitle("email.claim.thankYou")
 
-    if (employed || selfEmployed) nodes ++= evidenceTitle("claim.next.main")
+    if (evidenceRequired) nodes ++= evidenceTitle("claim.next.main")
     else nodes ++= evidenceTitle("claim.next.nodocuments.1")
 
-    if (employed || selfEmployed) {
+    if (evidenceRequired) {
       val commonMessages = Seq("address.details")
       val employment = emptySeqIfFalse(employed,evidenceEmployedStatements)
       val selfEmployment = emptySeqIfFalse(selfEmployed,evidenceSelfEmployedStatements)
       val pension = emptySeqIfFalse(ClaimUtils.pensionStatementsRequired(claim),evidencePensionStatements)
-      nodes ++= evidenceSection(true,"required.docs",Seq("thankyou.send")++employment++selfEmployment++pension++commonMessages)
+      val statutorySickPay = emptySeqIfFalse(receivesStatutorySickPay, evidenceStatutorySickPay)
+      val otherStatutoryPay = emptySeqIfFalse(receivesOtherStatutoryPay, evidenceOtherStatutoryPay)
+      nodes ++= evidenceSection(true,"evidence.required",Seq("thankyou.send")++employment++selfEmployment++
+        pension++statutorySickPay++otherStatutoryPay++commonMessages)
     }
     nodes
   }

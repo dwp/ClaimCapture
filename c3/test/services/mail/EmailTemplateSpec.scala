@@ -3,7 +3,7 @@ package services.mail
 import models.DayMonthYear
 import models.domain._
 import models.view.CachedClaim
-import models.yesNo.YesNoWithText
+import models.yesNo.{YesNoWithEmployerAndMoney, YesNo, YesNoWithText}
 import org.specs2.mutable.{Tags, Specification}
 import play.api.i18n.Lang
 import play.api.i18n.{MMessages => Messages}
@@ -59,16 +59,16 @@ class EmailTemplateSpec extends Specification with Tags {
 
       renderedEmail.size must beGreaterThan(0)
 
-      renderedEmail must contain(escapeMessage("mail.claim.next.se.send"))
+      renderedEmail must contain(escapeMessage("evidence.selfEmployment.accounts"))
 
       renderedEmail must contain(escapeMessage("mail.claim.title"))
       renderedEmail must contain(escapeMessage("mail.claim.successful"))
       renderedEmail must contain(escapeMessage("mail.claim.next.line1.alt"))
       renderedEmail must contain(escapeMessage("mail.next.line2"))
       renderedEmail must contain(escapeMessage("mail.next.send1"))
-      renderedEmail must contain(escapeMessage("mail.claim.next.send2",DayMonthYear().`dd month yyyy`))
+      renderedEmail must contain(escapeMessage("evidence.email.employment.mostRecentPayslipBefore",DayMonthYear().`dd month yyyy`))
 
-      renderedEmail must not contain escapeMessage("mail.claim.next.send4")
+      renderedEmail must not contain escapeMessage("evidence.pensionStatements")
       renderedEmail must not contain escapeMessage("mail.next.line")
 
       renderedEmail must not contain escapeMessage("mail.cofc.title")
@@ -87,20 +87,39 @@ class EmailTemplateSpec extends Specification with Tags {
 
       renderedEmail.size must beGreaterThan(0)
 
-      renderedEmail must contain(escapeMessage("mail.claim.next.se.send"))
+      renderedEmail must contain(escapeMessage("evidence.selfEmployment.accounts"))
 
       renderedEmail must contain(escapeMessage("mail.claim.title"))
       renderedEmail must contain(escapeMessage("mail.claim.successful"))
       renderedEmail must contain(escapeMessage("mail.claim.next.line1.alt"))
       renderedEmail must contain(escapeMessage("mail.next.line2"))
       renderedEmail must contain(escapeMessage("mail.next.send1"))
-      renderedEmail must contain(escapeMessage("mail.claim.next.send4"))
-      renderedEmail must contain(escapeMessage("mail.claim.next.send2",DayMonthYear().`dd month yyyy`))
+      renderedEmail must contain(escapeMessage("evidence.pensionStatements"))
+      renderedEmail must contain(escapeMessage("evidence.email.employment.mostRecentPayslipBefore",DayMonthYear().`dd month yyyy`))
 
       renderedEmail must not contain escapeMessage("mail.next.line")
 
       renderedEmail must not contain escapeMessage("mail.cofc.title")
       renderedEmail must not contain escapeMessage("mail.cofc.successful")
+    }
+
+    "Ask for evidence if statutory payments are received" in new WithApplication {
+      val otherPayments = AboutOtherMoney(YesNo(""), None, None, None,
+        YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None),
+        YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None))
+      implicit val lang = Lang("en")
+
+      // Without statutory payments
+      val claim = Claim(CachedClaim.key).+(ClaimDate(DayMonthYear()))
+      val email = views.html.mail(claim,isClaim = true,isEmployment = true).body
+      email must not contain escapeMessage("evidence.otherMoney.statutorySickPay")
+      email must not contain escapeMessage("evidence.otherMoney.otherStatutoryPay")
+
+      // With statutory payments
+      val claimWithStatutoryPayments = claim.update(otherPayments)
+      val emailWithStatutoryPayments = views.html.mail(claimWithStatutoryPayments,isClaim = true,isEmployment = true).body
+      emailWithStatutoryPayments must contain(escapeMessage("evidence.otherMoney.statutorySickPay"))
+      emailWithStatutoryPayments must contain(escapeMessage("evidence.otherMoney.otherStatutoryPay"))
     }
 
     "Display cofc employment email" in new WithApplication(){
@@ -113,13 +132,13 @@ class EmailTemplateSpec extends Specification with Tags {
 
       renderedEmail must contain(escapeMessage("mail.cofc.title"))
       renderedEmail must contain(escapeMessage("mail.cofc.successful"))
-      renderedEmail must contain(escapeMessage("mail.cofc.next.send2"))
+      renderedEmail must contain(escapeMessage("evidence.email.cofc.employment.anyPayslips"))
 
       renderedEmail must contain(escapeMessage("mail.next.send1"))
       renderedEmail must contain(escapeMessage("mail.next.line2"))
-      renderedEmail must contain(escapeMessage("mail.cofc.next.send4"))
+      renderedEmail must contain(escapeMessage("evidence.pensionStatements"))
 
-      renderedEmail must not contain escapeMessage("mail.claim.next.send2")
+      renderedEmail must not contain escapeMessage("evidence.email.employment.mostRecentPayslipBefore")
       renderedEmail must not contain escapeMessage("mail.next.line")
 
       renderedEmail must not contain escapeMessage("mail.claim.next.line1.alt")
