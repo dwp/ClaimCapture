@@ -57,6 +57,19 @@ class GDeclarationIntegrationSpec extends Specification with Tags {
       page.readLabel("nameOrOrganisation") mustEqual("Your name or organisation")
     }
 
+    "no contact selected in GDeclarationPage field with optional text" in new WithBrowser with PageObjects{
+      val page =  GDeclarationPage(context)
+      val claim = new TestData
+      claim.ConsentDeclarationGettingInformationFromAnyOther = "No"
+
+      page goToThePage()
+      page fillPageWith claim
+
+      val pageWithErrors = page.submitPage()
+      pageWithErrors.listErrors.size mustEqual 1
+      pageWithErrors.source must contain("validation-message")
+    }
+
     "page contains JS enabled check" in new WithBrowser with PageObjects {
       val page = GDeclarationPage(context)
       page goToThePage()

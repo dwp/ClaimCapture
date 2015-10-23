@@ -49,6 +49,14 @@ class GDeclarationSpec extends Specification with MockInjector with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
+    """failed filling why not contact person reason""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+        .withFormUrlEncodedBody("tellUsWhyFromAnyoneOnForm.informationFromPerson" -> "no")
+
+      val result = gDeclaration.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
     """accept answers without someoneElse""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
                                  .withFormUrlEncodedBody("tellUsWhyFromAnyoneOnForm.informationFromPerson" -> "no",
