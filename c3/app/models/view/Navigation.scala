@@ -26,42 +26,47 @@ trait Navigable {
   }
 
   def trackBackToBeginningOfEmploymentSection[T](t: T)(f: => Claim => Result)(implicit claim: Claim, request: Request[AnyContent], classTag: ClassTag[T]): ClaimResult = {
+    val updatedNavigationSec = if(claim.navigation.beenInPreview){
+      claim.navigation.copy(routesAfterPreview = claim.navigation.routesAfterPreview.takeWhile(r => r.uri == "/employment/employment" || !r.uri.contains("employment") )).track(t)(request.uri)
+    }else{
+      claim.navigation.copy(routes = claim.navigation.routes.takeWhile(r => r.uri == "/employment/employment" || !r.uri.contains("employment") )).track(t)(request.uri)
+    }
     // Similar to track but this removes all routes navigation entries up to /employment/employment.
     // Done so that when at the jobs summary page of employment, back can take you back to the initial guard questions page
-    val updatedNavigationSec = claim.navigation.copy(claim.navigation.routes.takeWhile(r => r.uri == "/employment/employment" || !r.uri.contains("employment") )).track(t)(request.uri)
     val updatedClaim = claim.copy(claim.key, claim.sections)(updatedNavigationSec)
 
     updatedClaim -> f(updatedClaim)
   }
 }
 
-case class Navigation(routes: List[Route[_]] = List(), beenInPreview:Boolean = false) {
+case class Navigation(routes: List[Route[_]] = List(), beenInPreview:Boolean = false,routesAfterPreview:List[Route[_]] = List.empty[Route[_]]) {
 
 
   def resetPreviewState():Navigation = copy(beenInPreview = false)
-  //As all controllers are calling false, once we set it to true, we want to remain like that till we call resetPreviewState
+
   def track[T](t: T,beenInPreviewParam:Boolean = false)(route: String)(implicit classTag: ClassTag[T]): Navigation = {
-    val beenPreviewParam = if(!beenInPreview)beenInPreviewParam else beenInPreview
-    if(beenInPreview){
-      this
-    }else {
-      copy(routes.takeWhile(_.uri != route) :+ Route[T](route), beenPreviewParam)
+    val routeObj = Route[T](route)
+
+    //Tracking after CYA is a special case, and since it's takeWhile(_.uri != route), using the normal tracking will delete any later routes.
+    //So we want to use an alternative tracking in case we have been in preview, to still be able to use the back button link
+    if (beenInPreviewParam) {
+      copy(routes.takeWhile(_.uri != controllers.preview.routes.Preview.present().url) :+ routeObj, beenInPreviewParam,routesAfterPreview = List.empty[Route[_]])
+    } else if (beenInPreview) {
+      copy(routesAfterPreview = routesAfterPreview.takeWhile(_.uri != route) :+ Route[T](route))
+    } else {
+      copy(routes.takeWhile(_.uri != route) :+ Route[T](route))
+
     }
   }
-  def trackBackToBeginningOfSection[T](t: T)(route: String)(implicit classTag: ClassTag[T]): Navigation = copy(routes.takeWhile(_.uri != route) :+ Route[T](route))
 
   def current: Route[_] = if (routes.isEmpty) Route("") else routes.last
 
-  def previousIgnorePreview: Route[_] = {
-    if (routes.size > 1) routes.dropRight(1).last
-    else if (routes.size == 1) current
-    else Route("")
-  }
-
   def previous: Route[_] = {
-    if (beenInPreview) Route(controllers.preview.routes.Preview.present().url)
-    else previousIgnorePreview
 
+    val routesList = if(beenInPreview) routesAfterPreview else routes
+    if (routesList.size > 1) routesList.dropRight(1).last
+    else if (routesList.size == 1) current
+    else Route("")
   }
 
   def apply[T](t: T)(implicit classTag: ClassTag[T]): Option[Route[_]] = routes.find(_.classTag.runtimeClass == t.getClass)

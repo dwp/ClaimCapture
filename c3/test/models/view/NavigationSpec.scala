@@ -1,7 +1,7 @@
 package models.view
 
 import org.specs2.mutable.Specification
-import models.domain.{ContactDetails, YourDetails}
+import models.domain.{PreviewModel, ContactDetails, YourDetails}
 
 class NavigationSpec extends Specification {
   "Navigation" should {
@@ -53,6 +53,24 @@ class NavigationSpec extends Specification {
       val expectedRoute = Route(route2)
 
       navigation(ContactDetails) must beSome(expectedRoute)
+    }
+
+    "track Preview and then start tracking on the alternative field" in {
+      val route1 = "/about-you/your-details"
+      val route2 = "/about-you/contact-details"
+      val navigation = Navigation().track(YourDetails)(route1).track(ContactDetails)(route2)
+      navigation.routes.size shouldEqual 2
+      val expectedRoute = Route(route2)
+
+      navigation(ContactDetails) must beSome(expectedRoute)
+
+      val previewRoute = "/preview"
+      val updatedNav = navigation.track(PreviewModel,true)(previewRoute).track(YourDetails)(route1).track(ContactDetails)(route2)
+
+      updatedNav.routes.size shouldEqual 3
+      updatedNav.routesAfterPreview.size shouldEqual 2
+
+      updatedNav.previous mustEqual Route(route1)
     }
   }
 }

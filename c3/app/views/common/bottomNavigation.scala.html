@@ -7,13 +7,13 @@
         previous: Option[models.view.Route[_]] = None,
         trackSubmit: Boolean = false,
         customTrack: Option[Html] = None,
-        forceShowAfterPreview:Boolean = false
+        forceShow:Boolean = false
         )(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
 
 
 <nav class="form-steps" role="navigation">
     <ul>
         <li>@views.html.common.nextButton(nextLabel, nextButtonName, nextButtonValue, trackSubmit, customTrack) </li>
-        <li>@views.html.common.genericBackButton(changing, backCall, previous, forceShowAfterPreview)</li>
+        <li>@views.html.common.genericBackButton(changing, backCall, previous, forceShow)</li>
     </ul>
 </nav>

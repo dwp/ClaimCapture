@@ -22,7 +22,7 @@ object Preview extends Controller with CachedClaim with Navigable {
   }
 
   def back = claiming { implicit claim => implicit request => implicit lang =>
-    resetPreviewState { implicit claim => Redirect(claim.navigation.previousIgnorePreview.toString) }
+    resetPreviewState { implicit claim => Redirect(claim.navigation.previous.toString) }
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => lang =>
