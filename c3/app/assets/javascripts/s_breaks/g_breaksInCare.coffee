@@ -27,12 +27,12 @@ window.initSummary = (deleteId) ->
 
 
 window.initEvents = (answer_yes, answer_no) ->
-  if ($("#" + answer_yes).is ":checked") && $("ul").children().length is 10
+  if ($("#" + answer_yes).is ":checked") && $("ul.break-data.li").length is 10
     $("#warningMessageWrap").slideDown()
     $("#warningMessageWrap").css('display', "block")
 
   $("#" + answer_yes).on "click", ->
-      if $("ul.break-data").children().length is 10
+      if $("ul.break-data.li").length is 10
           $("#warningMessageWrap").slideDown()
           $("#warningMessageWrap").css('display', "block")
 
