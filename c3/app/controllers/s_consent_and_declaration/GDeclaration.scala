@@ -49,7 +49,7 @@ class GDeclaration extends Controller with CachedClaim with Navigable
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
           .replaceError("",nameOrOrganisation, FormError(nameOrOrganisation, Mappings.errorRequired))
-          .replaceError("tellUsWhyFromAnyoneOnForm", FormError("tellUsWhyFromAnyoneOnForm_whyPerson", Mappings.errorRequired))
+          .replaceError("tellUsWhyFromAnyoneOnForm", FormError("tellUsWhyFromAnyoneOnForm.whyPerson", Mappings.errorRequired))
         BadRequest(views.html.s_consent_and_declaration.g_declaration(updatedFormWithErrors)(lang))
       },
       declaration => {
