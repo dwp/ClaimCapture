@@ -20,7 +20,7 @@
         <ol class="list-bullet">
             @for(error <- form.errors) {
                 <li>
-                    <a href="#@CarersCrypto.encryptAES(error.key.replace(".","_"))">
+                    <a href="#@CarersCrypto.encryptAES(form(error.key).id)">
                         @Html(Messages(error.key, error.args: _*)) - @Html(Messages(error.message, error.args: _*))
                     </a>
                 </li>

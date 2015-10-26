@@ -4,7 +4,6 @@ import models.yesNo.{YesNoWith2Text, YesNoWithAddress, YesNoMandWithAddress}
 import org.specs2.mutable.Specification
 import models.{DayMonthYear, SortCode, MultiLineAddress, NationalInsuranceNumber}
 import models.domain.BankBuildingSocietyDetails
-import utils.C3Encryption
 import javax.xml.bind.DatatypeConverter
 import gov.dwp.carers.security.encryption.EncryptorAES
 

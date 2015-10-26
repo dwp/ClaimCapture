@@ -1,3 +1,3 @@
-@(id: String, args: (Symbol,Any)*)(implicit lang: Lang)
+@(name: String, args: (Symbol,Any)*)(implicit lang: Lang)
 @import play.api.i18n.{MMessages => Messages}
-@Html(Messages(args.find(arg => arg._1 == '_label).getOrElse('_label->id).asInstanceOf[(String,String)]._2))
+@Html(Messages(args.find(arg => arg._1 == '_label).getOrElse('_label->name).asInstanceOf[(String,String)]._2))
