@@ -46,7 +46,7 @@ object DWPCAClaim extends XMLComponent {
       {Payment.xml(claim)}
       {<OtherInformation>
         {question(<WelshCommunication/>,"welshCommunication",additionalInfo.welshCommunication)}
-        {questionWhy(<AdditionalInformation/>,"anythingElse.answer", additionalInfo.anythingElse.answer, additionalInfo.anythingElse.text,"anythingElse_text")}
+        {questionWhy(<AdditionalInformation/>,"anythingElse.answer", additionalInfo.anythingElse.answer, additionalInfo.anythingElse.text,"anythingElse.text")}
        </OtherInformation>
       }
       {Declaration.xml(claim)}

@@ -27,7 +27,7 @@ object Claimant extends XMLComponent {
       {question(<DayTimePhoneNumber/>,"howWeContactYou", contactDetails.howWeContactYou)}
       {question(<Cared35HoursBefore/>,"spent35HoursCaringBeforeClaim.label", claimDateDetails.spent35HoursCaringBeforeClaim.answer, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => displayPlaybackDatesFormat(Lang("en"),dmy)))}
       {if(claimDateDetails.spent35HoursCaringBeforeClaim.date.isDefined){
-        {question(<DateStartCaring/>,"beforeClaimCaring_date", claimDateDetails.spent35HoursCaringBeforeClaim.date)}
+        {question(<DateStartCaring/>,"beforeClaimCaring.date", claimDateDetails.spent35HoursCaringBeforeClaim.date)}
       }}
       {question(<MaritalStatus/>, "maritalStatus", maritalStatus.maritalStatus)}
       {question(<TextPhoneContact/>,"contactYouByTextphone", textPhone(contactDetails))}
