@@ -5,6 +5,9 @@
 # Home page
 GET         /                                                           controllers.Application.index
 
+# Replica url list page
+GET         /replica-urls                                               controllers.Replica.list
+
 # Health checks
 GET         /report/metrics                                             com.kenshoo.play.metrics.MetricsController.metrics
 GET         /report/health                                              controllers.HealthController.healthReport

@@ -16,7 +16,7 @@ object RequestSelector {
     val headerString = request.path
     headerString != "/" && !headerString.matches(".*assets.*") && !headerString.matches(".*images.*") &&
       !endPage(request) && !headerString.matches(".*error.*") && !headerString.matches(".*back-button.*") &&
-      !headerString.matches("/report/.*") && !headerString.matches("/favicon.ico") && !headerString.matches("/cookies.*")
+      !headerString.matches("/report/.*") && !headerString.matches("/favicon.ico") && !headerString.matches("/cookies.*") && !headerString.matches("/replica-urls")
   }
 
   /**

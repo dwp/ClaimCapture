@@ -1,0 +1,41 @@
+@(routes:Seq[Seq[String]])
+
+@import scala.language.postfixOps
+@import play.api.i18n.{MMessages => Messages}
+
+@section(routes:Seq[String]) = @{
+    val capture = "^/(.*?)(?:/.*)?$".r
+    routes head match {
+        case capture(section) => section
+        case _ => "error"
+    }
+}
+@page(route:String) = @{
+    route match {
+        case "/preview" => "preview"
+        case _ =>
+            val capture = "^/(?:.*?)/(.*)$".r
+            route match {
+                case capture(page) => page
+                case _ => "error"
+            }
+    }
+}
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+    @for(routeGroup <- routes){
+
+        <div class="section">
+            <span class="section-name">@Messages(section(routeGroup))</span>
+            <ul>
+            @for(route <- routeGroup){
+                <li><a href="@route">@page(route)</a></li>
+            }
+            </ul>
+        </div>
+
+    }
+    </body>
+</html>
