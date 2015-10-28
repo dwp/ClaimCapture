@@ -47,7 +47,7 @@
 			 <ul>
 				 @otherDetailPlaceHolder(
 					inputDef = Seq(carersInputText(currentForm("nameOrOrganisation"))(utils.helpers.CarersTemplate.fieldConstructor,lang),
-				 					Html("<br/>"),
+				 					Html("<p><p/>"),
 				 					Html(Messages("carerTermsDesc"))),
 					'id -> "nameOrOrgWrapper",
 					'display -> currentForm("someoneElse").value.map(p => p match{ case "true" => "yes" case _ => p}).getOrElse("no")
