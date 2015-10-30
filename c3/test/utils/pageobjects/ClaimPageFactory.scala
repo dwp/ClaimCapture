@@ -96,7 +96,6 @@ object ClaimPageFactory extends PageFactory {
       case GDeclarationPage.url =>
         if (ctx.browser.pageSource() contains "DWPBody") XmlPage(ctx)
         else GDeclarationPage(ctx)
-      case ClaimNotesPage.url => ClaimNotesPage(ctx)
       case ClaimHelpPage.url => ClaimHelpPage(ctx)
       // Catch pages not covered by framework
       case _ =>

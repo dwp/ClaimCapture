@@ -4,7 +4,6 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.Logger
 import utils.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import utils.pageobjects.common.ClaimNotesPage
 import utils.pageobjects.{TestData, PageObjects}
 import utils.pageobjects.s_consent_and_declaration.GDeclarationPage
 import utils.pageobjects.s_disclaimer.GDisclaimerPage
