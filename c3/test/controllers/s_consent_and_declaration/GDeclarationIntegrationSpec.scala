@@ -19,14 +19,6 @@ class GDeclarationIntegrationSpec extends Specification with Tags {
       page goToThePage()
     }
 
-    "Display claim notes when click on claim notes link" in new WithBrowser with PageObjects {
-      val page =  GDeclarationPage(context)
-      page goToThePage()
-      val handles1 = context.browser.webDriver.getWindowHandles
-      val claimNotesPage = page.clickLinkOrButton("#claimnotes")
-      claimNotesPage must beAnInstanceOf[ClaimNotesPage]
-    }
-
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo(GDeclarationPage.url)
       urlMustEqual(GDeclarationPage.url)

@@ -21,11 +21,6 @@ GET         /cs2015                                                     controll
 GET         /cookies/:languageCode                                      controllers.Cookies.page(languageCode: String)
 
 # claim pack notes accessed externally
-#GET         /claim-notes                                               controllers.ClaimNotes.notes
-# claim pack notes accessed internally (with claim lang)
-GET         /internal-claim-notes/:languageCode                         controllers.ClaimNotes.internalNotes(languageCode: String)
-
-# claim pack notes accessed externally
 GET         /claim-help                                                 controllers.ClaimHelp.notes
 #GET         /cofc-help                                                  controllers.CofcHelp.notes
 
