@@ -30,6 +30,7 @@ object Replica extends Controller{
                       pathList.filter(_.matches("/your-partner.*")) ,
                       pathList.filter(_.matches("/care-you-provide.*")) ,
                       pathList.filter(_.matches("/breaks.*")) ,
+                      pathList.filter(_.matches("/education.*")),
                       pathList.filter(_.matches("/employment.*")) ,
                       pathList.filter(_.matches("/self-employment.*")) ,
                       pathList.filter(_.matches("/other-money.*")) ,
