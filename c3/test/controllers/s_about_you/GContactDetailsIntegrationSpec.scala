@@ -54,7 +54,7 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
     }
 
-    "contain error if 'Contact phone or mobile number' is filled in with text" in new WithJsBrowser with PageObjects{
+    "contain error if 'Contact number' is filled in with text" in new WithJsBrowser with PageObjects{
       val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.HowWeContactYou = "I do not have contact number"
@@ -63,10 +63,10 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
 
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
-      errors(0) must contain("Contact phone or mobile number - Invalid value")
+      errors(0) must contain("Contact number - Invalid value")
     }
 
-    "contain error if 'Contact phone or mobile number' is field length less than min length" in new WithJsBrowser with PageObjects{
+    "contain error if 'Contact number' is field length less than min length" in new WithJsBrowser with PageObjects{
       val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.HowWeContactYou = "012345"
@@ -75,7 +75,7 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
 
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
-      errors(0) must contain("Contact phone or mobile number - Invalid value")
+      errors(0) must contain("Contact number - Invalid value")
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects{
