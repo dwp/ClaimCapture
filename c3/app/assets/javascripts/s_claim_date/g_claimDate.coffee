@@ -31,7 +31,7 @@ initDateWarningOnChange = (warningId,day,month,year,text) -> ->
   dayV = $("#"+day).val()
   monthV = $("#"+month).val()
   yearV = $("#"+year).val()
-  if (dayV.trim().length> 0 and monthV.trim().length > 0 and yearV.trim().length > 0)
+  if (dayV.length> 0 and monthV.length > 0 and yearV.length > 0)
     futureDate = new Date(yearV,monthV,dayV)
     if(new Date().addMonths(3).getTime() <= futureDate.getTime())
       showWarning(warningId)
