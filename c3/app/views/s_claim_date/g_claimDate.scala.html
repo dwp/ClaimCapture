@@ -32,6 +32,10 @@
                 <ul>
                     @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateClaimExample.helperAbove", (DayMonthYear.today - 3 months).`d M yyyy`))
 
+                    <div id="claimDateWarning" class="prompt breaks-prompt validation-summary">
+                        <p>@Messages("dateOfClaim.warning")</p>
+                    </div>
+
                     @yesNoRadioGroup(claimDateForm("beforeClaimCaring.answer"),'values -> Seq("yes" -> Messages("label.yes9"), "no" -> Messages("label.no")),
                         '_label -> Messages("spent35HoursCaringBeforeClaim.label"))
 
@@ -52,7 +56,7 @@
         <script type="text/javascript">
             $(function () {
                 @if(!Play.isTest) {
-                    trackEvent ( "times", "claim - start" )
+                    trackEvent ( "times", "claim - start" );
                     setCookie("claimstart", new Date().getTime());
                 }
             });
@@ -63,6 +67,11 @@
             "@CarersCrypto.encryptAES("beforeClaimCaring_date_day")",
             "@CarersCrypto.encryptAES("beforeClaimCaring_date_month")",
             "@CarersCrypto.encryptAES("beforeClaimCaring_date_year")");
+
+            window.initDateWarning("claimDateWarning",
+             "@CarersCrypto.encryptAES("dateOfClaim_day")",
+             "@CarersCrypto.encryptAES("dateOfClaim_month")",
+             "@CarersCrypto.encryptAES("dateOfClaim_year")","@Messages("dateOfClaim.warning")");
             });
 
         </script>
