@@ -20,14 +20,14 @@ hideCareStartDateWrap = (day, month, year) ->
     $("#" + year).val("")
 
 
-window.initDateWarning = (warningId,day, month, year,text) ->
+window.initDateWarning = (warningId,day, month, year,text,testMode) ->
   hideWarning(warningId)
 
-  $("#"+day).change(initDateWarningOnChange(warningId,day, month, year,text))
-  $("#"+month).change(initDateWarningOnChange(warningId,day, month, year,text))
-  $("#"+year).change(initDateWarningOnChange(warningId,day, month, year,text))
+  $("#"+day).change(initDateWarningOnChange(warningId,day, month, year,text,testMode))
+  $("#"+month).change(initDateWarningOnChange(warningId,day, month, year,text,testMode))
+  $("#"+year).change(initDateWarningOnChange(warningId,day, month, year,text,testMode))
 
-initDateWarningOnChange = (warningId,day,month,year,text) -> ->
+initDateWarningOnChange = (warningId,day,month,year,text,testMode) -> ->
   dayV = $("#"+day).val()
   monthV = $("#"+month).val()
   yearV = $("#"+year).val()
@@ -35,7 +35,7 @@ initDateWarningOnChange = (warningId,day,month,year,text) -> ->
     futureDate = new Date(yearV,monthV,dayV)
     if(new Date().addMonths(3).getTime() <= futureDate.getTime())
       showWarning(warningId)
-      trackEvent('/your-claim-date/claim-date', 'Error',text);
+      if not testMode then trackEvent('/your-claim-date/claim-date', 'Error',text);
     else
       hideWarning(warningId)
 

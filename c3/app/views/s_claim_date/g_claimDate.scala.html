@@ -71,7 +71,7 @@
             window.initDateWarning("claimDateWarning",
              "@CarersCrypto.encryptAES("dateOfClaim_day")",
              "@CarersCrypto.encryptAES("dateOfClaim_month")",
-             "@CarersCrypto.encryptAES("dateOfClaim_year")","@Messages("dateOfClaim.warning")");
+             "@CarersCrypto.encryptAES("dateOfClaim_year")","@Messages("dateOfClaim.warning")",@play.api.Play.isTest(play.api.Play.current));
             });
 
         </script>
