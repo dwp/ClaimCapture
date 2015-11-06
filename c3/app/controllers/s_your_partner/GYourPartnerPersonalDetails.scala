@@ -84,21 +84,26 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
   }.withPreviewConditionally(goToPreviewCondition)
 
   private def goToPreviewCondition(details: (Option[YourPartnerPersonalDetails],YourPartnerPersonalDetails),c: (Option[Claim],Claim)) = {
-    import Mappings._
 
+    val currentClaim = c._2
     val previewData = details._1
     val formData = details._2
     val matchingValue = previewData -> formData.isPartnerPersonYouCareFor
-    Logger.info(s"matching value $matchingValue")
-    matchingValue match {
-      case (Some(data),Some(isPartnerPerson))
-        if data.isPartnerPersonYouCareFor.nonEmpty && data.isPartnerPersonYouCareFor.get != isPartnerPerson => false
-      case (Some(data),None)
-        if data.isPartnerPersonYouCareFor.nonEmpty => false
-      case (Some(YourPartnerPersonalDetails(_,_,_,_,_,_,_,_,_,_,None,_)),Some(_)) => false
 
-      case _ => true
+    currentClaim.questionGroup[TheirPersonalDetails] match {
+      case None => false
+      case _ =>
+        matchingValue match {
+        case (Some(data),Some(isPartnerPerson))
+          if data.isPartnerPersonYouCareFor.nonEmpty && data.isPartnerPersonYouCareFor.get != isPartnerPerson => false
+        case (Some(data),None)
+          if data.isPartnerPersonYouCareFor.nonEmpty => false
+        case (Some(YourPartnerPersonalDetails(_,_,_,_,_,_,_,_,_,_,None,_)),Some(_)) => false
+
+        case _ => true
+      }
     }
+
   }
 
   def clearTheirPersonalDetailsIfPartnerQuestionChanged(claim:Claim,formData:YourPartnerPersonalDetails) = {
