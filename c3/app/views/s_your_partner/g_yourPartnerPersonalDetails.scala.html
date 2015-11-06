@@ -1,3 +1,4 @@
+@import models.domain.TheirPersonalDetails
 @(currentForm: Form[models.domain.YourPartnerPersonalDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
 
 @import utils.helpers._
@@ -135,7 +136,8 @@
                 storedData:@jsiFy(previewStoredFormData.isPartnerPersonYouCareFor),
                 textNext:"@Messages("form.next")",
                 textSummary:"@Messages("form.returnToSummary")",
-                hadPartnerN:"@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")"});
+                hadPartnerN:"@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
+                theirPersonalDetailsData:@claim.questionGroup[TheirPersonalDetails].exists(_=>true)});
                 }
             } )
 

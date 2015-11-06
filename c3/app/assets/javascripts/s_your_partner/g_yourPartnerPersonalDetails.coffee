@@ -61,12 +61,16 @@ setButtonText = (o) ->
 	isPersonYouCareForNo = $("#"+o.isPersonYouCareForN).is ':checked'
 	personYouCareForValue = if isPersonYouCareFor then "yes" else "no"
 	isPersonNotSelected = !isPersonYouCareFor && !isPersonYouCareForNo
+	theirPersonalDetailsData = o.theirPersonalDetailsData
 	button = $("button.button")
-	if !isPersonNotSelected and o.storedData != undefined and o.storedData != personYouCareForValue
-		button.text(o.textNext)
-	else if !isPersonNotSelected and o.storedData == undefined
-		button.text(o.textNext)
-	else if isPersonNotSelected and o.storedData != undefined
+	if(!theirPersonalDetailsData)
 		button.text(o.textNext)
 	else
-		button.text(o.textSummary)
+		if !isPersonNotSelected and o.storedData != undefined and o.storedData != personYouCareForValue
+			button.text(o.textNext)
+		else if !isPersonNotSelected and o.storedData == undefined
+			button.text(o.textNext)
+		else if isPersonNotSelected and o.storedData != undefined
+			button.text(o.textNext)
+		else
+			button.text(o.textSummary)
