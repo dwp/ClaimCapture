@@ -9,12 +9,12 @@
 
 @argsWithSpecificArgs = @{
     val today = DayMonthYear.today
-    val yearsToSubtract = (today.isBefore(DayMonthYear(5,4,today.year.get))) match {
+    val yearsToSubtract = (today.isBefore(DayMonthYear(6,4,today.year.get))) match {
         case true => 2
         case false => 1
     }
     val year = (today - yearsToSubtract years).year.get
-    val startDate = DayMonthYear(5,4,year)
+    val startDate = DayMonthYear(6,4,year)
     args ++ Seq('helperAbove -> Messages("dateExample.helper", startDate.`d M yyyy`))
 }
 
