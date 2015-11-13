@@ -1,0 +1,20 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+
+@import models.domain._
+@import play.api.i18n.{MMessages => Messages}
+@import helper._
+
+@howWePayYou = @{claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou())}
+@bankDetailsEntered=@{
+    howWePayYou.bankDetails match {
+        case Some(_) => Messages("bankDetailsGiven")
+        case _ => Messages("bankDetailsNotGiven")
+    }
+}
+
+@content = {
+    @fieldWithLink("bank_details", "bankDetails.fieldLabel", bankDetailsEntered, elementId=Some("likeToPay"))
+}
+
+@accordion(label = Messages("bankDetails.accordionTitle"), openLabel = "open-bank-details", closeLabel = "close-bank-details", content = content, 'track -> true)
+
