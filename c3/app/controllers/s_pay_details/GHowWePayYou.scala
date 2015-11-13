@@ -57,7 +57,7 @@ object GHowWePayYou extends Controller with CachedClaim with Navigable {
       boundForm.errors ++
         bankDetailsMapping.bind(boundForm.data.collect { case (k, v) if handleBankDetailsField.isDefinedAt(k) => (handleBankDetailsField(k), v) })
           .fold(
-            fa => fa.map(f => f.copy(key=s"bankDetails.${f.key}")),
+            fa => fa.map(f => f.copy(key = s"bankDetails.${f.key}")),
             fb => Nil)
     else
       boundForm.errors
@@ -72,6 +72,6 @@ object GHowWePayYou extends Controller with CachedClaim with Navigable {
       (howWePayYou: HowWePayYou) => {
         claim.update(howWePayYou) -> redirectPath
       })
-  }
+  } withPreview()
 
 }

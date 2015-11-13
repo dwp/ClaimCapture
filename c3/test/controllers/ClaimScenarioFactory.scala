@@ -166,10 +166,10 @@ object ClaimScenarioFactory {
   def s2AnsweringNoToQuestions() = {
     val claim = new TestData
     //Your details
-    claim.AboutYouTitle="Mrs"
-    claim.AboutYouFirstName="Jane"
-    claim.AboutYouSurname="Doe"
-    claim.AboutYouNationalInsuranceNumber="AB123456D"
+    claim.AboutYouTitle = "Mrs"
+    claim.AboutYouFirstName = "Jane"
+    claim.AboutYouSurname = "Doe"
+    claim.AboutYouNationalInsuranceNumber = "AB123456D"
     claim.AboutYouDateOfBirth = "12/07/1970"
 
     // Your contact details
@@ -245,7 +245,7 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s4CareYouProvide(hours35:Boolean,liveSameAddress:Boolean = false) = {
+  def s4CareYouProvide(hours35: Boolean, liveSameAddress: Boolean = false) = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
     claim.AboutTheCareYouProvideTitlePersonCareFor = "Mr"
@@ -254,10 +254,10 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideSurnamePersonCareFor = "Wilson"
     claim.AboutTheCareYouProvideNINOPersonCareFor = "AA123456A"
     claim.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/03/1990"
-    if (liveSameAddress){
+    if (liveSameAddress) {
       claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "yes"
 
-    }else{
+    } else {
       claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "no"
 
     }
@@ -290,7 +290,7 @@ object ClaimScenarioFactory {
       claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
       claim.ClaimDateDidYouCareForThisPersonfor35Hours = "Yes"
       claim.ClaimDateWhenDidYouStartToCareForThisPerson = "03/04/2013"
-    }else {
+    } else {
       claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "No"
     }
 
@@ -624,7 +624,7 @@ object ClaimScenarioFactory {
 
     claim
   }
-  
+
   def s9otherMoneyOther = {
     val claim = s7Employment()
     // G1 About other money
@@ -720,11 +720,52 @@ object ClaimScenarioFactory {
 
     claim
   }
-  
+
   def s11ConsentAndDeclaration = {
     val claim = s9SelfEmployment
     claim.ConsentDeclarationTellUsAnythingElseAnswerAboutClaim = "no"
     claim.ConsentDeclarationCommunicationWelsh = "no"
+
+    claim
+  }
+
+  def previewAboutYouForBankDetails = {
+    val claim = s12ClaimDate()
+    claim.AboutYouTitle = "Mr"
+    claim.AboutYouFirstName = "John"
+    claim.AboutYouSurname = "Appleseed"
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
+    claim.AboutYouNINO = "AB123456C"
+    claim.AboutYouAddress = "101 Clifton Street&Blackpool"
+    claim.AboutYouPostcode = "FY1 2RW"
+    claim.HowWeContactYou = "01772 888901"
+    claim.AboutYouWantsEmailContact = "No"
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+    claim.AboutYouDateOfBirth = "02/02/1950"
+
+    claim
+  }
+
+  def previewLessThan65WithBankDetails = {
+    val claim = previewAboutYouForBankDetails
+    claim.AboutYouDateOfBirth = "02/02/1980"
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = "yes"
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek
+    claim.HowWePayYouNameOfAccountHolder = "John Smith"
+    claim.WhoseNameOrNamesIsTheAccountIn = "John Smith"
+    claim.HowWePayYouFullNameOfBankorBuildingSociety = "Carers Bank"
+    claim.HowWePayYouSortCode = "090126"
+    claim.HowWePayYouAccountNumber = "12345678"
+
+    claim
+  }
+
+  def previewLessThan65WithNoBankDetails = {
+    val claim = previewAboutYouForBankDetails
+    claim.AboutYouDateOfBirth = "02/02/1980"
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = "no"
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek
 
     claim
   }
