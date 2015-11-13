@@ -217,7 +217,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         lastPage must beAnInstanceOf[G7BreaksInCarePage]
       }
 
-      "valid submission if 'Contact phone or mobile number' not filled in" in new WithBrowser with PageObjects{
+      "valid submission if 'Contact number' not filled in" in new WithBrowser with PageObjects{
         val page =  G2ReportAChangeInYourCircumstancesPage(context)
         val claim = CircumstancesScenarioFactory.reportChangesOtherChangeInfo
         claim.FurtherInfoContact = ""
@@ -228,7 +228,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         nextPage must beAnInstanceOf[G4OtherChangeInfoPage]
       }
 
-      "valid submission if 'Contact phone or mobile number' is filled in with number" in new WithBrowser with PageObjects{
+      "valid submission if 'Contact number' is filled in with number" in new WithBrowser with PageObjects{
         val page =  G2ReportAChangeInYourCircumstancesPage(context)
         val claim = CircumstancesScenarioFactory.reportChangesOtherChangeInfo
         page goToThePage()
@@ -238,7 +238,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
         nextPage must beAnInstanceOf[G4OtherChangeInfoPage]
       }
 
-      "contain error if 'Contact phone or mobile number' is filled in with text" in new WithBrowser with PageObjects{
+      "contain error if 'Contact number' is filled in with text" in new WithBrowser with PageObjects{
         val page =  G2ReportAChangeInYourCircumstancesPage(context)
         val claim = CircumstancesScenarioFactory.reportBreakFromCaring
         claim.FurtherInfoContact = "hjhjsddh"
@@ -247,10 +247,10 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Contact phone or mobile number - Invalid value")
+        errors(0) must contain("Contact number - Invalid value")
       }
 
-      "contain error if 'Contact phone or mobile number' is field length less than min length" in new WithBrowser with PageObjects{
+      "contain error if 'Contact number' is field length less than min length" in new WithBrowser with PageObjects{
         val page =  G2ReportAChangeInYourCircumstancesPage(context)
         val claim = CircumstancesScenarioFactory.reportBreakFromCaring
         claim.FurtherInfoContact = "012345"
@@ -259,10 +259,10 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Contact phone or mobile number - Invalid value")
+        errors(0) must contain("Contact number - Invalid value")
       }
 
-      "contain error if 'Contact phone or mobile number' is field length greater than max length" in new WithBrowser with PageObjects{
+      "contain error if 'Contact number' is field length greater than max length" in new WithBrowser with PageObjects{
         val page =  G2ReportAChangeInYourCircumstancesPage(context)
         val claim = CircumstancesScenarioFactory.reportBreakFromCaring
         claim.FurtherInfoContact = "012345678901234567890"
@@ -271,7 +271,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Contact phone or mobile number - Invalid value")
+        errors(0) must contain("Contact number - Invalid value")
       }
 
     }

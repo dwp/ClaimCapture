@@ -1,6 +1,7 @@
 @(currentForm: Form[models.domain.Declaration])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
 
 @import views.html.helper._
+@import views.html.ga._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.base._
@@ -32,9 +33,13 @@
 
 			<p>@Messages("declaration.openingParagraph")</p>
 			<ul class="list-bullet">
-				<li>@Messages("declaration.1")</li>
-				<li>@Messages("declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@Messages("declaration.2b")</a> @Messages("declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@Messages("declaration.2d")</a></li>
-				<li>@Messages("declaration.3a") <a rel="external" id="claimnotes" target="_blank" href="/internal-claim-notes/@lang.code">@Messages("declaration.3b")</a> @Messages("declaration.3c")</li>
+				<li>@Messages("declaration.correct")</li>
+				<li>@Messages("declaration.overpayment")</li>
+				<li>@Messages("declaration.reportChanges.1")
+					<a @trackClickEvent("Claim Declaration - Report change online") rel="external" target="_blank" href="@Messages("declaration.reportChanges.2.url")">@Messages("declaration.reportChanges.2.anchorText")</a>
+					@Messages("declaration.reportChanges.3")
+					<a @trackClickEvent("Claim Declaration - Carer's Allowance Unit") rel="external" target="_blank" href="@Messages("declaration.reportChanges.4.url")">@Messages("declaration.reportChanges.4.anchorText")</a>
+				</li>
 			</ul>
 			<p class="warning-text">
 				@Messages("declaration.warning")

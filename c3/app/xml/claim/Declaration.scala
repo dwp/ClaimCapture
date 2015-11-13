@@ -13,9 +13,9 @@ object  Declaration extends XMLComponent {
     <Declaration>
       <DeclarationStatement>
         <Content>{Messages("declaration.openingParagraph")}</Content>
-        <Content>{Messages("declaration.1")}</Content>
-        <Content>{Messages("declaration.2.pdf")}</Content>
-        <Content>{Messages("declaration.3.pdf")}</Content>
+        <Content>{Messages("declaration.correct")}</Content>
+        <Content>{Messages("declaration.overpayment")}</Content>
+        <Content>{Messages("declaration.reportChanges.pdf")}</Content>
         <Content>{Messages("declaration.warning")}</Content>
       </DeclarationStatement>
       {question(<DeclarationQuestion/>,"someoneElse", declaration.someoneElse)}
