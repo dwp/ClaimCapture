@@ -1,0 +1,25 @@
+body {      
+    font-size: 100%;
+    padding: 10px; 
+    margin: auto;
+    width: 98%;         
+}
+
+.nav {  
+    font-family: Arial, sans-serif;
+    background-color: #dee0e2;
+    width: 22%;     
+    float: left; 
+    padding: 0; 
+    border: 2px solid #000000;       
+    height: 1200px;  
+}    
+
+.app  {
+    float: right;
+    margin: 0 auto;
+    height: 1200px;
+    width: 76%; 
+    background: #ffffff;
+    border: 2px solid #000000;      
+}
