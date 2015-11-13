@@ -50,7 +50,7 @@ class PreviewPageBankDetailsSpec extends Specification with Tags {
       source must contain("02 February, 1950")
       source must not contain ("Bank details")
 
-    } section "preview"
+    }
 
 
     def fillBankDetailsSection(context: PageObjectsContext, bankData: TestData, eligibleForBankPage: Boolean = true) = {
@@ -70,5 +70,5 @@ class PreviewPageBankDetailsSpec extends Specification with Tags {
         bankDetailsPage submitPage()
       }
     }
-  }
+  } section "preview"
 }
