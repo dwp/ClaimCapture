@@ -28,7 +28,8 @@
                     <ul>
                         @yesNoRadioGroup(currentForm("beenInEducationSinceClaimDate"),
                             '_label -> Messages("beenInEducationSinceClaimDate.label", displayDateForLabel),
-                            'helperAbove -> Messages("beenInEducationSinceClaimDate.label.helper", displayDateForLabel)
+                            'helperAbove -> Messages("beenInEducationSinceClaimDate.label.helper", displayDateForLabel),
+                            'track->true
                         )
 
                         @otherDetailPlaceHolder(
