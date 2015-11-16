@@ -5,11 +5,11 @@ import models.domain.{Claim, CircumstancesOtherInfo, MockForm}
 import models.view.CachedChangeOfCircs
 import play.api.cache.Cache
 import play.api.test.Helpers._
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import controllers.circs.s2_report_changes
 import utils.WithApplication
 
-class G4OtherChangeInfoSpec extends Specification with Tags{
+class G4OtherChangeInfoSpec extends Specification{
 
   val otherInfo = "other info"
 
@@ -46,6 +46,7 @@ class G4OtherChangeInfoSpec extends Specification with Tags{
       status(result) mustEqual SEE_OTHER
     }
 
-  } section("unit", models.domain.CircumstancesOtherInfo.id)
+  }
+  section("unit", models.domain.CircumstancesOtherInfo.id)
 
 }

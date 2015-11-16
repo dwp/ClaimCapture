@@ -4,14 +4,14 @@ import app.CircsBreaksWhereabouts._
 import models.DayMonthYear
 import models.domain.{BreaksInCare, Claiming}
 import models.view.CachedClaim
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.pageobjects.s_breaks.GBreaksInCarePage
 import utils.pageobjects.{PageObjects, TestData}
 import utils.{WithApplication, WithJsBrowser}
 
-class GBreakSpec extends Specification with Tags {
+class GBreakSpec extends Specification {
   "Break" should {
     val breakId1 = "1"
 
@@ -185,5 +185,6 @@ class GBreakSpec extends Specification with Tags {
           b.breaks.head.start.year.get shouldEqual yearUpdate
       }
     }
-  } section("unit", models.domain.CareYouProvide.id)
+  }
+  section("unit", models.domain.CareYouProvide.id)
 }

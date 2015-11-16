@@ -1,13 +1,13 @@
 package utils.helpers
 
-import org.specs2.mutable.{Tags,Specification}
+import org.specs2.mutable._
 
 /**
  * Test generation of unique transaction id.
  * @author Jorge Migueis
  *         Date: 03/07/2013
  */
-class TransactionIdSpec extends Specification with Tags {
+class TransactionIdSpec extends Specification {
 
 /*
   "The transaction id" should {
@@ -26,7 +26,8 @@ class TransactionIdSpec extends Specification with Tags {
       UniqueTransactionId() matches("[2-9A-HJ-NP-Z]{7}")
     }
 
-  } section "externalDependency"
+  }
+  section("externalDependency")
 */
 
 }

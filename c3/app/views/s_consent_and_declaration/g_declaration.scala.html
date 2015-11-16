@@ -1,17 +1,17 @@
-@(currentForm: Form[models.domain.Declaration])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.base._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import controllers.mappings.Mappings.yes
 @import models.domain.Employment
 @import models.domain.AboutOtherMoney
 @import utils.helpers.CarersTemplate._
 
-@defining(lang) { implicit language =>
-@main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm)) {
+
+@main(messages("s11.g4") + " - " + messages("s11.longName"), Some(currentForm)) {
 
 	@form(action = controllers.s_consent_and_declaration.routes.GDeclaration.submit, 'role -> "form") {
 		@DwpCSRFFormHelper.formField
@@ -25,19 +25,19 @@
 			   @yesNoRadioGroup(currentForm("tellUsWhyFromAnyoneOnForm.informationFromPerson"))
 
 			   @otherDetailPlaceHolder(
-				   inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyFromAnyoneOnForm_whyPerson"), 'placeholder->Messages("why_placeholder"),'textAreaHelper -> Html(Messages("3000charsLeft")), 'maxLength -> 3000 )),
+				   inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyFromAnyoneOnForm_whyPerson"), 'placeholder->messages("why_placeholder"),'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000 )),
 				   'id->"whyPersonWrapper"
 			   )
 		   </ul>
 
-			<p>@Messages("declaration.openingParagraph")</p>
+			<p>@messages("declaration.openingParagraph")</p>
 			<ul class="list-bullet">
-				<li>@Messages("declaration.1")</li>
-				<li>@Messages("declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@Messages("declaration.2b")</a> @Messages("declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@Messages("declaration.2d")</a></li>
-				<li>@Messages("declaration.3a") <a rel="external" id="claimnotes" target="_blank" href="/internal-claim-notes/@lang.code">@Messages("declaration.3b")</a> @Messages("declaration.3c")</li>
+				<li>@messages("declaration.1")</li>
+				<li>@messages("declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@messages("declaration.2b")</a> @messages("declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@messages("declaration.2d")</a></li>
+				<li>@messages("declaration.3a") <a rel="external" id="claimnotes" target="_blank" href="/internal-claim-notes/@lang.code">@messages("declaration.3b")</a> @messages("declaration.3c")</li>
 			</ul>
 			<p class="warning-text">
-				@Messages("declaration.warning")
+				@messages("declaration.warning")
 			</p>
 
 			<div class="block-checkbox">
@@ -46,9 +46,9 @@
 
 			 <ul>
 				 @otherDetailPlaceHolder(
-					inputDef = Seq(carersInputText(currentForm("nameOrOrganisation"))(utils.helpers.CarersTemplate.fieldConstructor,lang),
+					inputDef = Seq(carersInputText(currentForm("nameOrOrganisation"))(utils.helpers.CarersTemplate.fieldConstructor,lang,messages),
 				 					Html("<br/>"),
-				 					Html(Messages("carerTermsDesc"))),
+				 					Html(messages("carerTermsDesc"))),
 					'id -> "nameOrOrgWrapper",
 					'display -> currentForm("someoneElse").value.map(p => p match{ case "true" => "yes" case _ => p}).getOrElse("no")
 				 )
@@ -83,4 +83,4 @@
 	<script type="text/javascript">$($("#js").val("true"));</script>
 
 }
-}
+

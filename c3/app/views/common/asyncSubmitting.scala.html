@@ -1,8 +1,8 @@
-@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent],flash:Flash)
+@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import models.view.CachedClaim
 @import views.html.helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import utils.csrf.DwpCSRFFormHelper
 
 @submitCall = @{
@@ -19,7 +19,7 @@
     }
 }
 
-@defining(lang) { implicit language =>
+
     @common.govMain("Async Submitting") {
         @form(action = submitCall) {
              @DwpCSRFFormHelper.formField
@@ -36,21 +36,21 @@
 
                             <div class="prompt submitting">
                                 <p>@Html(Messages(if(isClaim)"s11.g7.help2" else "s11.g7.help2.c"))</p>
-                                <p>@Html(Messages("s11.g7.help3"))</p>
+                                <p>@Html(messages("s11.g7.help3"))</p>
                             </div>
 
                         </section>
 
                         <section id="refresh">
 
-                            <h1>@Html(Messages("s11.g7.help1"))<span id="dots"></span></h1>
+                            <h1>@Html(messages("s11.g7.help1"))<span id="dots"></span></h1>
                             <div class="prompt submitting">
-                                <p>@Html(Messages("s11.g7.refresh1"))</p>
+                                <p>@Html(messages("s11.g7.refresh1"))</p>
                                 <p>@Html(Messages(if(isClaim) "s11.g7.refresh2" else "s11.g7.refresh2.c"))</p>
                             </div>
 
                             <nav class="form-steps">
-                                <button type="submit" name="action" value="next" class="button secondary">@Html(Messages("s11.g7.refresh"))</button>
+                                <button type="submit" name="action" value="next" class="button secondary">@Html(messages("s11.g7.refresh"))</button>
                             </nav>
 
                         </section>
@@ -61,8 +61,8 @@
 
             </div>
         }
-    }(views.html.common.submittingFooter(), lang, request,flash)
-}
+    }(views.html.common.submittingFooter(), lang, request,flash,messages)
+
 
 <script type="text/javascript">
     var n = 0

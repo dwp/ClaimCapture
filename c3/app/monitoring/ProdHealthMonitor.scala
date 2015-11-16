@@ -1,5 +1,7 @@
 package monitoring
 
+import com.google.inject.Singleton
 import monitor.HealthMonitor
 
-object ProdHealthMonitor extends HealthMonitor
+@Singleton
+class ProdHealthMonitor extends HealthMonitor

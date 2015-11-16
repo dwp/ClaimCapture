@@ -1,9 +1,9 @@
 package services
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.i18n.Lang
 
-class TransactionComponentSpec extends Specification with Tags {
+class TransactionComponentSpec extends Specification {
 
   "Transaction component" should {
     val transactionComponent = new ClaimTransactionComponent {

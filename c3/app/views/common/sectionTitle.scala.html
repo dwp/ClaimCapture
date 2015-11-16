@@ -1,6 +1,5 @@
-@(section:models.domain.Section.Identifier)(implicit claim:models.domain.Claim,lang: Lang, request: Request[AnyContent])
-@import play.api.i18n.{MMessages => Messages}
+@(section:models.domain.Section.Identifier)(implicit claim:models.domain.Claim,lang: Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
 @import utils.{SectionsManager => sm}
 <span class="section-progress">
-    @Messages("section.title",sm.currentSection(section),sm.claimSectionsNum)
+    @messages("section.title",sm.currentSection(section),sm.claimSectionsNum)
 </span>

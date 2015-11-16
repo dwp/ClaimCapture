@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.AboutSelfEmployment])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.AboutSelfEmployment])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -10,9 +10,8 @@
 @import scala.language.postfixOps
 
 
-@import play.api.i18n.{MMessages => Messages}
-@defining(lang) { implicit language =>
-@main(Messages("s8.g1") + " " + Messages("s8.longName"), Messages("s8.longName"), Some(currentForm),ignorePreview = true) {
+@import play.api.i18n.Messages
+@main(messages("s8.g1") + " " + messages("s8.longName"), messages("s8.longName"), Some(currentForm),ignorePreview = true) {
 
     @form(action = controllers.s_self_employment.routes.GAboutSelfEmployment.submit, 'role -> "form") {
 
@@ -23,11 +22,11 @@
 	            <ul>
 	                @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"))
 	
-	                @inputDayMonthYear(currentForm("whenDidYouStartThisJob"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 year).`d M yyyy`))
+	                @inputDayMonthYear(currentForm("whenDidYouStartThisJob"), 'helperAbove -> messages("dateExample.helper", (DayMonthYear.today - 1 year).`d M yyyy`))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-                            inputDayMonthYear(currentForm("whenDidTheJobFinish"),'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 6 months).`d M yyyy`)),
+                            inputDayMonthYear(currentForm("whenDidTheJobFinish"),'helperAbove -> messages("dateExample.helper", (DayMonthYear.today - 6 months).`d M yyyy`)),
                             yesNoRadioGroup(currentForm("haveYouCeasedTrading"))
 	                    ),
 	                    'id -> "selfEmployedNoWrap"
@@ -52,4 +51,4 @@
     </script>
 
 }
-}
+

@@ -1,4 +1,4 @@
-@(breaksInCareSummaryForm: Form[models.domain.CircumstancesBreaksInCareSummary], breaksInCare: models.domain.CircumstancesBreaksInCare)(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(breaksInCareSummaryForm: Form[models.domain.CircumstancesBreaksInCareSummary], breaksInCare: models.domain.CircumstancesBreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -10,12 +10,12 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.circs.s2_report_changes.main
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import app.CircsBreaksWhereabouts._
 
-@defining(lang) { implicit language =>
 
-@main(Messages("c2.g8") + " - " + Messages("c2.name")) {
+
+@main(messages("c2.g8") + " - " + messages("c2.name")) {
     @errorsSummary(breaksInCareSummaryForm)
 
     @form(action = controllers.circs.s2_report_changes.routes.G8BreaksInCareSummary.submit) {
@@ -26,7 +26,7 @@
 
             <div class="data-table">
 				 
-				 <h2 class="heading-medium">@Messages("c2.g7")</h2>
+				 <h2 class="heading-medium">@messages("c2.g7")</h2>
 
 				 <ul class="break-data">
 
@@ -34,29 +34,29 @@
 				  	
 					  	<h3 class="heading-small">
                             @{breaksInCare.breaksInCareStartDate.`dd/MM/yyyy`}
-                            @{if(breaksInCare.breaksInCareStartTime.isDefined) Html(Messages("at")) }
+                            @{if(breaksInCare.breaksInCareStartTime.isDefined) Html(messages("at")) }
                             @{if(breaksInCare.breaksInCareStartTime.isDefined) breaksInCare.breaksInCareStartTime }
                             <span>
-                                @{if(breaksInCare.breakEnded.answer == "yes") Html(Messages("to"))}
+                                @{if(breaksInCare.breakEnded.answer == "yes") Html(messages("to"))}
                             </span>
                             @{if(breaksInCare.breakEnded.answer == "yes") breaksInCare.breakEnded.date.get.`dd/MM/yyyy`}
-                            @{if(breaksInCare.breakEnded.time.isDefined) Html(Messages("at")) }
+                            @{if(breaksInCare.breakEnded.time.isDefined) Html(messages("at")) }
                             @{if(breaksInCare.breakEnded.time.isDefined) breaksInCare.breakEnded.time }
                          </h3>
 					  	
 					  	<dl>
-						  	<dt>@Html(Messages("wherePersonBreaksInCare.answer")):</dt>
-						  	<dd>@Html(Messages("circsBreaks." + breaksInCare.wherePersonBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))</dd>
+						  	<dt>@Html(messages("wherePersonBreaksInCare.answer")):</dt>
+						  	<dd>@Html(messages("circsBreaks." + breaksInCare.wherePersonBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))</dd>
 						  	
-						  	<dt>@Html(Messages("whereYouBreaksInCare.answer")):</dt>
-						  	<dd>@Html(Messages("circsBreaks." + breaksInCare.whereYouBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))</dd>
+						  	<dt>@Html(messages("whereYouBreaksInCare.answer")):</dt>
+						  	<dd>@Html(messages("circsBreaks." + breaksInCare.whereYouBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))</dd>
 						  	
-						  	<dt>@Html(Messages("medicalTreatment")):</dt>
-						  	<dd>@if("yes" == breaksInCare.medicalCareDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</dd>
+						  	<dt>@Html(messages("medicalTreatment")):</dt>
+						  	<dd>@if("yes" == breaksInCare.medicalCareDuringBreak) { @Html(messages("label.yes3")) } else { @Html(messages("label.no")) }</dd>
 					  	</dl>
 					  	
 						<div class="actions">
-							<a id="changeButton" href="@controllers.circs.s2_report_changes.routes.G7BreaksInCare.present">@Html(Messages("change"))</a>
+							<a id="changeButton" href="@controllers.circs.s2_report_changes.routes.G7BreaksInCare.present">@Html(messages("change"))</a>
 						</div>
 					
 				  	</li>
@@ -71,19 +71,19 @@
 
             <fieldset class="form-elements">
 
-                <legend class="form-label-bold heading-medium">@Messages("c2.g8")</legend>
+                <legend class="form-label-bold heading-medium">@messages("c2.g8")</legend>
 
                 <ul>
                     @yesNoRadioGroup(breaksInCareSummaryForm("additionalBreaks.answer"),
-                                     '_label -> Messages("additionalBreaks.label"),
-                                     'helperAbove -> Messages("additionalBreaks.text.helper"))
+                                     '_label -> messages("additionalBreaks.label"),
+                                     'helperAbove -> messages("additionalBreaks.text.helper"))
 
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
                             carersInputTextArea(breaksInCareSummaryForm("additionalBreaks.text"),
-	                            '_label -> Messages("additionalBreaks.text.label"),
-                                'helperAbove-> Html(Messages("moreAboutChanges.helper")),
-                                'helper -> Html(Messages("300charsLeft")),
+	                            '_label -> messages("additionalBreaks.text.label"),
+                                'helperAbove-> Html(messages("moreAboutChanges.helper")),
+                                'helper -> Html(messages("300charsLeft")),
 	                            'maxLength -> 300)
 	                    ),
 	                    'id -> "additionalBreaksWrap"
@@ -124,4 +124,4 @@
     </script>
 
 }
-}
+

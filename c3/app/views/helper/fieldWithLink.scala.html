@@ -1,8 +1,8 @@
 @import utils.helpers.CarersCrypto
 @import utils.helpers.CarersCrypto.encryptAES
-@(id:String, name:String, value:String,disableLink:Boolean = false, elementId:Option[String]=None)(implicit lang: Lang)
+@(id:String, name:String, value:String,disableLink:Boolean = false, elementId:Option[String]=None)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import controllers.PreviewRouteUtils._
 @import utils.helpers.PreviewField._
 @import utils.helpers.HtmlLabelHelper._
@@ -33,7 +33,7 @@
 	<td id="@getLinkContainerId(id, false)" class="review-action hide-print">
 		@if(!disableLink) {
 		<a class="button secondary" id="@getLinkId(id, false)" href="@{controllers.preview.routes.Preview.redirect(id)}@{elementLinkedToId}">
-			@Html(Messages("preview.change"))
+			@Html(messages("preview.change"))
 			<span class="visuallyhidden">@label (optional)</span>
 		</a>
 		}

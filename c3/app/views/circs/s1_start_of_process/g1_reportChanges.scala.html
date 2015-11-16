@@ -1,62 +1,50 @@
-@import controllers.circs.s1_start_of_process.G1ReportChanges
-@(reportChangesForm: Form[models.domain.ReportChanges])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(reportChangesForm: Form[models.domain.ReportChanges])(implicit claim: models.domain.Claim, lang:Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import helper._
-@import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
-@import views.html.common._
 @import views.html.helper._
-@import views.html.helper.dropdowns._
-@import views.html.helper.base._
-@import views.html.helper.dates._
-@import controllers.mappings.Mappings._
-@import utils.helpers.CarersCrypto
 @import app.ReportChange._
-@import play.api.i18n.{MMessages => Messages}
 @import play.api.Play
 @import play.api.Play.current
 @import app.ConfigProperties._
 
 
     @employmentOption(implicit lang: Lang) = @{
-        if(getProperty("circs.employment.active", default = false)) EmploymentChange.name -> Messages("reportChanges.employed")
-        else SelfEmployment.name -> Messages("reportChanges.selfEmployed")
+        if(getProperty("circs.employment.active", default = false)) EmploymentChange.name -> messages("reportChanges.employed")
+        else SelfEmployment.name -> messages("reportChanges.selfEmployed")
     }
 
-    @defining(lang) { implicit language =>
-
-    @main(Messages("c2.g1") + " - " + Messages("c2.name")) {
+    @main(messages("c2.g1") + " - " + messages("c2.name")) {
         @errorsSummary(reportChangesForm)
 
         @form(action = controllers.circs.s1_start_of_process.routes.G1ReportChanges.submit) {
             @DwpCSRFFormHelper.formField
 
             @helper.jsEnabled()
-            
+
             <div class="form-wrap">
-            
+
                 <fieldset class="form-elements">
 
-                    <legend class="form-label-bold">@Html(Messages("reportChanges"))</legend>
+                    <legend class="form-label-bold">@Html(messages("reportChanges"))</legend>
 
                     @listRadioGroupWithSubGroups(reportChangesForm("reportChanges"),
                         '_nestedFieldSet -> false,
                         '_showLabel -> false,
                         'track -> true,
                         'items -> Seq(
-                            StoppedCaring.name -> Messages("reportChanges.stoppedCaring"),
+                            StoppedCaring.name -> messages("reportChanges.stoppedCaring"),
                             employmentOption,
-                            BreakFromCaring.name -> Messages("reportChanges.breakFromCaringChanges"),
-                            BreakFromCaringYou.name -> Messages("reportChanges.breakFromCaringChangesYou"),
-                            AddressChange.name -> Messages("reportChanges.addressChange"),
-                            PaymentChange.name -> Messages("reportChanges.paymentChange"),
-                            AdditionalInfo.name -> Messages("reportChanges.anyOtherChanges")))
-                            
+                            BreakFromCaring.name -> messages("reportChanges.breakFromCaringChanges"),
+                            BreakFromCaringYou.name -> messages("reportChanges.breakFromCaringChangesYou"),
+                            AddressChange.name -> messages("reportChanges.addressChange"),
+                            PaymentChange.name -> messages("reportChanges.paymentChange"),
+                            AdditionalInfo.name -> messages("reportChanges.anyOtherChanges")))
+
                 </fieldset>
 
                 <nav class="form-steps">
                     <ul>
-                        <li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+                        <li><button type="submit" name="action" value="next" class="button">@Html(messages("form.next"))</button></li>
                     </ul>
                 </nav>
 
@@ -73,4 +61,4 @@
             } )
         </script>
     }
-}
+

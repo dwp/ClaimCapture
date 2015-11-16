@@ -1,11 +1,11 @@
-@(field: play.api.data.Field, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang, request: Request[AnyContent])
+@(field: play.api.data.Field, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersCrypto
 @import play.api.Play
 @import play.api.Play.current
 @import utils.helpers.GAHelper._
 @import app.ConfigProperties._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
     @gaTrack(id: String,v: (String,String)) = @{
         val tracking = args.find(_._1 == 'track).getOrElse('track->false)._2.asInstanceOf[Boolean]

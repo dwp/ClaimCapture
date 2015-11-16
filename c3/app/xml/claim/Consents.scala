@@ -3,7 +3,9 @@ package xml.claim
 import models.domain.Claim
 import xml.XMLHelper._
 import xml.XMLComponent
-
+import play.api.i18n.Messages
+import play.api.Play.current
+import play.api.i18n.Messages.Implicits._
 
 object Consents extends XMLComponent {
 

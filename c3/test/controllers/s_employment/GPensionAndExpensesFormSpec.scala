@@ -1,9 +1,10 @@
 package controllers.s_employment
 
+import utils.WithApplication
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 
-class GPensionAndExpensesFormSpec extends Specification with Tags {
+class GPensionAndExpensesFormSpec extends Specification {
   "About Employment - Pension and Expenses Form" should {
     val jobId = "1"
     val yes = "yes"
@@ -13,7 +14,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
     val jobExpenses = "Some job expenses"
     val overThreeHundredChars = "Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters"
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       GPensionAndExpenses.form.bind(
         Map(
           "iterationID" -> jobId,
@@ -32,7 +33,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
       )
     }
 
-    "have 3 mandatory fields" in {
+    "have 3 mandatory fields" in new WithApplication {
       GPensionAndExpenses.form.bind(
         Map("iterationID" -> jobId)
       ).fold(
@@ -46,7 +47,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
         )
     }
 
-    "reject if haveExpensesForJob is not filled" in {
+    "reject if haveExpensesForJob is not filled" in new WithApplication {
       GPensionAndExpenses.form.bind(
         Map(
           "iterationID" -> jobId,
@@ -58,7 +59,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
       )
     }
 
-    "reject if payPensionScheme is not filled" in {
+    "reject if payPensionScheme is not filled" in new WithApplication {
       GPensionAndExpenses.form.bind(
         Map(
           "iterationID" -> jobId,
@@ -70,7 +71,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
         )
     }
 
-    "reject if pay for things is not filled" in {
+    "reject if pay for things is not filled" in new WithApplication {
       GPensionAndExpenses.form.bind(
         Map(
           "iterationID" -> jobId,
@@ -82,7 +83,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
       )
     }
 
-    "have 1 expanded mandatory field if payPensionScheme is yes" in {
+    "have 1 expanded mandatory field if payPensionScheme is yes" in new WithApplication {
       GPensionAndExpenses.form.bind(
         Map(
           "iterationID" -> jobId,
@@ -99,7 +100,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
         )
     }
 
-    "have 1 expanded mandatory field if haveExpensesForJob is yes" in {
+    "have 1 expanded mandatory field if haveExpensesForJob is yes" in new WithApplication {
       GPensionAndExpenses.form.bind(
         Map(
           "iterationID" -> jobId,
@@ -116,7 +117,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
         )
     }
 
-    "reject if details for the things paid for not filled when answered yes" in {
+    "reject if details for the things paid for not filled when answered yes" in new WithApplication {
         GPensionAndExpenses.form.bind(
           Map(
             "iterationID" -> jobId,
@@ -133,7 +134,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
         )
     }
 
-    "reject too many characters in text fields" in {
+    "reject too many characters in text fields" in new WithApplication {
       GPensionAndExpenses.form.bind(
         Map(
           "iterationID" -> jobId,
@@ -153,7 +154,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject special characters in text fields" in {
+    "reject special characters in text fields" in new WithApplication {
       GPensionAndExpenses.form.bind(
         Map(
           "iterationID" -> jobId,
@@ -174,5 +175,6 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section("unit", models.domain.Employment.id)
+  }
+  section("unit", models.domain.Employment.id)
 }

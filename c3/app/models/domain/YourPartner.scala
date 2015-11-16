@@ -3,6 +3,9 @@ package models.domain
 import models.DayMonthYear
 import controllers.mappings.Mappings._
 import models.NationalInsuranceNumber
+import play.api.i18n.Messages
+import play.api.Play.current
+import play.api.i18n.Messages.Implicits._
 
 object YourPartner extends Section.Identifier {
   val id = "s4"

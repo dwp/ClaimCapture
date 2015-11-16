@@ -1,10 +1,10 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 @import views.html.helper.base.carersInputText
 @import utils.helpers.EmptyTemplate._
 @import utils.helpers._
 @import views.html.helper.checkConstraintRequired
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 <fieldset class="question-group">
 

@@ -1,20 +1,15 @@
 package controllers.s_consent_and_declaration
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain.{Declaration, Claiming}
 import models.view.CachedClaim
-import services.submission.MockInjector
-import controllers.s_other_money.{GAboutOtherMoney, GAboutOtherMoneySpec}
-import controllers.s_employment.GJobDetails
+import controllers.s_other_money.GAboutOtherMoney
 import utils.WithApplication
+import play.api.Play.current
 
-class GDeclarationSpec extends Specification with MockInjector with Tags {
-
-  val gDeclaration = resolve(classOf[GDeclaration])
-
-
+class GDeclarationSpec extends Specification {
   val formInputAboutOtherMoney = Seq("anyPaymentsSinceClaimDate.answer" -> "no",
     "statutorySickPay.answer" -> "yes",
     "statutorySickPay.howMuch" -> "12",
@@ -28,6 +23,7 @@ class GDeclarationSpec extends Specification with MockInjector with Tags {
 
   "Declaration" should {
     "present" in new WithApplication with Claiming {
+      val gDeclaration = current.injector.instanceOf[GDeclaration]
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val result = gDeclaration.present(request)
@@ -35,6 +31,7 @@ class GDeclarationSpec extends Specification with MockInjector with Tags {
     }
 
     """enforce answer""" in new WithApplication with Claiming {
+      val gDeclaration = current.injector.instanceOf[GDeclaration]
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val result = gDeclaration.submit(request)
@@ -42,6 +39,7 @@ class GDeclarationSpec extends Specification with MockInjector with Tags {
     }
 
     """failed filling nameOrOrganisation""" in new WithApplication with Claiming {
+      val gDeclaration = current.injector.instanceOf[GDeclaration]
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
                                  .withFormUrlEncodedBody("someoneElse" -> "checked")
 
@@ -50,6 +48,7 @@ class GDeclarationSpec extends Specification with MockInjector with Tags {
     }
 
     """failed filling why not contact person reason""" in new WithApplication with Claiming {
+      val gDeclaration = current.injector.instanceOf[GDeclaration]
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("tellUsWhyFromAnyoneOnForm.informationFromPerson" -> "no")
 
@@ -58,6 +57,7 @@ class GDeclarationSpec extends Specification with MockInjector with Tags {
     }
 
     """accept answers without someoneElse""" in new WithApplication with Claiming {
+      val gDeclaration = current.injector.instanceOf[GDeclaration]
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
                                  .withFormUrlEncodedBody("tellUsWhyFromAnyoneOnForm.informationFromPerson" -> "no",
                                                          "tellUsWhyFromAnyoneOnForm.whyPerson" -> "reason")
@@ -67,6 +67,7 @@ class GDeclarationSpec extends Specification with MockInjector with Tags {
     }
 
     """accept answers""" in new WithApplication with Claiming {
+      val gDeclaration = current.injector.instanceOf[GDeclaration]
       val result1 = GAboutOtherMoney.submit(FakeRequest()
         withFormUrlEncodedBody(formInputAboutOtherMoney: _*))
 
@@ -91,6 +92,7 @@ class GDeclarationSpec extends Specification with MockInjector with Tags {
     }
 
     """accept answers with both consent questions answered yes""" in new WithApplication with Claiming {
+      val gDeclaration = current.injector.instanceOf[GDeclaration]
       val result1 = GAboutOtherMoney.submit(FakeRequest()
         withFormUrlEncodedBody(formInputAboutOtherMoney: _*))
 
@@ -102,6 +104,6 @@ class GDeclarationSpec extends Specification with MockInjector with Tags {
       val result = gDeclaration.submit(request)
       redirectLocation(result) must beSome("/async-submitting")
     }
-
-  } section("unit", models.domain.ConsentAndDeclaration.id)
+  }
+  section("unit", models.domain.ConsentAndDeclaration.id)
 }

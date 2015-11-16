@@ -1,12 +1,13 @@
 package controllers
 
+import utils.WithApplication
 import java.io.InputStream
 import java.net.{URL, HttpURLConnection}
 import java.util.UUID._
 
 import app.ConfigProperties._
 import org.specs2.mock.Mockito
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.Logger
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -15,11 +16,11 @@ import collection.JavaConverters._
 /**
  * Created by valtechuk on 25/03/2015.
  */
-class ChannelShiftSpec extends Specification with Tags with Mockito{
+class ChannelShiftSpec extends Specification with Mockito{
 
   "Channel Shift Controller" should {
 
-    "preserve parameter data" in {
+    "preserve parameter data" in new WithApplication {
 
       val params = Map("v" -> "1",
       "tid" -> "UA-43115970-1",
@@ -45,7 +46,8 @@ class ChannelShiftSpec extends Specification with Tags with Mockito{
       }
 
     }
-  }section ("unit", "slow")
+  }
+  section ("unit", "slow")
 }
 
 class ChannelShiftTestable(params:Map[String,String],url:URLWrapper) extends ChannelShift(params) {

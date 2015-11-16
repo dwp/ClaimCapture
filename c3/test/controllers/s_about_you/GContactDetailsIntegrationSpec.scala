@@ -1,6 +1,6 @@
 package controllers.s_about_you
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithJsBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects._
@@ -11,7 +11,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import org.openqa.selenium.By
 import utils.helpers.PreviewField._
 
-class GContactDetailsIntegrationSpec extends Specification with Tags {
+class GContactDetailsIntegrationSpec extends Specification {
   "Contact Details" should {
     "be presented" in new WithJsBrowser with PageObjects{
 			val page =  GContactDetailsPage(context)
@@ -194,5 +194,6 @@ class GContactDetailsIntegrationSpec extends Specification with Tags {
       answerText(previewPageModified) mustEqual "Yes - myemail@website.com"
     }
 
-  } section("integration", models.domain.AboutYou.id)
+  }
+  section("integration", models.domain.AboutYou.id)
 }

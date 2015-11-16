@@ -3,9 +3,9 @@ package controllers
 import utils.WithBrowser
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s2_report_changes.G7BreaksInCarePage
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 
-class ThankYouCircsIntegrationSpec extends Specification with Tags {
+class ThankYouCircsIntegrationSpec extends Specification {
 
   "Change Thank You" should {
     "present 'Thank You' page" in new WithBrowser with BrowserMatchers {
@@ -34,5 +34,6 @@ class ThankYouCircsIntegrationSpec extends Specification with Tags {
       browser.goTo("/thankyou/change-carers")
       browser.find("#breaksInCareMessageTitle").getText must beNull
    }
-  } section "integration"
+  }
+section("integration")
 }

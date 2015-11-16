@@ -4,12 +4,11 @@ import play.api.test.FakeRequest
 import models.domain._
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import controllers.circs.s2_report_changes
 import utils.WithApplication
 
-class G3PermanentlyStoppedCaringSpec extends Specification with Tags{
-
+class G3PermanentlyStoppedCaringSpec extends Specification {
   val moreAboutChanges = "more about the change"
   val stoppedCaringDateDay = 23
   val stoppedCaringDateMonth = 12
@@ -22,7 +21,6 @@ class G3PermanentlyStoppedCaringSpec extends Specification with Tags{
   )
 
   "Circumstances - PermanentlyStoppedCaring - Controller" should {
-
     "present 'Permanently Stopped Caring' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
@@ -38,6 +36,6 @@ class G3PermanentlyStoppedCaringSpec extends Specification with Tags{
       status(result) mustEqual SEE_OTHER
     }
 
-  } section("unit", models.domain.CircumstancesStoppedCaring.id)
-
+  }
+  section("unit", models.domain.CircumstancesStoppedCaring.id)
 }

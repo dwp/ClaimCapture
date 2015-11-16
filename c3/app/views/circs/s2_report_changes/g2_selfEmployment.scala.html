@@ -1,4 +1,4 @@
-@(selfEmployment: Form[models.domain.CircumstancesSelfEmployment])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(selfEmployment: Form[models.domain.CircumstancesSelfEmployment])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -10,12 +10,12 @@
 @import views.html.helper.dates._
 @import controllers.mappings.Mappings._
 @import utils.helpers.CarersCrypto
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import scala.language.postfixOps
 
-@defining(lang) { implicit language =>
 
-@main(Messages("c2.g2") + " - " + Messages("c2.name")) {
+
+@main(messages("c2.g2") + " - " + messages("c2.name")) {
 
     @errorsSummary(selfEmployment)
 
@@ -27,7 +27,7 @@
 
 	        <fieldset class="form-elements" data-journey="carers-allowance:report-change:self-employment">
 	        
-	            <legend class="heading-medium form-label-bold">@Html(Messages("c2.g2"))</legend>
+	            <legend class="heading-medium form-label-bold">@Html(messages("c2.g2"))</legend>
 	
 	            <ul class="coc-layout">
 
@@ -35,7 +35,7 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        inputDayMonthYear(selfEmployment("stillCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 31 days).`d M yyyy`))
+	                        inputDayMonthYear(selfEmployment("stillCaring.date"), 'helperAbove -> messages("dateExample.helper", (DayMonthYear.today - 31 days).`d M yyyy`))
 	                    ),
 	                    'id -> "stillCaringWrap"
 	                )
@@ -46,9 +46,9 @@
 	                    'maxLength -> 35)
 	
 	                @yesNoRadioGroup(selfEmployment("totalOverWeeklyIncomeThreshold"),
-	                    'values -> Seq("yes" -> Messages("label.yes7"), "no" -> Messages("label.no"), "dontknow" -> Messages("label.dontknow")))
+	                    'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow")))
 	
-	                @carersInputTextArea(selfEmployment("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+	                @carersInputTextArea(selfEmployment("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
 
 	            </ul>
 
@@ -78,4 +78,4 @@
 	</script>
 
 }
-}
+

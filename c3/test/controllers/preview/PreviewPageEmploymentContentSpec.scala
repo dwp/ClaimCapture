@@ -1,6 +1,6 @@
 package controllers.preview
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects.{PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
@@ -9,7 +9,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_employment.GEmploymentPage
 
 
-class PreviewPageEmploymentContentSpec extends Specification with Tags {
+class PreviewPageEmploymentContentSpec extends Specification {
 
   "Preview Page" should {
     "display employment data" in new WithBrowser with PageObjects{
@@ -29,7 +29,8 @@ class PreviewPageEmploymentContentSpec extends Specification with Tags {
       source must contain("Type of work or business?")
       source must contain("Some type of business")
     }
-  } section "preview"
+  }
+section("preview")
 
   def fillEmploymentSection (context:PageObjectsContext) = {
 

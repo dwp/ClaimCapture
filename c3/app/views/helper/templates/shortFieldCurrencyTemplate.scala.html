@@ -1,7 +1,11 @@
 @(elements: helper.FieldElements)
 
-@import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersHelpers._
+@import play.api.Play.current
+
+@showMessages = @{
+    current.injector.instanceOf[MMessages]
+}
 
 @if(elements.hasErrors){ <li class="form-group short-field validation-error"> } else { <li class="form-group short-field"> }
 
@@ -10,7 +14,7 @@
     }
 
     @if(elements.args.contains('prompt)){
-        <div class="prompt helper-prompt">@Html(Messages(elements.args.get('prompt).get.toString))</div>
+        <div class="prompt helper-prompt">@Html(showMessages(elements.args.get('prompt).get.toString))</div>
     }
 
     @elements.input

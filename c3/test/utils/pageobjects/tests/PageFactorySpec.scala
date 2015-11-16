@@ -1,10 +1,9 @@
 package utils.pageobjects.tests
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import utils.pageobjects.{PageObjectsContext, CircumstancesPageFactory, UnknownPage, ClaimPageFactory}
 import utils.pageobjects.s_eligibility.GBenefitsPage
-import utils.pageobjects.circumstances.s1_start_of_process.{G2ReportAChangeInYourCircumstancesPage, G2ReportAChangeInYourCircumstancesPage$}
-import com.sun.corba.se.impl.oa.poa.POACurrent
+import utils.pageobjects.circumstances.s1_start_of_process.G2ReportAChangeInYourCircumstancesPage
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -14,7 +13,7 @@ import com.sun.corba.se.impl.oa.poa.POACurrent
 class PageFactorySpec extends Specification {
 
   "The PageFactory" should {
-    "Return an UnknownPage if it does not recognise title" in  new MockPageContext {
+    "Return an UnknownPage if it does not recognise title" in new MockPageContext {
       val newPage = ClaimPageFactory buildPageFromUrl("/unknown",PageObjectsContext(browser))
       newPage must beAnInstanceOf[UnknownPage]
     }  

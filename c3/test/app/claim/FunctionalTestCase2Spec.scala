@@ -23,7 +23,8 @@ class FunctionalTestCase2Spec extends FunctionalTestCommon  {
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase2.csv")
       test(page, claim, buildPreviewUseData)
     }
-  } section ("functional","claim")
+  }
+  section("functional", "claim")
 
   private def buildPreviewUseData = {
 

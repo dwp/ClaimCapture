@@ -1,24 +1,25 @@
 package controllers.s_self_employment
 
-import play.api.Logger
+import play.api.Play._
 import play.api.mvc._
 import models.view.CachedClaim
 import models.domain._
 import models.view.Navigable
-import play.api.i18n.Lang
 import models.view.ClaimHandling.ClaimResult
 import controllers.mappings.Mappings._
+import play.api.i18n._
 
-object SelfEmployment extends Controller with CachedClaim with Navigable {
-  def completed = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
-    redirect(lang)
+object SelfEmployment extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+  def completed = claimingWithCheck {implicit claim => implicit request => implicit lang =>
+    redirect
   }
 
-  def completedSubmit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    redirect(lang)
+  def completedSubmit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+    redirect
   }
 
-  def presentConditionally(c: => ClaimResult, lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val beenInPreview = claim.checkYAnswers.previouslySavedClaim.isDefined
     val emp = claim.questionGroup[Employment].getOrElse(Employment())
     //Lazy because they are going to be lazily evaluated on usage only if we've been in preview.
@@ -27,9 +28,9 @@ object SelfEmployment extends Controller with CachedClaim with Navigable {
     val SEValue = emp.beenSelfEmployedSince1WeekBeforeClaim
                                                  //This part of the condition has been removed due to review on user story about enabling changing employment/self-employment on check your answers
     if (models.domain.SelfEmployment.visible ) c //&& (!beenInPreview || beenInPreview && SEValue == yes && previousSEValue == no)) c
-    else redirect(lang)
+    else redirect
   }
 
-  private def redirect(lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
+  private def redirect()(implicit claim: Claim, lang: Lang, messages: Messages, request: Request[AnyContent]): ClaimResult =
     claim -> Redirect(controllers.s_employment.routes.GBeenEmployed.present())
 }

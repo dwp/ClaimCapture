@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.YourPartnerPersonalDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.YourPartnerPersonalDetails])(implicit claim: models.domain.Claim,lang: play.api.i18n.Lang,request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers._
 @import utils.helpers.CarersTemplate._
@@ -8,7 +8,7 @@
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import models.domain.YourPartnerPersonalDetails
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
@@ -31,28 +31,26 @@
         }
     }
 
-    @defining(lang) { implicit language =>
-
-    @main(Messages("s3.g1") + " - " + Messages("s3.longName"), Some(currentForm)) {
+    @main(messages("s3.g1") + " - " + messages("s3.longName"), Some(currentForm)) {
 
 
         @form(action = controllers.s_your_partner.routes.GYourPartnerPersonalDetails.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
 
-            <p>@Html(Messages("s3.g1.help"))</p>
+            <p>@Html(messages("s3.g1.help"))</p>
 
             <fieldset id="@generateLabelId("hadPartnerSinceClaimDate")" class="form-elements" data-journey="carers-allowance:page:your-partner">
 
-                <legend class="heading-medium form-label-bold">@Html(Messages("hadPartnerSinceClaimDate"))</legend>
+                <legend class="heading-medium form-label-bold">@Html(messages("hadPartnerSinceClaimDate"))</legend>
 
                 <div class="prompt">
 
-                    <p>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help1", displayDateForLabel))</p>
+                    <p>@Html(messages("haveLivedWithPartnerSinceClaimDate.help1", displayDateForLabel))</p>
 
                     <ul class="list-bullet">
-                        <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help2"))</li>
-                        <li>@Html(Messages("haveLivedWithPartnerSinceClaimDate.help3"))</li>
+                        <li>@Html(messages("haveLivedWithPartnerSinceClaimDate.help2"))</li>
+                        <li>@Html(messages("haveLivedWithPartnerSinceClaimDate.help3"))</li>
                     </ul>
                     
                 </div>
@@ -73,15 +71,15 @@
 
                             carersInputText(currentForm("otherNames"), 'maxLength -> 35),
 
-                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'ignoreOptional->true, 'helperAbove -> Messages("nationalInsuranceNumber.helper")),
+                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'ignoreOptional->true, 'helperAbove -> messages("nationalInsuranceNumber.helper")),
 
                             dateOfBirth(currentForm("dateOfBirth")),
 
-                            carersInputText(currentForm("nationality"), '_label -> Messages("partner.nationality"), 'maxLength -> 35, 'helperBelow -> Messages("partner.nationality.helper2"), 'ignoreOptional->true),
+                            carersInputText(currentForm("nationality"), '_label -> messages("partner.nationality"), 'maxLength -> 35, 'helperBelow -> messages("partner.nationality.helper2"), 'ignoreOptional->true),
 
-                            yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label"), 'helperAbove -> Messages("separated_fromPartner.helper",displayDateForLabel)),
+                            yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> messages("separated_fromPartner.label"), 'helperAbove -> messages("separated_fromPartner.helper",displayDateForLabel)),
 
-                            yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> Messages("label.yes5"), "no" -> Messages("label.no")))
+                            yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"), 'values -> Seq("yes" -> messages("label.yes5"), "no" -> messages("label.no")))
                         ),
                         'id -> "partnerDetailsWrap"
                     )
@@ -133,13 +131,12 @@
                 isPersonYouCareForY:"@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
                 isPersonYouCareForN:"@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")",
                 storedData:@jsiFy(previewStoredFormData.isPartnerPersonYouCareFor),
-                textNext:"@Messages("form.next")",
-                textSummary:"@Messages("form.returnToSummary")",
+                textNext:"@messages("form.next")",
+                textSummary:"@messages("form.returnToSummary")",
                 hadPartnerN:"@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")"});
                 }
             } )
 
         </script>
-        
-    }
+
 }

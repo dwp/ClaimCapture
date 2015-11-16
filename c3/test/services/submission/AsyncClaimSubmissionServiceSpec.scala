@@ -6,7 +6,7 @@ import models.domain.{Claim, _}
 import models.view.{CachedChangeOfCircs, CachedClaim}
 import models.{DayMonthYear, NationalInsuranceNumber}
 import org.specs2.mock.Mockito
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.{Logger, http}
 import play.api.libs.ws.WSResponse
 import play.api.test.FakeApplication
@@ -15,7 +15,7 @@ import services.{TransactionStatus, _}
 import scala.concurrent.Future
 
 
-class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Tags with CachedClaim {
+class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
 
   val ni = "AB123456D"
 
@@ -190,7 +190,8 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito with Ta
       transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,Some(0),None,Some("en")))
 
     }
-  } section ("unit", "slow")
+  }
+  section ("unit", "slow")
 
 
   def serviceSubmission(service: AsyncClaimSubmissionService with ClaimTransactionComponent, claim: Claim)(implicit app: FakeApplication) {

@@ -1,12 +1,12 @@
 package controllers.s_employment
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_employment._
 import utils.pageobjects.{Page, PageObjects}
 
-class GPensionAndExpensesIntegrationSpec extends Specification with Tags {
+class GPensionAndExpensesIntegrationSpec extends Specification {
   "Pension And Expenses" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GPensionAndExpensesPage(context)
@@ -24,5 +24,6 @@ class GPensionAndExpensesIntegrationSpec extends Specification with Tags {
       val backPage = submitted goBack ()
       backPage must beAnInstanceOf[GPensionAndExpensesPage]
     }
-  } section("integration",models.domain.Employed.id)
+  }
+  section("integration",models.domain.Employed.id)
 }

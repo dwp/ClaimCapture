@@ -2,13 +2,13 @@ package controllers.s_breaks
 
 import models.domain.{BreaksInCareSummary, BreaksInCare, Claim, Claiming}
 import models.view.CachedClaim
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.cache.Cache
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.WithApplication
+import utils.{LightFakeApplication, WithApplication}
 
-class GBreaksInCareSpec extends Specification with Tags {
+class GBreaksInCareSpec extends Specification {
   "Breaks from care" should {
     """present "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -44,7 +44,7 @@ class GBreaksInCareSpec extends Specification with Tags {
       val result = GBreaksInCare.submit(request)
       redirectLocation(result) should beSome("/education/your-course-details")
 
-      val claim = Cache.getAs[Claim](extractCacheKey(result)).get
+      val claim = cache.get[Claim](extractCacheKey(result)).get
 
       val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
       breaksInCare.breaks must beEmpty
@@ -216,5 +216,6 @@ class GBreaksInCareSpec extends Specification with Tags {
       claim1.questionGroup(BreaksInCare) should beLike { case Some(b: BreaksInCare) => b.breaks.size shouldEqual 1 }
       claim1.questionGroup(BreaksInCareSummary) should beEmpty 
     }
-  } section("unit", models.domain.CareYouProvide.id)
+  }
+  section("unit", models.domain.CareYouProvide.id)
 }

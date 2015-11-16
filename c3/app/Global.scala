@@ -1,24 +1,23 @@
 import java.net.InetAddress
 
 import app.ConfigProperties._
-import monitor.MonitorFilter
 import monitoring._
 import org.slf4j.MDC
 import play.api._
 import play.api.http.HeaderNames._
+import play.api.i18n.{Messages, MMessages, MessagesApi}
 import play.api.mvc.Results._
 import play.api.mvc._
 import services.async.AsyncActors
 import services.mail.EmailActors
-import utils.Injector
-import utils.csrf.DwpCSRFFilter
-import utils.filters.{UserAgentCheckException, CSRFCreation, UserAgentCheckFilter}
+import utils.filters.UserAgentCheckException
 import utils.helpers.CarersLanguageHelper
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import play.api.Play.current
 
-object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRFFilter(createIfFound = CSRFCreation.createIfFound, createIfNotFound = CSRFCreation.createIfNotFound)) with Injector with CarersLanguageHelper with C3MonitorRegistration {
+object Global extends GlobalSettings with CarersLanguageHelper with C3MonitorRegistration {
 
   override def onStart(app: Application) {
     MDC.put("httpPort", getProperty("http.port", "Value not set"))
@@ -27,13 +26,13 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
     MDC.put("appName", getProperty("app.name", "Value not set"))
     super.onStart(app)
 
-    val secret: String = getProperty("application.secret", "secret")
+    val secret: String = getProperty("play.crypto.secret", "secret")
     val secretDefault: String = getProperty("secret.default", "don't Match")
 
     duplicateClaimCheckEnabled()
 
     if (secret.equals(secretDefault)) {
-      Logger.warn("application.secret is using default value")
+      Logger.warn("play.crypto.secret is using default value")
     }
 
     actorSystems()
@@ -41,7 +40,6 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
     registerReporters()
     registerHealthChecks()
 
-    Logger.info(s"c3 Started : memcachedplugin is ${getProperty("memcachedplugin", "Not defined")}") // used for operations, do not remove
     Logger.info(s"c3 property include.analytics is ${getProperty("include.analytics", "Not defined")}") // used for operations, do not remove
   }
 
@@ -65,14 +63,13 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
   override def onHandlerNotFound(requestHeader: RequestHeader): Future[Result] = {
     implicit val request = Request(requestHeader, AnyContentAsEmpty)
     implicit val flash = request.flash
+    implicit val messages = Messages(implicitly[play.api.i18n.Lang], current.injector.instanceOf[MMessages])
     Future(NotFound(views.html.common.onHandlerNotFound()))
   }
 
-  override def getControllerInstance[A](controllerClass: Class[A]): A = resolve(controllerClass)
-
   override def onError(request: RequestHeader, ex: Throwable) = {
-    val csrfCookieName = getProperty("csrf.cookie.name", "csrf")
-    val csrfSecure = getProperty("csrf.cookie.secure", getProperty("session.secure", default = false))
+    val csrfCookieName = getProperty("play.filters.csrf.cookie.name", "csrf")
+    val csrfSecure = getProperty("play.filters.csrf.cookie.secure", getProperty("play.http.session.secure", default = false))
     val theDomain = Play.current.configuration.getString("session.domain")
     val domainRoot = getProperty("domainRoot","carersallowance.service.gov.uk")
     val C3VERSION = "C3Version"
@@ -86,7 +83,7 @@ object Global extends WithFilters(MonitorFilter, UserAgentCheckFilter(), DwpCSRF
       case _ => request.path
     }
 
-    Logger.error(s"${ex.getCause.toString}. Origin path: ${request.path} Referer: $referer Cookies empty $cookiesAbsent")
+    Logger.info(s"Origin path: ${request.path} Referer: $referer Cookies empty $cookiesAbsent")
 
     url match {
       // we redirect to the error page with specific cookie error message if cookies are disabled.

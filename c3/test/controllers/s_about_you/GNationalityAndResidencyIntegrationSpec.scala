@@ -1,6 +1,6 @@
 package controllers.s_about_you
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.{WebDriverHelper, WithBrowser}
 import controllers.{ClaimScenarioFactory,PreviewTestUtils}
 import utils.pageobjects.s_about_you.{GAbroadForMoreThan52WeeksPage, GNationalityAndResidencyPage}
@@ -11,7 +11,7 @@ import app.MaritalStatus
 import utils.WithJsBrowser
 import utils.helpers.PreviewField._
 
-class GNationalityAndResidencyIntegrationSpec extends Specification with Tags {
+class GNationalityAndResidencyIntegrationSpec extends Specification {
   sequential
 
   val urlUnderTest = "/about-you/nationality-and-residency"
@@ -115,7 +115,8 @@ class GNationalityAndResidencyIntegrationSpec extends Specification with Tags {
     }
 
 
-  } section("integration", models.domain.AboutYou.id)
+  }
+  section("integration", models.domain.AboutYou.id)
 
   def goToPreviewPage(context:PageObjectsContext):Page = {
     val claimDatePage = GClaimDatePage(context)

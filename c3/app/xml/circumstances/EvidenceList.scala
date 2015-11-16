@@ -5,10 +5,11 @@ import models.domain._
 import app.XMLValues._
 import models.domain.Claim
 import scala.xml.NodeSeq
-import play.api.i18n.{MMessages => Messages}
+import play.api.i18n.{MMessages, MessagesApi}
+import play.api.Play.current
 
 object EvidenceList {
-
+  val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def buildXml(circs: Claim) = {
     <EvidenceList>
       {evidence(circs)}
@@ -18,7 +19,7 @@ object EvidenceList {
   def evidence(circs:Claim):NodeSeq = {
     import xml.claim.EvidenceList._
 
-    val isBreaksInCare = showBreaksInCareMessages(circs)
+    val isBreaksInCare = showBreaksInCaremessages(circs)
     val isEmployment1 = circs.questionGroup[CircumstancesStartedEmploymentAndOngoing].isDefined
     val isEmployment2 = circs.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined
     val isEmail = circs.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail.getOrElse("") == Mappings.yes
@@ -50,21 +51,21 @@ object EvidenceList {
 
     }else{
       nodes ++= evidenceTitle("circs.next.nodocuments.1")
-      nodes ++= evidenceTitle(Messages("circs.next.nodocuments.2")+" "+Messages("thankyou.report.another.change.short"))
+      nodes ++= evidenceTitle(Seq("circs.next.nodocuments.2","thankyou.report.another.change.short"))
     }
 
     nodes
   }
 
   private def title(text: String): NodeSeq = {
-    <Title>{Messages(text)}</Title>
+    <Title>{messagesApi(text)}</Title>
   }
 
   private def content(text: String): NodeSeq = {
-    <Content>{Messages(text)}</Content>
+    <Content>{messagesApi(text)}</Content>
   }
 
-  def showBreaksInCareMessages(circs: Claim) = {
+  def showBreaksInCaremessages(circs: Claim) = {
     val breaksIncare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
     val outputRequired = breaksIncare.expectStartCaring.answer match {
       case Some(n) => n match {

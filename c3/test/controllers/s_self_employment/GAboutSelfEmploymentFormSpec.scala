@@ -1,10 +1,11 @@
 package controllers.s_self_employment
 
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import models.DayMonthYear
+import utils.WithApplication
 
-class GAboutSelfEmploymentFormSpec extends Specification with Tags {
+class GAboutSelfEmploymentFormSpec extends Specification {
   "About Self Employment - About Self Employment Form" should {
     val areYouSelfEmployedNow = "no"
     val whenDidYouStartThisJob_day = 11
@@ -16,7 +17,7 @@ class GAboutSelfEmploymentFormSpec extends Specification with Tags {
     val haveYouCeasedTrading = "no"
     val natureOfYourBusiness = "Consulting"
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       GAboutSelfEmployment.form.bind(
         Map("areYouSelfEmployedNow" -> areYouSelfEmployedNow,
           "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
@@ -49,7 +50,7 @@ class GAboutSelfEmploymentFormSpec extends Specification with Tags {
       )
     }
 
-    "reject if areYouSelfEmployedNow is not filled" in {
+    "reject if areYouSelfEmployedNow is not filled" in new WithApplication {
       GAboutSelfEmployment.form.bind(
         Map("areYouSelfEmployedNow" -> "no",
           "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
@@ -61,7 +62,7 @@ class GAboutSelfEmploymentFormSpec extends Specification with Tags {
       )
     }
 
-    "reject if areYouSelfEmployedNow answered no but whenDidTheJobFinish not filled in" in {
+    "reject if areYouSelfEmployedNow answered no but whenDidTheJobFinish not filled in" in new WithApplication {
       GAboutSelfEmployment.form.bind(
         Map("areYouSelfEmployedNow" -> "no",
           "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
@@ -73,7 +74,7 @@ class GAboutSelfEmploymentFormSpec extends Specification with Tags {
       )
     }
 
-    "allow optional field to be left blank" in {
+    "allow optional field to be left blank" in new WithApplication {
       GAboutSelfEmployment.form.bind(
         Map("areYouSelfEmployedNow" -> "no",
           "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
@@ -103,5 +104,6 @@ class GAboutSelfEmploymentFormSpec extends Specification with Tags {
         }
       )
     }
-  } section("unit", models.domain.SelfEmployment.id)
+  }
+  section("unit", models.domain.SelfEmployment.id)
 }

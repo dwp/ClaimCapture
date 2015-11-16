@@ -2,12 +2,12 @@ package controllers.s_education
 
 import models.domain._
 import models.{DayMonthYear, domain}
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.test.Helpers._
 import play.api.test.FakeRequest
 import utils.WithApplication
 
-class GYourCourseDetailsSpec extends Specification with Tags {
+class GYourCourseDetailsSpec extends Specification {
 
   val nameOfSchoolCollegeOrUniversity = "MIT"
   val nameOfMainTeacherOrTutor = "Albert Einstein"
@@ -73,5 +73,6 @@ class GYourCourseDetailsSpec extends Specification with Tags {
       status(result) mustEqual SEE_OTHER
     }
 
-  } section("unit", models.domain.Education.id)
+  }
+  section("unit", models.domain.Education.id)
 }

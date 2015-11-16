@@ -2,12 +2,13 @@ package controllers.s_employment
 
 import controllers.mappings.Mappings
 import models.view.CachedClaim
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import app.StatutoryPaymentFrequency
 import models.{PaymentFrequency, DayMonthYear}
+import utils.WithApplication
 
 
-class GLastWageFormSpec extends Specification with Tags{
+class GLastWageFormSpec extends Specification{
 
   "Employer Details - Your wages" should {
 
@@ -20,7 +21,7 @@ class GLastWageFormSpec extends Specification with Tags{
     val yes = "yes"
     val whenGetPaid = "Monday"
 
-    "map data to form" in {
+    "map data to form" in new WithApplication {
       GLastWage.form(models.domain.Claim(CachedClaim.key)).bind(
         Map(
           "iterationID" -> jobId,
@@ -50,7 +51,7 @@ class GLastWageFormSpec extends Specification with Tags{
 
     }
 
-    "have 5 mandatory fields" in {
+    "have 5 mandatory fields" in new WithApplication {
       GLastWage.form(models.domain.Claim(CachedClaim.key)).bind(
       Map(
         "iterationID" -> jobId)

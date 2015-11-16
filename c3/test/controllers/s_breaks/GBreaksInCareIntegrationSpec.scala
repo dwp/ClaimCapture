@@ -2,7 +2,7 @@ package controllers.s_breaks
 
 import controllers._
 import org.openqa.selenium.By
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.Logger
 import utils.pageobjects._
 import utils.pageobjects.s_breaks.{GBreaksInCarePage, GBreakPage}
@@ -11,7 +11,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.{WithBrowser, WithJsBrowser}
 
-class GBreaksInCareIntegrationSpec extends Specification with Tags {
+class GBreaksInCareIntegrationSpec extends Specification {
   "Breaks from care" should {
     "present" in new WithBrowser with PageObjects {
       GBreaksInCarePage(context) goToThePage() must beAnInstanceOf[GBreaksInCarePage]
@@ -74,7 +74,7 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
       pending("##Unit driver can't handle that JS form submission (Firefox do) enable this when changing to firefox driver")
       val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true),GBreaksInCarePage.url,upToIteration = 2)
 
-      Logger.info(breaksInCare.ctx.browser.webDriver.findElement(By.className("break-data")).getText)
+      Logger.info(breaksInCare.ctx.browser.getDriver.findElement(By.className("break-data")).getText)
 
       val list = breaksInCare.ctx.browser.$("input[name=changerow]")
       Logger.info(list.toString())
@@ -85,6 +85,7 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
     }
 
 
-  } section("integration", models.domain.CareYouProvide.id)
+  }
+  section("integration", models.domain.CareYouProvide.id)
 
 }

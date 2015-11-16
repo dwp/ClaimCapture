@@ -31,5 +31,6 @@ class FunctionalTestCase23Spec extends FunctionalTestCommon {
         case p: Page => println(p.source)
       }
     }
-  } section "functional"
+  }
+section("functional")
 }

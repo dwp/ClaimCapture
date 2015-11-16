@@ -1,6 +1,7 @@
 package controllers.circs.s1_start_of_process
 
-import org.specs2.mutable.{Tags, Specification}
+import utils.WithApplication
+import org.specs2.mutable._
 import utils.{WithJsBrowser, LightFakeApplication, WithBrowser}
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.s1_start_of_process.{G1ReportChangesPage, G2ReportAChangeInYourCircumstancesPage}
@@ -8,7 +9,7 @@ import utils.pageobjects.circumstances.s2_report_changes.{G7BreaksInCarePage, G3
 import utils.pageobjects.{PageObjects, TestData}
 
 
-class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification with Tags {
+class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
 
   "About You" should {
     val fullName = "Mr John Joe Smith"
@@ -54,7 +55,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
       page submitPage()
     }
 
-    "contain errors on invalid submission" in {
+    "contain errors on invalid submission" in new WithApplication {
       "missing fullName field" in new WithBrowser with PageObjects {
         val page = G2ReportAChangeInYourCircumstancesPage(context)
         val claim = new TestData
@@ -275,6 +276,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification wi
       }
 
     }
-  } section("integration", models.domain.CircumstancesIdentification.id)
+  }
+  section("integration", models.domain.CircumstancesIdentification.id)
 
 }

@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Benefits])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.Benefits])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import play.api.Play
 @import play.api.Play.current
@@ -6,42 +6,42 @@
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import helper._
 @import models.domain.Benefits
 
 
-@benefitsList(implicit language:Lang) = @{
-    Seq(Benefits.pip -> Messages("s0.g1.help2"),
-        Benefits.dla -> Messages("s0.g1.help4"),
-        Benefits.aa -> Messages("s0.g1.help6"),
-        Benefits.caa -> Messages("s0.g1.help7"),
-        Benefits.afip -> Messages("s0.g1.help10"),
-        Benefits.noneOfTheBenefits -> Messages("s0.g1.help12")
+@benefitsList(implicit lang:Lang) = @{
+    Seq(Benefits.pip -> messages("s0.g1.help2"),
+        Benefits.dla -> messages("s0.g1.help4"),
+        Benefits.aa -> messages("s0.g1.help6"),
+        Benefits.caa -> messages("s0.g1.help7"),
+        Benefits.afip -> messages("s0.g1.help10"),
+        Benefits.noneOfTheBenefits -> messages("s0.g1.help12")
     )
 }
 
-@defining(lang) { implicit language =>
-@main(Messages("s0.g1") + " - " + Messages("s0.longName"), Some(currentForm),false) {
 
+@main(messages("s0.g1") + " - " + messages("s0.longName"), Some(currentForm),false) {
+@lang
     @form(action = controllers.s_eligibility.routes.GBenefits.submit, 'role -> "form") {
 
         @DwpCSRFFormHelper.formField
 	
         <fieldset class="form-elements form-eligibility">
 
-            <legend class="form-label-bold">@Html(Messages("s0.g1"))</legend>
+            <legend class="form-label-bold">@Html(messages("s0.g1"))</legend>
 
             @standaloneListRadioGroup(currentForm("benefitsAnswer"),
                 'items -> benefitsList,
                 'helperAbove -> "s0.g1.help13",
                 'track -> true,
-                'trackLabel -> Messages("s0.g1")
+                'trackLabel -> messages("s0.g1")
             )
 
             @defining(currentForm("benefitsAnswer").value.getOrElse("don't know") match { case Benefits.noneOfTheBenefits => "block" case _ => "none" }) { styleDisplay =>
                 <div id="answerNoMessageWrap" class="prompt breaks-prompt validation-summary" style="display: @styleDisplay;">
-                    <p>@Html(Messages("s0.g1.help11"))</p>
+                    <p>@Html(messages("s0.g1.help11"))</p>
                  </div>
             }
 
@@ -49,12 +49,12 @@
 
         <nav class="form-steps" role="navigation">
             <ul>
-            	<li><button type="submit" name="action" value="next" class="button">@Html(Messages("form.next"))</button></li>
+            	<li><button type="submit" name="action" value="next" class="button">@Html(messages("form.next"))</button></li>
             </ul>
         </nav>
 
     }
-
+}
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_eligibility/answerNoBenefitsMessage.js")></script>
 
     <script type="text/javascript">
@@ -68,5 +68,5 @@
         });
     </script>
 
-}
-}
+
+

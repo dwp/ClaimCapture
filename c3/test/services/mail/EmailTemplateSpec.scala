@@ -4,38 +4,41 @@ import models.DayMonthYear
 import models.domain._
 import models.view.CachedClaim
 import models.yesNo.{YesNoWithEmployerAndMoney, YesNo, YesNoWithText}
-import org.specs2.mutable.{Tags, Specification}
-import play.api.i18n.Lang
-import play.api.i18n.{MMessages => Messages}
+import org.specs2.mutable._
 import play.api.test.{FakeApplication}
 import play.twirl.api.{HtmlFormat}
 import controllers.mappings.Mappings
 import utils.WithApplication
 import utils.LightFakeApplication
-
-
+import play.api.i18n._
+import play.api.Play.current
 
 /**
  * Created by valtechuk on 24/03/2015.
  */
-class EmailTemplateSpec extends Specification with Tags {
-
-  def escapeMessage(id:String,param:String="") = Messages(id,param)
-//  def escapeMessage(id:String,param:String="") = HtmlFormat.escape(Messages(id,param)).toString
+class EmailTemplateSpec extends Specification {
+  def escapeMessage(id:String,param:String="") = {
+    val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+    messagesApi(id,param)
+  }
 
   "Email template" should {
 
     val xmlSchemaVersionNumber = "some value"
-    "Display XML schema version number" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("xml.schema.version" -> xmlSchemaVersionNumber))){
-      val claim = Claim(CachedClaim.key)
+    "Display XML schema version number" in new WithApplication(app = LightFakeApplication.faXmlVersion(xmlSchemaVersionNumber)){
       implicit val lang = Lang("en")
+      val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+      implicit val messages = Messages(lang, messagesApi)
+      val claim = Claim(CachedClaim.key)
       val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = false).body
       renderedEmail must contain(xmlSchemaVersionNumber)
     }
 
-    "Display claim email" in new WithApplication(){
-      val claim = Claim(CachedClaim.key)
+    "Display claim email" in new WithApplication {
       implicit val lang = Lang("en")
+      val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+      implicit val messages = Messages(lang, messagesApi)
+      val claim = Claim(CachedClaim.key)
       val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = false).body
 
       renderedEmail.size must beGreaterThan(0)
@@ -50,11 +53,13 @@ class EmailTemplateSpec extends Specification with Tags {
       renderedEmail must not contain escapeMessage("mail.cofc.successful")
     }
 
-    "Display claim employment and self employment email" in new WithApplication(){
+    "Display claim employment and self employment email" in new WithApplication {
+      implicit val lang = Lang("en")
+      val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+      implicit val messages = Messages(lang, messagesApi)
       val jobs= Employment(Mappings.yes,Mappings.yes)
       val claim = Claim(CachedClaim.key).+(ClaimDate(DayMonthYear())).update(jobs)
 
-      implicit val lang = Lang("en")
       val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = true).body
 
       renderedEmail.size must beGreaterThan(0)
@@ -75,14 +80,16 @@ class EmailTemplateSpec extends Specification with Tags {
       renderedEmail must not contain escapeMessage("mail.cofc.successful")
     }
 
-    "Ask for pension documents if paying into pension" in new WithApplication(){
+    "Ask for pension documents if paying into pension" in new WithApplication {
+      implicit val lang = Lang("en")
+      val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+      implicit val messages = Messages(lang, messagesApi)
       val employment= Employment(Mappings.yes,Mappings.yes)
       val pensionAndExpenses = PensionAndExpenses("", YesNoWithText(Mappings.yes, Some("blah blah blah")),
         YesNoWithText("", None), YesNoWithText("", None))
       val jobs = Jobs(List(Iteration("1", List(pensionAndExpenses))))
       val claim = Claim(CachedClaim.key).+(ClaimDate(DayMonthYear())).update(employment).update(jobs)
 
-      implicit val lang = Lang("en")
       val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = true).body
 
       renderedEmail.size must beGreaterThan(0)
@@ -104,10 +111,12 @@ class EmailTemplateSpec extends Specification with Tags {
     }
 
     "Ask for evidence if statutory payments are received" in new WithApplication {
+      implicit val lang = Lang("en")
+      val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+      implicit val messages = Messages(lang, messagesApi)
       val otherPayments = AboutOtherMoney(YesNo(""), None, None, None,
         YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None),
         YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None))
-      implicit val lang = Lang("en")
 
       // Without statutory payments
       val claim = Claim(CachedClaim.key).+(ClaimDate(DayMonthYear()))
@@ -122,9 +131,11 @@ class EmailTemplateSpec extends Specification with Tags {
       emailWithStatutoryPayments must contain(escapeMessage("evidence.otherMoney.otherStatutoryPay"))
     }
 
-    "Display cofc employment email" in new WithApplication(){
-      val claim = Claim(CachedClaim.key)
+    "Display cofc employment email" in new WithApplication {
       implicit val lang = Lang("en")
+      val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+      implicit val messages = Messages(lang, messagesApi)
+      val claim = Claim(CachedClaim.key)
       val renderedEmail = views.html.mail(claim,isClaim = false,isEmployment = true).body
 
       renderedEmail.size must beGreaterThan(0)
@@ -147,9 +158,11 @@ class EmailTemplateSpec extends Specification with Tags {
       renderedEmail must not contain escapeMessage("mail.claim.next.line1")
     }
 
-    "Display cofc email" in new WithApplication(){
-      val claim = Claim(CachedClaim.key)
+    "Display cofc email" in new WithApplication {
       implicit val lang = Lang("en")
+      val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+      implicit val messages = Messages(lang, messagesApi)
+      val claim = Claim(CachedClaim.key)
       val renderedEmail = views.html.mail(claim,false,false).body
 
       renderedEmail.size must beGreaterThan(0)
@@ -163,5 +176,6 @@ class EmailTemplateSpec extends Specification with Tags {
       renderedEmail must not contain escapeMessage("mail.claim.next.line1")
     }
 
-  } section "unit"
+  }
+  section("unit")
 }

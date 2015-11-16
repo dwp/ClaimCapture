@@ -1,6 +1,6 @@
 package controllers.preview
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects.{TestData, PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
@@ -8,7 +8,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_about_you.GOtherEEAStateOrSwitzerlandPage
 
-class PreviewPageAboutYouContentSpec extends Specification with Tags {
+class PreviewPageAboutYouContentSpec extends Specification {
   "Preview Page" should {
     "display about you - the carer data with nationality as British" in new WithBrowser with PageObjects{
       fillAboutYouTheCarerSection(context)
@@ -82,7 +82,8 @@ class PreviewPageAboutYouContentSpec extends Specification with Tags {
       source must contain("Yes - Details provided")
     }
 
-  } section "preview"
+  }
+section("preview")
 
   def fillAboutYouTheCarerSection(context:PageObjectsContext, claim:TestData = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()) = {
     val claimDatePage = GClaimDatePage(context)

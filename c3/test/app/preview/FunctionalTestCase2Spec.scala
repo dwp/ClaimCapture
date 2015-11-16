@@ -50,7 +50,8 @@ class FunctionalTestCase2Spec extends FunctionalTestCommon {
 
     }
 
-  } section ("functional","preview")
+  }
+  section ("functional","preview")
 }
 
 

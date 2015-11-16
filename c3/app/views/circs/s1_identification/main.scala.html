@@ -1,7 +1,7 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang:Lang, flash:Flash)
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang:Lang, flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @common.govMain(title) {
 
@@ -17,7 +17,7 @@
 
             <article class="column-three-quarters main-content">
 
-                <h1 class="form-title heading-large">@Html(Messages("c1"))</h1>
+                <h1 class="form-title heading-large">@Html(messages("c1"))</h1>
 
                 @if(completedQuestionGroups.size > 0) {
                     <div class="completed">
@@ -25,7 +25,7 @@
                             @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
                                 <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
-                                <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Html(Messages("change.these.help"))">@Html(Messages("change.these"))</a>
+                                <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Html(messages("change.these.help"))">@Html(messages("change.these"))</a>
                             </li>
                             }
                         </ul>

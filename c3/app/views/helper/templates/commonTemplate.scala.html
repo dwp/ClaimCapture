@@ -1,13 +1,17 @@
 @(elements: helper.FieldElements)
-@import play.api.i18n.{MMessages => Messages}
 @import utils.helpers.CarersHelpers._
+@import play.api.Play.current
+
+@showMessages = @{
+    current.injector.instanceOf[MMessages]
+}
 
 @if(elements.hasErrors) {
     <p class="validation-message">@elements.carersErrors.mkString(", ")</p>
 }
 
 @if(elements.args.contains('prompt)) {
-    <div class="prompt helper-prompt">@Html(Messages(elements.args.get('prompt).get.toString))</div>
+    <div class="prompt helper-prompt">@Html(showMessages(elements.args.get('prompt).get.toString))</div>
 }
 
 @elements.input

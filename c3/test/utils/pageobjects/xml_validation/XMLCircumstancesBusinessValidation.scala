@@ -4,6 +4,7 @@ import javax.xml.bind.DatatypeConverter
 
 import gov.dwp.carers.security.encryption.EncryptorAES
 import gov.dwp.exceptions.DwpRuntimeException
+import play.api.i18n.{MMessages, MessagesApi}
 import utils.pageobjects.xml_validation.XMLValidationNode._
 
 import scala.xml.{Node, Elem}
@@ -11,7 +12,8 @@ import utils.pageobjects.{TestDatumValue, PageObjectException, TestData}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import scala.language.postfixOps
-import play.api.i18n.{MMessages => Messages}
+import play.api.Play.current
+
 
 /**
  * Validates that an XML contains all the relevant data that was provided in a Claim.
@@ -43,7 +45,7 @@ class XMLCircumstancesBusinessValidation extends XMLBusinessValidation  {
  * Represents an Xml Node once "cleaned", i.e. trimmed and line returns removed.
  */
 class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationNode(xml, path) {
-
+  val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def matches(claimValue: TestDatumValue): Boolean = {
     try {
       val nodeStart = theNodes(0).mkString
@@ -77,13 +79,13 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
           else if (nodeName.startsWith(EvidenceListNode)) {
             value.contains(claimValue.question + "=" + (
               claimValue.value match {
-                case "fourWeekly" => Messages("reportChanges.fourWeekly")
-                case "everyWeek" => Messages("reportChanges.everyWeek")
-                case "yourName" => Messages("reportChanges.yourName")
-                case "partner" => Messages("reportChanges.partner")
-                case "bothNames" => Messages("reportChanges.bothNames")
-                case "onBehalfOfYou" => Messages("reportChanges.onBehalfOfYou")
-                case "allNames" => Messages("reportChanges.allNames")
+                case "fourWeekly" => messagesApi("reportChanges.fourWeekly")
+                case "everyWeek" => messagesApi("reportChanges.everyWeek")
+                case "yourName" => messagesApi("reportChanges.yourName")
+                case "partner" => messagesApi("reportChanges.partner")
+                case "bothNames" => messagesApi("reportChanges.bothNames")
+                case "onBehalfOfYou" => messagesApi("reportChanges.onBehalfOfYou")
+                case "allNames" => messagesApi("reportChanges.allNames")
                 case _ => claimValue.value
             }))
           }

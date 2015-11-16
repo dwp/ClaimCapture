@@ -1,7 +1,7 @@
-@(form: Form[_])(implicit lang: Lang, request: Request[AnyContent])
+@(form: Form[_])(implicit lang: Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersCrypto
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import utils.helpers.GAHelper._
 @import app.ConfigProperties._
 
@@ -15,8 +15,8 @@
 
     @if(form.hasErrors) {
     <div class="validation-summary">
-        <h2 class="heading-small">@Html(Messages("error.title"))</h2>
-        <p>@Html(Messages("error.label"))</p>
+        <h2 class="heading-small">@Html(messages("error.title"))</h2>
+        <p>@Html(messages("error.label"))</p>
         <ol class="list-bullet">
             @for(error <- form.errors) {
                 <li>

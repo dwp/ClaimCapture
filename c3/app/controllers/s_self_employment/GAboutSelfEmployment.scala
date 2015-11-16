@@ -1,5 +1,7 @@
 package controllers.s_self_employment
 
+import play.api.Play._
+
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
@@ -15,10 +17,11 @@ import models.view.Navigable
 import controllers.CarersForms._
 import play.api.data.FormError
 import models.domain.Claim
-import play.api.i18n.Lang
 import models.view.ClaimHandling.ClaimResult
+import play.api.i18n._
 
-object GAboutSelfEmployment extends Controller with CachedClaim with Navigable {
+object GAboutSelfEmployment extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "areYouSelfEmployedNow" -> carersNonEmptyText.verifying(validYesNo),
     "whenDidYouStartThisJob" -> dayMonthYear.verifying(validDate),
@@ -33,21 +36,21 @@ object GAboutSelfEmployment extends Controller with CachedClaim with Navigable {
     case _ => true
   }
 
-  def present = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    presentConditionally(aboutSelfEmployment(lang), lang)
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+    presentConditionally(aboutSelfEmployment)
   }
 
-  private def aboutSelfEmployment(lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  private def aboutSelfEmployment(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     track(AboutSelfEmployment) {
-      implicit claim => Ok(views.html.s_self_employment.g_aboutSelfEmployment(form.fill(AboutSelfEmployment))(lang))
+      implicit claim => Ok(views.html.s_self_employment.g_aboutSelfEmployment(form.fill(AboutSelfEmployment)))
     }
   }
 
-  def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    form.bindEncrypted.fold(
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("", "whenDidTheJobFinish.error.required", FormError("whenDidTheJobFinish", errorRequired))
-        BadRequest(views.html.s_self_employment.g_aboutSelfEmployment(formWithErrorsUpdate)(lang))},
+        BadRequest(views.html.s_self_employment.g_aboutSelfEmployment(formWithErrorsUpdate))},
       f => claim.update(f) -> Redirect(routes.GSelfEmploymentYourAccounts.present()))
   }
 }

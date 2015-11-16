@@ -1,6 +1,6 @@
 package controllers.s_employment
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.Claiming
 import play.api.test.Helpers._
@@ -8,14 +8,12 @@ import models.view.CachedClaim
 import utils.WithApplication
 
 
-class GEmploymentAdditionalInfoSpec extends Specification with Tags{
-
+class GEmploymentAdditionalInfoSpec extends Specification {
   val employmentAdditionalInfoInput = Seq("empAdditionalInfo.answer" -> "yes", "empAdditionalInfo.text" -> "I do not have much info")
   val employmentAdditionalInfoInputNoText = Seq("empAdditionalInfo.answer" -> "yes")
   val employmentAdditionalInfoInputNo = Seq("empAdditionalInfo.answer" -> "no")
 
   "Employment " should {
-
     "present Additional information" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
       val result = GEmploymentAdditionalInfo.present(request)
@@ -50,5 +48,4 @@ class GEmploymentAdditionalInfoSpec extends Specification with Tags{
       status(result) mustEqual SEE_OTHER
     }
   }
-
 }

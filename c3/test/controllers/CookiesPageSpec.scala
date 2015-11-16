@@ -1,6 +1,6 @@
 package controllers
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.OK
 import play.api.test.Helpers.status
@@ -18,6 +18,7 @@ class CookiesPageSpec extends Specification {
       val result = controllers.Cookies.page("en")(request)
       status(result) mustEqual OK
     }
-  } section "unit"
+  }
+section("unit")
 
 }

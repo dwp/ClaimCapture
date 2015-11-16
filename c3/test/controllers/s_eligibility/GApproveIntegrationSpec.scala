@@ -1,6 +1,6 @@
 package controllers.s_eligibility
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.Logger
 import utils.{WithJsBrowser, WithBrowser}
 import utils.pageobjects.common.ErrorPage
@@ -8,14 +8,15 @@ import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s_eligibility._
 import utils.pageobjects.s_claim_date.GClaimDatePage
 
-class GApproveIntegrationSpec extends Specification with Tags {
+class GApproveIntegrationSpec extends Specification {
   "Approve" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GApprovePage(context)
       page goToThePage()
       page.jsCheckEnabled must beTrue
     }
-  } section("integration",models.domain.CarersAllowance.id)
+  }
+  section("integration",models.domain.CarersAllowance.id)
 
   "Carer's Allowance" should {
     val notRightPage: String = "Next Page is not of the right type."
@@ -95,5 +96,6 @@ class GApproveIntegrationSpec extends Specification with Tags {
     }
 
 
-  } section("integration", models.domain.CarersAllowance.id)
+  }
+  section("integration", models.domain.CarersAllowance.id)
 }

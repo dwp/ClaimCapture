@@ -1,9 +1,8 @@
-@(claim:models.domain.Claim, isClaim:Boolean,isEmployment:Boolean)(implicit lang:Lang)
+@(claim:models.domain.Claim, isClaim:Boolean,isEmployment:Boolean)(implicit lang:Lang, messages: play.api.i18n.Messages)
 @import controllers.circs.s2_report_changes.G9EmploymentChange
 
 @import scala.io._
 @import models.domain._
-@import play.api.i18n.{MMessages => Messages}
 @import controllers.mappings.Mappings
 @import app.ConfigProperties._
 
@@ -90,93 +89,93 @@
 
                 <br />
 
-                <h1 class="form-title heading-large">@Html(Messages(s"mail.$claimType.title"))</h1>
+                <h1 class="form-title heading-large">@Html(messages(s"mail.$claimType.title"))</h1>
 
-                <p>@Html(Messages(s"mail.$claimType.successful"))</p>
+                <p>@Html(messages(s"mail.$claimType.successful"))</p>
 
                 <div class="section">
 
-                    <h2>@Html(Messages("mail.next.title"))</h2>
+                    <h2>@Html(messages("mail.next.title"))</h2>
 
                     @if(isEmployment && !isCofcSelfEmployment) {
 
-                        <p>@Html(Messages("mail.next.send1"))</p>
+                        <p>@Html(messages("mail.next.send1"))</p>
 
                         <ul>
                             @if(isClaim){
                                 @if(SelfEmployment.isSelfEmployed(claim)) {
-                                    <li>@Html(Messages("evidence.selfEmployment.accounts"))</li>
+                                    <li>@Html(messages("evidence.selfEmployment.accounts"))</li>
                                 }
                                 @if(Employed.isEmployed(claim)) {
-                                    <li>@Html(Messages("evidence.email.employment.mostRecentPayslipBefore", claimDate))</li>
-                                    <li>@Html(Messages("evidence.email.employment.anyPayslipsSince", claimDate))</li>
+                                    <li>@Html(messages("evidence.email.employment.mostRecentPayslipBefore", claimDate))</li>
+                                    <li>@Html(messages("evidence.email.employment.anyPayslipsSince", claimDate))</li>
                                 }
-                                @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Html(Messages("evidence.pensionStatements"))</li>}
-                                @if(OtherMoney.receivesStatutorySickPay(claim)) {<li>@Html(Messages("evidence.otherMoney.statutorySickPay"))</li>}
-                                @if(OtherMoney.receivesOtherStatutoryPay(claim)) {<li>@Html(Messages("evidence.otherMoney.otherStatutoryPay"))</li>}
+                                @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Html(messages("evidence.pensionStatements"))</li>}
+                                @if(OtherMoney.receivesStatutorySickPay(claim)) {<li>@Html(messages("evidence.otherMoney.statutorySickPay"))</li>}
+                                @if(OtherMoney.receivesOtherStatutoryPay(claim)) {<li>@Html(messages("evidence.otherMoney.otherStatutoryPay"))</li>}
                             }else{
                                 @if(!isCofcSelfEmployment){
-                                    <li>@Html(Messages("evidence.email.cofc.employment.anyPayslips"))</li>
+                                    <li>@Html(messages("evidence.email.cofc.employment.anyPayslips"))</li>
                                     @if(isCofcFinishedEmployment) {
-                                        <li>@Html(Messages("evidence.email.cofc.employment.p45"))</li>
+                                        <li>@Html(messages("evidence.email.cofc.employment.p45"))</li>
                                     }
-                                    <li>@Html(Messages("evidence.pensionStatements"))</li>
+                                    <li>@Html(messages("evidence.pensionStatements"))</li>
                                 }
                             }
                         </ul>
 
-                        <p>@Html(Messages("mail.next.send5"))</p>
+                        <p>@Html(messages("mail.next.send5"))</p>
 
                         <div class="address">
-                            <span><b>@Html(Messages("mail.next.send6"))</b></span><br />
-                            <span>@Html(Messages("mail.next.send7"))</span><br />
-                            <span>@Html(Messages("mail.next.send8"))</span><br />
-                            <span>@Html(Messages("mail.next.send9"))</span><br />
+                            <span><b>@Html(messages("mail.next.send6"))</b></span><br />
+                            <span>@Html(messages("mail.next.send7"))</span><br />
+                            <span>@Html(messages("mail.next.send8"))</span><br />
+                            <span>@Html(messages("mail.next.send9"))</span><br />
                         </div>
 
                     }
 
                     @if(isClaim){
                         @if(isEmployment){
-                            <p>@Html(Messages("mail.claim.next.line1.alt"))</p>
+                            <p>@Html(messages("mail.claim.next.line1.alt"))</p>
                         }else{
-                            <p>@Html(Messages("mail.claim.next.line1"))</p>
+                            <p>@Html(messages("mail.claim.next.line1"))</p>
                         }
                     }
 
                     @if(isEmployment&& !isCofcSelfEmployment){
-                        <p>@Html(Messages("mail.next.line2"))</p>
+                        <p>@Html(messages("mail.next.line2"))</p>
                     } else{
-                        <p>@Html(Messages("mail.next.line"))</p>
+                        <p>@Html(messages("mail.next.line"))</p>
                     }
 
                 </div>
 
                 <div class="section">
 
-                    <h2>@Html(Messages("mail.next.line3"))</h2>
+                    <h2>@Html(messages("mail.next.line3"))</h2>
 
-                    <p>@Html(Messages("mail.next.line4"))</p>
-                    <p>@Html(Messages("mail.next.line5"))</p>
-                    <p>@Html(Messages("mail.next.line6"))</p>
+                    <p>@Html(messages("mail.next.line4"))</p>
+                    <p>@Html(messages("mail.next.line5"))</p>
+                    <p>@Html(messages("mail.next.line6"))</p>
 
                     <div class="address">
-                        <span>@Html(Messages("mail.next.line9"))</span><br />
-                        <span> @Html(Messages("mail.next.line10"))</span><br />
-                        <span> @Html(Messages("mail.next.line11"))</span><br />
-                        <span>@Html(Messages("mail.next.line12"))</span><br />
-                        <span> @Html(Messages("mail.next.line13"))</span>
+                        <span>@Html(messages("mail.next.line9"))</span><br />
+                        <span> @Html(messages("mail.next.line10"))</span><br />
+                        <span> @Html(messages("mail.next.line11"))</span><br />
+                        <span>@Html(messages("mail.next.line12"))</span><br />
+                        <span> @Html(messages("mail.next.line13"))</span>
                     </div>
-                    <p><b>@Html(Messages("mail.next.line14"))</b></p>
+                    <p><b>@Html(messages("mail.next.line14"))</b></p>
 
                 </div>
 
                 <div class="section">
 
-                    <h2>@Html(Messages("mail.disclaimer.title"))</h2>
+                    <h2>@Html(messages("mail.disclaimer.title"))</h2>
 
-                    <p>@Html(Messages("mail.disclaimer.line2"))</p>
-                    <p>@Html(Messages("mail.disclaimer.line3"))</p>
+                    <p>@Html(messages("mail.disclaimer.line2"))</p>
+                    <p>@Html(messages("mail.disclaimer.line3"))</p>
 
                 </div>
 
@@ -185,7 +184,7 @@
         </div><!-- main -->
 
         <div class="footer">
-            <p><b>@Html(Messages("mail.donotreply"))</b></p>
+            <p><b>@Html(messages("mail.donotreply"))</b></p>
             <br />
             <p style="font-size: 16px; color: #BFC1C3;">@getProperty("xml.schema.version", "No schema version found")</p>
         </div>

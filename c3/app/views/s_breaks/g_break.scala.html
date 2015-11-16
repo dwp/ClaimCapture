@@ -1,7 +1,4 @@
-@import controllers.s_breaks.GBreak
-@(breakForm: Form[models.domain.Break], backCall:Call)(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent],flash:Flash)
-@import utils.helpers.CheckboxTemplate
-@import utils.helpers.CarersTemplate
+@(breakForm: Form[models.domain.Break], backCall:Call)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
@@ -9,10 +6,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._
-@import app.Whereabouts._
-@import play.api.i18n.{MMessages => Messages}
 @import scala.language.postfixOps
-@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 @import utils.helpers.CarersTemplate._
 @import app.CircsBreaksWhereabouts._
 @import controllers.IterationID
@@ -24,7 +18,7 @@
 
 }
 
-@defining(lang) { implicit language =>
+
 
 @main("Break - About the care you provide", Some(breakForm), Some(backCall),true) {
 
@@ -36,49 +30,49 @@
 
         <fieldset class="form-elements">
 
-            <legend class="heading-medium form-label-bold">@Html(Messages("s4.g11.help1")) @dateWeRequireBreakInCareInformationFrom</legend>
+            <legend class="heading-medium form-label-bold">@Html(messages("s4.g11.help1")) @dateWeRequireBreakInCareInformationFrom</legend>
 			
             <ul>
 
                 @dateTimePickerWithDynamicLabel(breakForm("start"), 'dynamicDateDays-> 34)
 
                 @carersShortInputText(breakForm("startTime"),
-                'helperAbove-> Html(Messages("breaksInCareStartTime.helper")),
+                'helperAbove-> Html(messages("breaksInCareStartTime.helper")),
                 'maxLength -> 10)
 
                 @listRadioGroupWithOther(breakForm("wherePerson"),
-                    'items -> whereWasThePersonList,
+                    'items -> whereWasThePersonList(lang, messages),
                     'wrapperName -> "wherePersonBreaksInCareWrap",
-                    'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
+                    'helperAbove-> messages("wherePersonBreaksInCare.helper"),
                     '_nestedFieldSet -> true,
                     'maxLength -> 60,
                     'otherValue -> SomewhereElse
                 )
 
                 @listRadioGroupWithOther(breakForm("whereYou"),
-                    'items -> whereWereYouList,
+                    'items -> whereWereYouList(lang, messages),
                     'wrapperName -> "whereYouBreaksInCareWrap",
-                    'helperAbove-> Messages("whereYouBreaksInCare.helper"),
+                    'helperAbove-> messages("whereYouBreaksInCare.helper"),
                     '_nestedFieldSet -> true,
                     'maxLength -> 60,
                     'otherValue -> SomewhereElse)
 
                 @yesNoRadioGroup(breakForm("hasBreakEnded.answer"),
-                    'values -> Seq("yes" -> Messages("label.yes9"), "no" -> Messages("label.no")),
-                    '_label -> Messages("hasBreakEnded.answer")
+                    'values -> Seq("yes" -> messages("label.yes9"), "no" -> messages("label.no")),
+                    '_label -> messages("hasBreakEnded.answer")
                 )
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         dateTimePickerWithDynamicLabel(breakForm("hasBreakEnded.date"), 'dynamicDateDays -> 27, 'ignoreOptional -> true),
                         carersShortInputText(breakForm("endTime"),
-                            'helperAbove-> Html(Messages("breakEnded.endTime.helper")),
+                            'helperAbove-> Html(messages("breakEnded.endTime.helper")),
                             'maxLength -> 10)
                     ),
                     'id -> "hasBreakEndedWrap"
                 )
 
-                @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> Messages("label.yes3"), "no" -> Messages("label.no")))
+                @yesNoRadioGroup(breakForm("medicalDuringBreak"), 'values -> Seq("yes" -> messages("label.yes3"), "no" -> messages("label.no")))
 
             </ul>
 
@@ -111,4 +105,4 @@
     </script>
 
 }
-}
+

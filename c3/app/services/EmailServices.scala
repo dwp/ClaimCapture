@@ -8,12 +8,12 @@ import models.domain._
 import models.view.CachedClaim
 import models.yesNo.YesNoWithText
 import play.api.Logger
-import play.api.i18n.Lang
 import services.mail.{EmailWrapper, EmailActors}
 
 import scala.language.existentials
 import play.modules.mailer._
-import play.api.i18n.{MMessages => Messages}
+import play.api.i18n.{I18nSupport, MMessages, MessagesApi, Lang}
+import play.api.Play.current
 
 object CadsEmail {
   def send(transactionID: String, subject: String, body: String, r: String*) = {
@@ -25,8 +25,8 @@ object CadsEmail {
   }
 }
 
-object EmailServices {
-
+object EmailServices extends I18nSupport {
+  val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   private def isEmployment(claim: Claim) = {
     (claim.questionGroup[Employment] match {
       case Some(employment) => employment.beenEmployedSince6MonthsBeforeClaim == Mappings.yes || employment.beenSelfEmployedSince1WeekBeforeClaim == Mappings.yes
@@ -52,9 +52,9 @@ object EmailServices {
   }
 
   def claimEmailSubject(claim: Claim) = (claim.questionGroup[Employment], claim.questionGroup[SelfEmploymentPensionsAndExpenses]) match {
-    case (Some(Employment(XMLValues.yes, _)), _) | (Some(Employment(_, XMLValues.yes)), _) => Messages("subject.claim.employed")
-    case (_, Some(SelfEmploymentPensionsAndExpenses(YesNoWithText(XMLValues.yes, _), _))) => Messages("subject.claim.employed")
-    case _ => Messages("subject.claim.notemployed")
+    case (Some(Employment(XMLValues.yes, _)), _) | (Some(Employment(_, XMLValues.yes)), _) => messagesApi("subject.claim.employed")
+    case (_, Some(SelfEmploymentPensionsAndExpenses(YesNoWithText(XMLValues.yes, _), _))) => messagesApi("subject.claim.employed")
+    case _ => messagesApi("subject.claim.notemployed")
   }
 
 
@@ -63,7 +63,7 @@ object EmailServices {
       case (Some(circumstancesRepChange), language) if circumstancesRepChange.email.isDefined =>
         implicit val lang = language.getOrElse(Lang("en"))
 
-        CadsEmail.send(claim.transactionId.getOrElse(""), subject = Messages("subject.cofc"), body = views.html.mail(claim, isClaim = false, isEmployment(claim)).body, circumstancesRepChange.email.get)
+        CadsEmail.send(claim.transactionId.getOrElse(""), subject = messagesApi("subject.cofc"), body = views.html.mail(claim, isClaim = false, isEmployment(claim)).body, circumstancesRepChange.email.get)
       case (Some(circumstancesDecl), language) if circumstancesDecl.email.isEmpty => //We do nothing in this case, they have selected not to send email
       case _ => Logger.error(s"Can't send changes email, email not present for transactionId[${claim.transactionId.getOrElse("id not present")}]")
     }

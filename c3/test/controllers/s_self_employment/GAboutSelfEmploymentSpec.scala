@@ -2,12 +2,12 @@ package controllers.s_self_employment
 
 import models.DayMonthYear
 import models.domain._
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.test.Helpers._
 import play.api.test.FakeRequest
 import utils.WithApplication
 
-class GAboutSelfEmploymentSpec extends Specification with Tags {
+class GAboutSelfEmploymentSpec extends Specification {
 
   "Self Employment - About Self Employment - Controller" should {
     val areYouSelfEmployedNow = "no"
@@ -92,5 +92,6 @@ class GAboutSelfEmploymentSpec extends Specification with Tags {
       val result = controllers.s_self_employment.GAboutSelfEmployment.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit", models.domain.SelfEmployment.id)
+  }
+  section("unit", models.domain.SelfEmployment.id)
 }

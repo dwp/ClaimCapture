@@ -6,13 +6,15 @@ import monitoring.Histograms
 import net.sf.ehcache.CacheManager
 import play.api.Logger
 import play.api.Play.current
-import play.api.cache.Cache
+import play.api.cache.CacheApi
 import play.api.mvc.{AnyContent, Request}
+import scala.concurrent.duration._
 
+import scala.concurrent.duration.Duration
 import scala.util.Try
 
 protected trait CacheHandling {
-
+  val cache = current.injector.instanceOf[CacheApi]
   def cacheKey: String
 
   def keyFrom(request: Request[AnyContent]): String = request.session.get(cacheKey).getOrElse("")
@@ -31,13 +33,13 @@ protected trait CacheHandling {
       }
       None
     } else {
-      Cache.getAs[Claim](key)
+      cache.get[Claim](key)
     }
   }
 
-  def saveInCache(claim: Claim) = Cache.set(claim.uuid, claim, CacheHandling.expiration)
+  def saveInCache(claim: Claim) = cache.set(claim.uuid, claim, Duration(CacheHandling.expiration, SECONDS))
 
-  def removeFromCache(key: String) = Cache.remove(key)
+  def removeFromCache(key: String) = cache.remove(key)
 
 
   protected def recordMeasurements() = {

@@ -1,15 +1,13 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, FakeApplication}
+import org.specs2.mutable._
+import play.api.test.FakeRequest
 import models.domain.MockForm
 import utils.{LightFakeApplication, WithApplication}
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
-import play.api.test.FakeApplication
-import utils.WithBrowser
 
-class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
+class G11StartedAndFinishedEmploymentSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val howMuchPaid = "£35"
@@ -82,6 +80,7 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
 
   "Report an Employment change in your circumstances where the employment is finished - Employment Controller" should {
     "present 'CoC Finished Employment Change'" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
       val result = G11StartedAndFinishedEmployment.present(request)
@@ -98,6 +97,7 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
 
     "redirect to the next page after valid submission of monthly on going employment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
       pending
+
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validFinishedMonthlyPaymentEmployment: _*)
 
@@ -107,6 +107,7 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
 
     "redirect to the next page after valid submission of other on going employment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
       pending
+
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validFinishedOtherPaymentEmployment: _*)
 
@@ -114,5 +115,6 @@ class G11StartedAndFinishedEmploymentSpec extends Specification with Tags {
       redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
     }
 
-  } section("unit", models.domain.CircumstancesReportChanges.id)
+  }
+  section("unit", models.domain.CircumstancesReportChanges.id)
 }

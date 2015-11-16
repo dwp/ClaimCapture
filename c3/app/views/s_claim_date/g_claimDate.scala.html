@@ -1,4 +1,4 @@
-@(claimDateForm: Form[models.domain.ClaimDate])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(claimDateForm: Form[models.domain.ClaimDate])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -6,7 +6,7 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 @import scala.language.postfixOps
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import play.api.Play
 @import play.api.Play.current
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
@@ -14,14 +14,14 @@
 
 @displayDateForLabel = @{
     claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-        displayPlaybackDatesFormat(lang,dmy)
+        displayPlaybackDatesFormat(lang, dmy)
     )
 }
 
-@defining(lang) { implicit language =>
-    @main(Messages("s1_2.g1.legend") + " - " + Messages("s1_2.longName")) {
 
-        <p>@Html(Messages("dateOfClaimHelp")) <a rel="external" href="/claim-help#1" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date")>@Html(Messages("dateOfClaimHelp.link"))</a> @Html(Messages("dateOfClaimHelp2")).</p>
+    @main(messages("s1_2.g1.legend") + " - " + messages("s1_2.longName")) {
+
+        <p>@Html(messages("dateOfClaimHelp")) <a rel="external" href="/claim-help#1" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date")>@Html(messages("dateOfClaimHelp.link"))</a> @Html(messages("dateOfClaimHelp2")).</p>
 
         @errorsSummary(claimDateForm)
 
@@ -30,13 +30,13 @@
             <div class="form-elements">
 
                 <ul>
-                    @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> Messages("dateClaimExample.helperAbove", (DayMonthYear.today - 3 months).`d M yyyy`))
+                    @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> messages("dateClaimExample.helperAbove", (DayMonthYear.today - 3 months).`d M yyyy`))
 
-                    @yesNoRadioGroup(claimDateForm("beforeClaimCaring.answer"),'values -> Seq("yes" -> Messages("label.yes9"), "no" -> Messages("label.no")),
-                        '_label -> Messages("spent35HoursCaringBeforeClaim.label"))
+                    @yesNoRadioGroup(claimDateForm("beforeClaimCaring.answer"),'values -> Seq("yes" -> messages("label.yes9"), "no" -> messages("label.no")),
+                        '_label -> messages("spent35HoursCaringBeforeClaim.label"))
 
                     @otherDetailPlaceHolder(
-                        inputDef = Seq(inputDayMonthYear(claimDateForm("beforeClaimCaring.date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 1 years).`d M yyyy`))),
+                        inputDef = Seq(inputDayMonthYear(claimDateForm("beforeClaimCaring.date"), 'helperAbove -> messages("dateExample.helper", (DayMonthYear.today - 1 years).`d M yyyy`))),
                         'id -> "careStartDateWrap"
                     )
                 </ul>
@@ -67,5 +67,5 @@
 
         </script>
     }
-}
+
 

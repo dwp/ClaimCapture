@@ -1,7 +1,7 @@
 package controllers.s_employment
 
-import org.specs2.mutable.{Tags, Specification}
-import utils.WithBrowser
+import org.specs2.mutable._
+import utils.{WithJsBrowser, WithBrowser}
 import utils.pageobjects.{PageObjectsContext, TestData, PageObjects}
 import utils.pageobjects.s_employment.{GBeenEmployedPage, GPensionAndExpensesPage, GEmploymentPage, GEmploymentAdditionalInfoPage}
 import utils.pageobjects.s_self_employment.GSelfEmploymentPensionsAndExpensesPage
@@ -11,9 +11,9 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory._
 
 
-class GEmploymentAdditionalInfoIntegrationSpec extends Specification with Tags {
+class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
   "Employment Additional Info" should {
-    "be presented" in new WithBrowser with PageObjects{
+    "be presented" in new WithJsBrowser with PageObjects{
       val page =  GEmploymentAdditionalInfoPage(context)
       page goToThePage()
     }

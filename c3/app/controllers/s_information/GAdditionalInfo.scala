@@ -1,5 +1,7 @@
 package controllers.s_information
 
+import play.api.Play._
+
 import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
@@ -12,9 +14,10 @@ import controllers.CarersForms._
 import controllers.mappings.Mappings._
 import models.yesNo.YesNoWithText
 import app.ConfigProperties._
+import play.api.i18n._
 
-object GAdditionalInfo extends Controller with CachedClaim with Navigable {
-
+object GAdditionalInfo extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val anythingElseMapping =
     "anythingElse" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -27,13 +30,13 @@ object GAdditionalInfo extends Controller with CachedClaim with Navigable {
     "welshCommunication" -> nonEmptyText
   )(AdditionalInfo.apply)(AdditionalInfo.unapply))
 
-  def present = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    track(AdditionalInfo) { implicit claim => Ok(views.html.s_information.g_additionalInfo(form.fill(AdditionalInfo))(lang)) }
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+    track(AdditionalInfo) { implicit claim => Ok(views.html.s_information.g_additionalInfo(form.fill(AdditionalInfo))) }
   }
 
-  def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang => 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s_information.g_additionalInfo(formWithErrors)(lang)),
+      formWithErrors => BadRequest(views.html.s_information.g_additionalInfo(formWithErrors)),
       additionalInfo => claim.update(additionalInfo) -> redirect())
   }
 

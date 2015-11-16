@@ -1,18 +1,19 @@
 package models.domain
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import org.specs2.mock.Mockito
+import utils.WithApplication
 
 class BreaksInCareSpec extends Specification with Mockito {
   "Breaks from care" should {
-    "give zero breaks upon deleting from no existing breaks in care" in {
+    "give zero breaks upon deleting from no existing breaks in care" in new WithApplication {
       val breaksInCare = BreaksInCare()
 
       val updatedBreaksInCare = breaksInCare delete "non existing break ID"
       updatedBreaksInCare.breaks.size mustEqual 0
     }
 
-    "give zero breaks upon deleting the only break" in {
+    "give zero breaks upon deleting the only break" in new WithApplication {
       val break = mock[Break]
       break.iterationID returns "breakID"
 
@@ -23,7 +24,7 @@ class BreaksInCareSpec extends Specification with Mockito {
       updatedBreaksInCare.breaks.size mustEqual 0
     }
 
-    "give 2 breaks upon deleting 2nd out of 3 breaks" in {
+    "give 2 breaks upon deleting 2nd out of 3 breaks" in new WithApplication {
       val break1 = mock[Break]
       break1.iterationID returns "break1ID"
 

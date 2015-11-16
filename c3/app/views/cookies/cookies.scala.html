@@ -1,10 +1,11 @@
-@(implicit lang: Lang, request:play.api.mvc.Request[AnyContent],flash:Flash)
+@(messagesApi: play.api.i18n.MessagesApi)(implicit lang: Lang, request:play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
-@import play.api.i18n.{MMessages => Messages}
 @import views.html.common._
+@import play.api.Play
 
-@common.govMain(Messages("cookies.title")){
+
+@common.govMain(messagesApi("cookies.title")){
 
     <div class="carers-allowance clearfix">
         
@@ -12,75 +13,75 @@
                 
             <article class="column-full-width main-content">
                 
-                <h1 class="form-title heading-large">@Messages("cookies.heading")</h1>
+                <h1 class="form-title heading-large">@messagesApi("cookies.heading")</h1>
                 
-                <p>@Messages("cookies.weUseCookies")</p>
-                <p>@Messages("cookies.whatCookiesAreUsedFor")</p>
+                <p>@messagesApi("cookies.weUseCookies")</p>
+                <p>@messagesApi("cookies.whatCookiesAreUsedFor")</p>
                 
                 <ul class="list-bullet">
-                    <li>@Messages("cookies.whatCookiesAreUsedFor.understand")</li>
-                    <li>@Messages("cookies.whatCookiesAreUsedFor.remember")</li>
-                    <li>@Messages("cookies.whatCookiesAreUsedFor.security")</li>
+                    <li>@messagesApi("cookies.whatCookiesAreUsedFor.understand")</li>
+                    <li>@messagesApi("cookies.whatCookiesAreUsedFor.remember")</li>
+                    <li>@messagesApi("cookies.whatCookiesAreUsedFor.security")</li>
                 </ul>
                 
-                <p>@Messages("cookies.mustBeEnabled")</p>
+                <p>@messagesApi("cookies.mustBeEnabled")</p>
                 
-                <h2 class="heading-medium">@Messages("cookies.cookiesSwitchedOff.heading")</h2>
+                <h2 class="heading-medium">@messagesApi("cookies.cookiesSwitchedOff.heading")</h2>
                 
-                <p>@Messages("cookies.cookiesSwitchedOff.error")</p>
+                <p>@messagesApi("cookies.cookiesSwitchedOff.error")</p>
                 <p>
-                    @Messages("cookies.cookiesSwitchedOff.turnOn")
-                    <a target="blank" rel="external" href="@Messages("cookies.cookiesSwitchedOff.turnOn.url")">@Messages("cookies.cookiesSwitchedOff.turnOn.anchorText")</a>
-                    @Messages("cookies.cookiesSwitchedOff.turnOn2")
+                    @messagesApi("cookies.cookiesSwitchedOff.turnOn")
+                    <a target="blank" rel="external" href="@messagesApi("cookies.cookiesSwitchedOff.turnOn.url")">@messagesApi("cookies.cookiesSwitchedOff.turnOn.anchorText")</a>
+                    @messagesApi("cookies.cookiesSwitchedOff.turnOn2")
                 </p>
-                <p>@Messages("cookies.cookiesSwitchedOff.settings")</p>
+                <p>@messagesApi("cookies.cookiesSwitchedOff.settings")</p>
                 
                 <ul class="list-bullet">
-                    <li><a target="blank" rel="external" href="@Messages("cookies.cookiesSwitchedOff.ie.url")">@Messages("cookies.cookiesSwitchedOff.ie.anchorText")</a></li>
-                    <li><a target="blank" rel="external" href="@Messages("cookies.cookiesSwitchedOff.mozilla.url")">@Messages("cookies.cookiesSwitchedOff.mozilla.anchorText")</a></li>
-                    <li><a target="blank" rel="external" href="@Messages("cookies.cookiesSwitchedOff.google.url")">@Messages("cookies.cookiesSwitchedOff.google.anchorText")</a></li>
-                    <li><a target="blank" rel="external" href="@Messages("cookies.cookiesSwitchedOff.safari.url")">@Messages("cookies.cookiesSwitchedOff.safari.anchorText")</a>@Messages("cookies.cookiesSwitchedOff.safari.text")</li>
-                </ul>
-                
-                <p>
-                    @Messages("cookies.cookiesSwitchedOff.other.text")
-                    <a target="blank" rel="external" href="@Messages("cookies.cookiesSwitchedOff.other.url")">@Messages("cookies.cookiesSwitchedOff.other.anchorText")</a>
-                    @Messages("cookies.cookiesSwitchedOff.other.text2")
-                </p>
-                
-                <h2 class="heading-medium">@Messages("cookies.cookiesWeUse.heading")</h2>
-                
-                <h3 class="heading-small">@Messages("cookies.cookiesWeUse.ga.heading")</h3>
-                
-                <p>@Messages("cookies.cookiesWeUse.ga")</p>
-                <p>@Messages("cookies.cookiesWeUse.ga.collects")</p>
-                
-                <ul class="list-bullet">
-                    <li>@Html(Messages("cookies.cookiesWeUse.ga.pages"))</li>
-                    <li>@Messages("cookies.cookiesWeUse.ga.howLong")</li>
-                    <li>@Messages("cookies.cookiesWeUse.ga.howYouGotHere")</li>
+                    <li><a target="blank" rel="external" href="@messagesApi("cookies.cookiesSwitchedOff.ie.url")">@messagesApi("cookies.cookiesSwitchedOff.ie.anchorText")</a></li>
+                    <li><a target="blank" rel="external" href="@messagesApi("cookies.cookiesSwitchedOff.mozilla.url")">@messagesApi("cookies.cookiesSwitchedOff.mozilla.anchorText")</a></li>
+                    <li><a target="blank" rel="external" href="@messagesApi("cookies.cookiesSwitchedOff.google.url")">@messagesApi("cookies.cookiesSwitchedOff.google.anchorText")</a></li>
+                    <li><a target="blank" rel="external" href="@messagesApi("cookies.cookiesSwitchedOff.safari.url")">@messagesApi("cookies.cookiesSwitchedOff.safari.anchorText")</a>@messagesApi("cookies.cookiesSwitchedOff.safari.text")</li>
                 </ul>
                 
                 <p>
-                    @Messages("cookies.cookiesWeUse.ga.notSharing")
-                    <a rel="external" target="blank" href="@Messages("cookies.cookiesWeUse.ga.url")">@Messages("cookies.cookiesWeUse.ga.anchorText")</a>@Messages("cookies.cookiesWeUse.ga.notSharing2")
+                    @messagesApi("cookies.cookiesSwitchedOff.other.text")
+                    <a target="blank" rel="external" href="@messagesApi("cookies.cookiesSwitchedOff.other.url")">@messagesApi("cookies.cookiesSwitchedOff.other.anchorText")</a>
+                    @messagesApi("cookies.cookiesSwitchedOff.other.text2")
                 </p>
                 
-                <h3 class="heading-small">@Messages("cookies.cookiesWeUse.session.heading")</h3>
+                <h2 class="heading-medium">@messagesApi("cookies.cookiesWeUse.heading")</h2>
                 
-                <p>@Html(Messages("cookies.cookiesWeUse.session.cookies"))</p>
-                <p>@Messages("cookies.cookiesWeUse.session.automatic")</p>
+                <h3 class="heading-small">@messagesApi("cookies.cookiesWeUse.ga.heading")</h3>
+                
+                <p>@messagesApi("cookies.cookiesWeUse.ga")</p>
+                <p>@messagesApi("cookies.cookiesWeUse.ga.collects")</p>
                 
                 <ul class="list-bullet">
-                    <li>@Messages("cookies.cookiesWeUse.session.areIdle")</li>
-                    <li>@Messages("cookies.cookiesWeUse.session.close")</li>
-                    <li>@Messages("cookies.cookiesWeUse.session.switchOff")</li>
+                    <li>@Html(messagesApi("cookies.cookiesWeUse.ga.pages"))</li>
+                    <li>@messagesApi("cookies.cookiesWeUse.ga.howLong")</li>
+                    <li>@messagesApi("cookies.cookiesWeUse.ga.howYouGotHere")</li>
                 </ul>
                 
-                <h3 class="heading-small">@Messages("cookies.cookiesWeUse.introductory.heading")</h3>
+                <p>
+                    @messagesApi("cookies.cookiesWeUse.ga.notSharing")
+                    <a rel="external" target="blank" href="@messagesApi("cookies.cookiesWeUse.ga.url")">@messagesApi("cookies.cookiesWeUse.ga.anchorText")</a>@messagesApi("cookies.cookiesWeUse.ga.notSharing2")
+                </p>
                 
-                <p>@Messages("cookies.cookiesWeUse.introductory.popUp")</p>
-                <p>@Html(Messages("cookies.cookiesWeUse.introductory.removed"))</p>
+                <h3 class="heading-small">@messagesApi("cookies.cookiesWeUse.session.heading")</h3>
+                
+                <p>@Html(messagesApi("cookies.cookiesWeUse.session.cookies"))</p>
+                <p>@messagesApi("cookies.cookiesWeUse.session.automatic")</p>
+                
+                <ul class="list-bullet">
+                    <li>@messagesApi("cookies.cookiesWeUse.session.areIdle")</li>
+                    <li>@messagesApi("cookies.cookiesWeUse.session.close")</li>
+                    <li>@messagesApi("cookies.cookiesWeUse.session.switchOff")</li>
+                </ul>
+                
+                <h3 class="heading-small">@messagesApi("cookies.cookiesWeUse.introductory.heading")</h3>
+                
+                <p>@messagesApi("cookies.cookiesWeUse.introductory.popUp")</p>
+                <p>@Html(messagesApi("cookies.cookiesWeUse.introductory.removed"))</p>
             
             </article>
             

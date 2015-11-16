@@ -1,14 +1,14 @@
 package controllers.circs.s3_consent_and_declaration
 
 import models.domain._
+import play.api.Play.current
 import models.view.CachedChangeOfCircs
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.test.Helpers._
-import play.api.test.{FakeApplication, FakeRequest}
-import services.submission.MockInjector
+import play.api.test.FakeRequest
 import utils.{WithApplication, LightFakeApplication}
 
-class G1DeclarationSpec extends Specification with MockInjector with Tags {
+class G1DeclarationSpec extends Specification {
 
   val byPost = "By Post"
   val infoAgreement = "yes"
@@ -26,18 +26,17 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
     "wantsEmailContactCircs" -> wantsEmailContact)
   val declartionInputWithoutSomeOne = Seq("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "circsSomeOneElse" -> "")
 
-  val G1Declaration = resolve(classOf[G1Declaration])
-
   "Circumstances - OtherChangeInfo - Controller" should {
-
-    "present 'Other Change Information' " in new WithApplication(app = LightFakeApplication(withGlobal = Some(global))) with MockForm {
+    "present 'Other Change Information' " in new WithApplication(app = LightFakeApplication.fa) with MockForm {
+      val G1Declaration = current.injector.instanceOf[G1Declaration]
       val request = FakeRequest()
 
       val result = G1Declaration.present(request)
       status(result) mustEqual OK
     }
 
-    "add submitted form to the cached claim" in new WithApplication(app = LightFakeApplication(withGlobal = Some(global))) with MockForm {
+    "add submitted form to the cached claim" in new WithApplication(app = LightFakeApplication.fa) with MockForm {
+      val G1Declaration = current.injector.instanceOf[G1Declaration]
       val request = FakeRequest()
         .withFormUrlEncodedBody(declarationInput: _*)
 
@@ -53,7 +52,8 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
       }
     }
 
-    "redirect to the next page after a valid submission" in new WithApplication(app = LightFakeApplication(withGlobal = Some(global))) with MockForm {
+    "redirect to the next page after a valid submission" in new WithApplication(app = LightFakeApplication.fa) with MockForm {
+      val G1Declaration = current.injector.instanceOf[G1Declaration]
       val request = FakeRequest()
         .withFormUrlEncodedBody(declarationInput: _*)
 
@@ -61,5 +61,6 @@ class G1DeclarationSpec extends Specification with MockInjector with Tags {
       redirectLocation(result) must beSome("/circs-async-submitting")
     }
 
-  } section("unit", models.domain.CircumstancesConsentAndDeclaration.id)
+  }
+  section("unit", models.domain.CircumstancesConsentAndDeclaration.id)
 }

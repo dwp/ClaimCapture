@@ -1,12 +1,12 @@
 package utils
 
 import models.view.CachedClaim
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import models.domain._
 import models.domain.Claim
 
 
-class SectionsManagerSpec extends Specification with Tags {
+class SectionsManagerSpec extends Specification {
 
   "Sections Manager" should {
 
@@ -22,14 +22,14 @@ class SectionsManagerSpec extends Specification with Tags {
       SectionsManager.currentSection(Employed) mustEqual 8
     }
 
-    "Retrieve the correct section positions when there are hidden sections" in {
+    "Retrieve the correct section positions when there are hidden sections" in new WithApplication {
       implicit val claim = Claim(CachedClaim.key).showHideSection(visible = false,PayDetails)
 
       SectionsManager.currentSection(AboutYou) mustEqual 2
       SectionsManager.currentSection(OtherMoney) mustEqual 9
     }
 
-    "Retrieve the correct section positions when there are hidden employment" in {
+    "Retrieve the correct section positions when there are hidden employment" in new WithApplication {
       implicit val claim = Claim(CachedClaim.key).showHideSection(visible = false,SelfEmployment)
 
       SectionsManager.currentSection(Employed) mustEqual 7

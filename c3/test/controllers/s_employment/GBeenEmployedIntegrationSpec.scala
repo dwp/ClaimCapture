@@ -1,7 +1,7 @@
 package controllers.s_employment
 
 import controllers.ClaimScenarioFactory
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeApplication
 import controllers.ClaimScenarioFactory._
 import utils.WithBrowser
@@ -13,7 +13,7 @@ import scala.Some
 import utils.pageobjects.s_claim_date.{GClaimDatePage, GClaimDatePageContext}
 import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 
-class GBeenEmployedIntegrationSpec extends Specification with Tags {
+class GBeenEmployedIntegrationSpec extends Specification {
   "Been Employed" should {
     "present, having indicated that the carer has been employed" in new WithBrowser with PageObjects {
       val claimDate = new GClaimDatePage(context) goToThePage()
@@ -111,7 +111,8 @@ class GBeenEmployedIntegrationSpec extends Specification with Tags {
       historyPage.source must contain("Before 10/09/2016") // This is one month before claim date
     }
 
-  } section("integration", models.domain.Employed.id)
+  }
+  section("integration", models.domain.Employed.id)
 }
 
 trait EmployedHistoryPage extends GClaimDatePageContext {

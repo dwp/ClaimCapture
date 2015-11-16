@@ -1,6 +1,7 @@
 package controllers.s_other_money
 
 import controllers.mappings.Mappings
+import play.api.Play._
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
@@ -15,10 +16,10 @@ import utils.helpers.CarersForm._
 import models.view.Navigable
 import play.api.data.FormError
 import models.yesNo.{YesNo, YesNoWithEmployerAndMoney}
-import play.api.i18n.{MMessages => Messages}
+import play.api.i18n._
 
-object  GAboutOtherMoney extends Controller with CachedClaim with Navigable {
-
+object GAboutOtherMoney extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val anyPaymentsSinceClaimDateMapping =
     "anyPaymentsSinceClaimDate" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo)
@@ -79,15 +80,15 @@ object  GAboutOtherMoney extends Controller with CachedClaim with Navigable {
     case _ => false
   }
 
-  def present = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    track(AboutOtherMoney) { implicit claim => Ok(views.html.s_other_money.g_aboutOtherMoney(form.fill(AboutOtherMoney), hadPartnerSinceClaimDate)(lang)) }
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+    track(AboutOtherMoney) { implicit claim => Ok(views.html.s_other_money.g_aboutOtherMoney(form.fill(AboutOtherMoney), hadPartnerSinceClaimDate)) }
   }
 
-  def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val claimDate: String = claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)
-        val yourBenefitsAnswerErrorParams = Seq(if (hadPartnerSinceClaimDate) Messages("orPartnerSpouse") else "", claimDate)
+        val yourBenefitsAnswerErrorParams = Seq(if (hadPartnerSinceClaimDate) messagesApi("orPartnerSpouse") else "", claimDate)
         val anyPaymentsErrorParams = Seq(claimDate)
 
         val formWithErrorsUpdate = formWithErrors
@@ -103,7 +104,7 @@ object  GAboutOtherMoney extends Controller with CachedClaim with Navigable {
           .replaceError("otherStatutoryPay","otherPayHowMuchRequired", FormError("otherStatutoryPay.howMuch", Mappings.errorRequired))
           .replaceError("otherStatutoryPay","otherPayEmployerNameRequired", FormError("otherStatutoryPay.employersName", Mappings.errorRequired))
 
-        BadRequest(views.html.s_other_money.g_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate)(lang))
+        BadRequest(views.html.s_other_money.g_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate))
       },
       f => claim.update(f) -> Redirect(controllers.s_pay_details.routes.GHowWePayYou.present()))
   } withPreview()

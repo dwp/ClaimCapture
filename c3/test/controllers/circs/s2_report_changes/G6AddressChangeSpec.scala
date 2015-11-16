@@ -1,6 +1,6 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
@@ -11,8 +11,7 @@ import utils.WithApplication
 /**
  * Created by neddakaltcheva on 2/14/14.
  */
-class G6AddressChangeSpec extends Specification with Tags {
-
+class G6AddressChangeSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val postCode = "PR1A4JQ"
@@ -53,14 +52,12 @@ class G6AddressChangeSpec extends Specification with Tags {
   )
 
   "Circumstances - Address Change - Controller" should {
-
     "present 'CoC Address Change' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
       val result = G6AddressChange.present(request)
       status(result) mustEqual OK
     }
-
 
     "redirect to the next page after a valid still caring submission" in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
@@ -77,6 +74,7 @@ class G6AddressChangeSpec extends Specification with Tags {
       val result = s2_report_changes.G6AddressChange.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }section("unit", models.domain.CircumstancesAddressChange.id)
+  }
+  section("unit", models.domain.CircumstancesAddressChange.id)
 }
 

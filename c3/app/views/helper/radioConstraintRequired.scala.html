@@ -1,10 +1,10 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 @import views.html.helper.base.carersInputText
 @import utils.helpers.EmptyTemplate._
 @import utils.helpers.HtmlLabelHelper._
 @import views.html.helper.base.{carersLabel,carersLabelText}
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
 @nestedFieldSet = @{ args.toMap.get('_nestedFieldSet).getOrElse(false) == true }

@@ -1,4 +1,4 @@
-@(employmentNotStarted: Form[models.domain.CircumstancesEmploymentNotStarted])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(employmentNotStarted: Form[models.domain.CircumstancesEmploymentNotStarted])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -10,7 +10,7 @@
 @import views.html.helper.dates._
 @import controllers.mappings.Mappings._
 @import utils.helpers.CarersCrypto
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @beenPaidYet = @{employmentNotStarted("beenPaidYet")}
 @howMuchPaid = @{employmentNotStarted("howMuchPaid")}
@@ -23,16 +23,16 @@
 @willCareCostsForThisWork = @{employmentNotStarted("willCareCostsForThisWork")}
 @moreAboutChanges = @{employmentNotStarted("moreAboutChanges")}
 
-    @defining(lang) { implicit language =>
+    
 
-    @main(Messages("c2.g12") + " - " + Messages("c2.name")) {
+    @main(messages("c2.g12") + " - " + messages("c2.name")) {
     @errorsSummary(employmentNotStarted)
 
     @form(action = controllers.circs.s2_report_changes.routes.G12EmploymentNotStarted.submit) {
         @DwpCSRFFormHelper.formField
         <div class="form-wrap">
 	        <fieldset class="form-elements">
-	            <legend class="heading-medium form-label-bold">@Html(Messages("c2.g12"))</legend>
+	            <legend class="heading-medium form-label-bold">@Html(messages("c2.g12"))</legend>
 	
 	            <ul>
                     @yesNoRadioGroup(beenPaidYet, '_label -> "beenPaidYet.will")
@@ -51,7 +51,7 @@
                                 'ignoreOptional -> true,
                                 'visibleOn -> "yes",
                                 '_label -> "circs.howOften.will",
-                                'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60
+                                'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60
                             )
                         ),
                         'id -> "beenPaidYetWrap"
@@ -66,18 +66,18 @@
                 </ul>
             </fieldset>
             <fieldset class="form-elements">
-                <legend class="heading-medium form-label-bold">@Html(Messages("c2.g9.pensionsAndExpenses"))</legend>
+                <legend class="heading-medium form-label-bold">@Html(messages("c2.g9.pensionsAndExpenses"))</legend>
 
                 <ul>
                     @yesNoRadioGroup(willYouPayIntoPension("answer"),
                         '_label -> "willYouPayIntoPension",
-                        'values -> Seq("yes" -> Messages("label.yes8"), "no" -> Messages("label.no"))
+                        'values -> Seq("yes" -> messages("label.yes8"), "no" -> messages("label.no"))
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputTextArea(willYouPayIntoPension("whatFor"),
-                                'textAreaHelper -> Html(Messages("300charsLeft")),
+                                'textAreaHelper -> Html(messages("300charsLeft")),
                                 '_label -> "willYouPayIntoPension.whatFor",
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
@@ -87,13 +87,13 @@
 
                     @yesNoRadioGroup(willYouPayForThings("answer"),
                         '_label -> "willYouPayForThings",
-                        'helperAbove -> Html(Messages("payForThings.answer.helper.future"))
+                        'helperAbove -> Html(messages("payForThings.answer.helper.future"))
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputTextArea(willYouPayForThings("whatFor"),
-                                'textAreaHelper -> Html(Messages("300charsLeft")),
+                                'textAreaHelper -> Html(messages("300charsLeft")),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
@@ -102,23 +102,23 @@
 
                     @yesNoRadioGroup(willCareCostsForThisWork("answer"),
                         '_label -> "willCareCostsForThisWork",
-                        'helperAbove -> Html(Messages("haveExpensesForJob.answer.helper.past")),
-                        'values -> Seq("yes" -> Messages("label.yes7"), "no" -> Messages("label.no"))
+                        'helperAbove -> Html(messages("haveExpensesForJob.answer.helper.past")),
+                        'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"))
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputTextArea(willCareCostsForThisWork("whatCosts"),
-                                'textAreaHelper -> Html(Messages("300charsLeft")),
+                                'textAreaHelper -> Html(messages("300charsLeft")),
                                 '_label -> "willCareCostsForThisWork.whatCosts",
-                                'helperAbove -> Html(Messages("willCareCostsForThisWork.whatCosts.help")),
+                                'helperAbove -> Html(messages("willCareCostsForThisWork.whatCosts.help")),
                                 'ignoreOptional -> true,
                                 'maxLength -> 300)
                         ),
                         'id -> "whatCostsWrap"
                     )
 
-                    @carersInputTextArea(moreAboutChanges, 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+                    @carersInputTextArea(moreAboutChanges, 'helperAbove-> messages("moreAboutChanges.helper"), 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
                 </ul>
 	        </fieldset>
 
@@ -138,21 +138,21 @@ $(function(){
 
     window.fixErrorMessages({
             beenPaidYet:"@CarersCrypto.encryptAES(beenPaidYet.id)",
-            beenPaidYetText:"@Html(Messages("beenPaidYet"))",
-            willBePaidText:"@Html(Messages("beenPaidYet.will"))",
+            beenPaidYetText:"@Html(messages("beenPaidYet"))",
+            willBePaidText:"@Html(messages("beenPaidYet.will"))",
             howMuch:"@CarersCrypto.encryptAES(howMuchPaid.id)",
-            howMuchText:"@Html(Messages("howMuchPaid.will"))",
+            howMuchText:"@Html(messages("howMuchPaid.will"))",
             howOften:"@CarersCrypto.encryptAES(howOften.id)",
-            howOftenText:"@Html(Messages("howOften"))",
-            howOftenWillText:"@Html(Messages("circs.howOften.will"))",
+            howOftenText:"@Html(messages("howOften"))",
+            howOftenWillText:"@Html(messages("circs.howOften.will"))",
             howOftenFrequency:"@CarersCrypto.encryptAES(howOftenFrequency.id)",
             usuallyPaidSameAmount:"@CarersCrypto.encryptAES(usuallyPaidSameAmount.id)",
-            usuallyPaidSameAmountText:"@Html(Messages("usuallyPaidSameAmount.will"))",
-            usuallyPaidSameAmountWeekText:"@Html(Messages("usuallyPaidSameAmount.will.week"))",
-            usuallyPaidSameAmountFortnightText:"@Html(Messages("usuallyPaidSameAmount.will.fortnight"))",
-            usuallyPaidSameAmountFourWeekText:"@Html(Messages("usuallyPaidSameAmount.will.time"))",
-            usuallyPaidSameAmountMonthText:"@Html(Messages("usuallyPaidSameAmount.will.month"))",
-            usuallyPaidSameAmountOtherText:"@Html(Messages("usuallyPaidSameAmount.will.time"))"
+            usuallyPaidSameAmountText:"@Html(messages("usuallyPaidSameAmount.will"))",
+            usuallyPaidSameAmountWeekText:"@Html(messages("usuallyPaidSameAmount.will.week"))",
+            usuallyPaidSameAmountFortnightText:"@Html(messages("usuallyPaidSameAmount.will.fortnight"))",
+            usuallyPaidSameAmountFourWeekText:"@Html(messages("usuallyPaidSameAmount.will.time"))",
+            usuallyPaidSameAmountMonthText:"@Html(messages("usuallyPaidSameAmount.will.month"))",
+            usuallyPaidSameAmountOtherText:"@Html(messages("usuallyPaidSameAmount.will.time"))"
     });
 
     window.beenPaidYet("@CarersCrypto.encryptAES(beenPaidYet("yes").id)",
@@ -164,13 +164,13 @@ $(function(){
             usuallyPaidSameAmount:"@CarersCrypto.encryptAES(usuallyPaidSameAmount.id)",
             usuallyPaidSameAmountY:"@CarersCrypto.encryptAES(usuallyPaidSameAmount("yes").id)",
             usuallyPaidSameAmountN:"@CarersCrypto.encryptAES(usuallyPaidSameAmount("no").id)",
-            defaultValue:"@Html(Messages("pleaseSelect"))",
+            defaultValue:"@Html(messages("pleaseSelect"))",
             dontknowKey:"Dont-Know-Yet",
-            usuallyPaidSameAmountWeeklyText:"@Html(Messages("usuallyPaidSameAmount.will.week"))",
-            usuallyPaidSameAmountFortnightlyText:"@Html(Messages("usuallyPaidSameAmount.will.fortnight"))",
-            usuallyPaidSameAmountFourWeeklyText:"@Html(Messages("usuallyPaidSameAmount.will.fourweekly"))",
-            usuallyPaidSameAmountMonthlyText:"@Html(Messages("usuallyPaidSameAmount.will.month"))",
-            usuallyPaidSameAmountOtherText:"@Html(Messages("usuallyPaidSameAmount.will.other"))"
+            usuallyPaidSameAmountWeeklyText:"@Html(messages("usuallyPaidSameAmount.will.week"))",
+            usuallyPaidSameAmountFortnightlyText:"@Html(messages("usuallyPaidSameAmount.will.fortnight"))",
+            usuallyPaidSameAmountFourWeeklyText:"@Html(messages("usuallyPaidSameAmount.will.fourweekly"))",
+            usuallyPaidSameAmountMonthlyText:"@Html(messages("usuallyPaidSameAmount.will.month"))",
+            usuallyPaidSameAmountOtherText:"@Html(messages("usuallyPaidSameAmount.will.other"))"
     });
 
     window.whatFor("@CarersCrypto.encryptAES(willYouPayIntoPension("answer")("yes").id)",
@@ -193,4 +193,4 @@ $(function(){
 });
 </script>
 }
-}
+

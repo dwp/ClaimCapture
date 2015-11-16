@@ -1,10 +1,10 @@
 package app
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.Logger
 import play.api.i18n.Messages
 
-class MessageFilesSpec extends Specification with Tags {
+class MessageFilesSpec extends Specification {
   "Property files" should {
 
     val source = scala.io.Source.fromFile("conf/messagelisting.properties")
@@ -52,5 +52,6 @@ class MessageFilesSpec extends Specification with Tags {
     "each key in a Welsh property file must have a corresponding key in the English file" in {
       cyKeys.filterNot(cyKey => enKeys.contains(cyKey)) must beEmpty
     }
-  }  section "integration"
+  }
+section("integration")
 }

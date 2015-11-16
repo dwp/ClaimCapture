@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.AdditionalInfo])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.AdditionalInfo])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,21 +8,21 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
-@defining(lang) { implicit language =>
-@main(Messages("s10_2.g1") + " - " + Messages("s10_2.longName"), Some(currentForm)) {
+
+@main(messages("s10_2.g1") + " - " + messages("s10_2.longName"), Some(currentForm)) {
     @form(action = controllers.s_information.routes.GAdditionalInfo.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
 
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:consent-and-declaration">
 	
 	            <ul>
-	                @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helperAbove -> Messages("mustTellUs"))
+	                @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helperAbove -> messages("mustTellUs"))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),
-	                        'placeholder->Messages("anythingElse.please.specify"),'helper->Html(Messages("2000charsLeft")), 'maxLength -> 2000,
+	                        'placeholder->messages("anythingElse.please.specify"),'helper->Html(messages("2000charsLeft")), 'maxLength -> 2000,
 	                        'ignoreOptional -> true)
 	                    ),
 	                    'id -> "anythingElseWrapper",
@@ -50,4 +50,4 @@
     });
 </script>
 }
-}
+

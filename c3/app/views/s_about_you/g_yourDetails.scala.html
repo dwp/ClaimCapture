@@ -1,4 +1,4 @@
-@(yourDetailsForm: Form[models.domain.YourDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(yourDetailsForm: Form[models.domain.YourDetails])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -9,12 +9,12 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import views.html.s_about_you.main
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import utils.helpers.CarersCrypto
 
 
-@defining(lang) { implicit language =>
-    @main(Messages("s2.g1") + " - " + Messages("s2.longName")) {
+
+    @main(messages("s2.g1") + " - " + messages("s2.longName")) {
         @errorsSummary(yourDetailsForm)
 
         @form(action = controllers.s_about_you.routes.GYourDetails.submit, 'role -> "form") {
@@ -31,7 +31,7 @@
 
                     @carersInputText(yourDetailsForm("surname"), 'maxLength -> 35)
 
-                    @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"), 'helperAbove -> Messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper2"))
+                    @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"), 'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> messages("mandatory.nationalInsuranceNumber.helper2"))
 
                     @dateOfBirth(yourDetailsForm("dateOfBirth"))
 
@@ -52,4 +52,4 @@
 
         <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/otherTitle.js")></script>
     }
-}
+

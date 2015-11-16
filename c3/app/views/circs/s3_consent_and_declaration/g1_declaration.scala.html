@@ -1,4 +1,4 @@
-@(declarationForm: Form[models.domain.CircumstancesDeclaration])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(declarationForm: Form[models.domain.CircumstancesDeclaration])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
@@ -6,11 +6,11 @@
 @import views.html.helper.base._
 @import models.domain._
 @import utils.helpers.CarersCrypto
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import app.ConfigProperties._
 
-@defining(lang) { implicit language =>
-@main(Messages("c3.g1") + " - " + Messages("c3.name")) {
+
+@main(messages("c3.g1") + " - " + messages("c3.name")) {
     @errorsSummary(declarationForm)
 
     @form(action = controllers.circs.s3_consent_and_declaration.routes.G1Declaration.submit) {
@@ -23,13 +23,13 @@
 
 	        <fieldset class="form-elements">
 
-                <p>@Messages("circs.declaration.openingParagraph")</p>
+                <p>@messages("circs.declaration.openingParagraph")</p>
                 <ul class="list-bullet">
-                    <li>@Messages("circs.declaration.1")</li>
-                    <li>@Messages("circs.declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@Messages("circs.declaration.2b")</a> @Messages("circs.declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@Messages("circs.declaration.2d")</a></li>                   
+                    <li>@messages("circs.declaration.1")</li>
+                    <li>@messages("circs.declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@messages("circs.declaration.2b")</a> @messages("circs.declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@messages("circs.declaration.2d")</a></li>                   
                 </ul>
                 <p class="warning-text">
-                    @Messages("circs.declaration.warning")
+                    @messages("circs.declaration.warning")
                 </p>
 	
                 <div class="block-checkbox">
@@ -41,7 +41,7 @@
 	                    inputDef = Seq(
 	                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> mappings.Mappings.sixty),
                                             Html("<br/>"),
-                                            Html(Messages("carerTermsDesc"))),
+                                            Html(messages("carerTermsDesc"))),
 	                    'id -> "nameOrOrganisationWrapper"
 	                )
 	            </ul>
@@ -50,7 +50,7 @@
 	                @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
 	                @otherDetailPlaceHolder( 
 	                    inputDef = Seq(
-	                        carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 3000, 'textAreaHelper -> Html(Messages("3000charsLeft")))),
+	                        carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 3000, 'textAreaHelper -> Html(messages("3000charsLeft")))),
 	                    'id -> "why"
                     )
 	            </ul>
@@ -61,7 +61,7 @@
         </div>
 
     }
-}
+
 
 <script type="text/javascript">$($("#js").val("true"));</script>
 <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/s3_consent_and_declaration/g1_declaration.js")></script>

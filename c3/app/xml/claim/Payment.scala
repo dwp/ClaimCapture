@@ -1,11 +1,12 @@
 package xml.claim
 
 import models.domain.{BankBuildingSocietyDetails, Claim, HowWePayYou}
-import play.api.i18n.Messages
 import xml.XMLComponent
 import xml.XMLHelper._
-
 import scala.xml.NodeSeq
+import play.api.i18n.Messages
+import play.api.Play.current
+import play.api.i18n.Messages.Implicits._
 
 object Payment extends XMLComponent {
 

@@ -1,4 +1,4 @@
-@(breaksForm: Form[models.domain.CircumstancesBreaksInCare])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(breaksForm: Form[models.domain.CircumstancesBreaksInCare])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
@@ -7,13 +7,13 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import views.html.circs.s2_report_changes.main
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import app.CircsBreaksWhereabouts._
 
 
-    @defining(lang) { implicit language =>
+    
 
-@main(Messages("c2.g7") + " - " + Messages("c2.name")) {
+@main(messages("c2.g7") + " - " + messages("c2.name")) {
     @errorsSummary(breaksForm)
 
     @form(action = controllers.circs.s2_report_changes.routes.G7BreaksInCare.submit) {
@@ -23,33 +23,33 @@
         
             <fieldset class="form-elements" data-journey="carers-allowance:report-change:breaks-in-care">
 
-                <legend class="form-label-bold heading-medium">@Messages("c2.g7")</legend>
+                <legend class="form-label-bold heading-medium">@messages("c2.g7")</legend>
 
-                <p>@Html(Messages("circsBreaksMessage"))</p>
+                <p>@Html(messages("circsBreaksMessage"))</p>
 
-                @sliderHelp(Messages("circsBreaksHelp.label"),Messages("circsBreaksHelp.closeLabel"),Html(Messages("circsBreaksHelp")))
+                @sliderHelp(messages("circsBreaksHelp.label"),messages("circsBreaksHelp.closeLabel"),Html(messages("circsBreaksHelp")))
 
                 <ul>
 
                     @dateTimePickerWithDynamicLabel(breaksForm("breaksInCareStartDate"), 'dynamicDateDays-> 34)
 
                     @carersShortInputText(breaksForm("breaksInCareStartTime"),
-                        'helperAbove-> Html(Messages("breaksInCareStartTime.helper")),
+                        'helperAbove-> Html(messages("breaksInCareStartTime.helper")),
                         'maxLength -> 10)
 
                     @listRadioGroupWithOther(breaksForm("wherePersonBreaksInCare"),
-                        'items -> whereWasThePersonList,
+                        'items -> whereWasThePersonList(lang, messages),
                         'wrapperName -> "wherePersonBreaksInCareWrap",
-                        'helperAbove-> Messages("wherePersonBreaksInCare.helper"),
+                        'helperAbove-> messages("wherePersonBreaksInCare.helper"),
                         '_nestedFieldSet -> true,
                         'maxLength -> 60,
                         'otherValue -> SomewhereElse
                     )
 
                     @listRadioGroupWithOther(breaksForm("whereYouBreaksInCare"),
-                        'items -> whereWereYouList,
+                        'items -> whereWereYouList(lang, messages),
                         'wrapperName -> "whereYouBreaksInCareWrap",
-                        'helperAbove-> Messages("whereYouBreaksInCare.helper"),
+                        'helperAbove-> messages("whereYouBreaksInCare.helper"),
                         '_nestedFieldSet -> true,
                         'maxLength -> 60,
                         'otherValue -> SomewhereElse)
@@ -59,14 +59,14 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             dateTimePickerWithDynamicLabel(breaksForm("breakEnded.endDate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27),
-                            carersShortInputText(breaksForm("breakEnded.endTime"), 'helperAbove-> Html(Messages("breakEnded.endTime.helper")), 'maxLength -> 10)
+                            carersShortInputText(breaksForm("breakEnded.endTime"), 'helperAbove-> Html(messages("breakEnded.endTime.helper")), 'maxLength -> 10)
                          ),
                         'id -> "breakEndedDateTime"
                     )
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(yesNoRadioGroup(breaksForm("expectStartCaring.answer"),
-                            'values -> Seq("yes" -> Html(Messages("label.yes7")), "no" -> Html(Messages("label.no")), "dontknow" -> Html(Messages("label.dontknow"))),
+                            'values -> Seq("yes" -> Html(messages("label.yes7")), "no" -> Html(messages("label.no")), "dontknow" -> Html(messages("label.dontknow"))),
                             'ignoreOptional -> true)),
                             'id -> "expectStartCaring"
                     )
@@ -85,9 +85,9 @@
                         'id -> "permanentBreakDate"
                     )
 
-                    @yesNoRadioGroup(breaksForm("medicalCareDuringBreak"),'values -> Seq("yes" -> Html(Messages("label.yes3")), "no" -> Html(Messages("label.no"))))
+                    @yesNoRadioGroup(breaksForm("medicalCareDuringBreak"),'values -> Seq("yes" -> Html(messages("label.yes3")), "no" -> Html(messages("label.no"))))
 
-                    @carersInputTextArea(breaksForm("moreAboutChanges"), 'helperAbove-> Html(Messages("moreAboutChanges.helper")), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+                    @carersInputTextArea(breaksForm("moreAboutChanges"), 'helperAbove-> Html(messages("moreAboutChanges.helper")), 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
 
                 </ul>
 
@@ -124,5 +124,5 @@
 
     </script>
 
-}
+
 }

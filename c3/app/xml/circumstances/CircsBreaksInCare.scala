@@ -3,13 +3,14 @@ package xml.circumstances
 import models.domain.{CircumstancesBreaksInCareSummary, CircumstancesBreaksInCare, Claim}
 import scala.xml.NodeSeq
 import xml.XMLHelper._
-import play.api.i18n.{MMessages => Messages}
+import play.api.i18n.{MMessages, MessagesApi}
+import play.api.Play.current
 
 /**
  * Created by neddakaltcheva on 4/15/14.
  */
 object CircsBreaksInCare {
-
+  val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def xml(circs: Claim): NodeSeq = {
     val breaksFromCaringOption:Option[CircumstancesBreaksInCare] = circs.questionGroup[CircumstancesBreaksInCare]
     val breaksFromCaringSummaryOption:Option[CircumstancesBreaksInCareSummary] = circs.questionGroup[CircumstancesBreaksInCareSummary]
@@ -27,7 +28,7 @@ object CircsBreaksInCare {
             {question(<EndDate/>,"breakEnded.endDate", breaksFromCaring.breakEnded.date)}
             {question(<EndTime/>,"breakEnded_endTime", breaksFromCaring.breakEnded.time)}
             {if(breaksFromCaring.expectStartCaring.answer.isDefined){
-              {question(<ExpectStartCaringAgain/>,"expectStartCaring.answer", Messages(breaksFromCaring.expectStartCaring.answer.get))}
+              {question(<ExpectStartCaringAgain/>,"expectStartCaring.answer", messagesApi(breaksFromCaring.expectStartCaring.answer.get))}
             }
             }
             {question(<ExpectStartCaringAgainDate/>,"expectStartCaring_expectStartCaringDate", breaksFromCaring.expectStartCaring.expectStartCaringDate)}

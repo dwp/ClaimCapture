@@ -1,5 +1,7 @@
 package controllers.s_employment
 
+import play.api.Play._
+
 import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
@@ -13,9 +15,11 @@ import controllers.CarersForms._
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
 import models.domain.Claim
+import play.api.i18n._
 
 
-object GLastWage extends Controller with CachedClaim with Navigable {
+object GLastWage extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def form(implicit claim: Claim) = Form(mapping(
     "iterationID" -> nonEmptyText,
     "oftenGetPaid" -> (mandatoryPaymentFrequency verifying validPaymentFrequencyOnly),
@@ -36,11 +40,11 @@ object GLastWage extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def present(iterationID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    track(LastWage) { implicit claim => Ok(views.html.s_employment.g_lastWage(form.fillWithJobID(LastWage, iterationID))(lang)) }
+  def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+    track(LastWage) { implicit claim => Ok(views.html.s_employment.g_lastWage(form.fillWithJobID(LastWage, iterationID))) }
   }
 
-  def submit = claimingWithCheckInIteration { iterationID => implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val form = formWithErrors
@@ -52,8 +56,8 @@ object GLastWage extends Controller with CachedClaim with Navigable {
           .replaceError("lastPaidDate", errorRequired, FormError("lastPaidDate", errorRequired, Seq(labelForEmployment(claim, lang, "lastPaidDate", iterationID))))
           .replaceError("grossPay", errorRequired, FormError("grossPay", errorRequired, Seq(labelForEmployment(claim, lang, "grossPay", iterationID))))
           .replaceError("", "employerOwesYouMoney.required", FormError("employerOwesYouMoney", errorRequired, Seq(labelForEmployment(claim, lang, "employerOwesYouMoney", iterationID))))
-          .replaceError("sameAmountEachTime", errorRequired, FormError("sameAmountEachTime", errorRequired, Seq(labelForEmployment(claim, lang, "sameAmountEachTime", iterationID))))
-        BadRequest(views.html.s_employment.g_lastWage(form)(lang))
+          .replaceError("sameAmountEachTime", errorRequired, FormError("sameAmountEachTime", errorRequired, Seq(labelForEmployment(claim, lang,   "sameAmountEachTime", iterationID))))
+        BadRequest(views.html.s_employment.g_lastWage(form))
       },
       lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.GPensionAndExpenses.present(iterationID)))
   }

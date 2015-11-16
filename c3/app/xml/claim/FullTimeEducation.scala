@@ -6,6 +6,9 @@ import scala.xml.NodeSeq
 import xml.XMLHelper._
 import xml.XMLComponent
 import models.domain.Claim
+import play.api.i18n.Messages
+import play.api.Play.current
+import play.api.i18n.Messages.Implicits._
 
 object FullTimeEducation extends XMLComponent {
 

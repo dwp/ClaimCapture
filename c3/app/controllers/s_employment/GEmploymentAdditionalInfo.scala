@@ -1,5 +1,7 @@
 package controllers.s_employment
 
+import play.api.Play._
+
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
@@ -10,10 +12,11 @@ import controllers.CarersForms._
 import models.view.{Navigable, CachedClaim}
 import models.domain.EmploymentAdditionalInfo
 import models.yesNo.YesNoWithText
+import play.api.i18n._
 
 
-object GEmploymentAdditionalInfo extends Controller with CachedClaim with Navigable{
-
+object GEmploymentAdditionalInfo extends Controller with CachedClaim with Navigable with I18nSupport{
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val additionalInfo =
     "empAdditionalInfo" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -25,16 +28,16 @@ object GEmploymentAdditionalInfo extends Controller with CachedClaim with Naviga
     additionalInfo
   )(EmploymentAdditionalInfo.apply)(EmploymentAdditionalInfo.unapply))
 
-  def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
-     track(EmploymentAdditionalInfo) { implicit claim => Ok(views.html.s_employment.g_employmentAdditionalInfo(form.fill(EmploymentAdditionalInfo))(lang)) }
+  def present = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+     track(EmploymentAdditionalInfo) { implicit claim => Ok(views.html.s_employment.g_employmentAdditionalInfo(form.fill(EmploymentAdditionalInfo))) }
   }
 
-  def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheck {implicit claim => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
         .replaceError("empAdditionalInfo", "empAdditionalInfo.text.required", FormError("empAdditionalInfo.text", errorRequired))
-        BadRequest(views.html.s_employment.g_employmentAdditionalInfo(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.s_employment.g_employmentAdditionalInfo(formWithErrorsUpdate))
       },
       employmentAdditionalInfo => claim.update(employmentAdditionalInfo) -> Redirect(controllers.s_other_money.routes.GAboutOtherMoney.present())
     )

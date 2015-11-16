@@ -1,18 +1,19 @@
 package controllers.s_eligibility
 
-import org.specs2.mutable.{Tags, Specification}
+import utils.WithApplication
+import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s_eligibility._
 
-class GEligibilityIntegrationSpec extends Specification with Tags {
+class GEligibilityIntegrationSpec extends Specification {
   "Carer's Allowance - Benefits - Integration" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GEligibilityPage(context)
       page goToThePage ()
     }
 
-    "contain errors on invalid submission" in {
+    "contain errors on invalid submission" in new WithApplication {
       "missing mandatory field" in new WithBrowser with PageObjects{
 			val page =  GEligibilityPage(context)
         val claim = new TestData
@@ -49,5 +50,6 @@ class GEligibilityIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[GApprovePage]
     }
 
-  } section("integration", models.domain.CarersAllowance.id)
+  }
+  section("integration", models.domain.CarersAllowance.id)
 }

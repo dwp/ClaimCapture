@@ -3,17 +3,16 @@ package controllers.s_breaks
 import app.CircsBreaksWhereabouts._
 import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate, WithBrowserHelper}
 import models.DayMonthYear
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.Logger
-import play.api.test.WithBrowser
-import utils.WithJsBrowser
+import utils.{WithBrowsers, WithBrowser, WithJsBrowser}
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s_breaks.{GBreaksInCarePage, GBreakPage}
 import utils.pageobjects.s_breaks.GBreaksInCarePage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 
-class GBreakIntegrationSpec extends Specification with Tags {
+class GBreakIntegrationSpec extends Specification {
   "Break" should {
     "be presented" in new WithJsBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo(GBreaksInCarePage.url)
@@ -135,11 +134,12 @@ class GBreakIntegrationSpec extends Specification with Tags {
 
       text("#wherePerson_answer li").asScala should containAllOf(List(Home, Hospital, Holiday, RespiteCare, SomewhereElse).map(e => e.toLowerCase))
     }
-  } section("integration", models.domain.CareYouProvide.id)
+  }
+  section("integration", models.domain.CareYouProvide.id)
 }
 
 trait BreakFiller {
-  this: WithBrowser[_] with WithBrowserHelper =>
+  this: WithBrowsers[_] with WithBrowserHelper =>
 
   def break(start: DayMonthYear = DayMonthYear(1, 1, 2001),
             end: DayMonthYear = DayMonthYear(1, 1, 2001),

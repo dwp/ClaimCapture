@@ -1,9 +1,9 @@
 package controllers
 
 import play.api.mvc.{Result, Controller, Results}
-import play.api.test.{FakeRequest, PlaySpecification}
+import play.api.test.FakeRequest
 import scala.concurrent.Future
-import utils.WithApplication
+import utils.{PlaySpecification, WithApplication}
 
 class HealthControllerSpec extends PlaySpecification with Results {
 
@@ -17,7 +17,8 @@ class HealthControllerSpec extends PlaySpecification with Results {
       bodyText must contain("isHealthy")
     }
 
-  } section "unit"
+  }
+section("unit")
 
   "Ping" should {
     "always return ok" in new WithApplication {
@@ -25,7 +26,8 @@ class HealthControllerSpec extends PlaySpecification with Results {
       val result: Future[Result] = controller.ping().apply(FakeRequest())
       status(result) mustEqual OK
     }
-  } section "unit"
+  }
+section("unit")
 }
 
 

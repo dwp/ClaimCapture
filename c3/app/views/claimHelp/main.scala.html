@@ -1,9 +1,9 @@
-@(title: String)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash)
+@(title: String)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash, messages: Messages)
 
 @import utils.helpers.CarersTemplate.fieldConstructor
 @import models.domain._
 @import helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @common.govMain(title) {
 
@@ -17,7 +17,7 @@
 
             <article class="column-three-quarters main-content">
                 
-                <h1 class="form-title heading-large">@Html(Messages("claimHelp.legend"))</h1>
+                <h1 class="form-title heading-large">@Html(messages("claimHelp.legend"))</h1>
                 
                 <div class="claim-notes">
 

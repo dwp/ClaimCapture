@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Eligibility])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.Eligibility])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import views.html.helper._
@@ -7,11 +7,11 @@
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import play.api.Play
 
-@defining(lang) { implicit language =>
-    @main(Messages("s0.progressbar.name") + " - " + Messages("s0.longName"), Some(currentForm),changing = true) {
+
+    @main(messages("s0.progressbar.name") + " - " + messages("s0.longName"), Some(currentForm),changing = true) {
 
         @form(action = controllers.s_eligibility.routes.GEligibility.submit, 'role -> "form") {
 
@@ -19,9 +19,9 @@
 
             <fieldset class="form-elements form-eligibility">
                 <ul>
-                    @yesNoRadioGroup(currentForm("hours.answer"), '_label -> Messages("s0.g2"), 'allowance -> true, 'helperAbove -> Messages("s0.g2.help1"), 'warningMessage -> Seq(Messages("s0.g2.help2")) ,'track -> true,'trackLabel -> "hours.answer")
-                    @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("s0.g3"), 'allowance -> true, 'warningMessage -> Seq(Messages("s0.g3.help1")), 'track -> true, 'trackLabel -> "over16.answer")
-                    @yesNoRadioGroup(currentForm("livesInGB.answer"), '_label -> Messages("s0.g4"), 'allowance -> true, 'helperAbove -> Messages("s0.g4.help1"), 'warningMessage ->Seq(Messages("s0.g4.help4"),Messages("s0.g4.help5")), 'track -> true, 'trackLabel -> "livesInGB.answer")
+                    @yesNoRadioGroup(currentForm("hours.answer"), '_label -> messages("s0.g2"), 'allowance -> true, 'helperAbove -> messages("s0.g2.help1"), 'warningMessage -> Seq(messages("s0.g2.help2")) ,'track -> true,'trackLabel -> "hours.answer")
+                    @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("s0.g3"), 'allowance -> true, 'warningMessage -> Seq(messages("s0.g3.help1")), 'track -> true, 'trackLabel -> "over16.answer")
+                    @yesNoRadioGroup(currentForm("livesInGB.answer"), '_label -> messages("s0.g4"), 'allowance -> true, 'helperAbove -> messages("s0.g4.help1"), 'warningMessage ->Seq(messages("s0.g4.help4"),messages("s0.g4.help5")), 'track -> true, 'trackLabel -> "livesInGB.answer")
                 </ul>
             </fieldset>
 
@@ -52,4 +52,4 @@
         </script>
 
     }
-}
+

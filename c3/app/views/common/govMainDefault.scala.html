@@ -1,6 +1,6 @@
-@(title: String)(content: Html)(implicit footerCategories: Html = Html(""), lang: Lang, request:play.api.mvc.Request[AnyContent],flash:Flash)
+@(title: String)(content: Html)(implicit footerCategories: Html = Html(""), lang: Lang, request:play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import app.ConfigProperties._
 @import controllers.Cookies._
 
@@ -88,23 +88,23 @@
             document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
         </script>
         
-        <a href="#main" class="visuallyhidden">@Html(Messages("skipToMainContent"))</a>
+        <a href="#main" class="visuallyhidden">@Html(messages("skipToMainContent"))</a>
         	
         <header role="banner" class="global-header" id="global-header">
             <div class="wrapper clearfix">
-                <a href="https://www.gov.uk" title="@Html(Messages("logo.help"))" target="govlink" class="crown">GOV.UK</a>
-                <h1 class="heading-medium" id="title">@Html(Messages("siteHeader"))</h1>
+                <a href="https://www.gov.uk" title="@Html(messages("logo.help"))" target="govlink" class="crown">GOV.UK</a>
+                <h1 class="heading-medium" id="title">@Html(messages("siteHeader"))</h1>
             </div>
 	    </header>
 
 	    <!--end header-->
 
         <div id="global-cookie-message">
-            <p>@Messages("cookiePolicy") <a rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" @views.html.ga.trackClickEvent(linkName = "Cookies - from banner")>@Messages("cookiePolicyAnchor")</a></p>
+            <p>@messages("cookiePolicy") <a rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" @views.html.ga.trackClickEvent(linkName = "Cookies - from banner")>@messages("cookiePolicyAnchor")</a></p>
         </div>
 
         <div id="global-browser-prompt">
-            <p>@Html(Messages("latestBrowserUpdate"))</p>
+            <p>@Html(messages("latestBrowserUpdate"))</p>
         </div>
 
         <main class="container" role="main" id="main">
@@ -118,24 +118,24 @@
                         @if(getProperty("galluogi.cymraeg", default = true)) {
                             @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/report-changes/selection"))) {
                                 @if(lang.language == "cy") {
-                                    <a id="lang-en" href="/change-language/en" aria-label="@Html(Messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Html(Messages("english"))</a>
+                                    <a id="lang-en" href="/change-language/en" aria-label="@Html(messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Html(messages("english"))</a>
                                 } else {
-                                    <a id="lang-cy" href="/change-language/cy" aria-label="@Html(Messages("welsh.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Html(Messages("welsh"))</a>
+                                    <a id="lang-cy" href="/change-language/cy" aria-label="@Html(messages("welsh.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Html(messages("welsh"))</a>
                                 }
                             }
                         }
-                        <a id="cookies" rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" @views.html.ga.trackClickEvent(linkName = "Cookies - from footer")>@Messages("cookies")</a>
+                        <a id="cookies" rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" @views.html.ga.trackClickEvent(linkName = "Cookies - from footer")>@messages("cookies")</a>
 
-                        <a id="privacy" rel="external" target="privacyLink" href="https://www.gov.uk/government/organisations/department-for-work-pensions/about/personal-information-charter" @views.html.ga.trackClickEvent(linkName = "Privacy")>@Messages("privacyLink")</a>
+                        <a id="privacy" rel="external" target="privacyLink" href="https://www.gov.uk/government/organisations/department-for-work-pensions/about/personal-information-charter" @views.html.ga.trackClickEvent(linkName = "Privacy")>@messages("privacyLink")</a>
                         
-                        <a id="claim-feedback" rel="external" target="_blank" href="https://www.gov.uk/done/apply-carers-allowance" @views.html.ga.trackClickEvent(linkName = "Feedback")>@Messages("footer.feedback.text")</a>
+                        <a id="claim-feedback" rel="external" target="_blank" href="https://www.gov.uk/done/apply-carers-allowance" @views.html.ga.trackClickEvent(linkName = "Feedback")>@messages("footer.feedback.text")</a>
                         
                     </nav>
-                    <p>@Html(Messages("madePreston"))</p>
-                    <p class="ogl">@Html(Messages("openGovLicensea")) <a rel="external" href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="openGovLink" @views.html.ga.trackClickEvent(linkName = "Open Government Licence")>@Html(Messages("openGovLicenseb"))</a>@Html(Messages("openGovLicensec"))</p>
+                    <p>@Html(messages("madePreston"))</p>
+                    <p class="ogl">@Html(messages("openGovLicensea")) <a rel="external" href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="openGovLink" @views.html.ga.trackClickEvent(linkName = "Open Government Licence")>@Html(messages("openGovLicenseb"))</a>@Html(messages("openGovLicensec"))</p>
                 </div>
                 <div class="fr">
-                    <a class="crown" href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm" target="crownLink" @views.html.ga.trackClickEvent(linkName = "Crown Copyright")>&copy; @Html(Messages("crownCopyright"))</a>
+                    <a class="crown" href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm" target="crownLink" @views.html.ga.trackClickEvent(linkName = "Crown Copyright")>&copy; @Html(messages("crownCopyright"))</a>
                 </div>
             </div>
 	    </footer>

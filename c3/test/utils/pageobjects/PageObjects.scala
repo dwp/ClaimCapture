@@ -1,10 +1,10 @@
 package utils.pageobjects
 
 import org.specs2.specification.Scope
-import play.api.test.WithBrowser
+import utils.WithBrowsers
 
 trait PageObjects extends Scope {
-  this: WithBrowser[_] =>
+  this: WithBrowsers[_] =>
 
   val context = PageObjectsContext(browser)
 

@@ -1,6 +1,6 @@
 package controllers.preview
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.pageobjects.s_about_you.GContactDetailsPage
 import utils.pageobjects.{TestData, PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
@@ -11,7 +11,7 @@ import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
 import utils.WithJsBrowser
 import utils.helpers.PreviewField._
 
-class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
+class PreviewPageCareYouProvideContentSpec extends Specification {
 
   "Preview Page" should {
     "display Care you provide data - when partner is not the person you care for" in new WithJsBrowser  with PageObjects{
@@ -145,7 +145,8 @@ class PreviewPageCareYouProvideContentSpec extends Specification with Tags {
       newSource must not(contain("No - 101 Clifton Street, Blackpool FY1 2RW"))
 
     }
-  }section "preview"
+  }
+  section("preview")
 
   def fillCareProvideSection(context:PageObjectsContext, partnerClaim:TestData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty(),
                              careYouProvideData:TestData = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)) = {

@@ -1,10 +1,10 @@
-@(employmentForm: Form[models.domain.Employment])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(employmentForm: Form[models.domain.Employment])(implicit claim: models.domain.Claim,lang: Lang,request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import scala.language.postfixOps
 @import helper._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 @import models.domain.Employment
 @import models.domain.Jobs
@@ -25,9 +25,7 @@
     claim.checkYAnswers.previouslySavedClaim.get.questionGroup[Employment].getOrElse(Employment())
 }
 
-        @defining(lang) { implicit language =>
-
-@main(Messages("s7.g1") + " " + Messages("s7.longName"), Messages("s7.g1"), Some(employmentForm)) {
+@main(messages("s7.g1") + " " + messages("s7.longName"), messages("s7.g1"), Some(employmentForm)) {
 
     @form(action = controllers.s_self_employment.routes.GEmployment.submit, 'role -> "form") {
 
@@ -35,17 +33,17 @@
 
         <fieldset class="form-elements">
 
-            <legend class="visuallyhidden">@Html(Messages("s7.g1"))</legend>
+            <legend class="visuallyhidden">@Html(messages("s7.g1"))</legend>
 
             <ul>
                 @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
-                    '_label -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 1 week)),
-                    'helperAbove -> Messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label.helper"),
+                    '_label -> messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 1 week)),
+                    'helperAbove -> messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label.helper"),
                     'bullets -> bulletsSelfEmployed)
 
                 @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
-                    '_label -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 6 months)),
-                    'helperAbove -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper"),
+                    '_label -> messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 6 months)),
+                    'helperAbove -> messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper"),
                     'bullets -> bulletsEmployed,
                     'paragraph -> "aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper.p")
         
@@ -69,11 +67,10 @@
                                   ,"@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_yes")","@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_no")"
                                   ,"@previousClaimEmployment.beenEmployedSince6MonthsBeforeClaim","@previousClaimEmployment.beenSelfEmployedSince1WeekBeforeClaim"
                                   ,@claim.questionGroup[Jobs].getOrElse(Jobs()).size == 0
-                                  ,"@Messages("form.next")","@Messages("form.returnToSummary")")
+                                  ,"@messages("form.next")","@messages("form.returnToSummary")")
             }
         })
     </script>
 
     }
 
-}
