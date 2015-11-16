@@ -66,7 +66,7 @@ class GPensionAndExpensesSpec extends Specification {
       status(result) mustEqual SEE_OTHER
 
       val mockForm = new MockForm(){}
-println(s"be added to a current job key = $claimKey")
+
       val claim = mockForm.getClaimFromCache(result)
 
       claim.questionGroup(Jobs) must beLike {

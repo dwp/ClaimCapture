@@ -1,5 +1,6 @@
 package utils
 
+import java.util.UUID._
 import javax.inject.Singleton
 
 import com.google.common.primitives.Primitives
@@ -10,6 +11,8 @@ import play.api.test.FakeApplication
 import scala.collection.mutable
 import scala.concurrent.duration.Duration
 import scala.reflect.ClassTag
+import scala.util.{Success, Failure, Try}
+import play.api.Play.current
 
 /**
  * factory for creating fake applications
@@ -56,7 +59,7 @@ object LightFakeApplication {
   def apply(additionalConfiguration: Map[String, _ <: Any]) = (additionalConfiguration.get("circs.employment.active"): @unchecked ) match {
     case Some("true") => faCEATrue
     case Some("false") => faCEAFalse
-    case None => println("creating fake application"); FakeApplication(
+    case None => FakeApplication(
       additionalConfiguration = configurationMap ++ additionalConfiguration
     )
   }
@@ -75,13 +78,13 @@ object LightFakeApplication {
 }
 
 //-------------------
-
-import play.api.i18n._
-
-/**
- * optimizes the loading of the messages so that they are loaded only one per JVM
- * this is useful for unit & integration tests that start a new FakeApplication for each test
- */
+//
+//import play.api.i18n._
+//
+///**
+// * optimizes the loading of the messages so that they are loaded only one per JVM
+// * this is useful for unit & integration tests that start a new FakeApplication for each test
+// */
 //class CachedMessagesModule(app: Application) extends MultipleMessagesModule(app) {
 //
 //  /**
@@ -101,47 +104,39 @@ import play.api.i18n._
 //  }
 //
 //}
-
-/**
- * holds the cached messages
- */
-object CachedMessagesModule {
-  var cache: Option[MessagesApi] = None
-}
-
-
+//
+///**
+// * holds the cached messages
+// */
+//object CachedMessagesModule {
+//  var cache: Option[MessagesApi] = None
+//}
+//
+//
 //-------------------
 
 @Singleton
 class TestEhCacheModule extends Module {
   override def bindings(environment: Environment, configuration: Configuration): Seq[Binding[_]] = {
-    Seq(
-      bind[CacheApi].to[HashMapCacheApiImpl].eagerly
+    Seq (
+      bind(classOf[CacheApi]).to(HashMapCacheApiImpl)
     )
   }
 }
 
-trait HashMapCacheApi extends CacheApi {
-  def clear()
-}
-
 @Singleton
-class HashMapCacheApiImpl() extends HashMapCacheApi {
+trait HashMapCacheApi extends CacheApi
+
+object HashMapCacheApiImpl extends HashMapCacheApi {
   val c = mutable.HashMap[String, Any]()
+  val hashKey: String = randomUUID.toString
 
   override def set(key: String, value: Any, expiration: Duration) {
-    println(s"setting $key in cache, cache has $c.size elements")
     c.put(key, value)
   }
 
   override def remove(key: String) {
     c.remove(key)
-  }
-
-  def clear(): Unit = {
-    println(s"clearing cache, cache has $c.size elements")
-    c.clear()
-    println(s"clearing cache, cache has $c.size elements")
   }
 
   override def getOrElse[A](key: String, expiration: Duration)(orElse: => A)(implicit evidence$1: ClassTag[A]): A = {
@@ -153,7 +148,6 @@ class HashMapCacheApiImpl() extends HashMapCacheApi {
   }
 
   override def get[T](key: String)(implicit ct: ClassTag[T]): Option[T] = {
-    println(s"getting $key in cache, cache has $c elements")
     c.get(key) match {
       case None => None
       case _ =>
