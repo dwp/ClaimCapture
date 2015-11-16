@@ -49,7 +49,7 @@ abstract class FunctionalTestCommon extends Specification with Tags {
   }
 
   def ninoConversion(id:String) = id -> {(s:String) => s}
-  def dateConversion(id:String) = id -> {(s:String) => DateTimeFormat.forPattern("dd MMMM, YYYY").print(DateTimeFormat.forPattern("dd/MM/YYYY").parseDateTime(s)).toLowerCase }
+  def dateConversion(id:String) = id -> {(s:String) => DateTimeFormat.forPattern("dd MMMM, yyyy").print(DateTimeFormat.forPattern("dd/MM/yyyy").parseDateTime(s)).toLowerCase }
   def addressConversion(id:String) = id -> {(s:String) =>s.replaceAll("&",", ")}
 
   def test(page:Page,claim:TestData,testableData:PreviewTestableData) = {
