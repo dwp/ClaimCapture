@@ -85,27 +85,27 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
     }
 
     "have js enabled to allow js tests to run in breaks page" in new WithJsBrowser with PageObjects {
-      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 3)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 11)
       breaksInCare goToThePage()
       breaksInCare.jsCheckEnabled must beTrue
     }
 
     "not have warning on page when less than maximum breaks" in new WithJsBrowser with PageObjects {
-      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 2)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 10)
       breaksInCare goToThePage()
       val clicked = breaksInCare.clickLinkOrButton("#answer_yes")
       clicked.source must not contain "warningMessageWrap"
     }
 
     "show warning when got maximum breaks and click yes to add another" in new WithJsBrowser with PageObjects {
-      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 3)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 11)
       breaksInCare goToThePage()
       val clicked = breaksInCare.clickLinkOrButton("#answer_yes")
       clicked.source must contain("<div id=\"warningMessageWrap\" class=\"prompt validation-summary\" style=\"display: block;\">")
     }
 
     "hide warning when got maximum breaks and click yes then no" in new WithJsBrowser with PageObjects {
-      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 3)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 11)
       breaksInCare goToThePage()
       val clickedyes = breaksInCare.clickLinkOrButton("#answer_yes")
       val clickedno = clickedyes.clickLinkOrButton("#answer_no")
