@@ -5,7 +5,7 @@ import org.openqa.selenium.By
 import org.specs2.mutable.{Specification, Tags}
 import play.api.Logger
 import utils.pageobjects._
-import utils.pageobjects.s_breaks.{GBreaksInCarePage, GBreakPage}
+import utils.pageobjects.s_breaks.{GBreakPage}
 import utils.pageobjects.s_breaks.GBreaksInCarePage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_education.GYourCourseDetailsPage
@@ -26,25 +26,25 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
       next must beAnInstanceOf[GYourCourseDetailsPage]
     }
 
-    "display dynamic question text if user answered that they did NOT care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects{
-      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvide(false),GBreaksInCarePage.url)
+    "display dynamic question text if user answered that they did NOT care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects {
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvide(false), GBreaksInCarePage.url)
 
       Logger.info(breaksInCare.source)
 
       breaksInCare.source contains "Have you had any breaks from caring for this person since 10 October 2016?" should beTrue
     }
 
-    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (within 6 months)" in new WithBrowser with PageObjects{
+    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (within 6 months)" in new WithBrowser with PageObjects {
       val claim = ClaimScenarioFactory.s4CareYouProvide(true)
       claim.ClaimDateWhenDidYouStartToCareForThisPerson = "10/08/2016"
-      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(claim,GBreaksInCarePage.url)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(claim, GBreaksInCarePage.url)
       breaksInCare.source contains "Have you had any breaks from caring for this person since 10 August 2016?" should beTrue
     }
 
-    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (more than 6 months)" in new WithBrowser with PageObjects{
+    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (more than 6 months)" in new WithBrowser with PageObjects {
       val claim = ClaimScenarioFactory.s4CareYouProvide(true)
       claim.ClaimDateWhenDidYouStartToCareForThisPerson = "10/02/2016"
-      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(claim,GBreaksInCarePage.url)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(claim, GBreaksInCarePage.url)
       breaksInCare.source contains "Have you had any breaks from caring for this person since 10 April 2016?" should beTrue
     }
 
@@ -64,7 +64,7 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
     }
 
     """allow a new break to be added but not record the "yes/no" answer""" in new WithBrowser with PageObjects {
-      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true),GBreaksInCarePage.url,upToIteration = 2)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 2)
 
       breaksInCare.isElemSelected("#answer_yes") should beFalse
       breaksInCare.isElemSelected("#answer_no") should beFalse
@@ -72,7 +72,7 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
 
     "delete a break in care" in new WithJsBrowser with PageObjects {
       pending("##Unit driver can't handle that JS form submission (Firefox do) enable this when changing to firefox driver")
-      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true),GBreaksInCarePage.url,upToIteration = 2)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 2)
 
       Logger.info(breaksInCare.ctx.browser.webDriver.findElement(By.className("break-data")).getText)
 
@@ -84,6 +84,33 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
       refreshed.source must not contain "Hospital"
     }
 
+    "have js enabled to allow js tests to run in breaks page" in new WithJsBrowser with PageObjects {
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 3)
+      breaksInCare goToThePage()
+      breaksInCare.jsCheckEnabled must beTrue
+    }
+
+    "not have warning on page when less than maximum breaks" in new WithJsBrowser with PageObjects {
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 2)
+      breaksInCare goToThePage()
+      val clicked = breaksInCare.clickLinkOrButton("#answer_yes")
+      clicked.source must not contain "warningMessageWrap"
+    }
+
+    "show warning when got maximum breaks and click yes to add another" in new WithJsBrowser with PageObjects {
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 3)
+      breaksInCare goToThePage()
+      val clicked = breaksInCare.clickLinkOrButton("#answer_yes")
+      clicked.source must contain("<div id=\"warningMessageWrap\" class=\"prompt validation-summary\" style=\"display: block;\">")
+    }
+
+    "hide warning when got maximum breaks and click yes then no" in new WithJsBrowser with PageObjects {
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 3)
+      breaksInCare goToThePage()
+      val clickedyes = breaksInCare.clickLinkOrButton("#answer_yes")
+      val clickedno = clickedyes.clickLinkOrButton("#answer_no")
+      clickedno.source must contain("<div id=\"warningMessageWrap\" class=\"prompt validation-summary\" style=\"display: none;\">")
+    }
 
   } section("integration", models.domain.CareYouProvide.id)
 
