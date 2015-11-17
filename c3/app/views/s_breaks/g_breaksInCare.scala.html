@@ -1,3 +1,4 @@
+@import play.api.Play
 @(yesNoForm: Form[models.domain.BreaksInCareSummary], breaksInCare: models.domain.BreaksInCare)(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent],flash:Flash)
 
 @import views.html.helper.base._
@@ -111,9 +112,10 @@ else OtherMoney.name
     }
 
     @form(action = controllers.s_breaks.routes.GBreaksInCare.submit, 'role -> "form") {
-    
         @DwpCSRFFormHelper.formField
-      
+
+        <input type="hidden" id="js" name="jsEnabled" value="false">
+
         <fieldset class="form-elements">
 
             <legend class="heading-medium form-class-bold">@Html(Messages("s4.g5"))</legend>
@@ -139,9 +141,11 @@ else OtherMoney.name
                 }
             </ul>
 
-            <div id="warningMessageWrap" class="prompt validation-summary" style="display: none;">
-                <p>@Html(Messages("s4.g5.help5"))</p>
-            </div>
+            @if(breaksInCare.breaks.size >=app.ConfigProperties.getProperty("maximumBreaksInCare", 10)){
+                <div id="warningMessageWrap" class="prompt validation-summary">
+                    <p>@Html(Messages("s4.g5.help5"))</p>
+                </div>
+            }
 
         </fieldset>
 
@@ -150,17 +154,21 @@ else OtherMoney.name
 
     }
 
+
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_breaks/g_breaksInCare.js")></script>
 
     <script type="text/javascript">
         $(function () {
             window.initSummary("@CarersCrypto.encryptAES("deleteId")");
-            window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+            window.initEvents("@CarersCrypto.encryptAES("answer_yes")",
+                                "@CarersCrypto.encryptAES("answer_no")",
+                                @play.api.Play.isTest(play.api.Play.current));
             @if(claim.navigation.beenInPreview){
-            window.updateNextLabel("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")","@Messages("form.next")","@Messages("form.returnToSummary")");
+                window.updateNextLabel("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")","@Messages("form.next")","@Messages("form.returnToSummary")");
             }
         });
     </script>
-    
+
+    <script type="text/javascript">$($("#js").val("true"));</script>
 }
 }

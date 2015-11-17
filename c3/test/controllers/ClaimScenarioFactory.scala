@@ -357,6 +357,82 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s4CareYouProvideWithMultipleBreaksInCare(hours35: Boolean) = {
+    val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_1 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_1 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_2 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_2 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_2 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_2 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_2 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_2 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_3 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_3 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_3 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_3 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_3 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_3 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_4 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_4 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_4 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_4 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_4 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_4 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_5 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_5 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_5 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_5 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_5 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_5 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_6 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_6 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_6 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_6 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_6 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_6 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_7 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_7 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_7 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_7 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_7 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_7 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_8 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_8 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_8 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_8 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_8 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_8 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_9 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_9 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_9 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_9 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_9 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_9 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_10 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_10 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_10 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_10 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_10 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_10 = "No"
+
+    claim
+  }
+
   def s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed() = {
     val claim = s4CareYouProvideWithNoBreaksInCare()
 
