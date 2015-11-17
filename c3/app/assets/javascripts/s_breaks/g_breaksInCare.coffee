@@ -29,10 +29,12 @@ window.initSummary = (deleteId) ->
                 $("#deleteForm").submit()
 
 
-window.initEvents = (answer_yes, answer_no) ->
+window.initEvents = (answer_yes, answer_no, testMode) ->
   $("#" + answer_yes).on "click", ->
     if( $("#warningMessageWrap").length >0)
           $("#warningMessageWrap").show()
+          if not testMode then trackEvent(window.location.pathname, "Error", $("#warningMessageWrap").text().trim())
+
 
   $("#" + answer_no).on "click", ->
     if( $("#warningMessageWrap").length >0)
