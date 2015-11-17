@@ -101,15 +101,18 @@ class GBreaksInCareIntegrationSpec extends Specification with Tags {
       val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 11)
       breaksInCare goToThePage()
       val clicked = breaksInCare.clickLinkOrButton("#answer_yes")
-      clicked.source must contain("<div id=\"warningMessageWrap\" class=\"prompt validation-summary\" style=\"display: block;\">")
+      clicked.source must contain("warningMessageWrap")
+      clicked visible ("#warningMessageWrap") must beTrue
     }
 
     "hide warning when got maximum breaks and click yes then no" in new WithJsBrowser with PageObjects {
       val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithMultipleBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 11)
       breaksInCare goToThePage()
       val clickedyes = breaksInCare.clickLinkOrButton("#answer_yes")
+      clickedyes visible ("#warningMessageWrap") must beTrue
       val clickedno = clickedyes.clickLinkOrButton("#answer_no")
-      clickedno.source must contain("<div id=\"warningMessageWrap\" class=\"prompt validation-summary\" style=\"display: none;\">")
+      clickedno.source must contain("warningMessageWrap")
+      clickedno visible ("#warningMessageWrap") must beFalse
     }
 
   } section("integration", models.domain.CareYouProvide.id)
