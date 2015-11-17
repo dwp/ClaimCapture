@@ -113,6 +113,8 @@ else OtherMoney.name
     @form(action = controllers.s_breaks.routes.GBreaksInCare.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
 
+        <input type="hidden" id="js" name="jsEnabled" value="false">
+
         <fieldset class="form-elements">
 
             <legend class="heading-medium form-class-bold">@Html(Messages("s4.g5"))</legend>
@@ -163,6 +165,7 @@ else OtherMoney.name
             }
         });
     </script>
-    
+
+    <script type="text/javascript">$($("#js").val("true"));</script>
 }
 }
