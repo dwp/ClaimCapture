@@ -24,7 +24,7 @@
                         <ul>
                             @for(completedQuestionGroup <- completedQuestionGroups) {
                             <li>
-                                <h3>@Html(Messages(completedQuestionGroup.identifier.id))</h3>
+                                <h3>@Html(messages(completedQuestionGroup.identifier.id))</h3>
                                 <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true" aria-label="@Html(messages("change.these.help"))">@Html(messages("change.these"))</a>
                             </li>
                             }

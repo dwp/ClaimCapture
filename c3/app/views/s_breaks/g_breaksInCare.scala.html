@@ -135,7 +135,7 @@ else OtherMoney.name
 
             <ul>
                 @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
-                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateWeRequireBreakInCareInformationFrom))
+                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> messages(answerLabel, dateWeRequireBreakInCareInformationFrom))
                 }
             </ul>
 

@@ -20,7 +20,7 @@
 
                         <ul class="list-bullet">
                             @for(i <- 2 to 3) {
-                                <li>@Html(Messages(s"disclaimer.${i}"))</li>
+                                <li>@Html(messages(s"disclaimer.${i}"))</li>
                             }
                             <li>@Html(messages("disclaimer.4", s"""<a rel="external" href="https://www.gov.uk/find-your-local-council" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - Find your local council")}>""", "</a>"))</li>
                         </ul>

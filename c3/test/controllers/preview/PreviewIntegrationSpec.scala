@@ -14,13 +14,13 @@ import play.api.i18n.{MMessages, MessagesApi}
 import play.api.Play.current
 
 class PreviewIntegrationSpec extends Specification {
-  "Preview" should{
-    "be presented" in new WithJsBrowser with PageObjects{
+  "Preview" should {
+    "be presented" in new WithJsBrowser with PageObjects {
       val page =  PreviewPage(context)
       page goToThePage()
     }
 
-    "navigate back to Additional Info page" in new WithJsBrowser with PageObjects{
+    "navigate back to Additional Info page" in new WithJsBrowser with PageObjects {
       val additionalInfoPage = GAdditionalInfoPage(context)
       val additionalInfoData = ClaimScenarioFactory.s11ConsentAndDeclaration
       additionalInfoPage goToThePage ()

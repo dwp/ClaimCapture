@@ -24,7 +24,7 @@
 
                 @views.html.common.upperBackButton(forceShow = forceShow)
 
-                <h1 class="form-title heading-large">@sectionTitle(SelfEmployment)@Html(Messages(heading))</h1>
+                <h1 class="form-title heading-large">@sectionTitle(SelfEmployment)@Html(messages(heading))</h1>
 
                 @if(currentForm.isDefined) {
                     @errorsSummary(currentForm.get)

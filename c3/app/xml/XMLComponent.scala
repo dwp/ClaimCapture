@@ -2,9 +2,7 @@ package xml
 
 import models.domain.Claim
 import scala.xml.{NodeSeq, Elem}
-import play.api.i18n.Messages
-import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
+
 
 /**
  * Interface of objects that generates parts of the XML

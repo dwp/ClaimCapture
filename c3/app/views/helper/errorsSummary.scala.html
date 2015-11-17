@@ -21,7 +21,7 @@
             @for(error <- form.errors) {
                 <li>
                     <a href="#@CarersCrypto.encryptAES(error.key.replace(".","_"))">
-                        @Html(Messages(error.key, error.args: _*)) - @Html(Messages(error.message, error.args: _*))
+                        @Html(messages(error.key, error.args: _*)) - @Html(messages(error.message, error.args: _*))
                     </a>
                 </li>
             }
@@ -31,7 +31,7 @@
 <script type="text/javascript">
     $(function() {
             @for(error <- form.errors) {
-                @Html(gaTrack(Messages(error.key, error.args: _*), Messages(error.message, error.args: _*)))
+                @Html(gaTrack(messages(error.key, error.args: _*), messages(error.message, error.args: _*)))
             }
     });
 </script>

@@ -6,9 +6,6 @@ import models.yesNo.YesNoWithEmployerAndMoney
 import xml.XMLComponent
 import xml.XMLHelper._
 import scala.xml.NodeSeq
-import play.api.i18n.Messages
-import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
 
 object OtherBenefits extends XMLComponent {
 

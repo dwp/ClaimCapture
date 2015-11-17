@@ -8,9 +8,6 @@ import xml.XMLHelper._
 import scala.language.postfixOps
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 import scala.xml.NodeSeq
-import play.api.i18n.Messages
-import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
 
 object Caree extends XMLComponent {
 

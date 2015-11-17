@@ -9,9 +9,6 @@ import scala.Some
 import xml.XMLComponent
 import xml.XMLHelper._
 import models.DayMonthYear
-import play.api.i18n.Messages
-import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
 
 /**
  * Generate the XML presenting the Assisted decisions.

@@ -2,7 +2,6 @@
 
 @import models.view.CachedClaim
 @import views.html.helper._
-@import play.api.i18n.Messages
 @import utils.csrf.DwpCSRFFormHelper
 
 @submitCall = @{
@@ -32,10 +31,10 @@
 
                         <section id="jswrapper" hidden="true" class="carers-container">
 
-                            <h1 class="form-title heading-large">@Html(Messages(if(isClaim)"s11.g7.help1" else "s11.g7.help1.c"))<span id="dots"></span></h1>
+                            <h1 class="form-title heading-large">@Html(messages(if(isClaim)"s11.g7.help1" else "s11.g7.help1.c"))<span id="dots"></span></h1>
 
                             <div class="prompt submitting">
-                                <p>@Html(Messages(if(isClaim)"s11.g7.help2" else "s11.g7.help2.c"))</p>
+                                <p>@Html(messages(if(isClaim)"s11.g7.help2" else "s11.g7.help2.c"))</p>
                                 <p>@Html(messages("s11.g7.help3"))</p>
                             </div>
 
@@ -46,7 +45,7 @@
                             <h1>@Html(messages("s11.g7.help1"))<span id="dots"></span></h1>
                             <div class="prompt submitting">
                                 <p>@Html(messages("s11.g7.refresh1"))</p>
-                                <p>@Html(Messages(if(isClaim) "s11.g7.refresh2" else "s11.g7.refresh2.c"))</p>
+                                <p>@Html(messages(if(isClaim) "s11.g7.refresh2" else "s11.g7.refresh2.c"))</p>
                             </div>
 
                             <nav class="form-steps">

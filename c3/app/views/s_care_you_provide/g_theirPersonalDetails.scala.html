@@ -67,7 +67,7 @@
                             'id -> "careYouProvideWrap"
                         )
 
-                        @carersInputText(currentForm("relationship"), 'helperAbove -> Messages(relationshipHelper()), 'maxLength -> mappings.Mappings.thirtyfive)
+                        @carersInputText(currentForm("relationship"), 'helperAbove -> messages(relationshipHelper()), 'maxLength -> mappings.Mappings.thirtyfive)
                         
                         @yesNoRadioGroup(currentForm("theirAddress.answer"), 'track -> true, 'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")))
 
