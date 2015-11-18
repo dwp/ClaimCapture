@@ -121,8 +121,8 @@ class GBreakIntegrationSpec extends Specification {
       next
       urlMustEqual(GBreaksInCarePage.url)
 
-      $("ul li").size() mustEqual 2
-      $("ul").findFirst("li").findFirst("h3").getText shouldEqual "01/01/1999 to 01/01/2001"
+      $("ul.break-data li").size() mustEqual 2
+      $("ul.break-data").findFirst("li").findFirst("h3").getText shouldEqual "01/01/1999 to 01/01/2001"
     }
 
     """show "all options" for "Where was the person you care for during the break?".""" in new WithJsBrowser  with WithBrowserHelper with BrowserMatchers {
