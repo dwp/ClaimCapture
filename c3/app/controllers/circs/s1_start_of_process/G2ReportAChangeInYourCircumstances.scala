@@ -35,17 +35,14 @@ object G2ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
     dateOfBirth -> dayMonthYear.verifying(validDate),
     theirFullName -> carersNonEmptyText(maxLength = 35),
     theirRelationshipToYou -> carersNonEmptyText(maxLength = 35),
-
     "furtherInfoContact" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired)),
     "wantsEmailContactCircs" -> optional(carersNonEmptyText.verifying(validYesNo)),
     "mail" -> optional(email.verifying(Constraints.maxLength(254))),
     "mailConfirmation" -> optional(text(maxLength = 254))
-
   )(CircumstancesReportChange.apply)(CircumstancesReportChange.unapply)
     .verifying("error.email.match", emailConfirmation _)
     .verifying("error.email.required", emailRequired _)
     .verifying("error.wants.required", wantsEmailRequired _)
-
   )
 
   def present = claiming ({ implicit circs => implicit lang => implicit request => 

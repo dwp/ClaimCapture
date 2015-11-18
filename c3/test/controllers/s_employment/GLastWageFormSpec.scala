@@ -36,7 +36,6 @@ class GLastWageFormSpec extends Specification{
         )
       ).fold(
         formWithErrors => {
-          println(formWithErrors.errors)
           "This mapping should not happen." must equalTo("Error")
         },
         f => {

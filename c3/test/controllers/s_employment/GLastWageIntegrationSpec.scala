@@ -15,12 +15,9 @@ class GLastWageIntegrationSpec extends Specification {
 
     "employer owes you money is not visible when 'have finished job is 'no'" in new WithBrowser with PageObjects{
       val jobDetailsPage = GJobDetailsPage(context)
-      println(jobDetailsPage.url)
       jobDetailsPage goToThePage()
-      println(jobDetailsPage.source)
       val claim = ClaimScenarioFactory s7EmploymentWhenFinishedJobNo()
       jobDetailsPage fillPageWith claim
-      println(jobDetailsPage.source)
       val lastWagePage = jobDetailsPage submitPage()
       context.browser.find("#employerOwesYouMoney").size() mustEqual 0
     }

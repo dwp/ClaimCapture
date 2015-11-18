@@ -81,8 +81,6 @@ section("integration")
       outsideUkPage fillPageWith claimSource
       outsideUkPage populateClaim claimRead
       claimRead.AboutYouFirstName  mustEqual claimSource.AboutYouFirstName
-      println(claimRead.AboutYouTitle)
-      println(claimSource.AboutYouTitle)
       claimRead.AboutYouTitle mustEqual claimSource.AboutYouTitle
       claimRead.AboutYouNINO mustEqual claimSource.AboutYouNINO
       claimRead.AboutYouAddress mustEqual claimSource.AboutYouAddress

@@ -16,7 +16,6 @@ class GPensionAndExpensesSpec extends Specification {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val result = GPensionAndExpenses.present(iterationID)(request)
-      println(s"present = $claimKey")
       status(result) mustEqual OK
     }
 
@@ -24,7 +23,6 @@ class GPensionAndExpensesSpec extends Specification {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("iterationID" -> iterationID)
 
       val result = GPensionAndExpenses.submit(request)
-      println(s"require all mandatory data = $claimKey")
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -40,7 +38,6 @@ class GPensionAndExpensesSpec extends Specification {
       )
 
       val result = GPensionAndExpenses.submit(request)
-      println(s"accept all mandatory data = $claimKey")
       status(result) mustEqual SEE_OTHER
     }
 

@@ -37,8 +37,7 @@ class G1DeclarationSpec extends Specification {
 
     "add submitted form to the cached claim" in new WithApplication(app = LightFakeApplication.fa) with MockForm {
       val G1Declaration = current.injector.instanceOf[G1Declaration]
-      val request = FakeRequest()
-        .withFormUrlEncodedBody(declarationInput: _*)
+      val request = FakeRequest().withFormUrlEncodedBody(declarationInput: _*)
 
       val result = G1Declaration.submit(request)
       val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
@@ -54,8 +53,7 @@ class G1DeclarationSpec extends Specification {
 
     "redirect to the next page after a valid submission" in new WithApplication(app = LightFakeApplication.fa) with MockForm {
       val G1Declaration = current.injector.instanceOf[G1Declaration]
-      val request = FakeRequest()
-        .withFormUrlEncodedBody(declarationInput: _*)
+      val request = FakeRequest().withFormUrlEncodedBody(declarationInput: _*)
 
       val result = G1Declaration.submit(request)
       redirectLocation(result) must beSome("/circs-async-submitting")

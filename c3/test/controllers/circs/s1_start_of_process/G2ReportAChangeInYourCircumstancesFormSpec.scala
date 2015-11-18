@@ -12,18 +12,18 @@ import utils.WithApplication
 
 
 class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
+  val fullName = "Mr John Joe Smith"
+  val nino = "AB123456C"
+  val dateOfBirthDay = 5
+  val dateOfBirthMonth = 12
+  val dateOfBirthYear = 1990
+  val theirFullName = "Mrs Jane Smith"
+  val theirRelationshipToYou = "Wife"
+
+  val byTelephone = "01254897675"
+  val wantsEmailContactCircs = "no"
+
   "Change of circumstances - About You Form" should {
-    val fullName = "Mr John Joe Smith"
-    val nino = "AB123456C"
-    val dateOfBirthDay = 5
-    val dateOfBirthMonth = 12
-    val dateOfBirthYear = 1990
-    val theirFullName = "Mrs Jane Smith"
-    val theirRelationshipToYou = "Wife"
-
-    val byTelephone = "01254897675"
-    val wantsEmailContact = "no"
-
     "map data into case class" in new WithApplication {
       G2ReportAChangeInYourCircumstances.form.bind(
         Map(
@@ -35,10 +35,13 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> byTelephone,
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )
       ).fold(
-          formWithErrors => "This mapping should not happen." must equalTo("Error"),
+        formWithErrors => {
+          println(s"errors $formWithErrors.errors")
+          "This mapping should not happen." must equalTo("Error")
+        },
           f => {
             f.fullName must equalTo("Mr John Joe Smith")
           }
@@ -55,7 +58,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
@@ -76,7 +79,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
           "theirFullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "theirRelationshipToYou" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "furtherInfoContact" -> byTelephone,
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(3)
@@ -98,7 +101,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> "dhjahskdk",
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
@@ -118,7 +121,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> "012345678901234567890",
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
@@ -138,7 +141,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> "012345",
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
@@ -158,7 +161,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
           "theirFullName" -> "Jane >",
           "theirRelationshipToYou" -> "Wife >",
           "furtherInfoContact" -> byTelephone,
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(3)
@@ -195,7 +198,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> byTelephone,
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
@@ -215,7 +218,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> byTelephone,
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
@@ -241,7 +244,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
       "typeOfWork.selfEmployedTypeOfWork" -> selfEmployedTypeOfWork,
       "typeOfWork.selfEmployedTotalIncome" -> dontknow,
       "furtherInfoContact" -> byTelephone,
-      "wantsEmailContact" -> wantsEmailContact
+      "wantsEmailContactCircs" -> wantsEmailContactCircs
     )
 
     def g2FakeRequest(claimKey: String) = {
@@ -254,7 +257,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
         "theirFullName" -> theirFullName,
         "theirRelationshipToYou" -> theirRelationshipToYou,
         "furtherInfoContact" -> byTelephone,
-        "wantsEmailContactCircs" -> wantsEmailContact
+        "wantsEmailContactCircs" -> wantsEmailContactCircs
       )
     }
 

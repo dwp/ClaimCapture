@@ -42,7 +42,6 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification {
         )
       ).fold(
           formWithErrors => {
-            println(formWithErrors)
             "This mapping should not happen." must equalTo("Error")
           },
           f => {
@@ -77,7 +76,6 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification {
         )
       ).fold(
           formWithErrors => {
-            println(formWithErrors)
             "This mapping should not happen." must equalTo("Error")
           },
           f => {
@@ -118,7 +116,6 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification {
         )
       ).fold(
           formWithErrors => {
-            println(formWithErrors)
             "This mapping should not happen." must equalTo("Error")
           },
           f => {

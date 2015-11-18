@@ -15,7 +15,6 @@ class MessageFilesSpec extends Specification {
 
     val enKeys = enFiles.map(
       enFile => {
-        println("conf/en/%s.en.properties".format(enFile))
         val enS = scala.io.Source.fromFile("conf/en/%s.en.properties".format(enFile))
         val linesFromEnS = enS.getLines.filterNot(_.isEmpty).filterNot(s => s.startsWith("#")).toList
         val enKeys = linesFromEnS.map(pair => pair.split("=").map(k => k.trim))
@@ -26,7 +25,6 @@ class MessageFilesSpec extends Specification {
 
     val cyKeys = cyFiles.map(
       cyFile => {
-        println("conf/cy/%s.cy.properties".format(cyFile))
         val cyS = scala.io.Source.fromFile("conf/cy/%s.cy.properties".format(cyFile))
         val linesFromCyS = cyS.getLines.filterNot(_.isEmpty).filterNot(s => s.startsWith("#")).toList
         if (linesFromCyS.toString.contains("translate")) Logger.warn(s"$cyFile contains English text waiting for translation to Welsh")
@@ -45,7 +43,6 @@ class MessageFilesSpec extends Specification {
     }
 
     "each key in a English property file must have a corresponding key in the Welsh file" in {
-      println(enKeys.filterNot(enKey => cyKeys.contains(enKey)).toString)
       enKeys.filterNot(enKey => cyKeys.contains(enKey)) must beEmpty
     }
 
