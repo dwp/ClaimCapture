@@ -79,11 +79,10 @@ class EmploymentSpec extends Specification {
       claim.questionGroup(Jobs) must beLike { case Some(js: Jobs) => js.size shouldEqual 2 }
     }
 
-    """find first question group i.e. "JobDetails" in a job""" in new WithApplication {
-      val claiming = new Claiming(){}
-      val jobDetails = claiming.mockQuestionGroup[JobDetails](JobDetails)
-      //jobDetails.iterationID returns "2"
-      //jobDetails.employerName returns "Toys r not us"
+    """find first question group i.e. "JobDetails" in a job""" in new WithApplication with Claiming {
+      val jobDetails = mockQuestionGroup[JobDetails](JobDetails)
+      jobDetails.iterationID returns "2"
+      jobDetails.employerName returns "Toys r not us"
 
       val jobs = Jobs().update(Iteration("1")).update(Iteration("2").update(jobDetails))
       val claim = Claim(CachedClaim.key).update(jobs)
