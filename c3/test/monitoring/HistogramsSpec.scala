@@ -15,5 +15,5 @@ class HistogramsSpec extends Specification {
       count mustEqual 1
     }
   }
-section("unit")
+  section("unit")
 }
