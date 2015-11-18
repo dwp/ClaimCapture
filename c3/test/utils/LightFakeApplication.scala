@@ -29,7 +29,8 @@ object LightFakeApplication {
       "play.api.inject.BuiltinModule",
       "com.kenshoo.play.metrics.PlayModule",
       "utils.module.DependencyModule",
-      "play.api.i18n.MultiMessageModule"
+      "play.api.i18n.MultiMessageModule",
+      "play.api.libs.ws.ning.NingWSModule"
     ),
 
     "play.modules.disabled" -> List("play.api.cache.EhCacheModule", "gov.dwp.carers.play2.resilientmemcached.MemcachedModule"),
