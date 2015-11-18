@@ -18,7 +18,7 @@ class HealthControllerSpec extends PlaySpecification with Results {
     }
 
   }
-section("unit")
+  section("unit")
 
   "Ping" should {
     "always return ok" in new WithApplication {
@@ -27,7 +27,7 @@ section("unit")
       status(result) mustEqual OK
     }
   }
-section("unit")
+  section("unit")
 }
 
 

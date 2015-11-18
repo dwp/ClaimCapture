@@ -1,7 +1,6 @@
 package monitoring
 
 import org.specs2.mutable._
-import play.api.Play._
 import utils.{LightFakeApplication, WithBrowser}
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s_eligibility.GBenefitsPage

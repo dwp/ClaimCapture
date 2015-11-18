@@ -51,7 +51,7 @@ class G1DeclarationSpec extends Specification {
       }
     }
 
-    "redirect to the next page after a valid submission" in new WithApplication(app = LightFakeApplication.fa) with MockForm {
+    "redirect to the next page after a valid submission" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("submit.prints.xml" -> "false"))) with MockForm {
       val G1Declaration = current.injector.instanceOf[G1Declaration]
       val request = FakeRequest().withFormUrlEncodedBody(declarationInput: _*)
 
