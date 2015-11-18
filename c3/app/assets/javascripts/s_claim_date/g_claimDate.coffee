@@ -22,10 +22,14 @@ hideCareStartDateWrap = (day, month, year) ->
 
 window.initDateWarning = (warningId,day, month, year,text,testMode) ->
   hideWarning(warningId)
+  f = initDateWarningOnChange(warningId,day, month, year,text,testMode)
 
-  $("#"+day).change(initDateWarningOnChange(warningId,day, month, year,text,testMode))
-  $("#"+month).change(initDateWarningOnChange(warningId,day, month, year,text,testMode))
-  $("#"+year).change(initDateWarningOnChange(warningId,day, month, year,text,testMode))
+  $("#"+day).on("change",f)
+  $("#"+day).on("keyup",f)
+  $("#"+month).on("change",f)
+  $("#"+month).on("keyup",f)
+  $("#"+year).on("change",f)
+  $("#"+year).on("keyup",f)
 
 initDateWarningOnChange = (warningId,day,month,year,text,testMode) -> ->
   dayV = $("#"+day).val()
