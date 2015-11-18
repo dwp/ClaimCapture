@@ -1,6 +1,5 @@
 package utils.module
 
-import play.api.db.DefaultDBApi
 import play.api.inject.Module
 import controllers.circs.s3_consent_and_declaration.G1Declaration
 import controllers.s_consent_and_declaration.GDeclaration
@@ -13,13 +12,12 @@ import play.api.libs.ws.WSResponse
 import play.api.libs.ws.ning.NingWSResponse
 import play.api.mvc.{AnyContent, Request}
 import play.api.{http, Logger, Configuration, Environment}
-import play.db.DBApi
 import services.submission.AsyncClaimSubmissionComponent
 import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
 
-class DependencyModule(environment: Environment, configuration: Configuration) extends Module {
+class DependencyModule extends Module {
   private def xmlPrintControllers = {
     Seq(bind(classOf[GDeclaration]).to(classOf[GDeclarationXML]),
       bind(classOf[G1Declaration]).to(classOf[G1DeclarationXML]),

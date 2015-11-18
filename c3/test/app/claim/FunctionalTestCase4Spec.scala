@@ -16,9 +16,7 @@ class FunctionalTestCase4Spec extends FunctionalTestCommon {
   isolated
 
   "The application " should {
-
     "Successfully run absolute Test Case 4 " in new WithJsBrowser with PageObjects {
-
       val page = GBenefitsPage(context)
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase4.csv")
       test(page, claim, buildPreviewUseData)
@@ -27,7 +25,6 @@ class FunctionalTestCase4Spec extends FunctionalTestCommon {
   section("functional", "claim")
 
   private def buildPreviewUseData = {
-
     PreviewTestableData()   +
       "AboutYouTitle"       + "AboutYouFirstName" + "AboutYouMiddleName" + "AboutYouSurname" +
       dateConversion("AboutYouDateOfBirth") +
@@ -59,6 +56,5 @@ class FunctionalTestCase4Spec extends FunctionalTestCommon {
       "OtherMoneyAnyPaymentsSinceClaimDate" +
       "OtherMoneyHaveYouSSPSinceClaim" +
       "OtherMoneyHaveYouSMPSinceClaim"
-
   }
 }

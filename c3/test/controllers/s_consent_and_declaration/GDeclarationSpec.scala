@@ -6,7 +6,8 @@ import play.api.test.Helpers._
 import models.domain.{Declaration, Claiming}
 import models.view.CachedClaim
 import controllers.s_other_money.GAboutOtherMoney
-import utils.WithApplication
+import specs2.akka.AkkaTestkitSpecs2Support
+import utils.{LightFakeApplication, WithApplication}
 import play.api.Play.current
 
 class GDeclarationSpec extends Specification {
@@ -56,7 +57,7 @@ class GDeclarationSpec extends Specification {
       status(result) mustEqual BAD_REQUEST
     }
 
-    """accept answers without someoneElse""" in new WithApplication with Claiming {
+    """accept answers without someoneElse""" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("submit.prints.xml" -> "false"))) with Claiming {
       val gDeclaration = current.injector.instanceOf[GDeclaration]
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
                                  .withFormUrlEncodedBody("tellUsWhyFromAnyoneOnForm.informationFromPerson" -> "no",
@@ -66,7 +67,7 @@ class GDeclarationSpec extends Specification {
       status(result) mustEqual SEE_OTHER
     }
 
-    """accept answers""" in new WithApplication with Claiming {
+    """accept answers""" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("submit.prints.xml" -> "false"))) with Claiming {
       val gDeclaration = current.injector.instanceOf[GDeclaration]
       val result1 = GAboutOtherMoney.submit(FakeRequest()
         withFormUrlEncodedBody(formInputAboutOtherMoney: _*))
@@ -91,7 +92,7 @@ class GDeclarationSpec extends Specification {
       redirectLocation(result) must beSome("/async-submitting")
     }
 
-    """accept answers with both consent questions answered yes""" in new WithApplication with Claiming {
+    """accept answers with both consent questions answered yes""" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("submit.prints.xml" -> "false"))) with Claiming {
       val gDeclaration = current.injector.instanceOf[GDeclaration]
       val result1 = GAboutOtherMoney.submit(FakeRequest()
         withFormUrlEncodedBody(formInputAboutOtherMoney: _*))

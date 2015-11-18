@@ -4,10 +4,17 @@ import java.util.UUID._
 import javax.inject.Singleton
 
 import com.google.common.primitives.Primitives
-import play.api.{Configuration, Environment, GlobalSettings}
+import controllers.circs.s3_consent_and_declaration.G1Declaration
+import controllers.s_consent_and_declaration.GDeclaration
+import models.domain.Claim
+import monitor.HealthMonitor
+import monitoring.{ProdHealthMonitor, ClaimTransactionCheck}
+import play.api.{Logger, Configuration, Environment, GlobalSettings}
 import play.api.cache.CacheApi
 import play.api.inject.{Binding, Module}
 import play.api.test.FakeApplication
+import services.submission.AsyncClaimSubmissionComponent
+import utils.module._
 import scala.collection.mutable
 import scala.concurrent.duration.Duration
 import scala.reflect.ClassTag
@@ -26,7 +33,7 @@ object LightFakeApplication {
       "play.api.db.DBModule",
       "play.api.inject.BuiltinModule",
       "com.kenshoo.play.metrics.PlayModule",
-      "utils.module.DependencyModule",
+      "utils.TestSubmissionModule",
       "play.api.i18n.MultiMessageModule",
       "play.api.libs.ws.ning.NingWSModule"
     ),
@@ -82,6 +89,40 @@ class TestEhCacheModule extends Module {
     Seq (
       bind(classOf[CacheApi]).to(HashMapCacheApiImpl)
     )
+  }
+}
+
+@Singleton
+class TestSubmissionModule extends Module {
+  override def bindings(environment: Environment, configuration: Configuration): Seq[Binding[_]] = {
+      (
+        configuration.getBoolean("submit.prints.xml") match {
+        case Some(true) => {
+          Seq(
+            bind(classOf[AsyncClaimSubmissionComponent]).to(classOf[AsyncClaimSubmissionComponentXML]),
+            bind(classOf[GDeclaration]).to(classOf[GDeclarationXML]),
+            bind(classOf[G1Declaration]).to(classOf[G1DeclarationXML])
+          )
+        }
+        case _ => {
+          Seq(
+            bind(classOf[GDeclaration]).to(classOf[GDeclarationDB]),
+            bind(classOf[G1Declaration]).to(classOf[G1DeclarationDB]),
+            bind(classOf[AsyncClaimSubmissionComponent]).to(classOf[AsyncClaimSubmissionComponentDBStubSubmission])
+          )
+        }
+      }
+        ) ++ Seq(
+          bind(classOf[ClaimTransactionCheck]).to(classOf[ClaimTransactionCheckStub]),
+          bind(classOf[HealthMonitor]).to(classOf[ProdHealthMonitor])
+        )
+  }
+}
+
+class AsyncClaimSubmissionComponentDBStubSubmission extends AsyncClaimSubmissionComponent {
+  override val claimTransaction = new StubClaimTransaction
+  override def submission(claim: Claim): Unit = {
+    Logger.debug("Stub claim submission")
   }
 }
 
