@@ -21,10 +21,7 @@ object GEmployment extends Controller with CachedClaim with Navigable with I18nS
       )(Emp.apply)(Emp.unapply))
 
     def present = claimingWithCheck {  implicit claim => implicit request => implicit lang =>
-      claim.questionGroup(ClaimDate) match {
-        case Some(n) => track(Employment) { implicit claim => Ok(views.html.s_self_employment.g_employment(form.fill(Emp))) }
-        case _ => Redirect("/")
-      }
+      track(Employment) { implicit claim => Ok(views.html.s_self_employment.g_employment(form.fill(Emp))) }
     }
 
     def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>

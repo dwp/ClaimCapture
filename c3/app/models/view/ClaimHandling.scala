@@ -128,7 +128,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   private def claimingWithoutClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent]): Result = {
     if (Play.isTest) {
       implicit val r = request
-      val claim = newInstance(keyFrom(request))
+      val claim = newInstance()
       saveInCache(claim) // place an empty claim in the cache to satisfy tests
       // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
       action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
