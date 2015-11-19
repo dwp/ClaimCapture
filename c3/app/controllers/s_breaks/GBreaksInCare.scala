@@ -33,7 +33,7 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable with I18
     import controllers.mappings.Mappings.yes
     def next(hasBreaks:String) = hasBreaks match {
       case `yes` if breaksInCare.breaks.size < app.ConfigProperties.getProperty("maximumBreaksInCare", 10) => Redirect(controllers.s_breaks.routes.GBreak.present(IterationID(form)))
-      case _ => redirect(claim, lang)
+      case _ => redirect(claim, lang, messagesApi)
     }
 
     form.bindEncrypted.fold(
