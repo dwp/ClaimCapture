@@ -11,7 +11,7 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
                         hour: Option[Int] = None, minutes: Option[Int] = None) {
 
   var encryptedDate: Option[String] = None
-  @transient val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+  def messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def encrypt = {
     encryptedDate match {
       case Some(date) => this // Do not encrypt if already encrypted

@@ -4,7 +4,7 @@ import play.api.i18n.{MMessages, MessagesApi, Lang}
 import play.api.Play.current
 
 abstract class QuestionGroup(val identifier: QuestionGroup.Identifier) extends Serializable {
-  @transient val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+  def messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val definition: String = messagesApi(identifier.id)
 }
 

@@ -4,7 +4,7 @@ import play.api.i18n.{MMessages, MessagesApi}
 import play.api.Play.current
 
 case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil, visible: Boolean = true) extends Serializable {
-  @transient val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+  def messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def name = messagesApi(identifier.id + ".name")
 
   def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {

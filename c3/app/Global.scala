@@ -76,6 +76,7 @@ object Global extends GlobalSettings with CarersLanguageHelper with C3MonitorReg
     val pattern = """.*circumstances.*""".r
     val cookiesAbsent = request.cookies.isEmpty
 
+    Logger.error("Unexpected error on application",ex)
     val referer = request.headers.get("Referer")
 
     val url = referer match {

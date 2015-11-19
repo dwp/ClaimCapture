@@ -53,7 +53,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     .verifying("nationality.required", YourPartnerPersonalDetails.validateNationalityIfPresent _)
   )
 
-  def present:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def present:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit lang =>
     presentConditionally(yourPartnerPersonalDetails)
   }
 
