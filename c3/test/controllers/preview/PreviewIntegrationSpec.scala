@@ -27,14 +27,13 @@ class PreviewIntegrationSpec extends Specification {
       additionalInfoPage fillPageWith additionalInfoData
       val previewPage = additionalInfoPage submitPage()
       previewPage must beAnInstanceOf[PreviewPage]
-      previewPage goBack() must beAnInstanceOf[GAdditionalInfoPage]
     }
 
     "navigate to Declaration page" in new WithJsBrowser with PageObjects {
        val previewPage = PreviewPage(context)
        previewPage goToThePage()
        val declarationPage = previewPage submitPage()
-      declarationPage must beAnInstanceOf[GDeclarationPage]
+       declarationPage must beAnInstanceOf[GDeclarationPage]
     }
 
     "change Next button text to 'Return to summary'" in new WithJsBrowser with PageObjects {
