@@ -26,13 +26,13 @@ object CircsBreaksInCare {
           <BreakFromCaringEnded>
             {question(<HasBreakFromCaringEnded/>,"breakEnded.answer", breaksFromCaring.breakEnded.answer)}
             {question(<EndDate/>,"breakEnded.endDate", breaksFromCaring.breakEnded.date)}
-            {question(<EndTime/>,"breakEnded_endTime", breaksFromCaring.breakEnded.time)}
+            {question(<EndTime/>,"breakEnded.endTime", breaksFromCaring.breakEnded.time)}
             {if(breaksFromCaring.expectStartCaring.answer.isDefined){
               {question(<ExpectStartCaringAgain/>,"expectStartCaring.answer", messagesApi(breaksFromCaring.expectStartCaring.answer.get))}
             }
             }
-            {question(<ExpectStartCaringAgainDate/>,"expectStartCaring_expectStartCaringDate", breaksFromCaring.expectStartCaring.expectStartCaringDate)}
-            {question(<PermanentBreakDate/>,"expectStartCaring_permanentBreakDate", breaksFromCaring.expectStartCaring.permanentBreakDate)}
+            {question(<ExpectStartCaringAgainDate/>,"expectStartCaring.expectStartCaringDate", breaksFromCaring.expectStartCaring.expectStartCaringDate)}
+            {question(<PermanentBreakDate/>,"expectStartCaring.permanentBreakDate", breaksFromCaring.expectStartCaring.permanentBreakDate)}
           </BreakFromCaringEnded>
           {question(<MedicalTreatmentDuringBreak/>,"medicalCareDuringBreak", breaksFromCaring.medicalCareDuringBreak)}
           {question(<MoreChanges/>,"moreAboutChanges", breaksFromCaring.moreAboutChanges)}

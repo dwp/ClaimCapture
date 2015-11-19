@@ -31,10 +31,9 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable with I18
 
   def submit = claimingWithCheck {implicit claim => implicit request => implicit lang => 
     import controllers.mappings.Mappings.yes
-
     def next(hasBreaks:String) = hasBreaks match {
-      case `yes` if breaksInCare.breaks.size < 10 => Redirect(controllers.s_breaks.routes.GBreak.present(IterationID(form)))
-      case _ => redirect(claim, lang, messagesApi)
+      case `yes` if breaksInCare.breaks.size < app.ConfigProperties.getProperty("maximumBreaksInCare", 10) => Redirect(controllers.s_breaks.routes.GBreak.present(IterationID(form)))
+      case _ => redirect(claim, lang)
     }
 
     form.bindEncrypted.fold(
@@ -51,11 +50,15 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable with I18
       case _ => false
     }
     val breaksAdded = breaksInCare.breaks
-    val breaksLabel = if(breaksAdded == Nil || breaksAdded.isEmpty) {"answer.label"} else {"answer.more.label"}
+    val breaksLabel = if (breaksAdded == Nil || breaksAdded.isEmpty) {
+      "answer.label"
+    } else {
+      "answer.more.label"
+    }
     val messageLabel = messages(breaksLabel, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-      if (sixMonth) displayPlaybackDatesFormat (lang, dmy - 6 months) else displayPlaybackDatesFormat (lang, dmy)))
+      if (sixMonth) displayPlaybackDatesFormat(lang, dmy - 6 months) else displayPlaybackDatesFormat(lang, dmy)))
 
-    FormError("answer", Mappings.errorRequired,Seq(messageLabel))
+    FormError("answer", Mappings.errorRequired, Seq(messageLabel))
   }
 
   private def redirect(implicit claim: Claim, lang: Lang, messagesApi: MessagesApi) = {

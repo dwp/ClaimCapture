@@ -166,10 +166,10 @@ object ClaimScenarioFactory {
   def s2AnsweringNoToQuestions() = {
     val claim = new TestData
     //Your details
-    claim.AboutYouTitle="Mrs"
-    claim.AboutYouFirstName="Jane"
-    claim.AboutYouSurname="Doe"
-    claim.AboutYouNationalInsuranceNumber="AB123456D"
+    claim.AboutYouTitle = "Mrs"
+    claim.AboutYouFirstName = "Jane"
+    claim.AboutYouSurname = "Doe"
+    claim.AboutYouNationalInsuranceNumber = "AB123456D"
     claim.AboutYouDateOfBirth = "12/07/1970"
 
     // Your contact details
@@ -245,7 +245,7 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s4CareYouProvide(hours35:Boolean,liveSameAddress:Boolean = false) = {
+  def s4CareYouProvide(hours35: Boolean, liveSameAddress: Boolean = false) = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
     claim.AboutTheCareYouProvideTitlePersonCareFor = "Mr"
@@ -254,10 +254,10 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideSurnamePersonCareFor = "Wilson"
     claim.AboutTheCareYouProvideNINOPersonCareFor = "AA123456A"
     claim.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/03/1990"
-    if (liveSameAddress){
+    if (liveSameAddress) {
       claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "yes"
 
-    }else{
+    } else {
       claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "no"
 
     }
@@ -290,7 +290,7 @@ object ClaimScenarioFactory {
       claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
       claim.ClaimDateDidYouCareForThisPersonfor35Hours = "Yes"
       claim.ClaimDateWhenDidYouStartToCareForThisPerson = "03/04/2013"
-    }else {
+    } else {
       claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "No"
     }
 
@@ -353,6 +353,82 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
     claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "Yes"
     claim.AboutTheCareYouProvideHasBreakEnded_1 = "No"
+
+    claim
+  }
+
+  def s4CareYouProvideWithMultipleBreaksInCare(hours35: Boolean) = {
+    val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_1 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_1 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_2 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_2 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_2 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_2 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_2 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_2 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_3 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_3 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_3 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_3 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_3 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_3 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_4 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_4 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_4 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_4 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_4 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_4 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_5 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_5 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_5 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_5 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_5 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_5 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_6 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_6 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_6 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_6 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_6 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_6 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_7 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_7 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_7 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_7 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_7 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_7 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_8 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_8 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_8 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_8 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_8 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_8 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_9 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_9 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_9 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_9 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_9 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_9 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_10 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_10 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_10 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_10 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_10 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_10 = "No"
 
     claim
   }
@@ -624,7 +700,7 @@ object ClaimScenarioFactory {
 
     claim
   }
-  
+
   def s9otherMoneyOther = {
     val claim = s7Employment()
     // G1 About other money
@@ -720,11 +796,52 @@ object ClaimScenarioFactory {
 
     claim
   }
-  
+
   def s11ConsentAndDeclaration = {
     val claim = s9SelfEmployment
     claim.ConsentDeclarationTellUsAnythingElseAnswerAboutClaim = "no"
     claim.ConsentDeclarationCommunicationWelsh = "no"
+
+    claim
+  }
+
+  def previewAboutYouForBankDetails = {
+    val claim = s12ClaimDate()
+    claim.AboutYouTitle = "Mr"
+    claim.AboutYouFirstName = "John"
+    claim.AboutYouSurname = "Appleseed"
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
+    claim.AboutYouNINO = "AB123456C"
+    claim.AboutYouAddress = "101 Clifton Street&Blackpool"
+    claim.AboutYouPostcode = "FY1 2RW"
+    claim.HowWeContactYou = "01772 888901"
+    claim.AboutYouWantsEmailContact = "No"
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+    claim.AboutYouDateOfBirth = "02/02/1950"
+
+    claim
+  }
+
+  def previewLessThan65WithBankDetails = {
+    val claim = previewAboutYouForBankDetails
+    claim.AboutYouDateOfBirth = "02/02/1980"
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = "yes"
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek
+    claim.HowWePayYouNameOfAccountHolder = "John Smith"
+    claim.WhoseNameOrNamesIsTheAccountIn = "John Smith"
+    claim.HowWePayYouFullNameOfBankorBuildingSociety = "Carers Bank"
+    claim.HowWePayYouSortCode = "090126"
+    claim.HowWePayYouAccountNumber = "12345678"
+
+    claim
+  }
+
+  def previewLessThan65WithNoBankDetails = {
+    val claim = previewAboutYouForBankDetails
+    claim.AboutYouDateOfBirth = "02/02/1980"
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = "no"
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek
 
     claim
   }

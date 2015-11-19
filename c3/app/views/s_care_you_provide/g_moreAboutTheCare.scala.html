@@ -9,7 +9,7 @@
 @import play.api.i18n.Messages
 @import scala.language.postfixOps
 
-
+@defining(lang) { implicit language =>
 
     @main(messages("s4.g4") + " - " + messages("s4.longName"), Some(currentForm)) {
 
@@ -17,18 +17,18 @@
 
             @DwpCSRFFormHelper.formField
 
-	        <fieldset class="form-elements">
+            <fieldset class="form-elements">
 
-	            <ul>
-	                @yesNoRadioGroup(currentForm("spent35HoursCaring"))
-	            </ul>
+                <ul>
+                    @yesNoRadioGroup(currentForm("spent35HoursCaring"), 'track -> true)
+                </ul>
 
-	        </fieldset>
-	
-			@views.html.common.bottomNavigation()
+            </fieldset>
 
-		}
+            @views.html.common.bottomNavigation()
+
+        }
 
     }
 
-
+}

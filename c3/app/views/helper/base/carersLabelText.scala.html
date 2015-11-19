@@ -3,7 +3,7 @@
 @import views.html.helper.base.labelOrId
 @import play.api.i18n.Messages
 
-@labelOrId(field.id,args: _*)
+@labelOrId(field.name,args: _*)
 
 @displayOptional = @{
     (!args.find(t => t._1 == 'ignoreOptional).getOrElse('ignoreOptional->false).asInstanceOf[(Symbol,Boolean)]._2 &&

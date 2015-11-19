@@ -126,9 +126,12 @@ class EmailTemplateSpec extends Specification {
 
       // With statutory payments
       val claimWithStatutoryPayments = claim.update(otherPayments)
-      val emailWithStatutoryPayments = views.html.mail(claimWithStatutoryPayments,isClaim = true,isEmployment = true).body
+      val emailWithStatutoryPayments = views.html.mail(claimWithStatutoryPayments,isClaim = true,isEmployment = false).body
+      val emailWithEmploymentAsWell = views.html.mail(claimWithStatutoryPayments,isClaim = true,isEmployment = true).body
       emailWithStatutoryPayments must contain(escapeMessage("evidence.otherMoney.statutorySickPay"))
       emailWithStatutoryPayments must contain(escapeMessage("evidence.otherMoney.otherStatutoryPay"))
+      emailWithEmploymentAsWell must contain(escapeMessage("evidence.otherMoney.statutorySickPay"))
+      emailWithEmploymentAsWell must contain(escapeMessage("evidence.otherMoney.otherStatutoryPay"))
     }
 
     "Display cofc employment email" in new WithApplication {

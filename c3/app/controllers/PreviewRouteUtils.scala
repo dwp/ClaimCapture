@@ -101,6 +101,14 @@ object PreviewRouteUtils {
     routesMap
   }
 
+  def bankDetailsRoute = {
+    val gBankDetailsRoute = controllers.s_pay_details.routes.GHowWePayYou.present.toString
+
+    val bankDetailsList = Seq("bank_details")
+    val routesMap = Map(bankDetailsList map {id => (id, gBankDetailsRoute)} : _*)
+    routesMap
+  }
+
   def additionalInfoRoute = {
     val gAdditionalInfoRoute = controllers.s_information.routes.GAdditionalInfo.present.toString
 

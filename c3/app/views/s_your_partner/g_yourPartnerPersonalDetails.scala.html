@@ -1,3 +1,4 @@
+@import models.domain.TheirPersonalDetails
 @(currentForm: Form[models.domain.YourPartnerPersonalDetails])(implicit claim: models.domain.Claim,lang: play.api.i18n.Lang,request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers._
@@ -31,6 +32,7 @@
         }
     }
 
+@defining(lang) { implicit language =>
     @main(messages("s3.g1") + " - " + messages("s3.longName"), Some(currentForm)) {
 
 
@@ -133,10 +135,12 @@
                 storedData:@jsiFy(previewStoredFormData.isPartnerPersonYouCareFor),
                 textNext:"@messages("form.next")",
                 textSummary:"@messages("form.returnToSummary")",
-                hadPartnerN:"@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")"});
+                hadPartnerN:"@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
+                theirPersonalDetailsData:@claim.questionGroup[TheirPersonalDetails].exists(_=>true)});
                 }
             } )
 
         </script>
-
+        
+    }
 }

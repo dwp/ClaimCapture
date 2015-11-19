@@ -5,6 +5,9 @@
 # Home page
 GET         /                                                           controllers.Application.index
 
+# Replica url list page
+GET         /replica-urls                                               controllers.Replica.list
+
 # Health checks
 GET         /report/metrics                                             @com.kenshoo.play.metrics.MetricsController.metrics
 GET         /report/health                                              controllers.HealthController.healthReport
@@ -16,11 +19,6 @@ GET         /cs2015                                                     controll
 
 # Cookie
 GET         /cookies/:languageCode                                      controllers.Cookies.page(languageCode: String)
-
-# claim pack notes accessed externally
-#GET         /claim-notes                                               controllers.ClaimNotes.notes
-# claim pack notes accessed internally (with claim lang)
-GET         /internal-claim-notes/:languageCode                         controllers.ClaimNotes.internalNotes(languageCode: String)
 
 # claim pack notes accessed externally
 GET         /claim-help                                                 controllers.ClaimHelp.notes

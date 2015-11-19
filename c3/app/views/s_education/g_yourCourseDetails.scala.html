@@ -16,7 +16,7 @@
         )
     }
 
-    
+    @defining(lang) { implicit language =>
 
     @main(messages("s6.g1") + " - " + messages("s6.longName"), Some(currentForm)) {
 
@@ -28,7 +28,8 @@
                     <ul>
                         @yesNoRadioGroup(currentForm("beenInEducationSinceClaimDate"),
                             '_label -> messages("beenInEducationSinceClaimDate.label", displayDateForLabel),
-                            'helperAbove -> messages("beenInEducationSinceClaimDate.label.helper", displayDateForLabel)
+                            'helperAbove -> messages("beenInEducationSinceClaimDate.label.helper", displayDateForLabel),
+                            'track->true
                         )
 
                         @otherDetailPlaceHolder(
@@ -73,4 +74,4 @@
         } )
         </script>
     }
-
+}

@@ -1,4 +1,5 @@
 @import play.api.Play
+@import models.domain.HowWePayYou
 @(previewForm:Form[models.domain.PreviewModel])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
@@ -11,8 +12,15 @@
 @toggle = @{
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
 }
+@showBankDetails=@{
+	claim.questionGroup[HowWePayYou] match{
+		case Some(_) => true
+		case _ => false
+	}
+}
 
-    @common.govMain(messages("preview.title")) {
+@defining(lang) { implicit language =>
+     @common.govMain(messages("preview.title")) {
 
         <div class="carers-allowance clearfix">
 
@@ -21,9 +29,6 @@
             <div class="grid-row main-grid">
 
                 <article class="column-full-width main-content">
-
-                    @views.html.common.upperBackButton(backCall = Some(controllers.preview.routes.Preview.back), forceShow = true)
-
                     <h1 class="form-title heading-large">@Html(messages("preview.summary"))</h1>
 
                     @errorsSummary(previewForm)
@@ -54,6 +59,9 @@
 	                    @s6()
 	                    @s8()
 	                    @s9()
+						@if(showBankDetails){
+							@bankDetails()
+						}
                         @s_additional_info()
 					</div>
 
@@ -71,6 +79,7 @@
         </div>
 
     }
+}
 
 
 <!-- Add legal message to footer -->

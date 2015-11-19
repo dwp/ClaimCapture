@@ -3,7 +3,7 @@ package models.view
 import java.util.UUID._
 
 import app.ConfigProperties._
-import controllers.routes
+import controllers.{Replica, routes}
 import models.domain.{YourDetails, ClaimDate, Claim}
 import models.view.ClaimHandling.ClaimResult
 import play.api.mvc._
@@ -31,7 +31,12 @@ trait CachedClaim extends ClaimHandling {
   override lazy val errorPageBrowserBackButton = routes.ClaimEnding.errorBrowserBackbutton()
   override lazy val backButtonPage = controllers.routes.Application.backButtonPage()
 
-  override protected def newInstance(newuuid: String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid)
+  override protected def newInstance(newuuid: String = randomUUID.toString): Claim = {
+    getProperty("replica.prepopulatedData",false) match {
+      case true => Replica.newInstance(cacheKey,newuuid)
+      case _ => new Claim(cacheKey, uuid = newuuid)
+    }
+  }
 
   override def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid, claim.transactionId, claim.checkYAnswers)(claim.navigation)
 

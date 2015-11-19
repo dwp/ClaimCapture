@@ -18,7 +18,7 @@
     )
 }
 
-
+@defining(lang) { implicit language =>
     @main(messages("s1_2.g1.legend") + " - " + messages("s1_2.longName")) {
 
         <p>@Html(messages("dateOfClaimHelp")) <a rel="external" href="/claim-help#1" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date")>@Html(messages("dateOfClaimHelp.link"))</a> @Html(messages("dateOfClaimHelp2")).</p>
@@ -31,6 +31,10 @@
 
                 <ul>
                     @inputClaimDateDayMonthYear(claimDateForm("dateOfClaim"), 'helperAbove -> messages("dateClaimExample.helperAbove", (DayMonthYear.today - 3 months).`d M yyyy`))
+
+                    <div id="claimDateWarning" class="prompt breaks-prompt validation-summary">
+                        <p>@messages("dateOfClaim.warning")</p>
+                    </div>
 
                     @yesNoRadioGroup(claimDateForm("beforeClaimCaring.answer"),'values -> Seq("yes" -> messages("label.yes9"), "no" -> messages("label.no")),
                         '_label -> messages("spent35HoursCaringBeforeClaim.label"))
@@ -52,7 +56,7 @@
         <script type="text/javascript">
             $(function () {
                 @if(!Play.isTest) {
-                    trackEvent ( "times", "claim - start" )
+                    trackEvent ( "times", "claim - start" );
                     setCookie("claimstart", new Date().getTime());
                 }
             });
@@ -63,9 +67,14 @@
             "@CarersCrypto.encryptAES("beforeClaimCaring_date_day")",
             "@CarersCrypto.encryptAES("beforeClaimCaring_date_month")",
             "@CarersCrypto.encryptAES("beforeClaimCaring_date_year")");
+
+            window.initDateWarning("claimDateWarning",
+             "@CarersCrypto.encryptAES("dateOfClaim_day")",
+             "@CarersCrypto.encryptAES("dateOfClaim_month")",
+             "@CarersCrypto.encryptAES("dateOfClaim_year")","@messages("dateOfClaim.warning")",@play.api.Play.isTest(play.api.Play.current));
             });
 
         </script>
     }
-
+}
 

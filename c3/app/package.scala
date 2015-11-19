@@ -19,6 +19,10 @@ package object app {
     val Curator = "Curator bonis"
   }
 
+  /**
+   * @deprecated This Whereabouts objects shouldn't be used anymore since all whereabouts are "Circs based" so either refactor that to be common
+   *            for the entire application, or re-refactor to enable this one. (If you use this object for data input, nothing will work :D)
+    */
   object Whereabouts {
     val Home = "Home"
     val Hospital = "Hospital"

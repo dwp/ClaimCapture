@@ -70,12 +70,12 @@ object Caree extends XMLComponent {
             break.endTime match {
               case Some(e) => {
                   question(<EndDateDoNotKnow/>,"hasBreakEnded.answer",break.hasBreakEnded.answer) ++
-                  question(<EndDate/>,"hasBreakEnded_date", break.hasBreakEnded.date.get.`dd-MM-yyyy`) ++
+                  question(<EndDate/>,"hasBreakEnded.date", break.hasBreakEnded.date.get.`dd-MM-yyyy`) ++
                   question(<EndTime/>, "endTime", e)
               }
               case _ => {
                   question(<EndDateDoNotKnow/>, "hasBreakEnded.answer", break.hasBreakEnded.answer) ++
-                  question(<EndDate/>, "hasBreakEnded_date", break.hasBreakEnded.date.get.`dd-MM-yyyy`)
+                  question(<EndDate/>, "hasBreakEnded.date", break.hasBreakEnded.date.get.`dd-MM-yyyy`)
               }
             }
           }

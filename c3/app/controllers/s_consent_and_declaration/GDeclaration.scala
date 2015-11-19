@@ -53,8 +53,8 @@ class GDeclaration extends Controller with CachedClaim with Navigable with I18nS
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
           .replaceError("",nameOrOrganisation, FormError(nameOrOrganisation, Mappings.errorRequired))
-          .replaceError("tellUsWhyFromAnyoneOnForm", FormError("tellUsWhyFromAnyoneOnForm_whyPerson", Mappings.errorRequired))
-        BadRequest(views.html.s_consent_and_declaration.g_declaration(updatedFormWithErrors))
+          .replaceError("tellUsWhyFromAnyoneOnForm", FormError("tellUsWhyFromAnyoneOnForm.whyPerson", Mappings.errorRequired))
+        BadRequest(views.html.s_consent_and_declaration.g_declaration(updatedFormWithErrors)(lang))
       },
       declaration => {
         val updatedClaim = copyInstance(claim.update(declaration))
