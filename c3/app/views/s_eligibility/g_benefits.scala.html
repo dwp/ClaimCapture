@@ -23,7 +23,7 @@
 
 
 @main(messages("s0.g1") + " - " + messages("s0.longName"), Some(currentForm),false) {
-@lang
+
     @form(action = controllers.s_eligibility.routes.GBenefits.submit, 'role -> "form") {
 
         @DwpCSRFFormHelper.formField
