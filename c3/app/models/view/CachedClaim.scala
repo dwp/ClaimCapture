@@ -3,7 +3,7 @@ package models.view
 import java.util.UUID._
 
 import app.ConfigProperties._
-import controllers.{Replica, routes}
+import controllers.{ReplicaData, Replica, routes}
 import models.domain.{YourDetails, ClaimDate, Claim}
 import models.view.ClaimHandling.ClaimResult
 import play.api.mvc._
@@ -33,7 +33,7 @@ trait CachedClaim extends ClaimHandling {
 
   override protected def newInstance(newuuid: String = randomUUID.toString): Claim = {
     getProperty("replica.prepopulatedData",false) match {
-      case true => Replica.newInstance(cacheKey,newuuid)
+      case true => ReplicaData.newInstance(cacheKey,newuuid)
       case _ => new Claim(cacheKey, uuid = newuuid)
     }
   }
