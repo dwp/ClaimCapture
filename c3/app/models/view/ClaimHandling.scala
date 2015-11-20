@@ -11,7 +11,8 @@ import play.api.cache.Cache
 import play.api.data.Form
 import play.api.http.HeaderNames._
 import play.api.http.HttpVerbs
-import play.api.i18n.{MMessages, MessagesApi, Lang}
+import play.api.i18n.Lang
+import play.api.http.HeaderNames._
 import play.api.mvc.Results._
 import play.api.mvc._
 import play.api.{Logger, Play}
@@ -31,6 +32,7 @@ object ClaimHandling {
 }
 
 trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
+
   protected def claimNotValid(claim: Claim): Boolean
   protected def newInstance(newuuid: String = randomUUID.toString): Claim
   protected def copyInstance(claim: Claim): Claim
@@ -46,14 +48,13 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
    */
   def newClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
-      implicit val r = request
 
       recordMeasurements()
       val key = keyFrom(request)
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         // Delete any old data to avoid somebody getting access to session left by somebody else
-        if (!key.isEmpty) cache.remove(key)
+        if (!key.isEmpty) Cache.remove(key)
         // Start with new claim
         val claim = newInstance()
         Logger.info(s"New ${claim.key} ${claim.uuid}.")
@@ -61,18 +62,33 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
         def tofilter(theCookie: Cookie): Boolean = {
           theCookie.name == ClaimHandling.C3VERSION || theCookie.name == getProperty("session.cookieName", "PLAY_SESSION")
         }
+
+        // This workaround shit has been put in place in order to clear up the PLAY_LANG cookie at the startup of the app.
+        // It's this ugly because the play framework has deemed us outcasts on the cookie managing for requests.
+        // Since the discarding only takes place after the rendering of the first page, that wasn't of much use for that page
+        // So we have to rely on dark arts in order to modify the cookies before render time so the framework doesn't read the lingering language from here
+
+        val newHeaders = request.headers.get(COOKIE) match {
+          case Some(cookieHeader) => request.headers.remove(COOKIE).add(COOKIE->Cookies.mergeCookieHeader(cookieHeader,Seq(Cookie("PLAY_LANG",""))))
+          case _ => request.headers
+        }
+
+        implicit val newRequest = Request(request.copy(headers=newHeaders),request.body)
+
         // Added C3Version for full Zero downtime
-        withHeaders(action(claim, r, bestLang)(f))
-          .withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE): _*)
+        withHeaders(action(claim, newRequest, bestLang)(f))
+          .withCookies(newRequest.cookies.toSeq.filterNot(tofilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE): _*)
           .withSession(claim.key -> claim.uuid)
-          .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished))
+          .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished),DiscardingCookie("PLAY_LANG"))
       } else {
+
+        implicit val r = request
         Logger.debug("New claim with changing true.")
         if (key.isEmpty) Redirect(errorPageCookie)
         else {
           Logger.info(s"Changing $cacheKey - $key")
           val claim = fromCache(request).getOrElse(throw new DwpRuntimeException("I expected a claim in the cache since we are only changing request, e.g. chainging language.!"))
-          originCheck(action(claim, r, getLang(claim))(f))
+          originCheck(action(claim, request, getLang(claim))(f))
         }
       }
     }
@@ -159,11 +175,11 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
           // reaching end of process - thank you page so we delete claim for security reasons and free memory
           removeFromCache(claim.uuid)
           originCheck(f(claim)(request)(getLang(claim))).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain),
-            DiscardingCookie(ClaimHandling.C3VERSION)).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
+            DiscardingCookie(ClaimHandling.C3VERSION),DiscardingCookie("PLAY_LANG")).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
         case _ =>
           enforceAlreadyFinishedRedirection(request,
             originCheck(f(Claim(cacheKey))(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain),
-              DiscardingCookie(ClaimHandling.C3VERSION)).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
+              DiscardingCookie(ClaimHandling.C3VERSION),DiscardingCookie("PLAY_LANG")).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
           )
       }
     }
@@ -193,7 +209,6 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
     val key = keyFrom(request)
     if (!key.isEmpty && key != claim.uuid) Logger.warn(s"action - Claim uuid ${claim.uuid} does not match cache key $key. Can happen if action new claim and user reuses session. Will disregard session key and use uuid.")
 
-    //val newRequest = createNewRequest(request) //??? //Create new request modifiying the current cookie to add whatever setLang does
     f(claim)(request)(lang) match {
       case Left(r: Result) => r
       case Right((c: Claim, r: Result)) =>
@@ -245,7 +260,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   def getLang(claim: Claim)(implicit request: Request[AnyContent]): Lang = claim.lang.getOrElse(bestLang(request))
 
   private def bestLang(implicit request: Request[AnyContent]) = {
-    val implementedLangs = getProperty("play.i18n.langs", defaultLang)
+    val implementedLangs = getProperty("application.langs", defaultLang)
     val listOfPossibleLangs = request.acceptLanguages.flatMap(aL => implementedLangs.split(",").toList.filter(iL => iL == aL.code))
 
     if (listOfPossibleLangs.size > 0)
