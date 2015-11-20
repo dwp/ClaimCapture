@@ -1,21 +1,26 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: views.html.helper.FieldConstructor, lang: play.api.i18n.Lang)
-@import java.util.Calendar
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: views.html.helper.FieldConstructor, lang: play.api.i18n.Lang, claim: models.domain.Claim)
+    @import java.util.Calendar
 
-@import scala.util.Try
-@import helper.dates._
-@import helper._
-@import play.api.i18n.{MMessages => Messages}
-@import scala.language.postfixOps
+    @import scala.util.Try
+    @import helper.dates._
+    @import helper._
+    @import play.api.i18n.{MMessages => Messages}
+    @import scala.language.postfixOps
+    @import models.domain._
 
-@argsWithSpecificArgs = @{
-    val today = DayMonthYear.today
-    val yearsToSubtract = (today.isBefore(DayMonthYear(6,4,today.year.get))) match {
-        case true => 2
-        case false => 1
+    @claimDate = @{
+        claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim
     }
-    val year = (today - yearsToSubtract years).year.get
-    val startDate = DayMonthYear(6,4,year)
-    args ++ Seq('helperAbove -> Messages("dateExample.helper", startDate.`d M yyyy`))
-}
 
-@inputDayMonthYear(field, argsWithSpecificArgs: _*)
+    @argsWithSpecificArgs = @{
+        //val today = DayMonthYear.today
+        val yearsToSubtract = (claimDate.isBefore(DayMonthYear(6, 4, claimDate.year.get))) match {
+            case true => 2
+            case false => 1
+        }
+        val year = (claimDate - yearsToSubtract years).year.get
+        val startDate = DayMonthYear(6, 4, year)
+        args ++ Seq('helperAbove -> Messages("dateExample.helper", startDate.`d M yyyy`))
+    }
+
+    @inputDayMonthYear(field, argsWithSpecificArgs: _*)
