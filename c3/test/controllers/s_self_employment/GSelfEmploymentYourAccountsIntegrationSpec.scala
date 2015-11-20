@@ -105,5 +105,6 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
       page.source must contain("whatWasOrIsYourTradingYearTo_defaultDateContextualHelp")
       page.source must contain("For example, 5 4 1969")
     }
-  } section("integration", models.domain.SelfEmployment.id)
+  }
+  section("integration", models.domain.SelfEmployment.id)
 }
