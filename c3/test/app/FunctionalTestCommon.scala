@@ -1,8 +1,7 @@
 package app
 
 import org.joda.time.format.DateTimeFormat
-import org.specs2.mutable.{Tags, Specification}
-import org.specs2.specification.{Example, Fragment}
+import org.specs2.mutable._
 import utils.pageobjects.preview.{PreviewTestableData, PreviewPage, PreviewBusinessValidation}
 import utils.pageobjects.{Page, XmlPage, TestData}
 import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusinessValidation}
@@ -12,7 +11,7 @@ import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusiness
  * @author Jorge Migueis
  *         Date: 02/08/2013
  */
-abstract class FunctionalTestCommon extends Specification with Tags {
+abstract class FunctionalTestCommon extends Specification {
   isolated
 
 

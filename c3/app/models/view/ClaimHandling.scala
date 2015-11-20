@@ -9,8 +9,9 @@ import models.view.ClaimHandling.ClaimResult
 import models.view.cache.EncryptedCacheHandling
 import play.api.cache.Cache
 import play.api.data.Form
+import play.api.http.HeaderNames._
 import play.api.http.HttpVerbs
-import play.api.i18n.Lang
+import play.api.i18n.{MMessages, MessagesApi, Lang}
 import play.api.mvc.Results._
 import play.api.mvc._
 import play.api.{Logger, Play}
@@ -30,7 +31,6 @@ object ClaimHandling {
 }
 
 trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
-
   protected def claimNotValid(claim: Claim): Boolean
   protected def newInstance(newuuid: String = randomUUID.toString): Claim
   protected def copyInstance(claim: Claim): Claim
@@ -53,7 +53,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         // Delete any old data to avoid somebody getting access to session left by somebody else
-        if (!key.isEmpty) Cache.remove(key)
+        if (!key.isEmpty) cache.remove(key)
         // Start with new claim
         val claim = newInstance()
         Logger.info(s"New ${claim.key} ${claim.uuid}.")
@@ -193,6 +193,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
     val key = keyFrom(request)
     if (!key.isEmpty && key != claim.uuid) Logger.warn(s"action - Claim uuid ${claim.uuid} does not match cache key $key. Can happen if action new claim and user reuses session. Will disregard session key and use uuid.")
 
+    //val newRequest = createNewRequest(request) //??? //Create new request modifiying the current cookie to add whatever setLang does
     f(claim)(request)(lang) match {
       case Left(r: Result) => r
       case Right((c: Claim, r: Result)) =>
@@ -244,7 +245,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   def getLang(claim: Claim)(implicit request: Request[AnyContent]): Lang = claim.lang.getOrElse(bestLang(request))
 
   private def bestLang(implicit request: Request[AnyContent]) = {
-    val implementedLangs = getProperty("application.langs", defaultLang)
+    val implementedLangs = getProperty("play.i18n.langs", defaultLang)
     val listOfPossibleLangs = request.acceptLanguages.flatMap(aL => implementedLangs.split(",").toList.filter(iL => iL == aL.code))
 
     if (listOfPossibleLangs.size > 0)

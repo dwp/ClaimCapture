@@ -1,10 +1,10 @@
 package xml.circumstances
 
 import models.view.CachedChangeOfCircs
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import models.domain._
 
-class OtherChangesSpec extends Specification with Tags {
+class OtherChangesSpec extends Specification {
 
   val otherInfo = "Some other info"
 
@@ -16,5 +16,6 @@ class OtherChangesSpec extends Specification with Tags {
       (xml \\ "OtherChanges" \ "Answer").text shouldEqual otherInfo
     }.pendingUntilFixed("Pending till schema changes and modifying the code to new structure")
 
-  } section "unit"
+  }
+section("unit")
 }

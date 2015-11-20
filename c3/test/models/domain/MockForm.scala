@@ -1,19 +1,17 @@
 package models.domain
 
-import java.util.UUID._
 
 import models.view.CachedClaim
 import org.specs2.mock.Mockito
-import org.specs2.specification.Scope
-import play.api.cache.Cache
+import play.api.cache.CacheApi
 import play.api.test.Helpers._
 import play.api.Play.current
 import utils.ClaimEncryption
 
 import scala.reflect.ClassTag
 
-trait MockForm extends Scope with Mockito {
-  val claimKey = randomUUID.toString
+trait MockForm extends Mockito {
+  def cache = current.injector.instanceOf[CacheApi]
 
   def mockQuestionGroup[Q <: QuestionGroup](qi: QuestionGroup.Identifier)(implicit classTag: ClassTag[Q]): Q = {
     val questionGroup = mock[Q]
@@ -31,7 +29,11 @@ trait MockForm extends Scope with Mockito {
     questionGroup
   }
 
-  def extractCacheKey(result:scala.concurrent.Future[play.api.mvc.Result], sessionKey : String = CachedClaim.key) = session(result).get(sessionKey).get
+  def extractCacheKey(result:scala.concurrent.Future[play.api.mvc.Result], sessionKey : String = CachedClaim.key) = {
+    session(result).get(sessionKey).get
+  }
 
-  def getClaimFromCache(result:scala.concurrent.Future[play.api.mvc.Result], sessionKey : String = CachedClaim.key) = ClaimEncryption.decrypt(Cache.getAs[Claim](extractCacheKey(result, sessionKey)).get)
+  def getClaimFromCache(result:scala.concurrent.Future[play.api.mvc.Result], sessionKey : String = CachedClaim.key) = {
+    ClaimEncryption.decrypt(cache.get[Claim](extractCacheKey(result, sessionKey)).get)
+  }
 }

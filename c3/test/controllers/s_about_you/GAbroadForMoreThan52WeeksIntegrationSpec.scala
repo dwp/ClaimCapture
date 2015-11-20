@@ -1,6 +1,6 @@
 package controllers.s_about_you
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.{WebDriverHelper, WithBrowser}
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects.preview.PreviewPage
@@ -9,7 +9,7 @@ import utils.pageobjects.{TestData, ClaimPageFactory, PageObjects}
 import utils.WithJsBrowser
 import utils.helpers.PreviewField._
 
-class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
+class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification {
   "Abroad for more that 52 weeks" should {
     "present" in new WithJsBrowser  with PageObjects{
 			val page =  GAbroadForMoreThan52WeeksPage(context)
@@ -106,5 +106,6 @@ class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
     }
 
 
-  } section("integration", models.domain.AboutYou.id)
+  }
+  section("integration", models.domain.AboutYou.id)
 }

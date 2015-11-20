@@ -1,10 +1,10 @@
-@(title: String, backCall:Option[Call] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash)
+@(title: String, backCall:Option[Call] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersTemplate.fieldConstructor
 @import models.domain._
 @import views.html.common._
 @import helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @common.govMain(title) {
 
@@ -22,7 +22,7 @@
 
                 @views.html.common.upperBackButton(backCall=backCall)
 
-                <h1 class="form-title heading-large">@sectionTitle(AboutYou)@Html(Messages("s2.longName"))</h1>
+                <h1 class="form-title heading-large">@sectionTitle(AboutYou)@Html(messages("s2.longName"))</h1>
     			
                 @content
 

@@ -1,5 +1,6 @@
 package controllers.circs.s2_report_changes
 
+import play.api.Play._
 import play.api.mvc.Controller
 import models.view.{CachedChangeOfCircs, Navigable}
 import scala.language.postfixOps
@@ -11,11 +12,14 @@ import models.yesNo.{ RadioWithText, YesNoWithDateTimeAndText, YesNoDontKnowWith
 import models.domain.CircumstancesBreaksInCare
 import controllers.CarersForms._
 import controllers.mappings.Mappings
+import play.api.i18n._
+
 
 /**
  * Created by neddakaltcheva on 3/20/14.
  */
-object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable {
+object G7BreaksInCare  extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val whereWasPersonMapping =
     "wherePersonBreaksInCare" -> mapping(
       "answer" -> carersNonEmptyText,
@@ -83,13 +87,13 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
     }
   }
 
-  def present = claimingWithCheck {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit circs => implicit request => implicit lang => 
     track(CircumstancesBreaksInCare) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g7_breaksInCare(form.fill(CircumstancesBreaksInCare))(lang))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g7_breaksInCare(form.fill(CircumstancesBreaksInCare)))
     }
   }
 
-  def submit = claiming {implicit circs =>  implicit request =>  lang =>
+  def submit = claiming {implicit circs => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
@@ -100,7 +104,7 @@ object G7BreaksInCare extends Controller with CachedChangeOfCircs with Navigable
           .replaceError("expectStartCaring","permanentBreakDate", FormError("expectStartCaring.permanentBreakDate", Mappings.errorRequired))
           .replaceError("wherePersonBreaksInCare","wherePersonBreaksInCare.text.required", FormError("wherePersonBreaksInCare.text", Mappings.errorRequired))
           .replaceError("whereYouBreaksInCare","whereYouBreaksInCare.text.required", FormError("whereYouBreaksInCare.text", Mappings.errorRequired))
-        BadRequest(views.html.circs.s2_report_changes.g7_breaksInCare(updatedFormWithErrors)(lang))
+        BadRequest(views.html.circs.s2_report_changes.g7_breaksInCare(updatedFormWithErrors))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s2_report_changes.routes.G8BreaksInCareSummary.present())
     )

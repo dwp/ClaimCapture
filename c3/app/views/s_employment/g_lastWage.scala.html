@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.LastWage])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.LastWage])(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
@@ -11,7 +11,7 @@
 @import controllers.IterationID
 @import utils.helpers.PastPresentLabelHelper._
 @import models.domain.{Iteration, Jobs}
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import controllers.mappings.Mappings._
 @import scala.language.postfixOps
 
@@ -23,9 +23,7 @@
     claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).finishedThisJob
 }
 
-    @defining(lang) { implicit language =>
-
-    @main(Messages("s7.g5") + " - " + Messages("s7.longName"), Some(currentForm), Some(employerName),ignorePreview = true) {
+    @main(messages("s7.g5") + " - " + messages("s7.longName"), Some(currentForm), Some(employerName),ignorePreview = true) {
 
 	@form(action = controllers.s_employment.routes.GLastWage.submit(), 'role -> "form") {
 
@@ -38,22 +36,22 @@
             <ul>
                 @paymentFrequencySelect(currentForm("oftenGetPaid"),
                     '_label -> labelForEmployment(claim, lang, "oftenGetPaidFrequency", IterationID(currentForm)),
-                    'id -> "oftenGetPaid",'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60)
+                    'id -> "oftenGetPaid",'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60)
 
                 @carersInputText(currentForm("whenGetPaid"),
                     '_label -> labelForEmployment(claim, lang, "whenGetPaid", IterationID(currentForm)),
-                    'helperAbove -> Messages("whenGetPaid.helper"))
+                    'helperAbove -> messages("whenGetPaid.helper"))
 
-                @inputDayMonthYear(currentForm("lastPaidDate"), 'helperAbove -> Messages("dateExample.helper",claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`d M yyyy`)))
+                @inputDayMonthYear(currentForm("lastPaidDate"), 'helperAbove -> messages("dateExample.helper",claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`d M yyyy`)))
 
-                @carersCurrency(currentForm("grossPay"), 'maxLength -> 12, 'helperAbove -> Messages("grossPay.helper"))
+                @carersCurrency(currentForm("grossPay"), 'maxLength -> 12, 'helperAbove -> messages("grossPay.helper"))
 
-                @carersInputTextArea(currentForm("payInclusions"), 'maxLength -> 300,'helperAbove -> Messages("payInclusions.helper"), 'textAreaHelper -> Html(Messages("300charsLeft")))
+                @carersInputTextArea(currentForm("payInclusions"), 'maxLength -> 300,'helperAbove -> messages("payInclusions.helper"), 'textAreaHelper -> Html(messages("300charsLeft")))
 
                 @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> labelForEmployment(claim, lang, "sameAmountEachTime", IterationID(currentForm)), valuesForEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no", IterationID(currentForm)))
 
                 @if(finishedThisJob == `yes`){
-                    @yesNoRadioGroup(currentForm("employerOwesYouMoney"), 'values -> Seq("yes" -> Messages("label.yes4"), "no" -> Messages("label.no")))
+                    @yesNoRadioGroup(currentForm("employerOwesYouMoney"), 'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
                 }
             </ul>
             
@@ -73,5 +71,4 @@
     })
     </script>
 
-}
 }

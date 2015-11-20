@@ -1,6 +1,6 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s2_report_changes.{G7BreaksInCarePage,G8BreaksInCareSummaryPage}
@@ -8,7 +8,7 @@ import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 
 
-class G8BreaksInCareSummaryIntegrationSpec extends Specification with Tags {
+class G8BreaksInCareSummaryIntegrationSpec extends Specification {
 
   "Breaks in care summary" should {
 
@@ -56,5 +56,6 @@ class G8BreaksInCareSummaryIntegrationSpec extends Specification with Tags {
       page submitPage ()
       page.listErrors.size must beEqualTo(1)
     }
-  } section("integration", models.domain.CircumstancesIdentification.id)
+  }
+  section("integration", models.domain.CircumstancesIdentification.id)
 }

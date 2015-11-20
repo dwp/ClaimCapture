@@ -1,4 +1,4 @@
-@(addressForm: Form[models.domain.CircumstancesAddressChange])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(addressForm: Form[models.domain.CircumstancesAddressChange])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -10,11 +10,11 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.circs.s2_report_changes.main
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import scala.language.postfixOps
 
-@defining(lang) { implicit language =>
-@main(Messages("c2.g6") + " - " + Messages("c2.name")) {
+
+@main(messages("c2.g6") + " - " + messages("c2.name")) {
     @errorsSummary(addressForm)
 
     @form(action = controllers.circs.s2_report_changes.routes.G6AddressChange.submit) {
@@ -24,9 +24,9 @@
 
 	        <fieldset class="form-elements" data-journey="carers-allowance:report-change:address">
 
-	            <legend class="form-label-bold heading-medium">@Html(Messages("c2.g6.previousAddress"))</legend>
+	            <legend class="form-label-bold heading-medium">@Html(messages("c2.g6.previousAddress"))</legend>
 
-                <p class="security-message">@Html(Messages("c2.address.helper"))</p>
+                <p class="security-message">@Html(messages("c2.address.helper"))</p>
 
 	            <ul>
 	                @inputAddress(addressForm("previousAddress"))
@@ -37,14 +37,14 @@
 	
 	        <fieldset class="form-elements">
 
-	            <legend class="form-label-bold heading-medium">@Html(Messages("c2.g6"))</legend>
+	            <legend class="form-label-bold heading-medium">@Html(messages("c2.g6"))</legend>
 	
 	            <ul>
 	
 	                @yesNoRadioGroup(addressForm("stillCaring.answer"))
 	
 	                @otherDetailPlaceHolder(
-	                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring")("date"), 'helperAbove -> Messages("dateExample.helper", (DayMonthYear.today - 31 days).`d M yyyy`))
+	                    inputDef = Seq(inputDayMonthYear(addressForm("stillCaring")("date"), 'helperAbove -> messages("dateExample.helper", (DayMonthYear.today - 31 days).`d M yyyy`))
 	                    ),
 	                    'id -> "stillCaringDate"
 	                )
@@ -73,7 +73,7 @@
 	                    ),
 	                    'id -> "sameAddressData"
 	                )
-	                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+	                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
 	
 	            </ul>
 	
@@ -111,4 +111,4 @@
 	</script>
 	
 }
-}
+

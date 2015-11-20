@@ -3,12 +3,12 @@ package controllers.s_eligibility
 import java.util.concurrent.TimeUnit
 
 import models.domain._
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.test.Helpers._
 import play.api.test.FakeRequest
 import utils.WithApplication
 
-class GBenefitsSpec extends Specification with Tags {
+class GBenefitsSpec extends Specification {
   "Carer's Allowance - Benefits - Controller" should {
     val benefitsAnswer = Benefits.aa
     val benefitsInput = Seq("benefitsAnswer" -> benefitsAnswer)
@@ -134,5 +134,6 @@ class GBenefitsSpec extends Specification with Tags {
         }
       }
     }
-  } section("unit", models.domain.CarersAllowance.id)
+  }
+  section("unit", models.domain.CarersAllowance.id)
 }

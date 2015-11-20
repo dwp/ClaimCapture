@@ -1,5 +1,7 @@
 package controllers.s_education
 
+import play.api.Play._
+
 import language.reflectiveCalls
 import play.api.mvc.{AnyContent, Request, Controller}
 import play.api.data.Form
@@ -12,9 +14,11 @@ import models.view.ClaimHandling.ClaimResult
 import play.api.data.FormError
 import models.domain.Claim
 import controllers.CarersForms._
+import play.api.i18n._
 
 
-object GYourCourseDetails extends Controller with CachedClaim with Navigable {
+object GYourCourseDetails extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "beenInEducationSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
     "courseTitle" -> optional(carersNonEmptyText(maxLength = 75)),
@@ -31,9 +35,9 @@ object GYourCourseDetails extends Controller with CachedClaim with Navigable {
     .verifying("expectedEndDate.required", YourCourseDetails.validateExpectedEndDate _)
   )
 
-  def present = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit claim => implicit request => implicit lang => 
     presentConditionally {
-      track(YourCourseDetails) { implicit claim => Ok(views.html.s_education.g_yourCourseDetails(form.fill(YourCourseDetails))(lang)) }
+      track(YourCourseDetails) { implicit claim => Ok(views.html.s_education.g_yourCourseDetails(form.fill(YourCourseDetails))) }
     }
   }
 
@@ -45,7 +49,7 @@ object GYourCourseDetails extends Controller with CachedClaim with Navigable {
   private def redirect( claim: Claim, request: Request[AnyContent]): ClaimResult =
     claim -> Redirect("/employment/employment")
 
-  def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheck {implicit claim => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -55,7 +59,7 @@ object GYourCourseDetails extends Controller with CachedClaim with Navigable {
           .replaceError("", "nameOfMainTeacherOrTutor.required", FormError("nameOfMainTeacherOrTutor", errorRequired))
           .replaceError("", "startDate.required", FormError("startDate", errorRequired))
           .replaceError("", "expectedEndDate.required", FormError("expectedEndDate", errorRequired))
-        BadRequest(views.html.s_education.g_yourCourseDetails(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.s_education.g_yourCourseDetails(formWithErrorsUpdate))
       },
       yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(controllers.s_self_employment.routes.GEmployment.present()))
   } withPreview()

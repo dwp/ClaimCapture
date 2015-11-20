@@ -1,14 +1,15 @@
 package controllers.circs.s2_report_changes
 
+import utils.WithApplication
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 
-class G4OtherChangeInfoFormSpec extends Specification with Tags {
+class G4OtherChangeInfoFormSpec extends Specification {
 
   val otherInfo = "This is my other info"
 
   "Change of circumstances - Other Change Info Form" should {
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       G4OtherChangeInfo.form.bind(
         Map("changeInCircs" -> otherInfo)
       ).fold(
@@ -18,7 +19,7 @@ class G4OtherChangeInfoFormSpec extends Specification with Tags {
         }
       )
     }
-    "fail if no data into case class" in {
+    "fail if no data into case class" in new WithApplication {
       G4OtherChangeInfo.form.bind(
         Map("changeInCircs" -> "")
       ).fold(
@@ -29,7 +30,7 @@ class G4OtherChangeInfoFormSpec extends Specification with Tags {
       )
     }
 
-    "reject special characters in text fields" in {
+    "reject special characters in text fields" in new WithApplication {
       G4OtherChangeInfo.form.bind(
         Map("changeInCircs" -> "<>")
       ).fold(
@@ -41,6 +42,7 @@ class G4OtherChangeInfoFormSpec extends Specification with Tags {
     }
 
 
-  } section("unit", models.domain.CircumstancesReportChanges.id)
+  }
+  section("unit", models.domain.CircumstancesReportChanges.id)
 
 }

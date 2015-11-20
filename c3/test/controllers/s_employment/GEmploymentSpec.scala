@@ -1,14 +1,13 @@
 package controllers.s_employment
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.view.CachedClaim
-import play.api.cache.Cache
 import models.domain.{Claim, Iteration, Jobs, JobDetails, Claiming}
 import utils.WithApplication
 
-class GEmploymentSpec extends Specification with Tags {
+class GEmploymentSpec extends Specification {
   "Employment" should {
     "get first completed question group for a job" in new WithApplication with Claiming {
       val jobID = "dummyJobID"
@@ -18,7 +17,7 @@ class GEmploymentSpec extends Specification with Tags {
       val jobs = new Jobs().update(job)
 
       val claim = Claim(CachedClaim.key).update(jobs)
-      Cache.set(claimKey, claim)
+      cache.set(claimKey, claim)
 
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
       val completedQuestionGroups = Employment.completedQuestionGroups(JobDetails, jobID)(claim)
@@ -28,5 +27,6 @@ class GEmploymentSpec extends Specification with Tags {
       val result = Employment.delete(FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("deleteId" -> "nonExistingJobID"))
       status(result) shouldEqual BAD_REQUEST
     }
-  } section("unit", models.domain.Employed.id)
+  }
+  section("unit", models.domain.Employed.id)
 }

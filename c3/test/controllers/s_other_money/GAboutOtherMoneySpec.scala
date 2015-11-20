@@ -2,12 +2,12 @@ package controllers.s_other_money
 
 import models.domain._
 import models.{MultiLineAddress, PaymentFrequency, domain}
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.test.Helpers._
 import play.api.test.FakeRequest
 import utils.WithApplication
 
-class GAboutOtherMoneySpec extends Specification with Tags {
+class GAboutOtherMoneySpec extends Specification {
   "Benefits and payments - Controller" should {
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"
@@ -84,7 +84,7 @@ class GAboutOtherMoneySpec extends Specification with Tags {
       }
     }
 
-    "return a bad request after an invalid submission" in {
+    "return a bad request after an invalid submission" in new WithApplication {
       "reject invalid yesNo answers" in new WithApplication with Claiming {
         val request = FakeRequest()
           .withFormUrlEncodedBody("anyPaymentsSinceClaimDate.answer" -> "INVALID",
@@ -124,5 +124,6 @@ class GAboutOtherMoneySpec extends Specification with Tags {
 
       status(result) mustEqual SEE_OTHER
     }
-  } section ("unit", models.domain.OtherMoney.id)
+  }
+  section ("unit", models.domain.OtherMoney.id)
 }

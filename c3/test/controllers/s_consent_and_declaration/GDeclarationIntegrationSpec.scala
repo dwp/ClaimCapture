@@ -1,6 +1,6 @@
 package controllers.s_consent_and_declaration
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.Logger
 import utils.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
@@ -11,7 +11,7 @@ import collection.JavaConversions._
 import utils.pageobjects.preview.PreviewPage
 import utils.helpers.PreviewField._
 
-class GDeclarationIntegrationSpec extends Specification with Tags {
+class GDeclarationIntegrationSpec extends Specification {
   "Declaration" should {
     "be presented" in new WithBrowser with BrowserMatchers with PageObjects {
       val page =  GDeclarationPage(context)
@@ -66,5 +66,6 @@ class GDeclarationIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page.jsCheckEnabled must beTrue
     }
-  } section("integration", models.domain.ConsentAndDeclaration.id)
+  }
+  section("integration", models.domain.ConsentAndDeclaration.id)
 }

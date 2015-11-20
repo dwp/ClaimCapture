@@ -1,4 +1,4 @@
-@(routes:Seq[Seq[String]])
+@(routes:Seq[Seq[String]])(implicit lang: Lang, messages: Messages)
 
 @import scala.language.postfixOps
 @import play.api.i18n.{MMessages => Messages}
@@ -27,8 +27,7 @@
         <style>
             body {                           
                 font-family: Arial, sans-serif;
-                padding: 0;
-                
+                padding: 0;                
             }
             ul {
                 margin: 0;
@@ -58,8 +57,7 @@
             a:hover {
             color: #000;
             background: #fff;
-            }
-            
+            }            
         </style>  
     </head>
     <body>

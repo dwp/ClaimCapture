@@ -1,7 +1,7 @@
-@(field:Field, args: (Symbol, Any)*)(implicit lang: Lang)
+@(field:Field, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 @import views.html.helper.base.labelOrId
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @labelOrId(field.name,args: _*)
 
@@ -11,5 +11,5 @@
 }
 
 @if(displayOptional){
-    <em>(@Html(Messages("optional")))</em>
+    <em>(@Html(messages("optional")))</em>
 }

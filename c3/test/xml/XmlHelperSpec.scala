@@ -3,10 +3,11 @@ package xml
 import javax.xml.bind.DatatypeConverter
 
 import gov.dwp.carers.security.encryption.EncryptorAES
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithApplication
 
-class XmlHelperSpec extends Specification with Tags {
+class XmlHelperSpec extends Specification {
+
 
   val employedQuestion = "Your employment history"
 

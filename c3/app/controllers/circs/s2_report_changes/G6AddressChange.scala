@@ -1,5 +1,7 @@
 package controllers.circs.s2_report_changes
 
+import play.api.Play._
+
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
@@ -11,8 +13,10 @@ import utils.helpers.CarersForm._
 import models.domain._
 import models.yesNo.{YesNoWithAddress, YesNoWithDateAndQs, OptYesNoWithText}
 import controllers.CarersForms._
+import play.api.i18n._
 
-object G6AddressChange extends Controller with CachedChangeOfCircs with Navigable  {
+object G6AddressChange extends Controller with CachedChangeOfCircs with Navigable with I18nSupport  {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val stillCaringMapping =
     "stillCaring" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -72,13 +76,13 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
     }
   }
 
-  def present = claimingWithCheck {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit circs => implicit request => implicit lang => 
     track(CircumstancesAddressChange) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g6_addressChange(form.fill(CircumstancesAddressChange))(lang))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g6_addressChange(form.fill(CircumstancesAddressChange)))
     }
   }
 
-  def submit = claiming {implicit circs =>  implicit request =>  lang =>
+  def submit = claiming {implicit circs => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
@@ -86,7 +90,7 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
           .replaceError("","sameAddress.answer", FormError("sameAddress.answer", errorRequired))
           .replaceError("","sameAddress.theirNewAddress", FormError("sameAddress.theirNewAddress", errorRequired))
           .replaceError("","caredForChangedAddress.answer", FormError("caredForChangedAddress.answer", errorRequired))
-        BadRequest(views.html.circs.s2_report_changes.g6_addressChange(updatedFormWithErrors)(lang))
+        BadRequest(views.html.circs.s2_report_changes.g6_addressChange(updatedFormWithErrors))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )

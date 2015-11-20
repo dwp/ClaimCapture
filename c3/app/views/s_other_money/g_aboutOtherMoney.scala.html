@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.AboutOtherMoney], hadPartnerSinceClaimDate: Boolean)(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.AboutOtherMoney], hadPartnerSinceClaimDate: Boolean)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,10 +8,10 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
-@defining(lang) { implicit language =>
-@main(Messages("s9.longName"), Some(currentForm)) {
+
+@main(messages("s9.longName"), Some(currentForm)) {
 
 
 
@@ -23,59 +23,59 @@
 
 	            <ul>
 		            @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), 
-		              '_label -> Messages("anyPaymentsSinceClaimDate.answer"),
-		              'helperAbove -> Messages("anyPaymentsSinceClaimDate.helper")
+		              '_label -> messages("anyPaymentsSinceClaimDate.answer"),
+		              'helperAbove -> messages("anyPaymentsSinceClaimDate.helper")
 		            )
 	                
 		            @otherDetailPlaceHolder(
 	                     inputDef = Seq(
-	                        carersInputText(currentForm("whoPaysYou"), 'maxLength -> mappings.Mappings.Name.maxLength, '_label -> Messages("whoPaysYou.label")),
-	                        carersCurrency(currentForm("howMuch"), 'maxLength -> mappings.Mappings.twelve, '_label -> Messages("howMuch.label")),
+	                        carersInputText(currentForm("whoPaysYou"), 'maxLength -> mappings.Mappings.Name.maxLength, '_label -> messages("whoPaysYou.label")),
+	                        carersCurrency(currentForm("howMuch"), 'maxLength -> mappings.Mappings.twelve, '_label -> messages("howMuch.label")),
 	                        paymentFrequencySelect(currentForm("howOften"),
 	                           'id -> "howOften",
 	                           'visibleOn -> "yes",
-	                           '_label -> Messages("howOften"),
-	                           'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60
+	                           '_label -> messages("howOften"),
+	                           'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60
 	                           )
 	                     ),
 	                       'id -> "otherPayWrap",
 	                       'display -> currentForm("anyPaymentsSinceClaimDate.answer").value.getOrElse("no")
 		             )
 
-                    @yesNoRadioGroup(currentForm("statutorySickPay.answer"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label"))
+                    @yesNoRadioGroup(currentForm("statutorySickPay.answer"), '_label -> messages("haveYouHadAnyStatutorySickPay.label"))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersCurrency(currentForm("statutorySickPay.howMuch"), 'maxLength -> mappings.Mappings.twelve, '_label -> Messages("howMuch.label")),
+                            carersCurrency(currentForm("statutorySickPay.howMuch"), 'maxLength -> mappings.Mappings.twelve, '_label -> messages("howMuch.label")),
                             paymentFrequencySelect(currentForm("statutorySickPay.howOften"),
                                 'id -> "howOftenStatutorySickPay",
                                 'visibleOn -> "yes",
-                                '_label -> Messages("howOften"),
+                                '_label -> messages("howOften"),
                                 'textAreaHelper -> "60 characters left", 'maxLength -> 60
                             ),
-                            carersInputText(currentForm("statutorySickPay.employersName"), '_label -> Messages("employersName"),'maxLength -> mappings.Mappings.sixty),
-                            inputAddress(currentForm("statutorySickPay.employersAddress"), '_label -> Messages("employersAddress")),
-                            carersInputText(currentForm("statutorySickPay.employersPostcode"), 'maxLength -> 8, '_label -> Messages("employersPostcode"), 'class -> "postcode")
+                            carersInputText(currentForm("statutorySickPay.employersName"), '_label -> messages("employersName"),'maxLength -> mappings.Mappings.sixty),
+                            inputAddress(currentForm("statutorySickPay.employersAddress"), '_label -> messages("employersAddress")),
+                            carersInputText(currentForm("statutorySickPay.employersPostcode"), 'maxLength -> 8, '_label -> messages("employersPostcode"), 'class -> "postcode")
                         ),
                         'id -> "sickPayWrap",
                         'display -> currentForm("statutorySickPay.answer").value.getOrElse("no")
                     )
 
 
-                    @yesNoRadioGroup(currentForm("otherStatutoryPay.answer"), '_label -> Messages("otherPay.label"))
+                    @yesNoRadioGroup(currentForm("otherStatutoryPay.answer"), '_label -> messages("otherPay.label"))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersCurrency(currentForm("otherStatutoryPay.howMuch"), 'maxLength -> mappings.Mappings.twelve, '_label -> Messages("howMuch.label")),
+                            carersCurrency(currentForm("otherStatutoryPay.howMuch"), 'maxLength -> mappings.Mappings.twelve, '_label -> messages("howMuch.label")),
                             paymentFrequencySelect(currentForm("otherStatutoryPay.howOften"),
                                 'id -> "howOftenOtherStatutoryPay",
-                                'textAreaHelper -> Html(Messages("60charsLeft")), 'maxLength -> 60,
-                                '_label -> Messages("howOften"),
+                                'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60,
+                                '_label -> messages("howOften"),
                                 'visibleOn -> "yes"
                             ),
-                            carersInputText(currentForm("otherStatutoryPay.employersName"), '_label -> Messages("employersName"), 'maxLength -> mappings.Mappings.sixty),
-                            inputAddress(currentForm("otherStatutoryPay.employersAddress"), '_label -> Messages("employersAddress")),
-                            carersInputText(currentForm("otherStatutoryPay.employersPostcode"),'maxLength -> 8, '_label -> Messages("employersPostcode"), 'class -> "postcode")
+                            carersInputText(currentForm("otherStatutoryPay.employersName"), '_label -> messages("employersName"), 'maxLength -> mappings.Mappings.sixty),
+                            inputAddress(currentForm("otherStatutoryPay.employersAddress"), '_label -> messages("employersAddress")),
+                            carersInputText(currentForm("otherStatutoryPay.employersPostcode"),'maxLength -> 8, '_label -> messages("employersPostcode"), 'class -> "postcode")
                         ),
                         'id -> "otherStatPayWrap",
                         'display -> currentForm("otherStatutoryPay.answer").value.getOrElse("no")
@@ -131,4 +131,4 @@
     });
 </script>
 }
-}
+

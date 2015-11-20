@@ -1,15 +1,14 @@
 package controllers.preview
 
 import controllers.ClaimScenarioFactory
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable.Specification
 import utils.pageobjects.s_pay_details.GHowWePayYouPage
-import utils.{WithBrowser}
+import utils.WithBrowser
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s_about_you.{GContactDetailsPage, GOtherEEAStateOrSwitzerlandPage}
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
 
-class PreviewPageBankDetailsSpec extends Specification with Tags {
+class PreviewPageBankDetailsSpec extends Specification {
   "Preview Page" should {
     "display bank data - showing bank details are added" in new WithBrowser with PageObjects {
       val bankData = ClaimScenarioFactory.previewLessThan65WithBankDetails
@@ -51,24 +50,24 @@ class PreviewPageBankDetailsSpec extends Specification with Tags {
       source must not contain ("Bank details")
 
     }
+  }
+  section ("preview")
 
+  def fillBankDetailsSection(context: PageObjectsContext, bankData: TestData, eligibleForBankPage: Boolean = true) = {
+    val claimDatePage = GClaimDatePage(context)
+    claimDatePage goToThePage()
+    val claimDate = ClaimScenarioFactory.s12ClaimDate()
+    claimDatePage fillPageWith claimDate
+    val aboutYouPage = claimDatePage submitPage()
+    aboutYouPage goToThePage()
+    aboutYouPage fillPageWith bankData
+    aboutYouPage submitPage()
 
-    def fillBankDetailsSection(context: PageObjectsContext, bankData: TestData, eligibleForBankPage: Boolean = true) = {
-      val claimDatePage = GClaimDatePage(context)
-      claimDatePage goToThePage()
-      val claimDate = ClaimScenarioFactory.s12ClaimDate()
-      claimDatePage fillPageWith claimDate
-      val aboutYouPage = claimDatePage submitPage()
-      aboutYouPage goToThePage()
-      aboutYouPage fillPageWith bankData
-      aboutYouPage submitPage()
-
-      if (eligibleForBankPage) {
-        val bankDetailsPage = GHowWePayYouPage(context)
-        bankDetailsPage goToThePage()
-        bankDetailsPage fillPageWith bankData
-        bankDetailsPage submitPage()
-      }
+    if (eligibleForBankPage) {
+      val bankDetailsPage = GHowWePayYouPage(context)
+      bankDetailsPage goToThePage()
+      bankDetailsPage fillPageWith bankData
+      bankDetailsPage submitPage()
     }
-  } section "preview"
+  }
 }

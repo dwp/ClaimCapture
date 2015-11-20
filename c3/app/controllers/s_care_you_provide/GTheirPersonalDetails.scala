@@ -3,8 +3,7 @@ package controllers.s_care_you_provide
 import controllers.mappings.AddressMappings._
 import controllers.mappings.Mappings
 import models.yesNo.YesNoMandWithAddress
-import play.api.Logger
-
+import play.api.Play._
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
@@ -16,9 +15,10 @@ import models.domain._
 import controllers.CarersForms._
 import models.DayMonthYear
 import controllers.mappings.NINOMappings._
+import play.api.i18n._
 
-object GTheirPersonalDetails extends Controller with CachedClaim with Navigable {
-
+object GTheirPersonalDetails extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val addressMapping = "theirAddress"->mapping(
     "answer" -> nonEmptyText.verifying(validYesNo),
     "address" -> optional(address.verifying(requiredAddress)),
@@ -46,7 +46,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     }
 
 
-  def present = claimingWithCheck { implicit claim => implicit request => lang =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang => 
     val isPartnerPersonYouCareFor = YourPartner.visible &&
       claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse("") == "yes")
 
@@ -70,17 +70,17 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
       form.fill(TheirPersonalDetails)
     }
 
-    track(TheirPersonalDetails) { implicit claim => Ok(views.html.s_care_you_provide.g_theirPersonalDetails(currentForm)(lang)) }
+    track(TheirPersonalDetails) { implicit claim => Ok(views.html.s_care_you_provide.g_theirPersonalDetails(currentForm)) }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
           .replaceError("", "titleOther.required", FormError("titleOther", "constraint.required"))
           .replaceError("","theirAddress.address", FormError("theirAddress.address", errorRequired))
 
-        BadRequest(views.html.s_care_you_provide.g_theirPersonalDetails(updatedFormWithErrors)(lang))
+        BadRequest(views.html.s_care_you_provide.g_theirPersonalDetails(updatedFormWithErrors))
       },
       theirPersonalDetails => {
         val liveAtSameAddress = theirPersonalDetails.theirAddress.answer == yes

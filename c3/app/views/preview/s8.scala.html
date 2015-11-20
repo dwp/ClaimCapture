@@ -1,7 +1,7 @@
-@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 @import models.domain._
 @import scala.language.postfixOps
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import helper._
 @import controllers.mappings.Mappings._
 @import views.html.preview.jobsPreview
@@ -17,16 +17,16 @@
     val pension = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())
     var elems = Seq.empty[String]
     if(pension.haveExpensesForJob.answer == "yes" || pension.payPensionScheme.answer == "yes")
-        elems = elems ++ Seq(Messages("expenses"))
+        elems = elems ++ Seq(messages("expenses"))
 
     elems
 }
 @selfEmploymentSummary(claim:Claim) = @{
-    var text = Messages("detailsProvided.simple")
+    var text = messages("detailsProvided.simple")
     val items = selfEmploymentItems(claim)
 
     if(items.size > 0){
-        text = text +" "+Messages("including")+" "+items(0)
+        text = text +" "+messages("including")+" "+items(0)
     }
     text
 }
@@ -34,16 +34,16 @@
 @isEmployed = @{emp.beenEmployedSince6MonthsBeforeClaim == yes}
 @seValue = @{
 	if(isSelfEmployed){
-		Messages("label.yes") + " - " + selfEmploymentSummary(claim)
+		messages("label.yes") + " - " + selfEmploymentSummary(claim)
 	} else {
-		Messages("label.no")
+		messages("label.no")
 	}
 }
 
 @additionalInfoValue = @{
 	additionalInfo.empAdditionalInfo.answer match {
-		case `yes` => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
-		case _ => Messages("label.no")
+		case `yes` => messages("label.yes") + " - " + messages("detailsProvided.simple")
+		case _ => messages("label.no")
 	}
 }
 @disableChangeButton = @{
@@ -51,17 +51,17 @@
 }
 
 @content = {
-	@fieldWithLink("employment_been_employed_since", Messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`d month yyyy`),Messages("label."+emp.beenEmployedSince6MonthsBeforeClaim),disableLink = disableChangeButton, elementId = Some("beenEmployedSince6MonthsBeforeClaim"))
+	@fieldWithLink("employment_been_employed_since", messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`d month yyyy`),messages("label."+emp.beenEmployedSince6MonthsBeforeClaim),disableLink = disableChangeButton, elementId = Some("beenEmployedSince6MonthsBeforeClaim"))
 	@{/* Jobs do not use the fieldWithLink view. The fieldWithLink view accepts text and this produces HTML (an unordered list) */}
-	@fieldWithLink("self_employment_been_self_employed", Messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), seValue,disableLink = disableChangeButton, elementId = Some("beenSelfEmployedSince1WeekBeforeClaim"))
+	@fieldWithLink("self_employment_been_self_employed", messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), seValue,disableLink = disableChangeButton, elementId = Some("beenSelfEmployedSince1WeekBeforeClaim"))
 	@jobsPreview()
     @if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
-		@fieldWithLink("self_employment_nature_of_business", Messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness, disableLink = disableChangeButton, elementId = Some("natureOfYourBusiness"))
+		@fieldWithLink("self_employment_nature_of_business", messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness, disableLink = disableChangeButton, elementId = Some("natureOfYourBusiness"))
 	}
 	@if(isSelfEmployed || isEmployed){
-		@fieldWithLink("employment_additional_info", Messages("empAdditionalInfo.text"), additionalInfoValue, disableLink = disableChangeButton, elementId = Some("empAdditionalInfo_answer"))
+		@fieldWithLink("employment_additional_info", messages("empAdditionalInfo.text"), additionalInfoValue, disableLink = disableChangeButton, elementId = Some("empAdditionalInfo_answer"))
 	}
 }
 
-@accordion(label = Messages("employment.title"), openLabel = "open-employments", closeLabel = "close-employments", content = content, 'track -> true)
+@accordion(label = messages("employment.title"), openLabel = "open-employments", closeLabel = "close-employments", content = content, 'track -> true)
 

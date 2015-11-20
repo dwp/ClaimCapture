@@ -131,7 +131,20 @@ trait ClaimTransactionComponent {
 
     override def updateStatus(id: String, statusCode: String, claimType: Int) {}
 
-    override def health(): Unit = { Logger.warn("Stub health check")}
+    override def health(): Unit = {
+      Logger.warn("Stub db health check - checking for db")
+      /**
+       * Health check
+       */
+      def health(): Unit = DB.withConnection("carers") {
+        implicit c =>
+          SQL(
+            """
+          SELECT 1;
+            """
+          ).execute()
+      }
+    }
 
     override def updateEmailStatus(id: String, statusCode: Int): Unit = {}
   }

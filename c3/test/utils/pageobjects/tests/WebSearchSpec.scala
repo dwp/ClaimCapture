@@ -1,6 +1,6 @@
 package utils.pageobjects.tests
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects.s_about_you.GYourDetailsPageContext
 import controllers.ClaimScenarioFactory
@@ -8,10 +8,11 @@ import utils.pageobjects.s_information.GAdditionalInfoPage
 import utils.pageobjects.s_pay_details.GHowWePayYouPageContext
 import utils.pageobjects.{Page, PageObjectsContext, PageObjects, TestData}
 import app._
-import play.api.i18n.Messages
 import utils.pageobjects.s_claim_date.GClaimDatePage
+import play.api.i18n.{MMessages, MessagesApi}
+import play.api.Play.current
 
-class WebSearchSpec extends Specification with Tags{
+class WebSearchSpec extends Specification{
   "Web Search Actions " should {
 
     "be presented" in new WithBrowser with GYourDetailsPageContext {
@@ -40,9 +41,10 @@ class WebSearchSpec extends Specification with Tags{
     }
 
     "be able to read SortCode" in new WithBrowser with GHowWePayYouPageContext {
+      val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       val claim = new TestData
       claim.HowWePayYouHowWouldYouLikeToGetPaid = "yes"
-      claim.HowWePayYouHowOftenDoYouWantToGetPaid = Messages(PaymentFrequency.FourWeekly)
+      claim.HowWePayYouHowOftenDoYouWantToGetPaid = messagesApi(PaymentFrequency.FourWeekly)
       claim.HowWePayYouNameOfAccountHolder = "Despicable me"
       claim.WhoseNameOrNamesIsTheAccountIn = "Your name"
       claim.HowWePayYouFullNameOfBankorBuildingSociety = "HSBC Plc"
@@ -55,7 +57,8 @@ class WebSearchSpec extends Specification with Tags{
       val bankPage: Page = page submitPage (throwException = true)
       bankPage.url must_== GAdditionalInfoPage.url
     }
-  } section "integration"
+  }
+section("integration")
 
   "A page with Web Search Actions " should {
     "be able to populate a claim using data read with WebSearchActions." in new WithBrowser with PageObjects {
@@ -78,14 +81,13 @@ class WebSearchSpec extends Specification with Tags{
       outsideUkPage fillPageWith claimSource
       outsideUkPage populateClaim claimRead
       claimRead.AboutYouFirstName  mustEqual claimSource.AboutYouFirstName
-      println(claimRead.AboutYouTitle)
-      println(claimSource.AboutYouTitle)
       claimRead.AboutYouTitle mustEqual claimSource.AboutYouTitle
       claimRead.AboutYouNINO mustEqual claimSource.AboutYouNINO
       claimRead.AboutYouAddress mustEqual claimSource.AboutYouAddress
       claimRead.AboutYouPostcode mustEqual claimSource.AboutYouPostcode
     }
-  }section "integration"
+  }
+  section("integration")
 
   def fillClaimDate (context:PageObjectsContext):Page = {
     val claimDatePage = GClaimDatePage (context)

@@ -3,12 +3,9 @@ package xml.claim
 import app.XMLValues._
 import models.domain._
 import models.yesNo.YesNoWithEmployerAndMoney
-import play.api.i18n.{MMessages => Messages}
 import xml.XMLComponent
 import xml.XMLHelper._
-
 import scala.xml.NodeSeq
-
 
 object OtherBenefits extends XMLComponent {
 

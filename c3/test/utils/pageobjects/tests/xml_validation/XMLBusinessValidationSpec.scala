@@ -1,7 +1,7 @@
 package utils.pageobjects.tests.xml_validation
 
 import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation, XMLClaimBusinessValidation}
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import controllers.{CircumstancesScenarioFactory, ClaimScenarioFactory}
 import scala.io.Source
 

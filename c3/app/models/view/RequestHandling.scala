@@ -15,8 +15,8 @@ trait RequestHandling {
   def errorPageBrowserBackButton: Call
 
   // CSRF Cookie management
-  protected val csrfCookieName = getProperty("csrf.cookie.name", "csrf")
-  protected val csrfSecure = getProperty("csrf.cookie.secure", getProperty("session.secure", default = false))
+  protected val csrfCookieName = getProperty("play.filters.csrf.cookie.name", "csrf")
+  protected val csrfSecure = getProperty("play.filters.csrf.cookie.secure", getProperty("session.secure", default = false))
 
   protected val defaultLang = "en"
   protected lazy val redirectEnforced = getProperty("enforceRedirect", default = true)

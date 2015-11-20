@@ -1,14 +1,13 @@
 package controllers.s_information
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain.Claiming
 import models.view.CachedClaim
 import utils.WithApplication
 
-class GAdditionalInformationSpec extends Specification with Tags {
-
+class GAdditionalInformationSpec extends Specification {
   val validYesInput = Seq(
     "anythingElse.answer" -> "yes",
     "anythingElse.text" -> "Additional info text",
@@ -37,5 +36,6 @@ class GAdditionalInformationSpec extends Specification with Tags {
       val result = GAdditionalInfo.submit(request)
       redirectLocation(result) must beSome("/preview")
     }
-  } section("unit", models.domain.ConsentAndDeclaration.id)
+  }
+  section("unit", models.domain.ConsentAndDeclaration.id)
 }

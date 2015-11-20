@@ -1,6 +1,6 @@
 package controllers.s_pay_details
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain.Claiming
@@ -8,7 +8,7 @@ import models.view.CachedClaim
 import utils.WithApplication
 import utils.pageobjects.s_information.GAdditionalInfoPage
 
-class GHowWePayYouSpec extends Specification with Tags {
+class GHowWePayYouSpec extends Specification {
   "How we pay you" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
@@ -34,7 +34,6 @@ class GHowWePayYouSpec extends Specification with Tags {
       redirectLocation(result) must beSome(GAdditionalInfoPage.url)
     }
 
-
     "pass after filling all fields" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
@@ -53,6 +52,6 @@ class GHowWePayYouSpec extends Specification with Tags {
       val result2 = GHowWePayYou.submit(request)
       status(result2) mustEqual SEE_OTHER
     }
-
-  } section("unit", models.domain.PayDetails.id)
+  }
+  section("unit", models.domain.PayDetails.id)
 }

@@ -1,7 +1,7 @@
-@(title: String, currentForm: Option[Form[_]] = None, back:Boolean= false)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang:Lang, flash:Flash)
+@(title: String, currentForm: Option[Form[_]] = None, back:Boolean= false)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang:Lang, flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @common.govMain(title) {
 
@@ -20,7 +20,7 @@
                 @views.html.common.upperBackButton(showBack = back, changing = true)
 
 
-                <h1 class="form-title heading-large">@Html(Messages("c1"))</h1>
+                <h1 class="form-title heading-large">@Html(messages("c1"))</h1>
 
 
                 @if(currentForm.isDefined) {

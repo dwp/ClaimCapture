@@ -31,5 +31,6 @@ class FunctionalTestCase2Spec extends FunctionalTestCommon {
       }
     }
 
-  } section "functional"
+  }
+section("functional")
 }

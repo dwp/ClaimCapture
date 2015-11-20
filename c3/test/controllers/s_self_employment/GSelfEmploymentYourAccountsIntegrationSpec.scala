@@ -1,7 +1,7 @@
 package controllers.s_self_employment
 
-import org.specs2.mutable.{Tags, Specification}
-import utils.WithBrowser
+import org.specs2.mutable._
+import utils.{WithApplication, WithBrowser}
 import utils.pageobjects.s_self_employment.{GSelfEmploymentYourAccountsPage, GSelfEmploymentYourAccountsPageContext}
 import utils.pageobjects.{PageObjects, TestData}
 import controllers.{Formulate, ClaimScenarioFactory}
@@ -9,11 +9,11 @@ import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 import utils.pageobjects.s_employment.GEmploymentPage
 import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
-class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags {
+class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
 
   "Self Employment - Your Accounts" should {
-    "be presented" in new WithBrowser with PageObjects {
-      val page = GSelfEmploymentYourAccountsPage(context)
+    "be presented" in new WithBrowser with PageObjects{
+			val page =  GSelfEmploymentYourAccountsPage(context)
       page goToThePage()
     }
 
@@ -22,16 +22,16 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags
       page goToThePage()
 
       val employmentHistoryPage = page runClaimWith(claim, GEmploymentPage.url, waitForPage = true)
-      employmentHistoryPage fillPageWith (claim)
+      employmentHistoryPage fillPageWith(claim)
 
       val nextPage = employmentHistoryPage submitPage()
       nextPage must beAnInstanceOf[GAboutOtherMoneyPage]
     }
 
-    "contain errors on invalid submission" in {
+    "contain errors on invalid submission" in new WithApplication {
 
-      "your accounts invalid date" in new WithBrowser with PageObjects {
-        val page = GSelfEmploymentYourAccountsPage(context)
+      "your accounts invalid date" in new WithBrowser with PageObjects{
+			  val page =  GSelfEmploymentYourAccountsPage(context)
         val claim = new TestData
         claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "no"
         claim.SelfEmployedTellUsWhyandWhentheChangeHappened = "A Year back"
@@ -44,8 +44,8 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags
         pageWithErrors.listErrors(0).contains("date")
       }
 
-      "your accounts do you know your trading year not set" in new WithBrowser with PageObjects {
-        val page = GSelfEmploymentYourAccountsPage(context)
+      "your accounts do you know your trading year not set" in new WithBrowser with PageObjects{
+        val page =  GSelfEmploymentYourAccountsPage(context)
         val claim = new TestData
         claim.SelfEmployedDoYouKnowYourTradingYear = ""
         page goToThePage()
@@ -56,8 +56,8 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags
       }
     }
 
-    "your accounts tell us what happened not required if incoming and outgoing are current " in new WithBrowser with PageObjects {
-      val page = GSelfEmploymentYourAccountsPage(context)
+    "your accounts tell us what happened not required if incoming and outgoing are current " in new WithBrowser with PageObjects{
+			val page =  GSelfEmploymentYourAccountsPage(context)
       val claim = new TestData
       claim.SelfEmployedDoYouKnowYourTradingYear = "yes"
       claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "yes"
@@ -67,8 +67,8 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags
       pageWithErrors.listErrors.size mustEqual 0
     }
 
-    "your accounts contact your accountant is not required if there is no accountant " in new WithBrowser with PageObjects {
-      val page = GSelfEmploymentYourAccountsPage(context)
+    "your accounts contact your accountant is not required if there is no accountant " in new WithBrowser with PageObjects{
+			val page =  GSelfEmploymentYourAccountsPage(context)
       val claim = new TestData
       claim.SelfEmployedDoYouKnowYourTradingYear = "yes"
       claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "yes"
@@ -78,16 +78,16 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags
       pageWithErrors.listErrors.size mustEqual 0
     }
 
-    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
-      val page = GSelfEmploymentYourAccountsPage(context)
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+			val page =  GSelfEmploymentYourAccountsPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
       page goToThePage()
       page fillPageWith claim
       page submitPage()
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with PageObjects {
-      val page = GSelfEmploymentYourAccountsPage(context)
+    "navigate to next page on valid submission" in new WithBrowser with PageObjects{
+			val page =  GSelfEmploymentYourAccountsPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
       page goToThePage()
       page fillPageWith claim

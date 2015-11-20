@@ -1,9 +1,10 @@
 package controllers.s_other_money
 
-import org.specs2.mutable.{ Tags, Specification }
+import org.specs2.mutable._
 import models.{MultiLineAddress, PaymentFrequency}
+import utils.WithApplication
 
-class GAboutOtherMoneyFormSpec extends Specification with Tags {
+class GAboutOtherMoneyFormSpec extends Specification {
   "Other Money Form" should {
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"
@@ -18,7 +19,7 @@ class GAboutOtherMoneyFormSpec extends Specification with Tags {
     val yes = "yes"
     val no = "no"
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       GAboutOtherMoney.form.bind(
         Map("anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
           "whoPaysYou" -> whoPaysYou,
@@ -64,8 +65,8 @@ class GAboutOtherMoneyFormSpec extends Specification with Tags {
           })
     }
 
-    "return a bad request after an invalid submission" in {
-      "reject invalid yesNo answers" in {
+    "return a bad request after an invalid submission" in new WithApplication {
+      "reject invalid yesNo answers" in new WithApplication {
         GAboutOtherMoney.form.bind(
           Map("anyPaymentsSinceClaimDate.answer" -> "INVALID",
             "statutorySickPay.answer" -> "INVALID", "otherStatutoryPay.answer" -> "INVALID")).fold(
@@ -78,7 +79,7 @@ class GAboutOtherMoneyFormSpec extends Specification with Tags {
             f => "This mapping should not happen." must equalTo("Valid"))
       }
 
-      "reject a howOften frequency of other with no other text entered - other money" in {
+      "reject a howOften frequency of other with no other text entered - other money" in new WithApplication {
         GAboutOtherMoney.form.bind(
           Map("anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
             "whoPaysYou" -> whoPaysYou,
@@ -94,7 +95,7 @@ class GAboutOtherMoneyFormSpec extends Specification with Tags {
             f => "This mapping should not happen." must equalTo("Valid"))
       }
 
-      "reject a howOften frequency of other with no other text entered - statutory sick pay" in {
+      "reject a howOften frequency of other with no other text entered - statutory sick pay" in new WithApplication {
         GAboutOtherMoney.form.bind(
           Map("anyPaymentsSinceClaimDate.answer" -> no,
             "statutorySickPay.answer" -> yes,
@@ -110,7 +111,7 @@ class GAboutOtherMoneyFormSpec extends Specification with Tags {
             f => "This mapping should not happen." must equalTo("Valid"))
       }
 
-      "reject a howOften frequency of other with no other text entered - other pay" in {
+      "reject a howOften frequency of other with no other text entered - other pay" in new WithApplication {
         GAboutOtherMoney.form.bind(
           Map("anyPaymentsSinceClaimDate.answer" -> no,
             "otherStatutoryPay.answer" -> yes,
@@ -126,7 +127,7 @@ class GAboutOtherMoneyFormSpec extends Specification with Tags {
             f => "This mapping should not happen." must equalTo("Valid"))
       }
 
-      "allow optional fields to be left blank when answer is yes - other money" in {
+      "allow optional fields to be left blank when answer is yes - other money" in new WithApplication {
         GAboutOtherMoney.form.bind(
           Map("anyPaymentsSinceClaimDate.answer" -> yes,
             "statutorySickPay.answer" -> no,
@@ -144,5 +145,6 @@ class GAboutOtherMoneyFormSpec extends Specification with Tags {
             })
       }
     }
-  } section ("unit", models.domain.OtherMoney.id)
+  }
+  section ("unit", models.domain.OtherMoney.id)
 }

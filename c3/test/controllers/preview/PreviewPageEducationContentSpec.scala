@@ -1,6 +1,6 @@
 package controllers.preview
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects.{TestData, PageObjectsContext, PageObjects}
 import controllers.ClaimScenarioFactory
@@ -9,7 +9,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 
 
-class PreviewPageEducationContentSpec extends Specification with Tags {
+class PreviewPageEducationContentSpec extends Specification {
 
   "Preview Page" should {
     "display education data - when in education" in new WithBrowser with PageObjects{
@@ -46,7 +46,8 @@ class PreviewPageEducationContentSpec extends Specification with Tags {
       source must not contain "Start/end dates"
     }
 
-  } section "preview"
+  }
+section("preview")
 
   def fillEducationSection(context:PageObjectsContext, educationData:TestData = ClaimScenarioFactory.s6Education) = {
     val claimDatePage = GClaimDatePage(context)

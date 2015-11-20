@@ -4,17 +4,17 @@ import controllers.CarersForms._
 import models.domain.OtherEEAStateOrSwitzerland
 import models.view.{CachedClaim, Navigable}
 import models.yesNo.{YesNoWith1MandatoryFieldOnYes, YesNoWith2MandatoryFieldsOnYes}
+import play.api.Play._
 import play.api.data.Forms._
 import play.api.data.{Form, FormError}
-import play.api.i18n.{MMessages => Messages}
 import play.api.mvc.Controller
 import utils.helpers.CarersForm._
 import utils.helpers.YesNoHelpers
-
+import play.api.i18n._
 import scala.language.reflectiveCalls
 
-object GOtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navigable {
-
+object GOtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def yesNo1Field = mapping(
     "answer" -> nonEmptyText(),
     "field" -> optional(carersNonEmptyText(maxLength = 3000))
@@ -34,11 +34,11 @@ object GOtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navi
   )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply)
   )
 
-  def present = claimingWithCheck { implicit claim => implicit request => lang =>
-    track(OtherEEAStateOrSwitzerland) { implicit claim => Ok(views.html.s_about_you.g_otherEEAStateOrSwitzerland(form.fill(OtherEEAStateOrSwitzerland))(lang)) }
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+    track(OtherEEAStateOrSwitzerland) { implicit claim => Ok(views.html.s_about_you.g_otherEEAStateOrSwitzerland(form.fill(OtherEEAStateOrSwitzerland))) }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -46,7 +46,7 @@ object GOtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navi
           .replaceError("eeaGuardQuestion", "error.workingForEEADetails.required", FormError("eeaGuardQuestion.workingForEEADetails.answer", "error.workingForEEADetails.required"))
           .replaceError("eeaGuardQuestion", "benefitsfromeeadetails.required", FormError("eeaGuardQuestion.benefitsFromEEADetails.field", "error.benefitsFromEEADetails.required"))
           .replaceError("eeaGuardQuestion", "workingForEEADetails.required", FormError("eeaGuardQuestion.workingForEEADetails.field", "error.workingForEEADetails.required"))
-        BadRequest(views.html.s_about_you.g_otherEEAStateOrSwitzerland(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.s_about_you.g_otherEEAStateOrSwitzerland(formWithErrorsUpdate))
       },
       benefitsFromEEA => claim.update(benefitsFromEEA) -> Redirect(controllers.s_your_partner.routes.GYourPartnerPersonalDetails.present())
     )

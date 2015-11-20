@@ -1,8 +1,9 @@
 package controllers.s_breaks
 
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
+import utils.WithApplication
 
-class BreakFormSpec extends Specification with Tags {
+class BreakFormSpec extends Specification {
   val data = Map(
     "breakID" -> "id1",
     "start.date" -> "01/01/2001",
@@ -16,9 +17,10 @@ class BreakFormSpec extends Specification with Tags {
     "medicalDuringBreak" -> "no")
 
   "Break Form" should {
-    "contain start date" in {
+    "contain start date" in new WithApplication {
       GBreak.form.bind(data)("start")("date").value should beSome("01/01/2001")
     }
 
-  } section("unit", models.domain.CareYouProvide.id)
+  }
+  section("unit", models.domain.CareYouProvide.id)
 }

@@ -1,11 +1,11 @@
 package monitoring
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 
 
 
-class ReportPagesSpec extends Specification with Tags {
+class ReportPagesSpec extends Specification {
 
   "Application" should {
     "should respond to ping" in new WithBrowser {

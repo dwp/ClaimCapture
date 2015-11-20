@@ -1,8 +1,8 @@
-@(url:String)(implicit request: Request[AnyContent], lang: Lang, flash:Flash)
+@(url:String)(implicit request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
-@common.govMain(Messages("session.timeout")) {
+@common.govMain(messages("session.timeout")) {
 
     <div class="carers-allowance clearfix">
 
@@ -16,14 +16,14 @@
 
             <article class="column-three-quarters main-content error-statement">
 
-                <h1 class="form-title heading-large">@Html(Messages("session.timeout"))</h1>
+                <h1 class="form-title heading-large">@Html(messages("session.timeout"))</h1>
                 
-                <p>@Html(Messages("timeout.text"))</p>
+                <p>@Html(messages("timeout.text"))</p>
 
                 <nav class="form-steps">
                 	<ul>
-                		<li><a href="@url" class="button" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("restart.claim"))</a></li>
-                		<li><a rel="external" href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("feedbacklink.claim"))</a></li>
+                		<li><a href="@url" class="button" aria-label="@Html(messages("restart.claim.help"))">@Html(messages("restart.claim"))</a></li>
+                		<li><a rel="external" href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(messages("feedbacklink.claim"))</a></li>
                 	</ul>
                 </nav>
         

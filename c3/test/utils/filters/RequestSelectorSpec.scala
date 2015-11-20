@@ -1,6 +1,6 @@
 package utils.filters
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import utils.WithApplication
 

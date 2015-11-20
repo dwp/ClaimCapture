@@ -1,8 +1,8 @@
-@(url:String)(implicit request: Request[AnyContent], lang: Lang, flash:Flash)
+@(url:String)(implicit request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
-@common.govMain(Messages("error.retry")) {
+@common.govMain(messages("error.retry")) {
 
     <div class="carers-allowance clearfix">
 
@@ -16,12 +16,12 @@
 
             <article class="column-three-quarters main-content error-statement">
 
-                <h1 class="form-title heading-large">@Html(Messages("error.retry"))</h1>
+                <h1 class="form-title heading-large">@Html(messages("error.retry"))</h1>
 
-                <p>@Html(Messages("retry.message"))</p>
+                <p>@Html(messages("retry.message"))</p>
 
                 <nav class="form-steps">
-                    <button type="submit" name="action" value="next" class="button secondary" onClick="location.href = ' @url '" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("retry.button"))</button>
+                    <button type="submit" name="action" value="next" class="button secondary" onClick="location.href = ' @url '" aria-label="@Html(messages("restart.claim.help"))">@Html(messages("retry.button"))</button>
                 </nav>
 
             </article>

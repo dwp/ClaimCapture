@@ -1,9 +1,9 @@
-@(title: String, heading: String, currentForm: Option[Form[_]] = None, ignorePreview:Boolean = false,forceShow : Boolean = false)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash)
+@(title: String, heading: String, currentForm: Option[Form[_]] = None, ignorePreview:Boolean = false,forceShow : Boolean = false)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 @import models.domain.Employed
 
 @import models.domain.SelfEmployment
 @import helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import views.html.common._
 
 
@@ -24,7 +24,7 @@
 
                 @views.html.common.upperBackButton(forceShow = forceShow)
 
-                <h1 class="form-title heading-large">@sectionTitle(SelfEmployment)@Html(Messages(heading))</h1>
+                <h1 class="form-title heading-large">@sectionTitle(SelfEmployment)@Html(messages(heading))</h1>
 
                 @if(currentForm.isDefined) {
                     @errorsSummary(currentForm.get)

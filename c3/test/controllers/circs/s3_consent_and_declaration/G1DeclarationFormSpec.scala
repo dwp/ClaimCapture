@@ -1,18 +1,18 @@
 package controllers.circs.s3_consent_and_declaration
 
+import utils.WithApplication
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 
-class G1DeclarationFormSpec extends Specification with Tags {
+class G1DeclarationFormSpec extends Specification {
   val infoAgreement = "yes"
   val why = "Cause i want"
   val someOneElse = "yes"
   val nameOrOrganisation = "Tesco"
 
-  val G1Declaration = new G1Declaration
-
   "Change of circumstances - Declaration Form" should {
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
+      val G1Declaration = new G1Declaration
       G1Declaration.form.bind(
         Map( "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation)
       ).fold(
@@ -26,7 +26,8 @@ class G1DeclarationFormSpec extends Specification with Tags {
       )
     }
 
-    "reject special characters in text fields" in {
+    "reject special characters in text fields" in new WithApplication {
+      val G1Declaration = new G1Declaration
       G1Declaration.form.bind(
         Map("obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> "whyé[]", "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation)
       ).fold(
@@ -37,7 +38,8 @@ class G1DeclarationFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject form if name of organisation not filled " in {
+    "reject form if name of organisation not filled " in new WithApplication {
+      val G1Declaration = new G1Declaration
       G1Declaration.form.bind(
         Map("obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> "")
       ).fold(
@@ -47,19 +49,7 @@ class G1DeclarationFormSpec extends Specification with Tags {
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
-
-//    "reject form if name of further information contact not filled " in {
-//      G1Declaration.form.bind(
-//        Map("furtherInfoContact" -> "", "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "circsSomeOneElse" -> someOneElse, "nameOrOrganisation" -> nameOrOrganisation)
-//      ).fold(
-//          formWithErrors => {
-//            formWithErrors.errors.length must equalTo(1)
-//            formWithErrors.errors(0).key must equalTo("furtherInfoContact")
-//            formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
-//          },
-//          f => "This mapping should not happen." must equalTo("Valid"))
-//    }
-
-  } section("unit", models.domain.CircumstancesConsentAndDeclaration.id)
+  }
+  section("unit", models.domain.CircumstancesConsentAndDeclaration.id)
 
 }

@@ -1,5 +1,7 @@
 package controllers.s_self_employment
 
+import play.api.Play._
+
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
@@ -13,13 +15,14 @@ import utils.helpers.CarersForm._
 import controllers.s_self_employment.SelfEmployment._
 import utils.helpers.PastPresentLabelHelper._
 import models.view.Navigable
-import play.api.i18n.Lang
 import models.view.ClaimHandling.ClaimResult
 import controllers.CarersForms._
 import play.api.data.FormError
 import models.yesNo.YesNoWithText
+import play.api.i18n._
 
-object GSelfEmploymentPensionsAndExpenses extends Controller with CachedClaim with Navigable {
+object GSelfEmploymentPensionsAndExpenses extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val payPensionScheme =
     "payPensionScheme" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -39,15 +42,15 @@ object GSelfEmploymentPensionsAndExpenses extends Controller with CachedClaim wi
     haveExpensesForJob
   )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply))
 
-  def present = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    presentConditionally(selfEmploymentYourAccounts(lang),lang)
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+    presentConditionally(selfEmploymentYourAccounts)
   }
 
-  def selfEmploymentYourAccounts( lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    track(SelfEmploymentPensionsAndExpenses) { implicit claim => Ok(views.html.s_self_employment.g_selfEmploymentPensionAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses))(lang)) }
+  def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    track(SelfEmploymentPensionsAndExpenses) { implicit claim => Ok(views.html.s_self_employment.g_selfEmploymentPensionAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses))) }
   }
   
-  def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -60,7 +63,7 @@ object GSelfEmploymentPensionsAndExpenses extends Controller with CachedClaim wi
           .replaceError("haveExpensesForJob","haveExpensesForJob.text.maxLength",FormError("haveExpensesForJob.text",maxLengthError, Seq(labelForSelfEmployment(claim, lang, "haveExpensesForJob.text"))))
           .replaceError("haveExpensesForJob.text",errorRestrictedCharacters,FormError("haveExpensesForJob.text",errorRestrictedCharacters, Seq(labelForSelfEmployment(claim, lang, "haveExpensesForJob.text"))))
 
-        BadRequest(views.html.s_self_employment.g_selfEmploymentPensionAndExpenses(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.s_self_employment.g_selfEmploymentPensionAndExpenses(formWithErrorsUpdate))
       },
       f => claim.update(f) ->  Redirect(routes.SelfEmployment.completedSubmit())
     )

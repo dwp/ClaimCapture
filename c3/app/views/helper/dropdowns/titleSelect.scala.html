@@ -1,21 +1,21 @@
 @import utils.helpers.EmptyTemplate
-@(formObj: Form[_])(implicit request: Request[AnyContent], lang: Lang)
+@(formObj: Form[_])(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @helper.input(formObj("title")) { (id, name, value, htmlArgs) =>
     @radioListPlaceholder(formObj("title"),
         options = options(
-            "Mr" -> Messages("titleSelect.mr"),
-            "Mrs" -> Messages("titleSelect.mrs"),
-            "Miss" -> Messages("titleSelect.miss"),
-            "Ms" -> Messages("titleSelect.ms"),
-            "Other" -> Messages("other")),
-        '_label -> Messages("title")
-    )(request, lang, EmptyTemplate.fieldConstructor)
+            "Mr" -> messages("titleSelect.mr"),
+            "Mrs" -> messages("titleSelect.mrs"),
+            "Miss" -> messages("titleSelect.miss"),
+            "Ms" -> messages("titleSelect.ms"),
+            "Other" -> messages("other")),
+        '_label -> messages("title")
+    )(request, lang, EmptyTemplate.fieldConstructor,messages)
 }
 
 @otherDetailPlaceHolder(

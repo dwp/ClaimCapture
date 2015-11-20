@@ -1,12 +1,16 @@
 package controllers.s_employment
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import controllers.{Formulate, BrowserMatchers}
 
-class GEmploymentIntegrationSpec extends Specification with Tags {
-  "Employment - Integration" should {
-  } section("integration", models.domain.Employed.id)
+class GEmploymentIntegrationSpec extends Specification {
+//  "Employment - Integration" should {
+//    "test only" in new WithApplication {
+//
+//    }
+//  }
+//  section("integration", models.domain.Employed.id)
 }
 
 trait EmployedSinceClaimDate extends BrowserMatchers {

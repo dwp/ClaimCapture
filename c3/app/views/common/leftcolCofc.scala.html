@@ -1,20 +1,20 @@
-@()(implicit request: Request[AnyContent], lang: Lang, flash:Flash)
+@()(implicit request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 <aside class="column-quarter sidebar" id="sidebar" role="complementary" aria-labelledby="helpcontent">
 
     <section class="font-xsmall" id="help">
 
-        <h2 class="heading-medium compound">@Html(Messages("leftcol.title"))</h2>
+        <h2 class="heading-medium compound">@Html(messages("leftcol.title"))</h2>
 
-        <h3 class="heading-small compound">@Html(Messages("leftcol.helpline"))</h3>
+        <h3 class="heading-small compound">@Html(messages("leftcol.helpline"))</h3>
 
-        <p class="compound">@Html(Messages("leftcol.helplinecontent.1"))</p>
-        <p class="compound">@Html(Messages("leftcol.helplinecontent.2"))</p>
-        <p class="compound">@Html(Messages("leftcol.helplinecontent.3"))</p>
-        <p class="compound">@Html(Messages("leftcol.helplinecontent.4"))</p>
-        <p class="compound">@Messages("leftcol.callcharges")</p>
+        <p class="compound">@Html(messages("leftcol.helplinecontent.1"))</p>
+        <p class="compound">@Html(messages("leftcol.helplinecontent.2"))</p>
+        <p class="compound">@Html(messages("leftcol.helplinecontent.3"))</p>
+        <p class="compound">@Html(messages("leftcol.helplinecontent.4"))</p>
+        <p class="compound">@messages("leftcol.callcharges")</p>
 
     </section>
 

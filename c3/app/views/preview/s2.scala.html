@@ -1,8 +1,8 @@
-@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import models.domain._
 @import models.yesNo._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import app.MaritalStatus._
 @import helper._
 @import controllers.mappings.Mappings._
@@ -13,8 +13,8 @@
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @email = @{
     contactDetails.wantsContactEmail match {
-        case Some(yesNo) if yesNo == yes => Messages("label.yes") + " - " + contactDetails.email.getOrElse("")
-        case Some(yesNo) if yesNo == no => Messages("label.no")
+        case Some(yesNo) if yesNo == yes => messages("label.yes") + " - " + contactDetails.email.getOrElse("")
+        case Some(yesNo) if yesNo == no => messages("label.no")
         case None => ""
     }
 }
@@ -32,20 +32,20 @@
 }
 @residence = @{
     nationalityAndResidency.resideInUK.answer match {
-        case answer if answer == yes => Messages("label.yes")
-        case _ => Messages("label.no") + " - " + nationalityAndResidency.resideInUK.text.getOrElse("")
+        case answer if answer == yes => messages("label.yes")
+        case _ => messages("label.no") + " - " + nationalityAndResidency.resideInUK.text.getOrElse("")
     }
 }
 @otherEEA = @{claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())}
 @abroadForMoreThan52Weeks = @{claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())}
 @maritalStatus = @{
     maritalStatusQG.maritalStatus match {
-        case Married => Messages("maritalStatus.married")
-        case Single => Messages("maritalStatus.single")
-        case Divorced => Messages("maritalStatus.divorced")
-        case Widowed => Messages("maritalStatus.widowed")
-        case Separated => Messages("maritalStatus.separated")
-        case Partner => Messages("maritalStatus.livingWithPartner")
+        case Married => messages("maritalStatus.married")
+        case Single => messages("maritalStatus.single")
+        case Divorced => messages("maritalStatus.divorced")
+        case Widowed => messages("maritalStatus.widowed")
+        case Separated => messages("maritalStatus.separated")
+        case Partner => messages("maritalStatus.livingWithPartner")
         case _ => ""
     }
 }
@@ -53,7 +53,7 @@
 @titleValue = @{
     yourDetails.title match {
         case "Other" => yourDetails.titleOther.getOrElse("")
-        case _ => Messages("titleSelect."+yourDetails.title.toLowerCase)
+        case _ => messages("titleSelect."+yourDetails.title.toLowerCase)
     }
 }
 @titleNames = @{
@@ -65,8 +65,8 @@
 }
 @abroadValue = @{
     abroadForMoreThan52Weeks.anyTrips match {
-        case `yes` => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
-        case _ => Messages("label.no")
+        case `yes` => messages("label.yes") + " - " + messages("detailsProvided.simple")
+        case _ => messages("label.no")
     }
 }
 @showEEA = @{
@@ -74,20 +74,20 @@
 }
 @eeaGuardQuestionValue = @{
     otherEEA.guardQuestion.answer match {
-        case `yes` => Messages("label.yes")
-        case _ => Messages("label.no")
+        case `yes` => messages("label.yes")
+        case _ => messages("label.no")
     }
 }
 @benefitsFromEEAValue = @{
     otherEEA.guardQuestion.field1 match {
-        case Some(YesNoWith1MandatoryFieldOnYes(`yes`, _)) => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
-        case _ => Messages("label.no")
+        case Some(YesNoWith1MandatoryFieldOnYes(`yes`, _)) => messages("label.yes") + " - " + messages("detailsProvided.simple")
+        case _ => messages("label.no")
     }
 }
 @workingForEEAValue = @{
     otherEEA.guardQuestion.field2 match {
-        case Some(YesNoWith1MandatoryFieldOnYes(`yes`, _)) => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
-        case _ => Messages("label.no")
+        case Some(YesNoWith1MandatoryFieldOnYes(`yes`, _)) => messages("label.yes") + " - " + messages("detailsProvided.simple")
+        case _ => messages("label.no")
     }
 }
 
@@ -110,5 +110,5 @@
     }
 }
 
-@accordion(label = Messages("s2.longName"), openLabel = "open-about-you", closeLabel = "close-about-you", content = content, 'track -> true)
+@accordion(label = messages("s2.longName"), openLabel = "open-about-you", closeLabel = "close-about-you", content = content, 'track -> true)
 

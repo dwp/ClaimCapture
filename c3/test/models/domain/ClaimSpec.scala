@@ -1,15 +1,13 @@
 package models.domain
 
 import models.view.CachedClaim
-import org.specs2.mutable.Specification
-import org.specs2.specification.Tags
+import org.specs2.mutable._
+import utils.WithApplication
 
-class ClaimSpec extends Specification with Tags {
-  val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits))
-    .update(Eligibility("no","no","no"))
-
+class ClaimSpec extends Specification {
+  
   "Claim" should {
-    "contain the sectionId with the question group after adding" in {
+    "contain the sectionId with the question group after adding" in new WithApplication {
       val claim = Claim(CachedClaim.key)
       val questionGroup = Benefits(benefitsAnswer = Benefits.noneOfTheBenefits)
       val updatedClaim = claim.update(questionGroup)
@@ -20,7 +18,7 @@ class ClaimSpec extends Specification with Tags {
       section.questionGroup(Benefits) must beLike { case Some(p: Benefits) => p.benefitsAnswer must beEqualTo("NONE") }
     }
 
-    "contain the sectionId with the question group after updating" in {
+    "contain the sectionId with the question group after updating" in new WithApplication {
       val claim = Claim(CachedClaim.key)
       val trueQuestionGroup = Benefits(benefitsAnswer = Benefits.aa)
       val falseQuestionGroup = Benefits(benefitsAnswer = Benefits.noneOfTheBenefits)
@@ -34,16 +32,19 @@ class ClaimSpec extends Specification with Tags {
       section.questionGroup(Benefits) must beLike { case Some(p: Benefits) => p.benefitsAnswer must beEqualTo(Benefits.aa) }
     }
 
-    "return the correct section" in {
+    "return the correct section" in new WithApplication {
+      val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
       val section = claim.section(CarersAllowance)
       section.identifier mustEqual CarersAllowance
     }
 
-    "return the correct question group" in {
+    "return the correct question group" in new WithApplication {
+      val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
       claim.questionGroup(Eligibility) must beLike { case Some(qg: QuestionGroup) => qg.identifier mustEqual Eligibility }
     }
 
-    "delete a question group from section" in {
+    "delete a question group from section" in new WithApplication {
+      val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
       claim.completedQuestionGroups(CarersAllowance).size mustEqual 2
 
       val updatedClaim = claim.delete(Eligibility)
@@ -52,17 +53,18 @@ class ClaimSpec extends Specification with Tags {
       claim.completedQuestionGroups(CarersAllowance).size mustEqual 2
     }
 
-    "be able hide a section" in {
+    "be able hide a section" in new WithApplication {
       val updatedDigitalForm = Claim(CachedClaim.key).hideSection(YourPartner)
       YourPartner.visible(updatedDigitalForm) must beFalse
     }
 
-    "be able show a section" in {
+    "be able show a section" in new WithApplication {
       val updatedDigitalForm = Claim(CachedClaim.key).showSection(YourPartner)
       YourPartner.visible(updatedDigitalForm) must beTrue
     }
 
-    "be able to update a section" in {
+    "be able to update a section" in new WithApplication {
+      val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
       val section = claim.section(CarersAllowance)
       val updatedClaim = claim.update(section.hide)
       val updatedSection = updatedClaim.section(CarersAllowance)
@@ -70,37 +72,45 @@ class ClaimSpec extends Specification with Tags {
       updatedSection.visible must beFalse
     }
 
-    "returns first section when you ask for previous section in the first section" in {
+    "returns first section when you ask for previous section in the first section" in new WithApplication {
+      val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
       claim.previousSection(CarersAllowance).identifier mustEqual CarersAllowance
     }
 
-    "be able to go to previous visible section" in {
+    "be able to go to previous visible section" in new WithApplication {
+      val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
       claim.previousSection(AboutYou).identifier mustEqual CarersAllowance
     }
 
-    "be able to go to previous visible section when section inbetween is hidden" in {
+    "be able to go to previous visible section when section inbetween is hidden" in new WithApplication {
+      val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
       val updatedDigitalForm = claim.hideSection(AboutYou)
       updatedDigitalForm.previousSection(YourPartner).identifier mustEqual CarersAllowance
     }
 
-    """not contain "question group" when not actually providing which "question group" is desired.""" in {
+    """not contain "question group" when not actually providing which "question group" is desired.""" in new WithApplication {
+      val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
       claim.questionGroup should beNone
     }
 
-    """contain "question group" in first entry of "question groups".""" in {
+    """contain "question group" in first entry of "question groups".""" in new WithApplication {
+      val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
       claim.questionGroup[Benefits] should beSome(Benefits(benefitsAnswer = "NONE"))
     }
 
-    """contain "question group" in second entry of "question groups".""" in {
+    """contain "question group" in second entry of "question groups".""" in new WithApplication {
+      val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
       claim.questionGroup[Eligibility] should beSome(Eligibility("no", "no", "no"))
     }
 
-    """be able to remove question group with -. not contain "question group".""" in {
+    """be able to remove question group with -. not contain "question group".""" in new WithApplication {
+      val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
       val updatedDigitalForm = claim - Eligibility
       updatedDigitalForm.questionGroup[Eligibility] should beNone
     }
 
-    "be able to add section using +" in  {
+    "be able to add section using +" in new WithApplication {
+      val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
       object Foo extends QuestionGroup.Identifier {
         val id = "f10"
       }
@@ -111,7 +121,7 @@ class ClaimSpec extends Specification with Tags {
     }
 
 
-    "iterate over jobs" in {
+    "iterate over jobs" in new WithApplication {
       val job1 = Iteration("job 1").update(JobDetails("job 1"))
 
       val job2 = Iteration("job 2").update(JobDetails("job 2"))
@@ -129,7 +139,7 @@ class ClaimSpec extends Specification with Tags {
       js should beLike { case Some(i: Iterable[String]) => i.size shouldEqual 2 }
     }
 
-    "iterate over no jobs" in {
+    "iterate over no jobs" in new WithApplication {
       val claim = Claim(CachedClaim.key)
 
       val js = claim.questionGroup[Jobs] map { jobs =>
@@ -141,8 +151,9 @@ class ClaimSpec extends Specification with Tags {
       js should beNone
     }
 
-    "give empty list" in {
+    "give empty list" in new WithApplication {
       Claim(CachedClaim.key).questionGroup(models.domain.BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg)) should containAllOf(List())
     }
-  } section "unit"
+  }
+section("unit")
 }

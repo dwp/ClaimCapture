@@ -1,7 +1,7 @@
-@(url:String)(implicit request: Request[AnyContent], lang: Lang, flash:Flash)
-@import play.api.i18n.{MMessages => Messages}
+@(url:String)(implicit request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
+@import play.api.i18n.Messages
 
-@common.govMain(Messages("unrecoverable.error")) {
+@common.govMain(messages("unrecoverable.error")) {
 
     <div class="carers-allowance clearfix">
 
@@ -15,24 +15,24 @@
 
             <article class="column-three-quarters main-content error-statement">
 
-                <h1 class="form-title heading-large">@Html(Messages("unrecoverable.error.cookie"))</h1>
+                <h1 class="form-title heading-large">@Html(messages("unrecoverable.error.cookie"))</h1>
 
                 <p>
-                    @Messages("unrecoverable.error.cookie.help1")
+                    @messages("unrecoverable.error.cookie.help1")
                     <a rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" target="_blank"
                        @views.html.ga.trackClickEvent(linkName = "Cookies - from error page")>
-                        @Messages("unrecoverable.error.cookie.help1.anchorText")
+                        @messages("unrecoverable.error.cookie.help1.anchorText")
                     </a>
-                    @Messages("unrecoverable.error.cookie.help1.2")
+                    @messages("unrecoverable.error.cookie.help1.2")
                 </p>
 
                 <p>
-                    <button  id="Try" type="submit" name="action" value="next" class="button"  @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="location.href='@url'" aria-label="@Html(Messages("try.claim.help"))" >@Html(Messages("try.claim"))</button>
+                    <button  id="Try" type="submit" name="action" value="next" class="button"  @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="location.href='@url'" aria-label="@Html(messages("try.claim.help"))" >@Html(messages("try.claim"))</button>
                 </p>
 
                 <nav class="form-steps">
                     <ul>
-                        <li><a rel="external" href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("feedbacklink.claim"))</a></li>
+                        <li><a rel="external" href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(messages("feedbacklink.claim"))</a></li>
                     </ul>
                 </nav>
                 

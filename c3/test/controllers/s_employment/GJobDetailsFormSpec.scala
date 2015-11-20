@@ -1,10 +1,11 @@
 package controllers.s_employment
 
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import models.DayMonthYear
+import utils.WithApplication
 
-class GJobDetailsFormSpec extends Specification with Tags {
+class GJobDetailsFormSpec extends Specification {
   "Employer Details - Employment History Form" should {
     val iterationID = "1"
     val yes = "yes"
@@ -21,7 +22,7 @@ class GJobDetailsFormSpec extends Specification with Tags {
     val year1 = "1970"
     val year2 = "1970"
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       GJobDetails.form.bind(
         Map(
           "iterationID" -> iterationID,
@@ -62,7 +63,7 @@ class GJobDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "have 6 mandatory fields" in {
+    "have 6 mandatory fields" in new WithApplication {
       GJobDetails.form.bind(
         Map(
           "postcode" -> postCode,
@@ -90,7 +91,7 @@ class GJobDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "reject if employerName is not filled" in {
+    "reject if employerName is not filled" in new WithApplication {
       GJobDetails.form.bind(
         Map(
           "iterationID" -> iterationID,
@@ -106,7 +107,7 @@ class GJobDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "reject if address is not filled" in {
+    "reject if address is not filled" in new WithApplication {
       GJobDetails.form.bind(
         Map(
           "iterationID" -> iterationID,
@@ -122,7 +123,7 @@ class GJobDetailsFormSpec extends Specification with Tags {
         )
     }
 
-    "reject if finishedThisJob is not filled" in {
+    "reject if finishedThisJob is not filled" in new WithApplication {
       GJobDetails.form.bind(
         Map(
           "iterationID" -> iterationID,
@@ -138,7 +139,7 @@ class GJobDetailsFormSpec extends Specification with Tags {
         )
     }
 
-    "reject if startJobBeforeClaimDate is not filled" in {
+    "reject if startJobBeforeClaimDate is not filled" in new WithApplication {
       GJobDetails.form.bind(
         Map(
           "iterationID" -> iterationID,
@@ -153,7 +154,7 @@ class GJobDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "have 1 expanded mandatory fields if startJobBeforeClaimDate is no" in {
+    "have 1 expanded mandatory fields if startJobBeforeClaimDate is no" in new WithApplication {
       GJobDetails.form.bind(
         Map(
           "iterationID" -> iterationID,
@@ -172,7 +173,7 @@ class GJobDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "have 1 expanded mandatory fields if finishedThisJob is yes" in {
+    "have 1 expanded mandatory fields if finishedThisJob is yes" in new WithApplication {
       GJobDetails.form.bind(
         Map(
           "iterationID" -> iterationID,
@@ -194,7 +195,7 @@ class GJobDetailsFormSpec extends Specification with Tags {
         )
     }
 
-    "reject if phoneNumber is not filled" in {
+    "reject if phoneNumber is not filled" in new WithApplication {
       GJobDetails.form.bind(
         Map(
           "iterationID" -> iterationID,
@@ -211,7 +212,7 @@ class GJobDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "reject if phoneNumber is not valid" in {
+    "reject if phoneNumber is not valid" in new WithApplication {
       GJobDetails.form.bind(
         Map(
           "iterationID" -> iterationID,
@@ -229,7 +230,7 @@ class GJobDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "reject if address first line is empty" in {
+    "reject if address first line is empty" in new WithApplication {
       GJobDetails.form.bind(
         Map(
           "iterationID" -> iterationID,
@@ -248,7 +249,7 @@ class GJobDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "reject if address second line is empty" in {
+    "reject if address second line is empty" in new WithApplication {
       GJobDetails.form.bind(
         Map(
           "iterationID" -> iterationID,
@@ -267,5 +268,6 @@ class GJobDetailsFormSpec extends Specification with Tags {
       )
     }
 
-  } section("unit", models.domain.SelfEmployment.id)
+  }
+  section("unit", models.domain.SelfEmployment.id)
 }

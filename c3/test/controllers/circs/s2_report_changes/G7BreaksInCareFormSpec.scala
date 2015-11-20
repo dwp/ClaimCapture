@@ -1,6 +1,7 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
+import utils.WithApplication
+import org.specs2.mutable._
 import app.CircsBreaksWhereabouts
 import scala.Predef._
 import models.DayMonthYear
@@ -8,7 +9,7 @@ import controllers.mappings.Mappings
 import models.yesNo.{YesNoDontKnowWithDates, YesNoWithDateTimeAndText, RadioWithText}
 
 
-class G7BreaksInCareFormSpec extends Specification with Tags {
+class G7BreaksInCareFormSpec extends Specification {
 
   "Report a change in your circumstances - Breaks from caring Form" should {
 
@@ -32,7 +33,7 @@ class G7BreaksInCareFormSpec extends Specification with Tags {
     val yes = Mappings.yes
     val no = Mappings.no
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
        G7BreaksInCare.form.bind(
           Map(
             "breaksInCareStartDate.day" -> recentBreakFromCaringDateDay,
@@ -75,7 +76,7 @@ class G7BreaksInCareFormSpec extends Specification with Tags {
        )
     }
 
-    "check errors for mandatory fields" in {
+    "check errors for mandatory fields" in new WithApplication {
       G7BreaksInCare.form.bind(
         Map(
           "breaksInCareStartTime" -> breaksInCareStartTime,
@@ -89,7 +90,7 @@ class G7BreaksInCareFormSpec extends Specification with Tags {
       )
     }
 
-    "Somewhere else text is mandatory when 'where was the person you care for' 'somewhere else' option is selected" in {
+    "Somewhere else text is mandatory when 'where was the person you care for' 'somewhere else' option is selected" in new WithApplication {
       G7BreaksInCare.form.bind(
         Map(
           "breaksInCareStartDate.day" -> recentBreakFromCaringDateDay,
@@ -111,7 +112,7 @@ class G7BreaksInCareFormSpec extends Specification with Tags {
       )
     }
 
-    "Somewhere else text is mandatory when 'where were you' 'somewhere else' option is selected" in {
+    "Somewhere else text is mandatory when 'where were you' 'somewhere else' option is selected" in new WithApplication {
       G7BreaksInCare.form.bind(
         Map(
           "breaksInCareStartDate.day" -> recentBreakFromCaringDateDay,
@@ -133,7 +134,7 @@ class G7BreaksInCareFormSpec extends Specification with Tags {
       )
     }
 
-    "'when did the break from caring end' is mandatory when 'Has this break from caring ended' is yes" in {
+    "'when did the break from caring end' is mandatory when 'Has this break from caring ended' is yes" in new WithApplication {
       G7BreaksInCare.form.bind(
         Map(
           "breaksInCareStartDate.day" -> recentBreakFromCaringDateDay,
@@ -152,7 +153,7 @@ class G7BreaksInCareFormSpec extends Specification with Tags {
       )
     }
 
-    "'Do you expect to start caring again' is mandatory when 'Has this break from caring ended' is no" in {
+    "'Do you expect to start caring again' is mandatory when 'Has this break from caring ended' is no" in new WithApplication {
       G7BreaksInCare.form.bind(
         Map(
           "breaksInCareStartDate.day" -> recentBreakFromCaringDateDay,
@@ -171,7 +172,7 @@ class G7BreaksInCareFormSpec extends Specification with Tags {
       )
     }
 
-    "'permanent break date' is mandatory when 'do you expect to start caring again' is no" in {
+    "'permanent break date' is mandatory when 'do you expect to start caring again' is no" in new WithApplication {
       G7BreaksInCare.form.bind(
         Map(
           "breaksInCareStartDate.day" -> recentBreakFromCaringDateDay,
@@ -191,7 +192,7 @@ class G7BreaksInCareFormSpec extends Specification with Tags {
       )
     }
 
-    "reject invalid dates" in {
+    "reject invalid dates" in new WithApplication {
       G7BreaksInCare.form.bind(
         Map(
           "breaksInCareStartDate.day" -> recentBreakFromCaringDateDay,
@@ -220,5 +221,6 @@ class G7BreaksInCareFormSpec extends Specification with Tags {
         form => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  }section("unit", models.domain.CircumstancesAddressChange.id)
+  }
+  section("unit", models.domain.CircumstancesAddressChange.id)
 }

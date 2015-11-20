@@ -2,12 +2,13 @@ package controllers.circs.s1_start_of_process
 
 import app.ReportChange._
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
+import utils.WithApplication
 
-class G1ReportChangesFormSpec extends Specification with Tags {
+class G1ReportChangesFormSpec extends Specification {
    "Report a change in your circumstances - Change in circumstances" should {
 
-     "map additionalInfo into case class" in {
+     "map additionalInfo into case class" in new WithApplication {
        G1ReportChanges.form.bind(
          Map(
            "reportChanges" -> AdditionalInfo.name
@@ -20,7 +21,7 @@ class G1ReportChangesFormSpec extends Specification with Tags {
        )
      }
 
-     "map breakFromcaring into case class" in {
+     "map breakFromcaring into case class" in new WithApplication {
        G1ReportChanges.form.bind(
          Map(
            "reportChanges" -> BreakFromCaring.name
@@ -33,7 +34,7 @@ class G1ReportChangesFormSpec extends Specification with Tags {
        )
      }
 
-     "mandatory fields must be populated" in {
+     "mandatory fields must be populated" in new WithApplication {
        G1ReportChanges.form.bind(
          Map("reportChanges" -> "")
        ).fold(
@@ -44,5 +45,6 @@ class G1ReportChangesFormSpec extends Specification with Tags {
          )
      }
 
-   } section("unit", models.domain.CircumstancesSelfEmployment.id)
+   }
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
  }

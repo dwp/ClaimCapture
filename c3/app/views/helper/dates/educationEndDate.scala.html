@@ -1,17 +1,17 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: views.html.helper.FieldConstructor, lang: play.api.i18n.Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: views.html.helper.FieldConstructor, lang: play.api.i18n.Lang, messages: play.api.i18n.Messages)
 @import java.util.Calendar
 
 @import scala.util.Try
 @import helper.dates._
 @import helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import scala.language.postfixOps
 
 @argsWithSpecificArgs = @{
 
     val year = DayMonthYear.today.`yyyy`
-    val month = Messages("dynamicDate.month1.helper")
-    args ++ Seq('helperAbove -> Messages("dynamicDate.helper", month, year))
+    val month = messages("dynamicDate.month1.helper")
+    args ++ Seq('helperAbove -> messages("dynamicDate.helper", month, year))
 }
 
 @inputDayMonthYear(field, argsWithSpecificArgs: _*)

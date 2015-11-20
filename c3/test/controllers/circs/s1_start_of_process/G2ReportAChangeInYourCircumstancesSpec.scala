@@ -4,12 +4,12 @@
   import models.domain._
 import models.view.CachedChangeOfCircs
 import models.{DayMonthYear, NationalInsuranceNumber}
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest}
 import utils.WithApplication
 
-class G2ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
+class G2ReportAChangeInYourCircumstancesSpec extends Specification{
 
   "Circumstances - About You - Controller" should {
 
@@ -148,5 +148,6 @@ class G2ReportAChangeInYourCircumstancesSpec extends Specification with Tags{
       val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
       claim.lang mustEqual None
     }
-  } section("unit", models.domain.CircumstancesIdentification.id)
+  }
+  section("unit", models.domain.CircumstancesIdentification.id)
 }

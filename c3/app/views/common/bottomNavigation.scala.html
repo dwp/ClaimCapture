@@ -8,7 +8,7 @@
         trackSubmit: Boolean = false,
         customTrack: Option[Html] = None,
         forceShow:Boolean = false
-        )(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+        )(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 
 <nav class="form-steps" role="navigation">

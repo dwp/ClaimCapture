@@ -1,6 +1,6 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
@@ -8,7 +8,7 @@ import play.api.test.Helpers._
 import controllers.circs.s2_report_changes
 import utils.WithApplication
 
-class G2SelfEmploymentSpec extends Specification with Tags {
+class G2SelfEmploymentSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val stillCaringDateDay = 10
@@ -45,7 +45,6 @@ class G2SelfEmploymentSpec extends Specification with Tags {
   )
 
   "Circumstances - Self Employment - Controller" should {
-
     "present 'CoC Self Employment' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
@@ -68,5 +67,6 @@ class G2SelfEmploymentSpec extends Specification with Tags {
       val result = s2_report_changes.G2SelfEmployment.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit", models.domain.CircumstancesSelfEmployment.id)
+  }
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
 }

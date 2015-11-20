@@ -1,4 +1,4 @@
-@(nationalityAndResidencyForm: Form[models.domain.NationalityAndResidency])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(nationalityAndResidencyForm: Form[models.domain.NationalityAndResidency])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,12 +8,12 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import models.domain.NationalityAndResidency
 @import app.MaritalStatus._
 
-@defining(lang) { implicit language =>
-@main(Messages("s2.g4") + " - " + Messages("s2.longName")) {
+
+@main(messages("s2.g4") + " - " + messages("s2.longName")) {
     @errorsSummary(nationalityAndResidencyForm)
 
 
@@ -24,26 +24,26 @@
 
 	            <ul>
 	                @listRadioGroup(nationalityAndResidencyForm("nationality"),
-                        'items -> Seq(NationalityAndResidency.british -> Messages("label.british"), NationalityAndResidency.anothercountry -> Messages("label.anothercountry")),
-	                    '_label -> Messages("nationality.label"),
+                        'items -> Seq(NationalityAndResidency.british -> messages("label.british"), NationalityAndResidency.anothercountry -> messages("label.anothercountry")),
+	                    '_label -> messages("nationality.label"),
                         '_nestedFieldSet -> true)
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        carersInputText(nationalityAndResidencyForm("actualnationality"),
-	                            '_label -> Messages("actualnationality.text.label"),
+	                            '_label -> messages("actualnationality.text.label"),
 	                            'maxLength -> 35)
 	                    ),
 	                    'id -> "nationalityWrap"
 	                )
 
                     @yesNoRadioGroup(nationalityAndResidencyForm("resideInUK")("answer"),
-                        '_label -> Messages("resideInUK.label"))
+                        '_label -> messages("resideInUK.label"))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputText(nationalityAndResidencyForm("resideInUK")("text"),
-                            '_label -> Messages("resideInUK.text.label"),
+                            '_label -> messages("resideInUK.text.label"),
                             'maxLength -> 35)
                         ),
                         'id -> "residencyWrap"
@@ -68,5 +68,5 @@
         });
     </script>
     
-}
+
 }

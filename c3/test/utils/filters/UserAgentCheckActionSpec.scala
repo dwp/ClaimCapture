@@ -1,8 +1,9 @@
 package utils.filters
 
 import models.view.CachedClaim
-import org.specs2.mutable.Specification
-import play.api.cache.Cache
+import org.specs2.mutable._
+import play.api.Play._
+import play.api.cache.{CacheApi, Cache}
 import play.api.libs.iteratee.Iteratee
 import play.api.mvc.{Result, RequestHeader, EssentialAction}
 import play.api.test.{FakeApplication, FakeRequest}
@@ -15,13 +16,14 @@ class UserAgentCheckActionSpec extends Specification {
 
   "User Agent Action/Filter" should {
     "not check start page, but should extract User Agent and store it if POST" in new WithApplication {
+      val cache = current.injector.instanceOf[CacheApi]
       val keyValue = "startuasdyf"
       exerciseFilterFor(keyValue,"POST",  "/allowance/benefits", UserAgentCheckAction.defaultSetIf,expectSuccess=true, presetCache=false)
-      Cache.getAs[String](keyValue + "_UA").get mustEqual agent
+      cache.get[String](keyValue + "_UA").get mustEqual agent
       exerciseFilterFor(keyValue,"POST",  "/circumstances/report-changes/selection", UserAgentCheckAction.defaultSetIf,expectSuccess=true, presetCache=false)
-      Cache.getAs[String](keyValue + "_UA").get mustEqual agent
+      cache.get[String](keyValue + "_UA").get mustEqual agent
       exerciseFilterFor(keyValue,"POST",  "/change-language/cy", UserAgentCheckAction.defaultSetIf,expectSuccess=true, presetCache=false)
-      Cache.getAs[String](keyValue + "_UA").get mustEqual agent
+      cache.get[String](keyValue + "_UA").get mustEqual agent
     }
 
     "check a page if not start page or end page for GET" in new WithApplication {
@@ -49,13 +51,14 @@ class UserAgentCheckActionSpec extends Specification {
     }
 
     "remove User Agent from cache when reaches an end page" in new WithApplication {
+      val cache = current.injector.instanceOf[CacheApi]
       val keyValue = "aoisdyfiuasdyf"
       exerciseFilterFor(keyValue,"GET",  "/timeout", UserAgentCheckAction.defautRemoveIf,expectSuccess=true)
-      Cache.getAs[String](keyValue + "_UA") must beNone
+      cache.get[String](keyValue + "_UA") must beNone
       exerciseFilterFor(keyValue,"GET",  "/thankyou/apply-carers", UserAgentCheckAction.defautRemoveIf,expectSuccess=true)
-      Cache.getAs[String](keyValue + "_UA") must beNone
+      cache.get[String](keyValue + "_UA") must beNone
       exerciseFilterFor(keyValue,"GET",  "/thankyou/change-carers", UserAgentCheckAction.defautRemoveIf,expectSuccess=true)
-      Cache.getAs[String](keyValue + "_UA") must beNone
+      cache.get[String](keyValue + "_UA") must beNone
     }
 
   }
@@ -67,13 +70,14 @@ object UserAgentCheckActionSpec extends Specification{
 
   def exerciseFilterFor(keyValue:String, method:String, path:String, operation:(RequestHeader) => Boolean,
                         expectSuccess:Boolean, presetCache: Boolean = true)(implicit app: FakeApplication) = {
-    Cache.remove(keyValue + "_UA")
-    if (presetCache) Cache.set(keyValue + "_UA", agent)
+    val cache = current.injector.instanceOf[CacheApi]
+    cache.remove(keyValue + "_UA")
+    if (presetCache) cache.set(keyValue + "_UA", agent)
     val request = FakeRequest(method = method, path = path)
       .withSession(CachedClaim.key -> keyValue)
       .withHeaders(HeaderNames.ACCEPT -> "text/html", HeaderNames.USER_AGENT -> agent)
     operation(request) mustEqual expectSuccess
-    val filter = UserAgentCheckFilter()
+    val filter = new UserAgentCheckFilter()
     val mockNextAction = new MockAction
     val action = filter(mockNextAction)
     action(request)

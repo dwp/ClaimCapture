@@ -9,7 +9,7 @@ GET         /                                                           controll
 GET         /replica-urls                                               controllers.Replica.list
 
 # Health checks
-GET         /report/metrics                                             com.kenshoo.play.metrics.MetricsController.metrics
+GET         /report/metrics                                             @com.kenshoo.play.metrics.MetricsController.metrics
 GET         /report/health                                              controllers.HealthController.healthReport
 GET         /report/ping                                                controllers.HealthController.ping
 
@@ -17,7 +17,7 @@ GET         /report/ping                                                controll
 GET         /CS2015                                                     controllers.ChannelShiftController.redirect
 GET         /cs2015                                                     controllers.ChannelShiftController.redirect
 
-# Cookies
+# Cookie
 GET         /cookies/:languageCode                                      controllers.Cookies.page(languageCode: String)
 
 # claim pack notes accessed externally

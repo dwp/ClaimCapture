@@ -1,15 +1,16 @@
 package controllers.s_eligibility
 
+import utils.WithApplication
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 
-class GEligibilityFormSpec extends Specification with Tags {
+class GEligibilityFormSpec extends Specification {
   "Carer's Allowance - Elegibility - Form" should {
     val answerHours = "yes"
     val answerOver16 = "no"
     val answerLivesInGB = "no"
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       GEligibility.form.bind(
         Map("hours.answer" -> answerHours, "over16.answer" -> answerOver16, "livesInGB.answer" -> answerLivesInGB)
       ).fold(
@@ -22,7 +23,7 @@ class GEligibilityFormSpec extends Specification with Tags {
       )
     }
 
-    "reject if mandatory field is not filled" in {
+    "reject if mandatory field is not filled" in new WithApplication {
       GEligibility.form.bind(
         Map("hours.answer" -> "")
       ).fold(
@@ -30,5 +31,6 @@ class GEligibilityFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section("unit", models.domain.CarersAllowance.id)
+  }
+  section("unit", models.domain.CarersAllowance.id)
 }

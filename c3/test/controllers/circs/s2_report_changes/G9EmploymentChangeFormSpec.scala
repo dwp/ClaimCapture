@@ -1,9 +1,10 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
+import utils.WithApplication
+import org.specs2.mutable._
 import models.DayMonthYear
 
-class G9EmploymentChangeFormSpec extends Specification with Tags {
+class G9EmploymentChangeFormSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val dontknow = "dontknow"
@@ -18,7 +19,7 @@ class G9EmploymentChangeFormSpec extends Specification with Tags {
   val selfEmployedTypeOfWork = "IT Consultant"
 
   "Report a change in your circumstances - Employment Form" should {
-    "map not caring and not started yet self-employment data into case class" in {
+    "map not caring and not started yet self-employment data into case class" in new WithApplication {
       G9EmploymentChange.form.bind(
         Map(
           "stillCaring.answer" -> no,
@@ -47,7 +48,7 @@ class G9EmploymentChangeFormSpec extends Specification with Tags {
         )
     }
 
-    "map caring and not started yet self-employment data into case class" in {
+    "map caring and not started yet self-employment data into case class" in new WithApplication {
       G9EmploymentChange.form.bind(
         Map(
           "stillCaring.answer" -> yes,
@@ -72,7 +73,7 @@ class G9EmploymentChangeFormSpec extends Specification with Tags {
         )
     }
 
-    "map caring and ongoing started self-employment data into case class" in {
+    "map caring and ongoing started self-employment data into case class" in new WithApplication {
       G9EmploymentChange.form.bind(
         Map(
           "stillCaring.answer" -> yes,
@@ -98,5 +99,6 @@ class G9EmploymentChangeFormSpec extends Specification with Tags {
           }
         )
     }
-  } section("unit", models.domain.CircumstancesSelfEmployment.id)
+  }
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
 }

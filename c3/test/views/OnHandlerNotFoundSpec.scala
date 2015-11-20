@@ -1,6 +1,6 @@
 package views
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import utils.WithBrowser
 
 class OnHandlerNotFoundSpec extends Specification {
