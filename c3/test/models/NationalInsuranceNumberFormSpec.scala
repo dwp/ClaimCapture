@@ -1,6 +1,6 @@
 package models
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import play.api.data.Form
 import controllers.mappings.NINOMappings._
 

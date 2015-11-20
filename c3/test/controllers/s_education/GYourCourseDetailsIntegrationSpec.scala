@@ -1,6 +1,6 @@
 package controllers.s_education
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects._
@@ -11,7 +11,7 @@ import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_employment.{GEmploymentPage, GBeenEmployedPage}
 import utils.helpers.PreviewField._
 
-class GYourCourseDetailsIntegrationSpec extends Specification with Tags {
+class GYourCourseDetailsIntegrationSpec extends Specification {
   "Your course details Page" should {
     "be presented" in new WithBrowser with PageObjects {
       val educationPage = GYourCourseDetailsPage(context)
@@ -86,6 +86,7 @@ class GYourCourseDetailsIntegrationSpec extends Specification with Tags {
       courseTitle.get mustEqual "Course 101"
     }
 
-  } section("integration", models.domain.Education.id)
+  }
+  section("integration", models.domain.Education.id)
 
 }

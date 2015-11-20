@@ -1,9 +1,9 @@
-@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 @import models.domain.YourPartnerPersonalDetails
 @import models.domain.MoreAboutTheCare
 @import controllers.mappings.Mappings._
 @import models.domain.TheirPersonalDetails
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import helper._
 
 @yourPartner = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
@@ -11,8 +11,8 @@
 @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
 @address = @{
 	theirPersonalDetails.theirAddress.answer match {
-		case `yes` => Messages("label.yes")
-		case _ => Messages("label.no") + " - " + getAddressLine(theirPersonalDetails.theirAddress.address.getOrElse(MultiLineAddress()))
+		case `yes` => messages("label.yes")
+		case _ => messages("label.no") + " - " + getAddressLine(theirPersonalDetails.theirAddress.address.getOrElse(MultiLineAddress()))
 	}
 }
 
@@ -24,7 +24,7 @@
 @titleValue = @{
 	theirPersonalDetails.title match {
 		case "Other" => theirPersonalDetails.titleOther.getOrElse("")
-		case _ => Messages("titleSelect." + theirPersonalDetails.title.toLowerCase)
+		case _ => messages("titleSelect." + theirPersonalDetails.title.toLowerCase)
 	}
 }
 @partnerTitleName = @{
@@ -50,7 +50,7 @@
 	}
 	@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship,disableLink = disableChangeButton, elementId = Some("relationship"))
 	@fieldWithLink("care_you_provide_address", "theirAddress.answer", address,disableLink = disableChangeButton, elementId = Some("theirAddress_answer"))
-	@fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(Messages("label."+abouTheCare.spent35HoursCaring))}",disableLink = disableChangeButton, elementId = Some("spent35HoursCaring"))
+	@fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(messages("label."+abouTheCare.spent35HoursCaring))}",disableLink = disableChangeButton, elementId = Some("spent35HoursCaring"))
 }
 
-@accordion(label = Messages("s4.longName"), openLabel = "open-care-you-provide", closeLabel = "close-care-you-provide", content = content, 'track -> true)
+@accordion(label = messages("s4.longName"), openLabel = "open-care-you-provide", closeLabel = "close-care-you-provide", content = content, 'track -> true)

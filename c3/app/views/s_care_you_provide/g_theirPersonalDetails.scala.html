@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.TheirPersonalDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.TheirPersonalDetails])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
@@ -6,7 +6,7 @@
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import models.domain.YourPartnerPersonalDetails
 @import utils.helpers.CarersCrypto
 @import controllers.mappings.Mappings._
@@ -36,8 +36,8 @@
         "relationship.helper" + (if(claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse(`no`) == `yes`)) ".partner" else "")
     }
 
-    @defining(lang) { implicit language =>
-    @main(Messages("s4.g1") + " - " + Messages("s4.longName"), Some(currentForm)) {
+    
+    @main(messages("s4.g1") + " - " + messages("s4.longName"), Some(currentForm)) {
 
         @form(action = controllers.s_care_you_provide.routes.GTheirPersonalDetails.submit, 'role -> "form") {
 
@@ -58,7 +58,7 @@
                                 carersInputText(currentForm("surname"), 'maxLength -> mappings.Mappings.thirtyfive),
 
                                 nationalInsuranceNumber(currentForm("nationalInsuranceNumber"),
-                                                                    'helperAbove -> Messages("nationalInsuranceNumber.helper.careYouProvide"),
+                                                                    'helperAbove -> messages("nationalInsuranceNumber.helper.careYouProvide"),
                                                                     'ignoreOptional -> true),
 
                                 dateOfBirth(currentForm("dateOfBirth"))
@@ -66,14 +66,14 @@
                             'id -> "careYouProvideWrap"
                         )
 
-                        @carersInputText(currentForm("relationship"), 'helperAbove -> Messages(relationshipHelper()), 'maxLength -> mappings.Mappings.thirtyfive)
+                        @carersInputText(currentForm("relationship"), 'helperAbove -> messages(relationshipHelper()), 'maxLength -> mappings.Mappings.thirtyfive)
                         
-                        @yesNoRadioGroup(currentForm("theirAddress.answer"), 'track -> true, 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no")))
+                        @yesNoRadioGroup(currentForm("theirAddress.answer"), 'track -> true, 'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")))
 
                         @otherDetailPlaceHolder(
                             inputDef = Seq(
-                                inputAddress(currentForm("theirAddress.address"), '_label -> Messages("address")),
-                                carersInputText(currentForm("theirAddress.postCode"), 'class -> "postcode",'maxLength -> 8, 'ignoreOptional -> true, '_label -> Messages("postcode"))
+                                inputAddress(currentForm("theirAddress.address"), '_label -> messages("address")),
+                                carersInputText(currentForm("theirAddress.postCode"), 'class -> "postcode",'maxLength -> 8, 'ignoreOptional -> true, '_label -> messages("postcode"))
                             ),
                             'id -> "addressWrapper"
                         )
@@ -104,4 +104,4 @@
         <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_care_you_provide/g_theirPersonalDetails.js")></script>
 
     }
-}
+

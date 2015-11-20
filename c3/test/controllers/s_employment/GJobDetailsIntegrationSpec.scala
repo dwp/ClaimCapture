@@ -5,12 +5,12 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_employment.{GBeenEmployedPage, GEmploymentPage, GLastWagePage, GJobDetailsPage}
 
 import language.reflectiveCalls
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers}
 import controllers.ClaimScenarioFactory._
 
-class GJobDetailsIntegrationSpec extends Specification with Tags {
+class GJobDetailsIntegrationSpec extends Specification {
   "Your job" should {
     "present" in new WithBrowser with PageObjects {
 
@@ -67,6 +67,7 @@ class GJobDetailsIntegrationSpec extends Specification with Tags {
 
     }
 
-  } section("integration", models.domain.Employed.id)
+  }
+  section("integration", models.domain.Employed.id)
 
 }

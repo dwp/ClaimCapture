@@ -1,9 +1,9 @@
-@(title: String, currentForm: Option[Form[_]] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash)
+@(title: String, currentForm: Option[Form[_]] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
 @import models.domain.ClaimDate
 @import models.domain.PayDetails
 @import helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import views.html.common._
 
 @common.govMain(title) {
@@ -22,7 +22,7 @@
 
                 @views.html.common.upperBackButton()
 
-                <h1 class="form-title heading-large">@sectionTitle(PayDetails)@Html(Messages("s10.longName"))</h1>
+                <h1 class="form-title heading-large">@sectionTitle(PayDetails)@Html(messages("s10.longName"))</h1>
 
 
                 @if(currentForm.isDefined) {

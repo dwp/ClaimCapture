@@ -1,10 +1,11 @@
 package controllers.circs.s2_report_changes
 
+import utils.WithApplication
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import models.DayMonthYear
 
-class G2SelfEmploymentFormSpec extends Specification with Tags {
+class G2SelfEmploymentFormSpec extends Specification {
   "Report a change in your circumstances - Self employment Form" should {
     val yes = "yes"
     val no = "no"
@@ -19,7 +20,7 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
     val moreAboutChanges = "This is more about the change"
     val invalidYear = 99999
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> yes,
@@ -42,7 +43,7 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
       )
     }
 
-    "mandatory fields must be populated when caring is not set" in {
+    "mandatory fields must be populated when caring is not set" in new WithApplication {
       G2SelfEmployment.form.bind(
         Map("moreAboutChanges" -> moreAboutChanges)
       ).fold(
@@ -56,7 +57,7 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
         )
     }
 
-    "mandatory fields must be populated when still caring is set to 'no'" in {
+    "mandatory fields must be populated when still caring is set to 'no'" in new WithApplication {
       G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> no,
@@ -73,7 +74,7 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
         )
     }
 
-    "mandatory fields must be populated when still caring is set to 'yes'" in {
+    "mandatory fields must be populated when still caring is set to 'yes'" in new WithApplication {
       G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> yes,
@@ -89,7 +90,7 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
         )
     }
 
-    "reject special characters in text field" in {
+    "reject special characters in text field" in new WithApplication {
       G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> yes,
@@ -112,7 +113,7 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
       )
     }
 
-    "reject invalid still caring date" in {
+    "reject invalid still caring date" in new WithApplication {
       G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> no,
@@ -135,7 +136,7 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
         )
     }
 
-    "reject invalid when this Self Employment started  date" in {
+    "reject invalid when this Self Employment started  date" in new WithApplication {
       G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> yes,
@@ -155,5 +156,6 @@ class G2SelfEmploymentFormSpec extends Specification with Tags {
         )
     }
 
-  } section("unit", models.domain.CircumstancesSelfEmployment.id)
+  }
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
 }

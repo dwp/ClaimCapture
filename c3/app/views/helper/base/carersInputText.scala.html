@@ -1,10 +1,10 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersCrypto
 @import utils.helpers._
 @import views.html.helper.base._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @input(field, args.filter(a => a._1 == 'maxLength || a._1 == 'autocomplete || a._1 == 'class) ++
               Seq('autocomplete -> "off") ++

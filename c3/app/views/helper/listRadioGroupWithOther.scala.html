@@ -1,9 +1,9 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @nestedFieldSet = @{ args.toMap.get('_nestedFieldSet).getOrElse(false) == true }
 
@@ -11,14 +11,14 @@
 
     <fieldset @if(nestedFieldSet) {class="nested-fieldset"} else {class="form-elements"}>
 
-        @radioListPlaceholder(field("answer"), args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items) ++ Seq('class -> "listWithOther"):_*)(request,lang,utils.helpers.EmptyTemplate.fieldConstructor)
+        @radioListPlaceholder(field("answer"), args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items) ++ Seq('class -> "listWithOther"):_*)(request,lang,utils.helpers.EmptyTemplate.fieldConstructor,messages)
 
         @ulDetailPlaceHolder(
             inputDef = Seq(
                 carersInputTextArea(field("text"),
                     'ignoreLabel -> true,
-                    'placeholder -> Messages("ifOtherPleaseSpecify"),
-                    'textAreaHelper -> Html(Messages("60charsLeft")),
+                    'placeholder -> messages("ifOtherPleaseSpecify"),
+                    'textAreaHelper -> Html(messages("60charsLeft")),
                     'maxLength -> args.toMap.get('maxLength).getOrElse(60))
             ),
             'id -> args.toMap.get('wrapperName).map(_.toString).getOrElse("answerWrap"),

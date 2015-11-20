@@ -1,7 +1,7 @@
-@()(implicit request: Request[AnyContent], lang: Lang, flash:Flash)
-@import play.api.i18n.{MMessages => Messages}
+@()(implicit request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
+@import play.api.i18n.Messages
 
-@common.govMain(Messages("page.not.found")) {
+@common.govMain(messages("page.not.found")) {
     <div class="carers-allowance clearfix">
 
         @common.protoType()
@@ -13,8 +13,8 @@
             @common.leftcol()
 
             <article class="column-three-quarters main-content error-statement">
-                <h1 class="form-title heading-large">@Html(Messages("page.not.found"))</h1>
-                <p>@Html(Messages("check.part1")) <a rel="external" href="https://www.gov.uk" target="_blank">GOV.UK</a> @Html(Messages("check.part2"))</p>
+                <h1 class="form-title heading-large">@Html(messages("page.not.found"))</h1>
+                <p>@Html(messages("check.part1")) <a rel="external" href="https://www.gov.uk" target="_blank">GOV.UK</a> @Html(messages("check.part2"))</p>
             </article>
 
         </div>

@@ -1,9 +1,10 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
+import utils.WithApplication
+import org.specs2.mutable._
 import models.DayMonthYear
 
-class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
+class G10StartedEmploymentAndOngoingFormSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val amountPaid = "£199.98"
@@ -21,7 +22,7 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
   val moreInfo = "more information"
 
   "Report an Employment change in your circumstances where the employment is ongoing - Employment Form" should {
-    "map weekly paid with no pension/expenses paid when been paid set to 'yes'" in {
+    "map weekly paid with no pension/expenses paid when been paid set to 'yes'" in new WithApplication {
       G10StartedEmploymentAndOngoing.form.bind(
         Map(
           "beenPaidYet" -> yes,
@@ -37,7 +38,6 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
         )
       ).fold(
           formWithErrors => {
-            println(formWithErrors)
             "This mapping should not happen." must equalTo("Error")
           },
           f => {
@@ -52,7 +52,7 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
         )
     }
 
-    "map 'other' paid with pension/expenses paid and more information about changes when been paid set to 'no'" in {
+    "map 'other' paid with pension/expenses paid and more information about changes when been paid set to 'no'" in new WithApplication {
       G10StartedEmploymentAndOngoing.form.bind(
         Map(
           "beenPaidYet" -> no,
@@ -73,7 +73,6 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
         )
       ).fold(
           formWithErrors => {
-            println(formWithErrors)
             "This mapping should not happen." must equalTo("Error")
           },
           f => {
@@ -93,7 +92,7 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
         )
     }
 
-    "map monthly paid with no pension/expenses paid when been paid set to 'yes'" in {
+    "map monthly paid with no pension/expenses paid when been paid set to 'yes'" in new WithApplication {
       G10StartedEmploymentAndOngoing.form.bind(
         Map(
           "beenPaidYet" -> yes,
@@ -110,7 +109,6 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
         )
       ).fold(
           formWithErrors => {
-            println(formWithErrors)
             "This mapping should not happen." must equalTo("Error")
           },
           f => {
@@ -125,5 +123,6 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification with Tags {
           }
         )
     }
-  } section("unit", models.domain.CircumstancesSelfEmployment.id)
+  }
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
 }

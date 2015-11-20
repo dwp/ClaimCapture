@@ -1,6 +1,6 @@
 package controllers.preview
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects.{PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
@@ -9,7 +9,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 
 
-class PreviewPageOtherMoneyContentSpec extends Specification with Tags {
+class PreviewPageOtherMoneyContentSpec extends Specification {
 
   "Preview Page" should {
     "display other money data" in new WithBrowser with PageObjects{
@@ -27,7 +27,8 @@ class PreviewPageOtherMoneyContentSpec extends Specification with Tags {
       source must contain("Have you had any Statutory Maternity Pay, Statutory Paternity Pay or Statutory Adoption Pay".toLowerCase)
       source must contain("Yes - Details provided".toLowerCase)
     }
-  } section "preview"
+  }
+section("preview")
 
   def fillOtherMoneySection (context:PageObjectsContext) = {
     val claimDatePage = GClaimDatePage(context)

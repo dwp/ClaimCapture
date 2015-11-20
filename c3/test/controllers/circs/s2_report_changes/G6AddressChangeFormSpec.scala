@@ -1,14 +1,15 @@
 package controllers.circs.s2_report_changes
 
+import utils.WithApplication
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import scala.Predef._
 import models.MultiLineAddress
 
 /**
  * Created by neddakaltcheva on 2/14/14.
  */
-class G6AddressChangeFormSpec extends Specification with Tags {
+class G6AddressChangeFormSpec extends Specification {
   "Report a change in your address - Address Change Form" should {
     val yes = "yes"
     val no = "no"
@@ -22,7 +23,7 @@ class G6AddressChangeFormSpec extends Specification with Tags {
     val addressLineThree = "lineThree"
     val postCode = "PR1A4JQ"
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       G6AddressChange.form.bind(
         Map(
           "previousAddress.lineOne" -> addressLineOne,
@@ -53,7 +54,7 @@ class G6AddressChangeFormSpec extends Specification with Tags {
         )
     }
 
-    "mandatory fields must be populated when still caring is not set" in {
+    "mandatory fields must be populated when still caring is not set" in new WithApplication {
       G6AddressChange.form.bind(
         Map("moreAboutChanges" -> moreAboutChanges, "newPostcode" -> postCode, "previousPostcode" -> postCode)
       ).fold(
@@ -66,7 +67,7 @@ class G6AddressChangeFormSpec extends Specification with Tags {
         )
     }
 
-    "mandatory fields must be populated when still caring is set to 'no'" in {
+    "mandatory fields must be populated when still caring is set to 'no'" in new WithApplication {
       G6AddressChange.form.bind(
         Map(
           "stillCaring_answer" -> no,
@@ -84,7 +85,7 @@ class G6AddressChangeFormSpec extends Specification with Tags {
         )
     }
 
-    "mandatory fields must be populated when still caring is set to 'yes'" in {
+    "mandatory fields must be populated when still caring is set to 'yes'" in new WithApplication {
       G6AddressChange.form.bind(
         Map(
           "stillCaring_answer" -> yes,
@@ -102,7 +103,7 @@ class G6AddressChangeFormSpec extends Specification with Tags {
         )
     }
 
-    "reject special characters in text field" in {
+    "reject special characters in text field" in new WithApplication {
       G6AddressChange.form.bind(
         Map(
           "previousAddress.lineOne" -> addressLineOne,
@@ -130,7 +131,7 @@ class G6AddressChangeFormSpec extends Specification with Tags {
         )
     }
 
-    "reject invalid still caring date" in {
+    "reject invalid still caring date" in new WithApplication {
       G6AddressChange.form.bind(
         Map(
           "previousAddress.lineOne" -> addressLineOne,
@@ -158,7 +159,7 @@ class G6AddressChangeFormSpec extends Specification with Tags {
         )
     }
 
-    "reject if second line of address is empty for previous address" in {
+    "reject if second line of address is empty for previous address" in new WithApplication {
       G6AddressChange.form.bind(
         Map(
           "previousAddress.lineOne" -> addressLineOne,
@@ -186,7 +187,7 @@ class G6AddressChangeFormSpec extends Specification with Tags {
       )
     }
 
-    "reject if second line of address is empty for new address" in {
+    "reject if second line of address is empty for new address" in new WithApplication {
       G6AddressChange.form.bind(
         Map(
           "previousAddress.lineOne" -> addressLineOne,
@@ -214,5 +215,6 @@ class G6AddressChangeFormSpec extends Specification with Tags {
       )
     }
 
-  } section("unit", models.domain.CircumstancesAddressChange.id)
+  }
+  section("unit", models.domain.CircumstancesAddressChange.id)
 }

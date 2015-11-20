@@ -1,10 +1,10 @@
 package app
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.Logger
 import play.api.i18n.Messages
 
-class MessageFilesSpec extends Specification with Tags {
+class MessageFilesSpec extends Specification {
   "Property files" should {
 
     val source = scala.io.Source.fromFile("conf/messagelisting.properties")
@@ -15,7 +15,6 @@ class MessageFilesSpec extends Specification with Tags {
 
     val enKeys = enFiles.map(
       enFile => {
-        println("conf/en/%s.en.properties".format(enFile))
         val enS = scala.io.Source.fromFile("conf/en/%s.en.properties".format(enFile))
         val linesFromEnS = enS.getLines.filterNot(_.isEmpty).filterNot(s => s.startsWith("#")).toList
         val enKeys = linesFromEnS.map(pair => pair.split("=").map(k => k.trim))
@@ -26,7 +25,6 @@ class MessageFilesSpec extends Specification with Tags {
 
     val cyKeys = cyFiles.map(
       cyFile => {
-        println("conf/cy/%s.cy.properties".format(cyFile))
         val cyS = scala.io.Source.fromFile("conf/cy/%s.cy.properties".format(cyFile))
         val linesFromCyS = cyS.getLines.filterNot(_.isEmpty).filterNot(s => s.startsWith("#")).toList
         if (linesFromCyS.toString.contains("translate")) Logger.warn(s"$cyFile contains English text waiting for translation to Welsh")
@@ -45,12 +43,12 @@ class MessageFilesSpec extends Specification with Tags {
     }
 
     "each key in a English property file must have a corresponding key in the Welsh file" in {
-      println(enKeys.filterNot(enKey => cyKeys.contains(enKey)).toString)
       enKeys.filterNot(enKey => cyKeys.contains(enKey)) must beEmpty
     }
 
     "each key in a Welsh property file must have a corresponding key in the English file" in {
       cyKeys.filterNot(cyKey => enKeys.contains(cyKey)) must beEmpty
     }
-  }  section "integration"
+  }
+section("integration")
 }

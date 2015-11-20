@@ -1,6 +1,6 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
@@ -9,7 +9,7 @@ import controllers.circs.s2_report_changes
 import models.SortCode
 import utils.WithApplication
 
-class G5PaymentChangeSpec extends Specification with Tags {
+class G5PaymentChangeSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val nameOfCurrentBank = "Nat West"
@@ -62,6 +62,7 @@ class G5PaymentChangeSpec extends Specification with Tags {
 
   "Report a change in your circumstances - Change in circumstances - Controller" should {
     "present 'CoC Report Changes' " in new WithApplication with MockForm {
+
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
       val result = G5PaymentChange.present(request)
@@ -69,6 +70,7 @@ class G5PaymentChangeSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission when 'yes' answered to currently paid into bank " in new WithApplication with MockForm {
+
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validPaymentChangeFormInputScenario1: _*)
 
@@ -77,11 +79,13 @@ class G5PaymentChangeSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission when 'no' answered to currently paid into bank " in new WithApplication with MockForm {
+
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validPaymentChangeFormInputScenario2: _*)
 
       val result = s2_report_changes.G5PaymentChange.submit(request)
       redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
     }
-   } section("unit", models.domain.CircumstancesReportChanges.id)
- }
+  }
+  section("unit", models.domain.CircumstancesReportChanges.id)
+}

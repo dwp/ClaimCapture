@@ -3,6 +3,7 @@ package controllers.s_about_you
 import controllers.s_care_you_provide.{GTheirPersonalDetails}
 import models.yesNo.YesNoMandWithAddress
 import play.api.Logger
+import play.api.Play._
 import play.api.data.validation.Constraints
 
 import language.reflectiveCalls
@@ -17,8 +18,10 @@ import utils.helpers.CarersForm._
 import models.domain._
 import controllers.CarersForms._
 import EMail._
+import play.api.i18n._
 
-object GContactDetails extends Controller with CachedClaim with Navigable {
+object GContactDetails extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "address" -> address.verifying(requiredAddress),
     "postcode" -> optional(text verifying validPostcode),
@@ -33,17 +36,17 @@ object GContactDetails extends Controller with CachedClaim with Navigable {
     .verifying("error.wants.required", wantsEmailRequired _)
   )
 
-  def present = claiming {implicit claim =>  implicit request =>  lang =>
-    track(ContactDetails) { implicit claim => Ok(views.html.s_about_you.g_contactDetails(form.fill(ContactDetails))(lang)) }
+  def present = claiming {implicit claim => implicit request => implicit lang => 
+    track(ContactDetails) { implicit claim => Ok(views.html.s_about_you.g_contactDetails(form.fill(ContactDetails))) }
   }
 
-  def submit = claiming {implicit claim =>  implicit request =>  lang =>
+  def submit = claiming {implicit claim => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedForm = formWithErrors.replaceError("","error.email.match",FormError("mailConfirmation","error.email.match"))
                                         .replaceError("","error.email.required",FormError("mail",errorRequired))
                                         .replaceError("","error.wants.required",FormError("wantsEmailContact",errorRequired))
-        BadRequest(views.html.s_about_you.g_contactDetails(updatedForm)(lang))
+        BadRequest(views.html.s_about_you.g_contactDetails(updatedForm))
       },
       (contactDetails: ContactDetails) =>{
         Logger.info(contactDetails.toString)

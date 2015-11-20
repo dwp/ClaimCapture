@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.JobDetails])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.JobDetails])(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
@@ -8,12 +8,11 @@
 @import utils.helpers.CarersCrypto
 @import controllers.IterationID
 @import utils.helpers.PastPresentLabelHelper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import scala.language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
-@defining(lang) { implicit language =>
-@main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm), Some(Messages("s7.g3")),ignorePreview = true) {
+@main(messages("s7.g3") + " - " + messages("s7.longName"), Some(currentForm), Some(messages("s7.g3")),ignorePreview = true) {
 
     @form(action = controllers.s_employment.routes.GJobDetails.submit(), 'role -> "form") {
         @DwpCSRFFormHelper.formField
@@ -22,7 +21,7 @@
 
             <fieldset class="form-elements" data-journey="carers-allowance:page:employment">
 
-                <p>@Html(Messages("s7.g3.helper"))</p>
+                <p>@Html(messages("s7.g3.helper"))</p>
 
                 @carersInputText(currentForm("employerName"), 'maxLength -> mappings.Mappings.sixty)
 
@@ -33,23 +32,23 @@
                 @carersInputText(currentForm("postcode"), 'maxLength -> 8, 'class -> "postcode")
 
                 @yesNoRadioGroup(currentForm("startJobBeforeClaimDate"),
-                    '_label -> Messages("startJobBeforeClaimDate", claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang,dmy - 1 months))),
-                    'helperAbove -> Messages("startJobBeforeClaimDate.helper")
+                    '_label -> messages("startJobBeforeClaimDate", claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy - 1 months))),
+                    'helperAbove -> messages("startJobBeforeClaimDate.helper")
                 )
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(inputDayMonthYear(currentForm("jobStartDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`d M yyyy`)))),
+                    inputDef = Seq(inputDayMonthYear(currentForm("jobStartDate"), 'helperAbove -> messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 14 days).`d M yyyy`)))),
                     'id -> "jobStartDateWrapper")
 
                 @yesNoRadioGroup(currentForm("finishedThisJob"))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        inputDayMonthYear(currentForm("lastWorkDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`))),
-                        inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> Messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`)))),
+                        inputDayMonthYear(currentForm("lastWorkDate"), 'helperAbove -> messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`))),
+                        inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`)))),
                     'id -> "lastWorkData")
 
-                @carersShortInputTel(currentForm("hoursPerWeek"),'_label -> labelForEmployment(claim, lang, "hoursPerWeek", IterationID(currentForm)), 'maxLength -> 2)
+                @carersShortInputTel(currentForm("hoursPerWeek"),'_label -> labelForEmployment(claim ,lang, "hoursPerWeek", IterationID(currentForm)), 'maxLength -> 2)
 
 	        </fieldset>
 	
@@ -75,12 +74,12 @@
     jobStartDate:["@CarersCrypto.encryptAES("jobStartDate_day")",
                   "@CarersCrypto.encryptAES("jobStartDate_month")",
                   "@CarersCrypto.encryptAES("jobStartDate_year")"],
-    hoursPerWeek:{id:"@CarersCrypto.encryptAES("hoursPerWeek")",present:"@Messages("hoursPerWeek.present")",past:"@Messages("hoursPerWeek.past")"}
+    hoursPerWeek:{id:"@CarersCrypto.encryptAES("hoursPerWeek")",present:"@messages("hoursPerWeek.present")",past:"@messages("hoursPerWeek.past")"}
     });
     });
     </script>
 }
-}
+
 
 
 

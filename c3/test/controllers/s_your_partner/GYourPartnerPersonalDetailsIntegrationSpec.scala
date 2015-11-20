@@ -1,6 +1,6 @@
 package controllers.s_your_partner
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
@@ -12,7 +12,7 @@ import utils.pageobjects.s_about_you.{GMaritalStatusPage, GOtherEEAStateOrSwitze
 import app.MaritalStatus
 import utils.helpers.PreviewField._
 
-class GYourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags {
+class GYourPartnerPersonalDetailsIntegrationSpec extends Specification {
 
   "Your Partner Personal Details" should {
     "be presented" in new WithBrowser with PageObjects {
@@ -110,7 +110,8 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags
       theirPersonaDetailsPage goBack() must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
     }
 
-  } section("integration", models.domain.YourPartner.id)
+  }
+  section("integration", models.domain.YourPartner.id)
 
 
 

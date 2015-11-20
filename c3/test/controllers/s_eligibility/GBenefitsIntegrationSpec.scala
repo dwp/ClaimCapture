@@ -1,13 +1,13 @@
 package controllers.s_eligibility
 
 import models.domain.Benefits
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects.s_eligibility.{GEligibilityPage, GBenefitsPage}
 import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
 import utils.WithJsBrowser
 
-class GBenefitsIntegrationSpec extends Specification with Tags {
+class GBenefitsIntegrationSpec extends Specification {
   "Carer's Allowance - Benefits - Integration" should {
     "be presented" in new WithJsBrowser  with PageObjects {
 		  val page = GBenefitsPage(context)
@@ -66,7 +66,8 @@ class GBenefitsIntegrationSpec extends Specification with Tags {
       verifyAnswerMessageAndSubmit(Benefits.afip, context)
     }
 
-  } section("integration", models.domain.CarersAllowance.id)
+  }
+  section("integration", models.domain.CarersAllowance.id)
 
   private def verifyAnswerMessageAndSubmit(benefitAnswer:String, context:PageObjectsContext) = {
     val page = GBenefitsPage(context)

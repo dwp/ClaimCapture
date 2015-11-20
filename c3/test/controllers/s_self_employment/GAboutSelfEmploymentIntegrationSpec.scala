@@ -1,7 +1,7 @@
 package controllers.s_self_employment
 
-import org.specs2.mutable.{Tags, Specification}
-import utils.WithBrowser
+import org.specs2.mutable._
+import utils.{WithApplication, WithBrowser}
 import utils.pageobjects.s_self_employment.{GAboutSelfEmploymentPage, GSelfEmploymentYourAccountsPage}
 import utils.pageobjects.{PageObjects,TestData}
 import controllers.{Formulate, ClaimScenarioFactory}
@@ -9,7 +9,7 @@ import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 import utils.pageobjects.s_employment.GEmploymentPage
 import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
-class GAboutSelfEmploymentIntegrationSpec extends Specification with Tags {
+class GAboutSelfEmploymentIntegrationSpec extends Specification {
 
   "About Self Employment" should {
     "be presented" in new WithBrowser with PageObjects{
@@ -28,7 +28,7 @@ class GAboutSelfEmploymentIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[GAboutOtherMoneyPage]
     }
 
-    "contain errors on invalid submission" in {
+    "contain errors on invalid submission" in new WithApplication {
       "missing mandatory fields" in new WithBrowser with PageObjects{
 			val page =  GAboutSelfEmploymentPage(context)
         val claim = new TestData
@@ -84,5 +84,6 @@ class GAboutSelfEmploymentIntegrationSpec extends Specification with Tags {
 
       nextPage must (beAnInstanceOf[GSelfEmploymentYourAccountsPage])
     }
-  } section("integration", models.domain.SelfEmployment.id)
+  }
+  section("integration", models.domain.SelfEmployment.id)
 }

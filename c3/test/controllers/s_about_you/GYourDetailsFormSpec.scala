@@ -1,11 +1,12 @@
 package controllers.s_about_you
 
 import controllers.mappings.Mappings
-import org.specs2.mutable.{ Tags, Specification }
+import org.specs2.mutable._
 import models.DayMonthYear
 import models.NationalInsuranceNumber
+import utils.WithApplication
 
-class GYourDetailsFormSpec extends Specification with Tags {
+class GYourDetailsFormSpec extends Specification {
   "Your Details Form" should {
     val title = "Mr"
     val firstName = "John"
@@ -18,7 +19,7 @@ class GYourDetailsFormSpec extends Specification with Tags {
     val dateOfBirthYear = 1990
     val alwaysLivedUK = "yes"
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       GYourDetails.form.bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -42,7 +43,7 @@ class GYourDetailsFormSpec extends Specification with Tags {
           })
     }
 
-    "reject too many characters in text fields" in {
+    "reject too many characters in text fields" in new WithApplication {
       GYourDetails.form.bind(
         Map("title" -> title,
           "firstName" -> "HARACTERS,CHARACTE",
@@ -63,7 +64,7 @@ class GYourDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject special characters in text fields" in {
+    "reject special characters in text fields" in new WithApplication {
       GYourDetails.form.bind(
         Map("title" -> title,
           "firstName" -> "kk~",
@@ -84,7 +85,7 @@ class GYourDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "have 6 mandatory fields" in {
+    "have 6 mandatory fields" in new WithApplication {
       GYourDetails.form.bind(
         Map("middleName" -> "middle optional")).fold(
           formWithErrors => {
@@ -99,7 +100,7 @@ class GYourDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject invalid national insurance number" in {
+    "reject invalid national insurance number" in new WithApplication {
       GYourDetails.form.bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -118,7 +119,7 @@ class GYourDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject invalid date" in {
+    "reject invalid date" in new WithApplication {
       GYourDetails.form.bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -136,5 +137,6 @@ class GYourDetailsFormSpec extends Specification with Tags {
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
-  } section ("unit", models.domain.YourDetails.id)
+  }
+  section ("unit", models.domain.YourDetails.id)
 }

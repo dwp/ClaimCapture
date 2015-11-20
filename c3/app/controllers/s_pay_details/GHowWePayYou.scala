@@ -2,6 +2,7 @@ package controllers.s_pay_details
 
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
+import play.api.Play._
 import play.api.data.validation._
 
 import language.reflectiveCalls
@@ -13,11 +14,12 @@ import models.domain.{BankBuildingSocietyDetails, HowWePayYou}
 import utils.helpers.CarersForm._
 import PayDetails._
 import Constraints._
+import play.api.i18n._
 
 import scala.util.matching.Regex
 
-object GHowWePayYou extends Controller with CachedClaim with Navigable {
-
+object GHowWePayYou extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val bankDetailsMapping = mapping(
     "accountHolderName" -> carersNonEmptyText(maxLength = 40),
     "bankFullName" -> carersNonEmptyText(maxLength = 100),
@@ -33,13 +35,13 @@ object GHowWePayYou extends Controller with CachedClaim with Navigable {
   )(HowWePayYou.apply)(HowWePayYou.unapply))
 
 
-  def present = claimingWithCheck { implicit claim => implicit request => lang =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     presentConditionally {
-      track(HowWePayYou) { implicit claim => Ok(views.html.s_pay_details.g_howWePayYou(form.fill(HowWePayYou))(lang)) }
+      track(HowWePayYou) { implicit claim => Ok(views.html.s_pay_details.g_howWePayYou(form.fill(HowWePayYou))) }
     }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     val boundForm = form.bindEncrypted
 
     //retrieve the likeToPay value even if there are errors
@@ -67,7 +69,7 @@ object GHowWePayYou extends Controller with CachedClaim with Navigable {
       formWithErrors => {
         val updatedFormWithErrors = manageErrorsSortCode(formWithErrors, "bankDetails.")
         val afterIgnoreGroupBy = ignoreGroupByForSortCode(updatedFormWithErrors, "bankDetails.")
-        BadRequest(views.html.s_pay_details.g_howWePayYou(afterIgnoreGroupBy)(lang))
+        BadRequest(views.html.s_pay_details.g_howWePayYou(afterIgnoreGroupBy))
       },
       (howWePayYou: HowWePayYou) => {
         claim.update(howWePayYou) -> redirectPath

@@ -1,14 +1,13 @@
 package controllers.s_about_you
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.Claiming
 import models.view.CachedClaim
 import play.api.test.Helpers._
 import utils.WithApplication
 
-class GNationalityAndResidencySpec extends Specification with Tags {
-
+class GNationalityAndResidencySpec extends Specification {
   val inputBritish = Seq("nationality" -> "British", "resideInUK.answer" -> "yes")
   val inputAnotherCountry = Seq("nationality" -> "Another nationality", "actualnationality" -> "French", "resideInUK.answer" -> "yes", "maritalStatus" -> "Single")
   val inputBritishResideOutside = Seq("nationality" -> "British", "resideInUK.answer" -> "no", "resideInUK.text" -> "Maldives")
@@ -72,5 +71,6 @@ class GNationalityAndResidencySpec extends Specification with Tags {
       val result = GNationalityAndResidency.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
-  } section("unit", models.domain.AboutYou.id)
+  }
+  section("unit", models.domain.AboutYou.id)
 }

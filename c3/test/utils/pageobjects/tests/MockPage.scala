@@ -30,7 +30,7 @@ class MockPage (ctx:PageObjectsContext) extends ClaimPage(ctx, MockPage.url){
 
 
 /** The context for Specs tests */
-class MockPageContext extends PageContext with Mockito {
+trait MockPageContext extends PageContext with Mockito {
   val browser = {
     val mockedBrowser = mock[play.api.test.TestBrowser]
     mockedBrowser.url returns MockPage.url

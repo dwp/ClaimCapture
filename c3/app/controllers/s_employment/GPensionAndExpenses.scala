@@ -1,5 +1,7 @@
 package controllers.s_employment
 
+import play.api.Play._
+
 import scala.language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
@@ -13,9 +15,10 @@ import controllers.mappings.Mappings._
 import play.api.data.FormError
 import controllers.CarersForms._
 import models.yesNo.YesNoWithText
+import play.api.i18n._
 
-object GPensionAndExpenses extends Controller with CachedClaim with Navigable {
-
+object GPensionAndExpenses extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val payPensionScheme =
     "payPensionScheme" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -45,11 +48,11 @@ object GPensionAndExpenses extends Controller with CachedClaim with Navigable {
   )(PensionAndExpenses.apply)(PensionAndExpenses.unapply))
 
 
-  def present(iterationID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    track(PensionAndExpenses) { implicit claim => Ok(views.html.s_employment.g_pensionAndExpenses(form.fillWithJobID(PensionAndExpenses, iterationID))(lang)) }
+  def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+    track(PensionAndExpenses) { implicit claim => Ok(views.html.s_employment.g_pensionAndExpenses(form.fillWithJobID(PensionAndExpenses, iterationID))) }
   }
 
-  def submit = claimingWithCheckInIteration { iterationID => implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -66,7 +69,7 @@ object GPensionAndExpenses extends Controller with CachedClaim with Navigable {
           .replaceError("haveExpensesForJob","haveExpensesForJob.text..maxLength",FormError("haveExpensesForJob.text",maxLengthError, Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", iterationID))))
           .replaceError("haveExpensesForJob.text",errorRestrictedCharacters,FormError("haveExpensesForJob.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", iterationID))))
 
-          BadRequest(views.html.s_employment.g_pensionAndExpenses(formWithErrorsUpdate)(lang))
+          BadRequest(views.html.s_employment.g_pensionAndExpenses(formWithErrorsUpdate))
       },
       // Must delete the BeenEmployed question group so it doesn't prepopulate the
       // question 'Have you had any more employments...'

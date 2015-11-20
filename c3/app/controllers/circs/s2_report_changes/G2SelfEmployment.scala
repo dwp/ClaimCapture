@@ -1,5 +1,6 @@
 package controllers.circs.s2_report_changes
 
+import play.api.Play._
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.{FormError, Form}
@@ -9,8 +10,10 @@ import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
 import models.yesNo.{YesNoWithDate, YesNoWithText}
+import play.api.i18n._
 
-object G2SelfEmployment extends Controller with CachedChangeOfCircs with Navigable {
+object G2SelfEmployment extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val stillCaringMapping =
     "stillCaring" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -26,17 +29,17 @@ object G2SelfEmployment extends Controller with CachedChangeOfCircs with Navigab
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesSelfEmployment.apply)(CircumstancesSelfEmployment.unapply))
 
-  def present = claimingWithCheck {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit circs => implicit request => implicit lang => 
     track(CircumstancesSelfEmployment) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g2_selfEmployment(form.fill(CircumstancesSelfEmployment))(lang))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g2_selfEmployment(form.fill(CircumstancesSelfEmployment)))
     }
   }
 
-  def submit = claiming {implicit circs =>  implicit request =>  lang =>
+  def submit = claiming {implicit circs => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors.replaceError("stillCaring","dateRequired", FormError("stillCaring.date", errorRequired))
-        BadRequest(views.html.circs.s2_report_changes.g2_selfEmployment(updatedFormWithErrors)(lang))
+        BadRequest(views.html.circs.s2_report_changes.g2_selfEmployment(updatedFormWithErrors))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )

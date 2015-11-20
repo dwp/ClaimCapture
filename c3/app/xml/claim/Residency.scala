@@ -6,18 +6,19 @@ import xml.XMLHelper._
 import xml.XMLComponent
 import models.domain.Claim
 import controllers.mappings.Mappings
-import play.api.i18n.{Lang, MMessages => Messages}
+import play.api.i18n.{MMessages, MessagesApi}
+import play.api.Play.current
 
 object Residency extends XMLComponent{
-
+  val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def xml(claim: Claim) = {
 
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
     val timeOutsideGBLastThreeYears = claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())
 
     val nationality = nationalityAndResidency.nationality match{
-      case NationalityAndResidency.anothercountry=> Messages("label.anothercountry")
-      case _ => Messages("label.british")
+      case NationalityAndResidency.anothercountry=> messagesApi("label.anothercountry")
+      case _ => messagesApi("label.british")
     }
 
     <Residency>

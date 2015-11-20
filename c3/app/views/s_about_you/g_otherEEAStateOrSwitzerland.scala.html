@@ -1,16 +1,16 @@
-@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import scala.language.postfixOps
 @import views.html.helper._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import views.html.helper.base._
 @import utils.helpers.CarersTemplate._
 @import views.html.s_about_you.main
 
-@defining(lang) { implicit language =>
-    @main(Messages("s2.g7") + " - " + Messages("s2.longName")) {
+
+    @main(messages("s2.g7") + " - " + messages("s2.longName")) {
         @errorsSummary(otherEEAStateOrSwitzerlandForm)
 
         @form(action = controllers.s_about_you.routes.GOtherEEAStateOrSwitzerland.submit, 'role -> "form") {
@@ -21,41 +21,41 @@
 
                 <ul>
                     @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.answer"),
-                        'helperAbove -> Messages("eeaGuardQuestion.helperAbove"),
+                        'helperAbove -> messages("eeaGuardQuestion.helperAbove"),
                         'track -> true,
                         'trackLabel -> "guardQuestionEEA")
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            Html(Messages("eeaCountryHelp.label")),
+                            Html(messages("eeaCountryHelp.label")),
                             Html("<br>"),
-                            Html(Messages("eeaCountryHelp")),
+                            Html(messages("eeaCountryHelp")),
                             Html("<p></p>"),
 
                             yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.benefitsFromEEADetails.answer"),
                                 'label -> "benefitsFromEEA",
-                                'helperAbove -> Messages("benefitsFromEEA.helperAbove"),
+                                'helperAbove -> messages("benefitsFromEEA.helperAbove"),
                                 'track -> true,
                                 'trackLabel -> "benefitsFromEEA"),
 
                             otherDetailPlaceHolder(
                                 inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.benefitsFromEEADetails.field"),
                                     'label -> "benefitsFromEEADetails",
-                                    'helperAbove -> Messages("benefitsFromEEADetails.helperAbove"),
-                                    'textAreaHelper -> Html(Messages("3000charsLeft")), 'maxLength -> 3000)
+                                    'helperAbove -> messages("benefitsFromEEADetails.helperAbove"),
+                                    'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000)
                                 ),
                                 'id -> "benefitsFromEEADetailsWrapper"
                             ),
 
                             yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.workingForEEADetails.answer"),
-                                'helperAbove -> Messages("workingForEEA.helper"),
+                                'helperAbove -> messages("workingForEEA.helper"),
                                 'track -> true,
                                 'trackLabel -> "workingForEEA"),
 
                             otherDetailPlaceHolder(
                                 inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.workingForEEADetails.field"),
-                                    'helperAbove -> Messages("workingForEEADetails.helper"),
-                                    'textAreaHelper -> Html(Messages("3000charsLeft")), 'maxLength -> 3000)
+                                    'helperAbove -> messages("workingForEEADetails.helper"),
+                                    'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000)
                                 ),
                                 'id -> "workingForEEADetailsWrapper"
                             )
@@ -97,5 +97,5 @@
 
     }
 
-}
+
 

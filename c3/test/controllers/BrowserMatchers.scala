@@ -1,12 +1,12 @@
 package controllers
 
 import java.util.concurrent.TimeUnit
-import play.api.test.WithBrowser
+import utils.WithBrowsers
 import org.specs2.matcher.MustMatchers
 import scala.util.Try
 
 trait BrowserMatchers extends MustMatchers {
-  this: WithBrowser[_] =>
+  this: WithBrowsers[_] =>
 
   val duration = Try(System.getProperty("waitSeconds", "30").toInt).getOrElse(30)
 

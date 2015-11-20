@@ -2,20 +2,21 @@ package utils.helpers
 
 import views.html.helper.FieldElements
 import scala.language.implicitConversions
-
+import play.api.i18n.{MMessages, MessagesApi}
+import play.api.Play.current
 
 class EnhancedFieldElements(f:FieldElements) {
-
+  val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def carersErrors(): Seq[String] = {
     (f.args.get('_error) match {
-      case Some(Some(play.api.data.FormError(_, messages, args))) => Some(Seq(play.api.i18n.MMessages(messages, args: _*)(f.lang)))
+      case Some(Some(play.api.data.FormError(_, messages, args))) => Some(Seq(messagesApi(messages, args: _*)))
       case _ => None
     }).getOrElse {
       if (f.args.get('_showErrors) match {
         case Some(false) => false
         case _ => true
       }) {
-        f.field.errors.map(e => play.api.i18n.MMessages(e.message, e.args: _*)(f.lang))
+        f.field.errors.map(e => messagesApi(e.message, e.args: _*))
       } else Nil
     }
   }

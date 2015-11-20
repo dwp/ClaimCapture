@@ -1,6 +1,6 @@
 package controllers.s_employment
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain._
@@ -18,7 +18,7 @@ import controllers.CarersForms._
 import models.domain.Claim
 import scala.Some
 
-class GLastWageSpec extends Specification with Tags {
+class GLastWageSpec extends Specification {
   "Last wage" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -76,5 +76,6 @@ class GLastWageSpec extends Specification with Tags {
         }
       }
     }
-  } section("unit", models.domain.Employed.id)
+  }
+  section("unit", models.domain.Employed.id)
 }

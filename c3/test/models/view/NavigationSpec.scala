@@ -1,6 +1,6 @@
 package models.view
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import models.domain.{PreviewModel, ContactDetails, YourDetails}
 
 class NavigationSpec extends Specification {

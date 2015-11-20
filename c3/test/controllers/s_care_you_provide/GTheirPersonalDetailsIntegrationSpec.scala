@@ -1,7 +1,7 @@
 package controllers.s_care_you_provide
 
-import org.specs2.mutable.{Tags, Specification}
-import utils.{WebDriverHelper, WithBrowser}
+import org.specs2.mutable._
+import utils.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects._
@@ -11,7 +11,7 @@ import utils.pageobjects.s_care_you_provide.{GMoreAboutTheCarePage, GTheirPerson
 import utils.WithJsBrowser
 import utils.helpers.PreviewField._
 
-class GTheirPersonalDetailsIntegrationSpec extends Specification with Tags {
+class GTheirPersonalDetailsIntegrationSpec extends Specification {
   "Their Personal Details" should {
     "be presented" in new WithJsBrowser  with PageObjects {
       val page = GTheirPersonalDetailsPage(context)
@@ -207,6 +207,7 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification with Tags {
 
     }
 
-  } section("integration", models.domain.CareYouProvide.id)
+  }
+  section("integration", models.domain.CareYouProvide.id)
 
 }

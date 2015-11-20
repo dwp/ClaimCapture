@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.BeenEmployed])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.BeenEmployed])(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import scala.language.postfixOps
 @import views.html.helper._
@@ -6,19 +6,19 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import utils.helpers.CarersCrypto
 @import models.domain._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 
 @nextSection = @{ if (SelfEmployment.visible) SelfEmployment.name else OtherMoney.name }
 
-@defining(lang) { implicit language =>
 
-@main("Your employment history - " + Messages("s7.longName"), Some(currentForm)) {
+
+@main("Your employment history - " + messages("s7.longName"), Some(currentForm)) {
 
     <fieldset id="jobs" class="form-elements results-detail" data-journey="carers-allowance:page:employment">
 
-        <legend class="heading-medium form-label-bold">@Html(Messages("tableTitle"))</legend>
+        <legend class="heading-medium form-label-bold">@Html(messages("tableTitle"))</legend>
 
         <div class="data-table">
     
@@ -33,21 +33,21 @@
         					  	<h3 class="heading-small">@job.employerName</h3>
         					  	
         					  	<dl>
-        						  	<dt>@Html(Messages("startDateTable")):</dt>
+        						  	<dt>@Html(messages("startDateTable")):</dt>
         						  	<dd>@{
                                             job.jobStartDate match{
                                                 case startDate@DayMonthYear(Some(_),Some(_),Some(_), None, None)   =>
                                                     startDate.`dd/MM/yyyy`
                                                 case _ =>
-                                                    Html(Messages("startDateLabel", claim.dateOfClaim.fold("")(dmy => (dmy - 1 months).`dd/MM/yyyy`)))
+                                                    Html(messages("startDateLabel", claim.dateOfClaim.fold("")(dmy => (dmy - 1 months).`dd/MM/yyyy`)))
                                             }
                                         }
                                     </dd>
         					  	</dl>
         					  	
         						<div class="actions">
-        							<input type="button" id="changeButton" value="@Html(Messages("change"))">
-        							<input type="button" id="deleteButton" value="@Html(Messages("delete"))">
+        							<input type="button" id="changeButton" value="@Html(messages("change"))">
+        							<input type="button" id="deleteButton" value="@Html(messages("delete"))">
         						</div>
         					
         				  	</li>
@@ -58,12 +58,12 @@
 
                 <div class="prompt breaks-prompt validation-summary">
                     @form(action = controllers.s_employment.routes.Employment.delete, 'role -> "form"){
-                        <p class="normalMsg">@Html(Messages("deleteEmploymentMessage"))</p>
-                        <p class="warningMsg">@Html(Messages("deleteOneEmploymentMessage"))</p>
+                        <p class="normalMsg">@Html(messages("deleteEmploymentMessage"))</p>
+                        <p class="warningMsg">@Html(messages("deleteOneEmploymentMessage"))</p>
                         @DwpCSRFFormHelper.formField
                         @carersInputHidden(controllers.s_employment.Employment.deleteForm("deleteId"))
-                        <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(Messages("no.delete"))">
-                        <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(Messages("yes.delete"))">
+                        <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(messages("no.delete"))">
+                        <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(messages("yes.delete"))">
                     }
                 </div>
 				  	
@@ -79,16 +79,16 @@
 
         <fieldset class="form-elements">
 
-            <legend class="heading-medium form-label-bold">@Html(Messages("s7.g2"))</legend>
+            <legend class="heading-medium form-label-bold">@Html(messages("s7.g2"))</legend>
 
             <ul>
                 @yesNoRadioGroup(currentForm("beenEmployed"),
-                    '_label -> Messages("beenEmployed", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(lang, dmy - 6 months))),
-                    'helperAbove -> Messages("beenEmployedSince6MonthsBeforeClaim.label.helper"))
+                    '_label -> messages("beenEmployed", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(lang, dmy - 6 months))),
+                    'helperAbove -> messages("beenEmployedSince6MonthsBeforeClaim.label.helper"))
             </ul>
 
             <div id="maxEmpWarningWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
-                <p>@Html(Messages("s7.g2.help2"))</p>
+                <p>@Html(messages("s7.g2.help2"))</p>
             </div>
 
         </fieldset>
@@ -109,4 +109,4 @@
     </script>
 
 }
-}
+

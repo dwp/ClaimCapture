@@ -1,10 +1,11 @@
 package controllers.circs.s2_report_changes
 
+import utils.WithApplication
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import models.SortCode
 
-class G5PaymentChangeFormSpec extends Specification with Tags {
+class G5PaymentChangeFormSpec extends Specification {
    "Report a change in your circumstances - Payment Change" should {
 
      val yes = "yes"
@@ -23,7 +24,7 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
      val paymentFrequency = "weekly"
      val moreAboutChanges = "Some additional info goes here"
 
-     "map data into case class" in {
+     "map data into case class" in new WithApplication {
        G5PaymentChange.form.bind(
          Map(
            "currentlyPaidIntoBank.answer" -> yes,
@@ -59,7 +60,7 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
        )
      }
 
-     "mandatory fields must be populated" in {
+     "mandatory fields must be populated" in new WithApplication {
        G5PaymentChange.form.bind(
          Map(
            "moreAboutChanges" -> ""
@@ -81,7 +82,7 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
          )
      }
 
-     "mandatory fields must be populated when currentlyPaidIntoBank is yes" in {
+     "mandatory fields must be populated when currentlyPaidIntoBank is yes" in new WithApplication {
        G5PaymentChange.form.bind(
          Map(
            "currentlyPaidIntoBank.answer" -> yes
@@ -103,7 +104,7 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
          )
      }
 
-     "mandatory fields must be populated when currentlyPaidIntoBank is no" in {
+     "mandatory fields must be populated when currentlyPaidIntoBank is no" in new WithApplication {
        G5PaymentChange.form.bind(
          Map(
            "currentlyPaidIntoBank.answer" -> no
@@ -125,5 +126,6 @@ class G5PaymentChangeFormSpec extends Specification with Tags {
          )
      }
 
-   } section("unit", models.domain.CircumstancesSelfEmployment.id)
+   }
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
  }

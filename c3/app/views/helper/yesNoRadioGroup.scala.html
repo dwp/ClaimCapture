@@ -1,9 +1,9 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
-@defaultValues = @{Seq("yes" -> Messages("label.yes"), "no" -> Messages("label.no"))}
+@defaultValues = @{Seq("yes" -> messages("label.yes"), "no" -> messages("label.no"))}
 @isAllowance = @{
     args.find(t => t._1 == 'allowance).getOrElse('allowance -> false)._2.asInstanceOf[Boolean]
 }
@@ -16,4 +16,4 @@
 
     @yesNoPlaceholder(field, values, args.filter(d => d._1 != 'label && d._1 != 'values && d._1 != 'allowance):_*)
 
-}(fieldConstructor,lang)
+}(fieldConstructor,messages)

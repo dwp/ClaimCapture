@@ -10,7 +10,6 @@ import xml.XMLComponent
 import xml.XMLHelper._
 import models.DayMonthYear
 
-
 /**
  * Generate the XML presenting the Assisted decisions.
  * @author Jorge Migueis

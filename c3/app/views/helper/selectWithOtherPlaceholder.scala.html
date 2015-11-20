@@ -1,15 +1,15 @@
-@(field: play.api.data.Field,id:String, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit lang: Lang)
+@(field: play.api.data.Field,id:String, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 
 @import views.html.helper.base._
 @import utils.helpers.EmptyTemplate._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @views.html.helper.base.carersSelect(field(id), options, args ++ Seq('class -> "selectWithOther"): _*)
 
 <ul @{Html(args.toMap.get('id).map(p => s"""id="${p}_wrap" """).getOrElse(""))}>
     <li class="form-group@{if(field.hasErrors)" validation" else ""}" >
-        @carersInputTextArea(field(id)("other"), Seq('placeholder -> Messages("ifOtherPleaseSpecify"), 'ignoreLabel -> false) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id):_*)
+        @carersInputTextArea(field(id)("other"), Seq('placeholder -> messages("ifOtherPleaseSpecify"), 'ignoreLabel -> false) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id):_*)
         @if(args.exists(_._1 == 'textAreaHelper)) {
             <p class="form-hint countdown">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
         }

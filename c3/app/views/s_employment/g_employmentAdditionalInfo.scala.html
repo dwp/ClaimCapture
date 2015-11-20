@@ -1,4 +1,4 @@
-@(employmentAdditionalInfoForm: Form[models.domain.EmploymentAdditionalInfo])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(employmentAdditionalInfoForm: Form[models.domain.EmploymentAdditionalInfo])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import scala.language.postfixOps
 @import utils.helpers.CarersTemplate._
@@ -6,18 +6,18 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
-@defining(lang) { implicit language =>
 
-    @main(Messages("s7.g9") + "  " + Messages("s7.longName"), Some(employmentAdditionalInfoForm)) {
+
+    @main(messages("s7.g9") + "  " + messages("s7.longName"), Some(employmentAdditionalInfoForm)) {
         @form(action = controllers.s_employment.routes.GEmploymentAdditionalInfo.submit, 'role -> "form") {
             @DwpCSRFFormHelper.formField
 
             <fieldset class="form-elements">
 
-                <legend class="visuallyhidden">@Html(Messages("s7.g9"))</legend>
+                <legend class="visuallyhidden">@Html(messages("s7.g9"))</legend>
 
                 <ul>
 
@@ -26,7 +26,7 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputTextArea(employmentAdditionalInfoForm("empAdditionalInfo")("text"),
-                                'textAreaHelper -> Html(Messages("3000charsLeft")),
+                                'textAreaHelper -> Html(messages("3000charsLeft")),
                                 'ignoreLabel -> true,
                                 'ignoreOptional -> true,
                                 'maxLength -> 3000)
@@ -56,4 +56,4 @@
         </script>
 
     }
-}
+

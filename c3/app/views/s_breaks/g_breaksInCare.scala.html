@@ -1,5 +1,5 @@
 @import play.api.Play
-@(yesNoForm: Form[models.domain.BreaksInCareSummary], breaksInCare: models.domain.BreaksInCare)(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent],flash:Flash)
+@(yesNoForm: Form[models.domain.BreaksInCareSummary], breaksInCare: models.domain.BreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper.base._
 @import views.html.helper._
@@ -7,7 +7,7 @@
 @import models.domain.{ClaimDate, Education, Employed, OtherMoney, SelfEmployment}
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 @import scala.language.postfixOps
@@ -33,11 +33,11 @@ else OtherMoney.name
 }
 
 @defining(lang) { implicit language =>
-@main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(yesNoForm)) {
+@main(messages("s4.g5") + " - " + messages("s4.longName"), Some(yesNoForm)) {
 
     <fieldset id="breaks" class="form-elements results-detail">
 
-        <legend class="heading-medium form-class-bold">@Html(Messages("breaksAlreadyAdded"))</legend>
+        <legend class="heading-medium form-class-bold">@Html(messages("breaksAlreadyAdded"))</legend>
 
         <div class="data-table">
 
@@ -50,52 +50,52 @@ else OtherMoney.name
                       	<h3 class="heading-small">
                             @{break.start.`dd/MM/yyyy`}
                             <span>
-                            @{if(break.hasBreakEnded.date.isDefined) Messages("to")}
+                            @{if(break.hasBreakEnded.date.isDefined) messages("to")}
                             </span>
                             @{break.hasBreakEnded.date.fold("")(_.`dd/MM/yyyy`)}
                         </h3>
                       	
                       	<dl>
 
-                    	  	<dt>@Html(Messages("breaks.whereYou.label"))</dt>
+                    	  	<dt>@Html(messages("breaks.whereYou.label"))</dt>
 
                     	  	<dd>
                                 @break.whereYou.answer.isEmpty match {
                                     case false => {
-                                        @displayReason(whereWereYouList,break.whereYou.answer)
+                                        @displayReason(whereWereYouList(lang, messages),break.whereYou.answer)
                                     }
                                     case true => {}
                                 }
                             </dd>
                     	  	
-                    	  	<dt>@Html(Messages("wherePerson"))</dt>
+                    	  	<dt>@Html(messages("wherePerson"))</dt>
 
                     	  	<dd>
                                 @break.wherePerson.answer.isEmpty match {
                                     case false => {
-                                        @displayReason(whereWasThePersonList,break.wherePerson.answer)
+                                        @displayReason(whereWasThePersonList(lang, messages),break.wherePerson.answer)
                                     }
                                     case true => {}
                                 }
                             </dd>
                     	  	
-                    	  	<dt>@Html(Messages("medicalTreatment"))</dt>
+                    	  	<dt>@Html(messages("medicalTreatment"))</dt>
                             
-                    	  	<dd>@if("yes" == break.medicalDuringBreak) { @Html(Messages("label.yes3")) } else { @Html(Messages("label.no")) }</dd>
+                    	  	<dd>@if("yes" == break.medicalDuringBreak) { @Html(messages("label.yes3")) } else { @Html(messages("label.no")) }</dd>
 
                       	</dl>
                       	
                     	<div class="actions">
-                    		<input type="button" name="changerow" value="@Html(Messages("change"))" aria-label="@Html(Messages("change.button"))">
-                        	<input type="button" name="deleterow" value="@Html(Messages("delete"))" aria-label="@Html(Messages("delete.button"))">
+                    		<input type="button" name="changerow" value="@Html(messages("change"))" aria-label="@Html(messages("change.button"))">
+                        	<input type="button" name="deleterow" value="@Html(messages("delete"))" aria-label="@Html(messages("delete.button"))">
                     	</div>
 
                 	</li>
 
                     <div class="prompt breaks-prompt validation-summary">
-                            <p>@Html(Messages("areYouSureYouWantToDeleteThisBreak"))</p>
-                            <input id="noDelete" type="button" name="no" class="button secondary" value="@Html(Messages("no.delete"))" aria-label="@Html(Messages("no.delete.label"))">
-                            <input id="yesDelete" type="button" name="yes" class="button warning" value="@Html(Messages("yes.delete"))" aria-label="@Html(Messages("yes.delete.label"))">
+                            <p>@Html(messages("areYouSureYouWantToDeleteThisBreak"))</p>
+                            <input id="noDelete" type="button" name="no" class="button secondary" value="@Html(messages("no.delete"))" aria-label="@Html(messages("no.delete.label"))">
+                            <input id="yesDelete" type="button" name="yes" class="button warning" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))">
                     </div>
                 	
                 }
@@ -118,32 +118,32 @@ else OtherMoney.name
 
         <fieldset class="form-elements">
 
-            <legend class="heading-medium form-class-bold">@Html(Messages("s4.g5"))</legend>
+            <legend class="heading-medium form-class-bold">@Html(messages("s4.g5"))</legend>
 
             @if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty){
                 <div class="prompt nested-prompt">
 
-                    <p>@Html(Messages("s4.g5.help1"))</p>
+                    <p>@Html(messages("s4.g5.help1"))</p>
 
                     <ul class="list-bullet">
-                        <li>@Html(Messages("s4.g5.help3"))</li>
-                        <li>@Html(Messages("s4.g5.help4"))</li>
+                        <li>@Html(messages("s4.g5.help3"))</li>
+                        <li>@Html(messages("s4.g5.help4"))</li>
                     </ul>
 
-                    <p>@Html(Messages("s4.g5.help2")) <a rel="external" href="/claim-help#3" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Breaks from Caring")>@Html(Messages("s4.g5.help2.link"))</a>.</p>
+                    <p>@Html(messages("s4.g5.help2")) <a rel="external" href="/claim-help#3" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Breaks from Caring")>@Html(messages("s4.g5.help2.link"))</a>.</p>
 
                 </div>
             }
 
             <ul>
                 @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
-                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateWeRequireBreakInCareInformationFrom))
+                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> messages(answerLabel, dateWeRequireBreakInCareInformationFrom))
                 }
             </ul>
 
             @if(breaksInCare.breaks.size >=app.ConfigProperties.getProperty("maximumBreaksInCare", 10)){
                 <div id="warningMessageWrap" class="prompt validation-summary">
-                    <p>@Html(Messages("s4.g5.help5"))</p>
+                    <p>@Html(messages("s4.g5.help5"))</p>
                 </div>
             }
 
@@ -153,8 +153,7 @@ else OtherMoney.name
         @views.html.common.bottomNavigation(trackSubmit = true)
 
     }
-
-
+    
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_breaks/g_breaksInCare.js")></script>
 
     <script type="text/javascript">
@@ -164,7 +163,7 @@ else OtherMoney.name
                                 "@CarersCrypto.encryptAES("answer_no")",
                                 @play.api.Play.isTest(play.api.Play.current));
             @if(claim.navigation.beenInPreview){
-                window.updateNextLabel("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")","@Messages("form.next")","@Messages("form.returnToSummary")");
+            window.updateNextLabel("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")","@messages("form.next")","@messages("form.returnToSummary")");
             }
         });
     </script>

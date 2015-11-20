@@ -1,6 +1,4 @@
-@(nextLabel: Option[String], nextButtonName:String ,nextButtonValue:String , trackSubmit:Boolean, customTrack:Option[Html])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
-
-@import play.api.i18n.{MMessages => Messages, _}
+@(nextLabel: Option[String], nextButtonName:String ,nextButtonValue:String , trackSubmit:Boolean, customTrack:Option[Html])(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @label = @{
     nextLabel match {
@@ -10,4 +8,4 @@
     }
 }
 
-<button type="submit" name="@{nextButtonName}" value="@{nextButtonValue}" class="button" @{if(trackSubmit) views.html.ga.trackSubmit()} @{customTrack.fold(Html(""))(t=>t)}>@Messages(label)</button>
+<button type="submit" name="@{nextButtonName}" value="@{nextButtonValue}" class="button" @{if(trackSubmit) views.html.ga.trackSubmit()} @{customTrack.fold(Html(""))(t=>t)}>@messages(label)</button>

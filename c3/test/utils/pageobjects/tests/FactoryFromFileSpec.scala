@@ -1,6 +1,6 @@
 package utils.pageobjects.tests
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import utils.pageobjects.{TestData, FactoryFromFile}
 
 /**

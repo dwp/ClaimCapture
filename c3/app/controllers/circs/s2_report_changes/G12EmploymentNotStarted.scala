@@ -1,6 +1,7 @@
 package controllers.circs.s2_report_changes
 
 import models.domain.CircumstancesEmploymentNotStarted
+import play.api.Play._
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.{Form, FormError}
@@ -9,8 +10,11 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import models.yesNo.YesNoWithText
+import play.api.i18n._
 
-object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with Navigable {
+
+object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val payIntoPension =
     "willYouPayIntoPension" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -49,13 +53,13 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
     .verifying("expected.usuallyPaidSameAmount",validateUsuallyPaidSameAmount _)
   )
 
-  def present = claiming {implicit circs =>  implicit request =>  lang =>
+  def present = claiming {implicit circs => implicit request => implicit lang => 
     track(CircumstancesEmploymentNotStarted) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g12_employmentNotStarted(form.fill(CircumstancesEmploymentNotStarted))(lang))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g12_employmentNotStarted(form.fill(CircumstancesEmploymentNotStarted)))
     }
   }
 
-  def submit = claiming {implicit circs =>  implicit request =>  lang =>
+  def submit = claiming {implicit circs => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -69,7 +73,7 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
           .replaceError("", "expected.howOften",FormError("howOften",errorRequired))
           .replaceError("", "expected.usuallyPaidSameAmount",FormError("usuallyPaidSameAmount",errorRequired))
 
-        BadRequest(views.html.circs.s2_report_changes.g12_employmentNotStarted(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.circs.s2_report_changes.g12_employmentNotStarted(formWithErrorsUpdate))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )

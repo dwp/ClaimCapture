@@ -3,14 +3,15 @@ package models
 import scala.util.{Failure, Success, Try}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.i18n.{MMessages => Messages}
 import utils.C3Encryption._
+import play.api.i18n.{MMessages, MessagesApi}
+import play.api.Play.current
 
 case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
                         hour: Option[Int] = None, minutes: Option[Int] = None) {
 
   var encryptedDate: Option[String] = None
-
+  def messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def encrypt = {
     encryptedDate match {
       case Some(date) => this // Do not encrypt if already encrypted
@@ -67,14 +68,14 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
   /**
   * Convert a DayMonthYear object to a string with 'month' in local language. See "conf/headingAndTitle.<local>.properties" files
   */
-  def `dd month, yyyy`(implicit lang: play.api.i18n.Lang): String = s"${this.`dd`} ${Messages("dynamicDatePlaceholder." + this.`M`)}, ${this.`yyyy`}"
+  def `dd month, yyyy`(implicit lang: play.api.i18n.Lang): String = s"${this.`dd`} ${messagesApi("dynamicDatePlaceholder." + this.`M`)}, ${this.`yyyy`}"
 
   /**
    * Convert a DayMonthYear object to a string with 'month' in local language. See "conf/headingAndTitle.<local>.properties" files
    */
-  def `dd month yyyy`(implicit lang: play.api.i18n.Lang): String =  s"${this.`dd`} ${Messages("dynamicDatePlaceholder." + this.`M`)} ${this.`yyyy`}"
+  def `dd month yyyy`(implicit lang: play.api.i18n.Lang): String =  s"${this.`dd`} ${messagesApi("dynamicDatePlaceholder." + this.`M`)} ${this.`yyyy`}"
 
-  def `d month yyyy`(implicit lang: play.api.i18n.Lang): String =  s"${this.`d`} ${Messages("dynamicDatePlaceholder." + this.`M`)} ${this.`yyyy`}"
+  def `d month yyyy`(implicit lang: play.api.i18n.Lang): String =  s"${this.`d`} ${messagesApi("dynamicDatePlaceholder." + this.`M`)} ${this.`yyyy`}"
 
   def `yyyy-MM-dd'T'HH:mm:00`: String = format("yyyy-MM-dd'T'HH:mm:00")
 

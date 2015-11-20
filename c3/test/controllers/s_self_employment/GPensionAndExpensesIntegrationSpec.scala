@@ -1,6 +1,6 @@
 package controllers.s_self_employment
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_self_employment._
@@ -8,7 +8,7 @@ import utils.pageobjects.PageObjects
 import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 import utils.pageobjects.s_employment.GEmploymentAdditionalInfoPage
 
-class GPensionAndExpensesIntegrationSpec extends Specification with Tags {
+class GPensionAndExpensesIntegrationSpec extends Specification {
   "Self Employment Pension And Expenses" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GSelfEmploymentPensionsAndExpensesPage(context)
@@ -43,5 +43,6 @@ class GPensionAndExpensesIntegrationSpec extends Specification with Tags {
       val backPage = submitted goBack ()
       backPage must beAnInstanceOf[GSelfEmploymentPensionsAndExpensesPage]
     }
-  } section("integration",models.domain.Employed.id)
+  }
+  section("integration",models.domain.Employed.id)
 }

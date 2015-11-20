@@ -1,10 +1,11 @@
 package controllers.s_about_you
 
+import utils.WithApplication
 import controllers.mappings.Mappings
 import models.{DayMonthYear, NationalInsuranceNumber}
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 
-class GContactDetailsFormSpec extends Specification with Tags {
+class GContactDetailsFormSpec extends Specification {
   "Contact Details Form" should {
     val addressLineOne = "101 Clifton Street"
     val addressLineTwo = "Blackpool"
@@ -12,7 +13,7 @@ class GContactDetailsFormSpec extends Specification with Tags {
     val howWeContactYou = "01772888901"
     val wantsEmailContact = Mappings.no
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       GContactDetails.form.bind(
         Map(
           "address.lineOne" -> addressLineOne,
@@ -30,7 +31,7 @@ class GContactDetailsFormSpec extends Specification with Tags {
           })
     }
 
-    "reject too many digits in contact number field" in {
+    "reject too many digits in contact number field" in new WithApplication {
       GContactDetails.form.bind(
         Map("address.lineOne" -> addressLineOne,
           "address.lineTwo" -> addressLineTwo,
@@ -44,7 +45,7 @@ class GContactDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "have 1 mandatory fields" in {
+    "have 1 mandatory fields" in new WithApplication {
       GContactDetails.form.bind(
         Map("howWeContactYou" -> "01234567890")).fold(
         formWithErrors => {
@@ -54,5 +55,6 @@ class GContactDetailsFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-  } section ("unit", models.domain.ContactDetails.id)
+  }
+  section ("unit", models.domain.ContactDetails.id)
 }

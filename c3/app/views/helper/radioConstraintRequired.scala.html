@@ -1,10 +1,10 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 @import views.html.helper.base.carersInputText
 @import utils.helpers.EmptyTemplate._
 @import utils.helpers.HtmlLabelHelper._
 @import views.html.helper.base.{carersLabel,carersLabelText}
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
 @nestedFieldSet = @{ args.toMap.get('_nestedFieldSet).getOrElse(false) == true }
@@ -17,19 +17,19 @@
 
     @if(args.find(_._1=='bullets).isDefined){
         @if(args.find(_._1=='helperAbove).isDefined){
-            <p class="form-hint">@Html(Messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
+            <p class="form-hint">@Html(messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
         }
         <ul class="list-bullet">
             @for(bullet <- args.find(_._1=='bullets).getOrElse('bullets->Seq.empty[String])._2.asInstanceOf[Seq[String]]) {
-                <li> @Html(Messages(bullet))</li>
+                <li> @Html(messages(bullet))</li>
             }
         </ul>
         @if(args.find(_._1=='paragraph).isDefined){
-            <p>@Html(Messages(args.find(_._1=='paragraph).getOrElse('paragraph->"")._2.toString()))</p>
+            <p>@Html(messages(args.find(_._1=='paragraph).getOrElse('paragraph->"")._2.toString()))</p>
         }
     } else {
         @if(args.find(_._1=='helperAbove).isDefined){
-            <p class="form-hint">@Html(Messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
+            <p class="form-hint">@Html(messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
         }
     }
 

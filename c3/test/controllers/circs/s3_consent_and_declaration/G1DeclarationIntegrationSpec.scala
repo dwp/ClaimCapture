@@ -1,15 +1,16 @@
 package controllers.circs.s3_consent_and_declaration
 
+import utils.WithApplication
 import utils.WithJsBrowser
 import controllers.CircumstancesScenarioFactory
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.circumstances.s2_report_changes.G4OtherChangeInfoPage
 import utils.pageobjects.circumstances.s1_start_of_process.G2ReportAChangeInYourCircumstancesPage$
 
 
-class G1DeclarationIntegrationSpec extends Specification with Tags {
+class G1DeclarationIntegrationSpec extends Specification {
 
   "Declaration" should {
     val obtainInfoAgreement = "no"
@@ -46,7 +47,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G1DeclarationPage]
     }
 
-    "contain errors on invalid submission" in {
+    "contain errors on invalid submission" in new WithApplication {
 //      "missing furtherInfoContact field" in new WithJsBrowser  with PageObjects{
 //        val page =  G1DeclarationPage(context)
 //        val claim = new TestData
@@ -151,6 +152,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
       }
 */
     }
-  } section("integration", models.domain.CircumstancesConsentAndDeclaration.id)
+  }
+  section("integration", models.domain.CircumstancesConsentAndDeclaration.id)
 
 }

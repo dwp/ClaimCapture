@@ -1,7 +1,7 @@
 package controllers.s_employment
 
-
 import models.yesNo.DeleteId
+import play.api.Play._
 import play.api.data.Forms._
 
 import scala.language.implicitConversions
@@ -9,11 +9,12 @@ import utils.helpers.CarersForm._
 import scala.reflect.ClassTag
 import play.api.mvc._
 import play.api.data.Form
-import play.api.i18n.{MMessages => Messages}
 import models.view.{Navigable, CachedClaim}
 import models.domain._
+import play.api.i18n._
 
-object Employment extends Controller with CachedClaim  with Navigable{
+object Employment extends Controller with CachedClaim  with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   implicit def jobFormFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
     def fillWithJobID(qi: QuestionGroup.Identifier, iterationID: String)(implicit claim: Claim): Form[Q] = {
       claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == iterationID).getOrElse(Iteration("", List())).find(_.identifier.id == qi.id) match {
@@ -51,13 +52,13 @@ object Employment extends Controller with CachedClaim  with Navigable{
 
   }
 
-  def delete = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
+  def delete = claimingWithCheck {implicit claim => implicit request => implicit lang => 
 
     deleteForm.bindEncrypted.fold(
-      errors    =>  BadRequest(views.html.s_employment.g_beenEmployed(fillForm)(lang)),
+      errors    =>  BadRequest(views.html.s_employment.g_beenEmployed(fillForm)),
       deleteForm=>  {
         val updatedJobs = jobs.delete(deleteForm.id)
-        if (updatedJobs.jobs == jobs.jobs) BadRequest(views.html.s_employment.g_beenEmployed(fillForm)(lang))
+        if (updatedJobs.jobs == jobs.jobs) BadRequest(views.html.s_employment.g_beenEmployed(fillForm))
         else claim.update(updatedJobs) -> (if(updatedJobs.jobs.size == 0 ) Redirect(controllers.s_self_employment.routes.GEmployment.present())
                                           else Redirect(controllers.s_employment.routes.GBeenEmployed.present()))
       }

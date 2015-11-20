@@ -1,9 +1,10 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
+import utils.WithApplication
+import org.specs2.mutable._
 import models.DayMonthYear
 
-class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
+class G11StartedAndFinishedEmploymentFormSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val howMuchPaid = "£50"
@@ -23,7 +24,7 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
   val moreInfo = "more information"
 
   "Report an Employment change in your circumstances where the employment is finished - Employment Form" should {
-    "map weekly paid with no pension/expenses paid when employer does not owe money" in {
+    "map weekly paid with no pension/expenses paid when employer does not owe money" in new WithApplication {
       G11StartedAndFinishedEmployment.form.bind(
         Map(
           "beenPaidYet" -> no,
@@ -41,7 +42,6 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
         )
       ).fold(
           formWithErrors => {
-            println(formWithErrors)
             "This mapping should not happen." must equalTo("Error")
           },
           f => {
@@ -57,7 +57,7 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
         )
     }
 
-    "map monthly paid with no pension/expenses paid when employer does not owe money" in {
+    "map monthly paid with no pension/expenses paid when employer does not owe money" in new WithApplication {
       G11StartedAndFinishedEmployment.form.bind(
         Map(
           "beenPaidYet" -> no,
@@ -76,7 +76,6 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
         )
       ).fold(
           formWithErrors => {
-            println(formWithErrors)
             "This mapping should not happen." must equalTo("Error")
           },
           f => {
@@ -93,7 +92,7 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
         )
     }
 
-    "map other paid with pension/expenses paid when employer does owes money and further information is provided" in {
+    "map other paid with pension/expenses paid when employer does owes money and further information is provided" in new WithApplication {
       G11StartedAndFinishedEmployment.form.bind(
         Map(
           "beenPaidYet" -> yes,
@@ -117,7 +116,6 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
         )
       ).fold(
           formWithErrors => {
-            println(formWithErrors)
             "This mapping should not happen." must equalTo("Error")
           },
           f => {
@@ -138,5 +136,6 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification with Tags {
           }
         )
     }
-  } section("unit", models.domain.CircumstancesSelfEmployment.id)
+  }
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
 }

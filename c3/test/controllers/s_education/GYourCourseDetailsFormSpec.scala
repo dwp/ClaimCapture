@@ -1,11 +1,12 @@
 package controllers.s_education
 
+import utils.WithApplication
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import models.DayMonthYear
 import scala.Some
 
-class GYourCourseDetailsFormSpec extends Specification with Tags {
+class GYourCourseDetailsFormSpec extends Specification {
 
   val overHundredChars = "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS"
   val nameOfSchoolCollegeOrUniversity = "MIT"
@@ -17,7 +18,7 @@ class GYourCourseDetailsFormSpec extends Specification with Tags {
   val dateYear = 1990
 
   "Your course details Form" should {
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       GYourCourseDetails.form.bind(
         Map(
           "beenInEducationSinceClaimDate" -> "yes",
@@ -42,7 +43,7 @@ class GYourCourseDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "have 1 mandatory field on initial load" in {
+    "have 1 mandatory field on initial load" in new WithApplication {
       GYourCourseDetails.form.bind(
         Map("courseTitle" -> title,
           "nameOfSchoolCollegeOrUniversity" -> nameOfSchoolCollegeOrUniversity,
@@ -59,7 +60,7 @@ class GYourCourseDetailsFormSpec extends Specification with Tags {
         )
     }
 
-    "have 5 mandatory fields if beenInEducationSinceClaimDate is yes" in {
+    "have 5 mandatory fields if beenInEducationSinceClaimDate is yes" in new WithApplication {
       GYourCourseDetails.form.bind(
         Map("beenInEducationSinceClaimDate" -> "yes")
       ).fold(
@@ -75,7 +76,7 @@ class GYourCourseDetailsFormSpec extends Specification with Tags {
         )
     }
 
-    "reject too many characters in text fields" in {
+    "reject too many characters in text fields" in new WithApplication {
       GYourCourseDetails.form.bind(
         Map(
           "beenInEducationSinceClaimDate" -> "yes",
@@ -95,7 +96,7 @@ class GYourCourseDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject invalid dates" in {
+    "reject invalid dates" in new WithApplication {
       GYourCourseDetails.form.bind(
         Map(
           "beenInEducationSinceClaimDate" -> "yes",
@@ -114,5 +115,6 @@ class GYourCourseDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-  } section("unit", models.domain.Education.id)
+  }
+  section("unit", models.domain.Education.id)
 }

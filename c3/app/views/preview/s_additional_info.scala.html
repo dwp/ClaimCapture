@@ -1,18 +1,18 @@
-@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang)
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import models.domain._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import controllers.mappings.Mappings._
 @import helper._
 
 @additionalInfo = @{claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())}
 @additionalInfoAnswer = @{
     additionalInfo.anythingElse.answer match {
-        case `yes` => Messages("label.yes") + " - " + Messages("detailsProvided.simple")
-        case _ => Messages("label.no")
+        case `yes` => messages("label.yes") + " - " + messages("detailsProvided.simple")
+        case _ => messages("label.no")
     }
 }
-@additionalInfoWelsh = @{Messages("label." + additionalInfo.welshCommunication)}
+@additionalInfoWelsh = @{messages("label." + additionalInfo.welshCommunication)}
 @disableChangeButton = @{
     !app.ConfigProperties.getProperty("cyaToggleVisible",true)
 }
@@ -21,4 +21,4 @@
     @fieldWithLink("additional_info_welsh" , "welshCommunication", additionalInfoWelsh, elementId = Some("welshCommunication"), disableLink = disableChangeButton)
 }
 
-@accordion(label = Messages("s10_2.g1"), openLabel = "open-additional-info", closeLabel = "close-additional-info", content = content, 'track -> true)
+@accordion(label = messages("s10_2.g1"), openLabel = "open-additional-info", closeLabel = "close-additional-info", content = content, 'track -> true)

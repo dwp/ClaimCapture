@@ -3,14 +3,15 @@ package controllers.circs.s1_start_of_process
 import app.ReportChange._
 import controllers.CircumstancesScenarioFactory
 import org.openqa.selenium.By
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects.{TestData, PageObjects}
 import utils.pageobjects.circumstances.s1_start_of_process.{G2ReportAChangeInYourCircumstancesPage, G1ReportChangesPage}
 import utils.pageobjects.circumstances.s2_report_changes.{G4OtherChangeInfoPage, _}
 import CircumstancesScenarioFactory._
+import utils.WithApplication
 
-class G1ReportChangesIntegrationSpec extends Specification with Tags {
+class G1ReportChangesIntegrationSpec extends Specification {
 
   "Report a change in your circumstances" should {
 
@@ -72,13 +73,14 @@ class G1ReportChangesIntegrationSpec extends Specification with Tags {
       otherChangeInfoPageSecond must beAnInstanceOf[G4OtherChangeInfoPage]
 
       //verify that the other field is not filled
-      otherChangeInfoPageSecond.ctx.browser.webDriver.findElement(By.id("changeInCircs")).getText must_== ""
+      otherChangeInfoPageSecond.ctx.browser.getDriver.findElement(By.id("changeInCircs")).getText must_== ""
       //the submit fails with validation
       val samePage = otherChangeInfoPageSecond.submitPage()
       samePage must beAnInstanceOf[G4OtherChangeInfoPage]
     }
 
 
-  } section("integration", models.domain.CircumstancesIdentification.id)
+  }
+  section("integration", models.domain.CircumstancesIdentification.id)
 
 }

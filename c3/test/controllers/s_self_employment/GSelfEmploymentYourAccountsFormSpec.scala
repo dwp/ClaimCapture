@@ -1,12 +1,13 @@
 package controllers.s_self_employment
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
+import utils.WithApplication
 
-class GSelfEmploymentYourAccountsFormSpec extends Specification with Tags {
+class GSelfEmploymentYourAccountsFormSpec extends Specification {
 
   "About Self Employment - Your Accounts" should {
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       GSelfEmploymentYourAccounts.form.bind(
         Map("doYouKnowYourTradingYear" -> "yes",
           "whatWasOrIsYourTradingYearFrom.day" -> "11",
@@ -25,7 +26,7 @@ class GSelfEmploymentYourAccountsFormSpec extends Specification with Tags {
       )
     }
 
-    "map data with do you know your trading year set as no" in {
+    "map data with do you know your trading year set as no" in new WithApplication {
       GSelfEmploymentYourAccounts.form.bind(
         Map("doYouKnowYourTradingYear" -> "no")
       ).fold(
@@ -36,7 +37,7 @@ class GSelfEmploymentYourAccountsFormSpec extends Specification with Tags {
         )
     }
 
-    "reject if tellUsWhyAndWhenTheChangeHappened is not filled" in {
+    "reject if tellUsWhyAndWhenTheChangeHappened is not filled" in new WithApplication {
       GSelfEmploymentYourAccounts.form.bind(
         Map("areAccountsPreparedOnCashFlowBasis" -> "yes",
           "doYouKnowYourTradingYear" -> "yes",
@@ -47,7 +48,7 @@ class GSelfEmploymentYourAccountsFormSpec extends Specification with Tags {
       )
     }
 
-    "reject if do you know your trading year is not selected" in {
+    "reject if do you know your trading year is not selected" in new WithApplication {
       GSelfEmploymentYourAccounts.form.bind(
         Map(
           "whatWasOrIsYourTradingYearFrom.day" -> "11",
@@ -63,5 +64,6 @@ class GSelfEmploymentYourAccountsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid")
         )
     }
-  } section("unit", models.domain.SelfEmployment.id)
+  }
+  section("unit", models.domain.SelfEmployment.id)
 }

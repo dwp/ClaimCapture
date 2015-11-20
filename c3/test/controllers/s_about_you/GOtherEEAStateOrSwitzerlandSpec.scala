@@ -1,6 +1,6 @@
 package controllers.s_about_you
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.cache.Cache
@@ -9,7 +9,7 @@ import utils.WithApplication
 import scala.Some
 import models.view.CachedClaim
 
-class GOtherEEAStateOrSwitzerlandSpec extends Specification with Tags {
+class GOtherEEAStateOrSwitzerlandSpec extends Specification {
   "Other EEA State of Switzerland" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -26,8 +26,7 @@ class GOtherEEAStateOrSwitzerlandSpec extends Specification with Tags {
     }
 
     """be added to cached claim upon answering "no" to "benefits from other EEA state or Switzerland".""" in new WithApplication with Claiming {
-      val request = FakeRequest()
-        .withFormUrlEncodedBody("eeaGuardQuestion.answer" -> "no")
+      val request = FakeRequest().withFormUrlEncodedBody("eeaGuardQuestion.answer" -> "no")
 
       val result = GOtherEEAStateOrSwitzerland.submit(request)
 
@@ -39,5 +38,6 @@ class GOtherEEAStateOrSwitzerlandSpec extends Specification with Tags {
         }
       }
     }
-  } section("unit", models.domain.OtherMoney.id)
+  }
+  section("unit", models.domain.OtherMoney.id)
 }

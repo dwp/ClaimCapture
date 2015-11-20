@@ -1,8 +1,8 @@
-@(title: String, currentForm: Option[Form[_]] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash)
+@(title: String, currentForm: Option[Form[_]] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
 @import models.domain.ConsentAndDeclaration
 @import helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import views.html.common._
 @common.govMain(title) {
 	
@@ -20,7 +20,7 @@
 
                 @views.html.common.upperBackButton(forceShow = true)
 
-                <h1 class="form-title heading-large">@Html(Messages("s11.longName"))</h1>
+                <h1 class="form-title heading-large">@Html(messages("s11.longName"))</h1>
 
                 @if(currentForm.isDefined){
                     @errorsSummary(currentForm.get)

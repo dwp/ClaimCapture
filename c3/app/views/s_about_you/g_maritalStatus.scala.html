@@ -1,4 +1,4 @@
-@(contactDetailsForm: Form[models.domain.MaritalStatus])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(contactDetailsForm: Form[models.domain.MaritalStatus])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,18 +7,18 @@
 @import utils.helpers.CarersCrypto
 @import views.html.helper._
 @import views.html.helper.base._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import app.ConfigProperties._
 
-@defining(lang) { implicit language =>
-    @main(Messages("s2.g2") + " - " + Messages("s2.longName")) {
+
+    @main(messages("s2.g2") + " - " + messages("s2.longName")) {
         @errorsSummary(contactDetailsForm)
 
         @form(action = controllers.s_about_you.routes.GMaritalStatus.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
             <fieldset class="form-elements">
-                <!--<legend>@Html(Messages("s2.g2"))</legend>-->
+                <!--<legend>@Html(messages("s2.g2"))</legend>-->
 
                 <ul>
                     @maritalStatusSelect(contactDetailsForm("maritalStatus"),'_nestedFieldSet -> true)
@@ -31,4 +31,4 @@
         }
 
     }
-}
+

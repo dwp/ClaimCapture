@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.SelfEmploymentPensionsAndExpenses])(lang: Lang)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.SelfEmploymentPensionsAndExpenses])(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -9,11 +9,10 @@
 @import utils.helpers.CarersCrypto
 @import utils.helpers.PastPresentLabelHelper.{labelForSelfEmployment, valuesForSelfEmployment}
 @import utils.csrf.DwpCSRFFormHelper
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import models.domain.{Iteration, Jobs}
 
-@defining(lang) { implicit language =>
-@main(Messages("s8.g4") + " " + Messages("s8.longName"), Messages("s8.longName"), Some(currentForm), ignorePreview = true) {
+@main(messages("s8.g4") + " " + messages("s8.longName"), messages("s8.longName"), Some(currentForm), ignorePreview = true) {
 
     @form(action = controllers.s_self_employment.routes.GSelfEmploymentPensionsAndExpenses.submit, 'role -> "form") {
 
@@ -23,13 +22,13 @@
 
             <ul>
                 @yesNoRadioGroup(currentForm("payPensionScheme")("answer"),
-                    '_label -> labelForSelfEmployment(claim, lang, "payPensionScheme.answer"), valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"))
+                    '_label -> labelForSelfEmployment(claim, lang,  "payPensionScheme.answer"), valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         carersInputTextArea(currentForm("payPensionScheme")("text"),
                             '_label -> labelForSelfEmployment(claim, lang, "payPensionScheme.text"),
-                            'textAreaHelper -> Html(Messages("300charsLeft")),
+                            'textAreaHelper -> Html(messages("300charsLeft")),
                             'ignoreOptional -> true,
                             'maxLength -> 300)
                     ),
@@ -46,7 +45,7 @@
                     inputDef = Seq(
                         carersInputTextArea(currentForm("haveExpensesForJob")("text"),
                             '_label -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.text"),
-                            'textAreaHelper -> Html(Messages("300charsLeft")),
+                            'textAreaHelper -> Html(messages.apply("300charsLeft")),
                             'helperAbove -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.text.helper"),
                             'ignoreOptional -> true,
                             'maxLength -> 300)
@@ -82,4 +81,4 @@
         window.areaCounter({selector: "@CarersCrypto.encryptAES("haveExpensesForJob_text")",maxChars:300});
     </script>
     }
-}
+

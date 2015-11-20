@@ -1,6 +1,6 @@
 package controllers.s_disclaimer
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, Formulate, BrowserMatchers}
 import utils.pageobjects.s_eligibility.GApprovePage
@@ -8,7 +8,7 @@ import utils.pageobjects.PageObjects
 import utils.pageobjects.s_disclaimer.GDisclaimerPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 
-class GDisclaimerIntegrationSpec extends Specification with Tags {
+class GDisclaimerIntegrationSpec extends Specification {
   "Disclaimer" should {
     "be presented" in new WithBrowser with PageObjects {
       val page = GDisclaimerPage(context)
@@ -29,5 +29,6 @@ class GDisclaimerIntegrationSpec extends Specification with Tags {
       disclaimerPage goBack() must beAnInstanceOf[GApprovePage]
     }
 
-  } section("integration", models.domain.DisclaimerSection.id)
+  }
+  section("integration", models.domain.DisclaimerSection.id)
 }

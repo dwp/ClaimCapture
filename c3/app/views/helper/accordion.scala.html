@@ -1,4 +1,4 @@
-@(label: String, openLabel: String, closeLabel: String, content: Html,args: (Symbol, Any)*)(implicit lang: play.api.i18n.Lang, request:play.api.mvc.Request[AnyContent])
+@(label: String, openLabel: String, closeLabel: String, content: Html,args: (Symbol, Any)*)(implicit lang: play.api.i18n.Lang, request:play.api.mvc.Request[AnyContent], messages: play.api.i18n.Messages)
 
 @import utils.helpers.GAHelper._
 @import app.ConfigProperties._

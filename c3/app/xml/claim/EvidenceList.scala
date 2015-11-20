@@ -5,14 +5,14 @@ import models.domain._
 import app.XMLValues._
 import models.domain.Claim
 import models.domain.ClaimUtils
-import play.api.Logger
 import scala.xml.{Elem, NodeSeq}
 import xml.XMLHelper._
 import models.MultiLineAddress
-import play.api.i18n.{MMessages => Messages}
+import play.api.i18n.{MMessages, MessagesApi}
+import play.api.Play.current
 
 object EvidenceList {
-
+  val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def buildXml(claim: Claim) = {
     <EvidenceList>
       {evidence(claim)}
@@ -28,7 +28,7 @@ object EvidenceList {
     val isEmail = claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail.getOrElse("") == Mappings.yes
     val evidenceRequired = employed || selfEmployed || receivesStatutorySickPay || receivesOtherStatutoryPay
 
-    val evidenceEmployedStatements = Seq(Messages("evidence.employment.lastPayslip", stringify(claimDate.dateOfClaim)), "evidence.employment.payslipsSinceClaimDate")
+    val evidenceEmployedStatements = Seq(messagesApi("evidence.employment.lastPayslip", stringify(claimDate.dateOfClaim)), "evidence.employment.payslipsSinceClaimDate")
     val evidenceSelfEmployedStatements = Seq("evidence.selfEmployment.accounts")
     val evidencePensionStatements = Seq("evidence.pensionStatements")
     val evidenceStatutorySickPay = Seq("evidence.otherMoney.statutorySickPay")
@@ -96,15 +96,15 @@ object EvidenceList {
   }
 
   private def title(text: String): NodeSeq = {
-    <Title>{Messages(text)}</Title>
+    <Title>{messagesApi(text)}</Title>
   }
 
   private def content(text: String): NodeSeq = {
-    <Content>{Messages(text)}</Content>
+    <Content>{messagesApi(text)}</Content>
   }
 
   def recepientAddress(questionLabelCode: String):NodeSeq = {
-    val address = MultiLineAddress(Some(Messages("s11.g5.help11")),Some(Messages("s11.g5.help12")),Some(Messages("s11.g5.help13")))
-    postalAddressStructureRecipientAddress(questionLabelCode, address, Some(Messages("s11.g5.help14")))
+    val address = MultiLineAddress(Some(messagesApi("s11.g5.help11")),Some(messagesApi("s11.g5.help12")),Some(messagesApi("s11.g5.help13")))
+    postalAddressStructureRecipientAddress(questionLabelCode, address, Some(messagesApi("s11.g5.help14")))
   }
 }

@@ -1,6 +1,7 @@
 package controllers.s_self_employment
 
 import controllers.mappings.Mappings
+import play.api.Play._
 
 import language.reflectiveCalls
 import play.api.data.Forms._
@@ -19,10 +20,11 @@ import controllers.CarersForms._
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
 import models.domain.Claim
-import play.api.i18n.Lang
 import models.view.ClaimHandling.ClaimResult
+import play.api.i18n._
 
-object GSelfEmploymentYourAccounts extends Controller with CachedClaim with Navigable {
+object GSelfEmploymentYourAccounts extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "doYouKnowYourTradingYear" -> carersNonEmptyText.verifying(validYesNo),
     "whatWasOrIsYourTradingYearFrom" -> optional(dayMonthYear.verifying(validDateOnly)),
@@ -40,15 +42,15 @@ object GSelfEmploymentYourAccounts extends Controller with CachedClaim with Navi
     }
   }
 
-  def present = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    presentConditionally(selfEmploymentYourAccounts(lang),lang)
+  def present = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+    presentConditionally(selfEmploymentYourAccounts)
   }
 
-  def selfEmploymentYourAccounts(lang: Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    track(SelfEmploymentYourAccounts) { implicit claim => Ok(views.html.s_self_employment.g_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts))(lang)) }
+  def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    track(SelfEmploymentYourAccounts) { implicit claim => Ok(views.html.s_self_employment.g_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts))) }
   }
 
-  def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheck { implicit claim =>  implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -57,7 +59,7 @@ object GSelfEmploymentYourAccounts extends Controller with CachedClaim with Navi
           .replaceError("whatWasOrIsYourTradingYearFrom.year","error.number", FormError("whatWasOrIsYourTradingYearFrom.year", "error.number", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom.year"))))
           .replaceError("whatWasOrIsYourTradingYearTo","error.invalid", FormError("whatWasOrIsYourTradingYearTo", "error.invalid", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"))))
           .replaceError("whatWasOrIsYourTradingYearTo.year","error.number", FormError("whatWasOrIsYourTradingYearTo.year", "error.number", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo.year"))))
-        BadRequest(views.html.s_self_employment.g_selfEmploymentYourAccounts(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.s_self_employment.g_selfEmploymentYourAccounts(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.GSelfEmploymentPensionsAndExpenses.present()))
   }

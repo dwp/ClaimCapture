@@ -1,10 +1,10 @@
 package app
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import app.StatutoryPaymentFrequency._
 
 
-class AppSpec extends Specification with Tags {
+class AppSpec extends Specification {
 
   "StatutoryPaymentFrequency" should {
     "convert frquencies to human readable ones" in  {
@@ -12,6 +12,7 @@ class AppSpec extends Specification with Tags {
       mapToHumanReadableStringWithOther(Some(models.PaymentFrequency("Other",None))) mustEqual "Other"
       mapToHumanReadableString(Some(models.PaymentFrequency("Four-Weekly"))) mustEqual "Four-weekly"
     }
-  } section "unit"
+  }
+section("unit")
 
 }

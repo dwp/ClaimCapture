@@ -1,6 +1,6 @@
 package controllers.s_about_you
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.{TestBrowser}
 import utils.WithBrowser
 import utils.pageobjects.common.ClaimHelpPage
@@ -12,7 +12,7 @@ import utils.pageobjects._
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.helpers.PreviewField._
 
-class GYourDetailsIntegrationSpec extends Specification with Tags {
+class GYourDetailsIntegrationSpec extends Specification {
   "Your Details" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GYourDetailsPage(context)
@@ -101,7 +101,8 @@ class GYourDetailsIntegrationSpec extends Specification with Tags {
     }
 
 
-  } section("integration", models.domain.AboutYou.id)
+  }
+  section("integration", models.domain.AboutYou.id)
 
   def goToPreviewPage(context:PageObjectsContext):Page = {
     val claimDatePage = GClaimDatePage(context)

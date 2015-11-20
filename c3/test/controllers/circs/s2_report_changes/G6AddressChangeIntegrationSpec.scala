@@ -5,12 +5,12 @@ import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s2_report_changes.G6AddressChangePage
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 
 /**
  * Created by neddakaltcheva on 2/14/14.
  */
-class G6AddressChangeIntegrationSpec  extends Specification with Tags {
+class G6AddressChangeIntegrationSpec  extends Specification {
   "Address change" should {
 
     "be presented" in new WithBrowser with PageObjects{
@@ -99,6 +99,7 @@ class G6AddressChangeIntegrationSpec  extends Specification with Tags {
       page.listErrors.size must beEqualTo(1)
     }
 
-  } section("integration", models.domain.CircumstancesIdentification.id)
+  }
+  section("integration", models.domain.CircumstancesIdentification.id)
 
 }

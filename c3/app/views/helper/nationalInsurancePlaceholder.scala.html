@@ -1,9 +1,9 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 @import views.html.helper.base.carersNINOInputText
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper.strippedHtmlConstraintRequired
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
     @ninoField = @{
     //Workaround based on NiNo old multi-mapping, the hability on showing the (optional) label and the need to have the same id

@@ -1,13 +1,13 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @nestedFieldSet = @{ args.toMap.get('_nestedFieldSet).getOrElse(false) == true }
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
     @if(nestedFieldSet) {<fieldset>}
-    @radioListPlaceholder(field, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(request,lang,utils.helpers.EmptyTemplate.fieldConstructor)
+    @radioListPlaceholder(field, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(request,lang,utils.helpers.EmptyTemplate.fieldConstructor,messages)
     @if(nestedFieldSet) {</fieldset>}
 }

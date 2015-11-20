@@ -1,4 +1,4 @@
-@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent],flash:Flash)
+@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import scala.language.postfixOps
 
@@ -7,7 +7,7 @@
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.s_about_you.main
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import views.html.helper.base._
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
@@ -16,8 +16,8 @@
     claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy))
 }
 
-@defining(lang) { implicit language =>
-@main(Messages("s2.g5") + " - " + Messages("s2.longName")) {
+
+    @main(messages("s2.g5") + " - " + messages("s2.longName")) {
 @errorsSummary(AbroadForMoreThan52WeeksForm)
 
     @form(action = controllers.s_about_you.routes.GAbroadForMoreThan52Weeks.submit, 'role -> "form") {
@@ -30,14 +30,14 @@
 
                 @yesNoRadioGroup(AbroadForMoreThan52WeeksForm(
                     "anyTrips"),
-                    '_label -> Messages("52Weeks.label"),
-                    'helperAbove -> Messages("52Weeks.helper")
+                    '_label -> messages("52Weeks.label"),
+                    'helperAbove -> messages("52Weeks.helper")
                 )
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(carersInputTextArea(AbroadForMoreThan52WeeksForm("tripDetails"),
-                        'helperAbove -> Messages("tripDetails.helper"),
-                        'textAreaHelper->Html(Messages("3000charsLeft")), 'maxLength->3000)
+                        'helperAbove -> messages("tripDetails.helper"),
+                        'textAreaHelper->Html(messages("3000charsLeft")), 'maxLength->3000)
                     ),
                     'id -> "tripDetailsWrapper"
                 )
@@ -65,4 +65,4 @@
     </script>
 
 }
-}
+

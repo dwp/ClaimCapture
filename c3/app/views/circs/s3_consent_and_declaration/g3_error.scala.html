@@ -1,21 +1,21 @@
-@()(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@()(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import play.api.i18n.{MMessages => Messages}
-@defining(lang) { implicit language =>
-    @main(Messages("tryChangeAgain"), None, false) {
+@import play.api.i18n.Messages
+
+    @main(messages("tryChangeAgain"), None, false) {
         <div id="wrapper" class="carers-allowance">
             <div class="carers-container">
                 <section class="error-statement">
 
                     <header>
-                        <h1 class="form-title heading-large">@Html(Messages("c3.g3.help1"))</h1>
+                        <h1 class="form-title heading-large">@Html(messages("c3.g3.help1"))</h1>
                     </header>
 
-                    <p>@Html(Messages("c3.g3.help1"))</p>
+                    <p>@Html(messages("c3.g3.help1"))</p>
 
                     <nav class="form-steps">
                         <ul>
-                            <li><a id="backButton" href="@claim.navigation.previous">@Html(Messages("button.backToClaim"))</a></li>
+                            <li><a id="backButton" href="@claim.navigation.previous">@Html(messages("button.backToClaim"))</a></li>
                         </ul>
                     </nav>
 
@@ -24,4 +24,4 @@
             </div>
         </div>
     }
-}
+

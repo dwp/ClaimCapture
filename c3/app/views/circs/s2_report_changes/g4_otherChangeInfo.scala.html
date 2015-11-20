@@ -1,4 +1,4 @@
-@(otherInfoForm: Form[models.domain.CircumstancesOtherInfo])(lang:Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(otherInfoForm: Form[models.domain.CircumstancesOtherInfo])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -6,11 +6,11 @@
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.base._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import utils.helpers._
 
-@defining(lang) { implicit language =>
-@main(Messages("c2.g4") + " - " + Messages("c2.name")) {
+
+@main(messages("c2.g4") + " - " + messages("c2.name")) {
     @errorsSummary(otherInfoForm)
 
     @form(action = controllers.circs.s2_report_changes.routes.G4OtherChangeInfo.submit) {
@@ -20,10 +20,10 @@
 
         	<fieldset class="form-elements" data-journey="carers-allowance:report-change:other-change">
 
-	            <legend class="heading-medium form-label-bold">@Html(Messages("c2.g4"))</legend>
+	            <legend class="heading-medium form-label-bold">@Html(messages("c2.g4"))</legend>
 
 	            <ul class="coc-layout">
-	                @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000, 'textAreaHelper -> Html(Messages("2000charsLeft")), 'maxLength -> 2000 )
+	                @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000, 'textAreaHelper -> Html(messages("2000charsLeft")), 'maxLength -> 2000 )
 	            </ul>
                 
 	        </fieldset>
@@ -43,4 +43,4 @@
     </script>
 
 }
-}
+
