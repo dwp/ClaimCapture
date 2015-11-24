@@ -44,8 +44,10 @@ object Replica extends Controller with I18nSupport {
                           pathList.filter(_.matches("/other-money.*")) ,
                           pathList.filter(_.matches("/pay-details.*")) ,
                           pathList.filter(_.matches("/information.*")) ,
+                          pathList.filter(_.matches("/preview")) ,
                           pathList.filter(_.matches("/consent-and-declaration.*")) ,
-                          pathList.filter(_.matches("/preview"))
+                          pathList.filter(_.matches("/thankyou/apply-carers"))
+
         ).map(_.filterNot(iteratedPaths.contains(_)))
          .map(_.filterNot(_.matches(".*delete.*")))
          .map(_.filterNot(_.matches(".*error.*")))

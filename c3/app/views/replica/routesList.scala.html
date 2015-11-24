@@ -6,6 +6,7 @@
 @section(routes:Seq[String]) = @{
     val capture = "^/(.*?)(?:/.*)?$".r
     routes head match {
+        case capture(section) if section == "thankyou" => s"${section}-title"
         case capture(section) => section
         case _ => "error"
     }
