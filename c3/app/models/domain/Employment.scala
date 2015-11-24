@@ -2,8 +2,6 @@ package models.domain
 
 import controllers.mappings.Mappings
 import models._
-import play.api.i18n.{MMessages, MessagesApi}
-import play.api.Play.current
 import scala.reflect.ClassTag
 import controllers.mappings.Mappings._
 import models.PaymentFrequency

@@ -1,4 +1,4 @@
-window.initSummary = (deleteId) ->
+window.initSummary = (deleteId, jobSize, max) ->
     $("#jobs").hide() if $("ul.trip-data").children().length is 0
 
     $(".breaks-prompt").hide()
@@ -68,15 +68,16 @@ window.initEvents = (beenEmployed) ->
     $("input[name=" + beenEmployed+"]:checked").val() == "no"
 
 
-window.displayWarning = (answer_yes, answer_no) ->
-  if ($("#" + answer_yes).is ":checked") && $("ul.trip-data").children().length is 5
-    $("#maxEmpWarningWrap").slideDown()
-    $("#maxEmpWarningWrap").css('display', "block")
+window.displayWarning = (answer_yes, answer_no, testMode) ->
+  if( $("#maxEmpWarningWrap").length > 0 && $("#" + answer_yes).prop("checked"))
+    $("#maxEmpWarningWrap").show()
 
   $("#" + answer_yes).on "click", ->
-    if $("ul.trip-data").children().length is 5
-      $("#maxEmpWarningWrap").slideDown()
-      $("#maxEmpWarningWrap").css('display', "block")
+    if( $("#maxEmpWarningWrap").length >0)
+      $("#maxEmpWarningWrap").show()
+      if not testMode then trackEvent(window.location.pathname, "Error", $("#maxEmpWarningWrap").text().trim())
 
   $("#" + answer_no).on "click", ->
-    $("#maxEmpWarningWrap").slideUp()
+    if( $("#maxEmpWarningWrap").length >0)
+      $("#maxEmpWarningWrap").hide()
+

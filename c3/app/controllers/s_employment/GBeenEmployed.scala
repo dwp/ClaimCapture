@@ -63,7 +63,7 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
     import controllers.mappings.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
-      case `yes` if jobs.size < Mappings.five => Redirect(routes.GJobDetails.present(IterationID(form)))
+      case `yes` if jobs.size < app.ConfigProperties.getProperty("maximumJobs", 10) => Redirect(routes.GJobDetails.present(IterationID(form)))
       case _ => Redirect(controllers.s_employment.routes.GEmploymentAdditionalInfo.present())
     }
 
