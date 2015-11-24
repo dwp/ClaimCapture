@@ -1,4 +1,4 @@
-window.initSummary = (deleteId, jobSize, max) ->
+window.initSummary = (deleteId) ->
     $("#jobs").hide() if $("ul.trip-data").children().length is 0
 
     $(".breaks-prompt").hide()
@@ -14,32 +14,30 @@ window.initSummary = (deleteId, jobSize, max) ->
     $("ul").on "click", "input[id='deleteButton']", ->
         disable()
         enableConfirmation()
-
         li = $(this).closest("li")
-        ul = $(this).closest("ul")
+        prompt = li.next()
 
-        $("#jobs .breaks-prompt").slideDown {
+        prompt.slideDown {
             start:->
                 dynamicMessage()
             ,complete:->
-                $("input[id='noDeleteButton']").unbind "click"
-                $("input[id='yesDeleteButton']").unbind "click"
-
-                $("input[id='noDeleteButton']").on "click", ->
+                prompt.find("#noDeleteButton").unbind "click"
+                prompt.find("#yesDeleteButton").unbind "click"
+                prompt.find("#noDeleteButton").on "click", ->
                     enable()
-                    $(".breaks-prompt").slideUp()
+                    prompt.slideUp()
 
-                $("input[id='yesDeleteButton']").on "click", ->
+                prompt.find("#yesDeleteButton").on "click", ->
                     disableConfirmation()
                     id = li.attr("id")
                     $("#"+deleteId).val(id)
-                    $(this).parents("form").submit()
+                    $("#deleteForm").submit()
         }
 
 dynamicMessage = ->
   normalMsg = $(".normalMsg")
   warningMsg = $(".warningMsg")
-  if $("ul").find("tr").length is 1
+  if $("ul.trip-data").find("li").length is 1
     normalMsg.hide()
     warningMsg.show()
   else

@@ -48,29 +48,25 @@
                                 </div>
 
                             </li>
-
+                            <div class="prompt breaks-prompt validation-summary">
+                                <p class="normalMsg">@Html(messages("deleteEmploymentMessage"))</p>
+                                <p class="warningMsg">@Html(messages("deleteOneEmploymentMessage"))</p>
+                                <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(messages("no.delete"))" aria-label="@Html(messages("no.delete.label"))">
+                                <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))">
+                            </div>
                         }
                     }
                 }
-
-
-                <div class="prompt breaks-prompt validation-summary">
-                    @form(action = controllers.s_employment.routes.Employment.delete, 'role -> "form"){
-                        <p class="normalMsg">@Html(messages("deleteEmploymentMessage"))</p>
-                        <p class="warningMsg">@Html(messages("deleteOneEmploymentMessage"))</p>
-                        @DwpCSRFFormHelper.formField
-                        @carersInputHidden(controllers.s_employment.Employment.deleteForm("deleteId"))
-                        <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(messages("no.delete"))">
-                        <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(messages("yes.delete"))">
-                    }
-                </div>
-				  	
 			</ul>
-		  
+
         </div>
 
     </fieldset>
-    
+    @form(action = controllers.s_employment.routes.Employment.delete, 'role -> "form", 'id -> "deleteForm"){
+        @DwpCSRFFormHelper.formField
+        @carersInputHidden(controllers.s_employment.Employment.deleteForm("deleteId"))
+    }
+
     @form(action = controllers.s_employment.routes.GBeenEmployed.submit(), 'role -> "form"){
 
         @DwpCSRFFormHelper.formField
