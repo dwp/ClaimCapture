@@ -36,13 +36,7 @@ window.initSummary = (deleteId) ->
 
 dynamicMessage = ->
   normalMsg = $(".normalMsg")
-  warningMsg = $(".warningMsg")
-  if $("ul.trip-data").find("li").length is 1
-    normalMsg.hide()
-    warningMsg.show()
-  else
-    normalMsg.show()
-    warningMsg.hide()
+  normalMsg.show()
 
 enableConfirmation = ->
     $("#jobs .breaks-prompt input[type='button']").removeAttr("disabled").removeClass("disabled")
