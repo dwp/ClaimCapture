@@ -1,0 +1,9 @@
+@(
+        label:String,
+        buttonName:String,
+        buttonValue:String,
+        trackSubmit:Boolean,
+        customTrack:Option[Html]
+        )(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+
+<button onClick="location.href='@{claim.navigation.current.toString}'" name="@{buttonName}" value="@{buttonValue}" type="submit" class="button" @{if(trackSubmit) views.html.ga.trackSubmit()} @{customTrack.fold(Html(""))(t=>t)}>@{label}</button>

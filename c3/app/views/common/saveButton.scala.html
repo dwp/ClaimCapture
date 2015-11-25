@@ -1,0 +1,13 @@
+@(saveButtonName: String = "action")(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+
+@import app.ConfigProperties._
+
+@isLandingPageAfterPreview = @{
+    request.uri == (claim.checkYAnswers.cyaPointOfEntry getOrElse "")
+}
+@isSaveEnabled=@{
+    getProperty("saveForLaterEnabled",default = false)
+}
+@if(isSaveEnabled && ( !claim.navigation.beenInPreview || (claim.navigation.beenInPreview && !isLandingPageAfterPreview) ) ){
+    <button type="submit" class="button" name=@{saveButtonName} value="save">@messages("form.save")</button>
+}

@@ -1,19 +1,36 @@
 @(
         changing: Boolean = false,
         nextLabel: Option[String] = None,
-        nextButtonName:String = "action",
-        nextButtonValue:String = "next",
+        nextButtonName: String = "action",
+        nextButtonValue: String = "next",
         backCall: Option[Call] = None,
+        saveCall: Option[Call] = None,
+        saveButtonName: String = "action",
         previous: Option[models.view.Route[_]] = None,
         trackSubmit: Boolean = false,
         customTrack: Option[Html] = None,
-        forceShow:Boolean = false
+        forceShow: Boolean = false
         )(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
+@import controllers.mappings.Mappings._
+@import models.domain._
 
+@contactDetails = @{
+    claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
+}
+@showSaveButton = @{
+    contactDetails.wantsContactEmail match {
+        case Some(yesNo) if yesNo == yes => true
+        case _ => false
+    }
+}
 <nav class="form-steps" role="navigation">
     <ul>
         <li>@views.html.common.nextButton(nextLabel, nextButtonName, nextButtonValue, trackSubmit, customTrack) </li>
+        @if(showSaveButton) {
+            <li>@views.html.common.saveButton(saveButtonName)</li>
+        }
         <li>@views.html.common.genericBackButton(changing, backCall, previous, forceShow)</li>
     </ul>
 </nav>
+

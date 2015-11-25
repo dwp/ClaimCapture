@@ -31,6 +31,9 @@ GET         /preview-back                                               controll
 POST        /preview                                                    controllers.preview.Preview.submit
 GET         /preview/redirect/:id                                       controllers.preview.Preview.redirect(id)
 
+POST         /save                                                       controllers.SaveClaim.submit
+GET         /save                                                       controllers.SaveClaim.present
+
 # Cache Timeout
 GET         /timeout                                                    controllers.ClaimEnding.timeout
 GET         /circs-timeout                                              controllers.CircsEnding.timeout

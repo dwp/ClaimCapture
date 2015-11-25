@@ -1,0 +1,35 @@
+@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
+
+@import models.domain._
+@import controllers.mappings.Mappings._
+
+@continueLabel = @{
+    messages("saveClaim.success.button.label")
+}
+@continueName = @{
+    "saveClaimName"
+}
+@continueValue = @{
+    "saveClaimValue"
+}
+
+@contactDetails = @{
+    claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
+}
+@emailAddress = @{
+    contactDetails.wantsContactEmail match {
+        case Some(yesNo) if yesNo == yes => contactDetails.email.getOrElse("")
+        case Some(yesNo) if yesNo == no => "Email not set"
+        case None => "Email block not set"
+    }
+}
+
+@defining(lang) { implicit language =>
+    @main(messages("saveClaim.success.legend")) {
+        <p>@Html(messages("saveClaim.success.line1", emailAddress))</p>
+        <p>@Html(messages("saveClaim.success.line2"))</p>
+
+        <p>@views.html.saveClaim.continueButton(messages("saveClaim.success.button.label"), continueName, continueValue, true, None)</p>
+        <p><a rel="external" href="https://www.gov.uk/carers-allowance" target="_blank">Go to GOV.UK</a></p>
+    }
+}
