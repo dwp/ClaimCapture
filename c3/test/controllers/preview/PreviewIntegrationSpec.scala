@@ -4,10 +4,8 @@ import org.specs2.mutable._
 import utils.WithJsBrowser
 import utils.pageobjects.PageObjects
 import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s_about_you.GYourDetailsPage
 import utils.pageobjects.s_information.GAdditionalInfoPage
-import controllers.{BrowserMatchers, ClaimScenarioFactory}
-import utils.pageobjects.s_pay_details.GHowWePayYouPage
+import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_consent_and_declaration.GDeclarationPage
 import utils.helpers.PreviewField._
 import play.api.i18n.{MMessages, MessagesApi}
@@ -42,7 +40,17 @@ class PreviewIntegrationSpec extends Specification {
       previewPage must beAnInstanceOf[PreviewPage]
       browser.findFirst(getLinkId("about_you_contact")).click()
       browser.findFirst("button[value='next']").getText mustEqual messagesApi("form.returnToSummary")
+    }
 
+    "change dob to be older and bank details not visible" in new WithJsBrowser with PageObjects {
+      val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+      val previewPage = PreviewPage(context) goToThePage()
+      previewPage must beAnInstanceOf[PreviewPage]
+      browser.findFirst(getLinkId("about_you_dob")).click()
+      browser.findFirst("button[value='next']").getText mustEqual messagesApi("form.returnToSummary")
+      browser.find("input[id='dateOfBirth_year']").text("1948")
+      browser.findFirst("button[value='next']").click()
+      browser.find("input[id='bank_details_label']").getText mustEqual null
     }
   }
   section("preview")
