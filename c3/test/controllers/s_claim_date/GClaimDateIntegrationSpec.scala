@@ -49,30 +49,7 @@ class GClaimDateIntegrationSpec extends Specification {
       claimDatePageSecondTime visible("#beforeClaimCaring_date_year") must beTrue
     }
 
-<<<<<<< HEAD
-    "show warning if date is further than 3 months in the future" in new WithJsBrowser with PageObjects {
-      val claimDatePage = GClaimDatePage(context)
-      claimDatePage goToThePage()
-
-      val futuredate = DateTimeFormat.forPattern("dd/MM/yyyy").print(new DateTime().plusMonths(3).plusDays(1))
-      val data = new TestData
-      // Claim date
-      data.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = futuredate
-      data.ClaimDateDidYouCareForThisPersonfor35Hours = "No"
-
-      claimDatePage fillPageWith data
-
-      val warning = claimDatePage.ctx.browser.find("#claimDateWarning").get(0)
-
-      warning.isDisplayed must beTrue
-
-
-    }
-
-  } section("unit", models.domain.YourClaimDate.id)
-=======
   }
-  section("unit", models.domain.YourClaimDate.id)
->>>>>>> integration
 
+  section("unit", models.domain.YourClaimDate.id)
 }
