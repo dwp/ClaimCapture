@@ -1,11 +1,11 @@
 package controllers
 
-import play.api.test.WithBrowser
+import utils.WithBrowsers
 import org.fluentlenium.core.filter.Filter
 import org.fluentlenium.core.Fluent
 
 trait WithBrowserHelper {
-  this: WithBrowser[_] =>
+  this: WithBrowsers[_] =>
 
   def fluent = browser clear "#nothing"
 

@@ -1,7 +1,7 @@
-@(url:String)(implicit request: Request[AnyContent], lang: Lang, flash:Flash)
-@import play.api.i18n.{MMessages => Messages}
+@(url:String)(implicit request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
+@import play.api.i18n.Messages
 
-@common.govMain(Messages("unrecoverable.error")) {
+@common.govMain(messages("unrecoverable.error")) {
 
     <div class="carers-allowance clearfix">
 
@@ -15,15 +15,15 @@
 
             <article class="column-three-quarters main-content error-statement">
 
-                <h1 class="form-title heading-large">@Html(Messages("session.timeout"))</h1>
+                <h1 class="form-title heading-large">@Html(messages("session.timeout"))</h1>
                 
-                <p>@Html(Messages("unrecoverable.error.help2"))</p>
-                <p>@Html(Messages("unrecoverable.error.help3"))</p>
+                <p>@Html(messages("unrecoverable.error.help2"))</p>
+                <p>@Html(messages("unrecoverable.error.help3"))</p>
 
                 <nav class="form-steps">
                     <ul>
-                        <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="location.href = ' @url '" aria-label="@Html(Messages("restart.claim.help"))">@Html(Messages("restart.claim"))</button></li>
-                        <li><a rel="external" href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(Messages("feedbacklink.claim"))</a></li>
+                        <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="location.href = ' @url '" aria-label="@Html(messages("restart.claim.help"))">@Html(messages("restart.claim"))</button></li>
+                        <li><a rel="external" href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(messages("feedbacklink.claim"))</a></li>
                     </ul>
                 </nav>
 

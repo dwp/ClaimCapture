@@ -1,6 +1,6 @@
 package controllers.s_information
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import controllers.BrowserMatchers
 import controllers.ClaimScenarioFactory
@@ -9,7 +9,7 @@ import utils.pageobjects.s_information.GAdditionalInfoPage
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_consent_and_declaration.GDeclarationPage
 
-class GAdditionalInformationIntegrationSpec extends Specification with Tags {
+class GAdditionalInformationIntegrationSpec extends Specification {
   "Additional information" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo(GAdditionalInfoPage.url)
@@ -33,13 +33,13 @@ class GAdditionalInformationIntegrationSpec extends Specification with Tags {
     }
 
 
-    "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{
+    "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects {
 			val page =  GAdditionalInfoPage(context)
       page goToThePage()
       page.submitPage().listErrors.size mustEqual 2
     }
 
-    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
 			val page =  GAdditionalInfoPage(context)
       val claim = ClaimScenarioFactory.s11ConsentAndDeclaration
       page goToThePage()
@@ -49,5 +49,6 @@ class GAdditionalInformationIntegrationSpec extends Specification with Tags {
 
       g2 must beAnInstanceOf[GDeclarationPage]
     }
-  } section("integration", models.domain.ConsentAndDeclaration.id)
+  }
+  section("integration", models.domain.ConsentAndDeclaration.id)
 }

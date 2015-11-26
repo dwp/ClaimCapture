@@ -1,5 +1,6 @@
 package controllers.circs.s2_report_changes
 
+import play.api.Play._
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.Form
@@ -17,8 +18,11 @@ import play.api.mvc.Call
 import scala.annotation.tailrec
 import scala.collection.immutable.Stack
 import scala.language.postfixOps
+import play.api.i18n._
 
-object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navigable {
+
+object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val employed = "employed"
   val selfemployed = "self-employed"
 
@@ -72,13 +76,13 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
     .verifying("expected.hasWorkFinished", validHasWorkFinished _)
   )
 
-  def present = claimingWithCheck {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit circs => implicit request => implicit lang => 
     track(CircumstancesEmploymentChange) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g9_employmentChange(form.fill(CircumstancesEmploymentChange))(lang))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g9_employmentChange(form.fill(CircumstancesEmploymentChange)))
     }
   }
 
-  def submit = claiming {implicit circs =>  implicit request =>  lang =>
+  def submit = claiming {implicit circs => implicit request => implicit lang => 
     def next(employmentChange: CircumstancesEmploymentChange):(QuestionGroup.Identifier,Call) = employmentChange.typeOfWork.answer match {
       case `employed` => {
         employmentChange.hasWorkStartedYet.answer match {
@@ -113,7 +117,7 @@ object G9EmploymentChange extends Controller with CachedChangeOfCircs with Navig
           .replaceError("typeOfWork","expected.selfEmploymentTypeOfWork", FormError("typeOfWork.selfEmployedTypeOfWork", errorRequired))
           .replaceError("typeOfWork","expected.selfEmploymentTotalIncome", FormError("typeOfWork.selfEmployedTotalIncome", errorRequired))
           .replaceError("", "expected.hasWorkFinished", FormError("hasWorkFinishedYet.answer", errorRequired))
-        BadRequest(views.html.circs.s2_report_changes.g9_employmentChange(updatedFormWithErrors)(lang))
+        BadRequest(views.html.circs.s2_report_changes.g9_employmentChange(updatedFormWithErrors))
       },
       employmentChange => {
         val optSections = Stack(CircumstancesStartedAndFinishedEmployment, CircumstancesStartedEmploymentAndOngoing, CircumstancesEmploymentNotStarted, CircumstancesEmploymentChange)

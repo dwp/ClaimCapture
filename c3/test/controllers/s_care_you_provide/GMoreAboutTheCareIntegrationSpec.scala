@@ -1,6 +1,6 @@
 package controllers.s_care_you_provide
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects._
@@ -9,7 +9,7 @@ import utils.pageobjects.s_care_you_provide.{GTheirPersonalDetailsPage, GMoreAbo
 import utils.pageobjects.preview.PreviewPage
 import utils.helpers.PreviewField._
 
-class GMoreAboutTheCareIntegrationSpec extends Specification with Tags {
+class GMoreAboutTheCareIntegrationSpec extends Specification {
   sequential
 
   "Representatives For The Person" should {
@@ -33,6 +33,7 @@ class GMoreAboutTheCareIntegrationSpec extends Specification with Tags {
       moreAboutTheCarePage goBack() must beAnInstanceOf[GTheirPersonalDetailsPage]
     }
 
-  } section ("integration", models.domain.CareYouProvide.id)
+  }
+  section ("integration", models.domain.CareYouProvide.id)
 
 }

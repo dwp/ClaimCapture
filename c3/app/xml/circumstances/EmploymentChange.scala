@@ -4,14 +4,15 @@ import models.domain._
 import xml.XMLHelper._
 
 import scala.xml.NodeSeq
-import play.api.i18n.{MMessages => Messages}
 import controllers.mappings.Mappings
 import models.yesNo.YesNoWithText
-
+import play.api.i18n.{MMessages, MessagesApi}
+import play.api.Play.current
 
 object EmploymentChange {
-
+  val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def xml(circs :Claim): NodeSeq = {
+    val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
     val circsEmploymentChangeOption: Option[CircumstancesEmploymentChange] = circs.questionGroup[CircumstancesEmploymentChange]
 
     circsEmploymentChangeOption match {
@@ -85,7 +86,7 @@ object EmploymentChange {
   def selfEmploymentChange(circsEmploymentChange: CircumstancesEmploymentChange): NodeSeq = {
     <SelfEmployment>
       {question(<TypeOfSelfEmployment/>, "typeOfWork.selfEmployedTypeOfWork",circsEmploymentChange.typeOfWork.text2a.get)}
-      {question(<TotalIncome/>, "typeOfWork.selfEmployedTotalIncome", Messages(circsEmploymentChange.typeOfWork.answer2.get))}
+      {question(<TotalIncome/>, "typeOfWork.selfEmployedTotalIncome", messagesApi(circsEmploymentChange.typeOfWork.answer2.get))}
       {question(<MoreAboutChanges/>, "typeOfWork.selfEmployedMoreAboutChanges", circsEmploymentChange.typeOfWork.text2b)}
     </SelfEmployment>
   }

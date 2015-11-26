@@ -6,9 +6,8 @@ import app.XMLValues._
 import gov.dwp.carers.security.encryption.EncryptorAES
 import models._
 import models.domain.Claim
-import play.api.i18n.{Lang, MMessages => Messages}
+import play.api.i18n.{Lang, MessagesApi}
 import utils.helpers.PastPresentLabelHelper._
-
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
 import scala.xml._
@@ -151,7 +150,7 @@ object XMLHelper {
   }
 
   private def questionLabel(questionLabelCode: String,labelParameters: String*) = {
-    <QuestionLabel>{Messages(questionLabelCode, labelParameters: _*)}</QuestionLabel>
+    <QuestionLabel>{messagesApi(questionLabelCode, labelParameters: _*)}</QuestionLabel>
   }
 
   private def questionOptionalWhy[T](wrappingNode:Node,questionLabelCode: String, answerOption: Option[T], whyText: Option[String],questionWhyLabelCode: String,labelParameters: String*): NodeSeq = {
@@ -196,16 +195,16 @@ object XMLHelper {
     else currency
   }
 
-  def questionLabel(claim:Claim, labelKey:String) = {
-    labelForSelfEmployment(claim, claim.lang.getOrElse(new Lang("en")), labelKey)
+  def questionLabel(claim:Claim, labelKey:String)(implicit lang: Lang) = {
+    labelForSelfEmployment(claim, lang, labelKey)
   }
 
-  def questionLabelEmployment(claim:Claim, labelKey:String, jobID: String) = {
-    labelForEmployment(claim, claim.lang.getOrElse(new Lang("en")), labelKey, jobID)
+  def questionLabelEmployment(claim:Claim, labelKey:String, jobID: String)(implicit lang: Lang) = {
+    labelForEmployment(claim, lang, labelKey, jobID)
   }
 
-  def questionLabelSelfEmployment(claim:Claim, labelKey:String) = {
-    labelForSelfEmployment(claim, claim.lang.getOrElse(new Lang("en")), labelKey)
+  def questionLabelSelfEmployment(claim:Claim, labelKey:String)(implicit lang: Lang) = {
+    labelForSelfEmployment(claim, lang, labelKey)
   }
 
   def encrypt[T](text:T) = DatatypeConverter.printBase64Binary((new  EncryptorAES).encrypt(stringify(text)))

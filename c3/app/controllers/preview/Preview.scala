@@ -2,37 +2,39 @@ package controllers.preview
 
 import controllers.PreviewRouteUtils
 import play.api.Logger
+import play.api.Play._
 import play.api.mvc.{Result, Controller}
 import models.view.{Navigable, CachedClaim}
 import models.domain.{Claim, PreviewModel}
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
+import play.api.i18n._
 
-object Preview extends Controller with CachedClaim with Navigable {
-
+object Preview extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "email" -> optional(text(60))
   )(PreviewModel.apply)(PreviewModel.unapply))
 
-  def present = claiming { implicit claim => implicit request => lang =>
+  def present = claiming { implicit claim => implicit request => implicit lang => 
     cleanPointOfEntry(
-      track(models.domain.PreviewModel, beenInPreview = true) { implicit claim => Ok(views.html.preview.preview(form.fill(PreviewModel))(lang)) }
+      track(models.domain.PreviewModel, beenInPreview = true) { implicit claim => Ok(views.html.preview.preview(form.fill(PreviewModel))) }
     )
   }
 
-  def back = claiming { implicit claim => implicit request => implicit lang =>
+  def back = claiming { implicit claim => implicit request => implicit lang => 
     resetPreviewState { implicit claim => Redirect(claim.navigation.previous.toString) }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang => 
     form.bindEncrypted.fold(
-      errors => BadRequest(views.html.preview.preview(errors)(lang)),
+      errors => BadRequest(views.html.preview.preview(errors)),
       data => claim.update(data) -> Redirect(controllers.s_consent_and_declaration.routes.GDeclaration.present())
     )
   }
 
-  def redirect(id:String) = claimingWithCheck { implicit claim => implicit request => lang =>
+  def redirect(id:String) = claimingWithCheck { implicit claim => implicit request => implicit lang => 
 
     val hashValue = request.getQueryString("hash") match {
       case Some(hash) => hash
@@ -42,8 +44,7 @@ object Preview extends Controller with CachedClaim with Navigable {
 
     val routesMap =     PreviewRouteUtils.yourDetailsRoute ++ PreviewRouteUtils.otherMoneyRoute ++
       PreviewRouteUtils.educationRoute ++ PreviewRouteUtils.careYouProvide ++ PreviewRouteUtils.breaks ++ PreviewRouteUtils.yourPartner ++
-      PreviewRouteUtils.employmentRoute ++ PreviewRouteUtils.additionalInfoRoute
-
+      PreviewRouteUtils.employmentRoute ++ PreviewRouteUtils.bankDetailsRoute ++ PreviewRouteUtils.additionalInfoRoute
 
     val updatedClaim = claim.copy(checkYAnswers = claim.checkYAnswers.copy(cyaPointOfEntry = Some(routesMap(id))))(claim.navigation)
 

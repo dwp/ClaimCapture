@@ -1,9 +1,10 @@
 package controllers.s_self_employment
 
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
+import utils.WithApplication
 
-class GPensionAndExpensesFormSpec extends Specification with Tags {
+class GPensionAndExpensesFormSpec extends Specification {
   "About Self Employment - Pension and Expenses Form" should {
 
     val yes = "yes"
@@ -12,7 +13,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
     val jobExpenses = "Some job expenses"
     val overThreeHundredChars = "Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters,Characters"
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       GSelfEmploymentPensionsAndExpenses.form.bind(
         Map(
           "payPensionScheme.answer" -> no,
@@ -27,7 +28,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
       )
     }
 
-    "have 2 mandatory fields" in {
+    "have 2 mandatory fields" in new WithApplication {
       GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("payPensionScheme.text" -> pensionExpenses,
           "haveExpensesForJob.text" -> jobExpenses)
@@ -41,7 +42,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
         )
     }
 
-    "reject if haveExpensesForJob is not filled" in {
+    "reject if haveExpensesForJob is not filled" in new WithApplication {
       GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("payPensionScheme.answer" -> no)
       ).fold(
@@ -50,7 +51,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
       )
     }
 
-    "reject if payPensionScheme is not filled" in {
+    "reject if payPensionScheme is not filled" in new WithApplication {
       GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("haveExpensesForJob.answer" -> no)
       ).fold(
@@ -59,7 +60,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
         )
     }
 
-    "have 1 expanded mandatory field if payPensionScheme is yes" in {
+    "have 1 expanded mandatory field if payPensionScheme is yes" in new WithApplication {
       GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("haveExpensesForJob.answer" -> no,
           "payPensionScheme.answer" -> yes)
@@ -73,7 +74,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
         )
     }
 
-    "have 1 expanded mandatory field if haveExpensesForJob is yes" in {
+    "have 1 expanded mandatory field if haveExpensesForJob is yes" in new WithApplication {
       GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("haveExpensesForJob.answer" -> yes,
           "payPensionScheme.answer" -> no)
@@ -87,7 +88,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
         )
     }
 
-    "reject too many characters in text fields" in {
+    "reject too many characters in text fields" in new WithApplication {
       GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("payPensionScheme.answer" -> yes,
           "haveExpensesForJob.answer" -> yes,
@@ -102,7 +103,7 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject special characters in text fields" in {
+    "reject special characters in text fields" in new WithApplication {
       GSelfEmploymentPensionsAndExpenses.form.bind(
         Map("payPensionScheme.answer" -> yes,
           "haveExpensesForJob.answer" -> yes,
@@ -118,5 +119,6 @@ class GPensionAndExpensesFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section("unit", models.domain.SelfEmployment.id)
+  }
+  section("unit", models.domain.SelfEmployment.id)
 }

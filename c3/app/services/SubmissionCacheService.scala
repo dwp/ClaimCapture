@@ -3,8 +3,8 @@ package services
 import app.ConfigProperties._
 import models.domain.Claim
 import play.api.Play.current
-import play.api.cache.Cache
-
+import play.api.cache.CacheApi
+import scala.concurrent.duration._
 
 trait SubmissionCacheService {
 
@@ -18,10 +18,17 @@ trait SubmissionCacheService {
 
   def storeInCache(claim: Claim): Unit = {
     val fingerprint = claim.getFingerprint
-    Cache.set(fingerprint, fingerprint, getProperty("submission.cache.expiry", default=TWO_MINUTES))
+    val cache = current.injector.instanceOf[CacheApi]
+    cache.set(fingerprint, fingerprint, Duration(getProperty("submission.cache.expiry", default=TWO_MINUTES), SECONDS))
   }
 
-  def getFromCache(claim: Claim): Option[String] = Cache.getAs[String](claim.getFingerprint)
+  def getFromCache(claim: Claim): Option[String] = {
+    val cache = current.injector.instanceOf[CacheApi]
+    cache.get[String](claim.getFingerprint)
+  }
 
-  def removeFromCache(claim: Claim): Unit = Cache.remove(claim.getFingerprint)
+  def removeFromCache(claim: Claim): Unit = {
+    val cache = current.injector.instanceOf[CacheApi]
+    cache.remove(claim.getFingerprint)
+  }
 }

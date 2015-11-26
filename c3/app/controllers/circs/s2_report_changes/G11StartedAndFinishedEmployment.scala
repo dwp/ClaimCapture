@@ -1,6 +1,7 @@
 package controllers.circs.s2_report_changes
 
 import models.domain.CircumstancesStartedAndFinishedEmployment
+import play.api.Play._
 import play.api.data.{Form, FormError}
 import play.api.data.Forms._
 import controllers.mappings.Mappings._
@@ -9,8 +10,11 @@ import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithText
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
+import play.api.i18n._
 
-object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCircs with Navigable {
+
+object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val payIntoPension =
     "didYouPayIntoPension" -> mapping (
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -51,13 +55,13 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
     .verifying("expected.employerOwesYouMoneyInfo", validateEmployerOwesYou _)
   )
 
-  def present = claiming {implicit circs =>  implicit request =>  lang =>
+  def present = claiming {implicit circs => implicit request => implicit lang => 
     track(CircumstancesStartedAndFinishedEmployment) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(form.fill(CircumstancesStartedAndFinishedEmployment))(lang))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(form.fill(CircumstancesStartedAndFinishedEmployment)))
     }
   }
 
-  def submit = claiming {implicit circs =>  implicit request =>  lang =>
+  def submit = claiming {implicit circs => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -69,7 +73,7 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
           .replaceError("didYouPayForThings","didYouPayForThings.text.required",FormError("didYouPayForThings.whatFor",errorRequired))
           .replaceError("didCareCostsForThisWork","didCareCostsForThisWork.text.required",FormError("didCareCostsForThisWork.whatCosts",errorRequired))
 
-        BadRequest(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(formWithErrorsUpdate))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )

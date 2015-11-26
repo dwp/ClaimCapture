@@ -1,12 +1,13 @@
 package controllers.s_employment
 
-import org.specs2.mutable.Specification
-import org.specs2.mutable.Tags
+import org.specs2.mutable._
+
 import models.yesNo.YesNoWithText
 import controllers.mappings.Mappings
+import utils.WithApplication
 
 
-class GEmploymentAdditionalInfoFormSpec extends Specification with Tags{
+class GEmploymentAdditionalInfoFormSpec extends Specification{
 
   val additionalInfoYes = YesNoWithText("yes", Some("No more information"))
   val additionalInfoNo = YesNoWithText("no", None)
@@ -21,7 +22,7 @@ class GEmploymentAdditionalInfoFormSpec extends Specification with Tags{
 
   "Employment - Additional Info" should {
 
-    "must have 1 mandatory field" in {
+    "must have 1 mandatory field" in new WithApplication {
       GEmploymentAdditionalInfo.form.bind(
         Map( "" -> "")
       ).fold(
@@ -34,7 +35,7 @@ class GEmploymentAdditionalInfoFormSpec extends Specification with Tags{
       )
     }
 
-    "must have 1 mandatory field when answered yes" in {
+    "must have 1 mandatory field when answered yes" in new WithApplication {
       GEmploymentAdditionalInfo.form.bind(
         Map( "empAdditionalInfo.answer" -> additionalInfoYes.answer)
       ).fold(
@@ -43,7 +44,7 @@ class GEmploymentAdditionalInfoFormSpec extends Specification with Tags{
       )
     }
 
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       GEmploymentAdditionalInfo.form.bind(
         Map(
           "empAdditionalInfo.answer" -> additionalInfoYes.answer,
@@ -57,7 +58,7 @@ class GEmploymentAdditionalInfoFormSpec extends Specification with Tags{
       )
     }
 
-    "map data into case class when answered no" in {
+    "map data into case class when answered no" in new WithApplication {
       GEmploymentAdditionalInfo.form.bind(
         Map(
           "empAdditionalInfo.answer" -> additionalInfoNo.answer
@@ -70,7 +71,7 @@ class GEmploymentAdditionalInfoFormSpec extends Specification with Tags{
       )
     }
 
-    "not map into case class when special characters entered" in {
+    "not map into case class when special characters entered" in new WithApplication {
       GEmploymentAdditionalInfo.form.bind(
         Map(
           "empAdditionalInfo.answer" -> additionalInfoYes.answer,
@@ -82,7 +83,7 @@ class GEmploymentAdditionalInfoFormSpec extends Specification with Tags{
       )
     }
 
-    "not map into case class when more than 3000 characters entered" in {
+    "not map into case class when more than 3000 characters entered" in new WithApplication {
       GEmploymentAdditionalInfo.form.bind(
         Map(
           "empAdditionalInfo.answer" -> additionalInfoYes.answer,
@@ -94,7 +95,7 @@ class GEmploymentAdditionalInfoFormSpec extends Specification with Tags{
       )
     }
 
-    "map into case class when 3000 characters entered" in {
+    "map into case class when 3000 characters entered" in new WithApplication {
       val text = maxCharactersString.toString // this will be 3000 characters
       GEmploymentAdditionalInfo.form.bind(
         Map(

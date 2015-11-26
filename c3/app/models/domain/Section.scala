@@ -1,9 +1,11 @@
 package models.domain
 
-import play.api.i18n.{MMessages => Messages}
+import play.api.i18n.{MMessages, MessagesApi}
+import play.api.Play.current
 
 case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil, visible: Boolean = true) extends Serializable {
-  def name = Messages(identifier.id + ".name")
+  def messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+  def name = messagesApi(identifier.id + ".name")
 
   def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
     questionGroups.find(qg => qg.identifier == questionGroupIdentifier)

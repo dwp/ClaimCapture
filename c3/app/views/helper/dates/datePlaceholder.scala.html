@@ -1,4 +1,4 @@
-@(field: play.api.data.Field, id: String, args: (Symbol, Any)*)(implicit lang: Lang)
+@(field: play.api.data.Field, id: String, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.EmptyTemplate._
@@ -7,7 +7,7 @@
 @import utils.helpers.CarersCrypto
 @import scala.language.postfixOps
 @import views.html.helper.dateConstraintRequired
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 <fieldset class="question-group">
 
@@ -19,15 +19,15 @@
 
     <ul class="form-date" id="@CarersCrypto.encryptAES(id)">
         <li class="form-group">
-            <label for="@CarersCrypto.encryptAES(dayField.id)">@Messages("datePlaceholder.day")</label>
+            <label for="@CarersCrypto.encryptAES(dayField.id)">@messages("datePlaceholder.day")</label>
             @carersInputTel(dayField, 'maxLength -> 2 ,'ignoreLabel -> true)
         </li>
         <li class="form-group month">
-            <label for="@CarersCrypto.encryptAES(monthField.id)">@Messages("datePlaceholder.month")</label>
+            <label for="@CarersCrypto.encryptAES(monthField.id)">@messages("datePlaceholder.month")</label>
             @carersInputTel(monthField, 'maxLength -> 2,'ignoreLabel -> true)
         </li>
         <li class="form-group form-group-year">
-            <label for="@CarersCrypto.encryptAES(yearField.id)">@Messages("datePlaceholder.year.label")</label>
+            <label for="@CarersCrypto.encryptAES(yearField.id)">@messages("datePlaceholder.year.label")</label>
             @carersInputTel(yearField, 'maxLength -> 4,'ignoreLabel -> true)
         </li>
     </ul>

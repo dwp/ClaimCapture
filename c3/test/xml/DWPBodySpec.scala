@@ -1,7 +1,7 @@
 package xml
 
 import models.view.CachedClaim
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import models.domain.Claim
 import models.NationalInsuranceNumber
 import scala.xml.Elem
@@ -9,13 +9,11 @@ import java.util.Date
 import java.text.SimpleDateFormat
 
 
-class DWPBodySpec extends Specification with Tags {
+class DWPBodySpec extends Specification {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO123456D"))
 
-
-
   "DWPBody" should {
-    "Shoulg generate a full XML with signature" in {
+    "Should generate a full XML with signature" in {
       val xml = new DWPBodyWithShortXMLClaim xml(new Claim(CachedClaim.key),"NB1212X")
       val date = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date())
       (xml \\ "DWPBody" \ "DWPCATransaction" \ "DateTimeGenerated").text mustEqual date
@@ -24,7 +22,8 @@ class DWPBodySpec extends Specification with Tags {
       (xml \\ "Signature" \\ "DigestValue").text.isEmpty must beFalse
       (xml \\"Signature" \\ "SignatureValue").text.isEmpty must beFalse
     }
-  } section "unit"
+  }
+  section("unit")
 }
 
 private class DWPBodyWithShortXMLClaim extends DWPBody {

@@ -1,8 +1,8 @@
-@(title: String, currentForm: Option[Form[_]] = None, employerName: Option[String] = None,ignorePreview:Boolean = false)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang, flash:Flash)
+@(title: String, currentForm: Option[Form[_]] = None, employerName: Option[String] = None,ignorePreview:Boolean = false)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
 @import models.domain.Employed
 @import helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import views.html.common._
 
 
@@ -26,7 +26,7 @@
                     <h1 class="form-title heading-large">@sectionTitle(Employed)@employerName </h1>
                 }
                 @if(!employerName.isDefined || employerName.isEmpty){
-                    <h1 class="form-title heading-large">@sectionTitle(Employed)@Html(Messages("s7.main.help1"))</h1>
+                    <h1 class="form-title heading-large">@sectionTitle(Employed)@Html(messages("s7.main.help1"))</h1>
                 }
 
                 @if(currentForm.isDefined) {

@@ -1,7 +1,7 @@
-@(currentForm: Form[models.domain.HowWePayYou])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.HowWePayYou])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import app.PaymentFrequency._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
@@ -9,16 +9,16 @@
 @import utils.helpers.CarersTemplate._
 @import utils.helpers._
 
-@defining(lang) { implicit language =>
-    @main(Messages("s10.g1") + " - " + Messages("s10.longName"), Some(currentForm)) {
+
+    @main(messages("s10.g1") + " - " + messages("s10.longName"), Some(currentForm)) {
 
         @form(action = controllers.s_pay_details.routes.GHowWePayYou.submit, 'role -> "form") {
             @DwpCSRFFormHelper.formField
 
             <p>
-                @Html(Messages("howWePayYou.help.1"))
+                @Html(messages("howWePayYou.help.1"))
                 <br>
-                @Html(Messages("howWePayYou.help.2"))
+                @Html(messages("howWePayYou.help.2"))
             </p>
 
             <fieldset class="form-elements" data-journey="carers-allowance:page:pay-details">
@@ -27,7 +27,7 @@
 
                 <ul>
 					
-                    @yesNoRadioGroup(currentForm("likeToPay"), '_label -> Messages("likeToPay"),  'track -> true)
+                    @yesNoRadioGroup(currentForm("likeToPay"), '_label -> messages("likeToPay"),  'track -> true)
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
@@ -35,7 +35,7 @@
                             carersInputText(currentForm("bankDetails.bankFullName")),
                             sortCode(currentForm("bankDetails.sortCode"), 'ignoreOptional -> true),
                             carersInputTel(currentForm("bankDetails.accountNumber"), 'maxLength -> "10"),
-                            sliderHelp(Messages("postOfficeTitle"),Messages("postOfficeTitle"),Html(Messages("postOfficeBody")), 'showMini->true),
+                            sliderHelp(messages("postOfficeTitle"),messages("postOfficeTitle"),Html(messages("postOfficeBody")), 'showMini->true),
                             carersInputText(currentForm("bankDetails.rollOrReferenceNumber"), 'maxLength -> "18")
                         ),
                         'id -> "bankDetailsWrapper"
@@ -49,7 +49,7 @@
                     )
 
                     @listRadioGroup(currentForm("paymentFrequency"),
-                        'items -> Seq(EveryWeek -> Messages("label.everyWeek"), FourWeekly -> Messages("label.fourWeekly"), ThirteenWeekly -> Messages("label.thirteenWeekly")),
+                        'items -> Seq(EveryWeek -> messages("label.everyWeek"), FourWeekly -> messages("label.fourWeekly"), ThirteenWeekly -> messages("label.thirteenWeekly")),
                         '_nestedFieldSet -> true)
 
                 </ul>
@@ -71,4 +71,3 @@
                 })
             </script>
     }
-}

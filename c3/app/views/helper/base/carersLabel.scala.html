@@ -1,4 +1,4 @@
-@(field:Field, args: (Symbol, Any)*)(implicit lang: Lang)
+@(field:Field, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 @import utils.helpers._
 
@@ -12,6 +12,6 @@
         @carersLabelText(field,args:_*)
     </label>
     @if(args.find(_._1=='helperAbove).isDefined){
-      <p class="form-hint">@Html(Messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
+      <p class="form-hint">@Html(messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
     }
 }

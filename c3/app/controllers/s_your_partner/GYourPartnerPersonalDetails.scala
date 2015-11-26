@@ -1,7 +1,7 @@
 package controllers.s_your_partner
 
-import models.DayMonthYear
 import play.api.Logger
+import play.api.Play._
 
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
@@ -23,12 +23,12 @@ import utils.helpers.CarersForm.formBinding
 import YourPartner.presentConditionally
 import controllers.CarersForms.carersNonEmptyText
 import controllers.CarersForms.carersText
-import play.api.i18n.Lang
 import models.view.ClaimHandling.ClaimResult
 import controllers.mappings.Mappings
+import play.api.i18n._
 
-object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {
-
+object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def form(implicit claim: Claim):Form[YourPartnerPersonalDetails] = Form(mapping(
     "title" -> optional(carersNonEmptyText(maxLength = Mappings.five)),
     "titleOther" -> optional(carersText(maxLength = Mappings.twenty)),
@@ -53,15 +53,15 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     .verifying("nationality.required", YourPartnerPersonalDetails.validateNationalityIfPresent _)
   )
 
-  def present:Action[AnyContent] = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
-    presentConditionally(yourPartnerPersonalDetails(lang),lang)
+  def present:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit lang =>
+    presentConditionally(yourPartnerPersonalDetails)
   }
 
-  private def yourPartnerPersonalDetails(lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s_your_partner.g_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))(lang)) }
+  private def yourPartnerPersonalDetails(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s_your_partner.g_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))) }
   }
 
-  def submit:Action[AnyContent] = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
+  def submit:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -73,7 +73,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
           .replaceError("", "separated.fromPartner.required", FormError("separated.fromPartner", errorRequired))
           .replaceError("", "isPartnerPersonYouCareFor.required", FormError("isPartnerPersonYouCareFor", errorRequired))
           .replaceError("", "nationality.required", FormError("nationality", errorRequired))
-        BadRequest(views.html.s_your_partner.g_yourPartnerPersonalDetails(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.s_your_partner.g_yourPartnerPersonalDetails(formWithErrorsUpdate))
       },
       f => {
         val preUpdatedClaim = clearTheirPersonalDetailsIfPartnerQuestionChanged(claim,f)

@@ -1,6 +1,6 @@
 package controllers.s_about_you
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.{WithJsBrowser, WithBrowser}
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects.s_about_you.GOtherEEAStateOrSwitzerlandPage
@@ -10,7 +10,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
 import utils.helpers.PreviewField._
 
-class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags {
+class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
   sequential
 
   val urlUnderTest = "/about-you/other-eea-state-or-switzerland"
@@ -146,7 +146,8 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification with Tags
       backPage.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_field").isDisplayed should beTrue
     }
 
-  } section("integration", models.domain.AboutYou.id)
+  }
+  section("integration", models.domain.AboutYou.id)
 
   def goToPreviewPage(context:PageObjectsContext):Page = {
     val claimDatePage = GClaimDatePage(context)

@@ -1,9 +1,9 @@
-@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit handler: helper.FieldConstructor, lang: Lang)
+@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit handler: helper.FieldConstructor, lang: Lang, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers._
 @import views.html.helper.base.carersLabel
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @input(field, args.filter(a => a._1 == 'maxLength || a._1 == 'class):_*) { (id, name, value, htmlArgs) =>
 

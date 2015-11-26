@@ -1,9 +1,9 @@
-@(currentForm: Form[models.domain.ProceedAnyway])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.ProceedAnyway])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 @import controllers.mappings.Mappings
 
 @import helper._
 @import helper.base._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import models.domain._
@@ -34,46 +34,46 @@
     completedQuestionGroups.forall(b => b)
 }
 
-@defining(lang) { implicit language =>
+
 
 @main("Can you get Carer's Allowance?", None) {
     @if(approved) {
 
         <section class="prompt e-prompt" aria-labelledby="heading1">
-            <h2 class="heading-medium" id="heading1">@Html(Messages("s0.g6.green.help1"))</h2>
+            <h2 class="heading-medium" id="heading1">@Html(messages("s0.g6.green.help1"))</h2>
             <ul class="list-bullet">
-	            <li>@Html(Messages("s0.g6.green.help2"))</li>
-	            <li>@Html(Messages("s0.g6.green.help3"))</li>
+	            <li>@Html(messages("s0.g6.green.help2"))</li>
+	            <li>@Html(messages("s0.g6.green.help3"))</li>
             </ul>
         </section>
 
         <section class="prompt e-prompt" aria-labelledby="headingDocumentation">
-            <h2 id="headingDocumentation" class="heading-medium">@Html(Messages("s0.g6.green.documentation1"))</h2>
+            <h2 id="headingDocumentation" class="heading-medium">@Html(messages("s0.g6.green.documentation1"))</h2>
             <ul class="list-bullet">
-                <li>@Html(Messages("s0.g6.green.documentation2"))</li>
-                <li>@Html(Messages("s0.g6.green.documentation3"))</li>
-                <li>@Html(Messages("s0.g6.green.documentation4"))</li>
-                <li>@Html(Messages("s0.g6.green.documentation5"))</li>
+                <li>@Html(messages("s0.g6.green.documentation2"))</li>
+                <li>@Html(messages("s0.g6.green.documentation3"))</li>
+                <li>@Html(messages("s0.g6.green.documentation4"))</li>
+                <li>@Html(messages("s0.g6.green.documentation5"))</li>
             </ul>
         </section>
 
     } else {
 
         <section class="prompt e-prompt" aria-labelledby="heading2">
-            <h2 class="heading-medium" id="heading2">@Html(Messages("s0.g6.red.help1"))</h2>
-            <p>@Html(Messages("s0.g6.red.helper"))</p>
+            <h2 class="heading-medium" id="heading2">@Html(messages("s0.g6.red.help1"))</h2>
+            <p>@Html(messages("s0.g6.red.helper"))</p>
             <ul class="list-bullet">
             	@if(!benefitsAnswer) {
-                    <li>@Html(Messages("s0.g6.red.benefits"))</li>
+                    <li>@Html(messages("s0.g6.red.benefits"))</li>
                 }
                 @if(!hoursAnswer) {
-                    <li>@Html(Messages("s0.g6.red.hours"))</li>
+                    <li>@Html(messages("s0.g6.red.hours"))</li>
                 }
                 @if(!over16Answer) {
-                    <li>@Html(Messages("s0.g6.red.over16"))</li>
+                    <li>@Html(messages("s0.g6.red.over16"))</li>
                 }
                 @if(!livesInGBAnswer) {
-                    <li>@Html(Messages("s0.g6.red.liveInGB"))</li>
+                    <li>@Html(messages("s0.g6.red.liveInGB"))</li>
                 }
             </ul>
         </section>
@@ -98,8 +98,8 @@
         } else {
 
             <fieldset class="form-elements">
-                <legend class="form-label-bold">@Messages("proceedAnyway.answer")</legend>
-                <p class="form-hint">@Messages("proceedAnyway.help")</p>
+                <legend class="form-label-bold">@messages("proceedAnyway.answer")</legend>
+                <p class="form-hint">@messages("proceedAnyway.help")</p>
                 <ul>
                     @yesNoRadioGroup(currentForm("answer"),
                         '_showLabel -> false)
@@ -108,8 +108,8 @@
 
             <nav class="form-steps" role="navigation">
                 <ul>
-                    <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button" onmousedown="analyticsCallback()">@Html(Messages("form.continue.step"))</button></div></li>
-                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(Messages("form.back"))</a></li>
+                    <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button" onmousedown="analyticsCallback()">@Html(messages("form.continue.step"))</button></div></li>
+                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(messages("form.back"))</a></li>
                 </ul>
             </nav>
 
@@ -141,6 +141,6 @@
         });
     </script>
 
-}
+
 }
 

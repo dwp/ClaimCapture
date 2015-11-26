@@ -1,5 +1,7 @@
 package services.async
 
+import play.api.Play._
+
 import scala.language.postfixOps
 import scala.concurrent.duration._
 import akka.actor.{Props, OneForOneStrategy, SupervisorStrategy, Actor}
@@ -7,11 +9,10 @@ import models.domain.Claim
 import services.submission.AsyncClaimSubmissionComponent
 import akka.actor.SupervisorStrategy.Restart
 import play.api.Logger
-import utils.Injector
 
-class AsyncSubmissionActor extends Actor with Injector {
+class AsyncSubmissionActor extends Actor {
 
-  val asyncSubmissionService = resolve(classOf[AsyncClaimSubmissionComponent])
+  val asyncSubmissionService = current.injector.instanceOf[AsyncClaimSubmissionComponent]
 
   override def receive: Actor.Receive = {
     case claim:Claim =>

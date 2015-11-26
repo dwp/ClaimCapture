@@ -2,12 +2,12 @@ package controllers.s_about_you
 
 import controllers.mappings.Mappings
 import models.domain.{Claim, ContactDetails, Claiming}
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.WithApplication
 
-class GContactDetailsSpec extends Specification with Tags {
+class GContactDetailsSpec extends Specification {
   "Contact Details" should {
     "present contact details" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -89,5 +89,6 @@ class GContactDetailsSpec extends Specification with Tags {
       val result = GContactDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
-  } section("unit", models.domain.ContactDetails.id)
+  }
+  section("unit", models.domain.ContactDetails.id)
 }

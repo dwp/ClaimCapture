@@ -2,7 +2,7 @@ package controllers.s_your_partner
 
 import models.domain._
 import models.{DayMonthYear, NationalInsuranceNumber, domain}
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.test.Helpers._
 import play.api.test.{ FakeRequest}
 import controllers.{Formulate, BrowserMatchers}
@@ -10,7 +10,7 @@ import controllers.s_about_you.{GMaritalStatus, GNationalityAndResidency}
 import models.view.CachedClaim
 import utils.WithApplication
 
-class GYourPartnerPersonalDetailsSpec extends Specification with Tags {
+class GYourPartnerPersonalDetailsSpec extends Specification {
   val title = "Mr"
   val firstName = "John"
   val middleName = "Mc"
@@ -150,5 +150,6 @@ class GYourPartnerPersonalDetailsSpec extends Specification with Tags {
       status(result2) mustEqual BAD_REQUEST
     }
 
-  }  section("unit", models.domain.YourPartner.id)
+  }
+  section("unit", models.domain.YourPartner.id)
 }

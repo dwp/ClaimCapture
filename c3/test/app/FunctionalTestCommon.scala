@@ -1,8 +1,7 @@
 package app
 
 import org.joda.time.format.DateTimeFormat
-import org.specs2.mutable.{Tags, Specification}
-import org.specs2.specification.{Example, Fragment}
+import org.specs2.mutable._
 import utils.pageobjects.preview.{PreviewTestableData, PreviewPage, PreviewBusinessValidation}
 import utils.pageobjects.{Page, XmlPage, TestData}
 import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusinessValidation}
@@ -12,7 +11,7 @@ import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusiness
  * @author Jorge Migueis
  *         Date: 02/08/2013
  */
-abstract class FunctionalTestCommon extends Specification with Tags {
+abstract class FunctionalTestCommon extends Specification {
   isolated
 
 
@@ -49,7 +48,7 @@ abstract class FunctionalTestCommon extends Specification with Tags {
   }
 
   def ninoConversion(id:String) = id -> {(s:String) => s}
-  def dateConversion(id:String) = id -> {(s:String) => DateTimeFormat.forPattern("dd MMMM, YYYY").print(DateTimeFormat.forPattern("dd/MM/YYYY").parseDateTime(s)).toLowerCase }
+  def dateConversion(id:String) = id -> {(s:String) => DateTimeFormat.forPattern("dd MMMM, yyyy").print(DateTimeFormat.forPattern("dd/MM/yyyy").parseDateTime(s)).toLowerCase }
   def addressConversion(id:String) = id -> {(s:String) =>s.replaceAll("&",", ")}
 
   def test(page:Page,claim:TestData,testableData:PreviewTestableData) = {

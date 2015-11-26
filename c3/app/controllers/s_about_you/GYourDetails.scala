@@ -1,6 +1,7 @@
 package controllers.s_about_you
 
 import controllers.mappings.Mappings
+import play.api.Play._
 
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
@@ -15,8 +16,10 @@ import play.api.Logger
 import scala.language.postfixOps
 import controllers.mappings.NINOMappings._
 import app.ConfigProperties._
+import play.api.i18n._
 
-object GYourDetails extends Controller with CachedClaim with Navigable {
+object GYourDetails extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "title" -> carersNonEmptyText(maxLength = Mappings.five),
     "titleOther" -> optional(carersText(maxLength = Mappings.twenty)),
@@ -29,21 +32,20 @@ object GYourDetails extends Controller with CachedClaim with Navigable {
     .verifying("titleOther.required",YourDetails.verifyTitleOther _)
   )
 
-  def present = claiming {implicit claim =>  implicit request =>  lang =>
+  def present = claiming {implicit claim => implicit request => implicit lang => 
     Logger.debug(s"Start your details ${claim.key} ${claim.uuid}")
-    track(YourDetails) { implicit claim => Ok(views.html.s_about_you.g_yourDetails(form.fill(YourDetails))(lang)) }
+    track(YourDetails) { implicit claim => Ok(views.html.s_about_you.g_yourDetails(form.fill(YourDetails))) }
   }
 
-  def submit = claiming {implicit claim =>  implicit request =>  lang =>
+  def submit = claiming {implicit claim => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors.replaceError("","titleOther.required",FormError("titleOther","constraint.required"))
-        BadRequest(views.html.s_about_you.g_yourDetails(updatedFormWithErrors)(lang))
+        BadRequest(views.html.s_about_you.g_yourDetails(updatedFormWithErrors))
       },
-      yourDetails => { // Show pay details if the person is below 62 years of age on the day of the claim (claim date)
-          val payDetailsVisible = showPayDetails(claim, yourDetails)
-          val updatedClaim = claim.showHideSection(payDetailsVisible, PayDetails)
-          updatedClaim.update(yourDetails) -> Redirect(routes.GMaritalStatus.present())
+      yourDetails => { // Show pay details if the person is below age.hide.paydetails years of age on the day of the claim (claim date)
+        val updatedClaim:Claim = previewClaim(claim, yourDetails)
+        updatedClaim.update(yourDetails) -> Redirect(routes.GMaritalStatus.present())
       })
   } withPreview()
 
@@ -51,6 +53,17 @@ object GYourDetails extends Controller with CachedClaim with Navigable {
     claim.dateOfClaim match {
       case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < getProperty("age.hide.paydetails",60)
       case _ => false
+    }
+  }
+
+  def previewClaim(claim:Claim, yourDetails:YourDetails): Claim = {
+    if (!showPayDetails(claim, yourDetails)) {
+      claim.delete(HowWePayYou).hideSection(PayDetails)
+    } else {
+      val updatedClaim = claim.showSection(PayDetails)
+      val howWePayYou = claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou())
+      if (claim.navigation.beenInPreview && howWePayYou.likeToBePaid == "") updatedClaim.update(howWePayYou.copy(paymentFrequency = "Every week", likeToBePaid = "no", bankDetails = None))
+      else updatedClaim
     }
   }
 }

@@ -1,8 +1,8 @@
 package controllers
 
 import play.api.mvc.{Result, Controller, Results}
-import play.api.test.{FakeRequest, PlaySpecification}
-import utils.WithApplication
+import play.api.test.FakeRequest
+import utils.{PlaySpecification, WithApplication}
 import scala.concurrent.Future
 
 
@@ -46,6 +46,7 @@ class ClaimEndingSpec extends PlaySpecification with Results {
       status(result) mustEqual OK
     }
 
-  } section "unit"
+  }
+section("unit")
 
 }

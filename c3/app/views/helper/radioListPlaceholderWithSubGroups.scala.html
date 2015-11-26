@@ -1,10 +1,10 @@
-@(field: play.api.data.Field, options: Seq[(Any)], args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang)
+@(field: play.api.data.Field, options: Seq[(Any)], args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import helper.base._
 @import utils.helpers.CarersCrypto
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper.checkConstraintRequired
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 
 @radioConstraintRequired(field, args:_*)

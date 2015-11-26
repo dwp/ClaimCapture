@@ -1,11 +1,11 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersCrypto
 @import utils.helpers._
 @import views.html.helper.base._
 @import utils.helpers.CarersTemplate._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
 @input(field,args: _*){(id, name, value, htmlArgs) =>
     @addressPlaceholder(field,args: _*)

@@ -1,6 +1,6 @@
 package controllers.preview
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects.{TestData, PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
@@ -9,7 +9,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 
 
-class PreviewPagePartnerContentSpec extends Specification with Tags {
+class PreviewPagePartnerContentSpec extends Specification {
 
   "Preview Page" should {
     "display partner data - when you have a partner" in new WithBrowser with PageObjects{
@@ -90,7 +90,8 @@ class PreviewPagePartnerContentSpec extends Specification with Tags {
       source must not contain "12 July, 1990"
       source must not contain "Have you separated since your claim date?"
     }
-  } section "preview"
+  }
+section("preview")
 
   def fillPartnerSection(context:PageObjectsContext, partnerClaim:TestData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty(),
                           aboutYouClaim:TestData = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()) = {

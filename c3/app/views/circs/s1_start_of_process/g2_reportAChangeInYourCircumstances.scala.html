@@ -1,8 +1,5 @@
-@(reportAChangeForm: Form[models.domain.CircumstancesReportChange])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(reportAChangeForm: Form[models.domain.CircumstancesReportChange])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import play.api.Play
-@import play.api.Play.current
-@import play.api.i18n.{MMessages => Messages}
 @import utils.csrf.DwpCSRFFormHelper
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
@@ -10,9 +7,9 @@
 @import views.html.helper.dates._
 @import app.ConfigProperties._
 @import utils.helpers.CarersCrypto
+@import play.api.Play
 
-@defining(lang) { implicit language =>
-    @main(Messages("c1") + " - " + Messages("c2.longName"), Some(reportAChangeForm), back = true) {
+    @main(messages("c1") + " - " + messages("c2.longName"), Some(reportAChangeForm), back = true) {
 
         @form(action = controllers.circs.s1_start_of_process.routes.G2ReportAChangeInYourCircumstances.submit) {
             @DwpCSRFFormHelper.formField
@@ -21,14 +18,14 @@
 
                 <fieldset class="form-elements" data-journey="carers-allowance:report-change:identification">
 
-                    <legend class="form-label-bold heading-medium">@Html(Messages("c1.yourDetails"))</legend>
+                    <legend class="form-label-bold heading-medium">@Html(messages("c1.yourDetails"))</legend>
 
-                    <p>@Html(Messages("c1.helper"))</p>
+                    <p>@Html(messages("c1.helper"))</p>
 
                     <ul>
                         @carersInputText(reportAChangeForm("fullName"), 'maxLength -> 35)
 
-                        @nationalInsuranceNumber(reportAChangeForm("nationalInsuranceNumber"), 'helperAbove -> Messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> Messages("mandatory.nationalInsuranceNumber.helper2"))
+                        @nationalInsuranceNumber(reportAChangeForm("nationalInsuranceNumber"), 'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> messages("mandatory.nationalInsuranceNumber.helper2"))
 
                         @dateOfBirth(reportAChangeForm("dateOfBirth"))
                     </ul>
@@ -37,19 +34,19 @@
 
                 <fieldset class="form-elements">
 
-                    <legend class="form-label-bold heading-medium">@Html(Messages("c1.personYouAreCaringFor"))</legend>
+                    <legend class="form-label-bold heading-medium">@Html(messages("c1.personYouAreCaringFor"))</legend>
 
                     <ul>
                         @carersInputText(reportAChangeForm("theirFullName"), 'maxLength -> 35)
 
-                        @carersInputText(reportAChangeForm("theirRelationshipToYou"), 'helperAbove -> Messages("theirRelationshipToYou.helper"), 'maxLength -> 35)
+                        @carersInputText(reportAChangeForm("theirRelationshipToYou"), 'helperAbove -> messages("theirRelationshipToYou.helper"), 'maxLength -> 35)
                     </ul>
 
                 </fieldset>
 
                 <fieldset class="form-elements">
 
-                    <legend class="form-label-bold heading-medium">@Html(Messages("c3.g2"))</legend>
+                    <legend class="form-label-bold heading-medium">@Html(messages("c3.g2"))</legend>
 
                     <ul>
                         @carersInputTel(reportAChangeForm("furtherInfoContact"),'ignoreOptional -> true, 'maxLength -> mappings.Mappings.twenty)
@@ -95,4 +92,4 @@
             });
         </script>
     }
-}
+

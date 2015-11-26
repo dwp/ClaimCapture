@@ -5,12 +5,15 @@ import controllers.mappings.Mappings._
 import models.domain.CircumstancesPaymentChange
 import models.view.{CachedChangeOfCircs, Navigable}
 import models.yesNo.YesNoWith2Text
+import play.api.Play._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import utils.helpers.CarersForm._
+import play.api.i18n._
 
-object G5PaymentChange extends Controller with CachedChangeOfCircs with Navigable {
+object G5PaymentChange extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val currentlyPaidIntoBankMapping =
     "currentlyPaidIntoBank" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -32,18 +35,18 @@ object G5PaymentChange extends Controller with CachedChangeOfCircs with Navigabl
   )
   (CircumstancesPaymentChange.apply)(CircumstancesPaymentChange.unapply))
 
-  def present = claimingWithCheck {implicit circs =>  implicit request =>  lang =>
+  def present = claimingWithCheck {implicit circs => implicit request => implicit lang => 
     track(CircumstancesPaymentChange) {
-      implicit circs => Ok(views.html.circs.s2_report_changes.g5_paymentChange(form.fill(CircumstancesPaymentChange))(lang))
+      implicit circs => Ok(views.html.circs.s2_report_changes.g5_paymentChange(form.fill(CircumstancesPaymentChange)))
     }
   }
 
-  def submit = claiming {implicit circs =>  implicit request =>  lang =>
+  def submit = claiming {implicit circs => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = manageErrorsSortCode(formWithErrors)
         val afterIgnoreGroupBy = ignoreGroupByForSortCode(updatedFormWithErrors)
-        BadRequest(views.html.circs.s2_report_changes.g5_paymentChange(afterIgnoreGroupBy)(lang))
+        BadRequest(views.html.circs.s2_report_changes.g5_paymentChange(afterIgnoreGroupBy))
       },
       f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
     )

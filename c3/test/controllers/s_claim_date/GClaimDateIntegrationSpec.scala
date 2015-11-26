@@ -1,9 +1,7 @@
 package controllers.s_claim_date
 
-import org.joda.time.DateTime
-import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
-import org.specs2.mutable.{Tags, Specification}
-import utils.{WithJsBrowser, WithBrowser}
+import org.specs2.mutable._
+import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, PreviewTestUtils}
 import utils.pageobjects._
 import utils.pageobjects.s_about_you.GYourDetailsPage
@@ -12,7 +10,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_care_you_provide.GMoreAboutTheCarePage
 import utils.helpers.PreviewField._
 
-class GClaimDateIntegrationSpec extends Specification with Tags {
+class GClaimDateIntegrationSpec extends Specification {
 
   "Your claim date" should {
 
@@ -51,6 +49,7 @@ class GClaimDateIntegrationSpec extends Specification with Tags {
       claimDatePageSecondTime visible("#beforeClaimCaring_date_year") must beTrue
     }
 
+<<<<<<< HEAD
     "show warning if date is further than 3 months in the future" in new WithJsBrowser with PageObjects {
       val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
@@ -71,5 +70,9 @@ class GClaimDateIntegrationSpec extends Specification with Tags {
     }
 
   } section("unit", models.domain.YourClaimDate.id)
+=======
+  }
+  section("unit", models.domain.YourClaimDate.id)
+>>>>>>> integration
 
 }

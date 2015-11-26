@@ -1,13 +1,12 @@
-@()(implicit lang: Lang)
-@import play.api.i18n.{MMessages => Messages}
+@()(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 @if(play.Configuration.root().getBoolean("prototype.disclaimer", true)) {
 <div class="prototype">
-    <p>@Html(Messages("protoType.message"))</p>
+    <p>@Html(messages("protoType.message"))</p>
 </div>
 }
 
 <section class="js-message">
-   	<h2>@Html(Messages("javascript.disabled1"))</h2>
-   	<p>@Html(Messages("javascript.disabled2"))</p>
+   	<h2>@Html(messages("javascript.disabled1"))</h2>
+   	<p>@Html(messages("javascript.disabled2"))</p>
 </section>

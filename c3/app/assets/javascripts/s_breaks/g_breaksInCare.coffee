@@ -11,6 +11,9 @@ window.initSummary = (deleteId) ->
         if ($("#backButton").attr("disabled") == "disabled")
             event.preventDefault()
 
+    if( $("#warningMessageWrap").length >0)
+      $("#warningMessageWrap").hide()
+
     $("ul").on "click", "input[name='deleterow']", ->
 
 
@@ -26,19 +29,16 @@ window.initSummary = (deleteId) ->
                 $("#deleteForm").submit()
 
 
-window.initEvents = (answer_yes, answer_no) ->
-  if ($("#" + answer_yes).is ":checked") && $("ul.break-data.li").length is 10
-    $("#warningMessageWrap").slideDown()
-    $("#warningMessageWrap").css('display', "block")
-
+window.initEvents = (answer_yes, answer_no, testMode) ->
   $("#" + answer_yes).on "click", ->
-      if $("ul.break-data.li").length is 10
-          $("#warningMessageWrap").slideDown()
-          $("#warningMessageWrap").css('display', "block")
+    if( $("#warningMessageWrap").length >0)
+          $("#warningMessageWrap").show()
+          if not testMode then trackEvent(window.location.pathname, "Error", $("#warningMessageWrap").text().trim())
+
 
   $("#" + answer_no).on "click", ->
-      $("#warningMessageWrap").slideUp()
-
+    if( $("#warningMessageWrap").length >0)
+      $("#warningMessageWrap").hide()
 
 
 window.updateNextLabel = (answer_yes,answer_no,textNext,textReturn) ->

@@ -1,5 +1,6 @@
 package controllers.submission
 
+import play.api.Play._
 import play.api.mvc.{Call, Controller}
 import models.view.{CachedChangeOfCircs, CachedClaim}
 import services.ClaimTransactionComponent
@@ -8,6 +9,7 @@ import play.api.Logger
 import models.domain.Claim
 import AsyncClaimSubmissionService._
 import ClaimSubmissionService._
+import play.api.i18n._
 
 object StatusRoutingController {
   import play.api.mvc.Results._
@@ -38,16 +40,16 @@ object StatusRoutingController {
   }
 }
 
-class StatusRoutingController extends Controller with CachedClaim with ClaimTransactionComponent {
-
+class StatusRoutingController extends Controller with CachedClaim with ClaimTransactionComponent with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val claimTransaction = new ClaimTransaction
 
-  def present = claiming{ implicit claim =>  implicit request =>  lang =>
+  def present = claiming{ implicit claim => implicit request => implicit lang =>
     Logger.debug(s"Showing async submitting ${claim.key} ${claim.uuid}")
     Ok(views.html.common.asyncSubmitting(lang))
   }
 
-  def submit = claiming { implicit claim =>  implicit request =>  lang =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     import StatusRoutingController._
 
     val transactionStatus = claimTransaction.getTransactionStatusById(claim.transactionId.getOrElse(""))
@@ -65,11 +67,11 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
   }
 
 
-  def error = ending { implicit claim =>  implicit request =>  lang =>
+  def error = ending { implicit claim => implicit request => implicit lang =>
     Ok(views.html.common.error(startPage))
   }
 
-  def errorRetry = claiming { implicit claim =>  implicit request =>  lang =>
+  def errorRetry = claiming { implicit claim => implicit request => implicit lang =>
 
     if (claimType(claim) == FULL_CLAIM){
       Ok(views.html.common.error_retry(controllers.s_consent_and_declaration.routes.GDeclaration.present().url))

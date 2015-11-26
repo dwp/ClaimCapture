@@ -1,15 +1,14 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeApplication, FakeRequest}
+
+import org.specs2.mutable._
+import play.api.test.FakeRequest
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
-import app.ReportChange._
-import play.api.test.FakeApplication
 import utils.{WithApplication, LightFakeApplication}
 
-class G9EmploymentChangeSpec extends Specification with Tags {
+class G9EmploymentChangeSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val dontknow = "dontknow"
@@ -91,5 +90,6 @@ class G9EmploymentChangeSpec extends Specification with Tags {
      val result = G9EmploymentChange.submit(request)
      redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
    }
- } section("unit", models.domain.CircumstancesReportChanges.id)
+ }
+ section("unit", models.domain.CircumstancesReportChanges.id)
 }

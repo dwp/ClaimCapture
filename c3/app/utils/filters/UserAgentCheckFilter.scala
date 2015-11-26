@@ -1,6 +1,8 @@
 package utils.filters
 
 
+import javax.inject.Inject
+
 import play.api.mvc._
 
 /**
@@ -11,17 +13,9 @@ import play.api.mvc._
  * @param setIf Function to call to determine whether the User Agent needs to be cached so we can check it in subsequent request.
  * @param removeIf Function to call to determine whether the User Agent needs to be removed from cache because we shall not need it anymore.
  */
-class UserAgentCheckFilter(checkIf: (RequestHeader) => Boolean,
-                           setIf:(RequestHeader) => Boolean,
-                           removeIf: (RequestHeader) => Boolean) extends EssentialFilter {
+class UserAgentCheckFilter @Inject() (checkIf: (RequestHeader) => Boolean = UserAgentCheckAction.defaultCheckIf,
+                                      setIf:(RequestHeader) => Boolean = UserAgentCheckAction.defaultSetIf,
+                                      removeIf: (RequestHeader) => Boolean = UserAgentCheckAction.defautRemoveIf) extends EssentialFilter {
 
-
-  def apply(next: EssentialAction): EssentialAction = new UserAgentCheckAction(next,checkIf, setIf, removeIf)
-}
-
-object UserAgentCheckFilter {
-  def apply(checkIf: (RequestHeader) => Boolean = UserAgentCheckAction.defaultCheckIf,
-            setIf:(RequestHeader) => Boolean = UserAgentCheckAction.defaultSetIf,
-            removeIf: (RequestHeader) => Boolean = UserAgentCheckAction.defautRemoveIf) = new UserAgentCheckFilter(checkIf,setIf,removeIf )
-
+  def apply(nextFilter: EssentialAction): EssentialAction = new UserAgentCheckAction(nextFilter, checkIf, setIf, removeIf)
 }

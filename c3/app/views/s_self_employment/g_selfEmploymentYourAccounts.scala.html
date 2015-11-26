@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.SelfEmploymentYourAccounts])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.SelfEmploymentYourAccounts])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -10,10 +10,7 @@
 @import utils.helpers.PastPresentLabelHelper.labelForSelfEmployment
 @import scala.language.postfixOps
 
-
-@import play.api.i18n.{MMessages => Messages}
-@defining(lang) { implicit language =>
-@main(Messages("s8.g2") + " " + Messages("s8.longName"), Messages("s8.longName"), Some(currentForm), ignorePreview = true) {
+@main(messages("s8.g2") + " " + messages("s8.longName"), messages("s8.longName"), Some(currentForm), ignorePreview = true) {
 
     @form(action = controllers.s_self_employment.routes.GSelfEmploymentYourAccounts.submit, 'role -> "form") {
 
@@ -29,11 +26,11 @@
                     inputDef = Seq(
                         tradingStartDate(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom")),
                         tradingEndDate(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo")),
-                        yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"), 'values -> Seq("yes" -> Messages("label.yes1"), "no" -> Messages("label.no"))),
+                        yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"), 'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no"))),
                         otherDetailPlaceHolder(
                             inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyAndWhenTheChangeHappened"),
                                 'ignoreOptional -> true,
-                                'textAreaHelper -> Html(Messages("300charsLeft")),
+                                'textAreaHelper -> Html(messages("300charsLeft")),
                                 'maxLength -> 300)
                             ),
                             'id -> "selfEmployedIncomeWrap"
@@ -73,4 +70,4 @@
     </script>
 
 }
-}
+

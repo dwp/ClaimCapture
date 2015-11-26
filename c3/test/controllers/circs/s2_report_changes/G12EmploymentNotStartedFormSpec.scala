@@ -1,9 +1,10 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
+import utils.WithApplication
+import org.specs2.mutable._
 import models.DayMonthYear
 
-class G12EmploymentNotStartedFormSpec extends Specification with Tags {
+class G12EmploymentNotStartedFormSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val amountPaid = "£199.98"
@@ -20,7 +21,7 @@ class G12EmploymentNotStartedFormSpec extends Specification with Tags {
   val moreInfo = "more information"
 
   "Report an Employment change in your circumstances where employment has not started - Employment Form" should {
-    "map weekly paid with no pension/expenses paid when been paid set to 'yes'" in {
+    "map weekly paid with no pension/expenses paid when been paid set to 'yes'" in new WithApplication {
       G12EmploymentNotStarted.form.bind(
         Map(
           "beenPaidYet" -> yes,
@@ -50,7 +51,7 @@ class G12EmploymentNotStartedFormSpec extends Specification with Tags {
         )
     }
 
-    "should fail for special characters" in {
+    "should fail for special characters" in new WithApplication {
       G12EmploymentNotStarted.form.bind(
         Map(
           "beenPaidYet" -> yes,
@@ -77,5 +78,6 @@ class G12EmploymentNotStartedFormSpec extends Specification with Tags {
       )
     }
 
-  } section("unit", models.domain.CircumstancesSelfEmployment.id)
+  }
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
 }

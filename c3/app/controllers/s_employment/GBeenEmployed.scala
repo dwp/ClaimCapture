@@ -1,5 +1,7 @@
 package controllers.s_employment
 
+import javax.inject.Inject
+
 import controllers.IterationID
 import controllers.mappings.Mappings
 import models.view.{Navigable, CachedClaim}
@@ -12,17 +14,19 @@ import controllers.mappings.Mappings._
 import controllers.s_employment.Employment.jobs
 import models.domain.Claim
 import scala.reflect.ClassTag
-import play.api.i18n.Lang
 import scala.language.postfixOps
 import models.view.ClaimHandling.ClaimResult
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+import play.api.i18n._
+import play.api.Play.current
 
-object GBeenEmployed extends Controller with CachedClaim with Navigable {
+object GBeenEmployed extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "beenEmployed" -> (nonEmptyText verifying validYesNo)
   )(BeenEmployed.apply)(BeenEmployed.unapply))
 
-  private def presentConditionally(c: => Either[Result,ClaimResult], lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] = {
+  private def presentConditionally(c: => Either[Result,ClaimResult])(implicit claim: Claim, lang:Lang, request: Request[AnyContent]): Either[Result,ClaimResult] = {
     claim.questionGroup[Emp].collect {
       case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == yes => c
     }.getOrElse(redirect(lang))
@@ -44,22 +48,22 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable {
   }
 
   def present = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-      presentConditionally(beenEmployed(lang),lang)
+      presentConditionally(beenEmployed(lang))
   }
 
   private def beenEmployed(lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] = {
     if(getCompletedJobs) {
-      val f:Claim => Result = { implicit claim => Ok(views.html.s_employment.g_beenEmployed(form.fill(BeenEmployed))(lang))}
+      val f:Claim => Result = { implicit claim => Ok(views.html.s_employment.g_beenEmployed(form.fill(BeenEmployed)))}
       Right(trackBackToBeginningOfEmploymentSection(BeenEmployed)(f)(claim, request,ClassTag[BeenEmployed.type](BeenEmployed.getClass)) )
     }
     else Left(Redirect(routes.GJobDetails.present(IterationID(form))))
   }
 
-  def submit = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang => 
     import controllers.mappings.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
-      case `yes` if jobs.size < Mappings.five => Redirect(routes.GJobDetails.present(IterationID(form)))
+      case `yes` if jobs.size < app.ConfigProperties.getProperty("maximumJobs", 5) => Redirect(routes.GJobDetails.present(IterationID(form)))
       case _ => Redirect(controllers.s_employment.routes.GEmploymentAdditionalInfo.present())
     }
 
@@ -68,7 +72,7 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("beenEmployed", Mappings.errorRequired, FormError("beenEmployed", Mappings.errorRequired,Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
           displayPlaybackDatesFormat(lang, dmy - 6 months)))))
-        BadRequest(views.html.s_employment.g_beenEmployed(formWithErrorsUpdate)(lang))
+        BadRequest(views.html.s_employment.g_beenEmployed(formWithErrorsUpdate))
       },
       beenEmployed => clearUnfinishedJobs.update(beenEmployed) -> next(beenEmployed))
   }
@@ -83,3 +87,4 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable {
     Jobs(jobs.jobs.filter(_.completed == true)).size > 0
   }
 }
+

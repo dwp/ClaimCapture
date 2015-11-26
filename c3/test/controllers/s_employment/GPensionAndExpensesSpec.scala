@@ -1,32 +1,32 @@
 package controllers.s_employment
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain._
 import models.view.CachedClaim
 import utils.WithApplication
-import scala.Some
 
-class GPensionAndExpensesSpec extends Specification with Tags {
+
+class GPensionAndExpensesSpec extends Specification {
   val iterationID = "Dummy job ID"
 
   "Pension and expenses" should {
-    "present" in new WithApplication with Claiming {
+    "present" in new WithApplication {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+
       val result = GPensionAndExpenses.present(iterationID)(request)
       status(result) mustEqual OK
     }
 
-    "require all mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("iterationID" -> iterationID)
+    "require all mandatory data" in new WithApplication {
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("iterationID" -> iterationID)
 
       val result = GPensionAndExpenses.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
-    "accept all mandatory data" in new WithApplication with Claiming {
+    "accept all mandatory data" in new WithApplication {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(
         "iterationID" -> iterationID,
         "payPensionScheme.answer" -> "yes",
@@ -36,11 +36,12 @@ class GPensionAndExpensesSpec extends Specification with Tags {
         "payForThings.text" -> "some expenses to do the job",
         "haveExpensesForJob.text" -> "some job expense"
       )
+
       val result = GPensionAndExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
-    "be added to a current job" in new WithApplication with Claiming {
+    "be added to a current job" in new WithApplication {
       val result1 = GJobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         withFormUrlEncodedBody(
         "iterationID" -> iterationID,
@@ -61,7 +62,9 @@ class GPensionAndExpensesSpec extends Specification with Tags {
 
       status(result) mustEqual SEE_OTHER
 
-      val claim = getClaimFromCache(result)
+      val mockForm = new MockForm(){}
+
+      val claim = mockForm.getClaimFromCache(result)
 
       claim.questionGroup(Jobs) must beLike {
         case Some(js: Jobs) => {
@@ -72,5 +75,6 @@ class GPensionAndExpensesSpec extends Specification with Tags {
         }
       }
     }
-  } section("unit", models.domain.Employed.id)
+  }
+  section("unit", models.domain.Employed.id)
 }

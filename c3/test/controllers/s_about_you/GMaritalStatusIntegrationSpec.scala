@@ -2,7 +2,7 @@ package controllers.s_about_you
 
 import app.MaritalStatus
 import controllers.{ClaimScenarioFactory, PreviewTestUtils}
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewPage
@@ -10,7 +10,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_about_you.{GContactDetailsPage, GMaritalStatusPage, GNationalityAndResidencyPage, GAbroadForMoreThan52WeeksPage}
 import utils.helpers.PreviewField._
 
-class GMaritalStatusIntegrationSpec extends Specification with Tags {
+class GMaritalStatusIntegrationSpec extends Specification {
   sequential
 
   "Marital Status" should {
@@ -58,7 +58,8 @@ class GMaritalStatusIntegrationSpec extends Specification with Tags {
     }
 
 
-  } section("integration", models.domain.AboutYou.id)
+  }
+  section("integration", models.domain.AboutYou.id)
 
   def goToPreviewPage(context:PageObjectsContext):Page = {
     val claimDatePage = GClaimDatePage(context)

@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.CircumstancesPaymentChange])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.CircumstancesPaymentChange])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -12,10 +12,10 @@
 @import views.html.circs.s2_report_changes.main
 @import app.PaymentFrequency._
 @import app.WhoseNameAccount._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
-@defining(lang) { implicit language =>
-@main(Messages("c2.g5") + " - " + Messages("c2.name")) {
+
+@main(messages("c2.g5") + " - " + messages("c2.name")) {
     @errorsSummary(currentForm)
 
 
@@ -26,16 +26,16 @@
 
 	        <fieldset class="form-elements"  data-journey="carers-allowance:report-change:payment">
 
-	            <legend class="heading-medium form-label-bold">@Html(Messages("c2.g5"))</legend>
+	            <legend class="heading-medium form-label-bold">@Html(messages("c2.g5"))</legend>
 
 	            <ul class="coc-layout">
 	                @yesNoRadioGroup(currentForm("currentlyPaidIntoBank.answer"),
-	                    '_label -> Messages("currentlyPaidIntoBank.label"))
+	                    '_label -> messages("currentlyPaidIntoBank.label"))
 
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        carersInputText(currentForm("currentlyPaidIntoBank.text1"),
-	                            '_label -> Messages("currentlyPaidIntoBank.text1"),
+	                            '_label -> messages("currentlyPaidIntoBank.text1"),
 	                            'maxLength -> 35)
 	                    ),
 	                    'id -> "currentlyPaidIntoBankWrap1"
@@ -44,7 +44,7 @@
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        carersInputText(currentForm("currentlyPaidIntoBank.text2"),
-	                            '_label -> Messages("currentlyPaidIntoBank.text2"),
+	                            '_label -> messages("currentlyPaidIntoBank.text2"),
 	                            'maxLength -> 35)
 	                    ),
 	                    'id -> "currentlyPaidIntoBankWrap2"
@@ -55,7 +55,7 @@
 
 	        <fieldset class="form-elements">
 
-	            <legend class="heading-medium form-label-bold">@Html(Messages("c2.g5.newPaymentDetails"))</legend>
+	            <legend class="heading-medium form-label-bold">@Html(messages("c2.g5.newPaymentDetails"))</legend>
 
 	            <ul class="coc-layout">
 	                @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
@@ -70,10 +70,10 @@
 	                @carersInputText(currentForm("rollOrReferenceNumber"), 'maxLength -> "18")
 
 	                @listRadioGroup(currentForm("paymentFrequency"),
-                                    'items -> Seq(EveryWeek -> Messages("label.everyWeek"), FourWeekly -> Messages("label.fourWeekly"), ThirteenWeekly -> Messages("label.thirteenWeekly")),
+                                    'items -> Seq(EveryWeek -> messages("label.everyWeek"), FourWeekly -> messages("label.fourWeekly"), ThirteenWeekly -> messages("label.thirteenWeekly")),
                                     '_nestedFieldSet -> true)
 
-	                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> Messages("moreAboutChanges.helper"), 'helper -> Html(Messages("300charsLeft")), 'maxLength -> 300)
+	                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
 
 	            </ul>
 
@@ -101,4 +101,4 @@
 	</script>
 
 }
-}
+

@@ -14,37 +14,29 @@ window.initSummary = (deleteId) ->
     $("ul").on "click", "input[id='deleteButton']", ->
         disable()
         enableConfirmation()
-
         li = $(this).closest("li")
-        ul = $(this).closest("ul")
+        prompt = li.next()
 
-        $("#jobs .breaks-prompt").slideDown {
+        prompt.slideDown {
             start:->
                 dynamicMessage()
             ,complete:->
-                $("input[id='noDeleteButton']").unbind "click"
-                $("input[id='yesDeleteButton']").unbind "click"
-
-                $("input[id='noDeleteButton']").on "click", ->
+                prompt.find("#noDeleteButton").unbind "click"
+                prompt.find("#yesDeleteButton").unbind "click"
+                prompt.find("#noDeleteButton").on "click", ->
                     enable()
-                    $(".breaks-prompt").slideUp()
+                    prompt.slideUp()
 
-                $("input[id='yesDeleteButton']").on "click", ->
+                prompt.find("#yesDeleteButton").on "click", ->
                     disableConfirmation()
                     id = li.attr("id")
                     $("#"+deleteId).val(id)
-                    $(this).parents("form").submit()
+                    $("#deleteForm").submit()
         }
 
 dynamicMessage = ->
   normalMsg = $(".normalMsg")
-  warningMsg = $(".warningMsg")
-  if $("ul").find("tr").length is 1
-    normalMsg.hide()
-    warningMsg.show()
-  else
-    normalMsg.show()
-    warningMsg.hide()
+  normalMsg.show()
 
 enableConfirmation = ->
     $("#jobs .breaks-prompt input[type='button']").removeAttr("disabled").removeClass("disabled")
@@ -68,15 +60,16 @@ window.initEvents = (beenEmployed) ->
     $("input[name=" + beenEmployed+"]:checked").val() == "no"
 
 
-window.displayWarning = (answer_yes, answer_no) ->
-  if ($("#" + answer_yes).is ":checked") && $("ul.trip-data").children().length is 5
-    $("#maxEmpWarningWrap").slideDown()
-    $("#maxEmpWarningWrap").css('display', "block")
+window.displayWarning = (answer_yes, answer_no, testMode) ->
+  if( $("#maxEmpWarningWrap").length > 0 && $("#" + answer_yes).prop("checked"))
+    $("#maxEmpWarningWrap").show()
 
   $("#" + answer_yes).on "click", ->
-    if $("ul.trip-data").children().length is 5
-      $("#maxEmpWarningWrap").slideDown()
-      $("#maxEmpWarningWrap").css('display', "block")
+    if( $("#maxEmpWarningWrap").length >0)
+      $("#maxEmpWarningWrap").show()
+      if not testMode then trackEvent(window.location.pathname, "Error", $("#maxEmpWarningWrap").text().trim())
 
   $("#" + answer_no).on "click", ->
-    $("#maxEmpWarningWrap").slideUp()
+    if( $("#maxEmpWarningWrap").length >0)
+      $("#maxEmpWarningWrap").hide()
+

@@ -1,18 +1,25 @@
 @import play.api.Play
-@(previewForm:Form[models.domain.PreviewModel])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent],flash:Flash)
+@import models.domain.HowWePayYou
+@(previewForm:Form[models.domain.PreviewModel])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
-@import views.html.helper.base._
-@import play.api.i18n.{MMessages => Messages}
-@import utils.helpers.CarersTemplate._
 @import scala.language.postfixOps
 @import utils.csrf.DwpCSRFFormHelper
+@import models.domain.YourDetails
 
 @toggle = @{
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
 }
+@yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
+@showBankDetails=@{
+	claim.dateOfClaim match {
+		case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < app.ConfigProperties.getProperty("age.hide.paydetails",60)
+		case _ => false
+	}
+}
+
 @defining(lang) { implicit language =>
-    @common.govMain(Messages("preview.title")) {
+     @common.govMain(messages("preview.title")) {
 
         <div class="carers-allowance clearfix">
 
@@ -21,28 +28,25 @@
             <div class="grid-row main-grid">
 
                 <article class="column-full-width main-content">
-
-                    @views.html.common.upperBackButton(backCall = Some(controllers.preview.routes.Preview.back), forceShow = true)
-
-                    <h1 class="form-title heading-large">@Html(Messages("preview.summary"))</h1>
+                    <h1 class="form-title heading-large">@Html(messages("preview.summary"))</h1>
 
                     @errorsSummary(previewForm)
 					
-					<p class="text">@Html(Messages("preview.info"))</p>
+					<p class="text">@Html(messages("preview.info"))</p>
 					@if(toggle) {
-						<p class="text helper-prompt">@Html(Messages("preview.helper"))</p>
+						<p class="text helper-prompt">@Html(messages("preview.helper"))</p>
 					}
 					
 					<p class="hide-print hide-no-js">
-						<a href="javascript:window.print()" class="button-print" aria-label="@Html(Messages("form.next.help"))">
-							<img class="print-icon" alt="@Html(Messages("button.print.summary"))" src="/assets/images/print-icon.png">@Html(Messages("button.print.summary"))
+						<a href="javascript:window.print()" class="button-print" aria-label="@Html(messages("form.next.help"))">
+							<img class="print-icon" alt="@Html(messages("button.print.summary"))" src="/assets/images/print-icon.png">@Html(messages("button.print.summary"))
 						</a>
 					</p>
 					
 					<p class="hide-print helper-prompt">
 						<small>
-							<span class="js-hidden">@Html(Messages("preview.print.noJs"))</span>
-							@Html(Messages("preview.print"))
+							<span class="js-hidden">@Html(messages("preview.print.noJs"))</span>
+							@Html(messages("preview.print"))
 						</small>
 					</p>
 					
@@ -54,13 +58,16 @@
 	                    @s6()
 	                    @s8()
 	                    @s9()
+						@if(showBankDetails){
+							@bankDetails()
+						}
                         @s_additional_info()
 					</div>
 
                     @helper.form(action = controllers.preview.routes.Preview.submit) {
                         @DwpCSRFFormHelper.formField
                         <nav class="form-steps">
-                            <button type="submit" name="action" value="next" class="button" aria-label="@Html(Messages("form.next.help"))">@Html(Messages("form.next"))</button>
+                            <button type="submit" name="action" value="next" class="button" aria-label="@Html(messages("form.next.help"))">@Html(messages("form.next"))</button>
                         </nav>
                     }
                     
@@ -73,10 +80,11 @@
     }
 }
 
+
 <!-- Add legal message to footer -->
 <section class="footer-print">
 	<!-- US1360  -->
-	<h1 class='print-only legal-disclaimer'>@Html(Messages("preview.legalDisclaimer"))</h1>
+	<h1 class='print-only legal-disclaimer'>@Html(messages("preview.legalDisclaimer"))</h1>
 </section>
 
 <!-- Add legal watermark when printing -->
@@ -85,7 +93,7 @@
 		src="/assets/images/reference-watermark.png" 
 		height="0" width="0" 
 		style="visibility: hidden" 
-		alt="@Html(Messages("preview.legalDisclaimer"))" 
+		alt="@Html(messages("preview.legalDisclaimer"))" 
 	/>
 </div>
 

@@ -1,9 +1,9 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
     @import helper._
     @import utils.helpers._
     @import views.html.helper.base._
-    @import play.api.i18n.{MMessages => Messages}
+    @import play.api.i18n.Messages
 
     @implicitField = @{ CurrencyTemplate.fieldConstructor}
 
@@ -14,6 +14,6 @@
 
         @carersLabel(field,args:_*)
 
-        <input type="tel" class="form-control" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" title="@Html(Messages("currency.invalid"))" value="@value" @toHtmlArgs(htmlArgs)>
+        <input type="tel" class="form-control" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" title="@Html(messages("currency.invalid"))" value="@value" @toHtmlArgs(htmlArgs)>
 
     }

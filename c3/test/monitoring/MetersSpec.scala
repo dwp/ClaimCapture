@@ -1,10 +1,10 @@
 package monitoring
 
-import org.specs2.mutable.Specification
+import com.codahale.metrics.SharedMetricRegistries
+import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s_eligibility.GBenefitsPage
-import com.kenshoo.play.metrics.MetricsRegistry
 import utils.WithJsBrowser
 
 class MetersSpec extends Specification {
@@ -13,8 +13,9 @@ class MetersSpec extends Specification {
     "must measure com.kenshoo.play.metrics.MetricsFilter.200" in new WithJsBrowser  with PageObjects {
       val page = GBenefitsPage(context)
       page goToThePage()
-      val count = MetricsRegistry.defaultRegistry.meter("com.kenshoo.play.metrics.MetricsFilter.200").getCount
-      count mustEqual 4
+      val count = SharedMetricRegistries.getOrCreate("c3.metrics").meter("com.kenshoo.play.metrics.MetricsFilter.200").getCount
+      count mustEqual 3
     }
-  } section "unit"
+  }
+  section("unit")
 }

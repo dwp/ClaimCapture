@@ -1,7 +1,7 @@
 package controllers.preview
 
 import controllers.ClaimScenarioFactory
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import utils.WithJsBrowser
 import utils.helpers.PreviewField._
 import utils.pageobjects.preview.PreviewPage
@@ -13,7 +13,7 @@ import utils.pageobjects.s_eligibility.GBenefitsPage
 import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
 
-class PreviewPageBreaksContentSpec extends Specification with Tags {
+class PreviewPageBreaksContentSpec extends Specification {
 
   "Preview Page" should {
     "display breaks data" in new WithJsBrowser  with PageObjects{
@@ -30,7 +30,8 @@ class PreviewPageBreaksContentSpec extends Specification with Tags {
       source must contain("Yes - Details provided for 1 break(s)")
     }
     
-  }section "preview"
+  }
+section("preview")
 
 
 }

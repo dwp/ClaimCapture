@@ -2,7 +2,6 @@ package models.domain
 
 import controllers.mappings.Mappings
 import models._
-import play.api.i18n.{MMessages => Messages}
 import scala.reflect.ClassTag
 import controllers.mappings.Mappings._
 import models.PaymentFrequency
@@ -111,7 +110,7 @@ case class JobDetails(iterationID: String = "",
                       lastWorkDate:Option[DayMonthYear] = None,
                       p45LeavingDate:Option[DayMonthYear] = None,
                       hoursPerWeek: Option[String] = None) extends QuestionGroup(JobDetails) with IterationID {
-  override val definition = Messages(identifier.id, employerName)
+  override val definition = messagesApi(identifier.id, employerName)
 }
 
 object JobDetails extends QuestionGroup.Identifier {

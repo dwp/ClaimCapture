@@ -1,25 +1,23 @@
 package monitoring
 
-import org.specs2.mutable.Specification
+import app.PensionPaymentFrequency
+import org.specs2.mutable._
 import models.domain._
 import org.specs2.mock.Mockito
 import models.view.CachedClaim
 import models.yesNo.{YesNoWithText, YesNoWithEmployerAndMoney, YesNoWithDate, YesNo}
 import models.DayMonthYear
 import models.domain.Claim
-import scala.Some
 import models.MultiLineAddress
 import utils.WithBrowser
 
-class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
+class ClaimBotCheckingSpec extends Specification with Mockito {
+  def controller = new ClaimBotChecking {}
 
-  val controller = new ClaimBotChecking {}
-
-  var claim = copyInstance(new Claim(CachedClaim.key)
+  def claim = new CachedClaim(){}.copyInstance(new Claim(CachedClaim.key)
     .update(Benefits(Benefits.pip))
     .update(Eligibility("no","no","no"))
   )
-
 
   private def createJob(jobId: String, questionGroup: QuestionGroup with controllers.Iteration.Identifier): Iteration = {
     val jobDetails = JobDetails(jobId)
@@ -36,28 +34,28 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.checkTimeToCompleteAllSections(claim, currentTime = Long.MaxValue) should beFalse
     }
 
-    "returns false given did not answer any honeyPot question groups" in {
+    "returns false given did not answer any honeyPot question groups" in new WithBrowser {
       controller.honeyPot(Claim(CachedClaim.key)) should beFalse
     }
 
-    "returns false given spent35HoursCaringBeforeClaim answered yes and honeyPot filled" in {
+    "returns false given spent35HoursCaringBeforeClaim answered yes and honeyPot filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(ClaimDate(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "yes", date = Some(DayMonthYear()))))
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given spent35HoursCaringBeforeClaim answered no and honeyPot not filled" in {
+    "returns false given spent35HoursCaringBeforeClaim answered no and honeyPot not filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(ClaimDate(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "no", date = None)))
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given spent35HoursCaringBeforeClaim answered no and honeyPot filled" in {
+    "returns true given spent35HoursCaringBeforeClaim answered no and honeyPot filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(ClaimDate(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "no", date = Some(DayMonthYear()))))
       controller.honeyPot(claim) should beTrue
     }
 
     /************* start employment pension and job expenses ********************/
 
-    "returns true given PensionAndExpenses pension expenses honeyPot not filled (pension expenses entered)" in {
+    "returns true given PensionAndExpenses pension expenses honeyPot not filled (pension expenses entered)" in new WithBrowser {
       val aboutExpenses = PensionAndExpenses(
         "12345",
         YesNoWithText("no",None),
@@ -71,7 +69,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beTrue
     }
 
-    "return true given PensionAndExpenses pay for things honey pot filled (pay for things entered)" in {
+    "return true given PensionAndExpenses pay for things honey pot filled (pay for things entered)" in new WithBrowser {
       val aboutExpenses = PensionAndExpenses(
         "12345",
         YesNoWithText("no",None),
@@ -85,7 +83,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beTrue
     }
 
-    "return false given PensionAndExpenses pay for things honey pot not filled (pay for things not entered)" in {
+    "return false given PensionAndExpenses pay for things honey pot not filled (pay for things not entered)" in new WithBrowser {
       val aboutExpenses = PensionAndExpenses(
         "12345",
         YesNoWithText("no",None),
@@ -99,7 +97,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given PensionAndExpenses pension expenses honeyPot filled (pension expenses entered)" in {
+    "returns false given PensionAndExpenses pension expenses honeyPot filled (pension expenses entered)" in new WithBrowser {
       val aboutExpenses = PensionAndExpenses(
         "12345",
         YesNoWithText("no",None),
@@ -112,7 +110,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given PensionAndExpenses pension expenses honeyPot filled (pension expenses entered) for more than one job" in {
+    "returns false given PensionAndExpenses pension expenses honeyPot filled (pension expenses entered) for more than one job" in new WithBrowser {
       val aboutExpenses1 = PensionAndExpenses(
         "12345",
         YesNoWithText("no",None),
@@ -133,7 +131,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given PensionAndExpenses job expenses honeyPot not filled (job expenses entered)" in {
+    "returns true given PensionAndExpenses job expenses honeyPot not filled (job expenses entered)" in new WithBrowser {
       val aboutExpenses = PensionAndExpenses(
         "12345",
         YesNoWithText("no",Some("Some expenses")),
@@ -146,7 +144,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns false given PensionAndExpenses job expenses honeyPot filled (job expenses entered)" in {
+    "returns false given PensionAndExpenses job expenses honeyPot filled (job expenses entered)" in new WithBrowser {
       val aboutExpenses = PensionAndExpenses(
         "12345",
         YesNoWithText("yes",Some("Some expenses")),
@@ -159,7 +157,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given PensionAndExpenses job expenses honeyPot filled (job expenses entered) for more than one job" in {
+    "returns false given PensionAndExpenses job expenses honeyPot filled (job expenses entered) for more than one job" in new WithBrowser {
       val aboutExpenses1 = PensionAndExpenses(
         "",
         YesNoWithText("yes",Some("Some expenses")),
@@ -182,7 +180,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
 
     /************* end employment about expenses related *****************/
 
-    "returns true given SelfEmploymentPensionAndExpenses pension expenses honeyPot not filled (pension expenses entered)" in {
+    "returns true given SelfEmploymentPensionAndExpenses pension expenses honeyPot not filled (pension expenses entered)" in new WithBrowser {
       val aboutExpenses = SelfEmploymentPensionsAndExpenses(
         YesNoWithText("no",None),
         YesNoWithText("no",Some("Some expenses"))
@@ -193,7 +191,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns false given SelfEmploymentPensionAndExpenses pension expenses honeyPot filled (pension expenses entered)" in {
+    "returns false given SelfEmploymentPensionAndExpenses pension expenses honeyPot filled (pension expenses entered)" in new WithBrowser {
       val aboutExpenses = SelfEmploymentPensionsAndExpenses(
         YesNoWithText("no",None),
         YesNoWithText("yes",Some("Some expenses"))
@@ -204,7 +202,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given SelfEmploymentPensionsAndExpenses job expenses honeyPot not filled (job expenses entered)" in {
+    "returns true given SelfEmploymentPensionsAndExpenses job expenses honeyPot not filled (job expenses entered)" in new WithBrowser {
       val aboutExpenses = SelfEmploymentPensionsAndExpenses(
         YesNoWithText("no",Some("Some expenses")),
         YesNoWithText("no")
@@ -214,7 +212,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns false given SelfEmploymentPensionsAndExpenses job expenses honeyPot filled (job expenses entered)" in {
+    "returns false given SelfEmploymentPensionsAndExpenses job expenses honeyPot filled (job expenses entered)" in new WithBrowser {
       val aboutExpenses = SelfEmploymentPensionsAndExpenses(
         YesNoWithText("yes",Some("Some expenses")),
         YesNoWithText("no")
@@ -224,93 +222,93 @@ class ClaimBotCheckingSpec extends Specification with Mockito with CachedClaim {
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given AboutOtherMoney answered no and honeyPot howOften filled" in {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), Some("Toys R Us"), Some("12"), howOften = Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text"))),
+    "returns true given AboutOtherMoney answered no and honeyPot howOften filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), Some("Toys R Us"), Some("12"), howOften = Some(models.PaymentFrequency(frequency = PensionPaymentFrequency.Weekly, other = Some("other text"))),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
 
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns false given StatutorySickPay answered yes and honeyPot filled" in {
+    "returns false given StatutorySickPay answered yes and honeyPot filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes", howMuch = Some("12"), None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given StatutorySickPay answered no and honeyPot not filled" in {
+    "returns false given StatutorySickPay answered no and honeyPot not filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given StatutorySickPay answered no and honeyPot howMuch filled" in {
+    "returns false given StatutorySickPay answered no and honeyPot howMuch filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", howMuch = None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given StatutorySickPay answered no and honeyPot howOften filled" in {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes",  None, Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly)), None, None, None),
+    "returns false given StatutorySickPay answered no and honeyPot howOften filled"in new WithBrowser {
+      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes",  None, Some(models.PaymentFrequency(frequency = PensionPaymentFrequency.Weekly)), None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given StatutorySickPay answered no and honeyPot employersName filled" in {
+    "returns true given StatutorySickPay answered no and honeyPot employersName filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, employersName = Some("some employersName"), None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns false given StatutorySickPay answered no and honeyPot employersAddress filled" in {
+    "returns false given StatutorySickPay answered no and honeyPot employersAddress filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes", None, None, None, Some(MultiLineAddress(Some("some lineOne"))), None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given StatutorySickPay answered no and honeyPot employersPostcode filled" in {
+    "returns true given StatutorySickPay answered no and honeyPot employersPostcode filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, Some("PR1A4JQ")),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns false given OtherStatutoryPay answered yes and honeyPot filled" in {
+    "returns false given OtherStatutoryPay answered yes and honeyPot filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("yes", Some("12"), None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given OtherStatutoryPay answered no and honeyPot not filled" in {
+    "returns false given OtherStatutoryPay answered no and honeyPot not filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given OtherStatutoryPay answered no and honeyPot howMuch filled" in {
+    "returns true given OtherStatutoryPay answered no and honeyPot howMuch filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", howMuch=Some("12"), None, None, None, None)))
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns true given OtherStatutoryPay answered no and honeyPot howOften filled" in {
+    "returns true given OtherStatutoryPay answered no and honeyPot howOften filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
-        YesNoWithEmployerAndMoney("no", None, Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly)), None, None, None)))
+        YesNoWithEmployerAndMoney("no", None, Some(models.PaymentFrequency(frequency = PensionPaymentFrequency.Weekly)), None, None, None)))
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns true given OtherStatutoryPay answered no and honeyPot employersName filled" in {
+    "returns true given OtherStatutoryPay answered no and honeyPot employersName filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, employersName = Some("some employersName"), None, None)))
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns true given OtherStatutoryPay answered no and honeyPot employersAddress filled" in {
+    "returns true given OtherStatutoryPay answered no and honeyPot employersAddress filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, Some(MultiLineAddress(Some("some lineOne"))), None)))
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns true given OtherStatutoryPay answered no and honeyPot employersPostcode filled" in {
+    "returns true given OtherStatutoryPay answered no and honeyPot employersPostcode filled" in new WithBrowser {
       val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
         YesNoWithEmployerAndMoney("no", None, None, None, None, Some("PR1A4JQ"))))
       controller.honeyPot(claim) should beTrue

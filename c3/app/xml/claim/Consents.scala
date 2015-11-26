@@ -4,7 +4,6 @@ import models.domain.Claim
 import xml.XMLHelper._
 import xml.XMLComponent
 
-
 object Consents extends XMLComponent {
 
   def xml(claim: Claim) = {

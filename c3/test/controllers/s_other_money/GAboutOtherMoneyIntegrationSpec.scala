@@ -1,6 +1,6 @@
 package controllers.s_other_money
 
-import org.specs2.mutable.{ Tags, Specification }
+import org.specs2.mutable._
 import controllers.ClaimScenarioFactory
 import utils.{WithBrowser, WithJsBrowser}
 import utils.pageobjects.s_other_money._
@@ -8,7 +8,7 @@ import utils.pageobjects._
 import utils.pageobjects.s_pay_details.GHowWePayYouPage
 
 
-class GAboutOtherMoneyIntegrationSpec extends Specification with Tags {
+class GAboutOtherMoneyIntegrationSpec extends Specification {
   "Other Money" should {
     "be presented" in new WithBrowser with PageObjects {
       val page = GAboutOtherMoneyPage(context)
@@ -97,6 +97,7 @@ class GAboutOtherMoneyIntegrationSpec extends Specification with Tags {
       differentPage must beAnInstanceOf[GHowWePayYouPage]
     }
 
-  } section ("integration", models.domain.OtherMoney.id)
+  }
+  section ("integration", models.domain.OtherMoney.id)
 
 }

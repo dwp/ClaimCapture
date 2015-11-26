@@ -1,7 +1,7 @@
 package models
 
 import play.api.data.Form
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import controllers.mappings.Mappings._
 import app.StatutoryPaymentFrequency._
 

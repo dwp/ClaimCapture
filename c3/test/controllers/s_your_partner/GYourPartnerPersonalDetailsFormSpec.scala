@@ -1,12 +1,13 @@
 package controllers.s_your_partner
 
+import utils.WithApplication
 import controllers.mappings.Mappings
 import models.view.CachedClaim
-import org.specs2.mutable.{ Tags, Specification }
+import org.specs2.mutable._
 import models.{ NationalInsuranceNumber, DayMonthYear }
 import scala.Some
 
-class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
+class GYourPartnerPersonalDetailsFormSpec extends Specification {
 
   val title = "Mr"
   val firstName = "John"
@@ -21,7 +22,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
   val separatedFromPartner = "yes"
 
   "Your Partner Personal Details Form" should {
-    "map data into case class when partner answer is yes" in {
+    "map data into case class when partner answer is yes" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -52,7 +53,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           })
     }
 
-    "reject too many characters in text fields" in {
+    "reject too many characters in text fields" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
@@ -77,7 +78,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "have 7 mandatory fields" in {
+    "have 7 mandatory fields" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("hadPartnerSinceClaimDate" -> "yes","middleName" -> "middle optional")).fold(
           formWithErrors => {
@@ -93,7 +94,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject form when partner question not answered" in {
+    "reject form when partner question not answered" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("hadPartnerSinceClaimDate" -> "")).fold(
         formWithErrors => {
@@ -102,7 +103,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject invalid national insurance number" in {
+    "reject invalid national insurance number" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -124,7 +125,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject invalid date" in {
+    "reject invalid date" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -146,7 +147,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject form without partnerispersonyoucarefor" in {
+    "reject form without partnerispersonyoucarefor" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -166,7 +167,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
         },f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "accept nationality with space character, uppercase and lowercase" in {
+    "accept nationality with space character, uppercase and lowercase" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -187,7 +188,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           })
     }
 
-    "reject invalid nationality with numbers" in {
+    "reject invalid nationality with numbers" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -209,7 +210,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject invalid nationality with special characters" in {
+    "reject invalid nationality with special characters" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -231,7 +232,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject special characters" in {
+    "reject special characters" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> "MyNa>me",
@@ -252,5 +253,6 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification with Tags {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-  } section ("unit", models.domain.YourPartner.id)
+  }
+  section ("unit", models.domain.YourPartner.id)
 }

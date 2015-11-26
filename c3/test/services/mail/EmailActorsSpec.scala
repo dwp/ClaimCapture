@@ -2,7 +2,7 @@ package services.mail
 
 import akka.actor._
 import org.specs2.mock.Mockito
-import org.specs2.mutable.{Specification, Tags}
+import org.specs2.mutable._
 import play.api.Logger
 import play.modules.mailer._
 import specs2.akka.AkkaTestkitSpecs2Support
@@ -10,7 +10,7 @@ import specs2.akka.AkkaTestkitSpecs2Support
 import scala.util.{Failure, Success}
 
 
-class EmailActorsSpec extends Specification with Tags with Mockito{
+class EmailActorsSpec extends Specification with Mockito{
 
   sequential
 
@@ -92,7 +92,8 @@ class EmailActorsSpec extends Specification with Tags with Mockito{
       there was atMost(3)(mailerMock).sendEmail(any[Email])
 
     }
-  } section ("unit","slow")
+  }
+  section ("unit","slow")
 
   def successMailerMock: Mailer = {
     val mailerMock = mock[Mailer]

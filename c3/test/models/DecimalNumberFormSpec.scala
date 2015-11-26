@@ -1,6 +1,6 @@
 package models
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import play.api.data.{Forms, FormError, Form}
 import play.api.data.Forms._
 import controllers.mappings.Mappings._

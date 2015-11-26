@@ -2,6 +2,7 @@ package controllers.circs.s3_consent_and_declaration
 
 import controllers.mappings.Mappings._
 import models.domain.EMail._
+import play.api.Play._
 import play.api.data.validation.Constraints
 import play.api.mvc._
 import models.view.{Navigable, CachedChangeOfCircs}
@@ -15,12 +16,15 @@ import monitoring.ChangeBotChecking
 import play.api.data.FormError
 import services.submission.ClaimSubmissionService
 import services.ClaimTransactionComponent
+import play.api.i18n._
 
-class G1Declaration extends Controller with CachedChangeOfCircs with Navigable
+
+class G1Declaration extends Controller with CachedChangeOfCircs with Navigable with I18nSupport
       with AsyncSubmissionController
       with ChangeBotChecking
       with ClaimSubmissionService
       with ClaimTransactionComponent {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val claimTransaction = new ClaimTransaction
 
   val form = Form(mapping(
@@ -35,19 +39,19 @@ class G1Declaration extends Controller with CachedChangeOfCircs with Navigable
 
   )
 
-  def present = claiming { implicit circs =>  implicit request =>  lang =>
+  def present = claiming { implicit circs => implicit request => implicit lang => 
       track(CircumstancesDeclaration) {
-        implicit circs => Ok(views.html.circs.s3_consent_and_declaration.g1_declaration(form.fill(CircumstancesDeclaration))(lang))
+        implicit circs => Ok(views.html.circs.s3_consent_and_declaration.g1_declaration(form.fill(CircumstancesDeclaration)))
       }
   }
 
-  def submit: Action[AnyContent] = claiming { implicit circs =>  implicit request =>  lang =>
+  def submit: Action[AnyContent] = claiming { implicit circs => implicit request => implicit lang => 
       form.bindEncrypted.fold(
         formWithErrors => {
           val formWithErrorsUpdate = formWithErrors
             .replaceError("", "obtainInfoWhy", FormError("obtainInfoWhy", errorRequired))
             .replaceError("", "nameOrOrganisation", FormError("nameOrOrganisation", errorRequired))
-          BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(formWithErrorsUpdate)(lang))
+          BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(formWithErrorsUpdate))
         },
         f => {
           val updatedCircs = copyInstance(circs.update(f))

@@ -1,11 +1,11 @@
 package xml
 
 import models.view.CachedClaim
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import models.domain.{Claim, CircumstancesDeclaration}
 import xml.circumstances.Declaration
 
-class ConsentAndDeclarationSpec extends Specification with Tags {
+class ConsentAndDeclarationSpec extends Specification {
   val otherInfo = "Some other info"
 
   "Consent and Declaration" should {
@@ -20,5 +20,6 @@ class ConsentAndDeclarationSpec extends Specification with Tags {
       (xml \\ "EvidenceList" \\ "TextLine").text must contain(confirmation)
     }.pendingUntilFixed("Schema changes: Needs to implement the new Declaration and Evidence structure")
 
-  } section "unit"
+  }
+section("unit")
 }

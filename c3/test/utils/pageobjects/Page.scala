@@ -70,12 +70,12 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
   * @return Page object representing the html page the UI went back to.
   */
   def clickLinkOrButton(elementCssSelector: String, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION): Page = {
-    val handles1 = ctx.browser.webDriver.getWindowHandles
+    val handles1 = ctx.browser.getDriver.getWindowHandles
     val fluent = clickElement(elementCssSelector)
-    val handles2 = ctx.browser.webDriver.getWindowHandles
+    val handles2 = ctx.browser.getDriver.getWindowHandles
     handles2.removeAll(handles1)
     val newUrl = if (handles2.size > 0) {
-      ctx.browser.webDriver.switchTo().window(handles2.head).getCurrentUrl.replaceFirst("http://[^/]*","")
+      ctx.browser.getDriver.switchTo().window(handles2.head).getCurrentUrl.replaceFirst("http://[^/]*","")
     } else  getPageWithUrl(fluent,waitForPage, waitDuration)
 
     //remove the anchor part from the url
@@ -318,7 +318,7 @@ protected def getPageWithUrl(fluent: Fluent, waitForPage: Boolean, waitDuration:
   }
 
   def xpath(xpath:String) = {
-    ctx.browser.webDriver.findElement(By.xpath(xpath))
+    ctx.browser.getDriver.findElement(By.xpath(xpath))
   }
 }
 

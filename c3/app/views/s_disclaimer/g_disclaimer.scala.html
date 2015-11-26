@@ -1,12 +1,12 @@
-@(currentForm: Form[models.domain.Disclaimer])(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash)
+@(currentForm: Form[models.domain.Disclaimer])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import models.domain.TheirPersonalDetails
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 
-@defining(lang) { implicit language =>
-    @main(Messages("s1.g1") + " - " + Messages("s1.longName"), Some(currentForm)) {
+
+    @main(messages("s1.g1") + " - " + messages("s1.longName"), Some(currentForm)) {
 
 
         @form(action = controllers.s_disclaimer.routes.GDisclaimer.submit, 'role -> "form") {
@@ -16,20 +16,20 @@
 
                     <div class="declaration">
                     
-                        <p>@Html(Messages("disclaimer.1"))</p>
+                        <p>@Html(messages("disclaimer.1"))</p>
 
                         <ul class="list-bullet">
                             @for(i <- 2 to 3) {
-                                <li>@Html(Messages(s"disclaimer.${i}"))</li>
+                                <li>@Html(messages(s"disclaimer.${i}"))</li>
                             }
-                            <li>@Html(Messages("disclaimer.4", s"""<a rel="external" href="https://www.gov.uk/find-your-local-council" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - Find your local council")}>""", "</a>"))</li>
+                            <li>@Html(messages("disclaimer.4", s"""<a rel="external" href="https://www.gov.uk/find-your-local-council" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - Find your local council")}>""", "</a>"))</li>
                         </ul>
                         
                         <p>
-                            @Html(Messages("disclaimer.5", s"""<a rel="external" href="https://www.gov.uk/carers-allowance/what-youll-get" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - How it affects benefits")}>""", "</a>"))
+                            @Html(messages("disclaimer.5", s"""<a rel="external" href="https://www.gov.uk/carers-allowance/what-youll-get" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - How it affects benefits")}>""", "</a>"))
                         </p>
                         <p>
-                            @Html(Messages("disclaimer.6", "<b>", "</b>"))
+                            @Html(messages("disclaimer.6", "<b>", "</b>"))
                         </p>
                         
                     </div>
@@ -45,4 +45,4 @@
 
         }
     }
-}
+

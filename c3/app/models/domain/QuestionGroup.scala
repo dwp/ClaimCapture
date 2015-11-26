@@ -1,9 +1,11 @@
 package models.domain
 
-import play.api.i18n.{MMessages => Messages}
+import play.api.i18n.{MMessages, MessagesApi, Lang}
+import play.api.Play.current
 
 abstract class QuestionGroup(val identifier: QuestionGroup.Identifier) extends Serializable {
-  val definition: String = Messages(identifier.id)
+  def messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+  val definition: String = messagesApi(identifier.id)
 }
 
 object QuestionGroup extends Serializable {

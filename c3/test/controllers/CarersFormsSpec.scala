@@ -1,7 +1,8 @@
 package controllers
 
+import utils.WithApplication
 import controllers.mappings.Mappings
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import language.reflectiveCalls
 import play.api.data.Forms._
 import play.api.data.Form
@@ -16,10 +17,10 @@ object TestForm {
   )(Details.apply)(Details.unapply))
 }
 
-class CarersFormsSpec extends Specification with Tags {
+class CarersFormsSpec extends Specification {
 
   "Carers Forms" should {
-    "handle good data" in {
+    "handle good data" in new WithApplication {
       TestForm.form.bind(
         Map("v1" -> "title",
           "v2" -> "firstName")).fold(
@@ -30,7 +31,7 @@ class CarersFormsSpec extends Specification with Tags {
         })
     }
 
-    "handle short data" in {
+    "handle short data" in new WithApplication {
       TestForm.form.bind(
         Map("v1" -> "title",
           "v2" -> "kjjj")).fold(
@@ -40,7 +41,7 @@ class CarersFormsSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "handle bad char" in {
+    "handle bad char" in new WithApplication {
       TestForm.form.bind(
         Map("v1" -> ">itle",
           "v2" -> "kjhkhjhjhkjmr`")).fold(

@@ -1,5 +1,7 @@
 package controllers.s_employment
 
+import play.api.Play._
+
 import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
@@ -15,8 +17,10 @@ import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
 import scala.language.postfixOps
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+import play.api.i18n._
 
-object GJobDetails extends Controller with CachedClaim with Navigable {
+object GJobDetails extends Controller with CachedClaim with Navigable with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "iterationID" -> carersNonEmptyText,
     "employerName"-> carersNonEmptyText(maxLength = 60),
@@ -34,29 +38,29 @@ object GJobDetails extends Controller with CachedClaim with Navigable {
     .verifying("jobStartDate.required", JobDetails.validateJobStartDate _)
   )
 
-  def job(iterationID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
+  def job(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang => 
     claim.questionGroup(Jobs) match {
       case Some(js: Jobs) if js.job(iterationID).isDefined =>
-        track(JobDetails) { implicit claim => Ok(views.html.s_employment.g_jobDetails(form.fillWithJobID(JobDetails, iterationID))(lang)) }
+        track(JobDetails) { implicit claim => Ok(views.html.s_employment.g_jobDetails(form.fillWithJobID(JobDetails, iterationID))) }
       case _ =>
         Redirect(routes.GBeenEmployed.present())
     }
   }
 
-  def present(iterationID: String) = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
-    track(JobDetails) { implicit claim => Ok(views.html.s_employment.g_jobDetails(form.fillWithJobID(JobDetails, iterationID))(lang)) }
+  def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+    track(JobDetails) { implicit claim => Ok(views.html.s_employment.g_jobDetails(form.fillWithJobID(JobDetails, iterationID))) }
   }
 
-  def submit = claimingWithCheckInIteration { iterationID => implicit claim =>  implicit request =>  lang =>
+  def submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit lang => 
     form.bindEncrypted.fold(
       formWithErrors =>{
         val form = formWithErrors
-          .replaceError("", "lastWorkDate.required", FormError("lastWorkDate", errorRequired, Seq(labelForEmployment(formWithErrors("finishedThisJob").value.getOrElse(""), lang, "lastWorkDate"))))
-          .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(labelForEmployment(formWithErrors("finishedThisJob").value.getOrElse(""), lang, "hoursPerWeek"))))
-          .replaceError("hoursPerWeek","error.restricted.characters",FormError("hoursPerWeek","error.restricted.characters", Seq(labelForEmployment(formWithErrors("finishedThisJob").value.getOrElse(""), lang, "hoursPerWeek"))))
+          .replaceError("", "lastWorkDate.required", FormError("lastWorkDate", errorRequired, Seq(labelForEmployment(claim, lang, formWithErrors("finishedThisJob").value.getOrElse(""), "lastWorkDate"))))
+          .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(labelForEmployment(claim, lang, formWithErrors("finishedThisJob").value.getOrElse(""), "hoursPerWeek"))))
+          .replaceError("hoursPerWeek","error.restricted.characters",FormError("hoursPerWeek","error.restricted.characters", Seq(labelForEmployment(claim, lang, formWithErrors("finishedThisJob").value.getOrElse(""), "hoursPerWeek"))))
           .replaceError("", "jobStartDate.required", FormError("jobStartDate", errorRequired))
-          .replaceError("startJobBeforeClaimDate", errorRequired, FormError("startJobBeforeClaimDate", errorRequired,Seq(claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang,dmy - 1 months)))))
-        BadRequest(views.html.s_employment.g_jobDetails(form)(lang))
+          .replaceError("startJobBeforeClaimDate", errorRequired, FormError("startJobBeforeClaimDate", errorRequired,Seq(claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy - 1 months)))))
+        BadRequest(views.html.s_employment.g_jobDetails(form))
       },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.GLastWage.present(iterationID)))
   }
 }

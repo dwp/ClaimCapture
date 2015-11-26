@@ -1,6 +1,7 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
+import utils.WithApplication
+import org.specs2.mutable._
 import app.CircsBreaksWhereabouts
 import scala.Predef._
 import models.DayMonthYear
@@ -8,14 +9,14 @@ import controllers.mappings.Mappings
 import models.yesNo.{YesNoDontKnowWithDates, YesNoWithDateTimeAndText, RadioWithText}
 
 
-class G8BreaksInCareSummaryFormSpec extends Specification with Tags {
+class G8BreaksInCareSummaryFormSpec extends Specification {
 
   "Report a change in your circumstances - Breaks from caring summary Form" should {
 
     val yes = "yes"
     val no = "no"
 
-    "map data into case class with additional breaks" in {
+    "map data into case class with additional breaks" in new WithApplication {
        G8BreaksInCareSummary.form.bind(
           Map(
             "additionalBreaks.answer" -> yes,
@@ -30,7 +31,7 @@ class G8BreaksInCareSummaryFormSpec extends Specification with Tags {
        )
     }
 
-    "map data into case class with no additional breaks" in {
+    "map data into case class with no additional breaks" in new WithApplication {
        G8BreaksInCareSummary.form.bind(
           Map(
             "additionalBreaks.answer" -> no
@@ -44,7 +45,7 @@ class G8BreaksInCareSummaryFormSpec extends Specification with Tags {
        )
     }
 
-    "check errors for mandatory fields with additional breaks" in {
+    "check errors for mandatory fields with additional breaks" in new WithApplication {
       G8BreaksInCareSummary.form.bind(
         Map(
           "additionalBreaks.answer" -> yes
@@ -57,7 +58,7 @@ class G8BreaksInCareSummaryFormSpec extends Specification with Tags {
       )
     }
 
-    "check errors for mandatory fields with additional breaks" in {
+    "check errors for mandatory fields with additional breaks" in new WithApplication {
       G8BreaksInCareSummary.form.bind(
         Map(
           "additionalBreaks.answer" -> ""
@@ -69,5 +70,6 @@ class G8BreaksInCareSummaryFormSpec extends Specification with Tags {
         form => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  }section("unit", models.domain.CircumstancesAddressChange.id)
+  }
+  section("unit", models.domain.CircumstancesAddressChange.id)
 }

@@ -1,36 +1,30 @@
 package controllers.circs.s1_start_of_process
 
 import app.ReportChange
-import app.ReportChange.AdditionalInfo
-import app.ReportChange.SelfEmployment
-import controllers.circs.s1_start_of_process
-import controllers.circs.s2_report_changes.G9EmploymentChange
 import controllers.mappings.Mappings
 import models.domain._
 import models.view.CachedChangeOfCircs
-import org.specs2.mutable.{Tags, Specification}
-import play.api.cache.Cache
+import org.specs2.mutable._
 import play.api.test.Helpers._
-import play.api.test.{FakeApplication, FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 import Mappings._
+import utils.WithApplication
 
 
-class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags {
+class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
+  val fullName = "Mr John Joe Smith"
+  val nino = "AB123456C"
+  val dateOfBirthDay = 5
+  val dateOfBirthMonth = 12
+  val dateOfBirthYear = 1990
+  val theirFullName = "Mrs Jane Smith"
+  val theirRelationshipToYou = "Wife"
+
+  val byTelephone = "01254897675"
+  val wantsEmailContactCircs = "no"
 
   "Change of circumstances - About You Form" should {
-
-    val fullName = "Mr John Joe Smith"
-    val nino = "AB123456C"
-    val dateOfBirthDay = 5
-    val dateOfBirthMonth = 12
-    val dateOfBirthYear = 1990
-    val theirFullName = "Mrs Jane Smith"
-    val theirRelationshipToYou = "Wife"
-
-    val byTelephone = "01254897675"
-    val wantsEmailContact = "no"
-
-    "map data into case class" in {
+    "map data into case class" in new WithApplication {
       G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
@@ -41,17 +35,20 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> byTelephone,
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )
       ).fold(
-          formWithErrors => "This mapping should not happen." must equalTo("Error"),
+        formWithErrors => {
+          println(s"errors $formWithErrors.errors")
+          "This mapping should not happen." must equalTo("Error")
+        },
           f => {
             f.fullName must equalTo("Mr John Joe Smith")
           }
         )
     }
 
-    "map data into case class no contact info" in {
+    "map data into case class no contact info" in new WithApplication {
       G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
@@ -61,7 +58,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
@@ -71,7 +68,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       )
     }
 
-    "reject too many characters in text fields" in {
+    "reject too many characters in text fields" in new WithApplication {
       G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
@@ -82,7 +79,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "theirFullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "theirRelationshipToYou" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "furtherInfoContact" -> byTelephone,
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(3)
@@ -93,7 +90,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject characters in contact number field" in {
+    "reject characters in contact number field" in new WithApplication {
       G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
@@ -104,7 +101,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> "dhjahskdk",
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
@@ -113,7 +110,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject too many digits in contact number field" in {
+    "reject too many digits in contact number field" in new WithApplication {
       G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
@@ -124,7 +121,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> "012345678901234567890",
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
@@ -133,7 +130,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject too few digits in contact number field" in {
+    "reject too few digits in contact number field" in new WithApplication {
       G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
@@ -144,7 +141,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> "012345",
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
@@ -153,7 +150,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject special characters in text fields" in {
+    "reject special characters in text fields" in new WithApplication {
       G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> "John >",
@@ -164,7 +161,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "theirFullName" -> "Jane >",
           "theirRelationshipToYou" -> "Wife >",
           "furtherInfoContact" -> byTelephone,
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(3)
@@ -175,7 +172,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "have 5 mandatory fields (plus invalid Nino)" in {
+    "have 5 mandatory fields (plus invalid Nino)" in new WithApplication {
       G2ReportAChangeInYourCircumstances.form.bind(
         Map("fullName" -> "")).fold(
           formWithErrors => {
@@ -190,7 +187,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject invalid national insurance number" in {
+    "reject invalid national insurance number" in new WithApplication {
       G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
@@ -201,7 +198,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> byTelephone,
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
@@ -210,7 +207,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject invalid date" in {
+    "reject invalid date" in new WithApplication {
       G2ReportAChangeInYourCircumstances.form.bind(
         Map(
           "fullName" -> fullName,
@@ -221,7 +218,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
           "theirFullName" -> theirFullName,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> byTelephone,
-          "wantsEmailContact" -> wantsEmailContact
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
@@ -247,7 +244,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       "typeOfWork.selfEmployedTypeOfWork" -> selfEmployedTypeOfWork,
       "typeOfWork.selfEmployedTotalIncome" -> dontknow,
       "furtherInfoContact" -> byTelephone,
-      "wantsEmailContact" -> wantsEmailContact
+      "wantsEmailContactCircs" -> wantsEmailContactCircs
     )
 
     def g2FakeRequest(claimKey: String) = {
@@ -260,15 +257,16 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
         "theirFullName" -> theirFullName,
         "theirRelationshipToYou" -> theirRelationshipToYou,
         "furtherInfoContact" -> byTelephone,
-        "wantsEmailContactCircs" -> wantsEmailContact
+        "wantsEmailContactCircs" -> wantsEmailContactCircs
       )
     }
 
     "Controller flow " should {
       "redirect to the next page after a valid additional info submission" in new WithApplication with MockForm {
+
         val claim = Claim(claimKey)
 
-        Cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.AdditionalInfo.name)))
+        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.AdditionalInfo.name)))
 
         val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
@@ -276,9 +274,10 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       }
 
       "redirect to the next page after a valid self employment submission" in new WithApplication with MockForm {
+
         val claim = Claim(claimKey)
 
-        Cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.SelfEmployment.name)))
+        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.SelfEmployment.name)))
 
         val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
@@ -288,7 +287,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       "redirect to the next page after a valid stopped caring submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        Cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.StoppedCaring.name)))
+        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.StoppedCaring.name)))
 
         val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
@@ -298,7 +297,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       "redirect to the next page after a valid address change submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        Cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.AddressChange.name)))
+        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.AddressChange.name)))
 
         val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
@@ -308,7 +307,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       "redirect to the next page after a valid payment change submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        Cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.PaymentChange.name)))
+        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.PaymentChange.name)))
 
         val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
@@ -318,7 +317,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       "redirect to the next page after a valid break from caring submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        Cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.BreakFromCaring.name)))
+        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.BreakFromCaring.name)))
 
         val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
@@ -328,15 +327,13 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification with Tags
       "redirect to the next page after a valid break from caring submission because of you" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        Cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.BreakFromCaringYou.name)))
+        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.BreakFromCaringYou.name)))
 
         val result = G2ReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
         redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
       }
-
     }
-
-
-  } section("unit", models.domain.CircumstancesIdentification.id)
+  }
+  section("unit", models.domain.CircumstancesIdentification.id)
 }

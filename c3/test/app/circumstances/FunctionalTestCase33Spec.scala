@@ -33,5 +33,6 @@ class FunctionalTestCase33Spec extends FunctionalTestCommon {
       lastPage.source must contain("<Evidence>")
     }
 
-  } section "functional"
+  }
+section("functional")
 }

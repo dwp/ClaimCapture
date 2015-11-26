@@ -1,4 +1,4 @@
-import play.api.i18n.{MMessages => Messages, Lang}
+import play.api.i18n.{Messages, Lang}
 import play.api.Play
 import play.twirl.api.Html
 import scala.util.{Success, Try}
@@ -40,21 +40,21 @@ package object app {
     val RespiteCare = "In respite care"
     val SomewhereElse = "Somewhere else"
 
-    def whereWasThePersonList(implicit lang: Lang) = {
+    def whereWasThePersonList(implicit lang: Lang, messages: Messages) = {
       Seq(
-        Hospital -> Html(Messages("circsBreaks.inhospital")),
-        RespiteCare -> Html(Messages("circsBreaks.inrespitecare")),
-        Holiday -> Html(Messages("circsBreaks.onholiday")),
-        Home -> Html(Messages("circsBreaks.athome")),
-        SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
+        Hospital -> Html(messages("circsBreaks.inhospital")),
+        RespiteCare -> Html(messages("circsBreaks.inrespitecare")),
+        Holiday -> Html(messages("circsBreaks.onholiday")),
+        Home -> Html(messages("circsBreaks.athome")),
+        SomewhereElse -> Html(messages("circsBreaks.somewhereelse")))
     }
 
-    def whereWereYouList(implicit lang: Lang) = {
+    def whereWereYouList(implicit lang: Lang, messages: Messages) = {
       Seq(
-        Home -> Html(Messages("circsBreaks.athome")),
-        Holiday -> Html(Messages("circsBreaks.onholiday")),
-        Hospital -> Html(Messages("circsBreaks.inhospital")),
-        SomewhereElse -> Html(Messages("circsBreaks.somewhereelse")))
+        Home -> Html(messages("circsBreaks.athome")),
+        Holiday -> Html(messages("circsBreaks.onholiday")),
+        Hospital -> Html(messages("circsBreaks.inhospital")),
+        SomewhereElse -> Html(messages("circsBreaks.somewhereelse")))
     }
 
   }

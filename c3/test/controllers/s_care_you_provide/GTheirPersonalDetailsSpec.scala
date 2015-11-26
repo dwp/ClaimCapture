@@ -1,6 +1,6 @@
 package controllers.s_care_you_provide
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.cache.Cache
 import models.domain._
@@ -11,7 +11,7 @@ import models.view.CachedClaim
 import utils.WithApplication
 import utils.pageobjects.s_care_you_provide.GMoreAboutTheCarePage
 
-class GTheirPersonalDetailsSpec extends Specification with Tags {
+class GTheirPersonalDetailsSpec extends Specification {
 
   val theirPersonalDetailsInput = Seq("relationship" -> "father", "title" -> "Mr", "firstName" -> "John", "surname" -> "Doo",
     "dateOfBirth.day" -> "5", "dateOfBirth.month" -> "12", "dateOfBirth.year" -> "1990", "armedForcesPayment" -> "yes")
@@ -87,5 +87,6 @@ class GTheirPersonalDetailsSpec extends Specification with Tags {
       val result = GTheirPersonalDetails.submit(request)
       redirectLocation(result) must beSome(GMoreAboutTheCarePage.url)
     }
-  } section("unit", models.domain.CareYouProvide.id)
+  }
+  section("unit", models.domain.CareYouProvide.id)
 }

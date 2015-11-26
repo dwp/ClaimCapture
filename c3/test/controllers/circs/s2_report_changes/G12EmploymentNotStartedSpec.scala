@@ -1,15 +1,13 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, FakeApplication}
+import org.specs2.mutable._
+import play.api.test.FakeRequest
 import models.domain.MockForm
 import utils.{LightFakeApplication, WithApplication}
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
-import play.api.test.FakeApplication
-import utils.WithBrowser
 
-class G12EmploymentNotStartedSpec extends Specification with Tags {
+class G12EmploymentNotStartedSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val amountPaid = "£199.98"
@@ -74,6 +72,7 @@ class G12EmploymentNotStartedSpec extends Specification with Tags {
 
     "Report an Employment change in your circumstances where the employment is ongoing - Employment - Controller" should {
       "present 'CoC Future Employment Change'" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
         val result = G12EmploymentNotStarted.present(request)
@@ -104,5 +103,6 @@ class G12EmploymentNotStartedSpec extends Specification with Tags {
         redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
       }
     }
-  } section("unit", models.domain.CircumstancesSelfEmployment.id)
+  }
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
 }

@@ -1,4 +1,4 @@
-@(contactDetailsForm: Form[models.domain.ContactDetails])(lang: Lang)(implicit claim: models.domain.Claim,request: Request[AnyContent], flash:Flash)
+@(contactDetailsForm: Form[models.domain.ContactDetails])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import play.api.Play
@@ -8,11 +8,11 @@
 @import utils.helpers.CarersCrypto
 @import views.html.helper._
 @import views.html.helper.base._
-@import play.api.i18n.{MMessages => Messages}
+@import play.api.i18n.Messages
 @import app.ConfigProperties._
 
-@defining(lang) { implicit language =>
-    @main(Messages("s2.g3") + " - " + Messages("s2.longName")) {
+
+    @main(messages("s2.g3") + " - " + messages("s2.longName")) {
         @errorsSummary(contactDetailsForm)
 
         @form(action = controllers.s_about_you.routes.GContactDetails.submit, 'role -> "form") {
@@ -71,4 +71,4 @@
             });
         </script>
     }
-}
+

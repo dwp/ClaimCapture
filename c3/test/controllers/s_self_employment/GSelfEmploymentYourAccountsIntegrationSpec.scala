@@ -1,7 +1,7 @@
 package controllers.s_self_employment
 
-import org.specs2.mutable.{Tags, Specification}
-import utils.WithBrowser
+import org.specs2.mutable._
+import utils.{WithApplication, WithBrowser}
 import utils.pageobjects.s_self_employment.{GSelfEmploymentYourAccountsPage, GSelfEmploymentYourAccountsPageContext}
 import utils.pageobjects.{PageObjects, TestData}
 import controllers.{Formulate, ClaimScenarioFactory}
@@ -9,7 +9,7 @@ import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 import utils.pageobjects.s_employment.GEmploymentPage
 import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
-class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags {
+class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
 
   "Self Employment - Your Accounts" should {
     "be presented" in new WithBrowser with PageObjects{
@@ -28,7 +28,7 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags
       nextPage must beAnInstanceOf[GAboutOtherMoneyPage]
     }
 
-    "contain errors on invalid submission" in {
+    "contain errors on invalid submission" in new WithApplication {
 
       "your accounts invalid date" in new WithBrowser with PageObjects{
 			  val page =  GSelfEmploymentYourAccountsPage(context)
@@ -96,5 +96,15 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification with Tags
 
       nextPage must not(beAnInstanceOf[GSelfEmploymentYourAccountsPage])
     }
-  } section("integration", models.domain.SelfEmployment.id)
+
+    "present accounts page with correct start and end tax year help tags" in new WithBrowser with PageObjects {
+      val page = GSelfEmploymentYourAccountsPage(context)
+      page goToThePage()
+      page.source must contain("whatWasOrIsYourTradingYearFrom_defaultDateContextualHelp")
+      page.source must contain("For example, 6 4 1968")
+      page.source must contain("whatWasOrIsYourTradingYearTo_defaultDateContextualHelp")
+      page.source must contain("For example, 5 4 1969")
+    }
+  }
+  section("integration", models.domain.SelfEmployment.id)
 }

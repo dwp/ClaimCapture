@@ -1,19 +1,18 @@
 package controllers.s_employment
 
 import controllers.ClaimScenarioFactory
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeApplication
 import controllers.ClaimScenarioFactory._
-import utils.WithBrowser
+import utils.{WithJsBrowser, WithBrowser}
 import utils.pageobjects._
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.pageobjects.s_employment._
 import utils.pageobjects.s_self_employment.GAboutSelfEmploymentPage
-import scala.Some
 import utils.pageobjects.s_claim_date.{GClaimDatePage, GClaimDatePageContext}
 import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 
-class GBeenEmployedIntegrationSpec extends Specification with Tags {
+class GBeenEmployedIntegrationSpec extends Specification {
   "Been Employed" should {
     "present, having indicated that the carer has been employed" in new WithBrowser with PageObjects {
       val claimDate = new GClaimDatePage(context) goToThePage()
@@ -111,7 +110,32 @@ class GBeenEmployedIntegrationSpec extends Specification with Tags {
       historyPage.source must contain("Before 10/09/2016") // This is one month before claim date
     }
 
-  } section("integration", models.domain.Employed.id)
+    "not have warning on page when less than maximum jobs" in new WithJsBrowser with PageObjects {
+      val employmentData = GClaimDatePage(context) goToThePage() runClaimWith(theClaim = ClaimScenarioFactory.s7EmploymentMinimum(true), upToPageWithUrl = GBeenEmployedPage.url, upToIteration = 1)
+      employmentData submitPage()
+      val clicked = employmentData.clickLinkOrButton("#beenEmployed_yes")
+      clicked.source must not contain "warningMessageWrap"
+    }
+
+    "show warning when got maximum jobs and click yes to add another" in new WithJsBrowser with PageObjects {
+      val employmentData = GClaimDatePage(context) goToThePage() runClaimWith(theClaim = ClaimScenarioFactory.s7EmploymentMaximum(true), upToPageWithUrl = GBeenEmployedPage.url, upToIteration = 5)
+      employmentData goToThePage()
+      val clicked = employmentData.clickLinkOrButton("#beenEmployed_yes")
+      clicked.source must contain("maxEmpWarningWrap")
+      clicked visible ("#maxEmpWarningWrap") must beTrue
+    }
+
+    "hide warning when got maximum breaks and click yes then no" in new WithJsBrowser with PageObjects {
+      val employmentData = GClaimDatePage(context) goToThePage() runClaimWith(theClaim = ClaimScenarioFactory.s7EmploymentMaximum(true), upToPageWithUrl = GBeenEmployedPage.url, upToIteration = 5)
+      employmentData submitPage()
+      val clickedYes = employmentData.clickLinkOrButton("#beenEmployed_yes")
+      clickedYes visible ("#maxEmpWarningWrap") must beTrue
+      val clickedNo = clickedYes.clickLinkOrButton("#beenEmployed_no")
+      clickedNo.source must contain("maxEmpWarningWrap")
+      clickedNo visible ("#maxEmpWarningWrap") must beFalse
+    }
+  }
+  section("integration", models.domain.Employed.id)
 }
 
 trait EmployedHistoryPage extends GClaimDatePageContext {

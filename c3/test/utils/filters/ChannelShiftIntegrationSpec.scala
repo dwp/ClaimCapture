@@ -1,11 +1,9 @@
 package utils.filters
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{PlaySpecification}
-import utils.WithBrowser
+import utils.{PlaySpecification, WithBrowser}
 
 
-class ChannelShiftIntegrationSpec extends PlaySpecification with Tags {
+class ChannelShiftIntegrationSpec extends PlaySpecification {
 
   "Channel shift url" should {
     "bring you to gov.uk start claim page for uppercase url" in new WithBrowser{
@@ -19,5 +17,6 @@ class ChannelShiftIntegrationSpec extends PlaySpecification with Tags {
 
       browser.url() mustEqual "https://www.gov.uk/carers-allowance"
     }
-  } section "slow"
+  }
+  section("slow")
 }

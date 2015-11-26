@@ -6,14 +6,16 @@ import controllers.s_breaks.GBreaksInCare.breaksInCare
 import models.domain.{Break, BreaksInCare, BreaksInCareSummary}
 import models.view.CachedClaim
 import models.yesNo.{RadioWithText, YesNoWithDate}
+import play.api.Play._
 import play.api.data.{Form, FormError}
 import play.api.data.Forms._
+import play.api.i18n.{MMessages, MessagesApi, I18nSupport}
 import play.api.mvc.Controller
 import utils.helpers.CarersForm._
 
 
-object GBreak extends Controller with CachedClaim {
-
+object GBreak extends Controller with CachedClaim with I18nSupport {
+  override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val whereWasPersonMapping =
     "wherePerson" -> mapping(
       "answer" -> carersNonEmptyText,
@@ -61,10 +63,10 @@ object GBreak extends Controller with CachedClaim {
         .replaceError("start.date",errorRequired, FormError("start",errorRequired, Seq("This field is required")))
         .replaceError("hasBreakEnded.answer",errorRequired, FormError("hasBreakEnded.answer",errorRequired, Seq("This field is required")))
         .replaceError("hasBreakEnded","hasBreakEnded.date.required", FormError("hasBreakEnded.date",errorRequired, Seq("This field is required")))
-        BadRequest(views.html.s_breaks.g_break(fwe,backCall)(lang))
+        BadRequest(views.html.s_breaks.g_break(fwe,backCall))
       },
       break => {
-        val updatedBreaksInCare = if (breaksInCare.breaks.size >= 10) breaksInCare else breaksInCare.update(break)
+        val updatedBreaksInCare = if (breaksInCare.breaks.size >= app.ConfigProperties.getProperty("maximumBreaksInCare", 10)) breaksInCare else breaksInCare.update(break)
 
         // Delete the answer to the question 'Have you had any breaks in care since...'
         // Otherwise, it will prepopulate the answer when asked 'Have you had any more breaks in care since...'
@@ -76,6 +78,6 @@ object GBreak extends Controller with CachedClaim {
  def present(iterationID: String) = claimingWithCheck{ implicit claim =>  implicit request =>  lang =>
    val break = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(Break())
 
-    Ok(views.html.s_breaks.g_break(form.fill(break),backCall)(lang))
+    Ok(views.html.s_breaks.g_break(form.fill(break),backCall))
   }
 }

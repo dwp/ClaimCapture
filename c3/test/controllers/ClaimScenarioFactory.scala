@@ -10,7 +10,6 @@ import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, Account
  *         Date: 16/07/2013
  */
 object ClaimScenarioFactory {
-
   val partnerAddress = "Partner Address"
   val partnerPostcode = "RM11 1AA"
 
@@ -166,10 +165,10 @@ object ClaimScenarioFactory {
   def s2AnsweringNoToQuestions() = {
     val claim = new TestData
     //Your details
-    claim.AboutYouTitle="Mrs"
-    claim.AboutYouFirstName="Jane"
-    claim.AboutYouSurname="Doe"
-    claim.AboutYouNationalInsuranceNumber="AB123456D"
+    claim.AboutYouTitle = "Mrs"
+    claim.AboutYouFirstName = "Jane"
+    claim.AboutYouSurname = "Doe"
+    claim.AboutYouNationalInsuranceNumber = "AB123456D"
     claim.AboutYouDateOfBirth = "12/07/1970"
 
     // Your contact details
@@ -245,7 +244,7 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s4CareYouProvide(hours35:Boolean,liveSameAddress:Boolean = false) = {
+  def s4CareYouProvide(hours35: Boolean, liveSameAddress: Boolean = false) = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
     claim.AboutTheCareYouProvideTitlePersonCareFor = "Mr"
@@ -254,10 +253,10 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideSurnamePersonCareFor = "Wilson"
     claim.AboutTheCareYouProvideNINOPersonCareFor = "AA123456A"
     claim.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/03/1990"
-    if (liveSameAddress){
+    if (liveSameAddress) {
       claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "yes"
 
-    }else{
+    } else {
       claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "no"
 
     }
@@ -290,7 +289,7 @@ object ClaimScenarioFactory {
       claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
       claim.ClaimDateDidYouCareForThisPersonfor35Hours = "Yes"
       claim.ClaimDateWhenDidYouStartToCareForThisPerson = "03/04/2013"
-    }else {
+    } else {
       claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "No"
     }
 
@@ -353,6 +352,82 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
     claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "Yes"
     claim.AboutTheCareYouProvideHasBreakEnded_1 = "No"
+
+    claim
+  }
+
+  def s4CareYouProvideWithMultipleBreaksInCare(hours35: Boolean) = {
+    val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_1 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_1 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_2 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_2 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_2 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_2 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_2 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_2 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_3 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_3 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_3 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_3 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_3 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_3 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_4 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_4 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_4 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_4 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_4 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_4 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_5 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_5 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_5 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_5 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_5 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_5 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_6 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_6 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_6 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_6 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_6 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_6 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_7 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_7 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_7 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_7 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_7 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_7 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_8 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_8 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_8 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_8 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_8 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_8 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_9 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_9 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_9 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_9 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_9 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_9 = "No"
+
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_10 = "yes"
+    claim.AboutTheCareYouProvideBreakStartDate_10 = "10/01/1999"
+    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_10 = "In hospital"
+    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_10 = "In hospital"
+    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_10 = "Yes"
+    claim.AboutTheCareYouProvideHasBreakEnded_10 = "No"
 
     claim
   }
@@ -509,6 +584,203 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s7EmploymentMinimum(hours35: Boolean) = {
+    val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+    claim.EducationHaveYouBeenOnACourseOfEducation = "no"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime = "yes"
+    claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "no"
+
+    claim.EmploymentEmployerName_1 = "Tesco's"
+    claim.EmploymentDidYouStartThisJobBeforeClaimDate_1 = "no"
+    claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
+    claim.EmploymentHaveYouFinishedThisJob_1 = "yes"
+    claim.EmploymentWhenDidYouLastWork_1 = "01/07/2013"
+    claim.EmploymentHowManyHoursAWeekYouNormallyWork_1 = "25"
+    claim.EmploymentEmployerAddress_1 = "23 Yeadon Way&Blackpool&Lancashire"
+    claim.EmploymentEmployerPostcode_1 = "FY4 5TH"
+    claim.EmploymentEmployerPhoneNumber_1 = "01253 667889"
+    claim.EmploymentWhenWereYouLastPaid_1 = "08/07/2013"
+    claim.EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1 = "600"
+    claim.EmploymentWhatWasIncludedInYourLastPay_1 = "All amounts due"
+    claim.EmploymentDoYouGettheSameAmountEachTime_1 = "no"
+    claim.EmploymentAddtionalWageHowOftenAreYouPaid_1 = "Other"
+    claim.EmploymentAddtionalWageOther_1 = "Quarterly"
+    claim.EmploymentAddtionalWageWhenDoYouGetPaid_1 = "two weeks ago"
+    claim.EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1 = "no"
+    claim.EmploymentWhatPeriodIsItForFrom_1 = "03/04/2013"
+    claim.EmploymentWhatPeriodIsItForTo_1 = "03/05/2013"
+    claim.EmploymentWhatIsTheMoneyOwedFor_1 = "This and that"
+    claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_1 = "06/05/2013"
+    claim.EmploymentWhenWillYouGetMoneyOwed_1 = "08/08/2013"
+    claim.EmploymentDoYouPayForPensionExpenses_1 = "no"
+    claim.EmploymentDoYouPayForThingsToDoJob_1 = "yes"
+    claim.EmploymentPayForThings_1 = "some expenses to do the job"
+    claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "yes"
+    claim.EmploymentWhatAreNecessaryJobExpenses_1 = "some job expenses in the amount of 200 to xyz"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_1 = "no"
+    claim
+  }
+
+  def s7EmploymentMaximum(hours35: Boolean) = {
+    val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
+    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+    claim.EducationHaveYouBeenOnACourseOfEducation = "no"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime = "yes"
+    claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "no"
+
+    claim.EmploymentEmployerName_1 = "Tesco's"
+    claim.EmploymentDidYouStartThisJobBeforeClaimDate_1 = "no"
+    claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
+    claim.EmploymentHaveYouFinishedThisJob_1 = "yes"
+    claim.EmploymentWhenDidYouLastWork_1 = "01/07/2013"
+    claim.EmploymentHowManyHoursAWeekYouNormallyWork_1 = "25"
+    claim.EmploymentEmployerAddress_1 = "23 Yeadon Way&Blackpool&Lancashire"
+    claim.EmploymentEmployerPostcode_1 = "FY4 5TH"
+    claim.EmploymentEmployerPhoneNumber_1 = "01253 667889"
+    claim.EmploymentWhenWereYouLastPaid_1 = "08/07/2013"
+    claim.EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1 = "600"
+    claim.EmploymentWhatWasIncludedInYourLastPay_1 = "All amounts due"
+    claim.EmploymentDoYouGettheSameAmountEachTime_1 = "no"
+    claim.EmploymentAddtionalWageHowOftenAreYouPaid_1 = "Other"
+    claim.EmploymentAddtionalWageOther_1 = "Quarterly"
+    claim.EmploymentAddtionalWageWhenDoYouGetPaid_1 = "two weeks ago"
+    claim.EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1 = "no"
+    claim.EmploymentWhatPeriodIsItForFrom_1 = "03/04/2013"
+    claim.EmploymentWhatPeriodIsItForTo_1 = "03/05/2013"
+    claim.EmploymentWhatIsTheMoneyOwedFor_1 = "This and that"
+    claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_1 = "06/05/2013"
+    claim.EmploymentWhenWillYouGetMoneyOwed_1 = "08/08/2013"
+    claim.EmploymentDoYouPayForPensionExpenses_1 = "no"
+    claim.EmploymentDoYouPayForThingsToDoJob_1 = "yes"
+    claim.EmploymentPayForThings_1 = "some expenses to do the job"
+    claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "yes"
+    claim.EmploymentWhatAreNecessaryJobExpenses_1 = "some job expenses in the amount of 200 to xyz"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_1 = "yes"
+
+    claim.EmploymentEmployerName_2 = "Tesco's 2"
+    claim.EmploymentDidYouStartThisJobBeforeClaimDate_2 = "no"
+    claim.EmploymentWhenDidYouStartYourJob_2 = "01/01/2013"
+    claim.EmploymentHaveYouFinishedThisJob_2 = "yes"
+    claim.EmploymentWhenDidYouLastWork_2 = "01/07/2013"
+    claim.EmploymentHowManyHoursAWeekYouNormallyWork_2 = "25"
+    claim.EmploymentEmployerAddress_2 = "23 Yeadon Way&Blackpool&Lancashire"
+    claim.EmploymentEmployerPostcode_2 = "FY4 5TH"
+    claim.EmploymentEmployerPhoneNumber_2 = "01253 667889"
+    claim.EmploymentWhenWereYouLastPaid_2 = "08/07/2013"
+    claim.EmploymentWhatWasTheGrossPayForTheLastPayPeriod_2 = "600"
+    claim.EmploymentWhatWasIncludedInYourLastPay_2 = "All amounts due"
+    claim.EmploymentDoYouGettheSameAmountEachTime_2 = "no"
+    claim.EmploymentAddtionalWageHowOftenAreYouPaid_2 = "Other"
+    claim.EmploymentAddtionalWageOther_2 = "Quarterly"
+    claim.EmploymentAddtionalWageWhenDoYouGetPaid_2 = "two weeks ago"
+    claim.EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_2 = "no"
+    claim.EmploymentWhatPeriodIsItForFrom_2 = "03/04/2013"
+    claim.EmploymentWhatPeriodIsItForTo_2 = "03/05/2013"
+    claim.EmploymentWhatIsTheMoneyOwedFor_2 = "This and that"
+    claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_2 = "06/05/2013"
+    claim.EmploymentWhenWillYouGetMoneyOwed_2 = "08/08/2013"
+    claim.EmploymentDoYouPayForPensionExpenses_2 = "no"
+    claim.EmploymentDoYouPayForThingsToDoJob_2 = "yes"
+    claim.EmploymentPayForThings_2 = "some expenses to do the job"
+    claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_2 = "yes"
+    claim.EmploymentWhatAreNecessaryJobExpenses_2 = "some job expenses in the amount of 200 to xyz"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_2 = "yes"
+
+    claim.EmploymentEmployerName_3 = "Tesco's 3"
+    claim.EmploymentDidYouStartThisJobBeforeClaimDate_3 = "no"
+    claim.EmploymentWhenDidYouStartYourJob_3 = "01/01/2013"
+    claim.EmploymentHaveYouFinishedThisJob_3 = "yes"
+    claim.EmploymentWhenDidYouLastWork_3 = "01/07/2013"
+    claim.EmploymentHowManyHoursAWeekYouNormallyWork_3 = "25"
+    claim.EmploymentEmployerAddress_3 = "23 Yeadon Way&Blackpool&Lancashire"
+    claim.EmploymentEmployerPostcode_3 = "FY4 5TH"
+    claim.EmploymentEmployerPhoneNumber_3 = "01253 667889"
+    claim.EmploymentWhenWereYouLastPaid_3 = "08/07/2013"
+    claim.EmploymentWhatWasTheGrossPayForTheLastPayPeriod_3 = "600"
+    claim.EmploymentWhatWasIncludedInYourLastPay_3 = "All amounts due"
+    claim.EmploymentDoYouGettheSameAmountEachTime_3 = "no"
+    claim.EmploymentAddtionalWageHowOftenAreYouPaid_3 = "Other"
+    claim.EmploymentAddtionalWageOther_3 = "Quarterly"
+    claim.EmploymentAddtionalWageWhenDoYouGetPaid_3 = "two weeks ago"
+    claim.EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_3 = "no"
+    claim.EmploymentWhatPeriodIsItForFrom_3 = "03/04/2013"
+    claim.EmploymentWhatPeriodIsItForTo_3 = "03/05/2013"
+    claim.EmploymentWhatIsTheMoneyOwedFor_3 = "This and that"
+    claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_3 = "06/05/2013"
+    claim.EmploymentWhenWillYouGetMoneyOwed_3 = "08/08/2013"
+    claim.EmploymentDoYouPayForPensionExpenses_3 = "no"
+    claim.EmploymentDoYouPayForThingsToDoJob_3 = "yes"
+    claim.EmploymentPayForThings_3 = "some expenses to do the job"
+    claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_3 = "yes"
+    claim.EmploymentWhatAreNecessaryJobExpenses_3 = "some job expenses in the amount of 200 to xyz"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_3 = "yes"
+
+    claim.EmploymentEmployerName_4 = "Tesco's 4"
+    claim.EmploymentDidYouStartThisJobBeforeClaimDate_4 = "no"
+    claim.EmploymentWhenDidYouStartYourJob_4 = "01/01/2013"
+    claim.EmploymentHaveYouFinishedThisJob_4 = "yes"
+    claim.EmploymentWhenDidYouLastWork_4 = "01/07/2013"
+    claim.EmploymentHowManyHoursAWeekYouNormallyWork_4 = "25"
+    claim.EmploymentEmployerAddress_4 = "23 Yeadon Way&Blackpool&Lancashire"
+    claim.EmploymentEmployerPostcode_4 = "FY4 5TH"
+    claim.EmploymentEmployerPhoneNumber_4 = "01253 667889"
+    claim.EmploymentWhenWereYouLastPaid_4 = "08/07/2013"
+    claim.EmploymentWhatWasTheGrossPayForTheLastPayPeriod_4 = "600"
+    claim.EmploymentWhatWasIncludedInYourLastPay_4 = "All amounts due"
+    claim.EmploymentDoYouGettheSameAmountEachTime_4 = "no"
+    claim.EmploymentAddtionalWageHowOftenAreYouPaid_4 = "Other"
+    claim.EmploymentAddtionalWageOther_4 = "Quarterly"
+    claim.EmploymentAddtionalWageWhenDoYouGetPaid_4 = "two weeks ago"
+    claim.EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_4 = "no"
+    claim.EmploymentWhatPeriodIsItForFrom_4 = "03/04/2013"
+    claim.EmploymentWhatPeriodIsItForTo_4 = "03/05/2013"
+    claim.EmploymentWhatIsTheMoneyOwedFor_4 = "This and that"
+    claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_4 = "06/05/2013"
+    claim.EmploymentWhenWillYouGetMoneyOwed_4 = "08/08/2013"
+    claim.EmploymentDoYouPayForPensionExpenses_4 = "no"
+    claim.EmploymentDoYouPayForThingsToDoJob_4 = "yes"
+    claim.EmploymentPayForThings_4 = "some expenses to do the job"
+    claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_4 = "yes"
+    claim.EmploymentWhatAreNecessaryJobExpenses_4 = "some job expenses in the amount of 200 to xyz"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_4 = "yes"
+
+    claim.EmploymentEmployerName_5 = "Tesco's 5"
+    claim.EmploymentDidYouStartThisJobBeforeClaimDate_5 = "no"
+    claim.EmploymentWhenDidYouStartYourJob_5 = "01/01/2013"
+    claim.EmploymentHaveYouFinishedThisJob_5 = "yes"
+    claim.EmploymentWhenDidYouLastWork_5 = "01/07/2013"
+    claim.EmploymentHowManyHoursAWeekYouNormallyWork_5 = "25"
+    claim.EmploymentEmployerAddress_5 = "23 Yeadon Way&Blackpool&Lancashire"
+    claim.EmploymentEmployerPostcode_5 = "FY4 5TH"
+    claim.EmploymentEmployerPhoneNumber_5 = "01253 667889"
+    claim.EmploymentWhenWereYouLastPaid_5 = "08/07/2013"
+    claim.EmploymentWhatWasTheGrossPayForTheLastPayPeriod_5 = "600"
+    claim.EmploymentWhatWasIncludedInYourLastPay_5 = "All amounts due"
+    claim.EmploymentDoYouGettheSameAmountEachTime_5 = "no"
+    claim.EmploymentAddtionalWageHowOftenAreYouPaid_5 = "Other"
+    claim.EmploymentAddtionalWageOther_5 = "Quarterly"
+    claim.EmploymentAddtionalWageWhenDoYouGetPaid_5 = "two weeks ago"
+    claim.EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_5 = "no"
+    claim.EmploymentWhatPeriodIsItForFrom_5 = "03/04/2013"
+    claim.EmploymentWhatPeriodIsItForTo_5 = "03/05/2013"
+    claim.EmploymentWhatIsTheMoneyOwedFor_5 = "This and that"
+    claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_5 = "06/05/2013"
+    claim.EmploymentWhenWillYouGetMoneyOwed_5 = "08/08/2013"
+    claim.EmploymentDoYouPayForPensionExpenses_5 = "no"
+    claim.EmploymentDoYouPayForThingsToDoJob_5 = "yes"
+    claim.EmploymentPayForThings_5 = "some expenses to do the job"
+    claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_5 = "yes"
+    claim.EmploymentWhatAreNecessaryJobExpenses_5 = "some job expenses in the amount of 200 to xyz"
+    claim.EmploymentHaveYouBeenEmployedAtAnyTime_5 = "no"
+    
+    claim
+  }
+
   def s7Employment() = {
     val claim = s2AboutYouWithTimeOutside
     claim.EmploymentEmployerName_1 = "Tesco's"
@@ -624,7 +896,7 @@ object ClaimScenarioFactory {
 
     claim
   }
-  
+
   def s9otherMoneyOther = {
     val claim = s7Employment()
     // G1 About other money
@@ -720,11 +992,52 @@ object ClaimScenarioFactory {
 
     claim
   }
-  
+
   def s11ConsentAndDeclaration = {
     val claim = s9SelfEmployment
     claim.ConsentDeclarationTellUsAnythingElseAnswerAboutClaim = "no"
     claim.ConsentDeclarationCommunicationWelsh = "no"
+
+    claim
+  }
+
+  def previewAboutYouForBankDetails = {
+    val claim = s12ClaimDate()
+    claim.AboutYouTitle = "Mr"
+    claim.AboutYouFirstName = "John"
+    claim.AboutYouSurname = "Appleseed"
+    claim.AboutYouNationalityAndResidencyNationality = "British"
+    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
+    claim.AboutYouNINO = "AB123456C"
+    claim.AboutYouAddress = "101 Clifton Street&Blackpool"
+    claim.AboutYouPostcode = "FY1 2RW"
+    claim.HowWeContactYou = "01772 888901"
+    claim.AboutYouWantsEmailContact = "No"
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+    claim.AboutYouDateOfBirth = "02/02/1950"
+
+    claim
+  }
+
+  def previewLessThan65WithBankDetails = {
+    val claim = previewAboutYouForBankDetails
+    claim.AboutYouDateOfBirth = "02/02/1980"
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = "yes"
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek
+    claim.HowWePayYouNameOfAccountHolder = "John Smith"
+    claim.WhoseNameOrNamesIsTheAccountIn = "John Smith"
+    claim.HowWePayYouFullNameOfBankorBuildingSociety = "Carers Bank"
+    claim.HowWePayYouSortCode = "090126"
+    claim.HowWePayYouAccountNumber = "12345678"
+
+    claim
+  }
+
+  def previewLessThan65WithNoBankDetails = {
+    val claim = previewAboutYouForBankDetails
+    claim.AboutYouDateOfBirth = "02/02/1980"
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = "no"
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek
 
     claim
   }

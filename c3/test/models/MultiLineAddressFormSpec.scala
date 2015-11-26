@@ -1,7 +1,7 @@
 package models
 
 import controllers.mappings.Mappings
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import play.api.data.Form
 import controllers.mappings.Mappings._
 import controllers.mappings.AddressMappings._

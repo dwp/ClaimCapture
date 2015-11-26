@@ -1,6 +1,6 @@
 package controllers.circs.s2_report_changes
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.{WithBrowser, LightFakeApplication}
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s1_start_of_process.{G2ReportAChangeInYourCircumstancesPage, G1ReportChangesPage}
@@ -8,7 +8,7 @@ import utils.pageobjects.circumstances.s2_report_changes.G9EmploymentChangePage
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 
-class G9EmploymentChangeIntegrationSpec extends Specification with Tags {
+class G9EmploymentChangeIntegrationSpec extends Specification {
   "Report a change in your circumstance - Employment" should {
     "be presented" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
       val page = G9EmploymentChangePage(context)
@@ -53,5 +53,6 @@ class G9EmploymentChangeIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage()
       nextPage must beAnInstanceOf[G1DeclarationPage]
     }
-  } section("integration", models.domain.CircumstancesIdentification.id)
+  }
+  section("integration", models.domain.CircumstancesIdentification.id)
 }

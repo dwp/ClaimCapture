@@ -1,15 +1,14 @@
 package controllers
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import utils.WithApplication
 import play.api.test.FakeRequest
 import models.view._
 import models.domain.{Claim, MockForm}
 import play.api.test.Helpers._
 import play.api.i18n.Lang
-import play.api.cache.Cache
 
-class LanguageSpec extends Specification with Tags {
+class LanguageSpec extends Specification {
 
   "Language - Change Language" should {
     "change of claim present - change language to English" in new WithApplication with MockForm {
@@ -68,5 +67,6 @@ class LanguageSpec extends Specification with Tags {
       claim.lang.get mustEqual expectedLang
     }
 
-  } section("unit")
+  }
+  section("unit")
 }

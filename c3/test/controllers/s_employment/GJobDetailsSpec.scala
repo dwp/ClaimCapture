@@ -1,6 +1,6 @@
 package controllers.s_employment
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.cache.Cache
@@ -8,7 +8,7 @@ import models.domain.{Iteration, Jobs, JobDetails, Claim, Claiming}
 import models.view.CachedClaim
 import utils.WithApplication
 
-class GJobDetailsSpec extends Specification with Tags {
+class GJobDetailsSpec extends Specification {
   "Your job" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -111,5 +111,6 @@ class GJobDetailsSpec extends Specification with Tags {
         case Some(js: Jobs) => js.size shouldEqual 0
       }
     }
-  } section("unit", models.domain.Employed.id)
+  }
+  section("unit", models.domain.Employed.id)
 }

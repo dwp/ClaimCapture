@@ -12,7 +12,7 @@ class PreviewTestUtils {
 object PreviewTestUtils {
 
   def answerText(questionId: String, previewPage: Page): String = {
-    previewPage.ctx.browser.webDriver.findElement(By.id(getValueId(questionId, false))).getText
+    previewPage.ctx.browser.getDriver.findElement(By.id(getValueId(questionId, false))).getText
   }
 
   def apply() = new PreviewTestUtils()
