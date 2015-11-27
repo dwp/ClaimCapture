@@ -7,18 +7,15 @@ import gov.dwp.exceptions.DwpRuntimeException
 import models.domain.{Claim, QuestionGroup}
 import models.view.ClaimHandling.ClaimResult
 import models.view.cache.EncryptedCacheHandling
-import play.api.cache.Cache
 import play.api.data.Form
-import play.api.http.HeaderNames._
 import play.api.http.HttpVerbs
-import play.api.i18n.{MMessages, MessagesApi, Lang}
+import play.api.i18n.{Lang}
 import play.api.mvc.Results._
 import play.api.mvc._
 import play.api.{Logger, Play}
 import play.api.Play.current
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.implicitConversions
-
 import scala.reflect.ClassTag
 
 object ClaimHandling {

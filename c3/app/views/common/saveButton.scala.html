@@ -1,4 +1,4 @@
-@(saveButtonName: String = "action")(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import app.ConfigProperties._
 
@@ -8,6 +8,18 @@
 @isSaveEnabled=@{
     getProperty("saveForLaterEnabled",default = false)
 }
-@if(isSaveEnabled && ( !claim.navigation.beenInPreview || (claim.navigation.beenInPreview && !isLandingPageAfterPreview) ) ){
-    <button type="submit" class="button" name=@{saveButtonName} value="save">@messages("form.save")</button>
+@saveHref=@{
+    getProperty("saveForLaterUrl", default="/save")
 }
+
+@if(isSaveEnabled && ( !claim.navigation.beenInPreview || (claim.navigation.beenInPreview && !isLandingPageAfterPreview) ) ){
+    <button type="submit" id="save" class="button" href=@{saveHref} >@messages("form.save")</button>
+}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#save").click(function(){
+			var saveurl=$(this).attr("href");
+			$("form").attr( "action", saveurl );
+		});
+	});
+</script>

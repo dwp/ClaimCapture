@@ -20,16 +20,22 @@
     contactDetails.wantsContactEmail match {
         case Some(yesNo) if yesNo == yes => contactDetails.email.getOrElse("")
         case Some(yesNo) if yesNo == no => "Email not set"
-        case None => "Email block not set"
+        case None => "Email not set"
     }
 }
 
-@defining(lang) { implicit language =>
-    @main(messages("saveClaim.success.legend")) {
-        <p>@Html(messages("saveClaim.success.line1", emailAddress))</p>
-        <p>@Html(messages("saveClaim.success.line2"))</p>
+@saveClaim = @{claim.saveForLater}
 
-        <p>@views.html.saveClaim.continueButton(messages("saveClaim.success.button.label"), continueName, continueValue, true, None)</p>
+@defining(lang) { implicit language =>
+    @main(messages("saveForLater.success.legend")) {
+        <p>@Html(messages("saveForLater.success.line1", emailAddress))</p>
+        <p>@Html(messages("saveForLater.success.line2"))</p>
+
+        <p>@views.html.save_for_later.continueButton(messages("saveForLater.success.button.label"), continueName, continueValue, true, None)</p>
         <p><a rel="external" href="https://www.gov.uk/carers-allowance" target="_blank">Go to GOV.UK</a></p>
+
+
+        <br>
+        @views.html.common.fillSavedFields()
     }
 }

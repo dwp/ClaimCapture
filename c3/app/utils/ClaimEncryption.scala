@@ -14,7 +14,8 @@ object ClaimEncryption {
     val claimWithYourPartnerPersonalDetails = encryptYourPartnerPersonalDetails(claimWithHowWePayYou)
     val claimWithCircumstancesAddressChange = encryptCircumstancesAddressChange(claimWithYourPartnerPersonalDetails)
     val claimWithCircumstancesPaymentChange = encryptCircumstancesPaymentChange(claimWithCircumstancesAddressChange)
-    claimWithCircumstancesPaymentChange
+    val claimWithSaveClaim = encryptSaveClaim(claimWithCircumstancesPaymentChange)
+    claimWithSaveClaim
   }
 
   def decrypt(claim: Claim): Claim = {
@@ -26,7 +27,8 @@ object ClaimEncryption {
     val claimWithYourPartnerPersonalDetails = decryptYourPartnerPersonalDetails(claimWithHowWePayYou)
     val claimWithCircumstancesAddressChange = decryptCircumstancesAddressChange(claimWithYourPartnerPersonalDetails)
     val claimWithCircumstancesPaymentChange = decryptCircumstancesPaymentChange(claimWithCircumstancesAddressChange)
-    claimWithCircumstancesPaymentChange
+    val claimWithSaveClaim = decryptSaveClaim(claimWithCircumstancesPaymentChange)
+    claimWithSaveClaim
   }
 
   def encryptYourDetails(claim: Claim): Claim = {
@@ -163,6 +165,34 @@ object ClaimEncryption {
         ))
       case _ => claim
     }
+  }
+
+  def encryptResideInUK(resideInUK: ResideInUK): ResideInUK = {
+    ResideInUK(
+      encryptOptionalString(resideInUK.answer),
+      encryptOptionalString(resideInUK.text)
+    )
+  }
+  def encryptSaveClaim(claim: Claim): Claim = {
+    claim.update(claim.saveForLater.copy(
+      encryptOptionalString(claim.saveForLater.nationality),
+      encryptOptionalString(claim.saveForLater.actualnationality),
+      encryptResideInUK(claim.saveForLater.resideInUK)
+    ))
+  }
+
+  def decryptResideInUK(resideInUK: ResideInUK): ResideInUK = {
+    ResideInUK(
+      decryptOptionalString(resideInUK.answer),
+      decryptOptionalString(resideInUK.text)
+    )
+  }
+  def decryptSaveClaim(claim: Claim): Claim = {
+    claim.update(claim.saveForLater.copy(
+      decryptOptionalString(claim.saveForLater.nationality),
+      decryptOptionalString(claim.saveForLater.actualnationality),
+      decryptResideInUK(claim.saveForLater.resideInUK)
+    ))
   }
 
   def decryptYourDetails(claim: Claim): Claim = {

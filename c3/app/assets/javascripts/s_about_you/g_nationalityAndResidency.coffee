@@ -1,15 +1,21 @@
-window.initEvents = (nationlityBritish, nationalityAnotherCountry, nationalResidency, resideInUKY, resideInUKN, resideInUKText) ->
+window.initEvents = (nationalityBritish, nationalityAnotherCountry, nationalResidency, resideInUKY, resideInUKN, resideInUKText) ->
   if not $("#" + nationalityAnotherCountry).prop('checked')
     hideNationalityWrap(nationalResidency)
+
+  if $("#" + nationalityAnotherCountry).prop('checked')
+    showNationalityWrap()
 
   $("#" + nationalityAnotherCountry).on "click", ->
     showNationalityWrap()
 
-  $("#" + nationlityBritish).on "click", ->
+  $("#" + nationalityBritish).on "click", ->
     hideNationalityWrap(nationalResidency)
 
   if not $("#" + resideInUKN).prop('checked')
     hideResidencyWrap(resideInUKText)
+
+  if $("#" + resideInUKN).prop('checked')
+    showResidencyWrap(resideInUKText)
 
   $("#" + resideInUKN).on "click", ->
     showResidencyWrap()

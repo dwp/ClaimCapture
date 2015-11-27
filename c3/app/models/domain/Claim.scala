@@ -1,7 +1,6 @@
 package models.domain
 
 import models.DayMonthYear
-import models.domain.Section.Identifier
 import models.view.Navigation
 import play.api.i18n.Lang
 
@@ -15,7 +14,9 @@ import scala.reflect.ClassTag
  * and is shown in the printable form of the claim (see rendering service and casa).
  */
 case class Claim(key: String, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None,
-                 uuid: String = "", transactionId: Option[String] = None, checkYAnswers: CheckYAnswers = CheckYAnswers())(implicit val navigation: Navigation = Navigation()) {
+                 uuid: String = "", transactionId: Option[String] = None,
+                 checkYAnswers: CheckYAnswers = CheckYAnswers(),
+                  saveForLater: SaveForLater=SaveForLater(None,None,ResideInUK(),None,None))(implicit val navigation: Navigation = Navigation()) {
   def section(sectionIdentifier: Section.Identifier): Section = {
     sections.find(s => s.identifier == sectionIdentifier) match {
       case Some(s: Section) => s
@@ -75,6 +76,10 @@ case class Claim(key: String, sections: List[Section] = List(), created: Long = 
   def update(questionGroup: QuestionGroup): Claim = {
     val si = Section.sectionIdentifier(questionGroup.identifier)
     update(section(si).update(questionGroup))
+  }
+
+  def update(sfl: SaveForLater): Claim = {
+    copy( saveForLater=sfl )
   }
 
   /**

@@ -4,8 +4,6 @@
         nextButtonName: String = "action",
         nextButtonValue: String = "next",
         backCall: Option[Call] = None,
-        saveCall: Option[Call] = None,
-        saveButtonName: String = "action",
         previous: Option[models.view.Route[_]] = None,
         trackSubmit: Boolean = false,
         customTrack: Option[Html] = None,
@@ -28,9 +26,11 @@
     <ul>
         <li>@views.html.common.nextButton(nextLabel, nextButtonName, nextButtonValue, trackSubmit, customTrack) </li>
         @if(showSaveButton) {
-            <li>@views.html.common.saveButton(saveButtonName)</li>
+            <li>@views.html.common.saveButton()</li>
         }
         <li>@views.html.common.genericBackButton(changing, backCall, previous, forceShow)</li>
     </ul>
 </nav>
+
+@views.html.common.fillSavedFields()
 
