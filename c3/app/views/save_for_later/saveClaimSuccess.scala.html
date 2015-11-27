@@ -6,12 +6,7 @@
 @continueLabel = @{
     messages("saveClaim.success.button.label")
 }
-@continueName = @{
-    "saveClaimName"
-}
-@continueValue = @{
-    "saveClaimValue"
-}
+
 
 @contactDetails = @{
     claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
@@ -31,7 +26,7 @@
         <p>@Html(messages("saveForLater.success.line1", emailAddress))</p>
         <p>@Html(messages("saveForLater.success.line2"))</p>
 
-        <p>@views.html.save_for_later.continueButton(messages("saveForLater.success.button.label"), continueName, continueValue, true, None)</p>
+        <p>@views.html.save_for_later.continueButton(messages("saveForLater.success.button.label"), true, None)</p>
         <p><a rel="external" href="https://www.gov.uk/carers-allowance" target="_blank">Go to GOV.UK</a></p>
 
 
