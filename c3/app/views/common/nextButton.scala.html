@@ -8,4 +8,4 @@
     }
 }
 
-<button type="submit" name="@{nextButtonName}" value="@{nextButtonValue}" class="button" @{if(trackSubmit) views.html.ga.trackSubmit()} @{customTrack.fold(Html(""))(t=>t)}>@messages(label)</button>
+<button type="submit" id="next" name="@{nextButtonName}" value="@{nextButtonValue}" class="button" @{if(trackSubmit) views.html.ga.trackSubmit()} @{customTrack.fold(Html(""))(t=>t)}>@messages(label)</button>
