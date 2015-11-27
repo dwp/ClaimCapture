@@ -11,7 +11,7 @@ import utils.helpers.CarersForm._
 
 import scala.language.reflectiveCalls
 
-object GSaveLaterClaim extends Controller with CachedClaim with Navigable with I18nSupport {
+object GSaveForLater extends Controller with CachedClaim with Navigable with I18nSupport {
 
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
@@ -40,7 +40,7 @@ object GSaveLaterClaim extends Controller with CachedClaim with Navigable with I
       },
       saveform =>{
         val updatedClaim=claim.copy(saveForLater=saveform)(claim.navigation)
-        updatedClaim->Redirect(routes.GSaveLaterClaim.present())
+        updatedClaim->Redirect(routes.GSaveForLater.present())
       }
     )
   }

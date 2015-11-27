@@ -31,8 +31,8 @@ GET         /preview-back                                               controll
 POST        /preview                                                    controllers.preview.Preview.submit
 GET         /preview/redirect/:id                                       controllers.preview.Preview.redirect(id)
 
-POST        /save                                                       controllers.save_for_later.GSaveLaterClaim.submit
-GET         /save                                                       controllers.save_for_later.GSaveLaterClaim.present
+POST        /save                                                       controllers.save_for_later.GSaveForLater.submit
+GET         /save                                                       controllers.save_for_later.GSaveForLater.present
 
 # Cache Timeout
 GET         /timeout                                                    controllers.ClaimEnding.timeout
