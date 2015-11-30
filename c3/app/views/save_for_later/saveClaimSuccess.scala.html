@@ -3,11 +3,6 @@
 @import models.domain._
 @import controllers.mappings.Mappings._
 
-@continueLabel = @{
-    messages("saveClaim.success.button.label")
-}
-
-
 @contactDetails = @{
     claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
 }
@@ -19,7 +14,15 @@
     }
 }
 
-@saveClaim = @{claim.saveForLater}
+@saveClaimMap = @{
+    claim.saveForLaterMap
+}
+@nationality = @{
+    saveClaimMap.get("nationality").getOrElse("Not set")
+}
+@actualnationality = @{
+    saveClaimMap.get("actualnationality").getOrElse("Not set")
+}
 
 @defining(lang) { implicit language =>
     @main(messages("saveForLater.success.legend")) {
@@ -31,6 +34,12 @@
 
 
         <br>
+        <div class="form-steps" role="navigation">
+            <div>savedCLaimMap empty:@{saveClaimMap.isEmpty}</div>
+            <div>Saved Nationality:@{nationality}</div>
+            <div>Saved Actual Nationality:@{actualnationality}</div>
+       </div>
+
         @views.html.common.fillSavedFields()
     }
 }

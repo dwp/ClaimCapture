@@ -1,13 +1,13 @@
 package models.domain
 
-case class SaveForLater(nationality: Option[String] = None,
-                     actualnationality: Option[String] = None,
-                     resideInUK: ResideInUK,
-                     anyTrips: Option[String],
-                     tripDetails: Option[String]
-                      )
+import models.{DayMonthYear, NationalInsuranceNumber}
 
-case class ResideInUK(answer: Option[String] = None,
-                      text: Option[String] = None
-                       )
+case class SaveForLater(
+                         )
+
+case class ResumeClaim(
+                        firstName: String = "",
+                  surname: String = "",
+                  nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(None),
+                  dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)) extends Serializable
 
