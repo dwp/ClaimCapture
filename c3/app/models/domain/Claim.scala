@@ -16,7 +16,7 @@ import scala.reflect.ClassTag
 case class Claim(key: String, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None,
                  uuid: String = "", transactionId: Option[String] = None,
                  checkYAnswers: CheckYAnswers = CheckYAnswers(),
-                  saveForLater: SaveForLater=SaveForLater(None,None,ResideInUK(),None,None))(implicit val navigation: Navigation = Navigation()) {
+                 saveForLaterMap: Map[String, String] = Map())(implicit val navigation: Navigation = Navigation()) {
   def section(sectionIdentifier: Section.Identifier): Section = {
     sections.find(s => s.identifier == sectionIdentifier) match {
       case Some(s: Section) => s
@@ -78,8 +78,8 @@ case class Claim(key: String, sections: List[Section] = List(), created: Long = 
     update(section(si).update(questionGroup))
   }
 
-  def update(sfl: SaveForLater): Claim = {
-    copy( saveForLater=sfl )
+  def update(sfl: Map[String, String]): Claim = {
+    copy(saveForLaterMap = sfl)
   }
 
   /**

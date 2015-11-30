@@ -1,0 +1,34 @@
+@(resumeForm: Form[models.domain.ResumeClaim])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
+
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import views.html.s_about_you.main
+
+<div>Colin above main legend</div>
+messages("saveForLater.resume.legend")
+
+@defining(lang) { implicit language =>
+    @main(messages("saveForLater.resume.legend")) {
+        <p>@Html(messages("saveForLater.resume.line1"))</p>
+
+        @form(action = controllers.save_for_later.routes.GResume.submit, 'role -> "form") {
+            <fieldset class="form-elements" data-journey="carers-allowance:resume">
+                <ul>
+                    @carersInputText(resumeForm("firstName"), 'maxLength -> 17)
+
+                    @carersInputText(resumeForm("surname"), 'maxLength -> 35)
+
+                    @nationalInsuranceNumber(resumeForm("nationalInsuranceNumber"), 'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> messages("mandatory.nationalInsuranceNumber.helper2"))
+
+                    @dateOfBirth(resumeForm("dateOfBirth"))
+                </ul>
+            </fieldset>
+
+            <p>@views.html.save_for_later.resumeButton(messages("saveForLater.resume.button"), true, None)</p>
+            <p><a rel="external" href="https://www.gov.uk/carers-allowance" target="_blank">Go to GOV.UK</a></p>
+        }
+    }
+}
+

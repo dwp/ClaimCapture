@@ -34,6 +34,9 @@ GET         /preview/redirect/:id                                       controll
 POST        /save                                                       controllers.save_for_later.GSaveForLater.submit
 GET         /save                                                       controllers.save_for_later.GSaveForLater.present
 
+GET         /resume                                                     controllers.save_for_later.GResume.present
+POST        /resume                                                     controllers.save_for_later.GResume.submit
+
 # Cache Timeout
 GET         /timeout                                                    controllers.ClaimEnding.timeout
 GET         /circs-timeout                                              controllers.CircsEnding.timeout
