@@ -14,16 +14,6 @@
     }
 }
 
-@saveClaimMap = @{
-    claim.saveForLaterMap
-}
-@nationality = @{
-    saveClaimMap.get("nationality").getOrElse("Not set")
-}
-@actualnationality = @{
-    saveClaimMap.get("actualnationality").getOrElse("Not set")
-}
-
 @defining(lang) { implicit language =>
     @main(messages("saveForLater.success.legend")) {
         <p>@Html(messages("saveForLater.success.line1", emailAddress))</p>
@@ -31,14 +21,6 @@
 
         <p>@views.html.save_for_later.continueButton(messages("saveForLater.success.button.label"), true, None)</p>
         <p><a rel="external" href="https://www.gov.uk/carers-allowance" target="_blank">Go to GOV.UK</a></p>
-
-
-        <br>
-        <div class="form-steps" role="navigation">
-            <div>savedCLaimMap empty:@{saveClaimMap.isEmpty}</div>
-            <div>Saved Nationality:@{nationality}</div>
-            <div>Saved Actual Nationality:@{actualnationality}</div>
-       </div>
 
         @views.html.common.fillSavedFields()
     }

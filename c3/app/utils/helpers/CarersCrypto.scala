@@ -1,9 +1,11 @@
 package utils.helpers
 
+import java.io._
 import javax.crypto._
 import javax.crypto.spec.SecretKeySpec
 
 import app.ConfigProperties._
+import models.domain.Claim
 import play.api.Play._
 import play.api.libs.{Crypto, CryptoConfigParser, Codecs}
 
@@ -46,16 +48,61 @@ object CarersCrypto {
    * @return An hexadecimal encrypted string.
    */
   def encryptAES(value: String, privateKey: String): String = {
-    val raw = privateKey.getBytes("utf-8")
-    val skeySpec = new SecretKeySpec(raw, "AES")
-    val cipher = getCipherWithConfiguredProvider("AES")
-    cipher.init(Cipher.ENCRYPT_MODE, skeySpec)
+    val cipher = getCipher(privateKey.getBytes("utf-8"), Cipher.ENCRYPT_MODE)
     Codecs.toHexString(cipher.doFinal(value.getBytes("utf-8")))
+  }
+
+  private def getCipher(key: Array[Byte], mode: Int): Cipher = {
+    val skeySpec = new SecretKeySpec(key, "AES")
+    val cipher = getCipherWithConfiguredProvider("AES")
+    cipher.init(mode, skeySpec)
+    cipher
+  }
+
+  def encryptClaimAES(claim: Claim, key: Array[Byte]) : Array[Byte] = {
+    val cipher = getCipher(key, Cipher.ENCRYPT_MODE)
+    val byteArrayOutputStream = new ByteArrayOutputStream()
+    val cipherOutputStream = new CipherOutputStream(byteArrayOutputStream, cipher)
+    val outputStream = new ObjectOutputStream(cipherOutputStream)
+    outputStream.writeObject(claim)
+    outputStream.close()
+    byteArrayOutputStream.toByteArray
+  }
+
+  def decryptClaimAES(key: Array[Byte], data: Array[Byte]): Claim = {
+    val cipher = getCipher(key, Cipher.DECRYPT_MODE)
+    val byteArrayInputStream = new ByteArrayInputStream(data)
+    val cipherInputStream = new CipherInputStream(byteArrayInputStream, cipher)
+    val objectInputStream = new ObjectInputStreamWithCustomClassLoader(cipherInputStream)
+    val claim = readObject[Claim](objectInputStream)
+    objectInputStream.close()
+    claim
   }
 
   private def getCipherWithConfiguredProvider(transformation: String): Cipher = {
     cryptoConfigParser.get.provider.map(p => Cipher.getInstance(transformation, p)).getOrElse(Cipher.getInstance(transformation))
   }
 
+  def readObject[A](objectInputStream: ObjectInputStream)(implicit tag : reflect.ClassTag[A]): A = {
+    try {
+      val obj = objectInputStream.readObject()
+      obj match {
+        case x if tag.runtimeClass.isInstance(x) => x.asInstanceOf[A]
+        case _ => sys.error("Type not what was expected when reading from memcache")
+      }
+    } catch {
+      case ex: Exception =>
+        ex.printStackTrace()
+        throw ex
+    }
+  }
+
+  class ObjectInputStreamWithCustomClassLoader(cipherInputStream: CipherInputStream) extends ObjectInputStream(cipherInputStream) {
+    override def resolveClass(desc: java.io.ObjectStreamClass): Class[_] = {
+      try { Class.forName(desc.getName, false, getClass.getClassLoader) }
+      catch { case ex: ClassNotFoundException => super.resolveClass(desc) }
+    }
+  }
 }
+
 
