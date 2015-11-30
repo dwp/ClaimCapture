@@ -27,7 +27,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
   }
 
   def submit = claiming { implicit claim => implicit request => implicit lang =>
-    BadRequest(views.html.save_for_later.resumeClaim(ResumeClaim))
+    BadRequest(views.html.save_for_later.resumeClaim(form))
   }
 }
 
