@@ -1,17 +1,19 @@
 @(resumeForm: Form[models.domain.ResumeSaveForLater])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
 
+@import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._
-@import views.html.s_about_you.main
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
 
-<div>Colin above main legend</div>
-messages("saveForLater.resume.legend")
+@import views.html.save_for_later.main
 
 @defining(lang) { implicit language =>
     @main(messages("saveForLater.resume.legend")) {
-        <p>@Html(messages("saveForLater.resume.line1"))</p>
+        @DwpCSRFFormHelper.formField
 
+        <p>@Html(messages("saveForLater.resume.line1"))</p>
         @form(action = controllers.save_for_later.routes.GResume.submit, 'role -> "form") {
             <fieldset class="form-elements" data-journey="carers-allowance:resume">
                 <ul>
