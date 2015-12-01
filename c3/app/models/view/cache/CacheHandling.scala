@@ -12,10 +12,11 @@ import utils.SaveForLaterEncryption
 import scala.concurrent.duration._
 
 import scala.concurrent.duration.Duration
-import scala.util.Try
+import scala.util.{Success, Try, Failure}
 
 protected trait CacheHandling {
   val cache = current.injector.instanceOf[CacheApi]
+  val saveForLaterKey = "SFL-"
   def cacheKey: String
 
   def keyFrom(request: Request[AnyContent]): String = request.session.get(cacheKey).getOrElse("")
@@ -52,9 +53,32 @@ protected trait CacheHandling {
     resumeSaveForLater.dateOfBirth.`yyyy-MM-dd`
   }
 
-  def resumeSaveForLaterFromCache(resumeSaveForLater: ResumeSaveForLater): Option[SaveForLater] = {
-    val key = createSaveForLaterKey(resumeSaveForLater)
-    cache.get[SaveForLater](key)
+  def decryptClaim(saveForLater: SaveForLater, resumeSaveForLater: ResumeSaveForLater): SaveForLater = {
+    if (saveForLater.remainingAuthenticationAttempts > 0) {
+      val key = createSaveForLaterKey(resumeSaveForLater)
+      Try (SaveForLaterEncryption.decryptClaim(key, saveForLater.claim)) match {
+        case Failure(e) => return saveForLater.update(saveForLater.remainingAuthenticationAttempts - 1)
+        case Success(s) => saveInCache(s)
+      }
+    }
+    saveForLater
+  }
+
+  def resumeSaveForLaterFromCache(resumeSaveForLater: ResumeSaveForLater, uuid: String): Option[SaveForLater] = {
+    cache.get[SaveForLater](s"$saveForLaterKey$uuid") match {
+      case Some(saveForLater) =>
+        if (saveForLater.status == "ok") {
+          Some(decryptClaim(saveForLater, resumeSaveForLater))
+        } else Some(saveForLater)
+      case _ => None
+    }
+  }
+
+  def checkSaveForLaterInCache(uuid: String) = {
+    cache.get[SaveForLater](s"$saveForLaterKey$uuid") match {
+      case Some(saveForLater) => saveForLater.status
+      case _ => "no claim"
+    }
   }
 
   def createSaveForLaterKey(claim: Claim): String = {
@@ -66,9 +90,11 @@ protected trait CacheHandling {
 
   def saveForLaterInCache(claim: Claim, path: String): Unit = {
     val key = createSaveForLaterKey(claim)
+    val uuid = claim.uuid
     val saveForLater = new SaveForLater(claim = SaveForLaterEncryption.encryptClaim(claim, key), location = path,
-                    remainingAuthenticationAttempts = 0, status="ok", expiryDateTime = System.currentTimeMillis())
-    cache.set(claim.uuid, saveForLater, Duration(CacheHandling.saveForLaterExpiration, DAYS))
+                    remainingAuthenticationAttempts = CacheHandling.saveForLaterAuthenticationAttempts,
+                    status="ok", expiryDateTime = System.currentTimeMillis())
+    cache.set(s"$saveForLaterKey$uuid", saveForLater, Duration(CacheHandling.saveForLaterExpiration, DAYS))
   }
 }
 
@@ -77,4 +103,6 @@ object CacheHandling {
   lazy val expiration = getProperty("cache.expiry", 3600)
 
   lazy val saveForLaterExpiration = getProperty("cache.saveForLaterExpiry", 30)
+
+  lazy val saveForLaterAuthenticationAttempts = getProperty("cache.saveForLaterAuthenticationAttempts", 3)
 }

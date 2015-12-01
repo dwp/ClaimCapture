@@ -1,6 +1,7 @@
 package utils
 
 import models.view.CachedClaim
+import models.view.cache.EncryptedCacheHandling
 import models.yesNo._
 import models.{SortCode, MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 import models.domain._
@@ -57,5 +58,53 @@ class SaveForLaterEncryptionSpec extends Specification {
       claim.questionGroup[CircumstancesAddressChange] mustEqual newClaim.questionGroup[CircumstancesAddressChange]
       claim.questionGroup[CircumstancesPaymentChange] mustEqual newClaim.questionGroup[CircumstancesPaymentChange]
     }
+
+    "Claim must be decrypt claim check status ok" in new WithApplication {
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val claimUuid = claim.uuid
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
+      val saveForLaterStatus = encryptedCacheHandling.checkSaveForLaterInCache(claimUuid)
+
+      saveForLaterStatus mustEqual "ok"
+    }
+
+    "Claim must be decrypt claim check retry count" in new WithApplication {
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val claimUuid = claim.uuid
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
+      encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLaterInvalid(claim), claimUuid) match {
+        case Some(saveForLater) => saveForLater.remainingAuthenticationAttempts mustEqual 2
+        case _ => failure("no cache found")
+      }
+    }
+
+    "Claim must be decrypt claim check invalid key no claim" in new WithApplication {
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val claimUuid = claim.uuid+"1"
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
+      encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLater(claim), claimUuid) match {
+        case Some(saveForLater) => failure("should not find cache")
+        case _ => success
+      }
+    }
+
+    "Claim must be decrypt claim check status no claim" in new WithApplication {
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val claimUuid = claim.uuid + "1"
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
+      val saveForLaterStatus = encryptedCacheHandling.checkSaveForLaterInCache(claimUuid)
+
+      saveForLaterStatus mustEqual "no claim"
+    }
+  }
+
+  def createResumeSaveForLater(claim: Claim) = {
+    val yourDetails = claim.section(AboutYou).questionGroup(YourDetails).get.asInstanceOf[YourDetails]
+    ResumeSaveForLater(yourDetails.firstName, yourDetails.surname, yourDetails.nationalInsuranceNumber, yourDetails.dateOfBirth)
+  }
+
+  def createResumeSaveForLaterInvalid(claim: Claim) = {
+    val yourDetails = claim.section(AboutYou).questionGroup(YourDetails).get.asInstanceOf[YourDetails]
+    ResumeSaveForLater(yourDetails.firstName + "none", yourDetails.surname, yourDetails.nationalInsuranceNumber, yourDetails.dateOfBirth)
   }
 }
