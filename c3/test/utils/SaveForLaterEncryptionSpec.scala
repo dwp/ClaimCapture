@@ -88,7 +88,7 @@ class SaveForLaterEncryptionSpec extends Specification {
       }
     }
 
-    "Claim must be decrypt claim check status no claim" in new WithApplication {
+    "Claim must be decrypt claim check status no claim when invalid claim uuid" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
       val claimUuid = claim.uuid + "1"
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
@@ -97,7 +97,16 @@ class SaveForLaterEncryptionSpec extends Specification {
       saveForLaterStatus mustEqual "no claim"
     }
 
-    "Claim must be encrypted during the save for later process" in new WithApplication {
+    "Claim must be decrypt claim check status no claim when no claim in cache" in new WithApplication {
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val claimUuid = claim.uuid + "1"
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
+      val saveForLaterStatus = encryptedCacheHandling.checkSaveForLaterInCache(claimUuid)
+
+      saveForLaterStatus mustEqual "no claim"
+    }
+
+    "Check claim encrypted and decryption create same claim during the save for later process" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
       val claimUuid = claim.uuid
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
