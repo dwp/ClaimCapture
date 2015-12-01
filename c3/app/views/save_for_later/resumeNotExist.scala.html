@@ -1,8 +1,5 @@
 @(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
 
-@import models.domain._
-@import controllers.mappings.Mappings._
-
 @defining(lang) { implicit language =>
     @main(messages("saveForLater.notexist.legend")) {
         <h2>@Html(messages("saveForLater.notexist.h2"))</h2>

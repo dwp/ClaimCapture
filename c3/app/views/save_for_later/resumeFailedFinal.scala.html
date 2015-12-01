@@ -1,0 +1,12 @@
+@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
+
+@defining(lang) { implicit language =>
+    @main(messages("saveForLater.failed.legend")) {
+        <p>@Html(messages("saveForLater.failed.line1"))</p>
+        <p>@Html(messages("saveForLater.failed.line2"))</p>
+        <p>@Html(messages("saveForLater.failed.line3"))</p>
+
+        <p>@views.html.save_for_later.newApplicationButton(messages("saveForLater.common.new.label"), true, None)</p>
+        <p><a rel="external" href=@messages("saveForLater.common.govuk.url") target="_blank">@messages("saveForLater.common.govuk.label")</a></p>
+    }
+}
