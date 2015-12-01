@@ -189,19 +189,25 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   protected def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {
     val key = keyFrom(request)
     if (!key.isEmpty && key != claim.uuid) Logger.warn(s"action - Claim uuid ${claim.uuid} does not match cache key $key. Can happen if action new claim and user reuses session. Will disregard session key and use uuid.")
-
     f(claim)(request)(lang) match {
       case Left(r: Result) => r
-      case Right((c: Claim, r: Result)) =>
-        saveInCache(c)
+      case Right((c: Claim, r: Result)) => {
+        request.uri match {
+          case "/save" => saveInCache(c)
+          case _ => saveInCache(c.update(saveForLaterPageData = Map[String,String]()))
+        }
         r
+      }
     }
   }
 
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
-    def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = claim.questionGroup(qi) match {
-      case Some(q: Q) => form.fill(q)
-      case _ => form
+    def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = {
+      (claim.saveForLaterCurrentPageData.isEmpty, claim.questionGroup(qi)) match {
+        case (false, _) => form.copy[Q](data=claim.saveForLaterCurrentPageData)
+        case (_, Some(q: Q)) => form.fill(q)
+        case _ => form
+      }
     }
   }
 
