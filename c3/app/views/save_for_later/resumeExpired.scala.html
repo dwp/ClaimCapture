@@ -1,0 +1,16 @@
+@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
+
+@import models.domain._
+@import controllers.mappings.Mappings._
+
+
+@defining(lang) { implicit language =>
+    @main(messages("saveForLater.expired.legend")) {
+        <p>@Html(messages("saveForLater.expired.line1"))</p>
+        <p>@Html(messages("saveForLater.expired.line2"))</p>
+        <p>@Html(messages("saveForLater.expired.line3"))</p>
+
+        <p>@views.html.save_for_later.newApplicationButton(messages("saveForLater.expired.button.label"), true, None)</p>
+        <p><a rel="external" href="https://www.gov.uk/carers-allowance" target="_blank">Go to GOV.UK</a></p>
+    }
+}
