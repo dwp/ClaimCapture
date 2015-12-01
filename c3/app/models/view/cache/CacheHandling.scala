@@ -54,6 +54,13 @@ protected trait CacheHandling {
     resumeSaveForLater.dateOfBirth.`yyyy-MM-dd`
   }
 
+  def createSaveForLaterKey(claim: Claim): String = {
+    val yourDetails = claim.section(AboutYou).questionGroup(YourDetails).get.asInstanceOf[YourDetails]
+    yourDetails.firstName.toUpperCase() + yourDetails.surname.toUpperCase +
+      yourDetails.nationalInsuranceNumber.nino.getOrElse("").toUpperCase +
+      yourDetails.dateOfBirth.`yyyy-MM-dd`
+  }
+
   def decryptClaim(saveForLater: SaveForLater, resumeSaveForLater: ResumeSaveForLater): SaveForLater = {
     if (saveForLater.remainingAuthenticationAttempts > 0) {
       val key = createSaveForLaterKey(resumeSaveForLater)
@@ -80,13 +87,6 @@ protected trait CacheHandling {
       case Some(saveForLater) => saveForLater.status
       case _ => "no claim"
     }
-  }
-
-  def createSaveForLaterKey(claim: Claim): String = {
-    val yourDetails = claim.section(AboutYou).questionGroup(YourDetails).get.asInstanceOf[YourDetails]
-    yourDetails.firstName.toUpperCase() + yourDetails.surname.toUpperCase +
-    yourDetails.nationalInsuranceNumber.nino.getOrElse("").toUpperCase +
-    yourDetails.dateOfBirth.`yyyy-MM-dd`
   }
 
   def saveForLaterInCache(claim: Claim, path: String): Unit = {
