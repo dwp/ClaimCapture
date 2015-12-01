@@ -170,11 +170,11 @@ object ClaimEncryption {
   }
 
   def encryptSaveClaimMap(claim: Claim): Claim = {
-    claim
+    claim.update(saveForLaterPageData = claim.saveForLaterCurrentPageData.map { case (k,v) => k -> encryptString(v) })
   }
 
   def decryptSaveClaimMap(claim: Claim): Claim = {
-    claim
+    claim.update(saveForLaterPageData = claim.saveForLaterCurrentPageData.map { case (k,v) => k -> decryptString(v)})
   }
 
   def decryptYourDetails(claim: Claim): Claim = {

@@ -38,7 +38,7 @@ trait CachedClaim extends ClaimHandling {
     }
   }
 
-  override def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid, claim.transactionId, claim.checkYAnswers, claim.saveForLaterMap)(claim.navigation)
+  override def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid, claim.transactionId, claim.checkYAnswers, claim.saveForLaterCurrentPageData)(claim.navigation)
 
   override protected def claimNotValid(claim: Claim): Boolean = {
     (claim.questionGroup[ClaimDate] match {

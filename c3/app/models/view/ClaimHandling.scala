@@ -190,7 +190,6 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
     val key = keyFrom(request)
     if (!key.isEmpty && key != claim.uuid) Logger.warn(s"action - Claim uuid ${claim.uuid} does not match cache key $key. Can happen if action new claim and user reuses session. Will disregard session key and use uuid.")
 
-    //val newRequest = createNewRequest(request) //??? //Create new request modifiying the current cookie to add whatever setLang does
     f(claim)(request)(lang) match {
       case Left(r: Result) => r
       case Right((c: Claim, r: Result)) =>

@@ -1,13 +1,14 @@
 package models.view.cache
 
 import app.ConfigProperties._
-import models.domain.Claim
+import models.domain._
 import monitoring.Histograms
 import net.sf.ehcache.CacheManager
 import play.api.Logger
 import play.api.Play.current
 import play.api.cache.CacheApi
 import play.api.mvc.{AnyContent, Request}
+import utils.SaveForLaterEncryption
 import scala.concurrent.duration._
 
 import scala.concurrent.duration.Duration
@@ -41,13 +42,39 @@ protected trait CacheHandling {
 
   def removeFromCache(key: String) = cache.remove(key)
 
-
   protected def recordMeasurements() = {
     Histograms.recordCacheSize(Try(CacheManager.getInstance().getCache("play").getKeysWithExpiryCheck.size()).getOrElse(0))
+  }
+
+  def createSaveForLaterKey(resumeSaveForLater: ResumeSaveForLater): String = {
+    resumeSaveForLater.firstName.toUpperCase() + resumeSaveForLater.surname.toUpperCase +
+    resumeSaveForLater.nationalInsuranceNumber.nino.getOrElse("").toUpperCase +
+    resumeSaveForLater.dateOfBirth.`yyyy-MM-dd`
+  }
+
+  def resumeSaveForLaterFromCache(resumeSaveForLater: ResumeSaveForLater): Option[SaveForLater] = {
+    val key = createSaveForLaterKey(resumeSaveForLater)
+    cache.get[SaveForLater](key)
+  }
+
+  def createSaveForLaterKey(claim: Claim): String = {
+    val yourDetails = claim.section(AboutYou).questionGroup(YourDetails).get.asInstanceOf[YourDetails]
+    yourDetails.firstName.toUpperCase() + yourDetails.surname.toUpperCase +
+    yourDetails.nationalInsuranceNumber.nino.getOrElse("").toUpperCase +
+    yourDetails.dateOfBirth.`yyyy-MM-dd`
+  }
+
+  def saveForLaterInCache(claim: Claim, path: String): Unit = {
+    val key = createSaveForLaterKey(claim)
+    val saveForLater = new SaveForLater(claim = SaveForLaterEncryption.encryptClaim(claim, key), location = path,
+                    remainingAuthenticationAttempts = 0, status="ok", expiryDateTime = System.currentTimeMillis())
+    cache.set(claim.uuid, saveForLater, Duration(CacheHandling.saveForLaterExpiration, DAYS))
   }
 }
 
 object CacheHandling {
   // Expiration value
   lazy val expiration = getProperty("cache.expiry", 3600)
+
+  lazy val saveForLaterExpiration = getProperty("cache.saveForLaterExpiry", 30)
 }
