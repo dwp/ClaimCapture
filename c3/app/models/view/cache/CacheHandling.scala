@@ -2,6 +2,7 @@ package models.view.cache
 
 import app.ConfigProperties._
 import models.domain._
+import models.view.ClaimHandling
 import monitoring.Histograms
 import net.sf.ehcache.CacheManager
 import play.api.Logger
@@ -93,7 +94,7 @@ protected trait CacheHandling {
     val uuid = claim.uuid
     val saveForLater = new SaveForLater(claim = SaveForLaterEncryption.encryptClaim(claim, key), location = path,
                     remainingAuthenticationAttempts = CacheHandling.saveForLaterAuthenticationAttempts,
-                    status="ok", expiryDateTime = System.currentTimeMillis())
+                    status="ok", expiryDateTime = System.currentTimeMillis(), appVersion = ClaimHandling.C3VERSION_VALUE)
     cache.set(s"$saveForLaterKey$uuid", saveForLater, Duration(CacheHandling.saveForLaterExpiration, DAYS))
   }
 }

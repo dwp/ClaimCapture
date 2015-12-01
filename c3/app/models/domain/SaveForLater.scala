@@ -4,7 +4,8 @@ case class SaveForLater(claim: Array[Byte],
                         location: String,
                         remainingAuthenticationAttempts: Int,
                         status: String,
-                        expiryDateTime: Long
+                        expiryDateTime: Long,
+                        appVersion: String
                        ) {
 
   def update(numberOfAuthenticationAttemptLeft: Int): SaveForLater = {
