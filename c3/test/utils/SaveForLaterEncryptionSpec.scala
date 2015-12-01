@@ -96,6 +96,26 @@ class SaveForLaterEncryptionSpec extends Specification {
 
       saveForLaterStatus mustEqual "no claim"
     }
+
+    "Claim must be encrypted during the save for later process" in new WithApplication {
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val claimUuid = claim.uuid
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
+      encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLater(claim), claimUuid)
+      encryptedCacheHandling.cache.get[Claim](claimUuid) match {
+        case Some(encryptedClaim) =>
+          val newClaim = ClaimEncryption.decrypt(encryptedClaim)
+          claim.questionGroup[YourDetails] mustEqual newClaim.questionGroup[YourDetails]
+          claim.questionGroup[ContactDetails] mustEqual newClaim.questionGroup[ContactDetails]
+          claim.questionGroup[TheirPersonalDetails] mustEqual newClaim.questionGroup[TheirPersonalDetails]
+          claim.questionGroup[CircumstancesReportChange] mustEqual newClaim.questionGroup[CircumstancesReportChange]
+          claim.questionGroup[HowWePayYou] mustEqual newClaim.questionGroup[HowWePayYou]
+          claim.questionGroup[YourPartnerPersonalDetails] mustEqual newClaim.questionGroup[YourPartnerPersonalDetails]
+          claim.questionGroup[CircumstancesAddressChange] mustEqual newClaim.questionGroup[CircumstancesAddressChange]
+          claim.questionGroup[CircumstancesPaymentChange] mustEqual newClaim.questionGroup[CircumstancesPaymentChange]
+        case _ => failure("Couldn't get claim from cache")
+      }
+    }
   }
 
   def createResumeSaveForLater(claim: Claim) = {

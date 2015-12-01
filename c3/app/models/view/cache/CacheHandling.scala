@@ -94,16 +94,18 @@ protected trait CacheHandling {
     val uuid = claim.uuid
     val saveForLater = new SaveForLater(claim = SaveForLaterEncryption.encryptClaim(claim, key), location = path,
                     remainingAuthenticationAttempts = CacheHandling.saveForLaterAuthenticationAttempts,
-                    status="ok", expiryDateTime = System.currentTimeMillis(), appVersion = ClaimHandling.C3VERSION_VALUE)
-    cache.set(s"$saveForLaterKey$uuid", saveForLater, Duration(CacheHandling.saveForLaterExpiration, DAYS))
+                    status="ok", applicationExpiry = System.currentTimeMillis() + Duration(CacheHandling.saveForLaterCacheExpiry, DAYS).toMillis, appVersion = ClaimHandling.C3VERSION_VALUE)
+    cache.set(s"$saveForLaterKey$uuid", saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
   }
 }
 
 object CacheHandling {
-  // Expiration value
+  // Expiration values
   lazy val expiration = getProperty("cache.expiry", 3600)
 
-  lazy val saveForLaterExpiration = getProperty("cache.saveForLaterExpiry", 30)
+  lazy val saveForLaterCacheExpiry = getProperty("cache.saveForLaterCacheExpiry", 5)
+
+  lazy val saveForLaterGracePeriod = getProperty("cache.saveForLaterGracePeriod", 25)
 
   lazy val saveForLaterAuthenticationAttempts = getProperty("cache.saveForLaterAuthenticationAttempts", 3)
 }

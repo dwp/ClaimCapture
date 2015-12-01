@@ -4,7 +4,7 @@ case class SaveForLater(claim: Array[Byte],
                         location: String,
                         remainingAuthenticationAttempts: Int,
                         status: String,
-                        expiryDateTime: Long,
+                        applicationExpiry: Long,
                         appVersion: String
                        ) {
 
