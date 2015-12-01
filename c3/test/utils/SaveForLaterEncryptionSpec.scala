@@ -62,6 +62,7 @@ class SaveForLaterEncryptionSpec extends Specification {
     "Claim must be decrypt claim check status ok" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
       val claimUuid = claim.uuid
+      removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
       val saveForLaterStatus = encryptedCacheHandling.checkSaveForLaterInCache(claimUuid)
 
@@ -71,6 +72,7 @@ class SaveForLaterEncryptionSpec extends Specification {
     "Claim must be decrypt claim check retry count" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
       val claimUuid = claim.uuid
+      removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
       encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLaterInvalid(claim), claimUuid) match {
         case Some(saveForLater) => saveForLater.remainingAuthenticationAttempts mustEqual 2
@@ -81,6 +83,7 @@ class SaveForLaterEncryptionSpec extends Specification {
     "Claim must be decrypt claim check invalid key no claim" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
       val claimUuid = claim.uuid+"1"
+      removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
       encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLater(claim), claimUuid) match {
         case Some(saveForLater) => failure("should not find cache")
@@ -91,6 +94,7 @@ class SaveForLaterEncryptionSpec extends Specification {
     "Claim must be decrypt claim check status no claim when invalid claim uuid" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
       val claimUuid = claim.uuid + "1"
+      removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
       val saveForLaterStatus = encryptedCacheHandling.checkSaveForLaterInCache(claimUuid)
 
@@ -99,8 +103,8 @@ class SaveForLaterEncryptionSpec extends Specification {
 
     "Claim must be decrypt claim check status no claim when no claim in cache" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
-      val claimUuid = claim.uuid + "1"
-      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
+      val claimUuid = claim.uuid
+      removeFromCache(encryptedCacheHandling, claimUuid)
       val saveForLaterStatus = encryptedCacheHandling.checkSaveForLaterInCache(claimUuid)
 
       saveForLaterStatus mustEqual "no claim"
@@ -109,6 +113,7 @@ class SaveForLaterEncryptionSpec extends Specification {
     "Check claim encrypted and decryption create same claim during the save for later process" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
       val claimUuid = claim.uuid
+      removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
       encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLater(claim), claimUuid)
       encryptedCacheHandling.cache.get[Claim](claimUuid) match {
@@ -126,6 +131,7 @@ class SaveForLaterEncryptionSpec extends Specification {
       }
     }
   }
+  section ("unit")
 
   def createResumeSaveForLater(claim: Claim) = {
     val yourDetails = claim.section(AboutYou).questionGroup(YourDetails).get.asInstanceOf[YourDetails]
@@ -135,5 +141,10 @@ class SaveForLaterEncryptionSpec extends Specification {
   def createResumeSaveForLaterInvalid(claim: Claim) = {
     val yourDetails = claim.section(AboutYou).questionGroup(YourDetails).get.asInstanceOf[YourDetails]
     ResumeSaveForLater(yourDetails.firstName + "none", yourDetails.surname, yourDetails.nationalInsuranceNumber, yourDetails.dateOfBirth)
+  }
+
+  def removeFromCache(encryptedCacheHandling: EncryptedCacheHandling, claimUuid: String): Unit = {
+    encryptedCacheHandling.removeFromCache(claimUuid)
+    encryptedCacheHandling.removeFromCache(s"SFL-$claimUuid")
   }
 }
