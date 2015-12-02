@@ -61,22 +61,44 @@ protected trait CacheHandling {
       yourDetails.dateOfBirth.`yyyy-MM-dd`
   }
 
-  def decryptClaim(saveForLater: SaveForLater, resumeSaveForLater: ResumeSaveForLater): SaveForLater = {
+  def decryptClaim(saveForLaterUuid: String, saveForLater: SaveForLater, resumeSaveForLater: ResumeSaveForLater): SaveForLater = {
     if (saveForLater.remainingAuthenticationAttempts > 0) {
       val key = createSaveForLaterKey(resumeSaveForLater)
       Try (SaveForLaterEncryption.decryptClaim(key, saveForLater.claim)) match {
-        case Failure(e) => return saveForLater.update(saveForLater.remainingAuthenticationAttempts - 1)
-        case Success(s) => saveInCache(s)
+        case Failure(e) =>
+          //reset status to FAILED-FINAL, save status and remove claim from cache when attempts get to 0
+          //otherwise send FAILED-RETRY but not save in cache
+          val remainingAttempts = saveForLater.remainingAuthenticationAttempts - 1
+          remainingAttempts match {
+            case 0 => return updateSaveForLaterInCacheAndRemoveClaim(saveForLaterUuid, saveForLater, 0, "FAILED-FINAL")
+            case _ => return updateSaveForLaterInCache(saveForLaterUuid, saveForLater, remainingAttempts)
+          }
+        case Success(s) =>
+          saveInCache(s)
+          return updateSaveForLaterInCache(saveForLaterUuid, saveForLater, CacheHandling.saveForLaterAuthenticationAttempts)
       }
     }
     saveForLater
   }
 
+  def updateSaveForLaterInCache(saveForLaterUuid: String, saveForLater: SaveForLater, remainingAuthenticationAttempts : Int) = {
+    val updatedSaveForLater = saveForLater.update(remainingAuthenticationAttempts)
+    cache.set(s"$saveForLaterKey$saveForLaterUuid", updatedSaveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
+    if (remainingAuthenticationAttempts != CacheHandling.saveForLaterAuthenticationAttempts) updatedSaveForLater.update("FAILED-RETRY")
+    else updatedSaveForLater
+  }
+
+  def updateSaveForLaterInCacheAndRemoveClaim(saveForLaterUuid: String, saveForLater: SaveForLater, remainingAuthenticationAttempts: Int, status: String) = {
+    val updatedSaveForLater = saveForLater.update(status, remainingAuthenticationAttempts, null)
+    cache.set(s"$saveForLaterKey$saveForLaterUuid", updatedSaveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
+    updatedSaveForLater
+  }
+
   def resumeSaveForLaterFromCache(resumeSaveForLater: ResumeSaveForLater, uuid: String): Option[SaveForLater] = {
     cache.get[SaveForLater](s"$saveForLaterKey$uuid") match {
       case Some(saveForLater) =>
-        if (saveForLater.status == "ok") {
-          Some(decryptClaim(saveForLater, resumeSaveForLater))
+        if (saveForLater.status == "OK") {
+          Some(decryptClaim(uuid, saveForLater, resumeSaveForLater))
         } else Some(saveForLater)
       case _ => None
     }
@@ -85,7 +107,7 @@ protected trait CacheHandling {
   def checkSaveForLaterInCache(uuid: String) = {
     cache.get[SaveForLater](s"$saveForLaterKey$uuid") match {
       case Some(saveForLater) => saveForLater.status
-      case _ => "no claim"
+      case _ => "NO-CLAIM"
     }
   }
 
@@ -94,7 +116,7 @@ protected trait CacheHandling {
     val uuid = claim.uuid
     val saveForLater = new SaveForLater(claim = SaveForLaterEncryption.encryptClaim(claim, key), location = path,
                     remainingAuthenticationAttempts = CacheHandling.saveForLaterAuthenticationAttempts,
-                    status="ok", applicationExpiry = System.currentTimeMillis() + Duration(CacheHandling.saveForLaterCacheExpiry, DAYS).toMillis, appVersion = ClaimHandling.C3VERSION_VALUE)
+                    status="OK", applicationExpiry = System.currentTimeMillis() + Duration(CacheHandling.saveForLaterCacheExpiry, DAYS).toMillis, appVersion = ClaimHandling.C3VERSION_VALUE)
     cache.set(s"$saveForLaterKey$uuid", saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
   }
 }

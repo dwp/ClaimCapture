@@ -15,5 +15,9 @@ case class SaveForLater(claim: Array[Byte],
   def update(newStatus: String): SaveForLater = {
     copy(status = newStatus)
   }
+
+  def update(newStatus: String, numberOfAuthenticationAttemptLeft: Int, newClaim: Array[Byte]): SaveForLater = {
+    copy(status = newStatus, remainingAuthenticationAttempts = numberOfAuthenticationAttemptLeft, claim = newClaim)
+  }
 }
 
