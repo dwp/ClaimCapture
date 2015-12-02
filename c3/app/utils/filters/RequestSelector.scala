@@ -26,7 +26,7 @@ object RequestSelector {
    */
   def startPage(request:RequestHeader) = {
     val headerString = request.path
-    headerString.matches(".*circumstances.report-changes.selection.*") || headerString.matches(".*allowance.benefits.*") || headerString.matches(".*change-language.*")
+    headerString.matches(".*circumstances.report-changes.selection.*") || headerString.matches(".*allowance.benefits.*") || headerString.matches(".*change-language.*") || headerString.matches(".*resume.*")
   }
 
   /**
