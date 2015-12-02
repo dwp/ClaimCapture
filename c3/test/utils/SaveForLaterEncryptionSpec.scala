@@ -75,7 +75,27 @@ class SaveForLaterEncryptionSpec extends Specification {
       removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
       encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLaterInvalid(claim), claimUuid) match {
-        case Some(saveForLater) => saveForLater.remainingAuthenticationAttempts mustEqual 2
+        case Some(saveForLater) =>
+          saveForLater.remainingAuthenticationAttempts mustEqual 2
+          saveForLater.status mustEqual "FAILED-RETRY"
+        case _ => failure("no cache found")
+      }
+    }
+
+    "Claim must be removed after three failed attempts" in new WithApplication {
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val claimUuid = claim.uuid
+      removeFromCache(encryptedCacheHandling, claimUuid)
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
+      val resumeKey = createResumeSaveForLaterInvalid(claim)
+      for (i <- 1 to 2) {
+        encryptedCacheHandling.resumeSaveForLaterFromCache(resumeKey, claimUuid)
+      }
+      encryptedCacheHandling.resumeSaveForLaterFromCache(resumeKey, claimUuid) match {
+        case Some(saveForLater) =>
+          saveForLater.remainingAuthenticationAttempts mustEqual 0
+          saveForLater.status mustEqual "FAILED-FINAL"
+          saveForLater.claim mustEqual null
         case _ => failure("no cache found")
       }
     }
