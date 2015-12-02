@@ -15,11 +15,12 @@
 }
 
 @defining(lang) { implicit language =>
-    @main(messages("saveForLater.success.legend")) {
-        <p>@Html(messages("saveForLater.success.line1", emailAddress))</p>
-        <p>@Html(messages("saveForLater.success.line2"))</p>
+    @main(messages("saveForLater.save.legend")) {
+        <p>Temporary link for resume ...<a href="/resume?savekey=@claim.uuid">Resume</a></p>
+        <p>@Html(messages("saveForLater.save.line1", emailAddress))</p>
+        <p>@Html(messages("saveForLater.save.line2"))</p>
 
-        <p>@views.html.save_for_later.continueButton(messages("saveForLater.success.button.label"), true, None)</p>
-        <p><a rel="external" href="https://www.gov.uk/carers-allowance" target="_blank">Go to GOV.UK</a></p>
+        <p>@views.html.save_for_later.continueButton(messages("saveForLater.save.button.label"), true, None)</p>
+        <p><a rel="external" href=@messages("saveForLater.common.govuk.url") target="_blank">@messages("saveForLater.common.govuk.label")</a></p>
     }
 }
