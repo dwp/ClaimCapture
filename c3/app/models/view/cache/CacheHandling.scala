@@ -65,20 +65,23 @@ protected trait CacheHandling {
     if (saveForLater.remainingAuthenticationAttempts > 0) {
       val key = createSaveForLaterKey(resumeSaveForLater)
       Try (SaveForLaterEncryption.decryptClaim(key, saveForLater.claim)) match {
-        case Failure(e) =>
-          //reset status to FAILED-FINAL, save status and remove claim from cache when attempts get to 0
-          //otherwise send FAILED-RETRY but not save in cache
-          val remainingAttempts = saveForLater.remainingAuthenticationAttempts - 1
-          remainingAttempts match {
-            case 0 => return updateSaveForLaterInCacheAndRemoveClaim(saveForLaterUuid, saveForLater, 0, "FAILED-FINAL")
-            case _ => return updateSaveForLaterInCache(saveForLaterUuid, saveForLater, remainingAttempts)
-          }
+        case Failure(e) => return setSaveForLaterRemainingAttempts(saveForLaterUuid, saveForLater)
         case Success(s) =>
           saveInCache(s)
           return updateSaveForLaterInCache(saveForLaterUuid, saveForLater, CacheHandling.saveForLaterAuthenticationAttempts)
       }
     }
     saveForLater
+  }
+
+  def setSaveForLaterRemainingAttempts(saveForLaterUuid: String, saveForLater: SaveForLater): SaveForLater = {
+    //reset status to FAILED-FINAL, save status and remove claim from cache when attempts get to 0
+    //otherwise send FAILED-RETRY but not save in cache
+    val remainingAttempts = saveForLater.remainingAuthenticationAttempts - 1
+    remainingAttempts match {
+      case 0 => updateSaveForLaterInCacheAndRemoveClaim(saveForLaterUuid, saveForLater, 0, "FAILED-FINAL")
+      case _ => updateSaveForLaterInCache(saveForLaterUuid, saveForLater, remainingAttempts)
+    }
   }
 
   def updateSaveForLaterInCache(saveForLaterUuid: String, saveForLater: SaveForLater, remainingAuthenticationAttempts : Int) = {
