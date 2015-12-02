@@ -81,6 +81,10 @@ case class Claim(key: String, sections: List[Section] = List(), created: Long = 
     copy(saveForLaterCurrentPageData = saveForLaterPageData )
   }
 
+  def update(newkey: String): Claim = {
+    copy(key = newkey )
+  }
+
   /**
    * removes all question groups except the specified ones
    * @param keep - the sections to keep

@@ -40,6 +40,8 @@ protected trait CacheHandling {
     }
   }
 
+  def fromCache(key: String): Option[Claim] = cache.get[Claim](key)
+
   def saveInCache(claim: Claim) = cache.set(claim.uuid, claim, Duration(CacheHandling.expiration, SECONDS))
 
   def removeFromCache(key: String) = cache.remove(key)

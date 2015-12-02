@@ -86,9 +86,41 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
    * if the mandatory fields are missing. We found the mandatory fields missing when the user uses the
    * browser's back and forward buttons instead of the ones provided by the application.
    */
-  def claimingWithCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult],checkCookie:Boolean = false) = claimingWithConditions(f, cookieCheck = checkCookie, isNotValidClaim = claimNotValid)
+  def claimingWithCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult],checkCookie:Boolean = false) = {
+
+    claimingWithConditions(f, cookieCheck = checkCookie, isNotValidClaim = claimNotValid)
+  }
+
+  def claimingWithResume(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult],checkCookie:Boolean = false) = {
+    claimingResume(f, cookieCheck = checkCookie, isNotValidClaim = claimNotValid)
+  }
 
   def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult],checkCookie:Boolean = false): Action[AnyContent] = claimingWithConditions(f, cookieCheck = checkCookie)
+
+  private def claimingResume(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult], cookieCheck: Boolean, isNotValidClaim: Claim => Boolean = noClaimValidation): Action[AnyContent] = Action {
+    implicit request => {
+      var savekeyuuid=createParamsMap(request.queryString).getOrElse("uuid", "")
+      println("resume uuid:"+savekeyuuid)
+
+      recordMeasurements()
+
+      enforceAlreadyFinishedRedirection(request,
+        originCheck(
+          fromCache(savekeyuuid) match {
+            case Some(claim) if isNotValidClaim(claim) && !Play.isTest =>
+              Logger.error(s"claimingWithConditions $cacheKey - cache: ${keyFrom(request)} lost the claim date and claimant details")
+              Redirect(errorPageBrowserBackButton)
+
+            case Some(claim) => claimingWithClaim(f, request, claim)
+
+            case None if cookieCheck && !Play.isTest => Redirect(errorPageCookie)
+
+            case None => claimingWithoutClaim(f, request)
+          }
+        )
+      )
+    }
+  }
 
   private def claimingWithConditions(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult], cookieCheck: Boolean, isNotValidClaim: Claim => Boolean = noClaimValidation): Action[AnyContent] = Action {
     implicit request =>
@@ -254,5 +286,9 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
       Lang(listOfPossibleLangs.head)
     else
       Lang(defaultLang)
+  }
+
+  def createParamsMap(parameters: Map[String, Seq[String]]) = {
+    parameters.map { case (k,v) => k -> v.mkString }
   }
 }
