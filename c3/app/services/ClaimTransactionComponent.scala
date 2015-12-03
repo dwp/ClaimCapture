@@ -80,6 +80,16 @@ trait ClaimTransactionComponent {
         ).on("status" -> statusCode, "transactionId" -> id).executeUpdate()
     }
 
+    def updateSaveForLaterEmailStatus(id: String, statusCode: Int): Unit = DB.withConnection("carers") {
+      implicit connection =>
+
+        SQL(
+          """
+          UPDATE transactionstatus set saveforlateremail={status}
+          WHERE transaction_id={transactionId};
+          """
+        ).on("status" -> statusCode, "transactionId" -> id).executeUpdate()
+    }
 
     val transactionStatusParser = {
       get[String]("transaction_id") ~

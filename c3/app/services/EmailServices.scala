@@ -8,7 +8,7 @@ import models.domain._
 import models.view.CachedClaim
 import models.yesNo.YesNoWithText
 import play.api.Logger
-import services.mail.{EmailWrapper, EmailActors}
+import services.mail.{SaveForLaterEmailWrapper, EmailWrapper, EmailActors}
 
 import scala.language.existentials
 import play.modules.mailer._
@@ -22,6 +22,14 @@ object CadsEmail {
     val recipients = r.map(to => Recipient(RecipientType.TO, EmailAddress(null, to)))
     Logger.info(s"Sending email for transactionId [$transactionID]")
     EmailActors.manager ! EmailWrapper(transactionID, Email(subject = subject, from = EmailAddress(null, getProperty("mailer.from", "noreply@lab.3cbeta.co.uk")), text = "", htmlText = body, None, recipients))
+  }
+
+  def sendSaveForLater(transactionID: String, subject: String, body: String, r: String*) = {
+    //EmailAddress object uses javax.mail.internet.InternetAddress behind scenes. On parameters EmailAddress("Peter","peter@gmail.com") will generate "Peter <peter@gmail.com>" on the email sending message
+    //As we don't want to send emails with the chevrons, I tried "","email@email.com" but that produces " <email@email.com>", so we have to send null in the first parameter so the email on the output is just what we are sending.
+    val recipients = r.map(to => Recipient(RecipientType.TO, EmailAddress(null, to)))
+    Logger.info(s"Sending email for transactionId [$transactionID]")
+    EmailActors.manager ! SaveForLaterEmailWrapper(transactionID, Email(subject = subject, from = EmailAddress(null, getProperty("mailer.from", "noreply@lab.3cbeta.co.uk")), text = "", htmlText = body, None, recipients))
   }
 }
 
@@ -76,4 +84,18 @@ object EmailServices extends I18nSupport {
     }
   }
 
+  def sendSaveForLaterEmail(claim: Claim) = {
+    claim.questionGroup[ContactDetails] match {
+      case Some(contactDetails) => {
+        if (contactDetails.email.isEmpty) Logger.info(s"Not sending claim email because the user didn't input an address for transid: [${claim.transactionId.getOrElse("id not present")}]")
+        else CadsEmail.send(claim.transactionId.getOrElse(""), subject = saveForLaterEmailSubject(claim), body = views.html.mail(claim, isClaim = true, isEmployment(claim)).body, contactDetails.email.get)
+      }
+    }
+  }
+
+  def saveForLaterEmailSubject(claim: Claim) = (claim.questionGroup[Employment], claim.questionGroup[SelfEmploymentPensionsAndExpenses]) match {
+    case (Some(Employment(XMLValues.yes, _)), _) | (Some(Employment(_, XMLValues.yes)), _) => messagesApi("subject.claim.employed")
+    case (_, Some(SelfEmploymentPensionsAndExpenses(YesNoWithText(XMLValues.yes, _), _))) => messagesApi("subject.claim.employed")
+    case _ => messagesApi("subject.claim.notemployed")
+  }
 }
