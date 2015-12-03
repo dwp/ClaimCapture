@@ -157,6 +157,7 @@ trait ClaimTransactionComponent {
     }
 
     override def updateEmailStatus(id: String, statusCode: Int): Unit = {}
+    override def updateSaveForLaterEmailStatus(id: String, statusCode: Int): Unit = {}
   }
 
 }

@@ -10,7 +10,7 @@ import specs2.akka.AkkaTestkitSpecs2Support
 import scala.util.{Failure, Success}
 
 
-class EmailActorsSpec extends Specification with Mockito{
+class EmailActorsSpec extends Specification with Mockito {
 
   sequential
 
@@ -92,6 +92,83 @@ class EmailActorsSpec extends Specification with Mockito{
       there was atMost(3)(mailerMock).sendEmail(any[Email])
 
     }
+
+    "start an email sending actor and receive save for later email message" in new AkkaTestkitSpecs2Support {
+
+      synchronized{SimpleSenderTestable.preStartCalls = 0}
+      synchronized{SimpleSenderTestable.sendEmailsReceived = 0}
+
+      val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props[SimpleSenderTestable]))
+
+      emailManager ! mock[SaveForLaterEmailWrapper]
+
+      Thread.sleep(1000)
+
+      SimpleSenderTestable.preStartCalls mustEqual 1
+      SimpleSenderTestable.sendEmailsReceived mustEqual 1
+    }
+
+    "start an email sending actor for save for later" in new AkkaTestkitSpecs2Support() {
+
+      val mailerMock = successMailerMock
+
+      val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[EmailSenderTestable],mailerMock)))
+
+      val b = "Body content"
+      val s = "my subject"
+      val r = Seq("recipient1","recipient2")
+      val email = Email(s,EmailAddress(null,""),"",b,recipients = r.map(r => Recipient(RecipientType.TO,EmailAddress(null,r))),replyTo = None)
+      emailManager ! SaveForLaterEmailWrapper("",email)
+
+      Thread.sleep(1000)
+
+      there was one(mailerMock).sendEmail(email)
+
+    }
+
+    "successfully manage 5 save for later emails sending actors" in new AkkaTestkitSpecs2Support {
+
+      val mailerMock = successMailerMock
+
+      val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[WaitingEmailSenderTestable],mailerMock)))
+
+      val b = "Body content"
+      val s = "my subject"
+      val r = Seq("recipient1","recipient2")
+      val email = Email(s,EmailAddress(null,""),"",b,recipients = r.map(r => Recipient(RecipientType.TO,EmailAddress(null,r))),replyTo = None)
+      for(i <- 1 to 5) {
+        emailManager ! SaveForLaterEmailWrapper("", email)
+      }
+
+      Thread.sleep(5000)
+
+      there was atLeast(5)(mailerMock).sendEmail(email)
+    }
+
+    "restart the email actor because of failures in save for later" in new AkkaTestkitSpecs2Support() {
+      synchronized{EmailSenderTestable.sendEmail = 0}
+
+      val mail = mock[SaveForLaterEmailWrapper]
+      mail.transactionId returns "TEST1234"
+      mail.email returns mock[Email]
+      val mailerMock = mock[Mailer]
+
+      mailerMock.sendEmail(any[Email]).returns(Failure(new Exception("Test exception")))
+
+      val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[EmailSenderTestable],mailerMock)))
+
+      emailManager ! mail
+
+      Thread.sleep(5000)
+
+
+      EmailSenderTestable.synchronized{
+        EmailSenderTestable.sendEmail must beLessThanOrEqualTo(1)
+      }
+
+      there was atMost(3)(mailerMock).sendEmail(any[Email])
+
+    }
   }
   section ("unit","slow")
 
@@ -105,6 +182,7 @@ class EmailActorsSpec extends Specification with Mockito{
 class SimpleSenderTestable extends Actor {
   override def receive: Actor.Receive = {
     case email:EmailWrapper => SimpleSenderTestable.sendEmailsReceived += 1
+    case email:SaveForLaterEmailWrapper => SimpleSenderTestable.sendEmailsReceived += 1
   }
 
 
@@ -124,10 +202,17 @@ class EmailSenderTestable(mailPlugin:Mailer) extends EmailSenderActor(5){
 
 
   override protected def sendEmail(mail: EmailWrapper): Unit = {
-
     EmailSenderTestable.synchronized{
       EmailSenderTestable.sendEmail += 1
       Logger.info("sendEmail called "+EmailSenderTestable.sendEmail+" times")
+    }
+    super.sendEmail(mail)
+  }
+
+  override protected def sendEmail(mail: SaveForLaterEmailWrapper): Unit = {
+    EmailSenderTestable.synchronized{
+      EmailSenderTestable.sendEmail += 1
+      Logger.info("save for later sendEmail called "+EmailSenderTestable.sendEmail+" times")
     }
     super.sendEmail(mail)
   }
@@ -145,6 +230,11 @@ class WaitingEmailSenderTestable(mailPlugin:Mailer) extends EmailSenderActor(5){
   override def mailerPluginApi: Mailer = mailPlugin
 
   override protected def sendEmail(mail: EmailWrapper): Unit = {
+    Thread.sleep(1000)
+    super.sendEmail(mail)
+  }
+
+  override protected def sendEmail(mail: SaveForLaterEmailWrapper): Unit = {
     Thread.sleep(1000)
     super.sendEmail(mail)
   }
