@@ -25,7 +25,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
   )(ResumeSaveForLater.apply)(ResumeSaveForLater.unapply))
 
   def present = newClaim { implicit claim => implicit request => implicit lang =>
-    var savekeyuuid = createParamsMap(request.queryString).getOrElse("savekey", "")
+    val savekeyuuid = createParamsMap(request.queryString).getOrElse("savekey", "")
     // using an intermediate variable for status to allow easier testing to amend the status in debug
     val status = checkSaveForLaterInCache(savekeyuuid)
     status match {
