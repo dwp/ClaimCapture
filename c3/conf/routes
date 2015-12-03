@@ -36,7 +36,6 @@ GET         /save                                                       controll
 
 GET         /resume                                                     controllers.save_for_later.GResume.present
 POST        /resume                                                     controllers.save_for_later.GResume.submit
-GET        /resumeok                                                   controllers.save_for_later.GResume.resume
 
 # Cache Timeout
 GET         /timeout                                                    controllers.ClaimEnding.timeout

@@ -75,6 +75,30 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
     }
   }
 
+  /*
+     Resume Claim. Update the cookie to reflect the uuid of the claim being restored from sfl-cache
+     We have not authenticated yet, but only a successful authentication will load the claim from sfl-cache into current cache
+     ( And a failed authentication will also remove it from current cache )
+   */
+  def resumeClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
+    request => {
+      implicit val r = request
+
+      recordMeasurements()
+
+      val postkeyuuidtoresume = createParamsMap(request.body.asFormUrlEncoded.get).getOrElse("uuid", "")
+
+      def tofilter(theCookie: Cookie): Boolean = {
+        theCookie.name == ClaimHandling.C3VERSION || theCookie.name == getProperty("session.cookieName", "PLAY_SESSION")
+      }
+      val claim = newInstance()
+      withHeaders(action(claim, r, bestLang)(f))
+        .withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE): _*)
+        .withSession(claim.key -> postkeyuuidtoresume)
+        .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished))
+    }
+  }
+
   //============================================================================================================
   //         GOING THROUGH CLAIM
   //============================================================================================================
@@ -91,36 +115,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
     claimingWithConditions(f, cookieCheck = checkCookie, isNotValidClaim = claimNotValid)
   }
 
-  def claimingWithResume(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult],checkCookie:Boolean = false) = {
-    claimingResume(f, cookieCheck = checkCookie, isNotValidClaim = claimNotValid)
-  }
-
   def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult],checkCookie:Boolean = false): Action[AnyContent] = claimingWithConditions(f, cookieCheck = checkCookie)
-
-  private def claimingResume(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult], cookieCheck: Boolean, isNotValidClaim: Claim => Boolean = noClaimValidation): Action[AnyContent] = Action {
-    implicit request => {
-      var savekeyuuid=createParamsMap(request.queryString).getOrElse("uuid", "")
-      println("resume uuid:"+savekeyuuid)
-
-      recordMeasurements()
-
-      enforceAlreadyFinishedRedirection(request,
-        originCheck(
-          fromCache(savekeyuuid) match {
-            case Some(claim) if isNotValidClaim(claim) && !Play.isTest =>
-              Logger.error(s"claimingWithConditions $cacheKey - cache: ${keyFrom(request)} lost the claim date and claimant details")
-              Redirect(errorPageBrowserBackButton)
-
-            case Some(claim) => claimingWithClaim(f, request, claim)
-
-            case None if cookieCheck && !Play.isTest => Redirect(errorPageCookie)
-
-            case None => claimingWithoutClaim(f, request)
-          }
-        )
-      )
-    }
-  }
 
   private def claimingWithConditions(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult], cookieCheck: Boolean, isNotValidClaim: Claim => Boolean = noClaimValidation): Action[AnyContent] = Action {
     implicit request =>
@@ -261,7 +256,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
     // If the curried function returns true, this action will be redirected to preview if we have been there previously
     // The data feeded to the curried function is the current submitted value of the claim, and the previously saved claim the moment we visited preview page.
-    def withPreviewConditionally[T <: QuestionGroup](t: ((Option[T], T),(Option[Claim],Claim)) => Boolean)(implicit classTag: ClassTag[T]): Action[AnyContent] = Action.async(action.parser) { request =>
+    def withPreviewConditionally[T <: QuestionGroup](t: ((Option[T], T), (Option[Claim], Claim)) => Boolean)(implicit classTag: ClassTag[T]): Action[AnyContent] = Action.async(action.parser) { request =>
 
       def getParams[E <: T](claim: Claim)(implicit classTag: ClassTag[E]): (Option[E], E) = {
         claim.checkYAnswers.previouslySavedClaim.map(_.questionGroup(classTag.runtimeClass).getOrElse(None)).asInstanceOf[Option[E]] -> claim.questionGroup(classTag.runtimeClass).get.asInstanceOf[E]
@@ -269,7 +264,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
       action(request).map { result =>
         result.header.status -> fromCache(request) match {
-          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim),claim.checkYAnswers.previouslySavedClaim->claim) => Redirect(controllers.preview.routes.Preview.present())
+          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim), claim.checkYAnswers.previouslySavedClaim -> claim) => Redirect(controllers.preview.routes.Preview.present())
           case _ => result
         }
       }
@@ -289,6 +284,6 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   }
 
   def createParamsMap(parameters: Map[String, Seq[String]]) = {
-    parameters.map { case (k,v) => k -> v.mkString }
+    parameters.map { case (k, v) => k -> v.mkString }
   }
 }

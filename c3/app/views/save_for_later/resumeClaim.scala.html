@@ -5,12 +5,15 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
-@import views.html.save_for_later.main
+@import views.html.save_for_later._
 
 
 @defining(lang) { implicit language =>
     @main(messages("saveForLater.resume.legend")) {
+
+
         <p>@Html(messages("saveForLater.resume.line1"))</p>
+        @resumeError(resumeForm)
         @form(action = controllers.save_for_later.routes.GResume.submit, 'role -> "form") {
             @DwpCSRFFormHelper.formField
             <input type="hidden" name="uuid" value="@resumeForm.data.get("uuid")"/>
