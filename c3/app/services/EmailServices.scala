@@ -88,14 +88,12 @@ object EmailServices extends I18nSupport {
     claim.questionGroup[ContactDetails] match {
       case Some(contactDetails) => {
         if (contactDetails.email.isEmpty) Logger.info(s"Not sending claim email because the user didn't input an address for transid: [${claim.transactionId.getOrElse("id not present")}]")
-        else CadsEmail.send(claim.transactionId.getOrElse(""), subject = saveForLaterEmailSubject(claim), body = views.html.mail(claim, isClaim = true, isEmployment(claim)).body, contactDetails.email.get)
+        else CadsEmail.send(claim.transactionId.getOrElse(""), subject = saveForLaterEmailSubject, body = views.html.savedMail.body, contactDetails.email.get)
       }
     }
   }
 
-  def saveForLaterEmailSubject(claim: Claim) = (claim.questionGroup[Employment], claim.questionGroup[SelfEmploymentPensionsAndExpenses]) match {
-    case (Some(Employment(XMLValues.yes, _)), _) | (Some(Employment(_, XMLValues.yes)), _) => messagesApi("subject.claim.employed")
-    case (_, Some(SelfEmploymentPensionsAndExpenses(YesNoWithText(XMLValues.yes, _), _))) => messagesApi("subject.claim.employed")
-    case _ => messagesApi("subject.claim.notemployed")
+  def saveForLaterEmailSubject = {
+    messagesApi("subject.claim.saved")
   }
 }

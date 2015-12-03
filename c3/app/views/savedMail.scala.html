@@ -1,3 +1,10 @@
+@()(implicit lang:Lang, messages: play.api.i18n.Messages)
+
+@import scala.io._
+@import models.domain._
+@import controllers.mappings.Mappings
+@import app.ConfigProperties._
+
 <!DOCTYPE html>
 <!--[if IE 7]>         <html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8]>         <html class="ie ie8" lang="en"> <![endif]-->
@@ -61,7 +68,7 @@
 
         </div>
 
-        <div class="main" style="padding: 8px";>
+        <div class="main" style="padding: 8px;">
 
             <font face="arial, sans-serif">
 
@@ -73,9 +80,9 @@
 
                     <h2>@Html(messages("savedMail.next.title"))</h2>                    
 
-                        <p>@Html(messages("savedMail.next.line1"))</p>
-                        <p>@Html(messages("savedMail.next.line2"))                                                
-
+                    <p>@Html(messages("savedMail.next.line1"))</p>
+                    <p>@Html(messages("savedMail.next.line2"))</p>
+                </div>
                 <div class="section">
 
                     <h2>@Html(messages("savedMail.disclaimer.title"))</h2>
