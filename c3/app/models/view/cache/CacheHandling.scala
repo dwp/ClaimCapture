@@ -134,6 +134,9 @@ protected trait CacheHandling {
     createClaimInSaveForLaterList(uuid)
   }
 
+  def removeSaveForLaterFromCache(uuid: String): Unit = {
+    cache.remove(s"$saveForLaterKey-$uuid")
+  }
 }
 
 object CacheHandling {
