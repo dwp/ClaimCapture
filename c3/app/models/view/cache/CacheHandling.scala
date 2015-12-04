@@ -89,7 +89,7 @@ protected trait CacheHandling {
   def updateSaveForLaterInCache(saveForLaterUuid: String, saveForLater: SaveForLater, remainingAuthenticationAttempts : Int) = {
     val updatedSaveForLater = saveForLater.update(remainingAuthenticationAttempts)
     cache.set(s"$saveForLaterKey-$saveForLaterUuid", updatedSaveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
-    if (remainingAuthenticationAttempts != CacheHandling.saveForLaterAuthenticationAttempts) updatedSaveForLater.update("FAILED-RETRY")
+    if (remainingAuthenticationAttempts != CacheHandling.saveForLaterAuthenticationAttempts) updatedSaveForLater.update("FAILED-RETRY-LEFT" + remainingAuthenticationAttempts)
     else updatedSaveForLater
   }
 
@@ -111,7 +111,11 @@ protected trait CacheHandling {
 
   def checkSaveForLaterInCache(uuid: String) = {
     cache.get[SaveForLater](s"$saveForLaterKey-$uuid") match {
-      case Some(saveForLater) => saveForLater.status
+      case Some(saveForLater) if saveForLater.remainingAuthenticationAttempts == 2 => "FAILED-RETRY-LEFT" + saveForLater.remainingAuthenticationAttempts
+      case Some(saveForLater) if saveForLater.remainingAuthenticationAttempts == 1 => "FAILED-RETRY-LEFT" + saveForLater.remainingAuthenticationAttempts
+      case Some(saveForLater) => {
+        saveForLater.status
+      }
       case _ => "NO-CLAIM"
     }
   }
