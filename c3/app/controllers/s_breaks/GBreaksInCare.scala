@@ -71,8 +71,6 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable with I18
 
   def delete = claimingWithCheck { implicit claim => implicit request => implicit lang => 
 
-
-    Logger.info(s"delete, params ${request.body.asFormUrlEncoded}")
     deleteForm.bindEncrypted.fold(
       errors    =>  BadRequest(views.html.s_breaks.g_breaksInCare(form, breaksInCare)),
       deleteForm=>  {

@@ -49,7 +49,6 @@ object GContactDetails extends Controller with CachedClaim with Navigable with I
         BadRequest(views.html.s_about_you.g_contactDetails(updatedForm))
       },
       (contactDetails: ContactDetails) =>{
-        Logger.info(contactDetails.toString)
         val theirPersonalDetailsQG: Option[TheirPersonalDetails] =  claim.questionGroup[TheirPersonalDetails]
         val liveAtSameAddress = theirPersonalDetailsQG.exists(_.theirAddress.answer == yes)
 
