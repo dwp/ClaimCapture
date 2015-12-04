@@ -17,7 +17,7 @@ import scala.util.{Success, Try, Failure}
 
 protected trait CacheHandling {
   val cache = current.injector.instanceOf[CacheApi]
-  val saveForLaterKey = "SFL-"
+  val saveForLaterKey = "SFL"
   def cacheKey: String
 
   def keyFrom(request: Request[AnyContent]): String = request.session.get(cacheKey).getOrElse("")
@@ -88,19 +88,19 @@ protected trait CacheHandling {
 
   def updateSaveForLaterInCache(saveForLaterUuid: String, saveForLater: SaveForLater, remainingAuthenticationAttempts : Int) = {
     val updatedSaveForLater = saveForLater.update(remainingAuthenticationAttempts)
-    cache.set(s"$saveForLaterKey$saveForLaterUuid", updatedSaveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
+    cache.set(s"$saveForLaterKey-$saveForLaterUuid", updatedSaveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
     if (remainingAuthenticationAttempts != CacheHandling.saveForLaterAuthenticationAttempts) updatedSaveForLater.update("FAILED-RETRY")
     else updatedSaveForLater
   }
 
   def updateSaveForLaterInCacheAndRemoveClaim(saveForLaterUuid: String, saveForLater: SaveForLater, remainingAuthenticationAttempts: Int, status: String) = {
     val updatedSaveForLater = saveForLater.update(status, remainingAuthenticationAttempts, null)
-    cache.set(s"$saveForLaterKey$saveForLaterUuid", updatedSaveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
+    cache.set(s"$saveForLaterKey-$saveForLaterUuid", updatedSaveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
     updatedSaveForLater
   }
 
   def resumeSaveForLaterFromCache(resumeSaveForLater: ResumeSaveForLater, uuid: String): Option[SaveForLater] = {
-    cache.get[SaveForLater](s"$saveForLaterKey$uuid") match {
+    cache.get[SaveForLater](s"$saveForLaterKey-$uuid") match {
       case Some(saveForLater) =>
         if (saveForLater.status == "OK") {
           Some(decryptClaim(uuid, saveForLater, resumeSaveForLater))
@@ -110,10 +110,16 @@ protected trait CacheHandling {
   }
 
   def checkSaveForLaterInCache(uuid: String) = {
-    cache.get[SaveForLater](s"$saveForLaterKey$uuid") match {
+    cache.get[SaveForLater](s"$saveForLaterKey-$uuid") match {
       case Some(saveForLater) => saveForLater.status
       case _ => "NO-CLAIM"
     }
+  }
+
+  def createClaimInSaveForLaterList(uuid: String): Unit = {
+    val originalList: List[String] = cache.get[List[String]]("SFL").getOrElse(List[String]())
+    val newList = uuid :: originalList.filter(_ > uuid)
+    cache.set(saveForLaterKey, newList, Duration(CacheHandling.saveForLaterCacheExpiry, DAYS))
   }
 
   def saveForLaterInCache(claim: Claim, path: String): Unit = {
@@ -124,8 +130,10 @@ protected trait CacheHandling {
                     applicationExpiry = System.currentTimeMillis() + Duration(CacheHandling.saveForLaterCacheExpiry, DAYS).toMillis,
                     cacheExpiryPeriod = System.currentTimeMillis() + Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS).toMillis,
                     appVersion = ClaimHandling.C3VERSION_VALUE)
-    cache.set(s"$saveForLaterKey$uuid", saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
+    cache.set(s"$saveForLaterKey-$uuid", saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
+    createClaimInSaveForLaterList(uuid)
   }
+
 }
 
 object CacheHandling {
