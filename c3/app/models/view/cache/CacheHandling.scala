@@ -120,8 +120,10 @@ protected trait CacheHandling {
     val key = createSaveForLaterKey(claim)
     val uuid = claim.uuid
     val saveForLater = new SaveForLater(claim = SaveForLaterEncryption.encryptClaim(claim, key), location = path,
-                    remainingAuthenticationAttempts = CacheHandling.saveForLaterAuthenticationAttempts,
-                    status="OK", applicationExpiry = System.currentTimeMillis() + Duration(CacheHandling.saveForLaterCacheExpiry, DAYS).toMillis, appVersion = ClaimHandling.C3VERSION_VALUE)
+                    remainingAuthenticationAttempts = CacheHandling.saveForLaterAuthenticationAttempts, status="OK",
+                    applicationExpiry = System.currentTimeMillis() + Duration(CacheHandling.saveForLaterCacheExpiry, DAYS).toMillis,
+                    cacheExpiryPeriod = System.currentTimeMillis() + Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS).toMillis,
+                    appVersion = ClaimHandling.C3VERSION_VALUE)
     cache.set(s"$saveForLaterKey$uuid", saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
   }
 }
