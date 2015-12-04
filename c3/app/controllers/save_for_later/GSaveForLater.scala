@@ -17,7 +17,7 @@ object GSaveForLater extends Controller with CachedClaim with Navigable with I18
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
-    getProperty("saveForLaterEnabled", default = false) match {
+    getProperty("saveForLaterSaveEnabled", default = false) match {
       case false => BadRequest(views.html.save_for_later.saveClaimSuccess(lang))
       case true => processSaveForLater(request.body.asFormUrlEncoded.get, claim, lang)
     }

@@ -6,7 +6,7 @@
     request.uri == (claim.checkYAnswers.cyaPointOfEntry getOrElse "")
 }
 @isSaveEnabled=@{
-    getProperty("saveForLaterEnabled",default = false)
+    getProperty("saveForLaterSaveEnabled",default = false)
 }
 @saveHref=@{
     getProperty("saveForLaterUrl", default="/save")

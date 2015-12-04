@@ -25,7 +25,7 @@ class GSaveForLaterSpec extends Specification {
       status(result) mustEqual OK
     }
 
-    "block submit when switched off" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterEnabled" -> "false"))) with Claiming {
+    "block submit when switched off" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "false"))) with Claiming {
       val request = FakeRequest()
       val result = GSaveForLater.submit(request)
      status(result) mustEqual SEE_OTHER

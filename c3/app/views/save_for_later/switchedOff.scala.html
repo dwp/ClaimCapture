@@ -1,0 +1,11 @@
+@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
+
+@defining(lang) { implicit language =>
+    @main(messages("saveForLater.notexist.legend")) {
+        <h2>@Html(messages("saveForLater.switchedoff.legend"))</h2>
+        <p>Sorry, this service is not currently available.</p>
+
+        <p>@views.html.save_for_later.newApplicationButton(messages("saveForLater.common.new.label"), true, None)</p>
+        <p><a rel="external" href=@messages("saveForLater.common.govuk.url") target="_blank">@messages("saveForLater.common.govuk.label")</a></p>
+    }
+}
