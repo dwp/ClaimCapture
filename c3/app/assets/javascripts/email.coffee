@@ -11,10 +11,13 @@ window.emailInit = (wantsEmailContactY, wantsEmailContactN, email, emailConfirma
 
 showEmail = ->
   $("#emailWrap").slideDown(0).attr 'aria-hidden', 'false'
+  $("#emailYesHelper").slideDown(0).attr 'aria-hidden', 'false', ->
+  $("#emailNoHelper").slideUp(0).attr 'aria-hidden', 'true', ->
 
 hideEmail = (email, emailConfirmation) ->
-	emptyEmail = ->
-	    $("#" + email).val("")
-	    $("#" + emailConfirmation).val("")
-  $("#emailWrap").slideUp(0, emptyEmail).attr 'aria-hidden', 'true', ->
+  $("#" + email).val("")
+  $("#" + emailConfirmation).val("")
+  $("#emailWrap").slideUp(0).attr 'aria-hidden', 'true', ->
+  $("#emailYesHelper").slideUp(0).attr 'aria-hidden', 'true', ->
+  $("#emailNoHelper").slideDown(0).attr 'aria-hidden', 'false'
 
