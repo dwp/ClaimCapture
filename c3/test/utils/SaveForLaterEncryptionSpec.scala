@@ -150,6 +150,36 @@ class SaveForLaterEncryptionSpec extends Specification {
         case _ => failure("Couldn't get claim from cache")
       }
     }
+
+    "Check SFL list is populated" in new WithApplication {
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val claimUuid = claim.uuid
+      removeFromCache(encryptedCacheHandling, claimUuid)
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
+      val originalList = encryptedCacheHandling.cache.get[List[String]]("SFL")
+      originalList.size mustEqual 1
+      originalList.get(0) mustEqual claimUuid
+    }
+
+    "Check SFL list is populated only once after two saves of same claim" in new WithApplication {
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val claimUuid = claim.uuid
+      removeFromCache(encryptedCacheHandling, claimUuid)
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
+      val originalList = encryptedCacheHandling.cache.get[List[String]]("SFL")
+      originalList.size mustEqual 1
+      originalList.get(0) mustEqual claimUuid
+    }
+
+    "Check Save for later is removed successfully" in new WithApplication {
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val claimUuid = claim.uuid
+      encryptedCacheHandling.removeSaveForLaterFromCache(claimUuid)
+      val saveForLaterStatus = encryptedCacheHandling.checkSaveForLaterInCache(claimUuid)
+
+      saveForLaterStatus mustEqual "NO-CLAIM"
+    }
   }
   section ("unit")
 
