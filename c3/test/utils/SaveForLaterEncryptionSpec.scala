@@ -69,17 +69,37 @@ class SaveForLaterEncryptionSpec extends Specification {
       saveForLaterStatus mustEqual "OK"
     }
 
-    "Claim must be decrypt claim check retry count" in new WithApplication {
+    "Claim status from checkSaveForLater should match expected when failed once" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
       val claimUuid = claim.uuid
       removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
-      encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLaterInvalid(claim), claimUuid) match {
-        case Some(saveForLater) =>
+      encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLaterInvalid(claim), claimUuid)  match {
+        case Some(saveForLater) =>{
           saveForLater.remainingAuthenticationAttempts mustEqual 2
-          saveForLater.status mustEqual "FAILED-RETRY"
+          saveForLater.status mustEqual "FAILED-RETRY-LEFT2"
+        }
         case _ => failure("no cache found")
       }
+      val status=encryptedCacheHandling.checkSaveForLaterInCache(claimUuid)
+      status mustEqual("FAILED-RETRY-LEFT2")
+    }
+
+    "Claim status from checkSaveForLater should match expected when failed twice" in new WithApplication {
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val claimUuid = claim.uuid
+      removeFromCache(encryptedCacheHandling, claimUuid)
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
+      encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLaterInvalid(claim), claimUuid)
+      encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLaterInvalid(claim), claimUuid)  match {
+        case Some(saveForLater) =>{
+          saveForLater.remainingAuthenticationAttempts mustEqual 1
+          saveForLater.status mustEqual "FAILED-RETRY-LEFT1"
+        }
+        case _ => failure("no cache found")
+      }
+      val status=encryptedCacheHandling.checkSaveForLaterInCache(claimUuid)
+      status mustEqual("FAILED-RETRY-LEFT1")
     }
 
     "Claim must be removed after three failed attempts" in new WithApplication {
@@ -98,6 +118,8 @@ class SaveForLaterEncryptionSpec extends Specification {
           saveForLater.claim mustEqual null
         case _ => failure("no cache found")
       }
+      val status=encryptedCacheHandling.checkSaveForLaterInCache(claimUuid)
+      status mustEqual("FAILED-FINAL")
     }
 
     "Claim must be decrypt claim check invalid key no claim" in new WithApplication {
