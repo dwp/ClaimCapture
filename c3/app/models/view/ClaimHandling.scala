@@ -76,26 +76,16 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   }
 
   /*
-     Resume Claim. Update the cookie to reflect the uuid of the claim being restored from sfl-cache
-     We have not authenticated yet, but only a successful authentication will load the claim from sfl-cache into current cache
-     ( And a failed authentication will also remove it from current cache )
+     Resume Claim. If we succesfully resume the claim, the original claim will be loaded into the cache.
+     We check response and pickup the new claim and set in session in action()
    */
   def resumeClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
       implicit val r = request
-
       recordMeasurements()
 
-      val postkeyuuidtoresume = createParamsMap(request.body.asFormUrlEncoded.get).getOrElse("uuid", "")
-
-      def tofilter(theCookie: Cookie): Boolean = {
-        theCookie.name == ClaimHandling.C3VERSION || theCookie.name == getProperty("session.cookieName", "PLAY_SESSION")
-      }
       val claim = newInstance()
       withHeaders(action(claim, r, bestLang)(f))
-        .withCookies(r.cookies.toSeq.filterNot(tofilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE): _*)
-        .withSession(claim.key -> postkeyuuidtoresume)
-        .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished))
     }
   }
 
@@ -221,10 +211,19 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
       case Left(r: Result) => r
       case Right((c: Claim, r: Result)) => {
         request.uri match {
-          case "/save" => saveInCache(c)
-          case _ => saveInCache(c.update(saveForLaterPageData = Map[String,String]()))
+          case "/save" => {
+            saveInCache(c)
+            r
+          }
+          case "/resume" if( !claim.uuid.equals(c.uuid)) =>{
+              // If we have resumed and the claim has been authenticated and successully switched, we need to set the cookie
+              r.withSession(claim.key -> c.uuid)
+          }
+          case _ => {
+            saveInCache(c.update(saveForLaterPageData = Map[String,String]()))
+            r
+          }
         }
-        r
       }
     }
   }

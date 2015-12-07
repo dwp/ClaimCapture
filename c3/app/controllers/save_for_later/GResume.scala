@@ -29,7 +29,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
       BadRequest(views.html.save_for_later.switchedOff(lang))
     }
-    else{
+    else {
       val savekeyuuid = createParamsMap(request.queryString).getOrElse("savekey", "")
 
       // using an intermediate variable for status to allow easier testing to amend the status in debug
@@ -52,7 +52,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
       BadRequest(views.html.save_for_later.switchedOff(lang))
     }
-    else{
+    else {
       form.bindEncrypted.fold(
         formWithErrors => {
           BadRequest(views.html.save_for_later.resumeClaim(formWithErrors))
@@ -60,10 +60,15 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
         resumeSaveForLater => {
           val retrievedSfl = resumeSaveForLaterFromCache(resumeSaveForLater, resumeSaveForLater.uuid)
 
-          // If successful authentication against the saved claim, then saved claim should have been restored into the current cache
-          // resumeClaim will have set the cookie uid to match the resumed claim
+          // If successful authenticate against the saved-for-later claim, then the saved claim will been restored into the current cache
+          // So we retrieve it and redirect to last saved location. The ClaimHandling action will see the change in uuid and set the cookie uuid to match the resumed claim
           retrievedSfl match {
-            case Some(sfl) if sfl.status.equals("OK") => claim -> Redirect(sfl.location)
+            case Some(sfl) if sfl.status.equals("OK") => {
+              fromCache(resumeSaveForLater.uuid) match {
+                case Some(resumedClaim) => resumedClaim -> Redirect(sfl.location)
+                case _ => BadRequest(views.html.save_for_later.resumeClaim(form.withGlobalError("Unexpected failure retrieving claim from cache")))
+              }
+            }
             case Some(sfl) if sfl.status.equals("FAILED-RETRY-LEFT2") => BadRequest(views.html.save_for_later.resumeClaim(form.fill(resumeSaveForLater).withGlobalError(messagesApi("saveForLater.failed.triesleft2"))))
             case Some(sfl) if sfl.status.equals("FAILED-RETRY-LEFT1") => BadRequest(views.html.save_for_later.resumeClaim(form.fill(resumeSaveForLater).withGlobalError(messagesApi("saveForLater.failed.triesleft1"))))
             case Some(sfl) if sfl.status.equals("FAILED-FINAL") => Ok(views.html.save_for_later.resumeFailedFinal(lang))
