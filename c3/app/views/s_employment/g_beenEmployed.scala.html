@@ -9,10 +9,7 @@
 @import play.api.i18n.Messages
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
-
 @nextSection = @{ if (SelfEmployment.visible) SelfEmployment.name else OtherMoney.name }
-
-
 
 @main("Your employment history - " + messages("s7.longName"), Some(currentForm)) {
 
@@ -23,18 +20,18 @@
         <div class="data-table">
     
 			<ul class="trip-data">
-			  
-			  	@claim.questionGroup[Jobs].map { jobs =>
+
+                @claim.questionGroup[Jobs].map { jobs =>
                     @for(job <- jobs) {
                         @if(job.completed) {
-			  
-        				  	<li id="@job.iterationID" class="@job.iterationID">
-        				  	
-        					  	<h3 class="heading-small">@job.employerName</h3>
-        					  	
-        					  	<dl>
-        						  	<dt>@Html(messages("startDateTable")):</dt>
-        						  	<dd>@{
+
+                            <li id="@job.iterationID" class="@job.iterationID">
+
+                                <h3 class="heading-small">@job.employerName</h3>
+
+                                <dl>
+                                    <dt>@Html(messages("startDateTable")):</dt>
+                                    <dd>@{
                                             job.jobStartDate match{
                                                 case startDate@DayMonthYear(Some(_),Some(_),Some(_), None, None)   =>
                                                     startDate.`dd/MM/yyyy`
@@ -43,36 +40,32 @@
                                             }
                                         }
                                     </dd>
-        					  	</dl>
-        					  	
-        						<div class="actions">
-        							<input type="button" id="changeButton" value="@Html(messages("change"))">
-        							<input type="button" id="deleteButton" value="@Html(messages("delete"))">
-        						</div>
-        					
-        				  	</li>
-				  	
+                                </dl>
+
+                                <div class="actions">
+                                    <input type="button" id="changeButton" value="@Html(messages("change"))">
+                                    <input type="button" id="deleteButton" value="@Html(messages("delete"))">
+                                </div>
+
+                            </li>
+                            <div class="prompt breaks-prompt validation-summary">
+                                <p class="normalMsg">@Html(messages("deleteEmploymentMessage"))</p>
+                                <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(messages("no.delete"))" aria-label="@Html(messages("no.delete.label"))">
+                                <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))">
+                            </div>
                         }
                     }
                 }
-
-                <div class="prompt breaks-prompt validation-summary">
-                    @form(action = controllers.s_employment.routes.Employment.delete, 'role -> "form"){
-                        <p class="normalMsg">@Html(messages("deleteEmploymentMessage"))</p>
-                        <p class="warningMsg">@Html(messages("deleteOneEmploymentMessage"))</p>
-                        @DwpCSRFFormHelper.formField
-                        @carersInputHidden(controllers.s_employment.Employment.deleteForm("deleteId"))
-                        <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(messages("no.delete"))">
-                        <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(messages("yes.delete"))">
-                    }
-                </div>
-				  	
 			</ul>
-		  
+
         </div>
 
     </fieldset>
-    
+    @form(action = controllers.s_employment.routes.Employment.delete, 'role -> "form", 'id -> "deleteForm"){
+        @DwpCSRFFormHelper.formField
+        @carersInputHidden(controllers.s_employment.Employment.deleteForm("deleteId"))
+    }
+
     @form(action = controllers.s_employment.routes.GBeenEmployed.submit(), 'role -> "form"){
 
         @DwpCSRFFormHelper.formField
@@ -87,10 +80,13 @@
                     'helperAbove -> messages("beenEmployedSince6MonthsBeforeClaim.label.helper"))
             </ul>
 
-            <div id="maxEmpWarningWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
-                <p>@Html(messages("s7.g2.help2"))</p>
-            </div>
-
+            @claim.questionGroup[Jobs].map{ jobs =>
+                @if(jobs.size >= app.ConfigProperties.getProperty("maximumJobs", 5)) {
+                    <div id="maxEmpWarningWrap" class="prompt validation-summary" style="display : none ;">
+                        <p>@Html(messages("s7.g2.help2"))</p>
+                    </div>
+                }
+            }
         </fieldset>
 
         @views.html.common.bottomNavigation(customTrack =Some(views.html.ga.trackSubmit(isOptional=true)),nextLabel = Some("form.next"))
@@ -104,7 +100,10 @@
             window.initSummary("@CarersCrypto.encryptAES("deleteId")");
             conditionRequired = window.initEvents("@CarersCrypto.encryptAES("beenEmployed")");
             @ga.stagePrompt()
-            window.displayWarning("@CarersCrypto.encryptAES("beenEmployed_yes")", "@CarersCrypto.encryptAES("beenEmployed_no")");
+            window.displayWarning(
+                "@CarersCrypto.encryptAES("beenEmployed_yes")",
+                "@CarersCrypto.encryptAES("beenEmployed_no")",
+                @play.api.Play.isTest(play.api.Play.current));
         })
     </script>
 

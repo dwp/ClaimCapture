@@ -1,7 +1,7 @@
 package controllers.s_eligibility
 
-import play.api.Play._
-
+import controllers.mappings.Mappings._
+import play.api.i18n.{MMessages, MessagesApi, I18nSupport}
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
@@ -11,7 +11,7 @@ import utils.helpers.CarersForm._
 import models.domain._
 import models.view.Navigable
 import play.api.Logger
-import play.api.i18n._
+import play.api.Play._
 
 object GBenefits extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
@@ -19,7 +19,7 @@ object GBenefits extends Controller with CachedClaim with Navigable with I18nSup
     "benefitsAnswer" -> nonEmptyText
   )(Benefits.apply)(Benefits.unapply))
 
-  def present = newClaim {implicit claim => implicit request => implicit lang => 
+  def present = newClaim {implicit claim => implicit request => lang =>
     Logger.debug(s"Starting new $cacheKey - ${claim.uuid} with language $lang")
     track(Benefits) { implicit claim => Ok(views.html.s_eligibility.g_benefits(form.fill(Benefits))) }
   }

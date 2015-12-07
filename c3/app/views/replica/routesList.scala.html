@@ -6,6 +6,7 @@
 @section(routes:Seq[String]) = @{
     val capture = "^/(.*?)(?:/.*)?$".r
     routes head match {
+        case capture(section) if section == "thankyou" => s"${section}-title"
         case capture(section) => section
         case _ => "error"
     }
@@ -24,7 +25,9 @@
 <!DOCTYPE html>
 <html>
     <head> 
-        <style>
+    </head>
+    <body>
+                <style>
             body {                           
                 font-family: Arial, sans-serif;
                 padding: 0;                
@@ -59,8 +62,6 @@
             background: #fff;
             }            
         </style>  
-    </head>
-    <body>
     @for(routeGroup <- routes){
 
         <div class="section">

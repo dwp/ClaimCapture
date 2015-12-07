@@ -1,9 +1,14 @@
 @import play.api.Play
+@import models.domain.HowWePayYou
 @(previewForm:Form[models.domain.PreviewModel])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
+@import views.html.helper.base._
+@import play.api.i18n.Messages
+@import utils.helpers.CarersTemplate._
 @import scala.language.postfixOps
 @import utils.csrf.DwpCSRFFormHelper
+@import models.domain.YourDetails
 @import controllers.mappings.Mappings._
 @import models.domain._
 
@@ -11,9 +16,10 @@
 @toggle = @{
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
 }
+@yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
 @showBankDetails=@{
-	claim.questionGroup[HowWePayYou] match{
-		case Some(_) => true
+	claim.dateOfClaim match {
+		case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < app.ConfigProperties.getProperty("age.hide.paydetails",60)
 		case _ => false
 	}
 }

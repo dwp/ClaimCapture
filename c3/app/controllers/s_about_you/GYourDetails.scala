@@ -43,10 +43,9 @@ object GYourDetails extends Controller with CachedClaim with Navigable with I18n
         val updatedFormWithErrors = formWithErrors.replaceError("","titleOther.required",FormError("titleOther","constraint.required"))
         BadRequest(views.html.s_about_you.g_yourDetails(updatedFormWithErrors))
       },
-      yourDetails => { // Show pay details if the person is below 62 years of age on the day of the claim (claim date)
-          val payDetailsVisible = showPayDetails(claim, yourDetails)
-          val updatedClaim = claim.showHideSection(payDetailsVisible, PayDetails)
-          updatedClaim.update(yourDetails) -> Redirect(routes.GMaritalStatus.present())
+      yourDetails => { // Show pay details if the person is below age.hide.paydetails years of age on the day of the claim (claim date)
+        val updatedClaim:Claim = previewClaim(claim, yourDetails)
+        updatedClaim.update(yourDetails) -> Redirect(routes.GMaritalStatus.present())
       })
   } withPreview()
 
@@ -54,6 +53,17 @@ object GYourDetails extends Controller with CachedClaim with Navigable with I18n
     claim.dateOfClaim match {
       case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < getProperty("age.hide.paydetails",60)
       case _ => false
+    }
+  }
+
+  def previewClaim(claim:Claim, yourDetails:YourDetails): Claim = {
+    if (!showPayDetails(claim, yourDetails)) {
+      claim.delete(HowWePayYou).hideSection(PayDetails)
+    } else {
+      val updatedClaim = claim.showSection(PayDetails)
+      val howWePayYou = claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou())
+      if (claim.navigation.beenInPreview && howWePayYou.likeToBePaid == "") updatedClaim.update(howWePayYou.copy(paymentFrequency = "Every week", likeToBePaid = "no", bankDetails = None))
+      else updatedClaim
     }
   }
 }

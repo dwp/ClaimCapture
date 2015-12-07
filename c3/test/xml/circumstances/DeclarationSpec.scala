@@ -11,12 +11,10 @@ class DeclarationSpec  extends Specification {
       val declaration = new CircumstancesDeclaration()
       val circs = Claim(CachedChangeOfCircs.key).update(declaration)
       val xml = Declaration.xml(circs)
-      (xml \\ "DeclarationStatement" \ "Content").length mustEqual 3
+      (xml \\ "DeclarationStatement" \ "Content").length mustEqual 4
       (xml \\ "DeclarationQuestion" \ "Answer").text mustEqual "Yes"
       (xml \\ "DeclarationQuestion" \ "QuestionLabel").text mustEqual "I agree"
-    }.pendingUntilFixed("Pending till schema changes and modifying the code to new structure")
-
+    }
   }
-section("unit")
-
+  section("unit")
 }
