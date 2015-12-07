@@ -1,12 +1,14 @@
 @(isClaimSubmit:Boolean = false, isOptional:Boolean = false)(implicit request: Request[AnyContent], lang: Lang)
-@import play.api.Play
-@import play.api.Play.current
+
 @import utils.helpers.GAHelper._
 @import app.ConfigProperties._
 
 @constructURI = @{
-    val path = request.path
-    path.substring(0,path.lastIndexOf("/")) + "/vpv/" + (isClaimSubmit match {case true => "claim" case false => "section"}) + "_completed"
+    val lastSlash=request.path.lastIndexOf("/")
+    if( lastSlash > 0)
+        request.path.substring(0,lastSlash) + "/vpv/" + (isClaimSubmit match {case true => "claim" case false => "section"}) + "_completed"
+    else
+        request.path + "/vpv/" + (isClaimSubmit match {case true => "claim" case false => "section"}) + "_completed"
 }
 
 @gaTrack() = @{ if(getProperty("include.analytics", true)){
