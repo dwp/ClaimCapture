@@ -1,5 +1,7 @@
 package controllers.save_for_later
 
+import models.domain.QuestionGroup
+import models.{DayMonthYear, NationalInsuranceNumber}
 import utils.pageobjects.TestData
 
 object SaveForLaterScenarioFactory {
@@ -17,7 +19,7 @@ object SaveForLaterScenarioFactory {
     claim.AboutYouPostcode = "FY1 2RW"
     claim.HowWeContactYou = "01772 888901"
 
-    claim
+      claim
   }
 
   def WithNoEmailSet()={
@@ -49,6 +51,16 @@ object SaveForLaterScenarioFactory {
     claim.AboutYouNationalityAndResidencyActualNationality = "French"
     claim.AboutYouNationalityAndResidencyResideInUK = "No"
     claim.AboutYouNationalityAndResidencyNormalResidency = "France"
+
+    claim
+  }
+
+  def SpanishLivesInSpain() = {
+    val claim=WithEmailSet()
+    claim.AboutYouNationalityAndResidencyNationality = "Another nationality"
+    claim.AboutYouNationalityAndResidencyActualNationality = "Spanish"
+    claim.AboutYouNationalityAndResidencyResideInUK = "No"
+    claim.AboutYouNationalityAndResidencyNormalResidency = "Spain"
 
     claim
   }
