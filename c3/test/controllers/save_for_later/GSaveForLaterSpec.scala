@@ -10,7 +10,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{LightFakeApplication, WithApplication}
 import app.ConfigProperties._
-import models.{DayMonthYear, NationalInsuranceNumber}
+import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 
 class GSaveForLaterSpec extends Specification {
 
@@ -40,7 +40,8 @@ class GSaveForLaterSpec extends Specification {
     "allow submit and return save for later success screen" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with Claiming {
       var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")), "123456")
       val details = new YourDetails("", None, "", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
-      claim = claim + details
+      val contactDetails = new ContactDetails(new MultiLineAddress(), None, None, None, Some("yes"), Some("bt@bt.com"), Some("bt@bt.com"))
+      claim = claim + details + contactDetails
       cache.set("123456", claim)
       val request = FakeRequest().withFormUrlEncodedBody().withSession(CachedClaim.key -> claim.uuid)
       val result = GSaveForLater.submit(request)
