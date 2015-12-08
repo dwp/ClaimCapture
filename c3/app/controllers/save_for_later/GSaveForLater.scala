@@ -5,6 +5,7 @@ import models.view.{CachedClaim, Navigable}
 import play.api.Play._
 import play.api.i18n._
 import play.api.mvc.Controller
+import services.EmailServices
 import utils.helpers.CarersCrypto
 import app.ConfigProperties._
 import scala.language.reflectiveCalls
@@ -27,19 +28,19 @@ object GSaveForLater extends Controller with CachedClaim with Navigable with I18
   }
 
   def processSaveForLater(parameters: Map[String, Seq[String]], claim: Claim, lang: Lang) = {
-    val updatedClaim = claim.update(createSaveForLaterMap(parameters))
-    saveForLaterInCache(updatedClaim, claim.navigation.current.toString)
-    updatedClaim -> Redirect(controllers.save_for_later.routes.GSaveForLater.present())
+      val updatedClaim = claim.update(createSaveForLaterMap(parameters))
+      saveForLaterInCache(updatedClaim, claim.navigation.current.toString)
+      EmailServices.sendSaveForLaterEmail(claim)
+      updatedClaim -> Redirect(controllers.save_for_later.routes.GSaveForLater.present())
   }
 
   def createSaveForLaterMap(parameters: Map[String, Seq[String]]) = {
-    parameters.map { case (k, v) => {
+    parameters.map { case (k,v) => {
       k match {
         case "csrfToken" => k
         case "action" => k
         case _ => CarersCrypto.decryptAES(k)
       }
-    } -> v.mkString
-    }
+    } -> v.mkString }
   }
 }
