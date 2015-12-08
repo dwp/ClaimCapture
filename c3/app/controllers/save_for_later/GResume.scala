@@ -26,24 +26,24 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
   )(ResumeSaveForLater.apply)(ResumeSaveForLater.unapply))
 
   def present = newClaim { implicit claim => implicit request => implicit lang =>
+    val savekeyuuid = createParamsMap(request.queryString).getOrElse("savekey", "")
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
       BadRequest(views.html.save_for_later.switchedOff(lang))
     }
+    else if (savekeyuuid.equals("")) {
+      BadRequest(views.html.save_for_later.resumeNotExist(lang))
+    }
     else {
-      val savekeyuuid = createParamsMap(request.queryString).getOrElse("savekey", "")
-
       // using an intermediate variable for status to allow easier testing to amend the status in debug
       val status = checkSaveForLaterInCache(savekeyuuid)
       status match {
         case "OK" => Ok(views.html.save_for_later.resumeClaim(form.fill(ResumeSaveForLater(uuid = savekeyuuid))))
         case "FAILED-RETRY-LEFT2" => BadRequest(views.html.save_for_later.resumeClaim(form.fill(ResumeSaveForLater(uuid = savekeyuuid)).withGlobalError(messagesApi("saveForLater.failed.new.triesleft2"))))
         case "FAILED-RETRY-LEFT1" => BadRequest(views.html.save_for_later.resumeClaim(form.fill(ResumeSaveForLater(uuid = savekeyuuid)).withGlobalError(messagesApi("saveForLater.failed.new.triesleft1"))))
-        case "FAILED-FINAL" => Ok(views.html.save_for_later.resumeFailedFinal(lang))
-        case "EXPIRED" => Ok(views.html.save_for_later.resumeExpired(lang))
-        case "NO-CLAIM" => Ok(views.html.save_for_later.resumeNotExist(lang))
-        case s => {
-          BadRequest(views.html.save_for_later.resumeClaim(form.withGlobalError("Failure retrieving claim bad status:" + s)))
-        }
+        case "FAILED-FINAL" => BadRequest(views.html.save_for_later.resumeFailedFinal(lang))
+        case "EXPIRED" => BadRequest(views.html.save_for_later.resumeExpired(lang))
+        case "NO-CLAIM" => BadRequest(views.html.save_for_later.resumeNotExist(lang))
+        case s => BadRequest(views.html.save_for_later.resumeClaim(form.withGlobalError("Failure retrieving claim bad status:" + s)))
       }
     }
   }
