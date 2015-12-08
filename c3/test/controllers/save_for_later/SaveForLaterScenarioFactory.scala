@@ -65,5 +65,14 @@ object SaveForLaterScenarioFactory {
     claim
   }
 
+  def ResumePageData()={
+    val claim=new TestData()
+    claim.AboutYouFirstName = "John"
+    claim.AboutYouSurname = "Green"
+    claim.AboutYouDateOfBirth = "01/01/1970"
+    claim.AboutYouNINO = "AB123456D"
+
+    claim
+  }
 
 }
