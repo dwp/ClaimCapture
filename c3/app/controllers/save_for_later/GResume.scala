@@ -1,7 +1,7 @@
 package controllers.save_for_later
 
 import models.domain._
-import models.view.{CachedClaim, Navigable}
+import models.view.{ClaimHandling, CachedClaim, Navigable}
 import play.api.Play._
 import play.api.data.{Form}
 import play.api.data.Forms._
@@ -65,7 +65,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
           retrievedSfl match {
             case Some(sfl) if sfl.status.equals("OK") => {
               fromCache(resumeSaveForLater.uuid) match {
-                case Some(resumedClaim) => resumedClaim -> Redirect(sfl.location)
+                case Some(resumedClaim) => resumedClaim -> Redirect(sfl.location).withCookies(Cookie(ClaimHandling.C3VERSION,sfl.appVersion))
                 case _ => BadRequest(views.html.save_for_later.resumeClaim(form.withGlobalError("Unexpected failure retrieving claim from cache")))
               }
             }
