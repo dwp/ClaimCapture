@@ -82,10 +82,12 @@
                     @helper.form(action = controllers.preview.routes.Preview.submit) {
                         @DwpCSRFFormHelper.formField
                         <nav class="form-steps">
-                            <button type="submit" name="action" value="next" class="button" aria-label="@Html(messages("form.next.help"))">@Html(messages("form.next"))</button>
-							@if(showSaveButton) {
-								@views.html.common.saveButton()
-							}
+							<ul>
+								<li><button type="submit" name="action" value="next" class="button" aria-label="@Html(messages("form.next.help"))">@Html(messages("form.next"))</button></li>
+								@if(showSaveButton) {
+									<li>@views.html.common.saveButton()</li>
+								}
+							</ul>
                         </nav>
                     }
                     
