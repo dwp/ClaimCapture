@@ -23,7 +23,7 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
         "Name"              displays ("AboutYouTitle","AboutYouFirstName","AboutYouMiddleName","AboutYouSurname"),
         "Date of birth"     displays DateTransformer("AboutYouDateOfBirth"),
         "Address"           displays (AddressTransformer("AboutYouAddress"),"AboutYouPostcode"),
-        "Do you want an email" displays ("AboutYouWantsEmailContact", "AboutYouMail"),
+        "Have you got an email address" displays ("AboutYouWantsEmailContact", "AboutYouMail"),
         "Claim date"   displays DateTransformer("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart"),
         "Your nationality"  displays "AboutYouNationalityAndResidencyActualNationality",
         "Do you normally live in England, Scotland or Wales?" displays "AboutYouNationalityAndResidencyResideInUK",
