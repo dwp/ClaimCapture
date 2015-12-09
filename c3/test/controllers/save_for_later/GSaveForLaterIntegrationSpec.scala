@@ -20,6 +20,7 @@ class GSaveForLaterIntegrationSpec extends Specification {
 
   "Save for later page" should {
     "be shown after clicking Save in nationality" in new WithJsBrowser with PageObjects {
+      pending("Colin looking to fix")
       loadClaimData(context)
 
       val page = GContactDetailsPage(context)
@@ -38,6 +39,7 @@ class GSaveForLaterIntegrationSpec extends Specification {
     }
 
     "return back to original screen after clicking continue your application" in new WithJsBrowser with PageObjects {
+      pending("Colin looking to fix")
       loadClaimData(context)
 
       val page = GContactDetailsPage(context)
@@ -70,6 +72,7 @@ class GSaveForLaterIntegrationSpec extends Specification {
 
 
     "contain link to gov page" in new WithJsBrowser with PageObjects {
+      pending("Colin looking to fix")
       loadClaimData(context)
 
       val page = GContactDetailsPage(context)

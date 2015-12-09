@@ -13,7 +13,7 @@
 }
 
 @if(isSaveEnabled && claim.navigation.showSaveButton && ( !claim.navigation.beenInPreview || (claim.navigation.beenInPreview && !isLandingPageAfterPreview) ) ){
-    <button type="submit" id="save" class="button" href=@{saveHref} >@messages("form.save")</button>
+    <button type="button" id="save" class="button" href="@saveHref" >@messages("form.save")</button>
 }
 <script type="text/javascript">
 	$(document).ready(function(){
