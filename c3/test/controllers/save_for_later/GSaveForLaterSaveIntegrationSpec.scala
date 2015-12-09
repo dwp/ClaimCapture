@@ -16,7 +16,7 @@ import org.specs2.mutable._
 import utils.pageobjects.PageObjects
 
 
-class GSaveForLaterIntegrationSpec extends Specification {
+class GSaveForLaterSaveIntegrationSpec extends Specification {
 
   "Save for later page" should {
     "be shown after clicking Save in nationality" in new WithJsBrowser with PageObjects {
