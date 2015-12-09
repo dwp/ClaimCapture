@@ -2,7 +2,6 @@ package services
 
 import app.ConfigProperties._
 import app.XMLValues
-import app.XMLValues._
 import controllers.mappings.Mappings
 import models.domain._
 import models.view.CachedClaim
@@ -88,7 +87,7 @@ object EmailServices extends I18nSupport {
     claim.questionGroup[ContactDetails] match {
       case Some(contactDetails) => {
         if (contactDetails.email.isEmpty) Logger.info(s"Not sending claim email because the user didn't input an address for transid: [${claim.transactionId.getOrElse("id not present")}]")
-        else CadsEmail.send(claim.transactionId.getOrElse(""), subject = saveForLaterEmailSubject, body = views.html.savedMail().body, contactDetails.email.get)
+        else CadsEmail.send(claim.transactionId.getOrElse(""), subject = saveForLaterEmailSubject, body = views.html.savedMail(claim).body, contactDetails.email.get)
       }
     }
   }
