@@ -29,7 +29,6 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
       browser.pageSource must contain("firstName")
       browser.pageSource must contain("nationalInsuranceNumber_nino")
       browser.pageSource must contain("dateOfBirth")
-      println("browser source:"+browser.pageSource())
     }
 
     "successfully resume if enter the correct details" in new WithJsBrowser with PageObjects {
@@ -48,8 +47,6 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
     }
 
     "restore the app version cookie that the app was saved with" in new WithJsBrowser with PageObjects {
-      ClaimHandling.C3VERSION_VALUE
-
       // Inject the saved claim directly to cache so we can set the appversion
       var claim = new Claim(CachedClaim.key, uuid="123456")
       val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
