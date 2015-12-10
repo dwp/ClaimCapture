@@ -13,14 +13,13 @@ trait ClaimTransactionComponent {
   val claimTransaction: ClaimTransaction
 
   class ClaimTransaction {
-    /**
-     * Generate a new unique ID
-     */
+
     def generateId: String = {
       DB.withConnection("carers") {
         connection =>
           try {
-            val statement = connection.prepareCall("select get_new_transaction_id();")
+            val statement = connection.prepareCall("select get_new_transaction_id(?);")
+            statement.setString(1, app.ConfigProperties.getProperty("origin.tag", "GB"))
             statement.execute()
             val result = statement getResultSet()
             result.next
@@ -133,7 +132,7 @@ trait ClaimTransactionComponent {
 
 
   class StubClaimTransaction extends ClaimTransaction {
-    override def generateId: String = "TEST623"
+    override def generateId: String = "15101000001"
 
     override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled: Int) {}
 
