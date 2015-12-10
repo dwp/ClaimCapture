@@ -16,7 +16,14 @@
     @if(form.hasErrors) {
     <div class="validation-summary">
             @for(error <- form.errors) {
-                <p>@Html(messages(error.message, error.args: _*))</p>
+                @error.key match {
+                    case "" => {
+                        <p>@Html(messages(error.message, error.args: _*))</p>
+                    }
+                    case _ => {
+                        <p>@Html(messages(error.key, error.args: _*)) - @Html(messages(error.message, error.args: _*))</p>
+                    }
+                }
             }
     </div>
 
