@@ -1,5 +1,7 @@
 @(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
 
+@import views.html.save_for_later.main
+
 @defining(lang) { implicit language =>
     @main(messages("saveForLater.notexist.legend")) {
         <h2>@Html(messages("saveForLater.notexist.h2"))</h2>
@@ -15,5 +17,7 @@
 
         <p>@views.html.save_for_later.newApplicationButton(messages("saveForLater.common.new.label"), true, None)</p>
         <p>@views.html.save_for_later.govUKLink()</p>
+
+        @views.html.ga.sendTrackEvent("Save-For-Later","SFL-Claim-Not-Exist")
     }
 }
