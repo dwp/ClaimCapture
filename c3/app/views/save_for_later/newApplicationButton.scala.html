@@ -4,4 +4,4 @@
         customTrack:Option[Html]
         )(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
-<button onClick="location.href='/allowance/benefits'" id="newapp" type="submit" class="button" @{if(trackSubmit) views.html.ga.trackSubmit()} @{customTrack.fold(Html(""))(t=>t)}>@{label}</button>
+<button onClick="location.href='/allowance/benefits'" id="newapp" type="submit" class="button" @{if(trackSubmit) views.html.ga.trackClickEvent("Save-For-Later","SFL-New-Application")} @{customTrack.fold(Html(""))(t=>t)}>@{label}</button>
