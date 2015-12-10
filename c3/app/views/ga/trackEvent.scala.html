@@ -1,0 +1,19 @@
+@(action: String = "", label: String = "")(implicit lang: Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
+
+@import utils.helpers.GAHelper._
+@import app.ConfigProperties._
+
+@gaTrack(action: String, label: String) = @{
+    if(getProperty("include.analytics", default = true)) {
+        trackEvent(request.path, action, Some(label))
+    }
+    else {
+        ""
+    }
+}
+
+<script type="text/javascript">
+    $(function() {
+           @Html(gaTrack(action, label))
+    });
+</script>
