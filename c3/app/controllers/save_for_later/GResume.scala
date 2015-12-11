@@ -28,7 +28,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
   def present = newClaim { implicit claim => implicit request => implicit lang =>
     val savekeyuuid = createParamsMap(request.queryString).getOrElse("savekey", "")
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
-      BadRequest(views.html.save_for_later.switchedOff(lang))
+      BadRequest(views.html.save_for_later.switchedOff("sfl-resume", lang))
     }
     else if (savekeyuuid.equals("")) {
       BadRequest(views.html.save_for_later.resumeNotExist(lang))
@@ -50,7 +50,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
 
   def submit = resumeClaim { implicit claim => implicit request => implicit lang =>
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
-      BadRequest(views.html.save_for_later.switchedOff(lang))
+      BadRequest(views.html.save_for_later.switchedOff("sfl-resume", lang))
     }
     else {
       form.bindEncrypted.fold(
@@ -65,7 +65,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
           retrievedSfl match {
             case Some(sfl) if sfl.status.equals("OK") => {
               fromCache(resumeSaveForLater.uuid) match {
-                case Some(resumedClaim) => resumedClaim -> Redirect(sfl.location).withCookies(Cookie(ClaimHandling.C3VERSION,sfl.appVersion))
+                case Some(resumedClaim) => resumedClaim -> Redirect(sfl.location).withCookies(Cookie(ClaimHandling.C3VERSION, sfl.appVersion))
                 case _ => BadRequest(views.html.save_for_later.resumeClaim(form.withGlobalError("Unexpected failure retrieving claim from cache")))
               }
             }

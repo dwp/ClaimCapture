@@ -15,32 +15,33 @@ object GSaveForLater extends Controller with CachedClaim with Navigable with I18
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     getProperty("saveForLaterSaveEnabled", default = false) match {
-      case false => BadRequest(views.html.save_for_later.switchedOff(lang))
+      case false => BadRequest(views.html.save_for_later.switchedOff("sfl-save", lang))
       case true => Ok(views.html.save_for_later.saveClaimSuccess(lang))
     }
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
     getProperty("saveForLaterSaveEnabled", default = false) match {
-      case false => BadRequest(views.html.save_for_later.switchedOff(lang))
+      case false => BadRequest(views.html.save_for_later.switchedOff("sfl-save", lang))
       case true => processSaveForLater(request.body.asFormUrlEncoded.get, claim, lang)
     }
   }
 
   def processSaveForLater(parameters: Map[String, Seq[String]], claim: Claim, lang: Lang) = {
-      val updatedClaim = claim.update(createSaveForLaterMap(parameters))
-      saveForLaterInCache(updatedClaim, claim.navigation.current.toString)
-      EmailServices.sendSaveForLaterEmail(claim)
-      updatedClaim -> Redirect(controllers.save_for_later.routes.GSaveForLater.present())
+    val updatedClaim = claim.update(createSaveForLaterMap(parameters))
+    saveForLaterInCache(updatedClaim, claim.navigation.current.toString)
+    EmailServices.sendSaveForLaterEmail(claim)
+    updatedClaim -> Redirect(controllers.save_for_later.routes.GSaveForLater.present())
   }
 
   def createSaveForLaterMap(parameters: Map[String, Seq[String]]) = {
-    parameters.map { case (k,v) => {
+    parameters.map { case (k, v) => {
       k match {
         case "csrfToken" => k
         case "action" => k
         case _ => CarersCrypto.decryptAES(k)
       }
-    } -> v.mkString }
+    } -> v.mkString
+    }
   }
 }
