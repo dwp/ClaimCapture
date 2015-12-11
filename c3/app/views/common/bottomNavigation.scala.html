@@ -1,4 +1,6 @@
 @(
+        backButtonId: String,
+        backButtonName: String,
         changing: Boolean = false,
         nextLabel: Option[String] = None,
         nextButtonName: String = "action",
@@ -28,7 +30,7 @@
         @if(showSaveButton) {
             <li>@views.html.common.saveButton()</li>
         }
-        <li>@views.html.common.genericBackButton(changing, backCall, previous, forceShow)</li>
+        <li>@views.html.common.genericBackButton("bottomBackButton", "bottomBackButton", changing, backCall, previous, forceShow)</li>
     </ul>
 </nav>
 

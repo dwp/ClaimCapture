@@ -1,8 +1,10 @@
-@(
+@(      
+        backButtonId: String,
+        backButtonName: String,
         changing:Boolean,
         backCall:Option[Call] ,
         previous: Option[models.view.Route[_]] ,
-        forceShow:Boolean
+        forceShow:Boolean        
         )(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @link = @{
@@ -19,6 +21,6 @@
 @*do not show the back button when returning from the preview*@
 @if(!claim.navigation.beenInPreview || (claim.navigation.beenInPreview && !isLandingPageAfterPreview) || forceShow){
 
-    <a id="backButton" href="@{link}@{if (changing)"?changing=true"}">@Html(messages("form.back"))</a>
+    <a id="@{backButtonId}" name="@{backButtonName}" href="@{link}@{if (changing)"?changing=true"}">@Html(messages("form.back"))</a>
 
 }
