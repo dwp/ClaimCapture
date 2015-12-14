@@ -41,7 +41,6 @@ class ClaimEncryptionSpec extends Specification {
   ))
 
   "ClaimEncryption" should {
-
     "Encrypt the Claim object" in new WithApplication {
       val encryptedClaim = ClaimEncryption.encrypt(claim)
       claim mustNotEqual encryptedClaim
@@ -172,6 +171,12 @@ class ClaimEncryptionSpec extends Specification {
       claim.questionGroup[CircumstancesPaymentChange] mustEqual decryptedCircumstancesPaymentChange.questionGroup[CircumstancesPaymentChange]
     }
 
+    "Encrypt and Decrypt uuid as string" in new WithApplication {
+      val encryptedUuid = ClaimEncryption.encryptUuid(claim.uuid)
+      encryptedUuid mustNotEqual claim.uuid
+      val decryptedUuid = ClaimEncryption.decryptUuid(encryptedUuid)
+      decryptedUuid mustEqual claim.uuid
+    }
   }
 
 }

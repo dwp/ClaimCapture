@@ -58,7 +58,7 @@
                 <div class="section">
                     <h2>@Html(messages("savedMail.next.title"))</h2>                    
 
-                    <p>@Html(messages("savedMail.resumelink", claim.uuid))</p>
+                    <p>@Html(messages("savedMail.resumelink", helper.urlEncode(claim.getEncryptedUuid)))</p>
                     <p>@Html(messages("savedMail.next.line2"))</p>
                 </div>
                 <div class="section">

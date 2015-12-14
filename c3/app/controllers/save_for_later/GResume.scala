@@ -26,20 +26,21 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
   )(ResumeSaveForLater.apply)(ResumeSaveForLater.unapply))
 
   def present = newClaim { implicit claim => implicit request => implicit lang =>
-    val savekeyuuid = createParamsMap(request.queryString).getOrElse("savekey", "")
+    val encuuid = createParamsMap(request.queryString).getOrElse("x", "")
+    val uuid=claim.getDecryptedUuid(encuuid)
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
       BadRequest(views.html.save_for_later.switchedOff("sfl-resume", lang))
     }
-    else if (savekeyuuid.equals("")) {
+    else if (encuuid.equals("")) {
       BadRequest(views.html.save_for_later.resumeNotExist(lang))
     }
     else {
       // using an intermediate variable for status to allow easier testing to amend the status in debug
-      val status = checkSaveForLaterInCache(savekeyuuid)
+      val status = checkSaveForLaterInCache(uuid)
       status match {
-        case "OK" => Ok(views.html.save_for_later.resumeClaim(form.fill(ResumeSaveForLater(uuid = savekeyuuid))))
-        case "FAILED-RETRY-LEFT2" => BadRequest(views.html.save_for_later.resumeClaim(form.fill(ResumeSaveForLater(uuid = savekeyuuid)).withGlobalError(messagesApi("saveForLater.failed.new.triesleft2"))))
-        case "FAILED-RETRY-LEFT1" => BadRequest(views.html.save_for_later.resumeClaim(form.fill(ResumeSaveForLater(uuid = savekeyuuid)).withGlobalError(messagesApi("saveForLater.failed.new.triesleft1"))))
+        case "OK" => Ok(views.html.save_for_later.resumeClaim(form.fill(ResumeSaveForLater(uuid = encuuid))))
+        case "FAILED-RETRY-LEFT2" => BadRequest(views.html.save_for_later.resumeClaim(form.fill(ResumeSaveForLater(uuid = encuuid)).withGlobalError(messagesApi("saveForLater.failed.new.triesleft2"))))
+        case "FAILED-RETRY-LEFT1" => BadRequest(views.html.save_for_later.resumeClaim(form.fill(ResumeSaveForLater(uuid = encuuid)).withGlobalError(messagesApi("saveForLater.failed.new.triesleft1"))))
         case "FAILED-FINAL" => BadRequest(views.html.save_for_later.resumeFailedFinal(lang))
         case "EXPIRED" => BadRequest(views.html.save_for_later.resumeExpired(lang))
         case "NO-CLAIM" => BadRequest(views.html.save_for_later.resumeNotExist(lang))
@@ -58,13 +59,13 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
           BadRequest(views.html.save_for_later.resumeClaim(formWithErrors))
         },
         resumeSaveForLater => {
-          val retrievedSfl = resumeSaveForLaterFromCache(resumeSaveForLater, resumeSaveForLater.uuid)
+          val retrievedSfl = resumeSaveForLaterFromCache(resumeSaveForLater, claim.getDecryptedUuid(resumeSaveForLater.uuid))
 
           // If successful authenticate against the saved-for-later claim, then the saved claim will been restored into the current cache
           // So we retrieve it and redirect to last saved location. The ClaimHandling action will see the change in uuid and set the cookie uuid to match the resumed claim
           retrievedSfl match {
             case Some(sfl) if sfl.status.equals("OK") => {
-              fromCache(resumeSaveForLater.uuid) match {
+              fromCache(claim.getDecryptedUuid(resumeSaveForLater.uuid)) match {
                 case Some(resumedClaim) => resumedClaim -> Redirect(sfl.location).withCookies(Cookie(ClaimHandling.C3VERSION, sfl.appVersion))
                 case _ => BadRequest(views.html.save_for_later.resumeClaim(form.withGlobalError("Unexpected failure retrieving claim from cache")))
               }

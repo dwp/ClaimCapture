@@ -3,6 +3,7 @@ package models.domain
 import models.DayMonthYear
 import models.view.Navigation
 import play.api.i18n.Lang
+import utils.ClaimEncryption
 
 import scala.language.postfixOps
 import scala.reflect.ClassTag
@@ -78,11 +79,11 @@ case class Claim(key: String, sections: List[Section] = List(), created: Long = 
   }
 
   def update(saveForLaterPageData: Map[String, String]): Claim = {
-    copy(saveForLaterCurrentPageData = saveForLaterPageData )
+    copy(saveForLaterCurrentPageData = saveForLaterPageData)
   }
 
   def update(newkey: String): Claim = {
-    copy(key = newkey )
+    copy(key = newkey)
   }
 
   /**
@@ -125,5 +126,9 @@ case class Claim(key: String, sections: List[Section] = List(), created: Long = 
    * Used by submission cache to detect duplicated claims.
    */
   def getFingerprint: String = "f" + this.uuid
+
+  def getEncryptedUuid: String = ClaimEncryption.encryptUuid(uuid)
+
+  def getDecryptedUuid(encuuid: String): String = ClaimEncryption.decryptUuid(encuuid)
 
 }

@@ -5,6 +5,10 @@ import utils.C3Encryption._
 
 object ClaimEncryption {
 
+  def encryptUuid(uuid:String):String=encryptString(uuid)
+
+  def decryptUuid(encuuid:String):String=decryptString(encuuid)
+
   def encrypt(claim: Claim): Claim = {
     val claimWithYourDetails = encryptYourDetails(claim)
     val claimWithContactDetails = encryptContactDetails(claimWithYourDetails)
