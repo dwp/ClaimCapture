@@ -40,8 +40,10 @@
                             ),
                             'id -> "emailWrap"
                         )
-                        <p id="emailYesHelper">@(messages("email.yeshelper"))</p>
-                        <p id="emailNoHelper">@(messages("email.nohelper"))</p>
+                        @if(getProperty("saveForLaterSaveEnabled",false)) {
+                            <p id="emailYesHelper">@(messages("email.yeshelper"))</p>
+                            <p id="emailNoHelper">@(messages("email.nohelper"))</p>
+                        }
                     }
                 </ul>
 
