@@ -22,18 +22,22 @@ hideCareStartDateWrap = (day, month, year) ->
 
 window.initDateWarning = (warningId,day, month, year,text,testMode) ->
   hideWarning(warningId)
+  f = initDateWarningOnChange(warningId,day, month, year,text,testMode)
 
-  $("#"+day).change(initDateWarningOnChange(warningId,day, month, year,text,testMode))
-  $("#"+month).change(initDateWarningOnChange(warningId,day, month, year,text,testMode))
-  $("#"+year).change(initDateWarningOnChange(warningId,day, month, year,text,testMode))
+  $("#"+day).on("change",f)
+  $("#"+day).on("keyup",f)
+  $("#"+month).on("change",f)
+  $("#"+month).on("keyup",f)
+  $("#"+year).on("change",f)
+  $("#"+year).on("keyup",f)
 
 initDateWarningOnChange = (warningId,day,month,year,text,testMode) -> ->
   dayV = $("#"+day).val()
   monthV = $("#"+month).val()
   yearV = $("#"+year).val()
   if (dayV.length> 0 and monthV.length > 0 and yearV.length > 0)
-    futureDate = new Date(yearV,monthV,dayV)
-    if(new Date().addMonths(3).getTime() <= futureDate.getTime())
+    futureDate = new Date(yearV,monthV-1,dayV)
+    if(Date.today().add(3).months().getTime() <= futureDate.getTime())
       showWarning(warningId)
       if not testMode then trackEvent('/your-claim-date/claim-date', 'Error',text);
     else
@@ -47,26 +51,4 @@ hideWarning = (warningId) ->
   $("#"+warningId).slideUp(0)
 
 
-#Stripped code from datejs needed to operate with months considering shorter months, leap years... etc
-Date.isLeapYear = (year) ->
-  (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
 
-
-Date.getDaysInMonth = (year, month) ->
-  [31, (Date.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
-
-
-Date.prototype.isLeapYear = ->
-  Date.isLeapYear(this.getFullYear())
-
-
-Date.prototype.getDaysInMonth = ->
-  Date.getDaysInMonth(this.getFullYear(), this.getMonth())
-
-
-Date.prototype.addMonths = (value) ->
-  n = this.getDate()
-  this.setDate(1)
-  this.setMonth(this.getMonth() + value)
-  this.setDate(Math.min(n, this.getDaysInMonth()))
-  this

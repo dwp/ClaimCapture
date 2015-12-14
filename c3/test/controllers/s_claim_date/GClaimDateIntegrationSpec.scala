@@ -50,6 +50,6 @@ class GClaimDateIntegrationSpec extends Specification {
     }
 
   }
-  section("unit", models.domain.YourClaimDate.id)
 
+  section("unit", models.domain.YourClaimDate.id)
 }

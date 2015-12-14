@@ -2,7 +2,6 @@ package controllers.s_about_you
 
 import controllers.s_care_you_provide.{GTheirPersonalDetails}
 import models.yesNo.YesNoMandWithAddress
-import play.api.Logger
 import play.api.Play._
 import play.api.data.validation.Constraints
 
@@ -28,7 +27,7 @@ object GContactDetails extends Controller with CachedClaim with Navigable with I
     "howWeContactYou" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired)),
     "contactYouByTextphone" -> optional(text(maxLength = 4)),
     "wantsEmailContact" -> optional(carersNonEmptyText.verifying(validYesNo)),
-    "mail" -> optional(email.verifying(Constraints.maxLength(254))),
+    "mail" -> optional(carersEmailValidation.verifying(Constraints.maxLength(254))),
     "mailConfirmation" -> optional(text(maxLength = 254))
   )(ContactDetails.apply)(ContactDetails.unapply)
     .verifying("error.email.match", emailConfirmation _)
@@ -49,7 +48,6 @@ object GContactDetails extends Controller with CachedClaim with Navigable with I
         BadRequest(views.html.s_about_you.g_contactDetails(updatedForm))
       },
       (contactDetails: ContactDetails) =>{
-        Logger.info(contactDetails.toString)
         val theirPersonalDetailsQG: Option[TheirPersonalDetails] =  claim.questionGroup[TheirPersonalDetails]
         val liveAtSameAddress = theirPersonalDetailsQG.exists(_.theirAddress.answer == yes)
 
