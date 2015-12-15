@@ -94,7 +94,7 @@ class GSaveForLaterSaveIntegrationSpec extends Specification {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
       encryptedCacheHandling.saveForLaterInCache(claim, "/lastlocation")
 
-      val request=FakeRequest(GET, "?savekey=123456")
+      val request=FakeRequest(GET, "?x=123456")
       val result = GResume.present(request)
       val bodyText: String = contentAsString(result)
       status(result) mustEqual OK
