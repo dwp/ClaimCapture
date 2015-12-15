@@ -46,8 +46,9 @@ class GResumeSpec extends Specification {
       status(result) mustEqual BAD_REQUEST
     }
 
+    // ColinG 14/12/2015 Passing a none encrypted uuid fails decrypt but drops through OK with uuid correctly set
     "return validation error not found when claim not found" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true"))) with Claiming {
-      val request=FakeRequest(GET, "?savekey=1234")
+      val request=FakeRequest(GET, "?x=1234")
       val result=GResume.present(request)
       val bodyText: String = contentAsString(result)
       bodyText must contain("This application can't be found")
@@ -61,7 +62,7 @@ class GResumeSpec extends Specification {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
       encryptedCacheHandling.saveForLaterInCache(claim, "/lastlocation")
 
-      val request=FakeRequest(GET, "?savekey=123456")
+      val request=FakeRequest(GET, "?x=123456")
       val result = GResume.present(request)
       val bodyText: String = contentAsString(result)
       bodyText must contain( "Enter your details to resume your application")
@@ -78,7 +79,7 @@ class GResumeSpec extends Specification {
       val saveForLater=new SaveForLater(SaveForLaterEncryption.encryptClaim(claim,key), "/about-you/nationality-and-residency", 3, "EXPIRED", -1, -1, "V1.00"  )
       encryptedCacheHandling.cache.set("SFL-223344", saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
 
-      val request=FakeRequest(GET, "?savekey=223344")
+      val request=FakeRequest(GET, "?x=223344")
       val result = GResume.present(request)
       val bodyText: String = contentAsString(result)
       bodyText must contain( "This application has been deleted")
