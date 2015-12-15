@@ -10,6 +10,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.save_for_later.{GSaveForLaterResumePage}
 import utils.pageobjects.{Page, PageObjects, PageObjectsContext}
 import utils.{SaveForLaterEncryption, WithJsBrowser}
+import views.html.helper
 import scala.concurrent.duration._
 
 class GSaveForLaterResumeIntegrationSpec extends Specification {
@@ -23,7 +24,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
       encryptedCacheHandling.saveForLaterInCache(claim, "/lastlocation")
 
-      browser.goTo("/resume?savekey=123456")
+      browser.goTo("/resume?x="+helper.urlEncode(claim.getEncryptedUuid))
       browser.pageSource must contain( "Enter your details to resume your application")
       browser.pageSource must contain("surname")
       browser.pageSource must contain("firstName")
