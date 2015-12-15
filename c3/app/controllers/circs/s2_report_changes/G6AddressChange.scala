@@ -76,13 +76,13 @@ object G6AddressChange extends Controller with CachedChangeOfCircs with Navigabl
     }
   }
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit lang => 
+  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesAddressChange) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g6_addressChange(form.fill(CircumstancesAddressChange)))
     }
   }
 
-  def submit = claiming {implicit circs => implicit request => implicit lang => 
+  def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors

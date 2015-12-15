@@ -32,12 +32,12 @@ object GYourDetails extends Controller with CachedClaim with Navigable with I18n
     .verifying("titleOther.required",YourDetails.verifyTitleOther _)
   )
 
-  def present = claiming {implicit claim => implicit request => implicit lang => 
+  def present = claiming {implicit claim => implicit request => implicit request2lang =>
     Logger.debug(s"Start your details ${claim.key} ${claim.uuid}")
     track(YourDetails) { implicit claim => Ok(views.html.s_about_you.g_yourDetails(form.fill(YourDetails))) }
   }
 
-  def submit = claiming {implicit claim => implicit request => implicit lang => 
+  def submit = claiming {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors.replaceError("","titleOther.required",FormError("titleOther","constraint.required"))

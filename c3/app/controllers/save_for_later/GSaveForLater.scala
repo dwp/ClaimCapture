@@ -13,17 +13,17 @@ import scala.language.reflectiveCalls
 object GSaveForLater extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     getProperty("saveForLaterSaveEnabled", default = false) match {
-      case false => BadRequest(views.html.save_for_later.switchedOff("sfl-save", lang))
-      case true => Ok(views.html.save_for_later.saveClaimSuccess(lang))
+      case false => BadRequest(views.html.save_for_later.switchedOff("sfl-save", request2lang))
+      case true => Ok(views.html.save_for_later.saveClaimSuccess(request2lang))
     }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     getProperty("saveForLaterSaveEnabled", default = false) match {
-      case false => BadRequest(views.html.save_for_later.switchedOff("sfl-save", lang))
-      case true => processSaveForLater(request.body.asFormUrlEncoded.get, claim, lang)
+      case false => BadRequest(views.html.save_for_later.switchedOff("sfl-save", request2lang))
+      case true => processSaveForLater(request.body.asFormUrlEncoded.get, claim, request2lang)
     }
   }
 

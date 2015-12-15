@@ -80,11 +80,11 @@ object GAboutOtherMoney extends Controller with CachedClaim with Navigable with 
     case _ => false
   }
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     track(AboutOtherMoney) { implicit claim => Ok(views.html.s_other_money.g_aboutOtherMoney(form.fill(AboutOtherMoney), hadPartnerSinceClaimDate)) }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val claimDate: String = claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)

@@ -52,7 +52,7 @@ object Employment extends Controller with CachedClaim  with Navigable with I18nS
 
   }
 
-  def delete = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def delete = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
 
     deleteForm.bindEncrypted.fold(
       errors    =>  BadRequest(views.html.s_employment.g_beenEmployed(fillForm)),

@@ -24,7 +24,7 @@ object GBenefits extends Controller with CachedClaim with Navigable with I18nSup
     track(Benefits) { implicit claim => Ok(views.html.s_eligibility.g_benefits(form.fill(Benefits))) }
   }
 
-  def submit = claiming ({implicit claim => implicit request => implicit lang => 
+  def submit = claiming ({implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         BadRequest(views.html.s_eligibility.g_benefits(formWithErrors))

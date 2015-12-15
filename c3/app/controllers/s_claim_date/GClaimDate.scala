@@ -27,11 +27,11 @@ object GClaimDate extends Controller with CachedClaim with Navigable with I18nSu
     careMapping
   )(ClaimDate.apply)(ClaimDate.unapply))
 
-  def present = claiming {implicit claim => implicit request => implicit lang => 
+  def present = claiming {implicit claim => implicit request => implicit request2lang =>
     track(ClaimDate) { implicit claim => Ok(views.html.s_claim_date.g_claimDate(form.fill(ClaimDate))) }
   }
 
-  def submit = claiming { implicit claim => implicit request => implicit lang => 
+  def submit = claiming { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("beforeClaimCaring", FormError("beforeClaimCaring.date", errorRequired))

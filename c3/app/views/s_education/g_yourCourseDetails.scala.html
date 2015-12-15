@@ -16,8 +16,6 @@
         )
     }
 
-    @defining(lang) { implicit language =>
-
     @main(messages("s6.g1") + " - " + messages("s6.longName"), Some(currentForm)) {
 
         @form(action = controllers.s_education.routes.GYourCourseDetails.submit, 'role -> "form") {
@@ -74,4 +72,4 @@
         } )
         </script>
     }
-}
+

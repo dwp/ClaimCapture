@@ -28,13 +28,13 @@ object G8BreaksInCareSummary extends Controller with CachedChangeOfCircs with Na
   )(CircumstancesBreaksInCareSummary.apply)(CircumstancesBreaksInCareSummary.unapply)
   )
 
-  def present = claimingWithCheck{implicit circs => implicit request => implicit lang => 
+  def present = claimingWithCheck{implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesBreaksInCareSummary) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g8_breaksInCareSummary(form.fill(CircumstancesBreaksInCareSummary), circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare())))
     }
   }
 
-  def submit = claiming {implicit circs => implicit request => implicit lang => 
+  def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

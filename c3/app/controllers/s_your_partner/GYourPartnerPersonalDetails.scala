@@ -53,7 +53,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     .verifying("nationality.required", YourPartnerPersonalDetails.validateNationalityIfPresent _)
   )
 
-  def present:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit lang =>
+  def present:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     presentConditionally(yourPartnerPersonalDetails)
   }
 
@@ -61,7 +61,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s_your_partner.g_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))) }
   }
 
-  def submit:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def submit:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

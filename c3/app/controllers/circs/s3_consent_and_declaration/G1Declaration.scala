@@ -39,13 +39,13 @@ class G1Declaration extends Controller with CachedChangeOfCircs with Navigable w
 
   )
 
-  def present = claiming { implicit circs => implicit request => implicit lang => 
+  def present = claiming { implicit circs => implicit request => implicit request2lang =>
       track(CircumstancesDeclaration) {
         implicit circs => Ok(views.html.circs.s3_consent_and_declaration.g1_declaration(form.fill(CircumstancesDeclaration)))
       }
   }
 
-  def submit: Action[AnyContent] = claiming { implicit circs => implicit request => implicit lang => 
+  def submit: Action[AnyContent] = claiming { implicit circs => implicit request => implicit request2lang =>
       form.bindEncrypted.fold(
         formWithErrors => {
           val formWithErrorsUpdate = formWithErrors

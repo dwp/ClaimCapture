@@ -25,14 +25,14 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
     "uuid" -> text
   )(ResumeSaveForLater.apply)(ResumeSaveForLater.unapply))
 
-  def present = newClaim { implicit claim => implicit request => implicit lang =>
+  def present = newClaim { implicit claim => implicit request => implicit request2lang =>
     val encuuid = createParamsMap(request.queryString).getOrElse("x", "")
     val uuid=claim.getDecryptedUuid(encuuid)
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
-      BadRequest(views.html.save_for_later.switchedOff("sfl-resume", lang))
+      BadRequest(views.html.save_for_later.switchedOff("sfl-resume", request2lang))
     }
     else if (encuuid.equals("")) {
-      BadRequest(views.html.save_for_later.resumeNotExist(lang))
+      BadRequest(views.html.save_for_later.resumeNotExist(request2lang))
     }
     else {
       // using an intermediate variable for status to allow easier testing to amend the status in debug
@@ -41,17 +41,17 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
         case "OK" => Ok(views.html.save_for_later.resumeClaim(form.fill(ResumeSaveForLater(uuid = encuuid))))
         case "FAILED-RETRY-LEFT2" => BadRequest(views.html.save_for_later.resumeClaim(form.fill(ResumeSaveForLater(uuid = encuuid)).withGlobalError(messagesApi("saveForLater.failed.new.triesleft2"))))
         case "FAILED-RETRY-LEFT1" => BadRequest(views.html.save_for_later.resumeClaim(form.fill(ResumeSaveForLater(uuid = encuuid)).withGlobalError(messagesApi("saveForLater.failed.new.triesleft1"))))
-        case "FAILED-FINAL" => BadRequest(views.html.save_for_later.resumeFailedFinal(lang))
-        case "EXPIRED" => BadRequest(views.html.save_for_later.resumeExpired(lang))
-        case "NO-CLAIM" => BadRequest(views.html.save_for_later.resumeNotExist(lang))
+        case "FAILED-FINAL" => BadRequest(views.html.save_for_later.resumeFailedFinal(request2lang))
+        case "EXPIRED" => BadRequest(views.html.save_for_later.resumeExpired(request2lang))
+        case "NO-CLAIM" => BadRequest(views.html.save_for_later.resumeNotExist(request2lang))
         case s => BadRequest(views.html.save_for_later.resumeClaim(form.withGlobalError("Failure retrieving claim bad status:" + s)))
       }
     }
   }
 
-  def submit = resumeClaim { implicit claim => implicit request => implicit lang =>
+  def submit = resumeClaim { implicit claim => implicit request => implicit request2lang =>
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
-      BadRequest(views.html.save_for_later.switchedOff("sfl-resume", lang))
+      BadRequest(views.html.save_for_later.switchedOff("sfl-resume", request2lang))
     }
     else {
       form.bindEncrypted.fold(
@@ -72,9 +72,9 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
             }
             case Some(sfl) if sfl.status.equals("FAILED-RETRY-LEFT2") => BadRequest(views.html.save_for_later.resumeClaim(form.fill(resumeSaveForLater).withGlobalError(messagesApi("saveForLater.failed.triesleft2"))))
             case Some(sfl) if sfl.status.equals("FAILED-RETRY-LEFT1") => BadRequest(views.html.save_for_later.resumeClaim(form.fill(resumeSaveForLater).withGlobalError(messagesApi("saveForLater.failed.triesleft1"))))
-            case Some(sfl) if sfl.status.equals("FAILED-FINAL") => Ok(views.html.save_for_later.resumeFailedFinal(lang))
-            case Some(sfl) if sfl.status.equals("EXPIRED") => Ok(views.html.save_for_later.resumeExpired(lang))
-            case _ => Ok(views.html.save_for_later.resumeNotExist(lang))
+            case Some(sfl) if sfl.status.equals("FAILED-FINAL") => Ok(views.html.save_for_later.resumeFailedFinal(request2lang))
+            case Some(sfl) if sfl.status.equals("EXPIRED") => Ok(views.html.save_for_later.resumeExpired(request2lang))
+            case _ => Ok(views.html.save_for_later.resumeNotExist(request2lang))
           }
         })
     }

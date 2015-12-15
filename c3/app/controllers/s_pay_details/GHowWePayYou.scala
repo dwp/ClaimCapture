@@ -35,13 +35,13 @@ object GHowWePayYou extends Controller with CachedClaim with Navigable with I18n
   )(HowWePayYou.apply)(HowWePayYou.unapply))
 
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     presentConditionally {
       track(HowWePayYou) { implicit claim => Ok(views.html.s_pay_details.g_howWePayYou(form.fill(HowWePayYou))) }
     }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     val boundForm = form.bindEncrypted
 
     //retrieve the likeToPay value even if there are errors

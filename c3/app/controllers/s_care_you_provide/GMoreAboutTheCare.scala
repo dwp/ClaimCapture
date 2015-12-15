@@ -19,11 +19,11 @@ object GMoreAboutTheCare extends Controller with CachedClaim with Navigable with
     "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo)
   )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply))
 
-  def present = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def present = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     track(MoreAboutTheCare) { implicit claim => Ok(views.html.s_care_you_provide.g_moreAboutTheCare(form.fill(MoreAboutTheCare))) }
   }
 
-  def submit = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         BadRequest(views.html.s_care_you_provide.g_moreAboutTheCare(formWithErrors))

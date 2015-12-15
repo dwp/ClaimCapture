@@ -29,7 +29,7 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
     }
   }
 
-  def submit = claiming {implicit circs => implicit request => implicit lang =>
+  def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s1_start_of_process.g1_reportChanges(formWithErrors)),
       form => circs.update(form).removeQuestionGroups(CircumstancesReportChanges, Set(CircumstancesReportChange, form.identifier) ) -> {

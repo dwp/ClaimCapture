@@ -2,7 +2,6 @@
 
 @import views.html.save_for_later.main
 
-@defining(lang) { implicit language =>
     @main(messages("saveForLater.failed.legend")) {
         <p>@Html(messages("saveForLater.failed.line1"))</p>
         <p>@Html(messages("saveForLater.failed.line2"))</p>
@@ -13,4 +12,4 @@
 
         @views.html.ga.sendTrackEvent("Save-For-Later","SFL-Failed-Final")
     }
-}
+

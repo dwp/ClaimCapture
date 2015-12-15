@@ -19,7 +19,6 @@
     getProperty("saveForLaterShowResumeLink",default = false)
 }
 
-@defining(lang) { implicit language =>
     @main(messages("saveForLater.save.legend")) {
         @if(isLinkEnabled){
             <p>Temporary link for resume ...<a href="/resume?x=@helper.urlEncode(claim.getEncryptedUuid)">Resume</a></p>
@@ -30,4 +29,4 @@
         <p>@views.html.save_for_later.continueButton(messages("saveForLater.save.button.label"), true, None)</p>
         <p>@views.html.save_for_later.govUKLink()</p>
     }
-}
+

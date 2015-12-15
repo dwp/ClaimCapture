@@ -45,13 +45,13 @@ object G2ReportAChangeInYourCircumstances extends Controller with CachedChangeOf
     .verifying("error.wants.required", wantsEmailRequired _)
   )
 
-  def present = claiming ({ implicit circs => implicit lang => implicit request => 
+  def present = claiming ({ implicit circs => implicit request2lang => implicit request =>
       track(CircumstancesReportChange) {
         implicit circs => Ok(views.html.circs.s1_start_of_process.g2_reportAChangeInYourCircumstances(form.fill(CircumstancesReportChange)))
       }
   },checkCookie=true)
 
-  def submit = claiming ({ implicit circs => implicit lang => implicit request => 
+  def submit = claiming ({ implicit circs => implicit request2lang => implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => {
           val formWithErrorsUpdate = formWithErrors

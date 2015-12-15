@@ -30,11 +30,11 @@ object GAdditionalInfo extends Controller with CachedClaim with Navigable with I
     "welshCommunication" -> nonEmptyText
   )(AdditionalInfo.apply)(AdditionalInfo.unapply))
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     track(AdditionalInfo) { implicit claim => Ok(views.html.s_information.g_additionalInfo(form.fill(AdditionalInfo))) }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s_information.g_additionalInfo(formWithErrors)),
       additionalInfo => claim.update(additionalInfo) -> redirect())

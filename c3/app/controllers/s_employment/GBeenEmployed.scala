@@ -59,7 +59,7 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
     else Left(Redirect(routes.GJobDetails.present(IterationID(form))))
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     import controllers.mappings.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
@@ -71,7 +71,7 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("beenEmployed", Mappings.errorRequired, FormError("beenEmployed", Mappings.errorRequired,Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-          displayPlaybackDatesFormat(lang, dmy - 6 months)))))
+          displayPlaybackDatesFormat(request2lang, dmy - 6 months)))))
         BadRequest(views.html.s_employment.g_beenEmployed(formWithErrorsUpdate))
       },
       beenEmployed => clearUnfinishedJobs.update(beenEmployed) -> next(beenEmployed))

@@ -17,24 +17,24 @@ object Preview extends Controller with CachedClaim with Navigable with I18nSuppo
     "email" -> optional(text(60))
   )(PreviewModel.apply)(PreviewModel.unapply))
 
-  def present = claiming { implicit claim => implicit request => implicit lang => 
+  def present = claiming { implicit claim => implicit request => implicit request2lang =>
     cleanPointOfEntry(
       track(models.domain.PreviewModel, beenInPreview = true) { implicit claim => Ok(views.html.preview.preview(form.fill(PreviewModel))) }
     )
   }
 
-  def back = claiming { implicit claim => implicit request => implicit lang => 
+  def back = claiming { implicit claim => implicit request => implicit request2lang =>
     resetPreviewState { implicit claim => Redirect(claim.navigation.previous.toString) }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       errors => BadRequest(views.html.preview.preview(errors)),
       data => claim.update(data) -> Redirect(controllers.s_consent_and_declaration.routes.GDeclaration.present())
     )
   }
 
-  def redirect(id:String) = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def redirect(id:String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
 
     val hashValue = request.getQueryString("hash") match {
       case Some(hash) => hash

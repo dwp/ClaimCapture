@@ -23,17 +23,17 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable with I18
   )(BreaksInCareSummary.apply)(BreaksInCareSummary.unapply))
 
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     track(BreaksInCare) { implicit claim => Ok(views.html.s_breaks.g_breaksInCare(form.fill(BreaksInCareSummary), breaksInCare)) }
   }
 
   def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
-  def submit = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     import controllers.mappings.Mappings.yes
     def next(hasBreaks:String) = hasBreaks match {
       case `yes` if breaksInCare.breaks.size < app.ConfigProperties.getProperty("maximumBreaksInCare", 10) => Redirect(controllers.s_breaks.routes.GBreak.present(IterationID(form)))
-      case _ => redirect(claim, lang, messagesApi)
+      case _ => redirect(claim, request2lang, messagesApi)
     }
 
     form.bindEncrypted.fold(
@@ -69,7 +69,7 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable with I18
     "deleteId" -> nonEmptyText
   )(DeleteId.apply)(DeleteId.unapply))
 
-  def delete = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def delete = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
 
     deleteForm.bindEncrypted.fold(
       errors    =>  BadRequest(views.html.s_breaks.g_breaksInCare(form, breaksInCare)),

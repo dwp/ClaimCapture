@@ -34,7 +34,6 @@
     getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail.getOrElse("") == Mappings.yes
 }
 
-@defining(lang) { implicit language =>
 @common.govMain(messages("thankyou")) {
 
 <div class="carers-allowance clearfix" data-journey="carers-allowance:page:thank-you">
@@ -152,7 +151,7 @@
 </div>
 
 }
-}
+
 
 <script type="text/javascript">
 $ ( function ( ) {

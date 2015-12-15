@@ -20,11 +20,11 @@ object GEmployment extends Controller with CachedClaim with Navigable with I18nS
       "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText.verifying(validYesNo)
       )(Emp.apply)(Emp.unapply))
 
-    def present = claimingWithCheck {  implicit claim => implicit request => implicit lang =>
+    def present = claimingWithCheck {  implicit claim => implicit request => implicit request2lang =>
       track(Employment) { implicit claim => Ok(views.html.s_self_employment.g_employment(form.fill(Emp))) }
     }
 
-    def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+    def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
       form.bindEncrypted.fold(
         formWithErrors => {
           val formWithErrorsUpdate = formWithErrors

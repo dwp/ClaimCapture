@@ -1,19 +1,13 @@
 package controllers
 
-import javax.inject.Inject
-
-import controllers.Iteration.Identifier
 import controllers.mappings.Mappings
-import controllers.s_employment.GEmploymentAdditionalInfo
 import models.yesNo._
 import models.{PaymentFrequency, MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 import models.domain._
-import play.api.Play
 import play.api.Play.current
-import play.api.http.HttpRequestHandler
 import play.api.i18n.{MMessages, MessagesApi, I18nSupport}
 import play.api.routing.Router
-import scala.languageFeature.postfixOps
+import scala.language.postfixOps
 import play.api.mvc.{Action, Controller}
 
 

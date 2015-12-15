@@ -55,13 +55,13 @@ object G11StartedAndFinishedEmployment extends Controller with CachedChangeOfCir
     .verifying("expected.employerOwesYouMoneyInfo", validateEmployerOwesYou _)
   )
 
-  def present = claiming {implicit circs => implicit request => implicit lang => 
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesStartedAndFinishedEmployment) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g11_startedAndFinishedEmployment(form.fill(CircumstancesStartedAndFinishedEmployment)))
     }
   }
 
-  def submit = claiming {implicit circs => implicit request => implicit lang => 
+  def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

@@ -11,7 +11,6 @@
 @import models.domain.AboutOtherMoney
 @import utils.helpers.CarersTemplate._
 
-@defining(lang) { implicit language =>
 @main(messages("s11.g4") + " - " + messages("s11.longName"), Some(currentForm)) {
 
 	@form(action = controllers.s_consent_and_declaration.routes.GDeclaration.submit, 'role -> "form") {
@@ -88,4 +87,4 @@
 	<script type="text/javascript">$($("#js").val("true"));</script>
 
 }
-}
+

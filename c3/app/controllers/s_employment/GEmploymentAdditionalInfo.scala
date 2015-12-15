@@ -28,11 +28,11 @@ object GEmploymentAdditionalInfo extends Controller with CachedClaim with Naviga
     additionalInfo
   )(EmploymentAdditionalInfo.apply)(EmploymentAdditionalInfo.unapply))
 
-  def present = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def present = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
      track(EmploymentAdditionalInfo) { implicit claim => Ok(views.html.s_employment.g_employmentAdditionalInfo(form.fill(EmploymentAdditionalInfo))) }
   }
 
-  def submit = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

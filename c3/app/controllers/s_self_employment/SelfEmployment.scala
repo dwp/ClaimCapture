@@ -11,11 +11,11 @@ import play.api.i18n._
 
 object SelfEmployment extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
-  def completed = claimingWithCheck {implicit claim => implicit request => implicit lang =>
+  def completed = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     redirect
   }
 
-  def completedSubmit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def completedSubmit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     redirect
   }
 

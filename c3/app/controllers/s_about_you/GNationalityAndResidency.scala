@@ -28,13 +28,13 @@ object GNationalityAndResidency extends Controller with CachedClaim with Navigab
   )(NationalityAndResidency.apply)(NationalityAndResidency.unapply)
     .verifying(NationalityAndResidency.actualNationalityRequired))
 
-  def present = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def present = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     track(NationalityAndResidency) { implicit claim =>
       Ok(views.html.s_about_you.g_nationalityAndResidency(form.fill(NationalityAndResidency)))
     }
   }
 
-  def submit = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

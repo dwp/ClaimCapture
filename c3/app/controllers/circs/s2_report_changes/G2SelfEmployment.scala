@@ -29,13 +29,13 @@ object G2SelfEmployment extends Controller with CachedChangeOfCircs with Navigab
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
   )(CircumstancesSelfEmployment.apply)(CircumstancesSelfEmployment.unapply))
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit lang => 
+  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesSelfEmployment) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g2_selfEmployment(form.fill(CircumstancesSelfEmployment)))
     }
   }
 
-  def submit = claiming {implicit circs => implicit request => implicit lang => 
+  def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors.replaceError("stillCaring","dateRequired", FormError("stillCaring.date", errorRequired))

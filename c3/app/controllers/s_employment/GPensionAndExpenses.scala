@@ -48,26 +48,26 @@ object GPensionAndExpenses extends Controller with CachedClaim with Navigable wi
   )(PensionAndExpenses.apply)(PensionAndExpenses.unapply))
 
 
-  def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     track(PensionAndExpenses) { implicit claim => Ok(views.html.s_employment.g_pensionAndExpenses(form.fillWithJobID(PensionAndExpenses, iterationID))) }
   }
 
-  def submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("payPensionScheme.answer",errorRequired,FormError("payPensionScheme.answer",errorRequired, Seq(labelForEmployment(claim, lang, "payPensionScheme.answer", iterationID))))
-          .replaceError("payPensionScheme","payPensionScheme.text.required",FormError("payPensionScheme.text",errorRequired, Seq(labelForEmployment(claim, lang, "payPensionScheme.text", iterationID))))
-          .replaceError("payPensionScheme","payPensionScheme.text.maxLength",FormError("payPensionScheme.text",maxLengthError, Seq(labelForEmployment(claim, lang, "payPensionScheme.text", iterationID))))
-          .replaceError("payPensionScheme.text",errorRestrictedCharacters,FormError("payPensionScheme.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "payPensionScheme.text", iterationID))))
-          .replaceError("payForThings.answer",errorRequired,FormError("payForThings.answer",errorRequired, Seq(labelForEmployment(claim, lang, "payForThings.answer", iterationID))))
-          .replaceError("payForThings","payForThings.text.required",FormError("payForThings.text",errorRequired, Seq(labelForEmployment(claim, lang, "payForThings.text", iterationID))))
-          .replaceError("payForThings","payForThings.text.maxLength",FormError("payForThings.text",maxLengthError, Seq(labelForEmployment(claim, lang, "payForThings.text", iterationID))))
-          .replaceError("payForThings.text",errorRestrictedCharacters,FormError("payForThings.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "payForThings.text", iterationID))))
-          .replaceError("haveExpensesForJob.answer",errorRequired,FormError("haveExpensesForJob.answer",errorRequired, Seq(labelForEmployment(claim, lang, "haveExpensesForJob.answer", iterationID))))
-          .replaceError("haveExpensesForJob","haveExpensesForJob.text.required",FormError("haveExpensesForJob.text",errorRequired, Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", iterationID))))
-          .replaceError("haveExpensesForJob","haveExpensesForJob.text..maxLength",FormError("haveExpensesForJob.text",maxLengthError, Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", iterationID))))
-          .replaceError("haveExpensesForJob.text",errorRestrictedCharacters,FormError("haveExpensesForJob.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "haveExpensesForJob.text", iterationID))))
+          .replaceError("payPensionScheme.answer",errorRequired,FormError("payPensionScheme.answer",errorRequired, Seq(labelForEmployment(claim, request2lang, "payPensionScheme.answer", iterationID))))
+          .replaceError("payPensionScheme","payPensionScheme.text.required",FormError("payPensionScheme.text",errorRequired, Seq(labelForEmployment(claim, request2lang, "payPensionScheme.text", iterationID))))
+          .replaceError("payPensionScheme","payPensionScheme.text.maxLength",FormError("payPensionScheme.text",maxLengthError, Seq(labelForEmployment(claim, request2lang, "payPensionScheme.text", iterationID))))
+          .replaceError("payPensionScheme.text",errorRestrictedCharacters,FormError("payPensionScheme.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, request2lang, "payPensionScheme.text", iterationID))))
+          .replaceError("payForThings.answer",errorRequired,FormError("payForThings.answer",errorRequired, Seq(labelForEmployment(claim, request2lang, "payForThings.answer", iterationID))))
+          .replaceError("payForThings","payForThings.text.required",FormError("payForThings.text",errorRequired, Seq(labelForEmployment(claim, request2lang, "payForThings.text", iterationID))))
+          .replaceError("payForThings","payForThings.text.maxLength",FormError("payForThings.text",maxLengthError, Seq(labelForEmployment(claim, request2lang, "payForThings.text", iterationID))))
+          .replaceError("payForThings.text",errorRestrictedCharacters,FormError("payForThings.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, request2lang, "payForThings.text", iterationID))))
+          .replaceError("haveExpensesForJob.answer",errorRequired,FormError("haveExpensesForJob.answer",errorRequired, Seq(labelForEmployment(claim, request2lang, "haveExpensesForJob.answer", iterationID))))
+          .replaceError("haveExpensesForJob","haveExpensesForJob.text.required",FormError("haveExpensesForJob.text",errorRequired, Seq(labelForEmployment(claim, request2lang, "haveExpensesForJob.text", iterationID))))
+          .replaceError("haveExpensesForJob","haveExpensesForJob.text..maxLength",FormError("haveExpensesForJob.text",maxLengthError, Seq(labelForEmployment(claim, request2lang, "haveExpensesForJob.text", iterationID))))
+          .replaceError("haveExpensesForJob.text",errorRestrictedCharacters,FormError("haveExpensesForJob.text",errorRestrictedCharacters, Seq(labelForEmployment(claim, request2lang, "haveExpensesForJob.text", iterationID))))
 
           BadRequest(views.html.s_employment.g_pensionAndExpenses(formWithErrorsUpdate))
       },

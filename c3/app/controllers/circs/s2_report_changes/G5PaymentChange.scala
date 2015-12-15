@@ -35,13 +35,13 @@ object G5PaymentChange extends Controller with CachedChangeOfCircs with Navigabl
   )
   (CircumstancesPaymentChange.apply)(CircumstancesPaymentChange.unapply))
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit lang => 
+  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesPaymentChange) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g5_paymentChange(form.fill(CircumstancesPaymentChange)))
     }
   }
 
-  def submit = claiming {implicit circs => implicit request => implicit lang => 
+  def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = manageErrorsSortCode(formWithErrors)

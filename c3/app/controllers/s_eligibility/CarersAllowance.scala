@@ -20,11 +20,11 @@ object CarersAllowance extends Controller with CachedClaim with Navigable with I
   )(ProceedAnyway.apply)(ProceedAnyway.unapply)
     .verifying(errorRequired, mandatoryChecks _))
 
-  def approve = claiming {implicit claim => implicit request => implicit lang => 
+  def approve = claiming {implicit claim => implicit request => implicit request2lang =>
     track(Eligibility) { implicit claim => Ok(views.html.s_eligibility.g_approve(form.fill(ProceedAnyway))) }
   }
 
-  def approveSubmit = claiming {implicit claim => implicit request => implicit lang => 
+  def approveSubmit = claiming {implicit claim => implicit request => implicit request2lang =>
     Logger.debug(s"Approve submit ${claim.uuid}")
     form.bindEncrypted.fold(
       formWithErrors => {

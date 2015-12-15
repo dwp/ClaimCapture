@@ -38,7 +38,7 @@ object GJobDetails extends Controller with CachedClaim with Navigable with I18nS
     .verifying("jobStartDate.required", JobDetails.validateJobStartDate _)
   )
 
-  def job(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def job(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     claim.questionGroup(Jobs) match {
       case Some(js: Jobs) if js.job(iterationID).isDefined =>
         track(JobDetails) { implicit claim => Ok(views.html.s_employment.g_jobDetails(form.fillWithJobID(JobDetails, iterationID))) }
@@ -47,19 +47,19 @@ object GJobDetails extends Controller with CachedClaim with Navigable with I18nS
     }
   }
 
-  def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     track(JobDetails) { implicit claim => Ok(views.html.s_employment.g_jobDetails(form.fillWithJobID(JobDetails, iterationID))) }
   }
 
-  def submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors =>{
         val form = formWithErrors
-          .replaceError("", "lastWorkDate.required", FormError("lastWorkDate", errorRequired, Seq(labelForEmployment(claim, lang, formWithErrors("finishedThisJob").value.getOrElse(""), "lastWorkDate"))))
-          .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(labelForEmployment(claim, lang, formWithErrors("finishedThisJob").value.getOrElse(""), "hoursPerWeek"))))
-          .replaceError("hoursPerWeek","error.restricted.characters",FormError("hoursPerWeek","error.restricted.characters", Seq(labelForEmployment(claim, lang, formWithErrors("finishedThisJob").value.getOrElse(""), "hoursPerWeek"))))
+          .replaceError("", "lastWorkDate.required", FormError("lastWorkDate", errorRequired, Seq(labelForEmployment(claim, request2lang, formWithErrors("finishedThisJob").value.getOrElse(""), "lastWorkDate"))))
+          .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(labelForEmployment(claim, request2lang, formWithErrors("finishedThisJob").value.getOrElse(""), "hoursPerWeek"))))
+          .replaceError("hoursPerWeek","error.restricted.characters",FormError("hoursPerWeek","error.restricted.characters", Seq(labelForEmployment(claim, request2lang, formWithErrors("finishedThisJob").value.getOrElse(""), "hoursPerWeek"))))
           .replaceError("", "jobStartDate.required", FormError("jobStartDate", errorRequired))
-          .replaceError("startJobBeforeClaimDate", errorRequired, FormError("startJobBeforeClaimDate", errorRequired,Seq(claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy - 1 months)))))
+          .replaceError("startJobBeforeClaimDate", errorRequired, FormError("startJobBeforeClaimDate", errorRequired,Seq(claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(request2lang, dmy - 1 months)))))
         BadRequest(views.html.s_employment.g_jobDetails(form))
       },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.GLastWage.present(iterationID)))
   }

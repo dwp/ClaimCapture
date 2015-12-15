@@ -2,7 +2,6 @@
 
 @import views.html.save_for_later.main
 
-@defining(lang) { implicit language =>
     @main(messages("switchedoff.legend")) {
         <h2>@Html(messages("switchedoff.heading"))</h2>
         <p>@Html(messages("switchedoff.line1"))</p>
@@ -12,4 +11,4 @@
 
         @views.html.ga.sendTrackEvent(functionname,"Switched-Off")
     }
-}
+

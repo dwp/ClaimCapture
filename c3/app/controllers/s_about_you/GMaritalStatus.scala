@@ -20,13 +20,13 @@ object GMaritalStatus extends Controller with CachedClaim with Navigable with I1
     "maritalStatus" -> carersNonEmptyText
   )(MaritalStatus.apply)(MaritalStatus.unapply))
 
-  def present = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def present = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     track(MaritalStatus) { implicit claim =>
       Ok(views.html.s_about_you.g_maritalStatus(form.fill(MaritalStatus)))
     }
   }
 
-  def submit = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors =>
         BadRequest(views.html.s_about_you.g_maritalStatus(formWithErrors)),

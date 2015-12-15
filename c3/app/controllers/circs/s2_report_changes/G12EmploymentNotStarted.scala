@@ -53,13 +53,13 @@ object G12EmploymentNotStarted extends Controller with CachedChangeOfCircs with 
     .verifying("expected.usuallyPaidSameAmount",validateUsuallyPaidSameAmount _)
   )
 
-  def present = claiming {implicit circs => implicit request => implicit lang => 
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesEmploymentNotStarted) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g12_employmentNotStarted(form.fill(CircumstancesEmploymentNotStarted)))
     }
   }
 
-  def submit = claiming {implicit circs => implicit request => implicit lang => 
+  def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

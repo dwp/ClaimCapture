@@ -50,13 +50,13 @@ object G10StartedEmploymentAndOngoing extends Controller with CachedChangeOfCirc
   )(CircumstancesStartedEmploymentAndOngoing.apply)(CircumstancesStartedEmploymentAndOngoing.unapply)
     .verifying("expected.monthlyPayDay", validateMonthlyPayDay _))
 
-  def present = claiming {implicit circs => implicit request => implicit lang =>
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesStartedEmploymentAndOngoing) {
       implicit circs => Ok(views.html.circs.s2_report_changes.g10_startedEmploymentAndOngoing(form.fill(CircumstancesStartedEmploymentAndOngoing)))
     }
   }
 
-  def submit = claiming {implicit circs => implicit request => implicit lang =>
+  def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

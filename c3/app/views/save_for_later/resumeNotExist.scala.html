@@ -2,7 +2,6 @@
 
 @import views.html.save_for_later.main
 
-@defining(lang) { implicit language =>
     @main(messages("saveForLater.notexist.legend")) {
         <h2>@Html(messages("saveForLater.notexist.h2"))</h2>
         <p></p>
@@ -20,4 +19,4 @@
 
         @views.html.ga.sendTrackEvent("Save-For-Later","SFL-Claim-Not-Exist")
     }
-}
+

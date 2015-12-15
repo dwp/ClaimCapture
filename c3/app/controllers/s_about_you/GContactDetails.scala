@@ -35,11 +35,11 @@ object GContactDetails extends Controller with CachedClaim with Navigable with I
     .verifying("error.wants.required", wantsEmailRequired _)
   )
 
-  def present = claiming {implicit claim => implicit request => implicit lang => 
+  def present = claiming {implicit claim => implicit request => implicit request2lang =>
     track(ContactDetails) { implicit claim => Ok(views.html.s_about_you.g_contactDetails(form.fill(ContactDetails))) }
   }
 
-  def submit = claiming {implicit claim => implicit request => implicit lang => 
+  def submit = claiming {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedForm = formWithErrors.replaceError("","error.email.match",FormError("mailConfirmation","error.email.match"))

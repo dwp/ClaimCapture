@@ -46,7 +46,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     }
 
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     val isPartnerPersonYouCareFor = YourPartner.visible &&
       claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse("") == "yes")
 
@@ -73,7 +73,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     track(TheirPersonalDetails) { implicit claim => Ok(views.html.s_care_you_provide.g_theirPersonalDetails(currentForm)) }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
