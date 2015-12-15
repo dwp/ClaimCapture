@@ -57,7 +57,7 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
    * @return Page object representing the html page the UI went back to.
    */
   def goBack(waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    val fluent = ctx.browser.click("nav> #backButton")
+    val fluent = ctx.browser.click("#bottomBackButton")
     val theUrl = getPageWithUrl(fluent,waitForPage, waitDuration)
     createPageWithUrl(theUrl, iteration)
   }
