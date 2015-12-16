@@ -9,7 +9,7 @@ object ApplicationBuild extends Build {
   val appName         = "c3"
 
 
-  val appVersion      = "3.0-SNAPSHOT"
+  val appVersion      = "3.1-SNAPSHOT"
 
   val appDependencies = Seq(
     // Add your project dependencies here,
