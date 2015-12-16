@@ -1,4 +1,4 @@
-@(title: String)(content: Html)(implicit footerCategories: Html = Html(""), lang: Lang, request:play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
+@(title: String)(content: Html)(isCookiePage: Boolean)(implicit footerCategories: Html = Html(""), lang: Lang, request:play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import app.ConfigProperties._
 
@@ -97,11 +97,11 @@
 	    </header>
 
 	    <!--end header-->
-
-        <div id="global-cookie-message">
-            <p>@messages("cookiePolicy") <a rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" @views.html.ga.trackClickEvent(linkName = "Cookies - from banner")>@messages("cookiePolicyAnchor")</a></p>
-        </div>
-
+        @if(!isCookiePage) {
+            <div id="global-cookie-message">
+                <p>@messages("cookiePolicy") <a rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" @views.html.ga.trackClickEvent(linkName = "Cookies - from banner")>@messages("cookiePolicyAnchor")</a></p>
+            </div>
+        }
         <div id="global-browser-prompt">
             <p>@Html(messages("latestBrowserUpdate"))</p>
         </div>
