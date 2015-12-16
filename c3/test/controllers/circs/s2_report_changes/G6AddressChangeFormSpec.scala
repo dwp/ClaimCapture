@@ -10,6 +10,7 @@ import models.MultiLineAddress
  * Created by neddakaltcheva on 2/14/14.
  */
 class G6AddressChangeFormSpec extends Specification {
+  section("unit", models.domain.CircumstancesAddressChange.id)
   "Report a change in your address - Address Change Form" should {
     val yes = "yes"
     val no = "no"
@@ -214,7 +215,6 @@ class G6AddressChangeFormSpec extends Specification {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-
   }
   section("unit", models.domain.CircumstancesAddressChange.id)
 }

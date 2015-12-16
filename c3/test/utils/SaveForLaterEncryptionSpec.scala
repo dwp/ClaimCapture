@@ -44,6 +44,7 @@ class SaveForLaterEncryptionSpec extends Specification {
     Section(CircumstancesReportChanges, List(circumstancesPaymentChange, circumstancesAddressChange))
   ), System.currentTimeMillis(), Some(Lang("en")), CachedClaim.key)
 
+  section("unit")
   "SaveForLaterEncryption Integration Spec" should {
     "Claim must be encrypted during the save for later process" in new WithApplication {
       val encryptedClaim = SaveForLaterEncryption.encryptClaim(claim, "1234567890123456")

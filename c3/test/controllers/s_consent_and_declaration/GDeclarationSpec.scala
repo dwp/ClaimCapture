@@ -6,7 +6,6 @@ import play.api.test.Helpers._
 import models.domain.{Declaration, Claiming}
 import models.view.CachedClaim
 import controllers.s_other_money.GAboutOtherMoney
-import specs2.akka.AkkaTestkitSpecs2Support
 import utils.{LightFakeApplication, WithApplication}
 import play.api.Play.current
 
@@ -22,6 +21,7 @@ class GDeclarationSpec extends Specification {
     "otherStatutoryPay.answer" -> "no"
   )
 
+  section("unit", models.domain.ConsentAndDeclaration.id)
   "Declaration" should {
     "present" in new WithApplication with Claiming {
       val gDeclaration = current.injector.instanceOf[GDeclaration]

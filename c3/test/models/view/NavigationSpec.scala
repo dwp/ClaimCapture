@@ -4,6 +4,7 @@ import org.specs2.mutable._
 import models.domain.{PreviewModel, ContactDetails, YourDetails}
 
 class NavigationSpec extends Specification {
+  section("unit")
   "Navigation" should {
     "track a route" in {
       val navigation = Navigation().track(YourDetails)("/about-you/your-details")
@@ -73,4 +74,5 @@ class NavigationSpec extends Specification {
       updatedNav.previous mustEqual Route(route1)
     }
   }
+  section("unit")
 }

@@ -5,7 +5,6 @@ import controllers.mappings.Mappings
 import models.view.CachedClaim
 import org.specs2.mutable._
 import models.{ NationalInsuranceNumber, DayMonthYear }
-import scala.Some
 
 class GYourPartnerPersonalDetailsFormSpec extends Specification {
 
@@ -21,6 +20,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
   val nationality = "British"
   val separatedFromPartner = "yes"
 
+  section ("unit", models.domain.YourPartner.id)
   "Your Partner Personal Details Form" should {
     "map data into case class when partner answer is yes" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(

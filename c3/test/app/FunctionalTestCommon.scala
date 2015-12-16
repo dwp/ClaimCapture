@@ -14,7 +14,6 @@ import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusiness
 abstract class FunctionalTestCommon extends Specification {
   isolated
 
-
   def validateAndPrintErrors(page: XmlPage, claim: TestData, validator: XMLBusinessValidation): Boolean = validateAndPrintErrors(Left(page),claim,validator)
   def validateAndPrintErrors(page: PreviewPage, claim: TestData, validator: XMLBusinessValidation): Boolean = validateAndPrintErrors(Right(page),claim,validator)
 
@@ -28,7 +27,6 @@ abstract class FunctionalTestCommon extends Specification {
       case Left(pg) => pg
       case Right(pg) => pg
     }
-
 
     val errors = issues._1
     val warnings = issues._2
@@ -52,7 +50,6 @@ abstract class FunctionalTestCommon extends Specification {
   def addressConversion(id:String) = id -> {(s:String) =>s.replaceAll("&",", ")}
 
   def test(page:Page,claim:TestData,testableData:PreviewTestableData) = {
-
     page goToThePage()
     val previewPage = page runClaimWith(claim, PreviewPage.url,trace=true)
 
@@ -73,7 +70,5 @@ abstract class FunctionalTestCommon extends Specification {
       }
       case p: Page => println(p.source)
     }
-
   }
-
 }

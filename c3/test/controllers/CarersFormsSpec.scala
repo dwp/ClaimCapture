@@ -18,7 +18,7 @@ object TestForm {
 }
 
 class CarersFormsSpec extends Specification {
-
+  section("unit")
   "Carers Forms" should {
     "handle good data" in new WithApplication {
       TestForm.form.bind(
@@ -52,5 +52,5 @@ class CarersFormsSpec extends Specification {
         f => "This mapping should not happen." must equalTo("Valid"))
     }
   }
-
+  section("unit")
 }

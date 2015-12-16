@@ -8,9 +8,8 @@ import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 
-
 class PreviewPageEducationContentSpec extends Specification {
-
+  section("preview")
   "Preview Page" should {
     "display education data - when in education" in new WithBrowser with PageObjects{
 
@@ -28,7 +27,6 @@ class PreviewPageEducationContentSpec extends Specification {
     }
 
     "display Question - when not in education" in new WithBrowser with PageObjects{
-
       val educationData = new TestData
       educationData.EducationHaveYouBeenOnACourseOfEducation = "No"
 
@@ -45,9 +43,8 @@ class PreviewPageEducationContentSpec extends Specification {
       source must not contain "Course contact number"
       source must not contain "Start/end dates"
     }
-
   }
-section("preview")
+  section("preview")
 
   def fillEducationSection(context:PageObjectsContext, educationData:TestData = ClaimScenarioFactory.s6Education) = {
     val claimDatePage = GClaimDatePage(context)

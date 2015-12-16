@@ -7,12 +7,13 @@ import org.specs2.mutable._
 import play.api.Logger
 import utils.{WithBrowsers, WithBrowser, WithJsBrowser}
 import utils.pageobjects.PageObjects
-import utils.pageobjects.s_breaks.{GBreaksInCarePage, GBreakPage}
+import utils.pageobjects.s_breaks.GBreakPage
 import utils.pageobjects.s_breaks.GBreaksInCarePage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 
 class GBreakIntegrationSpec extends Specification {
+  section("integration", models.domain.CareYouProvide.id)
   "Break" should {
     "be presented" in new WithJsBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo(GBreaksInCarePage.url)
@@ -29,19 +30,19 @@ class GBreakIntegrationSpec extends Specification {
       urlMustEqual(GYourCourseDetailsPage.url)
     }
 
-    "display dynamic question text if user answered that they did NOT care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects{
+    "display dynamic question text if user answered that they did NOT care for this person for 35 hours or more each week before your claim date" in new WithBrowser with PageObjects {
       val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(false),GBreakPage.url)
       breaksInCare.source contains "About the break from care since 10 October 2016" should beTrue
     }
 
-    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (within 6 months)" in new WithBrowser with PageObjects{
+    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (within 6 months)" in new WithBrowser with PageObjects {
       val claim = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)
       claim.ClaimDateWhenDidYouStartToCareForThisPerson = "10/08/2016"
       val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(claim,GBreakPage.url)
       breaksInCare.source contains "About the break from care since 10 August 2016" should beTrue
     }
 
-    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (more than 6 months)" in new WithBrowser with PageObjects{
+    "display dynamic question text if user answered that they care for this person for 35 hours or more each week before your claim date (more than 6 months)" in new WithBrowser with PageObjects {
       val claim = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)
       claim.ClaimDateWhenDidYouStartToCareForThisPerson = "10/02/2016"
       val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(claim,GBreakPage.url)

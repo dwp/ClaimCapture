@@ -9,7 +9,7 @@ import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 
 class CareYouProvideIntegrationSpec extends Specification {
-
+  section("integration", models.domain.CareYouProvide.id)
   "Care you provide" should {
     """navigate to page personal details""" in new WithBrowser with PageObjects {
       val page = GTheirPersonalDetailsPage(context)
@@ -24,7 +24,6 @@ class CareYouProvideIntegrationSpec extends Specification {
       breakPage.fillYesNo("#answer","no")
       breakPage.submitPage().url mustEqual GYourCourseDetailsPage.url
     }
-
   }
   section("integration", models.domain.CareYouProvide.id)
 }

@@ -4,7 +4,6 @@ import utils.WithApplication
 import controllers.mappings.Mappings
 import org.specs2.mutable._
 import models.DayMonthYear
-import scala.Some
 
 class GYourCourseDetailsFormSpec extends Specification {
 
@@ -17,6 +16,7 @@ class GYourCourseDetailsFormSpec extends Specification {
   val dateMonth = 12
   val dateYear = 1990
 
+  section("unit", models.domain.Education.id)
   "Your course details Form" should {
     "map data into case class" in new WithApplication {
       GYourCourseDetails.form.bind(
@@ -114,7 +114,6 @@ class GYourCourseDetailsFormSpec extends Specification {
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
-
   }
   section("unit", models.domain.Education.id)
 }

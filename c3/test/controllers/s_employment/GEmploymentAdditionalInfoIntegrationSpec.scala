@@ -3,23 +3,22 @@ package controllers.s_employment
 import org.specs2.mutable._
 import utils.{WithJsBrowser, WithBrowser}
 import utils.pageobjects.{PageObjectsContext, TestData, PageObjects}
-import utils.pageobjects.s_employment.{GBeenEmployedPage, GPensionAndExpensesPage, GEmploymentPage, GEmploymentAdditionalInfoPage}
+import utils.pageobjects.s_employment.{GBeenEmployedPage, GEmploymentPage, GEmploymentAdditionalInfoPage}
 import utils.pageobjects.s_self_employment.GSelfEmploymentPensionsAndExpensesPage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory._
 
-
 class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
+  section("integration", models.domain.EmploymentAdditionalInfo.id)
   "Employment Additional Info" should {
     "be presented" in new WithJsBrowser with PageObjects{
       val page =  GEmploymentAdditionalInfoPage(context)
       page goToThePage()
     }
 
-    "should be presented when self employment is answered yes and no employment" in new WithBrowser with PageObjects{
-
+    "should be presented when self employment is answered yes and no employment" in new WithBrowser with PageObjects {
       val claim = ClaimScenarioFactory.s7SelfEmployedNotEmployed()
 
       val claimDatePage = GClaimDatePage(context) goToThePage()
@@ -39,7 +38,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GEmploymentAdditionalInfoPage]
     }
 
-    "should present self employment pensions and expenses page when back is clicked" in new WithBrowser with PageObjects{
+    "should present self employment pensions and expenses page when back is clicked" in new WithBrowser with PageObjects {
       val page =  GSelfEmploymentPensionsAndExpensesPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
@@ -51,10 +50,9 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
 
       val pensionsAndExpensesPage = nextPage goBack()
       pensionsAndExpensesPage must beAnInstanceOf[GSelfEmploymentPensionsAndExpensesPage]
-
     }
 
-    "should present other money page on successful submission" in new WithBrowser with PageObjects{
+    "should present other money page on successful submission" in new WithBrowser with PageObjects {
       val page = GEmploymentAdditionalInfoPage(context) goToThePage()
       page fillPageWith ClaimScenarioFactory.s7EmploymentAdditionalInfo
 
@@ -62,7 +60,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GAboutOtherMoneyPage]
     }
 
-    "should be presented when self employment is answered no and employment yes" in new WithBrowser with PageObjects{
+    "should be presented when self employment is answered no and employment yes" in new WithBrowser with PageObjects {
       val claim = ClaimScenarioFactory.s7EmployedNotSelfEmployed()
 
       val claimDatePage = GClaimDatePage(context) goToThePage()
@@ -87,7 +85,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GEmploymentAdditionalInfoPage]
     }
 
-    "should be presented at the end of employment when self employment and employment is answered yes" in new WithBrowser with PageObjects{
+    "should be presented at the end of employment when self employment and employment is answered yes" in new WithBrowser with PageObjects {
       val beenEmployedData = new TestData
       beenEmployedData.EmploymentHaveYouBeenEmployedAtAnyTime_1 = "No"
 
@@ -100,7 +98,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GEmploymentAdditionalInfoPage]
     }
 
-    "should present Been employed page when back button is clicked" in new WithBrowser with PageObjects{
+    "should present Been employed page when back button is clicked" in new WithBrowser with PageObjects {
       val beenEmployedData = new TestData
       beenEmployedData.EmploymentHaveYouBeenEmployedAtAnyTime_1 = "No"
 
@@ -115,7 +113,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       nextPage goBack() must beAnInstanceOf[GBeenEmployedPage]
     }
 
-    "should present other money page when displayed after employment section" in new WithBrowser with PageObjects{
+    "should present other money page when displayed after employment section" in new WithBrowser with PageObjects {
       val beenEmployedData = new TestData
       beenEmployedData.EmploymentHaveYouBeenEmployedAtAnyTime_1 = "No"
 
@@ -131,8 +129,8 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
 
       otherMoneyPage must beAnInstanceOf[GAboutOtherMoneyPage]
     }
-
   }
+  section("integration", models.domain.EmploymentAdditionalInfo.id)
 
   private def goToBeenEmployedPage(context:PageObjectsContext) = {
     val claim = ClaimScenarioFactory.s7SelfEmployedAndEmployed()
@@ -156,5 +154,4 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
     val beenEmployedPage = pensionsAndExpensesPage fillPageWith s7Employment() submitPage()
     beenEmployedPage
   }
-
 }

@@ -9,8 +9,8 @@ import controllers.CircumstancesScenarioFactory
 
 class G7BreaksInCareIntegrationSpec extends Specification {
 
+  section("integration", models.domain.CircumstancesIdentification.id)
   "Breaks in care" should {
-
     "be presented" in new WithBrowser with PageObjects{
       val page =  G7BreaksInCarePage(context)
       page goToThePage()
@@ -55,7 +55,6 @@ class G7BreaksInCareIntegrationSpec extends Specification {
       page submitPage ()
       page.listErrors.size must beEqualTo(5)
     }
-
   }
   section("integration", models.domain.CircumstancesIdentification.id)
 }

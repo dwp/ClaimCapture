@@ -1,7 +1,6 @@
 package submission
 
 import play.api.libs.ws.ning.NingWSResponse
-
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.libs.ws.WSResponse
 import ExecutionContext.Implicits.global

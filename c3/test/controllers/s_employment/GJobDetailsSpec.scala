@@ -3,12 +3,12 @@ package controllers.s_employment
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.api.cache.Cache
-import models.domain.{Iteration, Jobs, JobDetails, Claim, Claiming}
+import models.domain.{Iteration, Jobs, JobDetails, Claiming}
 import models.view.CachedClaim
 import utils.WithApplication
 
 class GJobDetailsSpec extends Specification {
+  section("unit", models.domain.JobDetails.id)
   "Your job" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -112,5 +112,5 @@ class GJobDetailsSpec extends Specification {
       }
     }
   }
-  section("unit", models.domain.Employed.id)
+  section("unit", models.domain.JobDetails.id)
 }

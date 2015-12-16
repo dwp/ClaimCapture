@@ -2,8 +2,6 @@ package controllers
 
 import utils.pageobjects.TestData
 import app.ReportChange._
-import play.api.i18n.{Messages => Messages}
-import models.SortCode
 import app.{CircsBreaksWhereabouts, WhoseNameAccount, PaymentFrequency}
 
 object CircumstancesScenarioFactory {
@@ -304,5 +302,4 @@ object CircumstancesScenarioFactory {
     claim.NameOrOrganisation = "Mr Smith"
     claim
   }
-
 }

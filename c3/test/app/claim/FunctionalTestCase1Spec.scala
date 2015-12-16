@@ -1,7 +1,6 @@
 package app.claim
 
 import app.FunctionalTestCommon
-import org.joda.time.format.DateTimeFormat
 import utils.WithJsBrowser
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewTestableData
@@ -15,9 +14,9 @@ import utils.pageobjects.s_eligibility.GBenefitsPage
 class FunctionalTestCase1Spec extends FunctionalTestCommon {
   isolated
 
+  section("functional", "claim")
   "The application Claim" should {
     "Successfully run absolute Claim Test Case 1" in new WithJsBrowser with PageObjects {
-
       val page = GBenefitsPage(context)
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       test(page, claim, buildPreviewUseData)

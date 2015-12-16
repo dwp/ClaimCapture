@@ -7,6 +7,7 @@ import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s_eligibility._
 
 class GEligibilityIntegrationSpec extends Specification {
+  section("integration", models.domain.CarersAllowance.id)
   "Carer's Allowance - Benefits - Integration" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GEligibilityPage(context)
@@ -14,8 +15,8 @@ class GEligibilityIntegrationSpec extends Specification {
     }
 
     "contain errors on invalid submission" in new WithApplication {
-      "missing mandatory field" in new WithBrowser with PageObjects{
-			val page =  GEligibilityPage(context)
+      "missing mandatory field" in new WithBrowser with PageObjects {
+			  val page =  GEligibilityPage(context)
         val claim = new TestData
         claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = ""
         page goToThePage()
@@ -25,7 +26,7 @@ class GEligibilityIntegrationSpec extends Specification {
       }
     }
     
-    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
 			val page =  GEligibilityPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
@@ -36,7 +37,7 @@ class GEligibilityIntegrationSpec extends Specification {
       page submitPage()
     }
     
-    "navigate to next page on valid submission" in new WithBrowser with PageObjects{
+    "navigate to next page on valid submission" in new WithBrowser with PageObjects {
 			val page =  GEligibilityPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
@@ -49,7 +50,6 @@ class GEligibilityIntegrationSpec extends Specification {
 
       nextPage must beAnInstanceOf[GApprovePage]
     }
-
   }
   section("integration", models.domain.CarersAllowance.id)
 }

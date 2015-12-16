@@ -8,7 +8,6 @@ import play.api.test.FakeRequest
 import utils.WithApplication
 
 class GYourCourseDetailsSpec extends Specification {
-
   val nameOfSchoolCollegeOrUniversity = "MIT"
   val nameOfMainTeacherOrTutor = "Albert Einstein"
   val courseContactNumber = "02076541058"
@@ -28,6 +27,7 @@ class GYourCourseDetailsSpec extends Specification {
     "expectedEndDate.year" -> "1997"
     )
 
+  section("unit", models.domain.Education.id)
   "Your course details - Controller" should {
     "present 'Your course details'" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -72,7 +72,6 @@ class GYourCourseDetailsSpec extends Specification {
       val result = controllers.s_education.GYourCourseDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-
   }
   section("unit", models.domain.Education.id)
 }

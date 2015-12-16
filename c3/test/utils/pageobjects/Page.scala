@@ -157,7 +157,7 @@ abstract case class Page(pageFactory: PageFactory, ctx:PageObjectsContext, url: 
    * Reads theClaim, interacts with browser to populate the page, submit the page and
    * asks next page to run the claim. By default throws a PageObjectException if a page displays errors.
    * @param theClaim  Data to use to populate all the pages relevant to the scenario tested.
-   * @param upToPageWithTitle  Title of the page where the automated completion should stop.
+   * @param upToPageWithUrl  Title of the page where the automated completion should stop.
    * @param upToIteration Iteration number of the page the automated completion should stop. By default set to 1.
    * @param throwException Specify whether should throw an exception if a page displays errors. By default set to true.
    * @param waitForPage Does the test need add extra time to wait for the next page every time it submits a page? By default set to true.
@@ -325,7 +325,7 @@ protected def getPageWithUrl(fluent: Fluent, waitForPage: Boolean, waitDuration:
 /**
  * A page object that represents an unknown html page, i.e. a page that is not covered by the framework.
  * A developer should create a new sub-class of Page to handle this "unknown" page.
- * @param pageTitle  Title of the unknown page
+ * @param url  Title of the unknown page
  * @param context global context for the pageobjects
  */
 final class UnknownPage(url: String, context:PageObjectsContext) extends Page(null, context, url) {

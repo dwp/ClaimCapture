@@ -51,6 +51,7 @@ class G6AddressChangeSpec extends Specification {
     "newAddress.lineThree" -> addressLineThree
   )
 
+  section("unit", models.domain.CircumstancesAddressChange.id)
   "Circumstances - Address Change - Controller" should {
     "present 'CoC Address Change' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)

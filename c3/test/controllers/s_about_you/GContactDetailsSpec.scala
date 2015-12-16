@@ -1,13 +1,14 @@
 package controllers.s_about_you
 
 import controllers.mappings.Mappings
-import models.domain.{Claim, ContactDetails, Claiming}
+import models.domain.{ContactDetails, Claiming}
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.WithApplication
 
 class GContactDetailsSpec extends Specification {
+  section("unit", models.domain.ContactDetails.id)
   "Contact Details" should {
     "present contact details" in new WithApplication with Claiming {
       val request = FakeRequest()

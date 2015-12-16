@@ -8,7 +8,7 @@ import play.api.test.FakeRequest
 import utils.WithApplication
 
 class GAboutSelfEmploymentSpec extends Specification {
-
+  section("unit", models.domain.SelfEmployment.id)
   "Self Employment - About Self Employment - Controller" should {
     val areYouSelfEmployedNow = "no"
     val startDay = 11

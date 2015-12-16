@@ -9,6 +9,7 @@ class HealthControllerSpec extends PlaySpecification with Results {
 
   class TestController() extends Controller with HealthController
 
+  section("unit")
   "Health Page#health" should {
     "should be valid" in new WithApplication {
       val controller = new TestController()
@@ -20,6 +21,7 @@ class HealthControllerSpec extends PlaySpecification with Results {
   }
   section("unit")
 
+  section("unit")
   "Ping" should {
     "always return ok" in new WithApplication {
       val controller = new TestController()

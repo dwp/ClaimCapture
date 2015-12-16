@@ -1,7 +1,6 @@
 package controllers.s_employment
 
 import org.specs2.mutable._
-import play.api.Play._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain._
@@ -11,6 +10,7 @@ import models.view.CachedClaim
 import utils.WithApplication
 
 class GBeenEmployedSpec extends Specification {
+  section("unit", models.domain.BeenEmployed.id)
   "Been Employed" should {
     "first present job details" in new WithApplication with Claiming {
       val claim = Claim(CachedClaim.key)
@@ -48,5 +48,5 @@ class GBeenEmployedSpec extends Specification {
       status(result) mustEqual BAD_REQUEST
     }
   }
-  section("unit", models.domain.Employed.id)
+  section("unit", models.domain.BeenEmployed.id)
 }

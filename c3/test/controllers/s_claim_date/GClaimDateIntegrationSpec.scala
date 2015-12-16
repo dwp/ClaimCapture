@@ -2,18 +2,14 @@ package controllers.s_claim_date
 
 import org.specs2.mutable._
 import utils.WithBrowser
-import controllers.{ClaimScenarioFactory, PreviewTestUtils}
+import controllers.ClaimScenarioFactory
 import utils.pageobjects._
 import utils.pageobjects.s_about_you.GYourDetailsPage
-import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_care_you_provide.GMoreAboutTheCarePage
-import utils.helpers.PreviewField._
 
 class GClaimDateIntegrationSpec extends Specification {
-
+  section("unit", models.domain.YourClaimDate.id)
   "Your claim date" should {
-
     "be presented " in new WithBrowser with PageObjects {
       val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
@@ -48,8 +44,6 @@ class GClaimDateIntegrationSpec extends Specification {
       claimDatePageSecondTime must beAnInstanceOf[GClaimDatePage]
       claimDatePageSecondTime visible("#beforeClaimCaring_date_year") must beTrue
     }
-
   }
-
   section("unit", models.domain.YourClaimDate.id)
 }

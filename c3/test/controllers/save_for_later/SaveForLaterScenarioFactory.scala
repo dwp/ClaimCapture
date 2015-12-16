@@ -1,12 +1,9 @@
 package controllers.save_for_later
 
-import models.domain.QuestionGroup
-import models.{DayMonthYear, NationalInsuranceNumber}
 import utils.pageobjects.TestData
 
 object SaveForLaterScenarioFactory {
-
-  def AboutYouData()={
+  def AboutYouData() = {
     val claim=new TestData()
     claim.AboutYouTitle = "Mr"
     claim.AboutYouFirstName = "John"
@@ -19,17 +16,17 @@ object SaveForLaterScenarioFactory {
     claim.AboutYouPostcode = "FY1 2RW"
     claim.HowWeContactYou = "01772 888901"
 
-      claim
+    claim
   }
 
-  def WithNoEmailSet()={
+  def WithNoEmailSet() = {
     val claim=AboutYouData()
     claim.AboutYouWantsEmailContact = "No"
 
     claim
   }
 
-  def WithEmailSet()={
+  def WithEmailSet() = {
     val claim=AboutYouData()
     claim.AboutYouWantsEmailContact = "Yes"
     claim.AboutYouMail="cg@bt.com"
@@ -65,7 +62,7 @@ object SaveForLaterScenarioFactory {
     claim
   }
 
-  def ResumePageData()={
+  def ResumePageData() = {
     val claim=new TestData()
     claim.AboutYouFirstName = "John"
     claim.AboutYouSurname = "Green"
@@ -74,5 +71,4 @@ object SaveForLaterScenarioFactory {
 
     claim
   }
-
 }

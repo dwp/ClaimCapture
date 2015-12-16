@@ -7,10 +7,10 @@ import models.domain._
 import models.view.CachedClaim
 import utils.WithApplication
 
-
 class GPensionAndExpensesSpec extends Specification {
   val iterationID = "Dummy job ID"
 
+  section("unit", models.domain.PensionAndExpenses.id)
   "Pension and expenses" should {
     "present" in new WithApplication {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
@@ -76,5 +76,5 @@ class GPensionAndExpensesSpec extends Specification {
       }
     }
   }
-  section("unit", models.domain.Employed.id)
+  section("unit", models.domain.PensionAndExpenses.id)
 }

@@ -23,6 +23,7 @@ class G11StartedAndFinishedEmploymentFormSpec extends Specification {
   val didCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
 
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
   "Report an Employment change in your circumstances where the employment is finished - Employment Form" should {
     "map weekly paid with no pension/expenses paid when employer does not owe money" in new WithApplication {
       G11StartedAndFinishedEmployment.form.bind(

@@ -4,9 +4,8 @@ import org.specs2.mutable._
 import utils.WithApplication
 
 class GSelfEmploymentYourAccountsFormSpec extends Specification {
-
+  section("unit", models.domain.SelfEmployment.id)
   "About Self Employment - Your Accounts" should {
-
     "map data into case class" in new WithApplication {
       GSelfEmploymentYourAccounts.form.bind(
         Map("doYouKnowYourTradingYear" -> "yes",

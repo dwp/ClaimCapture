@@ -5,11 +5,11 @@ import play.api.test.FakeRequest
 import utils.{PlaySpecification, WithApplication}
 import scala.concurrent.Future
 
-
 class ClaimEndingSpec extends PlaySpecification with Results {
 
   class TestController() extends Controller
 
+  section("unit")
   "Claim ending" should {
     "return timeout page with claim start page if timeout()" in new WithApplication {
       val result: Future[Result] = ClaimEnding.timeout.apply(FakeRequest())
@@ -32,21 +32,19 @@ class ClaimEndingSpec extends PlaySpecification with Results {
       status(result) mustEqual UNAUTHORIZED
     }
 
-    "return back buuton page if errorBrowserBackbutton()" in new WithApplication {
+    "return back button page if errorBrowserBackButton()" in new WithApplication {
       val result: Future[Result] = ClaimEnding.errorBrowserBackbutton.apply(FakeRequest())
       val bodyText: String = contentAsString(result)
       bodyText must contain("web browser buttons")
       status(result) mustEqual BAD_REQUEST
     }
 
-    "return ok thank you page if thankyou()" in new WithApplication {
+    "return ok thank you page if thankYou()" in new WithApplication {
       val result: Future[Result] = ClaimEnding.thankyou.apply(FakeRequest())
       val bodyText: String = contentAsString(result)
       bodyText must contain("been sent")
       status(result) mustEqual OK
     }
-
   }
-section("unit")
-
+  section("unit")
 }

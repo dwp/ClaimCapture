@@ -11,8 +11,8 @@ import scala.io.Source
  *         Date: 23/07/2013
  */
 class XMLBusinessValidationSpec extends Specification {
+  section("unit")
   "The XML Business Validator object" should {
-
     "be able to build the XML mapping from a valid csv file" in {
       val mapping = XMLBusinessValidation buildXmlMappingFromFile "/unit_tests/tests_XMLMapping.csv"
       mapping("AboutYouAddress") mustEqual Tuple2("path3","question3")
@@ -51,5 +51,5 @@ class XMLBusinessValidationSpec extends Specification {
       errors.nonEmpty should beTrue
     }
   }
-
+  section("unit")
 }

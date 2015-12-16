@@ -5,6 +5,7 @@ import org.specs2.mock.Mockito
 import utils.WithApplication
 
 class BreaksInCareSpec extends Specification with Mockito {
+  section("unit")
   "Breaks from care" should {
     "give zero breaks upon deleting from no existing breaks in care" in new WithApplication {
       val breaksInCare = BreaksInCare()
@@ -41,4 +42,5 @@ class BreaksInCareSpec extends Specification with Mockito {
       updatedBreaksInCare.breaks.size mustEqual 2
     }
   }
+  section("unit")
 }

@@ -5,6 +5,7 @@ import controllers.mappings.Mappings
 import org.specs2.mutable._
 
 class GApproveFormSpec extends Specification {
+  section("unit", models.domain.CarersAllowance.id)
   "Carer's Allowance - Can you get Carer's Allowance - Form" should {
     val answerYes = "yes"
 
@@ -53,5 +54,4 @@ class GApproveFormSpec extends Specification {
     }
   }
   section("unit", models.domain.CarersAllowance.id)
-
 }

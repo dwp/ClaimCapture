@@ -6,6 +6,7 @@ import controllers.mappings.Mappings._
 import utils.WithApplication
 
 class DayMonthYearFormSpec extends Specification {
+  section("unit")
   "DayMonthYear Validation" should {
     "accept valid input" in new WithApplication {
       Form("date" -> dayMonthYear.verifying(validDate)).bind(Map("date.day" -> "1", "date.month" -> "2", "date.year" -> "1980")).fold(
@@ -42,4 +43,5 @@ class DayMonthYearFormSpec extends Specification {
       )
     }
   }
+  section("unit")
 }

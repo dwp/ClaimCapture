@@ -2,15 +2,15 @@ package controllers.s_self_employment
 
 import org.specs2.mutable._
 import utils.{WithApplication, WithBrowser}
-import utils.pageobjects.s_self_employment.{GSelfEmploymentYourAccountsPage, GSelfEmploymentYourAccountsPageContext}
+import utils.pageobjects.s_self_employment.{GSelfEmploymentYourAccountsPage}
 import utils.pageobjects.{PageObjects, TestData}
-import controllers.{Formulate, ClaimScenarioFactory}
+import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 import utils.pageobjects.s_employment.GEmploymentPage
 import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
 class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
-
+  section("integration", models.domain.SelfEmployment.id)
   "Self Employment - Your Accounts" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GSelfEmploymentYourAccountsPage(context)
@@ -29,7 +29,6 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
     }
 
     "contain errors on invalid submission" in new WithApplication {
-
       "your accounts invalid date" in new WithBrowser with PageObjects{
 			  val page =  GSelfEmploymentYourAccountsPage(context)
         val claim = new TestData
@@ -44,7 +43,7 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
         pageWithErrors.listErrors(0).contains("date")
       }
 
-      "your accounts do you know your trading year not set" in new WithBrowser with PageObjects{
+      "your accounts do you know your trading year not set" in new WithBrowser with PageObjects {
         val page =  GSelfEmploymentYourAccountsPage(context)
         val claim = new TestData
         claim.SelfEmployedDoYouKnowYourTradingYear = ""
@@ -56,7 +55,7 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
       }
     }
 
-    "your accounts tell us what happened not required if incoming and outgoing are current " in new WithBrowser with PageObjects{
+    "your accounts tell us what happened not required if incoming and outgoing are current " in new WithBrowser with PageObjects {
 			val page =  GSelfEmploymentYourAccountsPage(context)
       val claim = new TestData
       claim.SelfEmployedDoYouKnowYourTradingYear = "yes"
@@ -67,7 +66,7 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
       pageWithErrors.listErrors.size mustEqual 0
     }
 
-    "your accounts contact your accountant is not required if there is no accountant " in new WithBrowser with PageObjects{
+    "your accounts contact your accountant is not required if there is no accountant " in new WithBrowser with PageObjects {
 			val page =  GSelfEmploymentYourAccountsPage(context)
       val claim = new TestData
       claim.SelfEmployedDoYouKnowYourTradingYear = "yes"
@@ -78,7 +77,7 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
       pageWithErrors.listErrors.size mustEqual 0
     }
 
-    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
 			val page =  GSelfEmploymentYourAccountsPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
       page goToThePage()
@@ -86,7 +85,7 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
       page submitPage()
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with PageObjects{
+    "navigate to next page on valid submission" in new WithBrowser with PageObjects {
 			val page =  GSelfEmploymentYourAccountsPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
       page goToThePage()

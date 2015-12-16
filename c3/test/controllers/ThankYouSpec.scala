@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit
 class ThankYouSpec extends Specification with Mockito {
   implicit val timeout = Timeout(10, TimeUnit.SECONDS)
 
+  section("unit")
   "Thank You - Controller" should {
     "present 'Thank You' page for claim" in new WithApplication {
       val request = FakeRequest().withSession("claim" -> claimKey)

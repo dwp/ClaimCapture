@@ -8,6 +8,7 @@ import models.domain.{Claim, Iteration, Jobs, JobDetails, Claiming}
 import utils.WithApplication
 
 class GEmploymentSpec extends Specification {
+  section("unit", models.domain.Employed.id)
   "Employment" should {
     "get first completed question group for a job" in new WithApplication with Claiming {
       val jobID = "dummyJobID"

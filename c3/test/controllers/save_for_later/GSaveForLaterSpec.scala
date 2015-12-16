@@ -1,7 +1,7 @@
 package controllers.save_for_later
 
 import models.domain._
-import models.view.{CachedClaim}
+import models.view.CachedClaim
 import org.specs2.mutable._
 import play.api.i18n.Lang
 import play.api.test.FakeRequest
@@ -10,7 +10,7 @@ import utils.{LightFakeApplication, WithApplication}
 import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 
 class GSaveForLaterSpec extends Specification {
-
+  section("unit", models.domain.YourPartner.id)
   "Save for later controller" should {
     "block submit when switched off" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "false"))) with Claiming {
       val request = FakeRequest()

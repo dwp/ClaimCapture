@@ -7,6 +7,7 @@ import org.specs2.mock.Mockito
 import utils.WithApplication
 
 class ChangeBotCheckingSpec extends Specification with Mockito {
+  section("unit")
   "Claim submission" should {
     "returns false given CircumstancesDeclaration answered yes and honeyPot not filled" in new WithApplication {
       val controller = new ChangeBotChecking {}
@@ -38,6 +39,5 @@ class ChangeBotCheckingSpec extends Specification with Mockito {
       controller.checkTimeToCompleteAllSections(circs, currentTime = Long.MaxValue) should beFalse
     }
   }
-
-
+  section("unit")
 }

@@ -12,7 +12,7 @@ import utils.pageobjects.circumstances.s1_start_of_process.G2ReportAChangeInYour
  *         Date: 12/07/2013
  */
 class PageFactorySpec extends Specification {
-
+  section("unit")
   "The PageFactory" should {
     "Return an UnknownPage if it does not recognise title" in new WithApplication with MockPageContext {
       val newPage = ClaimPageFactory buildPageFromUrl("/unknown",PageObjectsContext(browser))
@@ -29,5 +29,5 @@ class PageFactorySpec extends Specification {
       newPage must beAnInstanceOf[G2ReportAChangeInYourCircumstancesPage]
     }
   }
-
+  section("unit")
 }

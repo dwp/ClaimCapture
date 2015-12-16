@@ -9,9 +9,8 @@ import utils.pageobjects.{TestData, FactoryFromFile}
  *         Date: 16/07/2013
  */
 class FactoryFromFileSpec extends Specification {
-
+  section("unit")
   "The Factory from file" should {
-
     "be able to build a claim from a valid csv file" in {
       val claim = new TestData
       FactoryFromFile.buildFromFileLast2Columns("/unit_tests/tests.csv", claim.updateDynamic)
@@ -22,7 +21,6 @@ class FactoryFromFileSpec extends Specification {
       claim.EmploymentHowManyHoursAWeekYouNormallyWork mustEqual "13"
       claim.EmploymentCareExpensesWhatRelationIsToYou mustEqual "Partner"
     }
-
   }
-
+  section("unit")
 }

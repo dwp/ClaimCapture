@@ -21,6 +21,7 @@ class G10StartedEmploymentAndOngoingFormSpec extends Specification {
   val doCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
 
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
   "Report an Employment change in your circumstances where the employment is ongoing - Employment Form" should {
     "map weekly paid with no pension/expenses paid when been paid set to 'yes'" in new WithApplication {
       G10StartedEmploymentAndOngoing.form.bind(

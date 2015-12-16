@@ -8,7 +8,6 @@ import javax.xml.bind.DatatypeConverter
 import gov.dwp.carers.security.encryption.EncryptorAES
 
 class C3EncryptionSpec extends Specification {
-
   object ValuesToBeUsed {
       val string = "Barney"
       val optionalString = Some("Barney")
@@ -27,8 +26,8 @@ class C3EncryptionSpec extends Specification {
       val optionalDayMonthYear = Some(DayMonthYear(1,2,2000))
   }
 
+  section("unit")
   "C3Encryption" should {
-
     "Not decrypt an already decrypted string" in new WithApplication {
       val encryptedString = C3Encryption.encryptString(ValuesToBeUsed.string)
       val decryptedString = C3Encryption.decryptString(encryptedString)
@@ -237,7 +236,6 @@ class C3EncryptionSpec extends Specification {
       ValuesToBeUsed.yesNoWith2Text mustNotEqual encryptedYesNoWith2Text
       ValuesToBeUsed.yesNoWith2Text mustEqual decryptedYesNoWith2Text
     }
-
   }
-
+  section("unit")
 }

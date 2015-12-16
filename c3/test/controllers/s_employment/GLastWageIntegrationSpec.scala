@@ -7,13 +7,14 @@ import utils.pageobjects.s_employment._
 import utils.pageobjects.PageObjects
 
 class GLastWageIntegrationSpec extends Specification {
+  section("integration",models.domain.LastWage.id)
   "Last wage" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GLastWagePage(context)
       page goToThePage()
     }
 
-    "employer owes you money is not visible when 'have finished job is 'no'" in new WithBrowser with PageObjects{
+    "employer owes you money is not visible when 'have finished job is 'no'" in new WithBrowser with PageObjects {
       val jobDetailsPage = GJobDetailsPage(context)
       jobDetailsPage goToThePage()
       val claim = ClaimScenarioFactory s7EmploymentWhenFinishedJobNo()
@@ -22,7 +23,7 @@ class GLastWageIntegrationSpec extends Specification {
       context.browser.find("#employerOwesYouMoney").size() mustEqual 0
     }
 
-    "be able to navigate back" in new WithBrowser  with PageObjects{
+    "be able to navigate back" in new WithBrowser with PageObjects {
 			val page =  GJobDetailsPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
@@ -32,5 +33,5 @@ class GLastWageIntegrationSpec extends Specification {
       backPage must beAnInstanceOf[GJobDetailsPage]
     }
   }
-  section("integration",models.domain.Employed.id)
+  section("integration",models.domain.LastWage.id)
 }

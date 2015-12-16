@@ -12,6 +12,7 @@ import play.api.i18n._
 import play.api.Play.current
 
 class ThankYouIntegrationSpec extends Specification {
+  section("integration")
   "Thank You" should {
     "present 'Thank You' page" in new WithBrowser with BrowserMatchers {
       browser.goTo("/thankyou/apply-carers")
@@ -95,7 +96,6 @@ class ThankYouIntegrationSpec extends Specification {
       thankYouPage must not contain messagesApi("evidence.otherMoney.statutorySickPay")
       thankYouPage must not contain messagesApi("evidence.otherMoney.otherStatutoryPay")
     }
-
   }
   section("integration")
 }

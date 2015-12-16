@@ -2,10 +2,10 @@ package controllers.s_about_you
 
 import utils.WithApplication
 import controllers.mappings.Mappings
-import models.{DayMonthYear, NationalInsuranceNumber}
 import org.specs2.mutable._
 
 class GContactDetailsFormSpec extends Specification {
+  section ("unit", models.domain.ContactDetails.id)
   "Contact Details Form" should {
     val addressLineOne = "101 Clifton Street"
     val addressLineTwo = "Blackpool"
@@ -54,7 +54,6 @@ class GContactDetailsFormSpec extends Specification {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-
   }
   section ("unit", models.domain.ContactDetails.id)
 }

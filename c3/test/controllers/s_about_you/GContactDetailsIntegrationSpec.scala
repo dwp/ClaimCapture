@@ -6,19 +6,19 @@ import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_about_you._
-import utils.pageobjects.{TestData, ClaimPageFactory, PageObjects}
+import utils.pageobjects.{TestData, PageObjects}
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import org.openqa.selenium.By
 import utils.helpers.PreviewField._
 
 class GContactDetailsIntegrationSpec extends Specification {
+  section("integration", models.domain.AboutYou.id)
   "Contact Details" should {
-    "be presented" in new WithJsBrowser with PageObjects{
+    "be presented" in new WithJsBrowser with PageObjects {
 			val page =  GContactDetailsPage(context)
       page goToThePage()
     }
 
-    "contain error if address not filled in" in new WithJsBrowser with PageObjects{
+    "contain error if address not filled in" in new WithJsBrowser with PageObjects {
       val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.AboutYouAddress = ""
@@ -31,7 +31,7 @@ class GContactDetailsIntegrationSpec extends Specification {
 
     }
 
-    "valid submission if 'Contact phone or mobile number' not filled in" in new WithJsBrowser with PageObjects{
+    "valid submission if 'Contact phone or mobile number' not filled in" in new WithJsBrowser with PageObjects {
       val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.HowWeContactYou = ""
@@ -43,7 +43,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
     }
 
-    "valid submission if 'Contact phone or mobile number' is filled in with number" in new WithJsBrowser with PageObjects{
+    "valid submission if 'Contact phone or mobile number' is filled in with number" in new WithJsBrowser with PageObjects {
       val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
@@ -54,7 +54,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
     }
 
-    "contain error if 'Contact number' is filled in with text" in new WithJsBrowser with PageObjects{
+    "contain error if 'Contact number' is filled in with text" in new WithJsBrowser with PageObjects {
       val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.HowWeContactYou = "I do not have contact number"
@@ -66,7 +66,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       errors(0) must contain("Contact number - Invalid value")
     }
 
-    "contain error if 'Contact number' is field length less than min length" in new WithJsBrowser with PageObjects{
+    "contain error if 'Contact number' is field length less than min length" in new WithJsBrowser with PageObjects {
       val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.HowWeContactYou = "012345"
@@ -78,7 +78,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       errors(0) must contain("Contact number - Invalid value")
     }
 
-    "navigate to next page on valid submission" in new WithJsBrowser with PageObjects{
+    "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {
 			val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
@@ -89,7 +89,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
     }
 
-    "be able to navigate back " in new WithJsBrowser  with PageObjects{
+    "be able to navigate back " in new WithJsBrowser with PageObjects {
       val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
@@ -105,8 +105,7 @@ class GContactDetailsIntegrationSpec extends Specification {
     }
 
 
-    "Modify address from preview page" in new WithJsBrowser with PageObjects{
-
+    "Modify address from preview page" in new WithJsBrowser with PageObjects {
       val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
@@ -136,8 +135,7 @@ class GContactDetailsIntegrationSpec extends Specification {
 
     }
 
-    "Modify contact number from preview page" in new WithJsBrowser with PageObjects{
-
+    "Modify contact number from preview page" in new WithJsBrowser with PageObjects {
       val page =  GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
@@ -193,7 +191,6 @@ class GContactDetailsIntegrationSpec extends Specification {
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "Yes - myemail@website.com"
     }
-
   }
   section("integration", models.domain.AboutYou.id)
 }

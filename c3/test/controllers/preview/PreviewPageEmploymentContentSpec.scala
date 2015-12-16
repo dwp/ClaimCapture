@@ -8,12 +8,10 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_employment.GEmploymentPage
 
-
 class PreviewPageEmploymentContentSpec extends Specification {
-
+  section("preview")
   "Preview Page" should {
-    "display employment data" in new WithBrowser with PageObjects{
-
+    "display employment data" in new WithBrowser with PageObjects {
       fillEmploymentSection(context)
       val page =  PreviewPage(context)
       page goToThePage()
@@ -30,10 +28,9 @@ class PreviewPageEmploymentContentSpec extends Specification {
       source must contain("Some type of business")
     }
   }
-section("preview")
+  section("preview")
 
   def fillEmploymentSection (context:PageObjectsContext) = {
-
     val employmentData = ClaimScenarioFactory.s7Employment()
     val selfEmploymentData = ClaimScenarioFactory.s9SelfEmployment
 
@@ -70,7 +67,5 @@ section("preview")
     beenEmployedPage fillPageWith employmentData
 
     beenEmployedPage submitPage()
-
   }
-
 }

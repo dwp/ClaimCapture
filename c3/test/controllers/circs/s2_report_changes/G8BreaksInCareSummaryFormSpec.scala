@@ -2,17 +2,11 @@ package controllers.circs.s2_report_changes
 
 import utils.WithApplication
 import org.specs2.mutable._
-import app.CircsBreaksWhereabouts
 import scala.Predef._
-import models.DayMonthYear
-import controllers.mappings.Mappings
-import models.yesNo.{YesNoDontKnowWithDates, YesNoWithDateTimeAndText, RadioWithText}
-
 
 class G8BreaksInCareSummaryFormSpec extends Specification {
-
+  section("unit", models.domain.CircumstancesAddressChange.id)
   "Report a change in your circumstances - Breaks from caring summary Form" should {
-
     val yes = "yes"
     val no = "no"
 

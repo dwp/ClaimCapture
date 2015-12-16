@@ -7,14 +7,14 @@ import models.view.{CachedClaim, ClaimHandling}
 import models.{DayMonthYear, NationalInsuranceNumber}
 import org.specs2.mutable._
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.save_for_later.{GSaveForLaterResumePage}
+import utils.pageobjects.save_for_later.GSaveForLaterResumePage
 import utils.pageobjects.{Page, PageObjects, PageObjectsContext}
 import utils.{SaveForLaterEncryption, WithJsBrowser}
 import views.html.helper
 import scala.concurrent.duration._
 
 class GSaveForLaterResumeIntegrationSpec extends Specification {
-
+  section("integration", models.domain.AboutYou.id)
   "Save for later resume page" should {
     "be shown after opening resume link with ok claim uuid" in new WithJsBrowser with PageObjects {
       // Inject the saved claim directly to cache
@@ -68,7 +68,6 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
     }
   }
   section("integration", models.domain.AboutYou.id)
-
 
   def loadClaimData(context:PageObjectsContext):Page = {
     val claimDatePage = GClaimDatePage(context)

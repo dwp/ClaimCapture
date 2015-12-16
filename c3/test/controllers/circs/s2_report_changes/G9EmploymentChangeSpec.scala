@@ -1,6 +1,5 @@
 package controllers.circs.s2_report_changes
 
-
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
@@ -59,7 +58,8 @@ class G9EmploymentChangeSpec extends Specification {
     "typeOfWork.selfEmployedTotalIncome" -> dontknow
   )
 
- "Report a change in your circumstances - Employment - Controller" should {
+  section("unit", models.domain.CircumstancesReportChanges.id)
+  "Report a change in your circumstances - Employment - Controller" should {
    "present 'CoC Employment Changes'" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 

@@ -3,24 +3,21 @@ package xml
 import models.domain._
 import models.view.CachedClaim
 import org.specs2.mutable._
-import app.StatutoryPaymentFrequency
 import models.DayMonthYear
 import org.joda.time.DateTime
 import models.PaymentFrequency
 import models.domain.Claim
 import utils.WithApplication
-import scala.Some
-import models.yesNo.{YesNoWith1MandatoryFieldOnYes, YesNoWith2MandatoryFieldsOnYes, YesNo, YesNoWithText}
+import models.yesNo.{YesNoWith1MandatoryFieldOnYes, YesNoWith2MandatoryFieldsOnYes, YesNoWithText}
 import xml.claim.AssistedDecision
-
 
 class AssistedDecisionSpec extends Specification {
 
   val whenGetPaid = "Monday"
   val employerOwesYouMoney = Some("no")
 
+  section("unit")
   "Assisted section" should {
-
     "Create an assisted decision section if care less than 35 hours" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare("no")
       val residency = NationalityAndResidency(nationality = "British", actualnationality=None, resideInUK = YesNoWithText("yes", None))
@@ -397,6 +394,5 @@ class AssistedDecisionSpec extends Specification {
     }
 
   }
-section("unit")
-
+  section("unit")
 }

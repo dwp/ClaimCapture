@@ -6,6 +6,7 @@ import org.specs2.mutable._
 import models.DayMonthYear
 
 class G2SelfEmploymentFormSpec extends Specification {
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
   "Report a change in your circumstances - Self employment Form" should {
     val yes = "yes"
     val no = "no"
@@ -155,7 +156,6 @@ class G2SelfEmploymentFormSpec extends Specification {
           f => "This mapping should not happen." must equalTo("Valid")
         )
     }
-
   }
   section("unit", models.domain.CircumstancesSelfEmployment.id)
 }

@@ -82,9 +82,9 @@ class G10StartedEmploymentAndOngoingSpec extends Specification {
     "moreAboutChanges" -> moreInfo
   )
 
+  section("unit", models.domain.CircumstancesReportChanges.id)
   "Report an Employment change in your circumstances where the employment is ongoing - Employment - Controller" should {
     "present 'CoC Ongoing Employment Change'" in new WithApplication(app = LightFakeApplication.faCEATrue) with MockForm {
-
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
       val result = G10StartedEmploymentAndOngoing.present(request)
@@ -92,7 +92,6 @@ class G10StartedEmploymentAndOngoingSpec extends Specification {
     }
 
     "redirect to the next page after valid submission of weekly on going employment" in new WithApplication(app = LightFakeApplication.faCEATrue) with MockForm {
-
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validOngoingWeeklyPaymentEmployment: _*)
 
@@ -101,7 +100,6 @@ class G10StartedEmploymentAndOngoingSpec extends Specification {
     }
 
     "redirect to the next page after valid submission of monthly on going employment" in new WithApplication(app = LightFakeApplication.faCEATrue) with MockForm {
-
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validOngoingMonthlyPaymentEmployment: _*)
 
@@ -110,7 +108,6 @@ class G10StartedEmploymentAndOngoingSpec extends Specification {
     }
 
     "redirect to the next page after valid submission of other on going employment" in new WithApplication(app = LightFakeApplication.faCEATrue) with MockForm {
-
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validOngoingOtherPaymentEmployment: _*)
 
@@ -119,7 +116,6 @@ class G10StartedEmploymentAndOngoingSpec extends Specification {
     }
 
     "raise errors and stay same page if mandatory fields missing" in new WithApplication(app = LightFakeApplication.faCEATrue) with MockForm {
-
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(invalidOngoingOtherPaymentEmployment: _*)
 

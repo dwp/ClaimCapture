@@ -4,14 +4,7 @@ import org.specs2.mutable._
 import utils.WithBrowser
 import controllers.{Formulate, BrowserMatchers}
 
-class GEmploymentIntegrationSpec extends Specification {
-//  "Employment - Integration" should {
-//    "test only" in new WithApplication {
-//
-//    }
-//  }
-//  section("integration", models.domain.Employed.id)
-}
+class GEmploymentIntegrationSpec extends Specification
 
 trait EmployedSinceClaimDate extends BrowserMatchers {
   this: WithBrowser[_] =>

@@ -35,6 +35,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
     Some("PL18 1AB"), OptYesNoWithText(None, None), YesNoWithAddress(Some("No"),
       Some(MultiLineAddress(Some("121"), Some("Fake Street"), None)), None), None)
 
+  section("unit")
   "ClaimEncryption Integration Spec" should {
     "Claim must be encrypted before entering the cache" in new WithApplication with MockForm {
         val encryptedCacheHandling = new EncryptedCacheHandling(){
@@ -121,7 +122,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
       claim.questionGroup[YourPartnerPersonalDetails] mustEqual claimFromCache.questionGroup[YourPartnerPersonalDetails]
       claim.questionGroup[CircumstancesAddressChange] mustEqual claimFromCache.questionGroup[CircumstancesAddressChange]
       claim.questionGroup[CircumstancesPaymentChange] mustEqual claimFromCache.questionGroup[CircumstancesPaymentChange]
-
     }
   }
+  section("unit")
 }

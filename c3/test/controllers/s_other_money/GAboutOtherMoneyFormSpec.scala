@@ -5,6 +5,7 @@ import models.{MultiLineAddress, PaymentFrequency}
 import utils.WithApplication
 
 class GAboutOtherMoneyFormSpec extends Specification {
+  section ("unit", models.domain.OtherMoney.id)
   "Other Money Form" should {
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"

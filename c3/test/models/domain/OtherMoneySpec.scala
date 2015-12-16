@@ -7,7 +7,6 @@ import org.specs2.mutable._
 import utils.WithApplication
 
 class OtherMoneySpec extends Specification {
-
   def withoutStatutoryPayments = AboutOtherMoney(YesNo(""), None, None, None,
     YesNoWithEmployerAndMoney(Mappings.no, None, None, None, None, None),
     YesNoWithEmployerAndMoney(Mappings.no, None, None, None, None, None))
@@ -18,8 +17,8 @@ class OtherMoneySpec extends Specification {
   def claimWithoutStatutoryPayments = claimWithNoOtherMoney.update(withoutStatutoryPayments)
   def claimWithStatutoryPayments = claimWithNoOtherMoney.update(withStatutoryPayments)
 
+  section("unit")
   "OtherMoney section" should {
-
     "tell whether the individual receives statutory sick pay" in new WithApplication {
       OtherMoney.receivesStatutorySickPay(claimWithNoOtherMoney) mustEqual false
       OtherMoney.receivesStatutorySickPay(claimWithoutStatutoryPayments) mustEqual false
@@ -31,7 +30,6 @@ class OtherMoneySpec extends Specification {
       OtherMoney.receivesOtherStatutoryPay(claimWithoutStatutoryPayments) mustEqual false
       OtherMoney.receivesOtherStatutoryPay(claimWithStatutoryPayments) mustEqual true
     }
-
   }
-
+  section("unit")
 }

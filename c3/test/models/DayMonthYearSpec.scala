@@ -9,6 +9,7 @@ import utils.WithApplication
 import scala.util.Try
 
 class DayMonthYearSpec extends Specification {
+  section("unit")
   "DayMonthYear" should {
     "return the correct 'yyyy-MM-dd' date format" in new WithApplication {
       val dmy = DayMonthYear(1, 1, 1963)
@@ -163,6 +164,6 @@ class DayMonthYearSpec extends Specification {
       val decryptedDmy = dmy.decrypt
       dmy mustEqual decryptedDmy
     }
-
   }
+  section("unit")
 }

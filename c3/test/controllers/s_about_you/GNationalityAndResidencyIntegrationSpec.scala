@@ -16,6 +16,7 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
   val submitButton = "button[type='submit']"
   val errorDiv = "div[class=validation-summary] ol li"
 
+  section("integration", models.domain.AboutYou.id)
   "Nationality and Residency" should {
     "be presented" in new WithJsBrowser with PageObjects{
 			val page =  GNationalityAndResidencyPage(context)
@@ -111,8 +112,6 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "Yes"
     }
-
-
   }
   section("integration", models.domain.AboutYou.id)
 
@@ -132,5 +131,4 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
     val previewPage = PreviewPage(context)
     previewPage goToThePage()
   }
-
 }

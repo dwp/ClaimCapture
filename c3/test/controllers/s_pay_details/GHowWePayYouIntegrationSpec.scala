@@ -7,11 +7,12 @@ import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s_about_you.{GNationalityAndResidencyPage, GAbroadForMoreThan52WeeksPage, GOtherEEAStateOrSwitzerlandPage}
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_other_money._
-import utils.pageobjects.s_pay_details.{ GHowWePayYouPage}
+import utils.pageobjects.s_pay_details.GHowWePayYouPage
 import utils.pageobjects.s_information.GAdditionalInfoPage
 import utils.pageobjects.{Page, TestData, PageObjects, PageObjectsContext}
 
 class GHowWePayYouIntegrationSpec extends Specification {
+  section("integration", models.domain.PayDetails.id)
   "Pay details" should {
     "be presented" in new WithBrowser with PageObjects {
       val page = GAboutOtherMoneyPage(context)
@@ -101,7 +102,6 @@ class GHowWePayYouIntegrationSpec extends Specification {
     }
 
     "show bank page when claimant is less than 65 years at the claim date" in new WithBrowser with PageObjects {
-
       val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = new TestData
@@ -118,8 +118,7 @@ class GHowWePayYouIntegrationSpec extends Specification {
   }
   section("integration", models.domain.PayDetails.id)
 
-  def goToHowWePayYouPage(context:PageObjectsContext, aboutYouPage:Page):Page = {
-
+  def goToHowWePayYouPage(context:PageObjectsContext, aboutYouPage:Page): Page = {
       val page = aboutYouPage
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
 

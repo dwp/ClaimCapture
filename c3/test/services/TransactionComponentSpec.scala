@@ -4,7 +4,7 @@ import org.specs2.mutable._
 import play.api.i18n.Lang
 
 class TransactionComponentSpec extends Specification {
-
+  section("unit")
   "Transaction component" should {
     val transactionComponent = new ClaimTransactionComponent {
       override val claimTransaction = new ClaimTransaction()
@@ -21,18 +21,15 @@ class TransactionComponentSpec extends Specification {
     }
 
     "successfully register an ID" in new WithApplicationAndDB {
-
       val id = DBTests.newId
 
       transactionComponent.claimTransaction.registerId(id, "0002", 1, 1)
       transactionComponent.claimTransaction.recordMi(id, thirdParty = false, circsChange = Some(1), Some(Lang("en")))
 
       transactionComponent.claimTransaction.getTransactionStatusById(id) mustEqual Some(TransactionStatus(id, "0002", 1, Some(0), Some(1), Some("en")))
-
     }
 
     "update an existing ID" in new WithApplicationAndDB {
-
       val id = DBTests.newId
       transactionComponent.claimTransaction.registerId(id, "0002", 1, 1)
       transactionComponent.claimTransaction.recordMi(id, thirdParty = false, None, Some(Lang("en")))
@@ -45,8 +42,7 @@ class TransactionComponentSpec extends Specification {
       transactionStatusUpdated mustNotEqual Some(existingId)
       transactionStatusUpdated mustEqual Some(TransactionStatus(id, "0001", 0, Some(0), None, Some("en")))
     }
-
   }
-
+  section("unit")
 }
 

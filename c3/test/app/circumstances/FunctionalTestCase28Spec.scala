@@ -9,9 +9,9 @@ import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XML
 class FunctionalTestCase28Spec extends FunctionalTestCommon {
   isolated
 
+  section("functional")
   "The application Circumstances" should {
     "Successfully run absolute Circumstances Test Case 28 for payment change" in new WithJsBrowser with PageObjects {
-
       val page = G1ReportChangesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase28.csv")
       page goToThePage()
@@ -27,5 +27,5 @@ class FunctionalTestCase28Spec extends FunctionalTestCommon {
       }
     }
   }
-section("functional")
+  section("functional")
 }

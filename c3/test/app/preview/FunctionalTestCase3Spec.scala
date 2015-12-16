@@ -6,12 +6,11 @@ import utils.pageobjects._
 import app.FunctionalTestCommon
 import utils.pageobjects.preview.PreviewPage
 
-
 class FunctionalTestCase3Spec extends FunctionalTestCommon {
   isolated
 
+  section ("functional","preview")
   "The application Claim" should {
-
     "Successfully run absolute Claim Test Case 3" in new WithJsBrowser with PageObjects {
       import Data.displaying
 
@@ -44,9 +43,7 @@ class FunctionalTestCase3Spec extends FunctionalTestCommon {
       )
 
       toFindData.assertReview(claim, context) must beTrue
-
     }
-
   }
   section ("functional","preview")
 }

@@ -78,6 +78,7 @@ class G11StartedAndFinishedEmploymentSpec extends Specification {
     "moreAboutChanges" -> moreInfo
   )
 
+  section("unit", models.domain.CircumstancesReportChanges.id)
   "Report an Employment change in your circumstances where the employment is finished - Employment Controller" should {
     "present 'CoC Finished Employment Change'" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
 
@@ -114,7 +115,6 @@ class G11StartedAndFinishedEmploymentSpec extends Specification {
       val result = G11StartedAndFinishedEmployment.submit(request)
       redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
     }
-
   }
   section("unit", models.domain.CircumstancesReportChanges.id)
 }

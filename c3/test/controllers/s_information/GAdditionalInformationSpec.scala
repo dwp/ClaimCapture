@@ -14,6 +14,7 @@ class GAdditionalInformationSpec extends Specification {
     "welshCommunication" -> "yes"
   )
 
+  section("unit", models.domain.AdditionalInfo.id)
   "Additional information" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
@@ -37,5 +38,5 @@ class GAdditionalInformationSpec extends Specification {
       redirectLocation(result) must beSome("/preview")
     }
   }
-  section("unit", models.domain.ConsentAndDeclaration.id)
+  section("unit", models.domain.AdditionalInfo.id)
 }

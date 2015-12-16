@@ -26,6 +26,7 @@ class G1DeclarationSpec extends Specification {
     "wantsEmailContactCircs" -> wantsEmailContact)
   val declartionInputWithoutSomeOne = Seq("furtherInfoContact" -> byPost, "obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> why, "circsSomeOneElse" -> "")
 
+  section("unit", models.domain.CircumstancesConsentAndDeclaration.id)
   "Circumstances - OtherChangeInfo - Controller" should {
     "present 'Other Change Information' " in new WithApplication(app = LightFakeApplication.fa) with MockForm {
       val G1Declaration = current.injector.instanceOf[G1Declaration]
@@ -58,7 +59,6 @@ class G1DeclarationSpec extends Specification {
       val result = G1Declaration.submit(request)
       redirectLocation(result) must beSome("/circs-async-submitting")
     }
-
   }
   section("unit", models.domain.CircumstancesConsentAndDeclaration.id)
 }

@@ -40,6 +40,7 @@ class ClaimEncryptionSpec extends Specification {
     Section(CircumstancesReportChanges, List(circumstancesPaymentChange, circumstancesAddressChange))
   ))
 
+  section("unit")
   "ClaimEncryption" should {
     "Encrypt the Claim object" in new WithApplication {
       val encryptedClaim = ClaimEncryption.encrypt(claim)
@@ -178,5 +179,5 @@ class ClaimEncryptionSpec extends Specification {
       decryptedUuid mustEqual claim.uuid
     }
   }
-
+  section("unit")
 }

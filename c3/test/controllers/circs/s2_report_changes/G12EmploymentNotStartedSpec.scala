@@ -70,6 +70,7 @@ class G12EmploymentNotStartedSpec extends Specification {
       "moreAboutChanges" -> moreInfo
     )
 
+    section("unit", models.domain.CircumstancesSelfEmployment.id)
     "Report an Employment change in your circumstances where the employment is ongoing - Employment - Controller" should {
       "present 'CoC Future Employment Change'" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
 

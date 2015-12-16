@@ -7,13 +7,13 @@ import play.api.test.Helpers._
 import models.view.CachedClaim
 import utils.WithApplication
 
-
 class GEmploymentAdditionalInfoSpec extends Specification {
   val employmentAdditionalInfoInput = Seq("empAdditionalInfo.answer" -> "yes", "empAdditionalInfo.text" -> "I do not have much info")
   val employmentAdditionalInfoInputNoText = Seq("empAdditionalInfo.answer" -> "yes")
   val employmentAdditionalInfoInputNo = Seq("empAdditionalInfo.answer" -> "no")
 
-  "Employment " should {
+  section("unit", models.domain.EmploymentAdditionalInfo.id)
+  "Employment" should {
     "present Additional information" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
       val result = GEmploymentAdditionalInfo.present(request)
@@ -48,4 +48,5 @@ class GEmploymentAdditionalInfoSpec extends Specification {
       status(result) mustEqual SEE_OTHER
     }
   }
+  section("unit", models.domain.EmploymentAdditionalInfo.id)
 }

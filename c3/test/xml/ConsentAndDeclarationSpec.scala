@@ -8,6 +8,7 @@ import xml.circumstances.Declaration
 class ConsentAndDeclarationSpec extends Specification {
   val otherInfo = "Some other info"
 
+  section("unit")
   "Consent and Declaration" should {
     val infoAgreement: String = "no"
     val confirmation: String = "yes"
@@ -21,5 +22,5 @@ class ConsentAndDeclarationSpec extends Specification {
     }.pendingUntilFixed("Schema changes: Needs to implement the new Declaration and Evidence structure")
 
   }
-section("unit")
+  section("unit")
 }

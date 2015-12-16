@@ -15,6 +15,7 @@ class GNationalityAndResidencySpec extends Specification {
   val inputAnotherCountryMissingData = Seq("nationality" -> "Another nationality", "resideInUK.answer" -> "yes")
   val inputAnotherCountryMissingData2 = Seq("nationality" -> "British", "resideInUK.answer" -> "no")
 
+  section("unit", models.domain.AboutYou.id)
   "Your nationality and residency" should {
     """present Your nationality and residency""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)

@@ -60,9 +60,9 @@ class G5PaymentChangeSpec extends Specification {
     "moreAboutChanges" -> ""
   )
 
+  section("unit", models.domain.CircumstancesReportChanges.id)
   "Report a change in your circumstances - Change in circumstances - Controller" should {
     "present 'CoC Report Changes' " in new WithApplication with MockForm {
-
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
       val result = G5PaymentChange.present(request)
@@ -70,7 +70,6 @@ class G5PaymentChangeSpec extends Specification {
     }
 
     "redirect to the next page after a valid submission when 'yes' answered to currently paid into bank " in new WithApplication with MockForm {
-
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validPaymentChangeFormInputScenario1: _*)
 
@@ -79,7 +78,6 @@ class G5PaymentChangeSpec extends Specification {
     }
 
     "redirect to the next page after a valid submission when 'no' answered to currently paid into bank " in new WithApplication with MockForm {
-
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validPaymentChangeFormInputScenario2: _*)
 

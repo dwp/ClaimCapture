@@ -5,7 +5,6 @@ import controllers.circs.s1_start_of_process
 import models.domain._
 import models.view.CachedChangeOfCircs
 import org.specs2.mutable.Specification
-
 import play.api.test.Helpers._
 import utils.WithApplication
 import play.api.test.FakeRequest
@@ -20,6 +19,7 @@ class G1ReportChangesSpec extends Specification {
     "reportChanges" -> AdditionalInfo.name
   )
 
+  section("unit", models.domain.CircumstancesReportChanges.id)
   "Report a change in your circumstances - Change in circumstances - Controller" should {
     "present 'CoC Report Changes' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
