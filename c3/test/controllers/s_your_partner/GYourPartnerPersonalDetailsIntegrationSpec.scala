@@ -30,7 +30,6 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification {
     }
 
     "contain errors 'when have you lived with a partner is yes' on invalid submission" in new WithBrowser with PageObjects {
-
       val nationalityPage =  GNationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
       claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = MaritalStatus.Married
@@ -54,7 +53,6 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification {
     }
 
     "navigate to next page on valid submission" in new WithBrowser with PageObjects {
-
       val nationalityPage =  GNationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
       claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = MaritalStatus.Married
@@ -73,7 +71,6 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification {
       val theirPersonaDetailsPage = partnerPage submitPage()
 
       theirPersonaDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
-
     }
 
     "navigate to next page 'when have you lived with a partner is no' on valid submission" in new WithBrowser with PageObjects {
@@ -86,7 +83,6 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification {
       val theirPersonaDetailsPage = partnerPage submitPage()
 
       theirPersonaDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
-
     }
 
     "navigate back to 'Payments from abroad and working abroad' page " in new WithBrowser with PageObjects {
@@ -109,10 +105,6 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification {
       theirPersonaDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
       theirPersonaDetailsPage goBack() must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
     }
-
   }
   section("integration", models.domain.YourPartner.id)
-
-
-
 }

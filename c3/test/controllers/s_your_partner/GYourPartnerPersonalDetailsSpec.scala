@@ -5,7 +5,6 @@ import models.{DayMonthYear, NationalInsuranceNumber, domain}
 import org.specs2.mutable._
 import play.api.test.Helpers._
 import play.api.test.{ FakeRequest}
-import controllers.{Formulate, BrowserMatchers}
 import controllers.s_about_you.{GMaritalStatus, GNationalityAndResidency}
 import models.view.CachedClaim
 import utils.WithApplication
@@ -33,7 +32,7 @@ class GYourPartnerPersonalDetailsSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "nationality" -> nationality,
+          "partner.nationality" -> nationality,
           "liveAtSameAddress" -> liveAtSameAddress,
           "separated.fromPartner" -> separatedFromPartner,
           "isPartnerPersonYouCareFor" -> "yes",

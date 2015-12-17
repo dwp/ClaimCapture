@@ -38,7 +38,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     "otherNames" -> optional(carersText(maxLength = Name.maxLength)),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> optional(dayMonthYear.verifying(validDate)),
-    "nationality" -> optional(text.verifying(validNationality)),
+    "partner.nationality" -> optional(text.verifying(validNationality)),
     "separated.fromPartner" -> optional(nonEmptyText.verifying(validYesNo)),
     "isPartnerPersonYouCareFor" -> optional(nonEmptyText.verifying(validYesNo)),
     "hadPartnerSinceClaimDate" -> nonEmptyText.verifying(validYesNo)
@@ -50,7 +50,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     .verifying("dateOfBirth.required", YourPartnerPersonalDetails.validateDateOfBirth _)
     .verifying("separated.fromPartner.required", YourPartnerPersonalDetails.validateSeperatedFromPartner _)
     .verifying("isPartnerPersonYouCareFor.required", YourPartnerPersonalDetails.validatePartnerPersonYoucareFor _)
-    .verifying("nationality.required", YourPartnerPersonalDetails.validateNationalityIfPresent _)
+    .verifying("partner.nationality.required", YourPartnerPersonalDetails.validateNationalityIfPresent _)
   )
 
   def present:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
@@ -72,7 +72,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
           .replaceError("", "dateOfBirth.required", FormError("dateOfBirth", errorRequired))
           .replaceError("", "separated.fromPartner.required", FormError("separated.fromPartner", errorRequired))
           .replaceError("", "isPartnerPersonYouCareFor.required", FormError("isPartnerPersonYouCareFor", errorRequired))
-          .replaceError("", "nationality.required", FormError("nationality", errorRequired))
+          .replaceError("", "partner.nationality.required", FormError("partner.nationality", errorRequired))
         BadRequest(views.html.s_your_partner.g_yourPartnerPersonalDetails(formWithErrorsUpdate))
       },
       f => {

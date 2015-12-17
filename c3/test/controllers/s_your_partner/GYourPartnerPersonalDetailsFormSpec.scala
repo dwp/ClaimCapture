@@ -5,7 +5,6 @@ import controllers.mappings.Mappings
 import models.view.CachedClaim
 import org.specs2.mutable._
 import models.{ NationalInsuranceNumber, DayMonthYear }
-import scala.Some
 
 class GYourPartnerPersonalDetailsFormSpec extends Specification {
 
@@ -33,7 +32,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "nationality" -> nationality,
+          "partner.nationality" -> nationality,
           "separated.fromPartner" -> separatedFromPartner,
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
@@ -63,7 +62,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "nationality" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
+          "partner.nationality" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "separated.fromPartner" -> separatedFromPartner,
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
@@ -89,7 +88,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
             formWithErrors.errors(3).message must equalTo("dateOfBirth.required")
             formWithErrors.errors(4).message must equalTo("separated.fromPartner.required")
             formWithErrors.errors(5).message must equalTo("isPartnerPersonYouCareFor.required")
-            formWithErrors.errors(6).message must equalTo("nationality.required")
+            formWithErrors.errors(6).message must equalTo("partner.nationality.required")
           },
           theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -114,7 +113,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "nationality" -> nationality,
+          "partner.nationality" -> nationality,
           "separated.fromPartner" -> separatedFromPartner,
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
@@ -136,7 +135,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> "12345",
-          "nationality" -> nationality,
+          "partner.nationality" -> nationality,
           "separated.fromPartner" -> separatedFromPartner,
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
@@ -158,7 +157,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "nationality" -> "United States",
+          "partner.nationality" -> "United States",
           "separated.fromPartner" -> separatedFromPartner,
           "hadPartnerSinceClaimDate" -> "yes")).fold(
         formWithErrors => {
@@ -178,7 +177,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "nationality" -> "United States",
+          "partner.nationality" -> "United States",
           "separated.fromPartner" -> separatedFromPartner,
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
@@ -199,7 +198,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "nationality" -> "a123456",
+          "partner.nationality" -> "a123456",
           "separated.fromPartner" -> separatedFromPartner,
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
@@ -221,7 +220,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "nationality" -> "a!@£$%^&*(){}",
+          "partner.nationality" -> "a!@£$%^&*(){}",
           "separated.fromPartner" -> separatedFromPartner,
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
@@ -243,7 +242,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "nationality" -> "United States",
+          "partner.nationality" -> "United States",
           "separated.fromPartner" -> separatedFromPartner,
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
