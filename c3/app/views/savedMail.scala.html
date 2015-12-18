@@ -1,4 +1,6 @@
-@(claim: models.domain.Claim)(implicit lang:Lang, messages: play.api.i18n.Messages)
+@(claim: models.domain.Claim, request: Request[AnyContent])(implicit lang:Lang, messages: play.api.i18n.Messages)
+
+@environmentPath=@{"http" + (if(request.secure)"s" else "") + "://" + request.host}
 
 <!DOCTYPE html>
 <!--[if IE 7]>         <html class="ie ie7" lang="en"> <![endif]-->
@@ -58,7 +60,7 @@
                 <div class="section">
                     <h2>@Html(messages("savedMail.next.title"))</h2>                    
 
-                    <p>@Html(messages("savedMail.resumelink", helper.urlEncode(claim.getEncryptedUuid)))</p>
+                    <p>@Html(messages("savedMail.resumelink", environmentPath, helper.urlEncode(claim.getEncryptedUuid)))</p>
                     <p>@Html(messages("savedMail.next.line2"))</p>
                 </div>
                 <div class="section">
