@@ -38,8 +38,7 @@ object GSaveForLater extends Controller with CachedClaim with Navigable with I18
   def createSaveForLaterMap(parameters: Map[String, Seq[String]]) = {
     parameters.map { case (k, v) => {
       k match {
-        case "csrfToken" => k
-        case "action" => k
+        case "csrfToken" | "action" | "jsEnabled" => k
         case _ => CarersCrypto.decryptAES(k)
       }
     } -> v.mkString
