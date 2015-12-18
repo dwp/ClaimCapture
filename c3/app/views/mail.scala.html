@@ -1,9 +1,7 @@
 @(claim:models.domain.Claim, isClaim:Boolean,isEmployment:Boolean)(implicit lang:Lang, messages: play.api.i18n.Messages)
-@import controllers.circs.s2_report_changes.G9EmploymentChange
 
-@import scala.io._
+@import controllers.circs.s2_report_changes.G9EmploymentChange
 @import models.domain._
-@import controllers.mappings.Mappings
 @import app.ConfigProperties._
 
 @claimType = @{if (isClaim)"claim" else "cofc"}
@@ -86,7 +84,7 @@
 
             <div class="wrapper logo">
                 <font face="arial, sans-serif">
-                    <img width="35" height="31" src="https://assets.digital.cabinet-office.gov.uk/static/gov.uk_logotype_crown-c09acb07e4d1d5d558f5a0bc53e9e36d.png" style="display: inline-block; vertical-align: middle; margin-right: 5px;" />
+                    <img width="35" height="31" src="https://www.carersallowance.service.gov.uk/assets/images/crown.png" style="display: inline-block; vertical-align: middle; margin-right: 5px;" />
                     <div class="crown" style="display: inline-block; vertical-align: middle; font-size: 30px; color: white; text-decoration: none;">
                         GOV&#8203;.&#8203;UK
                     </div>
