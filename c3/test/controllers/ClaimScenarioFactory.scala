@@ -32,6 +32,22 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s12ClaimDateInFuture() = {
+    val claim = new TestData
+    claim.ClaimDateDidYouCareForThisPersonfor35Hours = "No"
+    claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/01/2099"
+
+    claim
+  }
+
+  def s12ClaimDateInPast() = {
+    val claim = new TestData
+    claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/01/2015"
+
+    claim
+  }
+
+
   def yourDetailsWithNotTimeOutside() = {
     val claim = s12ClaimDate()
     claim.AboutYouTitle = "Mr"
