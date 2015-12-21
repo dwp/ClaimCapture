@@ -4,7 +4,7 @@ import play.api.Play._
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import models.view.CachedClaim
 import models.domain._
@@ -23,7 +23,7 @@ object GAdditionalInfo extends Controller with CachedClaim with Navigable with I
       "answer" -> nonEmptyText.verifying(validYesNo),
       "text" -> optional(carersText(maxLength = 2000))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("required", YesNoWithText.validateOnYes _)
+      .verifying("text.required", YesNoWithText.validateOnYes _)
 
   val form = Form(mapping(
     anythingElseMapping,
@@ -36,7 +36,10 @@ object GAdditionalInfo extends Controller with CachedClaim with Navigable with I
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s_information.g_additionalInfo(formWithErrors)),
+      formWithErrors => {
+        val updatedFormWithErrors = formWithErrors.replaceError("anythingElse","text.required",FormError("anythingElse.text",errorRequired))
+        BadRequest(views.html.s_information.g_additionalInfo(updatedFormWithErrors))
+      },
       additionalInfo => claim.update(additionalInfo) -> redirect())
   }
 
