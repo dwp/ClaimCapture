@@ -75,4 +75,13 @@ object SaveForLaterScenarioFactory {
     claim
   }
 
+  def BadResumePageData()={
+    val claim=new TestData()
+    claim.AboutYouFirstName = "Wrong"
+    claim.AboutYouSurname = "Green"
+    claim.AboutYouDateOfBirth = "01/01/1970"
+    claim.AboutYouNINO = "AB123456D"
+
+    claim
+  }
 }

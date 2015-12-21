@@ -87,35 +87,8 @@ class GSaveForLaterSaveIntegrationSpec extends Specification {
       status(result) mustEqual OK
       bodyText must contain( "Enter your details to resume your application")
     }
-
-    "contain cookie for saved application version when resumed" in new WithJsBrowser  with PageObjects{
-      loadClaimData(context)
-/*
-      val page = GContactDetailsPage(context)
-      page goToThePage()
-      page fillPageWith SaveForLaterScenarioFactory.WithEmailSet()
-
-      val nationalityPage = page.clickLinkOrButton("#next")
-      nationalityPage.source must contain("Save for later")
-      nationalityPage.source must contain("id=\"save\"")
-
-      val savePage=nationalityPage.clickLinkOrButton("#save")
-      savePage.url mustEqual GSaveForLaterSavePage.url
-      savePage.source must contain("Your progress has been saved")
-      savePage.source must contain("Continue your application" )
-      savePage.source must contain("id=\"continue\"")
-
-      val nationalityPageAgain=savePage.clickLinkOrButton("#continue")
-
-      browser.goTo("/resume")
-      println("browser source:"+browser.pageSource())
-      println("app version is:"+browser.getCookie(ClaimHandling.C3VERSION).getValue)
-      ( browser.getCookie(ClaimHandling.C3VERSION).getValue == ClaimHandling.C3VERSION_VALUE ) must beTrue
-      */
-    }
   }
-  section("integration", models.domain.AboutYou.id)
-
+  section("integration", "SaveForLater")
 
   def loadClaimData(context:PageObjectsContext):Page = {
     val claimDatePage = GClaimDatePage(context)

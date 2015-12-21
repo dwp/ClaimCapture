@@ -62,5 +62,5 @@ class GSaveForLaterSpec extends Specification {
       bodyText must contain("/resume")
     }
   }
-  section("unit", models.domain.YourPartner.id)
+  section("unit", "SaveForLater")
 }
