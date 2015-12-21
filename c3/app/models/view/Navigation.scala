@@ -2,6 +2,7 @@ package models.view
 
 import play.api.mvc.{Request, Result, AnyContent}
 import models.domain.Claim
+import play.api.routing.Router
 import scala.reflect.ClassTag
 import models.view.ClaimHandling.ClaimResult
 
@@ -40,7 +41,6 @@ trait Navigable {
 
 case class Navigation(routes: List[Route[_]] = List(), beenInPreview: Boolean = false, routesAfterPreview: List[Route[_]] = List.empty[Route[_]], showSaveButton: Boolean = true) {
 
-
   def resetPreviewState(): Navigation = copy(beenInPreview = false)
 
   def track[T](t: T, beenInPreviewParam: Boolean = false)(route: String)(implicit classTag: ClassTag[T]): Navigation = {
@@ -58,19 +58,26 @@ case class Navigation(routes: List[Route[_]] = List(), beenInPreview: Boolean = 
   }
 
   def showSaveButton(route: String) = {
-    // a match case statement would be the scala way here but getting error "stable identifier required during pattern matching". ColinG 03/12/2015.
-    if (route == controllers.s_eligibility.routes.GBenefits.present.url) false
-    else if (route == controllers.s_eligibility.routes.GEligibility.present.url) false
-    else if (route == controllers.s_eligibility.routes.CarersAllowance.approve.url) false
-    else if (route == controllers.s_disclaimer.routes.GDisclaimer.present.url) false
-    else if (route == controllers.s_claim_date.routes.GClaimDate.present.url) false
-    else if (route == controllers.s_about_you.routes.GYourDetails.present.url) false
-    else if (route == controllers.s_about_you.routes.GMaritalStatus.present.url) false
-    else if (route == controllers.s_about_you.routes.GContactDetails.present.url) false
-    else true
+    val router = play.api.Play.current.injector.instanceOf[Router]
+    val pathList = router.documentation.filter(s => s._2 == route && s._1 == "GET").map(_._3).mkString
+    pathList match {
+      case "controllers.s_eligibility.GBenefits.present" |
+           "controllers.s_eligibility.GEligibility.present" |
+           "controllers.s_eligibility.CarersAllowance.approve" |
+           "controllers.s_disclaimer.GDisclaimer.present" |
+           "controllers.s_claim_date.GClaimDate.present" |
+           "controllers.s_about_you.GYourDetails.present" |
+           "controllers.s_about_you.GMaritalStatus.present" |
+           "controllers.s_about_you.GContactDetails.present" => false
+      case _ => true
+    }
   }
 
   def current: Route[_] = if (routes.isEmpty) Route("") else routes.last
+
+  def saveForLaterRoute: Route[_] = {
+    if (routesAfterPreview.isEmpty) current else routesAfterPreview.last
+  }
 
   def previous: Route[_] = {
     val routesList = if (beenInPreview) routesAfterPreview else routes

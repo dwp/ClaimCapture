@@ -4,17 +4,16 @@ import controllers.ClaimScenarioFactory
 import models.view.cache.EncryptedCacheHandling
 import models.{DayMonthYear, NationalInsuranceNumber}
 import models.domain.{YourDetails, Claim, Claiming}
-import models.view.{CachedClaim}
+import models.view.CachedClaim
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{LightFakeApplication, WithApplication, WithJsBrowser}
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.{Page, PageObjectsContext}
-import utils.pageobjects.s_about_you.{GContactDetailsPage}
+import utils.pageobjects.s_about_you.{GNationalityAndResidencyPage, GContactDetailsPage}
 import utils.pageobjects.save_for_later.GSaveForLaterSavePage
 import org.specs2.mutable._
 import utils.pageobjects.PageObjects
-
 
 class GSaveForLaterSaveIntegrationSpec extends Specification {
 
@@ -48,26 +47,14 @@ class GSaveForLaterSaveIntegrationSpec extends Specification {
       nationalityPage.source must contain("Save for later")
       nationalityPage.source must contain("id=\"save\"")
 
-      val savePage=nationalityPage.clickLinkOrButton("#save")
+      val savePage = nationalityPage.clickLinkOrButton("#save")
       savePage.url mustEqual GSaveForLaterSavePage.url
       savePage.source must contain("Your progress has been saved")
       savePage.source must contain("Continue your application" )
       savePage.source must contain("id=\"continue\"")
-
-      /* ODDLY Clicking Continue button causes test to crash
-      println("================ save page ==========")
-      println(savePage.source)
-      val nationalityPageAgain=savePage.clickLinkOrButton("#continue")
-      println( "=================== Nationality page again:")
-      println(nationalityPageAgain.source)
-
-      //
-      // nationalityPageAgain.url mustEqual GNationalityAndResidencyPage.url
-
-      Needs more investigation. ColinG 07/12/15.
-      */
+      val nationalityPageAgain = savePage.clickLinkOrButton("#continue")
+      nationalityPageAgain.url mustEqual GNationalityAndResidencyPage.url
     }
-
 
     "contain link to gov page" in new WithJsBrowser with PageObjects {
       loadClaimData(context)
@@ -100,7 +87,6 @@ class GSaveForLaterSaveIntegrationSpec extends Specification {
       status(result) mustEqual OK
       bodyText must contain( "Enter your details to resume your application")
     }
-
 
     "contain cookie for saved application version when resumed" in new WithJsBrowser  with PageObjects{
       loadClaimData(context)

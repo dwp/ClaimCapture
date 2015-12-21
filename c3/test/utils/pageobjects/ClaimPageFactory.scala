@@ -1,8 +1,7 @@
 package utils.pageobjects
 
-
 import utils.pageobjects.s_breaks.{GBreaksInCarePage, GBreakPage}
-
+import utils.pageobjects.save_for_later.{GSaveForLaterResumePage, GSaveForLaterSavePage}
 import scala.language.dynamics
 import utils.pageobjects.s_eligibility._
 import utils.pageobjects.s_disclaimer._
@@ -48,6 +47,10 @@ object ClaimPageFactory extends PageFactory {
       case GMaritalStatusPage.url => GMaritalStatusPage(ctx)
       case GContactDetailsPage.url => GContactDetailsPage(ctx)
       case GNationalityAndResidencyPage.url => GNationalityAndResidencyPage(ctx)
+      //Save
+      case GSaveForLaterSavePage.url => GSaveForLaterSavePage(ctx)
+      //Resume
+      case GSaveForLaterResumePage.url => GSaveForLaterResumePage(ctx)
     }
     m.orElse[String, Page] {
       IterableNode(Abroad, ctx)(iteration => {

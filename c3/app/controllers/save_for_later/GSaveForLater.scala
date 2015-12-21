@@ -30,7 +30,7 @@ object GSaveForLater extends Controller with CachedClaim with Navigable with I18
 
   def processSaveForLater(parameters: Map[String, Seq[String]], claim: Claim, lang: Lang, request: Request[AnyContent]) = {
     val updatedClaim = claim.update(createSaveForLaterMap(parameters))
-    saveForLaterInCache(updatedClaim, claim.navigation.current.toString)
+    saveForLaterInCache(updatedClaim, claim.navigation.saveForLaterRoute.toString)
     EmailServices.sendSaveForLaterEmail(claim, request)
     updatedClaim -> Redirect(controllers.save_for_later.routes.GSaveForLater.present())
   }
