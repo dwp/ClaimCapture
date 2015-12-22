@@ -14,6 +14,7 @@ object  Declaration {
       <DeclarationStatement>
         <Content>{messagesApi("circs.declaration.openingParagraph")}</Content>
         <Content>{messagesApi("circs.declaration.1")}</Content>
+        <Content>{messagesApi("circs.declaration.overpayment")}</Content>
         <Content>{messagesApi("circs.declaration.2.pdf")}</Content>
         <Content>{messagesApi("circs.declaration.warning")}</Content>
       </DeclarationStatement>

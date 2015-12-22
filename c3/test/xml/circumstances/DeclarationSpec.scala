@@ -11,7 +11,9 @@ class DeclarationSpec  extends Specification {
       val declaration = new CircumstancesDeclaration()
       val circs = Claim(CachedChangeOfCircs.key).update(declaration)
       val xml = Declaration.xml(circs)
-      (xml \\ "DeclarationStatement" \ "Content").length mustEqual 4
+      (xml \\ "DeclarationStatement" \ "Content").length mustEqual 5
+      (xml \\ "DeclarationStatement" \ "Content").text must contain("report changes of your circumstances")
+      (xml \\ "DeclarationStatement" \ "Content").text must contain("pay back any money")
       (xml \\ "DeclarationQuestion" \ "Answer").text mustEqual "Yes"
       (xml \\ "DeclarationQuestion" \ "QuestionLabel").text mustEqual "I agree"
     }
