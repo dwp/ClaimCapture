@@ -31,7 +31,7 @@
 	</td>
 	<td id="@getLinkContainerId(id, false)" class="review-action hide-print">
 		@if(!disableLink) {
-		<a class="button secondary" id="@getLinkId(id, false)" href="@{controllers.preview.routes.Preview.redirect(id)}@{elementLinkedToId}">
+		<a class="secondary" id="@getLinkId(id, false)" href="@{controllers.preview.routes.Preview.redirect(id)}@{elementLinkedToId}">
 			@Html(messages("preview.change"))
 			<span class="visuallyhidden">@label (optional)</span>
 		</a>
