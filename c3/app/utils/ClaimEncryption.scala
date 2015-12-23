@@ -5,9 +5,9 @@ import utils.C3Encryption._
 
 object ClaimEncryption {
 
-  def encryptUuid(uuid:String):String=encryptString(uuid)
+  def encryptUuid(uuid:String):String=XorEncryption.encryptUuid(uuid)
 
-  def decryptUuid(encuuid:String):String=decryptString(encuuid)
+  def decryptUuid(encuuid:String):String=XorEncryption.decryptUuid(encuuid)
 
   def encrypt(claim: Claim): Claim = {
     val claimWithYourDetails = encryptYourDetails(claim)

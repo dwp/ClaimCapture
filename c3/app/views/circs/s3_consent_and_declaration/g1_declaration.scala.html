@@ -4,11 +4,7 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
-@import models.domain._
 @import utils.helpers.CarersCrypto
-@import play.api.i18n.Messages
-@import app.ConfigProperties._
-
 
 @main(messages("c3.g1") + " - " + messages("c3.name")) {
     @errorsSummary(declarationForm)
@@ -26,6 +22,7 @@
                 <p>@messages("circs.declaration.openingParagraph")</p>
                 <ul class="list-bullet">
                     <li>@messages("circs.declaration.1")</li>
+                    <li>@messages("circs.declaration.overpayment")</li>
                     <li>@messages("circs.declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@messages("circs.declaration.2b")</a> @messages("circs.declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@messages("circs.declaration.2d")</a></li>                   
                 </ul>
                 <p class="warning-text">

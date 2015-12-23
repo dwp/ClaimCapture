@@ -3,23 +3,24 @@ package xml
 import models.view.CachedClaim
 import org.specs2.mutable._
 import models.domain.{Claim, CircumstancesDeclaration}
+import utils.WithApplication
 import xml.circumstances.Declaration
 
 class ConsentAndDeclarationSpec extends Specification {
-  val otherInfo = "Some other info"
+  val otherInfo = "report changes of your circumstances"
 
   "Consent and Declaration" should {
-    val infoAgreement: String = "no"
-    val confirmation: String = "yes"
+    val infoAgreement: String = "I agree"
+    val confirmation: String = "Yes"
 
-    "generate xml" in {
+    "generate xml" in new WithApplication {
       val claim = Claim(CachedClaim.key).update(CircumstancesDeclaration(obtainInfoAgreement = infoAgreement,obtainInfoWhy = Some("Because I don't want")))
       val xml = Declaration.xml(claim)
 
-      (xml \\ "Declaration" \\ "TextLine").theSeq(6).text must(contain(infoAgreement))
-      (xml \\ "EvidenceList" \\ "TextLine").text must contain(confirmation)
-    }.pendingUntilFixed("Schema changes: Needs to implement the new Declaration and Evidence structure")
-
+      (xml \\ "Declaration" \\ "Content").text must(contain(otherInfo))
+      (xml \\ "Declaration" \\ "QuestionLabel").text must contain(infoAgreement)
+      (xml \\ "Declaration" \\ "Answer").text must contain(confirmation)
+    }
   }
-section("unit")
+  section("unit")
 }

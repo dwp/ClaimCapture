@@ -1,7 +1,6 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 @import models.domain._
 @import scala.language.postfixOps
-@import play.api.i18n.Messages
 @import utils.helpers.PreviewField._
 
 @disableChangeButton = @{
@@ -40,7 +39,7 @@
         </td>
         <td id="@getLinkContainerId(jobsId, false)" class="review-action hide-print">
         @if(!disableChangeButton) {
-            <a class="button secondary" href="@controllers.preview.routes.Preview.redirect(jobsId)">
+            <a class="secondary" href="@controllers.preview.routes.Preview.redirect(jobsId)">
             @Html(messages("preview.change"))
             </a>
         }
