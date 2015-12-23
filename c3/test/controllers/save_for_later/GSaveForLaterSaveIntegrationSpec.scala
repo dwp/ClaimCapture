@@ -16,6 +16,11 @@ import org.specs2.mutable._
 import utils.pageobjects.PageObjects
 
 class GSaveForLaterSaveIntegrationSpec extends Specification {
+  // Output from C3EncryptionSpec.scala ..... to create a set of xor pairs and decrypt key
+  // With key of:88a976e1-e926-4bb4-9322-15aabc6d0516 created xor pair of:0bcd1234-0000-0000-0000-abcd1234cdef and:174650142322392746796619227917559908601
+  val encryptkey = "88a976e1-e926-4bb4-9322-15aabc6d0516"
+  val uuid = "0bcd1234-0000-0000-0000-abcd1234cdef"
+  val decodeint = "174650142322392746796619227917559908601"
 
   "Save for later page" should {
     "be shown after clicking Save in nationality" in new WithJsBrowser with PageObjects {
@@ -75,13 +80,13 @@ class GSaveForLaterSaveIntegrationSpec extends Specification {
     }
 
     "return ok resume screen when claim is found in sfl cache" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true"))) with Claiming {
-      var claim = new Claim(CachedClaim.key, uuid="123456")
+      var claim = new Claim(CachedClaim.key, uuid=uuid)
       val details = new YourDetails("",None, "",None, "green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
       claim=claim+details
-      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/lastlocation")
 
-      val request=FakeRequest(GET, "?x=123456")
+      val request=FakeRequest(GET, "?x="+decodeint)
       val result = GResume.present(request)
       val bodyText: String = contentAsString(result)
       status(result) mustEqual OK

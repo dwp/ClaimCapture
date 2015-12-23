@@ -17,14 +17,19 @@ import views.html.helper
 import scala.concurrent.duration._
 
 class GSaveForLaterResumeIntegrationSpec extends Specification {
+  // Output from C3EncryptionSpec.scala ..... to create a set of xor pairs and decrypt key
+  // With key of:88a976e1-e926-4bb4-9322-15aabc6d0516 created xor pair of:0bcd1234-0000-0000-0000-abcd1234cdef and:174650142322392746796619227917559908601
+  val encryptkey = "88a976e1-e926-4bb4-9322-15aabc6d0516"
+  val uuid = "0bcd1234-0000-0000-0000-abcd1234cdef"
+  val decodeint = "174650142322392746796619227917559908601"
 
   "Save for later resume page" should {
     "be shown after opening resume link with ok claim uuid" in new WithJsBrowser with PageObjects {
       // Inject the saved claim directly to cache
-      var claim = new Claim(CachedClaim.key, uuid="123456")
+      var claim = new Claim(CachedClaim.key, uuid=uuid)
       val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
-      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/lastlocation")
 
       browser.goTo("/resume?x="+helper.urlEncode(claim.getEncryptedUuid))
@@ -37,10 +42,10 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
 
     "successfully resume if enter the correct details" in new WithJsBrowser with PageObjects {
       // Inject the saved claim directly to cache
-      var claim = new Claim(CachedClaim.key, uuid="123456")
+      var claim = new Claim(CachedClaim.key, uuid=uuid)
       val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
-      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
 
       val page = GSaveForLaterResumePage(context)
@@ -52,13 +57,13 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
 
     "restore the app version cookie that the app was saved with" in new WithJsBrowser with PageObjects {
       // Inject the saved claim directly to cache so we can set the appversion
-      var claim = new Claim(CachedClaim.key, uuid="123456")
+      var claim = new Claim(CachedClaim.key, uuid=uuid)
       val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
-      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       val key=encryptedCacheHandling.createSaveForLaterKey(claim)
       val saveForLater=new SaveForLater(SaveForLaterEncryption.encryptClaim(claim,key), "/about-you/nationality-and-residency", 3, "OK", -1, -1, "V1.00"  )
-      encryptedCacheHandling.cache.set("SFL-123456", saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
+      encryptedCacheHandling.cache.set("SFL-"+uuid, saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
 
       val page = GSaveForLaterResumePage(context)
       page goToThePage()
@@ -72,10 +77,10 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
 
     "show errors on resume page if no details entered" in new WithJsBrowser with PageObjects {
       // Inject the saved claim directly to cache
-      var claim = new Claim(CachedClaim.key, uuid="123456")
+      var claim = new Claim(CachedClaim.key, uuid=uuid)
       val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
-      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
 
       val page = GSaveForLaterResumePage(context)
@@ -89,10 +94,10 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
 
     "return sfl claim screen showing retries and final fail when claim tried 3 times" in new WithJsBrowser with PageObjects  {
       // Inject the saved claim directly to cache
-      var claim = new Claim(CachedClaim.key, uuid="123456")
+      var claim = new Claim(CachedClaim.key, uuid=uuid)
       val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
-      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
 
       val page = GSaveForLaterResumePage(context)
@@ -111,10 +116,10 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
 
     "return sfl claim screen showing retry count when returning after failed attempt" in new WithJsBrowser with PageObjects  {
       // Inject the saved claim directly to cache
-      var claim = new Claim(CachedClaim.key, uuid="123456")
+      var claim = new Claim(CachedClaim.key, uuid=uuid)
       val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
-      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
 
       val resumepage = GSaveForLaterResumePage(context)

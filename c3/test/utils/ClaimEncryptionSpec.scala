@@ -1,5 +1,7 @@
 package utils
 
+import java.util.UUID._
+
 import models.yesNo._
 import models.{SortCode, MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 import models.domain._
@@ -172,10 +174,11 @@ class ClaimEncryptionSpec extends Specification {
     }
 
     "Encrypt and Decrypt uuid as string" in new WithApplication {
-      val encryptedUuid = ClaimEncryption.encryptUuid(claim.uuid)
-      encryptedUuid mustNotEqual claim.uuid
+      val uuid = randomUUID.toString
+      val encryptedUuid = ClaimEncryption.encryptUuid(uuid)
+      encryptedUuid mustNotEqual uuid
       val decryptedUuid = ClaimEncryption.decryptUuid(encryptedUuid)
-      decryptedUuid mustEqual claim.uuid
+      decryptedUuid mustEqual uuid
     }
   }
 
