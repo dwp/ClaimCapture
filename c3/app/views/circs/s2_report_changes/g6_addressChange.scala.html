@@ -1,16 +1,12 @@
 @(addressForm: Form[models.domain.CircumstancesAddressChange])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
-@import common._
 @import views.html.helper.dates._
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.circs.s2_report_changes.main
-@import play.api.i18n.Messages
 @import scala.language.postfixOps
 
 
@@ -26,10 +22,8 @@
 
 	            <legend class="form-label-bold heading-medium">@Html(messages("c2.g6.previousAddress"))</legend>
 
-                <p class="security-message">@Html(messages("c2.address.helper"))</p>
-
 	            <ul>
-	                @inputAddress(addressForm("previousAddress"))
+	                @inputAddress(addressForm("previousAddress"),'addressLabel -> "previousAddress")
 	                @carersInputText(addressForm("previousPostcode"),'maxLength -> 8, 'class -> "postcode")
 	            </ul>
 	
@@ -49,7 +43,7 @@
 	                    'id -> "stillCaringDate"
 	                )
 	
-	                @inputAddress(addressForm("newAddress"))
+	                @inputAddress(addressForm("newAddress"),'addressLabel -> "newAddress")
 	
 	                @carersInputText(addressForm("newPostcode"),'maxLength -> 8, 'class -> "postcode")
 	
@@ -68,13 +62,13 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        inputAddress(addressForm("sameAddress.theirNewAddress")),
+	                        inputAddress(addressForm("sameAddress.theirNewAddress"), 'addressLabel -> "sameAddress.theirNewAddress"),
 	                        carersInputText(addressForm("sameAddress.theirNewPostcode"),'maxLength -> 8, 'class -> "postcode")
 	                    ),
 	                    'id -> "sameAddressData"
 	                )
 	                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
-	
+
 	            </ul>
 	
 	        </fieldset>
