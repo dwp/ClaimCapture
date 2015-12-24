@@ -55,8 +55,9 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
     if(getCompletedJobs) {
       val f:Claim => Result = { implicit claim => Ok(views.html.s_employment.g_beenEmployed(form.fill(BeenEmployed)))}
       Right(trackBackToBeginningOfEmploymentSection(BeenEmployed)(f)(claim, request,ClassTag[BeenEmployed.type](BeenEmployed.getClass)) )
-    }
-    else Left(Redirect(routes.GJobDetails.present(IterationID(form))))
+    } else if (getUncompletedJobs) {
+      Left(Redirect(routes.GJobDetails.present(jobs.head.iterationID)))
+    } else Left(Redirect(routes.GJobDetails.present(IterationID(form))))
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
@@ -85,6 +86,11 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
   private def getCompletedJobs(implicit claim: Claim) = {
     val jobs = claim.questionGroup[Jobs].getOrElse(Jobs())
     Jobs(jobs.jobs.filter(_.completed == true)).size > 0
+  }
+
+  private def getUncompletedJobs(implicit claim: Claim) = {
+    val jobs = claim.questionGroup[Jobs].getOrElse(Jobs())
+    Jobs(jobs.jobs.filter(_.completed == false)).size > 0
   }
 }
 
